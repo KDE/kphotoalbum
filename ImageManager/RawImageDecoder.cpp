@@ -126,6 +126,18 @@ void RAWImageDecoder::_initializeExtensionLists()
 		       << QString::fromLatin1("HTML")
 		       << QString::fromLatin1("htm")
 		       << QString::fromLatin1("HTM");
+
+    QChar dot( '.' );
+    for ( QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it )
+        if ( !(*it).startsWith( dot) )
+            *it = dot + *it;
+    for ( QStringList::iterator it = _standardExtensions.begin(); it != _standardExtensions.end(); ++it )
+        if ( !(*it).startsWith( dot) )
+            *it = dot + *it;
+    for ( QStringList::iterator it = _ignoredExtensions.begin(); it != _ignoredExtensions.end(); ++it )
+        if ( !(*it).startsWith( dot) )
+            *it = dot + *it;
+
     extensionListsInitialized = 1;
   }
 }
@@ -134,7 +146,7 @@ bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
 						const QStringList& extensionList) const
 {
 	QString baseFileName = fileName;
-	int extStart = fileName.lastIndexOf('.') + 1;
+	int extStart = fileName.lastIndexOf('.');
 	// We're interested in xxx.yyy, not .yyy
 	if (extStart <= 1) return false;
 	baseFileName.remove(extStart, baseFileName.length() - extStart);
@@ -150,7 +162,7 @@ bool RAWImageDecoder::_fileIsKnownWithExtensions( const Q3Dict<void>& files,
 						 const QStringList& extensionList) const
 {
 	QString baseFileName = fileName;
-	int extStart = fileName.lastIndexOf('.') + 1;
+	int extStart = fileName.lastIndexOf('.');
 	if (extStart <= 1) return false;
 	baseFileName.remove(extStart, baseFileName.length() - extStart);
 	for ( QStringList::ConstIterator it = extensionList.begin();

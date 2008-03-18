@@ -45,4 +45,4 @@ X-KDE-StartupNotify=true
 Icon=kphotoalbum
 Categories=Qt;KDE;Graphics;
 NoDisplay=true
-MimeType=application/vnd.kde.kphotoalbum-import
+MimeType=application/vnd.kde.kphotoalbum-import;

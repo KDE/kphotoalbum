@@ -108,6 +108,7 @@
 #include <kurldrag.h>
 #include <qclipboard.h>
 #include <stdexcept>
+#include <typeinfo>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 

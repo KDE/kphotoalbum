@@ -602,7 +602,7 @@ void MainWindow::Window::setupMenuBar()
     _deleteSelected = actionCollection()->addAction("deleteSelected");
     _deleteSelected->setText( i18n( "Delete Selected" ) );
     _deleteSelected->setIcon( KIcon( QString::fromLatin1("edit-delete") ) );
-    _deleteSelected->setShortcut( Qt::Key_Delete, KAction::DefaultShortcut );
+    _deleteSelected->setShortcut( Qt::Key_Delete );
     connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
 
     a = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
@@ -614,15 +614,15 @@ void MainWindow::Window::setupMenuBar()
 
     _configOneAtATime = actionCollection()->addAction( "oneProp", this, SLOT( slotConfigureImagesOneAtATime() ) );
     _configOneAtATime->setText( i18n( "Annotate Individual Items" ) );
-    _configOneAtATime->setShortcut(  Qt::CTRL+Qt::Key_1, KAction::DefaultShortcut );
+    _configOneAtATime->setShortcut(  Qt::CTRL+Qt::Key_1 );
 
     _configAllSimultaniously = actionCollection()->addAction( "allProp", this, SLOT( slotConfigureAllImages() ) );
     _configAllSimultaniously->setText( i18n( "Annotate Multiple Items at a Time" ) );
-    _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2, KAction::DefaultShortcut );
+    _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2 );
 
     _rotLeft = actionCollection()->addAction( "rotateLeft", this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
-    _rotLeft->setShortcut(  0, KAction::DefaultShortcut );
+    _rotLeft->setShortcut(  0 );
 
 
     _rotRight = actionCollection()->addAction( "rotateRight", this, SLOT( slotRotateSelectedRight() ) );
@@ -632,7 +632,7 @@ void MainWindow::Window::setupMenuBar()
     // The Images menu
     _view = actionCollection()->addAction( "viewImages", this, SLOT( slotView() ) );
     _view->setText( i18n("View") );
-    _view->setShortcut(  Qt::CTRL+Qt::Key_I, KAction::DefaultShortcut );
+    _view->setShortcut(  Qt::CTRL+Qt::Key_I );
 
     _viewInNewWindow = actionCollection()->addAction( "viewImagesNewWindow", this, SLOT( slotViewNewWindow() ) );
     _viewInNewWindow->setText( i18n("View (In New Window)") );
@@ -640,7 +640,7 @@ void MainWindow::Window::setupMenuBar()
     _runSlideShow = actionCollection()->addAction( "runSlideShow", this, SLOT( slotRunSlideShow() ) );
     _runSlideShow->setText( i18n("Run Slide Show") );
     _runSlideShow->setIcon( KIcon( QString::fromLatin1("view-presentation") ) );
-    _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R, KAction::DefaultShortcut );
+    _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
 
     _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
     _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
@@ -665,7 +665,7 @@ void MainWindow::Window::setupMenuBar()
 
     _jumpToContext = actionCollection()->addAction( "jumpToContext", this, SLOT( slotJumpToContext() ) );
     _jumpToContext->setText( i18n("Jump to Context") );
-    _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J, KAction::DefaultShortcut );
+    _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J );
     _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) ); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
     _lock = actionCollection()->addAction( "lockToDefaultScope", this, SLOT( lockToDefaultScope() ) );
@@ -676,7 +676,7 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->addAction( "changeScopePasswd", this, SLOT( changePassword() ) );
     a->setText( i18n("Change Password...") );
-    a->setShortcut( 0, KAction::DefaultShortcut );
+    a->setShortcut( 0 );
 
     _setDefaultPos = actionCollection()->addAction( "setDefaultScopePositive", this, SLOT( setDefaultScopePositive() ) );
     _setDefaultPos->setText( i18n("Lock Away All Other Items") );
@@ -759,7 +759,7 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->add<KToggleAction>( "showToolTipOnImages" );
     a->setText( i18n("Show Tooltips in Thumbnails Window") );
-    a->setShortcut( Qt::CTRL+Qt::Key_T, KAction::DefaultShortcut );
+    a->setShortcut( Qt::CTRL+Qt::Key_T );
     connect( a, SIGNAL(toggled(bool)), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
 
 

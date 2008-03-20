@@ -158,7 +158,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     KAction* action = _actions->addAction( "viewer-edit-image-properties", this, SLOT( editImage() ) );
     action->setText( i18n("Annotate...") );
-    action->setShortcut( Qt::CTRL+Qt::Key_1, KAction::DefaultShortcut );
+    action->setShortcut( Qt::CTRL+Qt::Key_1 );
     _popup->addAction( action );
 
     // PENDING(blackie) This should only be enabled for image displays.
@@ -176,7 +176,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     action = _actions->addAction( "viewer-close", this, SLOT( close() ) );
     action->setText( i18n("Close") );
-    action->setShortcut( Qt::Key_Escape, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Escape );
 
     _popup->addAction( action );
     _actions->readSettings();
@@ -196,21 +196,21 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
     taction = _actions->add<KToggleAction>( "viewer-show-infobox" );
     taction->setText( i18n("Show Info Box") );
-    taction->setShortcut( Qt::CTRL+Qt::Key_I, KAction::DefaultShortcut );
+    taction->setShortcut( Qt::CTRL+Qt::Key_I );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
     connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     showPopup->addAction( taction );
 
     taction = _actions->add<KToggleAction>( "viewer-show-label" );
     taction->setText( i18n("Show Label") );
-    taction->setShortcut( 0, KAction::DefaultShortcut );
+    taction->setShortcut( 0 );
     taction->setChecked( Settings::SettingsData::instance()->showLabel() );
     connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowLabel( bool ) ) );
     showPopup->addAction( taction );
 
     taction = _actions->add<KToggleAction>( "viewer-show-description" );
     taction->setText( i18n("Show Description") );
-    taction->setShortcut( 0, KAction::DefaultShortcut );
+    taction->setShortcut( 0 );
     taction->setChecked( Settings::SettingsData::instance()->showDescription() );
     connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDescription( bool ) ) );
     showPopup->addAction( taction );
@@ -306,17 +306,17 @@ void Viewer::ViewerWidget::createRotateMenu()
 
     KAction* action = _actions->addAction( "viewer-rotate90", this, SLOT( rotate90() ) );
     action->setText( i18n("Rotate counterclockwise") );
-    action->setShortcut( Qt::Key_9, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_9 );
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( "viewer-rotate180", this, SLOT( rotate180() ) );
     action->setText( i18n("Flip Over") );
-    action->setShortcut( Qt::Key_8, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_8 );
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( "viewer-rotare270", this, SLOT( rotate270() ) );
     action->setText( i18n("Rotate clockwise") );
-    action->setShortcut( Qt::Key_7, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_7 );
     _rotateMenu->addAction( action );
 
     _popup->addMenu( _rotateMenu );
@@ -329,61 +329,61 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     KAction* action = _actions->addAction( "viewer-home", this, SLOT( showFirst() ) );
     action->setText( i18n("First") );
-    action->setShortcut( Qt::Key_Home, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Home );
     popup->addAction( action );
     _backwardActions.append(action);
 
     action = _actions->addAction( "viewer-end", this, SLOT( showLast() ) );
     action->setText( i18n("Last") );
-    action->setShortcut( Qt::Key_End, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_End );
     popup->addAction( action );
     _forwardActions.append(action);
 
     action = _actions->addAction( "viewer-next", this, SLOT( showNext() ) );
     action->setText( i18n("Show Next") );
-    action->setShortcut( Qt::Key_PageDown, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
     action = _actions->addAction( "viewer-next-10", this, SLOT( showNext10() ) );
     action->setText( i18n("Skip 10 Forward") );
-    action->setShortcut( Qt::CTRL+Qt::Key_PageDown, KAction::DefaultShortcut );
+    action->setShortcut( Qt::CTRL+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
     action = _actions->addAction( "viewer-next-100", this, SLOT( showNext100() ) );
     action->setText( i18n("Skip 100 Forward") );
-    action->setShortcut( Qt::SHIFT+Qt::Key_PageDown, KAction::DefaultShortcut );
+    action->setShortcut( Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
     action = _actions->addAction( "viewer-next-1000", this, SLOT( showNext1000() ) );
     action->setText( i18n("Skip 1000 Forward") );
-    action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown, KAction::DefaultShortcut );
+    action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
     action = _actions->addAction( "viewer-prev", this, SLOT( showPrev() ) );
     action->setText( i18n("Show Previous") );
-    action->setShortcut( Qt::Key_PageUp, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
     action = _actions->addAction( "viewer-prev-10", this, SLOT( showPrev10() ) );
     action->setText( i18n("Skip 10 Backward") );
-    action->setShortcut( Qt::CTRL+Qt::Key_PageUp, KAction::DefaultShortcut );
+    action->setShortcut( Qt::CTRL+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
     action = _actions->addAction( "viewer-prev-100", this, SLOT( showPrev100() ) );
     action->setText( i18n("Skip 100 Backward") );
-    action->setShortcut( Qt::SHIFT+Qt::Key_PageUp, KAction::DefaultShortcut );
+    action->setShortcut( Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
     action = _actions->addAction( "viewer-prev-1000", this, SLOT( showPrev1000() ) );
     action->setText( i18n("Skip 1000 Backward") );
-    action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp, KAction::DefaultShortcut );
+    action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
@@ -398,27 +398,27 @@ void Viewer::ViewerWidget::createZoomMenu()
     // PENDING(blackie) Only for image display?
     KAction* action = _actions->addAction( "viewer-zoom-in", this, SLOT( zoomIn() ) );
     action->setText( i18n("Zoom In") );
-    action->setShortcut( Qt::Key_Plus, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Plus );
     popup->addAction( action );
 
     action = _actions->addAction( "viewer-zoom-out", this, SLOT( zoomOut() ) );
     action->setText( i18n("Zoom Out") );
-    action->setShortcut( Qt::Key_Minus, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Minus );
     popup->addAction( action );
 
     action = _actions->addAction( "viewer-zoom-full", this, SLOT( zoomFull() ) );
     action->setText( i18n("Full View") );
-    action->setShortcut( Qt::Key_Period, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Period );
     popup->addAction( action );
 
     action = _actions->addAction( "viewer-zoom-pixel", this, SLOT( zoomPixelForPixel() ) );
     action->setText( i18n("Pixel for Pixel View") );
-    action->setShortcut( Qt::Key_Equal, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Equal );
     popup->addAction( action );
 
     action = _actions->addAction( "viewer-toggle-fullscreen", this, SLOT( toggleFullScreen() ) );
     action->setText( i18n("Toggle Full Screen") );
-    action->setShortcut( Qt::Key_Return, KAction::DefaultShortcut );
+    action->setShortcut( Qt::Key_Return );
     popup->addAction( action );
 
     _popup->addMenu( popup );
@@ -432,17 +432,17 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 
     _startStopSlideShow = _actions->addAction( "viewer-start-stop-slideshow", this, SLOT( slotStartStopSlideShow() ) );
     _startStopSlideShow->setText( i18n("Run Slideshow") );
-    _startStopSlideShow->setShortcut( Qt::CTRL+Qt::Key_R, KAction::DefaultShortcut );
+    _startStopSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
     popup->addAction( _startStopSlideShow );
 
     _slideShowRunFaster = _actions->addAction( "viewer-run-faster", this, SLOT( slotSlideShowFaster() ) );
     _slideShowRunFaster->setText( i18n("Run Faster") );
-    _slideShowRunFaster->setShortcut( Qt::CTRL + Qt::Key_Plus, KAction::DefaultShortcut );
+    _slideShowRunFaster->setShortcut( Qt::CTRL + Qt::Key_Plus );
     popup->addAction( _slideShowRunFaster );
 
     _slideShowRunSlower = _actions->addAction( "viewer-run-slower", this, SLOT( slotSlideShowSlower() ) );
     _slideShowRunSlower->setText( i18n("Run Slower") );
-    _slideShowRunSlower->setShortcut( Qt::CTRL+Qt::Key_Minus, KAction::DefaultShortcut );
+    _slideShowRunSlower->setShortcut( Qt::CTRL+Qt::Key_Minus );
     popup->addAction( _slideShowRunSlower );
 
     _popup->addMenu( popup );
@@ -1115,7 +1115,7 @@ void Viewer::ViewerWidget::createVideoMenu()
         KAction* seek = _actions->addAction( info.name, _videoDisplay, SLOT(seek()));
         seek->setText(info.title);
         seek->setData(info.value);
-        seek->setShortcut( info.key, KAction::DefaultShortcut );
+        seek->setShortcut( info.key );
         menu->addAction(seek);
     }
 
@@ -1131,7 +1131,7 @@ void Viewer::ViewerWidget::createVideoMenu()
 
 
     _playPause = _actions->addAction( "viewer-video-pause", _videoDisplay, SLOT( playPause() ) );
-    _playPause->setShortcut( Qt::Key_Space, KAction::DefaultShortcut );
+    _playPause->setShortcut( Qt::Key_Space );
     _popup->addAction( _playPause );
     _videoActions.append( _playPause );
     KAction* restart = _actions->addAction( "viewer-video-restart", _videoDisplay, SLOT( restart() ) );

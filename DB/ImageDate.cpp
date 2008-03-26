@@ -153,7 +153,7 @@ QString ImageDate::formatRegexp()
         str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
         QStringList months = monthNames();
         for( QStringList::ConstIterator monthIt = months.begin(); monthIt != months.end(); ++monthIt )
-            str += QString::fromLatin1("%1|").arg((*monthIt).toLower() );
+            str += QString::fromLatin1("%1|").arg( *monthIt );
 
         str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
     }
@@ -339,15 +339,18 @@ QStringList DB::ImageDate::monthNames()
         for ( int i = 1; i <= 12; ++i ) {
             res << QDate::shortMonthName( i );
         }
-
-        res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
-            << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
-            << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec")
-            << i18n("jan") << i18n("feb") << i18n("mar") << i18n("apr") << i18n("may") << i18n("jun")
-            << i18n("jul") << i18n("aug") << i18n("sep") << i18n("oct") << i18n("nov") << i18n("dec");
         for ( int i = 1; i <= 12; ++i ) {
             res << QDate::longMonthName( i );
         }
+
+        res << i18n("jan") << i18n("feb") << i18n("mar") << i18n("apr") << i18n("may") << i18n("jun")
+            << i18n("jul") << i18n("aug") << i18n("sep") << i18n("oct") << i18n("nov") << i18n("dec");
+        res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
+            << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
+            << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec");
+
+        for ( QStringList::iterator it = res.begin(); it != res.end(); ++it )
+            *it = it->toLower();
     }
     return res;
 }

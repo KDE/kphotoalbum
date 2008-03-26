@@ -1,3 +1,7 @@
+2008-03-26  Jan Kundrat  <jkt@gentoo.org>
+
+	* Support localized month names in the KDateEdit properly
+
 2008-03-15  Jan Kundrat  <jkt@gentoo.org>
 
 	* Support different charsets when displaying EXIF/IPTC metadata

@@ -25,6 +25,7 @@
 #include "Utilities/Util.h"
 #include "Setup.h"
 #include <QEventLoop>
+#include <KTempDir>
 
 namespace HTMLGenerator
 {
@@ -69,7 +70,7 @@ private:
     Setup _setup;
     int _waitCounter;
     int _total;
-    QString _tempDir;
+    KTempDir _tempDir;
     Utilities::UniqNameMap _nameMap;
     Utilities::Set< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;

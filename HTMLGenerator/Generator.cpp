@@ -17,21 +17,20 @@
 */
 #include "Generator.h"
 #include "kdeversion.h"
-#include <klocale.h>
-#include <qfile.h>
-#include <qapplication.h>
-#include <qeventloop.h>
+#include <KLocale>
+#include <QFile>
+#include <QApplication>
+#include <QEventLoop>
 //Added by qt3to4:
 #include <Q3ValueList>
 #include "ImageManager/Manager.h"
-#include <kfiledialog.h>
-#include <kstandarddirs.h>
-#include <krun.h>
-#include <kio/job.h>
-#include <kmessagebox.h>
+#include <KFileDialog>
+#include <KStandardDirs>
+#include <KRun>
+#include <KMessageBox>
 #include "Utilities/Util.h"
-#include <kdebug.h>
-#include <qdir.h>
+#include <KDebug>
+#include <QDir>
 #include "ImportExport/Export.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
@@ -40,11 +39,10 @@
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
-#include <ktempdir.h>
 #include "ImageSizeCheckBox.h"
 #include "Setup.h"
 #include "MainWindow/Window.h"
-#include <kio/copyjob.h>
+#include <KIO/CopyJob>
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     : QProgressDialog( parent ), _hasEnteredLoop( false )
@@ -55,8 +53,6 @@ HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
 
 void HTMLGenerator::Generator::generate()
 {
-    _tempDir = KTempDir().name();
-
     // Generate .kim file
     if ( _setup.generateKimFile() ) {
         bool ok;
@@ -73,7 +69,7 @@ void HTMLGenerator::Generator::generate()
     _total = _waitCounter = calculateSteps();
     setMaximum( _total );
     setValue( 0 );
-    connect( this, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
+    connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelGenerate() ) );
 
     _nameMap = Utilities::createUniqNameMap( _setup.imageList(), false, QString::null );
 
@@ -134,7 +130,7 @@ void HTMLGenerator::Generator::generate()
             *it == QString::fromLatin1("mainpage.html") ||
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
-        QString to = _tempDir+QString::fromLatin1("/") + *it;
+        QString to = _tempDir.name() + QString::fromLatin1("/") + *it;
         ok = Utilities::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2", from , to ) );
@@ -145,8 +141,8 @@ void HTMLGenerator::Generator::generate()
 
     // Copy files over to destination.
     QString outputDir = _setup.baseDir() + QString::fromLatin1( "/" ) + _setup.outputDir();
-    KIO::CopyJob* job = KIO::move( KUrl(_tempDir), KUrl(outputDir) );
-    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
+    KIO::CopyJob* job = KIO::move( KUrl( _tempDir.name() ), KUrl(outputDir) );
+    connect( job, SIGNAL( copyingDone( KIO::Job*, const KUrl&, const KUrl&, time_t, bool, bool ) ), this, SLOT( showBrowser() ) );
 
     _eventLoop.exec();
     return;
@@ -243,7 +239,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         return false;
 
     // -------------------------------------------------- write to file
-    QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
+    QString fileName = _tempDir.name() + QString::fromLatin1("/index-%1.html" )
                        .arg(ImageSizeCheckBox::text(width,height,true));
     bool ok = writeToFile( fileName, content );
 
@@ -365,7 +361,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
-    QString fileName = _tempDir + namePage( width, height, current );
+    QString fileName = _tempDir.name() + namePage( width, height, current );
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -385,8 +381,8 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
     QString name = _nameMap[fileName];
     QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
-        if ( name.endsWith( QString::fromAscii(".jpg"), false ) ||
-                name.endsWith( QString::fromAscii(".jpeg"), false ) )
+        if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
+                name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
             return name;
         else
             return base + QString::fromAscii(".jpg");
@@ -416,7 +412,7 @@ QString HTMLGenerator::Generator::createVideo( const QString& fileName )
     qApp->processEvents();
 
     QString baseName = QFileInfo(fileName).fileName();
-    QString destName = _tempDir+QString::fromLatin1("/") + baseName;
+    QString destName = _tempDir.name() + QString::fromLatin1("/") + baseName;
     if ( !_copiedVideos.contains( fileName )) {
         Utilities::copy( fileName, destName );
         _copiedVideos.insert( fileName );
@@ -429,7 +425,7 @@ QString HTMLGenerator::Generator::kimFileName( bool relative )
     if ( relative )
         return QString::fromLatin1( "%2.kim" ).arg( _setup.outputDir() );
     else
-        return QString::fromLatin1( "%1/%2.kim" ).arg( _tempDir ).arg( _setup.outputDir() );
+        return QString::fromLatin1( "%1/%2.kim" ).arg( _tempDir.name() ).arg( _setup.outputDir() );
 }
 
 bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QString& str )
@@ -466,7 +462,7 @@ bool HTMLGenerator::Generator::linkIndexFile()
     ImageSizeCheckBox* resolution = _setup.activeResolutions()[0];
     QString fromFile = QString::fromLatin1("index-%1.html" )
                        .arg(resolution->text(true));
-    QString destFile = _tempDir + QString::fromLatin1("/index.html");
+    QString destFile = _tempDir.name() + QString::fromLatin1("/index.html");
     bool ok = Utilities::copy( QFileInfo(destFile).path() + fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
@@ -493,7 +489,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     _waitCounter--;
 
     int size = imgSize.width();
-    QString file = _tempDir + QString::fromLatin1( "/" ) + nameImage( fileName, size );
+    QString file = _tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
     bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {

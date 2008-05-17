@@ -500,7 +500,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
         QString categoryName = (*categoryIt)->name();
         QString str = elm.attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {
-            QStringList list = str.split(QString::fromLatin1( "," ));
+            QStringList list = str.split(QString::fromLatin1( "," ), QString::SkipEmptyParts );
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
                 int id = (*listIt).toInt();
                 QString name = static_cast<XMLCategory*>((*categoryIt).data())->nameForId(id);

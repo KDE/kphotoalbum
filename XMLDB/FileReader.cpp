@@ -229,7 +229,7 @@ void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
                 _db->_members.addMemberToGroup( category, group, member );
             }
             else {
-                QStringList members = elm.attribute( QString::fromLatin1( "members" ) ).split( QString::fromLatin1( "," ) );
+                QStringList members = elm.attribute( QString::fromLatin1( "members" ) ).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );

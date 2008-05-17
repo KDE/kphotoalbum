@@ -1,3 +1,8 @@
+2008-05-17  Jan Kundrat  <jkt@gentoo.org>
+
+	* XMLDB/FIleReader.cpp: Don't crash on parsing XML files with empty supergroups
+	* XMLDB/Database.cpp: Should ignore empty strings, too
+
 2008-03-26  Jan Kundrat  <jkt@gentoo.org>
 
 	* Support localized month names in the KDateEdit properly

@@ -237,7 +237,7 @@ if(SQLDB_SUPPORT)
   target_link_libraries(kphotoalbum SQLDB)
 endif(SQLDB_SUPPORT)
 
-install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
+install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 ########### install files ###############

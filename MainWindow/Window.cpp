@@ -1332,19 +1332,19 @@ void MainWindow::Window::plug()
         QList<KAction*> actions = plugin->actions();
         for( QList<KAction*>::Iterator it = actions.begin(); it != actions.end(); ++it ) {
             KIPI::Category category = plugin->category( *it );
-            if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
+            if (  category == KIPI::ImagesPlugin ||  category == KIPI::CollectionsPlugin )
                 imageActions.append( *it );
 
-            else if ( category == KIPI::IMPORTPLUGIN )
+            else if ( category == KIPI::ImportPlugin )
                 importActions.append( *it );
 
-            else if ( category == KIPI::EXPORTPLUGIN )
+            else if ( category == KIPI::ExportPlugin )
                 exportActions.append( *it );
 
-            else if ( category == KIPI::TOOLSPLUGIN )
+            else if ( category == KIPI::ToolsPlugin )
                 toolsActions.append( *it );
 
-            else if ( category == KIPI::BATCHPLUGIN )
+            else if ( category == KIPI::BatchPlugin )
                 batchActions.append( *it );
 
             else {

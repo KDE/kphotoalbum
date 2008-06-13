@@ -3,6 +3,11 @@ project(kphotoalbum)
 find_package(KDE4 REQUIRED)
 include( KDE4Defaults)
 
+# This seems to be needed for KPA to compile with KDE 4.0.0
+set(INSTALL_TARGETS_DEFAULT_ARGS RUNTIME DESTINATION "${BIN_INSTALL_DIR}"
+                                 LIBRARY DESTINATION "${LIB_INSTALL_DIR}"
+                                 ARCHIVE DESTINATION "${LIB_INSTALL_DIR}" COMPONENT Devel )
+
 ADD_DEFINITIONS(${QT_DEFINITIONS} 
                 ${KDE4_DEFINITIONS}
                 -DQT3_SUPPORT 
@@ -252,3 +257,4 @@ configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-sqldb.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-sqldb.h)
+

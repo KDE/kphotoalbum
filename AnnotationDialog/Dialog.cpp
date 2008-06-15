@@ -248,26 +248,26 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 
     _rotateLeft = new QPushButton( top );
     hlay->addWidget( _rotateLeft );
-    _rotateLeft->setIcon( KIcon( QString::fromLatin1( "rotate_ccw" ) ) );
+    _rotateLeft->setIcon( KIcon( QString::fromLatin1( "object-rotate-left" ) ) );
     _rotateLeft->setFixedWidth( 40 );
     _rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
 
     _rotateRight = new QPushButton( top );
     hlay->addWidget( _rotateRight );
-    _rotateRight->setIcon( KIcon( QString::fromLatin1( "rotate_cw" ) ) );
+    _rotateRight->setIcon( KIcon( QString::fromLatin1( "object-rotate-right" ) ) );
     _rotateRight->setFixedWidth( 40 );
     _rotateRight->setToolTip( i18n("Rotate clockwise") );
 
     _copyPreviousBut = new QPushButton( top );
     hlay->addWidget( _copyPreviousBut );
-    _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "legalmoves" ) ) );
+    _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
     _copyPreviousBut->setFixedWidth( 40 );
     connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
 
     hlay->addStretch( 1 );
     _delBut = new QPushButton( top );
-    _delBut->setIcon( KIcon( QString::fromLatin1( "editdelete" ) ) );
+    _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
     hlay->addWidget( _delBut );
     connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
     _delBut->setToolTip( i18n("Delete image") );

@@ -107,7 +107,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // -------------------------------------------------- Text
     QString txt = info->description();
     if ( !_description.isEmpty() ) {
-        QStringList list = _description.split(QChar(' '));
+        QStringList list = _description.split(QChar(' '), QString::SkipEmptyParts);
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
             ok &= ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
         }
@@ -234,11 +234,11 @@ void ImageSearchInfo::compile() const
         QString category = it.key();
         QString matchText = it.value();
 
-        QStringList orParts = matchText.split(QString::fromLatin1("|"));
+        QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
         OptionContainerMatcher* orMatcher = new OptionOrMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-            QStringList andParts = (*itOr).split(QString::fromLatin1("&"));
+            QStringList andParts = (*itOr).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
 
             OptionContainerMatcher* andMatcher = orMatcher;
             if ( andParts.count() > 1 ) {
@@ -333,7 +333,7 @@ Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
         return map;
     }
 
-    QStringList list = str.split(QString::fromLatin1( "&" ));
+    QStringList list = str.split(QString::fromLatin1( "&" ), QString::SkipEmptyParts);
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString nm = (*it).trimmed();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )

@@ -21,6 +21,8 @@
 #include "Folder.h"
 #include <QPixmap>
 
+namespace AnnotationDialog {class Dialog;}
+
 namespace Browser
 {
 
@@ -33,6 +35,7 @@ public:
     OVERRIDE QString text() const;
     OVERRIDE QString imagesLabel() const;
     OVERRIDE QString videosLabel() const;
+    AnnotationDialog::Dialog* _config;
 };
 
 }

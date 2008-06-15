@@ -1419,7 +1419,7 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
-    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") ).split( '\n' );
+    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") ).split( '\n', QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;
 

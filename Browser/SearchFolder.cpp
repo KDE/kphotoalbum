@@ -29,7 +29,7 @@
 #include <QPixmap>
 
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    :Folder( info, browser )
+    :Folder( info, browser ), _config(0)
 {
 }
 
@@ -46,8 +46,10 @@ QString Browser::SearchFolder::text() const
 
 Browser::FolderAction* Browser::SearchFolder::action( bool )
 {
-    AnnotationDialog::Dialog config( _browser );
-    DB::ImageSearchInfo info = config.search( &_info );
+    if ( !_config )
+        _config = new AnnotationDialog::Dialog( _browser );
+    DB::ImageSearchInfo info = _config->search( &_info );
+
     if ( info.isNull() )
         return 0;
 

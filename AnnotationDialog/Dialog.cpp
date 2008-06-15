@@ -77,9 +77,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 {
     Utilities::ShowBusyCursor dummy;
     QVBoxLayout* layout = new QVBoxLayout( this );
-    _dockWindow = new QMainWindow( this );
-    _dockWindow->setWindowFlags(Qt::Widget);
-
+    _dockWindow = new QMainWindow;
     _dockWindow->setDockNestingEnabled( true );
 
     layout->addWidget( _dockWindow );
@@ -88,7 +86,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     createDock( i18n("Label and Dates"), "Label and Datas", Qt::TopDockWidgetArea, createDateWidget() );
     createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
 
-    _description = new Editor( this );
+    _description = new Editor;
     createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
 
     // -------------------------------------------------- Categrories
@@ -153,7 +151,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const char* name,
                                                    Qt::DockWidgetArea location, QWidget* widget )
 {
-    QDockWidget* dock = new QDockWidget( title, _dockWindow );
+    QDockWidget* dock = new QDockWidget( title );
     dock->setObjectName( name );
     dock->setAllowedAreas( Qt::AllDockWidgetAreas );
     dock->setWidget( widget );
@@ -173,7 +171,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
 
     QLabel* label = new QLabel( i18n("Label: " ) );
     lay3->addWidget( label );
-    _imageLabel = new KLineEdit( top );
+    _imageLabel = new KLineEdit;
     label->setBuddy( _imageLabel );
     lay3->addWidget( _imageLabel );
 
@@ -185,15 +183,15 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     label = new QLabel( i18n("Date: ") );
     lay4->addWidget( label );
 
-    _startDate = new ::AnnotationDialog::KDateEdit( true, top );
+    _startDate = new ::AnnotationDialog::KDateEdit( true );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
     label->setBuddy( _startDate );
 
-    label = new QLabel( QString::fromLatin1( "-" ), top );
+    label = new QLabel( QString::fromLatin1( "-" ) );
     lay4->addWidget( label );
 
-    _endDate = new ::AnnotationDialog::KDateEdit( false, top );
+    _endDate = new ::AnnotationDialog::KDateEdit( false );
     lay4->addWidget( _endDate, 1 );
 
     // Time
@@ -203,12 +201,12 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     label = new QLabel( i18n("Time: ") );
     lay7->addWidget( label );
 
-    _time= new QTimeEdit(top);
+    _time= new QTimeEdit;
     lay7->addWidget( _time );
     lay7->addStretch(1);
     _time->hide();
 
-    _addTime= new QPushButton(i18n("Add Time Info..."),top);
+    _addTime= new QPushButton(i18n("Add Time Info..."));
     lay7->addWidget( _addTime );
     lay7->addStretch(1);
     _addTime->hide();
@@ -508,7 +506,9 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = DB::ImageSearchInfo( DB::ImageDate( QDateTime(_startDate->date()), QDateTime(_endDate->date()) ),
+        const QDateTime start = _startDate->date().isNull() ? QDateTime() : QDateTime(_startDate->date());
+        const QDateTime end = _endDate->date().isNull() ? QDateTime() : QDateTime( _endDate->date() );
+        _oldSearch = DB::ImageSearchInfo( DB::ImageDate( start, end ),
                                       _imageLabel->text(), _description->toPlainText() );
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -974,8 +974,6 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
 
     return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
 }
-
-
 
 
 #include "Dialog.moc"

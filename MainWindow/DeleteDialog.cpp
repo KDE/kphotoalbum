@@ -71,14 +71,14 @@ void DeleteDialog::deleteImages()
 
     for( QStringList::const_iterator it = _list.constBegin(); it != _list.constEnd(); ++it ) {
         if ( DB::ImageInfo::imageOnDisk(*it) ) {
-            if ( _delete_file->isChecked() && ( !QFile( *it ).exists() || !QFile( *it ).remove() ) ) {
+            if ( _delete_file->isChecked() && !QFile( *it ).remove() ) {
                 listCouldNotDelete.append (*it );
             } else {
                 listToDelete.append( *it );
                 Utilities::removeThumbNail( *it );
             }
         } else {
-            listCouldNotDelete.append( *it );
+            listToDelete.append( *it );
         }
     }
 

@@ -1,5 +1,10 @@
 2008-06-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Deleting an image that was no longer on disk resulted in an
+	error dialog telling that it could not be deleted. Now it will
+	just act as if it did actually delete it, and take the image out
+	of the database.
+
 	* AnnotationDialog/ListSelect.cpp: The context menu for adding
 	super categories from the image annotation dialog had the problem
 	that the ampersand added by KDE would be in its name, so it would

@@ -63,8 +63,6 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _listView->addColumn( i18n("Images") );
     _listView->addColumn( i18n("Videos") );
 
-    _listView->setSelectionMode( Q3ListView::NoSelection );
-    _iconView->setSelectionMode( Q3IconView::NoSelection );
     connect( _listView, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
     connect( _listView, SIGNAL( returnPressed( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
     connect( _iconView, SIGNAL( clicked( Q3IconViewItem* ) ), this, SLOT( select( Q3IconViewItem* ) ) );

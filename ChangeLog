@@ -1,3 +1,10 @@
+2008-06-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* AnnotationDialog/ListSelect.cpp: The context menu for adding
+	super categories from the image annotation dialog had the problem
+	that the ampersand added by KDE would be in its name, so it would
+	e.g. be named &Berlin
+
 2008-05-17  Jan Kundrat  <jkt@gentoo.org>
 
 	* XMLDB/FIleReader.cpp: Don't crash on parsing XML files with empty supergroups

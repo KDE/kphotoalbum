@@ -303,6 +303,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
             QAction* action = members->addAction( *it );
             action->setCheckable(true);
             action->setChecked( (bool) memberMap.members( _category->name(), *it, false ).contains( item->text(0) ) );
+            action->setData( *it );
         }
 
         if ( !grps.isEmpty() )
@@ -415,7 +416,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         rePopulate();
     }
     else {
-        QString checkedItem = which->text();
+        QString checkedItem = which->data().value<QString>();
         if ( which->isChecked() ) // chosing the item doesn't check it, so this is the value before.
             memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
         else

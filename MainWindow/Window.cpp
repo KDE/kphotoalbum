@@ -280,8 +280,6 @@ void MainWindow::Window::delayedInit()
 #endif
 
     tellPeopleAboutTheVideos();
-    checkIfAllFeaturesAreInstalled();
-
 }
 
 
@@ -1639,16 +1637,5 @@ void MainWindow::Window::tellPeopleAboutTheVideos()
         KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ), this );
 }
 
-void MainWindow::Window::checkIfAllFeaturesAreInstalled()
-{
-    if ( !FeatureDialog::hasAllFeaturesAvailable() ) {
-        const QString msg =
-            i18n("<p>KPhotoAlbum does not seem to be build with support for all its features. The following is a list "
-                 "indicating to you what you may miss:<ul>%1</ul></p>"
-                 "<p>For details on how to solve this problem, please choose <b>Help</b>|<b>KPhotoAlbum Feature Status</b> "
-                 "from the menus.</p>", FeatureDialog::featureString() );
-        KMessageBox::information( this, msg, i18n("Feature Check"), QString::fromLatin1( "InitialFeatureCheck" ) );
-    }
-}
 
 #include "Window.moc"

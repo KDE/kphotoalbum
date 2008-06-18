@@ -17,6 +17,7 @@
 */
 
 #include "WelcomeDialog.h"
+#include "FeatureDialog.h"
 #include <qlabel.h>
 //Added by qt3to4:
 #include <QHBoxLayout>
@@ -69,8 +70,12 @@ WelComeDialog::WelComeDialog( QWidget* parent )
     QPushButton* createSetup = new QPushButton( i18n("Create My Own Database..."), this );
     lay3->addWidget( createSetup );
 
+    QPushButton* checkFeatures = new QPushButton( i18n("Check My Feature Set") );
+    lay3->addWidget( checkFeatures );
+
     connect( loadDemo, SIGNAL( clicked() ), this, SLOT( slotLoadDemo() ) );
     connect( createSetup, SIGNAL( clicked() ), this, SLOT( createSetup() ) );
+    connect( checkFeatures, SIGNAL( clicked() ), this, SLOT( checkFeatures() ) );
 }
 
 
@@ -162,6 +167,22 @@ QString FileDialog::getFileName()
     KGlobal::config()->group(QString()).writeEntry( QString::fromLatin1("configfile"), file );
 
     return file;
+}
+
+void MainWindow::WelComeDialog::checkFeatures()
+{
+    if ( !FeatureDialog::hasAllFeaturesAvailable() ) {
+        const QString msg =
+            i18n("<p>KPhotoAlbum does not seem to be build with support for all its features. The following is a list "
+                 "indicating to you what you may miss:<ul>%1</ul></p>"
+                 "<p>For details on how to solve this problem, please choose <b>Help</b>|<b>KPhotoAlbum Feature Status</b> "
+                 "from the menus.</p>", FeatureDialog::featureString() );
+        KMessageBox::information( this, msg, i18n("Feature Check") );
+    }
+    else {
+        KMessageBox::information( this, i18n("Congratulation all dynamic features has been enabled"),
+                                  i18n("Feature Check" ) );
+    }
 }
 
 #include "WelcomeDialog.moc"

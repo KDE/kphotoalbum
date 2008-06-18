@@ -36,6 +36,8 @@ public:
 protected slots:
     void slotLoadDemo();
     void createSetup();
+    void checkFeatures();
+
 private:
     QString _configFile;
 };

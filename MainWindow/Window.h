@@ -162,7 +162,6 @@ protected:
     void setupPluginMenu();
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
     void tellPeopleAboutTheVideos();
-    void checkIfAllFeaturesAreInstalled();
 
 private:
     static Window* _instance;

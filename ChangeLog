@@ -1,5 +1,8 @@
 2008-06-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Feature test dialog is no more offered during start up, but is
+	instead part of the "welcome to KPA dialog".
+
 	* Exif/Database.cpp (offerInitialize): Don't offer to populate the
 	exiv database if there are no images in the database (which is the
 	case first time the application is started)

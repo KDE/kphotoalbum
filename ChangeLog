@@ -1,5 +1,9 @@
 2008-06-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Exif/Database.cpp (offerInitialize): Don't offer to populate the
+	exiv database if there are no images in the database (which is the
+	case first time the application is started)
+
 	* Exif/SearchDialog.cpp (makeCamera): (regression) Exif info
 	search -> Database did not scroll. Now it does. Also if no cameras
 	are found, it will now tell you so instead of just showing an

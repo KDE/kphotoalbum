@@ -28,6 +28,7 @@
 #include <exiv2/image.hpp>
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
+#include <DB/ImageDB.h>
 #include <qfile.h>
 #include "MainWindow/Window.h"
 #include "Utilities/Util.h"
@@ -288,7 +289,8 @@ void Exif::Database::init()
 
     if ( !dbExists ) {
         populateDatabase();
-        offerInitialize();
+        if ( DB::ImageDB::instance()->totalCount() != 0 )
+            offerInitialize();
     }
 }
 

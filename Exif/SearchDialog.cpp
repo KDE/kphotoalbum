@@ -31,7 +31,7 @@
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <kvbox.h>
-#include <Q3ScrollView>
+#include <QScrollArea>
 #include <kdebug.h>
 
 using namespace Exif;
@@ -318,20 +318,28 @@ Exif::SearchInfo Exif::SearchDialog::info()
 
 QWidget* Exif::SearchDialog::makeCamera()
 {
-    Q3ScrollView* view = new Q3ScrollView;
-    // view->setFrameStyle( QFrame::NoFrame );
-    view->setResizePolicy( Q3ScrollView::AutoOneFit );
-    KVBox* w = new KVBox( view->viewport() );
-    view->addChild( w );
+    QScrollArea* view = new QScrollArea;
+    view->setWidgetResizable(true);
+
+    QWidget* w = new QWidget;
+    view->setWidget( w );
+    QVBoxLayout* layout = new QVBoxLayout( w );
 
 
     QList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
     qSort( cameras );
 
     for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
-        QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ), w );
+        QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ) );
+        layout->addWidget( cb );
         _cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );
     }
+
+    if ( cameras.isEmpty() ) {
+        QLabel* label = new QLabel( i18n("No cameras found in the database") );
+        layout->addWidget( label );
+    }
+
     return view;
 }
 

@@ -195,6 +195,7 @@ void ImageSearchInfo::saveLock() const
     for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
         config.writeEntry( it.key(), it.value() );
     }
+    config.sync();
 }
 
 ImageSearchInfo ImageSearchInfo::loadLock()

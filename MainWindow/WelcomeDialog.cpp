@@ -17,6 +17,7 @@
 */
 
 #include "WelcomeDialog.h"
+#include <QDebug>
 #include "FeatureDialog.h"
 #include <qlabel.h>
 //Added by qt3to4:
@@ -164,7 +165,10 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    KGlobal::config()->group(QString()).writeEntry( QString::fromLatin1("configfile"), file );
+    KConfigGroup group = KGlobal::config()->group(QString());
+    group.writeEntry( QString::fromLatin1("configfile"), file );
+    group.sync();
+
 
     return file;
 }

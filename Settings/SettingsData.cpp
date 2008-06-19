@@ -352,8 +352,9 @@ void Settings::SettingsData::setAlbumCategory( const QString& category )
 
 void Settings::SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group("Window Geometry").writeEntry( windowTypeToString( win ), geometry );
+    KConfigGroup group = KGlobal::config()->group("Window Geometry");
+    group.writeEntry( windowTypeToString( win ), geometry );
+    group.sync();
 }
 
 QRect Settings::SettingsData::windowGeometry( WindowType win ) const
@@ -408,38 +409,44 @@ StringSet Settings::SettingsData::value(const QString& grp, const QString& optio
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, int value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value );
+    group.sync();
 }
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QString& value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value );
+    group.sync();
 }
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, bool value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value );
+    group.sync();
 }
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QColor& value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value );
+    group.sync();
 }
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QSize& value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value );
+    group.sync();
 }
 
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, const StringSet& value )
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->group(grp).writeEntry( option, value.toList() );
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.writeEntry( option, value.toList() );
+    group.sync();
 }
 
 QSize Settings::SettingsData::histogramSize() const
@@ -497,6 +504,7 @@ void Settings::SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& addr
 {
     KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
     SQLDB::writeConnectionParameters(address, config);
+    config.sync();
 }
 
 SQLDB::DatabaseAddress Settings::SettingsData::getSQLParameters() const

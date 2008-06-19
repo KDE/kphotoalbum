@@ -1,5 +1,8 @@
 2008-06-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* (regression bug) Settings was not syncs correct (esp the info
+	about where the database was located was not saves)
+
 	* Don't offer to show videos on start up. Instead there now is an
 	entry in the menu.
 
@@ -13,7 +16,7 @@
 	* Feature test dialog is no more offered during start up, but is
 	instead part of the "welcome to KPA dialog".
 
-	* Exif/SearchDialog.cpp (makeCamera): (regression) Exif info
+	* Exif/SearchDialog.cpp (makeCamera): (regression bug) Exif info
 	search -> Database did not scroll. Now it does. Also if no cameras
 	are found, it will now tell you so instead of just showing an
 	empty window.

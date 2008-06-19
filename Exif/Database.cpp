@@ -235,23 +235,6 @@ StringSet Exif::Database::filesMatchingQuery( const QString& queryStr )
     return result;
 }
 
-void Exif::Database::offerInitialize()
-{
-    int ret;
-    if ( Utilities::runningDemo() )
-        ret = KMessageBox::Yes;
-    else
-        ret = KMessageBox::questionYesNo( MainWindow::Window::theMainWindow(),
-                                          i18n("<p>Congratulation, your KPhotoAlbum version now supports searching "
-                                               "for EXIF information.</p>"
-                                               "<p>For this to work, KPhotoAlbum needs to rescan your images. "
-                                               "Do you want this to happen now?</p>"),
-                                          i18n("Rescan for EXIF information") );
-    if ( ret == KMessageBox::Yes )
-        DB::ImageDB::instance()->slotReread( DB::ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );
-
-}
-
 QList< QPair<QString,QString> > Exif::Database::cameras() const
 {
     QList< QPair<QString,QString> > result;
@@ -287,10 +270,7 @@ void Exif::Database::init()
     if ( !isOpen() )
         return;
 
-    if ( !dbExists ) {
+    if ( !dbExists )
         populateDatabase();
-        if ( DB::ImageDB::instance()->totalCount() != 0 )
-            offerInitialize();
-    }
 }
 

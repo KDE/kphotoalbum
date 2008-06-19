@@ -523,9 +523,9 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
     if ( _videoDisplay->isPaused() )
-        _playPause->setText("Play");
+        _playPause->setText(i18n("Play"));
     else
-        _playPause->setText("Pause");
+        _playPause->setText(i18n("Pause"));
 
     _stop->setEnabled( _videoDisplay->isPlaying() );
 

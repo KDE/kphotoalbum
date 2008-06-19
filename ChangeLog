@@ -1,5 +1,8 @@
 2008-06-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Don't offer to show videos on start up. Instead there now is an
+	entry in the menu.
+
  	* Exif/Database.cpp (offerInitialize): Don't offer to populate the
 	exiv database anymore, this was really only needed when people
 	upgraded to the last major version.

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="34">
+<kpartgui name="kphotoalbum" version="35">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -87,6 +87,7 @@
      <Action name="runDemo"/>
      <Action name="runSurvey"/>
      <Action name="features"/>
+     <Action name="showVideo"/>
    </Menu>
   </MenuBar>
 

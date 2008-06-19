@@ -143,6 +143,7 @@ protected slots:
     void slotRotateSelectedLeft();
     void slotRotateSelectedRight();
     void rotateSelected( int angle );
+    void showVideos();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -161,7 +162,6 @@ protected:
     void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
-    void tellPeopleAboutTheVideos();
 
 private:
     static Window* _instance;

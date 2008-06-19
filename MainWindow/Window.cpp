@@ -278,8 +278,6 @@ void MainWindow::Window::delayedInit()
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
 #endif
-
-    tellPeopleAboutTheVideos();
 }
 
 
@@ -771,6 +769,9 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
     a->setText( i18n("KPhotoAlbum Feature Status") );
+
+    a = actionCollection()->addAction( "showVideo", this, SLOT(showVideos()) );
+    a->setText( i18n( "Show Demo Videos") );
 
     // Context menu actions
 #ifdef HAVE_EXIV2
@@ -1620,22 +1621,10 @@ void MainWindow::Window::slotRecreateThumbnail()
 
 }
 
-void MainWindow::Window::tellPeopleAboutTheVideos()
+
+void MainWindow::Window::showVideos()
 {
-    const QString id = QString::fromLatin1( "KPhotoAlbumQuickStart" );
-    KMessageBox::ButtonCode dummy;
-    if ( !KMessageBox::shouldBeShownYesNo( id, dummy ) )
-        return;
-
-    int ret = KMessageBox::questionYesNo(this, i18n("<p>To get a quick start with KPhotoAlbum, "
-                                                    "it might be worthwhile to spent 10 minutes "
-                                                    "watching a few introduction videos.</p>" ),
-                                         i18n( "KPhotoAlbum quick start" ),
-                                         KGuiItem( i18n( "Show Videos" ) ), KGuiItem( i18n("Don't Show Videos") ),
-                                         id );
-    if ( ret == KMessageBox::Yes )
-        KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ), this );
+    KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos.html")), QString::fromLatin1( "text/html" ), this );
 }
-
 
 #include "Window.moc"

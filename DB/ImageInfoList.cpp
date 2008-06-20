@@ -60,8 +60,10 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
     ++insertIt;
 
     // Now merge in the items
-    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it )
-        insert( insertIt, *it );
+    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
+        insertIt = insert( insertIt, *it );
+        ++insertIt;
+    }
 }
 
 /**

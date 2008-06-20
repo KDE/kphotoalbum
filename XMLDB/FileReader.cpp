@@ -250,7 +250,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
     QDateTime last( QDate( 1900, 1, 1 ) );
     bool wrongOrder = false;
     for( DB::ImageInfoListIterator it = _db->_images.begin(); !wrongOrder && it != _db->_images.end(); ++it ) {
-        if ( last > (*it)->date().start() )
+        if ( last > (*it)->date().start() && (*it)->date().start().isValid() )
             wrongOrder = true;
         last = (*it)->date().start();
     }

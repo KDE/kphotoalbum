@@ -1,3 +1,9 @@
+2008-06-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* A warning dialog came up complaining about images not being
+	sorted in case one of the images did not have a date.
+	* Sorting images did not work.
+
 2008-06-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* (regression bug) Settings was not syncs correct (esp the info

@@ -254,6 +254,10 @@ void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageD
     redraw();
 }
 
+
+// Note on the use of setTimeSpec.
+// It came to my attention that addSec would create a QDateTime with internal type LocalStandard, while all the others would have type LocalUnknown,
+// this resulted in that QDateTime::operator<() would call getUTC(), which took 90% of the time for populating the datebar.
 void DateBar::DateBarWidget::drawHistograms( QPainter& p)
 {
     QRect rect = barAreaGeometry();
@@ -265,7 +269,9 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     int unit = 0;
     int max = 0;
     for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        QDateTime toUnit = dateForUnit(unit+1).addSecs(-1);
+        toUnit.setTimeSpec( Qt::LocalTime); // See note above
+        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), toUnit ) );
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
@@ -274,7 +280,9 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
 
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        QDateTime toUnit = dateForUnit(unit+1).addSecs(-1);
+        toUnit.setTimeSpec(Qt::LocalTime); // See note above
+        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), toUnit ) );
         int exact = 0;
         if ( max != 0 )
             exact = (int) ((double) (rect.height()-2) * count._exact / max );

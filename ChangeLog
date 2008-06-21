@@ -1,3 +1,10 @@
+2008-06-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Speed up populating the datebar with a factor of 4. Before it
+	took 6 seconds to delete an image due to that, now it only take
+	1.5 second on my machine. This speed up should also be there for
+	any operation that changes the amount of images shown in the datebar.
+
 2008-06-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* A warning dialog came up complaining about images not being

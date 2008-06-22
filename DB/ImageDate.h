@@ -50,8 +50,8 @@ public:
     bool hasValidTime() const;
 
     enum MatchType { DontMatch, ExactMatch, RangeMatch };
-    MatchType isIncludedIn( const ImageDate& searchRange );
-    bool includes( const QDateTime& date );
+    MatchType isIncludedIn( const ImageDate& searchRange ) const;
+    bool includes( const QDateTime& date ) const;
 
 protected:
     static QStringList monthNames();

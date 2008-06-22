@@ -17,14 +17,13 @@
 */
 #ifndef XMLIMAGEDATERANGECOLLECTION_H
 #define XMLIMAGEDATERANGECOLLECTION_H
+
+#include <QMap>
 #include "DB/ImageDateCollection.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
-    XMLImageDateCollection();
     XMLImageDateCollection( const QStringList& );
 
 public:
@@ -33,11 +32,30 @@ public:
     virtual QDateTime upperLimit() const;
 
 private:
-    void append( const DB::ImageDate& );
+    typedef QMap<QDateTime, DB::ImageDate> StartIndexMap;
+    typedef QMap<QDateTime, StartIndexMap::ConstIterator> EndIndexMap;
 
-    Q3ValueList<DB::ImageDate> _dates;
-    QMap<DB::ImageDate,DB::ImageCount> _cache;
-    mutable bool _dirtyLower, _dirtyUpper;
+    void add( const DB::ImageDate& );
+
+    // Build index, after all elements have been added.
+    void buildIndex();
+
+    // Cache for past successful range lookups.
+    QMap<DB::ImageDate, DB::ImageCount> _cache;
+
+    // Elements ordered by start time.
+    //
+    // Start index is sorted by start time of the ImageDate, mapping
+    // to the actual ImageDate; this is a multimap.
+    StartIndexMap _startIndex;
+
+    // Pointers to start index ordered by end time.
+    //
+    // This maps the end date to an iterator into the startIndex. The
+    // iterator points to the lowest element in startIndex whose end-time
+    // is greater or equal to the key-time. Thus is points to the start
+    // where its worth looking.
+    EndIndexMap _endIndex;
 };
 
 

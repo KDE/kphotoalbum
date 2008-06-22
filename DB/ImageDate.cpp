@@ -315,7 +315,7 @@ ImageDate::ImageDate( const QDate& start, QDate end, const QTime& time )
     }
 }
 
-ImageDate::MatchType ImageDate::isIncludedIn( const ImageDate& searchRange )
+ImageDate::MatchType ImageDate::isIncludedIn( const ImageDate& searchRange ) const
 {
     if ( searchRange.start() <= start() && searchRange.end() >= end() )
         return ExactMatch;
@@ -326,7 +326,7 @@ ImageDate::MatchType ImageDate::isIncludedIn( const ImageDate& searchRange )
     return DontMatch;
 }
 
-bool ImageDate::includes( const QDateTime& date )
+bool ImageDate::includes( const QDateTime& date ) const
 {
     return ImageDate( date ).isIncludedIn( *this ) == ExactMatch;
 }

@@ -72,11 +72,12 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     _barHeight = Settings::SettingsData::instance()->histogramSize().height();
     _rightArrow = new QToolButton( this );
     _rightArrow->setArrowType( Qt::RightArrow );
+    _rightArrow->setAutoRepeat( true );
     connect( _rightArrow, SIGNAL( clicked() ), this, SLOT( scrollRight() ) );
 
     _leftArrow = new QToolButton( this );
     _leftArrow->setArrowType( Qt::LeftArrow );
-
+    _leftArrow->setAutoRepeat( true );
     connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
 
     _zoomIn = new QToolButton( this );

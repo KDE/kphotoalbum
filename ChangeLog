@@ -1,7 +1,12 @@
 2008-06-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Replace linear search in XMLImageDateCollection with range
+	index. This means that the datebar will update way faster, making
+	the whole application faster. Thanks to Henner Zeller.
+	
 	* (regression) Focus now works in the annotation dialog
 	again.
+	
 
 	* Improved display of ranges in datebar of Henner Zeller
 

@@ -124,8 +124,7 @@ QString ImageDate::toString( bool withTime ) const
     }
 
 
-    // Last resort show the whole complete time stamp
-    Q_ASSERT( false ); // I can't see how we can get here.
+    // Range smaller than one day.
     if ( withTime && ( !isFirstSecOfDay( _start ) || !isLastSecOfDay( _end ) ))
         return QString::fromLatin1("%1 - %2" )
             .arg(_start.toString( QString::fromLatin1( "d. MMM yyyy hh:mm" ) ) )

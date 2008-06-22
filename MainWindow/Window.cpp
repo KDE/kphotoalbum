@@ -1333,7 +1333,7 @@ void MainWindow::Window::plug()
         QList<KAction*> actions = plugin->actions();
         for( QList<KAction*>::Iterator it = actions.begin(); it != actions.end(); ++it ) {
             KIPI::Category category = plugin->category( *it );
-            if (  category == KIPI::ImagesPlugin ||  category == KIPI::CollectionsPlugin )
+            if (  category == KIPI::ImagesPlugin == KIPI::CollectionsPlugin )
                 imageActions.append( *it );
 
             else if ( category == KIPI::ImportPlugin )

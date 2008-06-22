@@ -101,6 +101,7 @@ protected:
     DB::ImageDate currentDateRange() const;
     void showStatusBarTip( const QPoint& pos );
     DB::ImageDate rangeAt( const QPoint& );
+    DB::ImageDate rangeForUnit( int unit );
     void placeAndSizeButtons();
     int unitAtPos( int x ) const;
     QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;

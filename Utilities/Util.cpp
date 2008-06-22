@@ -499,7 +499,7 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
 bool Utilities::isJPEG( const QString& fileName )
 {
     QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName ) );
-    return format == QString::fromLocal8Bit( "JPEG" );
+    return format == QString::fromLocal8Bit( "jpeg" );
 }
 
 /**

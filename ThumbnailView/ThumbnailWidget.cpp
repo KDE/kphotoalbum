@@ -1202,6 +1202,7 @@ void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )
     QPainter p( viewport() );
     p.fillRect( numCols() * cellWidth(), 0, width(), height(), palette().color(QPalette::Base) );
     p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().color(QPalette::Base) );
+    p.end();
     Q3GridView::viewportPaintEvent( e );
 }
 

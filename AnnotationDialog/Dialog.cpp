@@ -17,6 +17,7 @@
 */
 
 #include "Dialog.h"
+#include <qglobal.h>
 #include "ListSelect.h"
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -87,6 +88,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
 
     _description = new Editor;
+    _description->setProperty( "WantsFocus", true );
+
     createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
 
     // -------------------------------------------------- Categrories
@@ -94,7 +97,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( (*categoryIt)->isSpecialCategory() )
             continue;
-        createDock( (*categoryIt)->text(), (*categoryIt)->name().toUtf8(), Qt::BottomDockWidgetArea, createListSel( *categoryIt ) );
+        createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, createListSel( *categoryIt ) );
     }
 
     // -------------------------------------------------- The buttons.
@@ -148,7 +151,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     setupActions();
 }
 
-QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const char* name,
+QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const QString& name,
                                                    Qt::DockWidgetArea location, QWidget* widget )
 {
     QDockWidget* dock = new QDockWidget( title );
@@ -172,6 +175,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     QLabel* label = new QLabel( i18n("Label: " ) );
     lay3->addWidget( label );
     _imageLabel = new KLineEdit;
+    _imageLabel->setProperty( "WantsFocus", true );
     label->setBuddy( _imageLabel );
     lay3->addWidget( _imageLabel );
 
@@ -184,6 +188,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     lay4->addWidget( label );
 
     _startDate = new ::AnnotationDialog::KDateEdit( true );
+    _startDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
     label->setBuddy( _startDate );
@@ -192,6 +197,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     lay4->addWidget( label );
 
     _endDate = new ::AnnotationDialog::KDateEdit( false );
+    _endDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _endDate, 1 );
 
     // Time
@@ -202,11 +208,13 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     lay7->addWidget( label );
 
     _time= new QTimeEdit;
+    _time->setProperty( "WantsFocus", true );
     lay7->addWidget( _time );
     lay7->addStretch(1);
     _time->hide();
 
     _addTime= new QPushButton(i18n("Add Time Info..."));
+    _addTime->setProperty( "WantsFocus", true );
     lay7->addWidget( _addTime );
     lay7->addStretch(1);
     _addTime->hide();
@@ -597,8 +605,9 @@ void AnnotationDialog::Dialog::slotOptions()
 
 int AnnotationDialog::Dialog::exec()
 {
-    setupFocus();
     showTornOfWindows();
+    show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
+    setupFocus();
     const int ret = QDialog::exec();
     hideTornOfWindows();
     return ret;
@@ -808,18 +817,13 @@ void AnnotationDialog::Dialog::moveEvent( QMoveEvent * )
 
 void AnnotationDialog::Dialog::setupFocus()
 {
-    static bool initialized = false;
-    if ( initialized )
-        return;
-    initialized = true;
-
     QList<QWidget*> list = findChildren<QWidget*>();
-    Q3ValueList<QWidget*> orderedList;
+    QList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.
     Q_FOREACH( QObject* obj, list ) {
         QWidget* current = static_cast<QWidget*>( obj );
-        if ( /*!current->isVisible() || */current->focusPolicy() == Qt::NoFocus || current->inherits("QAbstractButton") )
+        if ( !current->property("WantsFocus").isValid() )
             continue;
 
         int cx = current->mapToGlobal( QPoint(0,0) ).x();
@@ -827,13 +831,12 @@ void AnnotationDialog::Dialog::setupFocus()
 
         bool inserted = false;
         // Iterate through the ordered list of widgets, and insert the current one, so it is in the right position in the tab chain.
-        for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
-            QWidget* w = *orderedIt;
+        for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+            const QWidget* w = *orderedIt;
             int wx = w->mapToGlobal( QPoint(0,0) ).x();
             int wy = w->mapToGlobal( QPoint(0,0) ).y();
 
-            if ( wy > cy ||
-                 ( wy == cy && wx >= cx ) ) {
+            if ( wy > cy || ( wy == cy && wx >= cx ) ) {
                 orderedList.insert( orderedIt, current );
                 inserted = true;
                 break;
@@ -843,18 +846,22 @@ void AnnotationDialog::Dialog::setupFocus()
             orderedList.append( current );
     }
 
-    // Now setup tab order.
-    QWidget* prev = 0;
-    for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
-        if ( prev )
-            setTabOrder( prev, *orderedIt );
 
+    Q_FOREACH( QWidget* w, orderedList )
+        qDebug() << w << w->mapToGlobal( QPoint(0,0) );
+
+    // now setup tab order.
+    QWidget* prev = 0;
+    for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+        if ( prev ) {
+            setTabOrder( prev, *orderedIt );
+        }
         prev = *orderedIt;
     }
 
     // Finally set focus on the first list select
-    for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
-        if ( (*orderedIt)->objectName().startsWith( QString::fromLatin1("line edit for") ) ) {
+    for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+        if ( (*orderedIt)->property("FocusCandidate").isValid() ) {
             (*orderedIt)->setFocus();
             break;
         }

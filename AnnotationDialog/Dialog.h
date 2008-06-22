@@ -90,7 +90,7 @@ protected slots:
     void slotCopyPrevious();
 
 protected:
-    QDockWidget* createDock( const QString& title, const char* name, Qt::DockWidgetArea location, QWidget* widget );
+    QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
     QWidget* createDateWidget();
     QWidget* createPreviewWidget();
     QWidget* createListSel( const DB::CategoryPtr& category );

@@ -57,6 +57,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     QVBoxLayout* layout = new QVBoxLayout( this );
 
     _lineEdit = new CompletableLineEdit( this );
+    _lineEdit->setProperty( "FocusCandidate", true );
+    _lineEdit->setProperty( "WantsFocus", true );
     layout->addWidget( _lineEdit );
 
     _listView = new CategoryListView::DragableListView( _category, this );

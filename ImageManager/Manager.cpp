@@ -63,7 +63,7 @@ void ImageManager::Manager::init()
 
     for ( int i = 0; i < cores; ++i) {
         imageLoader = new ImageLoader();
-        imageLoader->start();
+        imageLoader->start( QThread::LowPriority );
     } 
 }
 

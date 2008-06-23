@@ -58,8 +58,13 @@ ImageManager::Manager::Manager() :_currentLoading(0)
 // corrected before the thread starts.
 void ImageManager::Manager::init()
 {
-    ImageLoader* imageLoader = new ImageLoader();
-    imageLoader->start();
+    ImageLoader* imageLoader;
+    int cores = qMax( 2, QThread::idealThreadCount() );
+
+    for ( int i = 0; i < cores; ++i) {
+        imageLoader = new ImageLoader();
+        imageLoader->start();
+    } 
 }
 
 void ImageManager::Manager::load( ImageRequest* request )

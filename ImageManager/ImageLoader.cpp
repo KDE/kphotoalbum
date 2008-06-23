@@ -181,7 +181,18 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
         scaledImg.setText( "Thumb::Size", "", QString::number( fi.size() ) );
         scaledImg.setText( "Thumb::Image::Width", "", QString::number( request->fullSize().width() ) );
         scaledImg.setText( "Thumb::Image::Height", "", QString::number( request->fullSize().height() ) );
-        scaledImg.save( path, "PNG" );
+        /* To prevent a race condition where another thread reads data from
+         * a file that is not fully written to yet, we save the thumbnail into a
+         * temporary file. Without this fix, you'd get plenty of
+         * "libpng error: Read Error" messages when running more ImageLoader
+         * threads. */
+        QString temporary = path + ".tmp";
+        scaledImg.save( temporary, "PNG" );
+
+        /* We can't use QFile::rename() here as we really want to overwrite
+         * target file (perhaps we have a hash collision, or maybe it's
+         * outdated) */
+        rename( temporary.toLocal8Bit().constData(), path.toLocal8Bit().constData() );
     }
 }
 

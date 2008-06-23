@@ -28,7 +28,7 @@ void XMLImageDateCollection::buildIndex() {
     StartIndexMap::ConstIterator startSearch = _startIndex.constBegin();
     QDateTime biggestEnd = QDateTime( QDate( 1900, 1, 1 ) );
     for (StartIndexMap::ConstIterator it = _startIndex.constBegin();
-         it != _startIndex.end();
+         it != _startIndex.constEnd();
          ++it) {
         // We want a monotonic mapping end-date -> smallest-in-start-index.
         // Since we go through the start index sorted, lowest first, we just
@@ -82,9 +82,9 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
     // where the end-date is higher than our search start.
     EndIndexMap::ConstIterator endSearch = _endIndex.lowerBound(range.start());
 
-    if (endSearch != _endIndex.end()) {
+    if (endSearch != _endIndex.constEnd()) {
         for ( StartIndexMap::ConstIterator it = endSearch.value();
-              it != _startIndex.end() && it.key() < range.end();
+              it != _startIndex.constEnd() && it.key() < range.end();
               ++it) {
             DB::ImageDate::MatchType tp = it.value().isIncludedIn( range );
             switch (tp) {
@@ -111,7 +111,7 @@ QDateTime XMLImageDateCollection::lowerLimit() const
 QDateTime XMLImageDateCollection::upperLimit() const
 {
     if (!_endIndex.empty()) {
-        EndIndexMap::ConstIterator highest = _endIndex.end();
+        EndIndexMap::ConstIterator highest = _endIndex.constEnd();
         --highest;
         return highest.key();
     }

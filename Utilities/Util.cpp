@@ -62,6 +62,20 @@ extern "C" {
 #include <kcodecs.h>
 
 /**
+ * Add a line label + info text to the result text if info is not empty.
+ * If the result already contains something, a HTML newline is added first.
+ * To be used in createInfoText().
+ */
+static void AddNonEmptyInfo(const QString &label, const QString &info,
+                            QString *result) {
+    if (info.isEmpty())
+        return;
+    if (!result->isEmpty())
+        *result += QString::fromLatin1("<br/>");
+    result->append(label).append(info);
+}
+
+/**
  * Given an ImageInfoPtr this function will create an HTML blob about the
  * image. The blob is used in the viewer and in the tool tip box from the
  * thumbnail view.
@@ -75,18 +89,14 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 {
     Q_ASSERT( info );
 
-    const QString linebreak = QString::fromLatin1( "<br/>" );
-
-    QString text;
-    if ( Settings::SettingsData::instance()->showFilename() )
-        text = i18n("<b>File Name: </b> ") + info->fileName() + linebreak;
+    QString result;
+    if ( Settings::SettingsData::instance()->showFilename() ) {
+        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName(), &result);
+    }
 
     if ( Settings::SettingsData::instance()->showDate() )  {
-        const QString dateText = info->date().toString( true );
-
-        if ( !dateText.isEmpty() ) {
-            text += i18n("<b>Date: </b> ") + dateText + linebreak;
-        }
+        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString( true ),
+                        &result);
     }
 
     if ( Settings::SettingsData::instance()->showImageSize() && info->mediaType() == DB::Image)  {
@@ -94,15 +104,15 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         // Do not add -1 x -1 text
         if (imageSize.width() >= 0 && imageSize.height() >= 0) {
             const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
-            text += i18n("<b>Image Size: </b> ") +
+            QString info =
                 QString::number(imageSize.width()) + i18n("x") +
                 QString::number(imageSize.height());
             if (megapix > 0.05) {
-                text +=
+                info +=
                     QString::fromLatin1(" (") + QString::number(megapix, 'f', 1) +
                     i18nc("Short for Mega Pixels", "MP") + QString::fromLatin1(")");
             }
-            text += linebreak;
+            AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
         }
     }
 
@@ -113,57 +123,62 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         if ( (*categoryIt)->doShow() ) {
             const StringSet items = info->itemsOfCategory( categoryName );
             if (!items.empty()) {
-                text += QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
+                QString title = QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
+                QString info;
                 bool first = true;
                 for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
                     if ( first )
                         first = false;
                     else
-                        text += QString::fromLatin1( ", " );
+                        info += QString::fromLatin1( ", " );
 
                     if ( linkMap ) {
                         ++link;
                         (*linkMap)[link] = QPair<QString,QString>( categoryName, item );
-                        text += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
+                        info += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
                     }
                     else
-                        text += item;
+                        info += item;
                 }
-                text += linebreak;
+                AddNonEmptyInfo(title, info, &result);
             }
         }
     }
 
-    if ( Settings::SettingsData::instance()->showLabel() && !info->label().isEmpty())  {
-        if ( !text.isEmpty() )
-            text += i18n("<b>Label: </b> ") +  info->label() + linebreak;
+    if ( Settings::SettingsData::instance()->showLabel()) {
+        AddNonEmptyInfo(i18n("<b>Label: </b> "), info->label(), &result);
     }
 
-    if ( Settings::SettingsData::instance()->showDescription() && !info->description().isEmpty())  {
-        if ( !text.isEmpty() )
-            text += i18n("<b>Description: </b> ") +  info->description() + linebreak;
+    if ( Settings::SettingsData::instance()->showDescription())  {
+        AddNonEmptyInfo(i18n("<b>Description: </b> "), info->description(),
+                        &result);
     }
 
 #ifdef HAVE_EXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
-        QMap<QString,QStringList> exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
-        for( QMap<QString,QStringList>::const_iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+        typedef QMap<QString,QStringList> ExifMap;
+        typedef ExifMap::const_iterator ExifMapIterator;
+        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
+
+        for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt )
-                    exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg(
-                            exifIt.key().split( '.' ).last()
-                            ).arg( *valuesIt );
+                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
+                    QString exifName = exifIt.key().split( '.' ).last();
+                    AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(exifName),
+                                    *valuesIt, &exifText);
+                }
         }
 
         QString iptcText;
-        for( QMap<QString,QStringList>::const_iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+        for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt )
-                    iptcText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg(
-                            exifIt.key().split( '.' ).last()
-                        ).arg( *valuesIt );
+                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
+                    QString iptcName = exifIt.key().split( '.' ).last();
+                    AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(iptcName),
+                                    *valuesIt, &iptcText);
+                }
         }
 
         if ( !iptcText.isEmpty() ) {
@@ -172,15 +187,14 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             else
                 exifText += QString::fromLatin1( "<hr>" ) + iptcText;
         }
-
     }
 
-    if ( !text.isEmpty() && !exifText.isEmpty() )
-        text += QString::fromLatin1( "<hr>" );
-    text += exifText;
+    if ( !result.isEmpty() && !exifText.isEmpty() )
+        result += QString::fromLatin1( "<hr>" );
+    result += exifText;
 #endif
 
-    return text;
+    return result;
 }
 
 void Utilities::checkForBackupFile( const QString& fileName )

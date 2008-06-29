@@ -152,7 +152,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
     int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
-        text += DB::ImageDB::instance()->info( fileName )->label();;
+        text += DB::ImageDB::instance()->info( fileName )->label();
         text += QString::fromLatin1("\n");
     }
 
@@ -187,7 +187,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
     if(text.isEmpty())
         text = QString::fromLatin1( "" );
 
-    return text;
+    return text.stripWhiteSpace();
 }
 
 /**

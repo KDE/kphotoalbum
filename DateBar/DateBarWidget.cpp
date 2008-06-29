@@ -274,6 +274,19 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         max = qMax( max, cnt  );
     }
 
+    // Calculate the font size for the largest number.
+    QFont f = font();
+    bool fontFound = false;
+    for ( int i = f.pointSize(); i >= 6; i-=2 ) {
+        f.setPointSize( i );
+        int w = QFontMetrics(f).width( QString::number( max ) );
+        if ( w < rect.height() - 6 ) {
+            p.setFont(f);
+            fontFound = true;
+            break;
+        }
+    }
+
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
         DB::ImageCount count = _dates->count( rangeForUnit(unit) );
@@ -293,31 +306,21 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         p.setBrush( QBrush( Qt::green, style ) );
         p.drawRect( x+1, rect.bottom()-range-exact, _barWidth-2, exact );
 
-        // calculate the font size for the largest number.
-        QFont f = font();
-        bool found = false;
-        for ( int i = f.pointSize(); i >= 6; i-=2 ) {
-            f.setPointSize( i );
-            int w = QFontMetrics(f).width( QString::number( max ) );
-            if ( w < rect.height() - 6 ) {
-                p.setFont(f);
-                found = true;
-                break;
+        // Draw the numbers, if they fit.
+        if (fontFound) {
+            int tot = count._exact;
+            if ( _includeFuzzyCounts )
+                tot += count._rangeMatch;
+            p.save();
+            p.translate( x+_barWidth-3, rect.bottom()-2 );
+            p.rotate( -90 );
+            int w = QFontMetrics(f).width( QString::number( tot ) );
+            if ( w < exact+range-2 ) {
+                p.setPen( Qt::black );
+                p.drawText( 0,0, QString::number( tot ) );
             }
+            p.restore();
         }
-
-        // draw the numbers
-        int tot = count._exact;
-        if ( _includeFuzzyCounts )
-            tot += count._rangeMatch;
-        p.save();
-        p.translate( x+_barWidth-3, rect.bottom()-2 );
-        p.rotate( -90 );
-        int w = QFontMetrics(f).width( QString::number( tot ) );
-        if ( w < exact+range-2 ) {
-            p.drawText( 0,0, QString::number( tot ) );
-        }
-        p.restore();
     }
 
     p.restore();

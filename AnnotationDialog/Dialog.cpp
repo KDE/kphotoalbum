@@ -17,6 +17,9 @@
 */
 
 #include "Dialog.h"
+#include "ShortCutManager.h"
+#include <kacceleratormanager.h>
+#include <QTimer>
 #include <qglobal.h>
 #include "ListSelect.h"
 #include <qpushbutton.h>
@@ -77,6 +80,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     : QDialog( parent ), _viewer(0)
 {
     Utilities::ShowBusyCursor dummy;
+    ShortCutManager shortCutManager;
     QVBoxLayout* layout = new QVBoxLayout( this );
     _dockWindow = new QMainWindow;
     _dockWindow->setDockNestingEnabled( true );
@@ -84,20 +88,24 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     layout->addWidget( _dockWindow );
 
     // -------------------------------------------------- Dock widgets
-    createDock( i18n("Label and Dates"), "Label and Datas", Qt::TopDockWidgetArea, createDateWidget() );
+    QDockWidget* dock = createDock( i18n("Label and Dates"), "Label and Datas", Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
+
     createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
 
     _description = new Editor;
     _description->setProperty( "WantsFocus", true );
 
-    createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
+    dock = createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
+    shortCutManager.addDock( dock, _description );
 
     // -------------------------------------------------- Categrories
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( (*categoryIt)->isSpecialCategory() )
             continue;
-        createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, createListSel( *categoryIt ) );
+        ListSelect* sel = createListSel( *categoryIt );
+        QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
+        shortCutManager.addDock( dock, sel->lineEdit() );
     }
 
     // -------------------------------------------------- The buttons.
@@ -105,14 +113,17 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     layout->addLayout( lay1 );
 
     _revertBut = new QPushButton( i18n("Revert This Item"), this );
+    KAcceleratorManager::setNoAccel(_revertBut);
     lay1->addWidget( _revertBut );
 
     QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
                                              ? QString::fromLatin1("clear_left")
                                              : QString::fromLatin1("locationbar_erase")), this );
+    KAcceleratorManager::setNoAccel(clearBut);
     lay1->addWidget( clearBut );
 
     QPushButton* optionsBut = new QPushButton( i18n("Options" ), this );
+    KAcceleratorManager::setNoAccel(optionsBut);
     lay1->addWidget( optionsBut );
 
     lay1->addStretch(1);
@@ -122,6 +133,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     QPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel(), this );
     lay1->addWidget( cancelBut );
+
+    // It is unfortunately not possible to ask KAcceleratorManager not to setup the OK and cancel keys.
+    shortCutManager.addTaken( i18n("&Search") );
+    shortCutManager.addTaken( _okBut->text() );
+    shortCutManager.addTaken( cancelBut->text() );
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
     connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
@@ -149,12 +165,14 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::ConfigWindow ) );
 
     setupActions();
+    shortCutManager.setupShortCuts();
 }
 
 QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const QString& name,
                                                    Qt::DockWidgetArea location, QWidget* widget )
 {
     QDockWidget* dock = new QDockWidget( title );
+    KAcceleratorManager::setNoAccel(dock);
     dock->setObjectName( name );
     dock->setAllowedAreas( Qt::AllDockWidgetAreas );
     dock->setWidget( widget );
@@ -163,7 +181,7 @@ QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const Q
     return dock;
 }
 
-QWidget* AnnotationDialog::Dialog::createDateWidget()
+QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutManager)
 {
     QWidget* top = new QWidget;
     QVBoxLayout* lay2 = new QVBoxLayout( top );
@@ -176,8 +194,9 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     lay3->addWidget( label );
     _imageLabel = new KLineEdit;
     _imageLabel->setProperty( "WantsFocus", true );
-    label->setBuddy( _imageLabel );
     lay3->addWidget( _imageLabel );
+    shortCutManager.addLabel( label );
+    label->setBuddy( _imageLabel );
 
 
     // Date
@@ -191,7 +210,8 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     _startDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
-    label->setBuddy( _startDate );
+    shortCutManager.addLabel(label );
+    label->setBuddy( _startDate);
 
     label = new QLabel( QString::fromLatin1( "-" ) );
     lay4->addWidget( label );
@@ -642,7 +662,7 @@ void AnnotationDialog::Dialog::showTornOfWindows()
 }
 
 
-QWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& category )
+AnnotationDialog::ListSelect* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& category )
 {
     ListSelect* sel = new ListSelect( category, _dockWindow );
     _optionList.append( sel );
@@ -846,9 +866,6 @@ void AnnotationDialog::Dialog::setupFocus()
             orderedList.append( current );
     }
 
-
-    Q_FOREACH( QWidget* w, orderedList )
-        qDebug() << w << w->mapToGlobal( QPoint(0,0) );
 
     // now setup tab order.
     QWidget* prev = 0;

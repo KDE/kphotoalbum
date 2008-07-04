@@ -604,4 +604,9 @@ void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( Q3ListView
     }
 }
 
+QWidget* AnnotationDialog::ListSelect::lineEdit()
+{
+    return _lineEdit;
+}
+
 #include "ListSelect.moc"

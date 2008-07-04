@@ -62,6 +62,8 @@ public:
     void populate();
 
     void showOnlyItemsMatching( const QString& text );
+    QWidget* lineEdit();
+
 
 public slots:
     void slotReturn();

@@ -34,6 +34,7 @@
 #include <KActionCollection>
 
 
+class DockWidget;
 class QDockWidget;
 class QTimeEdit;
 class QMainWindow;
@@ -57,6 +58,7 @@ namespace AnnotationDialog
 {
 class ImagePreview;
 class KDateEdit;
+class ShortCutManager;
 
 class Dialog :public QDialog {
     Q_OBJECT
@@ -91,9 +93,9 @@ protected slots:
 
 protected:
     QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
-    QWidget* createDateWidget();
+    QWidget* createDateWidget(ShortCutManager& shortCutManager);
     QWidget* createPreviewWidget();
-    QWidget* createListSel( const DB::CategoryPtr& category );
+    ListSelect* createListSel( const DB::CategoryPtr& category );
 
     void load();
     void writeToInfo();

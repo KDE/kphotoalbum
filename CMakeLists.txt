@@ -174,7 +174,9 @@ set(libAnnotationDialog_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/KDateEdit.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/CompletableLineEdit.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListViewItemHider.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShowSelectionOnlyManager.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShowSelectionOnlyManager.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShortCutManager.cpp 
+)
 
 set(libBrowser_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserWidget.cpp 

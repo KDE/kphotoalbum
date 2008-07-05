@@ -19,6 +19,7 @@
 #define IMAGEINFOLIST_H
 #include <q3valuelist.h>
 #include "DB/ImageInfoPtr.h"
+#include "DB/ImageInfo.h"
 
 namespace DB
 {

@@ -84,7 +84,7 @@ public:
     virtual QString
     findFirstItemInRange(const ImageDate& range,
                          bool includeRanges,
-                         const Q3ValueVector<QString>& images) const;
+                         const QVector<QString>& images) const;
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;

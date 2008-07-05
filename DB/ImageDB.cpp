@@ -240,11 +240,11 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 QString
 ImageDB::findFirstItemInRange(const ImageDate& range,
                               bool includeRanges,
-                              const Q3ValueVector<QString>& images) const
+                              const QVector<QString>& images) const
 {
     QString candidate;
     QDateTime candidateDateStart;
-    for (Q3ValueVector<QString>::const_iterator i = images.begin();
+    for (QVector<QString>::const_iterator i = images.begin();
          i != images.end(); ++i) {
         ImageInfoPtr iInfo = info(*i);
 

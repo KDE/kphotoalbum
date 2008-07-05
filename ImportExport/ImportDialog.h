@@ -49,9 +49,11 @@ class ImportDialog :public KAssistantDialog {
     Q_OBJECT
 
 public:
-    friend class ImportHandler;
-    static void imageImport();
-    static void imageImport( const KUrl& url );
+    ImportDialog( QWidget* parent );
+    ~ImportDialog();
+    bool exec( const QString& fileName );
+
+    friend class ImportHandler; // JKP
 
 protected:
     friend class ImageRow;
@@ -67,28 +69,20 @@ protected:
     QByteArray loadImage( const QString& fileName );
     void selectImage( bool on );
     DB::ImageInfoList selectedImages();
-    bool init( const QString& fileName );
     virtual void closeEvent( QCloseEvent* );
 
 protected slots:
     void slotEditDestination();
     void updateNextButtonState();
     virtual void next();
-    void slotFinish();
     void slotSelectAll();
     void slotSelectNone();
-    void downloadKimJobCompleted( KIO::Job* );
     void slotHelp();
 
 signals:
     void failedToCopy( QStringList files );
 
 private:
-    ImportDialog( const QString& file, bool* ok, QWidget* parent );
-    ImportDialog( const KUrl& url, QWidget* parent );
-    ~ImportDialog();
-
-    QString _zipFile;
     DB::ImageInfoList _images;
     KLineEdit* _destinationEdit;
     KPageWidgetItem* _destinationPage;
@@ -101,10 +95,9 @@ private:
     QList< ImageRow* > _imagesSelect;
     KTemporaryFile* _tmp;
     bool _externalSource;
-    KUrl _kimFile;
+    KUrl _kimFile; //JKP
     bool _hasFilled;
     QString _baseUrl;
-    ImportHandler m_importHandler;
 };
 
 }

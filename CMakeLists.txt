@@ -164,7 +164,11 @@ set(libImportExport_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/Import.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportMatcher.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/XMLHandler.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/MiniViewer.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/MiniViewer.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportHandler.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImageRow.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportDialog.cpp
+)
 
 set(libAnnotationDialog_SRCS  
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Dialog.cpp 

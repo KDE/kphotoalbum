@@ -21,20 +21,20 @@ ImportExport::ImportHandler::ImportHandler( ImportDialog* import )
 {
 }
 
-void ImportExport::ImportHandler::start()
+bool ImportExport::ImportHandler::exec()
 {
     m_finishedPressed = true;
     m_nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(m_import->selectedImages()), true, m_import->_destinationEdit->text() );
     bool ok;
     if ( m_import->_externalSource ) {
-        m_import->hide();
         copyFromExternal();
+        return m_eventLoop.exec();
     }
     else {
         ok = copyFilesFromZipFile();
         if ( ok )
             updateDB();
-        m_import->deleteLater();
+        return ok;
     }
 
 }
@@ -188,9 +188,7 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
         // This might be late -- if we managed to copy some files, we will
         // just throw away any changes to the DB, but some new image files
         // might be in the image directory...
-        m_import->deleteLater();
-        delete _progress;
-        _progress = 0;
+        m_eventLoop.exit(false);
         break;
 
     case KMessageBox::No:
@@ -205,17 +203,14 @@ void ImportExport::ImportHandler::aCopyJobCompleted( KIO::Job* job )
 {
     if ( job && job->error() ) {
         job->ui()->showErrorMessage();
-        m_import->deleteLater();
-        delete _progress;
+        m_eventLoop.exit(false);
     }
     else if ( _pendingCopies.count() == 0 ) {
         updateDB();
-        m_import->deleteLater();
-        delete _progress;
+        m_eventLoop.exit(true);
     }
     else if ( _progress->wasCanceled() ) {
-        m_import->deleteLater();
-        delete _progress;
+        m_eventLoop.exit(false);
     }
     else {
         _progress->setValue( ++_totalCopied );

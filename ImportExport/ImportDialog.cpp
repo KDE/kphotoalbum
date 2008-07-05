@@ -48,8 +48,6 @@
 #include <kurl.h>
 #include <q3progressdialog.h>
 #include <kio/netaccess.h>
-#include <kio/jobuidelegate.h>
-#include "MainWindow/Window.h"
 #include <kapplication.h>
 #include <ktoolinvocation.h>
 #include "DB/CategoryCollection.h"
@@ -58,7 +56,6 @@
 #include "XMLDB/Database.h"
 #include <kdebug.h>
 #include <QComboBox>
-#include <KTemporaryFile>
 #include <QScrollArea>
 #include <KMessageBox>
 
@@ -67,69 +64,23 @@ using Utilities::StringSet;
 class KPushButton;
 using namespace ImportExport;
 
-void ImportDialog::imageImport()
+
+ImportDialog::ImportDialog( QWidget* parent )
+    :KAssistantDialog( parent ), _hasFilled( false )
 {
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
-    if ( url.isEmpty() )
-        return;
-    imageImport( url );
 }
 
-void ImportDialog::imageImport( const KUrl& url )
-{
-    bool ok;
-    if ( !url.isLocalFile() ) {
-        new ImportDialog( url, 0 );
-        // The dialog will start the download, and in the end show itself
-    }
-    else {
-        ImportDialog* dialog = new ImportDialog( url.path(), &ok, 0 );
-        dialog->resize( 800, 600 );
-        if ( ok )
-            dialog->show();
-        else
-            delete dialog;
-    }
-}
-
-ImportDialog::ImportDialog( const KUrl& url, QWidget* parent )
-    :KAssistantDialog( parent ), _zip( 0 ), _hasFilled( false ), m_importHandler(this)
-{
-    _kimFile = url;
-    _tmp = new KTemporaryFile;
-    _tmp->setSuffix(QString::fromLatin1(".kim"));
-    QString path = _tmp->fileName();
-    _tmp->setAutoRemove( true );
-
-    KUrl dest;
-    dest.setPath( path );
-    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, KIO::Overwrite );
-    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
-}
-
-void ImportDialog::downloadKimJobCompleted( KIO::Job* job )
-{
-    if ( !job->error() ) {
-        resize( 800, 600 );
-        init( _tmp->fileName() );
-        show();
-    }
-    else {
-        job->ui()->showErrorMessage();
-        delete this;
-    }
-}
-
-ImportDialog::ImportDialog( const QString& fileName, bool* ok, QWidget* parent )
-    :KAssistantDialog( parent ), _zipFile( fileName ), _tmp(0), _hasFilled( false ), m_importHandler(this)
+bool ImportDialog::exec( const QString& fileName )
 {
     _kimFile.setPath( fileName );
-    *ok = init( fileName );
-    connect( this, SIGNAL( failedToCopy( QStringList ) ), &m_importHandler, SLOT( aCopyFailed( QStringList ) ) ); // JKP
-}
 
-bool ImportDialog::init( const QString& fileName )
-{
+#ifdef KDAB_TEMPORARILY_REMOVED
+    connect( this, SIGNAL( failedToCopy( QStringList ) ), &m_importHandler, SLOT( aCopyFailed( QStringList ) ) ); // JKP
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in ImportDialog::ImportDialog");
+#endif //KDAB_TEMPORARILY_REMOVED
+
+
     _zip = new KZip( fileName );
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
@@ -156,13 +107,13 @@ bool ImportDialog::init( const QString& fileName )
         return false;
 
     setupPages();
-    return true;
+
+    return KAssistantDialog::exec() ;
 }
 
 ImportDialog::~ImportDialog()
 {
     delete _zip;
-    delete _tmp;
 }
 
 bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
@@ -219,7 +170,11 @@ void ImportDialog::setupPages()
     createDestination();
     createCategoryPages();
     connect( this, SIGNAL( currentPageChanged( KPageWidgetItem*, KPageWidgetItem* ) ), this, SLOT( updateNextButtonState() ) );
+#ifdef KDAB_TEMPORARILY_REMOVED
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotFinish() ) );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in ImportDialog::setupPages");
+#endif //KDAB_TEMPORARILY_REMOVED
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
@@ -433,11 +388,6 @@ void ImportDialog::next()
 }
 
 
-void ImportDialog::slotFinish()
-{
-    m_importHandler.start();
-}
-
 QPixmap ImportDialog::loadThumbnail( QString fileName )
 {
     const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
@@ -520,10 +470,14 @@ DB::ImageInfoList ImportDialog::selectedImages()
 
 void ImportDialog::closeEvent( QCloseEvent* e )
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.
     if ( !m_importHandler.m_finishedPressed )
         deleteLater();
     KAssistantDialog::closeEvent( e );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in ImportDialog::closeEvent");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 

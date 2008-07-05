@@ -17,15 +17,34 @@
 */
 
 #include <kurl.h>
+#include <kio/job.h>
+class KTemporaryFile;
 
 namespace ImportExport
 {
 
-class Import
+class Import :public QObject
 {
+    Q_OBJECT
+
 public:
     static void imageImport();
     static void imageImport( const KUrl& url );
+
+private slots:
+    void downloadKimJobCompleted( KJob* );
+    void data( KIO::Job*, const QByteArray& );
+
+
+private:
+    void exec(const QString& fileName );
+    void downloadUrl( const KUrl& url );
+
+private:
+    Import();
+    ~Import();
+    KTemporaryFile* m_tmp;
+
 };
 
 }

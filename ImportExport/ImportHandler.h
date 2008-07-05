@@ -1,6 +1,7 @@
 #ifndef IMPORTHANDLER_H
 #define IMPORTHANDLER_H
 
+#include <QEventLoop>
 #include "Utilities/Util.h"
 #include <kio/job.h>
 
@@ -15,7 +16,7 @@ class ImportHandler :public QObject
 
 public:
     ImportHandler( ImportDialog* import );
-    void start();
+    bool exec();
 
 public: // JKP
     void copyFromExternal();
@@ -37,6 +38,7 @@ public: // JKP
     int _totalCopied;
     KIO::FileCopyJob* _job;
     bool _reportUnreadableFiles;
+    QEventLoop m_eventLoop;
 };
 
 }

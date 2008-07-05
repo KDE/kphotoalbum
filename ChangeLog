@@ -1,5 +1,8 @@
 2008-07-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* If there are not categories in import file, it was not possible
+	to complete the import dialog.
+
 	* (regression) When loading images using the import dialog, it
 	would ask if you trust date and time from Exif info. This is not
 	needed, as the info from the import file will be used instead.

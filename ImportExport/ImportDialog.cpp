@@ -326,12 +326,16 @@ void ImportDialog::createCategoryPages()
         }
     }
 
-    _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
-                                          false, this, "import matcher" );
-    _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
+    if ( !categories.isEmpty() ) {
+        _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
+                                              false, this, "import matcher" );
+        _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
 
-    QWidget* dummy = new QWidget;
-    _dummy = addPage( dummy, QString::null );
+        QWidget* dummy = new QWidget;
+        _dummy = addPage( dummy, QString::null );
+    }
+    else
+        _categoryMatcherPage = 0;
 }
 
 ImportMatcher* ImportDialog::createCategoryPage( const QString& myCategory, const QString& otherCategory )

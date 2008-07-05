@@ -1,3 +1,14 @@
+2008-07-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* (regression) When loading images using the import dialog, it
+	would ask if you trust date and time from Exif info. This is not
+	needed, as the info from the import file will be used instead.
+
+	* Don't show "Media Type" in the Import Dialog
+
+	* (regression) The import dialog now correctly show new items with
+	red, and select them in the combobox.
+
 2008-06-23  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use all CPU cores for parallelization of image loading

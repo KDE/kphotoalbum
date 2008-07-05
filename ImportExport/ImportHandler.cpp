@@ -133,7 +133,7 @@ void ImportExport::ImportHandler::updateDB()
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
 
-        DB::ImageInfoPtr newInfo( new DB::ImageInfo( m_nameMap[info->fileName(true)] ) );
+        DB::ImageInfoPtr newInfo( new DB::ImageInfo( m_nameMap[info->fileName(true)], DB::Image, false ) );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );

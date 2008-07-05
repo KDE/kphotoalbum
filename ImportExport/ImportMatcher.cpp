@@ -68,28 +68,30 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
     }
 }
 
-CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringList items, QWidget* parent, QGridLayout* grid, int row )
+CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QStringList myItems, QWidget* parent, QGridLayout* grid, int row )
 {
-    _checkbox = new QCheckBox( category, parent );
-    _text = category; // We can't just use QCheckBox::text() as Qt adds accelerators.
+    _checkbox = new QCheckBox( kimFileItem, parent );
+    _text = kimFileItem; // We can't just use QCheckBox::text() as Qt adds accelerators.
     _checkbox->setChecked( true );
     grid->addWidget( _checkbox, row, 0 );
 
     _combobox = new QComboBox;
     _combobox->setEditable( allowNew );
 
-    items.sort();
-    _combobox->addItems( items );
+    myItems.sort();
+    _combobox->addItems( myItems );
     QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
     grid->addWidget( _combobox, row, 1 );
 
-    if ( items.contains( category ) ) {
-        _combobox->setCurrentIndex( items.indexOf(category) );
+    if ( myItems.contains( kimFileItem ) ) {
+        _combobox->setCurrentIndex( myItems.indexOf(kimFileItem) );
     }
     else {
+        // This item was not in my database
         QString match = QString::null;
-        for( QStringList::ConstIterator it = items.begin(); it != items.end(); ++it ) {
-            if ( (*it).contains( category ) || category.contains( *it ) ) {
+        for( QStringList::ConstIterator it = myItems.begin(); it != myItems.end(); ++it ) {
+            if ( (*it).contains( kimFileItem ) || kimFileItem.contains( *it ) ) {
+                // Either my item was a substring of the kim item or the other way around (Jesper is a substring of Jesper Pedersen)
                 if ( match == QString::null )
                     match = *it;
                 else {
@@ -99,16 +101,20 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringLis
             }
         }
         if ( match != QString::null ) {
-            _combobox->setCurrentIndex( items.indexOf(match) );
+            // there was a single substring matach
+            _combobox->setCurrentIndex( myItems.indexOf(match) );
         }
         else {
-            if ( allowNew )
-                _combobox->setCurrentIndex( items.indexOf(category) );
+            // Either none or multiple items matches
+            if ( allowNew ) {
+                _combobox->addItem(kimFileItem);
+                _combobox->setCurrentIndex( _combobox->count()-1 );
+            }
             else
                 _checkbox->setChecked( false );
         }
         QPalette pal = _checkbox->palette();
-        pal.setColor( QPalette::Foreground, Qt::red );
+        pal.setColor( QPalette::ButtonText, Qt::red );
         _checkbox->setPalette( pal );
     }
 }

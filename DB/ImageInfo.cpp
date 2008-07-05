@@ -36,7 +36,7 @@ ImageInfo::ImageInfo() :_null( true ), _locked( false ), _dirty( false ), _delay
 {
 }
 
-ImageInfo::ImageInfo( const QString& fileName, MediaType type )
+ImageInfo::ImageInfo( const QString& fileName, MediaType type, bool readExifInfo )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false ), _delaySaving( true )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
@@ -47,7 +47,8 @@ ImageInfo::ImageInfo( const QString& fileName, MediaType type )
     setFileName( fileName);
 
     // Read EXIF information
-    readExif(fullPath, EXIFMODE_INIT);
+    if ( readExifInfo )
+        readExif(fullPath, EXIFMODE_INIT);
 
     _dirty = false;
     _delaySaving = false;

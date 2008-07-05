@@ -320,7 +320,8 @@ void ImportDialog::createCategoryPages()
         for( QStringList::Iterator categoryIt = categoriesForImage.begin(); categoryIt != categoriesForImage.end(); ++categoryIt ) {
             if ( !categories.contains( *categoryIt ) &&
                  (*categoryIt) != QString::fromLatin1( "Folder" ) &&
-                 (*categoryIt) != QString::fromLatin1( "Tokens" ) )
+                 (*categoryIt) != QString::fromLatin1( "Tokens" ) &&
+                 (*categoryIt) != QString::fromLatin1( "Media Type" ))
                 categories.append( *categoryIt );
         }
     }

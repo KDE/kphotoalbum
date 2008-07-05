@@ -48,7 +48,7 @@ public:
 
     QString _otherCategory;
     QString _myCategory;
-    Q3ValueList<CategoryMatch*> _matchers;
+    QList<CategoryMatch*> _matchers;
 };
 
 }

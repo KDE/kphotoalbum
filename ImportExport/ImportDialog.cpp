@@ -16,7 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Import.h"
+#include "ImportDialog.h"
+#include "ImageRow.h"
 #include <kfiledialog.h>
 #include <qlabel.h>
 #include <QHBoxLayout>
@@ -66,7 +67,7 @@ using Utilities::StringSet;
 class KPushButton;
 using namespace ImportExport;
 
-void Import::imageImport()
+void ImportDialog::imageImport()
 {
     KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
     if ( url.isEmpty() )
@@ -74,15 +75,15 @@ void Import::imageImport()
     imageImport( url );
 }
 
-void Import::imageImport( const KUrl& url )
+void ImportDialog::imageImport( const KUrl& url )
 {
     bool ok;
     if ( !url.isLocalFile() ) {
-        new Import( url, 0 );
+        new ImportDialog( url, 0 );
         // The dialog will start the download, and in the end show itself
     }
     else {
-        Import* dialog = new Import( url.path(), &ok, 0 );
+        ImportDialog* dialog = new ImportDialog( url.path(), &ok, 0 );
         dialog->resize( 800, 600 );
         if ( ok )
             dialog->show();
@@ -91,8 +92,8 @@ void Import::imageImport( const KUrl& url )
     }
 }
 
-Import::Import( const KUrl& url, QWidget* parent )
-    :KAssistantDialog( parent ), _zip( 0 ), _hasFilled( false ), _reportUnreadableFiles( true )
+ImportDialog::ImportDialog( const KUrl& url, QWidget* parent )
+    :KAssistantDialog( parent ), _zip( 0 ), _hasFilled( false ), m_importHandler(this)
 {
     _kimFile = url;
     _tmp = new KTemporaryFile;
@@ -106,7 +107,7 @@ Import::Import( const KUrl& url, QWidget* parent )
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
 }
 
-void Import::downloadKimJobCompleted( KIO::Job* job )
+void ImportDialog::downloadKimJobCompleted( KIO::Job* job )
 {
     if ( !job->error() ) {
         resize( 800, 600 );
@@ -119,17 +120,16 @@ void Import::downloadKimJobCompleted( KIO::Job* job )
     }
 }
 
-Import::Import( const QString& fileName, bool* ok, QWidget* parent )
-    :KAssistantDialog( parent ), _zipFile( fileName ), _tmp(0), _hasFilled( false )
+ImportDialog::ImportDialog( const QString& fileName, bool* ok, QWidget* parent )
+    :KAssistantDialog( parent ), _zipFile( fileName ), _tmp(0), _hasFilled( false ), m_importHandler(this)
 {
     _kimFile.setPath( fileName );
     *ok = init( fileName );
-    connect( this, SIGNAL( failedToCopy( QStringList ) ), this, SLOT( aCopyFailed( QStringList ) ) );
+    connect( this, SIGNAL( failedToCopy( QStringList ) ), &m_importHandler, SLOT( aCopyFailed( QStringList ) ) ); // JKP
 }
 
-bool Import::init( const QString& fileName )
+bool ImportDialog::init( const QString& fileName )
 {
-    _finishedPressed = false;
     _zip = new KZip( fileName );
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
@@ -159,13 +159,13 @@ bool Import::init( const QString& fileName )
     return true;
 }
 
-Import::~Import()
+ImportDialog::~ImportDialog()
 {
     delete _zip;
     delete _tmp;
 }
 
-bool Import::readFile( const QByteArray& data, const QString& fileName )
+bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
 {
     QDomDocument doc;
     QString errMsg;
@@ -212,7 +212,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     return true;
 }
 
-void Import::setupPages()
+void ImportDialog::setupPages()
 {
     createIntroduction();
     createImagesPage();
@@ -223,7 +223,7 @@ void Import::setupPages()
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
-void Import::createIntroduction()
+void ImportDialog::createIntroduction()
 {
     QString txt = i18n( "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
                         "This wizard will take you through the steps of an import operation. The steps are: "
@@ -247,7 +247,7 @@ void Import::createIntroduction()
     addPage( intro, i18n("Introduction") );
 }
 
-void Import::createImagesPage()
+void ImportDialog::createImagesPage()
 {
     QScrollArea* top = new QScrollArea;
     top->setWidgetResizable(true);
@@ -301,41 +301,7 @@ void Import::createImagesPage()
     addPage( top, i18n("Select Which Images to Import") );
 }
 
-ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
-    : QObject( parent ), _info( info ), _import( import )
-{
-    _checkbox = new QCheckBox( QString::null, parent );
-    _checkbox->setChecked( true );
-}
-
-void ImageRow::showImage()
-{
-    if ( _import->_externalSource ) {
-        KUrl src1 =_import->_kimFile;
-        KUrl src2 = _import->_baseUrl + QString::fromLatin1( "/" );
-        for ( int i = 0; i < 2; ++i ) {
-            // First try next to the .kim file, then the external URL
-            KUrl src = src1;
-            if ( i == 1 )
-                src = src2;
-            src.setFileName( _info->fileName( true ) );
-            QString tmpFile;
-
-            if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
-                QImage img( tmpFile );
-                MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
-                KIO::NetAccess::removeTempFile( tmpFile );
-                break;
-            }
-        }
-    }
-    else {
-        QImage img = QImage::fromData(_import->loadImage( _info->fileName(true) ) );
-        MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
-    }
-}
-
-void Import::createDestination()
+void ImportDialog::createDestination()
 {
     QWidget* top = new QWidget( this );
     QVBoxLayout* topLay = new QVBoxLayout( top );
@@ -361,7 +327,7 @@ void Import::createDestination()
     _destinationPage = addPage( top, i18n("Destination of Images" ) );
 }
 
-void  Import::slotEditDestination()
+void  ImportDialog::slotEditDestination()
 {
     QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
     if ( !file.isNull() ) {
@@ -375,7 +341,7 @@ void  Import::slotEditDestination()
     }
 }
 
-void Import::updateNextButtonState()
+void ImportDialog::updateNextButtonState()
 {
     bool enabled = true;
     if ( currentPage() == _destinationPage ) {
@@ -389,7 +355,7 @@ void Import::updateNextButtonState()
     setValid( currentPage(), enabled );
 }
 
-void Import::createCategoryPages()
+void ImportDialog::createCategoryPages()
 {
     QStringList categories;
     DB::ImageInfoList images = selectedImages();
@@ -412,7 +378,7 @@ void Import::createCategoryPages()
     _dummy = addPage( dummy, QString::null );
 }
 
-ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QString& otherCategory )
+ImportMatcher* ImportDialog::createCategoryPage( const QString& myCategory, const QString& otherCategory )
 {
     StringSet otherItems;
     DB::ImageInfoList images = selectedImages();
@@ -428,7 +394,7 @@ ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QStr
     return matcher;
 }
 
-void Import::next()
+void ImportDialog::next()
 {
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
@@ -451,7 +417,7 @@ void Import::next()
         removePage(_dummy);
 
         ImportMatcher* matcher = 0;
-        for( Q3ValueList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
+        for( QList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
              it != _categoryMatcher->_matchers.end();
              ++it )
         {
@@ -466,207 +432,13 @@ void Import::next()
     KAssistantDialog::next();
 }
 
-bool Import::copyFilesFromZipFile()
+
+void ImportDialog::slotFinish()
 {
-    DB::ImageInfoList images = selectedImages();
-
-    _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * images.count(), this );
-    _progress->setValue( 0 );
-    _progress->show();
-
-    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        QString fileName = (*it)->fileName( true );
-        QByteArray data = loadImage( fileName );
-        if ( data.isNull() )
-            return false;
-        QString newName = Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName];
-
-        QString relativeName = newName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
-        if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
-            relativeName= relativeName.mid(1);
-
-        QFile out( newName );
-        if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( this, i18n("Error when writing image %1", newName ) );
-            delete _progress;
-            _progress = 0;
-            return false;
-        }
-        out.write( data, data.size() );
-        out.close();
-
-        qApp->processEvents();
-        _progress->setValue( ++_totalCopied );
-        if ( _progress->wasCanceled() ) {
-            delete _progress;
-            _progress = 0;
-            return false;
-        }
-    }
-    return true;
+    m_importHandler.start();
 }
 
-void Import::copyFromExternal()
-{
-    _pendingCopies = selectedImages();
-    _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * _pendingCopies.count(), this );
-    _progress->setValue( 0 );
-    _progress->show();
-    connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
-    copyNextFromExternal();
-}
-
-void Import::copyNextFromExternal()
-{
-    DB::ImageInfoPtr info = _pendingCopies[0];
-    _pendingCopies.pop_front();
-    QString fileName = info->fileName( true );
-    KUrl src1 = _kimFile;
-    KUrl src2 = _baseUrl + QString::fromLatin1( "/" );
-    bool succeeded = false;
-    QStringList tried;
-
-    for ( int i = 0; i < 2; ++i ) {
-        KUrl src = src1;
-        if ( i == 1 )
-            src = src2;
-
-        src.setFileName( fileName );
-        if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
-            KUrl dest;
-            dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
-            _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
-            connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
-            succeeded = true;
-            break;
-        } else
-            tried << src.prettyUrl();
-    }
-
-    if (!succeeded)
-        emit failedToCopy( tried );
-}
-
-void Import::aCopyFailed( QStringList files )
-{
-    int result = _reportUnreadableFiles ?
-        KMessageBox::warningYesNoCancelList( _progress,
-            i18n("Can't copy file from any of the following locations:"),
-            files, QString::null, KStandardGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
-
-    switch (result) {
-        case KMessageBox::Cancel:
-            // This might be late -- if we managed to copy some files, we will
-            // just throw away any changes to the DB, but some new image files
-            // might be in the image directory...
-            deleteLater();
-            delete _progress;
-            _progress = 0;
-            break;
-
-        case KMessageBox::No:
-            _reportUnreadableFiles = false;
-            // fall through
-        default:
-            aCopyJobCompleted( 0 );
-    }
-}
-
-void Import::aCopyJobCompleted( KIO::Job* job )
-{
-    if ( job && job->error() ) {
-        job->ui()->showErrorMessage();
-        deleteLater();
-        delete _progress;
-    }
-    else if ( _pendingCopies.count() == 0 ) {
-        updateDB();
-        deleteLater();
-        delete _progress;
-    }
-    else if ( _progress->wasCanceled() ) {
-        deleteLater();
-        delete _progress;
-    }
-    else {
-        _progress->setValue( ++_totalCopied );
-        copyNextFromExternal();
-    }
-}
-
-void Import::stopCopyingImages()
-{
-    _job->kill();
-}
-
-void Import::slotFinish()
-{
-    _finishedPressed = true;
-    _nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(selectedImages()), true, _destinationEdit->text() );
-    bool ok;
-    if ( _externalSource ) {
-        hide();
-        copyFromExternal();
-    }
-    else {
-        ok = copyFilesFromZipFile();
-        if ( ok )
-            updateDB();
-        deleteLater();
-    }
-}
-
-void Import::updateDB()
-{
-    disconnect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
-    _progress->setLabelText( i18n("Updating Database") );
-
-    // Run though all images
-    DB::ImageInfoList images = selectedImages();
-    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        DB::ImageInfoPtr info = *it;
-
-        DB::ImageInfoPtr newInfo( new DB::ImageInfo( _nameMap[info->fileName(true)] ) );
-        newInfo->setLabel( info->label() );
-        newInfo->setDescription( info->description() );
-        newInfo->setDate( info->date() );
-        newInfo->rotate( info->angle() );
-        newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
-        DB::ImageInfoList list;
-        list.append(newInfo);
-        DB::ImageDB::instance()->addImages( list );
-
-        // Run though the categories
-        for( Q3ValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
-            QString otherGrp = (*grpIt)->_otherCategory;
-            QString myGrp = (*grpIt)->_myCategory;
-
-            // Run through each option
-            Q3ValueList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
-            for( Q3ValueList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
-                if ( !(*optionIt)->_checkbox->isChecked() )
-                    continue;
-                QString otherOption = (*optionIt)->_text;
-                QString myOption = (*optionIt)->_combobox->currentText();
-
-                if ( info->hasCategoryInfo( otherGrp, otherOption ) ) {
-                    newInfo->addCategoryInfo( myGrp, myOption );
-                    DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
-                }
-
-            }
-        }
-
-        _progress->setValue( ++_totalCopied );
-        if ( _progress->wasCanceled() )
-            break;
-    }
-    Browser::BrowserWidget::instance()->home();
-}
-
-QPixmap Import::loadThumbnail( QString fileName )
+QPixmap ImportDialog::loadThumbnail( QString fileName )
 {
     const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
     Q_ASSERT( thumbnails ); // We already tested for this.
@@ -693,24 +465,24 @@ QPixmap Import::loadThumbnail( QString fileName )
     return pixmap;
 }
 
-void Import::slotSelectAll()
+void ImportDialog::slotSelectAll()
 {
     selectImage( true );
 }
 
-void Import::slotSelectNone()
+void ImportDialog::slotSelectNone()
 {
     selectImage( false );
 }
 
-void Import::selectImage( bool on )
+void ImportDialog::selectImage( bool on )
 {
-    for( Q3ValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         (*it)->_checkbox->setChecked( on );
     }
 }
 
-QByteArray Import::loadImage( const QString& fileName )
+QByteArray ImportDialog::loadImage( const QString& fileName )
 {
     const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
     if ( !images ) {
@@ -736,29 +508,29 @@ QByteArray Import::loadImage( const QString& fileName )
     return data;
 }
 
-DB::ImageInfoList Import::selectedImages()
+DB::ImageInfoList ImportDialog::selectedImages()
 {
     DB::ImageInfoList res;
-    for( Q3ValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         if ( (*it)->_checkbox->isChecked() )
             res.append( (*it)->_info );
     }
     return res;
 }
 
-void Import::closeEvent( QCloseEvent* e )
+void ImportDialog::closeEvent( QCloseEvent* e )
 {
     // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.
-    if ( !_finishedPressed )
+    if ( !m_importHandler.m_finishedPressed )
         deleteLater();
     KAssistantDialog::closeEvent( e );
 }
 
 
 
-void Import::slotHelp()
+void ImportDialog::slotHelp()
 {
     KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
-#include "Import.moc"
+#include "ImportDialog.moc"

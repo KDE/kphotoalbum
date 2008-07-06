@@ -492,4 +492,15 @@ void ImportDialog::slotHelp()
     KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
+ImportSettings ImportExport::ImportDialog::settings()
+{
+    ImportSettings settings;
+    settings.setSelectedImages( selectedImages() );
+    settings.setDestination( _destinationEdit->text() );
+    settings.setExternalSource( _externalSource );
+    settings.setKimFile( _kimFile );
+    settings.setBaseURL( _baseUrl );
+    return settings;
+}
+
 #include "ImportDialog.moc"

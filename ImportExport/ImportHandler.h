@@ -1,11 +1,13 @@
 #ifndef IMPORTHANDLER_H
 #define IMPORTHANDLER_H
 
+#include "ImportSettings.h"
 #include <QEventLoop>
 #include "Utilities/Util.h"
 #include <kio/job.h>
 
 class QProgressDialog;
+
 namespace ImportExport {
 
 class ImportDialog;
@@ -16,7 +18,7 @@ class ImportHandler :public QObject
 
 public:
     ImportHandler( ImportDialog* import );
-    bool exec();
+    bool exec( const ImportSettings& settings );
 
 public: // JKP
     void copyFromExternal();
@@ -39,6 +41,7 @@ public: // JKP
     KIO::FileCopyJob* _job;
     bool _reportUnreadableFiles;
     QEventLoop m_eventLoop;
+    ImportSettings m_settings;
 };
 
 }

@@ -1,4 +1,5 @@
 #include "ImportHandler.h"
+#include "ImportSettings.h"
 #include <QDebug>
 #include <QComboBox>
 #include <QCheckBox>
@@ -17,34 +18,37 @@
 #include "Browser/BrowserWidget.h"
 
 ImportExport::ImportHandler::ImportHandler( ImportDialog* import )
-    :m_import(import), m_finishedPressed(false), _reportUnreadableFiles( true )
+    :m_import(import), m_finishedPressed(false), _reportUnreadableFiles( true ), _progress(0)
 
 {
 }
 
-bool ImportExport::ImportHandler::exec()
+bool ImportExport::ImportHandler::exec( const ImportSettings& settings )
 {
+    m_settings = settings;
     m_finishedPressed = true;
-    m_nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(m_import->selectedImages()), true, m_import->_destinationEdit->text() );
+    m_nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(m_settings.selectedImages()), true, m_settings.destination() );
     bool ok;
-    if ( m_import->_externalSource ) {
+    if ( m_settings.externalSource() ) {
         copyFromExternal();
-        return m_eventLoop.exec();
+        ok = m_eventLoop.exec();
     }
     else {
         ok = copyFilesFromZipFile();
         if ( ok )
             updateDB();
-        return ok;
     }
+    if ( _progress )
+        delete _progress;
 
+    return ok;
 }
 
 void ImportExport::ImportHandler::copyFromExternal()
 {
-    _pendingCopies = m_import->selectedImages();
+    _pendingCopies = m_settings.selectedImages();
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * _pendingCopies.count(), m_import );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * _pendingCopies.count(), MainWindow::Window::theMainWindow() );
     _progress->setValue( 0 );
     _progress->show();
     connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
@@ -57,8 +61,8 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
-    KUrl src1 = m_import->_kimFile;
-    KUrl src2 = m_import->_baseUrl + QString::fromLatin1( "/" );
+    KUrl src1 = m_settings.kimFile();
+    KUrl src2 = m_settings.baseURL();
     bool succeeded = false;
     QStringList tried;
 
@@ -87,10 +91,10 @@ void ImportExport::ImportHandler::copyNextFromExternal()
 
 bool ImportExport::ImportHandler::copyFilesFromZipFile()
 {
-    DB::ImageInfoList images = m_import->selectedImages();
+    DB::ImageInfoList images = m_settings.selectedImages();
 
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * images.count(), m_import );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * images.count(), MainWindow::Window::theMainWindow() );
     _progress->setValue( 0 );
     _progress->show();
 
@@ -107,9 +111,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
         QFile out( newName );
         if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( m_import, i18n("Error when writing image %1", newName ) );
-            delete _progress;
-            _progress = 0;
+            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error when writing image %1", newName ) );
             return false;
         }
         out.write( data, data.size() );
@@ -118,8 +120,6 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
         qApp->processEvents();
         _progress->setValue( ++_totalCopied );
         if ( _progress->wasCanceled() ) {
-            delete _progress;
-            _progress = 0;
             return false;
         }
     }
@@ -132,7 +132,7 @@ void ImportExport::ImportHandler::updateDB()
     _progress->setLabelText( i18n("Updating Database") );
 
     // Run though all images
-    DB::ImageInfoList images = m_import->selectedImages();
+    DB::ImageInfoList images = m_settings.selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
 

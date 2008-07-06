@@ -168,6 +168,7 @@ set(libImportExport_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportHandler.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImageRow.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportDialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportSettings.cpp
 )
 
 set(libAnnotationDialog_SRCS  

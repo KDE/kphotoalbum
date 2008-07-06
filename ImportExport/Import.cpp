@@ -71,7 +71,7 @@ void ImportExport::Import::exec(const QString& fileName )
 
     if ( ok ) {
         ImportHandler handler( &dialog );
-        handler.exec();
+        handler.exec(dialog.settings());
     }
 
     delete this;

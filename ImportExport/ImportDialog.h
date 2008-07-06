@@ -19,6 +19,7 @@
 #ifndef IMPORT_H
 #define IMPORT_H
 
+#include "ImportSettings.h"
 #include "ImportHandler.h"
 #include <kurl.h>
 #include <kio/job.h>
@@ -52,6 +53,7 @@ public:
     ImportDialog( QWidget* parent );
     ~ImportDialog();
     bool exec( const QString& fileName, const KUrl& kimFilePath );
+    ImportSettings settings();
 
     friend class ImportHandler; // JKP
 

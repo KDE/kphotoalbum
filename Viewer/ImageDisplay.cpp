@@ -335,7 +335,7 @@ void Viewer::ImageDisplay::updateZoomCaption() {
     }
 
     emit setCaptionInfo((ratio > 1.05)
-                        ? i18n("[ zoom x%1 ]").arg(ratio, 0, 'f', 1)
+                        ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
                         : QString());
 }
 

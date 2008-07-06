@@ -49,15 +49,15 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
 
     QPalette pal = label->palette();
     QColor col = pal.color( QPalette::Background);
+    label->setAutoFillBackground(true);
     pal.setColor( QPalette::Background, pal.color( QPalette::Foreground ) );
     pal.setColor( QPalette::Foreground, col );
     label->setPalette( pal );
     label->setAlignment( Qt::AlignCenter );
 
     label = new QLabel( i18n("Key in your database"), grid );
+    label->setAutoFillBackground(true);
     gridLay->addWidget( label, 0, 1 );
-    pal.setColor( QPalette::Background, pal.color( QPalette::Foreground ) );
-    pal.setColor( QPalette::Foreground, col );
     label->setPalette( pal );
     label->setAlignment( Qt::AlignCenter );
 

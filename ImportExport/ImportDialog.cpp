@@ -22,40 +22,26 @@
 #include <kfiledialog.h>
 #include <qlabel.h>
 #include <QHBoxLayout>
-#include <Q3ValueList>
 #include <QGridLayout>
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QCloseEvent>
-#include <QProgressDialog>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qdom.h>
 #include <qfile.h>
-#include <kmessagebox.h>
-#include <kzip.h>
-#include <karchive.h>
 #include <qlayout.h>
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include "Settings/SettingsData.h"
 #include "ImportMatcher.h"
 #include <qcheckbox.h>
-#include "Utilities/Util.h"
-#include "DB/ImageDB.h"
 #include <qimage.h>
-#include "Browser/BrowserWidget.h"
 #include <kstandarddirs.h>
-#include <kurl.h>
-#include <q3progressdialog.h>
-#include <kio/netaccess.h>
-#include <kapplication.h>
 #include <ktoolinvocation.h>
-#include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
-#include <kdebug.h>
 #include <QComboBox>
 #include <QScrollArea>
 #include <KMessageBox>
@@ -76,13 +62,6 @@ bool ImportDialog::exec( KimFileReader* kimFileReader, const QString& fileName, 
     _kimFileReader = kimFileReader;
 
     _kimFile = kimFileURL;
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    connect( this, SIGNAL( failedToCopy( QStringList ) ), &m_importHandler, SLOT( aCopyFailed( QStringList ) ) ); // JKP
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in ImportDialog::ImportDialog");
-#endif //KDAB_TEMPORARILY_REMOVED
-
 
     QByteArray indexXML = _kimFileReader->indexXML();
     if ( indexXML.isNull() )
@@ -426,6 +405,7 @@ ImportSettings ImportExport::ImportDialog::settings()
     settings.setExternalSource( _externalSource );
     settings.setKimFile( _kimFile );
     settings.setBaseURL( _baseUrl );
+    settings.setImportMatchers( &_matchers );
     return settings;
 }
 

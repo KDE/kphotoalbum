@@ -49,3 +49,13 @@ KUrl ImportExport::ImportSettings::baseURL() const
 {
     return m_baseURL;
 }
+
+void ImportExport::ImportSettings::setImportMatchers( const ImportMatchers* matchers )
+{
+    m_importMatchers = matchers;
+}
+
+const ImportExport::ImportMatchers* ImportExport::ImportSettings::importMatchers() const
+{
+    return m_importMatchers;
+}

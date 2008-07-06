@@ -23,11 +23,10 @@
 #include "ImportHandler.h"
 #include <kurl.h>
 #include <kio/job.h>
-#include "Utilities/Util.h" // JKP
 #include <QPixmap>
-#include <Q3ValueList>
 #include <QCloseEvent>
 #include <KAssistantDialog>
+#include "ImportMatcher.h"
 
 class KTemporaryFile;
 class KLineEdit;
@@ -43,6 +42,9 @@ class ImportMatcher;
 class ImageRow;
 class KimFileReader;
 
+/**
+ * This is the wizard that configures the import process
+ */
 class ImportDialog :public KAssistantDialog {
     Q_OBJECT
 
@@ -50,8 +52,6 @@ public:
     ImportDialog( QWidget* parent );
     bool exec( KimFileReader* kimFileReader, const QString& fileName, const KUrl& kimFilePath );
     ImportSettings settings();
-
-    friend class ImportHandler; // JKP
 
 protected:
     friend class ImageRow;
@@ -85,11 +85,11 @@ private:
     KPageWidgetItem* _categoryMatcherPage;
     KPageWidgetItem* _dummy;
     ImportMatcher* _categoryMatcher;
-    QList<ImportMatcher*> _matchers;
+    ImportMatchers _matchers;
     QList< ImageRow* > _imagesSelect;
     KTemporaryFile* _tmp;
     bool _externalSource;
-    KUrl _kimFile; //JKP
+    KUrl _kimFile;
     bool _hasFilled;
     QString _baseUrl;
     KimFileReader* _kimFileReader;

@@ -8,18 +8,16 @@
 #include <QFile>
 #include <QProgressDialog>
 #include <klocale.h>
-#include "ImportDialog.h"
 #include <kio/netaccess.h>
 #include <kio/jobuidelegate.h>
 #include "MainWindow/Window.h"
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
-#include <klineedit.h> // JKP
 #include "ImportMatcher.h"
 #include "Browser/BrowserWidget.h"
 
-ImportExport::ImportHandler::ImportHandler( ImportDialog* import )
-    :m_import(import), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
+ImportExport::ImportHandler::ImportHandler()
+    : m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
 
 {
 }
@@ -88,7 +86,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     }
 
     if (!succeeded)
-        emit m_import->failedToCopy( tried );
+        aCopyFailed( tried );
 }
 
 bool ImportExport::ImportHandler::copyFilesFromZipFile()
@@ -149,7 +147,8 @@ void ImportExport::ImportHandler::updateDB()
         DB::ImageDB::instance()->addImages( list );
 
         // Run though the categories
-        for( QList<ImportMatcher*>::Iterator grpIt = m_import->_matchers.begin(); grpIt != m_import->_matchers.end(); ++grpIt ) {
+        const ImportMatchers* matchers = m_settings.importMatchers();
+        for( QList<ImportMatcher*>::ConstIterator grpIt = matchers->begin(); grpIt != matchers->end(); ++grpIt ) {
             QString otherGrp = (*grpIt)->_otherCategory;
             QString myGrp = (*grpIt)->_myCategory;
 

@@ -29,6 +29,9 @@ class QCheckBox;
 namespace ImportExport
 {
 
+/**
+ * This class encaptualte a single row in an ImportMatcher.
+ */
 class CategoryMatch  {
 public:
     CategoryMatch( bool allowNew, const QString& categort, QStringList items, QWidget* parent, QGridLayout* grid, int row );
@@ -38,6 +41,11 @@ public:
 };
 
 
+/**
+ * This class is the configuration page for chooseing the matching between
+ * the .kim file and the DB's items (e.g. .kim says People, DB say
+ * Persons).
+ */
 class ImportMatcher :public QScrollArea {
     Q_OBJECT
 
@@ -50,6 +58,8 @@ public:
     QString _myCategory;
     QList<CategoryMatch*> _matchers;
 };
+
+typedef QList<ImportMatcher*> ImportMatchers;
 
 }
 

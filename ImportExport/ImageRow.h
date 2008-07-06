@@ -10,6 +10,9 @@ namespace ImportExport
 class ImportDialog;
 class KimFileReader;
 
+/**
+ * This class represent a single row on the ImageDialog's "select widgets to import" page.
+ */
 class ImageRow :public QObject
 {
     Q_OBJECT

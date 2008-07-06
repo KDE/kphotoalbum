@@ -74,11 +74,10 @@ void ImportExport::Import::exec(const QString& fileName )
         return;
     }
 
-
     bool ok = dialog.exec( &kimFileReader, fileName, m_kimFileUrl );
 
     if ( ok ) {
-        ImportHandler handler( &dialog );
+        ImportHandler handler;
         handler.exec(dialog.settings(), &kimFileReader);
     }
 

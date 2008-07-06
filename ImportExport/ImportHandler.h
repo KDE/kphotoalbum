@@ -11,17 +11,18 @@ class QProgressDialog;
 namespace ImportExport {
 class KimFileReader;
 
-class ImportDialog;
-
+/**
+ * This class contains the business logic for the import process
+ */
 class ImportHandler :public QObject
 {
     Q_OBJECT
 
 public:
-    ImportHandler( ImportDialog* import );
+    ImportHandler();
     bool exec( const ImportSettings& settings, KimFileReader* kimFileReader );
 
-public: // JKP
+private:
     void copyFromExternal();
     void copyNextFromExternal();
     bool copyFilesFromZipFile();
@@ -32,8 +33,7 @@ private slots:
     void aCopyFailed( QStringList files );
     void aCopyJobCompleted( KJob* );
 
-public: // JKP
-    ImportDialog* m_import;
+private:
     Utilities::UniqNameMap m_nameMap;
     bool m_finishedPressed;
     DB::ImageInfoList _pendingCopies;

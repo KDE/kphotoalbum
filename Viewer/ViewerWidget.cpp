@@ -827,9 +827,8 @@ void Viewer::ViewerWidget::updateInfoBox()
 {
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
-        QString origText = Utilities::createInfoText( currentInfo(), &map );
-        QString text = QString::fromLatin1("<p>") + origText + QString::fromLatin1("</p>");
-        if ( Settings::SettingsData::instance()->showInfoBox() && !origText.isNull() ) {
+        QString text = Utilities::createInfoText( currentInfo(), &map );
+        if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();
         }

@@ -66,6 +66,9 @@ void Viewer::InfoBox::setSize()
     int width = 100;
     int height = 0, h2;
 
+    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+
     do {
         document()->setTextWidth(width);
         width +=10;
@@ -90,14 +93,13 @@ void Viewer::InfoBox::setSize()
         width+=10;
 
     width+=16; // space for the jump to context icon
-    resize( width +4*frameWidth(), height +4*frameWidth());
 
     // Force the scrollbar off. This is to ensuer that we don't get in the situation where an image might have fited,
     // if it hadn't been because a scrollbar is shown
-    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+
+    resize( width +4*frameWidth(), height +4*frameWidth());
 
     int offset = 0;
     if ( !verticalScrollBar()->isHidden() )

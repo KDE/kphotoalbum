@@ -44,7 +44,7 @@ private:
     Import();
     ~Import();
     KTemporaryFile* m_tmp;
-
+    KUrl m_kimFileUrl;
 };
 
 }

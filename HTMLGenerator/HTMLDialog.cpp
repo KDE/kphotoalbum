@@ -399,6 +399,7 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     setup.setTitle( _title->text() );
     setup.setBaseDir( _baseDir->text() );
     setup.setBaseURL( _baseURL->text() );
+    setup.setDestURL( _destURL->text() );
     setup.setOutputDir( _outputDir->text() );
     setup.setThumbSize( _thumbSize->value() );
     setup.setDescription( _description->toPlainText() );

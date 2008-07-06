@@ -51,7 +51,7 @@ class ImportDialog :public KAssistantDialog {
 public:
     ImportDialog( QWidget* parent );
     ~ImportDialog();
-    bool exec( const QString& fileName );
+    bool exec( const QString& fileName, const KUrl& kimFilePath );
 
     friend class ImportHandler; // JKP
 

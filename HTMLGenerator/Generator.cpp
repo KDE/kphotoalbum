@@ -60,7 +60,7 @@ void HTMLGenerator::Generator::generate()
         if ( destURL.isEmpty() )
             destURL = _setup.baseURL();
 
-        ImportExport::Export exp( _setup.imageList(), kimFileName( false ), false, -1, ImportExport::ManualCopy, destURL, ok, true );
+        ImportExport::Export exp( _setup.imageList(), kimFileName( false ), false, -1, ImportExport::ManualCopy, destURL + "/" + _setup.outputDir(), ok, true );
         if ( !ok )
             return;
     }

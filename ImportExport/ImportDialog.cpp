@@ -70,9 +70,9 @@ ImportDialog::ImportDialog( QWidget* parent )
 {
 }
 
-bool ImportDialog::exec( const QString& fileName )
+bool ImportDialog::exec( const QString& fileName, const KUrl& kimFileURL )
 {
-    _kimFile.setPath( fileName );
+    _kimFile = kimFileURL;
 
 #ifdef KDAB_TEMPORARILY_REMOVED
     connect( this, SIGNAL( failedToCopy( QStringList ) ), &m_importHandler, SLOT( aCopyFailed( QStringList ) ) ); // JKP

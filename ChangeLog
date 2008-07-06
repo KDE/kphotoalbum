@@ -1,5 +1,13 @@
 2008-07-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* (regression) Images was not downloaded when importing from a
+	remote URL.
+
+	* When generating a .kim file together with HTML, the URL written
+	into the .kim file did not include the destination directory. This
+	had the result that images could not be found if the .kim file was
+	copied locally.
+
 	* If there are not categories in import file, it was not possible
 	to complete the import dialog.
 

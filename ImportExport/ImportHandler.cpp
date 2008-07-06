@@ -1,4 +1,5 @@
 #include "ImportHandler.h"
+#include <QDebug>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QApplication>
@@ -61,6 +62,8 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     bool succeeded = false;
     QStringList tried;
 
+    // First search for images next to the .kim file
+    // Second search for images base on the image root as specified in the .kim file
     for ( int i = 0; i < 2; ++i ) {
         KUrl src = src1;
         if ( i == 1 )
@@ -71,7 +74,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
             KUrl dest;
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
-            connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
+            connect( _job, SIGNAL( result( KJob* ) ), this, SLOT( aCopyJobCompleted( KJob* ) ) );
             succeeded = true;
             break;
         } else
@@ -199,10 +202,10 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
     }
 }
 
-void ImportExport::ImportHandler::aCopyJobCompleted( KIO::Job* job )
+void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
 {
     if ( job && job->error() ) {
-        job->ui()->showErrorMessage();
+        job->uiDelegate()->showErrorMessage();
         m_eventLoop.exit(false);
     }
     else if ( _pendingCopies.count() == 0 ) {

@@ -24,6 +24,7 @@ void Import::imageImport()
 void Import::imageImport( const KUrl& url )
 {
     Import* import = new Import;
+    import->m_kimFileUrl = url;
     if ( !url.isLocalFile() )
          import->downloadUrl(url);
     else
@@ -66,7 +67,7 @@ void ImportExport::Import::downloadKimJobCompleted( KJob* job )
 void ImportExport::Import::exec(const QString& fileName )
 {
     ImportDialog dialog(MainWindow::Window::theMainWindow());
-    bool ok = dialog.exec( fileName );
+    bool ok = dialog.exec( fileName, m_kimFileUrl );
 
     if ( ok ) {
         ImportHandler handler( &dialog );
@@ -78,7 +79,6 @@ void ImportExport::Import::exec(const QString& fileName )
 
 void ImportExport::Import::data( KIO::Job*, const QByteArray& data )
 {
-    qDebug("Data");
     m_tmp->write( data );
 }
 

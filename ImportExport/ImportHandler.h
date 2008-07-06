@@ -27,7 +27,7 @@ public: // JKP
 private slots:
     void stopCopyingImages();
     void aCopyFailed( QStringList files );
-    void aCopyJobCompleted( KIO::Job* );
+    void aCopyJobCompleted( KJob* );
 
 public: // JKP
     ImportDialog* m_import;

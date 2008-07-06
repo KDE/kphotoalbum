@@ -45,14 +45,14 @@ namespace ImportExport
 {
 class ImportMatcher;
 class ImageRow;
+class KimFileReader;
 
 class ImportDialog :public KAssistantDialog {
     Q_OBJECT
 
 public:
     ImportDialog( QWidget* parent );
-    ~ImportDialog();
-    bool exec( const QString& fileName, const KUrl& kimFilePath );
+    bool exec( KimFileReader* kimFileReader, const QString& fileName, const KUrl& kimFilePath );
     ImportSettings settings();
 
     friend class ImportHandler; // JKP
@@ -67,8 +67,6 @@ protected:
     void createDestination();
     void createCategoryPages();
     ImportMatcher* createCategoryPage( const QString& myCategory, const QString& otherCategory );
-    QPixmap loadThumbnail( QString fileName );
-    QByteArray loadImage( const QString& fileName );
     void selectImage( bool on );
     DB::ImageInfoList selectedImages();
     virtual void closeEvent( QCloseEvent* );
@@ -92,14 +90,13 @@ private:
     KPageWidgetItem* _dummy;
     ImportMatcher* _categoryMatcher;
     QList<ImportMatcher*> _matchers;
-    KZip* _zip;
-    const KArchiveDirectory* _dir;
     QList< ImageRow* > _imagesSelect;
     KTemporaryFile* _tmp;
     bool _externalSource;
     KUrl _kimFile; //JKP
     bool _hasFilled;
     QString _baseUrl;
+    KimFileReader* _kimFileReader;
 };
 
 }

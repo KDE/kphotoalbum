@@ -1,4 +1,5 @@
 #include "ImageRow.h"
+#include "KimFileReader.h"
 #include "ImportDialog.h"
 #include <QCheckBox>
 #include "MiniViewer.h"
@@ -8,37 +9,37 @@
 
 using namespace ImportExport;
 
-ImageRow::ImageRow( DB::ImageInfoPtr info, ImportDialog* import, QWidget* parent )
-    : QObject( parent ), _info( info ), _import( import )
+ImageRow::ImageRow( DB::ImageInfoPtr info, ImportDialog* import, KimFileReader* kimFileReader, QWidget* parent )
+    : QObject( parent ), m_info( info ), m_import(import), m_kimFileReader( kimFileReader )
 {
-    _checkbox = new QCheckBox( QString::null, parent );
-    _checkbox->setChecked( true );
+    m_checkbox = new QCheckBox( QString::null, parent );
+    m_checkbox->setChecked( true );
 }
 
 void ImageRow::showImage()
 {
-    if ( _import->_externalSource ) {
-        KUrl src1 =_import->_kimFile;
-        KUrl src2 = _import->_baseUrl + QString::fromLatin1( "/" );
+    if ( m_import->_externalSource ) {
+        KUrl src1 = m_import->_kimFile;
+        KUrl src2 = m_import->_baseUrl + QString::fromLatin1( "/" );
         for ( int i = 0; i < 2; ++i ) {
             // First try next to the .kim file, then the external URL
             KUrl src = src1;
             if ( i == 1 )
                 src = src2;
-            src.setFileName( _info->fileName( true ) );
+            src.setFileName( m_info->fileName( true ) );
             QString tmpFile;
 
             if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
                 QImage img( tmpFile );
-                MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
+                MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
                 KIO::NetAccess::removeTempFile( tmpFile );
                 break;
             }
         }
     }
     else {
-        QImage img = QImage::fromData(_import->loadImage( _info->fileName(true) ) );
-        MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
+        QImage img = QImage::fromData(m_kimFileReader->loadImage( m_info->fileName(true) ) );
+        MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
     }
 }
 

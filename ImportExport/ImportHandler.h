@@ -9,6 +9,7 @@
 class QProgressDialog;
 
 namespace ImportExport {
+class KimFileReader;
 
 class ImportDialog;
 
@@ -18,7 +19,7 @@ class ImportHandler :public QObject
 
 public:
     ImportHandler( ImportDialog* import );
-    bool exec( const ImportSettings& settings );
+    bool exec( const ImportSettings& settings, KimFileReader* kimFileReader );
 
 public: // JKP
     void copyFromExternal();
@@ -42,6 +43,7 @@ public: // JKP
     bool _reportUnreadableFiles;
     QEventLoop m_eventLoop;
     ImportSettings m_settings;
+    KimFileReader* m_kimFileReader;
 };
 
 }

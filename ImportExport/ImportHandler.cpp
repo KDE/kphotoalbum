@@ -1,4 +1,5 @@
 #include "ImportHandler.h"
+#include "KimFileReader.h"
 #include "ImportSettings.h"
 #include <QDebug>
 #include <QComboBox>
@@ -18,14 +19,15 @@
 #include "Browser/BrowserWidget.h"
 
 ImportExport::ImportHandler::ImportHandler( ImportDialog* import )
-    :m_import(import), m_finishedPressed(false), _reportUnreadableFiles( true ), _progress(0)
+    :m_import(import), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
 
 {
 }
 
-bool ImportExport::ImportHandler::exec( const ImportSettings& settings )
+bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileReader* kimFileReader )
 {
     m_settings = settings;
+    m_kimFileReader = kimFileReader;
     m_finishedPressed = true;
     m_nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(m_settings.selectedImages()), true, m_settings.destination() );
     bool ok;
@@ -100,7 +102,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         QString fileName = (*it)->fileName( true );
-        QByteArray data = m_import->loadImage( fileName );
+        QByteArray data = m_kimFileReader->loadImage( fileName );
         if ( data.isNull() )
             return false;
         QString newName = Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName];

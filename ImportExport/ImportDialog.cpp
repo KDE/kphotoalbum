@@ -17,6 +17,7 @@
 */
 
 #include "ImportDialog.h"
+#include "KimFileReader.h"
 #include "ImageRow.h"
 #include <kfiledialog.h>
 #include <qlabel.h>
@@ -70,8 +71,10 @@ ImportDialog::ImportDialog( QWidget* parent )
 {
 }
 
-bool ImportDialog::exec( const QString& fileName, const KUrl& kimFileURL )
+bool ImportDialog::exec( KimFileReader* kimFileReader, const QString& fileName, const KUrl& kimFileURL )
 {
+    _kimFileReader = kimFileReader;
+
     _kimFile = kimFileURL;
 
 #ifdef KDAB_TEMPORARILY_REMOVED
@@ -81,39 +84,17 @@ bool ImportDialog::exec( const QString& fileName, const KUrl& kimFileURL )
 #endif //KDAB_TEMPORARILY_REMOVED
 
 
-    _zip = new KZip( fileName );
-    if ( !_zip->open( QIODevice::ReadOnly ) ) {
-        KMessageBox::error( this, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
-        _zip =0;
+    QByteArray indexXML = _kimFileReader->indexXML();
+    if ( indexXML.isNull() )
         return false;
-    }
-    _dir = _zip->directory();
-    if ( _dir == 0 ) {
-        KMessageBox::error( this, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
-        return false;
-    }
 
-    const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
-    if ( indexxml == 0 || ! indexxml->isFile() ) {
-        KMessageBox::error( this, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." , fileName ) );
-        return false;
-    }
-
-    const KArchiveFile* file = static_cast<const KArchiveFile*>( indexxml );
-    QByteArray data = file->data();
-
-    bool ok = readFile( data, fileName );
+    bool ok = readFile( indexXML, fileName );
     if ( !ok )
         return false;
 
     setupPages();
 
     return KAssistantDialog::exec() ;
-}
-
-ImportDialog::~ImportDialog()
-{
-    delete _zip;
 }
 
 bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
@@ -231,13 +212,12 @@ void ImportDialog::createImagesPage()
     int row = 0;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
         DB::ImageInfoPtr info = *it;
-        ImageRow* ir = new ImageRow( info, this, container );
-        lay3->addWidget( ir->_checkbox, row, 0 );
+        ImageRow* ir = new ImageRow( info, this, _kimFileReader, container );
+        lay3->addWidget( ir->m_checkbox, row, 0 );
 
-        const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
-        if ( thumbnails ) {
+        QPixmap pixmap = _kimFileReader->loadThumbnail( info->fileName( true ) );
+        if ( !pixmap.isNull() ) {
             QPushButton* but = new QPushButton( container );
-            const QPixmap pixmap = loadThumbnail( info->fileName( true ) );
             but->setIcon( pixmap );
             but->setIconSize( pixmap.size() );
             lay3->addWidget( but, row, 1 );
@@ -392,34 +372,6 @@ void ImportDialog::next()
     KAssistantDialog::next();
 }
 
-
-QPixmap ImportDialog::loadThumbnail( QString fileName )
-{
-    const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
-    Q_ASSERT( thumbnails ); // We already tested for this.
-
-    if ( !thumbnails->isDirectory() ) {
-        KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken.") );
-        return QPixmap();
-    }
-
-    const KArchiveDirectory* thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
-
-    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).completeSuffix();
-    fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
-    const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
-    if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( this, i18n("No thumbnail existed in export file for %1", fileName ) );
-        return QPixmap();
-    }
-
-    const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
-    QByteArray data = file->data();
-    QPixmap pixmap;
-    pixmap.loadFromData( data );
-    return pixmap;
-}
-
 void ImportDialog::slotSelectAll()
 {
     selectImage( true );
@@ -433,42 +385,16 @@ void ImportDialog::slotSelectNone()
 void ImportDialog::selectImage( bool on )
 {
     for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
-        (*it)->_checkbox->setChecked( on );
+        (*it)->m_checkbox->setChecked( on );
     }
-}
-
-QByteArray ImportDialog::loadImage( const QString& fileName )
-{
-    const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
-    if ( !images ) {
-        KMessageBox::error( this, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
-        return QByteArray();
-    }
-
-    if ( !images->isDirectory() ) {
-        KMessageBox::error( this, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
-        return QByteArray();
-    }
-
-    const KArchiveDirectory* imagesDir = static_cast<const KArchiveDirectory*>( images );
-
-    const KArchiveEntry* fileEntry = imagesDir->entry( fileName );
-    if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( this, i18n("No image existed in export file for %1", fileName ) );
-        return QByteArray();
-    }
-
-    const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
-    QByteArray data = file->data();
-    return data;
 }
 
 DB::ImageInfoList ImportDialog::selectedImages()
 {
     DB::ImageInfoList res;
     for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
-        if ( (*it)->_checkbox->isChecked() )
-            res.append( (*it)->_info );
+        if ( (*it)->m_checkbox->isChecked() )
+            res.append( (*it)->m_info );
     }
     return res;
 }

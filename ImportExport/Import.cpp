@@ -1,4 +1,5 @@
 #include "Import.h"
+#include "KimFileReader.h"
 #include <QBuffer>
 #include <kmessagebox.h>
 #include <QDebug>
@@ -67,11 +68,18 @@ void ImportExport::Import::downloadKimJobCompleted( KJob* job )
 void ImportExport::Import::exec(const QString& fileName )
 {
     ImportDialog dialog(MainWindow::Window::theMainWindow());
-    bool ok = dialog.exec( fileName, m_kimFileUrl );
+    KimFileReader kimFileReader;
+    if ( !kimFileReader.open( fileName ) ) {
+        delete this;
+        return;
+    }
+
+
+    bool ok = dialog.exec( &kimFileReader, fileName, m_kimFileUrl );
 
     if ( ok ) {
         ImportHandler handler( &dialog );
-        handler.exec(dialog.settings());
+        handler.exec(dialog.settings(), &kimFileReader);
     }
 
     delete this;

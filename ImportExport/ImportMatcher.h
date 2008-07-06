@@ -19,9 +19,9 @@
 #ifndef IMPORTMATCHER_H
 #define IMPORTMATCHER_H
 
-#include <q3scrollview.h>
+#include <QScrollArea>
 #include <QGridLayout>
-#include <Q3ValueList>
+
 class QGridLayout;
 class QComboBox;
 class QCheckBox;
@@ -38,7 +38,7 @@ public:
 };
 
 
-class ImportMatcher :public Q3ScrollView {
+class ImportMatcher :public QScrollArea {
     Q_OBJECT
 
 public:

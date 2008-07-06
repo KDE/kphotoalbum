@@ -30,10 +30,10 @@ using namespace ImportExport;
 ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,
                               const QStringList& otherItems, const QStringList& myItems,
                               bool allowNew, QWidget* parent, const char* name )
-    : Q3ScrollView( parent, name ), _otherCategory( otherCategory ), _myCategory( myCategory )
+    : QScrollArea( parent ), _otherCategory( otherCategory ), _myCategory( myCategory )
 {
-    setResizePolicy( AutoOneFit );
-
+    setObjectName(name);
+    setWidgetResizable(true);
     QWidget* top = new QWidget( viewport() );
     QVBoxLayout* layout = new QVBoxLayout( top );
     QWidget* grid = new QWidget;
@@ -42,7 +42,7 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
 
     QGridLayout* gridLay = new QGridLayout(grid);
     gridLay->setColumnStretch( 1, 1 );
-    addChild( top );
+    setWidget( top );
 
     QLabel* label = new QLabel( i18n("Key in file"), grid );
     gridLay->addWidget( label, 0,0 );

@@ -23,8 +23,6 @@
 #include <kparts/componentfactory.h>
 #include <QResizeEvent>
 #include <Phonon/VideoPlayer>
-class QMenu;
-class QHBoxLayout;
 
 namespace Viewer
 {

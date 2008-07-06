@@ -5,13 +5,11 @@
 #include <QList>
 #include <QPair>
 
-class QPushButton;
 class QDockWidget;
 class QLabel;
 
 namespace AnnotationDialog {
 
-class ListSelect;
 typedef QPair<QDockWidget*, QWidget*> DockPair;
 
 /**

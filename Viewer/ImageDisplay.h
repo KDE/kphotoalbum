@@ -39,7 +39,6 @@ namespace DB
 
 namespace Viewer
 {
-class DisplayAreaHandler;
 class ViewHandler;
 class ViewerWidget;
 

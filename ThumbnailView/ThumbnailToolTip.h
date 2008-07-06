@@ -25,7 +25,6 @@
 #include "ImageManager/ImageClient.h"
 namespace DB { class ImageInfo; }
 
-class QTemporaryFile;
 namespace ThumbnailView
 {
 class ThumbnailWidget;

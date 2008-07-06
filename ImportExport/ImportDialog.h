@@ -30,11 +30,7 @@
 #include <KAssistantDialog>
 
 class KTemporaryFile;
-class QCheckBox;
-class KArchiveDirectory;
-class KZip;
 class KLineEdit;
-class QProgressDialog;
 
 namespace DB
 {

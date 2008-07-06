@@ -36,8 +36,6 @@
 
 class QStackedWidget;
 class KActionCollection;
-class KToggleAction;
-class KToolBar;
 class QLabel;
 class QMenu;
 class KAction;

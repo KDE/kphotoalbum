@@ -5,6 +5,7 @@
 #include <QEventLoop>
 #include "Utilities/Util.h"
 #include <kio/job.h>
+#include "DB/ImageInfoPtr.h"
 
 class QProgressDialog;
 
@@ -32,6 +33,12 @@ private slots:
     void stopCopyingImages();
     void aCopyFailed( QStringList files );
     void aCopyJobCompleted( KJob* );
+
+private:
+    bool isImageAlreadyInDB( const DB::ImageInfoPtr& info );
+    DB::ImageInfoPtr matchingInfoFromDB( const DB::ImageInfoPtr& info );
+    void updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo );
+    void addNewRecord( DB::ImageInfoPtr newInfo );
 
 private:
     Utilities::UniqNameMap m_nameMap;

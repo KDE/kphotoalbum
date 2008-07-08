@@ -17,6 +17,7 @@
 */
 
 #include "ImportDialog.h"
+#include "MD5CheckPage.h"
 #include "KimFileReader.h"
 #include "ImageRow.h"
 #include <kfiledialog.h>
@@ -53,7 +54,7 @@ using namespace ImportExport;
 
 
 ImportDialog::ImportDialog( QWidget* parent )
-    :KAssistantDialog( parent ), _hasFilled( false )
+    :KAssistantDialog( parent ), _hasFilled( false ), _md5CheckPage(0)
 {
 }
 
@@ -130,11 +131,6 @@ void ImportDialog::setupPages()
     createDestination();
     createCategoryPages();
     connect( this, SIGNAL( currentPageChanged( KPageWidgetItem*, KPageWidgetItem* ) ), this, SLOT( updateNextButtonState() ) );
-#ifdef KDAB_TEMPORARILY_REMOVED
-    connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotFinish() ) );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in ImportDialog::setupPages");
-#endif //KDAB_TEMPORARILY_REMOVED
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
@@ -293,8 +289,10 @@ void ImportDialog::createCategoryPages()
         QWidget* dummy = new QWidget;
         _dummy = addPage( dummy, QString::null );
     }
-    else
+    else {
         _categoryMatcherPage = 0;
+        possiblyAddMD5CheckPage();
+    }
 }
 
 ImportMatcher* ImportDialog::createCategoryPage( const QString& myCategory, const QString& otherCategory )
@@ -346,6 +344,7 @@ void ImportDialog::next()
                 _matchers.append( matcher );
             }
         }
+        possiblyAddMD5CheckPage();
     }
 
     KAssistantDialog::next();
@@ -368,10 +367,10 @@ void ImportDialog::selectImage( bool on )
     }
 }
 
-DB::ImageInfoList ImportDialog::selectedImages()
+DB::ImageInfoList ImportDialog::selectedImages() const
 {
     DB::ImageInfoList res;
-    for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( QList<ImageRow*>::ConstIterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         if ( (*it)->m_checkbox->isChecked() )
             res.append( (*it)->m_info );
     }
@@ -405,8 +404,21 @@ ImportSettings ImportExport::ImportDialog::settings()
     settings.setExternalSource( _externalSource );
     settings.setKimFile( _kimFile );
     settings.setBaseURL( _baseUrl );
-    settings.setImportMatchers( &_matchers );
+    settings.setImportMatchers( _matchers );
+
+    if ( _md5CheckPage ) {
+        settings.setImportActions( _md5CheckPage->settings() );
+    }
     return settings;
+}
+
+
+void ImportExport::ImportDialog::possiblyAddMD5CheckPage()
+{
+    if ( MD5CheckPage::pageNeeded( settings() ) ) {
+        _md5CheckPage = new MD5CheckPage( settings() );
+        addPage(_md5CheckPage, i18n("How to resolve clashes") );
+    }
 }
 
 #include "ImportDialog.moc"

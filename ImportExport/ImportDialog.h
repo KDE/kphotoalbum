@@ -41,6 +41,7 @@ namespace ImportExport
 class ImportMatcher;
 class ImageRow;
 class KimFileReader;
+class MD5CheckPage;
 
 /**
  * This is the wizard that configures the import process
@@ -64,8 +65,9 @@ protected:
     void createCategoryPages();
     ImportMatcher* createCategoryPage( const QString& myCategory, const QString& otherCategory );
     void selectImage( bool on );
-    DB::ImageInfoList selectedImages();
+    DB::ImageInfoList selectedImages() const;
     virtual void closeEvent( QCloseEvent* );
+    void possiblyAddMD5CheckPage();
 
 protected slots:
     void slotEditDestination();
@@ -93,6 +95,7 @@ private:
     bool _hasFilled;
     QString _baseUrl;
     KimFileReader* _kimFileReader;
+    MD5CheckPage* _md5CheckPage;
 };
 
 }

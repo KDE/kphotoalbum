@@ -50,12 +50,22 @@ KUrl ImportExport::ImportSettings::baseURL() const
     return m_baseURL;
 }
 
-void ImportExport::ImportSettings::setImportMatchers( const ImportMatchers* matchers )
+void ImportExport::ImportSettings::setImportMatchers( const ImportMatchers& matchers )
 {
     m_importMatchers = matchers;
 }
 
-const ImportExport::ImportMatchers* ImportExport::ImportSettings::importMatchers() const
+const ImportExport::ImportMatchers ImportExport::ImportSettings::importMatchers() const
 {
     return m_importMatchers;
+}
+
+ImportExport::ImportSettings::ImportAction ImportExport::ImportSettings::importAction( const QString& item )
+{
+    return m_actions[item];
+}
+
+void ImportExport::ImportSettings::setImportActions( const QMap<QString, ImportAction>& actions )
+{
+    m_actions = actions;
 }

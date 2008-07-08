@@ -84,6 +84,7 @@ QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInf
 
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
+    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
 
     writeCategories( doc, elm, info );
 

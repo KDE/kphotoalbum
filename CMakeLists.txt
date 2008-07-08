@@ -170,6 +170,7 @@ set(libImportExport_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportDialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportSettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/KimFileReader.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/MD5CheckPage.cpp
 )
 
 set(libAnnotationDialog_SRCS  

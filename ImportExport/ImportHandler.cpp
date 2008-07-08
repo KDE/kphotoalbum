@@ -15,6 +15,7 @@
 #include "DB/ImageDB.h"
 #include "ImportMatcher.h"
 #include "Browser/BrowserWidget.h"
+#include "DB/MD5Map.h"
 
 ImportExport::ImportHandler::ImportHandler()
     : m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
@@ -58,6 +59,7 @@ void ImportExport::ImportHandler::copyFromExternal()
 
 void ImportExport::ImportHandler::copyNextFromExternal()
 {
+    // JKP - handle the situation where we should not copy, as the image already is in the DB
     DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
@@ -99,23 +101,25 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
     _progress->show();
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        QString fileName = (*it)->fileName( true );
-        QByteArray data = m_kimFileReader->loadImage( fileName );
-        if ( data.isNull() )
-            return false;
-        QString newName = Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName];
+        if ( !isImageAlreadyInDB( *it ) ) {
+            QString fileName = (*it)->fileName( true );
+            QByteArray data = m_kimFileReader->loadImage( fileName );
+            if ( data.isNull() )
+                return false;
+            QString newName = Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName];
 
-        QString relativeName = newName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
-        if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
-            relativeName= relativeName.mid(1);
+            QString relativeName = newName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
+            if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
+                relativeName= relativeName.mid(1);
 
-        QFile out( newName );
-        if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error when writing image %1", newName ) );
-            return false;
+            QFile out( newName );
+            if ( !out.open( QIODevice::WriteOnly ) ) {
+                KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error when writing image %1", newName ) );
+                return false;
+            }
+            out.write( data, data.size() );
+            out.close();
         }
-        out.write( data, data.size() );
-        out.close();
 
         qApp->processEvents();
         _progress->setValue( ++_totalCopied );
@@ -136,37 +140,10 @@ void ImportExport::ImportHandler::updateDB()
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
 
-        DB::ImageInfoPtr newInfo( new DB::ImageInfo( m_nameMap[info->fileName(true)], DB::Image, false ) );
-        newInfo->setLabel( info->label() );
-        newInfo->setDescription( info->description() );
-        newInfo->setDate( info->date() );
-        newInfo->rotate( info->angle() );
-        newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
-        DB::ImageInfoList list;
-        list.append(newInfo);
-        DB::ImageDB::instance()->addImages( list );
-
-        // Run though the categories
-        const ImportMatchers* matchers = m_settings.importMatchers();
-        for( QList<ImportMatcher*>::ConstIterator grpIt = matchers->begin(); grpIt != matchers->end(); ++grpIt ) {
-            QString otherGrp = (*grpIt)->_otherCategory;
-            QString myGrp = (*grpIt)->_myCategory;
-
-            // Run through each option
-            QList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
-            for( QList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
-                if ( !(*optionIt)->_checkbox->isChecked() )
-                    continue;
-                QString otherOption = (*optionIt)->_text;
-                QString myOption = (*optionIt)->_combobox->currentText();
-
-                if ( info->hasCategoryInfo( otherGrp, otherOption ) ) {
-                    newInfo->addCategoryInfo( myGrp, myOption );
-                    DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
-                }
-
-            }
-        }
+        if ( isImageAlreadyInDB( info ) )
+            updateInfo( matchingInfoFromDB( info ), info );
+        else
+            addNewRecord( info );
 
         _progress->setValue( ++_totalCopied );
         if ( _progress->wasCanceled() )
@@ -219,5 +196,66 @@ void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
     else {
         _progress->setValue( ++_totalCopied );
         copyNextFromExternal();
+    }
+}
+
+bool ImportExport::ImportHandler::isImageAlreadyInDB( const DB::ImageInfoPtr& info )
+{
+    return DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum());
+}
+
+DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::ImageInfoPtr& info )
+{
+    const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
+    return DB::ImageDB::instance()->info( name );
+}
+
+void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
+{
+    if ( dbInfo->label() != newInfo->label() && m_settings.importAction("*Label*") == ImportSettings::Replace )
+        dbInfo->setLabel( newInfo->label() );
+
+    if ( dbInfo->description().simplified() != newInfo->description().simplified() ) {
+        if ( m_settings.importAction("*Description*") == ImportSettings::Replace )
+            dbInfo->setDescription( newInfo->description() );
+        else if ( m_settings.importAction("*Description*") == ImportSettings::Merge )
+            dbInfo->setDescription( dbInfo->description() + QString::fromLatin1("\n\n") + newInfo->description() );
+    }
+}
+
+void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
+{
+    DB::ImageInfoPtr updateInfo(new DB::ImageInfo( m_nameMap[info->fileName(true)], DB::Image, false ));
+    updateInfo->setLabel( info->label() );
+    updateInfo->setDescription( info->description() );
+    updateInfo->setDate( info->date() );
+    updateInfo->rotate( info->angle() );
+    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName(false) ) );
+
+
+    DB::ImageInfoList list;
+    list.append(updateInfo);
+    DB::ImageDB::instance()->addImages( list );
+
+    // Run though the categories
+    const ImportMatchers matchers = m_settings.importMatchers();
+    for( QList<ImportMatcher*>::ConstIterator grpIt = matchers.begin(); grpIt != matchers.end(); ++grpIt ) {
+        QString otherGrp = (*grpIt)->_otherCategory;
+        QString myGrp = (*grpIt)->_myCategory;
+
+        // Run through each option
+        QList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
+        for( QList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
+            if ( !(*optionIt)->_checkbox->isChecked() )
+                continue;
+            QString otherOption = (*optionIt)->_text;
+            QString myOption = (*optionIt)->_combobox->currentText();
+
+            if ( info->hasCategoryInfo( otherGrp, otherOption ) ) {
+                updateInfo->addCategoryInfo( myGrp, myOption );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
+            }
+
+        }
     }
 }

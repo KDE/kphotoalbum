@@ -15,6 +15,8 @@ namespace ImportExport
 class ImportSettings
 {
 public:
+    enum ImportAction { Keep = 1, Replace = 2, Merge = 3 };
+
     void setSelectedImages( const DB::ImageInfoList& );
     DB::ImageInfoList selectedImages() const;
 
@@ -30,8 +32,11 @@ public:
     void setBaseURL( const KUrl& url );
     KUrl baseURL() const;
 
-    void setImportMatchers( const ImportMatchers* matchers );
-    const ImportMatchers* importMatchers() const;
+    void setImportMatchers( const ImportMatchers& matchers );
+    const ImportMatchers importMatchers() const;
+
+    void setImportActions( const QMap<QString, ImportAction>& actions );
+    ImportAction importAction( const QString& item );
 
 private:
     DB::ImageInfoList m_selectedImages;
@@ -39,7 +44,8 @@ private:
     bool m_externalSource;
     KUrl m_kimFile;
     KUrl m_baseURL;
-    const ImportMatchers* m_importMatchers;
+    ImportMatchers m_importMatchers;
+    QMap<QString, ImportAction> m_actions;
 };
 
 }

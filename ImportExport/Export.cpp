@@ -305,7 +305,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
-    image.save( &buffer, QFile::encodeName( QImageReader::imageFormat( zipFileName ) ) );
+    image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1() );
 
     if ( _location == Inline || !_copyingFiles )
         _zip->writeFile( zipFileName, QString::null, QString::null, data, data.size() );

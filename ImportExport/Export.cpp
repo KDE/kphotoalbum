@@ -273,7 +273,7 @@ void Export::copyImages( const QStringList& list )
         else {
             _filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( *it, QSize( _maxSize, _maxSize ), DB::ImageDB::instance()->info(*it)->angle(), this );
+                new ImageManager::ImageRequest( *it, QSize( _maxSize, _maxSize ), 0, this );
             request->setPriority();
             ImageManager::Manager::instance()->load( request );
         }

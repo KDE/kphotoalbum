@@ -209,7 +209,7 @@ bool ImportExport::ImportHandler::isImageAlreadyInDB( const DB::ImageInfoPtr& in
 DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::ImageInfoPtr& info )
 {
     const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-    return DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + name );
+    return DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + name ); // JKP Why do I need this?
 }
 
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
@@ -218,16 +218,19 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
         dbInfo->setLabel( newInfo->label() );
 
     if ( dbInfo->description().simplified() != newInfo->description().simplified() ) {
-        qDebug() << "OK changed" << m_settings.importAction("*Description*");
-        if ( m_settings.importAction("*Description*") == ImportSettings::Replace ) {
-            qDebug("Replacing");
+        if ( m_settings.importAction("*Description*") == ImportSettings::Replace )
             dbInfo->setDescription( newInfo->description() );
-        }
         else if ( m_settings.importAction("*Description*") == ImportSettings::Merge )
             dbInfo->setDescription( dbInfo->description() + QString::fromLatin1("<br/><br/>") + newInfo->description() );
     }
 
-    // JKP: Add Date and size
+
+    if (dbInfo->angle() != newInfo->angle() && m_settings.importAction("*Orientation*") == ImportSettings::Replace )
+        dbInfo->setAngle( newInfo->angle() );
+
+    if (dbInfo->date() != newInfo->date() && m_settings.importAction("*Date*") == ImportSettings::Replace )
+        dbInfo->setDate( newInfo->date() );
+
 
     updateCategories( newInfo, dbInfo, false );
 }
@@ -238,7 +241,7 @@ void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
     updateInfo->setLabel( info->label() );
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );
-    updateInfo->rotate( info->angle() );
+    updateInfo->setAngle( info->angle() );
     updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName(false) ) );
 
 

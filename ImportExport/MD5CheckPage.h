@@ -17,6 +17,8 @@ public:
     bool anyClashes();
     bool label;
     bool description;
+    bool orientation;
+    bool date;
     QMap<QString,bool> categories;
 };
 

@@ -12,7 +12,7 @@
 #include "DB/MD5Map.h"
 
 ImportExport::ClashInfo::ClashInfo( const QStringList& categories )
-        : label(false), description(false)
+    : label(false), description(false), orientation(false), date(false)
 {
     Q_FOREACH( const QString& category, categories )
         this->categories[category] = false;
@@ -59,6 +59,8 @@ ImportExport::MD5CheckPage::MD5CheckPage(const ImportSettings& settings)
     ClashInfo clashes = this->clashes( settings );
     createRow( grid, row, QString::fromLatin1("*Label*"), i18n("Label"), clashes.label,false );
     createRow( grid, row, QString::fromLatin1("*Description*"), i18n("Description"), clashes.description, true);
+    createRow( grid, row, QString::fromLatin1( "*Orientation*" ), i18n("Orientation"), clashes.orientation, false );
+    createRow( grid, row, QString::fromLatin1( "*Date*" ), i18n("Date and Time"), clashes.date, false );
     Q_FOREACH( const QString& category, clashes.categories.keys() )
         createRow( grid, row, category, category, clashes.categories[category], true );
 
@@ -99,6 +101,12 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if ( info->description() != other->description() )
             res.description = true;
 
+        if ( info->angle() != other->angle() )
+            res.orientation = true;
+
+        if (info->date() != other->date() )
+            res.date = true;
+
         Q_FOREACH( const CategoryMatchSetting& matcher, settings.categoryMatchSetting() ) {
             const QString XMLFileCategory = matcher.XMLCategoryName();
             const QString DBCategory = matcher.DBCategoryName();
@@ -111,7 +119,7 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
 
 bool ImportExport::ClashInfo::anyClashes()
 {
-    if ( label || description )
+    if ( label || description || orientation || date)
         return true;
 
     for( QMap<QString,bool>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {

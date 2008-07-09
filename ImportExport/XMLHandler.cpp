@@ -55,7 +55,6 @@ QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, 
         QString mappedFile = nameMap[*it];
         QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it) );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
-        elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
         top.appendChild( elm );
     }
     return doc.toByteArray();
@@ -85,6 +84,7 @@ QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInf
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
     elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
+    elm.setAttribute( QString::fromLatin1( "angle" ), info->angle() );
 
     writeCategories( doc, elm, info );
 

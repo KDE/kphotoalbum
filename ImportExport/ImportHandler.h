@@ -39,6 +39,7 @@ private:
     DB::ImageInfoPtr matchingInfoFromDB( const DB::ImageInfoPtr& info );
     void updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo );
     void addNewRecord( DB::ImageInfoPtr newInfo );
+    void updateCategories( DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace );
 
 private:
     Utilities::UniqNameMap m_nameMap;

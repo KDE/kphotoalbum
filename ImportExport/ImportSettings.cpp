@@ -1,5 +1,9 @@
 #include "ImportSettings.h"
 
+void ImportExport::CategoryMatchSetting::add( const QString& DBFileNameItem, const QString& XMLFileNameItem )
+{
+    m_XMLtoDB[XMLFileNameItem] = DBFileNameItem;
+}
 void ImportExport::ImportSettings::setSelectedImages( const DB::ImageInfoList& list)
 {
     m_selectedImages = list;
@@ -50,16 +54,6 @@ KUrl ImportExport::ImportSettings::baseURL() const
     return m_baseURL;
 }
 
-void ImportExport::ImportSettings::setImportMatchers( const ImportMatchers& matchers )
-{
-    m_importMatchers = matchers;
-}
-
-const ImportExport::ImportMatchers ImportExport::ImportSettings::importMatchers() const
-{
-    return m_importMatchers;
-}
-
 ImportExport::ImportSettings::ImportAction ImportExport::ImportSettings::importAction( const QString& item )
 {
     return m_actions[item];
@@ -69,3 +63,29 @@ void ImportExport::ImportSettings::setImportActions( const QMap<QString, ImportA
 {
     m_actions = actions;
 }
+
+void ImportExport::ImportSettings::addCategoryMatchSetting( const CategoryMatchSetting& setting )
+{
+    m_categoryMatchSettings.append( setting );
+}
+
+QList<ImportExport::CategoryMatchSetting> ImportExport::ImportSettings::categoryMatchSetting() const
+{
+    return m_categoryMatchSettings;
+}
+
+QString ImportExport::CategoryMatchSetting::XMLCategoryName() const
+{
+    return m_XMLCategoryName;
+}
+
+QString ImportExport::CategoryMatchSetting::DBCategoryName() const
+{
+    return m_DBCategoryName;
+}
+
+const QMap<QString, QString>& ImportExport::CategoryMatchSetting::XMLtoDB() const
+{
+    return m_XMLtoDB;
+}
+

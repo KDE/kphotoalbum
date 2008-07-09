@@ -24,6 +24,7 @@
 #include <qlabel.h>
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include "ImportSettings.h"
 #include <klocale.h>
 using namespace ImportExport;
 
@@ -117,6 +118,16 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
         pal.setColor( QPalette::ButtonText, Qt::red );
         _checkbox->setPalette( pal );
     }
+}
+
+ImportExport::CategoryMatchSetting ImportExport::ImportMatcher::settings()
+{
+    CategoryMatchSetting res( _myCategory, _otherCategory );
+    Q_FOREACH( CategoryMatch* match, _matchers ) {
+        if ( match->_checkbox->isChecked() )
+            res.add( match->_combobox->currentText(),match->_text );
+    }
+    return res;
 }
 
 #include "ImportMatcher.moc"

@@ -13,9 +13,11 @@
 #include "MainWindow/Window.h"
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
-#include "ImportMatcher.h"
 #include "Browser/BrowserWidget.h"
 #include "DB/MD5Map.h"
+#include "DB/Category.h"
+
+using namespace ImportExport;
 
 ImportExport::ImportHandler::ImportHandler()
     : m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
@@ -207,7 +209,7 @@ bool ImportExport::ImportHandler::isImageAlreadyInDB( const DB::ImageInfoPtr& in
 DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::ImageInfoPtr& info )
 {
     const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-    return DB::ImageDB::instance()->info( name );
+    return DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + name );
 }
 
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
@@ -216,11 +218,18 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
         dbInfo->setLabel( newInfo->label() );
 
     if ( dbInfo->description().simplified() != newInfo->description().simplified() ) {
-        if ( m_settings.importAction("*Description*") == ImportSettings::Replace )
+        qDebug() << "OK changed" << m_settings.importAction("*Description*");
+        if ( m_settings.importAction("*Description*") == ImportSettings::Replace ) {
+            qDebug("Replacing");
             dbInfo->setDescription( newInfo->description() );
+        }
         else if ( m_settings.importAction("*Description*") == ImportSettings::Merge )
-            dbInfo->setDescription( dbInfo->description() + QString::fromLatin1("\n\n") + newInfo->description() );
+            dbInfo->setDescription( dbInfo->description() + QString::fromLatin1("<br/><br/>") + newInfo->description() );
     }
+
+    // JKP: Add Date and size
+
+    updateCategories( newInfo, dbInfo, false );
 }
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
@@ -237,25 +246,33 @@ void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
     list.append(updateInfo);
     DB::ImageDB::instance()->addImages( list );
 
+    updateCategories( info, updateInfo, true );
+}
+
+void ImportExport::ImportHandler::updateCategories( DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace )
+{
     // Run though the categories
-    const ImportMatchers matchers = m_settings.importMatchers();
-    for( QList<ImportMatcher*>::ConstIterator grpIt = matchers.begin(); grpIt != matchers.end(); ++grpIt ) {
-        QString otherGrp = (*grpIt)->_otherCategory;
-        QString myGrp = (*grpIt)->_myCategory;
+    const QList<CategoryMatchSetting> matches = m_settings.categoryMatchSetting();
 
-        // Run through each option
-        QList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
-        for( QList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
-            if ( !(*optionIt)->_checkbox->isChecked() )
-                continue;
-            QString otherOption = (*optionIt)->_text;
-            QString myOption = (*optionIt)->_combobox->currentText();
+    Q_FOREACH( const CategoryMatchSetting& match, matches ) {
+        QString XMLCategoryName = match.XMLCategoryName();
+        QString DBCategoryName = match.DBCategoryName();
+        ImportSettings::ImportAction action = m_settings.importAction(DBCategoryName);
 
-            if ( info->hasCategoryInfo( otherGrp, otherOption ) ) {
-                updateInfo->addCategoryInfo( myGrp, myOption );
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
+        const Utilities::StringSet items = XMLInfo->itemsOfCategory(XMLCategoryName);
+        DB::CategoryPtr DBCategoryPtr =  DB::ImageDB::instance()->categoryCollection()->categoryForName( DBCategoryName );
+
+        if ( !forceReplace && action == ImportSettings::Replace )
+            DBInfo->setCategoryInfo( DBCategoryName, Utilities::StringSet() );
+
+        if ( action == ImportSettings::Merge || action == ImportSettings::Replace || forceReplace ) {
+            Q_FOREACH( const QString& item, items ) {
+                if (match.XMLtoDB().contains( item ) ) {
+                    DBInfo->addCategoryInfo( DBCategoryName, match.XMLtoDB()[item] );
+                    DBCategoryPtr->addItem( match.XMLtoDB()[item] );
+                }
             }
-
         }
     }
+
 }

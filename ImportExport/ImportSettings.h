@@ -3,9 +3,26 @@
 
 #include <kurl.h>
 #include "DB/ImageInfoList.h"
-#include "ImportMatcher.h"
 namespace ImportExport
 {
+
+
+class CategoryMatchSetting
+{
+public:
+    CategoryMatchSetting( const QString& DBCategoryName, const QString& XMLFileCategoryName )
+        : m_XMLCategoryName( XMLFileCategoryName ), m_DBCategoryName(DBCategoryName ) {}
+    void add( const QString& DBFileNameItem, const QString& XMLFileNameItem );
+
+    QString XMLCategoryName() const;
+    QString DBCategoryName() const;
+    const QMap<QString, QString>& XMLtoDB() const;
+
+private:
+    QString m_XMLCategoryName;
+    QString m_DBCategoryName;
+    QMap<QString, QString> m_XMLtoDB;
+};
 
 /**
  * The class contains all the data that is transported between the
@@ -15,7 +32,7 @@ namespace ImportExport
 class ImportSettings
 {
 public:
-    enum ImportAction { Keep = 1, Replace = 2, Merge = 3 };
+    enum ImportAction { Replace = 1, Keep = 2, Merge = 3 };
 
     void setSelectedImages( const DB::ImageInfoList& );
     DB::ImageInfoList selectedImages() const;
@@ -32,11 +49,11 @@ public:
     void setBaseURL( const KUrl& url );
     KUrl baseURL() const;
 
-    void setImportMatchers( const ImportMatchers& matchers );
-    const ImportMatchers importMatchers() const;
-
     void setImportActions( const QMap<QString, ImportAction>& actions );
     ImportAction importAction( const QString& item );
+
+    void addCategoryMatchSetting( const CategoryMatchSetting& );
+    QList<CategoryMatchSetting> categoryMatchSetting() const;
 
 private:
     DB::ImageInfoList m_selectedImages;
@@ -44,8 +61,8 @@ private:
     bool m_externalSource;
     KUrl m_kimFile;
     KUrl m_baseURL;
-    ImportMatchers m_importMatchers;
     QMap<QString, ImportAction> m_actions;
+    QList<CategoryMatchSetting> m_categoryMatchSettings;
 };
 
 }

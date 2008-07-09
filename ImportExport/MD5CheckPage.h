@@ -1,6 +1,7 @@
 #ifndef MD5CHECKPAGE_H
 #define MD5CHECKPAGE_H
 
+#include <QGridLayout>
 #include "ImportSettings.h"
 #include <QWidget>
 #include "Utilities/Set.h"
@@ -30,7 +31,7 @@ private:
     void createRow( QGridLayout* layout, int& row, const QString& name, const QString& title, bool anyClashes, bool allowMerge );
     static int countOfMD5Matches(const ImportSettings& settings);
     static ClashInfo clashes(const ImportSettings& settings);
-    static Utilities::StringSet mapCategoriesToDB( ImportMatcher* matcher, const Utilities::StringSet& items );
+    static Utilities::StringSet mapCategoriesToDB( const CategoryMatchSetting& matcher, const Utilities::StringSet& items );
 
 private:
     QMap<QString, QButtonGroup*> m_groups;

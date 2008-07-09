@@ -28,6 +28,7 @@ class QCheckBox;
 
 namespace ImportExport
 {
+class CategoryMatchSetting;
 
 /**
  * This class encaptualte a single row in an ImportMatcher.
@@ -53,6 +54,7 @@ public:
     ImportMatcher( const QString& otherCategory, const QString& myCategory,
                    const QStringList& otherItems, const QStringList& myItems,
                    bool allowNew, QWidget* parent, const char* name = 0 );
+    CategoryMatchSetting settings();
 
     QString _otherCategory;
     QString _myCategory;

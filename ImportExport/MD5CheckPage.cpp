@@ -1,10 +1,11 @@
 #include "MD5CheckPage.h"
+#include <QFrame>
+#include <QVBoxLayout>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QDebug>
 #include <QButtonGroup>
 #include <QRadioButton>
-#include "ImportMatcher.h"
 #include <klocale.h>
 #include <QLabel>
 #include "DB/ImageDB.h"
@@ -81,8 +82,8 @@ int ImportExport::MD5CheckPage::countOfMD5Matches( const ImportSettings& setting
 ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings& settings)
 {
     QStringList myCategories;
-    Q_FOREACH( ImportMatcher* matcher, settings.importMatchers() ) {
-        myCategories.append( matcher->_myCategory );
+    Q_FOREACH( const CategoryMatchSetting& matcher, settings.categoryMatchSetting() ) {
+        myCategories.append( matcher.DBCategoryName() );
     }
 
     ClashInfo res( myCategories );
@@ -98,9 +99,9 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if ( info->description() != other->description() )
             res.description = true;
 
-        Q_FOREACH( ImportMatcher* matcher, settings.importMatchers() ) {
-            const QString XMLFileCategory = matcher->_otherCategory;
-            const QString DBCategory = matcher->_myCategory;
+        Q_FOREACH( const CategoryMatchSetting& matcher, settings.categoryMatchSetting() ) {
+            const QString XMLFileCategory = matcher.XMLCategoryName();
+            const QString DBCategory = matcher.DBCategoryName();
             if ( mapCategoriesToDB( matcher, info->itemsOfCategory( XMLFileCategory ) ) != other->itemsOfCategory( DBCategory ) )
                 res.categories[DBCategory] = true;
         }
@@ -124,16 +125,15 @@ bool ImportExport::ClashInfo::anyClashes()
 
 void ImportExport::MD5CheckPage::createRow( QGridLayout* layout, int& row, const QString& name, const QString& title, bool anyClashes, bool allowMerge )
 {
+    if ( row % 3 == 0 ) {
+        QFrame* line = new QFrame;
+        line->setFrameShape( QFrame::HLine );
+        layout->addWidget( line, ++row, 0, 1, 4 );
+    }
+
     QLabel* label = new QLabel( title );
     label->setEnabled( anyClashes );
     layout->addWidget( label, ++row, 0 );
-    QPalette pal = label->palette();
-    const QColor col = pal.color(QPalette::Background).lighter(105);
-    pal.setColor( QPalette::Background, col );
-    if ( row % 2 ) {
-        label->setPalette( pal );
-        label->setAutoFillBackground(true);
-    }
 
     QButtonGroup* group = new QButtonGroup(this);
     m_groups[name]=group;
@@ -146,30 +146,18 @@ void ImportExport::MD5CheckPage::createRow( QGridLayout* layout, int& row, const
         layout->addWidget( rb, row, i  );
         group->addButton( rb, i );
         rb->setEnabled( anyClashes );
-        if ( row % 2 ) {
-            QPalette pal = rb->palette();
-            pal.setColor( QPalette::Button, col );
-            rb->setPalette( pal );
-            rb->setAutoFillBackground(true);
-        }
         if (i == 1 )
             rb->setChecked(true);
     }
 }
 
-Utilities::StringSet ImportExport::MD5CheckPage::mapCategoriesToDB( ImportMatcher* matcher, const Utilities::StringSet& items )
+Utilities::StringSet ImportExport::MD5CheckPage::mapCategoriesToDB( const CategoryMatchSetting& matcher, const Utilities::StringSet& items )
 {
     Utilities::StringSet res;
 
-    QMap<QString,QString> mappings;
-    Q_FOREACH( CategoryMatch* match, matcher->_matchers ) {
-        if ( match->_checkbox->isChecked() )
-            mappings[match->_combobox->currentText()] = match->_text;
-    }
-
     Q_FOREACH( const QString& item, items ) {
-        if ( mappings.contains( item ) )
-            res.insert(mappings[item]);
+        if ( matcher.XMLtoDB().contains( item ) )
+            res.insert(matcher.XMLtoDB()[item]);
     }
     return res;
 }
@@ -178,7 +166,7 @@ QMap<QString, ImportExport::ImportSettings::ImportAction> ImportExport::MD5Check
 {
     QMap<QString, ImportSettings::ImportAction> res;
     for( QMap<QString,QButtonGroup*>::Iterator it = m_groups.begin(); it != m_groups.end(); ++it ) {
-        res.insert( it.key(), static_cast<ImportSettings::ImportAction>(it.data()->checkedId()) );
+        res.insert( it.key(), static_cast<ImportSettings::ImportAction>(it.value()->checkedId()) );
     }
     return res;
 }

@@ -404,11 +404,14 @@ ImportSettings ImportExport::ImportDialog::settings()
     settings.setExternalSource( _externalSource );
     settings.setKimFile( _kimFile );
     settings.setBaseURL( _baseUrl );
-    settings.setImportMatchers( _matchers );
 
     if ( _md5CheckPage ) {
         settings.setImportActions( _md5CheckPage->settings() );
     }
+
+    Q_FOREACH( ImportMatcher* match, _matchers )
+        settings.addCategoryMatchSetting( match->settings() );
+
     return settings;
 }
 

@@ -144,6 +144,7 @@ protected slots:
     void slotRotateSelectedRight();
     void rotateSelected( int angle );
     void showVideos();
+    void slotStatistics();
 
 protected:
     void configureImages( bool oneAtATime );

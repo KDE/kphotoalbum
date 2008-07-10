@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include "StatisticsDialog.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
 #include <QMoveEvent>
@@ -711,6 +712,10 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
     a->setText( i18n("Build Thumbnails") );
+
+    a = actionCollection()->addAction( "statistics", this, SLOT( slotStatistics() ) );
+    a->setText( i18n("Statistics") );
+
 
     // Settings
     KStandardAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
@@ -1625,6 +1630,14 @@ void MainWindow::Window::slotRecreateThumbnail()
 void MainWindow::Window::showVideos()
 {
     KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos.html")), QString::fromLatin1( "text/html" ), this );
+}
+
+void MainWindow::Window::slotStatistics()
+{
+    static StatisticsDialog* dialog = 0;
+    if ( !dialog )
+        dialog = new StatisticsDialog(this);
+    dialog->show();
 }
 
 #include "Window.moc"

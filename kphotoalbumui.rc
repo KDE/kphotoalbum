@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="35">
+<kpartgui name="kphotoalbum" version="36">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -55,6 +55,7 @@
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>
+      <Action name="statistics"/>
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>

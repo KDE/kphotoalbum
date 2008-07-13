@@ -125,7 +125,11 @@ StringSet Info::standardKeys()
     std::ostringstream s;
     for ( Exiv2::IfdId kind = Exiv2::canonIfdId; kind < Exiv2::lastIfdId;
             kind = static_cast<Exiv2::IfdId>( kind + 1 ) ) {
+#if EXIV2_TEST_VERSION(0,17,0)
+        Exiv2::ExifTags::taglist( s, kind );
+#else
         Exiv2::ExifTags::makerTaglist( s, kind );
+#endif
     }
 
     // IPTC tags use yet another format...

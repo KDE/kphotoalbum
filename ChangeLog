@@ -1,3 +1,7 @@
+2008-07-13  Jan Kundrat  <jkt@gentoo.org>
+
+	* exiv2 upstream changed their API
+
 2008-07-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added Maintenance->Statistics dialog, which shows a bit of

@@ -212,6 +212,7 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 
 void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 {
+    ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     QStringList l;
     if ( _sortDirection == OldestFirst )
         l = list;
@@ -220,9 +221,18 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 
     _imageList.clear();
     _imageList.reserve( list.count() );
+
+    QRect dimensions = cellDimensions();
+    QSize size( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
+                dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
+
     for( QStringList::ConstIterator it = l.begin(); it != l.end(); ++it ) {
         _imageList.append( *it );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it )->angle(), this );
+        request->setPriority( ImageManager::ThumbnailInvisible );
+        ImageManager::Manager::instance()->load( request );
     }
+
     updateIndexCache();
 
     if ( isVisible() ) {

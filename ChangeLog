@@ -5,6 +5,9 @@
 	* Use all CPUs we have to decode images in parallel -- we're now SMP
 	friendly
 
+	* Preload image thumbnails from images in the thumbnail viewer even if they
+	aren't visible yet
+
 2008-07-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* exiv2 upstream changed their API

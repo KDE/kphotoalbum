@@ -233,7 +233,7 @@ void Export::generateThumbnails( const QStringList& list )
     _filesRemaining = list.count(); // Used to break the event loop.
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, QSize( 128, 128 ), DB::ImageDB::instance()->info(*it)->angle(), this );
-        request->setPriority();
+        request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
     }
     if ( _filesRemaining > 0 ) {
@@ -274,7 +274,7 @@ void Export::copyImages( const QStringList& list )
             _filesRemaining++;
             ImageManager::ImageRequest* request =
                 new ImageManager::ImageRequest( *it, QSize( _maxSize, _maxSize ), 0, this );
-            request->setPriority();
+            request->setPriority( ImageManager::BatchTask );
             ImageManager::Manager::instance()->load( request );
         }
 

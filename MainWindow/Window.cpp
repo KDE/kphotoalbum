@@ -1621,6 +1621,7 @@ void MainWindow::Window::slotRecreateThumbnail()
         int size = Settings::SettingsData::instance()->thumbSize();
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *imageIt, QSize(size,size), info->angle(), _thumbnailView );
+        request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
     }
 

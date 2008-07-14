@@ -398,7 +398,7 @@ QString HTMLGenerator::Generator::createImage( const QString& fileName, int size
     else {
         ImageManager::ImageRequest* request =
             new ImageManager::ImageRequest( fileName, QSize( size, size ), DB::ImageDB::instance()->info(fileName)->angle(), this );
-        request->setPriority();
+        request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
         _generatedFiles.insert( qMakePair( fileName, size ) );
     }

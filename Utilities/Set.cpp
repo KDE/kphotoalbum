@@ -86,8 +86,5 @@ INSTANTIATE_SET_CLASS(StringStringPair);
 #include "CategoryListView/DragItemInfo.h"
 INSTANTIATE_SET_CLASS_WITH_OPERATORS(CategoryListView::DragItemInfo);
 
-#include "ImageManager/RequestQueue.h"
-INSTANTIATE_SET_CLASS(ImageManager::RequestQueue::ImageRequestReference);
-
 #include "ImageManager/ImageRequest.h"
 INSTANTIATE_SET_CLASS(ImageManager::ImageRequest*);

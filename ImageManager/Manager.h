@@ -80,7 +80,7 @@ private:
     RequestQueue _loadList;
     QWaitCondition _sleepers;
     QMutex _lock;
-    ImageRequest* _currentLoading;
+    QSet<ImageRequest*> _currentLoading;
 };
 
 }

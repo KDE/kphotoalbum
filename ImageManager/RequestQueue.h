@@ -18,11 +18,10 @@
 #ifndef REQUESTQUEUE_H
 #define REQUESTQUEUE_H
 
+#include <QQueue>
 #include "StopAction.h"
-#include <q3valuelist.h>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageRequest.h"
-#include <qobject.h>
 
 namespace ImageManager
 {
@@ -55,43 +54,11 @@ public:
     bool isRequestStillValid( ImageRequest* request );
     void removeRequest( ImageRequest* );
 
-protected slots:
-    void print();
-
 private: 
-    // A Reference to a ImageRequest with value semantic.
-    // This only stores the pointer to an ImageRequest object but behaves
-    // regarding the less-than and equals-operator like the object.
-    // This allows to store ImageRequests with value-semantic in a Set.
-    class ImageRequestReference {
-    public:
-        ImageRequestReference() : _ptr(0) {}
-        ImageRequestReference(const ImageRequestReference& other) 
-            : _ptr(other._ptr) {}
-        ImageRequestReference(ImageRequest* ptr) : _ptr(ptr) {}
-        
-        bool operator<(const ImageRequestReference &other) const {
-            return *_ptr < *other._ptr;
-        }
-        bool operator==(const ImageRequestReference &other) const {
-            return *_ptr == *other._ptr;
-        }
+    typedef QList<QQueue<ImageRequest*> > QueueType;
 
-        operator const ImageRequest&() const
-        {
-            return *_ptr;
-        }
-
-    private:
-        ImageRequest * _ptr;
-    };
-
-    // Input queue of pending input requests.
-    Q3ValueList<ImageRequest*> _pendingRequests;
-
-    // Set of unique requests currently pending; used to discard the exact
-    // same requests.
-    Set<ImageRequestReference> _uniquePending;
+    /** @short List of queues of image requests that are waiting for processing */
+    QueueType _pendingRequests;
 
     // All active requests that have a client
     Set<ImageRequest*> _activeRequests;

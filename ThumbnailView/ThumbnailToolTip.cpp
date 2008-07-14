@@ -161,7 +161,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
         if ( fileName != _currentFileName ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
             request->setCache();
-            request->setPriority();
+            request->setPriority( ImageManager::Viewer );
             ImageManager::Manager::instance()->load( request );
             return false;
         }

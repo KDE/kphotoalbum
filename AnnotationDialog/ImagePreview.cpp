@@ -89,7 +89,7 @@ void ImagePreview::reload()
             setPixmap(QPixmap()); //erase old image
             ImageManager::Manager::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
-            request->setPriority();
+            request->setPriority( ImageManager::Viewer );
             ImageManager::Manager::instance()->load( request );
         }
     }
@@ -191,7 +191,7 @@ void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int widt
     reset();
     ImageManager::Manager::instance()->stop(this);
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
-    request->setPriority();
+    request->setPriority( ImageManager::ViewerPreload );
     ImageManager::Manager::instance()->load( request );
 }
 

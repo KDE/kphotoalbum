@@ -34,6 +34,23 @@
 namespace ImageManager
 {
 
+/** @short Priority of an image request 
+ *
+ * The higher the priority, the sooner the image is expected to be decoded
+ * */
+enum Priority {
+    BuildThumbnails, /**< @short Requests generated through the "Rebuild Thumbnails" command */
+    ThumbnailInvisible, /**< @short Thumbnails in current search scope, but invisible */
+    ViewerPreload, /**< @short Image that will be displayed later */
+    BatchTask, /**< @short Requests like resizing images for HTML pages
+                * 
+                * As they are requested by user, they are expected to finish
+                * sooner than invisible thumbnails */
+    ThumbnailVisible, /**< @short Thumbnail visible on screen right now (might get invalidated later) */
+    Viewer /**< @short Image is visible in the viewer right now */,
+    LastPriority /**< @short Boundary for list of queues */
+};
+
 class ImageRequest {
 public:
     virtual ~ImageRequest() {}
@@ -54,8 +71,8 @@ public:
     void setLoadedOK( bool ok );
     bool loadedOK() const;
 
-    void setPriority( bool b = true );
-    bool priority() const;
+    void setPriority( const Priority prio );
+    Priority priority() const;
 
     bool operator<( const ImageRequest& other ) const;
     bool operator==( const ImageRequest& other ) const;
@@ -76,7 +93,7 @@ private:
     ImageClient* _client;
     int _angle;
     QSize _fullSize;
-    bool _priority;
+    Priority _priority;
     bool _loadedOK;
     bool _dontUpScale;
 };
@@ -88,6 +105,4 @@ inline uint qHash(const ImageRequest& ir)
 
 }
 
-
 #endif /* IMAGEREQUEST_H */
-

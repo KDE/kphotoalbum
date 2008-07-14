@@ -50,7 +50,7 @@ ImageManager::Manager* ImageManager::Manager::instance()
    3) Most important, it did not allow loading only thumbnails when the
       image themself weren't available.
 */
-ImageManager::Manager::Manager() :_currentLoading(0)
+ImageManager::Manager::Manager()
 {
 }
 
@@ -83,10 +83,11 @@ void ImageManager::Manager::loadVideo( ImageRequest* request)
 void ImageManager::Manager::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
-    if ( _currentLoading && *_currentLoading == *request && _loadList.isRequestStillValid( _currentLoading )) {
+    QSet<ImageRequest*>::const_iterator req = _currentLoading.find( request );
+    if ( req != _currentLoading.end() && _loadList.isRequestStillValid( request ) ) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).
-        Q_ASSERT (_currentLoading != request);
+        Q_ASSERT ( *req != request);
         delete request;
 
         return; // We are currently loading it, calm down and wait please ;-)
@@ -109,10 +110,12 @@ void ImageManager::Manager::stop( ImageClient* client, StopAction action )
 ImageManager::ImageRequest* ImageManager::Manager::next()
 {
     QMutexLocker dummy(&_lock );
-    while ( !(_currentLoading = _loadList.popNext() ) )
+    ImageRequest* request = 0;
+    while ( !( request = _loadList.popNext() ) )
         _sleepers.wait( &_lock );
+    _currentLoading.insert( request );
 
-    return _currentLoading;
+    return request;
 }
 
 void ImageManager::Manager::customEvent( QEvent* ev )
@@ -146,8 +149,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
 
         _loadList.removeRequest(request);
-        if ( _currentLoading == request )
-            _currentLoading = 0;
+        _currentLoading.remove( request );
         delete request;
 
         _lock.unlock();

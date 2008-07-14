@@ -531,7 +531,7 @@ void Viewer::ImageDisplay::potentialyLoadFullSize()
 {
     if ( _info->size() != _loadedImage.size() ) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
-        request->setPriority();
+        request->setPriority( ImageManager::Viewer );
         ImageManager::Manager::instance()->load( request );
         busy();
         _reloadImageInProgress = true;
@@ -560,8 +560,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
-    if ( priority )
-        request->setPriority();
+    request->setPriority( priority ? ImageManager::Viewer : ImageManager::ViewerPreload );
     ImageManager::Manager::instance()->load( request );
 }
 

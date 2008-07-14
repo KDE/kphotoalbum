@@ -134,6 +134,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
                                  dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
                 angle, this );
             request->setCache();
+            request->setPriority( ImageManager::ThumbnailVisible );
             ImageManager::Manager::instance()->load( request );
         }
     }

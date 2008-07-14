@@ -1,3 +1,10 @@
+2008-07-14  Jan Kundrat  <jkt@gentoo.org>
+
+	* Improve the concept of "priorities" for image loading
+	
+	* Use all CPUs we have to decode images in parallel -- we're now SMP
+	friendly
+
 2008-07-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* exiv2 upstream changed their API

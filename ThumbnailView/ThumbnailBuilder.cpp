@@ -23,6 +23,8 @@
 #include "DB/ImageInfo.h"
 #include <stdexcept>
 
+// FIXME: needs a rewrite to make use of SMP & priorities
+
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
     :Q3ProgressDialog( parent, name )
 {
@@ -47,7 +49,7 @@ void ThumbnailView::ThumbnailBuilder::generateNext()
     _infoMap.insert( info->fileName(), info );
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(),  QSize(256,256), info->angle(), this );
     request->setCache();
-    request->setPriority();
+    request->setPriority( ImageManager::BuildThumbnails );
     ImageManager::Manager::instance()->load( request );
 }
 

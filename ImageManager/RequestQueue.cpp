@@ -17,24 +17,11 @@
 */
 #include "RequestQueue.h"
 #include "ImageRequest.h"
-#include <qtimer.h>
-//Added by qt3to4:
-#include <Q3ValueList>
-
 #include <kdebug.h>
 
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    if ( _uniquePending.contains( request ) && ! request->priority() ) {
-        delete request;
-        return;
-    }
- 
-    _uniquePending.insert( request );
-    if ( request->priority() )
-        _pendingRequests.prepend( request );
-    else
-        _pendingRequests.append( request );
+    _pendingRequests[ request->priority() ].enqueue( request );
 
     if ( request->client() )
         _activeRequests.insert( request );
@@ -42,19 +29,20 @@ void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 
 ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 {
-    while ( _pendingRequests.count() != 0 ) {
-        ImageRequest* request = _pendingRequests.first();
-        _pendingRequests.pop_front();
-        _uniquePending.erase( request );
+    QueueType::iterator it = _pendingRequests.end(); // _pendingRequests is initialized to non-zero size
+    do {
+        --it;
+        while ( ! it->empty() ) {
+            ImageRequest* request = it->dequeue();
 
-        if ( !request->stillNeeded() ) {
-            _activeRequests.erase( request );
-            delete request;
-        }
-        else
-            return request;
-    }
-
+            if ( ! request->stillNeeded() ) {
+                _activeRequests.erase( request );
+                delete request;
+            } else {
+                return request;
+            }
+        } 
+    } while ( it != _pendingRequests.begin() );
     return 0;
 }
 
@@ -72,13 +60,15 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         }
     }
 
-    for( Q3ValueList<ImageRequest*>::Iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ) {
-        ImageRequest* request = *it;
-        ++it;
-        if ( request->client() == client && ( action == StopAll || !request->priority() ) ) {
-            _pendingRequests.remove( request );
-            _uniquePending.erase( request );
-            delete request;
+    for ( QueueType::iterator qit = _pendingRequests.begin(); qit != _pendingRequests.end(); ++qit ) {
+        for ( QQueue<ImageRequest*>::iterator it = qit->begin(); it != qit->end(); /* no increment here */) {
+            ImageRequest* request = *it;
+            if ( request->client() == client && ( action == StopAll || request->priority() < ThumbnailVisible ) ) {
+                it = qit->erase( it );
+                delete request;
+            } else {
+                ++it;
+            }
         }
     }
 }
@@ -93,27 +83,10 @@ void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
     _activeRequests.erase( request );
 }
 
-void ImageManager::RequestQueue::print()
-{
-    kDebug() << "**************************************";
-    kDebug() << "Active: " << _activeRequests.size() << ", pending: " << _pendingRequests.count();
-    kDebug() << "Active:";
-    for (Set<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ++it ) {
-        kDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height();
-    }
-    kDebug() << "pending:";
-    for (Q3ValueList<ImageRequest*>::const_iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ++it ) {
-        kDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height();
-    }
-}
-
 ImageManager::RequestQueue::RequestQueue()
 {
-#if 0
-    QTimer* timer = new QTimer( this );
-    timer->start( 500 );
-    connect( timer, SIGNAL( timeout() ), this, SLOT( print() ));
-#endif
+    for ( int i = 0; i < LastPriority; ++i )
+        _pendingRequests.append( QQueue<ImageRequest*>() );
 }
 
 

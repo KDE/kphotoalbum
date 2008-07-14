@@ -52,7 +52,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
     for( Set<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {
         ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
-        if ( client == request->client() && ( action == StopAll || !request->priority() ) ) {
+        if ( client == request->client() && ( action == StopAll || ( request->priority() < ThumbnailVisible ) ) ) {
             _activeRequests.erase( request );
             // active requests are not deleted - they might already have been
             // popNext()ed and are being processed. They will be deleted

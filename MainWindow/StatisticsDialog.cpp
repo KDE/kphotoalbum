@@ -1,4 +1,7 @@
 #include "StatisticsDialog.h"
+#include <QDebug>
+#include <QComboBox>
+#include <QGroupBox>
 #include <QLabel>
 #include <QFormLayout>
 #include <QHeaderView>
@@ -7,6 +10,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include "DB/Category.h"
+#include "Utilities/ShowBusyCursor.h"
 using namespace MainWindow;
 
 StatisticsDialog::StatisticsDialog( QWidget* parent )
@@ -21,10 +25,17 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
                        "<tr><td># of Items</td><td>This is the number of different items in the category</td></tr>"
                        "<tr><td>Tags Total</td><td>This is a count of how many tags was made,<br/>i.e. a simple counting though all the images</tr></tr>"
                        "<tr><td>Tags Per Picture</td><td>This tells you how many tags are on each picture on average</td></tr>"
-                       "</table>");
+                       "</table><br/><br/>"
+                       "Don't get too attached to this dialog, it has the problem that it counts categories AND subcategories,<br/>"
+                       "so if an image has been taken in Las Vegas, Nevada, USA, then 3 tags are counted for that image,<br/>"
+                       "while it should only be one.</br>"
+                       "I'm not really sure if it is worth fixing that bug (as it is pretty hard to fix),<br/>"
+                       "so maybe the dialog will simply go away again");
 
     QLabel* label = new QLabel(txt);
     layout->addWidget( label );
+
+    layout->addWidget( createAnnotatedGroupBox() );
 
     label = new QLabel("<h1>Statistics</h1>");
     layout->addWidget(label);
@@ -37,48 +48,25 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
     m_treeWidget->setHeaderLabels( labels );
 }
 
-void StatisticsDialog::showEvent( QShowEvent * event )
+void StatisticsDialog::show()
 {
-    m_treeWidget->clear();
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-
-    int tagsTotal = 0;
-    int grantTotal = 0;
-    Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if ( category->name() == "Media Type" || category->name() == "Folder")
-            continue;
-
-        const QMap<QString,uint> tags = DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), category->name(), DB::anyMediaType );
-        int total = 0;
-        for( QMap<QString,uint>::ConstIterator tagIt = tags.constBegin(); tagIt != tags.constEnd(); ++tagIt ) {
-            if ( tagIt.key() != DB::ImageDB::NONE() )
-                total += tagIt.value();
-        }
-
-        addRow( category->text(), tags.count()-1, total );
-        tagsTotal += tags.count() -1;
-        grantTotal += total;
-    }
-
-    QTreeWidgetItem* totalRow = addRow( i18n("Total"), tagsTotal, grantTotal );
-    highlightTotalRow( totalRow );
-
-    m_treeWidget->header()->resizeSections( QHeaderView::ResizeToContents );
+    populate();
+    KDialog::show();
 }
 
 QSize MainWindow::StatisticsDialog::sizeHint() const
 {
-    return QSize( 800, 600 );
+    return QSize( 800, 800 );
 }
 
-QTreeWidgetItem* MainWindow::StatisticsDialog::addRow( const QString& title, int tagCount, int total )
+QTreeWidgetItem* MainWindow::StatisticsDialog::addRow( const QString& title, int noOfTags, int tagCount, int imageCount, QTreeWidgetItem* parent )
 {
     QStringList list;
     list << title
-         << QString::number(tagCount)
-         << QString::number( total )
-         << QString::number( (double) total / DB::ImageDB::instance()->totalCount(), 'F', 2);
-    QTreeWidgetItem* item = new QTreeWidgetItem( m_treeWidget, list );
+         << QString::number(noOfTags)
+         << QString::number( tagCount )
+         << QString::number( (double) tagCount / imageCount, 'F', 2);
+    QTreeWidgetItem* item = new QTreeWidgetItem( parent, list );
     for (int col =1;col <4; ++col )
         item->setTextAlignment( col, Qt::AlignRight );
     return item;
@@ -91,4 +79,117 @@ void MainWindow::StatisticsDialog::highlightTotalRow( QTreeWidgetItem* item )
         font.setWeight( QFont::Bold );
         item->setData( col, Qt::FontRole, font );
     }
+}
+
+QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
+{
+    QGroupBox* box = new QGroupBox( i18n("Tag indication completed annotation") );
+
+    m_boxLayout = new QGridLayout(box);
+    m_boxLayout->setColumnStretch(2,1);
+    int row = -1;
+
+    QLabel* label = new QLabel(i18n("If you use a specific tag to indicate that an image has been tagged, then specify it here.") );
+    label->setWordWrap( true );
+    m_boxLayout->addWidget( label, ++row, 0, 1, 3 );
+
+    label = new QLabel( i18n("Category:") );
+    m_boxLayout->addWidget( label, ++row, 0 );
+
+    m_category = new QComboBox;
+    m_boxLayout->addWidget( m_category, row, 1 );
+
+    m_tagLabel = new QLabel(i18n("Tag:") );
+    m_boxLayout->addWidget( m_tagLabel, ++row, 0 );
+
+    m_tag = new QComboBox;
+    m_tag->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    m_boxLayout->addWidget( m_tag, row, 1 );
+
+    m_category->addItem( i18n("None") );
+
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    Q_FOREACH( const DB::CategoryPtr& category, categories ) {
+        if ( category->name() == "Media Type" || category->name() == "Folder")
+            continue;
+        m_category->addItem( category->text(), category->name() );
+    }
+
+    connect( m_category, SIGNAL( activated(int) ), this, SLOT( categoryChanged(int) ) );
+    connect( m_tag, SIGNAL( activated(int) ), this, SLOT( populate() ) );
+    m_tagLabel->setEnabled(false);
+    m_tag->setEnabled(false);
+
+    return box;
+}
+
+void MainWindow::StatisticsDialog::categoryChanged(int index)
+{
+    const bool enabled = (index != 0 );
+    m_tagLabel->setEnabled( enabled );
+    m_tag->setEnabled( enabled );
+
+    m_tag->clear();
+
+    if ( enabled ) {
+        const QString name =  m_category->itemData(index).value<QString>();
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
+        m_tag->addItems( category->items() );
+    }
+}
+
+void MainWindow::StatisticsDialog::populate()
+{
+    Utilities::ShowBusyCursor dummy;
+    m_treeWidget->clear();
+
+    const int imageCount = DB::ImageDB::instance()->totalCount();
+    QTreeWidgetItem* top = new QTreeWidgetItem( m_treeWidget, QStringList() << i18n("All") << QString::number(imageCount) );
+    top->setTextAlignment( 1, Qt::AlignRight );
+    populateSubTree( DB::ImageSearchInfo(), imageCount, top );
+
+    if ( m_category->currentIndex() != 0 ) {
+        const QString category = m_category->itemData(m_category->currentIndex()).value<QString>();
+        const QString tag = m_tag->currentText();
+        DB::ImageSearchInfo info;
+        info.setOption( category, tag );
+        const int imageCount = DB::ImageDB::instance()->count(info ).total();
+        QTreeWidgetItem* item = new QTreeWidgetItem( m_treeWidget,
+                                                     QStringList() << QString::fromLatin1("%1: %2").arg(category).arg(tag)
+                                                     << QString::number(imageCount));
+        item->setTextAlignment( 1, Qt::AlignRight );
+        populateSubTree( info, imageCount, item );
+    }
+    m_treeWidget->header()->resizeSections( QHeaderView::ResizeToContents );
+}
+
+void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& info, int imageCount, QTreeWidgetItem* top )
+{
+    top->setExpanded(true);
+
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+
+    int tagsTotal = 0;
+    int grantTotal = 0;
+    Q_FOREACH( const DB::CategoryPtr& category, categories ) {
+        if ( category->name() == "Media Type" || category->name() == "Folder")
+            continue;
+
+        const QMap<QString,uint> tags = DB::ImageDB::instance()->classify( info, category->name(), DB::anyMediaType );
+        int total = 0;
+        for( QMap<QString,uint>::ConstIterator tagIt = tags.constBegin(); tagIt != tags.constEnd(); ++tagIt ) {
+            // Don't count the NONE tag, and the OK tag
+            if ( tagIt.key() != DB::ImageDB::NONE() && ( category->name() != m_category->currentText() || tagIt.key() != m_tag->currentText() ) )
+                total += tagIt.value();
+        }
+
+
+        addRow( category->text(), tags.count()-1, total, imageCount, top );
+        tagsTotal += tags.count() -1;
+        grantTotal += total;
+    }
+
+    QTreeWidgetItem* totalRow = addRow( i18n("Total"), tagsTotal, grantTotal, imageCount, top );
+    highlightTotalRow( totalRow );
+
 }

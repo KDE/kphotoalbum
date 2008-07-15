@@ -65,9 +65,13 @@ void ImportExport::ImportHandler::copyFromExternal()
 
 void ImportExport::ImportHandler::copyNextFromExternal()
 {
-    // JKP - handle the situation where we should not copy, as the image already is in the DB
     DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
+
+    if ( isImageAlreadyInDB( info ) ) {
+        aCopyJobCompleted(0);
+        return;
+    }
 
     QString fileName = info->fileName( true );
     KUrl src1 = m_settings.kimFile();

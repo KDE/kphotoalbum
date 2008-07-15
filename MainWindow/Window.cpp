@@ -355,7 +355,7 @@ void MainWindow::Window::configureImages( bool oneAtATime )
     else {
         DB::ImageInfoList images;
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            images.append( DB::ImageDB::instance()->info( *it ) );
+            images.append( DB::ImageDB::instance()->info( *it, DB::AbsolutePath ) );
         }
         configureImages( images, oneAtATime );
     }
@@ -987,7 +987,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         DB::ImageInfoPtr info = DB::ImageInfoPtr( 0 );
         QString fileName = _thumbnailView->fileNameUnderCursor();
         if ( !fileName.isNull() )
-            info = DB::ImageDB::instance()->info( fileName );
+            info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
 
         externalCommands->populate( info, selected() );
         QAction* action = menu.addMenu( externalCommands );
@@ -1141,7 +1141,7 @@ void MainWindow::Window::rotateSelected( int angle )
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     } else {
         for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-            DB::ImageDB::instance()->info( *it )->rotate( angle );
+            DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->rotate( angle );
         }
         _dirtyIndicator->markDirty();
         reloadThumbnailsAndFlushCache();
@@ -1186,7 +1186,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     QStringList allImages = DB::ImageDB::instance()->images();
     QStringList notOnDisk;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it, DB::AbsolutePath);
         QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
             notOnDisk.append(*it);
@@ -1430,7 +1430,7 @@ void MainWindow::Window::slotShowListOfFiles()
     QStringList out;
     for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
-        if ( !DB::ImageDB::instance()->info( fileName).isNull() )
+        if ( !DB::ImageDB::instance()->info( fileName, DB::AbsolutePath).isNull() )
             out.append( fileName );
     }
 
@@ -1619,7 +1619,7 @@ void MainWindow::Window::slotRecreateThumbnail()
         ImageManager::ImageLoader::removeThumbnail( *imageIt );
 
         int size = Settings::SettingsData::instance()->thumbSize();
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt, DB::AbsolutePath );
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *imageIt, QSize(size,size), info->angle(), _thumbnailView );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );

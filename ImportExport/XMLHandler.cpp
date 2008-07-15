@@ -53,7 +53,7 @@ QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, 
 
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         QString mappedFile = nameMap[*it];
-        QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it) );
+        QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it, DB::AbsolutePath) );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );
     }

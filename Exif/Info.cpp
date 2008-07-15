@@ -121,7 +121,7 @@ StringSet Info::standardKeys()
 
     // Now the ugly part -- exiv2 doesn't have any way to get a list of
     // MakerNote tags in a reasonable form, so we have to parse it from strings
-    
+
     std::ostringstream s;
     for ( Exiv2::IfdId kind = Exiv2::canonIfdId; kind < Exiv2::lastIfdId;
             kind = static_cast<Exiv2::IfdId>( kind + 1 ) ) {
@@ -172,7 +172,7 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName, DB::AbsolutePath );
     data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );

@@ -86,7 +86,7 @@ void InvalidDateFinder::accept()
     int progress = 0;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it, DB::AbsolutePath);
         dialog.progressBar()->setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )

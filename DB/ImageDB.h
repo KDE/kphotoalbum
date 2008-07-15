@@ -24,7 +24,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
 #include "DB/MediaCount.h"
-#include <q3valuevector.h>
 
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
@@ -35,6 +34,7 @@ class QProgressBar;
 
 namespace DB
 {
+enum PathType {RelativeToImageRoot, AbsolutePath };
 
 class CategoryCollection;
 class Category;
@@ -99,7 +99,7 @@ public: // Methods that must be overriden
     virtual void addToBlockList( const QStringList& list ) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;
     virtual void deleteList( const QStringList& list ) = 0;
-    virtual ImageInfoPtr info( const QString& fileName ) const = 0;
+    virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;

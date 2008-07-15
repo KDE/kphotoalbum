@@ -742,7 +742,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
+    return DB::ImageDB::instance()->info(_list[ _current], DB::AbsolutePath); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::ViewerWidget::infoBoxMove()

@@ -154,7 +154,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     uint images = 0;
     uint videos = 0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr inf = info( *it );
+        ImageInfoPtr inf = info( *it, DB::AbsolutePath );
         if ( inf->mediaType() == Image )
             ++images;
         else
@@ -198,7 +198,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     uint count = 0;
     ImageInfoList list;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        list.append( info(*it) );
+        list.append( info(*it, DB::AbsolutePath) );
         if (++count % 100 == 0) {
             newBackend->addImages( list );
             list.clear();
@@ -232,7 +232,7 @@ void ImageDB::slotReread( const QStringList& list, int mode)
         QFileInfo fi( *it );
 
         if (fi.exists())
-            info(*it)->readExif(*it, mode);
+            info(*it, DB::AbsolutePath)->readExif(*it, mode);
         MainWindow::DirtyIndicator::markDirty();
     }
 }
@@ -246,7 +246,7 @@ ImageDB::findFirstItemInRange(const ImageDate& range,
     QDateTime candidateDateStart;
     for (QVector<QString>::const_iterator i = images.begin();
          i != images.end(); ++i) {
-        ImageInfoPtr iInfo = info(*i);
+        ImageInfoPtr iInfo = info(*i, DB::AbsolutePath);
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
         if (match == DB::ImageDate::ExactMatch ||
@@ -254,7 +254,7 @@ ImageDB::findFirstItemInRange(const ImageDate& range,
             if (candidate.isNull() ||
                 iInfo->date().start() < candidateDateStart) {
                 candidate = *i;
-                candidateDateStart = info(candidate)->date().start();
+                candidateDateStart = info(candidate, DB::AbsolutePath)->date().start();
             }
         }
     }

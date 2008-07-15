@@ -71,6 +71,7 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 
 KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
 {
+    qFatal("NYI: Plugins::Interface::info");
     // TODO #############################
     // Plugins/Interface.cpp:74: error: cannot allocate an object of abstract type 'Plugins::ImageInfo'
     return KIPI::ImageInfo( 0 /*new Plugins::ImageInfo( this, url )*/ );
@@ -111,7 +112,7 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
 
 void Plugins::Interface::delImage( const KUrl& url )
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path() );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path(), DB::AbsolutePath );
     if ( info ) {
         QStringList list;
         list.append( info->fileName() );

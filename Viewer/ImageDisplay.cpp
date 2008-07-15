@@ -417,7 +417,7 @@ void Viewer::ImageDisplay::updatePreload()
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_imageList[i]);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_imageList[i], DB::AbsolutePath);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;

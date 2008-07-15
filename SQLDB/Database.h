@@ -52,7 +52,7 @@ namespace SQLDB {
         virtual void addToBlockList( const QStringList& list );
         virtual bool isBlocking( const QString& fileName );
         virtual void deleteList( const QStringList& list );
-        virtual DB::ImageInfoPtr info( const QString& fileName ) const;
+        virtual DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         virtual DB::MemberMap& memberMap();
         virtual void save( const QString& fileName, bool isAutoSave );
         virtual DB::MD5Map* md5Map();

@@ -29,7 +29,7 @@
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
 {
-    _info = DB::ImageDB::instance()->info( _url.path() );
+    _info = DB::ImageDB::instance()->info( _url.path(), DB::AbsolutePath );
 }
 
 QString Plugins::ImageInfo::title()

@@ -186,7 +186,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + relativeMatchedFileName );
+            ImageInfoPtr info = DB::ImageDB::instance()->info( relativeMatchedFileName, DB::RelativeToImageRoot );
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(relativeMatchedFileName));
             else {
@@ -236,7 +236,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     bool dirty = false;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
-        ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
+        ImageInfoPtr info = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );

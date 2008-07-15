@@ -128,7 +128,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         }
         else {
             QRect dimensions = cellDimensions();
-            int angle = DB::ImageDB::instance()->info( fileName )->angle();
+            int angle = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->angle();
             ThumbnailRequest* request = new ThumbnailRequest(
                 fileName, QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
                                  dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
@@ -153,16 +153,16 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
     int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
-        text += DB::ImageDB::instance()->info( fileName )->label();
+        text += DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->label();
         text += QString::fromLatin1("\n");
     }
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
-        QStringList grps = DB::ImageDB::instance()->info( fileName )->availableCategories();
+        QStringList grps = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->availableCategories();
         for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
             QString category = *it;
             if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-                StringSet items = DB::ImageDB::instance()->info( fileName )->itemsOfCategory( category );
+                StringSet items = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->itemsOfCategory( category );
                 if (!items.empty()) {
                     line = QString::fromLatin1( "%1: " )
                            .arg( category );
@@ -228,7 +228,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 
     for( QStringList::ConstIterator it = l.begin(); it != l.end(); ++it ) {
         _imageList.append( *it );
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it )->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->angle(), this );
         request->setPriority( ImageManager::ThumbnailInvisible );
         ImageManager::Manager::instance()->load( request );
     }
@@ -338,11 +338,11 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
 int ThumbnailView::ThumbnailWidget::noOfCategoriesForImage(const QString& image ) const
 {
     int catsInText = 0;
-    QStringList grps = DB::ImageDB::instance()->info( image )->availableCategories();
+    QStringList grps = DB::ImageDB::instance()->info( image, DB::AbsolutePath )->availableCategories();
     for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
         QString category = *it;
         if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-            StringSet items = DB::ImageDB::instance()->info( image )->itemsOfCategory( category );
+            StringSet items = DB::ImageDB::instance()->info( image, DB::AbsolutePath )->itemsOfCategory( category );
             if (!items.empty()) {
                 catsInText++;
             }
@@ -409,7 +409,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
     else if ( !loadedOK)
         pixmap.fill( palette().color( QPalette::Dark));
 
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName );
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
 
     if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
         QPainter p( &pixmap );
@@ -497,14 +497,14 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 
         for( StringSet::const_iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
             if ( ! hadHit ) {
-                mustRemoveToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
+                mustRemoveToken = DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
                 hadHit = true;
             }
 
             if ( mustRemoveToken )
-                DB::ImageDB::instance()->info( *it )->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
+                DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
             else
-                DB::ImageDB::instance()->info( *it )->addCategoryInfo( QString::fromLatin1("Tokens"), token );
+                DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->addCategoryInfo( QString::fromLatin1("Tokens"), token );
 
             updateCell( *it );
         }
@@ -747,7 +747,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
         return;
 
     static QDateTime lastDate;
-    QDateTime date = DB::ImageDB::instance()->info( fileName )->date().start();
+    QDateTime date = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->date().start();
     if ( date != lastDate ) {
         lastDate = date;
         if ( date.date().year() != 1900 )

@@ -132,7 +132,7 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
 void XMLDB::Database::addToBlockList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageInfoPtr inf= info(*it);
+        DB::ImageInfoPtr inf= info(*it, DB::AbsolutePath);
         _blockList << inf->fileName( true );
         _images.remove( inf );
     }
@@ -142,7 +142,7 @@ void XMLDB::Database::addToBlockList( const QStringList& list )
 void XMLDB::Database::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageInfoPtr inf= info(*it);
+        DB::ImageInfoPtr inf= info(*it, DB::AbsolutePath);
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName(false) );
 #endif
@@ -215,19 +215,23 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     MainWindow::DirtyIndicator::markDirty();
 }
 
-DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName ) const
+DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName, DB::PathType type ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;
 
-    if ( fileMap.contains( fileName ) )
-        return fileMap[ fileName ];
+    QString name = fileName;
+    if ( type == DB::RelativeToImageRoot )
+        name = Settings::SettingsData::instance()->imageDirectory() + fileName;
+
+    if ( fileMap.contains( name ) )
+        return fileMap[ name ];
     else {
         fileMap.clear();
         for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
             fileMap.insert( (*it)->fileName(), *it );
         }
-        if ( fileMap.contains( fileName ) )
-            return fileMap[ fileName ];
+        if ( fileMap.contains( name ) )
+            return fileMap[ name ];
     }
     return DB::ImageInfoPtr();
 }
@@ -303,7 +307,7 @@ void XMLDB::Database::sortAndMergeBackIn( const QStringList& fileList )
     DB::ImageInfoList list;
 
     for( QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it ) {
-        list.append( DB::ImageDB::instance()->info( *it ) );
+        list.append( DB::ImageDB::instance()->info( *it, DB::AbsolutePath ) );
     }
     _images.sortAndMergeBackIn( list );
 }

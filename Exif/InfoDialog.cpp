@@ -56,7 +56,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
 
     _pix = new QLabel( top );
     hlay->addWidget( _pix );
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName)->angle(), this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName, DB::AbsolutePath)->angle(), this );
     request->setPriority( ImageManager::Viewer );
     ImageManager::Manager::instance()->load( request );
 

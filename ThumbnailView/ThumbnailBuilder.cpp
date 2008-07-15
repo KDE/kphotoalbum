@@ -43,7 +43,7 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* 
 
 void ThumbnailView::ThumbnailBuilder::generateNext()
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_images[_index]);
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_images[_index], DB::AbsolutePath);
     ++_index;
     setProgress( _index );
     _infoMap.insert( info->fileName(), info );

@@ -194,7 +194,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
-                           namePage( width, height, DB::ImageDB::instance()->info(*it)->fileName(false) ) ); // PENDING(blackie) cleanup
+                           namePage( width, height, DB::ImageDB::instance()->info(*it, DB::AbsolutePath)->fileName(false) ) ); // PENDING(blackie) cleanup
         col.appendChild( href );
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
@@ -258,7 +258,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
     if ( content.isNull() )
         return false;
 
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( current );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( current, DB::AbsolutePath );
 
     content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
@@ -397,7 +397,7 @@ QString HTMLGenerator::Generator::createImage( const QString& fileName, int size
     }
     else {
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( fileName, QSize( size, size ), DB::ImageDB::instance()->info(fileName)->angle(), this );
+            new ImageManager::ImageRequest( fileName, QSize( size, size ), DB::ImageDB::instance()->info(fileName, DB::AbsolutePath)->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
         _generatedFiles.insert( qMakePair( fileName, size ) );

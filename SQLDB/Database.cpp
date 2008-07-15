@@ -184,10 +184,15 @@ void SQLDB::Database::deleteList( const QStringList& list )
     }
 }
 
-DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
+DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName, DB::PathType type ) const
 {
+    // PENDING(blackie) This code first converts to absolute, and then strips, that's just plane stupid....
+    QString name = fileName;
+    if ( type == DB::RelativeToImageRoot )
+        name = Settings::SettingsData::instance()->imageDirectory() + fileName;
+
     return _infoCollection.
-        getImageInfoOf(Utilities::stripImageDirectory(fileName));
+        getImageInfoOf(Utilities::stripImageDirectory(name));
 }
 
 DB::MemberMap& SQLDB::Database::memberMap()

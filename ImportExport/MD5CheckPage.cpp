@@ -95,7 +95,7 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
             continue;
 
         const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-        DB::ImageInfoPtr other = DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + name ); // JKP - ouch md5 is without full, while image db is with. That should be cleaned up!
+        DB::ImageInfoPtr other = DB::ImageDB::instance()->info( name, DB::RelativeToImageRoot );
         if ( info->label() != other->label() )
             res.label = true;
         if ( info->description() != other->description() )

@@ -1,7 +1,6 @@
 #include "ImportHandler.h"
 #include "KimFileReader.h"
 #include "ImportSettings.h"
-#include <QDebug>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QApplication>
@@ -34,7 +33,12 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
     bool ok;
     if ( m_settings.externalSource() ) {
         copyFromExternal();
-        ok = m_eventLoop.exec();
+
+        // If none of the images were to be copied, then we flushed the loop before we got started, in that case, don't start the loop.
+        if ( _pendingCopies.count() > 0 )
+            ok = m_eventLoop.exec();
+        else
+            ok = false;
     }
     else {
         ok = copyFilesFromZipFile();
@@ -64,6 +68,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     // JKP - handle the situation where we should not copy, as the image already is in the DB
     DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
+
     QString fileName = info->fileName( true );
     KUrl src1 = m_settings.kimFile();
     KUrl src2 = m_settings.baseURL();
@@ -151,6 +156,7 @@ void ImportExport::ImportHandler::updateDB()
         if ( _progress->wasCanceled() )
             break;
     }
+
     Browser::BrowserWidget::instance()->home();
 }
 

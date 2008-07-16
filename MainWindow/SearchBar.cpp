@@ -68,4 +68,14 @@ void MainWindow::SearchBar::reset()
     _edit->clear();
 }
 
+/**
+ * This was originally just a call to setEnabled() on the SearchBar itself,
+ * but due to a bug in either KDE or Qt, this resulted in the bar never
+ * being enabled again after a disable.
+ */
+void MainWindow::SearchBar::setLineEditEnabled(bool b)
+{
+    _edit->setEnabled(b);
+}
+
 #include "SearchBar.moc"

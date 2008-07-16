@@ -190,7 +190,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( bar, SIGNAL( scrollLine( int ) ), _browser, SLOT( scrollLine( int ) ) );
     connect( bar, SIGNAL( scrollPage( int ) ), _browser, SLOT( scrollPage( int ) ) );
     connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
-    connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setEnabled( bool ) ) );
+    connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
 
     // Setting up status bar
     QFont f( statusBar()->font() ); // Avoid flicker in the statusbar when moving over dates from the datebar

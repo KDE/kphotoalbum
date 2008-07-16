@@ -37,6 +37,7 @@ protected:
 
 public slots:
     void reset();
+    void setLineEditEnabled(bool b);
 
 signals:
     void textChanged( const QString& );

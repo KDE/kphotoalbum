@@ -1,3 +1,11 @@
+2008-07-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* (regression) the search bar is now correctly highlighted again.
+
+	* New feature: The import dialog will now check if an image already exists in
+	the DB with the same MD5 sum, and offer to merge the information
+	about the images.
+
 2008-07-14  Jan Kundrat  <jkt@gentoo.org>
 
 	* Improve the concept of "priorities" for image loading

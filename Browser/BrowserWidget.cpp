@@ -176,11 +176,7 @@ void Browser::BrowserWidget::emitSignals()
         emit showingOverview();
     emit pathChanged( a->path() );
     _listView->setColumnText( 0, a->title() );
-#ifdef KDAB_TEMPORARILY_REMOVED
     emit showsContentView( a->contentView() );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::BrowserWidget::emitSignals");
-#endif //KDAB_TEMPORARILY_REMOVED
 
     if ( a->contentView() && _list.size() > 0 )
         emit currentViewTypeChanged( a->viewType() );

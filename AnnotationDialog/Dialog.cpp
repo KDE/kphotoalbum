@@ -17,6 +17,7 @@
 */
 
 #include "Dialog.h"
+#include <ktextedit.h>
 #include "ShortCutManager.h"
 #include <kacceleratormanager.h>
 #include <QTimer>
@@ -38,7 +39,6 @@
 #include "Viewer/ViewerWidget.h"
 #include <q3accel.h>
 #include <kstandarddirs.h>
-#include "Editor.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <kpushbutton.h>
@@ -92,7 +92,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
 
-    _description = new Editor;
+    _description = new KTextEdit(this);
     _description->setProperty( "WantsFocus", true );
 
     dock = createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );

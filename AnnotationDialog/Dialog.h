@@ -20,7 +20,6 @@
 #define IMAGECONFIG_H
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
-#include "Editor.h"
 #include <qdialog.h>
 #include <QResizeEvent>
 #include <QEvent>
@@ -34,6 +33,7 @@
 #include <KActionCollection>
 
 
+class KTextEdit;
 class DockWidget;
 class QDockWidget;
 class QTimeEdit;
@@ -145,7 +145,7 @@ private:
     QPushButton* _rotateRight;
     QPushButton* _delBut;
     QPushButton* _copyPreviousBut;
-    Editor* _description;
+    KTextEdit* _description;
     QTimeEdit* _time;
     QPushButton* _addTime;
 

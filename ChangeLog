@@ -1,3 +1,8 @@
+2008-07-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* (regression) The text editor in the annotation dialog now offers
+	spell checking again - actually it is a completely new widget.
+
 2008-07-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* (regression) the search bar is now correctly highlighted again.

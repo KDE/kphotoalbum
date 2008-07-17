@@ -192,33 +192,13 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
     connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
 
-    // Setting up status bar
-    QFont f( statusBar()->font() ); // Avoid flicker in the statusbar when moving over dates from the datebar
-    f.setStyleHint( QFont::TypeWriter );
-    f.setFamily( QString::fromLatin1( "courier" ) );
-    f.setBold( true );
-    statusBar()->setFont( f );
-
-    KHBox* indicators = new KHBox( statusBar());
-    _dirtyIndicator = new DirtyIndicator( indicators );
-
-    _lockedIndicator = new QLabel( indicators );
-    setLocked( Settings::SettingsData::instance()->isLocked(), true );
-
-    statusBar()->addPermanentWidget( indicators, 0 );
-
-    _partial = new ImageCounter( statusBar() );
-    statusBar()->addPermanentWidget( _partial, 0 );
-
-    ImageCounter* total = new ImageCounter( statusBar() );
-    statusBar()->addPermanentWidget( total, 0 );
+    setupStatusBar();
 
     // Misc
     _autoSaveTimer = new QTimer( this );
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), _browser, SLOT( home() ) );
     connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
@@ -227,7 +207,6 @@ MainWindow::Window::Window( QWidget* parent )
 
     connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
 
-    total->setTotal( DB::ImageDB::instance()->totalCount() );
     statusBar()->showMessage(i18n("Welcome to KPhotoAlbum"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
@@ -851,25 +830,12 @@ void MainWindow::Window::showTipOfDay()
 
 void MainWindow::Window::pathChanged( const QString& path )
 {
-    static bool itemVisible = false;
     QString text = path;
 
     if ( text.length() > 80 )
         text = text.left(80) + QString::fromLatin1( "..." );
 
-    if ( text.isEmpty() ) {
-        if ( itemVisible ) {
-            statusBar()->removeItem( 0 );
-            itemVisible = false;
-        }
-    }
-    else if ( !itemVisible ) {
-        statusBar()->insertItem( text, 0 );
-        itemVisible = true;
-    }
-    else
-        statusBar()->changeItem( text, 0 );
-
+    _pathIndicator->setText( text );
 }
 
 void MainWindow::Window::runDemo()
@@ -1639,6 +1605,35 @@ void MainWindow::Window::slotStatistics()
     if ( !dialog )
         dialog = new StatisticsDialog(this);
     dialog->show();
+}
+
+void MainWindow::Window::setupStatusBar()
+{
+    // Avoid flicker in the statusbar when moving over dates from the datebar
+    QFont f( statusBar()->font() );
+    f.setStyleHint( QFont::TypeWriter );
+    f.setFamily( QString::fromLatin1( "courier" ) );
+    f.setBold( true );
+    statusBar()->setFont( f );
+
+    KHBox* indicators = new KHBox( statusBar());
+    _dirtyIndicator = new DirtyIndicator( indicators );
+
+    _lockedIndicator = new QLabel( indicators );
+    setLocked( Settings::SettingsData::instance()->isLocked(), true );
+
+    statusBar()->addPermanentWidget( indicators, 0 );
+
+    _partial = new ImageCounter( statusBar() );
+    statusBar()->addPermanentWidget( _partial, 0 );
+
+    ImageCounter* total = new ImageCounter( statusBar() );
+    statusBar()->addPermanentWidget( total, 0 );
+    total->setTotal( DB::ImageDB::instance()->totalCount() );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
+
+    _pathIndicator = new QLabel;
+    statusBar()->addWidget( _pathIndicator );
 }
 
 #include "Window.moc"

@@ -163,6 +163,7 @@ protected:
     void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
+    void setupStatusBar();
 
 private:
     static Window* _instance;
@@ -214,6 +215,7 @@ private:
     DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
+    QLabel* _pathIndicator;
 };
 
 }

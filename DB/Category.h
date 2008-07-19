@@ -30,7 +30,7 @@ class CategoryItem;
 
 
 /**
-   This class stores information about categories (People/Places/Keywords)
+   This class stores information about categories (People/Places/Events)
 */
 class Category :public QObject, public KShared
 {

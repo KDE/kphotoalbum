@@ -38,7 +38,7 @@ namespace
         } entry[] = {
             { "Tokens", "preferences-other",
               true, DB::Category::IconView, 32 },
-            { "Keywords", "dialog-password",
+            { "Events", "editimage",
               true, DB::Category::IconView, 32 },
             { "Places", "network-workgroup",
               true, DB::Category::ListView, 32 },

@@ -53,9 +53,9 @@
   <dragEnabled>true</dragEnabled>
  </dock>
  <dock>
-  <tabCaption>Keywords</tabCaption>
+  <tabCaption>Events</tabCaption>
   <tabToolTip></tabToolTip>
-  <name>Keywords</name>
+  <name>Events</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </dock>
@@ -93,32 +93,32 @@
  </splitGroup>
  <splitGroup>
   <firstName>Places</firstName>
-  <secondName>Keywords</secondName>
+  <secondName>Events</secondName>
   <orientation>1</orientation>
   <separatorPos>50</separatorPos>
-  <name>Places,Keywords</name>
+  <name>Places,Events</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
  <splitGroup>
   <firstName>People</firstName>
-  <secondName>Places,Keywords</secondName>
+  <secondName>Places,Events</secondName>
   <orientation>1</orientation>
   <separatorPos>33</separatorPos>
-  <name>People,Places,Keywords</name>
+  <name>People,Places,Events</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
  <splitGroup>
   <firstName>Label and Dates,Description,Image Preview</firstName>
-  <secondName>People,Places,Keywords</secondName>
+  <secondName>People,Places,Events</secondName>
   <orientation>0</orientation>
   <separatorPos>42</separatorPos>
-  <name>Label and Dates,Description,Image Preview,People,Places,Keywords</name>
+  <name>Label and Dates,Description,Image Preview,People,Places,Events</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
- <centralWidget>Label and Dates,Description,Image Preview,People,Places,Keywords</centralWidget>
+ <centralWidget>Label and Dates,Description,Image Preview,People,Places,Events</centralWidget>
  <mainDockWidget></mainDockWidget>
  <geometry>
   <x>6</x>

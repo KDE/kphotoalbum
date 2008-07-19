@@ -35,7 +35,7 @@ QPixmap DB::Category::icon( int size ) const
 
 /**
    If one person from say Denmark sends a database to a person from say germany, then the title of
-   People, Places, and Keywords will still be translated correct, when this function is used.
+   People, Places, and Events will still be translated correct, when this function is used.
 */
 QString DB::Category::text() const
 {
@@ -125,7 +125,7 @@ QMap<QString,QString> DB::Category::standardCategories()
     if ( map.isEmpty() ) {
         map.insert( QString::fromLatin1( "People" ), i18n("People") );
         map.insert( QString::fromLatin1( "Places" ), i18n("Places") );
-        map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
+        map.insert( QString::fromLatin1( "Events" ),  i18n("Events") );
         map.insert( QString::fromLatin1( "Folder" ),  i18n("Folder") );
         map.insert( QString::fromLatin1( "Tokens" ),  i18n("Tokens") );
         map.insert( QString::fromLatin1( "Media Type" ),  i18n("Media Type") );
@@ -133,6 +133,7 @@ QMap<QString,QString> DB::Category::standardCategories()
         // Needed for compatibility with index.xml files from older versions of KPA.
         map.insert( QString::fromLatin1( "Persons" ), i18n("People") );
         map.insert( QString::fromLatin1( "Locations" ), i18n("Places") );
+        map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
     }
     return map;
 }

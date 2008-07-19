@@ -1,3 +1,8 @@
+2008-07-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Keywords has now been replaced with Events in the default setup
+	that people will get when they create a new database.
+
 2008-07-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* (regression) The text editor in the annotation dialog now offers
@@ -1447,7 +1452,7 @@
 	holiday1/me.jpg andd holiday2/me.jpg at the same time.
 
 	* BUGFIX: When the user presses the right mouse button on one of
-	the list boxes containing options (Persons, Loactions, Keywords
+	the list boxes containing options (Persons, Loactions, Events
 	etc.) to show the context menu, then the state of the item was
 	changed (from selected to non-selected or visa versa).
 

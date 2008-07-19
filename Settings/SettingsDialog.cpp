@@ -211,7 +211,7 @@ void Settings::SettingsDialog::createGeneralPage()
                "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify People "
                "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
                "the plugin which needs to know about all albums.</p>"
-               "<p>Most users would probably want to specify Keywords here.</p>");
+               "<p>Most users would probably want to specify Events here.</p>");
     albumCategoryLabel->setWhatsThis( txt );
     _albumCategory->setWhatsThis( txt );
 

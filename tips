@@ -8,7 +8,7 @@ different KPhotoAlbum features.</p>
 <tip category="KPhotoAlbum">
 <html>
 <p>It is possible to create new categories - that are alternatives
-to <b>People</b>, <b>Places</b>, and <b>Keywords</b> - in the annotation
+to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation
 dialog. 
 To add new categories or remove existing ones, go to the <b>Settings-&gt;Configure KPhotoAlbum</b> dialog, and choose
 <b>Categories</b> in the side bar.</p>

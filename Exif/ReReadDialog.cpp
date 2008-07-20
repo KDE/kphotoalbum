@@ -119,11 +119,11 @@ void Exif::ReReadDialog::warnAboutDates( bool b )
     if ( !b )
         return;
 
-    int ret = KMessageBox::warningYesNo( this, i18n("<p>Be aware that setting the data from EXIF may "
+    int ret = KMessageBox::warningContinueCancel( this, i18n("<p>Be aware that setting the data from EXIF may "
                                                     "<b>overwrite</b> data you have previously entered "
                                                     "manually using the image configuration dialog.</p>" ),
                                          i18n( "Override image dates" ) );
-    if ( ret == KMessageBox::No )
+    if ( ret == KMessageBox::Cancel )
         _date->setChecked( false );
 }
 

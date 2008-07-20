@@ -95,8 +95,13 @@ bool Settings::SettingsData::trustTimeStamps()
     else {
         if (!_hasAskedAboutTimeStamps ) {
             QApplication::setOverrideCursor( Qt::ArrowCursor );
-            int answer = KMessageBox::questionYesNo( 0, i18n("New images were found. Should I trust their time stamps?"),
-                                                     i18n("Trust Time Stamps?") );
+            QString txt = i18n("When reading time information of images, their EXIF info is used. "
+                               "Exif info may, however, not be supported by your KPhotoAlbum installation, "
+                               "or no valid information may be in the file. "
+                               "As a backup, KPhotoAlbum may use the timestamp of the image - this may, "
+                               "however, not be valid in case the image is scanned in. "
+                               "So the question is, should KPhotoAlbum trust the time stamp on your images?" );
+            int answer = KMessageBox::questionYesNo( 0, txt, i18n("Trust Time Stamps?") );
             QApplication::restoreOverrideCursor();
             if ( answer == KMessageBox::Yes )
                 _trustTimeStamps = true;

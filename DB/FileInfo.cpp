@@ -42,7 +42,7 @@ DB::FileInfo::FileInfo( const QString& fileName )
     parseKFileMetaInfo( fileName );
 #endif
 
-    if ( !_date.isValid() && Settings::SettingsData::instance()->trustTimeStamps() )
+    if ( !_date.isValid() && ( Utilities::isVideo(fileName) || Settings::SettingsData::instance()->trustTimeStamps() ) )
         _date = QFileInfo( fileName ).lastModified();
 }
 

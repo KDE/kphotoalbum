@@ -249,7 +249,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     delaySavingChanges(true);
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) ) {
+    if ( updateDateInformation(mode) ) {
         setDate( exifInfo.dateTime() );
     }
 
@@ -453,5 +453,20 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& 
         _categoryInfomation[category].erase( value );
     }
     saveChangesIfNotDelayed();
+}
+
+bool DB::ImageInfo::updateDateInformation( int mode ) const
+{
+    if (mode & EXIFMODE_DATE == 0)
+        return false;
+
+    if (mode & EXIFMODE_FORCE)
+        return true;
+
+#ifdef HAVE_EXIV2
+    return true;
+#endif
+
+    return Settings::SettingsData::instance()->trustTimeStamps();
 }
 

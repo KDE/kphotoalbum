@@ -139,6 +139,7 @@ protected:
     void setIsNull(bool b) { _null = b; }
     bool isDirty() const { return _dirty; }
     void setIsDirty(bool b)  { _dirty = b; }
+    bool updateDateInformation( int mode ) const;
 
 private:
     friend class Plugins::ImageInfo;

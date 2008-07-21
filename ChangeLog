@@ -1,3 +1,10 @@
+2008-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* new icons for the default categories. These icons will now by
+	default be used in case the icon specified in the setup does not
+	exists - this will help users migrating from KDE3 KPA to KDE4
+	version, where the default installed icons have changed.
+
 2008-07-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Keywords has now been replaced with Events in the default setup

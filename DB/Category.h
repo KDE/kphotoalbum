@@ -70,6 +70,9 @@ public:
     virtual QStringList itemsInclCategories() const;
     KSharedPtr<CategoryItem> itemsCategories() const;
 
+private:
+    QString defaultIconName() const;
+
 signals:
     void changed();
     void itemRenamed( const QString& oldName, const QString& newName );

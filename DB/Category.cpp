@@ -29,7 +29,15 @@ using Utilities::StringSet;
 
 QPixmap DB::Category::icon( int size ) const
 {
-    return KIcon( iconName() ).pixmap(size);
+    QPixmap pixmap = KIconLoader::global()->loadIcon( iconName(), KIconLoader::Desktop, size, KIconLoader::DefaultState, QStringList(), 0L, true);
+    DB::Category* This = const_cast<DB::Category*>(this);
+    if ( pixmap.isNull() ) {
+        This->blockSignals(true);
+        This->setIconName(defaultIconName());
+        This->blockSignals(false);
+        pixmap = KIcon(iconName()).pixmap(size);
+    }
+    return pixmap;
 }
 
 
@@ -136,6 +144,16 @@ QMap<QString,QString> DB::Category::standardCategories()
         map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
     }
     return map;
+}
+
+QString DB::Category::defaultIconName() const
+{
+    const QString nm = name().toLower();
+    if ( nm == "people" ) return QString::fromLatin1("personal");
+    if ( nm == "places" || nm == "locations" ) return QString::fromLatin1("applications-internet");
+    if ( nm == "events" || nm == "keywords" ) return QString::fromLatin1("games-highscores");
+    if ( nm == "tokens" ) return QString::fromLatin1("flag-blue");
+    return QString();
 }
 
 #include "Category.moc"

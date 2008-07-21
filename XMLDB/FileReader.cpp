@@ -102,7 +102,7 @@ void XMLDB::FileReader::createSpecialCategories()
 
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
-        tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("bookmark"),
+        tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("flag-blue"),
                                     DB::Category::ListView, 32, true );
         _db->_categoryCollection.addCategory( tokenCat );
     }

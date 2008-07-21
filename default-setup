@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KPhotoAlbum version="2" compressed="1" >
  <Categories>
-  <Category viewtype="0" viewsize="0" icon="editimage" name="Events" show="1" />
-  <Category viewtype="0" viewsize="0" icon="network-workgroup" name="Places" show="1" />
-  <Category viewtype="0" viewsize="0" icon="system-users" name="People" show="1" />
+  <Category viewtype="0" viewsize="0" name="Events" show="1" />
+  <Category viewtype="0" viewsize="0" name="Places" show="1" />
+  <Category viewtype="0" viewsize="0" name="People" show="1" />
  </Categories>
  <images/>
 </KPhotoAlbum>

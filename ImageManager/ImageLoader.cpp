@@ -186,7 +186,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
          * temporary file. Without this fix, you'd get plenty of
          * "libpng error: Read Error" messages when running more ImageLoader
          * threads. */
-        QString temporary = path + ".tmp";
+        QString temporary = path + QString::fromLatin1(".tmp");
         scaledImg.save( temporary, "PNG" );
 
         /* We can't use QFile::rename() here as we really want to overwrite

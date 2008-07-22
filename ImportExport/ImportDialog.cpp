@@ -283,7 +283,7 @@ void ImportDialog::createCategoryPages()
 
     if ( !categories.isEmpty() ) {
         _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
-                                              false, this, "import matcher" );
+                                              false, this );
         _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
 
         QWidget* dummy = new QWidget;
@@ -306,7 +306,7 @@ ImportMatcher* ImportDialog::createCategoryPage( const QString& myCategory, cons
     QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( myCategory )->itemsInclCategories();
     myItems.sort();
 
-    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems.toList(), myItems, true, this, "import matcher" );
+    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems.toList(), myItems, true, this );
     addPage( matcher, myCategory );
     return matcher;
 }

@@ -76,7 +76,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
     QString name = action->objectName();
     const StringSet apps =_appToMimeTypeMap[name];
-    KService::List offers = KMimeTypeTrader::self()->query( *(apps.begin()), "Application",
+    KService::List offers = KMimeTypeTrader::self()->query( *(apps.begin()), QString::fromLatin1("Application"),
                                                             QString::fromLatin1("Name == '%1'").arg(name));
     Q_ASSERT( offers.count() >= 1 );
     KService::Ptr ptr = offers.first();

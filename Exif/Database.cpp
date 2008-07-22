@@ -15,8 +15,10 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#undef QT_NO_CAST_ASCII
-#undef QT_CAST_NO_ASCII
+// PENDING(blackie) these should go away, and the code be clean
+#undef QT_NO_CAST_FROM_ASCII
+#undef QT_NO_CAST_TO_ASCII
+
 #include "Exif/Database.h"
 #include <qsqldatabase.h>
 #include <qsqldriver.h>

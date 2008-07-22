@@ -238,8 +238,8 @@ QString Settings::SettingsData::password() const
 QString Settings::SettingsData::fileForCategoryImage( const QString& category, QString member ) const
 {
     QString dir = imageDirectory() + STR("CategoryImages" );
-    member.replace( ' ', '_' );
-    member.replace( '/', '_' );
+    member.replace( QChar::fromLatin1(' '), QChar::fromLatin1('_') );
+    member.replace( QChar::fromLatin1('/'), QChar::fromLatin1('_') );
     QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
 }

@@ -147,7 +147,7 @@ MainWindow::Window::Window( QWidget* parent )
     _stack = new Q3WidgetStack( top, "_stack" );
     lay->addWidget( _stack, 1 );
 
-    _dateBar = new DateBar::DateBarWidget( top, "datebar" );
+    _dateBar = new DateBar::DateBarWidget( top );
     lay->addWidget( _dateBar );
 
     Q3Frame* line = new Q3Frame( top );
@@ -544,14 +544,14 @@ void MainWindow::Window::setupMenuBar()
 // File menu
     KStandardAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStandardAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    _generateHtml = actionCollection()->addAction( "exportHTML" );
+    _generateHtml = actionCollection()->addAction( QString::fromLatin1("exportHTML") );
     _generateHtml->setText( i18n("Generate HTML...") );
     connect( _generateHtml, SIGNAL(triggered()), this, SLOT( slotExportToHTML() ) );
 
-    KAction* a = actionCollection()->addAction( "import", this, SLOT( slotImport() ) );
+    KAction* a = actionCollection()->addAction( QString::fromLatin1("import"), this, SLOT( slotImport() ) );
     a->setText( i18n( "Import...") );
 
-    a = actionCollection()->addAction( "export", this, SLOT( slotExport() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("export"), this, SLOT( slotExport() ) );
     a->setText( i18n( "Export/Copy Images...") );
 
 
@@ -577,122 +577,122 @@ void MainWindow::Window::setupMenuBar()
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
 
-    _deleteSelected = actionCollection()->addAction("deleteSelected");
+    _deleteSelected = actionCollection()->addAction(QString::fromLatin1("deleteSelected"));
     _deleteSelected->setText( i18n( "Delete Selected" ) );
     _deleteSelected->setIcon( KIcon( QString::fromLatin1("edit-delete") ) );
     _deleteSelected->setShortcut( Qt::Key_Delete );
     connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
 
-    a = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
+    a = actionCollection()->addAction(QString::fromLatin1("removeTokens"), this, SLOT( slotRemoveTokens() ));
     a->setText( i18n("Remove Tokens") );
 
-    a = actionCollection()->addAction("showListOfFiles", this, SLOT( slotShowListOfFiles() ));
+    a = actionCollection()->addAction(QString::fromLatin1("showListOfFiles"), this, SLOT( slotShowListOfFiles() ));
     a->setText( i18n("Open List of Files...")) ;
 
 
-    _configOneAtATime = actionCollection()->addAction( "oneProp", this, SLOT( slotConfigureImagesOneAtATime() ) );
+    _configOneAtATime = actionCollection()->addAction( QString::fromLatin1("oneProp"), this, SLOT( slotConfigureImagesOneAtATime() ) );
     _configOneAtATime->setText( i18n( "Annotate Individual Items" ) );
     _configOneAtATime->setShortcut(  Qt::CTRL+Qt::Key_1 );
 
-    _configAllSimultaniously = actionCollection()->addAction( "allProp", this, SLOT( slotConfigureAllImages() ) );
+    _configAllSimultaniously = actionCollection()->addAction( QString::fromLatin1("allProp"), this, SLOT( slotConfigureAllImages() ) );
     _configAllSimultaniously->setText( i18n( "Annotate Multiple Items at a Time" ) );
     _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2 );
 
-    _rotLeft = actionCollection()->addAction( "rotateLeft", this, SLOT( slotRotateSelectedLeft() ) );
+    _rotLeft = actionCollection()->addAction( QString::fromLatin1("rotateLeft"), this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
     _rotLeft->setShortcut(  0 );
 
 
-    _rotRight = actionCollection()->addAction( "rotateRight", this, SLOT( slotRotateSelectedRight() ) );
+    _rotRight = actionCollection()->addAction( QString::fromLatin1("rotateRight"), this, SLOT( slotRotateSelectedRight() ) );
     _rotRight->setText( i18n( "Rotate clockwise" ) );
 
 
     // The Images menu
-    _view = actionCollection()->addAction( "viewImages", this, SLOT( slotView() ) );
+    _view = actionCollection()->addAction( QString::fromLatin1("viewImages"), this, SLOT( slotView() ) );
     _view->setText( i18n("View") );
     _view->setShortcut(  Qt::CTRL+Qt::Key_I );
 
-    _viewInNewWindow = actionCollection()->addAction( "viewImagesNewWindow", this, SLOT( slotViewNewWindow() ) );
+    _viewInNewWindow = actionCollection()->addAction( QString::fromLatin1("viewImagesNewWindow"), this, SLOT( slotViewNewWindow() ) );
     _viewInNewWindow->setText( i18n("View (In New Window)") );
 
-    _runSlideShow = actionCollection()->addAction( "runSlideShow", this, SLOT( slotRunSlideShow() ) );
+    _runSlideShow = actionCollection()->addAction( QString::fromLatin1("runSlideShow"), this, SLOT( slotRunSlideShow() ) );
     _runSlideShow->setText( i18n("Run Slide Show") );
     _runSlideShow->setIcon( KIcon( QString::fromLatin1("view-presentation") ) );
     _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
 
-    _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
+    _runRandomSlideShow = actionCollection()->addAction( QString::fromLatin1("runRandomizedSlideShow"), this, SLOT( slotRunRandomizedSlideShow() ) );
     _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
 
     QActionGroup* grp = new QActionGroup( this );
 
-    a = actionCollection()->add<KToggleAction>( "orderIncr", this, SLOT( slotOrderIncr() ) );
+    a = actionCollection()->add<KToggleAction>( QString::fromLatin1("orderIncr"), this, SLOT( slotOrderIncr() ) );
     a->setText( i18n("Show &Oldest First") ) ;
     a->setActionGroup(grp);
     a->setChecked( !Settings::SettingsData::instance()->showNewestThumbnailFirst() );
 
-    a = actionCollection()->add<KToggleAction>( "orderDecr", this, SLOT( slotOrderDecr() ) );
+    a = actionCollection()->add<KToggleAction>( QString::fromLatin1("orderDecr"), this, SLOT( slotOrderDecr() ) );
     a->setText( i18n("Show &Newest First") );
     a->setActionGroup(grp);
     a->setChecked( Settings::SettingsData::instance()->showNewestThumbnailFirst() );
 
-    _sortByDateAndTime = actionCollection()->addAction( "sortImages", this, SLOT( slotSortByDateAndTime() ) );
+    _sortByDateAndTime = actionCollection()->addAction( QString::fromLatin1("sortImages"), this, SLOT( slotSortByDateAndTime() ) );
     _sortByDateAndTime->setText( i18n("Sort Selected by Date && Time") );
 
-    _limitToMarked = actionCollection()->addAction( "limitToMarked", this, SLOT( slotLimitToSelected() ) );
+    _limitToMarked = actionCollection()->addAction( QString::fromLatin1("limitToMarked"), this, SLOT( slotLimitToSelected() ) );
     _limitToMarked->setText( i18n("Limit View to Marked") );
 
-    _jumpToContext = actionCollection()->addAction( "jumpToContext", this, SLOT( slotJumpToContext() ) );
+    _jumpToContext = actionCollection()->addAction( QString::fromLatin1("jumpToContext"), this, SLOT( slotJumpToContext() ) );
     _jumpToContext->setText( i18n("Jump to Context") );
     _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J );
     _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) ); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
-    _lock = actionCollection()->addAction( "lockToDefaultScope", this, SLOT( lockToDefaultScope() ) );
+    _lock = actionCollection()->addAction( QString::fromLatin1("lockToDefaultScope"), this, SLOT( lockToDefaultScope() ) );
     _lock->setText( i18n("Lock Images") );
 
-    _unlock = actionCollection()->addAction( "unlockFromDefaultScope", this, SLOT( unlockFromDefaultScope() ) );
+    _unlock = actionCollection()->addAction( QString::fromLatin1("unlockFromDefaultScope"), this, SLOT( unlockFromDefaultScope() ) );
     _unlock->setText( i18n("Unlock") );
 
-    a = actionCollection()->addAction( "changeScopePasswd", this, SLOT( changePassword() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("changeScopePasswd"), this, SLOT( changePassword() ) );
     a->setText( i18n("Change Password...") );
     a->setShortcut( 0 );
 
-    _setDefaultPos = actionCollection()->addAction( "setDefaultScopePositive", this, SLOT( setDefaultScopePositive() ) );
+    _setDefaultPos = actionCollection()->addAction( QString::fromLatin1("setDefaultScopePositive"), this, SLOT( setDefaultScopePositive() ) );
     _setDefaultPos->setText( i18n("Lock Away All Other Items") );
 
-    _setDefaultNeg = actionCollection()->addAction( "setDefaultScopeNegative", this, SLOT( setDefaultScopeNegative() ) );
+    _setDefaultNeg = actionCollection()->addAction( QString::fromLatin1("setDefaultScopeNegative"), this, SLOT( setDefaultScopeNegative() ) );
     _setDefaultNeg->setText( i18n("Lock Away Current Set of Items") );
 
     // Maintenance
-    a = actionCollection()->addAction( "findUnavailableImages", this, SLOT( slotShowNotOnDisk() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("findUnavailableImages"), this, SLOT( slotShowNotOnDisk() ) );
     a->setText( i18n("Display Images and Videos Not on Disk") );
 
-    a = actionCollection()->addAction( "findImagesWithInvalidDate", this, SLOT( slotShowImagesWithInvalidDate() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("findImagesWithInvalidDate"), this, SLOT( slotShowImagesWithInvalidDate() ) );
     a->setText( i18n("Display Images and Videos with Incomplete Dates...") );
 
-    a = actionCollection()->addAction( "findImagesWithChangedMD5Sum", this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("findImagesWithChangedMD5Sum"), this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
     a->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
 
-    a = actionCollection()->addAction( "rebuildMD5s", this, SLOT( slotRecalcCheckSums() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("rebuildMD5s"), this, SLOT( slotRecalcCheckSums() ) );
     a->setText( i18n("Recalculate Checksum") );
 
-    a = actionCollection()->addAction( "rescan", DB::ImageDB::instance(), SLOT( slotRescan() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("rescan"), DB::ImageDB::instance(), SLOT( slotRescan() ) );
     a->setText( i18n("Rescan for Images and Videos") );
 
 #ifdef HAVE_EXIV2
-    a = actionCollection()->addAction( "reReadExifInfo", this, SLOT( slotReReadExifInfo() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT( slotReReadExifInfo() ) );
     a->setText( i18n("Read EXIF Info From Files...") );
 #endif
 
 #ifdef SQLDB_SUPPORT
-    a = actionCollection()->addAction( "convertBackend", this, SLOT( convertBackend() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("convertBackend"), this, SLOT( convertBackend() ) );
     a->setText( i18n("Convert Backend...(Experimental!)" ) );
 #endif
 
 
-    a = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT( slotBuildThumbnails() ) );
     a->setText( i18n("Build Thumbnails") );
 
-    a = actionCollection()->addAction( "statistics", this, SLOT( slotStatistics() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT( slotStatistics() ) );
     a->setText( i18n("Statistics") );
 
 
@@ -701,10 +701,10 @@ void MainWindow::Window::setupMenuBar()
     KStandardAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStandardAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
 
-    a = actionCollection()->addAction( "readdAllMessages", this, SLOT( slotReenableMessages() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("readdAllMessages"), this, SLOT( slotReenableMessages() ) );
     a->setText( i18n("Enable All Messages") );
 
-    _viewMenu = actionCollection()->add<KActionMenu>( "configureView" );
+    _viewMenu = actionCollection()->add<KActionMenu>( QString::fromLatin1("configureView") );
     _viewMenu->setText( i18n("Configure View") );
 
     _viewMenu->setIcon( KIcon( QString::fromLatin1( "view-list-details" ) ) );
@@ -714,22 +714,22 @@ void MainWindow::Window::setupMenuBar()
     QActionGroup* viewGrp = new QActionGroup( this );
     viewGrp->setExclusive( true );
 
-    _smallListView = actionCollection()->add<KToggleAction>( "smallListView", _browser, SLOT( slotSmallListView() ) );
+    _smallListView = actionCollection()->add<KToggleAction>( QString::fromLatin1("smallListView"), _browser, SLOT( slotSmallListView() ) );
     _smallListView->setText( i18n("List View") );
     _viewMenu->addAction( _smallListView );
     _smallListView->setActionGroup( viewGrp );
 
-    _largeListView = actionCollection()->add<KToggleAction>( "largelistview", _browser, SLOT( slotLargeListView() ) );
+    _largeListView = actionCollection()->add<KToggleAction>( QString::fromLatin1("largelistview"), _browser, SLOT( slotLargeListView() ) );
     _largeListView->setText( i18n("List View with Custom Icons") );
     _viewMenu->addAction( _largeListView );
     _largeListView->setActionGroup( viewGrp );
 
-    _smallIconView = actionCollection()->add<KToggleAction>( "smalliconview",  _browser, SLOT( slotSmallIconView() ) );
+    _smallIconView = actionCollection()->add<KToggleAction>( QString::fromLatin1("smalliconview"),  _browser, SLOT( slotSmallIconView() ) );
     _smallIconView->setText( i18n("Icon View") );
     _viewMenu->addAction( _smallIconView );
     _smallIconView->setActionGroup( viewGrp );
 
-    _largeIconView = actionCollection()->add<KToggleAction>(  "largeiconview", _browser, SLOT( slotLargeIconView() ) );
+    _largeIconView = actionCollection()->add<KToggleAction>(  QString::fromLatin1("largeiconview"), _browser, SLOT( slotLargeIconView() ) );
     _largeIconView->setText( i18n("Icon View with Custom Icons") );
     _viewMenu->addAction( _largeIconView );
     _largeIconView->setActionGroup( viewGrp );
@@ -739,30 +739,30 @@ void MainWindow::Window::setupMenuBar()
     // The help menu
     KStandardAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
 
-    a = actionCollection()->add<KToggleAction>( "showToolTipOnImages" );
+    a = actionCollection()->add<KToggleAction>( QString::fromLatin1("showToolTipOnImages") );
     a->setText( i18n("Show Tooltips in Thumbnails Window") );
     a->setShortcut( Qt::CTRL+Qt::Key_T );
     connect( a, SIGNAL(toggled(bool)), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
 
 
-    a = actionCollection()->addAction( "runDemo", this, SLOT( runDemo() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("runDemo"), this, SLOT( runDemo() ) );
     a->setText( i18n("Run KPhotoAlbum Demo") );
 
-    a = actionCollection()->addAction( "runSurvey", this, SLOT( runSurvey() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("runSurvey"), this, SLOT( runSurvey() ) );
     a->setText( i18n("Answer KPhotoAlbum Survey...") );
 
-    a = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
+    a = actionCollection()->addAction( QString::fromLatin1("features"), this, SLOT( showFeatures() ) );
     a->setText( i18n("KPhotoAlbum Feature Status") );
 
-    a = actionCollection()->addAction( "showVideo", this, SLOT(showVideos()) );
+    a = actionCollection()->addAction( QString::fromLatin1("showVideo"), this, SLOT(showVideos()) );
     a->setText( i18n( "Show Demo Videos") );
 
     // Context menu actions
 #ifdef HAVE_EXIV2
-    _showExifDialog = actionCollection()->addAction( "showExifInfo", this, SLOT( slotShowExifInfo() ) );
+    _showExifDialog = actionCollection()->addAction( QString::fromLatin1("showExifInfo"), this, SLOT( slotShowExifInfo() ) );
     _showExifDialog->setText( i18n("Show Exif Info") );
 #endif
-    _recreateThumbnails = actionCollection()->addAction( "recreateThumbnails", this, SLOT( slotRecreateThumbnail() ) );
+    _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), this, SLOT( slotRecreateThumbnail() ) );
     _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
@@ -1236,7 +1236,7 @@ void MainWindow::Window::slotReenableMessages()
 
 void MainWindow::Window::setupPluginMenu()
 {
-    QMenu* menu = findChild<QMenu*>( "plugins" );
+    QMenu* menu = findChild<QMenu*>( QString::fromLatin1("plugins") );
     Q_ASSERT( menu );
 
 #ifdef HASKIPI
@@ -1389,7 +1389,8 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
-    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") ).split( '\n', QString::SkipEmptyParts );
+    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") )
+                       .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;
 

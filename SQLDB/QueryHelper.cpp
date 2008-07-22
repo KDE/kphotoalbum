@@ -17,6 +17,10 @@
   MA 02110-1301 USA.
 */
 
+// PENDING(blackie) these should go away, and the code be clean
+#undef QT_NO_CAST_FROM_ASCII
+#undef QT_NO_CAST_TO_ASCII
+
 #include "QueryHelper.h"
 #include "QueryErrors.h"
 #include "DB/ImageSearchInfo.h"
@@ -39,9 +43,9 @@ namespace
 {
 void splitPath(const QString& filename, QString& path, QString& basename)
 {
-    int i = filename.lastIndexOf("/");
+    int i = filename.lastIndexOf(QString::fromLatin1("/"));
     if (i == -1) {
-        path = ".";
+        path = QString::fromLatin1(".");
         basename = filename;
     }
     else {
@@ -53,25 +57,25 @@ void splitPath(const QString& filename, QString& path, QString& basename)
 
 QString makeFullName(const QString& path, const QString& basename)
 {
-    if (path == ".")
+    if (path == QString::fromLatin1("."))
         return basename;
     else
-        return path + "/" + basename;
+        return path + QString::fromLatin1("/") + basename;
 }
 
 QString typeCondition(const QString& fieldName, DB::MediaType typemask)
 {
     if (typemask == DB::Image ||
         typemask == DB::Video)
-        return fieldName + "=" + QString::number(typemask);
+        return fieldName + QString::fromLatin1("=") + QString::number(typemask);
     else if (typemask == DB::anyMediaType)
-        return "1=1";
+        return QString::fromLatin1("1=1");
     else {
         QStringList typeList;
         for (uint t = 1; t < DB::anyMediaType; t <<= 1)
             if (typemask & t)
-                typeList.append(fieldName + "=" + QString::number(t));
-        return "(" + typeList.join(" OR ") + ")";
+                typeList.append(fieldName + QString::fromLatin1("=") + QString::number(t));
+        return QString::fromLatin1("(") + typeList.join(QString::fromLatin1(" OR ")) + QString::fromLatin1(")");
     }
 }
 }
@@ -79,8 +83,8 @@ QString typeCondition(const QString& fieldName, DB::MediaType typemask)
 QStringList QueryHelper::filenames() const
 {
     StringStringList dirFilePairs =
-        executeQuery("SELECT dir.path, media.filename FROM dir, media "
-                     "WHERE media.dirId=dir.id ORDER BY media.place"
+        executeQuery(QString::fromLatin1("SELECT dir.path, media.filename FROM dir, media "
+                                         "WHERE media.dirId=dir.id ORDER BY media.place")
                      ).asStringStringList();
     QStringList r;
     for (StringStringList::const_iterator i = dirFilePairs.begin();
@@ -93,8 +97,8 @@ QStringList QueryHelper::filenames() const
 QString QueryHelper::mediaItemFilename(int id) const
 {
     StringStringList dirFilePairs =
-        executeQuery("SELECT dir.path, media.filename FROM dir, media "
-                     "WHERE dir.id=media.dirId AND media.id=?",
+        executeQuery(QString::fromLatin1("SELECT dir.path, media.filename FROM dir, media "
+                                         "WHERE dir.id=media.dirId AND media.id=?"),
                      Bindings() << id).asStringStringList();
     if (dirFilePairs.isEmpty())
         throw EntryNotFoundError();
@@ -108,9 +112,9 @@ int QueryHelper::mediaItemId(const QString& filename) const
     QString basename;
     splitPath(filename, path, basename);
     QVariant id =
-        executeQuery("SELECT media.id FROM media, dir "
-                     "WHERE media.dirId=dir.id AND "
-                     "dir.path=? AND media.filename=?",
+        executeQuery(QString::fromLatin1("SELECT media.id FROM media, dir "
+                                         "WHERE media.dirId=dir.id AND "
+                                         "dir.path=? AND media.filename=?"),
                      Bindings() << path << basename).firstItem();
     if (id.isNull())
         throw EntryNotFoundError();
@@ -119,9 +123,9 @@ int QueryHelper::mediaItemId(const QString& filename) const
 
 QList< QPair<int, QString> > QueryHelper::mediaItemIdFileMap() const
 {
-    Cursor c = executeQuery("SELECT media.id, dir.path, media.filename "
-                            "FROM media, dir "
-                            "WHERE media.dirId=dir.id").cursor();
+    Cursor c = executeQuery(QString::fromLatin1("SELECT media.id, dir.path, media.filename "
+                                                "FROM media, dir "
+                                                "WHERE media.dirId=dir.id")).cursor();
     QList< QPair<int, QString> > r;
 
     if (c.isNull())
@@ -151,8 +155,8 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
         paths << path;
         basenames << basename;
         if (!pathIdMap.contains(path)) {
-            pathIdMap.insert(path, executeQuery("SELECT id FROM dir "
-                                                "WHERE path=?",
+            pathIdMap.insert(path, executeQuery(QString::fromLatin1("SELECT id FROM dir "
+                                                                    "WHERE path=?"),
                                                 Bindings() << path
                                                 ).firstItem().toInt());
         }
@@ -162,7 +166,7 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
     QStringList::const_iterator basenameIt = basenames.begin();
     while (pathIt != paths.end()) {
         QVariant id =
-            executeQuery("SELECT id FROM media WHERE dirId=? AND filename=?",
+            executeQuery(QString::fromLatin1("SELECT id FROM media WHERE dirId=? AND filename=?"),
                          Bindings() << pathIdMap[*pathIt] << *basenameIt
                          ).firstItem();
         /*
@@ -190,12 +194,12 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
 
 QStringList QueryHelper::categoryNames() const
 {
-    return executeQuery("SELECT name FROM category").asStringList();
+    return executeQuery(QString::fromLatin1("SELECT name FROM category")).asStringList();
 }
 
 int QueryHelper::categoryId(const QString& category) const
 {
-    QVariant r = executeQuery("SELECT id FROM category WHERE name=?",
+    QVariant r = executeQuery(QString::fromLatin1("SELECT id FROM category WHERE name=?"),
                               Bindings() << category).firstItem();
     if (r.isNull())
         throw EntryNotFoundError();
@@ -205,23 +209,23 @@ int QueryHelper::categoryId(const QString& category) const
 
 QList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
 {
-    return executeQuery("SELECT tag.id FROM tag, category "
-                        "WHERE tag.categoryId=category.id AND "
-                        "category.name=?",
+    return executeQuery(QString::fromLatin1("SELECT tag.id FROM tag, category "
+                                            "WHERE tag.categoryId=category.id AND "
+                                            "category.name=?"),
                         Bindings() << category).asIntegerList();
 }
 
 QStringList QueryHelper::tagNamesOfCategory(int categoryId) const
 {
     // Tags with larger place come first. (NULLs last)
-    return executeQuery("SELECT name FROM tag "
-                        "WHERE categoryId=? ORDER BY place DESC",
+    return executeQuery(QString::fromLatin1("SELECT name FROM tag "
+                                            "WHERE categoryId=? ORDER BY place DESC"),
                         Bindings() << categoryId).asStringList();
 }
 
 QStringList QueryHelper::folders() const
 {
-    return executeQuery("SELECT path FROM dir").asStringList();
+    return executeQuery(QString::fromLatin1("SELECT path FROM dir")).asStringList();
 }
 
 uint QueryHelper::mediaItemCount(DB::MediaType typemask,
@@ -229,27 +233,27 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
 {
     if (!scope) {
         if (typemask == DB::anyMediaType)
-            return executeQuery("SELECT COUNT(*) FROM media"
+            return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media")
                                 ).firstItem().toUInt();
         else
-            return executeQuery("SELECT COUNT(*) FROM media WHERE " +
-                                typeCondition("type", typemask)
-                                ).firstItem().toUInt();
+            return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media WHERE ") +
+                                typeCondition(QString::fromLatin1("type"), typemask)
+                ).firstItem().toUInt();
     }
     else {
         if (scope->isEmpty())
             return 0; // Empty scope contains no media items
         else {
             if (typemask == DB::anyMediaType) {
-                return executeQuery("SELECT COUNT(*) FROM media "
-                                    "WHERE id IN (?)",
+                return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media "
+                                                        "WHERE id IN (?)"),
                                     Bindings() << toVariantList(*scope)
                                     ).firstItem().toUInt();
             }
             else {
-                return executeQuery("SELECT COUNT(*) FROM media WHERE " +
-                                    typeCondition("type", typemask) +
-                                    " AND id IN (?)",
+                return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media WHERE ") +
+                                    typeCondition(QString::fromLatin1("type"), typemask) +
+                                    QString::fromLatin1(" AND id IN (?)"),
                                     Bindings() << toVariantList(*scope)
                                     ).firstItem().toUInt();
             }
@@ -260,12 +264,12 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
 QList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
 {
     if (typemask == DB::anyMediaType)
-        return executeQuery("SELECT id FROM media ORDER BY place"
+        return executeQuery(QString::fromLatin1("SELECT id FROM media ORDER BY place")
                             ).asIntegerList();
     else
-        return executeQuery("SELECT id FROM media "
-                            "WHERE " + typeCondition("type", typemask) +
-                            " ORDER BY place").asIntegerList();
+        return executeQuery(QString::fromLatin1("SELECT id FROM media "
+                                                "WHERE ") + typeCondition(QString::fromLatin1("type"), typemask) +
+                            QString::fromLatin1(" ORDER BY place")).asIntegerList();
 }
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
@@ -273,12 +277,12 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
     RowData row;
     try {
         row =
-            executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
-                         "m.label, m.description, "
-                         "m.startTime, m.endTime, m.width, m.height, m.angle "
-                         "FROM media m, dir "
-                         "WHERE m.dirId=dir.id AND "
-                         "m.id=?", Bindings() << id).getRow();
+            executeQuery(QString::fromLatin1("SELECT dir.path, m.filename, m.md5sum, m.type, "
+                                             "m.label, m.description, "
+                                             "m.startTime, m.endTime, m.width, m.height, m.angle "
+                                             "FROM media m, dir "
+                                             "WHERE m.dirId=dir.id AND "
+                                             "m.id=?"), Bindings() << id).getRow();
     }
     catch (RowNotFoundError&) {
         throw EntryNotFoundError();
@@ -302,11 +306,11 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
     info.setAngle(row[10].toInt());
 
     StringStringList categoryTagPairs =
-        executeQuery("SELECT category.name, tag.name "
-                     "FROM media_tag, category, tag "
-                     "WHERE media_tag.tagId=tag.id AND "
-                     "category.id=tag.categoryId AND "
-                     "media_tag.mediaId=?", Bindings() << id).asStringStringList();
+        executeQuery(QString::fromLatin1("SELECT category.name, tag.name "
+                                         "FROM media_tag, category, tag "
+                                         "WHERE media_tag.tagId=tag.id AND "
+                                         "category.id=tag.categoryId AND "
+                                         "media_tag.mediaId=?"), Bindings() << id).asStringStringList();
 
     for (StringStringList::const_iterator i = categoryTagPairs.begin();
          i != categoryTagPairs.end(); ++i)
@@ -347,13 +351,13 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
 
 int QueryHelper::insertTag(int categoryId, const QString& name)
 {
-    QVariant i = executeQuery("SELECT id FROM tag "
-                              "WHERE categoryId=? AND name=?",
+    QVariant i = executeQuery(QString::fromLatin1("SELECT id FROM tag "
+                                                  "WHERE categoryId=? AND name=?"),
                               Bindings() << categoryId << name).firstItem();
     if (!i.isNull())
         return i.toInt();
 
-    return executeInsert("tag", "id", QStringList() << "categoryId" << "name",
+    return executeInsert(QString::fromLatin1("tag"), QString::fromLatin1("id"), QStringList() << QString::fromLatin1("categoryId") << QString::fromLatin1("name"),
                          Bindings() << categoryId << name);
 }
 
@@ -362,13 +366,13 @@ void QueryHelper::insertTagFirst(int categoryId, const QString& name)
     // See membersOfCategory() for tag ordering usage.
 
     int id = insertTag(categoryId, name);
-    QVariant oldPlace = executeQuery("SELECT place FROM tag WHERE id=?",
+    QVariant oldPlace = executeQuery(QString::fromLatin1("SELECT place FROM tag WHERE id=?"),
                                      Bindings() << id).firstItem();
 
     // Move tags from this to previous first tag one place towards end
     if (!oldPlace.isNull()) {
-        executeStatement("UPDATE tag SET place=place-1 "
-                         "WHERE categoryId=? AND place>?",
+        executeStatement(QString::fromLatin1("UPDATE tag SET place=place-1 "
+                                             "WHERE categoryId=? AND place>?"),
                          Bindings() << categoryId << oldPlace);
     }
 

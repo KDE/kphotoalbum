@@ -58,13 +58,11 @@ const int arrowLength = 20;
  * deciding the length (in minutes, hours, days, etc) are handled by subclasses of \ref DateBar::ViewHandler.
  */
 
-DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
+DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
      _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
      _showResolutionIndicator( true )
 {
-    setObjectName( name );
-
     setMouseTracking( true );
     setFocusPolicy( Qt::StrongFocus );
 
@@ -503,14 +501,14 @@ DB::ImageDate DateBar::DateBarWidget::rangeAt( const QPoint& p )
     int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
     return rangeForUnit( unit );
 }
- 
 
-DB::ImageDate DateBar::DateBarWidget::rangeForUnit( int unit ) 
+
+DB::ImageDate DateBar::DateBarWidget::rangeForUnit( int unit )
 {
     // Note on the use of setTimeSpec.
     // It came to my attention that addSec would create a QDateTime with internal type LocalStandard, while all the others would have type LocalUnknown,
     // this resulted in that QDateTime::operator<() would call getUTC(), which took 90% of the time for populating the datebar.
-    QDateTime toUnit = dateForUnit(unit+1).addSecs(-1);        
+    QDateTime toUnit = dateForUnit(unit+1).addSecs(-1);
     toUnit.setTimeSpec( Qt::LocalTime);
     return DB::ImageDate( dateForUnit(unit), toUnit );
 }

@@ -1048,7 +1048,7 @@ void Settings::SettingsDialog::createEXIFPage()
     QStringList _charsets;
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
     for (QList<QByteArray>::const_iterator it = _charsetsBA.begin(); it != _charsetsBA.end(); ++it )
-        _charsets << *it;
+        _charsets << QString::fromLatin1(*it);
     _iptcCharset->insertStringList( _charsets );
 
     hlay2->addStretch( 1 );

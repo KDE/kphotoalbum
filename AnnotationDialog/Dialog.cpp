@@ -88,14 +88,14 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     layout->addWidget( _dockWindow );
 
     // -------------------------------------------------- Dock widgets
-    QDockWidget* dock = createDock( i18n("Label and Dates"), "Label and Datas", Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
+    QDockWidget* dock = createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Datas"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
 
-    createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
+    createDock( i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget() );
 
     _description = new KTextEdit(this);
     _description->setProperty( "WantsFocus", true );
 
-    dock = createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
+    dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );
 
     // -------------------------------------------------- Categrories
@@ -915,48 +915,48 @@ void AnnotationDialog::Dialog::setupActions()
     _actions = new KActionCollection( this );
 
     KAction* action = 0;
-    action = _actions->addAction( "annotationdialog-sort-alpha", _optionList.at(0), SLOT( slotSortAlpha() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-alpha"), _optionList.at(0), SLOT( slotSortAlpha() ) );
     action->setText( i18n("Sort Alphabetically") );
     action->setShortcut(Qt::CTRL+Qt::Key_F4);
 
 
-    action = _actions->addAction( "annotationdialog-sort-MRU", _optionList.at(0), SLOT( slotSortDate() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-MRU"), _optionList.at(0), SLOT( slotSortDate() ) );
     action->setText( i18n("Sort Most Recently Used") );
 
-    action = _actions->addAction( "annotationdialog-toggle-sort",  _optionList.at(0), SLOT( toggleSortType() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-toggle-sort"),  _optionList.at(0), SLOT( toggleSortType() ) );
     action->setText( i18n("Toggle Sorting") );
     action->setShortcut( Qt::CTRL+Qt::Key_T );
 
-    action = _actions->addAction( "annotationdialog-toggle-showing-selected-only",
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-toggle-showing-selected-only"),
                                   &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
     action->setText( i18n("Toggle Showing Selected Items Only") );
     action->setShortcut( Qt::CTRL+Qt::Key_S );
 
 
-    action = _actions->addAction( "annotationdialog-next-image",  this, SLOT( slotNext() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-next-image"),  this, SLOT( slotNext() ) );
     action->setText(  i18n("Annotate Next") );
     action->setShortcut(  Qt::Key_PageDown );
 
-    action = _actions->addAction( "annotationdialog-prev-image",  this, SLOT( slotPrev() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-prev-image"),  this, SLOT( slotPrev() ) );
     action->setText(  i18n("Annotate Previous") );
     action->setShortcut(  Qt::Key_PageUp );
 
-    action = _actions->addAction( "annotationdialog-OK-dialog",  this, SLOT( slotOK() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-OK-dialog"),  this, SLOT( slotOK() ) );
     action->setText(  i18n("OK dialog") );
     action->setShortcut(  Qt::CTRL+Qt::Key_Return );
 
-    action = _actions->addAction( "annotationdialog-delete-image",  this, SLOT( slotDeleteImage() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-delete-image"),  this, SLOT( slotDeleteImage() ) );
     action->setText(  i18n("Delete") );
     action->setShortcut(  Qt::CTRL+Qt::Key_Delete );
 
-    action = _actions->addAction( "annotationdialog-copy-previous",  this, SLOT( slotCopyPrevious() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-copy-previous"),  this, SLOT( slotCopyPrevious() ) );
     action->setText(  i18n("Copy tags from previous image") );
     action->setShortcut(  Qt::CTRL+Qt::Key_Insert );
 
-    action = _actions->addAction( "annotationdialog-rotate-left",  this, SLOT( rotateLeft() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  this, SLOT( rotateLeft() ) );
     action->setText(  i18n("Rotate counterclockwise") );
 
-    action = _actions->addAction( "annotationdialog-rotate-right",  this, SLOT( rotateRight() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-right"),  this, SLOT( rotateRight() ) );
     action->setText(  i18n("Rotate clockwise") );
 
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );

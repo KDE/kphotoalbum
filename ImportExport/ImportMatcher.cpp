@@ -30,10 +30,9 @@ using namespace ImportExport;
 
 ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,
                               const QStringList& otherItems, const QStringList& myItems,
-                              bool allowNew, QWidget* parent, const char* name )
+                              bool allowNew, QWidget* parent )
     : QScrollArea( parent ), _otherCategory( otherCategory ), _myCategory( myCategory )
 {
-    setObjectName(name);
     setWidgetResizable(true);
     QWidget* top = new QWidget( viewport() );
     QVBoxLayout* layout = new QVBoxLayout( top );

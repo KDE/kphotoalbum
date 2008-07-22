@@ -224,21 +224,21 @@ DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::Imag
 
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
 {
-    if ( dbInfo->label() != newInfo->label() && m_settings.importAction("*Label*") == ImportSettings::Replace )
+    if ( dbInfo->label() != newInfo->label() && m_settings.importAction(QString::fromLatin1("*Label*")) == ImportSettings::Replace )
         dbInfo->setLabel( newInfo->label() );
 
     if ( dbInfo->description().simplified() != newInfo->description().simplified() ) {
-        if ( m_settings.importAction("*Description*") == ImportSettings::Replace )
+        if ( m_settings.importAction(QString::fromLatin1("*Description*")) == ImportSettings::Replace )
             dbInfo->setDescription( newInfo->description() );
-        else if ( m_settings.importAction("*Description*") == ImportSettings::Merge )
+        else if ( m_settings.importAction(QString::fromLatin1("*Description*")) == ImportSettings::Merge )
             dbInfo->setDescription( dbInfo->description() + QString::fromLatin1("<br/><br/>") + newInfo->description() );
     }
 
 
-    if (dbInfo->angle() != newInfo->angle() && m_settings.importAction("*Orientation*") == ImportSettings::Replace )
+    if (dbInfo->angle() != newInfo->angle() && m_settings.importAction(QString::fromLatin1("*Orientation*")) == ImportSettings::Replace )
         dbInfo->setAngle( newInfo->angle() );
 
-    if (dbInfo->date() != newInfo->date() && m_settings.importAction("*Date*") == ImportSettings::Replace )
+    if (dbInfo->date() != newInfo->date() && m_settings.importAction(QString::fromLatin1("*Date*")) == ImportSettings::Replace )
         dbInfo->setDate( newInfo->date() );
 
 

@@ -68,18 +68,18 @@ namespace
 
         try {
             QString x =
-                "SELECT value FROM database_metadata "
-                "WHERE property=";
+                QString::fromLatin1("SELECT value FROM database_metadata "
+                                    "WHERE property=");
             name =
-                conn.executeQuery(x + "'name'").firstItem().
+                conn.executeQuery(x + QString::fromLatin1("'name'")).firstItem().
                 toString().toLatin1().constData();
             versionMajor =
-                conn.executeQuery(x + "'version major'").firstItem().toInt();
+                conn.executeQuery(x + QString::fromLatin1("'version major'")).firstItem().toInt();
             versionMinor =
-                conn.executeQuery(x + "'version minor'").firstItem().toInt();
-            year = conn.executeQuery(x + "'date year'").firstItem().toInt();
-            month = conn.executeQuery(x + "'date month'").firstItem().toInt();
-            day = conn.executeQuery(x + "'date day'").firstItem().toInt();
+                conn.executeQuery(x + QString::fromLatin1("'version minor'")).firstItem().toInt();
+            year = conn.executeQuery(x + QString::fromLatin1("'date year')")).firstItem().toInt();
+            month = conn.executeQuery(x + QString::fromLatin1("'date month'")).firstItem().toInt();
+            day = conn.executeQuery(x + QString::fromLatin1("'date day'")).firstItem().toInt();
         }
         catch (...) {
         }

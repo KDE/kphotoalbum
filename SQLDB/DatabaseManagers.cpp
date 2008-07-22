@@ -67,7 +67,7 @@ BaseDatabaseManager(const ConnectionParameters& connParams,
     _someDbName(someDbName),
     _selDbsQuery(selDbsQuery),
     _csg(csg),
-    _connName(newDatabaseName("dbmgr")),
+    _connName(newDatabaseName(QString::fromLatin1("dbmgr"))),
     _db(QSqlDatabase::addDatabase(driverName, _connName))
 {
     setConnectionParameters(_db, connParams);
@@ -115,7 +115,7 @@ createDatabase(const QString& databaseName,
 ConnectionSPtr
 BaseDatabaseManager::connectToDatabase(const QString& databaseName)
 {
-    QString newConnName(newDatabaseName("conn"));
+    QString newConnName(newDatabaseName(QString::fromLatin1("conn")));
     QSqlDatabase db = QSqlDatabase::cloneDatabase(_db, newConnName);
     db.setDatabaseName(databaseName);
     if (!db.open())
@@ -184,8 +184,8 @@ SQLiteDatabaseManager::createDatabase(const QString& databaseName,
 ConnectionSPtr
 SQLiteDatabaseManager::connectToDatabase(const QString& databaseName)
 {
-    QString newConnName(newDatabaseName("conn"));
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", newConnName);
+    QString newConnName(newDatabaseName(QString::fromLatin1("conn")));
+    QSqlDatabase db = QSqlDatabase::addDatabase(QString::fromLatin1("QSQLITE"), newConnName);
     db.setDatabaseName(databaseName);
 
     if (!db.open())

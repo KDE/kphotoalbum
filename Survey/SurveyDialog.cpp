@@ -234,7 +234,7 @@ void Survey::SurveyDialog::slotDone()
 
     if ( lastPage() ) {
         KToolInvocation::invokeMailer( d->emailAddress, QString::null, QString::null,
-                            QString::fromLatin1( "KPhotoAlbum survey" ), xml );
+                                       QString::fromLatin1( "KPhotoAlbum survey" ), QString::fromLatin1(xml) );
     }
 
     close();

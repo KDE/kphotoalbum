@@ -263,7 +263,7 @@ void SQLSettingsWidget::languageChange()
     setError(_lastErrorType);
     _driverLabel->setText(i18n("Database driver:"));
     _fileLabel->setText(i18n("Database file:"));
-    _fileLine->setFilter("*.db|" + i18n("KPhotoAlbum database files (*.db)"));
+    _fileLine->setFilter(QString::fromLatin1("*.db|") + i18n("KPhotoAlbum database files (*.db)"));
     _hostLabel->setText(i18n("Server address:"));
     _portLabel->setText(i18n("Server port:"));
     _portSpin->setSpecialValueText(i18n("Default"));

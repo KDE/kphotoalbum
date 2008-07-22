@@ -49,7 +49,7 @@ TokenEditor::TokenEditor( QWidget* parent )
 
     int index = 0;
     for ( int ch = 'A'; ch <= 'Z'; ch++, index++ ) {
-        QChar token = QChar( (char) ch );
+        QChar token = QChar::fromLatin1( (char) ch );
         QCheckBox* box = new QCheckBox( token );
         grid->addWidget( box, index/5, index % 5 );
         _cbs.append( box );

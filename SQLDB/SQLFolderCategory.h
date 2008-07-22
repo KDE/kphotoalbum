@@ -29,7 +29,7 @@ namespace SQLDB {
         Q_OBJECT
 
     public:
-        virtual QString name() const { return "Folder"; }
+        virtual QString name() const { return QString::fromLatin1("Folder"); }
 
         virtual QString iconName() const
         { return QString::fromLatin1("folder"); }

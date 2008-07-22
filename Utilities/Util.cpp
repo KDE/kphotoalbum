@@ -165,7 +165,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
                 for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
-                    QString exifName = exifIt.key().split( '.' ).last();
+                    QString exifName = exifIt.key().split( QChar::fromLatin1('.') ).last();
                     AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(exifName),
                                     *valuesIt, &exifText);
                 }
@@ -175,7 +175,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
                 for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
-                    QString iptcName = exifIt.key().split( '.' ).last();
+                    QString iptcName = exifIt.key().split( QChar::fromLatin1('.') ).last();
                     AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(iptcName),
                                     *valuesIt, &iptcText);
                 }
@@ -609,7 +609,7 @@ QString Utilities::stripSlash( const QString& fileName )
 
 QString Utilities::relativeFolderName( const QString& fileName)
 {
-    int index= fileName.lastIndexOf( '/', -1);
+    int index= fileName.lastIndexOf( QChar::fromLatin1('/'), -1);
     if (index == -1)
         return QString::null;
     else
@@ -734,6 +734,6 @@ DB::MD5 Utilities::MD5Sum( const QString& fileName )
     KMD5 md5calculator( 0 /* char* */);
     md5calculator.reset();
     md5calculator.update( file );
-    return DB::MD5(md5calculator.hexDigest());
+    return DB::MD5(QString::fromLatin1(md5calculator.hexDigest()));
 }
 

@@ -39,7 +39,7 @@ DB::CategoryItem* DB::CategoryItem::clone() const
 void DB::CategoryItem::print( int offset )
 {
     QString spaces;
-    spaces.fill( ' ', offset );
+    spaces.fill( QChar::fromLatin1(' '), offset );
     qDebug( "%s%s", qPrintable(spaces), qPrintable(_name) );
     for( Q3ValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         (*it)->print( offset + 2 );

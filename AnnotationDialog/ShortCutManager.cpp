@@ -28,8 +28,8 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
             const QChar ch = title[index];
             if ( !m_taken.contains(ch) ) {
                 m_taken.insert( ch );
-                dock->setWindowTitle( title.left(index) + "&" + title.mid(index) );
-                new QShortcut( QString( "Alt+")+ch , widget, SLOT( setFocus() ) );
+                dock->setWindowTitle( title.left(index) + QString::fromLatin1("&") + title.mid(index) );
+                new QShortcut( QString::fromLatin1( "Alt+")+ch , widget, SLOT( setFocus() ) );
                 break;
             }
         }
@@ -41,7 +41,7 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
             const QChar ch = title[index];
             if ( !m_taken.contains(ch) ) {
                 m_taken.insert( ch );
-                label->setText( title.left(index) + "&" + title.mid(index) );
+                label->setText( title.left(index) + QString::fromLatin1("&") + title.mid(index) );
                 break;
             }
         }
@@ -57,7 +57,7 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
  */
 void AnnotationDialog::ShortCutManager::addTaken( const QString& text )
 {
-    const int index = text.indexOf("&");
+    const int index = text.indexOf(QChar::fromLatin1('&'));
     if ( index != -1 )
         m_taken.insert( text[index+1] );
 }

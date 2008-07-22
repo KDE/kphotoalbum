@@ -107,7 +107,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // -------------------------------------------------- Text
     QString txt = info->description();
     if ( !_description.isEmpty() ) {
-        QStringList list = _description.split(QChar(' '), QString::SkipEmptyParts);
+        QStringList list = _description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
             ok &= ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
         }

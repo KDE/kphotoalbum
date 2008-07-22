@@ -37,7 +37,7 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
 
     layout->addWidget( createAnnotatedGroupBox() );
 
-    label = new QLabel("<h1>Statistics</h1>");
+    label = new QLabel(i18n("<h1>Statistics</h1>"));
     layout->addWidget(label);
 
     m_treeWidget = new QTreeWidget;
@@ -110,7 +110,7 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if ( category->name() == "Media Type" || category->name() == "Folder")
+        if ( category->name() == QString::fromLatin1("Media Type") || category->name() == QString::fromLatin1("Folder"))
             continue;
         m_category->addItem( category->text(), category->name() );
     }
@@ -172,7 +172,7 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
     int tagsTotal = 0;
     int grantTotal = 0;
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if ( category->name() == "Media Type" || category->name() == "Folder")
+        if ( category->name() == QString::fromLatin1("Media Type") || category->name() == QString::fromLatin1("Folder"))
             continue;
 
         const QMap<QString,uint> tags = DB::ImageDB::instance()->classify( info, category->name(), DB::anyMediaType );

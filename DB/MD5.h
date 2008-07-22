@@ -72,10 +72,10 @@ namespace DB
         {
             QString res;
             if (!isNull()) {
-                res += QString::number(_v0, 16).rightJustified(8, '0');
-                res += QString::number(_v1, 16).rightJustified(8, '0');
-                res += QString::number(_v2, 16).rightJustified(8, '0');
-                res += QString::number(_v3, 16).rightJustified(8, '0');
+                res += QString::number(_v0, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(_v1, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(_v2, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(_v3, 16).rightJustified(8, QChar::fromLatin1('0'));
             }
             return res;
         }

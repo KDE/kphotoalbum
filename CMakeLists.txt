@@ -14,6 +14,8 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
                 -DQT3_SUPPORT_WARNINGS
                 ${KDE4_ENABLE_EXCEPTIONS}
                 -DOVERRIDE=
+#                -DQT_NO_CAST_FROM_ASCII
+#                -DQT_NO_CAST_TO_ASCII
                )
 
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}

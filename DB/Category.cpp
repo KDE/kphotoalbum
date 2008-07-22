@@ -149,10 +149,10 @@ QMap<QString,QString> DB::Category::standardCategories()
 QString DB::Category::defaultIconName() const
 {
     const QString nm = name().toLower();
-    if ( nm == "people" ) return QString::fromLatin1("personal");
-    if ( nm == "places" || nm == "locations" ) return QString::fromLatin1("applications-internet");
-    if ( nm == "events" || nm == "keywords" ) return QString::fromLatin1("games-highscores");
-    if ( nm == "tokens" ) return QString::fromLatin1("flag-blue");
+    if ( nm == QString::fromLatin1("people") ) return QString::fromLatin1("personal");
+    if ( nm == QString::fromLatin1("places") || nm == QString::fromLatin1("locations") ) return QString::fromLatin1("applications-internet");
+    if ( nm == QString::fromLatin1("events") || nm == QString::fromLatin1("keywords") ) return QString::fromLatin1("games-highscores");
+    if ( nm == QString::fromLatin1("tokens") ) return QString::fromLatin1("flag-blue");
     return QString();
 }
 

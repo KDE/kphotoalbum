@@ -29,7 +29,7 @@ SQLDB::SQLCategoryCollection::SQLCategoryCollection(QueryHelper& queryHelper):
     _qh(queryHelper)
 {
     // Categories, which should not have an entry in category table.
-    _specialCategoryNames << "Folder";
+    _specialCategoryNames << QString::fromLatin1("Folder");
 }
 
 
@@ -37,7 +37,7 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 {
     DB::CategoryPtr p;
 
-    if (name == "Folder") {
+    if (name == QString::fromLatin1("Folder")) {
         p = new SQLFolderCategory(const_cast<QueryHelper*>(&_qh));
     }
     else {
@@ -48,7 +48,7 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
         catch (NotFoundError&) {
             return DB::CategoryPtr(0);
         }
-        if (name == "Tokens") {
+        if (name == QString::fromLatin1("Tokens")) {
             p = new SQLTokensCategory(const_cast<QueryHelper*>(&_qh), categoryId);
         }
         else {

@@ -60,7 +60,7 @@ void QSqlConnection::processListParameters(QString& query,
     int mark = 0;
     Bindings::iterator i = bindings.begin();
     while (i != bindings.end()) {
-        mark = query.indexOf('?', mark);
+        mark = query.indexOf(QChar::fromLatin1('?'), mark);
         if (mark == -1)
             break;
 
@@ -101,7 +101,7 @@ QSqlConnection::initializeQuery(const QString& statement,
 #ifdef DEBUG_QUERYS
     int lastPos = 0;
     for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
-        lastPos = queryStr.indexOf('?', lastPos);
+        lastPos = queryStr.indexOf(QChar::fromLatin1('?'), lastPos);
         if (lastPos == -1)
             break;
         QString x = i->toString();
@@ -109,7 +109,7 @@ QSqlConnection::initializeQuery(const QString& statement,
             i->type() == QVariant::DateTime ||
             i->type() == QVariant::Date ||
             i->type() == QVariant::Time)
-            x = '\'' + x.replace('\'', "''") + '\'';
+            x = QChar::fromLatin1('\'') + x.replace(QChar::fromLatin1('\''), QString::fromLatin1("''")) + QChar::fromLatin1('\'');
         queryStr.replace(lastPos, 1, x);
         lastPos += x.length();
     }
@@ -162,13 +162,13 @@ QSqlConnection::executeInsert(const QString& tableName,
 {
     Q_ASSERT(fields.count() == values.count());
 
-    QString q = "INSERT INTO %1(%2) VALUES (%3)";
+    QString q = QString::fromLatin1("INSERT INTO %1(%2) VALUES (%3)");
     q = q.arg(tableName);
-    q = q.arg(fields.join(", "));
+    q = q.arg(fields.join(QString::fromLatin1(", ")));
     QStringList l;
     for (Bindings::size_type i = values.count(); i > 0; --i)
-        l.append("?");
-    q = q.arg(l.join(", "));
+        l.append(QString::fromLatin1("?"));
+    q = q.arg(l.join(QString::fromLatin1(", ")));
 
 
     std::auto_ptr<QSqlQuery> s(initializeQuery(q, values));

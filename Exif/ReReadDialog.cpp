@@ -84,19 +84,19 @@ int Exif::ReReadDialog::exec( const QStringList& list )
 
 void Exif::ReReadDialog::readInfo()
 {
-    int mode = EXIFMODE_FORCE;
+    DB::ExifMode mode = DB::EXIFMODE_FORCE;
 
     if ( _exifDB->isChecked() )
-        mode |= EXIFMODE_DATABASE_UPDATE;
+        mode |= DB::EXIFMODE_DATABASE_UPDATE;
 
     if ( _date->isChecked() )
-            mode |= EXIFMODE_DATE;
+            mode |= DB::EXIFMODE_DATE;
     if ( _force_date->isChecked() )
-            mode |= EXIFMODE_FORCE_DATE;
+             mode |= DB::EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE;
     if ( _orientation->isChecked() )
-            mode |= EXIFMODE_ORIENTATION;
+            mode |= DB::EXIFMODE_ORIENTATION;
     if ( _description->isChecked() )
-            mode |= EXIFMODE_DESCRIPTION;
+            mode |= DB::EXIFMODE_DESCRIPTION;
 
     accept();
     DB::ImageDB::instance()->slotReread(_list, mode);

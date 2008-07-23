@@ -27,13 +27,15 @@
 #  include "Exif/Info.h"
 #endif
 
+#include "ExifMode.h"
+
 namespace DB
 {
 
 class FileInfo
 {
 public:
-    static FileInfo read( const QString& fileName );
+    static FileInfo read( const QString& fileName, DB::ExifMode mode );
     QDateTime dateTime() { return _date; }
     int angle() { return _angle; };
     QString description() {return _description; }
@@ -48,7 +50,8 @@ protected:
     int orientationToAngle( int orientation );
 
 private:
-    FileInfo( const QString& fileName );
+    FileInfo( const QString& fileName, DB::ExifMode mode );
+    bool updateDatFromFileTimeStamp( const QString& fileName, DB::ExifMode mode);
     QDateTime _date;
     int _angle;
     QString _description;

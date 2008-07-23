@@ -213,7 +213,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
         progressBar->setValue(n);
 }
 
-void ImageDB::slotReread( const QStringList& list, int mode)
+void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
 {
 // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("Loading information from images"),

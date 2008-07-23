@@ -28,12 +28,12 @@
 
 using namespace DB;
 
-FileInfo FileInfo::read( const QString& fileName )
+FileInfo FileInfo::read( const QString& fileName, DB::ExifMode mode )
 {
-    return FileInfo( fileName );
+    return FileInfo( fileName, mode );
 }
 
-DB::FileInfo::FileInfo( const QString& fileName )
+DB::FileInfo::FileInfo( const QString& fileName, DB::ExifMode mode )
     : _angle(0)
 {
 #ifdef HAVE_EXIV2
@@ -42,8 +42,32 @@ DB::FileInfo::FileInfo( const QString& fileName )
     parseKFileMetaInfo( fileName );
 #endif
 
-    if ( !_date.isValid() && ( Utilities::isVideo(fileName) || Settings::SettingsData::instance()->trustTimeStamps() ) )
+
+    if ( updateDatFromFileTimeStamp(fileName,mode))
         _date = QFileInfo( fileName ).lastModified();
+}
+
+bool DB::FileInfo::updateDatFromFileTimeStamp(const QString& fileName, DB::ExifMode mode)
+{
+    // If the date is valid from EXIF reading, then we should not use the time stamp from the file.
+    if ( _date.isValid() )
+        return false;
+
+    // If we are not setting date, then we should of course not set the date
+    if ( (mode & EXIFMODE_DATE) != 0 )
+        return false;
+
+    // If we are we already have specifies that we want to sent the date (from the ReReadExif dialog), then we of course should.
+    if ( (mode & EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE ) != 0)
+        return true;
+
+    // Always trust for videos (this is a way to say that we should not trust for scaned in images - which makes no sense for videos)
+    if ( Utilities::isVideo(fileName) )
+        return true;
+
+    // Finally use the info from the settings dialog
+    return Settings::SettingsData::instance()->trustTimeStamps();
+
 }
 
 #ifdef HAVE_EXIV2
@@ -145,3 +169,4 @@ int DB::FileInfo::orientationToAngle( int orientation )
 
     return 0;
 }
+

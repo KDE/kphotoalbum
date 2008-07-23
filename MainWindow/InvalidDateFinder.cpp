@@ -95,7 +95,7 @@ void InvalidDateFinder::accept()
         DB::ImageDate date = info->date();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
-            DB::FileInfo fi = DB::FileInfo::read( info->fileName() );
+            DB::FileInfo fi = DB::FileInfo::read( info->fileName(), DB::EXIFMODE_DATE );
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {

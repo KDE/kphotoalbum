@@ -43,6 +43,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
     QString text = i18n("<h1>Overview</h1>"
                         "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
+                        "<p><font color=\"red\">NOTICE THIS DIALOG DOES CURRENTLY NOT WORK</font></p>"
                         "%1", featureString() );
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
@@ -171,19 +172,19 @@ struct Data
 QString MainWindow::FeatureDialog::featureString()
 {
     Q3ValueList<Data> features;
-    features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
-    features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
-    features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
-    features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
+    features << Data( i18n("Plug-ins available TODO"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
+    features << Data( i18n("EXIF info supported TODO"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
+    features << Data( i18n("SQL Database Support TODO"), QString::fromLatin1("#database"), hasSQLDBSupport() );
+    features << Data( i18n( "Sqlite Database Support (used for EXIF searches) TODO" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "MPEG video support" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
-    features << Data( i18n( "Quicktime video support (aka mov)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/quicktime") ) );
-    features << Data( i18n( "AVI video support" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-msvideo") ) );
-    features << Data( i18n( "ASF video support (aka wmv)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-ms-asf") ) );
-    features << Data( i18n( "Real Media"), QString::fromLatin1( "#video" ),
+    features << Data( i18n( "MPEG video support TODO" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
+    features << Data( i18n( "Quicktime video support (aka mov) TODO" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/quicktime") ) );
+    features << Data( i18n( "AVI video support TODO" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-msvideo") ) );
+    features << Data( i18n( "ASF video support (aka wmv) TODO" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-ms-asf") ) );
+    features << Data( i18n( "Real Media TODO"), QString::fromLatin1( "#video" ),
                       hasVideoSupport( QString::fromLatin1( "application/vnd.rn-realmedia" ) )||
                       hasVideoSupport( QString::fromLatin1( "video/vnd.rn-realvideo" ) ) );
-    features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
+    features << Data( i18n( "Video Thumbnails support TODO" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
 
     QString result = QString::fromLatin1("<p><table>");

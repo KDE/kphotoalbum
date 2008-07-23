@@ -241,9 +241,9 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-void ImageInfo::readExif(const QString& fullPath, int mode)
+void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
 {
-    DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
+    DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
 
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
@@ -457,10 +457,10 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& 
 
 bool DB::ImageInfo::updateDateInformation( int mode ) const
 {
-    if (mode & EXIFMODE_DATE == 0)
+    if ((mode & EXIFMODE_DATE) == 0)
         return false;
 
-    if (mode & EXIFMODE_FORCE)
+    if ( (mode & EXIFMODE_FORCE) != 0 )
         return true;
 
 #ifdef HAVE_EXIV2

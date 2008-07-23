@@ -28,14 +28,7 @@
 #include "DB/CategoryCollection.h"
 #include "Utilities/Set.h"
 #include "MD5.h"
-
-#define EXIFMODE_DATE          0x01
-#define EXIFMODE_ORIENTATION   0x02
-#define EXIFMODE_DESCRIPTION   0x04
-#define EXIFMODE_FORCE         0x08
-#define EXIFMODE_FORCE_DATE    0x10
-#define EXIFMODE_DATABASE_UPDATE 0x20
-#define EXIFMODE_INIT ( EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_DATE | EXIFMODE_DATABASE_UPDATE )
+#include "ExifMode.h"
 
 namespace Plugins
 {
@@ -79,7 +72,7 @@ public:
     void setDate( const ImageDate& );
     ImageDate date() const;
     ImageDate& date();
-    void readExif(const QString& fullPath, int mode);
+    void readExif(const QString& fullPath, DB::ExifMode mode);
 
     void rotate( int degrees );
     int angle() const;

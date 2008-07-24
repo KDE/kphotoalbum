@@ -1642,7 +1642,9 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
+#ifdef HAVE_EXIV2
     Exif::Database::instance()->recreate();
+#endif
 }
 
 #include "Window.moc"

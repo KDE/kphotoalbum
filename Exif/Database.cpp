@@ -22,7 +22,6 @@
 #include "Exif/Database.h"
 #include <qsqldatabase.h>
 #include <qsqldriver.h>
-//Added by qt3to4:
 #include <Q3ValueList>
 #include "Settings/SettingsData.h"
 #include <qsqlquery.h>
@@ -30,6 +29,9 @@
 #include <exiv2/image.hpp>
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
+#include <QProgressDialog>
+#include <QDir>
+#include <QDebug>
 #include <DB/ImageDB.h>
 #include <qfile.h>
 #include "MainWindow/Window.h"
@@ -38,7 +40,6 @@
 #include <klocale.h>
 #include "DB/ImageDB.h"
 #include <QSqlError>
-#include <kdebug.h>
 
 using namespace Exif;
 
@@ -74,7 +75,18 @@ Exif::Database* Exif::Database::_instance = 0;
 
 static void showError( QSqlQuery& query )
 {
-    qWarning( "Error running query: %s\nError was: %s", qPrintable(query.executedQuery()), qPrintable(query.lastError().text()));
+    const QString txt =
+        i18n("<p>There was an error while executing the SQL backend command. "
+             "The error is likely due to a broken database file.</p>"
+             "<p>To fix this problem run Maintainance->Rebuild EXIF database.</p>"
+             "<hr/>"
+             "<p>For debugging, this is the command I tried to execute:<br/>%1</p>"
+             "<p>This was the error message I got:<br/>%2</p>",
+             query.lastQuery(), query.lastError().text() );
+
+    KMessageBox::information( MainWindow::Window::theMainWindow(), txt, i18n("Error Executing Exif Command") );
+
+    qWarning( "Error running query: %s\nError was: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 }
 
 Exif::Database::Database()
@@ -128,10 +140,10 @@ void Exif::Database::populateDatabase()
         showError( query );
 }
 
-void Exif::Database::add( const QString& fileName )
+bool Exif::Database::add( const QString& fileName )
 {
     if ( !isUsable() )
-        return;
+        return false;
 
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.toLocal8Bit().data());
@@ -139,10 +151,12 @@ void Exif::Database::add( const QString& fileName )
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
         insert( fileName, exifData );
+        return true;
     }
     catch (...)
     {
     }
+    return false;
 }
 
 void Exif::Database::remove( const QString& fileName )
@@ -274,5 +288,25 @@ void Exif::Database::init()
 
     if ( !dbExists )
         populateDatabase();
+}
+
+void Exif::Database::recreate()
+{
+    _db.close();
+    QDir().remove(exifDBFile());
+    init();
+
+    QStringList allImages = DB::ImageDB::instance()->images();
+    QProgressDialog dialog;
+    dialog.setLabelText(i18n("Rereading EXIF information from all images"));
+    dialog.setMaximum( allImages.count() );
+    int i = 0;
+    bool OK = true;
+    Q_FOREACH( const QString& fileName, allImages ) {
+        dialog.setValue(i);
+        OK = add(fileName);
+        if ( !OK )
+            break;
+    }
 }
 

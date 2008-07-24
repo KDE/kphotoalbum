@@ -145,6 +145,7 @@ protected slots:
     void rotateSelected( int angle );
     void showVideos();
     void slotStatistics();
+    void slotRecreateExifDB();
 
 protected:
     void configureImages( bool oneAtATime );

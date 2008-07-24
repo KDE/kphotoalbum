@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="36">
+<kpartgui name="kphotoalbum" version="37">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -50,6 +50,7 @@
       <separator/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
+      <Action name="recreateExifDB" />
       <Action name="reReadExifInfo" />
       <Action name="convertBackend" />
       <Separator/>

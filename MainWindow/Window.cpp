@@ -679,6 +679,9 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Rescan for Images and Videos") );
 
 #ifdef HAVE_EXIV2
+    a = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT( slotRecreateExifDB() ) );
+    a->setText( i18n("Recreate Exif Search Database") );
+
     a = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT( slotReReadExifInfo() ) );
     a->setText( i18n("Read EXIF Info From Files...") );
 #endif
@@ -1635,6 +1638,11 @@ void MainWindow::Window::setupStatusBar()
 
     _pathIndicator = new QLabel;
     statusBar()->addWidget( _pathIndicator );
+}
+
+void MainWindow::Window::slotRecreateExifDB()
+{
+    Exif::Database::instance()->recreate();
 }
 
 #include "Window.moc"

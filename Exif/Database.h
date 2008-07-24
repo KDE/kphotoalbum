@@ -55,10 +55,11 @@ public:
 
     bool isOpen() const;
     bool isUsable() const;
-    void add( const QString& fileName );
+    bool add( const QString& fileName );
     void remove( const QString& fileName );
     StringSet filesMatchingQuery( const QString& query );
     QList< QPair<QString,QString> > cameras() const;
+    void recreate();
 
 protected:
     static QString exifDBFile();

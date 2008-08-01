@@ -55,7 +55,7 @@ public:
 
     bool isOpen() const;
     bool isUsable() const;
-    bool add( const QString& fileName );
+    void add( const QString& fileName );
     void remove( const QString& fileName );
     StringSet filesMatchingQuery( const QString& query );
     QList< QPair<QString,QString> > cameras() const;

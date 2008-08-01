@@ -29,6 +29,7 @@
 #include <exiv2/image.hpp>
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
+#include <QApplication>
 #include <QProgressDialog>
 #include <QDir>
 #include <QDebug>
@@ -84,7 +85,8 @@ static void showError( QSqlQuery& query )
              "<p>This was the error message I got:<br/>%2</p>",
              query.lastQuery(), query.lastError().text() );
 
-    KMessageBox::information( MainWindow::Window::theMainWindow(), txt, i18n("Error Executing Exif Command") );
+    KMessageBox::information( MainWindow::Window::theMainWindow(), txt, i18n("Error Executing Exif Command"), QString::fromLatin1( "sql_error_in_exif_DB" )
+        );
 
     qWarning( "Error running query: %s\nError was: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 }
@@ -140,10 +142,10 @@ void Exif::Database::populateDatabase()
         showError( query );
 }
 
-bool Exif::Database::add( const QString& fileName )
+void Exif::Database::add( const QString& fileName )
 {
     if ( !isUsable() )
-        return false;
+        return;
 
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.toLocal8Bit().data());
@@ -151,12 +153,10 @@ bool Exif::Database::add( const QString& fileName )
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
         insert( fileName, exifData );
-        return true;
     }
     catch (...)
     {
     }
-    return false;
 }
 
 void Exif::Database::remove( const QString& fileName )
@@ -298,15 +298,15 @@ void Exif::Database::recreate()
 
     QStringList allImages = DB::ImageDB::instance()->images();
     QProgressDialog dialog;
+    dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));
     dialog.setMaximum( allImages.count() );
     int i = 0;
-    bool OK = true;
     Q_FOREACH( const QString& fileName, allImages ) {
-        dialog.setValue(i);
-        OK = add(fileName);
-        if ( !OK )
-            break;
+        dialog.setValue(i++);
+        add(fileName);
+        if ( i % 10 )
+            qApp->processEvents();
     }
 }
 

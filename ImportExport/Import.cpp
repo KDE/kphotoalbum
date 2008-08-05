@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <KTemporaryFile>
 #include <kfiledialog.h>
+#include <KLocalizedString>
 #include "ImportDialog.h"
 #include <kio/jobuidelegate.h>
 #include <kio/jobclasses.h>

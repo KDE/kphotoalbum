@@ -1,3 +1,7 @@
+2008-08-30  Jan Kundrat  <jkt@gentoo.org>
+
+	* Fix recognition of video files whose name contains more than one dot
+
 2008-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* new icons for the default categories. These icons will now by

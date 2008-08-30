@@ -703,7 +703,7 @@ bool Utilities::isVideo( const QString& fileName )
     }
 
     QFileInfo fi( fileName );
-    QString ext = fi.completeSuffix().toLower();
+    QString ext = fi.suffix().toLower();
     return videoExtensions.contains( ext );
 }
 

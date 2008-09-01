@@ -228,7 +228,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 
     for( QStringList::ConstIterator it = l.begin(); it != l.end(); ++it ) {
         _imageList.append( *it );
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->angle(), NULL );
         request->setPriority( ImageManager::ThumbnailInvisible );
         ImageManager::Manager::instance()->load( request );
     }

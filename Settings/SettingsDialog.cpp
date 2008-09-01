@@ -69,6 +69,7 @@
 
 #include "CategoryItem.h"
 #include <kdebug.h>
+
 #include <QLineEdit>
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent)
@@ -219,6 +220,21 @@ void Settings::SettingsDialog::createGeneralPage()
     _showSplashScreen->setWhatsThis( txt );
 }
 
+void Settings::SettingsDialog::slotClickedThumbnailDefaultCacheSize()
+{
+    int defaultCache = Settings::SettingsData::instance()
+        ->defaultThumbnailCache();
+
+    _thumbnailCache->setValue(defaultCache);
+}
+
+void Settings::SettingsDialog::thumbnailCacheSizeChanged( int value )
+{
+    int defaultCache = Settings::SettingsData::instance()
+        ->defaultThumbnailCache();
+    _thumbnailCacheSetDefault->setEnabled( value != defaultCache );
+}
+
 void Settings::SettingsDialog::createThumbNailPage()
 {
     QWidget* top = new QWidget;
@@ -302,8 +318,15 @@ void Settings::SettingsDialog::createThumbNailPage()
     _thumbnailCache = new QSpinBox;
     _thumbnailCache->setRange( 1, 4096 );
     _thumbnailCache->setSuffix( i18n("Mbytes" ) );
+    _thumbnailCacheSetDefault = new KPushButton( i18n("Suggest"), top );
+    connect( _thumbnailCacheSetDefault, SIGNAL( clicked() ),
+             this, SLOT( slotClickedThumbnailDefaultCacheSize() ) );
+    connect( _thumbnailCache, SIGNAL( valueChanged( int ) ),
+             this, SLOT( thumbnailCacheSizeChanged( int ) ) );
+
     lay->addWidget( cacheLabel, row, 0 );
     lay->addWidget( _thumbnailCache, row, 1 );
+    lay->addWidget( _thumbnailCacheSetDefault, row, 2);
 
     lay->setColumnStretch( 1, 1 );
     lay->setRowStretch( ++row, 1 );

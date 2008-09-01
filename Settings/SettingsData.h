@@ -114,6 +114,7 @@ public:
 
     void setThumbnailCache( int value );
     int thumbnailCache() const;
+    int defaultThumbnailCache() const;
 
     void setThumbSize( int value );
     int thumbSize() const;
@@ -222,6 +223,8 @@ protected:
     QColor value( const QString& group, const QString& option, const QColor& defaultValue ) const;
     QSize value( const QString& group, const QString& option, const QSize& defaultValue ) const;
     StringSet value(const QString& group, const QString& option, const StringSet& defaultValue ) const;
+
+    void resetValue(const QString& grp, const QString& option);
 
     void setValue( const QString& group, const QString& option, int value );
     void setValue( const QString& group, const QString& option, const QString& value );

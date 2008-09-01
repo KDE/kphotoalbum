@@ -42,6 +42,7 @@
 #include <QColor>
 #include <QStringList>
 #include <config-kpa-sqldb.h>
+#include <QDesktopWidget>
 
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
@@ -69,7 +70,8 @@ Settings::SettingsData* Settings::SettingsData::instance()
 }
 
 Settings::SettingsData::SettingsData( const QString& imageDirectory )
-    : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
+    : _hasAskedAboutTimeStamps( false ),
+      _imageDirectory( imageDirectory )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
     _smoothScale = value( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), true );
@@ -412,6 +414,13 @@ StringSet Settings::SettingsData::value(const QString& grp, const QString& optio
     return config->group(grp).readEntry<QStringList>( option, QStringList() );
 }
 
+void Settings::SettingsData::resetValue(const QString& grp,
+                                        const QString& option) {
+    KConfigGroup group = KGlobal::config()->group(grp);
+    group.deleteEntry( option );
+    group.sync();
+}
+
 void Settings::SettingsData::setValue( const QString& grp, const QString& option, int value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
@@ -482,16 +491,32 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
 }
 
 
+int Settings::SettingsData::defaultThumbnailCache() const {
+    QRect screen = QApplication::desktop()->screenGeometry();
+    // We want have approximatly 3 screens worth of pixels stored.
+    const int kFactor = 3;
+    const int kBytesPerPixel = 4;
+    return (screen.width() * screen.height() * kBytesPerPixel * kFactor) >> 20;
+}
 
 void Settings::SettingsData::setThumbnailCache( int value )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
     QPixmapCache::clear();
-    setValue( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbnailCache" ), value );
+    if (value == defaultThumbnailCache()) {
+        resetValue( QString::fromLatin1( "Thumbnails" ),
+                    QString::fromLatin1( "thumbnailCache" ) );
+    } else {        
+        setValue( QString::fromLatin1( "Thumbnails" ),
+                  QString::fromLatin1( "thumbnailCache" ),
+                  value );
+    }
 }
 int Settings::SettingsData::thumbnailCache() const
 {
-    return value( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbnailCache" ), 5 );
+    return value( QString::fromLatin1( "Thumbnails" ),
+                  QString::fromLatin1( "thumbnailCache" ),
+                  defaultThumbnailCache());
 }
 
 void Settings::SettingsData::setThumbSize( int value )

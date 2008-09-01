@@ -60,8 +60,10 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _iconViewFactory = new BrowserIconViewItemFactory( _iconView );
 
     _listView->addColumn( i18n("What") );
-    _listView->addColumn( i18n("Images") );
-    _listView->addColumn( i18n("Videos") );
+    _listView->setColumnAlignment(_listView->addColumn( i18n("Images") ),
+                                  Qt::AlignRight);
+    _listView->setColumnAlignment(_listView->addColumn( i18n("Videos") ),
+                                  Qt::AlignRight);
 
     connect( _listView, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
     connect( _listView, SIGNAL( returnPressed( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );

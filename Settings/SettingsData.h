@@ -125,6 +125,8 @@ public:
     boolProperty( Viewer, launchSlideShowFullScreen, setLaunchSlideShowFullScreen, false );
     intProperty( Viewer, slideShowInterval, setSlideShowInterval, 5 );
     intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
+    intProperty( Viewer, infoBoxWidth, setInfoBoxWidth, 400 );
+    intProperty( Viewer, infoBoxHeight, setInfoBoxHeight, 300 );
 
     boolProperty( Viewer, showInfoBox, setShowInfoBox, true );
     boolProperty( Viewer, showLabel, setShowLabel, true );

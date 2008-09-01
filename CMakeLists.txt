@@ -103,7 +103,8 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CategoryImageConfig.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Display.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp)
 
 set(libCategoryListView_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableListView.cpp 

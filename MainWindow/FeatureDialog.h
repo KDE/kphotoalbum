@@ -30,7 +30,7 @@ public:
     FeatureDialog( QWidget* parent );
     static bool hasAllFeaturesAvailable();
     static QString featureString();
-    static bool hasVideoSupport( const QString& mimeType );
+    static QStringList supportedVideoMimeTypes();
 
 protected:
     static bool hasKIPISupport();

@@ -30,6 +30,7 @@
 #include <kmediaplayer/player.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
+#include <Phonon/BackendCapabilities>
 
 using namespace MainWindow;
 
@@ -87,17 +88,24 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "so please make sure the right version is installed on your system."
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
-    text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
-                 "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you, "
-                 "have a look at the "
-                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
-
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
                  "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
                  "If this test fails, then you need to go hunting for packages for your system that contains the name <tt>mplayer</tt> "
                  "or <tt>xine</tt>. Some systems provides the support in a package called <b>libarts1-xine</b></p>"
                  "<p>For even better thumbnail support, please try out "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
+
+    text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
+                 "<p>KPhotoAlbum relies on the Qt's Phonon architecture for displaying videos, this in turn relies on GStreamer. "
+                 "If this feature is not enabled for you, have a look at the "
+                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
+
+    QStringList mimeType = supportedVideoMimeTypes();
+    if ( mimeType.isEmpty() )
+        text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there was missing codeces</p>");
+    else
+        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeType.join(QString::fromLatin1( "<li>" ) ) );
+
     edit->setText( text );
 
     resize( 800, 600 );
@@ -173,19 +181,13 @@ QString MainWindow::FeatureDialog::featureString()
 {
     Q3ValueList<Data> features;
     features << Data( i18n("Plug-ins available *TODO*"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
-    features << Data( i18n("EXIF info supported *TODO*"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
+    features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
     features << Data( i18n("SQL Database Support *TODO*"), QString::fromLatin1("#database"), hasSQLDBSupport() );
-    features << Data( i18n( "Sqlite Database Support (used for EXIF searches) *TODO*" ), QString::fromLatin1("#database"),
+    features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "MPEG video support *TODO*" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
-    features << Data( i18n( "Quicktime video support (aka mov) *TODO*" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/quicktime") ) );
-    features << Data( i18n( "AVI video support *TODO*" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-msvideo") ) );
-    features << Data( i18n( "ASF video support (aka wmv) *TODO*" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-ms-asf") ) );
-    features << Data( i18n( "Real Media *TODO*"), QString::fromLatin1( "#video" ),
-                      hasVideoSupport( QString::fromLatin1( "application/vnd.rn-realmedia" ) )||
-                      hasVideoSupport( QString::fromLatin1( "video/vnd.rn-realvideo" ) ) );
     features << Data( i18n( "Video Thumbnails support *TODO*" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
+    features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 
     QString result = QString::fromLatin1("<p><table>");
     const QString yes = i18n("Yes");
@@ -199,34 +201,10 @@ QString MainWindow::FeatureDialog::featureString()
     return result;
 }
 
-bool MainWindow::FeatureDialog::hasVideoSupport( const QString& mimeType )
+QStringList MainWindow::FeatureDialog::supportedVideoMimeTypes()
 {
-// PENDING(blackie) PORT: this function does seem to work
-    static QMap<QString, bool> cache;
-    if ( cache.contains( mimeType ) )
-        return cache[mimeType];
+    return Phonon::BackendCapabilities::availableMimeTypes();
 
-    KService::Ptr service = KMimeTypeTrader::self()->preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-    if ( !service.data() ) {
-        cache[mimeType] = false;
-        return false;
-    }
-
-    QString library=service->library();
-    if ( library.isNull() ) {
-        cache[mimeType] = false;
-        return false;
-    }
-
-    KParts::ReadOnlyPart* part = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service);
-    delete part;
-    if ( !part ) {
-        cache[mimeType] = false;
-        return false;
-    }
-
-    cache[mimeType] = true;
-    return true;
 }
 
 #include "FeatureDialog.moc"

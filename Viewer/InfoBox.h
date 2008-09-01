@@ -18,6 +18,7 @@
 
 #ifndef INFOBOX_H
 #define INFOBOX_H
+#include "InfoBoxResizer.h"
 #include <QMouseEvent>
 #include "ViewerWidget.h"
 #include <QTextBrowser>
@@ -39,17 +40,21 @@ protected slots:
     void linkHovered(const QString&);
 
 protected:
-    virtual void mouseMoveEvent( QMouseEvent* );
-    virtual void mousePressEvent( QMouseEvent* );
-    virtual void mouseReleaseEvent( QMouseEvent* );
-
+    OVERRIDE void mouseMoveEvent( QMouseEvent* );
+    OVERRIDE void mousePressEvent( QMouseEvent* );
+    OVERRIDE void mouseReleaseEvent( QMouseEvent* );
+    OVERRIDE void resizeEvent( QResizeEvent* );
+    void updateCursor( const QPoint& pos );
+    bool atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position windowPos ) const;
     void showBrowser();
+    void possiblyStartResize(const QPoint& pos);
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;
     ViewerWidget* _viewer;
     QToolButton* _jumpToContext;
     bool _hoveringOverLink;
+    InfoBoxResizer _infoBoxResizer;
 };
 
 }

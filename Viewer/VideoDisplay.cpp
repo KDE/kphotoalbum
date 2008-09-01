@@ -76,15 +76,6 @@ void Viewer::VideoDisplay::stateChanged( int state)
 }
 
 
-QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) const
-{
-    QString res = KMimeType::findByUrl(fileName)->name();
-    if ( res == QString::fromLatin1("application/vnd.rn-realmedia") && !MainWindow::FeatureDialog::hasVideoSupport( res ) )
-        res = QString::fromLatin1( "video/vnd.rn-realvideo" );
-
-    return res;
-}
-
 void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
 {
     const QString failed = QString::fromLatin1( "<font color=\"red\"><b>%1</b></font>" ).arg( i18n("Failed") );

@@ -17,6 +17,7 @@
 */
 
 #include "InfoBox.h"
+#include <qglobal.h>
 #include "Browser/BrowserWidget.h"
 #include <qapplication.h>
 #include <qtoolbutton.h>
@@ -29,12 +30,23 @@
 #include <QDesktopWidget>
 #include <kdebug.h>
 
+using namespace Settings;
+
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
-    :QTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false )
+    :QTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
     setMidLineWidth(0);
+    setAutoFillBackground(false);
+
+
+#if 1 // Transparent background
+    QPalette p = palette();
+    p.setColor(QPalette::Base, QColor(0,0,0,170)); // r,g,b,A
+    p.setColor(QPalette::Text, Qt::white );
+    setPalette(p);
+#endif
 
     _jumpToContext = new QToolButton( this );
     _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
@@ -42,6 +54,7 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
     connect( this, SIGNAL( highlighted(const QString&) ),
              SLOT( linkHovered(const QString&) ));
+    _jumpToContext->setCursor( Qt::ArrowCursor );
 }
 
 void Viewer::InfoBox::setSource( const QUrl& which )
@@ -63,71 +76,46 @@ void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QStrin
 
 void Viewer::InfoBox::setSize()
 {
-    int width = 100;
-    int height = 0, h2;
+    const int maxWidth = Settings::SettingsData::instance()->infoBoxWidth();
+    const int maxHeight = Settings::SettingsData::instance()->infoBoxHeight();
 
-    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    document()->setPageSize( QSize(maxWidth, maxHeight) );
+    bool showVerticalBar = document()->size().height() > maxHeight;
 
-    do {
-        document()->setTextWidth(width);
-        width +=10;
-        height = static_cast<int>( document()->size().height() );
-    } while ( height > width && width < _viewer->width()/3 );
-    height = qMin( height, _viewer->height()/3 );
+    setVerticalScrollBarPolicy( showVerticalBar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    const int realWidth = document()->idealWidth() + (showVerticalBar ? verticalScrollBar()->width() + frameWidth() : 0) + _jumpToContext->width() + 10;
 
-
-    // make the box smaller in width till it fits
-    int origWidth = width;
-    do {
-        width -= 10;
-        h2 = heightForWidth( width );
-        if ( width < 0 ) {
-            // something went wrong - damn I hate this code
-            break;
-        }
-    } while( height == h2 );
-    if ( width < 0 )
-        width = origWidth;
-    else
-        width+=10;
-
-    width+=16; // space for the jump to context icon
-
-    // Force the scrollbar off. This is to ensuer that we don't get in the situation where an image might have fited,
-    // if it hadn't been because a scrollbar is shown
-    setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
-    setHorizontalScrollBarPolicy( Qt::ScrollBarAsNeeded );
-
-    resize( width +4*frameWidth(), height +4*frameWidth());
-
-    int offset = 0;
-    if ( !verticalScrollBar()->isHidden() )
-        offset = verticalScrollBar()->width();
-    _jumpToContext->move( width +3*frameWidth() - 16 - offset, frameWidth() );
-
+    resize( realWidth, QMIN( (int)document()->size().height(), maxHeight ) );
 }
 
 void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
 {
-    // if we are just over a link, don't change the cursor to 'movement':
-    // that would be irritating
-    if (!_hoveringOverLink)
-        viewport()->setCursor( Qt::SizeAllCursor );
+    if ( e->button() == Qt::LeftButton )
+        possiblyStartResize( e->pos() );
     QTextBrowser::mousePressEvent(e);
 }
 
 void Viewer::InfoBox::mouseReleaseEvent( QMouseEvent* e )
 {
-    if (!_hoveringOverLink)
-        viewport()->unsetCursor();
+    if ( _infoBoxResizer.isActive() ) {
+        Settings::SettingsData::instance()->setInfoBoxWidth( width() );
+        Settings::SettingsData::instance()->setInfoBoxHeight( height() );
+    }
+
+    _infoBoxResizer.deactivate();
     QTextBrowser::mouseReleaseEvent(e);
 }
 
 void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
 {
+    updateCursor(e->pos() );
+
     if ( e->buttons() & Qt::LeftButton ) {
-        _viewer->infoBoxMove();
+        if ( _infoBoxResizer.isActive() )
+            _infoBoxResizer.setPos( e->pos() );
+        else
+            _viewer->infoBoxMove();
         // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     }
     else
@@ -156,5 +144,64 @@ void Viewer::InfoBox::showBrowser()
 
 }
 
+
+
+/**
+ * Update the cursor based on the cursors position in the info box
+ */
+void Viewer::InfoBox::updateCursor( const QPoint& pos )
+{
+    const int border = 25;
+
+    bool left = (pos.x() < border);
+    bool right = pos.x() > width()-border;
+    bool top = pos.y() < border;
+    bool bottom = pos.y() > height()-border;
+
+    Settings::Position windowPos = Settings::SettingsData::instance()->infoBoxPosition();
+
+    Qt::CursorShape shape = Qt::SizeAllCursor;
+    if ( _hoveringOverLink ) shape = Qt::ArrowCursor;
+    else if ( atBlackoutPos( left, right, top, bottom, windowPos ) )
+        shape = Qt::SizeAllCursor;
+    else if ( left && top || right && bottom ) shape = Qt::SizeFDiagCursor;
+    else if ( left && bottom || right && top ) shape = Qt::SizeBDiagCursor;
+    else if ( top || bottom ) shape = Qt::SizeVerCursor;
+    else if ( left || right ) shape = Qt::SizeHorCursor;
+
+    setCursor( shape );
+    viewport()->setCursor( shape );
+}
+
+/**
+ * Return true if we are at an edge of the image info box that is towards the edge of the viewer.
+ * We can forexample not make the box taller at the bottom if the box is sitting at the bottom of the viewer.
+ */
+bool Viewer::InfoBox::atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position pos ) const
+{
+    return ( left && (pos == Left || pos == TopLeft || pos == BottomLeft ) ) ||
+        ( right && (pos == Right || pos == TopRight || pos == BottomRight ) ) ||
+        ( top && ( pos == Top || pos == TopLeft || pos == TopRight ) ) ||
+        ( bottom && ( pos == Bottom || pos == BottomLeft || pos == BottomRight ) );
+}
+
+void Viewer::InfoBox::possiblyStartResize( const QPoint& pos )
+{
+    const int border = 25;
+
+    bool left = (pos.x() < border);
+    bool right = pos.x() > width()-border;
+    bool top = pos.y() < border;
+    bool bottom = pos.y() > height()-border;
+
+    if ( left || right || top || bottom )
+        _infoBoxResizer.setup(left,right,top,bottom);
+}
+
+void Viewer::InfoBox::resizeEvent( QResizeEvent* )
+{
+    QPoint pos = viewport()->rect().adjusted(0,2,-_jumpToContext->width()-2,0).topRight();
+    _jumpToContext->move( pos );
+}
 
 #include "InfoBox.moc"

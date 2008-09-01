@@ -831,6 +831,7 @@ void Viewer::ViewerWidget::updateInfoBox()
         if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();
+
         }
         else
             _infoBox->hide();

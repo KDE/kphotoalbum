@@ -57,7 +57,6 @@ protected slots:
 
 protected:
     enum ErrorType { NoError, NoMimeType, NoKPart, NoLibrary, NoPartInstance,NoWidget };
-    QString mimeTypeForFileName( const QString& fileName ) const;
     void showError( ErrorType, const QString& fileName, const QString& mimeType );
     void resize( float factor );
     virtual void resizeEvent( QResizeEvent* );

@@ -1,4 +1,5 @@
 #include "Import.h"
+#include <klocale.h>
 #include "KimFileReader.h"
 #include <QBuffer>
 #include <kmessagebox.h>

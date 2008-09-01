@@ -17,33 +17,34 @@
 */
 
 #include "ImageLoader.h"
-#include <qwaitcondition.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+
 #include "ImageDecoder.h"
-#include "RawImageDecoder.h"
 #include "Manager.h"
+#include "RawImageDecoder.h"
 #include "Utilities/Util.h"
-#include <qfileinfo.h>
+
+#include <Q3ValueList>  //Added by qt3to4
 #include <qapplication.h>
 #include <qdir.h>
+#include <qfileinfo.h>
+#include <qwaitcondition.h>
 
 extern "C" {
 #include <limits.h>
+#include <setjmp.h>
+#include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <sys/stat.h>
-#include <setjmp.h>
 #include <sys/types.h>
+#include <unistd.h>
 }
 
-#include <qmatrix.h>
-#include <kurl.h>
 #include <kcodecs.h>
-#include <qpixmapcache.h>
 #include <kdebug.h>
+#include <kurl.h>
+#include <qmatrix.h>
+#include <qpixmapcache.h>
 
 namespace ImageManager
 {
@@ -54,6 +55,11 @@ namespace ImageManager
 
 ImageManager::ImageLoader::ImageLoader()
 {
+    QDir dir(QDir::homePath());
+    dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
+    dir.cd( QString::fromLatin1( ".thumbnails" ) );
+    dir.mkdir( QString::fromLatin1( "normal" ) );
+    dir.mkdir( QString::fromLatin1( "large" ) );
 }
 
 void ImageManager::ImageLoader::run()
@@ -156,12 +162,6 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 
 void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
 {
-    QDir dir(QDir::homePath());
-    dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
-    dir.cd( QString::fromLatin1( ".thumbnails" ) );
-    dir.mkdir( QString::fromLatin1( "normal" ) );
-    dir.mkdir( QString::fromLatin1( "large" ) );
-
     int dim = calcLoadSize( request );
     Q3ValueList<int> list;
     list << 128;

@@ -23,7 +23,6 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <QMouseEvent>
-#include <kdebug.h>
 
 /**
  * \class Viewer::ViewHandler
@@ -55,7 +54,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     if (_pan) {
          // panning
         _last = unTranslatedPos;
-        qApp->setOverrideCursor( Qt::SizeAllCursor  );
+        qApp->setOverrideCursor( Qt::SizeAllCursor );
         _errorX = 0;
         _errorY = 0;
         return true;
@@ -63,6 +62,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
         // scaling
         _start = e->pos();
         _untranslatedStart = unTranslatedPos;
+        qApp->setOverrideCursor( Qt::CrossCursor );
         return true;
     } else {
         return true;
@@ -98,6 +98,7 @@ bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTrans
 bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _scale ) {
+        qApp->restoreOverrideCursor();
         _rubberBand->hide();
         _scale = false;
         if ( (e->pos()-_start).manhattanLength() > 1 ) {

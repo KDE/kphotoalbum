@@ -17,33 +17,43 @@
 */
 #include "RequestQueue.h"
 #include "ImageRequest.h"
-#include <kdebug.h>
 
-void ImageManager::RequestQueue::addRequest( ImageRequest* request )
+bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    _pendingRequests[ request->priority() ].enqueue( request );
+    if ( _uniquePending.contains( request ) ) {
+        // We have this very same request already in the queue. Ignore this one.
+        delete request;
+        return false;
+    }
+    
+    _queues[ request->priority() ].enqueue( request );
+    _uniquePending.insert( request );
 
     if ( request->client() )
         _activeRequests.insert( request );
+
+    return true;
 }
 
 ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 {
-    QueueType::iterator it = _pendingRequests.end(); // _pendingRequests is initialized to non-zero size
+    QueueType::iterator it = _queues.end(); // _queues is initialized to non-zero size
     do {
         --it;
         while ( ! it->empty() ) {
             ImageRequest* request = it->dequeue();
 
             if ( ! request->stillNeeded() ) {
-                _activeRequests.erase( request );
+                removeRequest( request );
                 delete request;
             } else {
+                _uniquePending.erase( request );
                 return request;
             }
         } 
-    } while ( it != _pendingRequests.begin() );
-    return 0;
+    } while ( it != _queues.begin() );
+
+    return NULL;
 }
 
 void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction action )
@@ -60,11 +70,12 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         }
     }
 
-    for ( QueueType::iterator qit = _pendingRequests.begin(); qit != _pendingRequests.end(); ++qit ) {
+    for ( QueueType::iterator qit = _queues.begin(); qit != _queues.end(); ++qit ) {
         for ( QQueue<ImageRequest*>::iterator it = qit->begin(); it != qit->end(); /* no increment here */) {
             ImageRequest* request = *it;
             if ( request->client() == client && ( action == StopAll || request->priority() < ThumbnailVisible ) ) {
                 it = qit->erase( it );
+                _uniquePending.erase( request );
                 delete request;
             } else {
                 ++it;
@@ -81,12 +92,13 @@ bool ImageManager::RequestQueue::isRequestStillValid( ImageRequest* request )
 void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 {
     _activeRequests.erase( request );
+    _uniquePending.erase( request );
 }
 
 ImageManager::RequestQueue::RequestQueue()
 {
     for ( int i = 0; i < LastPriority; ++i )
-        _pendingRequests.append( QQueue<ImageRequest*>() );
+        _queues.append( QQueue<ImageRequest*>() );
 }
 
 

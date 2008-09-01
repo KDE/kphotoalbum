@@ -93,8 +93,8 @@ void ImageManager::Manager::loadImage( ImageRequest* request )
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
-    _loadList.addRequest( request );
-    _sleepers.wakeOne();
+    if (_loadList.addRequest( request ))
+        _sleepers.wakeOne();
 }
 
 void ImageManager::Manager::stop( ImageClient* client, StopAction action )
@@ -128,7 +128,6 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
 
         ImageRequest* request = iev->loadInfo();
-        bool cacheMe = request->cache();
         QImage image = iev->image();
 
         ImageClient* client = 0;
@@ -137,6 +136,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         QSize fullSize;
         int angle = 0;
         bool loadedOK = false;
+        bool cacheMe = false;
 
         _lock.lock();
         if ( _loadList.isRequestStillValid( request ) )  {
@@ -147,6 +147,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
             fullSize = request->fullSize();
             angle = request->angle();
             loadedOK = request->loadedOK();
+            cacheMe = request->cache();
         }
 
         _loadList.removeRequest(request);
@@ -154,8 +155,9 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         delete request;
 
         _lock.unlock();
-        if ( client )
+        if ( client ) {
             client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK, cacheMe );
+        }
     }
 }
 

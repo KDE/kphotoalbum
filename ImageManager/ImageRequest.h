@@ -53,8 +53,8 @@ enum Priority {
 
 class ImageRequest {
 public:
-    virtual ~ImageRequest() {}
     ImageRequest( const QString& fileName, const QSize& size, int angle, ImageClient* client);
+    virtual ~ImageRequest() {}
 
     bool isNull() const;
     QString fileName() const;

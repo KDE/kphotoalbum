@@ -39,13 +39,13 @@ class RequestQueue :public QObject
 public:
     RequestQueue();
 
-    // Add a new request to the input queue. If this is a priority request,
-    // this will be the next request picked up by popNext(), otherwise
-    // the request is appended to the end of the input queue.
-    void addRequest( ImageRequest* request );
+    // Add a new request to the input queue in the right priority level.
+    // @return 'true', if this is not a request already pending.
+    bool addRequest( ImageRequest* request );
 
     // Return the next needed ImageRequest from the queue or NULL if there
-    // is none.
+    // is none. The ownership is returned back to the caller so it has to
+    // delete it.
     ImageRequest* popNext();
 
     // Remove all pending requests from the given client.
@@ -54,11 +54,46 @@ public:
     bool isRequestStillValid( ImageRequest* request );
     void removeRequest( ImageRequest* );
 
-private: 
+private:
+    // A Reference to a ImageRequest withvalue semantic.
+    // This only stores the pointer to an ImageRequest object but behaves
+    // regarding the less-than and equals-operator like the object.
+    // This allows to store ImageRequests with value-semantic in a Set.
+    class ImageRequestReference {
+    public:
+        ImageRequestReference() : _ptr(0) {}
+        ImageRequestReference(const ImageRequestReference& other) 
+            : _ptr(other._ptr) {}
+        ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}
+
+        bool operator<(const ImageRequestReference &other) const {
+            return *_ptr < *other._ptr;
+        }
+        bool operator==(const ImageRequestReference &other) const {
+            return *_ptr == *other._ptr;
+        }
+        operator const ImageRequest&() const {
+            return *_ptr;
+        }
+    private:
+        const ImageRequest* _ptr;
+    };
+
     typedef QList<QQueue<ImageRequest*> > QueueType;
 
-    /** @short List of queues of image requests that are waiting for processing */
-    QueueType _pendingRequests;
+    /** @short Priotized list of queues (= 1 priority queue) of image requests
+     * that are waiting for processing
+     */
+    QueueType _queues;
+
+    /**
+     * Set of unique requests currently pending; used to discard the exact
+     * same requests.
+     * TODO(hzeller): seems, that the unique-pending requests tried to be
+     * handled in different places in kpa but sometimes in a snakeoil
+     * way (it compares pointers instead of the content -> clean up that).
+     */
+    Set<ImageRequestReference> _uniquePending;
 
     // All active requests that have a client
     Set<ImageRequest*> _activeRequests;

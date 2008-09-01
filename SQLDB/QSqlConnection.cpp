@@ -95,7 +95,9 @@ QSqlConnection::initializeQuery(const QString& statement,
 
     processListParameters(queryStr, b);
 
-    std::auto_ptr<QSqlQuery> query(new QSqlQuery(queryStr, _database));
+    std::auto_ptr<QSqlQuery> query(new QSqlQuery(_database));
+    if (!query->prepare(queryStr))
+        throw QtSQLError(query->lastError());
     bindValues(*query, b);
 
 #ifdef DEBUG_QUERYS

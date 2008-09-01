@@ -45,6 +45,7 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     QPalette p = palette();
     p.setColor(QPalette::Base, QColor(0,0,0,170)); // r,g,b,A
     p.setColor(QPalette::Text, Qt::white );
+    p.setColor(QPalette::Link, QColor(Qt::blue).light() );
     setPalette(p);
 #endif
 
@@ -71,6 +72,9 @@ void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QStrin
 {
     _linkMap = linkMap;
     setText( text );
+
+    hackLinkColorForQt44();
+
     setSize();
 }
 
@@ -80,6 +84,7 @@ void Viewer::InfoBox::setSize()
     const int maxHeight = Settings::SettingsData::instance()->infoBoxHeight();
 
     document()->setPageSize( QSize(maxWidth, maxHeight) );
+#if 0
     bool showVerticalBar = document()->size().height() > maxHeight;
 
     setVerticalScrollBarPolicy( showVerticalBar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
@@ -87,6 +92,10 @@ void Viewer::InfoBox::setSize()
     const int realWidth = document()->idealWidth() + (showVerticalBar ? verticalScrollBar()->width() + frameWidth() : 0) + _jumpToContext->width() + 10;
 
     resize( realWidth, QMIN( (int)document()->size().height(), maxHeight ) );
+#else
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    resize( maxWidth, maxHeight );
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
@@ -202,6 +211,25 @@ void Viewer::InfoBox::resizeEvent( QResizeEvent* )
 {
     QPoint pos = viewport()->rect().adjusted(0,2,-_jumpToContext->width()-2,0).topRight();
     _jumpToContext->move( pos );
+}
+
+void Viewer::InfoBox::hackLinkColorForQt44()
+{
+
+    QTextCursor cursor(document());
+    Q_FOREVER {
+        QTextCharFormat f = cursor.charFormat();
+        if (f.isAnchor()) {
+            f.setForeground(QColor(Qt::blue).light());
+            QTextCursor c2 = cursor;
+            c2.movePosition( QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor );
+            c2.setCharFormat(f);
+        }
+        if ( cursor.atEnd() ) {
+            break;
+        }
+        cursor.movePosition( QTextCursor::NextCharacter );
+    }
 }
 
 #include "InfoBox.moc"

@@ -48,6 +48,7 @@ protected:
     bool atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position windowPos ) const;
     void showBrowser();
     void possiblyStartResize(const QPoint& pos);
+    void hackLinkColorForQt44();
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;

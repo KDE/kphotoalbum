@@ -21,7 +21,8 @@ void Viewer::InfoBoxResizer::setPos(  QPoint pos )
     if ( _bottom )
         rect.setBottom( pos.y() );
 
-    _infoBox->setGeometry( rect );
+    if ( rect.width() > 100 && rect.height() > 100 )
+        _infoBox->setGeometry( rect );
 }
 
 void Viewer::InfoBoxResizer::setup( bool left, bool right, bool top, bool bottom )

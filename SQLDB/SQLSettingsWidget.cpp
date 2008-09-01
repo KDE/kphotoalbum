@@ -126,12 +126,12 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
     _usernameLine = new KLineEdit(stackPage);
     stackPage2Layout->addWidget(_usernameLine, 3, 1);
 
-/* TEMPORARILY DISABLED
     _passwordLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_passwordLabel, 4, 0);
-    _passwordLine = new KPasswordEdit(stackPage);
+    _passwordLine = new KLineEdit(stackPage);
+    _passwordLine->setPasswordMode(true);
     stackPage2Layout->addWidget(_passwordLine, 4, 1);
-*/
+
     _widgetStack->insertWidget(ServerSettingsPage, stackPage);
 
 
@@ -153,10 +153,8 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
             this, SLOT(showOptionsOfSelectedDriver()));
     connect(_driverCombo, SIGNAL(activated(const QString&)),
             this, SIGNAL(driverSelectionChanged(const QString&)));
-/* TEMPORARILY DISABLED
     connect(_passwordLine, SIGNAL(textChanged(const QString&)),
             this, SIGNAL(passwordChanged(const QString&)));
-*/
 }
 
 QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
@@ -206,9 +204,7 @@ DatabaseAddress SQLSettingsWidget::getSettings() const
         dbAddr.setHost(_hostLine->text(), _portSpin->value());
         dbAddr.setDatabaseName(_dbNameLine->text());
         dbAddr.setUserName(_usernameLine->text());
-/* TEMPORARILY DISABLED
-        dbAddr.setPassword(QString::fromLocal8Bit(_passwordLine->password()));
-*/
+        dbAddr.setPassword(_passwordLine->text());
     }
 
     return dbAddr;
@@ -230,9 +226,7 @@ void SQLSettingsWidget::setSettings(const DatabaseAddress& address)
     _portSpin->setValue(address.port());
     _dbNameLine->setText(databaseName);
     _usernameLine->setText(address.userName());
-/* TEMPORARILY DISABLED
     _passwordLine->setText(address.password());
-*/
 }
 
 void SQLSettingsWidget::reloadDriverList()
@@ -269,9 +263,7 @@ void SQLSettingsWidget::languageChange()
     _portSpin->setSpecialValueText(i18n("Default"));
     _dbNameLabel->setText(i18n("Database name:"));
     _usernameLabel->setText(i18n("Username:"));
-/* TEMPORARILY DISABLED
     _passwordLabel->setText(i18n("Password:"));
-*/
 }
 
 void SQLSettingsWidget::showOptionsOfSelectedDriver()

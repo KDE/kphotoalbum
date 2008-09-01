@@ -29,7 +29,6 @@ class QStackedWidget;
 class QSpinBox;
 class KUrlRequester;
 class KLineEdit;
-class KPasswordEdit;
 
 namespace SQLDB
 {
@@ -69,7 +68,7 @@ namespace SQLDB
         QLabel* _usernameLabel;
         KLineEdit* _usernameLine;
         QLabel* _passwordLabel;
-        KPasswordEdit* _passwordLine;
+        KLineEdit* _passwordLine;
 
     protected slots:
         virtual void languageChange();

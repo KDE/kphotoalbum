@@ -292,8 +292,9 @@ void Export::copyImages( const QStringList& list )
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
+void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK, const bool cache )
 {
+    Q_UNUSED(cache)
     if ( !loadedOK )
         return;
 

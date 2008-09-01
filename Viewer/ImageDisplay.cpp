@@ -360,8 +360,9 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
 }
 
 void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
-                                         const QImage& img, bool loadedOK )
+                                         const QImage& img, const bool loadedOK, const bool cache )
 {
+    Q_UNUSED(cache)
     if ( loadedOK && fileName == _info->fileName() ) {
         if ( fullSize.isValid() && !_info->size().isValid() )
             _info->setSize( fullSize );

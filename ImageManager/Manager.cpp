@@ -128,6 +128,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
 
         ImageRequest* request = iev->loadInfo();
+        bool cacheMe = request->cache();
         QImage image = iev->image();
 
         ImageClient* client = 0;
@@ -154,7 +155,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
 
         _lock.unlock();
         if ( client )
-            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK );
+            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK, cacheMe );
     }
 }
 

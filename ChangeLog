@@ -1,3 +1,7 @@
+2008-09-01  Jan Kundrat  <jkt@gentoo.org>
+
+	* Remove flickering in the ThumbnailView
+
 2008-08-30  Jan Kundrat  <jkt@gentoo.org>
 
 	* Fix recognition of video files whose name contains more than one dot

@@ -54,7 +54,7 @@ public:
     void setImageList( const QStringList& list );
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
-    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
+    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
     bool thumbnailStillNeeded( const QString& fileName ) const;
     QStringList selection( bool keepSortOrderOfDatabase = false ) const;
 

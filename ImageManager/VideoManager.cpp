@@ -68,7 +68,7 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap&
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         _currentRequest->setLoadedOK( true );
         QImage img = pixmap.toImage();
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull() );
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull(), _currentRequest->cache() );
     }
 
     requestLoadNext();
@@ -80,7 +80,7 @@ void ImageManager::VideoManager::previewFailed()
         QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIconLoader::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
         _currentRequest->setLoadedOK( false );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.toImage(), true );
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.toImage(), true, _currentRequest->cache() );
     }
 
     requestLoadNext();

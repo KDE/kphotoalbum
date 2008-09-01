@@ -400,7 +400,7 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 
 
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
-                                                   const QImage& image, bool loadedOK )
+                                                   const QImage& image, const bool loadedOK, const bool cache )
 {
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
@@ -423,7 +423,10 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
     if ( fullSize.isValid() )
         imageInfo->setSize( fullSize );
 
-    QPixmapCache::insert( fileName, pixmap );
+    if ( cache ) {
+        QPixmapCache::insert( fileName, pixmap );
+    }
+
     updateCell( fileName );
 }
 

@@ -35,7 +35,7 @@ class ThumbnailBuilder :public Q3ProgressDialog, public ImageManager::ImageClien
 public:
     ThumbnailBuilder( QWidget* parent, const char* name = 0 );
     void generateNext();
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
 
 private:
     QStringList _images;

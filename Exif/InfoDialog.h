@@ -37,7 +37,7 @@ class InfoDialog : public KDialog, public ImageManager::ImageClient {
 public:
     InfoDialog( const QString& fileName, QWidget* parent );
     virtual QSize sizeHint() const;
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
 
 protected slots:
     void updateSearchString( const QString& );

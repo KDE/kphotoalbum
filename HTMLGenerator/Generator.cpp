@@ -483,8 +483,10 @@ void HTMLGenerator::Generator::slotCancelGenerate()
 }
 
 void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
-                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
+                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK,
+                                     const bool cache )
 {
+    Q_UNUSED(cache)
     setValue( _total - _waitCounter );
 
     _waitCounter--;

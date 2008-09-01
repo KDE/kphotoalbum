@@ -36,7 +36,7 @@ public:
     ThumbnailToolTip( ThumbnailWidget* view );
     void showToolTips( bool force );
     virtual void setActive(bool);
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );

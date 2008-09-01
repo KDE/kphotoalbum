@@ -53,8 +53,9 @@ void ThumbnailView::ThumbnailBuilder::generateNext()
     ImageManager::Manager::instance()->load( request );
 }
 
-void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, bool /*loadedOK*/ )
+void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, const bool /*loadedOK*/, const bool cache )
 {
+    Q_UNUSED(cache)
     Q_ASSERT( _infoMap.contains( fileName ) );
     if ( fullSize.width() != -1 )
         _infoMap[fileName]->setSize( fullSize );

@@ -99,7 +99,7 @@ void Viewer::ImageDisplay::hideCursor() {
 void Viewer::ImageDisplay::showCursor() {
     if (_cursorHiding) {
         unsetCursor();
-        _cursorTimer->start( 1500, true );
+        _cursorTimer->start( 1500 );
     }
 }
 

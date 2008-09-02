@@ -56,7 +56,7 @@
 #include <QStackedWidget>
 #include <QDesktopWidget>
 #include <QVBoxLayout>
-#include <QProcess>
+#include <KProcess>
 #include <KStandardDirs>
 
 #ifdef HAVE_EXIV2
@@ -128,7 +128,11 @@ Viewer::ViewerWidget::ViewerWidget()
 
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
-        QProcess::startDetached( xdgScreenSaver, QStringList() << "suspend" << QString::number( winId() ) );
+        KProcess proc;
+        proc << xdgScreenSaver;
+        proc << QString::fromLatin1("suspend");
+        proc << QString::number( winId() );
+        proc.startDetached();
     }
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
@@ -835,11 +839,11 @@ Viewer::ViewerWidget::~ViewerWidget()
 {
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
-        QProcess proc;
-        proc.start( xdgScreenSaver, QStringList() << "resume" << QString::number( winId() ) );
+        KProcess proc;
+        proc << xdgScreenSaver << "resume" << QString::number( winId() );
         // if we don't wait here, xdg-screensaver realizes that the window is
         // already gone and doesn't re-activate the screensaver
-        proc.waitForFinished();
+        proc.execute();
     }
 
     if ( _latest == this )

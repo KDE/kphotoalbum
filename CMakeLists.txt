@@ -1,6 +1,7 @@
 project(kphotoalbum)
 
 find_package(KDE4 REQUIRED)
+find_package(Xine REQUIRED)
 include( KDE4Defaults)
 
 # This seems to be needed for KPA to compile with KDE 4.0.0

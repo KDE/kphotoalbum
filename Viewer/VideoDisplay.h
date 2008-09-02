@@ -22,7 +22,7 @@
 #include "Display.h"
 #include <kparts/componentfactory.h>
 #include <QResizeEvent>
-#include <Phonon/VideoPlayer>
+#include <Phonon/MediaObject>
 
 namespace Viewer
 {
@@ -52,8 +52,8 @@ public slots:
     void restart();
     void seek();
 
-protected slots:
-    void stateChanged( int );
+private slots:
+    void phononStateChanged(Phonon::State, Phonon::State);
 
 protected:
     enum ErrorType { NoError, NoMimeType, NoKPart, NoLibrary, NoPartInstance,NoWidget };
@@ -62,7 +62,7 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
 
 private:
-    Phonon::VideoPlayer * _player;
+    Phonon::MediaObject* _mediaObject;
 };
 
 }

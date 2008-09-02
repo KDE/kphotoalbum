@@ -17,6 +17,8 @@
 */
 
 #include "VideoDisplay.h"
+#include <Phonon/VideoWidget>
+#include <Phonon/AudioOutput>
 #include <KActionCollection>
 #include <qglobal.h>
 #include <KServiceTypeTrader>
@@ -24,8 +26,6 @@
 #include <KMimeType>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
-
-#include <kmediaplayer/player.h>
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
@@ -47,34 +47,35 @@
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent )
 {
-    _player = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
+    _mediaObject = new Phonon::MediaObject;
+    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
+    Phonon::createPath( _mediaObject, audioDevice );
+
+    Phonon::VideoWidget* videoDevice = new Phonon::VideoWidget;
+    Phonon::createPath( _mediaObject, videoDevice );
+
     QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget( _player, 1 );
+    layout->addWidget( videoDevice, 1 );
 
     Phonon::SeekSlider* slider = new Phonon::SeekSlider(this);
     layout->addWidget( slider );
-    slider->setMediaObject( _player->mediaObject() );
-    _player->mediaObject()->setTickInterval(100);
+    slider->setMediaObject( _mediaObject );
+    _mediaObject->setTickInterval(100);
 
-    connect( _player, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
+    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
+    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
+             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
     _info = info;
-    _player->play( info->fileName() );
+    _mediaObject->setCurrentSource( info->fileName() );
+    _mediaObject->play();
 
 
     return true;
 }
-
-void Viewer::VideoDisplay::stateChanged( int state)
-{
-    if ( state == KMediaPlayer::Player::Stop ) {
-        emit stopped();
-    }
-}
-
 
 void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
 {
@@ -136,6 +137,7 @@ void Viewer::VideoDisplay::zoomPixelForPixel()
 
 void Viewer::VideoDisplay::resize( const float factor )
 {
+    Q_UNUSED( factor );
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
     QWidget* widget = _playerPart->widget();
@@ -188,43 +190,65 @@ void Viewer::VideoDisplay::play()
 
 Viewer::VideoDisplay::~VideoDisplay()
 {
-    _player->stop();
+    _mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::stop()
 {
-    _player->stop();
+    _mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::playPause()
 {
-    if ( _player->isPaused() )
-        _player->play();
+    if ( _mediaObject->state() != Phonon::PlayingState )
+        _mediaObject->play();
     else
-        _player->pause();
+        _mediaObject->pause();
 }
 
 void Viewer::VideoDisplay::restart()
 {
-    _player->seek(0);
-    _player->play();
+    _mediaObject->seek(0);
+    _mediaObject->play();
 }
 
 void Viewer::VideoDisplay::seek()
 {
     QAction* action = static_cast<QAction*>(sender());
     int value = action->data().value<int>();
-    _player->seek( value );
+    _mediaObject->seek( value );
 }
 
 bool Viewer::VideoDisplay::isPaused() const
 {
-    return _player->isPaused();
+    return _mediaObject->state() == Phonon::PausedState;
 }
 
 bool Viewer::VideoDisplay::isPlaying() const
 {
-    return _player->isPlaying();
+    return _mediaObject->state() == Phonon::PlayingState;
+}
+
+void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::State /*oldState*/)
+{
+    if ( newState == Phonon::LoadingState )
+        qDebug("LoadingState ");
+
+    if ( newState == Phonon::StoppedState )
+        qDebug("StoppedState");
+
+    if ( newState == Phonon::PlayingState )
+        qDebug("PlayingState");
+
+    if ( newState == Phonon::BufferingState)
+        qDebug("BufferingState");
+
+    if ( newState == Phonon::PausedState )
+        qDebug("PausedState");
+
+    if ( newState == Phonon::ErrorState ) {
+        QMessageBox::critical(0, "Error playing media", _mediaObject->errorString(), QMessageBox::Close);
+    }
 }
 
 #include "VideoDisplay.moc"

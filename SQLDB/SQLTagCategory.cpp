@@ -84,7 +84,7 @@ void SQLDB::SQLTagCategory::setItems(const QStringList& items)
     _qh->executeStatement("DELETE FROM tag "
                           "WHERE categoryId=? AND name NOT IN (?)",
                           QueryHelper::Bindings() <<
-                          _categoryId << toVariantList(items));
+                          _categoryId << QVariant(toVariantList(items)));
     addOrReorderItems(items);
 }
 

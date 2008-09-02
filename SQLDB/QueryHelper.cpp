@@ -247,14 +247,14 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
             if (typemask == DB::anyMediaType) {
                 return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media "
                                                         "WHERE id IN (?)"),
-                                    Bindings() << toVariantList(*scope)
+                                    Bindings() << QVariant(toVariantList(*scope))
                                     ).firstItem().toUInt();
             }
             else {
                 return executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media WHERE ") +
                                     typeCondition(QString::fromLatin1("type"), typemask) +
                                     QString::fromLatin1(" AND id IN (?)"),
-                                    Bindings() << toVariantList(*scope)
+                                    Bindings() << QVariant(toVariantList(*scope))
                                     ).firstItem().toUInt();
             }
         }
@@ -848,7 +848,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
     RowData minmax =
         executeQuery("SELECT MIN(place), MAX(place) "
                      "FROM media WHERE id IN (?)",
-                     Bindings() << toVariantList(srcIds)).getRow();
+                     Bindings() << QVariant(toVariantList(srcIds))).getRow();
     int srcMin = minmax[0].toInt();
     int srcMax = minmax[1].toInt();
 
@@ -857,7 +857,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
     QList<int> betweenList =
         executeQuery("SELECT id FROM media "
                      "WHERE ? <= place AND place <= ? AND id NOT IN (?)",
-                     Bindings() << srcMin << srcMax << toVariantList(srcIds)
+                     Bindings() << srcMin << srcMax << QVariant(toVariantList(srcIds))
                      ).asIntegerList();
     int n = srcMin;
     for (QList<int>::const_iterator i = betweenList.begin();
@@ -898,7 +898,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
                          Bindings() << N << destPlace << high - 1);
 
     executeStatement("UPDATE media SET place=place+(?) WHERE id IN (?)",
-                     Bindings() << destPlace - srcMin << toVariantList(srcIds));
+                     Bindings() << destPlace - srcMin << QVariant(toVariantList(srcIds)));
 }
 
 void QueryHelper::makeMediaPlacesContinuous()
@@ -918,7 +918,7 @@ void QueryHelper::sortMediaItems(const QStringList& filenames)
     QList<int> idList = mediaItemIdsForFilenames(filenames);
 
 #if 0
-    QList<QVariant> x = toVariantList(idList);
+    QList<QVariant> x = QVariant(toVariantList(idList));
 
     executeStatement("UPDATE media, "
                      "(SELECT a.place AS place, COUNT(*) AS n "
@@ -936,7 +936,7 @@ void QueryHelper::sortMediaItems(const QStringList& filenames)
     executeStatement("CREATE TEMPORARY TABLE sorttmp "
                      "SELECT id, place, startTime "
                      "FROM media WHERE id IN (?)",
-                     Bindings() << toVariantList(idList));
+                     Bindings() << QVariant(toVariantList(idList)));
 
     idList =
         executeQuery("SELECT id FROM sorttmp "
@@ -988,7 +988,7 @@ QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
 
     if (idList) {
         query += "media.id IN (?) AND ";
-        bindings << toVariantList(*idList);
+        bindings << QVariant(toVariantList(*idList));
     }
 
     if (!includeRanges) {
@@ -1093,7 +1093,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
             positiveQuery <<
                 "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (?))";
             QList<int> tagIds = tagIdList(m->_category, m->_option);
-            binds << toVariantList(tagIds);
+            binds << QVariant(toVariantList(tagIds));
             matchedTags[m->_category] += tagIds;
         }
     }
@@ -1116,7 +1116,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                 negativeQuery <<
                     "id NOT IN (SELECT mediaId "
                     "FROM media_tag WHERE tagId IN (?))";
-                binds << toVariantList(tagIdList(m->_category, m->_option));
+                binds << QVariant(toVariantList(tagIdList(m->_category, m->_option)));
             }
         }
         else {
@@ -1133,7 +1133,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                     excludeQuery <<
                         "id IN (SELECT media.id FROM media, dir "
                         "WHERE media.dirId=dir.id AND dir.path IN (?))";
-                    excBinds << toVariantList(excludedFolders);
+                    excBinds << QVariant(toVariantList(excludedFolders));
                 }
             }
             else {
@@ -1147,7 +1147,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                     excludeQuery <<
                         "id IN (SELECT mediaId "
                         "FROM media_tag WHERE tagId IN (?))";
-                    excBinds << toVariantList(excludedTags);
+                    excBinds << QVariant(toVariantList(excludedTags));
                 }
             }
         }

@@ -74,7 +74,7 @@ QStringList SQLMemberMap::members(const QString& category,
         idList.pop_front(); // the tag itself
         return
             _qh.executeQuery("SELECT name FROM tag WHERE id IN (?)",
-                             QueryHelper::Bindings() << toVariantList(idList)
+                             QueryHelper::Bindings() << QVariant(toVariantList(idList))
                              ).asStringList();
     }
     else

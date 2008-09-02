@@ -447,7 +447,9 @@ void ThumbnailView::ThumbnailWidget::updateCell( const QString& fileName )
     _pendingRepaint.insert( fileName );
     _pendingRepaintLock.unlock();
 
-    _repaintTimer->start( 0 );
+    // Do not trigger immediatly the repaint but wait a tiny bit - there might
+    // be more coming which we then can paint in one shot.
+    _repaintTimer->start( 10 );
 }
 
 void ThumbnailView::ThumbnailWidget::updateCell( int row, int col )

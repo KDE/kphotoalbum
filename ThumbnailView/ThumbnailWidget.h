@@ -38,6 +38,7 @@
 #include "Cell.h"
 #include <q3valuevector.h>
 #include "DB/ImageDate.h"
+#include <qmutex.h>
 
 class QTimer;
 class QDateTime;
@@ -220,6 +221,7 @@ private:
 
     QTimer* _repaintTimer;
 
+    QMutex _pendingRepaintLock;
     StringSet _pendingRepaint;
 
     SortDirection _sortDirection;

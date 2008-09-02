@@ -16,8 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
-#include <qpixmapcache.h>
-#include <qpainter.h>
+
 //Added by qt3to4:
 #include <QDragLeaveEvent>
 #include <QKeyEvent>
@@ -30,20 +29,24 @@
 #include <QShowEvent>
 #include <QPaintEvent>
 #include <QWheelEvent>
-#include "math.h"
+
+#include "Browser/BrowserWidget.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfoPtr.h"
+#include "ImageManager/Manager.h"
+#include "MainWindow/DirtyIndicator.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailRequest.h"
-#include "ImageManager/Manager.h"
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageDB.h"
-#include <qcursor.h>
 #include "ThumbnailToolTip.h"
-#include "Browser/BrowserWidget.h"
+#include "ThumbnailWidget.moc"
+
+#include <math.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <qcursor.h>
 #include <qfontmetrics.h>
-#include "ThumbnailWidget.moc"
-#include "MainWindow/DirtyIndicator.h"
+#include <qpainter.h>
+#include <qpixmapcache.h>
 
 /**
  * \namespace ThumbnailView
@@ -440,7 +443,10 @@ void ThumbnailView::ThumbnailWidget::updateCell( const QString& fileName )
     if ( fileName.isNull() )
         return;
 
+    _pendingRepaintLock.lock();
     _pendingRepaint.insert( fileName );
+    _pendingRepaintLock.unlock();
+
     _repaintTimer->start( 0 );
 }
 
@@ -1142,15 +1148,21 @@ void ThumbnailView::ThumbnailWidget::ensureCellsSorted( Cell& pos1, Cell& pos2 )
 
 void ThumbnailView::ThumbnailWidget::slotRepaint()
 {
-    if ( (int) _pendingRepaint.size() > numCols() * numRowsPerPage() / 2 )
+    // Create a local copy to make the _pendingRepaint accessible as soon as
+    // possible.
+    _pendingRepaintLock.lock();
+    StringSet toRepaint(_pendingRepaint);
+    _pendingRepaint.clear();
+    _pendingRepaintLock.unlock();
+
+    if ( (int) toRepaint.size() > numCols() * numRowsPerPage() / 2 )
         repaintScreen();
     else {
-        for( StringSet::const_iterator it = _pendingRepaint.begin(); it != _pendingRepaint.end(); ++it ) {
+        for( StringSet::const_iterator it = toRepaint.begin(); it != toRepaint.end(); ++it ) {
             Cell cell = positionForFileName( *it );
             Q3GridView::repaintCell( cell.row(), cell.col() );
         }
     }
-    _pendingRepaint.clear();
 }
 
 void ThumbnailView::ThumbnailWidget::dimensionChange( int oldNumRows, int /*oldNumCols*/ )

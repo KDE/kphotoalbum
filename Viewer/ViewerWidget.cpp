@@ -56,8 +56,8 @@
 #include <QStackedWidget>
 #include <QDesktopWidget>
 #include <QVBoxLayout>
-#include <kprocess.h>
-#include <kstandarddirs.h>
+#include <QProcess>
+#include <KStandardDirs>
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -128,11 +128,7 @@ Viewer::ViewerWidget::ViewerWidget()
 
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
-        KProcess proc;
-        proc << xdgScreenSaver;
-        proc << QString::fromLatin1("suspend");
-        proc << QString::number( winId() );
-        proc.start();
+        QProcess::startDetached( xdgScreenSaver, QStringList() << "suspend" << QString::number( winId() ) );
     }
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
@@ -839,11 +835,8 @@ Viewer::ViewerWidget::~ViewerWidget()
 {
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
-        KProcess proc;
-        proc << xdgScreenSaver;
-        proc << QString::fromLatin1("resume");
-        proc << QString::number( winId() );
-        proc.start();
+        QProcess proc;
+        proc.start( xdgScreenSaver, QStringList() << "resume" << QString::number( winId() ) );
         // if we don't wait here, xdg-screensaver realizes that the window is
         // already gone and doesn't re-activate the screensaver
         proc.waitForFinished();

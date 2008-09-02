@@ -88,34 +88,27 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget()
-    :QWidget( 0, Qt::WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
 {
+    setWindowFlags( Qt::Window );
     setAttribute( Qt::WA_DeleteOnClose );
 
     _latest = this;
 
-    // PENDING(blackie) Is this layout needed anymore?
-    QVBoxLayout* layout = new QVBoxLayout( this );
-    layout->setContentsMargins( 0,0,0,0 );
+    _display = _imageDisplay = new ImageDisplay( this );
+    addWidget( _imageDisplay );
 
-    // PENDING(blackie) Is this stack needed anymore=
-    _stack = new QStackedWidget;
+    _textDisplay = new TextDisplay( this );
+    addWidget( _textDisplay );
 
-    _display = _imageDisplay = new ImageDisplay( _stack );
-    _stack->addWidget( _imageDisplay );
-
-    _textDisplay = new TextDisplay( _stack );
-    _stack->addWidget( _textDisplay );
-
-    _videoDisplay = new VideoDisplay( _stack );
-    _stack->addWidget( _videoDisplay );
+    _videoDisplay = new VideoDisplay( this );
+    addWidget( _videoDisplay );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
     connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
              this, SLOT( setCaptionWithDetail(const QString&) ) );
-    layout->addWidget( _stack );
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
@@ -480,7 +473,7 @@ void Viewer::ViewerWidget::load()
         updateInfoBox();
     }
 
-    _stack->setCurrentWidget( _display );
+    setCurrentWidget( _display );
 
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );

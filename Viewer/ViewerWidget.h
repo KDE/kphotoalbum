@@ -19,6 +19,7 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
+#include <QStackedWidget>
 #include "Settings/SettingsData.h"
 #include <kaction.h>
 #include <qdialog.h>
@@ -52,7 +53,7 @@ class Display;
 class SpeedDisplay;
 class InfoBox;
 
-class ViewerWidget :public QWidget
+class ViewerWidget :public QStackedWidget
 {
     Q_OBJECT
 public:
@@ -160,7 +161,6 @@ private:
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;
 
-    QStackedWidget* _stack;
     Display* _display;
     ImageDisplay* _imageDisplay;
     VideoDisplay* _videoDisplay;

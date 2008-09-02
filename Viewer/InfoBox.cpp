@@ -82,7 +82,7 @@ void Viewer::InfoBox::setSize()
     const int maxHeight = Settings::SettingsData::instance()->infoBoxHeight();
 
     document()->setPageSize( QSize(maxWidth, maxHeight) );
-#if 0
+#if 1
     bool showVerticalBar = document()->size().height() > maxHeight;
 
     setVerticalScrollBarPolicy( showVerticalBar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
@@ -93,7 +93,7 @@ void Viewer::InfoBox::setSize()
 #else
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     resize( maxWidth, maxHeight );
-#endif //KDAB_TEMPORARILY_REMOVED
+#endif
 }
 
 void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
@@ -116,8 +116,6 @@ void Viewer::InfoBox::mouseReleaseEvent( QMouseEvent* e )
 
 void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
 {
-    updateCursor(e->pos() );
-
     if ( e->buttons() & Qt::LeftButton ) {
         if ( _infoBoxResizer.isActive() )
             _infoBoxResizer.setPos( e->pos() );
@@ -125,8 +123,10 @@ void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
             _viewer->infoBoxMove();
         // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     }
-    else
+    else {
+        updateCursor(e->pos() );
         QTextBrowser::mouseMoveEvent( e );
+    }
 }
 
 void Viewer::InfoBox::linkHovered( const QString& linkName )
@@ -168,7 +168,7 @@ void Viewer::InfoBox::updateCursor( const QPoint& pos )
     Settings::Position windowPos = Settings::SettingsData::instance()->infoBoxPosition();
 
     Qt::CursorShape shape = Qt::SizeAllCursor;
-    if ( _hoveringOverLink ) shape = Qt::ArrowCursor;
+    if ( _hoveringOverLink ) shape = Qt::PointingHandCursor;
     else if ( atBlackoutPos( left, right, top, bottom, windowPos ) )
         shape = Qt::SizeAllCursor;
     else if ( left && top || right && bottom ) shape = Qt::SizeFDiagCursor;

@@ -79,6 +79,11 @@ bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* im
     return false;
 }
 
+bool ImageManager::FileThumbnailStorage::exists(const QString& key) {
+    QString path = keyToPath(key);
+    return QFile::exists( path );
+}
+
 #ifdef TESTING_MEMORY_THUMBNAIL_CACHING
 ImageManager::MemoryThumbnailStorage::MemoryThumbnailStorage(const char *imageFormat) 
     : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat) {
@@ -104,6 +109,11 @@ bool ImageManager::MemoryThumbnailStorage::retrieve(const QString& key, QImage* 
     bool ok = image->loadFromData(found.value(), _imageFormat);
     kDebug() << "Load '" << key << "'; size=" << found.value().size()/1024 << "k; ok=" << ok;
     return ok;
+}
+
+bool ImageManager::MemoryThumbnailStorage::exists(const QString& key) {
+    ImageCache::const_iterator found = _cache.find(key);
+    return (found != _cache.end());
 }
 
 #endif /* TESTING_MEMORY_THUMBNAIL_CACHING */

@@ -66,6 +66,10 @@ void ImageManager::ImageLoader::run()
         Q_ASSERT( request );
         bool ok;
 
+        // TODO(jkt): if we are here because we are asked to downscale images
+        // but not to show them, don't load the thumbnail but only check if
+        // it exists _storage->exists(thumbnailKey(...))
+
         QImage img = tryLoadThumbnail( request, ok );
         if ( ! ok ) {
             img = loadImage( request, ok );

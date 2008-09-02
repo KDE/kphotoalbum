@@ -47,7 +47,11 @@ public:
      */
     virtual void remove(const QString& key) = 0;
 
-    // bool exists(const QString& key) ?
+    /**
+     * Check if the thumbnail with the given key exists. Use if you don't
+     * want to load the thumbnail but check if you would need go generate it.
+     */
+    virtual bool exists(const QString& key) = 0;
 };
 
 
@@ -70,6 +74,7 @@ public:
     virtual bool store(const QString& key, const QImage& image);
     virtual bool retrieve(const QString& key, QImage* image);
     virtual void remove(const QString& key);
+    virtual bool exists(const QString& key);
 
 private:
     QString keyToPath(const QString& key);
@@ -87,6 +92,7 @@ public:
     virtual bool store(const QString& key, const QImage& image);
     virtual bool retrieve(const QString& key, QImage* image);
     virtual void remove(const QString&) {}
+    virtual bool exists(const QString& key);
 
 private:
     typedef QMap<QString, QByteArray> ImageCache;

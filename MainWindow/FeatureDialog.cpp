@@ -100,11 +100,12 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                  "If this feature is not enabled for you, have a look at the "
                  "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
 
-    QStringList mimeType = supportedVideoMimeTypes();
-    if ( mimeType.isEmpty() )
+    QStringList mimeTypes = supportedVideoMimeTypes();
+    mimeTypes.sort();
+    if ( mimeTypes.isEmpty() )
         text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there was missing codeces</p>");
     else
-        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeType.join(QString::fromLatin1( "<li>" ) ) );
+        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeTypes.join(QString::fromLatin1( "<li>" ) ) );
 
     edit->setText( text );
 

@@ -21,6 +21,7 @@
 
 #include <qstring.h>
 #include <QSqlError>
+#include <QSqlQuery>
 
 #define ERROR_CLASS(X,Y) \
 struct X: public Y\
@@ -39,25 +40,30 @@ struct X: public Y\
 
 namespace SQLDB
 {
-    class Error
+    class Error: public std::exception
     {
     public:
         Error(const QString& message=QString::null): _message(message) {}
-        virtual ~Error() {}
+        virtual ~Error() throw() {}
         const QString& message() const { return _message; }
         virtual QString name() const { return QString::fromLatin1("Error"); }
+        virtual const char* what() const throw()
+        {
+            if (_whatString.isNull()) {
+                _whatString = generateWhatString();
+            }
+            return _whatString.toLocal8Bit().constData();
+        }
+
+    protected:
+        virtual QString generateWhatString() const throw()
+        {
+            return name() + QLatin1String(": ") + message();
+        }
 
     private:
+        mutable QString _whatString;
         QString _message;
-    };
-
-    class QtSQLError: public Error
-    {
-    public:
-        QtSQLError(const QSqlError& qtError):
-            Error(qtError.text())
-        {
-        }
     };
 
     ERROR_CLASS(NotFoundError, Error);
@@ -91,8 +97,17 @@ namespace SQLDB
         SQLError(const QString& queryLine=QString::null,
                  const QString& message=QString::null):
             Error(message), _queryLine(queryLine) {}
+        virtual ~SQLError() throw() {}
         const QString& queryLine() const { return _queryLine; }
         QString name() const { return QString::fromLatin1("SQLError"); }
+
+    protected:
+        virtual QString generateWhatString() const throw()
+        {
+            return
+                Error::generateWhatString() + QLatin1String(". The query was \"") +
+                this->queryLine() + QLatin1String("\"");
+        }
 
     private:
         QString _queryLine;
@@ -100,6 +115,41 @@ namespace SQLDB
 
     ERROR_CLASS2(QueryError, SQLError);
     ERROR_CLASS2(StatementError, SQLError);
+
+    class QtSQLError: public SQLError
+    {
+    public:
+        QtSQLError(const QSqlError& qtError,
+                   const QString& message):
+            SQLError(QLatin1String("Unknown"), message),
+            _qtError(qtError)
+        {
+            Q_ASSERT(_qtError.isValid());
+        }
+        QtSQLError(const QSqlQuery& executedQuery,
+                   const QString& message=QString()):
+            SQLError(executedQuery.lastQuery(), message),
+            _qtError(executedQuery.lastError())
+        {
+            Q_ASSERT(_qtError.isValid());
+        }
+        virtual ~QtSQLError() throw()
+        {
+        }
+        virtual QString name() const { return QLatin1String("QtSQLError"); }
+
+    protected:
+        virtual QString generateWhatString() const throw()
+        {
+            return
+                SQLError::generateWhatString() +
+                QLatin1String(". The text of QSqlError is \"") +
+                _qtError.text() + QLatin1String("\"");
+        }
+
+    private:
+        QSqlError _qtError;
+    };
 }
 
 #undef ERROR_CLASS

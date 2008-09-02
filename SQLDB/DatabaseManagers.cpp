@@ -73,7 +73,7 @@ BaseDatabaseManager(const ConnectionParameters& connParams,
     setConnectionParameters(_db, connParams);
     _db.setDatabaseName(_someDbName);
     if (!_db.open())
-        throw QtSQLError(_db.lastError());
+        throw QtSQLError(_db.lastError(), QLatin1String("Cannot open database"));
 }
 
 QStringList BaseDatabaseManager::databases() const
@@ -81,7 +81,7 @@ QStringList BaseDatabaseManager::databases() const
     QSqlQuery q(_db);
 
     if (!q.exec(_selDbsQuery))
-        throw QtSQLError(q.lastError());
+        throw QtSQLError(q, QLatin1String("Error while listing databases"));
 
     QStringList dbList;
     while (q.next())
@@ -99,7 +99,7 @@ createDatabase(const QString& databaseName,
     QSqlQuery q(_db);
 
     if (!q.exec(QLatin1String("CREATE DATABASE ") + databaseName))
-        throw QtSQLError(q.lastError());
+        throw QtSQLError(q, QLatin1String("Cannot create a database"));
 
     ConnectionSPtr newDb = connectToDatabase(databaseName);
 
@@ -119,7 +119,7 @@ BaseDatabaseManager::connectToDatabase(const QString& databaseName)
     QSqlDatabase db = QSqlDatabase::cloneDatabase(_db, newConnName);
     db.setDatabaseName(databaseName);
     if (!db.open())
-        throw QtSQLError(db.lastError());
+        throw QtSQLError(db.lastError(), QLatin1String("Cannot connect to database"));
 
     return ConnectionSPtr(new QSqlConnection(db));
 }
@@ -189,7 +189,7 @@ SQLiteDatabaseManager::connectToDatabase(const QString& databaseName)
     db.setDatabaseName(databaseName);
 
     if (!db.open())
-        throw QtSQLError(db.lastError());
+        throw QtSQLError(db.lastError(), QLatin1String("Cannot open SQLite database"));
 
     return ConnectionSPtr(new QSqlConnection(db));
 }

@@ -97,7 +97,7 @@ QSqlConnection::initializeQuery(const QString& statement,
 
     std::auto_ptr<QSqlQuery> query(new QSqlQuery(_database));
     if (!query->prepare(queryStr))
-        throw QtSQLError(query->lastError());
+        throw QtSQLError(*query, QLatin1String("Could not prepare a query"));
     bindValues(*query, b);
 
 #ifdef DEBUG_QUERYS
@@ -132,7 +132,7 @@ QueryResult QSqlConnection::executeQuery(const QString& query,
 #endif
 
     if (!q->exec())
-        throw QtSQLError(q->lastError());
+        throw QtSQLError(*q, QLatin1String("Error while excuting a query"));
 
 #ifdef DEBUG_QUERY_TIMES
     int te = t.elapsed();
@@ -153,7 +153,7 @@ void QSqlConnection::executeStatement(const QString& statement,
     std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
 
     if (!s->exec())
-        throw QtSQLError(s->lastError());
+        throw QtSQLError(*s, QLatin1String("Error while excuting a statement"));
 }
 
 QSqlConnection::RowId
@@ -176,7 +176,7 @@ QSqlConnection::executeInsert(const QString& tableName,
     std::auto_ptr<QSqlQuery> s(initializeQuery(q, values));
 
     if (!s->exec())
-        throw QtSQLError(s->lastError());
+        throw QtSQLError(*s, QLatin1String("Error while excuting an insert statement"));
 
     Q_UNUSED(aiFieldName);
 

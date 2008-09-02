@@ -64,13 +64,17 @@ void QSqlConnection::processListParameters(QString& query,
         if (mark == -1)
             break;
 
-        if (i->type() == QVariant::List) {
-            QString sql = variantListAsSql(i->toList());
+        QList<QVariant> iAsList(i->toList());
+        if (!iAsList.isEmpty()) {
+            // val contained a list
+            QString sql = variantListAsSql(iAsList);
             query.replace(mark, 1, sql);
             i = bindings.erase(i);
             mark += sql.length();
         }
         else {
+            // val did not contain a list (or it contained an empty
+            // list, which should never be passed as a binding)
             ++i;
             ++mark;
         }

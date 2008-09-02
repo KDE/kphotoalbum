@@ -41,13 +41,11 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     setAutoFillBackground(false);
 
 
-#if 1 // Transparent background
     QPalette p = palette();
     p.setColor(QPalette::Base, QColor(0,0,0,170)); // r,g,b,A
     p.setColor(QPalette::Text, Qt::white );
     p.setColor(QPalette::Link, QColor(Qt::blue).light() );
     setPalette(p);
-#endif
 
     _jumpToContext = new QToolButton( this );
     _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );

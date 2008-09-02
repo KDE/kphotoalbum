@@ -16,62 +16,76 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "SpeedDisplay.h"
+#include <QTimeLine>
 #include "Viewer/SpeedDisplay.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
-//Added by qt3to4:
 #include <Q3Frame>
-#include <QHBoxLayout>
 
 #include <klocale.h>
 
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
-    :QDialog( parent )
+    :QLabel( parent )
 {
-    setWindowFlags( Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint );
+    _timeLine = new QTimeLine( 1000, this);
+    connect( _timeLine, SIGNAL(frameChanged(int) ), this, SLOT( setAlphaChannel(int) ) );
+    _timeLine->setFrameRange( 0, 170 );
+    _timeLine->setDirection( QTimeLine::Backward );
 
-    _label = new QLabel( this );
-    _layout = new QHBoxLayout( this );
-    _layout->setContentsMargins(0,0,0,0);
-    _layout->addWidget( _label );
     _timer = new QTimer( this );
-    connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );
+    _timer->setSingleShot(true);
+    connect( _timer, SIGNAL( timeout() ), _timeLine, SLOT( start() ) );
 
-    QPalette pal = _label->palette();
-    _label->setAutoFillBackground( true );
-    pal.setColor( QPalette::Background, Qt::yellow );
-    _label->setPalette( pal );
-
-    _label->setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
+    setAutoFillBackground(true);
 }
 
 void Viewer::SpeedDisplay::display( int i )
 {
-    _label->setText( i18n("<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>", QString::number( i/1000.0, 'f', 1 ) ) );
+    setText( i18n("<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>", QString::number( i/1000.0, 'f', 1 ) ) );
     go();
 }
 
 void Viewer::SpeedDisplay::start( )
 {
-    _label->setText( i18n("<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"));
+    setText( i18n("<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"));
     go();
 }
 
 void Viewer::SpeedDisplay::go()
 {
-    _layout->invalidate();
     resize( sizeHint() );
     QWidget* p = static_cast<QWidget*>( parent() );
     move( ( p->width() - width() )/2 + p->x(), ( p->height() - height() )/2 + p->y() );
-    show();
+
+    setAlphaChannel( 170, 255 );
     _timer->start( 1000 );
+    _timeLine->stop();
+
+    show();
 }
 
 void Viewer::SpeedDisplay::end()
 {
-    _label->setText( i18n("<p><center><font size=\"+4\">Ending Slideshow</font></center></p>") );
+    setText( i18n("<p><center><font size=\"+4\">Ending Slideshow</font></center></p>") );
     go();
+}
+
+
+void Viewer::SpeedDisplay::setAlphaChannel(int background, int label)
+{
+    QPalette p = palette();
+    p.setColor(QPalette::Background, QColor(0,0,0,background)); // r,g,b,A
+    p.setColor(QPalette::WindowText, QColor(255,255,255,label) );
+    setPalette(p);
+}
+
+void Viewer::SpeedDisplay::setAlphaChannel(int alpha)
+{
+    setAlphaChannel(alpha,alpha);
+    if ( alpha == 0 )
+        hide();
 }
 
 #include "SpeedDisplay.moc"

@@ -35,9 +35,6 @@
 #include "SpeedDisplay.h"
 #include "MainWindow/Window.h"
 #include "CategoryImageConfig.h"
-#ifdef TEMPORARILY_REMOVED
-#include <dcopref.h>
-#endif
 #include "MainWindow/ExternalPopup.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
@@ -45,6 +42,9 @@
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
+#include <qglobal.h>
+#include <QTimeLine>
+#include <QTimer>
 #include "ImageDisplay.h"
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -141,6 +141,8 @@ Viewer::ViewerWidget::ViewerWidget()
         proc << QString::number( winId() );
         proc.start();
     }
+
+    QTimer::singleShot( 2000, this, SLOT(test()) );
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -1138,6 +1140,22 @@ void Viewer::ViewerWidget::createVideoMenu()
     restart->setText( i18n("Restart") );
     _popup->addAction( restart );
     _videoActions.append( restart );
+}
+
+void Viewer::ViewerWidget::test()
+{
+#ifdef TESTING
+    QTimeLine* timeline = new QTimeLine;
+    timeline->setStartFrame( _infoBox->y() );
+    timeline->setEndFrame( height() );
+    connect( timeline, SIGNAL( frameChanged(int) ), this, SLOT( moveInfoBox(int) ) );
+    timeline->start();
+#endif // TESTING
+}
+
+void Viewer::ViewerWidget::moveInfoBox( int y)
+{
+    _infoBox->move( _infoBox->x(), y );
 }
 
 #include "ViewerWidget.moc"

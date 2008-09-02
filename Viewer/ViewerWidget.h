@@ -69,6 +69,8 @@ public:
 public slots:
     virtual bool close(bool alsoDelete = false );
     void updateInfoBox();
+    void test();
+    void moveInfoBox( int );
 
 protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );

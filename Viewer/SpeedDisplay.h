@@ -21,6 +21,7 @@
 #include <qdialog.h>
 //Added by qt3to4:
 #include <QLabel>
+class QTimeLine;
 class QTimer;
 class QLabel;
 class QHBoxLayout;
@@ -28,7 +29,7 @@ class QHBoxLayout;
 namespace Viewer
 {
 
-class SpeedDisplay :public QDialog {
+class SpeedDisplay :public QLabel {
     Q_OBJECT
 
 public:
@@ -38,10 +39,13 @@ public:
     void end();
     void go();
 
+private slots:
+    void setAlphaChannel(int alpha);
+    void setAlphaChannel(int background, int label);
+
 private:
     QTimer* _timer;
-    QLabel* _label;
-    QHBoxLayout* _layout;
+    QTimeLine* _timeLine;
 };
 
 }

@@ -28,7 +28,7 @@
 using namespace SQLDB;
 
 // To print debug message for each executed SQL query
-#define DEBUG_QUERYS
+//#define DEBUG_QUERYS
 
 QSqlConnection::QSqlConnection(const QSqlDatabase& database):
     _database(database),

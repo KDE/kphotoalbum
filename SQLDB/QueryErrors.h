@@ -129,7 +129,8 @@ namespace SQLDB
         QtSQLError(const QSqlQuery& executedQuery,
                    const QString& message=QString()):
             SQLError(executedQuery.lastQuery(), message),
-            _qtError(executedQuery.lastError())
+            _qtError(executedQuery.lastError()),
+            _bindings(executedQuery.boundValues().values())
         {
             Q_ASSERT(_qtError.isValid());
         }
@@ -141,14 +142,20 @@ namespace SQLDB
     protected:
         virtual QString generateWhatString() const throw()
         {
+            QStringList bindingsAsStrings;
+            Q_FOREACH(QVariant x, _bindings)
+                bindingsAsStrings.push_back(x.toString());
             return
                 SQLError::generateWhatString() +
+                QLatin1String(". Bindinds are (") +
+                bindingsAsStrings.join(QLatin1String(",")) + QLatin1String(")") +
                 QLatin1String(". The text of QSqlError is \"") +
                 _qtError.text() + QLatin1String("\"");
         }
 
     private:
         QSqlError _qtError;
+        QList<QVariant> _bindings;
     };
 }
 

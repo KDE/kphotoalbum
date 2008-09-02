@@ -145,7 +145,8 @@ set(libImageManager_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailStorage.cpp )
 
 set(libDB_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfo.cpp 

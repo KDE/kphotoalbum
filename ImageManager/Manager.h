@@ -37,6 +37,7 @@ namespace ImageManager
 
 class ImageClient;
 class ImageLoader;
+ class ThumbnailStorage;
 
 class ImageEvent :public QEvent {
 public:
@@ -63,6 +64,9 @@ public:
     // Stop loading all images requested by the given client.
     void stop( ImageClient*, StopAction action = StopAll );
 
+    // Remove the thumbnail for a given file.
+    void removeThumbnail( const QString& imageFile );
+
 protected:
     virtual void customEvent( QEvent* ev );
     void loadVideo( ImageRequest* );
@@ -81,6 +85,7 @@ private:
     QWaitCondition _sleepers;
     QMutex _lock;
     QSet<ImageRequest*> _currentLoading;
+    ThumbnailStorage* const _thumbnailStorage;
 };
 
 }

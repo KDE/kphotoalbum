@@ -17,10 +17,16 @@
 */
 
 #include "Manager.h"
+
 #include "ImageLoader.h"
 #include "ImageManager/ImageClient.h"
+#include "ThumbnailStorage.h"
 #include "Utilities/Util.h"
 #include "VideoManager.h"
+
+#include <kurl.h>
+#include <qpixmapcache.h>
+
 //Added by qt3to4:
 #include <QCustomEvent>
 
@@ -44,13 +50,21 @@ ImageManager::Manager* ImageManager::Manager::instance()
    1) It stored images in one centeral directory - many would consider this
       a feature, but I consider it a drawback, as it makes it impossible to
       just bring your thumbnails when bringing your database, but not having
-      the capasity on say your laptop to bring all your images.
+      the capacity on say your laptop to bring all your images.
    2) It failed to load a number of images, that this ImageManager load
       just fine.
    3) Most important, it did not allow loading only thumbnails when the
       image themself weren't available.
 */
 ImageManager::Manager::Manager()
+    // We allow to set the thumbnail format (something like 'png', 'jpg'
+    // or 'ppm') with an environment variable for testing.
+    // TODO(hzeller): Add this to SettingsDialog if useful.
+#ifdef TESTING_MEMORY_THUMBNAIL_CACHING
+    : _thumbnailStorage(new MemoryThumbnailStorage(getenv("KPA_THUMB_FORMAT")))
+#else
+    : _thumbnailStorage(new FileThumbnailStorage(getenv("KPA_THUMB_FORMAT")))
+#endif
 {
 }
 
@@ -62,7 +76,7 @@ void ImageManager::Manager::init()
     int cores = qMax( 2, QThread::idealThreadCount() );
 
     for ( int i = 0; i < cores; ++i) {
-        imageLoader = new ImageLoader();
+        imageLoader = new ImageLoader(_thumbnailStorage);
         imageLoader->start( QThread::LowPriority );
     } 
 }
@@ -95,6 +109,15 @@ void ImageManager::Manager::loadImage( ImageRequest* request )
 
     if (_loadList.addRequest( request ))
         _sleepers.wakeOne();
+}
+
+void ImageManager::Manager::removeThumbnail( const QString& imageFile )
+{
+    KUrl url;
+    url.setPath( imageFile );
+    _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 256 ) );
+    _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 128 ) );
+    QPixmapCache::remove( imageFile );
 }
 
 void ImageManager::Manager::stop( ImageClient* client, StopAction action )

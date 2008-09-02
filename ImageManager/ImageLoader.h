@@ -18,6 +18,7 @@
 
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
+
 #include <qthread.h>
 #include <QImage>
 
@@ -25,24 +26,28 @@ namespace ImageManager
 {
 class Manager;
 class ImageRequest;
+class ThumbnailStorage;
 
 class ImageLoader :public QThread {
 public:
-    ImageLoader();
+    ImageLoader(ThumbnailStorage* storage);
     static QImage rotateAndScale( QImage, int width, int height, int angle );
-    static void removeThumbnail( const QString& imageFile );
-    static QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
-    static void writeThumbnail( ImageRequest* request, QImage image );
+    QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
+    void writeThumbnail( ImageRequest* request, QImage image );
+
+    static QString thumbnailKey( QString uri, int dim );
 
 protected:
     virtual void run();
     QImage loadImage( ImageRequest* request, bool& ok );
     static int calcLoadSize( ImageRequest* request );
     QImage scaleAndRotate( ImageRequest* request, QImage img );
-    static QString thumbnailPath( ImageRequest* request );
-    static QString thumbnailPath( QString uri, int dim );
+    static QString thumbnailKey( ImageRequest* request );
     static QString requestURL( ImageRequest* request );
     bool shouldImageBeScale( const QImage& img, ImageRequest* request );
+
+private:
+    ThumbnailStorage *const _storage;
 };
 
 }

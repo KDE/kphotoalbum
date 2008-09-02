@@ -22,10 +22,10 @@
 #include "Manager.h"
 #include "RawImageDecoder.h"
 #include "Utilities/Util.h"
+#include "ThumbnailStorage.h"
 
 #include <Q3ValueList>  //Added by qt3to4
 #include <qapplication.h>
-#include <qdir.h>
 #include <qfileinfo.h>
 #include <qwaitcondition.h>
 
@@ -53,13 +53,10 @@ namespace ImageManager
 }
 
 
-ImageManager::ImageLoader::ImageLoader()
-{
-    QDir dir(QDir::homePath());
-    dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
-    dir.cd( QString::fromLatin1( ".thumbnails" ) );
-    dir.mkdir( QString::fromLatin1( "normal" ) );
-    dir.mkdir( QString::fromLatin1( "large" ) );
+
+ImageManager::ImageLoader::ImageLoader(ThumbnailStorage* storage)
+    : _storage(storage) {
+    /* nop */
 }
 
 void ImageManager::ImageLoader::run()
@@ -77,8 +74,9 @@ void ImageManager::ImageLoader::run()
             }
         }
 
-        if ( ok )
+        if ( ok ) {
             img = scaleAndRotate( request, img );
+        }
 
         request->setLoadedOK( ok );
         ImageEvent* iew = new ImageEvent( request, img );
@@ -97,31 +95,27 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
     return img;
 }
 
-void ImageManager::ImageLoader::removeThumbnail( const QString& imageFile )
-{
-    KUrl url;
-    url.setPath( imageFile );
-    QFile::remove( thumbnailPath( url.url(), 256 ) );
-    QFile::remove( thumbnailPath( url.url(), 128 ) );
-    QPixmapCache::remove( imageFile );
-}
-
 QImage ImageManager::ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
 {
     ok = false;
-    QString path = thumbnailPath( request );
+    QString key = thumbnailKey( request );
 
-    if ( QFile::exists( path ) ) {
-        QImage img;
-        ok = img.load( path );
-        if ( QFileInfo(request->fileName()).exists() ) {
-            // Only do the test of the original image exsts.
-            if ( img.text( "Thumb::MTime" ).toUInt() != QFileInfo(request->fileName()).lastModified().toTime_t() )
-                ok = false;
-        }
-        return img;
-    }
-    return QImage();
+    QImage result;
+    ok = _storage->retrieve(key, &result);
+    if (!ok)
+        return result;
+
+    // TODO(hzeller): ppm do not store meta tags - we always accept them,
+    // because we cannot check 'outdatedness'.
+    // Find workaround (mtime(thumbnail) ? )
+    time_t thumbTime = result.text( "Thumb::MTime" ).toUInt();
+
+    if ( thumbTime != 0 && QFileInfo(request->fileName()).exists() ) {
+        time_t fileTime = QFileInfo(request->fileName()).lastModified().toTime_t();
+        ok = (thumbTime == fileTime);
+    }    
+
+    return result;
 }
 
 QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
@@ -169,7 +163,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
         list << 256;
 
     for( Q3ValueList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
-        QString path = thumbnailPath( requestURL( request ), *it );
+        QString path = thumbnailKey( requestURL( request ), *it );
         if ( path.isNull() )
             continue;
 
@@ -181,18 +175,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
         scaledImg.setText( "Thumb::Size", "", QString::number( fi.size() ) );
         scaledImg.setText( "Thumb::Image::Width", "", QString::number( request->fullSize().width() ) );
         scaledImg.setText( "Thumb::Image::Height", "", QString::number( request->fullSize().height() ) );
-        /* To prevent a race condition where another thread reads data from
-         * a file that is not fully written to yet, we save the thumbnail into a
-         * temporary file. Without this fix, you'd get plenty of
-         * "libpng error: Read Error" messages when running more ImageLoader
-         * threads. */
-        QString temporary = path + QString::fromLatin1(".tmp");
-        scaledImg.save( temporary, "PNG" );
-
-        /* We can't use QFile::rename() here as we really want to overwrite
-         * target file (perhaps we have a hash collision, or maybe it's
-         * outdated) */
-        rename( temporary.toLocal8Bit().constData(), path.toLocal8Bit().constData() );
+        _storage->store(path, scaledImg);
     }
 }
 
@@ -229,12 +212,12 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
     return img;
 }
 
-QString ImageManager::ImageLoader::thumbnailPath( ImageRequest* request )
+QString ImageManager::ImageLoader::thumbnailKey( ImageRequest* request )
 {
-    return thumbnailPath( requestURL( request ), calcLoadSize( request ) );
+    return thumbnailKey( requestURL( request ), calcLoadSize( request ) );
 }
 
-QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
+QString ImageManager::ImageLoader::thumbnailKey( QString uri, int dim )
 {
     QString dir;
     if ( dim == 256 )
@@ -245,7 +228,7 @@ QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
         return QString::null;
 
     KMD5 md5( uri.toUtf8() );
-    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homePath()).arg(dir).arg(QString::fromUtf8(md5.hexDigest()));
+    return QString::fromLatin1( "%1/%2" ).arg(dir).arg(QString::fromUtf8(md5.hexDigest()));
 }
 
 QString ImageManager::ImageLoader::requestURL( ImageRequest* request )

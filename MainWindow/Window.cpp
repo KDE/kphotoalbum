@@ -1346,7 +1346,7 @@ void MainWindow::Window::plug()
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::ImageLoader::removeThumbnail( (*it).path() );
+        ImageManager::Manager::instance()->removeThumbnail( (*it).path() );
     }
     _dirtyIndicator->markDirty();
     reloadThumbnails(true);
@@ -1586,7 +1586,7 @@ void MainWindow::Window::slotRecreateThumbnail()
 {
     QStringList selected = selectedOnDisk();
     for( QStringList::ConstIterator imageIt = selected.begin(); imageIt != selected.end(); ++imageIt ) {
-        ImageManager::ImageLoader::removeThumbnail( *imageIt );
+        ImageManager::Manager::instance()->removeThumbnail( *imageIt );
 
         int size = Settings::SettingsData::instance()->thumbSize();
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt, DB::AbsolutePath );

@@ -103,7 +103,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     QStringList mimeTypes = supportedVideoMimeTypes();
     mimeTypes.sort();
     if ( mimeTypes.isEmpty() )
-        text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there was missing codeces</p>");
+        text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there were missing codecs</p>");
     else
         text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeTypes.join(QString::fromLatin1( "<li>" ) ) );
 

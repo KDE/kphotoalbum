@@ -95,7 +95,7 @@ namespace XMLDB {
         DB::MemberMap _members;
         DB::MD5Map _md5map;
         DB::ImageInfoList _clipboard;
-        unsigned int _nextStackId;
+        DB::StackID _nextStackId;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;

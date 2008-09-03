@@ -252,7 +252,7 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const QStringLis
     }
 }
 
-void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
+void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
 
@@ -264,7 +264,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
     /* If we encounter a stack in the list of images, we only put the first of it
      * in the list to display; but we remember all the other images
      */
-    for (QStringList::const_iterator it = list.begin(); it != list.end(); ++it) {
+    for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if (imageInfo->isStacked()) {
             QStringList& stackList = _stackContents[imageInfo->stackId()];
@@ -283,12 +283,18 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
         _displayList = reverseList(_displayList);
 
     updateIndexCache();
-    generateMissingThumbnails( list );
 
     if ( isVisible() ) {
         updateGridSize();
         repaintScreen();
     }
+}
+
+void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
+{
+    _imageList = list;
+    generateMissingThumbnails( list );
+    updateDisplayModel();
 }
 
 void ThumbnailView::ThumbnailWidget::toggleStackExpansion(DB::StackID id) {
@@ -1015,6 +1021,7 @@ void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
     }
 }
 
+// TODO(hzeller) figure out if this should return the _imageList or _displayList.
 QStringList ThumbnailView::ThumbnailWidget::imageList( Order order ) const
 {
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )

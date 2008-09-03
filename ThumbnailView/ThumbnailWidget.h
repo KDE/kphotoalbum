@@ -96,6 +96,7 @@ protected:
     void paintStackedIndicator( QPainter* painter, const QRect &rect, const QString& fileName);
 
     // Cell handling methods.
+    void updateDisplayModel();
     QString fileNameInCell( int row, int col ) const;
     QString fileNameInCell( const Cell& cell ) const;
     QString fileNameAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
@@ -166,6 +167,11 @@ protected slots:
     void toggleStackExpansion(DB::StackID);
 
 private:
+    //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
+
+    /** The input list for images */
+    QStringList _imageList;
+
     /**
      * The list of images shown. We do indexed access to this _displayList that has been
      * changed from O(n) to O(1) in Qt4; so it is save to use this data type.

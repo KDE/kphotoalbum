@@ -236,6 +236,7 @@ void ImageInfo::setStackOrder( const unsigned int stackOrder )
     saveChangesIfNotDelayed();
 }
 
+#ifdef HAVE_MARBLE
 int ImageInfo::gpsPrecision() const
 {
     return _gpsPrecision;
@@ -263,6 +264,7 @@ void ImageInfo::setGpsCoordinates( const GeoDataCoordinates& coordinates )
     _gpsCoordinates = coordinates;
     saveChangesIfNotDelayed();
 }
+#endif
 
 void ImageInfo::setDate( const ImageDate& date )
 {

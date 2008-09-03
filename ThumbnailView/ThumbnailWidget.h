@@ -93,6 +93,7 @@ protected:
     QString thumbnailText( const QString& fileName ) const;
     void paintCellText( QPainter*, int row, int col );
     OVERRIDE void viewportPaintEvent( QPaintEvent* );
+    void paintStackedIndicator( QPainter* painter, const QRect &rect, const QString& fileName);
 
     // Cell handling methods.
     QString fileNameInCell( int row, int col ) const;

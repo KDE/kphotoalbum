@@ -398,18 +398,16 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 }
 
 
-
+// ImageManager::ImageClient interface. Callback from the
+// ImageManager when the image is loaded.
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
                                                    const QImage& image, const bool loadedOK, const bool cache )
 {
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
         pixmap = QPixmap::fromImage( image );
-
-    else if ( !loadedOK)
+    else if ( !loadedOK )
         pixmap.fill( palette().color( QPalette::Dark));
-
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
 
     if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
         QPainter p( &pixmap );
@@ -420,8 +418,34 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
         p.drawConvexPolygon( pts );
     }
 
-    if ( fullSize.isValid() )
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+
+    if (imageInfo && imageInfo->stackId()) {
+        QPainter p( &pixmap );
+        // cannot do xor on pixmap.
+        //p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+        const int thickness = 1;
+        const int space = 0;
+        QPen pen;
+        pen.setWidth(thickness);
+        const int w = pixmap.width();
+        const int h = pixmap.height();
+        const int corners = 4;
+        int corner_w, corner_h;
+        corner_w = corner_h = qMin(w / 2, h / 2);
+        for (int c = 0; c < corners; ++c) {
+            pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
+            p.setPen(pen);
+            int x = w - corner_w - (thickness + space) * corners + (thickness + space) * c;
+            int y = h   - (thickness + space) * corners + (thickness + space) * c;
+            p.drawLine(x, y, x + corner_w, y);
+            p.drawLine(x + corner_w, y, x + corner_w, y - corner_h);
+        }
+    }
+
+    if ( fullSize.isValid() ) {
         imageInfo->setSize( fullSize );
+    }
 
     if ( cache ) {
         QPixmapCache::insert( fileName, pixmap );

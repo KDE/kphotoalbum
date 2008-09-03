@@ -149,6 +149,11 @@ protected:
     QStringList reverseList( const QStringList& ) const;
     void updateCellSize();
     void updateIndexCache();
+
+    /**
+     * For all filenames in the list, check if there are any missing
+     * thumbnails and generate these in the background.
+     */
     void generateMissingThumbnails( const QStringList& list ) const;
 
 protected slots:

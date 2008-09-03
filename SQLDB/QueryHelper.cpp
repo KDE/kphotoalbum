@@ -486,8 +486,6 @@ int QueryHelper::insertDir(const QString& dirname)
 QueryHelper::Bindings
 QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
 {
-    //Q_ASSERT(bindings.isEmpty());
-
     QVariant md5;
     if (!info.MD5Sum().isNull())
         md5 = info.MD5Sum().toHexString();

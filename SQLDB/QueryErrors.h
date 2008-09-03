@@ -50,13 +50,11 @@ namespace SQLDB
         virtual const char* what() const throw()
         {
             if (_whatString.isNull()) {
-                _whatString = generateWhatString();
+                _whatString = whatAsQString();
             }
             return _whatString.toLocal8Bit().constData();
         }
-
-    protected:
-        virtual QString generateWhatString() const throw()
+        virtual QString whatAsQString() const throw()
         {
             return name() + QLatin1String(": ") + message();
         }
@@ -100,12 +98,10 @@ namespace SQLDB
         virtual ~SQLError() throw() {}
         const QString& queryLine() const { return _queryLine; }
         QString name() const { return QString::fromLatin1("SQLError"); }
-
-    protected:
-        virtual QString generateWhatString() const throw()
+        virtual QString whatAsQString() const throw()
         {
             return
-                Error::generateWhatString() + QLatin1String(". The query was \"") +
+                Error::whatAsQString() + QLatin1String(". The query was \"") +
                 this->queryLine() + QLatin1String("\"");
         }
 
@@ -138,15 +134,13 @@ namespace SQLDB
         {
         }
         virtual QString name() const { return QLatin1String("QtSQLError"); }
-
-    protected:
-        virtual QString generateWhatString() const throw()
+        virtual QString whatAsQString() const throw()
         {
             QStringList bindingsAsStrings;
             Q_FOREACH(QVariant x, _bindings)
                 bindingsAsStrings.push_back(x.toString());
             return
-                SQLError::generateWhatString() +
+                SQLError::whatAsQString() +
                 QLatin1String(". Bindinds are (") +
                 bindingsAsStrings.join(QLatin1String(",")) + QLatin1String(")") +
                 QLatin1String(". The text of QSqlError is \"") +

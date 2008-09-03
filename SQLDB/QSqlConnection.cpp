@@ -36,6 +36,10 @@ QSqlConnection::QSqlConnection(const QSqlDatabase& database):
 {
     if (!_driver)
         throw InitializationError();
+
+    // TODO: There should be some kind of a check for this in
+    // somewhere else and notification for the user too
+    Q_ASSERT(_driver->hasFeature(QSqlDriver::LastInsertId));
 }
 
 QString QSqlConnection::variantListAsSql(const QList<QVariant>& l) const

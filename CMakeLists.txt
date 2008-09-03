@@ -44,6 +44,10 @@ endif(KDCRAW_FOUND)
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
+# because macro_optional_find_package(Marble) dies and screams when there's no
+# FindMarble.cmake
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+
 macro_optional_find_package(Marble)
 macro_bool_to_01(MARBLE_FOUND HAVE_MARBLE)
 if(MARBLE_FOUND)

@@ -422,17 +422,15 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
 
     if (imageInfo && imageInfo->stackId()) {
         QPainter p( &pixmap );
-        // cannot do xor on pixmap.
-        //p.setCompositionMode(QPainter::CompositionMode_Exclusion);
         const int thickness = 1;
         const int space = 0;
-        QPen pen;
-        pen.setWidth(thickness);
+        const int corners = 4;
         const int w = pixmap.width();
         const int h = pixmap.height();
-        const int corners = 4;
         int corner_w, corner_h;
         corner_w = corner_h = qMin(w / 2, h / 2);
+        QPen pen;
+        pen.setWidth(thickness);
         for (int c = 0; c < corners; ++c) {
             pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
             p.setPen(pen);

@@ -71,7 +71,7 @@ int main( int argc, char** argv ) {
 
     // FIXME: There is no point in using try here, because exceptions
     // and Qt event loop don't mix. Rather exceptions should be
-    // catched earlier and passed through Qt code.
+    // catched earlier and not passed through Qt code.
     try {
         MainWindow::Window* view = new MainWindow::Window( 0 );
 

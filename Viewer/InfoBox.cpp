@@ -17,6 +17,8 @@
 */
 
 #include "InfoBox.h"
+#include <KActionCollection>
+#include "VisibleOptionsMenu.h"
 #include <qglobal.h>
 #include "Browser/BrowserWidget.h"
 #include <qapplication.h>
@@ -29,11 +31,12 @@
 #include "DB/ImageInfo.h"
 #include <QDesktopWidget>
 #include <kdebug.h>
+#include "DB/ImageDB.h"
 
 using namespace Settings;
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
-    :QTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this )
+    :QTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this ), _menu(0)
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
@@ -228,6 +231,15 @@ void Viewer::InfoBox::hackLinkColorForQt44()
         }
         cursor.movePosition( QTextCursor::NextCharacter );
     }
+}
+
+void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
+{
+    if ( !_menu ) {
+        _menu = new VisibleOptionsMenu( new KActionCollection((QObject*)0) );
+        connect( _menu, SIGNAL( visibleOptionsChanged() ), _viewer, SLOT( updateInfoBox() ) );
+    }
+    _menu->exec(event->globalPos());
 }
 
 #include "InfoBox.moc"

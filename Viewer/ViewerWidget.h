@@ -115,15 +115,6 @@ protected slots:
     void rotate90();
     void rotate180();
     void rotate270();
-    void toggleShowInfoBox( bool );
-    void toggleShowLabel( bool );
-    void toggleShowDescription( bool );
-    void toggleShowDate( bool );
-    void toggleShowTime( bool );
-    void toggleShowFilename( bool );
-    void toggleShowEXIF( bool );
-    void toggleShowImageSize( bool );
-    void toggleShowOption( const QString& category, bool b ) ;
     void toggleFullScreen();
     void slotStartStopSlideShow();
     void slotSlideShowNext();

@@ -54,7 +54,16 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
+#ifdef KDAB_TEMPORARILY_REMOVED
     setPalette( QToolTip::palette() );
+#endif //KDAB_TEMPORARILY_REMOVED
+
+    setWindowOpacity(0.5);
+    setAutoFillBackground(true);
+    QPalette p = palette();
+    p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
+    p.setColor(QPalette::WindowText, Qt::white );
+    setPalette(p);
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )

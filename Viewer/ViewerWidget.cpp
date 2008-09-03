@@ -29,7 +29,6 @@
 #include <kaction.h>
 #include <klocale.h>
 #include "Utilities/Util.h"
-#include "ShowOptionAction.h"
 #include <qtimer.h>
 #include <kwindowsystem.h>
 #include "SpeedDisplay.h"
@@ -42,6 +41,7 @@
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
+#include "VisibleOptionsMenu.h"
 #include <qglobal.h>
 #include <QTimeLine>
 #include <QTimer>
@@ -101,9 +101,13 @@ Viewer::ViewerWidget::ViewerWidget()
     _textDisplay = new TextDisplay( this );
     addWidget( _textDisplay );
 
+#ifdef KDAB_TEMPORARILY_REMOVED
     _videoDisplay = new VideoDisplay( this );
     addWidget( _videoDisplay );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+#else // KDAB_TEMPORARILY_REMOVED
+    _videoDisplay = 0;
+#endif //KDAB_TEMPORARILY_REMOVED
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
@@ -184,71 +188,9 @@ void Viewer::ViewerWidget::setupContextMenu()
 
 void Viewer::ViewerWidget::createShowContextMenu()
 {
-    QMenu *showPopup = new QMenu( _popup );
-    showPopup->setTitle( i18n("Show") );
-
-    KToggleAction* taction = 0;
-
-    taction = _actions->add<KToggleAction>( QString::fromLatin1("viewer-show-infobox") );
-    taction->setText( i18n("Show Info Box") );
-    taction->setShortcut( Qt::CTRL+Qt::Key_I );
-    taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>( QString::fromLatin1("viewer-show-label") );
-    taction->setText( i18n("Show Label") );
-    taction->setShortcut( 0 );
-    taction->setChecked( Settings::SettingsData::instance()->showLabel() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowLabel( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>( QString::fromLatin1("viewer-show-description") );
-    taction->setText( i18n("Show Description") );
-    taction->setShortcut( 0 );
-    taction->setChecked( Settings::SettingsData::instance()->showDescription() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDescription( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>(QString::fromLatin1("viewer-show-date") );
-    taction->setText( i18n("Show Date") );
-    taction->setChecked( Settings::SettingsData::instance()->showDate() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDate( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>(QString::fromLatin1("viewer-show-time") );
-    taction->setText( i18n("Show Time") );
-    taction->setChecked( Settings::SettingsData::instance()->showTime() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowTime( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>(QString::fromLatin1("viewer-show-filename") );
-    taction->setText( i18n("Show Filename") );
-    taction->setChecked( Settings::SettingsData::instance()->showFilename() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowFilename( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>(QString::fromLatin1("viewer-show-exif") );
-    taction->setText( i18n("Show EXIF") );
-    taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowEXIF( bool ) ) );
-    showPopup->addAction( taction );
-
-    taction = _actions->add<KToggleAction>(QString::fromLatin1("viewer-show-imagesize") );
-    taction->setText( i18n("Show Image Size") );
-    taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowImageSize( bool ) ) );
-    showPopup->addAction( taction );
-
-    _popup->addMenu( showPopup );
-
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        ShowOptionAction* action = new ShowOptionAction( (*it)->name(), _actions );
-        showPopup->addAction( action );
-        connect( action, SIGNAL( toggled( const QString&, bool ) ),
-                 this, SLOT( toggleShowOption( const QString&, bool ) ) );
-    }
+    VisibleOptionsMenu* menu = new VisibleOptionsMenu(_actions);
+    connect( menu, SIGNAL( visibleOptionsChanged() ), this, SLOT( updateInfoBox()  ) );
+    _popup->addMenu( menu );
 }
 
 void Viewer::ViewerWidget::createWallPaperMenu()
@@ -517,12 +459,16 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     if ( _videoDisplay->isPaused() )
         _playPause->setText(i18n("Play"));
     else
         _playPause->setText(i18n("Pause"));
 
     _stop->setEnabled( _videoDisplay->isPlaying() );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Viewer::ViewerWidget::contextMenuEvent");
+#endif //KDAB_TEMPORARILY_REMOVED
 
     _popup->exec( e->globalPos() );
     e->setAccepted(true);
@@ -612,62 +558,6 @@ void Viewer::ViewerWidget::rotate270()
 {
     currentInfo()->rotate( 270 );
     load();
-}
-
-void Viewer::ViewerWidget::toggleShowInfoBox( bool b )
-{
-    Settings::SettingsData::instance()->setShowInfoBox( b );
-    _infoBox->setVisible(b);
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowLabel( bool b )
-{
-    Settings::SettingsData::instance()->setShowLabel( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowDescription( bool b )
-{
-    Settings::SettingsData::instance()->setShowDescription( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowDate( bool b )
-{
-    Settings::SettingsData::instance()->setShowDate( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowFilename( bool b )
-{
-    Settings::SettingsData::instance()->setShowFilename( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowTime( bool b )
-{
-    Settings::SettingsData::instance()->setShowTime( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowEXIF( bool b )
-{
-    Settings::SettingsData::instance()->setShowEXIF( b );
-    updateInfoBox();
-}
-
-void Viewer::ViewerWidget::toggleShowImageSize( bool b )
-{
-    Settings::SettingsData::instance()->setShowImageSize( b );
-    updateInfoBox();
-}
-
-
-void Viewer::ViewerWidget::toggleShowOption( const QString& category, bool b )
-{
-    DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
-    updateInfoBox();
 }
 
 void Viewer::ViewerWidget::showFirst()

@@ -108,13 +108,13 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ImageDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewHandler.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ShowOptionAction.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBox.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CategoryImageConfig.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Display.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VisibleOptionsMenu.cpp)
 
 set(libCategoryListView_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableListView.cpp 

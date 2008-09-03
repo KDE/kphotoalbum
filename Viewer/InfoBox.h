@@ -22,10 +22,13 @@
 #include <QMouseEvent>
 #include "ViewerWidget.h"
 #include <QTextBrowser>
+class QMenu;
 class QToolButton;
 
 namespace Viewer
 {
+class VisibleOptionsMenu;
+
 class InfoBox :public QTextBrowser {
     Q_OBJECT
 
@@ -44,6 +47,7 @@ protected:
     OVERRIDE void mousePressEvent( QMouseEvent* );
     OVERRIDE void mouseReleaseEvent( QMouseEvent* );
     OVERRIDE void resizeEvent( QResizeEvent* );
+    OVERRIDE void contextMenuEvent( QContextMenuEvent* event );
     void updateCursor( const QPoint& pos );
     bool atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position windowPos ) const;
     void showBrowser();
@@ -56,6 +60,7 @@ private:
     QToolButton* _jumpToContext;
     bool _hoveringOverLink;
     InfoBoxResizer _infoBoxResizer;
+    VisibleOptionsMenu* _menu;
 };
 
 }

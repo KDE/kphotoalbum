@@ -268,13 +268,12 @@ void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
     _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
 }
 
-QString
-SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
-                                      bool includeRanges,
-                                      const QVector<QString>& images) const
+QString SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
+                                              bool includeRanges,
+                                              const QStringList& images) const
 {
     QList<int> idList;
-    for (QVector<QString>::const_iterator i = images.begin();
+    for (QStringList::const_iterator i = images.begin();
          i != images.end(); ++i) {
         idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
     }

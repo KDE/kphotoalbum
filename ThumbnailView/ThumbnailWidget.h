@@ -36,8 +36,8 @@
 #include "SelectionInteraction.h"
 #include "MouseTrackingInteraction.h"
 #include "Cell.h"
-#include <q3valuevector.h>
 #include "DB/ImageDate.h"
+
 #include <qmutex.h>
 
 class QTimer;
@@ -45,7 +45,7 @@ class QDateTime;
 
 namespace ThumbnailView
 {
-enum SortDirection {NewestFirst, OldestFirst};
+enum SortDirection { NewestFirst, OldestFirst };
 
 class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
     Q_OBJECT
@@ -147,10 +147,9 @@ protected:
     void repaintAfterChangedSelection( const StringSet& oldSelection );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& ) const;
-    Q3ValueVector<QString> reverseVector( const Q3ValueVector<QString>& ) const;
     void updateCellSize();
-    QStringList vectorToList( const Q3ValueVector<QString>& ) const;
     void updateIndexCache();
+    void generateMissingThumbnails( const QStringList& list ) const;
 
 protected slots:
     void emitDateChange( int, int );
@@ -159,14 +158,15 @@ protected slots:
 
 private:
     /**
-     * The list of images shown
+     * The list of images shown. We do indexed access to this _imageList that has been
+     * changed from O(n) to O(1) in Qt4; so it is save to use this data type.
      */
-    Q3ValueVector<QString> _imageList;
+    QStringList _imageList;
 
     /**
      * A map mapping from filename to its index in _imageList.
      */
-    QMap<QString,int> _fileNameMap;
+    QMap<QString,int> _fileNameToIndex;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will

@@ -240,11 +240,11 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
 QString
 ImageDB::findFirstItemInRange(const ImageDate& range,
                               bool includeRanges,
-                              const QVector<QString>& images) const
+                              const QStringList& images) const
 {
     QString candidate;
     QDateTime candidateDateStart;
-    for (QVector<QString>::const_iterator i = images.begin();
+    for (QStringList::const_iterator i = images.begin();
          i != images.end(); ++i) {
         ImageInfoPtr iInfo = info(*i, DB::AbsolutePath);
 

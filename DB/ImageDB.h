@@ -81,10 +81,9 @@ public:
     static QString NONE();
     QStringList currentScope( bool requireOnDisk ) const;
 
-    virtual QString
-    findFirstItemInRange(const ImageDate& range,
-                         bool includeRanges,
-                         const QVector<QString>& images) const;
+    virtual QString findFirstItemInRange(const ImageDate& range,
+                                         bool includeRanges,
+                                         const QStringList& images) const;
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;

@@ -66,6 +66,7 @@ namespace SQLDB {
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
+        virtual unsigned int generateStackId() { Q_ASSERT(0); return 0; }; // FIXME: implement me
 
     protected slots:
         virtual void lockDB( bool lock, bool exclude );

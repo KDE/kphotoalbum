@@ -323,7 +323,22 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
     configureImages( true );
 }
 
+void MainWindow::Window::slotCreateImageStack()
+{
+    QStringList list = selected();
+    if ( list.size() < 2 ) {
+        // it doesn't make sense to make a stack from one image, does it?
+        return;
+    }
 
+    // FIXME: here we should invoke a fancy dialog for user's pleasure
+    unsigned int stackId = DB::ImageDB::instance()->generateStackId();
+    for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
+        DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackId( stackId );
+        DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackOrder( it == list.begin() ? 0 : 1 );
+    }
+    DirtyIndicator::markDirty();
+}
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
@@ -597,6 +612,10 @@ void MainWindow::Window::setupMenuBar()
     _configAllSimultaniously = actionCollection()->addAction( QString::fromLatin1("allProp"), this, SLOT( slotConfigureAllImages() ) );
     _configAllSimultaniously->setText( i18n( "Annotate Multiple Items at a Time" ) );
     _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2 );
+
+    _createImageStack = actionCollection()->addAction( QString::fromLatin1("createImageStack"), this, SLOT( slotCreateImageStack() ) );
+    _createImageStack->setText( i18n("Merge Images into a Stack") );
+    _createImageStack->setShortcut( Qt::CTRL + Qt::Key_3 );
 
     _rotLeft = actionCollection()->addAction( QString::fromLatin1("rotateLeft"), this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
@@ -937,6 +956,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         Q3PopupMenu menu( this, "context popup menu");
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );
+        menu.addAction( _createImageStack );
         menu.addAction( _runSlideShow );
         menu.addAction(_runRandomSlideShow );
 #ifdef HAVE_EXIV2
@@ -1097,6 +1117,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
 
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
     _configOneAtATime->setEnabled(selection.count() >= 1 );
+    _createImageStack->setEnabled( selection.count() > 1 );
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
     _recreateThumbnails->setEnabled( selection.count() >= 1 );
     _rotLeft->setEnabled( selection.count() >= 1 );

@@ -48,6 +48,7 @@ XMLDB::Database::Database( const QString& configFile ):
     Utilities::checkForBackupFile( configFile );
     FileReader reader( this );
     reader.read( configFile );
+    _nextStackId = reader.nextStackId();
 
     connect( categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
              this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
@@ -387,6 +388,10 @@ bool XMLDB::Database::isClipboardEmpty()
     return _clipboard.isEmpty();
 }
 
+unsigned int XMLDB::Database::generateStackId()
+{
+    return _nextStackId++;
+}
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, const QDomElement& elm, Database* db )
 {

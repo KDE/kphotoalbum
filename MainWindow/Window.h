@@ -80,6 +80,7 @@ protected slots:
     void slotOptions();
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
+    void slotCreateImageStack();
     void slotSave();
     void slotCopySelectedURLs();
     void slotDeleteSelected();
@@ -188,6 +189,7 @@ private:
     HTMLGenerator::HTMLDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
+    KAction* _createImageStack;
     KAction* _view;
     KAction* _rotLeft;
     KAction* _rotRight;

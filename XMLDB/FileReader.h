@@ -29,9 +29,10 @@ class FileReader
 {
 
 public:
-    FileReader( Database* db ) : _db( db ) {}
+    FileReader( Database* db ) : _db( db ), _nextStackId(1) {}
     void read( const QString& configFile );
     static QString unescape( const QString& );
+    unsigned int nextStackId() const { return _nextStackId; };
 
 protected:
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
@@ -52,6 +53,7 @@ protected:
 private:
     Database* _db;
     int _fileVersion;
+    unsigned int _nextStackId;
 };
 
 }

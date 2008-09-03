@@ -315,6 +315,7 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
 DB::ImageInfoPtr XMLDB::FileReader::load( const QString& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
+    _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
     info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
     return info;
 }

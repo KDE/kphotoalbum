@@ -111,6 +111,16 @@ public: // Methods that must be overriden
     virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
     virtual bool isClipboardEmpty() = 0;
 
+    /** @short Returns first available ID for image stacking 
+     *
+     * This is a non-const operation as the internally cached value of "next
+     * free ID" gets incremented. Therefore you shouldn't call this function
+     * when you don't want to use the returned value for creation of a new
+     * stack. The value gets reset to a minimal one during full DB reload,
+     * though.
+     * */
+    virtual unsigned int generateStackId() = 0;
+
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;
 

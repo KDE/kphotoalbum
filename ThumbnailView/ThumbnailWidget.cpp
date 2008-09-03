@@ -299,7 +299,15 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 }
 
 void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const QString& filename) {
-    kDebug() << "Got toggle stack signal for id " << filename;
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( filename, DB::AbsolutePath );
+    if (imageInfo) {
+        DB::StackID stackid = imageInfo->stackId();
+        if (_expandedStacks.contains(stackid))
+            _expandedStacks.remove(stackid);
+        else
+            _expandedStacks.insert(stackid);
+        updateDisplayModel();
+    }
 }
 
 /**

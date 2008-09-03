@@ -210,12 +210,12 @@ void ImageInfo::setRating( short rating )
     saveChangesIfNotDelayed();
 }
 
-unsigned int ImageInfo::stackId() const
+DB::StackID ImageInfo::stackId() const
 {
     return _stackId;
 }
 
-void ImageInfo::setStackId( const unsigned int stackId )
+void ImageInfo::setStackId( const DB::StackID stackId )
 {
     if ( stackId != _stackId )
         _dirty = true;

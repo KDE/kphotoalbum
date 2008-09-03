@@ -48,6 +48,8 @@
 #include <qpainter.h>
 #include <qpixmapcache.h>
 
+#include <kdebug.h>  // Debug. remove after stack is implemented.
+
 /**
  * \namespace ThumbnailView
  * The thumbnail view.
@@ -227,11 +229,30 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const QStringLis
 void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
-    QStringList l;
-    if ( _sortDirection == OldestFirst )
-        _imageList = list;
-    else
-        _imageList = reverseList( list );
+
+    _imageList.clear();
+
+    /* If we encounter a stack in the list of images we display, we only display the
+     * first of if, but remember all the other images that we can expand later if we
+     * want.
+     */
+    for (QStringList::const_iterator it = list.begin(); it != list.end(); ++it) {
+        DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
+        if (imageInfo->isStacked()) {
+            QStringList& stackList = _stackContents[imageInfo->stackId()];
+            // TODO: right now, we only put the first element in the list, but
+            // actually should put the one with the lowest id in there.
+            if (stackList.empty())
+                _imageList.append(*it);
+            stackList.append(*it);
+        }
+        else {
+            _imageList.append(*it);
+        }
+    }
+
+    if ( _sortDirection != OldestFirst )
+        _imageList = reverseList(_imageList);
 
     updateIndexCache();
     generateMissingThumbnails( list );
@@ -240,6 +261,10 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
         updateGridSize();
         repaintScreen();
     }
+}
+
+void ThumbnailView::ThumbnailWidget::toggleStackExpansion(DB::StackID id) {
+    kDebug() << "Got toggle stack signal for id " << id;
 }
 
 /**
@@ -420,10 +445,10 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
 
-    if (imageInfo && imageInfo->stackId()) {
+    if (imageInfo && imageInfo->isStacked()) {
         QPainter p( &pixmap );
         const int thickness = 1;
-        const int space = 0;
+        const int space = 1;
         const int corners = 4;
         const int w = pixmap.width();
         const int h = pixmap.height();

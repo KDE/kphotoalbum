@@ -47,11 +47,11 @@ class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
+typedef unsigned int StackID;
 
 class ImageInfo :public KShared {
 
 public:
-
     ImageInfo();
     ImageInfo( const QString& fileName, MediaType type = Image, bool readExifInfo = true );
     ImageInfo( const QString& fileName,
@@ -63,7 +63,7 @@ public:
                const QSize& size,
                MediaType type,
                short rating = -1,
-               unsigned int stackId = 0,
+               StackID stackId = 0,
                unsigned int stackOrder = 0 );
     virtual ~ImageInfo() { saveChanges(); }
 
@@ -88,8 +88,9 @@ public:
     short rating() const;
     void setRating( short rating );
 
-    unsigned int stackId() const;
-    void setStackId( const unsigned int stackId );
+    bool isStacked() const { return _stackId != 0; }
+    StackID stackId() const;
+    void setStackId( const StackID stackId );
 
     unsigned int stackOrder() const;
     void setStackOrder( const unsigned int stackOrder );
@@ -175,7 +176,7 @@ private:
     QSize _size;
     MediaType _type;
     short _rating;
-    unsigned int _stackId;
+    StackID _stackId;
     unsigned int _stackOrder;
 #ifdef HAVE_MARBLE
     GeoDataCoordinates _gpsCoordinates;

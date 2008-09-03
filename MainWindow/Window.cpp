@@ -332,7 +332,7 @@ void MainWindow::Window::slotCreateImageStack()
     }
 
     // FIXME: here we should invoke a fancy dialog for user's pleasure
-    unsigned int stackId = DB::ImageDB::instance()->generateStackId();
+    DB::StackID stackId = DB::ImageDB::instance()->generateStackId();
     for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackId( stackId );
         DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackOrder( it == list.begin() ? 0 : 1 );

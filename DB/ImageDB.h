@@ -119,7 +119,7 @@ public: // Methods that must be overriden
      * stack. The value gets reset to a minimal one during full DB reload,
      * though.
      * */
-    virtual unsigned int generateStackId() = 0;
+    virtual DB::StackID generateStackId() = 0;
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

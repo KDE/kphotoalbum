@@ -64,7 +64,7 @@ namespace XMLDB {
         virtual bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        virtual unsigned int generateStackId();
+        virtual DB::StackID generateStackId();
 
 
     protected:

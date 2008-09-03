@@ -20,23 +20,25 @@
 
 #include <q3gridview.h>
 //Added by qt3to4:
+#include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include <QDragLeaveEvent>
-#include <QShowEvent>
-#include <QWheelEvent>
+#include <QKeyEvent>
+#include <QMouseEvent>
 #include <QPaintEvent>
 #include <QResizeEvent>
-#include <QMouseEvent>
-#include <QKeyEvent>
-#include "ImageManager/ImageClient.h"
-#include "Utilities/Set.h"
-#include "ThumbnailToolTip.h"
-#include "GridResizeInteraction.h"
-#include "SelectionInteraction.h"
-#include "MouseTrackingInteraction.h"
+#include <QShowEvent>
+#include <QWheelEvent>
+
 #include "Cell.h"
+#include "DB/ImageInfo.h"
 #include "DB/ImageDate.h"
+#include "GridResizeInteraction.h"
+#include "ImageManager/ImageClient.h"
+#include "MouseTrackingInteraction.h"
+#include "SelectionInteraction.h"
+#include "ThumbnailToolTip.h"
+#include "Utilities/Set.h"
 
 #include <qmutex.h>
 
@@ -160,6 +162,7 @@ protected slots:
     void emitDateChange( int, int );
     void realDropEvent();
     void slotRepaint();
+    void toggleStackExpansion(DB::StackID);
 
 private:
     /**
@@ -172,6 +175,11 @@ private:
      * A map mapping from filename to its index in _imageList.
      */
     QMap<QString,int> _fileNameToIndex;
+
+    /**
+     */
+    typedef QMap<DB::StackID, QStringList> StackMap;
+    StackMap _stackContents;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will

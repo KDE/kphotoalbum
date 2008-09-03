@@ -1037,12 +1037,7 @@ QList<int>
 QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
                               DB::MediaType typemask) const
 {
-    Q_UNUSED(search);
-    MatcherListList dnf /*
-                          --------------------------------------
-                          TEMPORARILY DISABLED
-                           = search.query()
-                        */;
+    MatcherListList dnf(search.query());
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
     if (dnf.isEmpty())

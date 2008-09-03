@@ -44,6 +44,12 @@ endif(KDCRAW_FOUND)
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
+macro_optional_find_package(Marble)
+macro_bool_to_01(MARBLE_FOUND HAVE_MARBLE)
+if(MARBLE_FOUND)
+    INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
+endif(MARBLE_FOUND)
+
 if(QT_QTSQL_FOUND)
   set(SQLDB_SUPPORT TRUE)
 endif(QT_QTSQL_FOUND)
@@ -251,6 +257,10 @@ if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )
 endif(EXIV2_FOUND)
 
+if(MARBLE_FOUND)
+    target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES} )
+endif(MARBLE_FOUND)
+
 if(SQLDB_SUPPORT)
   target_link_libraries(kphotoalbum SQLDB)
 endif(SQLDB_SUPPORT)
@@ -270,4 +280,5 @@ configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-sqldb.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-sqldb.h)
+configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 

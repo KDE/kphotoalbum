@@ -240,6 +240,26 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
 
+    if ( info->rating() != -1 ) {
+        elm.setAttribute( QString::fromLatin1("rating"), info->rating() );
+    }
+
+    if ( info->stackId() ) {
+        elm.setAttribute( QString::fromLatin1("stackId"), info->stackId() );
+        elm.setAttribute( QString::fromLatin1("stackOrder"), info->stackOrder() );
+    }
+
+#ifdef HAVE_MARBLE
+    if ( info->gpsPrecision() > -1 ) {
+        double lon, lat;
+        info->gpsCoordinates().geoCoordinates( lon, lat, GeoDataCoordinates::Degree );
+        elm.setAttribute( QString::fromLatin1("gpsPrec"), info->gpsPrecision() );
+        elm.setAttribute( QString::fromLatin1("gpsLon"), lon );
+        elm.setAttribute( QString::fromLatin1("gpsLat"), lat );
+        elm.setAttribute( QString::fromLatin1("gpsAlt"), info->gpsCoordinates().altitude() );
+    }
+#endif
+
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );
     else

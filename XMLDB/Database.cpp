@@ -436,7 +436,25 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
 
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
-    DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );
+    short rating = elm.attribute( QString::fromLatin1("rating"), "-1" ).toShort();
+    unsigned int stackId = elm.attribute( QString::fromLatin1("stackId"), "0" ).toULong();
+    unsigned int stackOrder = elm.attribute( QString::fromLatin1("stackOrder"), "0" ).toULong();
+
+    DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, 
+            angle, md5sum, size, mediaType, rating, stackId, stackOrder );
+
+#ifdef HAVE_MARBLE
+    int gpsPrecision = elm.attribute( QString::fromLatin1("gpsPrec"), "-1" ).toInt();
+    if ( gpsPrecision > -1 ) {
+        double lat, lon, alt;
+        lat = elm.attribute( QString::fromLatin1("gpsLat") ).toDouble();
+        lon = elm.attribute( QString::fromLatin1("gpsLon") ).toDouble();
+        alt = elm.attribute( QString::fromLatin1("gpsAlt") ).toDouble();
+        info->setGpsPrecision( gpsPrecision );
+        info->setGpsCoordinates( GeoDataCoordinates( lon, lat, alt, GeoDataCoordinates::Degree ) );
+    }
+#endif
+
     DB::ImageInfoPtr result(info);
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {

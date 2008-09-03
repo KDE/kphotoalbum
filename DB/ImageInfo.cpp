@@ -32,12 +32,21 @@
 
 using namespace DB;
 
-ImageInfo::ImageInfo() :_null( true ), _locked( false ), _dirty( false ), _delaySaving( false )
+ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
+#ifdef HAVE_MARBLE
+       _gpsPrecision(-1),
+#endif
+    _locked( false ), _dirty( false ), _delaySaving( false )
 {
 }
 
 ImageInfo::ImageInfo( const QString& fileName, MediaType type, bool readExifInfo )
-    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false ), _delaySaving( true )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
+    _rating(-1), _stackId(0), _stackOrder(0),
+#ifdef HAVE_MARBLE
+       _gpsPrecision(-1),
+#endif
+    _locked(false), _delaySaving( true )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
@@ -183,6 +192,77 @@ void ImageInfo::setAngle( int angle )
     saveChangesIfNotDelayed();
 }
 
+short ImageInfo::rating() const
+{
+    return _rating;
+}
+
+void ImageInfo::setRating( short rating )
+{
+    if ( rating > 10 )
+        rating = 10;
+    if ( rating < -1 )
+        rating = -1;
+    if ( _rating != rating )
+        _dirty = true;
+
+    _rating = rating;
+    saveChangesIfNotDelayed();
+}
+
+unsigned int ImageInfo::stackId() const
+{
+    return _stackId;
+}
+
+void ImageInfo::setStackId( const unsigned int stackId )
+{
+    if ( stackId != _stackId )
+        _dirty = true;
+    _stackId = stackId;
+    saveChangesIfNotDelayed();
+}
+
+unsigned int ImageInfo::stackOrder() const
+{
+    return _stackOrder;
+}
+
+void ImageInfo::setStackOrder( const unsigned int stackOrder )
+{
+    if ( stackOrder != _stackOrder )
+        _dirty = true;
+    _stackOrder = stackOrder;
+    saveChangesIfNotDelayed();
+}
+
+int ImageInfo::gpsPrecision() const
+{
+    return _gpsPrecision;
+}
+
+void ImageInfo::setGpsPrecision( int precision )
+{
+    if ( precision < -1 )
+        precision = -1;
+    if ( _gpsPrecision != precision )
+        _dirty = true;
+    _gpsPrecision = precision;
+    saveChangesIfNotDelayed();
+}
+
+GeoDataCoordinates ImageInfo::gpsCoordinates() const
+{
+    return _gpsCoordinates;
+}
+
+void ImageInfo::setGpsCoordinates( const GeoDataCoordinates& coordinates )
+{
+    if ( ! ( coordinates == _gpsCoordinates ) ) // no operator!=()
+        _dirty = true;
+    _gpsCoordinates = coordinates;
+    saveChangesIfNotDelayed();
+}
 
 void ImageInfo::setDate( const ImageDate& date )
 {
@@ -214,7 +294,17 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _label != other._label ||
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _date != other._date ||
-          _angle != other._angle);
+          _angle != other._angle ||
+#ifdef HAVE_MARBLE
+          ( _gpsPrecision != other._gpsPrecision || 
+            ! ( ( _gpsPrecision == -1 ) ? true :
+            ( _gpsCoordinates == other._gpsCoordinates ) ) ) ||
+#endif
+          _rating != other._rating ||
+          ( _stackId != other._stackId || 
+            ! ( ( _stackId == 0 ) ? true :
+            ( _stackOrder == other._stackOrder ) ) )
+           );
     if ( !changed ) {
         QStringList keys = DB::ImageDB::instance()->categoryCollection()->categoryNames();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it )
@@ -337,7 +427,10 @@ ImageInfo::ImageInfo( const QString& fileName,
                       int angle,
                       const MD5& md5sum,
                       const QSize& size,
-                      MediaType type )
+                      MediaType type,
+                      short rating,
+                      unsigned int stackId,
+                      unsigned int stackOrder )
 {
     _delaySaving = true;
     _relativeFileName = fileName;
@@ -354,6 +447,17 @@ ImageInfo::ImageInfo( const QString& fileName,
     _type = type;
     _dirty = true;
     delaySavingChanges(false);
+
+    if ( rating > 10 )
+        rating = 10;
+    if ( rating < -1 )
+        rating = -1;
+    _rating = rating;
+#ifdef HAVE_MARBLE
+    _gpsPrecision = -1;
+#endif
+    _stackId = stackId;
+    _stackOrder = stackOrder;
 }
 
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
@@ -370,6 +474,13 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _null = other._null;
     _size = other._size;
     _dirty = other._dirty;
+    _rating = other._rating;
+    _stackId = other._stackId;
+    _stackOrder = other._stackOrder;
+#ifdef HAVE_MARBLE
+    _gpsCoordinates = other._gpsCoordinates;
+    _gpsPrecision = other._gpsPrecision;
+#endif
 
     delaySavingChanges(false);
 

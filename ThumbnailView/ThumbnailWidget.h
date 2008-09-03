@@ -164,7 +164,7 @@ protected slots:
     void emitDateChange( int, int );
     void realDropEvent();
     void slotRepaint();
-    void toggleStackExpansion(DB::StackID);
+    void toggleStackExpansion(const QString& filename);
 
 private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
@@ -183,10 +183,10 @@ private:
      */
     QMap<QString,int> _fileNameToIndex;
 
-    /**
-     */
     typedef QMap<DB::StackID, QStringList> StackMap;
     StackMap _stackContents;
+
+    QSet<DB::StackID> _expandedStacks;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will

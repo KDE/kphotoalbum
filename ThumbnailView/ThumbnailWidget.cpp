@@ -267,10 +267,11 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if (imageInfo->isStacked()) {
-            QStringList& stackList = _stackContents[imageInfo->stackId()];
-            // TODO: right now, we only put the first element in the list, but
+            DB::StackID stackid = imageInfo->stackId();
+            QStringList& stackList = _stackContents[ stackid ];
+            // TODO(hzeller): right now, we only put the first element in the list, but
             // actually should put the one with the lowest id in there.
-            if (stackList.empty())
+            if (_expandedStacks.contains(stackid) || stackList.empty())
                 _displayList.append(*it);
             stackList.append(*it);
         }
@@ -297,8 +298,8 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
     updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailWidget::toggleStackExpansion(DB::StackID id) {
-    kDebug() << "Got toggle stack signal for id " << id;
+void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const QString& filename) {
+    kDebug() << "Got toggle stack signal for id " << filename;
 }
 
 /**

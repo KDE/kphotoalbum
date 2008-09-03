@@ -167,13 +167,13 @@ protected slots:
 
 private:
     /**
-     * The list of images shown. We do indexed access to this _imageList that has been
+     * The list of images shown. We do indexed access to this _displayList that has been
      * changed from O(n) to O(1) in Qt4; so it is save to use this data type.
      */
-    QStringList _imageList;
+    QStringList _displayList;
 
     /**
-     * A map mapping from filename to its index in _imageList.
+     * A map mapping from filename to its index in _displayList.
      */
     QMap<QString,int> _fileNameToIndex;
 

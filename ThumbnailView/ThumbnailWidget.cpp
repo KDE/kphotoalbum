@@ -258,7 +258,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
 
     // TODO(hzeller) This handling of the data should be abstracted away in a data model that
     // operates on it.
-    _imageList.clear();
+    _displayList.clear();
     _stackContents.clear();
 
     /* If we encounter a stack in the list of images, we only put the first of it
@@ -271,16 +271,16 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
             // TODO: right now, we only put the first element in the list, but
             // actually should put the one with the lowest id in there.
             if (stackList.empty())
-                _imageList.append(*it);
+                _displayList.append(*it);
             stackList.append(*it);
         }
         else {
-            _imageList.append(*it);
+            _displayList.append(*it);
         }
     }
 
     if ( _sortDirection != OldestFirst )
-        _imageList = reverseList(_imageList);
+        _displayList = reverseList(_displayList);
 
     updateIndexCache();
     generateMissingThumbnails( list );
@@ -301,10 +301,10 @@ void ThumbnailView::ThumbnailWidget::toggleStackExpansion(DB::StackID id) {
 QString ThumbnailView::ThumbnailWidget::fileNameInCell( int row, int col ) const
 {
     const int index = row * numCols() + col;
-    if ( index >= _imageList.count() )
+    if ( index >= _displayList.count() )
         return QString::null;
     else
-        return _imageList[index];
+        return _displayList[index];
 }
 
 /**
@@ -422,7 +422,7 @@ int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
                 }
             } else {
                 maxCatsInText = 0;
-                for( QStringList::ConstIterator itImg = _imageList.begin(); itImg != _imageList.end(); ++itImg ) {
+                for( QStringList::ConstIterator itImg = _displayList.begin(); itImg != _displayList.end(); ++itImg ) {
                     maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
                 }
             }
@@ -517,7 +517,7 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     int thumbnailsPerRow = width() / cellWidth();
     int numRowsPerPage = height() / cellHeight();
     setNumCols( thumbnailsPerRow );
-    setNumRows( qMax( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
+    setNumRows( qMax( numRowsPerPage, (int) ceil( 1.0 * _displayList.size() / thumbnailsPerRow ) ) );
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
@@ -825,7 +825,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 {
     _isSettingDate = true;
     QString candidate = DB::ImageDB::instance()->
-                        findFirstItemInRange(date, includeRanges, _imageList);
+                        findFirstItemInRange(date, includeRanges, _displayList);
     if ( !candidate.isNull() ) {
         Cell pos = positionForFileName( candidate );
         QRect contentsRect = cellGeometry( pos.row(), pos.col() );
@@ -972,8 +972,8 @@ bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
 {
-    return Cell( (_imageList.count()-1) / numCols(),
-                 (_imageList.count()-1) % numCols());
+    return Cell( (_displayList.count()-1) / numCols(),
+                 (_displayList.count()-1) % numCols());
 }
 
 bool ThumbnailView::ThumbnailWidget::isMovementKey( int key )
@@ -994,7 +994,7 @@ void ThumbnailView::ThumbnailWidget::toggleSelection( const QString& fileName )
 
 QStringList ThumbnailView::ThumbnailWidget::selection( bool keepSortOrderOfDatabase ) const
 {
-    QStringList images = _imageList;
+    QStringList images = _displayList;
     if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
         images = reverseList( images );
 
@@ -1018,15 +1018,15 @@ void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
 QStringList ThumbnailView::ThumbnailWidget::imageList( Order order ) const
 {
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )
-        return reverseList( _imageList );
+        return reverseList( _displayList );
     else
-        return _imageList;
+        return _displayList;
 }
 
 void ThumbnailView::ThumbnailWidget::selectAll()
 {
     _selectedFiles.clear();
-    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+    for( QStringList::ConstIterator it = _displayList.begin(); it != _displayList.end(); ++it ) {
         _selectedFiles.insert(*it);
     }
     possibleEmitSelectionChanged();
@@ -1120,14 +1120,14 @@ void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* even
         _leftDrop = fileName;
         int index = _fileNameToIndex[fileName] -1;
         if ( index != -1 )
-            _rightDrop = _imageList[index];
+            _rightDrop = _displayList[index];
     }
 
     else {
         _rightDrop = fileName;
         const int index = _fileNameToIndex[fileName] +1;
-        if ( index != _imageList.count() )
-            _leftDrop = _imageList[index];
+        if ( index != _displayList.count() )
+            _leftDrop = _displayList[index];
     }
 
     updateCell( _leftDrop );
@@ -1228,7 +1228,7 @@ void ThumbnailView::ThumbnailWidget::setSortDirection( SortDirection direction )
         return;
 
     Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
-    _imageList = reverseList( _imageList );
+    _displayList = reverseList( _displayList );
     updateIndexCache();
     if ( !_currentItem.isNull() )
         setCurrentItem( _currentItem );
@@ -1274,7 +1274,7 @@ void ThumbnailView::ThumbnailWidget::updateIndexCache()
 {
     _fileNameToIndex.clear();
     int index = 0;
-    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it,++index ) {
+    for( QStringList::ConstIterator it = _displayList.begin(); it != _displayList.end(); ++it,++index ) {
         _fileNameToIndex.insert( *it, index );
     }
 }

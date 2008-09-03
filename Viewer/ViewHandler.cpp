@@ -69,7 +69,8 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     }
 }
 
-bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )
+bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent*, 
+                                          const QPoint& unTranslatedPos, double scaleFactor )
 {
     if ( _scale ) {
         _rubberBand->setGeometry( QRect( _untranslatedStart, unTranslatedPos ) );

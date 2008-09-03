@@ -1470,8 +1470,6 @@ void MainWindow::Window::possibleRunSuvey()
     survey.possibleExecSurvey();
 }
 
-
-
 void MainWindow::Window::showThumbNails( const QStringList& list )
 {
     _thumbnailView->setImageList( list );

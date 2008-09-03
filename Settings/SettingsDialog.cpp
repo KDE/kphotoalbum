@@ -519,9 +519,9 @@ void Settings::SettingsDialog::show()
 #ifdef HAVE_EXIV2
     _exifForViewer->reload();
     _exifForDialog->reload();
-    _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
-    _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
-    _iptcCharset->setCurrentItem( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toAscii() ) ) );
+    _exifForViewer->setSelectedExif( Settings::SettingsData::instance()->exifForViewer() );
+    _exifForDialog->setSelectedExif( Settings::SettingsData::instance()->exifForDialog() );
+    _iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toAscii() ) ) );
 #endif
 
     QString backend = Settings::SettingsData::instance()->backend();
@@ -1072,7 +1072,7 @@ void Settings::SettingsDialog::createEXIFPage()
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
     for (QList<QByteArray>::const_iterator it = _charsetsBA.begin(); it != _charsetsBA.end(); ++it )
         _charsets << QString::fromLatin1(*it);
-    _iptcCharset->insertStringList( _charsets );
+    _iptcCharset->insertItems( _iptcCharset->count(), _charsets );
 
     hlay2->addStretch( 1 );
     hlay2->addWidget( _iptcCharsetLabel );

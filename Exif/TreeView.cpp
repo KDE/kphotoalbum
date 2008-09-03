@@ -55,7 +55,7 @@ StringSet Exif::TreeView::selected()
     return result;
 }
 
-void Exif::TreeView::setSelected( const StringSet& selected )
+void Exif::TreeView::setSelectedExif( const StringSet& selected )
 {
     for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );

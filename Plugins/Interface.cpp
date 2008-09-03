@@ -69,7 +69,7 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     return result;
 }
 
-KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
+KIPI::ImageInfo Plugins::Interface::info( const KUrl& )
 {
     qFatal("NYI: Plugins::Interface::info");
     // TODO #############################
@@ -134,13 +134,13 @@ void Plugins::Interface::pathChanged( const QString& path )
     }
 }
 
-KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidget *parent)
+KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidget *)
 {
   //TODO
     return 0;
 }
 
-KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget *parent)
+KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget *)
 {
    //TODO
     return 0;

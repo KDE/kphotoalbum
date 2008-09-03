@@ -191,7 +191,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
     if(text.isEmpty())
         text = QString::fromLatin1( "" );
 
-    return text.stripWhiteSpace();
+    return text.trimmed();
 }
 
 /**
@@ -241,7 +241,6 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
         repaintScreen();
     }
 }
-
 
 /**
  * Return the file name shown in cell (row,col) if a thumbnail is shown in this cell or null otherwise.

@@ -377,7 +377,7 @@ DB::ImageInfoList ImportDialog::selectedImages() const
     return res;
 }
 
-void ImportDialog::closeEvent( QCloseEvent* e )
+void ImportDialog::closeEvent( QCloseEvent* /*e*/ )
 {
 #ifdef KDAB_TEMPORARILY_REMOVED
     // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.

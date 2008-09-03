@@ -21,7 +21,7 @@
 #include <q3listview.h>
 #include "Utilities/Set.h"
 
-namespace Exif{
+namespace Exif {
 using Utilities::StringSet;
 
 class TreeView : public Q3ListView {
@@ -30,7 +30,7 @@ class TreeView : public Q3ListView {
 public:
     TreeView( const QString& title, QWidget* parent, const char* name = 0 );
     StringSet selected();
-    void setSelected( const StringSet& selected );
+    void setSelectedExif( const StringSet& selected );
     void reload();
 
 protected slots:

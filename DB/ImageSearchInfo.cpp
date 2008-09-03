@@ -96,8 +96,8 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Options
     info->clearMatched();
-    for( Q3ValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
-        ok &= (*it)->eval( info );
+    Q_FOREACH(CategoryMatcher* optionMatcher, _optionMatchers) {
+        ok &= optionMatcher->eval( info );
     }
 
 
@@ -284,12 +284,12 @@ void ImageSearchInfo::debugMatcher() const
         compile();
 
     qDebug("And:");
-    for( Q3ValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
-        (*it)->debug(1);
+    Q_FOREACH(CategoryMatcher* optionMatcher, _optionMatchers) {
+        optionMatcher->debug(1);
     }
 }
 
-Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
+QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
 {
     if ( !_compiled )
         compile();
@@ -297,8 +297,8 @@ Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     // Combine _optionMachers to one list of lists in Disjunctive
     // Normal Form and return it.
 
-    Q3ValueList<CategoryMatcher*>::Iterator it  = _optionMatchers.begin();
-    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > result;
+    QList<CategoryMatcher*>::Iterator it  = _optionMatchers.begin();
+    QList<QList<OptionSimpleMatcher*> > result;
     if ( it == _optionMatchers.end() )
         return result;
 
@@ -306,19 +306,15 @@ Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     ++it;
 
     for( ; it != _optionMatchers.end(); ++it ) {
-        Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > current = convertMatcher( *it );
-        Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > oldResult = result;
+        QList<QList<OptionSimpleMatcher*> > current = convertMatcher( *it );
+        QList<QList<OptionSimpleMatcher*> > oldResult = result;
         result.clear();
 
-        for( Q3ValueList< Q3ValueList<OptionSimpleMatcher*> >::Iterator resultIt = oldResult.begin();
-             resultIt != oldResult.end(); ++resultIt ) {
-
-            for( Q3ValueList< Q3ValueList<OptionSimpleMatcher*> >::Iterator currentIt = current.begin();
-                 currentIt != current.end(); ++currentIt ) {
-
-                Q3ValueList<OptionSimpleMatcher*> tmp;
-                tmp += (*resultIt);
-                tmp += (*currentIt);
+        Q_FOREACH(QList<OptionSimpleMatcher*> resultIt, oldResult) {
+            Q_FOREACH(QList<OptionSimpleMatcher*> currentIt, current) {
+                QList<OptionSimpleMatcher*> tmp;
+                tmp += resultIt;
+                tmp += currentIt;
                 result.append( tmp );
             }
         }
@@ -345,25 +341,22 @@ Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 
 void ImageSearchInfo::deleteMatchers() const
 {
-    for( Q3ValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end();  ) {
-        CategoryMatcher* matcher = *it;
-        ++it;
+    Q_FOREACH(CategoryMatcher* matcher, _optionMatchers) {
         delete matcher;
     }
     _optionMatchers.clear();
 }
 
-Q3ValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
+QList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
 {
-    Q3ValueList< OptionSimpleMatcher*> result;
+    QList<OptionSimpleMatcher*> result;
 
     OptionAndMatcher* andMatcher;
     OptionSimpleMatcher* simpleMatcher;
 
     if ( ( andMatcher = dynamic_cast<OptionAndMatcher*>( matcher ) ) ) {
-        for( Q3ValueList<CategoryMatcher*>::Iterator childIt = andMatcher->_elements.begin();
-             childIt != andMatcher->_elements.end(); ++childIt ) {
-            OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( *childIt );
+        Q_FOREACH(CategoryMatcher* child, andMatcher->_elements) {
+            OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( child );
             Q_ASSERT( simpleMatcher );
             result.append( simpleMatcher );
         }
@@ -380,15 +373,14 @@ Q3ValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMa
  *
  * @return OR-list of AND-lists. (e.g. OR(AND(a,b),AND(c,d)))
  */
-Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( CategoryMatcher* item ) const
+QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( CategoryMatcher* item ) const
 {
-    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > result;
+    QList<QList<OptionSimpleMatcher*> > result;
     OptionOrMatcher* orMacther;
 
     if ( ( orMacther = dynamic_cast<OptionOrMatcher*>( item ) ) ) {
-        for( Q3ValueList<CategoryMatcher*>::Iterator childIt = orMacther->_elements.begin();
-             childIt != orMacther->_elements.end(); ++childIt ) {
-            result.append( extractAndMatcher( *childIt ) );
+        Q_FOREACH(CategoryMatcher* child, orMacther->_elements) {
+            result.append( extractAndMatcher( child ) );
         }
     }
     else

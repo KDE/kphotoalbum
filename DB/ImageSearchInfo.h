@@ -55,7 +55,7 @@ public:
 
     bool isNull() const;
     bool match( ImageInfoPtr ) const;
-    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > query() const;
+    QList<QList<OptionSimpleMatcher*> > query() const;
 
     void addAnd( const QString& category, const QString& value );
     QString toString() const;
@@ -75,8 +75,8 @@ protected:
     void compile() const;
     void deleteMatchers() const;
 
-    Q3ValueList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
-    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
+    QList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
+    QList<QList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:
     ImageDate _date;
@@ -85,7 +85,7 @@ private:
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable Q3ValueList<CategoryMatcher*> _optionMatchers;
+    mutable QList<CategoryMatcher*> _optionMatchers;
 
 #ifdef HAVE_EXIV2
     Exif::SearchInfo _exifSearchInfo;

@@ -69,6 +69,9 @@ int main( int argc, char** argv ) {
     new MainWindow::SplashScreen();
 
 
+    // FIXME: There is no point in using try here, because exceptions
+    // and Qt event loop don't mix. Rather exceptions should be
+    // catched earlier and passed through Qt code.
     try {
         MainWindow::Window* view = new MainWindow::Window( 0 );
 

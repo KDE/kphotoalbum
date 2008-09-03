@@ -908,7 +908,7 @@ bool MainWindow::Window::load()
         }
         catch (SQLDB::Error& e){
             KMessageBox::error(this, i18n("SQL backend initialization failed, "
-                                          "because following error occurred:\n%1",e.message()));
+                                          "because following error occurred:\n%1",e.whatAsQString()));
         }
 #else
         KMessageBox::error(this, i18n("SQL database support is not compiled in."));
@@ -1527,7 +1527,7 @@ void MainWindow::Window::convertBackend()
         KMessageBox::information(this, i18n("Database conversion is ready."));
     }
     catch (SQLDB::Error& e) {
-        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1",e.message()));
+        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1",e.whatAsQString()));
     }
 #endif
 }

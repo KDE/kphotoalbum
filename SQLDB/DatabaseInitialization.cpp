@@ -28,6 +28,9 @@ namespace
 {
     static void insertInitialData(SQLDB::Connection& conn)
     {
+#if 0 // When importing a database, we do not want default items.
+      // The only thing we can do so far is importing, so lets keep this out for now
+      //  4 Sep. 2008 14:44 -- Jesper K. Pedersen
         struct
         {
             const char* name;
@@ -54,6 +57,7 @@ namespace
                               QString::fromLatin1(entry[i].icon),
                               entry[i].visible,
                               entry[i].viewtype, entry[i].thumbnailSize);
+#endif
     }
 
     static SQLDB::Schema::Identifier

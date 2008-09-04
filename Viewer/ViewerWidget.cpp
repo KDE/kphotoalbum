@@ -101,13 +101,9 @@ Viewer::ViewerWidget::ViewerWidget()
     _textDisplay = new TextDisplay( this );
     addWidget( _textDisplay );
 
-#ifdef KDAB_TEMPORARILY_REMOVED
     _videoDisplay = new VideoDisplay( this );
     addWidget( _videoDisplay );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
-#else // KDAB_TEMPORARILY_REMOVED
-    _videoDisplay = 0;
-#endif //KDAB_TEMPORARILY_REMOVED
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
@@ -459,16 +455,12 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
-#ifdef KDAB_TEMPORARILY_REMOVED
     if ( _videoDisplay->isPaused() )
         _playPause->setText(i18n("Play"));
     else
         _playPause->setText(i18n("Pause"));
 
     _stop->setEnabled( _videoDisplay->isPlaying() );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Viewer::ViewerWidget::contextMenuEvent");
-#endif //KDAB_TEMPORARILY_REMOVED
 
     _popup->exec( e->globalPos() );
     e->setAccepted(true);

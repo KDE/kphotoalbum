@@ -119,8 +119,8 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
     if (imageInfo && imageInfo->isStacked()) {
         const int thickness = 1;
-        const int space = 1;
-        const int corners = 4;
+        const int space = 0;
+        const int corners = 6;
         const int w = rect.width();
         const int h = rect.height();
         int corner_w, corner_h;

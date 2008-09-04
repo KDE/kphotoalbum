@@ -317,35 +317,6 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
          i != categoryTagPairs.end(); ++i)
         info.addCategoryInfo((*i).first, (*i).second);
 
-#ifdef DRAWING_TEMPORARILY_REMOVED
-    Viewer::DrawList drawList;
-    Cursor c = executeQuery("SELECT shape, x0, y0, x1, y1 "
-                            "FROM drawing WHERE mediaId=?",
-                            Bindings() << id).cursor();
-    for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
-        Viewer::Draw* drawing;
-        switch (c.value(0).toInt()) {
-        case 0:
-            drawing = new Viewer::CircleDraw();
-            break;
-        case 1:
-            drawing = new Viewer::LineDraw();
-            break;
-        case 2:
-            drawing = new Viewer::RectDraw();
-            break;
-        default:
-            continue;
-        }
-        drawing->setCoordinates(QPoint(c.value(1).toInt(),
-                                       c.value(2).toInt()),
-                                QPoint(c.value(3).toInt(),
-                                       c.value(4).toInt()));
-        drawList << drawing;
-    }
-    info.setDrawList(drawList);
-#endif
-
     // TODO: remove debug
     qDebug("Read info of file %s (id %d)", info.fileName().toLocal8Bit().data(), id);
 }
@@ -432,38 +403,6 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
     }
 }
 
-void QueryHelper::insertMediaItemDrawings(int mediaId,
-                                          const DB::ImageInfo& info)
-{
-#ifdef DRAWING_TEMPORARILY_REMOVED
-    Viewer::DrawList drawings = info.drawList();
-    for (Viewer::DrawList::const_iterator i = drawings.begin();
-        i != drawings.end(); ++i) {
-        int shape;
-        if (dynamic_cast<Viewer::CircleDraw*>(*i)) {
-            shape = 0;
-        }
-        else if (dynamic_cast<Viewer::LineDraw*>(*i)) {
-            shape = 1;
-        }
-        else if (dynamic_cast<Viewer::RectDraw*>(*i)) {
-            shape = 2;
-        }
-        else
-            continue;
-
-        QPoint p0 = (*i)->getStartPoint();
-        QPoint p1 = (*i)->getEndPoint();
-
-        executeStatement("INSERT INTO drawing "
-                         "(mediaId, shape, x0, y0, x1, y1) "
-                         "VALUES (?, ?, ?, ?, ?, ?)",
-                         Bindings() << mediaId << shape <<
-                         p0.x() << p0.y() << p1.x() << p1.y());
-    }
-#endif
-}
-
 int QueryHelper::insertDir(const QString& dirname)
 {
     QVariant i = executeQuery("SELECT id FROM dir "
@@ -540,7 +479,6 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
     qulonglong mediaId = executeInsert("media", "id", fields, bindings);
 
     insertMediaItemTags(mediaId, info);
-    insertMediaItemDrawings(mediaId, info);
 }
 
 void
@@ -573,10 +511,6 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     executeStatement("DELETE FROM media_tag WHERE mediaId=?",
                      Bindings() << id);
     insertMediaItemTags(id, info);
-
-    executeStatement("DELETE FROM drawing WHERE mediaId=?",
-                     Bindings() << id);
-    insertMediaItemDrawings(id, info);
 }
 
 QList<int> QueryHelper::directMembers(int tagId) const

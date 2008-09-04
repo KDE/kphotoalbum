@@ -133,7 +133,6 @@ protected:
     void insertMediaItem(const DB::ImageInfo& info, int place=0);
     void insertMediaTag(int mediaId, int tagId);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
-    void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
     QList<int> directMembers(int tagId) const;
     void addBlockItem(const QString& filename);
     int mediaPlaceByFilename(const QString& filename) const;

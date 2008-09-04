@@ -32,7 +32,7 @@ namespace Schema {
             //
             schema =
                 new DatabaseSchema
-                (Identifier("kphotoalbum", 2, 1).setDate(2006, 11, 1));
+                (Identifier("kphotoalbum", 3, 0).setDate(2008, 9, 4));
 
             TableSchema* t;
             Field* f;
@@ -206,32 +206,6 @@ namespace Schema {
 
             fk = t->createForeignKey("membertag");
             fk->setDestination("tag", "id");
-            fk->setDeletePolicy(Cascade);
-
-
-            // ============ drawing table ============
-            t = schema->createTable("drawing");
-
-            f = t->createField("mediaid", FieldType(UnsignedBigInteger));
-            f->addConstraint(NotNull);
-
-            f = t->createField("shape", FieldType(UnsignedSmallInteger));
-            f->addConstraint(NotNull);
-
-            f = t->createField("x0", FieldType(Integer));
-            f->addConstraint(NotNull);
-
-            f = t->createField("y0", FieldType(Integer));
-            f->addConstraint(NotNull);
-
-            f = t->createField("x1", FieldType(Integer));
-            f->addConstraint(NotNull);
-
-            f = t->createField("y1", FieldType(Integer));
-            f->addConstraint(NotNull);
-
-            fk = t->createForeignKey("mediaid");
-            fk->setDestination("media", "id");
             fk->setDeletePolicy(Cascade);
         }
         return *schema;

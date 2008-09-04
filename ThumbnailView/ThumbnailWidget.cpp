@@ -839,13 +839,15 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )
 {
-    bool interestingArea = isMouseOverStackIndicator( event->pos() );
-    if ( interestingArea && ! _cursorWasAtStackIcon ) {
-        setCursor( Qt::PointingHandCursor );
-        _cursorWasAtStackIcon = true;
-    } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
-        unsetCursor();
-        _cursorWasAtStackIcon = false;
+    if ( _mouseHandler == &_mouseTrackingHandler ) {
+        bool interestingArea = isMouseOverStackIndicator( event->pos() );
+        if ( interestingArea && ! _cursorWasAtStackIcon ) {
+            setCursor( Qt::PointingHandCursor );
+            _cursorWasAtStackIcon = true;
+        } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
+            unsetCursor();
+            _cursorWasAtStackIcon = false;
+        }
     }
 
     _mouseHandler->mouseMoveEvent( event );

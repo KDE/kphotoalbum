@@ -73,7 +73,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler ),
      _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst ),
-     _cellOnFirstShiftMovementKey(Cell::invalidCell())
+     _cellOnFirstShiftMovementKey(Cell::invalidCell()),
+    _cursorWasAtStackIcon(false)
 {
     _instance = this;
     setFocusPolicy( Qt::WheelFocus );
@@ -764,8 +765,22 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
     return height() / cellHeight();
 }
 
+bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& point )
+{
+    Cell pos = cellAtCoordinate( point, ViewportCoordinates );
+    QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -10, -10 ); // FIXME: what area should be "hot"?
+    bool correctArea = !cellRect.contains( viewportToContents( point ) );
+    return correctArea && DB::ImageDB::instance()->info( fileNameUnderCursor(), DB::AbsolutePath )->isStacked();
+}
+
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
+    bool interestingArea = isMouseOverStackIndicator( event->pos() );
+    if ( interestingArea ) {
+        toggleStackExpansion( fileNameUnderCursor() );
+        return;
+    }
+
     if ( (event->button() & Qt::MidButton) ||
          ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier)) )
         _mouseHandler = &_gridResizeInteraction;
@@ -777,6 +792,15 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )
 {
+    bool interestingArea = isMouseOverStackIndicator( event->pos() );
+    if ( interestingArea && ! _cursorWasAtStackIcon ) {
+        setCursor( Qt::PointingHandCursor );
+        _cursorWasAtStackIcon = true;
+    } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
+        unsetCursor();
+        _cursorWasAtStackIcon = false;
+    }
+
     _mouseHandler->mouseMoveEvent( event );
 }
 
@@ -788,7 +812,9 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
 {
-    if ( !( event->modifiers() & Qt::ControlModifier ) ) {
+    if ( isMouseOverStackIndicator( event->pos() ) ) {
+        toggleStackExpansion( fileNameUnderCursor() );
+    } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
         QString fileName = fileNameAtCoordinate( event->pos(), ViewportCoordinates );
         if ( !fileName.isNull() )
             emit showImage( fileName );

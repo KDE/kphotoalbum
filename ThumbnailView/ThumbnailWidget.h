@@ -115,6 +115,7 @@ protected:
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;
     Cell lastCell() const;
+    bool isMouseOverStackIndicator( const QPoint& point );
 
     // event handlers
     OVERRIDE void keyPressEvent( QKeyEvent* );
@@ -249,6 +250,8 @@ private:
     // For Shift + movement key selection handling
     Cell _cellOnFirstShiftMovementKey;
     StringSet _selectionOnFirstShiftMovementKey;
+
+    bool _cursorWasAtStackIcon;
 };
 
 }

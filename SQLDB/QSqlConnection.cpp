@@ -188,5 +188,7 @@ QSqlConnection::executeInsert(const QString& tableName,
 
     Q_UNUSED(aiFieldName);
 
-    return s->lastInsertId().toULongLong();
+    const QVariant idVariant = s->lastInsertId();
+    Q_ASSERT(!idVariant.isNull());
+    return idVariant.toULongLong();
 }

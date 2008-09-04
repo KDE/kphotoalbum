@@ -38,7 +38,7 @@
         <Action name="lockToDefaultScope"/>
         <Action name="unlockFromDefaultScope"/>
         <Action name="changeScopePasswd" />
-        <separator/>
+        <Separator/>
         <Action name="setDefaultScopeNegative" />
         <Action name="setDefaultScopePositive" />
       </Menu>
@@ -48,7 +48,7 @@
       <Action name="findUnavailableImages"/>
       <Action name="findImagesWithInvalidDate"/>
       <Action name="findImagesWithChangedMD5Sum"/>
-      <separator/>
+      <Separator/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
       <Action name="recreateExifDB" />

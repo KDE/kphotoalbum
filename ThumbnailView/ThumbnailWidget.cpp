@@ -257,24 +257,35 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
 
-    // TODO(hzeller) This handling of the data should be abstracted away in a data model that
-    // operates on it.
-    _displayList.clear();
+    // Extract all stacks we have first. Different stackid's might be
+    // intermingled, so we need to know this ahead before creating the display
+    // list.
     _stackContents.clear();
-
-    /* If we encounter a stack in the list of images, we only put the first of it
-     * in the list to display; but we remember all the other images
-     */
     for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
+            // TODO(hzeller): right now, we only put the elements in order of
+            // appearance, but should sort them.
+            _stackContents[ stackid ].append(*it);
+        }
+    }
+
+    _displayList.clear();
+    QSet<DB::StackID> alreadyShownStacks;
+    for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
+        DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
+        if (imageInfo->isStacked()) {
+            DB::StackID stackid = imageInfo->stackId();
+            if (alreadyShownStacks.contains(stackid))
+                continue;
             QStringList& stackList = _stackContents[ stackid ];
-            // TODO(hzeller): right now, we only put the first element in the list, but
-            // actually should put the one with the lowest id in there.
-            if (_expandedStacks.contains(stackid) || stackList.empty())
-                _displayList.append(*it);
-            stackList.append(*it);
+            Q_ASSERT(!stackList.empty());
+            if (_expandedStacks.contains(stackid))
+                _displayList += stackList;
+            else
+                _displayList += stackList[0];
+            alreadyShownStacks.insert(stackid);
         }
         else {
             _displayList.append(*it);

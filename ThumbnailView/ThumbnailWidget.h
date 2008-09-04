@@ -176,7 +176,7 @@ private:
 
     /**
      * The list of images shown. We do indexed access to this _displayList that has been
-     * changed from O(n) to O(1) in Qt4; so it is save to use this data type.
+     * changed from O(n) to O(1) in Qt4; so it is safe to use this data type.
      */
     QStringList _displayList;
 
@@ -232,12 +232,12 @@ private:
     friend class MouseTrackingInteraction;
 
     /**
-     * file which should have drop indication point drawn on its left side
+     * File which should have drop indication point drawn on its left side
      */
     QString _leftDrop;
 
     /**
-     * file which should have drop indication point drawn on its right side
+     * File which should have drop indication point drawn on its right side
      */
     QString _rightDrop;
 

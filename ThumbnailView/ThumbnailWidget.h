@@ -155,6 +155,7 @@ protected:
     QStringList reverseList( const QStringList& ) const;
     void updateCellSize();
     void updateIndexCache();
+    QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
 
     /**
      * For all filenames in the list, check if there are any missing

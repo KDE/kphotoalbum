@@ -334,15 +334,24 @@ QString ThumbnailView::ThumbnailWidget::fileNameInCell( int row, int col ) const
         return _displayList[index];
 }
 
+/** @short It seems that Q3GridView's viewportToContents() is slightly off */
+QPoint ThumbnailView::ThumbnailWidget::viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const
+{
+    QPoint contentsPos = coordinate;
+    if ( system == ViewportCoordinates ) {
+        contentsPos = viewportToContents( coordinate );
+        contentsPos.rx() -= 3;
+        contentsPos.ry() -= 3;
+    }
+    return contentsPos;
+}
+
 /**
  * Returns the file name shown at viewport position (x,y) if a thumbnail is shown at this position or QString::null otherwise.
  */
 QString ThumbnailView::ThumbnailWidget::fileNameAtCoordinate( const QPoint& coordinate, CoordinateSystem system ) const
 {
-    QPoint contentsPos = coordinate;
-    if ( system == ViewportCoordinates )
-        contentsPos = viewportToContents( coordinate );
-
+    QPoint contentsPos = viewportToContentsAdjusted( coordinate, system );
     int col = columnAt( contentsPos.x() );
     int row = rowAt( contentsPos.y() );
 
@@ -780,7 +789,7 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& po
 {
     Cell pos = cellAtCoordinate( point, ViewportCoordinates );
     QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -10, -10 ); // FIXME: what area should be "hot"?
-    bool correctArea = !cellRect.contains( viewportToContents( point ) );
+    bool correctArea = !cellRect.contains( viewportToContentsAdjusted( point, ViewportCoordinates ) );
     if (!correctArea)
         return false;
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileNameUnderCursor(), DB::AbsolutePath );
@@ -958,7 +967,7 @@ ThumbnailView::Cell ThumbnailView::ThumbnailWidget::cellAtCoordinate( const QPoi
 {
     QPoint contentsPos = pos;
     if ( system == ViewportCoordinates )
-        contentsPos = viewportToContents( pos );
+        contentsPos = viewportToContentsAdjusted( pos, system );
 
     int col = columnAt( contentsPos.x() );
     int row = rowAt( contentsPos.y() );

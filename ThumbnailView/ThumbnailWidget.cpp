@@ -112,29 +112,53 @@ void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
     p->drawPixmap( cellRect(), doubleBuffer );
 }
 
+static DB::StackID getStackId(const QString& fileName)
+{
+    if (fileName.isNull()) return 0;
+    return DB::ImageDB::instance()->info( fileName, DB::AbsolutePath )->stackId();
+}
+
 void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
                                                             const QRect& rect,
                                                             const QString& fileName)
 {
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
-    if (imageInfo && imageInfo->isStacked()) {
-        const int thickness = 1;
-        const int space = 0;
-        const int corners = 6;
-        const int w = rect.width();
-        const int h = rect.height();
-        int corner_w, corner_h;
-        corner_w = corner_h = qMin(w / 2, h / 2);
-        QPen pen;
-        pen.setWidth(thickness);
-        for (int c = 0; c < corners; ++c) {
-            pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
-            painter->setPen(pen);
-            int x = rect.x() + w - corner_w - (thickness + space) * corners + (thickness + space) * c;
-            int y = rect.y() + h - (thickness + space) * corners + (thickness + space) * c;
-            painter->drawLine(x, y, x + corner_w, y);
+    if (!imageInfo || !imageInfo->isStacked())
+        return;
+
+    const DB::StackID stackId  = imageInfo->stackId();
+    bool isFirst = true;
+    bool isLast = true;
+
+    // A bit ugly: determine where we are in the stack.
+    {
+        int prev = _fileNameToIndex[fileName] - 1;
+        int next = _fileNameToIndex[fileName] + 1;
+        isFirst = (prev < 0) || getStackId(_displayList[prev]) != stackId;
+        isLast  = (next >= _displayList.count()) || getStackId(_displayList[next]) != stackId;
+    }
+
+    const int thickness = 1;
+    const int space = 0;
+    const int corners = 8;
+    const int w = rect.width();
+    const int h = rect.height();
+    int corner_w, corner_h;
+    corner_w = corner_h = qMin(w / 2, h / 2);
+    if (!isFirst)
+        corner_w = w;
+    QPen pen;
+    pen.setWidth(thickness);
+
+    for (int c = 0; c < corners; ++c) {
+        pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
+        painter->setPen(pen);
+        int step = (thickness + space) * c;
+        int x = rect.x() + w - corner_w - (thickness + space) * corners + step;
+        int y = rect.y() + h - (thickness + space) * corners + step;
+        painter->drawLine(x, y, rect.x() + w, y);
+        if (isLast)
             painter->drawLine(x + corner_w, y, x + corner_w, y - corner_h);
-        }
     }
 }
 

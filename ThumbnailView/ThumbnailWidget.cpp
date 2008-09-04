@@ -48,8 +48,6 @@
 #include <qpainter.h>
 #include <qpixmapcache.h>
 
-#include <kdebug.h>  // Debug. remove after stack is implemented.
-
 /**
  * \namespace ThumbnailView
  * The thumbnail view.

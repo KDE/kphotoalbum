@@ -52,7 +52,7 @@
 #include "Utilities/List.h"
 #include <kapplication.h>
 #include <ktip.h>
-#include <k3process.h>
+#include <KProcess>
 #include "DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
@@ -863,9 +863,9 @@ void MainWindow::Window::pathChanged( const QString& path )
 
 void MainWindow::Window::runDemo()
 {
-    K3Process* process = new K3Process;
+    KProcess* process = new KProcess;
     *process << "kphotoalbum" << "-demo";
-    process->start();
+    process->startDetached();
 }
 
 bool MainWindow::Window::load()

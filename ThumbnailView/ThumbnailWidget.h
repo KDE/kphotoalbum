@@ -76,6 +76,7 @@ public slots:
     void selectAll();
     void showToolTipsOnImages( bool b );
     void repaintScreen();
+    void toggleStackExpansion(const QString& filename);
 
 signals:
     void showImage( const QString& fileName );
@@ -165,7 +166,6 @@ protected slots:
     void emitDateChange( int, int );
     void realDropEvent();
     void slotRepaint();
-    void toggleStackExpansion(const QString& filename);
 
 private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.

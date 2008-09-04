@@ -337,6 +337,7 @@ void MainWindow::Window::slotCreateImageStack()
         DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackId( stackId );
         DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackOrder( it == list.begin() ? 0 : 1 );
     }
+    _thumbnailView->toggleStackExpansion( list[0] );
     DirtyIndicator::markDirty();
 }
 

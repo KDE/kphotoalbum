@@ -120,7 +120,7 @@ int QueryHelper::mediaItemId(const QString& filename) const
     splitPath(filename, path, basename);
     QVariant id =
         executeQuery(QLatin1String(
-                         "SELECT file.id FROM file, dir"
+                         "SELECT file.id FROM file, directory"
                          " WHERE file.directory_id=directory.id"
                          " AND directory.path=? AND file.filename=?"),
                      Bindings() << path << basename).firstItem();

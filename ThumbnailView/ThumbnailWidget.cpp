@@ -130,7 +130,7 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
     bool isFirst = true;
     bool isLast = true;
 
-    // A bit ugly: determine where we are in the stack.
+    // A bit ugly: determine where we are within the stack.
     {
         int prev = _fileNameToIndex[fileName] - 1;
         int next = _fileNameToIndex[fileName] + 1;
@@ -143,10 +143,10 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
     const int corners = 8;
     const int w = rect.width();
     const int h = rect.height();
-    int corner_w, corner_h;
-    corner_w = corner_h = qMin(w / 2, h / 2);
+    int bottom_w, corner_h;
+    bottom_w = corner_h = qMin(w / 2, h / 2);
     if (!isFirst)
-        corner_w = w;
+        bottom_w = w;
     QPen pen;
     pen.setWidth(thickness);
 
@@ -154,11 +154,11 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
         pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
         painter->setPen(pen);
         int step = (thickness + space) * c;
-        int x = rect.x() + w - corner_w - (thickness + space) * corners + step;
+        int x = rect.x() + w - bottom_w - (thickness + space) * corners + step;
         int y = rect.y() + h - (thickness + space) * corners + step;
         painter->drawLine(x, y, rect.x() + w, y);
         if (isLast)
-            painter->drawLine(x + corner_w, y, x + corner_w, y - corner_h);
+            painter->drawLine(x + bottom_w, y, x + bottom_w, y - corner_h);
     }
 }
 
@@ -277,13 +277,24 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const QStringLis
     }
 }
 
+static bool stackOrderComparator(const QString& a, const QString& b) {
+    DB::ImageInfoPtr aInfo = DB::ImageDB::instance()->info( a, DB::AbsolutePath );
+    DB::ImageInfoPtr bInfo = DB::ImageDB::instance()->info( b, DB::AbsolutePath );
+    return aInfo->stackOrder() < bInfo->stackOrder();
+}
+
 void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
 
-    // Extract all stacks we have first. Different stackid's might be
-    // intermingled, so we need to know this ahead before creating the display
-    // list.
+    // Note, this can be simplified, if we make the database backend already
+    // return things in the right order. Then we only need one pass while now
+    // we need to go through the list two times.
+
+    /* Extract all stacks we have first. Different stackid's might be
+     * intermingled in the result so we need to know this ahead before
+     * creating the display list.
+     */
     _stackContents.clear();
     for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
@@ -295,6 +306,18 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
         }
     }
 
+    /*
+     * All stacks need to be ordered in their stack order. We don't rely that
+     * the images actually came in the order necessary.
+     */
+    for (StackMap::iterator it = _stackContents.begin(); it != _stackContents.end(); ++it) {
+        qStableSort(it->begin(), it->end(), stackOrderComparator);
+    }
+
+    /* Build the final list to be displayed. That is basically the sequence
+     * we got from the original, but the stacks shown with all images together
+     * in the right sequence or collapsed showing only the top image.
+     */
     _displayList.clear();
     QSet<DB::StackID> alreadyShownStacks;
     for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
@@ -303,7 +326,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
                 continue;
-            QStringList& stackList = _stackContents[ stackid ];
+            const QStringList& stackList = _stackContents[ stackid ];
             Q_ASSERT(!stackList.empty());
             if (_expandedStacks.contains(stackid))
                 _displayList += stackList;

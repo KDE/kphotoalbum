@@ -770,7 +770,10 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& po
     Cell pos = cellAtCoordinate( point, ViewportCoordinates );
     QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -10, -10 ); // FIXME: what area should be "hot"?
     bool correctArea = !cellRect.contains( viewportToContents( point ) );
-    return correctArea && DB::ImageDB::instance()->info( fileNameUnderCursor(), DB::AbsolutePath )->isStacked();
+    if (!correctArea)
+        return false;
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileNameUnderCursor(), DB::AbsolutePath );
+    return imageInfo && imageInfo->isStacked();
 }
 
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )

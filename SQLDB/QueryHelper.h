@@ -101,8 +101,8 @@ public:
     void insertTagFirst(int categoryId, const QString& name);
     void removeTag(int categoryId, const QString& name);
 
-    bool isBlocked(const QString& filename) const;
-    void addBlockItems(const QStringList& filenames);
+    bool isIgnored(const QString& filename) const;
+    void addIgnoredFiles(const QStringList& filenames);
 
     bool containsMD5Sum(const DB::MD5& md5sum) const;
     QString filenameForMD5Sum(const DB::MD5& md5sum) const;
@@ -130,13 +130,13 @@ protected:
     QList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& dirname);
-    void insertMediaItem(const DB::ImageInfo& info, int place=0);
+    void insertMediaItem(const DB::ImageInfo& info, int position=0);
     void insertMediaTag(int mediaId, int tagId);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     QList<int> directMembers(int tagId) const;
-    void addBlockItem(const QString& filename);
-    int mediaPlaceByFilename(const QString& filename) const;
-    void makeMediaPlacesContinuous();
+    void addIgnoredFile(const QString& filename);
+    int mediaPositionByFilename(const QString& filename) const;
+    void makeMediaPositionsContinuous();
     QList<int>
     getMatchingFiles(MatcherList matches,
                      DB::MediaType typemask=DB::anyMediaType) const;

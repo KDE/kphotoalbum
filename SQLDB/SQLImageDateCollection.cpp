@@ -22,14 +22,14 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
         return cache[range];
 
     int exact =
-        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media "
-                                             "WHERE ?<=startTime AND endTime<=?"),
+        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM file "
+                                             "WHERE ?<=time_start AND time_end<=?"),
                          QueryHelper::Bindings() <<
                          range.start() << range.end()
                          ).firstItem().toInt();
     int rng =
-        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM media "
-                                             "WHERE ?<=endTime AND startTime<=?"),
+        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM file "
+                                             "WHERE ?<=time_end AND time_start<=?"),
                          QueryHelper::Bindings() <<
                          range.start() << range.end()
                          ).firstItem().toInt() - exact;
@@ -42,7 +42,7 @@ QDateTime SQLImageDateCollection::lowerLimit() const
 {
     static QDateTime cachedLower;
     if (cachedLower.isNull())
-        cachedLower = _qh.executeQuery(QString::fromLatin1("SELECT min(startTime) FROM media")
+        cachedLower = _qh.executeQuery(QString::fromLatin1("SELECT MIN(time_start) FROM file")
                                        ).firstItem().toDateTime();
     return cachedLower;
 }
@@ -51,7 +51,7 @@ QDateTime SQLImageDateCollection::upperLimit() const
 {
     static QDateTime cachedUpper;
     if (cachedUpper.isNull())
-        cachedUpper = _qh.executeQuery(QString::fromLatin1("SELECT max(endTime) FROM media")
+        cachedUpper = _qh.executeQuery(QString::fromLatin1("SELECT MAX(time_end) FROM file")
                                        ).firstItem().toDateTime();
     return cachedUpper;
 }

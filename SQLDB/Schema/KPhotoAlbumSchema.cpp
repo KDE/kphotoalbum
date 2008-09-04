@@ -19,6 +19,10 @@
 
 #include "KPhotoAlbumSchema.h"
 
+// Used around database table and field names to searching of those
+// identifiers easier
+#define DBN(x) x
+
 namespace SQLDB {
 namespace Schema {
     const DatabaseSchema& getKPhotoAlbumSchema()
@@ -32,180 +36,180 @@ namespace Schema {
             //
             schema =
                 new DatabaseSchema
-                (Identifier("kphotoalbum", 3, 0).setDate(2008, 9, 4));
+                (Identifier("kphotoalbum", 4, 0).setDate(2008, 9, 4));
 
             TableSchema* t;
             Field* f;
             ForeignKey* fk;
 
 
-            // ============ dir table ============
-            t = schema->createTable("dir");
+            // ============ directory table ============
+            t = schema->createTable(DBN("directory"));
 
-            f = t->createField("id", FieldType(UnsignedInteger));
+            f = t->createField(DBN("id"), FieldType(UnsignedInteger));
             f->addConstraint(NotNull);
             f->addConstraint(AutoIncrement);
 
-            f = t->createField("path", FieldType(Varchar, 511));
+            f = t->createField(DBN("path"), FieldType(Varchar, 511));
             f->addConstraint(NotNull);
             //f->addConstraint(Unique);
 
-            t->setPrimaryKey("id");
+            t->setPrimaryKey(DBN("id"));
 
 
-            // ============ media table ============
-            t = schema->createTable("media");
+            // ============ file table ============
+            t = schema->createTable(DBN("file"));
 
-            f = t->createField("id", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
             f->addConstraint(AutoIncrement);
 
-            f = t->createField("place", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("position"), FieldType(UnsignedBigInteger));
 
-            f = t->createField("dirid", FieldType(UnsignedInteger));
+            f = t->createField(DBN("directory_id"), FieldType(UnsignedInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("filename", FieldType(Varchar, 255));
+            f = t->createField(DBN("filename"), FieldType(Varchar, 255));
             f->addConstraint(NotNull);
 
-            f = t->createField("md5sum", FieldType(Char, 32));
+            f = t->createField(DBN("md5sum"), FieldType(Char, 32));
             f->setCharacterSet(Ascii);
 
-            f = t->createField("type", FieldType(UnsignedSmallInteger));
+            f = t->createField(DBN("type"), FieldType(UnsignedSmallInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("label", FieldType(Varchar, 255));
+            f = t->createField(DBN("label"), FieldType(Varchar, 255));
 
-            f = t->createField("description", FieldType(Text));
+            f = t->createField(DBN("description"), FieldType(Text));
 
-            f = t->createField("starttime", FieldType(Timestamp));
+            f = t->createField(DBN("time_start"), FieldType(Timestamp));
 
-            f = t->createField("endtime", FieldType(Timestamp));
+            f = t->createField(DBN("time_end"), FieldType(Timestamp));
 
-            f = t->createField("width", FieldType(UnsignedInteger));
+            f = t->createField(DBN("width"), FieldType(UnsignedInteger));
 
-            f = t->createField("height", FieldType(UnsignedInteger));
+            f = t->createField(DBN("height"), FieldType(UnsignedInteger));
 
-            f = t->createField("angle", FieldType(SmallInteger));
+            f = t->createField(DBN("angle"), FieldType(SmallInteger));
 
-            t->setPrimaryKey("id");
+            t->setPrimaryKey(DBN("id"));
 
-            fk = t->createForeignKey("dirid");
-            fk->setDestination("dir", "id");
+            fk = t->createForeignKey(DBN("directory_id"));
+            fk->setDestination(DBN("directory"), DBN("id"));
 
-            t->setUnique(StringTuple("dirid", "filename"));
+            t->setUnique(StringTuple(DBN("directory_id"), DBN("filename")));
 
-            t->setIndexed("place");
-            t->setIndexed(StringTuple("starttime", "endtime", "id"));
-            t->setIndexed(StringTuple("endtime", "starttime", "id"));
+            t->setIndexed(DBN("position"));
+            t->setIndexed(StringTuple(DBN("time_start"), DBN("time_end"), DBN("id")));
+            t->setIndexed(StringTuple(DBN("time_end"), DBN("time_start"), DBN("id")));
 
 
-            // ============ blockitem table ============
-            t = schema->createTable("blockitem");
+            // ============ ignored_file table ============
+            t = schema->createTable(DBN("ignored_file"));
 
-            f = t->createField("dirid", FieldType(UnsignedInteger));
+            f = t->createField(DBN("directory_id"), FieldType(UnsignedInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("filename", FieldType(Varchar, 255));
+            f = t->createField(DBN("filename"), FieldType(Varchar, 255));
             f->addConstraint(NotNull);
 
-            t->setPrimaryKey(StringTuple("dirid", "filename"));
+            t->setPrimaryKey(StringTuple(DBN("directory_id"), DBN("filename")));
 
-            fk = t->createForeignKey("dirid");
-            fk->setDestination("dir", "id");
+            fk = t->createForeignKey(DBN("directory_id"));
+            fk->setDestination(DBN("directory"), DBN("id"));
 
 
             // ============ category table ============
-            t = schema->createTable("category");
+            t = schema->createTable(DBN("category"));
 
-            f = t->createField("id", FieldType(UnsignedInteger));
+            f = t->createField(DBN("id"), FieldType(UnsignedInteger));
             f->addConstraint(NotNull);
             f->addConstraint(AutoIncrement);
 
-            f = t->createField("name", FieldType(Varchar, 255));
+            f = t->createField(DBN("name"), FieldType(Varchar, 255));
             f->addConstraint(NotNull);
             f->addConstraint(Unique);
 
-            f = t->createField("icon", FieldType(Varchar, 255));
+            f = t->createField(DBN("icon"), FieldType(Varchar, 255));
 
-            f = t->createField("visible", FieldType(Boolean));
+            f = t->createField(DBN("visible"), FieldType(Boolean));
 
-            f = t->createField("viewtype", FieldType(SmallInteger));
+            f = t->createField(DBN("viewtype"), FieldType(SmallInteger));
 
-            f = t->createField("thumbsize", FieldType(SmallInteger));
+            f = t->createField(DBN("thumbsize"), FieldType(SmallInteger));
 
-            t->setPrimaryKey("id");
+            t->setPrimaryKey(DBN("id"));
 
 
             // ============ tag table ============
-            t = schema->createTable("tag");
+            t = schema->createTable(DBN("tag"));
 
-            f = t->createField("id", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
             f->addConstraint(AutoIncrement);
 
-            f = t->createField("place", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("position"), FieldType(UnsignedBigInteger));
 
-            f = t->createField("categoryid", FieldType(UnsignedInteger));
+            f = t->createField(DBN("category_id"), FieldType(UnsignedInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("name", FieldType(Varchar, 255));
+            f = t->createField(DBN("name"), FieldType(Varchar, 255));
             f->addConstraint(NotNull);
 
-            f = t->createField("isgroup", FieldType(Boolean));
+            f = t->createField(DBN("isgroup"), FieldType(Boolean));
             f->addConstraint(NotNull);
             f->setDefaultValue("0");
 
-            t->setPrimaryKey("id");
+            t->setPrimaryKey(DBN("id"));
 
-            fk = t->createForeignKey("categoryid");
-            fk->setDestination("category", "id");
+            fk = t->createForeignKey(DBN("category_id"));
+            fk->setDestination(DBN("category"), DBN("id"));
             fk->setDeletePolicy(Cascade);
 
-            t->setUnique(StringTuple("categoryid", "name"));
+            t->setUnique(StringTuple(DBN("category_id"), DBN("name")));
 
-            t->setIndexed("place");
+            t->setIndexed(DBN("position"));
 
 
-            // ============ media_tag table ============
-            t = schema->createTable("media_tag");
+            // ============ file_tag table ============
+            t = schema->createTable(DBN("file_tag"));
 
-            f = t->createField("mediaid", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("file_id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("tagid", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("tag_id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
 
-            t->setPrimaryKey(StringTuple("mediaid", "tagid"));
+            t->setPrimaryKey(StringTuple(DBN("file_id"), DBN("tag_id")));
 
-            fk = t->createForeignKey("mediaid");
-            fk->setDestination("media", "id");
+            fk = t->createForeignKey(DBN("file_id"));
+            fk->setDestination(DBN("file"), DBN("id"));
             fk->setDeletePolicy(Cascade);
 
-            fk = t->createForeignKey("tagid");
-            fk->setDestination("tag", "id");
+            fk = t->createForeignKey(DBN("tag_id"));
+            fk->setDestination(DBN("tag"), DBN("id"));
             fk->setDeletePolicy(Cascade);
 
-            t->setIndexed(StringTuple("tagid", "mediaid"));
+            t->setIndexed(StringTuple(DBN("tag_id"), DBN("file_id")));
 
 
-            // ============ membergroup table ============
-            t = schema->createTable("membergroup");
+            // ============ tag_member table ============
+            t = schema->createTable(DBN("tag_member"));
 
-            f = t->createField("grouptag", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("tag_id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
 
-            f = t->createField("membertag", FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("member_tag_id"), FieldType(UnsignedBigInteger));
             f->addConstraint(NotNull);
 
-            t->setPrimaryKey(StringTuple("grouptag", "membertag"));
+            t->setPrimaryKey(StringTuple(DBN("tag_id"), DBN("member_tag_id")));
 
-            fk = t->createForeignKey("grouptag");
-            fk->setDestination("tag", "id");
+            fk = t->createForeignKey(DBN("tag_id"));
+            fk->setDestination(DBN("tag"), DBN("id"));
             fk->setDeletePolicy(Cascade);
 
-            fk = t->createForeignKey("membertag");
-            fk->setDestination("tag", "id");
+            fk = t->createForeignKey(DBN("member_tag_id"));
+            fk->setDestination(DBN("tag"), DBN("id"));
             fk->setDeletePolicy(Cascade);
         }
         return *schema;

@@ -161,13 +161,13 @@ void SQLDB::Database::addToBlockList(const QStringList& list)
          i != relativePaths.end(); ++i) {
         *i = Utilities::stripImageDirectory(*i);
     }
-    _qh.addBlockItems(relativePaths);
+    _qh.addIgnoredFiles(relativePaths);
     deleteList(list);
 }
 
 bool SQLDB::Database::isBlocking(const QString& fileName)
 {
-    return _qh.isBlocked(fileName);
+    return _qh.isIgnored(fileName);
 }
 
 void SQLDB::Database::deleteList( const QStringList& list )

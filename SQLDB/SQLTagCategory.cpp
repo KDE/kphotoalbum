@@ -82,7 +82,7 @@ QStringList SQLDB::SQLTagCategory::items() const
 void SQLDB::SQLTagCategory::setItems(const QStringList& items)
 {
     _qh->executeStatement("DELETE FROM tag "
-                          "WHERE categoryId=? AND name NOT IN (?)",
+                          "WHERE category_id=? AND name NOT IN (?)",
                           QueryHelper::Bindings() <<
                           _categoryId << QVariant(toVariantList(items)));
     addOrReorderItems(items);
@@ -90,25 +90,25 @@ void SQLDB::SQLTagCategory::setItems(const QStringList& items)
 
 void SQLDB::SQLTagCategory::addOrReorderItems(const QStringList& items)
 {
-    uint place = items.count();
+    uint position = items.count();
     for (QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
         if (_qh->executeQuery("SELECT COUNT(*) FROM tag "
-                              "WHERE categoryId=? AND name=?",
+                              "WHERE category_id=? AND name=?",
                               QueryHelper::Bindings() << _categoryId << *it
                               ).firstItem().toUInt() == 0) {
-            _qh->executeStatement("INSERT INTO tag (name, categoryId, place) "
+            _qh->executeStatement("INSERT INTO tag (name, category_id, position) "
                                   "VALUES (?, ?, ?)",
                                   QueryHelper::Bindings() << *it <<
-                                  _categoryId << place);
+                                  _categoryId << position);
         }
         else {
-            _qh->executeStatement("UPDATE tag SET place=? "
-                                  "WHERE name=? AND categoryId=?",
+            _qh->executeStatement("UPDATE tag SET position=? "
+                                  "WHERE name=? AND category_id=?",
                                   QueryHelper::Bindings() <<
-                                  place << *it << _categoryId);
+                                  position << *it << _categoryId);
         }
-        --place;
+        --position;
     }
 }
 
@@ -127,7 +127,7 @@ void SQLDB::SQLTagCategory::renameItem(const QString& oldValue,
                                        const QString& newValue)
 {
     _qh->executeStatement("UPDATE tag SET name=? "
-                          "WHERE name=? AND categoryId=?",
+                          "WHERE name=? AND category_id=?",
                           QueryHelper::Bindings() <<
                           newValue << oldValue << _categoryId);
     emit itemRenamed(oldValue, newValue);

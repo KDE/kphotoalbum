@@ -30,6 +30,7 @@
 #include <klocale.h>
 #include <qsize.h>
 #include <QList>
+#include <QSet>
 #include <QSqlField>
 #include <QSqlDriver>
 #include <QSqlError>
@@ -601,7 +602,7 @@ QList<int> QueryHelper::tagIdList(const QString& category,
                                        const QString& item) const
 {
     int rootTagId = tagId(category, item);
-    QList<int> visited;
+    QSet<int> visited;
     QList<int> queue;
     visited << rootTagId;
     queue << rootTagId;
@@ -611,13 +612,13 @@ QList<int> QueryHelper::tagIdList(const QString& category,
         QList<int>::const_iterator adjEnd(adj.constEnd());
         for (QList<int>::const_iterator a = adj.constBegin();
              a != adjEnd; ++a) {
-            if (!visited.contains(*a)) { // FIXME: Slow to find
+            if (!visited.contains(*a)) {
                 queue << *a;
                 visited << *a;
             }
         }
     }
-    return visited;
+    return visited.toList();
 }
 
 StringStringList

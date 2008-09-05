@@ -13,7 +13,7 @@ class VisibleOptionsMenu :public QMenu
 {
 Q_OBJECT
 public:
-    VisibleOptionsMenu(KActionCollection* actions);
+    VisibleOptionsMenu( QWidget* parent, KActionCollection* actions);
 
 signals:
     void visibleOptionsChanged();

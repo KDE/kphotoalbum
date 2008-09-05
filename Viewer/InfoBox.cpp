@@ -236,7 +236,7 @@ void Viewer::InfoBox::hackLinkColorForQt44()
 void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_menu ) {
-        _menu = new VisibleOptionsMenu( new KActionCollection((QObject*)0) );
+        _menu = new VisibleOptionsMenu( _viewer, new KActionCollection((QObject*)0) );
         connect( _menu, SIGNAL( visibleOptionsChanged() ), _viewer, SLOT( updateInfoBox() ) );
     }
     _menu->exec(event->globalPos());

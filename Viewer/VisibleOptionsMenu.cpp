@@ -10,8 +10,8 @@
 #include "DB/Category.h"
 #include "DB/ImageDB.h"
 
-Viewer::VisibleOptionsMenu::VisibleOptionsMenu(KActionCollection* actions)
-    : QMenu(i18n("Show..."))
+Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollection* actions)
+    : QMenu(i18n("Show..."), parent)
 {
     setTearOffEnabled(true);
     setTitle( i18n("Show") );

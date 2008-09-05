@@ -184,7 +184,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
 void Viewer::ViewerWidget::createShowContextMenu()
 {
-    VisibleOptionsMenu* menu = new VisibleOptionsMenu(_actions);
+    VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, _actions );
     connect( menu, SIGNAL( visibleOptionsChanged() ), this, SLOT( updateInfoBox()  ) );
     _popup->addMenu( menu );
 }

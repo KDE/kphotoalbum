@@ -25,6 +25,7 @@
       <Action name="viewImagesNewWindow" />
       <Action name="runSlideShow"/>
       <Action name="runRandomizedSlideShow"/>
+      <Action name="collapseAllStacks"/>
       <Separator/>
       <Action name="jumpToContext"/>
       <Action name="limitToMarked" />

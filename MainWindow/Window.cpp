@@ -642,6 +642,12 @@ void MainWindow::Window::setupMenuBar()
 
     _runRandomSlideShow = actionCollection()->addAction( QString::fromLatin1("runRandomizedSlideShow"), this, SLOT( slotRunRandomizedSlideShow() ) );
     _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
+ 
+    a = actionCollection()->addAction( QString::fromLatin1("collapseAllStacks"),
+                                       _thumbnailView, SLOT( collapseAllStacks() ) );
+    connect(_thumbnailView, SIGNAL( collapseAllStacksEnabled(bool) ), a, SLOT( setEnabled(bool) ));
+    a->setEnabled(false);
+    a->setText( i18n("Collapse all stacks" ));
 
     QActionGroup* grp = new QActionGroup( this );
 

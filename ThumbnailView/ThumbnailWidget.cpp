@@ -342,6 +342,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 
     updateIndexCache();
 
+    collapseAllStacksEnabled( _expandedStacks.size() > 0);
     if ( isVisible() ) {
         updateGridSize();
         repaintScreen();
@@ -365,6 +366,11 @@ void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const QString& filenam
             _expandedStacks.insert(stackid);
         updateDisplayModel();
     }
+}
+
+void ThumbnailView::ThumbnailWidget::collapseAllStacks() {
+    _expandedStacks.clear();
+    updateDisplayModel();
 }
 
 /**

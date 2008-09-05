@@ -77,6 +77,7 @@ public slots:
     void showToolTipsOnImages( bool b );
     void repaintScreen();
     void toggleStackExpansion(const QString& filename);
+    void collapseAllStacks();
 
 signals:
     void showImage( const QString& fileName );
@@ -84,6 +85,7 @@ signals:
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
     void selectionChanged();
+    void collapseAllStacksEnabled(bool enabled);
 
 protected:
     // Painting

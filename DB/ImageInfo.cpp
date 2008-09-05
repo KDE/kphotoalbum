@@ -199,6 +199,8 @@ short ImageInfo::rating() const
 
 void ImageInfo::setRating( short rating )
 {
+    Q_ASSERT( (rating >= 0 && rating <= 10) || rating == -1 );
+
     if ( rating > 10 )
         rating = 10;
     if ( rating < -1 )

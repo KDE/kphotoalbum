@@ -989,6 +989,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction( _configAllSimultaniously );
         menu.addAction( _createImageStack );
         menu.addAction( _unStackImages );
+        menu.addSeparator();
         menu.addAction( _runSlideShow );
         menu.addAction(_runRandomSlideShow );
 #ifdef HAVE_EXIV2

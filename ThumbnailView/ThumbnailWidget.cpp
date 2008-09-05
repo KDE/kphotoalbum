@@ -129,7 +129,7 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
     bool isLast = true;
 
     // A bit ugly: determine where we are within the stack.
-    {
+    if (_expandedStacks.contains(stackId)) {
         int prev = _fileNameToIndex[fileName] - 1;
         int next = _fileNameToIndex[fileName] + 1;
         isFirst = (prev < 0) || getStackId(_displayList[prev]) != stackId;
@@ -1180,7 +1180,8 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
     }
     setPalette(p);  // fallback to default.
 
-    for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
+    const int last = lastVisibleRow( PartlyVisible );
+    for ( int row = firstVisibleRow( PartlyVisible ); row <= last; ++row )
         for ( int col = 0; col < numCols(); ++col )
             Q3GridView::repaintCell( row, col );
 }

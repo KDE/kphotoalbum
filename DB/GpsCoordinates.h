@@ -78,7 +78,7 @@ public:
     {
         // Get the coordinates from the given position to our member
         // variables
-        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degrees);
+        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
 
         Q_ASSERT(!this->isNull());
     }
@@ -136,7 +136,7 @@ public:
             _longitude,
             _latitude,
             _altitude,
-            GeoDataCoordinates::Degrees);
+            GeoDataCoordinates::Degree);
     }
 #endif
 

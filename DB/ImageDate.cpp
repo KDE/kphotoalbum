@@ -171,7 +171,7 @@ QDateTime ImageDate::end() const
 
 bool ImageDate::operator<( const ImageDate& other ) const
 {
-    return start() < other.start() || start() == other.start() && end() < other.end();
+    return start() < other.start() || ( start() == other.start() && end() < other.end() );
 }
 
 

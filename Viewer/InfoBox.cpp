@@ -174,8 +174,8 @@ void Viewer::InfoBox::updateCursor( const QPoint& pos )
     if ( _hoveringOverLink ) shape = Qt::PointingHandCursor;
     else if ( atBlackoutPos( left, right, top, bottom, windowPos ) )
         shape = Qt::SizeAllCursor;
-    else if ( left && top || right && bottom ) shape = Qt::SizeFDiagCursor;
-    else if ( left && bottom || right && top ) shape = Qt::SizeBDiagCursor;
+    else if ( ( left && top ) || ( right && bottom ) ) shape = Qt::SizeFDiagCursor;
+    else if ( ( left && bottom ) || ( right && top ) ) shape = Qt::SizeBDiagCursor;
     else if ( top || bottom ) shape = Qt::SizeVerCursor;
     else if ( left || right ) shape = Qt::SizeHorCursor;
 

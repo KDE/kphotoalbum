@@ -62,7 +62,7 @@ QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wanted
             if ( wantedKeys.contains( key ) ) {
                 QString text = key;
                 if ( !returnFullExifName )
-                    text = QStringList::split( QString::fromLatin1("."), key ).last();
+                    text = key.split( QString::fromLatin1(".") ).last();
 
                 std::ostringstream stream;
                 stream << *i;

@@ -1066,7 +1066,7 @@ void Settings::SettingsDialog::createEXIFPage()
     _exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), top );
     hlay1->addWidget( _exifForDialog );
 
-    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), top, "iptcCharsetLabel" );
+    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), top );
     _iptcCharset = new QComboBox( top );
     QStringList _charsets;
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();

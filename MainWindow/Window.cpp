@@ -311,18 +311,6 @@ void MainWindow::Window::slotOptions()
     _optionsDialog->show();
 }
 
-
-void MainWindow::Window::slotConfigureAllImages()
-{
-    configureImages( false );
-}
-
-
-void MainWindow::Window::slotConfigureImagesOneAtATime()
-{
-    configureImages( true );
-}
-
 void MainWindow::Window::slotCreateImageStack()
 {
     QStringList list = selected();
@@ -339,6 +327,16 @@ void MainWindow::Window::slotCreateImageStack()
     }
     _thumbnailView->toggleStackExpansion( list[0] );
     DirtyIndicator::markDirty();
+}
+
+void MainWindow::Window::slotConfigureAllImages()
+{
+    configureImages( false );
+}
+
+void MainWindow::Window::slotConfigureImagesOneAtATime()
+{
+    configureImages( true );
 }
 
 void MainWindow::Window::configureImages( bool oneAtATime )

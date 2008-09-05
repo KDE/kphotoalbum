@@ -19,28 +19,23 @@
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
 
+#include <QProgressDialog>
+#include <QImage>
 #include "ImageManager/ImageClient.h"
-#include <q3progressdialog.h>
-#include <qimage.h>
-#include "DB/ImageInfoList.h"
-#include <QMap>
 
 
 namespace ThumbnailView
 {
 
-class ThumbnailBuilder :public Q3ProgressDialog, public ImageManager::ImageClient {
+class ThumbnailBuilder :public QProgressDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    ThumbnailBuilder( QWidget* parent, const char* name = 0 );
-    void generateNext();
+    ThumbnailBuilder( QWidget* parent );
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
 
-private:
-    QStringList _images;
-    int _index;
-    QMap<QString, DB::ImageInfoPtr> _infoMap;
+public slots:
+    void slotCancelRequests();
 };
 
 }

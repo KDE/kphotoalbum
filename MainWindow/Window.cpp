@@ -1616,13 +1616,7 @@ void MainWindow::Window::showImage( const QString& fileName )
 
 void MainWindow::Window::slotBuildThumbnails()
 {
-    try {
-        new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
-    }
-    catch (std::out_of_range&) {
-        // This is thrown if there are no images to show, see ThumbnailBuilder's
-        // documentation.We can safely ignore it here.
-    }
+    new ThumbnailView::ThumbnailBuilder( this );
 }
 
 void MainWindow::Window::slotOrderIncr()

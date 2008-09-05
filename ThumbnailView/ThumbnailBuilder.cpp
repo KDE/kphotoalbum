@@ -16,55 +16,46 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <KLocale>
 #include "ThumbnailBuilder.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
-#include <klocale.h>
-#include "DB/ImageInfo.h"
-#include <stdexcept>
 
-// FIXME: needs a rewrite to make use of SMP & priorities
-
-ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
-    :Q3ProgressDialog( parent, name )
+ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
+    :QProgressDialog( parent )
 {
-    _images = DB::ImageDB::instance()->images();
-    if ( _images.count() == 0 )
-        // we have to use exceptions because this won't get deleted if we just
-        // skipped generateNext()
-        throw std::out_of_range("ThumbnailView::ThumbnailBuilder with no images in the database");
-
-    setTotalSteps( _images.count() );
-    setProgress( 0 );
+    QStringList images = DB::ImageDB::instance()->images();
+    setMaximum( qMax( images.count() - 1, 0 ) );
     setLabelText( i18n("Generating thumbnails") );
-    _index = 0;
-    generateNext();
+
+    connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelRequests() ) );
+
+    for ( QStringList::const_iterator it = images.begin(); it != images.end(); ++it ) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(),  
+                QSize(256,256), info->angle(), this );
+        request->setPriority( ImageManager::BuildThumbnails );
+        request->setCache();
+        ImageManager::Manager::instance()->load( request );
+    }
 }
 
-void ThumbnailView::ThumbnailBuilder::generateNext()
+void ThumbnailView::ThumbnailBuilder::slotCancelRequests()
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_images[_index], DB::AbsolutePath);
-    ++_index;
-    setProgress( _index );
-    _infoMap.insert( info->fileName(), info );
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(),  QSize(256,256), info->angle(), this );
-    request->setCache();
-    request->setPriority( ImageManager::BuildThumbnails );
-    ImageManager::Manager::instance()->load( request );
+    ImageManager::Manager::instance()->stop( this, ImageManager::StopAll );
+    setValue( maximum() );
 }
 
-void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, const bool /*loadedOK*/, const bool cache )
+void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache )
 {
+    Q_UNUSED(size)
+    Q_UNUSED(loadedOK)
     Q_UNUSED(cache)
-    Q_ASSERT( _infoMap.contains( fileName ) );
-    if ( fullSize.width() != -1 )
-        _infoMap[fileName]->setSize( fullSize );
-    if ( wasCanceled() )
-        delete this;
-    else if ( _index == _images.count() )
-        delete this;
-    else
-        generateNext();
+    if ( fullSize.width() != -1 ) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+        info->setSize( fullSize );
+    }
+    setValue( value() + 1 );
 }
 
 #include "ThumbnailBuilder.moc"

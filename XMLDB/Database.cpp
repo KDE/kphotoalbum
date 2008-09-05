@@ -144,6 +144,25 @@ void XMLDB::Database::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it, DB::AbsolutePath);
+        if ( inf->isStacked() && _stackMap.contains( inf->stackId() ) ) {
+            const QStringList& origCache = _stackMap[ inf->stackId() ];
+            QStringList newCache;
+            for ( QStringList::const_iterator cacheIt = origCache.begin(); cacheIt != origCache.end(); ++cacheIt ) {
+                if ( *it != *cacheIt )
+                    newCache << *cacheIt;
+            }
+            if ( newCache.size() <= 1 ) {
+                // we're destroying a stack
+                for ( QStringList::const_iterator it = newCache.begin(); it != newCache.end(); ++it ) {
+                    DB::ImageInfoPtr inf = info( *it, DB::AbsolutePath );
+                    inf->setStackId( 0 );
+                    inf->setStackOrder( 0 );
+                }
+                _stackMap.remove( inf->stackId() );
+            } else {
+                _stackMap[ inf->stackId() ] = newCache;
+            }
+        }
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName(false) );
 #endif
@@ -184,6 +203,7 @@ void XMLDB::Database::lockDB( bool lock, bool exclude  )
 
 void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 {
+    // FIXME: merge stack information
     DB::ImageInfoList newImages = images.sort();
     if ( _images.count() == 0 ) {
         // case 1: The existing imagelist is empty.
@@ -388,9 +408,120 @@ bool XMLDB::Database::isClipboardEmpty()
     return _clipboard.isEmpty();
 }
 
-DB::StackID XMLDB::Database::generateStackId()
+bool XMLDB::Database::stack( const QStringList& files )
 {
-    return _nextStackId++;
+    unsigned int changed = 0;
+    QSet<DB::StackID> stacks;
+    QList<DB::ImageInfoPtr> images;
+    unsigned int stackOrder = 1;
+
+    for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it ) {
+        DB::ImageInfoPtr imgInfo = info( *it, DB::AbsolutePath );
+        Q_ASSERT( imgInfo );
+        if ( imgInfo->isStacked() ) {
+            stacks << imgInfo->stackId();
+            stackOrder = qMax( stackOrder, imgInfo->stackOrder() + 1 );
+        } else {
+            images << imgInfo;
+        }
+    }
+
+    if ( stacks.size() > 1 )
+        return false; // images already in different stacks -> can't stack
+
+    DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : _nextStackId++;
+    for ( QList<DB::ImageInfoPtr>::iterator it = images.begin();
+            it != images.end(); 
+            ++it, stackOrder++ ) {
+        (*it)->setStackOrder( stackOrder );
+        (*it)->setStackId( stackId );
+        _stackMap[ stackId ].append( (*it)->fileName() );
+        ++changed;
+    }
+
+    if ( changed )
+        MainWindow::DirtyIndicator::markDirty();
+    
+    return changed;
+}
+
+void XMLDB::Database::unstack( const QStringList& images )
+{
+    for ( QStringList::const_iterator it = images.begin(); it != images.end(); ++it ) {
+        QStringList allInStack = getStackFor( *it );
+        if ( allInStack.size() <= 2 ) {
+            // we're destroying stack here
+            for ( QStringList::const_iterator allIt = allInStack.begin(); 
+                    allIt != allInStack.end(); ++allIt ) {
+                DB::ImageInfoPtr imgInfo = info( *allIt, DB::AbsolutePath );
+                Q_ASSERT( imgInfo );
+                if ( imgInfo->isStacked() ) {
+                    _stackMap.remove( imgInfo->stackId() );
+                    imgInfo->setStackId( 0 );
+                    imgInfo->setStackOrder( 0 );
+                }
+            }
+        } else {
+            DB::ImageInfoPtr imgInfo = info( *it, DB::AbsolutePath );
+            Q_ASSERT( imgInfo );
+            if ( imgInfo->isStacked() ) {
+                QStringList newCacheContents;
+                const QStringList& oldCache = _stackMap[ imgInfo->stackId() ];
+                for ( QStringList::const_iterator it = oldCache.begin(); it != oldCache.end(); ++it ) {
+                    if ( *it != imgInfo->fileName() )
+                        newCacheContents << *it;
+                }
+                _stackMap[ imgInfo->stackId() ] = newCacheContents;
+                imgInfo->setStackId( 0 );
+                imgInfo->setStackOrder( 0 );
+            }
+        }
+    }
+
+    if ( ! images.empty() )
+        MainWindow::DirtyIndicator::markDirty();
+}
+
+QStringList XMLDB::Database::getStackFor( const QString& referenceImg ) const
+{
+    DB::ImageInfoPtr imageInfo = info( referenceImg, DB::AbsolutePath );
+
+    if ( !imageInfo || ! imageInfo->isStacked() )
+        return QStringList();
+
+    if ( _stackMap.contains( imageInfo->stackId() ) )
+        return _stackMap[ imageInfo->stackId() ];
+
+    // it wasn't in the cache -> rebuild it
+    _stackMap.clear();
+    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+        if ( (*it)->isStacked() ) {
+            _stackMap[ (*it)->stackId() ].append( (*it)->fileName() ); // will need to be sorted later
+        }
+    }
+    
+    StackSortHelper sortHelper( this );
+    for ( QMap<DB::StackID,QStringList>::iterator it = _stackMap.begin(); it != _stackMap.end(); ++it ) {
+        qSort( it->begin(), it->end(), sortHelper );
+    }
+
+    if ( _stackMap.contains( imageInfo->stackId() ) )
+        return _stackMap[ imageInfo->stackId() ];
+    else
+        return QStringList();
+}
+
+XMLDB::Database::StackSortHelper::StackSortHelper( const Database* const db ): _db(db)
+{
+}
+
+int XMLDB::Database::StackSortHelper::operator()( const QString& fileA, const QString& fileB ) const
+{
+    DB::ImageInfoPtr a = _db->info( fileA, DB::AbsolutePath );
+    DB::ImageInfoPtr b = _db->info( fileB, DB::AbsolutePath );
+    Q_ASSERT( a );
+    Q_ASSERT( b );
+    return ( a->stackId() == b->stackId() ) && ( a->stackOrder() < b->stackOrder() );
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, const QDomElement& elm, Database* db )

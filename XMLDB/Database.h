@@ -64,7 +64,9 @@ namespace XMLDB {
         virtual bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        virtual DB::StackID generateStackId();
+        virtual bool stack( const QStringList& files );
+        virtual void unstack( const QStringList& images );
+        virtual QStringList getStackFor( const QString& referenceImg ) const;
 
 
     protected:
@@ -95,10 +97,19 @@ namespace XMLDB {
         DB::MemberMap _members;
         DB::MD5Map _md5map;
         DB::ImageInfoList _clipboard;
+        
         DB::StackID _nextStackId;
+        mutable QMap<DB::StackID,QStringList> _stackMap;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;
+
+        class StackSortHelper {
+            const Database* const _db;
+        public:
+            StackSortHelper( const Database* const db );
+            int operator()( const QString& a, const QString& b ) const;
+        };
 };
 }
 

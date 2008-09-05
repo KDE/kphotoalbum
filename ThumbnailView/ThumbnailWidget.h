@@ -78,6 +78,7 @@ public slots:
     void repaintScreen();
     void toggleStackExpansion(const QString& filename);
     void collapseAllStacks();
+    void updateDisplayModel();
 
 signals:
     void showImage( const QString& fileName );
@@ -99,7 +100,6 @@ protected:
     void paintStackedIndicator( QPainter* painter, const QRect &rect, const QString& fileName);
 
     // Cell handling methods.
-    void updateDisplayModel();
     QString fileNameInCell( int row, int col ) const;
     QString fileNameInCell( const Cell& cell ) const;
     QString fileNameAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;

@@ -283,6 +283,8 @@ static bool stackOrderComparator(const QString& a, const QString& b) {
 
 void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 {
+    // FIXME: this can be probalby made obsolete by that new shiny thing in the DB
+
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
 
     // Note, this can be simplified, if we make the database backend already

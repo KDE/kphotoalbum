@@ -111,15 +111,39 @@ public: // Methods that must be overriden
     virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
     virtual bool isClipboardEmpty() = 0;
 
-    /** @short Returns first available ID for image stacking 
+
+    /** @short Create a stack of images/videos/whatever
      *
-     * This is a non-const operation as the internally cached value of "next
-     * free ID" gets incremented. Therefore you shouldn't call this function
-     * when you don't want to use the returned value for creation of a new
-     * stack. The value gets reset to a minimal one during full DB reload,
-     * though.
+     * If the specified images already belong to different stacks, then no
+     * change happens and the function returns false.
+     *
+     * If some of them are in one stack and others aren't stacked at all, then
+     * the unstacked will be added to the existing stack and we return true.
+     *
+     * If none of them are stacked, then a new stack is created and we return
+     * true.
+     * 
+     * All images which previously weren't in the stack are added in order they
+     * are present in the provided list and after all items that are already in
+     * the stack. The order of images which were already in the stack is not
+     * changed.
      * */
-    virtual DB::StackID generateStackId() = 0;
+    virtual bool stack( const QStringList& files ) = 0;
+
+    /** @short Remove all images from whichever stacks they might be in 
+     *
+     * We might destroy some stacks in the process if they become empty or just
+     * containing one image.
+     *
+     * This function doesn't touch the order of images at all.
+     * */
+    virtual void unstack( const QStringList& images ) = 0;
+
+    /** @short Return a list of images which are in the same stack as the one specified.
+     *
+     * They are returned sorted according to their stackOrder.
+     * */
+    virtual QStringList getStackFor( const QString& referenceImg ) const = 0;
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

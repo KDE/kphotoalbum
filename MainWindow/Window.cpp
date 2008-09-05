@@ -319,14 +319,37 @@ void MainWindow::Window::slotCreateImageStack()
         return;
     }
 
-    // FIXME: here we should invoke a fancy dialog for user's pleasure
-    DB::StackID stackId = DB::ImageDB::instance()->generateStackId();
-    for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackId( stackId );
-        DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->setStackOrder( it == list.begin() ? 0 : 1 );
+    bool ok = DB::ImageDB::instance()->stack( list );
+    if ( !ok ) {
+        if ( KMessageBox::questionYesNo( this,
+                    i18n("Some of the selected images already belong to some stack. "
+                        "Do you want to remove them from their stacks and create a "
+                        "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
+            DB::ImageDB::instance()->unstack( list );
+            if ( ! DB::ImageDB::instance()->stack( list ) ) {
+                KMessageBox::sorry( this, 
+                        i18n("Something fishy happened, stack creation failed, sorry."),
+                        i18n("Stacking Error"));
+                return;
+            }
+        } else {
+            return;
+        }
     }
-    _thumbnailView->toggleStackExpansion( list[0] );
-    DirtyIndicator::markDirty();
+
+    // FIXME: here we should invoke a fancy dialog for user's pleasure
+
+    _thumbnailView->updateDisplayModel();
+}
+
+void MainWindow::Window::slotUnStackImages()
+{
+    QStringList list = selected();
+    if ( list.isEmpty() )
+        return;
+
+    DB::ImageDB::instance()->unstack( list );
+    _thumbnailView->updateDisplayModel();
 }
 
 void MainWindow::Window::slotConfigureAllImages()
@@ -615,6 +638,9 @@ void MainWindow::Window::setupMenuBar()
     _createImageStack = actionCollection()->addAction( QString::fromLatin1("createImageStack"), this, SLOT( slotCreateImageStack() ) );
     _createImageStack->setText( i18n("Merge Images into a Stack") );
     _createImageStack->setShortcut( Qt::CTRL + Qt::Key_3 );
+
+    _unStackImages = actionCollection()->addAction( QString::fromLatin1("unStackImages"), this, SLOT( slotUnStackImages() ) );
+    _unStackImages->setText( i18n("Remove Images from Stack") );
 
     _rotLeft = actionCollection()->addAction( QString::fromLatin1("rotateLeft"), this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );

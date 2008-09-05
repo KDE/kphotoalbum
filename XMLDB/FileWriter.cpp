@@ -249,16 +249,13 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
         elm.setAttribute( QString::fromLatin1("stackOrder"), info->stackOrder() );
     }
 
-#ifdef HAVE_MARBLE
-    if ( info->gpsPrecision() > -1 ) {
-        double lon, lat;
-        info->gpsCoordinates().geoCoordinates( lon, lat, GeoDataCoordinates::Degree );
-        elm.setAttribute( QString::fromLatin1("gpsPrec"), info->gpsPrecision() );
-        elm.setAttribute( QString::fromLatin1("gpsLon"), lon );
-        elm.setAttribute( QString::fromLatin1("gpsLat"), lat );
-        elm.setAttribute( QString::fromLatin1("gpsAlt"), info->gpsCoordinates().altitude() );
+    const DB::GpsCoordinates& geoPos = info->geoPosition();
+    if ( !geoPos.isNull() ) {
+        elm.setAttribute( QLatin1String("gpsPrec"), geoPos.precision() );
+        elm.setAttribute( QLatin1String("gpsLon"), geoPos.longitude() );
+        elm.setAttribute( QLatin1String("gpsLat"), geoPos.latitude() );
+        elm.setAttribute( QLatin1String("gpsAlt"), geoPos.altitude() );
     }
-#endif
 
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );

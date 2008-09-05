@@ -33,9 +33,7 @@
 using namespace DB;
 
 ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
-#ifdef HAVE_MARBLE
-       _gpsPrecision(-1),
-#endif
+    _geoPosition(),
     _locked( false ), _dirty( false ), _delaySaving( false )
 {
 }
@@ -43,9 +41,7 @@ ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
 ImageInfo::ImageInfo( const QString& fileName, MediaType type, bool readExifInfo )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
     _rating(-1), _stackId(0), _stackOrder(0),
-#ifdef HAVE_MARBLE
-       _gpsPrecision(-1),
-#endif
+    _geoPosition(),
     _locked(false), _delaySaving( true )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
@@ -238,35 +234,18 @@ void ImageInfo::setStackOrder( const unsigned int stackOrder )
     saveChangesIfNotDelayed();
 }
 
-#ifdef HAVE_MARBLE
-int ImageInfo::gpsPrecision() const
+const GpsCoordinates& ImageInfo::geoPosition() const
 {
-    return _gpsPrecision;
+    return _geoPosition;
 }
 
-void ImageInfo::setGpsPrecision( int precision )
+void ImageInfo::setGeoPosition( const GpsCoordinates& geoPosition )
 {
-    if ( precision < -1 )
-        precision = -1;
-    if ( _gpsPrecision != precision )
+    if ( geoPosition != _geoPosition )
         _dirty = true;
-    _gpsPrecision = precision;
+    _geoPosition = geoPosition;
     saveChangesIfNotDelayed();
 }
-
-GeoDataCoordinates ImageInfo::gpsCoordinates() const
-{
-    return _gpsCoordinates;
-}
-
-void ImageInfo::setGpsCoordinates( const GeoDataCoordinates& coordinates )
-{
-    if ( ! ( coordinates == _gpsCoordinates ) ) // no operator!=()
-        _dirty = true;
-    _gpsCoordinates = coordinates;
-    saveChangesIfNotDelayed();
-}
-#endif
 
 void ImageInfo::setDate( const ImageDate& date )
 {
@@ -299,11 +278,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _date != other._date ||
           _angle != other._angle ||
-#ifdef HAVE_MARBLE
-          ( _gpsPrecision != other._gpsPrecision || 
-            ! ( ( _gpsPrecision == -1 ) ? true :
-            ( _gpsCoordinates == other._gpsCoordinates ) ) ) ||
-#endif
+          _geoPosition != other._geoPosition ||
           _rating != other._rating ||
           ( _stackId != other._stackId || 
             ! ( ( _stackId == 0 ) ? true :
@@ -434,7 +409,8 @@ ImageInfo::ImageInfo( const QString& fileName,
                       MediaType type,
                       short rating,
                       unsigned int stackId,
-                      unsigned int stackOrder )
+                      unsigned int stackOrder,
+                      const GpsCoordinates& geoPosition )
 {
     _delaySaving = true;
     _relativeFileName = fileName;
@@ -457,9 +433,7 @@ ImageInfo::ImageInfo( const QString& fileName,
     if ( rating < -1 )
         rating = -1;
     _rating = rating;
-#ifdef HAVE_MARBLE
-    _gpsPrecision = -1;
-#endif
+    _geoPosition = geoPosition;
     _stackId = stackId;
     _stackOrder = stackOrder;
 }
@@ -481,10 +455,7 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _rating = other._rating;
     _stackId = other._stackId;
     _stackOrder = other._stackOrder;
-#ifdef HAVE_MARBLE
-    _gpsCoordinates = other._gpsCoordinates;
-    _gpsPrecision = other._gpsPrecision;
-#endif
+    _geoPosition = other._geoPosition;
 
     delaySavingChanges(false);
 

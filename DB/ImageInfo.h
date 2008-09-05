@@ -19,14 +19,11 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-#include "config-kpa-marble.h"
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qdom.h>
-#ifdef HAVE_MARBLE
-#   include <marble/GeoDataCoordinates.h>
-#endif
+#include "GpsCoordinates.h"
 #include "ImageDate.h"
 #include <qimage.h>
 #include "DB/CategoryCollection.h"
@@ -64,7 +61,8 @@ public:
                MediaType type,
                short rating = -1,
                StackID stackId = 0,
-               unsigned int stackOrder = 0 );
+               unsigned int stackOrder = 0,
+               const GpsCoordinates& geoPosition=GpsCoordinates() );
     virtual ~ImageInfo() { saveChanges(); }
 
     QString fileName( bool relative = false ) const;
@@ -95,14 +93,8 @@ public:
     unsigned int stackOrder() const;
     void setStackOrder( const unsigned int stackOrder );
 
-#ifdef HAVE_MARBLE
-    GeoDataCoordinates gpsCoordinates() const;
-    void setGpsCoordinates( const GeoDataCoordinates& coordinates );
-
-    /** @short How accurate the GPS data are, in meters. -1 means "no GPS data". */
-    int gpsPrecision() const;
-    void setGpsPrecision( int precision );
-#endif
+    const GpsCoordinates& geoPosition() const;
+    void setGeoPosition(const GpsCoordinates& geoPosition);
 
     void setCategoryInfo( const QString& key,  const StringSet& value );
     void addCategoryInfo( const QString& category, const StringSet& values );
@@ -178,10 +170,7 @@ private:
     short _rating;
     StackID _stackId;
     unsigned int _stackOrder;
-#ifdef HAVE_MARBLE
-    GeoDataCoordinates _gpsCoordinates;
-    int _gpsPrecision;
-#endif
+    GpsCoordinates _geoPosition;
 
     // Cache information
     bool _locked;

@@ -300,8 +300,6 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
-            // TODO(hzeller): right now, we only put the elements in order of
-            // appearance, but should sort them.
             _stackContents[ stackid ].append(*it);
         }
     }

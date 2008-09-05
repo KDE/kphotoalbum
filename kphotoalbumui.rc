@@ -18,6 +18,7 @@
       <Action name="oneProp"/>
       <Action name="allProp"/>
       <Action name="createImageStack"/>
+      <Action name="unStackImages"/>
     </Menu>
     <Menu name="view" >
       <text>&amp;View</text>

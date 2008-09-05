@@ -988,6 +988,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );
         menu.addAction( _createImageStack );
+        menu.addAction( _unStackImages );
         menu.addAction( _runSlideShow );
         menu.addAction(_runRandomSlideShow );
 #ifdef HAVE_EXIV2
@@ -1149,6 +1150,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
     _configOneAtATime->setEnabled(selection.count() >= 1 );
     _createImageStack->setEnabled( selection.count() > 1 );
+    _unStackImages->setEnabled( selection.count() >= 1 );
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
     _recreateThumbnails->setEnabled( selection.count() >= 1 );
     _rotLeft->setEnabled( selection.count() >= 1 );

@@ -1,3 +1,7 @@
+2008-09-05  Jan Kundrat  <jkt@gentoo.org>
+
+	* Image stacking -- grouping somehow related images together
+
 2008-09-01  Jan Kundrat  <jkt@gentoo.org>
 
 	* Remove flickering in the ThumbnailView

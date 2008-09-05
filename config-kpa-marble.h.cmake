@@ -1,2 +1,2 @@
-/* Define to 1 if SQLDB should be compiled in */
+/* Define to 1 if Marble should be compiled in */
 #cmakedefine HAVE_MARBLE 1

@@ -32,6 +32,7 @@
 #include <QDesktopWidget>
 #include <kdebug.h>
 #include "DB/ImageDB.h"
+#include <qscrollbar.h>
 
 using namespace Settings;
 

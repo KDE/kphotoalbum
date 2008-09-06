@@ -18,14 +18,16 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
-#include <q3listview.h>
-#include <q3iconview.h>
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <qwidget.h>
 #include "Settings/SettingsData.h"
 
 class Q3ListViewItem;
 class QStackedWidget;
+class Q3ListView;
+class Q3IconView;
+class Q3IconViewItem;
 
 namespace DB
 {

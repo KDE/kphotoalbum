@@ -17,6 +17,10 @@
 */
 
 #include "BrowserWidget.h"
+
+#include <q3listview.h>
+#include <q3iconview.h>
+
 #include "Folder.h"
 #include <klocale.h>
 #include "DB/ImageSearchInfo.h"
@@ -27,7 +31,6 @@
 #include <QHBoxLayout>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
-#include <q3listview.h>
 #include "Utilities/ShowBusyCursor.h"
 #include "BrowserItemFactory.h"
 #include <QStackedWidget>

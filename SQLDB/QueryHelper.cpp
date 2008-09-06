@@ -304,7 +304,9 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
             executeQuery(QLatin1String(
                              "SELECT directory.path, f.filename, f.md5sum, f.type,"
                              " f.label, f.description,"
-                             " f.time_start, f.time_end, f.width, f.height, f.angle"
+                             " f.time_start, f.time_end, f.width, f.height, f.angle,"
+                             " f.rating, f.stack_id, f.stack_position,"
+                             " f.gps_longitude, f.gps_latitude, f.gps_altitude, f.gps_precision"
                              " FROM file AS f, directory"
                              " WHERE f.directory_id=directory.id"
                              " AND f.id=?"), Bindings() << id).getRow();
@@ -313,7 +315,7 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
         throw EntryNotFoundError();
     }
 
-    Q_ASSERT(row.count() == 11);
+    Q_ASSERT(row.count() == 18);
 
     info.delaySavingChanges(true);
 
@@ -329,6 +331,19 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
     int height = row[9].isNull() ? -1 :row[9].toInt();
     info.setSize(QSize(width, height));
     info.setAngle(row[10].toInt());
+    info.setRating(row[11].isNull() ? -1 : row[11].toInt());
+    info.setStackId(row[12].isNull() ? 0 : row[12].toInt());
+    info.setStackOrder(row[13].isNull() ? 0 : row[13].toInt());
+    if (!row[14].isNull() && !row[15].isNull() && !row[16].isNull()) {
+        int precision = row[17].isNull() ? DB::GpsCoordinates::NoPrecisionData : row[17].toInt();
+        info.setGeoPosition(DB::GpsCoordinates(
+                                row[14].toDouble(),
+                                row[15].toDouble(),
+                                row[16].toDouble(),
+                                precision));
+    }
+    else
+        info.setGeoPosition(DB::GpsCoordinates());
 
     StringStringList categoryTagPairs =
         executeQuery(QLatin1String(
@@ -469,6 +484,29 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
     QString path;
     QString filename;
     splitPath(info.fileName(true), path, filename);
+    QVariant rating;
+    if (info.rating() == -1)
+        rating = info.rating();
+    QVariant stackId;
+    QVariant stackPosition;
+    if (info.stackId() != 0) {
+        stackId = info.stackId();
+        stackPosition = info.stackOrder();
+    }
+    QVariant gpsLongitude;
+    QVariant gpsLatitude;
+    QVariant gpsAltitude;
+    QVariant gpsPrecision;
+    {
+        const DB::GpsCoordinates& geoPos = info.geoPosition();
+        if (!geoPos.isNull()) {
+            gpsLongitude = geoPos.longitude();
+            gpsLatitude = geoPos.latitude();
+            gpsAltitude = geoPos.altitude();
+            if (geoPos.precision() != DB::GpsCoordinates::NoPrecisionData)
+                gpsPrecision = geoPos.precision();
+        }
+    }
 
     int dirId = insertDir(path);
 
@@ -477,7 +515,9 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
         info.mediaType() << info.label() <<
         info.description() <<
         info.date().start() << info.date().end() <<
-        w << h << info.angle();
+        w << h << info.angle() <<
+        rating << stackId << stackPosition <<
+        gpsLongitude << gpsLatitude << gpsAltitude << gpsPrecision;
 }
 
 void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int position)
@@ -504,7 +544,9 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int position)
         "type" << "label" <<
         "description" <<
         "time_start" << "time_end" <<
-        "width" << "height" << "angle";
+        "width" << "height" << "angle" <<
+        "rating" << "stack_id" << "stack_position" <<
+        "gps_longitude" << "gps_latitude" << "gps_altitude" << "gps_precision";
     bindings += infoValues;
 
     qulonglong mediaId = executeInsert("file", "id", fields, bindings);
@@ -536,7 +578,11 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     executeStatement("UPDATE file SET directory_id=?, filename=?, md5sum=?, "
                      "type""=?, label=?, description=?, "
                      "time_start""=?, time_end=?, "
-                     "width=?, height=?, angle=? WHERE id=?",
+                     "width=?, height=?, angle=?,"
+                     " rating=?, stack_id=?, stack_position=?,"
+                     " gps_longitude=?, gps_latitude=?,"
+                     " gps_altitude=?, gps_precision=?"
+                     " WHERE id=?",
                      imageInfoToBindings(info) << id);
 
     executeStatement("DELETE FROM file_tag WHERE file_id=?",

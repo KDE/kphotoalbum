@@ -17,33 +17,32 @@
 */
 
 #include "SettingsData.h"
-#include <qdir.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include "Utilities/Util.h"
-#include <stdlib.h>
-#include <kmessagebox.h>
-#include <klocale.h>
-#include <qapplication.h>
-#include <qcursor.h>
-#include <kiconloader.h>
-#include <kglobal.h>
-#include "DB/ImageDB.h"
-#include <qmessagebox.h>
-#include "DB/CategoryCollection.h"
-#include <qdatetime.h>
-#include "DB/ImageInfo.h"
-#include <kapplication.h>
-#include <kconfig.h>
 #include "SettingsData.moc"
-#include "DB/MemberMap.h"
-#include <kconfiggroup.h>
-#include <qpixmapcache.h>
-#include <QColor>
-#include <QStringList>
-#include <config-kpa-sqldb.h>
-#include <QDesktopWidget>
 
+#include <stdlib.h>
+
+#include <QApplication>
+#include <QColor>
+#include <QDesktopWidget>
+#include <QDir>
+#include <QPixmap> //Added by qt3to4
+#include <QPixmapCache>
+#include <QStringList>
+
+#include <kconfig.h>
+#include <kconfiggroup.h>
+#include <kglobal.h>
+#include <kiconloader.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "DB/MemberMap.h"
+#include "Utilities/Util.h"
+
+#include "config-kpa-sqldb.h"
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/DatabaseAddress.h"

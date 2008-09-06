@@ -119,10 +119,6 @@ void ImageDB::slotRecalcCheckSums( QStringList list )
     if ( d )
         MainWindow::DirtyIndicator::markDirty();
 
-    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
-    // we rather just go to home.
-    Browser::BrowserWidget::instance()->home();
-
     emit totalChanged( totalCount() );
 }
 

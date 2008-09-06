@@ -299,4 +299,29 @@ bool SQLDB::Database::isClipboardEmpty()
     return true;
 }
 
+bool SQLDB::Database::stack(const QStringList& files)
+{
+    const QStringList relFiles = stripImageDirectoryFromList(files);
+    try {
+        int newStackId = _qh.stackFiles(relFiles);
+        Q_FOREACH(QString file, relFiles)
+            _infoCollection.getImageInfoOf(file)->setStackId(newStackId);
+        return true;
+    }
+    catch (SQLDB::Error&)
+    {
+        return false;
+    }
+}
+
+void SQLDB::Database::unstack(const QStringList& files)
+{
+    _qh.unstackFiles(stripImageDirectoryFromList(files));
+}
+
+QStringList SQLDB::Database::getStackFor(const QString& referenceFile) const
+{
+    return _qh.getStackOfFile(Utilities::stripImageDirectory(referenceFile));
+}
+
 #include "Database.moc"

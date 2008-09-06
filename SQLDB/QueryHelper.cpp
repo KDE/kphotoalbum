@@ -1233,3 +1233,68 @@ QueryHelper::classify(const QString& category,
     }
     return result;
 }
+
+int QueryHelper::stackFiles(QStringList files)
+{
+    TransactionGuard transaction(*this);
+
+    const QVariant fileIds(toVariantList(mediaItemIdsForFilenames(files)));
+    Cursor fileStackCursor =
+        executeQuery(QLatin1String(
+                         "SELECT id, stack_id FROM file WHERE id IN (?)"),
+                     Bindings() << fileIds).cursor();
+    QVariant stackId;
+    for (fileStackCursor.selectFirstRow();
+         fileStackCursor.rowExists();
+         fileStackCursor.selectNextRow()) {
+        const QVariant curStackId = fileStackCursor.value(1);
+        if (!curStackId.isNull()) {
+            if (!stackId.isNull() && stackId != curStackId) {
+                // Two different stack ids were found
+                throw OperationNotPossible(
+                    QLatin1String(
+                        "Cannot stack files, "
+                        "because they are not on a same stack"));
+            }
+            stackId = curStackId;
+        }
+    }
+
+    // Now we know, that all of the stack id's that are not null are
+    // equal. We'll just go ahead and make an id for the new stack, if
+    // there was not one already.
+    if (stackId.isNull())
+        stackId = executeQuery(
+            QLatin1String("SELECT MAX(stack_id)+1 FROM file")).firstItem();
+    if (stackId.isNull())
+        stackId = QVariant(1);
+
+    executeStatement(QLatin1String(
+                         "UPDATE file SET stack_id=? WHERE id IN (?)"),
+                     Bindings() << stackId << fileIds);
+
+    transaction.commit();
+
+    return stackId.toInt();
+}
+
+void QueryHelper::unstackFiles(QStringList files)
+{
+    const QVariant fileIds(toVariantList(mediaItemIdsForFilenames(files)));
+    executeStatement(QLatin1String(
+                         "UPDATE file SET stack_id=NULL WHERE id IN (?)"),
+                     Bindings() << fileIds);
+}
+
+QStringList QueryHelper::getStackOfFile(QString referenceFile) const
+{
+    const int refId = mediaItemId(referenceFile);
+    QList<int> idList =
+        executeQuery(QLatin1String(
+                         "SELECT id FROM file WHERE stack_id=?"),
+                     Bindings() << refId).asIntegerList();
+    QStringList fileNames;
+    Q_FOREACH(int id, idList)
+        fileNames.append(mediaItemFilename(id));
+    return fileNames;
+}

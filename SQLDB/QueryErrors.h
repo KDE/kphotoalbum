@@ -70,6 +70,8 @@ namespace SQLDB
     ERROR_CLASS(RowNotFoundError, DataNotFoundError);
     ERROR_CLASS(EntryNotFoundError, DataNotFoundError);
 
+    ERROR_CLASS(OperationNotPossible, Error);
+
     ERROR_CLASS(InitializationError, Error);
     ERROR_CLASS(DriverLoadError, InitializationError);
 

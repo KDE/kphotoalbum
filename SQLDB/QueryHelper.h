@@ -123,6 +123,25 @@ public:
     QMap<QString, uint> classify(const QString& category,
                                  DB::MediaType typemask=DB::anyMediaType,
                                  QList<int>* scope=0) const;
+    /** Update the file table so that given files will go to same stack.
+     *
+     * \note The caller has responsibility to update the file infos.
+     *
+     * \return The id of the stack those files are put into
+     *
+     * \throws OperationNotPossible if stacking cannot be done because
+     * some of the given files already belong to different stacks,
+     * also then nothing is changed in the database
+     */
+    int stackFiles(QStringList files);
+
+    /** Set stack_id of given files to NULL in the file table.
+     */
+    void unstackFiles(QStringList files);
+
+    /** Get list of files that have the same stackid as the given file.
+     */
+    QStringList getStackOfFile(QString referenceFile) const;
 
 protected:
     Bindings imageInfoToBindings(const DB::ImageInfo& info);

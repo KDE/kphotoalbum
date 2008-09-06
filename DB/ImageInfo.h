@@ -102,14 +102,14 @@ public:
     void removeCategoryInfo( const QString& category, const StringSet& values );
     void removeCategoryInfo( const QString& category, const QString& value );
 
-    bool hasCategoryInfo( const QString& key,  const QString& value );
+    bool hasCategoryInfo( const QString& key,  const QString& value ) const;
     QStringList availableCategories() const;
     StringSet itemsOfCategory( const QString& category ) const;
     void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
     void renameCategory( const QString& oldName, const QString& newName );
 
-    bool operator!=( const ImageInfo& other );
-    bool operator==( const ImageInfo& other );
+    bool operator!=( const ImageInfo& other ) const;
+    bool operator==( const ImageInfo& other ) const;
     virtual ImageInfo& operator=( const ImageInfo& other );
 
     static bool imageOnDisk( const QString& fileName );
@@ -127,7 +127,7 @@ public:
     // Used during searches
     void clearMatched() const;
     void setMatched( const QString& category, const QString& value ) const;
-    bool allMatched( const QString& category );
+    bool allMatched( const QString& category ) const;
 
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; saveChangesIfNotDelayed(); }

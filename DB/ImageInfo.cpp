@@ -118,7 +118,7 @@ void ImageInfo::setCategoryInfo( const QString& key, const StringSet& value )
     saveChangesIfNotDelayed();
 }
 
-bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value )
+bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) const
 {
     return _categoryInfomation[key].contains(value);
 }
@@ -265,12 +265,12 @@ ImageDate ImageInfo::date() const
     return _date;
 }
 
-bool ImageInfo::operator!=( const ImageInfo& other )
+bool ImageInfo::operator!=( const ImageInfo& other ) const
 {
     return !(*this == other);
 }
 
-bool ImageInfo::operator==( const ImageInfo& other )
+bool ImageInfo::operator==( const ImageInfo& other ) const
 {
     bool changed =
         ( _relativeFileName != other._relativeFileName ||
@@ -369,7 +369,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
  * explicit searched for.
  * This is used when the search includes *None*
  */
-bool ImageInfo::allMatched( const QString& category )
+bool ImageInfo::allMatched( const QString& category ) const
 {
     const StringSet items = itemsOfCategory( category );
     for( StringSet::const_iterator it = items.begin(); it != items.end(); ++it ) {

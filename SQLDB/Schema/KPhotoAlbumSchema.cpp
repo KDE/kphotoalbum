@@ -36,7 +36,7 @@ namespace Schema {
             //
             schema =
                 new DatabaseSchema
-                (Identifier("kphotoalbum", 4, 0).setDate(2008, 9, 4));
+                (Identifier("kphotoalbum", 5, 0).setDate(2008, 9, 5));
 
             TableSchema* t;
             Field* f;
@@ -91,6 +91,16 @@ namespace Schema {
             f = t->createField(DBN("height"), FieldType(UnsignedInteger));
 
             f = t->createField(DBN("angle"), FieldType(SmallInteger));
+
+            f = t->createField(DBN("rating"), FieldType(TinyInteger));
+
+            f = t->createField(DBN("stack_id"), FieldType(UnsignedBigInteger));
+            f = t->createField(DBN("stack_position"), FieldType(UnsignedInteger));
+
+            f = t->createField(DBN("gps_longitude"), FieldType(Double));
+            f = t->createField(DBN("gps_latitude"), FieldType(Double));
+            f = t->createField(DBN("gps_altitude"), FieldType(Double));
+            f = t->createField(DBN("gps_precision"), FieldType(Integer));
 
             t->setPrimaryKey(DBN("id"));
 

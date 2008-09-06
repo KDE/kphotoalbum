@@ -9,6 +9,7 @@ DB::Result::ConstIterator::ConstIterator( const Result* result, int id )
 DB::Result::ConstIterator& DB::Result::ConstIterator::operator++()
 {
     ++_id;
+    return *this;
 }
 
 DB::ResultId DB::Result::ConstIterator::operator*()
@@ -56,8 +57,13 @@ void DB::Result::debug()
     qDebug() << _items;
 }
 
-void DB::Result::append( int id )
+void DB::Result::append( DB::ResultId id)
 {
-    _items.append(id);
+    _items.append(id.fileId());
+}
+
+bool DB::Result::isEmpty() const
+{
+    return _items.isEmpty();
 }
 

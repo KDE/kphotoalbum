@@ -19,7 +19,6 @@
 #define THUMBNAILVIEW_H
 
 #include <q3gridview.h>
-//Added by qt3to4:
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -39,6 +38,7 @@
 #include "SelectionInteraction.h"
 #include "ThumbnailToolTip.h"
 #include "Utilities/Set.h"
+#include "DB/Result.h"
 
 #include <qmutex.h>
 
@@ -54,7 +54,7 @@ class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
 
 public:
     ThumbnailWidget( QWidget* parent );
-    void setImageList( const QStringList& list );
+    void setImageList( const DB::ResultPtr& list );
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
@@ -163,7 +163,7 @@ protected:
      * For all filenames in the list, check if there are any missing
      * thumbnails and generate these in the background.
      */
-    void generateMissingThumbnails( const QStringList& list ) const;
+    void generateMissingThumbnails( const DB::ResultPtr& items  ) const;
 
 protected slots:
     void emitDateChange( int, int );
@@ -188,7 +188,6 @@ private:
     QMap<QString,int> _fileNameToIndex;
 
     typedef QMap<DB::StackID, QStringList> StackMap;
-    StackMap _stackContents;
 
     QSet<DB::StackID> _expandedStacks;
 

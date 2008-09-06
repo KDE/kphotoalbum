@@ -296,7 +296,7 @@ void Exif::Database::recreate()
     QDir().remove(exifDBFile());
     init();
 
-    QStringList allImages = DB::ImageDB::instance()->images();
+    QStringList allImages = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images() );
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));

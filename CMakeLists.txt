@@ -83,7 +83,9 @@ set(libxmldb_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLImageDateCollection.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp
   	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/IdNameMapper.cpp
+)
 
 set(libThumbnailView_SRCS 
         ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailRequest.cpp  
@@ -172,7 +174,10 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/GroupCounter.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageSearchInfo.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ResultId.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/Result.cpp
+    )
 
 set(libImportExport_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/Export.cpp 

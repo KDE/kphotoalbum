@@ -22,6 +22,7 @@
 #include <QStringList>
 #include "DB/MD5Map.h"
 #include "ImageInfo.h"
+#include "DB/Result.h"
 
 namespace DB
 {
@@ -30,7 +31,7 @@ class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums( const QStringList& list, DB::MD5Map* map, bool* wasCanceled = 0 );
+    bool calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* map, bool* wasCanceled = 0 );
 
 protected:
     void searchForNewFiles( const QSet<QString>& loadedFiles, QString directory );

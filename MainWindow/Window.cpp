@@ -120,6 +120,7 @@
 #include <qclipboard.h>
 #include <stdexcept>
 #include <KInputDialog>
+#include "DB/Result.h"
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -330,7 +331,7 @@ void MainWindow::Window::slotCreateImageStack()
                         "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
             DB::ImageDB::instance()->unstack( list );
             if ( ! DB::ImageDB::instance()->stack( list ) ) {
-                KMessageBox::sorry( this, 
+                KMessageBox::sorry( this,
                         i18n("Something fishy happened, stack creation failed, sorry."),
                         i18n("Stacking Error"));
                 return;
@@ -426,6 +427,7 @@ void MainWindow::Window::slotSave()
 
 void MainWindow::Window::slotDeleteSelected()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
@@ -435,13 +437,16 @@ void MainWindow::Window::slotDeleteSelected()
     DirtyIndicator::markDirty();
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
-    StringSet allImages( DB::ImageDB::instance()->images() );
+    StringSet allImages( DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images()) );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
         if ( allImages.contains( *it ) )
             newSet.append(*it);
     }
     showThumbNails( newSet );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in MainWindow::Window::slotDeleteSelected");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::slotCopySelectedURLs()
@@ -490,7 +495,7 @@ QStringList MainWindow::Window::selectedOnDisk()
 {
     QStringList list = selected();
     if ( list.count() == 0 )
-        return DB::ImageDB::instance()->currentScope( true );
+        return DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->currentScope( true ) );
 
     QStringList listOnDisk;
     for( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
@@ -520,7 +525,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
     }
 
     if ( !files.count() )
-        files = DB::ImageDB::instance()->currentScope( false );
+        files = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->currentScope( false ));
 
     if ( !files.count() ) {
         KMessageBox::sorry( this, i18n("There are no images to be shown.") );
@@ -575,8 +580,12 @@ void MainWindow::Window::closeEvent( QCloseEvent* e )
 
 void MainWindow::Window::slotLimitToSelected()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     Utilities::ShowBusyCursor dummy;
     showThumbNails( selected() );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in MainWindow::Window::slotLimitToSelected");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::setupMenuBar()
@@ -669,7 +678,7 @@ void MainWindow::Window::setupMenuBar()
 
     _runRandomSlideShow = actionCollection()->addAction( QString::fromLatin1("runRandomizedSlideShow"), this, SLOT( slotRunRandomizedSlideShow() ) );
     _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
- 
+
     a = actionCollection()->addAction( QString::fromLatin1("collapseAllStacks"),
                                        _thumbnailView, SLOT( collapseAllStacks() ) );
     connect(_thumbnailView, SIGNAL( collapseAllStacksEnabled(bool) ), a, SLOT( setEnabled(bool) ));
@@ -1210,24 +1219,28 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 
 void MainWindow::Window::slotShowNotOnDisk()
 {
-    QStringList allImages = DB::ImageDB::instance()->images();
-    QStringList notOnDisk;
-    for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it, DB::AbsolutePath);
+    DB::ResultPtr allImages = DB::ImageDB::instance()->images();
+    DB::Result* notOnDisk = new DB::Result;
+    for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
         QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
-            notOnDisk.append(*it);
+            notOnDisk->append(*it);
     }
 
-    showThumbNails( notOnDisk );
+    showThumbNails( DB::ResultPtr(notOnDisk) );
 }
 
 
 void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
     Utilities::ShowBusyCursor dummy;
     StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
     showThumbNails( changed.toList() );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in MainWindow::Window::slotShowImagesWithChangedMD5Sum");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 
@@ -1450,6 +1463,7 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
     QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") )
                        .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
@@ -1466,6 +1480,9 @@ void MainWindow::Window::slotShowListOfFiles()
         KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
     else
         showThumbNails( out );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in MainWindow::Window::slotShowListOfFiles");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::updateDateBar( const QString& path )
@@ -1528,10 +1545,10 @@ void MainWindow::Window::possibleRunSuvey()
     survey.possibleExecSurvey();
 }
 
-void MainWindow::Window::showThumbNails( const QStringList& list )
+void MainWindow::Window::showThumbNails( const DB::ResultPtr& items )
 {
-    _thumbnailView->setImageList( list );
-    _partial->setMatchCount( list.count() );
+    _thumbnailView->setImageList( items );
+    _partial->setMatchCount( items->count() );
     showThumbNails();
 }
 
@@ -1592,7 +1609,11 @@ void MainWindow::Window::convertBackend()
 
 void MainWindow::Window::slotRecalcCheckSums()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
     DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in MainWindow::Window::slotRecalcCheckSums");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::slotShowExifInfo()

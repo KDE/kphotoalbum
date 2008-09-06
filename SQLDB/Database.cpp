@@ -17,8 +17,10 @@
   MA 02110-1301 USA.
 */
 #include "Database.h"
+#include "DB/Result.h"
 #include "SQLCategory.h"
 #include "DB/ImageInfo.h"
+#include "DB/ImageInfoPtr.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
 #include "SQLImageInfoCollection.h"
@@ -93,18 +95,18 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
                           _qh.mediaItemCount(DB::Video, scope));
 }
 
-QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+DB::ResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     QList<int> matches = _qh.searchMediaItems(info);
-    QStringList result;
+    QList<int> result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
     for(QList<int>::Iterator it = matches.begin(); it != matches.end(); ++it) {
         QString fullPath = imageRoot + _infoCollection.filenameForId(*it);
         if (requireOnDisk && !DB::ImageInfo::imageOnDisk(fullPath))
             continue;
-        result.append(fullPath);
+        result.append(*it);
     }
-    return result;
+    return DB::ResultPtr( new DB::Result(result) );
 }
 
 void SQLDB::Database::renameCategory(const QString& /*oldName*/, const QString /*newName*/)
@@ -124,26 +126,15 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         return QMap<QString, uint>();
 }
 
-QStringList SQLDB::Database::imageList( bool withRelativePath )
+DB::ResultPtr SQLDB::Database::imageList()
 {
-    QStringList relativePaths = _qh.filenames();
-    if (withRelativePath)
-        return relativePaths;
-    else {
-        QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
-        QStringList absolutePaths;
-        for (QStringList::const_iterator i = relativePaths.begin();
-             i != relativePaths.end(); ++i) {
-            absolutePaths << imageRoot + (*i);
-        }
-        return absolutePaths;
-    }
+    return DB::ResultPtr( new DB::Result(_qh.mediaItemIds(DB::anyMediaType) ) );
 }
 
 
-QStringList SQLDB::Database::images()
+DB::ResultPtr SQLDB::Database::images()
 {
-    return imageList( false );
+    return imageList();
 }
 
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
@@ -297,6 +288,19 @@ bool SQLDB::Database::isClipboardEmpty()
 {
     // Not implemented.
     return true;
+}
+
+QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
+{
+    // PENDING(blackie) IMPLEMENT
+    // QWERTY
+    qFatal("Oppps better implement me!");
+}
+
+DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& )
+{
+    // PENDING(blackie) implement //QWERTY
+    return DB::ImageInfoPtr( new DB::ImageInfo() );
 }
 
 bool SQLDB::Database::stack(const QStringList& files)

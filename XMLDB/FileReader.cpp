@@ -193,6 +193,7 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
         else {
             DB::ImageInfoPtr info = load( fileName, elm );
             _db->_images.append(info);
+            _db->_idMapper.add(fileName );
             _db->_md5map.insert( info->MD5Sum(), fileName );
         }
     }

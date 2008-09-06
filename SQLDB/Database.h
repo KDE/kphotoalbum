@@ -36,46 +36,49 @@ namespace SQLDB {
     public:
         explicit Database(const DatabaseAddress& address);
 
-        virtual bool operator==(const DB::ImageDB& other) const;
-        virtual uint totalCount() const;
+        OVERRIDE bool operator==(const DB::ImageDB& other) const;
+        OVERRIDE uint totalCount() const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
-        virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
+        OVERRIDE DB::ResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
-        virtual void renameCategory( const QString& oldName, const QString newName );
+        OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
+        OVERRIDE QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
                                              const QString& category,
                                              DB::MediaType typemask);
-        virtual QStringList images();
-        virtual void addImages( const DB::ImageInfoList& images );
+        OVERRIDE DB::ResultPtr images();
+        OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        virtual void addToBlockList( const QStringList& list );
-        virtual bool isBlocking( const QString& fileName );
-        virtual void deleteList( const QStringList& list );
-        virtual DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
-        virtual DB::MemberMap& memberMap();
-        virtual void save( const QString& fileName, bool isAutoSave );
-        virtual DB::MD5Map* md5Map();
-        virtual void sortAndMergeBackIn( const QStringList& fileList );
-        virtual DB::CategoryCollection* categoryCollection();
-        virtual KSharedPtr<DB::ImageDateCollection> rangeCollection();
-        virtual void reorder( const QString& item, const QStringList& cutList, bool after );
-        virtual QString findFirstItemInRange(const DB::ImageDate& range,
+        OVERRIDE void addToBlockList( const QStringList& list );
+        OVERRIDE bool isBlocking( const QString& fileName );
+        OVERRIDE void deleteList( const QStringList& list );
+        OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& );
+
+        OVERRIDE DB::MemberMap& memberMap();
+        OVERRIDE void save( const QString& fileName, bool isAutoSave );
+        OVERRIDE DB::MD5Map* md5Map();
+        OVERRIDE void sortAndMergeBackIn( const QStringList& fileList );
+        OVERRIDE DB::CategoryCollection* categoryCollection();
+        OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
+        OVERRIDE void reorder( const QString& item, const QStringList& cutList, bool after );
+        OVERRIDE QString findFirstItemInRange(const DB::ImageDate& range,
                                              bool includeRanges,
                                              const QStringList& images) const;
-        virtual void cutToClipboard( const QStringList& list );
-        virtual QStringList pasteFromCliboard( const QString& afterFile );
-        virtual bool isClipboardEmpty();
+        OVERRIDE void cutToClipboard( const QStringList& list );
+        OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
+        OVERRIDE bool isClipboardEmpty();
+        OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
 
-        virtual bool stack(const QStringList& files);
-        virtual void unstack(const QStringList& files);
-        virtual QStringList getStackFor(const QString& referenceFile) const;
+        OVERRIDE bool stack(const QStringList& files);
+        OVERRIDE void unstack(const QStringList& files);
+        OVERRIDE QStringList getStackFor(const QString& referenceFile) const;
 
     protected slots:
-        virtual void lockDB( bool lock, bool exclude );
+        OVERRIDE void lockDB( bool lock, bool exclude );
 
     protected:
-        QStringList imageList( bool withRelativePath );
+        DB::ResultPtr imageList();
 
 
     private:

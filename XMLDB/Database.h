@@ -18,6 +18,7 @@
 
 #ifndef XMLDB_DATABSE_H
 #define XMLDB_DATABSE_H
+#include "IdNameMapper.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include <qstringlist.h>
@@ -39,43 +40,46 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        virtual bool operator==(const DB::ImageDB& other) const;
-        virtual uint totalCount() const;
-        virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
-        virtual void renameCategory( const QString& oldName, const QString newName );
+        OVERRIDE bool operator==(const DB::ImageDB& other) const;
+        OVERRIDE uint totalCount() const;
+        OVERRIDE DB::ResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
+        OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
-        virtual QStringList images();
-        virtual void addImages( const DB::ImageInfoList& images );
+        OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
+        OVERRIDE DB::ResultPtr images();
+        OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        virtual void addToBlockList( const QStringList& list );
-        virtual bool isBlocking( const QString& fileName );
-        virtual void deleteList( const QStringList& list );
-        virtual DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
-        virtual DB::MemberMap& memberMap();
-        virtual void save( const QString& fileName, bool isAutoSave );
-        virtual DB::MD5Map* md5Map();
-        virtual void sortAndMergeBackIn( const QStringList& fileList );
-        virtual DB::CategoryCollection* categoryCollection();
-        virtual KSharedPtr<DB::ImageDateCollection> rangeCollection();
-        virtual void reorder( const QString& item, const QStringList& cutList, bool after );
-        virtual void cutToClipboard( const QStringList& list );
-        virtual QStringList pasteFromCliboard( const QString& afterFile );
-        virtual bool isClipboardEmpty();
+        OVERRIDE void addToBlockList( const QStringList& list );
+        OVERRIDE bool isBlocking( const QString& fileName );
+        OVERRIDE void deleteList( const QStringList& list );
+        OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& );
+        OVERRIDE DB::MemberMap& memberMap();
+        OVERRIDE void save( const QString& fileName, bool isAutoSave );
+        OVERRIDE DB::MD5Map* md5Map();
+        OVERRIDE void sortAndMergeBackIn( const QStringList& fileList );
+        OVERRIDE DB::CategoryCollection* categoryCollection();
+        OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
+        OVERRIDE void reorder( const QString& item, const QStringList& cutList, bool after );
+        OVERRIDE void cutToClipboard( const QStringList& list );
+        OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
+         bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        virtual bool stack( const QStringList& files );
-        virtual void unstack( const QStringList& images );
-        virtual QStringList getStackFor( const QString& referenceImg ) const;
+        QStringList CONVERT( const DB::ResultPtr& );
 
+        OVERRIDE bool stack( const QStringList& files );
+        OVERRIDE void unstack( const QStringList& images );
+        OVERRIDE QStringList getStackFor( const QString& referenceImg ) const;
 
     protected:
-        QStringList searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
+        DB::ResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
         DB::ImageInfoList takeImagesFromSelection( const QStringList& list );
         QStringList insertList( const QString& fileName, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
+
 
     protected slots:
         void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
@@ -97,12 +101,15 @@ namespace XMLDB {
         DB::MemberMap _members;
         DB::MD5Map _md5map;
         DB::ImageInfoList _clipboard;
-        
+
         DB::StackID _nextStackId;
         mutable QMap<DB::StackID,QStringList> _stackMap;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;
+
+        DB::IdNameMapper _idMapper;
+
 
         class StackSortHelper {
             const Database* const _db;
@@ -110,7 +117,7 @@ namespace XMLDB {
             StackSortHelper( const Database* const db );
             int operator()( const QString& a, const QString& b ) const;
         };
-};
+    };
 }
 
 #endif /* XMLDB_DATABSE_H */

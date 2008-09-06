@@ -26,10 +26,11 @@ class Result :public KShared
 
         Result( const QList<int>& ids );
         Result();
-        void append( int id );
+        void append( DB::ResultId );
 
         DB::ResultId item(int index) const;
         int count() const;
+        bool isEmpty() const;
 
         ConstIterator begin() const;
         ConstIterator end() const;

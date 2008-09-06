@@ -42,7 +42,7 @@ bool NewImageFinder::findImages()
     // Load the information from the XML file.
     QSet<QString> loadedFiles;
 
-    QStringList images = DB::ImageDB::instance()->images();
+    QStringList images = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images() );
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         loadedFiles << *it;
     }
@@ -225,22 +225,23 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     return info;
 }
 
-bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5Map, bool* wasCanceled )
+bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
     dialog.setLabelText( i18n("<p><b>Calculating checksum for %1 files<b></p>"
                               "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
-                              "even when you have moved them on the disk.</p>").arg( list.count() ) );
-    dialog.setMaximum( list.count() );
+                              "even when you have moved them on the disk.</p>").arg( list->count() ) );
+    dialog.setMaximum( list->count() );
     dialog.setMinimumDuration( 1000 );
 
     int count = 0;
     QStringList cantRead;
     bool dirty = false;
 
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
-        ImageInfoPtr info = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
+    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it, ++count ) {
+        ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
+        const QString absoluteFileName = info->fileName(DB::AbsolutePath );
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -252,16 +253,16 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
             }
         }
 
-        MD5 md5 = Utilities::MD5Sum( *it );
+        MD5 md5 = Utilities::MD5Sum( absoluteFileName );
         if (md5.isNull()) {
-            cantRead << *it;
+            cantRead << absoluteFileName;
             continue;
         }
 
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
-            Utilities::removeThumbNail( *it );
+            Utilities::removeThumbNail( absoluteFileName );
         }
 
         md5Map->insert( md5, info->fileName(true) );

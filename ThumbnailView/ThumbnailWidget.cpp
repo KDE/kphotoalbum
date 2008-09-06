@@ -263,13 +263,15 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 }
 
 
-void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const QStringList& list ) const {
-    QRect dimensions = cellDimensions();
-    QSize size( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
-                dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
+void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ResultPtr& items ) const {
+    const QRect dimensions = cellDimensions();
+    const QSize size( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
+                      dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
 
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, size, DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->angle(), NULL );
+    for( DB::Result::ConstIterator it = items->begin(); it != items->end(); ++it ) {
+        ImageManager::ImageRequest* request =
+            new ImageManager::ImageRequest( DB::ImageDB::instance()->info(*it)->fileName(),
+                                            size, DB::ImageDB::instance()->info( *it )->angle(), NULL );
         request->setPriority( ImageManager::ThumbnailInvisible );
         ImageManager::Manager::instance()->load( request );
     }
@@ -295,12 +297,12 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
      * intermingled in the result so we need to know this ahead before
      * creating the display list.
      */
-    _stackContents.clear();
+    StackMap stackContents;
     for (QStringList::const_iterator it = _imageList.begin(); it != _imageList.end(); ++it) {
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
-            _stackContents[ stackid ].append(*it);
+            stackContents[ stackid ].append(*it);
         }
     }
 
@@ -308,7 +310,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
      * All stacks need to be ordered in their stack order. We don't rely that
      * the images actually came in the order necessary.
      */
-    for (StackMap::iterator it = _stackContents.begin(); it != _stackContents.end(); ++it) {
+    for (StackMap::iterator it = stackContents.begin(); it != stackContents.end(); ++it) {
         qStableSort(it->begin(), it->end(), stackOrderComparator);
     }
 
@@ -324,7 +326,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
                 continue;
-            const QStringList& stackList = _stackContents[ stackid ];
+            const QStringList& stackList = stackContents[ stackid ];
             Q_ASSERT(!stackList.empty());
             if (_expandedStacks.contains(stackid))
                 _displayList += stackList;
@@ -349,10 +351,10 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     }
 }
 
-void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
+void ThumbnailView::ThumbnailWidget::setImageList( const DB::ResultPtr& items )
 {
-    _imageList = list;
-    generateMissingThumbnails( list );
+    _imageList = DB::ImageDB::instance()->CONVERT(items);
+    generateMissingThumbnails( items );
     updateDisplayModel();
 }
 

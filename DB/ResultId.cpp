@@ -6,3 +6,8 @@ DB::ResultId::ResultId(int fileId, const DB::Result& context)
 {
 
 }
+
+int DB::ResultId::fileId() const
+{
+    return _fileId;
+}

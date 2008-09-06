@@ -77,7 +77,7 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    QStringList list = DB::ImageDB::instance()->images();
+    QStringList list = DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->images());
     QStringList toBeShown;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
@@ -132,7 +132,11 @@ void InvalidDateFinder::accept()
     else
         delete info;
 
+#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     Window::theMainWindow()->showThumbNails( toBeShown );
+#else // KDAB_TEMPORARILY_REMOVED
+    qFatal("Code commented out in InvalidDateFinder::accept");
+#endif //KDAB_TEMPORARILY_REMOVED
     KDialog::accept();
 }
 

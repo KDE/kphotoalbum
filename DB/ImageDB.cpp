@@ -83,7 +83,7 @@ QString ImageDB::NONE()
     return i18n("**NONE**");
 }
 
-QStringList ImageDB::currentScope( bool requireOnDisk ) const
+DB::ResultPtr ImageDB::currentScope( bool requireOnDisk ) const
 {
     return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
 }
@@ -108,10 +108,10 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums( QStringList list )
+void ImageDB::slotRecalcCheckSums( DB::ResultPtr list )
 {
-    if ( list.isEmpty() ) {
-        list = images();
+    if ( list->isEmpty() ) {
+        list =  images();
         md5Map()->clear();
     }
 
@@ -126,7 +126,7 @@ StringSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
-    QStringList imageList = images();
+    DB::ResultPtr imageList = images();
     (void) NewImageFinder().calculateMD5sums( imageList, &map, &wasCanceled );
     if ( wasCanceled )
         return StringSet();
@@ -146,11 +146,11 @@ ImageDB::ImageDB()
 
 DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
-    QStringList list = search( searchInfo );
+    ResultPtr result = search( searchInfo );
     uint images = 0;
     uint videos = 0;
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr inf = info( *it, DB::AbsolutePath );
+    for( Result::ConstIterator it = result->begin(); it != result->end(); ++it ) {
+        ImageInfoPtr inf = info( *it );
         if ( inf->mediaType() == Image )
             ++images;
         else
@@ -161,7 +161,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 
 void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
-    QStringList allImages = images();
+    DB::ResultPtr allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
@@ -169,7 +169,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     Q3ValueList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
-        progressBar->setMaximum(categories.count() + allImages.count());
+        progressBar->setMaximum(categories.count() + allImages->count());
         progressBar->setValue(0);
     }
 
@@ -193,8 +193,8 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     // Convert all images to the new back end
     uint count = 0;
     ImageInfoList list;
-    for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        list.append( info(*it, DB::AbsolutePath) );
+    for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
+        list.append( info(*it) );
         if (++count % 100 == 0) {
             newBackend->addImages( list );
             list.clear();

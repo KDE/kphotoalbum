@@ -24,6 +24,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
 #include "DB/MediaCount.h"
+#include "DB/Result.h"
 
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
@@ -61,7 +62,7 @@ public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
-    virtual void slotRecalcCheckSums( QStringList selection );
+    void slotRecalcCheckSums( DB::ResultPtr selection );
     virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const QStringList& list, DB::ExifMode mode);
 
@@ -79,7 +80,7 @@ protected:
 
 public:
     static QString NONE();
-    QStringList currentScope( bool requireOnDisk ) const;
+    ResultPtr currentScope( bool requireOnDisk ) const;
 
     virtual QString findFirstItemInRange(const ImageDate& range,
                                          bool includeRanges,
@@ -87,18 +88,19 @@ public:
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;
-    virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
+    virtual ResultPtr search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
-    virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
+    virtual ResultPtr images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
 
     virtual void addToBlockList( const QStringList& list ) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;
     virtual void deleteList( const QStringList& list ) = 0;
-    virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0;
+    virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
+    virtual ImageInfoPtr info( const DB::ResultId& ) = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
@@ -122,7 +124,7 @@ public: // Methods that must be overriden
      *
      * If none of them are stacked, then a new stack is created and we return
      * true.
-     * 
+     *
      * All images which previously weren't in the stack are added in order they
      * are present in the provided list and after all items that are already in
      * the stack. The order of images which were already in the stack is not
@@ -130,7 +132,9 @@ public: // Methods that must be overriden
      * */
     virtual bool stack( const QStringList& files ) = 0;
 
-    /** @short Remove all images from whichever stacks they might be in 
+    virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
+
+    /** @short Remove all images from whichever stacks they might be in
      *
      * We might destroy some stacks in the process if they become empty or just
      * containing one image.

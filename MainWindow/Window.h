@@ -41,6 +41,7 @@ class KActionMenu;
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
+#include "DB/Result.h"
 
 namespace Plugins { class Interface; }
 namespace ThumbnailView { class ThumbnailWidget; }
@@ -71,7 +72,7 @@ public:
     QString currentBrowseCategory() const;
 
 public slots:
-    void showThumbNails( const QStringList& list );
+    void showThumbNails( const DB::ResultPtr& items );
     void loadPlugins();
 
 protected slots:

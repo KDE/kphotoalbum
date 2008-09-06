@@ -188,7 +188,7 @@ void ImageSearchInfo::debug()
 // PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
-    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings"));
     config.writeEntry( QString::fromLatin1("label"), _label );
     config.writeEntry( QString::fromLatin1("description"), _description );
     config.writeEntry( QString::fromLatin1("categories"), _options.keys() );
@@ -200,7 +200,7 @@ void ImageSearchInfo::saveLock() const
 
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings" ));
     ImageSearchInfo info;
     info._label = config.readEntry( "label" );
     info._description = config.readEntry( "description" );

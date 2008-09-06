@@ -31,14 +31,14 @@
 namespace SQLDB { class DatabaseAddress; }
 #endif
 
-#define property__( type, group, prop, setFunction, defaultValue ) \
-    void setFunction( type val )                                     \
-    {                                                             \
-        setValue( QString::fromLatin1(#group), QString::fromLatin1(#prop), val ); \
-    }                                             \
-    type prop() const                          \
-    {                                             \
-        return value( QString::fromLatin1(#group), QString::fromLatin1(#prop), defaultValue ); \
+#define property__( type, group, prop, setFunction, defaultValue )      \
+    void setFunction( type val )                                        \
+    {                                                                   \
+        setValue( #group, #prop, val );                                 \
+    }                                                                   \
+    type prop() const                                                   \
+    {                                                                   \
+        return value( #group, #prop, defaultValue );                    \
     }
 
 #define intProperty( group, prop, setFunction, defaultValue ) property__( int, group, prop, setFunction, defaultValue )
@@ -212,26 +212,30 @@ public:
 
     void setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
-    QString windowTypeToString( WindowType tp ) const;
+    const char* windowTypeToString( WindowType tp ) const;
 
-    QString groupForDatabase( const QString& setting ) const;
+    QString groupForDatabase( const char* setting ) const;
 
-protected:
-    int value( const QString& group, const QString& option, int defaultValue ) const;
-    QString value( const QString& group, const QString& option, const QString& defaultValue ) const;
-    bool value( const QString& group, const QString& option, bool defaultValue ) const;
-    QColor value( const QString& group, const QString& option, const QColor& defaultValue ) const;
-    QSize value( const QString& group, const QString& option, const QSize& defaultValue ) const;
-    StringSet value(const QString& group, const QString& option, const StringSet& defaultValue ) const;
+private:
+    int value( const char* group, const char* option, int defaultValue ) const;
+    QString value( const char* group, const char* option, const QString& defaultValue ) const;
+    QString value( const QString& group, const char* option, const QString& value ) const;
+    bool value( const char* group, const char* option, bool defaultValue ) const;
+    bool value( const QString& group, const char* option, bool defaultValue ) const;
+    QColor value( const char* group, const char* option, const QColor& defaultValue ) const;
+    QSize value( const char* group, const char* option, const QSize& defaultValue ) const;
+    StringSet value(const char* group, const char* option, const StringSet& defaultValue ) const;
 
-    void resetValue(const QString& grp, const QString& option);
+    void resetValue(const char* group, const char* option);
 
-    void setValue( const QString& group, const QString& option, int value );
-    void setValue( const QString& group, const QString& option, const QString& value );
-    void setValue( const QString& group, const QString& option, bool value );
-    void setValue( const QString& group, const QString& option, const QColor& value );
-    void setValue( const QString& group, const QString& option, const QSize& value );
-    void setValue( const QString& group, const QString& option, const StringSet& value );
+    void setValue( const char* group, const char* option, int value );
+    void setValue( const char* group, const char* option, const QString& value );
+    void setValue( const QString& group, const char* option, const QString& value );
+    void setValue( const char* group, const char* option, bool value );
+    void setValue( const QString& group, const char* option, bool value );
+    void setValue( const char* group, const char* option, const QColor& value );
+    void setValue( const char* group, const char* option, const QSize& value );
+    void setValue( const char* group, const char* option, const StringSet& value );
 
 signals:
     void locked( bool lock, bool exclude );

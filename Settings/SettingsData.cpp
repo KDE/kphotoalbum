@@ -74,7 +74,7 @@ Settings::SettingsData::SettingsData( const QString& imageDirectory )
       _imageDirectory( imageDirectory )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
-    _smoothScale = value( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), true );
+    _smoothScale = value( "Viewer", "smoothScale", true );
 }
 
 bool Settings::SettingsData::smoothScale()
@@ -85,7 +85,7 @@ bool Settings::SettingsData::smoothScale()
 void Settings::SettingsData::setSmoothScale( bool b )
 {
     _smoothScale = b;
-    setValue( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), b );
+    setValue( "Viewer", "smoothScale", b );
 }
 
 bool Settings::SettingsData::trustTimeStamps()
@@ -116,30 +116,30 @@ bool Settings::SettingsData::trustTimeStamps()
 }
 void Settings::SettingsData::setTTimeStamps( TimeStampTrust t )
 {
-    setValue( STR("General"), STR("trustTimeStamps"), (int) t );
+    setValue( "General", "trustTimeStamps", (int) t );
 }
 Settings::TimeStampTrust Settings::SettingsData::tTimeStamps() const
 {
-    return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
+    return (TimeStampTrust) value( "General", "trustTimeStamps", (int) Always );
 }
 
 void Settings::SettingsData::setThumbnailAspectRatio( Settings::ThumbnailAspectRatio aspect )
 {
-    setValue( STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) aspect);
+    setValue( "Thumbnails", "thumbnailAspectRatio", (int) aspect);
 }
 Settings::ThumbnailAspectRatio Settings::SettingsData::thumbnailAspectRatio() const
 {
-    return (ThumbnailAspectRatio) value(  STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) Aspect_4_3);
+    return (ThumbnailAspectRatio) value( "Thumbnails", "thumbnailAspectRatio", (int) Aspect_4_3);
 }
 
 void Settings::SettingsData::setViewerStandardSize(StandardViewSize v)
 {
-    setValue( STR("Viewer"), STR("standardViewerSize"), (int) v );
+    setValue( "Viewer", "standardViewerSize", (int) v );
 }
 
 Settings::StandardViewSize Settings::SettingsData::viewerStandardSize() const
 {
-    return (StandardViewSize) value(  STR("Viewer"), STR("standardViewerSize"), (int) FullSize );
+    return (StandardViewSize) value( "Viewer", "standardViewerSize", (int) FullSize );
 }
 
 QString Settings::SettingsData::imageDirectory() const
@@ -153,42 +153,43 @@ QString Settings::SettingsData::imageDirectory() const
 
 Settings::Position Settings::SettingsData::infoBoxPosition() const
 {
-    return (Position) value( STR("Viewer"), STR("infoBoxPosition"), 0 );
+    return (Position) value( "Viewer", "infoBoxPosition", 0 );
 }
 
 void Settings::SettingsData::setInfoBoxPosition( Position pos )
 {
-    setValue( STR("Viewer"), STR("infoBoxPosition"), (int) pos );
+    setValue( "Viewer", "infoBoxPosition", (int) pos );
 }
 
 QString Settings::SettingsData::HTMLBaseDir() const
 {
-    return value( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), QString::fromLocal8Bit(getenv("HOME")) + STR( "/public_html") );
+    return value( groupForDatabase( "HTML Settings" ), "baseDir",
+                  QString::fromLocal8Bit(getenv("HOME")) + STR( "/public_html") );
 }
 
 void Settings::SettingsData::setHTMLBaseDir( const QString& dir )
 {
-    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), dir );
+    setValue( groupForDatabase( "HTML Settings" ), "baseDir", dir );
 }
 
 QString Settings::SettingsData::HTMLBaseURL() const
 {
-    return value( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"),  STR( "file://" ) + HTMLBaseDir() );
+    return value( groupForDatabase( "HTML Settings" ), "baseUrl",  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Settings::SettingsData::setHTMLBaseURL( const QString& url )
 {
-    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"), url );
+    setValue( groupForDatabase( "HTML Settings" ), "baseUrl", url );
 }
 
 QString Settings::SettingsData::HTMLDestURL() const
 {
-    return value( groupForDatabase( STR("HTML Settings") ), STR("destUrl"),  STR( "file://" ) + HTMLBaseDir() );
+    return value( groupForDatabase( "HTML Settings" ), "destUrl",  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Settings::SettingsData::setHTMLDestURL( const QString& url )
 {
-    setValue( groupForDatabase( STR("HTML Settings") ), STR("destUrl"), url );
+    setValue( groupForDatabase( "HTML Settings" ), "destUrl", url );
 }
 
 
@@ -200,7 +201,7 @@ void Settings::SettingsData::setup( const QString& imageDirectory )
 void Settings::SettingsData::setCurrentLock( const DB::ImageSearchInfo& info, bool exclude )
 {
     info.saveLock();
-    setValue( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), exclude );
+    setValue( groupForDatabase( "Privacy Settings" ), "exclude", exclude );
 }
 
 DB::ImageSearchInfo Settings::SettingsData::currentLock() const
@@ -211,29 +212,29 @@ DB::ImageSearchInfo Settings::SettingsData::currentLock() const
 void Settings::SettingsData::setLocked( bool lock, bool force )
 {
     bool changed = ( lock != isLocked() );
-    setValue( groupForDatabase( STR("Privacy Settings") ), STR("locked"), lock );
+    setValue( groupForDatabase( "Privacy Settings" ), "locked", lock );
     if (changed || force )
         emit locked( lock, lockExcludes() );
 }
 
 bool Settings::SettingsData::isLocked() const
 {
-    return value( groupForDatabase( STR("Privacy Settings") ), STR("locked"), false );
+    return value( groupForDatabase( "Privacy Settings" ), "locked", false );
 }
 
 bool Settings::SettingsData::lockExcludes() const
 {
-    return value( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), false );
+    return value( groupForDatabase( "Privacy Settings" ), "exclude", false );
 }
 
 void Settings::SettingsData::setPassword( const QString& passwd )
 {
-    setValue( groupForDatabase( STR("Privacy Settings") ), STR("password"), passwd );
+    setValue( groupForDatabase( "Privacy Settings" ), "password", passwd );
 }
 
 QString Settings::SettingsData::password() const
 {
-    return value( groupForDatabase( STR("Privacy Settings") ), STR("password"), STR("") );
+    return value( groupForDatabase( "Privacy Settings" ), "password", STR("") );
 }
 
 // PENDING(blackie) move this function to Category
@@ -267,10 +268,10 @@ void Settings::SettingsData::setCategoryImage( const QString& category, QString 
     }
 
     // PENDING(blackie) HACK ALERT: Remove all images rather than just these resolutions.
-    QString key = QString::fromLatin1( "64-%2" ).arg(fileName);
+    QString key = STR( "64-%2" ).arg(fileName);
     QPixmapCache::remove( key );
 
-    key = QString::fromLatin1( "128-%2" ).arg(fileName);
+    key = STR( "128-%2" ).arg(fileName);
     QPixmapCache::remove( key );
 }
 
@@ -278,7 +279,7 @@ void Settings::SettingsData::setCategoryImage( const QString& category, QString 
 QPixmap Settings::SettingsData::categoryImage( const QString& category, QString member, int size ) const
 {
     QString fileName = fileForCategoryImage( category, member );
-    QString key = QString::fromLatin1( "%1-%2" ).arg(size).arg(fileName);
+    QString key = STR( "%1-%2" ).arg(size).arg(fileName);
     QPixmap res;
     if ( QPixmapCache::find( key, res ) )
         return res;
@@ -300,25 +301,25 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
 void Settings::SettingsData::setViewSortType( ViewSortType tp )
 {
     bool changed = ( viewSortType() != tp );
-    setValue( STR("General"), STR("viewSortType"), (int) tp );
+    setValue( "General", "viewSortType", (int) tp );
     if ( changed )
         emit viewSortTypeChanged( tp );
 }
 
 ViewSortType Settings::SettingsData::viewSortType() const
 {
-    return (ViewSortType) value( STR("General"), STR("viewSortType"), 0 );
+    return (ViewSortType) value( "General", "viewSortType", 0 );
 }
 
 void Settings::SettingsData::setFromDate( const QDate& date)
 {
     if (date.isValid())
-        setValue( STR("Miscellaneous"), STR("fromDate"), date.toString( Qt::ISODate ) );
+        setValue( "Miscellaneous", "fromDate", date.toString( Qt::ISODate ) );
 }
 
 QDate Settings::SettingsData::fromDate() const
 {
-    QString date = value( STR("Miscellaneous"), STR("fromDate"), STR("") );
+    QString date = value( "Miscellaneous", "fromDate", STR("") );
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year(), 1, 1 );
     else
@@ -328,12 +329,12 @@ QDate Settings::SettingsData::fromDate() const
 void  Settings::SettingsData::setToDate( const QDate& date)
 {
     if (date.isValid())
-        setValue( STR("Miscellaneous"), STR("toDate"), date.toString( Qt::ISODate ) );
+        setValue( "Miscellaneous", "toDate", date.toString( Qt::ISODate ) );
 }
 
 QDate Settings::SettingsData::toDate() const
 {
-    QString date = value( STR("Miscellaneous"), STR("toDate"), STR("") );
+    QString date = value( "Miscellaneous", "toDate", STR("") );
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year()+1, 1, 1 );
     else
@@ -342,7 +343,7 @@ QDate Settings::SettingsData::toDate() const
 
 QString Settings::SettingsData::albumCategory() const
 {
-    QString category = value( STR("General"), STR("albumCategory"), STR("") );
+    QString category = value( "General", "albumCategory", STR("") );
 
     if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
         category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
@@ -354,7 +355,7 @@ QString Settings::SettingsData::albumCategory() const
 
 void Settings::SettingsData::setAlbumCategory( const QString& category )
 {
-    setValue( STR("General"), STR("albumCategory"), category );
+    setValue( "General", "albumCategory", category );
 }
 
 void Settings::SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
@@ -376,37 +377,47 @@ bool Settings::SettingsData::ready()
     return _instance != 0;
 }
 
-int Settings::SettingsData::value( const QString& grp, const QString& option, int defaultValue ) const
+int Settings::SettingsData::value( const char* grp, const char* option, int defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     return config->group( grp ).readEntry<int>( option, defaultValue );
 }
 
-QString Settings::SettingsData::value( const QString& grp, const QString& option, const QString& defaultValue ) const
+QString Settings::SettingsData::value( const char* grp, const char* option, const QString& defaultValue ) const
+{
+    return value( STR(grp), option, defaultValue);
+}
+
+QString Settings::SettingsData::value( const QString& grp, const char* option, const QString& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     return config->group(grp).readEntry<QString>( option, defaultValue );
 }
 
-bool Settings::SettingsData::value( const QString& grp, const QString& option, bool defaultValue ) const
+bool Settings::SettingsData::value( const char* grp, const char* option, bool defaultValue ) const
+{
+    return value( STR(grp), option, defaultValue);
+}
+
+bool Settings::SettingsData::value( const QString& grp, const char* option, bool defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     return config->group(grp).readEntry<bool>( option, defaultValue );
 }
 
-QColor Settings::SettingsData::value( const QString& grp, const QString& option, const QColor& defaultValue ) const
+QColor Settings::SettingsData::value( const char* grp, const char* option, const QColor& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     return config->group(grp).readEntry<QColor>( option, defaultValue );
 }
 
-QSize Settings::SettingsData::value( const QString& grp, const QString& option, const QSize& defaultValue ) const
+QSize Settings::SettingsData::value( const char* grp, const char* option, const QSize& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     return config->group(grp).readEntry<QSize>( option, defaultValue );
 }
 
-StringSet Settings::SettingsData::value(const QString& grp, const QString& option, const StringSet& defaultValue ) const
+StringSet Settings::SettingsData::value(const char* grp, const char* option, const StringSet& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     if ( !config->group(grp).hasKey( option ) )
@@ -414,49 +425,58 @@ StringSet Settings::SettingsData::value(const QString& grp, const QString& optio
     return config->group(grp).readEntry<QStringList>( option, QStringList() );
 }
 
-void Settings::SettingsData::resetValue(const QString& grp,
-                                        const QString& option) {
+void Settings::SettingsData::resetValue(const char* grp, const char* option) {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.deleteEntry( option );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, int value )
+void Settings::SettingsData::setValue( const char* grp, const char* option, int value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QString& value )
+void Settings::SettingsData::setValue( const char* grp, const char* option, const QString& value )
+{
+    setValue( STR(grp), option, value);
+}
+
+void Settings::SettingsData::setValue( const QString& grp, const char* option, const QString& value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, bool value )
+void Settings::SettingsData::setValue( const QString&grp, const char* option, bool value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QColor& value )
+void Settings::SettingsData::setValue( const char* grp, const char* option, bool value )
+{
+    setValue( STR(grp), option, value);
+}
+
+void Settings::SettingsData::setValue( const char* grp, const char* option, const QColor& value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QSize& value )
+void Settings::SettingsData::setValue( const char* grp, const char* option, const QSize& value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value );
     group.sync();
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, const StringSet& value )
+void Settings::SettingsData::setValue( const char* grp, const char* option, const StringSet& value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
     group.writeEntry( option, value.toList() );
@@ -465,27 +485,27 @@ void Settings::SettingsData::setValue( const QString& grp, const QString& option
 
 QSize Settings::SettingsData::histogramSize() const
 {
-    return value( STR("General"), STR("histogramSize"), QSize( 15, 30 ) );
+    return value( "General", "histogramSize", QSize( 15, 30 ) );
 }
 
 void Settings::SettingsData::setHistogramSize( const QSize& size )
 {
     bool changed = (size != histogramSize() );
-    setValue( STR("General"), STR("histogramSize"), size );
+    setValue( "General", "histogramSize", size );
     if (changed)
         emit histogramSizeChanged( size );
 }
 
-QString Settings::SettingsData::windowTypeToString( WindowType tp ) const
+const char* Settings::SettingsData::windowTypeToString( WindowType tp ) const
 {
     switch (tp) {
-    case MainWindow: return STR("MainWindow");
-    case ConfigWindow: return STR("ConfigWindow");
+    case MainWindow:   return "MainWindow";
+    case ConfigWindow: return "ConfigWindow";
     }
-    return STR("");
+    return "";
 }
 
-QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
+QString Settings::SettingsData::groupForDatabase( const char* setting ) const
 {
     return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
@@ -504,29 +524,25 @@ void Settings::SettingsData::setThumbnailCache( int value )
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
     QPixmapCache::clear();
     if (value == defaultThumbnailCache()) {
-        resetValue( QString::fromLatin1( "Thumbnails" ),
-                    QString::fromLatin1( "thumbnailCache" ) );
+        resetValue( "Thumbnails", "thumbnailCache" );
     } else {        
-        setValue( QString::fromLatin1( "Thumbnails" ),
-                  QString::fromLatin1( "thumbnailCache" ),
-                  value );
+        setValue( "Thumbnails", "thumbnailCache", value );
     }
 }
+
 int Settings::SettingsData::thumbnailCache() const
 {
-    return value( QString::fromLatin1( "Thumbnails" ),
-                  QString::fromLatin1( "thumbnailCache" ),
-                  defaultThumbnailCache());
+    return value( "Thumbnails", "thumbnailCache", defaultThumbnailCache());
 }
 
 void Settings::SettingsData::setThumbSize( int value )
 {
     QPixmapCache::clear();
-    setValue( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbSize" ), value );
+    setValue( "Thumbnails", "thumbSize", value );
 }
 int Settings::SettingsData::thumbSize() const
 {
-    return value( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbSize" ), 128 );
+    return value( "Thumbnails", "thumbSize", 128 );
 }
 
 #ifdef SQLDB_SUPPORT

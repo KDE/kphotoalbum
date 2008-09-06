@@ -67,3 +67,15 @@ bool DB::Result::isEmpty() const
     return _items.isEmpty();
 }
 
+int DB::ResultPtr::count() const
+{
+    // This is a debug function from the KSharedPtr class
+    Q_ASSERT( false );
+    return -1;
+}
+
+DB::ResultPtr::ResultPtr( Result* ptr )
+    : KSharedPtr<Result>( ptr )
+{
+}
+

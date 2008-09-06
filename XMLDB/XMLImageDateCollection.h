@@ -20,11 +20,12 @@
 
 #include <QMap>
 #include "DB/ImageDateCollection.h"
+#include "DB/Result.h"
 
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
-    XMLImageDateCollection( const QStringList& );
+    XMLImageDateCollection( const DB::ResultPtr& );
 
 public:
     virtual DB::ImageCount count( const DB::ImageDate& range );

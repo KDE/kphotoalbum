@@ -118,10 +118,10 @@ QDateTime XMLImageDateCollection::upperLimit() const
     return QDateTime( QDate( 2100, 1, 1 ) );
 }
 
-XMLImageDateCollection::XMLImageDateCollection( const QStringList& list )
+XMLImageDateCollection::XMLImageDateCollection( const DB::ResultPtr& list )
 {
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it, DB::AbsolutePath );
+    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
         add( info->date() );
     }
     buildIndex();

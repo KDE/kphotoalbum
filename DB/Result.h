@@ -22,7 +22,7 @@ class Result :public KShared
             const Result* _result;
             int _id;
         };
-
+        typedef ConstIterator const_iterator;
 
         Result( const QList<int>& ids );
         Result();
@@ -40,7 +40,16 @@ class Result :public KShared
         QList<int> _items;
     };
 
-    typedef KSharedPtr<Result> ResultPtr;
+class ResultPtr :public KSharedPtr<Result>
+{
+public:
+    ResultPtr( Result* ptr );
+
+private:
+    int count() const;
+};
+
+
 }
 
 

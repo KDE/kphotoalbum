@@ -77,16 +77,16 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    QStringList list = DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->images());
-    QStringList toBeShown;
+    DB::ResultPtr list = DB::ImageDB::instance()->images();
+    DB::Result* toBeShown = new DB::Result;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
-    dialog.progressBar()->setMaximum( list.count() );
+    dialog.progressBar()->setMaximum( list->count() );
     dialog.progressBar()->setValue(0);
     int progress = 0;
 
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it, DB::AbsolutePath);
+    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
         dialog.progressBar()->setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
@@ -113,7 +113,7 @@ void InvalidDateFinder::accept()
         }
 
         if ( show )
-            toBeShown.append( *it );
+            toBeShown->append( *it );
     }
 
     if ( _dateNotTime->isChecked() ) {
@@ -132,11 +132,7 @@ void InvalidDateFinder::accept()
     else
         delete info;
 
-#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     Window::theMainWindow()->showThumbNails( toBeShown );
-#else // KDAB_TEMPORARILY_REMOVED
-    qFatal("Code commented out in InvalidDateFinder::accept");
-#endif //KDAB_TEMPORARILY_REMOVED
     KDialog::accept();
 }
 

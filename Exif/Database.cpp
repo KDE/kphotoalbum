@@ -296,15 +296,15 @@ void Exif::Database::recreate()
     QDir().remove(exifDBFile());
     init();
 
-    QStringList allImages = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images() );
+    DB::ResultPtr allImages = DB::ImageDB::instance()->images();
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));
-    dialog.setMaximum( allImages.count() );
+    dialog.setMaximum( allImages->count() );
     int i = 0;
-    Q_FOREACH( const QString& fileName, allImages ) {
+    Q_FOREACH( const DB::ResultId& id, *allImages ) {
         dialog.setValue(i++);
-        add(fileName);
+        add(DB::ImageDB::instance()->info(id)->fileName(DB::AbsolutePath));
         if ( i % 10 )
             qApp->processEvents();
     }

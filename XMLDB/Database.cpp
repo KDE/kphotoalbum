@@ -348,7 +348,7 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return KSharedPtr<DB::ImageDateCollection>(
-        new XMLImageDateCollection( CONVERT(searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false )) ) );
+        new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
 }
 
 void XMLDB::Database::reorder( const QString& item, const QStringList& selection, bool after )

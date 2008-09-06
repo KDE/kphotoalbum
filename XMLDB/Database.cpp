@@ -305,7 +305,7 @@ DB::ResultPtr XMLDB::Database::images()
 {
     QList<int> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        result.append( _idMapper[(*it)->fileName()]);
+        result.append( _idMapper[(*it)->fileName(true)]);
     }
     return DB::ResultPtr( new DB::Result(result) );
 }

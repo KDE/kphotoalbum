@@ -141,6 +141,8 @@ public: // Methods that must be overriden
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *
+     * Returns an empty list when the image is not stacked.
+     *
      * They are returned sorted according to their stackOrder.
      * */
     virtual QStringList getStackFor( const QString& referenceImg ) const = 0;

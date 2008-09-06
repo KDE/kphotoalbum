@@ -88,6 +88,7 @@ namespace SQLDB
             UnsignedBigInteger,
             Boolean,
             Decimal,
+            Double,
             Char,
             Varchar,
             Text,

@@ -59,6 +59,8 @@ const char* BaseCSG::getTypeKeyword(const Field& f) const
         return "BOOLEAN";
     case Decimal:
         return "DECIMAL";
+    case Double:
+        return "DOUBLE";
     case Char:
         return "CHAR";
     case Varchar:

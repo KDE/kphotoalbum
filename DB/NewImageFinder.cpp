@@ -112,6 +112,7 @@ QStringList FastDir::entryList() const
 
 void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QString directory )
 {
+    qApp->processEvents( QEventLoop::AllEvents );
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
 
@@ -152,11 +153,13 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
 
 void NewImageFinder::loadExtraFiles()
 {
+    // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
     dialog.setLabelText( i18n("<p><b>Loading information from new files</b></p>"
                               "<p>Depending on the number of images, this may take some time.<br/>"
                               "However, there is only a delay when new images are found.</p>") );
     dialog.setMaximum( _pendingLoad.count() );
+    dialog.setMinimumDuration( 1000 );
 
     int count = 0;
     ImageInfoList newImages;
@@ -224,11 +227,13 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
 bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
+    // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
     dialog.setLabelText( i18n("<p><b>Calculating checksum for %1 files<b></p>"
                               "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
                               "even when you have moved them on the disk.</p>").arg( list.count() ) );
     dialog.setMaximum( list.count() );
+    dialog.setMinimumDuration( 1000 );
 
     int count = 0;
     QStringList cantRead;

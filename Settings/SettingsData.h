@@ -112,9 +112,15 @@ public:
     boolProperty( Thumbnails, thumbnailDisplayGrid, setThumbnailDisplayGrid, false );
     intProperty( Thumbnails, thumbnailSpace, setThumbnailSpace, 1);
 
-    void setThumbnailCache( int value );
-    int thumbnailCache() const;
-    int defaultThumbnailCache() const;
+    void setThumbnailCacheScreens( int screens );
+    int thumbnailCacheScreens() const;
+    size_t thumbnailCacheBytes() const;   // convenience method
+
+    /**
+     * Return an approximate figure of megabytes to cache to be able to
+     * cache the amount of "screens" of caches.
+     */
+    static size_t thumbnailBytesForScreens(int screen);
 
     void setThumbSize( int value );
     int thumbSize() const;
@@ -225,8 +231,6 @@ private:
     QColor value( const char* group, const char* option, const QColor& defaultValue ) const;
     QSize value( const char* group, const char* option, const QSize& defaultValue ) const;
     StringSet value(const char* group, const char* option, const StringSet& defaultValue ) const;
-
-    void resetValue(const char* group, const char* option);
 
     void setValue( const char* group, const char* option, int value );
     void setValue( const char* group, const char* option, const QString& value );

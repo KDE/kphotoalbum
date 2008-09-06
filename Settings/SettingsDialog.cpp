@@ -17,10 +17,13 @@
 */
 
 #include "SettingsDialog.h"
+#include "SettingsDialog.moc"
+
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <qlayout.h>
 #include <qlabel.h>
+
 //Added by qt3to4:
 #include <QHBoxLayout>
 #include <Q3ValueList>
@@ -51,17 +54,17 @@
 #endif
 #include "DB/CategoryCollection.h"
 #include "Utilities/ShowBusyCursor.h"
-#include "SettingsDialog.moc"
+
 #include <kapplication.h>
 #include "MainWindow/Window.h"
 
-#include <config-kpa-exiv2.h>
+#include "config-kpa-exiv2.h"
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #  include "Exif/TreeView.h"
 #endif
 
-#include <config-kpa-sqldb.h>
+#include "config-kpa-sqldb.h"
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/DatabaseAddress.h"
 #  include "SQLDB/SQLSettingsWidget.h"
@@ -220,19 +223,10 @@ void Settings::SettingsDialog::createGeneralPage()
     _showSplashScreen->setWhatsThis( txt );
 }
 
-void Settings::SettingsDialog::slotClickedThumbnailDefaultCacheSize()
+void Settings::SettingsDialog::thumbnailCacheScreenChanged(int value)
 {
-    int defaultCache = Settings::SettingsData::instance()
-        ->defaultThumbnailCache();
-
-    _thumbnailCache->setValue(defaultCache);
-}
-
-void Settings::SettingsDialog::thumbnailCacheSizeChanged( int value )
-{
-    int defaultCache = Settings::SettingsData::instance()
-        ->defaultThumbnailCache();
-    _thumbnailCacheSetDefault->setEnabled( value != defaultCache );
+    _thumbnailMegabyteInfo->setText(i18n("%1 MB", SettingsData::thumbnailBytesForScreens(value) >> 20));
+    _thumbnailCacheScreens->setSuffix( ki18ncp("Thumbnail Cache Screens", " Screen", " Screens").subs(value).toString());
 }
 
 void Settings::SettingsDialog::createThumbNailPage()
@@ -314,19 +308,15 @@ void Settings::SettingsDialog::createThumbNailPage()
 
     // Thumbnail Cache
     ++row;
-    QLabel* cacheLabel = new QLabel( i18n( "Thumbnail cache:" ), top );
-    _thumbnailCache = new QSpinBox;
-    _thumbnailCache->setRange( 1, 4096 );
-    _thumbnailCache->setSuffix( i18n("Mbytes" ) );
-    _thumbnailCacheSetDefault = new KPushButton( i18n("Suggest"), top );
-    connect( _thumbnailCacheSetDefault, SIGNAL( clicked() ),
-             this, SLOT( slotClickedThumbnailDefaultCacheSize() ) );
-    connect( _thumbnailCache, SIGNAL( valueChanged( int ) ),
-             this, SLOT( thumbnailCacheSizeChanged( int ) ) );
+    QLabel* cacheLabel = new QLabel( i18n( "Thumbnail screen cache:" ), top );
+    _thumbnailCacheScreens = new QSpinBox;
+    _thumbnailCacheScreens->setRange( 1, 64 );
+    _thumbnailMegabyteInfo = new QLabel(top);
+    connect( _thumbnailCacheScreens, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailCacheScreenChanged( int ) ) );
 
     lay->addWidget( cacheLabel, row, 0 );
-    lay->addWidget( _thumbnailCache, row, 1 );
-    lay->addWidget( _thumbnailCacheSetDefault, row, 2);
+    lay->addWidget( _thumbnailCacheScreens, row, 1 );
+    lay->addWidget( _thumbnailMegabyteInfo, row, 2 );
 
     lay->setColumnStretch( 1, 1 );
     lay->setRowStretch( ++row, 1 );
@@ -374,9 +364,9 @@ void Settings::SettingsDialog::createThumbNailPage()
     _autoShowThumbnailView->setWhatsThis( txt );
     autoShowLabel->setWhatsThis( txt );
 
-    txt = i18n("<p>Specify the size of the cache used to hold thumbnails.</p>");
+    txt = i18n("<p>Specify number of screens the thumbnail cache should be able to hold.</p>");
     cacheLabel->setWhatsThis( txt );
-    _thumbnailCache->setWhatsThis( txt );
+    _thumbnailCacheScreens->setWhatsThis( txt );
 }
 
 
@@ -498,7 +488,8 @@ void Settings::SettingsDialog::show()
     _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
-    _thumbnailCache->setValue( opt->thumbnailCache() );
+    _thumbnailCacheScreens->setValue( opt->thumbnailCacheScreens() );
+    thumbnailCacheScreenChanged( opt->thumbnailCacheScreens() );
     _smoothScale->setCurrentIndex( opt->smoothScale() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
     _viewerStandardSize->setCurrentIndex( opt->viewerStandardSize() );
@@ -583,7 +574,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setViewerCacheSize( _cacheSize->value() );
     opt->setSmoothScale( _smoothScale->currentIndex() );
-    opt->setThumbnailCache( _thumbnailCache->value() );
+    opt->setThumbnailCacheScreens( _thumbnailCacheScreens->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );

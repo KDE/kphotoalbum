@@ -82,8 +82,7 @@ protected slots:
     void slotRenameGroup();
     void slotPageChange();
     void thumbnailSizeChanged( int );
-    void thumbnailCacheSizeChanged(int);
-    void slotClickedThumbnailDefaultCacheSize();
+    void thumbnailCacheScreenChanged(int);
 
 protected:
     void createGeneralPage();
@@ -124,8 +123,8 @@ private:
     QCheckBox* _displayCategories;
     QCheckBox* _thumbnailDisplayGrid;
     QSpinBox* _autoShowThumbnailView;
-    QSpinBox* _thumbnailCache;
-    KPushButton* _thumbnailCacheSetDefault;
+    QSpinBox* _thumbnailCacheScreens;
+    QLabel* _thumbnailMegabyteInfo;
     KComboBox* _thumbnailAspectRatio;
     QSpinBox* _thumbnailSpace;
 

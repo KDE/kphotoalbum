@@ -72,7 +72,7 @@ Settings::SettingsData::SettingsData( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ),
       _imageDirectory( imageDirectory )
 {
-    QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
+    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
     _smoothScale = value( "Viewer", "smoothScale", true );
 }
 
@@ -424,12 +424,6 @@ StringSet Settings::SettingsData::value(const char* grp, const char* option, con
     return config->group(grp).readEntry<QStringList>( option, QStringList() );
 }
 
-void Settings::SettingsData::resetValue(const char* grp, const char* option) {
-    KConfigGroup group = KGlobal::config()->group(grp);
-    group.deleteEntry( option );
-    group.sync();
-}
-
 void Settings::SettingsData::setValue( const char* grp, const char* option, int value )
 {
     KConfigGroup group = KGlobal::config()->group(grp);
@@ -510,28 +504,27 @@ QString Settings::SettingsData::groupForDatabase( const char* setting ) const
 }
 
 
-int Settings::SettingsData::defaultThumbnailCache() const {
-    QRect screen = QApplication::desktop()->screenGeometry();
-    // We want have approximatly 3 screens worth of pixels stored.
-    const int kFactor = 3;
-    const int kBytesPerPixel = 4;
-    return (screen.width() * screen.height() * kBytesPerPixel * kFactor) >> 20;
+size_t Settings::SettingsData::thumbnailBytesForScreens(int screens) {
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    const size_t kBytesPerPixel = 4;
+    return kBytesPerPixel * screen.width() * screen.height() * screens;
 }
 
-void Settings::SettingsData::setThumbnailCache( int value )
+void Settings::SettingsData::setThumbnailCacheScreens( int screens )
 {
-    QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
+    setValue( "Thumbnails", "thumbnailCacheScreens", screens );
+    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
     QPixmapCache::clear();
-    if (value == defaultThumbnailCache()) {
-        resetValue( "Thumbnails", "thumbnailCache" );
-    } else {        
-        setValue( "Thumbnails", "thumbnailCache", value );
-    }
 }
 
-int Settings::SettingsData::thumbnailCache() const
+int Settings::SettingsData::thumbnailCacheScreens() const
 {
-    return value( "Thumbnails", "thumbnailCache", defaultThumbnailCache());
+    // Three pages sounds good; one before, one after the current screen
+    return value( "Thumbnails", "thumbnailCacheScreens", 3);
+}
+
+size_t Settings::SettingsData::thumbnailCacheBytes() const {
+    return thumbnailBytesForScreens(thumbnailCacheScreens());
 }
 
 void Settings::SettingsData::setThumbSize( int value )

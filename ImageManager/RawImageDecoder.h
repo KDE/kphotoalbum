@@ -19,7 +19,7 @@
 #define RAWIMAGEDECODER_H
 
 #include "ImageDecoder.h"
-#include <Q3Dict>
+#include <QSet>
 
 namespace ImageManager
 {
@@ -30,12 +30,12 @@ public:
 
 	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
-	virtual bool _skipThisFile( const Q3Dict<void>& loadedFiles, const QString& imageFile );
+	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile );
 
 private:
 	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
 	bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
-	bool _fileIsKnownWithExtensions( const Q3Dict<void>& files, const QString& fileName, const QStringList& extensionList ) const;
+	bool _fileIsKnownWithExtensions( const QSet<QString>& files, const QString& fileName, const QStringList& extensionList ) const;
 
 	static QStringList _rawExtensions;
 	static QStringList _standardExtensions;

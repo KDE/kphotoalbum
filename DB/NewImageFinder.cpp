@@ -40,12 +40,11 @@ using namespace DB;
 bool NewImageFinder::findImages()
 {
     // Load the information from the XML file.
-    Q3Dict<void> loadedFiles( 6301 /* a large prime */ );
+    QSet<QString> loadedFiles;
 
     QStringList images = DB::ImageDB::instance()->images();
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        loadedFiles.insert( *it, (void*)0x1 /* void pointer to nothing I never need the value,
-                                               just its existsance, must be != 0x0 though.*/ );
+        loadedFiles << *it;
     }
 
     _pendingLoad.clear();
@@ -111,7 +110,7 @@ QStringList FastDir::entryList() const
     return answer;
 }
 
-void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString directory )
+void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QString directory )
 {
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
@@ -123,12 +122,12 @@ void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString
     FastDir dir( directory );
     QStringList dirList = dir.entryList( );
     ImageManager::RAWImageDecoder dec;
-    for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
+    for( QStringList::const_iterator it = dirList.begin(); it != dirList.end(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
         if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
              (*it) == QString::fromLatin1("ThumbNails") ||
              (*it) == QString::fromLatin1("CategoryImages") ||
-	         loadedFiles.find( file ) ||
+	         loadedFiles.contains( file ) ||
 	         dec._skipThisFile(loadedFiles, file) )
             continue;
 

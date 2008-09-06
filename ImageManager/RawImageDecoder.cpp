@@ -190,7 +190,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 	return false;
 }
 
-bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile )
+bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const
 {
 	// We're not interested in thumbnail and other files.
 	if (_fileEndsWithExtensions(imageFile, _ignoredExtensions)) return true;

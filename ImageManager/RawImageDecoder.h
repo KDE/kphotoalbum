@@ -30,7 +30,7 @@ public:
 
 	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
-	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile );
+	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const;
 
 private:
 	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;

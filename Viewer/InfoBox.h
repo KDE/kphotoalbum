@@ -22,6 +22,10 @@
 #include <QMouseEvent>
 #include "ViewerWidget.h"
 #include <QTextBrowser>
+#include "config-kpa-nepomuk.h"
+#ifdef HAVE_NEPOMUK
+#   include <nepomuk/kratingwidget.h>
+#endif
 class QMenu;
 class QToolButton;
 
@@ -53,6 +57,7 @@ protected:
     void showBrowser();
     void possiblyStartResize(const QPoint& pos);
     void hackLinkColorForQt44();
+    virtual QVariant loadResource( int type, const QUrl& name );
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;
@@ -61,6 +66,9 @@ private:
     bool _hoveringOverLink;
     InfoBoxResizer _infoBoxResizer;
     VisibleOptionsMenu* _menu;
+#ifdef HAVE_NEPOMUK
+    QList<QPixmap> _ratingPixmap;
+#endif
 };
 
 }

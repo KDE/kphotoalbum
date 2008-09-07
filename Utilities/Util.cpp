@@ -60,6 +60,7 @@ extern "C" {
 #include <KMimeType>
 #include <QImageReader>
 #include <kcodecs.h>
+#include "config-kpa-nepomuk.h"
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -115,6 +116,17 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
         }
     }
+
+#ifdef HAVE_NEPOMUK
+    if ( true /* FIXME */ ) {
+        if ( info->rating() != -1 ) {
+            if ( ! result.isEmpty() )
+                result += QString::fromLatin1("<br/>");
+            result += i18n("<img src=\"KRatingWidget://%1\"/>"
+                    ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) ); 
+        }
+    }
+#endif
 
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;

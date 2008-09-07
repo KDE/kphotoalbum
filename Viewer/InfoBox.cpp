@@ -33,6 +33,7 @@
 #include <kdebug.h>
 #include "DB/ImageDB.h"
 #include <qscrollbar.h>
+#include <QBitmap>
 
 using namespace Settings;
 
@@ -58,6 +59,30 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     connect( this, SIGNAL( highlighted(const QString&) ),
              SLOT( linkHovered(const QString&) ));
     _jumpToContext->setCursor( Qt::ArrowCursor );
+
+#ifdef HAVE_NEPOMUK
+    KRatingWidget* rating = new KRatingWidget( 0 );
+    for ( int i = 0; i <= 10; ++i ) {
+        rating->setRating( i );
+        // Workaround for http://trolltech.no/developer/task-tracker/index_html?method=entry&id=142869
+        // There's no real transparency in grabWidget() :(
+        QPixmap pixmap = QPixmap::grabWidget( rating );
+        pixmap.setMask( pixmap.createHeuristicMask() );
+        _ratingPixmap.append( pixmap ) ;
+    }
+    delete rating;
+#endif
+}
+
+QVariant Viewer::InfoBox::loadResource( int type, const QUrl& name )
+{
+#ifdef HAVE_NEPOMUK
+    if ( name.scheme() == QString::fromLatin1( "KRatingWidget" ) ) {
+        short int rating = name.host().toShort();
+        return _ratingPixmap[ rating ];
+    }
+#endif
+    return QTextBrowser::loadResource( type, name );
 }
 
 void Viewer::InfoBox::setSource( const QUrl& which )

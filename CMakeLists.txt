@@ -54,6 +54,10 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
+
+macro_optional_find_package(Nepomuk)
+macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
+
 if(QT_QTSQL_FOUND)
   set(SQLDB_SUPPORT TRUE)
 endif(QT_QTSQL_FOUND)
@@ -270,6 +274,12 @@ if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES} )
 endif(MARBLE_FOUND)
 
+if(NEPOMUK_FOUND)
+    target_link_libraries(kphotoalbum ${NEPOMUK_LIBRARIES} )
+    ADD_DEFINITIONS(${NEPOMUK_DEFINITIONS})
+    INCLUDE_DIRECTORIES(${NEPOMUK_INCLUDE_DIR})
+endif(NEPOMUK_FOUND)
+
 if(SQLDB_SUPPORT)
   target_link_libraries(kphotoalbum SQLDB)
 endif(SQLDB_SUPPORT)
@@ -290,4 +300,4 @@ configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-e
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-sqldb.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-sqldb.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
-
+configure_file(config-kpa-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-nepomuk.h)

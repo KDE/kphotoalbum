@@ -73,11 +73,14 @@
 #include <QDockWidget>
 #include <QTimeEdit>
 #include <QDir>
+#ifdef HAVE_NEPOMUK
+#   include <nepomuk/kratingwidget.h>
+#endif
 
 using Utilities::StringSet;
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
-    : QDialog( parent ), _viewer(0)
+    : QDialog( parent ), _viewer(0), _ratingChanged(false)
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
@@ -239,6 +242,14 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay7->addStretch(1);
     _addTime->hide();
     connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
+
+#ifdef HAVE_NEPOMUK
+    _rating = new KRatingWidget( this );
+    lay2->addStretch(1);
+    lay2->addWidget( _rating, 0, Qt::AlignCenter );
+    _rating->setEnabled( _setup == InputSingleImageConfigMode );
+    connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
+#endif
 
     lay2->addStretch(1);
 
@@ -435,6 +446,11 @@ void AnnotationDialog::Dialog::load()
     _imageLabel->setText( info.label() );
     _description->setText( info.description() );
 
+#ifdef HAVE_NEPOMUK
+    _rating->setRating( qMax( static_cast<short int>(0), info.rating() ) );
+    _ratingChanged = false;
+#endif
+
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
     }
@@ -476,6 +492,13 @@ void AnnotationDialog::Dialog::writeToInfo()
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
+
+#ifdef HAVE_NEPOMUK
+    if ( _ratingChanged ) {
+        info.setRating( _rating->rating() );
+        _ratingChanged = false;
+    }
+#endif
 }
 
 
@@ -498,13 +521,19 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     if ( oneAtATime )  {
         _current = -1;
         slotNext();
+#ifdef HAVE_NEPOMUK
+        _rating->setEnabled( true );
+#endif
     }
     else {
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
         _addTime->show();
-
+#ifdef HAVE_NEPOMUK
+        _rating->setEnabled( false );
+        _rating->setRating( 0 );
+#endif
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
@@ -999,5 +1028,9 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
     return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
 }
 
+void AnnotationDialog::Dialog::slotRatingChanged( unsigned int )
+{
+    _ratingChanged = true;
+}
 
 #include "Dialog.moc"

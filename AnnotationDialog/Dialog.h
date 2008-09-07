@@ -31,6 +31,7 @@
 #include "DB/Category.h"
 #include "enums.h"
 #include <KActionCollection>
+#include "config-kpa-nepomuk.h"
 
 
 class KTextEdit;
@@ -42,6 +43,10 @@ class QSplitter;
 class QPushButton;
 class KLineEdit;
 class KPushButton;
+
+#ifdef HAVE_NEPOMUK
+class KRatingWidget;
+#endif
 
 namespace Viewer
 {
@@ -90,6 +95,7 @@ protected slots:
     void slotResetLayout();
     void slotStartDateChanged( const DB::ImageDate& );
     void slotCopyPrevious();
+    void slotRatingChanged( unsigned int );
 
 protected:
     QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
@@ -148,6 +154,10 @@ private:
     KTextEdit* _description;
     QTimeEdit* _time;
     QPushButton* _addTime;
+#ifdef HAVE_NEPOMUK
+    KRatingWidget* _rating;
+#endif
+    bool _ratingChanged;
 
     KActionCollection* _actions;
 

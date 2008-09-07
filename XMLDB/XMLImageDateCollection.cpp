@@ -18,6 +18,7 @@
 
 #include "XMLImageDateCollection.h"
 #include "DB/ImageDB.h"
+#include "DB/ResultId.h"
 
 void XMLImageDateCollection::add( const DB::ImageDate& date )
 {

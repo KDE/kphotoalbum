@@ -27,6 +27,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/CategoryCollection.h"
+#include "DB/ResultId.h"
 #include "Database.moc"
 #include "XMLCategory.h"
 #include <ksharedptr.h>

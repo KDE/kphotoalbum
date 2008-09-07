@@ -24,6 +24,7 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
+#include "DB/ResultId.h"
 #include "MainWindow/Window.h"
 #include <qapplication.h>
 #include <qeventloop.h>

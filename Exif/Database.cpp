@@ -34,12 +34,12 @@
 #include <QDir>
 #include <QDebug>
 #include <DB/ImageDB.h>
+#include <DB/ResultId.h>
 #include <qfile.h>
 #include "MainWindow/Window.h"
 #include "Utilities/Util.h"
 #include <kmessagebox.h>
 #include <klocale.h>
-#include "DB/ImageDB.h"
 #include <QSqlError>
 
 using namespace Exif;

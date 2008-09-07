@@ -31,7 +31,7 @@ public:
 }  // namespace DB
 
 /** qHash() so that we can put the ResultId in a QSet<>*/
-uint qHash(const DB::ResultId &id) { return id.fileId(); }
+inline uint qHash(const DB::ResultId &id) { return id.fileId(); }
 
 
 #endif /* RESULTID_H */

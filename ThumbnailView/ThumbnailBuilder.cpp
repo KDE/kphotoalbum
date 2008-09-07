@@ -20,6 +20,7 @@
 #include "ThumbnailBuilder.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
+#include "DB/ResultId.h"
 
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
     :QProgressDialog( parent )

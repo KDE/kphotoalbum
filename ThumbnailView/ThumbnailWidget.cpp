@@ -33,6 +33,7 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
+#include "DB/ResultId.h"
 #include "ImageManager/Manager.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "Settings/SettingsData.h"

@@ -24,6 +24,7 @@
 #include <Q3ValueList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
+#include "DB/ResultId.h"
 #include <QProgressBar>
 #include <qapplication.h>
 #include "NewImageFinder.h"

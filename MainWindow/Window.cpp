@@ -87,6 +87,7 @@
 #include "DB/ImageDateCollection.h"
 #include "InvalidDateFinder.h"
 #include "DB/ImageInfo.h"
+#include "DB/ResultId.h"
 #include "Survey/MySurvey.h"
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>

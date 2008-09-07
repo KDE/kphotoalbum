@@ -17,6 +17,7 @@
 */
 #include "NewImageFinder.h"
 #include "DB/ImageDB.h"
+#include "DB/ResultId.h"
 #include <qfileinfo.h>
 #include "Settings/SettingsData.h"
 #include "Browser/BrowserWidget.h"

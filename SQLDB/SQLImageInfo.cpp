@@ -26,7 +26,6 @@ SQLDB::SQLImageInfo::SQLImageInfo(QueryHelper* queryHelper, int fileId):
     _qh(queryHelper),
     _fileId(fileId)
 {
-    load();
 }
 
 void SQLDB::SQLImageInfo::load()

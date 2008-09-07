@@ -26,8 +26,17 @@ namespace SQLDB {
     class SQLImageInfo :public DB::ImageInfo
     {
     protected:
-        friend class SQLImageInfoCollection;
+        friend class QueryHelper;
         SQLImageInfo(QueryHelper* queryHelper, int fileId);
+
+        // used by the QueryHelper.. will be removed when ImageInfo is
+        // refactored
+        void markAsNotNullAndNotDirty()
+        {
+            setIsNull(false);
+            setIsDirty(false);
+        }
+
         void load();
         void saveChanges();
 

@@ -62,9 +62,21 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     // QMutexLocker locker(&_mutex);
     DB::ImageInfoPtr p = _infoPointers[fileId];
     if (!p) {
-        p = new SQLImageInfo(const_cast<QueryHelper*>(&_qh), fileId);
-        _infoPointers.insert(fileId, p);
-        setLocking(p);
+        // TODO: Use real context for prefetching
+
+        // make a dummy prefetch list
+        QList<int> prefetchIdList;
+        for (int i = fileId; i < fileId + 1317; ++i)
+            prefetchIdList << i;
+
+        typedef QMap<int, DB::ImageInfoPtr> IdInfoMap;
+        const IdInfoMap fileInfos = _qh.getInfosOfFiles(prefetchIdList);
+
+        p = fileInfos[fileId];
+        for (IdInfoMap::const_iterator i = fileInfos.begin(); i != fileInfos.end(); ++i) {
+            _infoPointers.insert(i.key(), i.value());
+            setLocking(i.value());
+        }
     }
     return p;
 }

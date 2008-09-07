@@ -26,7 +26,7 @@ public:
 
  private:
     int _fileId;
-    const ConstResultPtr _context;
+    ConstResultPtr _context;
 };
 }  // namespace DB
 

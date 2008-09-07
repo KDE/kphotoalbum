@@ -1,4 +1,6 @@
 #include "Result.h"
+#include "ResultId.h"
+
 #include <QDebug>
 
 DB::Result::ConstIterator::ConstIterator( const Result* result, int id )
@@ -34,7 +36,7 @@ bool DB::Result::ConstIterator::operator!=( const ConstIterator& other )
 
 DB::ResultId DB::Result::item(int index) const
 {
-    return DB::ResultId(_items[index], *this );
+    return DB::ResultId(_items[index], this );
 }
 
 int DB::Result::count() const
@@ -51,15 +53,30 @@ DB::Result::Result()
 {
 }
 
+DB::Result::~Result() 
+{
+}
+
 void DB::Result::debug()
 {
     qDebug() << "Count: " << count();
     qDebug() << _items;
 }
 
-void DB::Result::append( DB::ResultId id)
+void DB::Result::append( const DB::ResultId& id)
 {
     _items.append(id.fileId());
+}
+
+void DB::Result::appendAll( const DB::Result& result)
+{
+    _items += result._items;
+}
+
+
+void DB::Result::prepend( const DB::ResultId& id)
+{
+    _items.prepend(id.fileId());
 }
 
 bool DB::Result::isEmpty() const
@@ -76,6 +93,11 @@ int DB::ResultPtr::count() const
 
 DB::ResultPtr::ResultPtr( Result* ptr )
     : KSharedPtr<Result>( ptr )
+{
+}
+
+DB::ConstResultPtr::ConstResultPtr( const Result* ptr )
+    : KSharedPtr<const Result>( ptr )
 {
 }
 

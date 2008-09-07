@@ -3,10 +3,13 @@
 
 #include <QStringList>
 #include <KSharedPtr>
-#include "DB/ResultId.h"
 
 namespace DB
 {
+class ResultId;
+class ResultPtr;
+class ConstResultPtr;
+
 class Result :public KShared
     {
     public:
@@ -24,10 +27,12 @@ class Result :public KShared
         };
         typedef ConstIterator const_iterator;
 
-        Result( const QList<int>& ids );
         Result();
-        void append( DB::ResultId );
+        Result( const QList<int>& ids );
 
+        void append( const DB::ResultId& );
+        void prepend( const DB::ResultId& );
+        void appendAll( const DB::Result& );
         DB::ResultId item(int index) const;
         int count() const;
         bool isEmpty() const;
@@ -37,6 +42,11 @@ class Result :public KShared
         void debug();
 
     private:
+        // Noone must delete the Result directly. Only SharedPtr may.
+        friend class KSharedPtr<Result>;
+        friend class KSharedPtr<const Result>;
+        ~Result();
+
         QList<int> _items;
     };
 
@@ -44,6 +54,15 @@ class ResultPtr :public KSharedPtr<Result>
 {
 public:
     ResultPtr( Result* ptr );
+
+private:
+    int count() const;
+};
+
+class ConstResultPtr :public KSharedPtr<const Result>
+{
+public:
+    ConstResultPtr( const Result* ptr );
 
 private:
     int count() const;

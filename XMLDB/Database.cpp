@@ -18,6 +18,7 @@
 
 #include "Database.h"
 #include "DB/Result.h"
+#include "DB/ResultId.h"
 #include "Settings/SettingsData.h"
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -683,6 +684,10 @@ QStringList XMLDB::Database::CONVERT( const DB::ResultPtr& items )
         result << Utilities::absoluteImageFileName(_idMapper[items->item(i).fileId()]);
     }
     return result;
+}
+
+DB::ResultId XMLDB::Database::ID_FOR_FILE( const QString& filename) {
+    return DB::ResultId(_idMapper[ Utilities::imageFileNameToRelative(filename)], NULL);
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::ResultId& id)

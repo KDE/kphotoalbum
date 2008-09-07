@@ -675,6 +675,14 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return absoluteImageFileName( fileName );
 }
 
+QString Utilities::imageFileNameToRelative( const QString& fileName )
+{
+    // A bit back and forth, but this function is to go away anyway (hzeller).
+    QString s = imageFileNameToAbsolute(fileName).mid( Settings::SettingsData::instance()->imageDirectory().length());
+    kDebug() << "relative conversion: " << s;
+    return s;
+}
+
 bool operator>( const QPoint& p1, const QPoint& p2)
 {
     return p1.y() > p2.y() || (p1.y() == p2.y() && p1.x() > p2.x() );

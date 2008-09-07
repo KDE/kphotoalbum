@@ -25,6 +25,7 @@
 #include <QDataStream>
 #include <QSet>
 
+// QWERTY: can go now.
 namespace Utilities
 {
     template <class T>

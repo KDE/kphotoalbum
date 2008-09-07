@@ -69,6 +69,7 @@ namespace SQLDB {
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
         OVERRIDE bool isClipboardEmpty();
         OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
+        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& );
 
         OVERRIDE bool stack(const QStringList& files);
         OVERRIDE void unstack(const QStringList& files);

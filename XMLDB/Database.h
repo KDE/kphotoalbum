@@ -66,11 +66,12 @@ namespace XMLDB {
          bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        QStringList CONVERT( const DB::ResultPtr& );
-
         OVERRIDE bool stack( const QStringList& files );
         OVERRIDE void unstack( const QStringList& images );
         OVERRIDE QStringList getStackFor( const QString& referenceImg ) const;
+
+        OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
+        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& );
 
     protected:
         DB::ResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;

@@ -18,6 +18,7 @@
 */
 #include "Database.h"
 #include "DB/Result.h"
+#include "DB/ResultId.h"
 #include "SQLCategory.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
@@ -294,6 +295,10 @@ QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
 {
     // PENDING(blackie) IMPLEMENT
     // QWERTY
+    qFatal("Oppps better implement me!");
+}
+
+DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) {
     qFatal("Oppps better implement me!");
 }
 

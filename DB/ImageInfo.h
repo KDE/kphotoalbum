@@ -36,6 +36,14 @@ namespace Plugins
      class ImageInfo;
 }
 
+namespace XMLDB {
+class Database;
+}
+
+namespace SQLDB {
+class Database;
+}
+
 namespace DB
 {
 using Utilities::StringSet;
@@ -88,7 +96,6 @@ public:
 
     bool isStacked() const { return _stackId != 0; }
     StackID stackId() const;
-    void setStackId( const StackID stackId );
 
     unsigned int stackOrder() const;
     void setStackOrder( const unsigned int stackOrder );
@@ -151,6 +158,12 @@ protected:
     bool isDirty() const { return _dirty; }
     void setIsDirty(bool b)  { _dirty = b; }
     bool updateDateInformation( int mode ) const;
+
+    void setStackId( const StackID stackId );
+    friend class XMLDB::Database;
+#ifdef SQLDB_SUPPORT
+    friend class SQLDB::Database;
+#endif
 
 private:
     friend class Plugins::ImageInfo;

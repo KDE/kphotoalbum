@@ -143,6 +143,12 @@ public:
      */
     QStringList getStackOfFile(QString referenceFile) const;
 
+    /** Get infos of files with given ids.
+     *
+     * \return map from file id to info pointer
+     */
+    QMap<int, DB::ImageInfoPtr> getInfosOfFiles(const QList<int>& idList) const;
+
 protected:
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 

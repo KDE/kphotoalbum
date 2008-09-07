@@ -23,6 +23,7 @@
 
 #include "QueryHelper.h"
 #include "QueryErrors.h"
+#include "SQLImageInfo.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/CategoryMatcher.h"
 #include "Utilities/List.h"
@@ -35,6 +36,7 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <memory>
+#include <QtDebug>
 
 using namespace SQLDB;
 using Utilities::mergeListsUniqly;
@@ -298,67 +300,12 @@ QList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
 {
-    RowData row;
-    try {
-        row =
-            executeQuery(QLatin1String(
-                             "SELECT directory.path, f.filename, f.md5sum, f.type,"
-                             " f.label, f.description,"
-                             " f.time_start, f.time_end, f.width, f.height, f.angle,"
-                             " f.rating, f.stack_id, f.stack_position,"
-                             " f.gps_longitude, f.gps_latitude, f.gps_altitude, f.gps_precision"
-                             " FROM file AS f, directory"
-                             " WHERE f.directory_id=directory.id"
-                             " AND f.id=?"), Bindings() << id).getRow();
-    }
-    catch (RowNotFoundError&) {
-        throw EntryNotFoundError();
-    }
-
-    Q_ASSERT(row.count() == 18);
-
-    info.delaySavingChanges(true);
-
-    info.setFileName(makeFullName(row[0].toString(), row[1].toString()));
-    info.setMD5Sum(DB::MD5(row[2].toString()));
-    info.setMediaType(static_cast<DB::MediaType>(row[3].toInt()));
-    info.setLabel(row[4].toString());
-    info.setDescription(row[5].toString());
-    QDateTime startDate = row[6].toDateTime();
-    QDateTime endDate = row[7].toDateTime();
-    info.setDate(DB::ImageDate(startDate, endDate));
-    int width = row[8].isNull() ? -1 : row[8].toInt();
-    int height = row[9].isNull() ? -1 :row[9].toInt();
-    info.setSize(QSize(width, height));
-    info.setAngle(row[10].toInt());
-    info.setRating(row[11].isNull() ? -1 : row[11].toInt());
-    info.setStackId(row[12].isNull() ? 0 : row[12].toInt());
-    info.setStackOrder(row[13].isNull() ? 0 : row[13].toInt());
-    if (!row[14].isNull() && !row[15].isNull() && !row[16].isNull()) {
-        int precision = row[17].isNull() ? DB::GpsCoordinates::NoPrecisionData : row[17].toInt();
-        info.setGeoPosition(DB::GpsCoordinates(
-                                row[14].toDouble(),
-                                row[15].toDouble(),
-                                row[16].toDouble(),
-                                precision));
-    }
+    qDebug() << "Getting image info of id" << id;
+    const QMap<int, DB::ImageInfoPtr> infos(getInfosOfFiles(QList<int>() << id));
+    if (!infos.isEmpty())
+        info = *infos[id];
     else
-        info.setGeoPosition(DB::GpsCoordinates());
-
-    StringStringList categoryTagPairs =
-        executeQuery(QLatin1String(
-                         "SELECT category.name, tag.name"
-                         " FROM file_tag, category, tag"
-                         " WHERE file_tag.tag_id=tag.id"
-                         " AND category.id=tag.category_id"
-                         " AND file_tag.file_id=?"), Bindings() << id).asStringStringList();
-
-    for (StringStringList::const_iterator i = categoryTagPairs.begin();
-         i != categoryTagPairs.end(); ++i)
-        info.addCategoryInfo((*i).first, (*i).second);
-
-    // TODO: remove debug
-    qDebug("Read info of file %s (id %d)", info.fileName().toLocal8Bit().data(), id);
+        throw EntryNotFoundError();
 }
 
 int QueryHelper::insertTag(int categoryId, const QString& name)
@@ -1297,4 +1244,104 @@ QStringList QueryHelper::getStackOfFile(QString referenceFile) const
     Q_FOREACH(int id, idList)
         fileNames.append(mediaItemFilename(id));
     return fileNames;
+}
+
+QMap<int, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<int>& idList) const
+{
+    // TODO: remove debug
+    qDebug() << "Reading info of files with  ids:" << idList;
+
+    if (idList.isEmpty())
+        return QMap<int, DB::ImageInfoPtr>();
+
+    //qSort(idList.begin(), idList.end());
+
+    QVariant idListVariant(toVariantList(idList));
+
+    Cursor tagDataCursor =
+            executeQuery(QLatin1String(
+                             "SELECT file_tag.file_id, category.name, tag.name"
+                             " FROM file_tag, category, tag"
+                             " WHERE file_tag.tag_id=tag.id"
+                             " AND category.id=tag.category_id"
+                             " AND file_tag.file_id IN (?)"),
+                         Bindings() << idListVariant).cursor();
+
+    typedef QPair<QString, QString> Tag;
+    QMap<int, QSet<Tag> > tagMap;
+
+    for (tagDataCursor.selectFirstRow();
+         tagDataCursor.rowExists();
+         tagDataCursor.selectNextRow()) {
+        const RowData tagRow(tagDataCursor.getCurrentRow());
+        tagMap[tagRow[0].toInt()].insert(qMakePair(tagRow[1].toString(), tagRow[2].toString()));
+    }
+
+    Cursor mainDataCursor =
+        executeQuery(QLatin1String(
+                         "SELECT directory.path, f.filename, f.md5sum, f.type,"
+                         " f.label, f.description,"
+                         " f.time_start, f.time_end, f.width, f.height, f.angle,"
+                         " f.rating, f.stack_id, f.stack_position,"
+                         " f.gps_longitude, f.gps_latitude, f.gps_altitude, f.gps_precision, f.id"
+                         " FROM file AS f, directory"
+                         " WHERE f.directory_id = directory.id"
+                         " AND f.id IN (?)"),
+                     Bindings() << idListVariant).cursor();
+
+    QMap<int, DB::ImageInfoPtr> infos;
+
+    for (mainDataCursor.selectFirstRow();
+         mainDataCursor.rowExists();
+         mainDataCursor.selectNextRow()) {
+        const RowData row(mainDataCursor.getCurrentRow());
+        Q_ASSERT(row.count() == 19);
+
+        const int fileId = row[18].toInt();
+
+        // TODO: remove ugly const cast
+        std::auto_ptr<SQLImageInfo> info(new SQLImageInfo(const_cast<QueryHelper*>(this), fileId));
+
+        info->delaySavingChanges(true);
+
+        info->setFileName(makeFullName(row[0].toString(), row[1].toString()));
+        info->setMD5Sum(DB::MD5(row[2].toString()));
+        info->setMediaType(static_cast<DB::MediaType>(row[3].toInt()));
+        info->setLabel(row[4].toString());
+        info->setDescription(row[5].toString());
+        QDateTime startDate = row[6].toDateTime();
+        QDateTime endDate = row[7].toDateTime();
+        info->setDate(DB::ImageDate(startDate, endDate));
+        int width = row[8].isNull() ? -1 : row[8].toInt();
+        int height = row[9].isNull() ? -1 :row[9].toInt();
+        info->setSize(QSize(width, height));
+        info->setAngle(row[10].toInt());
+        info->setRating(row[11].isNull() ? -1 : row[11].toInt());
+        info->setStackId(row[12].isNull() ? 0 : row[12].toInt());
+        info->setStackOrder(row[13].isNull() ? 0 : row[13].toInt());
+        if (!row[14].isNull() && !row[15].isNull() && !row[16].isNull()) {
+            int precision = row[17].isNull() ? DB::GpsCoordinates::NoPrecisionData : row[17].toInt();
+            info->setGeoPosition(
+                DB::GpsCoordinates(
+                    row[14].toDouble(),
+                    row[15].toDouble(),
+                    row[16].toDouble(),
+                    precision));
+        }
+        else
+            info->setGeoPosition(DB::GpsCoordinates());
+
+        Q_FOREACH(Tag tag, tagMap[fileId])
+            info->addCategoryInfo(tag.first, tag.second);
+
+        info->markAsNotNullAndNotDirty();
+        info->delaySavingChanges(false);  // Doesn't save because isDirty() == false
+
+        infos[fileId] = DB::ImageInfoPtr(info.release());
+    }
+
+    // Note: There might be cases when some (or even any) of the
+    // requested ids are not in the file table and that is not
+    // necessarily an error. So we don't do any checks for that.
+    return infos;
 }

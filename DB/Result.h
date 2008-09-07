@@ -34,7 +34,8 @@ class Result :public KShared
         void prepend( const DB::ResultId& );
         void appendAll( const DB::Result& );
         DB::ResultId item(int index) const;
-        int count() const;
+        int count() const { return size(); }  // deprecated. use size()
+        int size() const;
         bool isEmpty() const;
 
         ConstIterator begin() const;
@@ -45,8 +46,9 @@ class Result :public KShared
         // Noone must delete the Result directly. Only SharedPtr may.
         friend class KSharedPtr<Result>;
         friend class KSharedPtr<const Result>;
-        ~Result();
-
+    public:
+        ~Result();  // ok, seems that this doesn't work yet.
+    private:
         QList<int> _items;
     };
 

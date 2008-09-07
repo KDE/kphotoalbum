@@ -39,9 +39,9 @@ DB::ResultId DB::Result::item(int index) const
     return DB::ResultId(_items[index], this );
 }
 
-int DB::Result::count() const
+int DB::Result::size() const
 {
-    return _items.count();
+    return _items.size();
 }
 
 DB::Result::Result( const QList<int>& ids)

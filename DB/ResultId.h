@@ -10,7 +10,7 @@ namespace SQLDB { class Database;}
 
 namespace DB
 {
-class ResultId {
+class ResultId {   // to be renamed just 'Id' as per discussion in car.
 public:
     static const ResultId null;
 

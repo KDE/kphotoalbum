@@ -74,10 +74,10 @@ public slots:
     void moveInfoBox( int );
 
 protected:
-    virtual void contextMenuEvent ( QContextMenuEvent * e );
-    virtual void resizeEvent( QResizeEvent* );
-    virtual void keyPressEvent( QKeyEvent* );
-    virtual void wheelEvent( QWheelEvent* event );
+    OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );
+    OVERRIDE void resizeEvent( QResizeEvent* );
+    OVERRIDE void keyPressEvent( QKeyEvent* );
+    OVERRIDE void wheelEvent( QWheelEvent* event );
 
     void moveInfoBox();
     void setAsWallpaper(int mode);
@@ -93,6 +93,7 @@ protected:
     void createSlideShowMenu();
     void createVideoMenu();
     void changeSlideShowInterval( int delta );
+    void createVideoViewer();
 
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
@@ -188,6 +189,7 @@ private:
     QList<QAction*> _videoActions;
     KAction* _stop;
     KAction* _playPause;
+    bool _videoPlayerStoppedManually;
 };
 
 }

@@ -88,7 +88,7 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget()
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false)
 {
     setWindowFlags( Qt::Window );
     setAttribute( Qt::WA_DeleteOnClose );
@@ -101,9 +101,7 @@ Viewer::ViewerWidget::ViewerWidget()
     _textDisplay = new TextDisplay( this );
     addWidget( _textDisplay );
 
-    _videoDisplay = new VideoDisplay( this );
-    addWidget( _videoDisplay );
-    connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+    _videoDisplay = 0;
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
@@ -166,8 +164,6 @@ void Viewer::ViewerWidget::setupContextMenu()
     _showExifViewer->setText( i18n("Show EXIF Viewer") );
     _popup->addAction( _showExifViewer );
 #endif
-
-    createVideoMenu();
 
     action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT( close() ) );
     action->setText( i18n("Close") );
@@ -401,8 +397,10 @@ void Viewer::ViewerWidget::load()
     bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
 
     if ( isReadable ) {
-        if ( isVideo )
+        if ( isVideo ) {
+            createVideoViewer();
             _display = _videoDisplay;
+        }
         else
             _display = _imageDisplay;
     } else {
@@ -456,12 +454,14 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
-    if ( _videoDisplay->isPaused() )
-        _playPause->setText(i18n("Play"));
-    else
-        _playPause->setText(i18n("Pause"));
+    if ( _videoDisplay ) {
+        if ( _videoDisplay->isPaused() )
+            _playPause->setText(i18n("Play"));
+        else
+            _playPause->setText(i18n("Pause"));
 
-    _stop->setEnabled( _videoDisplay->isPlaying() );
+        _stop->setEnabled( _videoDisplay->isPlaying() );
+    }
 
     _popup->exec( e->globalPos() );
     e->setAccepted(true);
@@ -469,8 +469,10 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 
 void Viewer::ViewerWidget::showNextN(int n)
 {
-    if ( _display == _videoDisplay )
+    if ( _display == _videoDisplay ) {
+        _videoPlayerStoppedManually = true;
         _videoDisplay->stop();
+    }
 
     if ( _current +1 < (int) _list.count() )  {
         _current += n;
@@ -907,7 +909,9 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
 void Viewer::ViewerWidget::videoStopped()
 {
-    slotSlideShowNext();
+    if ( !_videoPlayerStoppedManually && _isRunningSlideShow )
+        slotSlideShowNext();
+    _videoPlayerStoppedManually=false;
 }
 
 
@@ -1029,6 +1033,16 @@ void Viewer::ViewerWidget::test()
 void Viewer::ViewerWidget::moveInfoBox( int y)
 {
     _infoBox->move( _infoBox->x(), y );
+}
+
+void Viewer::ViewerWidget::createVideoViewer()
+{
+    if ( !_videoDisplay ) {
+        _videoDisplay = new VideoDisplay( this );
+        addWidget( _videoDisplay );
+        connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+        createVideoMenu();
+    }
 }
 
 #include "ViewerWidget.moc"

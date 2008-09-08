@@ -412,6 +412,7 @@ void Viewer::ViewerWidget::load()
     }
 
     setCurrentWidget( _display );
+    _infoBox->raise();
 
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );

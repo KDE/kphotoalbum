@@ -231,21 +231,6 @@ bool Viewer::VideoDisplay::isPlaying() const
 
 void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::State /*oldState*/)
 {
-    if ( newState == Phonon::LoadingState )
-        qDebug("LoadingState ");
-
-    if ( newState == Phonon::StoppedState )
-        qDebug("StoppedState");
-
-    if ( newState == Phonon::PlayingState )
-        qDebug("PlayingState");
-
-    if ( newState == Phonon::BufferingState)
-        qDebug("BufferingState");
-
-    if ( newState == Phonon::PausedState )
-        qDebug("PausedState");
-
     if ( newState == Phonon::ErrorState ) {
         QMessageBox::critical(0, "Error playing media", _mediaObject->errorString(), QMessageBox::Close);
     }

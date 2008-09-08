@@ -57,13 +57,14 @@ void Viewer::SpeedDisplay::go()
 {
     resize( sizeHint() );
     QWidget* p = static_cast<QWidget*>( parent() );
-    move( ( p->width() - width() )/2 + p->x(), ( p->height() - height() )/2 + p->y() );
+    move( ( p->width() - width() )/2, ( p->height() - height() )/2 );
 
     setAlphaChannel( 170, 255 );
     _timer->start( 1000 );
     _timeLine->stop();
 
     show();
+    raise();
 }
 
 void Viewer::SpeedDisplay::end()

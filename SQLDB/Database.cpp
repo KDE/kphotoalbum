@@ -272,6 +272,7 @@ DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr& images,
                                                    bool includeRanges) const
 {
     qFatal("oops implement: SQLDB::Database::findFirstItemInRange()");
+    return DB::ResultId::null;
 #if 0
     // this was the old implementation with strings. The new one could be
     // something like
@@ -308,10 +309,12 @@ QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
     // PENDING(blackie) IMPLEMENT
     // QWERTY
     qFatal("Oppps better implement me! SQLDB::Database::CONVERT()");
+    return QStringList();  // make compiler happy.
 }
 
 DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) {
     qFatal("Oppps better implement me! SQLDB::Database::ID_FOR_FILE()");
+    return DB::ResultId::null; // make compiler happy.
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& ) const

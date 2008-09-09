@@ -341,23 +341,6 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
-QString Utilities::getThumbnailDir( const QString& imageFile ) {
-    return QFileInfo( imageFile ).path() + QString::fromLatin1("/ThumbNails");
-}
-
-QString Utilities::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
-    QFileInfo info( imageFile );
-    while (angle < 0)
-        angle += 360;
-    angle %= 360;
-    return info.path() + QString::fromLatin1("/ThumbNails")+
-        QString::fromLatin1("/%1x%2-%3-%4")
-        .arg(width)
-        .arg(height)
-        .arg(angle)
-        .arg( info.fileName() );
-}
-
 bool Utilities::canReadImage( const QString& fileName )
 {
     return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, true )->name() ).isEmpty() ||

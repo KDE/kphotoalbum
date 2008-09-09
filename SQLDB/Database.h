@@ -49,9 +49,9 @@ namespace SQLDB {
         OVERRIDE DB::ResultPtr images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        OVERRIDE void addToBlockList( const QStringList& list );
+        OVERRIDE void addToBlockList( const DB::ResultPtr& list );
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList( const QStringList& list );
+        OVERRIDE void deleteList( const DB::ResultPtr& list );
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
 
@@ -72,11 +72,11 @@ namespace SQLDB {
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
         OVERRIDE bool isClipboardEmpty();
         OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
-        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& );
+        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
-        OVERRIDE bool stack(const QStringList& files);
-        OVERRIDE void unstack(const QStringList& files);
-        OVERRIDE QStringList getStackFor(const QString& referenceFile) const;
+        OVERRIDE bool stack(const DB::ResultPtr& items);
+        OVERRIDE void unstack(const DB::ResultPtr& items);
+        OVERRIDE DB::ResultPtr getStackFor(const DB::ResultId& referenceFile) const;
 
     protected slots:
         OVERRIDE void lockDB( bool lock, bool exclude );

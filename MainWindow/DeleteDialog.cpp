@@ -28,6 +28,7 @@
 #include "Utilities/Util.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/ShowBusyCursor.h"
+#include "ImageManager/Manager.h"
 
 using namespace MainWindow;
 
@@ -75,7 +76,7 @@ void DeleteDialog::deleteImages()
                 listCouldNotDelete.append (*it );
             } else {
                 listToDelete.append( *it );
-                Utilities::removeThumbNail( *it );
+                ImageManager::Manager::instance()->removeThumbnail( *it );
             }
         } else {
             listToDelete.append( *it );
@@ -89,9 +90,9 @@ void DeleteDialog::deleteImages()
 
     if( ! listToDelete.isEmpty()) {
         if ( _delete_file->isChecked() )
-            DB::ImageDB::instance()->deleteList( listToDelete );
+            DB::ImageDB::instance()->deleteList( DB::ImageDB::instance()->CONVERT_S2R(listToDelete) );
         else
-            DB::ImageDB::instance()->addToBlockList( listToDelete );
+            DB::ImageDB::instance()->addToBlockList( DB::ImageDB::instance()->CONVERT_S2R(listToDelete ));
 
         accept();
 

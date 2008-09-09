@@ -20,6 +20,7 @@
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageDecoder.h"
+#include "ImageManager/Manager.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 
@@ -355,20 +356,6 @@ QString Utilities::getThumbnailFile( const QString& imageFile, int width, int he
         .arg(height)
         .arg(angle)
         .arg( info.fileName() );
-}
-
-void Utilities::removeThumbNail( const QString& imageFile )
-{
-    QFileInfo fi( imageFile );
-    QString path = fi.absolutePath();
-
-    QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( path ) );
-    QStringList matches = dir.entryList( QStringList() << QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
-    for( QStringList::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-        QString thumbnail = QString::fromLatin1( "%1/ThumbNails/%2" ).arg(path).arg(*it);
-        QDir().remove( thumbnail );
-    }
-
 }
 
 bool Utilities::canReadImage( const QString& fileName )

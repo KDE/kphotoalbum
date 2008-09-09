@@ -23,6 +23,9 @@ public:
     inline bool operator==(const ResultId& other) const {
         return other._fileId == _fileId;  // we're only interested in the id.
     }
+    inline bool operator!=(const ResultId& other) const {
+        return other._fileId != _fileId;  // we're only interested in the id.
+    }
     inline bool operator<(const ResultId& other) const {
         return _fileId < other._fileId;
     }

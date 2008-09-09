@@ -73,6 +73,8 @@ public:
                const GpsCoordinates& geoPosition=GpsCoordinates() );
     virtual ~ImageInfo() { saveChanges(); }
 
+    // TODO: this should have a method to access the ID.
+
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
 

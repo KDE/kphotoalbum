@@ -16,25 +16,31 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
-#include "DB/ImageDB.h"
-#include "DB/ResultId.h"
-#include <qfileinfo.h>
-#include "Settings/SettingsData.h"
-#include "Browser/BrowserWidget.h"
-#include "ImageManager/RawImageDecoder.h"
+
 #include <sys/types.h>
 #include <dirent.h>
-#include "Utilities/Util.h"
+
+#include "DB/ImageDB.h"
+#include "DB/ResultId.h"
+
+#include <qfileinfo.h>
 #include <QProgressDialog>
 #include <klocale.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>
-#include <config-kpa-exiv2.h>
+
+#include "config-kpa-exiv2.h"
 #ifdef HAVE_EXIV2
 #  include "Exif/Database.h"
 #endif
+
+#include "Browser/BrowserWidget.h"
+#include "ImageManager/Manager.h"
+#include "ImageManager/RawImageDecoder.h"
+#include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
+
 
 using namespace DB;
 
@@ -263,7 +269,7 @@ bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* m
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
-            Utilities::removeThumbNail( absoluteFileName );
+            ImageManager::Manager::instance()->removeThumbnail( absoluteFileName );
         }
 
         md5Map->insert( md5, info->fileName(true) );

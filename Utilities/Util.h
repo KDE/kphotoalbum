@@ -48,7 +48,6 @@ bool canReadImage( const QString& fileName );
 bool isVideo( const QString& fileName );
 QString getThumbnailDir( const QString& imageFile );
 QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
-void removeThumbNail( const QString& imageFile );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);

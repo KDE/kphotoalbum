@@ -68,7 +68,7 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    QStringList selected( bool keepSortOrderOfDatabase = false );
+    DB::ResultPtr selected( bool keepSortOrderOfDatabase = false );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
@@ -167,8 +167,7 @@ protected:
     QStringList selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
-    // QWERTY: should take DB::ResultPtr
-    void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
+    void launchViewer( DB::ResultPtr mediaList, bool reuse, bool slideShow, bool random );
     void setupStatusBar();
 
 private:

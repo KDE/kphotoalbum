@@ -49,9 +49,9 @@ namespace XMLDB {
         OVERRIDE DB::ResultPtr images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        OVERRIDE void addToBlockList( const QStringList& list );
+        OVERRIDE void addToBlockList( const DB::ResultPtr& list );
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList( const QStringList& list );
+        OVERRIDE void deleteList( const DB::ResultPtr& list );
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
         OVERRIDE DB::MemberMap& memberMap();
@@ -67,12 +67,12 @@ namespace XMLDB {
          bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        OVERRIDE bool stack( const QStringList& files );
-        OVERRIDE void unstack( const QStringList& images );
-        OVERRIDE QStringList getStackFor( const QString& referenceImg ) const;
+        OVERRIDE bool stack( const DB::ResultPtr& items );
+        OVERRIDE void unstack( const DB::ResultPtr& images );
+        OVERRIDE DB::ResultPtr getStackFor( const DB::ResultId& referenceImg ) const;
 
         OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
-        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& );
+        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
     protected:
         DB::ResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
@@ -105,7 +105,8 @@ namespace XMLDB {
         DB::ImageInfoList _clipboard;
 
         DB::StackID _nextStackId;
-        mutable QMap<DB::StackID,QStringList> _stackMap;
+        typedef QMap<DB::StackID, DB::ResultPtr> StackMap;
+        mutable  StackMap _stackMap;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;

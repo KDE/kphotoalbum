@@ -89,6 +89,7 @@
 #include "InvalidDateFinder.h"
 #include "DB/ImageInfo.h"
 #include "DB/ResultId.h"
+#include "DB/Result.h"
 #include "Survey/MySurvey.h"
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
@@ -319,8 +320,8 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    QStringList list = selected();
-    if ( list.size() < 2 ) {
+    DB::ResultPtr list = selected();
+    if ( list->size() < 2 ) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
     }
@@ -350,8 +351,8 @@ void MainWindow::Window::slotCreateImageStack()
 
 void MainWindow::Window::slotUnStackImages()
 {
-    QStringList list = selected();
-    if ( list.isEmpty() )
+    DB::ResultPtr list = selected();
+    if ( list->isEmpty() )
         return;
 
     DB::ImageDB::instance()->unstack( list );
@@ -370,14 +371,14 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    QStringList list = selected();
-    if ( list.count() == 0 )  {
+    DB::ResultPtr list = selected();
+    if ( list->size() == 0 )  {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
     else {
         DB::ImageInfoList images;
-        for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            images.append( DB::ImageDB::instance()->info( *it, DB::AbsolutePath ) );
+        for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+            images.append( DB::ImageDB::instance()->info( *it ) );
         }
         configureImages( images, oneAtATime );
     }
@@ -476,12 +477,12 @@ void MainWindow::Window::slotReReadExifInfo()
 }
 
 
-QStringList MainWindow::Window::selected( bool keepSortOrderOfDatabase )
+DB::ResultPtr MainWindow::Window::selected( bool keepSortOrderOfDatabase )
 {
     if ( _thumbnailView == _stack->visibleWidget() )
-        return DB::ImageDB::instance()->CONVERT(_thumbnailView->selection( keepSortOrderOfDatabase ));
+        return _thumbnailView->selection( keepSortOrderOfDatabase );
     else
-        return QStringList();
+        return new DB::Result();
 }
 
 void MainWindow::Window::slotViewNewWindow()
@@ -495,14 +496,15 @@ void MainWindow::Window::slotViewNewWindow()
  * */
 QStringList MainWindow::Window::selectedOnDisk()
 {
-    QStringList list = selected();
-    if ( list.count() == 0 )
+    DB::ResultPtr list = selected();
+    if ( list->size() == 0 )
         return DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->currentScope( true ) );
 
     QStringList listOnDisk;
-    for( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        if ( DB::ImageInfo::imageOnDisk( *it ) )
-            listOnDisk.append( *it );
+    for( DB::Result::const_iterator it = list->begin(); it != list->end(); ++it ) {
+        QString fileName = DB::ImageDB::instance()->info(*it)->fileName();
+        if ( DB::ImageInfo::imageOnDisk( fileName  ) )
+            listOnDisk.append( fileName );
     }
 
     return listOnDisk;
@@ -513,29 +515,32 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
     launchViewer( selected(), reuse, slideShow, random );
 }
 
-void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slideShow, bool random )
+void MainWindow::Window::launchViewer( DB::ResultPtr mediaList, bool reuse, bool slideShow, bool random )
 {
     int seek = -1;
-    if ( files.count() == 0 ) {
-        files = DB::ImageDB::instance()->CONVERT(_thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder ));
-    } else if ( files.count() == 1 ) {
+    if ( mediaList->size() == 0 ) {
+        mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+    } else if ( mediaList->size() == 1 ) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
-        const QString fileName = ((const QStringList&)files).first();
-        files = DB::ImageDB::instance()->CONVERT(_thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder ));
-        seek = files.indexOf(fileName);
+        DB::ResultId first = *mediaList->begin();
+        mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+        seek = mediaList->indexOf(first);
     }
 
-    if ( !files.count() )
-        files = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->currentScope( false ));
+    if ( mediaList->size() == 0 )
+        mediaList = DB::ImageDB::instance()->currentScope( false );
 
-    if ( !files.count() ) {
+    if ( mediaList->size() == 0 ) {
         KMessageBox::sorry( this, i18n("There are no images to be shown.") );
         return;
     }
 
-    if (random)
-        files = Utilities::shuffleList(files);
+    // Here we switch back to fileName realm for now.
+    QStringList fileNameList = DB::ImageDB::instance()->CONVERT(mediaList);
+
+    if (random)  // QWERTY: shuffle needs to be implemented on ResultPtr
+        fileNameList = Utilities::shuffleList(fileNameList);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {
@@ -547,15 +552,13 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         viewer = new Viewer::ViewerWidget;
 
     viewer->show( slideShow );
-    if (seek == -1)
-        seek = 0;
-    viewer->load( files, seek );
+    viewer->load( fileNameList, seek < 0 ? 0 : seek );
     viewer->raise();
 }
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
+    DB::ImageDB::instance()->sortAndMergeBackIn( DB::ImageDB::instance()->CONVERT(selected( true /* sort with oldest first */ ) ));
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
     DirtyIndicator::markDirty();
 }
@@ -1025,9 +1028,9 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         if ( !mediaId.isNull() )
             info = DB::ImageDB::instance()->info( mediaId );
 
-        externalCommands->populate( info, selected() );
+        externalCommands->populate( info, DB::ImageDB::instance()->CONVERT(selected() ));
         QAction* action = menu.addMenu( externalCommands );
-        if ( info.isNull() && selected().count() == 0 )
+        if ( info.isNull() && selected()->size() == 0 )
             action->setEnabled( false );
 
         menu.exec( QCursor::pos() );
@@ -1174,7 +1177,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    QStringList list = selected();
+    QStringList list = DB::ImageDB::instance()->CONVERT(selected());
     if ( list.count() == 0 )  {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     } else {
@@ -1438,7 +1441,7 @@ QString MainWindow::Window::currentBrowseCategory() const
 void MainWindow::Window::slotSelectionChanged()
 {
 #ifdef HASKIPI
-    _pluginInterface->slotSelectionChanged( selected().count() != 0);
+    _pluginInterface->slotSelectionChanged( selected()->size() != 0);
 #endif
 }
 
@@ -1639,8 +1642,7 @@ void MainWindow::Window::showFeatures()
 
 void MainWindow::Window::showImage( const DB::ResultId& id )
 {
-    QString fileName = DB::ImageDB::instance()->info( id )->fileName();
-    launchViewer( QStringList() << fileName, true, false, false );
+    launchViewer( new DB::Result(id), true, false, false );
 }
 
 void MainWindow::Window::slotBuildThumbnails()

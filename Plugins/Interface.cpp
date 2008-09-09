@@ -45,7 +45,7 @@ KIPI::ImageCollection Plugins::Interface::currentAlbum()
 
 KIPI::ImageCollection Plugins::Interface::currentSelection()
 {
-    if ( MainWindow::Window::theMainWindow()->selected().count() != 0 )
+    if ( MainWindow::Window::theMainWindow()->selected()->size() != 0 )
         return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentSelection ) );
     else
         return KIPI::ImageCollection(0);
@@ -114,8 +114,8 @@ void Plugins::Interface::delImage( const KUrl& url )
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path(), DB::AbsolutePath );
     if ( info ) {
-        QStringList list;
-        list.append( info->fileName() );
+        DB::ResultPtr list = new DB::Result();
+        list->append( DB::ImageDB::instance()->ID_FOR_FILE(info->fileName()) );
         DB::ImageDB::instance()->deleteList( list );
     }
 }

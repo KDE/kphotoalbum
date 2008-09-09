@@ -44,9 +44,18 @@ int DB::Result::size() const
     return _items.size();
 }
 
+int DB::Result::indexOf(const DB::ResultId& id) const
+{
+    return _items.indexOf(id.fileId());
+}
+
 DB::Result::Result( const QList<int>& ids)
     :_items(ids)
 {
+}
+
+DB::Result::Result( const DB::ResultId& id) {
+    _items.push_back(id.fileId());
 }
 
 DB::Result::Result()

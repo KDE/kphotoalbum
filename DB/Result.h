@@ -30,6 +30,7 @@ class Result :public KShared
 
         Result();
         explicit Result( const QList<int>& ids );
+        explicit Result( const DB::ResultId& );
 
         void append( const DB::ResultId& );
         void prepend( const DB::ResultId& );
@@ -37,7 +38,7 @@ class Result :public KShared
         DB::ResultId at(int index) const;
         int size() const;
         bool isEmpty() const;
-
+        int indexOf(const DB::ResultId&) const;
         ConstIterator begin() const;
         ConstIterator end() const;
         void debug();

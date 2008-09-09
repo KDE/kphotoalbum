@@ -49,7 +49,7 @@ KUrl::List Plugins::ImageCollection::images()
         return stringListToUrlList( DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->currentScope( false ) ));
 
     case CurrentSelection:
-        return stringListToUrlList( MainWindow::Window::theMainWindow()->selected() );
+        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(MainWindow::Window::theMainWindow()->selected() ));
 
     case SubClass:
         qFatal( "The subclass should implement images()" );

@@ -146,8 +146,10 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 }
 
-void SQLDB::Database::addToBlockList(const QStringList& list)
+void SQLDB::Database::addToBlockList(const DB::ResultPtr&)
 {
+    qFatal("implement SQLDB::addToBlocklist()");
+#if 0
     QStringList relativePaths = list;
     for (QStringList::iterator i = relativePaths.begin();
          i != relativePaths.end(); ++i) {
@@ -155,6 +157,7 @@ void SQLDB::Database::addToBlockList(const QStringList& list)
     }
     _qh.addIgnoredFiles(relativePaths);
     deleteList(list);
+#endif
 }
 
 bool SQLDB::Database::isBlocking(const QString& fileName)
@@ -162,8 +165,10 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
     return _qh.isIgnored(fileName);
 }
 
-void SQLDB::Database::deleteList( const QStringList& list )
+void SQLDB::Database::deleteList( const DB::ResultPtr& )
 {
+    qFatal("impelement SQLDB::deleteList()");
+#if 0
     if (!list.isEmpty()) {
         for (QStringList::const_iterator i = list.begin();
              i != list.end(); ++i) {
@@ -174,6 +179,7 @@ void SQLDB::Database::deleteList( const QStringList& list )
         }
         emit totalChanged(totalCount());
     }
+#endif
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName, DB::PathType type ) const
@@ -257,7 +263,7 @@ void SQLDB::Database::reorder(const QString& item,
 }
 #endif
 
-void SQLDB::Database::reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after ) {
+void SQLDB::Database::reorder( const DB::ResultId&, const DB::ResultPtr&, bool ) {
     qFatal("not there yet.: SQLDB::Database::reorder()");
 }
 
@@ -267,9 +273,9 @@ void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
 }
 
 // todo: implement.
-DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr& images,
-                                                   const DB::ImageDate& range,
-                                                   bool includeRanges) const
+DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr&,
+                                                   const DB::ImageDate&,
+                                                   bool) const
 {
     qFatal("oops implement: SQLDB::Database::findFirstItemInRange()");
     return DB::ResultId::null;
@@ -312,7 +318,7 @@ QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
     return QStringList();  // make compiler happy.
 }
 
-DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) {
+DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) const {
     qFatal("Oppps better implement me! SQLDB::Database::ID_FOR_FILE()");
     return DB::ResultId::null; // make compiler happy.
 }
@@ -323,8 +329,11 @@ DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& ) const
     return DB::ImageInfoPtr( new DB::ImageInfo() );
 }
 
-bool SQLDB::Database::stack(const QStringList& files)
-{
+bool SQLDB::Database::stack(const DB::ResultPtr&)
+{    
+    qFatal("implement SQLDB::stack()");
+    return false;
+#if 0  // old implementation with files.
     const QStringList relFiles = stripImageDirectoryFromList(files);
     try {
         int newStackId = _qh.stackFiles(relFiles);
@@ -336,16 +345,24 @@ bool SQLDB::Database::stack(const QStringList& files)
     {
         return false;
     }
+#endif
 }
 
-void SQLDB::Database::unstack(const QStringList& files)
+void SQLDB::Database::unstack(const DB::ResultPtr& )
 {
+    qFatal("implement SQLDB::unstack()");
+#if 0  // TODO(Tuomas): implement with ResultPtr.
     _qh.unstackFiles(stripImageDirectoryFromList(files));
+#endif
 }
 
-QStringList SQLDB::Database::getStackFor(const QString& referenceFile) const
+DB::ResultPtr SQLDB::Database::getStackFor(const DB::ResultId&) const
 {
+    qFatal("implement SQLDB::getStackFor()");
+    return new DB::Result();
+#if 0  // TODO(Tuomas) implement with
     return _qh.getStackOfFile(Utilities::stripImageDirectory(referenceFile));
+#endif
 }
 
 #include "Database.moc"

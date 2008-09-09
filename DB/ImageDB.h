@@ -96,9 +96,9 @@ public: // Methods that must be overriden
     virtual ResultPtr images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
 
-    virtual void addToBlockList( const QStringList& list ) = 0;
+    virtual void addToBlockList( const DB::ResultPtr& list ) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;
-    virtual void deleteList( const QStringList& list ) = 0;
+    virtual void deleteList( const DB::ResultPtr& list ) = 0;
     virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
     virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
     virtual MemberMap& memberMap() = 0;
@@ -131,13 +131,19 @@ public: // Methods that must be overriden
      * the stack. The order of images which were already in the stack is not
      * changed.
      * */
-    virtual bool stack( const QStringList& files ) = 0;
+    virtual bool stack( const DB::ResultPtr& items ) = 0;
 
     virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
 
+    // the reverse.
+    virtual DB::ResultPtr CONVERT_S2R( const QStringList &) {
+        qFatal("oops");
+        return new DB::Result();
+    } // QWERTY DIE
+
     // there are some cases in which we have a filename and need to map back
     // to ID. Provided here to push down that part of refactoring.
-    virtual DB::ResultId ID_FOR_FILE( const QString& ) = 0; // QWERTY DIE ?
+    virtual DB::ResultId ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
 
     /** @short Remove all images from whichever stacks they might be in
      *
@@ -146,7 +152,7 @@ public: // Methods that must be overriden
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack( const QStringList& images ) = 0;
+    virtual void unstack( const DB::ResultPtr& images ) = 0;
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *
@@ -154,7 +160,7 @@ public: // Methods that must be overriden
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual QStringList getStackFor( const QString& referenceImg ) const = 0;
+    virtual DB::ResultPtr getStackFor( const DB::ResultId& referenceImg ) const = 0;
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

@@ -49,7 +49,6 @@ public:
     ~BrowserWidget();
     void addSearch( DB::ImageSearchInfo& info );
     void addImageView( const QString& context );
-
     static BrowserWidget* instance();
     void load( const QString& category, const QString& value );
     bool allowSort();

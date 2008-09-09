@@ -232,8 +232,8 @@ bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* m
     QProgressDialog dialog;
     dialog.setLabelText( i18n("<p><b>Calculating checksum for %1 files<b></p>"
                               "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
-                              "even when you have moved them on the disk.</p>").arg( list->count() ) );
-    dialog.setMaximum( list->count() );
+                              "even when you have moved them on the disk.</p>").arg( list->size() ) );
+    dialog.setMaximum( list->size() );
     dialog.setMinimumDuration( 1000 );
 
     int count = 0;

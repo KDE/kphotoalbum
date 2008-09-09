@@ -82,7 +82,7 @@ void InvalidDateFinder::accept()
     DB::Result* toBeShown = new DB::Result;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
-    dialog.progressBar()->setMaximum( list->count() );
+    dialog.progressBar()->setMaximum( list->size() );
     dialog.progressBar()->setValue(0);
     int progress = 0;
 

@@ -22,6 +22,7 @@
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QHash>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPaintEvent>
@@ -30,15 +31,15 @@
 #include <QWheelEvent>
 
 #include "Cell.h"
-#include "DB/ImageInfo.h"
 #include "DB/ImageDate.h"
+#include "DB/ImageInfo.h"
+#include "DB/Result.h"
+#include "DB/ResultId.h"
 #include "GridResizeInteraction.h"
 #include "ImageManager/ImageClient.h"
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
 #include "ThumbnailToolTip.h"
-#include "Utilities/Set.h"
-#include "DB/Result.h"
 
 #include <qmutex.h>
 
@@ -52,6 +53,9 @@ enum SortDirection { NewestFirst, OldestFirst };
 class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
     Q_OBJECT
 
+private:
+    typedef QSet<DB::ResultId> IdSet;
+
 public:
     ThumbnailWidget( QWidget* parent );
     void setImageList( const DB::ResultPtr& list );
@@ -59,29 +63,30 @@ public:
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
     bool thumbnailStillNeeded( const QString& fileName ) const;
-    QStringList selection( bool keepSortOrderOfDatabase = false ) const;
+    DB::ResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
 
     enum Order { ViewOrder, SortedOrder };
-    QStringList imageList( Order ) const;
+    DB::ResultPtr imageList( Order ) const;
     void reload( bool flushCache, bool clearSelection=true );
-    QString fileNameUnderCursor() const;
-    QString currentItem() const;
+    DB::ResultId mediaIdUnderCursor() const;
+    DB::ResultId currentItem() const;
     static ThumbnailWidget* theThumbnailView();
-    void setCurrentItem( const QString& fileName );
+    void setCurrentItem( const DB::ResultId& id );
     void setSortDirection( SortDirection );
 
+    static QString thumbnailPixmapCacheKey(const DB::ResultId& result);
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
     void repaintScreen();
-    void toggleStackExpansion(const QString& filename);
+    void toggleStackExpansion(const DB::ResultId& id);
     void collapseAllStacks();
     void updateDisplayModel();
 
 signals:
-    void showImage( const QString& fileName );
+    void showImage( const DB::ResultId& id );
     void showSelection();
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
@@ -90,20 +95,20 @@ signals:
 
 protected:
     // Painting
-    void updateCell( const QString& fileName );
+    void updateCell( const DB::ResultId& id );
     void updateCell( int row, int col );
     void paintCellBackground( QPainter*, int row, int col );
     void paintCellPixmap( QPainter*, int row, int col );
-    QString thumbnailText( const QString& fileName ) const;
+    QString thumbnailText( const DB::ResultId& mediaId ) const;
     void paintCellText( QPainter*, int row, int col );
     OVERRIDE void viewportPaintEvent( QPaintEvent* );
-    void paintStackedIndicator( QPainter* painter, const QRect &rect, const QString& fileName);
+    void paintStackedIndicator( QPainter* painter, const QRect &rect, const DB::ResultId& mediaId);
 
     // Cell handling methods.
-    QString fileNameInCell( int row, int col ) const;
-    QString fileNameInCell( const Cell& cell ) const;
-    QString fileNameAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
-    Cell positionForFileName( const QString& fileName ) const;
+    DB::ResultId mediaIdInCell( int row, int col ) const;
+    DB::ResultId mediaIdInCell( const Cell& cell ) const;
+    DB::ResultId mediaIdAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
+    Cell positionForMediaId( const DB::ResultId& id ) const;
     Cell cellAtCoordinate( const QPoint& pos, CoordinateSystem ) const;
 
     enum VisibleState { FullyVisible, PartlyVisible };
@@ -112,7 +117,7 @@ protected:
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
     QRect cellDimensions() const;
-    int noOfCategoriesForImage( const QString& image ) const;
+    int noOfCategoriesForImage( const DB::ResultId& mediaId ) const;
     int textHeight( bool reCalc ) const;
     QRect cellTextGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
@@ -138,7 +143,7 @@ protected:
     void selectCell( int row, int col, bool repaint = true );
     void selectCell( const Cell& );
     void clearSelection();
-    void toggleSelection( const QString& fileName );
+    void toggleSelection( const DB::ResultId& id );
     void possibleEmitSelectionChanged();
 
     // Drag and drop
@@ -152,9 +157,9 @@ protected:
     void updateGridSize();
     bool isMovementKey( int key );
     void selectItems( const Cell& start, const Cell& end );
-    void repaintAfterChangedSelection( const StringSet& oldSelection );
+    void repaintAfterChangedSelection( const IdSet& oldSelection );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    QStringList reverseList( const QStringList& ) const;
+    DB::ResultPtr reverseList( const DB::ResultPtr& ) const;
     void updateCellSize();
     void updateIndexCache();
     QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
@@ -174,21 +179,22 @@ private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
 
     /** The input list for images */
-    QStringList _imageList;
+    DB::ResultPtr _imageList;
 
     /**
      * The list of images shown. We do indexed access to this _displayList that has been
      * changed from O(n) to O(1) in Qt4; so it is safe to use this data type.
      */
-    QStringList _displayList;
+    DB::ResultPtr _displayList;
 
     /**
      * A map mapping from filename to its index in _displayList.
      */
-    QMap<QString,int> _fileNameToIndex;
+    QMap<DB::ResultId,int> _idToIndex;
 
-    typedef QMap<DB::StackID, QStringList> StackMap;
-
+    /**
+     * All the stacks that should be shown expanded
+     */
     QSet<DB::StackID> _expandedStacks;
 
     /**
@@ -209,7 +215,7 @@ private:
     /*
      * This set contains the files currently selected.
      */
-    StringSet _selectedFiles;
+    IdSet _selectedFiles;
 
     /**
      * This is the item currently having keyboard focus
@@ -217,7 +223,7 @@ private:
      * We need to store the file name for the current item rather than its
      * coordinates, as coordinates changes when the grid is resized.
      */
-    QString _currentItem;
+    DB::ResultId _currentItem;
 
     static ThumbnailWidget* _instance;
 
@@ -235,23 +241,23 @@ private:
     /**
      * File which should have drop indication point drawn on its left side
      */
-    QString _leftDrop;
+    DB::ResultId _leftDrop;
 
     /**
      * File which should have drop indication point drawn on its right side
      */
-    QString _rightDrop;
+    DB::ResultId _rightDrop;
 
     QTimer* _repaintTimer;
 
     QMutex _pendingRepaintLock;
-    StringSet _pendingRepaint;
+    IdSet _pendingRepaint;
 
     SortDirection _sortDirection;
 
     // For Shift + movement key selection handling
     Cell _cellOnFirstShiftMovementKey;
-    StringSet _selectionOnFirstShiftMovementKey;
+    IdSet _selectionOnFirstShiftMovementKey;
 
     bool _cursorWasAtStackIcon;
 };

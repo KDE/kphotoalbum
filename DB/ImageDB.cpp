@@ -170,7 +170,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     Q3ValueList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
-        progressBar->setMaximum(categories.count() + allImages->count());
+        progressBar->setMaximum(categories.count() + allImages->size());
         progressBar->setValue(0);
     }
 
@@ -234,24 +234,26 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
     }
 }
 
-QString
-ImageDB::findFirstItemInRange(const ImageDate& range,
-                              bool includeRanges,
-                              const QStringList& images) const
+DB::ResultId ImageDB::findFirstItemInRange(const ResultPtr& images,
+                                           const ImageDate& range,
+                                           bool includeRanges) const
 {
-    QString candidate;
+    DB::ResultId candidate;
     QDateTime candidateDateStart;
-    for (QStringList::const_iterator i = images.begin();
-         i != images.end(); ++i) {
-        ImageInfoPtr iInfo = info(*i, DB::AbsolutePath);
+    for (DB::Result::const_iterator it = images->begin();
+         it != images->end(); ++it) {
+        ImageInfoPtr iInfo = info(*it);
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
         if (match == DB::ImageDate::ExactMatch ||
             (includeRanges && match == DB::ImageDate::RangeMatch)) {
             if (candidate.isNull() ||
                 iInfo->date().start() < candidateDateStart) {
-                candidate = *i;
-                candidateDateStart = info(candidate, DB::AbsolutePath)->date().start();
+                candidate = *it;
+                // Looking at this, can't this just be iInfo->date().start()?
+                // Just in the middle of refactoring other stuff, so leaving
+                // this alone now. TODO(hzeller): revisit.
+                candidateDateStart = info(candidate)->date().start();
             }
         }
     }

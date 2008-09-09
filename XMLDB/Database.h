@@ -53,14 +53,15 @@ namespace XMLDB {
         OVERRIDE bool isBlocking( const QString& fileName );
         OVERRIDE void deleteList( const QStringList& list );
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
-        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& );
+        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
         OVERRIDE void sortAndMergeBackIn( const QStringList& fileList );
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
-        OVERRIDE void reorder( const QString& item, const QStringList& cutList, bool after );
+        OVERRIDE void reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after );
+
         OVERRIDE void cutToClipboard( const QStringList& list );
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
          bool isClipboardEmpty();

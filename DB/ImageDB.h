@@ -82,9 +82,9 @@ public:
     static QString NONE();
     ResultPtr currentScope( bool requireOnDisk ) const;
 
-    virtual QString findFirstItemInRange(const ImageDate& range,
-                                         bool includeRanges,
-                                         const QStringList& images) const;
+    virtual DB::ResultId findFirstItemInRange(const ResultPtr& images,
+                                              const ImageDate& range,
+                                              bool includeRanges) const;
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;
@@ -100,7 +100,7 @@ public: // Methods that must be overriden
     virtual bool isBlocking( const QString& fileName ) = 0;
     virtual void deleteList( const QStringList& list ) = 0;
     virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
-    virtual ImageInfoPtr info( const DB::ResultId& ) = 0;
+    virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
@@ -108,7 +108,8 @@ public: // Methods that must be overriden
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
 
-    virtual void reorder( const QString& item, const QStringList& cutList, bool after ) = 0;
+    virtual void reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after ) = 0;
+
     virtual void cutToClipboard( const QStringList& list ) = 0;
     virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
     virtual bool isClipboardEmpty() = 0;

@@ -3,38 +3,38 @@
 
 #include <QDebug>
 
-DB::Result::ConstIterator::ConstIterator( const Result* result, int id )
-    :_result(result), _id(id)
+DB::Result::ConstIterator::ConstIterator( const Result* result, int pos )
+    :_result(result), _pos(pos)
 {
 }
 
 DB::Result::ConstIterator& DB::Result::ConstIterator::operator++()
 {
-    ++_id;
+    ++_pos;
     return *this;
 }
 
 DB::ResultId DB::Result::ConstIterator::operator*()
 {
-    return _result->item(_id);
+    return _result->at(_pos);
 }
 
 DB::Result::ConstIterator DB::Result::begin() const
 {
-    return DB::Result::ConstIterator(this,0);
+    return DB::Result::ConstIterator(this, 0);
 }
 
 DB::Result::ConstIterator DB::Result::end() const
 {
-    return DB::Result::ConstIterator( this, count() );
+    return DB::Result::ConstIterator( this, size() );
 }
 
 bool DB::Result::ConstIterator::operator!=( const ConstIterator& other )
 {
-    return _id != other._id;
+    return _pos != other._pos;
 }
 
-DB::ResultId DB::Result::item(int index) const
+DB::ResultId DB::Result::at(int index) const
 {
     return DB::ResultId(_items[index], this );
 }
@@ -59,7 +59,7 @@ DB::Result::~Result()
 
 void DB::Result::debug()
 {
-    qDebug() << "Count: " << count();
+    qDebug() << "Size: " << size();
     qDebug() << _items;
 }
 

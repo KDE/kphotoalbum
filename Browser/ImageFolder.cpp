@@ -51,8 +51,10 @@ void Browser::ImageFolderAction::action( BrowserItemFactory* )
 {
     MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( _info ) );
 
-    if ( !_context.isNull() )
-        ThumbnailView::ThumbnailWidget::theThumbnailView()->setCurrentItem( _context );
+    if ( !_context.isNull() ) {
+        DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( _context );
+        ThumbnailView::ThumbnailWidget::theThumbnailView()->setCurrentItem( id );
+    }
 }
 
 Browser::FolderAction* Browser::ImageFolder::action( bool /* ctrlDown */ )

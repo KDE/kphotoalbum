@@ -26,7 +26,7 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
     :QProgressDialog( parent )
 {
     DB::ResultPtr images = DB::ImageDB::instance()->images();
-    setMaximum( qMax( images->count() - 1, 0 ) );
+    setMaximum( qMax( images->size() - 1, 0 ) );
     setLabelText( i18n("Generating thumbnails") );
 
     connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelRequests() ) );

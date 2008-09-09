@@ -17,22 +17,23 @@
 */
 
 #include "ThumbnailToolTip.h"
-#include <QTemporaryFile>
+
+#include <Q3Frame>
 #include <QDesktopWidget>
-#include <qcursor.h>
 #include <QEvent>
 #include <QLabel>
-#include <Q3Frame>
-#include "Utilities/Util.h"
-#include <qtooltip.h>
-#include "Settings/SettingsData.h"
+#include <QTemporaryFile>
+#include <QApplication>
+#include <QCursor>
+#include <QToolTip>
 #include <qmime.h>
-#include <qapplication.h>
-#include "ImageManager/Manager.h"
-#include "DB/ImageInfo.h"
-#include "ThumbnailWidget.h"
+
 #include "DB/ImageDB.h"
-#include <kdebug.h>
+#include "DB/ImageInfo.h"
+#include "ImageManager/Manager.h"
+#include "Settings/SettingsData.h"
+#include "ThumbnailWidget.h"
+#include "Utilities/Util.h"
 
 QTemporaryFile* _tmpFileForThumbnailView = 0;
 
@@ -78,10 +79,11 @@ bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 
 void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 {
-    QString fileName = _view->fileNameUnderCursor();
-    if ( fileName.isNull() )
+    DB::ResultId id = _view->mediaIdUnderCursor();
+    if ( id.isNull() )
         return;
-
+    
+    QString fileName = DB::ImageDB::instance()->info( id )->fileName();
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
             setText( QString::null );

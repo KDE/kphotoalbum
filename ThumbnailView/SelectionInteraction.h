@@ -22,13 +22,13 @@
 #include <qobject.h>
 //Added by qt3to4:
 #include <QMouseEvent>
-#include "Utilities/Set.h"
+#include <QSet>
+
 #include "Cell.h"
+#include "DB/ResultId.h"
 
 namespace ThumbnailView
 {
-using Utilities::StringSet;
-
 class ThumbnailWidget;
 
 class SelectionInteraction : public QObject, public MouseInteraction {
@@ -57,6 +57,7 @@ protected slots:
     void calculateSelection( Cell* pos1, Cell* pos2 );
 
 private:
+    typedef QSet<DB::ResultId> IdSet;
     /**
      * This variable contains the position the mouse was pressed down.
      * The point is in contents coordinates.
@@ -68,7 +69,7 @@ private:
      */
     bool _mousePressWasOnIcon;
 
-    StringSet _originalSelectionBeforeDragStart;
+    IdSet _originalSelectionBeforeDragStart;
     ThumbnailWidget* _view;
     QTimer* _dragTimer;
     bool _dragInProgress;

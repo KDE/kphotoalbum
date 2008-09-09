@@ -18,10 +18,6 @@ int DB::ResultId::fileId() const
     return _fileId;
 }
 
-bool DB::ResultId::operator==(const ResultId& other) const {
-    return other._fileId == _fileId;
-}
-
 bool DB::ResultId::isNull() const {
     return _fileId == -1;
 }

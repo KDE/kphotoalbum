@@ -42,6 +42,7 @@ class KActionMenu;
 #  include <libkipi/pluginloader.h>
 #endif
 #include "DB/Result.h"
+#include "DB/ResultId.h"
 
 namespace Plugins { class Interface; }
 namespace ThumbnailView { class ThumbnailWidget; }
@@ -139,7 +140,7 @@ protected slots:
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();
-    void showImage( const QString& fileName );
+    void showImage( const DB::ResultId& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
     void slotRecreateThumbnail();
@@ -166,6 +167,7 @@ protected:
     QStringList selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
+    // QWERTY: should take DB::ResultPtr
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
     void setupStatusBar();
 

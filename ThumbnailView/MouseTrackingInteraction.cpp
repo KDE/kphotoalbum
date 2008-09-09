@@ -19,6 +19,7 @@
 #include "ThumbnailWidget.h"
 //Added by qt3to4:
 #include <QMouseEvent>
+#include "DB/ImageDB.h"
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailWidget* view )
     :_view( view )
@@ -29,7 +30,10 @@ ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailWidg
 void ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     static QString lastFileNameUderCursor;
-    QString fileName = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId id = _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+    if (id.isNull())
+        return;
+    QString fileName = DB::ImageDB::instance()->info( id )->fileName();
     if ( fileName != lastFileNameUderCursor ) {
         emit _view->fileNameUnderCursorChanged( fileName );
         lastFileNameUderCursor = fileName;

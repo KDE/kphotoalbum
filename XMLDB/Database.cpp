@@ -353,10 +353,13 @@ KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
         new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
 }
 
-void XMLDB::Database::reorder( const QString& item, const QStringList& selection, bool after )
-{
+void XMLDB::Database::reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after ) {
+    qFatal("oops, implement: XMLDB::Database::reorder()");
+#if 0
+    // this was the old implementation of reorder.
     DB::ImageInfoList list = takeImagesFromSelection( selection );
     insertList( item, list, after );
+#endif
 }
 
 // The selection is know to be sorted wrt the order in the image list.
@@ -680,8 +683,8 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
 QStringList XMLDB::Database::CONVERT( const DB::ResultPtr& items )
 {
     QStringList result;
-    for ( int i = 0; i < items->count(); ++i ) {
-        result << Utilities::absoluteImageFileName(_idMapper[items->item(i).fileId()]);
+    for ( int i = 0; i < items->size(); ++i ) {
+        result << Utilities::absoluteImageFileName(_idMapper[items->at(i).fileId()]);
     }
     return result;
 }
@@ -690,7 +693,9 @@ DB::ResultId XMLDB::Database::ID_FOR_FILE( const QString& filename) {
     return DB::ResultId(_idMapper[ Utilities::imageFileNameToRelative(filename)], NULL);
 }
 
-DB::ImageInfoPtr XMLDB::Database::info( const DB::ResultId& id)
+DB::ImageInfoPtr XMLDB::Database::info( const DB::ResultId& id) const
 {
+    if (id.isNull())
+        return DB::ImageInfoPtr(NULL);
     return info( _idMapper[id.fileId()],DB::RelativeToImageRoot);
 }

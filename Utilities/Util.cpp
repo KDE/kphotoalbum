@@ -679,7 +679,6 @@ QString Utilities::imageFileNameToRelative( const QString& fileName )
 {
     // A bit back and forth, but this function is to go away anyway (hzeller).
     QString s = imageFileNameToAbsolute(fileName).mid( Settings::SettingsData::instance()->imageDirectory().length());
-    kDebug() << "relative conversion: " << s;
     return s;
 }
 

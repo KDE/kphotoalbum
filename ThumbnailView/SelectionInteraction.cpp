@@ -16,15 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionInteraction.h"
+
 #include <qtimer.h>
 //Added by qt3to4:
 #include <QMouseEvent>
-#include "ThumbnailWidget.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <kurl.h>
-#include <kdebug.h>
-#include <MainWindow/Window.h>
+
+#include "DB/ImageDB.h"
+#include "DB/Result.h"
+#include "DB/ResultId.h"
+#include "MainWindow/Window.h"
+#include "ThumbnailWidget.h"
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailWidget* view )
     :_view( view ), _dragInProgress( false ), _dragSelectionInProgress( false )
@@ -38,14 +42,14 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = _view->viewportToContents( event->pos() );
-    QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId mediaId = _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
 
-    if ( deselectSelection( event ) && !_view->_selectedFiles.contains( file ) )
+    if ( deselectSelection( event ) && !_view->_selectedFiles.contains( mediaId ) )
         clearSelection();
 
-    if ( !file.isNull() ) {
+    if ( !mediaId.isNull() ) {
         if ( event->modifiers() & Qt::ShiftModifier )
-            _view->selectAllCellsBetween( _view->positionForFileName( _view->_currentItem ),
+            _view->selectAllCellsBetween( _view->positionForMediaId( _view->_currentItem ),
                                           _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
 
         _originalSelectionBeforeDragStart = _view->_selectedFiles;
@@ -54,10 +58,10 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
         // toggled. This is done in the release event, not here.
         if ( !( event->modifiers() & Qt::ControlModifier ) )
             // Otherwise add file to selected files.
-            _view->_selectedFiles.insert( file );
+            _view->_selectedFiles.insert( mediaId );
 
-        _view->_currentItem = file;
-        _view->updateCell( file );
+        _view->_currentItem = mediaId;
+        _view->updateCell( mediaId );
     }
     _view->possibleEmitSelectionChanged();
 
@@ -86,26 +90,26 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 
 void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
-    QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId mediaId = _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
-        if ( _view->_selectedFiles.contains( file ) && (event->button() & Qt::LeftButton) )
-            _view->_selectedFiles.erase( file );
+        if ( _view->_selectedFiles.contains( mediaId ) && (event->button() & Qt::LeftButton) )
+            _view->_selectedFiles.remove( mediaId );
         else
-            _view->_selectedFiles.insert( file );
-        _view->updateCell( file );
+            _view->_selectedFiles.insert( mediaId );
+        _view->updateCell( mediaId );
     }
     else {
         if ( !_dragSelectionInProgress &&
-             deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
+             deselectSelection( event ) && _view->_selectedFiles.contains( mediaId ) ) {
             // Unselect everything but the file
-            StringSet oldSelection = _view->_selectedFiles;
-            oldSelection.erase( file );
+            IdSet oldSelection = _view->_selectedFiles;
+            oldSelection.remove( mediaId );
             _view->_selectedFiles.clear();
-            _view->_selectedFiles.insert( file );
+            _view->_selectedFiles.insert( mediaId );
             _originalSelectionBeforeDragStart.clear();
-            _originalSelectionBeforeDragStart.insert( file );
-            for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+            _originalSelectionBeforeDragStart.insert( mediaId );
+            for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
                 _view->updateCell( *it );
             }
         }
@@ -125,7 +129,7 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
     Cell pos2;
     calculateSelection( &pos1, &pos2 );
 
-    _view->_currentItem = _view->fileNameInCell( pos2 );
+    _view->_currentItem = _view->mediaIdInCell( pos2 );
 
     // Auto scroll
     QPoint viewportPos = _view->viewport()->mapFromGlobal( QCursor::pos() );
@@ -134,16 +138,16 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
     else if ( viewportPos.y() > _view->height() )
         _view->scrollBy( 0, (viewportPos.y() - _view->height())/3 );
 
-    StringSet oldSelection = _view->_selectedFiles;
+    IdSet oldSelection = _view->_selectedFiles;
     _view->_selectedFiles = _originalSelectionBeforeDragStart;
     _view->selectAllCellsBetween( pos1, pos2, false );
 
-    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_view->_selectedFiles.contains( *it ) )
             _view->updateCell( *it );
     }
 
-    for( StringSet::const_iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
+    for( IdSet::const_iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
         if ( !oldSelection.contains( *it ) )
             _view->updateCell( *it );
     }
@@ -163,9 +167,10 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     QList<QUrl> l;
-    QStringList selected = _view->selection();
-    for( QStringList::Iterator fileIt = selected.begin(); fileIt != selected.end(); ++fileIt ) {
-        l.append( QUrl(*fileIt) );
+    DB::ResultPtr selected = _view->selection();
+    for( DB::Result::ConstIterator idIt = selected->begin(); idIt != selected->end(); ++idIt ) {
+        QString fileName = DB::ImageDB::instance()->info( *idIt )->fileName();
+        l.append( QUrl(fileName) );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;
@@ -264,7 +269,7 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
         return false;
 
     // right mouse button on a selected image should not clear
-    if ( (event->button() & Qt::RightButton) && _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
+    if ( (event->button() & Qt::RightButton) && _view->_selectedFiles.contains( _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates ) ) )
         return false;
 
     // otherwise deselect
@@ -274,10 +279,10 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
 void ThumbnailView::SelectionInteraction::clearSelection()
 {
     // Unselect every thing
-    StringSet oldSelection = _view->_selectedFiles;
+    IdSet oldSelection = _view->_selectedFiles;
     _view->_selectedFiles.clear();
     _originalSelectionBeforeDragStart.clear();
-    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         _view->updateCell( *it );
     }
 }

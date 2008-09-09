@@ -248,11 +248,17 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
                                      )));
 }
 
+#if 0  // the old implementation of reorder().
 void SQLDB::Database::reorder(const QString& item,
                               const QStringList& selection, bool after)
 {
     _qh.moveMediaItems(stripImageDirectoryFromList(selection),
                        Utilities::stripImageDirectory(item), after);
+}
+#endif
+
+void SQLDB::Database::reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after ) {
+    qFatal("not there yet.: SQLDB::Database::reorder()");
 }
 
 void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
@@ -260,19 +266,25 @@ void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
     _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
 }
 
-QString SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
-                                              bool includeRanges,
-                                              const QStringList& images) const
+// todo: implement.
+DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr& images,
+                                                   const DB::ImageDate& range,
+                                                   bool includeRanges) const
 {
+    qFatal("oops implement: SQLDB::Database::findFirstItemInRange()");
+#if 0
+    // this was the old implementation with strings. The new one could be
+    // something like
+    // select id from mediaid where timestamp between range.min and range.max and id in (idlist-from-images) order by timestamp limit 1
     QList<int> idList;
-    for (QStringList::const_iterator i = images.begin();
-         i != images.end(); ++i) {
+    for (DB::Result::const_iterator i = images->begin();
+         i != images->end(); ++i) {
         idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
     }
     return Settings::SettingsData::instance()->imageDirectory() +
         _qh.findFirstFileInTimeRange(range, includeRanges, idList);
+#endif
 }
-
 
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
 {
@@ -295,14 +307,14 @@ QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
 {
     // PENDING(blackie) IMPLEMENT
     // QWERTY
-    qFatal("Oppps better implement me!");
+    qFatal("Oppps better implement me! SQLDB::Database::CONVERT()");
 }
 
 DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) {
-    qFatal("Oppps better implement me!");
+    qFatal("Oppps better implement me! SQLDB::Database::ID_FOR_FILE()");
 }
 
-DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& )
+DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& ) const
 {
     // PENDING(blackie) implement //QWERTY
     return DB::ImageInfoPtr( new DB::ImageInfo() );

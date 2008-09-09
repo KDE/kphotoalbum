@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+
 #include "StatisticsDialog.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
@@ -171,7 +172,7 @@ MainWindow::Window::Window( QWidget* parent )
              this, SLOT( setDateRange( const DB::ImageDate& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
-    connect( _thumbnailView, SIGNAL( showImage( const QString& ) ), this, SLOT( showImage( const QString& ) ) );
+    connect( _thumbnailView, SIGNAL( showImage( const DB::ResultId& ) ), this, SLOT( showImage( const DB::ResultId& ) ) );
     connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
     connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
@@ -478,7 +479,7 @@ void MainWindow::Window::slotReReadExifInfo()
 QStringList MainWindow::Window::selected( bool keepSortOrderOfDatabase )
 {
     if ( _thumbnailView == _stack->visibleWidget() )
-        return _thumbnailView->selection( keepSortOrderOfDatabase );
+        return DB::ImageDB::instance()->CONVERT(_thumbnailView->selection( keepSortOrderOfDatabase ));
     else
         return QStringList();
 }
@@ -516,12 +517,12 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
 {
     int seek = -1;
     if ( files.count() == 0 ) {
-        files = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+        files = DB::ImageDB::instance()->CONVERT(_thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder ));
     } else if ( files.count() == 1 ) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
         const QString fileName = ((const QStringList&)files).first();
-        files = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+        files = DB::ImageDB::instance()->CONVERT(_thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder ));
         seek = files.indexOf(fileName);
     }
 
@@ -1020,9 +1021,9 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = DB::ImageInfoPtr( 0 );
-        QString fileName = _thumbnailView->fileNameUnderCursor();
-        if ( !fileName.isNull() )
-            info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+        DB::ResultId mediaId = _thumbnailView->mediaIdUnderCursor();
+        if ( !mediaId.isNull() )
+            info = DB::ImageDB::instance()->info( mediaId );
 
         externalCommands->populate( info, selected() );
         QAction* action = menu.addMenu( externalCommands );
@@ -1159,7 +1160,7 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
-    QStringList selection = _thumbnailView->selection();
+    QStringList selection = DB::ImageDB::instance()->CONVERT(_thumbnailView->selection());
 
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
     _configOneAtATime->setEnabled(selection.count() >= 1 );
@@ -1514,8 +1515,10 @@ void MainWindow::Window::showDateBarTip( const QString& msg )
 
 void MainWindow::Window::slotJumpToContext()
 {
-    QString fileName =_thumbnailView->currentItem();
-    if ( !fileName.isNull() ) {
+    DB::ResultId id =_thumbnailView->currentItem();
+    if ( !id.isNull() ) {
+        // QWERTY: addImageView should take id as well.
+        QString fileName = DB::ImageDB::instance()->info( id )->fileName();
         _browser->addImageView( fileName );
    }
 }
@@ -1549,7 +1552,7 @@ void MainWindow::Window::possibleRunSuvey()
 void MainWindow::Window::showThumbNails( const DB::ResultPtr& items )
 {
     _thumbnailView->setImageList( items );
-    _partial->setMatchCount( items->count() );
+    _partial->setMatchCount( items->size() );
     showThumbNails();
 }
 
@@ -1634,8 +1637,9 @@ void MainWindow::Window::showFeatures()
     dialog.exec();
 }
 
-void MainWindow::Window::showImage( const QString& fileName )
+void MainWindow::Window::showImage( const DB::ResultId& id )
 {
+    QString fileName = DB::ImageDB::instance()->info( id )->fileName();
     launchViewer( QStringList() << fileName, true, false, false );
 }
 

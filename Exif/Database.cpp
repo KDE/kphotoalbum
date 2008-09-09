@@ -300,7 +300,7 @@ void Exif::Database::recreate()
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));
-    dialog.setMaximum( allImages->count() );
+    dialog.setMaximum( allImages->size() );
     int i = 0;
     Q_FOREACH( const DB::ResultId& id, *allImages ) {
         dialog.setValue(i++);

@@ -1,5 +1,5 @@
-#ifndef RESULT_H
-#define RESULT_H
+#ifndef DB_RESULT_H
+#define DB_RESULT_H
 
 #include <QStringList>
 #include <KSharedPtr>
@@ -10,31 +10,31 @@ class ResultId;
 class ResultPtr;
 class ConstResultPtr;
 
+// TODO: to be renamed to ListId as per discussion in car
 class Result :public KShared
     {
     public:
         class ConstIterator
         {
         public:
-            ConstIterator( const Result* result, int id );
+            ConstIterator( const Result* result, int pos );
             ConstIterator& operator++();
             DB::ResultId operator*();
             bool operator!=( const ConstIterator& other );
 
         private:
             const Result* _result;
-            int _id;
+            int _pos;
         };
         typedef ConstIterator const_iterator;
 
         Result();
-        Result( const QList<int>& ids );
+        explicit Result( const QList<int>& ids );
 
         void append( const DB::ResultId& );
         void prepend( const DB::ResultId& );
         void appendAll( const DB::Result& );
-        DB::ResultId item(int index) const;
-        int count() const { return size(); }  // deprecated. use size()
+        DB::ResultId at(int index) const;
         int size() const;
         bool isEmpty() const;
 
@@ -58,7 +58,7 @@ public:
     ResultPtr( Result* ptr );
 
 private:
-    int count() const;
+    int count() const;  // You certainly meant to call ->size() ?!
 };
 
 class ConstResultPtr :public KSharedPtr<const Result>
@@ -67,12 +67,12 @@ public:
     ConstResultPtr( const Result* ptr );
 
 private:
-    int count() const;
+    int count() const;  // You certainly meant to call ->size() ?!
 };
 
 
-}
+}  // namespace DB
 
 
-#endif /* RESULT_H */
+#endif /* DB_RESULT_H */
 

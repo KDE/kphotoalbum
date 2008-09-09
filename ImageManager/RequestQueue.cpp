@@ -47,7 +47,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 removeRequest( request );
                 delete request;
             } else {
-                _uniquePending.erase( request );
+                _uniquePending.remove( request );
                 return request;
             }
         } 
@@ -63,7 +63,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
         if ( client == request->client() && ( action == StopAll || ( request->priority() < ThumbnailVisible ) ) ) {
-            _activeRequests.erase( request );
+            _activeRequests.remove( request );
             // active requests are not deleted - they might already have been
             // popNext()ed and are being processed. They will be deleted
             // in Manger::customEvent().
@@ -75,7 +75,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
             ImageRequest* request = *it;
             if ( request->client() == client && ( action == StopAll || request->priority() < ThumbnailVisible ) ) {
                 it = qit->erase( it );
-                _uniquePending.erase( request );
+                _uniquePending.remove( request );
                 delete request;
             } else {
                 ++it;
@@ -91,8 +91,8 @@ bool ImageManager::RequestQueue::isRequestStillValid( ImageRequest* request )
 
 void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 {
-    _activeRequests.erase( request );
-    _uniquePending.erase( request );
+    _activeRequests.remove( request );
+    _uniquePending.remove( request );
 }
 
 ImageManager::RequestQueue::RequestQueue()

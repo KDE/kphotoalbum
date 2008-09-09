@@ -51,11 +51,6 @@ namespace Utilities
             Base::insert(x);
         }
 
-        void erase(const T& x)
-        {
-            Base::remove(x);
-        }
-
         typename Base::iterator erase(typename Base::iterator x)
         {
             return Base::erase(x);

@@ -517,7 +517,7 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet
     for ( StringSet::const_iterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
         if ( _categoryInfomation[category].contains( *valueIt ) ) {
             _dirty = true;
-            _categoryInfomation[category].erase(*valueIt);
+            _categoryInfomation[category].remove(*valueIt);
         }
     }
     saveChangesIfNotDelayed();
@@ -536,7 +536,7 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& 
 {
     if ( _categoryInfomation[category].contains( value ) ) {
         _dirty = true;
-        _categoryInfomation[category].erase( value );
+        _categoryInfomation[category].remove( value );
     }
     saveChangesIfNotDelayed();
 }

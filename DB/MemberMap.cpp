@@ -159,10 +159,10 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
     groupMap.insert(newName,_members[category][oldName] );
     groupMap.remove( oldName );
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
-        StringSet& list = it.value();
-        if ( list.contains( oldName ) ) {
-            list.erase( oldName );
-            list.insert( newName );
+        StringSet& set = it.value();
+        if ( set.contains( oldName ) ) {
+            set.remove( oldName );
+            set.insert( newName );
         }
     }
 }
@@ -180,7 +180,7 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
-        items.erase( name );
+        items.remove( name );
     }
     _members[category->name()].remove(name);
 }
@@ -197,7 +197,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
         if (items.contains( oldName ) ) {
-            items.erase( oldName );
+            items.remove( oldName );
             items.insert( newName );
         }
     }
@@ -267,7 +267,7 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
 {
     Q_ASSERT( _members.contains(category) );
     if ( _members[category].contains( group ) )
-        _members[category][group].erase( item );
+        _members[category][group].remove( item );
     _dirty = true;
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();

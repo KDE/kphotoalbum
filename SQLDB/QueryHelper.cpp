@@ -1170,7 +1170,9 @@ QueryHelper::classify(const QString& category,
             //if ( !alreadyMatched[ *listIt ] ) // We do not want to match "Jesper & Jesper"
                 result[ *listIt ]++;
         }
-        counter.count( list );
+        // TODO: can we do the whole stuff here without list and directly with
+        // a set ? So that we don't have to convert it back and forth.
+        counter.count( StringSet(list) );
     }
 
     const QMap<QString, uint> groups = counter.result();

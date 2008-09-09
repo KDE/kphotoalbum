@@ -21,22 +21,6 @@
 #include "Set.h"
 
 template <class T>
-void Utilities::Set<T>::insert(const QList<T>& list)
-{
-    Q_FOREACH(const T& val, list)
-        insert(val);
-}
-
-template <class T>
-QList<T> Utilities::Set<T>::toList() const
-{
-    QList<T> l;
-    Q_FOREACH(const T& x, *this)
-        l.push_back(x);
-    return l;
-}
-
-template <class T>
 QDataStream& operator<<(QDataStream& stream, const Utilities::Set<T>& data)
 {
     stream << static_cast<qint16>(data.size());

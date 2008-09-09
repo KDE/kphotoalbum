@@ -102,7 +102,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
     if ( _info ) {
         for( QMap<QString,QVariant>::ConstIterator it = map.begin(); it != map.end(); ++it ) {
             QStringList list = it.value().toStringList();
-            _info->addCategoryInfo( it.key(), list );
+            _info->addCategoryInfo( it.key(), list.toSet() );
         }
         MainWindow::DirtyIndicator::markDirty();
     }

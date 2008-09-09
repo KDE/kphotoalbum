@@ -41,9 +41,8 @@ namespace Utilities
         {
         }
 
-        Set(const QList<T>& list)
-        {
-            insert(list);
+        explicit Set(const QList<T>& list) : QSet<T>(list.toSet()) {
+            /* nop */
         }
 
         void insert(const T& x)
@@ -55,10 +54,6 @@ namespace Utilities
         {
             return Base::erase(x);
         }
-
-        void insert(const QList<T>& list);
-
-        QList<T> toList() const;
 
         Set<T>& operator+=(const Set<T>& other)
         {

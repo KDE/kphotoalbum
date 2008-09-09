@@ -36,8 +36,11 @@ public:
     MemberMap( const MemberMap& );
     virtual MemberMap& operator=( const MemberMap& );
 
+    // TODO: this should return a StringSet
     virtual QStringList groups( const QString& category ) const;
     virtual void deleteGroup( const QString& category, const QString& name );
+
+    // TODO: this should return a StringSet
     virtual QStringList members( const QString& category, const QString& memberGroup, bool closure ) const;
     virtual void setMembers( const QString& category, const QString& memberGroup, const QStringList& members );
     virtual bool isEmpty() const;

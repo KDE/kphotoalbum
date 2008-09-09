@@ -59,11 +59,11 @@ QStringList MemberMap::members( const QString& category, const QString& memberGr
 
 void MemberMap::setMembers( const QString& category, const QString& memberGroup, const QStringList& members )
 {
-    QStringList allowedMembers(members);
+    StringSet allowedMembers(members);
 
     for (QStringList::const_iterator i = members.begin(); i != members.end(); ++i)
         if (!canAddMemberToGroup(category, memberGroup, *i))
-            allowedMembers.removeAll(*i);
+            allowedMembers.remove(*i);
 
     _members[category][memberGroup] = allowedMembers;
     _dirty = true;
@@ -113,7 +113,7 @@ QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, c
             result += resultSoFar[*it];
         }
         else if ( isGroup(category, *it ) ) {
-            result += calculateClosure( resultSoFar, category, *it );
+            result += StringSet(calculateClosure( resultSoFar, category, *it ));
         }
     }
 
@@ -276,7 +276,7 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
 void MemberMap::addGroup( const QString& category, const QString& group )
 {
     if ( ! _members[category].contains( group ) ) {
-        _members[category].insert( group, QStringList() );
+        _members[category].insert( group, StringSet() );
     }
 }
 

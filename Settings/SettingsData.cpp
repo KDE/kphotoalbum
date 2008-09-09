@@ -421,7 +421,7 @@ StringSet Settings::SettingsData::value(const char* grp, const char* option, con
     KSharedConfigPtr config = KGlobal::config();
     if ( !config->group(grp).hasKey( option ) )
         return defaultValue;
-    return config->group(grp).readEntry<QStringList>( option, QStringList() );
+    return config->group(grp).readEntry<QStringList>( option, QStringList() ).toSet();
 }
 
 void Settings::SettingsData::setValue( const char* grp, const char* option, int value )

@@ -1013,7 +1013,7 @@ void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListS
 QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( ListSelect* listSel, const DB::ImageInfoList& images )
 {
     const QString category = listSel->category();
-    const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories();
+    const StringSet allItems = StringSet(DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories());
     StringSet itemsNotSelectedOnAllImages;
     StringSet itemsOnSomeImages;
 

@@ -125,7 +125,7 @@ bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) cons
 
 StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 {
-    return QStringList(_categoryInfomation[key].toList());
+    return _categoryInfomation[key];
 }
 
 void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
@@ -359,7 +359,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
     _matched[category].insert( value );
     const MemberMap& map = DB::ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
-    _matched[category].insert( members );
+    _matched[category].unite( StringSet(members) );
 }
 
 /**
@@ -497,7 +497,7 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
         }
     }
 
-    _categoryInfomation.insert( folderCategory->name() , QStringList( folderName ) );
+    _categoryInfomation.insert( folderCategory->name() , StringSet(QStringList( folderName )) );
     folderCategory->addItem( folderName );
 }
 

@@ -21,6 +21,9 @@
 #include <KDialog>
 //Added by qt3to4:
 #include <QLabel>
+
+#include "DB/Result.h"
+
 class QLabel;
 class QCheckBox;
 
@@ -32,7 +35,8 @@ class DeleteDialog :public KDialog {
 
 public:
     DeleteDialog( QWidget* parent );
-    int exec( const QStringList& );
+    int exec(const DB::ResultPtr& list);
+    int exec( const QStringList& );  // deprecated
 
 protected slots:
     void deleteImages();

@@ -26,6 +26,13 @@ public:
 
     int fileId() const;
     bool isNull() const;
+
+    /** Get context of this.
+     *
+     * \post !context().isNull()
+     */
+    ConstResultPtr context() const;
+
     inline bool operator==(const ResultId& other) const {
         return other._fileId == _fileId;  // we're only interested in the id.
     }

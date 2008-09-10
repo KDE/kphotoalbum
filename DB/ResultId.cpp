@@ -24,3 +24,8 @@ int DB::ResultId::fileId() const
 bool DB::ResultId::isNull() const {
     return _fileId == -1;
 }
+
+DB::ConstResultPtr DB::ResultId::context() const
+{
+    return !_context.isNull() ? _context : ConstResultPtr(new Result());
+}

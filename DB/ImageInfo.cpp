@@ -440,6 +440,10 @@ ImageInfo::ImageInfo( const QString& fileName,
     _stackOrder = stackOrder;
 }
 
+// TODO: we should get rid of this operator. It seems only be necessary
+// because of the 'delaySavings' field that gets a special value.
+// ImageInfo should just be a dumb data object holder and not incorporate
+// storing strategies.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
     _relativeFileName = other._relativeFileName;

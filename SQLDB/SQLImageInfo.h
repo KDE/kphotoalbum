@@ -22,6 +22,9 @@
 #include "DB/ImageInfo.h"
 #include "QueryHelper.h"
 
+// TODO(Tuomas): This should just use the base DB::ImageInfo, no special thing
+// for SQLDB. The base class should contain the fileid. And this one not the
+// QueryHelper.
 namespace SQLDB {
     class SQLImageInfo :public DB::ImageInfo
     {

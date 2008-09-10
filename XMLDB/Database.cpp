@@ -707,7 +707,7 @@ QStringList XMLDB::Database::CONVERT( const DB::ResultPtr& items )
 }
 
 DB::ResultId XMLDB::Database::ID_FOR_FILE( const QString& filename) const {
-    return DB::ResultId(_idMapper[ Utilities::imageFileNameToRelative(filename)], NULL);
+    return DB::ResultId(_idMapper[ Utilities::imageFileNameToRelative(filename)]);
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::ResultId& id) const

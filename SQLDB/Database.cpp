@@ -328,7 +328,7 @@ QStringList SQLDB::Database::CONVERT(const DB::ResultPtr& result)
 
 DB::ResultId SQLDB::Database::ID_FOR_FILE(const QString& filename) const
 {
-    return DB::ResultId(_qh.mediaItemId(Utilities::imageFileNameToRelative(filename)), NULL);
+    return DB::ResultId(_qh.mediaItemId(Utilities::imageFileNameToRelative(filename)));
 }
 
 DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const

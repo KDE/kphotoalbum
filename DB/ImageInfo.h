@@ -79,7 +79,6 @@ public:
 
     // TODO: this should have a method to access the ID.
 
-    // TODO: make this parameter explicit.
     QString fileName( DB::PathType type ) const;
     void setFileName( const QString& relativeFileName );
 

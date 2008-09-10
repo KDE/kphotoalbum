@@ -22,7 +22,12 @@ public:
      * If context is not given or is 0, a context with only given
      * fileId is used instead.
      */
-    ResultId(int fileId, const ConstResultPtr& context=ConstResultPtr(0));
+    ResultId(int fileId, const ConstResultPtr& context);
+
+    static ResultId createContextless(int fileId)
+    {
+        return ResultId(fileId);
+    }
 
     int fileId() const;
     bool isNull() const;
@@ -44,6 +49,13 @@ public:
     }
 
  private:
+    ResultId(int fileId)
+        : _fileId(fileId)
+        , _context(0)
+    {
+        Q_ASSERT(fileId != -1);
+    }
+
     int _fileId;
     ConstResultPtr _context;
 };

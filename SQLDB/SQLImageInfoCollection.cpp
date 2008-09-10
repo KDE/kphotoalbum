@@ -83,18 +83,30 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 
 DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) const
 {
+    Q_ASSERT(!id.isNull());
+
     const int prefetchWindowSize = 1000;
 
     // QMutexLocker locker(&_mutex);
     DB::ImageInfoPtr p = _infoPointers[id.fileId()];
     if (!p) {
-        const int fileIdIndex = id.context()->indexOf(id);
-        const int firstIndex = qMax(0, fileIdIndex - prefetchWindowSize / 2);
-        const int onePastLastIndex = qMin(id.context()->size(), fileIdIndex + prefetchWindowSize / 2);
-        Q_ASSERT(firstIndex < onePastLastIndex);
         QList<int> prefetchIdList;
-        for (int i = firstIndex; i < onePastLastIndex; ++i)
-            prefetchIdList << id.context()->at(i).fileId();
+        DB::ConstResultPtr context(id.context());
+        if (!context.isNull()) {
+            const int contextSize = context->size();
+            const int fileIdIndex = context->indexOf(id);
+            const int firstIndex =
+                qMax(0, fileIdIndex - prefetchWindowSize / 2);
+            const int onePastLastIndex =
+                qMin(contextSize, fileIdIndex + prefetchWindowSize / 2);
+            Q_ASSERT(firstIndex < onePastLastIndex);
+            for (int i = firstIndex; i < onePastLastIndex; ++i) {
+                prefetchIdList.push_back(context->at(i).fileId());
+            }
+        }
+        else {
+            prefetchIdList.push_back(id.fileId());
+        }
 
         typedef QMap<int, DB::ImageInfoPtr> IdInfoMap;
         const IdInfoMap fileInfos = _qh.getInfosOfFiles(prefetchIdList);

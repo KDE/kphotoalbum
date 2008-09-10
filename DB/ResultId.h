@@ -19,8 +19,7 @@ public:
 
     /** Construct with given fileId and context.
      *
-     * If context is not given or is 0, a context with only given
-     * fileId is used instead.
+     * \pre !context.isNull()
      */
     ResultId(int fileId, const ConstResultPtr& context);
 
@@ -34,7 +33,7 @@ public:
 
     /** Get context of this.
      *
-     * \post !context().isNull()
+     * \note result might be null
      */
     ConstResultPtr context() const;
 

@@ -11,8 +11,9 @@ DB::ResultId::ResultId()
 
 DB::ResultId::ResultId(int fileId, const ConstResultPtr& context)
     : _fileId(fileId)
-    , _context(!context.isNull() ? context : new Result(QList<int>() << fileId))
+    , _context(context)
 {
+    Q_ASSERT(fileId != -1);
     Q_ASSERT(!_context.isNull());
 }
 
@@ -27,5 +28,5 @@ bool DB::ResultId::isNull() const {
 
 DB::ConstResultPtr DB::ResultId::context() const
 {
-    return !_context.isNull() ? _context : ConstResultPtr(new Result());
+    return _context;
 }

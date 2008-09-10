@@ -305,10 +305,6 @@ void Exif::Database::recreate()
     for (DB::Result::ConstIterator it = allImages->begin();
          it != allImages->end(); ++it) {
         dialog.setValue(i++);
-        // Bug alert: this looks like a bug: DB::AbsolutePath has value '1', but
-        // fileName(bool) will return a relative path with this value.
-        // TODO: make this method actually take a enum PathType argument to
-        // avoid confusion. (hello grep, this is QWERTY).
         add(DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath));
         if ( i % 10 )
             qApp->processEvents();

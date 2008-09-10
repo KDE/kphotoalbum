@@ -140,12 +140,14 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
     }
 }
 
-QString ImageInfo::fileName( bool relative ) const
+QString ImageInfo::fileName( PathType type ) const
 {
-    if (relative)
-        return _relativeFileName;
-    else
-        return _absoluteFileName;
+    switch (type) {
+    case DB::RelativeToImageRoot: return _relativeFileName;
+    case DB::AbsolutePath:        return _absoluteFileName;
+    default:
+        kFatal("Invalid parameter to ImageInfo::fileName()");
+    }
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )

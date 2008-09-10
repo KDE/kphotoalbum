@@ -430,7 +430,7 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
         h = QVariant();
     QString path;
     QString filename;
-    splitPath(info.fileName(true), path, filename);
+    splitPath(info.fileName(DB::RelativeToImageRoot), path, filename);
     QVariant rating;
     if (info.rating() == -1)
         rating = info.rating();

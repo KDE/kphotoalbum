@@ -195,7 +195,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
-                           namePage( width, height, DB::ImageDB::instance()->info(*it, DB::AbsolutePath)->fileName(false) ) ); // PENDING(blackie) cleanup
+                           namePage( width, height, DB::ImageDB::instance()->info(*it, DB::AbsolutePath)->fileName(DB::AbsolutePath) ) ); // PENDING(blackie) cleanup
         col.appendChild( href );
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );

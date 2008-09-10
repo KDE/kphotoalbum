@@ -46,8 +46,12 @@ class Database;
 
 namespace DB
 {
-using Utilities::StringSet;
+enum PathType {
+    RelativeToImageRoot,
+    AbsolutePath
+};
 
+using Utilities::StringSet;
 class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x02 };
@@ -75,9 +79,8 @@ public:
 
     // TODO: this should have a method to access the ID.
 
-    // TODO: let this parameter take a PathType argument, and make it
-    // non-implicit.
-    QString fileName( bool relative = false ) const;
+    // TODO: make this parameter explicit.
+    QString fileName( DB::PathType type = DB::AbsolutePath ) const;
     void setFileName( const QString& relativeFileName );
 
     void setLabel( const QString& );

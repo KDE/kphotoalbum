@@ -35,7 +35,6 @@ class QProgressBar;
 
 namespace DB
 {
-enum PathType {RelativeToImageRoot, AbsolutePath };
 
 class CategoryCollection;
 class Category;

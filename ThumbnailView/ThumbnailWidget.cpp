@@ -195,7 +195,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         QRect dimensions = cellDimensions();
         DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( mediaId );
         int angle = imageInfo->angle();
-        ThumbnailRequest* request = new ThumbnailRequest(imageInfo->fileName(false),
+        ThumbnailRequest* request = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
                         QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
                                dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
                         angle, this );

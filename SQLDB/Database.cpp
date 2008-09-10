@@ -17,6 +17,7 @@
   MA 02110-1301 USA.
 */
 #include "Database.h"
+
 #include "DB/Result.h"
 #include "DB/ResultId.h"
 #include "SQLCategory.h"

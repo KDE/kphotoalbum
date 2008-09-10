@@ -211,7 +211,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
-                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
 
 #ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( absoluteMatchedFileName );
@@ -224,7 +224,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
     ImageInfoPtr info = ImageInfoPtr( new ImageInfo( relativeNewFileName, type ) );
     info->setMD5Sum(sum);
-    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
 #ifdef HAVE_EXIV2
     Exif::Database::instance()->add( absoluteNewFileName );
 #endif
@@ -272,7 +272,7 @@ bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* m
             ImageManager::Manager::instance()->removeThumbnail( absoluteFileName );
         }
 
-        md5Map->insert( md5, info->fileName(true) );
+        md5Map->insert( md5, info->fileName(DB::RelativeToImageRoot) );
     }
     if ( wasCanceled )
         *wasCanceled = false;

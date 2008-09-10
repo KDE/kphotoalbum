@@ -137,8 +137,8 @@ void XMLDB::Database::addToBlockList( const DB::ResultPtr& list )
 {
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it );
-        _blockList << inf->fileName( true );
-        _idMapper.remove( inf->fileName( true ) );
+        _blockList << inf->fileName( DB::RelativeToImageRoot );
+        _idMapper.remove( inf->fileName( DB::RelativeToImageRoot ) );
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -169,9 +169,9 @@ void XMLDB::Database::deleteList( const DB::ResultPtr& list )
             }
         }
 #ifdef HAVE_EXIV2
-        Exif::Database::instance()->remove( inf->fileName(false) );
+        Exif::Database::instance()->remove( inf->fileName( DB::AbsolutePath) );
 #endif
-        _idMapper.remove( inf->fileName(true) );
+        _idMapper.remove( inf->fileName(DB::RelativeToImageRoot) );
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -238,9 +238,9 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
                                info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
     }
 
-    Q_FOREACH( const DB::ImageInfoPtr& info, images )
-        _idMapper.add( info->fileName(true) );
-
+    Q_FOREACH( const DB::ImageInfoPtr& info, images ) {
+        _idMapper.add( info->fileName(DB::RelativeToImageRoot) );
+    }
 
     emit totalChanged( _images.count() );
     MainWindow::DirtyIndicator::markDirty();
@@ -308,7 +308,7 @@ DB::ResultPtr XMLDB::Database::images()
 {
     QList<int> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        result.append( _idMapper[(*it)->fileName(true)]);
+        result.append( _idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
     }
     return DB::ResultPtr( new DB::Result(result) );
 }
@@ -328,7 +328,7 @@ DB::ResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, b
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName() );
 
         if (match)
-            result.append(_idMapper[(*it)->fileName(true)]);
+            result.append(_idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
     }
     return DB::ResultPtr( new DB::Result(result) );
 }

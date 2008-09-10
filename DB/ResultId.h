@@ -16,7 +16,13 @@ public:
      * Consider using DB::ResultId::null instance instead
      */
     ResultId();
-    ResultId(int fileId, const ConstResultPtr& context);
+
+    /** Construct with given fileId and context.
+     *
+     * If context is not given or is 0, a context with only given
+     * fileId is used instead.
+     */
+    ResultId(int fileId, const ConstResultPtr& context=ConstResultPtr(0));
 
     int fileId() const;
     bool isNull() const;

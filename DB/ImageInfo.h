@@ -75,6 +75,8 @@ public:
 
     // TODO: this should have a method to access the ID.
 
+    // TODO: let this parameter take a PathType argument, and make it
+    // non-implicit.
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
 

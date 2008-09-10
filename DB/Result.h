@@ -28,6 +28,9 @@ class Result :public KShared
         };
         typedef ConstIterator const_iterator;
 
+        // Never use Result on a stack but rather new it and assign to
+        // some (Const)ResultPtr. The fact that the destructor is private will
+        // remind you about this ;)
         Result();
         explicit Result( const QList<int>& ids );
         explicit Result( const DB::ResultId& );
@@ -47,8 +50,8 @@ class Result :public KShared
         // Noone must delete the Result directly. Only SharedPtr may.
         friend class KSharedPtr<Result>;
         friend class KSharedPtr<const Result>;
-    public:
-        ~Result();  // ok, seems that this doesn't work yet.
+        ~Result();  // Don't use Q_FOREACH on DB::Result
+
     private:
         QList<int> _items;
     };

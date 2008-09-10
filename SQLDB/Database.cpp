@@ -335,7 +335,7 @@ DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
 {
     Q_ASSERT(!id.isNull());
     Q_ASSERT(id.fileId() >= 1);
-    return this->info(_qh.mediaItemFilename(id.fileId()), DB::RelativeToImageRoot);
+    return _infoCollection.getImageInfoOf(id);
 }
 
 bool SQLDB::Database::stack(const DB::ResultPtr&)

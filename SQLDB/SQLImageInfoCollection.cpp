@@ -81,6 +81,33 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     return p;
 }
 
+DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) const
+{
+    const int prefetchWindowSize = 1000;
+
+    // QMutexLocker locker(&_mutex);
+    DB::ImageInfoPtr p = _infoPointers[id.fileId()];
+    if (!p) {
+        const int fileIdIndex = id.context()->indexOf(id);
+        const int firstIndex = qMax(0, fileIdIndex - prefetchWindowSize / 2);
+        const int onePastLastIndex = qMin(id.context()->size(), fileIdIndex + prefetchWindowSize / 2);
+        Q_ASSERT(firstIndex < onePastLastIndex);
+        QList<int> prefetchIdList;
+        for (int i = firstIndex; i < onePastLastIndex; ++i)
+            prefetchIdList << id.context()->at(i).fileId();
+
+        typedef QMap<int, DB::ImageInfoPtr> IdInfoMap;
+        const IdInfoMap fileInfos = _qh.getInfosOfFiles(prefetchIdList);
+
+        p = fileInfos[id.fileId()];
+        for (IdInfoMap::const_iterator i = fileInfos.begin(); i != fileInfos.end(); ++i) {
+            _infoPointers.insert(i.key(), i.value());
+            setLocking(i.value());
+        }
+    }
+    return p;
+}
+
 QString SQLImageInfoCollection::filenameForId(int id) const
 {
     QString filename = _idFilenameMap[id];

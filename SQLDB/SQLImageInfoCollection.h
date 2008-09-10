@@ -22,6 +22,7 @@
 
 #include "DB/ImageInfoPtr.h"
 #include "QueryHelper.h"
+#include "DB/ResultId.h"
 #include <qobject.h>
 #include <qmap.h>
 //#include <qmutex.h>
@@ -36,6 +37,7 @@ namespace SQLDB {
         explicit SQLImageInfoCollection(QueryHelper& queryHelper);
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
+        DB::ImageInfoPtr getImageInfoOf(const DB::ResultId& id) const;
         QString filenameForId(int id) const;
         void setLock(const DB::ImageSearchInfo& scope, bool invert=false);
         void unsetLock();

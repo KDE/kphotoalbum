@@ -69,7 +69,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     bool ok = true;
 #ifdef HAVE_EXIV2
-    ok = _exifSearchInfo.matches( info->fileName() );
+    ok = _exifSearchInfo.matches( info->fileName(DB::AbsolutePath) );
 #endif
 
     if ( !_date.start().isNull() ) {

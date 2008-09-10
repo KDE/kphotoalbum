@@ -70,7 +70,7 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
     _info = info;
-    _mediaObject->setCurrentSource( info->fileName() );
+    _mediaObject->setCurrentSource( info->fileName(DB::AbsolutePath) );
     _mediaObject->play();
 
 

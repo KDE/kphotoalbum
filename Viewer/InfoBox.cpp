@@ -165,7 +165,7 @@ void Viewer::InfoBox::linkHovered( const QString& linkName )
 
 void Viewer::InfoBox::jumpToContext()
 {
-    Browser::BrowserWidget::instance()->addImageView( _viewer->currentInfo()->fileName() );
+    Browser::BrowserWidget::instance()->addImageView( _viewer->currentInfo()->fileName(DB::AbsolutePath) );
     showBrowser();
 }
 

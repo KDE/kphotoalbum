@@ -478,7 +478,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int position)
         return;
 
     // TODO: remove debug
-    qDebug("Inserting info of file %s", info.fileName().toLocal8Bit().data());
+    qDebug("Inserting info of file %s", info.fileName(DB::AbsolutePath).toLocal8Bit().data());
 
     QStringList fields;
     Bindings bindings;
@@ -520,7 +520,7 @@ QueryHelper::insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items)
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
 {
     // TODO: remove debug
-    qDebug("Updating info of file %s", info.fileName().toLocal8Bit().data());
+    qDebug("Updating info of file %s", info.fileName(DB::AbsolutePath).toLocal8Bit().data());
 
     executeStatement("UPDATE file SET directory_id=?, filename=?, md5sum=?, "
                      "type""=?, label=?, description=?, "

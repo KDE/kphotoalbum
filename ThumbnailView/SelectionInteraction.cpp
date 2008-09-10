@@ -169,7 +169,7 @@ void ThumbnailView::SelectionInteraction::startDrag()
     QList<QUrl> l;
     DB::ResultPtr selected = _view->selection();
     for( DB::Result::ConstIterator idIt = selected->begin(); idIt != selected->end(); ++idIt ) {
-        QString fileName = DB::ImageDB::instance()->info( *idIt )->fileName();
+        QString fileName = DB::ImageDB::instance()->info( *idIt )->fileName(DB::AbsolutePath);
         l.append( QUrl(fileName) );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );

@@ -502,7 +502,7 @@ QStringList MainWindow::Window::selectedOnDisk()
 
     QStringList listOnDisk;
     for( DB::Result::const_iterator it = list->begin(); it != list->end(); ++it ) {
-        QString fileName = DB::ImageDB::instance()->info(*it)->fileName();
+        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk.append( fileName );
     }
@@ -1228,7 +1228,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     DB::Result* notOnDisk = new DB::Result;
     for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
-        QFileInfo fi( info->fileName() );
+        QFileInfo fi( info->fileName(DB::AbsolutePath) );
         if ( !fi.exists() )
             notOnDisk->append(*it);
     }
@@ -1521,7 +1521,7 @@ void MainWindow::Window::slotJumpToContext()
     DB::ResultId id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
-        QString fileName = DB::ImageDB::instance()->info( id )->fileName();
+        QString fileName = DB::ImageDB::instance()->info( id )->fileName(DB::AbsolutePath);
         _browser->addImageView( fileName );
    }
 }

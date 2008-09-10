@@ -806,7 +806,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
     QStringList strList;
-    strList << info->fileName();
+    strList << info->fileName(DB::AbsolutePath);
 
     int ret = dialog.exec( strList );
     if ( ret == Rejected )

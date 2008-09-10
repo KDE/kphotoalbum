@@ -96,12 +96,13 @@ void InvalidDateFinder::accept()
         DB::ImageDate date = info->date();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
-            DB::FileInfo fi = DB::FileInfo::read( info->fileName(), DB::EXIFMODE_DATE );
+            DB::FileInfo fi = DB::FileInfo::read( info->fileName(DB::AbsolutePath), DB::EXIFMODE_DATE );
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {
                 edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4" )
-                              .arg(info->fileName()).arg(date.start().toString())
+                              .arg(info->fileName(DB::AbsolutePath))
+                              .arg(date.start().toString())
                               .arg(date.start().time().toString())
                               .arg(fi.dateTime().toString()) );
             }

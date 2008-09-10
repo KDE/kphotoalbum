@@ -393,8 +393,8 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    bool isReadable = QFileInfo( currentInfo()->fileName() ).isReadable();
-    bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
+    bool isReadable = QFileInfo( currentInfo()->fileName(DB::AbsolutePath) ).isReadable();
+    bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName(DB::AbsolutePath) );
 
     if ( isReadable ) {
         if ( isVideo ) {
@@ -448,8 +448,8 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
     setWindowTitle( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                .arg( currentInfo()->fileName() )
-                .arg( detail ) );
+                    .arg( currentInfo()->fileName(DB::AbsolutePath) )
+                    .arg( detail ) );
 }
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
@@ -927,7 +927,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    Exif::InfoDialog* exifDialog = new Exif::InfoDialog( currentInfo()->fileName(), this );
+    Exif::InfoDialog* exifDialog = new Exif::InfoDialog( currentInfo()->fileName(DB::AbsolutePath), this );
     exifDialog->show();
 #endif
 

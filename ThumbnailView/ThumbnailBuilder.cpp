@@ -33,7 +33,7 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
 
     for ( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(),
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
                 QSize(256,256), info->angle(), this );
         request->setPriority( ImageManager::BuildThumbnails );
         request->setCache();

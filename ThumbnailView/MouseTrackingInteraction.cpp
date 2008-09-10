@@ -33,7 +33,7 @@ void ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     DB::ResultId id = _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
     if (id.isNull())
         return;
-    QString fileName = DB::ImageDB::instance()->info( id )->fileName();
+    QString fileName = DB::ImageDB::instance()->info( id )->fileName(DB::AbsolutePath);
     if ( fileName != lastFileNameUderCursor ) {
         emit _view->fileNameUnderCursorChanged( fileName );
         lastFileNameUderCursor = fileName;

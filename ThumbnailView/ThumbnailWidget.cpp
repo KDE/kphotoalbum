@@ -281,7 +281,7 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::Result
 
     for( DB::Result::ConstIterator it = items->begin(); it != items->end(); ++it ) {
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( DB::ImageDB::instance()->info(*it)->fileName(),
+            new ImageManager::ImageRequest( DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath),
                                             size, DB::ImageDB::instance()->info( *it )->angle(), NULL );
         request->setPriority( ImageManager::ThumbnailInvisible );
         ImageManager::Manager::instance()->load( request );

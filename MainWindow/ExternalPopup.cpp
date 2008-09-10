@@ -58,7 +58,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         // Fetch set of offers
         OfferType offers;
         if ( which == 0 )
-            offers = appInfos( QStringList() << current->fileName() );
+            offers = appInfos( QStringList() << current->fileName(DB::AbsolutePath) );
         else
             offers = appInfos( imageList );
 
@@ -88,7 +88,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
     }
     else {
-        lst.append( KUrl(_currentInfo->fileName()));
+        lst.append( KUrl(_currentInfo->fileName(DB::AbsolutePath)));
     }
 
     KRun::run(*ptr, lst, MainWindow::Window::theMainWindow() );

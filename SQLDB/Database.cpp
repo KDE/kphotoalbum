@@ -311,23 +311,31 @@ bool SQLDB::Database::isClipboardEmpty()
     return true;
 }
 
-QStringList SQLDB::Database::CONVERT( const DB::ResultPtr& )
+QStringList SQLDB::Database::CONVERT(const DB::ResultPtr& result)
 {
-    // PENDING(blackie) IMPLEMENT
-    // QWERTY
-    qFatal("Oppps better implement me! SQLDB::Database::CONVERT()");
-    return QStringList();  // make compiler happy.
+    Q_ASSERT(!result.isNull());
+    QStringList files;
+    if (!result.isNull()) {
+        // Q_FOREACH(DB::ResultId id, *result) {
+        for (int i = 0; i < result->size(); ++i) {
+            DB::ResultId id = result->at(i);
+            files.push_back(_qh.mediaItemFilename(id.fileId()));
+            Q_ASSERT(!files[files.size() - 1].isNull());
+        }
+    }
+    return files;
 }
 
-DB::ResultId SQLDB::Database::ID_FOR_FILE( const QString& ) const {
-    qFatal("Oppps better implement me! SQLDB::Database::ID_FOR_FILE()");
-    return DB::ResultId::null; // make compiler happy.
+DB::ResultId SQLDB::Database::ID_FOR_FILE(const QString& filename) const
+{
+    return DB::ResultId(_qh.mediaItemId(Utilities::imageFileNameToRelative(filename)), NULL);
 }
 
-DB::ImageInfoPtr SQLDB::Database::info( const DB::ResultId& ) const
+DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
 {
-    // PENDING(blackie) implement //QWERTY
-    return DB::ImageInfoPtr( new DB::ImageInfo() );
+    Q_ASSERT(!id.isNull());
+    Q_ASSERT(id.fileId() >= 1);
+    return this->info(_qh.mediaItemFilename(id.fileId()), DB::RelativeToImageRoot);
 }
 
 bool SQLDB::Database::stack(const DB::ResultPtr&)

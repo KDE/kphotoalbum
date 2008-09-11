@@ -184,7 +184,7 @@ void MainWindow::WelComeDialog::checkFeatures()
         KMessageBox::information( this, msg, i18n("Feature Check") );
     }
     else {
-        KMessageBox::information( this, i18n("Congratulation all dynamic features has been enabled"),
+        KMessageBox::information( this, i18n("Congratulations! All dynamic features have been enabled"),
                                   i18n("Feature Check" ) );
     }
 }

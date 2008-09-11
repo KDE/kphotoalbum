@@ -22,12 +22,15 @@
 #include <qmap.h>
 #include "ImageSizeCheckBox.h"
 #include <q3valuelist.h>
+#include "DB/Result.h"
 
 namespace HTMLGenerator
 {
 class Setup
 {
 public:
+    Setup();
+
     void setTitle( const QString& title );
     QString title() const;
 
@@ -64,8 +67,9 @@ public:
     void setResolutions( const Q3ValueList<ImageSizeCheckBox*>& sizes );
     const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
 
-    void setImageList( const QStringList& files );
-    const QStringList& imageList() const;
+    void setImageList( const DB::ResultPtr& files );
+    QStringList imageList() const;  // deprecated.
+    const DB::ResultPtr& imageListNew() const;  // this will be it.
 
     void setInlineMovies( bool inlineMovie );
     bool inlineMovies() const;
@@ -84,7 +88,7 @@ private:
     QString _theme;
     QMap<QString,bool> _includeCategory;
     Q3ValueList<ImageSizeCheckBox*> _resolutions;
-    QStringList _images;
+    DB::ResultPtr _images;
     bool _inlineMovies;
 };
 

@@ -19,6 +19,12 @@
 #include "ImageSizeCheckBox.h"
 //Added by qt3to4:
 #include <Q3ValueList>
+#include "DB/ImageDB.h"
+
+HTMLGenerator::Setup::Setup() : _images(NULL) {
+    /* nop */
+}
+
 void HTMLGenerator::Setup::setTitle( const QString& title )
 {
     _title = title;
@@ -139,14 +145,19 @@ const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::acti
     return _resolutions;
 }
 
-void HTMLGenerator::Setup::setImageList( const QStringList& files )
+void HTMLGenerator::Setup::setImageList( const DB::ResultPtr& files )
 {
     _images = files;
 }
 
-const QStringList& HTMLGenerator::Setup::imageList() const
+const DB::ResultPtr& HTMLGenerator::Setup::imageListNew() const
 {
     return _images;
+}
+
+QStringList HTMLGenerator::Setup::imageList() const
+{
+    return DB::ImageDB::instance()->CONVERT(_images);
 }
 
 void HTMLGenerator::Setup::setInlineMovies( bool doInline )

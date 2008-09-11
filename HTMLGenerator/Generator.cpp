@@ -81,14 +81,15 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        for ( int index = 0; index < _setup.imageList().count(); ++index ) {
-            QString current = _setup.imageList()[index];
+        QStringList imageList = _setup.imageList();
+        for ( int index = 0; index < imageList.size(); ++index ) {
+            QString current = imageList[index];
             QString prev;
             QString next;
             if ( index != 0 )
-                prev = _setup.imageList()[index-1];
-            if ( index != _setup.imageList().count() -1 )
-                next = _setup.imageList()[index+1];
+                prev = imageList[index-1];
+            if ( index != imageList.size() -1 )
+                next = imageList[index+1];
             ok = generateContentPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, current, next );
             if (!ok)
                 return;
@@ -96,7 +97,8 @@ void HTMLGenerator::Generator::generate()
     }
 
     // Now generate the thumbnail images
-    for( QStringList::ConstIterator it = _setup.imageList().begin(); it != _setup.imageList().end(); ++it ) {
+    QStringList imageList = _setup.imageList();
+    for( QStringList::ConstIterator it = imageList.begin(); it != imageList.end(); ++it ) {
         if ( wasCanceled() )
             return;
 
@@ -178,7 +180,8 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     int count = 0;
     int cols = _setup.numOfCols();
     QDomElement row;
-    for( QStringList::ConstIterator it = _setup.imageList().begin(); it != _setup.imageList().end(); ++it ) {
+    QStringList imageList = _setup.imageList();
+    for( QStringList::ConstIterator it = imageList.begin(); it != imageList.end(); ++it ) {
         if ( wasCanceled() )
             return false;
 
@@ -522,7 +525,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
 int HTMLGenerator::Generator::calculateSteps()
 {
     int count = _setup.activeResolutions().count();
-    return _setup.imageList().count() * ( 1 + count ); // 1 thumbnail + 1 real image
+    return _setup.imageListNew()->size() * ( 1 + count ); // 1 thumbnail + 1 real image
 }
 
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )

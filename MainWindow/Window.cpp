@@ -849,7 +849,7 @@ void MainWindow::Window::slotExportToHTML()
 {
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLGenerator::HTMLDialog( this );
-    _htmlDialog->exec(DB::ImageDB::instance()->CONVERT(selectedOnDisk()));
+    _htmlDialog->exec(selectedOnDisk());
 }
 
 void MainWindow::Window::startAutoSaveTimer()

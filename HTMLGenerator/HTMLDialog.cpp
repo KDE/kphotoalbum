@@ -17,6 +17,7 @@
 */
 
 #include "HTMLDialog.h"
+
 #include <klocale.h>
 #include <qlayout.h>
 #include <klineedit.h>
@@ -45,7 +46,7 @@ using namespace HTMLGenerator;
 
 
 HTMLDialog::HTMLDialog( QWidget* parent )
-    :KPageDialog( parent )
+    :KPageDialog( parent ), _list(NULL)
 {
     setWindowTitle( i18n("HTML Export") );
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
@@ -385,7 +386,7 @@ void HTMLDialog::populateThemesCombo()
     }
 }
 
-int HTMLDialog::exec( const QStringList& list )
+int HTMLDialog::exec( const DB::ResultPtr& list )
 {
     _list = list;
     return KDialog::exec();

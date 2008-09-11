@@ -1167,16 +1167,16 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
-    QStringList selection = DB::ImageDB::instance()->CONVERT(_thumbnailView->selection());
+    DB::ResultPtr selection = _thumbnailView->selection();
 
-    _configAllSimultaniously->setEnabled(selection.count() > 1 );
-    _configOneAtATime->setEnabled(selection.count() >= 1 );
-    _createImageStack->setEnabled( selection.count() > 1 );
-    _unStackImages->setEnabled( selection.count() >= 1 );
-    _sortByDateAndTime->setEnabled(selection.count() > 1 );
-    _recreateThumbnails->setEnabled( selection.count() >= 1 );
-    _rotLeft->setEnabled( selection.count() >= 1 );
-    _rotRight->setEnabled( selection.count() >= 1 );
+    _configAllSimultaniously->setEnabled(selection->size() > 1 );
+    _configOneAtATime->setEnabled(selection->size() >= 1 );
+    _createImageStack->setEnabled( selection->size() > 1 );
+    _unStackImages->setEnabled( selection->size() >= 1 );
+    _sortByDateAndTime->setEnabled(selection->size() > 1 );
+    _recreateThumbnails->setEnabled( selection->size() >= 1 );
+    _rotLeft->setEnabled( selection->size() >= 1 );
+    _rotRight->setEnabled( selection->size() >= 1 );
 }
 
 void MainWindow::Window::rotateSelected( int angle )

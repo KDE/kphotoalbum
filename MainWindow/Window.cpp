@@ -457,11 +457,12 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-    const QStringList sel = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
+    const DB::ResultPtr sel = selectedOnDisk();
     KUrl::List urls;
 
-    for (QStringList::const_iterator it = sel.begin(); it != sel.end(); ++it) {
-        urls.append( KUrl( *it ) );
+    for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
+        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
+        urls.append( KUrl( fileName ) );
     }
 
     QApplication::clipboard()->setData( new K3URLDrag( urls ) );

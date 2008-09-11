@@ -1667,17 +1667,17 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::slotRecreateThumbnail()
 {
-    QStringList selected = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
-    for( QStringList::ConstIterator imageIt = selected.begin(); imageIt != selected.end(); ++imageIt ) {
-        ImageManager::Manager::instance()->removeThumbnail( *imageIt );
+    DB::ResultPtr selected = selectedOnDisk();
+    for( DB::Result::ConstIterator imageIt = selected->begin(); imageIt != selected->end(); ++imageIt ) {
+        DB::ImageInfoPtr info = (*imageIt).fetchInfo();
+        QString fileName = info->fileName(DB::AbsolutePath);
+        ImageManager::Manager::instance()->removeThumbnail( fileName );
 
         int size = Settings::SettingsData::instance()->thumbSize();
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt, DB::AbsolutePath );
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *imageIt, QSize(size,size), info->angle(), _thumbnailView );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize(size,size), info->angle(), _thumbnailView );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
     }
-
 }
 
 

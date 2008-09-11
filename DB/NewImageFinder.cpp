@@ -41,7 +41,6 @@
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 
-
 using namespace DB;
 
 bool NewImageFinder::findImages()
@@ -49,9 +48,13 @@ bool NewImageFinder::findImages()
     // Load the information from the XML file.
     QSet<QString> loadedFiles;
 
-    QStringList images = DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images() );
-    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        loadedFiles << *it;
+    // TODO: maybe the databas interface should allow to query if it
+    // knows about an image ? Here we've to iterate through all of them and it
+    // might be more efficient do do this in the database without fetching the
+    // whole info.
+    DB::ResultPtr images = DB::ImageDB::instance()->images();
+    for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
+        loadedFiles.insert((*it).fetchInfo()->fileName(DB::AbsolutePath));
     }
 
     _pendingLoad.clear();

@@ -51,9 +51,6 @@ QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
-typedef QMap<QString, QString> UniqNameMap;
-UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
-
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripSlash( const QString& fileName );
 
@@ -63,6 +60,8 @@ QString imageFileNameToAbsolute( const QString& fileName );
 QString imageFileNameToRelative( const QString& fileName );
 
 QString relativeFolderName( const QString& fileName);
+
+// returns a list of absolute pathes from the ImageInfos. PENDING(blackie): remove
 QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
 

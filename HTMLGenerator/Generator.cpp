@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Generator.h"
+
 #include "kdeversion.h"
 #include <KLocale>
 #include <QFile>
@@ -29,6 +30,7 @@
 #include <KRun>
 #include <KMessageBox>
 #include "Utilities/Util.h"
+#include "Utilities/UniqFilenameMapper.h"
 #include <KDebug>
 #include <QDir>
 #include "ImportExport/Export.h"
@@ -72,7 +74,7 @@ void HTMLGenerator::Generator::generate()
     setValue( 0 );
     connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelGenerate() ) );
 
-    _nameMap = Utilities::createUniqNameMap( _setup.imageListOld(), false, QString::null );
+    _filenameMapper.reset();
 
     // Itertate over each of the image sizes needed.
     for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
@@ -376,14 +378,14 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
 QString HTMLGenerator::Generator::namePage( int width, int height, const QString& fileName )
 {
-    QString name = _nameMap[fileName];
+    QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
 QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
 {
-    QString name = _nameMap[fileName];
+    QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
         if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||

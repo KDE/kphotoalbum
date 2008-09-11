@@ -1,4 +1,5 @@
 #include "ImportHandler.h"
+
 #include "KimFileReader.h"
 #include "ImportSettings.h"
 #include <QComboBox>
@@ -19,9 +20,13 @@
 using namespace ImportExport;
 
 ImportExport::ImportHandler::ImportHandler()
-    : m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
+    : m_fileMapper(NULL), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
 
 {
+}
+
+ImportHandler::~ImportHandler() {
+    delete m_fileMapper;
 }
 
 bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileReader* kimFileReader )
@@ -29,7 +34,8 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
     m_settings = settings;
     m_kimFileReader = kimFileReader;
     m_finishedPressed = true;
-    m_nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(m_settings.selectedImages()), true, m_settings.destination() );
+    delete m_fileMapper;
+    m_fileMapper = new Utilities::UniqFilenameMapper(m_settings.destination());
     bool ok;
     if ( m_settings.externalSource() ) {
         copyFromExternal();
@@ -89,7 +95,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         src.setFileName( fileName );
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
-            dest.setPath( Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName] );
+            dest.setPath( m_fileMapper->uniqNameFor(fileName) );
             _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
             connect( _job, SIGNAL( result( KJob* ) ), this, SLOT( aCopyJobCompleted( KJob* ) ) );
             succeeded = true;
@@ -117,11 +123,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
             QByteArray data = m_kimFileReader->loadImage( fileName );
             if ( data.isNull() )
                 return false;
-            QString newName = Settings::SettingsData::instance()->imageDirectory() + m_nameMap[fileName];
-
-            QString relativeName = newName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
-            if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
-                relativeName= relativeName.mid(1);
+            QString newName = m_fileMapper->uniqNameFor(fileName);
 
             QFile out( newName );
             if ( !out.open( QIODevice::WriteOnly ) ) {
@@ -247,7 +249,9 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
-    DB::ImageInfoPtr updateInfo(new DB::ImageInfo( m_nameMap[info->fileName(DB::RelativeToImageRoot)], DB::Image, false ));
+    QString importName = Utilities::stripImageDirectory(m_fileMapper->uniqNameFor(info->fileName(DB::RelativeToImageRoot)));
+
+    DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
     updateInfo->setLabel( info->label() );
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );

@@ -21,7 +21,7 @@
 
 #include "ImageManager/ImageClient.h"
 #include <KDialog>
-#include "Utilities/Util.h"
+#include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
 class QRadioButton;
 class QSpinBox;
@@ -57,7 +57,7 @@ private:
     QString _subdir;
     bool _loopEntered;
     ImageFileLocation _location;
-    Utilities::UniqNameMap _nameMap;
+    Utilities::UniqFilenameMapper _filenameMapper;
     bool _copyingFiles;
     QString _destdir;
     QEventLoop _eventLoop;

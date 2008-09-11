@@ -498,55 +498,6 @@ bool Utilities::isJPEG( const QString& fileName )
     return format == QString::fromLocal8Bit( "jpeg" );
 }
 
-/**
-   Create a maping from original name with path to uniq name without:
-   cd1/def.jpg      -> def.jpg
-   cd1/abc/file.jpg -> file.jpg
-   cd3/file.jpg     -> file-2.jpg
-*/
-Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, bool relative, const QString& destDir  )
-{
-    QMap<QString, QString> map;
-    QMap<QString, QString> inverseMap;
-
-    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        QString fullName = *it;
-        if ( relative )
-            fullName = Utilities::stripImageDirectory( *it );
-        QString base = QFileInfo( fullName ).baseName();
-        QString ext = QFileInfo( fullName ).completeSuffix();
-        QString file = base + QString::fromLatin1( "." ) +  ext;
-        if ( !destDir.isNull() )
-            file = QString::fromLatin1("%1/%2").arg(destDir).arg(file);
-
-        if ( inverseMap.contains( file ) || ( !destDir.isNull() && QFileInfo( file ).exists() ) ) {
-            int i = 1;
-            bool clash;
-            do {
-                file = QString::fromLatin1( "%1-%2.%3" ).arg( base ).arg( ++i ).arg( ext );
-                if ( !destDir.isNull() )
-                    file = QString::fromLatin1("%1/%2").arg(destDir).arg(file);
-
-                clash = inverseMap.contains( file ) ||
-                        ( !destDir.isNull() && QFileInfo( file ).exists() );
-            } while ( clash );
-        }
-
-        QString relFile = file;
-        if ( relative ) {
-            Q_ASSERT( file.startsWith( Settings::SettingsData::instance()->imageDirectory() ) );
-            relFile = file.mid( Settings::SettingsData::instance()->imageDirectory().length() );
-            if ( relFile.startsWith( QString::fromLatin1( "/" ) ) )
-                relFile = relFile.mid(1);
-        }
-
-        map.insert( fullName, relFile );
-        inverseMap.insert( file, fullName );
-    }
-
-    return map;
-}
-
 namespace Utilities
 {
 QString normalizedFileName( const QString& fileName )

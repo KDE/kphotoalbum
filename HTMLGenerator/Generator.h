@@ -22,7 +22,7 @@
 #include <qstring.h>
 #include <ImageManager/ImageClient.h>
 #include <QProgressDialog>
-#include "Utilities/Util.h"
+#include "Utilities/UniqFilenameMapper.h"
 #include "Setup.h"
 #include "DB/ResultId.h"
 #include <QEventLoop>
@@ -73,7 +73,7 @@ private:
     int _waitCounter;
     int _total;
     KTempDir _tempDir;
-    Utilities::UniqNameMap _nameMap;
+    Utilities::UniqFilenameMapper _filenameMapper;
     Utilities::Set< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;

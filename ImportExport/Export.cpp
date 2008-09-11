@@ -197,8 +197,6 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
-    _nameMap = Utilities::createUniqNameMap( list, false, QString::null );
-
     // Copy image files and generate thumbnails
     if ( location != ManualCopy ) {
         _copyingFiles = true;
@@ -213,7 +211,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, _nameMap );
+        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.data(), indexml.size()-1 );
@@ -254,7 +252,7 @@ void Export::copyImages( const QStringList& list )
     _filesRemaining = 0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         QString file = *it;
-        QString zippedName = _nameMap[file];
+        QString zippedName = _filenameMapper.uniqNameFor(file);
 
         if ( _maxSize == -1 || Utilities::isVideo( file ) ) {
             if ( QFileInfo( file ).isSymLink() )
@@ -298,11 +296,11 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( !loadedOK )
         return;
 
-    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _nameMap[fileName] ).completeSuffix();
+    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir))
-                          .arg(QFileInfo( _nameMap[fileName] ).baseName()).arg( ext );
+        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName) ).baseName()).arg( ext );
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
@@ -311,7 +309,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( _location == Inline || !_copyingFiles )
         _zip->writeFile( zipFileName, QString::null, QString::null, data, data.size() );
     else {
-        QString file = _destdir + QString::fromLatin1( "/" ) + _nameMap[fileName];
+        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1", file ) );

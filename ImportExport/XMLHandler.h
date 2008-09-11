@@ -21,7 +21,7 @@
 #include <qstringlist.h>
 #include <qstring.h>
 #include "Export.h"
-#include "Utilities/Util.h"
+#include "Utilities/UniqFilenameMapper.h"
 #include "DB/ImageInfoPtr.h"
 #include <qdom.h>
 
@@ -31,7 +31,7 @@ class XMLHandler
 {
 public:
     QByteArray createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
-                             const Utilities::UniqNameMap& nameMap );
+                               Utilities::UniqFilenameMapper* nameMap );
 
 protected:
     QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );

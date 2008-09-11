@@ -6,6 +6,7 @@
 #include "Utilities/Util.h"
 #include <kio/job.h>
 #include "DB/ImageInfoPtr.h"
+#include "Utilities/UniqFilenameMapper.h"
 
 class QProgressDialog;
 
@@ -21,6 +22,7 @@ class ImportHandler :public QObject
 
 public:
     ImportHandler();
+    ~ImportHandler();
     bool exec( const ImportSettings& settings, KimFileReader* kimFileReader );
 
 private:
@@ -42,7 +44,7 @@ private:
     void updateCategories( DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace );
 
 private:
-    Utilities::UniqNameMap m_nameMap;
+    Utilities::UniqFilenameMapper* m_fileMapper;
     bool m_finishedPressed;
     DB::ImageInfoList _pendingCopies;
     QProgressDialog* _progress;

@@ -37,7 +37,7 @@ using Utilities::StringSet;
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
 QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
-                                                   ImageFileLocation location, const Utilities::UniqNameMap& nameMap )
+                                                   ImageFileLocation location, Utilities::UniqFilenameMapper* nameMap )
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
@@ -52,7 +52,7 @@ QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, 
 
 
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        QString mappedFile = nameMap[*it];
+        QString mappedFile = nameMap->uniqNameFor(*it);
         QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it, DB::AbsolutePath) );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );

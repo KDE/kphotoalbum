@@ -164,7 +164,7 @@ protected:
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    QStringList selectedOnDisk();
+    DB::ResultPtr selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( DB::ResultPtr mediaList, bool reuse, bool slideShow, bool random );

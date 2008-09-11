@@ -457,7 +457,7 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-    const QStringList& sel = selectedOnDisk();
+    const QStringList sel = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
     KUrl::List urls;
 
     for (QStringList::const_iterator it = sel.begin(); it != sel.end(); ++it) {
@@ -470,7 +470,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HAVE_EXIV2
-    QStringList files = selectedOnDisk();
+    QStringList files = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
@@ -497,17 +497,17 @@ void MainWindow::Window::slotViewNewWindow()
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
  * */
-QStringList MainWindow::Window::selectedOnDisk()
+DB::ResultPtr MainWindow::Window::selectedOnDisk()
 {
     DB::ResultPtr list = selected();
     if ( list->size() == 0 )
-        return DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->currentScope( true ) );
+        return DB::ImageDB::instance()->currentScope( true );
 
-    QStringList listOnDisk;
+    DB::ResultPtr listOnDisk = new DB::Result();
     for( DB::Result::const_iterator it = list->begin(); it != list->end(); ++it ) {
         QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
-            listOnDisk.append( fileName );
+            listOnDisk->append( *it );
     }
 
     return listOnDisk;
@@ -848,7 +848,7 @@ void MainWindow::Window::slotExportToHTML()
 {
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLGenerator::HTMLDialog( this );
-    _htmlDialog->exec( selectedOnDisk() );
+    _htmlDialog->exec(DB::ImageDB::instance()->CONVERT(selectedOnDisk()));
 }
 
 void MainWindow::Window::startAutoSaveTimer()
@@ -1304,7 +1304,7 @@ void MainWindow::Window::slotImport()
 
 void MainWindow::Window::slotExport()
 {
-    ImportExport::Export::imageExport( selectedOnDisk() );
+    ImportExport::Export::imageExport(DB::ImageDB::instance()->CONVERT(selectedOnDisk()));
 }
 
 void MainWindow::Window::slotReenableMessages()
@@ -1629,7 +1629,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    QStringList items = selectedOnDisk();
+    QStringList items = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
     if ( !items.empty() ) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items[0], this );
         exifDialog->show();
@@ -1665,7 +1665,7 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::slotRecreateThumbnail()
 {
-    QStringList selected = selectedOnDisk();
+    QStringList selected = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
     for( QStringList::ConstIterator imageIt = selected.begin(); imageIt != selected.end(); ++imageIt ) {
         ImageManager::Manager::instance()->removeThumbnail( *imageIt );
 

@@ -155,11 +155,6 @@ const DB::ResultPtr& HTMLGenerator::Setup::imageList() const
     return _images;
 }
 
-QStringList HTMLGenerator::Setup::imageListOld() const
-{
-    return DB::ImageDB::instance()->CONVERT(_images);
-}
-
 void HTMLGenerator::Setup::setInlineMovies( bool doInline )
 {
     _inlineMovies = doInline;

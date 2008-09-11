@@ -1305,7 +1305,7 @@ void MainWindow::Window::slotImport()
 
 void MainWindow::Window::slotExport()
 {
-    ImportExport::Export::imageExport(DB::ImageDB::instance()->CONVERT(selectedOnDisk()));
+    ImportExport::Export::imageExport(selectedOnDisk());
 }
 
 void MainWindow::Window::slotReenableMessages()

@@ -23,6 +23,8 @@
 #include <KDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
+#include "DB/Result.h"
+
 class QRadioButton;
 class QSpinBox;
 class QCheckBox;
@@ -37,21 +39,28 @@ enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 class Export :public ImageManager::ImageClient {
 
 public:
-    static void imageExport( const QStringList& list);
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
-    Export( const QStringList& list, const QString& zipFile, bool compress, int maxSize,
-            ImageFileLocation, const QString& baseUrl, bool& ok, bool generateThumbnails );
+    static void imageExport( const DB::ResultPtr& list);
+
+    Export( const DB::ResultPtr& list, const QString& zipFile, 
+            bool compress, int maxSize,
+            ImageFileLocation, const QString& baseUrl,
+            bool generateThumbnails,
+            bool *ok);
+
     static void showUsageDialog();
 
+    // ImageManager::ImageClient callback.
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
+
 protected:
-    void generateThumbnails( const QStringList& list );
-    void copyImages( const QStringList& list );
+    void generateThumbnails( const DB::ResultPtr& list );
+    void copyImages( const DB::ResultPtr& list );
 
 private:
+    bool* _ok;
     int _filesRemaining;
     int _steps;
     Q3ProgressDialog* _progressDialog;
-    bool& _ok;
     KZip* _zip;
     int _maxSize;
     QString _subdir;

@@ -23,6 +23,7 @@
 #include "Export.h"
 #include "Utilities/UniqFilenameMapper.h"
 #include "DB/ImageInfoPtr.h"
+#include "DB/Result.h"
 #include <qdom.h>
 
 namespace ImportExport
@@ -30,7 +31,9 @@ namespace ImportExport
 class XMLHandler
 {
 public:
-    QByteArray createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
+    QByteArray createIndexXML( const DB::ResultPtr& images,
+                               const QString& baseUrl,
+                               ImageFileLocation location,
                                Utilities::UniqFilenameMapper* nameMap );
 
 protected:

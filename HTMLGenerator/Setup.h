@@ -68,8 +68,7 @@ public:
     const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
 
     void setImageList( const DB::ResultPtr& files );
-    QStringList imageListOld() const;  // deprecated.
-    const DB::ResultPtr& imageList() const;  // this will be it.
+    const DB::ResultPtr& imageList() const;
 
     void setInlineMovies( bool inlineMovie );
     bool inlineMovies() const;

@@ -27,6 +27,8 @@
 #include <qeventloop.h>
 #include <klocale.h>
 #include "ImageManager/Manager.h"
+#include "DB/ImageInfo.h"
+#include "DB/ResultId.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
 #include <KDialog>
@@ -45,7 +47,7 @@
 
 using namespace ImportExport;
 
-void Export::imageExport( const QStringList& list )
+void Export::imageExport( const DB::ResultPtr& list )
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -62,7 +64,7 @@ void Export::imageExport( const QStringList& list )
 
     bool ok;
     Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(),
-                              QString::fromLatin1( "" ), ok, config._generateThumbnails->isChecked());
+                              QString::fromLatin1( "" ), config._generateThumbnails->isChecked(), &ok);
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
     if ( ok )
@@ -171,26 +173,27 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 }
 
 
-Export::Export( const QStringList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
-                const QString& baseUrl, bool& ok, bool doGenerateThumbnails )
+Export::Export( const DB::ResultPtr& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
+                const QString& baseUrl, bool doGenerateThumbnails,
+                bool *ok)
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
-    ok = true;
+    *ok = true;
     _destdir = QFileInfo( zipFile ).path();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
     if ( ! _zip->open( QIODevice::WriteOnly ) ) {
         KMessageBox::error( 0, i18n("Error creating zip file") );
-        ok = false;
+        *ok = false;
         return;
     }
 
     // Create progress dialog
     int total = 1;
     if (location != ManualCopy)
-      total += list.count();
+      total += list->size();
     if (doGenerateThumbnails)
-      total += list.count();
+      total += list->size();
 
     _steps = 0;
     _progressDialog = new Q3ProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
@@ -223,14 +226,15 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
 }
 
 
-void Export::generateThumbnails( const QStringList& list )
+void Export::generateThumbnails( const DB::ResultPtr& list )
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
-    _filesRemaining = list.count(); // Used to break the event loop.
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, QSize( 128, 128 ), DB::ImageDB::instance()->info(*it, DB::AbsolutePath)->angle(), this );
+    _filesRemaining = list->size(); // Used to break the event loop.
+    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+        DB::ImageInfoPtr info = (*it).fetchInfo();
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), QSize( 128, 128 ), info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
     }
@@ -240,7 +244,7 @@ void Export::generateThumbnails( const QStringList& list )
     }
 }
 
-void Export::copyImages( const QStringList& list )
+void Export::copyImages( const DB::ResultPtr& list )
 {
     Q_ASSERT( _location != ManualCopy );
 
@@ -250,8 +254,8 @@ void Export::copyImages( const QStringList& list )
     _progressDialog->setLabelText( i18n("Copying image files") );
 
     _filesRemaining = 0;
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        QString file = *it;
+    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+        QString file = (*it).fetchInfo()->fileName(DB::AbsolutePath);
         QString zippedName = _filenameMapper.uniqNameFor(file);
 
         if ( _maxSize == -1 || Utilities::isVideo( file ) ) {
@@ -271,7 +275,7 @@ void Export::copyImages( const QStringList& list )
         else {
             _filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( *it, QSize( _maxSize, _maxSize ), 0, this );
+                new ImageManager::ImageRequest( file, QSize( _maxSize, _maxSize ), 0, this );
             request->setPriority( ImageManager::BatchTask );
             ImageManager::Manager::instance()->load( request );
         }

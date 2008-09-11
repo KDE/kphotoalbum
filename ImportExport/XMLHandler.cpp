@@ -20,6 +20,7 @@
 //Added by qt3to4:
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
+#include "DB/ResultId.h"
 
 using Utilities::StringSet;
 
@@ -36,7 +37,7 @@ using Utilities::StringSet;
  * (2) To ensure that the .kim files are compatible both forth and back between versions, I'd rather keep that code
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
-QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
+QByteArray ImportExport::XMLHandler::createIndexXML( const DB::ResultPtr& images, const QString& baseUrl,
                                                    ImageFileLocation location, Utilities::UniqFilenameMapper* nameMap )
 {
     QDomDocument doc;
@@ -51,9 +52,10 @@ QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, 
     doc.appendChild( top );
 
 
-    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        QString mappedFile = nameMap->uniqNameFor(*it);
-        QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it, DB::AbsolutePath) );
+    for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
+        DB::ImageInfoPtr info = (*it).fetchInfo();
+        QString mappedFile = nameMap->uniqNameFor(info->fileName(DB::AbsolutePath));
+        QDomElement elm = save(doc, info);
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );
     }

@@ -150,7 +150,7 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 void SQLDB::Database::addToBlockList(const DB::ResultPtr&)
 {
     qFatal("implement SQLDB::addToBlocklist()");
-#if 0
+#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
     QStringList relativePaths = list;
     for (QStringList::iterator i = relativePaths.begin();
          i != relativePaths.end(); ++i) {
@@ -169,7 +169,7 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
 void SQLDB::Database::deleteList( const DB::ResultPtr& )
 {
     qFatal("impelement SQLDB::deleteList()");
-#if 0
+#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
     if (!list.isEmpty()) {
         for (QStringList::const_iterator i = list.begin();
              i != list.end(); ++i) {
@@ -255,7 +255,7 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
                                      )));
 }
 
-#if 0  // the old implementation of reorder().
+#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY the old implementation of reorder().
 void SQLDB::Database::reorder(const QString& item,
                               const QStringList& selection, bool after)
 {
@@ -280,7 +280,7 @@ DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr&,
 {
     qFatal("oops implement: SQLDB::Database::findFirstItemInRange()");
     return DB::ResultId::null;
-#if 0
+#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
     // this was the old implementation with strings. The new one could be
     // something like
     // select id from mediaid where timestamp between range.min and range.max and id in (idlist-from-images) order by timestamp limit 1
@@ -342,7 +342,7 @@ bool SQLDB::Database::stack(const DB::ResultPtr&)
 {    
     qFatal("implement SQLDB::stack()");
     return false;
-#if 0  // old implementation with files.
+#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY old implementation with files.
     const QStringList relFiles = stripImageDirectoryFromList(files);
     try {
         int newStackId = _qh.stackFiles(relFiles);
@@ -360,7 +360,7 @@ bool SQLDB::Database::stack(const DB::ResultPtr&)
 void SQLDB::Database::unstack(const DB::ResultPtr& )
 {
     qFatal("implement SQLDB::unstack()");
-#if 0  // TODO(Tuomas): implement with ResultPtr.
+#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas): implement with ResultPtr.
     _qh.unstackFiles(stripImageDirectoryFromList(files));
 #endif
 }
@@ -369,7 +369,7 @@ DB::ResultPtr SQLDB::Database::getStackFor(const DB::ResultId&) const
 {
     qFatal("implement SQLDB::getStackFor()");
     return new DB::Result();
-#if 0  // TODO(Tuomas) implement with
+#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas) implement with
     return _qh.getStackOfFile(Utilities::stripImageDirectory(referenceFile));
 #endif
 }

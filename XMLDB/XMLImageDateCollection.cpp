@@ -122,8 +122,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
 XMLImageDateCollection::XMLImageDateCollection( const DB::ResultPtr& list )
 {
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
-        add( info->date() );
+        add( (*it).fetchInfo()->date() );
     }
     buildIndex();
 }

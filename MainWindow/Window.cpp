@@ -378,7 +378,7 @@ void MainWindow::Window::configureImages( bool oneAtATime )
     else {
         DB::ImageInfoList images;
         for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-            images.append( DB::ImageDB::instance()->info( *it ) );
+            images.append( (*it).fetchInfo() );
         }
         configureImages( images, oneAtATime );
     }
@@ -461,7 +461,7 @@ void MainWindow::Window::slotCopySelectedURLs()
     KUrl::List urls;
 
     for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
-        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
+        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
         urls.append( KUrl( fileName ) );
     }
 
@@ -506,7 +506,7 @@ DB::ResultPtr MainWindow::Window::selectedOnDisk()
 
     DB::ResultPtr listOnDisk = new DB::Result();
     for( DB::Result::const_iterator it = list->begin(); it != list->end(); ++it ) {
-        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
+        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk->append( *it );
     }
@@ -1027,10 +1027,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction(_viewInNewWindow);
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
-        DB::ImageInfoPtr info = DB::ImageInfoPtr( 0 );
-        DB::ResultId mediaId = _thumbnailView->mediaIdUnderCursor();
-        if ( !mediaId.isNull() )
-            info = DB::ImageDB::instance()->info( mediaId );
+        DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().fetchInfo();
 
         externalCommands->populate( info, DB::ImageDB::instance()->CONVERT(selected() ));
         QAction* action = menu.addMenu( externalCommands );
@@ -1232,7 +1229,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     DB::ResultPtr allImages = DB::ImageDB::instance()->images();
     DB::Result* notOnDisk = new DB::Result;
     for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
+        DB::ImageInfoPtr info = (*it).fetchInfo();
         QFileInfo fi( info->fileName(DB::AbsolutePath) );
         if ( !fi.exists() )
             notOnDisk->append(*it);
@@ -1526,7 +1523,7 @@ void MainWindow::Window::slotJumpToContext()
     DB::ResultId id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
-        QString fileName = DB::ImageDB::instance()->info( id )->fileName(DB::AbsolutePath);
+        QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         _browser->addImageView( fileName );
    }
 }

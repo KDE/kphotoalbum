@@ -250,7 +250,7 @@ bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* m
     bool dirty = false;
 
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it, ++count ) {
-        ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
+        ImageInfoPtr info = (*it).fetchInfo();
         const QString absoluteFileName = info->fileName(DB::AbsolutePath );
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)

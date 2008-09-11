@@ -77,7 +77,7 @@ void DeleteDialog::deleteImages()
     QStringList listCouldNotDelete;
 
     for( DB::Result::const_iterator it = _list->begin(); it != _list->end(); ++it ) {
-        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
+        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             // TODO: should this probably call some KDE specific thing to
             // move the file in the Trash-bin or something ? Deleting

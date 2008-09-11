@@ -48,7 +48,10 @@ public:
         return _fileId < other._fileId;
     }
 
-    /** Convenience method: fetch the associated ImageInfo for this ID */
+    /**
+     * Convenience method: fetch the associated ImageInfo for this ID or
+     * a ImageInfoPtr(NULL) if this id is ResultId::null
+     */
     ImageInfoPtr fetchInfo() const;
 
  private:

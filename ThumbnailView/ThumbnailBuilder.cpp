@@ -32,9 +32,11 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
     connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelRequests() ) );
 
     for ( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
-        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
-                QSize(256,256), info->angle(), this );
+        const DB::ImageInfoPtr info = (*it).fetchInfo();
+        ImageManager::ImageRequest* request
+            = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
+                                              QSize(256,256), info->angle(),
+                                              this );
         request->setPriority( ImageManager::BuildThumbnails );
         request->setCache();
         ImageManager::Manager::instance()->load( request );

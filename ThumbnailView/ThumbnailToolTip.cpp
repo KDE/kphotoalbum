@@ -83,7 +83,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     if ( id.isNull() )
         return;
     
-    QString fileName = DB::ImageDB::instance()->info( id )->fileName(DB::AbsolutePath);
+    QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
             setText( QString::null );

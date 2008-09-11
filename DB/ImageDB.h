@@ -99,7 +99,6 @@ public: // Methods that must be overriden
     virtual bool isBlocking( const QString& fileName ) = 0;
     virtual void deleteList( const DB::ResultPtr& list ) = 0;
     virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
-    virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
@@ -154,6 +153,12 @@ public: // Methods that must be overriden
      * They are returned sorted according to their stackOrder.
      * */
     virtual DB::ResultPtr getStackFor( const DB::ResultId& referenceImg ) const = 0;
+
+ protected:
+    friend class DB::ResultId;
+
+    // Don't use directly, use DB::ResultId::fetchInfo() instead.
+    virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

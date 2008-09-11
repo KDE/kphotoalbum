@@ -122,14 +122,14 @@ QString ThumbnailView::ThumbnailWidget::thumbnailPixmapCacheKey(const DB::Result
 
 static DB::StackID getStackId(const DB::ResultId& id)
 {
-    return DB::ImageDB::instance()->info( id )->stackId();
+    return id.fetchInfo()->stackId();
 }
 
 void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
                                                             const QRect& rect,
                                                             const DB::ResultId& mediaId)
 {
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( mediaId );
+    DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     if (!imageInfo || !imageInfo->isStacked())
         return;
 
@@ -193,7 +193,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
     }
     else {
         QRect dimensions = cellDimensions();
-        DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( mediaId );
+        DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
         int angle = imageInfo->angle();
         ThumbnailRequest* request = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
                         QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
@@ -218,16 +218,16 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& media
     int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
-        text += DB::ImageDB::instance()->info( mediaId )->label();
+        text += mediaId.fetchInfo()->label();
         text += QString::fromLatin1("\n");
     }
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
-        QStringList grps = DB::ImageDB::instance()->info( mediaId )->availableCategories();
+        QStringList grps = mediaId.fetchInfo()->availableCategories();
         for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
             QString category = *it;
             if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-                StringSet items = DB::ImageDB::instance()->info( mediaId )->itemsOfCategory( category );
+                StringSet items = mediaId.fetchInfo()->itemsOfCategory( category );
                 if (!items.empty()) {
                     line = QString::fromLatin1( "%1: " )
                            .arg( category );
@@ -280,18 +280,17 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::Result
                       dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
 
     for( DB::Result::ConstIterator it = items->begin(); it != items->end(); ++it ) {
+        DB::ImageInfoPtr info = (*it).fetchInfo();
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath),
-                                            size, DB::ImageDB::instance()->info( *it )->angle(), NULL );
+            new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
+                                            size, info->angle(), NULL );
         request->setPriority( ImageManager::ThumbnailInvisible );
         ImageManager::Manager::instance()->load( request );
     }
 }
 
 static bool stackOrderComparator(const DB::ResultId& a, const DB::ResultId& b) {
-    DB::ImageInfoPtr aInfo = DB::ImageDB::instance()->info( a );
-    DB::ImageInfoPtr bInfo = DB::ImageDB::instance()->info( b );
-    return aInfo->stackOrder() < bInfo->stackOrder();
+    return a.fetchInfo()->stackOrder() < b.fetchInfo()->stackOrder();
 }
 
 void ThumbnailView::ThumbnailWidget::updateDisplayModel()
@@ -312,7 +311,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
     for (DB::Result::ConstIterator it = _imageList->begin(); it != _imageList->end(); ++it) {
-        DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it );
+        DB::ImageInfoPtr imageInfo = (*it).fetchInfo();
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             stackContents[stackid].append(*it);
@@ -334,7 +333,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     _displayList = new DB::Result();
     QSet<DB::StackID> alreadyShownStacks;
     for (DB::Result::const_iterator it = _imageList->begin(); it != _imageList->end(); ++it) {
-        DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( *it );
+        DB::ImageInfoPtr imageInfo = (*it).fetchInfo();
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
@@ -377,7 +376,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const DB::ResultPtr& items )
 }
 
 void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id) {
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( id );
+    DB::ImageInfoPtr imageInfo = id.fetchInfo();
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
         if (_expandedStacks.contains(stackid))
@@ -498,11 +497,11 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
 int ThumbnailView::ThumbnailWidget::noOfCategoriesForImage(const DB::ResultId& image ) const
 {
     int catsInText = 0;
-    QStringList grps = DB::ImageDB::instance()->info( image )->availableCategories();
+    QStringList grps = image.fetchInfo()->availableCategories();
     for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
         QString category = *it;
         if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-            StringSet items = DB::ImageDB::instance()->info( image )->itemsOfCategory( category );
+            StringSet items = image.fetchInfo()->itemsOfCategory( category );
             if (!items.empty()) {
                 catsInText++;
             }
@@ -579,7 +578,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
     }
 
     DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( id );
+    DB::ImageInfoPtr imageInfo = id.fetchInfo();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.
     if ( fullSize.isValid() ) {
@@ -669,15 +668,16 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
         bool hadHit          = false;
 
         for( IdSet::const_iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+            DB::ImageInfoPtr info = (*it).fetchInfo();
             if ( ! hadHit ) {
-                mustRemoveToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
+                mustRemoveToken = info->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
                 hadHit = true;
             }
 
             if ( mustRemoveToken )
-                DB::ImageDB::instance()->info( *it )->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
+                info->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
             else
-                DB::ImageDB::instance()->info( *it )->addCategoryInfo( QString::fromLatin1("Tokens"), token );
+                info->addCategoryInfo( QString::fromLatin1("Tokens"), token );
 
             updateCell( *it );
         }
@@ -867,7 +867,7 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& po
     bool correctArea = !cellRect.contains( viewportToContentsAdjusted( point, ViewportCoordinates ) );
     if (!correctArea)
         return false;
-    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( mediaIdUnderCursor() );
+    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().fetchInfo();
     return imageInfo && imageInfo->isStacked();
 }
 
@@ -950,7 +950,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
         return;
 
     static QDateTime lastDate;
-    QDateTime date = DB::ImageDB::instance()->info( id )->date().start();
+    QDateTime date = id.fetchInfo()->date().start();
     if ( date != lastDate ) {
         lastDate = date;
         if ( date.date().year() != 1900 )

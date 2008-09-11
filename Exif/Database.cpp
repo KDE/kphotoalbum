@@ -305,7 +305,7 @@ void Exif::Database::recreate()
     for (DB::Result::ConstIterator it = allImages->begin();
          it != allImages->end(); ++it) {
         dialog.setValue(i++);
-        add(DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath));
+        add((*it).fetchInfo()->fileName(DB::AbsolutePath));
         if ( i % 10 )
             qApp->processEvents();
     }

@@ -134,12 +134,6 @@ public: // Methods that must be overriden
 
     virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
 
-    // the reverse.
-    virtual DB::ResultPtr CONVERT_S2R( const QStringList &) {
-        qFatal("oops");
-        return new DB::Result();
-    } // QWERTY DIE
-
     // there are some cases in which we have a filename and need to map back
     // to ID. Provided here to push down that part of refactoring.
     virtual DB::ResultId ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?

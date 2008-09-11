@@ -17,23 +17,27 @@
 */
 
 #include "DeleteDialog.h"
-#include <klocale.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qlayout.h>
-#include <qfile.h>
+
 #include <QVBoxLayout>
+#include <klocale.h>
 #include <kmessagebox.h>
+#include <qcheckbox.h>
+#include <qfile.h>
+#include <qlabel.h>
+#include <qlayout.h>
+
 #include "DB/ImageDB.h"
-#include "Utilities/Util.h"
 #include "DB/ImageInfo.h"
-#include "Utilities/ShowBusyCursor.h"
+#include "DB/Result.h"
+#include "DB/ResultId.h"
 #include "ImageManager/Manager.h"
+#include "Utilities/ShowBusyCursor.h"
+#include "Utilities/Util.h"
 
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent )
-    :KDialog( parent )
+    :KDialog( parent ), _list(NULL)
 {
     setWindowTitle( i18n("Delete from database") );
     setButtons( Cancel|User1 );
@@ -53,13 +57,9 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec(const DB::ResultPtr& list) {
-    return exec(DB::ImageDB::instance()->CONVERT(list));
-}
-
-int DeleteDialog::exec( const QStringList& list )
+int DeleteDialog::exec( const DB::ResultPtr& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>", list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>", list->size() ) );
 
     _delete_file->setChecked( true );
     _list = list;
@@ -69,21 +69,27 @@ int DeleteDialog::exec( const QStringList& list )
 
 void DeleteDialog::deleteImages()
 {
+    Q_ASSERT(_list);
+
     Utilities::ShowBusyCursor dummy;
 
-    QStringList listToDelete;
+    DB::ResultPtr listToDelete = new DB::Result();
     QStringList listCouldNotDelete;
 
-    for( QStringList::const_iterator it = _list.constBegin(); it != _list.constEnd(); ++it ) {
-        if ( DB::ImageInfo::imageOnDisk(*it) ) {
-            if ( _delete_file->isChecked() && !QFile( *it ).remove() ) {
-                listCouldNotDelete.append (*it );
+    for( DB::Result::const_iterator it = _list->begin(); it != _list->end(); ++it ) {
+        QString fileName = DB::ImageDB::instance()->info(*it)->fileName(DB::AbsolutePath);
+        if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
+            // TODO: should this probably call some KDE specific thing to
+            // move the file in the Trash-bin or something ? Deleting
+            // potentially precious images is a bit harsh.
+            if ( _delete_file->isChecked() && !QFile( fileName ).remove() ) {
+                listCouldNotDelete.append(fileName);
             } else {
-                listToDelete.append( *it );
-                ImageManager::Manager::instance()->removeThumbnail( *it );
+                listToDelete->append( *it );
+                ImageManager::Manager::instance()->removeThumbnail( fileName );
             }
         } else {
-            listToDelete.append( *it );
+            listToDelete->append( *it );
         }
     }
 
@@ -92,20 +98,15 @@ void DeleteDialog::deleteImages()
                             i18n("Error Deleting Files") );
     }
 
-    if( ! listToDelete.isEmpty()) {
+    if( ! listToDelete->isEmpty()) {
         if ( _delete_file->isChecked() )
-            DB::ImageDB::instance()->deleteList( DB::ImageDB::instance()->CONVERT_S2R(listToDelete) );
+            DB::ImageDB::instance()->deleteList( listToDelete );
         else
-            DB::ImageDB::instance()->addToBlockList( DB::ImageDB::instance()->CONVERT_S2R(listToDelete ));
-
+            DB::ImageDB::instance()->addToBlockList( listToDelete );
         accept();
-
     } else {
-
         reject();
-
     }
-
 }
 
 #include "DeleteDialog.moc"

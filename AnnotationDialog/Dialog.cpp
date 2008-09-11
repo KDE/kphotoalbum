@@ -17,65 +17,70 @@
 */
 
 #include "Dialog.h"
-#include <ktextedit.h>
-#include "ShortCutManager.h"
-#include <kacceleratormanager.h>
-#include <QTimer>
-#include <qglobal.h>
-#include "ListSelect.h"
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <QHBoxLayout>
-#include <Q3ValueList>
+
 #include <Q3CString>
+#include <Q3ValueList>
+#include <QCloseEvent>
+#include <QDir>
+#include <QDockWidget>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QMainWindow>
+#include <QMoveEvent>
 #include <QPixmap>
 #include <QResizeEvent>
-#include <QEvent>
+#include <QTimeEdit>
+#include <QTimer>
 #include <QVBoxLayout>
-#include <QMoveEvent>
-#include <QCloseEvent>
-#include "Settings/SettingsData.h"
-#include "ImagePreview.h"
-#include "Viewer/ViewerWidget.h"
-#include <q3accel.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <qlayout.h>
-#include <kpushbutton.h>
-#include <klineedit.h>
-#include <q3popupmenu.h>
-#include <qpoint.h>
-#include <qcursor.h>
-#include <qapplication.h>
-#include <qeventloop.h>
-#include <qdialog.h>
-#include <kmessagebox.h>
-#include <kglobal.h>
-#include <kiconloader.h>
-#include "Utilities/ShowBusyCursor.h"
-#include "KDateEdit.h"
-#include "MainWindow/DeleteDialog.h"
-#include <kguiitem.h>
-#include <qobject.h>
-#include "DB/CategoryCollection.h"
-#include "DB/ImageInfo.h"
+#include <kacceleratormanager.h>
 #include <kconfig.h>
-#include "Utilities/Util.h"
-#include "DB/ImageDB.h"
+#include <kdebug.h>
+#include <kglobal.h>
+#include <kguiitem.h>
+#include <kiconloader.h>
+#include <klineedit.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kpushbutton.h>
+#include <kstandarddirs.h>
+#include <ktextedit.h>
+#include <q3accel.h>
+#include <q3popupmenu.h>
+#include <qapplication.h>
+#include <qcursor.h>
+#include <qdialog.h>
+#include <qeventloop.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include "ShowSelectionOnlyManager.h"
-#include "enums.h"
-#include "MainWindow/DirtyIndicator.h"
+#include <qglobal.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qobject.h>
+#include <qpoint.h>
+#include <qpushbutton.h>
 #include <qtooltip.h>
-#include <kdebug.h>
-#include <QMainWindow>
-#include <QDockWidget>
-#include <QTimeEdit>
-#include <QDir>
+
 #ifdef HAVE_NEPOMUK
 #   include <nepomuk/kratingwidget.h>
 #endif
+
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "DB/Result.h"
+#include "DB/ResultId.h"
+#include "ImagePreview.h"
+#include "KDateEdit.h"
+#include "ListSelect.h"
+#include "MainWindow/DeleteDialog.h"
+#include "MainWindow/DirtyIndicator.h"
+#include "Settings/SettingsData.h"
+#include "ShortCutManager.h"
+#include "ShowSelectionOnlyManager.h"
+#include "Utilities/ShowBusyCursor.h"
+#include "Utilities/Util.h"
+#include "Viewer/ViewerWidget.h"
+#include "enums.h"
 
 using Utilities::StringSet;
 
@@ -355,6 +360,12 @@ void AnnotationDialog::Dialog::slotNext()
 
 void AnnotationDialog::Dialog::slotOK()
 {
+    if (_origList.isEmpty()) {
+        // all images are deleted.
+        QDialog::accept();
+        return;
+    }
+
 // I need to check for the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
     // and we can thus not check for changes anymore
     const bool anyChanges = hasChanges();
@@ -805,10 +816,11 @@ void AnnotationDialog::Dialog::slotDeleteImage()
 
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
-    QStringList strList;
-    strList << info->fileName(DB::AbsolutePath);
 
-    int ret = dialog.exec( strList );
+    DB::ResultId idToDelete = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
+    DB::ResultPtr deleteList = new DB::Result(idToDelete);
+
+    int ret = dialog.exec( deleteList );
     if ( ret == Rejected )
         return;
 

@@ -4,6 +4,7 @@
 #include <QString>
 #include <KSharedPtr>
 #include "Result.h"
+#include "ImageInfo.h"
 
 namespace DB
 {
@@ -47,12 +48,15 @@ public:
         return _fileId < other._fileId;
     }
 
+    /** Convenience method: fetch the associated ImageInfo for this ID */
+    ImageInfoPtr fetchInfo() const;
+
  private:
     ResultId(int fileId)
         : _fileId(fileId)
         , _context(0)
     {
-        Q_ASSERT(fileId != -1);
+        Q_ASSERT(fileId >= 0);
     }
 
     int _fileId;

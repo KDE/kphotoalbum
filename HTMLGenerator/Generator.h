@@ -24,6 +24,7 @@
 #include <QProgressDialog>
 #include "Utilities/Util.h"
 #include "Setup.h"
+#include "DB/ResultId.h"
 #include <QEventLoop>
 #include <KTempDir>
 
@@ -45,14 +46,15 @@ protected slots:
 
 protected:
     bool generateIndexPage( int width, int height );
-    bool generateContentPage( int width, int height, const QString& prevInfo, const QString& info, const QString& nextInfo );
+    bool generateContentPage( int width, int height,
+                              const DB::ResultId& prevInfo, const DB::ResultId& current, const DB::ResultId& nextInfo );
     bool linkIndexFile();
 
 public:
     QString namePage( int width, int height, const QString& fileName );
     QString nameImage( const QString& fileName, int size );
 
-    QString createImage( const QString& fileName, int size );
+    QString createImage( const DB::ResultId& id, int size );
     QString createVideo( const QString& fileName );
 
     QString kimFileName( bool relative );

@@ -60,7 +60,7 @@ void HTMLGenerator::Generator::generate()
         if ( destURL.isEmpty() )
             destURL = _setup.baseURL();
 
-        ImportExport::Export exp( _setup.imageList(), kimFileName( false ), false, -1, ImportExport::ManualCopy,
+        ImportExport::Export exp( _setup.imageListOld(), kimFileName( false ), false, -1, ImportExport::ManualCopy,
                                   destURL + QString::fromLatin1("/") + _setup.outputDir(), ok, true );
         if ( !ok )
             return;
@@ -72,7 +72,7 @@ void HTMLGenerator::Generator::generate()
     setValue( 0 );
     connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelGenerate() ) );
 
-    _nameMap = Utilities::createUniqNameMap( _setup.imageList(), false, QString::null );
+    _nameMap = Utilities::createUniqNameMap( _setup.imageListOld(), false, QString::null );
 
     // Itertate over each of the image sizes needed.
     for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
@@ -81,24 +81,24 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        QStringList imageList = _setup.imageList();
-        for ( int index = 0; index < imageList.size(); ++index ) {
-            QString current = imageList[index];
-            QString prev;
-            QString next;
+        const DB::ResultPtr &imageList = _setup.imageList();
+        for ( int index = 0; index < imageList->size(); ++index ) {
+            DB::ResultId current = imageList->at(index);
+            DB::ResultId prev;
+            DB::ResultId next;
             if ( index != 0 )
-                prev = imageList[index-1];
-            if ( index != imageList.size() -1 )
-                next = imageList[index+1];
-            ok = generateContentPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, current, next );
+                prev = imageList->at(index-1);
+            if ( index != imageList->size() -1 )
+                next = imageList->at(index+1);
+            ok = generateContentPage( (*sizeIt)->width(), (*sizeIt)->height(),
+                                      prev, current, next );
             if (!ok)
                 return;
         }
     }
 
     // Now generate the thumbnail images
-    QStringList imageList = _setup.imageList();
-    for( QStringList::ConstIterator it = imageList.begin(); it != imageList.end(); ++it ) {
+    for( DB::Result::ConstIterator it = _setup.imageList()->begin(); it != _setup.imageList()->end(); ++it ) {
         if ( wasCanceled() )
             return;
 
@@ -180,8 +180,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     int count = 0;
     int cols = _setup.numOfCols();
     QDomElement row;
-    QStringList imageList = _setup.imageList();
-    for( QStringList::ConstIterator it = imageList.begin(); it != imageList.end(); ++it ) {
+    for( DB::Result::ConstIterator it = _setup.imageList()->begin(); it != _setup.imageList()->end(); ++it ) {
         if ( wasCanceled() )
             return false;
 
@@ -196,16 +195,17 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
         row.appendChild( col );
 
+        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
-                           namePage( width, height, DB::ImageDB::instance()->info(*it, DB::AbsolutePath)->fileName(DB::AbsolutePath) ) ); // PENDING(blackie) cleanup
+                           namePage( width, height, fileName));
         col.appendChild( href );
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
         img.setAttribute( QString::fromLatin1( "src" ),
-                          nameImage( *it, _setup.thumbSize() ) );
+                          nameImage( fileName, _setup.thumbSize() ) );
         img.setAttribute( QString::fromLatin1( "alt" ),
-                          nameImage( *it, _setup.thumbSize() ) );
+                          nameImage( fileName, _setup.thumbSize() ) );
         href.appendChild( img );
         ++count;
     }
@@ -253,8 +253,8 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     return true;
 }
 
-bool HTMLGenerator::Generator::generateContentPage( int width, int height, const QString& prev, const QString& current,
-                                                    const QString& next )
+bool HTMLGenerator::Generator::generateContentPage( int width, int height,
+                                                    const DB::ResultId& prev, const DB::ResultId& current, const DB::ResultId& next )
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
@@ -262,7 +262,8 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
     if ( content.isNull() )
         return false;
 
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( current, DB::AbsolutePath );
+    DB::ImageInfoPtr info = current.fetchInfo();
+    QString currentFile = info->fileName(DB::AbsolutePath);
 
     content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
@@ -270,8 +271,8 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
 
 
     // Image or video content
-    if ( Utilities::isVideo( current ) ) {
-        QString videoFile = createVideo( current );
+    if (Utilities::isVideo(currentFile)) {
+        QString videoFile = createVideo( currentFile );
         if ( _setup.inlineMovies() )
             content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
                              QString::fromLatin1( "<object data=\"%1\"><img src=\"%2\"/></object>"
@@ -295,25 +296,25 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
 
     // prev link
     if ( !prev.isNull() )
-        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prev ) );
+        link = i18n( "<a href=\"%1\">prev</a>", namePage( width, height, prev.fetchInfo()->fileName(DB::AbsolutePath)));
     else
-        link = QString::fromLatin1( "prev" );
+        link = i18n( "prev" );
     content.replace( QString::fromLatin1( "**PREV**" ), link );
 
 
     // index link
-    link = QString::fromLatin1( "<a href=\"index-%1.html\">index</a>" ).arg(ImageSizeCheckBox::text(width,height,true));
+    link = i18n( "<a href=\"index-%1.html\">index</a>", ImageSizeCheckBox::text(width,height,true));
     content.replace( QString::fromLatin1( "**INDEX**" ), link );
 
     // Next Link
     if ( !next.isNull() )
-        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, next ) );
+        link = i18n( "<a href=\"%1\">next</a>", namePage( width, height, next.fetchInfo()->fileName(DB::AbsolutePath)));
     else
-        link = QString::fromLatin1( "next" );
+        link = i18n( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
 
     if ( !next.isNull() )
-        link = namePage( width, height, next );
+        link = namePage( width, height, next.fetchInfo()->fileName(DB::AbsolutePath) );
     else
         link = QString::fromLatin1( "index-%1.html" ).arg(ImageSizeCheckBox::text(width,height,true));
 
@@ -328,7 +329,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
-            QString page = namePage( w, h, current );
+            QString page = namePage( w, h, currentFile );
             QString text = (*sizeIt)->text(false);
             resolutions += QString::fromLatin1( " " );
 
@@ -365,7 +366,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
-    QString fileName = _tempDir.name() + namePage( width, height, current );
+    QString fileName = _tempDir.name() + namePage( width, height, currentFile );
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -394,14 +395,17 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
         return QString::fromLatin1( "%1-%2.jpg" ).arg( base ).arg( size );
 }
 
-QString HTMLGenerator::Generator::createImage( const QString& fileName, int size )
+QString HTMLGenerator::Generator::createImage( const DB::ResultId& id, int size )
 {
+    DB::ImageInfoPtr info = id.fetchInfo();
+    const QString fileName = info->fileName(DB::AbsolutePath);
     if ( _generatedFiles.contains( qMakePair(fileName,size) ) ) {
         _waitCounter--;
     }
     else {
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( fileName, QSize( size, size ), DB::ImageDB::instance()->info(fileName, DB::AbsolutePath)->angle(), this );
+            new ImageManager::ImageRequest( fileName, QSize( size, size ),
+                                            info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
         _generatedFiles.insert( qMakePair( fileName, size ) );
@@ -525,7 +529,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
 int HTMLGenerator::Generator::calculateSteps()
 {
     int count = _setup.activeResolutions().count();
-    return _setup.imageListNew()->size() * ( 1 + count ); // 1 thumbnail + 1 real image
+    return _setup.imageList()->size() * ( 1 + count ); // 1 thumbnail + 1 real image
 }
 
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )

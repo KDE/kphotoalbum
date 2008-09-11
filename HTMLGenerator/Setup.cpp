@@ -150,12 +150,12 @@ void HTMLGenerator::Setup::setImageList( const DB::ResultPtr& files )
     _images = files;
 }
 
-const DB::ResultPtr& HTMLGenerator::Setup::imageListNew() const
+const DB::ResultPtr& HTMLGenerator::Setup::imageList() const
 {
     return _images;
 }
 
-QStringList HTMLGenerator::Setup::imageList() const
+QStringList HTMLGenerator::Setup::imageListOld() const
 {
     return DB::ImageDB::instance()->CONVERT(_images);
 }

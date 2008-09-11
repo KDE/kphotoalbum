@@ -22,19 +22,22 @@
 #include <qpainter.h>
 #include <qtimer.h>
 #include <qlabel.h>
+#include <QTextCodec>
 //Added by qt3to4:
 #include <QResizeEvent>
 #include <QKeyEvent>
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
-#include <kdebug.h>
 
 using Utilities::StringSet;
 
-Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
+Exif::InfoDialog::InfoDialog( const DB::ResultId& id, QWidget* parent )
     :KDialog( parent )
 {
+    DB::ImageInfoPtr info = id.fetchInfo();
+    QString fileName = info->fileName(DB::AbsolutePath);
+
     setWindowTitle( i18n("EXIF Information") );
     setButtons( Close );
     setWindowFlags( Qt::WDestructiveClose | windowFlags() );
@@ -56,7 +59,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
 
     _pix = new QLabel( top );
     hlay->addWidget( _pix );
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName, DB::AbsolutePath)->angle(), this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
     request->setPriority( ImageManager::Viewer );
     ImageManager::Manager::instance()->load( request );
 

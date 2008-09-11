@@ -1631,9 +1631,9 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    QStringList items = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
-    if ( !items.empty() ) {
-        Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items[0], this );
+    DB::ResultPtr items = selectedOnDisk();
+    if ( !items->isEmpty() ) {
+        Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items->at(0), this );
         exifDialog->show();
     }
 #endif

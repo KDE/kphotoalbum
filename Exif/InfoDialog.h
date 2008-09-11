@@ -26,6 +26,7 @@
 #include <QComboBox>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
+#include "DB/ResultId.h"
 
 namespace Exif
 {
@@ -35,8 +36,11 @@ class InfoDialog : public KDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    InfoDialog( const QString& fileName, QWidget* parent );
+    InfoDialog( const DB::ResultId& id, QWidget* parent );
+
     virtual QSize sizeHint() const;
+
+    // ImageManager::ImageClient interface.
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
 
 protected slots:

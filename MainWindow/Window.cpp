@@ -430,7 +430,6 @@ void MainWindow::Window::slotSave()
 
 void MainWindow::Window::slotDeleteSelected()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
@@ -439,17 +438,21 @@ void MainWindow::Window::slotDeleteSelected()
     Utilities::ShowBusyCursor dummy;
     DirtyIndicator::markDirty();
 
-    QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
-    StringSet allImages( DB::ImageDB::instance()->CONVERT( DB::ImageDB::instance()->images()) );
-    QStringList newSet;
-    for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
-        if ( allImages.contains( *it ) )
-            newSet.append(*it);
+    // The thumbnail view now only shows the intersection of what it showed
+    // previously and what we have in total.
+    DB::ResultPtr images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
+    QSet<DB::ResultId> allImageSet;
+    DB::ResultPtr all = DB::ImageDB::instance()->images();
+    typedef DB::Result::ConstIterator ResIterator;
+    for (ResIterator it = all->begin(); it != all->end(); ++it) {
+        allImageSet.insert(*it);
+    }
+    DB::ResultPtr newSet = new DB::Result();
+    for( ResIterator it = images->begin(); it != images->end(); ++it ) {
+        if ( allImageSet.contains( *it ) )
+            newSet->append(*it);
     }
     showThumbNails( newSet );
-#else // KDAB_TEMPORARILY_REMOVED
-    qFatal("Code commented out in MainWindow::Window::slotDeleteSelected");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::slotCopySelectedURLs()

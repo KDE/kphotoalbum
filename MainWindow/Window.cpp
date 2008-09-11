@@ -1181,12 +1181,13 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    QStringList list = DB::ImageDB::instance()->CONVERT(selected());
-    if ( list.count() == 0 )  {
-        KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
+    DB::ResultPtr list = selected();
+    if ( list->size() == 0 )  {
+        KMessageBox::sorry( this, i18n("No item is selected."),
+                            i18n("No Selection") );
     } else {
-        for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-            DB::ImageDB::instance()->info( *it, DB::AbsolutePath )->rotate( angle );
+        for ( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
+            (*it).fetchInfo()->rotate( angle );
         }
         _dirtyIndicator->markDirty();
         reloadThumbnailsAndFlushCache();

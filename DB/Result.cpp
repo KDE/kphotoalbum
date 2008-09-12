@@ -66,7 +66,7 @@ DB::Result::~Result()
 {
 }
 
-void DB::Result::debug()
+void DB::Result::debug() const
 {
     qDebug() << "Size: " << size();
     qDebug() << _items;

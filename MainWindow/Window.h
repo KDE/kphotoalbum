@@ -167,7 +167,7 @@ protected:
     DB::ResultPtr selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
-    void launchViewer( DB::ResultPtr mediaList, bool reuse, bool slideShow, bool random );
+    void launchViewer( DB::ConstResultPtr mediaList, bool reuse, bool slideShow, bool random );
     void setupStatusBar();
 
 private:

@@ -57,16 +57,18 @@ private:
     typedef QSet<DB::ResultId> IdSet;
 
 public:
+    enum Order { ViewOrder, SortedOrder };
+
     ThumbnailWidget( QWidget* parent );
-    void setImageList( const DB::ResultPtr& list );
+
+    void setImageList( const DB::ConstResultPtr& list );
+    DB::ConstResultPtr imageList( Order ) const;
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
     bool thumbnailStillNeeded( const QString& fileName ) const;
     DB::ResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
 
-    enum Order { ViewOrder, SortedOrder };
-    DB::ResultPtr imageList( Order ) const;
     void reload( bool flushCache, bool clearSelection=true );
     DB::ResultId mediaIdUnderCursor() const;
     DB::ResultId currentItem() const;
@@ -168,7 +170,7 @@ protected:
      * For all filenames in the list, check if there are any missing
      * thumbnails and generate these in the background.
      */
-    void generateMissingThumbnails( const DB::ResultPtr& items  ) const;
+    void generateMissingThumbnails( const DB::ConstResultPtr& items  ) const;
 
 protected slots:
     void emitDateChange( int, int );
@@ -179,7 +181,7 @@ private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
 
     /** The input list for images */
-    DB::ResultPtr _imageList;
+    DB::ConstResultPtr _imageList;
 
     /**
      * The list of images shown. We do indexed access to this _displayList that has been

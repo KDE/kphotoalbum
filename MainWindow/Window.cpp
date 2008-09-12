@@ -440,7 +440,7 @@ void MainWindow::Window::slotDeleteSelected()
 
     // The thumbnail view now only shows the intersection of what it showed
     // previously and what we have in total.
-    DB::ResultPtr images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
+    DB::ConstResultPtr images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
     QSet<DB::ResultId> allImageSet;
     DB::ResultPtr all = DB::ImageDB::instance()->images();
     typedef DB::Result::ConstIterator ResIterator;
@@ -519,7 +519,7 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
     launchViewer( selected(), reuse, slideShow, random );
 }
 
-void MainWindow::Window::launchViewer( DB::ResultPtr mediaList, bool reuse, bool slideShow, bool random )
+void MainWindow::Window::launchViewer( DB::ConstResultPtr mediaList, bool reuse, bool slideShow, bool random )
 {
     int seek = -1;
     if ( mediaList->size() == 0 ) {
@@ -540,11 +540,14 @@ void MainWindow::Window::launchViewer( DB::ResultPtr mediaList, bool reuse, bool
         return;
     }
 
-    // Here we switch back to fileName realm for now.
-    QStringList fileNameList = DB::ImageDB::instance()->CONVERT(mediaList);
+    if (random) {
+        QList<int> shuffled = Utilities::shuffleList(mediaList->getRawFileIdList());
+        mediaList = new DB::Result(shuffled);
+    }
 
-    if (random)  // QWERTY: shuffle needs to be implemented on ResultPtr
-        fileNameList = Utilities::shuffleList(fileNameList);
+    // Here, we need to switch back to the StringList until the Viewer is
+    // converted.
+    QStringList fileNameList = DB::ImageDB::instance()->CONVERT(mediaList);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {

@@ -49,7 +49,7 @@ class Result : public KShared {
     int indexOf(const DB::ResultId&) const;
     ConstIterator begin() const;
     ConstIterator end() const;
-    void debug();
+    void debug() const;
     
     /** Get the raw list for offline manipulation */
     const QList<int>& getRawFileIdList() const;
@@ -69,6 +69,8 @@ class Result : public KShared {
 };
 
 class ConstResultPtr;
+
+// A reference counted pointer to a Result.
 class ResultPtr : public KSharedPtr<Result> {
  public:
     ResultPtr( Result* ptr );
@@ -78,6 +80,11 @@ class ResultPtr : public KSharedPtr<Result> {
     int count() const;  // You certainly meant to call ->size() ?!
 };
 
+// A reference counted pointer to a const Result, i.e. no non-const methods can
+// be called on it. Return values of this type if you don't want the list to
+// be manipulated by the caller which otherwise would be easily possible.
+// Hence, the const-conversion DB::ResultPtr -> DB::ConstResultPtr is valid, but
+// not the reverse.
 class ConstResultPtr : public KSharedPtr<const Result> {
  public:
     ConstResultPtr( const Result* ptr );

@@ -274,7 +274,7 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 }
 
 
-void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ResultPtr& items ) const {
+void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ConstResultPtr& items ) const {
     const QRect dimensions = cellDimensions();
     const QSize size( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
                       dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
@@ -368,7 +368,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     }
 }
 
-void ThumbnailView::ThumbnailWidget::setImageList( const DB::ResultPtr& items )
+void ThumbnailView::ThumbnailWidget::setImageList( const DB::ConstResultPtr& items )
 {
     _imageList = items;
     generateMissingThumbnails( items );
@@ -1158,7 +1158,7 @@ void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
 }
 
 // TODO(hzeller) figure out if this should return the _imageList or _displayList.
-DB::ResultPtr ThumbnailView::ThumbnailWidget::imageList( Order order ) const
+DB::ConstResultPtr ThumbnailView::ThumbnailWidget::imageList( Order order ) const
 {
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )
         return reverseList( _displayList );

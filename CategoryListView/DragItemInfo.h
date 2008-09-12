@@ -53,7 +53,7 @@ inline uint qHash(const DragItemInfo& key)
 QDataStream& operator<<( QDataStream& stream, const DragItemInfo& );
 QDataStream& operator>>( QDataStream& stream, DragItemInfo& );
 
-typedef Utilities::Set<DragItemInfo> DragItemInfoSet;
+typedef QSet<DragItemInfo> DragItemInfoSet;
 }
 
 #endif /* CATEGORYLISTVIEW_DRAGITEMINFO_H */

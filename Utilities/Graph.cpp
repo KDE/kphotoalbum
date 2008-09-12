@@ -21,10 +21,10 @@
 #include <QLinkedList>
 
 template <class T>
-QMap< T, Utilities::Set<T> >
+QMap< T, QSet<T> >
 Utilities::pairsToMap(const QList< QPair<T, T> >& pairs)
 {
-    QMap< T, Utilities::Set<T> > map;
+    QMap< T, QSet<T> > map;
     typename QList< QPair<T, T> >::const_iterator end = pairs.end();
     for (typename QList< QPair<T, T> >::const_iterator i = pairs.begin();
          i != end; ++i)
@@ -33,10 +33,10 @@ Utilities::pairsToMap(const QList< QPair<T, T> >& pairs)
 }
 
 template <class T>
-QMap< T, Utilities::Set<T> >
-Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
+QMap< T, QSet<T> >
+Utilities::closure(const QMap<T, QSet<T> >& map)
 {
-    QMap< T, Utilities::Set<T> > closure;
+    QMap< T, QSet<T> > closure;
     QMap<T, bool> calculated;
     const QList<T> keys = map.keys();
     typename QList<T>::const_iterator keysEnd = keys.end();
@@ -45,7 +45,7 @@ Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
         QLinkedList<T> queue;
         //closure[*i].insert(*i);
         queue.append(*i);
-        Utilities::Set<T> closure_i = closure[*i];
+        QSet<T> closure_i = closure[*i];
         while (!queue.empty()) {
             T x = queue.first();
             queue.pop_front();
@@ -55,9 +55,9 @@ Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
                 continue;
             }
 
-            Utilities::Set<T> adj = map[x];
-            typename Utilities::Set<T>::const_iterator adjEnd = adj.end();
-            for (typename Utilities::Set<T>::const_iterator a = adj.begin();
+            QSet<T> adj = map[x];
+            typename QSet<T>::const_iterator adjEnd = adj.end();
+            for (typename QSet<T>::const_iterator a = adj.begin();
                  a != adjEnd; ++a) {
                 if (!closure_i.contains(*a)) {
                     queue.append(*a);
@@ -73,13 +73,13 @@ Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
 
 #define INSTANTIATE_PAIRSTOMAP(T) \
 template \
-QMap< T, Utilities::Set<T> > \
+QMap< T, QSet<T> > \
 Utilities::pairsToMap(const QList< QPair<T, T> >& pairs)
 
 #define INSTANTIATE_CLOSURE(T) \
 template \
-QMap< T, Utilities::Set<T> > \
-Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
+QMap< T, QSet<T> > \
+Utilities::closure(const QMap<T, QSet<T> >& map)
 
 INSTANTIATE_PAIRSTOMAP(QString);
 INSTANTIATE_CLOSURE(QString);

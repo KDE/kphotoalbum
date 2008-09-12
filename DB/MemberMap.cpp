@@ -59,7 +59,7 @@ QStringList MemberMap::members( const QString& category, const QString& memberGr
 
 void MemberMap::setMembers( const QString& category, const QString& memberGroup, const QStringList& members )
 {
-    StringSet allowedMembers(members);
+    StringSet allowedMembers = members.toSet();
 
     for (QStringList::const_iterator i = members.begin(); i != members.end(); ++i)
         if (!canAddMemberToGroup(category, memberGroup, *i))
@@ -113,7 +113,7 @@ QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, c
             result += resultSoFar[*it];
         }
         else if ( isGroup(category, *it ) ) {
-            result += StringSet(calculateClosure( resultSoFar, category, *it ));
+            result += calculateClosure( resultSoFar, category, *it ).toSet();
         }
     }
 

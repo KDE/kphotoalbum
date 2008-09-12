@@ -21,70 +21,13 @@
 #ifndef UTILITIES_SET_H
 #define UTILITIES_SET_H
 
-#include <QList>
-#include <QDataStream>
 #include <QSet>
 
-// QWERTY: can go now.
 namespace Utilities
 {
-    template <class T>
-    class Set: public QSet<T>
-    {
-        typedef QSet<T> Base;
-
-    public:
-        Set() {}
-
-        Set(const QSet<T>& other):
-            QSet<T>(other)
-        {
-        }
-
-        explicit Set(const QList<T>& list) : QSet<T>(list.toSet()) {
-            /* nop */
-        }
-
-        void insert(const T& x)
-        {
-            Base::insert(x);
-        }
-
-        typename Base::iterator erase(typename Base::iterator x)
-        {
-            return Base::erase(x);
-        }
-
-        Set<T>& operator+=(const Set<T>& other)
-        {
-            Base::operator+=(other);
-            return *this;
-        }
-
-        Set<T> operator+(const Set<T>& other) const
-        {
-            return (Set<T>(*this) += other);
-        }
-
-        Set<T>& operator-=(const Set<T>& other)
-        {
-            Base::operator-=(other);
-            return *this;
-        }
-
-        Set<T> operator-(const Set<T>& other) const
-        {
-            return (Set<T>(*this) -= other);
-        }
-    };
-
-    typedef Set<QString> StringSet;
+    /* there is no Set<> anymore since QSet<> is now provided by Qt.
+     * For backwards compatibility we still use a useful typedef, the StringSet
+     */
+    typedef QSet<QString> StringSet;
 }
-
-template <class TYPE>
-QDataStream& operator<<(QDataStream& stream, const Utilities::Set<TYPE>& data);
-
-template <class TYPE>
-QDataStream& operator>>(QDataStream& stream, Utilities::Set<TYPE>& data);
-
 #endif /* UTILITIES_SET_H */

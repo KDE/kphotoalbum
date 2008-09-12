@@ -79,7 +79,7 @@ protected slots:
 
 private:
     QMap<int, QPair<QString,QStringList> > _texts;
-    Utilities::Set<int> _headers;
+    QSet<int> _headers;
     int _maxKeyWidth;
     QString _search;
     QString _fileName;

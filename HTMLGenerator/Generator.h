@@ -74,7 +74,7 @@ private:
     int _total;
     KTempDir _tempDir;
     Utilities::UniqFilenameMapper _filenameMapper;
-    Utilities::Set< QPair<QString,int> > _generatedFiles;
+    QSet< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;
     QEventLoop _eventLoop;

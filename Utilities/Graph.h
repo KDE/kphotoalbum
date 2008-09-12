@@ -20,7 +20,7 @@
 #ifndef UTILITIES_GRAPH_H
 #define UTILITIES_GRAPH_H
 
-#include "Set.h"
+#include <QSet>
 #include <QMap>
 #include <QPair>
 #include <QList>
@@ -28,10 +28,10 @@
 namespace Utilities
 {
     template <class T>
-    QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
+    QMap< T, QSet<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
 
     template <class T>
-    QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
+    QMap< T, QSet<T> > closure(const QMap<T, QSet<T> >& map);
 }
 
 #endif /* UTILITIES_GRAPH_H */

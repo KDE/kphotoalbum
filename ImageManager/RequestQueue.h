@@ -19,14 +19,12 @@
 #define REQUESTQUEUE_H
 
 #include <QQueue>
+#include <QSet>
 #include "StopAction.h"
-#include "Utilities/Set.h"
 #include "ImageManager/ImageRequest.h"
 
 namespace ImageManager
 {
-using Utilities::Set;
-
 class ImageRequest;
 class ImageClient;
 
@@ -93,10 +91,10 @@ private:
      * handled in different places in kpa but sometimes in a snakeoil
      * way (it compares pointers instead of the content -> clean up that).
      */
-    Set<ImageRequestReference> _uniquePending;
+    QSet<ImageRequestReference> _uniquePending;
 
     // All active requests that have a client
-    Set<ImageRequest*> _activeRequests;
+    QSet<ImageRequest*> _activeRequests;
 };
 
 }

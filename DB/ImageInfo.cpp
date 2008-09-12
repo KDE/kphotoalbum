@@ -361,7 +361,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
     _matched[category].insert( value );
     const MemberMap& map = DB::ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
-    _matched[category].unite( StringSet(members) );
+    _matched[category].unite( members.toSet() );
 }
 
 /**
@@ -503,7 +503,7 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
         }
     }
 
-    _categoryInfomation.insert( folderCategory->name() , StringSet(QStringList( folderName )) );
+    _categoryInfomation.insert( folderCategory->name() , StringSet() << folderName );
     folderCategory->addItem( folderName );
 }
 

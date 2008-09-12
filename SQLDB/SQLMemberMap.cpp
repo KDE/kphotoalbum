@@ -130,8 +130,8 @@ bool SQLMemberMap::isGroup(const QString& category,
 QMap<QString, StringSet>
 SQLMemberMap::groupMap(const QString& category) const
 {
-    return closure(Utilities::pairsToMap
-                   (_qh.memberGroupConfiguration(category)));
+    return Utilities::closure(Utilities::pairsToMap
+                              (_qh.memberGroupConfiguration(category)));
 }
 
 QMap<QString, StringSet>

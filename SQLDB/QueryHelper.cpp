@@ -1172,7 +1172,7 @@ QueryHelper::classify(const QString& category,
         }
         // TODO: can we do the whole stuff here without list and directly with
         // a set ? So that we don't have to convert it back and forth.
-        counter.count( StringSet(list) );
+        counter.count( list.toSet() );
     }
 
     const QMap<QString, uint> groups = counter.result();

@@ -35,7 +35,7 @@ namespace MainWindow
 
 using Utilities::StringSet;
 
-typedef Utilities::Set< QPair<QString,QString> > OfferType;
+typedef QSet< QPair<QString,QString> > OfferType;
 
 class ExternalPopup :public QMenu {
     Q_OBJECT

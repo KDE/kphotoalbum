@@ -102,6 +102,7 @@ public: // Methods that must be overriden
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
+    // TODO: make to use DB::ResultPtr.
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
@@ -117,7 +118,7 @@ public: // Methods that must be overriden
      * of absolute filenames. This should not be necessary anymore after the
      * refactoring to use DB::ResultPtr everywhere
      */
-    virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
+    virtual QStringList CONVERT( const DB::ConstResultPtr& ) = 0; //QWERTY DIE
 
     /**
      * there are some cases in which we have a filename and need to map back

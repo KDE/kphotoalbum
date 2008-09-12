@@ -147,6 +147,7 @@ QString ImageInfo::fileName( PathType type ) const
     case DB::AbsolutePath:        return _absoluteFileName;
     default:
         kFatal("Invalid parameter to ImageInfo::fileName()");
+        return QString::null;
     }
 }
 

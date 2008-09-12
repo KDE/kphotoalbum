@@ -93,11 +93,9 @@ bool DB::Result::isEmpty() const
     return _items.isEmpty();
 }
 
-int DB::ResultPtr::count() const
+const QList<int>& DB::Result::getRawFileIdList() const
 {
-    // This is a debug function from the KSharedPtr class
-    Q_ASSERT( false );
-    return -1;
+    return _items;
 }
 
 DB::ResultPtr::ResultPtr( Result* ptr )
@@ -110,3 +108,7 @@ DB::ConstResultPtr::ConstResultPtr( const Result* ptr )
 {
 }
 
+DB::ConstResultPtr::ConstResultPtr( const ResultPtr& nonConstPtr )
+    : KSharedPtr<const Result>( nonConstPtr.data() )
+{
+}

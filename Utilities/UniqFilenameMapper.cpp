@@ -27,19 +27,19 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const QString& filename) {
     if (_origToUniq.contains(filename))
         return _origToUniq[filename];
 
-    const QString base = QFileInfo(filename).baseName();
-    const QString ext = QFileInfo(filename).completeSuffix();
-
+    const QString extension = QFileInfo(filename).completeSuffix();
+    QString base = QFileInfo(filename).baseName();
+    if (!_targetDirectory.isNull()) {
+        base = QString::fromAscii("%1/%2")
+            .arg(_targetDirectory).arg(base);
+    }
+    
     QString uniqFile;
     int i = 0;
     do {
         uniqFile = (i == 0)
-            ? QString::fromAscii("%1.%2").arg(base).arg(ext)
-            : QString::fromAscii("%1-%2.%3").arg(base).arg(i).arg(ext);
-        if (!_targetDirectory.isNull()) {
-            uniqFile = QString::fromAscii("%1/%2")
-                .arg(_targetDirectory).arg(uniqFile);
-        }
+            ? QString::fromAscii("%1.%2").arg(base).arg(extension)
+            : QString::fromAscii("%1-%2.%3").arg(base).arg(i).arg(extension);
         ++i;
     }
     while (fileClashes(uniqFile));

@@ -40,9 +40,6 @@ class Result : public KShared {
     void append( const DB::ResultId& );
     void prepend( const DB::ResultId& );
     
-    /** Append the content of another DB::Result */
-    void appendAll( const DB::Result& );
-    
     DB::ResultId at(int index) const;
     int size() const;
     bool isEmpty() const;

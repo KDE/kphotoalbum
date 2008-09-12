@@ -77,12 +77,6 @@ void DB::Result::append( const DB::ResultId& id)
     _items.append(id.fileId());
 }
 
-void DB::Result::appendAll( const DB::Result& result)
-{
-    _items += result._items;
-}
-
-
 void DB::Result::prepend( const DB::ResultId& id)
 {
     _items.prepend(id.fileId());

@@ -213,9 +213,9 @@ bool Exif::Database::isAvailable()
 {
 #ifdef QT_NO_SQL
     return false;
-#endif
-
+#else
     return QSqlDatabase::isDriverAvailable( QString::fromLatin1( "QSQLITE" ) );
+#endif
 }
 
 bool Exif::Database::isUsable() const

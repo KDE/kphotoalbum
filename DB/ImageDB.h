@@ -112,6 +112,22 @@ public: // Methods that must be overriden
     virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
     virtual bool isClipboardEmpty() = 0;
 
+    /**
+     * temporary method to convert a DB::ResultPtr back to the usual list
+     * of absolute filenames. This should not be necessary anymore after the
+     * refactoring to use DB::ResultPtr everywhere
+     */
+    virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
+
+    /**
+     * there are some cases in which we have a filename and need to map back
+     * to ID. Provided here to push down that part of refactoring. It
+     * might be necessary to keep this method though because sometimes we
+     * get filenames from the UI and need to convert it into our internal IDs.
+     * If that turns out to be true, lowercasify this method, and update
+     * this comment.
+     */
+    virtual DB::ResultId ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
 
     /** @short Create a stack of images/videos/whatever
      *
@@ -130,12 +146,6 @@ public: // Methods that must be overriden
      * changed.
      * */
     virtual bool stack( const DB::ResultPtr& items ) = 0;
-
-    virtual QStringList CONVERT( const DB::ResultPtr& ) = 0; //QWERTY DIE
-
-    // there are some cases in which we have a filename and need to map back
-    // to ID. Provided here to push down that part of refactoring.
-    virtual DB::ResultId ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
 
     /** @short Remove all images from whichever stacks they might be in
      *

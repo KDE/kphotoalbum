@@ -311,7 +311,7 @@ bool SQLDB::Database::isClipboardEmpty()
     return true;
 }
 
-QStringList SQLDB::Database::CONVERT(const DB::ResultPtr& result)
+QStringList SQLDB::Database::CONVERT(const DB::ConstResultPtr& result)
 {
     Q_ASSERT(!result.isNull());
     QStringList files;

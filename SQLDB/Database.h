@@ -71,7 +71,7 @@ namespace SQLDB {
         OVERRIDE void cutToClipboard( const QStringList& list );
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
         OVERRIDE bool isClipboardEmpty();
-        OVERRIDE QStringList CONVERT( const DB::ResultPtr& );
+        OVERRIDE QStringList CONVERT( const DB::ConstResultPtr& );
         OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
         OVERRIDE bool stack(const DB::ResultPtr& items);

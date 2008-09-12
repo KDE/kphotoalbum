@@ -697,7 +697,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
 }
 
 // PENDING(blackie) THIS NEEDS TO GO AWAY //QWERTY
-QStringList XMLDB::Database::CONVERT( const DB::ResultPtr& items )
+QStringList XMLDB::Database::CONVERT( const DB::ConstResultPtr& items )
 {
     QStringList result;
     for ( int i = 0; i < items->size(); ++i ) {

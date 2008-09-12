@@ -589,12 +589,8 @@ void MainWindow::Window::closeEvent( QCloseEvent* e )
 
 void MainWindow::Window::slotLimitToSelected()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED //QWERTY
     Utilities::ShowBusyCursor dummy;
     showThumbNails( selected() );
-#else // KDAB_TEMPORARILY_REMOVED
-    qFatal("Code commented out in MainWindow::Window::slotLimitToSelected");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::setupMenuBar()
@@ -1470,26 +1466,23 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
     QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") )
                        .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;
 
-    QStringList out;
+    DB::ResultPtr out = new DB::Result();
     for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
-        if ( !DB::ImageDB::instance()->info( fileName, DB::AbsolutePath).isNull() )
-            out.append( fileName );
+        DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
+        if ( !id.isNull() )
+            out->append( id );
     }
 
-    if ( out.isEmpty() )
+    if ( out->isEmpty() )
         KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
     else
         showThumbNails( out );
-#else // KDAB_TEMPORARILY_REMOVED
-    qFatal("Code commented out in MainWindow::Window::slotShowListOfFiles");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::updateDateBar( const QString& path )
@@ -1618,11 +1611,7 @@ void MainWindow::Window::convertBackend()
 
 void MainWindow::Window::slotRecalcCheckSums()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
     DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
-#else // KDAB_TEMPORARILY_REMOVED
-    qFatal("Code commented out in MainWindow::Window::slotRecalcCheckSums");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void MainWindow::Window::slotShowExifInfo()

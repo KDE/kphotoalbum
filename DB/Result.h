@@ -80,8 +80,14 @@ class ResultPtr : public KSharedPtr<Result> {
 // A reference counted pointer to a const Result, i.e. no non-const methods can
 // be called on it. Return values of this type if you don't want the list to
 // be manipulated by the caller which otherwise would be easily possible.
-// Hence, the const-conversion DB::ResultPtr -> DB::ConstResultPtr is valid, but
+//
+// So, the const-conversion DB::ResultPtr -> DB::ConstResultPtr is valid, but
 // not the reverse.
+//
+// Note: it is not sufficient to just have a 'const DB::ResultPtr' (that only
+// allows to call const-methods on its KShared) because it is
+// possible to assign a 'const DB::ResultPtr' to a non-const DB::ResultPtr that
+// would allow all write manipulations to the underlying object again.
 class ConstResultPtr : public KSharedPtr<const Result> {
  public:
     ConstResultPtr( const Result* ptr );

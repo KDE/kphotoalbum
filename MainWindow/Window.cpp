@@ -329,7 +329,7 @@ void MainWindow::Window::slotCreateImageStack()
     bool ok = DB::ImageDB::instance()->stack( list );
     if ( !ok ) {
         if ( KMessageBox::questionYesNo( this,
-                    i18n("Some of the selected images already belong to some stack. "
+                    i18n("Some of the selected images already belong to a stack. "
                         "Do you want to remove them from their stacks and create a "
                         "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
             DB::ImageDB::instance()->unstack( list );

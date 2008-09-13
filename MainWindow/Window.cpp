@@ -565,7 +565,7 @@ void MainWindow::Window::launchViewer( DB::ConstResultPtr mediaList, bool reuse,
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( DB::ImageDB::instance()->CONVERT(selected( true /* sort with oldest first */ ) ));
+    DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ));
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
     DirtyIndicator::markDirty();
 }

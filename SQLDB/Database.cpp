@@ -268,9 +268,11 @@ void SQLDB::Database::reorder( const DB::ResultId&, const DB::ConstResultPtr&, b
     qFatal("not there yet.: SQLDB::Database::reorder()");
 }
 
-void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
+void SQLDB::Database::sortAndMergeBackIn(const DB::ConstResultPtr&)
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
+#endif
 }
 
 // todo: implement.

@@ -333,12 +333,12 @@ DB::ResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, b
     return DB::ResultPtr( new DB::Result(result) );
 }
 
-void XMLDB::Database::sortAndMergeBackIn( const QStringList& fileList )
+void XMLDB::Database::sortAndMergeBackIn( const DB::ConstResultPtr& idList )
 {
     DB::ImageInfoList list;
 
-    for( QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it ) {
-        list.append( DB::ImageDB::instance()->info( *it, DB::AbsolutePath ) );
+    for( DB::Result::ConstIterator it = idList->begin(); it != idList->end(); ++it ) {
+        list.append( (*it).fetchInfo() );
     }
     _images.sortAndMergeBackIn( list );
 }

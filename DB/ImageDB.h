@@ -104,7 +104,7 @@ public: // Methods that must be overriden
     virtual MD5Map* md5Map() = 0;
 
     // TODO: make to use DB::ResultPtr.
-    virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
+    virtual void sortAndMergeBackIn( const ConstResultPtr& idlist ) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;

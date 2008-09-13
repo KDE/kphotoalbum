@@ -354,37 +354,47 @@ KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
         new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
 }
 
-void XMLDB::Database::reorder( const DB::ResultId&, const DB::ResultPtr&, bool ) {
-    qFatal("oops, implement: XMLDB::Database::reorder()");
-#if 0
-    // this was the old implementation of reorder.
+void XMLDB::Database::reorder( const DB::ResultId& item, const DB::ConstResultPtr& selection, bool after) {
+    Q_ASSERT(!item.isNull());
+    Q_ASSERT(!selection.isNull());
     DB::ImageInfoList list = takeImagesFromSelection( selection );
     insertList( item, list, after );
-#endif
 }
 
-// The selection is know to be sorted wrt the order in the image list.
-DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const QStringList& selection )
-{
-    QStringList cutList = selection;
+// Remove all the images from the database that match the given selection and
+// return that sublist.
+// Note: The selection is known to be sorted wrt the order in the image list,
+// i.e. it is a common subsequence.
+DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const DB::ConstResultPtr& selection )
+{  
     DB::ImageInfoList result;
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end() && !cutList.isEmpty(); ) {
-        if ( (*it)->fileName(DB::AbsolutePath) == cutList[0] ) {
+    if (selection->isEmpty())
+        return result;
+
+    DB::Result::ConstIterator subsequenceIt = selection->begin();
+    QString file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
+ 
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
+        if ( (*it)->fileName(DB::AbsolutePath) == file ) {
             result << *it;
             it = _images.erase(it);
-            cutList.pop_front();
-        }
-        else
+            ++subsequenceIt;
+            if (subsequenceIt == selection->end())
+                break;
+            file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
+        } else {
             ++it;
+        }
     }
-    Q_ASSERT( cutList.isEmpty() );
+    Q_ASSERT( subsequenceIt == selection->end() );  // if not, selection was not a subsequence
 
     return result;
 }
 
-QStringList XMLDB::Database::insertList( const QString& fileName, const DB::ImageInfoList& list, bool after )
+DB::ResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after )
 {
-    QStringList result;
+    DB::ResultPtr result = new DB::Result();
+    QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
 
     DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
@@ -397,23 +407,29 @@ QStringList XMLDB::Database::insertList( const QString& fileName, const DB::Imag
         imageIt++;
     for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
         _images.insert( imageIt, *it );
-        result << (*it)->fileName(DB::AbsolutePath);
+        result->append( ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
     }
     MainWindow::DirtyIndicator::markDirty();
+
     return result;
 }
 
 
 void XMLDB::Database::cutToClipboard( const QStringList& selection )
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     _clipboard = takeImagesFromSelection( selection );
+#endif
 }
 
 QStringList XMLDB::Database::pasteFromCliboard( const QString& afterFile )
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     QStringList result = insertList( afterFile, _clipboard, true );
     _clipboard.clear();
-    return result;
+#else
+    return QStringList();
+#endif
 }
 
 bool XMLDB::Database::isClipboardEmpty()
@@ -526,7 +542,7 @@ DB::ResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceImg ) c
         }
     }
 
-#if 0  // TODO(hzeller)/QWERTY: won't work with the limited iterator impl. of Result.
+#ifdef KDAB_TEMPORARILY_REMOVED  // TODO(hzeller)/QWERTY: won't work with the limited iterator impl. of Result.
     StackSortHelper sortHelper( this );
     for ( QMap<DB::StackID,QStringList>::iterator it = _stackMap.begin(); it != _stackMap.end(); ++it ) {
         qSort( it->begin(), it->end(), sortHelper );

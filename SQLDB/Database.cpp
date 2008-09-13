@@ -264,7 +264,7 @@ void SQLDB::Database::reorder(const QString& item,
 }
 #endif
 
-void SQLDB::Database::reorder( const DB::ResultId&, const DB::ResultPtr&, bool ) {
+void SQLDB::Database::reorder( const DB::ResultId&, const DB::ConstResultPtr&, bool ) {
     qFatal("not there yet.: SQLDB::Database::reorder()");
 }
 

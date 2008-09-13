@@ -107,7 +107,12 @@ public: // Methods that must be overriden
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
 
-    virtual void reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after ) = 0;
+    /**
+     * Reorder the items in the database by placing all the items given in
+     * cutList directly before or after the given item.
+     * If the parameter "after" determines where to place it.
+     */
+    virtual void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after ) = 0;
 
     virtual void cutToClipboard( const QStringList& list ) = 0;
     virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;

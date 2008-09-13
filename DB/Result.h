@@ -18,6 +18,7 @@ class Result : public KShared {
         ConstIterator( const Result* result, int pos );
         ConstIterator& operator++();
         DB::ResultId operator*();
+        bool operator==( const ConstIterator& other );
         bool operator!=( const ConstIterator& other );
         
     private:

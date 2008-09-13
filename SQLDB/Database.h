@@ -62,7 +62,7 @@ namespace SQLDB {
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
 
-        OVERRIDE void reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after );
+        OVERRIDE void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after );
 
         OVERRIDE DB::ResultId findFirstItemInRange(const DB::ResultPtr& images,
                                                    const DB::ImageDate& range,

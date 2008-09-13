@@ -60,7 +60,7 @@ namespace XMLDB {
         OVERRIDE void sortAndMergeBackIn( const QStringList& fileList );
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
-        OVERRIDE void reorder( const DB::ResultId& item, const DB::ResultPtr& cutList, bool after );
+        OVERRIDE void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after );
 
         OVERRIDE void cutToClipboard( const QStringList& list );
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
@@ -78,8 +78,8 @@ namespace XMLDB {
         DB::ResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
-        DB::ImageInfoList takeImagesFromSelection( const QStringList& list );
-        QStringList insertList( const QString& fileName, const DB::ImageInfoList& list, bool after );
+        DB::ImageInfoList takeImagesFromSelection( const DB::ConstResultPtr& list );
+        DB::ResultPtr insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 

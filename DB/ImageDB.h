@@ -102,8 +102,10 @@ public: // Methods that must be overriden
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
+
     // TODO: make to use DB::ResultPtr.
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
+
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
 
@@ -113,10 +115,6 @@ public: // Methods that must be overriden
      * If the parameter "after" determines where to place it.
      */
     virtual void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after ) = 0;
-
-    virtual void cutToClipboard( const QStringList& list ) = 0;
-    virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
-    virtual bool isClipboardEmpty() = 0;
 
     /**
      * temporary method to convert a DB::ResultPtr back to the usual list
@@ -170,11 +168,20 @@ public: // Methods that must be overriden
      * */
     virtual DB::ResultPtr getStackFor( const DB::ResultId& referenceImg ) const = 0;
 
+    // QWERTY: remove this ? Clipboard never seems to be used, but this
+    // method is asked once.
+    virtual bool isClipboardEmpty() = 0;
+
  protected:
     friend class DB::ResultId;
 
     // Don't use directly, use DB::ResultId::fetchInfo() instead.
     virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
+
+    // QWERTY: garbage collect these methods ? They are never used.
+    virtual void cutToClipboard( const QStringList& list ) = 0;
+    virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
+
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

@@ -116,10 +116,8 @@ void ImagePreview::setCurrentImage(const QImage &image)
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
-void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK, const bool cache )
+void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
-    Q_UNUSED(cache)
-
     if ( loadedOK && !_info.isNull() ) {
         if (_info.fileName(DB::AbsolutePath) == fileName)
             setCurrentImage(image);
@@ -180,10 +178,8 @@ void ImagePreview::PreviewImage::reset()
 
 
 void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
-                                                const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK,
-                                                const bool cache )
+                                                const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
-    Q_UNUSED(cache)
     if ( loadedOK )
         set(fileName, image);
 }

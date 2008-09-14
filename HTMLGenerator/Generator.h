@@ -64,8 +64,9 @@ public:
     void getThemeInfo( QString* baseDir, QString* name, QString* author );
 
 
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&,
-                               const bool loadedOK, const bool cache );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size,
+                               const QSize& fullSize, int angle, const QImage&,
+                               const bool loadedOK);
     int maxImageSize();
 
 private:

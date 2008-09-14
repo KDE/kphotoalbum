@@ -199,7 +199,6 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
                         QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
                                dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
                         angle, this );
-        request->setCache();
         request->setPriority( ImageManager::ThumbnailVisible );
         ImageManager::Manager::instance()->load( request );
     }
@@ -560,7 +559,7 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 // ImageManager::ImageClient interface. Callback from the
 // ImageManager when the image is loaded.
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
-                                                   const QImage& image, const bool loadedOK, const bool cache )
+                                                   const QImage& image, const bool loadedOK)
 {
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
@@ -585,11 +584,9 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
         imageInfo->setSize( fullSize );
     }
 
-    if ( cache ) {
-        // TODO(hzeller): check all places where images are put into the cache.
-        // I assume not all of them know about thumbnailPixmapCacheKey().
-        QPixmapCache::insert( thumbnailPixmapCacheKey(id), pixmap );
-    }
+    // TODO(hzeller): check all places where images are put into the cache.
+    // I assume not all of them know about thumbnailPixmapCacheKey().
+    QPixmapCache::insert( thumbnailPixmapCacheKey(id), pixmap );
 
     updateCell( id );
 }

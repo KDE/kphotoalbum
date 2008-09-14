@@ -159,7 +159,6 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         QSize fullSize;
         int angle = 0;
         bool loadedOK = false;
-        bool cacheMe = false;
 
         _lock.lock();
         if ( _loadList.isRequestStillValid( request ) )  {
@@ -170,7 +169,6 @@ void ImageManager::Manager::customEvent( QEvent* ev )
             fullSize = request->fullSize();
             angle = request->angle();
             loadedOK = request->loadedOK();
-            cacheMe = request->cache();
         }
 
         _loadList.removeRequest(request);
@@ -179,7 +177,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
 
         _lock.unlock();
         if ( client ) {
-            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK, cacheMe );
+            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK);
         }
     }
 }

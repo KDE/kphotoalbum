@@ -38,7 +38,6 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
                                               QSize(256,256), info->angle(),
                                               this );
         request->setPriority( ImageManager::BuildThumbnails );
-        request->setCache();
         ImageManager::Manager::instance()->load( request );
     }
 }
@@ -49,11 +48,10 @@ void ThumbnailView::ThumbnailBuilder::slotCancelRequests()
     setValue( maximum() );
 }
 
-void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache )
+void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
 {
     Q_UNUSED(size)
     Q_UNUSED(loadedOK)
-    Q_UNUSED(cache)
     if ( fullSize.width() != -1 ) {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
         info->setSize( fullSize );

@@ -171,7 +171,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     if ( size != 0 ) {
         if ( fileName != _currentFileName ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
-            request->setCache();
+            // request->setCache();  // TODO: do caching in callback.
             request->setPriority( ImageManager::Viewer );
             ImageManager::Manager::instance()->load( request );
             return false;
@@ -181,10 +181,8 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 }
 
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
-                                    const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool /*loadedOK*/,
-                                    const bool cache )
+                                                    const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool /*loadedOK*/)
 {
-    Q_UNUSED(cache)
     delete _tmpFileForThumbnailView;
     _tmpFileForThumbnailView = new QTemporaryFile(this);
     _tmpFileForThumbnailView->open();

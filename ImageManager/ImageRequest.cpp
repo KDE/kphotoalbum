@@ -17,9 +17,18 @@
 */
 #include "ImageRequest.h"
 
-ImageManager::ImageRequest::ImageRequest( const QString& fileName, const QSize& size, int angle, ImageManager::ImageClient* client )
-    : _null( false ),  _fileName( fileName ),  _width( size.width() ),  _height( size.height() ),
-      _cache( false ),  _client( client ),  _angle( angle ), _priority( ThumbnailVisible ), _loadedOK( false ), _dontUpScale( false )
+ImageManager::ImageRequest::ImageRequest( const QString& fileName, 
+                                          const QSize& size, int angle,
+                                          ImageManager::ImageClient* client )
+    : _null( false ),
+      _fileName( fileName ),
+      _width( size.width() ),
+      _height( size.height() ),
+      _client( client ),
+      _angle( angle ),
+      _priority( ThumbnailVisible ),
+      _loadedOK( false ),
+      _dontUpScale( false )
 {
 }
 
@@ -71,17 +80,7 @@ bool ImageManager::ImageRequest::operator==( const ImageRequest& other ) const
     return ( _null == other._null && fileName() == other.fileName() &&
              _width == other._width && _height == other._height &&
              _angle == other._angle && _client == other._client &&
-             _cache == other._cache && _priority == other._priority );
-}
-
-void ImageManager::ImageRequest::setCache( bool b )
-{
-    _cache = b;
-}
-
-bool ImageManager::ImageRequest::cache() const
-{
-    return _cache;
+             _priority == other._priority );
 }
 
 ImageManager::ImageClient* ImageManager::ImageRequest::client() const

@@ -28,7 +28,7 @@ namespace ImageManager
 class ImageClient {
 public:
     virtual ~ImageClient();
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache ) = 0;
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) = 0;
 };
 
 }

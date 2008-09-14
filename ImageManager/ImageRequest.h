@@ -62,8 +62,6 @@ public:
     int height() const;
     int angle() const;
 
-    void setCache( bool b = true );
-    bool cache() const;
     ImageClient* client() const;
 
     QSize fullSize() const;
@@ -89,7 +87,6 @@ private:
 
     int _width;
     int _height;
-    bool _cache;
     ImageClient* _client;
     int _angle;
     QSize _fullSize;

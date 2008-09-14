@@ -294,9 +294,8 @@ void Export::copyImages( const DB::ConstResultPtr& list )
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK, const bool cache )
+void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
 {
-    Q_UNUSED(cache)
     if ( !loadedOK )
         return;
 

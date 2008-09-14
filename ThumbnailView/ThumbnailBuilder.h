@@ -32,7 +32,7 @@ class ThumbnailBuilder :public QProgressDialog, public ImageManager::ImageClient
 
 public:
     ThumbnailBuilder( QWidget* parent );
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK, const bool cache );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 public slots:
     void slotCancelRequests();

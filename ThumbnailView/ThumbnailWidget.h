@@ -65,7 +65,7 @@ public:
     DB::ConstResultPtr imageList( Order ) const;
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
-    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
+    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK);
     bool thumbnailStillNeeded( const QString& fileName ) const;
     DB::ConstResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
 

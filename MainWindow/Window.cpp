@@ -320,7 +320,7 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    DB::ResultPtr list = selected();
+    DB::ConstResultPtr list = selected();
     if ( list->size() < 2 ) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
@@ -351,7 +351,7 @@ void MainWindow::Window::slotCreateImageStack()
 
 void MainWindow::Window::slotUnStackImages()
 {
-    DB::ResultPtr list = selected();
+    DB::ConstResultPtr list = selected();
     if ( list->isEmpty() )
         return;
 
@@ -371,7 +371,7 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    DB::ResultPtr list = selected();
+    DB::ConstResultPtr list = selected();
     if ( list->size() == 0 )  {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
@@ -442,7 +442,7 @@ void MainWindow::Window::slotDeleteSelected()
     // previously and what we have in total.
     DB::ConstResultPtr images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
     QSet<DB::ResultId> allImageSet;
-    DB::ResultPtr all = DB::ImageDB::instance()->images();
+    DB::ConstResultPtr all = DB::ImageDB::instance()->images();
     typedef DB::Result::ConstIterator ResIterator;
     for (ResIterator it = all->begin(); it != all->end(); ++it) {
         allImageSet.insert(*it);
@@ -457,7 +457,7 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-    const DB::ResultPtr sel = selectedOnDisk();
+    const DB::ConstResultPtr sel = selectedOnDisk();
     KUrl::List urls;
 
     for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
@@ -481,7 +481,7 @@ void MainWindow::Window::slotReReadExifInfo()
 }
 
 
-DB::ResultPtr MainWindow::Window::selected( bool keepSortOrderOfDatabase )
+DB::ConstResultPtr MainWindow::Window::selected( bool keepSortOrderOfDatabase )
 {
     if ( _thumbnailView == _stack->visibleWidget() )
         return _thumbnailView->selection( keepSortOrderOfDatabase );
@@ -498,9 +498,9 @@ void MainWindow::Window::slotViewNewWindow()
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
  * */
-DB::ResultPtr MainWindow::Window::selectedOnDisk()
+DB::ConstResultPtr MainWindow::Window::selectedOnDisk()
 {
-    DB::ResultPtr list = selected();
+    DB::ConstResultPtr list = selected();
     if ( list->size() == 0 )
         return DB::ImageDB::instance()->currentScope( true );
 
@@ -1163,7 +1163,7 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
-    DB::ResultPtr selection = _thumbnailView->selection();
+    DB::ConstResultPtr selection = _thumbnailView->selection();
 
     _configAllSimultaniously->setEnabled(selection->size() > 1 );
     _configOneAtATime->setEnabled(selection->size() >= 1 );
@@ -1177,7 +1177,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    DB::ResultPtr list = selected();
+    DB::ConstResultPtr list = selected();
     if ( list->size() == 0 )  {
         KMessageBox::sorry( this, i18n("No item is selected."),
                             i18n("No Selection") );
@@ -1225,7 +1225,7 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 
 void MainWindow::Window::slotShowNotOnDisk()
 {
-    DB::ResultPtr allImages = DB::ImageDB::instance()->images();
+    DB::ConstResultPtr allImages = DB::ImageDB::instance()->images();
     DB::Result* notOnDisk = new DB::Result;
     for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
         DB::ImageInfoPtr info = (*it).fetchInfo();
@@ -1550,7 +1550,7 @@ void MainWindow::Window::possibleRunSuvey()
     survey.possibleExecSurvey();
 }
 
-void MainWindow::Window::showThumbNails( const DB::ResultPtr& items )
+void MainWindow::Window::showThumbNails( const DB::ConstResultPtr& items )
 {
     _thumbnailView->setImageList( items );
     _partial->setMatchCount( items->size() );
@@ -1620,7 +1620,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::ResultPtr items = selectedOnDisk();
+    DB::ConstResultPtr items = selectedOnDisk();
     if ( !items->isEmpty() ) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items->at(0), this );
         exifDialog->show();
@@ -1656,7 +1656,7 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::slotRecreateThumbnail()
 {
-    DB::ResultPtr selected = selectedOnDisk();
+    DB::ConstResultPtr selected = selectedOnDisk();
     for( DB::Result::ConstIterator imageIt = selected->begin(); imageIt != selected->end(); ++imageIt ) {
         DB::ImageInfoPtr info = (*imageIt).fetchInfo();
         QString fileName = info->fileName(DB::AbsolutePath);

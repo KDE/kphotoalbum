@@ -38,7 +38,7 @@ class HTMLDialog :public KPageDialog {
 
 public:
     HTMLDialog( QWidget* parent );
-    int exec( const DB::ResultPtr& list );
+    int exec( const DB::ConstResultPtr& list );
 
 protected slots:
     void slotOk();
@@ -68,7 +68,7 @@ private:
     QComboBox *_themeBox;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
     QList<ImageSizeCheckBox*> _cbs;
-    DB::ResultPtr _list;
+    DB::ConstResultPtr _list;
 };
 
 }

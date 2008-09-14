@@ -67,8 +67,8 @@ public:
     void setResolutions( const Q3ValueList<ImageSizeCheckBox*>& sizes );
     const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
 
-    void setImageList( const DB::ResultPtr& files );
-    const DB::ResultPtr& imageList() const;
+    void setImageList( const DB::ConstResultPtr& files );
+    const DB::ConstResultPtr& imageList() const;
 
     void setInlineMovies( bool inlineMovie );
     bool inlineMovies() const;
@@ -87,7 +87,7 @@ private:
     QString _theme;
     QMap<QString,bool> _includeCategory;
     Q3ValueList<ImageSizeCheckBox*> _resolutions;
-    DB::ResultPtr _images;
+    DB::ConstResultPtr _images;
     bool _inlineMovies;
 };
 

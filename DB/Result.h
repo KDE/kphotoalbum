@@ -86,9 +86,13 @@ class ResultPtr : public KSharedPtr<Result> {
 // not the reverse.
 //
 // Note: it is not sufficient to just have a 'const DB::ResultPtr' (that only
-// allows to call const-methods on its KShared) because it is
-// possible to assign a 'const DB::ResultPtr' to a non-const DB::ResultPtr that
-// would allow all write manipulations to the underlying object again.
+//   allows to call const-methods on its KShared) because it is
+//   possible to assign a 'const DB::ResultPtr' to a non-const DB::ResultPtr
+//   that would allow all write manipulations to the underlying object again.
+// Note2: A way to avoid the distinction would be to have some DB::Result
+//   object that contains the shared pointer and does some copy-on-write. That
+//   would not be really desirable because it encourages sloppy programming and
+//   does not highlight anymore what is not to be changed.
 class ConstResultPtr : public KSharedPtr<const Result> {
  public:
     ConstResultPtr( const Result* ptr );

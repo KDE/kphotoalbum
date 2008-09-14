@@ -119,7 +119,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
     return QDateTime( QDate( 2100, 1, 1 ) );
 }
 
-XMLImageDateCollection::XMLImageDateCollection( const DB::ResultPtr& list )
+XMLImageDateCollection::XMLImageDateCollection( const DB::ConstResultPtr& list )
 {
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
         add( (*it).fetchInfo()->date() );

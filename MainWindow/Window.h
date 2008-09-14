@@ -68,12 +68,12 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::ResultPtr selected( bool keepSortOrderOfDatabase = false );
+    DB::ConstResultPtr selected( bool keepSortOrderOfDatabase = false );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
 public slots:
-    void showThumbNails( const DB::ResultPtr& items );
+    void showThumbNails( const DB::ConstResultPtr& items );
     void loadPlugins();
 
 protected slots:
@@ -164,7 +164,7 @@ protected:
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    DB::ResultPtr selectedOnDisk();
+    DB::ConstResultPtr selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( DB::ConstResultPtr mediaList, bool reuse, bool slideShow, bool random );

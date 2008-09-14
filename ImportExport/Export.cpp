@@ -47,7 +47,7 @@
 
 using namespace ImportExport;
 
-void Export::imageExport( const DB::ResultPtr& list )
+void Export::imageExport( const DB::ConstResultPtr& list )
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -173,7 +173,7 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 }
 
 
-Export::Export( const DB::ResultPtr& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
+Export::Export( const DB::ConstResultPtr& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
                 const QString& baseUrl, bool doGenerateThumbnails,
                 bool *ok)
     : _ok( ok ), _maxSize( maxSize ), _location( location )
@@ -226,7 +226,7 @@ Export::Export( const DB::ResultPtr& list, const QString& zipFile, bool compress
 }
 
 
-void Export::generateThumbnails( const DB::ResultPtr& list )
+void Export::generateThumbnails( const DB::ConstResultPtr& list )
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
@@ -244,7 +244,7 @@ void Export::generateThumbnails( const DB::ResultPtr& list )
     }
 }
 
-void Export::copyImages( const DB::ResultPtr& list )
+void Export::copyImages( const DB::ConstResultPtr& list )
 {
     Q_ASSERT( _location != ManualCopy );
 

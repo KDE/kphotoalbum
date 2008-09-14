@@ -31,7 +31,7 @@ namespace ImportExport
 class XMLHandler
 {
 public:
-    QByteArray createIndexXML( const DB::ResultPtr& images,
+    QByteArray createIndexXML( const DB::ConstResultPtr& images,
                                const QString& baseUrl,
                                ImageFileLocation location,
                                Utilities::UniqFilenameMapper* nameMap );

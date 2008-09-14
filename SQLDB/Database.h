@@ -39,19 +39,19 @@ namespace SQLDB {
         OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
-        OVERRIDE DB::ResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
+        OVERRIDE DB::ConstResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
         OVERRIDE QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
                                              const QString& category,
                                              DB::MediaType typemask);
-        OVERRIDE DB::ResultPtr images();
+        OVERRIDE DB::ConstResultPtr images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        OVERRIDE void addToBlockList( const DB::ResultPtr& list );
+        OVERRIDE void addToBlockList( const DB::ConstResultPtr& list );
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList( const DB::ResultPtr& list );
+        OVERRIDE void deleteList( const DB::ConstResultPtr& list );
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
 
@@ -64,7 +64,7 @@ namespace SQLDB {
 
         OVERRIDE void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after );
 
-        OVERRIDE DB::ResultId findFirstItemInRange(const DB::ResultPtr& images,
+        OVERRIDE DB::ResultId findFirstItemInRange(const DB::ConstResultPtr& images,
                                                    const DB::ImageDate& range,
                                                    bool includeRanges) const;
 
@@ -74,15 +74,15 @@ namespace SQLDB {
         OVERRIDE QStringList CONVERT( const DB::ConstResultPtr& );
         OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
-        OVERRIDE bool stack(const DB::ResultPtr& items);
-        OVERRIDE void unstack(const DB::ResultPtr& items);
-        OVERRIDE DB::ResultPtr getStackFor(const DB::ResultId& referenceFile) const;
+        OVERRIDE bool stack(const DB::ConstResultPtr& items);
+        OVERRIDE void unstack(const DB::ConstResultPtr& items);
+        OVERRIDE DB::ConstResultPtr getStackFor(const DB::ResultId& referenceFile) const;
 
     protected slots:
         OVERRIDE void lockDB( bool lock, bool exclude );
 
     protected:
-        DB::ResultPtr imageList();
+        DB::ConstResultPtr imageList();
 
 
     private:

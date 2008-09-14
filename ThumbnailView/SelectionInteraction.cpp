@@ -167,7 +167,7 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     QList<QUrl> l;
-    DB::ResultPtr selected = _view->selection();
+    DB::ConstResultPtr selected = _view->selection();
     for( DB::Result::ConstIterator idIt = selected->begin(); idIt != selected->end(); ++idIt ) {
         QString fileName = (*idIt).fetchInfo()->fileName(DB::AbsolutePath);
         l.append( QUrl(fileName) );

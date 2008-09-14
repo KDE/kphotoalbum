@@ -67,7 +67,7 @@ public:
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK, const bool cache );
     bool thumbnailStillNeeded( const QString& fileName ) const;
-    DB::ResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
+    DB::ConstResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
 
     void reload( bool flushCache, bool clearSelection=true );
     DB::ResultId mediaIdUnderCursor() const;

@@ -52,7 +52,7 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    DB::ResultPtr images = DB::ImageDB::instance()->images();
+    DB::ConstResultPtr images = DB::ImageDB::instance()->images();
     for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
         loadedFiles.insert((*it).fetchInfo()->fileName(DB::AbsolutePath));
     }
@@ -235,7 +235,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     return info;
 }
 
-bool  NewImageFinder::calculateMD5sums( const DB::ResultPtr& list, DB::MD5Map* md5Map, bool* wasCanceled )
+bool  NewImageFinder::calculateMD5sums( const DB::ConstResultPtr& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;

@@ -35,13 +35,13 @@ class DeleteDialog :public KDialog {
 
 public:
     DeleteDialog( QWidget* parent );
-    int exec(const DB::ResultPtr& list);
+    int exec(const DB::ConstResultPtr& list);
 
 protected slots:
     void deleteImages();
 
 private:
-    DB::ResultPtr _list;
+    DB::ConstResultPtr _list;
     QLabel* _label;
     QCheckBox* _delete_file;
 

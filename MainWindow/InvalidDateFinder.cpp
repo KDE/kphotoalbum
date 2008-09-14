@@ -78,7 +78,7 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    DB::ResultPtr list = DB::ImageDB::instance()->images();
+    DB::ConstResultPtr list = DB::ImageDB::instance()->images();
     DB::Result* toBeShown = new DB::Result;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );

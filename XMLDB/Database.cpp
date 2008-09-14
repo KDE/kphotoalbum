@@ -133,7 +133,7 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
     }
 }
 
-void XMLDB::Database::addToBlockList( const DB::ResultPtr& list )
+void XMLDB::Database::addToBlockList( const DB::ConstResultPtr& list )
 {
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it );
@@ -144,7 +144,7 @@ void XMLDB::Database::addToBlockList( const DB::ResultPtr& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::Database::deleteList( const DB::ResultPtr& list )
+void XMLDB::Database::deleteList( const DB::ConstResultPtr& list )
 {
     for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it );
@@ -304,7 +304,7 @@ bool XMLDB::Database::isBlocking( const QString& fileName )
 }
 
 
-DB::ResultPtr XMLDB::Database::images()
+DB::ConstResultPtr XMLDB::Database::images()
 {
     QList<int> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
@@ -313,12 +313,12 @@ DB::ResultPtr XMLDB::Database::images()
     return DB::ResultPtr( new DB::Result(result) );
 }
 
-DB::ResultPtr XMLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+DB::ConstResultPtr XMLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     return searchPrivate( info, requireOnDisk, true );
 }
 
-DB::ResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
+DB::ConstResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
@@ -391,7 +391,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const DB::ConstResul
     return result;
 }
 
-DB::ResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after )
+DB::ConstResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after )
 {
     DB::ResultPtr result = new DB::Result();
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
@@ -415,14 +415,14 @@ DB::ResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB::Ima
 }
 
 
-void XMLDB::Database::cutToClipboard( const QStringList& selection )
+void XMLDB::Database::cutToClipboard( const QStringList& )
 {
 #ifdef KDAB_TEMPORARILY_REMOVED
     _clipboard = takeImagesFromSelection( selection );
 #endif
 }
 
-QStringList XMLDB::Database::pasteFromCliboard( const QString& afterFile )
+QStringList XMLDB::Database::pasteFromCliboard( const QString& )
 {
 #ifdef KDAB_TEMPORARILY_REMOVED
     QStringList result = insertList( afterFile, _clipboard, true );
@@ -437,7 +437,7 @@ bool XMLDB::Database::isClipboardEmpty()
     return _clipboard.isEmpty();
 }
 
-bool XMLDB::Database::stack( const DB::ResultPtr& items )
+bool XMLDB::Database::stack( const DB::ConstResultPtr& items )
 {
     unsigned int changed = 0;
     QSet<DB::StackID> stacks;
@@ -478,10 +478,10 @@ bool XMLDB::Database::stack( const DB::ResultPtr& items )
     return changed;
 }
 
-void XMLDB::Database::unstack( const DB::ResultPtr& items )
+void XMLDB::Database::unstack( const DB::ConstResultPtr& items )
 {
     for ( DB::Result::const_iterator it = items->begin(); it != items->end(); ++it ) {
-        DB::ResultPtr allInStack = getStackFor( *it );
+        DB::ConstResultPtr allInStack = getStackFor( *it );
         if ( allInStack->size() <= 2 ) {
             // we're destroying stack here
             for ( DB::Result::const_iterator allIt = allInStack->begin();
@@ -517,7 +517,7 @@ void XMLDB::Database::unstack( const DB::ResultPtr& items )
         MainWindow::DirtyIndicator::markDirty();
 }
 
-DB::ResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceImg ) const
+DB::ConstResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceImg ) const
 {
     DB::ImageInfoPtr imageInfo = info( referenceImg );
 

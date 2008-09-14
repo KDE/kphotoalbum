@@ -84,7 +84,7 @@ QString ImageDB::NONE()
     return i18n("**NONE**");
 }
 
-DB::ResultPtr ImageDB::currentScope( bool requireOnDisk ) const
+DB::ConstResultPtr ImageDB::currentScope( bool requireOnDisk ) const
 {
     return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
 }
@@ -109,10 +109,10 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums( DB::ResultPtr list )
+void ImageDB::slotRecalcCheckSums( DB::ConstResultPtr list )
 {
     if ( list->isEmpty() ) {
-        list =  images();
+        list = images();
         md5Map()->clear();
     }
 
@@ -127,7 +127,7 @@ StringSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
-    DB::ResultPtr imageList = images();
+    DB::ConstResultPtr imageList = images();
     (void) NewImageFinder().calculateMD5sums( imageList, &map, &wasCanceled );
     if ( wasCanceled )
         return StringSet();
@@ -147,7 +147,7 @@ ImageDB::ImageDB()
 
 DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
-    ResultPtr result = search( searchInfo );
+    ConstResultPtr result = search( searchInfo );
     uint images = 0;
     uint videos = 0;
     for( Result::ConstIterator it = result->begin(); it != result->end(); ++it ) {
@@ -162,7 +162,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 
 void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
-    DB::ResultPtr allImages = images();
+    DB::ConstResultPtr allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
@@ -234,7 +234,7 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
     }
 }
 
-DB::ResultId ImageDB::findFirstItemInRange(const ResultPtr& images,
+DB::ResultId ImageDB::findFirstItemInRange(const ConstResultPtr& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {

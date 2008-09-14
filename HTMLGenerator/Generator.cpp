@@ -84,7 +84,7 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        const DB::ResultPtr &imageList = _setup.imageList();
+        const DB::ConstResultPtr &imageList = _setup.imageList();
         for ( int index = 0; index < imageList->size(); ++index ) {
             DB::ResultId current = imageList->at(index);
             DB::ResultId prev;

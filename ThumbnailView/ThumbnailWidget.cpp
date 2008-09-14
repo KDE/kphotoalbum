@@ -1134,7 +1134,7 @@ void ThumbnailView::ThumbnailWidget::toggleSelection( const DB::ResultId& id )
     updateCell( id );
 }
 
-DB::ResultPtr ThumbnailView::ThumbnailWidget::selection( bool keepSortOrderOfDatabase ) const
+DB::ConstResultPtr ThumbnailView::ThumbnailWidget::selection( bool keepSortOrderOfDatabase ) const
 {
     DB::ResultPtr images = _displayList;
     if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
@@ -1307,7 +1307,7 @@ void ThumbnailView::ThumbnailWidget::realDropEvent()
 
         // protect against self drop
         if ( !_selectedFiles.contains( _leftDrop ) && ! _selectedFiles.contains( _rightDrop ) ) {
-            DB::ResultPtr selected = selection();
+            DB::ConstResultPtr selected = selection();
             if ( _rightDrop.isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( _leftDrop, selected, false );

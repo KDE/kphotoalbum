@@ -57,7 +57,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec( const DB::ResultPtr& list )
+int DeleteDialog::exec( const DB::ConstResultPtr& list )
 {
     _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>", list->size() ) );
 

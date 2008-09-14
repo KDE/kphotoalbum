@@ -145,12 +145,12 @@ const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::acti
     return _resolutions;
 }
 
-void HTMLGenerator::Setup::setImageList( const DB::ResultPtr& files )
+void HTMLGenerator::Setup::setImageList( const DB::ConstResultPtr& files )
 {
     _images = files;
 }
 
-const DB::ResultPtr& HTMLGenerator::Setup::imageList() const
+const DB::ConstResultPtr& HTMLGenerator::Setup::imageList() const
 {
     return _images;
 }

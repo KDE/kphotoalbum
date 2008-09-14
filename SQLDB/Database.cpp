@@ -97,7 +97,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
                           _qh.mediaItemCount(DB::Video, scope));
 }
 
-DB::ResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+DB::ConstResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     QList<int> matches = _qh.searchMediaItems(info);
     QList<int> result;
@@ -108,7 +108,7 @@ DB::ResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool req
             continue;
         result.append(*it);
     }
-    return DB::ResultPtr( new DB::Result(result) );
+    return new DB::Result(result);
 }
 
 void SQLDB::Database::renameCategory(const QString& /*oldName*/, const QString /*newName*/)
@@ -128,13 +128,13 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         return QMap<QString, uint>();
 }
 
-DB::ResultPtr SQLDB::Database::imageList()
+DB::ConstResultPtr SQLDB::Database::imageList()
 {
-    return DB::ResultPtr( new DB::Result(_qh.mediaItemIds(DB::anyMediaType) ) );
+    return new DB::Result(_qh.mediaItemIds(DB::anyMediaType));
 }
 
 
-DB::ResultPtr SQLDB::Database::images()
+DB::ConstResultPtr SQLDB::Database::images()
 {
     return imageList();
 }
@@ -147,7 +147,7 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 }
 
-void SQLDB::Database::addToBlockList(const DB::ResultPtr&)
+void SQLDB::Database::addToBlockList(const DB::ConstResultPtr&)
 {
     qFatal("implement SQLDB::addToBlocklist()");
 #ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
@@ -166,7 +166,7 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
     return _qh.isIgnored(fileName);
 }
 
-void SQLDB::Database::deleteList( const DB::ResultPtr& )
+void SQLDB::Database::deleteList( const DB::ConstResultPtr& )
 {
     qFatal("impelement SQLDB::deleteList()");
 #ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
@@ -276,7 +276,7 @@ void SQLDB::Database::sortAndMergeBackIn(const DB::ConstResultPtr&)
 }
 
 // todo: implement.
-DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ResultPtr&,
+DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ConstResultPtr&,
                                                    const DB::ImageDate&,
                                                    bool) const
 {
@@ -340,7 +340,7 @@ DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
     return _infoCollection.getImageInfoOf(id);
 }
 
-bool SQLDB::Database::stack(const DB::ResultPtr&)
+bool SQLDB::Database::stack(const DB::ConstResultPtr&)
 {    
     qFatal("implement SQLDB::stack()");
     return false;
@@ -359,7 +359,7 @@ bool SQLDB::Database::stack(const DB::ResultPtr&)
 #endif
 }
 
-void SQLDB::Database::unstack(const DB::ResultPtr& )
+void SQLDB::Database::unstack(const DB::ConstResultPtr& )
 {
     qFatal("implement SQLDB::unstack()");
 #ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas): implement with ResultPtr.
@@ -367,7 +367,7 @@ void SQLDB::Database::unstack(const DB::ResultPtr& )
 #endif
 }
 
-DB::ResultPtr SQLDB::Database::getStackFor(const DB::ResultId&) const
+DB::ConstResultPtr SQLDB::Database::getStackFor(const DB::ResultId&) const
 {
     qFatal("implement SQLDB::getStackFor()");
     return new DB::Result();

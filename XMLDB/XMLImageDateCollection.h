@@ -25,7 +25,7 @@
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
-    XMLImageDateCollection( const DB::ResultPtr& );
+    XMLImageDateCollection( const DB::ConstResultPtr& );
 
 public:
     virtual DB::ImageCount count( const DB::ImageDate& range );

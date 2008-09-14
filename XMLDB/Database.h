@@ -42,16 +42,16 @@ namespace XMLDB {
     public:
         OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
-        OVERRIDE DB::ResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
+        OVERRIDE DB::ConstResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
         OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
-        OVERRIDE DB::ResultPtr images();
+        OVERRIDE DB::ConstResultPtr images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        OVERRIDE void addToBlockList( const DB::ResultPtr& list );
+        OVERRIDE void addToBlockList( const DB::ConstResultPtr& list );
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList( const DB::ResultPtr& list );
+        OVERRIDE void deleteList( const DB::ConstResultPtr& list );
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
         OVERRIDE DB::MemberMap& memberMap();
@@ -67,19 +67,19 @@ namespace XMLDB {
          bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        OVERRIDE bool stack( const DB::ResultPtr& items );
-        OVERRIDE void unstack( const DB::ResultPtr& images );
-        OVERRIDE DB::ResultPtr getStackFor( const DB::ResultId& referenceImg ) const;
+        OVERRIDE bool stack( const DB::ConstResultPtr& items );
+        OVERRIDE void unstack( const DB::ConstResultPtr& images );
+        OVERRIDE DB::ConstResultPtr getStackFor( const DB::ResultId& referenceImg ) const;
 
         OVERRIDE QStringList CONVERT( const DB::ConstResultPtr& );
         OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
     protected:
-        DB::ResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
+        DB::ConstResultPtr searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
         DB::ImageInfoList takeImagesFromSelection( const DB::ConstResultPtr& list );
-        DB::ResultPtr insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after );
+        DB::ConstResultPtr insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 

@@ -15,10 +15,11 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef THUMBNAILVIEW_H
-#define THUMBNAILVIEW_H
+#ifndef THUMBNAILVIEW_THUMBNAILWIDGET_H
+#define THUMBNAILVIEW_THUMBNAILWIDGET_H
 
 #include <q3gridview.h>
+#include <QMutex>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -40,8 +41,7 @@
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
 #include "ThumbnailToolTip.h"
-
-#include <qmutex.h>
+#include "ThumbnailCache.h"
 
 class QTimer;
 class QDateTime;
@@ -75,8 +75,6 @@ public:
     static ThumbnailWidget* theThumbnailView();
     void setCurrentItem( const DB::ResultId& id );
     void setSortDirection( SortDirection );
-
-    static QString thumbnailPixmapCacheKey(const DB::ResultId& result);
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
@@ -262,10 +260,12 @@ private:
     IdSet _selectionOnFirstShiftMovementKey;
 
     bool _cursorWasAtStackIcon;
+
+    ThumbnailCache _thumbnailCache;
 };
 
 }
 
 
-#endif /* THUMBNAILVIEW_H */
+#endif /* THUMBNAILVIEW_THUMBNAILWIDGET_H */
 

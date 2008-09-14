@@ -38,7 +38,6 @@
 #include <qcursor.h>
 #include <qfontmetrics.h>
 #include <qpainter.h>
-#include <qpixmapcache.h>
 
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
@@ -116,10 +115,6 @@ void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
     p->drawPixmap( cellRect(), doubleBuffer );
 }
 
-QString ThumbnailView::ThumbnailWidget::thumbnailPixmapCacheKey(const DB::ResultId& result) {
-    return QString::fromLatin1("thumbnail:%1").arg(result.fileId());
-}
-
 static DB::StackID getStackId(const DB::ResultId& id)
 {
     return id.fetchInfo()->stackId();
@@ -178,11 +173,11 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
     if (mediaId.isNull())
         return;
 
-    QPixmap* pix = QPixmapCache::find( thumbnailPixmapCacheKey( mediaId) );
-    if ( pix ) {
+    QPixmap pixmap;
+    if (_thumbnailCache.find(mediaId, &pixmap)) {
         QRect rect = iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
-        painter->drawPixmap( rect, *pix );
+        painter->drawPixmap( rect, pixmap );
         
         rect = QRect( 0, 0, cellWidth(), cellHeight() );
         if ( _leftDrop == mediaId )
@@ -490,14 +485,16 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
     int width = dimensions.width() - 2 * space;
     int height = dimensions.height() - 2 * space;
 
-    QPixmap* pix = QPixmapCache::find( thumbnailPixmapCacheKey(mediaId) );
-    if ( !pix || (pix->width() == 0 && pix->height() == 0) )
+    QPixmap pixmap;
+    if (!_thumbnailCache.find(mediaId, &pixmap)
+        || (pixmap.width() == 0 && pixmap.height() == 0)) {
         return QRect( space, space, width, height );
+    }
 
-    int xoff = space + (width - pix->width()) / 2;
-    int yoff = space + (height - pix->height()) / 2;
+    int xoff = space + (width - pixmap.width()) / 2;
+    int yoff = space + (height - pixmap.height()) / 2;
 
-    return QRect( xoff, yoff, pix->width(), pix->height() );
+    return QRect( xoff, yoff, pixmap.width(), pixmap.height() );
 }
 
 /**
@@ -594,9 +591,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
         imageInfo->setSize( fullSize );
     }
 
-    // TODO(hzeller): check all places where images are put into the cache.
-    // I assume not all of them know about thumbnailPixmapCacheKey().
-    QPixmapCache::insert( thumbnailPixmapCacheKey(id), pixmap );
+    _thumbnailCache.insert(id, pixmap);
 
     updateCell( id );
 }
@@ -1186,7 +1181,7 @@ void ThumbnailView::ThumbnailWidget::selectAll()
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
 {
     if ( flushCache )
-        QPixmapCache::clear();
+        _thumbnailCache.clear();
     if ( clearSelection )
         _selectedFiles.clear();
     updateCellSize();

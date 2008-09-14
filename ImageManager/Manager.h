@@ -67,6 +67,9 @@ public:
     // Remove the thumbnail for a given file.
     void removeThumbnail( const QString& imageFile );
 
+    // Return if downscaled thumbnails exist for the given image file.
+    bool thumbnailsExist( const QString& imageFile );
+
 protected:
     virtual void customEvent( QEvent* ev );
     void loadVideo( ImageRequest* );

@@ -110,6 +110,8 @@ public:
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
     boolProperty( Thumbnails, thumbnailDarkBackground, setThumbnailDarkBackground, true );
     boolProperty( Thumbnails, thumbnailDisplayGrid, setThumbnailDisplayGrid, false );
+
+    // Border space around thumbnails.
     intProperty( Thumbnails, thumbnailSpace, setThumbnailSpace, 1);
 
     void setThumbnailCacheScreens( int screens );

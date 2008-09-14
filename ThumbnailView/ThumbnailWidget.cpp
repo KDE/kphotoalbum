@@ -274,17 +274,27 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 
 
 void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ConstResultPtr& items ) const {
-    const QRect dimensions = cellDimensions();
-    const QSize size( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
-                      dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() );
+    // TODO(hzeller) before release: run this asynchronously.
+    //        For 100'000+ files, this will be slow.
+    // TODO-2(hzeller): This should be handled at startup or when new images
+    //        enter the database; not here.
+    // TODO-3(hzeller): With TODO-2 implemented, we probably don't need an
+    //        existence cache anymore in ThumbnailStorage
 
+    // Thumbnails are generated/stored in two sizes: 128x128 and 256x256.
+    // Requesting the bigger one will make sure that both are stored.
+    const QSize size(256, 256);
+    ImageManager::Manager* imgManager = ImageManager::Manager::instance();
     for( DB::Result::ConstIterator it = items->begin(); it != items->end(); ++it ) {
         DB::ImageInfoPtr info = (*it).fetchInfo();
-        ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
-                                            size, info->angle(), NULL );
+        const QString image = info->fileName(DB::AbsolutePath);
+        if (imgManager->thumbnailsExist(image)) {
+            continue;
+        }
+        ImageManager::ImageRequest* request
+            = new ImageManager::ImageRequest(image, size, info->angle(), NULL);
         request->setPriority( ImageManager::ThumbnailInvisible );
-        ImageManager::Manager::instance()->load( request );
+        imgManager->load( request );
     }
 }
 

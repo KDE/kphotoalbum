@@ -120,6 +120,15 @@ void ImageManager::Manager::removeThumbnail( const QString& imageFile )
     QPixmapCache::remove( imageFile );
 }
 
+bool ImageManager::Manager::thumbnailsExist( const QString& imageFile ) {
+    KUrl url;
+    url.setPath( imageFile );
+    QString big = ImageLoader::thumbnailKey( url.url(), 256 );
+    QString small = ImageLoader::thumbnailKey( url.url(), 128 );
+    return (_thumbnailStorage->exists(big)
+            && _thumbnailStorage->exists(small));
+}
+
 void ImageManager::Manager::stop( ImageClient* client, StopAction action )
 {
     // remove from pending map.

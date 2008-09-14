@@ -22,6 +22,8 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <QImage>
+#include <QMutex>
+#include <QSet>
 
 namespace ImageManager {
 
@@ -78,7 +80,8 @@ public:
 
 private:
     QString keyToPath(const QString& key);
-
+    QMutex _cacheLock;
+    QSet<QString> _existenceCache;
     const char* const _imageFormat;
 };
 

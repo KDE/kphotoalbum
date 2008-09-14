@@ -64,6 +64,10 @@ bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage&
     rename( temporary.toLocal8Bit().constData(),
             path.toLocal8Bit().constData() );
 
+    {
+        QMutexLocker l(&_cacheLock);
+        _existenceCache.insert(key);
+    }
     return true;
 }
 
@@ -80,8 +84,19 @@ bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* im
 }
 
 bool ImageManager::FileThumbnailStorage::exists(const QString& key) {
+    {
+        QMutexLocker l(&_cacheLock);
+        if (_existenceCache.contains(key))
+            return true;
+    }
     QString path = keyToPath(key);
-    return QFile::exists( path );
+    bool exists = QFile::exists( path );
+    if (exists) {
+        QMutexLocker l(&_cacheLock);
+        _existenceCache.insert(key);
+    }
+
+    return exists;
 }
 
 #ifdef TESTING_MEMORY_THUMBNAIL_CACHING

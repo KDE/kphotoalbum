@@ -25,10 +25,21 @@ class QString;
 namespace ImageManager
 {
 
+/**
+ * An ImageClient is part of the ImageRequest and is called back when
+ * an image has been loaded.
+ */
 class ImageClient {
 public:
     virtual ~ImageClient();
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) = 0;
+
+    /**
+     * Callback on loaded image.
+     */
+    virtual void pixmapLoaded( const QString& fileName,
+                               const QSize& size, const QSize& fullSize,
+                               int angle, const QImage& image,
+                               const bool loadedOK) = 0;
 };
 
 }

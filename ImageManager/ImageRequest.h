@@ -39,9 +39,10 @@ namespace ImageManager
  * The higher the priority, the sooner the image is expected to be decoded
  * */
 enum Priority {
-    BuildThumbnails, /**< @short Requests generated through the "Rebuild Thumbnails" command */
-    ThumbnailInvisible, /**< @short Thumbnails in current search scope, but invisible */
-    ViewerPreload, /**< @short Image that will be displayed later */
+    BuildThumbnails, //< @short Requests generated through the "Rebuild Thumbnails" command 
+    BuildScopeThumbnails, //< @short thumbnails in current search scope to be rebuidl
+    ThumbnailInvisible, //< @short Thumbnails in current search scope, but invisible
+    ViewerPreload, // < @short Image that will be displayed later
     BatchTask, /**< @short Requests like resizing images for HTML pages
                 * 
                 * As they are requested by user, they are expected to finish

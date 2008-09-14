@@ -50,6 +50,8 @@
 #include "ThumbnailToolTip.h"
 #include "Utilities/Set.h"
 
+#include <kdebug.h>
+
 /**
  * \namespace ThumbnailView
  * The thumbnail view.
@@ -88,6 +90,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     setMouseTracking( true );
 
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
+    connect( this, SIGNAL( contentsMoving( int, int ) ),
+             this, SLOT( slotViewChanged( int, int ) ));
 
     _toolTip = new ThumbnailToolTip( this );
 
@@ -101,13 +105,17 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     setHScrollBarMode( AlwaysOff );
 }
 
+bool ThumbnailView::ThumbnailWidget::isGridResizing()
+{
+    return _mouseHandler->isResizingGrid() || _wheelResizing;
+}
 
 void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
 {
     QPixmap doubleBuffer( cellRect().size() );
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
-    if ( !_mouseHandler->isResizingGrid() && !_wheelResizing ) {
+    if ( !isGridResizing() ) {
         paintCellPixmap( &painter, row, col );
         paintCellText( &painter, row, col );
     }
@@ -288,7 +296,7 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ConstR
         }
         ImageManager::ImageRequest* request
             = new ImageManager::ImageRequest(image, size, info->angle(), NULL);
-        request->setPriority( ImageManager::ThumbnailInvisible );
+        request->setPriority( ImageManager::BuildScopeThumbnails );
         imgManager->load( request );
     }
 }
@@ -364,6 +372,8 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
         _displayList = reverseList(_displayList);
 
     updateIndexCache();
+
+    _thumbnailCache.setDisplayList(_displayList);
 
     collapseAllStacksEnabled( _expandedStacks.size() > 0);
     if ( isVisible() ) {
@@ -630,6 +640,11 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     int numRowsPerPage = height() / cellHeight();
     setNumCols( thumbnailsPerRow );
     setNumRows( qMax( numRowsPerPage, (int) ceil( 1.0 * _displayList->size() / thumbnailsPerRow ) ) );
+    QRect dimensions = cellDimensions();
+    const int border = Settings::SettingsData::instance()->thumbnailSpace();
+    QSize thumbSize(dimensions.width() - 2 * border,
+                    dimensions.height() - 2 * border);
+    _thumbnailCache.setThumbnailSize(thumbSize);
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
@@ -648,8 +663,8 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
     else
         p->fillRect( rect, palette().color( QPalette::Base) );
 
-    if (_mouseHandler->isResizingGrid() || _wheelResizing ||
-        Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
+    if (isGridResizing()
+        || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
         p->setPen( palette().color( QPalette::Dark) );
         // left of frame
         if ( col != 0 )
@@ -960,6 +975,16 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
     }
 }
 
+void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
+    if (isGridResizing())
+        return;
+    int startIndex = rowAt(y) * numCols();
+    int endIndex = (rowAt( y + visibleHeight() ) + 1) * numCols();
+    if (endIndex > _displayList->size())
+        endIndex = _displayList->size();
+    _thumbnailCache.setHotArea(startIndex, endIndex);
+}
+
 /**
  * scroll to the date specified with the parameter date.
  * The boolean includeRanges tells whether we accept range matches or not.
@@ -979,7 +1004,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 }
 
 /**
- * return the position (row,col) for the given file name
+ * return the position (row,col) for the given media id.
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::positionForMediaId( const DB::ResultId& id ) const
 {
@@ -1003,6 +1028,7 @@ ThumbnailView::Cell ThumbnailView::ThumbnailWidget::positionForMediaId( const DB
  */
 bool ThumbnailView::ThumbnailWidget::thumbnailStillNeeded( const QString& fileName ) const
 {
+    // PENDING(hzeller): this ID can come from the ThumbnailRequest
     DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
     Cell pos = positionForMediaId( id );
     return pos.row() >= firstVisibleRow( PartlyVisible ) && pos.row() <= lastVisibleRow( PartlyVisible );
@@ -1190,6 +1216,7 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
+    
     QPalette p;
     if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
         p.setColor( QPalette::Base, Qt::black );
@@ -1207,8 +1234,9 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
     }
     setPalette(p);  // fallback to default.
 
+    const int first = firstVisibleRow( PartlyVisible );
     const int last = lastVisibleRow( PartlyVisible );
-    for ( int row = firstVisibleRow( PartlyVisible ); row <= last; ++row )
+    for ( int row = first; row <= last; ++row )
         for ( int col = 0; col < numCols(); ++col )
             Q3GridView::repaintCell( row, col );
 }

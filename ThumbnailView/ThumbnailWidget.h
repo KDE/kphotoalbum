@@ -124,6 +124,7 @@ protected:
     bool isFocusAtLastCell() const;
     Cell lastCell() const;
     bool isMouseOverStackIndicator( const QPoint& point );
+    bool isGridResizing();
 
     // event handlers
     OVERRIDE void keyPressEvent( QKeyEvent* );
@@ -174,6 +175,7 @@ protected slots:
     void emitDateChange( int, int );
     void realDropEvent();
     void slotRepaint();
+    void slotViewChanged( int, int );
 
 private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.

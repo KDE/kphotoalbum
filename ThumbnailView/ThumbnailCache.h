@@ -18,9 +18,18 @@
 #ifndef THUMBNAILVIEW_THUMBNAILCACHE_H
 #define THUMBNAILVIEW_THUMBNAILCACHE_H
 
+#include <QObject>
 #include <QString>
+#include <QSize>
+#include <QMutex>
+#include <QHash>
+
+#include "DB/Result.h"
+#include "ImageManager/ImageClient.h"
 
 class QPixmap;
+class QTimer;
+
 namespace DB {
     class ResultId;
 }
@@ -30,9 +39,13 @@ namespace ThumbnailView {
  * A cache for thumbnails. Right now, this is only a thin wrapper around
  * QPixmapCache but it is extracted here to eventually allow more control
  * over what is cached and anticipate use.
+ * Note, this is work in progress... (TODO(hzeller): update comment)
  */
-class ThumbnailCache {
+class ThumbnailCache : public QObject, public ImageManager::ImageClient {
+    Q_OBJECT;
 public:
+    ThumbnailCache();
+
     /**
      * Find the pixmap for the given ResultId. If found, return 'true' and
      * insert found pixmap into result. Result must not be NULL.
@@ -45,8 +58,50 @@ public:
     /** clear the cache */
     void clear();
 
+    /**
+     * set the hot area of thumbnails currently displayed. The values
+     * denote indices in the display list.
+     * The Cache uses this to decide what images not to throw away and
+     * what images to preload.
+     */
+    void setHotArea(int from, int to);
+
+    /** Set information about the thumbnails to be displayed.
+     * TODO: view and cache should share a model */
+    void setDisplayList(const DB::ConstResultPtr& displayList);
+    void setThumbnailSize(const QSize& thumbSize);
+
+public:
+    bool thumbnailStillNeeded(const QString& fileName) const;
+
+protected:
+    // ImageManager interface.
+    virtual void pixmapLoaded( const QString& fileName,
+                               const QSize& size, const QSize& fullSize,
+                               int angle, const QImage& image,
+                               const bool loadedOK);
+
+protected slots:
+    void slotAsyncHeating();
+
 private:
     static QString thumbnailPixmapCacheKey(const DB::ResultId& id);
+
+    /**
+     * preheat the cache for the given range.
+     * Including 'from', exlcuding 'to'.
+     */
+    void preheatRange(int from, int to, const char* desc);
+
+    DB::ConstResultPtr _displayList;
+    QSize _thumbSize;
+    int _hotFrom, _hotTo;
+    int _lastHotFrom;
+    QTimer* _heatingTimer;
+
+    mutable QMutex _requestedImagesLock;
+    typedef QHash<QString, DB::ResultId> RequestedMap;
+    RequestedMap _requestedImages;
 };
 }
 

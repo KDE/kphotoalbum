@@ -25,22 +25,30 @@
 #include "Settings/SettingsData.h"
 #include "ImageManager/Manager.h"
 
-/** experiment with preheating. This will soon be enabled by default */
-static bool DO_PREHEATING=true;
-
 /** Henners debug output. Will go away soon */
 #undef HENNER_EXPERIMENTING
 
-#ifdef HENNER_EXPERIMENTING
+#include <stdlib.h>
 #include <kdebug.h>
-#endif
+
+/** experiment with prewarming. This will soon be enabled by default */
+static const char* environVar = "KPA_THUMBCACHE_WARMING";
+static const char* prewarm = getenv(environVar);
+static bool DO_PREWARM = (prewarm == NULL) || strcmp(prewarm, "1") == 0;
 
 ThumbnailView::ThumbnailCache::ThumbnailCache()
     : _displayList(NULL), _hotFrom(0), _hotTo(0), _lastHotFrom(0) {
-    _heatingTimer = new QTimer( this );
-    _heatingTimer->setSingleShot(true);
-    connect( _heatingTimer, SIGNAL( timeout() ),
-             this, SLOT( slotAsyncHeating() ) );
+    _asyncWarmingTimer = new QTimer( this );
+    _asyncWarmingTimer->setSingleShot(true);
+    connect( _asyncWarmingTimer, SIGNAL( timeout() ),
+             this,               SLOT( slotAsyncCacheWarming() ) );
+#if 1
+    if (DO_PREWARM) {
+        kDebug() << "Do cache prewarming.; " << environVar << " not set or set to 1";
+    } else {
+        kDebug() << "Don't do cache prewarming. " << environVar << "=" << prewarm;
+    }
+#endif
 }
 
 bool ThumbnailView::ThumbnailCache::find(const DB::ResultId& id,
@@ -69,10 +77,10 @@ void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize) {
     }
 }
 
-// Preheating of the cache around the current hot area. This slot is called
+// Warm the cache around the current hot area. This slot is called
 // asynchronously after the user has stopped scrolling.
-void ThumbnailView::ThumbnailCache::slotAsyncHeating() {
-    if (!DO_PREHEATING || _displayList.isNull() || !_thumbSize.isValid())
+void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
+    if (!DO_PREWARM || _displayList.isNull() || !_thumbSize.isValid())
         return;
 
     const bool scrollDown = _hotFrom > _lastHotFrom;
@@ -87,12 +95,13 @@ void ThumbnailView::ThumbnailCache::slotAsyncHeating() {
 #ifdef HENNER_EXPERIMENTING
     kDebug() << "range: " << _hotFrom << "-" << _hotTo << "; totalCacheable=" << totalCacheableThumbs << "; page=" << page << "; preloadable=" << preloadable;
 #endif
-    // First, we make sure that the closer areas are covered: next and
-    // previous page.
     _requestedImagesLock.lock();
     _requestedImages.clear();
     _requestedImagesLock.unlock();
     ImageManager::Manager::instance()->stop(this);
+
+    // First, we make sure that the closer areas are covered: next and
+    // previous page.
 
     // If we don't have much preload spots to spend, favour the
     // direction in which we're going.
@@ -103,18 +112,18 @@ void ThumbnailView::ThumbnailCache::slotAsyncHeating() {
                              ? preloadable - likelyDir
                              : page);
     if (scrollDown) {
-        preheatRange(_hotTo, _hotTo + likelyDir, "next page");
-        preheatRange(_hotFrom - unlikelyDir, _hotFrom, "previous page");
+        requestRange(_hotTo, _hotTo + likelyDir, "next page");
+        requestRange(_hotFrom - unlikelyDir, _hotFrom, "previous page");
     } else {
-        preheatRange(_hotFrom - likelyDir, _hotFrom, "previous page");
-        preheatRange(_hotTo, _hotTo + unlikelyDir, "next page");
+        requestRange(_hotFrom - likelyDir, _hotFrom, "previous page");
+        requestRange(_hotTo, _hotTo + unlikelyDir, "next page");
     }
 
     // If we still have preload space to spend, load it now.
     if (preloadable > 2*page) {
         const int limit = preloadable / 2;
-        preheatRange(_hotTo + page, _hotTo + limit, "further next");
-        preheatRange(_hotFrom - limit, _hotFrom - page, "further prev");
+        requestRange(_hotTo + page, _hotTo + limit, "further next");
+        requestRange(_hotFrom - limit, _hotFrom - page, "further prev");
     }
 }
 
@@ -124,16 +133,16 @@ void ThumbnailView::ThumbnailCache::setHotArea(int from, int to) {
     _hotTo = to;
     if (anyChange) {
 #ifdef HENNER_EXPERIMENTING
-        if (_heatingTimer->isActive())
-            kDebug() << "HEATING PENDING ...";
+        if (_asyncWarmingTimer->isActive())
+            kDebug() << "WARMING PENDING ...";
 #endif
-        // Do the asynchronous heating after we've settled a bit.
-        _heatingTimer->stop();
-        _heatingTimer->start( 150 );
+        // Do the asynchronous warming after we've settled a bit.
+        _asyncWarmingTimer->stop();
+        _asyncWarmingTimer->start( 150 );
     }
 }
 
-void ThumbnailView::ThumbnailCache::preheatRange(int from, int to, const char* purpose) {
+void ThumbnailView::ThumbnailCache::requestRange(int from, int to, const char* purpose) {
     int debugCount = 0;
     ImageManager::Manager* imgManager = ImageManager::Manager::instance();
     if (from < 0) from = 0;
@@ -158,7 +167,7 @@ void ThumbnailView::ThumbnailCache::preheatRange(int from, int to, const char* p
         imgManager->load( request );
     }
 #ifdef HENNER_EXPERIMENTING
-    kDebug() << "Preheat " << from << "-" << to << "; total=" << (to - from) << "; necessary=" << debugCount << "; " << purpose;
+    kDebug() << "Request " << from << "-" << to << "; total=" << (to - from) << "; necessary=" << debugCount << "; " << purpose;
 #else
     Q_UNUSED(purpose);
 #endif
@@ -170,6 +179,7 @@ void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
                                                   const bool loadedOK) {
     Q_UNUSED(fullSize);
     Q_UNUSED(angle);
+
     if (!loadedOK || image.isNull())
         return;
     QPixmap pixmap( size );

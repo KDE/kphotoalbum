@@ -82,22 +82,22 @@ protected:
                                const bool loadedOK);
 
 protected slots:
-    void slotAsyncHeating();
+    void slotAsyncCacheWarming();
 
 private:
     static QString thumbnailPixmapCacheKey(const DB::ResultId& id);
 
     /**
-     * preheat the cache for the given range.
+     * warm the cache for the given range.
      * Including 'from', exlcuding 'to'.
      */
-    void preheatRange(int from, int to, const char* desc);
+    void requestRange(int from, int to, const char* desc);
 
     DB::ConstResultPtr _displayList;
     QSize _thumbSize;
     int _hotFrom, _hotTo;
     int _lastHotFrom;
-    QTimer* _heatingTimer;
+    QTimer* _asyncWarmingTimer;
 
     mutable QMutex _requestedImagesLock;
     typedef QHash<QString, DB::ResultId> RequestedMap;

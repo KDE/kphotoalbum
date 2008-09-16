@@ -20,7 +20,6 @@
 #include <qfile.h>
 #include <qimage.h>
 #include <qmatrix.h>
-#include <qstringlist.h>
 #include "Settings/SettingsData.h"
 #include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
@@ -87,14 +86,11 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 #endif /* HAVE_KDCRAW */
 }
 
-QStringList RAWImageDecoder::_rawExtensions;
-QStringList RAWImageDecoder::_standardExtensions;
-QStringList RAWImageDecoder::_ignoredExtensions;
-
-void RAWImageDecoder::_initializeExtensionLists()
+void RAWImageDecoder::_initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions ) const
 {
-  static bool extensionListsInitialized = 0;
-  if (! extensionListsInitialized) {
+    static QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
+    static bool extensionListsInitialized = false;
+    if ( ! extensionListsInitialized ) {
 #ifdef HAVE_KDCRAW
       _rawExtensions = QString::fromAscii( raw_file_extentions ).split( QChar::fromLatin1(' '), QString::SkipEmptyParts );
 #endif /* HAVE_KDCRAW */
@@ -137,9 +133,11 @@ void RAWImageDecoder::_initializeExtensionLists()
     for ( QStringList::iterator it = _ignoredExtensions.begin(); it != _ignoredExtensions.end(); ++it )
         if ( !(*it).startsWith( dot) )
             *it = dot + *it;
+    }
 
-    extensionListsInitialized = 1;
-  }
+    rawExtensions = _rawExtensions;
+    standardExtensions = _standardExtensions;
+    ignoredExtensions = _ignoredExtensions;
 }
 
 bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
@@ -184,6 +182,9 @@ bool RAWImageDecoder::_fileEndsWithExtensions( const QString& fileName,
 
 bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 {
+    QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
+    _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
+
 	if (Settings::SettingsData::instance()->dontReadRawFilesWithOtherMatchingFile() &&
 	    _fileExistsWithExtensions(imageFile, _standardExtensions)) return false;
 	if (_fileEndsWithExtensions(imageFile, _rawExtensions)) return true;
@@ -192,6 +193,9 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 
 bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const
 {
+    QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
+    _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
+
 	// We're not interested in thumbnail and other files.
 	if (_fileEndsWithExtensions(imageFile, _ignoredExtensions)) return true;
 

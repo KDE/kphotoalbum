@@ -20,14 +20,13 @@
 
 #include "ImageDecoder.h"
 #include <QSet>
+#include <QStringList>
 
 namespace ImageManager
 {
 
 class RAWImageDecoder : public ImageDecoder {
 public:
-	RAWImageDecoder() { _initializeExtensionLists(); }
-
 	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
 	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const;
@@ -36,11 +35,7 @@ private:
 	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
 	bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
 	bool _fileIsKnownWithExtensions( const QSet<QString>& files, const QString& fileName, const QStringList& extensionList ) const;
-
-	static QStringList _rawExtensions;
-	static QStringList _standardExtensions;
-	static QStringList _ignoredExtensions;
-	static void _initializeExtensionLists();
+	void _initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions ) const;
 };
 
 }

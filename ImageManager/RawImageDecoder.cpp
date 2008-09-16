@@ -133,6 +133,8 @@ void RAWImageDecoder::_initializeExtensionLists( QStringList& rawExtensions, QSt
     for ( QStringList::iterator it = _ignoredExtensions.begin(); it != _ignoredExtensions.end(); ++it )
         if ( !(*it).startsWith( dot) )
             *it = dot + *it;
+
+    extensionListsInitialized = true;
     }
 
     rawExtensions = _rawExtensions;

@@ -123,6 +123,16 @@ SettingsData* SettingsData::instance()
     return _instance;
 }
 
+bool SettingsData::ready()
+{
+    return _instance != 0;
+}
+
+void SettingsData::setup( const QString& imageDirectory )
+{
+    _instance = new SettingsData( imageDirectory );
+}
+
 SettingsData::SettingsData( const QString& imageDirectory )
 {
     _hasAskedAboutTimeStamps = false;
@@ -150,68 +160,25 @@ property_copy( autoSave                              , setAutoSave              
 property_copy( backupCount                           , setBackupCount                           ,  int            , General , 5                          );
 property_enum( tTimeStamps                           , setTTimeStamps                           ,  TimeStampTrust , General , Always                     );
 
-////////////////////
-//// Thumbnails ////
-////////////////////
+getValueFunc( QSize,histogramSize,  General,QSize(15,30) );
+getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse );
 
-property_copy( displayLabels            , setDisplayLabels           ,  bool                  , Thumbnails , true       );
-property_copy( displayCategories        , setDisplayCategories       ,  bool                  , Thumbnails , false      );
-property_copy( autoShowThumbnailView    , setAutoShowThumbnailView   ,  bool                  , Thumbnails , 0          );
-property_copy( showNewestThumbnailFirst , setShowNewestFirst         ,  bool                  , Thumbnails , false      );
-property_copy( thumbnailDarkBackground  , setThumbnailDarkBackground ,  bool                  , Thumbnails , true       );
-property_copy( thumbnailDisplayGrid     , setThumbnailDisplayGrid    ,  bool                  , Thumbnails , false      );
-property_copy( previewSize              , setPreviewSize             ,  int                   , Thumbnails , 256        );
-property_copy( thumbnailSpace           , setThumbnailSpace          ,  int                   , Thumbnails , 1          );
-property_enum( thumbnailAspectRatio     , setThumbnailAspectRatio    ,  ThumbnailAspectRatio  , Thumbnails , Aspect_4_3 );
-
-////////////////
-//// Viewer ////
-////////////////
-
-property_ref ( viewerSize                , setViewerSize                ,  QSize            , Viewer , QSize(800,600) );
-property_ref ( slideShowSize             , setSlideShowSize             ,  QSize            , Viewer , QSize(800,600) );
-property_copy( launchViewerFullScreen    , setLaunchViewerFullScreen    ,  bool             , Viewer , false          );
-property_copy( launchSlideShowFullScreen , setLaunchSlideShowFullScreen ,  bool             , Viewer , false          );
-property_copy( showInfoBox               , setShowInfoBox               ,  bool             , Viewer , true           );
-property_copy( showLabel                 , setShowLabel                 ,  bool             , Viewer , true           );
-property_copy( showDescription           , setShowDescription           ,  bool             , Viewer , true           );
-property_copy( showDate                  , setShowDate                  ,  bool             , Viewer , true           );
-property_copy( showImageSize             , setShowImageSize             ,  bool             , Viewer , true           );
-property_copy( showTime                  , setShowTime                  ,  bool             , Viewer , true           );
-property_copy( showFilename              , setShowFilename              ,  bool             , Viewer , false          );
-property_copy( showEXIF                  , setShowEXIF                  ,  bool             , Viewer , true           );
-property_copy( slideShowInterval         , setSlideShowInterval         ,  int              , Viewer , 5              );
-property_copy( viewerCacheSize           , setViewerCacheSize           ,  int              , Viewer , 25             );
-property_copy( infoBoxWidth              , setInfoBoxWidth              ,  int              , Viewer , 400            );
-property_copy( infoBoxHeight             , setInfoBoxHeight             ,  int              , Viewer , 300            );
-property_enum( infoBoxPosition           , setInfoBoxPosition           ,  Position         , Viewer , Bottom         );
-property_enum( viewerStandardSize        , setViewerStandardSize        ,  StandardViewSize , Viewer , FullSize       );
-
-///////////////////////
-//// Miscellaneous ////
-///////////////////////
-
-property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, true  );
-
-//////////////
-//// EXIF ////
-//////////////
-
-#ifdef HAVE_EXIV2
-    property_sset( exifForViewer , setExifForViewer ,           EXIF , StringSet()                            );
-    property_sset( exifForDialog , setExifForDialog ,           EXIF , Exif::Info::instance()->standardKeys() );
-    property_ref ( iptcCharset   , setIptcCharset   , QString , EXIF , (QString)QString::null                 );
-#endif
-
-bool SettingsData::smoothScale() const
+void SettingsData::setHistogramSize( const QSize& size )
 {
-    return _smoothScale;
+    if ( size == histogramSize() )
+        return;
+
+    setValue( "General", "histogramSize", size );
+    emit histogramSizeChanged( size );
 }
 
-void SettingsData::setSmoothScale( bool b )
+void SettingsData::setViewSortType( const ViewSortType tp )
 {
-    _smoothScale = b;
-    setValue( "Viewer", "smoothScale", b );
+    if ( tp == viewSortType() )
+        return;
+
+    setValue( "General", "viewSortType", (int)tp );
+    emit viewSortTypeChanged( tp );
 }
 
 bool SettingsData::trustTimeStamps()
@@ -241,47 +208,99 @@ bool SettingsData::trustTimeStamps()
     }
 }
 
-QString SettingsData::imageDirectory() const
+////////////////////
+//// Thumbnails ////
+////////////////////
+
+property_copy( displayLabels            , setDisplayLabels           ,  bool                  , Thumbnails , true       );
+property_copy( displayCategories        , setDisplayCategories       ,  bool                  , Thumbnails , false      );
+property_copy( autoShowThumbnailView    , setAutoShowThumbnailView   ,  bool                  , Thumbnails , 0          );
+property_copy( showNewestThumbnailFirst , setShowNewestFirst         ,  bool                  , Thumbnails , false      );
+property_copy( thumbnailDarkBackground  , setThumbnailDarkBackground ,  bool                  , Thumbnails , true       );
+property_copy( thumbnailDisplayGrid     , setThumbnailDisplayGrid    ,  bool                  , Thumbnails , false      );
+property_copy( previewSize              , setPreviewSize             ,  int                   , Thumbnails , 256        );
+property_copy( thumbnailSpace           , setThumbnailSpace          ,  int                   , Thumbnails , 1          );
+property_enum( thumbnailAspectRatio     , setThumbnailAspectRatio    ,  ThumbnailAspectRatio  , Thumbnails , Aspect_4_3 );
+
+getValueFunc( int,thumbSize,  Thumbnails,128);
+
+getValueFunc( int,thumbnailCacheScreens,  Thumbnails,3); // Three pages sounds good; one before, one after the current screen
+
+void SettingsData::setThumbnailCacheScreens( int screens )
 {
-    return _imageDirectory;
+    setValue( "Thumbnails", "thumbnailCacheScreens", screens );
+    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
+    QPixmapCache::clear();
 }
 
-property_ref_( HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase( "HTML Settings" ), QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) );
-property_ref_( HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase( "HTML Settings" ), STR( "file://" ) + HTMLBaseDir()                                 );
-property_ref_( HTMLDestURL, setHTMLDestURL, QString, groupForDatabase( "HTML Settings" ), STR( "file://" ) + HTMLBaseDir()                                 );
-
-property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() );
-
-void SettingsData::setup( const QString& imageDirectory )
+void SettingsData::setThumbSize( int value )
 {
-    _instance = new SettingsData( imageDirectory );
+    QPixmapCache::clear();
+    setValue( "Thumbnails", "thumbSize", value );
 }
 
-void SettingsData::setCurrentLock( const DB::ImageSearchInfo& info, bool exclude )
-{
-    info.saveLock();
-    setValue( groupForDatabase( "Privacy Settings" ), "exclude", exclude );
+size_t SettingsData::thumbnailBytesForScreens(int screens) {
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    const size_t kBytesPerPixel = 4;
+    return kBytesPerPixel * screen.width() * screen.height() * screens;
 }
 
-DB::ImageSearchInfo SettingsData::currentLock() const
+size_t SettingsData::thumbnailCacheBytes() const
 {
-    return DB::ImageSearchInfo::loadLock();
+    return thumbnailBytesForScreens(thumbnailCacheScreens());
 }
 
-getValueFunc_( bool,isLocked,  groupForDatabase("Privacy Settings"),"locked",false );
+////////////////
+//// Viewer ////
+////////////////
 
-void SettingsData::setLocked( bool lock, bool force )
+property_ref ( viewerSize                , setViewerSize                ,  QSize            , Viewer , QSize(800,600) );
+property_ref ( slideShowSize             , setSlideShowSize             ,  QSize            , Viewer , QSize(800,600) );
+property_copy( launchViewerFullScreen    , setLaunchViewerFullScreen    ,  bool             , Viewer , false          );
+property_copy( launchSlideShowFullScreen , setLaunchSlideShowFullScreen ,  bool             , Viewer , false          );
+property_copy( showInfoBox               , setShowInfoBox               ,  bool             , Viewer , true           );
+property_copy( showLabel                 , setShowLabel                 ,  bool             , Viewer , true           );
+property_copy( showDescription           , setShowDescription           ,  bool             , Viewer , true           );
+property_copy( showDate                  , setShowDate                  ,  bool             , Viewer , true           );
+property_copy( showImageSize             , setShowImageSize             ,  bool             , Viewer , true           );
+property_copy( showTime                  , setShowTime                  ,  bool             , Viewer , true           );
+property_copy( showFilename              , setShowFilename              ,  bool             , Viewer , false          );
+property_copy( showEXIF                  , setShowEXIF                  ,  bool             , Viewer , true           );
+property_copy( slideShowInterval         , setSlideShowInterval         ,  int              , Viewer , 5              );
+property_copy( viewerCacheSize           , setViewerCacheSize           ,  int              , Viewer , 25             );
+property_copy( infoBoxWidth              , setInfoBoxWidth              ,  int              , Viewer , 400            );
+property_copy( infoBoxHeight             , setInfoBoxHeight             ,  int              , Viewer , 300            );
+property_enum( infoBoxPosition           , setInfoBoxPosition           ,  Position         , Viewer , Bottom         );
+property_enum( viewerStandardSize        , setViewerStandardSize        ,  StandardViewSize , Viewer , FullSize       );
+
+bool SettingsData::smoothScale() const
 {
-    if ( lock == isLocked() && !force )
-        return;
-
-    setValue( groupForDatabase( "Privacy Settings" ), "locked", lock );
-    emit locked( lock, lockExcludes() );
+    return _smoothScale;
 }
 
-bool SettingsData::lockExcludes() const
+void SettingsData::setSmoothScale( bool b )
 {
-    return value( groupForDatabase( "Privacy Settings" ), "exclude", false );
+    _smoothScale = b;
+    setValue( "Viewer", "smoothScale", b );
+}
+
+////////////////////
+//// Categories ////
+////////////////////
+
+setValueFunc( setAlbumCategory,QString&,  General,albumCategory );
+
+QString SettingsData::albumCategory() const
+{
+    QString category = value( "General", "albumCategory", STR("") );
+
+    if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) )
+    {
+        category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
+        const_cast<SettingsData*>(this)->setAlbumCategory( category );
+    }
+
+    return category;
 }
 
 // PENDING(blackie) move this function to Category
@@ -292,6 +311,29 @@ QString SettingsData::fileForCategoryImage( const QString& category, QString mem
     member.replace( QChar::fromLatin1('/'), QChar::fromLatin1('_') );
     QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
+}
+
+// PENDING(blackie) moved this function to Category
+QPixmap SettingsData::categoryImage( const QString& category, QString member, int size ) const
+{
+    QString fileName = fileForCategoryImage( category, member );
+    QString key = STR( "%1-%2" ).arg(size).arg(fileName);
+    QPixmap res;
+    if ( QPixmapCache::find( key, res ) )
+        return res;
+
+    QImage img;
+    bool ok = img.load( fileName, "JPEG" );
+    if ( ! ok ) {
+        if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
+            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIconLoader::Desktop, size ).toImage();
+        else
+            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
+    }
+    res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
+
+    QPixmapCache::insert( key, res );
+    return res;
 }
 
 // PENDING(blackie) move this function to Category
@@ -322,38 +364,55 @@ void SettingsData::setCategoryImage( const QString& category, QString member, co
     QPixmapCache::remove( key );
 }
 
-// PENDING(blackie) moved this function to Category
-QPixmap SettingsData::categoryImage( const QString& category, QString member, int size ) const
+//////////////
+//// Exif ////
+//////////////
+
+#ifdef HAVE_EXIV2
+    property_sset( exifForViewer , setExifForViewer ,           Exif , StringSet()                            );
+    property_sset( exifForDialog , setExifForDialog ,           Exif , Exif::Info::instance()->standardKeys() );
+    property_ref ( iptcCharset   , setIptcCharset   , QString , Exif , (QString)QString::null                 );
+#endif
+
+///////////////
+//// SQLDB ////
+///////////////
+
+#ifdef SQLDB_SUPPORT
+SQLDB::DatabaseAddress SettingsData::SQLParameters() const
 {
-    QString fileName = fileForCategoryImage( category, member );
-    QString key = STR( "%1-%2" ).arg(size).arg(fileName);
-    QPixmap res;
-    if ( QPixmapCache::find( key, res ) )
-        return res;
-
-    QImage img;
-    bool ok = img.load( fileName, "JPEG" );
-    if ( ! ok ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIconLoader::Desktop, size ).toImage();
-        else
-            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
+    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
+    try {
+        return SQLDB::readConnectionParameters(config);
     }
-    res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
-
-    QPixmapCache::insert( key, res );
-    return res;
+    catch (SQLDB::DriverNotFoundError&) {}
+    return SQLDB::DatabaseAddress();
 }
 
-getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse );
-
-void SettingsData::setViewSortType( const ViewSortType tp )
+void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 {
-    if ( tp == viewSortType() )
-        return;
+    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
+    SQLDB::writeConnectionParameters(address, config);
+    config.sync();
+}
+#endif /* SQLDB_SUPPORT */
 
-    setValue( "General", "viewSortType", (int)tp );
-    emit viewSortTypeChanged( tp );
+///////////////////////
+//// Miscellaneous ////
+///////////////////////
+
+property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, true  );
+
+property_ref_( HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase( "HTML Settings" ), QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) );
+property_ref_( HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase( "HTML Settings" ), STR( "file://" ) + HTMLBaseDir()                                 );
+property_ref_( HTMLDestURL, setHTMLDestURL, QString, groupForDatabase( "HTML Settings" ), STR( "file://" ) + HTMLBaseDir()                                 );
+
+property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() );
+
+QDate SettingsData::fromDate() const
+{
+    QString date = value( "Miscellaneous", "fromDate", STR("") );
+    return date.isEmpty() ? QDate( QDate::currentDate().year(), 1, 1 ) : QDate::fromString( date, Qt::ISODate );
 }
 
 void SettingsData::setFromDate( const QDate& date)
@@ -362,13 +421,10 @@ void SettingsData::setFromDate( const QDate& date)
         setValue( "Miscellaneous", "fromDate", date.toString( Qt::ISODate ) );
 }
 
-QDate SettingsData::fromDate() const
+QDate SettingsData::toDate() const
 {
-    QString date = value( "Miscellaneous", "fromDate", STR("") );
-    if ( date.isEmpty() )
-        return QDate( QDate::currentDate().year(), 1, 1 );
-    else
-        return QDate::fromString( date, Qt::ISODate );
+    QString date = value( "Miscellaneous", "toDate", STR("") );
+    return date.isEmpty() ? QDate( QDate::currentDate().year()+1, 1, 1 ) : QDate::fromString( date, Qt::ISODate );
 }
 
 void  SettingsData::setToDate( const QDate& date)
@@ -377,29 +433,42 @@ void  SettingsData::setToDate( const QDate& date)
         setValue( "Miscellaneous", "toDate", date.toString( Qt::ISODate ) );
 }
 
-QDate SettingsData::toDate() const
+QString SettingsData::imageDirectory() const
 {
-    QString date = value( "Miscellaneous", "toDate", STR("") );
-    if ( date.isEmpty() )
-        return QDate( QDate::currentDate().year()+1, 1, 1 );
-    else
-        return QDate::fromString( date, Qt::ISODate );
+    return _imageDirectory;
 }
 
-QString SettingsData::albumCategory() const
+QString SettingsData::groupForDatabase( const char* setting ) const
 {
-    QString category = value( "General", "albumCategory", STR("") );
-
-    if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) )
-    {
-        category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
-        const_cast<SettingsData*>(this)->setAlbumCategory( category );
-    }
-
-    return category;
+    return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
-setValueFunc( setAlbumCategory,QString&,  General,albumCategory );
+DB::ImageSearchInfo SettingsData::currentLock() const
+{
+    return DB::ImageSearchInfo::loadLock();
+}
+
+void SettingsData::setCurrentLock( const DB::ImageSearchInfo& info, bool exclude )
+{
+    info.saveLock();
+    setValue( groupForDatabase( "Privacy Settings" ), "exclude", exclude );
+}
+
+bool SettingsData::lockExcludes() const
+{
+    return value( groupForDatabase( "Privacy Settings" ), "exclude", false );
+}
+
+getValueFunc_( bool,locked,  groupForDatabase("Privacy Settings"),"locked",false );
+
+void SettingsData::setLocked( bool lock, bool force )
+{
+    if ( lock == locked() && !force )
+        return;
+
+    setValue( groupForDatabase( "Privacy Settings" ), "locked", lock );
+    emit locked( lock, lockExcludes() );
+}
 
 void SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 {
@@ -410,72 +479,3 @@ QRect SettingsData::windowGeometry( WindowType win ) const
 {
     return value( "Window Geometry", win, QRect(0,0,800,600) );
 }
-
-bool SettingsData::ready()
-{
-    return _instance != 0;
-}
-
-getValueFunc( QSize,histogramSize,  General,QSize(15,30) );
-
-void SettingsData::setHistogramSize( const QSize& size )
-{
-    if ( size == histogramSize() )
-        return;
-
-    setValue( "General", "histogramSize", size );
-    emit histogramSizeChanged( size );
-}
-
-QString SettingsData::groupForDatabase( const char* setting ) const
-{
-    return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
-}
-
-size_t SettingsData::thumbnailBytesForScreens(int screens) {
-    const QRect screen = QApplication::desktop()->screenGeometry();
-    const size_t kBytesPerPixel = 4;
-    return kBytesPerPixel * screen.width() * screen.height() * screens;
-}
-
-// Three pages sounds good; one before, one after the current screen
-getValueFunc( int,thumbnailCacheScreens,  Thumbnails,3);
-
-void SettingsData::setThumbnailCacheScreens( int screens )
-{
-    setValue( "Thumbnails", "thumbnailCacheScreens", screens );
-    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
-    QPixmapCache::clear();
-}
-
-size_t SettingsData::thumbnailCacheBytes() const
-{
-    return thumbnailBytesForScreens(thumbnailCacheScreens());
-}
-
-getValueFunc( int,thumbSize,  Thumbnails,128);
-
-void SettingsData::setThumbSize( int value )
-{
-    QPixmapCache::clear();
-    setValue( "Thumbnails", "thumbSize", value );
-}
-
-#ifdef SQLDB_SUPPORT
-void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
-{
-    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
-    SQLDB::writeConnectionParameters(address, config);
-    config.sync();
-}
-
-SQLDB::DatabaseAddress SettingsData::SQLParameters() const
-{
-    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
-    try {
-        return SQLDB::readConnectionParameters(config);
-    }
-    catch (SQLDB::DriverNotFoundError&) {}
-    return SQLDB::DatabaseAddress();
-}
-#endif /* SQLDB_SUPPORT */

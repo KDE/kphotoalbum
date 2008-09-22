@@ -105,13 +105,13 @@ public:
     property_copy( thumbSize                , setThumbSize               , int                  );
     property_copy( thumbnailAspectRatio     , setThumbnailAspectRatio    , ThumbnailAspectRatio );
 
-    size_t thumbnailCacheBytes() const;   // convenience method
-
     /**
      * Return an approximate figure of megabytes to cache to be able to
      * cache the amount of "screens" of caches.
      */
     static size_t thumbnailBytesForScreens(int screen);
+
+    size_t thumbnailCacheBytes() const;   // convenience method
 
     ////////////////
     //// Viewer ////
@@ -144,11 +144,12 @@ public:
     property_ref( albumCategory, setAlbumCategory , QString);
 
     QString fileForCategoryImage ( const QString& category, QString member ) const;
-    void    setCategoryImage     ( const QString& category, QString, const QImage& image );
+
     QPixmap categoryImage        ( const QString& category,  QString, int size ) const;
+    void    setCategoryImage     ( const QString& category, QString, const QImage& image );
 
     //////////////
-    //// EXIF ////
+    //// Exif ////
     //////////////
 
 #ifdef HAVE_EXIV2
@@ -171,25 +172,25 @@ public:
 
     property_copy( delayLoadingPlugins, setDelayLoadingPlugins , bool);
 
-    property_ref( fromDate , setFromDate , QDate );
-    property_ref( toDate   , setToDate   , QDate );
+    property_ref( password, setPassword , QString);
 
     property_ref( HTMLBaseDir, setHTMLBaseDir , QString);
     property_ref( HTMLBaseURL, setHTMLBaseURL , QString);
     property_ref( HTMLDestURL, setHTMLDestURL , QString);
 
-    property_ref( password, setPassword , QString);
+    property_ref( fromDate , setFromDate , QDate );
+    property_ref( toDate   , setToDate   , QDate );
 
     QString imageDirectory() const;
 
     QString groupForDatabase( const char* setting ) const;
 
-    void setCurrentLock( const DB::ImageSearchInfo&, bool exclude );
     DB::ImageSearchInfo currentLock() const;
-
-    void setLocked( bool locked, bool force );
-    bool isLocked() const;
+    void setCurrentLock( const DB::ImageSearchInfo&, bool exclude );
     bool lockExcludes() const;
+
+    bool locked() const;
+    void setLocked( bool locked, bool force );
 
     void  setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;

@@ -1694,7 +1694,7 @@ void MainWindow::Window::setupStatusBar()
     _dirtyIndicator = new DirtyIndicator( indicators );
 
     _lockedIndicator = new QLabel( indicators );
-    setLocked( Settings::SettingsData::instance()->isLocked(), true );
+    setLocked( Settings::SettingsData::instance()->locked(), true );
 
     statusBar()->addPermanentWidget( indicators, 0 );
 

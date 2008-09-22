@@ -194,25 +194,6 @@ public:
     void  setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
 
-private:
-    int       value( const char*    group , const char* option , int              defaultValue ) const;
-    QString   value( const char*    group , const char* option , const QString&   defaultValue ) const;
-    QString   value( const QString& group , const char* option , const QString&   defaultValue ) const;
-    bool      value( const char*    group , const char* option , bool             defaultValue ) const;
-    bool      value( const QString& group , const char* option , bool             defaultValue ) const;
-    QColor    value( const char*    group , const char* option , const QColor&    defaultValue ) const;
-    QSize     value( const char*    group , const char* option , const QSize&     defaultValue ) const;
-    StringSet value( const char*    group , const char* option , const StringSet& defaultValue ) const;
-
-    void setValue( const char*    group , const char* option , int              value );
-    void setValue( const char*    group , const char* option , const QString&   value );
-    void setValue( const QString& group , const char* option , const QString&   value );
-    void setValue( const char*    group , const char* option , bool             value );
-    void setValue( const QString& group , const char* option , bool             value );
-    void setValue( const char*    group , const char* option , const QColor&    value );
-    void setValue( const char*    group , const char* option , const QSize&     value );
-    void setValue( const char*    group , const char* option , const StringSet& value );
-
 signals:
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Settings::ViewSortType );

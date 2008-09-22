@@ -79,7 +79,7 @@ SettingsData::SettingsData( const QString& imageDirectory )
     _smoothScale = value( "Viewer", "smoothScale", true );
 }
 
-bool SettingsData::smoothScale()
+bool SettingsData::smoothScale() const
 {
     return _smoothScale;
 }
@@ -116,33 +116,6 @@ bool SettingsData::trustTimeStamps()
         return _trustTimeStamps;
     }
 }
-void SettingsData::setTTimeStamps( TimeStampTrust t )
-{
-    setValue( "General", "trustTimeStamps", (int) t );
-}
-TimeStampTrust SettingsData::tTimeStamps() const
-{
-    return (TimeStampTrust) value( "General", "trustTimeStamps", (int) Always );
-}
-
-void SettingsData::setThumbnailAspectRatio( ThumbnailAspectRatio aspect )
-{
-    setValue( "Thumbnails", "thumbnailAspectRatio", (int) aspect);
-}
-ThumbnailAspectRatio SettingsData::thumbnailAspectRatio() const
-{
-    return (ThumbnailAspectRatio) value( "Thumbnails", "thumbnailAspectRatio", (int) Aspect_4_3);
-}
-
-void SettingsData::setViewerStandardSize(StandardViewSize v)
-{
-    setValue( "Viewer", "standardViewerSize", (int) v );
-}
-
-StandardViewSize SettingsData::viewerStandardSize() const
-{
-    return (StandardViewSize) value( "Viewer", "standardViewerSize", (int) FullSize );
-}
 
 QString SettingsData::imageDirectory() const
 {
@@ -150,17 +123,6 @@ QString SettingsData::imageDirectory() const
         return _imageDirectory + STR( "/" );
     else
         return _imageDirectory;
-}
-
-
-Position SettingsData::infoBoxPosition() const
-{
-    return (Position) value( "Viewer", "infoBoxPosition", 0 );
-}
-
-void SettingsData::setInfoBoxPosition( Position pos )
-{
-    setValue( "Viewer", "infoBoxPosition", (int) pos );
 }
 
 QString SettingsData::HTMLBaseDir() const
@@ -300,7 +262,7 @@ QPixmap SettingsData::categoryImage( const QString& category, QString member, in
     return res;
 }
 
-void SettingsData::setViewSortType( ViewSortType tp )
+void SettingsData::setViewSortType( const ViewSortType tp )
 {
     bool changed = ( viewSortType() != tp );
     setValue( "General", "viewSortType", (int) tp );
@@ -347,7 +309,8 @@ QString SettingsData::albumCategory() const
 {
     QString category = value( "General", "albumCategory", STR("") );
 
-    if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
+    if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) )
+    {
         category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
         const_cast<SettingsData*>(this)->setAlbumCategory( category );
     }
@@ -539,7 +502,7 @@ void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
     config.sync();
 }
 
-SQLDB::DatabaseAddress SettingsData::getSQLParameters() const
+SQLDB::DatabaseAddress SettingsData::SQLParameters() const
 {
     KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
     try {

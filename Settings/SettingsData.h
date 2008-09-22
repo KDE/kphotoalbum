@@ -17,36 +17,50 @@
 */
 
 #ifndef SETTINGS_SETTINGS_H
-#define SETTINGS_SETTINGS_H
+#   define SETTINGS_SETTINGS_H
+
 #include <QPixmap>
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
 #include <config-kpa-exiv2.h>
+
 #ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
+#   include "Exif/Info.h"
 #endif
+
 #include "Utilities/Set.h"
 #include <config-kpa-sqldb.h>
+
 #ifdef SQLDB_SUPPORT
-namespace SQLDB { class DatabaseAddress; }
+    namespace SQLDB { class DatabaseAddress; }
 #endif
 
-#define property__( type, group, prop, setFunction, defaultValue )      \
-    void setFunction( type val )                                        \
-    {                                                                   \
-        setValue( #group, #prop, val );                                 \
-    }                                                                   \
-    type prop() const                                                   \
-    {                                                                   \
-        return value( #group, #prop, defaultValue );                    \
+#define property_decl( getType,getFunction, setFunction,setType ) \
+    getType getFunction() const;                                    \
+    void set##setFunction( const setType )
+
+#define property_decl_copy( type, getFunction, setFunction ) property_decl( type,getFunction, setFunction,type  )
+#define property_decl_ref( type, getFunction, setFunction )  property_decl( type,getFunction, setFunction,type& )
+
+#define property( group, prop, getFunction, setFunction, defaultValue, type ) \
+    type getFunction() const                                                  \
+    {                                                                         \
+        return (type)value( #group, prop, defaultValue );                     \
+    }                                                                         \
+    void set##setFunction( type val )                                         \
+    {                                                                         \
+        setValue( #group, prop, val );                                        \
     }
 
-#define intProperty( group, prop, setFunction, defaultValue ) property__( int, group, prop, setFunction, defaultValue )
-#define boolProperty( group, prop, setFunction, defaultValue ) property__( bool, group, prop, setFunction, defaultValue )
-#define colorProperty( group, prop, setFunction, defaultValue ) property__( QColor, group, prop, setFunction, defaultValue )
-#define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
-#define stringProperty(  group, prop, setFunction, defaultValue ) property__( QString, group, prop, setFunction, defaultValue )
-#define stringSetProperty( group, prop, setFunction, defaultValue ) property__( StringSet, group, prop, setFunction, defaultValue )
+#define property_1( group, prop, setFunction, defaultValue, type ) property(#group,#prop,prop,setFunction,defaultValue,type)
+#define property_2( group, prop, setFunction, defaultValue, type ) property( group,#prop,prop,setFunction,defaultValue,type)
+
+#define       intProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, int       )
+#define      boolProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, bool      )
+#define     colorProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QColor    )
+#define      sizeProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QSize     )
+#define    stringProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QString   )
+#define stringSetProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, StringSet )
 // Adding a new type? Don't forget to #undef these macros at the end.
 
 namespace DB
@@ -58,66 +72,63 @@ namespace Settings
 {
     using Utilities::StringSet;
 
-    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    enum ViewSortType { SortLastUse, SortAlpha };
-    enum TimeStampTrust {
-        Always = 0,
-        Ask = 1,
-        Never = 2
-    };
-    enum StandardViewSize {
-        FullSize = 0,
-        NaturalSize = 1,
-        NaturalSizeIfFits = 2
-    };
-    enum ThumbnailAspectRatio {
-        Aspect_1_1 = 0,
-        Aspect_4_3 = 1,
-        Aspect_3_2 = 2,
-        Aspect_16_9 = 3,
-        Aspect_3_4 = 4,
-        Aspect_2_3 = 5,
-        Aspect_9_16 = 6
-    };
+    enum Position             { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    enum ViewSortType         { SortLastUse, SortAlpha };
+    enum TimeStampTrust       { Always, Ask, Never};
+    enum StandardViewSize     { FullSize, NaturalSize, NaturalSizeIfFits };
+    enum ThumbnailAspectRatio { Aspect_1_1, Aspect_4_3, Aspect_3_2, Aspect_16_9, Aspect_3_4, Aspect_2_3, Aspect_9_16 };
 
     typedef const char* WindowType;
     extern const WindowType MainWindow, ConfigWindow;
 
-class SettingsData :public QObject {
+class SettingsData : public QObject
+{
     Q_OBJECT
 
 public:
     static SettingsData* instance();
-    static bool ready();
-    static void setup( const QString& imageDirectory );
-    // -------------------------------------------------- General
-    boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
-    boolProperty( General, useEXIFComments, setUseEXIFComments, true );
-    boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
-    boolProperty( General, dontReadRawFilesWithOtherMatchingFile, setDontReadRawFilesWithOtherMatchingFile, false );
-    boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );
-    intProperty( General, autoSave, setAutoSave, 5 );
-    intProperty( General, backupCount, setBackupCount, 5 );
-    boolProperty( General, compressBackup, setCompressBackup, true );
-    boolProperty( General, showSplashScreen, setShowSplashScreen, true );
+    static bool          ready();
+    static void          setup( const QString& imageDirectory );
 
-    QSize histogramSize() const;
-    void setHistogramSize( const QSize& size );
+    /////////////////
+    //// General ////
+    /////////////////
 
-    // -------------------------------------------------- Thumbnails
-    intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
-    boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
-    boolProperty( Thumbnails, displayCategories, setDisplayCategories, false );
-    intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
-    boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
-    boolProperty( Thumbnails, thumbnailDarkBackground, setThumbnailDarkBackground, true );
-    boolProperty( Thumbnails, thumbnailDisplayGrid, setThumbnailDisplayGrid, false );
+    stringProperty( General , backend                               , Backend                               , QString::fromLatin1("xml") );
+      boolProperty( General , useEXIFRotate                         , UseEXIFRotate                         , true                       );
+      boolProperty( General , useEXIFComments                       , UseEXIFComments                       , true                       );
+      boolProperty( General , searchForImagesOnStartup              , SearchForImagesOnStartup              , true                       );
+      boolProperty( General , dontReadRawFilesWithOtherMatchingFile , DontReadRawFilesWithOtherMatchingFile , false                      );
+      boolProperty( General , useCompressedIndexXML                 , UseCompressedIndexXML                 , false                      );
+      boolProperty( General , compressBackup                        , CompressBackup                        , true                       );
+      boolProperty( General , showSplashScreen                      , ShowSplashScreen                      , true                       );
+       intProperty( General , autoSave                              , AutoSave                              , 5                          );
+       intProperty( General , backupCount                           , BackupCount                           , 5                          );
+        property_1( General , tTimeStamps                           , TTimeStamps                           , 0,       TimeStampTrust    );
 
-    // Border space around thumbnails.
-    intProperty( Thumbnails, thumbnailSpace, setThumbnailSpace, 1);
+    property_decl_ref( QSize, histogramSize, HistogramSize );
 
-    void setThumbnailCacheScreens( int screens );
-    int thumbnailCacheScreens() const;
+    bool trustTimeStamps();
+
+    property_decl_copy( ViewSortType, viewSortType, ViewSortType );
+
+    ////////////////////
+    //// Thumbnails ////
+    ////////////////////
+
+    boolProperty( Thumbnails , displayLabels            , DisplayLabels           , true                              );
+    boolProperty( Thumbnails , displayCategories        , DisplayCategories       , false                             );
+    boolProperty( Thumbnails , autoShowThumbnailView    , AutoShowThumbnailView   , 0                                 );
+    boolProperty( Thumbnails , showNewestThumbnailFirst , ShowNewestFirst         , false                             );
+    boolProperty( Thumbnails , thumbnailDarkBackground  , ThumbnailDarkBackground , true                              );
+    boolProperty( Thumbnails , thumbnailDisplayGrid     , ThumbnailDisplayGrid    , false                             );
+     intProperty( Thumbnails , previewSize              , PreviewSize             , 256                               );
+     intProperty( Thumbnails , thumbnailSpace           , ThumbnailSpace          , 1                                 ); // Border space around thumbnails.
+      property_1( Thumbnails , thumbnailAspectRatio     , ThumbnailAspectRatio     , Aspect_4_3 , ThumbnailAspectRatio );
+
+    property_decl_copy( int, thumbnailCacheScreens, ThumbnailCacheScreens );
+    property_decl_copy( int, thumbSize, ThumbSize );
+
     size_t thumbnailCacheBytes() const;   // convenience method
 
     /**
@@ -126,89 +137,77 @@ public:
      */
     static size_t thumbnailBytesForScreens(int screen);
 
-    void setThumbSize( int value );
-    int thumbSize() const;
+    ////////////////
+    //// Viewer ////
+    ////////////////
 
-    // -------------------------------------------------- Viewer
-    sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );
-    sizeProperty( Viewer, slideShowSize, setSlideShowSize, QSize( 800, 600 ) );
-    boolProperty( Viewer, launchViewerFullScreen, setLaunchViewerFullScreen, false );
-    boolProperty( Viewer, launchSlideShowFullScreen, setLaunchSlideShowFullScreen, false );
-    intProperty( Viewer, slideShowInterval, setSlideShowInterval, 5 );
-    intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
-    intProperty( Viewer, infoBoxWidth, setInfoBoxWidth, 400 );
-    intProperty( Viewer, infoBoxHeight, setInfoBoxHeight, 300 );
+    sizeProperty( Viewer , viewerSize                , ViewerSize                , QSize(800,600)              );
+    sizeProperty( Viewer , slideShowSize             , SlideShowSize             , QSize(800,600)              );
+    boolProperty( Viewer , launchViewerFullScreen    , LaunchViewerFullScreen    , false                       );
+    boolProperty( Viewer , launchSlideShowFullScreen , LaunchSlideShowFullScreen , false                       );
+    boolProperty( Viewer , showInfoBox               , ShowInfoBox               , true                        );
+    boolProperty( Viewer , showLabel                 , ShowLabel                 , true                        );
+    boolProperty( Viewer , showDescription           , ShowDescription           , true                        );
+    boolProperty( Viewer , showDate                  , ShowDate                  , true                        );
+    boolProperty( Viewer , showImageSize             , ShowImageSize             , true                        );
+    boolProperty( Viewer , showTime                  , ShowTime                  , true                        );
+    boolProperty( Viewer , showFilename              , ShowFilename              , false                       );
+    boolProperty( Viewer , showEXIF                  , ShowEXIF                  , true                        );
+     intProperty( Viewer , slideShowInterval         , SlideShowInterval         , 5                           );
+     intProperty( Viewer , viewerCacheSize           , ViewerCacheSize           , 25                          );
+     intProperty( Viewer , infoBoxWidth              , InfoBoxWidth              , 400                         );
+     intProperty( Viewer , infoBoxHeight             , InfoBoxHeight             , 300                         );
+      property_1( Viewer , viewerStandardSize        , ViewerStandardSize        , FullSize , StandardViewSize );
+      property_1( Viewer , infoBoxPosition           , InfoBoxPosition           , 0        , Position         );
 
-    boolProperty( Viewer, showInfoBox, setShowInfoBox, true );
-    boolProperty( Viewer, showLabel, setShowLabel, true );
-    boolProperty( Viewer, showDescription, setShowDescription, true );
-    boolProperty( Viewer, showDate, setShowDate, true );
-    boolProperty( Viewer, showImageSize, setShowImageSize, true );
-    boolProperty( Viewer, showTime, setShowTime, true );
-    boolProperty( Viewer, showFilename, setShowFilename, false );
-    boolProperty( Viewer, showEXIF, setShowEXIF, true );
-    void setViewerStandardSize(StandardViewSize);
-    StandardViewSize viewerStandardSize() const;
+    property_decl_copy( bool, smoothScale, SmoothScale);
 
-    static bool smoothScale();
-    void setSmoothScale( bool );
+    ////////////////////
+    //// Categories ////
+    ////////////////////
 
-    // -------------------------------------------------- Miscellaneous
-    boolProperty( Plug-ins, delayLoadingPlugins, setDelayLoadingPlugins, true );
+    QString fileForCategoryImage ( const QString& category, QString member ) const;
+    void    setCategoryImage     ( const QString& category, QString, const QImage& image );
+    QPixmap categoryImage        ( const QString& category,  QString, int size ) const;
 
-    void setFromDate( const QDate& );
-    QDate fromDate() const;
-    void setToDate( const QDate& );
-    QDate toDate() const;
+    property_decl_ref( QString, albumCategory, AlbumCategory );
 
-    void setViewSortType( ViewSortType );
-    ViewSortType viewSortType() const;
+    //////////////
+    //// EXIF ////
+    //////////////
 
-    Position infoBoxPosition() const;
-    void setInfoBoxPosition( Position pos );
-
-
-    // -------------------------------------------------- Categories
-    QString fileForCategoryImage(  const QString& category, QString member ) const;
-    void setCategoryImage( const QString& category, QString, const QImage& image );
-    QPixmap categoryImage( const QString& category,  QString, int size ) const;
-    QString albumCategory() const;
-    void setAlbumCategory(  const QString& category );
-
-    // -------------------------------------------------- EXIF
 #ifdef HAVE_EXIV2
-    stringSetProperty( EXIF, exifForViewer, setExifForViewer, StringSet() );
-    stringSetProperty( EXIF, exifForDialog, setExifForDialog, Exif::Info::instance()->standardKeys() );
-    stringProperty( EXIF, iptcCharset, setIptcCharset, QString::null );
+    stringSetProperty ( EXIF , exifForViewer , ExifForViewer , StringSet()                            );
+    stringSetProperty ( EXIF , exifForDialog , ExifForDialog , Exif::Info::instance()->standardKeys() );
+    stringProperty    ( EXIF , iptcCharset   , IptcCharset   , QString::null                          );
 #endif
 
-    // -------------------------------------------------- SQLDB
+    ///////////////
+    //// SQLDB ////
+    ///////////////
+
 #ifdef SQLDB_SUPPORT
-    void setSQLParameters(const SQLDB::DatabaseAddress& other);
-    SQLDB::DatabaseAddress getSQLParameters() const;
+    property_decl_ref( SQLDB::DatabaseAddress, SQLParameters, SQLParameters );
 #endif
 
-    // -------------------------------------------------- misc
+    ///////////////////////
+    //// Miscellaneous ////
+    ///////////////////////
 
-    stringProperty( General, backend, setBackend, QString::fromLatin1("xml") );
+    boolProperty( Plug-ins, delayLoadingPlugins, DelayLoadingPlugins, true );
 
-    bool trustTimeStamps();
-    void setTTimeStamps( TimeStampTrust );
-    TimeStampTrust tTimeStamps() const;
+    property_decl_ref( QDate , fromDate , FromDate );
+    property_decl_ref( QDate , toDate   , ToDate   );
 
-    void setThumbnailAspectRatio(ThumbnailAspectRatio);
-    ThumbnailAspectRatio thumbnailAspectRatio() const;
+    property_decl_ref( QString, HTMLBaseDir, HTMLBaseDir );
+    property_decl_ref( QString, HTMLBaseURL, HTMLBaseURL );
+    property_decl_ref( QString, HTMLDestURL, HTMLDestURL );
+
+    property_decl_ref( QString, password, Password );
 
     QString imageDirectory() const;
 
-    QString HTMLBaseDir() const;
-    void setHTMLBaseDir( const QString& dir );
-
-    QString HTMLBaseURL() const;
-    void setHTMLBaseURL( const QString& dir );
-
-    QString HTMLDestURL() const;
-    void setHTMLDestURL( const QString& dir );
+    QString groupForDatabase( const char* setting ) const;
 
     void setCurrentLock( const DB::ImageSearchInfo&, bool exclude );
     DB::ImageSearchInfo currentLock() const;
@@ -217,32 +216,27 @@ public:
     bool isLocked() const;
     bool lockExcludes() const;
 
-    void setPassword( const QString& passwd );
-    QString password() const;
-
-    void setWindowGeometry( WindowType, const QRect& geometry );
+    void  setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
 
-    QString groupForDatabase( const char* setting ) const;
-
 private:
-    int value( const char* group, const char* option, int defaultValue ) const;
-    QString value( const char* group, const char* option, const QString& defaultValue ) const;
-    QString value( const QString& group, const char* option, const QString& value ) const;
-    bool value( const char* group, const char* option, bool defaultValue ) const;
-    bool value( const QString& group, const char* option, bool defaultValue ) const;
-    QColor value( const char* group, const char* option, const QColor& defaultValue ) const;
-    QSize value( const char* group, const char* option, const QSize& defaultValue ) const;
-    StringSet value(const char* group, const char* option, const StringSet& defaultValue ) const;
+    int       value( const char*    group , const char* option , int              defaultValue ) const;
+    QString   value( const char*    group , const char* option , const QString&   defaultValue ) const;
+    QString   value( const QString& group , const char* option , const QString&   defaultValue ) const;
+    bool      value( const char*    group , const char* option , bool             defaultValue ) const;
+    bool      value( const QString& group , const char* option , bool             defaultValue ) const;
+    QColor    value( const char*    group , const char* option , const QColor&    defaultValue ) const;
+    QSize     value( const char*    group , const char* option , const QSize&     defaultValue ) const;
+    StringSet value( const char*    group , const char* option , const StringSet& defaultValue ) const;
 
-    void setValue( const char* group, const char* option, int value );
-    void setValue( const char* group, const char* option, const QString& value );
-    void setValue( const QString& group, const char* option, const QString& value );
-    void setValue( const char* group, const char* option, bool value );
-    void setValue( const QString& group, const char* option, bool value );
-    void setValue( const char* group, const char* option, const QColor& value );
-    void setValue( const char* group, const char* option, const QSize& value );
-    void setValue( const char* group, const char* option, const StringSet& value );
+    void setValue( const char*    group , const char* option , int              value );
+    void setValue( const char*    group , const char* option , const QString&   value );
+    void setValue( const QString& group , const char* option , const QString&   value );
+    void setValue( const char*    group , const char* option , bool             value );
+    void setValue( const QString& group , const char* option , bool             value );
+    void setValue( const char*    group , const char* option , const QColor&    value );
+    void setValue( const char*    group , const char* option , const QSize&     value );
+    void setValue( const char*    group , const char* option , const StringSet& value );
 
 signals:
     void locked( bool lock, bool exclude );
@@ -251,10 +245,13 @@ signals:
 
 private:
     SettingsData( const QString& imageDirectory  );
+
+    bool                 _trustTimeStamps;
+    bool                 _hasAskedAboutTimeStamps;
+    QString              _imageDirectory;
     static SettingsData* _instance;
-    bool _trustTimeStamps, _hasAskedAboutTimeStamps;
+
     friend class DB::CategoryCollection;
-    QString _imageDirectory;
 };
 } // end of namespace
 
@@ -265,8 +262,12 @@ private:
 #undef sizeProperty
 #undef stringProperty
 #undef stringSetProperty
-#undef property__
+#undef property
+#undef property_1
+#undef property_2
+#undef property_decl
+#undef property_decl_copy
+#undef property_decl_ref
 
 
 #endif /* SETTINGS_SETTINGS_H */
-

@@ -522,7 +522,7 @@ void Settings::SettingsDialog::show()
     else if (backend == QString::fromLatin1("sql"))
         _backendButtons->setButton(1);
 
-    _sqlSettings->setSettings(Settings::SettingsData::instance()->getSQLParameters());
+    _sqlSettings->setSettings(Settings::SettingsData::instance()->SQLParameters());
 #endif
 
     enableDisable( false );

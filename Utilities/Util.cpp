@@ -649,7 +649,7 @@ bool Utilities::isVideo( const QString& fileName )
 
 QImage Utilities::scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode )
 {
-    return image.scaled( w, h, mode, Settings::SettingsData::smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
+    return image.scaled( w, h, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
 }
 
 QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode )

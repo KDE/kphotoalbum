@@ -140,10 +140,6 @@ MainWindow::Window::Window( QWidget* parent )
         exit(0);
     SplashScreen::instance()->message( i18n("Loading Main Window") );
 
-    // To avoid a race conditions where both the image loader thread creates an instance of
-    // Options, and where the main thread crates an instance, we better get it created now.
-    Settings::SettingsData::instance();
-
     QWidget* top = new QWidget( this );
     QVBoxLayout* lay = new QVBoxLayout( top );
     setCentralWidget( top );
@@ -951,6 +947,8 @@ bool MainWindow::Window::load()
     if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
+    // To avoid a race conditions where both the image loader thread creates an instance of
+    // Options, and where the main thread crates an instance, we better get it created now.
     Settings::SettingsData::setup( QFileInfo( configFile ).absolutePath() );
 
     if ( Settings::SettingsData::instance()->showSplashScreen() ) {

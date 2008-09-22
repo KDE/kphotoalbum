@@ -35,33 +35,12 @@
     namespace SQLDB { class DatabaseAddress; }
 #endif
 
-#define property_decl( getType,getFunction, setFunction,setType ) \
-    getType getFunction() const;                                    \
-    void set##setFunction( const setType )
+#define property( GET_TYPE,GET_FUNC, SET_FUNC,SET_TYPE ) \
+    GET_TYPE GET_FUNC() const;                           \
+    void SET_FUNC( const SET_TYPE )
 
-#define property_decl_copy( type, getFunction, setFunction ) property_decl( type,getFunction, setFunction,type  )
-#define property_decl_ref( type, getFunction, setFunction )  property_decl( type,getFunction, setFunction,type& )
-
-#define property( group, prop, getFunction, setFunction, defaultValue, type ) \
-    type getFunction() const                                                  \
-    {                                                                         \
-        return (type)value( #group, prop, defaultValue );                     \
-    }                                                                         \
-    void set##setFunction( type val )                                         \
-    {                                                                         \
-        setValue( #group, prop, val );                                        \
-    }
-
-#define property_1( group, prop, setFunction, defaultValue, type ) property(#group,#prop,prop,setFunction,defaultValue,type)
-#define property_2( group, prop, setFunction, defaultValue, type ) property( group,#prop,prop,setFunction,defaultValue,type)
-
-#define       intProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, int       )
-#define      boolProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, bool      )
-#define     colorProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QColor    )
-#define      sizeProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QSize     )
-#define    stringProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, QString   )
-#define stringSetProperty( group, prop, setFunction, defaultValue ) property_1( group, prop, setFunction, defaultValue, StringSet )
-// Adding a new type? Don't forget to #undef these macros at the end.
+#define property_copy( GET_FUNC, SET_FUNC , TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE  )
+#define property_ref(  GET_FUNC, SET_FUNC , TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE& )
 
 namespace DB
 {
@@ -94,40 +73,37 @@ public:
     //// General ////
     /////////////////
 
-    stringProperty( General , backend                               , Backend                               , QString::fromLatin1("xml") );
-      boolProperty( General , useEXIFRotate                         , UseEXIFRotate                         , true                       );
-      boolProperty( General , useEXIFComments                       , UseEXIFComments                       , true                       );
-      boolProperty( General , searchForImagesOnStartup              , SearchForImagesOnStartup              , true                       );
-      boolProperty( General , dontReadRawFilesWithOtherMatchingFile , DontReadRawFilesWithOtherMatchingFile , false                      );
-      boolProperty( General , useCompressedIndexXML                 , UseCompressedIndexXML                 , false                      );
-      boolProperty( General , compressBackup                        , CompressBackup                        , true                       );
-      boolProperty( General , showSplashScreen                      , ShowSplashScreen                      , true                       );
-       intProperty( General , autoSave                              , AutoSave                              , 5                          );
-       intProperty( General , backupCount                           , BackupCount                           , 5                          );
-        property_1( General , tTimeStamps                           , TTimeStamps                           , 0,       TimeStampTrust    );
-
-    property_decl_ref( QSize, histogramSize, HistogramSize );
+    property_ref ( histogramSize                         , setHistogramSize                         , QSize          );
+    property_ref ( backend                               , setBackend                               , QString        );
+    property_copy( useEXIFRotate                         , setUseEXIFRotate                         , bool           );
+    property_copy( useEXIFComments                       , setUseEXIFComments                       , bool           );
+    property_copy( searchForImagesOnStartup              , setSearchForImagesOnStartup              , bool           );
+    property_copy( dontReadRawFilesWithOtherMatchingFile , setDontReadRawFilesWithOtherMatchingFile , bool           );
+    property_copy( useCompressedIndexXML                 , setUseCompressedIndexXML                 , bool           );
+    property_copy( compressBackup                        , setCompressBackup                        , bool           );
+    property_copy( showSplashScreen                      , setShowSplashScreen                      , bool           );
+    property_copy( autoSave                              , setAutoSave                              , int            );
+    property_copy( backupCount                           , setBackupCount                           , int            );
+    property_copy( viewSortType                          , setViewSortType                          , ViewSortType   );
+    property_copy( tTimeStamps                           , setTTimeStamps                           , TimeStampTrust );
 
     bool trustTimeStamps();
-
-    property_decl_copy( ViewSortType, viewSortType, ViewSortType );
 
     ////////////////////
     //// Thumbnails ////
     ////////////////////
 
-    boolProperty( Thumbnails , displayLabels            , DisplayLabels           , true                              );
-    boolProperty( Thumbnails , displayCategories        , DisplayCategories       , false                             );
-    boolProperty( Thumbnails , autoShowThumbnailView    , AutoShowThumbnailView   , 0                                 );
-    boolProperty( Thumbnails , showNewestThumbnailFirst , ShowNewestFirst         , false                             );
-    boolProperty( Thumbnails , thumbnailDarkBackground  , ThumbnailDarkBackground , true                              );
-    boolProperty( Thumbnails , thumbnailDisplayGrid     , ThumbnailDisplayGrid    , false                             );
-     intProperty( Thumbnails , previewSize              , PreviewSize             , 256                               );
-     intProperty( Thumbnails , thumbnailSpace           , ThumbnailSpace          , 1                                 ); // Border space around thumbnails.
-      property_1( Thumbnails , thumbnailAspectRatio     , ThumbnailAspectRatio     , Aspect_4_3 , ThumbnailAspectRatio );
-
-    property_decl_copy( int, thumbnailCacheScreens, ThumbnailCacheScreens );
-    property_decl_copy( int, thumbSize, ThumbSize );
+    property_copy( displayLabels            , setDisplayLabels           , bool                 );
+    property_copy( displayCategories        , setDisplayCategories       , bool                 );
+    property_copy( autoShowThumbnailView    , setAutoShowThumbnailView   , bool                 );
+    property_copy( showNewestThumbnailFirst , setShowNewestFirst         , bool                 );
+    property_copy( thumbnailDarkBackground  , setThumbnailDarkBackground , bool                 );
+    property_copy( thumbnailDisplayGrid     , setThumbnailDisplayGrid    , bool                 );
+    property_copy( previewSize              , setPreviewSize             , int                  );
+    property_copy( thumbnailSpace           , setThumbnailSpace          , int                  ); // Border space around thumbnails.
+    property_copy( thumbnailCacheScreens    , setThumbnailCacheScreens   , int                  );
+    property_copy( thumbSize                , setThumbSize               , int                  );
+    property_copy( thumbnailAspectRatio     , setThumbnailAspectRatio    , ThumbnailAspectRatio );
 
     size_t thumbnailCacheBytes() const;   // convenience method
 
@@ -140,46 +116,45 @@ public:
     ////////////////
     //// Viewer ////
     ////////////////
-
-    sizeProperty( Viewer , viewerSize                , ViewerSize                , QSize(800,600)              );
-    sizeProperty( Viewer , slideShowSize             , SlideShowSize             , QSize(800,600)              );
-    boolProperty( Viewer , launchViewerFullScreen    , LaunchViewerFullScreen    , false                       );
-    boolProperty( Viewer , launchSlideShowFullScreen , LaunchSlideShowFullScreen , false                       );
-    boolProperty( Viewer , showInfoBox               , ShowInfoBox               , true                        );
-    boolProperty( Viewer , showLabel                 , ShowLabel                 , true                        );
-    boolProperty( Viewer , showDescription           , ShowDescription           , true                        );
-    boolProperty( Viewer , showDate                  , ShowDate                  , true                        );
-    boolProperty( Viewer , showImageSize             , ShowImageSize             , true                        );
-    boolProperty( Viewer , showTime                  , ShowTime                  , true                        );
-    boolProperty( Viewer , showFilename              , ShowFilename              , false                       );
-    boolProperty( Viewer , showEXIF                  , ShowEXIF                  , true                        );
-     intProperty( Viewer , slideShowInterval         , SlideShowInterval         , 5                           );
-     intProperty( Viewer , viewerCacheSize           , ViewerCacheSize           , 25                          );
-     intProperty( Viewer , infoBoxWidth              , InfoBoxWidth              , 400                         );
-     intProperty( Viewer , infoBoxHeight             , InfoBoxHeight             , 300                         );
-      property_1( Viewer , viewerStandardSize        , ViewerStandardSize        , FullSize , StandardViewSize );
-      property_1( Viewer , infoBoxPosition           , InfoBoxPosition           , 0        , Position         );
-
-    property_decl_copy( bool, smoothScale, SmoothScale);
+    
+    property_ref ( viewerSize                , setViewerSize                , QSize            );
+    property_ref ( slideShowSize             , setSlideShowSize             , QSize            );
+    property_copy( launchViewerFullScreen    , setLaunchViewerFullScreen    , bool             );
+    property_copy( launchSlideShowFullScreen , setLaunchSlideShowFullScreen , bool             );
+    property_copy( showInfoBox               , setShowInfoBox               , bool             );
+    property_copy( showLabel                 , setShowLabel                 , bool             );
+    property_copy( showDescription           , setShowDescription           , bool             );
+    property_copy( showDate                  , setShowDate                  , bool             );
+    property_copy( showImageSize             , setShowImageSize             , bool             );
+    property_copy( showTime                  , setShowTime                  , bool             );
+    property_copy( showFilename              , setShowFilename              , bool             );
+    property_copy( showEXIF                  , setShowEXIF                  , bool             );
+    property_copy( smoothScale               , setSmoothScale               , bool             );
+    property_copy( slideShowInterval         , setSlideShowInterval         , int              );
+    property_copy( viewerCacheSize           , setViewerCacheSize           , int              );
+    property_copy( infoBoxWidth              , setInfoBoxWidth              , int              );
+    property_copy( infoBoxHeight             , setInfoBoxHeight             , int              );
+    property_copy( infoBoxPosition           , setInfoBoxPosition           , Position         );
+    property_copy( viewerStandardSize        , setViewerStandardSize        , StandardViewSize );
 
     ////////////////////
     //// Categories ////
     ////////////////////
 
+    property_ref( albumCategory, setAlbumCategory , QString);
+
     QString fileForCategoryImage ( const QString& category, QString member ) const;
     void    setCategoryImage     ( const QString& category, QString, const QImage& image );
     QPixmap categoryImage        ( const QString& category,  QString, int size ) const;
-
-    property_decl_ref( QString, albumCategory, AlbumCategory );
 
     //////////////
     //// EXIF ////
     //////////////
 
 #ifdef HAVE_EXIV2
-    stringSetProperty ( EXIF , exifForViewer , ExifForViewer , StringSet()                            );
-    stringSetProperty ( EXIF , exifForDialog , ExifForDialog , Exif::Info::instance()->standardKeys() );
-    stringProperty    ( EXIF , iptcCharset   , IptcCharset   , QString::null                          );
+    property_ref( exifForViewer , setExifForViewer , StringSet );
+    property_ref( exifForDialog , setExifForDialog , StringSet );
+    property_ref( iptcCharset   , setIptcCharset   , QString   );
 #endif
 
     ///////////////
@@ -187,23 +162,23 @@ public:
     ///////////////
 
 #ifdef SQLDB_SUPPORT
-    property_decl_ref( SQLDB::DatabaseAddress, SQLParameters, SQLParameters );
+    property_ref( SQLParameters, setSQLParameters , SQLDB::DatabaseAddress);
 #endif
 
     ///////////////////////
     //// Miscellaneous ////
     ///////////////////////
 
-    boolProperty( Plug-ins, delayLoadingPlugins, DelayLoadingPlugins, true );
+    property_copy( delayLoadingPlugins, setDelayLoadingPlugins , bool);
 
-    property_decl_ref( QDate , fromDate , FromDate );
-    property_decl_ref( QDate , toDate   , ToDate   );
+    property_ref( fromDate , setFromDate , QDate );
+    property_ref( toDate   , setToDate   , QDate );
 
-    property_decl_ref( QString, HTMLBaseDir, HTMLBaseDir );
-    property_decl_ref( QString, HTMLBaseURL, HTMLBaseURL );
-    property_decl_ref( QString, HTMLDestURL, HTMLDestURL );
+    property_ref( HTMLBaseDir, setHTMLBaseDir , QString);
+    property_ref( HTMLBaseURL, setHTMLBaseURL , QString);
+    property_ref( HTMLDestURL, setHTMLDestURL , QString);
 
-    property_decl_ref( QString, password, Password );
+    property_ref( password, setPassword , QString);
 
     QString imageDirectory() const;
 
@@ -255,19 +230,9 @@ private:
 };
 } // end of namespace
 
-
-#undef intProperty
-#undef boolProperty
-#undef colorProperty
-#undef sizeProperty
-#undef stringProperty
-#undef stringSetProperty
 #undef property
-#undef property_1
-#undef property_2
-#undef property_decl
-#undef property_decl_copy
-#undef property_decl_ref
+#undef property_copy
+#undef property_ref
 
 
 #endif /* SETTINGS_SETTINGS_H */

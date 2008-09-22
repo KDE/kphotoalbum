@@ -22,7 +22,6 @@
 #include <stdlib.h>
 
 #include <QApplication>
-#include <QColor>
 #include <QDesktopWidget>
 #include <QDir>
 #include <QPixmap> //Added by qt3to4
@@ -51,6 +50,36 @@
 
 #define STR(x) QString::fromLatin1(x)
 
+#define property( GET_TYPE,GET_FUNC,GET_VALUE,  SET_FUNC,SET_TYPE,SET_VALUE,  GROUP,OPTION,GET_DEFAULT_1,GET_DEFAULT_2,GET_DEFAULT_2_TYPE ) \
+    GET_TYPE SettingsData::GET_FUNC() const                                              \
+    {                                                                                    \
+        KConfigGroup g = KGlobal::config()->group(GROUP);                                \
+                                                                                         \
+        if ( !g.hasKey(OPTION) )                                                         \
+            return GET_DEFAULT_1;                                                        \
+                                                                                         \
+        GET_DEFAULT_2_TYPE v = g.readEntry<GET_DEFAULT_2_TYPE>( OPTION, GET_DEFAULT_2 ); \
+        return GET_VALUE;                                                                \
+    }                                                                                    \
+    void SettingsData::SET_FUNC( const SET_TYPE v )                                      \
+    {                                                                                    \
+        KConfigGroup group = KGlobal::config()->group(GROUP);                            \
+        group.writeEntry( OPTION, SET_VALUE );                                           \
+        group.sync();                                                                    \
+    }
+
+#define property_copy( GET_FUNC,SET_FUNC, TYPE,GROUP,GET_DEFAULT ) \
+    property( TYPE,GET_FUNC,v,  SET_FUNC,TYPE,v,  #GROUP,#GET_FUNC,GET_DEFAULT,GET_DEFAULT,TYPE )
+
+#define property_ref( GET_FUNC,SET_FUNC, TYPE,GROUP,GET_DEFAULT ) \
+    property( TYPE,GET_FUNC,v,  SET_FUNC,TYPE&,v,  #GROUP,#GET_FUNC,GET_DEFAULT,GET_DEFAULT,TYPE )
+
+#define property_enum( GET_FUNC,SET_FUNC, TYPE,GROUP,GET_DEFAULT ) \
+    property( TYPE,GET_FUNC,(TYPE)v,  SET_FUNC,TYPE,(int)v,  #GROUP,#GET_FUNC,GET_DEFAULT,GET_DEFAULT,int )
+
+#define property_sset( GET_FUNC,SET_FUNC, GROUP,GET_DEFAULT ) \
+    property( StringSet,GET_FUNC,v.toSet(),  SET_FUNC,StringSet&,v.toList(),  #GROUP,#GET_FUNC,GET_DEFAULT,QStringList(),QStringList )
+
 /**
  * smoothScale() is called from the image loading thread, therefore we need
  * to cache it this way, rather than going to KConfig.
@@ -78,6 +107,75 @@ SettingsData::SettingsData( const QString& imageDirectory )
     QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
     _smoothScale = value( "Viewer", "smoothScale", true );
 }
+
+/////////////////
+//// General ////
+/////////////////
+
+property_ref ( backend                               , setBackend                               ,  QString        , General , QString::fromLatin1("xml") );
+property_copy( useEXIFRotate                         , setUseEXIFRotate                         ,  bool           , General , true                       );
+property_copy( useEXIFComments                       , setUseEXIFComments                       ,  bool           , General , true                       );
+property_copy( searchForImagesOnStartup              , setSearchForImagesOnStartup              ,  bool           , General , true                       );
+property_copy( dontReadRawFilesWithOtherMatchingFile , setDontReadRawFilesWithOtherMatchingFile ,  bool           , General , false                      );
+property_copy( useCompressedIndexXML                 , setUseCompressedIndexXML                 ,  bool           , General , false                      );
+property_copy( compressBackup                        , setCompressBackup                        ,  bool           , General , true                       );
+property_copy( showSplashScreen                      , setShowSplashScreen                      ,  bool           , General , true                       );
+property_copy( autoSave                              , setAutoSave                              ,  int            , General , 5                          );
+property_copy( backupCount                           , setBackupCount                           ,  int            , General , 5                          );
+property_enum( tTimeStamps                           , setTTimeStamps                           ,  TimeStampTrust , General , Always                     );
+
+////////////////////
+//// Thumbnails ////
+////////////////////
+
+property_copy( displayLabels            , setDisplayLabels           ,  bool                  , Thumbnails , true       );
+property_copy( displayCategories        , setDisplayCategories       ,  bool                  , Thumbnails , false      );
+property_copy( autoShowThumbnailView    , setAutoShowThumbnailView   ,  bool                  , Thumbnails , 0          );
+property_copy( showNewestThumbnailFirst , setShowNewestFirst         ,  bool                  , Thumbnails , false      );
+property_copy( thumbnailDarkBackground  , setThumbnailDarkBackground ,  bool                  , Thumbnails , true       );
+property_copy( thumbnailDisplayGrid     , setThumbnailDisplayGrid    ,  bool                  , Thumbnails , false      );
+property_copy( previewSize              , setPreviewSize             ,  int                   , Thumbnails , 256        );
+property_copy( thumbnailSpace           , setThumbnailSpace          ,  int                   , Thumbnails , 1          );
+property_enum( thumbnailAspectRatio     , setThumbnailAspectRatio    ,  ThumbnailAspectRatio  , Thumbnails , Aspect_4_3 );
+
+////////////////
+//// Viewer ////
+////////////////
+
+property_ref ( viewerSize                , setViewerSize                ,  QSize            , Viewer , QSize(800,600) );
+property_ref ( slideShowSize             , setSlideShowSize             ,  QSize            , Viewer , QSize(800,600) );
+property_copy( launchViewerFullScreen    , setLaunchViewerFullScreen    ,  bool             , Viewer , false          );
+property_copy( launchSlideShowFullScreen , setLaunchSlideShowFullScreen ,  bool             , Viewer , false          );
+property_copy( showInfoBox               , setShowInfoBox               ,  bool             , Viewer , true           );
+property_copy( showLabel                 , setShowLabel                 ,  bool             , Viewer , true           );
+property_copy( showDescription           , setShowDescription           ,  bool             , Viewer , true           );
+property_copy( showDate                  , setShowDate                  ,  bool             , Viewer , true           );
+property_copy( showImageSize             , setShowImageSize             ,  bool             , Viewer , true           );
+property_copy( showTime                  , setShowTime                  ,  bool             , Viewer , true           );
+property_copy( showFilename              , setShowFilename              ,  bool             , Viewer , false          );
+property_copy( showEXIF                  , setShowEXIF                  ,  bool             , Viewer , true           );
+property_copy( slideShowInterval         , setSlideShowInterval         ,  int              , Viewer , 5              );
+property_copy( viewerCacheSize           , setViewerCacheSize           ,  int              , Viewer , 25             );
+property_copy( infoBoxWidth              , setInfoBoxWidth              ,  int              , Viewer , 400            );
+property_copy( infoBoxHeight             , setInfoBoxHeight             ,  int              , Viewer , 300            );
+property_enum( infoBoxPosition           , setInfoBoxPosition           ,  Position         , Viewer , Bottom         );
+property_enum( viewerStandardSize        , setViewerStandardSize        ,  StandardViewSize , Viewer , FullSize       );
+
+///////////////////////
+//// Miscellaneous ////
+///////////////////////
+
+property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, true  );
+
+//////////////
+//// EXIF ////
+//////////////
+
+#ifdef HAVE_EXIV2
+    property_sset( exifForViewer , setExifForViewer ,           EXIF , StringSet()                            );
+    property_sset( exifForDialog , setExifForDialog ,           EXIF , Exif::Info::instance()->standardKeys() );
+    property_ref ( iptcCharset   , setIptcCharset   , QString , EXIF , QString::null                          );
+#endif
 
 bool SettingsData::smoothScale() const
 {
@@ -370,12 +468,6 @@ bool SettingsData::value( const QString& grp, const char* option, bool defaultVa
     return config->group(grp).readEntry<bool>( option, defaultValue );
 }
 
-QColor SettingsData::value( const char* grp, const char* option, const QColor& defaultValue ) const
-{
-    KSharedConfigPtr config = KGlobal::config();
-    return config->group(grp).readEntry<QColor>( option, defaultValue );
-}
-
 QSize SettingsData::value( const char* grp, const char* option, const QSize& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
@@ -419,13 +511,6 @@ void SettingsData::setValue( const QString&grp, const char* option, bool value )
 void SettingsData::setValue( const char* grp, const char* option, bool value )
 {
     setValue( STR(grp), option, value);
-}
-
-void SettingsData::setValue( const char* grp, const char* option, const QColor& value )
-{
-    KConfigGroup group = KGlobal::config()->group(grp);
-    group.writeEntry( option, value );
-    group.sync();
 }
 
 void SettingsData::setValue( const char* grp, const char* option, const QSize& value )

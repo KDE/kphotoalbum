@@ -116,7 +116,7 @@ public:
     ////////////////
     //// Viewer ////
     ////////////////
-    
+
     property_ref ( viewerSize                , setViewerSize                , QSize            );
     property_ref ( slideShowSize             , setSlideShowSize             , QSize            );
     property_copy( launchViewerFullScreen    , setLaunchViewerFullScreen    , bool             );

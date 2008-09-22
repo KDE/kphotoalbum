@@ -59,6 +59,9 @@ static bool _smoothScale = true;
 
 using namespace Settings;
 
+const WindowType Settings::MainWindow   = "MainWindow";
+const WindowType Settings::ConfigWindow = "ConfigWindow";
+
 SettingsData* SettingsData::_instance = 0;
 
 SettingsData* SettingsData::instance()
@@ -360,7 +363,7 @@ void SettingsData::setAlbumCategory( const QString& category )
 void SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 {
     KConfigGroup group = KGlobal::config()->group("Window Geometry");
-    group.writeEntry( windowTypeToString( win ), geometry );
+    group.writeEntry( win, geometry );
     group.sync();
 }
 
@@ -368,7 +371,7 @@ QRect SettingsData::windowGeometry( WindowType win ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     QRect rect( 0,0, 800, 600 );
-    return config->group("Window Geometry").readEntry<QRect>( windowTypeToString( win ), rect );
+    return config->group("Window Geometry").readEntry<QRect>( win, rect );
 }
 
 bool SettingsData::ready()
@@ -487,15 +490,6 @@ void SettingsData::setHistogramSize( const QSize& size )
     setValue( "General", "histogramSize", size );
     if (changed)
         emit histogramSizeChanged( size );
-}
-
-const char* SettingsData::windowTypeToString( WindowType tp ) const
-{
-    switch (tp) {
-    case MainWindow:   return "MainWindow";
-    case ConfigWindow: return "ConfigWindow";
-    }
-    return "";
 }
 
 QString SettingsData::groupForDatabase( const char* setting ) const

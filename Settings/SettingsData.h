@@ -79,7 +79,9 @@ namespace Settings
         Aspect_2_3 = 5,
         Aspect_9_16 = 6
     };
-    enum WindowType { MainWindow = 0, ConfigWindow = 1 };
+
+    typedef const char* WindowType;
+    extern const WindowType MainWindow, ConfigWindow;
 
 class SettingsData :public QObject {
     Q_OBJECT
@@ -220,7 +222,6 @@ public:
 
     void setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
-    const char* windowTypeToString( WindowType tp ) const;
 
     QString groupForDatabase( const char* setting ) const;
 

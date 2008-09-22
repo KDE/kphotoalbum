@@ -21,11 +21,6 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 
-class KSharedConfig;
-template<class T>
-class KSharedPtr;
-typedef KSharedPtr<KSharedConfig> KSharedConfigPtr;
-
 namespace ThumbnailView
 {
 class ThumbnailWidget;

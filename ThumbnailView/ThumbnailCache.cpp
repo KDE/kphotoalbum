@@ -25,30 +25,12 @@
 #include "Settings/SettingsData.h"
 #include "ImageManager/Manager.h"
 
-/** Henners debug output. Will go away soon */
-#undef HENNER_EXPERIMENTING
-
-#include <stdlib.h>
-#include <kdebug.h>
-
-/** experiment with prewarming. This will soon be enabled by default */
-static const char* environVar = "KPA_THUMBCACHE_WARMING";
-static const char* prewarm = getenv(environVar);
-static bool DO_PREWARM = (prewarm == NULL) || strcmp(prewarm, "1") == 0;
-
 ThumbnailView::ThumbnailCache::ThumbnailCache()
     : _displayList(NULL), _hotFrom(0), _hotTo(0), _lastHotFrom(0) {
     _asyncWarmingTimer = new QTimer( this );
     _asyncWarmingTimer->setSingleShot(true);
     connect( _asyncWarmingTimer, SIGNAL( timeout() ),
              this,               SLOT( slotAsyncCacheWarming() ) );
-#if 1
-    if (DO_PREWARM) {
-        kDebug() << "Do cache prewarming.; " << environVar << " not set or set to 1";
-    } else {
-        kDebug() << "Don't do cache prewarming. " << environVar << "=" << prewarm;
-    }
-#endif
 }
 
 bool ThumbnailView::ThumbnailCache::find(const DB::ResultId& id,
@@ -80,7 +62,7 @@ void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize) {
 // Warm the cache around the current hot area. This slot is called
 // asynchronously after the user has stopped scrolling.
 void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
-    if (!DO_PREWARM || _displayList.isNull() || !_thumbSize.isValid())
+    if (_displayList.isNull() || !_thumbSize.isValid())
         return;
 
     const bool scrollDown = _hotFrom > _lastHotFrom;
@@ -92,9 +74,6 @@ void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
     // lets only use a part of the thumbnail cache because right now we're
     // using the global QPixmapCache that is used by others as well.
     const int preloadable = 3 * (totalCacheableThumbs - page) / 4;
-#ifdef HENNER_EXPERIMENTING
-    kDebug() << "range: " << _hotFrom << "-" << _hotTo << "; totalCacheable=" << totalCacheableThumbs << "; page=" << page << "; preloadable=" << preloadable;
-#endif
     _requestedImagesLock.lock();
     _requestedImages.clear();
     _requestedImagesLock.unlock();
@@ -111,19 +90,20 @@ void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
     const int unlikelyDir = ((preloadable < 2*page)
                              ? preloadable - likelyDir
                              : page);
+
     if (scrollDown) {
-        requestRange(_hotTo, _hotTo + likelyDir, "next page");
-        requestRange(_hotFrom - unlikelyDir, _hotFrom, "previous page");
+        requestRange(_hotTo, _hotTo + likelyDir);
+        requestRange(_hotFrom - unlikelyDir, _hotFrom);
     } else {
-        requestRange(_hotFrom - likelyDir, _hotFrom, "previous page");
-        requestRange(_hotTo, _hotTo + unlikelyDir, "next page");
+        requestRange(_hotFrom - likelyDir, _hotFrom);
+        requestRange(_hotTo, _hotTo + unlikelyDir);
     }
 
     // If we still have preload space to spend, load it now.
     if (preloadable > 2*page) {
         const int limit = preloadable / 2;
-        requestRange(_hotTo + page, _hotTo + limit, "further next");
-        requestRange(_hotFrom - limit, _hotFrom - page, "further prev");
+        requestRange(_hotTo + page, _hotTo + limit);
+        requestRange(_hotFrom - limit, _hotFrom - page);
     }
 }
 
@@ -132,18 +112,17 @@ void ThumbnailView::ThumbnailCache::setHotArea(int from, int to) {
     _hotFrom = from;
     _hotTo = to;
     if (anyChange) {
-#ifdef HENNER_EXPERIMENTING
-        if (_asyncWarmingTimer->isActive())
-            kDebug() << "WARMING PENDING ...";
-#endif
         // Do the asynchronous warming after we've settled a bit.
         _asyncWarmingTimer->stop();
         _asyncWarmingTimer->start( 150 );
     }
+
+    // TODO(hzeller) to something smart here and determine the scroll speed
+    // and the typical thumbnail generation speed and calculate with it what
+    // to do (e.g. only 1 thumbnail per page on really quick scrolling).
 }
 
-void ThumbnailView::ThumbnailCache::requestRange(int from, int to, const char* purpose) {
-    int debugCount = 0;
+void ThumbnailView::ThumbnailCache::requestRange(int from, int to) {
     ImageManager::Manager* imgManager = ImageManager::Manager::instance();
     if (from < 0) from = 0;
     if (to > _displayList->size()) to = _displayList->size();
@@ -156,7 +135,6 @@ void ThumbnailView::ThumbnailCache::requestRange(int from, int to, const char* p
         _requestedImagesLock.lock();
         _requestedImages.insert(fileName, id);
         _requestedImagesLock.unlock();
-        ++debugCount;
         ImageManager::ImageRequest* request
             = new ThumbnailCacheRequest(fileName, _thumbSize,
                                         info->angle(), this);
@@ -166,11 +144,6 @@ void ThumbnailView::ThumbnailCache::requestRange(int from, int to, const char* p
         _requestedImagesLock.unlock();
         imgManager->load( request );
     }
-#ifdef HENNER_EXPERIMENTING
-    kDebug() << "Request " << from << "-" << to << "; total=" << (to - from) << "; necessary=" << debugCount << "; " << purpose;
-#else
-    Q_UNUSED(purpose);
-#endif
 }
 
 void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
@@ -190,25 +163,12 @@ void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
     if (found != _requestedImages.end()) {
         insert(found.value(), pixmap);
         _requestedImages.erase(found);
-#ifdef HENNER_EXPERIMENTING
-        if (_requestedImages.size() == 0)
-            kDebug() << "done.";
-#endif
     }
-#ifdef HENNER_EXPERIMENTING
-    else {
-        kDebug() << "throwing away result." << fileName;
-    }
-#endif
 }
 
 bool ThumbnailView::ThumbnailCache::thumbnailStillNeeded(const QString& fileName) const {
     QMutexLocker l(&_requestedImagesLock);
-    bool needed = _requestedImages.contains(fileName);
-#ifdef HENNER_EXPERIMENTING
-    if (!needed) kDebug() << "don't need " << fileName << "anymore.";
-#endif
-    return needed;
+    return _requestedImages.contains(fileName);
 }
 
 QString ThumbnailView::ThumbnailCache::thumbnailPixmapCacheKey(const DB::ResultId& id) {

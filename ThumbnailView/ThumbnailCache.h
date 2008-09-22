@@ -75,7 +75,8 @@ public:
     bool thumbnailStillNeeded(const QString& fileName) const;
 
 protected:
-    // ImageManager interface.
+    // ImageManager interface. The callback just puts the resulting image
+    // into the cache.
     virtual void pixmapLoaded( const QString& fileName,
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
@@ -88,10 +89,10 @@ private:
     static QString thumbnailPixmapCacheKey(const DB::ResultId& id);
 
     /**
-     * warm the cache for the given range.
+     * Warm the cache for the given range by requesting it.
      * Including 'from', exlcuding 'to'.
      */
-    void requestRange(int from, int to, const char* desc);
+    void requestRange(int from, int to);
 
     DB::ConstResultPtr _displayList;
     QSize _thumbSize;

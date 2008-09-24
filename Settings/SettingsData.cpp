@@ -120,17 +120,19 @@ SettingsData* SettingsData::instance()
 {
     if ( ! _instance )
         qFatal("instance called before loading a setup!");
+
     return _instance;
 }
 
 bool SettingsData::ready()
 {
-    return _instance != 0;
+    return _instance;
 }
 
 void SettingsData::setup( const QString& imageDirectory )
 {
-    _instance = new SettingsData( imageDirectory );
+    if ( !_instance )
+        _instance = new SettingsData( imageDirectory );
 }
 
 SettingsData::SettingsData( const QString& imageDirectory )

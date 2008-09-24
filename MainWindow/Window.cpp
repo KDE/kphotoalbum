@@ -1675,9 +1675,7 @@ void MainWindow::Window::showVideos()
 
 void MainWindow::Window::slotStatistics()
 {
-    static StatisticsDialog* dialog = 0;
-    if ( !dialog )
-        dialog = new StatisticsDialog(this);
+    static StatisticsDialog* dialog = new StatisticsDialog(this);
     dialog->show();
 }
 

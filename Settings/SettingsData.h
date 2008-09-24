@@ -39,8 +39,8 @@
     GET_TYPE GET_FUNC() const;                           \
     void SET_FUNC( const SET_TYPE )
 
-#define property_copy( GET_FUNC, SET_FUNC , TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE  )
-#define property_ref(  GET_FUNC, SET_FUNC , TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE& )
+#define property_copy( GET_FUNC, SET_FUNC, TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE  )
+#define property_ref(  GET_FUNC, SET_FUNC, TYPE ) property( TYPE,GET_FUNC, SET_FUNC,TYPE& )
 
 namespace DB
 {
@@ -51,10 +51,10 @@ namespace Settings
 {
     using Utilities::StringSet;
 
-    enum Position             { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    enum ViewSortType         { SortLastUse, SortAlpha };
-    enum TimeStampTrust       { Always, Ask, Never};
-    enum StandardViewSize     { FullSize, NaturalSize, NaturalSizeIfFits };
+    enum Position { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    enum ViewSortType { SortLastUse, SortAlpha };
+    enum TimeStampTrust { Always, Ask, Never};
+    enum StandardViewSize { FullSize, NaturalSize, NaturalSizeIfFits };
     enum ThumbnailAspectRatio { Aspect_1_1, Aspect_4_3, Aspect_3_2, Aspect_16_9, Aspect_3_4, Aspect_2_3, Aspect_9_16 };
 
     typedef const char* WindowType;
@@ -145,17 +145,17 @@ public:
 
     QString fileForCategoryImage ( const QString& category, QString member ) const;
 
-    QPixmap categoryImage        ( const QString& category,  QString, int size ) const;
-    void    setCategoryImage     ( const QString& category, QString, const QImage& image );
+    QPixmap categoryImage( const QString& category, QString, int size ) const;
+    void setCategoryImage( const QString& category, QString, const QImage& image );
 
     //////////////
     //// Exif ////
     //////////////
 
 #ifdef HAVE_EXIV2
-    property_ref( exifForViewer , setExifForViewer , StringSet );
-    property_ref( exifForDialog , setExifForDialog , StringSet );
-    property_ref( iptcCharset   , setIptcCharset   , QString   );
+    property_ref( exifForViewer, setExifForViewer, StringSet );
+    property_ref( exifForDialog, setExifForDialog, StringSet );
+    property_ref( iptcCharset  , setIptcCharset  , QString   );
 #endif
 
     ///////////////
@@ -163,23 +163,23 @@ public:
     ///////////////
 
 #ifdef SQLDB_SUPPORT
-    property_ref( SQLParameters, setSQLParameters , SQLDB::DatabaseAddress);
+    property_ref( SQLParameters, setSQLParameters, SQLDB::DatabaseAddress);
 #endif
 
     ///////////////////////
     //// Miscellaneous ////
     ///////////////////////
 
-    property_copy( delayLoadingPlugins, setDelayLoadingPlugins , bool);
+    property_copy( delayLoadingPlugins, setDelayLoadingPlugins, bool);
 
-    property_ref( password, setPassword , QString);
+    property_ref( password, setPassword, QString);
 
-    property_ref( HTMLBaseDir, setHTMLBaseDir , QString);
-    property_ref( HTMLBaseURL, setHTMLBaseURL , QString);
-    property_ref( HTMLDestURL, setHTMLDestURL , QString);
+    property_ref( HTMLBaseDir, setHTMLBaseDir, QString);
+    property_ref( HTMLBaseURL, setHTMLBaseURL, QString);
+    property_ref( HTMLDestURL, setHTMLDestURL, QString);
 
-    property_ref( fromDate , setFromDate , QDate );
-    property_ref( toDate   , setToDate   , QDate );
+    property_ref( fromDate, setFromDate, QDate );
+    property_ref( toDate, setToDate, QDate );
 
     QString imageDirectory() const;
 
@@ -203,9 +203,9 @@ signals:
 private:
     SettingsData( const QString& imageDirectory  );
 
-    bool                 _trustTimeStamps;
-    bool                 _hasAskedAboutTimeStamps;
-    QString              _imageDirectory;
+    bool _trustTimeStamps;
+    bool _hasAskedAboutTimeStamps;
+    QString _imageDirectory;
     static SettingsData* _instance;
 
     friend class DB::CategoryCollection;

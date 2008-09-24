@@ -148,17 +148,17 @@ SettingsData::SettingsData( const QString& imageDirectory )
 //// General ////
 /////////////////
 
-property_ref ( backend               , setBackend               ,  QString       , General, QString::fromLatin1("xml") );
-property_copy( useEXIFRotate         , setUseEXIFRotate         ,  bool          , General, true                       );
-property_copy( useEXIFComments       , setUseEXIFComments       ,  bool          , General, true                       );
-property_copy( searchForImagesOnStart, setSearchForImagesOnStart,  bool          , General, true                       );
-property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches ,  bool          , General, false                      );
-property_copy( useCompressedIndexXML , setUseCompressedIndexXML ,  bool          , General, false                      );
-property_copy( compressBackup        , setCompressBackup        ,  bool          , General, true                       );
-property_copy( showSplashScreen      , setShowSplashScreen      ,  bool          , General, true                       );
-property_copy( autoSave              , setAutoSave              ,  int           , General, 5                          );
-property_copy( backupCount           , setBackupCount           ,  int           , General, 5                          );
-property_enum( tTimeStamps           , setTTimeStamps           ,  TimeStampTrust, General, Always                     );
+property_ref ( backend               , setBackend               , QString       , General, QString::fromLatin1("xml") );
+property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          , General, true                       );
+property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       );
+property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       );
+property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool          , General, false                      );
+property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          , General, false                      );
+property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       );
+property_copy( showSplashScreen      , setShowSplashScreen      , bool          , General, true                       );
+property_copy( autoSave              , setAutoSave              , int           , General, 5                          );
+property_copy( backupCount           , setBackupCount           , int           , General, 5                          );
+property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     );
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) );
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse );
@@ -212,15 +212,15 @@ bool SettingsData::trustTimeStamps()
 //// Thumbnails ////
 ////////////////////
 
-property_copy( displayLabels           , setDisplayLabels          ,  bool                , Thumbnails, true       );
-property_copy( displayCategories       , setDisplayCategories      ,  bool                , Thumbnails, false      );
-property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  ,  bool                , Thumbnails, 0          );
-property_copy( showNewestThumbnailFirst, setShowNewestFirst        ,  bool                , Thumbnails, false      );
-property_copy( thumbnailDarkBackground , setThumbnailDarkBackground,  bool                , Thumbnails, true       );
-property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   ,  bool                , Thumbnails, false      );
-property_copy( previewSize             , setPreviewSize            ,  int                 , Thumbnails, 256        );
-property_copy( thumbnailSpace          , setThumbnailSpace         ,  int                 , Thumbnails, 1          );
-property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   ,  ThumbnailAspectRatio, Thumbnails, Aspect_4_3 );
+property_copy( displayLabels           , setDisplayLabels          , bool                , Thumbnails, true       );
+property_copy( displayCategories       , setDisplayCategories      , bool                , Thumbnails, false      );
+property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool                , Thumbnails, 0          );
+property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool                , Thumbnails, false      );
+property_copy( thumbnailDarkBackground , setThumbnailDarkBackground, bool                , Thumbnails, true       );
+property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      );
+property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        );
+property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 1          );
+property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 );
 
 getValueFunc( int,thumbSize,  Thumbnails,128);
 
@@ -254,24 +254,24 @@ size_t SettingsData::thumbnailCacheBytes() const
 //// Viewer ////
 ////////////////
 
-property_ref ( viewerSize               , setViewerSize               ,  QSize           , Viewer, QSize(800,600) );
-property_ref ( slideShowSize            , setSlideShowSize            ,  QSize           , Viewer, QSize(800,600) );
-property_copy( launchViewerFullScreen   , setLaunchViewerFullScreen   ,  bool            , Viewer, false          );
-property_copy( launchSlideShowFullScreen, setLaunchSlideShowFullScreen,  bool            , Viewer, false          );
-property_copy( showInfoBox              , setShowInfoBox              ,  bool            , Viewer, true           );
-property_copy( showLabel                , setShowLabel                ,  bool            , Viewer, true           );
-property_copy( showDescription          , setShowDescription          ,  bool            , Viewer, true           );
-property_copy( showDate                 , setShowDate                 ,  bool            , Viewer, true           );
-property_copy( showImageSize            , setShowImageSize            ,  bool            , Viewer, true           );
-property_copy( showTime                 , setShowTime                 ,  bool            , Viewer, true           );
-property_copy( showFilename             , setShowFilename             ,  bool            , Viewer, false          );
-property_copy( showEXIF                 , setShowEXIF                 ,  bool            , Viewer, true           );
-property_copy( slideShowInterval        , setSlideShowInterval        ,  int             , Viewer, 5              );
-property_copy( viewerCacheSize          , setViewerCacheSize          ,  int             , Viewer, 25             );
-property_copy( infoBoxWidth             , setInfoBoxWidth             ,  int             , Viewer, 400            );
-property_copy( infoBoxHeight            , setInfoBoxHeight            ,  int             , Viewer, 300            );
-property_enum( infoBoxPosition          , setInfoBoxPosition          ,  Position        , Viewer, Bottom         );
-property_enum( viewerStandardSize       , setViewerStandardSize       ,  StandardViewSize, Viewer, FullSize       );
+property_ref ( viewerSize               , setViewerSize               , QSize           , Viewer, QSize(800,600) );
+property_ref ( slideShowSize            , setSlideShowSize            , QSize           , Viewer, QSize(800,600) );
+property_copy( launchViewerFullScreen   , setLaunchViewerFullScreen   , bool            , Viewer, false          );
+property_copy( launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool            , Viewer, false          );
+property_copy( showInfoBox              , setShowInfoBox              , bool            , Viewer, true           );
+property_copy( showLabel                , setShowLabel                , bool            , Viewer, true           );
+property_copy( showDescription          , setShowDescription          , bool            , Viewer, true           );
+property_copy( showDate                 , setShowDate                 , bool            , Viewer, true           );
+property_copy( showImageSize            , setShowImageSize            , bool            , Viewer, true           );
+property_copy( showTime                 , setShowTime                 , bool            , Viewer, true           );
+property_copy( showFilename             , setShowFilename             , bool            , Viewer, false          );
+property_copy( showEXIF                 , setShowEXIF                 , bool            , Viewer, true           );
+property_copy( slideShowInterval        , setSlideShowInterval        , int             , Viewer, 5              );
+property_copy( viewerCacheSize          , setViewerCacheSize          , int             , Viewer, 25             );
+property_copy( infoBoxWidth             , setInfoBoxWidth             , int             , Viewer, 400            );
+property_copy( infoBoxHeight            , setInfoBoxHeight            , int             , Viewer, 300            );
+property_enum( infoBoxPosition          , setInfoBoxPosition          , Position        , Viewer, Bottom         );
+property_enum( viewerStandardSize       , setViewerStandardSize       , StandardViewSize, Viewer, FullSize       );
 
 bool SettingsData::smoothScale() const
 {

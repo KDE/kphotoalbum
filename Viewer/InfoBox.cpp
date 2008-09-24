@@ -62,6 +62,11 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
 
 #ifdef HAVE_NEPOMUK
     KRatingWidget* rating = new KRatingWidget( 0 );
+
+    // Unfortunately, the KRatingWidget now thinks that it has some absurdly big
+    // dimensions. This call will persuade it to stay reasonably small.
+    QPixmap::grabWidget( rating );
+
     for ( int i = 0; i <= 10; ++i ) {
         rating->setRating( i );
         // Workaround for http://trolltech.no/developer/task-tracker/index_html?method=entry&id=142869

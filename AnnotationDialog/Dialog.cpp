@@ -170,7 +170,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
 
-    setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::ConfigWindow ) );
+    setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::AnnotationDialog ) );
 
     setupActions();
     shortCutManager.setupShortCuts();
@@ -866,12 +866,12 @@ void AnnotationDialog::Dialog::showHelpDialog( UsageMode type )
 
 void AnnotationDialog::Dialog::resizeEvent( QResizeEvent* )
 {
-    Settings::SettingsData::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
+    Settings::SettingsData::instance()->setWindowGeometry( Settings::AnnotationDialog, geometry() );
 }
 
 void AnnotationDialog::Dialog::moveEvent( QMoveEvent * )
 {
-    Settings::SettingsData::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
+    Settings::SettingsData::instance()->setWindowGeometry( Settings::AnnotationDialog, geometry() );
 
 }
 

@@ -58,7 +58,7 @@ namespace Settings
     enum ThumbnailAspectRatio { Aspect_1_1, Aspect_4_3, Aspect_3_2, Aspect_16_9, Aspect_3_4, Aspect_2_3, Aspect_9_16 };
 
     typedef const char* WindowType;
-    extern const WindowType MainWindow, ConfigWindow;
+    extern const WindowType MainWindow, AnnotationDialog;
 
 class SettingsData : public QObject
 {

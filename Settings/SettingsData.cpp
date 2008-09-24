@@ -111,8 +111,8 @@ static bool _smoothScale = true;
 
 using namespace Settings;
 
-const WindowType Settings::MainWindow   = "MainWindow";
-const WindowType Settings::ConfigWindow = "ConfigWindow";
+const WindowType Settings::MainWindow       = "MainWindow";
+const WindowType Settings::AnnotationDialog = "AnnotationDialog";
 
 SettingsData* SettingsData::_instance = 0;
 

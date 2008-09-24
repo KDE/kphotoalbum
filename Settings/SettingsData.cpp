@@ -212,15 +212,15 @@ bool SettingsData::trustTimeStamps()
 //// Thumbnails ////
 ////////////////////
 
-property_copy( displayLabels           , setDisplayLabels          ,  bool                 , Thumbnails, true       );
-property_copy( displayCategories       , setDisplayCategories      ,  bool                 , Thumbnails, false      );
-property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  ,  bool                 , Thumbnails, 0          );
-property_copy( showNewestThumbnailFirst, setShowNewestFirst        ,  bool                 , Thumbnails, false      );
-property_copy( thumbnailDarkBackground , setThumbnailDarkBackground,  bool                 , Thumbnails, true       );
-property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   ,  bool                 , Thumbnails, false      );
-property_copy( previewSize             , setPreviewSize            ,  int                  , Thumbnails, 256        );
-property_copy( thumbnailSpace          , setThumbnailSpace         ,  int                  , Thumbnails, 1          );
-property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   ,  ThumbnailAspectRatio , Thumbnails, Aspect_4_3 );
+property_copy( displayLabels           , setDisplayLabels          ,  bool                , Thumbnails, true       );
+property_copy( displayCategories       , setDisplayCategories      ,  bool                , Thumbnails, false      );
+property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  ,  bool                , Thumbnails, 0          );
+property_copy( showNewestThumbnailFirst, setShowNewestFirst        ,  bool                , Thumbnails, false      );
+property_copy( thumbnailDarkBackground , setThumbnailDarkBackground,  bool                , Thumbnails, true       );
+property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   ,  bool                , Thumbnails, false      );
+property_copy( previewSize             , setPreviewSize            ,  int                 , Thumbnails, 256        );
+property_copy( thumbnailSpace          , setThumbnailSpace         ,  int                 , Thumbnails, 1          );
+property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   ,  ThumbnailAspectRatio, Thumbnails, Aspect_4_3 );
 
 getValueFunc( int,thumbSize,  Thumbnails,128);
 
@@ -403,12 +403,27 @@ void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 
 property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, true  );
 
-property_ref_( HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase( "HTML Settings" ),
-        QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) );
-property_ref_( HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase( "HTML Settings" ), 
-        STR( "file://" ) + HTMLBaseDir() );
-property_ref_( HTMLDestURL, setHTMLDestURL, QString, groupForDatabase( "HTML Settings" ), 
-        STR( "file://" ) + HTMLBaseDir() );
+property_ref_(
+        HTMLBaseDir, 
+        setHTMLBaseDir, 
+        QString, 
+        groupForDatabase( "HTML Settings" ),
+        QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) 
+        );
+property_ref_( 
+        HTMLBaseURL, 
+        setHTMLBaseURL, 
+        QString, 
+        groupForDatabase( "HTML Settings" ), 
+        STR( "file://" ) + HTMLBaseDir()
+        );
+property_ref_( 
+        HTMLDestURL, 
+        setHTMLDestURL, 
+        QString, 
+        groupForDatabase( "HTML Settings" ), 
+        STR( "file://" ) + HTMLBaseDir() 
+        );
 
 property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() );
 

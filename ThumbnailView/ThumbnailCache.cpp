@@ -44,15 +44,18 @@ void ThumbnailView::ThumbnailCache::insert(const DB::ResultId& id,
     QPixmapCache::insert( thumbnailPixmapCacheKey(id), pixmap );
 }
 
-void ThumbnailView::ThumbnailCache::clear() {
+void ThumbnailView::ThumbnailCache::clear()
+{
     QPixmapCache::clear();
 }
 
-void ThumbnailView::ThumbnailCache::setDisplayList(const DB::ConstResultPtr& list) {
+void ThumbnailView::ThumbnailCache::setDisplayList(const DB::ConstResultPtr& list)
+{
     _displayList = list;
 }
 
-void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize) {
+void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize)
+{
     if (thumbSize != _thumbSize) {
         _thumbSize = thumbSize;
         clear();
@@ -61,7 +64,8 @@ void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize) {
 
 // Warm the cache around the current hot area. This slot is called
 // asynchronously after the user has stopped scrolling.
-void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
+void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming()
+{
     if (_displayList.isNull() || !_thumbSize.isValid())
         return;
 
@@ -107,7 +111,8 @@ void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming() {
     }
 }
 
-void ThumbnailView::ThumbnailCache::setHotArea(int from, int to) {
+void ThumbnailView::ThumbnailCache::setHotArea(int from, int to)
+{
     const bool anyChange = (_hotFrom != from) || (_hotTo != to);
     _hotFrom = from;
     _hotTo = to;
@@ -122,7 +127,8 @@ void ThumbnailView::ThumbnailCache::setHotArea(int from, int to) {
     // to do (e.g. only 1 thumbnail per page on really quick scrolling).
 }
 
-void ThumbnailView::ThumbnailCache::requestRange(int from, int to) {
+void ThumbnailView::ThumbnailCache::requestRange(int from, int to)
+{
     ImageManager::Manager* imgManager = ImageManager::Manager::instance();
     if (from < 0) from = 0;
     if (to > _displayList->size()) to = _displayList->size();
@@ -149,7 +155,8 @@ void ThumbnailView::ThumbnailCache::requestRange(int from, int to) {
 void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
                                                   const QSize& size, const QSize& fullSize,
                                                   int angle, const QImage& image,
-                                                  const bool loadedOK) {
+                                                  const bool loadedOK)
+{
     Q_UNUSED(fullSize);
     Q_UNUSED(angle);
 
@@ -166,12 +173,14 @@ void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
     }
 }
 
-bool ThumbnailView::ThumbnailCache::thumbnailStillNeeded(const QString& fileName) const {
+bool ThumbnailView::ThumbnailCache::thumbnailStillNeeded(const QString& fileName) const
+{
     QMutexLocker l(&_requestedImagesLock);
     return _requestedImages.contains(fileName);
 }
 
-QString ThumbnailView::ThumbnailCache::thumbnailPixmapCacheKey(const DB::ResultId& id) {
+QString ThumbnailView::ThumbnailCache::thumbnailPixmapCacheKey(const DB::ResultId& id)
+{
     return QString::fromLatin1("thumbnail:%1").arg(id.fileId());
 }
 

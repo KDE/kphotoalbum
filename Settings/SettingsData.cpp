@@ -404,26 +404,17 @@ void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, true  );
 
 property_ref_(
-        HTMLBaseDir, 
-        setHTMLBaseDir, 
-        QString, 
+        HTMLBaseDir, setHTMLBaseDir, QString,
         groupForDatabase( "HTML Settings" ),
-        QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) 
-        );
+        QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) );
 property_ref_( 
-        HTMLBaseURL, 
-        setHTMLBaseURL, 
-        QString, 
-        groupForDatabase( "HTML Settings" ), 
-        STR( "file://" ) + HTMLBaseDir()
-        );
+        HTMLBaseURL, setHTMLBaseURL, QString,
+        groupForDatabase( "HTML Settings" ),
+        STR( "file://" ) + HTMLBaseDir() );
 property_ref_( 
-        HTMLDestURL, 
-        setHTMLDestURL, 
-        QString, 
-        groupForDatabase( "HTML Settings" ), 
-        STR( "file://" ) + HTMLBaseDir() 
-        );
+        HTMLDestURL, setHTMLDestURL, QString,
+        groupForDatabase( "HTML Settings" ),
+        STR( "file://" ) + HTMLBaseDir() );
 
 property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() );
 

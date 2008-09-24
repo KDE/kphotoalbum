@@ -106,8 +106,8 @@ private:
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
     QComboBox* _albumCategory;
-    QCheckBox* _searchForImagesOnStartup;
-    QCheckBox* _dontReadRawFilesWithOtherMatchingFile;
+    QCheckBox* _searchForImagesOnStart;
+    QCheckBox* _skipRawIfOtherMatches;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
     QSpinBox* _backupCount;

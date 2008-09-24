@@ -187,7 +187,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
 
-	if (Settings::SettingsData::instance()->dontReadRawFilesWithOtherMatchingFile() &&
+	if (Settings::SettingsData::instance()->skipRawIfOtherMatches() &&
 	    _fileExistsWithExtensions(imageFile, _standardExtensions)) return false;
 	if (_fileEndsWithExtensions(imageFile, _rawExtensions)) return true;
 	return false;
@@ -203,7 +203,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QSt
 
 	// If we *are* interested in raw files even when other equivalent
 	// non-raw files are available, then we're interested in this file.
-	if (! (Settings::SettingsData::instance()->dontReadRawFilesWithOtherMatchingFile())) return false;
+	if (! (Settings::SettingsData::instance()->skipRawIfOtherMatches())) return false;
 
 	// If the file ends with something other than a known raw extension,
 	// we're interested in it.

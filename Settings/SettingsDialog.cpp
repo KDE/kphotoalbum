@@ -125,8 +125,8 @@ void Settings::SettingsDialog::createGeneralPage()
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
 
     // Search for images on startup
-    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images and videos on startup"), box );
-    _dontReadRawFilesWithOtherMatchingFile = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
+    _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), box );
+    _skipRawIfOtherMatches = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
 
     // Datebar size
     container = new QWidget( top );
@@ -195,13 +195,13 @@ void Settings::SettingsDialog::createGeneralPage()
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
                 "using <b>Maintenance->Rescan for new images</b></p>");
-    _searchForImagesOnStartup->setWhatsThis( txt );
+    _searchForImagesOnStart->setWhatsThis( txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
 		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
 		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
 		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
-    _dontReadRawFilesWithOtherMatchingFile->setWhatsThis( txt );
+    _skipRawIfOtherMatches->setWhatsThis( txt );
 
     txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
                "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
@@ -461,8 +461,8 @@ void Settings::SettingsDialog::show()
     _trustTimeStamps->setCurrentIndex( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
-    _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
-    _dontReadRawFilesWithOtherMatchingFile->setChecked( opt->dontReadRawFilesWithOtherMatchingFile() );
+    _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
+    _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
     _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
     _autosave->setValue( opt->autoSave() );
@@ -551,8 +551,8 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentIndex() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
-    opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
-    opt->setDontReadRawFilesWithOtherMatchingFile( _dontReadRawFilesWithOtherMatchingFile->isChecked() );
+    opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
+    opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
     opt->setBackupCount( _backupCount->value() );
     opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );

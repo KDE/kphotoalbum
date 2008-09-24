@@ -226,7 +226,7 @@ void MainWindow::Window::delayedInit()
     SplashScreen* splash = SplashScreen::instance();
     setupPluginMenu();
 
-    if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
+    if ( Settings::SettingsData::instance()->searchForImagesOnStart() ) {
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         QTimer* timer = new QTimer( this );

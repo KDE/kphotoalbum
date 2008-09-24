@@ -123,7 +123,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         if ( info->rating() != -1 ) {
             if ( ! result.isEmpty() )
                 result += QString::fromLatin1("<br/>");
-            result += i18n("<img src=\"KRatingWidget://%1\"/>"
+            result += QString::fromLatin1("<img src=\"KRatingWidget://%1\"/>"
                     ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) ); 
         }
     }

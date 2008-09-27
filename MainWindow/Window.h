@@ -100,7 +100,6 @@ protected slots:
     void showTipOfDay();
     void pathChanged( const QString& );
     void runDemo();
-    void runSurvey();
     void lockToDefaultScope();
     void setDefaultScopePositive();
     void setDefaultScopeNegative();
@@ -165,7 +164,6 @@ protected:
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     DB::ConstResultPtr selectedOnDisk();
-    void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( DB::ConstResultPtr mediaList, bool reuse, bool slideShow, bool random );
     void setupStatusBar();

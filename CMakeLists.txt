@@ -70,16 +70,6 @@ set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAK
 
 set(libSettings_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp)
 
-set(libsurvey_SRCS
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/Question.cpp 
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/SurveyDialog.cpp 
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/TextQuestion.cpp
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/InfoPage.cpp 
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/AlternativeQuestion.cpp 
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/MySurvey.cpp 
-       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/SurveyCount.cpp)
-
-
 set(libxmldb_SRCS
   	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategoryCollection.cpp 

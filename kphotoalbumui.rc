@@ -90,7 +90,6 @@
    </Menu>
    <Menu name="help">
      <Action name="runDemo"/>
-     <Action name="runSurvey"/>
      <Action name="features"/>
      <Action name="showVideo"/>
    </Menu>

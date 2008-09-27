@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include <QDebug>
 
 #include "StatisticsDialog.h"
 #include "Settings/SettingsDialog.h"
@@ -90,7 +91,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ResultId.h"
 #include "DB/Result.h"
-#include "Survey/MySurvey.h"
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif
@@ -252,7 +252,6 @@ void MainWindow::Window::delayedInit()
         // I need to postpone this otherwise the tip dialog will not get focus on start up
         KTipDialog::showTip( this );
 
-        possibleRunSuvey();
     }
 
 #ifdef HAVE_EXIV2
@@ -453,6 +452,22 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
+    // I expected this to work, but it doesn't
+    const DB::ConstResultPtr sel = selectedOnDisk();
+    QList<QUrl> urls;
+
+    for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
+        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+        urls.append( QUrl( fileName ) );
+    }
+    qDebug() << urls;
+    QMimeData* mimeData = new QMimeData;
+    mimeData->setUrls( urls );
+
+    QApplication::clipboard()->setMimeData( mimeData );
+#endif //KDAB_TEMPORARILY_REMOVED
+
     const DB::ConstResultPtr sel = selectedOnDisk();
     KUrl::List urls;
 
@@ -816,9 +831,6 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->addAction( QString::fromLatin1("runDemo"), this, SLOT( runDemo() ) );
     a->setText( i18n("Run KPhotoAlbum Demo") );
-
-    a = actionCollection()->addAction( QString::fromLatin1("runSurvey"), this, SLOT( runSurvey() ) );
-    a->setText( i18n("Answer KPhotoAlbum Survey...") );
 
     a = actionCollection()->addAction( QString::fromLatin1("features"), this, SLOT( showFeatures() ) );
     a->setText( i18n("KPhotoAlbum Feature Status") );
@@ -1534,18 +1546,6 @@ void MainWindow::Window::clearDateRange()
     DB::ImageDB::instance()->clearDateRange();
     _browser->reload();
     reloadThumbnails(false);
-}
-
-void MainWindow::Window::runSurvey()
-{
-    Survey::MySurvey survey(this);
-    survey.exec();
-}
-
-void MainWindow::Window::possibleRunSuvey()
-{
-    Survey::MySurvey survey(this);
-    survey.possibleExecSurvey();
 }
 
 void MainWindow::Window::showThumbNails( const DB::ConstResultPtr& items )

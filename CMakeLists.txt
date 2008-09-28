@@ -224,7 +224,6 @@ set(libexif_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
 
 add_subdirectory( images )
-#add_subdirectory( Survey )
 add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )

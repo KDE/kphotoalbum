@@ -20,6 +20,7 @@
 #undef QT_NO_CAST_TO_ASCII
 
 #include "Exif/Database.h"
+
 #include <qsqldatabase.h>
 #include <qsqldriver.h>
 #include <Q3ValueList>
@@ -142,10 +143,10 @@ void Exif::Database::populateDatabase()
         showError( query );
 }
 
-void Exif::Database::add( const QString& fileName )
+bool Exif::Database::add( const QString& fileName )
 {
     if ( !isUsable() )
-        return;
+        return false;
 
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.toLocal8Bit().data());
@@ -153,9 +154,11 @@ void Exif::Database::add( const QString& fileName )
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
         insert( fileName, exifData );
+        return true;
     }
     catch (...)
     {
+        return false;
     }
 }
 
@@ -292,8 +295,14 @@ void Exif::Database::init()
 
 void Exif::Database::recreate()
 {
+    // We create a backup of the current database in case
+    // the user presse 'cancel' or there is any error. In that case
+    // we want to go back to the original DB.
+
+    QString origBackup = exifDBFile() + ".bak";
     _db.close();
-    QDir().remove(exifDBFile());
+    QDir().remove(origBackup);
+    QDir().rename(exifDBFile(), origBackup);
     init();
 
     DB::ConstResultPtr allImages = DB::ImageDB::instance()->images();
@@ -302,12 +311,23 @@ void Exif::Database::recreate()
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));
     dialog.setMaximum( allImages->size() );
     int i = 0;
+    bool success = true;
     for (DB::Result::ConstIterator it = allImages->begin();
-         it != allImages->end(); ++it) {
+         it != allImages->end() && success && !dialog.wasCanceled(); ++it) {
         dialog.setValue(i++);
-        add((*it).fetchInfo()->fileName(DB::AbsolutePath));
+        success &= add((*it).fetchInfo()->fileName(DB::AbsolutePath));
         if ( i % 10 )
             qApp->processEvents();
+    }
+
+    if (!success || dialog.wasCanceled()) {
+        _db.close();
+        QDir().remove(exifDBFile());
+        QDir().rename(origBackup, exifDBFile());
+        init();
+    }
+    else {
+        QDir().remove(origBackup);
     }
 }
 

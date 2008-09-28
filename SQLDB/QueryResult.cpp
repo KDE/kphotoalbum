@@ -23,22 +23,13 @@
 
 using namespace SQLDB;
 
-#define DEFINE_CONVERT_SPECIALIZATION(T, CONVERT_METHOD) \
-template <> \
-inline T variantTo<T>(const QVariant& qv) \
-{ return qv.CONVERT_METHOD(); }
-
 namespace
 {
     template <class T>
-    inline static T variantTo(const QVariant&);
-
-    template <>
-    inline QVariant variantTo<QVariant>(const QVariant& qv)
-    { return qv; }
-    DEFINE_CONVERT_SPECIALIZATION(QString, toString)
-    DEFINE_CONVERT_SPECIALIZATION(int, toInt)
-    DEFINE_CONVERT_SPECIALIZATION(uint, toUInt)
+    inline static T variantTo(const QVariant& variant)
+    {
+        return variant.value<T>();
+    }
 
     template <class T>
     inline QList<T> readCursor(SQLDB::Cursor& c)

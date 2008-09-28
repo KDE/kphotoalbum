@@ -49,7 +49,7 @@ QStringList SQLMemberMap::groups(const QString& category) const
         _qh.executeQuery("SELECT tag.name FROM tag, category "
                          "WHERE tag.category_id=category.id AND "
                          "tag.isGroup AND category.name=?",
-                         QueryHelper::Bindings() << category).asStringList();
+                         QueryHelper::Bindings() << category).asList<QString>();
 }
 
 void SQLMemberMap::deleteGroup(const QString& category, const QString& name)
@@ -75,7 +75,7 @@ QStringList SQLMemberMap::members(const QString& category,
         return
             _qh.executeQuery("SELECT name FROM tag WHERE id IN (?)",
                              QueryHelper::Bindings() << QVariant(toVariantList(idList))
-                             ).asStringList();
+                             ).asList<QString>();
     }
     else
         return
@@ -85,7 +85,7 @@ QStringList SQLMemberMap::members(const QString& category,
                              "t.id=tm.tag_id AND "
                              "t.category_id=c.id AND c.name=? AND t.name=?",
                              QueryHelper::Bindings() <<
-                             category << memberGroup).asStringList();
+                             category << memberGroup).asList<QString>();
 }
 
 void SQLMemberMap::setMembers(const QString& category,

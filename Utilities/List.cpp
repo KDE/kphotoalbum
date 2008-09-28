@@ -18,6 +18,7 @@
 */
 
 #include "List.h"
+#include "DB/RawId.h"
 #include <QTime>
 #include <Q3ValueList>
 #include <stdlib.h> // rand
@@ -102,7 +103,6 @@ QList<QVariant> Utilities::toVariantList(const T& l)
     return r;
 }
 
-
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
 template \
 QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
@@ -119,10 +119,11 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
 template \
 QList<QVariant> Utilities::toVariantList(const T& l)
 
-INSTANTIATE_MERGELISTSUNIQLY(int);
+INSTANTIATE_MERGELISTSUNIQLY(DB::RawId);
 INSTANTIATE_MERGELISTSUNIQLY(QString);
-INSTANTIATE_LISTSUBTRACT(int);
-INSTANTIATE_SHUFFLELIST(int);
+INSTANTIATE_LISTSUBTRACT(DB::RawId);
+INSTANTIATE_SHUFFLELIST(DB::RawId);
 INSTANTIATE_TOVARIANTLIST(QList<int>);
+INSTANTIATE_TOVARIANTLIST(QList<DB::RawId>);
 INSTANTIATE_TOVARIANTLIST(Q3ValueList<int>);
 INSTANTIATE_TOVARIANTLIST(QStringList);

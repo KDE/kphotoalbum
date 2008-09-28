@@ -552,7 +552,7 @@ void MainWindow::Window::launchViewer( DB::ConstResultPtr mediaList, bool reuse,
     }
 
     if (random) {
-        QList<int> shuffled = Utilities::shuffleList(mediaList->rawIdList());
+        QList<DB::RawId> shuffled = Utilities::shuffleList(mediaList->rawIdList());
         mediaList = new DB::Result(shuffled);
     }
 

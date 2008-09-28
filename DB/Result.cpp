@@ -54,7 +54,7 @@ int DB::Result::indexOf(const DB::ResultId& id) const
     return _items.indexOf(id.rawId());
 }
 
-DB::Result::Result( const QList<int>& ids)
+DB::Result::Result(const QList<DB::RawId>& ids)
     :_items(ids)
 {
 }
@@ -92,7 +92,7 @@ bool DB::Result::isEmpty() const
     return _items.isEmpty();
 }
 
-const QList<int>& DB::Result::rawIdList() const
+const QList<DB::RawId>& DB::Result::rawIdList() const
 {
     return _items;
 }

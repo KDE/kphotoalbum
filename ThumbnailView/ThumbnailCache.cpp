@@ -182,7 +182,7 @@ bool ThumbnailView::ThumbnailCache::thumbnailStillNeeded(const QString& fileName
 
 QString ThumbnailView::ThumbnailCache::thumbnailPixmapCacheKey(const DB::ResultId& id)
 {
-    return QString::fromLatin1("thumbnail:%1").arg(id.rawId());
+    return QString::fromLatin1("thumbnail:%1").arg(toInt(id.rawId()));
 }
 
 #include "ThumbnailCache.moc"

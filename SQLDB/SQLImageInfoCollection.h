@@ -38,7 +38,7 @@ namespace SQLDB {
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
         DB::ImageInfoPtr getImageInfoOf(const DB::ResultId& id) const;
-        QString filenameForId(int id) const;
+        QString filenameForId(DB::RawId id) const;
         void setLock(const DB::ImageSearchInfo& scope, bool invert=false);
         void unsetLock();
         void clearCache();
@@ -54,9 +54,9 @@ namespace SQLDB {
         QueryHelper& _qh;
 
     private:
-        mutable QMap<QString, int> _filenameIdMap;
-        mutable QMap<int, QString> _idFilenameMap;
-        mutable QMap<int, DB::ImageInfoPtr> _infoPointers;
+        mutable QMap<QString, DB::RawId> _filenameIdMap;
+        mutable QMap<DB::RawId, QString> _idFilenameMap;
+        mutable QMap<DB::RawId, DB::ImageInfoPtr> _infoPointers;
         // mutable QMutex _mutex;
         DB::ImageSearchInfo* _lockingScope;
         bool _invertLock;

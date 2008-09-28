@@ -85,8 +85,8 @@ uint SQLDB::Database::totalCount() const
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 {
-    QList<int> mediaIds;
-    QList<int>* scope = 0;
+    QList<DB::RawId> mediaIds;
+    QList<DB::RawId>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
         mediaIds = _qh.searchMediaItems(searchInfo);
@@ -99,10 +99,10 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 DB::ConstResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    QList<int> matches = _qh.searchMediaItems(info);
-    QList<int> result;
+    QList<DB::RawId> matches = _qh.searchMediaItems(info);
+    QList<DB::RawId> result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
-    for(QList<int>::Iterator it = matches.begin(); it != matches.end(); ++it) {
+    for(QList<DB::RawId>::Iterator it = matches.begin(); it != matches.end(); ++it) {
         QString fullPath = imageRoot + _infoCollection.filenameForId(*it);
         if (requireOnDisk && !DB::ImageInfo::imageOnDisk(fullPath))
             continue;
@@ -336,7 +336,6 @@ DB::ResultId SQLDB::Database::ID_FOR_FILE(const QString& filename) const
 DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
 {
     Q_ASSERT(!id.isNull());
-    Q_ASSERT(id.rawId() >= 1);
     return _infoCollection.getImageInfoOf(id);
 }
 

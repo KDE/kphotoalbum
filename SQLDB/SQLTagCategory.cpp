@@ -150,8 +150,8 @@ QMap<QString, uint>
 SQLDB::SQLTagCategory::classify(const DB::ImageSearchInfo& scope,
                                 DB::MediaType typemask) const
 {
-    QList<int>* scopePointer;
-    QList<int> includedFiles;
+    QList<DB::RawId>* scopePointer;
+    QList<DB::RawId> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

@@ -21,10 +21,10 @@
 
 using namespace SQLDB;
 
-SQLDB::SQLImageInfo::SQLImageInfo(QueryHelper* queryHelper, int fileId):
+SQLDB::SQLImageInfo::SQLImageInfo(QueryHelper* queryHelper, DB::RawId rawId):
     DB::ImageInfo(),
     _qh(queryHelper),
-    _fileId(fileId)
+    _fileId(rawId)
 {
 }
 

@@ -19,6 +19,7 @@
 
 #include "QueryResult.h"
 #include "QueryErrors.h"
+#include "DB/RawId.h"
 #include <QList>
 
 using namespace SQLDB;
@@ -29,6 +30,12 @@ namespace
     inline static T variantTo(const QVariant& variant)
     {
         return variant.value<T>();
+    }
+
+    template <>
+    inline DB::RawId variantTo(const QVariant& variant)
+    {
+        return DB::RawId(variant.value<int>());
     }
 
     template <class T>
@@ -71,6 +78,7 @@ QList< QPair<QString, QString> > QueryResult::asList() const
 
 // Explicit instantiations of QueryResult::asList
 template QList<int> QueryResult::asList<int>() const;
+template QList<DB::RawId> QueryResult::asList<DB::RawId>() const;
 template QList<QString> QueryResult::asList<QString>() const;
 template QList< QPair<QString, QString> > QueryResult::asList< QPair<QString, QString> >() const;
 

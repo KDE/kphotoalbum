@@ -30,7 +30,7 @@ namespace SQLDB {
     {
     protected:
         friend class QueryHelper;
-        SQLImageInfo(QueryHelper* queryHelper, int fileId);
+        SQLImageInfo(QueryHelper* queryHelper, DB::RawId rawId);
 
         // used by the QueryHelper.. will be removed when ImageInfo is
         // refactored
@@ -46,7 +46,7 @@ namespace SQLDB {
         QueryHelper* _qh;
 
     private:
-        int _fileId;
+        DB::RawId _fileId;
     };
 }
 

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <KSharedPtr>
+#include "RawId.h"
 #include "Result.h"
 #include "ImageInfo.h"
 
@@ -22,14 +23,14 @@ public:
      *
      * \pre !context.isNull()
      */
-    ResultId(int rawId, const ConstResultPtr& context);
+    ResultId(RawId rawId, const ConstResultPtr& context);
 
-    static ResultId createContextless(int rawId)
+    static ResultId createContextless(RawId rawId)
     {
         return ResultId(rawId);
     }
 
-    int rawId() const;
+    RawId rawId() const;
     bool isNull() const;
 
     /** Get context of this.
@@ -55,14 +56,14 @@ public:
     ImageInfoPtr fetchInfo() const;
 
  private:
-    ResultId(int rawId)
+    ResultId(RawId rawId)
         : _rawId(rawId)
         , _context(0)
     {
-        Q_ASSERT(rawId >= 0);
+        Q_ASSERT(!isNull());
     }
 
-    int _rawId;
+    RawId _rawId;
     ConstResultPtr _context;
 };
 }  // namespace DB
@@ -83,7 +84,10 @@ public:
  * ( http://gcc.gnu.org/bugzilla/show_bug.cgi?id=26311 )
  */
 namespace DB {
-    inline unsigned int qHash(const DB::ResultId& id) { return id.rawId(); }
+inline unsigned int qHash(const DB::ResultId& id)
+{
+    return qHash(id.rawId());
+}
 }  // namespace DB
 
 #endif /* DB_RESULTID_H */

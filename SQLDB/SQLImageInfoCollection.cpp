@@ -29,8 +29,8 @@ SQLImageInfoCollection::SQLImageInfoCollection(QueryHelper& queryHelper):
     _qh(queryHelper),
     _lockingScope(0)
 {
-    Q3ValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();
-    for (Q3ValueList< QPair<int, QString> >::const_iterator i = l.begin();
+    Q3ValueList< QPair<DB::RawId, QString> > l = _qh.mediaItemIdFileMap();
+    for (Q3ValueList< QPair<DB::RawId, QString> >::const_iterator i = l.begin();
          i != l.end(); ++i) {
         _filenameIdMap.insert((*i).second, (*i).first);
         _idFilenameMap.insert((*i).first, (*i).second);
@@ -48,8 +48,8 @@ SQLImageInfoCollection::~SQLImageInfoCollection()
 DB::ImageInfoPtr
 SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 {
-    int rawId = _filenameIdMap[relativeFilename];
-    if (!rawId) {
+    DB::RawId rawId = _filenameIdMap[relativeFilename];
+    if (rawId == DB::RawId()) {
         try {
             rawId = _qh.mediaItemId(relativeFilename);
         }
@@ -65,11 +65,10 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
         // TODO: Use real context for prefetching
 
         // make a dummy prefetch list
-        QList<int> prefetchIdList;
-        for (int i = rawId; i < rawId + 1317; ++i)
-            prefetchIdList << i;
+        QList<DB::RawId> prefetchIdList;
+        prefetchIdList << rawId;
 
-        typedef QMap<int, DB::ImageInfoPtr> IdInfoMap;
+        typedef QMap<DB::RawId, DB::ImageInfoPtr> IdInfoMap;
         const IdInfoMap fileInfos = _qh.getInfosOfFiles(prefetchIdList);
 
         p = fileInfos[rawId];
@@ -90,7 +89,7 @@ DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) 
     // QMutexLocker locker(&_mutex);
     DB::ImageInfoPtr p = _infoPointers[id.rawId()];
     if (!p) {
-        QList<int> prefetchIdList;
+        QList<DB::RawId> prefetchIdList;
         DB::ConstResultPtr context(id.context());
         if (!context.isNull()) {
             const int contextSize = context->size();
@@ -108,7 +107,7 @@ DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) 
             prefetchIdList.push_back(id.rawId());
         }
 
-        typedef QMap<int, DB::ImageInfoPtr> IdInfoMap;
+        typedef QMap<DB::RawId, DB::ImageInfoPtr> IdInfoMap;
         const IdInfoMap fileInfos = _qh.getInfosOfFiles(prefetchIdList);
 
         p = fileInfos[id.rawId()];
@@ -120,7 +119,7 @@ DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) 
     return p;
 }
 
-QString SQLImageInfoCollection::filenameForId(int id) const
+QString SQLImageInfoCollection::filenameForId(DB::RawId id) const
 {
     QString filename = _idFilenameMap[id];
     if (filename.isNull()) {
@@ -157,7 +156,7 @@ void SQLImageInfoCollection::unsetLock()
 void SQLImageInfoCollection::clearCache()
 {
     // QMutexLocker locker(&_mutex);
-    for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+    for (QMap<DB::RawId, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
          i != _infoPointers.end();) {
 
         // Check if only _infoPointers has reference to the pointer.
@@ -176,7 +175,7 @@ void SQLImageInfoCollection::deleteTag(DB::Category* category,
 {
     if (category) {
         // QMutexLocker locker(&_mutex);
-        for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+        for (QMap<DB::RawId, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
              i != _infoPointers.end(); ++i)
             (*i)->removeCategoryInfo(category->name(), item);
     }
@@ -188,7 +187,7 @@ void SQLImageInfoCollection::renameTag(DB::Category* category,
 {
     if (category) {
         // QMutexLocker locker(&_mutex);
-        for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+        for (QMap<DB::RawId, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
              i != _infoPointers.end(); ++i)
             (*i)->renameItem(category->name(), oldName, newName);
     }
@@ -204,7 +203,7 @@ void SQLImageInfoCollection::setLocking(DB::ImageInfoPtr p) const
 
 void SQLImageInfoCollection::updateLockingInfo() const
 {
-    for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+    for (QMap<DB::RawId, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
          i != _infoPointers.end(); ++i)
         setLocking(*i);
 }

@@ -306,7 +306,7 @@ bool XMLDB::Database::isBlocking( const QString& fileName )
 
 DB::ConstResultPtr XMLDB::Database::images()
 {
-    QList<int> result;
+    QList<DB::RawId> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         result.append( _idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
     }
@@ -322,7 +322,7 @@ DB::ConstResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& in
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
-    QList<int> result;
+    QList<DB::RawId> result;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName(DB::AbsolutePath) );

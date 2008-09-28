@@ -1,6 +1,7 @@
 #ifndef IDNAMEMAPPER_H
 #define IDNAMEMAPPER_H
 
+#include "DB/RawId.h"
 #include <QMap>
 #include <QString>
 
@@ -11,14 +12,14 @@ class IdNameMapper
 public:
     IdNameMapper();
     void add( const QString& fileName );
-    void remove( int id );
+    void remove( DB::RawId id );
     void remove( const QString& fileName );
 
-    int operator[](const QString& ) const;
-    QString operator[]( int ) const;
+    DB::RawId operator[](const QString& ) const;
+    QString operator[]( DB::RawId ) const;
 private:
-    QMap<int,QString> _idTofileName;
-    QMap<QString,int> _fileNameToId;
+    QMap<DB::RawId, QString> _idTofileName;
+    QMap<QString, DB::RawId> _fileNameToId;
     int _maxId;
 };
 

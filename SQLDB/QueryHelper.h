@@ -24,6 +24,7 @@
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
+#include "DB/RawId.h"
 #include <qstringlist.h>
 #include <qpair.h>
 namespace DB {
@@ -53,13 +54,13 @@ public:
     }
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
-                        QList<int>* scope=0) const;
-    QList<int> mediaItemIds(DB::MediaType typemask) const;
+                        QList<DB::RawId>* scope=0) const;
+    QList<DB::RawId> mediaItemIds(DB::MediaType typemask) const;
     QStringList filenames() const;
 
-    int mediaItemId(const QString& filename) const;
-    QList< QPair<int, QString> > mediaItemIdFileMap() const;
-    QString mediaItemFilename(int id) const;
+    DB::RawId mediaItemId(const QString& filename) const;
+    QList< QPair<DB::RawId, QString> > mediaItemIdFileMap() const;
+    QString mediaItemFilename(DB::RawId id) const;
 
     QStringList categoryNames() const;
 
@@ -76,12 +77,12 @@ public:
     StringStringList
     memberGroupConfiguration(const QString& category) const;
 
-    QMap<int, StringSet >
+    QMap<DB::RawId, StringSet>
     mediaIdTagsMap(const QString& category, DB::MediaType typemask) const;
 
-    void getMediaItem(int id, DB::ImageInfo& info) const;
+    void getMediaItem(DB::RawId id, DB::ImageInfo& info) const;
     void insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items);
-    void updateMediaItem(int id, const DB::ImageInfo& info);
+    void updateMediaItem(DB::RawId id, const DB::ImageInfo& info);
     void removeMediaItem(const QString& filename);
 
     void insertCategory(const QString& name, const QString& icon, bool visible,
@@ -111,7 +112,7 @@ public:
     void moveMediaItems(const QStringList& filenames,
                         const QString& destinationFilename, bool after);
 
-    QList<int>
+    QList<DB::RawId>
     searchMediaItems(const DB::ImageSearchInfo& search,
                      DB::MediaType typemask=DB::anyMediaType) const;
 
@@ -119,10 +120,10 @@ public:
                                      bool includeRanges) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QList<int>& idList) const;
+                                     const QList<DB::RawId>& idList) const;
     QMap<QString, uint> classify(const QString& category,
                                  DB::MediaType typemask=DB::anyMediaType,
-                                 QList<int>* scope=0) const;
+                                 QList<DB::RawId>* scope=0) const;
     /** Update the file table so that given files will go to same stack.
      *
      * \note The caller has responsibility to update the file infos.
@@ -147,27 +148,27 @@ public:
      *
      * \return map from file id to info pointer
      */
-    QMap<int, DB::ImageInfoPtr> getInfosOfFiles(const QList<int>& idList) const;
+    QMap<DB::RawId, DB::ImageInfoPtr> getInfosOfFiles(const QList<DB::RawId>& idList) const;
 
 protected:
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
-    QList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
+    QList<DB::RawId> mediaItemIdsForFilenames(const QStringList& filenames) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& dirname);
     void insertMediaItem(const DB::ImageInfo& info, int position=0);
-    void insertMediaTag(int mediaId, int tagId);
-    void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
+    void insertMediaTag(DB::RawId mediaId, int tagId);
+    void insertMediaItemTags(DB::RawId mediaId, const DB::ImageInfo& info);
     QList<int> directMembers(int tagId) const;
     void addIgnoredFile(const QString& filename);
     int mediaPositionByFilename(const QString& filename) const;
     void makeMediaPositionsContinuous();
-    QList<int>
+    QList<DB::RawId>
     getMatchingFiles(MatcherList matches,
                      DB::MediaType typemask=DB::anyMediaType) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QList<int>* idList) const;
+                                     const QList<DB::RawId>* idList) const;
 };
 
 }

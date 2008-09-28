@@ -1,6 +1,7 @@
 #ifndef DB_RESULT_H
 #define DB_RESULT_H
 
+#include "RawId.h"
 #include <QStringList>
 #include <KSharedPtr>
 
@@ -33,7 +34,7 @@ class Result : public KShared {
     Result();
 
     /** Create a result with a list of raw ids. */
-    explicit Result( const QList<int>& ids );
+    explicit Result( const QList<DB::RawId>& ids );
     
     /** Convenience constructor: create a result only one ResultId. */
     explicit Result( const DB::ResultId& );
@@ -50,7 +51,7 @@ class Result : public KShared {
     void debug() const;
     
     /** Get the raw list for offline manipulation */
-    const QList<int>& rawIdList() const;
+    const QList<DB::RawId>& rawIdList() const;
     
  private:
     // Noone must delete the Result directly. Only SharedPtr may.
@@ -63,7 +64,7 @@ class Result : public KShared {
     DB::Result& operator=(const DB::Result&);
     
  private:
-    QList<int> _items;
+    QList<DB::RawId> _items;
 };
 
 class ConstResultPtr;

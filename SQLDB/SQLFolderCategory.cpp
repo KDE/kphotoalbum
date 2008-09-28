@@ -65,8 +65,8 @@ SQLFolderCategory::classify(const DB::ImageSearchInfo& scope,
                             DB::MediaType typemask) const
 {
     // TODO: this
-    QList<int>* scopePointer;
-    QList<int> includedFiles;
+    QList<DB::RawId>* scopePointer;
+    QList<DB::RawId> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

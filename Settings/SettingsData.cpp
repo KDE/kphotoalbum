@@ -71,6 +71,7 @@
 #define getValueFunc( TYPE,FUNC,  GROUP,DEFAULT ) getValueFunc_( TYPE,FUNC,  #GROUP,#FUNC,DEFAULT )
 #define setValueFunc( FUNC,TYPE,  GROUP,OPTION  ) setValueFunc_( FUNC,TYPE,  #GROUP,#OPTION,v       )
 
+// TODO(mfwitten): document parameters.
 #define property_( GET_TYPE,GET_FUNC,GET_VALUE,  SET_FUNC,SET_TYPE,SET_VALUE,  GROUP,OPTION,GET_DEFAULT_1,GET_DEFAULT_2,GET_DEFAULT_2_TYPE ) \
     GET_TYPE SettingsData::GET_FUNC() const                                              \
     {                                                                                    \

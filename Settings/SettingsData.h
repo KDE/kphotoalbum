@@ -73,17 +73,17 @@ public:
     //// General ////
     /////////////////
 
-    property_ref ( histogramSize         , setHistogramSize         , QSize          );
-    property_ref ( backend               , setBackend               , QString        );
-    property_copy( useEXIFRotate         , setUseEXIFRotate         , bool           );
-    property_copy( useEXIFComments       , setUseEXIFComments       , bool           );
-    property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool           );
-    property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool           );
-    property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool           );
-    property_copy( compressBackup        , setCompressBackup        , bool           );
-    property_copy( showSplashScreen      , setShowSplashScreen      , bool           );
-    property_copy( autoSave              , setAutoSave              , int            );
-    property_copy( backupCount           , setBackupCount           , int            );
+    property_ref ( histogramSize         , setHistogramSize         , QSize );
+    property_ref ( backend               , setBackend               , QString );
+    property_copy( useEXIFRotate         , setUseEXIFRotate         , bool );
+    property_copy( useEXIFComments       , setUseEXIFComments       , bool );
+    property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );
+    property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool );
+    property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool );
+    property_copy( compressBackup        , setCompressBackup        , bool );
+    property_copy( showSplashScreen      , setShowSplashScreen      , bool );
+    property_copy( autoSave              , setAutoSave              , int );
+    property_copy( backupCount           , setBackupCount           , int );
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
 
@@ -93,16 +93,18 @@ public:
     //// Thumbnails ////
     ////////////////////
 
-    property_copy( displayLabels           , setDisplayLabels          , bool                 );
-    property_copy( displayCategories       , setDisplayCategories      , bool                 );
-    property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool                 );
-    property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool                 );
-    property_copy( thumbnailDarkBackground , setThumbnailDarkBackground, bool                 );
-    property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                 );
-    property_copy( previewSize             , setPreviewSize            , int                  );
-    property_copy( thumbnailSpace          , setThumbnailSpace         , int                  ); // Border space around thumbnails.
-    property_copy( thumbnailCacheScreens   , setThumbnailCacheScreens  , int                  );
-    property_copy( thumbSize               , setThumbSize              , int                  );
+    property_copy( displayLabels           , setDisplayLabels          , bool );
+    property_copy( displayCategories       , setDisplayCategories      , bool );
+    property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool );
+    property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool );
+    property_copy( thumbnailDarkBackground , setThumbnailDarkBackground, bool );
+    property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool );
+    property_copy( previewSize             , setPreviewSize            , int );
+
+    // Border space around thumbnails.
+    property_copy( thumbnailSpace          , setThumbnailSpace         , int );
+    property_copy( thumbnailCacheScreens   , setThumbnailCacheScreens  , int );
+    property_copy( thumbSize               , setThumbSize              , int );
     property_copy( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio );
 
     /**

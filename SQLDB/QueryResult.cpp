@@ -69,20 +69,10 @@ QList< QPair<QString, QString> > QueryResult::asList() const
 
 }
 
-QList<int> QueryResult::asIntegerList() const
-{
-    return asList<int>();
-}
-
-QStringList QueryResult::asStringList() const
-{
-    return asList<QString>();
-}
-
-StringStringList QueryResult::asStringStringList() const
-{
-    return asList< QPair<QString, QString> >();
-}
+// Explicit instantiations of QueryResult::asList
+template QList<int> QueryResult::asList<int>() const;
+template QList<QString> QueryResult::asList<QString>() const;
+template QList< QPair<QString, QString> > QueryResult::asList< QPair<QString, QString> >() const;
 
 QVariant QueryResult::firstItem() const
 {

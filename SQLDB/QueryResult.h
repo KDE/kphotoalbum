@@ -41,9 +41,6 @@ namespace SQLDB
         template <class T>
         QList<T> asList() const;
 
-        QList<int> asIntegerList() const;
-        QStringList asStringList() const;
-        StringStringList asStringStringList() const;
         QVariant firstItem() const;
         RowData getRow(uint n=0) const;
         Cursor cursor() const { return _cursor; }

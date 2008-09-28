@@ -19,8 +19,6 @@
 #include "Exif/SearchInfo.h"
 #include "Exif/Database.h"
 #include <qsqlquery.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 #include "SearchInfo.h"
 
 /**
@@ -32,7 +30,7 @@
  * The search is stored in an instance of \ref DB::ImageSearchInfo, and may later be executed using search().
  * Once a search has been executed, the application may ask if a given image is in the search result using matches()
  */
-void Exif::SearchInfo::addSearchKey( const QString& key, const Q3ValueList<int> values )
+void Exif::SearchInfo::addSearchKey( const QString& key, const IntList& values )
 {
     _intKeys.append( qMakePair( key, values ) );
 }
@@ -41,12 +39,12 @@ void Exif::SearchInfo::addSearchKey( const QString& key, const Q3ValueList<int> 
 QStringList Exif::SearchInfo::buildIntKeyQuery() const
 {
     QStringList andArgs;
-    for( Q3ValueList< QPair<QString, Q3ValueList<int> > >::ConstIterator intIt = _intKeys.begin(); intIt != _intKeys.end(); ++intIt ) {
+    for( IntKeyList::ConstIterator intIt = _intKeys.begin(); intIt != _intKeys.end(); ++intIt ) {
         QStringList orArgs;
         QString key = (*intIt).first;
-        Q3ValueList<int> values =(*intIt).second;
+        IntList values =(*intIt).second;
 
-        for( Q3ValueList<int>::Iterator argIt = values.begin(); argIt != values.end(); ++argIt ) {
+        for( IntList::Iterator argIt = values.begin(); argIt != values.end(); ++argIt ) {
             orArgs << QString::fromLatin1( "(%1 == %2)" ).arg( key ).arg( *argIt );
         }
         if ( orArgs.count() != 0 )
@@ -85,7 +83,7 @@ QString Exif::SearchInfo::buildQuery() const
 QStringList Exif::SearchInfo::buildRangeQuery() const
 {
     QStringList result;
-    for( Q3ValueList<Range>::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
+    for( QList<Range>::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
         QString str = sqlForOneRangeItem( *it );
         if ( !str.isNull() )
             result.append( str );
@@ -151,7 +149,7 @@ bool Exif::SearchInfo::matches( const QString& fileName ) const
     return _matches.contains( fileName );
 }
 
-void Exif::SearchInfo::addCamara( const Q3ValueList< QPair<QString,QString> >& list )
+void Exif::SearchInfo::addCamera( const CameraList& list )
 {
     _cameras = list;
 }
@@ -159,7 +157,7 @@ void Exif::SearchInfo::addCamara( const Q3ValueList< QPair<QString,QString> >& l
 QString Exif::SearchInfo::buildCameraSearchQuery() const
 {
     QStringList subResults;
-    for( Q3ValueList< QPair<QString,QString> >::ConstIterator cameraIt = _cameras.begin(); cameraIt != _cameras.end(); ++cameraIt ) {
+    for( CameraList::ConstIterator cameraIt = _cameras.begin(); cameraIt != _cameras.end(); ++cameraIt ) {
         subResults.append( QString::fromLatin1( "(Exif_Image_Make='%1' and Exif_Image_Model='%2')" )
                            .arg( (*cameraIt).first).arg( (*cameraIt).second ) );
     }

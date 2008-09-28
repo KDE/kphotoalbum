@@ -17,9 +17,9 @@
 */
 #ifndef SEARCHDIALOGSETTINGS_H
 #define SEARCHDIALOGSETTINGS_H
+
 #include <qcheckbox.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 namespace Exif{
 
@@ -34,13 +34,13 @@ public:
 };
 
 template <class T>
-class Settings :public Q3ValueList< Setting<T> >
+class Settings : public QList< Setting<T> >
 {
 public:
-    Q3ValueList<T> selected()
+    QList<T> selected()
     {
-        Q3ValueList<T> result;
-        for( typename Q3ValueList< Setting<T> >::Iterator it = this->begin(); it != this->end(); ++it ) {
+        QList<T> result;
+        for( typename QList< Setting<T> >::Iterator it = this->begin(); it != this->end(); ++it ) {
             if ( (*it).cb->isChecked() )
                 result.append( (*it).value );
         }

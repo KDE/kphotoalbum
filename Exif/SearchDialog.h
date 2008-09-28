@@ -63,7 +63,7 @@ private:
     Settings<int> _contrast;
     Settings<int> _sharpness;
     Settings<int> _saturation;
-    Settings< QPair<QString,QString> > _cameras;
+    Settings<Database::Camera> _cameras;
     QSpinBox* _fromFocalLength;
     QSpinBox* _toFocalLength;
 };

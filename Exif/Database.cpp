@@ -21,33 +21,37 @@
 
 #include "Exif/Database.h"
 
-#include <qsqldatabase.h>
-#include <qsqldriver.h>
-#include <Q3ValueList>
+#include "DB/ImageDB.h"
+#include "DB/ResultId.h"
+#include "Database.h"
+#include "Exif/DatabaseElement.h"
+#include "MainWindow/Window.h"
 #include "Settings/SettingsData.h"
-#include <qsqlquery.h>
+#include "Utilities/Util.h"
+
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
-#include "Exif/DatabaseElement.h"
-#include "Database.h"
-#include <QApplication>
-#include <QProgressDialog>
-#include <QDir>
-#include <QDebug>
-#include <DB/ImageDB.h>
-#include <DB/ResultId.h>
-#include <qfile.h>
-#include "MainWindow/Window.h"
-#include "Utilities/Util.h"
-#include <kmessagebox.h>
+
 #include <klocale.h>
+#include <kmessagebox.h>
+
+#include <QApplication>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QProgressDialog>
+#include <QSqlDatabase>
+#include <QSqlDriver>
 #include <QSqlError>
+#include <QSqlQuery>
 
 using namespace Exif;
 
-static Q3ValueList<DatabaseElement*> elements()
+typedef QList<DatabaseElement*> DatabaseElementList;
+
+static DatabaseElementList elements()
 {
-    static Q3ValueList<DatabaseElement*> elms;
+    static DatabaseElementList elms;
 
     if ( elms.count() == 0 ) {
         elms.append( new RationalExifElement( "Exif.Photo.FocalLength" ) );
@@ -132,8 +136,8 @@ bool Exif::Database::isOpen() const
 void Exif::Database::populateDatabase()
 {
     QStringList attributes;
-    Q3ValueList<DatabaseElement*> elms = elements();
-    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    DatabaseElementList elms = elements();
+    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         attributes.append( (*tagIt)->createString() );
     }
 
@@ -179,15 +183,15 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
         return;
 
     QStringList formalList;
-    Q3ValueList<DatabaseElement*> elms = elements();
-    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    DatabaseElementList elms = elements();
+    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         formalList.append( (*tagIt)->queryString() );
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
     query.bindValue(  0, _doUTF8Conversion ? filename.toUtf8() : filename );
     int i = 1;
-    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
     }
 

@@ -19,9 +19,8 @@
 #define EXIFDATABASE_H
 
 #include <qstring.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <qpair.h>
-//Added by qt3to4:
 #include <QSqlQuery>
 #include "Utilities/Set.h"
 
@@ -33,22 +32,25 @@ class ExifData;
 }
 
 typedef QPair<int,int> Rational;
-typedef Q3ValueList<Rational> RationalList;
+typedef QList<Rational> RationalList;
 
 namespace Exif
 {
 
 using Utilities::StringSet;
 
-// ================================================================================
-// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
-// ================================================================================
+// ============================================================================
+// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
+// ============================================================================
 //
-// It is the resposibility of the methods in here to bail out in case database support
-// is not available ( !isAvailable() ). This is to simplify client code.
+// It is the resposibility of the methods in here to bail out in case database
+// support is not available ( !isAvailable() ). This is to simplify client code.
 class Database {
 
 public:
+    typedef QPair<QString, QString> Camera;
+    typedef QList<Camera> CameraList;
+
     static Database* instance();
     static void deleteInstance();
     static bool isAvailable();
@@ -58,7 +60,7 @@ public:
     bool add( const QString& fileName );
     void remove( const QString& fileName );
     StringSet filesMatchingQuery( const QString& query );
-    QList< QPair<QString,QString> > cameras() const;
+    CameraList cameras() const;
     void recreate();
 
 protected:

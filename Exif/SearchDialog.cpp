@@ -23,7 +23,6 @@
 //Added by qt3to4:
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <Q3ValueList>
 #include "Exif/Database.h"
 #include <q3grid.h>
 #include "SearchDialog.h"
@@ -303,7 +302,7 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Contrast" ), _contrast.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Sharpness" ), _sharpness.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Saturation" ), _saturation.selected() );
-    result.addCamara( _cameras.selected() );
+    result.addCamera( _cameras.selected() );
     result.addRangeKey( _iso->range() );
     result.addRangeKey( _exposureTime->range() );
     result.addRangeKey( _apertureValue->range() );

@@ -18,9 +18,10 @@
 #ifndef EXIFSEARCHINFO_H
 #define EXIFSEARCHINFO_H
 
-#include <qstringlist.h>
-#include <q3valuelist.h>
-#include <qpair.h>
+#include <QList>
+#include <QStringList>
+#include <QPair>
+#include "Exif/Database.h"
 #include "Utilities/Set.h"
 
 namespace Exif {
@@ -29,6 +30,10 @@ using Utilities::StringSet;
 
 class SearchInfo  {
 public:
+    typedef Database::CameraList CameraList;
+    typedef Database::Camera Camera;
+    typedef QList<int> IntList;
+
     class Range
     {
     public:
@@ -39,9 +44,9 @@ public:
         QString key;
     };
 
-    void addSearchKey( const QString& key, const Q3ValueList<int> values );
+    void addSearchKey( const QString& key, const IntList& values );
     void addRangeKey( const Range& range );
-    void addCamara( const Q3ValueList< QPair<QString, QString> >& );
+    void addCamera( const CameraList& list);
 
     void search() const;
     bool matches( const QString& fileName ) const;
@@ -54,10 +59,10 @@ protected:
     QString sqlForOneRangeItem( const Range& ) const;
 
 private:
-    typedef Q3ValueList< QPair<QString, Q3ValueList<int> > > IntKeyList;
+    typedef QList< QPair<QString, IntList> > IntKeyList;
     IntKeyList _intKeys;
-    Q3ValueList<Range> _rangeKeys;
-    Q3ValueList< QPair<QString,QString> > _cameras;
+    QList<Range> _rangeKeys;
+    CameraList _cameras;
     mutable StringSet _matches;
     mutable bool _emptyQuery;
 };

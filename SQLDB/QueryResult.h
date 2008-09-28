@@ -38,6 +38,9 @@ namespace SQLDB
         {
         }
 
+        template <class T>
+        QList<T> asList() const;
+
         QList<int> asIntegerList() const;
         QStringList asStringList() const;
         StringStringList asStringStringList() const;

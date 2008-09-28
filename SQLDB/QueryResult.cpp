@@ -53,19 +53,35 @@ namespace
     }
 }
 
+template <class T>
+QList<T> QueryResult::asList() const
+{
+    return readCursor<T>(_cursor);
+}
+
+namespace SQLDB {
+
+template <>
+QList< QPair<QString, QString> > QueryResult::asList() const
+{
+    return readCursor2<QString, QString>(_cursor);
+}
+
+}
+
 QList<int> QueryResult::asIntegerList() const
 {
-    return readCursor<int>(_cursor);
+    return asList<int>();
 }
 
 QStringList QueryResult::asStringList() const
 {
-    return readCursor<QString>(_cursor);
+    return asList<QString>();
 }
 
 StringStringList QueryResult::asStringStringList() const
 {
-    return readCursor2<QString, QString>(_cursor);
+    return asList< QPair<QString, QString> >();
 }
 
 QVariant QueryResult::firstItem() const

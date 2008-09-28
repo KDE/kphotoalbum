@@ -2,6 +2,10 @@
 
 	* Removed the survey.
 
+2008-09-15 Henner Zeller <h.zeller@acm.org>
+
+	* Implement thumbnail precaching of the next/previous page.
+
 2008-09-07  Jan Kundrat  <jkt@gentoo.org>
 
 	* Image rating (KRatingWidget, that stars thingy)

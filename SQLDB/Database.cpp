@@ -321,7 +321,7 @@ QStringList SQLDB::Database::CONVERT(const DB::ConstResultPtr& result)
         // Q_FOREACH(DB::ResultId id, *result) {
         for (int i = 0; i < result->size(); ++i) {
             DB::ResultId id = result->at(i);
-            files.push_back(_qh.mediaItemFilename(id.fileId()));
+            files.push_back(_qh.mediaItemFilename(id.rawId()));
             Q_ASSERT(!files[files.size() - 1].isNull());
         }
     }
@@ -336,7 +336,7 @@ DB::ResultId SQLDB::Database::ID_FOR_FILE(const QString& filename) const
 DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
 {
     Q_ASSERT(!id.isNull());
-    Q_ASSERT(id.fileId() >= 1);
+    Q_ASSERT(id.rawId() >= 1);
     return _infoCollection.getImageInfoOf(id);
 }
 

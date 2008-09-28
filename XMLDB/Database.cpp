@@ -717,7 +717,7 @@ QStringList XMLDB::Database::CONVERT( const DB::ConstResultPtr& items )
 {
     QStringList result;
     for ( int i = 0; i < items->size(); ++i ) {
-        result << Utilities::absoluteImageFileName(_idMapper[items->at(i).fileId()]);
+        result << Utilities::absoluteImageFileName(_idMapper[items->at(i).rawId()]);
     }
     return result;
 }
@@ -730,5 +730,5 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::ResultId& id) const
 {
     if (id.isNull())
         return DB::ImageInfoPtr(NULL);
-    return info( _idMapper[id.fileId()],DB::RelativeToImageRoot);
+    return info( _idMapper[id.rawId()],DB::RelativeToImageRoot);
 }

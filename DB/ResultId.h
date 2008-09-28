@@ -18,18 +18,18 @@ public:
      */
     ResultId();
 
-    /** Construct with given fileId and context.
+    /** Construct with given rawId and context.
      *
      * \pre !context.isNull()
      */
-    ResultId(int fileId, const ConstResultPtr& context);
+    ResultId(int rawId, const ConstResultPtr& context);
 
-    static ResultId createContextless(int fileId)
+    static ResultId createContextless(int rawId)
     {
-        return ResultId(fileId);
+        return ResultId(rawId);
     }
 
-    int fileId() const;
+    int rawId() const;
     bool isNull() const;
 
     /** Get context of this.
@@ -39,13 +39,13 @@ public:
     ConstResultPtr context() const;
 
     inline bool operator==(const ResultId& other) const {
-        return other._fileId == _fileId;  // we're only interested in the id.
+        return other._rawId == _rawId;  // we're only interested in the id.
     }
     inline bool operator!=(const ResultId& other) const {
-        return other._fileId != _fileId;  // we're only interested in the id.
+        return other._rawId != _rawId;  // we're only interested in the id.
     }
     inline bool operator<(const ResultId& other) const {
-        return _fileId < other._fileId;
+        return _rawId < other._rawId;
     }
 
     /**
@@ -55,14 +55,14 @@ public:
     ImageInfoPtr fetchInfo() const;
 
  private:
-    ResultId(int fileId)
-        : _fileId(fileId)
+    ResultId(int rawId)
+        : _rawId(rawId)
         , _context(0)
     {
-        Q_ASSERT(fileId >= 0);
+        Q_ASSERT(rawId >= 0);
     }
 
-    int _fileId;
+    int _rawId;
     ConstResultPtr _context;
 };
 }  // namespace DB
@@ -83,7 +83,7 @@ public:
  * ( http://gcc.gnu.org/bugzilla/show_bug.cgi?id=26311 )
  */
 namespace DB {
-    inline unsigned int qHash(const DB::ResultId& id) { return id.fileId(); }
+    inline unsigned int qHash(const DB::ResultId& id) { return id.rawId(); }
 }  // namespace DB
 
 #endif /* DB_RESULTID_H */

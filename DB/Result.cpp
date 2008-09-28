@@ -51,7 +51,7 @@ int DB::Result::size() const
 
 int DB::Result::indexOf(const DB::ResultId& id) const
 {
-    return _items.indexOf(id.fileId());
+    return _items.indexOf(id.rawId());
 }
 
 DB::Result::Result( const QList<int>& ids)
@@ -60,7 +60,7 @@ DB::Result::Result( const QList<int>& ids)
 }
 
 DB::Result::Result( const DB::ResultId& id) {
-    _items.push_back(id.fileId());
+    _items.push_back(id.rawId());
 }
 
 DB::Result::Result()
@@ -79,12 +79,12 @@ void DB::Result::debug() const
 
 void DB::Result::append( const DB::ResultId& id)
 {
-    _items.append(id.fileId());
+    _items.append(id.rawId());
 }
 
 void DB::Result::prepend( const DB::ResultId& id)
 {
-    _items.prepend(id.fileId());
+    _items.prepend(id.rawId());
 }
 
 bool DB::Result::isEmpty() const
@@ -92,7 +92,7 @@ bool DB::Result::isEmpty() const
     return _items.isEmpty();
 }
 
-const QList<int>& DB::Result::getRawFileIdList() const
+const QList<int>& DB::Result::rawIdList() const
 {
     return _items;
 }

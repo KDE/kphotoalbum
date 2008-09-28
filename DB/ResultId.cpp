@@ -5,26 +5,26 @@
 DB::ResultId const DB::ResultId::null;
 
 DB::ResultId::ResultId()
-    : _fileId(-1)
+    : _rawId(-1)
     , _context(0)
 {
 }
 
-DB::ResultId::ResultId(int fileId, const ConstResultPtr& context)
-    : _fileId(fileId)
+DB::ResultId::ResultId(int rawId, const ConstResultPtr& context)
+    : _rawId(rawId)
     , _context(context)
 {
-    Q_ASSERT(fileId >= 0);
+    Q_ASSERT(rawId >= 0);
     Q_ASSERT(!_context.isNull());
 }
 
-int DB::ResultId::fileId() const
+int DB::ResultId::rawId() const
 {
-    return _fileId;
+    return _rawId;
 }
 
 bool DB::ResultId::isNull() const {
-    return _fileId == -1;
+    return _rawId == -1;
 }
 
 DB::ImageInfoPtr DB::ResultId::fetchInfo() const {

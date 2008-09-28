@@ -32,7 +32,7 @@ class Result : public KShared {
      * remind you about this ;) */
     Result();
 
-    /** Create a result with a list of file ids. */
+    /** Create a result with a list of raw ids. */
     explicit Result( const QList<int>& ids );
     
     /** Convenience constructor: create a result only one ResultId. */
@@ -50,7 +50,7 @@ class Result : public KShared {
     void debug() const;
     
     /** Get the raw list for offline manipulation */
-    const QList<int>& getRawFileIdList() const;
+    const QList<int>& rawIdList() const;
     
  private:
     // Noone must delete the Result directly. Only SharedPtr may.

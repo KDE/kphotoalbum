@@ -20,10 +20,10 @@
 #include <QPixmapCache>
 #include <QTimer>
 
-#include "ThumbnailView/ThumbnailRequest.h"
 #include "DB/ResultId.h"
-#include "Settings/SettingsData.h"
 #include "ImageManager/Manager.h"
+#include "Settings/SettingsData.h"
+#include "ThumbnailView/ThumbnailRequest.h"
 
 ThumbnailView::ThumbnailCache::ThumbnailCache()
     : _displayList(NULL), _hotFrom(0), _hotTo(0), _lastHotFrom(0) {
@@ -153,7 +153,8 @@ void ThumbnailView::ThumbnailCache::requestRange(int from, int to)
 }
 
 void ThumbnailView::ThumbnailCache::pixmapLoaded( const QString& fileName,
-                                                  const QSize& size, const QSize& fullSize,
+                                                  const QSize& size, 
+                                                  const QSize& fullSize,
                                                   int angle, const QImage& image,
                                                   const bool loadedOK)
 {

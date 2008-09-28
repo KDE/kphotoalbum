@@ -52,6 +52,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     if (rawId == DB::RawId()) {
         try {
             rawId = _qh.mediaItemId(relativeFilename);
+            Q_ASSERT(rawId != DB::RawId());
         }
         catch (NotFoundError& e) {
             return DB::ImageInfoPtr(0);

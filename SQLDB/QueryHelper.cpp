@@ -130,6 +130,7 @@ DB::RawId QueryHelper::mediaItemId(const QString& filename) const
                      Bindings() << path << basename).firstItem();
     if (id.isNull())
         throw EntryNotFoundError();
+    Q_ASSERT(id.toInt() > 0);
     return DB::RawId(id.toInt());
 }
 
@@ -147,6 +148,7 @@ QList< QPair<DB::RawId, QString> > QueryHelper::mediaItemIdFileMap() const
     for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
         QPair<DB::RawId, QString> x;
         x.first = DB::RawId(c.value(0).toInt());
+        Q_ASSERT(x.first != DB::RawId());
         x.second = makeFullName(c.value(1).toString(), c.value(2).toString());
         r << x;
     }
@@ -168,18 +170,22 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
         paths << path;
         basenames << basename;
         if (!pathIdMap.contains(path)) {
-            pathIdMap.insert(path, DB::RawId(executeQuery(QLatin1String(
-                                                              "SELECT id FROM directory"
-                                                              " WHERE path=?"),
-                                                          Bindings() << path
-                                                 ).firstItem().toInt()));
+            const DB::RawId id(
+                executeQuery(
+                    QLatin1String(
+                        "SELECT id FROM directory"
+                        " WHERE path=?"),
+                    Bindings() << path
+                    ).firstItem().toInt());
+            Q_ASSERT(id != DB::RawId());
+            pathIdMap.insert(path, id);
         }
     }
     QList<DB::RawId> idList;
     QStringList::const_iterator pathIt = paths.begin();
     QStringList::const_iterator basenameIt = basenames.begin();
     while (pathIt != paths.end()) {
-        QVariant id =
+        const QVariant id =
             executeQuery(QLatin1String("SELECT id"
                                        " FROM file"
                                        " WHERE directory_id=? AND filename=?"),
@@ -191,6 +197,7 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
         */
         if (!id.isNull())
             idList << DB::RawId(id.toInt());
+        Q_ASSERT(idList[idList.size() - 1] != DB::RawId());
         ++pathIt;
         ++basenameIt;
     }
@@ -766,8 +773,10 @@ QueryHelper::mediaIdTagsMap(const QString& category,
 
     QMap<DB::RawId, StringSet > r;
     if (!c.isNull()) {
-        for (c.selectFirstRow(); c.rowExists(); c.selectNextRow())
-            r[DB::RawId(c.value(0).toInt())].insert(c.value(1).toString());
+        for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
+            const DB::RawId id(c.value(0).toInt());
+            r[id].insert(c.value(1).toString());
+        }
     }
     return r;
 }

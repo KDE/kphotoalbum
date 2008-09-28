@@ -3,6 +3,7 @@
 void DB::IdNameMapper::add( const QString& fileName )
 {
     const DB::RawId id(++_maxId);
+    Q_ASSERT(id != DB::RawId());
     _idTofileName.insert( id, fileName );
     _fileNameToId.insert( fileName, id );
     Q_ASSERT( !fileName.startsWith(QLatin1String("/")));

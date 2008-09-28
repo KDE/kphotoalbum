@@ -197,11 +197,13 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
     else {
         QRect dimensions = cellDimensions();
         DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
-        int angle = imageInfo->angle();
-        ThumbnailRequest* request = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
-                        QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
-                               dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
-                        angle, this );
+        const int angle = imageInfo->angle();
+        const int space = Settings::SettingsData::instance()->thumbnailSpace();
+        ThumbnailRequest* request
+            = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
+                                   QSize( dimensions.width() - 2 * space,
+                                          dimensions.height() - 2 * space),
+                                   angle, this );
         request->setPriority( ImageManager::ThumbnailVisible );
         ImageManager::Manager::instance()->load( request );
     }
@@ -1404,6 +1406,7 @@ void ThumbnailView::ThumbnailWidget::setSortDirection( SortDirection direction )
     Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
     _displayList = reverseList( _displayList );
     updateIndexCache();
+    _thumbnailCache.setDisplayList(_displayList);
     if ( !_currentItem.isNull() )
         setCurrentItem( _currentItem );
     repaintScreen();

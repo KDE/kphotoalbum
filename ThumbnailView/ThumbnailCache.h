@@ -42,7 +42,7 @@ namespace ThumbnailView {
  * Note, this is work in progress... (TODO(hzeller): update comment)
  */
 class ThumbnailCache : public QObject, public ImageManager::ImageClient {
-    Q_OBJECT;
+    Q_OBJECT
 public:
     ThumbnailCache();
 

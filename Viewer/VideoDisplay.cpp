@@ -232,7 +232,7 @@ bool Viewer::VideoDisplay::isPlaying() const
 void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::State /*oldState*/)
 {
     if ( newState == Phonon::ErrorState ) {
-        QMessageBox::critical(0, "Error playing media", _mediaObject->errorString(), QMessageBox::Close);
+        QMessageBox::critical(0, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
     }
 }
 

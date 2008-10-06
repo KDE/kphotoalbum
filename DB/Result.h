@@ -16,13 +16,15 @@ class Result : public KShared {
  public:
     class ConstIterator {
     public:
-        ConstIterator( const Result* result, int pos );
         ConstIterator& operator++();
         DB::ResultId operator*();
         bool operator==( const ConstIterator& other );
         bool operator!=( const ConstIterator& other );
         
     private:
+        friend class Result;
+        ConstIterator( const Result* result, int pos );
+
         const Result* _result;
         int _pos;
     };

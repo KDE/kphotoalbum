@@ -24,6 +24,11 @@
   #include <marble/GeoDataCoordinates.h>
 #endif
 
+#ifdef HAVE_MARBLE
+// Because moving stuff from global namespace to Marble:: is fun, obviously...
+namespace Marble {}
+#endif
+
 namespace DB {
 
 /** Stores a position on the globe with optional precision.
@@ -69,7 +74,7 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    GpsCoordinates(const Marble::GeoDataCoordinates& position)
+    GpsCoordinates(const GeoDataCoordinates& position)
         throw()
         : _longitude(0.0)
         , _latitude(0.0)
@@ -78,7 +83,7 @@ public:
     {
         // Get the coordinates from the given position to our member
         // variables
-        position.geoCoordinates(_longitude, _latitude, Marble::GeoDataCoordinates::Degree);
+        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
 
         Q_ASSERT(!this->isNull());
     }
@@ -130,13 +135,13 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    Marble::GeoDataCoordinates toGeoDataCoordinates() const throw()
+    GeoDataCoordinates toGeoDataCoordinates() const throw()
     {
-        return Marble::GeoDataCoordinates(
+        return GeoDataCoordinates(
             _longitude,
             _latitude,
             _altitude,
-            Marble::GeoDataCoordinates::Degree);
+            GeoDataCoordinates::Degree);
     }
 #endif
 

@@ -86,7 +86,7 @@ public:
 namespace DB {
 inline unsigned int qHash(const DB::ResultId& id)
 {
-    return qHash(id.rawId());
+    return ::qHash(id.rawId());
 }
 }  // namespace DB
 

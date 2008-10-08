@@ -27,19 +27,19 @@
 #ifndef DB_RAWID_IS_PLAIN_INTEGER
 
 namespace DB {
+class RawId;
+}
+
+inline int toInt(const DB::RawId rawId);
+
+inline unsigned int qHash(const DB::RawId rawId);
+
+namespace DB {
 
 class RawId
 {
-    friend inline int toInt(const DB::RawId rawId)
-    {
-        assert(rawId != RawId());
-        return rawId._value;
-    }
-
-    friend inline unsigned int qHash(const DB::RawId rawId)
-    {
-        return rawId._value;
-    }
+    friend inline int ::toInt(const DB::RawId rawId);
+    friend inline unsigned int ::qHash(const DB::RawId rawId);
 
 public:
     RawId()
@@ -81,6 +81,17 @@ private:
 };
 
 } // end of namespace DB
+
+inline int toInt(const DB::RawId rawId)
+{
+    assert(rawId != DB::RawId());
+    return rawId._value;
+}
+
+inline unsigned int qHash(const DB::RawId rawId)
+{
+    return rawId._value;
+}
 
 inline QDebug operator<<(QDebug d, const DB::RawId rawId)
 {

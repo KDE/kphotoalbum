@@ -31,6 +31,10 @@ namespace Marble {}
 
 namespace DB {
 
+#ifdef HAVE_MARBLE
+using namespace Marble;
+#endif
+
 /** Stores a position on the globe with optional precision.
  *
  * Longitude and latitude are stored as degrees and altitude and
@@ -74,7 +78,7 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    GpsCoordinates(const Marble::GeoDataCoordinates& position)
+    GpsCoordinates(const GeoDataCoordinates& position)
         throw()
         : _longitude(0.0)
         , _latitude(0.0)
@@ -83,7 +87,7 @@ public:
     {
         // Get the coordinates from the given position to our member
         // variables
-        position.geoCoordinates(_longitude, _latitude, Marble::GeoDataCoordinates::Degree);
+        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
 
         Q_ASSERT(!this->isNull());
     }
@@ -135,13 +139,13 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    Marble::GeoDataCoordinates toGeoDataCoordinates() const throw()
+    GeoDataCoordinates toGeoDataCoordinates() const throw()
     {
-        return Marble::GeoDataCoordinates(
+        return GeoDataCoordinates(
             _longitude,
             _latitude,
             _altitude,
-            Marble::GeoDataCoordinates::Degree);
+            GeoDataCoordinates::Degree);
     }
 #endif
 

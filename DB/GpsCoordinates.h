@@ -74,7 +74,7 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    GpsCoordinates(const GeoDataCoordinates& position)
+    GpsCoordinates(const Marble::GeoDataCoordinates& position)
         throw()
         : _longitude(0.0)
         , _latitude(0.0)
@@ -83,7 +83,7 @@ public:
     {
         // Get the coordinates from the given position to our member
         // variables
-        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
+        position.geoCoordinates(_longitude, _latitude, Marble::GeoDataCoordinates::Degree);
 
         Q_ASSERT(!this->isNull());
     }
@@ -135,13 +135,13 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    GeoDataCoordinates toGeoDataCoordinates() const throw()
+    Marble::GeoDataCoordinates toGeoDataCoordinates() const throw()
     {
-        return GeoDataCoordinates(
+        return Marble::GeoDataCoordinates(
             _longitude,
             _latitude,
             _altitude,
-            GeoDataCoordinates::Degree);
+            Marble::GeoDataCoordinates::Degree);
     }
 #endif
 

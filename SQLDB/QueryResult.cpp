@@ -78,7 +78,9 @@ QList< QPair<QString, QString> > QueryResult::asList() const
 
 // Explicit instantiations of QueryResult::asList
 template QList<int> QueryResult::asList<int>() const;
+#ifndef DB_RAWID_IS_PLAIN_INTEGER
 template QList<DB::RawId> QueryResult::asList<DB::RawId>() const;
+#endif
 template QList<QString> QueryResult::asList<QString>() const;
 template QList< QPair<QString, QString> > QueryResult::asList< QPair<QString, QString> >() const;
 

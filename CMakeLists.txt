@@ -16,6 +16,7 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
                 -DOVERRIDE=
 #                -DQT_NO_CAST_FROM_ASCII
 #                -DQT_NO_CAST_TO_ASCII
+#                -DDB_RAWID_IS_PLAIN_INTEGER
                )
 
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}

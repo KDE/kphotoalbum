@@ -24,7 +24,7 @@
 #include <QtCore/QDebug>
 #include <cassert>
 
-#if 1
+#ifndef DB_RAWID_IS_PLAIN_INTEGER
 
 namespace DB {
 

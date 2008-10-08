@@ -56,7 +56,7 @@ public:
     ImageInfoPtr fetchInfo() const;
 
  private:
-    ResultId(RawId rawId)
+    explicit ResultId(RawId rawId)
         : _rawId(rawId)
         , _context(0)
     {

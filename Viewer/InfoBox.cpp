@@ -121,7 +121,10 @@ void Viewer::InfoBox::setSize()
 
     setVerticalScrollBarPolicy( showVerticalBar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    const int realWidth = document()->idealWidth() + (showVerticalBar ? verticalScrollBar()->width() + frameWidth() : 0) + _jumpToContext->width() + 10;
+    const int realWidth =
+        static_cast<int>(document()->idealWidth()) +
+        (showVerticalBar ? verticalScrollBar()->width() + frameWidth() : 0) +
+        _jumpToContext->width() + 10;
 
     resize( realWidth, QMIN( (int)document()->size().height(), maxHeight ) );
 #else

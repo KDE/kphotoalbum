@@ -120,7 +120,8 @@ void ImageManager::Manager::removeThumbnail( const QString& imageFile )
     QPixmapCache::remove( imageFile );
 }
 
-bool ImageManager::Manager::thumbnailsExist( const QString& imageFile ) {
+bool ImageManager::Manager::thumbnailsExist( const QString& imageFile )
+{
     KUrl url;
     url.setPath( imageFile );
     QString big = ImageLoader::thumbnailKey( url.url(), 256 );

@@ -32,7 +32,8 @@
 static const char *kDefaultImageFormat = "ppm";
 
 ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat) 
-    : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat) {
+    : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat)
+{
     QDir dir(QDir::homePath());
     dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
     dir.cd( QString::fromLatin1( ".thumbnails" ) );
@@ -40,12 +41,14 @@ ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat
     dir.mkdir( QString::fromLatin1( "large" ) );
 }
 
-QString ImageManager::FileThumbnailStorage::keyToPath(const QString& key) {
+QString ImageManager::FileThumbnailStorage::keyToPath(const QString& key)
+{
     return QString::fromLatin1( "%1/.thumbnails/%2.%3" )
         .arg(QDir::homePath()).arg(key).arg(_imageFormat);
 }
 
-bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage& image) {
+bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage& image)
+{
     QString path = keyToPath(key);
 
     /* To prevent a race condition where another thread reads data from
@@ -71,11 +74,13 @@ bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage&
     return true;
 }
 
-void ImageManager::FileThumbnailStorage::remove(const QString& key) {
+void ImageManager::FileThumbnailStorage::remove(const QString& key)
+{
     QFile::remove( keyToPath(key) );
 }
 
-bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* image) {
+bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* image)
+{
     QString path = keyToPath(key);
     if ( QFile::exists( path ) ) {
         return image->load( path, _imageFormat );
@@ -83,7 +88,8 @@ bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* im
     return false;
 }
 
-bool ImageManager::FileThumbnailStorage::exists(const QString& key) {
+bool ImageManager::FileThumbnailStorage::exists(const QString& key)
+{
     {
         QMutexLocker l(&_cacheLock);
         if (_existenceCache.contains(key))
@@ -101,11 +107,13 @@ bool ImageManager::FileThumbnailStorage::exists(const QString& key) {
 
 #ifdef TESTING_MEMORY_THUMBNAIL_CACHING
 ImageManager::MemoryThumbnailStorage::MemoryThumbnailStorage(const char *imageFormat) 
-    : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat) {
+    : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat)
+{
     /* nop */
 }
 
-bool ImageManager::MemoryThumbnailStorage::store(const QString& key, const QImage& image) {
+bool ImageManager::MemoryThumbnailStorage::store(const QString& key, const QImage& image)
+{
     QByteArray ba;
     QBuffer buffer(&ba);
     buffer.open(QIODevice::WriteOnly);
@@ -117,7 +125,8 @@ bool ImageManager::MemoryThumbnailStorage::store(const QString& key, const QImag
     return true;
 }
 
-bool ImageManager::MemoryThumbnailStorage::retrieve(const QString& key, QImage* image) {
+bool ImageManager::MemoryThumbnailStorage::retrieve(const QString& key, QImage* image)
+{
     ImageCache::const_iterator found = _cache.find(key);
     if (found == _cache.end())
         return false;
@@ -126,7 +135,8 @@ bool ImageManager::MemoryThumbnailStorage::retrieve(const QString& key, QImage* 
     return ok;
 }
 
-bool ImageManager::MemoryThumbnailStorage::exists(const QString& key) {
+bool ImageManager::MemoryThumbnailStorage::exists(const QString& key)
+{
     ImageCache::const_iterator found = _cache.find(key);
     return (found != _cache.end());
 }

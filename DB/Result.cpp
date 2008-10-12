@@ -92,6 +92,14 @@ bool DB::Result::isEmpty() const
     return _items.isEmpty();
 }
 
+QList<DB::ImageInfoPtr> DB::Result::fetchInfos() const
+{
+    QList<DB::ImageInfoPtr> infos;
+    for (const_iterator i = begin(); i != end(); ++i)
+        infos.push_back((*i).fetchInfo());
+    return infos;
+}
+
 const QList<DB::RawId>& DB::Result::rawIdList() const
 {
     return _items;

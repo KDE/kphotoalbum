@@ -2,6 +2,7 @@
 #define DB_RESULT_H
 
 #include "RawId.h"
+#include "ImageInfoPtr.h"
 #include <QStringList>
 #include <KSharedPtr>
 
@@ -51,7 +52,9 @@ class Result : public KShared {
     ConstIterator begin() const;
     ConstIterator end() const;
     void debug() const;
-    
+
+    QList<DB::ImageInfoPtr> fetchInfos() const;
+
     /** Get the raw list for offline manipulation */
     const QList<DB::RawId>& rawIdList() const;
     

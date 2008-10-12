@@ -45,11 +45,7 @@ KIPI::ImageCollection Plugins::Interface::currentAlbum()
 
 KIPI::ImageCollection Plugins::Interface::currentSelection()
 {
-<<<<<<< HEAD:Plugins/Interface.cpp
     if (!MainWindow::Window::theMainWindow()->selected().isEmpty())
-=======
-    if ( MainWindow::Window::theMainWindow()->selected().size() != 0 )
->>>>>>> compile:Plugins/Interface.cpp
         return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentSelection ) );
     else
         return KIPI::ImageCollection(0);

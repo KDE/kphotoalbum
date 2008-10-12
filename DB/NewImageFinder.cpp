@@ -52,9 +52,10 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    DB::ConstResultPtr images = DB::ImageDB::instance()->images();
-    for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
-        loadedFiles.insert((*it).fetchInfo()->fileName(DB::AbsolutePath));
+    Q_FOREACH(
+        const DB::ImageInfoPtr info,
+        DB::ImageDB::instance()->images().fetchInfos()) {
+        loadedFiles.insert(info->fileName(DB::AbsolutePath));
     }
 
     _pendingLoad.clear();
@@ -235,22 +236,27 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     return info;
 }
 
-bool  NewImageFinder::calculateMD5sums( const DB::ConstResultPtr& list, DB::MD5Map* md5Map, bool* wasCanceled )
+bool  NewImageFinder::calculateMD5sums(
+    const DB::Result& list,
+    DB::MD5Map* md5Map,
+    bool* wasCanceled)
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
-    dialog.setLabelText( i18n("<p><b>Calculating checksum for %1 files<b></p>"
-                              "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
-                              "even when you have moved them on the disk.</p>").arg( list->size() ) );
-    dialog.setMaximum( list->size() );
+    dialog.setLabelText(
+        i18n("<p><b>Calculating checksum for %1 files<b></p>"
+             "<p>By storing a checksum for each image "
+             "KPhotoAlbum is capable of finding images "
+             "even when you have moved them on the disk.</p>")
+        .arg(list.size()));
+    dialog.setMaximum(list.size());
     dialog.setMinimumDuration( 1000 );
 
     int count = 0;
     QStringList cantRead;
     bool dirty = false;
 
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it, ++count ) {
-        ImageInfoPtr info = (*it).fetchInfo();
+    Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
         const QString absoluteFileName = info->fileName(DB::AbsolutePath );
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
@@ -276,6 +282,8 @@ bool  NewImageFinder::calculateMD5sums( const DB::ConstResultPtr& list, DB::MD5M
         }
 
         md5Map->insert( md5, info->fileName(DB::RelativeToImageRoot) );
+
+        ++count;
     }
     if ( wasCanceled )
         *wasCanceled = false;

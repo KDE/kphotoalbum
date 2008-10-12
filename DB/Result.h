@@ -3,17 +3,31 @@
 
 #include "RawId.h"
 #include "ImageInfoPtr.h"
-#include <QStringList>
-#include <KSharedPtr>
 
 namespace DB
 {
 class ResultId;
-class ResultPtr;
-class ConstResultPtr;
 
-// TODO: to be renamed to ListId as per discussion in car
-class Result : public KShared {
+/** List of media item ids.
+ *
+ * Instances are implicitly shared, so they can be passed by value in
+ * constant time.
+ *
+ * This class implements forward iterator API and it is possible to
+ * use Q_FOREACH to iterate over the ResultId objects in the list.
+ *
+ * Iterating example:
+ * \code
+ * DB::Result list = getSomeIdList();
+ * Q_FOREACH(DB::ResultId id, list) {
+ *     doSomethingWithMediaId(id);
+ * }
+ * \endcode
+ *
+ * \todo Rename to IdList as per discussion in car
+ */
+class Result
+{
  public:
     class ConstIterator {
     public:
@@ -31,9 +45,6 @@ class Result : public KShared {
     };
     typedef ConstIterator const_iterator;
 
-    /** Never use Result on a stack but rather new it and assign to
-     * some (Const)ResultPtr. The fact that the destructor is private will
-     * remind you about this ;) */
     Result();
 
     /** Create a result with a list of raw ids. */
@@ -60,53 +71,7 @@ class Result : public KShared {
     const QList<DB::RawId>& rawIdList() const;
     
  private:
-    // Noone must delete the Result directly. Only SharedPtr may.
-    friend class KSharedPtr<Result>;
-    friend class KSharedPtr<const Result>;
-    ~Result();  // Don't use Q_FOREACH on DB::Result.
-    
-    // No implicit constructors/assignments.
-    Result(const DB::Result&);
-    DB::Result& operator=(const DB::Result&);
-    
- private:
     QList<DB::RawId> _items;
-};
-
-class ConstResultPtr;
-
-// A reference counted pointer to a Result.
-class ResultPtr : public KSharedPtr<Result> {
- public:
-    ResultPtr( Result* ptr );
-
- private:
-    ResultPtr( const ConstResultPtr& );  // Invalid to assign a ConstResultPtr.
-    int count() const;  // You certainly meant to call ->size() ?!
-};
-
-// A reference counted pointer to a const Result, i.e. no non-const methods can
-// be called on it. Return values of this type if you don't want the list to
-// be manipulated by the caller which otherwise would be easily possible.
-//
-// So, the const-conversion DB::ResultPtr -> DB::ConstResultPtr is valid, but
-// not the reverse.
-//
-// Note: it is not sufficient to just have a 'const DB::ResultPtr' (that only
-//   allows to call const-methods on its KShared) because it is
-//   possible to assign a 'const DB::ResultPtr' to a non-const DB::ResultPtr
-//   that would allow all write manipulations to the underlying object again.
-// Note2: A way to avoid the distinction would be to have some DB::Result
-//   object that contains the shared pointer and does some copy-on-write. That
-//   would not be really desirable because it encourages sloppy programming and
-//   does not highlight anymore what is not to be changed.
-class ConstResultPtr : public KSharedPtr<const Result> {
- public:
-    ConstResultPtr( const Result* ptr );
-    ConstResultPtr( const ResultPtr& nonConst );  // valid assignment.
-
- private:
-    int count() const;  // You certainly meant to call ->size() ?!
 };
 
 }  // namespace DB

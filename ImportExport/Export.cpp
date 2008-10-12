@@ -47,7 +47,7 @@
 
 using namespace ImportExport;
 
-void Export::imageExport( const DB::ConstResultPtr& list )
+void Export::imageExport(const DB::Result& list)
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -173,10 +173,18 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 }
 
 
-Export::Export( const DB::ConstResultPtr& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
-                const QString& baseUrl, bool doGenerateThumbnails,
-                bool *ok)
-    : _ok( ok ), _maxSize( maxSize ), _location( location )
+Export::Export(
+    const DB::Result& list,
+    const QString& zipFile,
+    bool compress,
+    int maxSize,
+    ImageFileLocation location,
+    const QString& baseUrl,
+    bool doGenerateThumbnails,
+    bool *ok)
+    : _ok( ok )
+    , _maxSize( maxSize )
+    , _location( location )
 {
     *ok = true;
     _destdir = QFileInfo( zipFile ).path();
@@ -191,9 +199,9 @@ Export::Export( const DB::ConstResultPtr& list, const QString& zipFile, bool com
     // Create progress dialog
     int total = 1;
     if (location != ManualCopy)
-      total += list->size();
+      total += list.size();
     if (doGenerateThumbnails)
-      total += list->size();
+      total += list.size();
 
     _steps = 0;
     _progressDialog = new Q3ProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
@@ -226,14 +234,13 @@ Export::Export( const DB::ConstResultPtr& list, const QString& zipFile, bool com
 }
 
 
-void Export::generateThumbnails( const DB::ConstResultPtr& list )
+void Export::generateThumbnails(const DB::Result& list)
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
-    _filesRemaining = list->size(); // Used to break the event loop.
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        DB::ImageInfoPtr info = (*it).fetchInfo();
+    _filesRemaining = list.size(); // Used to break the event loop.
+    Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), QSize( 128, 128 ), info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::Manager::instance()->load( request );
@@ -244,7 +251,7 @@ void Export::generateThumbnails( const DB::ConstResultPtr& list )
     }
 }
 
-void Export::copyImages( const DB::ConstResultPtr& list )
+void Export::copyImages(const DB::Result& list)
 {
     Q_ASSERT( _location != ManualCopy );
 
@@ -254,8 +261,8 @@ void Export::copyImages( const DB::ConstResultPtr& list )
     _progressDialog->setLabelText( i18n("Copying image files") );
 
     _filesRemaining = 0;
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        QString file = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+    Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
+        QString file = info->fileName(DB::AbsolutePath);
         QString zippedName = _filenameMapper.uniqNameFor(file);
 
         if ( _maxSize == -1 || Utilities::isVideo( file ) ) {

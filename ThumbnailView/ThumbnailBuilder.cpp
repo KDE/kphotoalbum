@@ -25,14 +25,13 @@
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
     :QProgressDialog( parent )
 {
-    DB::ConstResultPtr images = DB::ImageDB::instance()->images();
-    setMaximum( qMax( images->size() - 1, 0 ) );
+    const DB::Result images = DB::ImageDB::instance()->images();
+    setMaximum( qMax( images.size() - 1, 0 ) );
     setLabelText( i18n("Generating thumbnails") );
 
     connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelRequests() ) );
 
-    for ( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
-        const DB::ImageInfoPtr info = (*it).fetchInfo();
+    Q_FOREACH(const DB::ImageInfoPtr info, images.fetchInfos()) {
         ImageManager::ImageRequest* request
             = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
                                               QSize(256,256), info->angle(),

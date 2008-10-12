@@ -818,7 +818,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     DB::ImageInfoPtr info = _origList[_current];
 
     DB::ResultId idToDelete = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
-    DB::ResultPtr deleteList = new DB::Result(idToDelete);
+    const DB::Result deleteList = DB::Result(idToDelete);
 
     int ret = dialog.exec( deleteList );
     if ( ret == Rejected )

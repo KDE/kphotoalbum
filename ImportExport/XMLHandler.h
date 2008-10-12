@@ -31,10 +31,11 @@ namespace ImportExport
 class XMLHandler
 {
 public:
-    QByteArray createIndexXML( const DB::ConstResultPtr& images,
-                               const QString& baseUrl,
-                               ImageFileLocation location,
-                               Utilities::UniqFilenameMapper* nameMap );
+    QByteArray createIndexXML(
+        const DB::Result& images,
+        const QString& baseUrl,
+        ImageFileLocation location,
+        Utilities::UniqFilenameMapper* nameMap);
 
 protected:
     QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );

@@ -21,7 +21,9 @@
 #include <Q3ValueList>
 #include "DB/ImageDB.h"
 
-HTMLGenerator::Setup::Setup() : _images(NULL) {
+HTMLGenerator::Setup::Setup()
+    : _images()
+{
     /* nop */
 }
 
@@ -145,12 +147,12 @@ const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::acti
     return _resolutions;
 }
 
-void HTMLGenerator::Setup::setImageList( const DB::ConstResultPtr& files )
+void HTMLGenerator::Setup::setImageList(const DB::Result& files)
 {
     _images = files;
 }
 
-const DB::ConstResultPtr& HTMLGenerator::Setup::imageList() const
+DB::Result HTMLGenerator::Setup::imageList() const
 {
     return _images;
 }

@@ -84,15 +84,15 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        const DB::ConstResultPtr &imageList = _setup.imageList();
-        for ( int index = 0; index < imageList->size(); ++index ) {
-            DB::ResultId current = imageList->at(index);
+        const DB::Result& imageList = _setup.imageList();
+        for (int index = 0; index < imageList.size(); ++index) {
+            DB::ResultId current = imageList.at(index);
             DB::ResultId prev;
             DB::ResultId next;
             if ( index != 0 )
-                prev = imageList->at(index-1);
-            if ( index != imageList->size() -1 )
-                next = imageList->at(index+1);
+                prev = imageList.at(index - 1);
+            if (index != imageList.size() - 1)
+                next = imageList.at(index + 1);
             ok = generateContentPage( (*sizeIt)->width(), (*sizeIt)->height(),
                                       prev, current, next );
             if (!ok)
@@ -101,11 +101,11 @@ void HTMLGenerator::Generator::generate()
     }
 
     // Now generate the thumbnail images
-    for( DB::Result::ConstIterator it = _setup.imageList()->begin(); it != _setup.imageList()->end(); ++it ) {
+    Q_FOREACH(DB::ResultId id, _setup.imageList()) {
         if ( wasCanceled() )
             return;
 
-        createImage( *it, _setup.thumbSize() );
+        createImage(id, _setup.thumbSize());
     }
 
     if ( wasCanceled() )
@@ -183,7 +183,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     int count = 0;
     int cols = _setup.numOfCols();
     QDomElement row;
-    for( DB::Result::ConstIterator it = _setup.imageList()->begin(); it != _setup.imageList()->end(); ++it ) {
+    Q_FOREACH(const DB::ImageInfoPtr info, _setup.imageList().fetchInfos()) {
         if ( wasCanceled() )
             return false;
 
@@ -198,7 +198,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
         row.appendChild( col );
 
-        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+        const QString fileName = info->fileName(DB::AbsolutePath);
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
                            namePage( width, height, fileName));
@@ -530,7 +530,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
 int HTMLGenerator::Generator::calculateSteps()
 {
     int count = _setup.activeResolutions().count();
-    return _setup.imageList()->size() * ( 1 + count ); // 1 thumbnail + 1 real image
+    return _setup.imageList().size() * (1 + count); // 1 thumbnail + 1 real image
 }
 
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )

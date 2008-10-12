@@ -97,7 +97,9 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
                           _qh.mediaItemCount(DB::Video, scope));
 }
 
-DB::ConstResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+DB::Result SQLDB::Database::search(
+    const DB::ImageSearchInfo& info,
+    bool requireOnDisk) const
 {
     QList<DB::RawId> matches = _qh.searchMediaItems(info);
     QList<DB::RawId> result;
@@ -108,7 +110,7 @@ DB::ConstResultPtr SQLDB::Database::search( const DB::ImageSearchInfo& info, boo
             continue;
         result.append(*it);
     }
-    return new DB::Result(result);
+    return DB::Result(result);
 }
 
 void SQLDB::Database::renameCategory(const QString& /*oldName*/, const QString /*newName*/)
@@ -128,13 +130,13 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         return QMap<QString, uint>();
 }
 
-DB::ConstResultPtr SQLDB::Database::imageList()
+DB::Result SQLDB::Database::imageList()
 {
-    return new DB::Result(_qh.mediaItemIds(DB::anyMediaType));
+    return DB::Result(_qh.mediaItemIds(DB::anyMediaType));
 }
 
 
-DB::ConstResultPtr SQLDB::Database::images()
+DB::Result SQLDB::Database::images()
 {
     return imageList();
 }
@@ -147,7 +149,7 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 }
 
-void SQLDB::Database::addToBlockList(const DB::ConstResultPtr&)
+void SQLDB::Database::addToBlockList(const DB::Result&)
 {
     qFatal("implement SQLDB::addToBlocklist()");
 #ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
@@ -166,7 +168,7 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
     return _qh.isIgnored(fileName);
 }
 
-void SQLDB::Database::deleteList( const DB::ConstResultPtr& )
+void SQLDB::Database::deleteList(const DB::Result&)
 {
     qFatal("impelement SQLDB::deleteList()");
 #ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
@@ -264,11 +266,15 @@ void SQLDB::Database::reorder(const QString& item,
 }
 #endif
 
-void SQLDB::Database::reorder( const DB::ResultId&, const DB::ConstResultPtr&, bool ) {
+void SQLDB::Database::reorder(
+    const DB::ResultId&,
+    const DB::Result&,
+    bool)
+{
     qFatal("not there yet.: SQLDB::Database::reorder()");
 }
 
-void SQLDB::Database::sortAndMergeBackIn(const DB::ConstResultPtr&)
+void SQLDB::Database::sortAndMergeBackIn(const DB::Result&)
 {
 #ifdef KDAB_TEMPORARILY_REMOVED
     _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
@@ -276,7 +282,7 @@ void SQLDB::Database::sortAndMergeBackIn(const DB::ConstResultPtr&)
 }
 
 // todo: implement.
-DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::ConstResultPtr&,
+DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::Result&,
                                                    const DB::ImageDate&,
                                                    bool) const
 {
@@ -313,17 +319,12 @@ bool SQLDB::Database::isClipboardEmpty()
     return true;
 }
 
-QStringList SQLDB::Database::CONVERT(const DB::ConstResultPtr& result)
+QStringList SQLDB::Database::CONVERT(const DB::Result& result)
 {
-    Q_ASSERT(!result.isNull());
     QStringList files;
-    if (!result.isNull()) {
-        // Q_FOREACH(DB::ResultId id, *result) {
-        for (int i = 0; i < result->size(); ++i) {
-            DB::ResultId id = result->at(i);
-            files.push_back(_qh.mediaItemFilename(id.rawId()));
-            Q_ASSERT(!files[files.size() - 1].isNull());
-        }
+    Q_FOREACH(DB::ResultId id, result) {
+        files.push_back(_qh.mediaItemFilename(id.rawId()));
+        Q_ASSERT(!files[files.size() - 1].isNull());
     }
     return files;
 }
@@ -339,7 +340,7 @@ DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
     return _infoCollection.getImageInfoOf(id);
 }
 
-bool SQLDB::Database::stack(const DB::ConstResultPtr&)
+bool SQLDB::Database::stack(const DB::Result&)
 {    
     qFatal("implement SQLDB::stack()");
     return false;
@@ -358,18 +359,18 @@ bool SQLDB::Database::stack(const DB::ConstResultPtr&)
 #endif
 }
 
-void SQLDB::Database::unstack(const DB::ConstResultPtr& )
+void SQLDB::Database::unstack(const DB::Result&)
 {
     qFatal("implement SQLDB::unstack()");
-#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas): implement with ResultPtr.
+#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas): implement with DB::Result.
     _qh.unstackFiles(stripImageDirectoryFromList(files));
 #endif
 }
 
-DB::ConstResultPtr SQLDB::Database::getStackFor(const DB::ResultId&) const
+DB::Result SQLDB::Database::getStackFor(const DB::ResultId&) const
 {
     qFatal("implement SQLDB::getStackFor()");
-    return new DB::Result();
+    return DB::Result();
 #ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas) implement with
     return _qh.getStackOfFile(Utilities::stripImageDirectory(referenceFile));
 #endif

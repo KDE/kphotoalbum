@@ -84,7 +84,7 @@ QString ImageDB::NONE()
     return i18n("**NONE**");
 }
 
-DB::ConstResultPtr ImageDB::currentScope( bool requireOnDisk ) const
+DB::Result ImageDB::currentScope(bool requireOnDisk) const
 {
     return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
 }
@@ -109,9 +109,10 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums( DB::ConstResultPtr list )
+void ImageDB::slotRecalcCheckSums(const DB::Result& inputList)
 {
-    if ( list->isEmpty() ) {
+    DB::Result list = inputList;
+    if (list.isEmpty()) {
         list = images();
         md5Map()->clear();
     }
@@ -127,8 +128,7 @@ StringSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
-    DB::ConstResultPtr imageList = images();
-    (void) NewImageFinder().calculateMD5sums( imageList, &map, &wasCanceled );
+    NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
     if ( wasCanceled )
         return StringSet();
 
@@ -147,11 +147,9 @@ ImageDB::ImageDB()
 
 DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
-    ConstResultPtr result = search( searchInfo );
     uint images = 0;
     uint videos = 0;
-    for( Result::ConstIterator it = result->begin(); it != result->end(); ++it ) {
-        ImageInfoPtr inf = info( *it );
+    Q_FOREACH(const DB::ImageInfoPtr inf, search(searchInfo).fetchInfos()) {
         if ( inf->mediaType() == Image )
             ++images;
         else
@@ -162,7 +160,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 
 void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
-    DB::ConstResultPtr allImages = images();
+    const DB::Result allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
@@ -170,7 +168,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     Q3ValueList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
-        progressBar->setMaximum(categories.count() + allImages->size());
+        progressBar->setMaximum(categories.count() + allImages.size());
         progressBar->setValue(0);
     }
 
@@ -194,8 +192,8 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     // Convert all images to the new back end
     uint count = 0;
     ImageInfoList list;
-    for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
-        list.append( info(*it) );
+    Q_FOREACH(const DB::ImageInfoPtr info, allImages.fetchInfos()) {
+        list.append(info);
         if (++count % 100 == 0) {
             newBackend->addImages( list );
             list.clear();
@@ -234,22 +232,21 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
     }
 }
 
-DB::ResultId ImageDB::findFirstItemInRange(const ConstResultPtr& images,
+DB::ResultId ImageDB::findFirstItemInRange(const DB::Result& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {
     DB::ResultId candidate;
     QDateTime candidateDateStart;
-    for (DB::Result::const_iterator it = images->begin();
-         it != images->end(); ++it) {
-        ImageInfoPtr iInfo = info(*it);
+    Q_FOREACH(DB::ResultId id, images) {
+        ImageInfoPtr iInfo = id.fetchInfo();
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
         if (match == DB::ImageDate::ExactMatch ||
             (includeRanges && match == DB::ImageDate::RangeMatch)) {
             if (candidate.isNull() ||
                 iInfo->date().start() < candidateDateStart) {
-                candidate = *it;
+                candidate = id;
                 // Looking at this, can't this just be iInfo->date().start()?
                 // Just in the middle of refactoring other stuff, so leaving
                 // this alone now. TODO(hzeller): revisit.

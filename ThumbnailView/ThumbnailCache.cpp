@@ -26,7 +26,11 @@
 #include "ThumbnailView/ThumbnailRequest.h"
 
 ThumbnailView::ThumbnailCache::ThumbnailCache()
-    : _displayList(NULL), _hotFrom(0), _hotTo(0), _lastHotFrom(0) {
+    : _displayList()
+    , _hotFrom(0)
+    , _hotTo(0)
+    , _lastHotFrom(0)
+{
     _asyncWarmingTimer = new QTimer( this );
     _asyncWarmingTimer->setSingleShot(true);
     connect( _asyncWarmingTimer, SIGNAL( timeout() ),
@@ -49,7 +53,7 @@ void ThumbnailView::ThumbnailCache::clear()
     QPixmapCache::clear();
 }
 
-void ThumbnailView::ThumbnailCache::setDisplayList(const DB::ConstResultPtr& list)
+void ThumbnailView::ThumbnailCache::setDisplayList(const DB::Result& list)
 {
     _displayList = list;
 }
@@ -66,7 +70,7 @@ void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize)
 // asynchronously after the user has stopped scrolling.
 void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming()
 {
-    if (_displayList.isNull() || !_thumbSize.isValid())
+    if (!_thumbSize.isValid())
         return;
 
     const bool scrollDown = _hotFrom > _lastHotFrom;
@@ -131,9 +135,9 @@ void ThumbnailView::ThumbnailCache::requestRange(int from, int to)
 {
     ImageManager::Manager* imgManager = ImageManager::Manager::instance();
     if (from < 0) from = 0;
-    if (to > _displayList->size()) to = _displayList->size();
+    if (to > _displayList.size()) to = _displayList.size();
     for (int i = from; i < to; ++i) {
-        const DB::ResultId id = _displayList->at(i);
+        const DB::ResultId id = _displayList.at(i);
         if (QPixmapCache::find(thumbnailPixmapCacheKey(id)) != NULL)
             continue;
         DB::ImageInfoPtr info = id.fetchInfo();

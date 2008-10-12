@@ -78,16 +78,16 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    DB::ConstResultPtr list = DB::ImageDB::instance()->images();
-    DB::Result* toBeShown = new DB::Result;
+    DB::Result list = DB::ImageDB::instance()->images();
+    DB::Result toBeShown;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
-    dialog.progressBar()->setMaximum( list->size() );
+    dialog.progressBar()->setMaximum(list.size());
     dialog.progressBar()->setValue(0);
     int progress = 0;
 
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        DB::ImageInfoPtr info = (*it).fetchInfo();
+    Q_FOREACH(DB::ResultId id, list) {
+        DB::ImageInfoPtr info = id.fetchInfo();
         dialog.progressBar()->setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
@@ -115,7 +115,7 @@ void InvalidDateFinder::accept()
         }
 
         if ( show )
-            toBeShown->append( *it );
+            toBeShown.append(id);
     }
 
     if ( _dateNotTime->isChecked() ) {

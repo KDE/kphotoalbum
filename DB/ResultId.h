@@ -1,8 +1,6 @@
 #ifndef DB_RESULTID_H
 #define DB_RESULTID_H
 
-#include <QString>
-#include <KSharedPtr>
 #include "RawId.h"
 #include "Result.h"
 #include "ImageInfo.h"
@@ -21,9 +19,9 @@ public:
 
     /** Construct with given rawId and context.
      *
-     * \pre !context.isNull()
+     * \pre !context.isEmpty()
      */
-    ResultId(RawId rawId, const ConstResultPtr& context);
+    ResultId(RawId rawId, const Result& context);
 
     static ResultId createContextless(RawId rawId)
     {
@@ -35,9 +33,9 @@ public:
 
     /** Get context of this.
      *
-     * \note result might be null
+     * \note returned context might be empty
      */
-    ConstResultPtr context() const;
+    const Result& context() const;
 
     inline bool operator==(const ResultId& other) const {
         return other._rawId == _rawId;  // we're only interested in the id.
@@ -58,13 +56,13 @@ public:
  private:
     explicit ResultId(RawId rawId)
         : _rawId(rawId)
-        , _context(0)
+        , _context()
     {
         Q_ASSERT(!isNull());
     }
 
     RawId _rawId;
-    ConstResultPtr _context;
+    Result _context;
 };
 }  // namespace DB
 

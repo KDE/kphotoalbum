@@ -61,13 +61,13 @@ public:
 
     ThumbnailWidget( QWidget* parent );
 
-    void setImageList( const DB::ConstResultPtr& list );
-    DB::ConstResultPtr imageList( Order ) const;
+    void setImageList(const DB::Result& list);
+    DB::Result imageList(Order) const;
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK);
     bool thumbnailStillNeeded( const QString& fileName ) const;
-    DB::ConstResultPtr selection( bool keepSortOrderOfDatabase = false ) const;
+    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
 
     void reload( bool flushCache, bool clearSelection=true );
     DB::ResultId mediaIdUnderCursor() const;
@@ -160,7 +160,7 @@ protected:
     void selectItems( const Cell& start, const Cell& end );
     void repaintAfterChangedSelection( const IdSet& oldSelection );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    DB::ResultPtr reverseList( const DB::ResultPtr& ) const;
+    DB::Result reverseList(const DB::Result&) const;
     void updateCellSize();
     void updateIndexCache();
     QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
@@ -169,7 +169,7 @@ protected:
      * For all filenames in the list, check if there are any missing
      * thumbnails and generate these in the background.
      */
-    void generateMissingThumbnails( const DB::ConstResultPtr& items  ) const;
+    void generateMissingThumbnails(const DB::Result& items) const;
 
 protected slots:
     void emitDateChange( int, int );
@@ -181,13 +181,13 @@ private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
 
     /** The input list for images */
-    DB::ConstResultPtr _imageList;
+    DB::Result _imageList;
 
     /**
      * The list of images shown. We do indexed access to this _displayList that has been
      * changed from O(n) to O(1) in Qt4; so it is safe to use this data type.
      */
-    DB::ResultPtr _displayList;
+    DB::Result _displayList;
 
     /**
      * A map mapping from filename to its index in _displayList.

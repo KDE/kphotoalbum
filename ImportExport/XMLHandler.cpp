@@ -37,8 +37,11 @@ using Utilities::StringSet;
  * (2) To ensure that the .kim files are compatible both forth and back between versions, I'd rather keep that code
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
-QByteArray ImportExport::XMLHandler::createIndexXML( const DB::ConstResultPtr& images, const QString& baseUrl,
-                                                   ImageFileLocation location, Utilities::UniqFilenameMapper* nameMap )
+QByteArray ImportExport::XMLHandler::createIndexXML(
+    const DB::Result& images,
+    const QString& baseUrl,
+    ImageFileLocation location,
+    Utilities::UniqFilenameMapper* nameMap)
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
@@ -52,8 +55,7 @@ QByteArray ImportExport::XMLHandler::createIndexXML( const DB::ConstResultPtr& i
     doc.appendChild( top );
 
 
-    for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
-        DB::ImageInfoPtr info = (*it).fetchInfo();
+    Q_FOREACH(const DB::ImageInfoPtr info, images.fetchInfos()) {
         QString mappedFile = nameMap->uniqNameFor(info->fileName(DB::AbsolutePath));
         QDomElement elm = save(doc, info);
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );

@@ -41,7 +41,7 @@ bool DB::Result::ConstIterator::operator!=( const ConstIterator& other )
 
 DB::ResultId DB::Result::at(int index) const
 {
-    return DB::ResultId(_items[index], this );
+    return DB::ResultId(_items[index], *this);
 }
 
 int DB::Result::size() const
@@ -64,10 +64,6 @@ DB::Result::Result( const DB::ResultId& id) {
 }
 
 DB::Result::Result()
-{
-}
-
-DB::Result::~Result() 
 {
 }
 
@@ -108,19 +104,4 @@ QList<DB::ImageInfoPtr> DB::Result::fetchInfos() const
 const QList<DB::RawId>& DB::Result::rawIdList() const
 {
     return _items;
-}
-
-DB::ResultPtr::ResultPtr( Result* ptr )
-    : KSharedPtr<Result>( ptr )
-{
-}
-
-DB::ConstResultPtr::ConstResultPtr( const Result* ptr )
-    : KSharedPtr<const Result>( ptr )
-{
-}
-
-DB::ConstResultPtr::ConstResultPtr( const ResultPtr& nonConstPtr )
-    : KSharedPtr<const Result>( nonConstPtr.data() )
-{
 }

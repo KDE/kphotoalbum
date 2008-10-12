@@ -91,17 +91,17 @@ DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) 
     DB::ImageInfoPtr p = _infoPointers[id.rawId()];
     if (!p) {
         QList<DB::RawId> prefetchIdList;
-        DB::ConstResultPtr context(id.context());
-        if (!context.isNull()) {
-            const int contextSize = context->size();
-            const int rawIdIndex = context->indexOf(id);
+        const DB::Result context = id.context();
+        if (!context.isEmpty()) {
+            const int contextSize = context.size();
+            const int rawIdIndex = context.indexOf(id);
             const int firstIndex =
                 qMax(0, rawIdIndex - prefetchWindowSize / 2);
             const int onePastLastIndex =
                 qMin(contextSize, rawIdIndex + prefetchWindowSize / 2);
             Q_ASSERT(firstIndex < onePastLastIndex);
             for (int i = firstIndex; i < onePastLastIndex; ++i) {
-                prefetchIdList.push_back(context->at(i).rawId());
+                prefetchIdList.push_back(context.at(i).rawId());
             }
         }
         else {

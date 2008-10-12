@@ -37,7 +37,8 @@
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent )
-    :KDialog( parent ), _list(NULL)
+    : KDialog(parent)
+    , _list()
 {
     setWindowTitle( i18n("Delete from database") );
     setButtons( Cancel|User1 );
@@ -57,9 +58,14 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec( const DB::ConstResultPtr& list )
+int DeleteDialog::exec(const DB::Result& list)
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>", list->size() ) );
+    _label->setText(
+        i18n("<p><b><center><font size=\"+3\">"
+             "Delete Images/Videos from database<br>"
+             "%1 selected"
+             "</font></center></b></p>",
+             list.size()));
 
     _delete_file->setChecked( true );
     _list = list;
@@ -69,15 +75,13 @@ int DeleteDialog::exec( const DB::ConstResultPtr& list )
 
 void DeleteDialog::deleteImages()
 {
-    Q_ASSERT(_list);
-
     Utilities::ShowBusyCursor dummy;
 
-    DB::ResultPtr listToDelete = new DB::Result();
+    DB::Result listToDelete;
     QStringList listCouldNotDelete;
 
-    for( DB::Result::const_iterator it = _list->begin(); it != _list->end(); ++it ) {
-        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+    Q_FOREACH(const DB::ResultId id, _list) {
+        const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             // TODO: should this probably call some KDE specific thing to
             // move the file in the Trash-bin or something ? Deleting
@@ -85,11 +89,11 @@ void DeleteDialog::deleteImages()
             if ( _delete_file->isChecked() && !QFile( fileName ).remove() ) {
                 listCouldNotDelete.append(fileName);
             } else {
-                listToDelete->append( *it );
+                listToDelete.append(id);
                 ImageManager::Manager::instance()->removeThumbnail( fileName );
             }
         } else {
-            listToDelete->append( *it );
+            listToDelete.append(id);
         }
     }
 
@@ -98,7 +102,7 @@ void DeleteDialog::deleteImages()
                             i18n("Error Deleting Files") );
     }
 
-    if( ! listToDelete->isEmpty()) {
+    if(!listToDelete.isEmpty()) {
         if ( _delete_file->isChecked() )
             DB::ImageDB::instance()->deleteList( listToDelete );
         else

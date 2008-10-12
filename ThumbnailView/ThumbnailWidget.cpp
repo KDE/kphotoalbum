@@ -70,8 +70,8 @@ using Utilities::StringSet;
 ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailWidget::_instance = 0;
 ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     :Q3GridView( parent ),
-     _imageList(new DB::Result()),
-     _displayList(new DB::Result()),
+     _imageList(),
+     _displayList(),
      _gridResizeInteraction( this ),
      _wheelResizing( false ),
      _selectionInteraction( this ),
@@ -144,8 +144,8 @@ void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
     if (_expandedStacks.contains(stackId)) {
         int prev = _idToIndex[mediaId] - 1;
         int next = _idToIndex[mediaId] + 1;
-        isFirst = (prev < 0) || getStackId(_displayList->at(prev)) != stackId;
-        isLast  = (next >= _displayList->size()) || getStackId(_displayList->at(next)) != stackId;
+        isFirst = (prev < 0) || getStackId(_displayList.at(prev)) != stackId;
+        isLast  = (next >= _displayList.size()) || getStackId(_displayList.at(next)) != stackId;
     }
 
     const int thickness = 1;
@@ -278,7 +278,8 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 }
 
 
-void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ConstResultPtr& items ) const {
+void ThumbnailView::ThumbnailWidget::generateMissingThumbnails(const DB::Result& items) const
+{
     // TODO(hzeller) before release: run this asynchronously.
     //        For 100'000+ files, this will be slow.
     // TODO-2(hzeller): This should be handled at startup or when new images
@@ -290,8 +291,7 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails( const DB::ConstR
     // Requesting the bigger one will make sure that both are stored.
     const QSize size(256, 256);
     ImageManager::Manager* imgManager = ImageManager::Manager::instance();
-    for( DB::Result::ConstIterator it = items->begin(); it != items->end(); ++it ) {
-        DB::ImageInfoPtr info = (*it).fetchInfo();
+    Q_FOREACH(DB::ImageInfoPtr info, items.fetchInfos()) {
         const QString image = info->fileName(DB::AbsolutePath);
         if (imgManager->thumbnailsExist(image)) {
             continue;
@@ -324,11 +324,11 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     typedef QList<DB::ResultId> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    for (DB::Result::ConstIterator it = _imageList->begin(); it != _imageList->end(); ++it) {
-        DB::ImageInfoPtr imageInfo = (*it).fetchInfo();
+    Q_FOREACH(DB::ResultId id, _imageList) {
+        DB::ImageInfoPtr imageInfo = id.fetchInfo();
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
-            stackContents[stackid].append(*it);
+            stackContents[stackid].append(id);
         }
     }
 
@@ -344,10 +344,10 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
      * we got from the original, but the stacks shown with all images together
      * in the right sequence or collapsed showing only the top image.
      */
-    _displayList = new DB::Result();
+    _displayList = DB::Result();
     QSet<DB::StackID> alreadyShownStacks;
-    for (DB::Result::const_iterator it = _imageList->begin(); it != _imageList->end(); ++it) {
-        DB::ImageInfoPtr imageInfo = (*it).fetchInfo();
+    Q_FOREACH(DB::ResultId id, _imageList) {
+        DB::ImageInfoPtr imageInfo = id.fetchInfo();
         if (imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
@@ -356,17 +356,16 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
             Q_ASSERT(found != stackContents.end());
             const StackList& orderedStack = *found;
             if (_expandedStacks.contains(stackid)) {
-                for (StackList::const_iterator it = orderedStack.begin();
-                     it != orderedStack.end(); ++it) {
-                    _displayList->append(*it);
+                Q_FOREACH(DB::ResultId id, orderedStack) {
+                    _displayList.append(id);
                 }
             } else {
-                _displayList->append(orderedStack.at(0));
+                _displayList.append(orderedStack.at(0));
             }
             alreadyShownStacks.insert(stackid);
         }
         else {
-            _displayList->append(*it);
+            _displayList.append(id);
         }
     }
 
@@ -384,7 +383,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     }
 }
 
-void ThumbnailView::ThumbnailWidget::setImageList( const DB::ConstResultPtr& items )
+void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
 {
     _imageList = items;
     generateMissingThumbnails( items );
@@ -414,10 +413,10 @@ void ThumbnailView::ThumbnailWidget::collapseAllStacks() {
 DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdInCell( int row, int col ) const
 {
     const int index = row * numCols() + col;
-    if ( index >= _displayList->size() )
+    if (index >= _displayList.size())
         return DB::ResultId::null;
     else
-        return _displayList->at(index);
+        return _displayList.at(index);
 }
 
 /** @short It seems that Q3GridView's viewportToContents() is slightly off */
@@ -546,8 +545,8 @@ int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
                 }
             } else {
                 maxCatsInText = 0;
-                for( DB::Result::ConstIterator itImg = _displayList->begin(); itImg != _displayList->end(); ++itImg ) {
-                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                Q_FOREACH(DB::ResultId id, _displayList) {
+                    maxCatsInText = qMax(noOfCategoriesForImage(id), maxCatsInText);
                 }
             }
         }
@@ -641,7 +640,9 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     int thumbnailsPerRow = width() / cellWidth();
     int numRowsPerPage = height() / cellHeight();
     setNumCols( thumbnailsPerRow );
-    setNumRows( qMax( numRowsPerPage, (int) ceil( 1.0 * _displayList->size() / thumbnailsPerRow ) ) );
+    setNumRows(qMax(numRowsPerPage,
+                    static_cast<int>(
+                        ceil(static_cast<double>(_displayList.size()) / thumbnailsPerRow))));
     QRect dimensions = cellDimensions();
     const int border = Settings::SettingsData::instance()->thumbnailSpace();
     QSize thumbSize(dimensions.width() - 2 * border,
@@ -982,8 +983,8 @@ void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
         return;
     int startIndex = rowAt(y) * numCols();
     int endIndex = (rowAt( y + visibleHeight() ) + 1) * numCols();
-    if (endIndex > _displayList->size())
-        endIndex = _displayList->size();
+    if (endIndex > _displayList.size())
+        endIndex = _displayList.size();
     _thumbnailCache.setHotArea(startIndex, endIndex);
 }
 
@@ -1144,8 +1145,8 @@ bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
 {
-    return Cell( (_displayList->size()-1) / numCols(),
-                 (_displayList->size()-1) % numCols());
+    return Cell((_displayList.size() - 1) / numCols(),
+                (_displayList.size() - 1) % numCols());
 }
 
 bool ThumbnailView::ThumbnailWidget::isMovementKey( int key )
@@ -1164,16 +1165,16 @@ void ThumbnailView::ThumbnailWidget::toggleSelection( const DB::ResultId& id )
     updateCell( id );
 }
 
-DB::ConstResultPtr ThumbnailView::ThumbnailWidget::selection( bool keepSortOrderOfDatabase ) const
+DB::Result ThumbnailView::ThumbnailWidget::selection(bool keepSortOrderOfDatabase) const
 {
-    DB::ResultPtr images = _displayList;
+    DB::Result images = _displayList;
     if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
         images = reverseList( images );
 
-    DB::ResultPtr res = new DB::Result();
-    for( DB::Result::ConstIterator it = images->begin(); it != images->end(); ++it ) {
-        if ( _selectedFiles.contains( *it ) )
-            res->append( *it );
+    DB::Result res;
+    Q_FOREACH(DB::ResultId id, images) {
+        if (_selectedFiles.contains(id))
+            res.append(id);
     }
     return res;
 }
@@ -1188,7 +1189,7 @@ void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
 }
 
 // TODO(hzeller) figure out if this should return the _imageList or _displayList.
-DB::ConstResultPtr ThumbnailView::ThumbnailWidget::imageList( Order order ) const
+DB::Result ThumbnailView::ThumbnailWidget::imageList(Order order) const
 {
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )
         return reverseList( _displayList );
@@ -1199,8 +1200,8 @@ DB::ConstResultPtr ThumbnailView::ThumbnailWidget::imageList( Order order ) cons
 void ThumbnailView::ThumbnailWidget::selectAll()
 {
     _selectedFiles.clear();
-    for( DB::Result::const_iterator it = _displayList->begin(); it != _displayList->end(); ++it ) {
-        _selectedFiles.insert(*it);
+    Q_FOREACH(DB::ResultId id, _displayList) {
+        _selectedFiles.insert(id);
     }
     possibleEmitSelectionChanged();
     repaintScreen();
@@ -1296,14 +1297,14 @@ void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* even
         _leftDrop = id;
         int index = _idToIndex[id] - 1;
         if ( index != -1 )
-            _rightDrop = _displayList->at(index);
+            _rightDrop = _displayList.at(index);
     }
 
     else {
         _rightDrop = id;
         const int index = _idToIndex[id] + 1;
-        if ( index != _displayList->size() )
-            _leftDrop = _displayList->at(index);
+        if (index != _displayList.size())
+            _leftDrop = _displayList.at(index);
     }
 
     updateCell( _leftDrop );
@@ -1339,7 +1340,7 @@ void ThumbnailView::ThumbnailWidget::realDropEvent()
 
         // protect against self drop
         if ( !_selectedFiles.contains( _leftDrop ) && ! _selectedFiles.contains( _rightDrop ) ) {
-            DB::ConstResultPtr selected = selection();
+            const DB::Result selected = selection();
             if ( _rightDrop.isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( _leftDrop, selected, false );
@@ -1414,11 +1415,11 @@ void ThumbnailView::ThumbnailWidget::setSortDirection( SortDirection direction )
     _sortDirection = direction;
 }
 
-DB::ResultPtr ThumbnailView::ThumbnailWidget::reverseList( const DB::ResultPtr& list) const
+DB::Result ThumbnailView::ThumbnailWidget::reverseList(const DB::Result& list) const
 {
-    DB::ResultPtr res = new DB::Result();
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        res->prepend(*it);
+    DB::Result res;
+    Q_FOREACH(DB::ResultId id, list) {
+        res.prepend(id);
     }
     return res;
 }
@@ -1451,8 +1452,9 @@ void ThumbnailView::ThumbnailWidget::updateIndexCache()
 {
     _idToIndex.clear();
     int index = 0;
-    for( DB::Result::ConstIterator it = _displayList->begin(); it != _displayList->end(); ++it,++index ) {
-        _idToIndex.insert( *it, index );
+    Q_FOREACH(DB::ResultId id, _displayList) {
+        _idToIndex[id] = index;
+        ++index;
     }
 }
 

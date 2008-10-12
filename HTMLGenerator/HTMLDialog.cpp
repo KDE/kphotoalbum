@@ -46,7 +46,8 @@ using namespace HTMLGenerator;
 
 
 HTMLDialog::HTMLDialog( QWidget* parent )
-    :KPageDialog( parent ), _list(NULL)
+    : KPageDialog(parent)
+    , _list()
 {
     setWindowTitle( i18n("HTML Export") );
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
@@ -386,7 +387,7 @@ void HTMLDialog::populateThemesCombo()
     }
 }
 
-int HTMLDialog::exec( const DB::ConstResultPtr& list )
+int HTMLDialog::exec(const DB::Result& list)
 {
     _list = list;
     return KDialog::exec();

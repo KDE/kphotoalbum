@@ -315,8 +315,8 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    DB::ConstResultPtr list = selected();
-    if ( list->size() < 2 ) {
+    const DB::Result& list = selected();
+    if (list.size() < 2) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
     }
@@ -346,8 +346,8 @@ void MainWindow::Window::slotCreateImageStack()
 
 void MainWindow::Window::slotUnStackImages()
 {
-    DB::ConstResultPtr list = selected();
-    if ( list->isEmpty() )
+    const DB::Result& list = selected();
+    if (list.isEmpty())
         return;
 
     DB::ImageDB::instance()->unstack( list );
@@ -366,14 +366,14 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    DB::ConstResultPtr list = selected();
-    if ( list->size() == 0 )  {
+    const DB::Result& list = selected();
+    if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
     else {
         DB::ImageInfoList images;
-        for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-            images.append( (*it).fetchInfo() );
+        Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
+            images.append(info);
         }
         configureImages( images, oneAtATime );
     }
@@ -435,17 +435,16 @@ void MainWindow::Window::slotDeleteSelected()
 
     // The thumbnail view now only shows the intersection of what it showed
     // previously and what we have in total.
-    DB::ConstResultPtr images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
+    const DB::Result& images = _thumbnailView->imageList(ThumbnailView::ThumbnailWidget::SortedOrder);
+    const DB::Result& all = DB::ImageDB::instance()->images();
     QSet<DB::ResultId> allImageSet;
-    DB::ConstResultPtr all = DB::ImageDB::instance()->images();
-    typedef DB::Result::ConstIterator ResIterator;
-    for (ResIterator it = all->begin(); it != all->end(); ++it) {
-        allImageSet.insert(*it);
+    Q_FOREACH(DB::ResultId id, all) {
+        allImageSet.insert(id);
     }
-    DB::ResultPtr newSet = new DB::Result();
-    for( ResIterator it = images->begin(); it != images->end(); ++it ) {
-        if ( allImageSet.contains( *it ) )
-            newSet->append(*it);
+    DB::Result newSet;
+    Q_FOREACH(DB::ResultId id, images) {
+        if (allImageSet.contains(id))
+            newSet.append(id);
     }
     showThumbNails( newSet );
 }
@@ -454,11 +453,10 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
 #ifdef KDAB_TEMPORARILY_REMOVED
     // I expected this to work, but it doesn't
-    const DB::ConstResultPtr sel = selectedOnDisk();
     QList<QUrl> urls;
 
-    for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
-        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
+        const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( QUrl( fileName ) );
     }
     qDebug() << urls;
@@ -468,11 +466,10 @@ void MainWindow::Window::slotCopySelectedURLs()
     QApplication::clipboard()->setMimeData( mimeData );
 #endif //KDAB_TEMPORARILY_REMOVED
 
-    const DB::ConstResultPtr sel = selectedOnDisk();
     KUrl::List urls;
 
-    for (DB::Result::const_iterator it = sel->begin(); it != sel->end(); ++it) {
-        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
+        const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( KUrl( fileName ) );
     }
 
@@ -492,12 +489,12 @@ void MainWindow::Window::slotReReadExifInfo()
 }
 
 
-DB::ConstResultPtr MainWindow::Window::selected( bool keepSortOrderOfDatabase )
+DB::Result MainWindow::Window::selected(bool keepSortOrderOfDatabase)
 {
     if ( _thumbnailView == _stack->visibleWidget() )
         return _thumbnailView->selection( keepSortOrderOfDatabase );
     else
-        return new DB::Result();
+        return DB::Result();
 }
 
 void MainWindow::Window::slotViewNewWindow()
@@ -509,17 +506,17 @@ void MainWindow::Window::slotViewNewWindow()
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
  * */
-DB::ConstResultPtr MainWindow::Window::selectedOnDisk()
+DB::Result MainWindow::Window::selectedOnDisk()
 {
-    DB::ConstResultPtr list = selected();
-    if ( list->size() == 0 )
+    const DB::Result& list = selected();
+    if (list.isEmpty())
         return DB::ImageDB::instance()->currentScope( true );
 
-    DB::ResultPtr listOnDisk = new DB::Result();
-    for( DB::Result::const_iterator it = list->begin(); it != list->end(); ++it ) {
-        QString fileName = (*it).fetchInfo()->fileName(DB::AbsolutePath);
+    DB::Result listOnDisk;
+    Q_FOREACH(DB::ResultId id, list) {
+        const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
-            listOnDisk->append( *it );
+            listOnDisk.append(id);
     }
 
     return listOnDisk;
@@ -530,30 +527,30 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
     launchViewer( selected(), reuse, slideShow, random );
 }
 
-void MainWindow::Window::launchViewer( DB::ConstResultPtr mediaList, bool reuse, bool slideShow, bool random )
+void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reuse, bool slideShow, bool random)
 {
+    DB::Result mediaList = inputMediaList;
     int seek = -1;
-    if ( mediaList->size() == 0 ) {
+    if (mediaList.isEmpty()) {
         mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
-    } else if ( mediaList->size() == 1 ) {
+    } else if (mediaList.size() == 1) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
-        DB::ResultId first = *mediaList->begin();
+        DB::ResultId first = mediaList.at(0);
         mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
-        seek = mediaList->indexOf(first);
+        seek = mediaList.indexOf(first);
     }
 
-    if ( mediaList->size() == 0 )
+    if (mediaList.isEmpty())
         mediaList = DB::ImageDB::instance()->currentScope( false );
 
-    if ( mediaList->size() == 0 ) {
+    if (mediaList.isEmpty()) {
         KMessageBox::sorry( this, i18n("There are no images to be shown.") );
         return;
     }
 
     if (random) {
-        QList<DB::RawId> shuffled = Utilities::shuffleList(mediaList->rawIdList());
-        mediaList = new DB::Result(shuffled);
+        mediaList = DB::Result(Utilities::shuffleList(mediaList.rawIdList()));
     }
 
     // Here, we need to switch back to the StringList until the Viewer is
@@ -1040,7 +1037,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 
         externalCommands->populate( info, DB::ImageDB::instance()->CONVERT(selected() ));
         QAction* action = menu.addMenu( externalCommands );
-        if ( info.isNull() && selected()->size() == 0 )
+        if (info.isNull() && selected().isEmpty())
             action->setEnabled( false );
 
         menu.exec( QCursor::pos() );
@@ -1173,27 +1170,27 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
-    DB::ConstResultPtr selection = _thumbnailView->selection();
+    const int selectionSize = _thumbnailView->selection().size();
 
-    _configAllSimultaniously->setEnabled(selection->size() > 1 );
-    _configOneAtATime->setEnabled(selection->size() >= 1 );
-    _createImageStack->setEnabled( selection->size() > 1 );
-    _unStackImages->setEnabled( selection->size() >= 1 );
-    _sortByDateAndTime->setEnabled(selection->size() > 1 );
-    _recreateThumbnails->setEnabled( selection->size() >= 1 );
-    _rotLeft->setEnabled( selection->size() >= 1 );
-    _rotRight->setEnabled( selection->size() >= 1 );
+    _configAllSimultaniously->setEnabled(selectionSize > 1);
+    _configOneAtATime->setEnabled(selectionSize >= 1);
+    _createImageStack->setEnabled(selectionSize > 1);
+    _unStackImages->setEnabled(selectionSize >= 1);
+    _sortByDateAndTime->setEnabled(selectionSize > 1);
+    _recreateThumbnails->setEnabled(selectionSize >= 1);
+    _rotLeft->setEnabled(selectionSize >= 1);
+    _rotRight->setEnabled(selectionSize >= 1);
 }
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    DB::ConstResultPtr list = selected();
-    if ( list->size() == 0 )  {
+    const DB::Result& list = selected();
+    if (list.isEmpty())  {
         KMessageBox::sorry( this, i18n("No item is selected."),
                             i18n("No Selection") );
     } else {
-        for ( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-            (*it).fetchInfo()->rotate( angle );
+        Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
+            info->rotate(angle);
         }
         _dirtyIndicator->markDirty();
         reloadThumbnailsAndFlushCache();
@@ -1235,16 +1232,15 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 
 void MainWindow::Window::slotShowNotOnDisk()
 {
-    DB::ConstResultPtr allImages = DB::ImageDB::instance()->images();
-    DB::Result* notOnDisk = new DB::Result;
-    for( DB::Result::ConstIterator it = allImages->begin(); it != allImages->end(); ++it ) {
-        DB::ImageInfoPtr info = (*it).fetchInfo();
+    DB::Result notOnDisk;
+    Q_FOREACH(DB::ResultId id, DB::ImageDB::instance()->images()) {
+        const DB::ImageInfoPtr info = id.fetchInfo();
         QFileInfo fi( info->fileName(DB::AbsolutePath) );
         if ( !fi.exists() )
-            notOnDisk->append(*it);
+            notOnDisk.append(id);
     }
 
-    showThumbNails( DB::ResultPtr(notOnDisk) );
+    showThumbNails(notOnDisk);
 }
 
 
@@ -1484,15 +1480,15 @@ void MainWindow::Window::slotShowListOfFiles()
     if ( list.isEmpty() )
         return;
 
-    DB::ResultPtr out = new DB::Result();
+    DB::Result out;
     for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
         DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
         if ( !id.isNull() )
-            out->append( id );
+            out.append(id);
     }
 
-    if ( out->isEmpty() )
+    if (out.isEmpty())
         KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
     else
         showThumbNails( out );
@@ -1548,10 +1544,10 @@ void MainWindow::Window::clearDateRange()
     reloadThumbnails(false);
 }
 
-void MainWindow::Window::showThumbNails( const DB::ConstResultPtr& items )
+void MainWindow::Window::showThumbNails(const DB::Result& items)
 {
     _thumbnailView->setImageList( items );
-    _partial->setMatchCount( items->size() );
+    _partial->setMatchCount(items.size());
     showThumbNails();
 }
 
@@ -1618,9 +1614,9 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::ConstResultPtr items = selectedOnDisk();
-    if ( !items->isEmpty() ) {
-        Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items->at(0), this );
+    DB::Result items = selectedOnDisk();
+    if (!items.isEmpty()) {
+        Exif::InfoDialog* exifDialog = new Exif::InfoDialog(items.at(0), this);
         exifDialog->show();
     }
 #endif
@@ -1634,7 +1630,7 @@ void MainWindow::Window::showFeatures()
 
 void MainWindow::Window::showImage( const DB::ResultId& id )
 {
-    launchViewer( new DB::Result(id), true, false, false );
+    launchViewer(DB::Result(id), true, false, false);
 }
 
 void MainWindow::Window::slotBuildThumbnails()
@@ -1654,9 +1650,7 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::slotRecreateThumbnail()
 {
-    DB::ConstResultPtr selected = selectedOnDisk();
-    for( DB::Result::ConstIterator imageIt = selected->begin(); imageIt != selected->end(); ++imageIt ) {
-        DB::ImageInfoPtr info = (*imageIt).fetchInfo();
+    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
         QString fileName = info->fileName(DB::AbsolutePath);
         ImageManager::Manager::instance()->removeThumbnail( fileName );
 

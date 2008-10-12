@@ -68,7 +68,7 @@ public:
 
     /** Set information about the thumbnails to be displayed.
      * TODO: view and cache should share a model */
-    void setDisplayList(const DB::ConstResultPtr& displayList);
+    void setDisplayList(const DB::Result& displayList);
     void setThumbnailSize(const QSize& thumbSize);
 
 public:
@@ -94,7 +94,7 @@ private:
      */
     void requestRange(int from, int to);
 
-    DB::ConstResultPtr _displayList;
+    DB::Result _displayList;
     QSize _thumbSize;
     int _hotFrom, _hotTo;
     int _lastHotFrom;

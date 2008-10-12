@@ -39,50 +39,55 @@ namespace SQLDB {
         OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
-        OVERRIDE DB::ConstResultPtr search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
+        OVERRIDE DB::Result search(
+            const DB::ImageSearchInfo&,
+            bool requireOnDisk=false) const;
 
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
         OVERRIDE QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
                                              const QString& category,
                                              DB::MediaType typemask);
-        OVERRIDE DB::ConstResultPtr images();
+        OVERRIDE DB::Result images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
 
-        OVERRIDE void addToBlockList( const DB::ConstResultPtr& list );
+        OVERRIDE void addToBlockList(const DB::Result& list);
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList( const DB::ConstResultPtr& list );
+        OVERRIDE void deleteList(const DB::Result& list);
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
 
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
-        OVERRIDE void sortAndMergeBackIn( const DB::ConstResultPtr& idList );
+        OVERRIDE void sortAndMergeBackIn(const DB::Result& idList);
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
 
-        OVERRIDE void reorder( const DB::ResultId& item, const DB::ConstResultPtr& cutList, bool after );
+        OVERRIDE void reorder(
+            const DB::ResultId& item,
+            const DB::Result& cutList,
+            bool after);
 
-        OVERRIDE DB::ResultId findFirstItemInRange(const DB::ConstResultPtr& images,
+        OVERRIDE DB::ResultId findFirstItemInRange(const DB::Result& images,
                                                    const DB::ImageDate& range,
                                                    bool includeRanges) const;
 
         OVERRIDE void cutToClipboard( const QStringList& list );
         OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
         OVERRIDE bool isClipboardEmpty();
-        OVERRIDE QStringList CONVERT( const DB::ConstResultPtr& );
+        OVERRIDE QStringList CONVERT(const DB::Result&);
         OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 
-        OVERRIDE bool stack(const DB::ConstResultPtr& items);
-        OVERRIDE void unstack(const DB::ConstResultPtr& items);
-        OVERRIDE DB::ConstResultPtr getStackFor(const DB::ResultId& referenceFile) const;
+        OVERRIDE bool stack(const DB::Result& items);
+        OVERRIDE void unstack(const DB::Result& items);
+        OVERRIDE DB::Result getStackFor(const DB::ResultId& referenceFile) const;
 
     protected slots:
         OVERRIDE void lockDB( bool lock, bool exclude );
 
     protected:
-        DB::ConstResultPtr imageList();
+        DB::Result imageList();
 
 
     private:

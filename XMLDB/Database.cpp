@@ -133,10 +133,9 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
     }
 }
 
-void XMLDB::Database::addToBlockList( const DB::ConstResultPtr& list )
+void XMLDB::Database::addToBlockList(const DB::Result& list)
 {
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        DB::ImageInfoPtr inf= info(*it );
+    Q_FOREACH(DB::ImageInfoPtr inf, list.fetchInfos()) {
         _blockList << inf->fileName( DB::RelativeToImageRoot );
         _idMapper.remove( inf->fileName( DB::RelativeToImageRoot ) );
         _images.remove( inf );
@@ -144,24 +143,23 @@ void XMLDB::Database::addToBlockList( const DB::ConstResultPtr& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::Database::deleteList( const DB::ConstResultPtr& list )
+void XMLDB::Database::deleteList(const DB::Result& list)
 {
-    for( DB::Result::ConstIterator it = list->begin(); it != list->end(); ++it ) {
-        DB::ImageInfoPtr inf= info(*it );
+    Q_FOREACH(DB::ResultId id, list) {
+        DB::ImageInfoPtr inf = id.fetchInfo();
         StackMap::iterator found = _stackMap.find(inf->stackId());
         if ( inf->isStacked() && found != _stackMap.end() ) {
-            const DB::ResultPtr& origCache = found.value();
-            DB::ResultPtr newCache = new DB::Result();
-            for ( DB::Result::const_iterator cacheIt = origCache->begin(); cacheIt != origCache->end(); ++cacheIt ) {
-                if ( *it != *cacheIt )
-                    newCache->append(*cacheIt);
+            const DB::Result& origCache = found.value();
+            DB::Result newCache;
+            Q_FOREACH(DB::ResultId cacheId, origCache) {
+                if (id != cacheId)
+                    newCache.append(cacheId);
             }
-            if ( newCache->size() <= 1 ) {
+            if (newCache.size() <= 1) {
                 // we're destroying a stack
-                for ( DB::Result::const_iterator it = newCache->begin(); it != newCache->end(); ++it ) {
-                    DB::ImageInfoPtr inf = info( *it );
-                    inf->setStackId( 0 );
-                    inf->setStackOrder( 0 );
+                Q_FOREACH(DB::ImageInfoPtr cacheInf, newCache.fetchInfos()) {
+                    cacheInf->setStackId(0);
+                    cacheInf->setStackOrder(0);
                 }
                 _stackMap.remove( inf->stackId() );
             } else {
@@ -304,21 +302,26 @@ bool XMLDB::Database::isBlocking( const QString& fileName )
 }
 
 
-DB::ConstResultPtr XMLDB::Database::images()
+DB::Result XMLDB::Database::images()
 {
     QList<DB::RawId> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         result.append( _idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
     }
-    return DB::ResultPtr( new DB::Result(result) );
+    return DB::Result(result);
 }
 
-DB::ConstResultPtr XMLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+DB::Result XMLDB::Database::search(
+    const DB::ImageSearchInfo& info,
+    bool requireOnDisk) const
 {
     return searchPrivate( info, requireOnDisk, true );
 }
 
-DB::ConstResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
+DB::Result XMLDB::Database::searchPrivate(
+    const DB::ImageSearchInfo& info,
+    bool requireOnDisk,
+    bool onlyItemsMatchingRange) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
@@ -330,17 +333,14 @@ DB::ConstResultPtr XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& in
         if (match)
             result.append(_idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
     }
-    return DB::ResultPtr( new DB::Result(result) );
+    return DB::Result(result);
 }
 
-void XMLDB::Database::sortAndMergeBackIn( const DB::ConstResultPtr& idList )
+void XMLDB::Database::sortAndMergeBackIn(const DB::Result& idList)
 {
-    DB::ImageInfoList list;
-
-    for( DB::Result::ConstIterator it = idList->begin(); it != idList->end(); ++it ) {
-        list.append( (*it).fetchInfo() );
-    }
-    _images.sortAndMergeBackIn( list );
+    DB::ImageInfoList infoList;
+    infoList += idList.fetchInfos();
+    _images.sortAndMergeBackIn(infoList);
 }
 
 DB::CategoryCollection* XMLDB::Database::categoryCollection()
@@ -354,9 +354,12 @@ KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
         new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
 }
 
-void XMLDB::Database::reorder( const DB::ResultId& item, const DB::ConstResultPtr& selection, bool after) {
+void XMLDB::Database::reorder(
+    const DB::ResultId& item,
+    const DB::Result& selection,
+    bool after)
+{
     Q_ASSERT(!item.isNull());
-    Q_ASSERT(!selection.isNull());
     DB::ImageInfoList list = takeImagesFromSelection( selection );
     insertList( item, list, after );
 }
@@ -365,13 +368,13 @@ void XMLDB::Database::reorder( const DB::ResultId& item, const DB::ConstResultPt
 // return that sublist.
 // Note: The selection is known to be sorted wrt the order in the image list,
 // i.e. it is a common subsequence.
-DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const DB::ConstResultPtr& selection )
+DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::Result& selection)
 {  
     DB::ImageInfoList result;
-    if (selection->isEmpty())
+    if (selection.isEmpty())
         return result;
 
-    DB::Result::ConstIterator subsequenceIt = selection->begin();
+    DB::Result::ConstIterator subsequenceIt = selection.begin();
     QString file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
  
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
@@ -379,21 +382,24 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const DB::ConstResul
             result << *it;
             it = _images.erase(it);
             ++subsequenceIt;
-            if (subsequenceIt == selection->end())
+            if (subsequenceIt == selection.end())
                 break;
             file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
         } else {
             ++it;
         }
     }
-    Q_ASSERT( subsequenceIt == selection->end() );  // if not, selection was not a subsequence
+    Q_ASSERT( subsequenceIt == selection.end() );  // if not, selection was not a subsequence
 
     return result;
 }
 
-DB::ConstResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after )
+DB::Result XMLDB::Database::insertList(
+    const DB::ResultId& id,
+    const DB::ImageInfoList& list,
+    bool after)
 {
-    DB::ResultPtr result = new DB::Result();
+    DB::Result result;
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
 
     DB::ImageInfoListIterator imageIt = _images.begin();
@@ -407,7 +413,7 @@ DB::ConstResultPtr XMLDB::Database::insertList( const DB::ResultId& id, const DB
         imageIt++;
     for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
         _images.insert( imageIt, *it );
-        result->append( ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
+        result.append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
     }
     MainWindow::DirtyIndicator::markDirty();
 
@@ -437,15 +443,14 @@ bool XMLDB::Database::isClipboardEmpty()
     return _clipboard.isEmpty();
 }
 
-bool XMLDB::Database::stack( const DB::ConstResultPtr& items )
+bool XMLDB::Database::stack(const DB::Result& items)
 {
     unsigned int changed = 0;
     QSet<DB::StackID> stacks;
     QList<DB::ImageInfoPtr> images;
     unsigned int stackOrder = 1;
 
-    for ( DB::Result::const_iterator it = items->begin(); it != items->end(); ++it ) {
-        DB::ImageInfoPtr imgInfo = info( *it );
+    Q_FOREACH(DB::ImageInfoPtr imgInfo, items.fetchInfos()) {
         Q_ASSERT( imgInfo );
         if ( imgInfo->isStacked() ) {
             stacks << imgInfo->stackId();
@@ -464,11 +469,7 @@ bool XMLDB::Database::stack( const DB::ConstResultPtr& items )
             ++it, stackOrder++ ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        StackMap::iterator found = _stackMap.find(stackId);
-        if (found == _stackMap.end()) {
-            found = _stackMap.insert(stackId, new DB::Result());
-        }
-        found.value()->append( ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)) );
+        _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
         ++changed;
     }
 
@@ -478,15 +479,13 @@ bool XMLDB::Database::stack( const DB::ConstResultPtr& items )
     return changed;
 }
 
-void XMLDB::Database::unstack( const DB::ConstResultPtr& items )
+void XMLDB::Database::unstack(const DB::Result& items)
 {
-    for ( DB::Result::const_iterator it = items->begin(); it != items->end(); ++it ) {
-        DB::ConstResultPtr allInStack = getStackFor( *it );
-        if ( allInStack->size() <= 2 ) {
+    Q_FOREACH(DB::ResultId id, items) {
+        DB::Result allInStack = getStackFor(id);
+        if (allInStack.size() <= 2) {
             // we're destroying stack here
-            for ( DB::Result::const_iterator allIt = allInStack->begin();
-                    allIt != allInStack->end(); ++allIt ) {
-                DB::ImageInfoPtr imgInfo = info( *allIt );
+            Q_FOREACH(DB::ImageInfoPtr imgInfo, allInStack.fetchInfos()) {
                 Q_ASSERT( imgInfo );
                 if ( imgInfo->isStacked() ) {
                     _stackMap.remove( imgInfo->stackId() );
@@ -495,34 +494,26 @@ void XMLDB::Database::unstack( const DB::ConstResultPtr& items )
                 }
             }
         } else {
-            DB::ImageInfoPtr imgInfo = info( *it );
+            DB::ImageInfoPtr imgInfo = id.fetchInfo();
             Q_ASSERT( imgInfo );
             if ( imgInfo->isStacked() ) {
-                DB::ResultPtr newCacheContents = new DB::Result();
-                StackMap::iterator found = _stackMap.find(imgInfo->stackId());
-                Q_ASSERT(found != _stackMap.end());
-                const DB::ResultPtr& oldCache = found.value();
-                for ( DB::Result::const_iterator it = oldCache->begin(); it != oldCache->end(); ++it ) {
-                    if ( *it != ID_FOR_FILE(imgInfo->fileName(DB::AbsolutePath)) )
-                        newCacheContents->append(*it);
-                }
-                _stackMap.insert(imgInfo->stackId(), newCacheContents);
+                _stackMap[imgInfo->stackId()].removeAll(id);
                 imgInfo->setStackId( 0 );
                 imgInfo->setStackOrder( 0 );
             }
         }
     }
 
-    if ( ! items->isEmpty() )
+    if (!items.isEmpty())
         MainWindow::DirtyIndicator::markDirty();
 }
 
-DB::ConstResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceImg ) const
+DB::Result XMLDB::Database::getStackFor(const DB::ResultId& referenceImg) const
 {
     DB::ImageInfoPtr imageInfo = info( referenceImg );
 
     if ( !imageInfo || ! imageInfo->isStacked() )
-        return new DB::Result();
+        return DB::Result();
 
     StackMap::iterator found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
@@ -533,12 +524,7 @@ DB::ConstResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceIm
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            if (!_stackMap.contains(stackid)) {
-                _stackMap.insert(stackid, new DB::Result());
-            }
-            StackMap::iterator found = _stackMap.find(stackid);
-            Q_ASSERT(found != _stackMap.end());
-            found.value()->append( ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)) ); // will need to be sorted later
+            _stackMap[stackid].append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath))); // will need to be sorted later
         }
     }
 
@@ -553,7 +539,7 @@ DB::ConstResultPtr XMLDB::Database::getStackFor( const DB::ResultId& referenceIm
     if ( found != _stackMap.end() )
         return found.value();
     else
-        return new DB::Result();
+        return DB::Result();
 }
 
 XMLDB::Database::StackSortHelper::StackSortHelper( const Database* const db ): _db(db)
@@ -713,11 +699,11 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
 }
 
 // PENDING(blackie) THIS NEEDS TO GO AWAY //QWERTY
-QStringList XMLDB::Database::CONVERT( const DB::ConstResultPtr& items )
+QStringList XMLDB::Database::CONVERT(const DB::Result& items)
 {
     QStringList result;
-    for ( int i = 0; i < items->size(); ++i ) {
-        result << Utilities::absoluteImageFileName(_idMapper[items->at(i).rawId()]);
+    Q_FOREACH(DB::ResultId id, items) {
+        result << Utilities::absoluteImageFileName(_idMapper[id.rawId()]);
     }
     return result;
 }

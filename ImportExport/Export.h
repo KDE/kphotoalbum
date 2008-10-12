@@ -39,9 +39,9 @@ enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 class Export :public ImageManager::ImageClient {
 
 public:
-    static void imageExport( const DB::ConstResultPtr& list);
+    static void imageExport(const DB::Result& list);
 
-    Export( const DB::ConstResultPtr& list, const QString& zipFile, 
+    Export( const DB::Result& list, const QString& zipFile,
             bool compress, int maxSize,
             ImageFileLocation, const QString& baseUrl,
             bool generateThumbnails,
@@ -53,8 +53,8 @@ public:
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
-    void generateThumbnails( const DB::ConstResultPtr& list );
-    void copyImages( const DB::ConstResultPtr& list );
+    void generateThumbnails(const DB::Result& list);
+    void copyImages(const DB::Result& list);
 
 private:
     bool* _ok;

@@ -6,17 +6,17 @@ DB::ResultId const DB::ResultId::null;
 
 DB::ResultId::ResultId()
     : _rawId()
-    , _context(0)
+    , _context()
 {
     Q_ASSERT(isNull());
 }
 
-DB::ResultId::ResultId(DB::RawId rawId, const ConstResultPtr& context)
+DB::ResultId::ResultId(DB::RawId rawId, const Result& context)
     : _rawId(rawId)
     , _context(context)
 {
     Q_ASSERT(!isNull());
-    Q_ASSERT(!_context.isNull());
+    Q_ASSERT(!_context.isEmpty());
 }
 
 DB::RawId DB::ResultId::rawId() const
@@ -34,7 +34,7 @@ DB::ImageInfoPtr DB::ResultId::fetchInfo() const {
     return DB::ImageDB::instance()->info(*this);
 }
 
-DB::ConstResultPtr DB::ResultId::context() const
+const DB::Result& DB::ResultId::context() const
 {
     return _context;
 }

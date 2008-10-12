@@ -1448,7 +1448,7 @@ QString MainWindow::Window::currentBrowseCategory() const
 void MainWindow::Window::slotSelectionChanged()
 {
 #ifdef HASKIPI
-    _pluginInterface->slotSelectionChanged( selected()->size() != 0);
+    _pluginInterface->slotSelectionChanged( selected().size() != 0);
 #endif
 }
 

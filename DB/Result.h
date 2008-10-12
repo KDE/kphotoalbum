@@ -44,7 +44,8 @@ class Result : public KShared {
     
     void append( const DB::ResultId& );
     void prepend( const DB::ResultId& );
-    
+    void removeAll(const DB::ResultId&);
+
     DB::ResultId at(int index) const;
     int size() const;
     bool isEmpty() const;

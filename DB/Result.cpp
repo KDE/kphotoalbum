@@ -87,6 +87,11 @@ void DB::Result::prepend( const DB::ResultId& id)
     _items.prepend(id.rawId());
 }
 
+void DB::Result::removeAll(const DB::ResultId& id)
+{
+    _items.removeAll(id.rawId());
+}
+
 bool DB::Result::isEmpty() const
 {
     return _items.isEmpty();

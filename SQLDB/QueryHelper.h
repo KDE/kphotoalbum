@@ -134,15 +134,15 @@ public:
      * some of the given files already belong to different stacks,
      * also then nothing is changed in the database
      */
-    int stackFiles(QStringList files);
+    DB::StackID stackFiles(QList<DB::RawId> files);
 
     /** Set stack_id of given files to NULL in the file table.
      */
-    void unstackFiles(QStringList files);
+    void unstackFiles(QList<DB::RawId> files);
 
     /** Get list of files that have the same stackid as the given file.
      */
-    QStringList getStackOfFile(QString referenceFile) const;
+    QList<DB::RawId> getStackOfFile(DB::RawId referenceFile) const;
 
     /** Get infos of files with given ids.
      *

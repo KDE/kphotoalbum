@@ -1194,11 +1194,11 @@ QueryHelper::classify(const QString& category,
     return result;
 }
 
-int QueryHelper::stackFiles(QStringList files)
+DB::StackID QueryHelper::stackFiles(QList<DB::RawId> files)
 {
     TransactionGuard transaction(*this);
 
-    const QVariant fileIds(toVariantList(mediaItemIdsForFilenames(files)));
+    const QVariant fileIds(toVariantList(files));
     Cursor fileStackCursor =
         executeQuery(QLatin1String(
                          "SELECT id, stack_id FROM file WHERE id IN (?)"),
@@ -1238,25 +1238,26 @@ int QueryHelper::stackFiles(QStringList files)
     return stackId.toInt();
 }
 
-void QueryHelper::unstackFiles(QStringList files)
+void QueryHelper::unstackFiles(QList<DB::RawId> files)
 {
-    const QVariant fileIds(toVariantList(mediaItemIdsForFilenames(files)));
     executeStatement(QLatin1String(
                          "UPDATE file SET stack_id=NULL WHERE id IN (?)"),
-                     Bindings() << fileIds);
+                     Bindings() << QVariant(toVariantList(files)));
 }
 
-QStringList QueryHelper::getStackOfFile(QString referenceFile) const
+QList<DB::RawId> QueryHelper::getStackOfFile(DB::RawId referenceFile) const
 {
-    const DB::RawId refId = mediaItemId(referenceFile);
-    QList<DB::RawId> idList =
+    // Note: This query works even if stack id of the reference file
+    // is NULL, because in SQL "NULL = NULL" evaluates as false and
+    // therefore the query returns empty set, if the stack id is NULL.
+    // (Tested with SQLite 3.5.9 and MySQL 5.0.60.)
+    return
         executeQuery(QLatin1String(
-                         "SELECT id FROM file WHERE stack_id=?"),
-                     Bindings() << refId).asList<DB::RawId>();
-    QStringList fileNames;
-    Q_FOREACH(DB::RawId id, idList)
-        fileNames.append(mediaItemFilename(id));
-    return fileNames;
+                         "SELECT id FROM file WHERE stack_id=("
+                         " SELECT stack_id"
+                         " FROM file"
+                         " WHERE id=?)"),
+                     Bindings() << referenceFile).asList<DB::RawId>();
 }
 
 QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::RawId>& idList) const

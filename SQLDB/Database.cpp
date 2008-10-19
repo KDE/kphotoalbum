@@ -340,40 +340,37 @@ DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
     return _infoCollection.getImageInfoOf(id);
 }
 
-bool SQLDB::Database::stack(const DB::Result&)
-{    
-    qFatal("implement SQLDB::stack()");
-    return false;
-#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY old implementation with files.
-    const QStringList relFiles = stripImageDirectoryFromList(files);
+bool SQLDB::Database::stack(const DB::Result& files)
+{
     try {
-        int newStackId = _qh.stackFiles(relFiles);
-        Q_FOREACH(QString file, relFiles)
-            _infoCollection.getImageInfoOf(file)->setStackId(newStackId);
+        const DB::StackID newStackId = _qh.stackFiles(files.rawIdList());
+        Q_FOREACH(DB::ImageInfoPtr info, files.fetchInfos()) {
+            Q_ASSERT(!info.isNull());
+            info->setStackId(newStackId);
+        }
         return true;
     }
-    catch (SQLDB::Error&)
-    {
+    catch (SQLDB::OperationNotPossible&) {
         return false;
     }
-#endif
 }
 
-void SQLDB::Database::unstack(const DB::Result&)
+void SQLDB::Database::unstack(const DB::Result& files)
 {
-    qFatal("implement SQLDB::unstack()");
-#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas): implement with DB::Result.
-    _qh.unstackFiles(stripImageDirectoryFromList(files));
-#endif
+    _qh.unstackFiles(files.rawIdList());
+    Q_FOREACH(DB::ImageInfoPtr info, files.fetchInfos()) {
+        Q_ASSERT(!info.isNull());
+        info->setStackId(DB::StackID());
+    }
 }
 
-DB::Result SQLDB::Database::getStackFor(const DB::ResultId&) const
+DB::Result SQLDB::Database::getStackFor(const DB::ResultId& referenceFile) const
 {
-    qFatal("implement SQLDB::getStackFor()");
-    return DB::Result();
-#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY TODO(Tuomas) implement with
-    return _qh.getStackOfFile(Utilities::stripImageDirectory(referenceFile));
-#endif
+    Q_ASSERT(!referenceFile.isNull());
+    if (!referenceFile.isNull())
+        return DB::Result(_qh.getStackOfFile(referenceFile.rawId()));
+    else
+        return DB::Result();
 }
 
 #include "Database.moc"

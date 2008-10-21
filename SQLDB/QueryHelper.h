@@ -25,6 +25,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/RawId.h"
+#include "DB/ResultId.h"
 #include <qstringlist.h>
 #include <qpair.h>
 namespace DB {
@@ -116,11 +117,13 @@ public:
     searchMediaItems(const DB::ImageSearchInfo& search,
                      DB::MediaType typemask=DB::anyMediaType) const;
 
-    QString findFirstFileInTimeRange(const DB::ImageDate& range,
-                                     bool includeRanges) const;
-    QString findFirstFileInTimeRange(const DB::ImageDate& range,
-                                     bool includeRanges,
-                                     const QList<DB::RawId>& idList) const;
+    DB::ResultId findFirstFileInTimeRange(
+        const DB::ImageDate& range,
+        bool includeRanges) const;
+    DB::ResultId findFirstFileInTimeRange(
+        const DB::ImageDate& range,
+        bool includeRanges,
+        const QList<DB::RawId>& idList) const;
     QMap<QString, uint> classify(const QString& category,
                                  DB::MediaType typemask=DB::anyMediaType,
                                  QList<DB::RawId>* scope=0) const;
@@ -166,9 +169,10 @@ protected:
     QList<DB::RawId>
     getMatchingFiles(MatcherList matches,
                      DB::MediaType typemask=DB::anyMediaType) const;
-    QString findFirstFileInTimeRange(const DB::ImageDate& range,
-                                     bool includeRanges,
-                                     const QList<DB::RawId>* idList) const;
+    DB::ResultId findFirstFileInTimeRange(
+        const DB::ImageDate& range,
+        bool includeRanges,
+        const QList<DB::RawId>* idList) const;
 };
 
 }

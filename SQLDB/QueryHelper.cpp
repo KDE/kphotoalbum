@@ -932,28 +932,29 @@ void QueryHelper::sortMediaItems(const QStringList& filenames)
     transaction.commit();
 }
 
-QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                              bool includeRanges) const
+DB::ResultId QueryHelper::findFirstFileInTimeRange(
+    const DB::ImageDate& range,
+    bool includeRanges) const
 {
     return findFirstFileInTimeRange(range, includeRanges, 0);
 }
 
-QString
-QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                      bool includeRanges,
-                                      const QList<DB::RawId>& idList) const
+DB::ResultId
+QueryHelper::findFirstFileInTimeRange(
+    const DB::ImageDate& range,
+    bool includeRanges,
+    const QList<DB::RawId>& idList) const
 {
     return findFirstFileInTimeRange(range, includeRanges, &idList);
 }
 
-QString
-QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                      bool includeRanges,
-                                      const QList<DB::RawId>* idList) const
+DB::ResultId
+QueryHelper::findFirstFileInTimeRange(
+    const DB::ImageDate& range,
+    bool includeRanges,
+    const QList<DB::RawId>* idList) const
 {
-    QString query =
-        "SELECT directory.path, file.filename FROM file, directory "
-        "WHERE directory.id=file.directory_id AND ";
+    QString query = "SELECT id FROM file WHERE ";
     Bindings bindings;
 
     if (idList) {
@@ -971,14 +972,13 @@ QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
 
     query += " ORDER BY file.time_start LIMIT 1";
 
-    QList<StringPair> dirFilenamePairs =
-        executeQuery(query, bindings).asList<StringPair>();
+    const QList<DB::RawId> resultIds =
+        executeQuery(query, bindings).asList<DB::RawId>();
 
-    if (dirFilenamePairs.isEmpty())
-        return QString::null;
+    if (resultIds.isEmpty())
+        return DB::ResultId();
     else {
-        return makeFullName(dirFilenamePairs[0].first,
-                            dirFilenamePairs[0].second);
+        return DB::ResultId::createContextless(resultIds.front());
     }
 }
 

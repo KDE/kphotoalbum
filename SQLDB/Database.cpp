@@ -281,25 +281,13 @@ void SQLDB::Database::sortAndMergeBackIn(const DB::Result&)
 #endif
 }
 
-// todo: implement.
-DB::ResultId SQLDB::Database::findFirstItemInRange(const DB::Result&,
-                                                   const DB::ImageDate&,
-                                                   bool) const
+DB::ResultId SQLDB::Database::findFirstItemInRange(
+    const DB::Result& files,
+    const DB::ImageDate& range,
+    bool includeRanges) const
 {
-    qFatal("oops implement: SQLDB::Database::findFirstItemInRange()");
-    return DB::ResultId::null;
-#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
-    // this was the old implementation with strings. The new one could be
-    // something like
-    // select id from mediaid where timestamp between range.min and range.max and id in (idlist-from-images) order by timestamp limit 1
-    QList<int> idList;
-    for (DB::Result::const_iterator i = images->begin();
-         i != images->end(); ++i) {
-        idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
-    }
-    return Settings::SettingsData::instance()->imageDirectory() +
-        _qh.findFirstFileInTimeRange(range, includeRanges, idList);
-#endif
+    return _qh.findFirstFileInTimeRange(
+        range, includeRanges, files.rawIdList());
 }
 
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )

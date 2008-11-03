@@ -41,8 +41,9 @@ QString CategoryCollection::nameForText( const QString& text )
         if ( (*it)->text() == text )
             return (*it)->name();
     }
-    Q_ASSERT( false );
-    return QString::null;
+    // There used to be an assert(false) here, but I hit it after removing first
+    // category in the settings from a localised to the "international" name.
+    return text;
 }
 
 #include "CategoryCollection.moc"

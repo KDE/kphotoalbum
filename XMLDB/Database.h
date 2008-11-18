@@ -50,6 +50,7 @@ namespace XMLDB {
         OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
         OVERRIDE DB::Result images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
+        OVERRIDE void renameImage( DB::ImageInfoPtr info, const QString& newName );
 
         OVERRIDE void addToBlockList(const DB::Result& list);
         OVERRIDE bool isBlocking( const QString& fileName );

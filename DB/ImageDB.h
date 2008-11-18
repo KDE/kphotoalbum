@@ -95,6 +95,8 @@ public: // Methods that must be overriden
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual Result images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
+    /** @short Update file name stored in the DB */
+    virtual void renameImage( const ImageInfoPtr info, const QString& newName ) = 0;
 
     virtual void addToBlockList(const DB::Result& list) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;

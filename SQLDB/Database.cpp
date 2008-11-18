@@ -149,6 +149,11 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 }
 
+void SQLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
+{
+    Q_ASSERT( false ); // FIXME: implement me
+}
+
 void SQLDB::Database::addToBlockList(const DB::Result&)
 {
     qFatal("implement SQLDB::addToBlocklist()");

@@ -244,6 +244,14 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     MainWindow::DirtyIndicator::markDirty();
 }
 
+void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
+{
+    info->delaySavingChanges(false);
+    _idMapper.remove( info->fileName(DB::RelativeToImageRoot) );
+    info->setFileName( newName );
+    _idMapper.add( info->fileName(DB::RelativeToImageRoot) );
+}
+
 DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName, DB::PathType type ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;

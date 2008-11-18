@@ -210,8 +210,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                     info->setLabel( fi.completeBaseName() );
                 }
 
-                info->setFileName( relativeNewFileName );
-                info->delaySavingChanges(false);
+                DB::ImageDB::instance()->renameImage( info, relativeNewFileName );
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.

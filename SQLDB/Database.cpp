@@ -151,7 +151,8 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 
 void SQLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
 {
-    Q_ASSERT( false ); // FIXME: implement me
+    info->setFileName( newName );
+    info->delaySavingChanges(false);
 }
 
 void SQLDB::Database::addToBlockList(const DB::Result&)

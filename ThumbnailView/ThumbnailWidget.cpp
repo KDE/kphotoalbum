@@ -398,7 +398,8 @@ void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
     updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id) {
+void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id)
+{
     DB::ImageInfoPtr imageInfo = id.fetchInfo();
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
@@ -410,7 +411,8 @@ void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id
     }
 }
 
-void ThumbnailView::ThumbnailWidget::collapseAllStacks() {
+void ThumbnailView::ThumbnailWidget::collapseAllStacks()
+{
     _expandedStacks.clear();
     updateDisplayModel();
 }

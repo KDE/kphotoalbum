@@ -541,18 +541,21 @@ void Viewer::ViewerWidget::rotate90()
 {
     currentInfo()->rotate( 90 );
     load();
+    emit rotated();
 }
 
 void Viewer::ViewerWidget::rotate180()
 {
     currentInfo()->rotate( 180 );
     load();
+    emit rotated();
 }
 
 void Viewer::ViewerWidget::rotate270()
 {
     currentInfo()->rotate( 270 );
     load();
+    emit rotated();
 }
 
 void Viewer::ViewerWidget::showFirst()

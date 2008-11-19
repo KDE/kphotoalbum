@@ -73,6 +73,9 @@ public slots:
     void test();
     void moveInfoBox( int );
 
+signals:
+    void rotated();
+
 protected:
     OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );
     OVERRIDE void resizeEvent( QResizeEvent* );

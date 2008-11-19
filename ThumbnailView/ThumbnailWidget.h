@@ -83,6 +83,7 @@ public slots:
     void repaintScreen();
     void toggleStackExpansion(const DB::ResultId& id);
     void collapseAllStacks();
+    void expandAllStacks();
     void updateDisplayModel();
 
 signals:
@@ -92,6 +93,7 @@ signals:
     void currentDateChanged( const QDateTime& );
     void selectionChanged();
     void collapseAllStacksEnabled(bool enabled);
+    void expandAllStacksEnabled(bool enabled);
 
 protected:
     // Painting
@@ -198,6 +200,11 @@ private:
      * All the stacks that should be shown expanded
      */
     QSet<DB::StackID> _expandedStacks;
+
+    /** @short Store stack IDs for all images in current list
+     *
+     * Used by expandAllStacks. */
+    QSet<DB::StackID> _allStacks;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will

@@ -27,6 +27,7 @@
       <Action name="runSlideShow"/>
       <Action name="runRandomizedSlideShow"/>
       <Action name="collapseAllStacks"/>
+      <Action name="expandAllStacks"/>
       <Separator/>
       <Action name="jumpToContext"/>
       <Action name="limitToMarked" />

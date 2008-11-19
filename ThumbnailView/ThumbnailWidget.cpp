@@ -377,6 +377,7 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
     _thumbnailCache.setDisplayList(_displayList);
 
     collapseAllStacksEnabled( _expandedStacks.size() > 0);
+    expandAllStacksEnabled( _allStacks.size() != _expandedStacks.size() );
     if ( isVisible() ) {
         updateGridSize();
         repaintScreen();
@@ -386,6 +387,11 @@ void ThumbnailView::ThumbnailWidget::updateDisplayModel()
 void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
 {
     _imageList = items;
+    _allStacks.clear();
+    Q_FOREACH(DB::ImageInfoPtr info, items.fetchInfos()) {
+        if ( info && info->isStacked() )
+            _allStacks << info->stackId();
+    }
     generateMissingThumbnails( items );
     updateDisplayModel();
 }
@@ -404,6 +410,12 @@ void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id
 
 void ThumbnailView::ThumbnailWidget::collapseAllStacks() {
     _expandedStacks.clear();
+    updateDisplayModel();
+}
+
+void ThumbnailView::ThumbnailWidget::expandAllStacks()
+{
+    _expandedStacks = _allStacks;
     updateDisplayModel();
 }
 

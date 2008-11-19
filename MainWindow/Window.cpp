@@ -702,6 +702,12 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled(false);
     a->setText( i18n("Collapse all stacks" ));
 
+    a = actionCollection()->addAction( QString::fromLatin1("expandAllStacks"),
+                                       _thumbnailView, SLOT( expandAllStacks() ) );
+    connect(_thumbnailView, SIGNAL( expandAllStacksEnabled(bool) ), a, SLOT( setEnabled(bool) ));
+    a->setEnabled(false);
+    a->setText( i18n("Expand all stacks" ));
+
     QActionGroup* grp = new QActionGroup( this );
 
     a = actionCollection()->add<KToggleAction>( QString::fromLatin1("orderIncr"), this, SLOT( slotOrderIncr() ) );

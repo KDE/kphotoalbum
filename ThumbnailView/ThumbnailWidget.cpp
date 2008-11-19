@@ -282,6 +282,7 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails(const DB::Result&
 {
     // TODO(hzeller) before release: run this asynchronously.
     //        For 100'000+ files, this will be slow.
+    // jkt: this is dead slow even with 20k pictures on NFS
     // TODO-2(hzeller): This should be handled at startup or when new images
     //        enter the database; not here.
     // TODO-3(hzeller): With TODO-2 implemented, we probably don't need an
@@ -392,7 +393,8 @@ void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
         if ( info && info->isStacked() )
             _allStacks << info->stackId();
     }
-    generateMissingThumbnails( items );
+    // FIXME: see comments in the function -- is it really needed at all?
+    //generateMissingThumbnails( items );
     updateDisplayModel();
 }
 

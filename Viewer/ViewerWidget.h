@@ -41,7 +41,7 @@ class QLabel;
 class QMenu;
 class KAction;
 
-namespace DB { class ImageInfo; }
+namespace DB { class ImageInfo; class ResultId; }
 namespace MainWindow { class ExternalPopup; }
 
 namespace Viewer
@@ -75,6 +75,7 @@ public slots:
 
 signals:
     void rotated();
+    void soughtTo( const DB::ResultId& id );
 
 protected:
     OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );

@@ -566,6 +566,7 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
     else
         viewer = new Viewer::ViewerWidget;
     connect( viewer, SIGNAL( rotated() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
+    connect( viewer, SIGNAL( soughtTo(const DB::ResultId&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::ResultId&) ) );
 
     viewer->show( slideShow );
     viewer->load( fileNameList, seek < 0 ? 0 : seek );

@@ -1181,6 +1181,17 @@ void ThumbnailView::ThumbnailWidget::toggleSelection( const DB::ResultId& id )
     updateCell( id );
 }
 
+void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::ResultId& id)
+{
+    if ( _selectedFiles.size() == 1 ) {
+        updateCell( *(_selectedFiles.begin()) );
+        _selectedFiles.clear();
+        _selectedFiles.insert( id );
+        updateCell( id );
+        possibleEmitSelectionChanged();
+    }
+}
+
 DB::Result ThumbnailView::ThumbnailWidget::selection(bool keepSortOrderOfDatabase) const
 {
     DB::Result images = _displayList;

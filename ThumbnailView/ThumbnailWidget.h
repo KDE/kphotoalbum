@@ -85,6 +85,7 @@ public slots:
     void collapseAllStacks();
     void expandAllStacks();
     void updateDisplayModel();
+    void changeSingleSelection(const DB::ResultId& id);
 
 signals:
     void showImage( const DB::ResultId& id );

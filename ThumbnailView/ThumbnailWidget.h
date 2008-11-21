@@ -114,6 +114,8 @@ protected:
     Cell positionForMediaId( const DB::ResultId& id ) const;
     Cell cellAtCoordinate( const QPoint& pos, CoordinateSystem ) const;
 
+    void scrollToCell( const Cell& newPos );
+
     enum VisibleState { FullyVisible, PartlyVisible };
     int firstVisibleRow( VisibleState ) const;
     int lastVisibleRow( VisibleState ) const;

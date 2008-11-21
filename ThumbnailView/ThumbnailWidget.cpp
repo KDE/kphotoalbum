@@ -849,6 +849,12 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     }
     _currentItem = mediaIdInCell( newPos );
 
+    scrollToCell( newPos );
+}
+
+/** @short Scroll the viewport so that the specified cell is visible */
+void ThumbnailView::ThumbnailWidget::scrollToCell( const Cell& newPos )
+{
     // Scroll if necesary
     if ( newPos.row() > lastVisibleRow( ThumbnailWidget::FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() -
@@ -1014,9 +1020,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
     DB::ResultId candidate = DB::ImageDB::instance()
         ->findFirstItemInRange(_displayList, date, includeRanges);
     if ( !candidate.isNull() ) {
-        Cell pos = positionForMediaId( candidate );
-        QRect contentsRect = cellGeometry( pos.row(), pos.col() );
-        setContentsPos( contentsRect.x(), contentsRect.y() );
+        scrollToCell( positionForMediaId( candidate ) );
         _currentItem = candidate;
     }
     _isSettingDate = false;
@@ -1189,6 +1193,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::ResultId& i
         _selectedFiles.insert( id );
         updateCell( id );
         possibleEmitSelectionChanged();
+        scrollToCell( positionForMediaId( id ) );
     }
 }
 

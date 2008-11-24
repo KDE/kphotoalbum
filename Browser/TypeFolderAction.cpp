@@ -48,8 +48,8 @@ bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* p
 
     bool anyItems = imageCtn != 0 || videoCtn != 0;
 
-    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
-         subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
+    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.constBegin();
+         subCategoryIt != parentCategoryItem->_subcategories.constEnd(); ++subCategoryIt ) {
         anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
     }
 
@@ -66,7 +66,7 @@ void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QStri
     QStringList items = _category->itemsInclCategories();
     items.sort();
 
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+    for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         QString name = *itemIt;
         int imageCtn = images.contains(name) ? images[name] : 0;
         int videoCtn = videos.contains(name) ? videos[name] : 0;

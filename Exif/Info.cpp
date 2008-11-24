@@ -136,7 +136,7 @@ StringSet Info::standardKeys()
     Exiv2::IptcDataSets::dataSetList( s );
 
     QStringList lines = QString( s.str().c_str() ).split( '\n' );
-    for ( QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it ) {
+    for ( QStringList::const_iterator it = lines.constBegin(); it != lines.constEnd(); ++it ) {
         if ( it->isEmpty() )
             continue;
         QStringList fields = it->split( '\t' );

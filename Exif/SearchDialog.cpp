@@ -328,7 +328,7 @@ QWidget* Exif::SearchDialog::makeCamera()
     QList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
     qSort( cameras );
 
-    for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
+    for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.constBegin(); cameraIt != cameras.constEnd(); ++cameraIt ) {
         QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ) );
         layout->addWidget( cb );
         _cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );

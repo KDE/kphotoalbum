@@ -89,7 +89,7 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
     else {
         // This item was not in my database
         QString match = QString::null;
-        for( QStringList::ConstIterator it = myItems.begin(); it != myItems.end(); ++it ) {
+        for( QStringList::ConstIterator it = myItems.constBegin(); it != myItems.constEnd(); ++it ) {
             if ( (*it).contains( kimFileItem ) || kimFileItem.contains( *it ) ) {
                 // Either my item was a substring of the kim item or the other way around (Jesper is a substring of Jesper Pedersen)
                 if ( match == QString::null )

@@ -151,7 +151,7 @@ QString ImageDate::formatRegexp()
     if ( str.isNull() ) {
         str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
         QStringList months = monthNames();
-        for( QStringList::ConstIterator monthIt = months.begin(); monthIt != months.end(); ++monthIt )
+        for( QStringList::ConstIterator monthIt = months.constBegin(); monthIt != months.constEnd(); ++monthIt )
             str += QString::fromLatin1("%1|").arg( *monthIt );
 
         str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );

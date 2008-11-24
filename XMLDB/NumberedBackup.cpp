@@ -55,7 +55,7 @@ int XMLDB::NumberedBackup::getMaxId() const
 {
     QStringList files = backupFiles();
     int max = 0;
-    for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
+    for( QStringList::ConstIterator fileIt = files.constBegin(); fileIt != files.constEnd(); ++fileIt ) {
         bool OK;
         max = qMax( max, idForFile( *fileIt, OK ) );
     }
@@ -91,7 +91,7 @@ void XMLDB::NumberedBackup::deleteOldBackupFiles()
 
     QStringList files = backupFiles();
 
-    for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
+    for( QStringList::ConstIterator fileIt = files.constBegin(); fileIt != files.constEnd(); ++fileIt ) {
         bool OK;
         int num = idForFile( *fileIt, OK );
         if ( OK && num <= maxId+1 - maxBackupFiles ) {

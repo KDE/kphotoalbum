@@ -34,7 +34,7 @@ ImageInfoList ImageInfoList::sort() const
     }
 
     ImageInfoList res;
-    for( QMap<QDateTime, Q3ValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
+    for( QMap<QDateTime, Q3ValueList<ImageInfoPtr> >::ConstIterator mapIt = map.constBegin(); mapIt != map.constEnd(); ++mapIt ) {
         Q3ValueList<ImageInfoPtr> list = mapIt.value();
         for( Q3ValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );

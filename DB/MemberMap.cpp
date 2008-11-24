@@ -243,9 +243,9 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
         categoryClosure[group].insert(item);
 
         QMap<QString, StringSet>::const_iterator
-            closureOfItem = categoryClosure.find(item);
+            closureOfItem = categoryClosure.constFind(item);
         const StringSet* closureOfItemPtr(0);
-        if (closureOfItem != categoryClosure.end()) {
+        if (closureOfItem != categoryClosure.constEnd()) {
             closureOfItemPtr = &(*closureOfItem);
             categoryClosure[group] += *closureOfItem;
         }

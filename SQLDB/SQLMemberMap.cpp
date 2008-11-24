@@ -265,14 +265,14 @@ void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
 {
     _qh.executeStatement("DELETE FROM tag_member");
 
-    for (MemberMapping::const_iterator i = map.begin(); i != map.end(); ++i) {
+    for (MemberMapping::const_iterator i = map.constBegin(); i != map.constEnd(); ++i) {
         QString category = i.key();
         if (category == "Folder")
             continue;
         CategoryGroups groups = i.value();
 
-        for (CategoryGroups::const_iterator j = groups.begin();
-             j != groups.end(); ++j) {
+        for (CategoryGroups::const_iterator j = groups.constBegin();
+             j != groups.constEnd(); ++j) {
             QString group = j.key();
             StringSet members = j.value();
 

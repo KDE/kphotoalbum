@@ -129,7 +129,7 @@ void XMLDB::XMLCategory::initIdMap()
     }
 
     QStringList groups = DB::ImageDB::instance()->memberMap().groups(_name);
-    for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+    for( QStringList::ConstIterator groupIt = groups.constBegin(); groupIt != groups.constEnd(); ++groupIt ) {
         if ( !_idMap.contains( *groupIt ) )
             _idMap.insert( *groupIt, ++i );
     }

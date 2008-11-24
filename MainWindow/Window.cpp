@@ -1489,7 +1489,7 @@ void MainWindow::Window::slotShowListOfFiles()
         return;
 
     DB::Result out;
-    for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
+    for ( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
         DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
         if ( !id.isNull() )

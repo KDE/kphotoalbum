@@ -299,7 +299,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     if ( item ) {
         QStringList grps = memberMap.groups( _category->name() );
 
-        for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        for( QStringList::ConstIterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
             if (!memberMap.canAddMemberToGroup(_category->name(), *it, item->text(0)))
                 continue;
             QAction* action = members->addAction( *it );
@@ -432,7 +432,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
 
 void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
-    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
+    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
@@ -513,7 +513,7 @@ void AnnotationDialog::ListSelect::populateMRU()
     QStringList items = _category->itemsInclCategories();
 
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+    for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         ++index;
         CheckDropItem* item = new CheckDropItem( _listView, *itemIt, QString::number( index ) );
         configureItem( item );

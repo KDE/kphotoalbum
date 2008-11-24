@@ -134,7 +134,7 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
     FastDir dir( directory );
     QStringList dirList = dir.entryList( );
     ImageManager::RAWImageDecoder dec;
-    for( QStringList::const_iterator it = dirList.begin(); it != dirList.end(); ++it ) {
+    for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
         if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
              (*it) == QString::fromLatin1("ThumbNails") ||

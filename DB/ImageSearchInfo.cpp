@@ -205,7 +205,7 @@ ImageSearchInfo ImageSearchInfo::loadLock()
     info._label = config.readEntry( "label" );
     info._description = config.readEntry( "description" );
     QStringList categories = config.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
-    for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+    for( QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
         info.setOption( *it, config.readEntry<QString>( *it, QString() ) );
     }
     return info;

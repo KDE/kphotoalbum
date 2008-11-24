@@ -1061,7 +1061,7 @@ void Settings::SettingsDialog::createEXIFPage()
     _iptcCharset = new QComboBox( top );
     QStringList _charsets;
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
-    for (QList<QByteArray>::const_iterator it = _charsetsBA.begin(); it != _charsetsBA.end(); ++it )
+    for (QList<QByteArray>::const_iterator it = _charsetsBA.constBegin(); it != _charsetsBA.constEnd(); ++it )
         _charsets << QString::fromLatin1(*it);
     _iptcCharset->insertItems( _iptcCharset->count(), _charsets );
 

@@ -81,9 +81,9 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
 
     // We start searching in ranges that overlap our start search range, i.e.
     // where the end-date is higher than our search start.
-    EndIndexMap::ConstIterator endSearch = _endIndex.lowerBound(range.start());
+    EndIndexMap::Iterator endSearch = _endIndex.lowerBound(range.start());
 
-    if (endSearch != _endIndex.constEnd()) {
+    if (endSearch != _endIndex.end()) {
         for ( StartIndexMap::ConstIterator it = endSearch.value();
               it != _startIndex.constEnd() && it.key() < range.end();
               ++it) {

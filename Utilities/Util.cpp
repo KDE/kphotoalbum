@@ -139,7 +139,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                 QString title = QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
                 QString info;
                 bool first = true;
-                for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+                for( StringSet::const_iterator it2 = items.constBegin(); it2 != items.constEnd(); ++it2 ) {
                     QString item = *it2;
                     if ( first )
                         first = false;
@@ -175,9 +175,9 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         typedef ExifMap::const_iterator ExifMapIterator;
         ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(DB::AbsolutePath), Settings::SettingsData::instance()->iptcCharset() );
 
-        for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+        for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
+                for ( QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt ) {
                     QString exifName = exifIt.key().split( QChar::fromLatin1('.') ).last();
                     AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(exifName),
                                     *valuesIt, &exifText);
@@ -185,9 +185,9 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
 
         QString iptcText;
-        for( ExifMapIterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+        for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
             if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().begin(); valuesIt != exifIt.value().end(); ++valuesIt ) {
+                for ( QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt ) {
                     QString iptcName = exifIt.key().split( QChar::fromLatin1('.') ).last();
                     AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(iptcName),
                                     *valuesIt, &iptcText);
@@ -243,7 +243,7 @@ bool Utilities::ctrlKeyDown()
 
 void Utilities::copyList( const QStringList& from, const QString& directoryTo )
 {
-    for( QStringList::ConstIterator it = from.begin(); it != from.end(); ++it ) {
+    for( QStringList::ConstIterator it = from.constBegin(); it != from.constEnd(); ++it ) {
         QString destFile = directoryTo + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
             const bool ok = copy( *it, destFile );

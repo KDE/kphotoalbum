@@ -468,7 +468,7 @@ void Viewer::ImageDisplay::updatePreload()
 int Viewer::ImageDisplay::indexOf( const QString& fileName )
 {
     int i = 0;
-    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+    for( QStringList::ConstIterator it = _imageList.constBegin(); it != _imageList.constEnd(); ++it ) {
         if ( *it == fileName )
             break;
         ++i;

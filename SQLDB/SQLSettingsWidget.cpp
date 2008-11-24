@@ -232,9 +232,9 @@ void SQLSettingsWidget::setSettings(const DatabaseAddress& address)
 void SQLSettingsWidget::reloadDriverList()
 {
     _driverCombo->clear();
-    QStringList drivers = availableDrivers();
-    for (QStringList::const_iterator i = drivers.begin();
-         i != drivers.end(); ++i) {
+    const QStringList drivers = availableDrivers();
+    for (QStringList::const_iterator i = drivers.constBegin();
+         i != drivers.constEnd(); ++i) {
         _driverCombo->addItem(*i);
     }
     if (_driverCombo->count() == 0)

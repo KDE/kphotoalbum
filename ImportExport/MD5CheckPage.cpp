@@ -122,7 +122,7 @@ bool ImportExport::ClashInfo::anyClashes()
     if ( label || description || orientation || date)
         return true;
 
-    for( QMap<QString,bool>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( QMap<QString,bool>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         if (categoryIt.value() )
             return true;
     }

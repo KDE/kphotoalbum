@@ -62,7 +62,7 @@ QStringList DB::Category::itemsInclCategories() const
     // add the groups to the list too, but only if the group is not there already, which will be the case
     // if it has ever been selected once.
     QStringList groups = DB::ImageDB::instance()->memberMap().groups( name() );
-    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
+    for( QStringList::ConstIterator it = groups.constBegin(); it != groups.constEnd(); ++it ) {
         if ( ! items.contains(  *it ) )
             items << *it ;
     };
@@ -78,7 +78,7 @@ DB::CategoryItem* createItem( const QString& categoryName, const QString& itemNa
     DB::CategoryItem* result = new DB::CategoryItem( itemName );
 
     const QStringList members = DB::ImageDB::instance()->memberMap().members( categoryName, itemName, false );
-    for( QStringList::ConstIterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
+    for( QStringList::ConstIterator memberIt = members.constBegin(); memberIt != members.constEnd(); ++memberIt ) {
         if ( !handledItems.contains( *memberIt ) ) {
             DB::CategoryItem* child;
             if ( categoryItems.contains( *memberIt ) )
@@ -103,7 +103,7 @@ DB::CategoryItemPtr DB::Category::itemsCategories() const
     QMap<QString, DB::CategoryItem*> categoryItems;
     QMap<QString, DB::CategoryItem*> potentialToplevelItems;
 
-    for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+    for( QStringList::ConstIterator groupIt = groups.constBegin(); groupIt != groups.constEnd(); ++groupIt ) {
         if ( !categoryItems.contains( *groupIt ) ) {
             StringSet handledItems;
             DB::CategoryItem* child = createItem( name(), *groupIt, handledItems, categoryItems, potentialToplevelItems );
@@ -113,13 +113,13 @@ DB::CategoryItemPtr DB::Category::itemsCategories() const
 
 
     CategoryItem* result = new CategoryItem( QString::fromLatin1("top"), true );
-    for( QMap<QString,DB::CategoryItem*>::Iterator toplevelIt = potentialToplevelItems.begin(); toplevelIt != potentialToplevelItems.end(); ++toplevelIt ) {
+    for( QMap<QString,DB::CategoryItem*>::ConstIterator toplevelIt = potentialToplevelItems.constBegin(); toplevelIt != potentialToplevelItems.constEnd(); ++toplevelIt ) {
         result->_subcategories.append( *toplevelIt );
     }
 
     // Add items not found yet.
     QStringList elms = items();
-    for( QStringList::ConstIterator elmIt = elms.begin(); elmIt != elms.end(); ++elmIt ) {
+    for( QStringList::ConstIterator elmIt = elms.constBegin(); elmIt != elms.constEnd(); ++elmIt ) {
         if ( !categoryItems.contains( *elmIt ) )
             result->_subcategories.append( new DB::CategoryItem( *elmIt ) );
     }

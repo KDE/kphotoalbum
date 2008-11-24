@@ -89,7 +89,7 @@ Exif::InfoDialog::InfoDialog( const DB::ResultId& id, QWidget* parent )
     _iptcCharset = new QComboBox( top );
     QStringList _charsets;
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
-    for (QList<QByteArray>::const_iterator it = _charsetsBA.begin(); it != _charsetsBA.end(); ++it )
+    for (QList<QByteArray>::const_iterator it = _charsetsBA.constBegin(); it != _charsetsBA.constEnd(); ++it )
         _charsets << *it;
     _iptcCharset->insertItems( 0, _charsets );
     _iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( Settings::SettingsData::instance()->iptcCharset().toAscii() ) ) );

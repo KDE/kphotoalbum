@@ -222,8 +222,8 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     if ( actRes.count() > 1 ) {
         resolutions += QString::fromLatin1( "Resolutions: " );
-        for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.begin();
-             sizeIt != actRes.end(); ++sizeIt ) {
+        for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.constBegin();
+             sizeIt != actRes.constEnd(); ++sizeIt ) {
 
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();

@@ -434,9 +434,9 @@ void Viewer::ViewerWidget::load()
     setCaptionWithDetail( QString() );
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for( QList<KAction*>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
+    for( QList<KAction*>::const_iterator it = _forwardActions.constBegin(); it != _forwardActions.constEnd(); ++it )
         (*it)->setEnabled( _current +1 < (int) _list.count() );
-    for( QList<KAction*>::const_iterator it = _backwardActions.begin(); it != _backwardActions.end(); ++it )
+    for( QList<KAction*>::const_iterator it = _backwardActions.constBegin(); it != _backwardActions.constEnd(); ++it )
         (*it)->setEnabled( _current > 0 );
     if ( isVideo )
         updateCategoryConfig();

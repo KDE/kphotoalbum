@@ -289,7 +289,7 @@ bool ImageInfo::operator==( const ImageInfo& other ) const
            );
     if ( !changed ) {
         QStringList keys = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-        for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it )
+        for( QStringList::ConstIterator it = keys.constBegin(); it != keys.constEnd(); ++it )
             changed |= _categoryInfomation[*it] != other._categoryInfomation[*it];
     }
     return !changed;
@@ -375,7 +375,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
 bool ImageInfo::allMatched( const QString& category ) const
 {
     const StringSet items = itemsOfCategory( category );
-    for( StringSet::const_iterator it = items.begin(); it != items.end(); ++it ) {
+    for( StringSet::const_iterator it = items.constBegin(); it != items.constEnd(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
     }
@@ -494,7 +494,7 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
     QStringList directories = folderName.split(QString::fromLatin1( "/" ) );
 
     QString curPath;
-    for( QStringList::ConstIterator directoryIt = directories.begin(); directoryIt != directories.end(); ++directoryIt ) {
+    for( QStringList::ConstIterator directoryIt = directories.constBegin(); directoryIt != directories.constEnd(); ++directoryIt ) {
         if ( curPath.isEmpty() )
             curPath = *directoryIt;
         else {
@@ -510,7 +510,7 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
 
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::const_iterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+    for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {
         if (! _categoryInfomation[category].contains( *valueIt ) ) {
             _dirty = true;
             _categoryInfomation[category].insert( *valueIt );
@@ -521,7 +521,7 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& v
 
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::const_iterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+    for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {
         if ( _categoryInfomation[category].contains( *valueIt ) ) {
             _dirty = true;
             _categoryInfomation[category].remove(*valueIt);

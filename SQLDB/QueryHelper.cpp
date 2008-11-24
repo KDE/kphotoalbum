@@ -95,8 +95,8 @@ QStringList QueryHelper::filenames() const
                          " ORDER BY file.position")
                      ).asList<StringPair>();
     QStringList r;
-    for (QList<StringPair>::const_iterator i = dirFilePairs.begin();
-         i != dirFilePairs.end(); ++i) {
+    for (QList<StringPair>::const_iterator i = dirFilePairs.constBegin();
+         i != dirFilePairs.constEnd(); ++i) {
         r << makeFullName((*i).first, (*i).second);
     }
     return r;
@@ -162,8 +162,8 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
     QStringList paths;
     QStringList basenames;
     QMap<QString, DB::RawId> pathIdMap;
-    for (QStringList::const_iterator i = filenames.begin();
-         i != filenames.end(); ++i) {
+    for (QStringList::const_iterator i = filenames.constBegin();
+         i != filenames.constEnd(); ++i) {
         QString path;
         QString basename;
         splitPath(*i, path, basename);
@@ -182,9 +182,9 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
         }
     }
     QList<DB::RawId> idList;
-    QStringList::const_iterator pathIt = paths.begin();
-    QStringList::const_iterator basenameIt = basenames.begin();
-    while (pathIt != paths.end()) {
+    QStringList::const_iterator pathIt = paths.constBegin();
+    QStringList::const_iterator basenameIt = basenames.constBegin();
+    while (pathIt != paths.constEnd()) {
         const QVariant id =
             executeQuery(QLatin1String("SELECT id"
                                        " FROM file"
@@ -206,7 +206,7 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
     // Uses CONCAT function, which is MySQL specific.
 
     QStringList adjustedPaths = filenames;
-    for (QStringList::iterator i = adjustedPaths.begin(); i != adjustedPaths.end(); ++i) {
+    for (QStringList::iterator i = adjustedPaths.constBegin(); i != adjustedPaths.constEnd(); ++i) {
         if ((*i).find('/') == -1) {
             *i = QString::fromLatin1("./") + *i;
         }
@@ -391,14 +391,14 @@ void QueryHelper::insertMediaTag(DB::RawId mediaId, int tagId)
 void QueryHelper::insertMediaItemTags(DB::RawId mediaId, const DB::ImageInfo& info)
 {
     QStringList categories = info.availableCategories();
-    for (QStringList::const_iterator categoryIt = categories.begin();
-         categoryIt != categories.end(); ++categoryIt) {
+    for (QStringList::const_iterator categoryIt = categories.constBegin();
+         categoryIt != categories.constEnd(); ++categoryIt) {
         if (*categoryIt == "Folder")
             continue;
         int cid = categoryId(*categoryIt);
         StringSet items = info.itemsOfCategory(*categoryIt);
-        for (StringSet::const_iterator itemIt = items.begin();
-             itemIt != items.end(); ++itemIt) {
+        for (StringSet::const_iterator itemIt = items.constBegin();
+             itemIt != items.constEnd(); ++itemIt) {
             qulonglong tagId = insertTag(cid, *itemIt);
             insertMediaTag(mediaId, tagId);
         }
@@ -615,8 +615,8 @@ void QueryHelper::addIgnoredFile(const QString& filename)
 
 void QueryHelper::addIgnoredFiles(const QStringList& filenames)
 {
-    for (QStringList::const_iterator i = filenames.begin();
-         i != filenames.end(); ++i)
+    for (QStringList::const_iterator i = filenames.constBegin();
+         i != filenames.constEnd(); ++i)
         addIgnoredFile(*i);
 }
 
@@ -830,8 +830,8 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
                      Bindings() << srcMin << srcMax << QVariant(toVariantList(srcIds))
                      ).asList<int>();
     int n = srcMin;
-    for (QList<int>::const_iterator i = betweenList.begin();
-         i != betweenList.end(); ++i) {
+    for (QList<int>::const_iterator i = betweenList.constBegin();
+         i != betweenList.constEnd(); ++i) {
         executeStatement("UPDATE file SET position=? WHERE id=?",
                          Bindings() << n << *i);
         ++n;
@@ -839,8 +839,8 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
 
     // Make items in srcIds continuous, so positions of items are
     // N, N+1, N+2, ..., N+n.
-    for (QList<DB::RawId>::const_iterator i = srcIds.begin();
-         i != srcIds.end(); ++i) {
+    for (QList<DB::RawId>::const_iterator i = srcIds.constBegin();
+         i != srcIds.constEnd(); ++i) {
         executeStatement("UPDATE file SET position=? WHERE id=?",
                          Bindings() << n << *i);
         ++n;
@@ -915,9 +915,9 @@ void QueryHelper::sortMediaItems(const QStringList& filenames)
         executeQuery("SELECT position FROM sorttmp "
                      "ORDER BY position").asList<int>();
 
-    QList<DB::RawId>::const_iterator idIt = idList.begin();
-    QList<int>::const_iterator positionIt = positionList.begin();
-    for (; idIt != idList.end(); ++idIt, ++positionIt) {
+    QList<DB::RawId>::const_iterator idIt = idList.constBegin();
+    QList<int>::const_iterator positionIt = positionList.constBegin();
+    for (; idIt != idList.constEnd(); ++idIt, ++positionIt) {
         executeStatement("UPDATE sorttmp SET position=? WHERE id=?",
                          Bindings() << *positionIt << *idIt);
 
@@ -1014,8 +1014,8 @@ QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
         return mediaItemIds(typemask);
 
     QList<DB::RawId> r;
-    for (MatcherListList::const_iterator i = dnf.begin();
-         i != dnf.end(); ++i) {
+    for (MatcherListList::const_iterator i = dnf.constBegin();
+         i != dnf.constEnd(); ++i) {
          r = mergeListsUniqly(r, getMatchingFiles(*i, typemask));
     }
 
@@ -1044,8 +1044,8 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     QMap<QString, QList<int> > matchedTags;
     QStringList matchedFolders;
     Bindings binds;
-    for (MatcherList::const_iterator i = positiveList.begin();
-         i != positiveList.end(); ++i) {
+    for (MatcherList::const_iterator i = positiveList.constBegin();
+         i != positiveList.constEnd(); ++i) {
         DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
         if (m->_category == "Folder") {
             positiveQuery <<
@@ -1067,8 +1067,8 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     QStringList negativeQuery;
     QStringList excludeQuery;
     Bindings excBinds;
-    for (MatcherList::const_iterator i = negativeList.begin();
-         i != negativeList.end(); ++i) {
+    for (MatcherList::const_iterator i = negativeList.constBegin();
+         i != negativeList.constEnd(); ++i) {
         DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
         if (m) {
             if (m->_category == "Folder") {
@@ -1163,7 +1163,7 @@ QueryHelper::classify(const QString& category,
     QMap<DB::RawId, QStringList> itemMap;
 
     for (QMap<DB::RawId, StringSet >::const_iterator
-             i = wholeItemMap.begin(); i != wholeItemMap.end(); ++i) {
+             i = wholeItemMap.constBegin(); i != wholeItemMap.constEnd(); ++i) {
         DB::RawId file_id = i.key();
         if (!scope || scope->contains(file_id))
             itemMap[file_id] = i.value().toList();
@@ -1177,7 +1177,7 @@ QueryHelper::classify(const QString& category,
 
     for( QMap<DB::RawId,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
         QStringList list = mapIt.value();
-        for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+        for( QStringList::ConstIterator listIt = list.constBegin(); listIt != list.constEnd(); ++listIt ) {
             //if ( !alreadyMatched[ *listIt ] ) // We do not want to match "Jesper & Jesper"
                 result[ *listIt ]++;
         }
@@ -1187,8 +1187,8 @@ QueryHelper::classify(const QString& category,
     }
 
     const QMap<QString, uint> groups = counter.result();
-    for (QMap<QString, uint>::const_iterator it = groups.begin();
-         it != groups.end(); ++it) {
+    for (QMap<QString, uint>::const_iterator it = groups.constBegin();
+         it != groups.constEnd(); ++it) {
         result[it.key()] = it.value();
     }
     return result;
@@ -1268,7 +1268,7 @@ QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::R
     if (idList.isEmpty())
         return QMap<DB::RawId, DB::ImageInfoPtr>();
 
-    //qSort(idList.begin(), idList.end());
+    //qSort(idList.constBegin(), idList.constEnd());
 
     QVariant idListVariant(toVariantList(idList));
 

@@ -847,14 +847,14 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
         selectCell( newPos );
         updateCell( currentPos.row(), currentPos.col() );
     }
-    _currentItem = mediaIdInCell( newPos );
-
     scrollToCell( newPos );
 }
 
 /** @short Scroll the viewport so that the specified cell is visible */
 void ThumbnailView::ThumbnailWidget::scrollToCell( const Cell& newPos )
 {
+    _currentItem = mediaIdInCell( newPos );
+
     // Scroll if necesary
     if ( newPos.row() > lastVisibleRow( ThumbnailWidget::FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() -

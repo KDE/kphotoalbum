@@ -41,6 +41,7 @@ GenericName[uk]=Фотоальбом
 GenericName[vi]=Tập ảnh chụp
 GenericName[x-test]=xxPhoto Albumxx
 GenericName[zh_CN]=相册
+GenericName[zh_TW]=相簿
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true

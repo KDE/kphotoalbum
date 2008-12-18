@@ -823,6 +823,8 @@ void MainWindow::Window::setupMenuBar()
     _viewMenu->addAction( _largeIconView );
     _largeIconView->setActionGroup( viewGrp );
 
+    connect( _browser, SIGNAL( browsingInSomeCategory( bool ) ), viewGrp, SLOT( setEnabled( bool ) ) );
+
     connect( _browser, SIGNAL( currentViewTypeChanged( DB::Category::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu

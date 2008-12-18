@@ -81,6 +81,9 @@ signals:
     void currentViewTypeChanged( DB::Category::ViewType );
     void viewChanged();
 
+    // bool is true if we have "chosen" some category (ie. when it's safe to change "view as list/ view as icons" stuff)
+    void browsingInSomeCategory( bool );
+
 protected slots:
     void init();
     void select( Q3ListViewItem* item );

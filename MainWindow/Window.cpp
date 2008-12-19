@@ -632,6 +632,7 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled( false );
 
     a = KStandardAction::home( _browser, SLOT( home() ), actionCollection() );
+    connect( a, SIGNAL( activated() ), _dateBar, SLOT( clearSelection() ) );
 
     a = KStandardAction::redisplay( _browser, SLOT( go() ), actionCollection() );
 

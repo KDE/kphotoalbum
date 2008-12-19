@@ -186,7 +186,9 @@ void Browser::BrowserWidget::emitSignals()
     if ( a->contentView() && _list.size() > 0 )
         emit currentViewTypeChanged( a->viewType() );
 
-    emit browsingInSomeCategory( static_cast<bool>( dynamic_cast<TypeFolderAction*>( a ) ) );
+    bool showingCategory = dynamic_cast<TypeFolderAction*>( a );
+    emit browsingInSomeCategory( showingCategory );
+    _listView->setRootIsDecorated( showingCategory );
 }
 
 void Browser::BrowserWidget::home()

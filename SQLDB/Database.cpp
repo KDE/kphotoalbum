@@ -256,21 +256,13 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
                                      )));
 }
 
-#ifdef KDAB_TEMPORARILY_REMOVED  // QWERTY the old implementation of reorder().
-void SQLDB::Database::reorder(const QString& item,
-                              const QStringList& selection, bool after)
-{
-    _qh.moveMediaItems(stripImageDirectoryFromList(selection),
-                       Utilities::stripImageDirectory(item), after);
-}
-#endif
-
 void SQLDB::Database::reorder(
-    const DB::ResultId&,
-    const DB::Result&,
-    bool)
+    const DB::ResultId& file,
+    const DB::Result& selection,
+    bool after)
 {
-    qFatal("not there yet.: SQLDB::Database::reorder()");
+    Q_ASSERT(!file.isNull());
+    _qh.moveMediaItems(selection.rawIdList(), file.rawId(), after);
 }
 
 void SQLDB::Database::sortAndMergeBackIn(const DB::Result&)

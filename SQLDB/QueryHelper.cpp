@@ -780,16 +780,11 @@ QueryHelper::mediaIdTagsMap(const QString& category,
     return r;
 }
 
-int QueryHelper::mediaPositionByFilename(const QString& filename) const
+int QueryHelper::getPositionOfFile(DB::RawId fileId) const
 {
-    QString path;
-    QString basename;
-    splitPath(filename, path, basename);
     QVariant position =
-        executeQuery("SELECT file.position FROM file, directory "
-                     "WHERE file.directory_id=directory.id AND "
-                     "directory.path=? AND file.filename=?",
-                     Bindings() << path << basename).firstItem();
+        executeQuery("SELECT position FROM file WHERE id=?",
+                     Bindings() << fileId).firstItem();
     if (position.isNull())
         throw EntryNotFoundError();
     return position.toInt();
@@ -797,22 +792,18 @@ int QueryHelper::mediaPositionByFilename(const QString& filename) const
 
 /** Move media items after or before destination item.
  */
-void QueryHelper::moveMediaItems(const QStringList& filenames,
-                                 const QString& destinationFilename, bool after)
+void QueryHelper::moveMediaItems(
+    const QList<DB::RawId>& srcIds,
+    DB::RawId destinationFile,
+    bool after)
 {
 
     // BROKEN!
     // TODO: make this function work!
 
 
-    if (filenames.isEmpty())
+    if (srcIds.isEmpty())
         return;
-
-    QList<DB::RawId> srcIds;
-    for (QStringList::const_iterator i = filenames.constBegin();
-         i != filenames.constEnd(); ++i) {
-        srcIds << mediaItemId(*i);
-    }
 
     RowData minmax =
         executeQuery("SELECT MIN(position), MAX(position) "
@@ -846,7 +837,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
     }
 
     int destPosition =
-        mediaPositionByFilename(destinationFilename) + (after ? 1 : 0);
+        getPositionOfFile(destinationFile) + (after ? 1 : 0);
 
     if (srcMin <= destPosition && destPosition <= srcMax)
         return;

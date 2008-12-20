@@ -110,8 +110,10 @@ public:
     QString filenameForMD5Sum(const DB::MD5& md5sum) const;
 
     void sortMediaItems(const QStringList& filenames);
-    void moveMediaItems(const QStringList& filenames,
-                        const QString& destinationFilename, bool after);
+    void moveMediaItems(
+        const QList<DB::RawId>& files,
+        DB::RawId destinationFile,
+        bool after);
 
     QList<DB::RawId>
     searchMediaItems(const DB::ImageSearchInfo& search,
@@ -164,7 +166,7 @@ protected:
     void insertMediaItemTags(DB::RawId mediaId, const DB::ImageInfo& info);
     QList<int> directMembers(int tagId) const;
     void addIgnoredFile(const QString& filename);
-    int mediaPositionByFilename(const QString& filename) const;
+    int getPositionOfFile(DB::RawId fileId) const;
     void makeMediaPositionsContinuous();
     QList<DB::RawId>
     getMatchingFiles(MatcherList matches,

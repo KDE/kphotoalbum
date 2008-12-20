@@ -49,15 +49,16 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
         return;
     ImageInfoList sorted = subListToSort.sort();
 
-    ImageInfoListIterator insertIt = find( subListToSort[0]);
-    --insertIt;
+    const int insertIndex = indexOf(subListToSort[0]);
+    Q_ASSERT(insertIndex >= 0);
 
     // Delete the items we will merge in.
     for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
+        Q_ASSERT(indexOf(*it) >= insertIndex);
         remove( *it );
     }
 
-    ++insertIt;
+    ImageInfoListIterator insertIt = begin() + insertIndex;
 
     // Now merge in the items
     for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
@@ -72,7 +73,7 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
 bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
 {
     Q_ASSERT( mergeList.count() != 0 );
-    ImageInfoListIterator thisListIt = find( mergeList[0]);
+    ImageInfoListIterator thisListIt = begin() + indexOf(mergeList[0]);
 
     for( ImageInfoListIterator mergeListIt = mergeList.begin(); mergeListIt != mergeList.end(); ++mergeListIt, ++thisListIt ) {
         Q_ASSERT( *mergeListIt ); Q_ASSERT( *thisListIt );

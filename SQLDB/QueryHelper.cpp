@@ -877,47 +877,46 @@ void QueryHelper::sortFiles(const QList<DB::RawId>& files)
 
     QList<DB::RawId> idList = files;
 
+    executeStatement(
+        "CREATE TEMPORARY TABLE idlist AS"
+        " SELECT id FROM file WHERE id IN (?)",
+        Bindings() << QVariant(toVariantList(files)));
+    executeStatement(
+        "CREATE TEMPORARY TABLE byposition AS"
+        " SELECT a.position AS position, COUNT(*) AS n"
+        " FROM file AS a, file AS b"
+        " WHERE a.id IN (SELECT id FROM idlist)"
+        " AND b.id IN (SELECT id FROM idlist)"
+        " AND b.position <= a.position GROUP BY a.id");
+    executeStatement(
+        "CREATE TEMPORARY TABLE bytime AS"
+        " SELECT a.id AS id, COUNT(*) AS n"
+        " FROM file AS a, file AS b"
+        " WHERE a.id IN (SELECT id FROM idlist)"
+        " AND b.id IN (SELECT id FROM idlist)"
+        " AND b.time_start <= a.time_start GROUP BY a.id");
 #if 0
-    QList<QVariant> x = QVariant(toVariantList(idList));
-
-    executeStatement("UPDATE file, "
-                     "(SELECT a.position AS position, COUNT(*) AS n "
-                     " FROM file a, file b "
-                     " WHERE a.id IN (?) AND b.id IN (?) AND "
-                     " b.position <= a.position GROUP BY a.id) byposition, "
-                     "(SELECT a.id AS id, COUNT(*) AS n "
-                     " FROM file a, file b "
-                     " WHERE a.id IN (?) AND b.id IN (?) AND "
-                     " b.time_start <= a.time_start GROUP BY a.id) bytime "
-                     "SET file.position=byposition.position "
-                     "WHERE file.id=bytime.id AND byposition.n=bytime.n",
-                     Bindings() << x << x << x << x);
+    executeStatement(
+        "UPDATE file, byposition, bytime"
+        " SET file.position=byposition.position"
+        " WHERE file.id=bytime.id AND byposition.n=bytime.n");
 #else
-    executeStatement("CREATE TEMPORARY TABLE sorttmp "
-                     "SELECT id, position, time_start "
-                     "FROM file WHERE id IN (?)",
-                     Bindings() << QVariant(toVariantList(idList)));
+    Cursor c = executeQuery(
+        "SELECT bytime.id, byposition.position"
+        " FROM byposition JOIN bytime"
+        " ON byposition.n=bytime.n").cursor();
 
-    idList =
-        executeQuery("SELECT id FROM sorttmp "
-                     "ORDER BY time_start").asList<DB::RawId>();
-    QList<int> positionList =
-        executeQuery("SELECT position FROM sorttmp "
-                     "ORDER BY position").asList<int>();
-
-    QList<DB::RawId>::const_iterator idIt = idList.constBegin();
-    QList<int>::const_iterator positionIt = positionList.constBegin();
-    for (; idIt != idList.constEnd(); ++idIt, ++positionIt) {
-        executeStatement("UPDATE sorttmp SET position=? WHERE id=?",
-                         Bindings() << *positionIt << *idIt);
-
+    for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
+        const int id = c.value(0).toInt();
+        const int newPosition = c.value(1).toInt();
+        executeStatement(
+            "UPDATE file SET position=? WHERE id=?",
+            Bindings() << newPosition << id);
     }
-
-    executeStatement("UPDATE file, sorttmp t "
-                     "SET file.position=t.position WHERE file.id=t.id");
-
-    executeStatement("DROP TABLE sorttmp");
 #endif
+    executeStatement("DROP TABLE bytime");
+    executeStatement("DROP TABLE byposition");
+    executeStatement("DROP TABLE idlist");
 
     transaction.commit();
 }

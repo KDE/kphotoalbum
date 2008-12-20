@@ -155,18 +155,16 @@ void SQLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName
     info->delaySavingChanges(false);
 }
 
-void SQLDB::Database::addToBlockList(const DB::Result&)
+// TODO: Rename this function
+// This function also removes the files from the database
+void SQLDB::Database::addToBlockList(const DB::Result& list)
 {
-    qFatal("implement SQLDB::addToBlocklist()");
-#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
-    QStringList relativePaths = list;
-    for (QStringList::iterator i = relativePaths.begin();
-         i != relativePaths.end(); ++i) {
-        *i = Utilities::stripImageDirectory(*i);
-    }
+    const QStringList absolutePaths = CONVERT(list);
+    QStringList relativePaths;
+    Q_FOREACH(QString absPath, absolutePaths)
+        relativePaths.push_back(Utilities::stripImageDirectory(absPath));
     _qh.addIgnoredFiles(relativePaths);
     deleteList(list);
-#endif
 }
 
 bool SQLDB::Database::isBlocking(const QString& fileName)

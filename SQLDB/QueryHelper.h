@@ -84,7 +84,7 @@ public:
     void getMediaItem(DB::RawId id, DB::ImageInfo& info) const;
     void insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items);
     void updateMediaItem(DB::RawId id, const DB::ImageInfo& info);
-    void removeMediaItem(const QString& filename);
+    void removeMediaItem(DB::RawId id);
 
     void insertCategory(const QString& name, const QString& icon, bool visible,
                         DB::Category::ViewType type,

@@ -174,21 +174,17 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
     return _qh.isIgnored(fileName);
 }
 
-void SQLDB::Database::deleteList(const DB::Result&)
+void SQLDB::Database::deleteList(const DB::Result& filesToRemove)
 {
-    qFatal("impelement SQLDB::deleteList()");
-#ifdef KDAB_TEMPORARILY_REMOVED // QWERTY
-    if (!list.isEmpty()) {
-        for (QStringList::const_iterator i = list.begin();
-             i != list.end(); ++i) {
 #ifdef HAVE_EXIV2
-            Exif::Database::instance()->remove( Utilities::imageFileNameToAbsolute(*i) );
+    Q_FOREACH(QString fileName, this->CONVERT(filesToRemove))
+        Exif::Database::instance()->
+        remove(Utilities::imageFileNameToAbsolute(fileName));
 #endif
-            _qh.removeMediaItem(Utilities::stripImageDirectory(*i));
-        }
+    Q_FOREACH(const DB::ResultId id, filesToRemove)
+        _qh.removeMediaItem(id.rawId());
+    if (!filesToRemove.isEmpty())
         emit totalChanged(totalCount());
-    }
-#endif
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName, DB::PathType type ) const

@@ -633,9 +633,8 @@ bool QueryHelper::isIgnored(const QString& filename) const
         ).firstItem().toUInt() > 0;
 }
 
-void QueryHelper::removeMediaItem(const QString& filename)
+void QueryHelper::removeMediaItem(DB::RawId id)
 {
-    DB::RawId id = mediaItemId(filename);
     executeStatement("DELETE FROM file_tag WHERE file_id=?",
                      Bindings() << id);
     executeStatement("DELETE FROM file WHERE id=?", Bindings() << id);

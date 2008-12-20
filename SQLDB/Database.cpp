@@ -265,11 +265,9 @@ void SQLDB::Database::reorder(
     _qh.moveMediaItems(selection.rawIdList(), file.rawId(), after);
 }
 
-void SQLDB::Database::sortAndMergeBackIn(const DB::Result&)
+void SQLDB::Database::sortAndMergeBackIn(const DB::Result& files)
 {
-#ifdef KDAB_TEMPORARILY_REMOVED
-    _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
-#endif
+    _qh.sortFiles(files.rawIdList());
 }
 
 DB::ResultId SQLDB::Database::findFirstItemInRange(

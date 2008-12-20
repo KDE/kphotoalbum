@@ -871,11 +871,11 @@ void QueryHelper::makeMediaPositionsContinuous()
                      "SET file.position=x.n WHERE file.id=x.id");
 }
 
-void QueryHelper::sortMediaItems(const QStringList& filenames)
+void QueryHelper::sortFiles(const QList<DB::RawId>& files)
 {
     TransactionGuard transaction(*this);
 
-    QList<DB::RawId> idList = mediaItemIdsForFilenames(filenames);
+    QList<DB::RawId> idList = files;
 
 #if 0
     QList<QVariant> x = QVariant(toVariantList(idList));

@@ -109,7 +109,7 @@ public:
     bool containsMD5Sum(const DB::MD5& md5sum) const;
     QString filenameForMD5Sum(const DB::MD5& md5sum) const;
 
-    void sortMediaItems(const QStringList& filenames);
+    void sortFiles(const QList<DB::RawId>& files);
     void moveMediaItems(
         const QList<DB::RawId>& files,
         DB::RawId destinationFile,

@@ -178,8 +178,7 @@ void SQLDB::Database::deleteList(const DB::Result& filesToRemove)
 {
 #ifdef HAVE_EXIV2
     Q_FOREACH(QString fileName, this->CONVERT(filesToRemove))
-        Exif::Database::instance()->
-        remove(Utilities::imageFileNameToAbsolute(fileName));
+        Exif::Database::instance()->remove(fileName);
 #endif
     Q_FOREACH(const DB::ResultId id, filesToRemove)
         _qh.removeMediaItem(id.rawId());
@@ -313,7 +312,9 @@ QStringList SQLDB::Database::CONVERT(const DB::Result& result)
 {
     QStringList files;
     Q_FOREACH(DB::ResultId id, result) {
-        files.push_back(_qh.mediaItemFilename(id.rawId()));
+        files.push_back(
+            Utilities::imageFileNameToAbsolute(
+                _qh.mediaItemFilename(id.rawId())));
         Q_ASSERT(!files[files.size() - 1].isNull());
     }
     return files;

@@ -55,11 +55,8 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
-#ifdef KDAB_TEMPORARILY_REMOVED
-    setPalette( QToolTip::palette() );
-#endif //KDAB_TEMPORARILY_REMOVED
 
-    setWindowOpacity(0.5);
+    setWindowOpacity(0.8);
     setAutoFillBackground(true);
     QPalette p = palette();
     p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
@@ -82,7 +79,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     DB::ResultId id = _view->mediaIdUnderCursor();
     if ( id.isNull() )
         return;
-    
+
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {

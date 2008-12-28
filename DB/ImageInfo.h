@@ -167,7 +167,7 @@ protected:
 #endif
 
 private:
-    //friend class Plugins::ImageInfo;
+    friend class Plugins::ImageInfo;
     QString _relativeFileName;
     QString _absoluteFileName;
     QString _label;

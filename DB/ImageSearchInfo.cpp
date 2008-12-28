@@ -95,9 +95,11 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     }
 
     // -------------------------------------------------- Options
-    info->clearMatched();
+    // alreadyMatched map is used to make it possible to search for
+    // Jesper & None
+    QMap<QString, StringSet> alreadyMatched;
     Q_FOREACH(CategoryMatcher* optionMatcher, _optionMatchers) {
-        ok &= optionMatcher->eval( info );
+        ok &= optionMatcher->eval(info, alreadyMatched);
     }
 
 

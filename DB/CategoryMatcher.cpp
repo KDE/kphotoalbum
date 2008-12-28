@@ -32,9 +32,15 @@ OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& 
     _sign = sign;
 }
 
-bool OptionValueMatcher::eval( ImageInfoPtr info )
+bool OptionValueMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    info->setMatched( _category, _option );
+    // Following block does same as the old statement:
+    // info->setMatched(_category, _option)
+    alreadyMatched[_category].insert(_option);
+    const MemberMap& map = DB::ImageDB::instance()->memberMap();
+    const QStringList members = map.members(_category, _option, true);
+    alreadyMatched[_category].unite(members.toSet());
+
     if ( info->hasCategoryInfo( _category, _option ) ) {
         return _sign;
     }
@@ -56,9 +62,18 @@ OptionEmptyMatcher::OptionEmptyMatcher( const QString& category, bool sign )
     _sign = sign;
 }
 
-bool OptionEmptyMatcher::eval( ImageInfoPtr info )
+bool OptionEmptyMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    return _sign ? info->allMatched( _category ) : !info->allMatched( _category );
+    bool allMatched = true;
+    Q_FOREACH(const QString& item, info->itemsOfCategory(_category))
+    {
+        if (!alreadyMatched[_category].contains(item))
+        {
+            allMatched = false;
+            break;
+        }
+    }
+    return _sign ? allMatched : !allMatched;
 }
 
 
@@ -68,10 +83,10 @@ void OptionContainerMatcher::addElement( CategoryMatcher* element )
     _elements.append( element );
 }
 
-bool OptionAndMatcher::eval( ImageInfoPtr info )
+bool OptionAndMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
     for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
-        if ( !(*it)->eval( info ) )
+        if (!(*it)->eval(info, alreadyMatched))
             return false;
     }
     return true;
@@ -79,10 +94,10 @@ bool OptionAndMatcher::eval( ImageInfoPtr info )
 
 
 
-bool OptionOrMatcher::eval( ImageInfoPtr info )
+bool OptionOrMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
     for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
-        if ( (*it)->eval( info ) )
+        if ((*it)->eval(info, alreadyMatched))
             return true;
     }
     return false;

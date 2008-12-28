@@ -352,37 +352,6 @@ QStringList ImageInfo::availableCategories() const
     return _categoryInfomation.keys();
 }
 
-void ImageInfo::clearMatched() const
-{
-    _matched.clear();
-}
-
-void ImageInfo::setMatched( const QString& category, const QString& value ) const
-{
-    _matched[category].insert( value );
-    const MemberMap& map = DB::ImageDB::instance()->memberMap();
-    QStringList members = map.members( category, value, true );
-    _matched[category].unite( members.toSet() );
-}
-
-/**
- * Returns whether all tokens for the given image are matches by the search
- * example: returns true if all people on an image is in the search,
- * i.e. it is only true if there are no persons on the image that are not
- * explicit searched for.
- * This is used when the search includes *None*
- */
-bool ImageInfo::allMatched( const QString& category ) const
-{
-    const StringSet items = itemsOfCategory( category );
-    for( StringSet::const_iterator it = items.constBegin(); it != items.constEnd(); ++it ) {
-        if ( !_matched[category].contains( *it ) )
-            return false;
-    }
-
-    return true;
-}
-
 QSize ImageInfo::size() const
 {
     return _size;

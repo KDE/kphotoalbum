@@ -20,10 +20,13 @@
 #define OPTIONMATCHER_H
 #include <q3valuelist.h>
 #include "DB/ImageInfoPtr.h"
+#include "Utilities/Set.h"
 
 namespace DB
 {
 class ImageInfo;
+
+using Utilities::StringSet;
 
 /**
    Base class for components in the state machine for image matching.
@@ -31,7 +34,7 @@ class ImageInfo;
 class CategoryMatcher
 {
 public:
-    virtual bool eval( ImageInfoPtr ) = 0;
+    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) = 0;
     virtual ~CategoryMatcher() {}
     virtual void debug( int level ) const = 0;
 
@@ -50,7 +53,7 @@ class OptionValueMatcher :public OptionSimpleMatcher
 {
 public:
     OptionValueMatcher( const QString& category, const QString& value, bool sign );
-    virtual bool eval( ImageInfoPtr );
+    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
     virtual void debug( int level ) const;
 
     QString _option;
@@ -61,7 +64,7 @@ class OptionEmptyMatcher :public OptionSimpleMatcher
 {
 public:
     OptionEmptyMatcher( const QString& category, bool sign );
-    virtual bool eval( ImageInfoPtr info );
+    virtual bool eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched);
     virtual void debug( int level ) const;
 };
 
@@ -78,7 +81,7 @@ public:
 class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfoPtr );
+    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
     virtual void debug( int level ) const;
 };
 
@@ -87,7 +90,7 @@ public:
 class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfoPtr );
+    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
     virtual void debug( int level ) const;
 };
 

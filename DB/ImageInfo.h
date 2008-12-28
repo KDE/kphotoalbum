@@ -137,11 +137,6 @@ public:
     QSize size() const;
     void setSize( const QSize& size );
 
-    // Used during searches
-    void clearMatched() const;
-    void setMatched( const QString& category, const QString& value ) const;
-    bool allMatched( const QString& category ) const;
-
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; saveChangesIfNotDelayed(); }
 
@@ -198,9 +193,6 @@ private:
     bool _dirty;
 
     bool _delaySaving;
-
-    // Used during searching to make it possible to search for Jesper & None
-    mutable QMap<QString, StringSet > _matched;
 };
 
 }

@@ -112,6 +112,7 @@ public:
     void setCategoryInfo( const QString& key,  const StringSet& value );
     void addCategoryInfo( const QString& category, const StringSet& values );
     void addCategoryInfo( const QString& category, const QString& value );
+    void clearAllCategoryInfo();
     void removeCategoryInfo( const QString& category, const StringSet& values );
     void removeCategoryInfo( const QString& category, const QString& value );
 
@@ -167,7 +168,6 @@ protected:
 #endif
 
 private:
-    friend class Plugins::ImageInfo;
     QString _relativeFileName;
     QString _absoluteFileName;
     QString _label;

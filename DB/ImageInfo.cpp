@@ -488,6 +488,11 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& v
     saveChangesIfNotDelayed();
 }
 
+void DB::ImageInfo::clearAllCategoryInfo()
+{
+    _categoryInfomation.clear();
+}
+
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet& values )
 {
     for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {

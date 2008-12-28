@@ -52,8 +52,9 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
     QMap<QString,QVariant> res;
     if ( _info ) {
-        for( QMap<QString,Utilities::StringSet>::Iterator it = _info->_categoryInfomation.begin(); it != _info->_categoryInfomation.end(); ++it ) {
-            res.insert( it.key(), QVariant( QStringList( it.value().toList() ) ) );
+        Q_FOREACH(const QString& category, _info->availableCategories()) {
+            const DB::StringSet& tags = _info->itemsOfCategory(category);
+            res.insert(category, QVariant(QStringList(tags.toList())));
         }
     }
 
@@ -93,7 +94,7 @@ void Plugins::ImageInfo::setDescription( const QString& description )
 
 void Plugins::ImageInfo::clearAttributes()
 {
-    _info->_categoryInfomation.clear();
+    _info->clearAllCategoryInfo();
     MainWindow::DirtyIndicator::markDirty();
 }
 

@@ -29,6 +29,7 @@
 #include <klocale.h>
 #include "DB/ImageInfo.h"
 #include "Browser/BrowserWidget.h"
+#include "Plugins/ImageCollectionSelector.h"
 //Added by qt3to4:
 #include <Q3ValueList>
 
@@ -69,12 +70,9 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     return result;
 }
 
-KIPI::ImageInfo Plugins::Interface::info( const KUrl& )
+KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
 {
-    qFatal("NYI: Plugins::Interface::info");
-    // TODO #############################
-    // Plugins/Interface.cpp:74: error: cannot allocate an object of abstract type 'Plugins::ImageInfo'
-    return KIPI::ImageInfo( 0 /*new Plugins::ImageInfo( this, url )*/ );
+    return KIPI::ImageInfo(new Plugins::ImageInfo(this, url));
 }
 
 void Plugins::Interface::refreshImages( const KUrl::List& urls )
@@ -134,14 +132,14 @@ void Plugins::Interface::pathChanged( const QString& path )
     }
 }
 
-KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidget *)
+KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidget *parent)
 {
-  //TODO
-    return 0;
+    return new ImageCollectionSelector( parent, this );
 }
 
 KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget *)
 {
+    qDebug("Interface::uploadWidget(...) not yet implemented!");
    //TODO
     return 0;
 }

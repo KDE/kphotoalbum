@@ -33,8 +33,32 @@ Plugins::ImageCollection::ImageCollection( Type tp )
 
 QString Plugins::ImageCollection::name()
 {
-    // This doesn't really make much sence for selection and current album.
-    return QString::null;
+    QString res;
+    switch ( _tp ) {
+    case CurrentAlbum:
+    	res = MainWindow::Window::theMainWindow()->currentContext().toString();
+    	break;
+    case CurrentSelection:
+    	res = MainWindow::Window::theMainWindow()->currentContext().toString();
+    	if (res.isEmpty()) {
+    		res = "unknown (Selection)"; //TODO I18N
+    	} else {
+    		res += " (Selection)"; //TODO I18N
+    	}
+    	break;
+    case SubClass:
+    	qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
+		res = "unknown"; //TODO I18N
+		break;
+    default:
+    	res = "unknown"; //TODO I18N
+    }
+    if (res.isEmpty()) {
+    	// at least html export plugin needs a none-empty name:
+    	res = "none"; //TODO I18N
+    }
+    qDebug("name() gerufen: " + res.toLatin1());
+    return res;
 }
 
 QString Plugins::ImageCollection::comment()

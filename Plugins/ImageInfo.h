@@ -45,6 +45,7 @@ public:
     virtual QMap<QString,QVariant> attributes();
     virtual void clearAttributes();
     virtual void addAttributes( const QMap<QString,QVariant>& );
+    virtual void delAttributes( const QStringList& );
 
     virtual int angle();
     virtual void setAngle( int );
@@ -57,6 +58,9 @@ public:
 
 private:
     DB::ImageInfoPtr _info;
+
+    virtual bool isPositionAttribute(const QString &key);
+    virtual bool isCategoryAttribute(const QString &key);
 };
 
 }

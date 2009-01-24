@@ -98,7 +98,8 @@ set(libPlugins_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollectionSelector.cpp)
 endif(KIPI_FOUND)
 
 set(libViewer_SRCS

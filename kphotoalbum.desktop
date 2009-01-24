@@ -48,4 +48,4 @@ Terminal=false
 Type=Application
 X-KDE-StartupNotify=true
 Icon=kphotoalbum
-Categories=Qt;KDE;Graphics;
+Categories=Qt;KDE;Graphics;Photography;

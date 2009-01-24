@@ -36,26 +36,27 @@ QString Plugins::ImageCollection::name()
     QString res;
     switch ( _tp ) {
     case CurrentAlbum:
-    	res = MainWindow::Window::theMainWindow()->currentContext().toString();
-    	break;
+        res = MainWindow::Window::theMainWindow()->currentContext().toString();
+        break;
     case CurrentSelection:
-    	res = MainWindow::Window::theMainWindow()->currentContext().toString();
-    	if (res.isEmpty()) {
-    		res = "unknown (Selection)"; //TODO I18N
-    	} else {
-    		res += " (Selection)"; //TODO I18N
-    	}
-    	break;
+        res = MainWindow::Window::theMainWindow()->currentContext().toString();
+        if (res.isEmpty()) {
+            res = "unknown (Selection)"; //TODO I18N
+        }
+        else {
+            res += " (Selection)"; //TODO I18N
+        }
+        break;
     case SubClass:
-    	qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
-		res = "unknown"; //TODO I18N
-		break;
+        qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
+        res = "unknown"; //TODO I18N
+        break;
     default:
-    	res = "unknown"; //TODO I18N
+        res = "unknown"; //TODO I18N
     }
     if (res.isEmpty()) {
-    	// at least html export plugin needs a none-empty name:
-    	res = "none"; //TODO I18N
+        // at least html export plugin needs a none-empty name:
+        res = "none"; //TODO I18N
     }
     return res;
 }

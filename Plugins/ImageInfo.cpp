@@ -73,17 +73,17 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     }
     QString key = QString::fromLatin1( "tags" );
     res.insert( key, QVariant( tags ) );
-	if ( _info ) {
-		DB::GpsCoordinates position = _info->geoPosition();
-		if (!position.isNull()) {
-			res.insert("longitude", QVariant(position.longitude()));
-			res.insert("latitude", QVariant(position.latitude()));
-			res.insert("altitude", QVariant(position.altitude()));
-			if (position.precision() != DB::GpsCoordinates::NoPrecisionData) {
-				res.insert("positionPrecision", QVariant(position.precision()));
-			}
-		}
-	}
+    if ( _info ) {
+        DB::GpsCoordinates position = _info->geoPosition();
+        if (!position.isNull()) {
+            res.insert("longitude", QVariant(position.longitude()));
+            res.insert("latitude", QVariant(position.latitude()));
+            res.insert("altitude", QVariant(position.altitude()));
+            if (position.precision() != DB::GpsCoordinates::NoPrecisionData) {
+                res.insert("positionPrecision", QVariant(position.precision()));
+            }
+        }
+    }
 
     return res;
 }
@@ -117,26 +117,26 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
         for( QMap<QString,QVariant>::ConstIterator it = map.begin(); it != map.end(); ++it ) {
             QStringList list = it.value().toStringList();
             if (isCategoryAttribute(it.key())) {
-            	_info->addCategoryInfo( it.key(), list.toSet() );
+                _info->addCategoryInfo( it.key(), list.toSet() );
             }
         }
         if (map.contains("longitude") || map.contains("latitude") || map.contains("altitude") || map.contains("positionPrecision")) {
-        	if (map.contains("longitude") && map.contains("latitude")) {
-        		double altitude = 0;
-        		QVariant var = map["altitude"];
-        		if (!var.isNull()) {
-        			altitude = var.toDouble();
-        		}
-        		int precision = DB::GpsCoordinates::NoPrecisionData;
-        		var = map["positionPrecision"];
-        		if (!var.isNull()) {
-        			precision = var.toInt();
-        		}
-        		DB::GpsCoordinates coord(map["longitude"].toDouble(), map["latitude"].toDouble(), altitude, precision);
-        		_info->setGeoPosition(coord);
-        	} else {
-        		qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
-        	}
+            if (map.contains("longitude") && map.contains("latitude")) {
+                double altitude = 0;
+                QVariant var = map["altitude"];
+                if (!var.isNull()) {
+                    altitude = var.toDouble();
+                }
+                int precision = DB::GpsCoordinates::NoPrecisionData;
+                var = map["positionPrecision"];
+                if (!var.isNull()) {
+                    precision = var.toInt();
+                }
+                DB::GpsCoordinates coord(map["longitude"].toDouble(), map["latitude"].toDouble(), altitude, precision);
+                _info->setGeoPosition(coord);
+            } else {
+                qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
+            }
         }
         MainWindow::DirtyIndicator::markDirty();
     }
@@ -144,21 +144,21 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
 
 void Plugins::ImageInfo::delAttributes( const QStringList& delAttrs)
 {
-	if (_info) {
-    	for (QStringList::const_iterator it = delAttrs.begin(); it != delAttrs.end(); ++it) {
-    		if (isCategoryAttribute(*it)) {
-    			_info->setCategoryInfo(*it, Utilities::StringSet());
-    		}
-    	}
-    	if (delAttrs.contains("tags")) {
-    		//TODO very probably a misunderstanding, isn't it?
-    		qWarning("Ignoring 'remove all tags'");
-    	}
-    	if (delAttrs.contains("longitude") && delAttrs.contains("latitude")) {
-    		//clear position:
-    		_info->setGeoPosition(DB::GpsCoordinates());
-    	}
-    	MainWindow::DirtyIndicator::markDirty();
+    if (_info) {
+        for (QStringList::const_iterator it = delAttrs.begin(); it != delAttrs.end(); ++it) {
+            if (isCategoryAttribute(*it)) {
+                _info->setCategoryInfo(*it, Utilities::StringSet());
+            }
+        }
+        if (delAttrs.contains("tags")) {
+            //TODO very probably a misunderstanding, isn't it?
+            qWarning("Ignoring 'remove all tags'");
+        }
+        if (delAttrs.contains("longitude") && delAttrs.contains("latitude")) {
+            //clear position:
+            _info->setGeoPosition(DB::GpsCoordinates());
+        }
+        MainWindow::DirtyIndicator::markDirty();
     }
 }
 
@@ -225,12 +225,12 @@ void Plugins::ImageInfo::cloneData( ImageInfoShared* other )
 
 bool Plugins::ImageInfo::isPositionAttribute(const QString &key)
 {
-	return (key == "longitude" || key == "latitude" || key == "altitude" || key == "positionPrecision");
+    return (key == "longitude" || key == "latitude" || key == "altitude" || key == "positionPrecision");
 }
 
 bool Plugins::ImageInfo::isCategoryAttribute(const QString &key)
 {
-	return (key != "tags" && !isPositionAttribute(key));
+    return (key != "tags" && !isPositionAttribute(key));
 }
 
 #endif // KIPI

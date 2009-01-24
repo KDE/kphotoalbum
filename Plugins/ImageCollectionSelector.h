@@ -29,16 +29,14 @@ public:
     virtual QList<KIPI::ImageCollection> selectedImageCollections() const;
 
 protected:
-	// just fake a selectionChanged event when first shown to make export plugin happy:
-	virtual void showEvent(QShowEvent *event);
+    // just fake a selectionChanged event when first shown to make export plugin happy:
+    virtual void showEvent(QShowEvent *event);
 
 private:
     Interface *_interface;
     bool firstTimeVisible;
-
 };
 
 }
 
 #endif /* MYIMAGECOLLECTIONSELECTOR_H */
-

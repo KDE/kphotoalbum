@@ -57,7 +57,6 @@ QString Plugins::ImageCollection::name()
     	// at least html export plugin needs a none-empty name:
     	res = "none"; //TODO I18N
     }
-    qDebug("name() gerufen: " + res.toLatin1());
     return res;
 }
 

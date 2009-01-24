@@ -41,22 +41,22 @@ QString Plugins::ImageCollection::name()
     case CurrentSelection:
         res = MainWindow::Window::theMainWindow()->currentContext().toString();
         if (res.isEmpty()) {
-            res = "unknown (Selection)"; //TODO I18N
+            res = i18n("unknown (Selection)");
         }
         else {
-            res += " (Selection)"; //TODO I18N
+            res += i18n(" (Selection)");
         }
         break;
     case SubClass:
         qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
-        res = "unknown"; //TODO I18N
+        res = i18n("unknown");
         break;
     default:
-        res = "unknown"; //TODO I18N
+        res = i18n("unknown");
     }
     if (res.isEmpty()) {
         // at least html export plugin needs a none-empty name:
-        res = "none"; //TODO I18N
+        res = i18n("none");
     }
     return res;
 }

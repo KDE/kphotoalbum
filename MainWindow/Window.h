@@ -110,6 +110,7 @@ protected slots:
     void slotThumbNailSelectionChanged();
     void reloadThumbnails(bool flushCache);
     void reloadThumbnailsAndFlushCache();
+    void reloadThumbnailsAfterRotation();
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void slotBuildThumbnails();

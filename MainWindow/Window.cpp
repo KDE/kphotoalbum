@@ -1204,7 +1204,7 @@ void MainWindow::Window::rotateSelected( int angle )
             info->rotate(angle);
         }
         _dirtyIndicator->markDirty();
-        reloadThumbnailsAndFlushCache();
+        reloadThumbnailsAfterRotation();
     }
 }
 
@@ -1227,6 +1227,11 @@ void MainWindow::Window::reloadThumbnails(bool flushCache)
 void MainWindow::Window::reloadThumbnailsAndFlushCache()
 {
     reloadThumbnails(true);
+}
+
+void MainWindow::Window::reloadThumbnailsAfterRotation()
+{
+    _thumbnailView->reload( true, false );
 }
 
 void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )

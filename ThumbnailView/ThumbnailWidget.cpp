@@ -1244,8 +1244,10 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 {
     if ( flushCache )
         _thumbnailCache.clear();
-    if ( clearSelection )
+    if ( clearSelection ) {
         _selectedFiles.clear();
+        possibleEmitSelectionChanged();
+    }
     updateCellSize();
     repaintScreen();
 }

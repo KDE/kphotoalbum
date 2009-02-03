@@ -950,6 +950,7 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 {
     _mouseHandler->mouseReleaseEvent( event );
     _mouseHandler = &_mouseTrackingHandler;
+    possibleEmitSelectionChanged();
 }
 
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )

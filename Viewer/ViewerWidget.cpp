@@ -271,6 +271,10 @@ void Viewer::ViewerWidget::createSkipMenu()
     action = _actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT( showNext() ) );
     action->setText( i18n("Show Next") );
     action->setShortcut( Qt::Key_PageDown );
+    // bah, they don't use references
+    KShortcut viewerNextShortcut = action->shortcut();
+    viewerNextShortcut.setAlternate( Qt::Key_Space );
+    action->setShortcut( viewerNextShortcut );
     popup->addAction( action );
     _forwardActions.append(action);
 

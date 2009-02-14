@@ -344,6 +344,41 @@ void MainWindow::Window::slotCreateImageStack()
     _thumbnailView->updateDisplayModel();
 }
 
+/** @short Make the selected image the head of a stack
+ *
+ * The whole point of image stacking is to group images together and then select
+ * one of them as the "most important". This function is (maybe just a
+ * temporary) way of promoting a selected image to the "head" of a stack it
+ * belongs to. In future, it might get replaced by a Ligtroom-like interface.
+ * */
+void MainWindow::Window::slotSetStackHead()
+{
+    const DB::Result& list = selected();
+    if ( list.size() != 1 ) {
+        // this should be checked by enabling/disabling of QActions
+        return;
+    }
+
+    DB::ResultId image = *list.begin();
+
+    if ( ! image.fetchInfo()->isStacked() )
+        return;
+
+    unsigned int oldOrder = image.fetchInfo()->stackOrder();
+
+    DB::Result others = DB::ImageDB::instance()->getStackFor( image );
+    others.fetchInfos();
+    for ( DB::Result::const_iterator it = others.begin(); it != others.end(); ++it ) {
+        if ( *it == image ) {
+            it->fetchInfo()->setStackOrder( 1 );
+        } else if ( it->fetchInfo()->stackOrder() < oldOrder ) {
+            it->fetchInfo()->setStackOrder( it->fetchInfo()->stackOrder() + 1 );
+        }
+    }
+
+    _thumbnailView->updateDisplayModel();
+}
+
 void MainWindow::Window::slotUnStackImages()
 {
     const DB::Result& list = selected();
@@ -672,6 +707,10 @@ void MainWindow::Window::setupMenuBar()
 
     _unStackImages = actionCollection()->addAction( QString::fromLatin1("unStackImages"), this, SLOT( slotUnStackImages() ) );
     _unStackImages->setText( i18n("Remove Images from Stack") );
+
+    _setStackHead = actionCollection()->addAction( QString::fromLatin1("setStackHead"), this, SLOT( slotSetStackHead() ) );
+    _setStackHead->setText( i18n("Set as First Image in Stack") );
+    _setStackHead->setShortcut( Qt::CTRL + Qt::Key_4 );
 
     _rotLeft = actionCollection()->addAction( QString::fromLatin1("rotateLeft"), this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
@@ -1027,6 +1066,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction( _configAllSimultaniously );
         menu.addAction( _createImageStack );
         menu.addAction( _unStackImages );
+        menu.addAction( _setStackHead );
         menu.addSeparator();
         menu.addAction( _runSlideShow );
         menu.addAction(_runRandomSlideShow );
@@ -1187,6 +1227,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _configOneAtATime->setEnabled(selectionSize >= 1);
     _createImageStack->setEnabled(selectionSize > 1);
     _unStackImages->setEnabled(selectionSize >= 1);
+    _setStackHead->setEnabled(selectionSize == 1); // FIXME: do we want to check if it's stacked here?
     _sortByDateAndTime->setEnabled(selectionSize > 1);
     _recreateThumbnails->setEnabled(selectionSize >= 1);
     _rotLeft->setEnabled(selectionSize >= 1);

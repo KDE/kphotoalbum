@@ -84,6 +84,7 @@ protected slots:
     void slotConfigureImagesOneAtATime();
     void slotCreateImageStack();
     void slotUnStackImages();
+    void slotSetStackHead();
     void slotSave();
     void slotCopySelectedURLs();
     void slotDeleteSelected();
@@ -193,6 +194,7 @@ private:
     KAction* _configAllSimultaniously;
     KAction* _createImageStack;
     KAction* _unStackImages;
+    KAction* _setStackHead;
     KAction* _view;
     KAction* _rotLeft;
     KAction* _rotRight;

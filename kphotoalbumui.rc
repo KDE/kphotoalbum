@@ -19,6 +19,7 @@
       <Action name="allProp"/>
       <Action name="createImageStack"/>
       <Action name="unStackImages"/>
+      <Action name="setStackHead"/>
     </Menu>
     <Menu name="view" >
       <text>&amp;View</text>

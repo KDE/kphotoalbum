@@ -379,6 +379,7 @@ void MainWindow::Window::setStackHead( const DB::ResultId image )
         }
     }
 
+    DirtyIndicator::markDirty();
     _thumbnailView->updateDisplayModel();
 }
 

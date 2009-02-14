@@ -49,7 +49,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 
     if ( !mediaId.isNull() ) {
         if ( event->modifiers() & Qt::ShiftModifier )
-            _view->selectAllCellsBetween( _view->positionForMediaId( _view->_currentItem ),
+            _view->selectAllCellsBetween( _view->_currentItem.isNull() ? Cell() : _view->positionForMediaId( _view->_currentItem ),
                                           _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
 
         _originalSelectionBeforeDragStart = _view->_selectedFiles;

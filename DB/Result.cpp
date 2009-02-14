@@ -19,6 +19,11 @@ DB::ResultId DB::Result::ConstIterator::operator*()
     return _result->at(_pos);
 }
 
+DB::ResultId* DB::Result::ConstIterator::operator->()
+{
+    return &_result->at(_pos);
+}
+
 DB::Result::ConstIterator DB::Result::begin() const
 {
     return DB::Result::ConstIterator(this, 0);

@@ -71,6 +71,7 @@ public:
     DB::Result selected(bool keepSortOrderOfDatabase=false);
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
+    void setStackHead( const DB::ResultId image );
 
 public slots:
     void showThumbNails(const DB::Result& items);

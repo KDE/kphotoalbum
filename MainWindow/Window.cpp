@@ -359,8 +359,11 @@ void MainWindow::Window::slotSetStackHead()
         return;
     }
 
-    DB::ResultId image = *list.begin();
+    setStackHead( *list.begin() );
+}
 
+void MainWindow::Window::setStackHead( const DB::ResultId image )
+{
     if ( ! image.fetchInfo()->isStacked() )
         return;
 

@@ -127,6 +127,7 @@ protected slots:
     void slotSlideShowFaster();
     void slotSlideShowSlower();
     void editImage();
+    void slotSetStackHead();
     void makeCategoryImage();
     void updateCategoryConfig();
     void slotSetWallpaperC();
@@ -156,6 +157,7 @@ private:
     KAction* _startStopSlideShow;
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;
+    KAction* _setStackHead;
 
     Display* _display;
     ImageDisplay* _imageDisplay;

@@ -154,6 +154,11 @@ void Viewer::ViewerWidget::setupContextMenu()
     action->setShortcut( Qt::CTRL+Qt::Key_1 );
     _popup->addAction( action );
 
+    _setStackHead = _actions->addAction( QString::fromLatin1("viewer-set-stack-head"), this, SLOT( slotSetStackHead() ) );
+    _setStackHead->setText( i18n("Set as First Image in Stack") );
+    _setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
+    _popup->addAction( _setStackHead );
+
     // PENDING(blackie) This should only be enabled for image displays.
     _categoryEditor = _actions->addAction( QString::fromLatin1("viewer-show-category-editor"), this, SLOT( makeCategoryImage() ) );
     _categoryEditor->setText( i18n("Show Category Editor") );
@@ -442,6 +447,9 @@ void Viewer::ViewerWidget::load()
         (*it)->setEnabled( _current +1 < (int) _list.count() );
     for( QList<KAction*>::const_iterator it = _backwardActions.constBegin(); it != _backwardActions.constEnd(); ++it )
         (*it)->setEnabled( _current > 0 );
+
+    _setStackHead->setEnabled( currentInfo()->isStacked() );
+
     if ( isVideo )
         updateCategoryConfig();
 
@@ -823,6 +831,11 @@ void Viewer::ViewerWidget::editImage()
     DB::ImageInfoList list;
     list.append( currentInfo() );
     MainWindow::Window::configureImages( list, true );
+}
+
+void Viewer::ViewerWidget::slotSetStackHead()
+{
+    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ] ) );
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const

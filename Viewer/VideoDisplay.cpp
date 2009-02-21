@@ -45,9 +45,39 @@
 #include <Phonon/MediaObject>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
-    :Viewer::Display( parent )
+    :Viewer::Display( parent ), _zoomType( FullZoom ), _zoomFactor(1)
 {
+    QPalette pal = palette();
+    pal.setColor( QPalette::Window, Qt::black );
+    setPalette( pal );
+    setAutoFillBackground( true );
+
     _mediaObject = 0;
+}
+
+void Viewer::VideoDisplay::setup()
+{
+    _mediaObject = new Phonon::MediaObject;
+    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
+    Phonon::createPath( _mediaObject, audioDevice );
+
+    _videoWidget = new Phonon::VideoWidget(this);
+    Phonon::createPath( _mediaObject, _videoWidget );
+
+    _slider = new Phonon::SeekSlider(this);
+    _slider->setMediaObject( _mediaObject );
+    _slider->show();
+    _mediaObject->setTickInterval(100);
+
+    _videoWidget->setFocus();
+    _videoWidget->resize(1024,768 );
+    _videoWidget->move(0,0);
+    _videoWidget->show();
+
+
+    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
+    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
+             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
@@ -58,7 +88,6 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     _info = info;
     _mediaObject->setCurrentSource( info->fileName(DB::AbsolutePath) );
     _mediaObject->play();
-
 
     return true;
 }
@@ -75,78 +104,30 @@ void Viewer::VideoDisplay::zoomOut()
 
 void Viewer::VideoDisplay::zoomFull()
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    QWidget* widget = _playerPart->widget();
-    if ( !widget )
-        return;
-
-    widget->resize( size() );
-    widget->move(0,0);
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Viewer::VideoDisplay::zoomFull");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    _zoomType = FullZoom;
+    setVideoWidgetSize();
 }
 
 void Viewer::VideoDisplay::zoomPixelForPixel()
 {
-    // unfortunately we have no way to ask for the image size.
-    zoomFull();
+    _zoomType = PixelForPixelZoom;
+    _zoomFactor = 1;
+    setVideoWidgetSize();
 }
 
-void Viewer::VideoDisplay::resize( const float factor )
+void Viewer::VideoDisplay::resize( double factor )
 {
-    Q_UNUSED( factor );
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    QWidget* widget = _playerPart->widget();
-    if ( !widget )
-        return;
-
-    const QSize size( static_cast<int>( factor * widget->width() ) , static_cast<int>( factor * widget->width() ) );
-    widget->resize( size );
-    widget->move( (width() - size.width())/2, (height() - size.height())/2 );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Viewer::VideoDisplay::resize");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    _zoomType = FixedZoom;
+    _zoomFactor *= factor;
+    setVideoWidgetSize();
 }
 
 void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
 {
     Display::resizeEvent( event );
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( !_playerPart )
-        return;
-
-    QWidget* widget = _playerPart->widget();
-    if ( !widget )
-        return;
-
-    if ( widget->width() == event->oldSize().width() || widget->height() == event->oldSize().height() )
-        widget->resize( size() );
-    else
-        widget->resize( qMin( widget->width(), width() ), qMin( widget->height(), height() ) );
-    widget->move( (width() - widget->width())/2, (height() - widget->height())/2 );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Viewer::VideoDisplay::resizeEvent");
-#endif //KDAB_TEMPORARILY_REMOVED
+    setVideoWidgetSize();
 }
 
-
-void Viewer::VideoDisplay::play()
-{
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
-        player->play();
-    else
-        invokeKaffeineAction( "player_play" );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Viewer::VideoDisplay::play");
-#endif //KDAB_TEMPORARILY_REMOVED
-}
 
 Viewer::VideoDisplay::~VideoDisplay()
 {
@@ -208,35 +189,35 @@ bool Viewer::VideoDisplay::isPlaying() const
 
 void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::State /*oldState*/)
 {
+    setVideoWidgetSize();
     if ( newState == Phonon::ErrorState ) {
         QMessageBox::critical(0, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
     }
 }
 
-void Viewer::VideoDisplay::setup()
+void Viewer::VideoDisplay::setVideoWidgetSize()
 {
-    qDebug("Yo1");
+    if ( !_mediaObject )
+        return;
 
-    _mediaObject = new Phonon::MediaObject;
-    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
-    Phonon::createPath( _mediaObject, audioDevice );
+    QSize videoSize;
+    if ( _zoomType == FullZoom ) {
+        videoSize = QSize( size().width(), size().height() - _slider->height() );
+        _zoomFactor = videoSize.width() / _videoWidget->sizeHint().width();
+    }
+    else {
+        videoSize = _videoWidget->sizeHint();
+        if ( _zoomType == FixedZoom )
+            videoSize *= _zoomFactor;
+    }
 
-    Phonon::VideoWidget* videoDevice = new Phonon::VideoWidget;
-    Phonon::createPath( _mediaObject, videoDevice );
+    _videoWidget->resize( videoSize );
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget( videoDevice, 1 );
+    QPoint pos = QPoint( width()/2, (height()-_slider->sizeHint().height())/2 )-QPoint(videoSize.width()/2, videoSize.height()/2);
+    _videoWidget->move(pos);
 
-    Phonon::SeekSlider* slider = new Phonon::SeekSlider(this);
-    layout->addWidget( slider );
-    slider->setMediaObject( _mediaObject );
-    _mediaObject->setTickInterval(100);
-
-    videoDevice->setFocus();
-    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
-    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
-             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
-
+    _slider->move( 0, height() - _slider->sizeHint().height() );
+    _slider->resize( width(), _slider->sizeHint().height() );
 }
 
 #include "VideoDisplay.moc"

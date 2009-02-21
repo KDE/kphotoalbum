@@ -23,6 +23,10 @@
 #include <kparts/componentfactory.h>
 #include <QResizeEvent>
 #include <Phonon/MediaObject>
+namespace Phonon {
+   class VideoWidget;
+   class SeekSlider;
+}
 
 namespace Viewer
 {
@@ -46,7 +50,6 @@ public slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
-    void play();
     void stop();
     void playPause();
     void restart();
@@ -56,12 +59,19 @@ private slots:
     void phononStateChanged(Phonon::State, Phonon::State);
 
 protected:
-    void resize( float factor );
+    void resize( double factor );
     OVERRIDE void resizeEvent( QResizeEvent* );
     void setup();
+    void setVideoWidgetSize();
+
+    enum ZoomType { FullZoom, PixelForPixelZoom, FixedZoom };
 
 private:
     Phonon::MediaObject* _mediaObject;
+    Phonon::VideoWidget* _videoWidget;
+    Phonon::SeekSlider* _slider;
+    ZoomType _zoomType;
+    double _zoomFactor;
 };
 
 }

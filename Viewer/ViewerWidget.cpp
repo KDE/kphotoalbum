@@ -1032,7 +1032,8 @@ void Viewer::ViewerWidget::createVideoMenu()
 
 
     _playPause = _actions->addAction( QString::fromLatin1("viewer-video-pause"), _videoDisplay, SLOT( playPause() ) );
-    _playPause->setShortcut( Qt::Key_Space );
+    _playPause->setText( i18n("Toggle playback") );
+    _playPause->setShortcut( Qt::Key_P );
     _popup->addAction( _playPause );
     _videoActions.append( _playPause );
     KAction* restart = _actions->addAction( QString::fromLatin1("viewer-video-restart"), _videoDisplay, SLOT( restart() ) );

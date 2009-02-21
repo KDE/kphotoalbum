@@ -101,7 +101,7 @@ Viewer::ViewerWidget::ViewerWidget()
     _textDisplay = new TextDisplay( this );
     addWidget( _textDisplay );
 
-    _videoDisplay = 0;
+    createVideoViewer();
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
@@ -148,6 +148,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     createShowContextMenu();
     createWallPaperMenu();
     createInvokeExternalMenu();
+    createVideoMenu();
 
     KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT( editImage() ) );
     action->setText( i18n("Annotate...") );
@@ -407,7 +408,6 @@ void Viewer::ViewerWidget::load()
 
     if ( isReadable ) {
         if ( isVideo ) {
-            createVideoViewer();
             _display = _videoDisplay;
         }
         else
@@ -999,11 +999,11 @@ void Viewer::ViewerWidget::createVideoMenu()
          << SeekInfo( i18n("10 seconds backward"), "seek-10-second", -10000, QKeySequence(QString::fromLatin1( "Left")))
          << SeekInfo( i18n("1 seconds backward"), "seek-1-second", -1000, QKeySequence(QString::fromLatin1( "Up")))
          << SeekInfo( i18n("100 miliseconds backward"), "seek-100-millisecond", -100, QKeySequence(QString::fromLatin1( "Shift+Up")))
-         << SeekInfo( i18n("100 miliseconds forward"), "seek+100-millisecond", 100, QKeySequence(QString::fromLatin1( "Shift+Down:")))
+         << SeekInfo( i18n("100 miliseconds forward"), "seek+100-millisecond", 100, QKeySequence(QString::fromLatin1( "Shift+Down")))
          << SeekInfo( i18n("1 seconds forward"), "seek+1-second", 1000, QKeySequence(QString::fromLatin1( "Down")))
          << SeekInfo( i18n("10 seconds forward"), "seek+10-second", 10000, QKeySequence(QString::fromLatin1( "Right")))
          << SeekInfo( i18n("1 minute forward"), "seek+1-minute", 60000, QKeySequence(QString::fromLatin1( "Shift+Right")))
-         << SeekInfo( i18n("10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1( "Control+Right")));
+         << SeekInfo( i18n("10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1( "Ctrl+Right")));
 
     int count=0;
     Q_FOREACH( const SeekInfo& info, list ) {
@@ -1059,12 +1059,9 @@ void Viewer::ViewerWidget::moveInfoBox( int y)
 
 void Viewer::ViewerWidget::createVideoViewer()
 {
-    if ( !_videoDisplay ) {
-        _videoDisplay = new VideoDisplay( this );
-        addWidget( _videoDisplay );
-        connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
-        createVideoMenu();
-    }
+    _videoDisplay = new VideoDisplay( this );
+    addWidget( _videoDisplay );
+    connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 }
 
 #include "ViewerWidget.moc"

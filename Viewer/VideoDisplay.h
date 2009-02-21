@@ -56,10 +56,9 @@ private slots:
     void phononStateChanged(Phonon::State, Phonon::State);
 
 protected:
-    enum ErrorType { NoError, NoMimeType, NoKPart, NoLibrary, NoPartInstance,NoWidget };
-    void showError( ErrorType, const QString& fileName, const QString& mimeType );
     void resize( float factor );
-    virtual void resizeEvent( QResizeEvent* );
+    OVERRIDE void resizeEvent( QResizeEvent* );
+    void setup();
 
 private:
     Phonon::MediaObject* _mediaObject;

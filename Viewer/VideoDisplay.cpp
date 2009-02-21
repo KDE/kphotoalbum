@@ -47,60 +47,20 @@
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent )
 {
-    _mediaObject = new Phonon::MediaObject;
-    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
-    Phonon::createPath( _mediaObject, audioDevice );
-
-    Phonon::VideoWidget* videoDevice = new Phonon::VideoWidget;
-    Phonon::createPath( _mediaObject, videoDevice );
-
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget( videoDevice, 1 );
-
-    Phonon::SeekSlider* slider = new Phonon::SeekSlider(this);
-    layout->addWidget( slider );
-    slider->setMediaObject( _mediaObject );
-    _mediaObject->setTickInterval(100);
-
-    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
-    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
-             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
+    _mediaObject = 0;
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
+    if ( !_mediaObject )
+        setup();
+
     _info = info;
     _mediaObject->setCurrentSource( info->fileName(DB::AbsolutePath) );
     _mediaObject->play();
 
 
     return true;
-}
-
-void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
-{
-    const QString failed = QString::fromLatin1( "<font color=\"red\"><b>%1</b></font>" ).arg( i18n("Failed") );
-    const QString OK = QString::fromLatin1( "<font color=\"green\"><b>%1</b></font>" ).arg( i18n("OK") );
-    const QString untested = QString::fromLatin1( "<b>%1</b>" ).arg( i18n("Untested") );
-
-    QString msg = i18n("<h1><b>Error Loading Video</font></b></h1>");
-    msg += QString::fromLatin1( "<table cols=\"2\">" );
-    msg += i18n("<tr><td>Finding mime type for file</td><td>%1</td><tr>").arg( type == NoMimeType ? failed :
-                                                                                QString::fromLatin1("<font color=\"green\"><b>%1</b></font>")
-                                                                                .arg(mimeType ) );
-
-    msg += i18n("<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>", type < NoKPart ? untested : ( type == NoKPart ? failed : OK ) );
-    msg += i18n("<tr><td>Getting a library for the part</tr><td>%1</td></tr>"
-           , type < NoLibrary ? untested : ( type == NoLibrary ? failed : OK ) );
-    msg += i18n("<tr><td>Instantiating Part</td><td>%1</td></tr>", type < NoPartInstance ? untested : (type == NoPartInstance ? failed : OK ) );
-    msg += i18n("<tr><td>Fetching Widget from part</td><td>%1</td></tr>"
-           , type < NoWidget ? untested : (type == NoWidget ? failed : OK ) );
-    msg += QString::fromLatin1( "</table>" );
-
-    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ,fileName ), KGuiItem(i18n("Show More Help")),
-                                          KGuiItem(i18n("Close") ) );
-    if ( ret == KMessageBox::Yes )
-        KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
 }
 
 void Viewer::VideoDisplay::zoomIn()
@@ -190,16 +150,21 @@ void Viewer::VideoDisplay::play()
 
 Viewer::VideoDisplay::~VideoDisplay()
 {
-    _mediaObject->stop();
+    if ( _mediaObject )
+        _mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::stop()
 {
-    _mediaObject->stop();
+    if ( _mediaObject )
+        _mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::playPause()
 {
+    if ( !_mediaObject )
+        return;
+
     if ( _mediaObject->state() != Phonon::PlayingState )
         _mediaObject->play();
     else
@@ -208,24 +173,36 @@ void Viewer::VideoDisplay::playPause()
 
 void Viewer::VideoDisplay::restart()
 {
+    if ( !_mediaObject )
+        return;
+
     _mediaObject->seek(0);
     _mediaObject->play();
 }
 
 void Viewer::VideoDisplay::seek()
 {
+    if (!_mediaObject )
+        return;
+
     QAction* action = static_cast<QAction*>(sender());
     int value = action->data().value<int>();
-    _mediaObject->seek( value );
+    _mediaObject->seek( _mediaObject->currentTime() + value );
 }
 
 bool Viewer::VideoDisplay::isPaused() const
 {
+    if (!_mediaObject )
+        return false;
+
     return _mediaObject->state() == Phonon::PausedState;
 }
 
 bool Viewer::VideoDisplay::isPlaying() const
 {
+    if (!_mediaObject )
+        return false;
+
     return _mediaObject->state() == Phonon::PlayingState;
 }
 
@@ -234,6 +211,32 @@ void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::St
     if ( newState == Phonon::ErrorState ) {
         QMessageBox::critical(0, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
     }
+}
+
+void Viewer::VideoDisplay::setup()
+{
+    qDebug("Yo1");
+
+    _mediaObject = new Phonon::MediaObject;
+    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
+    Phonon::createPath( _mediaObject, audioDevice );
+
+    Phonon::VideoWidget* videoDevice = new Phonon::VideoWidget;
+    Phonon::createPath( _mediaObject, videoDevice );
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->addWidget( videoDevice, 1 );
+
+    Phonon::SeekSlider* slider = new Phonon::SeekSlider(this);
+    layout->addWidget( slider );
+    slider->setMediaObject( _mediaObject );
+    _mediaObject->setTickInterval(100);
+
+    videoDevice->setFocus();
+    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
+    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
+             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
+
 }
 
 #include "VideoDisplay.moc"

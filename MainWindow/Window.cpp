@@ -1450,11 +1450,8 @@ void MainWindow::Window::plug()
                 kDebug() << "Unknow category\n";
             }
         }
-#ifdef TEMPORARILY_REMOVED
-        plugin->actionCollection()->readShortcutSettings();
-#else
-        kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
-#endif // TEMPORARILY_REMOVED
+        KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("Shortcuts") );
+        plugin->actionCollection()->importGlobalShortcuts( &group );
     }
 
     // For this to work I need to pass false as second arg for createGUI

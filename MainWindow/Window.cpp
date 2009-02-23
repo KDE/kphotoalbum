@@ -799,8 +799,10 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("findImagesWithInvalidDate"), this, SLOT( slotShowImagesWithInvalidDate() ) );
     a->setText( i18n("Display Images and Videos with Incomplete Dates...") );
 
+#ifdef DOES_STILL_NOT_WORK_IN_KPA4
     a = actionCollection()->addAction( QString::fromLatin1("findImagesWithChangedMD5Sum"), this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
     a->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
+#endif //KDAB_TEMPORARILY_REMOVED
 
     a = actionCollection()->addAction( QString::fromLatin1("rebuildMD5s"), this, SLOT( slotRecalcCheckSums() ) );
     a->setText( i18n("Recalculate Checksum") );
@@ -1307,7 +1309,7 @@ void MainWindow::Window::slotShowNotOnDisk()
 
 void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED//QWERTY
+#ifdef DOES_STILL_NOT_WORK_IN_KPA4
     Utilities::ShowBusyCursor dummy;
     StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
     showThumbNails( changed.toList() );

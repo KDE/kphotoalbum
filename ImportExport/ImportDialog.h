@@ -66,7 +66,6 @@ protected:
     ImportMatcher* createCategoryPage( const QString& myCategory, const QString& otherCategory );
     void selectImage( bool on );
     DB::ImageInfoList selectedImages() const;
-    virtual void closeEvent( QCloseEvent* );
     void possiblyAddMD5CheckPage();
 
 protected slots:

@@ -377,20 +377,6 @@ DB::ImageInfoList ImportDialog::selectedImages() const
     return res;
 }
 
-void ImportDialog::closeEvent( QCloseEvent* /*e*/ )
-{
-#ifdef KDAB_TEMPORARILY_REMOVED
-    // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.
-    if ( !m_importHandler.m_finishedPressed )
-        deleteLater();
-    KAssistantDialog::closeEvent( e );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in ImportDialog::closeEvent");
-#endif //KDAB_TEMPORARILY_REMOVED
-}
-
-
-
 void ImportDialog::slotHelp()
 {
     KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );

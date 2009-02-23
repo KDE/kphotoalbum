@@ -62,6 +62,7 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent )
 
 void InvalidDateFinder::accept()
 {
+    KDialog::accept();
     Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
@@ -100,10 +101,9 @@ void InvalidDateFinder::accept()
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {
-                edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4" )
+                edit->append( QString::fromLatin1("%1:<br>existing = %2<br>new..... = %3" )
                               .arg(info->fileName(DB::AbsolutePath))
                               .arg(date.start().toString())
-                              .arg(date.start().time().toString())
                               .arg(fi.dateTime().toString()) );
             }
         }
@@ -120,11 +120,6 @@ void InvalidDateFinder::accept()
 
     if ( _dateNotTime->isChecked() ) {
         info->resize( 800, 600 );
-#ifdef TEMPORARILY_REMOVED
-        edit->setCursorPosition( 0,0 );
-#else
-        kDebug() << "TEMPORILY REMOVED " ;
-#endif // TEMPORARILY_REMOVED
         edit->setReadOnly( true );
         QFont f = edit->font();
         f.setFamily( QString::fromLatin1( "fixed" ) );
@@ -135,7 +130,6 @@ void InvalidDateFinder::accept()
         delete info;
 
     Window::theMainWindow()->showThumbNails( toBeShown );
-    KDialog::accept();
 }
 
 #include "InvalidDateFinder.moc"

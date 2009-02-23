@@ -285,7 +285,7 @@ bool MainWindow::Window::slotExit()
         }
     }
 
-    if ( _dirtyIndicator->isSaveDirty() || !DB::ImageDB::instance()->isClipboardEmpty() ) {
+    if ( _dirtyIndicator->isSaveDirty() ) {
         int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
                                                    i18n("Save Changes?") );
         if ( ret == KMessageBox::Cancel )
@@ -1390,7 +1390,7 @@ void MainWindow::Window::setupPluginMenu()
     connect( menu, SIGNAL( aboutToShow() ), this, SLOT( loadPlugins() ) );
     _hasLoadedPlugins = false;
 #else
-    delete menu;
+    menu->setEnabled(false);
     _hasLoadedPlugins = true;
 #endif
 }

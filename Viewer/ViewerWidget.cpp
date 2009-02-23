@@ -193,6 +193,8 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
 void Viewer::ViewerWidget::createWallPaperMenu()
 {
+    // Setting wallpaper has still not yet been ported to KPA4
+#ifndef DOES_STILL_NOT_WORK_IN_KPA4
     _wallpaperMenu = new QMenu( _popup );
     _wallpaperMenu->setTitle( i18n("Set as Wallpaper") );
 
@@ -225,6 +227,7 @@ void Viewer::ViewerWidget::createWallPaperMenu()
     _wallpaperMenu->addAction( action );
 
     _popup->addMenu( _wallpaperMenu );
+#endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
@@ -619,12 +622,10 @@ void Viewer::ViewerWidget::slotSetWallpaperCAF()
 
 void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
 {
-#ifdef TEMPORARILY_REMOVED
+#ifdef DOES_STILL_NOT_WORK_IN_KPA4
     if(mode>7 || mode<1) return;
     DCOPRef kdesktop("kdesktop","KBackgroundIface");
     kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
-#else
-    kDebug() << "TEMPORARILY REMOVED " ;
 #endif
 }
 

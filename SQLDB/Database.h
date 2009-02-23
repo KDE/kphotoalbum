@@ -74,9 +74,6 @@ namespace SQLDB {
                                                    const DB::ImageDate& range,
                                                    bool includeRanges) const;
 
-        OVERRIDE void cutToClipboard( const QStringList& list );
-        OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
-        OVERRIDE bool isClipboardEmpty();
         OVERRIDE QStringList CONVERT(const DB::Result&);
         OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
 

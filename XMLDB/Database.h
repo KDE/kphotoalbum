@@ -68,9 +68,6 @@ namespace XMLDB {
             const DB::Result& cutList,
             bool after);
 
-        OVERRIDE void cutToClipboard( const QStringList& list );
-        OVERRIDE QStringList pasteFromCliboard( const QString& afterFile );
-         bool isClipboardEmpty();
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
         OVERRIDE bool stack(const DB::Result& items);
@@ -111,7 +108,6 @@ namespace XMLDB {
         XMLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
         DB::MD5Map _md5map;
-        DB::ImageInfoList _clipboard;
 
         DB::StackID _nextStackId;
         typedef QMap<DB::StackID, DB::Result> StackMap;

@@ -377,14 +377,14 @@ void XMLDB::Database::reorder(
 // Note: The selection is known to be sorted wrt the order in the image list,
 // i.e. it is a common subsequence.
 DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::Result& selection)
-{  
+{
     DB::ImageInfoList result;
     if (selection.isEmpty())
         return result;
 
     DB::Result::ConstIterator subsequenceIt = selection.begin();
     QString file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
- 
+
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
         if ( (*it)->fileName(DB::AbsolutePath) == file ) {
             result << *it;
@@ -428,28 +428,6 @@ DB::Result XMLDB::Database::insertList(
     return result;
 }
 
-
-void XMLDB::Database::cutToClipboard( const QStringList& )
-{
-#ifdef KDAB_TEMPORARILY_REMOVED
-    _clipboard = takeImagesFromSelection( selection );
-#endif
-}
-
-QStringList XMLDB::Database::pasteFromCliboard( const QString& )
-{
-#ifdef KDAB_TEMPORARILY_REMOVED
-    QStringList result = insertList( afterFile, _clipboard, true );
-    _clipboard.clear();
-#else
-    return QStringList();
-#endif
-}
-
-bool XMLDB::Database::isClipboardEmpty()
-{
-    return _clipboard.isEmpty();
-}
 
 bool XMLDB::Database::stack(const DB::Result& items)
 {

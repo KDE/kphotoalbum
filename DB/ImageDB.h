@@ -169,19 +169,11 @@ public: // Methods that must be overriden
      * */
     virtual DB::Result getStackFor(const DB::ResultId& referenceId) const = 0;
 
-    // QWERTY: remove this ? Clipboard never seems to be used, but this
-    // method is asked once.
-    virtual bool isClipboardEmpty() = 0;
-
  protected:
     friend class DB::ResultId;
 
     // Don't use directly, use DB::ResultId::fetchInfo() instead.
     virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
-
-    // QWERTY: garbage collect these methods ? They are never used.
-    virtual void cutToClipboard( const QStringList& list ) = 0;
-    virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
 
 
 protected slots:

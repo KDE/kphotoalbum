@@ -279,23 +279,6 @@ DB::ResultId SQLDB::Database::findFirstItemInRange(
         range, includeRanges, files.rawIdList());
 }
 
-void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
-{
-    // Not used yet anywhere, so not implemented either. ;)
-}
-
-QStringList SQLDB::Database::pasteFromCliboard( const QString& /*afterFile*/ )
-{
-    // Not implemented.
-    return QStringList();
-}
-
-bool SQLDB::Database::isClipboardEmpty()
-{
-    // Not implemented.
-    return true;
-}
-
 QStringList SQLDB::Database::CONVERT(const DB::Result& result)
 {
     QStringList files;

@@ -490,29 +490,18 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED
-    // I expected this to work, but it doesn't
+    QStringList res;
     QList<QUrl> urls;
-
     Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
+        res.append( fileName );
         urls.append( QUrl( fileName ) );
     }
-    qDebug() << urls;
     QMimeData* mimeData = new QMimeData;
     mimeData->setUrls( urls );
+    mimeData->setText( res.join( QLatin1String(" ") ) );
 
     QApplication::clipboard()->setMimeData( mimeData );
-#endif //KDAB_TEMPORARILY_REMOVED
-
-    KUrl::List urls;
-
-    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
-        const QString fileName = info->fileName(DB::AbsolutePath);
-        urls.append( KUrl( fileName ) );
-    }
-
-    QApplication::clipboard()->setData( new K3URLDrag( urls ) );
 }
 
 void MainWindow::Window::slotReReadExifInfo()
@@ -676,10 +665,6 @@ void MainWindow::Window::setupMenuBar()
     a = KStandardAction::redisplay( _browser, SLOT( go() ), actionCollection() );
 
     // The Edit menu
-#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
-    _cut = KStandardAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
-    _paste = KStandardAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
-#endif
     KStandardAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
@@ -802,7 +787,7 @@ void MainWindow::Window::setupMenuBar()
 #ifdef DOES_STILL_NOT_WORK_IN_KPA4
     a = actionCollection()->addAction( QString::fromLatin1("findImagesWithChangedMD5Sum"), this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
     a->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
-#endif //KDAB_TEMPORARILY_REMOVED
+#endif //DOES_STILL_NOT_WORK_IN_KPA4
 
     a = actionCollection()->addAction( QString::fromLatin1("rebuildMD5s"), this, SLOT( slotRecalcCheckSums() ) );
     a->setText( i18n("Recalculate Checksum") );
@@ -899,9 +884,6 @@ void MainWindow::Window::setupMenuBar()
     _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), this, SLOT( slotRecreateThumbnail() ) );
     _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
-#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
-    connect( _thumbNailViewOLD, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-#endif
     createGUI( QString::fromLatin1( "kphotoalbumui.rc" ) );
 }
 
@@ -1313,18 +1295,14 @@ void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
     Utilities::ShowBusyCursor dummy;
     StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
     showThumbNails( changed.toList() );
-#else // KDAB_TEMPORARILY_REMOVED
+#else // DOES_STILL_NOT_WORK_IN_KPA4
     qFatal("Code commented out in MainWindow::Window::slotShowImagesWithChangedMD5Sum");
-#endif //KDAB_TEMPORARILY_REMOVED
+#endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
 
 
 void MainWindow::Window::updateStates( bool thumbNailView )
 {
-#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
-    _cut->setEnabled( thumbNailView );
-    _paste->setEnabled( thumbNailView );
-#endif
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );

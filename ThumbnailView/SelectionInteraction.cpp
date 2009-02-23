@@ -167,13 +167,16 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     QList<QUrl> l;
+    QStringList texts;
     Q_FOREACH(DB::ImageInfoPtr info, _view->selection().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
         l.append( QUrl(fileName) );
+        texts.append( fileName );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;
     data->setUrls( l );
+    data->setText( texts.join( QLatin1String( " " ) ) );
     drag->setMimeData( data );
 
     drag->exec(Qt::ActionMask);

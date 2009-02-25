@@ -394,6 +394,11 @@ void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
             _allStacks << info->stackId();
     }
     // FIXME: see comments in the function -- is it really needed at all?
+    // TODO(hzeller): yes so that you don't have to scroll to the page in question
+    // to force loading; this is esp. painful if you have a whole bunch of new
+    // images in your collection (I usually add 100 at time) - your first walk through
+    // it will be slow.
+    // But yeah, this needs optimization, so leaving this commented out for now.
     //generateMissingThumbnails( items );
     updateDisplayModel();
 }

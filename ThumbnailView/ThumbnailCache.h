@@ -18,11 +18,11 @@
 #ifndef THUMBNAILVIEW_THUMBNAILCACHE_H
 #define THUMBNAILVIEW_THUMBNAILCACHE_H
 
-#include <QObject>
-#include <QString>
-#include <QSize>
-#include <QMutex>
 #include <QHash>
+#include <QMutex>
+#include <QObject>
+#include <QSize>
+#include <QString>
 
 #include "DB/Result.h"
 #include "ImageManager/ImageClient.h"
@@ -36,10 +36,13 @@ namespace DB {
 namespace ThumbnailView {
 
 /**
- * A cache for thumbnails. Right now, this is only a thin wrapper around
- * QPixmapCache but it is extracted here to eventually allow more control
- * over what is cached and anticipate use.
- * Note, this is work in progress... (TODO(hzeller): update comment)
+ * A cache for thumbnails that supports automatic pre-warming.
+ *
+ * This is a wrapper around QPixmapCache for the raw store/retrieve
+ * functionality. In addition to that, given a current displayed page
+ * out of a list of images, it attempts to pre-warm the cache with the
+ * thumbnails of the surrounding pages if possible. The sequence of pre-loading
+ * is scheduled according to the observed scroll direction.
  */
 class ThumbnailCache : public QObject, public ImageManager::ImageClient {
     Q_OBJECT
@@ -60,7 +63,7 @@ public:
 
     /**
      * set the hot area of thumbnails currently displayed. The values
-     * denote indices in the display list.
+     * denote a range in the display list.
      * The Cache uses this to decide what images not to throw away and
      * what images to preload.
      */

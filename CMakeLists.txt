@@ -14,8 +14,8 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
                 -DQT3_SUPPORT_WARNINGS
                 ${KDE4_ENABLE_EXCEPTIONS}
                 -DOVERRIDE=
-#                -DQT_NO_CAST_FROM_ASCII
-#                -DQT_NO_CAST_TO_ASCII
+                -DQT_NO_CAST_FROM_ASCII
+                -DQT_NO_CAST_TO_ASCII
 #                -DDB_RAWID_IS_PLAIN_INTEGER
                )
 
@@ -232,10 +232,6 @@ add_subdirectory( themes )
 if(SQLDB_SUPPORT)
   add_subdirectory( SQLDB )
 endif(SQLDB_SUPPORT)
-
-if(KIPI_FOUND)
-	#TODO
-endif(KIPI_FOUND)
 
 set(EXIV2_SRCS)
 if(EXIV2_FOUND)

@@ -743,7 +743,7 @@ Viewer::ViewerWidget::~ViewerWidget()
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
         KProcess proc;
-        proc << xdgScreenSaver << "resume" << QString::number( winId() );
+        proc << xdgScreenSaver << QLatin1String("resume") << QString::number( winId() );
         // if we don't wait here, xdg-screensaver realizes that the window is
         // already gone and doesn't re-activate the screensaver
         proc.execute();

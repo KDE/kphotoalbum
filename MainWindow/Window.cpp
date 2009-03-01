@@ -957,7 +957,7 @@ void MainWindow::Window::pathChanged( const QString& path )
 void MainWindow::Window::runDemo()
 {
     KProcess* process = new KProcess;
-    *process << "kphotoalbum" << "-demo";
+    *process << QLatin1String("kphotoalbum") << QLatin1String("-demo");
     process->startDetached();
 }
 

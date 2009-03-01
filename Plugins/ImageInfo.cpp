@@ -76,11 +76,11 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     if ( _info ) {
         DB::GpsCoordinates position = _info->geoPosition();
         if (!position.isNull()) {
-            res.insert("longitude", QVariant(position.longitude()));
-            res.insert("latitude", QVariant(position.latitude()));
-            res.insert("altitude", QVariant(position.altitude()));
+            res.insert(QString::fromLatin1("longitude"), QVariant(position.longitude()));
+            res.insert(QString::fromLatin1("latitude"), QVariant(position.latitude()));
+            res.insert(QString::fromLatin1("altitude"), QVariant(position.altitude()));
             if (position.precision() != DB::GpsCoordinates::NoPrecisionData) {
-                res.insert("positionPrecision", QVariant(position.precision()));
+                res.insert(QString::fromLatin1("positionPrecision"), QVariant(position.precision()));
             }
         }
     }
@@ -120,19 +120,22 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
                 _info->addCategoryInfo( it.key(), list.toSet() );
             }
         }
-        if (map.contains("longitude") || map.contains("latitude") || map.contains("altitude") || map.contains("positionPrecision")) {
-            if (map.contains("longitude") && map.contains("latitude")) {
+        if (map.contains(QLatin1String("longitude")) ||
+            map.contains(QLatin1String("latitude")) ||
+            map.contains(QLatin1String("altitude")) ||
+            map.contains(QLatin1String("positionPrecision"))) {
+            if (map.contains(QLatin1String("longitude")) && map.contains(QLatin1String("latitude"))) {
                 double altitude = 0;
-                QVariant var = map["altitude"];
+                QVariant var = map[QLatin1String("altitude")];
                 if (!var.isNull()) {
                     altitude = var.toDouble();
                 }
                 int precision = DB::GpsCoordinates::NoPrecisionData;
-                var = map["positionPrecision"];
+                var = map[QLatin1String("positionPrecision")];
                 if (!var.isNull()) {
                     precision = var.toInt();
                 }
-                DB::GpsCoordinates coord(map["longitude"].toDouble(), map["latitude"].toDouble(), altitude, precision);
+                DB::GpsCoordinates coord(map[QLatin1String("longitude")].toDouble(), map[QLatin1String("latitude")].toDouble(), altitude, precision);
                 _info->setGeoPosition(coord);
             } else {
                 qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
@@ -150,11 +153,11 @@ void Plugins::ImageInfo::delAttributes( const QStringList& delAttrs)
                 _info->setCategoryInfo(*it, Utilities::StringSet());
             }
         }
-        if (delAttrs.contains("tags")) {
+        if (delAttrs.contains(QLatin1String("tags"))) {
             //TODO very probably a misunderstanding, isn't it?
             qWarning("Ignoring 'remove all tags'");
         }
-        if (delAttrs.contains("longitude") && delAttrs.contains("latitude")) {
+        if (delAttrs.contains(QLatin1String("longitude")) && delAttrs.contains(QLatin1String("latitude"))) {
             //clear position:
             _info->setGeoPosition(DB::GpsCoordinates());
         }
@@ -225,12 +228,12 @@ void Plugins::ImageInfo::cloneData( ImageInfoShared* other )
 
 bool Plugins::ImageInfo::isPositionAttribute(const QString &key)
 {
-    return (key == "longitude" || key == "latitude" || key == "altitude" || key == "positionPrecision");
+    return (key == QString::fromLatin1("longitude") || key == QString::fromLatin1("latitude") || key == QString::fromLatin1("altitude") || key == QString::fromLatin1("positionPrecision"));
 }
 
 bool Plugins::ImageInfo::isCategoryAttribute(const QString &key)
 {
-    return (key != "tags" && !isPositionAttribute(key));
+    return (key != QString::fromLatin1("tags") && !isPositionAttribute(key));
 }
 
 #endif // KIPI

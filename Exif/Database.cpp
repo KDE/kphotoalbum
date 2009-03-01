@@ -15,10 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-// PENDING(blackie) these should go away, and the code be clean
-#undef QT_NO_CAST_FROM_ASCII
-#undef QT_NO_CAST_TO_ASCII
-
 #include "Exif/Database.h"
 
 #include "DB/ImageDB.h"
@@ -172,7 +168,7 @@ void Exif::Database::remove( const QString& fileName )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, _doUTF8Conversion ? fileName.toUtf8() : fileName );
+    query.bindValue( 0, _doUTF8Conversion ? fileName.toUtf8() : fileName.toLatin1() );
     if ( !query.exec() )
         showError( query );
 }
@@ -189,7 +185,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
-    query.bindValue(  0, _doUTF8Conversion ? filename.toUtf8() : filename );
+    query.bindValue(  0, _doUTF8Conversion ? filename.toUtf8() : filename.toLatin1() );
     int i = 1;
     for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
@@ -303,7 +299,7 @@ void Exif::Database::recreate()
     // the user presse 'cancel' or there is any error. In that case
     // we want to go back to the original DB.
 
-    QString origBackup = exifDBFile() + ".bak";
+    QString origBackup = exifDBFile() + QLatin1String(".bak");
     _db.close();
     QDir().remove(origBackup);
     QDir().rename(exifDBFile(), origBackup);

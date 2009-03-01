@@ -87,11 +87,11 @@ Exif::InfoDialog::InfoDialog( const DB::ResultId& id, QWidget* parent )
 
     QLabel* _iptcLabel = new QLabel( i18n("IPTC character set:"), top );
     _iptcCharset = new QComboBox( top );
-    QStringList _charsets;
-    QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
-    for (QList<QByteArray>::const_iterator it = _charsetsBA.constBegin(); it != _charsetsBA.constEnd(); ++it )
-        _charsets << *it;
-    _iptcCharset->insertItems( 0, _charsets );
+    QStringList charsets;
+    QList<QByteArray> charsetsBA = QTextCodec::availableCodecs();
+    for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it )
+        charsets << QLatin1String(*it);
+    _iptcCharset->insertItems( 0, charsets );
     _iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( Settings::SettingsData::instance()->iptcCharset().toAscii() ) ) );
     hlay->addWidget( _iptcLabel );
     hlay->addWidget( _iptcCharset );

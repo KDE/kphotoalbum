@@ -114,7 +114,7 @@ StringSet Info::standardKeys()
         Exiv2::ExifTags::gpsTagList();
     for (QList<const Exiv2::TagInfo*>::iterator it = tags.begin(); it != tags.end(); ++it ) {
         while ( (*it)->tag_ != 0xffff ) {
-            res.insert( Exiv2::ExifKey( (*it)->tag_, Exiv2::ExifTags::ifdItem( (*it)->ifdId_ ) ).key().c_str() );
+            res.insert( QLatin1String(Exiv2::ExifKey( (*it)->tag_, Exiv2::ExifTags::ifdItem( (*it)->ifdId_ ) ).key().c_str() ));
             ++(*it);
         }
     }
@@ -135,18 +135,18 @@ StringSet Info::standardKeys()
     // IPTC tags use yet another format...
     Exiv2::IptcDataSets::dataSetList( s );
 
-    QStringList lines = QString( s.str().c_str() ).split( '\n' );
+    QStringList lines = QString( QLatin1String(s.str().c_str()) ).split( QChar::fromLatin1('\n') );
     for ( QStringList::const_iterator it = lines.constBegin(); it != lines.constEnd(); ++it ) {
         if ( it->isEmpty() )
             continue;
-        QStringList fields = it->split( '\t' );
+        QStringList fields = it->split( QChar::fromLatin1('\t') );
         if ( fields.size() == 7 ) {
             QString id = fields[4];
-            if ( id.endsWith( ',' ) )
+            if ( id.endsWith( QChar::fromLatin1(',') ) )
                 id.chop(1);
             res.insert( id );
         } else {
-            fields = it->split( ", " );
+            fields = it->split( QLatin1String(", ") );
             if ( fields.size () >= 11 ) {
                 res.insert( fields[8] );
             } else {

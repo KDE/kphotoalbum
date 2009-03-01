@@ -15,9 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-//Unfortunately the kparts/componentfactory.h breaks this.
-#undef QT_NO_CAST_FROM_ASCII
-#undef QT_NO_CAST_TO_ASCII
 #include "FeatureDialog.h"
 #include <config-kpa-kipi.h>
 #include <config-kpa-exiv2.h>

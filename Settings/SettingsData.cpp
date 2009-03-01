@@ -452,7 +452,7 @@ QString SettingsData::imageDirectory() const
 
 QString SettingsData::groupForDatabase( const char* setting ) const
 {
-    return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
+    return STR("%1 - %2").arg( STR(setting) ).arg( imageDirectory() );
 }
 
 DB::ImageSearchInfo SettingsData::currentLock() const

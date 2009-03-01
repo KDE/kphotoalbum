@@ -26,7 +26,7 @@
 
 namespace
 {
-    static void insertInitialData(SQLDB::Connection& conn)
+static void insertInitialData(SQLDB::Connection& /*conn*/)
     {
 #if 0 // When importing a database, we do not want default items.
       // The only thing we can do so far is importing, so lets keep this out for now

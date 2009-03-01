@@ -589,9 +589,9 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
 
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
-    short rating = elm.attribute( QString::fromLatin1("rating"), "-1" ).toShort();
-    DB::StackID stackId = elm.attribute( QString::fromLatin1("stackId"), "0" ).toULong();
-    unsigned int stackOrder = elm.attribute( QString::fromLatin1("stackOrder"), "0" ).toULong();
+    short rating = elm.attribute( QString::fromLatin1("rating"), QString::fromLatin1("-1") ).toShort();
+    DB::StackID stackId = elm.attribute( QString::fromLatin1("stackId"), QString::fromLatin1("0") ).toULong();
+    unsigned int stackOrder = elm.attribute( QString::fromLatin1("stackOrder"), QString::fromLatin1("0") ).toULong();
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date,
             angle, md5sum, size, mediaType, rating, stackId, stackOrder );

@@ -31,7 +31,7 @@
  */
 static const char *kDefaultImageFormat = "ppm";
 
-ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat) 
+ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat)
     : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat)
 {
     QDir dir(QDir::homePath());
@@ -44,7 +44,7 @@ ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat
 QString ImageManager::FileThumbnailStorage::keyToPath(const QString& key)
 {
     return QString::fromLatin1( "%1/.thumbnails/%2.%3" )
-        .arg(QDir::homePath()).arg(key).arg(_imageFormat);
+        .arg(QDir::homePath()).arg(key).arg(QLatin1String(_imageFormat));
 }
 
 bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage& image)
@@ -106,7 +106,7 @@ bool ImageManager::FileThumbnailStorage::exists(const QString& key)
 }
 
 #ifdef TESTING_MEMORY_THUMBNAIL_CACHING
-ImageManager::MemoryThumbnailStorage::MemoryThumbnailStorage(const char *imageFormat) 
+ImageManager::MemoryThumbnailStorage::MemoryThumbnailStorage(const char *imageFormat)
     : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat)
 {
     /* nop */

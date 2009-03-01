@@ -181,6 +181,7 @@ protected slots:
     void realDropEvent();
     void slotRepaint();
     void slotViewChanged( int, int );
+    void imagesDeletedFromDB( const DB::Result& );
 
 private:
     //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.

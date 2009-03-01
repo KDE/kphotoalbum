@@ -92,6 +92,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
     connect( this, SIGNAL( contentsMoving( int, int ) ),
              this, SLOT( slotViewChanged( int, int ) ));
+    connect( DB::ImageDB::instance(), SIGNAL( imagesDeleted( const DB::Result& ) ), this, SLOT( imagesDeletedFromDB( const DB::Result& ) ) );
 
     _toolTip = new ThumbnailToolTip( this );
 
@@ -1507,4 +1508,13 @@ void ThumbnailView::ThumbnailWidget::contentsDragEnterEvent( QDragEnterEvent * e
         event->accept();
     else
         event->ignore();
+}
+
+void ThumbnailView::ThumbnailWidget::imagesDeletedFromDB( const DB::Result& list )
+{
+    Q_FOREACH( DB::ResultId id, list ) {
+        _displayList.removeAll( id );
+        _imageList.removeAll(id);
+    }
+    updateDisplayModel();
 }

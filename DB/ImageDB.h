@@ -182,6 +182,7 @@ protected slots:
 
 signals:
     void totalChanged( uint );
+    void imagesDeleted( const DB::Result& );
 };
 
 }

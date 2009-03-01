@@ -180,8 +180,10 @@ void SQLDB::Database::deleteList(const DB::Result& filesToRemove)
 #endif
     Q_FOREACH(const DB::ResultId id, filesToRemove)
         _qh.removeMediaItem(id.rawId());
-    if (!filesToRemove.isEmpty())
+    if (!filesToRemove.isEmpty()) {
         emit totalChanged(totalCount());
+        emit imagesDeleted( filesToRemove );
+    }
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName, DB::PathType type ) const

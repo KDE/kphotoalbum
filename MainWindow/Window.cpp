@@ -200,7 +200,6 @@ MainWindow::Window::Window( QWidget* parent )
     startAutoSaveTimer();
 
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), _browser, SLOT( home() ) );
     connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
@@ -469,23 +468,7 @@ void MainWindow::Window::slotDeleteSelected()
     if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
         return;
 
-    Utilities::ShowBusyCursor dummy;
     DirtyIndicator::markDirty();
-
-    // The thumbnail view now only shows the intersection of what it showed
-    // previously and what we have in total.
-    const DB::Result& images = _thumbnailView->imageList(ThumbnailView::ThumbnailWidget::SortedOrder);
-    const DB::Result& all = DB::ImageDB::instance()->images();
-    QSet<DB::ResultId> allImageSet;
-    Q_FOREACH(DB::ResultId id, all) {
-        allImageSet.insert(id);
-    }
-    DB::Result newSet;
-    Q_FOREACH(DB::ResultId id, images) {
-        if (allImageSet.contains(id))
-            newSet.append(id);
-    }
-    showThumbNails( newSet );
 }
 
 void MainWindow::Window::slotCopySelectedURLs()

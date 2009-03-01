@@ -173,6 +173,7 @@ void XMLDB::Database::deleteList(const DB::Result& list)
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
+    emit imagesDeleted( list );
 }
 
 void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )

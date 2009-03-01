@@ -243,7 +243,7 @@ void Viewer::ViewerWidget::createRotateMenu()
     _rotateMenu->setTitle( i18n("Rotate") );
 
     KAction* action = _actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT( rotate90() ) );
-    action->setText( i18n("Rotate counterclockwise") );
+    action->setText( i18n("Rotate clockwise") );
     action->setShortcut( Qt::Key_9 );
     _rotateMenu->addAction( action );
 
@@ -253,7 +253,7 @@ void Viewer::ViewerWidget::createRotateMenu()
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT( rotate270() ) );
-    action->setText( i18n("Rotate clockwise") );
+    action->setText( i18n("Rotate counterclockwise") );
     action->setShortcut( Qt::Key_7 );
     _rotateMenu->addAction( action );
 

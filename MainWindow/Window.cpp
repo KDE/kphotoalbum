@@ -1454,6 +1454,13 @@ void MainWindow::Window::plug()
         plugin->actionCollection()->importGlobalShortcuts( &group );
     }
 
+
+    setPluginMenuState( "importplugin", importActions );
+    setPluginMenuState( "exportplugin", exportActions );
+    setPluginMenuState( "imagesplugins", imageActions );
+    setPluginMenuState( "batch_plugins", batchActions );
+    setPluginMenuState( "tool_plugins", toolsActions );
+
     // For this to work I need to pass false as second arg for createGUI
     plugActionList( QString::fromLatin1("import_actions"), importActions );
     plugActionList( QString::fromLatin1("export_actions"), exportActions );
@@ -1462,6 +1469,14 @@ void MainWindow::Window::plug()
     plugActionList( QString::fromLatin1("batch_actions"), batchActions );
 #endif
 }
+
+void MainWindow::Window::setPluginMenuState( const char* name, const QList<QAction*>& actions )
+{
+    QMenu* menu = findChild<QMenu*>( QString::fromLatin1(name) );
+    if ( menu )
+        menu->setEnabled(actions.count() != 0);
+}
+
 
 
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )

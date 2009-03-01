@@ -75,15 +75,29 @@ static void insertInitialData(SQLDB::Connection& /*conn*/)
                 QString::fromLatin1("SELECT value FROM database_metadata "
                                     "WHERE property=");
             name =
-                conn.executeQuery(x + QString::fromLatin1("'name'")).firstItem().
+                conn.executeQuery(
+                    (x + QString::fromLatin1("'name'")).toAscii().constData()
+                    ).firstItem().
                 toString().toLatin1().constData();
             versionMajor =
-                conn.executeQuery(x + QString::fromLatin1("'version major'")).firstItem().toInt();
+                conn.executeQuery(
+                    (x + QString::fromLatin1("'version major'"))
+                    .toAscii().constData()
+                    ).firstItem().toInt();
             versionMinor =
-                conn.executeQuery(x + QString::fromLatin1("'version minor'")).firstItem().toInt();
-            year = conn.executeQuery(x + QString::fromLatin1("'date year')")).firstItem().toInt();
-            month = conn.executeQuery(x + QString::fromLatin1("'date month'")).firstItem().toInt();
-            day = conn.executeQuery(x + QString::fromLatin1("'date day'")).firstItem().toInt();
+                conn.executeQuery(
+                    (x + QString::fromLatin1("'version minor'"))
+                    .toAscii().constData()
+                    ).firstItem().toInt();
+            year = conn.executeQuery(
+                (x + QString::fromLatin1("'date year')")).toAscii().constData()
+                ).firstItem().toInt();
+            month = conn.executeQuery(
+                (x + QString::fromLatin1("'date month'")).toAscii().constData()
+                ).firstItem().toInt();
+            day = conn.executeQuery(
+                (x + QString::fromLatin1("'date day'")).toAscii().constData()
+                ).firstItem().toInt();
         }
         catch (...) {
         }

@@ -43,11 +43,11 @@ namespace SQLDB
         }
 
         virtual QueryResult
-        executeQuery(const QString& query,
+        executeQuery(const char* query,
                      const Bindings& bindings=Bindings()) const = 0;
 
         virtual void
-        executeStatement(const QString& statement,
+        executeStatement(const char* statement,
                          const Bindings& bindings=Bindings()) = 0;
 
         virtual RowId

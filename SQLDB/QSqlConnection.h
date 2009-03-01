@@ -35,11 +35,11 @@ namespace SQLDB
         explicit QSqlConnection(const QSqlDatabase& database);
 
         virtual QueryResult
-        executeQuery(const QString& query,
+        executeQuery(const char* query,
                      const Bindings& bindings=Bindings()) const;
 
         virtual void
-        executeStatement(const QString& statement,
+        executeStatement(const char* statement,
                          const Bindings& bindings=Bindings());
 
         virtual RowId

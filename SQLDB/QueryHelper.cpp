@@ -17,16 +17,13 @@
   MA 02110-1301 USA.
 */
 
-// PENDING(blackie) these should go away, and the code be clean
-#undef QT_NO_CAST_FROM_ASCII
-#undef QT_NO_CAST_TO_ASCII
-
 #include "QueryHelper.h"
 #include "QueryErrors.h"
 #include "SQLImageInfo.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/CategoryMatcher.h"
 #include "Utilities/List.h"
+#include "Utilities/QStr.h"
 #include "TransactionGuard.h"
 #include <klocale.h>
 #include <qsize.h>
@@ -88,12 +85,12 @@ QString typeCondition(const QString& fieldName, DB::MediaType typemask)
 QStringList QueryHelper::filenames() const
 {
     QList<StringPair> dirFilePairs =
-        executeQuery(QLatin1String(
-                         "SELECT directory.path, file.filename"
-                         " FROM directory, file"
-                         " WHERE file.directory_id=directory.id"
-                         " ORDER BY file.position")
-                     ).asList<StringPair>();
+        executeQuery(
+            "SELECT directory.path, file.filename"
+            " FROM directory, file"
+            " WHERE file.directory_id=directory.id"
+            " ORDER BY file.position"
+            ).asList<StringPair>();
     QStringList r;
     for (QList<StringPair>::const_iterator i = dirFilePairs.constBegin();
          i != dirFilePairs.constEnd(); ++i) {
@@ -105,12 +102,12 @@ QStringList QueryHelper::filenames() const
 QString QueryHelper::mediaItemFilename(DB::RawId id) const
 {
     QList<StringPair> dirFilePairs =
-        executeQuery(QLatin1String(
-                         "SELECT directory.path, file.filename"
-                         " FROM directory, file"
-                         " WHERE directory.id=file.directory_id"
-                         " AND file.id=?"),
-                     Bindings() << id).asList<StringPair>();
+        executeQuery(
+            "SELECT directory.path, file.filename"
+            " FROM directory, file"
+            " WHERE directory.id=file.directory_id"
+            " AND file.id=?",
+            Bindings() << id).asList<StringPair>();
     if (dirFilePairs.isEmpty())
         throw EntryNotFoundError();
 
@@ -123,11 +120,11 @@ DB::RawId QueryHelper::mediaItemId(const QString& filename) const
     QString basename;
     splitPath(filename, path, basename);
     QVariant id =
-        executeQuery(QLatin1String(
-                         "SELECT file.id FROM file, directory"
-                         " WHERE file.directory_id=directory.id"
-                         " AND directory.path=? AND file.filename=?"),
-                     Bindings() << path << basename).firstItem();
+        executeQuery(
+            "SELECT file.id FROM file, directory"
+            " WHERE file.directory_id=directory.id"
+            " AND directory.path=? AND file.filename=?",
+        Bindings() << path << basename).firstItem();
     if (id.isNull())
         throw EntryNotFoundError();
     Q_ASSERT(id.toInt() > 0);
@@ -136,10 +133,10 @@ DB::RawId QueryHelper::mediaItemId(const QString& filename) const
 
 QList< QPair<DB::RawId, QString> > QueryHelper::mediaItemIdFileMap() const
 {
-    Cursor c = executeQuery(QLatin1String(
-                                "SELECT file.id, directory.path, file.filename"
-                                " FROM file, directory"
-                                " WHERE file.directory_id=directory.id")).cursor();
+    Cursor c = executeQuery(
+        "SELECT file.id, directory.path, file.filename"
+        " FROM file, directory"
+        " WHERE file.directory_id=directory.id").cursor();
     QList< QPair<DB::RawId, QString> > r;
 
     if (c.isNull())
@@ -172,9 +169,8 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
         if (!pathIdMap.contains(path)) {
             const DB::RawId id(
                 executeQuery(
-                    QLatin1String(
-                        "SELECT id FROM directory"
-                        " WHERE path=?"),
+                    "SELECT id FROM directory"
+                    " WHERE path=?",
                     Bindings() << path
                     ).firstItem().toInt());
             Q_ASSERT(id != DB::RawId());
@@ -186,11 +182,12 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
     QStringList::const_iterator basenameIt = basenames.constBegin();
     while (pathIt != paths.constEnd()) {
         const QVariant id =
-            executeQuery(QLatin1String("SELECT id"
-                                       " FROM file"
-                                       " WHERE directory_id=? AND filename=?"),
-                         Bindings() << pathIdMap[*pathIt] << *basenameIt
-                         ).firstItem();
+            executeQuery(
+                "SELECT id"
+                " FROM file"
+                " WHERE directory_id=? AND filename=?",
+            Bindings() << pathIdMap[*pathIt] << *basenameIt
+            ).firstItem();
         /*
         if (id.isNull())
             throw EntryNotFoundError();
@@ -219,16 +216,16 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
 
 QStringList QueryHelper::categoryNames() const
 {
-    return executeQuery(QLatin1String("SELECT name FROM category")).asList<QString>();
+    return executeQuery("SELECT name FROM category").asList<QString>();
 }
 
 int QueryHelper::categoryId(const QString& category) const
 {
-    QVariant r = executeQuery(QLatin1String(
-                                  "SELECT id"
-                                  " FROM category"
-                                  " WHERE name=?"),
-                              Bindings() << category).firstItem();
+    QVariant r = executeQuery(
+        "SELECT id"
+        " FROM category"
+        " WHERE name=?",
+        Bindings() << category).firstItem();
     if (r.isNull())
         throw EntryNotFoundError();
     else
@@ -237,28 +234,26 @@ int QueryHelper::categoryId(const QString& category) const
 
 QList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
 {
-    return executeQuery(QLatin1String(
-                            "SELECT tag.id FROM tag, category"
-                            " WHERE tag.category_id=category.id"
-                            " AND category.name=?"),
-                        Bindings() << category).asList<int>();
+    return executeQuery(
+        "SELECT tag.id FROM tag, category"
+        " WHERE tag.category_id=category.id"
+        " AND category.name=?",
+        Bindings() << category).asList<int>();
 }
 
 QStringList QueryHelper::tagNamesOfCategory(int categoryId) const
 {
     // Tags with larger position come first. (NULLs last)
-    return executeQuery(QLatin1String(
-                            "SELECT name FROM tag"
-                            " WHERE category_id=?"
-                            " ORDER BY position DESC"),
-                        Bindings() << categoryId).asList<QString>();
+    return executeQuery(
+        "SELECT name FROM tag"
+        " WHERE category_id=?"
+        " ORDER BY position DESC",
+        Bindings() << categoryId).asList<QString>();
 }
 
 QStringList QueryHelper::folders() const
 {
-    return executeQuery(QLatin1String(
-                            "SELECT path"
-                            " FROM directory")).asList<QString>();
+    return executeQuery("SELECT path FROM directory").asList<QString>();
 }
 
 uint QueryHelper::mediaItemCount(DB::MediaType typemask,
@@ -266,11 +261,12 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
 {
     if (!scope) {
         if (typemask == DB::anyMediaType)
-            return executeQuery(QLatin1String("SELECT COUNT(*) FROM file")
-                                ).firstItem().toUInt();
+            return executeQuery(
+                "SELECT COUNT(*) FROM file").firstItem().toUInt();
         else
-            return executeQuery(QLatin1String("SELECT COUNT(*) FROM file WHERE ") +
-                                typeCondition(QLatin1String("type"), typemask)
+            return executeQuery(
+                (QStr("SELECT COUNT(*) FROM file WHERE ") +
+                 typeCondition(QStr("type"), typemask)).toAscii().constData()
                 ).firstItem().toUInt();
     }
     else {
@@ -278,18 +274,19 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
             return 0; // Empty scope contains no media items
         else {
             if (typemask == DB::anyMediaType) {
-                return executeQuery(QLatin1String(
-                                        "SELECT COUNT(*) FROM file"
-                                        " WHERE id IN (?)"),
-                                    Bindings() << QVariant(toVariantList(*scope))
-                                    ).firstItem().toUInt();
+                return executeQuery(
+                    "SELECT COUNT(*) FROM file"
+                    " WHERE id IN (?)",
+                    Bindings() << QVariant(toVariantList(*scope))
+                    ).firstItem().toUInt();
             }
             else {
-                return executeQuery(QLatin1String("SELECT COUNT(*) FROM file WHERE ") +
-                                    typeCondition(QLatin1String("type"), typemask) +
-                                    QString::fromLatin1(" AND id IN (?)"),
-                                    Bindings() << QVariant(toVariantList(*scope))
-                                    ).firstItem().toUInt();
+                return executeQuery(
+                    (QStr("SELECT COUNT(*) FROM file WHERE ") +
+                     typeCondition(QStr("type"), typemask) +
+                     QStr(" AND id IN (?)")).toAscii().constData(),
+                    Bindings() << QVariant(toVariantList(*scope))
+                    ).firstItem().toUInt();
             }
         }
     }
@@ -298,13 +295,14 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
 QList<DB::RawId> QueryHelper::mediaItemIds(DB::MediaType typemask) const
 {
     if (typemask == DB::anyMediaType)
-        return executeQuery(QLatin1String("SELECT id FROM file ORDER BY position")
-                            ).asList<DB::RawId>();
+        return executeQuery(
+            "SELECT id FROM file ORDER BY position").asList<DB::RawId>();
     else
-        return executeQuery(QLatin1String(
-                                "SELECT id FROM file"
-                                " WHERE ") + typeCondition(QLatin1String("type"), typemask) +
-                            QLatin1String(" ORDER BY position")).asList<DB::RawId>();
+        return executeQuery(
+            (QStr("SELECT id FROM file WHERE ") +
+             typeCondition(QStr("type"), typemask) +
+             QStr(" ORDER BY position")).toAscii().constData()
+            ).asList<DB::RawId>();
 }
 
 void QueryHelper::getMediaItem(DB::RawId id, DB::ImageInfo& info) const
@@ -319,16 +317,17 @@ void QueryHelper::getMediaItem(DB::RawId id, DB::ImageInfo& info) const
 
 int QueryHelper::insertTag(int categoryId, const QString& name)
 {
-    QVariant i = executeQuery(QLatin1String(
-                                  "SELECT id FROM tag"
-                                  " WHERE category_id=? AND name=?"),
-                              Bindings() << categoryId << name).firstItem();
+    QVariant i = executeQuery(
+        "SELECT id FROM tag"
+        " WHERE category_id=? AND name=?",
+        Bindings() << categoryId << name).firstItem();
     if (!i.isNull())
         return i.toInt();
 
-    return executeInsert(QLatin1String("tag"), QLatin1String("id"),
-                         QStringList() << QLatin1String("category_id") << QLatin1String("name"),
-                         Bindings() << categoryId << name);
+    return executeInsert(
+        QStr("tag"), QStr("id"),
+        QStringList() << QStr("category_id") << QStr("name"),
+        Bindings() << categoryId << name);
 }
 
 void QueryHelper::insertTagFirst(int categoryId, const QString& name)
@@ -336,16 +335,16 @@ void QueryHelper::insertTagFirst(int categoryId, const QString& name)
     // See membersOfCategory() for tag ordering usage.
 
     int id = insertTag(categoryId, name);
-    QVariant oldPosition = executeQuery(QLatin1String(
-                                            "SELECT position FROM tag WHERE id=?"),
-                                     Bindings() << id).firstItem();
+    QVariant oldPosition = executeQuery(
+        "SELECT position FROM tag WHERE id=?",
+        Bindings() << id).firstItem();
 
     // Move tags from this to previous first tag one position towards end
     if (!oldPosition.isNull()) {
-        executeStatement(QLatin1String(
-                             "UPDATE tag SET position=position-1"
-                             " WHERE category_id=? AND position>?"),
-                         Bindings() << categoryId << oldPosition);
+        executeStatement(
+            "UPDATE tag SET position=position-1"
+            " WHERE category_id=? AND position>?",
+            Bindings() << categoryId << oldPosition);
     }
 
     // MAX(position) could be NULL, but it'll be returned as 0 with
@@ -393,7 +392,7 @@ void QueryHelper::insertMediaItemTags(DB::RawId mediaId, const DB::ImageInfo& in
     QStringList categories = info.availableCategories();
     for (QStringList::const_iterator categoryIt = categories.constBegin();
          categoryIt != categories.constEnd(); ++categoryIt) {
-        if (*categoryIt == "Folder")
+        if (*categoryIt == QStr("Folder"))
             continue;
         int cid = categoryId(*categoryIt);
         StringSet items = info.itemsOfCategory(*categoryIt);
@@ -413,8 +412,9 @@ int QueryHelper::insertDir(const QString& dirname)
     if (!i.isNull())
         return i.toInt();
 
-    return executeInsert("directory", "id", QStringList() << "path",
-                         Bindings() << dirname);
+    return executeInsert(
+        QStr("directory"), QStr("id"), QStringList() << QStr("path"),
+        Bindings() << dirname);
 }
 
 /** Get data from ImageInfo to Bindings list.
@@ -492,20 +492,22 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int position)
     QStringList fields;
     Bindings bindings;
     if (position != 0) {
-        fields << "position";
+        fields << QStr("position");
         bindings << position;
     }
     fields <<
-        "directory_id" << "filename" << "md5sum" <<
-        "type" << "label" <<
-        "description" <<
-        "time_start" << "time_end" <<
-        "width" << "height" << "angle" <<
-        "rating" << "stack_id" << "stack_position" <<
-        "gps_longitude" << "gps_latitude" << "gps_altitude" << "gps_precision";
+        QStr("directory_id") << QStr("filename") << QStr("md5sum") <<
+        QStr("type") << QStr("label") <<
+        QStr("description") <<
+        QStr("time_start") << QStr("time_end") <<
+        QStr("width") << QStr("height") << QStr("angle") <<
+        QStr("rating") << QStr("stack_id") << QStr("stack_position") <<
+        QStr("gps_longitude") << QStr("gps_latitude") <<
+        QStr("gps_altitude") << QStr("gps_precision");
     bindings += infoValues;
 
-    const DB::RawId mediaId(executeInsert("file", "id", fields, bindings));
+    const DB::RawId mediaId(
+        executeInsert(QStr("file"), QStr("id"), fields, bindings));
 
     insertMediaItemTags(mediaId, info);
 }
@@ -750,25 +752,25 @@ QueryHelper::mediaIdTagsMap(const QString& category,
     QString q;
     Bindings b;
 
-    if (category == "Folder") {
-        q =
+    if (category == QStr("Folder")) {
+        q = QStr(
             "SELECT file.id, directory.path FROM file, directory "
-            "WHERE file.directory_id=directory.id AND " +
-            typeCondition("file.type", typemask);
+            "WHERE file.directory_id=directory.id AND ") +
+            typeCondition(QStr("file.type"), typemask);
     }
     else {
-        q =
+        q = QStr(
             "SELECT file.id, tag.name "
             "FROM file, file_tag, tag, category "
             "WHERE file.id=file_tag.file_id AND "
             "file_tag.tag_id=tag.id AND "
-            "tag.category_id=category.id AND " +
-            typeCondition("file.type", typemask) +
-            " AND category.name=?";
+            "tag.category_id=category.id AND ") +
+            typeCondition(QStr("file.type"), typemask) +
+            QStr(" AND category.name=?");
         b.append(category);
     }
 
-    Cursor c = executeQuery(q, b).cursor();
+    Cursor c = executeQuery(q.toAscii().constData(), b).cursor();
 
     QMap<DB::RawId, StringSet > r;
     if (!c.isNull()) {
@@ -943,26 +945,26 @@ QueryHelper::findFirstFileInTimeRange(
     bool includeRanges,
     const QList<DB::RawId>* idList) const
 {
-    QString query = "SELECT id FROM file WHERE ";
+    QString query = QStr("SELECT id FROM file WHERE ");
     Bindings bindings;
 
     if (idList) {
-        query += "file.id IN (?) AND ";
+        query += QStr("file.id IN (?) AND ");
         bindings << QVariant(toVariantList(*idList));
     }
 
     if (!includeRanges) {
-        query += "? <= file.time_start AND file.time_end <= ?";
+        query += QStr("? <= file.time_start AND file.time_end <= ?");
     }
     else {
-        query += "? <= file.time_end AND file.time_start <= ?";
+        query += QStr("? <= file.time_end AND file.time_start <= ?");
     }
     bindings << range.start() << range.end();
 
-    query += " ORDER BY file.time_start LIMIT 1";
+    query += QStr(" ORDER BY file.time_start LIMIT 1");
 
     const QList<DB::RawId> resultIds =
-        executeQuery(query, bindings).asList<DB::RawId>();
+        executeQuery(query.toAscii().constData(), bindings).asList<DB::RawId>();
 
     if (resultIds.isEmpty())
         return DB::ResultId();
@@ -1036,16 +1038,16 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     for (MatcherList::const_iterator i = positiveList.constBegin();
          i != positiveList.constEnd(); ++i) {
         DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
-        if (m->_category == "Folder") {
-            positiveQuery <<
+        if (m->_category == QStr("Folder")) {
+            positiveQuery << QStr(
                 "id IN (SELECT file.id FROM file, directory "
-                "WHERE file.directory_id=directory.id AND directory.path=?)";
+                "WHERE file.directory_id=directory.id AND directory.path=?)");
             binds << m->_option;
             matchedFolders += m->_option;
         }
         else {
-            positiveQuery <<
-                "id IN (SELECT file_id FROM file_tag WHERE tag_id IN (?))";
+            positiveQuery << QStr(
+                "id IN (SELECT file_id FROM file_tag WHERE tag_id IN (?))");
             QList<int> tagIds = tagIdList(m->_category, m->_option);
             binds << QVariant(toVariantList(tagIds));
             matchedTags[m->_category] += tagIds;
@@ -1060,21 +1062,21 @@ QueryHelper::getMatchingFiles(MatcherList matches,
          i != negativeList.constEnd(); ++i) {
         DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
         if (m) {
-            if (m->_category == "Folder") {
-                negativeQuery <<
+            if (m->_category == QStr("Folder")) {
+                negativeQuery << QStr(
                     "id NOT IN (SELECT file.id FROM file, directory "
-                    "WHERE file.directory_id=directory.id AND directory.path=?)";
+                    "WHERE file.directory_id=directory.id AND directory.path=?)");
                 binds << m->_option;
             }
             else {
-                negativeQuery <<
+                negativeQuery << QStr(
                     "id NOT IN (SELECT file_id "
-                    "FROM file_tag WHERE tag_id IN (?))";
+                    "FROM file_tag WHERE tag_id IN (?))");
                 binds << QVariant(toVariantList(tagIdList(m->_category, m->_option)));
             }
         }
         else {
-            if ((*i)->_category == "Folder") {
+            if ((*i)->_category == QStr("Folder")) {
                 QStringList excludedFolders;
                 if (!matchedFolders.isEmpty()) {
                     excludedFolders = matchedFolders;
@@ -1084,9 +1086,9 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                         asList<QString>();
                 }
                 if (!excludedFolders.isEmpty()) {
-                    excludeQuery <<
+                    excludeQuery << QStr(
                         "id IN (SELECT file.id FROM file, directory "
-                        "WHERE file.directory_id=directory.id AND directory.path IN (?))";
+                        "WHERE file.directory_id=directory.id AND directory.path IN (?))");
                     excBinds << QVariant(toVariantList(excludedFolders));
                 }
             }
@@ -1098,37 +1100,40 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                     excludedTags = tagIdsOfCategory((*i)->_category);
                 }
                 if (!excludedTags.isEmpty()) {
-                    excludeQuery <<
+                    excludeQuery << QStr(
                         "id IN (SELECT file_id "
-                        "FROM file_tag WHERE tag_id IN (?))";
+                        "FROM file_tag WHERE tag_id IN (?))");
                     excBinds << QVariant(toVariantList(excludedTags));
                 }
             }
         }
     }
 
-    QString select = "SELECT id FROM file";
+    QString select = QStr("SELECT id FROM file");
     QStringList condList = positiveQuery + negativeQuery;
 
     if (typemask != DB::anyMediaType)
-        condList.prepend(typeCondition("type", typemask));
+        condList.prepend(typeCondition(QStr("type"), typemask));
 
-    QString cond = condList.join(" AND ");
+    QString cond = condList.join(QStr(" AND "));
 
     QString query = select;
     if (!cond.isEmpty())
-        query += " WHERE " + cond;
+        query += QStr(" WHERE ") + cond;
 
-    query += " ORDER BY position";
+    query += QStr(" ORDER BY position");
 
-    QList<DB::RawId> positive = executeQuery(query, binds).asList<DB::RawId>();
+    QList<DB::RawId> positive =
+        executeQuery(query.toAscii().constData(), binds).asList<DB::RawId>();
 
     if (excludeQuery.isEmpty())
         return positive;
 
     QList<DB::RawId> negative =
-        executeQuery(select + " WHERE " + excludeQuery.join(" OR "),
-                     excBinds).asList<DB::RawId>();
+        executeQuery(
+            (select + QStr(" WHERE ") + excludeQuery.join(QStr(" OR ")))
+            .toAscii().constData(),
+            excBinds).asList<DB::RawId>();
 
     return listSubtract(positive, negative);
 }
@@ -1189,9 +1194,9 @@ DB::StackID QueryHelper::stackFiles(QList<DB::RawId> files)
 
     const QVariant fileIds(toVariantList(files));
     Cursor fileStackCursor =
-        executeQuery(QLatin1String(
-                         "SELECT id, stack_id FROM file WHERE id IN (?)"),
-                     Bindings() << fileIds).cursor();
+        executeQuery(
+            "SELECT id, stack_id FROM file WHERE id IN (?)",
+            Bindings() << fileIds).cursor();
     QVariant stackId;
     for (fileStackCursor.selectFirstRow();
          fileStackCursor.rowExists();
@@ -1213,14 +1218,13 @@ DB::StackID QueryHelper::stackFiles(QList<DB::RawId> files)
     // equal. We'll just go ahead and make an id for the new stack, if
     // there was not one already.
     if (stackId.isNull())
-        stackId = executeQuery(
-            QLatin1String("SELECT MAX(stack_id)+1 FROM file")).firstItem();
+        stackId = executeQuery("SELECT MAX(stack_id)+1 FROM file").firstItem();
     if (stackId.isNull())
         stackId = QVariant(1);
 
-    executeStatement(QLatin1String(
-                         "UPDATE file SET stack_id=? WHERE id IN (?)"),
-                     Bindings() << stackId << fileIds);
+    executeStatement(
+        "UPDATE file SET stack_id=? WHERE id IN (?)",
+        Bindings() << stackId << fileIds);
 
     transaction.commit();
 
@@ -1229,9 +1233,9 @@ DB::StackID QueryHelper::stackFiles(QList<DB::RawId> files)
 
 void QueryHelper::unstackFiles(QList<DB::RawId> files)
 {
-    executeStatement(QLatin1String(
-                         "UPDATE file SET stack_id=NULL WHERE id IN (?)"),
-                     Bindings() << QVariant(toVariantList(files)));
+    executeStatement(
+        "UPDATE file SET stack_id=NULL WHERE id IN (?)",
+        Bindings() << QVariant(toVariantList(files)));
 }
 
 QList<DB::RawId> QueryHelper::getStackOfFile(DB::RawId referenceFile) const
@@ -1241,12 +1245,12 @@ QList<DB::RawId> QueryHelper::getStackOfFile(DB::RawId referenceFile) const
     // therefore the query returns empty set, if the stack id is NULL.
     // (Tested with SQLite 3.5.9 and MySQL 5.0.60.)
     return
-        executeQuery(QLatin1String(
-                         "SELECT id FROM file WHERE stack_id=("
-                         " SELECT stack_id"
-                         " FROM file"
-                         " WHERE id=?)"),
-                     Bindings() << referenceFile).asList<DB::RawId>();
+        executeQuery(
+            "SELECT id FROM file WHERE stack_id=("
+            " SELECT stack_id"
+            " FROM file"
+            " WHERE id=?)",
+            Bindings() << referenceFile).asList<DB::RawId>();
 }
 
 QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::RawId>& idList) const
@@ -1262,13 +1266,13 @@ QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::R
     QVariant idListVariant(toVariantList(idList));
 
     Cursor tagDataCursor =
-            executeQuery(QLatin1String(
-                             "SELECT file_tag.file_id, category.name, tag.name"
-                             " FROM file_tag, category, tag"
-                             " WHERE file_tag.tag_id=tag.id"
-                             " AND category.id=tag.category_id"
-                             " AND file_tag.file_id IN (?)"),
-                         Bindings() << idListVariant).cursor();
+            executeQuery(
+                "SELECT file_tag.file_id, category.name, tag.name"
+                " FROM file_tag, category, tag"
+                " WHERE file_tag.tag_id=tag.id"
+                " AND category.id=tag.category_id"
+                " AND file_tag.file_id IN (?)",
+                Bindings() << idListVariant).cursor();
 
     typedef QPair<QString, QString> Tag;
     QMap<DB::RawId, QSet<Tag> > tagMap;
@@ -1281,16 +1285,16 @@ QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::R
     }
 
     Cursor mainDataCursor =
-        executeQuery(QLatin1String(
-                         "SELECT directory.path, f.filename, f.md5sum, f.type,"
-                         " f.label, f.description,"
-                         " f.time_start, f.time_end, f.width, f.height, f.angle,"
-                         " f.rating, f.stack_id, f.stack_position,"
-                         " f.gps_longitude, f.gps_latitude, f.gps_altitude, f.gps_precision, f.id"
-                         " FROM file AS f, directory"
-                         " WHERE f.directory_id = directory.id"
-                         " AND f.id IN (?)"),
-                     Bindings() << idListVariant).cursor();
+        executeQuery(
+            "SELECT directory.path, f.filename, f.md5sum, f.type,"
+            " f.label, f.description,"
+            " f.time_start, f.time_end, f.width, f.height, f.angle,"
+            " f.rating, f.stack_id, f.stack_position,"
+            " f.gps_longitude, f.gps_latitude, f.gps_altitude, f.gps_precision, f.id"
+            " FROM file AS f, directory"
+            " WHERE f.directory_id = directory.id"
+            " AND f.id IN (?)",
+            Bindings() << idListVariant).cursor();
 
     QMap<DB::RawId, DB::ImageInfoPtr> infos;
 

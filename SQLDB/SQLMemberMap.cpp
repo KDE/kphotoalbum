@@ -17,16 +17,13 @@
   MA 02110-1301 USA.
 */
 
-// PENDING(blackie) these should go away, and the code be clean
-#undef QT_NO_CAST_FROM_ASCII
-#undef QT_NO_CAST_TO_ASCII
-
 #include "SQLMemberMap.h"
 #include "QueryHelper.h"
 #include "QueryErrors.h"
 //Added by qt3to4:
 #include <Q3ValueList>
 #include "Utilities/Graph.h"
+#include "Utilities/QStr.h"
 
 using namespace SQLDB;
 
@@ -92,7 +89,7 @@ void SQLMemberMap::setMembers(const QString& category,
                               const QString& memberGroup,
                               const QStringList& members)
 {
-    if (category == "Folder")
+    if (category == QStr("Folder"))
         return;
 
     int groupId = _qh.tagId(category, memberGroup);
@@ -171,7 +168,7 @@ void SQLMemberMap::renameCategory(const QString& oldName,
 
 void SQLMemberMap::addGroup(const QString& category, const QString& group)
 {
-    if (category == "Folder")
+    if (category == QStr("Folder"))
         return;
 
     if (_qh.executeQuery("SELECT COUNT(*) FROM tag, category "
@@ -190,7 +187,7 @@ void SQLMemberMap::addGroup(const QString& category, const QString& group)
 void SQLMemberMap::addMemberToGroup(const QString& category,
                                     const QString& group, const QString& item)
 {
-    if (category == "Folder")
+    if (category == QStr("Folder"))
         return;
 
     int groupId;
@@ -222,7 +219,7 @@ void SQLMemberMap::removeMemberFromGroup(const QString& category,
                                          const QString& group,
                                          const QString& item)
 {
-    if (category == "Folder")
+    if (category == QStr("Folder"))
         return;
 
     int groupId = _qh.tagId(category, group);
@@ -267,7 +264,7 @@ void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
 
     for (MemberMapping::const_iterator i = map.constBegin(); i != map.constEnd(); ++i) {
         QString category = i.key();
-        if (category == "Folder")
+        if (category == QStr("Folder"))
             continue;
         CategoryGroups groups = i.value();
 

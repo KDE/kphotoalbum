@@ -22,17 +22,17 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
         return cache[range];
 
     int exact =
-        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM file "
-                                             "WHERE ?<=time_start AND time_end<=?"),
-                         QueryHelper::Bindings() <<
-                         range.start() << range.end()
-                         ).firstItem().toInt();
+        _qh.executeQuery(
+            "SELECT COUNT(*) FROM file "
+            "WHERE ?<=time_start AND time_end<=?",
+            QueryHelper::Bindings() << range.start() << range.end()
+            ).firstItem().toInt();
     int rng =
-        _qh.executeQuery(QString::fromLatin1("SELECT COUNT(*) FROM file "
-                                             "WHERE ?<=time_end AND time_start<=?"),
-                         QueryHelper::Bindings() <<
-                         range.start() << range.end()
-                         ).firstItem().toInt() - exact;
+        _qh.executeQuery(
+            "SELECT COUNT(*) FROM file "
+            "WHERE ?<=time_end AND time_start<=?",
+            QueryHelper::Bindings() << range.start() << range.end()
+            ).firstItem().toInt() - exact;
     DB::ImageCount result( exact, rng );
     cache.insert( range, result );
     return result;
@@ -42,8 +42,9 @@ QDateTime SQLImageDateCollection::lowerLimit() const
 {
     static QDateTime cachedLower;
     if (cachedLower.isNull())
-        cachedLower = _qh.executeQuery(QString::fromLatin1("SELECT MIN(time_start) FROM file")
-                                       ).firstItem().toDateTime();
+        cachedLower = _qh.executeQuery(
+            "SELECT MIN(time_start) FROM file"
+            ).firstItem().toDateTime();
     return cachedLower;
 }
 
@@ -51,7 +52,8 @@ QDateTime SQLImageDateCollection::upperLimit() const
 {
     static QDateTime cachedUpper;
     if (cachedUpper.isNull())
-        cachedUpper = _qh.executeQuery(QString::fromLatin1("SELECT MAX(time_end) FROM file")
-                                       ).firstItem().toDateTime();
+        cachedUpper = _qh.executeQuery(
+            "SELECT MAX(time_end) FROM file"
+            ).firstItem().toDateTime();
     return cachedUpper;
 }

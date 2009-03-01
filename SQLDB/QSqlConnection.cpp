@@ -19,6 +19,7 @@
 
 #include "QSqlConnection.h"
 #include "QueryErrors.h"
+#include "Utilities/QStr.h"
 #include <QList>
 #include <QSqlField>
 #include <QSqlDriver>
@@ -129,10 +130,11 @@ QSqlConnection::initializeQuery(const QString& statement,
     return query;
 }
 
-QueryResult QSqlConnection::executeQuery(const QString& query,
+QueryResult QSqlConnection::executeQuery(const char* query,
                                              const Bindings& bindings) const
 {
-    std::auto_ptr<QSqlQuery> q(initializeQuery(query, bindings));
+    std::auto_ptr<QSqlQuery> q(
+        initializeQuery(QString::fromUtf8(query), bindings));
 
 #ifdef DEBUG_QUERY_TIMES
     QTime t;
@@ -155,10 +157,11 @@ QueryResult QSqlConnection::executeQuery(const QString& query,
     return QueryResult(q);
 }
 
-void QSqlConnection::executeStatement(const QString& statement,
+void QSqlConnection::executeStatement(const char* statement,
                                           const Bindings& bindings)
 {
-    std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
+    std::auto_ptr<QSqlQuery> s(
+        initializeQuery(QString::fromUtf8(statement), bindings));
 
     if (!s->exec())
         throw QtSQLError(*s, QLatin1String("Error while excuting a statement"));

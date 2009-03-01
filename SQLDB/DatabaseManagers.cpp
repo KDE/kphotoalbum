@@ -107,7 +107,7 @@ createDatabase(const QString& databaseName,
 
     const list<string>& x = _csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        newDb->executeStatement(QString::fromUtf8(i->c_str(), i->length()));
+        newDb->executeStatement(i->c_str());
 
     transaction.commit();
 }
@@ -176,7 +176,7 @@ SQLiteDatabaseManager::createDatabase(const QString& databaseName,
 
     const list<string>& x = csg.generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        newDb->executeStatement(QString::fromUtf8(i->c_str(), i->length()));
+        newDb->executeStatement(i->c_str());
 
     transaction.commit();
 }

@@ -19,12 +19,6 @@ DB::ResultId DB::Result::ConstIterator::operator*()
     return _result->at(_pos);
 }
 
-DB::ResultId* DB::Result::ConstIterator::operator->()
-{
-    // PENDING(blackie) JKT: This is your code, the warning about taking address of temporarty in the next line sounds truly serious to me.
-    return &_result->at(_pos);
-}
-
 DB::Result::ConstIterator DB::Result::begin() const
 {
     return DB::Result::ConstIterator(this, 0);

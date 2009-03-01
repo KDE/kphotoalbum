@@ -371,10 +371,11 @@ void MainWindow::Window::setStackHead( const DB::ResultId image )
     DB::Result others = DB::ImageDB::instance()->getStackFor( image );
     others.fetchInfos();
     for ( DB::Result::const_iterator it = others.begin(); it != others.end(); ++it ) {
-        if ( *it == image ) {
-            it->fetchInfo()->setStackOrder( 1 );
-        } else if ( it->fetchInfo()->stackOrder() < oldOrder ) {
-            it->fetchInfo()->setStackOrder( it->fetchInfo()->stackOrder() + 1 );
+        DB::ResultId current = *it;
+        if ( current == image ) {
+            current.fetchInfo()->setStackOrder( 1 );
+        } else if ( current.fetchInfo()->stackOrder() < oldOrder ) {
+            current.fetchInfo()->setStackOrder( current.fetchInfo()->stackOrder() + 1 );
         }
     }
 

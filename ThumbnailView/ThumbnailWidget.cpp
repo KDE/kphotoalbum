@@ -186,7 +186,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         QRect rect = iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
         painter->drawPixmap( rect, pixmap );
-        
+
         rect = QRect( 0, 0, cellWidth(), cellHeight() );
         if ( _leftDrop == mediaId )
             painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
@@ -214,7 +214,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
  */
 QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& mediaId ) const
 {
-    QString text, line;
+    QString text;
 
     QRect dimensions = cellDimensions();
     int thumbnailHeight = dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
@@ -222,8 +222,12 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& media
     int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
-        text += mediaId.fetchInfo()->label();
-        text += QString::fromLatin1("\n");
+        QString line = mediaId.fetchInfo()->label();
+        if ( QFontMetrics( font() ).width( line ) > thumbnailWidth ) {
+            line = line.left( maxCharacters );
+            line += QString::fromLatin1( " ..." );
+        }
+        text += line + QString::fromLatin1("\n");
     }
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
@@ -233,8 +237,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& media
             if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
                 StringSet items = mediaId.fetchInfo()->itemsOfCategory( category );
                 if (!items.empty()) {
-                    line = QString::fromLatin1( "%1: " )
-                           .arg( category );
+                    QString line;
                     bool first = true;
                     for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                         QString item = *it2;
@@ -1259,7 +1262,7 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
-    
+
     QPalette p;
     if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
         p.setColor( QPalette::Base, Qt::black );

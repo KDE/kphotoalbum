@@ -16,17 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileWriter.h"
-#include "Database.h"
-#include "XMLCategory.h"
-#include <kmessagebox.h>
-#include "MainWindow/Window.h"
-#include <klocale.h>
-#include "NumberedBackup.h"
-#include <kcmdlineargs.h>
-#include <qfile.h>
+
 #include <Q3CString>
 #include <Q3ValueList>
+#include <kcmdlineargs.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <qfile.h>
+
+#include "Database.h"
+#include "MainWindow/Window.h"
+#include "NumberedBackup.h"
 #include "Utilities/List.h"
+#include "XMLCategory.h"
 
 using Utilities::StringSet;
 
@@ -61,7 +63,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     QFile out( fileName );
 
     if ( !out.open( QIODevice::WriteOnly ) )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n( "Could not open file '%1'." , fileName ) );
+        KMessageBox::sorry( messageParent(), i18n( "Could not open file '%1'." , fileName ) );
     else {
         QByteArray s = doc.toByteArray();
         out.write( s.data(), s.size()-1 );
@@ -334,4 +336,11 @@ QString XMLDB::FileWriter::escape( const QString& str )
     tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
     return tmp;
 }
+
+// TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.
+QWidget *XMLDB::FileWriter::messageParent()
+{
+    return MainWindow::Window::theMainWindow();
+}
+
 

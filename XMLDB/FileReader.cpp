@@ -16,21 +16,24 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileReader.h"
-#include "Database.h"
-#include "XMLCategory.h"
-#include "DB/MD5Map.h"
-#include "Utilities/Util.h"
-#include <kmessagebox.h>
-#include "MainWindow/Window.h"
-#include <klocale.h>
-#include <qfile.h>
-#include <kstandarddirs.h>
-#include <qregexp.h>
-#include <QTextStream>
-#include <QTextCodec>
+
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif
+
+#include <QTextCodec>
+#include <QTextStream>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kstandarddirs.h>
+#include <qfile.h>
+#include <qregexp.h>
+
+#include "DB/MD5Map.h"
+#include "Database.h"
+#include "MainWindow/Window.h"
+#include "Utilities/Util.h"
+#include "XMLCategory.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -77,16 +80,16 @@ QDomElement* blockList, QDomElement* memberGroups )
             else if ( tag == QString::fromLatin1( "member-groups" ) )
                 *memberGroups = elm;
             else {
-                KMessageBox::error( MainWindow::Window::theMainWindow(),
+                KMessageBox::error( messageParent(),
                                     i18n("Error in file %1: unexpected element: '%2'", configFile , tag ) );
             }
         }
     }
 
     if ( options->isNull() )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Options' tag in configuration file %1.", configFile ) );
+        KMessageBox::sorry( messageParent(), i18n("Unable to find 'Options' tag in configuration file %1.", configFile ) );
     if ( images->isNull() )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Images' tag in configuration file %1.", configFile ) );
+        KMessageBox::sorry( messageParent(), i18n("Unable to find 'Images' tag in configuration file %1.", configFile ) );
 }
 
 void XMLDB::FileReader::createSpecialCategories()
@@ -257,7 +260,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
     }
 
     if ( wrongOrder ) {
-        KMessageBox::information( MainWindow::Window::theMainWindow(),
+        KMessageBox::information( messageParent(),
 #ifdef HASEXIV2
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
@@ -290,7 +293,7 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
         return;
 
     if ( _db->_anyImageWithEmptySize ) {
-        KMessageBox::information( MainWindow::Window::theMainWindow(),
+        KMessageBox::information( messageParent(),
                                   i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
                                        "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintainance</b> menu, "
                                        "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
@@ -305,10 +308,11 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
 {
     if ( _fileVersion == 1 ) {
-        KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
-                                           "KPhotoAlbum read the old format without problems, but to be able to convert back to "
-                                           "KimDaBa 2.1 format, you need to run the current KPhotoAlbum using the flag "
-                                           "<b>export-in-2.1-format</b>, and then save.</p>"),
+        KMessageBox::information( messageParent(),
+                                  i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
+                                        "KPhotoAlbum read the old format without problems, but to be able to convert back to "
+                                        "KimDaBa 2.1 format, you need to run the current KPhotoAlbum using the flag "
+                                        "<b>export-in-2.1-format</b>, and then save.</p>"),
                                   i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
     }
 }
@@ -329,14 +333,15 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         // Load a default setup
         QFile file(Utilities::locateDataFile(QString::fromLatin1("default-setup")));
         if ( !file.open( QIODevice::ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
-                                               "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
-                                               "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <b>--prefix=/usr/local/kde</b>, then you must use the following "
-                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
-                                               "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
-                                               "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                               "environment variable</p>"), i18n("No default setup file found") );
+            KMessageBox::information( messageParent(),
+                                      i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
+                                            "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
+                                            "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
+                                            "<p>If you for example ran configure with <b>--prefix=/usr/local/kde</b>, then you must use the following "
+                                            "environment variable setup (this example is for Bash and compatible shells):</p>"
+                                            "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
+                                            "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
+                                            "environment variable</p>"), i18n("No default setup file found") );
         }
         else {
             QTextStream stream( &file );
@@ -353,7 +358,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     }
     else {
         if ( !file.open( QIODevice::ReadOnly ) ) {
-            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Unable to open '%1' for reading", configFile ), i18n("Error Running Demo") );
+            KMessageBox::error( messageParent(), i18n("Unable to open '%1' for reading", configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
 
@@ -362,7 +367,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         int errCol;
 
         if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error on line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
+            KMessageBox::error( messageParent(), i18n("Error on line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
             exit(-1);
         }
     }
@@ -370,13 +375,13 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     // Now read the content of the file.
     QDomElement top = doc.documentElement();
     if ( top.isNull() ) {
-        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: No elements found", configFile ) );
+        KMessageBox::error( messageParent(), i18n("Error in file %1: No elements found", configFile ) );
         exit(-1);
     }
 
     if ( top.tagName().toLower() != QString::fromLatin1( "kphotoalbum" ) &&
          top.tagName().toLower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
-        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'", configFile , top.tagName() ) );
+        KMessageBox::error( messageParent(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'", configFile , top.tagName() ) );
         exit(-1);
     }
 
@@ -391,4 +396,9 @@ QString XMLDB::FileReader::unescape( const QString& str )
     return tmp;
 }
 
+// TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.
+QWidget *XMLDB::FileReader::messageParent()
+{
+    return MainWindow::Window::theMainWindow();
+}
 

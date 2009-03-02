@@ -22,6 +22,7 @@
 #include <qdom.h>
 #include "DB/ImageInfoPtr.h"
 
+class QWidget;
 namespace XMLDB
 {
 class Database;
@@ -45,7 +46,10 @@ protected:
     bool shouldSaveCategory( const QString& categoryName ) const;
 
 private:
-    Database* _db;
+    // The parent widget information dialogs are displayed in.
+    QWidget *messageParent();
+
+    Database* const _db;
 };
 
 }

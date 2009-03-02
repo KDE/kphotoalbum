@@ -50,8 +50,11 @@ protected:
     void checkIfAllImagesHasSizeAttributes();
     void checkAndWarnAboutVersionConflict();
 
+    // The parent widget information dialogs are displayed in.
+    QWidget *messageParent();
+
 private:
-    Database* _db;
+    Database* const _db;
     int _fileVersion;
     DB::StackID _nextStackId;
 };

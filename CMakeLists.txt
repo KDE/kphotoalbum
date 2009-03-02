@@ -72,15 +72,14 @@ set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAK
 set(libSettings_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp)
 
 set(libxmldb_SRCS
-  	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategoryCollection.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategory.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLImageDateCollection.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategoryCollection.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategory.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLImageDateCollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp
-  	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/IdNameMapper.cpp
-)
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/IdNameMapper.cpp)
 
 set(libThumbnailView_SRCS 
         ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailRequest.cpp  
@@ -240,10 +239,19 @@ endif(EXIV2_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS} ${libMainWindow_SRCS} ${libImageManager_SRCS} ${libDB_SRCS} ${libImportExport_SRCS} ${libAnnotationDialog_SRCS} ${EXIV2_SRCS} ${libBrowser_SRCS}) 
+set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libMainWindow_SRCS} ${libImageManager_SRCS} ${libDB_SRCS} ${libImportExport_SRCS} ${libAnnotationDialog_SRCS} ${EXIV2_SRCS} ${libBrowser_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
+kde4_add_library(Utilities STATIC ${libUtilities_SRCS})
+
+# Internal components
+if(SQLDB_SUPPORT)
+  target_link_libraries(kphotoalbum SQLDB)
+endif(SQLDB_SUPPORT)
+target_link_libraries(kphotoalbum Utilities)
+
+# External components
 target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer ${KDE4_PHONON_LIBS})
 
 if(KIPI_FOUND)
@@ -267,10 +275,6 @@ if(NEPOMUK_FOUND)
     ADD_DEFINITIONS(${NEPOMUK_DEFINITIONS})
     INCLUDE_DIRECTORIES(${NEPOMUK_INCLUDE_DIR})
 endif(NEPOMUK_FOUND)
-
-if(SQLDB_SUPPORT)
-  target_link_libraries(kphotoalbum SQLDB)
-endif(SQLDB_SUPPORT)
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 

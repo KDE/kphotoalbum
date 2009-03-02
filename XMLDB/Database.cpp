@@ -35,7 +35,6 @@
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
-#include "MainWindow/DirtyIndicator.h"
 //Added by qt3to4:
 #include <Q3ValueList>
 #ifdef HAVE_EXIV2
@@ -242,7 +241,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 
     emit totalChanged( _images.count() );
-    MainWindow::DirtyIndicator::markDirty();
+    emit dirty();
 }
 
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
@@ -424,7 +423,7 @@ DB::Result XMLDB::Database::insertList(
         _images.insert( imageIt, *it );
         result.append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
     }
-    MainWindow::DirtyIndicator::markDirty();
+    emit dirty();
 
     return result;
 }
@@ -461,7 +460,7 @@ bool XMLDB::Database::stack(const DB::Result& items)
     }
 
     if ( changed )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 
     return changed;
 }
@@ -492,7 +491,7 @@ void XMLDB::Database::unstack(const DB::Result& items)
     }
 
     if (!items.isEmpty())
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 }
 
 DB::Result XMLDB::Database::getStackFor(const DB::ResultId& referenceImg) const

@@ -73,6 +73,9 @@ public slots:
     virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
     void setLoading( bool b );
 
+signals:
+    void dirty();
+
 private:
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)

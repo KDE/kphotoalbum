@@ -64,7 +64,7 @@ bool NewImageFinder::findImages()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::BrowserWidget::instance()->home();
+    Browser::BrowserWidget::instance()->home();  // TODO: DEPENDENCY: DB:: should not depend on other directories
     return (!_pendingLoad.isEmpty()); // returns if new images was found.
 }
 
@@ -133,7 +133,7 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
 
     FastDir dir( directory );
     QStringList dirList = dir.entryList( );
-    ImageManager::RAWImageDecoder dec;
+    ImageManager::RAWImageDecoder dec;   // TODO: DEPENDENCY: DB:: should not reference other directories
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
         if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||

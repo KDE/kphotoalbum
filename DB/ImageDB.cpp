@@ -35,7 +35,6 @@
 #include "SQLDB/Database.h"
 #include "SQLDB/DatabaseAddress.h"
 #endif
-#include "MainWindow/DirtyIndicator.h"
 #include <QProgressDialog>
 
 using namespace DB;
@@ -77,6 +76,7 @@ void ImageDB::deleteInstance()
 void ImageDB::connectSlots()
 {
     connect( Settings::SettingsData::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
+    connect( &_instance->memberMap(), SIGNAL( dirty() ), _instance, SLOT( markDirty() ));
 }
 
 QString ImageDB::NONE()
@@ -86,7 +86,13 @@ QString ImageDB::NONE()
 
 DB::Result ImageDB::currentScope(bool requireOnDisk) const
 {
+    // TODO: DEPENDENCY: DB:: should not depend on other directories.
     return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
+}
+
+void ImageDB::markDirty()
+{
+    emit dirty();
 }
 
 void ImageDB::setDateRange( const ImageDate& range, bool includeFuzzyCounts )
@@ -104,7 +110,7 @@ void ImageDB::slotRescan()
 {
     bool newImages = NewImageFinder().findImages();
     if ( newImages )
-        MainWindow::DirtyIndicator::markDirty();
+        markDirty();
 
     emit totalChanged( totalCount() );
 }
@@ -119,7 +125,7 @@ void ImageDB::slotRecalcCheckSums(const DB::Result& inputList)
 
     bool d = NewImageFinder().calculateMD5sums( list, md5Map() );
     if ( d )
-        MainWindow::DirtyIndicator::markDirty();
+        markDirty();
 
     emit totalChanged( totalCount() );
 }
@@ -228,7 +234,7 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
 
         if (fi.exists())
             info(*it, DB::AbsolutePath)->readExif(*it, mode);
-        MainWindow::DirtyIndicator::markDirty();
+        markDirty();
     }
 }
 

@@ -1016,6 +1016,7 @@ void Settings::SettingsDialog::createViewerPage()
 void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
+    // TODO: DEPENDENCY: the circular dependency on mainwindow is unfortunate.
     ::MainWindow::Window::theMainWindow()->loadPlugins();
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Plugins" ) );

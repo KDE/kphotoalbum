@@ -200,8 +200,9 @@ MainWindow::Window::Window( QWidget* parent )
     startAutoSaveTimer();
 
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
-    connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+    connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );

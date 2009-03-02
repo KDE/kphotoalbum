@@ -18,7 +18,6 @@
 
 #include "MemberMap.h"
 #include "DB/Category.h"
-#include "MainWindow/DirtyIndicator.h"
 #include <kdebug.h>
 
 using namespace DB;
@@ -40,7 +39,7 @@ void MemberMap::deleteGroup( const QString& category, const QString& name )
     _members[category].remove(name);
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 }
 
 /**
@@ -68,7 +67,7 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
     _members[category][memberGroup] = allowedMembers;
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 }
 
 bool MemberMap::isEmpty() const
@@ -154,7 +153,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
 
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
     QMap<QString, StringSet>& groupMap = _members[category];
     groupMap.insert(newName,_members[category][oldName] );
     groupMap.remove( oldName );
@@ -176,7 +175,7 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
 {
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
@@ -192,7 +191,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
 
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
@@ -233,9 +232,9 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
     _members[category][group].insert( item );
 
-    if (_loading)
+    if (_loading) {
         _dirty = true;
-    else if (!_dirty) {
+    } else if (!_dirty) {
         // Update _closureMembers to avoid marking it dirty
 
         QMap<QString, StringSet>& categoryClosure = _closureMembers[category];
@@ -260,7 +259,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
     }
 
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 }
 
 void MemberMap::removeMemberFromGroup( const QString& category, const QString& group, const QString& item )
@@ -270,7 +269,7 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
         _members[category][group].remove( item );
     _dirty = true;
     if ( !_loading )
-        MainWindow::DirtyIndicator::markDirty();
+        emit dirty();
 }
 
 void MemberMap::addGroup( const QString& category, const QString& group )

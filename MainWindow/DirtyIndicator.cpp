@@ -42,9 +42,13 @@ void MainWindow::DirtyIndicator::markDirty()
     _saveDirty = true;
     _autoSaveDirty = true;
     if ( _instance ) {
-        _instance->setPixmap( _instance->_dirtyPix );
-        emit _instance->dirty();
+        _instance->markDirtySlot();
     }
+}
+
+void MainWindow::DirtyIndicator::markDirtySlot() {
+    setPixmap( _dirtyPix );
+    emit dirty();
 }
 
 void MainWindow::DirtyIndicator::autoSaved()

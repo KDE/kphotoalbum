@@ -32,6 +32,9 @@ class DirtyIndicator :public QLabel
 public:
     static void markDirty();
 
+public slots:
+    void markDirtySlot();
+
 signals:
     void dirty();
 

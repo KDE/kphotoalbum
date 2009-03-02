@@ -178,10 +178,11 @@ public: // Methods that must be overriden
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;
-
+    void markDirty();
 
 signals:
     void totalChanged( uint );
+    void dirty();
     void imagesDeleted( const DB::Result& );
 };
 

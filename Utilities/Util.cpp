@@ -24,6 +24,7 @@
 #include <klocale.h>
 #include <qfileinfo.h>
 
+#include <QtCore/QVector>
 #include <Q3ValueList>
 #include <kmessagebox.h>
 #include <kapplication.h>
@@ -449,13 +450,17 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     switch(cinfo.output_components) {
     case 3:
     case 4:
-        if (!img->create( cinfo.output_width, cinfo.output_height, 32 ))
+        *img = QImage(
+            cinfo.output_width, cinfo.output_height, QImage::Format_RGB32);
+        if (img->isNull())
             return false;
         break;
     case 1: // B&W image
-        if (!img->create( cinfo.output_width, cinfo.output_height,
-                          8, 256 ))
+        *img = QImage(
+            cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8);
+        if (img->isNull())
             return false;
+        img->setNumColors(256);
         for (int i=0; i<256; i++)
             img->setColor(i, qRgb(i,i,i));
         break;
@@ -463,7 +468,11 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
         return false;
     }
 
-    uchar** lines = img->jumpTable();
+    QVector<uchar*> linesVector;
+    linesVector.reserve(img->height());
+    for (int i = 0; i < img->height(); ++i)
+        linesVector.push_back(img->scanLine(i));
+    uchar** lines = linesVector.data();
     while (cinfo.output_scanline < cinfo.output_height)
         jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
                             cinfo.output_height);

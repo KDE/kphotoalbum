@@ -57,8 +57,9 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
 
 void Viewer::VideoDisplay::setup()
 {
-    _mediaObject = new Phonon::MediaObject;
-    Phonon::AudioOutput* audioDevice = new Phonon::AudioOutput( Phonon::VideoCategory );
+    _mediaObject = new Phonon::MediaObject(this);
+    Phonon::AudioOutput* audioDevice =
+        new Phonon::AudioOutput( Phonon::VideoCategory, this );
     Phonon::createPath( _mediaObject, audioDevice );
 
     _videoWidget = new Phonon::VideoWidget(this);

@@ -853,7 +853,7 @@ void AnnotationDialog::Dialog::showHelpDialog( UsageMode type )
     else {
         doNotShowKey = QString::fromLatin1( "image_config_typein_show_help" );
         txt = i18n("<p>You have just opened one of the most important windows in KPhotoAlbum; "
-                   "it contains lots of functionality which has been optimized for fast usage.<p>"
+                   "it contains lots of functionality which has been optimized for fast usage.</p>"
                    "<p>It is strongly recommended that you take 5 minutes to read the "
                    "<a href=\"help:/kphotoalbum/chp-typingIn.html\">documentation for this "
                    "dialog</a></p>" );

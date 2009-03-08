@@ -72,6 +72,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     :Q3GridView( parent ),
      _imageList(),
      _displayList(),
+     _isSettingDate(false),
      _gridResizeInteraction( this ),
      _wheelResizing( false ),
      _selectionInteraction( this ),

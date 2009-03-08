@@ -1,0 +1,551 @@
+{
+   Error in ICE
+   Memcheck:Param
+   write(buf)
+   fun:__write_nocancel
+   obj:/usr/lib/libICE.so.6.3.0
+   fun:_IceWrite
+   fun:IceFlush
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_SmcProcessMessage
+   fun:IceProcessMessages
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN11QMetaObject8activateEP7QObjectiiPPv
+   fun:_ZN15QSocketNotifier9activatedEi
+   fun:_ZN15QSocketNotifier5eventEP6QEvent
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent
+   obj:/usr/lib/libQtCore.so.4.4.3
+   fun:g_main_context_dispatch
+}
+
+{
+   Error from qCompress
+   Memcheck:Cond
+   obj:/usr/lib/libz.so.1.2.3.3
+   fun:deflate
+   fun:compress2
+   fun:_Z9qCompressPKhii
+   fun:_ZN12KPixmapCache7Private9writeDataERK7QStringRK7QPixmap
+   fun:_ZN12KPixmapCache6insertERK7QStringRK7QPixmap
+   fun:_ZN10KIconCache6insertERK7QStringRK7QPixmapS2_
+   fun:_ZNK11KIconLoader8loadIconERK7QStringNS_5GroupEiiRK11QStringListPS0_b
+   fun:_Z9SmallIconRK7QStringiiRK11QStringList
+   fun:_ZN10MainWindow14DirtyIndicatorC1EP7QWidget
+   fun:_ZN10MainWindow6Window14setupStatusBarEv
+   fun:_ZN10MainWindow6WindowC1EP7QWidget
+   fun:main
+}
+
+{
+   ICE error
+   Memcheck:Param
+   write(buf)
+   obj:/usr/lib/debug/libc-2.8.90.so
+   obj:/usr/lib/libICE.so.6.3.0
+   fun:_IceWrite
+   fun:IceFlush
+   fun:SmcCloseConnection
+   fun:_ZN15QSessionManagerD0Ev
+   fun:_ZN12QApplicationD2Ev
+   fun:main
+}
+
+{                                                                                                                         
+   Undangerous initialization error in the datbar
+   Memcheck:Cond                                                                                                          
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                         
+   fun:_ZN7QRegionC1ERK8QPolygonN2Qt8FillRuleE                                                                            
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                         
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                         
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                         
+   fun:_ZN8QPainter13setClipRegionERK7QRegionN2Qt13ClipOperationE                                                         
+   fun:_ZN7DateBar13DateBarWidget17drawFocusRectagleER8QPainter                                                           
+   fun:_ZN7DateBar13DateBarWidget6redrawEv                                                                                
+   fun:_ZN7DateBar13DateBarWidget11resizeEventEP12QResizeEvent                                                            
+   fun:_ZN7QWidget5eventEP6QEvent                                                                                         
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent                                                          
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent                                                                         
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent                                                                         
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent                                                            
+   fun:_ZN14QWidgetPrivate30sendPendingMoveAndResizeEventsEbb                                                             
+   fun:_ZN14QWidgetPrivate11show_helperEv                                                                                 
+   fun:_ZN7QWidget10setVisibleEb                                                                                          
+   fun:_ZN14QWidgetPrivate12showChildrenEb                                                                                
+   fun:_ZN14QWidgetPrivate11show_helperEv                                                                                 
+   fun:_ZN7QWidget10setVisibleEb                                                                                          
+}  
+
+{
+   Undangerous initialization error in the datbar
+   Memcheck:Cond
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN7QRegionC1ERK8QPolygonN2Qt8FillRuleE
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN8QPainter13setClipRegionERK7QRegionN2Qt13ClipOperationE
+   fun:_ZN7DateBar13DateBarWidget17drawFocusRectagleER8QPainter
+   fun:_ZN7DateBar13DateBarWidget6redrawEv
+   fun:_ZN7DateBar13DateBarWidget11resizeEventEP12QResizeEvent
+   fun:_ZN7QWidget5eventEP6QEvent
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent
+   fun:_ZN14QWidgetPrivate30sendPendingMoveAndResizeEventsEbb
+   fun:_ZN14QWidgetPrivate11show_helperEv
+   fun:_ZN7QWidget10setVisibleEb
+   fun:_ZN14QWidgetPrivate12showChildrenEb
+   fun:_ZN14QWidgetPrivate11show_helperEv
+   fun:_ZN7QWidget10setVisibleEb
+}
+
+{                                                                                                                              
+   Memleak from KDE
+   Memcheck:Leak                                                                                                               
+   fun:_Znam                                                                                                                   
+   fun:_Z7qstrdupPKc                                                                                                           
+   fun:_Z7qputenvPKcRK10QByteArray                                                                                             
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0
+   fun:_ZN7KLocaleC1ERK7QString10KSharedPtrI13KSharedConfigE
+   fun:_ZN7KGlobal6localeEv
+   obj:/usr/lib/libkdeui.so.5.2.0
+   fun:_ZN12KApplicationC1Eb
+   fun:main
+}
+
+{                                                                                                                              
+   Memleak from KDE
+   Memcheck:Leak                                                                                                               
+   fun:_Znam                                                                                                                   
+   fun:_Z7qstrdupPKc                                                                                                           
+   fun:_Z7qputenvPKcRK10QByteArray                                                                                             
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0
+   fun:_ZN7KLocaleC1ERK7QString10KSharedPtrI13KSharedConfigE
+   fun:_ZN7KGlobal6localeEv
+   obj:/usr/lib/libkdeui.so.5.2.0
+   fun:_ZN12KApplicationC1Eb
+   fun:main
+}
+
+{                                                                                                                              
+   Memleak from KDE
+   Memcheck:Leak                                                                                                               
+   fun:_Znam                                                                                                                   
+   fun:_Z7qstrdupPKc                                                                                                           
+   fun:_Z7qputenvPKcRK10QByteArray                                                                                             
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0                                                                                            
+   obj:/usr/lib/libkdecore.so.5.2.0
+   fun:_ZN7KLocaleC1ERK7QString10KSharedPtrI13KSharedConfigE
+   fun:_ZN7KGlobal6localeEv
+   obj:/usr/lib/libkdeui.so.5.2.0
+   fun:_ZN12KApplicationC1Eb
+   fun:main
+}
+
+{                                                                                                                              
+   Leak in Qt
+   Memcheck:Leak                                                                                                               
+   fun:malloc                                                                                                                  
+   fun:strdup                                                                                                                  
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                              
+   fun:_ZN19QApplicationPrivate9constructEP9_XDisplaymm                                                                        
+   fun:_ZN12QApplicationC2ERiPPcbi                                                                                             
+   fun:_ZN12KApplicationC1Eb
+   fun:main
+}
+{                                                                                                                              
+   Memleak in ICE
+   Memcheck:Leak                                                                                                               
+   fun:malloc                                                                                                                  
+   fun:nss_parse_service_list                                                                                                  
+   fun:__nss_database_lookup                                                                                                   
+   obj:*                                                                                                                       
+   obj:*                                                                                                                       
+   fun:getpwuid_r@@GLIBC_2.2.5                                                                                                 
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                              
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                              
+   fun:_SmcProcessMessage                                                                                                      
+   fun:IceProcessMessages
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN11QMetaObject8activateEP7QObjectiiPPv
+   fun:_ZN15QSocketNotifier9activatedEi
+   fun:_ZN15QSocketNotifier5eventEP6QEvent
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent
+   obj:/usr/lib/libQtCore.so.4.4.3
+   fun:g_main_context_dispatch
+}
+{                                                                                                                              
+   Memleak in oxygen
+   Memcheck:Leak                                                                                                               
+   fun:_Znam                                                                                                                   
+   fun:_ZN14KStatefulBrushC1Ev                                                                                                 
+   obj:/usr/lib/kde4/plugins/styles/oxygen.so                                                                                  
+   obj:/usr/lib/kde4/plugins/styles/oxygen.so                                                                                  
+   fun:_ZN13QStyleFactory6createERK7QString                                                                                    
+   fun:_ZN12QApplication5styleEv                                                                                               
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                              
+   obj:/usr/lib/libQtGui.so.4.4.3                                                                                              
+   fun:_ZN19QApplicationPrivate9constructEP9_XDisplaymm
+   fun:_ZN12QApplicationC2ERiPPcbi
+   fun:_ZN12KApplicationC1Eb
+   fun:main
+}
+{                                                                                                                              
+   Memleak in FcInitLoadConfig
+   Memcheck:Leak                                                                                                               
+   fun:malloc                                                                                                                  
+   obj:/usr/lib/libfontconfig.so.1.3.0                                                                                         
+   obj:/usr/lib/libfontconfig.so.1.3.0                                                                                         
+   obj:/usr/lib/libfontconfig.so.1.3.0                                                                                         
+   obj:/usr/lib/libfontconfig.so.1.3.0                                                                                         
+   obj:/usr/lib/libexpat.so.1.5.2                                                                                              
+   obj:/usr/lib/libexpat.so.1.5.2                                                                                              
+   obj:/usr/lib/libexpat.so.1.5.2                                                                                              
+   obj:/usr/lib/libexpat.so.1.5.2                                                                                              
+   fun:XML_ParseBuffer                                                                                                         
+   fun:FcConfigParseAndLoad
+   fun:FcConfigParseAndLoad
+   obj:/usr/lib/libfontconfig.so.1.3.0
+   obj:/usr/lib/libexpat.so.1.5.2
+   obj:/usr/lib/libexpat.so.1.5.2
+   obj:/usr/lib/libexpat.so.1.5.2
+   obj:/usr/lib/libexpat.so.1.5.2
+   fun:XML_ParseBuffer
+   fun:FcConfigParseAndLoad
+   fun:FcInitLoadConfig
+}
+{                                                                                                                              
+   Memleak in Xim
+   Memcheck:Leak                                                                                                               
+   fun:malloc                                                                                                                  
+   fun:_XimOpenIM                                                                                                              
+   fun:_XimRegisterIMInstantiateCallback                                                                                       
+   fun:XRegisterIMInstantiateCallback
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN20QInputContextFactory6createERK7QStringP7QObject
+   fun:_ZNK12QApplication12inputContextEv
+   fun:_ZN7QWidget12setAttributeEN2Qt15WidgetAttributeEb
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN9QLineEditC2EP7QWidget
+   fun:_ZN9KLineEditC1EP7QWidget
+   fun:_ZN10MainWindow9SearchBarC1EP11KMainWindow
+   fun:_ZN10MainWindow6WindowC1EP7QWidget
+   fun:main
+}
+{                                                                                                                              
+   memleak Qt
+   Memcheck:Leak                                                                                                               
+   fun:memalign                                                                                                                
+   fun:posix_memalign                                                                                                          
+   obj:/usr/lib/libglib-2.0.so.0.1800.2
+   fun:g_slice_alloc
+   fun:g_ptr_array_sized_new
+   fun:g_main_context_new
+   fun:_ZN27QEventDispatcherGlibPrivateC1EP13_GMainContext
+   fun:_ZN20QEventDispatcherGlibC1EP7QObject
+   obj:/usr/lib/libQtCore.so.4.4.3
+   obj:/usr/lib/libQtCore.so.4.4.3
+   fun:start_thread
+   fun:clone
+}
+{                                                                                                                              
+   Memleak libstreams
+   Memcheck:Leak                                                                                                               
+   fun:_Znwm                                                                                                                   
+   fun:_ZNSs4_Rep9_S_createEmmRKSaIcE                                                                                          
+   obj:/usr/lib/libstdc++.so.6.0.10                                                                                            
+   fun:_ZNSsC1EPKcRKSaIcE                                                                                                      
+   obj:/usr/lib/libstreams.so.0.6.3                                                                                            
+   obj:/usr/lib/libstreams.so.0.6.3                                                                                            
+   obj:/usr/lib/libstreams.so.0.6.3                                                                                            
+   obj:*                                                                                                                       
+   fun:_dl_init                                                                                                                
+   obj:/lib/ld-2.8.90.so                                                                                                       
+   obj:*                                                                                                                       
+   obj:*
+   obj:*
+}
+
+{
+   Possible error from within Qt
+   Memcheck:Overlap
+   fun:mempcpy
+   fun:_IO_default_xsputn
+   fun:vfprintf
+   fun:__vsprintf_chk
+   fun:__sprintf_chk
+   fun:parse_fontdata
+   fun:parse_vw
+   fun:create_oc
+   fun:XCreateOC
+   fun:XCreateFontSet
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:_ZN19QApplicationPrivate14setFocusWidgetEP7QWidgetN2Qt11FocusReasonE
+   fun:_ZN7QWidget8setFocusEN2Qt11FocusReasonE
+   fun:_ZN12QApplication15setActiveWindowEP7QWidget
+   fun:_ZN12QApplication15x11ProcessEventEP7_XEvent
+   obj:/usr/lib/libQtGui.so.4.4.3
+   fun:g_main_context_dispatch
+   obj:/usr/lib/libglib-2.0.so.0.1800.2
+}
+
+{                                                                                                                              
+   Error from xine.
+   Memcheck:Cond                                                                                                               
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:snd_pcm_dmix_open                                                                                                       
+   fun:_snd_pcm_dmix_open                                                                                                      
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:_snd_pcm_softvol_open                                                                                                   
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:_snd_pcm_plug_open                                                                                                      
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:_snd_pcm_asym_open                                                                                                      
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:_snd_pcm_empty_open
+   obj:/usr/lib/libasound.so.2.0.0
+   obj:/usr/lib/libasound.so.2.0.0
+   obj:/usr/lib/xine/plugins/1.24/xineplug_ao_out_alsa.so
+   fun:xine_open_audio_driver
+}
+
+{                                                                                                                              
+   Error from within Phonon
+   Memcheck:Cond                                                                                                               
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:snd_pcm_close                                                                                                           
+   obj:/usr/lib/libasound.so.2.0.0                                                                                             
+   fun:snd_pcm_close                                                                                                           
+   obj:/usr/lib/xine/plugins/1.24/xineplug_ao_out_alsa.so                                                                      
+   fun:xine_open_audio_driver                                                                                                  
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/libphonon.so.4.3.0                                                                                             
+   fun:_ZN6Phonon4Path9reconnectEPNS_9MediaNodeES2_                                                                            
+   fun:_ZN6Phonon10createPathEPNS_9MediaNodeES1_
+   fun:_ZN6Viewer12VideoDisplay5setupEv
+   fun:_ZN6Viewer12VideoDisplay8setImageE10KSharedPtrIN2DB9ImageInfoEEb
+   fun:_ZN6Viewer12ViewerWidget4loadEv
+   fun:_ZN6Viewer12ViewerWidget4loadERK11QStringListi
+}
+{
+   Error from within Phonon
+   Memcheck:Cond
+   obj:/usr/lib/libasound.so.2.0.0
+   obj:/usr/lib/libasound.so.2.0.0
+   fun:snd_pcm_close
+   obj:/usr/lib/libasound.so.2.0.0
+   fun:snd_pcm_close
+   obj:/usr/lib/xine/plugins/1.24/xineplug_ao_out_alsa.so
+   fun:xine_open_audio_driver
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so
+   obj:/usr/lib/libphonon.so.4.3.0
+   fun:_ZN6Phonon4Path9reconnectEPNS_9MediaNodeES2_
+   fun:_ZN6Phonon10createPathEPNS_9MediaNodeES1_
+   fun:_ZN6Viewer12VideoDisplay5setupEv
+   fun:_ZN6Viewer12VideoDisplay8setImageE10KSharedPtrIN2DB9ImageInfoEEb
+   fun:_ZN6Viewer12ViewerWidget4loadEv
+   fun:_ZN6Viewer12ViewerWidget4loadERK11QStringListi
+}
+
+{
+   Xine error
+   Memcheck:Cond
+   obj:/usr/lib/xine/plugins/1.24/xineplug_dmx_mpeg.so
+   obj:/usr/lib/xine/plugins/1.24/xineplug_dmx_mpeg.so
+   obj:/usr/lib/libxine.so.1.24.0
+   fun:start_thread
+   fun:clone
+}
+
+{
+   xine error
+   Memcheck:Cond
+   obj:/usr/lib/xine/plugins/1.24/xineplug_dmx_mpeg.so
+   obj:/usr/lib/xine/plugins/1.24/xineplug_dmx_mpeg.so
+   obj:/usr/lib/libxine.so.1.24.0
+   fun:start_thread
+   fun:clone
+}
+{
+   Xine error
+   Memcheck:Cond
+   fun:_x_vo_scale_redraw_needed
+   obj:/usr/lib/xine/plugins/1.24/xineplug_vo_out_xcbxv.so
+   obj:/usr/lib/libxine.so.1.24.0
+   fun:start_thread
+   fun:clone
+}
+{                                                                                                                              
+   Invalid read in xine_close
+   Memcheck:Addr8                                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   fun:xine_close                                                                                                              
+   fun:xine_dispose                                                                                                            
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   fun:_ZN7QObject5eventEP6QEvent                                                                                              
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent                                                               
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent                                                                 
+   fun:_ZN23QCoreApplicationPrivate16sendPostedEventsEP7QObjectiP11QThreadData                                                 
+   obj:/usr/lib/libQtCore.so.4.4.3                                                                                             
+   fun:g_main_context_dispatch                                                                                                 
+   obj:/usr/lib/libglib-2.0.so.0.1800.2                                                                                        
+   fun:g_main_context_iteration                                                                                                
+   fun:_ZN20QEventDispatcherGlib13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE                                     
+   fun:_ZN10QEventLoop13processEventsE6QFlagsINS_17ProcessEventsFlagEE                                                         
+   fun:_ZN10QEventLoop4execE6QFlagsINS_17ProcessEventsFlagEE                                                                   
+   fun:_ZN7QThread4execEv                                                                                                      
+}  
+{                                                                                                                              
+   Invalid read in xine
+   Memcheck:Addr8                                                                                                              
+   obj:/usr/lib/xine/plugins/1.24/xineplug_ao_out_alsa.so                                                                      
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   fun:xine_close                                                                                                              
+   fun:xine_dispose                                                                                                            
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   fun:_ZN7QObject5eventEP6QEvent                                                                                              
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent                                                               
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent                                                                 
+   fun:_ZN23QCoreApplicationPrivate16sendPostedEventsEP7QObjectiP11QThreadData                                                 
+   obj:/usr/lib/libQtCore.so.4.4.3                                                                                             
+   fun:g_main_context_dispatch                                                                                                 
+   obj:/usr/lib/libglib-2.0.so.0.1800.2                                                                                        
+   fun:g_main_context_iteration                                                                                                
+} 
+{                                                                                                                              
+   Invalid read in xine
+   Memcheck:Addr4                                                                                                              
+   fun:__pthread_mutex_unlock_usercnt                                                                                          
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   fun:xine_close                                                                                                              
+   fun:xine_dispose                                                                                                            
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   obj:/usr/lib/kde4/plugins/phonon_backend/phonon_xine.so                                                                     
+   fun:_ZN7QObject5eventEP6QEvent                                                                                              
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent                                                               
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN16QCoreApplication14notifyInternalEP7QObjectP6QEvent                                                                 
+   fun:_ZN23QCoreApplicationPrivate16sendPostedEventsEP7QObjectiP11QThreadData                                                 
+   obj:/usr/lib/libQtCore.so.4.4.3                                                                                             
+   fun:g_main_context_dispatch                                                                                                 
+   obj:/usr/lib/libglib-2.0.so.0.1800.2                                                                                        
+   fun:g_main_context_iteration                                                                                                
+} 
+{
+   Error in xine
+   Memcheck:Addr8
+   obj:/usr/lib/xine/plugins/1.24/xineplug_decode_ff.so
+   fun:_x_free_audio_decoder
+   obj:/usr/lib/libxine.so.1.24.0
+   fun:start_thread
+   fun:clone
+}
+{                                                                                                                              
+   Error in xine
+   Memcheck:Addr4                                                                                                              
+   fun:pthread_mutex_lock                                                                                                      
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   obj:/usr/lib/xine/plugins/1.24/xineplug_decode_ff.so                                                                        
+   fun:MPV_common_end                                                                                                          
+   fun:ff_h263_decode_end                                                                                                      
+   fun:avcodec_close                                                                                                           
+   obj:/usr/lib/xine/plugins/1.24/xineplug_decode_ff.so                                                                        
+   fun:_x_free_video_decoder                                                                                                   
+   obj:/usr/lib/libxine.so.1.24.0                                                                                              
+   fun:start_thread                                                                                                            
+   fun:clone                                                                                                                   
+} 
+{                                                                                                                              
+   Error when loading an icon for a toolbar
+   Memcheck:Cond                                                                                                               
+   obj:/usr/lib/libz.so.1.2.3.3                                                                                                
+   fun:deflate                                                                                                                 
+   fun:compress2                                                                                                               
+   fun:_Z9qCompressPKhii                                                                                                       
+   fun:_ZN12KPixmapCache7Private9writeDataERK7QStringRK7QPixmap                                                                
+   fun:_ZN12KPixmapCache6insertERK7QStringRK7QPixmap                                                                           
+   fun:_ZN10KIconCache6insertERK7QStringRK7QPixmapS2_                                                                          
+   fun:_ZNK11KIconLoader8loadIconERK7QStringNS_5GroupEiiRK11QStringListPS0_b                                                   
+   obj:/usr/lib/libkdeui.so.5.2.0                                                                                              
+   fun:_ZNK5QIcon6pixmapERK5QSizeNS_4ModeENS_5StateE                                                                           
+   fun:_ZNK12QCommonStyle11drawControlEN6QStyle14ControlElementEPK12QStyleOptionP8QPainterPK7QWidget                           
+   fun:_ZNK6KStyle11drawControlEN6QStyle14ControlElementEPK12QStyleOptionP8QPainterPK7QWidget                                  
+   obj:/usr/lib/kde4/plugins/styles/oxygen.so                                                                                  
+   fun:_ZNK6KStyle18drawComplexControlEN6QStyle14ComplexControlEPK19QStyleOptionComplexP8QPainterPK7QWidget                    
+   obj:/usr/lib/kde4/plugins/styles/oxygen.so                                                                                  
+   fun:_ZN11QToolButton10paintEventEP11QPaintEvent                                                                             
+   fun:_ZN7QWidget5eventEP6QEvent                                                                                              
+   fun:_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent                                                               
+   fun:_ZN12QApplication6notifyEP7QObjectP6QEvent                                                                              
+   fun:_ZN12KApplication6notifyEP7QObjectP6QEvent
+}

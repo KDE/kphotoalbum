@@ -1,5 +1,7 @@
 2009-03-08  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Saving the toolbar now works again, including showing icons only.
+
 	* Generate HTML is now working again.
 
 2009-02-23  Jesper K. Pedersen  <blackie@kdab.com>

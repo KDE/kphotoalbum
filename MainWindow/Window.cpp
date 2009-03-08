@@ -182,16 +182,7 @@ MainWindow::Window::Window( QWidget* parent )
     _optionsDialog = 0;
     setupMenuBar();
 
-    // Set up the search tool bar
-    SearchBar* bar = new SearchBar( this );
-
-    connect( bar, SIGNAL( textChanged( const QString& ) ), _browser, SLOT( slotLimitToMatch( const QString& ) ) );
-    connect( bar, SIGNAL( returnPressed() ), _browser, SLOT( slotInvokeSeleted() ) );
-    connect( bar, SIGNAL( scrollLine( int ) ), _browser, SLOT( scrollLine( int ) ) );
-    connect( bar, SIGNAL( scrollPage( int ) ), _browser, SLOT( scrollPage( int ) ) );
-    connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
-    connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
-
+    createSarchBar();
     setupStatusBar();
 
     // Misc
@@ -211,6 +202,9 @@ MainWindow::Window::Window( QWidget* parent )
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
     slotThumbNailSelectionChanged();
+
+    // Automatically save toolbar settings
+    setAutoSaveSettings();
 }
 
 MainWindow::Window::~Window()
@@ -1311,9 +1305,7 @@ MainWindow::Window* MainWindow::Window::theMainWindow()
 
 void MainWindow::Window::slotConfigureToolbars()
 {
-    KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("MainWindow") );
-    saveMainWindowSettings( group );
-    KEditToolBar dlg(actionCollection());
+    KEditToolBar dlg(guiFactory());
     connect(&dlg, SIGNAL( newToolbarConfig() ),
                   SLOT( slotNewToolbarConfig() ));
     dlg.exec();
@@ -1323,8 +1315,7 @@ void MainWindow::Window::slotConfigureToolbars()
 void MainWindow::Window::slotNewToolbarConfig()
 {
     createGUI();
-    KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("MainWindow") );
-    applyMainWindowSettings(group);
+    createSarchBar();
 }
 
 void MainWindow::Window::slotImport()
@@ -1745,6 +1736,20 @@ void MainWindow::Window::slotRecreateExifDB()
 #ifdef HAVE_EXIV2
     Exif::Database::instance()->recreate();
 #endif
+}
+
+void MainWindow::Window::createSarchBar()
+{
+    // Set up the search tool bar
+    SearchBar* bar = new SearchBar( this );
+    bar->setLineEditEnabled(false);
+
+    connect( bar, SIGNAL( textChanged( const QString& ) ), _browser, SLOT( slotLimitToMatch( const QString& ) ) );
+    connect( bar, SIGNAL( returnPressed() ), _browser, SLOT( slotInvokeSeleted() ) );
+    connect( bar, SIGNAL( scrollLine( int ) ), _browser, SLOT( scrollLine( int ) ) );
+    connect( bar, SIGNAL( scrollPage( int ) ), _browser, SLOT( scrollPage( int ) ) );
+    connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
+    connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
 }
 
 #include "Window.moc"

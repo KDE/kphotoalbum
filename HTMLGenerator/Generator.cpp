@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Generator.h"
-#include <QDebug>
 
 #include "kdeversion.h"
 #include <KLocale>
@@ -148,7 +147,6 @@ void HTMLGenerator::Generator::generate()
 
     // Copy files over to destination.
     QString outputDir = _setup.baseDir() + QString::fromLatin1( "/" ) + _setup.outputDir();
-
     KIO::CopyJob* job = KIO::move( KUrl( _tempDir.name() ), KUrl(outputDir) );
     connect( job, SIGNAL( result( KJob* ) ), this, SLOT( showBrowser() ) );
 

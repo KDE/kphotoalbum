@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="37">
+<kpartgui name="kphotoalbum" version="38">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -97,8 +97,10 @@
    </Menu>
   </MenuBar>
 
-  <ToolBar name="mainToolBar">
+  <ToolBar noMerge="1"  name="mainToolBar">
     <text>Main Toolbar</text>
+    <Action name="file_save"/>
+    <Action name="go_home"/>
     <Action name="go_back"/>
     <Action name="go_forward"/>
     <Action name="view_redisplay"/>

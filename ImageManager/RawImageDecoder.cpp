@@ -60,7 +60,8 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
                 return false;
 
             // Now the funny part, how to turn this fugly QByteArray into an QImage. Yay!
-            if ( !img->create( width, height, 32 ) )
+            *img = QImage(width, height, QImage::Format_RGB32);
+            if (img->isNull())
                 return false;
 
             uchar* data = img->bits();

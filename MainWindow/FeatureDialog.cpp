@@ -24,7 +24,6 @@
 #include <kapplication.h>
 #include "Exif/Database.h"
 #include <ImageManager/VideoManager.h>
-#include <kmediaplayer/player.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
 #include <Phonon/BackendCapabilities>

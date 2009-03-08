@@ -67,10 +67,10 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
         txt = i18n( "Version %1" , version );
     else
         txt = i18n( "Version: %1" , version );
-    painter->drawText( QRect( QPoint(230, 265), QSize( 150, 20 )), Qt::AlignRight | Qt::AlignTop, txt );
+    painter->drawText( QRect( QPoint(230, 265), QSize( 150, 25 )), Qt::AlignRight | Qt::AlignTop, txt );
 
     // Message
-    painter->drawText( QRect( QPoint(20, 265), QSize( 300, 20 )), Qt::AlignLeft | Qt::AlignTop, _message );
+    painter->drawText( QRect( QPoint(20, 265), QSize( 300, 25 )), Qt::AlignLeft | Qt::AlignTop, _message );
     painter->restore();
 }
 

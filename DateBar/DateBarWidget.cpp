@@ -60,7 +60,7 @@ const int arrowLength = 20;
 
 DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
-     _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
+     _currentUnit(0), _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
      _showResolutionIndicator( true )
 {
     setMouseTracking( true );

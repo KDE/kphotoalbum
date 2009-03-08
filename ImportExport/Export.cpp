@@ -139,8 +139,8 @@ ExportConfig::ExportConfig()
     _maxSize->setWhatsThis( txt );
 
     txt = i18n("<p>When exporting images, bear in mind that there are two things the "
-               "person importing these images again will need:<br>"
-               "1) meta information (image content, date etc.)<br>"
+               "person importing these images again will need:<br/>"
+               "1) meta information (image content, date etc.)<br/>"
                "2) the images themselves.</p>"
 
                "<p>The images themselves can either be placed next to the .kim file, "

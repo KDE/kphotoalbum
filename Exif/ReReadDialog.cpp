@@ -69,7 +69,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></p>", list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></center></b></p>", list.count() ) );
 
     _exifDB->setChecked( true);
     _date->setChecked( false );

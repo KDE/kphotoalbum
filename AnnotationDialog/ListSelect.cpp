@@ -345,7 +345,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         return;
 
     else if ( which == deleteAction ) {
-        int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br>"
+        int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br/>"
                                                                   "Deleting the item will remove any information "
                                                                   "about it from any image containing the item.</p>"
                                                        ,item->text(0)),
@@ -362,7 +362,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
                                                 item->text(0), &ok, this );
 
         if ( ok && newStr != item->text(0) ) {
-            int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br>"
+            int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br/>"
                                                               "Doing so will rename \"%3\" "
                                                               "on any image containing it.</p>"
                                                ,item->text(0),newStr,item->text(0)),

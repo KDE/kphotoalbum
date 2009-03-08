@@ -1,3 +1,27 @@
+====================== Snapshot 8/3-2009  ===================================	
+
+	
+Previous changes
+
+	* Add a simple method for marking current image as a "head of
+	stack", ie. the one to show
+	
+	* Fix abort() on shift-click to the middle of ThumbnailWidget
+	right after program start
+	
+	* For some reason konsole doesn't accept drops and pastes of
+	QUrls, so I encode as a plain string list in addition.
+	
+	* Invalide date finder dialog has now been improved slightly (the config dialog is hidden as soon as it is OK, so we can see theprogress dialog)
+
+	* fixed bug #164199 - thumbnail label is chopped
+	
+	* fixed bug #167036 - kipi-plugins not installed; plugins menu still available but empty
+	
+	* Stopped leaking memory/threads when viewing video
+
+	* fixed bug #164587 - KPA crashes when deleteing an image from the annotation dialog.
+
 2009-03-08  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Saving the toolbar now works again, including showing icons only.

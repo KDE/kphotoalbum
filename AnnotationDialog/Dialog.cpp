@@ -252,7 +252,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _rating = new KRatingWidget( this );
     lay2->addStretch(1);
     lay2->addWidget( _rating, 0, Qt::AlignCenter );
-    _rating->setEnabled( _setup == InputSingleImageConfigMode );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
 #endif
 

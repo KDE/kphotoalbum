@@ -1,3 +1,7 @@
+2009-03-29  Jan Kundrat  <jkt@flaska.net>
+
+	* Fix parsing of multi-valued EXIF/IPTC fields when doing metadata import
+
 2008-10-12  Jan Kundrat  <jkt@gentoo.org>
 
 	* Import tags by default (provided it's already configured by user)

@@ -259,26 +259,22 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                     switch ( _header[ *it ] ) {
                         case Exif::Syncable::EXIF:
                             {
-                                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                                Exiv2::ExifKey myKey = Exiv2::ExifKey( _fieldName[ *it ].ascii() );
+                                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( myKey );
                                 while ( field != metadata.exif.end() ) {
                                     stringData << Utilities::cStringWithEncoding( (*field).toString().c_str(),
                                             Settings::SettingsData::instance()->iptcCharset() );
                                     ++field;
-                                    // FIXME: This if ugly. Either convert to
-                                    // STL algorithms or bug exiv2 for providing no
-                                    // find() function that takes affset to begin
-                                    // search at...
-                                    // The sole purpose of this is to simulate the
-                                    // standard find() function for finding next key
-                                    // with this value.
-                                    while ( ( field != metadata.exif.end() ) && ( (*field).key() != (*field).toString().c_str() ) )
+                                    // see the FIXME below for details
+                                    while ( ( field != metadata.exif.end() ) && ( (*field).key() != myKey.key() ) )
                                         ++field;
                                 }
                                 break;
                             }
                         case Exif::Syncable::IPTC:
                             {
-                                Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                                Exiv2::IptcKey myKey = Exiv2::IptcKey( _fieldName[ *it ].ascii() );
+                                Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( myKey );
                                 while ( field != metadata.iptc.end() ) {
                                     stringData << Utilities::cStringWithEncoding( (*field).toString().c_str(),
                                             Settings::SettingsData::instance()->iptcCharset() );
@@ -290,7 +286,11 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                                     // The sole purpose of this is to simulate the
                                     // standard find() function for finding next key
                                     // with this value.
-                                    while ( ( field != metadata.iptc.end() ) && ( (*field).key() != (*field).toString().c_str() ) )
+                                    // Yes, it's a std::string comparison in the
+                                    // second operator!=(), but only because
+                                    // there's no operator==() for
+                                    // Exiv2::IptcKey...
+                                    while ( ( field != metadata.iptc.end() ) && ( (*field).key() != myKey.key() ) )
                                         ++field;
                                 }
                                 break;

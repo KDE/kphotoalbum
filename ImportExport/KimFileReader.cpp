@@ -17,14 +17,17 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
     _zip = new KZip( fileName );
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( 0, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
-        _zip =0;
+        delete _zip;
+	_zip = 0;
         return false;
     }
 
     _dir = _zip->directory();
     if ( _dir == 0 ) {
         KMessageBox::error( 0, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
-        return false;
+        delete _zip;
+	_zip = 0;
+	return false;
     }
 
 

@@ -1,3 +1,8 @@
+2009-05-11  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* BUGFIX: Invoke external application for multiple files did not
+	work (thx to theBRO for reporting this)
+
 ====================== KPhotoalbum 4.0 released  ===================================	
 	
 Previous changes

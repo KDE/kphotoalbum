@@ -81,7 +81,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     Q_ASSERT( offers.count() >= 1 );
     KService::Ptr ptr = offers.first();
     KUrl::List lst;
-    if ( action->data() == 2 ) {
+    if ( action->data() == 1 ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
                 lst.append( KUrl(*it) );

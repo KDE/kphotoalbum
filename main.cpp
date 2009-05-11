@@ -35,7 +35,7 @@
 extern QTemporaryFile* _tmpFileForThumbnailView;
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "4.0",
+    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "SVN",
                           ki18n("KDE Photo Album"), KAboutData::License_GPL,
                           KLocalizedString(), KLocalizedString(), "http://www.kphotoalbum.org");
     aboutData.addAuthor( ki18n("Jesper K. Pedersen"), ki18n("Development"), "blackie@kde.org" );

@@ -182,7 +182,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _or->show();
         _or->setChecked( true );
     } else {
-	_and->hide();
+        _and->hide();
         _or->hide();
     }
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )

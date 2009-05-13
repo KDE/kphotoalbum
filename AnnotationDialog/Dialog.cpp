@@ -992,7 +992,7 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = _actions->addAction( QString::fromLatin1("annotationdialog-copy-previous"),  this, SLOT( slotCopyPrevious() ) );
     action->setText(  i18n("Copy tags from previous image") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Insert );
+    action->setShortcut(  Qt::ALT+Qt::Key_Insert );
 
     action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  this, SLOT( rotateLeft() ) );
     action->setText(  i18n("Rotate counterclockwise") );

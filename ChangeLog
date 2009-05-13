@@ -1,5 +1,10 @@
 2009-05-13  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Changed default shortcut for copy from previous image in the
+	annotation dialog to Alt+insert, as control+insert was eaten by
+	the line edits, and the shortcut did thus not work when they had
+	the keyboard focus.
+
 	* BUGFIX: The HTML generator did not display the available themes
 	correctly. Thanks to theBro@luukku.com for a patch for this.
 

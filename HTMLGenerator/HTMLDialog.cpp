@@ -372,7 +372,8 @@ void HTMLDialog::populateThemesCombo()
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 
-            KConfigGroup config = KGlobal::config()->group( QString::fromLatin1( "theme/%1" ).arg( themePath ) );
+            KConfig themeconfig( QString::fromLatin1( "%1/kphotoalbum.theme").arg( themePath ), KConfig::SimpleConfig );
+            KConfigGroup config = themeconfig.group("theme");
             QString themeName = config.readEntry( "Name" );
             QString themeAuthor = config.readEntry( "Author" );
 

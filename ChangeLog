@@ -1,7 +1,12 @@
+2009-05-13  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* BUGFIX: The HTML generator did not display the available themes
+	correctly. Thanks to theBro@luukku.com for a patch for this.
+
 2009-05-11  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* BUGFIX: Invoke external application for multiple files did not
-	work (thx to theBRO for reporting this)
+	work. Thanks to theBro@luukku.com for a patch for this.
 
 ====================== KPhotoalbum 4.0 released  ===================================	
 	

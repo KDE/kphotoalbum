@@ -167,9 +167,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     loadWindowLayout();
 
-    // If I don't explicit show _dockWindow here, then no windows will show up.
-    _dockWindow->show();
-
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::AnnotationDialog ) );
 
     setupActions();
@@ -690,14 +687,18 @@ void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 
 void AnnotationDialog::Dialog::hideTornOfWindows()
 {
-    Q_FOREACH( QDockWidget* dock, _dockWidgets )
-        dock->hide();
+    Q_FOREACH( QDockWidget* dock, _dockWidgets ) {
+        if ( dock->isFloating() )
+            dock->hide();
+    }
 }
 
 void AnnotationDialog::Dialog::showTornOfWindows()
 {
-    Q_FOREACH (QDockWidget* dock, _dockWidgets )
-        dock->show();
+    Q_FOREACH (QDockWidget* dock, _dockWidgets ) {
+        if ( dock->isFloating() )
+            dock->show();
+    }
 }
 
 

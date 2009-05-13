@@ -90,7 +90,8 @@ void WelComeDialog::createSetup()
 {
     FileDialog dialog( this );
     _configFile = dialog.getFileName();
-    accept();
+    if ( !_configFile.isNull() )
+        accept();
 }
 
 QString WelComeDialog::configFileName() const
@@ -98,38 +99,34 @@ QString WelComeDialog::configFileName() const
     return _configFile;
 }
 
-FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
+FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
 {
-    QVBoxLayout* lay1 = new QVBoxLayout( this );
+    setButtons( Cancel | Ok );
+
+    QWidget* top = new QWidget;
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+    setMainWidget( top );
+
     QLabel* label = new QLabel( i18n("<p>KPhotoAlbum requires that all your images and videos are stored with a common root directory. "
                                      "You are allowed to store your images in a directory tree under this directory. "
                                      "KPhotoAlbum will not modify or edit any of your images, so you can simply point KPhotoAlbum to the "
-                                     "directory where you already have all your images located.</p>" ), this );
+                                     "directory where you already have all your images located.</p>" ), top );
     label->setWordWrap( true );
     lay1->addWidget( label );
 
     QHBoxLayout* lay2 = new QHBoxLayout;
     lay1->addLayout( lay2 );
-    label = new QLabel( i18n("Image/Video root directory: "), this );
+    label = new QLabel( i18n("Image/Video root directory: "), top );
     lay2->addWidget( label );
 
-    _lineEdit = new KLineEdit( this );
+    _lineEdit = new KLineEdit( top );
     _lineEdit->setText( QString::fromLatin1( "~/Images" ) );
     lay2->addWidget( _lineEdit );
 
-    QPushButton* button = new QPushButton( QString::fromLatin1("..."), this );
+    QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
     button->setMaximumWidth( 20 );
     lay2->addWidget( button );
-    connect( button, SIGNAL( clicked() ), this, SLOT( slotBrowseForDirecory() ) );
-
-    QHBoxLayout* lay3 = new QHBoxLayout;
-    lay1->addLayout( lay3 );
-    lay3->addStretch( 1 );
-    button = new QPushButton( i18n("&OK"), this );
-    button->setDefault(true);
-    lay3->addWidget( button );
-
-    connect( button, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( button, SIGNAL( clicked() ), top, SLOT( slotBrowseForDirecory() ) );
 }
 
 void FileDialog::slotBrowseForDirecory()
@@ -144,7 +141,9 @@ QString FileDialog::getFileName()
     bool ok = false;
     QString dir;
     while ( !ok ) {
-        exec();
+        if ( exec() == Rejected )
+            return QString();
+
         dir =  KShell::tildeExpand( _lineEdit->text() );
         if ( !QFileInfo( dir ).exists() ) {
             int create = KMessageBox::questionYesNo( this, i18n("Directory does not exists, should I create it?") );

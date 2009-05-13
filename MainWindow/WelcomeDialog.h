@@ -19,6 +19,7 @@
 #ifndef WELCOMEDIALOG_H
 #define WELCOMEDIALOG_H
 
+#include <kdialog.h>
 #include <qdialog.h>
 class QLineEdit;
 
@@ -43,7 +44,7 @@ private:
 };
 
 
-class FileDialog : public QDialog
+class FileDialog : public KDialog
 {
     Q_OBJECT
 public:

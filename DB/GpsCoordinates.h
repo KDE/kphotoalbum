@@ -22,6 +22,7 @@
 #include "config-kpa-marble.h"
 #ifdef HAVE_MARBLE
   #include <marble/GeoDataCoordinates.h>
+  #include <marble/global.h>
 #endif
 
 #ifdef HAVE_MARBLE
@@ -87,7 +88,15 @@ public:
     {
         // Get the coordinates from the given position to our member
         // variables
+#if MARBLE_VERSION >= 0x000700
+        qreal tmp_longitude = (qreal)_longitude;
+        qreal tmp_latitude = (qreal)_latitude;
+        position.geoCoordinates(tmp_longitude, tmp_latitude, GeoDataCoordinates::Degree);
+        _longitude = tmp_longitude;
+        _latitude = tmp_latitude;
+#else
         position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
+#endif
 
         Q_ASSERT(!this->isNull());
     }

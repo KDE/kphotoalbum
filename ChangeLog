@@ -1,3 +1,15 @@
+====================== KPhotoalbum 4.0.1 released  ===================================	
+
+Other changes done since 4.0
+
+	* Fix compilation with new Marble and armel (Marble changed API
+	again)
+	* fixed bug #186807 - no cancel button in "create own database
+	dialog"
+	* fixed bug #192385 - it was not possible to hide items in the
+	annotation between sessions.
+
+
 2009-05-13  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Changed default shortcut for copy from previous image in the

@@ -4,6 +4,7 @@
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
 #include <QAbstractListModel>
+#include <DB/MediaCount.h>
 
 namespace Browser {
 class BrowserWidget;
@@ -16,6 +17,7 @@ public:
     OVERRIDE QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     OVERRIDE void activate();
     OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
+    OVERRIDE Qt::ItemFlags flags ( const QModelIndex & index ) const;
 
 private:
     QList<DB::CategoryPtr> categories() const;
@@ -32,6 +34,7 @@ private:
 
 private:
     DB::ImageSearchInfo _info;
+    QMap<int,DB::MediaCount> _count;
 };
 
 }

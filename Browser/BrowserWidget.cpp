@@ -58,9 +58,12 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     layout->addWidget( _stack );
 
     _listView = new QListView ( _stack );
-    _listView->setIconSize( QSize(42,42) );
-    _listView->setSelectionMode( QListView::NoSelection );
+    _listView->setIconSize( QSize(100,75) );
+    _listView->setSelectionMode( QListView::SingleSelection );
     _listView->setViewMode( QListView::IconMode );
+//    _listView->setGridSize( QSize(150, 200) );
+    _listView->setSpacing(10);
+    _listView->setUniformItemSizes(true);
     connect( _listView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _listView );
 
@@ -88,6 +91,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _treeView->setModel( _filterProxy );
 
     addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
+    _stack->setCurrentWidget( _treeView );
 }
 
 void Browser::BrowserWidget::forward()

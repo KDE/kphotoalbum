@@ -11,6 +11,14 @@
 Browser::OverviewModel::OverviewModel( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserAction(browser), _info(info)
 {
+    int row = 0;
+    Q_FOREACH( const DB::CategoryPtr& category, categories() ) {
+        QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, category->name(), DB::Image );
+        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, category->name(), DB::Video );
+        DB::MediaCount count( images.count(), videos.count() );
+        _count[row] = count;
+        ++row;
+    }
 }
 
 int Browser::OverviewModel::rowCount( const QModelIndex& /*parent*/ ) const
@@ -124,5 +132,13 @@ Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QMode
 void Browser::OverviewModel::activate()
 {
     browser()->setModel( this );
+}
+
+Qt::ItemFlags Browser::OverviewModel::flags( const QModelIndex & index ) const
+{
+    if ( isCategoryIndex(index.row() ) && _count[index.row()].total() <= 1 )
+        return QAbstractListModel::flags(index) & ~Qt::ItemIsEnabled;
+    else
+        return QAbstractListModel::flags(index);
 }
 

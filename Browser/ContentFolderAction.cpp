@@ -57,7 +57,6 @@ bool Browser::ContentFolderAction::allowSort() const
     return false;
 }
 
-
 QString Browser::ContentFolderAction::title() const
 {
     return i18n("Category");

@@ -19,15 +19,10 @@
 #ifndef BROWSER_H
 #define BROWSER_H
 //Added by qt3to4:
-#include <Q3ValueList>
-#include <qwidget.h>
+#include <QListView>
 #include "Settings/SettingsData.h"
 
-class Q3ListViewItem;
 class QStackedWidget;
-class Q3ListView;
-class Q3IconView;
-class Q3IconViewItem;
 
 namespace DB
 {
@@ -39,8 +34,9 @@ namespace Browser
 class BrowserIconViewItemFactory;
 class FolderAction;
 class BrowserItemFactory;
+class BrowserAction;
 
-class BrowserWidget :public QWidget {
+class BrowserWidget :public QListView {
     Q_OBJECT
     friend class ImageFolderAction;
 
@@ -56,6 +52,7 @@ public:
     void clear();
     void setFocus();
     QString currentCategory() const;
+    void addModel( Browser::BrowserAction* );
 
 public slots:
     void back();
@@ -84,29 +81,26 @@ signals:
     // bool is true if we have "chosen" some category (ie. when it's safe to change "view as list/ view as icons" stuff)
     void browsingInSomeCategory( bool );
 
-protected slots:
+private slots:
     void init();
-    void select( Q3ListViewItem* item );
-    void select( Q3IconViewItem* item );
     void select( FolderAction* action );
     void resetIconViewSearch();
+    void itemClicked( const QModelIndex& );
 
-protected:
-    void addItem( FolderAction* );
+private:
     void emitSignals();
     void setupFactory();
     void setViewType( DB::Category::ViewType type );
+    Browser::BrowserAction* currentModel() const;
 
 private:
     static BrowserWidget* _instance;
-    Q3ValueList<FolderAction*> _list;
+    QList<BrowserAction*> _list;
     int _current;
     BrowserItemFactory* _listViewFactory;
     BrowserIconViewItemFactory* _iconViewFactory;
     BrowserItemFactory* _currentFactory;
     QStackedWidget* _stack;
-    Q3IconView* _iconView;
-    Q3ListView* _listView;
 };
 
 }

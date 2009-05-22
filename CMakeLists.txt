@@ -210,6 +210,9 @@ set(libBrowser_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolder.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolderAction.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ContentFolderAction.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserAction.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/OverviewModel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CategoryModel.cpp
 	)
 
 

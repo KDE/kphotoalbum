@@ -1,0 +1,46 @@
+#ifndef OVERVIEWMODEL_H
+#define OVERVIEWMODEL_H
+#include "BrowserAction.h"
+#include <DB/ImageSearchInfo.h>
+#include <DB/Category.h>
+#include <QAbstractListModel>
+
+namespace Browser {
+class BrowserWidget;
+
+class OverviewModel :public QAbstractListModel, public BrowserAction
+{
+public:
+    OverviewModel( const DB::ImageSearchInfo& info, Browser::BrowserWidget* );
+    OVERRIDE int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
+    OVERRIDE QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
+    OVERRIDE QAbstractListModel* model();
+    OVERRIDE void action( const QModelIndex& );
+
+private:
+    QList<DB::CategoryPtr> categories() const;
+
+    bool isCategoryIndex( int row ) const;
+    bool isExivIndex( int row ) const;
+    bool isSearchIndex( int row ) const;
+    bool isImageIndex( int row ) const;
+
+    QVariant categoryInfo( int row, int role ) const;
+    QVariant exivInfo( int role ) const;
+    QVariant searchInfo( int role ) const;
+    QVariant imageInfo( int role ) const;
+
+    void executeCategoryAction( int row ) const;
+    void executeExivAction() const;
+    void executeSearchAction() const;
+    void executeImageAction() const;
+
+private:
+    DB::ImageSearchInfo _info;
+};
+
+}
+
+
+#endif /* OVERVIEWMODEL_H */
+

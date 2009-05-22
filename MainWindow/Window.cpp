@@ -804,7 +804,8 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Enable All Messages") );
 
     _viewMenu = actionCollection()->add<KActionMenu>( QString::fromLatin1("configureView") );
-    _viewMenu->setText( i18n("Configure View") );
+    _viewMenu->setText( i18n("Configure Current View") );
+    _viewMenu->setEnabled(false);
 
     _viewMenu->setIcon( KIcon( QString::fromLatin1( "view-list-details" ) ) );
     _viewMenu->setDelayed( false );

@@ -36,7 +36,6 @@
       <Action name="sortImages" />
       <Action name="orderIncr"/>
       <Action name="orderDecr"/>
-      <Action name="configureView"/>
       <Menu name="privacy">
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>
@@ -89,6 +88,7 @@
    <Menu name="settings">
      <Action name="readdAllMessages"/>
      <Action name="showToolTipOnImages"/>
+     <Action name="configureView"/>
    </Menu>
    <Menu name="help">
      <Action name="runDemo"/>

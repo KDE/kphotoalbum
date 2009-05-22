@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="38">
+<kpartgui name="kphotoalbum" version="39">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -36,7 +36,7 @@
       <Action name="sortImages" />
       <Action name="orderIncr"/>
       <Action name="orderDecr"/>
-      <Separator/>
+      <Action name="configureView"/>
       <Menu name="privacy">
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>

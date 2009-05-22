@@ -20,8 +20,18 @@ Browser::Viewer Browser::BrowserAction::viewer()
     return ShowBrowser;
 }
 
-bool Browser::BrowserAction::isSearchable()
+bool Browser::BrowserAction::isSearchable() const
 {
     return true;
+}
+
+bool Browser::BrowserAction::isViewChangeable() const
+{
+    return isSearchable();
+}
+
+DB::Category::ViewType Browser::BrowserAction::viewType() const
+{
+    return DB::Category::IconView;
 }
 

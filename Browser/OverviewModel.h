@@ -18,6 +18,7 @@ public:
     OVERRIDE void activate();
     OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
     OVERRIDE Qt::ItemFlags flags ( const QModelIndex & index ) const;
+    OVERRIDE bool isSearchable() const;
 
 private:
     QList<DB::CategoryPtr> categories() const;

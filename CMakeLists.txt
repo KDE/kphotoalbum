@@ -207,6 +207,8 @@ set(libBrowser_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/OverviewModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CategoryModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ImageViewAction.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/OverviewModel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CategoryModel.cpp
 	)
 
 

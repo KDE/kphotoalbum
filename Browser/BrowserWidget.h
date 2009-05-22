@@ -76,7 +76,8 @@ signals:
     void canGoForward( bool );
     void showingOverview();
     void pathChanged( const QString& );
-    void showsContentView( bool );
+    void isSearchable( bool );
+    void isViewChangeable( bool );
     void currentViewTypeChanged( DB::Category::ViewType );
     void viewChanged();
 
@@ -92,6 +93,7 @@ private:
     void setupFactory();
     void setViewType( DB::Category::ViewType type );
     Browser::BrowserAction* currentAction() const;
+    void raiseViewerBasedOnViewType( DB::Category::ViewType );
 
 private:
     static BrowserWidget* _instance;

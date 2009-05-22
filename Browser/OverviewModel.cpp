@@ -142,3 +142,8 @@ Qt::ItemFlags Browser::OverviewModel::flags( const QModelIndex & index ) const
         return QAbstractListModel::flags(index);
 }
 
+bool Browser::OverviewModel::isSearchable() const
+{
+    return false;
+}
+

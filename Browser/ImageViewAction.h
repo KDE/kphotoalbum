@@ -11,6 +11,8 @@ public:
     ImageViewAction( BrowserWidget* browser, const DB::ImageSearchInfo& info );
     OVERRIDE void activate();
     OVERRIDE Viewer viewer();
+    OVERRIDE bool isSearchable() const;
+
 
 private:
     DB::ImageSearchInfo _info;

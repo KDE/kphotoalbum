@@ -108,3 +108,8 @@ const DB::CategoryPtr Browser::CategoryModel::category() const
     return _category;
 }
 
+DB::Category::ViewType Browser::CategoryModel::viewType() const
+{
+    return _category->viewType();
+}
+

@@ -15,6 +15,8 @@ public:
     CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
     OVERRIDE void activate();
     OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
+    OVERRIDE DB::Category::ViewType viewType() const;
+
     const DB::CategoryPtr category() const;
 
 private:

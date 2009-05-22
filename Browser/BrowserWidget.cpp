@@ -65,14 +65,14 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 //    _listView->setGridSize( QSize(150, 200) );
     _listView->setSpacing(10);
     _listView->setUniformItemSizes(true);
-    connect( _listView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    connect( _listView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
     _treeView->setHeaderHidden(true);
 //    _treeView->setRootIsDecorated(false);
 
-    connect( _treeView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _treeView );
 
 #ifdef KDAB_TEMPORARILY_REMOVED
@@ -95,7 +95,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _treeView->setModel( _filterProxy );
 
     addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
-    _stack->setCurrentWidget( _treeView );
+    _stack->setCurrentWidget( _listView );
 }
 
 void Browser::BrowserWidget::forward()
@@ -113,6 +113,7 @@ void Browser::BrowserWidget::back()
 void Browser::BrowserWidget::go()
 {
     currentAction()->activate();
+    raiseViewerBasedOnViewType( currentAction()->viewType() );
     emitSignals();
 }
 
@@ -155,7 +156,7 @@ void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
     _current++;
     emitSignals();
 
-    action->activate();
+    go();
 }
 
 void Browser::BrowserWidget::emitSignals()
@@ -165,19 +166,21 @@ void Browser::BrowserWidget::emitSignals()
     if ( currentAction()->viewer() == ShowBrowser )
         emit showingOverview();
 
-    emit showsContentView( currentAction()->isSearchable() );
+    emit isSearchable( currentAction()->isSearchable() );
+    emit isViewChangeable( currentAction()->isViewChangeable() );
+
+    bool isCategoryAction = (dynamic_cast<CategoryModel*>( currentAction() ) != 0);
+
+    if ( isCategoryAction ) {
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory() );
+        Q_ASSERT( category.data() );
+
+        emit currentViewTypeChanged( category->viewType());
+    }
+
 
 #ifdef KDAB_TEMPORARILY_REMOVED
-    FolderAction* a = _list[_current-1];
-    if ( !a->showsImages() )
-        emit showingOverview();
     emit pathChanged( a->path() );
-    _listView->setColumnText( 0, a->title() );
-    emit showsContentView( a->contentView() );
-
-    if ( a->contentView() && _list.size() > 0 )
-        emit currentViewTypeChanged( a->viewType() );
-
     bool showingCategory = dynamic_cast<TypeFolderAction*>( a );
     emit browsingInSomeCategory( showingCategory );
     _listView->setRootIsDecorated( showingCategory );
@@ -280,10 +283,7 @@ void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
     Q_ASSERT( category.data() );
     category->setViewType( type );
 
-    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView )
-        _stack->setCurrentWidget( _treeView );
-    else
-        _stack->setCurrentWidget( _listView );
+    raiseViewerBasedOnViewType( type );
     reload();
 }
 
@@ -407,6 +407,15 @@ Browser::BrowserAction* Browser::BrowserWidget::currentAction() const
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 {
     _filterProxy->setSourceModel( model );
+}
+
+void Browser::BrowserWidget::raiseViewerBasedOnViewType( DB::Category::ViewType type )
+{
+    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView )
+        _stack->setCurrentWidget( _treeView );
+    else
+        _stack->setCurrentWidget( _listView );
+
 }
 
 #include "BrowserWidget.moc"

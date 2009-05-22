@@ -26,3 +26,8 @@ Browser::Viewer Browser::ImageViewAction::viewer()
 {
     return Browser::ShowImageViewer;
 }
+
+bool Browser::ImageViewAction::isSearchable() const
+{
+    return false;
+}

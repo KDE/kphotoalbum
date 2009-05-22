@@ -1,5 +1,6 @@
 #ifndef BROWSERMODEL_H
 #define BROWSERMODEL_H
+#include <DB/Category.h>
 #include <QAbstractItemModel>
 
 namespace Browser
@@ -17,7 +18,9 @@ public:
     virtual BrowserAction* generateChildAction( const QModelIndex &);
     BrowserWidget* browser() const;
     virtual Viewer viewer();
-    virtual bool isSearchable();
+    virtual DB::Category::ViewType viewType() const;
+    virtual bool isSearchable() const;
+    virtual bool isViewChangeable() const;
 
 private:
     BrowserWidget* _browser;

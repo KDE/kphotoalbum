@@ -64,7 +64,6 @@ bool NewImageFinder::findImages()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::BrowserWidget::instance()->home();  // TODO: DEPENDENCY: DB:: should not depend on other directories
     return (!_pendingLoad.isEmpty()); // returns if new images was found.
 }
 

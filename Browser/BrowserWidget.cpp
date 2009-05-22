@@ -17,6 +17,8 @@
 */
 
 #include "BrowserWidget.h"
+#include <QSortFilterProxyModel>
+#include <QTreeView>
 #include <DB/ImageSearchInfo.h>
 #include "OverviewModel.h"
 #include <QDebug>
@@ -35,7 +37,6 @@
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include "Utilities/ShowBusyCursor.h"
-#include "BrowserItemFactory.h"
 #include <QStackedWidget>
 #include <qlayout.h>
 #include "DB/CategoryCollection.h"
@@ -46,90 +47,47 @@
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
 Browser::BrowserWidget::BrowserWidget( QWidget* parent )
-    :QListView( parent ), _current(0)
+    :QWidget( parent ), _current(0)
 {
-
-    setIconSize( QSize(42,42) );
-    setSelectionMode( NoSelection );
-    connect( this, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
-    setViewMode( IconMode );
-
     Q_ASSERT( !_instance );
     _instance = this;
 
-    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
-
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
     _stack = new QStackedWidget;
     QHBoxLayout* layout = new QHBoxLayout( this );
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget( _stack );
 
-    _listView = new Q3ListView ( _stack, "_listView" );
+    _listView = new QListView ( _stack );
+    _listView->setIconSize( QSize(42,42) );
+    _listView->setSelectionMode( QListView::NoSelection );
+    _listView->setViewMode( QListView::IconMode );
+    connect( _listView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _listView );
 
-    _iconView = new Q3IconView( _stack, "_iconView" );
-    _stack->addWidget( _iconView );
+    _treeView = new QTreeView( _stack );
+    connect( _treeView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    _stack->addWidget( _treeView );
 
-    _listViewFactory = new BrowserListViewItemFactory( _listView );
-    _iconViewFactory = new BrowserIconViewItemFactory( _iconView );
-
+#ifdef KDAB_TEMPORARILY_REMOVED
     _listView->addColumn( i18n("What") );
     _listView->setColumnAlignment(_listView->addColumn( i18n("Images") ),
                                   Qt::AlignRight);
     _listView->setColumnAlignment(_listView->addColumn( i18n("Videos") ),
                                   Qt::AlignRight);
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Browser::BrowserWidget::BrowserWidget");
+#endif //KDAB_TEMPORARILY_REMOVED
 
-    connect( _listView, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
-    connect( _listView, SIGNAL( returnPressed( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
-    connect( _iconView, SIGNAL( clicked( Q3IconViewItem* ) ), this, SLOT( select( Q3IconViewItem* ) ) );
-    connect( _iconView, SIGNAL( returnPressed( Q3IconViewItem* ) ), this, SLOT( select( Q3IconViewItem* ) ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
-    // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
-    QTimer::singleShot( 0, this, SLOT( init() ) );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::BrowserWidget");
-#endif // KDAB_TEMPORARILY_REMOVED
-}
+    _filterProxy = new QSortFilterProxyModel(this);
+    _filterProxy->setFilterKeyColumn(0);
+    _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
+    _listView->setModel( _filterProxy );
+    _treeView->setModel( _filterProxy );
 
-Browser::BrowserWidget::~BrowserWidget()
-{
-    delete _listViewFactory;
-    delete _iconViewFactory;
-}
-
-
-void Browser::BrowserWidget::init()
-{
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    FolderAction* action = new ContentFolderAction( DB::ImageSearchInfo(), this );
-    _list.append( action );
-    forward();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::init");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
-}
-
-void Browser::BrowserWidget::select( FolderAction* action )
-{
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    Utilities::ShowBusyCursor dummy;
-    if ( action ) {
-        addAction( action );
-        setupFactory();
-        action->action( _currentFactory );
-    }
-    emit viewChanged();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::select");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
 }
 
 void Browser::BrowserWidget::forward()
@@ -198,6 +156,9 @@ void Browser::BrowserWidget::emitSignals()
     emit canGoForward( _current < (int)_list.count() );
     if ( currentAction()->viewer() == ShowBrowser )
         emit showingOverview();
+
+    emit showsContentView( currentAction()->isSearchable() );
+
 #ifdef KDAB_TEMPORARILY_REMOVED
     FolderAction* a = _list[_current-1];
     if ( !a->showsImages() )
@@ -331,18 +292,6 @@ void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
 #endif // KDAB_TEMPORARILY_REMOVED
 }
 
-void Browser::BrowserWidget::clear()
-{
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    _iconView->clear();
-    _listView->clear();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::clear");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
-}
-
 void Browser::BrowserWidget::setupFactory()
 {
 // PENDING(kdab) Review
@@ -370,11 +319,7 @@ void Browser::BrowserWidget::setupFactory()
 
 void Browser::BrowserWidget::setFocus()
 {
-#ifdef KDAB_TEMPORARILY_REMOVED
     _stack->currentWidget()->setFocus();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::BrowserWidget::setFocus");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 QString Browser::BrowserWidget::currentCategory() const
@@ -394,27 +339,12 @@ QString Browser::BrowserWidget::currentCategory() const
 
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( _currentFactory == _iconViewFactory ) {
-        // This is a cruel hack to get things working till Qt 4 gets
-        // out. I'm sure Qt 4 has the same setVisible feature for icon
-        // views as it now has for list view.
-        _iconViewFactory->setMatchText( str );
-        FolderAction* a = _list[_current-1];
-        a->action( _currentFactory );
-    }
-    else
-        AnnotationDialog::ListViewTextMatchHider dummy( str, false, _listView );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::slotLimitToMatch");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    _filterProxy->setFilterFixedString( str );
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
 {
-    _iconViewFactory->setMatchText( QString::null );
+    _filterProxy->setFilterRegExp( QString() );
 }
 
 void Browser::BrowserWidget::slotInvokeSeleted()
@@ -453,9 +383,9 @@ void Browser::BrowserWidget::scrollLine( int direction )
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
     _iconView->scrollBy( 0, 10 * direction );
-    _listView->scrollBy( 0, 10 * direction );
+    _treeView->scrollBy( 0, 10 * direction );
 #else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::scrollLine");
+    KDAB_NYI("Sorry, not implemented: Browser::BrowserWidget::scrollLine");
     return ;
 #endif // KDAB_TEMPORARILY_REMOVED
 }
@@ -465,10 +395,10 @@ void Browser::BrowserWidget::scrollPage( int direction )
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
     int dist = direction * (height()-100);
-    _iconView->scrollBy( 0, dist );
+    _treeView->scrollBy( 0, dist );
     _listView->scrollBy( 0, dist );
 #else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::scrollPage");
+    KDAB_NYI("Sorry, not implemented: Browser::BrowserWidget::scrollPage");
     return ;
 #endif // KDAB_TEMPORARILY_REMOVED
 }
@@ -476,7 +406,7 @@ void Browser::BrowserWidget::scrollPage( int direction )
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
-    addAction( currentAction()->generateChildAction( index ) );
+    addAction( currentAction()->generateChildAction( _filterProxy->mapToSource( index ) ) );
     emit viewChanged();
 }
 
@@ -484,6 +414,11 @@ void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 Browser::BrowserAction* Browser::BrowserWidget::currentAction() const
 {
     return _list[_current-1];
+}
+
+void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
+{
+    _filterProxy->setSourceModel( model );
 }
 
 #include "BrowserWidget.moc"

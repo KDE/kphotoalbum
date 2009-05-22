@@ -117,6 +117,8 @@ Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QMode
         return 0; // PENDING(blackie) FIXME
     else if ( isImageIndex( row ) )
         return new ImageViewAction( browser(), _info );
+
+    return 0;
 }
 
 void Browser::OverviewModel::activate()

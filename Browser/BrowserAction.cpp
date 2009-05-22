@@ -20,3 +20,8 @@ Browser::Viewer Browser::BrowserAction::viewer()
     return ShowBrowser;
 }
 
+bool Browser::BrowserAction::isSearchable()
+{
+    return true;
+}
+

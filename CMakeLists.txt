@@ -203,14 +203,6 @@ set(libAnnotationDialog_SRCS
 
 set(libBrowser_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserWidget.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ContentFolder.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/Folder.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/SearchFolder.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserItemFactory.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ImageFolder.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolder.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolderAction.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ContentFolderAction.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserAction.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/OverviewModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CategoryModel.cpp
@@ -239,7 +231,9 @@ endif(SQLDB_SUPPORT)
 
 set(EXIV2_SRCS)
 if(EXIV2_FOUND)
- 	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp ${libexif_SRCS})
+ 	set(EXIV2_SRCS 
+# ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp 
+  ${libexif_SRCS})
 endif(EXIV2_FOUND)
 
 ########### next target ###############

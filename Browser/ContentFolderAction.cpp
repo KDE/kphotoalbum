@@ -22,7 +22,6 @@
 #include <klocale.h>
 #include "DB/ImageDB.h"
 #include "SearchFolder.h"
-#include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"

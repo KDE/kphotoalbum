@@ -18,10 +18,12 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
-//Added by qt3to4:
 #include <QListView>
 #include "Settings/SettingsData.h"
 
+class QSortFilterProxyModel;
+class QTreeView;
+class QListView;
 class QStackedWidget;
 
 namespace DB
@@ -36,23 +38,23 @@ class FolderAction;
 class BrowserItemFactory;
 class BrowserAction;
 
-class BrowserWidget :public QListView {
+class BrowserWidget :public QWidget {
     Q_OBJECT
     friend class ImageFolderAction;
 
 public:
     BrowserWidget( QWidget* parent );
-    ~BrowserWidget();
     void addSearch( DB::ImageSearchInfo& info );
     void addImageView( const QString& context );
     static BrowserWidget* instance();
     void load( const QString& category, const QString& value );
     bool allowSort();
     DB::ImageSearchInfo currentContext();
-    void clear();
     void setFocus();
     QString currentCategory() const;
     void addAction( Browser::BrowserAction* );
+
+    void setModel( QAbstractItemModel* );
 
 public slots:
     void back();
@@ -82,8 +84,6 @@ signals:
     void browsingInSomeCategory( bool );
 
 private slots:
-    void init();
-    void select( FolderAction* action );
     void resetIconViewSearch();
     void itemClicked( const QModelIndex& );
 
@@ -97,10 +97,10 @@ private:
     static BrowserWidget* _instance;
     QList<BrowserAction*> _list;
     int _current;
-    BrowserItemFactory* _listViewFactory;
-    BrowserIconViewItemFactory* _iconViewFactory;
-    BrowserItemFactory* _currentFactory;
     QStackedWidget* _stack;
+    QListView* _listView;
+    QTreeView* _treeView;
+    QSortFilterProxyModel* _filterProxy;
 };
 
 }

@@ -17,6 +17,7 @@ public:
     virtual BrowserAction* generateChildAction( const QModelIndex &);
     BrowserWidget* browser() const;
     virtual Viewer viewer();
+    virtual bool isSearchable();
 
 private:
     BrowserWidget* _browser;

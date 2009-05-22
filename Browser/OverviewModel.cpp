@@ -1,4 +1,7 @@
 #include "OverviewModel.h"
+#include <KMessageBox>
+#include <Exif/SearchDialog.h>
+#include "ExivAction.h"
 #include "ImageViewAction.h"
 #include "CategoryModel.h"
 #include "BrowserWidget.h"
@@ -7,6 +10,7 @@
 #include <klocale.h>
 #include <DB/ImageDB.h>
 #include <kicon.h>
+#include <config-kpa-exiv2.h>
 
 Browser::OverviewModel::OverviewModel( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserAction(browser), _info(info)
@@ -120,7 +124,7 @@ Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QMode
     if ( isCategoryIndex(row) )
         return new Browser::CategoryModel( categories()[row], _info, browser() );
     else if ( isExivIndex( row ) )
-        return 0; // PENDING(blackie) FIXME
+        return createExivAction();
     else if ( isSearchIndex( row ) )
         return 0; // PENDING(blackie) FIXME
     else if ( isImageIndex( row ) )
@@ -145,5 +149,25 @@ Qt::ItemFlags Browser::OverviewModel::flags( const QModelIndex & index ) const
 bool Browser::OverviewModel::isSearchable() const
 {
     return false;
+}
+
+Browser::BrowserAction* Browser::OverviewModel::createExivAction()
+{
+    Exif::SearchDialog dialog( browser() );
+    if ( dialog.exec() == QDialog::Rejected )
+        return 0;
+
+    Exif::SearchInfo result = dialog.info();
+
+    DB::ImageSearchInfo info = _info;
+
+    info.addExifSearchInfo( dialog.info() );
+
+    if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
+        KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );
+        return 0;
+    }
+
+    return new OverviewModel( info, browser() );
 }
 

@@ -394,8 +394,11 @@ void Browser::BrowserWidget::scrollPage( int direction )
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
-    addAction( currentAction()->generateChildAction( _filterProxy->mapToSource( index ) ) );
-    emit viewChanged();
+    BrowserAction* action = currentAction()->generateChildAction( _filterProxy->mapToSource( index ) );
+    if ( action ) {
+        addAction( action );
+        emit viewChanged();
+    }
 }
 
 

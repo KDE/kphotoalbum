@@ -33,6 +33,8 @@ private:
     QVariant searchInfo( int role ) const;
     QVariant imageInfo( int role ) const;
 
+    BrowserAction* createExivAction();
+
 private:
     DB::ImageSearchInfo _info;
     QMap<int,DB::MediaCount> _count;

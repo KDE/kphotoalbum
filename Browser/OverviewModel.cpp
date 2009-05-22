@@ -1,4 +1,5 @@
 #include "OverviewModel.h"
+#include "ImageViewAction.h"
 #include "CategoryModel.h"
 #include "BrowserWidget.h"
 #include <MainWindow/Window.h>
@@ -104,54 +105,22 @@ QVariant Browser::OverviewModel::imageInfo( int role ) const
     return QVariant();
 }
 
-void Browser::OverviewModel::action( const QModelIndex& index )
+Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QModelIndex& index )
 {
     const int row = index.row();
 
     if ( isCategoryIndex(row) )
-        executeCategoryAction( row );
+        return new Browser::CategoryModel( categories()[row], _info, browser() );
     else if ( isExivIndex( row ) )
-        return executeExivAction();
+        return 0; // PENDING(blackie) FIXME
     else if ( isSearchIndex( row ) )
-        return executeSearchAction();
+        return 0; // PENDING(blackie) FIXME
     else if ( isImageIndex( row ) )
-        return executeImageAction( );
+        return new ImageViewAction( browser(), _info );
 }
 
-void Browser::OverviewModel::executeCategoryAction( int row ) const
+void Browser::OverviewModel::activate()
 {
-    Browser::CategoryModel* model = new Browser::CategoryModel( categories()[row], _info, browser() );
-    browser()->addModel( model );
-}
-
-void Browser::OverviewModel::executeExivAction() const
-{
-    // PENDING(blackie)
-}
-
-void Browser::OverviewModel::executeSearchAction() const
-{
-    // PENDING(blackie) implement
-}
-
-void Browser::OverviewModel::executeImageAction() const
-{
-    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( _info ) );
-
-// PENDING(blackie) _context comes from jumpToContext - see ImageFolder.cpp
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( !_context.isNull() ) {
-        DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( _context );
-        ThumbnailView::ThumbnailWidget::theThumbnailView()->setCurrentItem( id );
-    }
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::OverviewModel::executeImageAction");
-#endif //KDAB_TEMPORARILY_REMOVED
-
-}
-
-QAbstractListModel* Browser::OverviewModel::model()
-{
-    return this;
+    browser()->setModel( this );
 }
 

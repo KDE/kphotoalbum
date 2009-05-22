@@ -57,7 +57,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     Q_ASSERT( !_instance );
     _instance = this;
 
-    addModel( new OverviewModel( DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
 
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
@@ -121,7 +121,7 @@ void Browser::BrowserWidget::select( FolderAction* action )
 #ifdef KDAB_TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
     if ( action ) {
-        addModel( action );
+        addAction( action );
         setupFactory();
         action->action( _currentFactory );
     }
@@ -146,7 +146,7 @@ void Browser::BrowserWidget::back()
 
 void Browser::BrowserWidget::go()
 {
-    setModel( currentModel()->model() );
+    currentAction()->activate();
     emitSignals();
 }
 
@@ -156,7 +156,7 @@ void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
 #ifdef KDAB_TEMPORARILY_REMOVED
     FolderAction* a;
     a = new ImageFolderAction( info, this );
-    addModel(a);
+    addAction(a);
     go();
 #else // KDAB_TEMPORARILY_REMOVED
     qWarning("Sorry, not implemented: Browser::BrowserWidget::addSearch");
@@ -169,7 +169,7 @@ void Browser::BrowserWidget::addImageView( const QString& context )
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
     FolderAction* a = new ImageFolderAction( context, this );
-    addModel(a);
+    addAction(a);
     go();
 #else // KDAB_TEMPORARILY_REMOVED
     qWarning("Sorry, not implemented: Browser::BrowserWidget::addImageView");
@@ -177,7 +177,7 @@ void Browser::BrowserWidget::addImageView( const QString& context )
 #endif // KDAB_TEMPORARILY_REMOVED
 }
 
-void Browser::BrowserWidget::addModel( Browser::BrowserAction* model )
+void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
 {
     while ( (int) _list.count() > _current ) {
         BrowserAction* m = _list.back();
@@ -185,11 +185,11 @@ void Browser::BrowserWidget::addModel( Browser::BrowserAction* model )
         delete m;
     }
 
-    _list.append(model);
+    _list.append(action);
     _current++;
     emitSignals();
 
-    setModel( model->model() );
+    action->activate();
 }
 
 void Browser::BrowserWidget::emitSignals()
@@ -217,7 +217,7 @@ void Browser::BrowserWidget::emitSignals()
 
 void Browser::BrowserWidget::home()
 {
-    addModel( new OverviewModel( DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
     go();
 }
 
@@ -261,7 +261,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     else
         a = new ContentFolderAction( info, this );
 
-    addModel( a );
+    addAction( a );
     a->action( _currentFactory );
     topLevelWidget()->raise();
     activateWindow();
@@ -470,12 +470,12 @@ void Browser::BrowserWidget::scrollPage( int direction )
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
-    currentModel()->action( index );
+    addAction( currentAction()->generateChildAction( index ) );
     emit viewChanged();
 }
 
 
-Browser::BrowserAction* Browser::BrowserWidget::currentModel() const
+Browser::BrowserAction* Browser::BrowserWidget::currentAction() const
 {
     return _list[_current-1];
 }

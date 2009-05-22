@@ -14,6 +14,7 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
                 -DQT3_SUPPORT_WARNINGS
                 ${KDE4_ENABLE_EXCEPTIONS}
                 -DOVERRIDE=
+                -DKDAB_NYI=qWarning
                 -DQT_NO_CAST_FROM_ASCII
                 -DQT_NO_CAST_TO_ASCII
 #                -DDB_RAWID_IS_PLAIN_INTEGER
@@ -213,6 +214,7 @@ set(libBrowser_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserAction.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/OverviewModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CategoryModel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ImageViewAction.cpp
 	)
 
 

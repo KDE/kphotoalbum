@@ -14,8 +14,8 @@ public:
     OverviewModel( const DB::ImageSearchInfo& info, Browser::BrowserWidget* );
     OVERRIDE int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
     OVERRIDE QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
-    OVERRIDE QAbstractListModel* model();
-    OVERRIDE void action( const QModelIndex& );
+    OVERRIDE void activate();
+    OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
 
 private:
     QList<DB::CategoryPtr> categories() const;
@@ -29,11 +29,6 @@ private:
     QVariant exivInfo( int role ) const;
     QVariant searchInfo( int role ) const;
     QVariant imageInfo( int role ) const;
-
-    void executeCategoryAction( int row ) const;
-    void executeExivAction() const;
-    void executeSearchAction() const;
-    void executeImageAction() const;
 
 private:
     DB::ImageSearchInfo _info;

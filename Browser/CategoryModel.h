@@ -13,8 +13,8 @@ class CategoryModel :public BrowserAction
 {
 public:
     CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    OVERRIDE QAbstractItemModel* model();
-    OVERRIDE void action( const QModelIndex& );
+    OVERRIDE void activate();
+    OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
 
 private:
     DB::ImageSearchInfo _info;

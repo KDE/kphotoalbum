@@ -45,26 +45,25 @@ Browser::CategoryModel::CategoryModel( const DB::CategoryPtr& category, const DB
 
             factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
                                                              _info, _browser ), 0 );
+        }
+
 #endif //KDAB_TEMPORARILY_REMOVED
     }
 
 
 }
 
-QAbstractItemModel* Browser::CategoryModel::model()
+void Browser::CategoryModel::activate()
 {
-    return &_model;
+    browser()->setModel( &_model );
 }
 
-void Browser::CategoryModel::action( const QModelIndex& index )
+Browser::BrowserAction* Browser::CategoryModel::generateChildAction( const QModelIndex& index )
 {
     const QString name = _model.data( index, Qt::DisplayRole ).value<QString>();
     DB::ImageSearchInfo info = _info;
 
     info.addAnd( _category->name(), name );
-    qDebug() << _category->name() << name;
-    Browser::OverviewModel* model = new Browser::OverviewModel( info, browser() );
-    browser()->addModel( model );
-
+    return new Browser::OverviewModel( info, browser() );
 }
 

@@ -10,3 +10,8 @@ Browser::BrowserWidget* Browser::BrowserAction::browser() const
     return _browser;
 }
 
+Browser::BrowserAction* Browser::BrowserAction::generateChildAction( const QModelIndex &)
+{
+    return 0;
+}
+

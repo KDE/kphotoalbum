@@ -52,7 +52,7 @@ public:
     void clear();
     void setFocus();
     QString currentCategory() const;
-    void addModel( Browser::BrowserAction* );
+    void addAction( Browser::BrowserAction* );
 
 public slots:
     void back();
@@ -91,7 +91,7 @@ private:
     void emitSignals();
     void setupFactory();
     void setViewType( DB::Category::ViewType type );
-    Browser::BrowserAction* currentModel() const;
+    Browser::BrowserAction* currentAction() const;
 
 private:
     static BrowserWidget* _instance;

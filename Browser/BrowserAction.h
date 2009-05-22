@@ -11,8 +11,8 @@ class BrowserAction
 public:
     BrowserAction( BrowserWidget* browser );
     virtual ~BrowserAction() {}
-    virtual QAbstractItemModel* model() = 0;
-    virtual void action( const QModelIndex &) = 0;
+    virtual void activate() = 0;
+    virtual BrowserAction* generateChildAction( const QModelIndex &);
     BrowserWidget* browser() const;
 
 private:

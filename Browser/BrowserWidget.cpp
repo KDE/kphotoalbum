@@ -17,6 +17,7 @@
 */
 
 #include "BrowserWidget.h"
+#include "CategoryModel.h"
 #include <QSortFilterProxyModel>
 #include <QTreeView>
 #include <DB/ImageSearchInfo.h>
@@ -68,6 +69,9 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
+    _treeView->setHeaderHidden(true);
+//    _treeView->setRootIsDecorated(false);
+
     connect( _treeView, SIGNAL(  clicked( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _treeView );
 
@@ -190,19 +194,7 @@ void Browser::BrowserWidget::home()
 
 void Browser::BrowserWidget::reload()
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    setupFactory();
-
-    if ( _current != 0 ) {
-        // _current == 0 when browser hasn't yet been initialized (Which happens through a zero-timer.)
-        FolderAction* a = _list[_current-1];
-        a->action( _currentFactory );
-    }
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::reload");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    currentAction()->activate();
 }
 
 Browser::BrowserWidget* Browser::BrowserWidget::instance()
@@ -282,18 +274,17 @@ void Browser::BrowserWidget::slotLargeIconView()
 
 void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
     Q_ASSERT( _list.size() > 0 );
 
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory() );
     Q_ASSERT( category.data() );
     category->setViewType( type );
+
+    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView )
+        _stack->setCurrentWidget( _treeView );
+    else
+        _stack->setCurrentWidget( _listView );
     reload();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::setViewType");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Browser::BrowserWidget::setupFactory()
@@ -328,17 +319,10 @@ void Browser::BrowserWidget::setFocus()
 
 QString Browser::BrowserWidget::currentCategory() const
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    FolderAction* a = _list[_current-1];
-    if ( TypeFolderAction* action = dynamic_cast<TypeFolderAction*>( a ) )
+    if ( CategoryModel* action = dynamic_cast<CategoryModel*>( currentAction() ) )
         return action->category()->name();
     else
-        return QString::null;
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::currentCategory");
-    return QString::null;
-#endif // KDAB_TEMPORARILY_REMOVED
+        return QString();
 }
 
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )

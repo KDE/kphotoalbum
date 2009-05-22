@@ -10,32 +10,11 @@ const int ItemNameRole = Qt::UserRole + 1;
 Browser::CategoryModel::CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserAction( browser ),_info(info), _category( category )
 {
-    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, category->name(), DB::Image );
-    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, category->name(), DB::Video );
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    // Code from Browser::TypeFolderAction::action
-    DB::CategoryItemPtr item = category->itemsCategories();
-
-    // Add the none option to the end
-    int imageCount = images[DB::ImageDB::NONE()];
-    int videoCount = videos[DB::ImageDB::NONE()];
-    if ( imageCount + videoCount != 0 )
-        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
-                                                _info, _browser ), 0 );
-#endif //KDAB_TEMPORARILY_REMOVED
-
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    populateBrowserWithoutHierachy(images,videos);
-#endif //KDAB_TEMPORARILY_REMOVED
-
-
-    populateBrowserWithHierachy( _category->itemsCategories().data(), images, videos, 0 );
 }
 
 void Browser::CategoryModel::activate()
 {
+    populateModel();
     browser()->setModel( &_model );
 }
 
@@ -46,6 +25,30 @@ Browser::BrowserAction* Browser::CategoryModel::generateChildAction( const QMode
 
     info.addAnd( _category->name(), name );
     return new Browser::OverviewModel( info, browser() );
+}
+
+void Browser::CategoryModel::populateModel()
+{
+    _model.clear();
+    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
+    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
+
+#ifdef KDAB_TEMPORARILY_REMOVED
+    // Code from Browser::TypeFolderAction::action
+    DB::CategoryItemPtr item = _category->itemsCategories();
+
+    // Add the none option to the end
+    int imageCount = images[DB::ImageDB::NONE()];
+    int videoCount = videos[DB::ImageDB::NONE()];
+    if ( imageCount + videoCount != 0 )
+        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
+                                                _info, _browser ), 0 );
+#endif //KDAB_TEMPORARILY_REMOVED
+
+    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::ThumbedListView )
+        populateBrowserWithHierachy( _category->itemsCategories().data(), images, videos, 0 );
+    else
+        populateBrowserWithoutHierachy(images,videos);
 }
 
 void Browser::CategoryModel::populateBrowserWithoutHierachy( const QMap<QString, uint>& images, const QMap<QString, uint>& videos)
@@ -99,3 +102,9 @@ bool Browser::CategoryModel::populateBrowserWithHierachy( DB::CategoryItem* pare
 
     return anyItems;
 }
+
+const DB::CategoryPtr Browser::CategoryModel::category() const
+{
+    return _category;
+}
+

@@ -9,7 +9,8 @@ class ImageViewAction :public BrowserAction
 {
 public:
     ImageViewAction( BrowserWidget* browser, const DB::ImageSearchInfo& info );
-    virtual void activate();
+    OVERRIDE void activate();
+    OVERRIDE Viewer viewer();
 
 private:
     DB::ImageSearchInfo _info;

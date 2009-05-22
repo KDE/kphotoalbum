@@ -6,6 +6,8 @@ namespace Browser
 {
 class BrowserWidget;
 
+enum Viewer { ShowBrowser, ShowImageViewer };
+
 class BrowserAction
 {
 public:
@@ -14,6 +16,7 @@ public:
     virtual void activate() = 0;
     virtual BrowserAction* generateChildAction( const QModelIndex &);
     BrowserWidget* browser() const;
+    virtual Viewer viewer();
 
 private:
     BrowserWidget* _browser;

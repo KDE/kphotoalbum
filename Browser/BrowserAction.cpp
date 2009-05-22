@@ -15,3 +15,8 @@ Browser::BrowserAction* Browser::BrowserAction::generateChildAction( const QMode
     return 0;
 }
 
+Browser::Viewer Browser::BrowserAction::viewer()
+{
+    return ShowBrowser;
+}
+

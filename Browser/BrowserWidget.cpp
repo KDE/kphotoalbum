@@ -196,6 +196,8 @@ void Browser::BrowserWidget::emitSignals()
 {
     emit canGoBack( _current > 1 );
     emit canGoForward( _current < (int)_list.count() );
+    if ( currentAction()->viewer() == ShowBrowser )
+        emit showingOverview();
 #ifdef KDAB_TEMPORARILY_REMOVED
     FolderAction* a = _list[_current-1];
     if ( !a->showsImages() )
@@ -368,7 +370,11 @@ void Browser::BrowserWidget::setupFactory()
 
 void Browser::BrowserWidget::setFocus()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     _stack->currentWidget()->setFocus();
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Browser::BrowserWidget::setFocus");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 QString Browser::BrowserWidget::currentCategory() const

@@ -21,3 +21,8 @@ void Browser::ImageViewAction::activate()
     qWarning("Code commented out in Browser::OverviewModel::executeImageAction");
 #endif //KDAB_TEMPORARILY_REMOVED
 }
+
+Browser::Viewer Browser::ImageViewAction::viewer()
+{
+    return Browser::ShowImageViewer;
+}

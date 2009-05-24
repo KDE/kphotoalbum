@@ -1,7 +1,6 @@
 #include "OverviewModel.h"
 #include <KMessageBox>
 #include <Exif/SearchDialog.h>
-#include "ExivAction.h"
 #include "ImageViewAction.h"
 #include "CategoryModel.h"
 #include "BrowserWidget.h"
@@ -12,6 +11,7 @@
 #include <kicon.h>
 #include <config-kpa-exiv2.h>
 
+AnnotationDialog::Dialog* Browser::OverviewModel::_config = 0;
 Browser::OverviewModel::OverviewModel( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserAction(browser), _info(info)
 {
@@ -126,9 +126,9 @@ Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QMode
     else if ( isExivIndex( row ) )
         return createExivAction();
     else if ( isSearchIndex( row ) )
-        return 0; // PENDING(blackie) FIXME
+        return createSearchAction();
     else if ( isImageIndex( row ) )
-        return new ImageViewAction( browser(), _info );
+        return new ImageViewAction( _info, browser()  );
 
     return 0;
 }
@@ -169,5 +169,24 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
     }
 
     return new OverviewModel( info, browser() );
+}
+
+Browser::BrowserAction* Browser::OverviewModel::createSearchAction()
+{
+    if ( !_config )
+        _config = new AnnotationDialog::Dialog( browser() );
+
+    DB::ImageSearchInfo info = _config->search( &_info );
+
+    if ( info.isNull() )
+        return 0;
+
+    if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
+        KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );
+        return 0;
+    }
+
+    return new OverviewModel( info, browser() );
+
 }
 

@@ -1,5 +1,6 @@
 #ifndef OVERVIEWMODEL_H
 #define OVERVIEWMODEL_H
+#include <AnnotationDialog/Dialog.h>
 #include "BrowserAction.h"
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
@@ -34,10 +35,12 @@ private:
     QVariant imageInfo( int role ) const;
 
     BrowserAction* createExivAction();
+    BrowserAction* createSearchAction();
 
 private:
     DB::ImageSearchInfo _info;
     QMap<int,DB::MediaCount> _count;
+    static AnnotationDialog::Dialog* _config;
 };
 
 }

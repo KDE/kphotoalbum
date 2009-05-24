@@ -17,6 +17,7 @@
 */
 
 #include "BrowserWidget.h"
+#include "ImageViewAction.h"
 #include "CategoryModel.h"
 #include <QSortFilterProxyModel>
 #include <QTreeView>
@@ -75,16 +76,6 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _treeView );
 
-#ifdef KDAB_TEMPORARILY_REMOVED
-    _listView->addColumn( i18n("What") );
-    _listView->setColumnAlignment(_listView->addColumn( i18n("Images") ),
-                                  Qt::AlignRight);
-    _listView->setColumnAlignment(_listView->addColumn( i18n("Videos") ),
-                                  Qt::AlignRight);
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::BrowserWidget::BrowserWidget");
-#endif //KDAB_TEMPORARILY_REMOVED
-
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
@@ -119,29 +110,14 @@ void Browser::BrowserWidget::go()
 
 void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    FolderAction* a;
-    a = new ImageFolderAction( info, this );
-    addAction(a);
+    addAction( new OverviewModel( info, this ) );
     go();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::addSearch");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Browser::BrowserWidget::addImageView( const QString& context )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    FolderAction* a = new ImageFolderAction( context, this );
-    addAction(a);
+    addAction( new ImageViewAction( context, this ) );
     go();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::addImageView");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
@@ -208,29 +184,21 @@ Browser::BrowserWidget* Browser::BrowserWidget::instance()
 
 void Browser::BrowserWidget::load( const QString& category, const QString& value )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
     DB::ImageSearchInfo info;
     info.addAnd( category, value );
-    FolderAction* a;
 
     DB::MediaCount counts = DB::ImageDB::instance()->count( info );
     bool loadImages = (counts.total() < static_cast<uint>(Settings::SettingsData::instance()->autoShowThumbnailView()));
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
-        a = new ImageFolderAction( info, this );
+        addAction( new ImageViewAction( info, this ) );
     else
-        a = new ContentFolderAction( info, this );
+        addAction( new OverviewModel( info, this ) );
 
-    addAction( a );
-    a->action( _currentFactory );
+    go();
     topLevelWidget()->raise();
     activateWindow();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::load");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 bool Browser::BrowserWidget::allowSort()
@@ -337,58 +305,27 @@ void Browser::BrowserWidget::resetIconViewSearch()
 
 void Browser::BrowserWidget::slotInvokeSeleted()
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( _currentFactory == _iconViewFactory ) {
-        Q3IconViewItem* item = _iconView->currentItem();
-        if ( !item )
-            item = _iconView->firstItem();
+    QAbstractItemView * view = 0;
+    if ( _stack->currentWidget() == _listView )
+        view = _listView;
+    else
+        view = _treeView;
 
-        select( item );
-    }
-
-    else {
-        Q3ListViewItem* item = _listView->currentItem();
-        if ( !item || !item->isVisible() ) {
-            for ( Q3ListViewItem* it = _listView->firstChild(); it; it = it->nextSibling() ) {
-                if ( it->isVisible() ) {
-                    item = it;
-                    break;
-                }
-            }
-        }
-        select( item );
-    }
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::slotInvokeSeleted");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    itemClicked( view->currentIndex() );
 }
 
 
 void Browser::BrowserWidget::scrollLine( int direction )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    _iconView->scrollBy( 0, 10 * direction );
-    _treeView->scrollBy( 0, 10 * direction );
-#else // KDAB_TEMPORARILY_REMOVED
-    KDAB_NYI("Sorry, not implemented: Browser::BrowserWidget::scrollLine");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    _treeView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+10*direction );
+    _listView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+10*direction );
 }
 
 void Browser::BrowserWidget::scrollPage( int direction )
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
     int dist = direction * (height()-100);
-    _treeView->scrollBy( 0, dist );
-    _listView->scrollBy( 0, dist );
-#else // KDAB_TEMPORARILY_REMOVED
-    KDAB_NYI("Sorry, not implemented: Browser::BrowserWidget::scrollPage");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
+    _treeView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+dist );
+    _listView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+dist );
 }
 
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )

@@ -8,7 +8,8 @@ namespace Browser {
 class ImageViewAction :public BrowserAction
 {
 public:
-    ImageViewAction( BrowserWidget* browser, const DB::ImageSearchInfo& info );
+    ImageViewAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
+    ImageViewAction( const QString& context, BrowserWidget* browser );
     OVERRIDE void activate();
     OVERRIDE Viewer viewer();
     OVERRIDE bool isSearchable() const;
@@ -16,6 +17,7 @@ public:
 
 private:
     DB::ImageSearchInfo _info;
+    QString _context;
 };
 
 }

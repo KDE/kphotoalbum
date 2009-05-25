@@ -10,6 +10,12 @@
 #include <KIcon>
 
 const int ItemNameRole = Qt::UserRole + 1;
+const int ValueRole = Qt::UserRole + 2;
+
+class CategoryItem :public QStandardItem
+{
+
+};
 
 Browser::CategoryModel::CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserAction( browser ),_info(info), _category( category )
@@ -34,6 +40,8 @@ Browser::BrowserAction* Browser::CategoryModel::generateChildAction( const QMode
 void Browser::CategoryModel::populateModel()
 {
     _model.clear();
+    _model.setHorizontalHeaderLabels( QStringList() << _category->text() << i18n("Images") << i18n("Videos") );
+    _model.setSortRole( ValueRole );
     QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
     QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
 
@@ -41,7 +49,7 @@ void Browser::CategoryModel::populateModel()
     int imageCount = images[DB::ImageDB::NONE()];
     int videoCount = videos[DB::ImageDB::NONE()];
     if ( imageCount + videoCount != 0 )
-        _model.appendRow( createItem( DB::ImageDB::NONE() ) );
+        _model.appendRow( createItem( DB::ImageDB::NONE(), imageCount, videoCount ) );
 
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::ThumbedListView )
         populateBrowserWithHierachy( _category->itemsCategories().data(), images, videos, 0 );
@@ -56,11 +64,11 @@ void Browser::CategoryModel::populateBrowserWithoutHierachy( const QMap<QString,
 
     for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         const QString name = *itemIt;
-        const int imageCnt = images.contains(name) ? images[name] : 0;
-        const int videoCnt = videos.contains(name) ? videos[name] : 0;
+        const int imageCount = images.contains(name) ? images[name] : 0;
+        const int videoCount = videos.contains(name) ? videos[name] : 0;
 
-        if ( imageCnt + videoCnt > 0 )
-            _model.appendRow( createItem( name ) );
+        if ( imageCount + videoCount > 0 )
+            _model.appendRow( createItem( name, imageCount, videoCount ) );
     }
 }
 
@@ -68,28 +76,32 @@ bool Browser::CategoryModel::populateBrowserWithHierachy( DB::CategoryItem* pare
                                                           const QMap<QString, uint>& videos, QStandardItem* parent )
 {
     const QString name = parentCategoryItem->_name;
-    const int imageCtn = images.contains(name) ? images[name] : 0;
-    const int videoCtn = videos.contains(name) ? videos[name] : 0;
+    const int imageCount = images.contains(name) ? images[name] : 0;
+    const int videoCount = videos.contains(name) ? videos[name] : 0;
 
-    QStandardItem* item = 0;
+    QList<QStandardItem*> item;
     if ( !parentCategoryItem->_isTop )
-        item = createItem( name );
+        item = createItem( name, imageCount, videoCount );
 
-    bool anyItems = imageCtn != 0 || videoCtn != 0;
+    bool anyItems = imageCount != 0 || videoCount != 0;
 
     for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.constBegin();
          subCategoryIt != parentCategoryItem->_subcategories.constEnd(); ++subCategoryIt ) {
-        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, item ) || anyItems;
+        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, item.count() == 0 ? 0 : item[0] ) || anyItems;
     }
 
-    if ( anyItems && item ) {
+    if ( anyItems && item.count() > 0 ) {
         if ( parent )
             parent->appendRow( item );
         else
             _model.appendRow( item );
     }
+#ifdef KDAB_TEMPORARILY_REMOVED
     else
         delete item;
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Browser::CategoryModel::populateBrowserWithHierachy");
+#endif //KDAB_TEMPORARILY_REMOVED
 
     return anyItems;
 }
@@ -104,13 +116,26 @@ DB::Category::ViewType Browser::CategoryModel::viewType() const
     return _category->viewType();
 }
 
-QStandardItem* Browser::CategoryModel::createItem( const QString& name )
+QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, int imageCount, int videoCount )
 {
-    QStandardItem* item = new QStandardItem( text(name) );//QString::fromLatin1( "%1 (%2/%3)").arg(name).arg(imageCnt).arg(videoCnt) );
+    QList<QStandardItem*> res;
+    QStandardItem* item = new QStandardItem( text(name) );
     item->setIcon( icon(name) );
     item->setData( name, ItemNameRole );
+    item->setData( name, ValueRole );
+    res.append( item );
 
-    return item;
+    item = new QStandardItem(i18np("1", "%1", imageCount));
+    item->setTextAlignment( Qt::AlignRight );
+    item->setData( QVariant::fromValue<int>(imageCount), ValueRole );
+    res.append( item );
+
+    item = new QStandardItem(i18np("1 video", "%1 videeos", videoCount));
+    item->setTextAlignment( Qt::AlignRight );
+    item->setData( videoCount, ValueRole );
+    res.append( item );
+
+    return res;
 }
 
 QString Browser::CategoryModel::text( const QString& name )

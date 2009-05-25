@@ -24,7 +24,7 @@ private:
     void populateBrowserWithoutHierachy( const QMap<QString, uint>& images, const QMap<QString, uint>& videos);
     bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
                                       const QMap<QString, uint>& videos, QStandardItem* parent );
-    QStandardItem* createItem( const QString& name );
+    QList<QStandardItem*> createItem( const QString& name, int imageCount, int videoCount );
     QString text( const QString& name );
     QPixmap icon( const QString& name );
 

@@ -17,6 +17,7 @@
 */
 
 #include "BrowserWidget.h"
+#include <QHeaderView>
 #include "ImageViewAction.h"
 #include "CategoryModel.h"
 #include <QSortFilterProxyModel>
@@ -70,8 +71,9 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
-    _treeView->setHeaderHidden(true);
-//    _treeView->setRootIsDecorated(false);
+    _treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
+    _treeView->header()->setStretchLastSection(false);
+    _treeView->setSortingEnabled(true);
 
     connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _treeView );

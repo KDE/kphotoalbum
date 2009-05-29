@@ -19,7 +19,7 @@ configure simply by dragging the mouse with the middle mouse button down
   <para>In the thumbnail overview you can reorder your pictures by dragging
 them around with the mouse. For
 the date bar to work properly you should, however, aim at keeping your
-images sorted at all time. Sorting you images can be done by selecting all
+images sorted at all time. Sorting your images can be done by selecting all
 images, and choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Sort Selected by
 Date &amp; Time</guimenuitem></menuchoice>. The sorting will not reorder images which has
 the same date and time, so if you have say 100 images with the date 1992
@@ -31,8 +31,8 @@ the image as the background image of your desktop.</para>
   <para>By clicking on an image you load it into the viewer, if no viewer
 window is present, a viewer window will be created.</para>
 
-  <para>If you select a number of images, and presses <keycombo>&Ctrl;<keycap>I</keycap></keycombo>
-or chooses <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
+  <para>If you select a number of images, and press <keycombo>&Ctrl;<keycap>I</keycap></keycombo>
+or choose <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
 Selected</guimenuitem></menuchoice>, the images will be loaded into the 
 existing viewer (if no viewer exists, one will be created). Alternatively you 
 may choose <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
@@ -64,7 +64,7 @@ selected in random order.</para>
 
   <para>There are two ways of deleting an image in &kphotoalbum;, namely either
 delete it from the disk, which means that it will be permanently gone, or
-tell &kphotoalbum; not to include it. In the later situation, &kphotoalbum; will never
+tell &kphotoalbum; not to include it. In the latter situation, &kphotoalbum; will never
 again show the image, but it will keep it on disk. This is useful if
 there for example is <emphasis>thumbnail images</emphasis> stored among
 your images. This thumbnail image would contain an overview of all the

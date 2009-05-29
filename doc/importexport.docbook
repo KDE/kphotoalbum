@@ -61,7 +61,7 @@
         the last few bytes, you may still do so, by checking
         <guilabel>Compress Export File</guilabel></para>
 
-      <para>The final option on the page are <guilabel>Limit maximum image
+      <para>The final option on the page is <guilabel>Limit maximum image
           dimension</guilabel>. When sending some images to some friends,
         you may not want to send images in full size, as the
         <literal role="extension">.kim</literal> file might be huge. For this, you may

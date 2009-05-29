@@ -163,7 +163,7 @@ expression, as you can see an example of in the <xref
 but without <literal>Anne Helene</literal>.</para>
     
     <para>The allowed operations are &amp; (meaning and), | (meaning
-or), and ! (not meaning not).</para>
+or), and ! (meaning not).</para>
     
   </sect1>
 </chapter>

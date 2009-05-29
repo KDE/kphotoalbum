@@ -87,13 +87,13 @@ as you will use them over and over again, when specifying information about
 your images.</para>
       
       <para> You can specify a property from a list box, simply by
-selecting it (Select say <literal>Donna</literal> to specify that Donna is
+selecting it. Select say <literal>Donna</literal> to specify that Donna is
 on the given image. Alternatively you may type its name in the line edit.
 When you start typing a name in the line edit, &kphotoalbum; will look into the listbox,
 and search for the first item matching what you've typed so far, and fill
 it out. Thus typing <literal>Do</literal> might be enough to find
 <literal>Donna</literal>. Once you have found the item you search for,
-simply press enter to select this item in the listbox. The item will now be
+simply press &Enter; to select this item in the listbox. The item will now be
 moved to the top of the view, so next time you need the given item it is
 even easier to find.</para> 
       

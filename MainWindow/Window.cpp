@@ -335,6 +335,8 @@ void MainWindow::Window::slotCreateImageStack()
 
     // FIXME: here we should invoke a fancy dialog for user's pleasure
 
+    // The current item might have just became invisible
+    _thumbnailView->setCurrentItem( list.at(0) );
     _thumbnailView->updateDisplayModel();
 }
 

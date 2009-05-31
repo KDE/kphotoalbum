@@ -1,3 +1,7 @@
+2009-05-31  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Avoid crash in case "make install" was not executed.
+
 ====================== KPhotoalbum 4.0.1 released  ===================================	
 
 Other changes done since 4.0

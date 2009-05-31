@@ -25,8 +25,11 @@ Browser::OverviewModel::OverviewModel( const DB::ImageSearchInfo& info, BrowserW
     }
 }
 
-int Browser::OverviewModel::rowCount( const QModelIndex& /*parent*/ ) const
+int Browser::OverviewModel::rowCount( const QModelIndex& parent ) const
 {
+    if ( parent != QModelIndex() )
+        return 0;
+
     return categories().count() +
 #ifdef HAVE_EXIV2
         1 +
@@ -58,6 +61,7 @@ bool Browser::OverviewModel::isExivIndex( int row ) const
 #ifdef HAVE_EXIV2
     return row == categories().count();
 #else
+    Q_UNUSED(row);
     return false;
 #endif
 }
@@ -153,6 +157,7 @@ bool Browser::OverviewModel::isSearchable() const
 
 Browser::BrowserAction* Browser::OverviewModel::createExivAction()
 {
+#ifdef HAVE_EXIV2
     Exif::SearchDialog dialog( browser() );
     if ( dialog.exec() == QDialog::Rejected )
         return 0;
@@ -169,6 +174,9 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
     }
 
     return new OverviewModel( info, browser() );
+#else
+    return 0;
+#endif // HAVE_EXIV2
 }
 
 Browser::BrowserAction* Browser::OverviewModel::createSearchAction()

@@ -94,6 +94,7 @@ private:
     void setViewType( DB::Category::ViewType type );
     Browser::BrowserAction* currentAction() const;
     void raiseViewerBasedOnViewType( DB::Category::ViewType );
+    void setBranchOpen( const QModelIndex& parent, bool open );
 
 private:
     static BrowserWidget* _instance;

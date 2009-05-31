@@ -20,14 +20,11 @@
 #include <QHeaderView>
 #include "ImageViewAction.h"
 #include "CategoryModel.h"
-#include <QSortFilterProxyModel>
+#include "TreeFilter.h"
 #include <QTreeView>
 #include <DB/ImageSearchInfo.h>
 #include "OverviewModel.h"
 #include <QDebug>
-
-#include <q3listview.h>
-#include <q3iconview.h>
 
 #include "Folder.h"
 #include <klocale.h>
@@ -73,6 +70,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _treeView = new QTreeView( _stack );
     _treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     _treeView->header()->setStretchLastSection(false);
+    _treeView->header()->setSortIndicatorShown(true);
     _treeView->setSortingEnabled(true);
 
     connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
@@ -81,7 +79,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
-    _filterProxy = new QSortFilterProxyModel(this);
+    _filterProxy = new TreeFilter(this);
     _filterProxy->setFilterKeyColumn(0);
     _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
     _listView->setModel( _filterProxy );
@@ -298,6 +296,7 @@ QString Browser::BrowserWidget::currentCategory() const
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
 {
     _filterProxy->setFilterFixedString( str );
+    setBranchOpen(QModelIndex(), !str.isEmpty());
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
@@ -359,5 +358,17 @@ void Browser::BrowserWidget::raiseViewerBasedOnViewType( DB::Category::ViewType 
         _stack->setCurrentWidget( _listView );
 
 }
+
+void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )
+{
+    const int count = _filterProxy->rowCount(parent);
+    if ( count > 10 )
+        return;
+
+    _treeView->setExpanded( parent, open );
+    for ( int row = 0; row < count; ++row )
+        setBranchOpen( _filterProxy->index( row, 0 ,parent ), open );
+}
+
 
 #include "BrowserWidget.moc"

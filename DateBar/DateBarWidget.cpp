@@ -118,6 +118,7 @@ QSize DateBar::DateBarWidget::minimumSizeHint() const
 
 void DateBar::DateBarWidget::paintEvent( QPaintEvent* /*event*/ )
 {
+    qDebug("Painting");
     QPainter painter( this );
     painter.drawPixmap( 0,0, _buffer );
 }
@@ -125,9 +126,6 @@ void DateBar::DateBarWidget::paintEvent( QPaintEvent* /*event*/ )
 void DateBar::DateBarWidget::redraw()
 {
     if ( _buffer.isNull() )
-        return;
-
-    if (_dates.isNull() )
         return;
 
     QPainter p( &_buffer );
@@ -139,6 +137,9 @@ void DateBar::DateBarWidget::redraw()
     p.setPen( Qt::NoPen );
     p.setBrush( palette().brush( QPalette::Background ) );
     p.drawRect( rect() );
+
+    if (_dates.isNull() )
+        return;
 
     // Draw the area with histograms
     QRect barArea = barAreaGeometry();
@@ -166,6 +167,7 @@ void DateBar::DateBarWidget::redraw()
 void DateBar::DateBarWidget::resizeEvent( QResizeEvent* event )
 {
     placeAndSizeButtons();
+    qDebug("Resize");
     _buffer = QPixmap( event->size() );
     _currentUnit = numberOfUnits()/2;
     redraw();

@@ -93,12 +93,8 @@ bool Browser::CategoryModel::populateBrowserWithHierachy( DB::CategoryItem* pare
         else
             _model.appendRow( item );
     }
-#ifdef KDAB_TEMPORARILY_REMOVED
     else
-        delete item;
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::CategoryModel::populateBrowserWithHierachy");
-#endif //KDAB_TEMPORARILY_REMOVED
+        qDeleteAll(item);
 
     return anyItems;
 }

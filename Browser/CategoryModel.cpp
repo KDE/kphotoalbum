@@ -16,7 +16,7 @@ class CategoryItem :public QStandardItem
 };
 
 Browser::CategoryModel::CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserAction( browser ),_info(info), _category( category )
+    : BrowserAction( info, browser ), _category( category )
 {
 }
 
@@ -29,18 +29,18 @@ void Browser::CategoryModel::activate()
 Browser::BrowserAction* Browser::CategoryModel::generateChildAction( const QModelIndex& index )
 {
     const QString name = _model.data( index, ItemNameRole ).value<QString>();
-    DB::ImageSearchInfo info = _info;
+    DB::ImageSearchInfo info = searchInfo();
 
     info.addAnd( _category->name(), name );
-    return new Browser::OverviewModel( info, browser() );
+    return new Browser::OverviewModel( Breadcrumb(name), info, browser() );
 }
 
 void Browser::CategoryModel::populateModel()
 {
     _model.clear();
     _model.setHorizontalHeaderLabels( QStringList() << _category->text() << i18n("Images") << i18n("Videos") );
-    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
-    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
+    QMap<QString, uint> images = DB::ImageDB::instance()->classify( searchInfo(), _category->name(), DB::Image );
+    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( searchInfo(), _category->name(), DB::Video );
 
     // Add the none option to the end
     int imageCount = images[DB::ImageDB::NONE()];
@@ -134,7 +134,7 @@ QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, i
 QString Browser::CategoryModel::text( const QString& name )
 {
     if ( name == DB::ImageDB::NONE() ) {
-        if ( _info.option(_category->name()).length() == 0 )
+        if ( searchInfo().option(_category->name()).length() == 0 )
             return i18n( "None" );
         else
             return i18n( "No other" );
@@ -168,5 +168,3 @@ QPixmap Browser::CategoryModel::icon( const QString& name )
     else
         return Settings::SettingsData::instance()->categoryImage( _category->name(), name, _category->thumbnailSize() );
 }
-
-

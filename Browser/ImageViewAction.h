@@ -16,7 +16,6 @@ public:
 
 
 private:
-    DB::ImageSearchInfo _info;
     QString _context;
 };
 

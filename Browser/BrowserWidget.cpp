@@ -86,7 +86,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _listView->setModel( _filterProxy );
     _treeView->setModel( _filterProxy );
 
-    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     _stack->setCurrentWidget( _listView );
 }
 
@@ -111,7 +111,7 @@ void Browser::BrowserWidget::go()
 
 void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
 {
-    addAction( new OverviewModel( info, this ) );
+    addAction( new OverviewModel( Breadcrumb::empty(), info, this ) );
     go();
 }
 
@@ -155,9 +155,9 @@ void Browser::BrowserWidget::emitSignals()
         emit currentViewTypeChanged( category->viewType());
     }
 
+    emit pathChanged( createPath() );
 
 #ifdef KDAB_TEMPORARILY_REMOVED
-    emit pathChanged( a->path() );
     bool showingCategory = dynamic_cast<TypeFolderAction*>( a );
     emit browsingInSomeCategory( showingCategory );
     _listView->setRootIsDecorated( showingCategory );
@@ -168,7 +168,7 @@ void Browser::BrowserWidget::emitSignals()
 
 void Browser::BrowserWidget::home()
 {
-    addAction( new OverviewModel( DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     go();
 }
 
@@ -195,7 +195,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     if ( loadImages )
         addAction( new ImageViewAction( info, this ) );
     else
-        addAction( new OverviewModel( info, this ) );
+        addAction( new OverviewModel( Breadcrumb(value, true) , info, this ) );
 
     go();
     topLevelWidget()->raise();
@@ -204,13 +204,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
 
 DB::ImageSearchInfo Browser::BrowserWidget::currentContext()
 {
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    return _list[_current-1]->_info;
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::currentContext");
-    return DB::ImageSearchInfo();
-#endif // KDAB_TEMPORARILY_REMOVED
+    return currentAction()->searchInfo();
 }
 
 void Browser::BrowserWidget::slotSmallListView()
@@ -335,5 +329,15 @@ void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open
         setBranchOpen( _filterProxy->index( row, 0 ,parent ), open );
 }
 
+
+Browser::BreadcrumbList Browser::BrowserWidget::createPath() const
+{
+    BreadcrumbList result;
+
+    for ( int i = 0; i < _current; ++i )
+        result.append(_list[i]->breadcrumb() );
+
+    return result;
+}
 
 #include "BrowserWidget.moc"

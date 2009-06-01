@@ -118,7 +118,6 @@ QSize DateBar::DateBarWidget::minimumSizeHint() const
 
 void DateBar::DateBarWidget::paintEvent( QPaintEvent* /*event*/ )
 {
-    qDebug("Painting");
     QPainter painter( this );
     painter.drawPixmap( 0,0, _buffer );
 }
@@ -167,7 +166,6 @@ void DateBar::DateBarWidget::redraw()
 void DateBar::DateBarWidget::resizeEvent( QResizeEvent* event )
 {
     placeAndSizeButtons();
-    qDebug("Resize");
     _buffer = QPixmap( event->size() );
     _currentUnit = numberOfUnits()/2;
     redraw();

@@ -36,7 +36,7 @@
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
 {
-    connect( Browser::BrowserWidget::instance(), SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
+    connect( Browser::BrowserWidget::instance(), SIGNAL( pathChanged( const BreadcrumbList& ) ), this, SLOT( pathChanged( const BreadcrumbList& ) ) );
 }
 
 KIPI::ImageCollection Plugins::Interface::currentAlbum()
@@ -123,9 +123,9 @@ void Plugins::Interface::slotSelectionChanged( bool b )
     emit selectionChanged( b );
 }
 
-void Plugins::Interface::pathChanged( const QString& path )
+void Plugins::Interface::pathChanged( const Browser::BreadcrumpList& path )
 {
-    static QString _path;
+    static Browser::BreadcrumbList _path;
     if ( _path != path ) {
         emit currentAlbumChanged( true );
         _path = path;

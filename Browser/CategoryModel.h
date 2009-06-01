@@ -29,7 +29,6 @@ private:
     QPixmap icon( const QString& name );
 
 private:
-    DB::ImageSearchInfo _info;
     const DB::CategoryPtr _category;
     QStandardItemModel _model;
 };

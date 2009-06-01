@@ -18,6 +18,7 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
+#include "BreadcrumbList.h"
 #include <QListView>
 #include "Settings/SettingsData.h"
 
@@ -74,7 +75,7 @@ signals:
     void canGoBack( bool );
     void canGoForward( bool );
     void showingOverview();
-    void pathChanged( const QString& );
+    void pathChanged( const Browser::BreadcrumbList& );
     void isSearchable( bool );
     void isViewChangeable( bool );
     void currentViewTypeChanged( DB::Category::ViewType );
@@ -93,6 +94,7 @@ private:
     Browser::BrowserAction* currentAction() const;
     void raiseViewerBasedOnViewType( DB::Category::ViewType );
     void setBranchOpen( const QModelIndex& parent, bool open );
+    Browser::BreadcrumbList createPath() const;
 
 private:
     static BrowserWidget* _instance;

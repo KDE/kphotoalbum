@@ -1,7 +1,7 @@
 #include "BrowserAction.h"
 
-Browser::BrowserAction::BrowserAction( BrowserWidget* browser )
-     :_browser(browser)
+Browser::BrowserAction::BrowserAction( const DB::ImageSearchInfo& info, BrowserWidget* browser )
+    : _info(info), _browser(browser)
 {
 }
 
@@ -33,5 +33,15 @@ bool Browser::BrowserAction::isViewChangeable() const
 DB::Category::ViewType Browser::BrowserAction::viewType() const
 {
     return DB::Category::IconView;
+}
+
+DB::ImageSearchInfo Browser::BrowserAction::searchInfo() const
+{
+    return _info;
+}
+
+Browser::Breadcrumb Browser::BrowserAction::breadcrumb() const
+{
+    return Breadcrumb::empty();
 }
 

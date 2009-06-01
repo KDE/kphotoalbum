@@ -157,8 +157,8 @@ MainWindow::Window::Window( QWidget* parent )
 
     _browser = new Browser::BrowserWidget( _stack );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
-    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
-    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
+    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( pathChanged( const Browser::BreadcrumbList& ) ) );
+    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( updateDateBar( const Browser::BreadcrumbList& ) ) );
     _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack );
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
@@ -924,9 +924,9 @@ void MainWindow::Window::showTipOfDay()
     KTipDialog::showTip( this, QString::null, true );
 }
 
-void MainWindow::Window::pathChanged( const QString& path )
+void MainWindow::Window::pathChanged( const Browser::BreadcrumbList& path )
 {
-    QString text = path;
+    QString text = path.toString();
 
     if ( text.length() > 80 )
         text = text.left(80) + QString::fromLatin1( "..." );
@@ -1529,12 +1529,12 @@ void MainWindow::Window::slotShowListOfFiles()
         showThumbNails( out );
 }
 
-void MainWindow::Window::updateDateBar( const QString& path )
+void MainWindow::Window::updateDateBar( const Browser::BreadcrumbList& path )
 {
     static QString lastPath = QString::fromLatin1("ThisStringShouldNeverBeSeenSoWeUseItAsInitialContent");
-    if ( path != lastPath )
+    if ( path.toString() != lastPath )
         updateDateBar();
-    lastPath = path;
+    lastPath = path.toString();
 }
 
 void MainWindow::Window::updateDateBar()

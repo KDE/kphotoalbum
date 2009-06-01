@@ -1,3 +1,4 @@
+#include <Browser/BreadcrumbList.h>
 #include <QContextMenuEvent>
 #include <QMoveEvent>
 #include <QCloseEvent>
@@ -100,7 +101,7 @@ protected slots:
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
-    void pathChanged( const QString& );
+    void pathChanged( const Browser::BreadcrumbList& );
     void runDemo();
     void lockToDefaultScope();
     void setDefaultScopePositive();
@@ -129,7 +130,7 @@ protected slots:
     void plug();
     void slotRemoveTokens();
     void slotShowListOfFiles();
-    void updateDateBar( const QString& );
+    void updateDateBar( const Browser::BreadcrumbList& );
     void updateDateBar();
     void slotShowImagesWithInvalidDate();
     void slotShowImagesWithChangedMD5Sum();

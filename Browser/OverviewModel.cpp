@@ -12,13 +12,13 @@
 #include <config-kpa-exiv2.h>
 
 AnnotationDialog::Dialog* Browser::OverviewModel::_config = 0;
-Browser::OverviewModel::OverviewModel( const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserAction(browser), _info(info)
+Browser::OverviewModel::OverviewModel( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
+    : BrowserAction( info, browser), _breadcrumb( breadcrumb )
 {
     int row = 0;
     Q_FOREACH( const DB::CategoryPtr& category, categories() ) {
-        QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, category->name(), DB::Image );
-        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, category->name(), DB::Video );
+        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserAction::searchInfo(), category->name(), DB::Image );
+        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserAction::searchInfo(), category->name(), DB::Video );
         DB::MediaCount count( images.count(), videos.count() );
         _count[row] = count;
         ++row;
@@ -126,13 +126,13 @@ Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QMode
     const int row = index.row();
 
     if ( isCategoryIndex(row) )
-        return new Browser::CategoryModel( categories()[row], _info, browser() );
+        return new Browser::CategoryModel( categories()[row], BrowserAction::searchInfo(), browser() );
     else if ( isExivIndex( row ) )
         return createExivAction();
     else if ( isSearchIndex( row ) )
         return createSearchAction();
     else if ( isImageIndex( row ) )
-        return new ImageViewAction( _info, browser()  );
+        return new ImageViewAction( BrowserAction::searchInfo(), browser()  );
 
     return 0;
 }
@@ -164,7 +164,7 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
 
     Exif::SearchInfo result = dialog.info();
 
-    DB::ImageSearchInfo info = _info;
+    DB::ImageSearchInfo info = searchInfo();
 
     info.addExifSearchInfo( dialog.info() );
 
@@ -184,7 +184,8 @@ Browser::BrowserAction* Browser::OverviewModel::createSearchAction()
     if ( !_config )
         _config = new AnnotationDialog::Dialog( browser() );
 
-    DB::ImageSearchInfo info = _config->search( &_info );
+    DB::ImageSearchInfo tmpInfo = BrowserAction::searchInfo();
+    DB::ImageSearchInfo info = _config->search( &tmpInfo ); // PENDING(blackie) why take the address?
 
     if ( info.isNull() )
         return 0;
@@ -194,7 +195,12 @@ Browser::BrowserAction* Browser::OverviewModel::createSearchAction()
         return 0;
     }
 
-    return new OverviewModel( info, browser() );
+    return new OverviewModel( Breadcrumb( i18n("search") ), info, browser() );
 
+}
+
+Browser::Breadcrumb Browser::OverviewModel::breadcrumb() const
+{
+    return _breadcrumb;
 }
 

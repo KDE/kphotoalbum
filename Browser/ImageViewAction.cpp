@@ -4,13 +4,13 @@
 #include <MainWindow/Window.h>
 
 Browser::ImageViewAction::ImageViewAction( const DB::ImageSearchInfo& info, BrowserWidget* browser)
-    : BrowserAction( browser ), _info(info)
+    : BrowserAction( info, browser )
 {
 }
 
 void Browser::ImageViewAction::activate()
 {
-    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( _info ) );
+    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo() ) );
 
     if ( !_context.isNull() ) {
         DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( _context );
@@ -29,6 +29,6 @@ bool Browser::ImageViewAction::isSearchable() const
 }
 
 Browser::ImageViewAction::ImageViewAction( const QString& context, BrowserWidget* browser )
-    : BrowserAction(browser), _context( context )
+    : BrowserAction(DB::ImageSearchInfo(), browser), _context( context )
 {
 }

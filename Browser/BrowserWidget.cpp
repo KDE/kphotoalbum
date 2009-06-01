@@ -24,7 +24,7 @@
 #include <QTreeView>
 #include <DB/ImageSearchInfo.h>
 #include "OverviewModel.h"
-#include <QDebug>
+#include "enums.h"
 
 #include "Folder.h"
 #include <klocale.h>
@@ -82,6 +82,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _filterProxy = new TreeFilter(this);
     _filterProxy->setFilterKeyColumn(0);
     _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
+    _filterProxy->setSortRole( ValueRole );
     _listView->setModel( _filterProxy );
     _treeView->setModel( _filterProxy );
 

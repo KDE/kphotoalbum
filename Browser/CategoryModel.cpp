@@ -8,9 +8,7 @@
 #include "BrowserWidget.h"
 #include <DB/CategoryItem.h>
 #include <KIcon>
-
-const int ItemNameRole = Qt::UserRole + 1;
-const int ValueRole = Qt::UserRole + 2;
+#include "enums.h"
 
 class CategoryItem :public QStandardItem
 {
@@ -41,7 +39,6 @@ void Browser::CategoryModel::populateModel()
 {
     _model.clear();
     _model.setHorizontalHeaderLabels( QStringList() << _category->text() << i18n("Images") << i18n("Videos") );
-    _model.setSortRole( ValueRole );
     QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
     QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
 
@@ -122,15 +119,15 @@ QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, i
     QStandardItem* item = new QStandardItem( text(name) );
     item->setIcon( icon(name) );
     item->setData( name, ItemNameRole );
-    item->setData( name, ValueRole );
+    item->setData( name, ValueRole ); // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.
     res.append( item );
 
-    item = new QStandardItem(i18np("1", "%1", imageCount));
+    item = new QStandardItem(i18np("1 images", "%1 images", imageCount));
     item->setTextAlignment( Qt::AlignRight );
-    item->setData( QVariant::fromValue<int>(imageCount), ValueRole );
+    item->setData( imageCount, ValueRole );
     res.append( item );
 
-    item = new QStandardItem(i18np("1 video", "%1 videeos", videoCount));
+    item = new QStandardItem(i18np("1 video", "%1 videos", videoCount));
     item->setTextAlignment( Qt::AlignRight );
     item->setData( videoCount, ValueRole );
     res.append( item );

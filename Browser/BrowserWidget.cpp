@@ -202,17 +202,6 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     activateWindow();
 }
 
-bool Browser::BrowserWidget::allowSort()
-{
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    return _list[_current-1]->allowSort();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::allowSort");
-    return false;
-#endif // KDAB_TEMPORARILY_REMOVED
-}
-
 DB::ImageSearchInfo Browser::BrowserWidget::currentContext()
 {
 // PENDING(kdab) Review
@@ -254,31 +243,6 @@ void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
 
     raiseViewerBasedOnViewType( type );
     reload();
-}
-
-void Browser::BrowserWidget::setupFactory()
-{
-// PENDING(kdab) Review
-#ifdef KDAB_TEMPORARILY_REMOVED
-    if ( _list.size() == 0 )
-        return;
-
-    FolderAction* a = _list[_current-1];
-    DB::Category::ViewType type = a->viewType();
-
-    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
-        _currentFactory = _listViewFactory;
-        _stack->setCurrentWidget( _listView );
-    }
-    else {
-        _currentFactory = _iconViewFactory;
-        _stack->setCurrentWidget( _iconView );
-    }
-    setFocus();
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Sorry, not implemented: Browser::BrowserWidget::setupFactory");
-    return ;
-#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Browser::BrowserWidget::setFocus()

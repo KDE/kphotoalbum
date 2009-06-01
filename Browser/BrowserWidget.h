@@ -48,7 +48,6 @@ public:
     void addImageView( const QString& context );
     static BrowserWidget* instance();
     void load( const QString& category, const QString& value );
-    bool allowSort();
     DB::ImageSearchInfo currentContext();
     void setFocus();
     QString currentCategory() const;
@@ -90,7 +89,6 @@ private slots:
 
 private:
     void emitSignals();
-    void setupFactory();
     void setViewType( DB::Category::ViewType type );
     Browser::BrowserAction* currentAction() const;
     void raiseViewerBasedOnViewType( DB::Category::ViewType );

@@ -1,21 +1,27 @@
 #include "BreadcrumbList.h"
+#include <QDebug>
 
-QStringList Browser::BreadcrumbList::latest() const
+Browser::BreadcrumbList Browser::BreadcrumbList::latest() const
 {
-    QStringList result;
+    BreadcrumbList result;
     for ( int i = length()-1; i >=0; --i ) {
         const Breadcrumb crumb = at(i);
         const QString txt = crumb.text();
         if ( !txt.isEmpty() )
-            result.prepend( txt );
+            result.prepend( crumb );
 
         if ( crumb.isBeginning() )
             break;
     }
+
     return result;
 }
 
 QString Browser::BreadcrumbList::toString() const
 {
-    return latest().join( QString::fromLatin1(" / ") );
+    QStringList list;
+    Q_FOREACH( const Breadcrumb& item, latest() )
+        list.append( item.text() );
+
+    return list.join( QString::fromLatin1(" > ") );
 }

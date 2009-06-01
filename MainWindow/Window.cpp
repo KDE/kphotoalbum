@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include "BreadcrumbViewer.h"
 #include <QDebug>
 
 #include "StatisticsDialog.h"
@@ -156,24 +157,7 @@ MainWindow::Window::Window( QWidget* parent )
     lay->addWidget( line );
 
     _browser = new Browser::BrowserWidget( _stack );
-    connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
-    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( pathChanged( const Browser::BreadcrumbList& ) ) );
-    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( updateDateBar( const Browser::BreadcrumbList& ) ) );
     _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack );
-    connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
-    connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
-    connect( Settings::SettingsData::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
-
-
-    connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ),
-             this, SLOT( setDateRange( const DB::ImageDate& ) ) );
-    connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
-
-    connect( _thumbnailView, SIGNAL( showImage( const DB::ResultId& ) ), this, SLOT( showImage( const DB::ResultId& ) ) );
-    connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
-    connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
-
-    connect( _thumbnailView, SIGNAL( fileNameUnderCursorChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbnailView );
@@ -190,6 +174,24 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
+    connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
+    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), _pathIndicator, SLOT( setBreadcrumbs( const Browser::BreadcrumbList& ) ) );
+    connect( _pathIndicator, SIGNAL( widenToBreadcrumb( const Browser::Breadcrumb& ) ), _browser, SLOT( widenToBreadcrumb( const Browser::Breadcrumb& ) ) );
+    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( updateDateBar( const Browser::BreadcrumbList& ) ) );
+    connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
+    connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
+    connect( Settings::SettingsData::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
+
+
+    connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ),
+             this, SLOT( setDateRange( const DB::ImageDate& ) ) );
+    connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
+
+    connect( _thumbnailView, SIGNAL( showImage( const DB::ResultId& ) ), this, SLOT( showImage( const DB::ResultId& ) ) );
+    connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
+    connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
+
+    connect( _thumbnailView, SIGNAL( fileNameUnderCursorChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
@@ -924,15 +926,6 @@ void MainWindow::Window::showTipOfDay()
     KTipDialog::showTip( this, QString::null, true );
 }
 
-void MainWindow::Window::pathChanged( const Browser::BreadcrumbList& path )
-{
-    QString text = path.toString();
-
-    if ( text.length() > 80 )
-        text = text.left(80) + QString::fromLatin1( "..." );
-
-    _pathIndicator->setText( text );
-}
 
 void MainWindow::Window::runDemo()
 {
@@ -1733,7 +1726,7 @@ void MainWindow::Window::setupStatusBar()
     total->setTotal( DB::ImageDB::instance()->totalCount() );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
 
-    _pathIndicator = new QLabel;
+    _pathIndicator = new BreadcrumbViewer;
     statusBar()->addWidget( _pathIndicator );
 }
 

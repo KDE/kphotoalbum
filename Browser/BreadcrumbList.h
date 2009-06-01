@@ -9,7 +9,7 @@ namespace Browser
 class BreadcrumbList :public QList<Breadcrumb>
 {
 public:
-    QStringList latest() const;
+    BreadcrumbList latest() const;
     QString toString() const;
 };
 

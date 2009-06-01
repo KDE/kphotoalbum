@@ -70,6 +70,7 @@ public slots:
     void slotInvokeSeleted();
     void scrollLine( int direction );
     void scrollPage( int direction );
+    void widenToBreadcrumb( const Browser::Breadcrumb& );
 
 signals:
     void canGoBack( bool );
@@ -104,6 +105,7 @@ private:
     QListView* _listView;
     QTreeView* _treeView;
     QSortFilterProxyModel* _filterProxy;
+    Browser::BreadcrumbList _breadcrumbs;
 };
 
 }

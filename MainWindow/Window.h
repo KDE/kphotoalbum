@@ -25,6 +25,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
+class BreadcrumbViewer;
 class KToggleAction;
 class Q3WidgetStack;
 class QTimer;
@@ -101,7 +102,6 @@ protected slots:
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
-    void pathChanged( const Browser::BreadcrumbList& );
     void runDemo();
     void lockToDefaultScope();
     void setDefaultScopePositive();
@@ -227,7 +227,7 @@ private:
     DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
-    QLabel* _pathIndicator;
+    BreadcrumbViewer* _pathIndicator;
 };
 
 }

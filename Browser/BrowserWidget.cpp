@@ -340,4 +340,11 @@ Browser::BreadcrumbList Browser::BrowserWidget::createPath() const
     return result;
 }
 
+void Browser::BrowserWidget::widenToBreadcrumb( const Browser::Breadcrumb& breadcrumb )
+{
+    while ( currentAction()->breadcrumb() != breadcrumb )
+        _current--;
+    go();
+}
+
 #include "BrowserWidget.moc"

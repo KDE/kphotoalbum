@@ -14,10 +14,14 @@ public:
     Breadcrumb( const QString& text, bool isBeginning = false );
     QString text() const;
     bool isBeginning() const;
+    bool operator==( const Breadcrumb& other ) const;
+    bool operator!=( const Breadcrumb& other ) const;
 
 private:
+    int _index;
     bool _isBeginning;
     QString _text;
+    static int _count;
 };
 
 }

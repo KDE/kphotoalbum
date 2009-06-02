@@ -251,7 +251,7 @@ void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
 {
     _filterProxy->resetCache();
     _filterProxy->setFilterFixedString( str );
-    setBranchOpen(QModelIndex(), !str.isEmpty());
+    setBranchOpen(QModelIndex(), true);
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
@@ -319,8 +319,8 @@ void Browser::BrowserWidget::raiseViewerBasedOnViewType( DB::Category::ViewType 
 void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )
 {
     const int count = _filterProxy->rowCount(parent);
-    if ( count > 10 )
-        return;
+    if ( count > 5 )
+        open = false;
 
     _treeView->setExpanded( parent, open );
     for ( int row = 0; row < count; ++row )

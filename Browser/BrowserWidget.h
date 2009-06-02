@@ -89,6 +89,7 @@ signals:
 private slots:
     void resetIconViewSearch();
     void itemClicked( const QModelIndex& );
+    void adjustTreeViewColumnSize();
 
 private:
     void emitSignals();
@@ -97,7 +98,6 @@ private:
     void raiseViewerBasedOnViewType( DB::Category::ViewType );
     void setBranchOpen( const QModelIndex& parent, bool open );
     Browser::BreadcrumbList createPath() const;
-    void adjustTreeViewColumnSize();
 
 private:
     static BrowserWidget* _instance;

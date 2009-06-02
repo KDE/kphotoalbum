@@ -65,6 +65,8 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _treeView->header()->setStretchLastSection(false);
     _treeView->header()->setSortIndicatorShown(true);
     _treeView->setSortingEnabled(true);
+    connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
+
 
     connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     _stack->addWidget( _treeView );
@@ -252,12 +254,14 @@ void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
     _filterProxy->resetCache();
     _filterProxy->setFilterFixedString( str );
     setBranchOpen(QModelIndex(), true);
+    adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
 {
     _filterProxy->resetCache();
     _filterProxy->setFilterRegExp( QString() );
+    adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::slotInvokeSeleted()

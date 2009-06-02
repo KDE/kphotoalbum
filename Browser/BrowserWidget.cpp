@@ -26,12 +26,9 @@
 #include "OverviewModel.h"
 #include "enums.h"
 
-#include "Folder.h"
 #include <klocale.h>
 #include "DB/ImageSearchInfo.h"
 #include "Settings/SettingsData.h"
-#include "ContentFolder.h"
-#include "ImageFolder.h"
 #include <qtimer.h>
 #include <QHBoxLayout>
 #include "DB/ImageDB.h"
@@ -40,9 +37,6 @@
 #include <QStackedWidget>
 #include <qlayout.h>
 #include "DB/CategoryCollection.h"
-#include "AnnotationDialog/ListViewItemHider.h"
-#include "TypeFolderAction.h"
-#include "ContentFolderAction.h"
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 

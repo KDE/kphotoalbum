@@ -62,7 +62,6 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
-    _treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     _treeView->header()->setStretchLastSection(false);
     _treeView->header()->setSortIndicatorShown(true);
     _treeView->setSortingEnabled(true);
@@ -101,6 +100,7 @@ void Browser::BrowserWidget::go()
     currentAction()->activate();
     setBranchOpen(QModelIndex(), true);
     raiseViewerBasedOnViewType( currentAction()->viewType() );
+    _treeView->header()->resizeSections(QHeaderView::ResizeToContents);
     emitSignals();
 }
 

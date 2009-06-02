@@ -22,6 +22,7 @@
 #include <QListView>
 #include "Settings/SettingsData.h"
 
+class TreeFilter;
 class QSortFilterProxyModel;
 class QTreeView;
 class QListView;
@@ -104,7 +105,7 @@ private:
     QStackedWidget* _stack;
     QListView* _listView;
     QTreeView* _treeView;
-    QSortFilterProxyModel* _filterProxy;
+    TreeFilter* _filterProxy;
     Browser::BreadcrumbList _breadcrumbs;
 };
 

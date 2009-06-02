@@ -1,3 +1,18 @@
+2009-06-02  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Reworked the browser completely, which has the following
+	consequences:
+	  * Many of the changes are internal restructuring of the code to
+	    use Model/View
+	  * The GUI is now using Qt4 classes, which looks much more sexy
+	  * When limiting the content using the line edit, it will try and
+	    be clever about which branches are open
+	  * When limiting, all items of a sub category are shown if its
+            parent matches. As an example of this, imagine a super
+	    category California, with sub categories Las Vegas and Los
+	    Angeless. If you type California in the search line edit, then
+	    both children will still be shown
+
 2009-05-31  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Avoid crash in case "make install" was not executed.

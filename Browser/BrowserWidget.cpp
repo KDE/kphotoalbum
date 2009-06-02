@@ -99,6 +99,7 @@ void Browser::BrowserWidget::back()
 void Browser::BrowserWidget::go()
 {
     currentAction()->activate();
+    setBranchOpen(QModelIndex(), true);
     raiseViewerBasedOnViewType( currentAction()->viewType() );
     emitSignals();
 }
@@ -248,12 +249,14 @@ QString Browser::BrowserWidget::currentCategory() const
 
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
 {
+    _filterProxy->resetCache();
     _filterProxy->setFilterFixedString( str );
     setBranchOpen(QModelIndex(), !str.isEmpty());
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
 {
+    _filterProxy->resetCache();
     _filterProxy->setFilterRegExp( QString() );
 }
 

@@ -97,6 +97,7 @@ private:
     void raiseViewerBasedOnViewType( DB::Category::ViewType );
     void setBranchOpen( const QModelIndex& parent, bool open );
     Browser::BreadcrumbList createPath() const;
+    void adjustTreeViewColumnSize();
 
 private:
     static BrowserWidget* _instance;

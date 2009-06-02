@@ -100,7 +100,7 @@ void Browser::BrowserWidget::go()
     currentAction()->activate();
     setBranchOpen(QModelIndex(), true);
     raiseViewerBasedOnViewType( currentAction()->viewType() );
-    _treeView->header()->resizeSections(QHeaderView::ResizeToContents);
+    adjustTreeViewColumnSize();
     emitSignals();
 }
 
@@ -308,11 +308,12 @@ void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 
 void Browser::BrowserWidget::raiseViewerBasedOnViewType( DB::Category::ViewType type )
 {
-    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView )
+    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
         _stack->setCurrentWidget( _treeView );
+        adjustTreeViewColumnSize();
+    }
     else
         _stack->setCurrentWidget( _listView );
-
 }
 
 void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )
@@ -342,6 +343,11 @@ void Browser::BrowserWidget::widenToBreadcrumb( const Browser::Breadcrumb& bread
     while ( currentAction()->breadcrumb() != breadcrumb )
         _current--;
     go();
+}
+
+void Browser::BrowserWidget::adjustTreeViewColumnSize()
+{
+    _treeView->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 #include "BrowserWidget.moc"

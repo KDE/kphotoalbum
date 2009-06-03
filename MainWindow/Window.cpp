@@ -1740,6 +1740,7 @@ void MainWindow::Window::createSarchBar()
     // Set up the search tool bar
     SearchBar* bar = new SearchBar( this );
     bar->setLineEditEnabled(false);
+    bar->setObjectName( QString::fromAscii("searchBar" ) );
 
     connect( bar, SIGNAL( textChanged( const QString& ) ), _browser, SLOT( slotLimitToMatch( const QString& ) ) );
     connect( bar, SIGNAL( returnPressed() ), _browser, SLOT( slotInvokeSeleted() ) );

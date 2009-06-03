@@ -45,3 +45,8 @@ Browser::Breadcrumb Browser::BrowserAction::breadcrumb() const
     return Breadcrumb::empty();
 }
 
+bool Browser::BrowserAction::showDuringBack() const
+{
+    return false;
+}
+

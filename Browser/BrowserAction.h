@@ -25,6 +25,7 @@ public:
     virtual bool isViewChangeable() const;
     DB::ImageSearchInfo searchInfo() const;
     virtual Breadcrumb breadcrumb() const;
+    virtual bool showDuringBack() const;
 
 private:
     DB::ImageSearchInfo _info;

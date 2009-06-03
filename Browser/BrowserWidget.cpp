@@ -94,6 +94,12 @@ void Browser::BrowserWidget::forward()
 void Browser::BrowserWidget::back()
 {
     _current--;
+    while ( _current > 0 ) {
+        if ( currentAction()->showDuringBack() )
+            break;
+        else
+            _current--;
+    }
     go();
 }
 

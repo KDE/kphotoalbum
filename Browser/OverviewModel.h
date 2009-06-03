@@ -22,6 +22,7 @@ public:
     OVERRIDE Qt::ItemFlags flags ( const QModelIndex & index ) const;
     OVERRIDE bool isSearchable() const;
     OVERRIDE Breadcrumb breadcrumb() const;
+    OVERRIDE bool showDuringBack() const;
 
 
 private:

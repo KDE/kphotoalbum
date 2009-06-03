@@ -204,3 +204,8 @@ Browser::Breadcrumb Browser::OverviewModel::breadcrumb() const
     return _breadcrumb;
 }
 
+bool Browser::OverviewModel::showDuringBack() const
+{
+    return true;
+}
+

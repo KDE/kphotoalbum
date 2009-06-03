@@ -60,6 +60,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _listView->setSpacing(10);
     _listView->setUniformItemSizes(true);
     connect( _listView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    connect( _listView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
@@ -70,6 +71,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
 
     connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    connect( _treeView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     _stack->addWidget( _treeView );
 
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );

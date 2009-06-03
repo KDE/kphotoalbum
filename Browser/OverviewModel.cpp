@@ -165,7 +165,7 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
     Exif::SearchInfo result = dialog.info();
 
     // FIXME: doesn't build
-    DB::ImageSearchInfo info;// = searchInfo();
+    DB::ImageSearchInfo info = BrowserAction::searchInfo();
 
     info.addExifSearchInfo( dialog.info() );
 
@@ -174,9 +174,7 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
         return 0;
     }
 
-    return 0;
-    // FIXME: doesn't build
-    //return new OverviewModel( info, browser() );
+    return new OverviewModel( Breadcrumb( i18n("EXIF Search")), info, browser() );
 #else
     return 0;
 #endif // HAVE_EXIV2

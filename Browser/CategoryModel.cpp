@@ -113,6 +113,7 @@ QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, i
 {
     QList<QStandardItem*> res;
     QStandardItem* item = new QStandardItem( text(name) );
+    item->setToolTip( item->text() );
     item->setIcon( icon(name) );
     item->setData( name, ItemNameRole );
     item->setData( name, ValueRole ); // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.

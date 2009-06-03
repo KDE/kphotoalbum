@@ -272,7 +272,8 @@ void Browser::BrowserWidget::slotInvokeSeleted()
     else
         view = _treeView;
 
-    itemClicked( view->currentIndex() );
+    if ( view->currentIndex().isValid() )
+        itemClicked( view->currentIndex() );
 }
 
 

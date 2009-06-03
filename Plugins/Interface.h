@@ -29,6 +29,10 @@
 #include <kurl.h>
 #include <kdemacros.h>
 
+namespace Browser {
+class BreadcrumbList;
+}
+
 namespace Plugins
 {
 
@@ -51,7 +55,7 @@ public:
 
 public slots:
     void slotSelectionChanged( bool );
-    void pathChanged( const QString& path );
+    void pathChanged( const Browser::BreadcrumbList& path );
 
 signals:
     void imagesChanged( const KUrl::List& );

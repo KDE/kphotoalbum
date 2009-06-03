@@ -123,7 +123,7 @@ void Plugins::Interface::slotSelectionChanged( bool b )
     emit selectionChanged( b );
 }
 
-void Plugins::Interface::pathChanged( const Browser::BreadcrumpList& path )
+void Plugins::Interface::pathChanged( const Browser::BreadcrumbList& path )
 {
     static Browser::BreadcrumbList _path;
     if ( _path != path ) {

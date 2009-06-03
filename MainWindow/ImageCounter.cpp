@@ -38,9 +38,9 @@ void MainWindow::ImageCounter::setTotal( uint c )
     setText( i18n( "Total: %1", c) );
 }
 
-void MainWindow::ImageCounter::showingOverview()
+void MainWindow::ImageCounter::showBrowserMatches(uint matches )
 {
-    setText( QString::fromLatin1( "---" ) );
+    setText( i18np( "1 match", "%1 matches", matches ) );
 }
 
 #include "ImageCounter.moc"

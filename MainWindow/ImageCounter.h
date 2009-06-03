@@ -32,7 +32,7 @@ public:
 public slots:
     void setMatchCount( uint matches );
     void setTotal( uint );
-    void showingOverview();
+    void showBrowserMatches(uint matches );
 };
 
 }

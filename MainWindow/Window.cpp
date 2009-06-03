@@ -195,12 +195,10 @@ MainWindow::Window::Window( QWidget* parent )
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
-    connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
+    connect( _browser, SIGNAL( imageCount(uint)), _partial, SLOT( showBrowserMatches(uint) ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
-
-    statusBar()->showMessage(i18n("Welcome to KPhotoAlbum"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
     slotThumbNailSelectionChanged();

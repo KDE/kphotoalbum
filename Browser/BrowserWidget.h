@@ -82,6 +82,7 @@ signals:
     void isViewChangeable( bool );
     void currentViewTypeChanged( DB::Category::ViewType );
     void viewChanged();
+    void imageCount(uint);
 
     // bool is true if we have "chosen" some category (ie. when it's safe to change "view as list/ view as icons" stuff)
     void browsingInSomeCategory( bool );
@@ -90,9 +91,9 @@ private slots:
     void resetIconViewSearch();
     void itemClicked( const QModelIndex& );
     void adjustTreeViewColumnSize();
+    void emitSignals();
 
 private:
-    void emitSignals();
     void setViewType( DB::Category::ViewType type );
     Browser::BrowserAction* currentAction() const;
     void raiseViewerBasedOnViewType( DB::Category::ViewType );

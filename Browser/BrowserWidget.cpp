@@ -17,6 +17,7 @@
 */
 
 #include "BrowserWidget.h"
+#include <DB/ImageDB.h>
 #include <QHeaderView>
 #include "ImageViewAction.h"
 #include "CategoryModel.h"
@@ -83,6 +84,8 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
     addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     _stack->setCurrentWidget( _listView );
+
+    QTimer::singleShot( 0, this, SLOT( emitSignals() ) );
 }
 
 void Browser::BrowserWidget::forward()
@@ -110,7 +113,6 @@ void Browser::BrowserWidget::go()
     raiseViewerBasedOnViewType( currentAction()->viewType() );
     adjustTreeViewColumnSize();
     emitSignals();
-    emit viewChanged();
 }
 
 void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
@@ -133,8 +135,6 @@ void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
 
     _list.append(action);
     _current++;
-    emitSignals();
-
     go();
 }
 
@@ -158,6 +158,8 @@ void Browser::BrowserWidget::emitSignals()
     }
 
     emit pathChanged( createPath() );
+    emit viewChanged();
+    emit imageCount( DB::ImageDB::instance()->count(currentAction()->searchInfo()).total() );
 
 #ifdef KDAB_TEMPORARILY_REMOVED
     bool showingCategory = dynamic_cast<TypeFolderAction*>( a );

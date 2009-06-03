@@ -117,16 +117,19 @@ QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, i
     item->setIcon( icon(name) );
     item->setData( name, ItemNameRole );
     item->setData( name, ValueRole ); // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.
+    item->setEditable( false );
     res.append( item );
 
     item = new QStandardItem(i18np("1 images", "%1 images", imageCount));
     item->setTextAlignment( Qt::AlignRight );
     item->setData( imageCount, ValueRole );
+    item->setEditable( false );
     res.append( item );
 
     item = new QStandardItem(i18np("1 video", "%1 videos", videoCount));
     item->setTextAlignment( Qt::AlignRight );
     item->setData( videoCount, ValueRole );
+    item->setEditable( false );
     res.append( item );
 
     return res;

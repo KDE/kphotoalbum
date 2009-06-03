@@ -110,18 +110,17 @@ void Browser::BrowserWidget::go()
     raiseViewerBasedOnViewType( currentAction()->viewType() );
     adjustTreeViewColumnSize();
     emitSignals();
+    emit viewChanged();
 }
 
 void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
 {
     addAction( new OverviewModel( Breadcrumb::empty(), info, this ) );
-    go();
 }
 
 void Browser::BrowserWidget::addImageView( const QString& context )
 {
     addAction( new ImageViewAction( context, this ) );
-    go();
 }
 
 void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
@@ -172,7 +171,6 @@ void Browser::BrowserWidget::emitSignals()
 void Browser::BrowserWidget::home()
 {
     addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
-    go();
 }
 
 void Browser::BrowserWidget::reload()
@@ -300,10 +298,8 @@ void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
     BrowserAction* action = currentAction()->generateChildAction( _filterProxy->mapToSource( index ) );
-    if ( action ) {
+    if ( action )
         addAction( action );
-        emit viewChanged();
-    }
 }
 
 

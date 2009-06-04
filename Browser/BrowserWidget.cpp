@@ -59,7 +59,11 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 //    _listView->setGridSize( QSize(150, 200) );
     _listView->setSpacing(10);
     _listView->setUniformItemSizes(true);
+#ifdef KDAB_TEMPORARILY_REMOVED
     connect( _listView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Browser::BrowserWidget::BrowserWidget");
+#endif //KDAB_TEMPORARILY_REMOVED
     connect( _listView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     _stack->addWidget( _listView );
 

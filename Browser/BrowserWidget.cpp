@@ -371,6 +371,11 @@ void Browser::BrowserWidget::createWidgets()
 
     connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
 
+    _listView->setMouseTracking(true);
+    _treeView->setMouseTracking(true);
+    connect( _listView, SIGNAL( entered( QModelIndex ) ), _listView, SLOT( setCurrentIndex( QModelIndex ) ) );
+    connect( _treeView, SIGNAL( entered( QModelIndex ) ), _treeView, SLOT( setCurrentIndex( QModelIndex ) ) );
+
     _curView = 0;
 }
 

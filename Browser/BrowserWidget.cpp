@@ -295,6 +295,8 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
     }
     else {
         _curView =_listView;
+        _filterProxy->invalidate();
+        _filterProxy->sort( 0, Qt::AscendingOrder );
     }
 
 

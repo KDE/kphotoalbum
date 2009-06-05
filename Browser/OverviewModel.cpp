@@ -1,4 +1,5 @@
 #include "OverviewModel.h"
+#include "enums.h"
 #include <KMessageBox>
 #include <Exif/SearchDialog.h>
 #include "ImageViewAction.h"
@@ -39,6 +40,9 @@ int Browser::OverviewModel::rowCount( const QModelIndex& parent ) const
 
 QVariant Browser::OverviewModel::data( const QModelIndex& index, int role) const
 {
+    if ( role == ValueRole )
+        return index.row();
+
     const int row = index.row();
     if ( isCategoryIndex(row) )
         return categoryInfo( row, role );

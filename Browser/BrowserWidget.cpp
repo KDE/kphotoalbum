@@ -47,36 +47,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     Q_ASSERT( !_instance );
     _instance = this;
 
-    _stack = new QStackedWidget;
-    QHBoxLayout* layout = new QHBoxLayout( this );
-    layout->setContentsMargins(0,0,0,0);
-    layout->addWidget( _stack );
-
-    _listView = new QListView ( _stack );
-    _listView->setIconSize( QSize(100,75) );
-    _listView->setSelectionMode( QListView::SingleSelection );
-    _listView->setViewMode( QListView::IconMode );
-//    _listView->setGridSize( QSize(150, 200) );
-    _listView->setSpacing(10);
-    _listView->setUniformItemSizes(true);
-#ifdef KDAB_TEMPORARILY_REMOVED
-    connect( _listView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::BrowserWidget::BrowserWidget");
-#endif //KDAB_TEMPORARILY_REMOVED
-    connect( _listView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
-    _stack->addWidget( _listView );
-
-    _treeView = new QTreeView( _stack );
-    _treeView->header()->setStretchLastSection(false);
-    _treeView->header()->setSortIndicatorShown(true);
-    _treeView->setSortingEnabled(true);
-    connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
-
-
-    connect( _treeView, SIGNAL(  activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
-    connect( _treeView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
-    _stack->addWidget( _treeView );
+    createWidgets();
 
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
@@ -85,12 +56,8 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _filterProxy->setFilterKeyColumn(0);
     _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
     _filterProxy->setSortRole( ValueRole );
-    _listView->setModel( _filterProxy );
-    _treeView->setModel( _filterProxy );
 
     addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
-    _stack->setCurrentWidget( _listView );
-
     QTimer::singleShot( 0, this, SLOT( emitSignals() ) );
 }
 
@@ -116,7 +83,7 @@ void Browser::BrowserWidget::go()
 {
     currentAction()->activate();
     setBranchOpen(QModelIndex(), true);
-    raiseViewerBasedOnViewType( currentAction()->viewType() );
+    switchToViewType( currentAction()->viewType() );
     adjustTreeViewColumnSize();
     emitSignals();
 }
@@ -218,25 +185,25 @@ DB::ImageSearchInfo Browser::BrowserWidget::currentContext()
 
 void Browser::BrowserWidget::slotSmallListView()
 {
-    setViewType( DB::Category::ListView );
+    changeViewTypeForCurrentView( DB::Category::ListView );
 }
 
 void Browser::BrowserWidget::slotLargeListView()
 {
-    setViewType( DB::Category::ThumbedListView );
+    changeViewTypeForCurrentView( DB::Category::ThumbedListView );
 }
 
 void Browser::BrowserWidget::slotSmallIconView()
 {
-    setViewType( DB::Category::IconView );
+    changeViewTypeForCurrentView( DB::Category::IconView );
 }
 
 void Browser::BrowserWidget::slotLargeIconView()
 {
-    setViewType( DB::Category::ThumbedIconView );
+    changeViewTypeForCurrentView( DB::Category::ThumbedIconView );
 }
 
-void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
+void Browser::BrowserWidget::changeViewTypeForCurrentView( DB::Category::ViewType type )
 {
     Q_ASSERT( _list.size() > 0 );
 
@@ -244,7 +211,7 @@ void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
     Q_ASSERT( category.data() );
     category->setViewType( type );
 
-    raiseViewerBasedOnViewType( type );
+    switchToViewType( type );
     reload();
 }
 
@@ -278,28 +245,20 @@ void Browser::BrowserWidget::resetIconViewSearch()
 
 void Browser::BrowserWidget::slotInvokeSeleted()
 {
-    QAbstractItemView * view = 0;
-    if ( _stack->currentWidget() == _listView )
-        view = _listView;
-    else
-        view = _treeView;
-
-    if ( view->currentIndex().isValid() )
-        itemClicked( view->currentIndex() );
+    if ( _curView->currentIndex().isValid() )
+        itemClicked( _curView->currentIndex() );
 }
 
 
 void Browser::BrowserWidget::scrollLine( int direction )
 {
-    _treeView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+10*direction );
-    _listView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+10*direction );
+    _curView->verticalScrollBar()->setValue( _curView->verticalScrollBar()->value()+10*direction );
 }
 
 void Browser::BrowserWidget::scrollPage( int direction )
 {
     int dist = direction * (height()-100);
-    _treeView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+dist );
-    _listView->verticalScrollBar()->setValue( _listView->verticalScrollBar()->value()+dist );
+    _curView->verticalScrollBar()->setValue( _curView->verticalScrollBar()->value()+dist );
 }
 
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
@@ -321,18 +280,38 @@ void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
     _filterProxy->setSourceModel( model );
 }
 
-void Browser::BrowserWidget::raiseViewerBasedOnViewType( DB::Category::ViewType type )
+void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
+    if ( _curView ) {
+        // disconnect current view
+        _curView->setModel(0);
+//        disconnect( _curView, SIGNAL(activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+        disconnect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+    }
+
     if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
-        _stack->setCurrentWidget( _treeView );
+        _curView = _treeView;
         adjustTreeViewColumnSize();
     }
-    else
-        _stack->setCurrentWidget( _listView );
+    else {
+        _curView =_listView;
+    }
+
+
+    // Hook up the new view
+    _curView->setModel( _filterProxy );
+//    connect( _curView, SIGNAL(activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
+    connect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+
+    _stack->setCurrentWidget( _curView );
+
 }
 
 void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )
 {
+    if ( _curView != _treeView )
+        return;
+
     const int count = _filterProxy->rowCount(parent);
     if ( count > 5 )
         open = false;
@@ -363,6 +342,34 @@ void Browser::BrowserWidget::widenToBreadcrumb( const Browser::Breadcrumb& bread
 void Browser::BrowserWidget::adjustTreeViewColumnSize()
 {
     _treeView->header()->resizeSections(QHeaderView::ResizeToContents);
+}
+
+
+void Browser::BrowserWidget::createWidgets()
+{
+    _stack = new QStackedWidget;
+    QHBoxLayout* layout = new QHBoxLayout( this );
+    layout->setContentsMargins(0,0,0,0);
+    layout->addWidget( _stack );
+
+    _listView = new QListView ( _stack );
+    _listView->setIconSize( QSize(100,75) );
+    _listView->setSelectionMode( QListView::SingleSelection );
+    _listView->setViewMode( QListView::IconMode );
+//    _listView->setGridSize( QSize(150, 200) );
+    _listView->setSpacing(10);
+    _listView->setUniformItemSizes(true);
+    _stack->addWidget( _listView );
+
+    _treeView = new QTreeView( _stack );
+    _treeView->header()->setStretchLastSection(false);
+    _treeView->header()->setSortIndicatorShown(true);
+    _treeView->setSortingEnabled(true);
+    _stack->addWidget( _treeView );
+
+    connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
+
+    _curView = 0;
 }
 
 #include "BrowserWidget.moc"

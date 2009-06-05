@@ -94,11 +94,12 @@ private slots:
     void emitSignals();
 
 private:
-    void setViewType( DB::Category::ViewType type );
+    void changeViewTypeForCurrentView( DB::Category::ViewType type );
     Browser::BrowserAction* currentAction() const;
-    void raiseViewerBasedOnViewType( DB::Category::ViewType );
+    void switchToViewType( DB::Category::ViewType );
     void setBranchOpen( const QModelIndex& parent, bool open );
     Browser::BreadcrumbList createPath() const;
+    void createWidgets();
 
 private:
     static BrowserWidget* _instance;
@@ -107,6 +108,7 @@ private:
     QStackedWidget* _stack;
     QListView* _listView;
     QTreeView* _treeView;
+    QAbstractItemView* _curView;
     TreeFilter* _filterProxy;
     Browser::BreadcrumbList _breadcrumbs;
 };

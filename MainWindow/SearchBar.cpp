@@ -48,17 +48,25 @@ bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
 {
     if ( e->type() == QEvent::KeyPress ) {
         QKeyEvent* ke = static_cast<QKeyEvent*>( e );
-        if ( ke->key() == Qt::Key_Up )
-            emit scrollLine( -1 );
-        else if ( ke->key() == Qt::Key_Down )
-            emit scrollLine( 1 );
-        else if ( ke->key() == Qt::Key_PageUp )
-            emit scrollPage( -1 );
-        else if ( ke->key() == Qt::Key_PageDown )
-            emit scrollPage( 1 );
-        else
-            return false;
-        return true;
+        if ( ke->key() == Qt::Key_Up ||
+             ke->key() == Qt::Key_Down ||
+             ke->key() == Qt::Key_Left ||
+             ke->key() == Qt::Key_Right ||
+             ke->key() == Qt::Key_PageDown ||
+             ke->key() == Qt::Key_PageUp ) {
+            emit keyPressed( ke );
+            return true;
+        }
+        else if ( ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return ) {
+            // If I don't interpret return and enter here, but simply rely
+            // on QLineEdit itself to emit the signal, then  it will
+            // propagate to the main window, and from there be delivered to
+            // the central widget.
+            emit returnPressed();
+            return true;
+        }
+        else if ( ke->key() == Qt::Key_Escape )
+            reset();
     }
     return false;
 }
@@ -76,6 +84,7 @@ void MainWindow::SearchBar::reset()
 void MainWindow::SearchBar::setLineEditEnabled(bool b)
 {
     _edit->setEnabled(b);
+    _edit->setFocus();
 }
 
 #include "SearchBar.moc"

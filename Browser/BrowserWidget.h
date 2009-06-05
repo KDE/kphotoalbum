@@ -69,8 +69,7 @@ public slots:
     void slotLargeIconView();
     void slotLimitToMatch( const QString& );
     void slotInvokeSeleted();
-    void scrollLine( int direction );
-    void scrollPage( int direction );
+    void scrollKeyPressed( QKeyEvent* );
     void widenToBreadcrumb( const Browser::Breadcrumb& );
 
 signals:

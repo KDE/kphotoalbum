@@ -17,6 +17,7 @@
 */
 
 #include "BrowserWidget.h"
+#include <QApplication>
 #include <DB/ImageDB.h>
 #include <QHeaderView>
 #include "ImageViewAction.h"
@@ -250,17 +251,6 @@ void Browser::BrowserWidget::slotInvokeSeleted()
 }
 
 
-void Browser::BrowserWidget::scrollLine( int direction )
-{
-    _curView->verticalScrollBar()->setValue( _curView->verticalScrollBar()->value()+10*direction );
-}
-
-void Browser::BrowserWidget::scrollPage( int direction )
-{
-    int dist = direction * (height()-100);
-    _curView->verticalScrollBar()->setValue( _curView->verticalScrollBar()->value()+dist );
-}
-
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
@@ -380,7 +370,7 @@ void Browser::BrowserWidget::createWidgets()
 
 bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
 {
-    if ( event->type() == QEvent::KeyRelease ) {
+    if ( event->type() == QEvent::KeyPress ) {
         QKeyEvent* ke = static_cast<QKeyEvent*>( event );
         if ( ke->key() == Qt::Key_Return ) {
             if ( _curView == obj )
@@ -388,6 +378,11 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
         }
     }
     return false;
+}
+
+void Browser::BrowserWidget::scrollKeyPressed( QKeyEvent* event )
+{
+    QApplication::sendEvent(_curView, event );
 }
 
 #include "BrowserWidget.moc"

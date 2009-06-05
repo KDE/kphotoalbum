@@ -42,8 +42,7 @@ public slots:
 signals:
     void textChanged( const QString& );
     void returnPressed();
-    void scrollLine( int direction );
-    void scrollPage( int direction );
+    void keyPressed( QKeyEvent* );
 
 private:
     KLineEdit* _edit;

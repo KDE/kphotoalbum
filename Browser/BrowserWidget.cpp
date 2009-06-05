@@ -369,9 +369,25 @@ void Browser::BrowserWidget::createWidgets()
     _treeView->setSortingEnabled(true);
     _stack->addWidget( _treeView );
 
+    _treeView->installEventFilter( this );
+    _listView->installEventFilter( this );
+
+
     connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
 
     _curView = 0;
+}
+
+bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
+{
+    if ( event->type() == QEvent::KeyRelease ) {
+        QKeyEvent* ke = static_cast<QKeyEvent*>( event );
+        if ( ke->key() == Qt::Key_Return ) {
+            if ( _curView == obj )
+                itemClicked( _curView->currentIndex() );
+        }
+    }
+    return false;
 }
 
 #include "BrowserWidget.moc"

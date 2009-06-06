@@ -1,0 +1,5 @@
+/**
+  \namespace AnnotationDialog
+  \brief 
+
+**/

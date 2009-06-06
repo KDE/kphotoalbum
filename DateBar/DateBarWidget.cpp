@@ -46,11 +46,6 @@ const int buttonWidth = 22;
 const int arrowLength = 20;
 
 /**
- * \namespace DateBar
- * \brief The date bar at the bottom of the main window
- */
-
-/**
  * \class DateBar::DateBarWidget
  * \brief This class represents the date bar at the bottom of the main window.
  *

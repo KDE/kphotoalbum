@@ -53,12 +53,7 @@
 #include <kdebug.h>
 
 /**
- * \namespace ThumbnailView
- * The thumbnail view.
- */
-
-/**
- * \class ThumbnailView
+ * \class ThumbnailView::ThumbnailWidget
  * This is the widget which shows the thumbnails.
  *
  * In previous versions this was implemented using a QIconView, but there

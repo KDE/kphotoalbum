@@ -386,3 +386,4 @@ void Browser::BrowserWidget::scrollKeyPressed( QKeyEvent* event )
 }
 
 #include "BrowserWidget.moc"
+

@@ -35,9 +35,6 @@ namespace DB
 
 namespace Browser
 {
-class BrowserIconViewItemFactory;
-class FolderAction;
-class BrowserItemFactory;
 class BrowserAction;
 
 class BrowserWidget :public QWidget {

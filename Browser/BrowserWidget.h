@@ -99,6 +99,7 @@ private:
     void setBranchOpen( const QModelIndex& parent, bool open );
     Browser::BreadcrumbList createPath() const;
     void createWidgets();
+    void handleResizeEvent( QMouseEvent* );
 
 private:
     static BrowserWidget* _instance;
@@ -110,6 +111,7 @@ private:
     QAbstractItemView* _curView;
     TreeFilter* _filterProxy;
     Browser::BreadcrumbList _breadcrumbs;
+    QPoint _resizePressPos;
 };
 
 }

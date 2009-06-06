@@ -99,7 +99,7 @@ bool Browser::CategoryPage::populateBrowserWithHierachy( DB::CategoryItem* paren
     return anyItems;
 }
 
-const DB::CategoryPtr Browser::CategoryPage::category() const
+DB::CategoryPtr Browser::CategoryPage::category() const
 {
     return _category;
 }
@@ -172,6 +172,7 @@ QPixmap Browser::CategoryPage::icon( const QString& name )
             return _category->icon();
         }
     }
-    else
+    else {
         return Settings::SettingsData::instance()->categoryImage( _category->name(), name, _category->thumbnailSize() );
+    }
 }

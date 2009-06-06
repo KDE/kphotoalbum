@@ -82,9 +82,9 @@ void Browser::BrowserWidget::back()
 
 void Browser::BrowserWidget::go()
 {
+    switchToViewType( currentAction()->viewType() );
     currentAction()->activate();
     setBranchOpen(QModelIndex(), true);
-    switchToViewType( currentAction()->viewType() );
     adjustTreeViewColumnSize();
     emitSignals();
 }
@@ -295,12 +295,19 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
         _curView =_listView;
         _filterProxy->invalidate();
         _filterProxy->sort( 0, Qt::AscendingOrder );
+        if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
+            const int size = action->category()->thumbnailSize();
+            _listView->setIconSize( QSize(size,size) );
+            _listView->setGridSize( QSize( size+10, size+10 ) );
+            qDebug("=======================================");
+        }
     }
 
 
     // Hook up the new view
     _curView->setModel( _filterProxy );
     connect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+
 
     _stack->setCurrentWidget( _curView );
 
@@ -355,9 +362,10 @@ void Browser::BrowserWidget::createWidgets()
     _listView->setIconSize( QSize(100,75) );
     _listView->setSelectionMode( QListView::SingleSelection );
     _listView->setViewMode( QListView::IconMode );
-//    _listView->setGridSize( QSize(150, 200) );
+//    _listView->setGridSize( QSize(350, 350) );
     _listView->setSpacing(10);
     _listView->setUniformItemSizes(true);
+    _listView->setResizeMode( QListView::Adjust );
     _stack->addWidget( _listView );
 
     _treeView = new QTreeView( _stack );
@@ -368,6 +376,7 @@ void Browser::BrowserWidget::createWidgets()
 
     _treeView->installEventFilter( this );
     _listView->installEventFilter( this );
+    _listView->viewport()->installEventFilter( this );
 
 
     connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
@@ -384,12 +393,44 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
                 itemClicked( _curView->currentIndex() );
         }
     }
+
+    else if (event->type() == QEvent::MouseButtonPress ||
+             event->type() == QEvent::MouseMove ||
+             event->type() == QEvent::MouseButtonRelease ) {
+        QMouseEvent* me = static_cast<QMouseEvent*>( event );
+        if ( me->buttons() & Qt::MidButton ) {
+            handleResizeEvent( me );
+            return true;
+        }
+    }
+
     return false;
 }
 
 void Browser::BrowserWidget::scrollKeyPressed( QKeyEvent* event )
 {
     QApplication::sendEvent(_curView, event );
+}
+
+void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
+{
+    if ( event->type() ==  QEvent::MouseButtonPress ) {
+        _resizePressPos = event->pos();
+    }
+
+    else if ( event->type() == QEvent::MouseMove  ) {
+        int distance = (event->pos() - _resizePressPos).manhattanLength();
+        if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
+            action->category()->setThumbnailSize( distance );
+            // _listView->setGridSize( QSize(distance, distance) );
+            _listView->setIconSize( QSize(distance,distance) );
+            _filterProxy->invalidate();
+        }
+
+    }
+
+    else if ( event->type() == QEvent::MouseButtonRelease ) {
+    }
 }
 
 #include "BrowserWidget.moc"

@@ -17,7 +17,7 @@ public:
     OVERRIDE BrowserPage* activateChild( const QModelIndex& );
     OVERRIDE DB::Category::ViewType viewType() const;
 
-    const DB::CategoryPtr category() const;
+    DB::CategoryPtr category() const;
 
 private:
     void populateModel();

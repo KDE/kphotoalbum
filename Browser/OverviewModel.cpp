@@ -168,7 +168,6 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
 
     Exif::SearchInfo result = dialog.info();
 
-    // FIXME: doesn't build
     DB::ImageSearchInfo info = BrowserAction::searchInfo();
 
     info.addExifSearchInfo( dialog.info() );

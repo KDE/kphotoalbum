@@ -11,12 +11,19 @@ class BrowserWidget;
 
 enum Viewer { ShowBrowser, ShowImageViewer };
 
+/**
+ */
 class BrowserAction
 {
 public:
     BrowserAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     virtual ~BrowserAction() {}
+
+    /**
+     * Activate the action. Result of activation may be to call \ref BrowserWidget::addAction.
+     */
     virtual void activate() = 0;
+
     virtual BrowserAction* generateChildAction( const QModelIndex &);
     BrowserWidget* browser() const;
     virtual Viewer viewer();

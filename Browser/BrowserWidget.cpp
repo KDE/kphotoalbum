@@ -218,7 +218,7 @@ void Browser::BrowserWidget::changeViewTypeForCurrentView( DB::Category::ViewTyp
 
 void Browser::BrowserWidget::setFocus()
 {
-    _stack->currentWidget()->setFocus();
+    _curView->setFocus();
 }
 
 QString Browser::BrowserWidget::currentCategory() const
@@ -273,9 +273,7 @@ void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
     if ( _curView ) {
-        // disconnect current view
         _curView->setModel(0);
-//        disconnect( _curView, SIGNAL(activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
         disconnect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     }
 
@@ -292,7 +290,6 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     // Hook up the new view
     _curView->setModel( _filterProxy );
-//    connect( _curView, SIGNAL(activated( QModelIndex ) ), this, SLOT( itemClicked( QModelIndex ) ) );
     connect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
 
     _stack->setCurrentWidget( _curView );

@@ -5,11 +5,18 @@ Browser::BrowserAction::BrowserAction( const DB::ImageSearchInfo& info, BrowserW
 {
 }
 
+/**
+ * \return the associated \ref BrowserWidget. This instance is needed when
+ * the action is creating new actions for a child aciton.
+ */
 Browser::BrowserWidget* Browser::BrowserAction::browser() const
 {
     return _browser;
 }
 
+/**
+ * Return an action for the item at the given model index
+ */
 Browser::BrowserAction* Browser::BrowserAction::generateChildAction( const QModelIndex &)
 {
     return 0;
@@ -49,4 +56,3 @@ bool Browser::BrowserAction::showDuringBack() const
 {
     return false;
 }
-

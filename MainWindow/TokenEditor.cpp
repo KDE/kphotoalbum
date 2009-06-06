@@ -20,7 +20,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <Q3ValueList>
+ #include <QList>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <qcheckbox.h>
@@ -72,7 +72,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );
         (*it)->setEnabled( tokens.contains( (*it)->text() ) );
     }
@@ -81,14 +81,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( true );
     }
 }
 
 void TokenEditor::selectNone()
 {
-    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );
     }
 }
@@ -113,7 +113,7 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::accept()
 {
-    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );

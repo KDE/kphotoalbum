@@ -25,7 +25,7 @@
 #include <qfileinfo.h>
 
 #include <QtCore/QVector>
-#include <Q3ValueList>
+ #include <QList>
 #include <kmessagebox.h>
 #include <kapplication.h>
 #include <qdir.h>
@@ -125,14 +125,14 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             if ( ! result.isEmpty() )
                 result += QString::fromLatin1("<br/>");
             result += QString::fromLatin1("<img src=\"KRatingWidget://%1\"/>"
-                    ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) ); 
+                    ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) );
         }
     }
 #endif
 
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    for( Q3ValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+     for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         const QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             const StringSet items = info->itemsOfCategory( categoryName );

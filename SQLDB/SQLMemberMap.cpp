@@ -21,7 +21,7 @@
 #include "QueryHelper.h"
 #include "QueryErrors.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "Utilities/Graph.h"
 #include "Utilities/QStr.h"
 
@@ -67,7 +67,7 @@ QStringList SQLMemberMap::members(const QString& category,
                                   bool closure) const
 {
     if (closure) {
-        Q3ValueList<int> idList = _qh.tagIdList(category, memberGroup);
+         QList<int> idList = _qh.tagIdList(category, memberGroup);
         idList.pop_front(); // the tag itself
         return
             _qh.executeQuery("SELECT name FROM tag WHERE id IN (?)",

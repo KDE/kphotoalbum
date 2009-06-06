@@ -20,7 +20,7 @@
 
 #include "QueryHelper.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "SQLNormalCategory.h"
 #include "SQLTokensCategory.h"
 #include "SQLFolderCategory.h"
@@ -94,7 +94,7 @@ void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString&
 QList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 {
     const QStringList cats = categoryNames();
-    Q3ValueList<DB::CategoryPtr> result;
+     QList<DB::CategoryPtr> result;
     for( QStringList::ConstIterator it = cats.constBegin(); it != cats.constEnd(); ++it ) {
         result.append( categoryForName( *it ) );
     }

@@ -23,7 +23,7 @@
 class QPixmap;
 class KFileItem;
 
-#include <q3valuelist.h>
+ #include <QList>
 #include <qobject.h>
 #include "Manager.h"
 #include <QEventLoop>

@@ -20,7 +20,7 @@
 #include <config-kpa-exiv2.h>
 #include <klocale.h>
 #include <qlayout.h>
-#include <Q3ValueList>
+ #include <QList>
 #include <kapplication.h>
 #include "Exif/Database.h"
 #include <ImageManager/VideoManager.h>
@@ -173,7 +173,7 @@ struct Data
 
 QString MainWindow::FeatureDialog::featureString()
 {
-    Q3ValueList<Data> features;
+     QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
@@ -186,7 +186,7 @@ QString MainWindow::FeatureDialog::featureString()
     QString result = QString::fromLatin1("<p><table>");
     const QString yes = i18n("Yes");
     const QString no =  QString::fromLatin1("<font color=\"red\">%1</font>").arg( i18n("No") );
-    for( Q3ValueList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
+     for( QList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
         result += QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" )
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }

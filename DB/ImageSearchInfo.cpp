@@ -19,7 +19,7 @@
 #include "ImageSearchInfo.h"
 #include <qregexp.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <kdebug.h>

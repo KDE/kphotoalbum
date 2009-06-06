@@ -19,7 +19,7 @@
 #define TOKENEDITOR_H
 
 #include <KDialog>
-#include <q3valuelist.h>
+ #include <QList>
 class QCheckBox;
 
 namespace MainWindow
@@ -41,7 +41,7 @@ protected:
     QStringList tokensInUse();
 
 private:
-    Q3ValueList<QCheckBox*> _cbs;
+     QList<QCheckBox*> _cbs;
 };
 
 }

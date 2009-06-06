@@ -24,7 +24,7 @@
 #include "Utilities/Util.h"
 #include "ThumbnailStorage.h"
 
-#include <Q3ValueList>  //Added by qt3to4
+ #include <QList>  //Added by qt3to4
 #include <qapplication.h>
 #include <qfileinfo.h>
 #include <qwaitcondition.h>
@@ -113,7 +113,7 @@ QImage ImageManager::ImageLoader::tryLoadThumbnail( ImageRequest* request, bool&
     if ( thumbTime != 0 && QFileInfo(request->fileName()).exists() ) {
         time_t fileTime = QFileInfo(request->fileName()).lastModified().toTime_t();
         ok = (thumbTime == fileTime);
-    }    
+    }
 
     return result;
 }
@@ -157,12 +157,12 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
 {
     int dim = calcLoadSize( request );
-    Q3ValueList<int> list;
+     QList<int> list;
     list << 128;
     if ( dim == 256 )
         list << 256;
 
-    for( Q3ValueList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
+     for( QList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString path = thumbnailKey( requestURL( request ), *it );
         if ( path.isNull() )
             continue;

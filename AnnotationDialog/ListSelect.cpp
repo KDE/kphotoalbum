@@ -22,7 +22,7 @@
 #include <qcheckbox.h>
 #include <qvalidator.h>
 #include <q3popupmenu.h>
-#include <Q3ValueList>
+ #include <QList>
 #include <QMouseEvent>
 #include <QEvent>
 #include <klocale.h>
@@ -432,7 +432,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
 
 void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
-    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
+     for( QList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )

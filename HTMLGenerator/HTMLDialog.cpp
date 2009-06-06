@@ -105,8 +105,8 @@ void HTMLDialog::createContentPage()
     int row=0;
     int col=0;
 
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
             if ( ++col % 2 == 0 )
                 ++row;

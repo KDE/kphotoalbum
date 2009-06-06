@@ -17,7 +17,7 @@
 */
 #include "CategoryCollection.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 
 using namespace DB;
 
@@ -36,8 +36,8 @@ void CategoryCollection::itemRemoved( const QString& item )
 */
 QString CategoryCollection::nameForText( const QString& text )
 {
-    Q3ValueList<CategoryPtr> list = categories();
-    for( Q3ValueList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
+     QList<CategoryPtr> list = categories();
+     for( QList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( (*it)->text() == text )
             return (*it)->name();
     }

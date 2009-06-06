@@ -23,7 +23,7 @@
 #include <QApplication>
 #include <QEventLoop>
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "ImageManager/Manager.h"
 #include <KFileDialog>
 #include <KStandardDirs>
@@ -78,7 +78,7 @@ void HTMLGenerator::Generator::generate()
     _filenameMapper.reset();
 
     // Itertate over each of the image sizes needed.
-    for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
+     for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
          sizeIt != _setup.activeResolutions().end(); ++sizeIt ) {
 
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
@@ -326,9 +326,9 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
-    const Q3ValueList<ImageSizeCheckBox*>& actRes = _setup.activeResolutions();
+     const QList<ImageSizeCheckBox*>& actRes = _setup.activeResolutions();
     if ( actRes.count() > 1 ) {
-        for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.begin();
+         for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
@@ -347,8 +347,8 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     // -------------------------------------------------- Description
     QString description;
 
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;
 
@@ -544,7 +544,7 @@ void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QS
 int HTMLGenerator::Generator::maxImageSize()
 {
     int res = 0;
-    for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
+     for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
          sizeIt != _setup.activeResolutions().end(); ++sizeIt ) {
         res = qMax( res, (*sizeIt)->width() );
     }

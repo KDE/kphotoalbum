@@ -18,7 +18,7 @@
 #include "Setup.h"
 #include "ImageSizeCheckBox.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "DB/ImageDB.h"
 
 HTMLGenerator::Setup::Setup()
@@ -137,12 +137,12 @@ bool HTMLGenerator::Setup::includeCategory( const QString& category ) const
     return _includeCategory[category];
 }
 
-void HTMLGenerator::Setup::setResolutions( const Q3ValueList<ImageSizeCheckBox*>& sizes )
+ void HTMLGenerator::Setup::setResolutions( const QList<ImageSizeCheckBox*>& sizes )
 {
     _resolutions = sizes;
 }
 
-const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::activeResolutions() const
+ const QList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::activeResolutions() const
 {
     return _resolutions;
 }

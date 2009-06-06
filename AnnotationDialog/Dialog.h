@@ -24,7 +24,7 @@
 #include <QResizeEvent>
 #include <QEvent>
 #include <QMoveEvent>
-#include <Q3ValueList>
+ #include <QList>
 #include <QCloseEvent>
 #include <Q3PtrList>
 #include "DB/ImageInfoList.h"
@@ -124,7 +124,7 @@ protected:
 
 private:
     DB::ImageInfoList _origList;
-    Q3ValueList<DB::ImageInfo> _editList;
+     QList<DB::ImageInfo> _editList;
     int _current;
     UsageMode _setup;
     Q3PtrList< ListSelect > _optionList;

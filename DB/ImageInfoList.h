@@ -17,7 +17,7 @@
 */
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
-#include <q3valuelist.h>
+ #include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 

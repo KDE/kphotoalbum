@@ -82,7 +82,7 @@ bool Browser::CategoryPage::populateBrowserWithHierachy( DB::CategoryItem* paren
 
     bool anyItems = imageCount != 0 || videoCount != 0;
 
-    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.constBegin();
+     for( QList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.constBegin();
          subCategoryIt != parentCategoryItem->_subcategories.constEnd(); ++subCategoryIt ) {
         anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, item.count() == 0 ? 0 : item[0] ) || anyItems;
     }

@@ -21,7 +21,7 @@
 #include <klocale.h>
 #include <qfileinfo.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ResultId.h"
@@ -171,7 +171,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
 
-    Q3ValueList<CategoryPtr> categories = origCategories->categories();
+     QList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
         progressBar->setMaximum(categories.count() + allImages.size());
@@ -181,7 +181,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     uint n = 0;
 
     // Convert the Category info
-    for( Q3ValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+     for( QList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
         newCategories->addCategory( (*it)->name(), (*it)->iconName(), (*it)->viewType(),
                                     (*it)->thumbnailSize(), (*it)->doShow() );
         newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );

@@ -22,7 +22,7 @@
 #include <QPixmap>
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include <Q3ValueList>
+ #include <QList>
 #include <klocale.h>
 #include <qcombobox.h>
 #include "Settings/SettingsData.h"
@@ -163,10 +163,10 @@ void CategoryImageConfig::show()
     QString currentCategory = _group->currentText();
     _group->clear();
     _categoryNames.clear();
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
-    for ( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+     for ( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
             _group->addItem( (*categoryIt)->text() );
             _categoryNames.push_back((*categoryIt)->name());

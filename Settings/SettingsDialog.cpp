@@ -26,7 +26,7 @@
 
 //Added by qt3to4:
 #include <QHBoxLayout>
-#include <Q3ValueList>
+ #include <QList>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <kcombobox.h>
@@ -159,8 +159,8 @@ void Settings::SettingsDialog::createGeneralPage()
     lay7->addWidget( _albumCategory );
     lay7->addStretch(1);
 
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->addItem( (*it)->text() );
     }
 
@@ -500,8 +500,8 @@ void Settings::SettingsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
             new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
         }
@@ -584,7 +584,7 @@ void Settings::SettingsDialog::slotMyOK()
     // Categories
 
     // Delete items
-    for( Q3ValueList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
+     for( QList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         (*it)->removeFromDatabase();
     }
 
@@ -931,8 +931,8 @@ void Settings::SettingsDialog::setButtonStates()
 void Settings::SettingsDialog::slotPageChange()
 {
     _category->clear();
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
             _category->addItem( (*it)->text() );
     }

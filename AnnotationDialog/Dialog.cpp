@@ -19,7 +19,7 @@
 #include "Dialog.h"
 
 #include <Q3CString>
-#include <Q3ValueList>
+ #include <QList>
 #include <QCloseEvent>
 #include <QDir>
 #include <QDockWidget>
@@ -107,8 +107,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     shortCutManager.addDock( dock, _description );
 
     // -------------------------------------------------- Categrories
-    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( (*categoryIt)->isSpecialCategory() )
             continue;
         ListSelect* sel = createListSel( *categoryIt );
@@ -716,14 +716,14 @@ AnnotationDialog::ListSelect* AnnotationDialog::Dialog::createListSel( const DB:
 
 void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& value )
 {
-    for( Q3ValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( QList<DB::ImageInfo>::Iterator it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).removeCategoryInfo( category->name(), value );
     }
 }
 
 void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const QString& oldValue, const QString& newValue )
 {
-    for( Q3ValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( QList<DB::ImageInfo>::Iterator it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
@@ -825,7 +825,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
         return;
 
     _origList.remove( info );
-    _editList.remove( _editList.at( _current ) );
+    _editList.removeAll( _editList.at( _current ) );
     _thumbnailShouldReload = true;
     MainWindow::DirtyIndicator::markDirty();
     if ( _origList.count() == 0 ) {

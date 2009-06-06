@@ -21,7 +21,7 @@
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 
 using namespace DB;
 
@@ -85,7 +85,7 @@ void OptionContainerMatcher::addElement( CategoryMatcher* element )
 
 bool OptionAndMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+     for( QList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if (!(*it)->eval(info, alreadyMatched))
             return false;
     }
@@ -96,7 +96,7 @@ bool OptionAndMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& already
 
 bool OptionOrMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+     for( QList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ((*it)->eval(info, alreadyMatched))
             return true;
     }
@@ -135,7 +135,7 @@ void OptionOrMatcher::debug( int level ) const
 
 void OptionContainerMatcher::debug( int level ) const
 {
-    for( Q3ValueList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+     for( QList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
         (*it)->debug( level );
     }
 }

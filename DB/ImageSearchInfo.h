@@ -22,7 +22,7 @@
 #include <qmap.h>
 #include <q3dict.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
 #include <config-kpa-exiv2.h>

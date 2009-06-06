@@ -18,7 +18,7 @@
 #include "ImageInfoList.h"
 #include <qmap.h>
 #include <qdatetime.h>
-#include <q3valuelist.h>
+ #include <QList>
 #include "ImageInfo.h"
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -28,15 +28,15 @@ using namespace DB;
 
 ImageInfoList ImageInfoList::sort() const
 {
-    QMap<QDateTime, Q3ValueList<ImageInfoPtr> > map;
+     QMap<QDateTime, QList<ImageInfoPtr> > map;
     for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         map[(*it)->date().start()].append( *it );
     }
 
     ImageInfoList res;
-    for( QMap<QDateTime, Q3ValueList<ImageInfoPtr> >::ConstIterator mapIt = map.constBegin(); mapIt != map.constEnd(); ++mapIt ) {
-        Q3ValueList<ImageInfoPtr> list = mapIt.value();
-        for( Q3ValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+     for( QMap<QDateTime, QList<ImageInfoPtr> >::ConstIterator mapIt = map.constBegin(); mapIt != map.constEnd(); ++mapIt ) {
+         QList<ImageInfoPtr> list = mapIt.value();
+         for( QList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );
         }
     }

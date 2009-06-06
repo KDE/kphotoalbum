@@ -18,7 +18,7 @@
 
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
-#include <q3valuelist.h>
+ #include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Utilities/Set.h"
 
@@ -75,7 +75,7 @@ public:
     ~OptionContainerMatcher();
     virtual void debug( int level ) const;
 
-    Q3ValueList<CategoryMatcher*> _elements;
+     QList<CategoryMatcher*> _elements;
 };
 
 class OptionAndMatcher :public OptionContainerMatcher

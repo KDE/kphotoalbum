@@ -31,7 +31,7 @@
 #include "Browser/BrowserWidget.h"
 #include "Plugins/ImageCollectionSelector.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )

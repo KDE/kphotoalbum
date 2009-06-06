@@ -20,7 +20,7 @@
 #include "List.h"
 #include "DB/RawId.h"
 #include <QTime>
-#include <Q3ValueList>
+ #include <QList>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
 #include <QStringList>
@@ -127,5 +127,4 @@ INSTANTIATE_TOVARIANTLIST(QList<int>);
 #ifndef DB_RAWID_IS_PLAIN_INTEGER
 INSTANTIATE_TOVARIANTLIST(QList<DB::RawId>);
 #endif
-INSTANTIATE_TOVARIANTLIST(Q3ValueList<int>);
 INSTANTIATE_TOVARIANTLIST(QStringList);

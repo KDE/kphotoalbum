@@ -22,7 +22,7 @@
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+ #include <QList>
 #include <QLabel>
 #include <Q3ListBoxItem>
 #include <config-kpa-kipi.h>
@@ -141,7 +141,7 @@ private:
     QComboBox* _preferredView;
     KPushButton* _delItem;
     CategoryItem* _current;
-    Q3ValueList<CategoryItem*> _deleted;
+     QList<CategoryItem*> _deleted;
 
     // Member Groups page
     QComboBox* _category;

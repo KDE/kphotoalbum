@@ -1,6 +1,6 @@
-#ifndef CATEGORYMODEL_H
-#define CATEGORYMODEL_H
-#include "BrowserAction.h"
+#ifndef CATEGORYPAGE_H
+#define CATEGORYPAGE_H
+#include "BrowserPage.h"
 #include <QStandardItemModel>
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
@@ -9,12 +9,12 @@ class BrowserWidget;
 
 namespace Browser {
 
-class CategoryModel :public BrowserAction
+class CategoryPage :public BrowserPage
 {
 public:
-    CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
+    CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
     OVERRIDE void activate();
-    OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
+    OVERRIDE BrowserPage* activateChild( const QModelIndex& );
     OVERRIDE DB::Category::ViewType viewType() const;
 
     const DB::CategoryPtr category() const;
@@ -35,5 +35,5 @@ private:
 
 }
 
-#endif /* CATEGORYMODEL_H */
+#endif /* CATEGORYPAGE_H */
 

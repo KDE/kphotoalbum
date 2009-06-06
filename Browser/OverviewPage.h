@@ -1,8 +1,8 @@
-#ifndef OVERVIEWMODEL_H
-#define OVERVIEWMODEL_H
+#ifndef OVERVIEWPAGE_H
+#define OVERVIEWPAGE_H
 #include "Breadcrumb.h"
 #include <AnnotationDialog/Dialog.h>
-#include "BrowserAction.h"
+#include "BrowserPage.h"
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
 #include <QAbstractListModel>
@@ -11,14 +11,14 @@
 namespace Browser {
 class BrowserWidget;
 
-class OverviewModel :public QAbstractListModel, public BrowserAction
+class OverviewPage :public QAbstractListModel, public BrowserPage
 {
 public:
-    OverviewModel( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, Browser::BrowserWidget* );
+    OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, Browser::BrowserWidget* );
     OVERRIDE int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
     OVERRIDE QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     OVERRIDE void activate();
-    OVERRIDE BrowserAction* generateChildAction( const QModelIndex& );
+    OVERRIDE BrowserPage* activateChild( const QModelIndex& );
     OVERRIDE Qt::ItemFlags flags ( const QModelIndex & index ) const;
     OVERRIDE bool isSearchable() const;
     OVERRIDE Breadcrumb breadcrumb() const;
@@ -38,8 +38,8 @@ private:
     QVariant searchInfo( int role ) const;
     QVariant imageInfo( int role ) const;
 
-    BrowserAction* createExivAction();
-    BrowserAction* createSearchAction();
+    BrowserPage* activateExivAction();
+    BrowserPage* activateSearchAction();
 
 private:
     QMap<int,DB::MediaCount> _count;
@@ -50,5 +50,5 @@ private:
 }
 
 
-#endif /* OVERVIEWMODEL_H */
+#endif /* OVERVIEWPAGE_H */
 

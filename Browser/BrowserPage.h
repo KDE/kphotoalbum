@@ -1,5 +1,5 @@
-#ifndef BROWSERMODEL_H
-#define BROWSERMODEL_H
+#ifndef BROWSERPAGE_H
+#define BROWSERPAGE_H
 #include "Breadcrumb.h"
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
@@ -13,18 +13,18 @@ enum Viewer { ShowBrowser, ShowImageViewer };
 
 /**
  */
-class BrowserAction
+class BrowserPage
 {
 public:
-    BrowserAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    virtual ~BrowserAction() {}
+     BrowserPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
+     virtual ~BrowserPage() {}
 
     /**
      * Activate the action. Result of activation may be to call \ref BrowserWidget::addAction.
      */
     virtual void activate() = 0;
 
-    virtual BrowserAction* generateChildAction( const QModelIndex &);
+    virtual BrowserPage* activateChild( const QModelIndex &);
     BrowserWidget* browser() const;
     virtual Viewer viewer();
     virtual DB::Category::ViewType viewType() const;
@@ -42,5 +42,5 @@ private:
 }
 
 
-#endif /* BROWSERMODEL_H */
+#endif /* BROWSERPAGE_H */
 

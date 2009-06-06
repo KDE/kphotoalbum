@@ -1,14 +1,14 @@
-#include "ImageViewAction.h"
+#include "ImageViewPage.h"
 #include <ThumbnailView/ThumbnailWidget.h>
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
 
-Browser::ImageViewAction::ImageViewAction( const DB::ImageSearchInfo& info, BrowserWidget* browser)
-    : BrowserAction( info, browser )
+ Browser::ImageViewPage::ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser)
+     : BrowserPage( info, browser )
 {
 }
 
-void Browser::ImageViewAction::activate()
+void Browser::ImageViewPage::activate()
 {
     MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo() ) );
 
@@ -18,17 +18,17 @@ void Browser::ImageViewAction::activate()
     }
 }
 
-Browser::Viewer Browser::ImageViewAction::viewer()
+Browser::Viewer Browser::ImageViewPage::viewer()
 {
     return Browser::ShowImageViewer;
 }
 
-bool Browser::ImageViewAction::isSearchable() const
+bool Browser::ImageViewPage::isSearchable() const
 {
     return false;
 }
 
-Browser::ImageViewAction::ImageViewAction( const QString& context, BrowserWidget* browser )
-    : BrowserAction(DB::ImageSearchInfo(), browser), _context( context )
+Browser::ImageViewPage::ImageViewPage( const QString& context, BrowserWidget* browser )
+    : BrowserPage(DB::ImageSearchInfo(), browser), _context( context )
 {
 }

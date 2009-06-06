@@ -35,7 +35,7 @@ namespace DB
 
 namespace Browser
 {
-class BrowserAction;
+class BrowserPage;
 
 class BrowserWidget :public QWidget {
     Q_OBJECT
@@ -50,7 +50,7 @@ public:
     DB::ImageSearchInfo currentContext();
     void setFocus();
     QString currentCategory() const;
-    void addAction( Browser::BrowserAction* );
+    void addAction( Browser::BrowserPage* );
 
     void setModel( QAbstractItemModel* );
 
@@ -94,7 +94,7 @@ private slots:
 
 private:
     void changeViewTypeForCurrentView( DB::Category::ViewType type );
-    Browser::BrowserAction* currentAction() const;
+    Browser::BrowserPage* currentAction() const;
     void switchToViewType( DB::Category::ViewType );
     void setBranchOpen( const QModelIndex& parent, bool open );
     Browser::BreadcrumbList createPath() const;
@@ -102,7 +102,7 @@ private:
 
 private:
     static BrowserWidget* _instance;
-    QList<BrowserAction*> _list;
+    QList<BrowserPage*> _list;
     int _current;
     QStackedWidget* _stack;
     QListView* _listView;

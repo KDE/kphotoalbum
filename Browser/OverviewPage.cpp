@@ -1,9 +1,9 @@
-#include "OverviewModel.h"
+#include "OverviewPage.h"
 #include "enums.h"
 #include <KMessageBox>
 #include <Exif/SearchDialog.h>
-#include "ImageViewAction.h"
-#include "CategoryModel.h"
+#include "ImageViewPage.h"
+#include "CategoryPage.h"
 #include "BrowserWidget.h"
 #include <MainWindow/Window.h>
 #include <QDebug>
@@ -12,21 +12,21 @@
 #include <kicon.h>
 #include <config-kpa-exiv2.h>
 
-AnnotationDialog::Dialog* Browser::OverviewModel::_config = 0;
-Browser::OverviewModel::OverviewModel( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserAction( info, browser), _breadcrumb( breadcrumb )
+AnnotationDialog::Dialog* Browser::OverviewPage::_config = 0;
+Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
+    : BrowserPage( info, browser), _breadcrumb( breadcrumb )
 {
     int row = 0;
     Q_FOREACH( const DB::CategoryPtr& category, categories() ) {
-        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserAction::searchInfo(), category->name(), DB::Image );
-        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserAction::searchInfo(), category->name(), DB::Video );
+        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
+        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
         DB::MediaCount count( images.count(), videos.count() );
         _count[row] = count;
         ++row;
     }
 }
 
-int Browser::OverviewModel::rowCount( const QModelIndex& parent ) const
+int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
 {
     if ( parent != QModelIndex() )
         return 0;
@@ -38,7 +38,7 @@ int Browser::OverviewModel::rowCount( const QModelIndex& parent ) const
         2; // Search info + Show Image
 }
 
-QVariant Browser::OverviewModel::data( const QModelIndex& index, int role) const
+QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
 {
     if ( role == ValueRole )
         return index.row();
@@ -55,12 +55,12 @@ QVariant Browser::OverviewModel::data( const QModelIndex& index, int role) const
     return QVariant();
 }
 
-bool Browser::OverviewModel::isCategoryIndex( int row ) const
+bool Browser::OverviewPage::isCategoryIndex( int row ) const
 {
     return row < categories().count();
 }
 
-bool Browser::OverviewModel::isExivIndex( int row ) const
+bool Browser::OverviewPage::isExivIndex( int row ) const
 {
 #ifdef HAVE_EXIV2
     return row == categories().count();
@@ -70,23 +70,23 @@ bool Browser::OverviewModel::isExivIndex( int row ) const
 #endif
 }
 
-bool Browser::OverviewModel::isSearchIndex( int row ) const
+bool Browser::OverviewPage::isSearchIndex( int row ) const
 {
     return rowCount()-2 == row;
 }
 
-bool Browser::OverviewModel::isImageIndex( int row ) const
+bool Browser::OverviewPage::isImageIndex( int row ) const
 {
     return rowCount()-1 == row;
 }
 
 
-QList<DB::CategoryPtr> Browser::OverviewModel::categories() const
+QList<DB::CategoryPtr> Browser::OverviewPage::categories() const
 {
     return DB::ImageDB::instance()->categoryCollection()->categories();
 }
 
-QVariant Browser::OverviewModel::categoryInfo( int row, int role ) const
+QVariant Browser::OverviewPage::categoryInfo( int row, int role ) const
 {
     if ( role == Qt::DisplayRole )
         return categories()[row]->text();
@@ -96,7 +96,7 @@ QVariant Browser::OverviewModel::categoryInfo( int row, int role ) const
     return QVariant();
 }
 
-QVariant Browser::OverviewModel::exivInfo( int role ) const
+QVariant Browser::OverviewPage::exivInfo( int role ) const
 {
     if ( role == Qt::DisplayRole )
         return i18n("Exif Info");
@@ -107,7 +107,7 @@ QVariant Browser::OverviewModel::exivInfo( int role ) const
     return QVariant();
 }
 
-QVariant Browser::OverviewModel::searchInfo( int role ) const
+QVariant Browser::OverviewPage::searchInfo( int role ) const
 {
     if ( role == Qt::DisplayRole )
         return i18n("Search");
@@ -116,7 +116,7 @@ QVariant Browser::OverviewModel::searchInfo( int role ) const
     return QVariant();
 }
 
-QVariant Browser::OverviewModel::imageInfo( int role ) const
+QVariant Browser::OverviewPage::imageInfo( int role ) const
 {
     if ( role == Qt::DisplayRole )
         return i18n("Show Thumbnails");
@@ -125,28 +125,28 @@ QVariant Browser::OverviewModel::imageInfo( int role ) const
     return QVariant();
 }
 
-Browser::BrowserAction* Browser::OverviewModel::generateChildAction( const QModelIndex& index )
+Browser::BrowserPage* Browser::OverviewPage::activateChild( const QModelIndex& index )
 {
     const int row = index.row();
 
     if ( isCategoryIndex(row) )
-        return new Browser::CategoryModel( categories()[row], BrowserAction::searchInfo(), browser() );
+        return new Browser::CategoryPage( categories()[row], BrowserPage::searchInfo(), browser() );
     else if ( isExivIndex( row ) )
-        return createExivAction();
+        return activateExivAction();
     else if ( isSearchIndex( row ) )
-        return createSearchAction();
+        return activateSearchAction();
     else if ( isImageIndex( row ) )
-        return new ImageViewAction( BrowserAction::searchInfo(), browser()  );
+        return new ImageViewPage( BrowserPage::searchInfo(), browser()  );
 
     return 0;
 }
 
-void Browser::OverviewModel::activate()
+void Browser::OverviewPage::activate()
 {
     browser()->setModel( this );
 }
 
-Qt::ItemFlags Browser::OverviewModel::flags( const QModelIndex & index ) const
+Qt::ItemFlags Browser::OverviewPage::flags( const QModelIndex & index ) const
 {
     if ( isCategoryIndex(index.row() ) && _count[index.row()].total() <= 1 )
         return QAbstractListModel::flags(index) & ~Qt::ItemIsEnabled;
@@ -154,12 +154,12 @@ Qt::ItemFlags Browser::OverviewModel::flags( const QModelIndex & index ) const
         return QAbstractListModel::flags(index);
 }
 
-bool Browser::OverviewModel::isSearchable() const
+bool Browser::OverviewPage::isSearchable() const
 {
     return false;
 }
 
-Browser::BrowserAction* Browser::OverviewModel::createExivAction()
+Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 {
 #ifdef HAVE_EXIV2
     Exif::SearchDialog dialog( browser() );
@@ -168,7 +168,7 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
 
     Exif::SearchInfo result = dialog.info();
 
-    DB::ImageSearchInfo info = BrowserAction::searchInfo();
+    DB::ImageSearchInfo info = BrowserPage::searchInfo();
 
     info.addExifSearchInfo( dialog.info() );
 
@@ -177,18 +177,18 @@ Browser::BrowserAction* Browser::OverviewModel::createExivAction()
         return 0;
     }
 
-    return new OverviewModel( Breadcrumb( i18n("EXIF Search")), info, browser() );
+    return new OverviewPage( Breadcrumb( i18n("EXIF Search")), info, browser() );
 #else
     return 0;
 #endif // HAVE_EXIV2
 }
 
-Browser::BrowserAction* Browser::OverviewModel::createSearchAction()
+Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
 {
     if ( !_config )
         _config = new AnnotationDialog::Dialog( browser() );
 
-    DB::ImageSearchInfo tmpInfo = BrowserAction::searchInfo();
+    DB::ImageSearchInfo tmpInfo = BrowserPage::searchInfo();
     DB::ImageSearchInfo info = _config->search( &tmpInfo ); // PENDING(blackie) why take the address?
 
     if ( info.isNull() )
@@ -199,16 +199,16 @@ Browser::BrowserAction* Browser::OverviewModel::createSearchAction()
         return 0;
     }
 
-    return new OverviewModel( Breadcrumb( i18n("search") ), info, browser() );
+    return new OverviewPage( Breadcrumb( i18n("search") ), info, browser() );
 
 }
 
-Browser::Breadcrumb Browser::OverviewModel::breadcrumb() const
+Browser::Breadcrumb Browser::OverviewPage::breadcrumb() const
 {
     return _breadcrumb;
 }
 
-bool Browser::OverviewModel::showDuringBack() const
+bool Browser::OverviewPage::showDuringBack() const
 {
     return true;
 }

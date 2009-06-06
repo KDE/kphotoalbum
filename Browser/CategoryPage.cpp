@@ -1,10 +1,10 @@
-#include "CategoryModel.h"
+#include "CategoryPage.h"
 #include <DB/MemberMap.h>
 #include <klocale.h>
 #include <DB/ImageDB.h>
 #include <QDebug>
 #include <Settings/SettingsData.h>
-#include "OverviewModel.h"
+#include "OverviewPage.h"
 #include "BrowserWidget.h"
 #include <DB/CategoryItem.h>
 #include <KIcon>
@@ -15,27 +15,27 @@ class CategoryItem :public QStandardItem
 
 };
 
-Browser::CategoryModel::CategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserAction( info, browser ), _category( category )
+Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
+     : BrowserPage( info, browser ), _category( category )
 {
 }
 
-void Browser::CategoryModel::activate()
+void Browser::CategoryPage::activate()
 {
     populateModel();
     browser()->setModel( &_model );
 }
 
-Browser::BrowserAction* Browser::CategoryModel::generateChildAction( const QModelIndex& index )
+Browser::BrowserPage* Browser::CategoryPage::activateChild( const QModelIndex& index )
 {
     const QString name = _model.data( index, ItemNameRole ).value<QString>();
     DB::ImageSearchInfo info = searchInfo();
 
     info.addAnd( _category->name(), name );
-    return new Browser::OverviewModel( Breadcrumb(name), info, browser() );
+    return new Browser::OverviewPage( Breadcrumb(name), info, browser() );
 }
 
-void Browser::CategoryModel::populateModel()
+void Browser::CategoryPage::populateModel()
 {
     _model.clear();
     _model.setHorizontalHeaderLabels( QStringList() << _category->text() << i18n("Images") << i18n("Videos") );
@@ -54,7 +54,7 @@ void Browser::CategoryModel::populateModel()
         populateBrowserWithoutHierachy(images,videos);
 }
 
-void Browser::CategoryModel::populateBrowserWithoutHierachy( const QMap<QString, uint>& images, const QMap<QString, uint>& videos)
+void Browser::CategoryPage::populateBrowserWithoutHierachy( const QMap<QString, uint>& images, const QMap<QString, uint>& videos)
 {
     QStringList items = _category->itemsInclCategories();
     items.sort();
@@ -69,7 +69,7 @@ void Browser::CategoryModel::populateBrowserWithoutHierachy( const QMap<QString,
     }
 }
 
-bool Browser::CategoryModel::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
+bool Browser::CategoryPage::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
                                                           const QMap<QString, uint>& videos, QStandardItem* parent )
 {
     const QString name = parentCategoryItem->_name;
@@ -99,17 +99,17 @@ bool Browser::CategoryModel::populateBrowserWithHierachy( DB::CategoryItem* pare
     return anyItems;
 }
 
-const DB::CategoryPtr Browser::CategoryModel::category() const
+const DB::CategoryPtr Browser::CategoryPage::category() const
 {
     return _category;
 }
 
-DB::Category::ViewType Browser::CategoryModel::viewType() const
+DB::Category::ViewType Browser::CategoryPage::viewType() const
 {
     return _category->viewType();
 }
 
-QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, int imageCount, int videoCount )
+QList<QStandardItem*> Browser::CategoryPage::createItem( const QString& name, int imageCount, int videoCount )
 {
     QList<QStandardItem*> res;
     QStandardItem* item = new QStandardItem( text(name) );
@@ -138,7 +138,7 @@ QList<QStandardItem*> Browser::CategoryModel::createItem( const QString& name, i
     return res;
 }
 
-QString Browser::CategoryModel::text( const QString& name )
+QString Browser::CategoryPage::text( const QString& name )
 {
     if ( name == DB::ImageDB::NONE() ) {
         if ( searchInfo().option(_category->name()).length() == 0 )
@@ -163,7 +163,7 @@ QString Browser::CategoryModel::text( const QString& name )
     }
 }
 
-QPixmap Browser::CategoryModel::icon( const QString& name )
+QPixmap Browser::CategoryPage::icon( const QString& name )
 {
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), name ) )

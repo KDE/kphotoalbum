@@ -20,12 +20,12 @@
 #include <QApplication>
 #include <DB/ImageDB.h>
 #include <QHeaderView>
-#include "ImageViewAction.h"
-#include "CategoryModel.h"
+#include "ImageViewPage.h"
+#include "CategoryPage.h"
 #include "TreeFilter.h"
 #include <QTreeView>
 #include <DB/ImageSearchInfo.h>
-#include "OverviewModel.h"
+#include "OverviewPage.h"
 #include "enums.h"
 
 #include <klocale.h>
@@ -58,7 +58,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
     _filterProxy->setSortRole( ValueRole );
 
-    addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewPage( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     QTimer::singleShot( 0, this, SLOT( emitSignals() ) );
 }
 
@@ -91,18 +91,18 @@ void Browser::BrowserWidget::go()
 
 void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
 {
-    addAction( new OverviewModel( Breadcrumb::empty(), info, this ) );
+    addAction( new OverviewPage( Breadcrumb::empty(), info, this ) );
 }
 
 void Browser::BrowserWidget::addImageView( const QString& context )
 {
-    addAction( new ImageViewAction( context, this ) );
+    addAction( new ImageViewPage( context, this ) );
 }
 
-void Browser::BrowserWidget::addAction( Browser::BrowserAction* action )
+void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
 {
     while ( (int) _list.count() > _current ) {
-        BrowserAction* m = _list.back();
+        BrowserPage* m = _list.back();
         _list.pop_back();
         delete m;
     }
@@ -122,7 +122,7 @@ void Browser::BrowserWidget::emitSignals()
     emit isSearchable( currentAction()->isSearchable() );
     emit isViewChangeable( currentAction()->isViewChangeable() );
 
-    bool isCategoryAction = (dynamic_cast<CategoryModel*>( currentAction() ) != 0);
+    bool isCategoryAction = (dynamic_cast<CategoryPage*>( currentAction() ) != 0);
 
     if ( isCategoryAction ) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory() );
@@ -146,7 +146,7 @@ void Browser::BrowserWidget::emitSignals()
 
 void Browser::BrowserWidget::home()
 {
-    addAction( new OverviewModel( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
+    addAction( new OverviewPage( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
 }
 
 void Browser::BrowserWidget::reload()
@@ -170,9 +170,9 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
-        addAction( new ImageViewAction( info, this ) );
+        addAction( new ImageViewPage( info, this ) );
     else
-        addAction( new OverviewModel( Breadcrumb(value, true) , info, this ) );
+        addAction( new OverviewPage( Breadcrumb(value, true) , info, this ) );
 
     go();
     topLevelWidget()->raise();
@@ -223,7 +223,7 @@ void Browser::BrowserWidget::setFocus()
 
 QString Browser::BrowserWidget::currentCategory() const
 {
-    if ( CategoryModel* action = dynamic_cast<CategoryModel*>( currentAction() ) )
+    if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) )
         return action->category()->name();
     else
         return QString();
@@ -254,13 +254,13 @@ void Browser::BrowserWidget::slotInvokeSeleted()
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor dummy;
-    BrowserAction* action = currentAction()->generateChildAction( _filterProxy->mapToSource( index ) );
+    BrowserPage* action = currentAction()->activateChild( _filterProxy->mapToSource( index ) );
     if ( action )
         addAction( action );
 }
 
 
-Browser::BrowserAction* Browser::BrowserWidget::currentAction() const
+Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 {
     return _list[_current-1];
 }

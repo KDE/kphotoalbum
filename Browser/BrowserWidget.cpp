@@ -295,11 +295,12 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
         _curView =_listView;
         _filterProxy->invalidate();
         _filterProxy->sort( 0, Qt::AscendingOrder );
-        if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
-            const int size = action->category()->thumbnailSize();
-            _listView->setIconSize( QSize(size,size) );
-            _listView->setGridSize( QSize( size+10, size+10 ) );
-        }
+    }
+
+    if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
+        const int size = action->category()->thumbnailSize();
+        _curView->setIconSize( QSize(size,size) );
+//        _curView->setGridSize( QSize( size+10, size+10 ) );
     }
 
 
@@ -374,6 +375,7 @@ void Browser::BrowserWidget::createWidgets()
     _stack->addWidget( _treeView );
 
     _treeView->installEventFilter( this );
+    _treeView->viewport()->installEventFilter( this );
     _listView->installEventFilter( this );
     _listView->viewport()->installEventFilter( this );
 
@@ -413,19 +415,28 @@ void Browser::BrowserWidget::scrollKeyPressed( QKeyEvent* event )
 
 void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
 {
+    static int offset;
+
+    CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() );
+    DB::CategoryPtr category = action->category();
+
+    if ( !action )
+        return;
+
     if ( event->type() ==  QEvent::MouseButtonPress ) {
         _resizePressPos = event->pos();
+        offset = category->thumbnailSize();
     }
 
     else if ( event->type() == QEvent::MouseMove  ) {
-        int distance = (event->pos() - _resizePressPos).manhattanLength();
-        if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
-            action->category()->setThumbnailSize( distance );
-            // _listView->setGridSize( QSize(distance, distance) );
-            _listView->setIconSize( QSize(distance,distance) );
-            _filterProxy->invalidate();
-        }
-
+        int distance = (event->pos() - _resizePressPos).x() + (event->pos() - _resizePressPos).y();
+        int size = distance + offset;
+        size = qMax( qMin( 256, size ), 16 );
+        action->category()->setThumbnailSize( size );
+        // _listView->setGridSize( QSize(size,size) );
+        _curView->setIconSize( QSize(size,size) );
+        _filterProxy->invalidate();
+        adjustTreeViewColumnSize();
     }
 
     else if ( event->type() == QEvent::MouseButtonRelease ) {

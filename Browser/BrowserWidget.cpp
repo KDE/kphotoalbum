@@ -299,7 +299,6 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
             const int size = action->category()->thumbnailSize();
             _listView->setIconSize( QSize(size,size) );
             _listView->setGridSize( QSize( size+10, size+10 ) );
-            qDebug("=======================================");
         }
     }
 

@@ -156,7 +156,7 @@ Qt::ItemFlags Browser::OverviewPage::flags( const QModelIndex & index ) const
 
 bool Browser::OverviewPage::isSearchable() const
 {
-    return false;
+    return true;
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateExivAction()

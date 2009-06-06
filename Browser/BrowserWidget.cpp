@@ -246,7 +246,17 @@ void Browser::BrowserWidget::resetIconViewSearch()
 
 void Browser::BrowserWidget::slotInvokeSeleted()
 {
-    if ( _curView->currentIndex().isValid() )
+    if ( !_curView->currentIndex().isValid() ) {
+        if ( _filterProxy->rowCount( QModelIndex() ) == 0 ) {
+            // Absolutely nothing to see here :-)
+            return;
+        }
+        else {
+            // Use the first item
+            itemClicked( _filterProxy->index( 0,0,QModelIndex() ) );
+        }
+    }
+    else
         itemClicked( _curView->currentIndex() );
 }
 

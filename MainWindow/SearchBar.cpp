@@ -53,7 +53,9 @@ bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
              ke->key() == Qt::Key_Left ||
              ke->key() == Qt::Key_Right ||
              ke->key() == Qt::Key_PageDown ||
-             ke->key() == Qt::Key_PageUp ) {
+             ke->key() == Qt::Key_PageUp ||
+             ke->key() == Qt::Key_Home ||
+             ke->key() == Qt::Key_End ) {
             emit keyPressed( ke );
             return true;
         }

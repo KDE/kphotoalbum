@@ -8,10 +8,11 @@ namespace Browser
 {
 
 /**
- * \brief
+ * \brief Base class for Category models
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  *
+ * This class implements what is common for \ref FlatCategoryModel and \ref TreeCategoryModel.
  */
 class AbstractCategoryModel :public QAbstractItemModel
 {

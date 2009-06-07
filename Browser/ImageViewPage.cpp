@@ -32,3 +32,8 @@ Browser::ImageViewPage::ImageViewPage( const QString& context, BrowserWidget* br
     : BrowserPage(DB::ImageSearchInfo(), browser), _context( context )
 {
 }
+
+bool Browser::ImageViewPage::showDuringMovement() const
+{
+    return true;
+}

@@ -18,6 +18,7 @@ public:
     OVERRIDE void activate();
     OVERRIDE Viewer viewer();
     OVERRIDE bool isSearchable() const;
+    OVERRIDE bool showDuringMovement() const;
 
 
 private:

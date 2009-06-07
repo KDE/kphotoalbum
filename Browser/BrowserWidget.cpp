@@ -43,7 +43,7 @@
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
 Browser::BrowserWidget::BrowserWidget( QWidget* parent )
-    :QWidget( parent ), _current(0)
+    :QWidget( parent ), _current(-1)
 {
     Q_ASSERT( !_instance );
     _instance = this;
@@ -64,18 +64,23 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
 void Browser::BrowserWidget::forward()
 {
-    _current++;
+    int cur = _current;
+    while ( cur < _list.count()-1 ) {
+        cur++;
+        if ( _list[cur]->showDuringMovement() ) {
+            _current = cur;
+            break;
+        }
+    }
     go();
 }
 
 void Browser::BrowserWidget::back()
 {
-    _current--;
     while ( _current > 0 ) {
-        if ( currentAction()->showDuringBack() )
+        _current--;
+        if ( currentAction()->showDuringMovement() )
             break;
-        else
-            _current--;
     }
     go();
 }
@@ -101,7 +106,7 @@ void Browser::BrowserWidget::addImageView( const QString& context )
 
 void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
 {
-    while ( (int) _list.count() > _current ) {
+    while ( (int) _list.count() > _current+1 ) {
         BrowserPage* m = _list.back();
         _list.pop_back();
         delete m;
@@ -114,8 +119,8 @@ void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
 
 void Browser::BrowserWidget::emitSignals()
 {
-    emit canGoBack( _current > 1 );
-    emit canGoForward( _current < (int)_list.count() );
+    emit canGoBack( _current > 0 );
+    emit canGoForward( _current < (int)_list.count()-1 );
     if ( currentAction()->viewer() == ShowBrowser )
         emit showingOverview();
 
@@ -272,7 +277,7 @@ void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 
 Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 {
-    return _list[_current-1];
+    return _list[_current];
 }
 
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
@@ -331,7 +336,7 @@ Browser::BreadcrumbList Browser::BrowserWidget::createPath() const
 {
     BreadcrumbList result;
 
-    for ( int i = 0; i < _current; ++i )
+    for ( int i = 0; i <= _current; ++i )
         result.append(_list[i]->breadcrumb() );
 
     return result;

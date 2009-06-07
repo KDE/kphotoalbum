@@ -15,6 +15,13 @@ class BrowserWidget;
  * \brief The overview page in the browser (the one containing People, Places, Show Images etc)
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
+ *
+ * The OverviewPage implements two interfaces \ref BrowserPage (with
+ * information about the page itself) and QAbstractListModel (the model
+ * set on the view in the Browser).
+ *
+ * Combining both in the same class was done mostly for convenience, the
+ * two interfaces was to a large extend referring to the same data.
  */
 class OverviewPage :public QAbstractListModel, public BrowserPage
 {
@@ -27,7 +34,7 @@ public:
     OVERRIDE Qt::ItemFlags flags ( const QModelIndex & index ) const;
     OVERRIDE bool isSearchable() const;
     OVERRIDE Breadcrumb breadcrumb() const;
-    OVERRIDE bool showDuringBack() const;
+    OVERRIDE bool showDuringMovement() const;
 
 
 private:

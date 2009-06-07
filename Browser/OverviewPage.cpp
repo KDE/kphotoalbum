@@ -208,7 +208,7 @@ Browser::Breadcrumb Browser::OverviewPage::breadcrumb() const
     return _breadcrumb;
 }
 
-bool Browser::OverviewPage::showDuringBack() const
+bool Browser::OverviewPage::showDuringMovement() const
 {
     return true;
 }

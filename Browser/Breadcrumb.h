@@ -7,9 +7,16 @@ namespace Browser
 {
 
 /**
- * \brief
+ * \brief Information about a single breadcrumb
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
+ *
+ * This is basically a simple class to make the code for handling
+ * breadcrumbs simpler. It encodes the following two informations about a
+ * breadcrumb:
+ * \li Is this a first breadcrumb (the result of going home e.g.)
+ * \li which text should be shown for this breadcrumb.
+ *
  */
 class Breadcrumb
 {

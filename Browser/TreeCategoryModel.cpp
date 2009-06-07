@@ -48,7 +48,15 @@ QModelIndex Browser::TreeCategoryModel::index( int row, int column, const QModel
     if ( indexToData(parent)->children.count() < row )
         return QModelIndex();
 
-    return createIndex( row, column, indexToData(parent)->children[row] );
+    const Data* data = indexToData(parent);
+    QList<Data*> children = data->children;
+    int size = children.count();
+    if (  row >= size ) {
+        // This ought not to happen, but I actually seen it happen, view or proxy model being buggy I guess.
+        return QModelIndex();
+    }
+    else
+        return createIndex( row, column, indexToData(parent)->children[row] );
 }
 
 QModelIndex Browser::TreeCategoryModel::parent( const QModelIndex & index ) const

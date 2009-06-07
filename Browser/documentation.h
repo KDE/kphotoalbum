@@ -13,7 +13,7 @@
   <h2>The BrowserPage class and its subclasses</h2>
 
   The \ref BrowserPage is responsible for providing an instance of
-  QAbstractItemModel for the \ref BrowserWidgets's QTreeView and
+  QAbstractItemModel for the \ref BrowserWidget's QTreeView and
   QListView. Besides that it has a number of methods telling properties of
   the given page ( e.g. BrowserPage::viewer() tells if the Browser or the
   Viewer should be used, BrowserPage::isSearchable tells if it possible to

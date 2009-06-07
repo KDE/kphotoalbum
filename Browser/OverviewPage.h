@@ -11,6 +11,11 @@
 namespace Browser {
 class BrowserWidget;
 
+/**
+ * \brief The overview page in the browser (the one containing People, Places, Show Images etc)
+ *
+ * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
+ */
 class OverviewPage :public QAbstractListModel, public BrowserPage
 {
 public:

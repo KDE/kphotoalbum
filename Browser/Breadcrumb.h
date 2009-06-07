@@ -6,6 +6,11 @@
 namespace Browser
 {
 
+/**
+ * \brief
+ *
+ * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
+ */
 class Breadcrumb
 {
 public:

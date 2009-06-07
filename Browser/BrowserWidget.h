@@ -37,6 +37,11 @@ namespace Browser
 {
 class BrowserPage;
 
+/**
+ * \brief The widget that makes up the Browser, and the interface to the other modules in KPhotoAlbum.
+ *
+ * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
+ */
 class BrowserWidget :public QWidget {
     Q_OBJECT
     friend class ImageFolderAction;

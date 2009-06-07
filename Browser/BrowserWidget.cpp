@@ -432,7 +432,7 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
         int size = distance + offset;
         size = qMax( qMin( 256, size ), 32 );
         action->category()->setThumbnailSize( size );
-        // _listView->setGridSize( QSize(size,size) );
+
         _curView->setIconSize( QSize(size,size) );
         _filterProxy->invalidate();
         adjustTreeViewColumnSize();

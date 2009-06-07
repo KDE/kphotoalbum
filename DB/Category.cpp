@@ -162,10 +162,10 @@ QString DB::Category::defaultIconName() const
     return QString();
 }
 
-QPixmap DB::Category::categoryImage( const QString& category, QString member, int size ) const
+QPixmap DB::Category::categoryImage( const QString& category, QString member, int width, int height ) const
 {
     QString fileName = fileForCategoryImage( category, member );
-    QString key = QString::fromLatin1( "%1-%2" ).arg(size).arg(fileName);
+    QString key = QString::fromLatin1( "%1-%2" ).arg(width).arg(fileName);
     QPixmap res;
     if ( QPixmapCache::find( key, res ) )
         return res;
@@ -174,11 +174,11 @@ QPixmap DB::Category::categoryImage( const QString& category, QString member, in
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( QString::fromLatin1( "kuser" ), KIconLoader::Desktop, size ).toImage();
+            img = KIconLoader::global()->loadIcon( QString::fromLatin1( "kuser" ), KIconLoader::Desktop, qMax(width,height) ).toImage();
         else
-            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
+            img = icon( qMax(width,height) ).toImage();
     }
-    res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
+    res = QPixmap::fromImage( Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio) );
 
     QPixmapCache::insert( key, res );
     return res;

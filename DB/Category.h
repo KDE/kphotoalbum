@@ -70,7 +70,7 @@ public:
     virtual QStringList itemsInclCategories() const;
     KSharedPtr<CategoryItem> itemsCategories() const;
 
-    QPixmap categoryImage( const QString& category, QString, int size ) const;
+    QPixmap categoryImage( const QString& category, QString, int width, int height ) const;
     void setCategoryImage( const QString& category, QString, const QImage& image );
     QString fileForCategoryImage ( const QString& category, QString member ) const;
 

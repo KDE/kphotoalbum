@@ -121,7 +121,7 @@ void CategoryImageConfig::memberChanged()
         return;
     QPixmap pix =
         DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
-        categoryImage(categoryName, _member->currentText(), 128);
+        categoryImage(categoryName, _member->currentText(), 128, 128);
     _current->setPixmap( pix );
 }
 

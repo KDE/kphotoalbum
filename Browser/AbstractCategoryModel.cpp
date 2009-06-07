@@ -72,7 +72,9 @@ QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
         }
     }
     else {
-        return _category->categoryImage( _category->name(), name, _category->thumbnailSize() );
+        // The category images are screenshot from the size of the viewer (Which might very well be considered a bug)
+        // This is the reason for asking for the thumbnail height being 3/4 of its width.
+        return _category->categoryImage( _category->name(), name, _category->thumbnailSize(), _category->thumbnailSize() * 3.0 / 4.0 );
     }
 }
 

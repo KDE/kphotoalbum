@@ -57,7 +57,7 @@ DB::Category::ViewType Browser::BrowserPage::viewType() const
 }
 
 /**
- * \return the \ref ImageSearchInfo this item was constructed with.
+ * \return the \ref DB::ImageSearchInfo this item was constructed with.
  */
 DB::ImageSearchInfo Browser::BrowserPage::searchInfo() const
 {

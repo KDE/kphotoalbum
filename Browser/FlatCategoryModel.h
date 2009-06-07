@@ -9,7 +9,7 @@ namespace Browser
 {
 
 /**
- * \brief
+ * \brief Implements a flat model for categories - ie. a model where all catergories, including subcategories, are shown.
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  */

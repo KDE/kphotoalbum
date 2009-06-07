@@ -44,7 +44,7 @@ bool Browser::BrowserPage::isSearchable() const
  */
 bool Browser::BrowserPage::isViewChangeable() const
 {
-    return isSearchable();
+    return false;
 }
 
 /**

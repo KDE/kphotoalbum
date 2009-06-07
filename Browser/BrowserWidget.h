@@ -85,9 +85,6 @@ signals:
     void viewChanged();
     void imageCount(uint);
 
-    // bool is true if we have "chosen" some category (ie. when it's safe to change "view as list/ view as icons" stuff)
-    void browsingInSomeCategory( bool );
-
 protected:
     OVERRIDE bool eventFilter( QObject*, QEvent* );
 

@@ -52,3 +52,8 @@ DB::Category::ViewType Browser::CategoryPage::viewType() const
     return _category->viewType();
 }
 
+bool Browser::CategoryPage::isViewChangeable() const
+{
+    return true;
+}
+

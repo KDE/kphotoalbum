@@ -805,36 +805,36 @@ void MainWindow::Window::setupMenuBar()
 
     _viewMenu = actionCollection()->add<KActionMenu>( QString::fromLatin1("configureView") );
     _viewMenu->setText( i18n("Configure Current View") );
-    _viewMenu->setEnabled(false);
 
     _viewMenu->setIcon( KIcon( QString::fromLatin1( "view-list-details" ) ) );
     _viewMenu->setDelayed( false );
-    connect( _browser, SIGNAL( isViewChangeable( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
 
     QActionGroup* viewGrp = new QActionGroup( this );
     viewGrp->setExclusive( true );
 
     _smallListView = actionCollection()->add<KToggleAction>( QString::fromLatin1("smallListView"), _browser, SLOT( slotSmallListView() ) );
-    _smallListView->setText( i18n("List View") );
+    _smallListView->setText( i18n("Tree") );
     _viewMenu->addAction( _smallListView );
     _smallListView->setActionGroup( viewGrp );
 
     _largeListView = actionCollection()->add<KToggleAction>( QString::fromLatin1("largelistview"), _browser, SLOT( slotLargeListView() ) );
-    _largeListView->setText( i18n("List View with Custom Icons") );
+    _largeListView->setText( i18n("Tree with User Icons") );
     _viewMenu->addAction( _largeListView );
     _largeListView->setActionGroup( viewGrp );
 
+#if 0 // I see no reason for this one.
     _smallIconView = actionCollection()->add<KToggleAction>( QString::fromLatin1("smalliconview"),  _browser, SLOT( slotSmallIconView() ) );
-    _smallIconView->setText( i18n("Icon View") );
+    _smallIconView->setText( i18n("Icons") );
     _viewMenu->addAction( _smallIconView );
     _smallIconView->setActionGroup( viewGrp );
+#endif
 
     _largeIconView = actionCollection()->add<KToggleAction>(  QString::fromLatin1("largeiconview"), _browser, SLOT( slotLargeIconView() ) );
-    _largeIconView->setText( i18n("Icon View with Custom Icons") );
+    _largeIconView->setText( i18n("Icons") );
     _viewMenu->addAction( _largeIconView );
     _largeIconView->setActionGroup( viewGrp );
 
-    connect( _browser, SIGNAL( browsingInSomeCategory( bool ) ), viewGrp, SLOT( setEnabled( bool ) ) );
+    connect( _browser, SIGNAL( isViewChangeable( bool ) ), viewGrp, SLOT( setEnabled( bool ) ) );
 
     connect( _browser, SIGNAL( currentViewTypeChanged( DB::Category::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );

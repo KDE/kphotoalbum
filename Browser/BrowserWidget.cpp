@@ -139,14 +139,6 @@ void Browser::BrowserWidget::emitSignals()
     emit pathChanged( createPath() );
     emit viewChanged();
     emit imageCount( DB::ImageDB::instance()->count(currentAction()->searchInfo()).total() );
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    bool showingCategory = dynamic_cast<TypeFolderAction*>( a );
-    emit browsingInSomeCategory( showingCategory );
-    _listView->setRootIsDecorated( showingCategory );
-#else // KDAB_TEMPORARILY_REMOVED
-    qWarning("Code commented out in Browser::BrowserWidget::emitSignals");
-#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 void Browser::BrowserWidget::home()
@@ -422,6 +414,9 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
     static int offset;
 
     CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() );
+    if ( !action )
+        return;
+
     DB::CategoryPtr category = action->category();
 
     if ( !action )
@@ -435,7 +430,7 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
     else if ( event->type() == QEvent::MouseMove  ) {
         int distance = (event->pos() - _resizePressPos).x() + (event->pos() - _resizePressPos).y();
         int size = distance + offset;
-        size = qMax( qMin( 256, size ), 16 );
+        size = qMax( qMin( 256, size ), 32 );
         action->category()->setThumbnailSize( size );
         // _listView->setGridSize( QSize(size,size) );
         _curView->setIconSize( QSize(size,size) );

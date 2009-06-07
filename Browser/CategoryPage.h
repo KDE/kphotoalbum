@@ -23,6 +23,7 @@ public:
     OVERRIDE void activate();
     OVERRIDE BrowserPage* activateChild( const QModelIndex& );
     OVERRIDE DB::Category::ViewType viewType() const;
+    OVERRIDE bool isViewChangeable() const;
 
     DB::CategoryPtr category() const;
 

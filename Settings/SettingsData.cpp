@@ -306,66 +306,6 @@ QString SettingsData::albumCategory() const
     return category;
 }
 
-// PENDING(blackie) move this function to Category
-QString SettingsData::fileForCategoryImage( const QString& category, QString member ) const
-{
-    QString dir = imageDirectory() + STR("CategoryImages" );
-    member.replace( QChar::fromLatin1(' '), QChar::fromLatin1('_') );
-    member.replace( QChar::fromLatin1('/'), QChar::fromLatin1('_') );
-    QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
-    return fileName;
-}
-
-// PENDING(blackie) moved this function to Category
-QPixmap SettingsData::categoryImage( const QString& category, QString member, int size ) const
-{
-    QString fileName = fileForCategoryImage( category, member );
-    QString key = STR( "%1-%2" ).arg(size).arg(fileName);
-    QPixmap res;
-    if ( QPixmapCache::find( key, res ) )
-        return res;
-
-    QImage img;
-    bool ok = img.load( fileName, "JPEG" );
-    if ( ! ok ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIconLoader::Desktop, size ).toImage();
-        else
-            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
-    }
-    res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
-
-    QPixmapCache::insert( key, res );
-    return res;
-}
-
-// PENDING(blackie) move this function to Category
-void SettingsData::setCategoryImage( const QString& category, QString member, const QImage& image )
-{
-    QString dir = imageDirectory() + STR("CategoryImages" );
-    QFileInfo fi( dir );
-    bool ok;
-    if ( !fi.exists() ) {
-        bool ok = QDir().mkdir( dir );
-        if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1'.", dir ), i18n("Unable to Create Directory") );
-            return;
-        }
-    }
-    QString fileName = fileForCategoryImage( category, member );
-    ok = image.save( fileName, "JPEG" );
-    if ( !ok ) {
-        KMessageBox::error( 0, i18n("Error when saving image '%1'.",fileName), i18n("Error Saving Image") );
-        return;
-    }
-
-    // PENDING(blackie) HACK ALERT: Remove all images rather than just these resolutions.
-    QString key = STR( "64-%2" ).arg(fileName);
-    QPixmapCache::remove( key );
-
-    key = STR( "128-%2" ).arg(fileName);
-    QPixmapCache::remove( key );
-}
 
 //////////////
 //// Exif ////

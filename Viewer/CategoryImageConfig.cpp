@@ -120,7 +120,7 @@ void CategoryImageConfig::memberChanged()
     if (categoryName.isNull())
         return;
     QPixmap pix =
-        Settings::SettingsData::instance()->
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
         categoryImage(categoryName, _member->currentText(), 128);
     _current->setPixmap( pix );
 }
@@ -130,7 +130,7 @@ void CategoryImageConfig::slotSet()
     QString categoryName = currentGroup();
     if (categoryName.isNull())
         return;
-    Settings::SettingsData::instance()->
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
         setCategoryImage(categoryName, _member->currentText(), _image);
     memberChanged();
 }

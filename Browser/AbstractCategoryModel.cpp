@@ -72,7 +72,7 @@ QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
         }
     }
     else {
-        return Settings::SettingsData::instance()->categoryImage( _category->name(), name, _category->thumbnailSize() );
+        return _category->categoryImage( _category->name(), name, _category->thumbnailSize() );
     }
 }
 

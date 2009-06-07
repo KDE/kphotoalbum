@@ -38,7 +38,7 @@ protected:
 
 public:
     QString _name;
-     QList< CategoryItem* > _subcategories;
+    QList< CategoryItem* > _subcategories;
     bool _isTop;
 };
 

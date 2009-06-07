@@ -145,11 +145,6 @@ public:
 
     property_ref( albumCategory, setAlbumCategory , QString);
 
-    QString fileForCategoryImage ( const QString& category, QString member ) const;
-
-    QPixmap categoryImage( const QString& category, QString, int size ) const;
-    void setCategoryImage( const QString& category, QString, const QImage& image );
-
     //////////////
     //// Exif ////
     //////////////

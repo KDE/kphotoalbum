@@ -23,9 +23,12 @@ Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, 
     }
 }
 
-int Browser::FlatCategoryModel::rowCount( const QModelIndex& ) const
+int Browser::FlatCategoryModel::rowCount( const QModelIndex& index ) const
 {
-    return _items.count();
+    if ( !index.isValid() )
+        return _items.count();
+    else
+        return 0;
 }
 
 int Browser::FlatCategoryModel::columnCount( const QModelIndex& ) const
@@ -33,7 +36,7 @@ int Browser::FlatCategoryModel::columnCount( const QModelIndex& ) const
     return 1;
 }
 
-OVERRIDE QModelIndex Browser::FlatCategoryModel::index( int row, int column, const QModelIndex& ) const
+QModelIndex Browser::FlatCategoryModel::index( int row, int column, const QModelIndex& ) const
 {
     return createIndex( row, column );
 }

@@ -289,7 +289,6 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
         _curView = _treeView;
-        adjustTreeViewColumnSize();
     }
     else {
         _curView =_listView;
@@ -310,7 +309,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
 
     _stack->setCurrentWidget( _curView );
-
+    adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )

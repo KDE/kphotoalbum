@@ -5,6 +5,7 @@
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 
+class FlatCategoryModel;
 class BrowserWidget;
 
 namespace Browser {
@@ -20,17 +21,8 @@ public:
     DB::CategoryPtr category() const;
 
 private:
-    void populateModel();
-    void populateBrowserWithoutHierachy( const QMap<QString, uint>& images, const QMap<QString, uint>& videos);
-    bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
-                                      const QMap<QString, uint>& videos, QStandardItem* parent );
-    QList<QStandardItem*> createItem( const QString& name, int imageCount, int videoCount );
-    QString text( const QString& name );
-    QPixmap icon( const QString& name );
-
-private:
     const DB::CategoryPtr _category;
-    QStandardItemModel _model;
+    QAbstractItemModel* _model;
 };
 
 }

@@ -4,7 +4,7 @@
 #include <DB/MemberMap.h>
 #include <KIcon>
 
-FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
+Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
     : AbstractCategoryModel( category, info )
 {
     if ( hasNoneEntry() )
@@ -23,27 +23,27 @@ FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, const DB:
     }
 }
 
-int FlatCategoryModel::rowCount( const QModelIndex& ) const
+int Browser::FlatCategoryModel::rowCount( const QModelIndex& ) const
 {
     return _items.count();
 }
 
-int FlatCategoryModel::columnCount( const QModelIndex& ) const
+int Browser::FlatCategoryModel::columnCount( const QModelIndex& ) const
 {
     return 1;
 }
 
-OVERRIDE QModelIndex FlatCategoryModel::index( int row, int column, const QModelIndex& ) const
+OVERRIDE QModelIndex Browser::FlatCategoryModel::index( int row, int column, const QModelIndex& ) const
 {
     return createIndex( row, column );
 }
 
-QModelIndex FlatCategoryModel::parent( const QModelIndex&  ) const
+QModelIndex Browser::FlatCategoryModel::parent( const QModelIndex&  ) const
 {
     return QModelIndex();
 }
 
-QString FlatCategoryModel::indexToName(const QModelIndex& index ) const
+QString Browser::FlatCategoryModel::indexToName(const QModelIndex& index ) const
 {
     return _items[index.row()];
 }

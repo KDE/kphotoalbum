@@ -4,6 +4,9 @@
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
 
+namespace Browser
+{
+
 class AbstractCategoryModel :public QAbstractItemModel
 {
 public:
@@ -25,6 +28,8 @@ protected:
     QMap<QString, uint> _videos;
 
 };
+
+}
 
 
 #endif /* ABSTRACTCATEGORYMODEL_H */

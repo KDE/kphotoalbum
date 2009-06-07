@@ -5,21 +5,21 @@
 #include <KIcon>
 #include "enums.h"
 
-AbstractCategoryModel::AbstractCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
+Browser::AbstractCategoryModel::AbstractCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
     : _category( category ), _info( info )
 {
     _images = DB::ImageDB::instance()->classify( info, _category->name(), DB::Image );
     _videos = DB::ImageDB::instance()->classify( info, _category->name(), DB::Video );
 }
 
-bool AbstractCategoryModel::hasNoneEntry() const
+bool Browser::AbstractCategoryModel::hasNoneEntry() const
 {
     int imageCount = _images[DB::ImageDB::NONE()];
     int videoCount = _videos[DB::ImageDB::NONE()];
     return (imageCount + videoCount != 0);
 }
 
-QString AbstractCategoryModel::text( const QString& name ) const
+QString Browser::AbstractCategoryModel::text( const QString& name ) const
 {
     if ( name == DB::ImageDB::NONE() ) {
         if ( _info.option(_category->name()).length() == 0 )
@@ -44,7 +44,7 @@ QString AbstractCategoryModel::text( const QString& name ) const
     }
 }
 
-QPixmap AbstractCategoryModel::icon( const QString& name ) const
+QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
 {
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), name ) )
@@ -58,7 +58,7 @@ QPixmap AbstractCategoryModel::icon( const QString& name ) const
     }
 }
 
-QVariant AbstractCategoryModel::data( const QModelIndex & index, int role) const
+QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int role) const
 {
     if ( !index.isValid() )
         return QVariant();
@@ -94,12 +94,12 @@ QVariant AbstractCategoryModel::data( const QModelIndex & index, int role) const
     return QVariant();
 }
 
-Qt::ItemFlags AbstractCategoryModel::flags( const QModelIndex& ) const
+Qt::ItemFlags Browser::AbstractCategoryModel::flags( const QModelIndex& ) const
 {
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-QVariant AbstractCategoryModel::headerData( int section, Qt::Orientation orientation, int role) const
+QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientation orientation, int role) const
 {
     if ( orientation == Qt::Vertical || role != Qt::DisplayRole )
         return QVariant();

@@ -4,6 +4,9 @@
 #include "AbstractCategoryModel.h"
 class Data;
 
+namespace Browser
+{
+
 class TreeCategoryModel : public AbstractCategoryModel
 {
 public:
@@ -24,6 +27,8 @@ private:
 private:
     Data* _data;
 };
+
+}
 
 #endif /* TREECATEGORYMODEL_H */
 

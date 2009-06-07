@@ -5,6 +5,9 @@
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 
+namespace Browser
+{
+
 class FlatCategoryModel :public AbstractCategoryModel
 {
 public:
@@ -20,6 +23,8 @@ public:
 private:
     QStringList _items;
 };
+
+}
 
 #endif /* FLATCATEGORYMODEL_H */
 

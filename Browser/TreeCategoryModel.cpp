@@ -21,7 +21,7 @@ struct Data
     Data* parent;
 };
 
-TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
+Browser::TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
     : AbstractCategoryModel( category, info )
 {
     _data = new Data( QString() );
@@ -33,17 +33,17 @@ TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, const DB:
     }
 }
 
-int TreeCategoryModel::rowCount( const QModelIndex& index ) const
+int Browser::TreeCategoryModel::rowCount( const QModelIndex& index ) const
 {
     return indexToData(index)->children.count();
 }
 
-int TreeCategoryModel::columnCount( const QModelIndex& ) const
+int Browser::TreeCategoryModel::columnCount( const QModelIndex& ) const
 {
     return 3;
 }
 
-QModelIndex TreeCategoryModel::index( int row, int column, const QModelIndex & parent ) const
+QModelIndex Browser::TreeCategoryModel::index( int row, int column, const QModelIndex & parent ) const
 {
     if ( indexToData(parent)->children.count() < row )
         return QModelIndex();
@@ -51,7 +51,7 @@ QModelIndex TreeCategoryModel::index( int row, int column, const QModelIndex & p
     return createIndex( row, column, indexToData(parent)->children[row] );
 }
 
-QModelIndex TreeCategoryModel::parent( const QModelIndex & index ) const
+QModelIndex Browser::TreeCategoryModel::parent( const QModelIndex & index ) const
 {
     Data* me = indexToData( index );
     if ( me == _data )
@@ -66,12 +66,12 @@ QModelIndex TreeCategoryModel::parent( const QModelIndex & index ) const
     return createIndex( grandParent->children.indexOf( parent ), 0, parent );
 }
 
-TreeCategoryModel::~TreeCategoryModel()
+Browser::TreeCategoryModel::~TreeCategoryModel()
 {
     delete _data;
 }
 
-bool TreeCategoryModel::createData( DB::CategoryItem* parentCategoryItem, Data* parent )
+bool Browser::TreeCategoryModel::createData( DB::CategoryItem* parentCategoryItem, Data* parent )
 {
     const QString name = parentCategoryItem->_name;
     const int imageCount = _images.contains(name) ? _images[name] : 0;
@@ -99,7 +99,7 @@ bool TreeCategoryModel::createData( DB::CategoryItem* parentCategoryItem, Data* 
 
 }
 
-Data* TreeCategoryModel::indexToData( const QModelIndex& index ) const
+Data* Browser::TreeCategoryModel::indexToData( const QModelIndex& index ) const
 {
     if ( !index.isValid() )
         return _data;
@@ -107,7 +107,7 @@ Data* TreeCategoryModel::indexToData( const QModelIndex& index ) const
         return static_cast<Data*>( index.internalPointer() );
 }
 
-QString TreeCategoryModel::indexToName(const QModelIndex& index ) const
+QString Browser::TreeCategoryModel::indexToName(const QModelIndex& index ) const
 {
     const Data* data = indexToData( index );
     return data->name;

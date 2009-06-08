@@ -168,7 +168,7 @@ void Exif::Database::remove( const QString& fileName )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, _doUTF8Conversion ? fileName.toUtf8() : fileName.toLatin1() );
+    query.bindValue( 0, fileName );
     if ( !query.exec() )
         showError( query );
 }
@@ -185,7 +185,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
-    query.bindValue(  0, _doUTF8Conversion ? filename.toUtf8() : filename.toLatin1() );
+    query.bindValue(  0, filename );
     int i = 1;
     for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
@@ -314,7 +314,9 @@ void Exif::Database::recreate()
     bool success = true;
     Q_FOREACH(const DB::ImageInfoPtr info, allImages.fetchInfos()) {
         dialog.setValue(i++);
-        success &= add(info->fileName(DB::AbsolutePath));
+        if (info->mediaType() == DB::Image) {
+            success &= add(info->fileName(DB::AbsolutePath));
+        }
         if ( i % 10 )
             qApp->processEvents();
         if (!success || dialog.wasCanceled())

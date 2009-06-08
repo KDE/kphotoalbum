@@ -1,3 +1,10 @@
+2009-06-08  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* New images was not correctly inserted into the exif database
+	(thanks to Bart Visscher for a patch that fixes this.)
+	Please rerun "Maintainance->Recreate Exif Search Database" to
+	ensure your database it working again.
+
 ====================== KPhotoalbum 4.0.1 released  ===================================	
 
 Other changes done since 4.0

@@ -21,7 +21,7 @@
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
 
- Browser::ImageViewPage::ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser)
+Browser::ImageViewPage::ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser)
      : BrowserPage( info, browser )
 {
 }
@@ -54,4 +54,9 @@ Browser::ImageViewPage::ImageViewPage( const QString& context, BrowserWidget* br
 bool Browser::ImageViewPage::showDuringMovement() const
 {
     return true;
+}
+
+Browser::Breadcrumb Browser::ImageViewPage::breadcrumb() const
+{
+    return Breadcrumb::view();
 }

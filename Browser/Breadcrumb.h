@@ -41,15 +41,19 @@ class Breadcrumb
 public:
     static Breadcrumb empty();
     static Breadcrumb home();
+    static Breadcrumb view();
+
     Breadcrumb( const QString& text, bool isBeginning = false );
     QString text() const;
     bool isBeginning() const;
+    bool isView() const;
     bool operator==( const Breadcrumb& other ) const;
     bool operator!=( const Breadcrumb& other ) const;
 
 private:
     int _index;
     bool _isBeginning;
+    bool _isView;
     QString _text;
     static int _count;
 };

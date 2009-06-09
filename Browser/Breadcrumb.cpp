@@ -22,7 +22,7 @@
 int Browser::Breadcrumb::_count = 0;
 
 Browser::Breadcrumb::Breadcrumb(const QString& text, bool isBeginning )
-    : _index( ++_count ),_isBeginning( isBeginning), _text( text )
+    : _index( ++_count ),_isBeginning( isBeginning), _isView(false), _text( text )
 {
 }
 
@@ -54,4 +54,16 @@ bool Browser::Breadcrumb::operator==( const Breadcrumb& other ) const
 bool Browser::Breadcrumb::operator!=( const Breadcrumb& other ) const
 {
     return !(other == *this );
+}
+
+Browser::Breadcrumb Browser::Breadcrumb::view()
+{
+    Breadcrumb res( QString(), false );
+    res._isView = true;
+    return res;
+}
+
+bool Browser::Breadcrumb::isView() const
+{
+    return _isView;
 }

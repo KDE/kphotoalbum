@@ -25,7 +25,7 @@ Browser::BreadcrumbList Browser::BreadcrumbList::latest() const
     for ( int i = length()-1; i >=0; --i ) {
         const Breadcrumb crumb = at(i);
         const QString txt = crumb.text();
-        if ( !txt.isEmpty() )
+        if ( !txt.isEmpty() || crumb.isView() )
             result.prepend( crumb );
 
         if ( crumb.isBeginning() )

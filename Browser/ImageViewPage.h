@@ -37,6 +37,7 @@ public:
     OVERRIDE Viewer viewer();
     OVERRIDE bool isSearchable() const;
     OVERRIDE bool showDuringMovement() const;
+    OVERRIDE Breadcrumb breadcrumb() const;
 
 
 private:

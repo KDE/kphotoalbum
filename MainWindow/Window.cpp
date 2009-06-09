@@ -905,6 +905,7 @@ void MainWindow::Window::showThumbNails()
 
 void MainWindow::Window::showBrowser()
 {
+    statusBar()->clearMessage();
     _stack->raiseWidget( _browser );
     _browser->setFocus();
     updateStates( false );

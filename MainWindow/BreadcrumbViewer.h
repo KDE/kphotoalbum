@@ -9,6 +9,7 @@ class BreadcrumbViewer :public QLabel
 
 public:
     BreadcrumbViewer();
+    OVERRIDE QSize minimumSizeHint() const;
 
 public slots:
     void setBreadcrumbs( const Browser::BreadcrumbList& list );
@@ -16,8 +17,14 @@ public slots:
 signals:
     void widenToBreadcrumb( const Browser::Breadcrumb& );
 
+protected:
+    OVERRIDE void resizeEvent( QResizeEvent* event );
+
 private slots:
     void linkClicked( const QString& link );
+
+private:
+    void updateText();
 
 private:
     Browser::BreadcrumbList _activeCrumbs;

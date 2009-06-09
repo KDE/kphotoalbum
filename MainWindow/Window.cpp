@@ -1726,7 +1726,7 @@ void MainWindow::Window::setupStatusBar()
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
 
     _pathIndicator = new BreadcrumbViewer;
-    statusBar()->addWidget( _pathIndicator );
+    statusBar()->addWidget( _pathIndicator, 1 );
 }
 
 void MainWindow::Window::slotRecreateExifDB()

@@ -81,7 +81,6 @@ protected slots:
     void slotNext();
     void slotOK();
     void slotClear();
-    void viewerDestroyed();
     void slotOptions();
     void slotSaveWindowSetup();
     void slotDeleteOption( DB::Category*, const QString& );
@@ -130,7 +129,6 @@ private:
     Q3PtrList< ListSelect > _optionList;
     DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
-    Viewer::ViewerWidget* _viewer;
     int _accept;
     QList<QDockWidget*> _dockWidgets;
     bool _thumbnailShouldReload;

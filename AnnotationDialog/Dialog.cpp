@@ -85,7 +85,7 @@
 using Utilities::StringSet;
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
-    : QDialog( parent ), _viewer(0), _ratingChanged(false)
+    : QDialog( parent ), _ratingChanged(false)
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
@@ -468,9 +468,6 @@ void AnnotationDialog::Dialog::load()
 
     _preview->setImage( info );
 
-    if ( _viewer )
-        _viewer->load( Utilities::infoListToStringList(_origList), _current );
-
     if ( _setup == InputSingleImageConfigMode )
         setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
 }
@@ -640,11 +637,6 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
 
     _imageLabel->setText( info.label() );
     _description->setText( info.description() );
-}
-
-void AnnotationDialog::Dialog::viewerDestroyed()
-{
-    _viewer = 0;
 }
 
 void AnnotationDialog::Dialog::slotOptions()

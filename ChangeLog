@@ -26,9 +26,10 @@
 	    category California, with sub categories Las Vegas and Los
 	    Angeless. If you type California in the search line edit, then
 	    both children will still be shown
-	  * The search bar will not keep focus all the time and send
+	  * The search bar will now keep focus all the time and send
             movement keys to the browser. This makes it easier to narrow
 	    in the browser using the searchbar.
+	  * The overview page is now shown in icon mode with icons centered
 
 2009-05-31  Jesper K. Pedersen  <blackie@kdab.com>
 

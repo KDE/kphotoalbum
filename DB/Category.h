@@ -37,7 +37,7 @@ class Category :public QObject, public KShared
     Q_OBJECT
 
 public:
-    enum ViewType { ListView, ThumbedListView, IconView, ThumbedIconView };
+    enum ViewType { TreeView, ThumbedTreeView, IconView, ThumbedIconView };
 
     virtual QString name() const = 0;
     virtual void setName( const QString& name ) = 0;

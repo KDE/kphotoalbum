@@ -35,7 +35,7 @@ namespace SQLDB {
         { return QString::fromLatin1("folder"); }
         virtual void setIconName(const QString&) {}
 
-        virtual ViewType viewType() const { return ListView; }
+        virtual ViewType viewType() const { return TreeView; }
         virtual void setViewType(ViewType) {}
 
         virtual bool doShow() const { return false; }

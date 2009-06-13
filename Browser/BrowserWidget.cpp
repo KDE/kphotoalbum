@@ -186,12 +186,12 @@ DB::ImageSearchInfo Browser::BrowserWidget::currentContext()
 
 void Browser::BrowserWidget::slotSmallListView()
 {
-    changeViewTypeForCurrentView( DB::Category::ListView );
+    changeViewTypeForCurrentView( DB::Category::TreeView );
 }
 
 void Browser::BrowserWidget::slotLargeListView()
 {
-    changeViewTypeForCurrentView( DB::Category::ThumbedListView );
+    changeViewTypeForCurrentView( DB::Category::ThumbedTreeView );
 }
 
 void Browser::BrowserWidget::slotSmallIconView()
@@ -287,7 +287,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
         disconnect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     }
 
-    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
+    if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
         _curView = _treeView;
     }
     else {

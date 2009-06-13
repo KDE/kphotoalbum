@@ -97,7 +97,7 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr folderCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
     if( folderCat.isNull() ) {
         folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
-                                     DB::Category::ListView, 32, false );
+                                     DB::Category::TreeView, 32, false );
         _db->_categoryCollection.addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
@@ -106,7 +106,7 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("flag-blue"),
-                                    DB::Category::ListView, 32, true );
+                                    DB::Category::TreeView, 32, true );
         _db->_categoryCollection.addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
@@ -119,7 +119,7 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr mediaCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Media Type" ) );
     if ( !mediaCat ) {
         mediaCat = new XMLCategory( QString::fromLatin1("Media Type"), QString::fromLatin1("video"),
-                                    DB::Category::ListView, 32, false );
+                                    DB::Category::TreeView, 32, false );
         _db->_categoryCollection.addCategory( mediaCat );
     }
     mediaCat->addItem( QString::fromLatin1( "Image" ) );

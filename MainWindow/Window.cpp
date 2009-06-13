@@ -1237,9 +1237,9 @@ void MainWindow::Window::reloadThumbnailsAfterRotation()
 
 void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 {
-    if ( type == DB::Category::ListView )
+    if ( type == DB::Category::TreeView )
         _smallListView->setChecked( true );
-    else if ( type == DB::Category::ThumbedListView )
+    else if ( type == DB::Category::ThumbedTreeView )
         _largeListView->setChecked( true );
     else if ( type == DB::Category::IconView )
         _smallIconView->setChecked( true );

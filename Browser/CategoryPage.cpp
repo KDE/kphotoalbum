@@ -43,7 +43,7 @@ Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::
 void Browser::CategoryPage::activate()
 {
     delete _model;
-    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::ThumbedListView )
+    if ( _category->viewType() == DB::Category::TreeView || _category->viewType() == DB::Category::ThumbedTreeView )
         _model = new TreeCategoryModel( _category, searchInfo() );
     else
         _model = new FlatCategoryModel( _category, searchInfo() );

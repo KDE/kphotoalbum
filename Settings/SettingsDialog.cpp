@@ -667,7 +667,7 @@ void Settings::SettingsDialog::slotIconChanged( QString icon )
 
 void Settings::SettingsDialog::slotNewItem()
 {
-    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::ListView, 64, _categories );
+    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::TreeView, 64, _categories );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     _thumbnailSizeInCategory->setValue( 64 );

@@ -21,8 +21,10 @@
   \brief The component that allows you to narrow down the image set
 
   The GUI component of the browser is the BrowserWidget. This widget
-  has a QTreeView and a QListView (set up to
-  IconMode) for displaying its content.
+  has a QTreeView and a CenteringIconView for displaying its content.
+
+  The class CenteringIconView is a simple QListView that is adapted to
+  optionally centering its content.
 
   The BrowserWidget has a list of \ref BrowserPage's, each page represent an
   item that you can go backward or forward to using the back/forward

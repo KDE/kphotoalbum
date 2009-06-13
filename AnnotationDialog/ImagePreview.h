@@ -19,7 +19,6 @@
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
 #include <qlabel.h>
-//Added by qt3to4:
 #include <QResizeEvent>
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClient.h"
@@ -37,7 +36,7 @@ public:
     void setImage( const QString& fileName );
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    OVERRIDE void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
     virtual void resizeEvent( QResizeEvent* );

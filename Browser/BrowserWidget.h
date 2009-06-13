@@ -22,6 +22,7 @@
 #include <QListView>
 #include "Settings/SettingsData.h"
 
+class CenteringIconView;
 class TreeFilter;
 class QSortFilterProxyModel;
 class QTreeView;
@@ -108,7 +109,7 @@ private:
     QList<BrowserPage*> _list;
     int _current;
     QStackedWidget* _stack;
-    QListView* _listView;
+    CenteringIconView* _listView;
     QTreeView* _treeView;
     QAbstractItemView* _curView;
     TreeFilter* _filterProxy;

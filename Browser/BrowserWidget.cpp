@@ -16,7 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "CenteringIconView.h"
+
 #include "BrowserWidget.h"
+#include <QDebug>
 #include <QApplication>
 #include <DB/ImageDB.h>
 #include <QHeaderView>
@@ -291,6 +294,9 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
         _curView =_listView;
         _filterProxy->invalidate();
         _filterProxy->sort( 0, Qt::AscendingOrder );
+
+        _listView->setViewMode(dynamic_cast<OverviewPage*>(currentAction()) == 0 ?
+                               CenteringIconView::NormalIconView : CenteringIconView::CenterView );
     }
 
     if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
@@ -354,15 +360,14 @@ void Browser::BrowserWidget::createWidgets()
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget( _stack );
 
-    _listView = new QListView ( _stack );
+    _listView = new CenteringIconView ( _stack );
     _listView->setIconSize( QSize(100,75) );
     _listView->setSelectionMode( QListView::SingleSelection );
-    _listView->setViewMode( QListView::IconMode );
-//    _listView->setGridSize( QSize(350, 350) );
     _listView->setSpacing(10);
     _listView->setUniformItemSizes(true);
     _listView->setResizeMode( QListView::Adjust );
     _stack->addWidget( _listView );
+
 
     _treeView = new QTreeView( _stack );
     _treeView->header()->setStretchLastSection(false);
@@ -374,7 +379,6 @@ void Browser::BrowserWidget::createWidgets()
     _treeView->viewport()->installEventFilter( this );
     _listView->installEventFilter( this );
     _listView->viewport()->installEventFilter( this );
-
 
     connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
 
@@ -392,8 +396,7 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
     }
 
     else if (event->type() == QEvent::MouseButtonPress ||
-             event->type() == QEvent::MouseMove ||
-             event->type() == QEvent::MouseButtonRelease ) {
+             event->type() == QEvent::MouseMove ) {
         QMouseEvent* me = static_cast<QMouseEvent*>( event );
         if ( me->buttons() & Qt::MidButton ) {
             handleResizeEvent( me );
@@ -436,9 +439,6 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
         _curView->setIconSize( QSize(size,size) );
         _filterProxy->invalidate();
         adjustTreeViewColumnSize();
-    }
-
-    else if ( event->type() == QEvent::MouseButtonRelease ) {
     }
 }
 

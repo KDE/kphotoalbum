@@ -30,6 +30,8 @@
 #include <kicon.h>
 #include <config-kpa-exiv2.h>
 
+const int THUMBNAILSIZE = 70;
+
 AnnotationDialog::Dialog* Browser::OverviewPage::_config = 0;
 Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser), _breadcrumb( breadcrumb )
@@ -109,7 +111,7 @@ QVariant Browser::OverviewPage::categoryInfo( int row, int role ) const
     if ( role == Qt::DisplayRole )
         return categories()[row]->text();
     else if ( role == Qt::DecorationRole )
-        return categories()[row]->icon(42);
+        return categories()[row]->icon(THUMBNAILSIZE);
 
     return QVariant();
 }
@@ -119,7 +121,7 @@ QVariant Browser::OverviewPage::exivInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Exif Info");
     else if ( role == Qt::DecorationRole ) {
-        return KIcon( QString::fromLatin1( "text-plain" ) ).pixmap(42);
+        return KIcon( QString::fromLatin1( "text-plain" ) ).pixmap(THUMBNAILSIZE);
     }
 
     return QVariant();
@@ -130,7 +132,7 @@ QVariant Browser::OverviewPage::searchInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Search");
     else if ( role == Qt::DecorationRole )
-        return KIcon( QString::fromLatin1( "system-search" ) ).pixmap(42);
+        return KIcon( QString::fromLatin1( "system-search" ) ).pixmap(THUMBNAILSIZE);
     return QVariant();
 }
 
@@ -139,7 +141,7 @@ QVariant Browser::OverviewPage::imageInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Show Thumbnails");
     else if ( role == Qt::DecorationRole )
-        return KIcon( QString::fromLatin1( "kphotoalbum" ) ).pixmap(42);
+        return KIcon( QString::fromLatin1( "kphotoalbum" ) ).pixmap(THUMBNAILSIZE);
     return QVariant();
 }
 

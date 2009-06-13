@@ -215,6 +215,7 @@ set(libBrowser_SRCS
  	${CMAKE_CURRENT_SOURCE_DIR}/Browser/AbstractCategoryModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/FlatCategoryModel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TreeCategoryModel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/CenteringIconView.cpp
 	)
 
 

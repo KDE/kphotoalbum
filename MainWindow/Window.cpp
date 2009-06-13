@@ -335,6 +335,9 @@ void MainWindow::Window::slotCreateImageStack()
 
     // FIXME: here we should invoke a fancy dialog for user's pleasure
 
+    DirtyIndicator::markDirty();
+    // The current item might have just became invisible
+    _thumbnailView->setCurrentItem( list.at(0) );
     _thumbnailView->updateDisplayModel();
 }
 
@@ -385,6 +388,7 @@ void MainWindow::Window::slotUnStackImages()
         return;
 
     DB::ImageDB::instance()->unstack( list );
+    DirtyIndicator::markDirty();
     _thumbnailView->updateDisplayModel();
 }
 

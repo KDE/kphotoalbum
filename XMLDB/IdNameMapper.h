@@ -15,6 +15,8 @@ public:
     void remove( DB::RawId id );
     void remove( const QString& fileName );
 
+    bool exists(const QString & filename) const;
+    
     DB::RawId operator[](const QString& ) const;
     QString operator[]( DB::RawId ) const;
 private:

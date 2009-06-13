@@ -1,3 +1,17 @@
+2009-06-10  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Somehow the XML database can get a file loaded twice. As a
+	remedy until we find the real bug, we will ignore the new files
+	when they are loaded from the database. Thanks to Franck Sicard
+	for a patch for this
+
+2009-06-08  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* New images was not correctly inserted into the exif database
+	(thanks to Bart Visscher for a patch that fixes this.)
+	Please rerun "Maintainance->Recreate Exif Search Database" to
+	ensure your database it working again.
+
 2009-06-02  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Reworked the browser completely, which has the following

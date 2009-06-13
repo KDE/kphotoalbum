@@ -41,3 +41,8 @@ DB::IdNameMapper::IdNameMapper()
     :_maxId(0)
 {
 }
+
+bool DB::IdNameMapper::exists(const QString& fileName ) const
+{
+  return _fileNameToId.find(fileName) != _fileNameToId.end();
+}

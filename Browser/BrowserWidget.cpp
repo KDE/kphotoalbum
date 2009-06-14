@@ -375,6 +375,10 @@ void Browser::BrowserWidget::createWidgets()
     _treeView->setSortingEnabled(true);
     _stack->addWidget( _treeView );
 
+    // Do not give focus to the widgets when they are scrolled with the wheel.
+    _listView->setFocusPolicy( Qt::StrongFocus );
+    _treeView->setFocusPolicy( Qt::StrongFocus );
+
     _treeView->installEventFilter( this );
     _treeView->viewport()->installEventFilter( this );
     _listView->installEventFilter( this );

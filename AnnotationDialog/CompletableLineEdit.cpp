@@ -45,6 +45,11 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
+    if ( _mode == SearchMode && ( ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter) ) { //Confirm autocomplete, deselect all text
+        deselect();
+        return;
+    }
+
     if ( _mode != SearchMode && isSpecialKey( ev ) )
         return; // Don't insert the special character.
 

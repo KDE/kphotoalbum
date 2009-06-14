@@ -17,6 +17,7 @@
 */
 
 #include "OverviewPage.h"
+#include <Utilities/ShowBusyCursor.h>
 #include "enums.h"
 #include <KMessageBox>
 #include <Exif/SearchDialog.h>
@@ -183,8 +184,14 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 {
 #ifdef HAVE_EXIV2
     Exif::SearchDialog dialog( browser() );
-    if ( dialog.exec() == QDialog::Rejected )
-        return 0;
+
+    {
+        Utilities::ShowBusyCursor undoTheBusyWhileShowingTheDialog( Qt::ArrowCursor );
+
+        if ( dialog.exec() == QDialog::Rejected )
+            return 0;
+    }
+
 
     Exif::SearchInfo result = dialog.info();
 
@@ -208,6 +215,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
     if ( !_config )
         _config = new AnnotationDialog::Dialog( browser() );
 
+    Utilities::ShowBusyCursor undoTheBusyWhileShowingTheDialog( Qt::ArrowCursor );
     DB::ImageSearchInfo tmpInfo = BrowserPage::searchInfo();
     DB::ImageSearchInfo info = _config->search( &tmpInfo ); // PENDING(blackie) why take the address?
 

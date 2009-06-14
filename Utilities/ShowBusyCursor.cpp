@@ -20,9 +20,9 @@
 #include <qapplication.h>
 #include <qcursor.h>
 
-Utilities::ShowBusyCursor::ShowBusyCursor()
+Utilities::ShowBusyCursor::ShowBusyCursor(Qt::CursorShape shape)
 {
-    qApp->setOverrideCursor( QCursor( Qt::WaitCursor ) );
+    qApp->setOverrideCursor( QCursor( shape ) );
     _active = true;
 }
 

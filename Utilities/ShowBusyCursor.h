@@ -19,6 +19,8 @@
 #ifndef SHOWBUSYCURSOR_H
 #define SHOWBUSYCURSOR_H
 
+#include <qnamespace.h>
+
 namespace Utilities
 {
 
@@ -47,7 +49,7 @@ namespace Utilities
 class ShowBusyCursor {
 
 public:
-    ShowBusyCursor();
+    ShowBusyCursor(Qt::CursorShape shape = Qt::WaitCursor );
     ~ShowBusyCursor();
     void stop();
 private:

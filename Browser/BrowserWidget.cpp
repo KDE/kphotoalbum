@@ -263,7 +263,7 @@ void Browser::BrowserWidget::slotInvokeSeleted()
 
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
-    Utilities::ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor busy;
     BrowserPage* action = currentAction()->activateChild( _filterProxy->mapToSource( index ) );
     if ( action )
         addAction( action );

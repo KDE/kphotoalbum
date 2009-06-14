@@ -3,6 +3,7 @@
 
 namespace Utilities
 {
+
 class BooleanGuard
 {
 public:

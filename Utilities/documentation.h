@@ -1,5 +1,5 @@
 /**
   \namespace Utilities
-  \brief 
+  \brief Collection of a number of utilities used throughout the code
 
 **/

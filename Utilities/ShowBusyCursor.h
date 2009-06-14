@@ -22,6 +22,28 @@
 namespace Utilities
 {
 
+/**
+   \brief Utility class to set/unset the busy cursor
+
+   When setting the busy cursor, you also need to remember to unset it
+   again, otherwise you will have a busy cursor for the rest of the
+   lifetime of the application.
+
+   This class helps you avoid not getting it unset due to an early return
+   in a function (much similar to \ref BooleanGuard). The code looks like
+   this:
+
+   <pre>
+   void f() {
+       ...
+       ShowBusyCursor dummy;
+       ... // cursor will be busy until the end of this function.
+   }
+   </pre>
+**/
+
+
+
 class ShowBusyCursor {
 
 public:

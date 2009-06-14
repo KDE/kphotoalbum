@@ -11,7 +11,7 @@ namespace Browser
  *
  * To make KPhotoAlbum slightly more sexy, the overview page has its items
  * centered at the middle of the screen. This class has the capability to
- * do that when \ref setMode is called with \ref CenterView as argument.
+ * do that when \ref setViewMode is called with \ref CenterView as argument.
  */
 class CenteringIconView :public QListView
 {

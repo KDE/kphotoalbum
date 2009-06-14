@@ -1,5 +1,8 @@
 2009-06-14  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* fixed bug #165742: ListSelect blanks out when typing an initial
+	letter that does not match. Thanks to Hassan Ibraheem for the patch for this.
+
 	* fixed bug #167045: add ENTER as search dialog tag auto
 	completion key. Thanks to Hassan Ibraheem for the patch for this.
 

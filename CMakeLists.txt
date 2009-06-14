@@ -130,7 +130,9 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Graph.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/UniqFilenameMapper.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
+    )
 
 set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DeleteDialog.cpp 
@@ -146,7 +148,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DirtyIndicator.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatisticsDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/BreadcrumbViewer.cpp
-)
+    )
 
 set(libImageManager_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageLoader.cpp 

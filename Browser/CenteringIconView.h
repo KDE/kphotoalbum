@@ -27,11 +27,12 @@ public:
 protected:
     OVERRIDE void resizeEvent( QResizeEvent* );
 
-private slots:
-    void setupMargin();
-
 private:
-    QTimer* _resizeTimer;
+    void setupMargins();
+    int columnCount( int elementCount ) const;
+    int availableWidth() const;
+    int availableHeight() const;
+
 
 private:
     ViewMode _viewMode;

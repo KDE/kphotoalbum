@@ -1,3 +1,7 @@
+2009-06-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* fixed bug #186708 - Tokens can not be access from the annotation dialog
+
 2009-06-10  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Somehow the XML database can get a file loaded twice. As a

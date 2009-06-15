@@ -96,7 +96,8 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         setText( prevContent );
         setCursorPosition( cursorPos );
         item = findItemInListView( input );
-        setSelection( selStart, prevContent.length() ); // Reset previous selection.
+        if(selStart>=0)
+            setSelection( selStart, prevContent.length() ); // Reset previous selection.
     }
 
     if ( item )	{

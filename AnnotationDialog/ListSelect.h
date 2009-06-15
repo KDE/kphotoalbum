@@ -20,7 +20,6 @@
 #define LISTSELECT_H
 
 #include <qstringlist.h>
-//Added by qt3to4:
 #include <QEvent>
 #include <QLabel>
 #include "Settings/SettingsData.h"

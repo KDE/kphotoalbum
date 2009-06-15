@@ -18,7 +18,7 @@
 #include "ListViewItemHider.h"
 
 /**
- * \class AnnotationDialog::ListViewHider
+ * \class AnnotationDialog::ListViewItemHider
  * \brief Helper class, used to hide/show listview items
  *
  * This is a helper class that is used to hide items in a listview. A leaf
@@ -38,7 +38,7 @@
  * \brief Helper class for only showing items that are selected.
  */
 
-void AnnotationDialog::ListViewHider::setItemsVisible( Q3ListView* listView )
+void AnnotationDialog::ListViewItemHider::setItemsVisible( Q3ListView* listView )
 {
     // It seems like a bug in Qt, but I need to make all item visible first, otherwise I see wrong items when I have items
     // two layers deep (A->B->c). It only occours when I widen (types "je", now deletes the "e" to get to "j" ).
@@ -52,7 +52,7 @@ void AnnotationDialog::ListViewHider::setItemsVisible( Q3ListView* listView )
     }
 }
 
-bool AnnotationDialog::ListViewHider::setItemsVisible( Q3ListViewItem* parentItem )
+bool AnnotationDialog::ListViewItemHider::setItemsVisible( Q3ListViewItem* parentItem )
 {
     bool anyChildrenVisible = false;
     for ( Q3ListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {

@@ -84,6 +84,11 @@
 
 using Utilities::StringSet;
 
+/**
+ * \class AnnotationDialog::Dialog
+ * \brief QDialog subclass used for tagging images
+ */
+
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
     : QDialog( parent ), _ratingChanged(false)
 {

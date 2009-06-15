@@ -21,11 +21,11 @@
 
 namespace AnnotationDialog {
 
-class ListViewHider
+class ListViewItemHider
 {
 protected:
-    ListViewHider() {}
-    virtual ~ListViewHider(){}
+    ListViewItemHider() {}
+    virtual ~ListViewItemHider(){}
 
     void setItemsVisible( Q3ListView* );
     bool setItemsVisible( Q3ListViewItem* parentItem );
@@ -33,7 +33,7 @@ protected:
 };
 
 
-class ListViewTextMatchHider :public ListViewHider
+class ListViewTextMatchHider :public ListViewItemHider
 {
 public:
     ListViewTextMatchHider( const QString& text, bool anchorAtStart, Q3ListView* listView );
@@ -46,7 +46,7 @@ private:
     bool _anchorAtStart;
 };
 
-class ListViewCheckedHider :public ListViewHider
+class ListViewCheckedHider :public ListViewItemHider
 {
 public:
     ListViewCheckedHider( Q3ListView* );

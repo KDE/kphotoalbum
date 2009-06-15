@@ -30,7 +30,7 @@
   item that you can go backward or forward to using the back/forward
   buttons in the toolbar.
 
-  <h2>The BrowserPage class and its subclasses</h2>
+  <h2>The %BrowserPage class and its subclasses</h2>
 
   The \ref BrowserPage is responsible for providing an instance of
   QAbstractItemModel for the \ref BrowserWidget's QTreeView and

@@ -19,7 +19,6 @@
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
 #include <qlineedit.h>
-//Added by qt3to4:
 #include <QKeyEvent>
 #include "ListSelect.h"
 

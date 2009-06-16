@@ -97,20 +97,29 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _alphaSort = new QToolButton;
     _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "draw-text" ) ) );
     _alphaSort->setCheckable( true );
+    _alphaSort->setToolTip( i18n("Sort Alphabetically") );
     grp->insert( _alphaSort );
 
     _dateSort = new QToolButton;
     _dateSort->setIcon( SmallIcon( QString::fromLatin1( "x-office-calendar" ) ) );
     _dateSort->setCheckable( true );
+    _dateSort->setToolTip( i18n("Sort by date") );
     grp->insert( _dateSort );
+
+    _showSelectedOnly = new QToolButton;
+    _showSelectedOnly->setIcon( SmallIcon( QString::fromLatin1( "view-filter" ) ) );
+    _showSelectedOnly->setCheckable( true );
+    _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
 
     _alphaSort->setChecked( Settings::ViewSortType() == Settings::SortAlpha );
     _dateSort->setChecked( Settings::ViewSortType() == Settings::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
     connect( _alphaSort, SIGNAL( clicked() ), this, SLOT( slotSortAlpha() ) );
+    connect( _showSelectedOnly, SIGNAL( clicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
 
     lay2->addWidget( _alphaSort );
     lay2->addWidget( _dateSort );
+    lay2->addWidget( _showSelectedOnly );
 
     _lineEdit->setListView( _listView );
 
@@ -181,6 +190,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _and->show();
         _or->show();
         _or->setChecked( true );
+        _showSelectedOnly->hide();
     } else {
         _and->hide();
         _or->hide();
@@ -192,6 +202,8 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 
 void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
 {
+    showAllChildren();
+
     // set sortType and redisplay with new sortType
     QString text = _lineEdit->text();
     rePopulate();
@@ -536,11 +548,13 @@ void AnnotationDialog::ListSelect::limitToSelection()
     if ( !isInputMode() )
         return;
 
+    _showSelectedOnly->setChecked( true );
     ListViewCheckedHider dummy( _listView );
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()
 {
+    _showSelectedOnly->setChecked( false );
     showOnlyItemsMatching( QString::null );
 }
 

@@ -101,7 +101,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     layout->addWidget( _dockWindow );
 
     // -------------------------------------------------- Dock widgets
-    QDockWidget* dock = createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Datas"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
+    QDockWidget* dock = createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
 
     createDock( i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget() );
 

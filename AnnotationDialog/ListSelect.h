@@ -98,6 +98,7 @@ private:
     UsageMode _mode;
     QToolButton* _alphaSort;
     QToolButton* _dateSort;
+    QToolButton* _showSelectedOnly;
 };
 
 }

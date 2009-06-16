@@ -1,3 +1,8 @@
+2009-06-16  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* fixed issue #196095 - Add icon for hide non selected. Thanks to
+	Hassan Ibraheem for patch.
+
 2009-06-10  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Somehow the XML database can get a file loaded twice. As a

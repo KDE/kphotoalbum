@@ -30,7 +30,6 @@
 #include <QWheelEvent>
 #include "ViewHandler.h"
 #include <qtoolbutton.h>
-#include <q3popupmenu.h>
 #include <qaction.h>
 #include <kglobal.h>
 #include <kiconloader.h>

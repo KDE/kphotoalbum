@@ -28,13 +28,13 @@
 #include <QResizeEvent>
 #include <QFocusEvent>
 #include <QMouseEvent>
-#include <Q3PopupMenu>
 #include <QKeyEvent>
 #include "DB/ImageDateCollection.h"
 #include "DateBar/ViewHandler.h"
 #include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
-class Q3PopupMenu;
+#include <KMenu>
+
 class QToolButton;
 
 namespace DateBar

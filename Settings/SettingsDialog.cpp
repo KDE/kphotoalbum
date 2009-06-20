@@ -41,7 +41,7 @@
 #include "DB/ImageDB.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
-
+#include <QTextCodec>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <q3vgroupbox.h>

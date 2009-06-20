@@ -23,6 +23,8 @@
 #include <QSqlQuery>
 #include <QVector>
 #include <QVariant>
+#include <QSqlRecord>
+
 #include <memory>
 
 namespace SQLDB
@@ -92,7 +94,8 @@ namespace SQLDB
 
         int fieldCount() const
         {
-            return _q->record().count();
+          QSqlRecord records = _q->record();
+          return records.count();
         }
 
     private:

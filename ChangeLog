@@ -1,7 +1,26 @@
+2009-06-21  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* When AnnotationDialog is called with multiple images, show
+	selected only shows also partially selected items. Thanks to
+	Hassan Ibraheem for patch.
+
 2009-06-16  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* fixed issue #196095 - Add icon for hide non selected. Thanks to
 	Hassan Ibraheem for patch.
+
+2009-06-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* fixed bug #165742: ListSelect blanks out when typing an initial
+	letter that does not match. Thanks to Hassan Ibraheem for the patch for this.
+
+	* fixed bug #167045: add ENTER as search dialog tag auto
+	completion key. Thanks to Hassan Ibraheem for the patch for this.
+
+	* bug fix: The remove token dialog was broken second time it was
+	brought up.
+
+	* fixed bug #186708 - Tokens can not be access from the annotation dialog
 
 2009-06-10  Jesper K. Pedersen  <blackie@kdab.com>
 

@@ -44,6 +44,11 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
+    if ( _mode == SearchMode && ( ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter) ) { //Confirm autocomplete, deselect all text
+        deselect();
+        return;
+    }
+
     if ( _mode != SearchMode && isSpecialKey( ev ) )
         return; // Don't insert the special character.
 
@@ -90,13 +95,16 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         setText( prevContent );
         setCursorPosition( cursorPos );
         item = findItemInListView( input );
-        setSelection( selStart, prevContent.length() ); // Reset previous selection.
+        if(selStart>=0)
+            setSelection( selStart, prevContent.length() ); // Reset previous selection.
     }
 
-    if ( item )
+    if ( item )	{
         selectItemAndUpdateLineEdit( item, itemStart, input );
-
-    _listSelect->showOnlyItemsMatching( input );
+        _listSelect->showOnlyItemsMatching( input );
+    }
+    else if (_mode != SearchMode )
+        _listSelect->showOnlyItemsMatching( input );
 }
 
 /**

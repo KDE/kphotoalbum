@@ -114,11 +114,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     // -------------------------------------------------- Categrories
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
      for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        if ( (*categoryIt)->isSpecialCategory() )
-            continue;
         ListSelect* sel = createListSel( *categoryIt );
         QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
         shortCutManager.addDock( dock, sel->lineEdit() );
+        if ( (*categoryIt)->isSpecialCategory() )
+            dock->hide();
     }
 
     // -------------------------------------------------- The buttons.

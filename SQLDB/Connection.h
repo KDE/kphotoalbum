@@ -36,7 +36,7 @@ namespace SQLDB
     {
     public:
         typedef QList<QVariant> Bindings;
-        typedef Q_ULLONG RowId;
+        typedef quint64 RowId;
 
         virtual ~Connection()
         {

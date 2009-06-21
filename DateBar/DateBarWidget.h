@@ -32,7 +32,8 @@
 #include "DateBar/ViewHandler.h"
 #include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
-class QMenu;
+#include <KMenu>
+
 class QToolButton;
 
 namespace DateBar

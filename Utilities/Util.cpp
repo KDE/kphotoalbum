@@ -37,7 +37,7 @@
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
 #include "X11/X.h"
-
+#include <QTextCodec>
 #include "Utilities/JpeglibWithFix.h"
 
 extern "C" {

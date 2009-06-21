@@ -74,7 +74,8 @@ void TokenEditor::show()
 
      for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );
-        (*it)->setEnabled( tokens.contains( (*it)->text() ) );
+        QString txt = (*it)->text().remove( QString::fromLatin1("&") );
+        (*it)->setEnabled( tokens.contains( txt ) );
     }
     KDialog::show();
 }

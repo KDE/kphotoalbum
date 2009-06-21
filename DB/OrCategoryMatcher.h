@@ -16,28 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "CategoryMatcher.h"
-#include "DB/ImageInfo.h"
-#include "DB/MemberMap.h"
-#include "DB/ImageDB.h"
-#include <QList>
+#ifndef ORCATEGORYMATCHER_H
+#define ORCATEGORYMATCHER_H
 
-using namespace DB;
+#include "ContainerCategoryMatcher.h"
 
-QString CategoryMatcher::spaces(int level ) const
+namespace DB
 {
-    return QString::fromLatin1("").rightJustified(level*3 );
+
+class OrCategoryMatcher :public ContainerCategoryMatcher
+{
+public:
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
+};
+
 }
 
-void DB::CategoryMatcher::finalize()
-{
-    _shouldPrepareMatchedSet = hasEmptyMatcher();
-    setShouldCreateMatchedSet( _shouldPrepareMatchedSet );
-}
-
-
-void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
-{
-    _shouldPrepareMatchedSet = b;
-}
+#endif /* ORCATEGORYMATCHER_H */
 

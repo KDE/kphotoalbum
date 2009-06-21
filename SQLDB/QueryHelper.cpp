@@ -18,10 +18,10 @@
 */
 
 #include "QueryHelper.h"
+#include <DB/ValueCategoryMatcher.h>
 #include "QueryErrors.h"
 #include "SQLImageInfo.h"
 #include "DB/ImageSearchInfo.h"
-#include "DB/CategoryMatcher.h"
 #include "Utilities/List.h"
 #include "Utilities/QStr.h"
 #include "TransactionGuard.h"
@@ -980,8 +980,8 @@ namespace
     {
         for (MatcherList::const_iterator it = input.constBegin();
              it != input.constEnd(); ++it) {
-            DB::OptionValueMatcher* valueMatcher;
-            valueMatcher = dynamic_cast<DB::OptionValueMatcher*>(*it);
+            DB::ValueCategoryMatcher* valueMatcher;
+            valueMatcher = dynamic_cast<DB::ValueCategoryMatcher*>(*it);
             if (valueMatcher) {
                 if (valueMatcher->_sign)
                     positiveList.append(valueMatcher);
@@ -1037,7 +1037,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     Bindings binds;
     for (MatcherList::const_iterator i = positiveList.constBegin();
          i != positiveList.constEnd(); ++i) {
-        DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
+        DB::ValueCategoryMatcher* m = static_cast<DB::ValueCategoryMatcher*>(*i);
         if (m->_category == QStr("Folder")) {
             positiveQuery << QStr(
                 "id IN (SELECT file.id FROM file, directory "
@@ -1060,7 +1060,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     Bindings excBinds;
     for (MatcherList::const_iterator i = negativeList.constBegin();
          i != negativeList.constEnd(); ++i) {
-        DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
+        DB::ValueCategoryMatcher* m = dynamic_cast<DB::ValueCategoryMatcher*>(*i);
         if (m) {
             if (m->_category == QStr("Folder")) {
                 negativeQuery << QStr(

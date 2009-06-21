@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef OPTIONMATCHER_H
-#define OPTIONMATCHER_H
+#ifndef CATEGORYMATCHER_H
+#define CATEGORYMATCHER_H
 #include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Utilities/Set.h"
@@ -29,14 +29,29 @@ class ImageInfo;
 using Utilities::StringSet;
 
 /**
-   Base class for components in the state machine for image matching.
+   \brief Base class for components of the image searching frame work.
+
+   The matcher component must implement \ref eval which tells if the given
+   image is matched by this component.
+
+   If the over all search contains a "No other" part (as in Jesper and no
+   other people", then we need to collect items of the category items seen. This,
+   however, is rather expensive, so this collection is only turned on in
+   that case.
+
+   To facilitate this, the method \ref finalize is called when the matcher
+   tree has been set up, and it will search the tree by recursively calling
+   \ref hasEmptyMatcher. When it has come to a conclusion if there is an
+   empty matcher, then it will recursively call \ref setShouldCreateMatchedSet.
+
 */
 class CategoryMatcher
 {
 public:
-    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) = 0;
     virtual ~CategoryMatcher() {}
     virtual void debug( int level ) const = 0;
+
+    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) = 0;
     void finalize();
     virtual bool hasEmptyMatcher() const = 0;
     virtual void setShouldCreateMatchedSet(bool);
@@ -47,65 +62,7 @@ protected:
     bool _shouldPrepareMatchedSet;
 };
 
-class OptionSimpleMatcher :public CategoryMatcher
-{
-public:
-    QString _category;
-    bool _sign;
-};
-
-class OptionValueMatcher :public OptionSimpleMatcher
-{
-public:
-    OptionValueMatcher( const QString& category, const QString& value, bool sign );
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
-
-    QString _option;
-    StringSet _members;
-};
-
-
-class OptionEmptyMatcher :public OptionSimpleMatcher
-{
-public:
-    OptionEmptyMatcher( const QString& category, bool sign );
-    OVERRIDE bool eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
-};
-
-class OptionContainerMatcher :public CategoryMatcher
-{
-public:
-    void addElement( CategoryMatcher* );
-    ~OptionContainerMatcher();
-    OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
-    OVERRIDE void setShouldCreateMatchedSet(bool);
-
-    QList<CategoryMatcher*> _elements;
-};
-
-class OptionAndMatcher :public OptionContainerMatcher
-{
-public:
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-};
-
-
-
-class OptionOrMatcher :public OptionContainerMatcher
-{
-public:
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-};
-
-
 }
 
-#endif /* OPTIONMATCHER_H */
+#endif /* CATEGORYMATCHER_H */
 

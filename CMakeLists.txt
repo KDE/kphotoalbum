@@ -179,6 +179,11 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ResultId.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/Result.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/NoOtherItemsCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
     )
 
 set(libImportExport_SRCS

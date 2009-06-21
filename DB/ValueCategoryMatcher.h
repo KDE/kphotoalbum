@@ -16,28 +16,27 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "CategoryMatcher.h"
-#include "DB/ImageInfo.h"
-#include "DB/MemberMap.h"
-#include "DB/ImageDB.h"
-#include <QList>
+#ifndef VALUECATEGORYMATCHER_H
+#define VALUECATEGORYMATCHER_H
 
-using namespace DB;
+#include "SimpleCategoryMatcher.h"
 
-QString CategoryMatcher::spaces(int level ) const
+namespace DB
 {
-    return QString::fromLatin1("").rightJustified(level*3 );
+
+class ValueCategoryMatcher :public SimpleCategoryMatcher
+{
+public:
+    ValueCategoryMatcher( const QString& category, const QString& value, bool sign );
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
+    OVERRIDE bool hasEmptyMatcher() const;
+
+    QString _option;
+    StringSet _members;
+};
+
 }
 
-void DB::CategoryMatcher::finalize()
-{
-    _shouldPrepareMatchedSet = hasEmptyMatcher();
-    setShouldCreateMatchedSet( _shouldPrepareMatchedSet );
-}
-
-
-void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
-{
-    _shouldPrepareMatchedSet = b;
-}
+#endif /* VALUECATEGORYMATCHER_H */
 

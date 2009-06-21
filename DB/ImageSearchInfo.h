@@ -30,7 +30,7 @@ namespace DB
 {
 
 
-class OptionSimpleMatcher;
+class SimpleCategoryMatcher;
 class ImageInfo;
 class CategoryMatcher;
 
@@ -54,7 +54,7 @@ public:
 
     bool isNull() const;
     bool match( ImageInfoPtr ) const;
-    QList<QList<OptionSimpleMatcher*> > query() const;
+    QList<QList<SimpleCategoryMatcher*> > query() const;
 
     void addAnd( const QString& category, const QString& value );
     QString toString() const;
@@ -74,8 +74,8 @@ protected:
     void compile() const;
     void deleteMatchers() const;
 
-    QList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
-    QList<QList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
+    QList<SimpleCategoryMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
+    QList<QList<SimpleCategoryMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:
     ImageDate _date;

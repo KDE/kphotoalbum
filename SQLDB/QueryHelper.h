@@ -31,7 +31,7 @@
 namespace DB {
     class ImageDate;
     class ImageSearchInfo;
-    class OptionSimpleMatcher;
+class SimpleCategoryMatcher;
 }
 
 namespace SQLDB
@@ -39,7 +39,7 @@ namespace SQLDB
 
 using Utilities::StringSet;
 
-typedef QList<DB::OptionSimpleMatcher*> MatcherList;
+typedef QList<DB::SimpleCategoryMatcher*> MatcherList;
 typedef QList<MatcherList> MatcherListList;
 
 class QueryHelper: public QSqlConnection

@@ -16,28 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifndef SIMPLECATEGORYMATCHER_H
+#define SIMPLECATEGORYMATCHER_H
+
 #include "CategoryMatcher.h"
-#include "DB/ImageInfo.h"
-#include "DB/MemberMap.h"
-#include "DB/ImageDB.h"
-#include <QList>
 
-using namespace DB;
-
-QString CategoryMatcher::spaces(int level ) const
+namespace DB
 {
-    return QString::fromLatin1("").rightJustified(level*3 );
+
+class SimpleCategoryMatcher :public CategoryMatcher
+{
+public:
+    QString _category;
+    bool _sign;
+};
+
 }
 
-void DB::CategoryMatcher::finalize()
-{
-    _shouldPrepareMatchedSet = hasEmptyMatcher();
-    setShouldCreateMatchedSet( _shouldPrepareMatchedSet );
-}
-
-
-void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
-{
-    _shouldPrepareMatchedSet = b;
-}
+#endif /* SIMPLECATEGORYMATCHER_H */
 

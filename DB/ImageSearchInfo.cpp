@@ -17,6 +17,11 @@
 */
 
 #include "ImageSearchInfo.h"
+#include "ValueCategoryMatcher.h"
+#include "NoOtherItemsCategoryMatcher.h"
+#include "AndCategoryMatcher.h"
+#include "ContainerCategoryMatcher.h"
+#include "OrCategoryMatcher.h"
 #include <qregexp.h>
 #include <QList>
 #include "Settings/SettingsData.h"
@@ -237,14 +242,14 @@ void ImageSearchInfo::compile() const
         QString matchText = it.value();
 
         QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
-        OptionContainerMatcher* orMatcher = new OptionOrMatcher;
+        DB::ContainerCategoryMatcher* orMatcher = new DB::OrCategoryMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
             QStringList andParts = (*itOr).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
 
-            OptionContainerMatcher* andMatcher = orMatcher;
+            DB::ContainerCategoryMatcher* andMatcher = orMatcher;
             if ( andParts.count() > 1 ) {
-                andMatcher = new OptionAndMatcher;
+                andMatcher = new DB::AndCategoryMatcher;
                 orMatcher->addElement( andMatcher );
             }
 
@@ -260,21 +265,23 @@ void ImageSearchInfo::compile() const
                 str = str.trimmed();
                 CategoryMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
-                    valueMatcher = new OptionEmptyMatcher( category, !negate );
+                    valueMatcher = new DB::NoOtherItemsCategoryMatcher( category, !negate );
                 else
-                    valueMatcher = new OptionValueMatcher( category, str, !negate );
+                    valueMatcher = new DB::ValueCategoryMatcher( category, str, !negate );
                 andMatcher->addElement( valueMatcher );
             }
         }
-        CategoryMatcher* matcher;
+        CategoryMatcher* matcher = 0;
         if ( orMatcher->_elements.count() == 1 )
             matcher = orMatcher->_elements[0];
         else if ( orMatcher->_elements.count() > 1 )
             matcher = orMatcher;
 
 
-        matcher->finalize();
-        _categoryMatchers.append( matcher );
+        if ( matcher ) {
+            matcher->finalize();
+            _categoryMatchers.append( matcher );
+        }
     }
     _compiled = true;
 }
@@ -295,7 +302,7 @@ void ImageSearchInfo::debugMatcher() const
     }
 }
 
-QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
+QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::query() const
 {
     if ( !_compiled )
         compile();
@@ -304,7 +311,7 @@ QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     // Normal Form and return it.
 
     QList<CategoryMatcher*>::Iterator it  = _categoryMatchers.begin();
-    QList<QList<OptionSimpleMatcher*> > result;
+    QList<QList<SimpleCategoryMatcher*> > result;
     if ( it == _categoryMatchers.end() )
         return result;
 
@@ -312,13 +319,13 @@ QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     ++it;
 
     for( ; it != _categoryMatchers.end(); ++it ) {
-        QList<QList<OptionSimpleMatcher*> > current = convertMatcher( *it );
-        QList<QList<OptionSimpleMatcher*> > oldResult = result;
+        QList<QList<SimpleCategoryMatcher*> > current = convertMatcher( *it );
+        QList<QList<SimpleCategoryMatcher*> > oldResult = result;
         result.clear();
 
-        Q_FOREACH(QList<OptionSimpleMatcher*> resultIt, oldResult) {
-            Q_FOREACH(QList<OptionSimpleMatcher*> currentIt, current) {
-                QList<OptionSimpleMatcher*> tmp;
+        Q_FOREACH(QList<SimpleCategoryMatcher*> resultIt, oldResult) {
+            Q_FOREACH(QList<SimpleCategoryMatcher*> currentIt, current) {
+                QList<SimpleCategoryMatcher*> tmp;
                 tmp += resultIt;
                 tmp += currentIt;
                 result.append( tmp );
@@ -353,21 +360,21 @@ void ImageSearchInfo::deleteMatchers() const
     _categoryMatchers.clear();
 }
 
-QList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
+QList<SimpleCategoryMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
 {
-    QList<OptionSimpleMatcher*> result;
+    QList<SimpleCategoryMatcher*> result;
 
-    OptionAndMatcher* andMatcher;
-    OptionSimpleMatcher* simpleMatcher;
+    AndCategoryMatcher* andMatcher;
+    SimpleCategoryMatcher* simpleMatcher;
 
-    if ( ( andMatcher = dynamic_cast<OptionAndMatcher*>( matcher ) ) ) {
+    if ( ( andMatcher = dynamic_cast<AndCategoryMatcher*>( matcher ) ) ) {
         Q_FOREACH(CategoryMatcher* child, andMatcher->_elements) {
-            OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( child );
+            SimpleCategoryMatcher* simpleMatcher = dynamic_cast<SimpleCategoryMatcher*>( child );
             Q_ASSERT( simpleMatcher );
             result.append( simpleMatcher );
         }
     }
-    else if ( ( simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( matcher ) ) )
+    else if ( ( simpleMatcher = dynamic_cast<SimpleCategoryMatcher*>( matcher ) ) )
         result.append( simpleMatcher );
     else
         Q_ASSERT( false );
@@ -379,12 +386,12 @@ QList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher*
  *
  * @return OR-list of AND-lists. (e.g. OR(AND(a,b),AND(c,d)))
  */
-QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( CategoryMatcher* item ) const
+QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::convertMatcher( CategoryMatcher* item ) const
 {
-    QList<QList<OptionSimpleMatcher*> > result;
-    OptionOrMatcher* orMacther;
+    QList<QList<SimpleCategoryMatcher*> > result;
+    OrCategoryMatcher* orMacther;
 
-    if ( ( orMacther = dynamic_cast<OptionOrMatcher*>( item ) ) ) {
+    if ( ( orMacther = dynamic_cast<OrCategoryMatcher*>( item ) ) ) {
         Q_FOREACH(CategoryMatcher* child, orMacther->_elements) {
             result.append( extractAndMatcher( child ) );
         }

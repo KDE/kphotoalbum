@@ -21,7 +21,7 @@
 #include <qstring.h>
 #include <qmap.h>
 #include "ImageSizeCheckBox.h"
- #include <QList>
+#include <QList>
 #include "DB/Result.h"
 
 namespace HTMLGenerator

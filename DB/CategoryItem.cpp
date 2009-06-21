@@ -16,8 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CategoryItem.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include <kdebug.h>
 
 DB::CategoryItem::~CategoryItem()

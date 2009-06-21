@@ -21,8 +21,7 @@
 
 #include "DB/CategoryCollection.h"
 #include "QueryHelper.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 
 namespace SQLDB {
     class SQLCategoryCollection :public DB::CategoryCollection

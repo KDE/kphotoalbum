@@ -21,7 +21,6 @@
 
 #include <qdialog.h>
 #include <qimage.h>
-//Added by qt3to4:
 #include <QCloseEvent>
 #include <QLabel>
 #include "DB/ImageInfoPtr.h"

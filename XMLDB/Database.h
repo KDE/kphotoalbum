@@ -47,7 +47,7 @@ namespace XMLDB {
             bool requireOnDisk=false) const;
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
-        OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
+        OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask );
         OVERRIDE DB::Result images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const QString& newName );

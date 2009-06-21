@@ -20,8 +20,7 @@
 #include "SQLMemberMap.h"
 #include "QueryHelper.h"
 #include "QueryErrors.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "Utilities/Graph.h"
 #include "Utilities/QStr.h"
 

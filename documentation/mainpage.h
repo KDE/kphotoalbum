@@ -2,6 +2,8 @@
    \mainpage
    Welcome to the KPhotoAlbum source code documentation, which is generated with doxygen. To generate your own copy, simply run <tt>doxygen</tt> in the kphotoalbum source directory.
 
+   Please refer to our \ref coding-standards
+
    KPhotoAlbum is split into a number of modules, each module is a directory of its own on the hard disk and a namespace in the source code.
    The following is a list of modules:
 

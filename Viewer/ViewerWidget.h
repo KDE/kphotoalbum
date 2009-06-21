@@ -24,7 +24,6 @@
 #include <kaction.h>
 #include <qdialog.h>
 #include <qimage.h>
-//Added by qt3to4:
 #include <QContextMenuEvent>
 #include <QWheelEvent>
 #include <QResizeEvent>

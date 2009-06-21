@@ -18,7 +18,7 @@
 
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
- #include <QList>
+#include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Utilities/Set.h"
 

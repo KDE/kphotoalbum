@@ -59,7 +59,7 @@
 #include "DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <kiconloader.h>
 #include <kpassworddialog.h>
 #include <KShortcutsDialog>
@@ -594,7 +594,7 @@ void MainWindow::Window::slotSortByDateAndTime()
 
 QString MainWindow::Window::welcome()
 {
-    WelComeDialog dialog( this );
+    WelcomeDialog dialog( this );
     dialog.exec();
     return dialog.configFileName();
 }
@@ -1025,7 +1025,7 @@ bool MainWindow::Window::load()
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
     if ( _stack->visibleWidget() == _thumbnailView ) {
-        Q3PopupMenu menu( this, "context popup menu");
+        QMenu menu( this );
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );
         menu.addAction( _createImageStack );

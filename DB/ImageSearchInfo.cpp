@@ -18,8 +18,7 @@
 
 #include "ImageSearchInfo.h"
 #include <qregexp.h>
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <kdebug.h>
@@ -98,7 +97,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // alreadyMatched map is used to make it possible to search for
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
-    Q_FOREACH(CategoryMatcher* optionMatcher, _optionMatchers) {
+    Q_FOREACH(CategoryMatcher* optionMatcher, _categoryMatchers) {
         ok &= optionMatcher->eval(info, alreadyMatched);
     }
 
@@ -119,27 +118,27 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 }
 
 
-QString ImageSearchInfo::option( const QString& name ) const
+QString ImageSearchInfo::categoryMatchText( const QString& name ) const
 {
-    return _options[name];
+    return _categoryMatchText[name];
 }
 
-void ImageSearchInfo::setOption( const QString& name, const QString& value )
+void ImageSearchInfo::setCategoryMatchText( const QString& name, const QString& value )
 {
-    _options[name] = value;
+    _categoryMatchText[name] = value;
     _isNull = false;
     _compiled = false;
 }
 
 void ImageSearchInfo::addAnd( const QString& category, const QString& value )
 {
-    QString val = option( category );
+    QString val = categoryMatchText( category );
     if ( !val.isEmpty() )
         val += QString::fromLatin1( " & " ) + value;
     else
         val = value;
 
-    setOption( category, val );
+    setCategoryMatchText( category, val );
     _isNull = false;
     _compiled = false;
 }
@@ -148,7 +147,7 @@ QString ImageSearchInfo::toString() const
 {
     QString res;
     bool first = true;
-    for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
         if ( ! it.value().isEmpty() ) {
             if ( first )
                 first = false;
@@ -182,7 +181,7 @@ QString ImageSearchInfo::toString() const
 
 void ImageSearchInfo::debug()
 {
-    for( QMap<QString,QString>::Iterator it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::Iterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
         kDebug() << it.key() << ", " << it.value();
     }
 }
@@ -193,8 +192,8 @@ void ImageSearchInfo::saveLock() const
     KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings"));
     config.writeEntry( QString::fromLatin1("label"), _label );
     config.writeEntry( QString::fromLatin1("description"), _description );
-    config.writeEntry( QString::fromLatin1("categories"), _options.keys() );
-    for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
+    config.writeEntry( QString::fromLatin1("categories"), _categoryMatchText.keys() );
+    for( QMap<QString,QString>::ConstIterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
         config.writeEntry( it.key(), it.value() );
     }
     config.sync();
@@ -208,7 +207,7 @@ ImageSearchInfo ImageSearchInfo::loadLock()
     info._description = config.readEntry( "description" );
     QStringList categories = config.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
     for( QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
-        info.setOption( *it, config.readEntry<QString>( *it, QString() ) );
+        info.setCategoryMatchText( *it, config.readEntry<QString>( *it, QString() ) );
     }
     return info;
 }
@@ -216,7 +215,7 @@ ImageSearchInfo ImageSearchInfo::loadLock()
 ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
 {
     _date = other._date;
-    _options = other._options;
+    _categoryMatchText = other._categoryMatchText;
     _label = other._label;
     _description = other._description;
     _isNull = other._isNull;
@@ -233,7 +232,7 @@ void ImageSearchInfo::compile() const
 #endif
     deleteMatchers();
 
-    for( QMap<QString,QString>::ConstIterator it = _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it = _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
         QString category = it.key();
         QString matchText = it.value();
 
@@ -268,9 +267,9 @@ void ImageSearchInfo::compile() const
             }
         }
         if ( orMatcher->_elements.count() == 1 )
-            _optionMatchers.append( orMatcher->_elements[0] );
+            _categoryMatchers.append( orMatcher->_elements[0] );
         else if ( orMatcher->_elements.count() > 1 )
-            _optionMatchers.append( orMatcher );
+            _categoryMatchers.append( orMatcher );
     }
     _compiled = true;
 }
@@ -286,7 +285,7 @@ void ImageSearchInfo::debugMatcher() const
         compile();
 
     qDebug("And:");
-    Q_FOREACH(CategoryMatcher* optionMatcher, _optionMatchers) {
+    Q_FOREACH(CategoryMatcher* optionMatcher, _categoryMatchers) {
         optionMatcher->debug(1);
     }
 }
@@ -299,15 +298,15 @@ QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     // Combine _optionMachers to one list of lists in Disjunctive
     // Normal Form and return it.
 
-    QList<CategoryMatcher*>::Iterator it  = _optionMatchers.begin();
+    QList<CategoryMatcher*>::Iterator it  = _categoryMatchers.begin();
     QList<QList<OptionSimpleMatcher*> > result;
-    if ( it == _optionMatchers.end() )
+    if ( it == _categoryMatchers.end() )
         return result;
 
     result = convertMatcher( *it );
     ++it;
 
-    for( ; it != _optionMatchers.end(); ++it ) {
+    for( ; it != _categoryMatchers.end(); ++it ) {
         QList<QList<OptionSimpleMatcher*> > current = convertMatcher( *it );
         QList<QList<OptionSimpleMatcher*> > oldResult = result;
         result.clear();
@@ -327,7 +326,7 @@ QList<QList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
 Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 {
     Q3Dict<void> map;
-    QString str = option( group );
+    QString str = categoryMatchText( group );
     if ( str.contains( QString::fromLatin1( "|" ) ) ) {
         return map;
     }
@@ -343,10 +342,10 @@ Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 
 void ImageSearchInfo::deleteMatchers() const
 {
-    Q_FOREACH(CategoryMatcher* matcher, _optionMatchers) {
+    Q_FOREACH(CategoryMatcher* matcher, _categoryMatchers) {
         delete matcher;
     }
-    _optionMatchers.clear();
+    _categoryMatchers.clear();
 }
 
 QList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
@@ -405,7 +404,7 @@ void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
 
 void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString& newName )
 {
-    _options[newName] = _options[oldName];
-    _options.remove( oldName );
+    _categoryMatchText[newName] = _categoryMatchText[oldName];
+    _categoryMatchText.remove( oldName );
     _compiled = false;
 }

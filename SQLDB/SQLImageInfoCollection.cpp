@@ -20,8 +20,7 @@
 #include "SQLImageInfoCollection.h"
 #include "SQLImageInfo.h"
 #include "QueryErrors.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 
 using namespace SQLDB;
 

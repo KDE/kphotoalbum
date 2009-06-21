@@ -17,8 +17,7 @@
 */
 #include "Setup.h"
 #include "ImageSizeCheckBox.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "DB/ImageDB.h"
 
 HTMLGenerator::Setup::Setup()

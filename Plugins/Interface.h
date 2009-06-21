@@ -21,7 +21,7 @@
 
 #include <config-kpa-kipi.h>
 #include <libkipi/interface.h>
- #include <QList>
+#include <QList>
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
 #include <libkipi/imagecollectionselector.h>

@@ -19,7 +19,6 @@
 #include <q3vbox.h>
 #include <qcombobox.h>
 #include <qmap.h>
-//Added by qt3to4:
 #include <QEvent>
 #include <QMouseEvent>
 #include "DB/ImageDate.h"

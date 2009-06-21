@@ -19,7 +19,6 @@
 #include <klineedit.h>
 #include <kmainwindow.h>
 #include <qlabel.h>
-//Added by qt3to4:
 #include <QKeyEvent>
 #include <QEvent>
 #include <klocale.h>

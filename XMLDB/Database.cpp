@@ -35,7 +35,6 @@
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
-//Added by qt3to4:
 #include <Q3ValueList>
 #ifdef HAVE_EXIV2
 #   include "Exif/Database.h"
@@ -83,18 +82,18 @@ bool XMLDB::Database::operator==(const DB::ImageDB& other) const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask )
+QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
 {
     QMap<QString, uint> map;
-    DB::GroupCounter counter( group );
-    Q3Dict<void> alreadyMatched = info.findAlreadyMatched( group );
+    DB::GroupCounter counter( category );
+    Q3Dict<void> alreadyMatched = info.findAlreadyMatched( category );
 
     DB::ImageSearchInfo noMatchInfo = info;
-    QString currentMatchTxt = noMatchInfo.option( group );
+    QString currentMatchTxt = noMatchInfo.categoryMatchText( category );
     if ( currentMatchTxt.isEmpty() )
-        noMatchInfo.setOption( group, DB::ImageDB::NONE() );
+        noMatchInfo.setCategoryMatchText( category, DB::ImageDB::NONE() );
     else
-        noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
+        noMatchInfo.setCategoryMatchText( category, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
@@ -104,7 +103,7 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
             // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from category
             // to count.
-            StringSet items = (*it)->itemsOfCategory(group);
+            StringSet items = (*it)->itemsOfCategory(category);
             counter.count( items );
             for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                 if ( !alreadyMatched[*it2] ) // We do not want to match "Jesper & Jesper"

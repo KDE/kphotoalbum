@@ -19,8 +19,7 @@
 #include "SQLCategoryCollection.h"
 
 #include "QueryHelper.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "SQLNormalCategory.h"
 #include "SQLTokensCategory.h"
 #include "SQLFolderCategory.h"

@@ -25,7 +25,7 @@
 #include <qfileinfo.h>
 
 #include <QtCore/QVector>
- #include <QList>
+#include <QList>
 #include <kmessagebox.h>
 #include <kapplication.h>
 #include <qdir.h>

@@ -18,7 +18,6 @@
 #ifndef MOUSEINTERACTION_H
 #define MOUSEINTERACTION_H
 #include <qevent.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 
 namespace ThumbnailView {

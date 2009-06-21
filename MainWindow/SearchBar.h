@@ -18,7 +18,6 @@
 #ifndef SEARCHBAR_H
 #define SEARCHBAR_H
 #include <ktoolbar.h>
-//Added by qt3to4:
 #include <QEvent>
 class KLineEdit;
 class KMainWindow;

@@ -27,7 +27,6 @@
 #include <kurl.h>
 #include <qpixmapcache.h>
 
-//Added by qt3to4:
 #include <QCustomEvent>
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
@@ -78,7 +77,7 @@ void ImageManager::Manager::init()
     for ( int i = 0; i < cores; ++i) {
         imageLoader = new ImageLoader(_thumbnailStorage);
         imageLoader->start( QThread::LowPriority );
-    } 
+    }
 }
 
 void ImageManager::Manager::load( ImageRequest* request )

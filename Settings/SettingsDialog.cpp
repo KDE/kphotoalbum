@@ -24,9 +24,8 @@
 #include <qlayout.h>
 #include <qlabel.h>
 
-//Added by qt3to4:
 #include <QHBoxLayout>
- #include <QList>
+#include <QList>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <kcombobox.h>

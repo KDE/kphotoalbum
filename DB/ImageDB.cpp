@@ -20,8 +20,7 @@
 #include <kinputdialog.h>
 #include <klocale.h>
 #include <qfileinfo.h>
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ResultId.h"

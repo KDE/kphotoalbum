@@ -19,7 +19,6 @@
 #include "ImagePreview.h"
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageLoader.h"
-//Added by qt3to4:
 #include <QResizeEvent>
 #include <QLabel>
 #include <kdebug.h>

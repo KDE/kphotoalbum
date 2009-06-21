@@ -18,8 +18,7 @@
 
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
-#include <q3popupmenu.h>
-//Added by qt3to4:
+#include <QMenu>
 #include <QPixmap>
 #include "DB/ImageInfoList.h"
 #include <Utilities/Set.h>

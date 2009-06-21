@@ -17,7 +17,6 @@
 */
 #include "XMLHandler.h"
 #include <qdom.h>
-//Added by qt3to4:
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
 #include "DB/ResultId.h"

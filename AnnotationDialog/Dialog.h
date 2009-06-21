@@ -24,7 +24,7 @@
 #include <QResizeEvent>
 #include <QEvent>
 #include <QMoveEvent>
- #include <QList>
+#include <QList>
 #include <QCloseEvent>
 #include <Q3PtrList>
 #include "DB/ImageInfoList.h"

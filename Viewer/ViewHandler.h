@@ -19,7 +19,6 @@
 #ifndef VIEWHANDLER_H
 #define VIEWHANDLER_H
 #include <qpoint.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 class ImageDisplay;
 class QRubberBand;

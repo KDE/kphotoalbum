@@ -23,8 +23,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
 #include "MainWindow/DirtyIndicator.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )

@@ -21,8 +21,7 @@
 #include <KPageDialog>
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include <QLabel>
 #include <Q3ListBoxItem>
 #include <config-kpa-kipi.h>

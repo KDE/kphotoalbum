@@ -20,8 +20,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 
 using namespace DB;
 

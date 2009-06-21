@@ -152,7 +152,7 @@ void MainWindow::StatisticsDialog::populate()
         const QString category = m_category->itemData(m_category->currentIndex()).value<QString>();
         const QString tag = m_tag->currentText();
         DB::ImageSearchInfo info;
-        info.setOption( category, tag );
+        info.setCategoryMatchText( category, tag );
         const int imageCount = DB::ImageDB::instance()->count(info ).total();
         QTreeWidgetItem* item = new QTreeWidgetItem( m_treeWidget,
                                                      QStringList() << QString::fromLatin1("%1: %2").arg(category).arg(tag)

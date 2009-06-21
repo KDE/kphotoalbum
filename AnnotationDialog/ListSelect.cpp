@@ -21,8 +21,8 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qvalidator.h>
-#include <q3popupmenu.h>
- #include <QList>
+#include <QMenu>
+#include <QList>
 #include <QMouseEvent>
 #include <QEvent>
 #include <klocale.h>

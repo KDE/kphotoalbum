@@ -19,7 +19,6 @@
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
 #include <q3listview.h>
-//Added by qt3to4:
 #include <QDropEvent>
 #include "DragItemInfo.h"
 #include "DB/CategoryItem.h"

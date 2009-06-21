@@ -23,7 +23,6 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <QTextCodec>
-//Added by qt3to4:
 #include <QResizeEvent>
 #include <QKeyEvent>
 #include "ImageManager/Manager.h"

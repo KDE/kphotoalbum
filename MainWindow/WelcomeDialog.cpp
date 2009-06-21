@@ -20,7 +20,6 @@
 #include <QDebug>
 #include "FeatureDialog.h"
 #include <qlabel.h>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <klocale.h>
@@ -37,7 +36,7 @@
 
 using namespace MainWindow;
 
-WelComeDialog::WelComeDialog( QWidget* parent )
+WelcomeDialog::WelcomeDialog( QWidget* parent )
     : QDialog( parent )
 
 {
@@ -80,13 +79,13 @@ WelComeDialog::WelComeDialog( QWidget* parent )
 }
 
 
-void WelComeDialog::slotLoadDemo()
+void WelcomeDialog::slotLoadDemo()
 {
     _configFile = Utilities::setupDemo();
     accept();
 }
 
-void WelComeDialog::createSetup()
+void WelcomeDialog::createSetup()
 {
     FileDialog dialog( this );
     _configFile = dialog.getFileName();
@@ -94,7 +93,7 @@ void WelComeDialog::createSetup()
         accept();
 }
 
-QString WelComeDialog::configFileName() const
+QString WelcomeDialog::configFileName() const
 {
     return _configFile;
 }
@@ -172,7 +171,7 @@ QString FileDialog::getFileName()
     return file;
 }
 
-void MainWindow::WelComeDialog::checkFeatures()
+void MainWindow::WelcomeDialog::checkFeatures()
 {
     if ( !FeatureDialog::hasAllFeaturesAvailable() ) {
         const QString msg =

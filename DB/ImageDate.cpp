@@ -19,8 +19,7 @@
 #include "ImageDate.h"
 #include <klocale.h>
 #include <qregexp.h>
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 
 using namespace DB;
 

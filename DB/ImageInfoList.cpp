@@ -18,7 +18,7 @@
 #include "ImageInfoList.h"
 #include <qmap.h>
 #include <qdatetime.h>
- #include <QList>
+#include <QList>
 #include "ImageInfo.h"
 #include <kmessagebox.h>
 #include <klocale.h>

@@ -19,7 +19,7 @@
 #include "Dialog.h"
 
 #include <Q3CString>
- #include <QList>
+#include <QList>
 #include <QCloseEvent>
 #include <QDir>
 #include <QDockWidget>
@@ -45,7 +45,7 @@
 #include <kstandarddirs.h>
 #include <ktextedit.h>
 #include <q3accel.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qdialog.h>
@@ -578,7 +578,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
                                       _imageLabel->text(), _description->toPlainText() );
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            _oldSearch.setOption( (*it)->category(), (*it)->text() );
+            _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );
         }
 
         return _oldSearch;
@@ -637,7 +637,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     _endDate->setDate( info.date().end().date() );
 
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setText( info.option( (*it)->category() ) );
+        (*it)->setText( info.categoryMatchText( (*it)->category() ) );
     }
 
     _imageLabel->setText( info.label() );

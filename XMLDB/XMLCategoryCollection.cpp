@@ -18,7 +18,7 @@
 #include "DB/ImageDB.h"
 #include "XMLCategoryCollection.h"
 #include "XMLCategory.h"
- #include <QList>
+#include <QList>
 #include <kdebug.h>
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const

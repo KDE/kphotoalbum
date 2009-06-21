@@ -22,8 +22,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QEventLoop>
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "ImageManager/Manager.h"
 #include <KFileDialog>
 #include <KStandardDirs>

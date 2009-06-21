@@ -19,7 +19,7 @@
 #define TOKENEDITOR_H
 
 #include <KDialog>
- #include <QList>
+#include <QList>
 class QCheckBox;
 
 namespace MainWindow

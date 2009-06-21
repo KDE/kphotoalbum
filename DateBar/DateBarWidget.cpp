@@ -17,10 +17,10 @@
 */
 
 #include "DateBarWidget.h"
+#include <QMenu>
 #include <qdatetime.h>
 #include <qpainter.h>
 #include <qfontmetrics.h>
-//Added by qt3to4:
 #include <QContextMenuEvent>
 #include <QKeyEvent>
 #include <QResizeEvent>
@@ -30,7 +30,6 @@
 #include <QWheelEvent>
 #include "ViewHandler.h"
 #include <qtoolbutton.h>
-#include <q3popupmenu.h>
 #include <qaction.h>
 #include <kglobal.h>
 #include <kiconloader.h>

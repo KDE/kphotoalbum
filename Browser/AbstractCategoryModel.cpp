@@ -40,7 +40,7 @@ bool Browser::AbstractCategoryModel::hasNoneEntry() const
 QString Browser::AbstractCategoryModel::text( const QString& name ) const
 {
     if ( name == DB::ImageDB::NONE() ) {
-        if ( _info.option(_category->name()).length() == 0 )
+        if ( _info.categoryMatchText(_category->name()).length() == 0 )
             return i18n( "None" );
         else
             return i18n( "No other" );

@@ -24,7 +24,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDir>
-#include <QPixmap> //Added by qt3to4
 #include <QPixmapCache>
 #include <QStringList>
 

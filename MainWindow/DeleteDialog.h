@@ -19,7 +19,6 @@
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
 #include <KDialog>
-//Added by qt3to4:
 #include <QLabel>
 
 #include "DB/Result.h"

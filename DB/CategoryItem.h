@@ -20,7 +20,7 @@
 
 #include <ksharedptr.h>
 #include <qstring.h>
- #include <QList>
+#include <QList>
 
 namespace DB
 {

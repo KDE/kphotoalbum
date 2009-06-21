@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDecoder.h"
-//Added by qt3to4:
 #include <Q3PtrList>
 
 Q3PtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()

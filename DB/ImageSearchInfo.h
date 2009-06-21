@@ -21,8 +21,7 @@
 #include "DB/ImageDate.h"
 #include <qmap.h>
 #include <q3dict.h>
-//Added by qt3to4:
- #include <QList>
+#include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
 #include <config-kpa-exiv2.h>
@@ -46,8 +45,8 @@ public:
 
     ImageDate date() const;
 
-    QString option( const QString& name ) const;
-    void setOption( const QString& name, const QString& value );
+    QString categoryMatchText( const QString& name ) const;
+    void setCategoryMatchText( const QString& name, const QString& value );
     void renameCategory( const QString& oldName, const QString& newName );
 
     QString label() const;
@@ -80,12 +79,12 @@ protected:
 
 private:
     ImageDate _date;
-    QMap<QString, QString> _options;
+    QMap<QString, QString> _categoryMatchText;
     QString _label;
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable QList<CategoryMatcher*> _optionMatchers;
+    mutable QList<CategoryMatcher*> _categoryMatchers;
 
 #ifdef HAVE_EXIV2
     Exif::SearchInfo _exifSearchInfo;

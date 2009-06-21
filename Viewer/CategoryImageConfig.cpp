@@ -22,7 +22,7 @@
 #include <QPixmap>
 #include <QGridLayout>
 #include <QVBoxLayout>
- #include <QList>
+#include <QList>
 #include <klocale.h>
 #include <qcombobox.h>
 #include "Settings/SettingsData.h"

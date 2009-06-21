@@ -23,7 +23,6 @@
 #include "DragItemInfo.h"
 #include <klocale.h>
 #include <kmessagebox.h>
-//Added by qt3to4:
 #include <QDropEvent>
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableListView* parent, const QString& column1,

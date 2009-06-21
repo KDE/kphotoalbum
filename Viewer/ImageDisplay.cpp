@@ -19,7 +19,6 @@
 
 #include "Viewer/ImageDisplay.h"
 #include <qpainter.h>
-//Added by qt3to4:
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -365,7 +364,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
     if ( loadedOK && fileName == _info->fileName(DB::AbsolutePath) ) {
         if ( fullSize.isValid() && !_info->size().isValid() )
             _info->setSize( fullSize );
-            
+
         if ( !_reloadImageInProgress )
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );
         else {

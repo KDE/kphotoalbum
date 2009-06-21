@@ -20,7 +20,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
- #include <QList>
+#include <QList>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <qcheckbox.h>

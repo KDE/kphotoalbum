@@ -18,7 +18,6 @@
 #ifndef GRIDRESIZEINTERACTION_H
 #define GRIDRESIZEINTERACTION_H
 #include "MouseInteraction.h"
-//Added by qt3to4:
 #include <QMouseEvent>
 
 namespace ThumbnailView

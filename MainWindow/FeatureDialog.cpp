@@ -16,11 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FeatureDialog.h"
+#include <QDebug>
 #include <config-kpa-kipi.h>
 #include <config-kpa-exiv2.h>
 #include <klocale.h>
 #include <qlayout.h>
- #include <QList>
+#include <QList>
 #include <kapplication.h>
 #include "Exif/Database.h"
 #include <ImageManager/VideoManager.h>
@@ -106,14 +107,17 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
-    :Q3TextBrowser( parent, name )
+    :QTextBrowser( parent )
 {
+    setObjectName(QString::fromLatin1(name));
 }
 
-void HelpBrowser::setSource( const QString& name )
+void HelpBrowser::setSource( const QUrl& url )
 {
+    const QString name = url.toString();
+
     if ( name.startsWith( QString::fromLatin1( "#" ) ) )
-        Q3TextBrowser::setSource( name );
+        QTextBrowser::setSource( name );
     else
         KToolInvocation::invokeBrowser( name );
 }
@@ -198,7 +202,6 @@ QString MainWindow::FeatureDialog::featureString()
 QStringList MainWindow::FeatureDialog::supportedVideoMimeTypes()
 {
     return Phonon::BackendCapabilities::availableMimeTypes();
-
 }
 
 #include "FeatureDialog.moc"

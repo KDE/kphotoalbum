@@ -26,12 +26,12 @@ class QLineEdit;
 namespace MainWindow
 {
 
-class WelComeDialog : public QDialog
+class WelcomeDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    WelComeDialog( QWidget* parent = 0 );
+    WelcomeDialog( QWidget* parent = 0 );
     QString configFileName() const;
 
 protected slots:

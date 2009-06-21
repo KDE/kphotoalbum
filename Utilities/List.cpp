@@ -20,7 +20,7 @@
 #include "List.h"
 #include "DB/RawId.h"
 #include <QTime>
- #include <QList>
+#include <QList>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
 #include <QStringList>

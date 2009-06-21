@@ -24,7 +24,6 @@
 #include "Utilities/Util.h"
 #include "ThumbnailStorage.h"
 
- #include <QList>  //Added by qt3to4
 #include <qapplication.h>
 #include <qfileinfo.h>
 #include <qwaitcondition.h>

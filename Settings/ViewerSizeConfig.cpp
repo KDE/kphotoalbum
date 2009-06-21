@@ -20,7 +20,6 @@
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qspinbox.h>
-//Added by qt3to4:
 #include <klocale.h>
 #include <qlabel.h>
 

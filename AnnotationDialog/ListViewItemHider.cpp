@@ -80,7 +80,7 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem
 
 bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )
 {
-    return static_cast<Q3CheckListItem*>(item)->isOn();
+    return static_cast<Q3CheckListItem*>(item)->state() != Q3CheckListItem::Off;
 }
 
 AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( Q3ListView* listView )

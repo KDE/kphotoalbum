@@ -1,3 +1,9 @@
+2009-06-21  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* When AnnotationDialog is called with multiple images, show
+	selected only shows also partially selected items. Thanks to
+	Hassan Ibraheem for patch.
+
 2009-06-14  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* fixed bug #165742: ListSelect blanks out when typing an initial

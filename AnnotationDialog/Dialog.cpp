@@ -465,6 +465,7 @@ void AnnotationDialog::Dialog::load()
 
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
+        (*it)->rePopulate();
     }
 
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );

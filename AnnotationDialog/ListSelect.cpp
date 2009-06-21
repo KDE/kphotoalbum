@@ -503,6 +503,9 @@ void AnnotationDialog::ListSelect::rePopulate()
     populate();
     setSelection( on, noChange );
 
+    if(_showSelectedOnly->isChecked())
+        limitToSelection();
+
     _listView->setContentsPos( x, y );
 }
 

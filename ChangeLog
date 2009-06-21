@@ -4,6 +4,9 @@
 	selected only shows also partially selected items. Thanks to
 	Hassan Ibraheem for patch.
 
+      * fixed bug #171517: Repopulate categories lists whenever an image
+	is loaded. Thanks to Hassan Ibraheem for patch.
+
 2009-06-16  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* fixed issue #196095 - Add icon for hide non selected. Thanks to

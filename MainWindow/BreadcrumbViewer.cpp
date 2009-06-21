@@ -36,7 +36,7 @@ void BreadcrumbViewer::updateText()
 
     QString res = htmlList.last();
     const QString ellipses = QChar(0x2026) + QString::fromLatin1(" > ");
-    for ( int i = htmlList.length()-2; i >= 0; --i ) {
+    for ( int i = htmlList.count()-2; i >= 0; --i ) {
         // If we can't fit it in, then add ellipses
         const QString tmp = htmlList[i] + QString::fromLatin1(" > ") + res;
         doc.setHtml(tmp);

@@ -29,27 +29,27 @@ OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& 
     _category = category ;
     _option = value;
     _sign = sign;
+
+    const MemberMap& map = DB::ImageDB::instance()->memberMap();
+    const QStringList members = map.members(_category, _option, true);
+    _members = members.toSet();
 }
 
 bool OptionValueMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
     // Following block does same as the old statement:
     // info->setMatched(_category, _option)
-    alreadyMatched[_category].insert(_option);
-    const MemberMap& map = DB::ImageDB::instance()->memberMap();
-    const QStringList members = map.members(_category, _option, true);
-    alreadyMatched[_category].unite(members.toSet());
+    if ( _shouldPrepareMatchedSet ) {
+        alreadyMatched[_category].insert(_option);
+        alreadyMatched[_category].unite(_members);
+    }
 
     if ( info->hasCategoryInfo( _category, _option ) ) {
         return _sign;
     }
 
-    QStringList list = DB::ImageDB::instance()->memberMap().members( _category, _option, true );
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( info->hasCategoryInfo( _category, *it ) )
-            return _sign;
-    }
-
+    if ( info->hasCategoryInfo( _category, _members ) )
+        return _sign;
     return !_sign;
 }
 
@@ -63,6 +63,7 @@ OptionEmptyMatcher::OptionEmptyMatcher( const QString& category, bool sign )
 
 bool OptionEmptyMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
+    Q_ASSERT( _shouldPrepareMatchedSet );
     bool allMatched = true;
     Q_FOREACH(const QString& item, info->itemsOfCategory(_category))
     {
@@ -142,4 +143,41 @@ void OptionContainerMatcher::debug( int level ) const
 QString CategoryMatcher::spaces(int level ) const
 {
     return QString::fromLatin1("").rightJustified(level*3 );
+}
+
+void DB::CategoryMatcher::finalize()
+{
+    _shouldPrepareMatchedSet = hasEmptyMatcher();
+    setShouldCreateMatchedSet( _shouldPrepareMatchedSet );
+}
+
+bool DB::OptionValueMatcher::hasEmptyMatcher() const
+{
+    return false;
+}
+
+bool DB::OptionEmptyMatcher::hasEmptyMatcher() const
+{
+    return true;
+}
+
+bool DB::OptionContainerMatcher::hasEmptyMatcher() const
+{
+    Q_FOREACH( const DB::CategoryMatcher* matcher,_elements )
+        if ( matcher->hasEmptyMatcher() )
+            return true;
+
+    return false;
+}
+
+void DB::OptionContainerMatcher::setShouldCreateMatchedSet(bool b)
+{
+    _shouldPrepareMatchedSet = b;
+    Q_FOREACH( DB::CategoryMatcher* matcher,_elements )
+        matcher->setShouldCreateMatchedSet( b );
+}
+
+void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
+{
+    _shouldPrepareMatchedSet = b;
 }

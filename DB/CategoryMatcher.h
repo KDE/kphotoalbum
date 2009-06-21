@@ -37,9 +37,14 @@ public:
     virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) = 0;
     virtual ~CategoryMatcher() {}
     virtual void debug( int level ) const = 0;
+    void finalize();
+    virtual bool hasEmptyMatcher() const = 0;
+    virtual void setShouldCreateMatchedSet(bool);
 
 protected:
     QString spaces(int level ) const;
+
+    bool _shouldPrepareMatchedSet;
 };
 
 class OptionSimpleMatcher :public CategoryMatcher
@@ -53,10 +58,12 @@ class OptionValueMatcher :public OptionSimpleMatcher
 {
 public:
     OptionValueMatcher( const QString& category, const QString& value, bool sign );
-    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    virtual void debug( int level ) const;
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
+    OVERRIDE bool hasEmptyMatcher() const;
 
     QString _option;
+    StringSet _members;
 };
 
 
@@ -64,8 +71,9 @@ class OptionEmptyMatcher :public OptionSimpleMatcher
 {
 public:
     OptionEmptyMatcher( const QString& category, bool sign );
-    virtual bool eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched);
-    virtual void debug( int level ) const;
+    OVERRIDE bool eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
+    OVERRIDE bool hasEmptyMatcher() const;
 };
 
 class OptionContainerMatcher :public CategoryMatcher
@@ -73,16 +81,18 @@ class OptionContainerMatcher :public CategoryMatcher
 public:
     void addElement( CategoryMatcher* );
     ~OptionContainerMatcher();
-    virtual void debug( int level ) const;
+    OVERRIDE void debug( int level ) const;
+    OVERRIDE bool hasEmptyMatcher() const;
+    OVERRIDE void setShouldCreateMatchedSet(bool);
 
-     QList<CategoryMatcher*> _elements;
+    QList<CategoryMatcher*> _elements;
 };
 
 class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    virtual void debug( int level ) const;
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
 };
 
 
@@ -90,8 +100,8 @@ public:
 class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    virtual void debug( int level ) const;
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
+    OVERRIDE void debug( int level ) const;
 };
 
 

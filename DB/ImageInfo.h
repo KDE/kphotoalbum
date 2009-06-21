@@ -117,6 +117,8 @@ public:
     void removeCategoryInfo( const QString& category, const QString& value );
 
     bool hasCategoryInfo( const QString& key,  const QString& value ) const;
+    bool hasCategoryInfo( const QString& key,  const StringSet& values ) const;
+
     QStringList availableCategories() const;
     StringSet itemsOfCategory( const QString& category ) const;
     void renameItem( const QString& key, const QString& oldValue, const QString& newValue );

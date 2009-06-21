@@ -266,10 +266,15 @@ void ImageSearchInfo::compile() const
                 andMatcher->addElement( valueMatcher );
             }
         }
+        CategoryMatcher* matcher;
         if ( orMatcher->_elements.count() == 1 )
-            _categoryMatchers.append( orMatcher->_elements[0] );
+            matcher = orMatcher->_elements[0];
         else if ( orMatcher->_elements.count() > 1 )
-            _categoryMatchers.append( orMatcher );
+            matcher = orMatcher;
+
+
+        matcher->finalize();
+        _categoryMatchers.append( matcher );
     }
     _compiled = true;
 }

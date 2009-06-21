@@ -29,6 +29,7 @@
 #include <config-kpa-exiv2.h>
 #include "Exif/Database.h"
 #include <kdebug.h>
+#include <Utilities/Set.h>
 
 using namespace DB;
 
@@ -122,6 +123,13 @@ bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) cons
 {
     return _categoryInfomation[key].contains(value);
 }
+
+bool DB::ImageInfo::hasCategoryInfo( const QString& key, const StringSet& values ) const
+{
+    return Utilities::overlap( _categoryInfomation[key], values );
+}
+
+
 
 StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 {
@@ -283,7 +291,7 @@ bool ImageInfo::operator==( const ImageInfo& other ) const
           _angle != other._angle ||
           _geoPosition != other._geoPosition ||
           _rating != other._rating ||
-          ( _stackId != other._stackId || 
+          ( _stackId != other._stackId ||
             ! ( ( _stackId == 0 ) ? true :
             ( _stackOrder == other._stackOrder ) ) )
            );

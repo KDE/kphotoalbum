@@ -29,5 +29,9 @@ namespace Utilities
      * For backwards compatibility we still use a useful typedef, the StringSet
      */
     typedef QSet<QString> StringSet;
+
+    bool overlap( const StringSet& set1, const StringSet& set2 );
 }
+
+
 #endif /* UTILITIES_SET_H */

@@ -1,10 +1,21 @@
+2009-06-22  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Speed up browsing of categories with many sub categories. This
+	took browsing from the order of magnitude of half minutes to a second.
+
+	* Added new theme for HTML pages which includes improved support
+	using java script. (Thanks to Miika Turkia for a patch for this)
+
+	* Added support for a copyright tag on the HTML generated pages
+	(Thanks to Miika Turkia for a patch for this)
+
 2009-06-21  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* When AnnotationDialog is called with multiple images, show
 	selected only shows also partially selected items. Thanks to
 	Hassan Ibraheem for patch.
 
-      * fixed bug #171517: Repopulate categories lists whenever an image
+	* fixed bug #171517: Repopulate categories lists whenever an image
 	is loaded. Thanks to Hassan Ibraheem for patch.
 
 2009-06-16  Jesper K. Pedersen  <blackie@kdab.com>
@@ -82,12 +93,12 @@ Other changes done since 4.0
 	the keyboard focus.
 
 	* BUGFIX: The HTML generator did not display the available themes
-	correctly. Thanks to theBro@luukku.com for a patch for this.
+	correctly. Thanks to Miika Turkia for a patch for this.
 
 2009-05-11  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* BUGFIX: Invoke external application for multiple files did not
-	work. Thanks to theBro@luukku.com for a patch for this.
+	work. Thanks to Miika Turkia for a patch for this.
 
 ====================== KPhotoalbum 4.0 released  ===================================	
 	

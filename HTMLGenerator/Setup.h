@@ -49,6 +49,9 @@ public:
     void setThumbSize( int thumbSize );
     int thumbSize() const;
 
+    void setCopyright( const QString& copyright );
+    QString copyright() const;
+
     void setDescription( const QString& description );
     QString description() const;
 
@@ -81,6 +84,7 @@ private:
     QString _destURL;
     QString _outputDir;
     int _thumbSize;
+    QString _copyright;
     QString _description;
     int _numOfCols;
     bool _generateKimFile;

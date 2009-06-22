@@ -59,6 +59,7 @@ private:
     KLineEdit* _baseURL;
     KLineEdit* _destURL;
     KLineEdit* _outputDir;
+    KLineEdit* _copyright;
     QSpinBox* _thumbSize;
     QTextEdit* _description;
     QSpinBox* _numOfCols;

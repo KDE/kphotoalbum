@@ -165,6 +165,14 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _setup.description() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _setup.title() );
+
+    QString copyright;
+    if (!_setup.copyright().isEmpty())
+        copyright = QString::fromLatin1( "&#169; %1" ).arg( _setup.copyright() );
+    else
+        copyright = QString::fromLatin1( "&nbsp;" );
+    content.replace( QString::fromLatin1( "**COPYRIGHT**" ), copyright );
+
     QString kimLink = QString::fromLatin1( "Share and Enjoy <a href=\"%1\">KPhotoAlbum export file</a>" ).arg( kimFileName( true ) );
     if ( _setup.generateKimFile() )
         content.replace( QString::fromLatin1( "**KIMFILE**" ), kimLink );
@@ -181,6 +189,10 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     // so we keep it using QDom.
     int count = 0;
     int cols = _setup.numOfCols();
+    QString first, last, images;
+
+    images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\n" ).arg( width ).arg( height ).arg( _setup.thumbSize() );
+
     QDomElement row;
     Q_FOREACH(const DB::ImageInfoPtr info, _setup.imageList().fetchInfos()) {
         if ( wasCanceled() )
@@ -198,6 +210,45 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         row.appendChild( col );
 
         const QString fileName = info->fileName(DB::AbsolutePath);
+
+        if (first.isEmpty())
+            first = namePage( width, height, fileName);
+        else
+            last = namePage( width, height, fileName);
+
+        images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
+                  .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( namePage( width, height, fileName) );
+
+        // -------------------------------------------------- Description
+        QString description;
+
+        QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+        for ( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
+        {
+            if ( ( *it )->isSpecialCategory() )
+                continue;
+
+            QString name = ( *it )->name();
+            if ( !info->itemsOfCategory ( name ).empty() && _setup.includeCategory ( name ) )
+            {
+                QString val = QStringList ( info->itemsOfCategory ( name ).toList() ).join ( QString::fromLatin1 ( ", " ) );
+                description += QString::fromLatin1 ( "<li> <b>%1:</b> %2</li>" ).arg ( name ).arg ( val );
+            }
+        }
+
+        if ( !info->description().isEmpty() && _setup.includeCategory ( QString::fromLatin1 ( "**DESCRIPTION**" ) ) )
+        {
+            description += QString::fromLatin1 ( "<li><b>Description:</b> %1</li>" ).arg ( info->description() );
+        }
+
+        if ( !description.isEmpty() )
+            description = QString::fromLatin1 ( "<ul>%1</ul>" ).arg ( description );
+        else
+            description = QString::fromLatin1 ( "" );
+
+        images += description;
+        images += QString::fromLatin1( "\"]);\n" );
+
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
                            namePage( width, height, fileName));
@@ -213,6 +264,12 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     }
 
     content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
+
+    content.replace( QString::fromLatin1( "**JSIMAGES**" ), images );
+    if (!first.isEmpty())
+	content.replace( QString::fromLatin1( "**FIRST**" ), first );
+    if (!last.isEmpty())
+	content.replace( QString::fromLatin1( "**LAST**" ), last );
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
@@ -303,10 +360,21 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
         link = i18n( "prev" );
     content.replace( QString::fromLatin1( "**PREV**" ), link );
 
+    // PENDING(blackie) These next 5 line also exists exactly like that in HTMLGenerator::Generator::generateIndexPage. Please refactor.
+    // prevfile
+    if ( !prev.isNull() )
+        link = namePage( width, height, prev.fetchInfo()->fileName(DB::AbsolutePath));
+    else
+        link = i18n( "prev" );
+    content.replace( QString::fromLatin1( "**PREVFILE**" ), link );
 
     // index link
     link = i18n( "<a href=\"index-%1.html\">index</a>", ImageSizeCheckBox::text(width,height,true));
     content.replace( QString::fromLatin1( "**INDEX**" ), link );
+
+    // indexfile
+    link = QString::fromLatin1( "index-%1.html").arg(ImageSizeCheckBox::text(width,height,true));
+    content.replace( QString::fromLatin1( "**INDEXFILE**" ), link );
 
     // Next Link
     if ( !next.isNull() )
@@ -314,6 +382,13 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     else
         link = i18n( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
+
+    // Nextfile
+    if ( !next.isNull() )
+        link = namePage( width, height, next.fetchInfo()->fileName(DB::AbsolutePath));
+    else
+        link = i18n( "next" );
+    content.replace( QString::fromLatin1( "**NEXTFILE**" ), link );
 
     if ( !next.isNull() )
         link = namePage( width, height, next.fetchInfo()->fileName(DB::AbsolutePath) );
@@ -343,6 +418,16 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     }
     content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
+    // -------------------------------------------------- Copyright
+    QString copyright;
+
+    if ( !_setup.copyright().isEmpty() )
+        copyright = QString::fromLatin1( "&#169; %1" ).arg( _setup.copyright() );
+    else
+        copyright = QString::fromLatin1( "&nbsp;" );
+    content.replace( QString::fromLatin1( "**COPYRIGHT**" ), QString::fromLatin1( "%1" ).arg( copyright ) );
+
+
     // -------------------------------------------------- Description
     QString description;
 
@@ -354,12 +439,12 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
         QString name = (*it)->name();
         if ( !info->itemsOfCategory( name ).empty() && _setup.includeCategory(name) ) {
             QString val = QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(", ") );
-            description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( name ).arg( val );
+            description += QString::fromLatin1("  <li> <b>%1:</b> %2</li>\n").arg( name ).arg( val );
         }
     }
 
     if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) ) {
-        description += QString::fromLatin1( "  <li> <b>Description:</b> %1\n" ).arg( info->description() );
+        description += QString::fromLatin1( "  <li> <b>Description:</b> %1</li>\n" ).arg( info->description() );
     }
 
     if ( !description.isEmpty() )

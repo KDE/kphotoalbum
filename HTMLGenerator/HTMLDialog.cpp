@@ -77,13 +77,21 @@ void HTMLDialog::createContentPage()
     label->setBuddy( _title );
     lay2->addWidget( _title, 0, 1 );
 
+    // Copyright
+    label = new QLabel( i18n("Copyright:"), contentPage );
+    label->setAlignment( Qt::AlignTop );
+    lay2->addWidget( label, 1, 0 );
+    _copyright = new KLineEdit( contentPage );
+    label->setBuddy( _copyright );
+    lay2->addWidget( _copyright, 1, 1 );
+
     // Description
     label = new QLabel( i18n("Description:"), contentPage );
     label->setAlignment( Qt::AlignTop );
-    lay2->addWidget( label, 1, 0 );
+    lay2->addWidget( label, 2, 0 );
     _description = new QTextEdit( contentPage );
     label->setBuddy( _description );
-    lay2->addWidget( _description, 1, 1 );
+    lay2->addWidget( _description, 2, 1 );
 
     _generateKimFile = new QCheckBox( i18n("Create .kim export file"), contentPage );
     _generateKimFile->setChecked( true );
@@ -405,6 +413,7 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     setup.setDestURL( _destURL->text() );
     setup.setOutputDir( _outputDir->text() );
     setup.setThumbSize( _thumbSize->value() );
+    setup.setCopyright( _copyright->text() );
     setup.setDescription( _description->toPlainText() );
     setup.setNumOfCols( _numOfCols->value() );
     setup.setGenerateKimFile( _generateKimFile->isChecked() );

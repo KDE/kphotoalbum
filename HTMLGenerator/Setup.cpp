@@ -86,6 +86,16 @@ int HTMLGenerator::Setup::thumbSize() const
     return _thumbSize;
 }
 
+void HTMLGenerator::Setup::setCopyright( const QString& copyright )
+{
+    _copyright = copyright;
+}
+
+QString HTMLGenerator::Setup::copyright() const
+{
+    return _copyright;
+}
+
 void HTMLGenerator::Setup::setDescription( const QString& description )
 {
     _description = description;

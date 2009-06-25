@@ -60,6 +60,14 @@
   \li \ref OrCategoryMatcher - represent the components of an "or" expression.
 
 
+  <h2>Image Dates</h2>
+  KPhotoAlbum has support for image dates, which are not know with an exact precission -
+  this might be the case for a images taken with a non-digital
+  camera. Therefore all dates in KPhotoAlbum are represented using the
+  class \ref ImageDate, which has a lower and an upper date for the range.
+
+  The two classes \ref ImageDateCollection and \ref ImageCount work together to support the date bar in its counting of images. See \ref XMLImageDateCollection::count for a detailed description of this.
+
   <h2>Undocumented classes</h2>
 
   \li CategoryCollection
@@ -68,8 +76,6 @@
   \li FileInfo
   \li GpsCoordinates
   \li GroupCounter
-  \li ImageDateCollection
-  \li ImageDate
   \li ImageInfoList
   \li MD5
   \li MD5Map

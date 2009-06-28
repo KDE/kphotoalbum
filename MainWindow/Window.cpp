@@ -1245,8 +1245,10 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
         _smallListView->setChecked( true );
     else if ( type == DB::Category::ThumbedTreeView )
         _largeListView->setChecked( true );
+#ifdef KDAB_TEMPORARILY_REMOVED
     else if ( type == DB::Category::IconView )
         _smallIconView->setChecked( true );
+#endif //KDAB_TEMPORARILY_REMOVED
     else if ( type == DB::Category::ThumbedIconView )
         _largeIconView->setChecked( true );
 }

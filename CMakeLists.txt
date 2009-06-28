@@ -70,7 +70,18 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/ViewHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp)
 
-set(libSettings_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp)
+set(libSettings_SRCS 
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SubCategoriesPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/GeneralPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ThumbnailsPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp
+)
 
 set(libxmldb_SRCS
        ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp
@@ -99,7 +110,9 @@ set(libPlugins_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollectionSelector.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollectionSelector.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
+)
 endif(KIPI_FOUND)
 
 set(libViewer_SRCS
@@ -250,6 +263,7 @@ set(EXIV2_SRCS)
 if(EXIV2_FOUND)
  	set(EXIV2_SRCS 
 # ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp 
+ ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
   ${libexif_SRCS})
 endif(EXIV2_FOUND)
 

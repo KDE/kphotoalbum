@@ -1,0 +1,257 @@
+#include "SubCategoriesPage.h"
+#include <KMessageBox>
+#include <kinputdialog.h>
+#include <DB/ImageDB.h>
+#include <klocale.h>
+#include <QPushButton>
+#include <Q3ListBox>
+#include <QComboBox>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
+Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
+    : QWidget( parent )
+{
+    QVBoxLayout* lay1 = new QVBoxLayout( this );
+
+    // Category
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout( lay2 );
+
+    QLabel* label = new QLabel( i18n( "Category:" ), this );
+    lay2->addWidget( label );
+    _category = new QComboBox( this );
+    lay2->addWidget( _category );
+    lay2->addStretch(1);
+
+    QHBoxLayout* lay3 = new QHBoxLayout;
+    lay1->addLayout( lay3 );
+
+    // Groups
+    QVBoxLayout* lay4 = new QVBoxLayout;
+    lay3->addLayout( lay4 );
+
+    label = new QLabel( i18n( "Super Categories:" ), this );
+    lay4->addWidget( label );
+    _groups = new Q3ListBox( this );
+    lay4->addWidget( _groups );
+
+    // Members
+    QVBoxLayout* lay5 = new QVBoxLayout;
+    lay3->addLayout( lay5 );
+
+    label = new QLabel( i18n( "Items of Category:" ), this );
+    lay5->addWidget( label );
+    _members = new Q3ListBox( this );
+    lay5->addWidget( _members );
+
+    // Buttons
+    QHBoxLayout* lay6 = new QHBoxLayout;
+    lay1->addLayout( lay6 );
+    lay6->addStretch(1);
+
+    QPushButton* add = new QPushButton( i18n("Add Super Category..." ), this );
+    lay6->addWidget( add );
+    _rename = new QPushButton( i18n( "Rename Super Category..."), this );
+    lay6->addWidget( _rename );
+    _del = new QPushButton( i18n("Delete Super Category" ), this );
+    lay6->addWidget( _del );
+
+    // Notice
+    QLabel* notice = new QLabel( i18n("<b>Notice:</b> It is also possible to set up subcategories in the annotation dialog, simply by dragging items." ), this );
+    lay1->addWidget( notice );
+
+    // Setup the actions
+    _memberMap = DB::ImageDB::instance()->memberMap();
+    connect( DB::ImageDB::instance()->categoryCollection(),
+             SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             &_memberMap, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( DB::ImageDB::instance()->categoryCollection(),
+             SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
+    connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
+    connect( _groups, SIGNAL( currentChanged( Q3ListBoxItem* ) ), this, SLOT( slotGroupSelected( Q3ListBoxItem* ) ) );
+    connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
+    connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
+    connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
+
+    _members->setSelectionMode( Q3ListBox::Multi );
+}
+
+/**
+   When the user selects a new category from the combo box then this method is called
+   Its purpose is too fill the groups and members listboxes.
+*/
+void Settings::SubCategoriesPage::slotCategoryChanged( const QString& text)
+{
+    slotCategoryChanged( DB::ImageDB::instance()->categoryCollection()->nameForText(text), true );
+}
+
+void Settings::SubCategoriesPage::slotCategoryChanged( const QString& name, bool saveGroups )
+{
+    if ( saveGroups ) {
+        // We do not want to save groups when renaming categories
+        saveOldGroup();
+    }
+
+    _groups->blockSignals(true);
+    _groups->clear();
+    _groups->blockSignals(false);
+
+    _currentCategory = name;
+    if (name.isNull())
+        return;
+    QStringList groupList = _memberMap.groups( name );
+
+    _groups->blockSignals(true);
+    _groups->insertStringList( groupList );
+    _groups->blockSignals(false);
+
+    _members->clear();
+    QStringList list = DB::ImageDB::instance()->categoryCollection()->categoryForName(name)->items();
+    list += _memberMap.groups( name );
+    QStringList uniq;
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( !uniq.contains(*it) )
+            uniq << *it;
+    }
+
+    uniq.sort();
+    _members->insertStringList( uniq );
+
+    _currentGroup = QString::null;
+
+    _members->clearSelection();
+    _members->setEnabled(false);
+
+    setButtonStates();
+}
+
+void Settings::SubCategoriesPage::slotGroupSelected( Q3ListBoxItem* item )
+{
+    saveOldGroup();
+    if ( item )
+        selectMembers( item->text() );
+}
+
+void Settings::SubCategoriesPage::slotAddGroup()
+{
+    bool ok;
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString::null, &ok );
+    if ( ok ) {
+        saveOldGroup();
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
+        _memberMap.addGroup(_currentCategory, text);
+        slotCategoryChanged( _currentCategory, false );
+        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
+        _groups->setCurrentItem( item ); // also emits currentChanged()
+        // selectMembers() is called automatically by slotGroupSelected()
+    }
+}
+
+void Settings::SubCategoriesPage::slotRenameGroup()
+{
+    Q_ASSERT( !_currentGroup.isNull() );
+    bool ok;
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), _currentGroup, &ok );
+    if ( ok ) {
+        saveOldGroup();
+        _memberMap.renameGroup( _currentCategory, _currentGroup, text );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( _currentGroup, text );
+        slotCategoryChanged( _currentCategory, false );
+        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
+        _groups->setCurrentItem( item );
+    }
+}
+
+void Settings::SubCategoriesPage::slotDelGroup()
+{
+    Q_ASSERT( !_currentGroup.isNull() );
+    int res = KMessageBox::warningContinueCancel( this, i18n( "Really delete group %1?" ,_currentGroup ),i18n("Delete Group"),KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+    if ( res == KMessageBox::Cancel )
+        return;
+
+    _memberMap.deleteGroup( _currentCategory, _currentGroup );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
+    _currentGroup = QString::null;
+    slotCategoryChanged( _currentCategory, false );
+}
+
+void Settings::SubCategoriesPage::saveOldGroup()
+{
+    if ( _currentCategory.isNull() || _currentGroup.isNull() )
+        return;
+
+    QStringList list;
+    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+        if ( item->isSelected() )
+            list << item->text();
+    }
+
+    _memberMap.setMembers(_currentCategory, _currentGroup, list);
+}
+
+void Settings::SubCategoriesPage::selectMembers( const QString& group )
+{
+    _currentGroup = group;
+
+    QStringList list = _memberMap.members(_currentCategory,group, false );
+
+    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+        if (!_memberMap.canAddMemberToGroup(_currentCategory, group, item->text())) {
+            _members->setSelected(item, false);
+            item->setSelectable(false);
+        }
+        else {
+            item->setSelectable(true);
+            _members->setSelected(item, list.contains(item->text()));
+        }
+    }
+
+    _members->setEnabled(true);
+
+    setButtonStates();
+}
+
+void Settings::SubCategoriesPage::setButtonStates()
+{
+    bool b = !_currentGroup.isNull();
+    _rename->setEnabled( b );
+    _del->setEnabled( b );
+}
+
+void Settings::SubCategoriesPage::slotPageChange()
+{
+    _category->clear();
+     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( !(*it)->isSpecialCategory() )
+            _category->addItem( (*it)->text() );
+    }
+
+     slotCategoryChanged( _category->currentText() );
+}
+
+void Settings::SubCategoriesPage::saveSettings()
+{
+    saveOldGroup();
+    DB::ImageDB::instance()->memberMap() = _memberMap;
+}
+
+void Settings::SubCategoriesPage::reset()
+{
+    slotCategoryChanged( _currentCategory, false );
+}
+
+void Settings::SubCategoriesPage::categoryRenamed( const QString& oldName, const QString& newName )
+{
+    if ( _currentCategory == oldName )
+        _currentCategory = newName;
+}
+
+DB::MemberMap* Settings::SubCategoriesPage::memberMap()
+{
+    return &_memberMap;
+}
+

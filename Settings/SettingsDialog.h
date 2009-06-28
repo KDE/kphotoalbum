@@ -16,41 +16,26 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef OPTIONSDIALOG_H
-#define OPTIONSDIALOG_H
+#ifndef SETTINGSDIALOG_H
+#define SETTINGSDIALOG_H
 #include <KPageDialog>
-#include "Settings/SettingsData.h"
-#include "DB/MemberMap.h"
-#include <QList>
-#include <QLabel>
-#include <Q3ListBoxItem>
-#include <config-kpa-kipi.h>
-class QSpinBox;
-class KComboBox;
-class QLineEdit;
-class Q3ListBox;
-class KIconButton;
-class KPushButton;
-class QCheckBox;
-class QComboBox;
-class Q3ButtonGroup;
 
-namespace KIPI
-{
-    class ConfigWidget;
-}
-namespace Exif{
-    class TreeView;
-}
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
+namespace KIPI { class ConfigWidget; }
+namespace Exif { class TreeView; }
 namespace SQLDB { class SQLSettingsWidget; }
-#endif
 
 namespace Settings
 {
 class ViewerSizeConfig;
 class CategoryItem;
+class CategoryPage;
+class SubCategoriesPage;
+class GeneralPage;
+class ThumbnailsPage;
+class ViewerPage;
+class PluginsPage;
+class ExifPage;
+class DatabaseBackendPage;
 
 class SettingsDialog :public KPageDialog {
     Q_OBJECT
@@ -68,119 +53,30 @@ signals:
 
 protected slots:
     void slotMyOK();
-    void edit( Q3ListBoxItem* );
-    void slotLabelChanged( const QString& );
-    void slotPreferredViewChanged( int );
-    void slotIconChanged( QString );
-    void slotNewItem();
-    void slotDeleteCurrent();
-    void slotCategoryChanged( const QString& );
-    void slotGroupSelected( Q3ListBoxItem* );
-    void slotAddGroup();
-    void slotDelGroup();
-    void slotRenameGroup();
-    void slotPageChange();
-    void thumbnailSizeChanged( int );
-    void thumbnailCacheScreenChanged(int);
 
 protected:
     void createGeneralPage();
     void createThumbNailPage();
-    void createOptionGroupsPage();
-    void createGroupConfig();
-    void enableDisable( bool );
-    void saveOldGroup();
-    void selectMembers( const QString& );
-    void slotCategoryChanged( const QString&, bool saveGroups );
-    void setButtonStates();
+    void createCategoryPage();
+    void createSubCategoriesPage();
     void createViewerPage();
     void createPluginPage();
     void createEXIFPage();
     void createDatabaseBackendPage();
 
 private:
-    // General page
-    KComboBox* _trustTimeStamps;
-    QSpinBox* _autosave;
-    QCheckBox* _useEXIFRotate;
-    QCheckBox* _useEXIFComments;
-    QComboBox* _albumCategory;
-    QCheckBox* _searchForImagesOnStart;
-    QCheckBox* _skipRawIfOtherMatches;
-    QSpinBox* _barWidth;
-    QSpinBox* _barHeight;
-    QSpinBox* _backupCount;
-    QCheckBox* _compressBackup;
-    QCheckBox* _compressedIndexXML;
-    QCheckBox* _showSplashScreen;
-
-    // Thumbnail Page
-    QSpinBox* _previewSize;
-    QSpinBox* _thumbnailSize;
-    QCheckBox* _thumbnailDarkBackground;
-    QCheckBox* _displayLabels;
-    QCheckBox* _displayCategories;
-    QCheckBox* _thumbnailDisplayGrid;
-    QSpinBox* _autoShowThumbnailView;
-    QSpinBox* _thumbnailCacheScreens;
-    QLabel* _thumbnailMegabyteInfo;
-    KComboBox* _thumbnailAspectRatio;
-    QSpinBox* _thumbnailSpace;
-
-    // Categories page
-    Q3ListBox* _categories;
-    QLabel* _labelLabel;
-    QLineEdit* _text;
-    QLabel* _iconLabel;
-    KIconButton* _icon;
-    QLabel* _thumbnailSizeInCategoryLabel;
-    QSpinBox* _thumbnailSizeInCategory;
-
-    QLabel* _preferredViewLabel;
-    QComboBox* _preferredView;
-    KPushButton* _delItem;
-    CategoryItem* _current;
-     QList<CategoryItem*> _deleted;
-
-    // Member Groups page
-    QComboBox* _category;
-    Q3ListBox* _groups;
-    Q3ListBox* _members;
-    DB::MemberMap _memberMap;
-    QString _currentCategory;
-    QString _currentGroup;
-    QPushButton* _rename;
-    QPushButton* _del;
-
-    // Viewer page
-    ViewerSizeConfig* _slideShowSetup;
-    ViewerSizeConfig* _viewImageSetup;
-    QComboBox* _smoothScale;
-    QSpinBox* _slideShowInterval;
-    QSpinBox* _cacheSize;
-    KComboBox* _viewerStandardSize;
-
-#ifdef HASKIPI
-    // Plugin config
-    KIPI::ConfigWidget* _pluginConfig;
-    QCheckBox* _delayLoadingPlugins;
-#endif
-
-    // Exif viewer
-    Exif::TreeView* _exifForViewer;
-    Exif::TreeView* _exifForDialog;
-    QComboBox* _iptcCharset;
-
+    Settings::GeneralPage* _generalPage;
+    Settings::ThumbnailsPage* _thumbnailsPage;
+    Settings::CategoryPage* _categoryPage;
+    Settings::SubCategoriesPage* _subCategoriesPage;
+    Settings::ViewerPage* _viewerPage;
+    Settings::PluginsPage* _pluginsPage;
+    Settings::ExifPage* _exifPage;
+    Settings::DatabaseBackendPage* _databaseBackendPage;
     KPageWidgetItem* _backendPage;
-    Q3ButtonGroup* _backendButtons;
-#ifdef SQLDB_SUPPORT
-    // SQL backend
-    SQLDB::SQLSettingsWidget* _sqlSettings;
-#endif
-
 };
 
 }
 
-#endif /* OPTIONSDIALOG_H */
+#endif /* SETTINGSDIALOG_H */
 

@@ -49,6 +49,7 @@ protected:
     bool generateContentPage( int width, int height,
                               const DB::ResultId& prevInfo, const DB::ResultId& current, const DB::ResultId& nextInfo );
     bool linkIndexFile();
+    QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
 
 public:
     QString namePage( int width, int height, const QString& fileName );

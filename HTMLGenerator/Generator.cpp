@@ -220,26 +220,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
                   .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( namePage( width, height, fileName) );
 
         // -------------------------------------------------- Description
-        QString description;
-
-        QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-        for ( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
-        {
-            if ( ( *it )->isSpecialCategory() )
-                continue;
-
-            QString name = ( *it )->name();
-            if ( !info->itemsOfCategory ( name ).empty() && _setup.includeCategory ( name ) )
-            {
-                QString val = QStringList ( info->itemsOfCategory ( name ).toList() ).join ( QString::fromLatin1 ( ", " ) );
-                description += QString::fromLatin1 ( "<li> <b>%1:</b> %2</li>" ).arg ( name ).arg ( val );
-            }
-        }
-
-        if ( !info->description().isEmpty() && _setup.includeCategory ( QString::fromLatin1 ( "**DESCRIPTION**" ) ) )
-        {
-            description += QString::fromLatin1 ( "<li><b>Description:</b> %1</li>" ).arg ( info->description() );
-        }
+        QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);
 
         if ( !description.isEmpty() )
             description = QString::fromLatin1 ( "<ul>%1</ul>" ).arg ( description );
@@ -429,23 +410,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
 
     // -------------------------------------------------- Description
-    QString description;
-
-     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        if ( (*it)->isSpecialCategory() )
-            continue;
-
-        QString name = (*it)->name();
-        if ( !info->itemsOfCategory( name ).empty() && _setup.includeCategory(name) ) {
-            QString val = QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(", ") );
-            description += QString::fromLatin1("  <li> <b>%1:</b> %2</li>\n").arg( name ).arg( val );
-        }
-    }
-
-    if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) ) {
-        description += QString::fromLatin1( "  <li> <b>Description:</b> %1</li>\n" ).arg( info->description() );
-    }
+    QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);
 
     if ( !description.isEmpty() )
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "<ul>\n%1\n</ul>" ).arg( description ) );
@@ -647,5 +612,25 @@ void HTMLGenerator::Generator::showBrowser()
     _eventLoop.exit();
 }
 
+QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info )
+{
+     QString description;
 
+     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( (*it)->isSpecialCategory() )
+            continue;
+
+        QString name = (*it)->name();
+        if ( !info->itemsOfCategory( name ).empty() && _setup.includeCategory(name) ) {
+            QString val = QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(", ") );
+            description += QString::fromLatin1("  <li> <b>%1:</b> %2</li>").arg( name ).arg( val );
+        }
+    }
+
+    if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) ) {
+        description += QString::fromLatin1( "  <li> <b>Description:</b> %1</li>" ).arg( info->description() );
+    }
+
+    return description;
+}
 #include "Generator.moc"

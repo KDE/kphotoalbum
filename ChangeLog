@@ -1,3 +1,15 @@
+2009-06-29  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Made it much more explicit when done tagging images:
+	  - An item for showing images not yet tagged are available in the
+	    browser
+	  - A configuration option is available for specifying which
+            category and tag should be used to specify untagged images.
+	  - This tag is set on images when loaded in
+	  - This tag is removed when selecting "done tagging" in the
+            annotation dialog. It is also possible to select "continue
+	    later" in that dialog
+
 2009-06-22  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Speed up browsing of categories with many sub categories. This

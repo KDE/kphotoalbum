@@ -180,8 +180,10 @@ void NewImageFinder::loadExtraFiles()
         if ( dialog.wasCanceled() )
             return;
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
-        if ( info )
+        if ( info ) {
+            markUnTagged(info);
             newImages.append(info);
+        }
     }
     DB::ImageDB::instance()->addImages( newImages );
 }
@@ -290,4 +292,12 @@ bool  NewImageFinder::calculateMD5sums(
         KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead );
 
     return dirty;
+}
+
+void DB::NewImageFinder::markUnTagged( ImageInfoPtr info )
+{
+    if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
+        info->addCategoryInfo( Settings::SettingsData::instance()->untaggedCategory(),
+                           Settings::SettingsData::instance()->untaggedTag() );
+    }
 }

@@ -79,7 +79,8 @@ protected slots:
     void slotRevert();
     void slotPrev();
     void slotNext();
-    void slotOK();
+    void doneTagging();
+    void continueLater();
     void slotClear();
     void slotOptions();
     void slotSaveWindowSetup();
@@ -120,6 +121,7 @@ protected:
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
     QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
+    void saveAndClose();
 
 private:
     DB::ImageInfoList _origList;
@@ -143,6 +145,7 @@ private:
     ImagePreview* _preview;
     QPushButton* _revertBut;
     KPushButton* _okBut;
+    KPushButton* _continueLaterBut;
     QPushButton* _prevBut;
     QPushButton* _nextBut;
     QPushButton* _rotateLeft;

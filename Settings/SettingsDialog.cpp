@@ -110,7 +110,7 @@ void Settings::SettingsDialog::show()
     _pluginsPage->loadSettings(opt);
 #endif
 
-    _categoryPage->loadSettings();
+    _categoryPage->loadSettings(opt);
 
 #ifdef HAVE_EXIV2
     _exifPage->loadSettings( opt );
@@ -129,7 +129,7 @@ void Settings::SettingsDialog::slotMyOK()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
     _generalPage->saveSettings( opt );
     _databaseBackendPage->saveSettings(opt);
-    _categoryPage->saveSettings( _subCategoriesPage->memberMap() );
+    _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
     _subCategoriesPage->saveSettings();
 
 #ifdef HASKIPI

@@ -1,4 +1,5 @@
 #include "CategoryPage.h"
+#include "UntaggedGroupBox.h"
 #include <DB/ImageDB.h>
 #include "SettingsDialog.h"
 #include <kmessagebox.h>
@@ -19,7 +20,7 @@
 Settings::CategoryPage::CategoryPage( QWidget* parent )
     : QWidget( parent )
 {
-    QVBoxLayout* lay1 = new QVBoxLayout( this );
+    QVBoxLayout* lay1 = new QVBoxLayout(this);
     QHBoxLayout* lay2 = new QHBoxLayout;
     lay1->addLayout( lay2 );
 
@@ -88,6 +89,11 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     lay4->addWidget( _delItem );
 
     _current = 0;
+
+    // Untagged images
+    _untaggedBox = new UntaggedGroupBox(this);
+    lay1->addWidget(_untaggedBox);
+
 }
 
 void Settings::CategoryPage::edit( Q3ListBoxItem* i )
@@ -170,7 +176,7 @@ void Settings::CategoryPage::enableDisable( bool b )
     _preferredView->setEnabled( b );
 }
 
-void Settings::CategoryPage::saveSettings( DB::MemberMap* memberMap )
+void Settings::CategoryPage::saveSettings( Settings::SettingsData* opt, DB::MemberMap* memberMap )
 {
     // Delete items
     for( QList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
@@ -182,9 +188,11 @@ void Settings::CategoryPage::saveSettings( DB::MemberMap* memberMap )
         CategoryItem* item = static_cast<CategoryItem*>( i );
         item->submit( memberMap );
     }
+
+    _untaggedBox->saveSettings( opt );
 }
 
-void Settings::CategoryPage::loadSettings()
+void Settings::CategoryPage::loadSettings( Settings::SettingsData* opt )
 {
     _categories->clear();
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -193,6 +201,8 @@ void Settings::CategoryPage::loadSettings()
             new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
         }
     }
+
+    _untaggedBox->loadSettings( opt );
 }
 
 

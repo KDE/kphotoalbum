@@ -17,6 +17,8 @@ namespace Settings
 {
 class CategoryItem;
 class SettingsDialog;
+class UntaggedGroupBox;
+class SettingsData;
 
 class CategoryPage :public QWidget
 {
@@ -24,8 +26,8 @@ class CategoryPage :public QWidget
 public:
     CategoryPage( QWidget* parent );
     void enableDisable( bool );
-    void saveSettings( DB::MemberMap* memberMap );
-    void loadSettings();
+    void saveSettings( Settings::SettingsData* opt, DB::MemberMap* memberMap );
+    void loadSettings( Settings::SettingsData* opt );
 
 signals:
     void currentCategoryNameChanged( const QString& oldName, const QString& newName );
@@ -52,6 +54,7 @@ private:
     KPushButton* _delItem;
     Settings::CategoryItem* _current;
     QList<CategoryItem*> _deleted;
+    UntaggedGroupBox* _untaggedBox;
 };
 
 }

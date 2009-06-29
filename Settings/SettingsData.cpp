@@ -305,6 +305,8 @@ QString SettingsData::albumCategory() const
     return category;
 }
 
+property_ref( untaggedCategory, setUntaggedCategory, QString, General, "Events");
+property_ref( untaggedTag,      setUntaggedTag,      QString, General, "untagged");
 
 //////////////
 //// Exif ////
@@ -429,4 +431,9 @@ void SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 QRect SettingsData::windowGeometry( WindowType win ) const
 {
     return value( "Window Geometry", win, QRect(0,0,800,600) );
+}
+
+bool Settings::SettingsData::hasUntaggedCategoryFeatureConfigured() const
+{
+    return DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( untaggedCategory() );
 }

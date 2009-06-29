@@ -17,6 +17,7 @@
 */
 
 #include "Dialog.h"
+#include <QCheckBox>
 
 #include <Q3CString>
 #include <QList>
@@ -141,8 +142,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     lay1->addStretch(1);
 
-    _okBut = new KPushButton( KStandardGuiItem::ok(), this );
+    _okBut = new KPushButton( i18n("Done"), this );
     lay1->addWidget( _okBut );
+
+    _continueLaterBut = new KPushButton( i18n("Continue Later"), this );
+    lay1->addWidget( _continueLaterBut );
 
     QPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel(), this );
     lay1->addWidget( cancelBut );
@@ -153,7 +157,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     shortCutManager.addTaken( cancelBut->text() );
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
-    connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
+    connect( _okBut, SIGNAL( clicked() ), this, SLOT( doneTagging() ) );
+    connect( _continueLaterBut, SIGNAL( clicked() ), this, SLOT( continueLater() ) );
     connect( cancelBut, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
@@ -359,62 +364,15 @@ void AnnotationDialog::Dialog::slotNext()
     load();
 }
 
-void AnnotationDialog::Dialog::slotOK()
+void AnnotationDialog::Dialog::doneTagging()
 {
-    if (_origList.isEmpty()) {
-        // all images are deleted.
-        QDialog::accept();
-        return;
-    }
-
-// I need to check for the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
-    // and we can thus not check for changes anymore
-    const bool anyChanges = hasChanges();
-
-    if ( _setup == InputSingleImageConfigMode )  {
-        writeToInfo();
-        for ( int i = 0; i < _editList.count(); ++i )  {
-            *(_origList[i]) = _editList[i];
+    saveAndClose();
+    if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
+        for( DB::ImageInfoListIterator it = _origList.begin(); it != _origList.end(); ++it ) {
+            (*it)->removeCategoryInfo( Settings::SettingsData::instance()->untaggedCategory(),
+                                      Settings::SettingsData::instance()->untaggedTag() );
         }
     }
-    else if ( _setup == InputMultiImageConfigMode ) {
-        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            (*it)->slotReturn();
-        }
-
-        for( DB::ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
-            DB::ImageInfoPtr info = *it;
-            info->delaySavingChanges(true);
-            info->rotate( _preview->angle() );
-            if ( !_startDate->date().isNull() )
-                info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
-
-            for( Q3PtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
-                info->addCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOn() );
-                info->removeCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOff() );
-            }
-
-            if ( !_imageLabel->text().isEmpty() ) {
-                info->setLabel( _imageLabel->text() );
-            }
-
-
-            if ( !_description->toPlainText().isEmpty() ) {
-                info->setDescription( _description->toPlainText() );
-            }
-
-            info->delaySavingChanges(false);
-        }
-    }
-    _accept = QDialog::Accepted;
-
-    // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
-    if ( anyChanges ) {
-        MainWindow::DirtyIndicator::markDirty();
-        _thumbnailTextShouldReload = true;
-    }
-
-    QDialog::accept();
 }
 
 /*
@@ -514,6 +472,11 @@ void AnnotationDialog::Dialog::writeToInfo()
 
 int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
+    if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( Settings::SettingsData::instance()->untaggedCategory() )
+            ->addItem(Settings::SettingsData::instance()->untaggedTag() );
+    }
+
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
     else
@@ -560,6 +523,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     _thumbnailTextShouldReload = false;
 
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
+
     return exec();
 }
 
@@ -598,6 +562,7 @@ void AnnotationDialog::Dialog::setup()
 
     if ( _setup == SearchMode )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
+        _continueLaterBut->hide();
         _revertBut->hide();
         setWindowTitle( i18n("Search") );
         loadInfo( _oldSearch );
@@ -608,7 +573,8 @@ void AnnotationDialog::Dialog::setup()
         _rotateRight->setEnabled( false );
     }
     else {
-        _okBut->setGuiItem( KStandardGuiItem::ok() );
+        _okBut->setText( i18n("Done") );
+        _continueLaterBut->show();
         _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
         _revertBut->show();
         setWindowTitle( i18n("Annotations") );
@@ -783,7 +749,7 @@ void AnnotationDialog::Dialog::rotate( int angle )
 {
     _thumbnailShouldReload = true;
     if ( _setup == InputMultiImageConfigMode ) {
-        // In slotOK the preview will be queried for its angle.
+        // In doneTagging the preview will be queried for its angle.
     }
     else {
         DB::ImageInfo& info = _editList[ _current ];
@@ -827,7 +793,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     _thumbnailShouldReload = true;
     MainWindow::DirtyIndicator::markDirty();
     if ( _origList.count() == 0 ) {
-        slotOK();
+        doneTagging();
         return;
     }
     if ( _current == (int)_origList.count() ) // we deleted the last image
@@ -980,7 +946,7 @@ void AnnotationDialog::Dialog::setupActions()
     action->setText(  i18n("Annotate Previous") );
     action->setShortcut(  Qt::Key_PageUp );
 
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-OK-dialog"),  this, SLOT( slotOK() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-OK-dialog"),  this, SLOT( doneTagging() ) );
     action->setText(  i18n("OK dialog") );
     action->setShortcut(  Qt::CTRL+Qt::Key_Return );
 
@@ -1041,6 +1007,69 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
 void AnnotationDialog::Dialog::slotRatingChanged( unsigned int )
 {
     _ratingChanged = true;
+}
+
+void AnnotationDialog::Dialog::continueLater()
+{
+    saveAndClose();
+}
+
+void AnnotationDialog::Dialog::saveAndClose()
+{
+    if (_origList.isEmpty()) {
+        // all images are deleted.
+        QDialog::accept();
+        return;
+    }
+
+    // I need to check for the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
+    // and we can thus not check for changes anymore
+    const bool anyChanges = hasChanges();
+
+    if ( _setup == InputSingleImageConfigMode )  {
+        writeToInfo();
+        for ( int i = 0; i < _editList.count(); ++i )  {
+            *(_origList[i]) = _editList[i];
+        }
+    }
+    else if ( _setup == InputMultiImageConfigMode ) {
+        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+            (*it)->slotReturn();
+        }
+
+        for( DB::ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
+            DB::ImageInfoPtr info = *it;
+            info->delaySavingChanges(true);
+            info->rotate( _preview->angle() );
+            if ( !_startDate->date().isNull() )
+                info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+
+            for( Q3PtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
+                info->addCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOn() );
+                info->removeCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOff() );
+            }
+
+            if ( !_imageLabel->text().isEmpty() ) {
+                info->setLabel( _imageLabel->text() );
+            }
+
+
+            if ( !_description->toPlainText().isEmpty() ) {
+                info->setDescription( _description->toPlainText() );
+            }
+
+            info->delaySavingChanges(false);
+        }
+    }
+    _accept = QDialog::Accepted;
+
+    // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
+    if ( anyChanges ) {
+        MainWindow::DirtyIndicator::markDirty();
+        _thumbnailTextShouldReload = true;
+    }
+
+    QDialog::accept();
 }
 
 #include "Dialog.moc"

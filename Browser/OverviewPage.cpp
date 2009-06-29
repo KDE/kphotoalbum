@@ -56,7 +56,7 @@ int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
 #ifdef HAVE_EXIV2
         1 +
 #endif
-        2; // Search info + Show Image
+        3; // Search info + Untagged Images + Show Image
 }
 
 QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
@@ -71,6 +71,8 @@ QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
         return exivInfo( role );
     else if ( isSearchIndex( row ) )
         return searchInfo( role );
+    else if ( isUntaggedImagesIndex( row ) )
+        return untaggedImagesInfo( role );
     else if ( isImageIndex( row ) )
         return imageInfo( role );
     return QVariant();
@@ -93,7 +95,13 @@ bool Browser::OverviewPage::isExivIndex( int row ) const
 
 bool Browser::OverviewPage::isSearchIndex( int row ) const
 {
+    return rowCount()-3 == row;
+}
+
+bool Browser::OverviewPage::isUntaggedImagesIndex( int row ) const
+{
     return rowCount()-2 == row;
+
 }
 
 bool Browser::OverviewPage::isImageIndex( int row ) const
@@ -137,6 +145,16 @@ QVariant Browser::OverviewPage::searchInfo( int role ) const
     return QVariant();
 }
 
+QVariant Browser::OverviewPage::untaggedImagesInfo( int role ) const
+{
+    if ( role == Qt::DisplayRole )
+        return i18n("Untagged Images");
+    else if ( role == Qt::DecorationRole )
+        return KIcon( QString::fromLatin1( "button_ok" ) ).pixmap(THUMBNAILSIZE);
+    return QVariant();
+
+}
+
 QVariant Browser::OverviewPage::imageInfo( int role ) const
 {
     if ( role == Qt::DisplayRole )
@@ -156,6 +174,9 @@ Browser::BrowserPage* Browser::OverviewPage::activateChild( const QModelIndex& i
         return activateExivAction();
     else if ( isSearchIndex( row ) )
         return activateSearchAction();
+    else if ( isUntaggedImagesIndex( row ) ) {
+        return activateUntaggedImagesAction();
+    }
     else if ( isImageIndex( row ) )
         return new ImageViewPage( BrowserPage::searchInfo(), browser()  );
 
@@ -240,4 +261,27 @@ bool Browser::OverviewPage::showDuringMovement() const
 {
     return true;
 }
+
+Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
+{
+    if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
+        DB::ImageSearchInfo info;
+        info.setCategoryMatchText( Settings::SettingsData::instance()->untaggedCategory(),
+                                   Settings::SettingsData::instance()->untaggedTag() );
+        return new ImageViewPage( info, browser()  );
+    }
+    else {
+        KMessageBox::information( browser(),
+                                  i18n("<p>You have not yet configured which tag to use for indicating untagged images.</p>"
+                                       "<p>Please follow these steps to do so:"
+                                       "<ul><li>In the menu bar choose <b>Settings</b></li>"
+                                       "<li>From there choose <b>Configure KPhotoAlbum</b></li>"
+                                       "<li>Now choose the <b>Categories</b> icon</li>"
+                                       "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
+                                  i18n("Features has not been configured") );
+        return 0;
+    }
+}
+
+
 

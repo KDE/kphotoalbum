@@ -17,7 +17,7 @@ class SubCategoriesPage :public QWidget
 public:
     SubCategoriesPage( QWidget* parent );
     void saveSettings();
-    void reset();
+    void loadSettings();
     DB::MemberMap* memberMap();
 
 public slots:

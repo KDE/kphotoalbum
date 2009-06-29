@@ -43,7 +43,6 @@ class SettingsDialog :public KPageDialog {
 public:
     SettingsDialog( QWidget* parent );
     virtual void show();
-    int exec();
 
 public slots:
     void showBackendPage();

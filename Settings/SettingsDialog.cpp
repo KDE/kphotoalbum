@@ -27,51 +27,12 @@
 #include "CategoryPage.h"
 #include "SettingsDialog.moc"
 
-#include <kfiledialog.h>
 #include <klocale.h>
-#include <qlayout.h>
-#include <qlabel.h>
-
-#include <QHBoxLayout>
-#include <QList>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <kcombobox.h>
-#include <kpushbutton.h>
-#include <qspinbox.h>
-#include <q3buttongroup.h>
-#include <qradiobutton.h>
-#include "Settings/SettingsData.h"
-#include <kicondialog.h>
-#include <q3listbox.h>
-#include <kmessagebox.h>
-#include "DB/ImageDB.h"
-#include <qcheckbox.h>
-#include <kinputdialog.h>
-#include <QTextCodec>
 #include <kglobal.h>
-#include <kiconloader.h>
-#include <q3vgroupbox.h>
-#include <q3hbox.h>
-#include "ViewerSizeConfig.h"
-#include <limits.h>
-#include "DB/CategoryCollection.h"
 #include "Utilities/ShowBusyCursor.h"
 
-#include <kapplication.h>
-#include "MainWindow/Window.h"
-
 #include "config-kpa-sqldb.h"
-#ifdef SQLDB_SUPPORT
-#  include "SQLDB/DatabaseAddress.h"
-#  include "SQLDB/SQLSettingsWidget.h"
-#endif
-
-#include "CategoryItem.h"
-#include <kdebug.h>
-
-#include <QLineEdit>
-
+#include "config-kpa-kipi.h"
 struct Data
 {
     QString title;
@@ -136,16 +97,14 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
 
-
-
 void Settings::SettingsDialog::show()
 {
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     _generalPage->loadSettings( opt );
+    _subCategoriesPage->loadSettings();
     _databaseBackendPage->loadSettings(opt);
     _viewerPage->reset(opt);
-
 
 #ifdef HASKIPI
     _pluginsPage->loadSettings(opt);
@@ -162,8 +121,6 @@ void Settings::SettingsDialog::show()
 
     KDialog::show();
 }
-
-
 
 // KDialog has a slotOK which we do not want to override.
 void Settings::SettingsDialog::slotMyOK()
@@ -187,19 +144,6 @@ void Settings::SettingsDialog::slotMyOK()
     emit changed();
     KGlobal::config()->sync();
 }
-
-
-
-
-
-
-int Settings::SettingsDialog::exec()
-{
-    _subCategoriesPage->reset();
-    return KDialog::exec();
-}
-
-
 
 void Settings::SettingsDialog::showBackendPage()
 {

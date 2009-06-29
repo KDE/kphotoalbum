@@ -239,7 +239,7 @@ void Settings::SubCategoriesPage::saveSettings()
     DB::ImageDB::instance()->memberMap() = _memberMap;
 }
 
-void Settings::SubCategoriesPage::reset()
+void Settings::SubCategoriesPage::loadSettings()
 {
     slotCategoryChanged( _currentCategory, false );
 }

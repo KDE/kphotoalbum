@@ -83,33 +83,51 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
      :KPageDialog( parent )
 {
     _generalPage = new Settings::GeneralPage( this );
+    _thumbnailsPage = new Settings::ThumbnailsPage( this );
+    _categoryPage = new Settings::CategoryPage(this);
+    _subCategoriesPage = new Settings::SubCategoriesPage( this );
+    _viewerPage = new ViewerPage(this);
 
-#ifdef KDAB_TEMPORARILY_REMOVED
+#ifdef HASKIPI
+    _pluginsPage = new Settings::PluginsPage(this);
+#endif
+
+#ifdef HAVE_EXIV2
+    _exifPage = new Settings::ExifPage(this);
+#endif
+
+    _databaseBackendPage = new Settings::DatabaseBackendPage(this);
+
+
     Data data[] = {
-        { i18n("General"), "kphotoalbum", _generalPage }
+        { i18n("General"), "kphotoalbum", _generalPage },
+        { i18n("Thumbnail View" ), "view-list-icons", _thumbnailsPage },
+        { i18n("Categories"), "user-identity", _categoryPage },
+        { i18n("Subcategories" ), "edit-copy", _subCategoriesPage },
+        { i18n("Viewer" ), "document-preview", _viewerPage },
+#ifdef HASKIPI
+        { i18n("Plugins" ), "preferences-plugin", _pluginsPage },
+#endif
+
+#ifdef HAVE_EXIV2
+        { i18n("EXIF/IPTC Information" ), "document-properties", _exifPage },
+#endif
+        { i18n("Database backend"), "system-file-manager", _databaseBackendPage },
+        { QString(), "", 0 }
     };
 
-    for ( int i = 0; i < 1; ++i ) {
+    int i = 0;
+    while ( data[i].widget != 0 ) {
         KPageWidgetItem* page = new KPageWidgetItem( data[i].widget, data[i].title );
         page->setHeader( data[i].title );
         page->setIcon( KIcon( QString::fromLatin1( data[i].icon ) ) );
         addPage( page );
+        ++i;
     }
-#endif //KDAB_TEMPORARILY_REMOVED
 
 
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
-
-    createGeneralPage();
-    createThumbNailPage();
-    createCategoryPage();
-    createSubCategoriesPage();
-    createViewerPage();
-
-    createPluginPage();
-    createEXIFPage();
-    createDatabaseBackendPage();
 
     connect( _categoryPage, SIGNAL( currentCategoryNameChanged( QString, QString ) ),
              _subCategoriesPage, SLOT( categoryRenamed( QString, QString ) ) );
@@ -118,34 +136,6 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
 
-void Settings::SettingsDialog::createGeneralPage()
-{
-    _generalPage = new Settings::GeneralPage( this );
-
-    KPageWidgetItem* page = new KPageWidgetItem( _generalPage, i18n("General" ) );
-    page->setHeader( i18n("General") );
-    page->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
-    addPage( page );
-}
-
-void Settings::SettingsDialog::createThumbNailPage()
-{
-    _thumbnailsPage = new Settings::ThumbnailsPage( this );
-    KPageWidgetItem* page = new KPageWidgetItem( _thumbnailsPage, i18n("Thumbnail View" ) );
-    page->setHeader( i18n("Thumbnail View" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "view-list-icons" ) ) );
-    addPage( page );
-}
-
-
-void Settings::SettingsDialog::createCategoryPage()
-{
-    _categoryPage = new Settings::CategoryPage(this);
-    KPageWidgetItem* page = new KPageWidgetItem( _categoryPage, i18n("Categories") );
-    page->setHeader( i18n("Categories") );
-    page->setIcon( KIcon( QString::fromLatin1( "user-identity" ) ) );
-    addPage( page );
-}
 
 
 void Settings::SettingsDialog::show()
@@ -201,16 +191,6 @@ void Settings::SettingsDialog::slotMyOK()
 
 
 
-void Settings::SettingsDialog::createSubCategoriesPage()
-{
-    _subCategoriesPage = new Settings::SubCategoriesPage( this );
-    KPageWidgetItem* page = new KPageWidgetItem( _subCategoriesPage, i18n("Subcategories" ) );
-    page->setHeader( i18n("Subcategories" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "edit-copy" ) ) );
-    addPage( page );
-}
-
-
 
 
 int Settings::SettingsDialog::exec()
@@ -221,51 +201,8 @@ int Settings::SettingsDialog::exec()
 
 
 
-void Settings::SettingsDialog::createViewerPage()
-{
-    _viewerPage = new ViewerPage(this);
-    KPageWidgetItem* page = new KPageWidgetItem( _viewerPage, i18n("Viewer" ) );
-    page->setHeader( i18n("Viewer" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "document-preview" ) ) );
-    addPage( page );
-}
-
-
-void Settings::SettingsDialog::createPluginPage()
-{
-#ifdef HASKIPI
-    _pluginsPage = new Settings::PluginsPage(this);
-    KPageWidgetItem* page = new KPageWidgetItem( _pluginsPage, i18n("Plugins" ) );
-    page->setHeader( i18n("Plugins" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "preferences-plugin" ) ) );
-    addPage(page);
-
-#endif
-}
-
-void Settings::SettingsDialog::createEXIFPage()
-{
-#ifdef HAVE_EXIV2
-    _exifPage = new Settings::ExifPage(this);
-    KPageWidgetItem* page = new KPageWidgetItem( _exifPage, i18n("EXIF/IPTC Information" ) );
-    page->setHeader( i18n("EXIF Information" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "document-properties" ) ) );
-    addPage( page );
-
-#endif
-}
-
 void Settings::SettingsDialog::showBackendPage()
 {
     setCurrentPage(_backendPage);
 }
 
-void Settings::SettingsDialog::createDatabaseBackendPage()
-{
-// TODO: add notification: New backend will take effect only after restart
-    _databaseBackendPage = new Settings::DatabaseBackendPage(this);
-    _backendPage = new KPageWidgetItem( _databaseBackendPage, i18n("Database backend") );
-    _backendPage->setHeader( i18n("Database backend") );
-    _backendPage->setIcon( KIcon( QString::fromLatin1("system-file-manager") ) );
-    addPage( _backendPage );
-}

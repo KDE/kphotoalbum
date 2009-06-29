@@ -54,16 +54,6 @@ signals:
 protected slots:
     void slotMyOK();
 
-protected:
-    void createGeneralPage();
-    void createThumbNailPage();
-    void createCategoryPage();
-    void createSubCategoriesPage();
-    void createViewerPage();
-    void createPluginPage();
-    void createEXIFPage();
-    void createDatabaseBackendPage();
-
 private:
     Settings::GeneralPage* _generalPage;
     Settings::ThumbnailsPage* _thumbnailsPage;

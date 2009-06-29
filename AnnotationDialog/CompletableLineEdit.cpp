@@ -45,7 +45,8 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     }
 
     if ( _mode == SearchMode && ( ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter) ) { //Confirm autocomplete, deselect all text
-        deselect();
+        handleSpecialKeysInSearch( ev );
+        _listSelect->showOnlyItemsMatching( QString::null ); // Show all again after confirming autocomplete suggestion.
         return;
     }
 
@@ -139,6 +140,7 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
 
     QString txt = text().left(cursorPos) + ev->text() + text().mid( cursorPos );
     setText( txt );
+    if(!isSpecialKey(ev) ) cursorPos--; //Special handling for ENTER to position the cursor correctly
     setCursorPosition( cursorPos + ev->text().length() );
     deselect();
 

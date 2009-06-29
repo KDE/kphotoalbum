@@ -123,9 +123,9 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     lay2->addWidget( _lineEdit );
 
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
-    button->setMaximumWidth( 20 );
+    button->setMaximumWidth( 30 );
     lay2->addWidget( button );
-    connect( button, SIGNAL( clicked() ), top, SLOT( slotBrowseForDirecory() ) );
+    connect( button, SIGNAL( clicked() ), this, SLOT( slotBrowseForDirecory() ) );
 }
 
 void FileDialog::slotBrowseForDirecory()

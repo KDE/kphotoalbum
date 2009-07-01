@@ -1,3 +1,8 @@
+2009-07-01  Miika Turkia <theBro@luukku.com>
+
+	* fixed bug #197107: Generated HTML pages have empty theme name and
+	theme author.
+
 2009-06-21  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* When AnnotationDialog is called with multiple images, show

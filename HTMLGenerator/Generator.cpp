@@ -536,7 +536,9 @@ int HTMLGenerator::Generator::calculateSteps()
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )
 {
     *baseDir = _setup.themePath();
-    KConfigGroup config = KGlobal::config()->group( QString::fromLatin1( "theme/%1" ).arg( *baseDir ) );
+    KConfig themeconfig( QString::fromLatin1( "%1/kphotoalbum.theme").arg( *baseDir ), KConfig::SimpleConfig );
+    KConfigGroup config = themeconfig.group("theme");
+
     *name = config.readEntry( "Name" );
     *author = config.readEntry( "Author" );
 }

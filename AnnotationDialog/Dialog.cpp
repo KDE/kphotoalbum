@@ -417,7 +417,8 @@ void AnnotationDialog::Dialog::load()
     _description->setText( info.description() );
 
 #ifdef HAVE_NEPOMUK
-    _rating->setRating( qMax( static_cast<short int>(0), info.rating() ) );
+    if ( _setup == InputSingleImageConfigMode )
+        _rating->setRating( qMax( static_cast<short int>(0), info.rating() ) );
     _ratingChanged = false;
 #endif
 
@@ -504,8 +505,9 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _time->hide();
         _addTime->show();
 #ifdef HAVE_NEPOMUK
-        _rating->setEnabled( false );
+        _rating->setEnabled( true );
         _rating->setRating( 0 );
+        _ratingChanged = false;
 #endif
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
@@ -534,6 +536,12 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _oldSearch = *search;
 
     setup();
+
+#ifdef HAVE_NEPOMUK
+        _rating->setEnabled( false );
+        _rating->setRating( 0 );
+#endif
+
     showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
@@ -731,6 +739,7 @@ bool AnnotationDialog::Dialog::hasChanges()
 
         changed |= ( !_imageLabel->text().isEmpty() );
         changed |= ( !_description->toPlainText().isEmpty() );
+        changed |= _ratingChanged;
     }
     return changed;
 }
@@ -1058,8 +1067,18 @@ void AnnotationDialog::Dialog::saveAndClose()
                 info->setDescription( _description->toPlainText() );
             }
 
+#ifdef HAVE_NEPOMUK
+            if( _ratingChanged)
+            {
+              info->setRating( _rating->rating() );
+            }
+#endif
+
             info->delaySavingChanges(false);
         }
+#ifdef HAVE_NEPOMUK
+        _ratingChanged = false;
+#endif
     }
     _accept = QDialog::Accepted;
 

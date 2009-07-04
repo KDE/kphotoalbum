@@ -1,0 +1,167 @@
+* {
+	margin: 0em;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+ 	font: 100% Tholoth, Rekha, sans-serif, Arial, Helvetica;
+	color: white;
+	background: black;
+}
+
+h1 { text-align: center }
+
+a.fsImgA {
+	text-decoration: none;
+	background: none;
+	color: black;
+	margin: 0px;
+}
+
+div {
+	padding: .5em;
+}
+
+h1.title {
+        background-color: #202020;
+        left: auto;
+        right: 0em;
+}
+
+div.description {
+	background-color: #202020;
+	margin-left: .5em;
+	margin-right: .5em;
+	left: auto;
+	right: 0em;
+}
+
+div.keywords {
+	margin-left: .5em;
+	margin-right: .5em;
+	left: auto;
+	right: 0em;
+	text-align: left;
+}
+
+#imagearea {
+	z-index:40;
+}
+
+#thumbnails {
+	z-index: 50;
+	position: absolute;
+	overflow: auto;
+}
+
+#loadarea {
+	z-index:70;
+	overflow:hidden;
+	text-align: center;
+}
+
+div.help {
+	position: absolute;
+	text-align: right;
+	font-size: 90%;
+	font-family: Courier, Arial, sans-serif;
+	right: .5em;
+	top: .8ex;
+	left: auto;
+	background: none;
+}
+
+div.help:hover {
+	font-weight: bold;
+}
+
+div.help span {
+	display: none;
+}
+
+div.help:hover span {
+	display: block;
+	width: 10em;
+	text-align: left;
+	background-color:#202020;
+	padding: 5px;
+}
+
+div.navigator {
+	font-size: 80%;
+	font-weight: bold;
+	line-height: 1.1;
+	text-align: left;
+	position: absolute;
+	font-family: Courier, Arial, sans-serif;
+	top: 3ex;
+	left: 2em;
+	right: auto;
+	background: none;
+	border: 1pt #CCC solid;
+	padding: 2pt;
+}
+body>div.navigator { position: fixed }
+
+div.navigator a { margin: 2px }
+div.navigator a:link { text-decoration: none; background: none; color: #CCC }
+div.navigator a:visited { text-decoration: none; background: none; color: #999 }
+div.navigator a:hover { background: none; color: white}
+
+div.viewpic {
+	margin: 0;
+	width: 100%;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+
+table.thumbnail-table {
+        width: 100%;
+        text-align:center;
+}
+
+div.thumb-div {
+ 	background-color: #202020;
+	margin: 1px;
+	float: left;
+	width:132px;
+	height:132px;
+	text-align:center;
+	vertical-align:middle;
+	padding: 2px;
+}
+
+table.controlinfo,td.navbar {
+        width:100%;
+        background-color: #202020;
+        border: 1px solid black;
+        margin-left: 0em;
+        left: auto;
+        right: 0em;
+}
+
+.footer {
+	vertical-align: bottom;
+}
+
+.resolutions {
+	background-color: #202020;
+	position: absolute;
+	z-index:50;
+	left: .5em;
+	right: auto;
+	width: 60%;
+}
+.copyright {
+	background-color: #202020;
+	right: .5em;
+	left: auto;
+	width: 50%;
+	text-align: right;
+	position: absolute;
+	z-index:40;
+}

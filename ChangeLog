@@ -1,3 +1,16 @@
+2009-07-04  Miika Turkia <theBro@luukku.com>
+
+	* bugfix: taking video files into account in HTML generation in
+	JavaScript part (show thumbnail instead of video file).
+
+	* Having full size image in the JS array instead of pagename for same
+	sized imagepage.
+
+	* Support for storing most of the settings (all relevant) of
+	HTMLGallery.
+
+	* Support for default theme (Default=true in kphotoalbum.theme file)
+
 2009-07-03  Hassan Ibraheem <hasan.ibraheem@gmail.com>
         * Added support for rating multiple images at once in the annotation
           dialog.

@@ -48,6 +48,8 @@ protected:
     bool checkVars();
     Setup setup() const;
     QList<ImageSizeCheckBox*> activeResolutions() const;
+    QString activeSizes() const;
+    QString includeSelections() const;
     void populateThemesCombo();
     void createContentPage();
     void createLayoutPage();

@@ -42,6 +42,7 @@
 #include "Generator.h"
 #include "ImageSizeCheckBox.h"
 #include <QTextEdit>
+#include <QStringMatcher>
 using namespace HTMLGenerator;
 
 
@@ -82,6 +83,7 @@ void HTMLDialog::createContentPage()
     label->setAlignment( Qt::AlignTop );
     lay2->addWidget( label, 1, 0 );
     _copyright = new KLineEdit( contentPage );
+    _copyright->setText( Settings::SettingsData::instance()->HTMLCopyright() );
     label->setBuddy( _copyright );
     lay2->addWidget( _copyright, 1, 1 );
 
@@ -94,11 +96,11 @@ void HTMLDialog::createContentPage()
     lay2->addWidget( _description, 2, 1 );
 
     _generateKimFile = new QCheckBox( i18n("Create .kim export file"), contentPage );
-    _generateKimFile->setChecked( true );
+    _generateKimFile->setChecked( Settings::SettingsData::instance()->HTMLKimFile() );
     lay1->addWidget( _generateKimFile );
 
     _inlineMovies = new QCheckBox( i18n( "Inline Movies in pages" ), contentPage );
-    _inlineMovies->setChecked( true );
+    _inlineMovies->setChecked( Settings::SettingsData::instance()->HTMLInlineMovies() );
     lay1->addWidget( _inlineMovies );
 
     // What to include
@@ -112,6 +114,10 @@ void HTMLDialog::createContentPage()
 
     int row=0;
     int col=0;
+    QString selectionsTmp = Settings::SettingsData::instance()->HTMLIncludeSelections();
+    QStringMatcher* pattern = new QStringMatcher();
+    pattern->setPattern(QString::fromLatin1("**DESCRIPTION**"));
+    cb->setChecked( pattern->indexIn (selectionsTmp)  >= 0 ? 1 : 0 );
 
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
      for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
@@ -121,6 +127,8 @@ void HTMLDialog::createContentPage()
             QCheckBox* cb = new QCheckBox( (*it)->text(), whatToInclude );
             lay3->addWidget( cb, row, col%2 );
             _whatToIncludeMap.insert( (*it)->name(), cb );
+	    pattern->setPattern((*it)->name());
+	    cb->setChecked( pattern->indexIn (selectionsTmp)  >= 0 ? 1 : 0 );
         }
     }
 }
@@ -147,7 +155,7 @@ void HTMLDialog::createLayoutPage()
     _thumbSize = new QSpinBox;
     _thumbSize->setRange( 16, 256 );
 
-    _thumbSize->setValue( 128 );
+    _thumbSize->setValue( Settings::SettingsData::instance()->HTMLThumbSize() );
     lay3->addWidget( _thumbSize );
     lay3->addStretch(1);
     label->setBuddy( _thumbSize );
@@ -163,7 +171,7 @@ void HTMLDialog::createLayoutPage()
 
     label->setBuddy( _numOfCols);
 
-    _numOfCols->setValue( 5 );
+    _numOfCols->setValue( Settings::SettingsData::instance()->HTMLNumOfCols() );
     lay4->addWidget( _numOfCols );
     lay4->addStretch( 1 );
 
@@ -204,7 +212,24 @@ void HTMLDialog::createLayoutPage()
         lay5->addWidget( sizeOrig, row, ++col );
     }
 
-    size800->setChecked( 1 );
+    QString tmp;
+    if ((tmp = Settings::SettingsData::instance()->HTMLSizes()) != QString::fromLatin1("")) {
+	QStringMatcher* pattern = new QStringMatcher(QString::fromLatin1("320"));
+	size320->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
+	pattern->setPattern(QString::fromLatin1("640"));
+	size640->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
+	pattern->setPattern(QString::fromLatin1("800"));
+	size800->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0 );
+	pattern->setPattern(QString::fromLatin1("1024"));
+	size1024->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+	pattern->setPattern(QString::fromLatin1("1280"));
+	size1280->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+	pattern->setPattern(QString::fromLatin1("1600"));
+	size1600->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+	pattern->setPattern(QString::fromLatin1("-1"));
+	sizeOrig->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+    } else
+	size800->setChecked( 1 );
 
     _cbs << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
@@ -286,6 +311,14 @@ void HTMLDialog::slotOk()
     Settings::SettingsData::instance()->setHTMLBaseDir( _baseDir->text() );
     Settings::SettingsData::instance()->setHTMLBaseURL( _baseURL->text() );
     Settings::SettingsData::instance()->setHTMLDestURL( _destURL->text() );
+    Settings::SettingsData::instance()->setHTMLCopyright( _copyright->text() );
+    Settings::SettingsData::instance()->setHTMLTheme( _themeBox->currentIndex() );
+    Settings::SettingsData::instance()->setHTMLKimFile( _generateKimFile->isChecked() );
+    Settings::SettingsData::instance()->setHTMLInlineMovies( _inlineMovies->isChecked() );
+    Settings::SettingsData::instance()->setHTMLThumbSize( _thumbSize->value() );
+    Settings::SettingsData::instance()->setHTMLNumOfCols( _numOfCols->value() );
+    Settings::SettingsData::instance()->setHTMLSizes( activeSizes() );
+    Settings::SettingsData::instance()->setHTMLIncludeSelections( includeSelections() );
 
     Generator generator( setup(), this );
     generator.generate();
@@ -369,10 +402,42 @@ QList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
     return res;
 }
 
+QString HTMLDialog::activeSizes() const
+{
+    QString res;
+    for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+        if ( (*sizeIt)->isChecked() ) {
+	    if (res.length() > 0)
+		res.append(QString::fromLatin1(","));
+            res.append(QString::number((*sizeIt)->width()));
+	}
+    }
+    return res;
+}
+
+QString HTMLDialog::includeSelections() const
+{
+    QString sel;
+    Setup _setup = setup();
+
+    for( QMap<QString,QCheckBox*>::ConstIterator it = _whatToIncludeMap.begin();
+         it != _whatToIncludeMap.end(); ++it ) {
+	QString name = it.key();
+        if ( _setup.includeCategory(name) ) {
+	    if (sel.length() > 0)
+		sel.append(QString::fromLatin1(","));
+            sel.append(name);
+	}
+    }
+    return sel;
+}
+
 void HTMLDialog::populateThemesCombo()
 {
     QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kphotoalbum/themes/") );
     int i = 0;
+    int theme = 0;
+    int defaultthemes = 0;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
         QStringList themes = dir.entryList( QDir::Dirs | QDir::Readable );
@@ -384,15 +449,28 @@ void HTMLDialog::populateThemesCombo()
             KConfigGroup config = themeconfig.group("theme");
             QString themeName = config.readEntry( "Name" );
             QString themeAuthor = config.readEntry( "Author" );
+            QString themeDefault = config.readEntry( "Default" );
 
             enableButtonOk( true );
             _themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) );
             _themes.insert( i, themePath );
+
+            if (themeDefault == QString::fromLatin1("true")) {
+		theme = i;
+		defaultthemes++;
+            }
             i++;
         }
     }
     if(_themeBox->count() < 1) {
         KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
+    }
+    if (Settings::SettingsData::instance()->HTMLTheme() >= 0)
+	_themeBox->setCurrentIndex( Settings::SettingsData::instance()->HTMLTheme() );
+    else {
+	_themeBox->setCurrentIndex( theme );
+	if (defaultthemes > 1)
+	    KMessageBox::information( this, i18n("More than one theme is set as default, using theme %1", _themeBox->currentText()) );
     }
 }
 

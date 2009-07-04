@@ -359,6 +359,38 @@ property_ref_(
         HTMLDestURL, setHTMLDestURL, QString,
         groupForDatabase( "HTML Settings" ),
         STR( "file://" ) + HTMLBaseDir() )
+property_ref_(
+        HTMLCopyright, setHTMLCopyright, QString,
+        groupForDatabase( "HTML Settings" ),
+        STR( "" ) )
+property_ref_(
+        HTMLTheme, setHTMLTheme, int,
+        groupForDatabase( "HTML Settings" ),
+        -1 )
+property_ref_(
+        HTMLKimFile, setHTMLKimFile, int,
+        groupForDatabase( "HTML Settings" ),
+        true )
+property_ref_(
+        HTMLInlineMovies, setHTMLInlineMovies, int,
+        groupForDatabase( "HTML Settings" ),
+        true )
+property_ref_(
+        HTMLThumbSize, setHTMLThumbSize, int,
+        groupForDatabase( "HTML Settings" ),
+        128 )
+property_ref_(
+        HTMLNumOfCols, setHTMLNumOfCols, int,
+        groupForDatabase( "HTML Settings" ),
+        5 )
+property_ref_(
+        HTMLSizes, setHTMLSizes, QString,
+        groupForDatabase( "HTML Settings" ),
+        STR("") )
+property_ref_(
+        HTMLIncludeSelections, setHTMLIncludeSelections, QString,
+        groupForDatabase( "HTML Settings" ),
+        STR("") )
 
 property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() )
 

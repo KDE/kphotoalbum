@@ -177,6 +177,14 @@ public:
     property_ref( HTMLBaseDir, setHTMLBaseDir, QString);
     property_ref( HTMLBaseURL, setHTMLBaseURL, QString);
     property_ref( HTMLDestURL, setHTMLDestURL, QString);
+    property_ref( HTMLCopyright, setHTMLCopyright, QString);
+    property_ref( HTMLTheme, setHTMLTheme, int);
+    property_ref( HTMLKimFile, setHTMLKimFile, int);
+    property_ref( HTMLInlineMovies, setHTMLInlineMovies, int);
+    property_ref( HTMLThumbSize, setHTMLThumbSize, int);
+    property_ref( HTMLNumOfCols, setHTMLNumOfCols, int);
+    property_ref( HTMLSizes, setHTMLSizes, QString);
+    property_ref( HTMLIncludeSelections, setHTMLIncludeSelections, QString);
 
     property_ref( fromDate, setFromDate, QDate );
     property_ref( toDate, setToDate, QDate );

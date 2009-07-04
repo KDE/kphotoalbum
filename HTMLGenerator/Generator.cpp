@@ -216,8 +216,12 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         else
             last = namePage( width, height, fileName);
 
-        images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
-                  .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( namePage( width, height, fileName) );
+	if (!Utilities::isVideo(fileName))
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
+                  .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
+	else
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
+                  .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( QFileInfo(fileName).fileName() );
 
         // -------------------------------------------------- Description
         QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);

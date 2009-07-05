@@ -69,6 +69,7 @@ public:
                                const QSize& fullSize, int angle, const QImage&,
                                const bool loadedOK);
     int maxImageSize();
+    void minImageSize( int& width, int& height);
 
 private:
     Setup _setup;

@@ -189,9 +189,14 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     // so we keep it using QDom.
     int count = 0;
     int cols = _setup.numOfCols();
+    int minWidth = 0;
+    int minHeight = 0;
     QString first, last, images;
 
     images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\n" ).arg( width ).arg( height ).arg( _setup.thumbSize() );
+
+    minImageSize(minWidth, minHeight);
+    images += QString::fromLatin1( "var minPage=\"index-%1x%2.html \"\n" ).arg( minWidth ).arg( minHeight );
 
     QDomElement row;
     Q_FOREACH(const DB::ImageInfoPtr info, _setup.imageList().fetchInfos()) {
@@ -602,6 +607,21 @@ int HTMLGenerator::Generator::maxImageSize()
         res = qMax( res, (*sizeIt)->width() );
     }
     return res;
+}
+
+void HTMLGenerator::Generator::minImageSize(int& width, int& height)
+{
+    width = height = 0;
+    for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
+         sizeIt != _setup.activeResolutions().end(); ++sizeIt ) {
+	if ((width == 0) && ((*sizeIt)->width() > 0)) {
+	    width = (*sizeIt)->width();
+	    height = (*sizeIt)->height();
+	} else if ((*sizeIt)->width() > 0) {
+            width = qMin( width, (*sizeIt)->width() );
+	    height = qMin( height, (*sizeIt)->height());
+	}
+    }
 }
 
 void HTMLGenerator::Generator::showBrowser()

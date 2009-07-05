@@ -49,6 +49,15 @@ function thumbsWidth(pad) {
 // Main function to barf out the HTML for thumbnails and image area
 function image()
 {
+	// Redirect browser to smallest sized images by default
+	var slash = '/';
+	if (typeof(window.innerWidth) != 'number')
+		slash = '\\';
+	if (location.pathname.substring(location.pathname.lastIndexOf(slash)+1)
+			== "index.html") {
+		document.location=minPage;
+	}
+
 	var thumbsW = thumbsWidth(40);
 	var image;
 	var type="onmouseover"; //onclick or onmouseover
@@ -73,19 +82,26 @@ function image()
 			document.write('<div id="thumb-div" class="thumb-div"' +
 				' style="width:' + ffts + ';height:' + ffts +
 				';">' +
+				'<a id="thumbA" class="thumbA" href="#" ' +
+				'onclick="window.open (\'' + gallery[image][2] +
+				'\', \'child\'); return false">' +
 				'<img alt="' + gallery[image][1] + '" src="' +
 				gallery[image][1] + '" ' + type +
-				'=showImage("' + image + '") ')
-			document.write('/></div>')
+				'=showImage("' + image + '") '
+			)
+			document.write('/></a></div>')
 		} else {
 		document.write('<div id ="thumb-div" class="thumb-div" ' +
 			'style="padding:0px; width:' + iets + ';height:' +
 			iets + ';">' +
+			'<a id="thumbA" class="thumbA" href="#" ' +
+			'onclick="window.open (\'' + gallery[image][2] +
+			'\', \'child\'); return false">' +
 			'<img alt="' +
 			gallery[image][1] + '" src="' + gallery[image][1] +
 			'" ' + type + '=showImage("' + image +
 			'") ')
-			document.write('/></div>')
+			document.write('/></a></div>')
 		}
 	}
 	document.write('</div>') // thumbnails
@@ -141,6 +157,8 @@ function setSize() {
 		var thumbPad = 50;
 		var thumbWidth = thumbsWidth(thumbPad);
 		// FF et. al
+		if (!document.getElementById('thumbnails'))
+			return;
 		document.getElementById('thumbnails').style.width =
 			(thumbWidth + 16) + 'px';
 		document.getElementById('thumbnails').style.height =
@@ -151,12 +169,13 @@ function setSize() {
 			thumbWidth + 'px';
 		document.getElementById("loadarea").style.width =
 			windowWidth(40) + 'px';
-		document.getElementById('loadarea').style.height =
+		document.getElementById('loadarea').style.minHeight =
 			thumbsHeight(width + 45) + 'px';
 	} else {
 		var thumbPad = 40;
 		var thumbWidth = thumbsWidth(thumbPad);
-
+		if (!document.getElementById('thumbnails'))
+			return;
 		document.getElementById('thumbnails').style.width =
 			(thumbWidth + 38) + 'px';
 		document.getElementById('thumbnails').style.height =
@@ -165,7 +184,7 @@ function setSize() {
 			( windowWidth(width + 10) ) + 'px';
 		document.getElementById("loadarea").style.width =
 			windowWidth(20) + 'px';
-		document.getElementById('loadarea').style.height =
+		document.getElementById('loadarea').style.minHeight =
 			thumbsHeight(width + 45) + 'px';
 	}
 }

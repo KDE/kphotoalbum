@@ -1,3 +1,6 @@
+2009-07-07  Hassan Ibraheem <hasan.ibraheem@gmail.com>
+      * Added support for searching by rating.
+
 2009-07-05  Miika Turkia <theBro@luukku.com>
 
 	* Automatic redirection to smallest image sizes for theme dark

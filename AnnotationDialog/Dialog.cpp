@@ -495,9 +495,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     if ( oneAtATime )  {
         _current = -1;
         slotNext();
-#ifdef HAVE_NEPOMUK
-        _rating->setEnabled( true );
-#endif
     }
     else {
         _startDate->setDate( QDate() );
@@ -505,7 +502,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _time->hide();
         _addTime->show();
 #ifdef HAVE_NEPOMUK
-        _rating->setEnabled( true );
         _rating->setRating( 0 );
         _ratingChanged = false;
 #endif
@@ -538,8 +534,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     setup();
 
 #ifdef HAVE_NEPOMUK
-        _rating->setEnabled( false );
         _rating->setRating( 0 );
+        _ratingChanged = false ;
 #endif
 
     showHelpDialog( SearchMode );
@@ -553,7 +549,14 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );
         }
-
+#ifdef HAVE_NEPOMUK
+        //FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
+        //then change back to 0 .
+        if( _ratingChanged)
+          _oldSearch.setRating( _rating->rating() );
+        
+        _ratingChanged = false;
+#endif
         return _oldSearch;
     }
     else

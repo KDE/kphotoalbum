@@ -39,7 +39,7 @@ using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _rating( -1 ), _isNull( false ), _compiled( false )
 {
 }
 
@@ -54,7 +54,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _isNull( true ), _compiled( false )
+    : _rating( -1 ), _isNull( true ), _compiled( false )
 {
 }
 
@@ -109,6 +109,10 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
+    
+    // -------------------------------------------------- Rating
+
+    ok &= (_rating == -1 ) || ( _rating == info->rating() );
 
     // -------------------------------------------------- Text
     QString txt = info->description();
@@ -146,6 +150,13 @@ void ImageSearchInfo::addAnd( const QString& category, const QString& value )
     setCategoryMatchText( category, val );
     _isNull = false;
     _compiled = false;
+}
+
+void ImageSearchInfo::setRating( short rating )
+{
+  _rating = rating;
+  _isNull = false;
+  _compiled = false;
 }
 
 QString ImageSearchInfo::toString() const
@@ -225,6 +236,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
+    _rating = other._rating;
 #ifdef HAVE_EXIV2
     _exifSearchInfo = other._exifSearchInfo;
 #endif

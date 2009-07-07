@@ -57,6 +57,7 @@ public:
     QList<QList<SimpleCategoryMatcher*> > query() const;
 
     void addAnd( const QString& category, const QString& value );
+    void setRating( short rating);
     QString toString() const;
 
     void saveLock() const;
@@ -82,6 +83,7 @@ private:
     QMap<QString, QString> _categoryMatchText;
     QString _label;
     QString _description;
+    short _rating;
     bool _isNull;
     mutable bool _compiled;
     mutable QList<CategoryMatcher*> _categoryMatchers;

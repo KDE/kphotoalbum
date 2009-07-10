@@ -18,7 +18,6 @@
 
 #ifndef BREADCRUMB_H
 #define BREADCRUMB_H
-#include <QList>
 #include <QString>
 
 namespace Browser

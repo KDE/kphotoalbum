@@ -218,7 +218,6 @@ property_copy( displayLabels           , setDisplayLabels          , bool       
 property_copy( displayCategories       , setDisplayCategories      , bool                , Thumbnails, false      )
 property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool                , Thumbnails, 0          )
 property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool                , Thumbnails, false      )
-property_copy( thumbnailDarkBackground , setThumbnailDarkBackground, bool                , Thumbnails, true       )
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 1          )

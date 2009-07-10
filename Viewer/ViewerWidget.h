@@ -20,23 +20,17 @@
 #define VIEWER_H
 
 #include <QStackedWidget>
-#include "Settings/SettingsData.h"
-#include <kaction.h>
-#include <qdialog.h>
 #include <qimage.h>
-#include <QContextMenuEvent>
-#include <QWheelEvent>
-#include <QResizeEvent>
 #include <QPixmap>
-#include <QLabel>
-#include <Q3PtrList>
-#include <QMenu>
-#include <QKeyEvent>
+#include "DB/ImageInfoPtr.h"
 #include <config-kpa-exiv2.h>
 
+class QKeyEvent;
+class QResizeEvent;
+class QWheelEvent;
+class QContextMenuEvent;
 class QStackedWidget;
 class KActionCollection;
-class QLabel;
 class QMenu;
 class KAction;
 

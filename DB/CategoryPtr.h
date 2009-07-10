@@ -15,35 +15,15 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef IMAGEINFOLIST_H
-#define IMAGEINFOLIST_H
-#include <QList>
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageInfo.h"
+#ifndef CATEGORYPTR_H
+#define CATEGORYPTR_H
+#include <ksharedptr.h>
 
 namespace DB
 {
-
-class ImageInfoList :public QList<ImageInfoPtr>
-{
-public:
-    ~ImageInfoList();
-    void sortAndMergeBackIn( ImageInfoList& subListToSort );
-    ImageInfoList sort() const;
-    void appendList( ImageInfoList& other );
-    void printItems();
-    bool isSorted();
-    void mergeIn( ImageInfoList list );
-    void remove( const ImageInfoPtr& info );
-
-private:
-    bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
-};
-
-typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;
-typedef QList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
-
+    class Category;
+    typedef KSharedPtr<Category> CategoryPtr;
 }
 
-#endif /* IMAGEINFOLIST_H */
+#endif /* CATEGORYPTR_H */
 

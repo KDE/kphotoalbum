@@ -18,6 +18,7 @@
 */
 
 #include "SQLImageInfoCollection.h"
+#include "DB/ImageSearchInfo.h"
 #include "SQLImageInfo.h"
 #include "QueryErrors.h"
 #include <QList>

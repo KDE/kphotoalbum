@@ -19,11 +19,9 @@
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
 #include <q3listview.h>
-#include <QDropEvent>
 #include "DragItemInfo.h"
-#include "DB/CategoryItem.h"
-#include <ksharedptr.h>
 
+class QDropEvent;
 namespace CategoryListView
 {
 class DragableListView;

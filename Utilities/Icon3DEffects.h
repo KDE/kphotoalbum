@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2009 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,35 +15,33 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef IMAGEINFOLIST_H
-#define IMAGEINFOLIST_H
-#include <QList>
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageInfo.h"
 
-namespace DB
+#ifndef ICON3DEFFECTS_H
+#define ICON3DEFFECTS_H
+
+#include <QPixmap>
+
+namespace Utilities
 {
 
-class ImageInfoList :public QList<ImageInfoPtr>
+/**
+ * \brief Simple utility class, which adds 3D effects to pixmaps
+ *
+ * To make the pixmaps more attractive in the thumbnail viewer, their
+ * corners are rounded, and a drop shadow are added.
+ *
+ * This class does exactly that.
+ */
+class Icon3DEffects
 {
 public:
-    ~ImageInfoList();
-    void sortAndMergeBackIn( ImageInfoList& subListToSort );
-    ImageInfoList sort() const;
-    void appendList( ImageInfoList& other );
-    void printItems();
-    bool isSorted();
-    void mergeIn( ImageInfoList list );
-    void remove( const ImageInfoPtr& info );
-
+    static QPixmap addEffects( const QPalette& palette, const QPixmap& pixmap );
 private:
-    bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
+    static QPixmap emptyPixmapTemplate( const QPalette& palette, const QSize& size );
+    static int borderSizeForRoundedPixmap( const QSize& size );
 };
-
-typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;
-typedef QList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
 
 }
 
-#endif /* IMAGEINFOLIST_H */
+#endif /* ICON3DEFFECTS_H */
 

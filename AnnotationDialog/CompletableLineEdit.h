@@ -18,12 +18,16 @@
 #ifndef ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
-#include <qlineedit.h>
-#include <QKeyEvent>
-#include "ListSelect.h"
+#include "enums.h"
+#include <QLineEdit>
+class Q3ListViewItem;
+class Q3ListView;
+class QKeyEvent;
 
 namespace AnnotationDialog
 {
+class ListSelect;
+
 class CompletableLineEdit :public QLineEdit {
 
 public:

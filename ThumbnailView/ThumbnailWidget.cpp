@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
+#include <Utilities/Icon3DEffects.h>
 #include "ThumbnailWidget.moc"
 
 #include <math.h>
@@ -48,8 +49,7 @@
 #include "ThumbnailRequest.h"
 #include "ThumbnailToolTip.h"
 #include "Utilities/Set.h"
-
-#include <kdebug.h>
+#include "DB/CategoryCollection.h"
 
 /**
  * \class ThumbnailView::ThumbnailWidget
@@ -114,6 +114,16 @@ void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
     if ( !isGridResizing() ) {
         paintCellPixmap( &painter, row, col );
         paintCellText( &painter, row, col );
+        if (_selectedFiles.contains(mediaIdInCell(row, col))) {
+            QColor col = palette().highlight().color();
+            col.setAlpha( 127 );
+            painter.setBrush( col );
+            // painter.setPen( Qt::NoPen );
+            QRect rect = cellRect();
+            rect.adjust(0,0,-1,-1);
+            painter.drawRoundRect( rect, 10,10 );
+        }
+
     }
     painter.end();
     p->drawPixmap( cellRect(), doubleBuffer );
@@ -181,7 +191,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
     if (_thumbnailCache.find(mediaId, &pixmap)) {
         QRect rect = iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
-        painter->drawPixmap( rect, pixmap );
+        painter->drawPixmap( rect, Utilities::Icon3DEffects::addEffects( palette(), pixmap) );
 
         rect = QRect( 0, 0, cellWidth(), cellHeight() );
         if ( _leftDrop == mediaId )
@@ -681,10 +691,7 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
 void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = cellRect();
-    if (_selectedFiles.contains(mediaIdInCell(row, col)))
-        p->fillRect( rect, palette().highlight() );
-    else
-        p->fillRect( rect, palette().color( QPalette::Base) );
+    p->fillRect( rect, palette().color( QPalette::Base) );
 
     if (isGridResizing()
         || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
@@ -1260,21 +1267,9 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
 
     QPalette p;
-    if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
-        p.setColor( QPalette::Base, Qt::black );
-        p.setColor( QPalette::Foreground, Qt::white );
-
-        QColor c = p.color(QPalette::Active, QColorGroup::Highlight);
-        if ((c.red() < 0x30 && c.green() < 0x30 && c.blue() < 0x30) ||
-            (c.red() > 0xd0 && c.green() > 0xd0 && c.blue() > 0xd0)) {
-            // Not enough contrast to bg or fg. Use light blue instead.
-            static QColor highlightColor(0x67, 0x8d, 0xb2);
-            p.setColor(QPalette::Active, QColorGroup::Highlight, highlightColor);
-            p.setColor(QPalette::Inactive, QColorGroup::Highlight, highlightColor);
-            p.setColor(QPalette::Disabled, QColorGroup::Highlight, highlightColor);
-        }
-    }
-    setPalette(p);  // fallback to default.
+    p.setColor( QPalette::Base, p.color(QPalette::Window) );
+    p.setColor( QPalette::Foreground, p.color(QPalette::WindowText ) );
+    setPalette(p);
 
     const int first = firstVisibleRow( PartlyVisible );
     const int last = lastVisibleRow( PartlyVisible );
@@ -1513,3 +1508,5 @@ void ThumbnailView::ThumbnailWidget::imagesDeletedFromDB( const DB::Result& list
     }
     updateDisplayModel();
 }
+
+

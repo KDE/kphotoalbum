@@ -17,27 +17,19 @@
 */
 
 #include "DateBarWidget.h"
+#include <DB/ImageDateCollection.h>
 #include <QMenu>
 #include <qdatetime.h>
 #include <qpainter.h>
 #include <qfontmetrics.h>
 #include <QContextMenuEvent>
-#include <QKeyEvent>
-#include <QResizeEvent>
-#include <QFocusEvent>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QWheelEvent>
-#include "ViewHandler.h"
 #include <qtoolbutton.h>
 #include <qaction.h>
-#include <kglobal.h>
-#include <kiconloader.h>
 #include <math.h>
 #include <klocale.h>
 #include "Settings/SettingsData.h"
-#include <qtooltip.h>
 #include <KIcon>
+#include "MouseHandler.h"
 
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;

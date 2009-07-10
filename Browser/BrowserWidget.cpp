@@ -19,7 +19,8 @@
 #include "CenteringIconView.h"
 
 #include "BrowserWidget.h"
-#include <QDebug>
+#include <QMouseEvent>
+#include <QKeyEvent>
 #include <QApplication>
 #include <DB/ImageDB.h>
 #include <QHeaderView>
@@ -32,7 +33,6 @@
 #include "enums.h"
 
 #include <klocale.h>
-#include "DB/ImageSearchInfo.h"
 #include "Settings/SettingsData.h"
 #include <qtimer.h>
 #include <QHBoxLayout>
@@ -40,10 +40,11 @@
 #include "Utilities/Util.h"
 #include "Utilities/ShowBusyCursor.h"
 #include <QStackedWidget>
-#include <qlayout.h>
 #include "DB/CategoryCollection.h"
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
+bool Browser::BrowserWidget::_isResizing = false;
+
 
 Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     :QWidget( parent ), _current(-1)
@@ -400,9 +401,10 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
     }
 
     else if (event->type() == QEvent::MouseButtonPress ||
-             event->type() == QEvent::MouseMove ) {
+             event->type() == QEvent::MouseMove ||
+             event->type() == QEvent::MouseButtonRelease ) {
         QMouseEvent* me = static_cast<QMouseEvent*>( event );
-        if ( me->buttons() & Qt::MidButton ) {
+        if ( me->buttons() & Qt::MidButton || me->button() & Qt::MidButton) {
             handleResizeEvent( me );
             return true;
         }
@@ -432,17 +434,22 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
     if ( event->type() ==  QEvent::MouseButtonPress ) {
         _resizePressPos = event->pos();
         offset = category->thumbnailSize();
+        _isResizing = true;
     }
 
     else if ( event->type() == QEvent::MouseMove  ) {
-        int distance = (event->pos() - _resizePressPos).x() + (event->pos() - _resizePressPos).y();
+        int distance = (event->pos() - _resizePressPos).x() + (event->pos() - _resizePressPos).y() / 3;
         int size = distance + offset;
-        size = qMax( qMin( 256, size ), 32 );
+        size = qMax( qMin( 512, size ), 32 );
         action->category()->setThumbnailSize( size );
 
         _curView->setIconSize( QSize(size,size) );
         _filterProxy->invalidate();
         adjustTreeViewColumnSize();
+    }
+    else if ( event->type() == QEvent::MouseButtonRelease  ) {
+        _isResizing = false;
+        update();
     }
 }
 

@@ -102,6 +102,7 @@ void Settings::SettingsDialog::show()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     _generalPage->loadSettings( opt );
+    _thumbnailsPage->loadSettings(opt);
     _subCategoriesPage->loadSettings();
     _databaseBackendPage->loadSettings(opt);
     _viewerPage->reset(opt);
@@ -128,6 +129,7 @@ void Settings::SettingsDialog::slotMyOK()
     Utilities::ShowBusyCursor dummy;
     Settings::SettingsData* opt = Settings::SettingsData::instance();
     _generalPage->saveSettings( opt );
+    _thumbnailsPage->saveSettings(opt);
     _databaseBackendPage->saveSettings(opt);
     _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
     _subCategoriesPage->saveSettings();

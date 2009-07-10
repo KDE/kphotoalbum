@@ -26,6 +26,8 @@
 #ifdef HAVE_NEPOMUK
 #   include <nepomuk/kratingwidget.h>
 #endif
+#include "Settings/SettingsData.h"
+
 class QMenu;
 class QToolButton;
 

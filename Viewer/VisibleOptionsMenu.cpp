@@ -9,6 +9,7 @@
 #include <QPalette>
 #include "DB/Category.h"
 #include "DB/ImageDB.h"
+#include "DB/CategoryCollection.h"
 
 Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollection* actions)
     : QMenu(i18n("Show..."), parent)

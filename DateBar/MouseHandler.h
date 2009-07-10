@@ -17,18 +17,14 @@
 */
 #ifndef DATEBARMOUSEHANDLER_H
 #define DATEBARMOUSEHANDLER_H
-#include <qevent.h>
-#include <qobject.h>
+#include <QObject>
 #include <qdatetime.h>
 #include <kdemacros.h>
-#include <kdeversion.h>
 #include "DB/ImageDate.h"
 
-#if ! KDE_IS_VERSION(3,3,90)
-#undef KDE_EXPORT
-#define KDE_EXPORT
-#endif
+namespace DB { class ImageDate; }
 
+class QTimer;
 namespace DateBar {
 class DateBarWidget;
 

@@ -20,9 +20,8 @@
 #ifndef DB_RAWID_H
 #define DB_RAWID_H
 
-#include <QtCore/QVariant>
-#include <QtCore/QDebug>
-#include <cassert>
+#include <QVariant>
+#include <QDebug>
 
 #ifndef DB_RAWID_IS_PLAIN_INTEGER
 
@@ -50,8 +49,8 @@ public:
     explicit RawId(int value)
         : _value(value)
     {
-        assert(_value != nullValue);
-        assert(_value > 0);
+        Q_ASSERT(_value != nullValue);
+        Q_ASSERT(_value > 0);
     }
 
     bool operator==(const RawId other) const
@@ -84,7 +83,7 @@ private:
 
 inline int toInt(const DB::RawId rawId)
 {
-    assert(rawId != DB::RawId());
+    Q_ASSERT(rawId != DB::RawId());
     return rawId._value;
 }
 

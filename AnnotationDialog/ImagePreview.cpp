@@ -19,9 +19,6 @@
 #include "ImagePreview.h"
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageLoader.h"
-#include <QResizeEvent>
-#include <QLabel>
-#include <kdebug.h>
 
 using namespace AnnotationDialog;
 

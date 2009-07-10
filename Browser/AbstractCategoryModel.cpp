@@ -17,6 +17,9 @@
 */
 
 #include "AbstractCategoryModel.h"
+#include "BrowserWidget.h"
+#include <QApplication>
+#include <Utilities/Icon3DEffects.h>
 #include <klocale.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
@@ -64,6 +67,13 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
 
 QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
 {
+    if ( BrowserWidget::isResizing() ) {
+        const int size = _category->thumbnailSize();
+        QPixmap res( size, 3.0/4.0 * size );
+        res.fill( Qt::white );
+        return Utilities::Icon3DEffects::addEffects(qApp->palette(), res);
+    }
+
     if ( _category->viewType() == DB::Category::TreeView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), name ) )
             return KIcon( QString::fromLatin1( "folder_image" ) ).pixmap(22);
@@ -74,7 +84,7 @@ QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
     else {
         // The category images are screenshot from the size of the viewer (Which might very well be considered a bug)
         // This is the reason for asking for the thumbnail height being 3/4 of its width.
-        return _category->categoryImage( _category->name(), name, _category->thumbnailSize(), _category->thumbnailSize() * 3.0 / 4.0 );
+        return Utilities::Icon3DEffects::addEffects( qApp->palette(),_category->categoryImage( _category->name(), name, _category->thumbnailSize(), _category->thumbnailSize() * 3.0 / 4.0 ) );
     }
 }
 

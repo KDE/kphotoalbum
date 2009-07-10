@@ -22,14 +22,14 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qmap.h>
-#include <qdom.h>
 #include "GpsCoordinates.h"
 #include "ImageDate.h"
-#include <qimage.h>
-#include "DB/CategoryCollection.h"
 #include "Utilities/Set.h"
 #include "MD5.h"
 #include "ExifMode.h"
+#include "DB/CategoryPtr.h"
+#include <QSize>
+#include "config-kpa-sqldb.h"
 
 namespace Plugins
 {
@@ -126,7 +126,7 @@ public:
 
     bool operator!=( const ImageInfo& other ) const;
     bool operator==( const ImageInfo& other ) const;
-    virtual ImageInfo& operator=( const ImageInfo& other );
+    ImageInfo& operator=( const ImageInfo& other );
 
     static bool imageOnDisk( const QString& fileName );
 

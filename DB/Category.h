@@ -22,7 +22,6 @@
 #include <qpixmap.h>
 #include <qobject.h>
 #include <ksharedptr.h>
-#include <Utilities/Set.h>
 
 namespace DB
 {
@@ -84,8 +83,6 @@ signals:
     void itemRenamed( const QString& oldName, const QString& newName );
     void itemRemoved( const QString& name );
 };
-
-typedef KSharedPtr<Category> CategoryPtr;
 
 }
 

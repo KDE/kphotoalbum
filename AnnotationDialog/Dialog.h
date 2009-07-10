@@ -21,26 +21,25 @@
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
 #include <qdialog.h>
-#include <QResizeEvent>
-#include <QEvent>
-#include <QMoveEvent>
 #include <QList>
-#include <QCloseEvent>
 #include <Q3PtrList>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
-#include <KActionCollection>
 #include "config-kpa-nepomuk.h"
 
 
+class KActionCollection;
+class QMoveEvent;
+class QResizeEvent;
+class QCloseEvent;
 class KTextEdit;
 class DockWidget;
 class QDockWidget;
 class QTimeEdit;
 class QMainWindow;
 class QSplitter;
-class QPushButton;
+class KPushButton;
 class KLineEdit;
 class KPushButton;
 
@@ -125,7 +124,7 @@ protected:
 
 private:
     DB::ImageInfoList _origList;
-     QList<DB::ImageInfo> _editList;
+    QList<DB::ImageInfo> _editList;
     int _current;
     UsageMode _setup;
     Q3PtrList< ListSelect > _optionList;
@@ -143,18 +142,19 @@ private:
     KDateEdit* _endDate;
 
     ImagePreview* _preview;
-    QPushButton* _revertBut;
+    KPushButton* _revertBut;
+    KPushButton* _clearBut;
     KPushButton* _okBut;
     KPushButton* _continueLaterBut;
-    QPushButton* _prevBut;
-    QPushButton* _nextBut;
-    QPushButton* _rotateLeft;
-    QPushButton* _rotateRight;
-    QPushButton* _delBut;
-    QPushButton* _copyPreviousBut;
+    KPushButton* _prevBut;
+    KPushButton* _nextBut;
+    KPushButton* _rotateLeft;
+    KPushButton* _rotateRight;
+    KPushButton* _delBut;
+    KPushButton* _copyPreviousBut;
     KTextEdit* _description;
     QTimeEdit* _time;
-    QPushButton* _addTime;
+    KPushButton* _addTime;
 #ifdef HAVE_NEPOMUK
     KRatingWidget* _rating;
 #endif

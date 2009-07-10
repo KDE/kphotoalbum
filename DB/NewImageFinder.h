@@ -19,13 +19,14 @@
 #ifndef NEWIMAGEFINDER_H
 #define NEWIMAGEFINDER_H
 #include <QSet>
-#include <QStringList>
-#include "DB/MD5Map.h"
 #include "ImageInfo.h"
-#include "DB/Result.h"
+#include "ImageInfoPtr.h"
 
 namespace DB
 {
+class MD5Map;
+class Result;
+
 
 class NewImageFinder
 {

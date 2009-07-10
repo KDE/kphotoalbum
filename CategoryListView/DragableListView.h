@@ -19,7 +19,7 @@
 #define CATEGORYLISTVIEW_DRAGABLELISTVIEW_H
 
 #include <q3listview.h>
-#include "DB/Category.h"
+#include "DB/CategoryPtr.h"
 
 namespace CategoryListView
 {

@@ -3,7 +3,7 @@
 
 #include "RawId.h"
 #include "Result.h"
-#include "ImageInfo.h"
+#include "ImageInfoPtr.h"
 
 namespace DB
 {

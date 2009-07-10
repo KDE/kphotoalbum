@@ -18,10 +18,10 @@
 
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
-#include <qlabel.h>
-#include <QResizeEvent>
+#include <QLabel>
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClient.h"
+class QResizeEvent;
 
 namespace AnnotationDialog
 {

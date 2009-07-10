@@ -21,8 +21,8 @@
 #include "Breadcrumb.h"
 #include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
-#include <QAbstractItemModel>
 
+class QModelIndex;
 namespace Browser
 {
 class BrowserWidget;

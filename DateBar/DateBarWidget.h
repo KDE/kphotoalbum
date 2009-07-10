@@ -18,26 +18,30 @@
 
 #ifndef DATEBAR_H
 #define DATEBAR_H
-#include <qwidget.h>
+#include <QWidget>
 #include <qpixmap.h>
 #include <qdatetime.h>
-#include <QContextMenuEvent>
-#include <QWheelEvent>
-#include <QPaintEvent>
-#include <QResizeEvent>
-#include <QFocusEvent>
-#include <QMouseEvent>
-#include <QKeyEvent>
-#include "DB/ImageDateCollection.h"
 #include "DateBar/ViewHandler.h"
-#include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
-#include <KMenu>
 
+class QMenu;
+class QKeyEvent;
+class QMouseEvent;
+class QFocusEvent;
+class QResizeEvent;
+class QPaintEvent;
+class QWheelEvent;
+class QContextMenuEvent;
 class QToolButton;
+
+namespace DB { class ImageDateCollection; class ImageDate; }
 
 namespace DateBar
 {
+class MouseHandler;
+class FocusItemDragHandler;
+class BarDragHandler;
+class SelectionHandler;
 
 class DateBarWidget :public QWidget {
     Q_OBJECT

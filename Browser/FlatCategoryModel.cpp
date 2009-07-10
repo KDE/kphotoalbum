@@ -19,8 +19,6 @@
 #include "FlatCategoryModel.h"
 #include <klocale.h>
 #include <DB/ImageDB.h>
-#include <DB/MemberMap.h>
-#include <KIcon>
 
 Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
     : AbstractCategoryModel( category, info )

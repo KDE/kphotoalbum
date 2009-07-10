@@ -16,6 +16,7 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/MD5Map.h"
 #include "DB/Category.h"
+#include "DB/CategoryCollection.h"
 
 using namespace ImportExport;
 

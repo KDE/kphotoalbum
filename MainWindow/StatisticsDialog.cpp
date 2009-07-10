@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 #include "DB/Category.h"
 #include "Utilities/ShowBusyCursor.h"
+#include "DB/CategoryCollection.h"
 using namespace MainWindow;
 
 StatisticsDialog::StatisticsDialog( QWidget* parent )

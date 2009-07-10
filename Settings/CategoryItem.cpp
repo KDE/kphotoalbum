@@ -22,6 +22,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include "MainWindow/Window.h"
+#include "DB/CategoryCollection.h"
 
 Settings::CategoryItem::CategoryItem( const QString& category, const QString& text, const QString& icon,
                                       DB::Category::ViewType type, int thumbnailSize, Q3ListBox* parent )

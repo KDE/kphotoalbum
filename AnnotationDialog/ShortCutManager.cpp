@@ -1,5 +1,4 @@
 #include "ShortCutManager.h"
-#include <QPushButton>
 #include "ListSelect.h"
 #include <QShortcut>
 #include <QDockWidget>

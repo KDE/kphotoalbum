@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DragObject.h"
-#include <kdebug.h>
 const char* CategoryListView::DragObject::format( int i ) const
 {
     if ( i == 0 )

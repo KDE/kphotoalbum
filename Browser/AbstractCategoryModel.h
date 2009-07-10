@@ -20,7 +20,7 @@
 #define ABSTRACTCATEGORYMODEL_H
 #include <QAbstractItemModel>
 #include <DB/ImageSearchInfo.h>
-#include <DB/Category.h>
+#include <DB/CategoryPtr.h>
 
 namespace Browser
 {

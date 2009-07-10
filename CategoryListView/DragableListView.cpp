@@ -17,6 +17,8 @@
 */
 #include "DragableListView.h"
 #include "DragObject.h"
+#include "DB/Category.h"
+
 CategoryListView::DragableListView::DragableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name )
     :Q3ListView( parent, name ), _category( category )
 {

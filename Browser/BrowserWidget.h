@@ -57,8 +57,8 @@ public:
     void setFocus();
     QString currentCategory() const;
     void addAction( Browser::BrowserPage* );
-
     void setModel( QAbstractItemModel* );
+    static bool isResizing() { return _isResizing; }
 
 public slots:
     void back();
@@ -115,6 +115,7 @@ private:
     TreeFilter* _filterProxy;
     Browser::BreadcrumbList _breadcrumbs;
     QPoint _resizePressPos;
+    static bool _isResizing;
 };
 
 }

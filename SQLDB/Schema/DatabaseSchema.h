@@ -238,8 +238,10 @@ namespace SQLDB
              *
              * \param name name of the identifier, may only have lower
              * case ASCII letters and '_' characters.
+             * \param versionMajor
+             * \param versionMinor
              */
-            Identifier(const string& name, int versioMajor, int versionMinor);
+            Identifier(const string& name, int versionMajor, int versionMinor);
 
             /** Set the last modification date of this identifier.
              *

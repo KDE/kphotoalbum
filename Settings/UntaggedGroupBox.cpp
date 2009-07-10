@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <DB/ImageDB.h>
+#include "DB/CategoryCollection.h"
 
 Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
     : QGroupBox( i18n("Untagged Images"), parent )

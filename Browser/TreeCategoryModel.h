@@ -18,8 +18,8 @@
 
 #ifndef TREECATEGORYMODEL_H
 #define TREECATEGORYMODEL_H
-#include <QAbstractItemModel>
 #include "AbstractCategoryModel.h"
+namespace DB { class CategoryItem; }
 class Data;
 
 namespace Browser

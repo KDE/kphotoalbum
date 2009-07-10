@@ -45,5 +45,4 @@ void AnnotationDialog::ShowSelectionOnlyManager::unlimitFromSelection()
     }
 }
 
-
 #include "ShowSelectionOnlyManager.moc"

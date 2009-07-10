@@ -18,7 +18,7 @@
 
 #ifndef BREADCRUMBLIST_H
 #define BREADCRUMBLIST_H
-#include <QStringList>
+#include <QList>
 #include "Breadcrumb.h"
 
 namespace Browser

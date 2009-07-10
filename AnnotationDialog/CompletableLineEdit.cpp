@@ -16,10 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CompletableLineEdit.h"
-#include <qregexp.h>
-#include <q3listview.h>
+#include "ListSelect.h"
+#include <QRegExp>
 #include <QKeyEvent>
-#include <kdebug.h>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
     :QLineEdit( parent )

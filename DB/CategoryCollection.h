@@ -21,6 +21,7 @@
 #include <QList>
 #include "Settings/SettingsData.h"
 #include <ksharedptr.h>
+#include "DB/CategoryPtr.h"
 #include "DB/Category.h"
 
 class Category;

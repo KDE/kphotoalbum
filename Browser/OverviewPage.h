@@ -19,14 +19,14 @@
 #ifndef OVERVIEWPAGE_H
 #define OVERVIEWPAGE_H
 #include "Breadcrumb.h"
-#include <AnnotationDialog/Dialog.h>
 #include "BrowserPage.h"
-#include <DB/ImageSearchInfo.h>
-#include <DB/Category.h>
+#include <DB/CategoryPtr.h>
 #include <QAbstractListModel>
-#include <DB/MediaCount.h>
 
+namespace AnnotationDialog { class Dialog; }
+namespace DB { class ImageSearchInfo; class MediaCount; }
 namespace Browser {
+
 class BrowserWidget;
 
 /**

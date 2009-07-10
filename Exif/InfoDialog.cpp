@@ -28,6 +28,7 @@
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
+#include "Settings/SettingsData.h"
 
 using Utilities::StringSet;
 

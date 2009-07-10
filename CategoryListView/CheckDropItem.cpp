@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CheckDropItem.h"
-#include "DragObject.h"
 #include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
 #include "DragableListView.h"
@@ -24,6 +23,8 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <QDropEvent>
+#include "DB/CategoryItem.h"
+#include "DB/Category.h"
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableListView* parent, const QString& column1,
                                                 const QString& column2 )

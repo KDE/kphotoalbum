@@ -19,7 +19,6 @@
 #ifndef FLATCATEGORYMODEL_H
 #define FLATCATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
-#include <QAbstractListModel>
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 

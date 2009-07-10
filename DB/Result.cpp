@@ -1,7 +1,6 @@
 #include "Result.h"
 #include "ResultId.h"
-
-#include <QDebug>
+#include "ImageInfo.h"
 
 DB::Result::ConstIterator::ConstIterator( const Result* result, int pos )
     :_result(result), _pos(pos)

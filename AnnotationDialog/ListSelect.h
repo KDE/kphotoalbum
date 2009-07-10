@@ -19,16 +19,16 @@
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
 
-#include <qstringlist.h>
-#include <QEvent>
 #include <QLabel>
-#include "Settings/SettingsData.h"
-#include <qtoolbutton.h>
-#include "DB/Category.h"
-#include "DB/CategoryItem.h"
-#include <q3listview.h>
 #include "enums.h"
+#include "Settings/SettingsData.h"
+#include <q3listview.h>
+#include "DB/CategoryPtr.h"
 
+class Q3ListViewItem;
+class CategoryItem;
+class QToolButton;
+class QEvent;
 class QRadioButton;
 class QLabel;
 

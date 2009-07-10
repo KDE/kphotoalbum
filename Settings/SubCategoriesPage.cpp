@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "DB/CategoryCollection.h"
 
 Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
     : QWidget( parent )

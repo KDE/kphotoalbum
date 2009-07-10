@@ -19,10 +19,11 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 #include "BrowserPage.h"
-#include <QStandardItemModel>
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
+#include "DB/CategoryPtr.h"
 
+class QAbstractItemModel;
 class FlatCategoryModel;
 class BrowserWidget;
 

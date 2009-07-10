@@ -16,6 +16,7 @@
 #include <Q3ListBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "DB/CategoryCollection.h"
 
 Settings::CategoryPage::CategoryPage( QWidget* parent )
     : QWidget( parent )

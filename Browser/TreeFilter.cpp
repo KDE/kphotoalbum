@@ -17,8 +17,6 @@
 */
 
 #include "TreeFilter.h"
-#include <QDebug>
-#include "enums.h"
 
 TreeFilter::TreeFilter( QObject* parent)
     : QSortFilterProxyModel(parent)

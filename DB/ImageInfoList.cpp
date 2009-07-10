@@ -142,7 +142,7 @@ void ImageInfoList::mergeIn( ImageInfoList other)
     *this = tmp;
 }
 
-void ImageInfoList::remove( ImageInfoPtr info )
+void ImageInfoList::remove( const ImageInfoPtr& info )
 {
     for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
         if ( (*(*it)) == *info ) {

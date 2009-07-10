@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include <KActionCollection>
 #include "BreadcrumbViewer.h"
 #include <QDebug>
 

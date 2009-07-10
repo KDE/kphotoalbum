@@ -19,21 +19,10 @@
 #include "CategoryPage.h"
 #include "TreeCategoryModel.h"
 #include "FlatCategoryModel.h"
-#include <DB/MemberMap.h>
 #include <klocale.h>
-#include <DB/ImageDB.h>
-#include <QDebug>
-#include <Settings/SettingsData.h>
 #include "OverviewPage.h"
 #include "BrowserWidget.h"
-#include <DB/CategoryItem.h>
-#include <KIcon>
 #include "enums.h"
-
-class CategoryItem :public QStandardItem
-{
-
-};
 
 Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser ), _category( category ), _model( 0 )

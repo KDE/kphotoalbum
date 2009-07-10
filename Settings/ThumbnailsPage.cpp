@@ -49,11 +49,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( thumbnailSpaceLabel, row, 0 );
     lay->addWidget( _thumbnailSpace, row, 1 );
 
-    // Display dark background
-    ++row;
-    _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ) );
-    lay->addWidget( _thumbnailDarkBackground, row, 0, 1, 2 );
-
     // Display grid lines in the thumbnail view
     ++row;
     _thumbnailDisplayGrid = new QCheckBox( i18n("Display grid around thumbnails" ) );
@@ -114,11 +109,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     txt = i18n("<p>How thick the cell padding should be.</p>");
     thumbnailSpaceLabel->setWhatsThis( txt );
 
-    txt = i18n("<p>The background color in the thumbnail view is "
-               "the systems' default background; by checking this option, "
-               "you can set it to be dark instead.</p>");
-    _thumbnailDarkBackground->setWhatsThis( txt );
-
     txt = i18n("<p>If you want to see grid around your thumbnail images, "
                "select this option.</p>");
     _thumbnailDisplayGrid->setWhatsThis( txt );
@@ -146,7 +136,6 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
 {
     _previewSize->setValue( opt->previewSize() );
     _thumbnailSize->setValue( opt->thumbSize() );
-    _thumbnailDarkBackground->setChecked( opt->thumbnailDarkBackground() );
     _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     _thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );
     _thumbnailSpace->setValue( opt->thumbnailSpace() );
@@ -162,7 +151,6 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentIndex() );
-    opt->setThumbnailDarkBackground( _thumbnailDarkBackground->isChecked() );
     opt->setThumbnailDisplayGrid( _thumbnailDisplayGrid->isChecked() );
     opt->setThumbnailSpace( _thumbnailSpace->value() );
     opt->setDisplayLabels( _displayLabels->isChecked() );

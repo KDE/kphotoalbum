@@ -1,7 +1,5 @@
 #include "CenteringIconView.h"
 #include <Utilities/BooleanGuard.h>
-#include <QTimer>
-#include <QApplication>
 #include <cmath>
 
 const int CELLWIDTH = 200;

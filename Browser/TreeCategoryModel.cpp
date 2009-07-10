@@ -19,7 +19,7 @@
 #include "TreeCategoryModel.h"
 #include <DB/ImageDB.h>
 #include <DB/CategoryItem.h>
-
+#include "DB/Category.h"
 struct Data
 {
     Data( const QString& name )

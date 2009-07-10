@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MouseHandler.h"
+#include <DB/ImageDateCollection.h>
 #include "DateBarWidget.h"
 #include <math.h>
 #include <qtimer.h>

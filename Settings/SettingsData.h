@@ -97,7 +97,6 @@ public:
     property_copy( displayCategories       , setDisplayCategories      , bool );
     property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool );
     property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool );
-    property_copy( thumbnailDarkBackground , setThumbnailDarkBackground, bool );
     property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool );
     property_copy( previewSize             , setPreviewSize            , int );
 

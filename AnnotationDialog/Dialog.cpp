@@ -17,49 +17,30 @@
 */
 
 #include "Dialog.h"
-#include <QCheckBox>
-
-#include <Q3CString>
+#include <KAction>
+#include <KActionCollection>
 #include <QList>
 #include <QCloseEvent>
 #include <QDir>
 #include <QDockWidget>
-#include <QEvent>
 #include <QHBoxLayout>
 #include <QMainWindow>
-#include <QMoveEvent>
-#include <QPixmap>
-#include <QResizeEvent>
 #include <QTimeEdit>
-#include <QTimer>
 #include <QVBoxLayout>
 #include <kacceleratormanager.h>
-#include <kconfig.h>
-#include <kdebug.h>
-#include <kglobal.h>
 #include <kguiitem.h>
-#include <kiconloader.h>
 #include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
-#include <kstandarddirs.h>
 #include <ktextedit.h>
-#include <q3accel.h>
 #include <QMenu>
 #include <qapplication.h>
 #include <qcursor.h>
-#include <qdialog.h>
-#include <qeventloop.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qglobal.h>
 #include <qlabel.h>
-#include <qlayout.h>
-#include <qobject.h>
 #include <qpoint.h>
-#include <qpushbutton.h>
-#include <qtooltip.h>
 
 #ifdef HAVE_NEPOMUK
 #   include <nepomuk/kratingwidget.h>
@@ -126,49 +107,51 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     QHBoxLayout* lay1 = new QHBoxLayout;
     layout->addLayout( lay1 );
 
-    _revertBut = new QPushButton( i18n("Revert This Item"), this );
+    _revertBut = new KPushButton( i18n("Revert This Item"), this );
     KAcceleratorManager::setNoAccel(_revertBut);
     lay1->addWidget( _revertBut );
 
-    QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
+    _clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
                                              ? QString::fromLatin1("clear_left")
                                              : QString::fromLatin1("locationbar_erase")), this );
-    KAcceleratorManager::setNoAccel(clearBut);
-    lay1->addWidget( clearBut );
+    KAcceleratorManager::setNoAccel(_clearBut);
+    lay1->addWidget( _clearBut );
 
-    QPushButton* optionsBut = new QPushButton( i18n("Options" ), this );
+    KPushButton* optionsBut = new KPushButton( i18n("Options..." ), this );
     KAcceleratorManager::setNoAccel(optionsBut);
     lay1->addWidget( optionsBut );
 
     lay1->addStretch(1);
 
-    _okBut = new KPushButton( i18n("Done"), this );
+    _okBut = new KPushButton( i18n("&Done"), this );
     lay1->addWidget( _okBut );
 
-    _continueLaterBut = new KPushButton( i18n("Continue Later"), this );
+    _continueLaterBut = new KPushButton( i18n("Continue &Later"), this );
     lay1->addWidget( _continueLaterBut );
 
-    QPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel(), this );
+    KPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel(), this );
     lay1->addWidget( cancelBut );
 
     // It is unfortunately not possible to ask KAcceleratorManager not to setup the OK and cancel keys.
     shortCutManager.addTaken( i18n("&Search") );
     shortCutManager.addTaken( _okBut->text() );
+    shortCutManager.addTaken( _continueLaterBut->text());
     shortCutManager.addTaken( cancelBut->text() );
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
     connect( _okBut, SIGNAL( clicked() ), this, SLOT( doneTagging() ) );
     connect( _continueLaterBut, SIGNAL( clicked() ), this, SLOT( continueLater() ) );
     connect( cancelBut, SIGNAL( clicked() ), this, SLOT( reject() ) );
-    connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
+    connect( _clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
 
     // Disable so no button accept return (which would break with the line edits)
     _revertBut->setAutoDefault( false );
     _okBut->setAutoDefault( false );
+    _continueLaterBut->setAutoDefault( false );
     _delBut->setAutoDefault( false );
     cancelBut->setAutoDefault( false );
-    clearBut->setAutoDefault( false );
+    _clearBut->setAutoDefault( false );
     optionsBut->setAutoDefault( false );
 
     _optionList.setAutoDelete( true );
@@ -248,7 +231,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay7->addStretch(1);
     _time->hide();
 
-    _addTime= new QPushButton(i18n("Add Time Info..."));
+    _addTime= new KPushButton(i18n("Add Time Info..."));
     _addTime->setProperty( "WantsFocus", true );
     lay7->addWidget( _addTime );
     lay7->addStretch(1);
@@ -280,13 +263,13 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
     layout->addLayout( hlay );
     hlay->addStretch(1);
 
-    _prevBut = new QPushButton( top );
+    _prevBut = new KPushButton( top );
     _prevBut->setIcon( KIcon( QString::fromLatin1( "arrow-left" ) ) );
     _prevBut->setFixedWidth( 40 );
     hlay->addWidget( _prevBut );
     _prevBut->setToolTip( i18n("Annotate previous image") );
 
-    _nextBut = new QPushButton( top );
+    _nextBut = new KPushButton( top );
     _nextBut->setIcon( KIcon( QString::fromLatin1( "arrow-right" ) ) );
     _nextBut->setFixedWidth( 40 );
     hlay->addWidget( _nextBut );
@@ -294,19 +277,19 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 
     hlay->addStretch(1);
 
-    _rotateLeft = new QPushButton( top );
+    _rotateLeft = new KPushButton( top );
     hlay->addWidget( _rotateLeft );
     _rotateLeft->setIcon( KIcon( QString::fromLatin1( "object-rotate-left" ) ) );
     _rotateLeft->setFixedWidth( 40 );
     _rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
 
-    _rotateRight = new QPushButton( top );
+    _rotateRight = new KPushButton( top );
     hlay->addWidget( _rotateRight );
     _rotateRight->setIcon( KIcon( QString::fromLatin1( "object-rotate-right" ) ) );
     _rotateRight->setFixedWidth( 40 );
     _rotateRight->setToolTip( i18n("Rotate clockwise") );
 
-    _copyPreviousBut = new QPushButton( top );
+    _copyPreviousBut = new KPushButton( top );
     hlay->addWidget( _copyPreviousBut );
     _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
     _copyPreviousBut->setFixedWidth( 40 );
@@ -314,7 +297,7 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
 
     hlay->addStretch( 1 );
-    _delBut = new QPushButton( top );
+    _delBut = new KPushButton( top );
     _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
     hlay->addWidget( _delBut );
     connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
@@ -575,6 +558,7 @@ void AnnotationDialog::Dialog::setup()
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _continueLaterBut->hide();
         _revertBut->hide();
+        _clearBut->show();
         setWindowTitle( i18n("Search") );
         loadInfo( _oldSearch );
         _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
@@ -587,6 +571,7 @@ void AnnotationDialog::Dialog::setup()
         _okBut->setText( i18n("Done") );
         _continueLaterBut->show();
         _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
+        _clearBut->hide();
         _revertBut->show();
         setWindowTitle( i18n("Annotations") );
         if ( _setup == InputMultiImageConfigMode ) {
@@ -895,7 +880,7 @@ void AnnotationDialog::Dialog::setupFocus()
 
     // Finally set focus on the first list select
     for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
-        if ( (*orderedIt)->property("FocusCandidate").isValid() ) {
+        if ( (*orderedIt)->property("FocusCandidate").isValid() && (*orderedIt)->isVisible() ) {
             (*orderedIt)->setFocus();
             break;
         }

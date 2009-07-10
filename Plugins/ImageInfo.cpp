@@ -24,6 +24,7 @@
 #include "DB/Category.h"
 #include "MainWindow/DirtyIndicator.h"
 #include <QList>
+#include "DB/CategoryCollection.h"
 
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )

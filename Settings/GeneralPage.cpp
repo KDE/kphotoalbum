@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <Q3VGroupBox>
 #include <QVBoxLayout>
+#include "DB/CategoryCollection.h"
 
 Settings::GeneralPage::GeneralPage( QWidget* parent )
     : QWidget( parent )

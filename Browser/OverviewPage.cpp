@@ -17,6 +17,7 @@
 */
 
 #include "OverviewPage.h"
+#include <AnnotationDialog/Dialog.h>
 #include <Utilities/ShowBusyCursor.h>
 #include "enums.h"
 #include <KMessageBox>
@@ -25,11 +26,11 @@
 #include "CategoryPage.h"
 #include "BrowserWidget.h"
 #include <MainWindow/Window.h>
-#include <QDebug>
 #include <klocale.h>
 #include <DB/ImageDB.h>
 #include <kicon.h>
 #include <config-kpa-exiv2.h>
+#include "DB/CategoryCollection.h"
 
 const int THUMBNAILSIZE = 70;
 

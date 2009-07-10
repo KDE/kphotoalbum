@@ -19,6 +19,7 @@
 #define XMLDB_FILEREADER_H
 
 #include <qdom.h>
+#include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 
 namespace XMLDB

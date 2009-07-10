@@ -18,23 +18,17 @@
 
 #include "ListSelect.h"
 #include <qlayout.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qvalidator.h>
+#include <QLabel>
 #include <QMenu>
 #include <QList>
 #include <QMouseEvent>
-#include <QEvent>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
 #include "DB/ImageDB.h"
-#include <kio/job.h>
 #include <kio/copyjob.h>
 #include <qtoolbutton.h>
-#include <kiconloader.h>
 #include <q3buttongroup.h>
-#include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
 #include <q3listview.h>
 #include <q3header.h>
@@ -59,6 +53,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _lineEdit = new CompletableLineEdit( this );
     _lineEdit->setProperty( "FocusCandidate", true );
     _lineEdit->setProperty( "WantsFocus", true );
+    _lineEdit->setObjectName( category->name() );
     layout->addWidget( _lineEdit );
 
     _listView = new CategoryListView::DragableListView( _category, this );

@@ -29,6 +29,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>
+#include "DB/MD5Map.h"
 
 #include "config-kpa-exiv2.h"
 #ifdef HAVE_EXIV2

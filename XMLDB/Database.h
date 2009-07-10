@@ -28,6 +28,7 @@
 #include "DB/CategoryCollection.h"
 #include "XMLCategoryCollection.h"
 #include "DB/MD5Map.h"
+#include <qdom.h>
 
 namespace DB
 {

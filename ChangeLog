@@ -1,3 +1,9 @@
+2009-07-11  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Now it is possible to add a category image from a context menu,
+	which makes that process much faster (this fixes bug
+	#195023). Thanks to Thomas Pircher for the work on that.
+
 2009-07-10  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Resizing the category overview page now is done without the

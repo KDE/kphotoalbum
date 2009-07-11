@@ -35,6 +35,7 @@
 #include "MainWindow/Window.h"
 #include "CategoryImageConfig.h"
 #include "MainWindow/ExternalPopup.h"
+#include "MainWindow/CategoryImagePopup.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "InfoBox.h"
@@ -134,6 +135,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     createWallPaperMenu();
     createInvokeExternalMenu();
     createVideoMenu();
+    createCategoryImageMenu();
 
     KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT( editImage() ) );
     action->setText( i18n("Annotate...") );
@@ -412,6 +414,7 @@ void Viewer::ViewerWidget::load()
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
     _categoryEditor->setEnabled( !isVideo );
+    _categoryImagePopup->setEnabled( !isVideo );
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
 #endif
@@ -869,6 +872,11 @@ void Viewer::ViewerWidget::populateExternalPopup()
     _externalPopup->populate( currentInfo(), _list );
 }
 
+void Viewer::ViewerWidget::populateCategoryImagePopup()
+{
+    _categoryImagePopup->populate( _imageDisplay->currentViewAsThumbnail(), _list[_current] );
+}
+
 void Viewer::ViewerWidget::show( bool slideShow )
 {
     QSize size;
@@ -1026,6 +1034,13 @@ void Viewer::ViewerWidget::createVideoMenu()
     restart->setText( i18n("Restart") );
     _popup->addAction( restart );
     _videoActions.append( restart );
+}
+
+void Viewer::ViewerWidget::createCategoryImageMenu()
+{
+    _categoryImagePopup = new MainWindow::CategoryImagePopup( _popup );
+    _popup->addMenu( _categoryImagePopup );
+    connect( _categoryImagePopup, SIGNAL( aboutToShow() ), this, SLOT( populateCategoryImagePopup() ) );
 }
 
 void Viewer::ViewerWidget::test()

@@ -35,7 +35,7 @@ class QMenu;
 class KAction;
 
 namespace DB { class ImageInfo; class ResultId; }
-namespace MainWindow { class ExternalPopup; }
+namespace MainWindow { class ExternalPopup; class CategoryImagePopup; }
 
 namespace Viewer
 {
@@ -89,6 +89,7 @@ protected:
     void createZoomMenu();
     void createSlideShowMenu();
     void createVideoMenu();
+    void createCategoryImageMenu();
     void changeSlideShowInterval( int delta );
     void createVideoViewer();
 
@@ -131,6 +132,7 @@ protected slots:
     void slotSetWallpaperS();
     void slotSetWallpaperCAF();
     void populateExternalPopup();
+    void populateCategoryImagePopup();
     void videoStopped();
     void showExifViewer();
     void zoomIn();
@@ -164,6 +166,7 @@ private:
     QMenu* _rotateMenu;
     QMenu* _wallpaperMenu;
     MainWindow::ExternalPopup* _externalPopup;
+    MainWindow::CategoryImagePopup* _categoryImagePopup;
     int _width, _height;
     QPixmap _pixmap;
 

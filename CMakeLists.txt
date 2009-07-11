@@ -160,6 +160,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Window.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/SplashScreen.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/ExternalPopup.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/CategoryImagePopup.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/SearchBar.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/ImageCounter.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DirtyIndicator.cpp 

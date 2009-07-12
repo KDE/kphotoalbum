@@ -20,7 +20,6 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Exif/Info.h"
-#include <kdebug.h>
 
 using Utilities::StringSet;
 

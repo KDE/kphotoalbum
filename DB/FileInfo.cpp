@@ -24,7 +24,6 @@
 #  include "Exif/Info.h"
 #endif
 #include <kfilemetainfo.h>
-#include <kdebug.h>
 
 using namespace DB;
 

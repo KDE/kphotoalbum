@@ -23,17 +23,13 @@
 #include "ContainerCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
 #include <qregexp.h>
-#include <QList>
 #include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <kdebug.h>
 #include "CategoryMatcher.h"
 #include "ImageDB.h"
-#include "ImageInfo.h"
 #include <kapplication.h>
-#include <kconfig.h>
 #include <config-kpa-exiv2.h>
-#include <kglobal.h>
 #include <kconfiggroup.h>
 using namespace DB;
 
@@ -109,7 +105,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
-    
+
     // -------------------------------------------------- Rating
 
     ok &= (_rating == -1 ) || ( _rating == info->rating() );

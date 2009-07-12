@@ -1,4 +1,5 @@
 #include "VisibleOptionsMenu.h"
+#include "Settings/SettingsData.h"
 #include <KToggleAction>
 #include <KActionCollection>
 #include <klocale.h>

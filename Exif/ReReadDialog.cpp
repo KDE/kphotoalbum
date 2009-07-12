@@ -20,7 +20,6 @@
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include <qlayout.h>
 #include <QVBoxLayout>
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"

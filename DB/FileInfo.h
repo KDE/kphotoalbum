@@ -20,7 +20,6 @@
 #define FILEINFO_H
 
 #include <qstring.h>
-#include <qvariant.h>
 #include <qdatetime.h>
 #include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2

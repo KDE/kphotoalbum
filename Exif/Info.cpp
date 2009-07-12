@@ -15,12 +15,11 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "Exif/Info.h"
+#include "Info.h"
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
 #include "Utilities/Set.h"
 #include "Settings/SettingsData.h"
-#include "Info.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include <qfileinfo.h>

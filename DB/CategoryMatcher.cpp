@@ -17,10 +17,6 @@
 */
 
 #include "CategoryMatcher.h"
-#include "DB/ImageInfo.h"
-#include "DB/MemberMap.h"
-#include "DB/ImageDB.h"
-#include <QList>
 
 using namespace DB;
 

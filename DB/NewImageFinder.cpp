@@ -36,7 +36,6 @@
 #  include "Exif/Database.h"
 #endif
 
-#include "Browser/BrowserWidget.h"
 #include "ImageManager/Manager.h"
 #include "ImageManager/RawImageDecoder.h"
 #include "Settings/SettingsData.h"

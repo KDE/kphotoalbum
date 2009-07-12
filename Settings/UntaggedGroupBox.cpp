@@ -1,4 +1,5 @@
 #include "UntaggedGroupBox.h"
+#include "SettingsData.h"
 #include <QDebug>
 #include <klocale.h>
 #include <QComboBox>

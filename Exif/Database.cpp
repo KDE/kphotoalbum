@@ -15,15 +15,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "Exif/Database.h"
+#include "Database.h"
 
 #include "DB/ImageDB.h"
-#include "DB/ResultId.h"
-#include "Database.h"
 #include "Exif/DatabaseElement.h"
 #include "MainWindow/Window.h"
 #include "Settings/SettingsData.h"
-#include "Utilities/Util.h"
 
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
@@ -32,7 +29,6 @@
 #include <kmessagebox.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QProgressDialog>

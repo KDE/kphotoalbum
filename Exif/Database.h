@@ -18,18 +18,13 @@
 #ifndef EXIFDATABASE_H
 #define EXIFDATABASE_H
 
+#include <QSqlDatabase>
 #include <qstring.h>
 #include <QList>
 #include <qpair.h>
-#include <QSqlQuery>
 #include "Utilities/Set.h"
 
-class QSqlDatabase;
-class QSqlQuery;
-
-namespace Exiv2 {
-class ExifData;
-}
+namespace Exiv2 { class ExifData; }
 
 typedef QPair<int,int> Rational;
 typedef QList<Rational> RationalList;
@@ -40,7 +35,7 @@ namespace Exif
 using Utilities::StringSet;
 
 // ============================================================================
-// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
+// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
 // ============================================================================
 //
 // It is the resposibility of the methods in here to bail out in case database

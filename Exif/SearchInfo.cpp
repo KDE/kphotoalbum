@@ -16,10 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Exif/SearchInfo.h"
-#include "Exif/Database.h"
-#include <qsqlquery.h>
 #include "SearchInfo.h"
+#include "Exif/Database.h"
 
 /**
  * \class Exif::SearchInfo

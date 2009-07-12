@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <DB/Result.h>
 #include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #include "Plugins/CategoryImageCollection.h"

@@ -12,6 +12,8 @@
 #include "DB/Category.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "DB/CategoryCollection.h"
+#include "DB/ImageSearchInfo.h"
+
 using namespace MainWindow;
 
 StatisticsDialog::StatisticsDialog( QWidget* parent )

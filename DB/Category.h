@@ -18,11 +18,13 @@
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
+#include <QMap>
 #include <qstring.h>
-#include <qpixmap.h>
 #include <qobject.h>
 #include <ksharedptr.h>
 
+class QImage;
+class QPixmap;
 namespace DB
 {
 class CategoryItem;

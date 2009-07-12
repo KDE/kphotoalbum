@@ -28,6 +28,7 @@
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
+#include "DB/ImageSearchInfo.h"
 
 using namespace MainWindow;
 

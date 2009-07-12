@@ -18,7 +18,6 @@
 
 #include "MemberMap.h"
 #include "DB/Category.h"
-#include <kdebug.h>
 
 using namespace DB;
 

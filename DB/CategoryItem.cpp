@@ -17,7 +17,6 @@
 */
 #include "CategoryItem.h"
 #include <QList>
-#include <kdebug.h>
 
 DB::CategoryItem::~CategoryItem()
 {

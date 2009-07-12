@@ -19,8 +19,6 @@
 #include "GroupCounter.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
-#include <kdebug.h>
 
 using namespace DB;
 

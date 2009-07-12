@@ -15,7 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "Exif/SearchDialog.h"
+#include "SearchDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <q3vgroupbox.h>
@@ -24,13 +24,10 @@
 #include <QVBoxLayout>
 #include "Exif/Database.h"
 #include <q3grid.h>
-#include "SearchDialog.h"
 
 #include <qlabel.h>
 #include <qspinbox.h>
-#include <kvbox.h>
 #include <QScrollArea>
-#include <kdebug.h>
 
 using namespace Exif;
 

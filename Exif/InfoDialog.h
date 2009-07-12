@@ -19,13 +19,14 @@
 #define EXIFDIALOG_H
 #include <KDialog>
 #include <q3gridview.h>
-#include <QResizeEvent>
-#include <QKeyEvent>
-#include <QLabel>
-#include <QComboBox>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
-#include "DB/ResultId.h"
+class QComboBox;
+class QLabel;
+class QKeyEvent;
+class QResizeEvent;
+
+namespace DB { class ResultId; }
 
 namespace Exif
 {

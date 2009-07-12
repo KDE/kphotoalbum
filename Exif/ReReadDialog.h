@@ -19,7 +19,6 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 #include <KDialog>
-#include <QLabel>
 class QLabel;
 class QCheckBox;
 

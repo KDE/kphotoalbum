@@ -21,7 +21,6 @@
 #include <QFileInfo>
 #include <Settings/SettingsData.h>
 #include <QPixmapCache>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include "DB/ImageDB.h"

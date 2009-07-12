@@ -18,7 +18,6 @@
 
 #include "ImageInfo.h"
 #include <qfileinfo.h>
-#include <qdom.h>
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"

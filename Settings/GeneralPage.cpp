@@ -11,6 +11,7 @@
 #include <Q3VGroupBox>
 #include <QVBoxLayout>
 #include "DB/CategoryCollection.h"
+#include "SettingsData.h"
 
 Settings::GeneralPage::GeneralPage( QWidget* parent )
     : QWidget( parent )

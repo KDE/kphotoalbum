@@ -20,8 +20,7 @@
 #define IMAGEDATERANGECOLLECTION_H
 #include "DB/ImageDate.h"
 #include <qmap.h>
-#include "DB/ImageInfoList.h"
-
+#include <ksharedptr.h>
 namespace DB
 {
 

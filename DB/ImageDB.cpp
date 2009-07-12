@@ -17,7 +17,6 @@
 */
 #include "ImageDB.h"
 #include "XMLDB/Database.h"
-#include <kinputdialog.h>
 #include <klocale.h>
 #include <qfileinfo.h>
 #include <QList>
@@ -28,7 +27,6 @@
 #include <qapplication.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
-#include <kdebug.h>
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/Database.h"

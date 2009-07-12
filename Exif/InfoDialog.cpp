@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include <QComboBox>
 #include "Exif/InfoDialog.h"
 #include <klocale.h>
 #include "Exif/Info.h"
@@ -23,12 +24,11 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <QTextCodec>
-#include <QResizeEvent>
-#include <QKeyEvent>
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
+#include "DB/ResultId.h"
 
 using Utilities::StringSet;
 

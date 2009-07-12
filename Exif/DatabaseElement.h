@@ -19,7 +19,6 @@
 #define DATABASEELEMENT_H
 
 #include <qstring.h>
-#include <QSqlQuery>
 namespace Exiv2
 {
     class ExifData;

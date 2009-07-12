@@ -38,14 +38,17 @@ MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
 
 void MainWindow::DirtyIndicator::markDirty()
 {
-    _saveDirty = true;
-    _autoSaveDirty = true;
     if ( _instance ) {
         _instance->markDirtySlot();
+    } else {
+        _saveDirty = true;
+        _autoSaveDirty = true;
     }
 }
 
 void MainWindow::DirtyIndicator::markDirtySlot() {
+    _saveDirty = true;
+    _autoSaveDirty = true;
     setPixmap( _dirtyPix );
     emit dirty();
 }

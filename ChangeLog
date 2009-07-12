@@ -1,5 +1,8 @@
 2009-07-12  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Fixed bug #199629 - new images don't trigger dirty state, thanks
+	to mat.fuessel@gmx.net
+
 	* Fixed bug #150971 - disable too low zoom levels, thanks to alexjironkin@gmail.com
 
 2009-07-11  Jesper K. Pedersen  <blackie@kdab.com>

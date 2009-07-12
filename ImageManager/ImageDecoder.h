@@ -19,7 +19,8 @@
 #define IMAGEDECODER_H
 
 #include <q3ptrlist.h>
-#include <qimage.h>
+class QSize;
+class QImage;
 
 namespace ImageManager
 {

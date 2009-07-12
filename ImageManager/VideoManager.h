@@ -21,14 +21,14 @@
 class QPixmap;
 class KFileItem;
 
-#include <QPixmap>
-#include <QList>
 #include <qobject.h>
+#include "RequestQueue.h"
 #include "Manager.h"
 #include <QEventLoop>
 
 namespace ImageManager
 {
+class ImageClient;
 class ImageRequest;
 
 class VideoManager :public QObject

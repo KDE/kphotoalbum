@@ -25,7 +25,7 @@ bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
         delete request;
         return false;
     }
-    
+
     _queues[ request->priority() ].enqueue( request );
     _uniquePending.insert( request );
 
@@ -50,7 +50,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 _uniquePending.remove( request );
                 return request;
             }
-        } 
+        }
     } while ( it != _queues.begin() );
 
     return NULL;

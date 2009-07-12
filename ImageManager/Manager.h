@@ -21,16 +21,12 @@
 #include <qwaitcondition.h>
 #include <QList>
 #include <qevent.h>
-#include <QCustomEvent>
-#include "ImageManager/ImageRequest.h"
 #include <qmutex.h>
-#include <q3ptrdict.h>
 #include <qimage.h>
-#include <qobject.h>
-#include <Utilities/Set.h>
 #include "RequestQueue.h"
 #include "StopAction.h"
 
+class ImageRequest;
 namespace ImageManager
 {
 

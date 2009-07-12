@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "VideoManager.h"
+#include "ImageManager/ImageClient.h"
 #include <kurl.h>
 #include "ImageRequest.h"
 #include "Utilities/Util.h"
@@ -23,11 +24,7 @@
 #include <Settings/SettingsData.h>
 #include <qimage.h>
 #include <QPixmap>
-#include <kglobal.h>
 #include <kiconloader.h>
-#include <qapplication.h>
-#include <qeventloop.h>
-#include <kstandarddirs.h>
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)

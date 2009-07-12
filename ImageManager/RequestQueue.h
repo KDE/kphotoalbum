@@ -25,7 +25,6 @@
 
 namespace ImageManager
 {
-class ImageRequest;
 class ImageClient;
 
 // RequestQueue for ImageRequests. Non-synchronized, locking has to be
@@ -60,7 +59,7 @@ private:
     class ImageRequestReference {
     public:
         ImageRequestReference() : _ptr(0) {}
-        ImageRequestReference(const ImageRequestReference& other) 
+        ImageRequestReference(const ImageRequestReference& other)
             : _ptr(other._ptr) {}
         ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}
 

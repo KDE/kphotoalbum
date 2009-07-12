@@ -18,11 +18,11 @@
 */
 
 #include "ThumbnailStorage.h"
+#include <QImage>
 
 #include <qbuffer.h>
 #include <qdir.h>
 
-#include <kdebug.h>
 
 /*
  * The default format for images. The 'ppm' format seems to be fastest to work

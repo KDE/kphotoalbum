@@ -18,7 +18,6 @@
 #ifndef IMAGEREQUEST_H
 #define IMAGEREQUEST_H
 #include <qstring.h>
-#include "ImageManager/ImageClient.h"
 #include <q3deepcopy.h>
 #include <qsize.h>
 #include <qmutex.h>
@@ -33,18 +32,19 @@
 
 namespace ImageManager
 {
+class ImageClient;
 
-/** @short Priority of an image request 
+/** @short Priority of an image request
  *
  * The higher the priority, the sooner the image is expected to be decoded
  * */
 enum Priority {
-    BuildThumbnails, //< @short Requests generated through the "Rebuild Thumbnails" command 
+    BuildThumbnails, //< @short Requests generated through the "Rebuild Thumbnails" command
     BuildScopeThumbnails, //< @short thumbnails in current search scope to be rebuidl
     ThumbnailInvisible, //< @short Thumbnails in current search scope, but invisible
     ViewerPreload, // < @short Image that will be displayed later
     BatchTask, /**< @short Requests like resizing images for HTML pages
-                * 
+                *
                 * As they are requested by user, they are expected to finish
                 * sooner than invisible thumbnails */
     ThumbnailVisible, /**< @short Thumbnail visible on screen right now (might get invalidated later) */
@@ -83,7 +83,7 @@ public:
 
 private:
     bool _null;
-    mutable Q3DeepCopy<QString> _fileName;
+    mutable Q3DeepCopy<QString> _fileName; // PENDING(blackie) I don't think this deep copy is needed anymore!
     mutable QMutex _fileNameLock;
 
     int _width;

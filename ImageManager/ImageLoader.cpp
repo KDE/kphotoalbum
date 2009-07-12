@@ -26,24 +26,21 @@
 
 #include <qapplication.h>
 #include <qfileinfo.h>
-#include <qwaitcondition.h>
 
 extern "C" {
-#include <limits.h>
-#include <setjmp.h>
-#include <stdio.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
+ #include <limits.h>
+ #include <setjmp.h>
+ #include <stdio.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <unistd.h>
 }
 
 #include <kcodecs.h>
-#include <kdebug.h>
 #include <kurl.h>
 #include <qmatrix.h>
-#include <qpixmapcache.h>
 
 namespace ImageManager
 {

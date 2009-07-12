@@ -19,7 +19,6 @@
 
 #include <qfile.h>
 #include <qimage.h>
-#include <qmatrix.h>
 #include "Settings/SettingsData.h"
 #include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW

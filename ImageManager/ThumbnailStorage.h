@@ -21,13 +21,13 @@
 
 #include <qmap.h>
 #include <qstring.h>
-#include <QImage>
 #include <QMutex>
 #include <QSet>
+class QImage;
 
 namespace ImageManager {
 
-/** 
+/**
  * Interface of a backend to store thumbnails.
  * Implementations of ThumbnailStorage must be thread save.
  */

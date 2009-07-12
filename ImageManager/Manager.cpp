@@ -27,8 +27,6 @@
 #include <kurl.h>
 #include <qpixmapcache.h>
 
-#include <QCustomEvent>
-
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
 // -- Manager --

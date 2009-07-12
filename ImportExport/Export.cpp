@@ -21,27 +21,21 @@
 #include <kzip.h>
 #include <qfileinfo.h>
 #include <Q3CString>
-#include <time.h>
 #include "Utilities/Util.h"
 #include <q3progressdialog.h>
-#include <qeventloop.h>
 #include <klocale.h>
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfo.h"
 #include "DB/ResultId.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
-#include <KDialog>
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 
 #include <qradiobutton.h>
-#include <kimageio.h>
-#include "DB/ImageDB.h"
 #include <qbuffer.h>
 #include "XMLHandler.h"
-#include <QImageReader>
 #include <QVBoxLayout>
 #include <QGroupBox>
 

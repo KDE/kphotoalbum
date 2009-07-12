@@ -1,9 +1,8 @@
 #include "ImportHandler.h"
+#include "Utilities/Util.h"
 
 #include "KimFileReader.h"
 #include "ImportSettings.h"
-#include <QComboBox>
-#include <QCheckBox>
 #include <QApplication>
 #include <QFile>
 #include <QProgressDialog>
@@ -17,6 +16,8 @@
 #include "DB/MD5Map.h"
 #include "DB/Category.h"
 #include "DB/CategoryCollection.h"
+#include "Utilities/UniqFilenameMapper.h"
+#include "kio/job.h"
 
 using namespace ImportExport;
 

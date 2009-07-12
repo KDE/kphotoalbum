@@ -1,9 +1,6 @@
 #include "MD5CheckPage.h"
 #include <QFrame>
 #include <QVBoxLayout>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QDebug>
 #include <QButtonGroup>
 #include <QRadioButton>
 #include <klocale.h>

@@ -20,11 +20,7 @@
 #define IMPORT_H
 
 #include "ImportSettings.h"
-#include "ImportHandler.h"
 #include <kurl.h>
-#include <kio/job.h>
-#include <QPixmap>
-#include <QCloseEvent>
 #include <KAssistantDialog>
 #include "ImportMatcher.h"
 

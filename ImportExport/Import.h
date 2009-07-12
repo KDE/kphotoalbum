@@ -17,7 +17,9 @@
 */
 
 #include <kurl.h>
-#include <kio/job.h>
+class KJob;
+namespace KIO {class Job; }
+
 class KTemporaryFile;
 
 namespace ImportExport

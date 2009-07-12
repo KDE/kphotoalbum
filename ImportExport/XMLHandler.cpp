@@ -18,7 +18,6 @@
 #include "XMLHandler.h"
 #include <qdom.h>
 #include "Utilities/Util.h"
-#include "DB/ImageDB.h"
 #include "DB/ResultId.h"
 
 using Utilities::StringSet;

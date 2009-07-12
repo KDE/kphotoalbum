@@ -18,7 +18,6 @@
 
 #include "MiniViewer.h"
 #include <qpushbutton.h>
-#include <QCloseEvent>
 #include <klocale.h>
 #include <qlabel.h>
 #include <qlayout.h>

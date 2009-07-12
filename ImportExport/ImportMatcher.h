@@ -20,7 +20,6 @@
 #define IMPORTMATCHER_H
 
 #include <QScrollArea>
-#include <QGridLayout>
 
 class QGridLayout;
 class QComboBox;

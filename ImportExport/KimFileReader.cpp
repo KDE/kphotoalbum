@@ -3,7 +3,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kzip.h>
-#include <karchive.h>
 #include "Utilities/Util.h"
 
 ImportExport::KimFileReader::KimFileReader()

@@ -3,11 +3,11 @@
 
 #include "ImportSettings.h"
 #include <QEventLoop>
-#include "Utilities/Util.h"
-#include <kio/job.h>
 #include "DB/ImageInfoPtr.h"
-#include "Utilities/UniqFilenameMapper.h"
 
+namespace KIO { class FileCopyJob; }
+class KJob;
+namespace Utilities { class UniqFilenameMapper; }
 class QProgressDialog;
 
 namespace ImportExport {

@@ -1,16 +1,14 @@
 #include "Import.h"
+#include "ImportHandler.h"
 #include <klocale.h>
 #include "KimFileReader.h"
-#include <QBuffer>
 #include <kmessagebox.h>
-#include <QDebug>
 #include <KTemporaryFile>
 #include <kfiledialog.h>
-#include <KLocalizedString>
 #include "ImportDialog.h"
 #include <kio/jobuidelegate.h>
-#include <kio/jobclasses.h>
 #include "MainWindow/Window.h"
+#include <kio/job.h>
 
 using namespace ImportExport;
 

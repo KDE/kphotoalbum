@@ -17,14 +17,13 @@
 */
 #ifndef XMLHANDLER_H
 #define XMLHANDLER_H
-#include <q3cstring.h>
-#include <qstringlist.h>
 #include <qstring.h>
 #include "Export.h"
-#include "Utilities/UniqFilenameMapper.h"
 #include "DB/ImageInfoPtr.h"
-#include "DB/Result.h"
 #include <qdom.h>
+
+namespace Utilities { class UniqFilenameMapper; }
+namespace DB { class Result; }
 
 namespace ImportExport
 {

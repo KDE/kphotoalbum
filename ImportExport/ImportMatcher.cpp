@@ -18,8 +18,6 @@
 
 #include "ImportMatcher.h"
 #include <qcheckbox.h>
-#include <qlayout.h>
-#include <qstringlist.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <QGridLayout>

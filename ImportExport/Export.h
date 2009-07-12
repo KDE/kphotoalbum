@@ -23,7 +23,8 @@
 #include <KDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
-#include "DB/Result.h"
+
+namespace DB { class Result; }
 
 class QRadioButton;
 class QSpinBox;

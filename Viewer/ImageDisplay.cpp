@@ -275,6 +275,11 @@ void Viewer::ImageDisplay::zoomIn()
 void Viewer::ImageDisplay::zoomOut()
 {
     QPoint size = (_zEnd-_zStart);
+
+    //Bug 150971, Qt tries to render bigger and bigger images (10000x10000), hence running out of memory.
+    if ( ( size.x() * size.y() > 25*1024*1024 ) )
+        return;
+
     QPoint p1 = _zStart - size*(0.25/2);
     QPoint p2 = _zEnd + size*(0.25/2);
     zoom(p1,p2);

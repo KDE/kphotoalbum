@@ -226,12 +226,10 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         }
     }
 
+    // also inserts image into exif db if present:
     ImageInfoPtr info = ImageInfoPtr( new ImageInfo( relativeNewFileName, type ) );
     info->setMD5Sum(sum);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
-#ifdef HAVE_EXIV2
-    Exif::Database::instance()->add( absoluteNewFileName );
-#endif
 
     return info;
 }

@@ -94,8 +94,7 @@ namespace SQLDB
 
         int fieldCount() const
         {
-          QSqlRecord records = _q->record();
-          return records.count();
+            return _q->record().count();
         }
 
     private:

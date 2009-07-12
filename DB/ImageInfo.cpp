@@ -341,6 +341,7 @@ void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
 #ifdef HAVE_EXIV2
+        Exif::Database::instance()->remove( fullPath );
         Exif::Database::instance()->add( fullPath );
 #endif
     }

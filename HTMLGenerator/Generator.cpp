@@ -17,19 +17,14 @@
 */
 #include "Generator.h"
 
-#include "kdeversion.h"
-#include <KLocale>
 #include <QFile>
 #include <QApplication>
-#include <QEventLoop>
 #include <QList>
 #include "ImageManager/Manager.h"
 #include <KFileDialog>
-#include <KStandardDirs>
 #include <KRun>
 #include <KMessageBox>
 #include "Utilities/Util.h"
-#include "Utilities/UniqFilenameMapper.h"
 #include <KDebug>
 #include <QDir>
 #include "ImportExport/Export.h"

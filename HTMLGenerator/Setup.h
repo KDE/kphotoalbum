@@ -20,12 +20,13 @@
 
 #include <qstring.h>
 #include <qmap.h>
-#include "ImageSizeCheckBox.h"
 #include <QList>
 #include "DB/Result.h"
 
 namespace HTMLGenerator
 {
+class ImageSizeCheckBox;
+
 class Setup
 {
 public:
@@ -90,7 +91,7 @@ private:
     bool _generateKimFile;
     QString _theme;
     QMap<QString,bool> _includeCategory;
-     QList<ImageSizeCheckBox*> _resolutions;
+    QList<ImageSizeCheckBox*> _resolutions;
     DB::Result _images;
     bool _inlineMovies;
 };

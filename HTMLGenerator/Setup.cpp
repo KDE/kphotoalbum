@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Setup.h"
-#include "ImageSizeCheckBox.h"
 #include <QList>
-#include "DB/ImageDB.h"
 
 HTMLGenerator::Setup::Setup()
     : _images()

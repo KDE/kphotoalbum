@@ -19,12 +19,11 @@
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
 #include <KPageDialog>
+class QComboBox;
 class QTextEdit;
 class KLineEdit;
 class QSpinBox;
 class QCheckBox;
-#include "Utilities/Util.h"
-#include <QComboBox>
 #include "DB/Result.h"
 
 namespace HTMLGenerator

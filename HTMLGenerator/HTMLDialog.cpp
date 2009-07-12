@@ -17,6 +17,7 @@
 */
 
 #include "HTMLDialog.h"
+#include <QComboBox>
 
 #include <klocale.h>
 #include <qlayout.h>
@@ -32,10 +33,6 @@
 #include <kmessagebox.h>
 #include <kfileitem.h>
 #include <kio/netaccess.h>
-#include <q3textedit.h>
-#include <kdebug.h>
-#include <kglobal.h>
-#include <kiconloader.h>
 #include "MainWindow/Window.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"

@@ -19,16 +19,16 @@
 #define HTMLGENERATOR_GENERATOR_H
 
 #include <DB/CategoryPtr.h>
-#include <qobject.h>
 #include <qstring.h>
 #include <ImageManager/ImageClient.h>
 #include <QProgressDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include "Setup.h"
-#include "DB/ResultId.h"
 #include <QEventLoop>
 #include <KTempDir>
 #include "Utilities/Set.h"
+
+namespace DB { class ResultId; }
 
 namespace HTMLGenerator
 {

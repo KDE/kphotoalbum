@@ -52,9 +52,12 @@ int Browser::FlatCategoryModel::columnCount( const QModelIndex& ) const
     return 1;
 }
 
-QModelIndex Browser::FlatCategoryModel::index( int row, int column, const QModelIndex& ) const
+QModelIndex Browser::FlatCategoryModel::index( int row, int column, const QModelIndex& parent ) const
 {
-    return createIndex( row, column );
+    if ( row >=0 && row < rowCount( parent ) && column >= 0 && column < columnCount( parent ) )
+        return createIndex( row, column );
+    else
+        return QModelIndex();
 }
 
 QModelIndex Browser::FlatCategoryModel::parent( const QModelIndex&  ) const

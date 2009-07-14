@@ -123,9 +123,9 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     return QVariant();
 }
 
-Qt::ItemFlags Browser::AbstractCategoryModel::flags( const QModelIndex& ) const
+Qt::ItemFlags Browser::AbstractCategoryModel::flags( const QModelIndex& index ) const
 {
-    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    return index.isValid() ? Qt::ItemIsSelectable | Qt::ItemIsEnabled : Qt::ItemFlags();
 }
 
 QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientation orientation, int role) const

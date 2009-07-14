@@ -81,7 +81,7 @@ QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
 
 bool Browser::OverviewPage::isCategoryIndex( int row ) const
 {
-    return row < categories().count();
+    return row < categories().count() && row >= 0;
 }
 
 bool Browser::OverviewPage::isExivIndex( int row ) const

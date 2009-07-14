@@ -17,6 +17,7 @@
 */
 
 #include "CategoryImagePopup.h"
+#include <klocale.h>
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include <Utilities/Set.h>

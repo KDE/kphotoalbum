@@ -1,3 +1,10 @@
+2009-07-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Thumbnail view icons are now square again, and background color
+	is customizable. The default has changed slightly, so the
+	background color is dark gray, and spacing are 4 pixels. This
+	gives IMHO the best 3D effect.
+
 2009-07-12  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Exif database insertion works again. Thanks to Matthias Fussel
@@ -22,8 +29,6 @@
 	* Removed a lot of includes that was either no longer needed, or
 	which at least could be replaced with a forward declaration.
 	* Improved focus handling in the annotation dialog
-	* Made the icons in the thumbnail viewer nicer (round and with a
-	3D effect)
 
 2009-07-07  Hassan Ibraheem <hasan.ibraheem@gmail.com>
       * Added support for searching by rating.

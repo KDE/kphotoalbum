@@ -220,10 +220,11 @@ property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , bool       
 property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool                , Thumbnails, false      )
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
-property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 1          )
+property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
+property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
-getValueFunc( int,thumbSize,  Thumbnails,128)
+getValueFunc( int,thumbSize,  Thumbnails, 150)
 
 getValueFunc( int,thumbnailCacheScreens,  Thumbnails,3) // Three pages sounds good; one before, one after the current screen
 

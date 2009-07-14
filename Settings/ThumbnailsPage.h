@@ -2,6 +2,7 @@
 #define THUMBNAILPAGE_H
 #include <QWidget>
 
+class KColorButton;
 class QLabel;
 class QCheckBox;
 class KComboBox;
@@ -33,6 +34,7 @@ private:
     QSpinBox* _autoShowThumbnailView;
     QLabel* _thumbnailMegabyteInfo;
     QSpinBox* _thumbnailCacheScreens;
+    KColorButton* _backgroundColor;
 };
 
 }

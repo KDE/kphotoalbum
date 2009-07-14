@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
-#include <Utilities/Icon3DEffects.h>
 #include "ThumbnailWidget.moc"
 
 #include <math.h>
@@ -112,16 +111,18 @@ void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
     if ( !isGridResizing() ) {
+        const bool isSelected = _selectedFiles.contains(mediaIdInCell(row, col));
+        QColor selectionColor = palette().highlight().color();
+        if ( isSelected ) {
+            painter.fillRect( cellRect(), selectionColor );
+        }
+
         paintCellPixmap( &painter, row, col );
         paintCellText( &painter, row, col );
-        if (_selectedFiles.contains(mediaIdInCell(row, col))) {
-            QColor col = palette().highlight().color();
-            col.setAlpha( 127 );
-            painter.setBrush( col );
-            // painter.setPen( Qt::NoPen );
-            QRect rect = cellRect();
-            rect.adjust(0,0,-1,-1);
-            painter.drawRoundRect( rect, 10,10 );
+        if (isSelected) {
+            selectionColor.setAlpha( 70 );
+            QRect rect = iconGeometry(row,col);
+            painter.fillRect( rect, selectionColor );
         }
 
     }
@@ -191,7 +192,25 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
     if (_thumbnailCache.find(mediaId, &pixmap)) {
         QRect rect = iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
-        painter->drawPixmap( rect, Utilities::Icon3DEffects::addEffects( palette(), pixmap) );
+
+        // Inner darker shadow
+        int xl = rect.left();
+        int yt = rect.top();
+        int xr = rect.right()+1;
+        int yb = rect.bottom()+1;
+        painter->setPen( QColor(70,70,70,70) );
+        painter->drawLine( xr, yt, xr, yb );
+        painter->drawLine( xl, yb, xr, yb );
+
+        // Outer dark shadow
+        xr +=1;
+        yb +=1;
+        painter->setPen( Qt::black );
+        painter->drawLine( xr, yt, xr, yb );
+        painter->drawLine( xl, yb, xr, yb );
+
+
+        painter->drawPixmap( rect, pixmap );
 
         rect = QRect( 0, 0, cellWidth(), cellHeight() );
         if ( _leftDrop == mediaId )
@@ -280,7 +299,12 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 
     QString title = thumbnailText( mediaId );
     QRect rect = cellTextGeometry( row, col );
-    painter->setPen( palette().color( QPalette::WindowText ) );
+    QColor color = Qt::black;
+    QColor background = Settings::SettingsData::instance()->backgroundColor();
+    if ( background.red() < 127 && background.green() < 127 && background.blue() < 127 )
+        color = Qt::white;
+
+    painter->setPen( color );
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText( rect, Qt::AlignCenter | Qt::TextWordWrap, title );
@@ -691,7 +715,7 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
 void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = cellRect();
-    p->fillRect( rect, palette().color( QPalette::Base) );
+    p->fillRect( rect, Settings::SettingsData::instance()->backgroundColor() );
 
     if (isGridResizing()
         || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
@@ -1267,7 +1291,7 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
 
     QPalette p;
-    p.setColor( QPalette::Base, p.color(QPalette::Window) );
+    p.setColor( QPalette::Base, Settings::SettingsData::instance()->backgroundColor() );
     p.setColor( QPalette::Foreground, p.color(QPalette::WindowText ) );
     setPalette(p);
 

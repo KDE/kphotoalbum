@@ -240,6 +240,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 
 #ifdef HAVE_NEPOMUK
     _rating = new KRatingWidget( this );
+    _rating->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
     lay2->addStretch(1);
     lay2->addWidget( _rating, 0, Qt::AlignCenter );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );

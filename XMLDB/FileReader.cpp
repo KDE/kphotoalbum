@@ -17,11 +17,6 @@
 */
 #include "FileReader.h"
 
-#ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#endif
-
-#include <iostream>
 #include <QTextCodec>
 #include <QTextStream>
 #include <klocale.h>
@@ -192,10 +187,10 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
             continue;
 
         QString fileName = elm.attribute( QString::fromLatin1("file") );
-        if ( fileName.isNull() )
+        if ( fileName.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
-        else if (_db->_idMapper.exists(fileName)) {
-            std::cout << fileName.toLatin1().data() << " already in database"<<std::endl;
+        } else if (_db->_idMapper.exists(fileName)) {
+            qDebug() << fileName << " already in database";
         } else {
             DB::ImageInfoPtr info = load( fileName, elm );
             _db->_images.append(info);

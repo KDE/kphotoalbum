@@ -121,7 +121,7 @@ protected:
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
-    QRect cellDimensions() const;
+    QSize cellSize() const;
     int noOfCategoriesForImage( const DB::ResultId& mediaId ) const;
     int textHeight( bool reCalc ) const;
     QRect cellTextGeometry( int row, int col ) const;

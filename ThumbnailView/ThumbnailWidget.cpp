@@ -193,7 +193,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         QRect rect = iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
 
-        // Inner darker shadow
+        // Paint inner shadow
         int xl = rect.left();
         int yt = rect.top();
         int xr = rect.right()+1;
@@ -202,16 +202,17 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         painter->drawLine( xr, yt, xr, yb );
         painter->drawLine( xl, yb, xr, yb );
 
-        // Outer dark shadow
+        // Paint outer shadow
         xr +=1;
         yb +=1;
         painter->setPen( Qt::black );
         painter->drawLine( xr, yt, xr, yb );
         painter->drawLine( xl, yb, xr, yb );
 
-
+        // Paint pixmap
         painter->drawPixmap( rect, pixmap );
 
+        // Paint move indication
         rect = QRect( 0, 0, cellWidth(), cellHeight() );
         if ( _leftDrop == mediaId )
             painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
@@ -220,14 +221,14 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
         paintStackedIndicator(painter, rect, mediaId);
     }
     else {
-        QRect dimensions = cellDimensions();
         DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
+        const QSize cellSize = this->cellSize();
         const int angle = imageInfo->angle();
         const int space = Settings::SettingsData::instance()->thumbnailSpace();
         ThumbnailRequest* request
             = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
-                                   QSize( dimensions.width() - 2 * space,
-                                          dimensions.height() - 2 * space),
+                                   QSize( cellSize.width() - 2 * space,
+                                          cellSize.height() - 2 * space),
                                    angle, this );
         request->setPriority( ImageManager::ThumbnailVisible );
         ImageManager::Manager::instance()->load( request );
@@ -241,9 +242,9 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& media
 {
     QString text;
 
-    QRect dimensions = cellDimensions();
-    int thumbnailHeight = dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
-    int thumbnailWidth = dimensions.width(); // no substracting here
+    const QSize cellSize = this->cellSize();
+    int thumbnailHeight = cellSize.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
+    int thumbnailWidth = cellSize.width(); // no substracting here
     int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
@@ -505,7 +506,7 @@ DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdAtCoordinate( const QPoint& 
 /**
  * Return desired size of the whole cell
  */
-QRect ThumbnailView::ThumbnailWidget::cellDimensions() const
+QSize ThumbnailView::ThumbnailWidget::cellSize() const
 {
     int width = Settings::SettingsData::instance()->thumbSize();
     int height = width;
@@ -533,7 +534,7 @@ QRect ThumbnailView::ThumbnailWidget::cellDimensions() const
 	    // nothing
 	    ;
     }
-    return QRect(0, 0, width, height);
+    return QSize( width, height);
 }
 
 /**
@@ -545,10 +546,10 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
     if ( mediaId.isNull() ) // empty cell
         return QRect();
 
-    QRect dimensions = cellDimensions();
+    const QSize cellSize = this->cellSize();
     const int space = Settings::SettingsData::instance()->thumbnailSpace();
-    int width = dimensions.width() - 2 * space;
-    int height = dimensions.height() - 2 * space;
+    int width = cellSize.width() - 2 * space;
+    int height = cellSize.height() - 2 * space;
 
     QPixmap pixmap;
     if (!_thumbnailCache.find(mediaId, &pixmap)
@@ -697,10 +698,10 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     setNumRows(qMax(numRowsPerPage,
                     static_cast<int>(
                         ceil(static_cast<double>(_displayList.size()) / thumbnailsPerRow))));
-    QRect dimensions = cellDimensions();
+    const QSize cellSize = this->cellSize();
     const int border = Settings::SettingsData::instance()->thumbnailSpace();
-    QSize thumbSize(dimensions.width() - 2 * border,
-                    dimensions.height() - 2 * border);
+    QSize thumbSize(cellSize.width() - 2 * border,
+                    cellSize.height() - 2 * border);
     _thumbnailCache.setThumbnailSize(thumbSize);
 }
 
@@ -1484,11 +1485,11 @@ DB::Result ThumbnailView::ThumbnailWidget::reverseList(const DB::Result& list) c
 
 void ThumbnailView::ThumbnailWidget::updateCellSize()
 {
-    QRect dimensions = cellDimensions();
-    setCellWidth( dimensions.width() );
+    const QSize cellSize = this->cellSize();
+    setCellWidth( cellSize.width() );
 
     const int oldHeight = cellHeight();
-    const int height = dimensions.height() + 2 + textHeight( true );
+    const int height = cellSize.height() + 2 + textHeight( true );
     setCellHeight( height );
     updateGridSize();
     if ( height != oldHeight && ! _currentItem.isNull() ) {

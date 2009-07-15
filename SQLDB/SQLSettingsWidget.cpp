@@ -157,7 +157,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
             this, SIGNAL(passwordChanged(const QString&)));
 }
 
-QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
+QStringList SQLSettingsWidget::availableDrivers() const
 {
     return DriverManager::instance().driverNames();
 }

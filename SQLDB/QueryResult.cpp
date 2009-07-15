@@ -82,7 +82,9 @@ template QList<int> QueryResult::asList<int>() const;
 template QList<DB::RawId> QueryResult::asList<DB::RawId>() const;
 #endif
 template QList<QString> QueryResult::asList<QString>() const;
+#ifndef Q_CC_MSVC
 template QList< QPair<QString, QString> > QueryResult::asList< QPair<QString, QString> >() const;
+#endif
 
 QVariant QueryResult::firstItem() const
 {

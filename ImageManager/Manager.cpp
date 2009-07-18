@@ -17,7 +17,6 @@
 */
 
 #include "Manager.h"
-#include <QDebug>
 
 #include "ImageLoader.h"
 #include "ImageManager/ImageClient.h"
@@ -113,7 +112,6 @@ void ImageManager::Manager::removeThumbnail( const QString& imageFile )
 {
     KUrl url;
     url.setPath( imageFile );
-    qDebug() <<ImageLoader::thumbnailKey( url.url(), 256 );
     _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 256 ) );
     _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 128 ) );
     QPixmapCache::remove( imageFile );

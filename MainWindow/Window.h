@@ -110,7 +110,7 @@ protected slots:
     void changePassword();
     void slotConfigureKeyBindings();
     void slotSetFileName( const QString& );
-    void slotThumbNailSelectionChanged();
+    void slotThumbNailSelectionChanged(int selectionSize);
     void reloadThumbnails(bool flushCache);
     void reloadThumbnailsAndFlushCache();
     void reloadThumbnailsAfterRotation();

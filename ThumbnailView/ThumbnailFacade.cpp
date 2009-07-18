@@ -45,8 +45,8 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade()
              this, SIGNAL( fileNameUnderCursorChanged( const QString&  ) ) );
     connect( _widget, SIGNAL( currentDateChanged( const QDateTime& ) ),
              this, SIGNAL( currentDateChanged( const QDateTime& ) ) );
-    connect( _model, SIGNAL( selectionChanged() ),
-             this, SIGNAL( selectionChanged() ) );
+    connect( _model, SIGNAL( selectionChanged(int) ),
+             this, SIGNAL( selectionChanged(int) ) );
     connect( _model, SIGNAL( collapseAllStacksEnabled(bool ) ),
              this, SIGNAL( collapseAllStacksEnabled(bool ) ) );
     connect( _model, SIGNAL( expandAllStacksEnabled(bool) ),

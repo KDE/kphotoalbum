@@ -198,12 +198,12 @@ MainWindow::Window::Window( QWidget* parent )
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _browser, SIGNAL( imageCount(uint)), _partial, SLOT( showBrowserMatches(uint) ) );
-    connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
+    connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotThumbNailSelectionChanged(int) ) );
 
     connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
-    slotThumbNailSelectionChanged();
+    slotThumbNailSelectionChanged(0);
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
@@ -1182,10 +1182,8 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
     statusBar()->showMessage( fileName, 4000 );
 }
 
-void MainWindow::Window::slotThumbNailSelectionChanged()
+void MainWindow::Window::slotThumbNailSelectionChanged(int selectionSize)
 {
-    const int selectionSize = _thumbnailView->selection().size();
-
     _configAllSimultaniously->setEnabled(selectionSize > 1);
     _configOneAtATime->setEnabled(selectionSize >= 1);
     _createImageStack->setEnabled(selectionSize > 1);
@@ -1225,7 +1223,7 @@ void MainWindow::Window::slotRotateSelectedRight()
 void MainWindow::Window::reloadThumbnails(bool flushCache)
 {
     _thumbnailView->reload( flushCache );
-    slotThumbNailSelectionChanged();
+    slotThumbNailSelectionChanged( _thumbnailView->selection().size() );
 }
 
 void MainWindow::Window::reloadThumbnailsAndFlushCache()

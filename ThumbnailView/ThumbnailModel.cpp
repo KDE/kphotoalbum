@@ -173,6 +173,10 @@ void ThumbnailView::ThumbnailModel::expandAllStacks()
 
 DB::Result ThumbnailView::ThumbnailModel::selection(bool keepSortOrderOfDatabase) const
 {
+    // Notice, for some reason the API here offers a list of selected
+    // items, while _selectedFiles only is a set, that's why we need to
+    // iterate though _imageList and insert those selected into the result.
+
     DB::Result images = _displayList;
     if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
         images = images.reversed();
@@ -296,7 +300,7 @@ void ThumbnailView::ThumbnailModel::possibleEmitSelectionChanged()
     static IdSet oldSelection;
     if ( oldSelection != _selectedFiles ) {
         oldSelection = _selectedFiles;
-        emit selectionChanged();
+        emit selectionChanged( _selectedFiles.count() );
     }
 }
 

@@ -60,7 +60,7 @@ signals:
     void showSelection();
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
-    void selectionChanged();
+    void selectionChanged(int numberOfItemsSelected );
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
 

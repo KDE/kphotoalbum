@@ -84,7 +84,7 @@ public:
 signals:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
-    void selectionChanged();
+    void selectionChanged(int numberOfItemsSelected );
 
 
 private: // Methods

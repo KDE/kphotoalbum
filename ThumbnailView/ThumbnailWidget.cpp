@@ -157,7 +157,7 @@ void ThumbnailView::ThumbnailWidget::updateCell( const DB::ResultId& id )
 
 void ThumbnailView::ThumbnailWidget::updateCell( int row, int col )
 {
-    updateCell( model()->mediaIdInCell( row, col ) );
+    updateCell( model()->imageAt( row, col ) );
 }
 
 
@@ -171,7 +171,7 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     setNumCols( thumbnailsPerRow );
     setNumRows(qMax(numRowsPerPage,
                     static_cast<int>(
-                        ceil(static_cast<double>(model()->_displayList.size()) / thumbnailsPerRow))));
+                        ceil(static_cast<double>(model()->imageCount()) / thumbnailsPerRow))));
     const QSize cellSize = cellGeometryInfo()->cellSize();
     const int border = Settings::SettingsData::instance()->thumbnailSpace();
     QSize thumbSize(cellSize.width() - 2 * border,
@@ -268,7 +268,7 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
     if ( isMouseOverStackIndicator( event->pos() ) ) {
         model()->toggleStackExpansion( mediaIdUnderCursor() );
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
-        DB::ResultId id = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+        DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
         if ( !id.isNull() )
             emit showImage( id );
     }
@@ -298,7 +298,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
         return;
 
     // Unfortunately the contentsMoving signal is emitted *before* the move, so we need to find out what is on the new position ourself.
-    DB::ResultId id = model()->mediaIdInCell( rowAt(y), columnAt(x) );
+    DB::ResultId id = model()->imageAt( rowAt(y), columnAt(x) );
     if ( id.isNull() )
         return;
 
@@ -316,8 +316,8 @@ void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
         return;
     int startIndex = rowAt(y) * numCols();
     int endIndex = (rowAt( y + visibleHeight() ) + 1) * numCols();
-    if (endIndex > model()->_displayList.size())
-        endIndex = model()->_displayList.size();
+    if (endIndex > model()->imageCount())
+        endIndex = model()->imageCount();
     cache()->setHotArea(startIndex, endIndex);
 }
 
@@ -329,7 +329,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 {
     _isSettingDate = true;
     DB::ResultId candidate = DB::ImageDB::instance()
-        ->findFirstItemInRange(model()->_displayList, date, includeRanges);
+                             ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
     if ( !candidate.isNull() ) {
         scrollToCell( model()->positionForMediaId( candidate ) );
         model()->setCurrentItem( candidate );
@@ -391,8 +391,8 @@ bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
 {
-    return Cell((model()->_displayList.size() - 1) / numCols(),
-                (model()->_displayList.size() - 1) % numCols());
+    return Cell((model()->imageCount() - 1) / numCols(),
+                (model()->imageCount() - 1) % numCols());
 }
 
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
@@ -421,7 +421,7 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
 
 DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
-    return model()->mediaIdAtCoordinate( mapFromGlobal( QCursor::pos() ), ViewportCoordinates );
+    return model()->imageAt( mapFromGlobal( QCursor::pos() ), ViewportCoordinates );
 }
 
 

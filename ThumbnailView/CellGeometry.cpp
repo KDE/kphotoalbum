@@ -72,7 +72,7 @@ QSize ThumbnailView::CellGeometry::cellSize() const
  */
 QRect ThumbnailView::CellGeometry::iconGeometry( int row, int col ) const
 {
-    DB::ResultId mediaId = model()->mediaIdInCell( row, col );
+    DB::ResultId mediaId = model()->imageAt( row, col );
     if ( mediaId.isNull() ) // empty cell
         return QRect();
 
@@ -131,7 +131,7 @@ int ThumbnailView::CellGeometry::textHeight( int charHeight, bool reCalc ) const
                 }
             } else {
                 maxCatsInText = 0;
-                Q_FOREACH(DB::ResultId id, model()->_displayList) {
+                Q_FOREACH(DB::ResultId id, model()->imageList(ViewOrder)) {
                     maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
                 }
             }

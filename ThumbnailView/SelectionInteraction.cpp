@@ -45,7 +45,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = widget()->viewportToContents( event->pos() );
-    DB::ResultId mediaId = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
 
     if ( deselectSelection( event ) && !model()->_selectedFiles.contains( mediaId ) )
         clearSelection();
@@ -90,7 +90,7 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 
 void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
-    DB::ResultId mediaId = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
         if ( model()->_selectedFiles.contains( mediaId ) && (event->button() & Qt::LeftButton) )
@@ -271,7 +271,7 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
         return false;
 
     // right mouse button on a selected image should not clear
-    if ( (event->button() & Qt::RightButton) && model()->_selectedFiles.contains( model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates ) ) )
+    if ( (event->button() & Qt::RightButton) && model()->_selectedFiles.contains( model()->imageAt( event->pos(), ViewportCoordinates ) ) )
         return false;
 
     // otherwise deselect

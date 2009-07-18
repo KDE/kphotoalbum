@@ -50,7 +50,7 @@ void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEv
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon( QMouseEvent* event )
 {
     static QString lastFileNameUderCursor;
-    DB::ResultId id = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
     if (id.isNull()) {
         emit widget()->fileNameUnderCursorChanged( QString() );
         lastFileNameUderCursor = QString();

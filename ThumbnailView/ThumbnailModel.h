@@ -35,7 +35,85 @@ class ThumbnailModel :public QObject, private ThumbnailComponent
 public:
     ThumbnailModel( ThumbnailFactory* factory );
 
-private:
+    // Selection
+    void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
+    void selectCell( int row, int col, bool repaint = true );
+    void selectCell( const Cell& );
+    void clearSelection();
+    void toggleSelection( const DB::ResultId& id );
+    void selectAll();
+    void changeSingleSelection(const DB::ResultId& id);
+    void repaintAfterChangedSelection( const IdSet& oldSelection );
+    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
+
+    // Current Item
+    DB::ResultId currentItem() const;
+    void setCurrentItem( const DB::ResultId& id );
+    void setCurrentItem( const Cell& cell );
+
+    // Drag and Drop of items
+    DB::ResultId rightDropItem() const;
+    void setRightDropItem( const DB::ResultId& item );
+    DB::ResultId leftDropItem() const;
+    void setLeftDropItem( const DB::ResultId& item );
+
+    // Stack
+    void toggleStackExpansion(const DB::ResultId& id);
+    void collapseAllStacks();
+    void expandAllStacks();
+    bool isItemInExpandedStack( const DB::StackID& id ) const;
+
+    // Position Information
+    DB::ResultId imageAt( int row, int col ) const;
+    DB::ResultId imageAt( const Cell& cell ) const;
+    DB::ResultId imageAt( const QPoint& coordinate, CoordinateSystem ) const;
+    DB::ResultId imageAt( int index ) const;
+    int indexOf(const DB::ResultId& id ) const;
+    Cell positionForMediaId( const DB::ResultId& id ) const;
+
+    // Images
+    void setImageList(const DB::Result& list);
+    DB::Result imageList(Order) const;
+    int imageCount() const;
+
+    // Misc.
+    void updateDisplayModel();
+    void updateIndexCache();
+    void setSortDirection( SortDirection );
+
+signals:
+    void collapseAllStacksEnabled(bool enabled);
+    void expandAllStacksEnabled(bool enabled);
+    void selectionChanged();
+
+
+private: // Methods
+    void ensureCellsSorted( Cell& pos1, Cell& pos2 );
+    void possibleEmitSelectionChanged();
+
+private slots:
+    void imagesDeletedFromDB( const DB::Result& );
+
+
+public: // Should become Private
+    /*
+     * This set contains the files currently selected.
+     */
+    IdSet _selectedFiles;
+
+private: // Instance variables.
+    /**
+     * The list of images shown. The difference between _imageList and
+     * _displayList is that _imageList contains all the images given to us,
+     * while _displayList only includes those that currently should be
+     * shown, ie. it exclude images from stacks that are collapsed and thus
+     * not visible.
+     */
+    DB::Result _displayList;
+
+    /** The input list for images. See documentation for _displayList */
+    DB::Result _imageList;
+
     /**
      * File which should have drop indication point drawn on its left side
      */
@@ -46,19 +124,8 @@ private:
      */
     DB::ResultId _rightDrop;
 
-public:
-    /** The input list for images */
-    DB::Result _imageList;
-
-private:
     SortDirection _sortDirection;
-public:
-    /*
-     * This set contains the files currently selected.
-     */
-    IdSet _selectedFiles;
 
-private:
     /**
      * This is the item currently having keyboard focus
      *
@@ -76,66 +143,7 @@ private:
      *
      * Used by expandAllStacks. */
     QSet<DB::StackID> _allStacks;
-public:
 
-    /**
-     * The list of images shown. We do indexed access to this _displayList that has been
-     * changed from O(n) to O(1) in Qt4; so it is safe to use this data type.
-     */
-    DB::Result _displayList;
-
-public:
-    void updateDisplayModel();
-    DB::ResultId mediaIdInCell( int row, int col ) const;
-    DB::ResultId mediaIdInCell( const Cell& cell ) const;
-    DB::ResultId mediaIdAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
-    void toggleStackExpansion(const DB::ResultId& id);
-    void collapseAllStacks();
-    void expandAllStacks();
-    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
-    void setImageList(const DB::Result& list);
-    DB::Result imageList(Order) const;
-
-    DB::ResultId currentItem() const;
-    void setCurrentItem( const DB::ResultId& id );
-    void setCurrentItem( const Cell& cell );
-
-    int indexOf(const DB::ResultId& id ) const;
-    void updateIndexCache();
-    Cell positionForMediaId( const DB::ResultId& id ) const;
-
-    // Selection
-    void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
-    void selectCell( int row, int col, bool repaint = true );
-    void selectCell( const Cell& );
-    void clearSelection();
-    void toggleSelection( const DB::ResultId& id );
-    void selectAll();
-    void changeSingleSelection(const DB::ResultId& id);
-    void repaintAfterChangedSelection( const IdSet& oldSelection );
-
-    DB::ResultId rightDropItem() const;
-    void setRightDropItem( const DB::ResultId& item );
-
-    DB::ResultId leftDropItem() const;
-    void setLeftDropItem( const DB::ResultId& item );
-
-    void setSortDirection( SortDirection );
-    bool isItemInExpandedStack( const DB::StackID& id ) const;
-
-signals:
-    void collapseAllStacksEnabled(bool enabled);
-    void expandAllStacksEnabled(bool enabled);
-    void selectionChanged();
-
-private:
-    void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    void possibleEmitSelectionChanged();
-
-private slots:
-    void imagesDeletedFromDB( const DB::Result& );
-
-private:
     /**
      * A map mapping from ResultId to its index in _displayList.
      */

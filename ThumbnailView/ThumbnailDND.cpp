@@ -40,7 +40,7 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
 
     int row = widget()->rowAt( event->pos().y() );
     int col = widget()->columnAt( event->pos().x() );
-    DB::ResultId id = model()->mediaIdInCell( row, col );
+    DB::ResultId id = model()->imageAt( row, col );
 
     removeDropIndications();
 
@@ -48,16 +48,16 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
         model()->setLeftDropItem(id);
-        int index = model()->indexOf(id) - 1;
+        const int index = model()->indexOf(id) - 1;
         if ( index != -1 )
-            model()->setRightDropItem( model()->_displayList.at(index) );
+            model()->setRightDropItem( model()->imageAt(index) );
     }
 
     else {
         model()->setRightDropItem(id);
         const int index = model()->indexOf(id) + 1;
-        if (index != model()->_displayList.size())
-            model()->setLeftDropItem( model()->_displayList.at(index) );
+        if (index != model()->imageCount())
+            model()->setLeftDropItem( model()->imageAt(index) );
     }
 
     widget()->updateCell( model()->leftDropItem() );

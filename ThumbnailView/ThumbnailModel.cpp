@@ -114,7 +114,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
 /**
  * Return the file name shown in cell (row,col) if a thumbnail is shown in this cell or null otherwise.
  */
-DB::ResultId ThumbnailView::ThumbnailModel::mediaIdInCell( int row, int col ) const
+DB::ResultId ThumbnailView::ThumbnailModel::imageAt( int row, int col ) const
 {
     const int index = row * widget()->numCols() + col;
     if (index >= _displayList.size())
@@ -123,15 +123,15 @@ DB::ResultId ThumbnailView::ThumbnailModel::mediaIdInCell( int row, int col ) co
         return _displayList.at(index);
 }
 
-DB::ResultId ThumbnailView::ThumbnailModel::mediaIdInCell( const Cell& cell ) const
+DB::ResultId ThumbnailView::ThumbnailModel::imageAt( const Cell& cell ) const
 {
-    return mediaIdInCell( cell.row(), cell.col() );
+    return imageAt( cell.row(), cell.col() );
 }
 
 /**
  * Returns the file name shown at viewport position (x,y) if a thumbnail is shown at this position or QString::null otherwise.
  */
-DB::ResultId ThumbnailView::ThumbnailModel::mediaIdAtCoordinate( const QPoint& coordinate, CoordinateSystem system ) const
+DB::ResultId ThumbnailView::ThumbnailModel::imageAt( const QPoint& coordinate, CoordinateSystem system ) const
 {
     QPoint contentsPos = widget()->viewportToContentsAdjusted( coordinate, system );
     int col = widget()->columnAt( contentsPos.x() );
@@ -140,7 +140,7 @@ DB::ResultId ThumbnailView::ThumbnailModel::mediaIdAtCoordinate( const QPoint& c
     QRect cellRect = const_cast<ThumbnailWidget*>(widget())->cellGeometry( row, col );
 
     if ( cellRect.contains( contentsPos ) )
-        return mediaIdInCell( row, col );
+        return imageAt( row, col );
     else
         return DB::ResultId::null;
 }
@@ -261,7 +261,7 @@ void ThumbnailView::ThumbnailModel::selectCell( const Cell& cell )
 
 void ThumbnailView::ThumbnailModel::selectCell( int row, int col, bool repaint )
 {
-    DB::ResultId id = mediaIdInCell( row, col );
+    DB::ResultId id = imageAt( row, col );
     if ( !id.isNull() ) {
         _selectedFiles.insert( id );
         if ( repaint )
@@ -351,8 +351,10 @@ void ThumbnailView::ThumbnailModel::repaintAfterChangedSelection( const IdSet& o
 int ThumbnailView::ThumbnailModel::indexOf(const DB::ResultId& id ) const
 {
     Q_ASSERT( !id.isNull() );
-    Q_ASSERT( _idToIndex.contains(id) );
-    return _idToIndex[id];
+    if ( !_idToIndex.contains(id) )
+        return -1;
+    else
+        return _idToIndex[id];
 }
 
 
@@ -389,7 +391,7 @@ void ThumbnailView::ThumbnailModel::setCurrentItem( const DB::ResultId& id )
 
 void ThumbnailView::ThumbnailModel::setCurrentItem( const Cell& cell )
 {
-    _currentItem = mediaIdInCell( cell );
+    _currentItem = imageAt( cell );
 }
 
 DB::ResultId ThumbnailView::ThumbnailModel::rightDropItem() const
@@ -434,5 +436,16 @@ void ThumbnailView::ThumbnailModel::setSortDirection( SortDirection direction )
 bool ThumbnailView::ThumbnailModel::isItemInExpandedStack( const DB::StackID& id ) const
 {
     return _expandedStacks.contains(id);
+}
+
+int ThumbnailView::ThumbnailModel::imageCount() const
+{
+    return _displayList.size();
+}
+
+DB::ResultId ThumbnailView::ThumbnailModel::imageAt( int index ) const
+{
+    Q_ASSERT( index >= 0 && index < imageCount() );
+    return _displayList.at(index);
 }
 

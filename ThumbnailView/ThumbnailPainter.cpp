@@ -46,7 +46,7 @@ void ThumbnailView::ThumbnailPainter::paintCell( QPainter * p, int row, int col 
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
     if ( !widget()->isGridResizing() ) {
-        const bool isSelected = model()->_selectedFiles.contains(model()->mediaIdInCell(row, col));
+        const bool isSelected = model()->_selectedFiles.contains(model()->imageAt(row, col));
         QColor selectionColor = widget()->palette().highlight().color();
         if ( isSelected ) {
             painter.fillRect( widget()->cellRect(), selectionColor );
@@ -76,7 +76,7 @@ static DB::StackID getStackId(const DB::ResultId& id)
  */
 void ThumbnailView::ThumbnailPainter::paintCellPixmap( QPainter* painter, int row, int col )
 {
-    DB::ResultId mediaId = model()->mediaIdInCell( row, col );
+    DB::ResultId mediaId = model()->imageAt( row, col );
     if (mediaId.isNull())
         return;
 
@@ -132,7 +132,7 @@ void ThumbnailView::ThumbnailPainter::paintCellPixmap( QPainter* painter, int ro
  */
 void ThumbnailView::ThumbnailPainter::paintCellText( QPainter* painter, int row, int col )
 {
-    DB::ResultId mediaId = model()->mediaIdInCell( row, col );
+    DB::ResultId mediaId = model()->imageAt( row, col );
     if ( mediaId.isNull() )
         return;
 
@@ -176,7 +176,7 @@ QRect ThumbnailView::ThumbnailPainter::cellTextGeometry( int row, int col ) cons
     if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
         return QRect();
 
-    DB::ResultId mediaId = model()->mediaIdInCell( row, col );
+    DB::ResultId mediaId = model()->imageAt( row, col );
     if ( mediaId.isNull() ) // empty cell
         return QRect();
 
@@ -256,8 +256,8 @@ void ThumbnailView::ThumbnailPainter::paintStackedIndicator( QPainter* painter, 
     if (model()->isItemInExpandedStack(stackId)) {
         int prev = model()->indexOf(mediaId) - 1;
         int next = model()->indexOf(mediaId) + 1;
-        isFirst = (prev < 0) || getStackId(model()->_displayList.at(prev)) != stackId;
-        isLast  = (next >= model()->_displayList.size()) || getStackId(model()->_displayList.at(next)) != stackId;
+        isFirst = (prev < 0) || getStackId(model()->imageAt(prev)) != stackId;
+        isLast  = (next >= model()->imageCount()) || getStackId(model()->imageAt(next)) != stackId;
     }
 
     const int thickness = 1;

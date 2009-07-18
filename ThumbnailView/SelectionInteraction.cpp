@@ -140,7 +140,7 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
 
     IdSet oldSelection = model()->_selectedFiles;
     model()->_selectedFiles = _originalSelectionBeforeDragStart;
-    model()->selectAllCellsBetween( pos1, pos2, false );
+    model()->selectAllCellsBetween( pos1, pos2 );
 
     for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !model()->_selectedFiles.contains( *it ) )

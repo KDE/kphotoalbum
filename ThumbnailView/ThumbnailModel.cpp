@@ -230,30 +230,30 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::Result& list 
     updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailModel::selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint )
+void ThumbnailView::ThumbnailModel::selectAllCellsBetween( Cell pos1, Cell pos2 )
 {
     ensureCellsSorted( pos1, pos2 );
 
     if ( pos1.row() == pos2.row() ) {
         // This is the case where images from only one row is selected.
         for ( int col = pos1.col(); col <= pos2.col(); ++ col )
-            selectCell( pos1.row(), col, repaint );
+            selectCell( pos1.row(), col );
     }
     else {
         // We know we have at least two rows.
 
         // first row
         for ( int col = pos1.col(); col < widget()->numCols(); ++ col )
-            selectCell( pos1.row(), col, repaint );
+            selectCell( pos1.row(), col );
 
         // rows in between
         for ( int row = pos1.row()+1; row < pos2.row(); ++row )
             for ( int col = 0; col < widget()->numCols(); ++ col )
-                selectCell( row, col, repaint );
+                selectCell( row, col );
 
         // last row
         for ( int col = 0; col <= pos2.col(); ++ col )
-            selectCell( pos2.row(), col, repaint );
+            selectCell( pos2.row(), col );
     }
     possibleEmitSelectionChanged();
 }
@@ -263,13 +263,11 @@ void ThumbnailView::ThumbnailModel::selectCell( const Cell& cell )
     selectCell( cell.row(), cell.col() );
 }
 
-void ThumbnailView::ThumbnailModel::selectCell( int row, int col, bool repaint )
+void ThumbnailView::ThumbnailModel::selectCell( int row, int col )
 {
     DB::ResultId id = imageAt( row, col );
     if ( !id.isNull() ) {
         _selectedFiles.insert( id );
-        if ( repaint )
-            widget()->updateCell( row, col );
     }
     possibleEmitSelectionChanged();
 }

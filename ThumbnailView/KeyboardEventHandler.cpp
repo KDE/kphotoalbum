@@ -177,7 +177,7 @@ void ThumbnailView::KeyboardEventHandler::keyboardMoveEvent( QKeyEvent* event )
         IdSet oldSelection = model()->_selectedFiles;
 
         model()->_selectedFiles = _selectionOnFirstShiftMovementKey;
-        model()->selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos, false );
+        model()->selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos );
 
         // PENDING(blackie) This should be changed so changing the selection in the model makes it emit a signal about repainting of cells.
         model()->repaintAfterChangedSelection( oldSelection );

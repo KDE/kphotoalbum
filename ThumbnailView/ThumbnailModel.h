@@ -36,8 +36,8 @@ public:
     ThumbnailModel( ThumbnailFactory* factory );
 
     // Selection
-    void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
-    void selectCell( int row, int col, bool repaint = true );
+    void selectAllCellsBetween( Cell pos1, Cell pos2 );
+    void selectCell( int row, int col );
     void selectCell( const Cell& );
     void clearSelection();
     void toggleSelection( const DB::ResultId& id );

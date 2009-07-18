@@ -34,12 +34,13 @@ ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* fac
 
 void ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
 {
-        if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
+    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
         QString token = event->text().toUpper().left(1);
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        for( IdSet::const_iterator it = model()->_selectedFiles.begin(); it != model()->_selectedFiles.end(); ++it ) {
+        IdSet selection = model()->selectionSet();
+        for( IdSet::const_iterator it = selection.begin(); it != selection.end(); ++it ) {
             DB::ImageInfoPtr info = (*it).fetchInfo();
             if ( ! hadHit ) {
                 mustRemoveToken = info->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
@@ -171,20 +172,15 @@ void ThumbnailView::KeyboardEventHandler::keyboardMoveEvent( QKeyEvent* event )
     if ( event->modifiers() & Qt::ShiftModifier ) {
         if ( _cellOnFirstShiftMovementKey == Cell::invalidCell() ) {
             _cellOnFirstShiftMovementKey = currentPos;
-            _selectionOnFirstShiftMovementKey = model()->_selectedFiles;
+            _selectionOnFirstShiftMovementKey = model()->selectionSet();
         }
 
-        IdSet oldSelection = model()->_selectedFiles;
-
-        model()->_selectedFiles = _selectionOnFirstShiftMovementKey;
-        model()->selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos );
-
-        // PENDING(blackie) This should be changed so changing the selection in the model makes it emit a signal about repainting of cells.
-        model()->repaintAfterChangedSelection( oldSelection );
+        model()->setSelection( _selectionOnFirstShiftMovementKey );
+        model()->selectRange( _cellOnFirstShiftMovementKey, newPos );
     }
 
     if ( ! (event->modifiers() & Qt::ControlModifier ) ) {
-        model()->selectCell( newPos );
+        model()->select( newPos );
         widget()->updateCell( currentPos.row(), currentPos.col() );
     }
     widget()->scrollToCell( newPos );

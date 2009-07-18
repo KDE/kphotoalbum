@@ -35,35 +35,42 @@ class ThumbnailModel :public QObject, private ThumbnailComponent
 public:
     ThumbnailModel( ThumbnailFactory* factory );
 
-    // Selection
-    void selectAllCellsBetween( Cell pos1, Cell pos2 );
-    void selectCell( int row, int col );
-    void selectCell( const Cell& );
+    //-------------------------------------------------- Selection
+    void selectRange( Cell pos1, Cell pos2 );
+    void select( int row, int col );
+    void select( const Cell& );
+    void select( const DB::ResultId& id );
+    void setSelection( const IdSet& ids );
+
     void clearSelection();
     void toggleSelection( const DB::ResultId& id );
     void selectAll();
-    void changeSingleSelection(const DB::ResultId& id);
-    void repaintAfterChangedSelection( const IdSet& oldSelection );
-    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
 
-    // Current Item
+    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
+    IdSet selectionSet() const;
+
+    bool isSelected( const DB::ResultId& ) const;
+
+    void changeSingleSelection(const DB::ResultId& id);
+
+    //-------------------------------------------------- Current Item
     DB::ResultId currentItem() const;
     void setCurrentItem( const DB::ResultId& id );
     void setCurrentItem( const Cell& cell );
 
-    // Drag and Drop of items
+    //-------------------------------------------------- Drag and Drop of items
     DB::ResultId rightDropItem() const;
     void setRightDropItem( const DB::ResultId& item );
     DB::ResultId leftDropItem() const;
     void setLeftDropItem( const DB::ResultId& item );
 
-    // Stack
+    //-------------------------------------------------- Stack
     void toggleStackExpansion(const DB::ResultId& id);
     void collapseAllStacks();
     void expandAllStacks();
     bool isItemInExpandedStack( const DB::StackID& id ) const;
 
-    // Position Information
+    //-------------------------------------------------- Position Information
     DB::ResultId imageAt( int row, int col ) const;
     DB::ResultId imageAt( const Cell& cell ) const;
     DB::ResultId imageAt( const QPoint& coordinate, CoordinateSystem ) const;
@@ -71,12 +78,12 @@ public:
     int indexOf(const DB::ResultId& id ) const;
     Cell positionForMediaId( const DB::ResultId& id ) const;
 
-    // Images
+    //-------------------------------------------------- Images
     void setImageList(const DB::Result& list);
     DB::Result imageList(Order) const;
     int imageCount() const;
 
-    // Misc.
+    //-------------------------------------------------- Misc.
     void updateDisplayModel();
     void updateIndexCache();
     void setSortDirection( SortDirection );
@@ -95,12 +102,6 @@ private slots:
     void imagesDeletedFromDB( const DB::Result& );
 
 
-public: // Should become Private
-    /*
-     * This set contains the files currently selected.
-     */
-    IdSet _selectedFiles;
-
 private: // Instance variables.
     /**
      * The list of images shown. The difference between _imageList and
@@ -113,6 +114,11 @@ private: // Instance variables.
 
     /** The input list for images. See documentation for _displayList */
     DB::Result _imageList;
+
+    /*
+     * This set contains the files currently selected.
+     */
+    IdSet _selectedFiles;
 
     /**
      * File which should have drop indication point drawn on its left side

@@ -92,7 +92,7 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
 
         // protect against self drop
-        if ( !model()->_selectedFiles.contains( model()->leftDropItem() ) && ! model()->_selectedFiles.contains( model()->rightDropItem() ) ) {
+        if ( !model()->isSelected( model()->leftDropItem() ) && ! model()->isSelected( model()->rightDropItem() ) ) {
             const DB::Result selected = model()->selection();
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.

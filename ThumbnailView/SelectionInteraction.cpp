@@ -47,21 +47,21 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     _mousePressPos = widget()->viewportToContents( event->pos() );
     DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
 
-    if ( deselectSelection( event ) && !model()->_selectedFiles.contains( mediaId ) )
-        clearSelection();
+    if ( deselectSelection( event ) && !model()->isSelected( mediaId ) )
+        model()->clearSelection();
 
     if ( !mediaId.isNull() ) {
         if ( event->modifiers() & Qt::ShiftModifier )
-            model()->selectAllCellsBetween( model()->currentItem().isNull() ? Cell() : model()->positionForMediaId( model()->currentItem() ),
+            model()->selectRange( model()->currentItem().isNull() ? Cell() : model()->positionForMediaId( model()->currentItem() ),
                                           widget()->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
 
-        _originalSelectionBeforeDragStart = model()->_selectedFiles;
+        _originalSelectionBeforeDragStart = model()->selectionSet();
 
         // When control is pressed selection of the file should be
         // toggled. This is done in the release event, not here.
         if ( !( event->modifiers() & Qt::ControlModifier ) )
             // Otherwise add file to selected files.
-            model()->_selectedFiles.insert( mediaId );
+            model()->select( mediaId );
 
         model()->setCurrentItem( mediaId );
         widget()->updateCell( mediaId );
@@ -93,25 +93,17 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
     DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
-        if ( model()->_selectedFiles.contains( mediaId ) && (event->button() & Qt::LeftButton) )
-            model()->_selectedFiles.remove( mediaId );
-        else
-            model()->_selectedFiles.insert( mediaId );
-        widget()->updateCell( mediaId );
+        if ( (event->button() & Qt::LeftButton) )
+            model()->toggleSelection( mediaId );
     }
     else {
         if ( !_dragSelectionInProgress &&
-             deselectSelection( event ) && model()->_selectedFiles.contains( mediaId ) ) {
-            // Unselect everything but the file
-            IdSet oldSelection = model()->_selectedFiles;
-            oldSelection.remove( mediaId );
-            model()->_selectedFiles.clear();
-            model()->_selectedFiles.insert( mediaId );
+             deselectSelection( event ) && model()->isSelected( mediaId ) ) {
+            model()->clearSelection();
+            model()->select( mediaId );
+
             _originalSelectionBeforeDragStart.clear();
             _originalSelectionBeforeDragStart.insert( mediaId );
-            for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-                widget()->updateCell( *it );
-            }
         }
     }
 
@@ -138,20 +130,8 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
     else if ( viewportPos.y() > widget()->height() )
         widget()->scrollBy( 0, (viewportPos.y() - widget()->height())/3 );
 
-    IdSet oldSelection = model()->_selectedFiles;
-    model()->_selectedFiles = _originalSelectionBeforeDragStart;
-    model()->selectAllCellsBetween( pos1, pos2 );
-
-    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-        if ( !model()->_selectedFiles.contains( *it ) )
-            widget()->updateCell( *it );
-    }
-
-    for( IdSet::const_iterator it = model()->_selectedFiles.begin(); it != model()->_selectedFiles.end(); ++it ) {
-        if ( !oldSelection.contains( *it ) )
-            widget()->updateCell( *it );
-    }
-
+    model()->setSelection(_originalSelectionBeforeDragStart );
+    model()->selectRange( pos1, pos2 );
 }
 
 /**
@@ -268,22 +248,12 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
         return false;
 
     // right mouse button on a selected image should not clear
-    if ( (event->button() & Qt::RightButton) && model()->_selectedFiles.contains( model()->imageAt( event->pos(), ViewportCoordinates ) ) )
+    if ( (event->button() & Qt::RightButton) && model()->isSelected( model()->imageAt( event->pos(), ViewportCoordinates ) ) )
         return false;
 
     // otherwise deselect
     return true;
 }
 
-void ThumbnailView::SelectionInteraction::clearSelection()
-{
-    // Unselect every thing
-    IdSet oldSelection = model()->_selectedFiles;
-    model()->_selectedFiles.clear();
-    _originalSelectionBeforeDragStart.clear();
-    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-        widget()->updateCell( *it );
-    }
-}
 
 #include "SelectionInteraction.moc"

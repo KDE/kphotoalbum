@@ -46,7 +46,7 @@ void ThumbnailView::ThumbnailPainter::paintCell( QPainter * p, int row, int col 
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
     if ( !widget()->isGridResizing() ) {
-        const bool isSelected = model()->_selectedFiles.contains(model()->imageAt(row, col));
+        const bool isSelected = model()->isSelected(model()->imageAt(row, col));
         QColor selectionColor = widget()->palette().highlight().color();
         if ( isSelected ) {
             painter.fillRect( widget()->cellRect(), selectionColor );

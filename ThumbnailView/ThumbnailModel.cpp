@@ -183,7 +183,7 @@ DB::Result ThumbnailView::ThumbnailModel::selection(bool keepSortOrderOfDatabase
 
     DB::Result res;
     Q_FOREACH(DB::ResultId id, images) {
-        if (_selectedFiles.contains(id))
+        if (isSelected(id))
             res.append(id);
     }
     return res;
@@ -230,44 +230,44 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::Result& list 
     updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailModel::selectAllCellsBetween( Cell pos1, Cell pos2 )
+void ThumbnailView::ThumbnailModel::selectRange( Cell pos1, Cell pos2 )
 {
     ensureCellsSorted( pos1, pos2 );
 
     if ( pos1.row() == pos2.row() ) {
         // This is the case where images from only one row is selected.
         for ( int col = pos1.col(); col <= pos2.col(); ++ col )
-            selectCell( pos1.row(), col );
+            select( pos1.row(), col );
     }
     else {
         // We know we have at least two rows.
 
         // first row
         for ( int col = pos1.col(); col < widget()->numCols(); ++ col )
-            selectCell( pos1.row(), col );
+            select( pos1.row(), col );
 
         // rows in between
         for ( int row = pos1.row()+1; row < pos2.row(); ++row )
             for ( int col = 0; col < widget()->numCols(); ++ col )
-                selectCell( row, col );
+                select( row, col );
 
         // last row
         for ( int col = 0; col <= pos2.col(); ++ col )
-            selectCell( pos2.row(), col );
+            select( pos2.row(), col );
     }
-    possibleEmitSelectionChanged();
 }
 
-void ThumbnailView::ThumbnailModel::selectCell( const Cell& cell )
+void ThumbnailView::ThumbnailModel::select( const Cell& cell )
 {
-    selectCell( cell.row(), cell.col() );
+    select( cell.row(), cell.col() );
 }
 
-void ThumbnailView::ThumbnailModel::selectCell( int row, int col )
+void ThumbnailView::ThumbnailModel::select( int row, int col )
 {
     DB::ResultId id = imageAt( row, col );
     if ( !id.isNull() ) {
         _selectedFiles.insert( id );
+        widget()->updateCell( id );
     }
     possibleEmitSelectionChanged();
 }
@@ -284,7 +284,7 @@ void ThumbnailView::ThumbnailModel::clearSelection()
 
 void ThumbnailView::ThumbnailModel::toggleSelection( const DB::ResultId& id )
 {
-    if ( _selectedFiles.contains( id ) )
+    if ( isSelected( id ) )
         _selectedFiles.remove( id );
     else
         _selectedFiles.insert( id );
@@ -312,6 +312,11 @@ void ThumbnailView::ThumbnailModel::selectAll()
     widget()->repaintScreen();
 }
 
+/**
+   This very specific method will make the item specified by id selected,
+   if there only are one item selected. This is used from the Viewer when
+   you start it without a selection, and are going forward or backward.
+*/
 void ThumbnailView::ThumbnailModel::changeSingleSelection(const DB::ResultId& id)
 {
     if ( _selectedFiles.size() == 1 ) {
@@ -330,22 +335,6 @@ void ThumbnailView::ThumbnailModel::ensureCellsSorted( Cell& pos1, Cell& pos2 )
         Cell tmp = pos1;
         pos1 = pos2;
         pos2 = tmp;
-    }
-}
-
-/**
- * Repaint cells that are in different state than in given selection.
- */
-void ThumbnailView::ThumbnailModel::repaintAfterChangedSelection( const IdSet& oldSelection )
-{
-    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-        if ( !_selectedFiles.contains( *it ) )
-            widget()->updateCell( *it );
-    }
-
-    for( IdSet::const_iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
-        if ( !oldSelection.contains( *it ) )
-            widget()->updateCell( *it );
     }
 }
 
@@ -449,5 +438,32 @@ DB::ResultId ThumbnailView::ThumbnailModel::imageAt( int index ) const
 {
     Q_ASSERT( index >= 0 && index < imageCount() );
     return _displayList.at(index);
+}
+
+bool ThumbnailView::ThumbnailModel::isSelected( const DB::ResultId& id ) const
+{
+    return _selectedFiles.contains(id);
+}
+
+void ThumbnailView::ThumbnailModel::select( const DB::ResultId& id )
+{
+    _selectedFiles.insert( id );
+    widget()->updateCell( id );
+
+}
+
+ThumbnailView::IdSet ThumbnailView::ThumbnailModel::selectionSet() const
+{
+    return _selectedFiles;
+}
+
+void ThumbnailView::ThumbnailModel::setSelection( const IdSet& ids )
+{
+    IdSet changedFiles= _selectedFiles;
+    changedFiles.unite( ids );
+
+    _selectedFiles = ids;
+    Q_FOREACH( const DB::ResultId& id, changedFiles )
+        widget()->updateCell( id );
 }
 

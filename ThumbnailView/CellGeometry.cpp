@@ -125,15 +125,9 @@ int ThumbnailView::CellGeometry::textHeight( int charHeight, bool reCalc ) const
         h += charHeight +2;
     if ( Settings::SettingsData::instance()->displayCategories()) {
         if ( reCalc ) {
-            if (!model()->_selectedFiles.empty()) {
-                for( IdSet::const_iterator itImg = model()->_selectedFiles.begin(); itImg != model()->_selectedFiles.end(); ++itImg ) {
-                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
-                }
-            } else {
-                maxCatsInText = 0;
-                Q_FOREACH(DB::ResultId id, model()->imageList(ViewOrder)) {
-                    maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
-                }
+            maxCatsInText = 0;
+            Q_FOREACH(DB::ResultId id, model()->imageList(ViewOrder)) {
+                maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
             }
         }
         h += charHeight * ( maxCatsInText ) +5;

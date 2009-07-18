@@ -67,11 +67,10 @@ void ThumbnailView::ThumbnailFacade::gotoDate( const DB::ImageDate& date, bool b
 
 void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::ResultId& id )
 {
-    model()->_selectedFiles.clear();
-    model()->_selectedFiles.insert( id );
+    model()->clearSelection();
+    model()->select( id );
     model()->setCurrentItem(id);
 
-    widget()->updateCell( id );
     Cell cell = model()->positionForMediaId( id );
     widget()->ensureCellVisible( cell.row(), cell.col() );
 }
@@ -183,7 +182,7 @@ ThumbnailView::ThumbnailCache* ThumbnailView::ThumbnailFacade::cache()
 }
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::ResultId& id, model()->_selectedFiles ) {
+    Q_FOREACH( const DB::ResultId& id, model()->selectionSet() ) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         const QString fileName = info->fileName(DB::AbsolutePath);
         ImageManager::Manager::instance()->removeThumbnail( fileName );

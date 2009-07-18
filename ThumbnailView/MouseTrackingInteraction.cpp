@@ -27,7 +27,6 @@ ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFact
 {
 }
 
-
 void ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     updateStackingIndication( event );
@@ -52,13 +51,13 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon( QMouseEve
     static QString lastFileNameUderCursor;
     DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
     if (id.isNull()) {
-        emit widget()->fileNameUnderCursorChanged( QString() );
+        emit fileNameUnderCursorChanged( QString() );
         lastFileNameUderCursor = QString();
         return;
     }
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
     if ( fileName != lastFileNameUderCursor ) {
-        emit widget()->fileNameUnderCursorChanged( fileName );
+        emit fileNameUnderCursorChanged( fileName );
         lastFileNameUderCursor = fileName;
     }
 }

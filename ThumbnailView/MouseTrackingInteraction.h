@@ -24,11 +24,15 @@
 
 namespace ThumbnailView
 {
-class MouseTrackingInteraction : public MouseInteraction, private ThumbnailComponent {
+class MouseTrackingInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
+    Q_OBJECT
 
 public:
     MouseTrackingInteraction( ThumbnailFactory* factory );
     virtual void mouseMoveEvent( QMouseEvent* );
+
+signals:
+    void fileNameUnderCursorChanged( const QString& fileName );
 
 private:
     void updateStackingIndication( QMouseEvent* event );

@@ -32,6 +32,14 @@
 #include "Utilities/Set.h"
 using Utilities::StringSet;
 
+QColor contrastColor( const QColor& col )
+{
+    if ( col.red() < 127 && col.green() < 127 && col.blue() < 127 )
+        return Qt::white;
+    else
+        return Qt::black;
+}
+
 ThumbnailView::ThumbnailPainter::ThumbnailPainter( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )
 {
@@ -138,12 +146,7 @@ void ThumbnailView::ThumbnailPainter::paintCellText( QPainter* painter, int row,
 
     QString title = thumbnailText( mediaId );
     QRect rect = cellTextGeometry( row, col );
-    QColor color = Qt::black;
-    QColor background = Settings::SettingsData::instance()->backgroundColor();
-    if ( background.red() < 127 && background.green() < 127 && background.blue() < 127 )
-        color = Qt::white;
-
-    painter->setPen( color );
+    painter->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText( rect, Qt::AlignCenter | Qt::TextWordWrap, title );
@@ -159,7 +162,7 @@ void ThumbnailView::ThumbnailPainter::paintCellBackground( QPainter* p, int row,
 
     if (widget()->isGridResizing()
         || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        p->setPen( widget()->palette().color( QPalette::Dark) ); // PENDING(blackie) We should decide on a color ourself.
+        p->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
         // left of frame
         if ( col != 0 )
             p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );

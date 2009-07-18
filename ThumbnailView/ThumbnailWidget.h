@@ -72,20 +72,6 @@ public:
     void updateCell( int row, int col );
     void updateCellSize();
 
-public slots:
-    void gotoDate( const DB::ImageDate& date, bool includeRanges );
-    void repaintScreen();
-
-signals:
-    void showImage( const DB::ResultId& id );
-    void showSelection();
-    void fileNameUnderCursorChanged( const QString& fileName );
-    void currentDateChanged( const QDateTime& );
-    void selectionChanged();
-
-protected:
-    OVERRIDE void viewportPaintEvent( QPaintEvent* );
-
     // Cell handling methods.
     Cell cellAtCoordinate( const QPoint& pos, CoordinateSystem ) const;
 
@@ -99,6 +85,24 @@ protected:
     Cell lastCell() const;
     bool isMouseOverStackIndicator( const QPoint& point );
     bool isGridResizing();
+
+    // Misc
+    void updateGridSize();
+    QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
+
+public slots:
+    void gotoDate( const DB::ImageDate& date, bool includeRanges );
+    void repaintScreen();
+
+signals:
+    void showImage( const DB::ResultId& id );
+    void showSelection();
+    void fileNameUnderCursorChanged( const QString& fileName );
+    void currentDateChanged( const QDateTime& );
+    void selectionChanged();
+
+protected:
+    OVERRIDE void viewportPaintEvent( QPaintEvent* );
 
     // event handlers
     OVERRIDE void keyPressEvent( QKeyEvent* );
@@ -117,10 +121,6 @@ protected:
     OVERRIDE void contentsDragMoveEvent ( QDragMoveEvent * );
     OVERRIDE void contentsDragLeaveEvent ( QDragLeaveEvent * );
     OVERRIDE void contentsDropEvent ( QDropEvent * );
-
-    // Misc
-    void updateGridSize();
-    QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
 
     /**
      * For all filenames in the list, check if there are any missing
@@ -155,13 +155,8 @@ private:
     MouseInteraction* _mouseHandler;
     ThumbnailDND* _dndHandler;
 
-    friend class GridResizeInteraction;
     friend class SelectionInteraction;
-    friend class MouseTrackingInteraction;
-    friend class ThumbnailPainter;
-    friend class ThumbnailModel;
     friend class KeyboardEventHandler;
-    friend class ThumbnailComponent;
     friend class ThumbnailDND;
     KeyboardEventHandler* _keyboardHandler;
 };

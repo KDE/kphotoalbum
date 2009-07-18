@@ -90,6 +90,9 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
 
     setVScrollBarMode( AlwaysOn );
     setHScrollBarMode( AlwaysOff );
+
+    connect( &_mouseTrackingHandler, SIGNAL( fileNameUnderCursorChanged( QString ) ), this, SIGNAL( fileNameUnderCursorChanged( QString ) ) );
+    connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
 }
 
 bool ThumbnailView::ThumbnailWidget::isGridResizing()

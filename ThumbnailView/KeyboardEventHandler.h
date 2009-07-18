@@ -25,13 +25,18 @@ class ThumbnailFactory;
 
 namespace ThumbnailView
 {
-class KeyboardEventHandler :public ThumbnailComponent
+class KeyboardEventHandler :public QObject, public ThumbnailComponent
 {
+    Q_OBJECT
+
 public:
     KeyboardEventHandler( ThumbnailFactory* factory );
     void keyPressEvent( QKeyEvent* event );
     bool keyReleaseEvent( QKeyEvent* );
     void keyboardMoveEvent( QKeyEvent* );
+
+signals:
+    void showSelection();
 
 private:
     bool isMovementKey( int key );

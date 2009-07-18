@@ -66,7 +66,7 @@ void ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         keyboardMoveEvent( event );
 
     if ( event->key() == Qt::Key_Return )
-        emit widget()->showSelection();
+        emit showSelection();
 
     if ( event->key() == Qt::Key_Space )
         model()->toggleSelection( model()->currentItem() );

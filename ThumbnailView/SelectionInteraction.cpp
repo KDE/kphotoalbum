@@ -165,36 +165,15 @@ bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewpor
 
 void ThumbnailView::SelectionInteraction::startDrag()
 {
-	QTextStream out(stdout, QIODevice::WriteOnly);
     _dragInProgress = true;
-    QList<QUrl> l,k;
-	KUrl::List urls;
-	QUrl url;
-    QStringList texts;
-	QByteArray ba;
+    KUrl::List urls;
     Q_FOREACH(DB::ImageInfoPtr info, model()->selection().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
-	urls.append(fileName);
-	//url.setUrl(fileName);
-	//ba=QUrl::toPercentEncoding(fileName) ;
-//out <<"encoded:"<< ba.constData()<< endl;
-        l.append( url);
-        texts.append( fileName );
+        urls.append( fileName );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;
-    //data->setUrls( l );
     urls.populateMimeData(data);
-    data->setText( texts.join( QLatin1String( " " ) ) );
-	out << "URLS: " << data->hasUrls() << ",Text: " << data->hasText() << ",";// <<data->formats()<<"\n";
-	 //for (int i = 0; i < data->formats().size(); ++i)
-          //out << data->formats().at(i).toLocal8Bit().constData() << endl;
-	k=data->urls();
-	 for (int i = 0; i < k.size(); ++i)
-          out << k.takeFirst() << endl;
-	out << data->text()<<"ENDO"<<endl;
-	//QByteArray a=data->data("text/plain");
-//	out << data->data(QString("text/plain")) << endl;
     drag->setMimeData( data );
 
     drag->exec(Qt::ActionMask);

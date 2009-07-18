@@ -18,6 +18,7 @@
 #ifndef THUMBNAILVIEW_THUMBNAILWIDGET_H
 #define THUMBNAILVIEW_THUMBNAILWIDGET_H
 
+#include "ThumbnailComponent.h"
 #include <q3gridview.h>
 #include <QMutex>
 #include <QDragLeaveEvent>
@@ -37,55 +38,43 @@
 #include "DB/Result.h"
 #include "DB/ResultId.h"
 #include "GridResizeInteraction.h"
-#include "ImageManager/ImageClient.h"
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
 #include "ThumbnailToolTip.h"
 #include "ThumbnailCache.h"
+#include "ThumbnailView/enums.h"
 
 class QTimer;
 class QDateTime;
 
 namespace ThumbnailView
 {
-enum SortDirection { NewestFirst, OldestFirst };
+class ThumbnailPainter;
+class CellGeometry;
+class ThumbnailModel;
+class ThumbnailFactory;
+class KeyboardEventHandler;
+class ThumbnailDND;
 
-class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
+class ThumbnailWidget : public Q3GridView, private ThumbnailComponent {
     Q_OBJECT
 
-private:
-    typedef QSet<DB::ResultId> IdSet;
-
 public:
-    enum Order { ViewOrder, SortedOrder };
-
-    ThumbnailWidget( QWidget* parent );
-
-    void setImageList(const DB::Result& list);
-    DB::Result imageList(Order) const;
+    ThumbnailWidget( ThumbnailFactory* factory );
 
     OVERRIDE void paintCell ( QPainter * p, int row, int col );
-    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK);
-    bool thumbnailStillNeeded( const QString& fileName ) const;
-    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
 
     void reload( bool flushCache, bool clearSelection=true );
     DB::ResultId mediaIdUnderCursor() const;
-    DB::ResultId currentItem() const;
-    static ThumbnailWidget* theThumbnailView();
-    void setCurrentItem( const DB::ResultId& id );
-    void setSortDirection( SortDirection );
+
+    // Painting
+    void updateCell( const DB::ResultId& id );
+    void updateCell( int row, int col );
+    void updateCellSize();
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
-    void selectAll();
-    void showToolTipsOnImages( bool b );
     void repaintScreen();
-    void toggleStackExpansion(const DB::ResultId& id);
-    void collapseAllStacks();
-    void expandAllStacks();
-    void updateDisplayModel();
-    void changeSingleSelection(const DB::ResultId& id);
 
 signals:
     void showImage( const DB::ResultId& id );
@@ -93,38 +82,18 @@ signals:
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
     void selectionChanged();
-    void collapseAllStacksEnabled(bool enabled);
-    void expandAllStacksEnabled(bool enabled);
 
 protected:
-    // Painting
-    void updateCell( const DB::ResultId& id );
-    void updateCell( int row, int col );
-    void paintCellBackground( QPainter*, int row, int col );
-    void paintCellPixmap( QPainter*, int row, int col );
-    QString thumbnailText( const DB::ResultId& mediaId ) const;
-    void paintCellText( QPainter*, int row, int col );
     OVERRIDE void viewportPaintEvent( QPaintEvent* );
-    void paintStackedIndicator( QPainter* painter, const QRect &rect, const DB::ResultId& mediaId);
 
     // Cell handling methods.
-    DB::ResultId mediaIdInCell( int row, int col ) const;
-    DB::ResultId mediaIdInCell( const Cell& cell ) const;
-    DB::ResultId mediaIdAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
-    Cell positionForMediaId( const DB::ResultId& id ) const;
     Cell cellAtCoordinate( const QPoint& pos, CoordinateSystem ) const;
 
     void scrollToCell( const Cell& newPos );
 
-    enum VisibleState { FullyVisible, PartlyVisible };
     int firstVisibleRow( VisibleState ) const;
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
-    QRect iconGeometry( int row, int col ) const;
-    QSize cellSize() const;
-    int noOfCategoriesForImage( const DB::ResultId& mediaId ) const;
-    int textHeight( bool reCalc ) const;
-    QRect cellTextGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;
     Cell lastCell() const;
@@ -141,33 +110,16 @@ protected:
     OVERRIDE void mouseDoubleClickEvent ( QMouseEvent* );
     OVERRIDE void wheelEvent( QWheelEvent* );
     OVERRIDE void resizeEvent( QResizeEvent* );
-    void keyboardMoveEvent( QKeyEvent* );
     OVERRIDE void dimensionChange ( int oldNumRows, int oldNumCols );
-
-    // Selection
-    void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
-    void selectCell( int row, int col, bool repaint = true );
-    void selectCell( const Cell& );
-    void clearSelection();
-    void toggleSelection( const DB::ResultId& id );
-    void possibleEmitSelectionChanged();
 
     // Drag and drop
     OVERRIDE void contentsDragEnterEvent ( QDragEnterEvent * event );
     OVERRIDE void contentsDragMoveEvent ( QDragMoveEvent * );
     OVERRIDE void contentsDragLeaveEvent ( QDragLeaveEvent * );
     OVERRIDE void contentsDropEvent ( QDropEvent * );
-    void removeDropIndications();
 
     // Misc
     void updateGridSize();
-    bool isMovementKey( int key );
-    void selectItems( const Cell& start, const Cell& end );
-    void repaintAfterChangedSelection( const IdSet& oldSelection );
-    void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    DB::Result reverseList(const DB::Result&) const;
-    void updateCellSize();
-    void updateIndexCache();
     QPoint viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const;
 
     /**
@@ -178,38 +130,9 @@ protected:
 
 protected slots:
     void emitDateChange( int, int );
-    void realDropEvent();
-    void slotRepaint();
     void slotViewChanged( int, int );
-    void imagesDeletedFromDB( const DB::Result& );
 
 private:
-    //--- TODO(hzeller) these set of collections -> put in a ThumbnailModel.
-
-    /** The input list for images */
-    DB::Result _imageList;
-
-    /**
-     * The list of images shown. We do indexed access to this _displayList that has been
-     * changed from O(n) to O(1) in Qt4; so it is safe to use this data type.
-     */
-    DB::Result _displayList;
-
-    /**
-     * A map mapping from filename to its index in _displayList.
-     */
-    QMap<DB::ResultId,int> _idToIndex;
-
-    /**
-     * All the stacks that should be shown expanded
-     */
-    QSet<DB::StackID> _expandedStacks;
-
-    /** @short Store stack IDs for all images in current list
-     *
-     * Used by expandAllStacks. */
-    QSet<DB::StackID> _allStacks;
-
     /**
      * When the user selects a date on the date bar the thumbnail view will
      * position itself accordingly. As a consequence, the thumbnail view
@@ -225,56 +148,22 @@ private:
      */
     bool _isSettingDate;
 
-    /*
-     * This set contains the files currently selected.
-     */
-    IdSet _selectedFiles;
-
-    /**
-     * This is the item currently having keyboard focus
-     *
-     * We need to store the file name for the current item rather than its
-     * coordinates, as coordinates changes when the grid is resized.
-     */
-    DB::ResultId _currentItem;
-
-    static ThumbnailWidget* _instance;
-
-    ThumbnailToolTip* _toolTip;
-
     GridResizeInteraction _gridResizeInteraction;
     bool _wheelResizing;
     SelectionInteraction _selectionInteraction;
     MouseTrackingInteraction _mouseTrackingHandler;
     MouseInteraction* _mouseHandler;
+    ThumbnailDND* _dndHandler;
+
     friend class GridResizeInteraction;
     friend class SelectionInteraction;
     friend class MouseTrackingInteraction;
-
-    /**
-     * File which should have drop indication point drawn on its left side
-     */
-    DB::ResultId _leftDrop;
-
-    /**
-     * File which should have drop indication point drawn on its right side
-     */
-    DB::ResultId _rightDrop;
-
-    QTimer* _repaintTimer;
-
-    QMutex _pendingRepaintLock;
-    IdSet _pendingRepaint;
-
-    SortDirection _sortDirection;
-
-    // For Shift + movement key selection handling
-    Cell _cellOnFirstShiftMovementKey;
-    IdSet _selectionOnFirstShiftMovementKey;
-
-    bool _cursorWasAtStackIcon;
-
-    ThumbnailCache _thumbnailCache;
+    friend class ThumbnailPainter;
+    friend class ThumbnailModel;
+    friend class KeyboardEventHandler;
+    friend class ThumbnailComponent;
+    friend class ThumbnailDND;
+    KeyboardEventHandler* _keyboardHandler;
 };
 
 }

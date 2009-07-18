@@ -16,28 +16,49 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MouseTrackingInteraction.h"
+#include "ThumbnailComponent.h"
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
 #include "DB/ImageDB.h"
 
-ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailWidget* view )
-    :_view( view )
+ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
+    : ThumbnailComponent( factory ),
+      _cursorWasAtStackIcon(false)
 {
 }
 
 
 void ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event )
 {
+    updateStackingIndication( event );
+    handleCursorOverNewIcon( event );
+}
+
+void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEvent* event )
+{
+    bool interestingArea = widget()->isMouseOverStackIndicator( event->pos() );
+    if ( interestingArea && ! _cursorWasAtStackIcon ) {
+        widget()->setCursor( Qt::PointingHandCursor );
+        _cursorWasAtStackIcon = true;
+    } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
+        widget()->unsetCursor();
+        _cursorWasAtStackIcon = false;
+    }
+
+}
+
+void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon( QMouseEvent* event )
+{
     static QString lastFileNameUderCursor;
-    DB::ResultId id = _view->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+    DB::ResultId id = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
     if (id.isNull()) {
-        emit _view->fileNameUnderCursorChanged( QString() );
+        emit widget()->fileNameUnderCursorChanged( QString() );
         lastFileNameUderCursor = QString();
         return;
     }
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
     if ( fileName != lastFileNameUderCursor ) {
-        emit _view->fileNameUnderCursorChanged( fileName );
+        emit widget()->fileNameUnderCursorChanged( fileName );
         lastFileNameUderCursor = fileName;
     }
 }

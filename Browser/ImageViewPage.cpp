@@ -17,7 +17,7 @@
 */
 
 #include "ImageViewPage.h"
-#include <ThumbnailView/ThumbnailWidget.h>
+#include "ThumbnailView/ThumbnailFacade.h"
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
 
@@ -32,7 +32,8 @@ void Browser::ImageViewPage::activate()
 
     if ( !_context.isNull() ) {
         DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( _context );
-        ThumbnailView::ThumbnailWidget::theThumbnailView()->setCurrentItem( id );
+        // PENDING(blackie) this is the only place that uses the ThumbnailFacade as a singleton. Rewrite to make it communicate with it otherwise.
+        ThumbnailView::ThumbnailFacade::instance()->setCurrentItem( id );
     }
 }
 

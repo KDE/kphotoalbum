@@ -16,17 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailRequest.h"
-#include "ThumbnailWidget.h"
+#include "ThumbnailPainter.h"
 #include "ThumbnailCache.h"
 
-ThumbnailView::ThumbnailRequest::ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailWidget* client)
-    : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailView( client ), _fileName( fileName )
+ThumbnailView::ThumbnailRequest::ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailPainter* client)
+    : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailPainter( client ), _fileName( fileName )
 {
 }
 
 bool ThumbnailView::ThumbnailRequest::stillNeeded() const
 {
-    return _thumbnailView->thumbnailStillNeeded( _fileName );
+    return _thumbnailPainter->thumbnailStillNeeded( _fileName );
 }
 
 ThumbnailView::ThumbnailCacheRequest::ThumbnailCacheRequest( const QString& fileName, const QSize& size, int angle, ThumbnailCache* client)

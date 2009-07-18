@@ -1,0 +1,125 @@
+#include "CellGeometry.h"
+#include "ThumbnailCache.h"
+#include "ThumbnailModel.h"
+#include "ThumbnailFactory.h"
+#include "Cell.h"
+#include "DB/ResultId.h"
+#include <QRect>
+#include "Settings/SettingsData.h"
+#include <QSize>
+
+using Utilities::StringSet;
+
+ThumbnailView::CellGeometry::CellGeometry( ThumbnailFactory* factory )
+    :ThumbnailComponent(factory)
+{
+}
+
+/**
+ * Return desired size of the whole cell
+ */
+QSize ThumbnailView::CellGeometry::cellSize() const
+{
+    int width = Settings::SettingsData::instance()->thumbSize();
+    int height = width;
+
+    switch (Settings::SettingsData::instance()->thumbnailAspectRatio()) {
+        case Settings::Aspect_16_9:
+	    height = (int) (height * 9.0 / 16);
+	    break;
+        case Settings::Aspect_4_3:
+	    height = (int) (height * 3.0 / 4);
+	    break;
+        case Settings::Aspect_3_2:
+	    height = (int) (height * 2.0 / 3);
+	    break;
+        case Settings::Aspect_9_16:
+	    width = (int) (width * 9.0 / 16);
+	    break;
+        case Settings::Aspect_3_4:
+	    width = (int) (width * 3.0 / 4);
+	    break;
+        case Settings::Aspect_2_3:
+	    width = (int) (width * 2.0 / 3);
+	    break;
+	case Settings::Aspect_1_1:
+	    // nothing
+	    ;
+    }
+    return QSize( width, height);
+}
+
+
+/**
+ * Return the geometry for the icon in the cell (row,col). The returned coordinates are local to the cell.
+ */
+QRect ThumbnailView::CellGeometry::iconGeometry( int row, int col ) const
+{
+    DB::ResultId mediaId = model()->mediaIdInCell( row, col );
+    if ( mediaId.isNull() ) // empty cell
+        return QRect();
+
+    const QSize cellSize = this->cellSize();
+    const int space = Settings::SettingsData::instance()->thumbnailSpace();
+    int width = cellSize.width() - 2 * space;
+    int height = cellSize.height() - 2 * space;
+
+    QPixmap pixmap;
+    if (!cache()->find(mediaId, &pixmap)
+        || (pixmap.width() == 0 && pixmap.height() == 0)) {
+        return QRect( space, space, width, height );
+    }
+
+    int xoff = space + (width - pixmap.width()) / 2;
+    int yoff = space + (height - pixmap.height()) / 2;
+
+    return QRect( xoff, yoff, pixmap.width(), pixmap.height() );
+}
+
+/**
+ * return the number of categories with valies in for the given image.
+ */
+static int noOfCategoriesForImage(const DB::ResultId& image )
+{
+    int catsInText = 0;
+    QStringList grps = image.fetchInfo()->availableCategories();
+    for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
+        QString category = *it;
+        if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
+            StringSet items = image.fetchInfo()->itemsOfCategory( category );
+            if (!items.empty()) {
+                catsInText++;
+            }
+        }
+    }
+    return catsInText;
+}
+
+
+/**
+ * Return the height of the text under the thumbnails.
+ */
+int ThumbnailView::CellGeometry::textHeight( int charHeight, bool reCalc ) const
+{
+    int h = 0;
+    static int maxCatsInText = 0;
+
+    if ( Settings::SettingsData::instance()->displayLabels() )
+        h += charHeight +2;
+    if ( Settings::SettingsData::instance()->displayCategories()) {
+        if ( reCalc ) {
+            if (!model()->_selectedFiles.empty()) {
+                for( IdSet::const_iterator itImg = model()->_selectedFiles.begin(); itImg != model()->_selectedFiles.end(); ++itImg ) {
+                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                }
+            } else {
+                maxCatsInText = 0;
+                Q_FOREACH(DB::ResultId id, model()->_displayList) {
+                    maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
+                }
+            }
+        }
+        h += charHeight * ( maxCatsInText ) +5;
+    }
+    return h;
+}

@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include "ThumbnailView/ThumbnailFacade.h"
 #include <KActionCollection>
 #include "BreadcrumbViewer.h"
 #include <QDebug>
@@ -32,7 +33,6 @@
 #include <QCloseEvent>
 #include <QVBoxLayout>
 #include <Q3Frame>
-#include "ThumbnailView/ThumbnailWidget.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
 #include <qdir.h>
@@ -126,6 +126,7 @@
 #include <stdexcept>
 #include <KInputDialog>
 #include "DB/Result.h"
+#include "ThumbnailView/enums.h"
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -158,10 +159,10 @@ MainWindow::Window::Window( QWidget* parent )
     lay->addWidget( line );
 
     _browser = new Browser::BrowserWidget( _stack );
-    _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack );
+    _thumbnailView = new ThumbnailView::ThumbnailFacade();
 
     _stack->addWidget( _browser );
-    _stack->addWidget( _thumbnailView );
+    _stack->addWidget( _thumbnailView->gui() );
     _stack->raiseWidget( _browser );
 
     _optionsDialog = 0;
@@ -503,7 +504,7 @@ void MainWindow::Window::slotReReadExifInfo()
 
 DB::Result MainWindow::Window::selected(bool keepSortOrderOfDatabase)
 {
-    if ( _thumbnailView == _stack->visibleWidget() )
+    if ( _thumbnailView->gui() == _stack->visibleWidget() )
         return _thumbnailView->selection( keepSortOrderOfDatabase );
     else
         return DB::Result();
@@ -544,12 +545,12 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
     DB::Result mediaList = inputMediaList;
     int seek = -1;
     if (mediaList.isEmpty()) {
-        mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+        mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
     } else if (mediaList.size() == 1) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
         DB::ResultId first = mediaList.at(0);
-        mediaList = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
+        mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
         seek = mediaList.indexOf(first);
     }
 
@@ -866,7 +867,7 @@ void MainWindow::Window::setupMenuBar()
     _showExifDialog = actionCollection()->addAction( QString::fromLatin1("showExifInfo"), this, SLOT( slotShowExifInfo() ) );
     _showExifDialog->setText( i18n("Show Exif Info") );
 #endif
-    _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), this, SLOT( slotRecreateThumbnail() ) );
+    _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), _thumbnailView, SLOT( slotRecreateThumbnail() ) );
     _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
     createGUI( QString::fromLatin1( "kphotoalbumui.rc" ) );
@@ -903,8 +904,8 @@ void MainWindow::Window::slotAutoSave()
 void MainWindow::Window::showThumbNails()
 {
     reloadThumbnails(false);
-    _stack->raiseWidget( _thumbnailView );
-    _thumbnailView->setFocus();
+    _stack->raiseWidget( _thumbnailView->gui() );
+    _thumbnailView->gui()->setFocus();
     updateStates( true );
 }
 
@@ -1025,7 +1026,7 @@ bool MainWindow::Window::load()
 
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
-    if ( _stack->visibleWidget() == _thumbnailView ) {
+    if ( _stack->visibleWidget() == _thumbnailView->gui() ) {
         QMenu menu( this );
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );
@@ -1246,10 +1247,10 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
         _smallListView->setChecked( true );
     else if ( type == DB::Category::ThumbedTreeView )
         _largeListView->setChecked( true );
-#ifdef KDAB_TEMPORARILY_REMOVED
+#if 0
     else if ( type == DB::Category::IconView )
         _smallIconView->setChecked( true );
-#endif //KDAB_TEMPORARILY_REMOVED
+#endif
     else if ( type == DB::Category::ThumbedIconView )
         _largeIconView->setChecked( true );
 }
@@ -1681,20 +1682,6 @@ void MainWindow::Window::slotOrderDecr()
 {
     _thumbnailView->setSortDirection( ThumbnailView::NewestFirst );
 }
-
-void MainWindow::Window::slotRecreateThumbnail()
-{
-    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
-        QString fileName = info->fileName(DB::AbsolutePath);
-        ImageManager::Manager::instance()->removeThumbnail( fileName );
-
-        int size = Settings::SettingsData::instance()->thumbSize();
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize(size,size), info->angle(), _thumbnailView );
-        request->setPriority( ImageManager::BatchTask );
-        ImageManager::Manager::instance()->load( request );
-    }
-}
-
 
 void MainWindow::Window::showVideos()
 {

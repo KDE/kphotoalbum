@@ -18,6 +18,7 @@
 #ifndef SELECTIONINTERACTION_H
 #define SELECTIONINTERACTION_H
 
+#include "ThumbnailModel.h"
 #include "MouseInteraction.h"
 #include <qobject.h>
 #include <QMouseEvent>
@@ -28,13 +29,13 @@
 
 namespace ThumbnailView
 {
-class ThumbnailWidget;
+class ThumbnailFactory;
 
-class SelectionInteraction : public QObject, public MouseInteraction {
+class SelectionInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
     Q_OBJECT
 
 public:
-    SelectionInteraction( ThumbnailWidget* );
+    SelectionInteraction( ThumbnailFactory* factory );
     virtual void mousePressEvent( QMouseEvent* );
     virtual void mouseMoveEvent( QMouseEvent* );
     virtual void mouseReleaseEvent( QMouseEvent* );
@@ -69,10 +70,10 @@ private:
     bool _mousePressWasOnIcon;
 
     IdSet _originalSelectionBeforeDragStart;
-    ThumbnailWidget* _view;
     QTimer* _dragTimer;
     bool _dragInProgress;
     bool _dragSelectionInProgress;
+    ThumbnailFactory* _JUMP;
 };
 
 }

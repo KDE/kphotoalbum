@@ -47,7 +47,7 @@ class KActionMenu;
 #include "DB/ResultId.h"
 
 namespace Plugins { class Interface; }
-namespace ThumbnailView { class ThumbnailWidget; }
+namespace ThumbnailView { class ThumbnailFacade; }
 namespace Browser{ class BrowserWidget; }
 namespace AnnotationDialog { class Dialog; }
 namespace Settings { class SettingsDialog; }
@@ -146,7 +146,6 @@ protected slots:
     void showImage( const DB::ResultId& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
-    void slotRecreateThumbnail();
     void slotRotateSelectedLeft();
     void slotRotateSelectedRight();
     void rotateSelected( int angle );
@@ -177,7 +176,7 @@ protected:
 private:
     static Window* _instance;
 
-    ThumbnailView::ThumbnailWidget* _thumbnailView;
+    ThumbnailView::ThumbnailFacade* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
     Q3WidgetStack* _stack;

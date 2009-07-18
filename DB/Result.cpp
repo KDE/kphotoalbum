@@ -104,3 +104,12 @@ const QList<DB::RawId>& DB::Result::rawIdList() const
 {
     return _items;
 }
+
+DB::Result DB::Result::reversed() const
+{
+    Result res;
+    Q_FOREACH(ResultId id, *this) {
+        res.prepend(id);
+    }
+    return res;
+}

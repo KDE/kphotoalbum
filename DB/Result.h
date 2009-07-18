@@ -35,7 +35,7 @@ class Result
         DB::ResultId operator*();
         bool operator==( const ConstIterator& other );
         bool operator!=( const ConstIterator& other );
-        
+
     private:
         friend class Result;
         ConstIterator( const Result* result, int pos );
@@ -49,13 +49,14 @@ class Result
 
     /** Create a result with a list of raw ids. */
     explicit Result( const QList<DB::RawId>& ids );
-    
+
     /** Convenience constructor: create a result only one ResultId. */
     explicit Result( const DB::ResultId& );
-    
+
     void append( const DB::ResultId& );
     void prepend( const DB::ResultId& );
     void removeAll(const DB::ResultId&);
+    Result reversed() const;
 
     DB::ResultId at(int index) const;
     int size() const;
@@ -69,7 +70,7 @@ class Result
 
     /** Get the raw list for offline manipulation */
     const QList<DB::RawId>& rawIdList() const;
-    
+
  private:
     QList<DB::RawId> _items;
 };

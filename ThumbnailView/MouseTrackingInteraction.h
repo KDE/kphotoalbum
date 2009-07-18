@@ -18,21 +18,24 @@
 #ifndef MOUSETRACKINGINTERACTION_H
 #define MOUSETRACKINGINTERACTION_H
 
+#include "ThumbnailComponent.h"
 #include "MouseInteraction.h"
 #include <QMouseEvent>
 
 namespace ThumbnailView
 {
-class ThumbnailWidget;
-
-class MouseTrackingInteraction : public MouseInteraction {
+class MouseTrackingInteraction : public MouseInteraction, private ThumbnailComponent {
 
 public:
-    MouseTrackingInteraction( ThumbnailWidget* );
+    MouseTrackingInteraction( ThumbnailFactory* factory );
     virtual void mouseMoveEvent( QMouseEvent* );
 
 private:
-    ThumbnailWidget* _view;
+    void updateStackingIndication( QMouseEvent* event );
+    void handleCursorOverNewIcon( QMouseEvent* event );
+
+private:
+    bool _cursorWasAtStackIcon;
 };
 
 }

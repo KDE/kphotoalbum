@@ -16,8 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
+#include "ThumbnailDND.h"
+#include "KeyboardEventHandler.h"
+#include "ThumbnailFactory.h"
+#include "ThumbnailModel.h"
+#include "CellGeometry.h"
 #include "ThumbnailWidget.moc"
-
+#include "ThumbnailPainter.h"
 #include <math.h>
 
 #include <QDragLeaveEvent>
@@ -60,22 +65,18 @@
  */
 using Utilities::StringSet;
 
-ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailWidget::_instance = 0;
-ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
-    :Q3GridView( parent ),
-     _imageList(),
-     _displayList(),
+ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
+    :Q3GridView(),
+     ThumbnailComponent( factory ),
      _isSettingDate(false),
      _gridResizeInteraction( this ),
      _wheelResizing( false ),
-     _selectionInteraction( this ),
-     _mouseTrackingHandler( this ),
+     _selectionInteraction( factory ),
+     _mouseTrackingHandler( factory ),
      _mouseHandler( &_mouseTrackingHandler ),
-     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst ),
-     _cellOnFirstShiftMovementKey(Cell::invalidCell()),
-     _cursorWasAtStackIcon(false)
+     _dndHandler( new ThumbnailDND( factory ) ),
+     _keyboardHandler( new KeyboardEventHandler( factory ) )
 {
-    _instance = this;
     setFocusPolicy( Qt::WheelFocus );
     updateCellSize();
 
@@ -84,17 +85,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
     setMouseTracking( true );
 
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
-    connect( this, SIGNAL( contentsMoving( int, int ) ),
-             this, SLOT( slotViewChanged( int, int ) ));
-    connect( DB::ImageDB::instance(), SIGNAL( imagesDeleted( const DB::Result& ) ), this, SLOT( imagesDeletedFromDB( const DB::Result& ) ) );
-
-    _toolTip = new ThumbnailToolTip( this );
-
+    connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( slotViewChanged( int, int ) ));
     viewport()->setAcceptDrops( true );
-
-    _repaintTimer = new QTimer( this );
-    _repaintTimer->setSingleShot(true);
-    connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
 
     setVScrollBarMode( AlwaysOn );
     setHScrollBarMode( AlwaysOff );
@@ -105,212 +97,10 @@ bool ThumbnailView::ThumbnailWidget::isGridResizing()
     return _mouseHandler->isResizingGrid() || _wheelResizing;
 }
 
-void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
+OVERRIDE void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
 {
-    QPixmap doubleBuffer( cellRect().size() );
-    QPainter painter( &doubleBuffer );
-    paintCellBackground( &painter, row, col );
-    if ( !isGridResizing() ) {
-        const bool isSelected = _selectedFiles.contains(mediaIdInCell(row, col));
-        QColor selectionColor = palette().highlight().color();
-        if ( isSelected ) {
-            painter.fillRect( cellRect(), selectionColor );
-        }
-
-        paintCellPixmap( &painter, row, col );
-        paintCellText( &painter, row, col );
-        if (isSelected) {
-            selectionColor.setAlpha( 70 );
-            QRect rect = iconGeometry(row,col);
-            painter.fillRect( rect, selectionColor );
-        }
-
-    }
-    painter.end();
-    p->drawPixmap( cellRect(), doubleBuffer );
+    painter()->paintCell( p, row, col );
 }
-
-static DB::StackID getStackId(const DB::ResultId& id)
-{
-    return id.fetchInfo()->stackId();
-}
-
-void ThumbnailView::ThumbnailWidget::paintStackedIndicator( QPainter* painter,
-                                                            const QRect& rect,
-                                                            const DB::ResultId& mediaId)
-{
-    DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
-    if (!imageInfo || !imageInfo->isStacked())
-        return;
-
-    const DB::StackID stackId  = imageInfo->stackId();
-    bool isFirst = true;
-    bool isLast = true;
-
-    // A bit ugly: determine where we are within the stack.
-    if (_expandedStacks.contains(stackId)) {
-        int prev = _idToIndex[mediaId] - 1;
-        int next = _idToIndex[mediaId] + 1;
-        isFirst = (prev < 0) || getStackId(_displayList.at(prev)) != stackId;
-        isLast  = (next >= _displayList.size()) || getStackId(_displayList.at(next)) != stackId;
-    }
-
-    const int thickness = 1;
-    const int space = 0;
-    const int corners = 8;
-    const int w = rect.width();
-    const int h = rect.height();
-    int bottom_w, corner_h;
-    bottom_w = corner_h = qMin(w / 2, h / 2);
-    if (!isFirst)
-        bottom_w = w;
-    QPen pen;
-    pen.setWidth(thickness);
-
-    for (int c = 0; c < corners; ++c) {
-        pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
-        painter->setPen(pen);
-        int step = (thickness + space) * c;
-        int x = rect.x() + w - bottom_w - (thickness + space) * corners + step;
-        int y = rect.y() + h - (thickness + space) * corners + step;
-        painter->drawLine(x, y, rect.x() + w, y);
-        if (isLast)
-            painter->drawLine(x + bottom_w, y, x + bottom_w, y - corner_h);
-    }
-}
-
-/**
- * Paint the pixmap in the cell (row,col)
- */
-void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row, int col )
-{
-    DB::ResultId mediaId = mediaIdInCell( row, col );
-    if (mediaId.isNull())
-        return;
-
-    QPixmap pixmap;
-    if (_thumbnailCache.find(mediaId, &pixmap)) {
-        QRect rect = iconGeometry( row, col );
-        Q_ASSERT( !rect.isNull() );
-
-        // Paint inner shadow
-        int xl = rect.left();
-        int yt = rect.top();
-        int xr = rect.right()+1;
-        int yb = rect.bottom()+1;
-        painter->setPen( QColor(70,70,70,70) );
-        painter->drawLine( xr, yt, xr, yb );
-        painter->drawLine( xl, yb, xr, yb );
-
-        // Paint outer shadow
-        xr +=1;
-        yb +=1;
-        painter->setPen( Qt::black );
-        painter->drawLine( xr, yt, xr, yb );
-        painter->drawLine( xl, yb, xr, yb );
-
-        // Paint pixmap
-        painter->drawPixmap( rect, pixmap );
-
-        // Paint move indication
-        rect = QRect( 0, 0, cellWidth(), cellHeight() );
-        if ( _leftDrop == mediaId )
-            painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
-        else if ( _rightDrop == mediaId )
-            painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
-        paintStackedIndicator(painter, rect, mediaId);
-    }
-    else {
-        DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
-        const QSize cellSize = this->cellSize();
-        const int angle = imageInfo->angle();
-        const int space = Settings::SettingsData::instance()->thumbnailSpace();
-        ThumbnailRequest* request
-            = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
-                                   QSize( cellSize.width() - 2 * space,
-                                          cellSize.height() - 2 * space),
-                                   angle, this );
-        request->setPriority( ImageManager::ThumbnailVisible );
-        ImageManager::Manager::instance()->load( request );
-    }
-}
-
-/**
- * Returns the text under the thumbnails
- */
-QString ThumbnailView::ThumbnailWidget::thumbnailText( const DB::ResultId& mediaId ) const
-{
-    QString text;
-
-    const QSize cellSize = this->cellSize();
-    int thumbnailHeight = cellSize.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
-    int thumbnailWidth = cellSize.width(); // no substracting here
-    int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
-
-    if ( Settings::SettingsData::instance()->displayLabels()) {
-        QString line = mediaId.fetchInfo()->label();
-        if ( QFontMetrics( font() ).width( line ) > thumbnailWidth ) {
-            line = line.left( maxCharacters );
-            line += QString::fromLatin1( " ..." );
-        }
-        text += line + QString::fromLatin1("\n");
-    }
-
-    if ( Settings::SettingsData::instance()->displayCategories()) {
-        QStringList grps = mediaId.fetchInfo()->availableCategories();
-        for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
-            QString category = *it;
-            if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-                StringSet items = mediaId.fetchInfo()->itemsOfCategory( category );
-                if (!items.empty()) {
-                    QString line;
-                    bool first = true;
-                    for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
-                        QString item = *it2;
-                        if ( first )
-                            first = false;
-                        else
-                            line += QString::fromLatin1( ", " );
-                        line += item;
-                    }
-                    if ( QFontMetrics( font() ).width( line ) > thumbnailWidth ) {
-                        line = line.left( maxCharacters );
-                        line += QString::fromLatin1( " ..." );
-                    }
-                    text += line + QString::fromLatin1( "\n" );
-                }
-            }
-        }
-    }
-
-    if(text.isEmpty())
-        text = QString::fromLatin1( "" );
-
-    return text.trimmed();
-}
-
-/**
- * Draw the title under the thumbnail
- */
-void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, int col )
-{
-    DB::ResultId mediaId = mediaIdInCell( row, col );
-    if ( mediaId.isNull() )
-        return;
-
-    QString title = thumbnailText( mediaId );
-    QRect rect = cellTextGeometry( row, col );
-    QColor color = Qt::black;
-    QColor background = Settings::SettingsData::instance()->backgroundColor();
-    if ( background.red() < 127 && background.green() < 127 && background.blue() < 127 )
-        color = Qt::white;
-
-    painter->setPen( color );
-
-    //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
-    painter->drawText( rect, Qt::AlignCenter | Qt::TextWordWrap, title );
-}
-
 
 void ThumbnailView::ThumbnailWidget::generateMissingThumbnails(const DB::Result& items) const
 {
@@ -338,142 +128,6 @@ void ThumbnailView::ThumbnailWidget::generateMissingThumbnails(const DB::Result&
     }
 }
 
-static bool stackOrderComparator(const DB::ResultId& a, const DB::ResultId& b) {
-    return a.fetchInfo()->stackOrder() < b.fetchInfo()->stackOrder();
-}
-
-void ThumbnailView::ThumbnailWidget::updateDisplayModel()
-{
-    // FIXME: this can be probalby made obsolete by that new shiny thing in the DB
-
-    ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
-
-    // Note, this can be simplified, if we make the database backend already
-    // return things in the right order. Then we only need one pass while now
-    // we need to go through the list two times.
-
-    /* Extract all stacks we have first. Different stackid's might be
-     * intermingled in the result so we need to know this ahead before
-     * creating the display list.
-     */
-    typedef QList<DB::ResultId> StackList;
-    typedef QMap<DB::StackID, StackList> StackMap;
-    StackMap stackContents;
-    Q_FOREACH(DB::ResultId id, _imageList) {
-        DB::ImageInfoPtr imageInfo = id.fetchInfo();
-        if (imageInfo->isStacked()) {
-            DB::StackID stackid = imageInfo->stackId();
-            stackContents[stackid].append(id);
-        }
-    }
-
-    /*
-     * All stacks need to be ordered in their stack order. We don't rely that
-     * the images actually came in the order necessary.
-     */
-    for (StackMap::iterator it = stackContents.begin(); it != stackContents.end(); ++it) {
-        qStableSort(it->begin(), it->end(), stackOrderComparator);
-    }
-
-    /* Build the final list to be displayed. That is basically the sequence
-     * we got from the original, but the stacks shown with all images together
-     * in the right sequence or collapsed showing only the top image.
-     */
-    _displayList = DB::Result();
-    QSet<DB::StackID> alreadyShownStacks;
-    Q_FOREACH(DB::ResultId id, _imageList) {
-        DB::ImageInfoPtr imageInfo = id.fetchInfo();
-        if (imageInfo->isStacked()) {
-            DB::StackID stackid = imageInfo->stackId();
-            if (alreadyShownStacks.contains(stackid))
-                continue;
-            StackMap::iterator found = stackContents.find(stackid);
-            Q_ASSERT(found != stackContents.end());
-            const StackList& orderedStack = *found;
-            if (_expandedStacks.contains(stackid)) {
-                Q_FOREACH(DB::ResultId id, orderedStack) {
-                    _displayList.append(id);
-                }
-            } else {
-                _displayList.append(orderedStack.at(0));
-            }
-            alreadyShownStacks.insert(stackid);
-        }
-        else {
-            _displayList.append(id);
-        }
-    }
-
-    if ( _sortDirection != OldestFirst )
-        _displayList = reverseList(_displayList);
-
-    updateIndexCache();
-
-    _thumbnailCache.setDisplayList(_displayList);
-
-    collapseAllStacksEnabled( _expandedStacks.size() > 0);
-    expandAllStacksEnabled( _allStacks.size() != _expandedStacks.size() );
-    if ( isVisible() ) {
-        updateGridSize();
-        repaintScreen();
-    }
-}
-
-void ThumbnailView::ThumbnailWidget::setImageList(const DB::Result& items)
-{
-    _imageList = items;
-    _allStacks.clear();
-    Q_FOREACH(DB::ImageInfoPtr info, items.fetchInfos()) {
-        if ( info && info->isStacked() )
-            _allStacks << info->stackId();
-    }
-    // FIXME: see comments in the function -- is it really needed at all?
-    // TODO(hzeller): yes so that you don't have to scroll to the page in question
-    // to force loading; this is esp. painful if you have a whole bunch of new
-    // images in your collection (I usually add 100 at time) - your first walk through
-    // it will be slow.
-    // But yeah, this needs optimization, so leaving this commented out for now.
-    //generateMissingThumbnails( items );
-    updateDisplayModel();
-}
-
-void ThumbnailView::ThumbnailWidget::toggleStackExpansion(const DB::ResultId& id)
-{
-    DB::ImageInfoPtr imageInfo = id.fetchInfo();
-    if (imageInfo) {
-        DB::StackID stackid = imageInfo->stackId();
-        if (_expandedStacks.contains(stackid))
-            _expandedStacks.remove(stackid);
-        else
-            _expandedStacks.insert(stackid);
-        updateDisplayModel();
-    }
-}
-
-void ThumbnailView::ThumbnailWidget::collapseAllStacks()
-{
-    _expandedStacks.clear();
-    updateDisplayModel();
-}
-
-void ThumbnailView::ThumbnailWidget::expandAllStacks()
-{
-    _expandedStacks = _allStacks;
-    updateDisplayModel();
-}
-
-/**
- * Return the file name shown in cell (row,col) if a thumbnail is shown in this cell or null otherwise.
- */
-DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdInCell( int row, int col ) const
-{
-    const int index = row * numCols() + col;
-    if (index >= _displayList.size())
-        return DB::ResultId::null;
-    else
-        return _displayList.at(index);
-}
-
 /** @short It seems that Q3GridView's viewportToContents() is slightly off */
 QPoint ThumbnailView::ThumbnailWidget::viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const
 {
@@ -486,181 +140,7 @@ QPoint ThumbnailView::ThumbnailWidget::viewportToContentsAdjusted( const QPoint&
     return contentsPos;
 }
 
-/**
- * Returns the file name shown at viewport position (x,y) if a thumbnail is shown at this position or QString::null otherwise.
- */
-DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdAtCoordinate( const QPoint& coordinate, CoordinateSystem system ) const
-{
-    QPoint contentsPos = viewportToContentsAdjusted( coordinate, system );
-    int col = columnAt( contentsPos.x() );
-    int row = rowAt( contentsPos.y() );
 
-    QRect cellRect = const_cast<ThumbnailWidget*>(this)->cellGeometry( row, col );
-
-    if ( cellRect.contains( contentsPos ) )
-        return mediaIdInCell( row, col );
-    else
-        return DB::ResultId::null;
-}
-
-/**
- * Return desired size of the whole cell
- */
-QSize ThumbnailView::ThumbnailWidget::cellSize() const
-{
-    int width = Settings::SettingsData::instance()->thumbSize();
-    int height = width;
-
-    switch (Settings::SettingsData::instance()->thumbnailAspectRatio()) {
-        case Settings::Aspect_16_9:
-	    height = (int) (height * 9.0 / 16);
-	    break;
-        case Settings::Aspect_4_3:
-	    height = (int) (height * 3.0 / 4);
-	    break;
-        case Settings::Aspect_3_2:
-	    height = (int) (height * 2.0 / 3);
-	    break;
-        case Settings::Aspect_9_16:
-	    width = (int) (width * 9.0 / 16);
-	    break;
-        case Settings::Aspect_3_4:
-	    width = (int) (width * 3.0 / 4);
-	    break;
-        case Settings::Aspect_2_3:
-	    width = (int) (width * 2.0 / 3);
-	    break;
-	case Settings::Aspect_1_1:
-	    // nothing
-	    ;
-    }
-    return QSize( width, height);
-}
-
-/**
- * Return the geometry for the icon in the cell (row,col). The returned coordinates are local to the cell.
- */
-QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
-{
-    DB::ResultId mediaId = mediaIdInCell( row, col );
-    if ( mediaId.isNull() ) // empty cell
-        return QRect();
-
-    const QSize cellSize = this->cellSize();
-    const int space = Settings::SettingsData::instance()->thumbnailSpace();
-    int width = cellSize.width() - 2 * space;
-    int height = cellSize.height() - 2 * space;
-
-    QPixmap pixmap;
-    if (!_thumbnailCache.find(mediaId, &pixmap)
-        || (pixmap.width() == 0 && pixmap.height() == 0)) {
-        return QRect( space, space, width, height );
-    }
-
-    int xoff = space + (width - pixmap.width()) / 2;
-    int yoff = space + (height - pixmap.height()) / 2;
-
-    return QRect( xoff, yoff, pixmap.width(), pixmap.height() );
-}
-
-/**
- * Returns the max. count of categories of an image with number of groups > 0
- */
-int ThumbnailView::ThumbnailWidget::noOfCategoriesForImage(const DB::ResultId& image ) const
-{
-    int catsInText = 0;
-    QStringList grps = image.fetchInfo()->availableCategories();
-    for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
-        QString category = *it;
-        if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-            StringSet items = image.fetchInfo()->itemsOfCategory( category );
-            if (!items.empty()) {
-                catsInText++;
-            }
-        }
-    }
-    return catsInText;
-}
-
-/**
- * Return the height of the text under the thumbnails.
- */
-int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
-{
-    int h = 0;
-    static int maxCatsInText = 0;
-
-    if ( Settings::SettingsData::instance()->displayLabels() )
-        h += QFontMetrics( font() ).height() +2;
-    if ( Settings::SettingsData::instance()->displayCategories()) {
-        if ( reCalc ) {
-            if (!_selectedFiles.empty()) {
-                for( IdSet::const_iterator itImg = _selectedFiles.begin(); itImg != _selectedFiles.end(); ++itImg ) {
-                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
-                }
-            } else {
-                maxCatsInText = 0;
-                Q_FOREACH(DB::ResultId id, _displayList) {
-                    maxCatsInText = qMax(noOfCategoriesForImage(id), maxCatsInText);
-                }
-            }
-        }
-        h += QFontMetrics( font() ).height() * ( maxCatsInText ) +5;
-    }
-    return h;
-}
-
-
-QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
-{
-    if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
-        return QRect();
-
-    DB::ResultId mediaId = mediaIdInCell( row, col );
-    if ( mediaId.isNull() ) // empty cell
-        return QRect();
-
-    int h = textHeight( false );
-
-    QRect iconRect = iconGeometry( row, col );
-    QRect cellRect = const_cast<ThumbnailWidget*>(this)->cellGeometry( row, col );
-
-    return QRect( 1, cellRect.height() -h -1, cellRect.width()-2, h );
-}
-
-
-// ImageManager::ImageClient interface. Callback from the
-// ImageManager when the image is loaded.
-void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
-                                                   const QImage& image, const bool loadedOK)
-{
-    QPixmap pixmap( size );
-    if ( loadedOK && !image.isNull() )
-        pixmap = QPixmap::fromImage( image );
-    else if ( !loadedOK )
-        pixmap.fill( palette().color( QPalette::Dark));
-
-    if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
-        QPainter p( &pixmap );
-        p.setBrush( palette().base() );
-        p.setWindow( 0, 0, 100, 100 );
-        Q3PointArray pts;
-        pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
-        p.drawConvexPolygon( pts );
-    }
-
-    DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
-    DB::ImageInfoPtr imageInfo = id.fetchInfo();
-    // TODO(hzeller): figure out, why the size is set here. We do an implicit
-    // write here to the database.
-    if ( fullSize.isValid() ) {
-        imageInfo->setSize( fullSize );
-    }
-
-    _thumbnailCache.insert(id, pixmap);
-
-    updateCell( id );
-}
 
 /**
  * Request a repaint of the cell showing filename
@@ -672,18 +152,12 @@ void ThumbnailView::ThumbnailWidget::updateCell( const DB::ResultId& id )
     if ( id.isNull() )
         return;
 
-    _pendingRepaintLock.lock();
-    _pendingRepaint.insert( id );
-    _pendingRepaintLock.unlock();
-
-    // Do not trigger immediatly the repaint but wait a tiny bit - there might
-    // be more coming which we then can paint in one shot.
-    _repaintTimer->start( 10 );
+    painter()->repaint(id);
 }
 
 void ThumbnailView::ThumbnailWidget::updateCell( int row, int col )
 {
-    updateCell( mediaIdInCell( row, col ) );
+    updateCell( model()->mediaIdInCell( row, col ) );
 }
 
 
@@ -697,12 +171,12 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     setNumCols( thumbnailsPerRow );
     setNumRows(qMax(numRowsPerPage,
                     static_cast<int>(
-                        ceil(static_cast<double>(_displayList.size()) / thumbnailsPerRow))));
-    const QSize cellSize = this->cellSize();
+                        ceil(static_cast<double>(model()->_displayList.size()) / thumbnailsPerRow))));
+    const QSize cellSize = cellGeometryInfo()->cellSize();
     const int border = Settings::SettingsData::instance()->thumbnailSpace();
     QSize thumbSize(cellSize.width() - 2 * border,
                     cellSize.height() - 2 * border);
-    _thumbnailCache.setThumbnailSize(thumbSize);
+    cache()->setThumbnailSize(thumbSize);
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
@@ -710,224 +184,31 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
     updateGridSize();
 }
 
-/**
- * Paint the cell back ground, and the outline
- */
-void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, int col )
-{
-    QRect rect = cellRect();
-    p->fillRect( rect, Settings::SettingsData::instance()->backgroundColor() );
-
-    if (isGridResizing()
-        || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        p->setPen( palette().color( QPalette::Dark) );
-        // left of frame
-        if ( col != 0 )
-            p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );
-
-        // bottom line
-        if ( row != numRows() -1 ) {
-            p->drawLine( rect.left(), rect.bottom() -1, rect.right(), rect.bottom()-1 );
-        }
-    }
-}
-
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
-        QString token = event->text().toUpper().left(1);
-        bool mustRemoveToken = false;
-        bool hadHit          = false;
-
-        for( IdSet::const_iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
-            DB::ImageInfoPtr info = (*it).fetchInfo();
-            if ( ! hadHit ) {
-                mustRemoveToken = info->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
-                hadHit = true;
-            }
-
-            if ( mustRemoveToken )
-                info->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
-            else
-                info->addCategoryInfo( QString::fromLatin1("Tokens"), token );
-
-            updateCell( *it );
-        }
-
-        if ( hadHit )
-            updateCellSize();
-
-        DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-
-    if ( isMovementKey( event->key() ) )
-        keyboardMoveEvent( event );
-
-    if ( event->key() == Qt::Key_Return )
-        emit showSelection();
-
-    if ( event->key() == Qt::Key_Space )
-        toggleSelection( _currentItem );
-
-    possibleEmitSelectionChanged();
+    _keyboardHandler->keyPressEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 {
-    if ( _wheelResizing && event->key() == Qt::Key_Control ) {
-        _wheelResizing = false;
-        repaintScreen();
-    }
-    else {
-        if ( event->key() == Qt::Key_Shift )
-            _cellOnFirstShiftMovementKey = Cell::invalidCell();
+    const bool propogate = _keyboardHandler->keyReleaseEvent( event );
+    if ( propogate )
         Q3GridView::keyReleaseEvent(event);
-    }
 }
 
-void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
-{
-    if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
-        clearSelection();
-    }
-
-    // Decide the next keyboard focus cell
-    Cell currentPos(0,0);
-    if ( !_currentItem.isNull() )
-        currentPos = positionForMediaId( _currentItem );
-
-    // Update current position if it is outside view and we do not have any modifiers
-    // that is if we just scroll arround.
-    //
-    // Use case is following: There is a selected item which is not
-    // visible because user has scrolled by other means than the
-    // keyboard (scrollbar or mouse wheel). In that case if the user
-    // presses keyboard movement key, the selection is forgotten and
-    // instead a currently visible cell is selected. So no scrolling
-    // of the view will be done.
-    if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
-        if ( currentPos.row() < firstVisibleRow( PartlyVisible ) )
-            currentPos = Cell( firstVisibleRow( FullyVisible ), currentPos.col() );
-        else if ( currentPos.row() > lastVisibleRow( PartlyVisible ) )
-            currentPos = Cell( lastVisibleRow( FullyVisible ), currentPos.col() );
-    }
-
-    Cell newPos;
-    switch (event->key() ) {
-    case Qt::Key_Left:
-        newPos = currentPos;
-        newPos.col()--;
-
-        if ( newPos.col() < 0 )
-            newPos = Cell( newPos.row()-1, numCols()-1 );
-        break;
-
-    case Qt::Key_Right:
-        newPos = currentPos;
-        newPos.col()++;
-        if ( newPos.col() == numCols() )
-            newPos = Cell( newPos.row()+1, 0 );
-        break;
-
-    case Qt::Key_Down:
-        newPos = Cell( currentPos.row()+1, currentPos.col() );
-        break;
-
-    case Qt::Key_Up:
-        newPos = Cell( currentPos.row()-1, currentPos.col() );
-        break;
-
-    case Qt::Key_PageDown:
-    case Qt::Key_PageUp:
-    {
-        int rows = (event->key() == Qt::Key_PageDown) ? 1 : -1;
-        if ( event->modifiers() & (Qt::AltModifier | Qt::MetaModifier) )
-            rows *= numRows() / 20;
-        else
-            rows *= numRowsPerPage();
-
-        newPos = Cell( currentPos.row() + rows, currentPos.col() );
-        break;
-    }
-    case Qt::Key_Home:
-        newPos = Cell( 0, 0 );
-        break;
-
-    case Qt::Key_End:
-        newPos = lastCell();
-        break;
-    }
-
-    // Check for overruns
-    if ( newPos > lastCell() )
-        newPos = lastCell();
-    if ( newPos < Cell(0,0) )
-        newPos = Cell(0,0);
-
-    if ( event->modifiers() & Qt::ShiftModifier ) {
-        if ( _cellOnFirstShiftMovementKey == Cell::invalidCell() ) {
-            _cellOnFirstShiftMovementKey = currentPos;
-            _selectionOnFirstShiftMovementKey = _selectedFiles;
-        }
-
-        IdSet oldSelection = _selectedFiles;
-
-        _selectedFiles = _selectionOnFirstShiftMovementKey;
-        selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos, false );
-
-        repaintAfterChangedSelection( oldSelection );
-    }
-
-    if ( ! (event->modifiers() & Qt::ControlModifier ) ) {
-        selectCell( newPos );
-        updateCell( currentPos.row(), currentPos.col() );
-    }
-    scrollToCell( newPos );
-}
 
 /** @short Scroll the viewport so that the specified cell is visible */
 void ThumbnailView::ThumbnailWidget::scrollToCell( const Cell& newPos )
 {
-    _currentItem = mediaIdInCell( newPos );
+    model()->setCurrentItem( newPos );
 
     // Scroll if necesary
-    if ( newPos.row() > lastVisibleRow( ThumbnailWidget::FullyVisible ) )
+    if ( newPos.row() > lastVisibleRow( FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() -
                         (numRowsPerPage()-1)*cellHeight()  );
 
-    if  ( newPos.row() < firstVisibleRow( ThumbnailWidget::FullyVisible ) )
+    if  ( newPos.row() < firstVisibleRow( FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() );
-}
-
-/**
- * Update selection to include files from start to end
- */
-void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end )
-{
-    IdSet oldSelection = _selectedFiles;
-
-    _selectedFiles.clear();
-
-    selectAllCellsBetween( start, end, false );
-
-    repaintAfterChangedSelection(oldSelection);
-}
-
-/**
- * Repaint cells that are in different state than in given selection.
- */
-void ThumbnailView::ThumbnailWidget::repaintAfterChangedSelection( const IdSet& oldSelection )
-{
-    for( IdSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-        if ( !_selectedFiles.contains( *it ) )
-            updateCell( *it );
-    }
-
-    for( IdSet::const_iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
-        if ( !oldSelection.contains( *it ) )
-            updateCell( *it );
-    }
 }
 
 /**
@@ -949,16 +230,21 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& po
     return imageInfo && imageInfo->isStacked();
 }
 
+static bool isMouseResizeGesture( QMouseEvent* event )
+{
+    return
+        (event->button() & Qt::MidButton) ||
+        ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier));
+}
+
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
-    bool interestingArea = isMouseOverStackIndicator( event->pos() );
-    if ( interestingArea ) {
-        toggleStackExpansion( mediaIdUnderCursor() );
+    if ( isMouseOverStackIndicator( event->pos() ) ) {
+        model()->toggleStackExpansion( mediaIdUnderCursor() );
         return;
     }
 
-    if ( (event->button() & Qt::MidButton) ||
-         ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier)) )
+    if ( isMouseResizeGesture( event ) )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;
@@ -968,17 +254,6 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _mouseHandler == &_mouseTrackingHandler ) {
-        bool interestingArea = isMouseOverStackIndicator( event->pos() );
-        if ( interestingArea && ! _cursorWasAtStackIcon ) {
-            setCursor( Qt::PointingHandCursor );
-            _cursorWasAtStackIcon = true;
-        } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
-            unsetCursor();
-            _cursorWasAtStackIcon = false;
-        }
-    }
-
     _mouseHandler->mouseMoveEvent( event );
 }
 
@@ -986,15 +261,14 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 {
     _mouseHandler->mouseReleaseEvent( event );
     _mouseHandler = &_mouseTrackingHandler;
-    possibleEmitSelectionChanged();
 }
 
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
 {
     if ( isMouseOverStackIndicator( event->pos() ) ) {
-        toggleStackExpansion( mediaIdUnderCursor() );
+        model()->toggleStackExpansion( mediaIdUnderCursor() );
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
-        DB::ResultId id = mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
+        DB::ResultId id = model()->mediaIdAtCoordinate( event->pos(), ViewportCoordinates );
         if ( !id.isNull() )
             emit showImage( id );
     }
@@ -1024,7 +298,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
         return;
 
     // Unfortunately the contentsMoving signal is emitted *before* the move, so we need to find out what is on the new position ourself.
-    DB::ResultId id = mediaIdInCell( rowAt(y), columnAt(x) );
+    DB::ResultId id = model()->mediaIdInCell( rowAt(y), columnAt(x) );
     if ( id.isNull() )
         return;
 
@@ -1042,9 +316,9 @@ void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
         return;
     int startIndex = rowAt(y) * numCols();
     int endIndex = (rowAt( y + visibleHeight() ) + 1) * numCols();
-    if (endIndex > _displayList.size())
-        endIndex = _displayList.size();
-    _thumbnailCache.setHotArea(startIndex, endIndex);
+    if (endIndex > model()->_displayList.size())
+        endIndex = model()->_displayList.size();
+    cache()->setHotArea(startIndex, endIndex);
 }
 
 /**
@@ -1055,43 +329,12 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 {
     _isSettingDate = true;
     DB::ResultId candidate = DB::ImageDB::instance()
-        ->findFirstItemInRange(_displayList, date, includeRanges);
+        ->findFirstItemInRange(model()->_displayList, date, includeRanges);
     if ( !candidate.isNull() ) {
-        scrollToCell( positionForMediaId( candidate ) );
-        _currentItem = candidate;
+        scrollToCell( model()->positionForMediaId( candidate ) );
+        model()->setCurrentItem( candidate );
     }
     _isSettingDate = false;
-}
-
-/**
- * return the position (row,col) for the given media id.
- */
-ThumbnailView::Cell ThumbnailView::ThumbnailWidget::positionForMediaId( const DB::ResultId& id ) const
-{
-    Q_ASSERT( !id.isNull() );
-    int index = _idToIndex[id];
-    if ( index == -1 )
-        return Cell( 0, 0 );
-
-    int row = index / numCols();
-    int col = index % numCols();
-    return Cell( row, col );
-}
-
-/**
- * \brief Returns whether the thumbnail for fileName is still needed.
- *
- * If the user scrolls down through the view, a back log of thumbnail
- * request may build up, which will slow down scrolling a lot. Therefore
- * the ImageManger has the capability to check whether a thumbnail
- * request is really needed, when it gets to load the given thumbnail.
- */
-bool ThumbnailView::ThumbnailWidget::thumbnailStillNeeded( const QString& fileName ) const
-{
-    // PENDING(hzeller): this ID can come from the ThumbnailRequest
-    DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
-    Cell pos = positionForMediaId( id );
-    return pos.row() >= firstVisibleRow( PartlyVisible ) && pos.row() <= lastVisibleRow( PartlyVisible );
 }
 
 /*
@@ -1114,21 +357,6 @@ int ThumbnailView::ThumbnailWidget::lastVisibleRow( VisibleState state ) const
     return lastRow;
 }
 
-void ThumbnailView::ThumbnailWidget::selectCell( const Cell& cell )
-{
-    selectCell( cell.row(), cell.col() );
-}
-
-void ThumbnailView::ThumbnailWidget::selectCell( int row, int col, bool repaint )
-{
-    DB::ResultId id = mediaIdInCell( row, col );
-    if ( !id.isNull() ) {
-        _selectedFiles.insert( id );
-        if ( repaint )
-            updateCell( row, col );
-    }
-}
-
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::cellAtCoordinate( const QPoint& pos, CoordinateSystem system ) const
 {
     QPoint contentsPos = pos;
@@ -1140,32 +368,6 @@ ThumbnailView::Cell ThumbnailView::ThumbnailWidget::cellAtCoordinate( const QPoi
     return Cell( row, col );
 }
 
-void ThumbnailView::ThumbnailWidget::selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint )
-{
-    ensureCellsSorted( pos1, pos2 );
-
-    if ( pos1.row() == pos2.row() ) {
-        // This is the case where images from only one row is selected.
-        for ( int col = pos1.col(); col <= pos2.col(); ++ col )
-            selectCell( pos1.row(), col, repaint );
-    }
-    else {
-        // We know we have at least two rows.
-
-        // first row
-        for ( int col = pos1.col(); col < numCols(); ++ col )
-            selectCell( pos1.row(), col, repaint );
-
-        // rows in between
-        for ( int row = pos1.row()+1; row < pos2.row(); ++row )
-            for ( int col = 0; col < numCols(); ++ col )
-                selectCell( row, col, repaint );
-
-        // last row
-        for ( int col = 0; col <= pos2.col(); ++ col )
-            selectCell( pos2.row(), col, repaint );
-    }
-}
 
 void ThumbnailView::ThumbnailWidget::resizeEvent( QResizeEvent* e )
 {
@@ -1173,28 +375,15 @@ void ThumbnailView::ThumbnailWidget::resizeEvent( QResizeEvent* e )
     updateGridSize();
 }
 
-void ThumbnailView::ThumbnailWidget::clearSelection()
-{
-    IdSet oldSelection = _selectedFiles;
-    _selectedFiles.clear();
-    for( IdSet::const_iterator idIt = oldSelection.begin(); idIt != oldSelection.end(); ++idIt ) {
-        updateCell( *idIt );
-    }
-}
-
-DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdInCell( const Cell& cell ) const
-{
-    return mediaIdInCell( cell.row(), cell.col() );
-}
 
 bool ThumbnailView::ThumbnailWidget::isFocusAtLastCell() const
 {
-    return positionForMediaId(_currentItem) == lastCell();
+    return model()->positionForMediaId(model()->currentItem() ) == lastCell();
 }
 
 bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
 {
-    return positionForMediaId(_currentItem) == Cell(0,0);
+    return model()->positionForMediaId(model()->currentItem()) == Cell(0,0);
 }
 
 /**
@@ -1202,95 +391,22 @@ bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
 {
-    return Cell((_displayList.size() - 1) / numCols(),
-                (_displayList.size() - 1) % numCols());
-}
-
-bool ThumbnailView::ThumbnailWidget::isMovementKey( int key )
-{
-    return ( key == Qt::Key_Up || key == Qt::Key_Down || key == Qt::Key_Left || key == Qt::Key_Right ||
-             key == Qt::Key_Home || key == Qt::Key_End || key == Qt::Key_PageUp || key == Qt::Key_PageDown );
-}
-
-void ThumbnailView::ThumbnailWidget::toggleSelection( const DB::ResultId& id )
-{
-    if ( _selectedFiles.contains( id ) )
-        _selectedFiles.remove( id );
-    else
-        _selectedFiles.insert( id );
-
-    updateCell( id );
-}
-
-void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::ResultId& id)
-{
-    if ( _selectedFiles.size() == 1 ) {
-        updateCell( *(_selectedFiles.begin()) );
-        _selectedFiles.clear();
-        _selectedFiles.insert( id );
-        updateCell( id );
-        possibleEmitSelectionChanged();
-        scrollToCell( positionForMediaId( id ) );
-    }
-}
-
-DB::Result ThumbnailView::ThumbnailWidget::selection(bool keepSortOrderOfDatabase) const
-{
-    DB::Result images = _displayList;
-    if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
-        images = reverseList( images );
-
-    DB::Result res;
-    Q_FOREACH(DB::ResultId id, images) {
-        if (_selectedFiles.contains(id))
-            res.append(id);
-    }
-    return res;
-}
-
-void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
-{
-    static IdSet oldSelection;  // TODO: get rid of static here.
-    if ( oldSelection != _selectedFiles ) {
-        oldSelection = _selectedFiles;
-        emit selectionChanged();
-    }
-}
-
-// TODO(hzeller) figure out if this should return the _imageList or _displayList.
-DB::Result ThumbnailView::ThumbnailWidget::imageList(Order order) const
-{
-    if ( order == SortedOrder &&  _sortDirection == NewestFirst )
-        return reverseList( _displayList );
-    else
-        return _displayList;
-}
-
-void ThumbnailView::ThumbnailWidget::selectAll()
-{
-    _selectedFiles.clear();
-    Q_FOREACH(DB::ResultId id, _displayList) {
-        _selectedFiles.insert(id);
-    }
-    possibleEmitSelectionChanged();
-    repaintScreen();
+    return Cell((model()->_displayList.size() - 1) / numCols(),
+                (model()->_displayList.size() - 1) % numCols());
 }
 
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
 {
     if ( flushCache )
-        _thumbnailCache.clear();
-    if ( clearSelection ) {
-        _selectedFiles.clear();
-        possibleEmitSelectionChanged();
-    }
+        cache()->clear();
+    if ( clearSelection )
+        model()->clearSelection();
     updateCellSize();
     repaintScreen();
 }
 
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
-
     QPalette p;
     p.setColor( QPalette::Base, Settings::SettingsData::instance()->backgroundColor() );
     p.setColor( QPalette::Foreground, p.color(QPalette::WindowText ) );
@@ -1305,152 +421,25 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
 
 DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
-    return mediaIdAtCoordinate( mapFromGlobal( QCursor::pos() ), ViewportCoordinates );
-}
-
-DB::ResultId ThumbnailView::ThumbnailWidget::currentItem() const
-{
-    return _currentItem;
-}
-
-ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailWidget::theThumbnailView()
-{
-    return _instance;
-}
-
-void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::ResultId& id )
-{
-    Cell cell = positionForMediaId( id );
-    _currentItem = id;
-
-    _selectedFiles.clear();
-    _selectedFiles.insert( id );
-    updateCell( id );
-    ensureCellVisible( cell.row(), cell.col() );
-}
-
-void ThumbnailView::ThumbnailWidget::showToolTipsOnImages( bool on )
-{
-    _toolTip->setActive( on );
+    return model()->mediaIdAtCoordinate( mapFromGlobal( QCursor::pos() ), ViewportCoordinates );
 }
 
 
 void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* event )
 {
-    if ( event->provides( "text/uri-list" ) && _selectionInteraction.isDragging() )
-        event->accept();
-    else {
-        event->ignore();
-        return;
-    }
-
-    int row = rowAt( event->pos().y() );
-    int col = columnAt( event->pos().x() );
-    DB::ResultId id = mediaIdInCell( row, col );
-
-    removeDropIndications();
-
-    QRect rect = cellGeometry( row, col );
-    bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
-    if ( left ) {
-        _leftDrop = id;
-        int index = _idToIndex[id] - 1;
-        if ( index != -1 )
-            _rightDrop = _displayList.at(index);
-    }
-
-    else {
-        _rightDrop = id;
-        const int index = _idToIndex[id] + 1;
-        if (index != _displayList.size())
-            _leftDrop = _displayList.at(index);
-    }
-
-    updateCell( _leftDrop );
-    updateCell( _rightDrop );
+    _dndHandler->contentsDragMoveEvent(event);
 }
 
-void ThumbnailView::ThumbnailWidget::contentsDragLeaveEvent( QDragLeaveEvent* )
+void ThumbnailView::ThumbnailWidget::contentsDragLeaveEvent( QDragLeaveEvent* event )
 {
-    removeDropIndications();
+    _dndHandler->contentsDragLeaveEvent( event );
 }
 
-void ThumbnailView::ThumbnailWidget::contentsDropEvent( QDropEvent* )
+void ThumbnailView::ThumbnailWidget::contentsDropEvent( QDropEvent* event )
 {
-    QTimer::singleShot( 0, this, SLOT( realDropEvent() ) );
+    _dndHandler->contentsDropEvent( event );
 }
 
-/**
- * Do the real work for the drop event.
- * We can't bring up the dialog in the contentsDropEvent, as Qt is still in drag and drop mode with a different cursor etc.
- * That's why we use a QTimer to get this call back executed.
- */
-void ThumbnailView::ThumbnailWidget::realDropEvent()
-{
-    QString msg =
-        i18n( "<p><b>Really reorder thumbnails?</b></p>"
-              "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
-              "This is very useful in case you don't know the exact date for the images. On the other hand, "
-              "if the images themself have valid timestamps, you should use "
-              "<b>Images -&gt; Sort Selected By Date and Time</b></p>" );
-
-    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Thumbnails") , KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                     QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
-
-        // protect against self drop
-        if ( !_selectedFiles.contains( _leftDrop ) && ! _selectedFiles.contains( _rightDrop ) ) {
-            const DB::Result selected = selection();
-            if ( _rightDrop.isNull() ) {
-                // We dropped onto the first image.
-                DB::ImageDB::instance()->reorder( _leftDrop, selected, false );
-            }
-            else
-                DB::ImageDB::instance()->reorder( _rightDrop, selected, true );
-
-            Browser::BrowserWidget::instance()->reload();
-        }
-    }
-    removeDropIndications();
-}
-
-void ThumbnailView::ThumbnailWidget::removeDropIndications()
-{
-    DB::ResultId left = _leftDrop;
-    DB::ResultId right = _rightDrop;
-    _leftDrop = DB::ResultId::null;
-    _rightDrop = DB::ResultId::null;
-
-    updateCell( left );
-    updateCell( right );
-}
-
-void ThumbnailView::ThumbnailWidget::ensureCellsSorted( Cell& pos1, Cell& pos2 )
-{
-    if ( pos2.row() < pos1.row() || ( pos2.row() == pos1.row() && pos2.col() < pos1.col() ) ) {
-        Cell tmp = pos1;
-        pos1 = pos2;
-        pos2 = tmp;
-    }
-}
-
-void ThumbnailView::ThumbnailWidget::slotRepaint()
-{
-    // Create a local copy to make the _pendingRepaint accessible as soon as
-    // possible.
-    _pendingRepaintLock.lock();
-    IdSet toRepaint(_pendingRepaint);
-    _pendingRepaint.clear();
-    _pendingRepaintLock.unlock();
-
-    if ( (int) toRepaint.size() > numCols() * numRowsPerPage() / 2 )
-        repaintScreen();
-    else {
-        for( IdSet::const_iterator it = toRepaint.begin(); it != toRepaint.end(); ++it ) {
-            Cell cell = positionForMediaId( *it );
-            Q3GridView::repaintCell( cell.row(), cell.col() );
-        }
-    }
-}
 
 void ThumbnailView::ThumbnailWidget::dimensionChange( int oldNumRows, int /*oldNumCols*/ )
 {
@@ -1458,42 +447,17 @@ void ThumbnailView::ThumbnailWidget::dimensionChange( int oldNumRows, int /*oldN
         repaintScreen();
 }
 
-void ThumbnailView::ThumbnailWidget::setSortDirection( SortDirection direction )
-{
-    if ( direction == _sortDirection )
-        return;
-
-    Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
-    _displayList = reverseList( _displayList );
-    updateIndexCache();
-    _thumbnailCache.setDisplayList(_displayList);
-    if ( !_currentItem.isNull() )
-        setCurrentItem( _currentItem );
-    repaintScreen();
-
-    _sortDirection = direction;
-}
-
-DB::Result ThumbnailView::ThumbnailWidget::reverseList(const DB::Result& list) const
-{
-    DB::Result res;
-    Q_FOREACH(DB::ResultId id, list) {
-        res.prepend(id);
-    }
-    return res;
-}
-
 void ThumbnailView::ThumbnailWidget::updateCellSize()
 {
-    const QSize cellSize = this->cellSize();
+    const QSize cellSize = cellGeometryInfo()->cellSize();
     setCellWidth( cellSize.width() );
 
     const int oldHeight = cellHeight();
-    const int height = cellSize.height() + 2 + textHeight( true );
+    const int height = cellSize.height() + 2 + cellGeometryInfo()->textHeight( QFontMetrics( font() ).height(), true );
     setCellHeight( height );
     updateGridSize();
-    if ( height != oldHeight && ! _currentItem.isNull() ) {
-        const Cell c = positionForMediaId(_currentItem);
+    if ( height != oldHeight && ! model()->currentItem().isNull() ) {
+        const Cell c = model()->positionForMediaId(model()->currentItem());
         ensureCellVisible( c.row(), c.col() );
     }
 }
@@ -1507,31 +471,8 @@ void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )
     Q3GridView::viewportPaintEvent( e );
 }
 
-void ThumbnailView::ThumbnailWidget::updateIndexCache()
-{
-    _idToIndex.clear();
-    int index = 0;
-    Q_FOREACH(DB::ResultId id, _displayList) {
-        _idToIndex[id] = index;
-        ++index;
-    }
-}
-
 void ThumbnailView::ThumbnailWidget::contentsDragEnterEvent( QDragEnterEvent * event )
 {
-    if ( event->provides( "text/uri-list" ) && _selectionInteraction.isDragging() )
-        event->accept();
-    else
-        event->ignore();
+    _dndHandler->contentsDragEnterEvent( event );
 }
-
-void ThumbnailView::ThumbnailWidget::imagesDeletedFromDB( const DB::Result& list )
-{
-    Q_FOREACH( DB::ResultId id, list ) {
-        _displayList.removeAll( id );
-        _imageList.removeAll(id);
-    }
-    updateDisplayModel();
-}
-
 

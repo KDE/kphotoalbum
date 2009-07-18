@@ -2,13 +2,48 @@
   \namespace ThumbnailView
   \brief  The classes in this namespace makes up the thumbnail window
 
-  <h2>The Main Widget</h2>
-  \li \ref ThumbnailWidget - This is the widget class in this namespace. It is
-  of course the oldest class in here, and therefore have had the tendency
-  to have functionalists just added to it. It is an ongoing effort to
-  refactor classes out of this class.
-  For details of its implementation pleas refer to \ref model-view-in-thumbnail
+  <h2>Design Decisions</h2>
+  \li \ref model-view-in-thumbnail
 
+  <h2>Base structure and API</h2>
+  The only class that should be seen from the outside is the class \ref
+  ThumbnailFacade. This class has delegates for the methods on the various
+  object that the outside need to know. Please be careful not to expose
+  anything, except though this class.
+
+  The thumbnail viewer was likely one of the very first pieces of code that
+  was written in KPhotoAlbum, and consequently also one of the pieces of
+  code that just grew larger and larger organically. During a large
+  refactoring session in July 2009, this was cleaned up, but a number of
+  objects are still very tightly connected, namely the widget itself (\ref
+  ThumbnailWidget), its painting code (\ref ThumbnailPainter), its data
+  model (\ref ThumbnailModel), and its event handlers.
+
+  To avoid that all these classes needed to be set up with pointers to each
+  other, a factory (\ref ThumbnailFactory) was created, from which any of
+  these object could get to the other. To avoid outside
+  objects to misuse this factory to get to the objects, they were explicit
+  constructed with the factory by the object who owned the pointers to all of
+  the participants, namely \ref ThumbnailFacade, and as the \ref
+  ThumbnailFactory only is an interface, it would not help the outside in.
+
+  To ease the jump between the involved objects, and to make it more
+  explicit which objects participated, and what they accessed from each
+  other, they all inherited from \ref ThumbnailComponent which offers
+  methods like \ref ThumbnailComponent::model(), \ref
+  ThumbnailComponent::widget() etc.
+
+  The core part of this module consist of these classes:
+  \li \ref ThumbnailFacade - The API for the other modules in KPhotoAlbum.
+  \li \ref ThumbnailWidget - This is the widget that are put into the main
+  windows gui.
+  \li \ref ThumbnailModel - This is the underlying model of the
+  widget. Here you will find methods to access and alter the selection, the
+  stack, the list of images etc.
+  \li \ref ThumbnailPainter - Here are all the code for painting the
+  widget.
+  \li \ref CellGeometry - This is where you will find the logic for
+  calculating the sizes of cells, the text height etc.
   \li \ref Cell - This is a simple class with a (row,column) content.
 
   <h2>Thumbnail Handling</h2>
@@ -49,6 +84,13 @@
   \li \ref GridResizeInteraction - This interaction is active when the user is
   resizing the grid. It is active when the middle mouse button has been
   pressed down.
+
+  \li \ref ThumbnailDND - Reordering images is done using the drag and drop
+  mechanism of Qt. The implementation of these event handlers are done in
+  this class.
+
+  <h2>Keyboard Interaction</h2>
+  \li Keyboard event handlers are implemented in \ref KeyboardEventHandler.
 
   <h2>Tooltips</h2>
   \li \ref ThumbnailToolTip - In the thumbanil viewer, it is possible to show

@@ -475,16 +475,13 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-    QStringList res;
-    QList<QUrl> urls;
+    KUrl::List urls;
     Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
-        res.append( fileName );
-        urls.append( QUrl( fileName ) );
+        urls.append( fileName );
     }
     QMimeData* mimeData = new QMimeData;
-    mimeData->setUrls( urls );
-    mimeData->setText( res.join( QLatin1String(" ") ) );
+    urls.populateMimeData(mimeData);
 
     QApplication::clipboard()->setMimeData( mimeData );
 }

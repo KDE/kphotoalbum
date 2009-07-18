@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionInteraction.h"
+#include "Cell.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailFactory.h"
 #include "CellGeometry.h"
@@ -26,9 +27,6 @@
 #include <qapplication.h>
 #include <kurl.h>
 
-#include "DB/ImageDB.h"
-#include "DB/Result.h"
-#include "DB/ResultId.h"
 #include "MainWindow/Window.h"
 #include "ThumbnailWidget.h"
 

@@ -18,12 +18,8 @@
 #include "CellGeometry.h"
 #include "ThumbnailCache.h"
 #include "ThumbnailModel.h"
-#include "ThumbnailFactory.h"
-#include "Cell.h"
 #include "DB/ResultId.h"
-#include <QRect>
 #include "Settings/SettingsData.h"
-#include <QSize>
 
 using Utilities::StringSet;
 

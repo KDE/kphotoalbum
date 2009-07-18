@@ -18,18 +18,18 @@
 #ifndef SELECTIONINTERACTION_H
 #define SELECTIONINTERACTION_H
 
-#include "ThumbnailModel.h"
+#include "ThumbnailComponent.h"
+#include "enums.h"
 #include "MouseInteraction.h"
 #include <qobject.h>
-#include <QMouseEvent>
-#include <QSet>
 
-#include "Cell.h"
-#include "DB/ResultId.h"
+namespace DB { class ResultId; }
 
+class QMouseEvent;
 namespace ThumbnailView
 {
 class ThumbnailFactory;
+class Cell;
 
 class SelectionInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
     Q_OBJECT

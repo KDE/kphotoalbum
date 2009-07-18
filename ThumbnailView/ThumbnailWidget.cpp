@@ -26,20 +26,7 @@
 #include "ThumbnailPainter.h"
 #include <math.h>
 
-#include <QDragLeaveEvent>
-#include <QKeyEvent>
-#include <Q3PointArray>
-#include <QPixmap>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QResizeEvent>
-#include <QMouseEvent>
-#include <QShowEvent>
-#include <QPaintEvent>
-#include <QWheelEvent>
-
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <qcursor.h>
 #include <qfontmetrics.h>
 #include <qpainter.h>
@@ -49,12 +36,8 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ResultId.h"
 #include "ImageManager/Manager.h"
-#include "MainWindow/DirtyIndicator.h"
 #include "Settings/SettingsData.h"
-#include "ThumbnailRequest.h"
-#include "ThumbnailToolTip.h"
 #include "Utilities/Set.h"
-#include "DB/CategoryCollection.h"
 
 /**
  * \class ThumbnailView::ThumbnailWidget

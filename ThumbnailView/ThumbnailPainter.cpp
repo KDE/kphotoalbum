@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailPainter.h"
+#include "Cell.h"
 #include "ThumbnailCache.h"
 #include <QTimer>
 #include "enums.h"
@@ -24,7 +25,6 @@
 #include "CellGeometry.h"
 #include "DB/ImageDB.h"
 #include <Q3PointArray>
-#include <QRect>
 #include "ImageManager/Manager.h"
 #include "ThumbnailRequest.h"
 #include "Settings/SettingsData.h"
@@ -52,6 +52,7 @@ ThumbnailView::ThumbnailPainter::ThumbnailPainter( ThumbnailFactory* factory )
 
 void ThumbnailView::ThumbnailPainter::paintCell( QPainter * p, int row, int col )
 {
+    // PENDING(blackie) This double buffering can likely be turned of now
     QPixmap doubleBuffer( widget()->cellRect().size() );
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );

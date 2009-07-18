@@ -18,15 +18,10 @@
 
 #include "ThumbnailToolTip.h"
 
-#include <Q3Frame>
 #include <QDesktopWidget>
-#include <QEvent>
-#include <QLabel>
 #include <QTemporaryFile>
 #include <QApplication>
 #include <QCursor>
-#include <QToolTip>
-#include <qmime.h>
 
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"

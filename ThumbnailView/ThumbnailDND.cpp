@@ -16,14 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailDND.h"
+#include "ThumbnailModel.h"
 #include <QTimer>
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include <KMessageBox>
 #include <klocale.h>
 #include "ThumbnailWidget.h"
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
 
 ThumbnailView::ThumbnailDND::ThumbnailDND( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )

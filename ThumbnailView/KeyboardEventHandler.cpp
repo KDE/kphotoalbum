@@ -23,7 +23,6 @@
 #include "MainWindow/DirtyIndicator.h"
 #include "DB/ImageDB.h"
 #include "ThumbnailModel.h"
-#include <QKeyEvent>
 
 ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),

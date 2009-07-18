@@ -16,10 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MouseTrackingInteraction.h"
-#include "ThumbnailComponent.h"
+#include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
-#include "DB/ImageDB.h"
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),

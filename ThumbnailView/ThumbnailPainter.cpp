@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailPainter.h"
+#include "ThumbnailCache.h"
+#include <QTimer>
 #include "enums.h"
 #include "ThumbnailFactory.h"
 #include "ThumbnailModel.h"

@@ -20,32 +20,16 @@
 
 #include "ThumbnailComponent.h"
 #include <q3gridview.h>
-#include <QMutex>
-#include <QDragLeaveEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QHash>
-#include <QKeyEvent>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QResizeEvent>
-#include <QShowEvent>
-#include <QWheelEvent>
-
-#include "Cell.h"
-#include "DB/ImageDate.h"
-#include "DB/ImageInfo.h"
-#include "DB/Result.h"
-#include "DB/ResultId.h"
 #include "GridResizeInteraction.h"
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
-#include "ThumbnailToolTip.h"
-#include "ThumbnailCache.h"
 #include "ThumbnailView/enums.h"
 
 class QTimer;
 class QDateTime;
+
+namespace DB { class ImageDate; class ResultId; }
+
 
 namespace ThumbnailView
 {
@@ -55,6 +39,7 @@ class ThumbnailModel;
 class ThumbnailFactory;
 class KeyboardEventHandler;
 class ThumbnailDND;
+class Cell;
 
 class ThumbnailWidget : public Q3GridView, private ThumbnailComponent {
     Q_OBJECT

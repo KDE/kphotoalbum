@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
+#include "ThumbnailCache.h"
 #include "ThumbnailDND.h"
 #include "KeyboardEventHandler.h"
 #include "ThumbnailFactory.h"

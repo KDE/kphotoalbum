@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailModel.h"
+#include "ThumbnailCache.h"
 #include "DB/ImageDB.h"
 #include "ThumbnailWidget.h"
 #include "ThumbnailPainter.h"

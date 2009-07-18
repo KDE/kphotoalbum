@@ -20,12 +20,12 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 
-class ThumbnailToolTip;
 namespace ThumbnailView
 {
 class ThumbnailModel;
 class CellGeometry;
 class ThumbnailPainter;
+class ThumbnailToolTip;
 
 class ThumbnailFacade :public QObject, public ThumbnailFactory
 {

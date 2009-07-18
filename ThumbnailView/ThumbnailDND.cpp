@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailDND.h"
+#include <QTimer>
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include <KMessageBox>

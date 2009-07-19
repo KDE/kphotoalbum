@@ -41,9 +41,9 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
 
 void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
-    _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = widget()->viewportToContents( event->pos() );
     DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
+    _isMouseDragOperation = isMouseOverIcon( event->pos() ) && model()->isSelected( mediaId );
 
     if ( deselectSelection( event ) && !model()->isSelected( mediaId ) )
         model()->clearSelection();
@@ -72,7 +72,7 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
     if ( !(event->buttons() & Qt::LeftButton ) )
         return;
 
-    if ( _mousePressWasOnIcon &&
+    if ( _isMouseDragOperation &&
          (widget()->viewportToContents(event->pos()) - _mousePressPos ).manhattanLength() > QApplication::startDragDistance() )
         startDrag();
 

@@ -50,30 +50,13 @@ ThumbnailView::ThumbnailPainter::ThumbnailPainter( ThumbnailFactory* factory )
     connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
 }
 
-void ThumbnailView::ThumbnailPainter::paintCell( QPainter * p, int row, int col )
+void ThumbnailView::ThumbnailPainter::paintCell( QPainter * painter, int row, int col )
 {
-    // PENDING(blackie) This double buffering can likely be turned of now
-    QPixmap doubleBuffer( widget()->cellRect().size() );
-    QPainter painter( &doubleBuffer );
-    paintCellBackground( &painter, row, col );
+    paintCellBackground( painter, row, col );
     if ( !widget()->isGridResizing() ) {
-        const bool isSelected = model()->isSelected(model()->imageAt(row, col));
-        QColor selectionColor = widget()->palette().highlight().color();
-        if ( isSelected ) {
-            painter.fillRect( widget()->cellRect(), selectionColor );
-        }
-
-        paintCellPixmap( &painter, row, col );
-        paintCellText( &painter, row, col );
-        if (isSelected) {
-            selectionColor.setAlpha( 70 );
-            QRect rect = cellGeometryInfo()->iconGeometry(row,col);
-            painter.fillRect( rect, selectionColor );
-        }
-
+        paintCellPixmap( painter, row, col );
+        paintCellText( painter, row, col );
     }
-    painter.end();
-    p->drawPixmap( widget()->cellRect(), doubleBuffer );
 }
 
 static DB::StackID getStackId(const DB::ResultId& id)
@@ -93,49 +76,21 @@ void ThumbnailView::ThumbnailPainter::paintCellPixmap( QPainter* painter, int ro
 
     QPixmap pixmap;
     if (cache()->find(mediaId, &pixmap)) {
-        QRect rect = cellGeometryInfo()->iconGeometry( row, col );
+        const QRect rect = cellGeometryInfo()->iconGeometry( row, col );
         Q_ASSERT( !rect.isNull() );
 
-        // Paint inner shadow
-        int xl = rect.left();
-        int yt = rect.top();
-        int xr = rect.right()+1;
-        int yb = rect.bottom()+1;
-        painter->setPen( QColor(70,70,70,70) );
-        painter->drawLine( xr, yt, xr, yb );
-        painter->drawLine( xl, yb, xr, yb );
-
-        // Paint outer shadow
-        xr +=1;
-        yb +=1;
-        painter->setPen( Qt::black );
-        painter->drawLine( xr, yt, xr, yb );
-        painter->drawLine( xl, yb, xr, yb );
-
-        // Paint pixmap
         painter->drawPixmap( rect, pixmap );
 
-        // Paint move indication
-        rect = QRect( 0, 0, widget()->cellWidth(), widget()->cellHeight() );
-        if ( model()->leftDropItem() == mediaId )
-            painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
-        else if ( model()->rightDropItem() == mediaId )
-            painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
+        // Paint transparent pixels over the widget for selection.
+        if ( model()->isSelected(model()->imageAt(row, col)) )
+            painter->fillRect( rect, QColor(58,98,134, 127) );
+
+        paintBoundingRect( painter, row, col );
+        paintDropIndicator( painter, row, col );
         paintStackedIndicator(painter, rect, mediaId);
     }
-    else {
-        DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
-        const QSize cellSize = cellGeometryInfo()->cellSize();
-        const int angle = imageInfo->angle();
-        const int space = Settings::SettingsData::instance()->thumbnailSpace();
-        ThumbnailRequest* request
-            = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
-                                   QSize( cellSize.width() - 2 * space,
-                                          cellSize.height() - 2 * space),
-                                   angle, this );
-        request->setPriority( ImageManager::ThumbnailVisible );
-        ImageManager::Manager::instance()->load( request );
-    }
+    else
+        requestThumbnail( mediaId );
 }
 
 /**
@@ -368,5 +323,67 @@ void ThumbnailView::ThumbnailPainter::repaint( const DB::ResultId& id )
     // Do not trigger immediatly the repaint but wait a tiny bit - there might
     // be more coming which we then can paint in one shot.
     _repaintTimer->start( 10 );
+}
+
+
+/**
+   This will paint the pixels around the thumbnail, which gives it a 3D
+   effect, and also which indicates current image and selection state.
+   The colors are fetched from looking at the Gwenview. I tried to see if I
+   could figure out from the code how it was drawn, but failed at doing so.
+*/
+void ThumbnailView::ThumbnailPainter::paintBoundingRect( QPainter* painter, int row, int col  )
+{
+    QRect rect = cellGeometryInfo()->iconGeometry( row, col );
+
+    rect.adjust(0,0,-1,-1);
+    for ( int i = 0; i < 5; ++i ) {
+        QColor color;
+        if ( model()->isSelected(model()->imageAt(row, col)) ) {
+            static QColor selectionColors[] = { QColor(58,98,134), QColor(96,161,221), QColor(93,165,228), QColor(132,186,237), QColor(62,95,128)};
+            color = selectionColors[i];
+        }
+
+        else if ( widget()->mediaIdUnderCursor() == model()->imageAt( row, col ) ) {
+            static QColor hoverColors[] = { QColor(46,99,152), QColor(121,136,151), QColor(121,136,151), QColor(126,145,163), QColor(109,126,142)};
+            color = hoverColors[i];
+        }
+
+        else {
+            color = Qt::black;
+            color.setAlpha( (0.5 - 0.1*i) * 255 );
+        }
+
+        painter->setPen( color );
+        rect.adjust(-1,-1,1,1 );
+        painter->drawRect(rect);
+    }
+}
+
+void ThumbnailView::ThumbnailPainter::paintDropIndicator( QPainter* painter, int row, int col )
+{
+    const QRect rect( 0, 0, widget()->cellWidth(), widget()->cellHeight() );
+    const DB::ResultId mediaId = model()->imageAt( row, col );
+
+    if ( model()->leftDropItem() == mediaId )
+        painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
+
+    else if ( model()->rightDropItem() == mediaId )
+        painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
+}
+
+void ThumbnailView::ThumbnailPainter::requestThumbnail( const DB::ResultId& mediaId )
+{
+    DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
+    const QSize cellSize = cellGeometryInfo()->cellSize();
+    const int angle = imageInfo->angle();
+    const int space = Settings::SettingsData::instance()->thumbnailSpace();
+    ThumbnailRequest* request
+        = new ThumbnailRequest(imageInfo->fileName(DB::AbsolutePath),
+                               QSize( cellSize.width() - 2 * space,
+                                      cellSize.height() - 2 * space),
+                               angle, this );
+    request->setPriority( ImageManager::ThumbnailVisible );
+    ImageManager::Manager::instance()->load( request );
 }
 

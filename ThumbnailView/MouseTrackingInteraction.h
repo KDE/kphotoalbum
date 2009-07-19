@@ -32,7 +32,7 @@ public:
     virtual void mouseMoveEvent( QMouseEvent* );
 
 signals:
-    void fileNameUnderCursorChanged( const QString& fileName );
+    void fileIdUnderCursorChanged( const DB::ResultId& id );
 
 private:
     void updateStackingIndication( QMouseEvent* event );

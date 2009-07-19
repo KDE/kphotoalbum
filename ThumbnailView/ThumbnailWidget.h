@@ -82,7 +82,7 @@ public slots:
 signals:
     void showImage( const DB::ResultId& id );
     void showSelection();
-    void fileNameUnderCursorChanged( const QString& fileName );
+    void fileIdUnderCursorChanged( const DB::ResultId& id );
     void currentDateChanged( const QDateTime& );
     void selectionChanged();
 

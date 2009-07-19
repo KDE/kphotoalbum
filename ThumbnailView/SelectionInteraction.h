@@ -66,7 +66,7 @@ private:
     /**
      * Did the mouse interaction start with the mouse on top of an icon.
      */
-    bool _mousePressWasOnIcon;
+    bool _isMouseDragOperation;
 
     IdSet _originalSelectionBeforeDragStart;
     QTimer* _dragTimer;

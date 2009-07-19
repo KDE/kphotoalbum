@@ -193,7 +193,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
     connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
-    connect( _thumbnailView, SIGNAL( fileNameUnderCursorChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
+    connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId& ) ), this, SLOT( slotSetFileName( const DB::ResultId& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
@@ -1177,9 +1177,12 @@ void MainWindow::Window::slotConfigureKeyBindings()
     delete viewer;
 }
 
-void MainWindow::Window::slotSetFileName( const QString& fileName )
+void MainWindow::Window::slotSetFileName( const DB::ResultId& id )
 {
-    statusBar()->showMessage( fileName, 4000 );
+    if ( id.isNull() )
+        statusBar()->clearMessage();
+    else
+        statusBar()->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
 }
 
 void MainWindow::Window::slotThumbNailSelectionChanged(int selectionSize)

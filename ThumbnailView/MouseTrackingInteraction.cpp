@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MouseTrackingInteraction.h"
+#include "Cell.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
@@ -47,16 +48,12 @@ void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEv
 
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon( QMouseEvent* event )
 {
-    static QString lastFileNameUderCursor;
-    DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
-    if (id.isNull()) {
-        emit fileNameUnderCursorChanged( QString() );
-        lastFileNameUderCursor = QString();
-        return;
-    }
-    QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
-    if ( fileName != lastFileNameUderCursor ) {
-        emit fileNameUnderCursorChanged( fileName );
-        lastFileNameUderCursor = fileName;
+    static DB::ResultId lastIdUderCursor;
+    const DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
+    if ( id != lastIdUderCursor ) {
+        emit fileIdUnderCursorChanged(id);
+        widget()->updateCell(lastIdUderCursor);
+        widget()->updateCell(id);
+        lastIdUderCursor = id;
     }
 }

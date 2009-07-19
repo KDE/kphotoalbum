@@ -43,8 +43,8 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade()
              this, SIGNAL( showImage( const DB::ResultId& ) ) );
     connect( _widget, SIGNAL( showSelection() ),
              this, SIGNAL( showSelection() ) );
-    connect( _widget, SIGNAL( fileNameUnderCursorChanged( const QString& ) ),
-             this, SIGNAL( fileNameUnderCursorChanged( const QString&  ) ) );
+    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId& ) ),
+             this, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId&  ) ) );
     connect( _widget, SIGNAL( currentDateChanged( const QDateTime& ) ),
              this, SIGNAL( currentDateChanged( const QDateTime& ) ) );
     connect( _model, SIGNAL( selectionChanged(int) ),

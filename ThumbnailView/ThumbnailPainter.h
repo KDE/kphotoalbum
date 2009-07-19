@@ -59,6 +59,9 @@ private:
     QRect cellTextGeometry( int row, int col ) const;
     QString thumbnailText( const DB::ResultId& mediaId ) const;
     void paintStackedIndicator( QPainter* painter, const QRect &rect, const DB::ResultId& mediaId);
+    void paintBoundingRect( QPainter* painter, int row, int col );
+    void paintDropIndicator( QPainter* painter, int row, int col );
+    void requestThumbnail( const DB::ResultId& id );
 
 private:
     QTimer* _repaintTimer;

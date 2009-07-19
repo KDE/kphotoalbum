@@ -1,3 +1,16 @@
+2009-07-19  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* To move items around in the thumbnail viewer, you now first have
+	to select them, then move them. This makes it so much easier to
+	select items, as you do not have to find an empty space to start.
+
+	* Once more updated the look of the icons in the thumbnail
+	viewer. This time I copied the look and fell from Gwenview, which
+	I hope everyone will like.
+
+	* Refactored the code of the thumbnail viewer, so it now is much
+	more clean and understandable.
+
 2009-07-14  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Thumbnail view icons are now square again, and background color

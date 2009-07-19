@@ -75,7 +75,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVScrollBarMode( AlwaysOn );
     setHScrollBarMode( AlwaysOff );
 
-    connect( &_mouseTrackingHandler, SIGNAL( fileNameUnderCursorChanged( QString ) ), this, SIGNAL( fileNameUnderCursorChanged( QString ) ) );
+    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ) );
     connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
 }
 

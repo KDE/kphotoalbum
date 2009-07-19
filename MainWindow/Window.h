@@ -109,7 +109,7 @@ protected slots:
     void unlockFromDefaultScope();
     void changePassword();
     void slotConfigureKeyBindings();
-    void slotSetFileName( const QString& );
+    void slotSetFileName( const DB::ResultId& );
     void slotThumbNailSelectionChanged(int selectionSize);
     void reloadThumbnails(bool flushCache);
     void reloadThumbnailsAndFlushCache();

@@ -54,13 +54,10 @@ ImageManager::Manager* ImageManager::Manager::instance()
       image themself weren't available.
 */
 ImageManager::Manager::Manager()
-    // We allow to set the thumbnail format (something like 'png', 'jpg'
-    // or 'ppm') with an environment variable for testing.
-    // TODO(hzeller): Add this to SettingsDialog if useful.
 #ifdef TESTING_MEMORY_THUMBNAIL_CACHING
-    : _thumbnailStorage(new MemoryThumbnailStorage(getenv("KPA_THUMB_FORMAT")))
+  : _thumbnailStorage(new MemoryThumbnailStorage(Settings::SettingsData::instance()->thumbnailFormat()))
 #else
-    : _thumbnailStorage(new FileThumbnailStorage(getenv("KPA_THUMB_FORMAT")))
+  : _thumbnailStorage(new FileThumbnailStorage(Settings::SettingsData::instance()->thumbnailFormat()))
 #endif
 {
 }

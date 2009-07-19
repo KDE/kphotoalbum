@@ -71,7 +71,7 @@ public:
      * out that the 'ppm' format seems to be much faster.
      * If "imageFormat" is NULL, we fall back to 'ppm' as default.
      */
-    FileThumbnailStorage(const char* imageFormat);
+    FileThumbnailStorage(const QString & imageFormat);
 
     virtual bool store(const QString& key, const QImage& image);
     virtual bool retrieve(const QString& key, QImage* image);
@@ -82,7 +82,7 @@ private:
     QString keyToPath(const QString& key);
     QMutex _cacheLock;
     QSet<QString> _existenceCache;
-    const char* const _imageFormat;
+    QString _imageFormat;
 };
 
 // If Filesystem-IO makes trouble, we could consider implementing a

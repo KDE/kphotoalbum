@@ -1,5 +1,11 @@
 2009-07-19  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Now it is possible to chose the thumbnail storage format from
+	the settings dialog (ppm files which we used by default are pretty
+	large, so on limited disk space you may wish to choose jpg instead
+	to trade some speed for disk space. (thanks to Franck Sicard
+	<franck.sicard@3demi.net> for a patch for this)
+
 	* To move items around in the thumbnail viewer, you now first have
 	to select them, then move them. This makes it so much easier to
 	select items, as you do not have to find an empty space to start.

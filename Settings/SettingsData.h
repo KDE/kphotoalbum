@@ -106,6 +106,7 @@ public:
     property_copy( thumbnailCacheScreens   , setThumbnailCacheScreens  , int );
     property_copy( thumbSize               , setThumbSize              , int );
     property_copy( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio );
+    property_ref ( thumbnailFormat         , setThumbnailFormat        , QString );
 
     /**
      * Return an approximate figure of megabytes to cache to be able to

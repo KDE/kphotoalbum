@@ -31,8 +31,8 @@
  */
 static const char *kDefaultImageFormat = "ppm";
 
-ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat)
-    : _imageFormat(imageFormat != NULL ? imageFormat : kDefaultImageFormat)
+ImageManager::FileThumbnailStorage::FileThumbnailStorage(const QString & imageFormat)
+    : _imageFormat(!imageFormat.isEmpty() ? imageFormat : QString::fromLatin1(kDefaultImageFormat))
 {
     QDir dir(QDir::homePath());
     dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
@@ -43,8 +43,8 @@ ImageManager::FileThumbnailStorage::FileThumbnailStorage(const char *imageFormat
 
 QString ImageManager::FileThumbnailStorage::keyToPath(const QString& key)
 {
-    return QString::fromLatin1( "%1/.thumbnails/%2.%3" )
-        .arg(QDir::homePath()).arg(key).arg(QLatin1String(_imageFormat));
+    return  QString::fromLatin1( "%1/.thumbnails/%2.%3" )
+        .arg(QDir::homePath()).arg(key).arg(_imageFormat);
 }
 
 bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage& image)
@@ -57,7 +57,7 @@ bool ImageManager::FileThumbnailStorage::store(const QString& key, const QImage&
      * "libpng error: Read Error" messages when running more ImageLoader
      * threads. */
     QString temporary = path + QString::fromLatin1(".tmp");
-    bool ok = image.save( temporary, _imageFormat );
+    bool ok = image.save( temporary, _imageFormat.toLatin1() );
 
     if (!ok) return false;
 
@@ -83,7 +83,7 @@ bool ImageManager::FileThumbnailStorage::retrieve(const QString& key, QImage* im
 {
     QString path = keyToPath(key);
     if ( QFile::exists( path ) ) {
-        return image->load( path, _imageFormat );
+        return image->load( path, _imageFormat.toLatin1() );
     }
     return false;
 }

@@ -42,6 +42,15 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( thumbnailAspectRatioLabel, row, 0 );
     lay->addWidget( _thumbnailAspectRatio, row, 1 );
 
+    // Thumbnail Format
+    ++row;
+    QLabel* thumbnailFormatLabel = new QLabel( i18n("Thumbnail format") );
+    _thumbnailFormat = new KComboBox( this );
+    _thumbnailFormat->addItems( QStringList() << i18n("ppm") << i18n("png")
+                                << i18n("jpg"));
+    lay->addWidget( thumbnailFormatLabel, row, 0 );
+    lay->addWidget( _thumbnailFormat, row, 1 );
+
     // Space around cells
     ++row;
     QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells") );
@@ -114,6 +123,10 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
     _thumbnailAspectRatio->setWhatsThis( txt );
 
+    txt = i18n("<p>Choose the format used for the thumbnails images, ppm is the faster, jpg the smaller. You need to restart application for this change to take effect.</p>");
+    _thumbnailFormat->setWhatsThis( txt );
+    _thumbnailFormat->setToolTip(txt);
+
     txt = i18n("<p>How thick the cell padding should be.</p>");
     thumbnailSpaceLabel->setWhatsThis( txt );
 
@@ -151,6 +164,7 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
     _backgroundColor->setColor( QColor( opt->backgroundColor() ) );
     _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     _thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );
+    _thumbnailFormat->setCurrentItem( opt->thumbnailFormat(),false,0 );
     _thumbnailSpace->setValue( opt->thumbnailSpace() );
     _displayLabels->setChecked( opt->displayLabels() );
     _displayCategories->setChecked( opt->displayCategories() );
@@ -164,6 +178,7 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentIndex() );
+    opt->setThumbnailFormat(_thumbnailFormat->currentText() );
     opt->setBackgroundColor( _backgroundColor->color().name() );
     opt->setThumbnailDisplayGrid( _thumbnailDisplayGrid->isChecked() );
     opt->setThumbnailSpace( _thumbnailSpace->value() );

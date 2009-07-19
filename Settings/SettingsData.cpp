@@ -222,6 +222,7 @@ property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool       
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
+property_ref ( thumbnailFormat         , setThumbnailFormat        , QString             , Thumbnails, QString::fromLatin1("ppm") )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
 getValueFunc( int,thumbSize,  Thumbnails, 150)

@@ -26,6 +26,7 @@ private:
     QSpinBox* _previewSize;
     QSpinBox* _thumbnailSize;
     KComboBox* _thumbnailAspectRatio;
+    KComboBox* _thumbnailFormat;
     QSpinBox* _thumbnailSpace;
     QCheckBox* _thumbnailDarkBackground;
     QCheckBox* _thumbnailDisplayGrid;

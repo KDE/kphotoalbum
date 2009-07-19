@@ -450,7 +450,7 @@ void ThumbnailView::ThumbnailModel::select( const DB::ResultId& id )
 {
     _selectedFiles.insert( id );
     widget()->updateCell( id );
-
+    possibleEmitSelectionChanged();
 }
 
 ThumbnailView::IdSet ThumbnailView::ThumbnailModel::selectionSet() const

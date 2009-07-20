@@ -1,3 +1,11 @@
+2009-07-20  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Add a keybinding for delete in the viewer that will take the
+	image of the display list. This is useful when comparing a number
+	of images and want to take the worst one away every time to find
+	the best one. Thanks to Wes Hardaker <wes@hardakers.net> for a
+	patch implementing this.
+
 2009-07-19  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Now it is possible to chose the thumbnail storage format from

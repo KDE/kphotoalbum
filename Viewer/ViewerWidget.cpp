@@ -316,6 +316,11 @@ void Viewer::ViewerWidget::createSkipMenu()
     popup->addAction( action );
     _backwardActions.append(action);
 
+    action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT( removeCurrent() ) );
+    action->setText( i18n("Remove Image from Display List") );
+    action->setShortcut( Qt::Key_Delete );
+    popup->addAction( action );
+
     _popup->addMenu( popup );
 }
 
@@ -479,10 +484,10 @@ void Viewer::ViewerWidget::showNextN(int n)
         _videoDisplay->stop();
     }
 
-    if ( _current +1 < (int) _list.count() )  {
+    if ( _current + n < (int) _list.count() )  {
         _current += n;
-	if (_current >= (int) _list.count())
-	  _current = (int) _list.count() - 1;
+        if (_current >= (int) _list.count())
+            _current = (int) _list.count() - 1;
         _forward = true;
         load();
     }
@@ -491,6 +496,18 @@ void Viewer::ViewerWidget::showNextN(int n)
 void Viewer::ViewerWidget::showNext()
 {
     showNextN(1);
+}
+
+void Viewer::ViewerWidget::removeCurrent()
+{
+    _list.removeAll(_list[_current]);
+    qDebug("%d,%d", _current, _list.count() );
+    if ( _current == _list.count() ) {
+        qDebug("Show prev");
+        showPrev();
+    }
+    else
+        showNextN(0);
 }
 
 void Viewer::ViewerWidget::showNext10()

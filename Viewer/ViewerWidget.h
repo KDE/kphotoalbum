@@ -111,6 +111,7 @@ protected slots:
     void showPrev1000();
     void showFirst();
     void showLast();
+    void removeCurrent();
     void rotate90();
     void rotate180();
     void rotate270();

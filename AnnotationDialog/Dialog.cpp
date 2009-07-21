@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2009 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -51,7 +51,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/Result.h"
 #include "DB/ResultId.h"
-#include "ImagePreview.h"
+#include "ImagePreviewWidget.h"
 #include "KDateEdit.h"
 #include "ListSelect.h"
 #include "MainWindow/DeleteDialog.h"
@@ -144,12 +144,17 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     connect( cancelBut, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( _clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
+    
+    connect( _preview, SIGNAL( imageRotated( int ) ), this, SLOT( rotate( int ) ) );
+    connect( _preview, SIGNAL( prevClicked() ), this, SLOT( slotPrev() ) );
+    connect( _preview, SIGNAL( nextClicked() ), this, SLOT( slotNext() ) );
+    connect( _preview, SIGNAL( imageDeleted( const DB::ImageInfo& ) ), this, SLOT( slotDeleteImage() ) );
+    connect( _preview, SIGNAL( copyPrevClicked() ), this, SLOT( slotCopyPrevious() ) );
 
     // Disable so no button accept return (which would break with the line edits)
     _revertBut->setAutoDefault( false );
     _okBut->setAutoDefault( false );
     _continueLaterBut->setAutoDefault( false );
-    _delBut->setAutoDefault( false );
     cancelBut->setAutoDefault( false );
     _clearBut->setAutoDefault( false );
     optionsBut->setAutoDefault( false );
@@ -159,6 +164,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     _dockWindowCleanState = _dockWindow->saveState();
 
     loadWindowLayout();
+    
+    _current = -1;
 
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::AnnotationDialog ) );
 
@@ -254,59 +261,8 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 
 QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 {
-    QWidget* top = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout( top );
-
-    _preview = new ImagePreview( top );
-    layout->addWidget( _preview, 1 );
-
-    QHBoxLayout* hlay = new QHBoxLayout;
-    layout->addLayout( hlay );
-    hlay->addStretch(1);
-
-    _prevBut = new KPushButton( top );
-    _prevBut->setIcon( KIcon( QString::fromLatin1( "arrow-left" ) ) );
-    _prevBut->setFixedWidth( 40 );
-    hlay->addWidget( _prevBut );
-    _prevBut->setToolTip( i18n("Annotate previous image") );
-
-    _nextBut = new KPushButton( top );
-    _nextBut->setIcon( KIcon( QString::fromLatin1( "arrow-right" ) ) );
-    _nextBut->setFixedWidth( 40 );
-    hlay->addWidget( _nextBut );
-    _nextBut->setToolTip( i18n("Annotate next image") );
-
-    hlay->addStretch(1);
-
-    _rotateLeft = new KPushButton( top );
-    hlay->addWidget( _rotateLeft );
-    _rotateLeft->setIcon( KIcon( QString::fromLatin1( "object-rotate-left" ) ) );
-    _rotateLeft->setFixedWidth( 40 );
-    _rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
-
-    _rotateRight = new KPushButton( top );
-    hlay->addWidget( _rotateRight );
-    _rotateRight->setIcon( KIcon( QString::fromLatin1( "object-rotate-right" ) ) );
-    _rotateRight->setFixedWidth( 40 );
-    _rotateRight->setToolTip( i18n("Rotate clockwise") );
-
-    _copyPreviousBut = new KPushButton( top );
-    hlay->addWidget( _copyPreviousBut );
-    _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
-    _copyPreviousBut->setFixedWidth( 40 );
-    connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
-    _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
-
-    hlay->addStretch( 1 );
-    _delBut = new KPushButton( top );
-    _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
-    hlay->addWidget( _delBut );
-    connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
-    _delBut->setToolTip( i18n("Delete image") );
-
-    hlay->addStretch(1);
-
-    return top;
+    _preview = new ImagePreviewWidget();
+    return _preview;
 }
 
 
@@ -318,16 +274,14 @@ void AnnotationDialog::Dialog::slotRevert()
 
 void AnnotationDialog::Dialog::slotPrev()
 {
-    if ( _setup != InputSingleImageConfigMode )
+    if ( _current == 0 || (_setup != InputSingleImageConfigMode ) )
         return;
-
-    writeToInfo();
-    if ( _current == 0 )
-        return;
-
+    
+    if(_current >= 0 )
+      writeToInfo();
+    
     _current--;
-    if ( _setup == InputSingleImageConfigMode && _current != 0 )
-        _preview->anticipate(_editList[ _current-1 ]);
+    
     load();
 }
 
@@ -336,15 +290,15 @@ void AnnotationDialog::Dialog::slotNext()
     if ( _setup != InputSingleImageConfigMode )
         return;
 
+    if ( _current == (int)_origList.count()-1 )
+        return;
+    
     if ( _current != -1 ) {
         writeToInfo();
     }
-    if ( _current == (int)_origList.count()-1 )
-        return;
-
+    
     _current++;
-    if ( _setup == InputSingleImageConfigMode && _current != (int)_origList.count()-1 )
-        _preview->anticipate(_editList[ _current+1 ]);
+    
     load();
 }
 
@@ -411,12 +365,6 @@ void AnnotationDialog::Dialog::load()
         (*it)->rePopulate();
     }
 
-    _nextBut->setEnabled( _current != (int)_origList.count()-1 );
-    _prevBut->setEnabled( _current != 0 );
-    _copyPreviousBut->setEnabled( _current != 0 );
-
-    _preview->setImage( info );
-
     if ( _setup == InputSingleImageConfigMode )
         setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
 }
@@ -461,6 +409,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         DB::ImageDB::instance()->categoryCollection()->categoryForName( Settings::SettingsData::instance()->untaggedCategory() )
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
+    
 
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
@@ -478,9 +427,11 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
     if ( oneAtATime )  {
         _current = -1;
+        _preview->configure( &_editList );
         slotNext();
     }
     else {
+        _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/multiconfig.jpg")));
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
@@ -496,9 +447,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _imageLabel->setText( QString::fromLatin1("") );
         _description->setText( QString::fromLatin1("") );
 
-        _prevBut->setEnabled( false );
-        _nextBut->setEnabled( false );
-        _copyPreviousBut->setEnabled( false );
     }
 
     _thumbnailShouldReload = false;
@@ -516,6 +464,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _oldSearch = *search;
 
     setup();
+
+    _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
 
 #ifdef HAVE_NEPOMUK
         _rating->setRating( 0 );
@@ -562,11 +512,6 @@ void AnnotationDialog::Dialog::setup()
         _clearBut->show();
         setWindowTitle( i18n("Search") );
         loadInfo( _oldSearch );
-        _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
-        _nextBut->setEnabled( false );
-        _prevBut->setEnabled( false );
-        _rotateLeft->setEnabled( false );
-        _rotateRight->setEnabled( false );
     }
     else {
         _okBut->setText( i18n("Done") );
@@ -575,15 +520,7 @@ void AnnotationDialog::Dialog::setup()
         _clearBut->hide();
         _revertBut->show();
         setWindowTitle( i18n("Annotations") );
-        if ( _setup == InputMultiImageConfigMode ) {
-            _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/multiconfig.jpg")));
-        }
-        _rotateLeft->setEnabled( true );
-        _rotateRight->setEnabled( true );
     }
-
-    _delBut->setEnabled( _setup == InputSingleImageConfigMode );
-    _copyPreviousBut->setEnabled( _setup == InputSingleImageConfigMode );
 
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( _setup );
@@ -733,16 +670,6 @@ bool AnnotationDialog::Dialog::hasChanges()
     return changed;
 }
 
-void AnnotationDialog::Dialog::rotateLeft()
-{
-    rotate(-90);
-}
-
-void AnnotationDialog::Dialog::rotateRight()
-{
-    rotate(90);
-}
-
 void AnnotationDialog::Dialog::rotate( int angle )
 {
     _thumbnailShouldReload = true;
@@ -753,7 +680,6 @@ void AnnotationDialog::Dialog::rotate( int angle )
         DB::ImageInfo& info = _editList[ _current ];
         info.rotate(angle);
     }
-    _preview->rotate( angle );
 }
 
 bool AnnotationDialog::Dialog::thumbnailShouldReload() const
@@ -936,11 +862,11 @@ void AnnotationDialog::Dialog::setupActions()
     action->setShortcut( Qt::CTRL+Qt::Key_S );
 
 
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-next-image"),  this, SLOT( slotNext() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-next-image"),  _preview, SLOT( slotNext() ) );
     action->setText(  i18n("Annotate Next") );
     action->setShortcut(  Qt::Key_PageDown );
 
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-prev-image"),  this, SLOT( slotPrev() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-prev-image"),  _preview, SLOT( slotPrev() ) );
     action->setText(  i18n("Annotate Previous") );
     action->setShortcut(  Qt::Key_PageUp );
 
@@ -956,16 +882,11 @@ void AnnotationDialog::Dialog::setupActions()
     action->setText(  i18n("Copy tags from previous image") );
     action->setShortcut(  Qt::ALT+Qt::Key_Insert );
 
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  this, SLOT( rotateLeft() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  _preview, SLOT( rotateLeft() ) );
     action->setText(  i18n("Rotate counterclockwise") );
 
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-right"),  this, SLOT( rotateRight() ) );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-right"),  _preview, SLOT( rotateRight() ) );
     action->setText(  i18n("Rotate clockwise") );
-
-    connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
-    connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
-    connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
-    connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 
     foreach (QAction* action, _actions->actions()) {
       action->setShortcutContext(Qt::WindowShortcut);

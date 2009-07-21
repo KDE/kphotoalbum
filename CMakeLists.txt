@@ -227,6 +227,7 @@ set(libAnnotationDialog_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Dialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListSelect.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ImagePreview.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ImagePreviewWidget.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/KDateEdit.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/CompletableLineEdit.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListViewItemHider.cpp 

@@ -70,6 +70,11 @@ void ImagePreview::setImage( const QString& fileName )
     reload();
 }
 
+const QString& ImagePreview::lastImageFileName()
+{
+    return _lastImage.getName();
+}
+
 
 void ImagePreview::reload()
 {

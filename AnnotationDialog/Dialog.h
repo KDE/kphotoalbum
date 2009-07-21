@@ -27,6 +27,7 @@
 #include "DB/Category.h"
 #include "enums.h"
 #include "config-kpa-nepomuk.h"
+#include "ImagePreviewWidget.h"
 
 
 class KActionCollection;
@@ -86,8 +87,6 @@ protected slots:
     void slotDeleteOption( DB::Category*, const QString& );
     void slotRenameOption( DB::Category* , const QString& , const QString&  );
     virtual void reject();
-    void rotateLeft();
-    void rotateRight();
     void rotate( int angle );
     void slotAddTimeInfo();
     void slotDeleteImage();
@@ -141,17 +140,11 @@ private:
     KDateEdit* _startDate;
     KDateEdit* _endDate;
 
-    ImagePreview* _preview;
+    ImagePreviewWidget* _preview;
     KPushButton* _revertBut;
     KPushButton* _clearBut;
     KPushButton* _okBut;
     KPushButton* _continueLaterBut;
-    KPushButton* _prevBut;
-    KPushButton* _nextBut;
-    KPushButton* _rotateLeft;
-    KPushButton* _rotateRight;
-    KPushButton* _delBut;
-    KPushButton* _copyPreviousBut;
     KTextEdit* _description;
     QTimeEdit* _time;
     KPushButton* _addTime;

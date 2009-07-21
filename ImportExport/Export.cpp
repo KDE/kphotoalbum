@@ -24,6 +24,7 @@
 #include "Utilities/Util.h"
 #include <q3progressdialog.h>
 #include <klocale.h>
+#include <time.h>
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfo.h"
 #include "DB/ResultId.h"

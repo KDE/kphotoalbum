@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailPainter.h"
+#include <QColor>
 #include "Cell.h"
 #include "ThumbnailCache.h"
 #include <QTimer>
@@ -116,7 +117,7 @@ void ThumbnailView::ThumbnailPainter::paintCellText( QPainter* painter, int row,
 void ThumbnailView::ThumbnailPainter::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = widget()->cellRect();
-    p->fillRect( rect, Settings::SettingsData::instance()->backgroundColor() );
+    p->fillRect( rect, QColor(Settings::SettingsData::instance()->backgroundColor()) );
 
     if (widget()->isGridResizing()
         || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {

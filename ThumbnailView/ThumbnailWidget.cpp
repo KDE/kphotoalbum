@@ -237,6 +237,10 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
         _mouseHandler = &_selectionInteraction;
 
     _mouseHandler->mousePressEvent( event );
+    
+    if (event->button() & Qt::RightButton) //get out of selection mode if this is a right click
+      _mouseHandler = &_mouseTrackingHandler;
+      
 }
 
 void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )

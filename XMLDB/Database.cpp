@@ -136,10 +136,8 @@ void XMLDB::Database::addToBlockList(const DB::Result& list)
 {
     Q_FOREACH(DB::ImageInfoPtr inf, list.fetchInfos()) {
         _blockList << inf->fileName( DB::RelativeToImageRoot );
-        _idMapper.remove( inf->fileName( DB::RelativeToImageRoot ) );
-        _images.remove( inf );
     }
-    emit totalChanged( _images.count() );
+    deleteList( list );
 }
 
 void XMLDB::Database::deleteList(const DB::Result& list)

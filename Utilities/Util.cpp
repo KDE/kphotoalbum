@@ -36,7 +36,11 @@
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
+
+#ifdef Q_WS_X11
 #include "X11/X.h"
+#endif
+
 #include <QTextCodec>
 #include "Utilities/JpeglibWithFix.h"
 

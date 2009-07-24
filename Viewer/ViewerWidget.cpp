@@ -109,7 +109,7 @@ Viewer::ViewerWidget::ViewerWidget()
     _speedDisplay->hide();
 
     setFocusPolicy( Qt::StrongFocus );
-
+#ifndef Q_WS_WIN
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
         KProcess proc;
@@ -118,7 +118,7 @@ Viewer::ViewerWidget::ViewerWidget()
         proc << QString::number( winId() );
         proc.startDetached();
     }
-
+#endif
     QTimer::singleShot( 2000, this, SLOT(test()) );
 }
 
@@ -745,6 +745,7 @@ void Viewer::ViewerWidget::updateInfoBox()
 
 Viewer::ViewerWidget::~ViewerWidget()
 {
+#ifndef Q_WS_WIN
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
         KProcess proc;
@@ -753,6 +754,7 @@ Viewer::ViewerWidget::~ViewerWidget()
         // already gone and doesn't re-activate the screensaver
         proc.execute();
     }
+#endif
 
     if ( _latest == this )
         _latest = 0;

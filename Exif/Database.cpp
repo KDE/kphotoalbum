@@ -153,6 +153,7 @@ bool Exif::Database::add( const QString& fileName )
     }
     catch (...)
     {
+        qWarning("Error while reading exif information from %s", qPrintable(fileName) );
         return false;
     }
 }

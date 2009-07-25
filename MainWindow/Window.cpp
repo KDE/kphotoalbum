@@ -1374,13 +1374,13 @@ void MainWindow::Window::loadPlugins()
     _pluginLoader->loadPlugins();
 
     // Setup signals
-    connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
+    connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotSelectionChanged(int) ) );
     _hasLoadedPlugins = true;
 
     // Make sure selection is updated also when plugin loading is
     // delayed. This is needed, because selection might already be
     // non-empty when loading the plugins.
-    slotSelectionChanged();
+    slotSelectionChanged(selected().size());
 #endif // HASKIPI
 }
 
@@ -1478,10 +1478,10 @@ QString MainWindow::Window::currentBrowseCategory() const
     return _browser->currentCategory();
 }
 
-void MainWindow::Window::slotSelectionChanged()
+void MainWindow::Window::slotSelectionChanged( int count )
 {
 #ifdef HASKIPI
-    _pluginInterface->slotSelectionChanged( !selected().isEmpty() );
+    _pluginInterface->slotSelectionChanged( count != 0 );
 #endif
 }
 

@@ -123,10 +123,10 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
                "<p>In addition to the current album, KPhotoAlbum must also be able to give a list of all albums; "
                "the list of all albums is defined in the following way:"
                "<ul><li>When KPhotoAlbum's browser displays the content of a category, say all People, then each item in this category "
-               "will look like an album to the plugin."
+               "will look like an album to the plugin.</li>"
                "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify People "
                "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
-               "the plugin which needs to know about all albums.</p>"
+               "the plugin which needs to know about all albums.</li></ul></p>"
                "<p>Most users would probably want to specify Events here.</p>");
     albumCategoryLabel->setWhatsThis( txt );
     _albumCategory->setWhatsThis( txt );

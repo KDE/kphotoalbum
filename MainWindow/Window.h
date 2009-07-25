@@ -126,7 +126,7 @@ protected slots:
     void delayedInit();
     void slotReenableMessages();
     void slotImagesChanged( const KUrl::List& );
-    void slotSelectionChanged();
+    void slotSelectionChanged(int count);
     void plug();
     void slotRemoveTokens();
     void slotShowListOfFiles();

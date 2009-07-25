@@ -19,6 +19,7 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 #include <KDialog>
+class QListWidget;
 class QLabel;
 class QCheckBox;
 
@@ -34,17 +35,16 @@ public:
 
 protected slots:
     void readInfo();
-    void showFileList();
     void warnAboutDates( bool );
 
 private:
     QStringList _list;
-    QLabel* _label;
     QCheckBox* _exifDB;
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _description;
     QCheckBox* _force_date;
+    QListWidget* _fileList;
 };
 
 }

@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QListWidget>
+#include <QGroupBox>
 #include "Exif/ReReadDialog.h"
 #include <klocale.h>
 #include <qlabel.h>
@@ -29,18 +31,12 @@
 Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     :KDialog( parent )
 {
-    setWindowTitle( i18n("Read File Info") );
-    setButtons( Cancel|User1|User2 );
-    setButtonText( User1, i18n("Read File Info") );
-    setButtonText( User2, i18n("Show File List") );
+    setWindowTitle( i18n("Read EXIF info from files") );
 
     QWidget* top = new QWidget;
     setMainWidget( top );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
-
-    _label = new QLabel( top );
-    lay1->addWidget( _label );
 
     _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( _exifDB );
@@ -60,16 +56,21 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     _description = new QCheckBox( i18n( "Update image description from EXIF information" ), top );
     lay1->addWidget( _description );
 
-    connect( this, SIGNAL( user1Clicked() ), this, SLOT( readInfo() ) );
-    connect( this, SIGNAL( user2Clicked() ), this, SLOT( showFileList() ) );
+    QGroupBox* box = new QGroupBox( i18n("Affected Files") );
+    lay1->addWidget( box );
+
+    QHBoxLayout* boxLayout = new QHBoxLayout( box );
+    _fileList = new QListWidget;
+    _fileList->setSelectionMode( QAbstractItemView::NoSelection );
+    boxLayout->addWidget( _fileList );
+
+    connect( this, SIGNAL( okClicked() ), this, SLOT( readInfo() ) );
     connect( _date, SIGNAL( toggled( bool ) ), _force_date, SLOT( setEnabled( bool ) ) );
     connect( _date, SIGNAL( toggled( bool ) ), this, SLOT( warnAboutDates( bool ) ) );
 }
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></center></b></p>", list.count() ) );
-
     _exifDB->setChecked( true);
     _date->setChecked( false );
     _force_date->setChecked( true );
@@ -77,6 +78,8 @@ int Exif::ReReadDialog::exec( const QStringList& list )
     _orientation->setChecked( false );
     _description->setChecked( false );
     _list = list;
+    _fileList->clear();
+    _fileList->addItems( list );
 
     return KDialog::exec();
 }
@@ -99,18 +102,6 @@ void Exif::ReReadDialog::readInfo()
 
     accept();
     DB::ImageDB::instance()->slotReread(_list, mode);
-}
-
-void Exif::ReReadDialog::showFileList()
-{
-    int i = KMessageBox::warningContinueCancelList( this,
-                                                    i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
-                                                          "can be seen in the list below.</p>",_list.count()), _list,
-                                                    i18n("Files affected"),
-                                                    KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
-                                                    QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
-    if ( i == KMessageBox::Cancel )
-        return;
 }
 
 void Exif::ReReadDialog::warnAboutDates( bool b )

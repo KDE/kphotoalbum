@@ -1,3 +1,10 @@
+2009-07-25  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Show the file list directly in the Read Exif Info
+	dialog. Previously it was a secondary dialog, with a
+	do-not-show-again checkbox and a cancel button (none of those two
+	made any sense there)
+
 2009-07-20  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Add a keybinding for delete in the viewer that will take the

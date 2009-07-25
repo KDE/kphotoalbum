@@ -295,7 +295,7 @@ void Exif::Database::recreate()
     // the user presse 'cancel' or there is any error. In that case
     // we want to go back to the original DB.
 
-    QString origBackup = exifDBFile() + QLatin1String(".bak");
+    const QString origBackup = exifDBFile() + QLatin1String(".bak");
     _db.close();
     QDir().remove(origBackup);
     QDir().rename(exifDBFile(), origBackup);

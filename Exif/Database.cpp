@@ -91,13 +91,12 @@ static void showError( QSqlQuery& query )
 Exif::Database::Database()
     : _isOpen(false)
 {
+    _db = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ), QString::fromLatin1( "exif" ) );
 }
 
 
 void Exif::Database::openDatabase()
 {
-    _db = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ), QString::fromLatin1( "exif" ) );
-
     _db.setDatabaseName( exifDBFile() );
 
     if ( !_db.open() )
@@ -297,6 +296,7 @@ void Exif::Database::recreate()
 
     const QString origBackup = exifDBFile() + QLatin1String(".bak");
     _db.close();
+
     QDir().remove(origBackup);
     QDir().rename(exifDBFile(), origBackup);
     init();

@@ -77,8 +77,7 @@ public:
 
 protected slots:
     void slotRevert();
-    void slotPrev();
-    void slotNext();
+    void slotIndexChanged( int index );
     void doneTagging();
     void continueLater();
     void slotClear();

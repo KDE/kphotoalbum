@@ -106,9 +106,10 @@ void ImagePreviewWidget::slotPrev()
     _current--;
     if ( _current != 0 )
         _preview->anticipate( (*_imageList)[ _current-1 ] );
-    setImage(_imageList->at( _current ) );
+    setImage( _imageList->at( _current ) );
     
-    emit prevClicked();
+    emit indexChanged( _current );
+
 }
 
 void ImagePreviewWidget::slotNext()
@@ -120,9 +121,10 @@ void ImagePreviewWidget::slotNext()
     
     if ( _current != (int)_imageList->count()-1 )
         _preview->anticipate( (*_imageList)[ _current+1 ]);
-    setImage(_imageList->at( _current ));
+    setImage( _imageList->at( _current ) );
     
-    emit nextClicked();
+    emit indexChanged( _current );
+
 }
 
 void ImagePreviewWidget::slotCopyPrevious()

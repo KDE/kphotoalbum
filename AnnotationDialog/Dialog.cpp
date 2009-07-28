@@ -146,8 +146,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
     
     connect( _preview, SIGNAL( imageRotated( int ) ), this, SLOT( rotate( int ) ) );
-    connect( _preview, SIGNAL( prevClicked() ), this, SLOT( slotPrev() ) );
-    connect( _preview, SIGNAL( nextClicked() ), this, SLOT( slotNext() ) );
+    connect( _preview, SIGNAL( indexChanged( int ) ), this, SLOT( slotIndexChanged( int ) ) );
     connect( _preview, SIGNAL( imageDeleted( const DB::ImageInfo& ) ), this, SLOT( slotDeleteImage() ) );
     connect( _preview, SIGNAL( copyPrevClicked() ), this, SLOT( slotCopyPrevious() ) );
 
@@ -258,13 +257,11 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     return top;
 }
 
-
 QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 {
     _preview = new ImagePreviewWidget();
     return _preview;
 }
-
 
 void AnnotationDialog::Dialog::slotRevert()
 {
@@ -272,32 +269,15 @@ void AnnotationDialog::Dialog::slotRevert()
         load();
 }
 
-void AnnotationDialog::Dialog::slotPrev()
+void AnnotationDialog::Dialog::slotIndexChanged( int index )
 {
-    if ( _current == 0 || (_setup != InputSingleImageConfigMode ) )
+  if ( _setup != InputSingleImageConfigMode )
         return;
     
     if(_current >= 0 )
       writeToInfo();
     
-    _current--;
-    
-    load();
-}
-
-void AnnotationDialog::Dialog::slotNext()
-{
-    if ( _setup != InputSingleImageConfigMode )
-        return;
-
-    if ( _current == (int)_origList.count()-1 )
-        return;
-    
-    if ( _current != -1 ) {
-        writeToInfo();
-    }
-    
-    _current++;
+    _current = index;
     
     load();
 }
@@ -426,9 +406,9 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     setup();
 
     if ( oneAtATime )  {
-        _current = -1;
+        _current = 0;
         _preview->configure( &_editList );
-        slotNext();
+        load();
     }
     else {
         _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/multiconfig.jpg")));

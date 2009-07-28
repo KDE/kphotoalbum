@@ -53,9 +53,8 @@ signals:
     void imageDeleted( const DB::ImageInfo& deletedImage );
     void imageRotated( int angle);
     void imageChanged( const DB::ImageInfo& newImage );
+    void indexChanged( int newIndex );
     void copyPrevClicked();
-    void nextClicked();
-    void prevClicked();
 
 private:
     ImagePreview* _preview;

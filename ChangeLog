@@ -1,3 +1,5 @@
+====================== KPhotoalbum 4.0.2 released  ===================================	
+
 2009-07-24  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* fixed bug #201116: kphotoalbum crashes when trying to remove image without deleting from disk

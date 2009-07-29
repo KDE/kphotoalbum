@@ -18,12 +18,11 @@
 
 #include "CategoryImagePopup.h"
 #include <klocale.h>
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
 #include <Utilities/Set.h>
 #include <qstringlist.h>
 #include "Window.h"
 #include "DB/CategoryCollection.h"
+#include "Viewer/CategoryImageConfig.h"
 
 
 void MainWindow::CategoryImagePopup::populate( const QImage& image, const QString& imageName )
@@ -31,9 +30,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const QStrin
     clear();
 
     _image = image;
-
-    // retreive image information
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( imageName, DB::AbsolutePath );
+    _imageInfo = DB::ImageDB::instance()->info( imageName, DB::AbsolutePath );
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -45,7 +42,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const QStrin
             categoryMenu->setTitle( (*categoryIt)->text() );
 
             // add category members
-            Utilities::StringSet members = info->itemsOfCategory( categoryName );
+            Utilities::StringSet members = _imageInfo->itemsOfCategory( categoryName );
             for ( Utilities::StringSet::const_iterator memberIt = members.begin();
                     memberIt != members.end(); ++memberIt ) {
                 QAction* action = categoryMenu->addAction( *memberIt );
@@ -58,6 +55,10 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const QStrin
             addMenu( categoryMenu );
         }
     }
+
+    // Add the Category Editor menu item
+    QAction* action = addAction( QString::fromLatin1("viewer-show-category-editor"), this, SLOT( makeCategoryImage()) );
+    action->setText( i18n("Show Category Editor") );
 }
 
 void MainWindow::CategoryImagePopup::slotExecuteService( QAction* action )
@@ -70,12 +71,17 @@ void MainWindow::CategoryImagePopup::slotExecuteService( QAction* action )
         setCategoryImage(categoryName, memberName, _image);
 }
 
+void MainWindow::CategoryImagePopup::makeCategoryImage()
+{
+    CategoryImageConfig::instance()->setCurrentImage( _image, _imageInfo );
+    CategoryImageConfig::instance()->show();
+}
+
 MainWindow::CategoryImagePopup::CategoryImagePopup( QWidget* parent )
     :QMenu( parent )
 {
     setTitle( i18n("Make Category Image") );
     connect( this, SIGNAL( triggered( QAction* ) ), this, SLOT( slotExecuteService( QAction* ) ) );
 }
-
 
 #include "CategoryImagePopup.moc"

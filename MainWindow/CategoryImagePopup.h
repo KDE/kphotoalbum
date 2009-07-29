@@ -20,6 +20,7 @@
 #define CATEGORYIMAGEPOPUP_H
 #include <QMenu>
 #include <QImage>
+#include "DB/ImageDB.h"
 
 
 namespace MainWindow
@@ -35,9 +36,11 @@ public:
 
 protected slots:
     void slotExecuteService( QAction* );
+    void makeCategoryImage();
 
 private:
     QImage _image;
+    DB::ImageInfoPtr _imageInfo;
 };
 
 }

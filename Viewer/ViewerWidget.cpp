@@ -147,11 +147,6 @@ void Viewer::ViewerWidget::setupContextMenu()
     _setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
     _popup->addAction( _setStackHead );
 
-    // PENDING(blackie) This should only be enabled for image displays.
-    _categoryEditor = _actions->addAction( QString::fromLatin1("viewer-show-category-editor"), this, SLOT( makeCategoryImage() ) );
-    _categoryEditor->setText( i18n("Show Category Editor") );
-    _popup->addAction(_categoryEditor);
-
 #ifdef HAVE_EXIV2
     _showExifViewer = _actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT( showExifViewer() ) );
     _showExifViewer->setText( i18n("Show EXIF Viewer") );
@@ -418,7 +413,6 @@ void Viewer::ViewerWidget::load()
 
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
-    _categoryEditor->setEnabled( !isVideo );
     _categoryImagePopup->setEnabled( !isVideo );
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
@@ -869,12 +863,6 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         resize( Settings::SettingsData::instance()->viewerSize() );
     }
     _showingFullScreen = on;
-}
-
-void Viewer::ViewerWidget::makeCategoryImage()
-{
-    CategoryImageConfig::instance()->setCurrentImage( _imageDisplay->currentViewAsThumbnail(), currentInfo() );
-    CategoryImageConfig::instance()->show();
 }
 
 void Viewer::ViewerWidget::updateCategoryConfig()

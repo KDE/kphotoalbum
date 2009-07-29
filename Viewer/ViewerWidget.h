@@ -123,7 +123,6 @@ protected slots:
     void slotSlideShowSlower();
     void editImage();
     void slotSetStackHead();
-    void makeCategoryImage();
     void updateCategoryConfig();
     void slotSetWallpaperC();
     void slotSetWallpaperT();
@@ -172,7 +171,6 @@ private:
     QPixmap _pixmap;
 
     KAction* _delete;
-    KAction* _categoryEditor;
 #ifdef HAVE_EXIV2
     KAction* _showExifViewer;
 #endif

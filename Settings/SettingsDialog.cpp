@@ -133,6 +133,7 @@ void Settings::SettingsDialog::slotMyOK()
     _databaseBackendPage->saveSettings(opt);
     _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
     _subCategoriesPage->saveSettings();
+    _viewerPage->saveSettings( opt );
 
 #ifdef HASKIPI
     _pluginsPage->saveSettings( opt );

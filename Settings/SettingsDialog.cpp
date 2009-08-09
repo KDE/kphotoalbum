@@ -130,7 +130,6 @@ void Settings::SettingsDialog::slotMyOK()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
     _generalPage->saveSettings( opt );
     _thumbnailsPage->saveSettings(opt);
-    _databaseBackendPage->saveSettings(opt);
     _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
     _subCategoriesPage->saveSettings();
     _viewerPage->saveSettings( opt );
@@ -139,10 +138,11 @@ void Settings::SettingsDialog::slotMyOK()
     _pluginsPage->saveSettings( opt );
 #endif
 
-    // EXIF
 #ifdef HAVE_EXIV2
     _exifPage->saveSettings(opt);
 #endif
+
+    _databaseBackendPage->saveSettings(opt);
 
     emit changed();
     KGlobal::config()->sync();

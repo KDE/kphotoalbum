@@ -1,3 +1,8 @@
+2009-08-15  Hassan Ibraheem   <hasan.ibraheem@gmail.com>
+
+	* fixed bug #171520: preview images when annotating multiple
+	images at once
+
 2009-08-14  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Improved zooming in rotated images (by Hassan Ibraheem)

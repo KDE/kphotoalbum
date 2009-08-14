@@ -407,11 +407,11 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
     if ( oneAtATime )  {
         _current = 0;
-        _preview->configure( &_editList );
+        _preview->configure( &_editList, true );
         load();
     }
     else {
-        _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/multiconfig.jpg")));
+        _preview->configure( &_editList, false );
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
@@ -681,7 +681,10 @@ void AnnotationDialog::Dialog::slotAddTimeInfo()
 void AnnotationDialog::Dialog::slotDeleteImage()
 {
     Q_ASSERT( _setup != SearchMode );
-
+    
+    if( _setup == InputMultiImageConfigMode )  //TODO: probably delete here should mean remove from selection
+      return;
+    
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
 

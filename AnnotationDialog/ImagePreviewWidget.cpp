@@ -86,16 +86,17 @@ int ImagePreviewWidget::angle() const { return _preview->angle(); };
 
 void ImagePreviewWidget::anticipate(DB::ImageInfo &info1) { _preview->anticipate( info1 ); };
 
-void ImagePreviewWidget::configure( QList<DB::ImageInfo>* imageList )
+void ImagePreviewWidget::configure( QList<DB::ImageInfo>* imageList, bool singleEdit )
 {
   _imageList = imageList;
   _current = 0;
   setImage(_imageList->at( _current ));
+  _singleEdit = singleEdit;
   
-  _delBut->setEnabled( true );
-  _copyPreviousBut->setEnabled( true );
-  _rotateLeft->setEnabled( true );
-  _rotateRight->setEnabled( true );
+  _delBut->setEnabled( _singleEdit );
+  _copyPreviousBut->setEnabled( _singleEdit );
+  _rotateLeft->setEnabled( _singleEdit );
+  _rotateRight->setEnabled( _singleEdit );
 }
 
 void ImagePreviewWidget::slotPrev()
@@ -144,6 +145,8 @@ void ImagePreviewWidget::rotateRight()
 
 void ImagePreviewWidget::rotate( int angle )
 {
+    if( ! _singleEdit ) return;
+    
     _preview->rotate( angle );
     
     emit imageRotated( angle );
@@ -151,6 +154,7 @@ void ImagePreviewWidget::rotate( int angle )
 
 void ImagePreviewWidget::slotDeleteImage()
 {
+  if( ! _singleEdit ) return;
   emit imageDeleted( _imageList->at( _current ) );
   
   if( ! _nextBut->isEnabled() ) //No next image exists, select previous
@@ -163,7 +167,7 @@ void ImagePreviewWidget::setImage( const DB::ImageInfo& info )
 {
     _nextBut->setEnabled( _current != (int) _imageList->count()-1 );
     _prevBut->setEnabled( _current != 0 );
-    _copyPreviousBut->setEnabled( _current != 0 );
+    _copyPreviousBut->setEnabled( _current != 0 && _singleEdit);
     
     _preview->setImage( info );
     

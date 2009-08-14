@@ -23,7 +23,6 @@
 #include "DB/ImageInfo.h"
 #include "ImagePreview.h"
 #include <KPushButton>
-class QResizeEvent;
 
 namespace AnnotationDialog
 {
@@ -36,7 +35,7 @@ public:
     void setImage( const DB::ImageInfo& info );
     void setImage( const QString& fileName );
     void setImage( const int index );
-    void configure( QList<DB::ImageInfo>* imageList );
+    void configure( QList<DB::ImageInfo>* imageList, bool singleEdit );
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
     const QString& lastImage();
@@ -66,6 +65,7 @@ private:
     KPushButton* _copyPreviousBut;
     QList<DB::ImageInfo>* _imageList;
     int _current;
+    bool _singleEdit;
 };
 
 }

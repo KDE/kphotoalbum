@@ -533,7 +533,9 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
 
 void Viewer::ImageDisplay::potentialyLoadFullSize()
 {
-    if ( _info->size() != _loadedImage.size() ) {
+    // The second part of this disables loading a higher resolution. The reason for this is that zooming in a rotated image is broken, and we can't find where,
+    // so this is a work around to get zooming to work at all.
+    if ( _info->size() != _loadedImage.size() && _info->angle() == 0 ) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(DB::AbsolutePath), QSize(-1,-1), _info->angle(), this );
         request->setPriority( ImageManager::Viewer );
         ImageManager::Manager::instance()->load( request );

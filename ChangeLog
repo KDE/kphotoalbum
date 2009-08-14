@@ -1,3 +1,7 @@
+2009-08-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Improved zooming in rotated images (by Hassan Ibraheem)
+
 2009-07-25  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Show the file list directly in the Read Exif Info

@@ -159,6 +159,8 @@ void ImagePreviewWidget::slotDeleteImage()
   
   if( ! _nextBut->isEnabled() ) //No next image exists, select previous
       _current--;
+
+  if( _imageList->count() == 0 ) return; //No images left
   
   setImage(_imageList->at( _current ) );
   

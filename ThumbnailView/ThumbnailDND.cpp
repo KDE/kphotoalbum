@@ -47,10 +47,15 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     QRect rect = widget()->cellGeometry( row, col );
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
-        model()->setLeftDropItem(id);
-        const int index = model()->indexOf(id) - 1;
-        if ( index != -1 )
-            model()->setRightDropItem( model()->imageAt(index) );
+        if ( id.isNull() ) {
+            // We're dragging behind the last item
+            model()->setRightDropItem( model()->imageAt( model()->imageCount() - 1 ) );
+        } else {
+            model()->setLeftDropItem(id);
+            const int index = model()->indexOf(id) - 1;
+            if ( index != -1 )
+                model()->setRightDropItem( model()->imageAt(index) );
+        }
     }
 
     else {

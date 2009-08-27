@@ -1,3 +1,8 @@
+2009-08-28  Jan Kundrát  <jkt@flaska.net>
+
+	* Fix segfaults when dragging images before the first one and after the last
+	one
+
 2009-08-15  Hassan Ibraheem   <hasan.ibraheem@gmail.com>
 
 	* fixed bug #171520: preview images when annotating multiple

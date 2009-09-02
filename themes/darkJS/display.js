@@ -56,6 +56,9 @@ function image()
 	if (location.pathname.substring(location.pathname.lastIndexOf(slash)+1)
 			== "index.html") {
 		document.location=minPage;
+	} else if (location.pathname.substring(location.pathname.lastIndexOf(
+		slash)+1) == "") {
+		document.location=minPage;
 	}
 
 	var thumbsW = thumbsWidth(40);
@@ -139,18 +142,14 @@ function showImage(image)
 function helpIndex()
 {
 	if ( typeof( window.innerWidth ) == 'number' ) {
-		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail you want to see bigger.';
+		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail if you want to see it enlarged.';
 	} else {
 		document.getElementById('help').innerHTML = '';
-
-//'Move mouse over the thumbnail you want to see bigger.';
 	}
 }
 
 
 function setSize() {
-	var vW = windowWidth(-20) + 'px';
-
 	// Resizing thumbnail are to match new width
 	// Repositioning image area to match new width
 	if ( typeof( window.innerWidth ) == 'number' ) {

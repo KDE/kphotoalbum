@@ -1,3 +1,8 @@
+2009-09-02  Miika Turkia <theBro@luukku.com>
+
+	* Redirecting with no index.html in URL added and cleaned up
+	  some comments in the theme darkJS
+
 2009-08-28  Jan Kundrát  <jkt@flaska.net>
 
 	* Fix segfaults when dragging images before the first one and after the last

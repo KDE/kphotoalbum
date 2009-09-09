@@ -74,11 +74,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     QHBoxLayout* lay2 = new QHBoxLayout;
     layout->addLayout( lay2 );
 
-    QButtonGroup* group = new QButtonGroup( this );
     _or = new QRadioButton( i18n("or"), this );
     _and = new QRadioButton( i18n("and"), this );
-    group->addButton( _and );
-    group->addButton( _or );
     lay2->addWidget( _or );
     lay2->addWidget( _and );
     lay2->addStretch(1);

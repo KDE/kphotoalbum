@@ -28,7 +28,7 @@
 #include "DB/ImageDB.h"
 #include <kio/copyjob.h>
 #include <qtoolbutton.h>
-#include <q3buttongroup.h>
+#include <QButtonGroup>
 #include "DB/MemberMap.h"
 #include <q3listview.h>
 #include <q3header.h>
@@ -74,32 +74,30 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     QHBoxLayout* lay2 = new QHBoxLayout;
     layout->addLayout( lay2 );
 
-    Q3ButtonGroup* group = new Q3ButtonGroup( this );
-    group->hide();
+    QButtonGroup* group = new QButtonGroup( this );
     _or = new QRadioButton( i18n("or"), this );
     _and = new QRadioButton( i18n("and"), this );
-    group->insert( _and );
-    group->insert( _or );
+    group->addButton( _and );
+    group->addButton( _or );
     lay2->addWidget( _or );
     lay2->addWidget( _and );
     lay2->addStretch(1);
 
     // Sorting tool button
-    Q3ButtonGroup* grp = new Q3ButtonGroup( this );
+    QButtonGroup* grp = new QButtonGroup( this );
     grp->setExclusive( true );
-    grp->hide();
 
     _alphaSort = new QToolButton;
     _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "draw-text" ) ) );
     _alphaSort->setCheckable( true );
     _alphaSort->setToolTip( i18n("Sort Alphabetically") );
-    grp->insert( _alphaSort );
+    grp->addButton( _alphaSort );
 
     _dateSort = new QToolButton;
     _dateSort->setIcon( SmallIcon( QString::fromLatin1( "x-office-calendar" ) ) );
     _dateSort->setCheckable( true );
     _dateSort->setToolTip( i18n("Sort by date") );
-    grp->insert( _dateSort );
+    grp->addButton( _dateSort );
 
     _showSelectedOnly = new QToolButton;
     _showSelectedOnly->setIcon( SmallIcon( QString::fromLatin1( "view-filter" ) ) );

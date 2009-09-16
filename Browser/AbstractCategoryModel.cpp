@@ -97,7 +97,7 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     if ( role == Qt::DisplayRole ) {
         switch( column ) {
         case 0: return text(name);
-        case 1: return i18np("1 images", "%1 images", _images[name]);
+        case 1: return i18np("1 image", "%1 images", _images[name]);
         case 2: return i18np("1 video", "%1 videos", _videos[name]);
         }
     }

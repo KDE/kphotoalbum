@@ -73,7 +73,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     _toFocalLength->setSingleStep( 10 );
 
     _toFocalLength->setValue( 10000 );
-    QString suffix = i18nc( "This is milimeter for focal length, like 35mm", "mm" );
+    QString suffix = i18nc( "This is millimeter for focal length, like 35mm", "mm" );
     _fromFocalLength->setSuffix( suffix );
     _toFocalLength->setSuffix( suffix );
 

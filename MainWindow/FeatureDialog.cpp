@@ -86,7 +86,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
                  "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
-                 "<p>Unfortunatly KDE4 does currently not come with any plug-ins for this, you therefore need manually to install "
+                 "<p>Unfortunately KDE4 does currently not come with any plug-ins for this, you therefore need manually to install "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
 
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"

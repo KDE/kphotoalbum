@@ -103,7 +103,7 @@ void ImagePreview::reload()
 
 int ImagePreview::angle() const
 {
-    Q_ASSERT( _info.isNull() );
+    Q_ASSERT( !_info.isNull() );
     return _angle;
 }
 

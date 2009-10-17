@@ -166,7 +166,7 @@ void CategoryImageConfig::show()
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
-     for ( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+     for ( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
             _group->addItem( (*categoryIt)->text() );
             _categoryNames.push_back((*categoryIt)->name());

@@ -38,13 +38,13 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     // Search for images on startup
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), box );
-    _skipRawIfOtherMatches = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
+    _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), box );
 
     // Datebar size
     container = new QWidget( this );
     lay1->addWidget( container );
     hlay = new QHBoxLayout( container );
-    QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in datebar:"), container );
+    QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in date bar:"), container );
     hlay->addWidget( datebarSize );
     _barWidth = new QSpinBox;
     _barWidth->setRange( 1, 100 );

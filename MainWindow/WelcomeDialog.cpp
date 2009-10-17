@@ -145,7 +145,7 @@ QString FileDialog::getFileName()
 
         dir =  KShell::tildeExpand( _lineEdit->text() );
         if ( !QFileInfo( dir ).exists() ) {
-            int create = KMessageBox::questionYesNo( this, i18n("Directory does not exists, should I create it?") );
+            int create = KMessageBox::questionYesNo( this, i18n("Directory does not exist, create it?") );
             if ( create == KMessageBox::Yes ) {
                 bool ok2 = QDir().mkdir( dir );
                 if ( !ok2 ) {
@@ -182,7 +182,7 @@ void MainWindow::WelcomeDialog::checkFeatures()
         KMessageBox::information( this, msg, i18n("Feature Check") );
     }
     else {
-        KMessageBox::information( this, i18n("Congratulations! All dynamic features have been enabled"),
+        KMessageBox::information( this, i18n("Congratulations: all dynamic features have been enabled."),
                                   i18n("Feature Check" ) );
     }
 }

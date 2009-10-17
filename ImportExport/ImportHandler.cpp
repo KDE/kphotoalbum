@@ -177,7 +177,7 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
 {
     int result = _reportUnreadableFiles ?
                  KMessageBox::warningYesNoCancelList( _progress,
-                                                      i18n("Can't copy file from any of the following locations:"),
+                                                      i18n("Cannot copy from any of the following locations:"),
                                                       files, QString::null, KStandardGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
 
     switch (result) {

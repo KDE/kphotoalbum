@@ -21,7 +21,7 @@ Settings::PluginsPage::PluginsPage( QWidget* parent )
     _pluginConfig = KIPI::PluginLoader::instance()->configWidget( this );
     lay1->addWidget( _pluginConfig );
 
-    _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plug-ins till plug-in menu is opened"), this );
+    _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plugins until the plugin menu is opened"), this );
     lay1->addWidget( _delayLoadingPlugins );
 }
 

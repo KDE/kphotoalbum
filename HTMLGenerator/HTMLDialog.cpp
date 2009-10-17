@@ -376,8 +376,8 @@ bool HTMLDialog::checkVars()
     if ( exists ) {
         int answer = KMessageBox::warningYesNo( this,
                                                 i18n("<p>Output directory %1 already exists. "
-                                                     "Usually you should specify a new directory.</p>"
-                                                     "<p>Should I delete %2 first?</p>").arg( outputDir ).arg( outputDir ),
+                                                     "Usually, this means you should specify a new directory.</p>"
+                                                     "<p>Should %2 be deleted first?</p>").arg( outputDir ).arg( outputDir ),
                                                 i18n("Directory Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {

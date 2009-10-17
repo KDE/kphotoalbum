@@ -78,8 +78,8 @@ static void showError( QSqlQuery& query )
              "The error is likely due to a broken database file.</p>"
              "<p>To fix this problem run Maintainance->Rebuild EXIF database.</p>"
              "<hr/>"
-             "<p>For debugging, this is the command I tried to execute:<br/>%1</p>"
-             "<p>This was the error message I got:<br/>%2</p>",
+             "<p>For debugging: the command that was attempted to be executed was:<br/>%1</p>"
+             "<p>The error message obtained was:<br/>%2</p>",
              query.lastQuery(), query.lastError().text() );
 
     KMessageBox::information( MainWindow::Window::theMainWindow(), txt, i18n("Error Executing Exif Command"), QString::fromLatin1( "sql_error_in_exif_DB" )

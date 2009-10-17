@@ -54,7 +54,7 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( ki18n("Jean-Michel FAYARD"), ki18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), "jmfayard@gmail.com" );
     aboutData.addCredit( ki18n("Robert L Krawitz"), ki18n("Numerous patches plus profiling KPhotoAlbum again and again."), "rlk@alum.mit.edu" );
     aboutData.addCredit( ki18n("Christoph Moseler"), ki18n("Numerous patches for lots of bugs plus patches for a few new features"), "forums@moseler.net" );
-    aboutData.addCredit( ki18n("Clytie Siddall"), ki18n("Tremendous help with the english text in the application."), "clytie@riverland.net.au" );
+    aboutData.addCredit( ki18n("Clytie Siddall"), ki18n("Tremendous help with the English text in the application."), "clytie@riverland.net.au" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 

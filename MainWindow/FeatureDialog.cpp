@@ -81,7 +81,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
-                  "needs a Sqlite database."
+                  "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
@@ -90,7 +90,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
 
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
-                 "<p>KPhotoAlbum relies on the Qt's Phonon architecture for displaying videos, this in turn relies on GStreamer. "
+                 "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
                  "If this feature is not enabled for you, have a look at the "
                  "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
 
@@ -183,7 +183,7 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
+    features << Data( i18n( "Video Thumbnail support" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 

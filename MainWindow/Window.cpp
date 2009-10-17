@@ -326,7 +326,7 @@ void MainWindow::Window::slotCreateImageStack()
             DB::ImageDB::instance()->unstack( list );
             if ( ! DB::ImageDB::instance()->stack( list ) ) {
                 KMessageBox::sorry( this,
-                        i18n("Something fishy happened, stack creation failed, sorry."),
+                        i18n("Unknown error, stack creation failed."),
                         i18n("Stacking Error"));
                 return;
             }
@@ -1329,7 +1329,7 @@ void MainWindow::Window::slotExport()
 
 void MainWindow::Window::slotReenableMessages()
 {
-    int ret = KMessageBox::questionYesNo( this, i18n("<p>Really enable all messageboxes where you previously "
+    int ret = KMessageBox::questionYesNo( this, i18n("<p>Really enable all message boxes where you previously "
                                                      "checked the do-not-show-again check box?</p>" ) );
     if ( ret == KMessageBox::Yes )
         KMessageBox::enableAllMessages();

@@ -89,9 +89,9 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
     QString msg =
         i18n( "<p><b>Really reorder thumbnails?</b></p>"
               "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
-              "This is very useful in case you don't know the exact date for the images. On the other hand, "
-              "if the images themself have valid timestamps, you should use "
-              "<b>Images -&gt; Sort Selected By Date and Time</b></p>" );
+              "This is very useful where you do not know the exact date for the images. On the other hand, "
+              "if the images have valid timestamps, you should use "
+              "<b>Images -&gt; Sort Selected By Date and Time</b>.</p>" );
 
     if ( KMessageBox::questionYesNo( widget(), msg, i18n("Reorder Thumbnails") , KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {

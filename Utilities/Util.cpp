@@ -224,7 +224,7 @@ void Utilities::checkForBackupFile( const QString& fileName )
         return;
 
     int code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
-                                                   "Should I use the backup file?",
+                                                   "Should the backup file be used?",
                                            backupName,fileName),
                                            i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {

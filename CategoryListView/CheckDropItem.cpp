@@ -109,12 +109,17 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
     }
 
     const QString msg =
-        i18n("<p>You have just dragged one or more items onto another one, this will make the dragged item a sub category, "
-             "of the dragged onto item. Sub categories may be used to say that e.g. Las Vegas is in USA - "
-             "in that example you would drag Las Vegas onto USA. When you've set up sub categories, you may e.g "
-             "see all images from USA by simply selecting that item in the Browser.</p>"
-             "<p>Was it really your intention to make \"%1\" sub categorie(s) of \"%2\"?</p>",
-             children.join( QString::fromLatin1( ", " ) ), parent );
+        i18np("<p>You have just dragged an item onto another: this will make the dragged item a sub category "
+              "of that onto which it was dropped. Sub categories may be used to denote facts such as 'Las Vegas is in the USA', "
+              "in that example you would drag Las Vegas onto USA. When you have set up sub categories you can, for instance, "
+              "see all images from the USA by simply selecting that item in the Browser.</p>"
+              "<p>Was it really your intention to make \"%2\" a sub category of \"%3\"?</p>",
+              "<p>You have just dragged a number of items onto another: this will make the dragged items sub categories "
+              "of that onto which they were dropped. Sub categories may be used to denote facts such as 'Las Vegas and New York are in the USA' "
+              "in that example you would drag 'Las Vegas' and 'New York' onto USA. When you have set up sub categories you can, for instance, "
+              "see all images from the USA by simply selecting that item in the Browser.</p>"
+              "<p>Was it really your intention to make \"%2\" sub categories of \"%3\"?</p>",
+              children.size(), children.join( QString::fromLatin1( ", " ) ), parent );
 
     const int answer = KMessageBox::warningContinueCancel( 0, msg, i18n("Move Items"), KStandardGuiItem::cont(),
                                                            KStandardGuiItem::cancel(),

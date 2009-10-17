@@ -98,8 +98,12 @@ void DeleteDialog::deleteImages()
     }
 
     if( ! listCouldNotDelete.isEmpty()) {
-        KMessageBox::errorList( this, i18n("<p><b>Unable to physically delete %1 file(s). Do you have permission to delete these files?</b></p>",listCouldNotDelete.count()), listCouldNotDelete,
-                            i18n("Error Deleting Files") );
+        KMessageBox::errorList( this,
+                                i18np("<p><b>Unable to physically delete a file. Do you have permission to do so?</b></p>",
+                                      "<p><b>Unable to physically delete %1 files. Do you have permission to do so?</b></p>",
+                                      listCouldNotDelete.count() ),
+                                listCouldNotDelete,
+                                i18np("Error Deleting File", "Error Deleting Files", listCouldNotDelete.count() ) );
     }
 
     if(!listToDelete.isEmpty()) {

@@ -92,7 +92,7 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     _sqlSettings = new SQLDB::SQLSettingsWidget(sqlBox);
 
     QLabel* passwordWarning =
-        new QLabel(i18n("Warning! The password is saved as plain text to the configuration file."), this);
+        new QLabel(i18n("Warning: The password is saved as plain text to the configuration file."), this);
     passwordWarning->hide();
     lay1->addWidget(passwordWarning);
 

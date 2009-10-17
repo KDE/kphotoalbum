@@ -310,7 +310,7 @@ void ImportDialog::next()
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
-            int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exists. Should it be created?", dir ) );
+            int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exist. Should it be created?", dir ) );
             if ( answer == KMessageBox::Yes ) {
                 bool ok = KStandardDirs::makeDir( dir );
                 if ( !ok ) {

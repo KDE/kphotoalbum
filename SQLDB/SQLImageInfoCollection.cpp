@@ -30,8 +30,8 @@ SQLImageInfoCollection::SQLImageInfoCollection(QueryHelper& queryHelper):
     _lockingScope(0)
 {
      QList< QPair<DB::RawId, QString> > l = _qh.mediaItemIdFileMap();
-     for (QList< QPair<DB::RawId, QString> >::const_iterator i = l.begin();
-         i != l.end(); ++i) {
+     for (QList< QPair<DB::RawId, QString> >::const_iterator i = l.constBegin();
+         i != l.constEnd(); ++i) {
         _filenameIdMap.insert((*i).second, (*i).first);
         _idFilenameMap.insert((*i).first, (*i).second);
     }

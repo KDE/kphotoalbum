@@ -95,7 +95,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     // -------------------------------------------------- Categrories
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         ListSelect* sel = createListSel( *categoryIt );
         QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
         shortCutManager.addDock( dock, sel->lineEdit() );

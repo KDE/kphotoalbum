@@ -178,7 +178,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     uint n = 0;
 
     // Convert the Category info
-     for( QList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+     for( QList<CategoryPtr>::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
         newCategories->addCategory( (*it)->name(), (*it)->iconName(), (*it)->viewType(),
                                     (*it)->thumbnailSize(), (*it)->doShow() );
         newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );

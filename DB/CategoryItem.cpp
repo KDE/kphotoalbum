@@ -20,7 +20,7 @@
 
 DB::CategoryItem::~CategoryItem()
 {
-     for( QList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+     for( QList<CategoryItem*>::ConstIterator it = _subcategories.constBegin(); it != _subcategories.constEnd(); ++it ) {
         delete *it;
     }
 }
@@ -28,7 +28,7 @@ DB::CategoryItem::~CategoryItem()
 DB::CategoryItem* DB::CategoryItem::clone() const
 {
     CategoryItem* result = new CategoryItem( _name );
-     for( QList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+     for( QList<CategoryItem*>::ConstIterator it = _subcategories.constBegin(); it != _subcategories.constEnd(); ++it ) {
         result->_subcategories.append( (*it)->clone() );
     }
     return result;

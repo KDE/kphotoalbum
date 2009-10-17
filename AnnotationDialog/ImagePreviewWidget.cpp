@@ -82,9 +82,9 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     
     _current = -1;
 }
-int ImagePreviewWidget::angle() const { return _preview->angle(); };
+int ImagePreviewWidget::angle() const { return _preview->angle(); }
 
-void ImagePreviewWidget::anticipate(DB::ImageInfo &info1) { _preview->anticipate( info1 ); };
+void ImagePreviewWidget::anticipate(DB::ImageInfo &info1) { _preview->anticipate( info1 ); }
 
 void ImagePreviewWidget::configure( QList<DB::ImageInfo>* imageList, bool singleEdit )
 {

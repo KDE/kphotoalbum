@@ -190,7 +190,7 @@ QString MainWindow::FeatureDialog::featureString()
     QString result = QString::fromLatin1("<p><table>");
     const QString yes = i18n("Yes");
     const QString no =  QString::fromLatin1("<font color=\"red\">%1</font>").arg( i18n("No") );
-     for( QList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
+     for( QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt ) {
         result += QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" )
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }

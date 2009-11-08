@@ -1,3 +1,7 @@
+2009-11-08  Hassan Ibraheem <hasan.ibraheem@gmail.com>
+
+	* fixed bug #211392: Incorrect rotation angle after annotating multiple
+	 images.Thanks to Andreas Neustifter.
 ====================== KPhotoalbum 4.1 released  ===================================	
 
 2009-09-02  Miika Turkia <theBro@luukku.com>

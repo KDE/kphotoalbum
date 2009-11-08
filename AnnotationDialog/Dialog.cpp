@@ -942,7 +942,6 @@ void AnnotationDialog::Dialog::saveAndClose()
         for( DB::ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
             DB::ImageInfoPtr info = *it;
             info->delaySavingChanges(true);
-            info->rotate( _preview->angle() );
             if ( !_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 

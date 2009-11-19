@@ -106,9 +106,11 @@ void Plugins::ImageInfo::setDescription( const QString& description )
 
 void Plugins::ImageInfo::clearAttributes()
 {
+    if( _info ) {
     _info->clearAllCategoryInfo();
     // TODO I think it is reasonable to keep the gps position anyway, isn't it?
     MainWindow::DirtyIndicator::markDirty();
+    }
 }
 
 void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )

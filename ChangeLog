@@ -1,3 +1,7 @@
+2009-11-19 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+
+	* fixed bug #147891: Crashing on wrong export directory in Plugin interface
+
 2009-11-08  Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
 	* fixed bug #211392: Incorrect rotation angle after annotating multiple

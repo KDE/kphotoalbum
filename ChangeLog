@@ -1,3 +1,7 @@
+2009-11-25 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+
+	* fixed bug #211907: Fix EXIF support dialog at startup. Thanks to Olivier Berger
+
 2009-11-19 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
 	* fixed bug #147891: Crashing on wrong export directory in Plugin interface

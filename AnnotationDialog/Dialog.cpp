@@ -158,8 +158,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     _clearBut->setAutoDefault( false );
     optionsBut->setAutoDefault( false );
 
-    _optionList.setAutoDelete( true );
-
     _dockWindowCleanState = _dockWindow->saveState();
 
     loadWindowLayout();
@@ -306,7 +304,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     // FIXME: it would be better to compute the "previous image" in a better way, but let's stick with this for now...
     DB::ImageInfo& old_info = _editList[ _current - 1 ];
 
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setSelection( old_info.itemsOfCategory( (*it)->category() ) );
     }
 }
@@ -340,7 +338,7 @@ void AnnotationDialog::Dialog::load()
     _ratingChanged = false;
 #endif
 
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
         (*it)->rePopulate();
     }
@@ -351,7 +349,7 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->slotReturn();
     }
 
@@ -370,7 +368,7 @@ void AnnotationDialog::Dialog::writeToInfo()
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->toPlainText() );
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
 
@@ -421,7 +419,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _ratingChanged = false;
 #endif
 
-        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
+        for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
 
         _imageLabel->setText( QString::fromLatin1("") );
@@ -460,7 +458,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( start, end ),
                                       _imageLabel->text(), _description->toPlainText() );
 
-        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );
         }
 #ifdef HAVE_NEPOMUK
@@ -481,7 +479,7 @@ void AnnotationDialog::Dialog::setup()
 {
 // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->populate();
     }
 
@@ -502,7 +500,7 @@ void AnnotationDialog::Dialog::setup()
         setWindowTitle( i18n("Annotations") );
     }
 
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it )
         (*it)->setMode( _setup );
 }
 
@@ -517,7 +515,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     _startDate->setDate( info.date().start().date() );
     _endDate->setDate( info.date().end().date() );
 
-    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setText( info.categoryMatchText( (*it)->category() ) );
     }
 
@@ -637,7 +635,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         changed |= ( !_startDate->date().isNull() );
         changed |= ( !_endDate->date().isNull() );
 
-        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             QPair<StringSet, StringSet> origSelection = selectionForMultiSelect( *it, _origList );
             changed |= origSelection.first != (*it)->itemsOn();
             changed |= origSelection.second != (*it)->itemsUnchanged();
@@ -935,7 +933,7 @@ void AnnotationDialog::Dialog::saveAndClose()
         }
     }
     else if ( _setup == InputMultiImageConfigMode ) {
-        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+	for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             (*it)->slotReturn();
         }
 
@@ -945,7 +943,7 @@ void AnnotationDialog::Dialog::saveAndClose()
             if ( !_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
-            for( Q3PtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
+            for( QList<ListSelect*>::Iterator listSelectIt = _optionList.begin(); listSelectIt != _optionList.end(); ++listSelectIt ) {
                 info->addCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOn() );
                 info->removeCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOff() );
             }

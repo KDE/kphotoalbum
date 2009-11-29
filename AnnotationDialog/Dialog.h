@@ -22,7 +22,6 @@
 #include "DB/ImageSearchInfo.h"
 #include <qdialog.h>
 #include <QList>
-#include <Q3PtrList>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
@@ -125,7 +124,7 @@ private:
     QList<DB::ImageInfo> _editList;
     int _current;
     UsageMode _setup;
-    Q3PtrList< ListSelect > _optionList;
+    QList< ListSelect* > _optionList;
     DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
     int _accept;

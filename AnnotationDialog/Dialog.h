@@ -68,6 +68,7 @@ class Dialog :public QDialog {
     Q_OBJECT
 public:
     Dialog( QWidget* parent );
+    ~Dialog();
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;

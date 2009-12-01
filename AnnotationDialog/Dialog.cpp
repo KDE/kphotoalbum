@@ -981,4 +981,10 @@ void AnnotationDialog::Dialog::saveAndClose()
     QDialog::accept();
 }
 
+AnnotationDialog::Dialog::~Dialog()
+{
+    qDeleteAll( _optionList );
+    _optionList.clear();
+}
+
 #include "Dialog.moc"

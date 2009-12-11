@@ -117,7 +117,12 @@ void Exif::SearchDialog::makeISO( Q3Grid* parent )
          << Exif::RangeWidget::Value( 200, QString::fromLatin1("200") )
          << Exif::RangeWidget::Value( 400, QString::fromLatin1("400") )
          << Exif::RangeWidget::Value( 800, QString::fromLatin1("800") )
-         << Exif::RangeWidget::Value( 1600, QString::fromLatin1("1600") );
+         << Exif::RangeWidget::Value( 1600, QString::fromLatin1("1600") )
+         << Exif::RangeWidget::Value( 3200, QString::fromLatin1("3200") )
+         << Exif::RangeWidget::Value( 6400, QString::fromLatin1("6400") )
+         << Exif::RangeWidget::Value( 12800, QString::fromLatin1("12800") )
+         << Exif::RangeWidget::Value( 25600, QString::fromLatin1("25600") )
+         << Exif::RangeWidget::Value( 51200, QString::fromLatin1("51200") );
 
     _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, parent );
 }

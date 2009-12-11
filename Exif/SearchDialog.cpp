@@ -55,20 +55,24 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     makeISO( grid );
     makeExposureTime( grid );
 
-    Q3Grid* grid2 = new Q3Grid( 4, settings );
-    grid2->setSpacing( 6 );
-    hlay->addWidget( grid2 );
+    grid = new Q3Grid( 4, settings );
+    grid->setSpacing( 6 );
+    hlay->addWidget( grid );
     hlay->addStretch( 1 );
-    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid2 );
-    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid2 );
+    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid );
+    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid );
 
     // Focal length
+    grid = new Q3Grid( 4, settings );
+    grid->setSpacing( 6 );
+    hlay->addWidget( grid );
+    hlay->addStretch( 1 );
     QLabel* label = new QLabel( i18n( "Focal Length" ), grid );
-    _fromFocalLength = new QSpinBox;
+    _fromFocalLength = new QSpinBox( grid );
     _fromFocalLength->setRange( 0, 10000 );
     _fromFocalLength->setSingleStep( 10 );
     label = new QLabel( i18n("to"), grid );
-    _toFocalLength = new QSpinBox;
+    _toFocalLength = new QSpinBox( grid );
     _toFocalLength->setRange( 0, 10000 );
     _toFocalLength->setSingleStep( 10 );
 

@@ -53,7 +53,7 @@ bool DB::FileInfo::updateDatFromFileTimeStamp(const QString& fileName, DB::ExifM
         return false;
 
     // If we are not setting date, then we should of course not set the date
-    if ( (mode & EXIFMODE_DATE) != 0 )
+    if ( (mode & EXIFMODE_DATE) == 0 )
         return false;
 
     // If we are we already have specifies that we want to sent the date (from the ReReadExif dialog), then we of course should.

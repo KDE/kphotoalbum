@@ -3,6 +3,8 @@
 	* Added support for exporting picture date on HTMLGallery
 	* bugfix: JavaScript based HTMLGallery theme shows information of
 	wrong picture upon initial loading
+	* Added support for HTMLGallery theme darkJS to navigate through
+	images with arrow keys (left and right)
 
 2009-11-25 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 

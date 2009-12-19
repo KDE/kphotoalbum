@@ -1,3 +1,33 @@
+var image;
+var images;
+
+function listenKey () { document.onkeydown = getKey; }
+
+function getKey(e){
+	if(!e) {
+		//ie
+		e = window.event;
+	}
+
+	switch(e.keyCode) {
+	case 37: //left
+		if (--image < 0 ) {
+			image = images;
+		}
+		showImage(image);
+		break;
+	case 39: //right
+	//case 32: //space
+		if (++image > images) {
+			image = 0;
+		}
+		showImage(image);
+		break;
+	case 36: //home
+		break;
+	}
+}
+
 // Calculate appropriate height for thumbnails area
 function thumbsHeight(imgHeight) {
 	var myHeight = 0;
@@ -62,7 +92,6 @@ function image()
 	}
 
 	var thumbsW = thumbsWidth(40);
-	var image;
 	var type="onmouseover"; //onclick or onmouseover
 
 	// Currently using max portrait image height + some for the
@@ -125,16 +154,19 @@ function image()
 	document.write('</div>') // loadarea
 	document.write('</div>') // imagearea
 
+	images=image;
+	image=0;
 	setSize()
 	document.body.height = '100%';
 }
 
-function showImage(image)
+function showImage(img)
 {
-	if (gallery[image]) {
-		document.getElementById("fsImgA").href= gallery[image][2];
-		document.getElementById("fsImg").src = gallery[image][0];
-		document.getElementById("keywords").innerHTML = gallery[image][3];
+	if (gallery[img]) {
+		image = img;
+		document.getElementById("fsImgA").href= gallery[img][2];
+		document.getElementById("fsImg").src = gallery[img][0];
+		document.getElementById("keywords").innerHTML = gallery[img][3];
 	}
 }
 
@@ -142,7 +174,7 @@ function showImage(image)
 function helpIndex()
 {
 	if ( typeof( window.innerWidth ) == 'number' ) {
-		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail if you want to see it enlarged.';
+		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail if you want to see it enlarged. Scroll through images with left and right keys.';
 	} else {
 		document.getElementById('help').innerHTML = '';
 	}

@@ -53,6 +53,9 @@ public:
     void setCopyright( const QString& copyright );
     QString copyright() const;
 
+    void setDate( bool date );
+    bool date() const;
+
     void setDescription( const QString& description );
     QString description() const;
 
@@ -86,6 +89,7 @@ private:
     QString _outputDir;
     int _thumbSize;
     QString _copyright;
+    bool _date;
     QString _description;
     int _numOfCols;
     bool _generateKimFile;

@@ -61,6 +61,7 @@ private:
     KLineEdit* _destURL;
     KLineEdit* _outputDir;
     KLineEdit* _copyright;
+    QCheckBox* _date;
     QSpinBox* _thumbSize;
     QTextEdit* _description;
     QSpinBox* _numOfCols;

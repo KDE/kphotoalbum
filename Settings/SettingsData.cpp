@@ -365,6 +365,10 @@ property_ref_(
         groupForDatabase( "HTML Settings" ),
         STR( "" ) )
 property_ref_(
+        HTMLDate, setHTMLDate, int,
+        groupForDatabase( "HTML Settings" ),
+        true )
+property_ref_(
         HTMLTheme, setHTMLTheme, int,
         groupForDatabase( "HTML Settings" ),
         -1 )

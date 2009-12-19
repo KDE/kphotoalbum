@@ -638,6 +638,9 @@ QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> ca
 {
      QString description;
 
+    if (_setup.includeCategory(QString::fromLatin1("**DATE**")))
+	description += QString::fromLatin1 ( "<li> <b>%1</b> %2</li>" ).arg ( i18n("Date") ).arg ( info->date().toString() );
+
      for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;
@@ -652,6 +655,9 @@ QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> ca
     if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) ) {
         description += QString::fromLatin1( "  <li> <b>Description:</b> %1</li>" ).arg( info->description() );
     }
+
+    description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( "" ) );
+    description.replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) );
 
     return description;
 }

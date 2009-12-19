@@ -94,6 +94,16 @@ QString HTMLGenerator::Setup::copyright() const
     return _copyright;
 }
 
+void HTMLGenerator::Setup::setDate( const bool date )
+{
+    _date = date;
+}
+
+bool HTMLGenerator::Setup::date() const
+{
+    return _date;
+}
+
 void HTMLGenerator::Setup::setDescription( const QString& description )
 {
     _description = description;

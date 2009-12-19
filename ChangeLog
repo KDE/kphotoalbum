@@ -1,3 +1,7 @@
+2009-12-19  Miika Turkia <theBro@luukku.com>
+
+	* Added support for exporting picture date on HTMLGallery
+
 2009-11-25 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
 	* fixed bug #211907: Fix EXIF support dialog at startup. Thanks to Olivier Berger

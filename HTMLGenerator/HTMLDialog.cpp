@@ -109,7 +109,12 @@ void HTMLDialog::createContentPage()
     _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
     lay3->addWidget( cb, 0, 0 );
 
-    int row=0;
+    _date = new QCheckBox( i18n("Date"), whatToInclude );
+    _date->setChecked( Settings::SettingsData::instance()->HTMLDate() );
+    _whatToIncludeMap.insert( QString::fromLatin1("**DATE**"), _date );
+    lay3->addWidget( _date, 0, 1 );
+
+    int row=1;
     int col=0;
     QString selectionsTmp = Settings::SettingsData::instance()->HTMLIncludeSelections();
     QStringMatcher* pattern = new QStringMatcher();
@@ -119,13 +124,13 @@ void HTMLDialog::createContentPage()
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
      for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
-            if ( ++col % 2 == 0 )
-                ++row;
             QCheckBox* cb = new QCheckBox( (*it)->text(), whatToInclude );
             lay3->addWidget( cb, row, col%2 );
             _whatToIncludeMap.insert( (*it)->name(), cb );
 	    pattern->setPattern((*it)->name());
 	    cb->setChecked( pattern->indexIn (selectionsTmp)  >= 0 ? 1 : 0 );
+            if ( ++col % 2 == 0 )
+                ++row;
         }
     }
 }
@@ -309,6 +314,7 @@ void HTMLDialog::slotOk()
     Settings::SettingsData::instance()->setHTMLBaseURL( _baseURL->text() );
     Settings::SettingsData::instance()->setHTMLDestURL( _destURL->text() );
     Settings::SettingsData::instance()->setHTMLCopyright( _copyright->text() );
+    Settings::SettingsData::instance()->setHTMLDate( _date->isChecked() );
     Settings::SettingsData::instance()->setHTMLTheme( _themeBox->currentIndex() );
     Settings::SettingsData::instance()->setHTMLKimFile( _generateKimFile->isChecked() );
     Settings::SettingsData::instance()->setHTMLInlineMovies( _inlineMovies->isChecked() );
@@ -489,6 +495,7 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     setup.setOutputDir( _outputDir->text() );
     setup.setThumbSize( _thumbSize->value() );
     setup.setCopyright( _copyright->text() );
+    setup.setDate( _date->isChecked() );
     setup.setDescription( _description->toPlainText() );
     setup.setNumOfCols( _numOfCols->value() );
     setup.setGenerateKimFile( _generateKimFile->isChecked() );

@@ -179,6 +179,7 @@ public:
     property_ref( HTMLBaseURL, setHTMLBaseURL, QString);
     property_ref( HTMLDestURL, setHTMLDestURL, QString);
     property_ref( HTMLCopyright, setHTMLCopyright, QString);
+    property_ref( HTMLDate, setHTMLDate, int);
     property_ref( HTMLTheme, setHTMLTheme, int);
     property_ref( HTMLKimFile, setHTMLKimFile, int);
     property_ref( HTMLInlineMovies, setHTMLInlineMovies, int);

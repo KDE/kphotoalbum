@@ -116,10 +116,10 @@ function image()
 		'<img id="fsImg" src="' + gallery[0][0] + '" />' +
 		'</a>')
 	if ( typeof( window.innerWidth ) == 'number' ) {
-	document.write('<div class="keywords" id="keywords">' + gallery[image][3] +
+	document.write('<div class="keywords" id="keywords">' + gallery[0][3] +
 			'</div>')
 	} else {
-	document.write('<div class="keywords" id="keywords" style="margin-left:1.5em">' + gallery[image][3] +
+	document.write('<div class="keywords" id="keywords" style="margin-left:1.5em">' + gallery[0][3] +
 			'</div>')
 	}
 	document.write('</div>') // loadarea

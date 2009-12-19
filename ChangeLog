@@ -1,6 +1,8 @@
 2009-12-19  Miika Turkia <theBro@luukku.com>
 
 	* Added support for exporting picture date on HTMLGallery
+	* bugfix: JavaScript based HTMLGallery theme shows information of
+	wrong picture upon initial loading
 
 2009-11-25 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 

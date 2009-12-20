@@ -417,7 +417,7 @@ void Viewer::ImageDisplay::updatePreload()
     int incr = ( _forward ? 1 : -1 );
     int nextOnesInCache = 0;
     // Iterate from the current image in the direction of the viewing
-    for ( int i = _curIndex+incr; true ; i += incr ) {
+    for ( int i = _curIndex+incr; cacheSize ; i += incr ) {
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 

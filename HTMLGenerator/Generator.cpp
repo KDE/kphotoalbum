@@ -232,6 +232,9 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         else
             description = QString::fromLatin1 ( "" );
 
+        description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( "" ) );
+        description.replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) );
+
         images += description;
         images += QString::fromLatin1( "\"]);\n" );
 
@@ -655,9 +658,6 @@ QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> ca
     if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) ) {
         description += QString::fromLatin1( "  <li> <b>Description:</b> %1</li>" ).arg( info->description() );
     }
-
-    description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( "" ) );
-    description.replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) );
 
     return description;
 }

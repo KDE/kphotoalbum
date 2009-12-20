@@ -3,6 +3,9 @@
 	* Added support for rating images using numbers from keyboard (0-5)
 	* bugfix: KPA crashes when viewing images if viewer cache size is set
 	to zero
+	* On exporting HTMLGallery the escaping of quotes and carriage returns
+	is required only for the JS array, on image page escaping the quotes
+	actually messes up the HTML code.
 
 2009-12-19  Miika Turkia <theBro@luukku.com>
 

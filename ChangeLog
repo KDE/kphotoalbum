@@ -1,3 +1,7 @@
+2009-12-20  Miika Turkia <theBro@luukku.com>
+
+	* Added support for rating images using numbers from keyboard (0-5)
+
 2009-12-19  Miika Turkia <theBro@luukku.com>
 
 	* Added support for exporting picture date on HTMLGallery

@@ -926,6 +926,14 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         updateInfoBox();
         MainWindow::DirtyIndicator::markDirty();
+    } else if ( event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) {
+        bool ok;
+        short rating = event->text().left(1).toShort(&ok, 10);
+        if (ok) {
+            currentInfo()->setRating(rating * 2);
+            updateInfoBox();
+            MainWindow::DirtyIndicator::markDirty();
+        }
     }
     QWidget::keyPressEvent( event );
 }

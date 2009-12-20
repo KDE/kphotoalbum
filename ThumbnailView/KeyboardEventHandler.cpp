@@ -59,6 +59,17 @@ void ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
 
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         MainWindow::DirtyIndicator::markDirty();
+    } if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) ) {
+        bool ok;
+        short rating = event->text().left(1).toShort(&ok, 10);
+        if (ok) {
+            IdSet selection = model()->selectionSet();
+            for( IdSet::const_iterator it = selection.begin(); it != selection.end(); ++it ) {
+                DB::ImageInfoPtr info = (*it).fetchInfo();
+                info->setRating(rating * 2);
+            }
+            MainWindow::DirtyIndicator::markDirty();
+        }
     }
 
     if ( isMovementKey( event->key() ) )

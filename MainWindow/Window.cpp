@@ -1482,6 +1482,8 @@ void MainWindow::Window::slotSelectionChanged( int count )
 {
 #ifdef HASKIPI
     _pluginInterface->slotSelectionChanged( count != 0 );
+#else
+    Q_UNUSED( count );
 #endif
 }
 

@@ -29,6 +29,7 @@
 #include "ImagePreviewWidget.h"
 
 
+class QStackedWidget;
 class KActionCollection;
 class QMoveEvent;
 class QResizeEvent;
@@ -93,6 +94,7 @@ protected slots:
     void slotStartDateChanged( const DB::ImageDate& );
     void slotCopyPrevious();
     void slotRatingChanged( unsigned int );
+    void togglePreview();
 
 protected:
     QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
@@ -121,6 +123,8 @@ protected:
     void saveAndClose();
 
 private:
+    QStackedWidget* _stack;
+    Viewer::ViewerWidget* _fullScreenPreview;
     DB::ImageInfoList _origList;
     QList<DB::ImageInfo> _editList;
     int _current;

@@ -1,3 +1,14 @@
+2009-12-24  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Bugfix: no more multiple lineedits with focus in the annotation dialog.
+
+	* Now a viewer can be invoked from the annotation dialog by
+	pressin Ctrl+Space
+
+	* At end of viewing images, KPhotoalbum will now ask if you want
+	to delete those images from disk that you deleted (by pressing
+	del) during the viewing process.
+
 2009-12-20  Miika Turkia <theBro@luukku.com>
 
 	* Added support for rating images using numbers from keyboard (0-5)

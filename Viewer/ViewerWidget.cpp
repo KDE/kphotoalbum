@@ -42,6 +42,7 @@
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
+#include <KMessageBox>
 #include "VisibleOptionsMenu.h"
 #include <qglobal.h>
 #include <QTimeLine>
@@ -59,6 +60,7 @@
 #include <QVBoxLayout>
 #include <KProcess>
 #include <KStandardDirs>
+#include "MainWindow/DeleteDialog.h"
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -73,13 +75,15 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::ViewerWidget::ViewerWidget()
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false)
+Viewer::ViewerWidget::ViewerWidget( UsageType type )
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false),
+     _type(type)
 {
-    setWindowFlags( Qt::Window );
-    setAttribute( Qt::WA_DeleteOnClose );
-
-    _latest = this;
+    if ( type == ViewerWindow ) {
+        setWindowFlags( Qt::Window );
+        setAttribute( Qt::WA_DeleteOnClose );
+        _latest = this;
+    }
 
     _display = _imageDisplay = new ImageDisplay( this );
     addWidget( _imageDisplay );
@@ -109,6 +113,10 @@ Viewer::ViewerWidget::ViewerWidget()
     _speedDisplay->hide();
 
     setFocusPolicy( Qt::StrongFocus );
+
+    // PENDING(blackie) The xdg-screensaver binary still uses DCOP, so it obviously doesn't work anymore.
+    // This code should be rewritten to use DBUS instead,
+#if 0
 #ifndef Q_WS_WIN
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
@@ -119,6 +127,8 @@ Viewer::ViewerWidget::ViewerWidget()
         proc.startDetached();
     }
 #endif
+#endif
+
     QTimer::singleShot( 2000, this, SLOT(test()) );
 }
 
@@ -153,9 +163,11 @@ void Viewer::ViewerWidget::setupContextMenu()
     _popup->addAction( _showExifViewer );
 #endif
 
-    action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT( close() ) );
-    action->setText( i18n("Close") );
-    action->setShortcut( Qt::Key_Escape );
+    if ( _type == ViewerWindow ) {
+        action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT( close() ) );
+        action->setText( i18n("Close") );
+        action->setShortcut( Qt::Key_Escape );
+    }
 
     _popup->addAction( action );
     _actions->readSettings();
@@ -494,12 +506,13 @@ void Viewer::ViewerWidget::showNext()
 
 void Viewer::ViewerWidget::removeCurrent()
 {
-    _list.removeAll(_list[_current]);
-    qDebug("%d,%d", _current, _list.count() );
-    if ( _current == _list.count() ) {
-        qDebug("Show prev");
+    const QString fileName = _list[_current];
+    const DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+
+    _removed.append(id);
+    _list.removeAll(fileName);
+    if ( _current == _list.count() )
         showPrev();
-    }
     else
         showNextN(0);
 }
@@ -630,6 +643,18 @@ void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
 
 bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
+    if ( !_removed.isEmpty() ) {
+        MainWindow::DeleteDialog dialog( this );
+        dialog.exec( _removed );
+    }
+
+//        int answer = KMessageBox::questionYesNo( this,
+//                                                 i18n("<p>Delete %1 images/videos from disk?<br>Should the images you deleted during viewing also be delete from disk?").arg(_removed.count()), i18n("Delete images from disk too?"), KStandardGuiItem::no() );
+//        if ( answer == KMessageBox::Yes ) {
+//
+//        }
+//    }
+
     _slideShowTimer->stop();
     _isRunningSlideShow = false;
     return QWidget::close();
@@ -739,6 +764,9 @@ void Viewer::ViewerWidget::updateInfoBox()
 
 Viewer::ViewerWidget::~ViewerWidget()
 {
+    // PENDING(blackie) The xdg-screensaver binary still uses DCOP, so it obviously doesn't work anymore.
+    // This code should be rewritten to use DBUS instead,
+#if 0
 #ifndef Q_WS_WIN
     const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
     if ( !xdgScreenSaver.isEmpty() ) {
@@ -748,6 +776,7 @@ Viewer::ViewerWidget::~ViewerWidget()
         // already gone and doesn't re-activate the screensaver
         proc.execute();
     }
+#endif
 #endif
 
     if ( _latest == this )
@@ -1079,6 +1108,11 @@ void Viewer::ViewerWidget::createVideoViewer()
     _videoDisplay = new VideoDisplay( this );
     addWidget( _videoDisplay );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+}
+
+void Viewer::ViewerWidget::stopPlayback()
+{
+    _videoDisplay->stop();
 }
 
 #include "ViewerWidget.moc"

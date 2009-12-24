@@ -17,6 +17,7 @@
 */
 
 #include "Dialog.h"
+#include <QStackedWidget>
 #include <KAction>
 #include <KActionCollection>
 #include <QList>
@@ -76,18 +77,27 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
-    QVBoxLayout* layout = new QVBoxLayout( this );
-    _dockWindow = new QMainWindow;
-    _dockWindow->setDockNestingEnabled( true );
 
-    layout->addWidget( _dockWindow );
+    // The widget stack
+    _stack = new QStackedWidget(this);
+    QVBoxLayout* layout = new QVBoxLayout( this );
+    layout->addWidget( _stack );
+
+    // The Viewer
+    _fullScreenPreview = new Viewer::ViewerWidget( Viewer::ViewerWidget::InlineViewer );
+    _stack->addWidget( _fullScreenPreview );
+
+    // The dock widget
+    _dockWindow = new QMainWindow;
+    _stack->addWidget( _dockWindow );
+    _dockWindow->setDockNestingEnabled( true );
 
     // -------------------------------------------------- Dock widgets
     QDockWidget* dock = createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
 
     createDock( i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget() );
 
-    _description = new KTextEdit(this);
+    _description = new KTextEdit;
     _description->setProperty( "WantsFocus", true );
 
     dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
@@ -107,29 +117,29 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     QHBoxLayout* lay1 = new QHBoxLayout;
     layout->addLayout( lay1 );
 
-    _revertBut = new KPushButton( i18n("Revert This Item"), this );
+    _revertBut = new KPushButton( i18n("Revert This Item") );
     KAcceleratorManager::setNoAccel(_revertBut);
     lay1->addWidget( _revertBut );
 
     _clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
                                              ? QString::fromLatin1("clear_left")
-                                             : QString::fromLatin1("locationbar_erase")), this );
+                                             : QString::fromLatin1("locationbar_erase")) );
     KAcceleratorManager::setNoAccel(_clearBut);
     lay1->addWidget( _clearBut );
 
-    KPushButton* optionsBut = new KPushButton( i18n("Options..." ), this );
+    KPushButton* optionsBut = new KPushButton( i18n("Options..." ) );
     KAcceleratorManager::setNoAccel(optionsBut);
     lay1->addWidget( optionsBut );
 
     lay1->addStretch(1);
 
-    _okBut = new KPushButton( i18n("&Done"), this );
+    _okBut = new KPushButton( i18n("&Done") );
     lay1->addWidget( _okBut );
 
-    _continueLaterBut = new KPushButton( i18n("Continue &Later"), this );
+    _continueLaterBut = new KPushButton( i18n("Continue &Later") );
     lay1->addWidget( _continueLaterBut );
 
-    KPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel(), this );
+    KPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel() );
     lay1->addWidget( cancelBut );
 
     // It is unfortunately not possible to ask KAcceleratorManager not to setup the OK and cancel keys.
@@ -144,7 +154,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     connect( cancelBut, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( _clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
-    
+
     connect( _preview, SIGNAL( imageRotated( int ) ), this, SLOT( rotate( int ) ) );
     connect( _preview, SIGNAL( indexChanged( int ) ), this, SLOT( slotIndexChanged( int ) ) );
     connect( _preview, SIGNAL( imageDeleted( const DB::ImageInfo& ) ), this, SLOT( slotDeleteImage() ) );
@@ -161,7 +171,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     _dockWindowCleanState = _dockWindow->saveState();
 
     loadWindowLayout();
-    
+
     _current = -1;
 
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::AnnotationDialog ) );
@@ -243,7 +253,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
 
 #ifdef HAVE_NEPOMUK
-    _rating = new KRatingWidget( this );
+    _rating = new KRatingWidget;
     _rating->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
     lay2->addStretch(1);
     lay2->addWidget( _rating, 0, Qt::AlignCenter );
@@ -271,12 +281,12 @@ void AnnotationDialog::Dialog::slotIndexChanged( int index )
 {
   if ( _setup != InputSingleImageConfigMode )
         return;
-    
+
     if(_current >= 0 )
       writeToInfo();
-    
+
     _current = index;
-    
+
     load();
 }
 
@@ -387,7 +397,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         DB::ImageDB::instance()->categoryCollection()->categoryForName( Settings::SettingsData::instance()->untaggedCategory() )
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
-    
+
 
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
@@ -466,7 +476,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         //then change back to 0 .
         if( _ratingChanged)
           _oldSearch.setRating( _rating->rating() );
-        
+
         _ratingChanged = false;
 #endif
         return _oldSearch;
@@ -537,6 +547,7 @@ void AnnotationDialog::Dialog::slotOptions()
 
 int AnnotationDialog::Dialog::exec()
 {
+    _stack->setCurrentWidget( _dockWindow );
     showTornOfWindows();
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
@@ -606,6 +617,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 
 void AnnotationDialog::Dialog::reject()
 {
+    _fullScreenPreview->stopPlayback();
     if ( hasChanges() ) {
         int code =  KMessageBox::questionYesNo( this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>") );
         if ( code == KMessageBox::No )
@@ -679,10 +691,10 @@ void AnnotationDialog::Dialog::slotAddTimeInfo()
 void AnnotationDialog::Dialog::slotDeleteImage()
 {
     Q_ASSERT( _setup != SearchMode );
-    
+
     if( _setup == InputMultiImageConfigMode )  //TODO: probably delete here should mean remove from selection
       return;
-    
+
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
 
@@ -869,6 +881,10 @@ void AnnotationDialog::Dialog::setupActions()
     action = _actions->addAction( QString::fromLatin1("annotationdialog-rotate-right"),  _preview, SLOT( rotateRight() ) );
     action->setText(  i18n("Rotate clockwise") );
 
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-toggle-viewer"), this, SLOT( togglePreview() ) );
+    action->setText( i18n("Toggle fullscreen preview") );
+    action->setShortcut( Qt::CTRL + Qt::Key_Space );
+
     foreach (QAction* action, _actions->actions()) {
       action->setShortcutContext(Qt::WindowShortcut);
       addAction(action);
@@ -916,6 +932,8 @@ void AnnotationDialog::Dialog::continueLater()
 
 void AnnotationDialog::Dialog::saveAndClose()
 {
+    _fullScreenPreview->stopPlayback();
+
     if (_origList.isEmpty()) {
         // all images are deleted.
         QDialog::accept();
@@ -985,6 +1003,18 @@ AnnotationDialog::Dialog::~Dialog()
 {
     qDeleteAll( _optionList );
     _optionList.clear();
+}
+
+void AnnotationDialog::Dialog::togglePreview()
+{
+    if ( _stack->currentWidget() == _fullScreenPreview ) {
+        _stack->setCurrentWidget( _dockWindow );
+        _fullScreenPreview->stopPlayback();
+    }
+    else {
+        _stack->setCurrentWidget( _fullScreenPreview );
+        _fullScreenPreview->load( QStringList() << _editList[ _current].fileName(DB::AbsolutePath) );
+    }
 }
 
 #include "Dialog.moc"

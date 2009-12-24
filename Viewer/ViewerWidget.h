@@ -23,6 +23,7 @@
 #include <qimage.h>
 #include <QPixmap>
 #include "DB/ImageInfoPtr.h"
+#include "DB/Result.h"
 #include <config-kpa-exiv2.h>
 
 class QKeyEvent;
@@ -50,7 +51,9 @@ class ViewerWidget :public QStackedWidget
 {
     Q_OBJECT
 public:
-    ViewerWidget();
+    enum UsageType { InlineViewer, ViewerWindow };
+
+    ViewerWidget( UsageType type = ViewerWindow );
     ~ViewerWidget();
     static ViewerWidget* latest();
     void load( const QStringList& list, int index = 0 );
@@ -65,6 +68,7 @@ public slots:
     void updateInfoBox();
     void test();
     void moveInfoBox( int );
+    void stopPlayback();
 
 signals:
     void rotated();
@@ -160,6 +164,7 @@ private:
     TextDisplay* _textDisplay;
 
     QStringList _list;
+    DB::Result _removed;
     int _current;
     QRect _textRect;
     QMenu* _popup;
@@ -191,6 +196,7 @@ private:
     KAction* _stop;
     KAction* _playPause;
     bool _videoPlayerStoppedManually;
+    UsageType _type;
 };
 
 }

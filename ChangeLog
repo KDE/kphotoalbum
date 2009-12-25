@@ -1,3 +1,10 @@
+2009-12-25  Jan Kundrát <jkt@gentoo.org>
+
+	* Added a simple `script/focal-length-hist.py` for printing out a histogram
+	of lens focal lengths used.  It's a rather quick & dirty hack, but might be
+	useful when deciding which focal lengths you use most before buying new
+	lens.
+
 2009-12-24  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Bugfix: no more multiple lineedits with focus in the annotation dialog.

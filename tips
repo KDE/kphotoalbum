@@ -121,6 +121,14 @@ the middle mouse button by left and right clicking at the same time.
 
 <tip category="KPhotoAlbum">
 <html>
+<p>You may rate the images using numbers from 0 to 5 on keyboard on thumbnail
+view and image viewer. Rate images in annotation dialog by selecting the
+appropriate star rating.</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a>.</p>
 </html>

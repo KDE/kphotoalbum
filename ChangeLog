@@ -1,3 +1,7 @@
+2009-12-30  Miika Turkia <theBro@luukku.com>
+
+	* Tip added to inform users about rating with number keys
+
 2009-12-30  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* fixed bug #220376: Shortcuts in the annotation dialog was broken

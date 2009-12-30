@@ -24,7 +24,7 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
         QWidget* widget = pair.second;
         QString title = dock->windowTitle();
         for ( int index = 0; index < title.length(); ++index ) {
-            const QChar ch = title[index];
+            const QChar ch = title[index].toLower();
             if ( !m_taken.contains(ch) ) {
                 m_taken.insert( ch );
                 dock->setWindowTitle( title.left(index) + QString::fromLatin1("&") + title.mid(index) );
@@ -37,7 +37,7 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
     Q_FOREACH( QLabel* label, m_labelWidgets ) {
         const QString title = label->text();
         for ( int index = 0; index < title.length(); ++index ) {
-            const QChar ch = title[index];
+            const QChar ch = title[index].toLower();
             if ( !m_taken.contains(ch) ) {
                 m_taken.insert( ch );
                 label->setText( title.left(index) + QString::fromLatin1("&") + title.mid(index) );
@@ -58,5 +58,5 @@ void AnnotationDialog::ShortCutManager::addTaken( const QString& text )
 {
     const int index = text.indexOf(QChar::fromLatin1('&'));
     if ( index != -1 )
-        m_taken.insert( text[index+1] );
+        m_taken.insert( text[index+1].toLower() );
 }

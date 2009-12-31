@@ -54,14 +54,14 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     _label = new QLabel;
     lay1->addWidget( _label );
 
-    _use_trash = new QRadioButton( i18n("Move to Trash") );
-    lay1->addWidget( _use_trash );
+    _useTrash = new QRadioButton;
+    lay1->addWidget( _useTrash );
 
-    _delete_file = new QRadioButton( i18n( "Delete from disk" ) );
-    lay1->addWidget( _delete_file );
+    _deleteFile = new QRadioButton;
+    lay1->addWidget( _deleteFile );
 
-    _delete_from_db = new QRadioButton( i18n( "Leave to disk" ) );
-    lay1->addWidget( _delete_from_db );
+    _deleteFromDb = new QRadioButton;
+    lay1->addWidget( _deleteFromDb );
 
      connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
@@ -70,20 +70,20 @@ int DeleteDialog::exec(const DB::Result& list)
 {
     if (!list.size()) return 0;
 
-    _label->setText(
-        i18n("<p><b><center><font size=\"+3\">"
-             "Removing %1 %2<br />"
-             "</font>"
-             "Selected %2 %4 removed from database. <br />"
-             "What do you want to do with the %3 on disk?"
-             "</center></b></p>",
-             list.size(), list.size() == 1 ? i18n("item") : i18n("items"),
-             list.size() == 1 ? i18n("file") : i18n("files"),
-             list.size() == 1 ? i18n("is") : i18n("are")
-        )
-    );
+    const QString msg1 = i18np( "Removing 1 item", "Removing %1 items", list.size() );
+    const QString msg2 = i18np( "Selected item will be removed from the database.<br/>What do you want to do with the file on disk?",
+                                "Selected %1 items will be removed from the database.<br/>What do you want to do with the files on disk?",
+                                list.size() );
 
-    _use_trash->setChecked( true );
+    const QString txt = QString::fromLatin1( "<p><b><center><font size=\"+3\">%1</font><br/>%2</center></b></p>" ).arg(msg1).arg(msg2);
+
+    _useTrash->setText( i18np("Move file to Trash", "Move files to Trash", list.size() ) );
+    _deleteFile->setText( i18np( "Delete file from disk", "Delete files from disk", list.size() ) );
+    _deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove the items from database", list.size() ) );
+
+
+    _label->setText( txt );
+    _useTrash->setChecked( true );
     _list = list;
 
     return KDialog::exec();
@@ -99,7 +99,7 @@ void DeleteDialog::deleteImages()
     Q_FOREACH(const DB::ResultId id, _list) {
         const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
-            if ( _delete_file->isChecked() || _use_trash->isChecked() ){
+            if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
                 KUrlToDelete.setPath(fileName);
                 listKUrlToDelete.append(KUrlToDelete);
                 listToDelete.append(id);
@@ -112,9 +112,9 @@ void DeleteDialog::deleteImages()
             listToDelete.append(id);
     }
 
-    if ( _delete_file->isChecked() || _use_trash->isChecked() ) {
+    if ( _deleteFile->isChecked() || _useTrash->isChecked() ) {
         KJob* job;
-        if ( _use_trash->isChecked() )
+        if ( _useTrash->isChecked() )
             job = KIO::trash( listKUrlToDelete );
         else
             job = KIO::del( listKUrlToDelete );
@@ -122,7 +122,7 @@ void DeleteDialog::deleteImages()
     }
 
     if(!listToDelete.isEmpty()) {
-        if ( _delete_file->isChecked() || _use_trash->isChecked() )
+        if ( _deleteFile->isChecked() || _useTrash->isChecked() )
             DB::ImageDB::instance()->deleteList( listToDelete );
         else
             DB::ImageDB::instance()->addToBlockList( listToDelete );

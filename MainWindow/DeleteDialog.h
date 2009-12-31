@@ -45,9 +45,9 @@ protected slots:
 private:
     DB::Result _list;
     QLabel* _label;
-    QRadioButton* _delete_file;
-    QRadioButton* _use_trash;
-    QRadioButton* _delete_from_db;
+    QRadioButton* _deleteFile;
+    QRadioButton* _useTrash;
+    QRadioButton* _deleteFromDb;
 
 };
 

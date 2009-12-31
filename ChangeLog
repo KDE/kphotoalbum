@@ -1,3 +1,8 @@
+2009-12-31  Miika Turkia <theBro@luukku.com>
+
+	* fixed bug #145735: Move deleted files to Trash. Thanks to  Kirill
+	Kalyuzhniy
+
 2009-12-30  Miika Turkia <theBro@luukku.com>
 
 	* Tip added to inform users about rating with number keys

@@ -25,7 +25,8 @@
 #include <qfile.h>
 #include <qlabel.h>
 #include <qlayout.h>
-
+#include <kio/deletejob.h>
+#include "kio/copyjob.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Result.h"
@@ -33,6 +34,7 @@
 #include "ImageManager/Manager.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "Utilities/Util.h"
+#include "MainWindow/DirtyIndicator.h"
 
 using namespace MainWindow;
 
@@ -40,9 +42,9 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     : KDialog(parent)
     , _list()
 {
-    setWindowTitle( i18n("Delete from database") );
+    setWindowTitle( i18n("Removing items") );
     setButtons( Cancel|User1 );
-    setButtonText( User1,i18n("Delete") );
+    setButtonText( User1,i18n("OK") );
 
     QWidget* top = new QWidget;
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -52,22 +54,36 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     _label = new QLabel;
     lay1->addWidget( _label );
 
-    _delete_file = new QCheckBox( i18n( "Delete file from disk as well" ) );
+    _use_trash = new QRadioButton( i18n("Move to Trash") );
+    lay1->addWidget( _use_trash );
+
+    _delete_file = new QRadioButton( i18n( "Delete from disk" ) );
     lay1->addWidget( _delete_file );
 
-    connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
+    _delete_from_db = new QRadioButton( i18n( "Leave to disk" ) );
+    lay1->addWidget( _delete_from_db );
+
+     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
 int DeleteDialog::exec(const DB::Result& list)
 {
+    if (!list.size()) return 0;
+
     _label->setText(
         i18n("<p><b><center><font size=\"+3\">"
-             "Delete Images/Videos from database<br/>"
-             "%1 selected"
-             "</font></center></b></p>",
-             list.size()));
+             "Removing %1 %2<br />"
+             "</font>"
+             "Selected %2 %4 removed from database. <br />"
+             "What do you want to do with the %3 on disk?"
+             "</center></b></p>",
+             list.size(), list.size() == 1 ? i18n("item") : i18n("items"),
+             list.size() == 1 ? i18n("file") : i18n("files"),
+             list.size() == 1 ? i18n("is") : i18n("are")
+        )
+    );
 
-    _delete_file->setChecked( true );
+    _use_trash->setChecked( true );
     _list = list;
 
     return KDialog::exec();
@@ -76,45 +92,51 @@ int DeleteDialog::exec(const DB::Result& list)
 void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
-
     DB::Result listToDelete;
-    QStringList listCouldNotDelete;
+    KUrl::List listKUrlToDelete;
+    KUrl KUrlToDelete;
 
     Q_FOREACH(const DB::ResultId id, _list) {
         const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
-            // TODO: should this probably call some KDE specific thing to
-            // move the file in the Trash-bin or something ? Deleting
-            // potentially precious images is a bit harsh.
-            if ( _delete_file->isChecked() && !QFile( fileName ).remove() ) {
-                listCouldNotDelete.append(fileName);
+            if ( _delete_file->isChecked() || _use_trash->isChecked() ){
+                KUrlToDelete.setPath(fileName);
+                listKUrlToDelete.append(KUrlToDelete);
+                listToDelete.append(id);
+                ImageManager::Manager::instance()->removeThumbnail( fileName );
             } else {
                 listToDelete.append(id);
                 ImageManager::Manager::instance()->removeThumbnail( fileName );
             }
-        } else {
+        } else
             listToDelete.append(id);
-        }
     }
 
-    if( ! listCouldNotDelete.isEmpty()) {
-        KMessageBox::errorList( this,
-                                i18np("<p><b>Unable to physically delete a file. Do you have permission to do so?</b></p>",
-                                      "<p><b>Unable to physically delete %1 files. Do you have permission to do so?</b></p>",
-                                      listCouldNotDelete.count() ),
-                                listCouldNotDelete,
-                                i18np("Error Deleting File", "Error Deleting Files", listCouldNotDelete.count() ) );
+    if ( _delete_file->isChecked() || _use_trash->isChecked() ) {
+        KJob* job;
+        if ( _use_trash->isChecked() )
+            job = KIO::trash( listKUrlToDelete );
+        else
+            job = KIO::del( listKUrlToDelete );
+        connect( job, SIGNAL( result( KJob* ) ), this, SLOT( slotKIOJobCompleted( KJob* ) ) );
     }
 
     if(!listToDelete.isEmpty()) {
-        if ( _delete_file->isChecked() )
+        if ( _delete_file->isChecked() || _use_trash->isChecked() )
             DB::ImageDB::instance()->deleteList( listToDelete );
         else
             DB::ImageDB::instance()->addToBlockList( listToDelete );
+        MainWindow::DirtyIndicator::markDirty();
         accept();
     } else {
         reject();
     }
+}
+
+void DeleteDialog::slotKIOJobCompleted( KJob* job)
+{
+    if ( job->error() )
+        KMessageBox::error( this, job->errorString(), i18n( "Error Deleting Files" ) );
 }
 
 #include "DeleteDialog.moc"

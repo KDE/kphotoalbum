@@ -20,12 +20,14 @@
 #define DELETEDIALOG_H
 #include <KDialog>
 #include <QLabel>
-
+#include <kjob.h>
+#include <qradiobutton.h>
 #include "DB/Result.h"
 
 class QLabel;
 class QCheckBox;
-
+class KJob;
+namespace KIO {class Job; }
 namespace MainWindow
 {
 
@@ -38,11 +40,14 @@ public:
 
 protected slots:
     void deleteImages();
+    void slotKIOJobCompleted( KJob* );
 
 private:
     DB::Result _list;
     QLabel* _label;
-    QCheckBox* _delete_file;
+    QRadioButton* _delete_file;
+    QRadioButton* _use_trash;
+    QRadioButton* _delete_from_db;
 
 };
 

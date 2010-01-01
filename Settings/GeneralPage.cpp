@@ -44,6 +44,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     // Exclude directories from search
     QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from search:" ), box );
     _excludeDirectories = new KLineEdit( box );
+    excludeDirectoriesLabel->setBuddy( _excludeDirectories );
 
     // Datebar size
     container = new QWidget( this );

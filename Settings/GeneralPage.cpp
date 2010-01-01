@@ -27,6 +27,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
     _trustTimeStamps = new KComboBox( container );
     _trustTimeStamps->addItems( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
+    timeStampLabel->setBuddy( _trustTimeStamps );
     QHBoxLayout* hlay = new QHBoxLayout( container );
     hlay->addWidget( timeStampLabel );
     hlay->addWidget( _trustTimeStamps );
@@ -56,6 +57,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     _barWidth->setRange( 1, 100 );
     _barWidth->setSingleStep( 1 );
     hlay->addWidget( _barWidth );
+    datebarSize->setBuddy( _barWidth );
     QLabel* cross = new QLabel( QString::fromLatin1( " x " ), container );
     hlay->addWidget( cross );
     _barHeight = new QSpinBox;
@@ -70,6 +72,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     // Album Category
     QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), this );
     _albumCategory = new QComboBox;
+    albumCategoryLabel->setBuddy( _albumCategory );
     QHBoxLayout* lay7 = new QHBoxLayout;
     lay1->addLayout( lay7 );
 

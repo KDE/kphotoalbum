@@ -1,3 +1,8 @@
+2010-01-01  Miika Turkia <theBro@luukku.com>
+
+	* fixed bug #159718: Excluding subdirecories like .thumbs.
+	Thanks to Michal Yogi Práznovský
+
 2009-12-31  Miika Turkia <theBro@luukku.com>
 
 	* fixed bug #145735: Move deleted files to Trash. Thanks to  Kirill

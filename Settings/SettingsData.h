@@ -86,6 +86,7 @@ public:
     property_copy( backupCount           , setBackupCount           , int );
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
+    property_copy( excludeDirectories    , setExcludeDirectories    , QString );
 
     bool trustTimeStamps();
 

@@ -6,6 +6,7 @@ class QComboBox;
 class QSpinBox;
 class QCheckBox;
 class KComboBox;
+class KLineEdit;
 namespace Settings
 {
 class SettingsData;
@@ -27,6 +28,7 @@ private:
     QSpinBox* _barHeight;
     QCheckBox* _showSplashScreen;
     QComboBox* _albumCategory;
+    KLineEdit* _excludeDirectories; // Directories to exclude
 };
 }
 

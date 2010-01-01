@@ -161,6 +161,7 @@ property_copy( showSplashScreen      , setShowSplashScreen      , bool          
 property_copy( autoSave              , setAutoSave              , int           , General, 5                          )
 property_copy( backupCount           , setBackupCount           , int           , General, 5                          )
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
+property_copy( excludeDirectories    , setExcludeDirectories    , QString       , General, QString::fromLatin1("xml,ThumbNails,.thumbs") )
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )

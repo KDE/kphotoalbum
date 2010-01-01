@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <Q3VGroupBox>
 #include <QVBoxLayout>
+#include <KLineEdit>
 #include "DB/CategoryCollection.h"
 #include "SettingsData.h"
 
@@ -39,6 +40,10 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     // Search for images on startup
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), box );
     _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), box );
+
+    // Exclude directories from search
+    QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from search:" ), box );
+    _excludeDirectories = new KLineEdit( box );
 
     // Datebar size
     container = new QWidget( this );
@@ -145,6 +150,7 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
+    _excludeDirectories->setText( opt->excludeDirectories() );
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
@@ -161,6 +167,7 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
     opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
     opt->setShowSplashScreen( _showSplashScreen->isChecked() );
+    opt->setExcludeDirectories( _excludeDirectories->text() );
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
         name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];

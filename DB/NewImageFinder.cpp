@@ -24,6 +24,7 @@
 #include "DB/ResultId.h"
 
 #include <qfileinfo.h>
+#include <QStringList>
 #include <QProgressDialog>
 #include <klocale.h>
 #include <qapplication.h>
@@ -133,14 +134,16 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
     FastDir dir( directory );
     QStringList dirList = dir.entryList( );
     ImageManager::RAWImageDecoder dec;   // TODO: DEPENDENCY: DB:: should not reference other directories
+    QStringList excluded;
+    excluded << Settings::SettingsData::instance()->excludeDirectories();
+    excluded = excluded.at(0).split(QString::fromLatin1(","));
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
-        if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-             (*it) == QString::fromLatin1("ThumbNails") ||
-             (*it) == QString::fromLatin1("CategoryImages") ||
-	         loadedFiles.contains( file ) ||
-	         dec._skipThisFile(loadedFiles, file) )
-            continue;
+	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
+                excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
+                dec._skipThisFile(loadedFiles, file) ||
+                (*it) == QString::fromLatin1("CategoryImages") )
+	    continue;
 
         QFileInfo fi( file );
 

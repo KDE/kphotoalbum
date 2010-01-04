@@ -1,3 +1,7 @@
+2010-01-04  Miika Turkia <theBro@luukku.com>
+
+	* ImageViewer and SlideShow added to HTMLGenerator's theme darkJS
+
 2010-01-01  Miika Turkia <theBro@luukku.com>
 
 	* fixed bug #159718: Excluding subdirecories like .thumbs.

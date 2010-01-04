@@ -1,77 +1,137 @@
-var image;
-var images;
+// SlideShow speed in milliseconds
+var speed = 2500
 
-function listenKey () { document.onkeydown = getKey; }
+// Image that is being displayed in ImageViewer
+var viewerImage
 
-function getKey(e){
+// Image that is being displayed on main page loadarea
+var image
+
+// SlideShow off
+var ss = 0
+
+// Pause SlideShow off
+var pause = 0
+
+// ImageViewer off
+var viewer = 0
+
+// SlideShow timer
+var timer
+
+// Registering keyboard listener
+function listenKey ()
+{
+	document.onkeydown = getKey
+}
+
+// Actions for key presses
+function getKey(e)
+{
 	if(!e) {
 		//ie
-		e = window.event;
+		e = window.event
 	}
 
 	switch(e.keyCode) {
 	case 37: //left
-		if (--image < 0 ) {
-			image = images;
-		}
-		showImage(image);
-		break;
+		prevImage()
+		break
 	case 39: //right
-	//case 32: //space
-		if (++image > images) {
-			image = 0;
-		}
-		showImage(image);
-		break;
+		nextImage()
+		break
+	case 32: //space
+		if (ss) {
+			if (!pause) {
+				pause = 1
+			} else {
+				pause = 0
+				nextImage()
+			}
+		} else if (viewer)
+			nextImage()
+		break
+	case 27: //escape
+		hideImageViewer()
+		break
 	case 36: //home
-		break;
+		break
 	}
 }
 
-// Calculate appropriate height for thumbnails area
-function thumbsHeight(imgHeight) {
-	var myHeight = 0;
-
-	if( typeof( window.innerWidth ) == 'number' ) {
-		//Non-IE
-		myHeight = window.innerHeight;
-	} else if( document.documentElement &&
-		document.documentElement.clientHeight ) {
-			//IE 6+ in 'standards compliant mode'
-			myHeight = document.documentElement.clientHeight;
-	} else if( document.body && document.body.clientHeight ) {
-		//IE 4 compatible
-		myHeight = document.body.clientHeight;
+// Viewing next image on ImageViewer
+function nextImage()
+{
+	if (ss) {
+		clearTimeout(timer)
+		if (pause) return
+		timer = setTimeout("nextImage()",speed)
 	}
-	return (myHeight - 220) > imgHeight ? (myHeight - 220) : imgHeight;
+	viewerImage = ++viewerImage > gallery.length - 1 ? 0 : viewerImage
+	showImage(viewerImage)
 }
 
-function windowWidth(pad) {
-	var myWidth = 0;
+// Viewing previous image in ImageViewer
+function prevImage()
+{
+	if (ss) {
+		clearTimeout(timer)
+		if (pause) return
+		timer = setTimeout("nextImage()",speed)
+	}
+	viewerImage = --viewerImage < 0 ? gallery.length - 1 : viewerImage
+	showImage(viewerImage)
+}
+
+// Checking window width
+function windowWidth(pad)
+{
+	var myWidth = 0
 
 	if( typeof( window.innerWidth ) == 'number' ) {
 		//Non-IE
-		myWidth = window.innerWidth;
+		myWidth = window.innerWidth
 	} else if( document.documentElement &&
 		document.documentElement.clientWidth ) {
 			//IE 6+ in 'standards compliant mode'
-			myWidth = document.documentElement.clientWidth;
+			myWidth = document.documentElement.clientWidth
 	} else if( document.body && document.body.clientWidth ) {
 		//IE 4 compatible
-		myWidth = document.body.clientWidth;
+		myWidth = document.body.clientWidth
 	}
-	return myWidth - pad;
+	return myWidth - pad
+}
+
+// Calculate appropriate height for thumbnails area
+function thumbsHeight(imgHeight)
+{
+	var myHeight = 0
+
+	if( typeof( window.innerWidth ) == 'number' ) {
+		//Non-IE
+		myHeight = window.innerHeight
+	} else if( document.documentElement &&
+		document.documentElement.clientHeight ) {
+			//IE 6+ in 'standards compliant mode'
+			myHeight = document.documentElement.clientHeight
+	} else if( document.body && document.body.clientHeight ) {
+		//IE 4 compatible
+		myHeight = document.body.clientHeight
+	}
+	return (myHeight - 220) > imgHeight ? (myHeight - 220) : imgHeight
 }
 
 // Calculate appropriate width of thumbnails area
-function thumbsWidth(pad) {
-	var myWidth = windowWidth(10);
-	var thumbOverhead = 18;
+function thumbsWidth(pad)
+{
+	var myWidth = windowWidth(10)
+	var thumbOverhead = 18
+	var thumbs
 
 	if( typeof( window.innerWidth ) == 'number' )
-		thumbOverhead = 10;
+		thumbOverhead = 10
 
-	var thumbs = Math.floor((myWidth - width - pad) / (tsize + thumbOverhead));
+	thumbs = Math.floor((myWidth - width - pad) / (tsize + thumbOverhead))
 
 	return thumbs * ( tsize + thumbOverhead )
 }
@@ -79,94 +139,137 @@ function thumbsWidth(pad) {
 // Main function to barf out the HTML for thumbnails and image area
 function image()
 {
+	var slash
+	var doc
+	var thumbsW
+	var areaHeight
+	var areaWidth
+
+	if (location.pathname.match(/\//))
+		slash = '/'
+	else
+		slash = '\\'
+
 	// Redirect browser to smallest sized images by default
-	var slash = '/';
-	if (typeof(window.innerWidth) != 'number')
-		slash = '\\';
-	if (location.pathname.substring(location.pathname.lastIndexOf(slash)+1)
-			== "index.html") {
-		document.location=minPage;
-	} else if (location.pathname.substring(location.pathname.lastIndexOf(
-		slash)+1) == "") {
-		document.location=minPage;
+	doc = location.pathname.substring(location.pathname.lastIndexOf(slash)+1)
+	if ((doc == "index.html") || (doc == "")) {
+		document.location=minPage
 	}
 
-	var thumbsW = thumbsWidth(40);
-	var type="onmouseover"; //onclick or onmouseover
+	thumbsW = thumbsWidth(40)
 
 	// Currently using max portrait image height + some for the
 	// load area of full size images
-	var areaHeight = thumbsHeight(width + 45);
-	var areaWidth = width + 20;
-	var iets = (tsize + 16) + 'px';
-	var ffts = (tsize + 4) + 'px';
+	areaHeight = thumbsHeight(width + 45)
+	areaWidth = width + 20
 
 	// Registering resize function
-	window.onresize= widthTimer;
+	window.onresize= widthTimer
 
 	document.write('<div id="imagearea">')
-
 	document.write('<div class="thumbnails" id="thumbnails" style="height:' +
 		areaHeight + 'px;">')
 
+	if ( typeof( window.innerWidth ) == 'number' )
+		ts = (tsize + 4) + 'px'
+	else
+		ts = (tsize + 16) + 'px'
+
 	for (image in gallery) {
-		if ( typeof( window.innerWidth ) == 'number' ) {
-			document.write('<div id="thumb-div" class="thumb-div"' +
-				' style="width:' + ffts + ';height:' + ffts +
-				';">' +
-				'<a id="thumbA" class="thumbA" href="#" ' +
-				'onclick="window.open (\'' + gallery[image][2] +
-				'\', \'child\'); return false">' +
-				'<img alt="' + gallery[image][1] + '" src="' +
-				gallery[image][1] + '" ' + type +
-				'=showImage("' + image + '") '
-			)
-			document.write('/></a></div>')
-		} else {
-		document.write('<div id ="thumb-div" class="thumb-div" ' +
-			'style="padding:0px; width:' + iets + ';height:' +
-			iets + ';">' +
-			'<a id="thumbA" class="thumbA" href="#" ' +
-			'onclick="window.open (\'' + gallery[image][2] +
-			'\', \'child\'); return false">' +
-			'<img alt="' +
-			gallery[image][1] + '" src="' + gallery[image][1] +
-			'" ' + type + '=showImage("' + image +
-			'") ')
-			document.write('/></a></div>')
-		}
+		document.write('<div id="thumb-div" class="thumb-div"' +
+			' style="width:' + ts + ';height:' + ts +
+			';">' +
+			'<img alt="' + gallery[image][1] + '" src="' +
+			gallery[image][1] + '" onmouseover' +
+			'=showImage("' + image + '") onclick=\'showImageViewer(' + image + ')\'' +
+			'/></div>')
 	}
 	document.write('</div>') // thumbnails
 
-	// creating the loadarea for the full size images
+	// opaque area
+	document.write('<div id="opa"></div>')
+
+	// viewer area that is shown on slideshow / full size view
+	document.write('<div id="pad"><div id="fullarea" onclick=hideImageViewer()>' +
+		'<img id="fullImg" class="fullImg" src="' + gallery[0][2] + '" onload=viewerSize() />' +
+		'</div></div>')
+
+	// creating the loadarea for the big images
 	document.write('<div id="loadarea" style="width:' + areaWidth +
 		'px; min-height:' + areaHeight + 'px;">' +
-		'<a id="fsImgA" class="fsImgA" href="#" onclick="window.open (this.href, \'child\'); return false">' +
-		'<img id="fsImg" src="' + gallery[0][0] + '" />' +
-		'</a>')
-	if ( typeof( window.innerWidth ) == 'number' ) {
+		'<img id="fsImg" src="' + gallery[0][0] + '" onclick=showImageViewer(-1) />')
+	document.write('<div class="filename" id="filename"><b>' + gallery[0][2] + '</b></div>')
 	document.write('<div class="keywords" id="keywords">' + gallery[0][3] +
 			'</div>')
-	} else {
-	document.write('<div class="keywords" id="keywords" style="margin-left:1.5em">' + gallery[0][3] +
-			'</div>')
-	}
 	document.write('</div>') // loadarea
 	document.write('</div>') // imagearea
 
-	images=image;
-	image=0;
+	image=0
 	setSize()
-	document.body.height = '100%';
+
+	document.body.height = '100%'
 }
 
+// Show image either on loadarea or ImageViewer
 function showImage(img)
 {
 	if (gallery[img]) {
-		image = img;
-		document.getElementById("fsImgA").href= gallery[img][2];
-		document.getElementById("fsImg").src = gallery[img][0];
-		document.getElementById("keywords").innerHTML = gallery[img][3];
+		if (!viewer) {
+			document.getElementById("fsImg").src = gallery[img][0]
+			document.getElementById("keywords").innerHTML = gallery[img][3]
+			document.getElementById("filename").innerHTML = '<b>' + gallery[img][2] + '</b>'
+			image = img
+		} else
+			document.getElementById("fullImg").src = gallery[img][2]
+		viewerImage=img
+	}
+}
+
+// Resize the ImageViewer to match each image
+function viewerSize()
+{
+	document.getElementById("fullarea").style.width =
+		document.getElementById("fullImg").offsetWidth ?
+		document.getElementById("fullImg").offsetWidth + 'px' :
+		document.getElementById("fullImg").width + 'px'
+}
+
+// Display ImageViewer
+function showImageViewer(img)
+{
+	if (img == -1) {
+		document.getElementById("fullImg").src = gallery[image][2]
+	} else
+		document.getElementById("fullImg").src = gallery[img][2]
+
+	document.getElementById("fullarea").style.display="block"
+	document.getElementById("opa").style.display="block"
+	document.getElementById("pad").style.display="block"
+	viewer=1
+}
+
+// Hide ImageViewer
+function hideImageViewer()
+{
+	document.getElementById("fullarea").style.display="none"
+	document.getElementById("opa").style.display="none"
+	document.getElementById("pad").style.display="none"
+	if (ss) {
+		clearTimeout(timer)
+		ss=0
+		pause=0
+	}
+	viewer=0
+}
+
+// Set timer for showing next image on slideShow
+// This function is called from the HTML page!
+function slideShow()
+{
+	if (!ss) {
+		ss = 1
+		showImageViewer(viewerImage)
+		timer = setTimeout("nextImage()",speed)
 	}
 }
 
@@ -174,53 +277,63 @@ function showImage(img)
 function helpIndex()
 {
 	if ( typeof( window.innerWidth ) == 'number' ) {
-		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail if you want to see it enlarged. Scroll through images with left and right keys.';
+		document.getElementById('help-span').innerHTML = 'Move mouse over the thumbnail if you want to see it enlarged. Scroll through images with left and right keys.'
+		document.getElementById('slide-help').innerHTML = 'Slideshow'
 	} else {
-		document.getElementById('help').innerHTML = '';
+		document.getElementById('help').innerHTML = ''
 	}
 }
 
+// Resizing key elements to reflect new window size
+function setSize()
+{
+	var thumbPad
+	var thumbWidth
 
-function setSize() {
 	// Resizing thumbnail are to match new width
 	// Repositioning image area to match new width
 	if ( typeof( window.innerWidth ) == 'number' ) {
-		var thumbPad = 50;
-		var thumbWidth = thumbsWidth(thumbPad);
+		thumbPad = 50
+		thumbWidth = thumbsWidth(thumbPad)
 		// FF et. al
 		if (!document.getElementById('thumbnails'))
-			return;
+			return
 		document.getElementById('thumbnails').style.width =
-			(thumbWidth + 16) + 'px';
+			(thumbWidth + 24) + 'px'
 		document.getElementById('thumbnails').style.height =
-			thumbsHeight(width + 45) + 'px';
+			thumbsHeight(width + 45) + 'px'
 		document.getElementById("fsImg").style.paddingLeft =
-			( thumbWidth + 28 ) + 'px';
+			( thumbWidth + 28 ) + 'px'
 		document.getElementById("keywords").style.paddingLeft =
-			thumbWidth + 'px';
+			thumbWidth + 'px'
+		document.getElementById("filename").style.paddingLeft =
+			thumbWidth + 'px'
 		document.getElementById("loadarea").style.width =
-			windowWidth(40) + 'px';
+			windowWidth(40) + 'px'
 		document.getElementById('loadarea').style.minHeight =
-			thumbsHeight(width + 45) + 'px';
+			thumbsHeight(width + 45) + 'px'
 	} else {
-		var thumbPad = 40;
-		var thumbWidth = thumbsWidth(thumbPad);
+		thumbPad = 40
+		thumbWidth = thumbsWidth(thumbPad)
 		if (!document.getElementById('thumbnails'))
-			return;
+			return
 		document.getElementById('thumbnails').style.width =
-			(thumbWidth + 38) + 'px';
+			(thumbWidth + 38) + 'px'
 		document.getElementById('thumbnails').style.height =
-			thumbsHeight(width + 45) + 'px';
+			thumbsHeight(width + 45) + 'px'
 		document.getElementById("loadarea").style.paddingLeft =
-			( windowWidth(width + 10) ) + 'px';
+			( windowWidth(width + 10) ) + 'px'
 		document.getElementById("loadarea").style.width =
-			windowWidth(20) + 'px';
+			windowWidth(20) + 'px'
+		document.getElementById('loadarea').style.height =
+			thumbsHeight(width + 45) + 'px'
 		document.getElementById('loadarea').style.minHeight =
-			thumbsHeight(width + 45) + 'px';
+			thumbsHeight(width + 45) + 'px'
 	}
 }
 
 // Setting timer to change width...hack to prevent resize loops
-function widthTimer(){
-	setTimeout("setSize()",1);
+function widthTimer()
+{
+	setTimeout("setSize()",1)
 }

@@ -14,11 +14,46 @@ body {
 
 h1 { text-align: center }
 
-a.fsImgA {
+#fullImg {
 	text-decoration: none;
 	background: none;
+	position: relative;
 	color: black;
-	margin: 0px;
+}
+
+#opa {
+	z-index: 60;
+	position: absolute;
+	display: none;
+	background: black;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	opacity: .7;
+}
+
+#pad {
+	display: none;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#fullarea {
+	z-index: 80;
+	position: relative;
+	display: none;
+	background: #101010;
+	top: 1em;
+	border: 3pt #CCC solid;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 a.thumbA {
@@ -55,7 +90,7 @@ div.keywords {
 }
 
 #imagearea {
-	z-index:40;
+	z-index: 40;
 }
 
 #thumbnails {
@@ -65,9 +100,16 @@ div.keywords {
 }
 
 #loadarea {
-	z-index:70;
-	overflow:hidden;
+	z-index: 55;
+	overflow: hidden;
 	text-align: center;
+}
+
+#slide {
+	position: absolute;
+	top: .8ex;
+	right: auto;
+	left: .5em;
 }
 
 div.help {
@@ -93,7 +135,19 @@ div.help:hover span {
 	display: block;
 	width: 10em;
 	text-align: left;
-	background-color:#202020;
+	background-color: #202020;
+	padding: 5px;
+}
+
+div.slide span {
+	display: none;
+}
+
+div.slide:hover span {
+	display: block;
+	width: 10em;
+	text-align: left;
+	background-color: #202020;
 	padding: 5px;
 }
 
@@ -116,7 +170,7 @@ body>div.navigator { position: fixed }
 div.navigator a { margin: 2px }
 div.navigator a:link { text-decoration: none; background: none; color: #CCC }
 div.navigator a:visited { text-decoration: none; background: none; color: #999 }
-div.navigator a:hover { background: none; color: white}
+div.navigator a:hover { background: none; color: white }
 
 div.viewpic {
 	margin: 0;
@@ -128,22 +182,22 @@ div.viewpic {
 
 table.thumbnail-table {
         width: 100%;
-        text-align:center;
+        text-align: center;
 }
 
 div.thumb-div {
  	background-color: #202020;
 	margin: 1px;
 	float: left;
-	width:132px;
-	height:132px;
-	text-align:center;
-	vertical-align:middle;
+	width: 132px;
+	height: 132px;
+	text-align: center;
+	vertical-align: middle;
 	padding: 2px;
 }
 
 table.controlinfo,td.navbar {
-        width:100%;
+        width: 100%;
         background-color: #202020;
         border: 1px solid black;
         margin-left: 0em;
@@ -153,12 +207,13 @@ table.controlinfo,td.navbar {
 
 .footer {
 	vertical-align: bottom;
+	position: relative;
 }
 
 .resolutions {
 	background-color: #202020;
 	position: absolute;
-	z-index:50;
+	z-index: 50;
 	left: .5em;
 	right: auto;
 	width: 60%;
@@ -170,5 +225,5 @@ table.controlinfo,td.navbar {
 	width: 50%;
 	text-align: right;
 	position: absolute;
-	z-index:40;
+	z-index: 40;
 }

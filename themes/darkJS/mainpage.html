@@ -7,22 +7,30 @@
 	<title>**TITLE**</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script type="text/javascript" src="display.js"></script>
+	<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="ie.css" />
+	<![endif]-->
 </head>
 <body>
-	<div class="title">
-		<h1 class="title">**TITLE**</h1>
+	<div id="title" class="title">
+		<h1 id="title" class="title">**TITLE**</h1>
+	</div>
+	<div id="slide" class="slide">
+		<img id="slideIMG" src="slideshow.gif" onmouseout="this.src='slideshow.gif'"
+			onmouseover="this.src='slideshow2.gif'" onclick='slideShow()' />
+		<span id="slide-help">Slideshow requires JavaScript.</span>
 	</div>
 	<div id="help" class="help">
 		?<span id="help-span">Clicking an image shows it in a bigger size.</span>
 	</div>
 
-	<div class="description">
+	<div id="description" class="description">
 		**DESCRIPTION**
 	</div>
 
 	<script type="text/javascript">
 		helpIndex()
-		listenKey();
+		listenKey()
 <!--
 //<![CDATA[
 		**JSIMAGES**
@@ -33,15 +41,15 @@
 
 	<noscript>
 		<div class="thumbnails">
-			<table class="thumbnail-table">
+			<table id="thumbnail-table" class="thumbnail-table">
 				**THUMBNAIL-TABLE**
 			</table>
 		</div>
 	</noscript>
 
-	<div class="footer">
-		<div class="resolutions">**RESOLUTIONS** &nbsp;</div>
-		<div class="copyright">&nbsp;**COPYRIGHT**</div>
+	<div id="footer" class="footer">
+		<div id="resolutions" class="resolutions">**RESOLUTIONS** &nbsp;</div>
+		<div id="copyright" class="copyright">&nbsp;**COPYRIGHT**</div>
 	</div>
 </body>
 </html>

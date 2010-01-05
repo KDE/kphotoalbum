@@ -2,7 +2,7 @@
 var speed = 2500
 
 // Image that is being displayed in ImageViewer
-var viewerImage
+var viewerImage = 0
 
 // Image that is being displayed on main page loadarea
 var image

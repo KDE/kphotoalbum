@@ -38,6 +38,11 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 #ifdef HAVE_KDCRAW
     if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
         return false;
+    
+    if ( Settings::SettingsData::instance()->useRawThumbnail() &&
+            img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width() &&
+            img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height() )
+        return true;
 
     KDcrawIface::DcrawInfoContainer metadata;
 

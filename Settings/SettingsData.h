@@ -79,6 +79,8 @@ public:
     property_copy( useEXIFComments       , setUseEXIFComments       , bool );
     property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );
     property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool );
+    property_copy( useRawThumbnail       , setUseRawThumbnail       , bool );
+    property_copy( useRawThumbnailSize   , setUseRawThumbnailSize   , QSize );
     property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool );
     property_copy( compressBackup        , setCompressBackup        , bool );
     property_copy( showSplashScreen      , setShowSplashScreen      , bool );

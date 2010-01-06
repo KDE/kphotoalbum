@@ -155,6 +155,8 @@ property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          
 property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       )
 property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       )
 property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool          , General, false                      )
+property_copy( useRawThumbnail       , setUseRawThumbnail       , bool          , General, false                      )
+property_copy( useRawThumbnailSize   , setUseRawThumbnailSize   , QSize         , General, QSize(1024,768)            )
 property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          , General, false                      )
 property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       )
 property_copy( showSplashScreen      , setShowSplashScreen      , bool          , General, true                       )

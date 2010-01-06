@@ -42,6 +42,29 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), box );
     _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), box );
 
+    // Use embedded thumbnail
+    _useRawThumbnail = new QCheckBox( i18n("Use the embedded thumbnail in RAW file or halfsized RAW"), box );
+    QWidget* sizeBox = new QWidget( box );
+    QHBoxLayout* lay2 = new QHBoxLayout( sizeBox );
+
+    QLabel* label = new QLabel( i18n("Required size for the thumbnail:"), sizeBox );
+    lay2->addWidget( label );
+
+    _useRawThumbnailWidth = new QSpinBox;
+    _useRawThumbnailWidth->setRange( 100, 5000 );
+    _useRawThumbnailWidth->setSingleStep( 64 );
+    lay2->addWidget( _useRawThumbnailWidth );
+
+    label = new QLabel( QString::fromLatin1("x"), sizeBox );
+    lay2->addWidget( label );
+
+    _useRawThumbnailHeight = new QSpinBox;
+    _useRawThumbnailHeight->setRange( 100, 5000 );
+    _useRawThumbnailHeight->setSingleStep( 64 );
+    lay2->addWidget( _useRawThumbnailHeight );
+
+    lay2->addStretch( 1 );
+
     // Exclude directories from search
     QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from search:" ), box );
     _excludeDirectories = new KLineEdit( box );
@@ -151,6 +174,8 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
     _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
+    _useRawThumbnail->setChecked( opt->useRawThumbnail() );
+    setUseRawThumbnailSize(QSize(opt->useRawThumbnailSize().width(), opt->useRawThumbnailSize().height()));
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
@@ -170,6 +195,8 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
     opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
+    opt->setUseRawThumbnail( _useRawThumbnail->isChecked() );
+    opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
     opt->setShowSplashScreen( _showSplashScreen->isChecked() );
     opt->setExcludeDirectories( _excludeDirectories->text() );
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
@@ -178,4 +205,15 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
+}
+
+void Settings::GeneralPage::setUseRawThumbnailSize( const QSize& size  )
+{
+    _useRawThumbnailWidth->setValue( size.width() );
+    _useRawThumbnailHeight->setValue( size.height() );
+}
+
+QSize Settings::GeneralPage::useRawThumbnailSize()
+{
+    return QSize( _useRawThumbnailWidth->value(), _useRawThumbnailHeight->value() );
 }

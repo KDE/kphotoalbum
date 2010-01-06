@@ -17,6 +17,8 @@ public:
     GeneralPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
+    void setUseRawThumbnailSize( const QSize& size );
+    QSize useRawThumbnailSize();
 
 private:
     KComboBox* _trustTimeStamps;
@@ -24,6 +26,9 @@ private:
     QCheckBox* _useEXIFComments;
     QCheckBox* _searchForImagesOnStart;
     QCheckBox* _skipRawIfOtherMatches;
+    QCheckBox* _useRawThumbnail;
+    QSpinBox* _useRawThumbnailWidth;
+    QSpinBox* _useRawThumbnailHeight;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
     QCheckBox* _showSplashScreen;

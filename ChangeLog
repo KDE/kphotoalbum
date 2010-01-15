@@ -1,3 +1,8 @@
+2010-01-15  Jan Kundrát <jkt@gentoo.org>
+
+	* Make copying a list of images with Ctrl+C work on all images,
+	regardless if they are currently available on the disk or not.
+
 2010-01-15 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
 	* fixed bug #221529: draw stack indicator correctly for images

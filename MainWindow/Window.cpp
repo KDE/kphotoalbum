@@ -476,7 +476,7 @@ void MainWindow::Window::slotDeleteSelected()
 void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls;
-    Q_FOREACH(const DB::ImageInfoPtr info, selectedOnDisk().fetchInfos()) {
+    Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( fileName );
     }

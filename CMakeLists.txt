@@ -159,6 +159,7 @@ set(libUtilities_SRCS
 
 set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DeleteDialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/RunDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/FeatureDialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/InvalidDateFinder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/TokenEditor.cpp 

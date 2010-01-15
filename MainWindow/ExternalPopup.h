@@ -45,6 +45,7 @@ public:
 
 protected slots:
     void slotExecuteService( QAction* );
+    void slotMarkGo( );
 
 protected:
     QString mimeType( const QString& file );

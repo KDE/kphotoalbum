@@ -25,12 +25,15 @@
 #include <kservice.h>
 #include <kurl.h>
 #include <krun.h>
+#include <kshell.h>
 #include <klocale.h>
 #include <kfileitem.h>
+#include <kdialog.h>
 #include <kdebug.h>
 #include <KMimeTypeTrader>
 #include <KIcon>
 #include "Window.h"
+#include "RunDialog.h"
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStringList& imageList )
 {
@@ -69,17 +72,37 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
             action->setData( which );
             action->setEnabled( enabled );
         }
+
+        // A personal command
+        action = addAction( i18n("Open With...") );
+        action->setObjectName( i18n("Open With...") ); // Notice this is needed to find the application later!
+        // XXX: action->setIcon( KIcon((*offerIt).second) );
+        action->setData( which );
+        action->setEnabled( enabled );
+
+        // A personal command
+        // XXX: see kdialog.h for simple usage
+        action = addAction( i18n("Your Command Line") );
+        action->setObjectName( i18n("Your Command Line") ); // Notice this is needed to find the application later!
+        // XXX: action->setIcon( KIcon((*offerIt).second) );
+        action->setData( which );
+        action->setEnabled( enabled );
     }
+}
+
+void MainWindow::ExternalPopup::slotMarkGo( )
+{
+    exit(1);
+    KRun::runCommand(QString(i18n("echo here")),
+                     MainWindow::Window::theMainWindow());
 }
 
 void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
     QString name = action->objectName();
     const StringSet apps =_appToMimeTypeMap[name];
-    KService::List offers = KMimeTypeTrader::self()->query( *(apps.begin()), QString::fromLatin1("Application"),
-                                                            QString::fromLatin1("Name == '%1'").arg(name));
-    Q_ASSERT( offers.count() >= 1 );
-    KService::Ptr ptr = offers.first();
+
+    // get the list of arguments
     KUrl::List lst;
     if ( action->data() == 1 ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
@@ -91,6 +114,29 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         lst.append( KUrl(_currentInfo->fileName(DB::AbsolutePath)));
     }
 
+
+    // get the program to run
+
+    // check for the special entry for self-defined
+    if (name == i18n("Your Command Line")) {
+
+        static RunDialog* dialog = new RunDialog(MainWindow::Window::theMainWindow(), _list);
+        dialog->show();
+
+        return;
+    }
+
+    // check for the special entry for self-defined
+    if (name == i18n("Open With...")) {
+        KRun::displayOpenWithDialog(lst, MainWindow::Window::theMainWindow());
+        return;
+    }
+
+
+    KService::List offers = KMimeTypeTrader::self()->query( *(apps.begin()), QString::fromLatin1("Application"),
+                                                            QString::fromLatin1("Name == '%1'").arg(name));
+    Q_ASSERT( offers.count() >= 1 );
+    KService::Ptr ptr = offers.first();
     KRun::run(*ptr, lst, MainWindow::Window::theMainWindow() );
 }
 

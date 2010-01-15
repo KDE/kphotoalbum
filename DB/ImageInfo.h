@@ -147,6 +147,9 @@ public:
 
     void delaySavingChanges(bool b=true);
 
+    void copyExtraData( const ImageInfo& from);
+    void removeExtraData();
+
 protected:
     /** Save changes to database.
      *

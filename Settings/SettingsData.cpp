@@ -164,6 +164,13 @@ property_copy( autoSave              , setAutoSave              , int           
 property_copy( backupCount           , setBackupCount           , int           , General, 5                          )
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
 property_copy( excludeDirectories    , setExcludeDirectories    , QString       , General, QString::fromLatin1("xml,ThumbNails,.thumbs") )
+property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , General, false                       )
+property_copy( modifiedFileComponent , setModifiedFileComponent , QString          , General, i18n("")                )
+property_copy( originalFileComponent , setOriginalFileComponent , QString          , General, i18n("")                )
+property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , General, false                      )
+property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , General, true                       )
+property_copy( copyFileComponent     , setCopyFileComponent     , QString       , General, i18n("")                   )
+property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString          , General, i18n("")                )
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )

@@ -22,6 +22,7 @@
 #include <qstringlist.h>
 #include <qlabel.h>
 #include <QPixmap>
+#include <QFile>
 #include <kservice.h>
 #include <kurl.h>
 #include <krun.h>
@@ -41,13 +42,13 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
     _currentInfo = current;
     clear();
 
-    QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items");
-    for ( int which = 0; which < 2; ++which ) {
+    QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items") << i18n("Copy and Open");
+    for ( int which = 0; which < 3; ++which ) {
         if ( which == 0 && !current )
             continue;
 
         const bool multiple = (_list.count() > 1);
-        const bool enabled = (which == 0 && _currentInfo ) || (which == 1 && multiple);
+        const bool enabled = (which != 1 && _currentInfo ) || (which == 1 && multiple);
 
         // Title
         QAction* action = addAction( list[which] );
@@ -104,13 +105,33 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 
     // get the list of arguments
     KUrl::List lst;
+
     if ( action->data() == 1 ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
                 lst.append( KUrl(*it) );
         }
-    }
-    else {
+    } else if (action->data() == 2) {
+        QString origFile = _currentInfo->fileName(DB::AbsolutePath);
+        QString newFile = origFile;
+
+        QString origRegexpString = 
+            Settings::SettingsData::instance()->copyFileComponent();
+        QRegExp origRegexp =
+            QRegExp(origRegexpString);
+        QString copyFileReplacement = 
+            Settings::SettingsData::instance()->copyFileReplacementComponent();
+        
+        if (origRegexpString.length() > 0) {
+            newFile.replace(origRegexp, copyFileReplacement);
+            QFile::copy(origFile, newFile);
+            lst.append( newFile );
+        } else {
+            qWarning("No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
+            lst.append( origFile );
+        }
+
+    } else {
         lst.append( KUrl(_currentInfo->fileName(DB::AbsolutePath)));
     }
 

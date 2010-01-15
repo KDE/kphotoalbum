@@ -485,6 +485,25 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
     folderCategory->addItem( folderName );
 }
 
+void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from) 
+{
+    _categoryInfomation = from._categoryInfomation;
+    _description = from._description;
+    // Hmm...  what should the date be?  orig or modified?
+    // _date = from._date;
+    _angle = from._angle;
+    _rating = from._rating;
+    _geoPosition = from._geoPosition;
+}
+
+void DB::ImageInfo::removeExtraData ()
+{
+    _categoryInfomation.clear();
+    _description = QString();
+    _rating = -1;
+    _geoPosition = GpsCoordinates();
+}
+
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
     for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {

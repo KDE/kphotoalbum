@@ -19,9 +19,11 @@
 
 #include <sys/types.h>
 #include <dirent.h>
+#include <stdio.h>
 
 #include "DB/ImageDB.h"
 #include "DB/ResultId.h"
+#include "DB/Result.h"
 
 #include <qfileinfo.h>
 #include <QStringList>
@@ -229,11 +231,77 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         }
     }
 
+    QString err = Settings::SettingsData::instance()->modifiedFileComponent();
+    QRegExp modifiedFileComponent =
+        QRegExp(Settings::SettingsData::instance()->modifiedFileComponent());
+    
+    // check to see if this is a new version of a previous image
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
+    ImageInfoPtr originalInfo;
+    QString originalFileName;
+
+    if (Settings::SettingsData::instance()->detectModifiedFiles()) {
+        // should be cached because loading once per image is expensive
+        QString err = Settings::SettingsData::instance()->modifiedFileComponent();
+        QRegExp modifiedFileComponent =
+            QRegExp(Settings::SettingsData::instance()->modifiedFileComponent());
+        // requires at least *something* in the modifiedFileComponent
+        if (err.length() >= 0 &&
+            relativeNewFileName.contains(modifiedFileComponent)) {
+
+            originalFileName = relativeNewFileName;
+            QString originalFileComponent =
+                Settings::SettingsData::instance()->originalFileComponent();
+            originalFileName.replace(modifiedFileComponent, originalFileComponent);
+
+            MD5 originalSum = Utilities::MD5Sum( originalFileName );
+            if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
+                // we have a previous copy of this file; copy it's data
+                // from the original.
+                originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
+                if ( !originalInfo ) {
+                    qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
+                } else {
+                    info->copyExtraData(*originalInfo);
+                }
+
+                /* if requested to move, then delete old data from original */
+                if (Settings::SettingsData::instance()->moveOriginalContents() ) {
+                    originalInfo->removeExtraData();
+                }
+            }
+        }
+    }
+
     // also inserts image into exif db if present:
-    ImageInfoPtr info = ImageInfoPtr( new ImageInfo( relativeNewFileName, type ) );
     info->setMD5Sum(sum);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
 
+    if (originalInfo &&
+        Settings::SettingsData::instance()->autoStackNewFiles() ) {
+        // we have to do this immediately to get the ids
+        ImageInfoList newImages;
+        markUnTagged(info);
+        newImages.append(info);
+        DB::ImageDB::instance()->addImages( newImages );
+
+        // stack the files together
+        DB::ResultId olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
+        DB::ResultId newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
+        DB::Result tostack = DB::Result();
+
+        tostack.append(newerfile);
+        tostack.append(olderfile);
+        DB::ImageDB::instance()->stack(tostack);
+
+        // ordering: XXX we ideally want to place the new image right
+        // after the older one in the list.
+
+        // XXX: deal with already-stacked items; currently a silent fail
+
+        info = NULL;  // we already added it, so don't process again
+    }
+    
     return info;
 }
 

@@ -6,6 +6,7 @@
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QHBoxLayout>
+#include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
 #include <Q3VGroupBox>
@@ -69,6 +70,29 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from search:" ), box );
     _excludeDirectories = new KLineEdit( box );
     excludeDirectoriesLabel->setBuddy( _excludeDirectories );
+
+    // Original/Modified File Support
+    Q3VGroupBox* modifiedBox = new Q3VGroupBox( i18n("Modified File Detection Settings"), this );
+    lay1->addWidget( modifiedBox );
+
+    _detectModifiedFiles = new QCheckBox(i18n("Try and detect modified files"), modifiedBox);
+
+    QLabel* modifiedFileComponentLabel = new QLabel( i18n("Modified file search regexp:" ), modifiedBox );
+    _modifiedFileComponent = new QLineEdit(modifiedBox);
+
+    QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
+    _originalFileComponent = new QLineEdit(modifiedBox);
+
+    _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
+
+    _autoStackNewFiles = new QCheckBox(i18n("Auto-stack new files on top of old:"), modifiedBox);
+
+    QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), modifiedBox );
+    _copyFileComponent = new QLineEdit(modifiedBox);
+
+    QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), modifiedBox );
+    _copyFileReplacementComponent = new QLineEdit(modifiedBox);
+
 
     // Datebar size
     container = new QWidget( this );
@@ -165,6 +189,21 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
     _showSplashScreen->setWhatsThis( txt );
+
+    txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the <i>modified file search regexp</i> it is assumed that an original version of the image may exist.  The regexp pattern will be replaced with the <i>original file string</i> text and if that file exists, all associated metadata (category information, ratings, etc) will be copied from the original file to the new one.</p>");
+    _detectModifiedFiles->setWhatsThis( txt );
+    modifiedFileComponentLabel->setWhatsThis( txt );
+    _modifiedFileComponent->setWhatsThis( txt );
+    originalFileComponentLabel->setWhatsThis( txt );
+    _originalFileComponent->setWhatsThis( txt );
+    _moveOriginalContents->setWhatsThis( txt );
+    _autoStackNewFiles->setWhatsThis( txt );
+
+    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external program.  These settings set the original rexexp to search for and contents to replace it with when deciding what the new filename should be.</p>");
+    copyFileComponentLabel->setWhatsThis( txt );
+    _copyFileComponent->setWhatsThis( txt );
+    copyFileReplacementComponentLabel->setWhatsThis( txt );
+    _copyFileReplacementComponent->setWhatsThis( txt );
 }
 
 void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
@@ -185,6 +224,13 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
 
     _albumCategory->setEditText( cat->text() );
+    _detectModifiedFiles->setChecked( opt->detectModifiedFiles() );
+    _modifiedFileComponent->setText( opt->modifiedFileComponent() );
+    _originalFileComponent->setText( opt->originalFileComponent() );
+    _moveOriginalContents->setChecked( opt->moveOriginalContents() );
+    _autoStackNewFiles->setChecked( opt->autoStackNewFiles() );
+    _copyFileComponent->setText( opt->copyFileComponent() );
+    _copyFileReplacementComponent->setText( opt->copyFileReplacementComponent() );
 
 }
 
@@ -205,6 +251,12 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
+    opt->setDetectModifiedFiles( _detectModifiedFiles->isChecked() );
+    opt->setModifiedFileComponent( _modifiedFileComponent->text() );
+    opt->setOriginalFileComponent( _originalFileComponent->text() );
+    opt->setAutoStackNewFiles( _autoStackNewFiles->isChecked() );
+    opt->setCopyFileComponent( _copyFileComponent->text() );
+    opt->setCopyFileReplacementComponent( _copyFileReplacementComponent->text() );
 }
 
 void Settings::GeneralPage::setUseRawThumbnailSize( const QSize& size  )

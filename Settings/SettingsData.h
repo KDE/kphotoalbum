@@ -89,6 +89,13 @@ public:
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
     property_copy( excludeDirectories    , setExcludeDirectories    , QString );
+    property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool );
+    property_copy( modifiedFileComponent , setModifiedFileComponent , QString );
+    property_copy( originalFileComponent , setOriginalFileComponent , QString );
+    property_copy( moveOriginalContents  , setMoveOriginalContents  , bool );
+    property_copy( autoStackNewFiles     , setAutoStackNewFiles  , bool );
+    property_copy( copyFileComponent     , setCopyFileComponent , QString );
+    property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString );
 
     bool trustTimeStamps();
 

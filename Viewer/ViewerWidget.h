@@ -94,6 +94,7 @@ protected:
     void createSlideShowMenu();
     void createVideoMenu();
     void createCategoryImageMenu();
+    void createFilterMenu();
     void changeSlideShowInterval( int delta );
     void createVideoViewer();
 
@@ -126,6 +127,9 @@ protected slots:
     void slotSlideShowFaster();
     void slotSlideShowSlower();
     void editImage();
+    void filterNone();
+    void filterBW();
+    void filterMono();
     void slotSetStackHead();
     void updateCategoryConfig();
     void slotSetWallpaperC();
@@ -157,6 +161,9 @@ private:
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;
     KAction* _setStackHead;
+    KAction* _filterNone;
+    KAction* _filterBW;
+    KAction* _filterMono;
 
     Display* _display;
     ImageDisplay* _imageDisplay;
@@ -170,6 +177,7 @@ private:
     QMenu* _popup;
     QMenu* _rotateMenu;
     QMenu* _wallpaperMenu;
+    QMenu* _filterMenu;
     MainWindow::ExternalPopup* _externalPopup;
     MainWindow::CategoryImagePopup* _categoryImagePopup;
     int _width, _height;

@@ -330,6 +330,32 @@ void Viewer::ImageDisplay::cropAndScale()
     update();
 }
 
+void Viewer::ImageDisplay::filterNone()
+{
+    cropAndScale();
+    update();
+}
+
+void Viewer::ImageDisplay::filterMono()
+{
+    _croppedAndScaledImg = _croppedAndScaledImg.convertToFormat(_croppedAndScaledImg.Format_Mono);
+    update();
+}
+
+// I can't believe there isn't a standard conversion for this??? -- WH
+void Viewer::ImageDisplay::filterBW()
+{
+    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
+            int pixel = _croppedAndScaledImg.pixel(x, y);
+            int gray = qGray(pixel);
+            int alpha = qAlpha(pixel);
+            _croppedAndScaledImg.setPixel(x, y, qRgba(gray, gray, gray, alpha));
+        }
+    }
+    update();
+}
+
 void Viewer::ImageDisplay::updateZoomCaption() {
     const QSize imgSize = _loadedImage.size();
     // similar to sizeRatio(), but we take the _highest_ factor.

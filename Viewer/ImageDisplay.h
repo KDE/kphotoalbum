@@ -59,6 +59,10 @@ public:
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
     void setImageList( const QStringList& list );
 
+    void filterNone();
+    void filterMono();
+    void filterBW();
+
 public slots:
     void zoomIn();
     void zoomOut();

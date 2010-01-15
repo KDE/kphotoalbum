@@ -146,6 +146,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     createInvokeExternalMenu();
     createVideoMenu();
     createCategoryImageMenu();
+    createFilterMenu();
 
     KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT( editImage() ) );
     action->setText( i18n("Annotate...") );
@@ -426,6 +427,7 @@ void Viewer::ViewerWidget::load()
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
     _categoryImagePopup->setEnabled( !isVideo );
+    _filterMenu->setEnabled( !isVideo );
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
 #endif
@@ -864,6 +866,27 @@ void Viewer::ViewerWidget::editImage()
     MainWindow::Window::configureImages( list, true );
 }
 
+void Viewer::ViewerWidget::filterNone()
+{
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterNone();
+    }
+}
+
+void Viewer::ViewerWidget::filterBW()
+{
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterBW();
+    }
+}
+
+void Viewer::ViewerWidget::filterMono()
+{
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterMono();
+    }
+}
+
 void Viewer::ViewerWidget::slotSetStackHead()
 {
     MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ] ) );
@@ -1086,6 +1109,27 @@ void Viewer::ViewerWidget::createCategoryImageMenu()
     _popup->addMenu( _categoryImagePopup );
     connect( _categoryImagePopup, SIGNAL( aboutToShow() ), this, SLOT( populateCategoryImagePopup() ) );
 }
+
+void Viewer::ViewerWidget::createFilterMenu()
+{
+    _filterMenu = new QMenu( _popup );
+    _filterMenu->setTitle( i18n("Filters") );
+
+    _filterNone = _actions->addAction( QString::fromLatin1("filter-empty"), this, SLOT( filterNone() ) );
+    _filterNone->setText( i18n("Remove All Filters") );
+    _filterMenu->addAction( _filterNone );
+
+    _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT( filterBW() ) );
+    _filterBW->setText( i18n("Apply Grayscale Filter") );
+    _filterMenu->addAction( _filterBW );
+
+    _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT( filterMono() ) );
+    _filterMono->setText( i18n("Apply Monochrome Filter") );
+    _filterMenu->addAction( _filterMono );
+
+    _popup->addMenu( _filterMenu );
+}
+
 
 void Viewer::ViewerWidget::test()
 {

@@ -76,14 +76,15 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( UsageType type )
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false),
-     _type(type)
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _currentCategory(QString::fromLatin1("Tokens")), _type(type)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
         setAttribute( Qt::WA_DeleteOnClose );
         _latest = this;
     }
+
+    _currentInputMode = InACategory;
 
     _display = _imageDisplay = new ImageDisplay( this );
     addWidget( _imageDisplay );
@@ -749,9 +750,29 @@ void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
 
 void Viewer::ViewerWidget::updateInfoBox()
 {
-    if ( currentInfo() ) {
+    if ( currentInfo() || _currentInput != QString::fromLatin1("") ||
+         (_currentCategory != QString::fromLatin1("") &&
+          _currentCategory != QString::fromLatin1("Tokens"))) {
         QMap<int, QPair<QString,QString> > map;
         QString text = Utilities::createInfoText( currentInfo(), &map );
+        QString selecttext = QString::fromLatin1("");
+        if (_currentCategory == QString::fromLatin1("")) {
+            selecttext = i18n("<b>Setting Category: </b>") + _currentInput;
+            if (_currentInputList.length() > 0) {
+                selecttext += QString::fromLatin1("{") + _currentInputList + 
+                    QString::fromLatin1("}");
+            }
+        } else if (_currentInput != QString::fromLatin1("") ||
+                   _currentCategory != QString::fromLatin1("Tokens")) {
+            selecttext = i18n("<b>Assigning: </b>") + _currentCategory + 
+                QString::fromLatin1("/")  + _currentInput;
+            if (_currentInputList.length() > 0) {
+                selecttext += QString::fromLatin1("{") + _currentInputList + 
+                    QString::fromLatin1("}");
+            }
+        }
+        if (selecttext != QString::fromLatin1(""))
+            text = selecttext + QString::fromLatin1("<br />") + text;
         if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();
@@ -967,15 +988,138 @@ KActionCollection* Viewer::ViewerWidget::actions()
     return _actions;
 }
 
+int Viewer::ViewerWidget::find_tag_in_list(const QStringList &list,
+                                           QString &namefound)
+{
+    int found = 0;
+    _currentInputList = QString::fromLatin1("");
+    for( QStringList::ConstIterator listIter = list.constBegin();
+         listIter != list.constEnd(); ++listIter ) {
+        if (listIter->startsWith(_currentInput, Qt::CaseInsensitive)) {
+            found++;
+            if (_currentInputList.length() > 0)
+                _currentInputList = 
+                    _currentInputList + QString::fromLatin1(",");
+            _currentInputList =_currentInputList +
+                listIter->right(listIter->length() - _currentInput.length());
+            if (found > 1 && _currentInputList.length() > 20) {
+                // already found more than we want to display
+                // bail here for now
+                // XXX: non-ideal?  display more?  certainly config 20
+                return found;
+            } else {
+                namefound = *listIter;
+            }
+        }
+    }
+    return found;
+}
+
 void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->modifiers() == 0 && event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) {
-        QString token = event->text().toUpper().left(1);
-        if ( currentInfo()->hasCategoryInfo( QString::fromLatin1("Tokens"), token ) )
-            currentInfo()->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
-        else
-            currentInfo()->addCategoryInfo( QString::fromLatin1("Tokens"), token );
-        DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
+
+    if (event->key() == Qt::Key_Backspace) {
+        // remove stuff from the current input string
+        _currentInput.remove( _currentInput.length()-1, 1 );
+        updateInfoBox();
+        MainWindow::DirtyIndicator::markDirty();
+        _currentInputList = QString::fromLatin1("");
+//     } else if (event->modifier & (Qt::AltModifier | Qt::MetaModifier) &&
+//                event->key() == Qt::Key_Enter) {
+        return; // we've handled it
+    } else if (event->key() == Qt::Key_Comma) {
+        // force set the "new" token
+        if (_currentCategory != QString::fromLatin1("")) {
+            if (_currentInput.left(1) == QString::fromLatin1("\"") ||
+                // allow a starting ' or " to signal a brand new category
+                // this bypasses the auto-selection of matching characters
+                _currentInput.left(1) == QString::fromLatin1("\'")) {
+                _currentInput = _currentInput.right(_currentInput.length()-1);
+            }
+            currentInfo()->addCategoryInfo( _currentCategory, _currentInput );
+            DB::CategoryPtr category =
+                DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
+            category->addItem(_currentInput);
+        }
+        _currentInput = QString::fromLatin1("");
+        updateInfoBox();
+        MainWindow::DirtyIndicator::markDirty();
+        return; // we've handled it
+    } else if (event->modifiers() == 0 || 
+               event->modifiers() == Qt::ShiftModifier) {
+        // search the category for matches
+        QString namefound;
+        QString incomingKey = event->text().left(1);
+
+        // start searching for a new category name
+        if (incomingKey == QString::fromLatin1("/")) {
+            if (_currentInput == QString::fromLatin1("") &&
+                _currentCategory == QString::fromLatin1("")) {
+                if (_currentInputMode == InACategory) {
+                    _currentInputMode = AlwaysStartWithCategory;
+                } else {
+                    _currentInputMode = InACategory;
+                }
+            } else {
+                // reset the category to search through
+                _currentInput = QString::fromLatin1("");
+                _currentCategory = QString::fromLatin1("");
+            }
+
+        // use an assigned key or map to a given key for future reference
+        } else if (_currentInput == QString::fromLatin1("") &&
+                   // can map to function keys
+                   event->key() >= Qt::Key_F1 &&
+                   event->key() <= Qt::Key_F35) {
+
+            // we have a request to assign a macro key or use one
+            Qt::Key key = (Qt::Key) event->key();
+            if (_inputMacros.contains(key)) {
+                // Use the requested toggle
+                if ( currentInfo()->hasCategoryInfo( _inputMacros[key].first, _inputMacros[key].second ) ) {
+                    currentInfo()->removeCategoryInfo( _inputMacros[key].first, _inputMacros[key].second );
+                } else {
+                    currentInfo()->addCategoryInfo( _inputMacros[key].first, _inputMacros[key].second );
+                }
+            } else {
+                _inputMacros[key] = qMakePair(_lastCategory, _lastFound);
+            }
+            updateInfoBox();
+            MainWindow::DirtyIndicator::markDirty();
+            // handled it
+            return;
+        } else if (_currentCategory == QString::fromLatin1("")) {
+            // still searching for a category to lock to
+            _currentInput += incomingKey;
+            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryNames();
+            if (find_tag_in_list(categorynames, namefound) == 1) {
+                // yay, we have exactly one!
+                _currentCategory = namefound;
+                _currentInput = QString::fromLatin1("");
+                _currentInputList = QString::fromLatin1("");
+            }
+        } else {
+            _currentInput += incomingKey;
+        
+            DB::CategoryPtr category =
+                DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
+            QStringList items = category->items();
+            if (find_tag_in_list(items, namefound) == 1) {
+                // yay, we have exactly one!
+                if ( currentInfo()->hasCategoryInfo( _currentCategory, namefound ) )
+                    currentInfo()->removeCategoryInfo( _currentCategory, namefound );
+                else
+                    currentInfo()->addCategoryInfo( _currentCategory, namefound );
+            
+                _lastFound = namefound;
+                _lastCategory = _currentCategory;
+                _currentInput = QString::fromLatin1("");
+                _currentInputList = QString::fromLatin1("");
+                if (_currentInputMode == AlwaysStartWithCategory)
+                    _currentCategory = QString::fromLatin1("");
+            }
+        }
+    
         updateInfoBox();
         MainWindow::DirtyIndicator::markDirty();
     } else if ( event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) {
@@ -988,6 +1132,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         }
     }
     QWidget::keyPressEvent( event );
+    return;
 }
 
 void Viewer::ViewerWidget::videoStopped()

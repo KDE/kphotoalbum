@@ -22,6 +22,7 @@
 #include <QStackedWidget>
 #include <qimage.h>
 #include <QPixmap>
+#include <QMap>
 #include "DB/ImageInfoPtr.h"
 #include "DB/Result.h"
 #include <config-kpa-exiv2.h>
@@ -104,6 +105,7 @@ protected:
 private:
     void showNextN(int);
     void showPrevN(int);
+    int  find_tag_in_list(const QStringList &list, QString &namefound);
 
 protected slots:
     void showNext();
@@ -205,6 +207,17 @@ private:
     KAction* _playPause;
     bool _videoPlayerStoppedManually;
     UsageType _type;
+
+    enum InputMode { InACategory, AlwaysStartWithCategory };
+
+    InputMode _currentInputMode;
+    QString _currentInput;
+    QString _currentCategory;
+    QString _currentInputList;
+
+    QString _lastFound;
+    QString _lastCategory;
+    QMap<Qt::Key, QPair<QString,QString> > _inputMacros;
 };
 
 }

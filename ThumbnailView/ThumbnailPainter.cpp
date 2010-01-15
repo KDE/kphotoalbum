@@ -225,12 +225,13 @@ void ThumbnailView::ThumbnailPainter::paintStackedIndicator( QPainter* painter, 
     const int thickness = 1;
     const int space = 0;
     const int corners = 8;
-    const int w = rect.width();
-    const int h = rect.height();
+    const int w = cellGeometryInfo()->cellSize().width();
+    const int h = cellGeometryInfo()->cellSize().height();
     int bottom_w, corner_h;
-    bottom_w = corner_h = qMin(w / 2, h / 2);
-    if (!isFirst)
-        bottom_w = w;
+    bottom_w = w;
+    corner_h = rect.height() / 2;
+    if (isFirst) //for the first picture, draw bottom lines for half its width only
+        bottom_w = rect.width() / 2;
     QPen pen;
     pen.setWidth(thickness);
 
@@ -238,11 +239,22 @@ void ThumbnailView::ThumbnailPainter::paintStackedIndicator( QPainter* painter, 
         pen.setColor(c % 2 == 0 ? Qt::black : Qt::white);
         painter->setPen(pen);
         int step = (thickness + space) * c;
-        int x = rect.x() + w - bottom_w - (thickness + space) * corners + step;
-        int y = rect.y() + h - (thickness + space) * corners + step;
-        painter->drawLine(x, y, rect.x() + w, y);
-        if (isLast)
-            painter->drawLine(x + bottom_w, y, x + bottom_w, y - corner_h);
+	  int x = w - bottom_w - (thickness + space) * corners + step;
+	  int y = h - (thickness + space) * corners + step;
+	  
+	  //Usually, x depends on cell dimension, unless in last image and first image.
+	  if(isFirst || isLast)
+	    x -= rect.x();
+	  
+        if(!isLast)
+	    painter->drawLine(x, y, x + w, y); //not last image, draw bottom lines
+	  else
+	  {
+	    //Using bottom_w instead of w, matters if the first image is the last too.
+	    painter->drawLine(x, y, x + bottom_w, y);
+	    //draw corners for the last image in the stack
+          painter->drawLine(x + bottom_w, y, x + bottom_w, y - corner_h);
+	  }
     }
 }
 

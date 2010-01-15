@@ -1,3 +1,8 @@
+2010-01-15 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+
+	* fixed bug #221529: draw stack indicator correctly for images
+	with different dimensions.
+
 2010-01-06  Miika Turkia <theBro@luukku.com>
 
 	* Added possibility to use embedded thumbnails instead of decoding RAW

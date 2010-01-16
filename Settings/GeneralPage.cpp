@@ -199,7 +199,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     _moveOriginalContents->setWhatsThis( txt );
     _autoStackNewFiles->setWhatsThis( txt );
 
-    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external program.  These settings set the original rexexp to search for and contents to replace it with when deciding what the new filename should be.</p>");
+    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external program.  These settings set the original regexp to search for and contents to replace it with when deciding what the new filename should be.</p>");
     copyFileComponentLabel->setWhatsThis( txt );
     _copyFileComponent->setWhatsThis( txt );
     copyFileReplacementComponentLabel->setWhatsThis( txt );

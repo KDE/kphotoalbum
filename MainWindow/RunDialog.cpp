@@ -28,7 +28,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
                "<ul><li>cp %all /tmp</li></ul>"
                "<p>Then the files you selected would be copied to the /tmp "
                "directory</p>"
-               "<p>You can also use %each to have a command be run once per"
+               "<p>You can also use %each to have a command be run once per "
                "file.</p>");
     _cmd->setWhatsThis(txt);
     label->setWhatsThis(txt);

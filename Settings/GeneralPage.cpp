@@ -75,7 +75,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     Q3VGroupBox* modifiedBox = new Q3VGroupBox( i18n("Modified File Detection Settings"), this );
     lay1->addWidget( modifiedBox );
 
-    _detectModifiedFiles = new QCheckBox(i18n("Try and detect modified files"), modifiedBox);
+    _detectModifiedFiles = new QCheckBox(i18n("Try to detect modified files"), modifiedBox);
 
     QLabel* modifiedFileComponentLabel = new QLabel( i18n("Modified file search regexp:" ), modifiedBox );
     _modifiedFileComponent = new QLineEdit(modifiedBox);

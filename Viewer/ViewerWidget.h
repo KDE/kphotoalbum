@@ -131,6 +131,8 @@ protected slots:
     void editImage();
     void filterNone();
     void filterBW();
+    void filterContrastStretch();
+    void filterHistogramEqualization();
     void filterMono();
     void slotSetStackHead();
     void updateCategoryConfig();
@@ -165,6 +167,8 @@ private:
     KAction* _setStackHead;
     KAction* _filterNone;
     KAction* _filterBW;
+    KAction* _filterContrastStretch;
+    KAction* _filterHistogramEqualization;
     KAction* _filterMono;
 
     Display* _display;

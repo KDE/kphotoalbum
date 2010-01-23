@@ -2,6 +2,7 @@
 
 	* Minor tweak on HTMLGenerator theme darkJS to highlight displayed
 	thumbnail
+	* New filters added for contrast streching and histogram equalization
 
 2010-01-15  Jan Kundrát <jkt@gentoo.org>
 

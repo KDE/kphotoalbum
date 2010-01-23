@@ -901,6 +901,20 @@ void Viewer::ViewerWidget::filterBW()
     }
 }
 
+void Viewer::ViewerWidget::filterContrastStretch()
+{
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterContrastStretch();
+    }
+}
+
+void Viewer::ViewerWidget::filterHistogramEqualization()
+{
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterHistogramEqualization();
+    }
+}
+
 void Viewer::ViewerWidget::filterMono()
 {
     if ( _display == _imageDisplay ) {
@@ -1267,6 +1281,14 @@ void Viewer::ViewerWidget::createFilterMenu()
     _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT( filterBW() ) );
     _filterBW->setText( i18n("Apply Grayscale Filter") );
     _filterMenu->addAction( _filterBW );
+
+    _filterContrastStretch = _actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT( filterContrastStretch() ) );
+    _filterContrastStretch->setText( i18n("Apply Contrast Stretching Filter") );
+    _filterMenu->addAction( _filterContrastStretch );
+
+    _filterHistogramEqualization = _actions->addAction( QString::fromLatin1("filter-he"), this, SLOT( filterHistogramEqualization() ) );
+    _filterHistogramEqualization->setText( i18n("Apply Histogram Equalization Filter") );
+    _filterMenu->addAction( _filterHistogramEqualization );
 
     _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT( filterMono() ) );
     _filterMono->setText( i18n("Apply Monochrome Filter") );

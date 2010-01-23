@@ -356,6 +356,117 @@ void Viewer::ImageDisplay::filterBW()
     update();
 }
 
+void Viewer::ImageDisplay::filterContrastStretch()
+{
+    int redMin, redMax, greenMin, greenMax, blueMin, blueMax;
+
+    redMin = greenMin = blueMin = 255;
+    redMax = greenMax = blueMax = 0;
+
+    // Look for minimum and maximum intensities within each color channel
+    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
+            int pixel = _croppedAndScaledImg.pixel(x, y);
+            int red = qRed(pixel);
+            int green = qGreen(pixel);
+            int blue = qBlue(pixel);
+            redMin = redMin < red ? redMin : red;
+            redMax = redMax > red ? redMax : red;
+            greenMin = greenMin < green ? greenMin : green;
+            greenMax = greenMax > green ? greenMax : green;
+            blueMin = blueMin < blue ? blueMin : blue;
+            blueMax = blueMax > blue ? blueMax : blue;
+        }
+    }
+
+    // Calculate factor for stretching each color intensity throughout the
+    // whole range
+    float redFactor, greenFactor, blueFactor;
+    redFactor = ((float)(255) / (float) (redMax - redMin));
+    greenFactor = ((float)(255) / (float) (greenMax - greenMin));
+    blueFactor = ((float)(255) / (float) (blueMax - blueMin));
+
+    // Perform the contrast stretching
+    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
+            int pixel = _croppedAndScaledImg.pixel(x, y);
+            int red = qRed(pixel);
+            int green = qGreen(pixel);
+            int blue = qBlue(pixel);
+            int alpha = qAlpha(pixel);
+
+            red = (red - redMin) * redFactor;
+            red = red < 255 ? red : 255;
+            red = red > 0 ? red : 0;
+            green = (green - greenMin) * greenFactor;
+            green = green < 255 ? green : 255;
+            green = green > 0 ? green : 0;
+            blue = (blue - blueMin) * blueFactor;
+            blue = blue < 255 ? blue : 255;
+            blue = blue > 0 ? blue : 0;
+            _croppedAndScaledImg.setPixel(x, y, qRgba(red, green, blue, alpha));
+        }
+    }
+    update();
+}
+
+void Viewer::ImageDisplay::filterHistogramEqualization()
+{
+    int width, height;
+    float R_histogram[256];
+    float G_histogram[256];
+    float B_histogram[256];
+    float d;
+
+    memset(R_histogram, 0, sizeof(R_histogram));
+    memset(G_histogram, 0, sizeof(G_histogram));
+    memset(B_histogram, 0, sizeof(B_histogram));
+
+    width = _croppedAndScaledImg.width();
+    height = _croppedAndScaledImg.height();
+    d = 1.0 / width / height;
+
+    // Populate histogram for each color channel
+    for (int y = 0; y < height; ++y) {
+        for (int x = 1; x < width; ++x) {
+            int pixel = _croppedAndScaledImg.pixel(x, y);
+
+            R_histogram[qRed(pixel)] += d;
+            G_histogram[qGreen(pixel)] += d;
+            B_histogram[qBlue(pixel)] += d;
+        }
+    }
+
+    // Transfer histogram table to cumulative distribution table
+    float R_sum = 0.0;
+    float G_sum = 0.0;
+    float B_sum = 0.0;
+    for (int i = 0; i < 256; ++i) {
+        R_sum += R_histogram[i];
+        G_sum += G_histogram[i];
+        B_sum += B_histogram[i];
+
+        R_histogram[i] = R_sum * 255 + 0.5;
+        G_histogram[i] = G_sum * 255 + 0.5;
+        B_histogram[i] = B_sum * 255 + 0.5;
+
+    }
+
+    // Equalize the image
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int pixel = _croppedAndScaledImg.pixel(x, y);
+
+            _croppedAndScaledImg.setPixel(
+                x, y, qRgba(R_histogram[qRed(pixel)],
+                G_histogram[qGreen(pixel)], B_histogram[qBlue(pixel)],
+                qAlpha(pixel))
+            );
+        }
+    }
+    update();
+}
+
 void Viewer::ImageDisplay::updateZoomCaption() {
     const QSize imgSize = _loadedImage.size();
     // similar to sizeRatio(), but we take the _highest_ factor.

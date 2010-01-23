@@ -62,6 +62,8 @@ public:
     void filterNone();
     void filterMono();
     void filterBW();
+    void filterContrastStretch();
+    void filterHistogramEqualization();
 
 public slots:
     void zoomIn();

@@ -196,6 +196,17 @@ div.thumb-div {
 	padding: 2px;
 }
 
+div.thumb-div-selected {
+ 	background-color: #404040;
+	margin: 1px;
+	float: left;
+	width: 132px;
+	height: 132px;
+	text-align: center;
+	vertical-align: middle;
+	padding: 2px;
+}
+
 table.controlinfo,td.navbar {
         width: 100%;
         background-color: #202020;

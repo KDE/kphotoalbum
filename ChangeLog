@@ -1,3 +1,8 @@
+2010-01-23  Miika Turkia <theBro@luukku.com>
+
+	* Minor tweak on HTMLGenerator theme darkJS to highlight displayed
+	thumbnail
+
 2010-01-15  Jan Kundrát <jkt@gentoo.org>
 
 	* Make copying a list of images with Ctrl+C work on all images,

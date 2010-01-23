@@ -176,10 +176,10 @@ function image()
 		ts = (tsize + 16) + 'px'
 
 	for (image in gallery) {
-		document.write('<div id="thumb-div" class="thumb-div"' +
+		document.write('<div id="thumb-div-' + image +'" class="thumb-div"' +
 			' style="width:' + ts + ';height:' + ts +
 			';">' +
-			'<img alt="' + gallery[image][1] + '" src="' +
+			'<img id="thumb-' + image + '" alt="' + gallery[image][1] + '" src="' +
 			gallery[image][1] + '" onmouseover' +
 			'=showImage("' + image + '") onclick=\'showImageViewer(' + image + ')\'' +
 			'/></div>')
@@ -204,6 +204,8 @@ function image()
 	document.write('</div>') // loadarea
 	document.write('</div>') // imagearea
 
+	document.getElementById("thumb-div-0").className = "thumb-div-selected"
+
 	image=0
 	setSize()
 
@@ -218,6 +220,8 @@ function showImage(img)
 			document.getElementById("fsImg").src = gallery[img][0]
 			document.getElementById("keywords").innerHTML = gallery[img][3]
 			document.getElementById("filename").innerHTML = '<b>' + gallery[img][2] + '</b>'
+			document.getElementById("thumb-div-" + img).className = "thumb-div-selected"
+			document.getElementById("thumb-div-" + image).className = "thumb-div"
 			image = img
 		} else
 			document.getElementById("fullImg").src = gallery[img][2]

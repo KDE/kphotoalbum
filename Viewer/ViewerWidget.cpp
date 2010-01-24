@@ -488,6 +488,7 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 
 void Viewer::ViewerWidget::showNextN(int n)
 {
+    filterNone();
     if ( _display == _videoDisplay ) {
         _videoPlayerStoppedManually = true;
         _videoDisplay->stop();
@@ -891,34 +892,67 @@ void Viewer::ViewerWidget::filterNone()
 {
     if ( _display == _imageDisplay ) {
         _imageDisplay->filterNone();
+        _filterMono->setChecked( false );
+        _filterBW->setChecked( false );
+        _filterContrastStretch->setChecked( false );
+        _filterHistogramEqualization->setChecked( false );
+    }
+}
+
+void Viewer::ViewerWidget::filterSelected()
+{
+    // The filters that drop bit depth below 32 should be the last ones
+    // so that filters requiring more bit depth are processed first
+    if ( _display == _imageDisplay ) {
+        _imageDisplay->filterNone();
+        if (_filterBW->isChecked())
+            _imageDisplay->filterBW();
+        if (_filterContrastStretch->isChecked())
+            _imageDisplay->filterContrastStretch();
+        if (_filterHistogramEqualization->isChecked())
+            _imageDisplay->filterHistogramEqualization();
+        if (_filterMono->isChecked())
+            _imageDisplay->filterMono();
     }
 }
 
 void Viewer::ViewerWidget::filterBW()
 {
     if ( _display == _imageDisplay ) {
-        _imageDisplay->filterBW();
+        if ( _filterBW->isChecked() )
+            _filterBW->setChecked( !_imageDisplay->filterBW());
+        else
+            filterSelected();
     }
 }
 
 void Viewer::ViewerWidget::filterContrastStretch()
 {
     if ( _display == _imageDisplay ) {
-        _imageDisplay->filterContrastStretch();
+        if (_filterContrastStretch->isChecked())
+            _filterContrastStretch->setChecked( !_imageDisplay->filterContrastStretch() );
+        else
+            filterSelected();
     }
 }
 
 void Viewer::ViewerWidget::filterHistogramEqualization()
 {
     if ( _display == _imageDisplay ) {
-        _imageDisplay->filterHistogramEqualization();
+        if ( _filterHistogramEqualization->isChecked() )
+            _filterHistogramEqualization->setChecked( !_imageDisplay->filterHistogramEqualization() );
+        else
+            filterSelected();
     }
 }
 
 void Viewer::ViewerWidget::filterMono()
 {
     if ( _display == _imageDisplay ) {
-        _imageDisplay->filterMono();
+        if ( _filterMono->isChecked() )
+            _filterMono->setChecked( !_imageDisplay->filterMono() );
+        else
+            filterSelected();
     }
 }
 
@@ -1280,18 +1314,22 @@ void Viewer::ViewerWidget::createFilterMenu()
 
     _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT( filterBW() ) );
     _filterBW->setText( i18n("Apply Grayscale Filter") );
+    _filterBW->setCheckable( true );
     _filterMenu->addAction( _filterBW );
 
     _filterContrastStretch = _actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT( filterContrastStretch() ) );
     _filterContrastStretch->setText( i18n("Apply Contrast Stretching Filter") );
+    _filterContrastStretch->setCheckable( true );
     _filterMenu->addAction( _filterContrastStretch );
 
     _filterHistogramEqualization = _actions->addAction( QString::fromLatin1("filter-he"), this, SLOT( filterHistogramEqualization() ) );
     _filterHistogramEqualization->setText( i18n("Apply Histogram Equalization Filter") );
+    _filterHistogramEqualization->setCheckable( true );
     _filterMenu->addAction( _filterHistogramEqualization );
 
     _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT( filterMono() ) );
     _filterMono->setText( i18n("Apply Monochrome Filter") );
+    _filterMono->setCheckable( true );
     _filterMenu->addAction( _filterMono );
 
     _popup->addMenu( _filterMenu );

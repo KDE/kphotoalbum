@@ -60,10 +60,11 @@ public:
     void setImageList( const QStringList& list );
 
     void filterNone();
-    void filterMono();
-    void filterBW();
-    void filterContrastStretch();
-    void filterHistogramEqualization();
+    void filterSelected();
+    int filterMono();
+    int filterBW();
+    int filterContrastStretch();
+    int filterHistogramEqualization();
 
 public slots:
     void zoomIn();

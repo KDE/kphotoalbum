@@ -130,6 +130,7 @@ protected slots:
     void slotSlideShowSlower();
     void editImage();
     void filterNone();
+    void filterSelected();
     void filterBW();
     void filterContrastStretch();
     void filterHistogramEqualization();
@@ -166,6 +167,7 @@ private:
     KAction* _slideShowRunSlower;
     KAction* _setStackHead;
     KAction* _filterNone;
+    KAction* _filterSelected;
     KAction* _filterBW;
     KAction* _filterContrastStretch;
     KAction* _filterHistogramEqualization;

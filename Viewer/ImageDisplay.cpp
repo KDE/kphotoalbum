@@ -22,6 +22,7 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QMouseEvent>
+#include <KMessageBox>
 #include <klocale.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
@@ -336,15 +337,21 @@ void Viewer::ImageDisplay::filterNone()
     update();
 }
 
-void Viewer::ImageDisplay::filterMono()
+int Viewer::ImageDisplay::filterMono()
 {
     _croppedAndScaledImg = _croppedAndScaledImg.convertToFormat(_croppedAndScaledImg.Format_Mono);
     update();
+    return 0;
 }
 
 // I can't believe there isn't a standard conversion for this??? -- WH
-void Viewer::ImageDisplay::filterBW()
+int Viewer::ImageDisplay::filterBW()
 {
+    if (_croppedAndScaledImg.depth() < 32) {
+        KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
+        return -1;
+    }
+
     for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
         for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
             int pixel = _croppedAndScaledImg.pixel(x, y);
@@ -354,14 +361,20 @@ void Viewer::ImageDisplay::filterBW()
         }
     }
     update();
+    return 0;
 }
 
-void Viewer::ImageDisplay::filterContrastStretch()
+int Viewer::ImageDisplay::filterContrastStretch()
 {
     int redMin, redMax, greenMin, greenMax, blueMin, blueMax;
 
     redMin = greenMin = blueMin = 255;
     redMax = greenMax = blueMax = 0;
+
+    if (_croppedAndScaledImg.depth() < 32) {
+        KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
+        return -1;
+    }
 
     // Look for minimum and maximum intensities within each color channel
     for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
@@ -408,9 +421,10 @@ void Viewer::ImageDisplay::filterContrastStretch()
         }
     }
     update();
+    return 0;
 }
 
-void Viewer::ImageDisplay::filterHistogramEqualization()
+int Viewer::ImageDisplay::filterHistogramEqualization()
 {
     int width, height;
     float R_histogram[256];
@@ -418,6 +432,10 @@ void Viewer::ImageDisplay::filterHistogramEqualization()
     float B_histogram[256];
     float d;
 
+    if (_croppedAndScaledImg.depth() < 32) {
+        KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
+        return -1;
+    }
     memset(R_histogram, 0, sizeof(R_histogram));
     memset(G_histogram, 0, sizeof(G_histogram));
     memset(B_histogram, 0, sizeof(B_histogram));
@@ -465,6 +483,7 @@ void Viewer::ImageDisplay::filterHistogramEqualization()
         }
     }
     update();
+    return 0;
 }
 
 void Viewer::ImageDisplay::updateZoomCaption() {

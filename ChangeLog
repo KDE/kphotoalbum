@@ -1,3 +1,9 @@
+2010-01-24  Miika Turkia <theBro@luukku.com>
+
+	* GUI: Added checkboxes for display filters to view which ones are
+	selected.
+	* Added check that color depth is enough for each filter.
+
 2010-01-23  Miika Turkia <theBro@luukku.com>
 
 	* Minor tweak on HTMLGenerator theme darkJS to highlight displayed

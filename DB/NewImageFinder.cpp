@@ -254,7 +254,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 Settings::SettingsData::instance()->originalFileComponent();
             originalFileName.replace(modifiedFileComponent, originalFileComponent);
 
-            MD5 originalSum = Utilities::MD5Sum( originalFileName );
+            MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( originalFileName ) );
             if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                 // we have a previous copy of this file; copy it's data
                 // from the original.

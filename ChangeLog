@@ -3,6 +3,8 @@
 	* GUI: Added checkboxes for display filters to view which ones are
 	selected.
 	* Added check that color depth is enough for each filter.
+	* bugfix: File name based autostacking of new images relied on
+	relative paths and did not work if KPA was started from elsewhere
 
 2010-01-23  Miika Turkia <theBro@luukku.com>
 

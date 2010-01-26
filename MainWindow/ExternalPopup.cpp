@@ -91,13 +91,6 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
     }
 }
 
-void MainWindow::ExternalPopup::slotMarkGo( )
-{
-    exit(1);
-    KRun::runCommand(QString(i18n("echo here")),
-                     MainWindow::Window::theMainWindow());
-}
-
 void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
     QString name = action->objectName();

@@ -1,7 +1,0 @@
-*.moc
-*.cmake
-Makefile
-CMakeFiles
-moc_*
-config*.h
-*.orig

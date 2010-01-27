@@ -920,7 +920,7 @@ void Viewer::ViewerWidget::filterBW()
 {
     if ( _display == _imageDisplay ) {
         if ( _filterBW->isChecked() )
-            _filterBW->setChecked( !_imageDisplay->filterBW());
+            _filterBW->setChecked( _imageDisplay->filterBW());
         else
             filterSelected();
     }
@@ -930,7 +930,7 @@ void Viewer::ViewerWidget::filterContrastStretch()
 {
     if ( _display == _imageDisplay ) {
         if (_filterContrastStretch->isChecked())
-            _filterContrastStretch->setChecked( !_imageDisplay->filterContrastStretch() );
+            _filterContrastStretch->setChecked( _imageDisplay->filterContrastStretch() );
         else
             filterSelected();
     }
@@ -940,7 +940,7 @@ void Viewer::ViewerWidget::filterHistogramEqualization()
 {
     if ( _display == _imageDisplay ) {
         if ( _filterHistogramEqualization->isChecked() )
-            _filterHistogramEqualization->setChecked( !_imageDisplay->filterHistogramEqualization() );
+            _filterHistogramEqualization->setChecked( _imageDisplay->filterHistogramEqualization() );
         else
             filterSelected();
     }
@@ -950,7 +950,7 @@ void Viewer::ViewerWidget::filterMono()
 {
     if ( _display == _imageDisplay ) {
         if ( _filterMono->isChecked() )
-            _filterMono->setChecked( !_imageDisplay->filterMono() );
+            _filterMono->setChecked( _imageDisplay->filterMono() );
         else
             filterSelected();
     }

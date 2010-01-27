@@ -61,10 +61,10 @@ public:
 
     void filterNone();
     void filterSelected();
-    int filterMono();
-    int filterBW();
-    int filterContrastStretch();
-    int filterHistogramEqualization();
+    bool filterMono();
+    bool filterBW();
+    bool filterContrastStretch();
+    bool filterHistogramEqualization();
 
 public slots:
     void zoomIn();

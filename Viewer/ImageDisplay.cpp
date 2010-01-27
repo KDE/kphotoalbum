@@ -337,19 +337,19 @@ void Viewer::ImageDisplay::filterNone()
     update();
 }
 
-int Viewer::ImageDisplay::filterMono()
+bool Viewer::ImageDisplay::filterMono()
 {
     _croppedAndScaledImg = _croppedAndScaledImg.convertToFormat(_croppedAndScaledImg.Format_Mono);
     update();
-    return 0;
+    return true;
 }
 
 // I can't believe there isn't a standard conversion for this??? -- WH
-int Viewer::ImageDisplay::filterBW()
+bool Viewer::ImageDisplay::filterBW()
 {
     if (_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
-        return -1;
+        return false;
     }
 
     for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
@@ -361,10 +361,10 @@ int Viewer::ImageDisplay::filterBW()
         }
     }
     update();
-    return 0;
+    return true;
 }
 
-int Viewer::ImageDisplay::filterContrastStretch()
+bool Viewer::ImageDisplay::filterContrastStretch()
 {
     int redMin, redMax, greenMin, greenMax, blueMin, blueMax;
 
@@ -373,7 +373,7 @@ int Viewer::ImageDisplay::filterContrastStretch()
 
     if (_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
-        return -1;
+        return false;
     }
 
     // Look for minimum and maximum intensities within each color channel
@@ -421,10 +421,10 @@ int Viewer::ImageDisplay::filterContrastStretch()
         }
     }
     update();
-    return 0;
+    return true;
 }
 
-int Viewer::ImageDisplay::filterHistogramEqualization()
+bool Viewer::ImageDisplay::filterHistogramEqualization()
 {
     int width, height;
     float R_histogram[256];
@@ -434,7 +434,7 @@ int Viewer::ImageDisplay::filterHistogramEqualization()
 
     if (_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
-        return -1;
+        return false;
     }
     memset(R_histogram, 0, sizeof(R_histogram));
     memset(G_histogram, 0, sizeof(G_histogram));
@@ -483,7 +483,7 @@ int Viewer::ImageDisplay::filterHistogramEqualization()
         }
     }
     update();
-    return 0;
+    return true;
 }
 
 void Viewer::ImageDisplay::updateZoomCaption() {

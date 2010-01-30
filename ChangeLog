@@ -3,6 +3,7 @@
 	* Moved modified file detection configurations from General tab to
 	it's own configuration tab called 'File Versions' (General tab was
 	taller than my screen)
+	* Error message changed to display correct menu text
 
 2010-01-24  Miika Turkia <theBro@luukku.com>
 

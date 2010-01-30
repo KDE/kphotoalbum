@@ -76,7 +76,7 @@ static void showError( QSqlQuery& query )
     const QString txt =
         i18n("<p>There was an error while executing the SQL backend command. "
              "The error is likely due to a broken database file.</p>"
-             "<p>To fix this problem run Maintainance->Rebuild EXIF database.</p>"
+             "<p>To fix this problem run Maintainance->Recreate Exif Search database.</p>"
              "<hr/>"
              "<p>For debugging: the command that was attempted to be executed was:<br/>%1</p>"
              "<p>The error message obtained was:<br/>%2</p>",

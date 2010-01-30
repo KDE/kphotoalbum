@@ -89,6 +89,11 @@ public:
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
     property_copy( excludeDirectories    , setExcludeDirectories    , QString );
+
+    ////////////////////////////////
+    //// File Version Detection ////
+    ////////////////////////////////
+
     property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool );
     property_copy( modifiedFileComponent , setModifiedFileComponent , QString );
     property_copy( originalFileComponent , setOriginalFileComponent , QString );

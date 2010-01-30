@@ -78,6 +78,7 @@ set(libSettings_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryPage.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SubCategoriesPage.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/GeneralPage.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FileVersionDetectionPage.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ThumbnailsPage.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp

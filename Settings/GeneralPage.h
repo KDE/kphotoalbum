@@ -3,7 +3,6 @@
 #include <QWidget>
 
 class QComboBox;
-class QLineEdit;
 class QSpinBox;
 class QCheckBox;
 class KComboBox;
@@ -35,13 +34,6 @@ private:
     QCheckBox* _showSplashScreen;
     QComboBox* _albumCategory;
     KLineEdit* _excludeDirectories; // Directories to exclude
-    QCheckBox* _detectModifiedFiles;
-    QLineEdit* _modifiedFileComponent;
-    QLineEdit* _originalFileComponent;
-    QCheckBox* _moveOriginalContents;
-    QCheckBox* _autoStackNewFiles;
-    QLineEdit* _copyFileComponent;
-    QLineEdit* _copyFileReplacementComponent;
 };
 }
 

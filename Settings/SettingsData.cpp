@@ -164,13 +164,6 @@ property_copy( autoSave              , setAutoSave              , int           
 property_copy( backupCount           , setBackupCount           , int           , General, 5                          )
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
 property_copy( excludeDirectories    , setExcludeDirectories    , QString       , General, QString::fromLatin1("xml,ThumbNails,.thumbs") )
-property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , General, false                       )
-property_copy( modifiedFileComponent , setModifiedFileComponent , QString       , General, QString()                  )
-property_copy( originalFileComponent , setOriginalFileComponent , QString       , General, QString()                  )
-property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , General, false                      )
-property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , General, true                       )
-property_copy( copyFileComponent     , setCopyFileComponent     , QString       , General, QString()                  )
-property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString          , General, QString()               )
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )
@@ -219,6 +212,18 @@ bool SettingsData::trustTimeStamps()
         return _trustTimeStamps;
     }
 }
+
+////////////////////////////////
+//// File Version Detection ////
+////////////////////////////////
+
+property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , FileVersionDetection, false               )
+property_copy( modifiedFileComponent , setModifiedFileComponent , QString       , FileVersionDetection, QString()           )
+property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, QString()           )
+property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , FileVersionDetection, false               )
+property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , FileVersionDetection, true                )
+property_copy( copyFileComponent     , setCopyFileComponent     , QString       , FileVersionDetection, QString()           )
+property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString  , FileVersionDetection, QString()  )
 
 ////////////////////
 //// Thumbnails ////

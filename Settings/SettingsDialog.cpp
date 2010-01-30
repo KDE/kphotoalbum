@@ -21,6 +21,7 @@
 #include "ExifPage.h"
 #include "PluginsPage.h"
 #include "ViewerPage.h"
+#include "FileVersionDetectionPage.h"
 #include "ThumbnailsPage.h"
 #include "GeneralPage.h"
 #include "SubCategoriesPage.h"
@@ -44,6 +45,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
      :KPageDialog( parent )
 {
     _generalPage = new Settings::GeneralPage( this );
+    _fileVersionDetectionPage = new Settings::FileVersionDetectionPage(this);
     _thumbnailsPage = new Settings::ThumbnailsPage( this );
     _categoryPage = new Settings::CategoryPage(this);
     _subCategoriesPage = new Settings::SubCategoriesPage( this );
@@ -62,6 +64,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
     Data data[] = {
         { i18n("General"), "kphotoalbum", _generalPage },
+        { i18n("File Versions"), "system-search", _fileVersionDetectionPage },
         { i18n("Thumbnail View" ), "view-list-icons", _thumbnailsPage },
         { i18n("Categories"), "user-identity", _categoryPage },
         { i18n("Subcategories" ), "edit-copy", _subCategoriesPage },
@@ -102,6 +105,7 @@ void Settings::SettingsDialog::show()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     _generalPage->loadSettings( opt );
+    _fileVersionDetectionPage->loadSettings( opt );
     _thumbnailsPage->loadSettings(opt);
     _subCategoriesPage->loadSettings();
     _databaseBackendPage->loadSettings(opt);
@@ -129,6 +133,7 @@ void Settings::SettingsDialog::slotMyOK()
     Utilities::ShowBusyCursor dummy;
     Settings::SettingsData* opt = Settings::SettingsData::instance();
     _generalPage->saveSettings( opt );
+    _fileVersionDetectionPage->saveSettings( opt );
     _thumbnailsPage->saveSettings(opt);
     _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
     _subCategoriesPage->saveSettings();

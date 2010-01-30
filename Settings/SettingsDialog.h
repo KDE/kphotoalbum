@@ -33,6 +33,7 @@ class SubCategoriesPage;
 class GeneralPage;
 class ThumbnailsPage;
 class ViewerPage;
+class FileVersionDetectionPage;
 class PluginsPage;
 class ExifPage;
 class DatabaseBackendPage;
@@ -55,6 +56,7 @@ protected slots:
 
 private:
     Settings::GeneralPage* _generalPage;
+    Settings::FileVersionDetectionPage* _fileVersionDetectionPage;
     Settings::ThumbnailsPage* _thumbnailsPage;
     Settings::CategoryPage* _categoryPage;
     Settings::SubCategoriesPage* _subCategoriesPage;

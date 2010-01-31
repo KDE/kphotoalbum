@@ -19,6 +19,10 @@ var viewer = 0
 // SlideShow timer
 var timer
 
+var thumbsW
+var areaHeight
+var areaWidth
+
 // Registering keyboard listener
 function listenKey ()
 {
@@ -136,14 +140,25 @@ function thumbsWidth(pad)
 	return thumbs * ( tsize + thumbOverhead )
 }
 
+function fullSizeLoaded()
+{
+	width = this.width > this.height ? this.width : this.height
+	height = this.width < this.height ? this.width: this.height
+
+	this.destroy
+
+	thumbsW = thumbsWidth(40)
+	areaHeight = thumbsHeight(width + 45)
+	areaWidth = width + 20
+
+	setSize()
+}
+
 // Main function to barf out the HTML for thumbnails and image area
 function image()
 {
 	var slash
 	var doc
-	var thumbsW
-	var areaHeight
-	var areaWidth
 
 	if (location.pathname.match(/\//))
 		slash = '/'
@@ -154,6 +169,18 @@ function image()
 	doc = location.pathname.substring(location.pathname.lastIndexOf(slash)+1)
 	if ((doc == "index.html") || (doc == "")) {
 		document.location=minPage
+	}
+
+	// If we are dealing with full sized images we have to figure out image
+	// dimentions for size calculations
+	if (width < 0) {
+		// Just set some positive size and resize it once a sample
+		// image has been loaded
+		width=windowWidth()
+
+		var pic = new Image()
+		pic.onload=fullSizeLoaded
+		pic.src=gallery[0][0]
 	}
 
 	thumbsW = thumbsWidth(40)

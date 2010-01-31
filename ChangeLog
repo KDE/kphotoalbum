@@ -1,3 +1,10 @@
+2010-01-31  Miika Turkia <theBro@luukku.com>
+
+	* bugfix: HTML generator theme darkJS did not show fullsize images as
+	dimensions were reported as -1. Now dimensions are retrieved from the
+	first image if dealing with fullsize images. (Added also a version
+	number to the theme.)
+
 2010-01-30  Miika Turkia <theBro@luukku.com>
 
 	* Moved modified file detection configurations from General tab to

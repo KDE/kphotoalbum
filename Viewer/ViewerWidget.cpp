@@ -75,13 +75,18 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::ViewerWidget::ViewerWidget( UsageType type )
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens"))
+Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,QString> > *macroStore )
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore), _myInputMacros(0)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
         setAttribute( Qt::WA_DeleteOnClose );
         _latest = this;
+    }
+
+    if (! _inputMacros) {
+        _myInputMacros = _inputMacros =
+            new QMap<Qt::Key, QPair<QString,QString> >;
     }
 
     _currentInputMode = InACategory;
@@ -822,6 +827,9 @@ Viewer::ViewerWidget::~ViewerWidget()
 
     if ( _latest == this )
         _latest = 0;
+
+    if ( _myInputMacros )
+        delete _myInputMacros;
 }
 
 
@@ -1139,15 +1147,15 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
             // we have a request to assign a macro key or use one
             Qt::Key key = (Qt::Key) event->key();
-            if (_inputMacros.contains(key)) {
+            if (_inputMacros->contains(key)) {
                 // Use the requested toggle
-                if ( currentInfo()->hasCategoryInfo( _inputMacros[key].first, _inputMacros[key].second ) ) {
-                    currentInfo()->removeCategoryInfo( _inputMacros[key].first, _inputMacros[key].second );
+                if ( currentInfo()->hasCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second ) ) {
+                    currentInfo()->removeCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
                 } else {
-                    currentInfo()->addCategoryInfo( _inputMacros[key].first, _inputMacros[key].second );
+                    currentInfo()->addCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
                 }
             } else {
-                _inputMacros[key] = qMakePair(_lastCategory, _lastFound);
+                (*_inputMacros)[key] = qMakePair(_lastCategory, _lastFound);
             }
             updateInfoBox();
             MainWindow::DirtyIndicator::markDirty();

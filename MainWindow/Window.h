@@ -227,6 +227,7 @@ private:
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
     BreadcrumbViewer* _pathIndicator;
+    QMap<Qt::Key, QPair<QString,QString> > _viewerInputMacros;
 };
 
 }

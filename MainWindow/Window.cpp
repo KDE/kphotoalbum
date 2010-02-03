@@ -574,7 +574,8 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
         viewer->activateWindow();
     }
     else
-        viewer = new Viewer::ViewerWidget;
+        viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
+                                          &_viewerInputMacros);
     connect( viewer, SIGNAL( rotated() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
     connect( viewer, SIGNAL( soughtTo(const DB::ResultId&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::ResultId&) ) );
 

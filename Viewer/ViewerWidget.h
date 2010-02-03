@@ -54,7 +54,8 @@ class ViewerWidget :public QStackedWidget
 public:
     enum UsageType { InlineViewer, ViewerWindow };
 
-    ViewerWidget( UsageType type = ViewerWindow );
+    ViewerWidget( UsageType type = ViewerWindow,
+                  QMap<Qt::Key, QPair<QString,QString> > *macroStore = 0);
     ~ViewerWidget();
     static ViewerWidget* latest();
     void load( const QStringList& list, int index = 0 );
@@ -224,7 +225,8 @@ private:
 
     QString _lastFound;
     QString _lastCategory;
-    QMap<Qt::Key, QPair<QString,QString> > _inputMacros;
+    QMap<Qt::Key, QPair<QString,QString> >* _inputMacros;
+    QMap<Qt::Key, QPair<QString,QString> >* _myInputMacros;
 };
 
 }

@@ -332,12 +332,12 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = _actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT( deleteCurrent() ) );
     action->setText( i18n("Delete Image") );
-    action->setShortcut( Qt::Key_Delete );
+    action->setShortcut( Qt::CTRL + Qt::Key_Delete );
     popup->addAction( action );
 
     action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT( removeCurrent() ) );
     action->setText( i18n("Remove Image from Display List") );
-    action->setShortcut( Qt::CTRL + Qt::Key_Delete );
+    action->setShortcut( Qt::Key_Delete );
     popup->addAction( action );
 
     _popup->addMenu( popup );

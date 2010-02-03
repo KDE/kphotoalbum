@@ -325,9 +325,14 @@ void Viewer::ViewerWidget::createSkipMenu()
     popup->addAction( action );
     _backwardActions.append(action);
 
+    action = _actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT( deleteCurrent() ) );
+    action->setText( i18n("Delete Image") );
+    action->setShortcut( Qt::Key_Delete );
+    popup->addAction( action );
+
     action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT( removeCurrent() ) );
     action->setText( i18n("Remove Image from Display List") );
-    action->setShortcut( Qt::Key_Delete );
+    action->setShortcut( Qt::CTRL + Qt::Key_Delete );
     popup->addAction( action );
 
     _popup->addMenu( popup );
@@ -509,6 +514,18 @@ void Viewer::ViewerWidget::showNext()
 }
 
 void Viewer::ViewerWidget::removeCurrent()
+{
+    const QString fileName = _list[_current];
+    const DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+
+    _list.removeAll(fileName);
+    if ( _current == _list.count() )
+        showPrev();
+    else
+        showNextN(0);
+}
+
+void Viewer::ViewerWidget::deleteCurrent()
 {
     const QString fileName = _list[_current];
     const DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );

@@ -91,9 +91,3 @@ void Settings::ViewerPage::saveSettings( Settings::SettingsData* opt )
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
 }
-
-void Settings::ViewerPage::reset(Settings::SettingsData* opt )
-{
-    _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
-    _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
-}

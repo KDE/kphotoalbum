@@ -16,7 +16,6 @@ public:
     ViewerPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
-    void reset(Settings::SettingsData* opt );
 
 private:
     Settings::ViewerSizeConfig* _slideShowSetup;

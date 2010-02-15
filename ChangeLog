@@ -3,6 +3,12 @@
 	* fixed bug #182046: Re-read metadata settings not saved. Thanks to
 	Andreas Neustifter for patch.
 
+2010-02-13  Miika Turkia <theBro@luukku.com>
+
+	* Removing blue link borders from images on HTMLExport theme dark.
+	Thanks to Andreas Neustifter for patch.
+
+
 2010-01-31  Miika Turkia <theBro@luukku.com>
 
 	* bugfix: HTML generator theme darkJS did not show fullsize images as
@@ -47,6 +53,13 @@
 	files. User is able to specify what is the minimum size for the
 	embedded thumbnail to be used.
 
+	* Remove of some code that became dead with yesterdays bugfix
+
+2010-01-05  Miika Turkia <theBro@luukku.com>
+
+	* fixed bug #220373: Viewer settings dialog did not load correct
+	values and had wrong defaults
+
 2010-01-04  Miika Turkia <theBro@luukku.com>
 
 	* ImageViewer and SlideShow added to HTMLGenerator's theme darkJS
@@ -69,6 +82,9 @@
 
 	* fixed bug #220376: Shortcuts in the annotation dialog was broken
 	in some translations
+
+	* bugfix: KPA crashes when viewing images if viewer cache size is set
+	to zero
 
 2009-12-25  Jan Kundrát <jkt@gentoo.org>
 

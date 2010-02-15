@@ -4,6 +4,10 @@ body {
 	background: black;
 }
 
+img {
+	border: none;
+}
+
 h1 { text-align: center }
 h1.title {
         text-align: center;

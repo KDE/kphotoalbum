@@ -109,7 +109,7 @@ void Settings::SettingsDialog::show()
     _thumbnailsPage->loadSettings(opt);
     _subCategoriesPage->loadSettings();
     _databaseBackendPage->loadSettings(opt);
-    _viewerPage->reset(opt);
+    _viewerPage->loadSettings(opt);
 
 #ifdef HASKIPI
     _pluginsPage->loadSettings(opt);

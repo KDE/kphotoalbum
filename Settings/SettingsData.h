@@ -174,6 +174,16 @@ public:
     property_ref( iptcCharset  , setIptcCharset  , QString   );
 #endif
 
+    /////////////////////
+    //// Exif Import ////
+    /////////////////////
+    
+    property_copy( updateExifData           , setUpdateExifData           , bool             );
+    property_copy( updateImageDate          , setUpdateImageDate          , bool             );
+    property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool             );
+    property_copy( updateOrientation        , setUpdateOrientation        , bool             );
+    property_copy( updateDescription        , setUpdateDescription        , bool             );
+
     ///////////////
     //// SQLDB ////
     ///////////////

@@ -1,3 +1,8 @@
+2010-02-15  Miika Turkia <theBro@luukku.com>
+
+	* fixed bug #182046: Re-read metadata settings not saved. Thanks to
+	Andreas Neustifter for patch.
+
 2010-01-31  Miika Turkia <theBro@luukku.com>
 
 	* bugfix: HTML generator theme darkJS did not show fullsize images as

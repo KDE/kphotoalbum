@@ -26,6 +26,7 @@
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
 #include "Exif/Database.h"
+#include "Settings/SettingsData.h"
 
 
 Exif::ReReadDialog::ReReadDialog( QWidget* parent )
@@ -71,12 +72,15 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _exifDB->setChecked( true);
-    _date->setChecked( false );
-    _force_date->setChecked( true );
-    _force_date->setEnabled( false );
-    _orientation->setChecked( false );
-    _description->setChecked( false );
+    Settings::SettingsData *opt = Settings::SettingsData::instance();
+
+    _exifDB->setChecked( opt->updateExifData() );
+    _date->setChecked( opt->updateImageDate() );
+    _force_date->setChecked( opt->useModDateIfNoExif() );
+    _force_date->setEnabled( opt->updateImageDate() );
+    _orientation->setChecked( opt->updateOrientation() );
+    _description->setChecked( opt->updateDescription() );
+
     _list = list;
     _fileList->clear();
     _fileList->addItems( list );
@@ -86,6 +90,16 @@ int Exif::ReReadDialog::exec( const QStringList& list )
 
 void Exif::ReReadDialog::readInfo()
 {
+    Settings::SettingsData *opt = Settings::SettingsData::instance();
+
+    opt->setUpdateExifData( _exifDB->isChecked() );
+    opt->setUpdateImageDate( _date->isChecked() );
+    opt->setUseModDateIfNoExif( _force_date->isChecked() );
+    opt->setUpdateOrientation( _orientation->isChecked() );
+    opt->setUpdateDescription( _description->isChecked() );
+
+    KGlobal::config()->sync();
+
     DB::ExifMode mode = DB::EXIFMODE_FORCE;
 
     if ( _exifDB->isChecked() )

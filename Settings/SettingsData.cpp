@@ -334,6 +334,16 @@ property_ref( untaggedTag,      setUntaggedTag,      QString, General, "untagged
     property_ref ( iptcCharset  , setIptcCharset  , QString, Exif, (QString)QString::null                 )
 #endif
 
+/////////////////////
+//// Exif Import ////
+/////////////////////
+
+property_copy( updateExifData           , setUpdateExifData           , bool , ExifImport, true );
+property_copy( updateImageDate          , setUpdateImageDate          , bool , ExifImport, false );
+property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool , ExifImport, true );
+property_copy( updateOrientation        , setUpdateOrientation        , bool , ExifImport, false );
+property_copy( updateDescription        , setUpdateDescription        , bool , ExifImport, false );
+
 ///////////////
 //// SQLDB ////
 ///////////////

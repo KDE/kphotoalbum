@@ -449,7 +449,7 @@ bool XMLDB::Database::stack(const DB::Result& items)
     DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : _nextStackId++;
     for ( QList<DB::ImageInfoPtr>::iterator it = images.begin();
             it != images.end();
-            ++it, stackOrder++ ) {
+            ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
         _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));

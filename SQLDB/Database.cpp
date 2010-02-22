@@ -161,7 +161,7 @@ void SQLDB::Database::addToBlockList(const DB::Result& list)
 {
     const QStringList absolutePaths = CONVERT(list);
     QStringList relativePaths;
-    Q_FOREACH(QString absPath, absolutePaths)
+    Q_FOREACH(const QString& absPath, absolutePaths)
         relativePaths.push_back(Utilities::stripImageDirectory(absPath));
     _qh.addIgnoredFiles(relativePaths);
     deleteList(list);
@@ -175,7 +175,7 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
 void SQLDB::Database::deleteList(const DB::Result& filesToRemove)
 {
 #ifdef HAVE_EXIV2
-    Q_FOREACH(QString fileName, this->CONVERT(filesToRemove))
+    Q_FOREACH(const QString& fileName, this->CONVERT(filesToRemove))
         Exif::Database::instance()->remove(fileName);
 #endif
     Q_FOREACH(const DB::ResultId id, filesToRemove)

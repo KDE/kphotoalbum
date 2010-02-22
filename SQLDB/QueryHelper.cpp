@@ -1338,7 +1338,7 @@ QMap<DB::RawId, DB::ImageInfoPtr> QueryHelper::getInfosOfFiles(const QList<DB::R
         else
             info->setGeoPosition(DB::GpsCoordinates());
 
-        Q_FOREACH(Tag tag, tagMap[fileId])
+        Q_FOREACH(const Tag& tag, tagMap[fileId])
             info->addCategoryInfo(tag.first, tag.second);
 
         info->markAsNotNullAndNotDirty();

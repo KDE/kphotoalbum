@@ -56,7 +56,7 @@ bool NewImageFinder::findImages()
     // might be more efficient do do this in the database without fetching the
     // whole info.
     Q_FOREACH(
-        const DB::ImageInfoPtr info,
+        const DB::ImageInfoPtr& info,
         DB::ImageDB::instance()->images().fetchInfos()) {
         loadedFiles.insert(info->fileName(DB::AbsolutePath));
     }

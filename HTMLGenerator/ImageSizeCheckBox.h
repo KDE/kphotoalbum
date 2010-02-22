@@ -56,7 +56,7 @@ public:
             return QString::fromLatin1("%1x%2").arg(width).arg(height);
     }
 
-    bool operator<( const ImageSizeCheckBox& other )
+    bool operator<( const ImageSizeCheckBox& other ) const
     {
         return _width < other.width();
     }

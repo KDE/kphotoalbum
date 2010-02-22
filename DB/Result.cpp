@@ -28,12 +28,12 @@ DB::Result::ConstIterator DB::Result::end() const
     return DB::Result::ConstIterator( this, size() );
 }
 
-bool DB::Result::ConstIterator::operator==( const ConstIterator& other )
+bool DB::Result::ConstIterator::operator==( const ConstIterator& other ) const
 {
     return _pos == other._pos;
 }
 
-bool DB::Result::ConstIterator::operator!=( const ConstIterator& other )
+bool DB::Result::ConstIterator::operator!=( const ConstIterator& other ) const
 {
     return _pos != other._pos;
 }

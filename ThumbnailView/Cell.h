@@ -30,15 +30,15 @@ public:
     int col() const { return _col; }
     int& row() { return _row; }
     int& col() { return _col; }
-    bool operator>( const Cell& other )
+    bool operator>( const Cell& other ) const
     {
         return _row > other._row || ( _row == other._row && _col > other._col  );
     }
-    bool operator<( const Cell& other )
+    bool operator<( const Cell& other ) const
     {
         return _row < other._row || ( _row == other._row && _col < other._col  );
     }
-    bool operator==( const Cell& other )
+    bool operator==( const Cell& other ) const
     {
         return _row == other._row && _col == other._col;
     }

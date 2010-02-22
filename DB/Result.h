@@ -33,8 +33,8 @@ class Result
     public:
         ConstIterator& operator++();
         DB::ResultId operator*();
-        bool operator==( const ConstIterator& other );
-        bool operator!=( const ConstIterator& other );
+        bool operator==( const ConstIterator& other ) const;
+        bool operator!=( const ConstIterator& other ) const;
 
     private:
         friend class Result;

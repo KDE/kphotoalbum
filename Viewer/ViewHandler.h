@@ -27,7 +27,7 @@ namespace Viewer
 {
 
 class ViewHandler :public QObject {
-
+Q_OBJECT
 public:
     ViewHandler( ImageDisplay* display );
     bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );

@@ -75,7 +75,7 @@ QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
 
     if ( _category->viewType() == DB::Category::TreeView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), name ) )
-            return KIcon( QString::fromLatin1( "folder_image" ) ).pixmap(22);
+            return KIcon( QString::fromLatin1( "folder-image" ) ).pixmap(22);
         else {
             return _category->icon();
         }

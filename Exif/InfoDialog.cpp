@@ -98,7 +98,7 @@ Exif::InfoDialog::InfoDialog( const DB::ResultId& id, QWidget* parent )
 
     connect( grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
     connect( _iptcCharset, SIGNAL( activated( const QString& ) ), grid, SLOT( slotCharsetChange( const QString& ) ) );
-    updateSearchString( QString::null );
+    updateSearchString( QString() );
 }
 
 void Exif::InfoDialog::updateSearchString( const QString& txt )
@@ -273,7 +273,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         return;
     }
 
-    if ( !e->text().isNull() ) {
+    if ( !e->text().isEmpty() ) {
         _search += e->text();
         emit searchStringChanged( _search );
         updateContents();

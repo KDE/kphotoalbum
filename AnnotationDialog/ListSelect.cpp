@@ -392,7 +392,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     }
     else if ( which == newCategoryAction ) {
         QString superCategory = KInputDialog::getText( i18n("New Super Category"), i18n("New Super Category Name:") );
-        if ( superCategory.isNull() )
+        if ( superCategory.isEmpty() )
             return;
         memberMap.addGroup( _category->name(), superCategory );
         memberMap.addMemberToGroup( _category->name(), superCategory, item->text(0) );
@@ -401,7 +401,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     }
     else if ( which == newSubcategoryAction ) {
         QString subCategory = KInputDialog::getText( i18n("New Sub Category"), i18n("New Sub Category Name:") );
-        if ( subCategory.isNull() )
+        if ( subCategory.isEmpty() )
             return;
 
          _category->addItem( subCategory );
@@ -438,9 +438,9 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewI
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
-            newItem = new CheckDropItem( _listView, (*subcategoryIt)->_name, QString::null );
+            newItem = new CheckDropItem( _listView, (*subcategoryIt)->_name, QString() );
         else
-            newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString::null );
+            newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString() );
 
         newItem->setOpen( true );
         configureItem( newItem );
@@ -548,7 +548,7 @@ void AnnotationDialog::ListSelect::limitToSelection()
 void AnnotationDialog::ListSelect::showAllChildren()
 {
     _showSelectedOnly->setChecked( false );
-    showOnlyItemsMatching( QString::null );
+    showOnlyItemsMatching( QString() );
 }
 
 

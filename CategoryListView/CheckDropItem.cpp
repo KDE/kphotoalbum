@@ -81,7 +81,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
 
         memberMap.addMemberToGroup( _listView->category()->name(), newParent, child );
 
-        if ( !oldParent.isNull() )
+        if ( !oldParent.isEmpty() )
             memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
     }
 

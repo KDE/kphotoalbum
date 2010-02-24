@@ -44,7 +44,7 @@ namespace SQLDB
 
         void setHostName(const QString& hostName)
         {
-            _hostName = hostName;
+            _hostName.clear();
         }
 
         void setPort(int port)

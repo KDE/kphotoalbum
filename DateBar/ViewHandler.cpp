@@ -66,7 +66,7 @@ bool ViewHandler::isMidUnit( int /*unit*/ )
 QString DateBar::ViewHandler::text( int )
 {
     // Included for documentation.
-    return QString::null;
+    return QString();
 }
 
 
@@ -76,7 +76,7 @@ QString DateBar::ViewHandler::text( int )
 QString DateBar::ViewHandler::unitText() const
 {
     // Included for documentation.
-    return QString::null;
+    return QString();
 }
 
 /**

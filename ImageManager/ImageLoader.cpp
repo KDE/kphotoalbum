@@ -160,7 +160,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
 
      for( QList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString path = thumbnailKey( requestURL( request ), *it );
-        if ( path.isNull() )
+        if ( path.isEmpty() )
             continue;
 
         QFileInfo fi( request->fileName() );
@@ -221,7 +221,7 @@ QString ImageManager::ImageLoader::thumbnailKey( QString uri, int dim )
     else if ( dim == 128 )
         dir = QString::fromLatin1( "normal" );
     else
-        return QString::null;
+        return QString();
 
     KMD5 md5( uri.toUtf8() );
     return QString::fromLatin1( "%1/%2" ).arg(dir).arg(QString::fromUtf8(md5.hexDigest()));

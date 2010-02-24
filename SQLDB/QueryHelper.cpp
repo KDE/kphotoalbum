@@ -739,7 +739,7 @@ QString QueryHelper::filenameForMD5Sum(const DB::MD5& md5sum) const
                      Bindings() << md5sum.toHexString()
                      ).asList<StringPair>();
     if (rows.isEmpty())
-        return QString::null;
+        return QString();
     else {
         return makeFullName(rows[0].first, rows[0].second);
     }

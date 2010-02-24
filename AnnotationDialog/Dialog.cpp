@@ -742,7 +742,7 @@ void AnnotationDialog::Dialog::showHelpDialog( UsageMode type )
     }
 
 
-    KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
+    KMessageBox::information( this, txt, QString(), doNotShowKey, KMessageBox::AllowLink );
 }
 
 void AnnotationDialog::Dialog::resizeEvent( QResizeEvent* )

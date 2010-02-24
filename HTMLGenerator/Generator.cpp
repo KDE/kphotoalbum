@@ -154,7 +154,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
     QString content = Utilities::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
-    if ( content.isNull() )
+    if ( content.isEmpty() )
         return false;
 
     content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
@@ -173,7 +173,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     if ( _setup.generateKimFile() )
         content.replace( QString::fromLatin1( "**KIMFILE**" ), kimLink );
     else
-        content.replace( QString::fromLatin1( "**KIMFILE**" ), QString::null );
+        content.remove( QString::fromLatin1( "**KIMFILE**" ) );
     QDomDocument doc;
 
     QDomElement elm;
@@ -307,7 +307,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
     QString content = Utilities::readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
-    if ( content.isNull() )
+    if ( content.isEmpty() )
         return false;
 
     DB::ImageInfoPtr info = current.fetchInfo();

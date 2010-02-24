@@ -68,11 +68,11 @@ QString Exif::SearchInfo::buildQuery() const
     subQueries += buildIntKeyQuery();
     subQueries += buildRangeQuery();
     QString cameraQuery = buildCameraSearchQuery();
-    if ( !cameraQuery.isNull() )
+    if ( !cameraQuery.isEmpty() )
         subQueries.append( cameraQuery );
 
     if ( subQueries.empty() )
-        return QString::null;
+        return QString();
     else
         return  QString::fromLatin1( "SELECT filename from exif WHERE %1" )
             .arg( subQueries.join( QString::fromLatin1( " and " ) ) );
@@ -83,7 +83,7 @@ QStringList Exif::SearchInfo::buildRangeQuery() const
     QStringList result;
     for( QList<Range>::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
         QString str = sqlForOneRangeItem( *it );
-        if ( !str.isNull() )
+        if ( !str.isEmpty() )
             result.append( str );
     }
     return result;
@@ -101,7 +101,7 @@ QString Exif::SearchInfo::sqlForOneRangeItem( const Range& range ) const
 
         //  Min to Max means all images
         if ( range.isUpperMax )
-            return QString::null;
+            return QString();
 
         //  Min to y   means <= y
         return QString::fromLatin1( "%1 <= %2 and %3 > 0" ).arg( range.key ).arg( range.max * 1.01 ).arg( range.key );
@@ -125,10 +125,10 @@ QString Exif::SearchInfo::sqlForOneRangeItem( const Range& range ) const
 void Exif::SearchInfo::search() const
 {
     QString queryStr = buildQuery();
-    _emptyQuery = queryStr.isNull();
+    _emptyQuery = queryStr.isEmpty();
 
     // ensure to do SQL queries as little as possible.
-    static QString lastQuery = QString::null;
+    static QString lastQuery;
     if ( queryStr == lastQuery )
         return;
     lastQuery = queryStr;
@@ -162,6 +162,6 @@ QString Exif::SearchInfo::buildCameraSearchQuery() const
     if ( subResults.count() != 0 )
         return QString::fromLatin1( "(%1)" ).arg( subResults.join( QString::fromLatin1( " or " ) ) );
     else
-        return QString::null;
+        return QString();
 }
 

@@ -276,12 +276,12 @@ void ImportDialog::createCategoryPages()
     }
 
     if ( !categories.isEmpty() ) {
-        _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
+        _categoryMatcher = new ImportMatcher( QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
                                               false, this );
         _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
 
         QWidget* dummy = new QWidget;
-        _dummy = addPage( dummy, QString::null );
+        _dummy = addPage( dummy, QString() );
     }
     else {
         _categoryMatcherPage = 0;

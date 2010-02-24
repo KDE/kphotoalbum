@@ -121,7 +121,7 @@ void Settings::SubCategoriesPage::slotCategoryChanged( const QString& name, bool
     uniq.sort();
     _members->insertStringList( uniq );
 
-    _currentGroup = QString::null;
+    _currentGroup.clear();
 
     _members->clearSelection();
     _members->setEnabled(false);
@@ -139,7 +139,7 @@ void Settings::SubCategoriesPage::slotGroupSelected( Q3ListBoxItem* item )
 void Settings::SubCategoriesPage::slotAddGroup()
 {
     bool ok;
-    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString::null, &ok );
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString(), &ok );
     if ( ok ) {
         saveOldGroup();
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
@@ -175,7 +175,7 @@ void Settings::SubCategoriesPage::slotDelGroup()
 
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
     DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
-    _currentGroup = QString::null;
+    _currentGroup.clear();
     slotCategoryChanged( _currentCategory, false );
 }
 

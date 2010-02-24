@@ -45,7 +45,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 
     if ( _mode == SearchMode && ( ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter) ) { //Confirm autocomplete, deselect all text
         handleSpecialKeysInSearch( ev );
-        _listSelect->showOnlyItemsMatching( QString::null ); // Show all again after confirming autocomplete suggestion.
+        _listSelect->showOnlyItemsMatching( QString() ); // Show all again after confirming autocomplete suggestion.
         return;
     }
 
@@ -69,7 +69,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     // &,|, or ! should result in the current item being inserted
     if ( _mode == SearchMode && isSpecialKey( ev ) )  {
         handleSpecialKeysInSearch( ev );
-        _listSelect->showOnlyItemsMatching( QString::null ); // Show all again after a special caracter.
+        _listSelect->showOnlyItemsMatching( QString() ); // Show all again after a special caracter.
         return;
     }
 

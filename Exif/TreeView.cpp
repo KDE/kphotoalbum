@@ -73,9 +73,9 @@ void Exif::TreeView::reload()
     for( StringSet::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
         Q3CheckListItem* parent = 0;
-        QString path = QString::null;
+        QString path;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
-            if ( !path.isNull() )
+            if ( !path.isEmpty() )
                 path += QString::fromLatin1( "." );
             path +=  *subKeyIt;
             if ( tree.contains( path ) )

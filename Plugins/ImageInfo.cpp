@@ -37,7 +37,7 @@ QString Plugins::ImageInfo::title()
     if ( _info )
         return _info->label();
     else
-        return QString::null;
+        return QString();
 }
 
 QString Plugins::ImageInfo::description()
@@ -45,7 +45,7 @@ QString Plugins::ImageInfo::description()
     if ( _info )
         return _info->description();
     else
-        return QString::null;
+        return QString();
 }
 
 QMap<QString,QVariant> Plugins::ImageInfo::attributes()

@@ -926,7 +926,7 @@ void MainWindow::Window::slotOptionGroupChanged()
 
 void MainWindow::Window::showTipOfDay()
 {
-    KTipDialog::showTip( this, QString::null, true );
+    KTipDialog::showTip( this, QString(), true );
 }
 
 
@@ -941,7 +941,7 @@ bool MainWindow::Window::load()
 {
 // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    QString configFile = QString::null;
+    QString configFile;
 
     if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );

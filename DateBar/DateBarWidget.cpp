@@ -638,7 +638,7 @@ void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 
     QString res = i18n("%1 | %2", range.toString(), cnt);
 
-    static QString lastTip = QString::null;
+    static QString lastTip;
     if ( lastTip != res )
         emit toolTipInfo( res );
     lastTip = res;

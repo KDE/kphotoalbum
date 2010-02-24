@@ -128,7 +128,7 @@ QString SQLImageInfoCollection::filenameForId(DB::RawId id) const
              filename = _qh.mediaItemFilename(id);
         }
         catch (NotFoundError& e) {
-            return QString::null;
+            return QString();
         }
         _idFilenameMap.insert(id, filename);
     }

@@ -140,9 +140,9 @@ void Settings::CategoryPage::slotPreferredViewChanged( int i )
 
 void Settings::CategoryPage::slotNewItem()
 {
-    _current = new Settings::CategoryItem( QString::null, QString::null, QString::null, DB::Category::TreeView, 64, _categories );
+    _current = new Settings::CategoryItem( QString(), QString(), QString(), DB::Category::TreeView, 64, _categories );
     _text->setText( QString::fromLatin1( "" ) );
-    _icon->setIcon( QString::null );
+    _icon->setIcon( QIcon() );
     _thumbnailSizeInCategory->setValue( 64 );
     enableDisable( true );
     _categories->setSelected( _current, true );
@@ -159,7 +159,7 @@ void Settings::CategoryPage::slotDeleteCurrent()
     _categories->takeItem( _current );
     _current = 0;
     _text->setText( QString::fromLatin1( "" ) );
-    _icon->setIcon( QString::null );
+    _icon->setIcon( QIcon() );
     _thumbnailSizeInCategory->setValue(64);
     enableDisable(false);
 }

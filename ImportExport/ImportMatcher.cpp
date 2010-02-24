@@ -86,19 +86,19 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
     }
     else {
         // This item was not in my database
-        QString match = QString::null;
+        QString match;
         for( QStringList::ConstIterator it = myItems.constBegin(); it != myItems.constEnd(); ++it ) {
             if ( (*it).contains( kimFileItem ) || kimFileItem.contains( *it ) ) {
                 // Either my item was a substring of the kim item or the other way around (Jesper is a substring of Jesper Pedersen)
-                if ( match == QString::null )
+                if ( match.isEmpty() )
                     match = *it;
                 else {
-                    match = QString::null;
+                    match.clear();
                     break;
                 }
             }
         }
-        if ( match != QString::null ) {
+        if ( ! match.isEmpty() ) {
             // there was a single substring matach
             _combobox->setCurrentIndex( myItems.indexOf(match) );
         }

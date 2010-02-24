@@ -365,13 +365,13 @@ QString Utilities::readFile( const QString& fileName )
 {
     if ( fileName.isEmpty() ) {
         KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>", fileName ) );
-        return QString::null;
+        return QString();
     }
 
     QFile file( fileName );
     if ( !file.open( QIODevice::ReadOnly ) ) {
         //KMessageBox::error( 0, i18n("Could not open file %1").arg( fileName ) );
-        return QString::null;
+        return QString();
     }
 
     QTextStream stream( &file );
@@ -525,7 +525,7 @@ QString dereferenceSymLinks( const QString& fileName )
     while (fi.isSymLink() && --rounds > 0)
         fi = QFileInfo(fi.readLink());
     if (rounds == 0)
-        return QString::null;
+        return QString();
     return fi.filePath();
 }
 }
@@ -557,7 +557,7 @@ QString Utilities::relativeFolderName( const QString& fileName)
 {
     int index= fileName.lastIndexOf( QChar::fromLatin1('/'), -1);
     if (index == -1)
-        return QString::null;
+        return QString();
     else
         return fileName.left( index );
 }

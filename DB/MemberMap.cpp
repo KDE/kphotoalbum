@@ -223,7 +223,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
     if (!_loading && !canAddMemberToGroup(category, group, item))
         return;
 
-    if ( item.isNull() ) {
+    if ( item.isEmpty() ) {
         qWarning( "Null item tried inserted into group %s", qPrintable(group));
         return;
     }

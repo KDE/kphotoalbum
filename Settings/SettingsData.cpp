@@ -331,7 +331,7 @@ property_ref( untaggedTag,      setUntaggedTag,      QString, General, "untagged
 #ifdef HAVE_EXIV2
     property_sset( exifForViewer, setExifForViewer,          Exif, StringSet()                            )
     property_sset( exifForDialog, setExifForDialog,          Exif, Exif::Info::instance()->standardKeys() )
-    property_ref ( iptcCharset  , setIptcCharset  , QString, Exif, (QString)QString::null                 )
+    property_ref ( iptcCharset  , setIptcCharset  , QString, Exif, QString()                 )
 #endif
 
 /////////////////////

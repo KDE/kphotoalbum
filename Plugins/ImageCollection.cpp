@@ -63,7 +63,7 @@ QString Plugins::ImageCollection::name()
 
 QString Plugins::ImageCollection::comment()
 {
-    return QString::null;
+    return QString();
 }
 
 KUrl::List Plugins::ImageCollection::images()

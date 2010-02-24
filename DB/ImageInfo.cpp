@@ -154,7 +154,7 @@ QString ImageInfo::fileName( PathType type ) const
     case DB::AbsolutePath:        return _absoluteFileName;
     default:
         kFatal("Invalid parameter to ImageInfo::fileName()");
-        return QString::null;
+        return QString();
     }
 }
 
@@ -465,7 +465,7 @@ void DB::ImageInfo::setAbsoluteFileName()
 void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
     QString folderName = Utilities::relativeFolderName( _relativeFileName );
-    if ( folderName.isNull() )
+    if ( folderName.isEmpty() )
         return;
 
     QStringList directories = folderName.split(QString::fromLatin1( "/" ) );

@@ -199,7 +199,7 @@ Export::Export(
       total += list.size();
 
     _steps = 0;
-    _progressDialog = new Q3ProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
+    _progressDialog = new Q3ProgressDialog( QString(), i18n("&Cancel"), total, 0, "progress dialog", true );
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
@@ -220,7 +220,7 @@ Export::Export(
         Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
         time_t t;
         time(&t);
-        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.data(), indexml.size()-1 );
+        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
 
        _steps++;
        _progressDialog->setProgress( _steps );
@@ -312,7 +312,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1() );
 
     if ( _location == Inline || !_copyingFiles )
-        _zip->writeFile( zipFileName, QString::null, QString::null, data, data.size() );
+        _zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
     else {
         QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
         QFile out( file );

@@ -78,7 +78,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
-            setText( QString::null );
+            setText( QString() );
             int size = Settings::SettingsData::instance()->previewSize();
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")

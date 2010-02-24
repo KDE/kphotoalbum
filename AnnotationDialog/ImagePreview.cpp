@@ -113,7 +113,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
     _lastImage.set(_currentImage);
     _currentImage.set(_info.fileName(DB::AbsolutePath), image);
     setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
-    if (!_anticipated._fileName.isNull())
+    if (!_anticipated._fileName.isEmpty())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
@@ -173,7 +173,7 @@ void ImagePreview::PreviewImage::set(const PreviewImage &other)
 
 void ImagePreview::PreviewImage::reset()
 {
-    _fileName=QString::null;
+    _fileName.clear();
     _image=QImage();
 }
 

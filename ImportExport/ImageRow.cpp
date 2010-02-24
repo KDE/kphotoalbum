@@ -12,7 +12,7 @@ using namespace ImportExport;
 ImageRow::ImageRow( DB::ImageInfoPtr info, ImportDialog* import, KimFileReader* kimFileReader, QWidget* parent )
     : QObject( parent ), m_info( info ), m_import(import), m_kimFileReader( kimFileReader )
 {
-    m_checkbox = new QCheckBox( QString::null, parent );
+    m_checkbox = new QCheckBox( QString(), parent );
     m_checkbox->setChecked( true );
 }
 

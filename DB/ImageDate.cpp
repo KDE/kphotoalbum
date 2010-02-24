@@ -73,7 +73,7 @@ static bool isLastSecOfDay( const QDateTime& time )
 QString ImageDate::toString( bool withTime ) const
 {
     if ( _start.isNull() )
-        return QString::null;
+        return QString();
 
     if ( _start == _end ) {
         if ( withTime && !isFirstSecOfDay(_start))
@@ -146,7 +146,7 @@ bool ImageDate::operator!=( const ImageDate& other ) const
 QString ImageDate::formatRegexp()
 {
     static QString str;
-    if ( str.isNull() ) {
+    if ( str.isEmpty() ) {
         str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
         QStringList months = monthNames();
         for( QStringList::ConstIterator monthIt = months.constBegin(); monthIt != months.constEnd(); ++monthIt )

@@ -617,7 +617,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
             }
             else {
                 KMessageBox::error( 0, i18n("<p>Unknown tag %1, while reading configuration file.</p>"
-                                            "<p>Expected one of: Options, Drawings</p>" ).arg( childElm.tagName() ) );
+                                            "<p>Expected one of: Options, Drawings</p>", childElm.tagName() ) );
             }
         }
     }

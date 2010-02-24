@@ -316,8 +316,7 @@ bool  NewImageFinder::calculateMD5sums(
         i18n("<p><b>Calculating checksum for %1 files<b></p>"
              "<p>By storing a checksum for each image "
              "KPhotoAlbum is capable of finding images "
-             "even when you have moved them on the disk.</p>")
-        .arg(list.size()));
+             "even when you have moved them on the disk.</p>", list.size()));
     dialog.setMaximum(list.size());
     dialog.setMinimumDuration( 1000 );
 

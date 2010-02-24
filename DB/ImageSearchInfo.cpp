@@ -170,7 +170,7 @@ QString ImageSearchInfo::toString() const
             if ( txt == ImageDB::NONE() )
                 txt = i18nc( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
                             "but I need some how to indicate the category, and users may create their own categories, so this is "
-                            "the best I can do - Jesper.", "No %1" ).arg( it.key() );
+                            "the best I can do - Jesper.", "No %1", it.key() );
 
             if ( txt.contains( QString::fromLatin1("|") ) )
                 txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
@@ -183,7 +183,7 @@ QString ImageSearchInfo::toString() const
             txt.replace( ImageDB::NONE(), i18nc( "As in no other persons, or no other locations. "
                                                 "I do realize that translators may have problem with this, "
                                                 "but I need some how to indicate the category, and users may create their own categories, so this is "
-                                                "the best I can do - Jesper.", "No other %1" ).arg( it.key() ) );
+                                                "the best I can do - Jesper.", "No other %1", it.key() ) );
             txt.simplified();
             res += txt;
         }

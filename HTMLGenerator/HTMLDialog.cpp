@@ -364,15 +364,15 @@ bool HTMLDialog::checkVars()
     bool ok = KIO::NetAccess::stat( KUrl(baseDir), result, this );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Error while reading information about %1. "
-                                       "This is most likely because the directory does not exist.</p>")
-                            .arg( baseDir ) );
+                                       "This is most likely because the directory does not exist.</p>",
+                                       baseDir ) );
         return false;
     }
 
     KFileItem fileInfo( result, KUrl(baseDir) );
     if ( !fileInfo.isDir() ) {
         KMessageBox::error( this, i18n("<p>%1 does not exist, is not a directory or "
-                                       "cannot be written to.</p>").arg( baseDir ) );
+                                       "cannot be written to.</p>", baseDir ) );
         return false;
     }
 
@@ -383,7 +383,7 @@ bool HTMLDialog::checkVars()
         int answer = KMessageBox::warningYesNo( this,
                                                 i18n("<p>Output directory %1 already exists. "
                                                      "Usually, this means you should specify a new directory.</p>"
-                                                     "<p>Should %2 be deleted first?</p>").arg( outputDir ).arg( outputDir ),
+                                                     "<p>Should %2 be deleted first?</p>", outputDir, outputDir ),
                                                 i18n("Directory Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {

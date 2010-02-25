@@ -39,7 +39,7 @@ namespace SQLDB
 
         void setToLocal()
         {
-            _hostName = QString();
+            _hostName.clear();
         }
 
         void setHostName(const QString& hostName)

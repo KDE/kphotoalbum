@@ -499,7 +499,7 @@ void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from)
 void DB::ImageInfo::removeExtraData ()
 {
     _categoryInfomation.clear();
-    _description = QString();
+    _description.clear();
     _rating = -1;
     _geoPosition = GpsCoordinates();
 }

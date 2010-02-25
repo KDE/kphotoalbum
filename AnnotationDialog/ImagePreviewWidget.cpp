@@ -20,6 +20,11 @@
 #include <QHBoxLayout>
 #include <klocale.h>
 #include <QWidget>
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "DB/Result.h"
+#include "DB/ResultId.h"
+#include "MainWindow/DeleteDialog.h"
 using namespace AnnotationDialog;
 
 ImagePreviewWidget::ImagePreviewWidget() : QWidget()
@@ -155,6 +160,17 @@ void ImagePreviewWidget::rotate( int angle )
 void ImagePreviewWidget::slotDeleteImage()
 {
   if( ! _singleEdit ) return;
+  
+    MainWindow::DeleteDialog dialog( this );
+    DB::ImageInfo info = _imageList->at( _current );
+
+    DB::ResultId idToDelete = DB::ImageDB::instance()->ID_FOR_FILE(info.fileName(DB::AbsolutePath));
+    const DB::Result deleteList = DB::Result(idToDelete);
+
+    int ret = dialog.exec( deleteList );
+    if ( ret == QDialog::Rejected ) //Delete Dialog rejected, do nothing
+	  return;
+
   emit imageDeleted( _imageList->at( _current ) );
   
   if( ! _nextBut->isEnabled() ) //No next image exists, select previous

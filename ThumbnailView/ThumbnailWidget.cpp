@@ -209,7 +209,7 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& point )
 {
     Cell pos = cellAtCoordinate( point, ViewportCoordinates );
-    QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -10, -10 ); // FIXME: what area should be "hot"?
+    QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -15, -15 ); // FIXME: what area should be "hot"?
     bool correctArea = !cellRect.contains( viewportToContentsAdjusted( point, ViewportCoordinates ) );
     if (!correctArea)
         return false;

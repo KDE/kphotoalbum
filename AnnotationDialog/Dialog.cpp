@@ -55,7 +55,6 @@
 #include "ImagePreviewWidget.h"
 #include "KDateEdit.h"
 #include "ListSelect.h"
-#include "MainWindow/DeleteDialog.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "Settings/SettingsData.h"
 #include "ShortCutManager.h"
@@ -695,15 +694,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     if( _setup == InputMultiImageConfigMode )  //TODO: probably delete here should mean remove from selection
       return;
 
-    MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
-
-    DB::ResultId idToDelete = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
-    const DB::Result deleteList = DB::Result(idToDelete);
-
-    int ret = dialog.exec( deleteList );
-    if ( ret == Rejected )
-        return;
 
     _origList.remove( info );
     _editList.removeAll( _editList.at( _current ) );

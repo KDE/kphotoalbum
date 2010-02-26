@@ -58,7 +58,7 @@ ImportExport::MD5CheckPage::MD5CheckPage(const ImportSettings& settings)
     createRow( grid, row, QString::fromLatin1("*Description*"), i18n("Description"), clashes.description, true);
     createRow( grid, row, QString::fromLatin1( "*Orientation*" ), i18n("Orientation"), clashes.orientation, false );
     createRow( grid, row, QString::fromLatin1( "*Date*" ), i18n("Date and Time"), clashes.date, false );
-    for ( QMap<QString,bool>::const_iterator it = clashes.categories.begin(); it != clashes.categories.end(); ++it ) {
+    for ( QMap<QString,bool>::const_iterator it = clashes.categories.constBegin(); it != clashes.categories.constEnd(); ++it ) {
         createRow( grid, row, it.key(), it.key(), *it, true );
     }
 

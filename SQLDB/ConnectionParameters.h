@@ -44,7 +44,7 @@ namespace SQLDB
 
         void setHostName(const QString& hostName)
         {
-            _hostName.clear();
+            _hostName = hostName;
         }
 
         void setPort(int port)
@@ -64,7 +64,7 @@ namespace SQLDB
 
         bool isLocal() const
         {
-            return _hostName.isNull();
+            return _hostName.isEmpty();
         }
 
         const QString& hostName() const

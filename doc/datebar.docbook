@@ -16,7 +16,7 @@ database.</para>
 
 <para>The individual bars indicates how many images are within the given
 period. In the figure above you may see that I have 261 images from January
-2005. The bars encode two informations, namely how many images that have an
+2005. The bars encode two information, namely how many images that have an
 exact date within the given period, and how many have an overlap with the
 given period. A picture which has a date that says 2005 will thus count as
 an overlap for all the month of 2005, while an image from Jan 24th 2005

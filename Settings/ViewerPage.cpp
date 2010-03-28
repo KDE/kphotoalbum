@@ -72,7 +72,9 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
 
 void Settings::ViewerPage::loadSettings( Settings::SettingsData* opt )
 {
+    _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _viewImageSetup->setSize( opt->viewerSize() );
+    _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );

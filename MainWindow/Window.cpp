@@ -499,10 +499,10 @@ void MainWindow::Window::slotReReadExifInfo()
 }
 
 
-DB::Result MainWindow::Window::selected(bool keepSortOrderOfDatabase)
+DB::Result MainWindow::Window::selected()
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
-        return _thumbnailView->selection( keepSortOrderOfDatabase );
+        return _thumbnailView->selection();
     else
         return DB::Result();
 }
@@ -586,7 +586,7 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ));
+    DB::ImageDB::instance()->sortAndMergeBackIn( selected());
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
     DirtyIndicator::markDirty();
 }

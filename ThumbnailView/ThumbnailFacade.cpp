@@ -82,9 +82,9 @@ void ThumbnailView::ThumbnailFacade::reload( bool flushCache, bool clearSelectio
     _widget->reload( flushCache, clearSelection );
 }
 
-DB::Result ThumbnailView::ThumbnailFacade::selection(bool keepSortOrderOfDatabase) const
+DB::Result ThumbnailView::ThumbnailFacade::selection() const
 {
-    return _model->selection( keepSortOrderOfDatabase );
+    return _model->selection();
 }
 
 DB::Result ThumbnailView::ThumbnailFacade::imageList(Order order) const

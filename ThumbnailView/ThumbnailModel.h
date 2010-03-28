@@ -46,7 +46,7 @@ public:
     void toggleSelection( const DB::ResultId& id );
     void selectAll();
 
-    DB::Result selection(bool keepSortOrderOfDatabase=false) const;
+    DB::Result selection() const;
     IdSet selectionSet() const;
 
     bool isSelected( const DB::ResultId& ) const;

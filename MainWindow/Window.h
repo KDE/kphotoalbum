@@ -70,7 +70,7 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::Result selected(bool keepSortOrderOfDatabase=false);
+    DB::Result selected();
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
     void setStackHead( const DB::ResultId image );

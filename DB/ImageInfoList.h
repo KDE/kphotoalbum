@@ -35,9 +35,6 @@ public:
     bool isSorted();
     void mergeIn( ImageInfoList list );
     void remove( const ImageInfoPtr& info );
-
-private:
-    bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
 };
 
 typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;

@@ -44,18 +44,14 @@ ImageInfoList ImageInfoList::sort() const
 
 void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
 {
-    if ( !checkIfMergeListIsContiniously( subListToSort ) )
-        return;
     ImageInfoList sorted = subListToSort.sort();
 
     const int insertIndex = indexOf(subListToSort[0]);
     Q_ASSERT(insertIndex >= 0);
 
     // Delete the items we will merge in.
-    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
-        Q_ASSERT(indexOf(*it) >= insertIndex);
+    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it )
         remove( *it );
-    }
 
     ImageInfoListIterator insertIt = begin() + insertIndex;
 
@@ -64,27 +60,6 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
         insertIt = insert( insertIt, *it );
         ++insertIt;
     }
-}
-
-/**
-   return true if we should continue the sort.
-*/
-bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
-{
-    Q_ASSERT( mergeList.count() != 0 );
-    ImageInfoListIterator thisListIt = begin() + indexOf(mergeList[0]);
-
-    for( ImageInfoListIterator mergeListIt = mergeList.begin(); mergeListIt != mergeList.end(); ++mergeListIt, ++thisListIt ) {
-        Q_ASSERT( *mergeListIt ); Q_ASSERT( *thisListIt );
-        if ( *mergeListIt != *thisListIt ) {
-
-            return ( KMessageBox::warningContinueCancel(0,i18n("<p>You are about to sort a set of thumbnails with others in between.<br />"
-                                                      "This might result in an unexpected sort order.<br />"
-                                                      "<p>Are you sure you want to continue?</p>"), i18n("Sort Thumbnails?") ) == KMessageBox::Continue);
-            break;
-        }
-    }
-    return true;
 }
 
 ImageInfoList::~ImageInfoList()

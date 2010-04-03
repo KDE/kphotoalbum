@@ -504,7 +504,7 @@ QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
     if ( _croppedAndScaledImg.isNull() )
         return QImage();
     else
-        return _croppedAndScaledImg.scaled( 128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation );
+        return _croppedAndScaledImg.scaled( 512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation );
 }
 
 

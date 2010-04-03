@@ -204,12 +204,7 @@ void DB::Category::setCategoryImage( const QString& category, QString member, co
         return;
     }
 
-    // PENDING(blackie) HACK ALERT: Remove all images rather than just these resolutions.
-    QString key = QString::fromLatin1( "64-%2" ).arg(fileName);
-    QPixmapCache::remove( key );
-
-    key = QString::fromLatin1( "128-%2" ).arg(fileName);
-    QPixmapCache::remove( key );
+    QPixmapCache::clear();
 }
 
 QString DB::Category::fileForCategoryImage( const QString& category, QString member ) const

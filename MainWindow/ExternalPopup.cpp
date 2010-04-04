@@ -99,7 +99,10 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     // get the list of arguments
     KUrl::List lst;
 
-    if ( action->data() == 1 ) {
+    if ( action->data() == -1 )
+    {
+	return;  //user clicked the title entry. (i.e: "All Selected Items")
+    } else if ( action->data() == 1 ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
                 lst.append( KUrl(*it) );

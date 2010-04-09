@@ -33,6 +33,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
     QVBoxLayout* layout = new QVBoxLayout( top );
     setMainWidget(top);
 
+    // xgettext: no-c-format
     QString txt = i18n("<p>Enter your command to run below:</p>"
                        "<p><i>%all will be replaced with a file list</i></p>");
     QLabel* label = new QLabel(txt);
@@ -40,6 +41,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
 
     _cmd = new QLineEdit();
     layout->addWidget(_cmd);
+    // xgettext: no-c-format
     txt = i18n("<p>Enter the command you want to run on your image file(s).  "
                "KPhotoAlbum will run your command and replace any '%all' tokens "
                "with a list of your files.  For example, if you entered:</p>"
@@ -57,7 +59,9 @@ MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
 void MainWindow::RunDialog::slotMarkGo( )
 {
     QString cmdString = _cmd->text();
+    // xgettext: no-c-format
     QRegExp replaceall = QRegExp(i18n("%all"));
+    // xgettext: no-c-format
     QRegExp replaceeach = QRegExp(i18n("%each"));
 
     // Replace the %all argument first

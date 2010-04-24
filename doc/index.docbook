@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!ENTITY kphotoalbum "<application>KPhotoAlbum</application>">
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "kdeextragear-2">
@@ -41,12 +41,6 @@
     <date>2004-08-06</date>
     <releaseinfo>2.0</releaseinfo>
     
-    <keywordset>
-      <keyword>KDE</keyword>
-      <keyword>kdeextragear-2</keyword>
-      <keyword>KPhotoAlbum</keyword>
-      <keyword>Image Database</keyword>
-    </keywordset>
     <abstract><para>
   This is the user manual for &kphotoalbum;. If you are
   not the type who likes reading documentation, but rather just want to try
@@ -64,6 +58,12 @@ menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will loa
 on long HTML document at <ulink
 url="http://www.kphotoalbum.org/">&kphotoalbum;'s Homepage</ulink></para>
 </abstract>
+    <keywordset>
+      <keyword>KDE</keyword>
+      <keyword>kdeextragear-2</keyword>
+      <keyword>KPhotoAlbum</keyword>
+      <keyword>Image Database</keyword>
+    </keywordset>
   </bookinfo>
   
   &introduction;

@@ -29,13 +29,17 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
     _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
 
-    _autoStackNewFiles = new QCheckBox(i18n("Auto-stack new files on top of old:"), modifiedBox);
+    _autoStackNewFiles = new QCheckBox(i18n("Auto-stack new files on top of old"), modifiedBox);
 
-    QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), modifiedBox );
-    _copyFileComponent = new QLineEdit(modifiedBox);
+    // Copy File Support
+    Q3VGroupBox* copyBox = new Q3VGroupBox( i18n("File Copy on Open Settings"), this );
+    lay1->addWidget( copyBox );
 
-    QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), modifiedBox );
-    _copyFileReplacementComponent = new QLineEdit(modifiedBox);
+    QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
+    _copyFileComponent = new QLineEdit(copyBox);
+
+    QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
+    _copyFileReplacementComponent = new QLineEdit(copyBox);
 
     QString txt;
     txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the <i>modified file search regexp</i> it is assumed that an original version of the image may exist.  The regexp pattern will be replaced with the <i>original file string</i> text and if that file exists, all associated metadata (category information, ratings, etc) will be copied from the original file to the new one.</p>");

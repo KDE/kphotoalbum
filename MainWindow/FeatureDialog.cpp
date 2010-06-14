@@ -27,7 +27,7 @@
 #include <ImageManager/VideoManager.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
-#include <Phonon/BackendCapabilities>
+#include <phonon/backendcapabilities.h>
 
 using namespace MainWindow;
 

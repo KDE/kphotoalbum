@@ -23,6 +23,9 @@
 #include "OverviewPage.h"
 #include "BrowserWidget.h"
 #include "enums.h"
+#include <DB/ImageDB.h>
+#include <DB/Result.h>
+#include "ImageViewPage.h"
 
 Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser ), _category( category ), _model( 0 )
@@ -46,7 +49,11 @@ Browser::BrowserPage* Browser::CategoryPage::activateChild( const QModelIndex& i
     DB::ImageSearchInfo info = searchInfo();
 
     info.addAnd( _category->name(), name );
-    return new Browser::OverviewPage( Breadcrumb(name), info, browser() );
+    if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+        browser()->addAction( new Browser::OverviewPage( Breadcrumb(name), info, browser() ) );
+        return new ImageViewPage( info, browser() );
+    } else
+        return new Browser::OverviewPage( Breadcrumb(name), info, browser() );
 }
 
 DB::CategoryPtr Browser::CategoryPage::category() const

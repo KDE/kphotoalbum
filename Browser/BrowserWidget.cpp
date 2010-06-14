@@ -167,7 +167,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     info.addAnd( category, value );
 
     DB::MediaCount counts = DB::ImageDB::instance()->count( info );
-    bool loadImages = (counts.total() < static_cast<uint>(Settings::SettingsData::instance()->autoShowThumbnailView()));
+    bool loadImages = (counts.total() < Settings::SettingsData::instance()->autoShowThumbnailView());
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )

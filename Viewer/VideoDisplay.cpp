@@ -17,8 +17,8 @@
 */
 
 #include "VideoDisplay.h"
-#include <Phonon/VideoWidget>
-#include <Phonon/AudioOutput>
+#include <phonon/videowidget.h>
+#include <phonon/audiooutput.h>
 #include <KActionCollection>
 #include <qglobal.h>
 #include <KServiceTypeTrader>
@@ -41,8 +41,8 @@
 #include <kmenu.h>
 #include <kaction.h>
 #include <ktoolinvocation.h>
-#include <Phonon/SeekSlider>
-#include <Phonon/MediaObject>
+#include <phonon/seekslider.h>
+#include <phonon/mediaobject.h>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent ), _zoomType( FullZoom ), _zoomFactor(1)

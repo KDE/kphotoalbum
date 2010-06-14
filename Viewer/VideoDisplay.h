@@ -22,7 +22,7 @@
 #include "Display.h"
 #include <kparts/componentfactory.h>
 #include <QResizeEvent>
-#include <Phonon/MediaObject>
+#include <phonon/mediaobject.h>
 namespace Phonon {
    class VideoWidget;
    class SeekSlider;

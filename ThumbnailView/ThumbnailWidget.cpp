@@ -208,13 +208,24 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 
 bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& point )
 {
+    // first check if image is stack, if not return.
+    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().fetchInfo();
+    if (!imageInfo) return false;
+    if (!imageInfo->isStacked()) return false;
+
+    // fetch row and column of picture under cursor
     Cell pos = cellAtCoordinate( point, ViewportCoordinates );
-    QRect cellRect = cellGeometry(pos.row(), pos.col() ).adjusted( 0, 0, -10, -10 ); // FIXME: what area should be "hot"?
+    // first get cell, then get the icon.
+    QRect cellRect = cellGeometry( pos.row(), pos.col() );
+    QRect iconRect = cellGeometryInfo()->iconGeometry( pos.row(), pos.col() );
+    cellRect.setWidth(iconRect.right()-10);
+    cellRect.setHeight(iconRect.bottom()-5);
+
+    // check if point is in remaining rectangle 
     bool correctArea = !cellRect.contains( viewportToContentsAdjusted( point, ViewportCoordinates ) );
     if (!correctArea)
         return false;
-    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().fetchInfo();
-    return imageInfo && imageInfo->isStacked();
+    return true;
 }
 
 static bool isMouseResizeGesture( QMouseEvent* event )

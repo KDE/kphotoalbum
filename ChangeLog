@@ -2,6 +2,7 @@
 
 	* Fixed two bugs from HTMLExport theme darkJS that prevented w3c
 	compliancy
+	* Fixed rating in viewer mode (numbers 1 to 5 give star rating)
 
 2010-02-15  Miika Turkia <theBro@luukku.com>
 

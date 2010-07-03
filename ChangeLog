@@ -1,5 +1,8 @@
 2010-07-03  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Continue reading info exif from files even if some fails. Thanks
+	for patch from Robert Krawitz.
+
 	* Disable screensaver when running a slideshow. Thanks to
 	Christian Schafmeister for a patch for this.
 

@@ -316,11 +316,12 @@ void Exif::Database::recreate()
         }
         if ( i % 10 )
             qApp->processEvents();
-        if (!success || dialog.wasCanceled())
+        if (dialog.wasCanceled())
             break;
     }
 
-    if (!success || dialog.wasCanceled()) {
+    // PENDING(blackie) We should count the amount of files that did not succeeded and warn the user.
+    if (dialog.wasCanceled()) {
         _db.close();
         QDir().remove(exifDBFile());
         QDir().rename(origBackup, exifDBFile());

@@ -21,6 +21,7 @@
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"
 #include <QContextMenuEvent>
+#include <QtDBus>
 #include <QKeyEvent>
 #include <QList>
 #include <QResizeEvent>
@@ -89,6 +90,7 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
             new QMap<Qt::Key, QPair<QString,QString> >;
     }
 
+    m_screenSaverCookie = -1;
     _currentInputMode = InACategory;
 
     _display = _imageDisplay = new ImageDisplay( this );
@@ -119,21 +121,6 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     _speedDisplay->hide();
 
     setFocusPolicy( Qt::StrongFocus );
-
-    // PENDING(blackie) The xdg-screensaver binary still uses DCOP, so it obviously doesn't work anymore.
-    // This code should be rewritten to use DBUS instead,
-#if 0
-#ifndef Q_WS_WIN
-    const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
-    if ( !xdgScreenSaver.isEmpty() ) {
-        KProcess proc;
-        proc << xdgScreenSaver;
-        proc << QString::fromLatin1("suspend");
-        proc << QString::number( winId() );
-        proc.startDetached();
-    }
-#endif
-#endif
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
 }
@@ -230,6 +217,31 @@ void Viewer::ViewerWidget::createWallPaperMenu()
     _popup->addMenu( _wallpaperMenu );
 #endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
+
+
+void Viewer::ViewerWidget::inhibitScreenSaver( bool inhibit ) {
+    QDBusMessage message;
+    if (inhibit) {
+        message = QDBusMessage::createMethodCall( QString::fromLatin1("org.freedesktop.ScreenSaver"), QString::fromLatin1("/ScreenSaver"),
+                                                  QString::fromLatin1("org.freedesktop.ScreenSaver"), QString::fromLatin1("Inhibit") );
+
+        message << QString( QString::fromLatin1("KPhotoAlbum") );
+        message << QString( QString::fromLatin1("Giving a slideshow") );
+        QDBusMessage reply = QDBusConnection::sessionBus().call( message );
+        if ( reply.type() == QDBusMessage::ReplyMessage )
+            m_screenSaverCookie = reply.arguments().first().toInt();
+    }
+    else {
+        if ( m_screenSaverCookie != -1 ) {
+            message = QDBusMessage::createMethodCall( QString::fromLatin1("org.freedesktop.ScreenSaver"), QString::fromLatin1("/ScreenSaver"),
+                                                      QString::fromLatin1("org.freedesktop.ScreenSaver"), QString::fromLatin1("UnInhibit") );
+            message << (uint)m_screenSaverCookie;
+            QDBusConnection::sessionBus().send( message );
+            m_screenSaverCookie = -1;
+        }
+    }
+}
+
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
@@ -810,20 +822,7 @@ void Viewer::ViewerWidget::updateInfoBox()
 
 Viewer::ViewerWidget::~ViewerWidget()
 {
-    // PENDING(blackie) The xdg-screensaver binary still uses DCOP, so it obviously doesn't work anymore.
-    // This code should be rewritten to use DBUS instead,
-#if 0
-#ifndef Q_WS_WIN
-    const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
-    if ( !xdgScreenSaver.isEmpty() ) {
-        KProcess proc;
-        proc << xdgScreenSaver << QLatin1String("resume") << QString::number( winId() );
-        // if we don't wait here, xdg-screensaver realizes that the window is
-        // already gone and doesn't re-activate the screensaver
-        proc.execute();
-    }
-#endif
-#endif
+    inhibitScreenSaver(false);
 
     if ( _latest == this )
         _latest = 0;
@@ -848,12 +847,14 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
         _slideShowTimer->stop();
         if ( _list.count() != 1 )
             _speedDisplay->end();
+        inhibitScreenSaver(false);
     }
     else {
         _startStopSlideShow->setText( i18n("Stop Slideshow") );
         if ( currentInfo()->mediaType() != DB::Video )
             _slideShowTimer->start( _slideShowPause );
         _speedDisplay->start();
+        inhibitScreenSaver(true);
     }
 }
 

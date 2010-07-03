@@ -1,5 +1,8 @@
 2010-07-03  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Disable screensaver when running a slideshow. Thanks to
+	Christian Schafmeister for a patch for this.
+
 	* It is now possible to copy tags from one image in the browser
 	(using Ctrl+c) and then paste that to several other images using
 	Ctrl-v. Thanks to Andreas Neustifter for a patch with this feature.

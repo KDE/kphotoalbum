@@ -99,7 +99,7 @@ protected:
     void createFilterMenu();
     void changeSlideShowInterval( int delta );
     void createVideoViewer();
-
+    void inhibitScreenSaver( bool inhibit );
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
 
@@ -107,6 +107,7 @@ private:
     void showNextN(int);
     void showPrevN(int);
     int  find_tag_in_list(const QStringList &list, QString &namefound);
+
 
 protected slots:
     void showNext();
@@ -180,6 +181,7 @@ private:
     VideoDisplay* _videoDisplay;
     TextDisplay* _textDisplay;
 
+    int m_screenSaverCookie;
     QStringList _list;
     DB::Result _removed;
     int _current;

@@ -32,7 +32,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     _autoStackNewFiles = new QCheckBox(i18n("Auto-stack new files on top of old"), modifiedBox);
 
     // Copy File Support
-    Q3VGroupBox* copyBox = new Q3VGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external applicaiton", "Copy File and Open on External Application"), this );
+    Q3VGroupBox* copyBox = new Q3VGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
     lay1->addWidget( copyBox );
 
     QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );

@@ -509,13 +509,13 @@ void MainWindow::Window::slotPasteInformation()
     MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( string ) );
     ImageInfoPtr originalInfo;
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
-        originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );    
+        originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );
     } else {
         DB::ResultId ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
         originalInfo = ID.fetchInfo();
     }
     Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
-        newInfo->copyExtraData(*originalInfo, false);	
+        newInfo->copyExtraData(*originalInfo, false);
     }
 }
 
@@ -1721,7 +1721,7 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::showVideos()
 {
-    KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos.html")), QString::fromLatin1( "text/html" ), this );
+    KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos")), QString::fromLatin1( "text/html" ), this );
 }
 
 void MainWindow::Window::slotStatistics()

@@ -52,7 +52,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
                   "<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
-                  "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/download-source.html\">"
+                  "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/index.php?page=compile\">"
                   "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
                   "you have the developer packages installed, in most distributions they go under names like kdelibs<i>-devel</i></p>" );
 
@@ -92,7 +92,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
                  "If this feature is not enabled for you, have a look at the "
-                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
+                 "<a href=\"http://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki article on video support</a>.</p>");
 
     QStringList mimeTypes = supportedVideoMimeTypes();
     mimeTypes.sort();

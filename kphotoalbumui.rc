@@ -7,7 +7,10 @@
       <Action name="export"/>
     </Menu>
     <Menu name="edit" >
-      <Action name="copySelectedURLs" />
+      <Action name="edit_copy" />
+      <Action name="edit_paste" />
+      <Action name="edit_select_all" />
+      <Separator/>
       <Action name="deleteSelected" />
       <Action name="removeTokens" />
       <Action name="showListOfFiles" />

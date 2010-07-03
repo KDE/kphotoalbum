@@ -90,6 +90,7 @@ protected slots:
     void slotSetStackHead();
     void slotSave();
     void slotCopySelectedURLs();
+    void slotPasteInformation();
     void slotDeleteSelected();
     void slotReReadExifInfo();
     void slotSearch();
@@ -209,7 +210,7 @@ private:
     KToggleAction* _smallIconView;
     KToggleAction* _largeIconView;
     KAction* _generateHtml;
-    KAction* _cut;
+    KAction* _copy;
     KAction* _paste;
     KAction* _deleteSelected;
     KAction* _limitToMarked;

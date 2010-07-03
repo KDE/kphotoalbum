@@ -127,6 +127,10 @@
 #include <KInputDialog>
 #include "DB/Result.h"
 #include "ThumbnailView/enums.h"
+#include "DB/MD5.h"
+#include "DB/MD5Map.h"
+
+using namespace DB;
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -475,15 +479,44 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotCopySelectedURLs()
 {
-    KUrl::List urls;
+    KUrl::List urls; int urlcount = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( fileName );
+        urlcount++;
     }
+    if (urlcount == 1) _paste->setEnabled (true); else _paste->setEnabled(false);
     QMimeData* mimeData = new QMimeData;
     urls.populateMimeData(mimeData);
 
     QApplication::clipboard()->setMimeData( mimeData );
+}
+
+void MainWindow::Window::slotPasteInformation()
+{
+    const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+
+    // Idealy this would look like
+    // KUrl::List urls;
+    // urls.fromMimeData(mimeData);
+    // if ( urls.count() != 1 ) return;
+    // const QString string = urls.first().path();
+
+    const QString string = mimeData->text();
+    // fail silent if more than one image is in clipboard.
+    if (string.count(QString::fromLatin1("\n")) != 0) return;
+
+    MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( string ) );
+    ImageInfoPtr originalInfo;
+    if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
+        originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );    
+    } else {
+        DB::ResultId ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
+        originalInfo = ID.fetchInfo();
+    }
+    Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
+        newInfo->copyExtraData(*originalInfo, false);	
+    }
 }
 
 void MainWindow::Window::slotReReadExifInfo()
@@ -648,7 +681,9 @@ void MainWindow::Window::setupMenuBar()
     a = KStandardAction::redisplay( _browser, SLOT( go() ), actionCollection() );
 
     // The Edit menu
-    KStandardAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
+    _copy = KStandardAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
+    _paste = KStandardAction::paste( this, SLOT( slotPasteInformation() ), actionCollection() );
+    _paste->setEnabled(false);
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
 

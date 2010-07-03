@@ -147,7 +147,7 @@ public:
 
     void delaySavingChanges(bool b=true);
 
-    void copyExtraData( const ImageInfo& from);
+    void copyExtraData( const ImageInfo& from, bool copyAngle = true);
     void removeExtraData();
 
 protected:

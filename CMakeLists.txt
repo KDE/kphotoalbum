@@ -163,6 +163,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/RunDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/FeatureDialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/InvalidDateFinder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/AutoStackImages.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/TokenEditor.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/WelcomeDialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Window.cpp 

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="39">
+<kpartgui name="kphotoalbum" version="40">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -59,6 +59,7 @@
       <Action name="rescan"/>
       <Action name="recreateExifDB" />
       <Action name="reReadExifInfo" />
+      <Action name="autoStack" />
       <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>

@@ -90,6 +90,7 @@
 #include "DateBar/DateBarWidget.h"
 #include "DB/ImageDateCollection.h"
 #include "InvalidDateFinder.h"
+#include "AutoStackImages.h"
 #include "DB/ImageInfo.h"
 #include "DB/ResultId.h"
 #include "DB/Result.h"
@@ -531,6 +532,12 @@ void MainWindow::Window::slotReReadExifInfo()
 #endif
 }
 
+void MainWindow::Window::slotAutoStackImages()
+{
+    AutoStackImages stacker( this );
+    if ( stacker.exec() == QDialog::Accepted )
+        showThumbNails();
+}
 
 DB::Result MainWindow::Window::selected()
 {
@@ -820,6 +827,9 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT( slotReReadExifInfo() ) );
     a->setText( i18n("Read EXIF Info From Files...") );
 #endif
+
+    a = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT ( slotAutoStackImages() ) );
+    a->setText( i18n("Automatically Stack Images...") );
 
 #ifdef SQLDB_SUPPORT
     a = actionCollection()->addAction( QString::fromLatin1("convertBackend"), this, SLOT( convertBackend() ) );

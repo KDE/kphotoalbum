@@ -93,6 +93,7 @@ protected slots:
     void slotPasteInformation();
     void slotDeleteSelected();
     void slotReReadExifInfo();
+    void slotAutoStackImages();
     void slotSearch();
     void slotView( bool reuse = true, bool slideShow = false, bool random = false );
     void slotViewNewWindow();

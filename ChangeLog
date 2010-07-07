@@ -1,3 +1,10 @@
+2010-07-07  Miika Turkia <miika.turkia@gmail.com>
+
+	* Implemented automatic stacking of images. Images that are shot
+	within specified time frame are stacked together (supports also
+	stacking of matching MD5 sum as requested by someone on the IRC
+	channel).
+
 2010-07-03  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Continue reading info exif from files even if some fails. Thanks

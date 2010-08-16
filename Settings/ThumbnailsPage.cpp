@@ -42,16 +42,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( thumbnailAspectRatioLabel, row, 0 );
     lay->addWidget( _thumbnailAspectRatio, row, 1 );
 
-    // Thumbnail Format
-    // PENDING(blackie) This is not used anymore and should go away.
-    ++row;
-    QLabel* thumbnailFormatLabel = new QLabel( i18n("Thumbnail format") );
-    _thumbnailFormat = new KComboBox( this );
-    _thumbnailFormat->addItems( QStringList() << i18n("ppm") << i18n("png")
-                                << i18n("jpg"));
-    lay->addWidget( thumbnailFormatLabel, row, 0 );
-    lay->addWidget( _thumbnailFormat, row, 1 );
-
     // Space around cells
     ++row;
     QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells") );
@@ -92,18 +82,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( autoShowLabel, row, 0 );
     lay->addWidget( _autoShowThumbnailView, row, 1 );
 
-    // Thumbnail Cache
-    // PENDING(blackie) This is not used anymore and should go away
-    ++row;
-    QLabel* cacheLabel = new QLabel( i18n( "Thumbnail screen cache:" ), this );
-    _thumbnailCacheScreens = new QSpinBox;
-    _thumbnailCacheScreens->setRange( 1, 64 );
-    _thumbnailMegabyteInfo = new QLabel(this);
-    connect( _thumbnailCacheScreens, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailCacheScreenChanged( int ) ) );
-
-    lay->addWidget( cacheLabel, row, 0 );
-    lay->addWidget( _thumbnailCacheScreens, row, 1 );
-    lay->addWidget( _thumbnailMegabyteInfo, row, 2 );
 
     lay->setColumnStretch( 1, 1 );
     lay->setRowStretch( ++row, 1 );
@@ -124,10 +102,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
     _thumbnailAspectRatio->setWhatsThis( txt );
-
-    txt = i18n("<p>Choose the format used for the thumbnails images, ppm is the faster, jpg the smaller. You need to restart application for this change to take effect.</p>");
-    _thumbnailFormat->setWhatsThis( txt );
-    _thumbnailFormat->setToolTip(txt);
 
     txt = i18n("<p>How thick the cell padding should be.</p>");
     thumbnailSpaceLabel->setWhatsThis( txt );
@@ -153,10 +127,6 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
                "browser until you press <i>Show Images</i></p>");
     _autoShowThumbnailView->setWhatsThis( txt );
     autoShowLabel->setWhatsThis( txt );
-
-    txt = i18n("<p>Specify number of screens the thumbnail cache should be able to hold.</p>");
-    cacheLabel->setWhatsThis( txt );
-    _thumbnailCacheScreens->setWhatsThis( txt );
 }
 
 void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
@@ -166,12 +136,9 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
     _backgroundColor->setColor( QColor( opt->backgroundColor() ) );
     _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     _thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );
-    _thumbnailFormat->setCurrentItem( opt->thumbnailFormat(),false,0 );
     _thumbnailSpace->setValue( opt->thumbnailSpace() );
     _displayLabels->setChecked( opt->displayLabels() );
     _displayCategories->setChecked( opt->displayCategories() );
-    _thumbnailCacheScreens->setValue( opt->thumbnailCacheScreens() );
-    thumbnailCacheScreenChanged( opt->thumbnailCacheScreens() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
 }
 
@@ -180,20 +147,12 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentIndex() );
-    opt->setThumbnailFormat(_thumbnailFormat->currentText() );
     opt->setBackgroundColor( _backgroundColor->color().name() );
     opt->setThumbnailDisplayGrid( _thumbnailDisplayGrid->isChecked() );
     opt->setThumbnailSpace( _thumbnailSpace->value() );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setDisplayCategories( _displayCategories->isChecked() );
-    opt->setThumbnailCacheScreens( _thumbnailCacheScreens->value() );
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );
-}
-
-void Settings::ThumbnailsPage::thumbnailCacheScreenChanged(int value)
-{
-    _thumbnailMegabyteInfo->setText(i18n("%1 MB", SettingsData::thumbnailBytesForScreens(value) >> 20));
-    _thumbnailCacheScreens->setSuffix( ki18ncp("Thumbnail Cache Screens", " Screen", " Screens").subs(value).toString());
 }
 
 bool Settings::ThumbnailsPage::thumbnailSizeChanged( Settings::SettingsData* opt ) const

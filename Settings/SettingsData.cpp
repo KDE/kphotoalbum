@@ -142,7 +142,6 @@ SettingsData::SettingsData( const QString& imageDirectory )
     QString s = STR( "/" );
     _imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
-    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
     _smoothScale = value( "Viewer", "smoothScale", true );
 }
 
@@ -237,19 +236,9 @@ property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool       
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
-property_ref ( thumbnailFormat         , setThumbnailFormat        , QString             , Thumbnails, QString::fromLatin1("ppm") )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
 getValueFunc( int,thumbSize,  Thumbnails, 150)
-
-getValueFunc( int,thumbnailCacheScreens,  Thumbnails,3) // Three pages sounds good; one before, one after the current screen
-
-void SettingsData::setThumbnailCacheScreens( int screens )
-{
-    setValue( "Thumbnails", "thumbnailCacheScreens", screens );
-    QPixmapCache::setCacheLimit( thumbnailCacheBytes() / 1024);
-    QPixmapCache::clear();
-}
 
 void SettingsData::setThumbSize( int value )
 {
@@ -257,16 +246,6 @@ void SettingsData::setThumbSize( int value )
     setValue( "Thumbnails", "thumbSize", value );
 }
 
-size_t SettingsData::thumbnailBytesForScreens(int screens) {
-    const QRect screen = QApplication::desktop()->screenGeometry();
-    const size_t kBytesPerPixel = 4;
-    return kBytesPerPixel * screen.width() * screen.height() * screens;
-}
-
-size_t SettingsData::thumbnailCacheBytes() const
-{
-    return thumbnailBytesForScreens(thumbnailCacheScreens());
-}
 
 ////////////////
 //// Viewer ////

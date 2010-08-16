@@ -118,18 +118,8 @@ public:
 
     // Border space around thumbnails.
     property_copy( thumbnailSpace          , setThumbnailSpace         , int );
-    property_copy( thumbnailCacheScreens   , setThumbnailCacheScreens  , int );
     property_copy( thumbSize               , setThumbSize              , int );
     property_copy( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio );
-    property_ref ( thumbnailFormat         , setThumbnailFormat        , QString );
-
-    /**
-     * Return an approximate figure of megabytes to cache to be able to
-     * cache the amount of "screens" of caches.
-     */
-    static size_t thumbnailBytesForScreens(int screen);
-
-    size_t thumbnailCacheBytes() const;   // convenience method
 
     ////////////////
     //// Viewer ////
@@ -177,7 +167,7 @@ public:
     /////////////////////
     //// Exif Import ////
     /////////////////////
-    
+
     property_copy( updateExifData           , setUpdateExifData           , bool             );
     property_copy( updateImageDate          , setUpdateImageDate          , bool             );
     property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool             );

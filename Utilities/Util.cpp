@@ -690,3 +690,10 @@ DB::MD5 Utilities::MD5Sum( const QString& fileName )
     return DB::MD5(QString::fromLatin1(md5calculator.hexDigest()));
 }
 
+QColor Utilities::contrastColor( const QColor& col )
+{
+    if ( col.red() < 127 && col.green() < 127 && col.blue() < 127 )
+        return Qt::white;
+    else
+        return Qt::black;
+}

@@ -16,14 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailWidget.h"
+#include <QScrollBar>
+#include <QTimer>
+#include "Delegate.h"
 #include "ThumbnailCache.h"
+#include "ImageManager/ThumbnailCache.h"
 #include "ThumbnailDND.h"
 #include "KeyboardEventHandler.h"
 #include "ThumbnailFactory.h"
 #include "ThumbnailModel.h"
 #include "CellGeometry.h"
 #include "ThumbnailWidget.moc"
-#include "ThumbnailPainter.h"
 #include <math.h>
 
 #include <klocale.h>
@@ -35,9 +38,9 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/ResultId.h"
-#include "ImageManager/Manager.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Set.h"
+#include "Utilities/Util.h"
 
 /**
  * \class ThumbnailView::ThumbnailWidget
@@ -50,161 +53,71 @@
 using Utilities::StringSet;
 
 ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
-    :Q3GridView(),
+    :QListView(),
      ThumbnailComponent( factory ),
      _isSettingDate(false),
-     _gridResizeInteraction( this ),
+     _gridResizeInteraction( factory ),
      _wheelResizing( false ),
      _selectionInteraction( factory ),
      _mouseTrackingHandler( factory ),
      _mouseHandler( &_mouseTrackingHandler ),
      _dndHandler( new ThumbnailDND( factory ) ),
+     m_pressOnStackIndicator( false ),
      _keyboardHandler( new KeyboardEventHandler( factory ) )
 {
-    setFocusPolicy( Qt::WheelFocus );
-    updateCellSize();
+    // PENDING(blackie) clean up this constructor.
+    setModel( ThumbnailComponent::model() );
+    setResizeMode( QListView::Adjust );
+    setViewMode( QListView::IconMode );
+    setUniformItemSizes(true);
+    setSelectionMode( QAbstractItemView::ExtendedSelection );
 
     // It beats me why I need to set mouse tracking on both, but without it doesn't work.
     viewport()->setMouseTracking( true );
     setMouseTracking( true );
 
-    connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
+    connect( selectionModel(), SIGNAL( currentChanged( QModelIndex, QModelIndex) ), this, SLOT( scheduleDateChangeSignal() ) );
+#if 0
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( slotViewChanged( int, int ) ));
+#endif
     viewport()->setAcceptDrops( true );
 
-    setVScrollBarMode( AlwaysOn );
-    setHScrollBarMode( AlwaysOff );
+    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
     connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ) );
     connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
+
+    updatePalette();
+    setItemDelegate( new Delegate(factory) );
+
+    connect( selectionModel(), SIGNAL( selectionChanged( QItemSelection, QItemSelection ) ), this, SLOT( emitSelectionChangedSignal() ) );
+
+    setDragEnabled(false); // We run our own draging, so disable QListView's version.
+
+    connect( verticalScrollBar(), SIGNAL( valueChanged(int) ), model(), SLOT( updateVisibleRowInfo() ) );
+    setupDateChangeTimer();
 }
 
-bool ThumbnailView::ThumbnailWidget::isGridResizing()
+bool ThumbnailView::ThumbnailWidget::isGridResizing() const
 {
     return _mouseHandler->isResizingGrid() || _wheelResizing;
 }
 
-OVERRIDE void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
-{
-    painter()->paintCell( p, row, col );
-}
-
-void ThumbnailView::ThumbnailWidget::generateMissingThumbnails(const DB::Result& items) const
-{
-    // TODO(hzeller) before release: run this asynchronously.
-    //        For 100'000+ files, this will be slow.
-    // jkt: this is dead slow even with 20k pictures on NFS
-    // TODO-2(hzeller): This should be handled at startup or when new images
-    //        enter the database; not here.
-    // TODO-3(hzeller): With TODO-2 implemented, we probably don't need an
-    //        existence cache anymore in ThumbnailStorage
-
-    // Thumbnails are generated/stored in two sizes: 128x128 and 256x256.
-    // Requesting the bigger one will make sure that both are stored.
-    const QSize size(256, 256);
-    ImageManager::Manager* imgManager = ImageManager::Manager::instance();
-    Q_FOREACH(DB::ImageInfoPtr info, items.fetchInfos()) {
-        const QString image = info->fileName(DB::AbsolutePath);
-        if (imgManager->thumbnailsExist(image)) {
-            continue;
-        }
-        ImageManager::ImageRequest* request
-            = new ImageManager::ImageRequest(image, size, info->angle(), NULL);
-        request->setPriority( ImageManager::BuildScopeThumbnails );
-        imgManager->load( request );
-    }
-}
-
-/** @short It seems that Q3GridView's viewportToContents() is slightly off */
-QPoint ThumbnailView::ThumbnailWidget::viewportToContentsAdjusted( const QPoint& coordinate, CoordinateSystem system ) const
-{
-    QPoint contentsPos = coordinate;
-    if ( system == ViewportCoordinates ) {
-        contentsPos = viewportToContents( coordinate );
-        contentsPos.rx() -= 3;
-        contentsPos.ry() -= 3;
-    }
-    return contentsPos;
-}
-
-
-
-/**
- * Request a repaint of the cell showing filename
- *
- * QGridView::updateCell has some problems when we scroll during a keyboard selection, so thatswhy we role our own one.
- */
-void ThumbnailView::ThumbnailWidget::updateCell( const DB::ResultId& id )
-{
-    if ( id.isNull() )
-        return;
-
-    painter()->repaint(id);
-}
-
-void ThumbnailView::ThumbnailWidget::updateCell( int row, int col )
-{
-    updateCell( model()->imageAt( row, col ) );
-}
-
-
-/**
- * Update the grid size depending on the size of the widget
- */
-void ThumbnailView::ThumbnailWidget::updateGridSize()
-{
-    int thumbnailsPerRow = width() / cellWidth();
-    int numRowsPerPage = height() / cellHeight();
-    setNumCols( thumbnailsPerRow );
-    setNumRows(qMax(numRowsPerPage,
-                    static_cast<int>(
-                        ceil(static_cast<double>(model()->imageCount()) / thumbnailsPerRow))));
-    const QSize cellSize = cellGeometryInfo()->cellSize();
-    const int border = Settings::SettingsData::instance()->thumbnailSpace();
-    QSize thumbSize(cellSize.width() - 2 * border,
-                    cellSize.height() - 2 * border);
-    cache()->setThumbnailSize(thumbSize);
-}
-
-void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
-{
-    updateGridSize();
-}
-
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
-    _keyboardHandler->keyPressEvent( event );
+    if ( !_keyboardHandler->keyPressEvent( event ) )
+        QListView::keyPressEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 {
     const bool propogate = _keyboardHandler->keyReleaseEvent( event );
     if ( propogate )
-        Q3GridView::keyReleaseEvent(event);
+        QListView::keyReleaseEvent(event);
 }
 
 
-/** @short Scroll the viewport so that the specified cell is visible */
-void ThumbnailView::ThumbnailWidget::scrollToCell( const Cell& newPos )
-{
-    model()->setCurrentItem( newPos );
-
-    // Scroll if necesary
-    if ( newPos.row() > lastVisibleRow( FullyVisible ) )
-        setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() -
-                        (numRowsPerPage()-1)*cellHeight()  );
-
-    if  ( newPos.row() < firstVisibleRow( FullyVisible ) )
-        setContentsPos( contentsX(), cellGeometry( newPos.row(), newPos.col() ).top() );
-}
-
-/**
- * Return the number of complete rows per page
- */
-int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
-{
-    return height() / cellHeight();
-}
 
 bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& point )
 {
@@ -213,19 +126,15 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& po
     if (!imageInfo) return false;
     if (!imageInfo->isStacked()) return false;
 
-    // fetch row and column of picture under cursor
-    Cell pos = cellAtCoordinate( point, ViewportCoordinates );
-    // first get cell, then get the icon.
-    QRect cellRect = cellGeometry( pos.row(), pos.col() );
-    QRect iconRect = cellGeometryInfo()->iconGeometry( pos.row(), pos.col() );
-    cellRect.setWidth(iconRect.right()-10);
-    cellRect.setHeight(iconRect.bottom()-5);
-
-    // check if point is in remaining rectangle 
-    bool correctArea = !cellRect.contains( viewportToContentsAdjusted( point, ViewportCoordinates ) );
-    if (!correctArea)
+    const QModelIndex index = indexUnderCursor();
+    const QRect itemRect = visualRect( index );
+    const QPixmap pixmap = index.data( Qt::DecorationRole ).value<QPixmap>();
+    if ( pixmap.isNull() )
         return false;
-    return true;
+
+    const QRect pixmapRect = cellGeometryInfo()->iconGeometry( pixmap ).translated( itemRect.topLeft() );
+    const QRect blackOutRect = pixmapRect.adjusted( 0,0, -10, -10 );
+    return pixmapRect.contains(point) && !blackOutRect.contains( point );
 }
 
 static bool isMouseResizeGesture( QMouseEvent* event )
@@ -239,6 +148,7 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
     if ( isMouseOverStackIndicator( event->pos() ) ) {
         model()->toggleStackExpansion( mediaIdUnderCursor() );
+        m_pressOnStackIndicator = true;
         return;
     }
 
@@ -247,21 +157,33 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
     else
         _mouseHandler = &_selectionInteraction;
 
-    _mouseHandler->mousePressEvent( event );
-    
+    if ( !_mouseHandler->mousePressEvent( event ) )
+        QListView::mousePressEvent( event );
+
     if (event->button() & Qt::RightButton) //get out of selection mode if this is a right click
       _mouseHandler = &_mouseTrackingHandler;
-      
+
 }
 
 void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )
 {
-    _mouseHandler->mouseMoveEvent( event );
+    if ( m_pressOnStackIndicator )
+        return;
+
+    if ( !_mouseHandler->mouseMoveEvent( event ) )
+        QListView::mouseMoveEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 {
-    _mouseHandler->mouseReleaseEvent( event );
+    if ( m_pressOnStackIndicator ) {
+        m_pressOnStackIndicator = false;
+        return;
+    }
+
+    if ( !_mouseHandler->mouseReleaseEvent( event ) )
+        QListView::mouseReleaseEvent( event );
+
     _mouseHandler = &_mouseTrackingHandler;
 }
 
@@ -269,8 +191,9 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
 {
     if ( isMouseOverStackIndicator( event->pos() ) ) {
         model()->toggleStackExpansion( mediaIdUnderCursor() );
+        m_pressOnStackIndicator = true;
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
-        DB::ResultId id = model()->imageAt( event->pos(), ViewportCoordinates );
+        DB::ResultId id = mediaIdUnderCursor();
         if ( !id.isNull() )
             emit showImage( id );
     }
@@ -280,27 +203,28 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 {
     if ( event->modifiers() & Qt::ControlModifier ) {
         event->setAccepted(true);
+        if ( !_wheelResizing)
+            _gridResizeInteraction.enterGridReziingMode();
 
         _wheelResizing = true;
 
         int delta = event->delta() / 20;
 
-        Settings::SettingsData::instance()->setThumbSize( qMax( 32, cellWidth() + delta ) );
-
-        updateCellSize();
+        Settings::SettingsData::instance()->setThumbSize( qMax( 32, cellWidth() + delta -5) ); // 5 pixeles from 3D effect
+        cellGeometryInfo()->calculateCellSize();
+        model()->reset();
     }
     else
-        Q3GridView::wheelEvent(event);
+        QListView::wheelEvent(event);
 }
 
 
-void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
+void ThumbnailView::ThumbnailWidget::emitDateChange()
 {
     if ( _isSettingDate )
         return;
 
-    // Unfortunately the contentsMoving signal is emitted *before* the move, so we need to find out what is on the new position ourself.
-    DB::ResultId id = model()->imageAt( rowAt(y), columnAt(x) );
+    DB::ResultId id = model()->imageAt( currentIndex().row() );
     if ( id.isNull() )
         return;
 
@@ -313,7 +237,9 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
     }
 }
 
-void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
+#if 0
+void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y)
+{
     if (isGridResizing())
         return;
     int startIndex = rowAt(y) * numCols();
@@ -322,6 +248,7 @@ void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y) {
         endIndex = model()->imageCount();
     cache()->setHotArea(startIndex, endIndex);
 }
+#endif
 
 /**
  * scroll to the date specified with the parameter date.
@@ -332,149 +259,134 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
     _isSettingDate = true;
     DB::ResultId candidate = DB::ImageDB::instance()
                              ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
-    if ( !candidate.isNull() ) {
-        scrollToCell( model()->positionForMediaId( candidate ) );
-        model()->setCurrentItem( candidate );
-    }
+    if ( !candidate.isNull() )
+        widget()->setCurrentItem( candidate );
+
     _isSettingDate = false;
 }
 
-/*
- * Returns the first row that is at least partly visible.
- */
-int ThumbnailView::ThumbnailWidget::firstVisibleRow( VisibleState state ) const
-{
-    int firstRow = rowAt( contentsY() );
-    if ( state == FullyVisible && rowAt( contentsY() + cellHeight()-1 ) != firstRow )
-        firstRow += 1;
-
-    return firstRow;
-}
-
-int ThumbnailView::ThumbnailWidget::lastVisibleRow( VisibleState state ) const
-{
-    int lastRow = rowAt( contentsY() + visibleHeight() );
-    if ( state == FullyVisible && rowAt( contentsY() + visibleHeight() - cellHeight() -1 ) != lastRow )
-        lastRow -= 1;
-    return lastRow;
-}
-
-ThumbnailView::Cell ThumbnailView::ThumbnailWidget::cellAtCoordinate( const QPoint& pos, CoordinateSystem system ) const
-{
-    QPoint contentsPos = pos;
-    if ( system == ViewportCoordinates )
-        contentsPos = viewportToContentsAdjusted( pos, system );
-
-    int col = columnAt( contentsPos.x() );
-    int row = rowAt( contentsPos.y() );
-    return Cell( row, col );
-}
-
-
-void ThumbnailView::ThumbnailWidget::resizeEvent( QResizeEvent* e )
-{
-    Q3GridView::resizeEvent( e );
-    updateGridSize();
-}
-
-
-bool ThumbnailView::ThumbnailWidget::isFocusAtLastCell() const
-{
-    return model()->positionForMediaId(model()->currentItem() ) == lastCell();
-}
-
-bool ThumbnailView::ThumbnailWidget::isFocusAtFirstCell() const
-{
-    return model()->positionForMediaId(model()->currentItem()) == Cell(0,0);
-}
-
-/**
- * Return the coordinates of the last cell with a thumbnail in
- */
-ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
-{
-    return Cell((model()->imageCount() - 1) / numCols(),
-                (model()->imageCount() - 1) % numCols());
-}
 
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
 {
     if ( flushCache )
         cache()->clear();
     if ( clearSelection )
-        model()->clearSelection();
-    updateCellSize();
-    repaintScreen();
-}
+        this->clearSelection();
 
-void ThumbnailView::ThumbnailWidget::repaintScreen()
-{
-    QPalette p;
-    p.setColor( QPalette::Base, Settings::SettingsData::instance()->backgroundColor() );
-    p.setColor( QPalette::Foreground, p.color(QPalette::WindowText ) );
-    setPalette(p);
-
-    const int first = firstVisibleRow( PartlyVisible );
-    const int last = lastVisibleRow( PartlyVisible );
-    for ( int row = first; row <= last; ++row )
-        for ( int col = 0; col < numCols(); ++col )
-            Q3GridView::repaintCell( row, col );
+    cellGeometryInfo()->flushCache();
+    updatePalette();
+    ThumbnailComponent::model()->reset();
 }
 
 DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
-    return model()->imageAt( mapFromGlobal( QCursor::pos() ), ViewportCoordinates );
+    const QModelIndex index = indexUnderCursor();
+    if ( index.isValid() )
+        return model()->imageAt( index.row() );
+    else
+        return DB::ResultId();
+}
+
+QModelIndex ThumbnailView::ThumbnailWidget::indexUnderCursor() const
+{
+    return indexAt( mapFromGlobal( QCursor::pos() ) );
 }
 
 
-void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* event )
+void ThumbnailView::ThumbnailWidget::dragMoveEvent( QDragMoveEvent* event )
 {
     _dndHandler->contentsDragMoveEvent(event);
 }
 
-void ThumbnailView::ThumbnailWidget::contentsDragLeaveEvent( QDragLeaveEvent* event )
+void ThumbnailView::ThumbnailWidget::dragLeaveEvent( QDragLeaveEvent* event )
 {
     _dndHandler->contentsDragLeaveEvent( event );
 }
 
-void ThumbnailView::ThumbnailWidget::contentsDropEvent( QDropEvent* event )
+void ThumbnailView::ThumbnailWidget::dropEvent( QDropEvent* event )
 {
     _dndHandler->contentsDropEvent( event );
 }
 
 
-void ThumbnailView::ThumbnailWidget::dimensionChange( int oldNumRows, int /*oldNumCols*/ )
-{
-    if ( oldNumRows != numRows() )
-        repaintScreen();
-}
-
-void ThumbnailView::ThumbnailWidget::updateCellSize()
-{
-    const QSize cellSize = cellGeometryInfo()->cellSize();
-    setCellWidth( cellSize.width() );
-
-    const int oldHeight = cellHeight();
-    const int height = cellSize.height() + 2 + cellGeometryInfo()->textHeight( QFontMetrics( font() ).height(), true );
-    setCellHeight( height );
-    updateGridSize();
-    if ( height != oldHeight && ! model()->currentItem().isNull() ) {
-        const Cell c = model()->positionForMediaId(model()->currentItem());
-        ensureCellVisible( c.row(), c.col() );
-    }
-}
-
-void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )
-{
-    QPainter p( viewport() );
-    p.fillRect( numCols() * cellWidth(), 0, width(), height(), palette().color(QPalette::Base) );
-    p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().color(QPalette::Base) );
-    p.end();
-    Q3GridView::viewportPaintEvent( e );
-}
-
-void ThumbnailView::ThumbnailWidget::contentsDragEnterEvent( QDragEnterEvent * event )
+void ThumbnailView::ThumbnailWidget::dragEnterEvent( QDragEnterEvent * event )
 {
     _dndHandler->contentsDragEnterEvent( event );
+}
+
+void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::ResultId& id )
+{
+    const int row = model()->indexOf(id);
+    setCurrentIndex( QListView::model()->index( row, 0 ) );
+}
+
+void ThumbnailView::ThumbnailWidget::updatePalette()
+{
+    QPalette pal = palette();
+    pal.setBrush( QPalette::Base, QColor(Settings::SettingsData::instance()->backgroundColor()) );
+    pal.setBrush( QPalette::Text, Utilities::contrastColor( QColor(Settings::SettingsData::instance()->backgroundColor() ) ) );
+    setPalette( pal );
+}
+
+int ThumbnailView::ThumbnailWidget::cellWidth() const
+{
+    return visualRect( widget()->QListView::model()->index(0,0) ).size().width();
+}
+
+void ThumbnailView::ThumbnailWidget::emitSelectionChangedSignal()
+{
+    emit selectionCountChanged( selectionModel()->selectedIndexes().count() );
+}
+
+void ThumbnailView::ThumbnailWidget::scheduleDateChangeSignal()
+{
+    m_dateChangedTimer->start(200);
+}
+
+/**
+ * During profiling, I found that emitting the dateChanged signal was
+ * rather expensive, so now I delay that signal, so it is only emitted 200
+ * msec after the scroll, which means it will not be emitted when the user
+ * holds down, say the page down key for scrolling.
+ */
+void ThumbnailView::ThumbnailWidget::setupDateChangeTimer()
+{
+    m_dateChangedTimer = new QTimer;
+    m_dateChangedTimer->setSingleShot(true);
+    connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT( emitDateChange() ) );
+}
+
+void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )
+{
+    model()->updateVisibleRowInfo();
+    QListView::showEvent( event );
+}
+
+DB::Result ThumbnailView::ThumbnailWidget::selection() const
+{
+    DB::Result res;
+    Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
+        res.append(model()->imageAt( index.row() ));
+    }
+    return res;
+}
+
+bool ThumbnailView::ThumbnailWidget::isSelected( const DB::ResultId& id ) const
+{
+    return selectedIndexes().contains( model()->idToIndex(id) );
+}
+
+/**
+   This very specific method will make the item specified by id selected,
+   if there only are one item selected. This is used from the Viewer when
+   you start it without a selection, and are going forward or backward.
+*/
+void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::ResultId& id)
+{
+    if ( selection().size() == 1 ) {
+        QItemSelectionModel* selection = selectionModel();
+        selection->select( model()->idToIndex(id), QItemSelectionModel::ClearAndSelect );
+        setCurrentItem( id );
+    }
 }
 

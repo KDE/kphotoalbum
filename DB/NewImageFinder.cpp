@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
+#include "ImageManager/ThumbnailCache.h"
 
 #include <sys/types.h>
 #include <dirent.h>
@@ -234,7 +235,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     QString err = Settings::SettingsData::instance()->modifiedFileComponent();
     QRegExp modifiedFileComponent =
         QRegExp(Settings::SettingsData::instance()->modifiedFileComponent());
-    
+
     // check to see if this is a new version of a previous image
     ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
     ImageInfoPtr originalInfo;
@@ -301,7 +302,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
         info = NULL;  // we already added it, so don't process again
     }
-    
+
     return info;
 }
 
@@ -346,7 +347,7 @@ bool  NewImageFinder::calculateMD5sums(
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
-            ImageManager::Manager::instance()->removeThumbnail( absoluteFileName );
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( absoluteFileName );
         }
 
         md5Map->insert( md5, info->fileName(DB::RelativeToImageRoot) );

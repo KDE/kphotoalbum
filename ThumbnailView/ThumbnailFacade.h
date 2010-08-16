@@ -47,7 +47,6 @@ public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
-    void repaintScreen();
     void toggleStackExpansion(const DB::ResultId& id);
     void collapseAllStacks();
     void expandAllStacks();
@@ -68,7 +67,6 @@ private:
     OVERRIDE ThumbnailModel* model();
     OVERRIDE CellGeometry* cellGeometry();
     OVERRIDE ThumbnailWidget* widget();
-    OVERRIDE ThumbnailPainter* painter();
     OVERRIDE ThumbnailCache* cache();
 
 private:

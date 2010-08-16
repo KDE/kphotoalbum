@@ -33,9 +33,9 @@ namespace ThumbnailView {
 class MouseInteraction {
 public:
     virtual ~MouseInteraction() {}
-    virtual void mousePressEvent( QMouseEvent* ) {};
-    virtual void mouseMoveEvent( QMouseEvent* ) {};
-    virtual void mouseReleaseEvent( QMouseEvent* ) {};
+    virtual bool mousePressEvent( QMouseEvent* ) { return false; }
+    virtual bool mouseMoveEvent( QMouseEvent* ) { return false; }
+    virtual bool mouseReleaseEvent( QMouseEvent* ) { return false; }
     virtual bool isResizingGrid() { return false; }
 };
 

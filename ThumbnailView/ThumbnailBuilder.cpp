@@ -18,6 +18,7 @@
 
 #include <KLocale>
 #include "ThumbnailBuilder.h"
+#include "CellGeometry.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
 #include "DB/ResultId.h"
@@ -34,8 +35,9 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent )
     Q_FOREACH(const DB::ImageInfoPtr info, images.fetchInfos()) {
         ImageManager::ImageRequest* request
             = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
-                                              QSize(256,256), info->angle(),
+                                              CellGeometry::preferredIconSize(), info->angle(),
                                               this );
+        request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );
         ImageManager::Manager::instance()->load( request );
     }

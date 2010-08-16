@@ -104,13 +104,13 @@ set(libThumbnailView_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionInteraction.cpp 
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/MouseTrackingInteraction.cpp 
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailBuilder.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailPainter.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/CellGeometry.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailModel.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailFacade.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailComponent.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/KeyboardEventHandler.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailDND.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Delegate.cpp
 )
 set(libPlugins_SRCS)
 
@@ -186,7 +186,7 @@ set(libImageManager_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailStorage.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp )
 
 set(libDB_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfo.cpp 

@@ -38,13 +38,12 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         return;
     }
 
-    int row = widget()->rowAt( event->pos().y() );
-    int col = widget()->columnAt( event->pos().x() );
-    DB::ResultId id = model()->imageAt( row, col );
+    DB::ResultId id = widget()->mediaIdUnderCursor();
 
     removeDropIndications();
 
-    QRect rect = widget()->cellGeometry( row, col );
+    const QRect rect = widget()->visualRect( widget()->indexUnderCursor() );
+
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
         if ( id.isNull() ) {
@@ -65,8 +64,8 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
             model()->setLeftDropItem( model()->imageAt(index) );
     }
 
-    widget()->updateCell( model()->leftDropItem() );
-    widget()->updateCell( model()->rightDropItem() );
+    model()->updateCell( model()->leftDropItem() );
+    model()->updateCell( model()->rightDropItem() );
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
@@ -97,8 +96,8 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
 
         // protect against self drop
-        if ( !model()->isSelected( model()->leftDropItem() ) && ! model()->isSelected( model()->rightDropItem() ) ) {
-            const DB::Result selected = model()->selection();
+        if ( !widget()->isSelected( model()->leftDropItem() ) && ! widget()->isSelected( model()->rightDropItem() ) ) {
+            const DB::Result selected = widget()->selection();
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );
@@ -119,8 +118,8 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
     model()->setLeftDropItem( DB::ResultId::null );
     model()->setRightDropItem( DB::ResultId::null );
 
-    widget()->updateCell( left );
-    widget()->updateCell( right );
+    model()->updateCell( left );
+    model()->updateCell( right );
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )

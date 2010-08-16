@@ -47,7 +47,6 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
       _widthInverse( false ), _heightInverse( false )
 {
     setAlignment( Qt::AlignLeft | Qt::AlignTop );
-    setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
 

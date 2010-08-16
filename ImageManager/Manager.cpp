@@ -17,10 +17,9 @@
 */
 
 #include "Manager.h"
-
+#include "ThumbnailCache.h"
 #include "ImageLoader.h"
 #include "ImageManager/ImageClient.h"
-#include "ThumbnailStorage.h"
 #include "Utilities/Util.h"
 #include "VideoManager.h"
 
@@ -41,27 +40,6 @@ ImageManager::Manager* ImageManager::Manager::instance()
     return _instance;
 }
 
-/**
-   This class is responsible for loading icons in a separate thread.
-   I tried replacing this with KIO:PreviewJob, but it had a fwe drawbacks:
-   1) It stored images in one centeral directory - many would consider this
-      a feature, but I consider it a drawback, as it makes it impossible to
-      just bring your thumbnails when bringing your database, but not having
-      the capacity on say your laptop to bring all your images.
-   2) It failed to load a number of images, that this ImageManager load
-      just fine.
-   3) Most important, it did not allow loading only thumbnails when the
-      image themself weren't available.
-*/
-ImageManager::Manager::Manager()
-#ifdef TESTING_MEMORY_THUMBNAIL_CACHING
-  : _thumbnailStorage(new MemoryThumbnailStorage(Settings::SettingsData::instance()->thumbnailFormat()))
-#else
-  : _thumbnailStorage(new FileThumbnailStorage(Settings::SettingsData::instance()->thumbnailFormat()))
-#endif
-{
-}
-
 // We need this as a separate method as the _instance variable will otherwise not be initialized
 // corrected before the thread starts.
 void ImageManager::Manager::init()
@@ -70,7 +48,7 @@ void ImageManager::Manager::init()
     int cores = qMax( 2, QThread::idealThreadCount() );
 
     for ( int i = 0; i < cores; ++i) {
-        imageLoader = new ImageLoader(_thumbnailStorage);
+        imageLoader = new ImageLoader();
         imageLoader->start( QThread::LowPriority );
     }
 }
@@ -103,25 +81,6 @@ void ImageManager::Manager::loadImage( ImageRequest* request )
 
     if (_loadList.addRequest( request ))
         _sleepers.wakeOne();
-}
-
-void ImageManager::Manager::removeThumbnail( const QString& imageFile )
-{
-    KUrl url;
-    url.setPath( imageFile );
-    _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 256 ) );
-    _thumbnailStorage->remove( ImageLoader::thumbnailKey( url.url(), 128 ) );
-    QPixmapCache::remove( imageFile );
-}
-
-bool ImageManager::Manager::thumbnailsExist( const QString& imageFile )
-{
-    KUrl url;
-    url.setPath( imageFile );
-    QString big = ImageLoader::thumbnailKey( url.url(), 256 );
-    QString small = ImageLoader::thumbnailKey( url.url(), 128 );
-    return (_thumbnailStorage->exists(big)
-            && _thumbnailStorage->exists(small));
 }
 
 void ImageManager::Manager::stop( ImageClient* client, StopAction action )
@@ -162,7 +121,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         QSize size;
         QSize fullSize;
         int angle = 0;
-        bool loadedOK = false;
+        bool loadedOK = request->loadedOK();
 
         _lock.lock();
         if ( _loadList.isRequestStillValid( request ) )  {
@@ -172,8 +131,10 @@ void ImageManager::Manager::customEvent( QEvent* ev )
             size = QSize(request->width(), request->height() );
             fullSize = request->fullSize();
             angle = request->angle();
-            loadedOK = request->loadedOK();
         }
+
+        if ( loadedOK && request->isThumnailRequest() )
+            ImageManager::ThumbnailCache::instance()->insert( request->fileName(), image );
 
         _loadList.removeRequest(request);
         _currentLoading.remove( request );
@@ -206,5 +167,6 @@ QImage ImageManager::ImageEvent::image()
 {
     return _image;
 }
+
 
 #include "Manager.moc"

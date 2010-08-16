@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "VideoManager.h"
+#include "ImageManager/ThumbnailCache.h"
 #include "ImageManager/ImageClient.h"
 #include <kurl.h>
 #include "ImageRequest.h"
@@ -39,6 +40,9 @@ ImageManager::VideoManager& ImageManager::VideoManager::instance()
 
 void ImageManager::VideoManager::request( ImageRequest* request )
 {
+    if ( request == _currentRequest )
+        return; // Already loading the request
+
     _pending.addRequest( request );
 
     if ( _currentRequest == 0 )
@@ -50,7 +54,11 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     _currentRequest = request;
     KUrl::List list;
     list.append( request->fileName() );
-    KIO::PreviewJob* job=KIO::filePreview(list, request->width() );
+    // All the extra parameters are the defaults. I need the last false,
+    // which says "Don't cache". If it caches, then I wont get a new shot
+    // when the user chooses load new thumbnail
+    KIO::PreviewJob* job=KIO::filePreview(list, request->width(), 0,0, 100, true, false );
+
     job->setIgnoreMaximumSize( true );
 
     connect(job, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
@@ -62,8 +70,9 @@ void ImageManager::VideoManager::load( ImageRequest* request )
 void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap& pixmap )
 {
     if ( _pending.isRequestStillValid(_currentRequest) ) {
-        _currentRequest->setLoadedOK( true );
         QImage img = pixmap.toImage();
+        ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), img );
+        _currentRequest->setLoadedOK( true );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull());
     }
 

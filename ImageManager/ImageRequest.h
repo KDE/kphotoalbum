@@ -18,7 +18,6 @@
 #ifndef IMAGEREQUEST_H
 #define IMAGEREQUEST_H
 #include <qstring.h>
-#include <q3deepcopy.h>
 #include <qsize.h>
 #include <qmutex.h>
 #include <QHash>
@@ -81,9 +80,12 @@ public:
     bool doUpScale() const;
     void setUpScale( bool b );
 
+    void setIsThumbnailRequest( bool );
+    bool isThumnailRequest() const;
+
 private:
     bool _null;
-    mutable Q3DeepCopy<QString> _fileName; // PENDING(blackie) I don't think this deep copy is needed anymore!
+    mutable QString _fileName;
     mutable QMutex _fileNameLock;
 
     int _width;
@@ -94,6 +96,7 @@ private:
     Priority _priority;
     bool _loadedOK;
     bool _dontUpScale;
+    bool _isThumbnailRequest;
 };
 
 inline uint qHash(const ImageRequest& ir)

@@ -44,7 +44,6 @@
   widget.
   \li \ref CellGeometry - This is where you will find the logic for
   calculating the sizes of cells, the text height etc.
-  \li \ref Cell - This is a simple class with a (row,column) content.
 
   <h2>Thumbnail Handling</h2>
   \li \ref ThumbnailRequest - When the browser recognizes that it needs a

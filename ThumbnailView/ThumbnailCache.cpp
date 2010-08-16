@@ -71,6 +71,8 @@ void ThumbnailView::ThumbnailCache::setThumbnailSize(const QSize& thumbSize)
 // asynchronously after the user has stopped scrolling.
 void ThumbnailView::ThumbnailCache::slotAsyncCacheWarming()
 {
+    // PENDING(blackie) Do I want a cache at all anymore?
+    return;
     if (!_thumbSize.isValid())
         return;
 

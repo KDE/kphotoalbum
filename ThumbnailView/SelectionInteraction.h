@@ -29,31 +29,26 @@ class QMouseEvent;
 namespace ThumbnailView
 {
 class ThumbnailFactory;
-class Cell;
 
 class SelectionInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
     Q_OBJECT
 
 public:
     SelectionInteraction( ThumbnailFactory* factory );
-    virtual void mousePressEvent( QMouseEvent* );
-    virtual void mouseMoveEvent( QMouseEvent* );
-    virtual void mouseReleaseEvent( QMouseEvent* );
+    OVERRIDE bool mousePressEvent( QMouseEvent* );
+    OVERRIDE bool mouseMoveEvent( QMouseEvent* );
+    OVERRIDE bool mouseReleaseEvent( QMouseEvent* );
     bool isDragging() const;
 
 protected:
-    bool isMouseOverIcon( const QPoint& viewportPos ) const;
     void startDrag();
     bool atLeftSide( const QPoint& contentCoordinates );
     bool atRightSide( const QPoint& contentCoordinates );
-    Cell prevCell( const Cell& cell );
-    Cell nextCell( const Cell& cell );
     QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
     bool deselectSelection( const QMouseEvent* ) const;
 
 protected slots:
     void handleDragSelection();
-    void calculateSelection( Cell* pos1, Cell* pos2 );
 
 private:
     typedef QSet<DB::ResultId> IdSet;

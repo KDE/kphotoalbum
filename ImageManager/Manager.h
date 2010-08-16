@@ -26,13 +26,12 @@
 #include "RequestQueue.h"
 #include "StopAction.h"
 
-class ImageRequest;
 namespace ImageManager
 {
 
+class ImageRequest;
 class ImageClient;
 class ImageLoader;
- class ThumbnailStorage;
 
 class ImageEvent :public QEvent {
 public:
@@ -59,12 +58,6 @@ public:
     // Stop loading all images requested by the given client.
     void stop( ImageClient*, StopAction action = StopAll );
 
-    // Remove the thumbnail for a given file.
-    void removeThumbnail( const QString& imageFile );
-
-    // Return if downscaled thumbnails exist for the given image file.
-    bool thumbnailsExist( const QString& imageFile );
-
 protected:
     virtual void customEvent( QEvent* ev );
     void loadVideo( ImageRequest* );
@@ -72,7 +65,6 @@ protected:
 
 private:
     friend class ImageLoader;  // may call 'next()'
-    Manager();
     void init();
 
     ImageRequest* next();
@@ -83,7 +75,6 @@ private:
     QWaitCondition _sleepers;
     QMutex _lock;
     QSet<ImageRequest*> _currentLoading;
-    ThumbnailStorage* const _thumbnailStorage;
 };
 
 }

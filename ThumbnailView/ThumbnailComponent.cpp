@@ -38,11 +38,6 @@ ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget()
     return _factory->widget();
 }
 
-ThumbnailView::ThumbnailPainter* ThumbnailView::ThumbnailComponent::painter()
-{
-    return _factory->painter();
-}
-
 const ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailComponent::model() const
 {
     return _factory->model();
@@ -56,11 +51,6 @@ const ThumbnailView::CellGeometry* ThumbnailView::ThumbnailComponent::cellGeomet
 const ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget() const
 {
     return _factory->widget();
-}
-
-const ThumbnailView::ThumbnailPainter* ThumbnailView::ThumbnailComponent::painter() const
-{
-    return _factory->painter();
 }
 
 ThumbnailView::ThumbnailCache* ThumbnailView::ThumbnailComponent::cache()

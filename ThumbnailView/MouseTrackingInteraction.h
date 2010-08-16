@@ -29,14 +29,14 @@ class MouseTrackingInteraction : public QObject, public MouseInteraction, privat
 
 public:
     MouseTrackingInteraction( ThumbnailFactory* factory );
-    virtual void mouseMoveEvent( QMouseEvent* );
+    OVERRIDE bool mouseMoveEvent( QMouseEvent* );
 
 signals:
     void fileIdUnderCursorChanged( const DB::ResultId& id );
 
 private:
     void updateStackingIndication( QMouseEvent* event );
-    void handleCursorOverNewIcon( QMouseEvent* event );
+    void handleCursorOverNewIcon();
 
 private:
     bool _cursorWasAtStackIcon;

@@ -17,6 +17,7 @@
 */
 
 #include "Window.h"
+#include "ImageManager/ThumbnailCache.h"
 #include "ThumbnailView/ThumbnailFacade.h"
 #include <KActionCollection>
 #include "BreadcrumbViewer.h"
@@ -80,7 +81,6 @@
 #ifdef HAVE_EXIV2
 #  include "Exif/ReReadDialog.h"
 #endif
-#include "ImageManager/ImageLoader.h"
 #include "SplashScreen.h"
 #include <qobject.h>
 #include "SearchBar.h"
@@ -104,8 +104,6 @@
 #endif
 
 #include "FeatureDialog.h"
-#include "ImageManager/ImageRequest.h"
-#include "ImageManager/Manager.h"
 
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
@@ -204,8 +202,6 @@ MainWindow::Window::Window( QWidget* parent )
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _browser, SIGNAL( imageCount(uint)), _partial, SLOT( showBrowserMatches(uint) ) );
     connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotThumbNailSelectionChanged(int) ) );
-
-    connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
     slotThumbNailSelectionChanged(0);
@@ -339,8 +335,6 @@ void MainWindow::Window::slotCreateImageStack()
             return;
         }
     }
-
-    // FIXME: here we should invoke a fancy dialog for user's pleasure
 
     DirtyIndicator::markDirty();
     // The current item might have just became invisible
@@ -1253,6 +1247,7 @@ void MainWindow::Window::rotateSelected( int angle )
     } else {
         Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
             info->rotate(angle);
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName( DB::AbsolutePath) );
         }
         _dirtyIndicator->markDirty();
         reloadThumbnailsAfterRotation();
@@ -1508,7 +1503,7 @@ void MainWindow::Window::setPluginMenuState( const char* name, const QList<QActi
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::Manager::instance()->removeThumbnail( (*it).path() );
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
     }
     _dirtyIndicator->markDirty();
     reloadThumbnails(true);

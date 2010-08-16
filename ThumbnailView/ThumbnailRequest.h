@@ -21,18 +21,18 @@
 
 namespace ThumbnailView
 {
-class ThumbnailPainter;
 class ThumbnailCache;
+class ThumbnailModel;
 
 class ThumbnailRequest : public ImageManager::ImageRequest
 {
 public:
-    ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailPainter* client);
+    ThumbnailRequest( int row, const QString& fileName, const QSize& size, int angle, ThumbnailModel* client);
     virtual bool stillNeeded() const;
 
 private:
-    const ThumbnailPainter* const _thumbnailPainter;
-    const QString _fileName;
+    const ThumbnailModel* const _thumbnailModel;
+    int m_row;
 };
 
     // Temporarily here. TODO(hzeller): unify both these requests.

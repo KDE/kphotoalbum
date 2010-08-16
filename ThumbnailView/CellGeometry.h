@@ -17,9 +17,12 @@
 */
 #ifndef CELLGEOMETRY_H
 #define CELLGEOMETRY_H
+#include <QRect>
+#include <QSize>
 #include "ThumbnailComponent.h"
 #include <QMap>
 
+class QPixmap;
 class QRect;
 class QSize;
 
@@ -27,16 +30,28 @@ namespace DB { class ResultId; }
 
 namespace ThumbnailView
 {
-class Cell;
 class ThumbnailFactory;
 
 class CellGeometry :public ThumbnailComponent
 {
 public:
+    void flushCache();
     CellGeometry( ThumbnailFactory* factory );
     QSize cellSize() const;
-    QRect iconGeometry( int row, int col ) const;
-    int textHeight( int charHeight, bool reCalc ) const;
+    static QSize preferredIconSize();
+    QRect iconGeometry( const QPixmap& pixmap ) const;
+    int textHeight() const;
+    QRect cellTextGeometry() const;
+    void calculateCellSize();
+
+private:
+    void calculateTextHeight();
+    void calculateCellTextGeometry();
+
+    bool m_cacheInitialized;
+    int m_textHeight;
+    QSize m_cellSize;
+    QRect m_cellTextGeometry;
 };
 
 }

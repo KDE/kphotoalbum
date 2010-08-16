@@ -43,9 +43,6 @@ public:
     ThumbnailWidget* widget();
     const ThumbnailWidget* widget() const;
 
-    ThumbnailPainter* painter();
-    const ThumbnailPainter* painter() const;
-
     ThumbnailCache* cache();
     const ThumbnailCache* cache() const;
 private:

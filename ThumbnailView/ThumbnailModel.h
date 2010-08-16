@@ -17,6 +17,8 @@
 */
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
+#include "ImageManager/ImageClient.h"
+#include <QAbstractListModel>
 #include "ThumbnailComponent.h"
 #include "DB/ResultId.h"
 #include "ThumbnailView/enums.h"
@@ -26,37 +28,27 @@
 namespace ThumbnailView
 {
 class ThumbnailFactory;
-class Cell;
 
-class ThumbnailModel :public QObject, private ThumbnailComponent
+class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClient, private ThumbnailComponent
 {
     Q_OBJECT
 
 public:
     ThumbnailModel( ThumbnailFactory* factory );
 
-    //-------------------------------------------------- Selection
-    void selectRange( Cell pos1, Cell pos2 );
-    void select( int row, int col );
-    void select( const Cell& );
-    void select( const DB::ResultId& id );
-    void setSelection( const IdSet& ids );
+    // -------------------------------------------------- QAbstractListModel
+    OVERRIDE int rowCount(const QModelIndex&) const;
+    OVERRIDE QVariant data(const QModelIndex&, int) const;
+    void reset();
+    QString thumbnailText( const QModelIndex& index ) const;
+    void updateCell( int row );
+    void updateCell( const QModelIndex& index );
+    void updateCell( const DB::ResultId& id );
 
-    void clearSelection();
-    void toggleSelection( const DB::ResultId& id );
-    void selectAll();
+    // -------------------------------------------------- ImageClient API
+    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK);
+    bool thumbnailStillNeeded( int row ) const;
 
-    DB::Result selection() const;
-    IdSet selectionSet() const;
-
-    bool isSelected( const DB::ResultId& ) const;
-
-    void changeSingleSelection(const DB::ResultId& id);
-
-    //-------------------------------------------------- Current Item
-    DB::ResultId currentItem() const;
-    void setCurrentItem( const DB::ResultId& id );
-    void setCurrentItem( const Cell& cell );
 
     //-------------------------------------------------- Drag and Drop of items
     DB::ResultId rightDropItem() const;
@@ -71,12 +63,10 @@ public:
     bool isItemInExpandedStack( const DB::StackID& id ) const;
 
     //-------------------------------------------------- Position Information
-    DB::ResultId imageAt( int row, int col ) const;
-    DB::ResultId imageAt( const Cell& cell ) const;
-    DB::ResultId imageAt( const QPoint& coordinate, CoordinateSystem ) const;
     DB::ResultId imageAt( int index ) const;
     int indexOf(const DB::ResultId& id ) const;
-    Cell positionForMediaId( const DB::ResultId& id ) const;
+    int indexOf( const DB::ResultId& id );
+    QModelIndex idToIndex( const DB::ResultId& id ) const;
 
     //-------------------------------------------------- Images
     void setImageList(const DB::Result& list);
@@ -87,16 +77,19 @@ public:
     void updateDisplayModel();
     void updateIndexCache();
     void setSortDirection( SortDirection );
+    QPixmap pixmap( const DB::ResultId& id ) const;
+
+public slots:
+    void updateVisibleRowInfo();
 
 signals:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
-    void selectionChanged(int numberOfItemsSelected );
+    void selectionChanged(int numberOfItemsSelected);
 
 
 private: // Methods
-    void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    void possibleEmitSelectionChanged();
+    void requestThumbnail( const DB::ResultId& mediaId );
 
 private slots:
     void imagesDeletedFromDB( const DB::Result& );
@@ -115,11 +108,6 @@ private: // Instance variables.
     /** The input list for images. See documentation for _displayList */
     DB::Result _imageList;
 
-    /*
-     * This set contains the files currently selected.
-     */
-    IdSet _selectedFiles;
-
     /**
      * File which should have drop indication point drawn on its left side
      */
@@ -131,14 +119,6 @@ private: // Instance variables.
     DB::ResultId _rightDrop;
 
     SortDirection _sortDirection;
-
-    /**
-     * This is the item currently having keyboard focus
-     *
-     * We need to store the file name for the current item rather than its
-     * coordinates, as coordinates changes when the grid is resized.
-     */
-    DB::ResultId _currentItem;
 
     /**
      * All the stacks that should be shown expanded
@@ -154,6 +134,9 @@ private: // Instance variables.
      * A map mapping from ResultId to its index in _displayList.
      */
     QMap<DB::ResultId,int> _idToIndex;
+
+    int _firstVisibleRow;
+    int _lastVisibleRow;
 };
 
 }

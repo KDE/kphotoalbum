@@ -17,7 +17,7 @@
 */
 #include "ImageRequest.h"
 
-ImageManager::ImageRequest::ImageRequest( const QString& fileName, 
+ImageManager::ImageRequest::ImageRequest( const QString& fileName,
                                           const QSize& size, int angle,
                                           ImageManager::ImageClient* client )
     : _null( false ),
@@ -28,7 +28,8 @@ ImageManager::ImageRequest::ImageRequest( const QString& fileName,
       _angle( angle ),
       _priority( ThumbnailVisible ),
       _loadedOK( false ),
-      _dontUpScale( false )
+      _dontUpScale( false ),
+      _isThumbnailRequest(false)
 {
 }
 
@@ -132,3 +133,14 @@ void ImageManager::ImageRequest::setUpScale( bool b )
 {
     _dontUpScale = !b;
 }
+
+void ImageManager::ImageRequest::setIsThumbnailRequest( bool b )
+{
+    _isThumbnailRequest = b;
+}
+
+bool ImageManager::ImageRequest::isThumnailRequest() const
+{
+    return _isThumbnailRequest;
+}
+

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionInteraction.h"
-#include "Cell.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailFactory.h"
 #include "CellGeometry.h"
@@ -39,12 +38,14 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
 }
 
 
-void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
+bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
-    _mousePressPos = widget()->viewportToContents( event->pos() );
-    DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
-    _isMouseDragOperation = isMouseOverIcon( event->pos() ) && model()->isSelected( mediaId );
+    _mousePressPos = event->pos();
+    DB::ResultId mediaId = widget()->mediaIdUnderCursor();
+    _isMouseDragOperation = widget()->isSelected( mediaId );
+    return _isMouseDragOperation;
 
+#ifdef KDAB_TEMPORARILY_REMOVED
     if ( deselectSelection( event ) && !model()->isSelected( mediaId ) )
         model()->clearSelection();
 
@@ -62,19 +63,23 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
             model()->select( mediaId );
 
         model()->setCurrentItem( mediaId );
-        widget()->updateCell( mediaId );
+        model()->updateCell( mediaId );
     }
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 
-void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
+bool ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 {
+    if ( _isMouseDragOperation ) {
+        if ( (_mousePressPos - event->pos()).manhattanLength() > QApplication::startDragDistance() )
+            startDrag();
+        return true;
+    }
+
+#ifdef KDAB_TEMPORARILY_REMOVED
     if ( !(event->buttons() & Qt::LeftButton ) )
         return;
-
-    if ( _isMouseDragOperation &&
-         (widget()->viewportToContents(event->pos()) - _mousePressPos ).manhattanLength() > QApplication::startDragDistance() )
-        startDrag();
 
     else {
         handleDragSelection();
@@ -83,11 +88,15 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
         else
             _dragTimer->stop();
     }
+#endif //KDAB_TEMPORARILY_REMOVED
+    return false;
 }
 
 
-void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
+bool ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
     DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
@@ -108,11 +117,17 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
     _dragSelectionInProgress = false;
 
     _dragTimer->stop();
+#else // KDAB_TEMPORARILY_REMOVED
+    Q_UNUSED(event);
+#endif // KDAB_TEMPORARILY_REMOVED
+    return false;
 }
 
 
 void ThumbnailView::SelectionInteraction::handleDragSelection()
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
     _dragSelectionInProgress = true;
 
     Cell pos1;
@@ -130,22 +145,16 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
 
     model()->setSelection(_originalSelectionBeforeDragStart );
     model()->selectRange( pos1, pos2 );
-}
-
-/**
- * Returns whether the point viewportPos is on top of the pixmap
- */
-bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewportPos ) const
-{
-    QRect rect = iconRect( viewportPos, ViewportCoordinates );
-    return rect.contains( widget()->viewportToContents(viewportPos) );
+#else // KDAB_TEMPORARILY_REMOVED
+    return ;
+#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     KUrl::List urls;
-    Q_FOREACH(DB::ImageInfoPtr info, model()->selection().fetchInfos()) {
+    Q_FOREACH(DB::ImageInfoPtr info, widget()->selection().fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( fileName );
     }
@@ -165,6 +174,7 @@ bool ThumbnailView::SelectionInteraction::isDragging() const
     return _dragInProgress;
 }
 
+#ifdef KDAB_TEMPORARILY_REMOVED
 void ThumbnailView::SelectionInteraction::calculateSelection( Cell* pos1, Cell* pos2 )
 {
     *pos1 = widget()->cellAtCoordinate( _mousePressPos, ContentsCoordinates );
@@ -192,6 +202,7 @@ void ThumbnailView::SelectionInteraction::calculateSelection( Cell* pos1, Cell* 
     if( pos2->col() == widget()->numCols() )
         pos2->col()--;
 }
+#endif //KDAB_TEMPORARILY_REMOVED
 
 bool ThumbnailView::SelectionInteraction::atLeftSide( const QPoint& contentCoordinates )
 {
@@ -205,6 +216,7 @@ bool ThumbnailView::SelectionInteraction::atRightSide( const QPoint& contentCoor
     return contentCoordinates.x() > rect.right();
 }
 
+#ifdef KDAB_TEMPORARILY_REMOVED
 ThumbnailView::Cell ThumbnailView::SelectionInteraction::prevCell( const Cell& cell )
 {
     Cell res( cell.row(), cell.col() -1 );
@@ -226,9 +238,12 @@ ThumbnailView::Cell ThumbnailView::SelectionInteraction::nextCell( const Cell& c
     else
         return res;
 }
+#endif //KDAB_TEMPORARILY_REMOVED
 
 QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, CoordinateSystem system ) const
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
     Cell pos = widget()->cellAtCoordinate( coordinate, system );
     QRect cellRect = const_cast<ThumbnailWidget*>(widget())->cellGeometry(pos.row(), pos.col() );
     QRect iconRect = cellGeometryInfo()->iconGeometry( pos.row(), pos.col() );
@@ -237,10 +252,17 @@ QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, C
     iconRect.translate( cellRect.x(), cellRect.y() );
 
     return iconRect;
+#else // KDAB_TEMPORARILY_REMOVED
+    Q_UNUSED(coordinate);
+    Q_UNUSED(system);
+    return QRect();
+#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* event ) const
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
 // If control or shift is pressed down then do not deselect.
     if  ( event->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier) )
         return false;
@@ -251,6 +273,10 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
 
     // otherwise deselect
     return true;
+#else // KDAB_TEMPORARILY_REMOVED
+    Q_UNUSED(event);
+    return false;
+#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 

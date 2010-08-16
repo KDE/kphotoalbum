@@ -17,6 +17,7 @@
 */
 
 #include "DeleteDialog.h"
+#include "ImageManager/ThumbnailCache.h"
 
 #include <QVBoxLayout>
 #include <klocale.h>
@@ -31,7 +32,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/Result.h"
 #include "DB/ResultId.h"
-#include "ImageManager/Manager.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "Utilities/Util.h"
 #include "MainWindow/DirtyIndicator.h"
@@ -103,10 +103,10 @@ void DeleteDialog::deleteImages()
                 KUrlToDelete.setPath(fileName);
                 listKUrlToDelete.append(KUrlToDelete);
                 listToDelete.append(id);
-                ImageManager::Manager::instance()->removeThumbnail( fileName );
+                ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             } else {
                 listToDelete.append(id);
-                ImageManager::Manager::instance()->removeThumbnail( fileName );
+                ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             }
         } else
             listToDelete.append(id);

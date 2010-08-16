@@ -16,39 +16,46 @@
    Boston, MA 02110-1301, USA.
 */
 #include "GridResizeInteraction.h"
-#include <KGlobal>
+#include "ImageManager/ThumbnailCache.h"
+#include "CellGeometry.h"
+#include "ThumbnailModel.h"
+#include <QScrollBar>
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
 #include <KSharedConfig>
+#include <KGlobal>
 
-ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailWidget* view )
-    : _view( view )
+ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailFactory* factory )
+    : ThumbnailComponent( factory )
 {
 }
 
-void ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
+bool ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 {
     _resizing = true;
     _mousePressPos = event->pos();
-    _view->setContentsPos( 0, 0 );
-    _origSize = QSize( _view->cellWidth(), _view->cellHeight() );
+    _origWidth = widget()->cellWidth();
+    enterGridReziingMode();
+    return true;
 }
 
 
-void ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
+bool ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     QPoint dist = event->pos() - _mousePressPos;
 
-    Settings::SettingsData::instance()->setThumbSize( qMax( 32, _origSize.width() + dist.x()/5 ) );
-    _view->updateCellSize();
+    Settings::SettingsData::instance()->setThumbSize( qMax( 32, _origWidth + dist.x()/5 ) );
+    widget()->model()->reset();
+    cellGeometryInfo()->calculateCellSize();
+    return true;
 }
 
 
-void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
+bool ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     _resizing = false;
-    _view->repaintScreen();
-    KGlobal::config()->sync();
+    leaveGridResizingMode();
+    return true;
 }
 
 bool ThumbnailView::GridResizeInteraction::isResizingGrid()
@@ -56,4 +63,20 @@ bool ThumbnailView::GridResizeInteraction::isResizingGrid()
     return _resizing;
 }
 
+
+void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
+{
+    KGlobal::config()->sync();
+    model()->reset();
+    cellGeometryInfo()->flushCache();
+    ImageManager::ThumbnailCache::instance()->flush();
+    model()->updateVisibleRowInfo();
+    widget()->setCurrentIndex( model()->index( m_currentRow, 0 ) );
+}
+
+void ThumbnailView::GridResizeInteraction::enterGridReziingMode()
+{
+    m_currentRow = widget()->currentIndex().row();
+    widget()->verticalScrollBar()->setValue(0);
+}
 

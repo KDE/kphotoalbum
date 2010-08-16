@@ -34,6 +34,7 @@
 */
 #ifndef GRIDRESIZEINTERACTION_H
 #define GRIDRESIZEINTERACTION_H
+#include "ThumbnailComponent.h"
 #include "MouseInteraction.h"
 #include <QMouseEvent>
 
@@ -41,13 +42,15 @@ namespace ThumbnailView
 {
 class ThumbnailWidget;
 
-class GridResizeInteraction : public MouseInteraction {
+class GridResizeInteraction : public MouseInteraction, private ThumbnailComponent {
 public:
-    GridResizeInteraction( ThumbnailWidget* );
-    virtual void mousePressEvent( QMouseEvent* );
-    virtual void mouseMoveEvent( QMouseEvent* );
-    virtual void mouseReleaseEvent( QMouseEvent* );
-    virtual bool isResizingGrid();
+    GridResizeInteraction( ThumbnailFactory* factory );
+    OVERRIDE bool mousePressEvent( QMouseEvent* );
+    OVERRIDE bool mouseMoveEvent( QMouseEvent* );
+    OVERRIDE bool mouseReleaseEvent( QMouseEvent* );
+    OVERRIDE bool isResizingGrid();
+    void enterGridReziingMode();
+    void leaveGridResizingMode();
 
 private:
     /**
@@ -59,11 +62,10 @@ private:
      * This variable contains the size of a cell prior to the beginning of
      * resizing the grid.
      */
-    QSize _origSize;
-
-    ThumbnailWidget* _view;
+    int _origWidth;
 
     bool _resizing;
+    int m_currentRow;
 };
 
 }

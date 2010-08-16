@@ -67,13 +67,11 @@ private:
     OVERRIDE ThumbnailModel* model();
     OVERRIDE CellGeometry* cellGeometry();
     OVERRIDE ThumbnailWidget* widget();
-    OVERRIDE ThumbnailCache* cache();
 
 private:
     static ThumbnailFacade* _instance;
     CellGeometry* _cellGeometry;
     ThumbnailModel* _model;
-    ThumbnailCache* _thumbnailCache;
     ThumbnailWidget* _widget;
     ThumbnailPainter* _painter;
     ThumbnailToolTip* _toolTip;

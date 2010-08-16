@@ -23,7 +23,6 @@
 #include <Q3PointArray>
 #include <QPainter>
 #include "ThumbnailRequest.h"
-#include "ThumbnailCache.h"
 #include "DB/ImageDB.h"
 #include "ThumbnailWidget.h"
 #include "ImageManager/Manager.h"
@@ -108,8 +107,6 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
         _displayList = _displayList.reversed();
 
     updateIndexCache();
-
-    cache()->setDisplayList(_displayList);
 
     emit collapseAllStacksEnabled( _expandedStacks.size() > 0);
     emit expandAllStacksEnabled( _allStacks.size() != model()->_expandedStacks.size() );
@@ -221,7 +218,6 @@ void ThumbnailView::ThumbnailModel::setSortDirection( SortDirection direction )
     Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
     _displayList = _displayList.reversed();
     updateIndexCache();
-    cache()->setDisplayList(_displayList);
 
     _sortDirection = direction;
 }
@@ -300,9 +296,6 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const
         imageInfo->setSize( fullSize );
     }
 
-#ifdef KDAB_TEMPORARILY_REMOVED
-    cache()->insert(id, pixmap);
-#endif //KDAB_TEMPORARILY_REMOVED
     emit dataChanged( idToIndex(id), idToIndex(id) );
 }
 
@@ -398,13 +391,6 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::ResultId& mediaId ) con
 
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     const QString fileName = imageInfo->fileName(DB::AbsolutePath);
-
-
-#ifdef KDAB_TEMPORARILY_REMOVED
-    QPixmap pixmap;
-    if (cache()->find(mediaId, &pixmap))
-        return pixmap;
-#endif //KDAB_TEMPORARILY_REMOVED
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
         return ImageManager::ThumbnailCache::instance()->lookup( fileName );

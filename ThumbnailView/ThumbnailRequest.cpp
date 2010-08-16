@@ -17,7 +17,6 @@
 */
 #include "ThumbnailRequest.h"
 #include "ThumbnailModel.h"
-#include "ThumbnailCache.h"
 
 ThumbnailView::ThumbnailRequest::ThumbnailRequest( int row, const QString& fileName, const QSize& size, int angle, ThumbnailModel* client)
     : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailModel( client ), m_row(row)
@@ -28,14 +27,4 @@ ThumbnailView::ThumbnailRequest::ThumbnailRequest( int row, const QString& fileN
 bool ThumbnailView::ThumbnailRequest::stillNeeded() const
 {
     return _thumbnailModel->thumbnailStillNeeded( m_row );
-}
-
-ThumbnailView::ThumbnailCacheRequest::ThumbnailCacheRequest( const QString& fileName, const QSize& size, int angle, ThumbnailCache* client)
-    : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailCache( client ), _fileName( fileName )
-{
-}
-
-bool ThumbnailView::ThumbnailCacheRequest::stillNeeded() const
-{
-    return _thumbnailCache->thumbnailStillNeeded( _fileName );
 }

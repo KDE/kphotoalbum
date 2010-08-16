@@ -55,10 +55,6 @@
   thumbnail in question. To implement this, we need to subclass
   \ref ImageManager::ImageRequest - that's exactly what this class is about.
 
-  \li \ref ThumbnailCache - To make the scrolling as smooth as possible, this
-  class will try to preheat a cache of thumbnails that we expect would be
-  needed at the next scroll action.
-
   \li \ref ThumbnailBuilder - It is possible from the menus to ask the
   application to rebuild all its thumnails on disk. This class will do that
   for us.

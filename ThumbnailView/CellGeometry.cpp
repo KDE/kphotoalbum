@@ -17,7 +17,6 @@
 */
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
-#include "ThumbnailCache.h"
 #include "ThumbnailModel.h"
 #include "DB/ResultId.h"
 #include "Settings/SettingsData.h"

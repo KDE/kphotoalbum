@@ -19,7 +19,6 @@
 #include <QScrollBar>
 #include <QTimer>
 #include "Delegate.h"
-#include "ThumbnailCache.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "ThumbnailDND.h"
 #include "KeyboardEventHandler.h"
@@ -268,8 +267,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
 {
-    if ( flushCache )
-        cache()->clear();
+    // PENDING(blackie) no more need for flushcache option?
     if ( clearSelection )
         this->clearSelection();
 

@@ -27,7 +27,6 @@ class ThumbnailPainter;
 class ThumbnailWidget;
 class CellGeometry;
 class ThumbnailModel;
-class ThumbnailCache;
 
 class ThumbnailComponent
 {
@@ -43,8 +42,6 @@ public:
     ThumbnailWidget* widget();
     const ThumbnailWidget* widget() const;
 
-    ThumbnailCache* cache();
-    const ThumbnailCache* cache() const;
 private:
     ThumbnailFactory* _factory;
 };

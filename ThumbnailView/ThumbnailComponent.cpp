@@ -53,12 +53,3 @@ const ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget(
     return _factory->widget();
 }
 
-ThumbnailView::ThumbnailCache* ThumbnailView::ThumbnailComponent::cache()
-{
-    return _factory->cache();
-}
-
-const ThumbnailView::ThumbnailCache* ThumbnailView::ThumbnailComponent::cache() const
-{
-    return _factory->cache();
-}

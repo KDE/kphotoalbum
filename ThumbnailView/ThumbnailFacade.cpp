@@ -18,7 +18,6 @@
 #include "ThumbnailFacade.h"
 #include "ImageManager/ThumbnailCache.h"
 
-#include "ThumbnailCache.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailToolTip.h"
 #include "ThumbnailModel.h"
@@ -28,11 +27,10 @@
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = 0;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
     :_cellGeometry( new CellGeometry(this) ),
-     _model( 0 ), _thumbnailCache( 0 ),_widget( 0 ), _toolTip( 0 )
+     _model( 0 ),_widget( 0 ), _toolTip( 0 )
 {
     // To avoid one of the components references one of the other before it has been initialized, we first construct them all with null.
     _cellGeometry = new CellGeometry(this);
-    _thumbnailCache = new ThumbnailCache;
     _model = new ThumbnailModel(this);
     _widget = new ThumbnailWidget(this);
     _toolTip = new ThumbnailToolTip( _widget );
@@ -165,11 +163,6 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
     return _instance;
 }
 
-ThumbnailView::ThumbnailCache* ThumbnailView::ThumbnailFacade::cache()
-{
-    Q_ASSERT( _thumbnailCache );
-    return _thumbnailCache;
-}
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
     Q_FOREACH( const DB::ResultId& id, widget()->selection() ) {

@@ -21,7 +21,6 @@
 
 namespace ThumbnailView
 {
-class ThumbnailCache;
 class ThumbnailModel;
 
 class ThumbnailRequest : public ImageManager::ImageRequest
@@ -35,17 +34,6 @@ private:
     int m_row;
 };
 
-    // Temporarily here. TODO(hzeller): unify both these requests.
-class ThumbnailCacheRequest : public ImageManager::ImageRequest
-{
-public:
-    ThumbnailCacheRequest( const QString& fileName, const QSize& size, int angle, ThumbnailCache* client);
-    virtual bool stillNeeded() const;
-
-private:
-    const ThumbnailCache* const _thumbnailCache;
-    const QString _fileName;
-};
 
 }
 

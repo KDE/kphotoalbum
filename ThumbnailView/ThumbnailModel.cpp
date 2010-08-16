@@ -19,8 +19,6 @@
 #include <QPixmapCache>
 #include <QDebug>
 #include "CellGeometry.h"
-// PENDING(blackie) Use QPointArray
-#include <Q3PointArray>
 #include <QPainter>
 #include "ThumbnailRequest.h"
 #include "DB/ImageDB.h"
@@ -275,18 +273,6 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
         pixmap = QPixmap::fromImage( image );
-    else if ( !loadedOK )
-        pixmap.fill( widget()->palette().color( QPalette::Dark));
-
-    // PENDING(blackie) this code doesn't work, as the result isn't inserted into any cache.
-    if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
-        QPainter p( &pixmap );
-        p.setBrush( widget()->palette().base() );
-        p.setWindow( 0, 0, 100, 100 );
-        Q3PointArray pts;
-        pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
-        p.drawConvexPolygon( pts );
-    }
 
     DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
     DB::ImageInfoPtr imageInfo = id.fetchInfo();

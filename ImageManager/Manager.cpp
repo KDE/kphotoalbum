@@ -17,6 +17,7 @@
 */
 
 #include "Manager.h"
+#include <KIcon>
 #include "ThumbnailCache.h"
 #include "ImageLoader.h"
 #include "ImageManager/ImageClient.h"
@@ -133,8 +134,16 @@ void ImageManager::Manager::customEvent( QEvent* ev )
             angle = request->angle();
         }
 
-        if ( loadedOK && request->isThumnailRequest() )
+        if ( request->isThumnailRequest() ) {
+            if ( !request->loadedOK() ) {
+                // PENDING(blackie) This stinks! It looks bad, but I don't have more energy to fix it.
+                KIcon icon( QString::fromLatin1( "file-broken" ) );
+                QPixmap pix = icon.pixmap( icon.actualSize( QSize( request->width(), request->height() ) ) );
+                image = pix.toImage();
+            }
+
             ImageManager::ThumbnailCache::instance()->insert( request->fileName(), image );
+        }
 
         _loadList.removeRequest(request);
         _currentLoading.remove( request );

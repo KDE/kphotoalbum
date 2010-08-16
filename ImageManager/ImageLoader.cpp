@@ -154,3 +154,4 @@ bool ImageManager::ImageLoader::shouldImageBeScale( const QImage& img, ImageRequ
 
     return true;
 }
+

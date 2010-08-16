@@ -168,7 +168,6 @@ void ImageManager::ThumbnailCache::flush()
 
 void ImageManager::ThumbnailCache::removeThumbnail( const QString& fileName )
 {
-    qDebug("Removing");
     m_map.remove( fileName );
     save();
 }

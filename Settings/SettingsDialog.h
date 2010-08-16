@@ -50,6 +50,7 @@ public slots:
 
 signals:
     void changed();
+    void thumbnailSizeChanged();
 
 protected slots:
     void slotMyOK();

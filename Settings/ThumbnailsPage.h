@@ -18,6 +18,7 @@ public:
     ThumbnailsPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
+    bool thumbnailSizeChanged( Settings::SettingsData* opt ) const;
 
 private slots:
     void thumbnailCacheScreenChanged(int);

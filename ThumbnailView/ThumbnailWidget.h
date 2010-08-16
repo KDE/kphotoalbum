@@ -46,7 +46,7 @@ class ThumbnailWidget : public QListView, private ThumbnailComponent {
 public:
     ThumbnailWidget( ThumbnailFactory* factory );
 
-    void reload( bool flushCache, bool clearSelection=true );
+    void reload( bool clearSelection=true );
     DB::ResultId mediaIdUnderCursor() const;
     QModelIndex indexUnderCursor() const;
 

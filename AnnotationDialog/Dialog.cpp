@@ -437,7 +437,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     }
 
     _thumbnailShouldReload = false;
-    _thumbnailTextShouldReload = false;
 
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
 
@@ -668,17 +667,13 @@ void AnnotationDialog::Dialog::rotate( int angle )
     else {
         DB::ImageInfo& info = _editList[ _current ];
         info.rotate(angle);
+        _rotatedFiles.insert( info.fileName( DB::AbsolutePath ) );
     }
 }
 
 bool AnnotationDialog::Dialog::thumbnailShouldReload() const
 {
     return _thumbnailShouldReload;
-}
-
-bool AnnotationDialog::Dialog::thumbnailTextShouldReload() const
-{
-    return _thumbnailTextShouldReload;
 }
 
 void AnnotationDialog::Dialog::slotAddTimeInfo()
@@ -984,7 +979,7 @@ void AnnotationDialog::Dialog::saveAndClose()
     // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
     if ( anyChanges ) {
         MainWindow::DirtyIndicator::markDirty();
-        _thumbnailTextShouldReload = true;
+        _thumbnailShouldReload = true;
     }
 
     QDialog::accept();
@@ -1006,6 +1001,11 @@ void AnnotationDialog::Dialog::togglePreview()
         _stack->setCurrentWidget( _fullScreenPreview );
         _fullScreenPreview->load( QStringList() << _editList[ _current].fileName(DB::AbsolutePath) );
     }
+}
+
+Utilities::StringSet AnnotationDialog::Dialog::rotatedFiles() const
+{
+    return _rotatedFiles;
 }
 
 #include "Dialog.moc"

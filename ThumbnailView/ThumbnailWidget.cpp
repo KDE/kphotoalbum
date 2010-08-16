@@ -265,9 +265,8 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 }
 
 
-void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
+void ThumbnailView::ThumbnailWidget::reload(bool clearSelection)
 {
-    // PENDING(blackie) no more need for flushcache option?
     if ( clearSelection )
         this->clearSelection();
 

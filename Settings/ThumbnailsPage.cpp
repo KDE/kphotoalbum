@@ -43,6 +43,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( _thumbnailAspectRatio, row, 1 );
 
     // Thumbnail Format
+    // PENDING(blackie) This is not used anymore and should go away.
     ++row;
     QLabel* thumbnailFormatLabel = new QLabel( i18n("Thumbnail format") );
     _thumbnailFormat = new KComboBox( this );
@@ -92,6 +93,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( _autoShowThumbnailView, row, 1 );
 
     // Thumbnail Cache
+    // PENDING(blackie) This is not used anymore and should go away
     ++row;
     QLabel* cacheLabel = new QLabel( i18n( "Thumbnail screen cache:" ), this );
     _thumbnailCacheScreens = new QSpinBox;
@@ -192,6 +194,11 @@ void Settings::ThumbnailsPage::thumbnailCacheScreenChanged(int value)
 {
     _thumbnailMegabyteInfo->setText(i18n("%1 MB", SettingsData::thumbnailBytesForScreens(value) >> 20));
     _thumbnailCacheScreens->setSuffix( ki18ncp("Thumbnail Cache Screens", " Screen", " Screens").subs(value).toString());
+}
+
+bool Settings::ThumbnailsPage::thumbnailSizeChanged( Settings::SettingsData* opt ) const
+{
+    return _thumbnailSize->value() != opt->thumbSize();
 }
 
 

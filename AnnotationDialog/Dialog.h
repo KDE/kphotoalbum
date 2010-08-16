@@ -18,6 +18,7 @@
 
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
+#include "Utilities/Set.h"
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
 #include <qdialog.h>
@@ -73,7 +74,7 @@ public:
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
-    bool thumbnailTextShouldReload() const;
+    Utilities::StringSet rotatedFiles() const;
     KActionCollection* actions();
 
 protected slots:
@@ -135,7 +136,7 @@ private:
     int _accept;
     QList<QDockWidget*> _dockWidgets;
     bool _thumbnailShouldReload;
-    bool _thumbnailTextShouldReload;
+    Utilities::StringSet _rotatedFiles;
 
     // Widgets
     QMainWindow* _dockWindow;

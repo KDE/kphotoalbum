@@ -168,7 +168,7 @@ MainWindow::Window::Window( QWidget* parent )
     _stack->addWidget( _thumbnailView->gui() );
     _stack->raiseWidget( _browser );
 
-    _optionsDialog = 0;
+    _settingsDialog = 0;
     setupMenuBar();
 
     createSarchBar();
@@ -201,10 +201,10 @@ MainWindow::Window::Window( QWidget* parent )
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _browser, SIGNAL( imageCount(uint)), _partial, SLOT( showBrowserMatches(uint) ) );
-    connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotThumbNailSelectionChanged(int) ) );
+    connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( updateContextMenuFromSelectionSize(int) ) );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
-    slotThumbNailSelectionChanged(0);
+    updateContextMenuFromSelectionSize(0);
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
@@ -302,12 +302,13 @@ bool MainWindow::Window::slotExit()
 
 void MainWindow::Window::slotOptions()
 {
-    if ( ! _optionsDialog ) {
-        _optionsDialog = new Settings::SettingsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
-        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
+    if ( ! _settingsDialog ) {
+        _settingsDialog = new Settings::SettingsDialog( this );
+        connect( _settingsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnails() ) );
+        connect( _settingsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
+        connect( _settingsDialog, SIGNAL( thumbnailSizeChanged() ), ImageManager::ThumbnailCache::instance(), SLOT( flush() ) );
     }
-    _optionsDialog->show();
+    _settingsDialog->show();
 }
 
 void MainWindow::Window::slotCreateImageStack()
@@ -427,11 +428,13 @@ void MainWindow::Window::configureImages( const DB::ImageInfoList& list, bool on
 void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
     createAnnotationDialog();
-    _annotationDialog->configure( list,  oneAtATime );
+    if ( _annotationDialog->configure( list,  oneAtATime ) == QDialog::Rejected )
+        return;
+
     if ( _annotationDialog->thumbnailShouldReload() )
-        reloadThumbnails(true);
-    else if ( _annotationDialog->thumbnailTextShouldReload() )
-        _thumbnailView->reload(false, false);
+        reloadThumbnails();
+    Q_FOREACH( const QString& fileName, _annotationDialog->rotatedFiles() )
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }
 
 
@@ -610,7 +613,6 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
     else
         viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
                                           &_viewerInputMacros);
-    connect( viewer, SIGNAL( rotated() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
     connect( viewer, SIGNAL( soughtTo(const DB::ResultId&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::ResultId&) ) );
 
     viewer->show( slideShow );
@@ -940,7 +942,7 @@ void MainWindow::Window::slotAutoSave()
 
 void MainWindow::Window::showThumbNails()
 {
-    reloadThumbnails(false);
+    reloadThumbnails();
     _stack->raiseWidget( _thumbnailView->gui() );
     _thumbnailView->gui()->setFocus();
     updateStates( true );
@@ -1225,7 +1227,7 @@ void MainWindow::Window::slotSetFileName( const DB::ResultId& id )
         statusBar()->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
 }
 
-void MainWindow::Window::slotThumbNailSelectionChanged(int selectionSize)
+void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
 {
     _configAllSimultaniously->setEnabled(selectionSize > 1);
     _configOneAtATime->setEnabled(selectionSize >= 1);
@@ -1250,7 +1252,6 @@ void MainWindow::Window::rotateSelected( int angle )
             ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName( DB::AbsolutePath) );
         }
         _dirtyIndicator->markDirty();
-        reloadThumbnailsAfterRotation();
     }
 }
 
@@ -1264,20 +1265,10 @@ void MainWindow::Window::slotRotateSelectedRight()
     rotateSelected( 90 );
 }
 
-void MainWindow::Window::reloadThumbnails(bool flushCache)
+void MainWindow::Window::reloadThumbnails()
 {
-    _thumbnailView->reload( flushCache );
-    slotThumbNailSelectionChanged( _thumbnailView->selection().size() );
-}
-
-void MainWindow::Window::reloadThumbnailsAndFlushCache()
-{
-    reloadThumbnails(true);
-}
-
-void MainWindow::Window::reloadThumbnailsAfterRotation()
-{
-    _thumbnailView->reload( true, false );
+    _thumbnailView->reload();
+    updateContextMenuFromSelectionSize( _thumbnailView->selection().size() );
 }
 
 void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
@@ -1506,7 +1497,7 @@ void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
         ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
     }
     _dirtyIndicator->markDirty();
-    reloadThumbnails(true);
+    reloadThumbnails();
 }
 
 DB::ImageSearchInfo MainWindow::Window::currentContext()
@@ -1610,14 +1601,14 @@ void MainWindow::Window::setDateRange( const DB::ImageDate& range )
 {
     DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
-    reloadThumbnails(false);
+    reloadThumbnails();
 }
 
 void MainWindow::Window::clearDateRange()
 {
     DB::ImageDB::instance()->clearDateRange();
     _browser->reload();
-    reloadThumbnails(false);
+    reloadThumbnails();
 }
 
 void MainWindow::Window::showThumbNails(const DB::Result& items)
@@ -1645,10 +1636,10 @@ void MainWindow::Window::convertBackend()
                                                   "Do you want to do this now?"));
         if (ret != KMessageBox::Yes)
             return;
-        if (!_optionsDialog)
-            _optionsDialog = new Settings::SettingsDialog(this);
-        _optionsDialog->showBackendPage();
-        ret = _optionsDialog->exec();
+        if (!_settingsDialog)
+            _settingsDialog = new Settings::SettingsDialog(this);
+        _settingsDialog->showBackendPage();
+        ret = _settingsDialog->exec();
         if (ret != Settings::SettingsDialog::Accepted)
             return;
     }

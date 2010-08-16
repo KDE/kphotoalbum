@@ -112,10 +112,8 @@ protected slots:
     void changePassword();
     void slotConfigureKeyBindings();
     void slotSetFileName( const DB::ResultId& );
-    void slotThumbNailSelectionChanged(int selectionSize);
-    void reloadThumbnails(bool flushCache);
-    void reloadThumbnailsAndFlushCache();
-    void reloadThumbnailsAfterRotation();
+    void updateContextMenuFromSelectionSize(int selectionSize);
+    void reloadThumbnails();
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void slotBuildThumbnails();
@@ -179,7 +177,7 @@ private:
     static Window* _instance;
 
     ThumbnailView::ThumbnailFacade* _thumbnailView;
-    Settings::SettingsDialog* _optionsDialog;
+    Settings::SettingsDialog* _settingsDialog;
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
     Q3WidgetStack* _stack;
     QWidget* _welcome;

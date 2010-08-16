@@ -73,7 +73,6 @@ public slots:
     void stopPlayback();
 
 signals:
-    void rotated();
     void soughtTo( const DB::ResultId& id );
 
 protected:
@@ -107,6 +106,7 @@ private:
     void showNextN(int);
     void showPrevN(int);
     int  find_tag_in_list(const QStringList &list, QString &namefound);
+    void invalidateThumbnail() const;
 
 
 protected slots:

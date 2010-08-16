@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "ViewerWidget.h"
 #include <config-kpa-exiv2.h>
 
 #include <kdeversion.h>
@@ -42,7 +43,7 @@
 #include "InfoBox.h"
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
-#include "ViewerWidget.h"
+#include "ImageManager/ThumbnailCache.h"
 #include <KMessageBox>
 #include "VisibleOptionsMenu.h"
 #include <qglobal.h>
@@ -608,21 +609,21 @@ void Viewer::ViewerWidget::rotate90()
 {
     currentInfo()->rotate( 90 );
     load();
-    emit rotated();
+    invalidateThumbnail();
 }
 
 void Viewer::ViewerWidget::rotate180()
 {
     currentInfo()->rotate( 180 );
     load();
-    emit rotated();
+    invalidateThumbnail();
 }
 
 void Viewer::ViewerWidget::rotate270()
 {
     currentInfo()->rotate( 270 );
     load();
-    emit rotated();
+    invalidateThumbnail();
 }
 
 void Viewer::ViewerWidget::showFirst()
@@ -794,15 +795,15 @@ void Viewer::ViewerWidget::updateInfoBox()
         if (_currentCategory == QString::fromLatin1("")) {
             selecttext = i18n("<b>Setting Category: </b>") + _currentInput;
             if (_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + _currentInputList + 
+                selecttext += QString::fromLatin1("{") + _currentInputList +
                     QString::fromLatin1("}");
             }
         } else if (_currentInput != QString::fromLatin1("") ||
                    _currentCategory != QString::fromLatin1("Tokens")) {
-            selecttext = i18n("<b>Assigning: </b>") + _currentCategory + 
+            selecttext = i18n("<b>Assigning: </b>") + _currentCategory +
                 QString::fromLatin1("/")  + _currentInput;
             if (_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + _currentInputList + 
+                selecttext += QString::fromLatin1("{") + _currentInputList +
                     QString::fromLatin1("}");
             }
         }
@@ -1072,7 +1073,7 @@ int Viewer::ViewerWidget::find_tag_in_list(const QStringList &list,
         if (listIter->startsWith(_currentInput, Qt::CaseInsensitive)) {
             found++;
             if (_currentInputList.length() > 0)
-                _currentInputList = 
+                _currentInputList =
                     _currentInputList + QString::fromLatin1(",");
             _currentInputList =_currentInputList +
                 listIter->right(listIter->length() - _currentInput.length());
@@ -1127,7 +1128,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             updateInfoBox();
             MainWindow::DirtyIndicator::markDirty();
         }
-    } else if (event->modifiers() == 0 || 
+    } else if (event->modifiers() == 0 ||
                event->modifiers() == Qt::ShiftModifier) {
         // search the category for matches
         QString namefound;
@@ -1182,7 +1183,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             }
         } else {
             _currentInput += incomingKey;
-        
+
             DB::CategoryPtr category =
                 DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
             QStringList items = category->items();
@@ -1192,7 +1193,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
                     currentInfo()->removeCategoryInfo( _currentCategory, namefound );
                 else
                     currentInfo()->addCategoryInfo( _currentCategory, namefound );
-            
+
                 _lastFound = namefound;
                 _lastCategory = _currentCategory;
                 _currentInput = QString::fromLatin1("");
@@ -1201,7 +1202,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
                     _currentCategory = QString::fromLatin1("");
             }
         }
-    
+
         updateInfoBox();
         MainWindow::DirtyIndicator::markDirty();
     }
@@ -1388,6 +1389,11 @@ void Viewer::ViewerWidget::createVideoViewer()
 void Viewer::ViewerWidget::stopPlayback()
 {
     _videoDisplay->stop();
+}
+
+void Viewer::ViewerWidget::invalidateThumbnail() const
+{
+    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName( DB::AbsolutePath ) );
 }
 
 #include "ViewerWidget.moc"

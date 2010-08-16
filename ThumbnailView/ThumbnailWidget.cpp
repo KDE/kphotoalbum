@@ -64,7 +64,6 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
      m_pressOnStackIndicator( false ),
      _keyboardHandler( new KeyboardEventHandler( factory ) )
 {
-    // PENDING(blackie) clean up this constructor.
     setModel( ThumbnailComponent::model() );
     setResizeMode( QListView::Adjust );
     setViewMode( QListView::IconMode );

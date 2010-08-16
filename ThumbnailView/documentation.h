@@ -2,8 +2,14 @@
   \namespace ThumbnailView
   \brief  The classes in this namespace makes up the thumbnail window
 
-  <h2>Design Decisions</h2>
-  \li \ref model-view-in-thumbnail
+  The Thumbnail Viewer was in the old days implemented entirely by ourself
+  using QGridView (from Qt3). In the summer of 2010 it was rewritten to use
+  Qt's model/view framework.
+
+  The widget used \ref ThumbnailWidget is a subclass of QListView. The
+  class \ref ThumbnailModel is a subclass of QAbstractListModel, and the
+  painting code is in the class Delegate, which is a subclass of
+  QItemDelegate.
 
   <h2>Base structure and API</h2>
   The only class that should be seen from the outside is the class \ref
@@ -15,9 +21,7 @@
   was written in KPhotoAlbum, and consequently also one of the pieces of
   code that just grew larger and larger organically. During a large
   refactoring session in July 2009, this was cleaned up, but a number of
-  objects are still very tightly connected, namely the widget itself (\ref
-  ThumbnailWidget), its painting code (\ref ThumbnailPainter), its data
-  model (\ref ThumbnailModel), and its event handlers.
+  objects are still very tightly connected.
 
   To avoid that all these classes needed to be set up with pointers to each
   other, a factory (\ref ThumbnailFactory) was created, from which any of
@@ -38,10 +42,11 @@
   \li \ref ThumbnailWidget - This is the widget that are put into the main
   windows gui.
   \li \ref ThumbnailModel - This is the underlying model of the
-  widget. Here you will find methods to access and alter the selection, the
-  stack, the list of images etc.
-  \li \ref ThumbnailPainter - Here are all the code for painting the
-  widget.
+  widget. Here you will find methods to access and alter the
+  stack, the list of images etc. This is also the actual implementation of
+  Qt's QAbstractListModel.
+  \li \ref Delegate - Here are all the code for painting the
+  items in the widget. It is a subclass of QAbstractItemDelegate.
   \li \ref CellGeometry - This is where you will find the logic for
   calculating the sizes of cells, the text height etc.
 
@@ -72,9 +77,9 @@
   takes care of updating the status bar with information about which
   thumbnail the cursor is over.
 
-  \li \ref SelectionInteraction - This interaction takes care of selecting items
-  in the thumbnail view, it is active when the left mouse button has been
-  pressed down, and is dragged over items.
+  \li \ref SelectionInteraction - This interaction used to take care of all
+  mouse interaction when the widget was one we had implemented
+  ourself. These days it only takes care of detecting a drag and drop operation.
 
   \li \ref GridResizeInteraction - This interaction is active when the user is
   resizing the grid. It is active when the middle mouse button has been
@@ -93,25 +98,3 @@
   top of. This is implemented using this class.
 
 **/
-
-/**
-   \page model-view-in-thumbnail Why are we not using Model/View to implement the Thumbnail Viewer?
-
-   The Model/View framework seems like an obvious choice for implementing
-   the thumbnail viewer, still we don't use it, why?
-
-   Well, first of all, when the thumbnail viewer was initially implemented,
-   no model/view framework existed - this was first introduced in Qt4.
-
-   Still, I did give it a worthy shot at rewriting the thumbnail viewer to
-   the model/view framework, and I was all excited about the thought of
-   getting rid of especially the \ref ThumbnailView::SelectionInteraction
-   class. Unfortunately I hit an problem I could not find a way to resolve,
-   even after having studied the code of QListView and QAbstractItemView in
-   details. The obstacle was selection. KPhotoAlbums concept of row
-   selection was simply not possible with QListView, and the only way I
-   could find forward with that was to reimplement mouse handling for the
-   model/view framework, which seemed to me like a dead end.
-
-   Jesper, July 2009.
-*/

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -111,13 +111,13 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         QString origFile = _currentInfo->fileName(DB::AbsolutePath);
         QString newFile = origFile;
 
-        QString origRegexpString = 
+        QString origRegexpString =
             Settings::SettingsData::instance()->copyFileComponent();
         QRegExp origRegexp =
             QRegExp(origRegexpString);
-        QString copyFileReplacement = 
+        QString copyFileReplacement =
             Settings::SettingsData::instance()->copyFileReplacementComponent();
-        
+
         if (origRegexpString.length() > 0) {
             newFile.replace(origRegexp, copyFileReplacement);
             QFile::copy(origFile, newFile);

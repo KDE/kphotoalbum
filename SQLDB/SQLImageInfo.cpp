@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2010 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

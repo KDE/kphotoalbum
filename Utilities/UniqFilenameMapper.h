@@ -1,4 +1,4 @@
-/* Copyright (C) 2008 Henner Zeller <h.zeller@acm.org>
+/* Copyright (C) 2008-2010 Henner Zeller <h.zeller@acm.org>
 
    based on Utilities::createUniqNameMap() by <blackie@kde.org>
 

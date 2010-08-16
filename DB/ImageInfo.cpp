@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -485,13 +485,13 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
     folderCategory->addItem( folderName );
 }
 
-void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from, bool copyAngle) 
+void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from, bool copyAngle)
 {
     _categoryInfomation = from._categoryInfomation;
     _description = from._description;
     // Hmm...  what should the date be?  orig or modified?
     // _date = from._date;
-    if (copyAngle) 
+    if (copyAngle)
         _angle = from._angle;
     _rating = from._rating;
     _geoPosition = from._geoPosition;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,7 +38,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 #ifdef HAVE_KDCRAW
     if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
         return false;
-    
+
     if ( Settings::SettingsData::instance()->useRawThumbnail() &&
             img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width() &&
             img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height() )

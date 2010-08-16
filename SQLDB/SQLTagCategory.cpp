@@ -1,6 +1,6 @@
 /*
-  Copyright (C) 2005-2006 Jesper K. Pedersen <blackie@kde.org>
-  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2005-2010 Jesper K. Pedersen <blackie@kde.org>
+  Copyright (C) 2006-2010 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

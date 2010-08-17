@@ -47,7 +47,6 @@ void ImageManager::ThumbnailCache::insert( const QString& name, const QImage& im
     file.open(QIODevice::ReadWrite );
     file.seek( m_currentOffset );
 
-    // PENDING(blackie) all my images should simply be in this format.
     QImage image2 = image.convertToFormat( QImage::Format_RGB32 );
     const int size = image2.byteCount();
 

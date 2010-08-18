@@ -16,11 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
+#include "FastDir.h"
 #include "ImageManager/ThumbnailCache.h"
-
-#include <sys/types.h>
-#include <dirent.h>
-#include <stdio.h>
 
 #include "DB/ImageDB.h"
 #include "DB/ResultId.h"
@@ -71,58 +68,6 @@ bool NewImageFinder::findImages()
     return (!_pendingLoad.isEmpty()); // returns if new images was found.
 }
 
-// FastDir is used in place of QDir because QDir stat()s every file in
-// the directory, even if we tell it not to restrict anything.  When
-// scanning for new images, we don't want to look at files we already
-// have in our database, and we also don't want to look at files whose
-// names indicate that we don't care about them.  So what we do is
-// simply read the names from the directory and let the higher layers
-// decide what to do with them.
-//
-// On my sample database with ~20,000 images, this improves the time
-// to rescan for images on a cold system from about 100 seconds to
-// about 3 seconds.
-//
-// -- Robert Krawitz, rlk@alum.mit.edu 2007-07-22
-class FastDir
-{
-public:
-    FastDir(const QString &path);
-    QStringList entryList() const;
-private:
-    const QString _path;
-};
-
-FastDir::FastDir(const QString &path)
-  : _path(path)
-{
-}
-
-QStringList FastDir::entryList() const
-{
-    QStringList answer;
-    DIR *dir;
-    dirent *file;
-    dir = opendir( QFile::encodeName(_path) );
-    if ( !dir )
-	return answer; // cannot read the directory
-
-#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
-    union dirent_buf {
-	struct dirent mt_file;
-	char b[sizeof(struct dirent) + MAXNAMLEN + 1];
-    } *u = new union dirent_buf;
-    while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
-#else
-    while ( (file = readdir(dir)) )
-#endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
-	answer.append(QFile::decodeName(file->d_name));
-#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
-    delete u;
-#endif
-    (void) closedir(dir);
-    return answer;
-}
 
 void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QString directory )
 {

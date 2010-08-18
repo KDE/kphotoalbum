@@ -67,7 +67,6 @@ endif(QT_QTSQL_FOUND)
 # For config-kpa-*.h
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
-
 set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/ViewHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp)
 
 set(libSettings_SRCS 
@@ -209,6 +208,7 @@ set(libDB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
     )
 
 set(libImportExport_SRCS

@@ -1,3 +1,10 @@
+2010-08-19  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* ThumbnailView has been completely rewritten, so that it is much
+	faster.
+	* Thumbnail (re)building is now automatically build in the
+	background when needed.
+
 2010-07-07  Miika Turkia <miika.turkia@gmail.com>
 
 	* Implemented automatic stacking of images. Images that are shot

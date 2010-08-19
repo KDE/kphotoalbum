@@ -17,7 +17,6 @@
 */
 #ifndef THUMBNAILCACHE_H
 #define THUMBNAILCACHE_H
-#include <QMutex>
 #include "CacheFileInfo.h"
 #include <QMap>
 #include <QImage>

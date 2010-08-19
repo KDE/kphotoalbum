@@ -53,6 +53,7 @@ void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, con
 
 void ThumbnailView::ThumbnailBuilder::buildAll()
 {
+    ImageManager::ThumbnailCache::instance()->flush();
     const DB::Result images = DB::ImageDB::instance()->images();
     build( images.fetchInfos() );
 }

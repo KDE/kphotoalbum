@@ -401,7 +401,7 @@ property_ref_(
         groupForDatabase( "HTML Settings" ),
         STR("") )
 
-property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") + HTMLBaseDir() )
+property_ref_( password, setPassword, QString, groupForDatabase( "Privacy Settings" ), STR("") )
 
 QDate SettingsData::fromDate() const
 {

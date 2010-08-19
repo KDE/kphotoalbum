@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailModel.h"
-#include <QPixmapCache>
 #include <QDebug>
 #include "CellGeometry.h"
 #include <QPainter>

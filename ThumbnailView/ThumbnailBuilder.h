@@ -19,23 +19,40 @@
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
 
+#include <QList>
 #include <QProgressDialog>
 #include <QImage>
 #include "ImageManager/ImageClient.h"
+#include "DB/ImageInfoPtr.h"
+
+namespace MainWindow { class StatusBar; }
+namespace MainWindow { class Window; }
 
 
 namespace ThumbnailView
 {
 
-class ThumbnailBuilder :public QProgressDialog, public ImageManager::ImageClient {
+class ThumbnailBuilder :public QObject, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    ThumbnailBuilder( QWidget* parent );
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    static ThumbnailBuilder* instance();
+    void buildAll();
+    void buildMissing();
+
+    OVERRIDE void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 public slots:
-    void slotCancelRequests();
+    void cancelRequests();
+    void build( const QList<DB::ImageInfoPtr>& list );
+
+private:
+    friend class MainWindow::Window;
+    static ThumbnailBuilder* m_instance;
+    ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent );
+    MainWindow::StatusBar* m_statusBar;
+    int m_count;
+    bool m_isBuilding;
 };
 
 }

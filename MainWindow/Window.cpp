@@ -207,6 +207,9 @@ MainWindow::Window::Window( QWidget* parent )
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
+
+    new ThumbnailView::ThumbnailBuilder( _statusBar, this );
+    ThumbnailView::ThumbnailBuilder::instance()->buildMissing();
 }
 
 MainWindow::Window::~Window()
@@ -457,11 +460,11 @@ void MainWindow::Window::createAnnotationDialog()
 void MainWindow::Window::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
-    statusBar()->showMessage(i18n("Saving..."), 5000 );
+    _statusBar->showMessage(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     _statusBar->_dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
-    statusBar()->showMessage(i18n("Saving... Done"), 5000 );
+    _statusBar->showMessage(i18n("Saving... Done"), 5000 );
 }
 
 void MainWindow::Window::slotDeleteSelected()
@@ -931,9 +934,9 @@ void MainWindow::Window::slotAutoSave()
 {
     if ( _statusBar->_dirtyIndicator->isAutoSaveDirty() ) {
         Utilities::ShowBusyCursor dummy;
-        statusBar()->showMessage(i18n("Auto saving...."));
+        _statusBar->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
-        statusBar()->showMessage(i18n("Auto saving.... Done"), 5000);
+        _statusBar->showMessage(i18n("Auto saving.... Done"), 5000);
         _statusBar->_dirtyIndicator->autoSaved();
     }
 }
@@ -949,7 +952,7 @@ void MainWindow::Window::showThumbNails()
 
 void MainWindow::Window::showBrowser()
 {
-    statusBar()->clearMessage();
+    _statusBar->clearMessage();
     _stack->raiseWidget( _browser );
     _browser->setFocus();
     updateStates( false );
@@ -1214,9 +1217,9 @@ void MainWindow::Window::slotConfigureKeyBindings()
 void MainWindow::Window::slotSetFileName( const DB::ResultId& id )
 {
     if ( id.isNull() )
-        statusBar()->clearMessage();
+        _statusBar->clearMessage();
     else
-        statusBar()->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
+        _statusBar->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
 }
 
 void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
@@ -1576,7 +1579,7 @@ void MainWindow::Window::slotShowImagesWithInvalidDate()
 
 void MainWindow::Window::showDateBarTip( const QString& msg )
 {
-    statusBar()->showMessage( msg, 3000 );
+    _statusBar->showMessage( msg, 3000 );
 }
 
 void MainWindow::Window::slotJumpToContext()
@@ -1694,7 +1697,7 @@ void MainWindow::Window::showImage( const DB::ResultId& id )
 
 void MainWindow::Window::slotBuildThumbnails()
 {
-    new ThumbnailView::ThumbnailBuilder( this );
+    ThumbnailView::ThumbnailBuilder::instance()->buildAll();
 }
 
 void MainWindow::Window::slotOrderIncr()

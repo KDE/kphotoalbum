@@ -16,6 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifdef KDAB_TEMPORARILY_REMOVED
+#include "Threading/Test.h"
+#endif //KDAB_TEMPORARILY_REMOVED
 #include <QTemporaryFile>
 #include "Settings/SettingsData.h"
 #include "MainWindow/Window.h"
@@ -82,6 +85,11 @@ int main( int argc, char** argv ) {
 
         // qApp->setMainWidget( view );
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
+
+#ifdef KDAB_TEMPORARILY_REMOVED
+        Test* test = new Test;
+        test->go();
+#endif //KDAB_TEMPORARILY_REMOVED
 
         int code = app.exec();
 

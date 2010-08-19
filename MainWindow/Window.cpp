@@ -46,7 +46,6 @@
 
 #include <q3widgetstack.h>
 #include "HTMLGenerator/HTMLDialog.h"
-#include <kstatusbar.h>
 #include "ImageCounter.h"
 #include <qtimer.h>
 #include <kmessagebox.h>
@@ -128,6 +127,7 @@
 #include "ThumbnailView/enums.h"
 #include "DB/MD5.h"
 #include "DB/MD5Map.h"
+#include "StatusBar.h"
 
 using namespace DB;
 
@@ -180,8 +180,8 @@ MainWindow::Window::Window( QWidget* parent )
     startAutoSaveTimer();
 
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
-    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), _pathIndicator, SLOT( setBreadcrumbs( const Browser::BreadcrumbList& ) ) );
-    connect( _pathIndicator, SIGNAL( widenToBreadcrumb( const Browser::Breadcrumb& ) ), _browser, SLOT( widenToBreadcrumb( const Browser::Breadcrumb& ) ) );
+    connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), _statusBar->_pathIndicator, SLOT( setBreadcrumbs( const Browser::BreadcrumbList& ) ) );
+    connect( _statusBar->_pathIndicator, SIGNAL( widenToBreadcrumb( const Browser::Breadcrumb& ) ), _browser, SLOT( widenToBreadcrumb( const Browser::Breadcrumb& ) ) );
     connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( updateDateBar( const Browser::BreadcrumbList& ) ) );
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
@@ -198,9 +198,8 @@ MainWindow::Window::Window( QWidget* parent )
 
     connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId& ) ), this, SLOT( slotSetFileName( const DB::ResultId& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
-    connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
-    connect( _browser, SIGNAL( imageCount(uint)), _partial, SLOT( showBrowserMatches(uint) ) );
+    connect( _browser, SIGNAL( imageCount(uint)), _statusBar->_partial, SLOT( showBrowserMatches(uint) ) );
     connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( updateContextMenuFromSelectionSize(int) ) );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
@@ -282,7 +281,7 @@ bool MainWindow::Window::slotExit()
         }
     }
 
-    if ( _dirtyIndicator->isSaveDirty() ) {
+    if ( _statusBar->_dirtyIndicator->isSaveDirty() ) {
         int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
                                                    i18n("Save Changes?") );
         if ( ret == KMessageBox::Cancel )
@@ -460,7 +459,7 @@ void MainWindow::Window::slotSave()
     Utilities::ShowBusyCursor dummy;
     statusBar()->showMessage(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
-    _dirtyIndicator->saved();
+    _statusBar->_dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->showMessage(i18n("Saving... Done"), 5000 );
 }
@@ -930,12 +929,12 @@ void MainWindow::Window::startAutoSaveTimer()
 
 void MainWindow::Window::slotAutoSave()
 {
-    if ( _dirtyIndicator->isAutoSaveDirty() ) {
+    if ( _statusBar->_dirtyIndicator->isAutoSaveDirty() ) {
         Utilities::ShowBusyCursor dummy;
         statusBar()->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->showMessage(i18n("Auto saving.... Done"), 5000);
-        _dirtyIndicator->autoSaved();
+        _statusBar->_dirtyIndicator->autoSaved();
     }
 }
 
@@ -1151,14 +1150,7 @@ void MainWindow::Window::unlockFromDefaultScope()
 
 void MainWindow::Window::setLocked( bool locked, bool force )
 {
-    static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "object-locked" ) ) );
-    _lockedIndicator->setFixedWidth( lockedPix->width() );
-
-    if ( locked )
-        _lockedIndicator->setPixmap( *lockedPix );
-    else
-        _lockedIndicator->setPixmap( QPixmap() );
-
+    _statusBar->setLocked( locked );
     Settings::SettingsData::instance()->setLocked( locked, force );
 
     _lock->setEnabled( !locked );
@@ -1251,7 +1243,7 @@ void MainWindow::Window::rotateSelected( int angle )
             info->rotate(angle);
             ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName( DB::AbsolutePath) );
         }
-        _dirtyIndicator->markDirty();
+        _statusBar->_dirtyIndicator->markDirty();
     }
 }
 
@@ -1496,7 +1488,7 @@ void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
     }
-    _dirtyIndicator->markDirty();
+    _statusBar->_dirtyIndicator->markDirty();
     reloadThumbnails();
 }
 
@@ -1614,7 +1606,7 @@ void MainWindow::Window::clearDateRange()
 void MainWindow::Window::showThumbNails(const DB::Result& items)
 {
     _thumbnailView->setImageList( items );
-    _partial->setMatchCount(items.size());
+    _statusBar->_partial->setMatchCount(items.size());
     showThumbNails();
 }
 
@@ -1728,31 +1720,10 @@ void MainWindow::Window::slotStatistics()
 
 void MainWindow::Window::setupStatusBar()
 {
-    // Avoid flicker in the statusbar when moving over dates from the datebar
-    QFont f( statusBar()->font() );
-    f.setStyleHint( QFont::TypeWriter );
-    f.setFamily( QString::fromLatin1( "courier" ) );
-    f.setBold( true );
-    statusBar()->setFont( f );
-
-    KHBox* indicators = new KHBox( statusBar());
-    _dirtyIndicator = new DirtyIndicator( indicators );
-
-    _lockedIndicator = new QLabel( indicators );
+    _statusBar = new MainWindow::StatusBar;
+    setStatusBar( _statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true );
 
-    statusBar()->addPermanentWidget( indicators, 0 );
-
-    _partial = new ImageCounter( statusBar() );
-    statusBar()->addPermanentWidget( _partial, 0 );
-
-    ImageCounter* total = new ImageCounter( statusBar() );
-    statusBar()->addPermanentWidget( total, 0 );
-    total->setTotal( DB::ImageDB::instance()->totalCount() );
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
-
-    _pathIndicator = new BreadcrumbViewer;
-    statusBar()->addWidget( _pathIndicator, 1 );
 }
 
 void MainWindow::Window::slotRecreateExifDB()

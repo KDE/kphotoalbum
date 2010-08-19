@@ -75,8 +75,7 @@ namespace MainWindow
 {
 class DeleteDialog;
 class TokenEditor;
-class ImageCounter;
-class DirtyIndicator;
+class StatusBar;
 
 class Window :public KXmlGuiWindow
 {
@@ -202,8 +201,6 @@ private:
     Browser::BrowserWidget* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
-    DirtyIndicator* _dirtyIndicator;
-    QLabel* _lockedIndicator;
     KAction* _lock;
     KAction* _unlock;
     KAction* _setDefaultPos;
@@ -242,9 +239,8 @@ private:
     TokenEditor* _tokenEditor;
     DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;
-    ImageCounter* _partial;
-    BreadcrumbViewer* _pathIndicator;
     QMap<Qt::Key, QPair<QString,QString> > _viewerInputMacros;
+    MainWindow::StatusBar* _statusBar;
 };
 
 }

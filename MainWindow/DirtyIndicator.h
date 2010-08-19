@@ -39,6 +39,7 @@ signals:
     void dirty();
 
 private:
+    friend class StatusBar;
     friend class Window;
     DirtyIndicator( QWidget* parent );
     void autoSaved();

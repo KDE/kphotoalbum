@@ -173,6 +173,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DirtyIndicator.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatisticsDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/BreadcrumbViewer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatusBar.cpp
     )
 
 set(libImageManager_SRCS 
@@ -264,6 +265,11 @@ set(libexif_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
 
+##set(libthreading_SRCS
+##	${CMAKE_CURRENT_SOURCE_DIR}/Threading/Test.cpp  
+##	${CMAKE_CURRENT_SOURCE_DIR}/Threading/SearchForNewImagesJob.cpp
+##   )
+
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
@@ -282,7 +288,26 @@ endif(EXIV2_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libMainWindow_SRCS} ${libImageManager_SRCS} ${libDB_SRCS} ${libImportExport_SRCS} ${libAnnotationDialog_SRCS} ${EXIV2_SRCS} ${libBrowser_SRCS})
+set(kphotoalbum_SRCS 
+  main.cpp 
+  ${libdatebar_SRCS} 
+  ${libSettings_SRCS} 
+  ${libsurvey_SRCS} 
+  ${libxmldb_SRCS} 
+  ${libThumbnailView_SRCS} 
+  ${libPlugins_SRCS} 
+  ${libViewer_SRCS} 
+  ${libCategoryListView_SRCS} 
+  ${libHTMLGenerator_SRCS} 
+  ${libMainWindow_SRCS} 
+  ${libImageManager_SRCS} 
+  ${libDB_SRCS} 
+  ${libImportExport_SRCS} 
+  ${libAnnotationDialog_SRCS} 
+  ${EXIV2_SRCS} 
+  ${libBrowser_SRCS} 
+## ${libthreading_SRCS}
+)
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
@@ -318,6 +343,8 @@ if(NEPOMUK_FOUND)
     ADD_DEFINITIONS(${NEPOMUK_DEFINITIONS})
     INCLUDE_DIRECTORIES(${NEPOMUK_INCLUDE_DIR})
 endif(NEPOMUK_FOUND)
+
+##target_link_libraries(kphotoalbum threadweaver )
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 

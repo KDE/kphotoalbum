@@ -3,6 +3,10 @@
 	* With the new Thumbnail-View KPA crashes when creating a stack from 2
 	selected images (either via Ctrl-3 or the context menu). Thanks to
 	Andreas Neustifter for reporting and patch.
+	* Added option to sort category items aphabetically on annotation
+	dialog (tree view alphabetical, flat alphabetical and most recently
+	used are the currently supported options). Thanks to Reimar Imhof for
+	the patch.
 
 2010-08-19  Jesper K. Pedersen  <blackie@kdab.com>
 

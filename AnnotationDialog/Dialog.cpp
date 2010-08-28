@@ -823,10 +823,12 @@ void AnnotationDialog::Dialog::setupActions()
     _actions = new KActionCollection( this );
 
     KAction* action = 0;
-    action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-alpha"), _optionList.at(0), SLOT( slotSortAlpha() ) );
-    action->setText( i18n("Sort Alphabetically") );
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), _optionList.at(0), SLOT( slotSortAlphaTree() ) );
+    action->setText( i18n("Sort Alphabetically (Tree)") );
     action->setShortcut(Qt::CTRL+Qt::Key_F4);
 
+    action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-alphaflat"), _optionList.at(0), SLOT( slotSortAlphaFlat() ) );
+    action->setText( i18n("Sort Alphabetically (Flat)") );
 
     action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-MRU"), _optionList.at(0), SLOT( slotSortDate() ) );
     action->setText( i18n("Sort Most Recently Used") );

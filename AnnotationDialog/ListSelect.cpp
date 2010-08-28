@@ -84,11 +84,17 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     QButtonGroup* grp = new QButtonGroup( this );
     grp->setExclusive( true );
 
-    _alphaSort = new QToolButton;
-    _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "draw-text" ) ) );
-    _alphaSort->setCheckable( true );
-    _alphaSort->setToolTip( i18n("Sort Alphabetically") );
-    grp->addButton( _alphaSort );
+    _alphaTreeSort = new QToolButton;
+    _alphaTreeSort->setIcon( SmallIcon( QString::fromLatin1( "view-list-tree" ) ) );
+    _alphaTreeSort->setCheckable( true );
+    _alphaTreeSort->setToolTip( i18n("Sort Alphabetically (Tree)") );
+    grp->addButton( _alphaTreeSort );
+
+    _alphaFlatSort = new QToolButton;
+    _alphaFlatSort->setIcon( SmallIcon( QString::fromLatin1( "draw-text" ) ) );
+    _alphaFlatSort->setCheckable( true );
+    _alphaFlatSort->setToolTip( i18n("Sort Alphabetically (Flat)") );
+    grp->addButton( _alphaFlatSort );
 
     _dateSort = new QToolButton;
     _dateSort->setIcon( SmallIcon( QString::fromLatin1( "x-office-calendar" ) ) );
@@ -101,13 +107,16 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _showSelectedOnly->setCheckable( true );
     _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
 
-    _alphaSort->setChecked( Settings::ViewSortType() == Settings::SortAlpha );
+    _alphaTreeSort->setChecked( Settings::ViewSortType() == Settings::SortAlphaTree );
+    _alphaFlatSort->setChecked( Settings::ViewSortType() == Settings::SortAlphaFlat );
     _dateSort->setChecked( Settings::ViewSortType() == Settings::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
-    connect( _alphaSort, SIGNAL( clicked() ), this, SLOT( slotSortAlpha() ) );
+    connect( _alphaTreeSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaTree() ) );
+    connect( _alphaFlatSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaFlat() ) );
     connect( _showSelectedOnly, SIGNAL( clicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
 
-    lay2->addWidget( _alphaSort );
+    lay2->addWidget( _alphaTreeSort );
+    lay2->addWidget( _alphaFlatSort );
     lay2->addWidget( _dateSort );
     lay2->addWidget( _showSelectedOnly );
 
@@ -200,7 +209,8 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
     _lineEdit->setText( text );
     setMode( _mode );	// generate the ***NONE*** entry if in search mode
 
-    _alphaSort->setChecked( tp == Settings::SortAlpha );
+    _alphaTreeSort->setChecked( tp == Settings::SortAlphaTree );
+    _alphaFlatSort->setChecked( tp == Settings::SortAlphaFlat );
     _dateSort->setChecked( tp == Settings::SortLastUse );
 }
 
@@ -331,9 +341,11 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     menu->addAction( action );
 
     QAction* usageAction = menu->addAction( i18n("Usage") );
-    QAction* alphaAction = menu->addAction( i18n("Alphabetical") );
+    QAction* alphaFlatAction = menu->addAction( i18n("Alphabetical (Flat)") );
+    QAction* alphaTreeAction = menu->addAction( i18n("Alphabetical (Tree)") );
     usageAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
-    alphaAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha);
+    alphaFlatAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat);
+    alphaTreeAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree);
 
     if ( !item ) {
         deleteAction->setEnabled( false );
@@ -387,8 +399,11 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     else if ( which == usageAction ) {
         Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
     }
-    else if ( which == alphaAction ) {
-        Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
+    else if ( which == alphaTreeAction ) {
+        Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaTree );
+    }
+    else if ( which == alphaFlatAction ) {
+        Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaFlat );
     }
     else if ( which == newCategoryAction ) {
         QString superCategory = KInputDialog::getText( i18n("New Super Category"), i18n("New Super Category Name:") );
@@ -453,8 +468,10 @@ void AnnotationDialog::ListSelect::populate()
 {
     _listView->clear();
 
-    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
-        populateAlphabetically();
+    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree )
+        populateAlphaTree();
+    else if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat )
+        populateAlphaFlat();
     else
         populateMRU();
 }
@@ -478,9 +495,14 @@ void AnnotationDialog::ListSelect::slotSortDate()
     Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
 }
 
-void AnnotationDialog::ListSelect::slotSortAlpha()
+void AnnotationDialog::ListSelect::slotSortAlphaTree()
 {
-    Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
+    Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaTree );
+}
+
+void AnnotationDialog::ListSelect::slotSortAlphaFlat()
+{
+    Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaFlat );
 }
 
 void AnnotationDialog::ListSelect::rePopulate()
@@ -505,12 +527,24 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
 }
 
-void AnnotationDialog::ListSelect::populateAlphabetically()
+void AnnotationDialog::ListSelect::populateAlphaTree()
 {
     DB::CategoryItemPtr item = _category->itemsCategories();
 
     addItems( item.data(), 0 );
     _listView->setSorting( 0 );
+}
+
+void AnnotationDialog::ListSelect::populateAlphaFlat()
+{
+    QStringList items = _category->itemsInclCategories();
+
+    for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
+        CheckDropItem* item = new CheckDropItem( _listView, *itemIt, *itemIt );
+        configureItem( item );
+    }
+
+    _listView->setSorting( 1 );
 }
 
 void AnnotationDialog::ListSelect::populateMRU()
@@ -531,7 +565,9 @@ void AnnotationDialog::ListSelect::toggleSortType()
 {
     Settings::SettingsData* data = Settings::SettingsData::instance();
     if ( data->viewSortType() == Settings::SortLastUse )
-        data->setViewSortType( Settings::SortAlpha );
+        data->setViewSortType( Settings::SortAlphaTree );
+    else if ( data->viewSortType() == Settings::SortAlphaTree )
+        data->setViewSortType( Settings::SortAlphaFlat );
     else
         data->setViewSortType( Settings::SortLastUse );
 }
@@ -554,7 +590,7 @@ void AnnotationDialog::ListSelect::showAllChildren()
 
 void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {
-    bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha;
+    bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree;
     item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
     item->setTristate( _mode == InputMultiImageConfigMode );
 }

@@ -67,7 +67,8 @@ public:
 public slots:
     void slotReturn();
     void slotSortDate();
-    void slotSortAlpha();
+    void slotSortAlphaTree();
+    void slotSortAlphaFlat();
     void toggleSortType();
     void rePopulate();
 
@@ -81,7 +82,8 @@ protected slots:
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
     void addItems( DB::CategoryItem* item, Q3ListViewItem* parent );
-    void populateAlphabetically();
+    void populateAlphaTree();
+    void populateAlphaFlat();
     void populateMRU();
     void configureItem( CategoryListView::CheckDropItem* item );
     bool isInputMode() const;
@@ -96,7 +98,8 @@ private:
     QRadioButton* _or;
     QRadioButton* _and;
     UsageMode _mode;
-    QToolButton* _alphaSort;
+    QToolButton* _alphaTreeSort;
+    QToolButton* _alphaFlatSort;
     QToolButton* _dateSort;
     QToolButton* _showSelectedOnly;
 };

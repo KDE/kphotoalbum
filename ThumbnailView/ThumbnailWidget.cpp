@@ -222,7 +222,11 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
     if ( _isSettingDate )
         return;
 
-    DB::ResultId id = model()->imageAt( currentIndex().row() );
+    int row = currentIndex().row();
+    if (row == -1)
+	return;
+
+    DB::ResultId id = model()->imageAt( row );
     if ( id.isNull() )
         return;
 

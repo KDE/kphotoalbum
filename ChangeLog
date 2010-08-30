@@ -3,6 +3,8 @@
 	* Opening of annotation dialog: sort button selection fits real
 	sorting. Sort menu items now have check boxes. Thanks to Reimar Imhof
 	for the patch.
+	* Fixes bug that prevented deselecting images in thumbnail view.
+	Thanks to Reimar Imhof for the patch.
 
 2010-08-28  Miika Turkia <miika.turkia@gmail.com>
 

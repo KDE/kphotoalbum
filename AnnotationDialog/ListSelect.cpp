@@ -107,9 +107,9 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _showSelectedOnly->setCheckable( true );
     _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
 
-    _alphaTreeSort->setChecked( Settings::ViewSortType() == Settings::SortAlphaTree );
-    _alphaFlatSort->setChecked( Settings::ViewSortType() == Settings::SortAlphaFlat );
-    _dateSort->setChecked( Settings::ViewSortType() == Settings::SortLastUse );
+    _alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
+    _alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
+    _dateSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
     connect( _alphaTreeSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaTree() ) );
     connect( _alphaFlatSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaFlat() ) );
@@ -343,8 +343,11 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     QAction* usageAction = menu->addAction( i18n("Usage") );
     QAction* alphaFlatAction = menu->addAction( i18n("Alphabetical (Flat)") );
     QAction* alphaTreeAction = menu->addAction( i18n("Alphabetical (Tree)") );
+    usageAction->setCheckable(true);
     usageAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
+    alphaFlatAction->setCheckable(true);
     alphaFlatAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat);
+    alphaTreeAction->setCheckable(true);
     alphaTreeAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree);
 
     if ( !item ) {

@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailCache.h"
+#include <QBuffer>
 #include <QTemporaryFile>
 #include <QMutexLocker>
 #include <QDir>
@@ -24,8 +25,9 @@
 #include <QPixmap>
 #include <QFile>
 
+// We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
-const int FILEVERSION=1;
+const int FILEVERSION=3;
 
 ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = 0;
 
@@ -47,13 +49,19 @@ void ImageManager::ThumbnailCache::insert( const QString& name, const QImage& im
     file.open(QIODevice::ReadWrite );
     file.seek( m_currentOffset );
 
-    QImage image2 = image.convertToFormat( QImage::Format_RGB32 );
-    const int size = image2.byteCount();
+    QByteArray data;
+    QBuffer buffer( &data );
+    bool OK = buffer.open( QIODevice::WriteOnly );
+    Q_ASSERT( OK );
 
-    file.write( (char*) image2.bits(), size );
+    OK = image.save( &buffer, "JPG" );
+    Q_ASSERT( OK );
+
+    const int size = data.size();
+    file.write( data.data(), size );
     file.close();
 
-    m_map.insert( name, CacheFileInfo( m_currentFile, m_currentOffset, image.width(), image.height() ) );
+    m_map.insert( name, CacheFileInfo( m_currentFile, m_currentOffset, size ) );
 
     // Update offset
     m_currentOffset += size;
@@ -74,15 +82,21 @@ QString ImageManager::ThumbnailCache::fileNameForIndex( int index ) const
 
 QPixmap ImageManager::ThumbnailCache::lookup( const QString& name ) const
 {
+
     CacheFileInfo info = m_map[name];
 
     QFile file( fileNameForIndex( info.fileIndex ) );
     file.open( QIODevice::ReadOnly );
 
-    uchar* data = file.map( 0, file.size() );
-    QImage image( &data[info.offset], info.width, info.height, QImage::Format_RGB32 );
+    const char* data = (const char*) file.map( info.offset, info.size );
+    QByteArray array( data, info.size );
+    QBuffer buffer( &array );
+    buffer.open( QIODevice::ReadOnly );
+    QImage image;
+    image.load( &buffer, "JPG");
 
     // Notice the above image is sharing the bits with the file, so I can't just return it as it then will be invalid when the file goes out of scope.
+    // PENDING(blackie) Is that still true?
     return QPixmap::fromImage( image );
 }
 
@@ -108,8 +122,7 @@ void ImageManager::ThumbnailCache::save() const
         stream << it.key()
                << cacheInfo.fileIndex
                << cacheInfo.offset
-               << cacheInfo.width
-               << cacheInfo.height;
+               << cacheInfo.size;
     }
     file.close();
 
@@ -131,7 +144,7 @@ void ImageManager::ThumbnailCache::load()
     int version;
     stream >> version;
     if ( version != FILEVERSION )
-        qFatal("Ohhh my wrong file version. How did that happen?");
+        return; //Discard cache
 
     int count;
     stream >> m_currentFile
@@ -142,14 +155,12 @@ void ImageManager::ThumbnailCache::load()
         QString name;
         int fileIndex;
         int offset;
-        int width;
-        int height;
+        int size;
         stream >> name
                >> fileIndex
                >> offset
-               >> width
-               >> height;
-        m_map.insert( name, CacheFileInfo( fileIndex, offset, width, height ) );
+               >> size;
+        m_map.insert( name, CacheFileInfo( fileIndex, offset, size ) );
     }
 }
 

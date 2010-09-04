@@ -21,13 +21,12 @@
 struct CacheFileInfo
 {
     CacheFileInfo() {}
-    CacheFileInfo( int fileIndex, int offset, int width, int height )
-        : fileIndex( fileIndex ), offset( offset ), width( width ), height( height ) {}
+    CacheFileInfo( int fileIndex, int offset, int size)
+        : fileIndex( fileIndex ), offset( offset ), size( size ) {}
 
     int fileIndex;
     int offset;
-    int width;
-    int height;
+    int size;
 };
 
 #endif /* CACHEFILEINFO_H */

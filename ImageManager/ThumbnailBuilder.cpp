@@ -20,27 +20,27 @@
 #include "ThumbnailBuilder.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/StatusBar.h"
-#include "CellGeometry.h"
+#include "ThumbnailView/CellGeometry.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
 #include "DB/ResultId.h"
 
-ThumbnailView::ThumbnailBuilder* ThumbnailView::ThumbnailBuilder::m_instance = 0;
+ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
-ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
+ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
     :QObject( parent ), m_statusBar( statusBar ),  m_isBuilding( false )
 {
     connect( m_statusBar, SIGNAL( cancelRequest() ), this, SLOT( cancelRequests() ) );
     m_instance =  this;
 }
 
-void ThumbnailView::ThumbnailBuilder::cancelRequests()
+void ImageManager::ThumbnailBuilder::cancelRequests()
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopAll );
     m_isBuilding = false;
 }
 
-void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
+void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
 {
     Q_UNUSED(size)
     Q_UNUSED(loadedOK)
@@ -51,20 +51,20 @@ void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, con
     m_statusBar->setProgress( ++m_count );
 }
 
-void ThumbnailView::ThumbnailBuilder::buildAll()
+void ImageManager::ThumbnailBuilder::buildAll()
 {
     ImageManager::ThumbnailCache::instance()->flush();
     const DB::Result images = DB::ImageDB::instance()->images();
     build( images.fetchInfos() );
 }
 
-ThumbnailView::ThumbnailBuilder* ThumbnailView::ThumbnailBuilder::instance()
+ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 {
     Q_ASSERT( m_instance );
     return m_instance;
 }
 
-void ThumbnailView::ThumbnailBuilder::buildMissing()
+void ImageManager::ThumbnailBuilder::buildMissing()
 {
     const DB::Result images = DB::ImageDB::instance()->images();
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
@@ -76,7 +76,7 @@ void ThumbnailView::ThumbnailBuilder::buildMissing()
     build( needed );
 }
 
-void ThumbnailView::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list )
+void ImageManager::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list )
 {
     if ( m_isBuilding )
         cancelRequests();
@@ -90,7 +90,7 @@ void ThumbnailView::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list
     Q_FOREACH(const DB::ImageInfoPtr info, list) {
         ImageManager::ImageRequest* request
             = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
-                                              CellGeometry::preferredIconSize(), info->angle(),
+                                              ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );

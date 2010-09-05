@@ -101,7 +101,6 @@ set(libThumbnailView_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/GridResizeInteraction.cpp 
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionInteraction.cpp 
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/MouseTrackingInteraction.cpp 
-  ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailBuilder.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/CellGeometry.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailModel.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailFacade.cpp
@@ -185,7 +184,9 @@ set(libImageManager_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp )
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailBuilder.cpp
+)
 
 set(libDB_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfo.cpp 

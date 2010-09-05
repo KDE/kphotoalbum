@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "GridResizeInteraction.h"
-#include "ThumbnailBuilder.h"
+#include "ImageManager/ThumbnailBuilder.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "CellGeometry.h"
 #include "ThumbnailModel.h"
@@ -73,7 +73,7 @@ void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
     ImageManager::ThumbnailCache::instance()->flush();
     model()->updateVisibleRowInfo();
     widget()->setCurrentIndex( model()->index( m_currentRow, 0 ) );
-    ThumbnailBuilder::instance()->buildAll();
+    ImageManager::ThumbnailBuilder::instance()->buildAll();
 }
 
 void ThumbnailView::GridResizeInteraction::enterGridReziingMode()

@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
-#include "ThumbnailView/ThumbnailBuilder.h"
+#include "ImageManager/ThumbnailBuilder.h"
 #include "FastDir.h"
 #include "ImageManager/ThumbnailCache.h"
 
@@ -64,7 +64,7 @@ bool NewImageFinder::findImages()
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
     loadExtraFiles();
 
-    ThumbnailView::ThumbnailBuilder::instance()->buildMissing();
+    ImageManager::ThumbnailBuilder::instance()->buildMissing();
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
     return (!_pendingLoad.isEmpty()); // returns if new images was found.

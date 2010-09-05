@@ -34,7 +34,7 @@
 #include <QCloseEvent>
 #include <QVBoxLayout>
 #include <Q3Frame>
-#include "ThumbnailView/ThumbnailBuilder.h"
+#include "ImageManager/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
 #include <qdir.h>
 #include <qmessagebox.h>
@@ -208,8 +208,8 @@ MainWindow::Window::Window( QWidget* parent )
     // Automatically save toolbar settings
     setAutoSaveSettings();
 
-    new ThumbnailView::ThumbnailBuilder( _statusBar, this );
-    ThumbnailView::ThumbnailBuilder::instance()->buildMissing();
+    new ImageManager::ThumbnailBuilder( _statusBar, this );
+    ImageManager::ThumbnailBuilder::instance()->buildMissing();
 }
 
 MainWindow::Window::~Window()
@@ -1697,7 +1697,7 @@ void MainWindow::Window::showImage( const DB::ResultId& id )
 
 void MainWindow::Window::slotBuildThumbnails()
 {
-    ThumbnailView::ThumbnailBuilder::instance()->buildAll();
+    ImageManager::ThumbnailBuilder::instance()->buildAll();
 }
 
 void MainWindow::Window::slotOrderIncr()

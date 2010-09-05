@@ -29,7 +29,7 @@ namespace MainWindow { class StatusBar; }
 namespace MainWindow { class Window; }
 
 
-namespace ThumbnailView
+namespace ImageManager
 {
 
 class ThumbnailBuilder :public QObject, public ImageManager::ImageClient {

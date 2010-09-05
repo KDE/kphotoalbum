@@ -61,6 +61,7 @@ void MainWindow::StatusBar::setupGUI()
 
     m_cancel = new QToolButton( this );
     m_cancel->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
+    m_cancel->setShortcut( Qt::Key_Escape );
     addPermanentWidget( m_cancel, 0 );
     connect( m_cancel, SIGNAL( clicked() ), this, SIGNAL( cancelRequest() ) );
     connect( m_cancel, SIGNAL( clicked() ), this, SLOT( hideStatusBar() ) );

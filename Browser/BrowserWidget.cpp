@@ -374,6 +374,7 @@ void Browser::BrowserWidget::createWidgets()
     _treeView->header()->setStretchLastSection(false);
     _treeView->header()->setSortIndicatorShown(true);
     _treeView->setSortingEnabled(true);
+    _treeView->sortByColumn( 0, Qt::AscendingOrder );
     _stack->addWidget( _treeView );
 
     // Do not give focus to the widgets when they are scrolled with the wheel.

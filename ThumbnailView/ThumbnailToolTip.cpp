@@ -56,21 +56,29 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
     p.setColor(QPalette::WindowText, Qt::white );
     setPalette(p);
+
+    timer = new QTimer( this );
+    connect(timer, SIGNAL(timeout()), this, SLOT(show()));
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
-    if ( o == _view->viewport() && event->type() == QEvent::Leave )
+    if ( o == _view->viewport() && event->type() == QEvent::Leave ) {
+        timer->stop();
         hide();
+    }
 
-    else if ( event->type() == QEvent::MouseMove )
+    else if ( event->type() == QEvent::MouseMove ) {
         showToolTips( false );
+        timer->start(200);
+    }
     return false;
 }
 
 void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 {
     DB::ResultId id = _view->mediaIdUnderCursor();
+    hide();
     if ( id.isNull() )
         return;
 
@@ -96,7 +104,6 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     }
 
     placeWindow();
-    show();
 }
 
 

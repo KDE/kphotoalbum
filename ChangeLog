@@ -1,3 +1,7 @@
+2010-09-05  Miika Turkia <miika.turkia@gmail.com>
+
+	* Tooltip is shown on thumbnail view only if mouse is idle for 200ms.
+
 2010-08-30  Miika Turkia <miika.turkia@gmail.com>
 
 	* Opening of annotation dialog: sort button selection fits real

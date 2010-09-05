@@ -47,6 +47,7 @@ private:
     QString _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
+    QTimer *timer;
 };
 
 }

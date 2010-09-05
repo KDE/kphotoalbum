@@ -78,6 +78,7 @@ void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
 
 void ThumbnailView::GridResizeInteraction::enterGridReziingMode()
 {
+    ImageManager::ThumbnailBuilder::instance()->cancelRequests();
     m_currentRow = widget()->currentIndex().row();
     widget()->verticalScrollBar()->setValue(0);
 }

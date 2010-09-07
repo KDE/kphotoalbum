@@ -37,8 +37,8 @@
 
 using namespace MainWindow;
 
-AutoStackImages::AutoStackImages( QWidget* parent )
-    :KDialog( parent )
+AutoStackImages::AutoStackImages( QWidget* parent, const DB::Result& list )
+    :KDialog( parent ), _list( list )
 {
     setWindowTitle( i18n("Automatically Stack Images" ) );
     setButtons( Cancel | Ok );
@@ -101,7 +101,7 @@ void AutoStackImages::matchingMD5( DB::Result &toBeShown )
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
-    Q_FOREACH( const DB::ImageInfoPtr info, DB::ImageDB::instance()->images().fetchInfos()) {
+    Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
         QString fileName = info->fileName(DB::AbsolutePath);
         DB::MD5 sum = Utilities::MD5Sum( info->fileName(DB::AbsolutePath) );
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
@@ -151,7 +151,7 @@ void AutoStackImages::matchingMD5( DB::Result &toBeShown )
 void AutoStackImages::continuousShooting(DB::Result &toBeShown )
 {
     DB::ImageInfoPtr prev;
-    Q_FOREACH( const DB::ImageInfoPtr info, DB::ImageDB::instance()->images().fetchInfos() ) {
+    Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
         // Skipping images that do not have exact time stamp
         if ( info->date().start() != info->date().end() )
             continue;

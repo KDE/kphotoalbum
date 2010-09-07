@@ -35,7 +35,7 @@ class AutoStackImages :public KDialog {
     Q_OBJECT
 
 public:
-    AutoStackImages( QWidget* parent );
+    AutoStackImages( QWidget* parent, const DB::Result& list );
 
 protected slots:
     virtual void accept();
@@ -47,6 +47,7 @@ private:
     QRadioButton* _autostackSkip;
     QRadioButton* _autostackDefault;
     QSpinBox* _continuousThreshold;
+    const DB::Result& _list;
     virtual void matchingMD5( DB::Result &toBeShown );
     virtual void continuousShooting( DB::Result &toBeShown );
 };

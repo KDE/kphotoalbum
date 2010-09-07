@@ -1,6 +1,8 @@
 2010-09-07  Miika Turkia <miika.turkia@gmail.com>
 
 	* bugfix: Autostack set to ignore images with no exact timestamp
+	* Autostack affects selected images only (instead of whole database).
+	Thanks to Andreas Neustifter for the patch.
 
 2010-09-05  Miika Turkia <miika.turkia@gmail.com>
 

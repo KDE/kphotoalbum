@@ -533,7 +533,12 @@ void MainWindow::Window::slotReReadExifInfo()
 
 void MainWindow::Window::slotAutoStackImages()
 {
-    AutoStackImages stacker( this );
+    const DB::Result& list = selected();
+    if (list.isEmpty()) {
+        KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
+        return;
+    }
+    AutoStackImages stacker( this, list );
     if ( stacker.exec() == QDialog::Accepted )
         showThumbNails();
 }
@@ -826,8 +831,8 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Read EXIF Info From Files...") );
 #endif
 
-    a = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT ( slotAutoStackImages() ) );
-    a->setText( i18n("Automatically Stack Images...") );
+    _AutoStackImages = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT ( slotAutoStackImages() ) );
+    _AutoStackImages->setText( i18n("Automatically Stack Selected Images...") );
 
 #ifdef SQLDB_SUPPORT
     a = actionCollection()->addAction( QString::fromLatin1("convertBackend"), this, SLOT( convertBackend() ) );
@@ -1233,6 +1238,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     _recreateThumbnails->setEnabled(selectionSize >= 1);
     _rotLeft->setEnabled(selectionSize >= 1);
     _rotRight->setEnabled(selectionSize >= 1);
+    _AutoStackImages->setEnabled(selectionSize > 1);
 }
 
 void MainWindow::Window::rotateSelected( int angle )

@@ -216,6 +216,7 @@ private:
     KAction* _rotLeft;
     KAction* _rotRight;
     KAction* _sortByDateAndTime;
+    KAction* _AutoStackImages;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
     KToggleAction* _smallListView;

@@ -152,6 +152,9 @@ void AutoStackImages::continuousShooting(DB::Result &toBeShown )
 {
     DB::ImageInfoPtr prev;
     Q_FOREACH( const DB::ImageInfoPtr info, DB::ImageDB::instance()->images().fetchInfos() ) {
+        // Skipping images that do not have exact time stamp
+        if ( info->date().start() != info->date().end() )
+            continue;
         if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
             DB::Result stack = DB::Result();
 

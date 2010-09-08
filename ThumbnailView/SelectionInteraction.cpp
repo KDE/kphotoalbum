@@ -42,7 +42,7 @@ bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressPos = event->pos();
     DB::ResultId mediaId = widget()->mediaIdUnderCursor();
-    _isMouseDragOperation = widget()->isSelected( mediaId ) & !( event->modifiers() );
+    _isMouseDragOperation = widget()->isSelected( mediaId ) && !( event->modifiers() );
     return _isMouseDragOperation;
 
 #ifdef KDAB_TEMPORARILY_REMOVED

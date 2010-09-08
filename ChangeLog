@@ -1,3 +1,9 @@
+2010-09-08  Miika Turkia <miika.turkia@gmail.com>
+
+	* Patch to display filter button correctly, enable collapsing super
+	categories, and copying with drag-drop categories (annotation dialog).
+	Thanks to Reimar Imhof for the patch.
+
 2010-09-07  Miika Turkia <miika.turkia@gmail.com>
 
 	* bugfix: Autostack set to ignore images with no exact timestamp

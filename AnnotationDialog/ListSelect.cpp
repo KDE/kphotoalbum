@@ -193,6 +193,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
     } else {
         _and->hide();
         _or->hide();
+	_showSelectedOnly->show();
     }
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
@@ -534,6 +535,7 @@ void AnnotationDialog::ListSelect::populateAlphaTree()
 {
     DB::CategoryItemPtr item = _category->itemsCategories();
 
+    _listView->setRootIsDecorated( true );
     addItems( item.data(), 0 );
     _listView->setSorting( 0 );
 }
@@ -542,6 +544,7 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
 {
     QStringList items = _category->itemsInclCategories();
 
+    _listView->setRootIsDecorated( false );
     for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         CheckDropItem* item = new CheckDropItem( _listView, *itemIt, *itemIt );
         configureItem( item );
@@ -554,6 +557,7 @@ void AnnotationDialog::ListSelect::populateMRU()
 {
     QStringList items = _category->itemsInclCategories();
 
+    _listView->setRootIsDecorated( false );
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         ++index;

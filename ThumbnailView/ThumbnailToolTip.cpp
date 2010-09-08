@@ -116,6 +116,7 @@ void ThumbnailView::ThumbnailToolTip::setActive( bool b )
     }
     else {
         _view->viewport()->removeEventFilter( this );
+        timer->stop();
         hide();
     }
 }

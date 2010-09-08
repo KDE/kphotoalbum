@@ -112,7 +112,7 @@ void ThumbnailView::ThumbnailToolTip::setActive( bool b )
     if ( b ) {
         showToolTips(true);
         _view->viewport()->installEventFilter( this );
-        show();
+        timer->start(200);
     }
     else {
         _view->viewport()->removeEventFilter( this );

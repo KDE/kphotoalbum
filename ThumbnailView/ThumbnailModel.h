@@ -18,6 +18,7 @@
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
 #include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageRequest.h"
 #include <QAbstractListModel>
 #include "ThumbnailComponent.h"
 #include "DB/ResultId.h"
@@ -89,7 +90,8 @@ signals:
 
 
 private: // Methods
-    void requestThumbnail( const DB::ResultId& mediaId );
+    void requestThumbnail( const DB::ResultId& mediaId, const ImageManager::Priority priority );
+    void preloadThumbnails();
 
 private slots:
     void imagesDeletedFromDB( const DB::Result& );

@@ -146,6 +146,7 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::Result& items)
             _allStacks << info->stackId();
     }
     updateDisplayModel();
+    preloadThumbnails();
 }
 
 // TODO(hzeller) figure out if this should return the _imageList or _displayList.
@@ -256,14 +257,14 @@ QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role 
     return QVariant();
 }
 
-void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::ResultId& mediaId )
+void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::ResultId& mediaId, const ImageManager::Priority priority )
 {
     DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
         = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(DB::AbsolutePath), cellSize, angle, this );
-    request->setPriority( ImageManager::ThumbnailVisible );
+    request->setPriority( priority );
     ImageManager::Manager::instance()->load( request );
 }
 
@@ -380,7 +381,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::ResultId& mediaId ) con
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
         return ImageManager::ThumbnailCache::instance()->lookup( fileName );
 
-    const_cast<ThumbnailView::ThumbnailModel*>(this)->requestThumbnail( mediaId );
+    const_cast<ThumbnailView::ThumbnailModel*>(this)->requestThumbnail( mediaId, ImageManager::ThumbnailVisible );
     return QPixmap();
 }
 
@@ -395,5 +396,19 @@ void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
     const int columns = widget()->width() / cellGeometryInfo()->cellSize().width();
     const int rows = widget()->height() / cellGeometryInfo()->cellSize().height();
     _lastVisibleRow = qMin(_firstVisibleRow + columns*(rows+1), rowCount(QModelIndex()));
+}
+
+void ThumbnailView::ThumbnailModel::preloadThumbnails()
+{
+    // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
+    // and maybe also move the caching stuff into the ImageManager
+    Q_FOREACH( const DB::ResultId item, _displayList ) {
+        const DB::ImageInfoPtr imageInfo = item.fetchInfo();
+        const QString fileName = imageInfo->fileName(DB::AbsolutePath);
+
+        if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
+            continue;
+        const_cast<ThumbnailView::ThumbnailModel*>(this)->requestThumbnail( item, ImageManager::ThumbnailInvisible );
+    }
 }
 

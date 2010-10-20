@@ -30,7 +30,8 @@ class RunDialog :public KDialog {
     Q_OBJECT
 
       public:
-        RunDialog( QWidget* parent, QStringList fileList );
+        RunDialog( QWidget* parent );
+        void setImageList( QStringList fileList );
         void show();
 
       protected slots:

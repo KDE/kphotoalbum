@@ -137,7 +137,8 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     // check for the special entry for self-defined
     if (name == i18n("Your Command Line")) {
 
-        static RunDialog* dialog = new RunDialog(MainWindow::Window::theMainWindow(), _list);
+        static RunDialog* dialog = new RunDialog(MainWindow::Window::theMainWindow());
+        dialog->setImageList(_list);
         dialog->show();
 
         return;

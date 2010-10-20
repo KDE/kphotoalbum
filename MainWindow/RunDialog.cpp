@@ -26,8 +26,8 @@
 #include <krun.h>
 #include <kshell.h>
 
-MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
-    : KDialog( parent ), _fileList(fileList)
+MainWindow::RunDialog::RunDialog( QWidget* parent )
+    : KDialog( parent )
 {
     QWidget* top = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout( top );
@@ -54,6 +54,11 @@ MainWindow::RunDialog::RunDialog( QWidget* parent, QStringList fileList )
     label->setWhatsThis(txt);
 
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMarkGo() ) );
+}
+
+void MainWindow::RunDialog::setImageList( QStringList fileList )
+{
+    _fileList = fileList;
 }
 
 void MainWindow::RunDialog::slotMarkGo( )

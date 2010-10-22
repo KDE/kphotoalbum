@@ -40,6 +40,7 @@ void checkForBackupFile( const QString& fileName );
 bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );
 void copyList( const QStringList& from, const QString& directoryTo );
+bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );
 bool runningDemo();
 void deleteDemo();

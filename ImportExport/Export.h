@@ -35,7 +35,7 @@ class Q3ProgressDialog;
 namespace ImportExport
 {
 
-enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
+enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link, Symlink };
 
 class Export :public ImageManager::ImageClient {
 
@@ -89,6 +89,7 @@ private:
     QRadioButton* _include;
     QRadioButton* _manually;
     QRadioButton* _link;
+    QRadioButton* _symlink;
     QRadioButton* _auto;
 };
 

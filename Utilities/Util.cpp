@@ -346,6 +346,14 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
+bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
+{
+    if (symlink(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
+        return false;
+    else
+        return true;
+}
+
 bool Utilities::canReadImage( const QString& fileName )
 {
     return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, true )->name() ).isEmpty() ||

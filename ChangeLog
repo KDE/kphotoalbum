@@ -1,5 +1,8 @@
 2010-10-22  Jesper K. Pedersen  <blackie@kdab.com>
 
+	* Added "Export by symlink" to the export dialog. Thanks to Robert
+	Krawitz for a patch.
+
 	* Bugfix: If you right click on an
 	image in the viewer and accidentally hover over Run Program (on the
 	selection), it is extremely slow. Thanks to Robert Krawitz for a patch

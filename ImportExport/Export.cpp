@@ -85,12 +85,14 @@ ExportConfig::ExportConfig()
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
     _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
     _link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
+    _symlink = new QRadioButton( i18n("Symbolic link next to .kim file"), grp );
     _manually->setChecked( true );
 
     boxLay->addWidget( _include );
     boxLay->addWidget( _manually );
     boxLay->addWidget( _auto );
     boxLay->addWidget( _link );
+    boxLay->addWidget( _symlink );
 
     // Compress
     _compress = new QCheckBox( i18n("Compress export file"), top );
@@ -151,6 +153,7 @@ ExportConfig::ExportConfig()
     _include->setWhatsThis( txt );
     _manually->setWhatsThis( txt );
     _link->setWhatsThis( txt );
+    _symlink->setWhatsThis( txt );
     _auto->setWhatsThis( txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
@@ -163,6 +166,8 @@ ImageFileLocation ExportConfig::imageFileLocation() const
         return ManualCopy;
     else if ( _link->isChecked() )
         return Link;
+    else if ( _symlink->isChecked() )
+        return Symlink;
     else
         return AutoCopy;
 }
@@ -270,6 +275,8 @@ void Export::copyImages(const DB::Result& list)
                 Utilities::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( _location == Link )
                 Utilities::makeHardLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+            else if ( _location == Symlink )
+                Utilities::makeSymbolicLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
 
             _steps++;
             _progressDialog->setProgress( _steps );

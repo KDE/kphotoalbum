@@ -167,14 +167,21 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
 
 QString MainWindow::ExternalPopup::mimeType( const QString& file )
 {
-    return KFileItem( KFileItem::Unknown, KFileItem::Unknown, KUrl(file) ).mimetype();
+    return KMimeType::findByPath(file, 0, true)->name();
 }
 
 Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
 {
     StringSet res;
+    StringSet extensions;
     for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
-        res.insert( mimeType( *fileIt ) );
+       QString baseFileName = *fileIt;
+       int extStart = baseFileName.lastIndexOf(QChar::fromLatin1('.'));
+       baseFileName.remove(0, extStart);
+       if (! extensions.contains(baseFileName)) {
+           res.insert( mimeType( *fileIt ) );
+           extensions.insert( baseFileName );
+       }
     }
     return res;
 }

@@ -1,3 +1,9 @@
+2010-10-22  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Bugfix: If you right click on an
+	image in the viewer and accidentally hover over Run Program (on the
+	selection), it is extremely slow. Thanks to Robert Krawitz for a patch
+
 2010-09-08  Miika Turkia <miika.turkia@gmail.com>
 
 	* Patch to display filter button correctly, enable collapsing super

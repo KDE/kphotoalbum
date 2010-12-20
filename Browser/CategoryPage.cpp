@@ -49,7 +49,7 @@ Browser::BrowserPage* Browser::CategoryPage::activateChild( const QModelIndex& i
     DB::ImageSearchInfo info = searchInfo();
 
     info.addAnd( _category->name(), name );
-    if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+    if (static_cast<uint>(DB::ImageDB::instance()->search(info).size()) <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
         browser()->addAction( new Browser::OverviewPage( Breadcrumb(name), info, browser() ) );
         return new ImageViewPage( info, browser() );
     } else

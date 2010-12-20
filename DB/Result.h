@@ -76,7 +76,7 @@ class Result
     Result reversed() const;
 
     DB::ResultId at(int index) const;
-    int size() const;
+    uint size() const;
     bool isEmpty() const;
     int indexOf(const DB::ResultId&) const;
     ConstIterator begin() const;

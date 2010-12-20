@@ -60,7 +60,7 @@ DB::ResultId DB::Result::at(int index) const
     return DB::ResultId(_items[index], *this);
 }
 
-int DB::Result::size() const
+uint DB::Result::size() const
 {
     return _items.size();
 }

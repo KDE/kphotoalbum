@@ -80,7 +80,7 @@ void HTMLGenerator::Generator::generate()
         if ( !ok )
             return;
         const DB::Result& imageList = _setup.imageList();
-        for (int index = 0; index < imageList.size(); ++index) {
+        for (uint index = 0; index < imageList.size(); ++index) {
             DB::ResultId current = imageList.at(index);
             DB::ResultId prev;
             DB::ResultId next;

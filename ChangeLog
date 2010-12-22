@@ -1,3 +1,7 @@
+2010-12-22  Miika Turkia <miika.turkia@gmail.com>
+
+	* Fixed bugs #255286 and #237889, crashes on missing exif information
+
 2010-10-22  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Added "Export by symlink" to the export dialog. Thanks to Robert

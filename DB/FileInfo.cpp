@@ -86,7 +86,9 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     if ( map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != map.end() ) {
         const Exiv2::Exifdatum& datum = map["Exif.Image.Orientation"];
 
-        int orientation =  datum.toLong();
+        int orientation = 0;
+        if (datum.count() > 0)
+            orientation =  datum.toLong();
         _angle = orientationToAngle( orientation );
     }
 

@@ -70,7 +70,10 @@ QString Exif::IntExifElement::queryString()
 
 void Exif::IntExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
 {
-    query->bindValue( counter++, (int) data[_tag].toLong() );
+    if (data[_tag].count() > 0)
+        query->bindValue( counter++, (int) data[_tag].toLong() );
+    else
+        query->bindValue( counter++, (int) 0 );
 }
 
 

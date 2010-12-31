@@ -34,30 +34,30 @@ public:
     static ThumbnailFacade* instance();
     ThumbnailFacade();
     QWidget* gui();
-    void setCurrentItem( const DB::ResultId& id );
+    void setCurrentItem( const DB::Id& id );
     void reload( bool clearSelection=true );
-    DB::Result selection() const;
-    DB::Result imageList(Order) const;
-    DB::ResultId mediaIdUnderCursor() const;
-    DB::ResultId currentItem() const;
-    void setImageList(const DB::Result& list);
+    DB::IdList selection() const;
+    DB::IdList imageList(Order) const;
+    DB::Id mediaIdUnderCursor() const;
+    DB::Id currentItem() const;
+    void setImageList(const DB::IdList& list);
     void setSortDirection( SortDirection );
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
-    void toggleStackExpansion(const DB::ResultId& id);
+    void toggleStackExpansion(const DB::Id& id);
     void collapseAllStacks();
     void expandAllStacks();
     void updateDisplayModel();
-    void changeSingleSelection(const DB::ResultId& id);
+    void changeSingleSelection(const DB::Id& id);
     void slotRecreateThumbnail();
 
 signals:
-    void showImage( const DB::ResultId& id );
+    void showImage( const DB::Id& id );
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::ResultId& id );
+    void fileIdUnderCursorChanged( const DB::Id& id );
     void currentDateChanged( const QDateTime& );
     void selectionChanged(int numberOfItemsSelected );
     void collapseAllStacksEnabled(bool enabled);

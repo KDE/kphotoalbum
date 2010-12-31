@@ -18,7 +18,7 @@
 #ifndef THUMBNAILCOMPONENT_H
 #define THUMBNAILCOMPONENT_H
 
-namespace DB {class ResultId; }
+namespace DB {class Id; }
 
 namespace ThumbnailView
 {

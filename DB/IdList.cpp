@@ -15,101 +15,101 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "Result.h"
-#include "ResultId.h"
+#include "IdList.h"
+#include "Id.h"
 #include "ImageInfo.h"
 
-DB::Result::ConstIterator::ConstIterator( const Result* result, int pos )
+DB::IdList::ConstIterator::ConstIterator( const IdList* result, int pos )
     :_result(result), _pos(pos)
 {
 }
 
-DB::Result::ConstIterator& DB::Result::ConstIterator::operator++()
+DB::IdList::ConstIterator& DB::IdList::ConstIterator::operator++()
 {
     ++_pos;
     return *this;
 }
 
-DB::ResultId DB::Result::ConstIterator::operator*()
+DB::Id DB::IdList::ConstIterator::operator*()
 {
     return _result->at(_pos);
 }
 
-DB::Result::ConstIterator DB::Result::begin() const
+DB::IdList::ConstIterator DB::IdList::begin() const
 {
-    return DB::Result::ConstIterator(this, 0);
+    return DB::IdList::ConstIterator(this, 0);
 }
 
-DB::Result::ConstIterator DB::Result::end() const
+DB::IdList::ConstIterator DB::IdList::end() const
 {
-    return DB::Result::ConstIterator( this, size() );
+    return DB::IdList::ConstIterator( this, size() );
 }
 
-bool DB::Result::ConstIterator::operator==( const ConstIterator& other ) const
+bool DB::IdList::ConstIterator::operator==( const ConstIterator& other ) const
 {
     return _pos == other._pos;
 }
 
-bool DB::Result::ConstIterator::operator!=( const ConstIterator& other ) const
+bool DB::IdList::ConstIterator::operator!=( const ConstIterator& other ) const
 {
     return _pos != other._pos;
 }
 
-DB::ResultId DB::Result::at(int index) const
+DB::Id DB::IdList::at(int index) const
 {
-    return DB::ResultId(_items[index], *this);
+    return DB::Id(_items[index], *this);
 }
 
-uint DB::Result::size() const
+uint DB::IdList::size() const
 {
     return _items.size();
 }
 
-int DB::Result::indexOf(const DB::ResultId& id) const
+int DB::IdList::indexOf(const DB::Id& id) const
 {
     return _items.indexOf(id.rawId());
 }
 
-DB::Result::Result(const QList<DB::RawId>& ids)
+DB::IdList::IdList(const QList<DB::RawId>& ids)
     :_items(ids)
 {
 }
 
-DB::Result::Result( const DB::ResultId& id) {
+DB::IdList::IdList( const DB::Id& id) {
     _items.push_back(id.rawId());
 }
 
-DB::Result::Result()
+DB::IdList::IdList()
 {
 }
 
-void DB::Result::debug() const
+void DB::IdList::debug() const
 {
     qDebug() << "Size: " << size();
     qDebug() << _items;
 }
 
-void DB::Result::append( const DB::ResultId& id)
+void DB::IdList::append( const DB::Id& id)
 {
     _items.append(id.rawId());
 }
 
-void DB::Result::prepend( const DB::ResultId& id)
+void DB::IdList::prepend( const DB::Id& id)
 {
     _items.prepend(id.rawId());
 }
 
-void DB::Result::removeAll(const DB::ResultId& id)
+void DB::IdList::removeAll(const DB::Id& id)
 {
     _items.removeAll(id.rawId());
 }
 
-bool DB::Result::isEmpty() const
+bool DB::IdList::isEmpty() const
 {
     return _items.isEmpty();
 }
 
-QList<DB::ImageInfoPtr> DB::Result::fetchInfos() const
+QList<DB::ImageInfoPtr> DB::IdList::fetchInfos() const
 {
     QList<DB::ImageInfoPtr> infos;
     for (const_iterator i = begin(); i != end(); ++i)
@@ -117,15 +117,15 @@ QList<DB::ImageInfoPtr> DB::Result::fetchInfos() const
     return infos;
 }
 
-const QList<DB::RawId>& DB::Result::rawIdList() const
+const QList<DB::RawId>& DB::IdList::rawIdList() const
 {
     return _items;
 }
 
-DB::Result DB::Result::reversed() const
+DB::IdList DB::IdList::reversed() const
 {
-    Result res;
-    Q_FOREACH(ResultId id, *this) {
+    IdList res;
+    Q_FOREACH(Id id, *this) {
         res.prepend(id);
     }
     return res;

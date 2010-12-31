@@ -20,7 +20,7 @@
 #define AUTOSTACKIMAGES_H
 
 #include <KDialog>
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include "DB/MD5Map.h"
 #include <qspinbox.h>
 #include <qtextedit.h>
@@ -35,7 +35,7 @@ class AutoStackImages :public KDialog {
     Q_OBJECT
 
 public:
-    AutoStackImages( QWidget* parent, const DB::Result& list );
+    AutoStackImages( QWidget* parent, const DB::IdList& list );
 
 protected slots:
     virtual void accept();
@@ -47,9 +47,9 @@ private:
     QRadioButton* _autostackSkip;
     QRadioButton* _autostackDefault;
     QSpinBox* _continuousThreshold;
-    const DB::Result& _list;
-    virtual void matchingMD5( DB::Result &toBeShown );
-    virtual void continuousShooting( DB::Result &toBeShown );
+    const DB::IdList& _list;
+    virtual void matchingMD5( DB::IdList &toBeShown );
+    virtual void continuousShooting( DB::IdList &toBeShown );
 };
 
 }

@@ -38,8 +38,8 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        const DB::Result selection = widget()->selection();
-        for( DB::Result::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
+        const DB::IdList selection = widget()->selection();
+        for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
             DB::ImageInfoPtr info = (*it).fetchInfo();
             if ( ! hadHit ) {
                 mustRemoveToken = info->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
@@ -61,8 +61,8 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            const DB::Result selection = widget()->selection();
-            for( DB::Result::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
+            const DB::IdList selection = widget()->selection();
+            for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
                 DB::ImageInfoPtr info = (*it).fetchInfo();
                 info->setRating(rating * 2);
             }

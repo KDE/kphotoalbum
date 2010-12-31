@@ -26,7 +26,7 @@ class QLabel;
 class QKeyEvent;
 class QResizeEvent;
 
-namespace DB { class ResultId; }
+namespace DB { class Id; }
 
 namespace Exif
 {
@@ -36,7 +36,7 @@ class InfoDialog : public KDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    InfoDialog( const DB::ResultId& id, QWidget* parent );
+    InfoDialog( const DB::Id& id, QWidget* parent );
 
     virtual QSize sizeHint() const;
 

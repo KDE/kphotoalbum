@@ -26,7 +26,7 @@ class QPixmap;
 class QRect;
 class QSize;
 
-namespace DB { class ResultId; }
+namespace DB { class Id; }
 
 namespace ThumbnailView
 {

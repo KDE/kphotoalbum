@@ -534,7 +534,7 @@ void Viewer::ViewerWidget::showNext()
 void Viewer::ViewerWidget::removeCurrent()
 {
     const QString fileName = _list[_current];
-    const DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
 
     _list.removeAll(fileName);
     if ( _current == _list.count() )
@@ -546,7 +546,7 @@ void Viewer::ViewerWidget::removeCurrent()
 void Viewer::ViewerWidget::deleteCurrent()
 {
     const QString fileName = _list[_current];
-    const DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
 
     _removed.append(id);
     _list.removeAll(fileName);

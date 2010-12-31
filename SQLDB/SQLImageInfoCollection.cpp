@@ -81,7 +81,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     return p;
 }
 
-DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) const
+DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::Id& id) const
 {
     Q_ASSERT(!id.isNull());
 
@@ -91,7 +91,7 @@ DB::ImageInfoPtr SQLImageInfoCollection::getImageInfoOf(const DB::ResultId& id) 
     DB::ImageInfoPtr p = _infoPointers[id.rawId()];
     if (!p) {
         QList<DB::RawId> prefetchIdList;
-        const DB::Result context = id.context();
+        const DB::IdList context = id.context();
         if (!context.isEmpty()) {
             const int contextSize = context.size();
             const int rawIdIndex = context.indexOf(id);

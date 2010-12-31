@@ -28,7 +28,7 @@
 #include <KTempDir>
 #include "Utilities/Set.h"
 
-namespace DB { class ResultId; }
+namespace DB { class Id; }
 
 namespace HTMLGenerator
 {
@@ -49,7 +49,7 @@ protected slots:
 protected:
     bool generateIndexPage( int width, int height );
     bool generateContentPage( int width, int height,
-                              const DB::ResultId& prevInfo, const DB::ResultId& current, const DB::ResultId& nextInfo );
+                              const DB::Id& prevInfo, const DB::Id& current, const DB::Id& nextInfo );
     bool linkIndexFile();
     QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
 
@@ -57,7 +57,7 @@ public:
     QString namePage( int width, int height, const QString& fileName );
     QString nameImage( const QString& fileName, int size );
 
-    QString createImage( const DB::ResultId& id, int size );
+    QString createImage( const DB::Id& id, int size );
     QString createVideo( const QString& fileName );
 
     QString kimFileName( bool relative );

@@ -79,11 +79,11 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        const DB::Result& imageList = _setup.imageList();
+        const DB::IdList& imageList = _setup.imageList();
         for (uint index = 0; index < imageList.size(); ++index) {
-            DB::ResultId current = imageList.at(index);
-            DB::ResultId prev;
-            DB::ResultId next;
+            DB::Id current = imageList.at(index);
+            DB::Id prev;
+            DB::Id next;
             if ( index != 0 )
                 prev = imageList.at(index - 1);
             if (index != imageList.size() - 1)
@@ -96,7 +96,7 @@ void HTMLGenerator::Generator::generate()
     }
 
     // Now generate the thumbnail images
-    Q_FOREACH(DB::ResultId id, _setup.imageList()) {
+    Q_FOREACH(DB::Id id, _setup.imageList()) {
         if ( wasCanceled() )
             return;
 
@@ -302,7 +302,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 }
 
 bool HTMLGenerator::Generator::generateContentPage( int width, int height,
-                                                    const DB::ResultId& prev, const DB::ResultId& current, const DB::ResultId& next )
+                                                    const DB::Id& prev, const DB::Id& current, const DB::Id& next )
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
@@ -455,7 +455,7 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
         return QString::fromLatin1( "%1-%2.jpg" ).arg( base ).arg( size );
 }
 
-QString HTMLGenerator::Generator::createImage( const DB::ResultId& id, int size )
+QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
 {
     DB::ImageInfoPtr info = id.fetchInfo();
     const QString fileName = info->fileName(DB::AbsolutePath);

@@ -477,7 +477,7 @@ void HTMLDialog::populateThemesCombo()
     }
 }
 
-int HTMLDialog::exec(const DB::Result& list)
+int HTMLDialog::exec(const DB::IdList& list)
 {
     _list = list;
     return KDialog::exec();

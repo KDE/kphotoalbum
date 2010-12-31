@@ -28,7 +28,7 @@
 class QTimer;
 class QDateTime;
 
-namespace DB { class ImageDate; class ResultId; }
+namespace DB { class ImageDate; class Id; }
 
 
 namespace ThumbnailView
@@ -47,27 +47,27 @@ public:
     ThumbnailWidget( ThumbnailFactory* factory );
 
     void reload( bool clearSelection=true );
-    DB::ResultId mediaIdUnderCursor() const;
+    DB::Id mediaIdUnderCursor() const;
     QModelIndex indexUnderCursor() const;
 
     bool isMouseOverStackIndicator( const QPoint& point );
     bool isGridResizing() const;
-    void setCurrentItem(  const DB::ResultId& id );
-    void changeSingleSelection(const DB::ResultId& id);
+    void setCurrentItem(  const DB::Id& id );
+    void changeSingleSelection(const DB::Id& id);
 
     // Misc
     int cellWidth() const;
     OVERRIDE void showEvent( QShowEvent* );
-    DB::Result selection() const;
-    bool isSelected( const DB::ResultId& id ) const;
+    DB::IdList selection() const;
+    bool isSelected( const DB::Id& id ) const;
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
 
 signals:
-    void showImage( const DB::ResultId& id );
+    void showImage( const DB::Id& id );
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::ResultId& id );
+    void fileIdUnderCursorChanged( const DB::Id& id );
     void currentDateChanged( const QDateTime& );
     void selectionCountChanged(int numberOfItemsSelected );
 

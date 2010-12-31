@@ -35,12 +35,12 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade()
     _widget = new ThumbnailWidget(this);
     _toolTip = new ThumbnailToolTip( _widget );
 
-    connect( _widget, SIGNAL( showImage( const DB::ResultId& ) ),
-             this, SIGNAL( showImage( const DB::ResultId& ) ) );
+    connect( _widget, SIGNAL( showImage( const DB::Id& ) ),
+             this, SIGNAL( showImage( const DB::Id& ) ) );
     connect( _widget, SIGNAL( showSelection() ),
              this, SIGNAL( showSelection() ) );
-    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId& ) ),
-             this, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId&  ) ) );
+    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ),
+             this, SIGNAL( fileIdUnderCursorChanged( const DB::Id&  ) ) );
     connect( _widget, SIGNAL( currentDateChanged( const QDateTime& ) ),
              this, SIGNAL( currentDateChanged( const QDateTime& ) ) );
     connect( _widget, SIGNAL( selectionCountChanged(int) ),
@@ -63,7 +63,7 @@ void ThumbnailView::ThumbnailFacade::gotoDate( const DB::ImageDate& date, bool b
     _widget->gotoDate( date, b );
 }
 
-void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::ResultId& id )
+void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::Id& id )
 {
     widget()->setCurrentItem( id );
 }
@@ -73,27 +73,27 @@ void ThumbnailView::ThumbnailFacade::reload(  bool clearSelection)
     _widget->reload( clearSelection );
 }
 
-DB::Result ThumbnailView::ThumbnailFacade::selection() const
+DB::IdList ThumbnailView::ThumbnailFacade::selection() const
 {
     return _widget->selection();
 }
 
-DB::Result ThumbnailView::ThumbnailFacade::imageList(Order order) const
+DB::IdList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 {
     return _model->imageList(order);
 }
 
-DB::ResultId ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
+DB::Id ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 {
     return _widget->mediaIdUnderCursor();
 }
 
-DB::ResultId ThumbnailView::ThumbnailFacade::currentItem() const
+DB::Id ThumbnailView::ThumbnailFacade::currentItem() const
 {
     return _model->imageAt(_widget->currentIndex().row());
 }
 
-void ThumbnailView::ThumbnailFacade::setImageList(const DB::Result& list)
+void ThumbnailView::ThumbnailFacade::setImageList(const DB::IdList& list)
 {
     _model->setImageList( list );
 }
@@ -113,7 +113,7 @@ void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
     _toolTip->setActive( on );
 }
 
-void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::ResultId& id)
+void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::Id& id)
 {
     _model->toggleStackExpansion(id);
 }
@@ -133,7 +133,7 @@ void ThumbnailView::ThumbnailFacade::updateDisplayModel()
     _model->updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::ResultId& id)
+void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::Id& id)
 {
     _widget->changeSingleSelection(id);
 }
@@ -165,7 +165,7 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::ResultId& id, widget()->selection() ) {
+    Q_FOREACH( const DB::Id& id, widget()->selection() ) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         const QString fileName = info->fileName(DB::AbsolutePath);
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );

@@ -17,7 +17,7 @@
 */
 #ifndef THUMBNAILVIEW_ENUMS_H
 #define THUMBNAILVIEW_ENUMS_H
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include <QSet>
 
 namespace ThumbnailView
@@ -27,7 +27,7 @@ enum Order { ViewOrder, SortedOrder };
 enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
 enum VisibleState { FullyVisible, PartlyVisible };
 
-typedef QSet<DB::ResultId> IdSet;
+typedef QSet<DB::Id> IdSet;
 }
 
 #endif /* THUMBNAILVIEW_ENUMS_H */

@@ -21,8 +21,8 @@
 #include "ImageManager/ThumbnailCache.h"
 
 #include "DB/ImageDB.h"
-#include "DB/ResultId.h"
-#include "DB/Result.h"
+#include "DB/Id.h"
+#include "DB/IdList.h"
 
 #include <qfileinfo.h>
 #include <QStringList>
@@ -234,9 +234,9 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         DB::ImageDB::instance()->addImages( newImages );
 
         // stack the files together
-        DB::ResultId olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
-        DB::ResultId newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
-        DB::Result tostack = DB::Result();
+        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
+        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
+        DB::IdList tostack = DB::IdList();
 
         tostack.append(newerfile);
         tostack.append(olderfile);
@@ -254,7 +254,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 }
 
 bool  NewImageFinder::calculateMD5sums(
-    const DB::Result& list,
+    const DB::IdList& list,
     DB::MD5Map* md5Map,
     bool* wasCanceled)
 {

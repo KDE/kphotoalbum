@@ -18,7 +18,7 @@
 #include "XMLHandler.h"
 #include <qdom.h>
 #include "Utilities/Util.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 
 using Utilities::StringSet;
 
@@ -36,7 +36,7 @@ using Utilities::StringSet;
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
 QByteArray ImportExport::XMLHandler::createIndexXML(
-    const DB::Result& images,
+    const DB::IdList& images,
     const QString& baseUrl,
     ImageFileLocation location,
     Utilities::UniqFilenameMapper* nameMap)

@@ -23,7 +23,7 @@
 #include <qdom.h>
 
 namespace Utilities { class UniqFilenameMapper; }
-namespace DB { class Result; }
+namespace DB { class IdList; }
 
 namespace ImportExport
 {
@@ -31,7 +31,7 @@ class XMLHandler
 {
 public:
     QByteArray createIndexXML(
-        const DB::Result& images,
+        const DB::IdList& images,
         const QString& baseUrl,
         ImageFileLocation location,
         Utilities::UniqFilenameMapper* nameMap);

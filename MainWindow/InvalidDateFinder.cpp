@@ -24,7 +24,7 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include "MainWindow/Window.h"
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -79,15 +79,15 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    DB::Result list = DB::ImageDB::instance()->images();
-    DB::Result toBeShown;
+    DB::IdList list = DB::ImageDB::instance()->images();
+    DB::IdList toBeShown;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
     dialog.progressBar()->setMaximum(list.size());
     dialog.progressBar()->setValue(0);
     int progress = 0;
 
-    Q_FOREACH(DB::ResultId id, list) {
+    Q_FOREACH(DB::Id id, list) {
         DB::ImageInfoPtr info = id.fetchInfo();
         dialog.progressBar()->setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );

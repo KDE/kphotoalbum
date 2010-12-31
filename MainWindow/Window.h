@@ -60,8 +60,8 @@ class KActionMenu;
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
-#include "DB/Result.h"
-#include "DB/ResultId.h"
+#include "DB/IdList.h"
+#include "DB/Id.h"
 
 namespace Plugins { class Interface; }
 namespace ThumbnailView { class ThumbnailFacade; }
@@ -86,13 +86,13 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::Result selected();
+    DB::IdList selected();
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
-    void setStackHead( const DB::ResultId image );
+    void setStackHead( const DB::Id image );
 
 public slots:
-    void showThumbNails(const DB::Result& items);
+    void showThumbNails(const DB::IdList& items);
     void loadPlugins();
 
 protected slots:
@@ -127,7 +127,7 @@ protected slots:
     void unlockFromDefaultScope();
     void changePassword();
     void slotConfigureKeyBindings();
-    void slotSetFileName( const DB::ResultId& );
+    void slotSetFileName( const DB::Id& );
     void updateContextMenuFromSelectionSize(int selectionSize);
     void reloadThumbnails();
     void slotUpdateViewMenu( DB::Category::ViewType );
@@ -159,7 +159,7 @@ protected slots:
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();
-    void showImage( const DB::ResultId& fileName );
+    void showImage( const DB::Id& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
     void slotRotateSelectedLeft();
@@ -182,9 +182,9 @@ protected:
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    DB::Result selectedOnDisk();
+    DB::IdList selectedOnDisk();
     void setupPluginMenu();
-    void launchViewer(const DB::Result& mediaList, bool reuse, bool slideShow, bool random);
+    void launchViewer(const DB::IdList& mediaList, bool reuse, bool slideShow, bool random);
     void setupStatusBar();
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSarchBar();

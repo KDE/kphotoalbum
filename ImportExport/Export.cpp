@@ -27,7 +27,7 @@
 #include <time.h>
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfo.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
 #include <qlayout.h>
@@ -42,7 +42,7 @@
 
 using namespace ImportExport;
 
-void Export::imageExport(const DB::Result& list)
+void Export::imageExport(const DB::IdList& list)
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -174,7 +174,7 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 
 
 Export::Export(
-    const DB::Result& list,
+    const DB::IdList& list,
     const QString& zipFile,
     bool compress,
     int maxSize,
@@ -234,7 +234,7 @@ Export::Export(
 }
 
 
-void Export::generateThumbnails(const DB::Result& list)
+void Export::generateThumbnails(const DB::IdList& list)
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
@@ -251,7 +251,7 @@ void Export::generateThumbnails(const DB::Result& list)
     }
 }
 
-void Export::copyImages(const DB::Result& list)
+void Export::copyImages(const DB::IdList& list)
 {
     Q_ASSERT( _location != ManualCopy );
 

@@ -39,7 +39,7 @@ namespace SQLDB {
         OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
-        OVERRIDE DB::Result search(
+        OVERRIDE DB::IdList search(
             const DB::ImageSearchInfo&,
             bool requireOnDisk=false) const;
 
@@ -48,44 +48,44 @@ namespace SQLDB {
         OVERRIDE QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
                                              const QString& category,
                                              DB::MediaType typemask);
-        OVERRIDE DB::Result images();
+        OVERRIDE DB::IdList images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const QString& newName );
 
-        OVERRIDE void addToBlockList(const DB::Result& list);
+        OVERRIDE void addToBlockList(const DB::IdList& list);
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList(const DB::Result& list);
+        OVERRIDE void deleteList(const DB::IdList& list);
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
-        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
 
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
-        OVERRIDE void sortAndMergeBackIn(const DB::Result& idList);
+        OVERRIDE void sortAndMergeBackIn(const DB::IdList& idList);
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
 
         OVERRIDE void reorder(
-            const DB::ResultId& item,
-            const DB::Result& cutList,
+            const DB::Id& item,
+            const DB::IdList& cutList,
             bool after);
 
-        OVERRIDE DB::ResultId findFirstItemInRange(const DB::Result& images,
+        OVERRIDE DB::Id findFirstItemInRange(const DB::IdList& images,
                                                    const DB::ImageDate& range,
                                                    bool includeRanges) const;
 
-        OVERRIDE QStringList CONVERT(const DB::Result&);
-        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
+        OVERRIDE QStringList CONVERT(const DB::IdList&);
+        OVERRIDE DB::Id ID_FOR_FILE( const QString& ) const;
 
-        OVERRIDE bool stack(const DB::Result& items);
-        OVERRIDE void unstack(const DB::Result& items);
-        OVERRIDE DB::Result getStackFor(const DB::ResultId& referenceFile) const;
+        OVERRIDE bool stack(const DB::IdList& items);
+        OVERRIDE void unstack(const DB::IdList& items);
+        OVERRIDE DB::IdList getStackFor(const DB::Id& referenceFile) const;
 
     protected slots:
         OVERRIDE void lockDB( bool lock, bool exclude );
 
     protected:
-        DB::Result imageList();
+        DB::IdList imageList();
 
 
     private:

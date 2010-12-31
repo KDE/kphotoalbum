@@ -36,7 +36,7 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"
@@ -83,7 +83,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::ResultId ) ) );
+    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::Id ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::Id ) ) );
     connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
 
     updatePalette();
@@ -191,7 +191,7 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
         model()->toggleStackExpansion( mediaIdUnderCursor() );
         m_pressOnStackIndicator = true;
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
-        DB::ResultId id = mediaIdUnderCursor();
+        DB::Id id = mediaIdUnderCursor();
         if ( !id.isNull() )
             emit showImage( id );
     }
@@ -226,7 +226,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
     if (row == -1)
 	return;
 
-    DB::ResultId id = model()->imageAt( row );
+    DB::Id id = model()->imageAt( row );
     if ( id.isNull() )
         return;
 
@@ -259,7 +259,7 @@ void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y)
 void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
-    DB::ResultId candidate = DB::ImageDB::instance()
+    DB::Id candidate = DB::ImageDB::instance()
                              ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
     if ( !candidate.isNull() )
         widget()->setCurrentItem( candidate );
@@ -278,13 +278,13 @@ void ThumbnailView::ThumbnailWidget::reload(bool clearSelection)
     ThumbnailComponent::model()->reset();
 }
 
-DB::ResultId ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
+DB::Id ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
     const QModelIndex index = indexUnderCursor();
     if ( index.isValid() )
         return model()->imageAt( index.row() );
     else
-        return DB::ResultId();
+        return DB::Id();
 }
 
 QModelIndex ThumbnailView::ThumbnailWidget::indexUnderCursor() const
@@ -314,7 +314,7 @@ void ThumbnailView::ThumbnailWidget::dragEnterEvent( QDragEnterEvent * event )
     _dndHandler->contentsDragEnterEvent( event );
 }
 
-void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::ResultId& id )
+void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::Id& id )
 {
     const int row = model()->indexOf(id);
     setCurrentIndex( QListView::model()->index( row, 0 ) );
@@ -362,16 +362,16 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )
     QListView::showEvent( event );
 }
 
-DB::Result ThumbnailView::ThumbnailWidget::selection() const
+DB::IdList ThumbnailView::ThumbnailWidget::selection() const
 {
-    DB::Result res;
+    DB::IdList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
         res.append(model()->imageAt( index.row() ));
     }
     return res;
 }
 
-bool ThumbnailView::ThumbnailWidget::isSelected( const DB::ResultId& id ) const
+bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
 {
     return selectedIndexes().contains( model()->idToIndex(id) );
 }
@@ -381,7 +381,7 @@ bool ThumbnailView::ThumbnailWidget::isSelected( const DB::ResultId& id ) const
    if there only are one item selected. This is used from the Viewer when
    you start it without a selection, and are going forward or backward.
 */
-void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::ResultId& id)
+void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::Id& id)
 {
     if ( selection().size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();

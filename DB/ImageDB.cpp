@@ -22,7 +22,7 @@
 #include <QList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include <QProgressBar>
 #include <qapplication.h>
 #include "NewImageFinder.h"
@@ -81,7 +81,7 @@ QString ImageDB::NONE()
     return QString::fromLatin1("**NONE**");
 }
 
-DB::Result ImageDB::currentScope(bool requireOnDisk) const
+DB::IdList ImageDB::currentScope(bool requireOnDisk) const
 {
     // TODO: DEPENDENCY: DB:: should not depend on other directories.
     return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
@@ -112,9 +112,9 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums(const DB::Result& inputList)
+void ImageDB::slotRecalcCheckSums(const DB::IdList& inputList)
 {
-    DB::Result list = inputList;
+    DB::IdList list = inputList;
     if (list.isEmpty()) {
         list = images();
         md5Map()->clear();
@@ -163,7 +163,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 
 void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
-    const DB::Result allImages = images();
+    const DB::IdList allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
@@ -235,13 +235,13 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
     }
 }
 
-DB::ResultId ImageDB::findFirstItemInRange(const DB::Result& images,
+DB::Id ImageDB::findFirstItemInRange(const DB::IdList& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {
-    DB::ResultId candidate;
+    DB::Id candidate;
     QDateTime candidateDateStart;
-    Q_FOREACH(DB::ResultId id, images) {
+    Q_FOREACH(DB::Id id, images) {
         ImageInfoPtr iInfo = id.fetchInfo();
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);

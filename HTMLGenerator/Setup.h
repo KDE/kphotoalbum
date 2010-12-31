@@ -21,7 +21,7 @@
 #include <qstring.h>
 #include <qmap.h>
 #include <QList>
-#include "DB/Result.h"
+#include "DB/IdList.h"
 
 namespace HTMLGenerator
 {
@@ -74,8 +74,8 @@ public:
      void setResolutions( const QList<ImageSizeCheckBox*>& sizes );
      const QList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
 
-    void setImageList(const DB::Result& files);
-    DB::Result imageList() const;
+    void setImageList(const DB::IdList& files);
+    DB::IdList imageList() const;
 
     void setInlineMovies( bool inlineMovie );
     bool inlineMovies() const;
@@ -96,7 +96,7 @@ private:
     QString _theme;
     QMap<QString,bool> _includeCategory;
     QList<ImageSizeCheckBox*> _resolutions;
-    DB::Result _images;
+    DB::IdList _images;
     bool _inlineMovies;
 };
 

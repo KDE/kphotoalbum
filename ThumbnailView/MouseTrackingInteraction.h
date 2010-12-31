@@ -32,7 +32,7 @@ public:
     OVERRIDE bool mouseMoveEvent( QMouseEvent* );
 
 signals:
-    void fileIdUnderCursorChanged( const DB::ResultId& id );
+    void fileIdUnderCursorChanged( const DB::Id& id );
 
 private:
     void updateStackingIndication( QMouseEvent* event );

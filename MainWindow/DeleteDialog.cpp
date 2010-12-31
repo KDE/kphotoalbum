@@ -30,8 +30,8 @@
 #include "kio/copyjob.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include "DB/Result.h"
-#include "DB/ResultId.h"
+#include "DB/IdList.h"
+#include "DB/Id.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "Utilities/Util.h"
 #include "MainWindow/DirtyIndicator.h"
@@ -66,7 +66,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
      connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec(const DB::Result& list)
+int DeleteDialog::exec(const DB::IdList& list)
 {
     if (!list.size()) return 0;
 
@@ -92,11 +92,11 @@ int DeleteDialog::exec(const DB::Result& list)
 void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
-    DB::Result listToDelete;
+    DB::IdList listToDelete;
     KUrl::List listKUrlToDelete;
     KUrl KUrlToDelete;
 
-    Q_FOREACH(const DB::ResultId id, _list) {
+    Q_FOREACH(const DB::Id id, _list) {
         const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( _deleteFile->isChecked() || _useTrash->isChecked() ){

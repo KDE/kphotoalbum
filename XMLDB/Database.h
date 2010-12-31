@@ -43,50 +43,50 @@ namespace XMLDB {
     public:
         OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
-        OVERRIDE DB::Result search(
+        OVERRIDE DB::IdList search(
             const DB::ImageSearchInfo&,
             bool requireOnDisk=false) const;
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
         OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask );
-        OVERRIDE DB::Result images();
+        OVERRIDE DB::IdList images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const QString& newName );
 
-        OVERRIDE void addToBlockList(const DB::Result& list);
+        OVERRIDE void addToBlockList(const DB::IdList& list);
         OVERRIDE bool isBlocking( const QString& fileName );
-        OVERRIDE void deleteList(const DB::Result& list);
+        OVERRIDE void deleteList(const DB::IdList& list);
         OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
-        OVERRIDE DB::ImageInfoPtr info( const DB::ResultId& ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
-        OVERRIDE void sortAndMergeBackIn(const DB::Result& idList);
+        OVERRIDE void sortAndMergeBackIn(const DB::IdList& idList);
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
         OVERRIDE void reorder(
-            const DB::ResultId& item,
-            const DB::Result& cutList,
+            const DB::Id& item,
+            const DB::IdList& cutList,
             bool after);
 
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        OVERRIDE bool stack(const DB::Result& items);
-        OVERRIDE void unstack(const DB::Result& images);
-        OVERRIDE DB::Result getStackFor(const DB::ResultId& referenceId) const;
+        OVERRIDE bool stack(const DB::IdList& items);
+        OVERRIDE void unstack(const DB::IdList& images);
+        OVERRIDE DB::IdList getStackFor(const DB::Id& referenceId) const;
 
-        OVERRIDE QStringList CONVERT(const DB::Result&);
-        OVERRIDE DB::ResultId ID_FOR_FILE( const QString& ) const;
+        OVERRIDE QStringList CONVERT(const DB::IdList&);
+        OVERRIDE DB::Id ID_FOR_FILE( const QString& ) const;
 
     protected:
-        DB::Result searchPrivate(
+        DB::IdList searchPrivate(
             const DB::ImageSearchInfo&,
             bool requireOnDisk,
             bool onlyItemsMatchingRange) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
-        DB::ImageInfoList takeImagesFromSelection(const DB::Result& list);
-        DB::Result insertList( const DB::ResultId& id, const DB::ImageInfoList& list, bool after );
+        DB::ImageInfoList takeImagesFromSelection(const DB::IdList& list);
+        DB::IdList insertList( const DB::Id& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 
@@ -111,7 +111,7 @@ namespace XMLDB {
         DB::MD5Map _md5map;
 
         DB::StackID _nextStackId;
-        typedef QMap<DB::StackID, DB::Result> StackMap;
+        typedef QMap<DB::StackID, DB::IdList> StackMap;
         mutable  StackMap _stackMap;
 
         // used for checking if any images are without image attribute from the database.

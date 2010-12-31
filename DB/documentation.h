@@ -26,11 +26,11 @@
   friendly - SQL should not fetch the info from it database before it really is
   needed.
 
-  To fix this problem, the class \ref Result was introduced. It abstracts the result of
-  queries on the ImageDB. A result consist of a list of \ref ResultId,
+  To fix this problem, the class \ref IdList was introduced. It abstracts the result of
+  queries on the ImageDB. A result consist of a list of \ref Id,
   which is the abstraction of a given item in the result. When you need to
   traverse the items of a result, you must iterate them using the iterator
-  \ref Result::begin returns. Doing it that way allows the SQL backend to
+  \ref IdList::begin returns. Doing it that way allows the SQL backend to
   fetch items in chunks. To get to the actual image information use \ref ImageDB::info.
 
   <h2>Searching/Browsing</h2>

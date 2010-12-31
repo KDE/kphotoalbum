@@ -24,7 +24,7 @@
 #include <QPixmap>
 #include <QMap>
 #include "DB/ImageInfoPtr.h"
-#include "DB/Result.h"
+#include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
 
 class QKeyEvent;
@@ -36,7 +36,7 @@ class KActionCollection;
 class QMenu;
 class KAction;
 
-namespace DB { class ImageInfo; class ResultId; }
+namespace DB { class ImageInfo; class Id; }
 namespace MainWindow { class ExternalPopup; class CategoryImagePopup; }
 
 namespace Viewer
@@ -73,7 +73,7 @@ public slots:
     void stopPlayback();
 
 signals:
-    void soughtTo( const DB::ResultId& id );
+    void soughtTo( const DB::Id& id );
 
 protected:
     OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );
@@ -183,7 +183,7 @@ private:
 
     int m_screenSaverCookie;
     QStringList _list;
-    DB::Result _removed;
+    DB::IdList _removed;
     int _current;
     QRect _textRect;
     QMenu* _popup;

@@ -23,7 +23,7 @@
 #include "MouseInteraction.h"
 #include <qobject.h>
 
-namespace DB { class ResultId; }
+namespace DB { class Id; }
 
 class QMouseEvent;
 namespace ThumbnailView
@@ -51,7 +51,7 @@ protected slots:
     void handleDragSelection();
 
 private:
-    typedef QSet<DB::ResultId> IdSet;
+    typedef QSet<DB::Id> IdSet;
     /**
      * This variable contains the position the mouse was pressed down.
      * The point is in contents coordinates.

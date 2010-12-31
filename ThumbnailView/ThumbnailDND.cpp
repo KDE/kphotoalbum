@@ -38,7 +38,7 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         return;
     }
 
-    DB::ResultId id = widget()->mediaIdUnderCursor();
+    DB::Id id = widget()->mediaIdUnderCursor();
 
     removeDropIndications();
 
@@ -97,7 +97,7 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
         // protect against self drop
         if ( !widget()->isSelected( model()->leftDropItem() ) && ! widget()->isSelected( model()->rightDropItem() ) ) {
-            const DB::Result selected = widget()->selection();
+            const DB::IdList selected = widget()->selection();
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );
@@ -113,10 +113,10 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
 void ThumbnailView::ThumbnailDND::removeDropIndications()
 {
-    DB::ResultId left = model()->leftDropItem();
-    DB::ResultId right = model()->rightDropItem();
-    model()->setLeftDropItem( DB::ResultId::null );
-    model()->setRightDropItem( DB::ResultId::null );
+    DB::Id left = model()->leftDropItem();
+    DB::Id right = model()->rightDropItem();
+    model()->setLeftDropItem( DB::Id::null );
+    model()->setRightDropItem( DB::Id::null );
 
     model()->updateCell( left );
     model()->updateCell( right );

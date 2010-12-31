@@ -923,14 +923,14 @@ void QueryHelper::sortFiles(const QList<DB::RawId>& files)
     transaction.commit();
 }
 
-DB::ResultId QueryHelper::findFirstFileInTimeRange(
+DB::Id QueryHelper::findFirstFileInTimeRange(
     const DB::ImageDate& range,
     bool includeRanges) const
 {
     return findFirstFileInTimeRange(range, includeRanges, 0);
 }
 
-DB::ResultId
+DB::Id
 QueryHelper::findFirstFileInTimeRange(
     const DB::ImageDate& range,
     bool includeRanges,
@@ -939,7 +939,7 @@ QueryHelper::findFirstFileInTimeRange(
     return findFirstFileInTimeRange(range, includeRanges, &idList);
 }
 
-DB::ResultId
+DB::Id
 QueryHelper::findFirstFileInTimeRange(
     const DB::ImageDate& range,
     bool includeRanges,
@@ -967,9 +967,9 @@ QueryHelper::findFirstFileInTimeRange(
         executeQuery(query.toAscii().constData(), bindings).asList<DB::RawId>();
 
     if (resultIds.isEmpty())
-        return DB::ResultId();
+        return DB::Id();
     else {
-        return DB::ResultId::createContextless(resultIds.front());
+        return DB::Id::createContextless(resultIds.front());
     }
 }
 

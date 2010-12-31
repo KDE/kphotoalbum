@@ -23,7 +23,7 @@
 #include "ThumbnailView/CellGeometry.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
@@ -54,7 +54,7 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, cons
 void ImageManager::ThumbnailBuilder::buildAll()
 {
     ImageManager::ThumbnailCache::instance()->flush();
-    const DB::Result images = DB::ImageDB::instance()->images();
+    const DB::IdList images = DB::ImageDB::instance()->images();
     build( images.fetchInfos() );
 }
 
@@ -66,7 +66,7 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
-    const DB::Result images = DB::ImageDB::instance()->images();
+    const DB::IdList images = DB::ImageDB::instance()->images();
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
     QList<DB::ImageInfoPtr> needed;
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {

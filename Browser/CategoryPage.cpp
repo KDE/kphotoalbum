@@ -24,7 +24,7 @@
 #include "BrowserWidget.h"
 #include "enums.h"
 #include <DB/ImageDB.h>
-#include <DB/Result.h>
+#include <DB/IdList.h>
 #include "ImageViewPage.h"
 
 Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )

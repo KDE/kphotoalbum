@@ -80,7 +80,7 @@ void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOpti
     if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
         return;
 
-    DB::ResultId mediaId = model()->imageAt( index.row() );
+    DB::Id mediaId = model()->imageAt( index.row() );
     if ( mediaId.isNull() )
         return;
 
@@ -153,7 +153,7 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
     }
 }
 
-static DB::StackID getStackId(const DB::ResultId& id)
+static DB::StackID getStackId(const DB::Id& id)
 {
     return id.fetchInfo()->stackId();
 }
@@ -220,7 +220,7 @@ bool ThumbnailView::Delegate::isLast( int row ) const
 
 void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect& rect, const QModelIndex& index ) const
 {
-    const DB::ResultId mediaId = model()->imageAt( index.row() );
+    const DB::Id mediaId = model()->imageAt( index.row() );
 
     if ( model()->leftDropItem() == mediaId )
         painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );

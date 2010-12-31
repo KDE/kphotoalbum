@@ -91,8 +91,8 @@
 #include "InvalidDateFinder.h"
 #include "AutoStackImages.h"
 #include "DB/ImageInfo.h"
-#include "DB/ResultId.h"
-#include "DB/Result.h"
+#include "DB/Id.h"
+#include "DB/IdList.h"
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif
@@ -123,7 +123,7 @@
 #include <qclipboard.h>
 #include <stdexcept>
 #include <KInputDialog>
-#include "DB/Result.h"
+#include "DB/IdList.h"
 #include "ThumbnailView/enums.h"
 #include "DB/MD5.h"
 #include "DB/MD5Map.h"
@@ -192,11 +192,11 @@ MainWindow::Window::Window( QWidget* parent )
              this, SLOT( setDateRange( const DB::ImageDate& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
-    connect( _thumbnailView, SIGNAL( showImage( const DB::ResultId& ) ), this, SLOT( showImage( const DB::ResultId& ) ) );
+    connect( _thumbnailView, SIGNAL( showImage( const DB::Id& ) ), this, SLOT( showImage( const DB::Id& ) ) );
     connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
     connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
-    connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::ResultId& ) ), this, SLOT( slotSetFileName( const DB::ResultId& ) ) );
+    connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ), this, SLOT( slotSetFileName( const DB::Id& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _browser, SIGNAL( imageCount(uint)), _statusBar->_partial, SLOT( showBrowserMatches(uint) ) );
@@ -312,7 +312,7 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.size() < 2) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
@@ -351,7 +351,7 @@ void MainWindow::Window::slotCreateImageStack()
  * */
 void MainWindow::Window::slotSetStackHead()
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if ( list.size() != 1 ) {
         // this should be checked by enabling/disabling of QActions
         return;
@@ -360,17 +360,17 @@ void MainWindow::Window::slotSetStackHead()
     setStackHead( *list.begin() );
 }
 
-void MainWindow::Window::setStackHead( const DB::ResultId image )
+void MainWindow::Window::setStackHead( const DB::Id image )
 {
     if ( ! image.fetchInfo()->isStacked() )
         return;
 
     unsigned int oldOrder = image.fetchInfo()->stackOrder();
 
-    DB::Result others = DB::ImageDB::instance()->getStackFor( image );
+    DB::IdList others = DB::ImageDB::instance()->getStackFor( image );
     others.fetchInfos();
-    for ( DB::Result::const_iterator it = others.begin(); it != others.end(); ++it ) {
-        DB::ResultId current = *it;
+    for ( DB::IdList::const_iterator it = others.begin(); it != others.end(); ++it ) {
+        DB::Id current = *it;
         if ( current == image ) {
             current.fetchInfo()->setStackOrder( 1 );
         } else if ( current.fetchInfo()->stackOrder() < oldOrder ) {
@@ -384,7 +384,7 @@ void MainWindow::Window::setStackHead( const DB::ResultId image )
 
 void MainWindow::Window::slotUnStackImages()
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.isEmpty())
         return;
 
@@ -405,7 +405,7 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
@@ -508,7 +508,7 @@ void MainWindow::Window::slotPasteInformation()
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
         originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );
     } else {
-        DB::ResultId ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
+        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
         originalInfo = ID.fetchInfo();
     }
     Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
@@ -530,7 +530,7 @@ void MainWindow::Window::slotReReadExifInfo()
 
 void MainWindow::Window::slotAutoStackImages()
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
         return;
@@ -540,12 +540,12 @@ void MainWindow::Window::slotAutoStackImages()
         showThumbNails();
 }
 
-DB::Result MainWindow::Window::selected()
+DB::IdList MainWindow::Window::selected()
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
         return _thumbnailView->selection();
     else
-        return DB::Result();
+        return DB::IdList();
 }
 
 void MainWindow::Window::slotViewNewWindow()
@@ -557,14 +557,14 @@ void MainWindow::Window::slotViewNewWindow()
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
  * */
-DB::Result MainWindow::Window::selectedOnDisk()
+DB::IdList MainWindow::Window::selectedOnDisk()
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.isEmpty())
         return DB::ImageDB::instance()->currentScope( true );
 
-    DB::Result listOnDisk;
-    Q_FOREACH(DB::ResultId id, list) {
+    DB::IdList listOnDisk;
+    Q_FOREACH(DB::Id id, list) {
         const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk.append(id);
@@ -578,16 +578,16 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
     launchViewer( selected(), reuse, slideShow, random );
 }
 
-void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reuse, bool slideShow, bool random)
+void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reuse, bool slideShow, bool random)
 {
-    DB::Result mediaList = inputMediaList;
+    DB::IdList mediaList = inputMediaList;
     int seek = -1;
     if (mediaList.isEmpty()) {
         mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
     } else if (mediaList.size() == 1) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
-        DB::ResultId first = mediaList.at(0);
+        DB::Id first = mediaList.at(0);
         mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
         seek = mediaList.indexOf(first);
     }
@@ -601,7 +601,7 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
     }
 
     if (random) {
-        mediaList = DB::Result(Utilities::shuffleList(mediaList.rawIdList()));
+        mediaList = DB::IdList(Utilities::shuffleList(mediaList.rawIdList()));
     }
 
     // Here, we need to switch back to the StringList until the Viewer is
@@ -617,7 +617,7 @@ void MainWindow::Window::launchViewer(const DB::Result& inputMediaList, bool reu
     else
         viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
                                           &_viewerInputMacros);
-    connect( viewer, SIGNAL( soughtTo(const DB::ResultId&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::ResultId&) ) );
+    connect( viewer, SIGNAL( soughtTo(const DB::Id&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::Id&) ) );
 
     viewer->show( slideShow );
     viewer->load( fileNameList, seek < 0 ? 0 : seek );
@@ -1216,7 +1216,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
     delete viewer;
 }
 
-void MainWindow::Window::slotSetFileName( const DB::ResultId& id )
+void MainWindow::Window::slotSetFileName( const DB::Id& id )
 {
     if ( id.isNull() )
         _statusBar->clearMessage();
@@ -1240,7 +1240,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    const DB::Result& list = selected();
+    const DB::IdList& list = selected();
     if (list.isEmpty())  {
         KMessageBox::sorry( this, i18n("No item is selected."),
                             i18n("No Selection") );
@@ -1285,8 +1285,8 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 
 void MainWindow::Window::slotShowNotOnDisk()
 {
-    DB::Result notOnDisk;
-    Q_FOREACH(DB::ResultId id, DB::ImageDB::instance()->images()) {
+    DB::IdList notOnDisk;
+    Q_FOREACH(DB::Id id, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         QFileInfo fi( info->fileName(DB::AbsolutePath) );
         if ( !fi.exists() )
@@ -1545,10 +1545,10 @@ void MainWindow::Window::slotShowListOfFiles()
     if ( list.isEmpty() )
         return;
 
-    DB::Result out;
+    DB::IdList out;
     for ( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
-        DB::ResultId id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
+        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
         if ( !id.isNull() )
             out.append(id);
     }
@@ -1587,7 +1587,7 @@ void MainWindow::Window::showDateBarTip( const QString& msg )
 
 void MainWindow::Window::slotJumpToContext()
 {
-    DB::ResultId id =_thumbnailView->currentItem();
+    DB::Id id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
         QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
@@ -1609,7 +1609,7 @@ void MainWindow::Window::clearDateRange()
     reloadThumbnails();
 }
 
-void MainWindow::Window::showThumbNails(const DB::Result& items)
+void MainWindow::Window::showThumbNails(const DB::IdList& items)
 {
     _thumbnailView->setImageList( items );
     _statusBar->_partial->setMatchCount(items.size());
@@ -1679,7 +1679,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::Result items = selectedOnDisk();
+    DB::IdList items = selectedOnDisk();
     if (!items.isEmpty()) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog(items.at(0), this);
         exifDialog->show();
@@ -1693,9 +1693,9 @@ void MainWindow::Window::showFeatures()
     dialog.exec();
 }
 
-void MainWindow::Window::showImage( const DB::ResultId& id )
+void MainWindow::Window::showImage( const DB::Id& id )
 {
-    launchViewer(DB::Result(id), true, false, false);
+    launchViewer(DB::IdList(id), true, false, false);
 }
 
 void MainWindow::Window::slotBuildThumbnails()

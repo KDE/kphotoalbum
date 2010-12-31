@@ -23,7 +23,7 @@
 
 namespace DB
 {
-class ResultId;
+class Id;
 
 /** List of media item ids.
  *
@@ -31,54 +31,52 @@ class ResultId;
  * constant time.
  *
  * This class implements forward iterator API and it is possible to
- * use Q_FOREACH to iterate over the ResultId objects in the list.
+ * use Q_FOREACH to iterate over the Id objects in the list.
  *
  * Iterating example:
  * \code
- * DB::Result list = getSomeIdList();
- * Q_FOREACH(DB::ResultId id, list) {
+ * DB::IdList list = getSomeIdList();
+ * Q_FOREACH(DB::Id id, list) {
  *     doSomethingWithMediaId(id);
  * }
  * \endcode
- *
- * \todo Rename to IdList as per discussion in car
  */
-class Result
+class IdList
 {
  public:
     class ConstIterator {
     public:
         ConstIterator& operator++();
-        DB::ResultId operator*();
+        DB::Id operator*();
         bool operator==( const ConstIterator& other ) const;
         bool operator!=( const ConstIterator& other ) const;
 
     private:
-        friend class Result;
-        ConstIterator( const Result* result, int pos );
+        friend class IdList;
+        ConstIterator( const IdList* result, int pos );
 
-        const Result* _result;
+        const IdList* _result;
         int _pos;
     };
     typedef ConstIterator const_iterator;
 
-    Result();
+    IdList();
 
     /** Create a result with a list of raw ids. */
-    explicit Result( const QList<DB::RawId>& ids );
+    explicit IdList( const QList<DB::RawId>& ids );
 
-    /** Convenience constructor: create a result only one ResultId. */
-    explicit Result( const DB::ResultId& );
+    /** Convenience constructor: create a result only one Id. */
+    explicit IdList( const DB::Id& );
 
-    void append( const DB::ResultId& );
-    void prepend( const DB::ResultId& );
-    void removeAll(const DB::ResultId&);
-    Result reversed() const;
+    void append( const DB::Id& );
+    void prepend( const DB::Id& );
+    void removeAll(const DB::Id&);
+    IdList reversed() const;
 
-    DB::ResultId at(int index) const;
+    DB::Id at(int index) const;
     uint size() const;
     bool isEmpty() const;
-    int indexOf(const DB::ResultId&) const;
+    int indexOf(const DB::Id&) const;
     ConstIterator begin() const;
     ConstIterator end() const;
     void debug() const;

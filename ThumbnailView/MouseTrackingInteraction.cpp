@@ -48,8 +48,8 @@ void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEv
 
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 {
-    static DB::ResultId lastIdUderCursor;
-    const DB::ResultId id = widget()->mediaIdUnderCursor();
+    static DB::Id lastIdUderCursor;
+    const DB::Id id = widget()->mediaIdUnderCursor();
     if ( id != lastIdUderCursor ) {
         emit fileIdUnderCursorChanged(id);
         model()->updateCell(lastIdUderCursor);

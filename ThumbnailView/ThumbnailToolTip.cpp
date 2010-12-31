@@ -77,7 +77,7 @@ bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 
 void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 {
-    DB::ResultId id = _view->mediaIdUnderCursor();
+    DB::Id id = _view->mediaIdUnderCursor();
     hide();
     if ( id.isNull() )
         return;

@@ -28,11 +28,11 @@
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 
 using Utilities::StringSet;
 
-Exif::InfoDialog::InfoDialog( const DB::ResultId& id, QWidget* parent )
+Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     :KDialog( parent )
 {
     DB::ImageInfoPtr info = id.fetchInfo();

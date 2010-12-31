@@ -203,8 +203,8 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageSearchInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/DB/ResultId.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/DB/Result.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/Id.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/IdList.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/NoOtherItemsCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp

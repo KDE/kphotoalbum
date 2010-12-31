@@ -41,7 +41,7 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
 bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressPos = event->pos();
-    DB::ResultId mediaId = widget()->mediaIdUnderCursor();
+    DB::Id mediaId = widget()->mediaIdUnderCursor();
     _isMouseDragOperation = widget()->isSelected( mediaId ) && !( event->modifiers() );
     return _isMouseDragOperation;
 
@@ -97,7 +97,7 @@ bool ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
 {
 // PENDING(kdab) Review
 #ifdef KDAB_TEMPORARILY_REMOVED
-    DB::ResultId mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
+    DB::Id mediaId = model()->imageAt( event->pos(), ViewportCoordinates );
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
         if ( (event->button() & Qt::LeftButton) )

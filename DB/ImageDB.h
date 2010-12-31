@@ -38,8 +38,8 @@ class Category;
 class MD5Map;
 class MemberMap;
 class ImageDateCollection;
-class Result;
-class ResultId;
+class IdList;
+class Id;
 class ImageSearchInfo;
 
 class ImageDB  :public QObject {
@@ -62,7 +62,7 @@ public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
-    void slotRecalcCheckSums(const DB::Result& selection);
+    void slotRecalcCheckSums(const DB::IdList& selection);
     virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const QStringList& list, DB::ExifMode mode);
 
@@ -80,33 +80,33 @@ protected:
 
 public:
     static QString NONE();
-    DB::Result currentScope(bool requireOnDisk) const;
+    DB::IdList currentScope(bool requireOnDisk) const;
 
-    virtual DB::ResultId findFirstItemInRange(
-        const Result& images,
+    virtual DB::Id findFirstItemInRange(
+        const IdList& images,
         const ImageDate& range,
         bool includeRanges) const;
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;
-    virtual DB::Result search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
+    virtual DB::IdList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
-    virtual Result images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
+    virtual IdList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const QString& newName ) = 0;
 
-    virtual void addToBlockList(const DB::Result& list) = 0;
+    virtual void addToBlockList(const DB::IdList& list) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;
-    virtual void deleteList(const DB::Result& list) = 0;
+    virtual void deleteList(const DB::IdList& list) = 0;
     virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
-    virtual void sortAndMergeBackIn(const DB::Result& idlist) = 0;
+    virtual void sortAndMergeBackIn(const DB::IdList& idlist) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
@@ -116,14 +116,14 @@ public: // Methods that must be overriden
      * cutList directly before or after the given item.
      * If the parameter "after" determines where to place it.
      */
-    virtual void reorder(const DB::ResultId& item, const DB::Result& cutList, bool after) = 0;
+    virtual void reorder(const DB::Id& item, const DB::IdList& cutList, bool after) = 0;
 
     /**
-     * temporary method to convert a DB::Result back to the usual
+     * temporary method to convert a DB::IdList back to the usual
      * list of absolute filenames. This should not be necessary anymore after
-     * the refactoring to use DB::Result everywhere
+     * the refactoring to use DB::IdList everywhere
      */
-    virtual QStringList CONVERT(const DB::Result&) = 0; //QWERTY DIE
+    virtual QStringList CONVERT(const DB::IdList&) = 0; //QWERTY DIE
 
     /**
      * there are some cases in which we have a filename and need to map back
@@ -133,7 +133,7 @@ public: // Methods that must be overriden
      * If that turns out to be true, lowercasify this method, and update
      * this comment.
      */
-    virtual DB::ResultId ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
+    virtual DB::Id ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
 
     /** @short Create a stack of images/videos/whatever
      *
@@ -151,7 +151,7 @@ public: // Methods that must be overriden
      * the stack. The order of images which were already in the stack is not
      * changed.
      * */
-    virtual bool stack(const DB::Result& items) = 0;
+    virtual bool stack(const DB::IdList& items) = 0;
 
     /** @short Remove all images from whichever stacks they might be in
      *
@@ -160,7 +160,7 @@ public: // Methods that must be overriden
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack(const DB::Result& images) = 0;
+    virtual void unstack(const DB::IdList& images) = 0;
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *
@@ -168,13 +168,13 @@ public: // Methods that must be overriden
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual DB::Result getStackFor(const DB::ResultId& referenceId) const = 0;
+    virtual DB::IdList getStackFor(const DB::Id& referenceId) const = 0;
 
  protected:
-    friend class DB::ResultId;
+    friend class DB::Id;
 
-    // Don't use directly, use DB::ResultId::fetchInfo() instead.
-    virtual ImageInfoPtr info( const DB::ResultId& ) const = 0;
+    // Don't use directly, use DB::Id::fetchInfo() instead.
+    virtual ImageInfoPtr info( const DB::Id& ) const = 0;
 
 
 protected slots:
@@ -184,7 +184,7 @@ protected slots:
 signals:
     void totalChanged( uint );
     void dirty();
-    void imagesDeleted( const DB::Result& );
+    void imagesDeleted( const DB::IdList& );
 };
 
 }

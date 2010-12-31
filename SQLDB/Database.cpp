@@ -18,8 +18,8 @@
 */
 #include "Database.h"
 
-#include "DB/Result.h"
-#include "DB/ResultId.h"
+#include "DB/IdList.h"
+#include "DB/Id.h"
 #include "SQLCategory.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
@@ -97,7 +97,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
                           _qh.mediaItemCount(DB::Video, scope));
 }
 
-DB::Result SQLDB::Database::search(
+DB::IdList SQLDB::Database::search(
     const DB::ImageSearchInfo& info,
     bool requireOnDisk) const
 {
@@ -110,7 +110,7 @@ DB::Result SQLDB::Database::search(
             continue;
         result.append(*it);
     }
-    return DB::Result(result);
+    return DB::IdList(result);
 }
 
 void SQLDB::Database::renameCategory(const QString& /*oldName*/, const QString /*newName*/)
@@ -130,13 +130,13 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         return QMap<QString, uint>();
 }
 
-DB::Result SQLDB::Database::imageList()
+DB::IdList SQLDB::Database::imageList()
 {
-    return DB::Result(_qh.mediaItemIds(DB::anyMediaType));
+    return DB::IdList(_qh.mediaItemIds(DB::anyMediaType));
 }
 
 
-DB::Result SQLDB::Database::images()
+DB::IdList SQLDB::Database::images()
 {
     return imageList();
 }
@@ -157,7 +157,7 @@ void SQLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName
 
 // TODO: Rename this function
 // This function also removes the files from the database
-void SQLDB::Database::addToBlockList(const DB::Result& list)
+void SQLDB::Database::addToBlockList(const DB::IdList& list)
 {
     const QStringList absolutePaths = CONVERT(list);
     QStringList relativePaths;
@@ -172,13 +172,13 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
     return _qh.isIgnored(fileName);
 }
 
-void SQLDB::Database::deleteList(const DB::Result& filesToRemove)
+void SQLDB::Database::deleteList(const DB::IdList& filesToRemove)
 {
 #ifdef HAVE_EXIV2
     Q_FOREACH(const QString& fileName, this->CONVERT(filesToRemove))
         Exif::Database::instance()->remove(fileName);
 #endif
-    Q_FOREACH(const DB::ResultId id, filesToRemove)
+    Q_FOREACH(const DB::Id id, filesToRemove)
         _qh.removeMediaItem(id.rawId());
     if (!filesToRemove.isEmpty()) {
         emit totalChanged(totalCount());
@@ -259,21 +259,21 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
 }
 
 void SQLDB::Database::reorder(
-    const DB::ResultId& file,
-    const DB::Result& selection,
+    const DB::Id& file,
+    const DB::IdList& selection,
     bool after)
 {
     Q_ASSERT(!file.isNull());
     _qh.moveMediaItems(selection.rawIdList(), file.rawId(), after);
 }
 
-void SQLDB::Database::sortAndMergeBackIn(const DB::Result& files)
+void SQLDB::Database::sortAndMergeBackIn(const DB::IdList& files)
 {
     _qh.sortFiles(files.rawIdList());
 }
 
-DB::ResultId SQLDB::Database::findFirstItemInRange(
-    const DB::Result& files,
+DB::Id SQLDB::Database::findFirstItemInRange(
+    const DB::IdList& files,
     const DB::ImageDate& range,
     bool includeRanges) const
 {
@@ -281,10 +281,10 @@ DB::ResultId SQLDB::Database::findFirstItemInRange(
         range, includeRanges, files.rawIdList());
 }
 
-QStringList SQLDB::Database::CONVERT(const DB::Result& result)
+QStringList SQLDB::Database::CONVERT(const DB::IdList& result)
 {
     QStringList files;
-    Q_FOREACH(DB::ResultId id, result) {
+    Q_FOREACH(DB::Id id, result) {
         files.push_back(
             Utilities::imageFileNameToAbsolute(
                 _qh.mediaItemFilename(id.rawId())));
@@ -293,18 +293,18 @@ QStringList SQLDB::Database::CONVERT(const DB::Result& result)
     return files;
 }
 
-DB::ResultId SQLDB::Database::ID_FOR_FILE(const QString& filename) const
+DB::Id SQLDB::Database::ID_FOR_FILE(const QString& filename) const
 {
-    return DB::ResultId::createContextless(_qh.mediaItemId(Utilities::imageFileNameToRelative(filename)));
+    return DB::Id::createContextless(_qh.mediaItemId(Utilities::imageFileNameToRelative(filename)));
 }
 
-DB::ImageInfoPtr SQLDB::Database::info(const DB::ResultId& id) const
+DB::ImageInfoPtr SQLDB::Database::info(const DB::Id& id) const
 {
     Q_ASSERT(!id.isNull());
     return _infoCollection.getImageInfoOf(id);
 }
 
-bool SQLDB::Database::stack(const DB::Result& files)
+bool SQLDB::Database::stack(const DB::IdList& files)
 {
     try {
         const DB::StackID newStackId = _qh.stackFiles(files.rawIdList());
@@ -319,7 +319,7 @@ bool SQLDB::Database::stack(const DB::Result& files)
     }
 }
 
-void SQLDB::Database::unstack(const DB::Result& files)
+void SQLDB::Database::unstack(const DB::IdList& files)
 {
     _qh.unstackFiles(files.rawIdList());
     Q_FOREACH(DB::ImageInfoPtr info, files.fetchInfos()) {
@@ -328,13 +328,13 @@ void SQLDB::Database::unstack(const DB::Result& files)
     }
 }
 
-DB::Result SQLDB::Database::getStackFor(const DB::ResultId& referenceFile) const
+DB::IdList SQLDB::Database::getStackFor(const DB::Id& referenceFile) const
 {
     Q_ASSERT(!referenceFile.isNull());
     if (!referenceFile.isNull())
-        return DB::Result(_qh.getStackOfFile(referenceFile.rawId()));
+        return DB::IdList(_qh.getStackOfFile(referenceFile.rawId()));
     else
-        return DB::Result();
+        return DB::IdList();
 }
 
 #include "Database.moc"

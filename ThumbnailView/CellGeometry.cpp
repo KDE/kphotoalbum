@@ -18,7 +18,7 @@
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
 #include "ThumbnailModel.h"
-#include "DB/ResultId.h"
+#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 
 using Utilities::StringSet;
@@ -80,7 +80,7 @@ QRect ThumbnailView::CellGeometry::iconGeometry( const QPixmap& pixmap  ) const
 /**
  * return the number of categories with valies in for the given image.
  */
-static int noOfCategoriesForImage(const DB::ResultId& image )
+static int noOfCategoriesForImage(const DB::Id& image )
 {
     int catsInText = 0;
     QStringList grps = image.fetchInfo()->availableCategories();
@@ -140,7 +140,7 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
-        Q_FOREACH(DB::ResultId id, model()->imageList(ViewOrder)) {
+        Q_FOREACH(DB::Id id, model()->imageList(ViewOrder)) {
             maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
         }
 

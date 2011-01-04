@@ -265,7 +265,7 @@ void Export::copyImages(const DB::IdList& list)
         QString file = info->fileName(DB::AbsolutePath);
         QString zippedName = _filenameMapper.uniqNameFor(file);
 
-        if ( _maxSize == -1 || Utilities::isVideo( file ) ) {
+        if ( _maxSize == -1 || Utilities::isVideo( file ) || Utilities::isRAW( file )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
@@ -308,7 +308,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( !loadedOK )
         return;
 
-    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();
+    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir))

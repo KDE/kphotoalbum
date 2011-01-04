@@ -30,12 +30,13 @@ public:
 	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
 	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const;
+	static bool isRAW( const QString& imageFile );
 
 private:
 	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
-	bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
+	static bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList );
 	bool _fileIsKnownWithExtensions( const QSet<QString>& files, const QString& fileName, const QStringList& extensionList ) const;
-	void _initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions ) const;
+	static void _initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions );
 };
 
 }

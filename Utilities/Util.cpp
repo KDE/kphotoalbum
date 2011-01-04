@@ -36,6 +36,7 @@
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
+#include "ImageManager/RawImageDecoder.h"
 
 #ifdef Q_WS_X11
 #include "X11/X.h"
@@ -667,6 +668,12 @@ bool Utilities::isVideo( const QString& fileName )
     QString ext = fi.suffix().toLower();
     return videoExtensions.contains( ext );
 }
+
+bool Utilities::isRAW( const QString& fileName )
+{
+    return ImageManager::RAWImageDecoder::isRAW( fileName );
+}
+
 
 QImage Utilities::scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode )
 {

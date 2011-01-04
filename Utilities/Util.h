@@ -47,6 +47,7 @@ void deleteDemo();
 QString setupDemo();
 bool canReadImage( const QString& fileName );
 bool isVideo( const QString& fileName );
+bool isRAW( const QString& fileName );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);

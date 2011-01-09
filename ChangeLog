@@ -1,3 +1,7 @@
+2011-01-09  Miika Turkia <miika.turkia@gmail.com>
+
+	* Fixed bug #262127, compile fails with exiv2-0.21
+
 2010-12-22  Miika Turkia <miika.turkia@gmail.com>
 
 	* Fixed bugs #255286 and #237889, crashes on missing exif information

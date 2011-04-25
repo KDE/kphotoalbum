@@ -85,6 +85,9 @@ void ImageManager::VideoManager::previewFailed()
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIconLoader::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
+        if ( _currentRequest->isThumbnailRequest() )
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), pix.toImage() );
+
         _currentRequest->setLoadedOK( false );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.toImage(), true);
     }

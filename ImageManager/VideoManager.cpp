@@ -71,7 +71,7 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap&
 {
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         QImage img = pixmap.toImage();
-        if ( _currentRequest->isThumnailRequest() )
+        if ( _currentRequest->isThumbnailRequest() )
             ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), img );
         _currentRequest->setLoadedOK( true );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull());

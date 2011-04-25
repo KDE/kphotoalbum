@@ -139,7 +139,7 @@ void ImageManager::ImageRequest::setIsThumbnailRequest( bool b )
     _isThumbnailRequest = b;
 }
 
-bool ImageManager::ImageRequest::isThumnailRequest() const
+bool ImageManager::ImageRequest::isThumbnailRequest() const
 {
     return _isThumbnailRequest;
 }

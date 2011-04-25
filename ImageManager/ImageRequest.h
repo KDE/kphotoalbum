@@ -81,7 +81,7 @@ public:
     void setUpScale( bool b );
 
     void setIsThumbnailRequest( bool );
-    bool isThumnailRequest() const;
+    bool isThumbnailRequest() const;
 
 private:
     bool _null;

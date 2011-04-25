@@ -134,7 +134,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
             angle = request->angle();
         }
 
-        if ( request->isThumnailRequest() ) {
+        if ( request->isThumbnailRequest() ) {
             if ( !request->loadedOK() ) {
                 // PENDING(blackie) This stinks! It looks bad, but I don't have more energy to fix it.
                 KIcon icon( QString::fromLatin1( "file-broken" ) );

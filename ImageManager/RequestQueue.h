@@ -52,7 +52,7 @@ public:
     void removeRequest( ImageRequest* );
 
 private:
-    // A Reference to a ImageRequest withvalue semantic.
+    // A Reference to a ImageRequest with value semantic.
     // This only stores the pointer to an ImageRequest object but behaves
     // regarding the less-than and equals-operator like the object.
     // This allows to store ImageRequests with value-semantic in a Set.

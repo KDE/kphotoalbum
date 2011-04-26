@@ -17,6 +17,10 @@
 */
 #include "RequestQueue.h"
 #include "ImageRequest.h"
+#include "ImageClient.h"
+#include "CancelEvent.h"
+#include <QApplication>
+#include "Manager.h"
 
 bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
@@ -45,7 +49,9 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 
             if ( ! request->stillNeeded() ) {
                 removeRequest( request );
-                delete request;
+                request->setLoadedOK( false );
+                CancelEvent* event = new CancelEvent( request );
+                QApplication::postEvent( Manager::instance(),  event );
             } else {
                 _uniquePending.remove( request );
                 return request;

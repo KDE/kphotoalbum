@@ -40,6 +40,7 @@ public:
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK) = 0;
+    virtual void requestCanceled() {}
 };
 
 }

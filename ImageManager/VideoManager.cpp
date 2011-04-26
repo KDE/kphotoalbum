@@ -40,9 +40,6 @@ ImageManager::VideoManager& ImageManager::VideoManager::instance()
 
 void ImageManager::VideoManager::request( ImageRequest* request )
 {
-    if ( request == _currentRequest )
-        return; // Already loading the request
-
     _pending.addRequest( request );
 
     if ( _currentRequest == 0 )

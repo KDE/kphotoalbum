@@ -186,7 +186,9 @@ set(libImageManager_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp 
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageEvent.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailBuilder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailBuilder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/PreloadRequest.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CancelEvent.cpp
 )
 
 set(libDB_SRCS 

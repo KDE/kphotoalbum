@@ -24,6 +24,7 @@
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
 #include "DB/Id.h"
+#include "PreloadRequest.h"
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
@@ -89,7 +90,7 @@ void ImageManager::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list 
 
     Q_FOREACH(const DB::ImageInfoPtr info, list) {
         ImageManager::ImageRequest* request
-            = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath),
+            = new ImageManager::PreloadRequest( info->fileName(DB::AbsolutePath),
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
@@ -97,6 +98,11 @@ void ImageManager::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list 
         ImageManager::Manager::instance()->load( request );
     }
     m_count = 0;
+}
+
+void ImageManager::ThumbnailBuilder::requestCanceled()
+{
+    m_statusBar->setProgress( ++m_count );
 }
 
 #include "ThumbnailBuilder.moc"

@@ -27,6 +27,7 @@
 #include <kurl.h>
 #include <qpixmapcache.h>
 #include "ImageEvent.h"
+#include "CancelEvent.h"
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
@@ -154,6 +155,10 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         if ( client ) {
             client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK);
         }
+    }
+    else if ( ev->type() == CANCELEVENTID ) {
+        CancelEvent* cancelEvent = dynamic_cast<CancelEvent*>(ev);
+        cancelEvent->request()->client()->requestCanceled();
     }
 }
 

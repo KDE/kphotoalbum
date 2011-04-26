@@ -26,6 +26,7 @@
 
 #include <kurl.h>
 #include <qpixmapcache.h>
+#include "ImageEvent.h"
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
@@ -155,27 +156,5 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
     }
 }
-
-// -- ImageEvent --
-
-ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
-    : QEvent( static_cast<QEvent::Type>(1001) ), _request( request ),  _image( image )
-{
-    // We would like to use QDeepCopy, but that results in multiple
-    // individual instances on the GUI thread, which is kind of real bad
-    // when  the image is like 40Mb large.
-    _image.detach();
-}
-
-ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
-{
-    return _request;
-}
-
-QImage ImageManager::ImageEvent::image()
-{
-    return _image;
-}
-
 
 #include "Manager.moc"

@@ -40,10 +40,15 @@ public:
     void request( ImageRequest* request );
     void stop( ImageClient*, StopAction action );
     bool hasVideoThumbnailSupport() const;
+    void removeFullScaleFrame( const QString& fileName );
 
 protected:
     void load( ImageRequest* request );
     void requestLoadNext();
+    void sendResult( QImage image );
+    void saveFullScaleFrame( const QImage& image );
+    QImage loadFullScaleFrame( ImageRequest* request );
+    QString pathForRequest( const QString& fileName  );
 
 protected slots:
     void slotGotPreview(const KFileItem&, const QPixmap& pixmap );

@@ -26,6 +26,9 @@
 #include <qimage.h>
 #include <QPixmap>
 #include <kiconloader.h>
+#include "Settings/SettingsData.h"
+#include <kcodecs.h>
+#include <QDir>
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
@@ -48,13 +51,18 @@ void ImageManager::VideoManager::request( ImageRequest* request )
 
 void ImageManager::VideoManager::load( ImageRequest* request )
 {
+    const QImage image = loadFullScaleFrame(request);
+    if ( !image.isNull()) {
+        sendResult(image);
+        return;
+    }
     _currentRequest = request;
     KUrl::List list;
     list.append( request->fileName() );
     // All the extra parameters are the defaults. I need the last false,
     // which says "Don't cache". If it caches, then I wont get a new shot
     // when the user chooses load new thumbnail
-    KIO::PreviewJob* job=KIO::filePreview(list, request->width(), 0,0, 100, true, false );
+    KIO::PreviewJob* job=KIO::filePreview(list, 1024, 0,0, 100, true, false );
 
     job->setIgnoreMaximumSize( true );
 
@@ -66,15 +74,9 @@ void ImageManager::VideoManager::load( ImageRequest* request )
 
 void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap& pixmap )
 {
-    if ( _pending.isRequestStillValid(_currentRequest) ) {
-        QImage img = pixmap.toImage();
-        if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), img );
-        _currentRequest->setLoadedOK( true );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull());
-    }
-
-    requestLoadNext();
+    const QImage image = pixmap.toImage();
+    saveFullScaleFrame(image);
+    sendResult(image);
 }
 
 void ImageManager::VideoManager::previewFailed()
@@ -133,6 +135,49 @@ void ImageManager::VideoManager::testPreviewFailed()
 {
     _hasVideoSupport = false;
     _eventLoop.exit();
+}
+
+void ImageManager::VideoManager::sendResult(QImage image)
+{
+    if ( _pending.isRequestStillValid(_currentRequest) ) {
+        image = image.scaled( QSize(_currentRequest->width(), _currentRequest->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
+        if ( _currentRequest->isThumbnailRequest() )
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), image );
+        _currentRequest->setLoadedOK( true );
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
+    }
+
+    requestLoadNext();
+}
+
+void ImageManager::VideoManager::saveFullScaleFrame(const QImage &image)
+{
+    QDir dir( Settings::SettingsData::instance()->imageDirectory() );
+    if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
+        dir.mkdir(QString::fromLatin1(".videoThumbnails"));
+    image.save(pathForRequest(_currentRequest->fileName()), "JPEG");
+}
+
+QImage ImageManager::VideoManager::loadFullScaleFrame(ImageManager::ImageRequest *request)
+{
+    const QString path = pathForRequest(request->fileName());
+    if ( QFile::exists(path) ) {
+        QImage img;
+        img.load(path);
+        return img;
+    }
+    return QImage();
+}
+
+QString ImageManager::VideoManager::pathForRequest(const QString& fileName )
+{
+    KMD5 md5(fileName.toUtf8());
+    return QString::fromLatin1("%1/.videoThumbnails/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(QString::fromUtf8(md5.hexDigest()));
+}
+
+void ImageManager::VideoManager::removeFullScaleFrame(const QString &fileName)
+{
+    QDir().remove(pathForRequest(fileName));
 }
 
 #include "VideoManager.moc"

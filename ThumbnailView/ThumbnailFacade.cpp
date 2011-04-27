@@ -17,6 +17,7 @@
 */
 #include "ThumbnailFacade.h"
 #include "ImageManager/ThumbnailCache.h"
+#include "ImageManager/VideoManager.h"
 
 #include "Settings/SettingsData.h"
 #include "ThumbnailToolTip.h"
@@ -169,6 +170,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
         const DB::ImageInfoPtr info = id.fetchInfo();
         const QString fileName = info->fileName(DB::AbsolutePath);
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
+        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
         _model->updateCell( id );
     }
 }

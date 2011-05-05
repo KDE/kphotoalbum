@@ -114,5 +114,16 @@ bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*un
         return true;
     }
     else
-        return false;
+      return false;
+}
+
+void Viewer::ViewHandler::hideEvent()
+{
+  // In case the escape key is pressed while viewing or scaling, then we need to restore the override cursor
+  // (As in that case we will not see a key release event)
+  if ( _pan || _scale) {
+    qApp->restoreOverrideCursor();
+    _pan = false;
+    _scale = false;
+  }
 }

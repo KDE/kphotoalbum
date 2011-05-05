@@ -724,4 +724,9 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
     ImageManager::Manager::instance()->load( request );
 }
 
+void Viewer::ImageDisplay::hideEvent(QHideEvent *)
+{
+  _viewHandler->hideEvent();
+}
+
 #include "ImageDisplay.moc"

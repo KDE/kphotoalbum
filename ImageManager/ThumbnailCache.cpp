@@ -172,7 +172,7 @@ bool ImageManager::ThumbnailCache::contains( const QString& name ) const
 QString ImageManager::ThumbnailCache::thumbnailPath(const QString& file) const
 {
     // Making it static is just an optimization.
-    static QString base = QDir::home().absoluteFilePath( QString::fromLatin1(".thumbnails/kphotoalbum/") );
+    static QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath( QString::fromLatin1(".thumbnails/") );
     return  base + file;
 }
 

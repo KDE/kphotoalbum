@@ -238,12 +238,12 @@ property_copy( thumbnailSpace          , setThumbnailSpace         , int        
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
-getValueFunc( int,thumbSize,  Thumbnails, 150)
+getValueFunc_( int, thumbSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
 
 void SettingsData::setThumbSize( int value )
 {
     QPixmapCache::clear();
-    setValue( "Thumbnails", "thumbSize", value );
+    setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
 }
 
 

@@ -84,6 +84,7 @@ void ImageManager::VideoManager::previewFailed()
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIconLoader::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
+        saveFullScaleFrame( pix.toImage());
         const QSize size( _currentRequest->width(), _currentRequest->height());
         pix = pix.scaled(size,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         if ( _currentRequest->isThumbnailRequest() )

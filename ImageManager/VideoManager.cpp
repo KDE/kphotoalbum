@@ -84,11 +84,13 @@ void ImageManager::VideoManager::previewFailed()
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIconLoader::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
+        const QSize size( _currentRequest->width(), _currentRequest->height());
+        pix = pix.scaled(size,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         if ( _currentRequest->isThumbnailRequest() )
             ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), pix.toImage() );
 
         _currentRequest->setLoadedOK( false );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.toImage(), true);
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), size, size, 0, pix.toImage(), true);
     }
 
     requestLoadNext();

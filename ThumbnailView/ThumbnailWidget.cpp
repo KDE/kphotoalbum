@@ -212,7 +212,12 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
         model()->reset();
     }
     else
-        QListView::wheelEvent(event);
+    {
+        int delta = event->delta() / 5;
+        QWheelEvent newevent = QWheelEvent(event->pos(), delta, event->buttons(), NULL);
+
+        QListView::wheelEvent(&newevent);
+    }
 }
 
 

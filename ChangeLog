@@ -1,3 +1,7 @@
+2011-05-15  Miika Turkia <miika.turkia@gmail.com>
+
+	* Added video extensions webm, mts, ogg and ogv (fixes bug #269579)
+
 2011-01-09  Miika Turkia <miika.turkia@gmail.com>
 
 	* Fixed bug #262127, compile fails with exiv2-0.21

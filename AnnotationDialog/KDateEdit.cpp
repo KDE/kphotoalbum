@@ -75,7 +75,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
 
     mDatePicker = new KDatePicker(value, mDateFrame);
 
-    connect(lineEdit(),SIGNAL(returnPressed()),SLOT(lineEnterPressed()));
+    connect(lineEdit(),SIGNAL(editingFinished()),SLOT(lineEnterPressed()));
     connect(this,SIGNAL(textChanged(const QString &)),
             SLOT(slotTextChanged(const QString &)));
 
@@ -217,6 +217,9 @@ void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
 
 void AnnotationDialog::KDateEdit::lineEnterPressed()
 {
+    if ( !mTextChanged )
+        return;
+
     QDate date;
     QDate end;
     if (readDate(date, &end) && (mHandleInvalid || date.isValid()) && validate(date))
@@ -292,23 +295,9 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
 bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
 {
     if (obj == lineEdit()) {
-        // We only process the focus out event if the text has changed
-        // since we got focus
-        if ((e->type() == QEvent::FocusOut) && mTextChanged)
-        {
-            lineEnterPressed();
-            mTextChanged = false;
-        }
-        else if (e->type() == QEvent::KeyPress)
-        {
+        if (e->type() == QEvent::KeyPress) {
             // Up and down arrow keys step the date
             QKeyEvent* ke = (QKeyEvent*)e;
-
-            if (ke->key() == Qt::Key_Return)
-            {
-                lineEnterPressed();
-                return true;
-            }
 
             int step = 0;
             if (ke->key() == Qt::Key_Up)

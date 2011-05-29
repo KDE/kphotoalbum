@@ -431,7 +431,7 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
         return;
 
     if ( _annotationDialog->thumbnailShouldReload() )
-        reloadThumbnails();
+        reloadThumbnails(  ThumbnailView::MaintainSelection );
     Q_FOREACH( const QString& fileName, _annotationDialog->rotatedFiles() )
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }
@@ -946,7 +946,7 @@ void MainWindow::Window::slotAutoSave()
 
 void MainWindow::Window::showThumbNails()
 {
-    reloadThumbnails();
+    reloadThumbnails( ThumbnailView::ClearSelection );
     _stack->raiseWidget( _thumbnailView->gui() );
     _thumbnailView->gui()->setFocus();
     updateStates( true );
@@ -1263,9 +1263,9 @@ void MainWindow::Window::slotRotateSelectedRight()
     rotateSelected( 90 );
 }
 
-void MainWindow::Window::reloadThumbnails()
+void MainWindow::Window::reloadThumbnails( ThumbnailView::SelectionUpdateMethod method )
 {
-    _thumbnailView->reload();
+    _thumbnailView->reload( method );
     updateContextMenuFromSelectionSize( _thumbnailView->selection().size() );
 }
 
@@ -1495,7 +1495,7 @@ void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
         ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
     }
     _statusBar->_dirtyIndicator->markDirty();
-    reloadThumbnails();
+    reloadThumbnails( ThumbnailView::MaintainSelection );
 }
 
 DB::ImageSearchInfo MainWindow::Window::currentContext()
@@ -1599,14 +1599,14 @@ void MainWindow::Window::setDateRange( const DB::ImageDate& range )
 {
     DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
-    reloadThumbnails();
+    reloadThumbnails( ThumbnailView::MaintainSelection );
 }
 
 void MainWindow::Window::clearDateRange()
 {
     DB::ImageDB::instance()->clearDateRange();
     _browser->reload();
-    reloadThumbnails();
+    reloadThumbnails( ThumbnailView::MaintainSelection );
 }
 
 void MainWindow::Window::showThumbNails(const DB::IdList& items)

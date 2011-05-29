@@ -111,7 +111,8 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     ok &= (_rating == -1 ) || ( _rating == info->rating() );
     
     // -------------------------------------------------- Resolution
-    ok &= ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
+    if ( _megapixel )
+        ok &= ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
 
     // -------------------------------------------------- Text
     QString txt = info->description();

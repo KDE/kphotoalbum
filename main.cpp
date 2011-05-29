@@ -86,11 +86,6 @@ int main( int argc, char** argv ) {
         // qApp->setMainWidget( view );
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
-#ifdef KDAB_TEMPORARILY_REMOVED
-        Test* test = new Test;
-        test->go();
-#endif //KDAB_TEMPORARILY_REMOVED
-
         int code = app.exec();
 
         // To avoid filling /tmp up with temporary files from the thumbnail tooltips, we need to destruct this one.

@@ -59,6 +59,8 @@ public:
     void addAnd( const QString& category, const QString& value );
     void setRating( short rating);
     QString toString() const;
+ 
+    void setMegaPixel( short megapixel );
 
     void saveLock() const;
     static ImageSearchInfo loadLock();
@@ -84,6 +86,7 @@ private:
     QString _label;
     QString _description;
     short _rating;
+    short _megapixel;
     bool _isNull;
     mutable bool _compiled;
     mutable QList<CategoryMatcher*> _categoryMatchers;

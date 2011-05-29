@@ -35,7 +35,7 @@ using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _rating( -1 ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), _isNull( false ), _compiled( false )
 {
 }
 
@@ -109,6 +109,9 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // -------------------------------------------------- Rating
 
     ok &= (_rating == -1 ) || ( _rating == info->rating() );
+    
+    // -------------------------------------------------- Resolution
+    ok &= ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
 
     // -------------------------------------------------- Text
     QString txt = info->description();
@@ -153,6 +156,11 @@ void ImageSearchInfo::setRating( short rating )
   _rating = rating;
   _isNull = false;
   _compiled = false;
+}
+
+void ImageSearchInfo::setMegaPixel( short megapixel )
+{
+  _megapixel = megapixel;
 }
 
 QString ImageSearchInfo::toString() const
@@ -233,6 +241,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _isNull = other._isNull;
     _compiled = false;
     _rating = other._rating;
+    _megapixel = other._megapixel;
 #ifdef HAVE_EXIV2
     _exifSearchInfo = other._exifSearchInfo;
 #endif

@@ -23,6 +23,7 @@
 #include "DB/ImageSearchInfo.h"
 #include <qdialog.h>
 #include <QList>
+#include <QSpinBox>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
@@ -156,6 +157,7 @@ private:
     KRatingWidget* _rating;
 #endif
     bool _ratingChanged;
+    QSpinBox* _megapixel;
 
     KActionCollection* _actions;
 

@@ -28,6 +28,7 @@
 #include <QMainWindow>
 #include <QTimeEdit>
 #include <QVBoxLayout>
+#include <QSpinBox>
 #include <kacceleratormanager.h>
 #include <kguiitem.h>
 #include <klineedit.h>
@@ -251,14 +252,28 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _addTime->hide();
     connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
 
+    QHBoxLayout* lay8 = new QHBoxLayout;
+    lay2->addLayout( lay8 );
+    label = new QLabel( i18n("Minimum megapixels:") );
+    lay8->addWidget( label );
+    _megapixel = new QSpinBox;
+    _megapixel->setRange( 0, 99 );
+    _megapixel->setSingleStep( 1 );
+    lay8->addWidget( _megapixel );
+ 
+    QHBoxLayout* lay9 = new QHBoxLayout;
+    lay8->addLayout( lay9 );
+
 #ifdef HAVE_NEPOMUK
+    label = new QLabel( i18n("Rating:") );
+    lay9->addWidget( label );
     _rating = new KRatingWidget;
     _rating->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
-    lay2->addStretch(1);
-    lay2->addWidget( _rating, 0, Qt::AlignCenter );
+    lay9->addWidget( _rating, 0, Qt::AlignCenter );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
 #endif
 
+    lay9->addStretch( 1 );
     lay2->addStretch(1);
 
     return top;
@@ -397,7 +412,8 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
 
-
+    _megapixel->setEnabled( false );
+ 
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
     else
@@ -457,6 +473,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _rating->setRating( 0 );
         _ratingChanged = false ;
 #endif
+    _megapixel->setEnabled( true );
 
     showHelpDialog( SearchMode );
     int ok = exec();
@@ -477,6 +494,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 
         _ratingChanged = false;
 #endif
+	_oldSearch.setMegaPixel( _megapixel->value() );
         return _oldSearch;
     }
     else

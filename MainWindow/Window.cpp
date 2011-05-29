@@ -430,8 +430,7 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
     if ( _annotationDialog->configure( list,  oneAtATime ) == QDialog::Rejected )
         return;
 
-    if ( _annotationDialog->thumbnailShouldReload() )
-        reloadThumbnails(  ThumbnailView::MaintainSelection );
+    reloadThumbnails(  ThumbnailView::MaintainSelection );
     Q_FOREACH( const QString& fileName, _annotationDialog->rotatedFiles() )
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }

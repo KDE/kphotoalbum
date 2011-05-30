@@ -35,7 +35,7 @@ public:
     ThumbnailFacade();
     QWidget* gui();
     void setCurrentItem( const DB::Id& id );
-    void reload( bool clearSelection=true );
+    void reload( SelectionUpdateMethod method );
     DB::IdList selection() const;
     DB::IdList imageList(Order) const;
     DB::Id mediaIdUnderCursor() const;

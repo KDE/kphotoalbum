@@ -74,7 +74,6 @@ public:
     ~Dialog();
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
-    bool thumbnailShouldReload() const;
     Utilities::StringSet rotatedFiles() const;
     KActionCollection* actions();
 
@@ -136,7 +135,6 @@ private:
     QSplitter* _splitter;
     int _accept;
     QList<QDockWidget*> _dockWidgets;
-    bool _thumbnailShouldReload;
     Utilities::StringSet _rotatedFiles;
 
     // Widgets

@@ -15,30 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <Browser/BreadcrumbList.h>
-#include <QContextMenuEvent>
-#include <QMoveEvent>
-#include <QCloseEvent>
-#include <QResizeEvent>
-#include <QLabel>
-#include <KAction>
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-*/
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
@@ -50,6 +26,13 @@ class KTipDialog;
 class QLabel;
 class KActionMenu;
 
+#include <Browser/BreadcrumbList.h>
+#include <QContextMenuEvent>
+#include <QMoveEvent>
+#include <QCloseEvent>
+#include <QResizeEvent>
+#include <QLabel>
+#include <KAction>
 #include "DB/ImageInfoList.h"
 #include <kmainwindow.h>
 #include "Settings/SettingsData.h"
@@ -62,6 +45,7 @@ class KActionMenu;
 #endif
 #include "DB/IdList.h"
 #include "DB/Id.h"
+#include "ThumbnailView/enums.h"
 
 namespace Plugins { class Interface; }
 namespace ThumbnailView { class ThumbnailFacade; }
@@ -129,7 +113,7 @@ protected slots:
     void slotConfigureKeyBindings();
     void slotSetFileName( const DB::Id& );
     void updateContextMenuFromSelectionSize(int selectionSize);
-    void reloadThumbnails();
+    void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void slotBuildThumbnails();

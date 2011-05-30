@@ -69,9 +69,9 @@ void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::Id& id )
     widget()->setCurrentItem( id );
 }
 
-void ThumbnailView::ThumbnailFacade::reload(  bool clearSelection)
+void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
 {
-    _widget->reload( clearSelection );
+    _widget->reload( method );
 }
 
 DB::IdList ThumbnailView::ThumbnailFacade::selection() const

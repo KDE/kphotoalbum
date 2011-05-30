@@ -452,8 +452,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
     }
 
-    _thumbnailShouldReload = false;
-
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
 
     return exec();
@@ -678,7 +676,6 @@ bool AnnotationDialog::Dialog::hasChanges()
 
 void AnnotationDialog::Dialog::rotate( int angle )
 {
-    _thumbnailShouldReload = true;
     if ( _setup == InputMultiImageConfigMode ) {
         // In doneTagging the preview will be queried for its angle.
     }
@@ -687,11 +684,6 @@ void AnnotationDialog::Dialog::rotate( int angle )
         info.rotate(angle);
         _rotatedFiles.insert( info.fileName( DB::AbsolutePath ) );
     }
-}
-
-bool AnnotationDialog::Dialog::thumbnailShouldReload() const
-{
-    return _thumbnailShouldReload;
 }
 
 void AnnotationDialog::Dialog::slotAddTimeInfo()
@@ -711,7 +703,6 @@ void AnnotationDialog::Dialog::slotDeleteImage()
 
     _origList.remove( info );
     _editList.removeAll( _editList.at( _current ) );
-    _thumbnailShouldReload = true;
     MainWindow::DirtyIndicator::markDirty();
     if ( _origList.count() == 0 ) {
         doneTagging();
@@ -996,11 +987,8 @@ void AnnotationDialog::Dialog::saveAndClose()
     }
     _accept = QDialog::Accepted;
 
-    // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
-    if ( anyChanges ) {
+    if ( anyChanges )
         MainWindow::DirtyIndicator::markDirty();
-        _thumbnailShouldReload = true;
-    }
 
     QDialog::accept();
 }

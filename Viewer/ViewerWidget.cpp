@@ -78,7 +78,7 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,QString> > *macroStore )
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore), _myInputMacros(0)
+    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore),  _myInputMacros(0)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
@@ -454,6 +454,8 @@ void Viewer::ViewerWidget::load()
     _filterMenu->setEnabled( !isVideo );
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
+    if ( _exifViewer )
+      _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName(DB::AbsolutePath)) );
 #endif
 
     Q_FOREACH( QAction* videoAction, _videoActions ) {
@@ -1230,8 +1232,8 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    Exif::InfoDialog* exifDialog = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName(DB::AbsolutePath)), this );
-    exifDialog->show();
+    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName(DB::AbsolutePath)), this );
+    _exifViewer->show();
 #endif
 
 }

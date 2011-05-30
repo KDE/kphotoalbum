@@ -31,12 +31,14 @@ namespace DB { class Id; }
 namespace Exif
 {
 using Utilities::StringSet;
+class Grid;
 
 class InfoDialog : public KDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
     InfoDialog( const DB::Id& id, QWidget* parent );
+    void setImage( const DB::Id& id );
 
     virtual QSize sizeHint() const;
 
@@ -50,6 +52,8 @@ private:
     QLabel* _searchLabel;
     QLabel* _pix;
     QComboBox* _iptcCharset;
+    Grid* _grid;
+    QLabel* _fileNameLabel;
 };
 
 class Grid :public Q3GridView
@@ -57,7 +61,8 @@ class Grid :public Q3GridView
     Q_OBJECT
 
 public:
-    Grid( const QString& fileName, QWidget* parent, const char* name = 0 );
+    Grid( QWidget* parent, const char* name = 0 );
+    void setFileName( const QString& fileName );
 
 signals:
     QString searchStringChanged( const QString& text );

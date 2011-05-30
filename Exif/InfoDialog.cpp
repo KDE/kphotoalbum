@@ -35,9 +35,6 @@ using Utilities::StringSet;
 Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     :KDialog( parent )
 {
-    DB::ImageInfoPtr info = id.fetchInfo();
-    QString fileName = info->fileName(DB::AbsolutePath);
-
     setWindowTitle( i18n("EXIF Information") );
     setButtons( Close );
     setWindowFlags( Qt::WDestructiveClose | windowFlags() );
@@ -49,30 +46,27 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     // -------------------------------------------------- File name and pixmap
     QHBoxLayout* hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
-    QLabel* label = new QLabel( fileName, top );
+    _fileNameLabel = new QLabel( top );
     QFont fnt = font();
     fnt.setPointSize( (int) (fnt.pointSize() * 1.2) );
     fnt.setWeight( QFont::Bold );
-    label->setFont( fnt );
-    label->setAlignment( Qt::AlignCenter );
-    hlay->addWidget( label, 1 );
+    _fileNameLabel->setFont( fnt );
+    _fileNameLabel->setAlignment( Qt::AlignCenter );
+    hlay->addWidget( _fileNameLabel, 1 );
 
     _pix = new QLabel( top );
     hlay->addWidget( _pix );
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
-    request->setPriority( ImageManager::Viewer );
-    ImageManager::Manager::instance()->load( request );
 
     // -------------------------------------------------- Exif Grid
-    Exif::Grid* grid = new Exif::Grid( fileName, top );
-    vlay->addWidget( grid );
-    grid->setFocus();
+    _grid = new Exif::Grid( top );
+    vlay->addWidget( _grid );
+    _grid->setFocus();
 
     // -------------------------------------------------- Current Search
     hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
-    label = new QLabel( i18n( "Current EXIF Label Search: "), top );
-    hlay->addWidget( label );
+    _fileNameLabel = new QLabel( i18n( "Current EXIF Label Search: "), top );
+    hlay->addWidget( _fileNameLabel );
 
     _searchLabel = new QLabel( top );
     QPalette pal = _searchLabel->palette();
@@ -96,8 +90,9 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     hlay->addWidget( _iptcLabel );
     hlay->addWidget( _iptcCharset );
 
-    connect( grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
-    connect( _iptcCharset, SIGNAL( activated( const QString& ) ), grid, SLOT( slotCharsetChange( const QString& ) ) );
+    connect( _grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
+    connect( _iptcCharset, SIGNAL( activated( const QString& ) ), _grid, SLOT( slotCharsetChange( const QString& ) ) );
+    setImage(id);
     updateSearchString( QString() );
 }
 
@@ -110,13 +105,11 @@ void Exif::InfoDialog::updateSearchString( const QString& txt )
 }
 
 
-Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
-    :Q3GridView( parent, name ), _fileName( fileName )
+Exif::Grid::Grid( QWidget* parent, const char* name )
+    :Q3GridView( parent, name )
 {
     setFocusPolicy( Qt::WheelFocus );
     setHScrollBarMode( AlwaysOff );
-
-    slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );
 }
 
 void Exif::Grid::slotCharsetChange( const QString& charset )
@@ -284,7 +277,25 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
 void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
 {
     if ( loadedOK )
-        _pix->setPixmap( QPixmap::fromImage(img) );
+      _pix->setPixmap( QPixmap::fromImage(img) );
+}
+
+void Exif::InfoDialog::setImage(const DB::Id &id)
+{
+    DB::ImageInfoPtr info = id.fetchInfo();
+    QString fileName = info->fileName(DB::AbsolutePath);
+    _fileNameLabel->setText( fileName );
+    _grid->setFileName( fileName );
+
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
+    request->setPriority( ImageManager::Viewer );
+    ImageManager::Manager::instance()->load( request );
+}
+
+void Exif::Grid::setFileName(const QString &fileName)
+{
+    _fileName = fileName;
+    slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );
 }
 
 #include "InfoDialog.moc"

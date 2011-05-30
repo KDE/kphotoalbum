@@ -1,3 +1,13 @@
+2011-05-30  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Improvement: If you start the exif viewer from the image viewer,
+	then going to the next image in the image viewer, will update the
+	data shown in the exif viewer.
+
+	If you want to show two exif viewers for two different files, then
+	simply start two exif viewer on an image, only the latest one
+	started will update when the image changes. 
+
 2011-05-15  Miika Turkia <miika.turkia@gmail.com>
 
 	* Added video extensions webm, mts, ogg and ogv (fixes bug #269579)

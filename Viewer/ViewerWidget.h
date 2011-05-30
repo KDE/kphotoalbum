@@ -26,6 +26,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
+#include <QPointer>
 
 class QKeyEvent;
 class QResizeEvent;
@@ -38,7 +39,7 @@ class KAction;
 
 namespace DB { class ImageInfo; class Id; }
 namespace MainWindow { class ExternalPopup; class CategoryImagePopup; }
-
+namespace Exif { class InfoDialog; }
 namespace Viewer
 {
 class VideoDisplay;
@@ -198,6 +199,7 @@ private:
     KAction* _delete;
 #ifdef HAVE_EXIV2
     KAction* _showExifViewer;
+    QPointer<Exif::InfoDialog> _exifViewer;
 #endif
 
     InfoBox* _infoBox;

@@ -60,7 +60,6 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     // -------------------------------------------------- Exif Grid
     _grid = new Exif::Grid( top );
     vlay->addWidget( _grid );
-    _grid->setFocus();
 
     // -------------------------------------------------- Current Search
     hlay = new QHBoxLayout;
@@ -296,6 +295,11 @@ void Exif::Grid::setFileName(const QString &fileName)
 {
     _fileName = fileName;
     slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );
+}
+
+void Exif::InfoDialog::enterEvent(QEvent *)
+{
+    _grid->setFocus();
 }
 
 #include "InfoDialog.moc"

@@ -40,7 +40,8 @@ public:
     InfoDialog( const DB::Id& id, QWidget* parent );
     void setImage( const DB::Id& id );
 
-    virtual QSize sizeHint() const;
+    OVERRIDE QSize sizeHint() const;
+    OVERRIDE void enterEvent( QEvent* );
 
     // ImageManager::ImageClient interface.
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);

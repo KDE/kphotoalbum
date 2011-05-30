@@ -269,6 +269,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
         DB::ImageSearchInfo info;
         info.setCategoryMatchText( Settings::SettingsData::instance()->untaggedCategory(),
                                    Settings::SettingsData::instance()->untaggedTag() );
+        info.setMegaPixel( 0 );
         return new ImageViewPage( info, browser()  );
     }
     else {

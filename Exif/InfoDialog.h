@@ -44,17 +44,17 @@ public:
     OVERRIDE void enterEvent( QEvent* );
 
     // ImageManager::ImageClient interface.
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    OVERRIDE void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected slots:
     void updateSearchString( const QString& );
 
 private:
-    QLabel* _searchLabel;
-    QLabel* _pix;
-    QComboBox* _iptcCharset;
-    Grid* _grid;
-    QLabel* _fileNameLabel;
+    QLabel* m_searchLabel;
+    QLabel* m_pix;
+    QComboBox* m_iptcCharset;
+    Grid* m_grid;
+    QLabel* m_fileNameLabel;
 };
 
 class Grid :public Q3GridView
@@ -68,10 +68,10 @@ public:
 signals:
     QString searchStringChanged( const QString& text );
 
-protected:
-    virtual void paintCell ( QPainter * p, int row, int col );
-    virtual void resizeEvent( QResizeEvent* );
-    virtual void keyPressEvent( QKeyEvent* );
+private:
+    OVERRIDE void paintCell ( QPainter * p, int row, int col );
+    OVERRIDE void resizeEvent( QResizeEvent* );
+    OVERRIDE void keyPressEvent( QKeyEvent* );
 
     StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
     QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );
@@ -79,16 +79,16 @@ protected:
     QString exifNameNoGroup( const QString& fullName );
     void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
 
-protected slots:
+private slots:
     void updateGrid();
     void slotCharsetChange( const QString& charset );
 
 private:
-    QMap<int, QPair<QString,QStringList> > _texts;
-    QSet<int> _headers;
-    int _maxKeyWidth;
-    QString _search;
-    QString _fileName;
+    QMap<int, QPair<QString,QStringList> > m_texts;
+    QSet<int> m_headers;
+    int m_maxKeyWidth;
+    QString m_search;
+    QString m_fileName;
 };
 
 }

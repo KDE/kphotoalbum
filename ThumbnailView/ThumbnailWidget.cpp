@@ -206,9 +206,8 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 
         _wheelResizing = true;
 
-        int delta = event->delta() / 20;
-
-        Settings::SettingsData::instance()->setThumbSize( qMax( 32, cellWidth() + delta -5) ); // 5 pixeles from 3D effect
+        const int delta = -event->delta() / 20;
+        Settings::SettingsData::instance()->setThumbSize( qMax( 32, Settings::SettingsData::instance()->thumbSize() + delta ) );
         cellGeometryInfo()->calculateCellSize();
         model()->reset();
     }

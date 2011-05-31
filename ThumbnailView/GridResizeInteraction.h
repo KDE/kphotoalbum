@@ -49,7 +49,7 @@ public:
     OVERRIDE bool mouseMoveEvent( QMouseEvent* );
     OVERRIDE bool mouseReleaseEvent( QMouseEvent* );
     OVERRIDE bool isResizingGrid();
-    void enterGridReziingMode();
+    void enterGridResizingMode();
     void leaveGridResizingMode();
 
 private:

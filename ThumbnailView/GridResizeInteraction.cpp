@@ -37,7 +37,7 @@ bool ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 {
     _resizing = true;
     _mousePressPos = event->pos();
-    enterGridReziingMode();
+    enterGridResizingMode();
     return true;
 }
 
@@ -91,7 +91,7 @@ void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
         setCellSize( _origWidth );
 }
 
-void ThumbnailView::GridResizeInteraction::enterGridReziingMode()
+void ThumbnailView::GridResizeInteraction::enterGridResizingMode()
 {
     _origWidth = widget()->cellWidth();
     ImageManager::ThumbnailBuilder::instance()->cancelRequests();

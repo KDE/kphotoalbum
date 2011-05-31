@@ -202,7 +202,7 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
     if ( event->modifiers() & Qt::ControlModifier ) {
         event->setAccepted(true);
         if ( !_wheelResizing)
-            _gridResizeInteraction.enterGridReziingMode();
+            _gridResizeInteraction.enterGridResizingMode();
 
         _wheelResizing = true;
 

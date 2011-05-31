@@ -53,6 +53,8 @@ public:
     void leaveGridResizingMode();
 
 private:
+    void setCellSize(int size);
+
     /**
      * The position the mouse was pressed down, in view port coordinates
      */

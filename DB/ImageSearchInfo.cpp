@@ -50,7 +50,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _rating( -1 ), _isNull( true ), _compiled( false )
+    : _rating( -1 ), _megapixel( 0 ), _isNull( true ), _compiled( false )
 {
 }
 

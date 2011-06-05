@@ -371,6 +371,11 @@ void Browser::BrowserWidget::createWidgets()
 
 
     _treeView = new QTreeView( _stack );
+
+    QPalette pal = _treeView->palette();
+    pal.setBrush( QPalette::Base, QColor("#d5d1cf") );
+    _treeView->setPalette( pal );
+
     _treeView->header()->setStretchLastSection(false);
     _treeView->header()->setSortIndicatorShown(true);
     _treeView->setSortingEnabled(true);

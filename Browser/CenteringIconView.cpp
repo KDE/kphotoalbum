@@ -16,7 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CenteringIconView.h"
+#include "Settings/SettingsData.h"
 #include <Utilities/BooleanGuard.h>
+#include "Utilities/Set.h"
+#include "Utilities/Util.h"
 #include <cmath>
 
 const int CELLWIDTH = 200;
@@ -25,6 +28,10 @@ const int CELLHEIGHT = 150;
 Browser::CenteringIconView::CenteringIconView( QWidget* parent )
     : QListView( parent ), _viewMode( NormalIconView )
 {
+    QPalette pal = palette();
+    pal.setBrush( QPalette::Base, QColor("#d5d1cf") );
+    setPalette( pal );
+
     setGridSize( QSize(CELLWIDTH, CELLHEIGHT) );
     viewport()->setAutoFillBackground(false);
 

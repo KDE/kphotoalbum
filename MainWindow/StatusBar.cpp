@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "StatusBar.h"
+#include <QApplication>
 #include <QToolButton>
 #include <QTimer>
 #include <QProgressBar>
@@ -31,6 +32,11 @@
 MainWindow::StatusBar::StatusBar()
     : KStatusBar()
 {
+    QPalette pal = palette();
+    pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Background ) );
+    pal.setBrush( QPalette::Background, QApplication::palette().color( QPalette::Background ) );
+    setPalette( pal );
+
     setupFixedFonts();
     setupGUI();
     m_pendingShowTimer = new QTimer(this);

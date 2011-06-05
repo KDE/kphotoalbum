@@ -373,7 +373,7 @@ void Browser::BrowserWidget::createWidgets()
     _treeView = new QTreeView( _stack );
 
     QPalette pal = _treeView->palette();
-    pal.setBrush( QPalette::Base, QColor("#d5d1cf") );
+    pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Background ) );
     _treeView->setPalette( pal );
 
     _treeView->header()->setStretchLastSection(false);

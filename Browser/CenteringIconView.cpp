@@ -17,6 +17,7 @@
 */
 #include "CenteringIconView.h"
 #include "Settings/SettingsData.h"
+#include <QApplication>
 #include <Utilities/BooleanGuard.h>
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"
@@ -29,7 +30,7 @@ Browser::CenteringIconView::CenteringIconView( QWidget* parent )
     : QListView( parent ), _viewMode( NormalIconView )
 {
     QPalette pal = palette();
-    pal.setBrush( QPalette::Base, QColor("#d5d1cf") );
+    pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Base ) );
     setPalette( pal );
 
     setGridSize( QSize(CELLWIDTH, CELLHEIGHT) );

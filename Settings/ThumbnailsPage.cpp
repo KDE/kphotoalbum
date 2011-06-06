@@ -45,7 +45,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     ++row;
     QLabel* thumbnailSizeLabel = new QLabel( i18n("Thumbnail image size:" ) );
     _thumbnailSize = new QSpinBox;
-    _thumbnailSize->setRange( 0, 512 );
+    _thumbnailSize->setRange( 32, 4096 );
     _thumbnailSize->setSingleStep( 16 );
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( _thumbnailSize, row, 1 );

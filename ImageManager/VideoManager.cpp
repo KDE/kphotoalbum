@@ -51,6 +51,9 @@ void ImageManager::VideoManager::request( ImageRequest* request )
 
 void ImageManager::VideoManager::load( ImageRequest* request )
 {
+    // PENDING(blackie) This should be reworked to use the thumbnail loader instead
+    // The problem is that when the grid is resized then all the video thumnails are recreated on the GUI thread
+    // before execution returns and shows the new grid.
     const QImage image = loadFullScaleFrame(request);
     if ( !image.isNull()) {
         sendResult(image);

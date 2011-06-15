@@ -17,3 +17,4 @@ cscope.*
 tags
 *.orig
 *~
+CMakeLists.txt.user

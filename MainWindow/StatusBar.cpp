@@ -106,9 +106,15 @@ void MainWindow::StatusBar::startProgress( const QString& text, int total )
 
 void MainWindow::StatusBar::setProgress( int progress )
 {
-    m_progressBar->setValue( progress );
     if ( progress == m_progressBar->maximum() )
         hideStatusBar();
+
+    // If progress comes in to fast, then the UI will freeze from all time spent on updating the progressbar.
+    static QTime time;
+    if ( time.elapsed() > 200 ) {
+        m_progressBar->setValue( progress );
+        time.restart();
+    }
 }
 
 void MainWindow::StatusBar::setStatusBarVisible( bool show )

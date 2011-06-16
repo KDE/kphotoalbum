@@ -45,8 +45,6 @@ bool ImageManager::ImageRequest::isNull() const
 
 QString ImageManager::ImageRequest::fileName() const
 {
-    // We need a lock here to avoid a race condition in Operator T() of QDeepCopy
-    QMutexLocker dummy( &_fileNameLock );
     return _fileName;
 }
 

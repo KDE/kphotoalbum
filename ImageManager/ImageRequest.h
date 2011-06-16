@@ -68,8 +68,7 @@ public:
 
 private:
     bool _null;
-    mutable QString _fileName;
-    mutable QMutex _fileNameLock;
+    QString _fileName;
 
     int _width;
     int _height;

@@ -29,9 +29,6 @@ class ImageRequest;
 class ThumbnailStorage;
 
 class ImageLoader :public QThread {
-public:
-    static QImage rotateAndScale( QImage, int width, int height, int angle );
-
 protected:
     virtual void run();
     QImage loadImage( ImageRequest* request, bool& ok );

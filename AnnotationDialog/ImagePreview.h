@@ -43,6 +43,8 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     void reload();
     void setCurrentImage(const QImage &image);
+    QImage rotateAndScale( QImage, int width, int height, int angle ) const;
+
 
     class PreviewImage {
     public:

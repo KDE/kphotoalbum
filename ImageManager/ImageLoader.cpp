@@ -70,17 +70,6 @@ void ImageManager::ImageLoader::run()
     }
 }
 
-QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int height, int angle )
-{
-    if ( angle != 0 )  {
-        QMatrix matrix;
-        matrix.rotate( angle );
-        img = img.transformed( matrix );
-    }
-    img = Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio );
-    return img;
-}
-
 QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 {
     int dim = calcLoadSize( request );
@@ -155,4 +144,3 @@ bool ImageManager::ImageLoader::shouldImageBeScale( const QImage& img, ImageRequ
 
     return true;
 }
-

@@ -109,7 +109,7 @@ ImageManager::ImageRequest* ImageManager::Manager::next()
 
 void ImageManager::Manager::customEvent( QEvent* ev )
 {
-    if ( ev->type() == 1001 )  {
+    if ( ev->type() == ImageEventID )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
         if ( !iev )  {
             Q_ASSERT( iev );

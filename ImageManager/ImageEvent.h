@@ -37,6 +37,7 @@ private:
     QImage _image;
 };
 
+const int ImageEventID = 1001;
 
 }
 #endif // IMAGEEVENT_H

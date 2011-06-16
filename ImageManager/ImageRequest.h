@@ -40,7 +40,21 @@ public:
     virtual ~ImageRequest() {}
 
     bool isNull() const;
-    QString fileName() const;
+
+    /** This is the filename that the media is known by in the database.
+        See \ref fileSystemFileName for details
+    **/
+    QString databaseFileName() const;
+
+    /**
+        This is the file name that needs to be loaded using the image loader.
+        In case of a video file where we are loading the snapshot from a prerendered
+        image, this file name may be different than the one returned from dabataseFileName.
+        In that example, databaseFileName() returns the path to the video file,
+        while fileSystemFileName returns the path to the prerendered image.
+    **/
+    virtual QString fileSystemFileName() const;
+
     int width() const;
     int height() const;
     QSize size() const;
@@ -84,7 +98,7 @@ private:
 
 inline uint qHash(const ImageRequest& ir)
 {
-    return ::qHash(ir.fileName()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle());
+    return ::qHash(ir.databaseFileName()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle());
 }
 
 }

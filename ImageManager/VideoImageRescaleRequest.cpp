@@ -15,17 +15,22 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "VideoImageRescaleRequest.h"
 
-#include "PreloadRequest.h"
-#include "ThumbnailCache.h"
-#include <QDebug>
-
-ImageManager::PreloadRequest::PreloadRequest(const QString& fileName, const QSize& size, int angle, ImageClient* client) :
-    ImageRequest( fileName, size, angle, client )
+ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest( ImageRequest* originalRequest, const QString& path )
+    : ImageRequest( originalRequest->databaseFileName(), originalRequest->size(), originalRequest->angle(), originalRequest->client() ),
+      m_originalRequest( originalRequest ), m_path(path)
 {
+    setIsThumbnailRequest(true);
 }
 
-bool ImageManager::PreloadRequest::stillNeeded() const
+ImageManager::VideoImageRescaleRequest::~VideoImageRescaleRequest()
 {
-    return !ThumbnailCache::instance()->contains( databaseFileName() );
+    delete m_originalRequest;
 }
+
+QString ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
+{
+    return m_path;
+}
+

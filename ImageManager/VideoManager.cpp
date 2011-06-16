@@ -29,6 +29,7 @@
 #include "Settings/SettingsData.h"
 #include <kcodecs.h>
 #include <QDir>
+#include "VideoImageRescaleRequest.h"
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
@@ -51,17 +52,15 @@ void ImageManager::VideoManager::request( ImageRequest* request )
 
 void ImageManager::VideoManager::load( ImageRequest* request )
 {
-    // PENDING(blackie) This should be reworked to use the thumbnail loader instead
-    // The problem is that when the grid is resized then all the video thumnails are recreated on the GUI thread
-    // before execution returns and shows the new grid.
-    const QImage image = loadFullScaleFrame(request);
-    if ( !image.isNull()) {
-        sendResult(image);
+    bool requestOK = requestFullScaleFrame(request);
+    if ( requestOK ) {
+        requestLoadNext();
         return;
     }
+
     _currentRequest = request;
     KUrl::List list;
-    list.append( request->fileName() );
+    list.append( request->databaseFileName() );
     // All the extra parameters are the defaults. I need the last false,
     // which says "Don't cache". If it caches, then I wont get a new shot
     // when the user chooses load new thumbnail
@@ -91,10 +90,10 @@ void ImageManager::VideoManager::previewFailed()
         const QSize size( _currentRequest->width(), _currentRequest->height());
         pix = pix.scaled(size,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), pix.toImage() );
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), pix.toImage() );
 
         _currentRequest->setLoadedOK( false );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), size, size, 0, pix.toImage(), true);
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), size, size, 0, pix.toImage(), true);
     }
 
     requestLoadNext();
@@ -148,9 +147,9 @@ void ImageManager::VideoManager::sendResult(QImage image)
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         image = image.scaled( QSize(_currentRequest->width(), _currentRequest->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->fileName(), image );
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), image );
         _currentRequest->setLoadedOK( true );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
     }
 
     requestLoadNext();
@@ -161,18 +160,19 @@ void ImageManager::VideoManager::saveFullScaleFrame(const QImage &image)
     QDir dir( Settings::SettingsData::instance()->imageDirectory() );
     if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
         dir.mkdir(QString::fromLatin1(".videoThumbnails"));
-    image.save(pathForRequest(_currentRequest->fileName()), "JPEG");
+    image.save(pathForRequest(_currentRequest->databaseFileName()), "JPEG");
 }
 
-QImage ImageManager::VideoManager::loadFullScaleFrame(ImageManager::ImageRequest *request)
+bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageRequest *request)
 {
-    const QString path = pathForRequest(request->fileName());
+    const QString path = pathForRequest(request->databaseFileName());
     if ( QFile::exists(path) ) {
-        QImage img;
-        img.load(path);
-        return img;
+        VideoImageRescaleRequest* newRequest = new VideoImageRescaleRequest( request, path );
+        Manager::instance()->load( newRequest );
+        return true;
     }
-    return QImage();
+    else
+        return false;
 }
 
 QString ImageManager::VideoManager::pathForRequest(const QString& fileName )

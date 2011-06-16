@@ -43,11 +43,6 @@ bool ImageManager::ImageRequest::isNull() const
     return _null;
 }
 
-QString ImageManager::ImageRequest::fileName() const
-{
-    return _fileName;
-}
-
 int ImageManager::ImageRequest::width() const
 {
     return _width;
@@ -60,8 +55,8 @@ int ImageManager::ImageRequest::height() const
 
 bool ImageManager::ImageRequest::operator<( const ImageRequest& other ) const
 {
-    const QString fileA = fileName();
-    const QString fileB = other.fileName();
+    const QString fileA = databaseFileName();
+    const QString fileB = other.databaseFileName();
 
     if (  fileA != fileB )
         return fileA < fileB;
@@ -76,7 +71,7 @@ bool ImageManager::ImageRequest::operator<( const ImageRequest& other ) const
 bool ImageManager::ImageRequest::operator==( const ImageRequest& other ) const
 {
     // Compare all atributes but the pixmap.
-    return ( _null == other._null && fileName() == other.fileName() &&
+    return ( _null == other._null && databaseFileName() == other.databaseFileName() &&
              _width == other._width && _height == other._height &&
              _angle == other._angle && _client == other._client &&
              _priority == other._priority );
@@ -142,7 +137,18 @@ bool ImageManager::ImageRequest::isThumbnailRequest() const
     return _isThumbnailRequest;
 }
 
+QString ImageManager::ImageRequest::databaseFileName() const
+{
+    return _fileName;
+}
+
+QString ImageManager::ImageRequest::fileSystemFileName() const
+{
+    return _fileName;
+}
+
 QSize ImageManager::ImageRequest::size() const
 {
     return QSize( _width, _height );
 }
+

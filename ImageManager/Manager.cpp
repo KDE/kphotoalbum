@@ -58,7 +58,7 @@ void ImageManager::Manager::init()
 
 void ImageManager::Manager::load( ImageRequest* request )
 {
-    if ( Utilities::isVideo( request->fileName() ) )
+    if ( Utilities::isVideo( request->fileSystemFileName() ) )
         loadVideo( request );
     else
         loadImage( request );
@@ -133,11 +133,11 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
 
         if ( request->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( request->fileName(), image );
+            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName(), image );
 
 
         if ( requestStillNeeded && request->client() ) {
-            request->client()->pixmapLoaded( request->fileName(), request->size(),
+            request->client()->pixmapLoaded( request->databaseFileName(), request->size(),
                                              request->fullSize(), request->angle(),
                                              image, request->loadedOK());
         }

@@ -47,7 +47,7 @@ protected:
     void requestLoadNext();
     void sendResult( QImage image );
     void saveFullScaleFrame( const QImage& image );
-    QImage loadFullScaleFrame( ImageRequest* request );
+    bool requestFullScaleFrame( ImageRequest* request );
     QString pathForRequest( const QString& fileName  );
 
 protected slots:

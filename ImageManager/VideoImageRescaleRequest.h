@@ -16,16 +16,27 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "PreloadRequest.h"
-#include "ThumbnailCache.h"
-#include <QDebug>
+#ifndef VIDEOIMAGERESCALEREQUEST_H
+#define VIDEOIMAGERESCALEREQUEST_H
 
-ImageManager::PreloadRequest::PreloadRequest(const QString& fileName, const QSize& size, int angle, ImageClient* client) :
-    ImageRequest( fileName, size, angle, client )
+#include "ImageRequest.h"
+#include "ImageClient.h"
+
+namespace ImageManager
 {
+
+class VideoImageRescaleRequest : public ImageRequest
+{
+public:
+    VideoImageRescaleRequest( ImageRequest* originalRequest, const QString& path );
+    ~VideoImageRescaleRequest();
+    OVERRIDE QString fileSystemFileName() const;
+
+private:
+    ImageRequest* m_originalRequest;
+    QString m_path;
+};
+
 }
 
-bool ImageManager::PreloadRequest::stillNeeded() const
-{
-    return !ThumbnailCache::instance()->contains( databaseFileName() );
-}
+#endif // VIDEOIMAGERESCALEREQUEST_H

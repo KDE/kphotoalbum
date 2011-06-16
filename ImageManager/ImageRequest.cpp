@@ -142,3 +142,7 @@ bool ImageManager::ImageRequest::isThumbnailRequest() const
     return _isThumbnailRequest;
 }
 
+QSize ImageManager::ImageRequest::size() const
+{
+    return QSize( _width, _height );
+}

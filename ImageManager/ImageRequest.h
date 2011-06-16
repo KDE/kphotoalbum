@@ -43,6 +43,7 @@ public:
     QString fileName() const;
     int width() const;
     int height() const;
+    QSize size() const;
     int angle() const;
 
     ImageClient* client() const;

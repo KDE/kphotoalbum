@@ -117,44 +117,31 @@ void ImageManager::Manager::customEvent( QEvent* ev )
         }
 
         ImageRequest* request = iev->loadInfo();
-        QImage image = iev->image();
-
-        ImageClient* client = 0;
-        QString fileName;
-        QSize size;
-        QSize fullSize;
-        int angle = 0;
-        bool loadedOK = request->loadedOK();
 
         _lock.lock();
-        if ( _loadList.isRequestStillValid( request ) )  {
-            // If it is not in the map, then it has been canceled (though ::stop) since the request.
-            client = request->client();
-            fileName = request->fileName();
-            size = QSize(request->width(), request->height() );
-            fullSize = request->fullSize();
-            angle = request->angle();
-        }
-
-        if ( request->isThumbnailRequest() ) {
-            if ( !request->loadedOK() ) {
-                // PENDING(blackie) This stinks! It looks bad, but I don't have more energy to fix it.
-                KIcon icon( QString::fromLatin1( "file-broken" ) );
-                QPixmap pix = icon.pixmap( icon.actualSize( QSize( request->width(), request->height() ) ) );
-                image = pix.toImage();
-            }
-
-            ImageManager::ThumbnailCache::instance()->insert( request->fileName(), image );
-        }
-
+        const bool requestStillNeeded = _loadList.isRequestStillValid( request );
         _loadList.removeRequest(request);
         _currentLoading.remove( request );
-        delete request;
-
         _lock.unlock();
-        if ( client ) {
-            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK);
+
+        QImage image = iev->image();
+        if ( !request->loadedOK() ) {
+            // PENDING(blackie) This stinks! It looks bad, but I don't have more energy to fix it.
+            KIcon icon( QString::fromLatin1( "file-broken" ) );
+            QPixmap pix = icon.pixmap( icon.actualSize( QSize( request->width(), request->height() ) ) );
+            image = pix.toImage();
         }
+
+        if ( request->isThumbnailRequest() )
+            ImageManager::ThumbnailCache::instance()->insert( request->fileName(), image );
+
+
+        if ( requestStillNeeded && request->client() ) {
+            request->client()->pixmapLoaded( request->fileName(), request->size(),
+                                             request->fullSize(), request->angle(),
+                                             image, request->loadedOK());
+        }
+        delete request;
     }
     else if ( ev->type() == CANCELEVENTID ) {
         CancelEvent* cancelEvent = dynamic_cast<CancelEvent*>(ev);

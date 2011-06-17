@@ -40,6 +40,7 @@ public:
     void setLocked( bool locked );
     void startProgress( const QString& text, int total );
     void setProgress( int progress );
+    void setProgressBarVisible( bool );
 
 signals:
     void cancelRequest();
@@ -51,7 +52,6 @@ private slots:
 private:
     void setupFixedFonts();
     void setupGUI();
-    void setStatusBarVisible( bool );
     void setPendingShow();
 
     QLabel* _lockedIndicator;

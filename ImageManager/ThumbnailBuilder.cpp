@@ -39,6 +39,7 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopAll );
     m_isBuilding = false;
+    m_statusBar->setProgressBarVisible(false);
 }
 
 void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)

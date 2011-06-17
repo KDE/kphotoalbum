@@ -1728,7 +1728,6 @@ void MainWindow::Window::setupStatusBar()
     _statusBar = new MainWindow::StatusBar;
     setStatusBar( _statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true );
-
 }
 
 void MainWindow::Window::slotRecreateExifDB()

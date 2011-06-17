@@ -81,7 +81,7 @@ void MainWindow::StatusBar::setupGUI()
     _pathIndicator = new BreadcrumbViewer;
     addWidget( _pathIndicator, 1 );
 
-    setStatusBarVisible( false );
+    setProgressBarVisible( false );
 }
 
 void MainWindow::StatusBar::setLocked( bool locked )
@@ -117,7 +117,7 @@ void MainWindow::StatusBar::setProgress( int progress )
     }
 }
 
-void MainWindow::StatusBar::setStatusBarVisible( bool show )
+void MainWindow::StatusBar::setProgressBarVisible( bool show )
 {
     m_progressBar->setVisible(show);
     m_cancel->setVisible(show);
@@ -125,11 +125,11 @@ void MainWindow::StatusBar::setStatusBarVisible( bool show )
 
 void MainWindow::StatusBar::hideStatusBar()
 {
-    setStatusBarVisible( false );
+    setProgressBarVisible( false );
     m_pendingShowTimer->stop();
 }
 
 void MainWindow::StatusBar::showStatusBar()
 {
-    setStatusBarVisible( true );
+    setProgressBarVisible( true );
 }

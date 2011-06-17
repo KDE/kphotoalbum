@@ -819,12 +819,16 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("rescan"), DB::ImageDB::instance(), SLOT( slotRescan() ) );
     a->setText( i18n("Rescan for Images and Videos") );
 
-#ifdef HAVE_EXIV2
-    a = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT( slotRecreateExifDB() ) );
-    a->setText( i18n("Recreate Exif Search Database") );
+    KAction* recreateExif = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT( slotRecreateExifDB() ) );
+    recreateExif->setText( i18n("Recreate Exif Search Database") );
 
-    a = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT( slotReReadExifInfo() ) );
-    a->setText( i18n("Read EXIF Info From Files...") );
+    KAction* rereadExif = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT( slotReReadExifInfo() ) );
+    rereadExif->setText( i18n("Read EXIF Info From Files...") );
+#ifndef HAVE_EXIV2
+    recreateExif->setText( i18n("Recreate Exif Search Database (need to compile KPhotoAlbum with Exif support)") );
+    rereadExif->setText( i18n("Read EXIF Info From Files... (need to compile KPhotoAlbum with Exif support)"));
+    recreateExif->setEnabled(false);
+    rereadExif->setEnabled(false);
 #endif
 
     _AutoStackImages = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT ( slotAutoStackImages() ) );

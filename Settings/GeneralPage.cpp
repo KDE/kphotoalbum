@@ -30,6 +30,7 @@
 #include <QVBoxLayout>
 #include "DB/CategoryCollection.h"
 #include "SettingsData.h"
+#include "MainWindow/Window.h"
 
 Settings::GeneralPage::GeneralPage( QWidget* parent )
     : QWidget( parent )
@@ -79,8 +80,16 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay2->addStretch( 1 );
 
     // Datebar size
-    container = new QWidget( this );
+    box = new Q3VGroupBox( i18n ("Histogram"), this );
+    lay1->addWidget( box );
+
+    container = new QWidget( box );
     lay1->addWidget( container );
+
+    _showHistogram = new QCheckBox( i18n("Show histogram:"), box);
+    lay1->addWidget( _showHistogram );
+    connect( _showHistogram, SIGNAL( stateChanged(int) ), this, SLOT( showHistogramChanged(int) ) );
+
     hlay = new QHBoxLayout( container );
     QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in date bar:"), container );
     hlay->addWidget( datebarSize );
@@ -173,6 +182,7 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     setUseRawThumbnailSize(QSize(opt->useRawThumbnailSize().width(), opt->useRawThumbnailSize().height()));
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
+    _showHistogram->setChecked( opt->showHistogram() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
@@ -188,6 +198,7 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setUseRawThumbnail( _useRawThumbnail->isChecked() );
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
+    opt->setShowHistogram( _showHistogram->isChecked() );
     opt->setShowSplashScreen( _showSplashScreen->isChecked() );
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
@@ -206,4 +217,9 @@ void Settings::GeneralPage::setUseRawThumbnailSize( const QSize& size  )
 QSize Settings::GeneralPage::useRawThumbnailSize()
 {
     return QSize( _useRawThumbnailWidth->value(), _useRawThumbnailHeight->value() );
+}
+
+void Settings::GeneralPage::showHistogramChanged( int state ) const
+{
+    MainWindow::Window::theMainWindow()->setHistogramVisibilty( state == Qt::Checked );
 }

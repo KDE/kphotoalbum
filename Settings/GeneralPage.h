@@ -29,12 +29,16 @@ class SettingsData;
 
 class GeneralPage :public QWidget
 {
+    Q_OBJECT
 public:
     GeneralPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
     void setUseRawThumbnailSize( const QSize& size );
     QSize useRawThumbnailSize();
+
+private slots:
+    void showHistogramChanged( int state ) const;
 
 private:
     KComboBox* _trustTimeStamps;
@@ -43,6 +47,7 @@ private:
     QCheckBox* _useRawThumbnail;
     QSpinBox* _useRawThumbnailWidth;
     QSpinBox* _useRawThumbnailHeight;
+    QCheckBox* _showHistogram;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
     QCheckBox* _showSplashScreen;

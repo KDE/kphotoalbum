@@ -74,6 +74,7 @@ public:
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
     void setStackHead( const DB::Id image );
+    void setHistogramVisibilty( bool visible ) const;
 
 public slots:
     void showThumbNails(const DB::IdList& items);
@@ -223,6 +224,7 @@ private:
     KAction* _recreateThumbnails;
     TokenEditor* _tokenEditor;
     DateBar::DateBarWidget* _dateBar;
+    QFrame* _dateBarLine;
     bool _hasLoadedPlugins;
     QMap<Qt::Key, QPair<QString,QString> > _viewerInputMacros;
     MainWindow::StatusBar* _statusBar;

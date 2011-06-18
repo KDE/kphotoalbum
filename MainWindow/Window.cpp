@@ -156,10 +156,12 @@ MainWindow::Window::Window( QWidget* parent )
     _dateBar = new DateBar::DateBarWidget( top );
     lay->addWidget( _dateBar );
 
-    Q3Frame* line = new Q3Frame( top );
-    line->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
-    line->setLineWidth(1);
-    lay->addWidget( line );
+    _dateBarLine = new QFrame( top );
+    _dateBarLine->setFrameStyle( QFrame::HLine | Q3Frame::Plain );
+    _dateBarLine->setLineWidth(0); _dateBarLine->setMidLineWidth(0);
+    lay->addWidget( _dateBarLine );
+
+    setHistogramVisibilty(Settings::SettingsData::instance()->showHistogram());
 
     _browser = new Browser::BrowserWidget( _stack );
     _thumbnailView = new ThumbnailView::ThumbnailFacade();
@@ -183,18 +185,17 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), _statusBar->_pathIndicator, SLOT( setBreadcrumbs( const Browser::BreadcrumbList& ) ) );
     connect( _statusBar->_pathIndicator, SIGNAL( widenToBreadcrumb( const Browser::Breadcrumb& ) ), _browser, SLOT( widenToBreadcrumb( const Browser::Breadcrumb& ) ) );
     connect( _browser, SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( updateDateBar( const Browser::BreadcrumbList& ) ) );
+
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Settings::SettingsData::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
-
-    connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ),
-             this, SLOT( setDateRange( const DB::ImageDate& ) ) );
+    connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ), this, SLOT( setDateRange( const DB::ImageDate& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
+    connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
     connect( _thumbnailView, SIGNAL( showImage( const DB::Id& ) ), this, SLOT( showImage( const DB::Id& ) ) );
     connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
-    connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
     connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ), this, SLOT( slotSetFileName( const DB::Id& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
@@ -1754,6 +1755,20 @@ void MainWindow::Window::createSarchBar()
     connect( bar, SIGNAL( keyPressed( QKeyEvent* ) ), _browser, SLOT( scrollKeyPressed( QKeyEvent* ) ) );
     connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
     connect( _browser, SIGNAL( isSearchable( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
+}
+
+void MainWindow::Window::setHistogramVisibilty( bool visible ) const
+{
+    if (visible)
+    {
+        _dateBar->show();
+        _dateBarLine->show();
+    }
+    else
+    {
+        _dateBar->hide();
+        _dateBarLine->hide();
+    }
 }
 
 #include "Window.moc"

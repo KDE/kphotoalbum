@@ -37,29 +37,19 @@ MainWindow::StatusBar::StatusBar()
     pal.setBrush( QPalette::Background, QApplication::palette().color( QPalette::Background ) );
     setPalette( pal );
 
-    setupFixedFonts();
     setupGUI();
     m_pendingShowTimer = new QTimer(this);
     m_pendingShowTimer->setSingleShot( true );
     connect( m_pendingShowTimer, SIGNAL( timeout() ), this, SLOT( showStatusBar() ) );
 }
 
-void MainWindow::StatusBar::setupFixedFonts()
-{
-    // Avoid flicker in the statusbar when moving over dates from the datebar
-    QFont f( font() );
-    f.setStyleHint( QFont::TypeWriter );
-    f.setFamily( QString::fromLatin1( "courier" ) );
-    f.setBold( true );
-    setFont( f );
-}
-
 void MainWindow::StatusBar::setupGUI()
 {
+    setContentsMargins(7,2,7,2);
+
     KHBox* indicators = new KHBox( this );
     _dirtyIndicator = new DirtyIndicator( indicators );
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
-
 
     m_progressBar = new QProgressBar( this );
     m_progressBar->setMinimumWidth( 400 );

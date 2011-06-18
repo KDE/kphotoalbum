@@ -50,7 +50,6 @@ private slots:
     void showStatusBar();
 
 private:
-    void setupFixedFonts();
     void setupGUI();
     void setPendingShow();
 

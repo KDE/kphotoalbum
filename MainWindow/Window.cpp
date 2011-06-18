@@ -148,6 +148,8 @@ MainWindow::Window::Window( QWidget* parent )
 
     QWidget* top = new QWidget( this );
     QVBoxLayout* lay = new QVBoxLayout( top );
+    lay->setSpacing(2);
+    lay->setContentsMargins(2,2,2,2);
     setCentralWidget( top );
 
     _stack = new Q3WidgetStack( top, "_stack" );
@@ -159,6 +161,11 @@ MainWindow::Window::Window( QWidget* parent )
     _dateBarLine = new QFrame( top );
     _dateBarLine->setFrameStyle( QFrame::HLine | Q3Frame::Plain );
     _dateBarLine->setLineWidth(0); _dateBarLine->setMidLineWidth(0);
+
+    QPalette pal = _dateBarLine->palette();
+    pal.setColor( QPalette::WindowText, QColor("#c4c1bd") );
+    _dateBarLine->setPalette( pal );
+
     lay->addWidget( _dateBarLine );
 
     setHistogramVisibilty(Settings::SettingsData::instance()->showHistogram());

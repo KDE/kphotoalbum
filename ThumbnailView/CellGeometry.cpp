@@ -34,34 +34,9 @@ ThumbnailView::CellGeometry::CellGeometry( ThumbnailFactory* factory )
 QSize ThumbnailView::CellGeometry::preferredIconSize()
 {
     int width = Settings::SettingsData::instance()->thumbSize();
-    int height = width;
-
-    switch (Settings::SettingsData::instance()->thumbnailAspectRatio()) {
-    case Settings::Aspect_16_9:
-	    height = (int) (width * 9.0 / 16);
-	    break;
-    case Settings::Aspect_4_3:
-	    height = (int) (width * 3.0 / 4);
-	    break;
-    case Settings::Aspect_3_2:
-	    height = (int) (width * 2.0 / 3);
-	    break;
-    case Settings::Aspect_9_16:
-	    width = (int) (width * 9.0 / 16);
-	    break;
-    case Settings::Aspect_3_4:
-	    width = (int) (width * 3.0 / 4);
-	    break;
-    case Settings::Aspect_2_3:
-	    width = (int) (width * 2.0 / 3);
-	    break;
-	case Settings::Aspect_1_1:
-	    // nothing
-	    ;
-    }
+    int height = width * Settings::SettingsData::instance()->getThumbnailAspectRatio();
     return QSize( width, height);
 }
-
 
 /**
  * Return the geometry for the icon in the cell. The coordinates are relative to the cell.

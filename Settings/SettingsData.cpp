@@ -478,3 +478,32 @@ bool Settings::SettingsData::hasUntaggedCategoryFeatureConfigured() const
 {
     return DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( untaggedCategory() );
 }
+
+double Settings::SettingsData::getThumbnailAspectRatio() const
+{
+    double ratio = 1.0;
+    switch (Settings::SettingsData::instance()->thumbnailAspectRatio()) {
+        case Settings::Aspect_16_9:
+            ratio = 9.0 / 16;
+            break;
+        case Settings::Aspect_4_3:
+            ratio = 3.0 / 4;
+            break;
+        case Settings::Aspect_3_2:
+            ratio = 2.0 / 3;
+            break;
+        case Settings::Aspect_9_16:
+            ratio = 16 / 9.0;
+            break;
+        case Settings::Aspect_3_4:
+            ratio = 4 / 3.0;
+            break;
+        case Settings::Aspect_2_3:
+            ratio = 3 / 2.0;
+            break;
+        case Settings::Aspect_1_1:
+            ratio = 1.0;
+            break;
+    }
+    return ratio;
+}

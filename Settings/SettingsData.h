@@ -220,6 +220,8 @@ public:
     void  setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
 
+    double getThumbnailAspectRatio() const;
+
 signals:
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Settings::ViewSortType );

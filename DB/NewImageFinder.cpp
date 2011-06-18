@@ -124,6 +124,8 @@ void NewImageFinder::loadExtraFiles()
     dialog.setMaximum( _pendingLoad.count() );
     dialog.setMinimumDuration( 1000 );
 
+    setupFileVersionDetection();
+
     int count = 0;
     ImageInfoList newImages;
     for( LoadList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
@@ -141,6 +143,14 @@ void NewImageFinder::loadExtraFiles()
     DB::ImageDB::instance()->addImages( newImages );
 }
 
+void NewImageFinder::setupFileVersionDetection() {
+    // should be cached because loading once per image is expensive
+    _modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
+    _modifiedFileComponent = QRegExp(_modifiedFileCompString);
+
+    _originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
+    _originalFileComponents = _originalFileComponents.at(0).split(QString::fromLatin1(";"));
+}
 
 ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
 {
@@ -179,43 +189,38 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         }
     }
 
-    QString err = Settings::SettingsData::instance()->modifiedFileComponent();
-    QRegExp modifiedFileComponent =
-        QRegExp(Settings::SettingsData::instance()->modifiedFileComponent());
-
     // check to see if this is a new version of a previous image
     ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
     ImageInfoPtr originalInfo;
     QString originalFileName;
 
     if (Settings::SettingsData::instance()->detectModifiedFiles()) {
-        // should be cached because loading once per image is expensive
-        QString err = Settings::SettingsData::instance()->modifiedFileComponent();
-        QRegExp modifiedFileComponent =
-            QRegExp(Settings::SettingsData::instance()->modifiedFileComponent());
         // requires at least *something* in the modifiedFileComponent
-        if (err.length() >= 0 &&
-            relativeNewFileName.contains(modifiedFileComponent)) {
+        if (_modifiedFileCompString.length() >= 0 &&
+            relativeNewFileName.contains(_modifiedFileComponent)) {
 
-            originalFileName = relativeNewFileName;
-            QString originalFileComponent =
-                Settings::SettingsData::instance()->originalFileComponent();
-            originalFileName.replace(modifiedFileComponent, originalFileComponent);
+            for( QStringList::const_iterator it = _originalFileComponents.constBegin(); 
+                 it != _originalFileComponents.constEnd(); ++it ) {
+                originalFileName = relativeNewFileName;
+                originalFileName.replace(_modifiedFileComponent, (*it));
 
-            MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( originalFileName ) );
-            if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
-                // we have a previous copy of this file; copy it's data
-                // from the original.
-                originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
-                if ( !originalInfo ) {
-                    qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
-                } else {
-                    info->copyExtraData(*originalInfo);
-                }
+                MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( originalFileName ) );
+                if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
+                    // we have a previous copy of this file; copy it's data
+                    // from the original.
+                    originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
+                    if ( !originalInfo ) {
+                        qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
+                    } else {
+                        info->copyExtraData(*originalInfo);
+                    }
 
-                /* if requested to move, then delete old data from original */
-                if (Settings::SettingsData::instance()->moveOriginalContents() ) {
-                    originalInfo->removeExtraData();
+                    /* if requested to move, then delete old data from original */
+                    if (Settings::SettingsData::instance()->moveOriginalContents() ) {
+                        originalInfo->removeExtraData();
+                    }
+
+                    break;
                 }
             }
         }

@@ -36,6 +36,7 @@ public:
 
 protected:
     void searchForNewFiles( const QSet<QString>& loadedFiles, QString directory );
+    void setupFileVersionDetection();
     void loadExtraFiles();
     ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
     void markUnTagged( ImageInfoPtr info );
@@ -43,6 +44,10 @@ protected:
 private:
     typedef QList< QPair< QString, DB::MediaType > > LoadList;
     LoadList _pendingLoad;
+
+    QString _modifiedFileCompString;
+    QRegExp _modifiedFileComponent;
+    QStringList _originalFileComponents;
 };
 }
 

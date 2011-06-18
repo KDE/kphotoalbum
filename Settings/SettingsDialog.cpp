@@ -64,7 +64,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
     Data data[] = {
         { i18n("General"), "kphotoalbum", _generalPage },
-        { i18n("File Versions"), "system-search", _fileVersionDetectionPage },
+        { i18n("File Searching & Versions"), "system-search", _fileVersionDetectionPage },
         { i18n("Thumbnail View" ), "view-list-icons", _thumbnailsPage },
         { i18n("Categories"), "user-identity", _categoryPage },
         { i18n("Subcategories" ), "edit-copy", _subCategoriesPage },

@@ -28,7 +28,6 @@
 #include <QWidget>
 #include <Q3VGroupBox>
 #include <QVBoxLayout>
-#include <KLineEdit>
 #include "DB/CategoryCollection.h"
 #include "SettingsData.h"
 
@@ -37,7 +36,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this );
 
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "New Images" ), this );
+    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Loading New Images" ), this );
     lay1->addWidget( box );
 
     // Thrust time stamps
@@ -55,10 +54,6 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
 
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
-
-    // Search for images on startup
-    _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), box );
-    _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), box );
 
     // Use embedded thumbnail
     _useRawThumbnail = new QCheckBox( i18n("Use the embedded thumbnail in RAW file or halfsized RAW"), box );
@@ -82,12 +77,6 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay2->addWidget( _useRawThumbnailHeight );
 
     lay2->addStretch( 1 );
-
-    // Exclude directories from search
-    QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), box );
-    _excludeDirectories = new KLineEdit( box );
-    excludeDirectoriesLabel->setBuddy( _excludeDirectories );
-
 
     // Datebar size
     container = new QWidget( this );
@@ -122,9 +111,9 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay7->addWidget( _albumCategory );
     lay7->addStretch(1);
 
-     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        _albumCategory->addItem( (*it)->text() );
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+       _albumCategory->addItem( (*it)->text() );
     }
 
     lay1->addStretch( 1 );
@@ -155,17 +144,6 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
                "default description for your images.</p>" );
     _useEXIFComments->setWhatsThis( txt );
 
-    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
-                "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
-                "using <b>Maintenance->Rescan for new images</b></p>");
-    _searchForImagesOnStart->setWhatsThis( txt );
-
-    txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
-		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
-		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
-		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
-    _skipRawIfOtherMatches->setWhatsThis( txt );
-
     txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
                "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
                "to the plugin system as if it did.</p>"
@@ -191,14 +169,11 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     _trustTimeStamps->setCurrentIndex( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
-    _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
-    _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
     _useRawThumbnail->setChecked( opt->useRawThumbnail() );
     setUseRawThumbnailSize(QSize(opt->useRawThumbnailSize().width(), opt->useRawThumbnailSize().height()));
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
-    _excludeDirectories->setText( opt->excludeDirectories() );
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
@@ -211,12 +186,9 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentIndex() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
-    opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
-    opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
     opt->setUseRawThumbnail( _useRawThumbnail->isChecked() );
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
     opt->setShowSplashScreen( _showSplashScreen->isChecked() );
-    opt->setExcludeDirectories( _excludeDirectories->text() );
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
         name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];

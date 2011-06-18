@@ -36,6 +36,9 @@ public:
     void saveSettings( Settings::SettingsData* );
 
 private:
+    QCheckBox* _searchForImagesOnStart;
+    QCheckBox* _skipRawIfOtherMatches;
+    QLineEdit* _excludeDirectories; // Directories to exclude
     QCheckBox* _detectModifiedFiles;
     QLineEdit* _modifiedFileComponent;
     QLineEdit* _originalFileComponent;

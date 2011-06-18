@@ -23,7 +23,6 @@ class QComboBox;
 class QSpinBox;
 class QCheckBox;
 class KComboBox;
-class KLineEdit;
 namespace Settings
 {
 class SettingsData;
@@ -41,8 +40,6 @@ private:
     KComboBox* _trustTimeStamps;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
-    QCheckBox* _searchForImagesOnStart;
-    QCheckBox* _skipRawIfOtherMatches;
     QCheckBox* _useRawThumbnail;
     QSpinBox* _useRawThumbnailWidth;
     QSpinBox* _useRawThumbnailHeight;
@@ -50,7 +47,6 @@ private:
     QSpinBox* _barHeight;
     QCheckBox* _showSplashScreen;
     QComboBox* _albumCategory;
-    KLineEdit* _excludeDirectories; // Directories to exclude
 };
 }
 

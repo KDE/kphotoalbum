@@ -32,6 +32,19 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this );
 
+    // General file searching
+    Q3VGroupBox* generalBox = new Q3VGroupBox( i18n("New File Searches"), this );
+    lay1->addWidget( generalBox );
+
+    // Search for images on startup
+    _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
+    _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
+
+    // Exclude directories from search
+    QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
+    _excludeDirectories = new QLineEdit( generalBox );
+    excludeDirectoriesLabel->setBuddy( _excludeDirectories );
+
     // Original/Modified File Support
     Q3VGroupBox* modifiedBox = new Q3VGroupBox( i18n("File Version Detection Settings"), this );
     lay1->addWidget( modifiedBox );
@@ -59,6 +72,17 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     _copyFileReplacementComponent = new QLineEdit(copyBox);
 
     QString txt;
+    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
+                "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
+                "using <b>Maintenance->Rescan for new images</b></p>");
+    _searchForImagesOnStart->setWhatsThis( txt );
+
+    txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
+                "Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
+                "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
+                "If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
+    _skipRawIfOtherMatches->setWhatsThis( txt );
+
     txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the <i>modified file search regexp</i> it is assumed that an original version of the image may exist.  The regexp pattern will be replaced with the <i>original file string</i> text and if that file exists, all associated metadata (category information, ratings, etc) will be copied from the original file to the new one.</p>");
     _detectModifiedFiles->setWhatsThis( txt );
     modifiedFileComponentLabel->setWhatsThis( txt );
@@ -77,6 +101,9 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
 void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* opt )
 {
+    _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
+    _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
+    _excludeDirectories->setText( opt->excludeDirectories() );
     _detectModifiedFiles->setChecked( opt->detectModifiedFiles() );
     _modifiedFileComponent->setText( opt->modifiedFileComponent() );
     _originalFileComponent->setText( opt->originalFileComponent() );
@@ -88,6 +115,9 @@ void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* o
 
 void Settings::FileVersionDetectionPage::saveSettings( Settings::SettingsData* opt )
 {
+    opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
+    opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
+    opt->setExcludeDirectories( _excludeDirectories->text() );
     opt->setDetectModifiedFiles( _detectModifiedFiles->isChecked() );
     opt->setModifiedFileComponent( _modifiedFileComponent->text() );
     opt->setOriginalFileComponent( _originalFileComponent->text() );

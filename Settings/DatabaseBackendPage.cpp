@@ -49,7 +49,6 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     new QRadioButton(i18n("SQL backend (experimental)"), _backendButtons);
 #endif
 
-
     // XML Backend
     Q3VGroupBox* xmlBox = new Q3VGroupBox( i18n("XML Database Setting"), this );
     lay1->addWidget( xmlBox );
@@ -97,8 +96,6 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
     _compressedIndexXML->setWhatsThis( txt );
-
-
 
     // SQL Backend
 #ifdef SQLDB_SUPPORT

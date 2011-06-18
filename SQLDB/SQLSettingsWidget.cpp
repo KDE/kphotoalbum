@@ -42,20 +42,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
 {
     QVBoxLayout* topLayout = new QVBoxLayout(this);
 
-    QHBoxLayout* drvSelLayout = new QHBoxLayout;
-    topLayout->addLayout(drvSelLayout);
-    _driverLabel = new QLabel(this);
-    drvSelLayout->addWidget(_driverLabel);
-    _driverCombo = new QComboBox(this);
-    _driverCombo->setEditable(false);
-    drvSelLayout->addWidget(_driverCombo);
-    QSpacerItem* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
-                                          QSizePolicy::Minimum);
-    drvSelLayout->addItem(spacer);
-
-
     _widgetStack = new QStackedWidget(this);
-
 
     // Page 0, error information
     QWidget* stackPage = new QWidget(_widgetStack);
@@ -64,12 +51,11 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
     _errorLabel = new QLabel(stackPage);
     stackPage0Layout->addWidget(_errorLabel);
 
-    spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum,
-                             QSizePolicy::Expanding);
+    QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum,
+                                          QSizePolicy::Expanding);
     stackPage0Layout->addItem(spacer);
 
     _widgetStack->insertWidget(ErrorPage, stackPage);
-
 
     // Page 1, file based database settings
     stackPage = new QWidget(_widgetStack);
@@ -95,20 +81,28 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
 
     _widgetStack->insertWidget(FileSettingsPage, stackPage);
 
-
     // Page 2, server based database settings
     stackPage = new QWidget(_widgetStack);
     QGridLayout* stackPage2Layout = new QGridLayout(stackPage);
+    int row = 0;
 
+    _driverLabel = new QLabel(stackPage);
+    stackPage2Layout->addWidget(_driverLabel, row, 0);
+    _driverCombo = new QComboBox(stackPage);
+    _driverCombo->setEditable(false);
+    stackPage2Layout->addWidget(_driverCombo, row, 1);
+
+    row++;
     _hostLabel = new QLabel(stackPage);
-    stackPage2Layout->addWidget(_hostLabel, 0, 0);
+    stackPage2Layout->addWidget(_hostLabel, row, 0);
     _hostLine = new KLineEdit(stackPage);
-    stackPage2Layout->addWidget(_hostLine, 0, 1);
+    stackPage2Layout->addWidget(_hostLine, row, 1);
 
+    row++;
     _portLabel = new QLabel(stackPage);
-    stackPage2Layout->addWidget(_portLabel, 1, 0);
+    stackPage2Layout->addWidget(_portLabel, row, 0);
     QHBoxLayout* portLayout = new QHBoxLayout;
-    stackPage2Layout->addLayout(portLayout, 1, 1);
+    stackPage2Layout->addLayout(portLayout, row, 1);
     _portSpin = new QSpinBox(stackPage);
     _portSpin->setMaximum(65535);
     portLayout->addWidget(_portSpin, 1, Qt::AlignLeft);
@@ -116,27 +110,28 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
                              QSizePolicy::Minimum);
     portLayout->addItem(spacer);
 
+    row++;
     _dbNameLabel = new QLabel(stackPage);
-    stackPage2Layout->addWidget(_dbNameLabel, 2, 0);
+    stackPage2Layout->addWidget(_dbNameLabel, row, 0);
     _dbNameLine = new KLineEdit(stackPage);
-    stackPage2Layout->addWidget(_dbNameLine, 2, 1);
+    stackPage2Layout->addWidget(_dbNameLine, row, 1);
 
+    row++;
     _usernameLabel = new QLabel(stackPage);
-    stackPage2Layout->addWidget(_usernameLabel, 3, 0);
+    stackPage2Layout->addWidget(_usernameLabel, row, 0);
     _usernameLine = new KLineEdit(stackPage);
-    stackPage2Layout->addWidget(_usernameLine, 3, 1);
+    stackPage2Layout->addWidget(_usernameLine, row, 1);
 
+    row++;
     _passwordLabel = new QLabel(stackPage);
-    stackPage2Layout->addWidget(_passwordLabel, 4, 0);
+    stackPage2Layout->addWidget(_passwordLabel, row, 0);
     _passwordLine = new KLineEdit(stackPage);
     _passwordLine->setPasswordMode(true);
-    stackPage2Layout->addWidget(_passwordLine, 4, 1);
+    stackPage2Layout->addWidget(_passwordLine, row, 1);
 
     _widgetStack->insertWidget(ServerSettingsPage, stackPage);
 
-
     topLayout->addWidget(_widgetStack);
-
 
     languageChange();
 

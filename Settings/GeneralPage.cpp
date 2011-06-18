@@ -37,88 +37,92 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this );
 
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Loading New Images" ), this );
+    QGroupBox* box = new QGroupBox( i18n( "Loading New Images" ), this );
     lay1->addWidget( box );
+
+    QGridLayout* lay = new QGridLayout( box );
+    lay->setSpacing( 6 );
+    int row = 0;
 
     // Thrust time stamps
-    QWidget* container = new QWidget( box );
-    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
-    _trustTimeStamps = new KComboBox( container );
+    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), box );
+    _trustTimeStamps = new KComboBox( box );
     _trustTimeStamps->addItems( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
     timeStampLabel->setBuddy( _trustTimeStamps );
-    QHBoxLayout* hlay = new QHBoxLayout( container );
-    hlay->addWidget( timeStampLabel );
-    hlay->addWidget( _trustTimeStamps );
-    hlay->addStretch( 1 );
+    lay->addWidget( timeStampLabel, row, 0 );
+    lay->addWidget( _trustTimeStamps, row, 1, 1, 3 );
 
     // Do EXIF rotate
+    row++;
     _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
+    lay->addWidget( _useEXIFRotate, row, 0, 1, 4 );
 
+    row++;
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
+    lay->addWidget( _useEXIFComments, row, 0, 1, 4 );
 
     // Use embedded thumbnail
+    row++;
     _useRawThumbnail = new QCheckBox( i18n("Use the embedded thumbnail in RAW file or halfsized RAW"), box );
-    QWidget* sizeBox = new QWidget( box );
-    QHBoxLayout* lay2 = new QHBoxLayout( sizeBox );
+    lay->addWidget( _useRawThumbnail, row, 0 );
 
-    QLabel* label = new QLabel( i18n("Required size for the thumbnail:"), sizeBox );
-    lay2->addWidget( label );
-
-    _useRawThumbnailWidth = new QSpinBox;
+    row++;
+    QLabel* label = new QLabel( i18n("Required size for the thumbnail:"), box );
+    _useRawThumbnailWidth = new QSpinBox( box );
     _useRawThumbnailWidth->setRange( 100, 5000 );
     _useRawThumbnailWidth->setSingleStep( 64 );
-    lay2->addWidget( _useRawThumbnailWidth );
+    lay->addWidget( label, row, 0 );
+    lay->addWidget( _useRawThumbnailWidth, row, 1 );
 
-    label = new QLabel( QString::fromLatin1("x"), sizeBox );
-    lay2->addWidget( label );
-
-    _useRawThumbnailHeight = new QSpinBox;
+    label = new QLabel( QString::fromLatin1("x"), box );
+    _useRawThumbnailHeight = new QSpinBox( box );
     _useRawThumbnailHeight->setRange( 100, 5000 );
     _useRawThumbnailHeight->setSingleStep( 64 );
-    lay2->addWidget( _useRawThumbnailHeight );
+    lay->addWidget( label, row, 2 );
+    lay->addWidget( _useRawThumbnailHeight, row, 3 );
 
-    lay2->addStretch( 1 );
-
-    // Datebar size
-    box = new Q3VGroupBox( i18n ("Histogram"), this );
+    box = new QGroupBox( i18n( "Histogram" ), this );
     lay1->addWidget( box );
 
-    container = new QWidget( box );
-    lay1->addWidget( container );
+    lay = new QGridLayout( box );
+    lay->setSpacing( 6 );
+    row = 0;
 
     _showHistogram = new QCheckBox( i18n("Show histogram:"), box);
-    lay1->addWidget( _showHistogram );
+    lay->addWidget( _showHistogram, row, 0 );
     connect( _showHistogram, SIGNAL( stateChanged(int) ), this, SLOT( showHistogramChanged(int) ) );
 
-    hlay = new QHBoxLayout( container );
-    QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in date bar:"), container );
-    hlay->addWidget( datebarSize );
+    row++;
+    label = new QLabel( i18n("Size of histogram columns in date bar:"), box );
     _barWidth = new QSpinBox;
     _barWidth->setRange( 1, 100 );
     _barWidth->setSingleStep( 1 );
-    hlay->addWidget( _barWidth );
-    datebarSize->setBuddy( _barWidth );
-    QLabel* cross = new QLabel( QString::fromLatin1( " x " ), container );
-    hlay->addWidget( cross );
+    lay->addWidget( label, row, 0 );
+    lay->addWidget( _barWidth, row, 1 );
+
+    label = new QLabel( QString::fromLatin1("x"), box );
     _barHeight = new QSpinBox;
     _barHeight->setRange( 15, 100 );
-    hlay->addWidget( _barHeight );
-    hlay->addStretch( 1 );
+    lay->addWidget( label, row, 2 );
+    lay->addWidget( _barHeight, row, 3 );
+
+    box = new QGroupBox( i18n( "Miscellaneous" ), this );
+    lay1->addWidget( box );
+
+    lay = new QGridLayout( box );
+    lay->setSpacing( 6 );
+    row = 0;
 
     // Show splash screen
-    _showSplashScreen = new QCheckBox( i18n("Show splash screen"), this );
-    lay1->addWidget( _showSplashScreen );
+    _showSplashScreen = new QCheckBox( i18n("Show splash screen"), box );
+    lay->addWidget( _showSplashScreen, row, 0 );
 
     // Album Category
-    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), this );
+    row++;
+    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), box );
     _albumCategory = new QComboBox;
-    albumCategoryLabel->setBuddy( _albumCategory );
-    QHBoxLayout* lay7 = new QHBoxLayout;
-    lay1->addLayout( lay7 );
-
-    lay7->addWidget( albumCategoryLabel );
-    lay7->addWidget( _albumCategory );
-    lay7->addStretch(1);
+    lay->addWidget( albumCategoryLabel, row, 0 );
+    lay->addWidget( _albumCategory, row, 1 );
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
@@ -126,7 +130,6 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     }
 
     lay1->addStretch( 1 );
-
 
     // Whats This
     QString txt;

@@ -47,12 +47,16 @@ ImageManager::Manager* ImageManager::Manager::instance()
 // corrected before the thread starts.
 void ImageManager::Manager::init()
 {
-    ImageLoader* imageLoader;
-    int cores = qMax( 2, QThread::idealThreadCount() );
+    // Use up to three cores for thumbnail generation. No more than three as that
+    // likely will make it less efficient due to three cores hitting the harddisk at the same time.
+    // We need one more core in the computer for the GUI thread
+    // In case of only one core in the computer, use one core for thumbnail generation
+    const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount()-1 ) );
 
     for ( int i = 0; i < cores; ++i) {
-        imageLoader = new ImageLoader();
-        imageLoader->start( QThread::LowPriority );
+        ImageLoader* imageLoader = new ImageLoader();
+        // The thread is set to the lowest priority to ensure that it doesn't starve the GUI thread.
+        imageLoader->start( QThread::IdlePriority );
     }
 }
 

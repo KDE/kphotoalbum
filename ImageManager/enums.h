@@ -38,6 +38,7 @@ enum Priority {
     LastPriority /**< @short Boundary for list of queues */
 };
 
+enum ThumbnailBuildStart { StartNow, StartDelayed };
 }
 
 

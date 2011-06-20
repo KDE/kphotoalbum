@@ -28,6 +28,7 @@
 #include "MainWindow/Window.h"
 #include <klocale.h>
 #include <KMessageBox>
+#include "ImageManager/enums.h"
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )
 {
@@ -85,7 +86,7 @@ void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
         ImageManager::ThumbnailCache::instance()->flush();
         model()->updateVisibleRowInfo();
         widget()->setCurrentIndex( model()->index( m_currentRow, 0 ) );
-        ImageManager::ThumbnailBuilder::instance()->buildAll();
+        ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartDelayed );
     }
     else
         setCellSize( _origWidth );

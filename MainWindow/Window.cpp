@@ -1704,7 +1704,7 @@ void MainWindow::Window::showImage( const DB::Id& id )
 
 void MainWindow::Window::slotBuildThumbnails()
 {
-    ImageManager::ThumbnailBuilder::instance()->buildAll();
+    ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartNow );
 }
 
 void MainWindow::Window::slotOrderIncr()

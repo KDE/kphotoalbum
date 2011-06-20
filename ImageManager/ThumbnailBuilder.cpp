@@ -25,6 +25,7 @@
 #include "DB/ImageDB.h"
 #include "DB/Id.h"
 #include "PreloadRequest.h"
+#include <QTimer>
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
@@ -33,6 +34,10 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusB
 {
     connect( m_statusBar, SIGNAL( cancelRequest() ), this, SLOT( cancelRequests() ) );
     m_instance =  this;
+
+    m_startBuildTimer = new QTimer;
+    m_startBuildTimer->setSingleShot(true);
+    connect( m_startBuildTimer, SIGNAL(timeout()), this, SLOT( doThumbnailBuild()));
 }
 
 void ImageManager::ThumbnailBuilder::cancelRequests()
@@ -40,6 +45,7 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
     ImageManager::Manager::instance()->stop( this, ImageManager::StopAll );
     m_isBuilding = false;
     m_statusBar->setProgressBarVisible(false);
+    m_startBuildTimer->stop();
 }
 
 void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
@@ -53,11 +59,11 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, cons
     m_statusBar->setProgress( ++m_count );
 }
 
-void ImageManager::ThumbnailBuilder::buildAll()
+void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 {
     ImageManager::ThumbnailCache::instance()->flush();
     const DB::IdList images = DB::ImageDB::instance()->images();
-    build( images.fetchInfos() );
+    scheduleThumbnailBuild( images.fetchInfos(), when );
 }
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
@@ -75,21 +81,27 @@ void ImageManager::ThumbnailBuilder::buildMissing()
         if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName(DB::AbsolutePath) ) )
             needed.append( info );
     }
-    build( needed );
+    scheduleThumbnailBuild( needed, StartDelayed );
 }
 
-void ImageManager::ThumbnailBuilder::build( const QList<DB::ImageInfoPtr>& list )
+void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const QList<DB::ImageInfoPtr>& list, ThumbnailBuildStart when )
 {
-    if ( m_isBuilding )
-        cancelRequests();
-
     if ( list.count() == 0 )
         return;
 
-    m_isBuilding = true;
-    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( list.size() - 1, 1 ) );
+    if ( m_isBuilding )
+        cancelRequests();
 
-    Q_FOREACH(const DB::ImageInfoPtr info, list) {
+    m_startBuildTimer->start( when == StartNow ? 0 : 5000 );
+    m_thumbnailsToBuild = list;
+}
+
+void ImageManager::ThumbnailBuilder::doThumbnailBuild()
+{
+    m_isBuilding = true;
+    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
+
+    Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
         ImageManager::ImageRequest* request
             = new ImageManager::PreloadRequest( info->fileName(DB::AbsolutePath),
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),

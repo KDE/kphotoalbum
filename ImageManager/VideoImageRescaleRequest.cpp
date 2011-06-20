@@ -21,7 +21,7 @@ ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest( ImageRequest* 
     : ImageRequest( originalRequest->databaseFileName(), originalRequest->size(), originalRequest->angle(), originalRequest->client() ),
       m_originalRequest( originalRequest ), m_path(path)
 {
-    setIsThumbnailRequest(true);
+    setIsThumbnailRequest(originalRequest->isThumbnailRequest());
 }
 
 ImageManager::VideoImageRescaleRequest::~VideoImageRescaleRequest()

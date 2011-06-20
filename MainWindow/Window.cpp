@@ -682,6 +682,7 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled( false );
 
     a = KStandardAction::home( _browser, SLOT( home() ), actionCollection() );
+    a->setShortcut( Qt::CTRL + Qt::Key_Home );
     connect( a, SIGNAL( activated() ), _dateBar, SLOT( clearSelection() ) );
 
     a = KStandardAction::redisplay( _browser, SLOT( go() ), actionCollection() );

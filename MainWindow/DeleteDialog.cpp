@@ -77,9 +77,9 @@ int DeleteDialog::exec(const DB::IdList& list)
 
     const QString txt = QString::fromLatin1( "<p><b><center><font size=\"+3\">%1</font><br/>%2</center></b></p>" ).arg(msg1).arg(msg2);
 
-    _useTrash->setText( i18np("Move file to Trash", "Move files to Trash", list.size() ) );
-    _deleteFile->setText( i18np( "Delete file from disk", "Delete files from disk", list.size() ) );
-    _deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove the items from database", list.size() ) );
+    _useTrash->setText( i18np("Move file to Trash", "Move %1 files to Trash", list.size() ) );
+    _deleteFile->setText( i18np( "Delete file from disk", "Delete %1 files from disk", list.size() ) );
+    _deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove %1 items from database", list.size() ) );
 
 
     _label->setText( txt );

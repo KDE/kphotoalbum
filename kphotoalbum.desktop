@@ -101,4 +101,5 @@ Terminal=false
 Type=Application
 X-KDE-StartupNotify=true
 Icon=kphotoalbum
+X-DocPath=kphotoalbum/index.html
 Categories=Qt;KDE;Graphics;Photography;

@@ -267,7 +267,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
     DB::Id candidate = DB::ImageDB::instance()
                              ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
     if ( !candidate.isNull() )
-        widget()->setCurrentItem( candidate );
+        setCurrentItem( candidate );
 
     _isSettingDate = false;
 }
@@ -349,7 +349,7 @@ void ThumbnailView::ThumbnailWidget::updatePalette()
 
 int ThumbnailView::ThumbnailWidget::cellWidth() const
 {
-    return visualRect( widget()->QListView::model()->index(0,0) ).size().width();
+    return visualRect( QListView::model()->index(0,0) ).size().width();
 }
 
 void ThumbnailView::ThumbnailWidget::emitSelectionChangedSignal()

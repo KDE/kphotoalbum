@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2011 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -40,6 +40,7 @@
 #include "Settings/SettingsData.h"
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"
+#include "SelectionMaintainer.h"
 
 /**
  * \class ThumbnailView::ThumbnailWidget
@@ -274,17 +275,15 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 
 void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
 {
+    SelectionMaintainer maintainer( this, model());
     cellGeometryInfo()->flushCache();
     updatePalette();
 
     const DB::IdList selectedItems = selection();
     ThumbnailComponent::model()->reset();
 
-    if ( method == MaintainSelection ) {
-        Q_FOREACH( const DB::Id& id, selectedItems ) {
-            selectionModel()->select(model()->idToIndex(id), QItemSelectionModel::Select );
-        }
-    }
+    if ( method == ClearSelection )
+        maintainer.disable();
 }
 
 DB::Id ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
@@ -325,8 +324,19 @@ void ThumbnailView::ThumbnailWidget::dragEnterEvent( QDragEnterEvent * event )
 
 void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::Id& id )
 {
+    if ( id.isNull() )
+        return;
+
     const int row = model()->indexOf(id);
     setCurrentIndex( QListView::model()->index( row, 0 ) );
+}
+
+DB::Id ThumbnailView::ThumbnailWidget::currentItem() const
+{
+    if ( !currentIndex().isValid() )
+        return DB::Id::null;
+
+    return model()->imageAt( currentIndex().row());
 }
 
 void ThumbnailView::ThumbnailWidget::updatePalette()
@@ -397,5 +407,11 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::Id& id)
         selection->select( model()->idToIndex(id), QItemSelectionModel::ClearAndSelect );
         setCurrentItem( id );
     }
+}
+
+void ThumbnailView::ThumbnailWidget::select(const DB::IdList& items )
+{
+    Q_FOREACH( const DB::Id& id, items )
+        selectionModel()->select(model()->idToIndex(id), QItemSelectionModel::Select );
 }
 

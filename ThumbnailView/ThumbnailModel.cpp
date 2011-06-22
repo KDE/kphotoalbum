@@ -26,6 +26,7 @@
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include "ImageManager/ThumbnailCache.h"
+#include "SelectionMaintainer.h"
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
@@ -40,8 +41,6 @@ static bool stackOrderComparator(const DB::Id& a, const DB::Id& b) {
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
 {
-    // FIXME: this can be probalby made obsolete by that new shiny thing in the DB
-
     ImageManager::Manager::instance()->stop( model(), ImageManager::StopOnlyNonPriorityLoads );
 
     // Note, this can be simplified, if we make the database backend already
@@ -160,6 +159,8 @@ DB::IdList ThumbnailView::ThumbnailModel::imageList(Order order) const
 
 void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::IdList& list )
 {
+    SelectionMaintainer dummy(widget(),model());
+
     Q_FOREACH( const DB::Id& id, list ) {
         _displayList.removeAll( id );
         _imageList.removeAll(id);

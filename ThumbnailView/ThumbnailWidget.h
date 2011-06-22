@@ -53,6 +53,7 @@ public:
     bool isMouseOverStackIndicator( const QPoint& point );
     bool isGridResizing() const;
     void setCurrentItem(  const DB::Id& id );
+    DB::Id currentItem() const;
     void changeSingleSelection(const DB::Id& id);
 
     // Misc
@@ -60,6 +61,7 @@ public:
     OVERRIDE void showEvent( QShowEvent* );
     DB::IdList selection() const;
     bool isSelected( const DB::Id& id ) const;
+    void select( const DB::IdList& );
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );

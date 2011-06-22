@@ -108,6 +108,7 @@ set(libThumbnailView_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/KeyboardEventHandler.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailDND.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Delegate.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionMaintainer.cpp
 )
 set(libPlugins_SRCS)
 

@@ -92,9 +92,6 @@ protected:
 private slots:
     void emitDateChange();
     void scheduleDateChangeSignal();
-#if 0
-    void slotViewChanged( int, int );
-#endif
     void emitSelectionChangedSignal();
 
 private:

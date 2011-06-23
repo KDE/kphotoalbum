@@ -76,9 +76,6 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setMouseTracking( true );
 
     connect( selectionModel(), SIGNAL( currentChanged( QModelIndex, QModelIndex) ), this, SLOT( scheduleDateChangeSignal() ) );
-#if 0
-    connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( slotViewChanged( int, int ) ));
-#endif
     viewport()->setAcceptDrops( true );
 
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
@@ -243,19 +240,6 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
             emit currentDateChanged( date );
     }
 }
-
-#if 0
-void ThumbnailView::ThumbnailWidget::slotViewChanged(int , int y)
-{
-    if (isGridResizing())
-        return;
-    int startIndex = rowAt(y) * numCols();
-    int endIndex = (rowAt( y + visibleHeight() ) + 1) * numCols();
-    if (endIndex > model()->imageCount())
-        endIndex = model()->imageCount();
-    cache()->setHotArea(startIndex, endIndex);
-}
-#endif
 
 /**
  * scroll to the date specified with the parameter date.

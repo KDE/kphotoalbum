@@ -37,18 +37,10 @@ public:
     SelectionInteraction( ThumbnailFactory* factory );
     OVERRIDE bool mousePressEvent( QMouseEvent* );
     OVERRIDE bool mouseMoveEvent( QMouseEvent* );
-    OVERRIDE bool mouseReleaseEvent( QMouseEvent* );
     bool isDragging() const;
 
 protected:
     void startDrag();
-    bool atLeftSide( const QPoint& contentCoordinates );
-    bool atRightSide( const QPoint& contentCoordinates );
-    QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
-    bool deselectSelection( const QMouseEvent* ) const;
-
-protected slots:
-    void handleDragSelection();
 
 private:
     typedef QSet<DB::Id> IdSet;

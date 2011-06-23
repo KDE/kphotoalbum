@@ -108,6 +108,8 @@ private:
     void showPrevN(int);
     int  find_tag_in_list(const QStringList &list, QString &namefound);
     void invalidateThumbnail() const;
+    enum RemoveAction { RemoveImageFromDatabase, OnlyRemoveFromViewer };
+    void removeOrDeleteCurrent( RemoveAction );
 
 
 protected slots:

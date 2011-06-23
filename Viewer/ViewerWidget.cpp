@@ -535,23 +535,24 @@ void Viewer::ViewerWidget::showNext()
 
 void Viewer::ViewerWidget::removeCurrent()
 {
-    const QString fileName = _list[_current];
-    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
-
-    _list.removeAll(fileName);
-    if ( _current == _list.count() )
-        showPrev();
-    else
-        showNextN(0);
+    removeOrDeleteCurrent(OnlyRemoveFromViewer);
 }
 
 void Viewer::ViewerWidget::deleteCurrent()
 {
+    removeOrDeleteCurrent( RemoveImageFromDatabase );
+}
+
+void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
+{
     const QString fileName = _list[_current];
     const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
 
-    _removed.append(id);
+    if ( action == RemoveImageFromDatabase )
+        _removed.append(id);
     _list.removeAll(fileName);
+    if ( _list.isEmpty() )
+        close();
     if ( _current == _list.count() )
         showPrev();
     else
@@ -688,13 +689,6 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
         MainWindow::DeleteDialog dialog( this );
         dialog.exec( _removed );
     }
-
-//        int answer = KMessageBox::questionYesNo( this,
-//                                                 i18n("<p>Delete %1 images/videos from disk?<br>Should the images you deleted during viewing also be delete from disk?").arg(_removed.count()), i18n("Delete images from disk too?"), KStandardGuiItem::no() );
-//        if ( answer == KMessageBox::Yes ) {
-//
-//        }
-//    }
 
     _slideShowTimer->stop();
     _isRunningSlideShow = false;

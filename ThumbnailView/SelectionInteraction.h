@@ -56,7 +56,6 @@ private:
     bool _isMouseDragOperation;
 
     IdSet _originalSelectionBeforeDragStart;
-    QTimer* _dragTimer;
     bool _dragInProgress;
     bool _dragSelectionInProgress;
     ThumbnailFactory* _JUMP;

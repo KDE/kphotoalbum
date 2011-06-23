@@ -33,8 +33,6 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
     : ThumbnailComponent( factory ),
       _dragInProgress( false ), _dragSelectionInProgress( false )
 {
-    _dragTimer = new QTimer( this );
-    connect( _dragTimer, SIGNAL( timeout() ), this, SLOT( handleDragSelection() ) );
 }
 
 

@@ -49,9 +49,13 @@ void ImageManager::Manager::init()
 {
     // Use up to three cores for thumbnail generation. No more than three as that
     // likely will make it less efficient due to three cores hitting the harddisk at the same time.
-    // We need one more core in the computer for the GUI thread
+    // This might limit the throughput on SSD systems, but we likely have a few years before people
+    // put all of their pictures on SSDs.
+    // We need one more core in the computer for the GUI thread, but we won't dedicate it to GUI,
+    // as that'd mean that a dual-core box would only have one core decoding images, which would be
+    // suboptimal.
     // In case of only one core in the computer, use one core for thumbnail generation
-    const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount()-1 ) );
+    const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount() ) );
 
     for ( int i = 0; i < cores; ++i) {
         ImageLoader* imageLoader = new ImageLoader();

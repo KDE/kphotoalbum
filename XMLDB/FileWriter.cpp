@@ -80,8 +80,7 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
     top.appendChild( options );
 
 
-    for( QStringList::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        const QString name = *categoryIt;
+    Q_FOREACH(const QString &name, categories) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
 
         QDomElement opt;
@@ -101,10 +100,10 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
                 Utilities::mergeListsUniqly(category->items(),
                                             _db->_members.groups(name));
 
-            for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            Q_FOREACH(const QString &categoryName, list) {
                 QDomElement val = doc.createElement( QString::fromLatin1("value") );
-                val.setAttribute( QString::fromLatin1("value"), *it2 );
-                val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( *it2 ) );
+                val.setAttribute( QString::fromLatin1("value"), categoryName );
+                val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( categoryName ) );
                 opt.appendChild( val );
             }
         }
@@ -117,15 +116,15 @@ void XMLDB::FileWriter::saveImages( QDomDocument doc, QDomElement top )
     DB::ImageInfoList list = _db->_images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
-    for( DB::ImageInfoListConstIterator it = _db->_clipboard.constBegin(); it != _db->_clipboard.constEnd(); ++it ) {
-        list.append( *it );
+    Q_FOREACH(const DB::ImageInfoPtr &infoPtr, _db->_clipboard) {
+        list.append(infoPtr);
     }
 
     QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
     top.appendChild( images );
 
-    for( DB::ImageInfoListIterator it = list.begin(); it != list.end(); ++it ) {
-        images.appendChild( save( doc, *it ) );
+    Q_FOREACH(const DB::ImageInfoPtr &infoPtr, list) {
+        images.appendChild( save( doc, infoPtr ) );
     }
 }
 
@@ -133,10 +132,10 @@ void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
 {
     QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
     bool any=false;
-    for( QStringList::Iterator it = _db->_blockList.begin(); it != _db->_blockList.end(); ++it ) {
+    Q_FOREACH(const QString &block, _db->_blockList) {
         any=true;
         QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
-        elm.setAttribute( QString::fromLatin1( "file" ), *it );
+        elm.setAttribute( QString::fromLatin1( "file" ), block );
         blockList.appendChild( elm );
     }
 
@@ -150,15 +149,15 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
         return;
 
     QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= _db->_members.memberMap().begin();
-         memberMapIt != _db->_members.memberMap().end(); ++memberMapIt )
+    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= _db->_members.memberMap().constBegin();
+         memberMapIt != _db->_members.memberMap().constEnd(); ++memberMapIt )
     {
         const QString categoryName = memberMapIt.key();
         if ( !shouldSaveCategory( categoryName ) )
             continue;
 
         QMap<QString,StringSet> groupMap = memberMapIt.value();
-        for( QMap<QString,StringSet>::Iterator groupMapIt= groupMap.begin(); groupMapIt != groupMap.end(); ++groupMapIt ) {
+        for( QMap<QString,StringSet>::ConstIterator groupMapIt= groupMap.constBegin(); groupMapIt != groupMap.constEnd(); ++groupMapIt ) {
             StringSet members = groupMapIt.value();
             if ( Settings::SettingsData::instance()->useCompressedIndexXML() &&
                  !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
@@ -166,21 +165,21 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
                 elm.setAttribute( QString::fromLatin1( "category" ), categoryName );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
-                for( StringSet::const_iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                Q_FOREACH(const QString member, members) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( memberMapIt.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
-                    idList.append( QString::number( category->idForName( *membersIt ) ) );
+                    idList.append( QString::number( category->idForName( member ) ) );
                 }
                 elm.setAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
                 memberNode.appendChild( elm );
             }
             else {
-                for( StringSet::const_iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                Q_FOREACH(const QString member, members) {
                     QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                     memberNode.appendChild( elm );
                     elm.setAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
                     elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
-                    elm.setAttribute( QString::fromLatin1( "member" ), *membersIt );
+                    elm.setAttribute( QString::fromLatin1( "member" ), member );
                 }
             }
         }
@@ -271,19 +270,18 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
 
     bool anyAtAll = false;
     QStringList grps = info->availableCategories();
-    for( QStringList::Iterator categoryIt = grps.begin(); categoryIt != grps.end(); ++categoryIt ) {
-        QString name = *categoryIt;
+    Q_FOREACH(const QString &name, grps) {
         if ( !shouldSaveCategory( name ) )
             continue;
 
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         opt.setAttribute( QString::fromLatin1("name"),  escape( name ) );
 
-        StringSet items = info->itemsOfCategory(*categoryIt);
+        StringSet items = info->itemsOfCategory(name);
         bool any = false;
-        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        Q_FOREACH(const QString itemValue, items) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), *itemIt );
+            val.setAttribute( QString::fromLatin1("value"), itemValue );
             opt.appendChild( val );
             any = true;
             anyAtAll = true;
@@ -299,8 +297,8 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
 void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info )
 {
     QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
-        QString categoryName = (*categoryIt)->name();
+    Q_FOREACH(const DB::CategoryPtr &category, categoryList) {
+        QString categoryName = category->name();
 
         if ( !shouldSaveCategory( categoryName ) )
             continue;
@@ -308,8 +306,8 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
         StringSet items = info->itemsOfCategory(categoryName);
         if ( !items.empty() ) {
             QStringList idList;
-            for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-                int id = static_cast<XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
+            Q_FOREACH(const QString &itemValue, items) {
+                int id = static_cast<const XMLCategory*>(category.data())->idForName(itemValue);
                 idList.append( QString::number( id ) );
             }
             elm.setAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );

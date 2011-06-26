@@ -45,7 +45,7 @@ int main( int argc, char** argv ) {
     aboutData.addAuthor( ki18n("Hassan Ibraheem"),ki18n("Development"), "hasan.ibraheem@gmail.com");
     aboutData.addAuthor( ki18n("Miika Turkia"),ki18n("Development"), "miika.turkia@gmail.com");
     aboutData.addAuthor( ki18n("Tuomas Suutari"), ki18n("SQL backend and numerous features"), "thsuut@utu.fi" );
-    aboutData.addAuthor( ki18n("Jan Kundrat"),ki18n("Development"), "jkt@gentoo.org");
+    aboutData.addAuthor( ki18n("Jan Kundr&aacute;t"), ki18n("Development"), "jkt@gentoo.org");
     aboutData.addAuthor( ki18n("Henner Zeller"),ki18n("Development"), "h.zeller@acm.org");
 
 

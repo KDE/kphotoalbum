@@ -35,7 +35,7 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusB
     connect( m_statusBar, SIGNAL( cancelRequest() ), this, SLOT( cancelRequests() ) );
     m_instance =  this;
 
-    m_startBuildTimer = new QTimer;
+    m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
     connect( m_startBuildTimer, SIGNAL(timeout()), this, SLOT( doThumbnailBuild()));
 }

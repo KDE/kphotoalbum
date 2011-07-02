@@ -210,10 +210,22 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                     // from the original.
                     originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
                     if ( !originalInfo ) {
-                        qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
-                    } else {
-                        info->copyExtraData(*originalInfo);
+                        qDebug() << "Original info not found by name for " << originalFileName << ", trying by MD5 sum.";
+                        originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum );
+
+                        if (!originalFileName.isNull())
+                        {
+                            qDebug() << "Substitute image " << originalFileName << " found.";
+                            originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
+                        }
+
+                        if ( !originalInfo )
+                        {
+                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
+                            continue;
+                        }
                     }
+                    info->copyExtraData(*originalInfo);
 
                     /* if requested to move, then delete old data from original */
                     if (Settings::SettingsData::instance()->moveOriginalContents() ) {

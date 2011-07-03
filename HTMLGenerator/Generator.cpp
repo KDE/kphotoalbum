@@ -157,7 +157,16 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     if ( content.isEmpty() )
         return false;
 
-    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
+    QRegExp rx( QString::fromLatin1( "^(<!DOCTYPE[^>]*>)" ) );
+    int position;
+ 
+    rx.setCaseSensitivity( Qt::CaseInsensitive );
+    position = rx.indexIn( content );
+    if ( ( position += rx.matchedLength () ) < 0 )
+	content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    else
+	content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _setup.description() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _setup.title() );
@@ -192,7 +201,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\n" ).arg( width ).arg( height ).arg( _setup.thumbSize() );
 
     minImageSize(minWidth, minHeight);
-    images += QString::fromLatin1( "var minPage=\"index-%1x%2.html \"\n" ).arg( minWidth ).arg( minHeight );
+    images += QString::fromLatin1( "var minPage=\"index-%1x%2.html\"\n" ).arg( minWidth ).arg( minHeight );
 
     QDomElement row;
     Q_FOREACH(const DB::ImageInfoPtr info, _setup.imageList().fetchInfos()) {
@@ -232,7 +241,8 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         else
             description = QString::fromLatin1 ( "" );
 
-        description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( "" ) );
+        description.replace( QString::fromLatin1( "\n$" ), QString::fromLatin1 ( "" ) );
+        description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( " " ) );
         description.replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) );
 
         images += description;
@@ -250,6 +260,17 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
                           nameImage( fileName, _setup.thumbSize() ) );
         href.appendChild( img );
         ++count;
+    }
+    
+    // Adding TD elements to match the selected column amount for valid HTML
+    if ( count % cols != 0 ) {
+	for ( int i = count; i % cols != 0; ++i ) {
+	    col = doc.createElement( QString::fromLatin1( "td" ) );
+	    col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
+	    QDomText sp =  doc.createTextNode( QString::fromLatin1( " " ) );
+	    col.appendChild( sp );
+	    row.appendChild( col );
+	}
     }
 
     content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
@@ -313,7 +334,16 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     DB::ImageInfoPtr info = current.fetchInfo();
     QString currentFile = info->fileName(DB::AbsolutePath);
 
-    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
+    QRegExp rx( QString::fromLatin1( "^(<!DOCTYPE[^>]*>)" ) );
+    int position;
+ 
+    rx.setCaseSensitivity( Qt::CaseInsensitive );
+    position = rx.indexIn( content );
+    if ( ( position += rx.matchedLength () ) < 0 )
+	content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    else
+	content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
 

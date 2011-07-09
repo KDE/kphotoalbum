@@ -694,7 +694,10 @@ void AnnotationDialog::Dialog::slotAddTimeInfo()
 
 void AnnotationDialog::Dialog::slotDeleteImage()
 {
-    Q_ASSERT( _setup != SearchMode );
+    // CTRL+Del is a common key combination when editing text
+    // TODO: The word right of cursor should be deleted as expected also in date and category fields
+    if ( _setup == SearchMode )
+	return;
 
     if( _setup == InputMultiImageConfigMode )  //TODO: probably delete here should mean remove from selection
       return;

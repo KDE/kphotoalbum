@@ -61,6 +61,7 @@ public:
     QString toString() const;
  
     void setMegaPixel( short megapixel );
+    void setSearchRAW( bool _searchRAW );
 
     void saveLock() const;
     static ImageSearchInfo loadLock();
@@ -87,6 +88,7 @@ private:
     QString _description;
     short _rating;
     short _megapixel;
+    bool _searchRAW;
     bool _isNull;
     mutable bool _compiled;
     mutable QList<CategoryMatcher*> _categoryMatchers;

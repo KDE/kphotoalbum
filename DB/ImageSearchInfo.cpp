@@ -31,11 +31,12 @@
 #include <kapplication.h>
 #include <config-kpa-exiv2.h>
 #include <kconfiggroup.h>
+#include "ImageManager/RawImageDecoder.h"
 using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
 {
 }
 
@@ -50,7 +51,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _rating( -1 ), _megapixel( 0 ), _isNull( true ), _compiled( false )
+    : _rating( -1 ), _megapixel( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
 {
 }
 
@@ -105,6 +106,9 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
+
+    // -------------------------------------------------- RAW
+    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName(DB::AbsolutePath)) );
 
     // -------------------------------------------------- Rating
 
@@ -163,6 +167,12 @@ void ImageSearchInfo::setMegaPixel( short megapixel )
 {
   _megapixel = megapixel;
 }
+
+void ImageSearchInfo::setSearchRAW( bool searchRAW )
+{
+  _searchRAW = searchRAW;
+}
+
 
 QString ImageSearchInfo::toString() const
 {
@@ -243,6 +253,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _compiled = false;
     _rating = other._rating;
     _megapixel = other._megapixel;
+    _searchRAW = other._searchRAW;
 #ifdef HAVE_EXIV2
     _exifSearchInfo = other._exifSearchInfo;
 #endif

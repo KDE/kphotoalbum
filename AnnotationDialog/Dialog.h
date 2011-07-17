@@ -29,7 +29,7 @@
 #include "enums.h"
 #include "config-kpa-nepomuk.h"
 #include "ImagePreviewWidget.h"
-
+#include <QCheckBox>
 
 class QStackedWidget;
 class KActionCollection;
@@ -156,6 +156,7 @@ private:
 #endif
     bool _ratingChanged;
     QSpinBox* _megapixel;
+    QCheckBox* _searchRAW;
 
     KActionCollection* _actions;
 

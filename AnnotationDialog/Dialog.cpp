@@ -273,6 +273,10 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
 #endif
 
+    _searchRAW = new QCheckBox( i18n("Search only for RAW files") );
+    _searchRAW->setProperty( "WantsFocus", true );
+    lay2->addWidget( _searchRAW );
+    
     lay9->addStretch( 1 );
     lay2->addStretch(1);
 
@@ -413,6 +417,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     }
 
     _megapixel->setEnabled( false );
+    _searchRAW->setEnabled( false );
  
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
@@ -472,6 +477,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _ratingChanged = false ;
 #endif
     _megapixel->setEnabled( true );
+    _searchRAW->setEnabled( true );
 
     showHelpDialog( SearchMode );
     int ok = exec();
@@ -493,6 +499,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _ratingChanged = false;
 #endif
 	_oldSearch.setMegaPixel( _megapixel->value() );
+	_oldSearch.setSearchRAW( _searchRAW->isChecked() );
         return _oldSearch;
     }
     else

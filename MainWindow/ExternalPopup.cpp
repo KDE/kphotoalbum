@@ -41,6 +41,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
     _list = imageList;
     _currentInfo = current;
     clear();
+    QAction *action;
 
     QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items") << i18n("Copy and Open");
     for ( int which = 0; which < 3; ++which ) {
@@ -50,14 +51,9 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         const bool multiple = (_list.count() > 1);
         const bool enabled = (which != 1 && _currentInfo ) || (which == 1 && multiple);
 
-        // Title
-        QAction* action = addAction( list[which] );
-        QFont fnt = font();
-        fnt.setPointSize( static_cast<int>(fnt.pointSize()*1.5));
-        fnt.setBold(true);
-        action->setFont( fnt );
-        action->setData( -1 );
-        action->setEnabled( enabled );
+        // Submenu
+        QMenu *submenu = addMenu( list[which] );
+        submenu->setEnabled(enabled);
 
         // Fetch set of offers
         OfferType offers;
@@ -67,7 +63,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
             offers = appInfos( imageList );
 
         for ( OfferType::const_iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
-            QAction* action = addAction( (*offerIt).first );
+            action = submenu->addAction( (*offerIt).first );
             action->setObjectName( (*offerIt).first ); // Notice this is needed to find the application later!
             action->setIcon( KIcon((*offerIt).second) );
             action->setData( which );
@@ -75,7 +71,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         }
 
         // A personal command
-        action = addAction( i18n("Open With...") );
+        action = submenu->addAction( i18n("Open With...") );
         action->setObjectName( i18n("Open With...") ); // Notice this is needed to find the application later!
         // XXX: action->setIcon( KIcon((*offerIt).second) );
         action->setData( which );
@@ -83,7 +79,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
         // A personal command
         // XXX: see kdialog.h for simple usage
-        action = addAction( i18n("Your Command Line") );
+        action = submenu->addAction( i18n("Your Command Line") );
         action->setObjectName( i18n("Your Command Line") ); // Notice this is needed to find the application later!
         // XXX: action->setIcon( KIcon((*offerIt).second) );
         action->setData( which );

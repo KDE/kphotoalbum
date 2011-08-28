@@ -41,6 +41,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
 
     _cmd = new QLineEdit();
     layout->addWidget(_cmd);
+    _cmd->setMinimumWidth(400);
     // xgettext: no-c-format
     txt = i18n("<p>Enter the command you want to run on your image file(s).  "
                "KPhotoAlbum will run your command and replace any '%all' tokens "

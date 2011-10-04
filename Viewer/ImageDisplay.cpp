@@ -197,7 +197,7 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();
-        if ( event->size().width() > 1.5*event->oldSize().width() || event->size().height() > 1.5*event->oldSize().height() )
+        if ( event->size().width() > 1.5*this->_loadedImage.size().width() || event->size().height() > 1.5*this->_loadedImage.size().height() )
             potentialyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();

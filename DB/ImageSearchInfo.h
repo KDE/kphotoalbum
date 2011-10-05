@@ -62,6 +62,7 @@ public:
  
     void setMegaPixel( short megapixel );
     void setSearchRAW( bool _searchRAW );
+    void setSearchMode( int index );
 
     void saveLock() const;
     static ImageSearchInfo loadLock();
@@ -88,6 +89,7 @@ private:
     QString _description;
     short _rating;
     short _megapixel;
+    int ratingSearchMode;
     bool _searchRAW;
     bool _isNull;
     mutable bool _compiled;

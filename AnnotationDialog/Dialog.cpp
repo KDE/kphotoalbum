@@ -20,6 +20,7 @@
 #include <QStackedWidget>
 #include <KAction>
 #include <KActionCollection>
+#include <KComboBox>
 #include <QList>
 #include <QCloseEvent>
 #include <QDir>
@@ -271,6 +272,14 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _rating->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
     lay9->addWidget( _rating, 0, Qt::AlignCenter );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
+    
+    QLabel* ratingSearchLabel = new QLabel( i18n("Rating search mode:") );
+    lay9->addWidget( ratingSearchLabel );
+    _ratingSearchMode = new KComboBox( lay9 );
+    _ratingSearchMode->addItems( QStringList() << i18n("==") << i18n(">=") << i18n("<=") << i18n("!=") );
+    ratingSearchLabel->setBuddy( _ratingSearchMode );
+    lay9->addWidget( ratingSearchLabel );
+    lay9->addWidget( _ratingSearchMode );
 #endif
 
     _searchRAW = new QCheckBox( i18n("Search only for RAW files") );
@@ -473,7 +482,6 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
 
 #ifdef HAVE_NEPOMUK
-        _rating->setRating( 0 );
         _ratingChanged = false ;
 #endif
     _megapixel->setEnabled( true );
@@ -500,10 +508,11 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 #endif
 	_oldSearch.setMegaPixel( _megapixel->value() );
 	_oldSearch.setSearchRAW( _searchRAW->isChecked() );
+	_oldSearch.setSearchMode( _ratingSearchMode->currentIndex() );
         return _oldSearch;
     }
     else
-        return DB::ImageSearchInfo();
+	return DB::ImageSearchInfo();
 }
 
 void AnnotationDialog::Dialog::setup()

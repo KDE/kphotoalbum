@@ -36,6 +36,7 @@ class KActionCollection;
 class QMoveEvent;
 class QResizeEvent;
 class QCloseEvent;
+class KComboBox;
 class KTextEdit;
 class DockWidget;
 class QDockWidget;
@@ -153,6 +154,7 @@ private:
     KPushButton* _addTime;
 #ifdef HAVE_NEPOMUK
     KRatingWidget* _rating;
+    KComboBox* _ratingSearchMode;
 #endif
     bool _ratingChanged;
     QSpinBox* _megapixel;

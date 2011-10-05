@@ -36,7 +36,7 @@ using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _rating( -1 ), ratingSearchMode( 0 ), _megapixel( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
 {
 }
 
@@ -51,7 +51,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _rating( -1 ), _megapixel( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
+    : _rating( -1 ), ratingSearchMode( 0 ), _megapixel( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
 {
 }
 
@@ -112,7 +112,27 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Rating
 
-    ok &= (_rating == -1 ) || ( _rating == info->rating() );
+    //ok &= (_rating == -1 ) || ( _rating == info->rating() );
+    if (_rating != -1) {
+	switch( ratingSearchMode ) {
+	    case 1:
+		// Image rating at least selected
+		ok &= ( _rating <= info->rating() );
+		break;
+	    case 2:
+		// Image rating less than selected
+		ok &= ( _rating >= info->rating() );
+		break;
+	    case 3:
+		// Image rating not equal
+		ok &= ( _rating != info->rating() );
+		break;
+	    default:
+		ok &= (_rating == -1 ) || ( _rating == info->rating() );
+		break;
+	}
+    }
+	    
     
     // -------------------------------------------------- Resolution
     if ( _megapixel )
@@ -166,6 +186,11 @@ void ImageSearchInfo::setRating( short rating )
 void ImageSearchInfo::setMegaPixel( short megapixel )
 {
   _megapixel = megapixel;
+}
+
+void ImageSearchInfo::setSearchMode(int index)
+{
+  ratingSearchMode = index;
 }
 
 void ImageSearchInfo::setSearchRAW( bool searchRAW )
@@ -252,6 +277,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _isNull = other._isNull;
     _compiled = false;
     _rating = other._rating;
+    ratingSearchMode = other.ratingSearchMode;
     _megapixel = other._megapixel;
     _searchRAW = other._searchRAW;
 #ifdef HAVE_EXIV2

@@ -367,7 +367,7 @@ void AnnotationDialog::Dialog::load()
         _endDate->setDate( info.date().end().date() );
 
     _imageLabel->setText( info.label() );
-    _description->setText( info.description() );
+    _description->setPlainText( info.description() );
 
 #ifdef HAVE_NEPOMUK
     if ( _setup == InputSingleImageConfigMode )
@@ -462,7 +462,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
             setUpCategoryListBoxForMultiImageSelection( *it, list );
 
         _imageLabel->setText( QString::fromLatin1("") );
-        _description->setText( QString::fromLatin1("") );
+        _description->setPlainText( QString::fromLatin1("") );
 
     }
 
@@ -560,7 +560,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     }
 
     _imageLabel->setText( info.label() );
-    _description->setText( info.description() );
+    _description->setPlainText( info.description() );
 }
 
 void AnnotationDialog::Dialog::slotOptions()

@@ -28,6 +28,7 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include "config-kpa-sqldb.h"
+#include "MainWindow/DirtyIndicator.h"
 
 #ifdef SQLDB_SUPPORT
 #  include <SQLDB/SQLSettingsWidget.h>
@@ -55,6 +56,8 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
 
     // Compressed index.xml
     _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), xmlBox );
+    connect( _compressedIndexXML, SIGNAL( clicked(bool) ), this, SLOT ( markDirty() ) );
+
     _compressBackup = new QCheckBox( i18n( "Compress backup file" ), xmlBox );
 
     // Auto save
@@ -156,4 +159,9 @@ void Settings::DatabaseBackendPage::saveSettings( Settings::SettingsData* opt )
 #endif
 
 
+}
+
+void Settings::DatabaseBackendPage::markDirty()
+{
+    MainWindow::DirtyIndicator::markDirty();
 }

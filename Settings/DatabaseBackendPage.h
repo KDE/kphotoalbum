@@ -31,10 +31,14 @@ class SettingsData;
 
 class DatabaseBackendPage :public QWidget
 {
+    Q_OBJECT
 public:
     DatabaseBackendPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
+
+private slots:
+    void markDirty();
 
 private:
     QSpinBox* _autosave;

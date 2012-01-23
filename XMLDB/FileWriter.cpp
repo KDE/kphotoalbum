@@ -329,7 +329,21 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 QString XMLDB::FileWriter::escape( const QString& str )
 {
     QString tmp( str );
-    tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
+    // Regex to match characters that are not allowed to start XML attribute names
+    QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
+    int pos = 0;
+    
+    // Encoding special characters if compressed XML is selected
+    if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+        while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
+            QString before = rx.cap( 1 );
+            QString after;
+            after.sprintf( "_.%0X", rx.cap( 1 ).data()->toAscii());
+            tmp.replace( pos, before.length(), after);
+            pos += after.length();
+        }
+    } else
+        tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
     return tmp;
 }
 

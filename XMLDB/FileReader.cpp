@@ -17,6 +17,7 @@
 */
 #include "FileReader.h"
 
+#include <kcmdlineargs.h>
 #include <QTextCodec>
 #include <QTextStream>
 #include <klocale.h>
@@ -390,7 +391,20 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
 QString XMLDB::FileReader::unescape( const QString& str )
 {
     QString tmp( str );
-    tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
+    // Matches encoded characters in attribute names
+    QRegExp rx( QString::fromLatin1( "(_.)([0-9A-F]{2})" ) );
+    int pos = 0;
+    
+    // Unencoding special characters if compressed XML is selected
+    if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+        while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
+            QString before = rx.cap( 1 ) + rx.cap( 2 );
+            QString after = QString::fromLatin1( QByteArray::fromHex( rx.cap( 2 ).toLocal8Bit() ) );
+            tmp.replace( pos, before.length(), after  );
+            pos += after.length();
+        }
+    } else
+        tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
     return tmp;
 }
 

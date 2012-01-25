@@ -154,10 +154,12 @@ QMap<QString,QString> DB::Category::standardCategories()
 QString DB::Category::defaultIconName() const
 {
     const QString nm = name().toLower();
-    if ( nm == QString::fromLatin1("people") ) return QString::fromLatin1("personal");
-    if ( nm == QString::fromLatin1("places") || nm == QString::fromLatin1("locations") ) return QString::fromLatin1("applications-internet");
-    if ( nm == QString::fromLatin1("events") || nm == QString::fromLatin1("keywords") ) return QString::fromLatin1("games-highscores");
-    if ( nm == QString::fromLatin1("tokens") ) return QString::fromLatin1("flag-blue");
+    if ( nm == QString::fromLatin1("people") ) return QString::fromLatin1("system-users");
+    if ( nm == QString::fromLatin1("places") || nm == QString::fromLatin1("locations") ) return QString::fromLatin1("network-workgroup");
+    if ( nm == QString::fromLatin1("events") || nm == QString::fromLatin1("keywords") ) return QString::fromLatin1("dialog-password");
+    if ( nm == QString::fromLatin1("tokens") ) return QString::fromLatin1("preferences-other");
+    if ( nm == QString::fromLatin1("folder") ) return QString::fromLatin1("folder");
+    if ( nm == QString::fromLatin1("media type") ) return QString::fromLatin1("video");
     return QString();
 }
 

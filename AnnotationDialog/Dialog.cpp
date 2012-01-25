@@ -579,6 +579,7 @@ int AnnotationDialog::Dialog::exec()
 {
     _stack->setCurrentWidget( _dockWindow );
     showTornOfWindows();
+    this->setFocus(); // Set temporary focus before show() is called so that extra cursor is not shown on any "random" input widget
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
     const int ret = QDialog::exec();

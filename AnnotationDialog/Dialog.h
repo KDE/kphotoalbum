@@ -123,6 +123,7 @@ protected:
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
     QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
     void saveAndClose();
+    void ShowHideSearch( bool show );
 
 private:
     QStackedWidget* _stack;
@@ -151,13 +152,16 @@ private:
     KPushButton* _continueLaterBut;
     KTextEdit* _description;
     QTimeEdit* _time;
+    QLabel* _timeLabel;
     KPushButton* _addTime;
 #ifdef HAVE_NEPOMUK
     KRatingWidget* _rating;
     KComboBox* _ratingSearchMode;
+    QLabel* _ratingSearchLabel;
 #endif
     bool _ratingChanged;
     QSpinBox* _megapixel;
+    QLabel* _megapixelLabel;
     QCheckBox* _searchRAW;
 
     KActionCollection* _actions;

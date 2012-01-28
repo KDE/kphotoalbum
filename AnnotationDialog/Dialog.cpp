@@ -94,15 +94,16 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     _dockWindow->setDockNestingEnabled( true );
 
     // -------------------------------------------------- Dock widgets
-    QDockWidget* dock = createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
+    createDock( i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager) );
 
     createDock( i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget() );
 
     _description = new KTextEdit;
     _description->setProperty( "WantsFocus", true );
     _description->setCheckSpellingEnabled( true );
+    _description->setObjectName( i18n("Description") );
 
-    dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
+    QDockWidget* dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );
 
     // -------------------------------------------------- Categrories
@@ -208,6 +209,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay3->addWidget( label );
     _imageLabel = new KLineEdit;
     _imageLabel->setProperty( "WantsFocus", true );
+    _imageLabel->setObjectName( i18n("Label") );
     lay3->addWidget( _imageLabel );
     shortCutManager.addLabel( label );
     label->setBuddy( _imageLabel );
@@ -233,13 +235,14 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _endDate = new ::AnnotationDialog::KDateEdit( false );
     _endDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _endDate, 1 );
+    lay4->addStretch(1);
 
     // Time
     QHBoxLayout* lay7 = new QHBoxLayout;
     lay2->addLayout( lay7 );
 
-    label = new QLabel( i18n("Time: ") );
-    lay7->addWidget( label );
+    _timeLabel = new QLabel( i18n("Time: ") );
+    lay7->addWidget( _timeLabel );
 
     _time= new QTimeEdit;
     _time->setProperty( "WantsFocus", true );
@@ -256,15 +259,19 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 
     QHBoxLayout* lay8 = new QHBoxLayout;
     lay2->addLayout( lay8 );
-    label = new QLabel( i18n("Minimum megapixels:") );
-    lay8->addWidget( label );
+
+    _megapixelLabel = new QLabel( i18n("Minimum megapixels:") );
+    lay8->addWidget( _megapixelLabel );
+
     _megapixel = new QSpinBox;
     _megapixel->setRange( 0, 99 );
     _megapixel->setSingleStep( 1 );
+    _megapixelLabel->setBuddy( _megapixel );
     lay8->addWidget( _megapixel );
- 
+    lay8->addStretch( 1 );
+
     QHBoxLayout* lay9 = new QHBoxLayout;
-    lay8->addLayout( lay9 );
+    lay2->addLayout( lay9 );
 
 #ifdef HAVE_NEPOMUK
     label = new QLabel( i18n("Rating:") );
@@ -274,12 +281,12 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay9->addWidget( _rating, 0, Qt::AlignCenter );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
     
-    QLabel* ratingSearchLabel = new QLabel( i18n("Rating search mode:") );
-    lay9->addWidget( ratingSearchLabel );
+    _ratingSearchLabel = new QLabel( i18n("Rating search mode:") );
+    lay9->addWidget( _ratingSearchLabel );
+
     _ratingSearchMode = new KComboBox( lay9 );
     _ratingSearchMode->addItems( QStringList() << i18n("==") << i18n(">=") << i18n("<=") << i18n("!=") );
-    ratingSearchLabel->setBuddy( _ratingSearchMode );
-    lay9->addWidget( ratingSearchLabel );
+    _ratingSearchLabel->setBuddy( _ratingSearchMode );
     lay9->addWidget( _ratingSearchMode );
 #endif
 
@@ -354,11 +361,13 @@ void AnnotationDialog::Dialog::load()
 
     if( info.date().hasValidTime() ) {
         _time->show();
+        _timeLabel->show();
         _addTime->hide();
         _time->setTime( info.date().start().time());
     }
     else {
         _time->hide();
+        _timeLabel->hide();
         _addTime->show();
     }
 
@@ -418,17 +427,25 @@ void AnnotationDialog::Dialog::writeToInfo()
 #endif
 }
 
+void AnnotationDialog::Dialog::ShowHideSearch( bool show )
+{
+    _megapixel->setVisible( show );
+    _megapixelLabel->setVisible( show );
+    _searchRAW->setVisible( show );
+    _ratingSearchMode->setVisible( show );
+    _ratingSearchLabel->setVisible( show );
+}
+
 
 int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
+    ShowHideSearch(false);
+
     if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
         DB::ImageDB::instance()->categoryCollection()->categoryForName( Settings::SettingsData::instance()->untaggedCategory() )
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
 
-    _megapixel->setEnabled( false );
-    _searchRAW->setEnabled( false );
- 
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
     else
@@ -474,6 +491,8 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
 DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* search  )
 {
+    ShowHideSearch(true);
+
     _setup = SearchMode;
     if ( search )
         _oldSearch = *search;
@@ -485,8 +504,6 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 #ifdef HAVE_NEPOMUK
         _ratingChanged = false ;
 #endif
-    _megapixel->setEnabled( true );
-    _searchRAW->setEnabled( true );
 
     showHelpDialog( SearchMode );
     int ok = exec();

@@ -1334,6 +1334,7 @@ void MainWindow::Window::updateStates( bool thumbNailView )
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
+    _jumpToContext->setEnabled( thumbNailView );
 }
 
 void MainWindow::Window::slotRunSlideShow()

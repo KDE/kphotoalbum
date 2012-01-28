@@ -736,11 +736,12 @@ void MainWindow::Window::setupMenuBar()
 
     _rotLeft = actionCollection()->addAction( QString::fromLatin1("rotateLeft"), this, SLOT( slotRotateSelectedLeft() ) );
     _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
-    _rotLeft->setShortcut(  0 );
+    _rotLeft->setShortcut( Qt::Key_7 );
 
 
     _rotRight = actionCollection()->addAction( QString::fromLatin1("rotateRight"), this, SLOT( slotRotateSelectedRight() ) );
     _rotRight->setText( i18n( "Rotate clockwise" ) );
+    _rotRight->setShortcut( Qt::Key_9 );
 
 
     // The Images menu
@@ -1268,11 +1269,13 @@ void MainWindow::Window::rotateSelected( int angle )
 void MainWindow::Window::slotRotateSelectedLeft()
 {
     rotateSelected( -90 );
+    reloadThumbnails();
 }
 
 void MainWindow::Window::slotRotateSelectedRight()
 {
     rotateSelected( 90 );
+    reloadThumbnails();
 }
 
 void MainWindow::Window::reloadThumbnails( ThumbnailView::SelectionUpdateMethod method )

@@ -223,7 +223,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay4->addWidget( label );
 
     _startDate = new ::AnnotationDialog::KDateEdit( true );
-    _startDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
     shortCutManager.addLabel(label );
@@ -233,7 +232,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay4->addWidget( label );
 
     _endDate = new ::AnnotationDialog::KDateEdit( false );
-    _endDate->setProperty( "WantsFocus", true );
     lay4->addWidget( _endDate, 1 );
     lay4->addStretch(1);
 
@@ -245,13 +243,11 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay7->addWidget( _timeLabel );
 
     _time= new QTimeEdit;
-    _time->setProperty( "WantsFocus", true );
     lay7->addWidget( _time );
     lay7->addStretch(1);
     _time->hide();
 
     _addTime= new KPushButton(i18n("Add Time Info..."));
-    _addTime->setProperty( "WantsFocus", true );
     lay7->addWidget( _addTime );
     lay7->addStretch(1);
     _addTime->hide();
@@ -291,7 +287,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 #endif
 
     _searchRAW = new QCheckBox( i18n("Search only for RAW files") );
-    _searchRAW->setProperty( "WantsFocus", true );
     lay2->addWidget( _searchRAW );
     
     lay9->addStretch( 1 );
@@ -799,7 +794,7 @@ void AnnotationDialog::Dialog::setupFocus()
     // Iterate through all widgets in our dialog.
     Q_FOREACH( QObject* obj, list ) {
         QWidget* current = static_cast<QWidget*>( obj );
-        if ( !current->property("WantsFocus").isValid() )
+        if ( !current->property("WantsFocus").isValid() || !current->isVisible() )
             continue;
 
         int cx = current->mapToGlobal( QPoint(0,0) ).x();
@@ -825,12 +820,24 @@ void AnnotationDialog::Dialog::setupFocus()
 
     // now setup tab order.
     QWidget* prev = 0;
+    QWidget* first = 0;
     for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev ) {
+            qDebug() << "tabbing " << prev->objectName() << " -> " << (*orderedIt)->objectName();
             setTabOrder( prev, *orderedIt );
+        } else {
+            first = *orderedIt;
         }
         prev = *orderedIt;
     }
+    if (prev && first) {
+        qDebug() << "tabbing " << prev->objectName() << " -> " << first->objectName();
+        setTabOrder( prev, first );
+    } else if (prev) {
+        qDebug() << "tabbing " << prev->objectName() << " -> " << prev->objectName();
+        setTabOrder( prev, prev );
+    }
+
 
     // Finally set focus on the first list select
     for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {

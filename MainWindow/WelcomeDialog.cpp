@@ -53,22 +53,25 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
     QLabel* textLabel2 = new QLabel( this );
     lay2->addWidget( textLabel2 );
     textLabel2->setText( i18n( "<h1>Welcome to KPhotoAlbum</h1>"
-                               "<p>If you are interested in trying out KPhotoAlbum with a prebuilt set of images, "
-                               "then simply choose the <b>Load Demo</b> "
-                               "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
-                               "<p>Alternatively you may start making you own database of images, simply by pressing the "
-                               "<b>Create my own database</b> button.") );
+                               "<p>KPhotoAlbum is a powerful free tool to archive, tag and manage your photos and "
+                               "videos. It will not modify or change your precious files, it only indexes them "
+                               "and lets you easily find and manage your photos and videos.</p>"
+                               "<p>Start by showing KPhotoAlbum where your photos are by pressing on Create My Own "
+                               "Database. Select this button also if you have an existing KPhotoAlbum database "
+                               "that you want to start using again.</p>"
+                               "<p>If you feel safer first trying out KPhotoAlbum with prebuilt set of images, "
+                               "press the Load Demo button.</p>" ) );
     textLabel2->setWordWrap( true );
 
     QHBoxLayout* lay3 = new QHBoxLayout;
     lay1->addLayout( lay3 );
     lay3->addStretch( 1 );
 
-    QPushButton* loadDemo = new QPushButton( i18n("Load Demo") );
-    lay3->addWidget( loadDemo );
-
     QPushButton* createSetup = new QPushButton( i18n("Create My Own Database..."), this );
     lay3->addWidget( createSetup );
+
+    QPushButton* loadDemo = new QPushButton( i18n("Load Demo") );
+    lay3->addWidget( loadDemo );
 
     QPushButton* checkFeatures = new QPushButton( i18n("Check My Feature Set") );
     lay3->addWidget( checkFeatures );
@@ -106,10 +109,16 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     QVBoxLayout* lay1 = new QVBoxLayout( top );
     setMainWidget( top );
 
-    QLabel* label = new QLabel( i18n("<p>KPhotoAlbum requires that all your images and videos are stored with a common root directory. "
-                                     "You are allowed to store your images in a directory tree under this directory. "
-                                     "KPhotoAlbum will not modify or edit any of your images, so you can simply point KPhotoAlbum to the "
-                                     "directory where you already have all your images located.</p>" ), top );
+    QLabel* label = new QLabel( i18n("<h1>KPhotoAlbum database creation</h1>"
+                                     "<p>You need to show where the photos and videos are for KPhotoAlbum to "
+                                     "find them. They all need to be under one root directory, for example "
+                                     "/home/user/Images. In this directory you can have as many subdirectories as you "
+                                     "want, KPhotoAlbum will find them all for you.</p>"
+                                     "<p>Feel safe, KPhotoAlbum will not modify or edit any of your images, so you can "
+                                     "simply point KPhotoAlbum to the directory where you already have all your "
+                                     "images.</p>"
+                                     "<p>If you have an existing KPhotoAlbum database and root directory somewhere, "
+                                     "point KPhotoAlbum to that directory to start using it again." ), top );
     label->setWordWrap( true );
     lay1->addWidget( label );
 

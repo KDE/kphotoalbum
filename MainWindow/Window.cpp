@@ -1231,10 +1231,15 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 void MainWindow::Window::slotSetFileName( const DB::Id& id )
 {
+    ImageInfoPtr infos;
+
     if ( id.isNull() )
         _statusBar->clearMessage();
-    else
-        _statusBar->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
+    else {
+        infos = id.fetchInfo();
+        if (infos != ImageInfoPtr(NULL) )
+            _statusBar->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
+    }
 }
 
 void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)

@@ -533,8 +533,8 @@ int XMLDB::Database::StackSortHelper::operator()( const QString& fileA, const QS
 {
     DB::ImageInfoPtr a = _db->info( fileA, DB::AbsolutePath );
     DB::ImageInfoPtr b = _db->info( fileB, DB::AbsolutePath );
-    Q_ASSERT( a );
-    Q_ASSERT( b );
+    if ( !a && !b )
+        return -1;
     return ( a->stackId() == b->stackId() ) && ( a->stackOrder() < b->stackOrder() );
 }
 

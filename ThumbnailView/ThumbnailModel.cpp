@@ -377,6 +377,8 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
 {
 
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
+    if (imageInfo == DB::ImageInfoPtr(NULL) )
+        return QPixmap();
     const QString fileName = imageInfo->fileName(DB::AbsolutePath);
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )

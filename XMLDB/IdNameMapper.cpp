@@ -29,26 +29,32 @@ void DB::IdNameMapper::add( const QString& fileName )
 DB::RawId DB::IdNameMapper::operator[](const QString& fileName ) const
 {
     Q_ASSERT( !fileName.startsWith( QLatin1String("/") ) );
-    Q_ASSERT( _fileNameToId.contains( fileName ) );
+    if ( !_fileNameToId.contains( fileName ) )
+        return DB::RawId();
     return _fileNameToId[fileName];
 }
 
 QString DB::IdNameMapper::operator[]( DB::RawId id ) const
 {
-    Q_ASSERT( _idTofileName.contains( id ) );
+    if (!_idTofileName.contains( id ) ) {
+        return QString::fromLatin1( "" );
+    }
     return _idTofileName[id];
 }
 
 void DB::IdNameMapper::remove( DB::RawId id )
 {
-    Q_ASSERT( _idTofileName.contains( id ) );
+    if( !_idTofileName.contains( id ) )
+        return;
+;
     _fileNameToId.remove( _idTofileName[id] );
     _idTofileName.remove( id );
 }
 
 void DB::IdNameMapper::remove( const QString& fileName )
 {
-    Q_ASSERT( _fileNameToId.contains( fileName ) );
+    if ( !_fileNameToId.contains( fileName ) )
+        return;
     Q_ASSERT( !fileName.startsWith( QLatin1String("/") ) );
     _idTofileName.remove( _fileNameToId[fileName] );
     _fileNameToId.remove( fileName );

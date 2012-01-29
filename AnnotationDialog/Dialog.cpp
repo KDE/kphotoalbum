@@ -100,6 +100,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     _description = new KTextEdit;
     _description->setProperty( "WantsFocus", true );
+    _description->setCheckSpellingEnabled( true );
 
     dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );
@@ -583,6 +584,7 @@ int AnnotationDialog::Dialog::exec()
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
     const int ret = QDialog::exec();
+    _description->setCheckSpellingEnabled( false );
     hideTornOfWindows();
     return ret;
 }

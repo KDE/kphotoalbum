@@ -1,0 +1,4632 @@
+# translation of kphotoalbum.po to Greek
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Spiros Georgaras <sng@hellug.gr>, 2007, 2008.
+# Toussis Manolis <manolis@koppermind.homelinux.org>, 2007, 2008, 2009.
+# Spiros Georgaras <sngeorgaras@otenet.gr>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: kphotoalbum\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-10-26 06:48+0100\n"
+"PO-Revision-Date: 2009-04-29 20:00+0300\n"
+"Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: DB/ImageSearchInfo.cpp:173
+#, kde-format
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "Χωρίς %1"
+
+#: DB/ImageSearchInfo.cpp:176 AnnotationDialog/ListSelect.cpp:78
+msgid "and"
+msgstr "και"
+
+#: DB/ImageSearchInfo.cpp:181 AnnotationDialog/ListSelect.cpp:77
+msgid "or"
+msgstr "ή"
+
+#: DB/ImageSearchInfo.cpp:182
+msgid "not"
+msgstr "όχι"
+
+#: DB/ImageSearchInfo.cpp:186
+#, kde-format
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "Χωρίς άλλα/ες %1"
+
+#: DB/ImageInfoList.cpp:81
+msgid ""
+"<p>You are about to sort a set of thumbnails with others in between.<br /"
+">This might result in an unexpected sort order.<br /><p>Are you sure you "
+"want to continue?</p>"
+msgstr ""
+"<p>Πρόκειται να ταξινομήσετε ένα σύνολο εικόνων που περιέχει άλλες "
+"ανάμεσα<br />Αυτό μπορεί να έχει σαν αποτέλεσμα απροσδιόριστη σειρά "
+"ταξινόμησης<br /><p>Είστε σίγουροι ότι επιθυμείτε να συνεχίσετε;</p>"
+
+#: DB/ImageInfoList.cpp:83
+msgid "Sort Thumbnails?"
+msgstr "Να γίνει ταξινόμηση των εικόνων επισκόπησης;"
+
+#: DB/NewImageFinder.cpp:168
+msgid ""
+"<p><b>Loading information from new files</b></p><p>Depending on the number "
+"of images, this may take some time.<br/>However, there is only a delay when "
+"new images are found.</p>"
+msgstr ""
+"<p><b>Φόρτωση πληροφοριών από νέα αρχεία</b></p><p>Ανάλογα με τον αριθμό των "
+"εικόνων, αυτό μπορεί να διαρκέσει αρκετά.<br/>Ωστόσο, υπάρχει καθυστέρηση "
+"μόνο όταν βρεθούν νέες εικόνες.</p>"
+
+#: DB/NewImageFinder.cpp:245
+#, kde-format
+msgid ""
+"<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum for "
+"each image KPhotoAlbum is capable of finding images even when you have moved "
+"them on the disk.</p>"
+msgstr ""
+"<p><b>Υπολογισμός αθροίσματος ελέγχου για %1 αρχεία<b></p><p>Αποθηκεύοντας "
+"ένα άθροισμα ελέγχου για κάθε εικόνα το KPhotoAlbum είναι ικανό να τη βρει "
+"ακόμη και αν την μετακινήσατε στο δίσκο.</p>"
+
+#: DB/NewImageFinder.cpp:290
+msgid "Following files could not be read:"
+msgstr "Τα παρακάτω αρχεία δεν μπορούν να αναγνωστούν:"
+
+#: DB/ImageDB.cpp:217
+msgid "Loading information from images"
+msgstr "Φόρτωση πληροφοριών από τις εικόνες"
+
+#: DB/ImageDB.cpp:218
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: DB/ImageDate.cpp:343
+msgid "jan"
+msgstr "Ιαν"
+
+#: DB/ImageDate.cpp:343
+msgid "feb"
+msgstr "Φεβ"
+
+#: DB/ImageDate.cpp:343
+msgid "mar"
+msgstr "Μάρ"
+
+#: DB/ImageDate.cpp:343
+msgid "apr"
+msgstr "Απρ"
+
+#: DB/ImageDate.cpp:343
+msgid "may"
+msgstr "Μάι"
+
+#: DB/ImageDate.cpp:343
+msgid "jun"
+msgstr "Ιούν"
+
+#: DB/ImageDate.cpp:344
+msgid "jul"
+msgstr "Ιούλ"
+
+#: DB/ImageDate.cpp:344
+msgid "aug"
+msgstr "Αύγ"
+
+#: DB/ImageDate.cpp:344
+msgid "sep"
+msgstr "Σεπ"
+
+#: DB/ImageDate.cpp:344
+msgid "oct"
+msgstr "Οκτ"
+
+#: DB/ImageDate.cpp:344
+msgid "nov"
+msgstr "Νοέ"
+
+#: DB/ImageDate.cpp:344
+msgid "dec"
+msgstr "Δεκ"
+
+#: DB/Category.cpp:139 DB/Category.cpp:147 XMLDB/FileReader.cpp:348
+msgid "People"
+msgstr "Άνθρωποι"
+
+#: DB/Category.cpp:140 DB/Category.cpp:148 XMLDB/FileReader.cpp:349
+msgid "Places"
+msgstr "Τοποθεσίες"
+
+#: DB/Category.cpp:141 XMLDB/FileReader.cpp:350
+msgid "Events"
+msgstr "Γεγονότα"
+
+#: DB/Category.cpp:142
+msgid "Folder"
+msgstr "Φάκελος"
+
+#: DB/Category.cpp:143
+msgid "Tokens"
+msgstr "Ενδεικτικά"
+
+#: DB/Category.cpp:144
+msgid "Media Type"
+msgstr "Τύπος μέσου"
+
+#: DB/Category.cpp:149
+msgid "Keywords"
+msgstr "Λέξεις κλειδιά"
+
+#: DB/Category.cpp:196
+#, kde-format
+msgid "Unable to create directory '%1'."
+msgstr "Αδυναμία δημιουργίας του καταλόγου '%1'."
+
+#: DB/Category.cpp:196
+msgid "Unable to Create Directory"
+msgstr "Αδυναμία δημιουργίας καταλόγου"
+
+#: DB/Category.cpp:203
+#, kde-format
+msgid "Error when saving image '%1'."
+msgstr "Σφάλμα κατά την αποθήκευση της εικόνας '%1'."
+
+#: DB/Category.cpp:203
+msgid "Error Saving Image"
+msgstr "Σφάλμα αποθήκευσης εικόνας"
+
+#: Exif/Database.cpp:77
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>There was an error while executing the SQL backend command. The error "
+#| "is likely due to a broken database file.</p><p>To fix this problem run "
+#| "Maintainance->Rebuild EXIF database.</p><hr/><p>For debugging, this is "
+#| "the command I tried to execute:<br/>%1</p><p>This was the error message I "
+#| "got:<br/>%2</p>"
+msgid ""
+"<p>There was an error while executing the SQL backend command. The error is "
+"likely due to a broken database file.</p><p>To fix this problem run "
+"Maintainance->Rebuild EXIF database.</p><hr/><p>For debugging: the command "
+"that was attempted to be executed was:<br/>%1</p><p>The error message "
+"obtained was:<br/>%2</p>"
+msgstr ""
+"<p>Υπήρξε ένα σφάλμα εκτέλεσης εντολής του συστήματος υποστήριξης SQL. Το "
+"σφάλμα πιθανότατα να ωφείλεται σε κατεστραμμένο αρχείο βάσης δεδομένων.</"
+"p><p>Για να διορθώσετε το πρόβλημα εκτελέστε το Συντήρηση->Ανακατασκευή "
+"βάσης δεδομένων EXIF.</p><hr/><p>Για την αποσφαλμάτωση, αυτή είναι η εντολή "
+"που εκτελέστηκε:<br/>%1</p><p>Αυτό ήταν το σφάλμα που λήφθηκε:<br/>%2</p>"
+
+#: Exif/Database.cpp:85
+msgid "Error Executing Exif Command"
+msgstr "Σφάλμα εκτέλεσης εντολής Exif"
+
+#: Exif/Database.cpp:308
+msgid "Rereading EXIF information from all images"
+msgstr "Ανάγνωση ξανά πληροφοριών EXIF από όλες τις εικόνες"
+
+#: Exif/SearchDialog.cpp:37 Browser/OverviewPage.cpp:229
+msgid "EXIF Search"
+msgstr "Αναζήτηση EXIF"
+
+#: Exif/SearchDialog.cpp:42 Settings/SettingsDialog.cpp:91
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: Exif/SearchDialog.cpp:62
+msgid "Aperture Value"
+msgstr "Τιμή διαφράγματος"
+
+#: Exif/SearchDialog.cpp:63
+msgid "F Number"
+msgstr "Αριθμός F"
+
+#: Exif/SearchDialog.cpp:66
+msgid "Focal Length"
+msgstr "Εστιακή απόσταση"
+
+#: Exif/SearchDialog.cpp:70
+msgid "to"
+msgstr "έως"
+
+#: Exif/SearchDialog.cpp:76
+#, fuzzy
+#| msgctxt "This is milimeter for focal length, like 35mm"
+#| msgid "mm"
+msgctxt "This is millimeter for focal length, like 35mm"
+msgid "mm"
+msgstr "mm"
+
+#: Exif/SearchDialog.cpp:92
+msgid "Camera"
+msgstr "Φωτογραφική μηχανή"
+
+#: Exif/SearchDialog.cpp:97
+msgid "Miscellaneous"
+msgstr "Διάφορα"
+
+#: Exif/SearchDialog.cpp:118
+msgid "Iso setting"
+msgstr "Ρύθμιση Iso"
+
+#: Exif/SearchDialog.cpp:123
+msgctxt "Example 1.6 secs (as in seconds)"
+msgid "secs."
+msgstr "δευτ."
+
+#: Exif/SearchDialog.cpp:162
+msgid "1 second"
+msgstr "1 δευτερόλεπτο"
+
+#: Exif/SearchDialog.cpp:179
+msgid "Exposure time"
+msgstr "Χρόνος έκθεσης"
+
+#: Exif/SearchDialog.cpp:222
+msgid "Exposure Program"
+msgstr "Πρόγραμμα έκθεσης"
+
+#: Exif/SearchDialog.cpp:223
+msgid "Not defined"
+msgstr "Μη καθορισμένο"
+
+#: Exif/SearchDialog.cpp:224
+msgid "Manual"
+msgstr "Χειροκίνητο"
+
+#: Exif/SearchDialog.cpp:225
+msgid "Normal program"
+msgstr "Κανονικό πρόγραμμα"
+
+#: Exif/SearchDialog.cpp:226
+msgid "Aperture priority"
+msgstr "Προτεραιότητα διαφράγματος"
+
+#: Exif/SearchDialog.cpp:227
+msgid "Shutter priority"
+msgstr "Προτεραιότητα φωτοφράκτη"
+
+#: Exif/SearchDialog.cpp:228
+msgid "Creative program (biased toward depth of field)"
+msgstr "Δημιουργικό πρόγραμμα (με έμφαση στο βάθος πεδίου)"
+
+#: Exif/SearchDialog.cpp:229
+msgid "Action program (biased toward fast shutter speed)"
+msgstr "Πρόγραμμα δράσης (με έμφαση στην ταχύτητα κλείστρου)"
+
+#: Exif/SearchDialog.cpp:230
+msgid "Portrait mode (for closeup photos with the background out of focus)"
+msgstr ""
+"Λειτουργία πορτραίτου (για κοντινές φωτογραφίες με το φόντο εκτός εστίασης)"
+
+#: Exif/SearchDialog.cpp:231
+msgid "Landscape mode (for landscape photos with the background in focus)"
+msgstr "Λειτουργία τοπίου (για τοπία με το φόντο σε εστίαση)"
+
+#: Exif/SearchDialog.cpp:237 ImportExport/MD5CheckPage.cpp:59
+msgid "Orientation"
+msgstr "Προσανατολισμός"
+
+#: Exif/SearchDialog.cpp:238
+msgid "Not rotated"
+msgstr "Χωρίς περιστροφή"
+
+#: Exif/SearchDialog.cpp:239
+msgid "Rotated counterclockwise"
+msgstr "Περιστράφηκε προς τα αριστερά"
+
+#: Exif/SearchDialog.cpp:240
+msgid "Rotated clockwise"
+msgstr "Περιστράφηκε προς τα δεξιά"
+
+#: Exif/SearchDialog.cpp:241
+msgid "Rotated 180 degrees"
+msgstr "Περιστροφή 180 μοίρες"
+
+#: Exif/SearchDialog.cpp:247
+msgid "Metering Mode"
+msgstr "Λειτουργία μέτρησης"
+
+#: Exif/SearchDialog.cpp:248
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: Exif/SearchDialog.cpp:249
+msgid "Average"
+msgstr "Μέσος όρος"
+
+#: Exif/SearchDialog.cpp:250
+msgid "CenterWeightedAverage"
+msgstr "Κεντροβαρικός μέσος"
+
+#: Exif/SearchDialog.cpp:251
+msgid "Spot"
+msgstr "Σημείο"
+
+#: Exif/SearchDialog.cpp:252
+msgid "MultiSpot"
+msgstr "Πολλαπλών σημείων"
+
+#: Exif/SearchDialog.cpp:253
+msgid "Pattern"
+msgstr "Μοτίβο"
+
+#: Exif/SearchDialog.cpp:254
+msgid "Partial"
+msgstr "Μερικό"
+
+#: Exif/SearchDialog.cpp:255
+msgid "Other"
+msgstr "Άλλο"
+
+#: Exif/SearchDialog.cpp:261
+msgid "Contrast"
+msgstr "Αντίθεση"
+
+#: Exif/SearchDialog.cpp:262 Exif/SearchDialog.cpp:271
+#: Exif/SearchDialog.cpp:280
+msgid "Normal"
+msgstr "Κανονική"
+
+#: Exif/SearchDialog.cpp:263 Exif/SearchDialog.cpp:272
+msgid "Soft"
+msgstr "Ομαλή"
+
+#: Exif/SearchDialog.cpp:264 Exif/SearchDialog.cpp:273
+msgid "Hard"
+msgstr "Ισχυρή"
+
+#: Exif/SearchDialog.cpp:270
+msgid "Sharpness"
+msgstr "Οξύτητα"
+
+#: Exif/SearchDialog.cpp:279
+msgid "Saturation"
+msgstr "Κορεσμός"
+
+#: Exif/SearchDialog.cpp:281
+msgid "Low"
+msgstr "Χαμηλός"
+
+#: Exif/SearchDialog.cpp:282
+msgid "High"
+msgstr "Υψηλός"
+
+#: Exif/SearchDialog.cpp:334
+msgid "No cameras found in the database"
+msgstr "Δε βρέθηκαν φωτογραφικές μηχανές στη βάση δεδομένων"
+
+#: Exif/ReReadDialog.cpp:34
+#, fuzzy
+#| msgid "Read EXIF Info From Files..."
+msgid "Read EXIF info from files"
+msgstr "Ανάγνωση πληροφοριών EXIF από τα αρχεία..."
+
+#: Exif/ReReadDialog.cpp:41
+msgid "Update EXIF search database"
+msgstr "Ενημέρωση βάσης δεδομένων αναζήτησης EXIF"
+
+#: Exif/ReReadDialog.cpp:47
+msgid "Update image date"
+msgstr "Ενημέρωση ημερομηνίας εικόνας"
+
+#: Exif/ReReadDialog.cpp:50
+msgid "Use modification date if EXIF not found"
+msgstr "Χρήση ημερομηνίας τροποποίησης αν δε βρεθεί η EXIF"
+
+#: Exif/ReReadDialog.cpp:53
+msgid "Update image orientation from EXIF information"
+msgstr "Ενημέρωση περιστροφής εικόνας από πληροφορίες EXIF"
+
+#: Exif/ReReadDialog.cpp:56
+msgid "Update image description from EXIF information"
+msgstr "Ενημέρωση περιγραφής εικόνας από πληροφορίες EXIF"
+
+#: Exif/ReReadDialog.cpp:59
+msgid "Affected Files"
+msgstr ""
+
+#: Exif/ReReadDialog.cpp:112
+msgid ""
+"<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
+"have previously entered manually using the image configuration dialog.</p>"
+msgstr ""
+"<p>Σημειώστε ότι ο ορισμός δεδομένων από πληροφορίες EXIF μπορεί να "
+"<b>αντικαταστήσει</b> δεδομένα που είχαν προηγουμένως εισαχθεί χειροκίνητα "
+"χρησιμοποιώντας το διάλογο ρυθμίσεων εικόνας.</p>"
+
+#: Exif/ReReadDialog.cpp:115
+msgid "Override image dates"
+msgstr "Αντικατάσταση ημερομηνιών εικόνων"
+
+#: Exif/InfoDialog.cpp:41
+msgid "EXIF Information"
+msgstr "Πληροφορίες EXIF"
+
+#: Exif/InfoDialog.cpp:74
+msgid "Current EXIF Label Search: "
+msgstr "Τρέχουσα αναζήτηση ετικέτας EXIF: "
+
+#: Exif/InfoDialog.cpp:88
+msgid "IPTC character set:"
+msgstr "Σύνολο χαρακτήρων IPTC"
+
+#: Exif/InfoDialog.cpp:107
+msgid "<No Search>"
+msgstr "<Καμία αναζήτηση>"
+
+#: SQLDB/SQLSettingsWidget.cpp:258
+msgid "Database driver:"
+msgstr "Οδηγός βάσης δεδομένων:"
+
+#: SQLDB/SQLSettingsWidget.cpp:259
+msgid "Database file:"
+msgstr "Αρχείο βάσης δεδομένων:"
+
+#: SQLDB/SQLSettingsWidget.cpp:260
+msgid "KPhotoAlbum database files (*.db)"
+msgstr "Αρχεία βάσης δεδομένων KPhotoAlbum (*.db)"
+
+#: SQLDB/SQLSettingsWidget.cpp:261
+msgid "Server address:"
+msgstr "Διεύθυνση εξυπηρετητή:"
+
+#: SQLDB/SQLSettingsWidget.cpp:262
+msgid "Server port:"
+msgstr "Θύρα εξυπηρετητή:"
+
+#: SQLDB/SQLSettingsWidget.cpp:263
+msgid "Default"
+msgstr "Προκαθορισμένη"
+
+#: SQLDB/SQLSettingsWidget.cpp:264
+msgid "Database name:"
+msgstr "Όνομα βάσης δεδομένων:"
+
+#: SQLDB/SQLSettingsWidget.cpp:265
+msgid "Username:"
+msgstr "Όνομα χρήστη:"
+
+#: SQLDB/SQLSettingsWidget.cpp:266
+msgid "Password:"
+msgstr "Κωδικός πρόσβασης:"
+
+#: SQLDB/SQLSettingsWidget.cpp:301
+msgid "No SQL database drivers found."
+msgstr "Δε βρέθηκαν οδηγοί βάσης δεδομένων SQL."
+
+#: SQLDB/SQLSettingsWidget.cpp:305
+msgid "Invalid driver."
+msgstr "Μη έγκυρος οδηγός."
+
+#: SQLDB/DriverManager.cpp:67
+#, kde-format
+msgid "Database driver not found: %1"
+msgstr "Δεν βρέθηκε οδηγός βάσης δεδομένων: %1"
+
+#: SQLDB/DriverManager.cpp:86
+#, kde-format
+msgid "Unknown or unsupported database driver: %1"
+msgstr "Άγνωστος ή μη υποστηριζόμενος οδηγός βάσης δεδομένων: %1"
+
+#: SQLDB/DatabaseInitialization.cpp:137
+msgid "Database schema is incompatible."
+msgstr "Η μορφή της βάσης δεδομένων δεν είναι συμβατή."
+
+#: XMLDB/Database.cpp:619
+#, kde-format
+msgid ""
+"<p>Unknown tag %1, while reading configuration file.</p><p>Expected one of: "
+"Options, Drawings</p>"
+msgstr ""
+"<p>Άγνωστη ετικέτα %1, κατά την ανάγνωση του αρχείου ρυθμίσεων.</"
+"p><p>Αναμενόταν ένα από τα: Options, Drawings</p>"
+
+#: XMLDB/NumberedBackup.cpp:40
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Σφάλμα κατά τη δημιουργία του συμπιεσμένου αρχείου %1"
+
+#: XMLDB/FileWriter.cpp:66
+#, kde-format
+msgid "Could not open file '%1'."
+msgstr "Αδυναμία ανοίγματος του αρχείου '%1'."
+
+#: XMLDB/FileReader.cpp:80
+#, kde-format
+msgid "Error in file %1: unexpected element: '%2'"
+msgstr "Σφάλμα στο αρχείο %1: μη αναμενόμενο στοιχείο: '%2'"
+
+#: XMLDB/FileReader.cpp:86
+#, kde-format
+msgid "Unable to find 'Options' tag in configuration file %1."
+msgstr "Αδυναμία εύρεσης της ετικέτας 'Options' στο αρχείο ρυθμίσεων %1."
+
+#: XMLDB/FileReader.cpp:88
+#, kde-format
+msgid "Unable to find 'Images' tag in configuration file %1."
+msgstr "Αδυναμία εύρεσης της ετικέτας 'Images' στο αρχείο ρυθμίσεων %1."
+
+#: XMLDB/FileReader.cpp:263
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p>You can then select "
+"the images that you have reason to believe have a correct date in either "
+"their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</"
+"b> to reread the information.</p><p>Finally, once all images have their "
+"dates set, you can execute <b>Images->Sort Selected by Date & Time</b> to "
+"sort them in the database.</p>"
+msgstr ""
+"<p>Οι εικόνες/βίντεό σας δεν είναι ταξινομημένες, το οποίο σημαίνει ότι η "
+"περιήγηση χρησιμοποιώντας τη γραμμή ημερομηνίας δε θα λειτουργεί τέλεια.</"
+"p><p>Στο μενού <b>Συντήρηση</b>, μπορείτε να βρείτε την επιλογή <b>Εμφάνιση "
+"εικόνων με ελλιπείς ημερομηνίες</b> το οποίο μπορείτε να χρησιμοποιήσετε για "
+"να βρείτε τις εικόνες που έχουν ελλιπείς πληροφορίες ημερομηνίας.</p>Έπειτα "
+"μπορείτε να επιλέξετε τις εικόνες που πιστεύετε έχουν μια σωστή ημερομηνία "
+"είτε στα δεδομένα τους EXIF ή στο αρχείο, και να εκτελέσετε τη <b>Συντήρηση-"
+">Ανάγνωση πληροφοριών EXIF</b> για να γίνει ανάγνωση των πληροφοριών ξανά.</"
+"p><p>Τέλος, μόλις οι εικόνες έχουν ορισμένες ημερομηνίες, μπορείτε να "
+"εκτελέσετε την επιλογή <b>Εικόνες->Ταξινόμηση επιλεγμένων κατά ημερομηνία & "
+"ώρα</b> για να γίνει ταξινόμησή τους στη βάση δεδομένων.</p>"
+
+#: XMLDB/FileReader.cpp:273
+#, fuzzy
+#| msgid ""
+#| "<p>Your images/videos are not sorted, which means that navigating using "
+#| "the date bar will only work suboptimally.</p><p>You also don't have EXIF "
+#| "support available, which means that you can't read image dates from JPEG "
+#| "metadata. It's strongly recommended to recompile KPhotoAlbum with the "
+#| "<code>exiv2</code> library. After you have done so, you'll be asked what "
+#| "to do to correct all missing information.</p>"
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>You also do not have EXIF "
+"support available, which means that you cannot read image dates from JPEG "
+"metadata. It is strongly recommended to recompile KPhotoAlbum with the "
+"<code>exiv2</code> library. After you have done so, you will be asked what "
+"to do to correct all the missing information.</p>"
+msgstr ""
+"<p>Οι εικόνες/βίντεό σας δεν είναι ταξινομημένες, το οποίο σημαίνει ότι η "
+"περιήγηση χρησιμοποιώντας τη γραμμή ημερομηνίας δε θα λειτουργεί τέλεια.</"
+"p><p>Επίσης δεν έχετε υποστήριξη EXIF, το οποίο σημαίνει ότι είναι αδύνατη η "
+"ανάγνωση ημερομηνιών από τα μεταδεδομένα JPEG. Προτείνεται έντονα η "
+"αναμεταγλώττιση του KPhotoAlbum με υποστήριξη της βιβλιοθήκης <code>exiv2</"
+"code>. Μόλις το κάνετε αυτό, θα ερωτηθείτε για τον τρόπο διόρθωσης των "
+"πληροφοριών που λείπουν.</p>"
+
+#: XMLDB/FileReader.cpp:280
+msgid "Images/Videos Are Not Sorted"
+msgstr "Μη ταξινομημένες εικόνες/βίντεο"
+
+#: XMLDB/FileReader.cpp:295
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Όλες οι εικόνες στη βάση δεδομένων δεν περιέχουν πληροφορίες σχετικά με "
+"το μέγεθός τους: αυτό χρησιμοποιείται για τη βέλτιστη παραγωγή εικόνων "
+"επισκόπησης. Για να το διορθώσετε, απλά πηγαίνετε στο μενού <b>Συντήρηση</"
+"b>, και επιλέγοντας πρώτα την <b>Αφαίρεση όλων των εικόνων επισκόπησης</b>, "
+"έπειτα επιλέγετε την <tt>Κατασκευή εικόνων επισκόπησης</tt>.</p><p>Αν δεν "
+"κάνετε το παραπάνω θα έχει σαν αποτέλεσμα επιπλέον κενό χώρο γύρω από τις "
+"εικόνες στην προβολή εικόνων επισκόπησης, το οποίο δεν είναι και τόσο "
+"σοβαρό, οπότε δεν υπάρχει και απαίτηση εκτέλεσης της παραπάνω λειτουργίας.</"
+"p>"
+
+#: XMLDB/FileReader.cpp:300
+msgid "Not All Images Have Size Information"
+msgstr "Πληροφορίες μεγέθους όχι σε όλες τις εικόνες"
+
+#: XMLDB/FileReader.cpp:310
+msgid ""
+"<p>The index.xml file read was from an older version of KPhotoAlbum. "
+"KPhotoAlbum read the old format without problems, but to be able to convert "
+"back to KimDaBa 2.1 format, you need to run the current KPhotoAlbum using "
+"the flag <b>export-in-2.1-format</b>, and then save.</p>"
+msgstr ""
+"<p>Το αρχείο index.xml προέρχεται από μια παλαιότερη έκδοση του KPhotoAlbum. "
+"Το KPhotoAlbum διαβάζει την παλιά μορφή χωρίς προβλήματα, αλλά για να "
+"μπορέσετε να κάνετε μετατροπή του νέου αρχείου σε μορφή KimDaBa 2.1 θα "
+"πρέπει να εκτελέσετε το τρέχον KPhotoAlbum χρησιμοποιώντας τη σημαία "
+"<b>export-in-2.1-format</b> και έπειτα να εκτελέσετε αποθήκευση του αρχείου."
+"</p>"
+
+#: XMLDB/FileReader.cpp:314
+msgid "Old File Format read"
+msgstr "Ανάγνωση παλιάς μορφής αρχείου"
+
+#: XMLDB/FileReader.cpp:335
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation directory.</p><p>If you for example ran "
+"configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>Το KPhotoAlbum αδυνατεί να φορτώσει τις προκαθορισμένες ρυθμίσεις, το "
+"οποίο υποδηλώνει σφάλμα εγκατάστασης</p><p>Αν εγκαταστήσατε το KPhotoAlbum "
+"χωρίς βοήθεια τρίτου, θα πρέπει να θυμάστε ότι απαιτείται ο ορισμός της "
+"μεταβλητής περιβάλλοντος <b>KDEDIRS</b>, για τον καθορισμό του ανώτατου "
+"καταλόγου εγκατάστασης.</p><p>Αν για παράδειγμα εκτελέσετε το configure με "
+"την επιλογή <b>--prefix=/usr/local/kde</b>, τότε θα πρέπει να "
+"χρησιμοποιήσετε την παρακάτω ρύθμιση της μεταβλητής περιβάλλοντος (το "
+"παράδειγμα αναφέρετε για το Bash καθώς και τα συμβατά με αυτό κελύφη):</"
+"p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Αν έχετε ήδη ορισμένη τη "
+"μεταβλητή KDEDIRS, απλά προσθέστε στο τέλος τη συμβολοσειρά όπως ακριβώς "
+"ορίζεται και η μεταβλητή περιβάλλοντος <b>PATH</b></p>"
+
+#: XMLDB/FileReader.cpp:342
+msgid "No default setup file found"
+msgstr "Δε βρέθηκε προκαθορισμένο αρχείο ρυθμίσεων"
+
+#: XMLDB/FileReader.cpp:359
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "Αδυναμία ανοίγματος του '%1' για ανάγνωση"
+
+#: XMLDB/FileReader.cpp:359 Utilities/Util.cpp:256 Utilities/Util.cpp:270
+#: Utilities/Util.cpp:288 Utilities/Util.cpp:305
+msgid "Error Running Demo"
+msgstr "Σφάλμα εκτέλεσης της επίδειξης"
+
+#: XMLDB/FileReader.cpp:368
+#, kde-format
+msgid "Error on line %1 column %2 in file %3: %4"
+msgstr "Σφάλμα στη γραμμή %1 στήλη %2 του αρχείου %3: %4"
+
+#: XMLDB/FileReader.cpp:376
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Σφάλμα στο αρχείο %1: Δε βρέθηκαν στοιχεία"
+
+#: XMLDB/FileReader.cpp:382
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr ""
+"Σφάλμα στο αρχείο %1: Αναμενόταν το 'KPhotoAlbum' ως ανώτατο στοιχείο αλλά "
+"βρέθηκε το '%2'"
+
+#: Plugins/CategoryImageCollection.cpp:35 Browser/AbstractCategoryModel.cpp:46
+#: MainWindow/StatisticsDialog.cpp:112
+msgid "None"
+msgstr "Κανένα"
+
+#: Plugins/Interface.cpp:97
+#, kde-format
+msgid ""
+"<p>Image needs to be placed in a sub directory of your photo album, which is "
+"rooted at %1. Image path was %2</p>"
+msgstr ""
+"<p>Η εικόνα χρειάζεται να τοποθετηθεί σε έναν υποκατάλογο του φωτογραφικού "
+"άλμπουμ το οποίο βρίσκεται στο %1. Η διαδρομή της εικόνας ήταν %2</p>"
+
+#: Plugins/ImageCollection.cpp:44
+msgid "unknown (Selection)"
+msgstr "άγνωστο (επιλογή)"
+
+#: Plugins/ImageCollection.cpp:47
+msgid " (Selection)"
+msgstr " (επιλογή)"
+
+#: Plugins/ImageCollection.cpp:52 Plugins/ImageCollection.cpp:55
+msgid "unknown"
+msgstr "άγνωστο"
+
+#: Plugins/ImageCollection.cpp:59
+msgid "none"
+msgstr "κανένα"
+
+#: Browser/Breadcrumb.cpp:36 MainWindow/StatisticsDialog.cpp:150
+msgid "All"
+msgstr "Όλα"
+
+#: Browser/OverviewPage.cpp:132
+msgid "Exif Info"
+msgstr "Πληροφορίες Exif"
+
+#: Browser/OverviewPage.cpp:143 AnnotationDialog/Dialog.cpp:493
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: Browser/OverviewPage.cpp:152 Settings/UntaggedGroupBox.cpp:12
+#, fuzzy
+#| msgid "New Images"
+msgid "Untagged Images"
+msgstr "Νέες εικόνες"
+
+#: Browser/OverviewPage.cpp:162
+msgid "Show Thumbnails"
+msgstr "Εμφάνιση εικόνων επισκόπησης"
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Search did not match any images or videos."
+msgstr "Η αναζήτηση δε βρήκε κάποια εικόνα ή βίντεο."
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Empty Search Result"
+msgstr "Κενό αποτέλεσμα αναζήτησης"
+
+#: Browser/OverviewPage.cpp:252
+#, fuzzy
+#| msgid "Search"
+msgid "search"
+msgstr "Αναζήτηση"
+
+#: Browser/OverviewPage.cpp:276
+msgid ""
+"<p>You have not yet configured which tag to use for indicating untagged "
+"images.</p><p>Please follow these steps to do so:<ul><li>In the menu bar "
+"choose <b>Settings</b></li><li>From there choose <b>Configure KPhotoAlbum</"
+"b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
+"section <b>Untagged Images</b></li></ul></p>"
+msgstr ""
+
+#: Browser/OverviewPage.cpp:282
+msgid "Features has not been configured"
+msgstr ""
+
+#: Browser/AbstractCategoryModel.cpp:48
+msgid "No other"
+msgstr "Κανένα άλλο"
+
+#: Browser/AbstractCategoryModel.cpp:51
+msgid "Video"
+msgstr "Βίντεο"
+
+#: Browser/AbstractCategoryModel.cpp:53
+msgid "Image"
+msgstr "Εικόνα"
+
+#: Browser/AbstractCategoryModel.cpp:100
+#, fuzzy, kde-format
+#| msgid "1 image"
+#| msgid_plural "%1 images"
+msgid "1 image"
+msgid_plural "%1 images"
+msgstr[0] "1 εικόνα"
+msgstr[1] "%1 εικόνες"
+
+#: Browser/AbstractCategoryModel.cpp:101
+#, kde-format
+msgid "1 video"
+msgid_plural "%1 videos"
+msgstr[0] "1 βίντεο"
+msgstr[1] "%1 βίντεο"
+
+#. i18n: file: kphotoalbumui.rc:76
+#. i18n: ectx: Menu (imagesplugins)
+#: Browser/AbstractCategoryModel.cpp:138 rc.cpp:21
+msgid "Images"
+msgstr "Εικόνες"
+
+#: Browser/AbstractCategoryModel.cpp:139
+msgid "Videos"
+msgstr "Βίντεο"
+
+#: Viewer/ImageDisplay.cpp:342
+#, kde-format
+msgid "[ zoom x%1 ]"
+msgstr "[ εστίαση x%1 ]"
+
+#: Viewer/CategoryImageConfig.cpp:42
+msgid "Configure Category Image"
+msgstr "Ρύθμιση κατηγορίας εικόνας"
+
+#: Viewer/CategoryImageConfig.cpp:44
+msgid "Set"
+msgstr "Ορισμός"
+
+#: Viewer/CategoryImageConfig.cpp:54
+msgid "Group:"
+msgstr "Ομάδα:"
+
+#: Viewer/CategoryImageConfig.cpp:61
+msgid "Member:"
+msgstr "Μέλος:"
+
+#: Viewer/CategoryImageConfig.cpp:70
+msgid "Current image:"
+msgstr "Τρέχουσα εικόνα:"
+
+#: Viewer/CategoryImageConfig.cpp:78
+msgid "New image:"
+msgstr "Νέα εικόνα:"
+
+#: Viewer/VisibleOptionsMenu.cpp:16
+msgid "Show..."
+msgstr "Εμφάνιση..."
+
+#: Viewer/VisibleOptionsMenu.cpp:19
+msgid "Show"
+msgstr "Εμφάνιση"
+
+#: Viewer/VisibleOptionsMenu.cpp:23
+msgid "Show Info Box"
+msgstr "Εμφάνιση πλαισίου πληροφοριών"
+
+#: Viewer/VisibleOptionsMenu.cpp:29
+msgid "Show Label"
+msgstr "Εμφάνιση ετικέτας"
+
+#: Viewer/VisibleOptionsMenu.cpp:35
+msgid "Show Description"
+msgstr "Εμφάνιση περιγραφής"
+
+#: Viewer/VisibleOptionsMenu.cpp:41
+msgid "Show Date"
+msgstr "Εμφάνιση ημερομηνίας"
+
+#: Viewer/VisibleOptionsMenu.cpp:46
+msgid "Show Time"
+msgstr "Εμφάνιση ώρας"
+
+#: Viewer/VisibleOptionsMenu.cpp:51
+msgid "Show Filename"
+msgstr "Εμφάνιση ονόματος αρχείου"
+
+#: Viewer/VisibleOptionsMenu.cpp:56
+msgid "Show EXIF"
+msgstr "Εμφάνιση EXIF"
+
+#: Viewer/VisibleOptionsMenu.cpp:61
+msgid "Show Image Size"
+msgstr "Εμφάνιση μεγέθους εικόνας"
+
+#: Viewer/VideoDisplay.cpp:195
+msgid "Error playing media"
+msgstr "Σφάλμα αναπαραγωγής μέσου"
+
+#: Viewer/SpeedDisplay.cpp:46
+#, kde-format
+msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">%1&nbsp;δ</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:52
+msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
+msgstr ""
+"<p><center><font size=\"+4\">Έναρξη προβολής σλάιντ</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:72
+msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgstr "<p><center><font size=\"+4\">Τέλος προβολής σλάιντ</font></center></p>"
+
+#: Viewer/ViewerWidget.cpp:141
+msgid "Annotate..."
+msgstr "Σχολιασμός..."
+
+#: Viewer/ViewerWidget.cpp:146 MainWindow/Window.cpp:683
+msgid "Set as First Image in Stack"
+msgstr "Ορισμός ως πρώτη εικόνα στη στοίβα"
+
+#: Viewer/ViewerWidget.cpp:152
+msgid "Show EXIF Viewer"
+msgstr "Εμφάνιση προβολέα EXIF"
+
+#: Viewer/ViewerWidget.cpp:157 ImportExport/MiniViewer.cpp:69
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: Viewer/ViewerWidget.cpp:181
+msgid "Set as Wallpaper"
+msgstr "Ορισμός ως ταπετσαρία"
+
+#: Viewer/ViewerWidget.cpp:184
+msgid "Centered"
+msgstr "Κεντραρισμένη"
+
+#: Viewer/ViewerWidget.cpp:188
+msgid "Tiled"
+msgstr "Σε παράθεση"
+
+#: Viewer/ViewerWidget.cpp:192
+msgid "Center Tiled"
+msgstr "Κεντραρισμένη σε παράθεση"
+
+#: Viewer/ViewerWidget.cpp:196
+msgid "Centered Maxpect"
+msgstr "Κεντραρισμένη μέγιστων αναλογιών"
+
+#: Viewer/ViewerWidget.cpp:200
+msgid "Tiled Maxpect"
+msgstr "Σε παράθεση χωρίς παραμόρφωση"
+
+#: Viewer/ViewerWidget.cpp:204
+msgid "Scaled"
+msgstr "Υπό κλίμακα"
+
+#: Viewer/ViewerWidget.cpp:208
+msgid "Centered Auto Fit"
+msgstr "Αυτόματο κεντραρισμένο ταίριασμα"
+
+#: Viewer/ViewerWidget.cpp:225
+msgid "Rotate"
+msgstr "Περιστροφή"
+
+#: Viewer/ViewerWidget.cpp:228 AnnotationDialog/ImagePreviewWidget.cpp:59
+#: AnnotationDialog/Dialog.cpp:872 MainWindow/Window.cpp:692
+msgid "Rotate clockwise"
+msgstr "Περιστροφή προς τα δεξιά"
+
+#: Viewer/ViewerWidget.cpp:233
+msgid "Flip Over"
+msgstr "Αναστροφή"
+
+#: Viewer/ViewerWidget.cpp:238 AnnotationDialog/ImagePreviewWidget.cpp:53
+#: AnnotationDialog/Dialog.cpp:869 MainWindow/Window.cpp:687
+msgid "Rotate counterclockwise"
+msgstr "Περιστροφή προς τα αριστερά"
+
+#: Viewer/ViewerWidget.cpp:248
+msgid "Skip"
+msgstr "Παράλειψη"
+
+#: Viewer/ViewerWidget.cpp:251
+msgid "First"
+msgstr "Πρώτη"
+
+#: Viewer/ViewerWidget.cpp:257
+msgid "Last"
+msgstr "Τελευταία"
+
+#: Viewer/ViewerWidget.cpp:263
+msgid "Show Next"
+msgstr "Εμφάνιση επόμενης"
+
+#: Viewer/ViewerWidget.cpp:273
+msgid "Skip 10 Forward"
+msgstr "Μετάβαση 10 μπροστά"
+
+#: Viewer/ViewerWidget.cpp:279
+msgid "Skip 100 Forward"
+msgstr "Μετάβαση 100 μπροστά"
+
+#: Viewer/ViewerWidget.cpp:285
+msgid "Skip 1000 Forward"
+msgstr "Μετάβαση 1000 μπροστά"
+
+#: Viewer/ViewerWidget.cpp:291
+msgid "Show Previous"
+msgstr "Εμφάνιση προηγούμενης"
+
+#: Viewer/ViewerWidget.cpp:297
+msgid "Skip 10 Backward"
+msgstr "Μετάβαση 10 πίσω"
+
+#: Viewer/ViewerWidget.cpp:303
+msgid "Skip 100 Backward"
+msgstr "Μετάβαση 100 πίσω"
+
+#: Viewer/ViewerWidget.cpp:309
+msgid "Skip 1000 Backward"
+msgstr "Μετάβαση 1000 πίσω"
+
+#: Viewer/ViewerWidget.cpp:315
+#, fuzzy
+#| msgid "Remove Images from Stack"
+msgid "Remove Image from Display List"
+msgstr "Αφαίρεση εικόνων από τη στοίβα"
+
+#: Viewer/ViewerWidget.cpp:325
+msgid "Zoom"
+msgstr "Εστίαση"
+
+#: Viewer/ViewerWidget.cpp:329
+msgid "Zoom In"
+msgstr "Μεγέθυνση"
+
+#: Viewer/ViewerWidget.cpp:334
+msgid "Zoom Out"
+msgstr "Σμίκρυνση"
+
+#: Viewer/ViewerWidget.cpp:339
+msgid "Full View"
+msgstr "Πλήρης προβολή"
+
+#: Viewer/ViewerWidget.cpp:344
+msgid "Pixel for Pixel View"
+msgstr "Προβολή ένα προς ένα"
+
+#: Viewer/ViewerWidget.cpp:349
+msgid "Toggle Full Screen"
+msgstr "Εναλλαγή πλήρους οθόνης"
+
+#: Viewer/ViewerWidget.cpp:360
+msgid "Slideshow"
+msgstr "Προβολή σλάιντ"
+
+#: Viewer/ViewerWidget.cpp:363 Viewer/ViewerWidget.cpp:769
+msgid "Run Slideshow"
+msgstr "Εκτέλεση εμφάνισης σλάιντ"
+
+#: Viewer/ViewerWidget.cpp:368
+msgid "Run Faster"
+msgstr "Εκτέλεση γρηγορότερα"
+
+#: Viewer/ViewerWidget.cpp:373
+msgid "Run Slower"
+msgstr "Εκτέλεση πιο αργά"
+
+#: Viewer/ViewerWidget.cpp:407
+msgid "File not available"
+msgstr "Το αρχείο δεν είναι διαθέσιμο"
+
+#: Viewer/ViewerWidget.cpp:463
+msgid "Play"
+msgstr "Αναπαραγωγή"
+
+#: Viewer/ViewerWidget.cpp:465
+msgid "Pause"
+msgstr "Παύση"
+
+#: Viewer/ViewerWidget.cpp:775
+msgid "Stop Slideshow"
+msgstr "Σταμάτημα προβολής σλάιντ"
+
+#: Viewer/ViewerWidget.cpp:994
+msgid "Seek"
+msgstr "Αναζήτηση"
+
+#: Viewer/ViewerWidget.cpp:998
+msgid "10 minutes backward"
+msgstr "10 λεπτά πίσω"
+
+#: Viewer/ViewerWidget.cpp:999
+msgid "1 minute backward"
+msgstr "1 λεπτό πίσω"
+
+#: Viewer/ViewerWidget.cpp:1000
+msgid "10 seconds backward"
+msgstr "10 δευτερόλεπτα πίσω"
+
+#: Viewer/ViewerWidget.cpp:1001
+msgid "1 seconds backward"
+msgstr "1 δευτερόλεπτο πίσω"
+
+#: Viewer/ViewerWidget.cpp:1002
+#, fuzzy
+#| msgid "100 miliseconds backward"
+msgid "100 milliseconds backward"
+msgstr "100 χιλιοστά πίσω"
+
+#: Viewer/ViewerWidget.cpp:1003
+#, fuzzy
+#| msgid "100 miliseconds forward"
+msgid "100 milliseconds forward"
+msgstr "100 χιλιοστά εμπρός"
+
+#: Viewer/ViewerWidget.cpp:1004
+msgid "1 seconds forward"
+msgstr "1 δευτερόλεπτο εμπρός"
+
+#: Viewer/ViewerWidget.cpp:1005
+msgid "10 seconds forward"
+msgstr "10 δευτερόλεπτα εμπρός"
+
+#: Viewer/ViewerWidget.cpp:1006
+msgid "1 minute forward"
+msgstr "1 λεπτό εμπρός"
+
+#: Viewer/ViewerWidget.cpp:1007
+msgid "10 minutes forward"
+msgstr "10 λεπτά εμπρός"
+
+#: Viewer/ViewerWidget.cpp:1030
+msgid "Stop"
+msgstr "Σταμάτημα"
+
+#: Viewer/ViewerWidget.cpp:1036
+msgid "Toggle playback"
+msgstr "Εναλλαγή αναπαραγωγής"
+
+#: Viewer/ViewerWidget.cpp:1041
+msgid "Restart"
+msgstr "Επανεκκίνηση"
+
+#: DateBar/ViewHandler.cpp:129
+msgid "1 Year"
+msgstr "1 έτος"
+
+#: DateBar/ViewHandler.cpp:161
+msgid "1 Month"
+msgstr "1 μήνας"
+
+#: DateBar/ViewHandler.cpp:201
+msgid "1 Week"
+msgstr "1 εβδομάδα"
+
+#: DateBar/ViewHandler.cpp:229
+msgid "1 Day"
+msgstr "1 ημέρα"
+
+#: DateBar/ViewHandler.cpp:272
+msgid "2 Hours"
+msgstr "2 ώρες"
+
+#: DateBar/ViewHandler.cpp:308
+msgid "10 Minutes"
+msgstr "10 λεπτά"
+
+#: DateBar/DateBarWidget.cpp:81
+msgid "Widen selection to include all images and videos again"
+msgstr "Διεύρυνση επιλογής για συμπερίληψη όλων των εικόνων και βίντεο ξανά"
+
+#: DateBar/DateBarWidget.cpp:511
+msgid "Show Ranges"
+msgstr "Εμφάνιση ευρών"
+
+#: DateBar/DateBarWidget.cpp:517
+msgid "Show Resolution Indicator"
+msgstr "Εμφάνιση ένδειξης ανάλυσης"
+
+#: DateBar/DateBarWidget.cpp:635
+#, kde-format
+msgid "%1 exact + %2 ranges = %3 total"
+msgstr "%1 ακριβείς + %2 εύρη = %3 σύνολο"
+
+#: DateBar/DateBarWidget.cpp:637
+#, kde-format
+msgid "%1 images/videos"
+msgstr "%1 εικόνες/βίντεο"
+
+#: DateBar/DateBarWidget.cpp:639
+#, kde-format
+msgid "%1 | %2"
+msgstr "%1 | %2"
+
+#: main.cpp:38
+msgid "KPhotoAlbum"
+msgstr "KPhotoAlbum"
+
+#: main.cpp:39
+msgid "KDE Photo Album"
+msgstr "Άλμπουμ Φωτογραφιών του KDE"
+
+#: main.cpp:41
+msgid "Jesper K. Pedersen"
+msgstr "Jesper K. Pedersen"
+
+#: main.cpp:41 main.cpp:42 main.cpp:43 main.cpp:45 main.cpp:46
+msgid "Development"
+msgstr "Ανάπτυξη"
+
+#: main.cpp:42
+msgid "Hassan Ibraheem"
+msgstr ""
+
+#: main.cpp:43
+msgid "Miika Turkia"
+msgstr ""
+
+#: main.cpp:44
+msgid "Tuomas Suutari"
+msgstr "Tuomas Suutari"
+
+#: main.cpp:44
+msgid "SQL backend and numerous features"
+msgstr "Σύστημα υποστήριξης SQL και αρκετές λειτουργίες"
+
+#: main.cpp:45
+msgid "Jan Kundrat"
+msgstr ""
+
+#: main.cpp:46
+msgid "Henner Zeller"
+msgstr ""
+
+#: main.cpp:49
+msgid "Will Stephenson"
+msgstr "Will Stephenson"
+
+#: main.cpp:49
+msgid "Developing an Icon for KPhotoAlbum"
+msgstr "Δημιουργία ενός εικονιδίου για το KPhotoAlbum"
+
+#: main.cpp:50
+msgid "Teemu Rytilahti"
+msgstr "Teemu Rytilahti"
+
+#: main.cpp:51
+msgid ""
+"Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+"(.) Theme support for HTML generation"
+msgstr ""
+"Αποστολή διορθώσεων. Υλοποίηση του μενού \"Ορισμός ως ταπετσαρία\" στον "
+"προβολέα.(.) Υποστήριξη θεμάτων για τη δημιουργία HTML"
+
+#: main.cpp:53
+msgid "Reimar Imhof"
+msgstr "Reimar Imhof"
+
+#: main.cpp:53
+msgid "Patch to sort items in option listboxes"
+msgstr "Διόρθωση ταξινόμησης αντικειμένων στις λίστες επιλογών"
+
+#: main.cpp:54
+msgid "Thomas Schwarzgruber"
+msgstr "Thomas Schwarzgruber"
+
+#: main.cpp:54
+msgid ""
+"Patch to sort images in the thumbnail view, plus reading time info out of "
+"EXIF images for existing images"
+msgstr ""
+"Διόρθωση ταξινόμησης εικόνων στην προβολή επισκοπήσεων, επιπλέον την "
+"ανάγνωση πληροφοριών ώρας από τις εικόνες EXIF"
+
+#: main.cpp:55
+msgid "Marcel Wiesweg"
+msgstr "Marcel Wiesweg"
+
+#: main.cpp:55
+msgid ""
+"Patch which speed up loading of thumbnails plus preview in image property "
+"dialog."
+msgstr ""
+"Διόρθωση επιτάχυνσης φόρτωσης των επισκοπήσεων και επιπλέον την "
+"προεπισκόπηση στο διάλογο ιδιοτήτων εικόνας."
+
+#: main.cpp:56
+msgid "Marco Caldarelli"
+msgstr "Marco Caldarelli"
+
+#: main.cpp:56
+msgid "Patch for making it possible to reread EXIF info using a nice dialog."
+msgstr ""
+"Διόρθωση ανάγνωσης πληροφοριών EXIF μέσα από ένα όμορφο παράθυρο διαλόγου."
+
+#: main.cpp:57
+msgid "Jean-Michel FAYARD"
+msgstr "Jean-Michel FAYARD"
+
+#: main.cpp:57
+msgid ""
+"(.) Patch with directory info made available through the browser. (.) Patch "
+"for adding a check box for \"and/or\" searches in the search page."
+msgstr ""
+"Διόρθωση των πληροφοριών καταλόγου του περιηγητή. Διόρθωση προσθήκης ενός "
+"πλαισίου επιλογής για τις αναζητήσεις \"και/ή\" στη σελίδα αναζήτησης."
+
+#: main.cpp:58
+msgid "Robert L Krawitz"
+msgstr "Robert L Krawitz"
+
+#: main.cpp:58
+msgid "Numerous patches plus profiling KPhotoAlbum again and again."
+msgstr ""
+"Διάφορες διορθώσεις και επιπλέον βελτιστοποίηση του KPhotoAlbum ξανά και "
+"ξανά."
+
+#: main.cpp:59
+msgid "Christoph Moseler"
+msgstr "Christoph Moseler"
+
+#: main.cpp:59
+msgid "Numerous patches for lots of bugs plus patches for a few new features"
+msgstr ""
+"Διάφορες διορθώσεις για πολλά σφάλματα και επιπλέον διορθώσεις για κάποια "
+"νέα χαρακτηριστικά"
+
+#: main.cpp:60
+msgid "Clytie Siddall"
+msgstr "Clytie Siddall"
+
+#: main.cpp:60
+#, fuzzy
+#| msgid "Tremendous help with the english text in the application."
+msgid "Tremendous help with the English text in the application."
+msgstr "Τρομερή βοήθεια με τα αγγλικά κείμενα της εφαρμογής."
+
+#: main.cpp:65
+msgid "Config file"
+msgstr "Αρχείο ρύθμισης"
+
+#: main.cpp:66
+msgid "Database engine to use"
+msgstr "Μηχανή βάσης δεδομένων για χρήση"
+
+#: main.cpp:67
+msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+msgstr ""
+"Εκκινεί το KPhotoAlbum με ένα προκατασκευασμένο σύνολο εικόνων επίδειξης"
+
+#: main.cpp:68
+msgid "Import file"
+msgstr "Εισαγωγή αρχείου"
+
+#: main.cpp:69
+msgid ""
+"This will make an attempt at saving in a format understandable by KimDaBa 2.1"
+msgstr ""
+"Αυτό θα κάνει μια προσπάθεια αποθήκευσης σε μορφή κατανοητή από το "
+"KPhotoAlbum 2.1"
+
+#: ImportExport/KimFileReader.cpp:18
+#, kde-format
+msgid "Unable to open '%1' for reading."
+msgstr "Αδυναμία ανοίγματος του '%1' για ανάγνωση."
+
+#: ImportExport/KimFileReader.cpp:18
+msgid "Error Importing Data"
+msgstr "Σφάλμα εισαγωγής δεδομένων"
+
+#: ImportExport/KimFileReader.cpp:26
+#, kde-format
+msgid ""
+"Error reading directory contents of file %1; it is likely that the file is "
+"broken."
+msgstr ""
+"Σφάλμα ανάγνωσης των περιεχομένων καταλόγου του αρχείου %1. Πιθανώς το "
+"αρχείο να είναι κατεστραμμένο."
+
+#: ImportExport/KimFileReader.cpp:40
+#, kde-format
+msgid ""
+"Error reading index.xml file from %1; it is likely that the file is broken."
+msgstr ""
+"Σφάλμα ανάγνωσης του αρχείου index.xml από %1. Πιθανώς το αρχείο να είναι "
+"κατεστραμμένο."
+
+#: ImportExport/KimFileReader.cpp:60
+msgid ""
+"Thumbnail item in export file was not a directory, this indicates that the "
+"file is broken."
+msgstr ""
+"Το αντικείμενο επισκόπησης στο αρχείο εξαγωγής δεν ήταν ένας κατάλογος, αυτό "
+"υποδεικνύει ότι το αρχείο είναι κατεστραμμένο."
+
+#: ImportExport/KimFileReader.cpp:70
+#, kde-format
+msgid "No thumbnail existed in export file for %1"
+msgstr "Δεν υπάρχει επισκόπηση στο αρχείο εξαγωγής για το %1"
+
+#: ImportExport/KimFileReader.cpp:85
+msgid ""
+"export file did not contain a Images subdirectory, this indicates that the "
+"file is broken"
+msgstr ""
+"Το αρχείο εξαγωγής δεν περιείχε υποκατάλογο εικόνων, αυτό υποδηλώνει ότι  το "
+"αρχείο είναι κατεστραμμένο"
+
+#: ImportExport/KimFileReader.cpp:90
+msgid ""
+"Images item in export file was not a directory, this indicates that the file "
+"is broken"
+msgstr ""
+"Το αντικείμενο εικόνων στο αρχείο εξαγωγής δεν ήταν ένας κατάλογος, αυτό "
+"υποδεικνύει ότι το αρχείο είναι κατεστραμμένο"
+
+#: ImportExport/KimFileReader.cpp:98
+#, kde-format
+msgid "No image existed in export file for %1"
+msgstr "Δεν υπάρχει εικόνα στο αρχείο εξαγωγής για το %1"
+
+#: ImportExport/ImportDialog.cpp:82
+#, kde-format
+msgid "Error in file %1 on line %2 col %3: %4"
+msgstr "Σφάλμα στο αρχείο %1 στη γραμμή %2 στήλη %3: %4"
+
+#: ImportExport/ImportDialog.cpp:89
+#, kde-format
+msgid ""
+"Unexpected top element while reading file %1. Expected KPhotoAlbum-export "
+"found %2"
+msgstr ""
+"Μη αναμενόμενο ανώτερο στοιχείο κατά την ανάγνωση του αρχείου %1. Αναμενόταν "
+"το KPhotoAlbum-export ενώ βρέθηκε το %2"
+
+#: ImportExport/ImportDialog.cpp:97
+msgid ""
+"<p>XML file did not specify the source of the images, this is a strong "
+"indication that the file is corrupted</p>"
+msgstr ""
+"<p>Το αρχείο XML δεν καθόρισε την πηγή των εικόνων. Αυτό είναι μια ισχυρή "
+"ένδειξη ότι το αρχείο είναι κατεστραμμένο</p>"
+
+#: ImportExport/ImportDialog.cpp:109
+#, kde-format
+msgid "Unknown element while reading %1, expected image."
+msgstr "Άγνωστο στοιχείο κατά την ανάγνωση του %1, αναμενόταν εικόνα."
+
+#: ImportExport/ImportDialog.cpp:133
+msgid ""
+"<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
+"will take you through the steps of an import operation. The steps are: "
+"<ol><li>First you must select which images you want to import from the "
+"export file. You do so by selecting the checkbox next to the image.</"
+"li><li>Next you must tell KPhotoAlbum in which directory to put the images. "
+"This directory must of course be below the directory root KPhotoAlbum uses "
+"for images. KPhotoAlbum will take care to avoid name clashes</li><li>The "
+"next step is to specify which categories you want to import (People, "
+"Places, ... ) and also tell KPhotoAlbum how to match the categories from the "
+"file to your categories. Imagine you load from a file, where a category is "
+"called <b>Blomst</b> (which is the Danish word for flower), then you would "
+"likely want to match this with your category, which might be called "
+"<b>Blume</b> (which is the German word for flower) - of course given you are "
+"German.</li><li>The final steps, is matching the individual tokens from the "
+"categories. I may call myself <b>Jesper</b> in my image database, while you "
+"want to call me by my full name, namely <b>Jesper K. Pedersen</b>. In this "
+"step non matches will be highlighted in red, so you can see which tokens was "
+"not found in your database, or which tokens was only a partial match.</li></"
+"ol>"
+msgstr ""
+"<h1><font size=\"+2\">Καλώς ήρθατε στην εισαγωγή του KPhotoAlbum</font></"
+"h1>Αυτός ο μάγος θα σας βοηθήσει στα βήματα της λειτουργίας εισαγωγής "
+"εικόνων. Τα βήματα είναι: <ol><li>Πρώτα πρέπει να επιλέξετε τις εικόνες που "
+"επιθυμείτε να εισάγετε από το αρχείο εξαγωγής. Αυτό το κάνετε επιλέγοντας το "
+"πλαίσιο ενεργοποίησης δίπλα σε κάθε εικόνα.</li><li>Έπειτα πρέπει να ορίσετε "
+"τον κατάλογο στον οποίο θα τοποθετήσει το KPhotoAlbum τις εικόνες. Αυτός ο "
+"κατάλογος φυσικά πρέπει να βρίσκεται κάτω από τον ανώτερο κατάλογο που "
+"χρησιμοποιεί το KPhotoAlbum για τις εικόνες. Το KPhotoAlbum θα επιλύσει "
+"τυχόν συγκρούσεις με την ονομασία των αρχείων</li><li>Το επόμενο βήμα είναι "
+"η επιλογή των κατηγοριών που επιθυμείτε να εισάγετε (Πρόσωπα, "
+"Τοποθεσίες, ... ) και επίσης πως ακριβώς το KPhotoAlbum θα αντιστοιχίσει τις "
+"κατηγορίες του αρχείου με τις δικές σας υπάρχουσες κατηγορίες. Φανταστείτε "
+"ότι φορτώνετε ένα αρχείο, στο οποίο κάποια κατηγορία ονομάζεται <b>Flower</"
+"b> (η αγγλική λέξη για το λουλούδι), πιθανότατα επιθυμείτε την αντιστοίχηση "
+"αυτής της κατηγορίας με τη δικιά σας κατηγορία, η οποία μπορεί να ονομάζεται "
+"<b>Λουλούδια</b>.</li><li>Το τελικό βήμα είναι η αντιστοίχηση των διαφόρων "
+"ενδεικτικών των κατηγοριών. Στη δικιά σας βάση δεδομένων μπορεί να "
+"εμφανίζεστε ως <b>Μαρία</b>, ενώ κάποιος γνωστός σας μπορεί να επιθυμεί να "
+"σας αποκαλεί με το πλήρες όνομά σας <b>Μαρία Παπαδοπούλου</b>. Σε αυτό το "
+"βήμα οι μη αντιστοιχίες θα τονιστούν με κόκκινο χρώμα, έτσι ώστε να μπορείτε "
+"να εντοπίσετε τα ενδεικτικά που δε βρέθηκαν στη βάση δεδομένων ή εκείνα που "
+"έχουν μερική αντιστοιχία.</li></ol>"
+
+#: ImportExport/ImportDialog.cpp:152
+msgid "Introduction"
+msgstr "Εισαγωγή"
+
+#: ImportExport/ImportDialog.cpp:168 MainWindow/TokenEditor.cpp:63
+msgid "Select All"
+msgstr "Επιλογή όλων"
+
+#: ImportExport/ImportDialog.cpp:170
+msgid "Deselect All"
+msgstr "Αποεπιλογή όλων"
+
+#: ImportExport/ImportDialog.cpp:205
+msgid "Select Which Images to Import"
+msgstr "Επιλογή εικόνων για εισαγωγή"
+
+#: ImportExport/ImportDialog.cpp:217
+msgid "Destination of images: "
+msgstr "Προορισμός των εικόνων: "
+
+#: ImportExport/ImportDialog.cpp:231
+msgid "Destination of Images"
+msgstr "Προορισμός των εικόνων"
+
+#: ImportExport/ImportDialog.cpp:239
+#, kde-format
+msgid "The directory must be a subdirectory of %1"
+msgstr "Ο κατάλογος πρέπει να είναι υποκατάλογος του %1"
+
+#: ImportExport/ImportDialog.cpp:281
+msgid "Match Categories"
+msgstr "Αντιστοίχηση κατηγοριών"
+
+#: ImportExport/ImportDialog.cpp:313
+#, fuzzy, kde-format
+#| msgid "Directory %1 does not exists. Should it be created?"
+msgid "Directory %1 does not exist. Should it be created?"
+msgstr "Ο κατάλογος %1 δεν υπάρχει. Να δημιουργηθεί;"
+
+#: ImportExport/ImportDialog.cpp:317
+#, kde-format
+msgid "Error creating directory %1"
+msgstr "Σφάλμα δημιουργίας του καταλόγου %1"
+
+#: ImportExport/ImportDialog.cpp:403
+msgid "How to resolve clashes"
+msgstr "Μέθοδος χειρισμού συγκρούσεων"
+
+#: ImportExport/Import.cpp:46
+msgid "Unable to create temporary file"
+msgstr "Δεν ήταν δυνατή η δημιουργία προσωρινού αρχείου"
+
+#: ImportExport/Export.cpp:72
+msgid "Export Configuration / Copy Images"
+msgstr "Ρυθμίσεις εξαγωγής / αντιγραφή εικόνων"
+
+#: ImportExport/Export.cpp:80
+msgid "How to Handle Images"
+msgstr "Μέθοδος χειρισμού εικόνων"
+
+#: ImportExport/Export.cpp:84
+msgid "Include in .kim file"
+msgstr "Συμπερίληψη στο αρχείο .kim"
+
+#: ImportExport/Export.cpp:85
+msgid "Manual copy next to .kim file"
+msgstr "Χειροκίνητη αντιγραφή μαζί με το αρχείο .kim"
+
+#: ImportExport/Export.cpp:86
+msgid "Automatically copy next to .kim file"
+msgstr "Αυτόματη αντιγραφή μαζί με το αρχείο .kim"
+
+#: ImportExport/Export.cpp:87
+msgid "Hard link next to .kim file"
+msgstr "Δεσμός μαζί με το αρχείο .kim"
+
+#: ImportExport/Export.cpp:96
+msgid "Compress export file"
+msgstr "Συμπίεση αρχείου εξαγωγής"
+
+#: ImportExport/Export.cpp:100
+msgid "Generate thumbnails"
+msgstr "Δημιουργία εικόνων επισκόπησης"
+
+#: ImportExport/Export.cpp:108
+msgid "Limit maximum image dimensions to: "
+msgstr "Περιορισμός μέγιστης διάστασης εικόνας σε: "
+
+#: ImportExport/Export.cpp:120
+msgid ""
+"<p>If your images are stored in a non-compressed file format then you may "
+"check this; otherwise, this just wastes time during import and export "
+"operations.</p><p>In other words, do not check this if your images are "
+"stored in jpg, png or gif; but do check this if your images are stored in "
+"tiff.</p>"
+msgstr ""
+"<p>Αν οι εικόνες σας είναι αποθηκευμένες σε μη συμπιεσμένη μορφή αρχείου "
+"μπορείτε να ενεργοποιήσετε αυτή την επιλογή. Σε άλλη περίπτωση απλά "
+"σπαταλιέται χρόνος κατά τις λειτουργίες εισαγωγής και εξαγωγής.</p><p>Με "
+"άλλα λόγια, απενεργοποιήστε αυτή την επιλογή αν οι εικόνες σας είναι jpg, "
+"png ή gif, ενώ αφήστε την ενεργοποιημένη αν οι εικόνες σας είναι σε μορφή "
+"tiff.</p>"
+
+#: ImportExport/Export.cpp:126
+msgid "<p>Generate thumbnail images</p>"
+msgstr "<p>Δημιουργία εικόνων επισκόπησης</p>"
+
+#: ImportExport/Export.cpp:129
+msgid ""
+"<p>With this option you may limit the maximum dimensions (width and height) "
+"of your images. Doing so will make the resulting export file smaller, but "
+"will of course also make the quality worse if someone wants to see the "
+"exported images with larger dimensions.</p>"
+msgstr ""
+"<p>Με αυτή την επιλογή μπορείτε να περιορίσετε τις μέγιστες διαστάσεις "
+"(πλάτος και ύψος) των εικόνων σας. Κάνοντας κάτι τέτοιο το παραγόμενο αρχείο "
+"θα είναι μικρότερο ενώ επίσης η ποιότητα των εικόνων θα ελαττωθεί κυρίως αν "
+"κάποιος θελήσει να δει τις εικόνες σε μεγάλες διαστάσεις.</p>"
+
+#: ImportExport/Export.cpp:136
+msgid ""
+"<p>When exporting images, bear in mind that there are two things the person "
+"importing these images again will need:<br/>1) meta information (image "
+"content, date etc.)<br/>2) the images themselves.</p><p>The images "
+"themselves can either be placed next to the .kim file, or copied into the ."
+"kim file. Copying the images into the .kim file works well for a recipient "
+"who wants all, or most of those images, for example when emailing a whole "
+"group of images. However, when you place the images on the Web, a lot of "
+"people will see them but most likely only download a few of them. It works "
+"better in this kind of case, to separate the images and the .kim file, by "
+"place them next to each other, so the user can access the images s/he wants."
+"</p>"
+msgstr ""
+"<p>Κατά την εξαγωγή των εικόνων, υπάρχουν δύο πράγματα που χρειάζεται το "
+"άτομο που εισάγει τις εικόνες:<br/>1) μεταδεδομένα (περιεχόμενο εικόνας, "
+"ημερομηνία, κτλ)<br/>2) τις εικόνες τις ίδιες.</p><p>Οι εικόνες μπορούν να "
+"τοποθετηθούν είτε μαζί με το αρχείο .kim ή να αντιγραφούν μέσα στο αρχείο ."
+"kim. H αντιγραφή των εικόνων μέσα στο αρχείο .kim μπορεί να είναι η "
+"σωστότερη επιλογή να πρέπει να σταλούν σε κάποιον όλες οι εικόνες. Από την "
+"άλλη, αν τοποθετήσετε τις εικόνες σε μια ιστοσελίδα όπου θα τις δουν πολλοί "
+"άνθρωποι αλλά θα κάνουν λήψη μερικές από αυτές, τότε είναι καλύτερα να "
+"τοποθετήσετε τις εικόνες μαζί με το αρχείο .kim για να μην εξαναγκαστεί "
+"κάποιος να κάνει λήψη όλες τις εικόνες, έτσι ώστε  να μπορεί να επιλέξει ο "
+"κάθε χρήστης τις εικόνες που επιθυμεί.</p>"
+
+#: ImportExport/Export.cpp:189
+msgid "Error creating zip file"
+msgstr "Σφάλμα δημιουργίας αρχείου zip"
+
+#: ImportExport/Export.cpp:202 ImportExport/ImportHandler.cpp:66
+#: ImportExport/ImportHandler.cpp:118
+msgid "&Cancel"
+msgstr "&Ακύρωση"
+
+#: ImportExport/Export.cpp:219
+msgid "Creating index file"
+msgstr "Δημιουργία αρχείου ευρετηρίου"
+
+#: ImportExport/Export.cpp:234
+msgid "Creating thumbnails"
+msgstr "Δημιουργία εικόνων επισκόπησης"
+
+#: ImportExport/Export.cpp:256
+msgid "Copying image files"
+msgstr "Αντιγραφή αρχείων εικόνας"
+
+#: ImportExport/Export.cpp:320
+#, kde-format
+msgid "Error writing file %1"
+msgstr "Σφάλμα εγγραφής στο αρχείο %1"
+
+#: ImportExport/Export.cpp:350
+msgid ""
+"<p>Other KPhotoAlbum users may now load the import file into their database, "
+"by choosing <b>import</b> in the file menu.</p><p>If they find it on a web "
+"site, and the web server is correctly configured, all they need to do is "
+"simply to click it from within konqueror. To enable this, your web server "
+"needs to be configured for KPhotoAlbum. You do so by adding the following "
+"line to <b>/etc/httpd/mime.types</b> or similar:<pre>application/vnd.kde."
+"kphotoalbum-import kim</pre>This will make your web server tell konqueror "
+"that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
+"server will just tell konqueror that it is a plain text file.</p>"
+msgstr ""
+"<p>Τώρα μπορούν άλλοι χρήστες του KPhotoAlbum να φορτώσουν το αρχείο "
+"εισαγωγής στη βάση δεδομένων τους, επιλέγοντας <b>εισαγωγή</b> στο μενού "
+"αρχείο.</p><p>Αν γίνει λήψη του αρχείου από κάποια ιστοσελίδα, και ο "
+"εξυπηρετητής της ιστοσελίδας είναι ρυθμισμένος σωστά, τότε απαιτείται ένα "
+"κλικ στο αρχείο μέσα από τον konqueror. Για την ενεργοποίηση αυτής της "
+"λειτουργίας, ο εξυπηρετητής ιστού πρέπει να ρυθμιστεί για το KPhotoAlbum. "
+"Αυτό γίνεται προσθέτοντας την παρακάτω γραμμή στο αρχείο <b>/etc/httpd/mime."
+"types</b> ή κάποια παρόμοια:<pre>application/vnd.kde.kphotoalbum-import kim</"
+"pre>Αυτό θα έχει σαν αποτέλεσμα ο εξυπηρετητής της ιστοσελίδας σας να "
+"δηλώσει στον konqueror ότι πρόκειται για αρχείο KPhotoAlbum, ενώ σε αντίθετη "
+"περίπτωση θα δηλωνόταν σαν απλό αρχείο κειμένου.</p>"
+
+#: ImportExport/Export.cpp:359
+msgid "How to Use the Export File"
+msgstr "Τρόπος χρήσης του αρχείου εξαγωγής"
+
+#: ImportExport/ImportHandler.cpp:66 ImportExport/ImportHandler.cpp:118
+msgid "Copying Images"
+msgstr "Αντιγραφή εικόνων"
+
+#: ImportExport/ImportHandler.cpp:132
+#, kde-format
+msgid "Error when writing image %1"
+msgstr "Σφάλμα κατά την εγγραφή της εικόνας %1"
+
+#: ImportExport/ImportHandler.cpp:151
+msgid "Updating Database"
+msgstr "Ενημέρωση βάσης δεδομένων"
+
+#: ImportExport/ImportHandler.cpp:180
+#, fuzzy
+#| msgid "Can't copy file from any of the following locations:"
+msgid "Cannot copy from any of the following locations:"
+msgstr "Αδυναμία αντιγραφής αρχείου από τις παρακάτω τοποθεσίες:"
+
+#: ImportExport/ImportHandler.cpp:181
+msgid "Continue without Asking"
+msgstr "Συνέχιση χωρίς ερώτηση"
+
+#: ImportExport/ImportMatcher.cpp:45
+msgid "Key in file"
+msgstr "Κλειδί στο αρχείο"
+
+#: ImportExport/ImportMatcher.cpp:56
+msgid "Key in your database"
+msgstr "Κλειδί στη βάση δεδομένων σας"
+
+#: ImportExport/MD5CheckPage.cpp:32
+#, kde-format
+msgid ""
+"One image from the import file, has the same MD5 sum as an image in the "
+"Database, how should that be resolved?"
+msgid_plural ""
+"%1 images from the import file, have the same MD5 sum as images in the "
+"Database, how should that be resolved?"
+msgstr[0] ""
+"Μία εικόνα από το αρχείο εισαγωγής έχει το ίδιο άθροισμα ελέγχου MD5 με "
+"κάποια εικόνα στη βάση δεδομένων. Τι θέλετε να γίνει;"
+msgstr[1] ""
+"%1 εικόνες από το αρχείο εισαγωγής έχουν το ίδιο άθροισμα ελέγχου MD5 με "
+"κάποιες εικόνες στη βάση δεδομένων. Τι θέλετε να γίνει;"
+
+#: ImportExport/MD5CheckPage.cpp:47
+msgid ""
+"Use data from\n"
+"Import File"
+msgstr ""
+"Χρήση δεδομένων από το\n"
+"εισηγμένο αρχείο"
+
+#: ImportExport/MD5CheckPage.cpp:50
+msgid ""
+"Use data from\n"
+"Database"
+msgstr ""
+"Χρήση δεδομένων από τη\n"
+"βάση δεδομένων"
+
+#: ImportExport/MD5CheckPage.cpp:53
+msgid "Merge data"
+msgstr "Συγχώνευση δεδομένων"
+
+#: ImportExport/MD5CheckPage.cpp:57
+msgid "Label"
+msgstr "Ετικέτα"
+
+#: ImportExport/MD5CheckPage.cpp:58 AnnotationDialog/Dialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:108
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ImportExport/MD5CheckPage.cpp:60
+msgid "Date and Time"
+msgstr "Ημερομηνία και ώρα"
+
+#: tips.cc:3
+msgid ""
+"<p>On KPhotoAlbum's home page (http://www.kphotoalbum.org/) you may see a "
+"few videos featuring a number of\n"
+"different KPhotoAlbum features.</p>\n"
+msgstr ""
+"<p>Στην αρχική σελίδα του KPhotoAlbum (http://www.kphotoalbmum.org/) "
+"μπορείτε να δείτε μερικά βίντεο που παρουσιάζουν έναν αριθμό\n"
+"των χαρακτηριστικών του KPhotoAlbum.</p>\n"
+
+#: tips.cc:9
+msgid ""
+"<p>It is possible to create new categories - that are alternatives\n"
+"to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation\n"
+"dialog. \n"
+"To add new categories or remove existing ones, go to the <b>Settings-&gt;"
+"Configure KPhotoAlbum</b> dialog, and choose\n"
+"<b>Categories</b> in the side bar.</p>\n"
+msgstr ""
+"<p>Είναι δυνατό να δημιουργήσετε νέες κατηγορίες - εναλλακτικές\n"
+"των <b>Πρόσωπο</b>, <b>Τοποθεσία</b>, και <b>Γεγονότα</b> - στο διάλογο "
+"εμφάνισης.\n"
+"Για την προσθήκη νέων κατηγοριών και την αφαίρεση των υπαρχουσών, πηγαίνετε "
+"στο διάλογο <b>Ρυθμίσεις-&gt;Ρύθμιση του KPhotoAlbum</b> και επιλέξτε "
+"<b>Κατηγορίες</b> στην πλευρική μπάρα.</p>\n"
+
+#: tips.cc:18
+msgid ""
+"<p>You may rename or delete a person, location, keyword or similar by\n"
+"right-clicking on the item in the image property dialog.</p>\n"
+msgstr ""
+"<p>Μπορείτε να μετονομάσετε ή να διαγράψετε ένα πρόσωπο, τοποθεσία, λέξη "
+"κλειδί κλπ.\n"
+"κάνοντας δεξί κλικ στο αντικείμενο στο διάλογο ιδιοτήτων της εικόνας.</p>\n"
+
+#: tips.cc:24
+msgid ""
+"<p>When generating HTML you must specify a base directory for\n"
+"the images. Here you can specify any <a\n"
+"href=\"help:/kioslave/index.html\">protocol</a> supported by KDE, like ftp "
+"or\n"
+"fish.</p>\n"
+"<p>Examples:\n"
+"<ul>\n"
+"  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
+"  <li> fish://someserver/home/foo/images (upload using ssh)\n"
+"  <li> smb://someserver/c/images (upload to a Windows share)\n"
+"</ul>\n"
+"</p>\n"
+msgstr ""
+"<p>Κατά τη δημιουργία HTML πρέπει να ορίσετε ένα βασικό κατάλογο για\n"
+"τις εικόνες. Εδώ μπορείτε να ορίσετε οποιοδήποτε <a\n"
+"href=\"help:/kioslave/index.html\">πρωτόκολλο</a> που υποστηρίζεται από το "
+"KDE, όπως ftp ή\n"
+"fish.</p>\n"
+"<p>Παραδείγματα:\n"
+"<ul>\n"
+"  <li> ftp://someserver/my-upload-area/images (αποστολή χρησιμοποιώντας "
+"FTP)\n"
+"  <li> fish://someserver/home/foo/images (αποστολή χρησιμοποιώντας ssh)\n"
+"  <li> smb://someserver/c/images (αποστολή σε κοινόχρηστο Windows)\n"
+"</ul>\n"
+"</p>\n"
+
+#: tips.cc:39
+msgid ""
+"<p>When you bring new images to your collection, you might not have time\n"
+"right away to categorize them (i.e. specify People, Places,\n"
+"etc.). Therefore, you might later want to find those images which have not\n"
+"yet been categorized. Here is what I do.</p> \n"
+"<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've\n"
+"categorized them (i.e. just like you may have a keyword for <b>Summer\n"
+"Party</b> or <b>Interrail trip 1990</b>, you now have a keyword\n"
+"<b>OK</b>). To find uncategorized images, I choose the\n"
+"<b>Search</b> item from the browser, and in the keywords field, I\n"
+"type <b>!OK</b>. This will find all images which do <b>not</b> have the\n"
+"<b>OK</b> item.\n"
+msgstr ""
+"<p>Όταν τοποθετείτε νέες εικόνες στη συλλογή σας, μπορεί να μην έχετε το "
+"χρόνο\n"
+"να τις κατηγοριοποιήσετε αμέσως (π.χ. ορισμός Προσώπων, Τοποθεσιών,\n"
+"κτλ.). Για αυτό, μπορεί να θελήσετε να βρείτε τις εικόνες αργότερα που δεν "
+"έχετε\n"
+"κατηγοριοποιήσει. Εγώ κάνω τα εξής:</p> \n"
+"<p>Χρησιμοποιώ τη <b>λέξη κλειδί</b> <b>OK</b>, την οποία τη θέτω στις "
+"εικόνες, μόλις\n"
+"τις κατηγοριοποιήσω. (π.χ. όπως μπορεί να έχετε μια λέξη κλειδί "
+"<b>Καλοκαιρινό\n"
+"πάρτι</b> ή <b>προαστιακός 1990</b>, τώρα έχετε μια λέξη κλειδί\n"
+"<b>OK</b>). Για να βρείτε τις μη κατηγοριοποιημένες εικόνες, επιλέξτε\n"
+"<b>Αναζήτηση</b> από την περιήγηση, και στη γραμμή επεξεργασίας λέξεων "
+"κλειδιών, πληκτρολογήστε\n"
+" <b>!OK</b>. Αυτό θα βρει όλες τις εικόνες οι οποίες <b>δεν</b> περιέχουν "
+"το \n"
+"αντικείμενο <b>OK</b>.\n"
+
+#: tips.cc:54
+msgid ""
+"<p>You can reorder images on your hard disk after having loaded them into\n"
+"KPhotoAlbum - KPhotoAlbum will still remember them, as it calculates "
+"checksums for\n"
+"the images.</p>\n"
+msgstr ""
+"<p>Μπορείτε να ταξινομήσετε τις εικόνες στο σκληρό σας δίσκο αφού φορτωθούν\n"
+"στο KPhotoAlbum - Το KPhotoAlbum θα συνεχίσει να τις θυμάται, αφού "
+"υπολογίζει αθροίσματα ελέγχου για τον εντοπισμό των\n"
+"εικόνων.</p>\n"
+
+#: tips.cc:61
+msgid ""
+"<p>If you like KPhotoAlbum, and it adds value to your daily life, please\n"
+"consider donating money to the KPhotoAlbum developer as a courtesy. See\n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+msgstr ""
+"<p>Αν σας αρέσει το KPhotoAlbum, και το χρησιμοποιείτε στην εργασία σας,\n"
+"μπορείτε να κάνετε μια χρηματική δωρεά στον προγραμματιστή του. Για\n"
+"περισσότερες πληροφορίες δείτε το http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+
+#: tips.cc:69
+msgid ""
+"<p>It's possible to associate images with categories. That way when "
+"browsing, say people, you\n"
+"may get a small icon for each person with e.g. the person's face.</p>\n"
+"<p>To specify an icon for a person, load the person in the viewer, zoom to\n"
+"the part which you want to make into an icon, and choose\n"
+"<b>Show Category Editor</b>. This will bring up a dialog where you can\n"
+"find the person, and set the image.\n"
+"</p>\n"
+msgstr ""
+"<p>Είναι δυνατή η συσχέτιση των εικόνων με κατηγορίες. Με αυτόν τον τρόπο "
+"κατά την περιήγηση, για παράδειγμα των προσώπων,\n"
+"μπορείτε να βλέπετε ένα μικρό εικονίδιο για κάθε πρόσωπο.</p>\n"
+"<p>Για να ορίσετε ένα εικονίδιο για ένα πρόσωπο, φορτώστε το πρόσωπο στον "
+"προβολέα,\n"
+"κάντε μεγέθυνση το τμήμα που θέλετε να το κάνετε εικονίδιο, και επιλέξτε \n"
+"<b>Εμφάνιση επεξεργαστή κατηγοριών</b>. Αυτό θα εμφανίσει ένα διάλογο όπου "
+"μπορείτε\n"
+"να βρείτε το πρόσωπο και να ορίσετε την εικόνα.\n"
+"</p>\n"
+
+#: tips.cc:80
+msgid ""
+"<p>You may close the image annotation dialog (the one where you specify\n"
+"people, places, etc. for the images) by pressing Ctrl+Enter.\n"
+"</p>\n"
+msgstr ""
+"<p>Μπορείτε να κλείσετε το διάλογο σημειώσεων (στον οποίο καθορίζετε\n"
+"πρόσωπα, τοποθεσίες κλπ. για μια εικόνα) πατώντας Ctrl+Enter.\n"
+"</p>\n"
+
+#: tips.cc:87
+msgid ""
+"<p>KPhotoAlbum has a mailing list at\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an "
+"IRC\n"
+"channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>\n"
+msgstr ""
+"<p>Το KPhotoAlbum έχει μια λίστα ηλεκτρονικού ταχυδρομείου στο\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, και ένα "
+"IRC\n"
+"κανάλι με το όνομα <b>#kphotoalbum</b> στο <b>irc.kde.org</b>.</p>\n"
+
+#: tips.cc:94
+msgid ""
+"<p>You may reorder images by dragging and dropping one image onto\n"
+"another. If you drop it on the left edge, it will end up in front of\n"
+"the other, if you drop it on the right edge it will be inserted behind.</p>\n"
+"<p align=\"right\">-- Tip contributed by Eivind Kjorstad</p>\n"
+msgstr ""
+"<p>Μπορείτε να αλλάξετε τη σειρά των εικόνων σέρνοντας και αφήνοντας μια "
+"εικόνα πάνω\n"
+"σε μια άλλη. Αν την αφήσετε στο αριστερό άκρο, θα καταλήξει μπροστά από την "
+"άλλη\n"
+",ενώ αν την αφήσετε στο δεξί άκρο θα εισαχθεί έπειτα από την άλλη.</p>\n"
+"<p align=\"right\">-- Συμβουλή προσφορά του Eivind Kjorstad</p>\n"
+
+#: tips.cc:102
+msgid ""
+"<p>\n"
+"On the thumbnail view, you can resize the grid to your needs just by "
+"clicking \n"
+"the middle mouse button and dragging around. On most systems you can "
+"emulate \n"
+"the middle mouse button by left and right clicking at the same time. \n"
+"</p>\n"
+"<p align=\"right\">-- Tip contributed by Rafael Beccar</p>\n"
+msgstr ""
+"<p>\n"
+"Στην προβολή εικόνων επισκόπησης, μπορείτε να αλλάξετε το μέγεθος του\n"
+"καννάβου κάνοντας κλικ με το μεσαίο πλήκτρο του ποντικιού και σέρνοντάς\n"
+" το. Στα περισσότερα συστήματα μπορείτε να εξομοιώσετε το πάτημα του\n"
+"μεσαίου πλήκτρου, πατώντας ταυτόχρονα το δεξί και το αριστερό πλήκτρο. \n"
+"</p>\n"
+"<p align=\"right\">-- Υπόδειξη από τον Rafael Beccar</p>\n"
+
+#: tips.cc:112
+msgid ""
+"<p>This is the last tip. If you know any additional tips or tricks, then "
+"please\n"
+"send an email to <a href=\"mailto:blackie@kde.org\">blackie@kde.org</a>.</"
+"p>\n"
+msgstr ""
+"<p>Αυτή είναι η τελευταία συμβουλή. Αν έχετε υπόψη σας επιπλέον συμβουλές, "
+"τότε παρακαλώ\n"
+"στείλτε ένα μήνυμα ηλεκτρονικής αλληλογραφίας στο <a href=\"mailto:"
+"blackie@kde.org\">blackie@kde.org</a></p>\n"
+
+#: Settings/ViewerPage.cpp:16
+msgid "Running Slide Show From Thumbnail View"
+msgstr "Εκτέλεση προβολής σλάιντ από την προβολή εικόνων επισκόπησης"
+
+#: Settings/ViewerPage.cpp:19
+msgid "Viewing Images and Videos From Thumbnail View"
+msgstr "Προβολή εικόνων και βίντεο από την προβολή εικόνων επισκόπησης"
+
+#: Settings/ViewerPage.cpp:25
+msgid "Slideshow interval:"
+msgstr "Χρονικό διάστημα προβολής σλάιντ:"
+
+#: Settings/ViewerPage.cpp:31
+msgid " sec"
+msgstr " δευτ"
+
+#: Settings/ViewerPage.cpp:34
+msgid "Image cache:"
+msgstr "Προσωρινή μνήμη εικόνας:"
+
+#: Settings/ViewerPage.cpp:40
+msgid " Mbytes"
+msgstr " Mbytes"
+
+#: Settings/ViewerPage.cpp:46
+msgid "Standard size in viewer:"
+msgstr "Τυπικό μέγεθος προβολέα:"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Full Viewer Size"
+msgstr "Πλήρες μέγεθος προβολέα"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size"
+msgstr "Φυσικό μέγεθος εικόνας"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size If Possible"
+msgstr "Φυσικό μέγεθος εικόνας αν είναι δυνατό"
+
+#: Settings/ViewerPage.cpp:53
+msgid ""
+"<p>Set the standard size for images to be displayed in the viewer.</p> "
+"<p><b>Full Viewer Size</b> indicates that the image will be stretched or "
+"shrunk to fill the viewer window.</p> <p><b>Natural Image Size</b> indicates "
+"that the image will be displayed pixel for pixel.</p> <p><b>Natural Image "
+"Size If Possible</b> indicates that the image will be displayed pixel for "
+"pixel if it would fit the window, otherwise it will be shrunk to fit the "
+"viewer.</p>"
+msgstr ""
+"<p>Ορισμός του τυπικού μεγέθους για τις εικόνες που θα εμφανιστούν στον "
+"προβολέα.</p> <p>Το <b>Πλήρες μέγεθος προβολέα</b> υποδηλώνει ότι η εικόνα "
+"θα μεγαλώσει ή θα σμικρυνθεί για να καλύψει το παράθυρο του προβολέα.</p> "
+"<p>Το <b>Φυσικό μέγεθος εικόνας</b> υποδηλώνει ότι η εικόνα θα εμφανιστεί με "
+"αντιστοιχία εικονοστοιχείων ένα προς ένα.</p> <p>Το <b>Φυσικό μέγεθος "
+"εικόνας αν είναι δυνατό</b> υποδηλώνει ότι η εικόνα θα εμφανιστεί με "
+"αντιστοιχία ένα προς ένα αν αυτή χωρά στο παράθυρο, σε άλλη περίπτωση θα "
+"γίνει σμίκρυνσή της.</p>"
+
+#: Settings/ViewerPage.cpp:60
+msgid "Scaling Algorithm"
+msgstr "Αλγόριθμος κλιμάκωσης"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Fastest"
+msgstr "Γρηγορότερο"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Best"
+msgstr "Βέλτιστο"
+
+#: Settings/ViewerPage.cpp:67
+msgid ""
+"<p>When displaying images, KPhotoAlbum normally performs smooth scaling of "
+"the image. If this option is not set, KPhotoAlbum will use a faster but less "
+"smooth scaling method.</p>"
+msgstr ""
+"<p>Κατά την εμφάνιση των εικόνων, το KPhotoAlbum συνήθως εκτελεί ομαλή "
+"κλιμάκωση της εικόνας. Αν απενεργοποιήσετε αυτή την επιλογή, το KPhotoAlbum "
+"θα χρησιμοποιήσει μια γρηγορότερη αλλά λιγότερο ομαλή μέθοδο κλιμάκωσης.</p>"
+
+#: Settings/ExifPage.cpp:25
+msgid "EXIF/IPTC info to show in the Viewer"
+msgstr "Οι πληροφορίες EXIF/IPTC που θα εμφανιστούν στον προβολέα"
+
+#: Settings/ExifPage.cpp:28
+msgid "EXIF/IPTC info to show in the EXIF dialog"
+msgstr "Οι πληροφορίες EXIF/IPTC που θα εμφανιστούν στο διάλογο EXIF"
+
+#: Settings/ExifPage.cpp:31
+msgid "Character set for image metadata:"
+msgstr "Σύνολο χαρακτήρων για τα μεταδεδομένα:"
+
+#: Settings/SettingsDialog.cpp:64 MainWindow/Window.cpp:1158
+msgid "General"
+msgstr "Γενικά"
+
+#: Settings/SettingsDialog.cpp:65
+msgid "Thumbnail View"
+msgstr "Προβολή εικόνων επισκόπησης"
+
+#: Settings/SettingsDialog.cpp:66
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: Settings/SettingsDialog.cpp:67
+msgid "Subcategories"
+msgstr "Υποκατηγορίες"
+
+#: Settings/SettingsDialog.cpp:68 MainWindow/Window.cpp:1159
+msgid "Viewer"
+msgstr "Προβολέας"
+
+#. i18n: file: kphotoalbumui.rc:66
+#. i18n: ectx: Menu (plugins)
+#: Settings/SettingsDialog.cpp:70 rc.cpp:12
+msgid "Plugins"
+msgstr "Πρόσθετα"
+
+#: Settings/SettingsDialog.cpp:74
+msgid "EXIF/IPTC Information"
+msgstr "Πληροφορίες EXIF/IPTC"
+
+#: Settings/SettingsDialog.cpp:76
+msgid "Database backend"
+msgstr "Σύστημα υποστήριξης βάσης δεδομένων"
+
+#: Settings/ThumbnailsPage.cpp:19
+msgid "Tooltip preview image size:"
+msgstr "Μέγεθος εικόνας προεπισκόπησης υπόδειξης:"
+
+#: Settings/ThumbnailsPage.cpp:23
+msgid "No Image Preview"
+msgstr "Χωρίς εικόνα προεπισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:29
+msgid "Thumbnail image size:"
+msgstr "Μέγεθος εικόνας επισκόπησης:"
+
+#: Settings/ThumbnailsPage.cpp:38
+msgid "Thumbnail table cells aspect ratio"
+msgstr "Λόγος διαστάσεων των κελιών του πίνακα εικόνων επισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "1:1"
+msgstr "1:1"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "4:3"
+msgstr "4:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:2"
+msgstr "3:2"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "16:9"
+msgstr "16:9"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:4"
+msgstr "3:4"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "2:3"
+msgstr "2:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "9:16"
+msgstr "9:16"
+
+#: Settings/ThumbnailsPage.cpp:47
+#, fuzzy
+#| msgid "Thumbnail View"
+msgid "Thumbnail format"
+msgstr "Προβολή εικόνων επισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "ppm"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "png"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:50
+msgid "jpg"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:56
+msgid "Space around cells"
+msgstr "Κενό γύρω από τα κελιά"
+
+#: Settings/ThumbnailsPage.cpp:64
+msgid "Background Color"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:71
+msgid "Display grid around thumbnails"
+msgstr "Εμφάνιση καννάβου γύρω από τις εικόνες επισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:76
+msgid "Display labels in thumbnail view"
+msgstr "Εμφάνιση ετικετών σε προβολή εικόνων επισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:81
+msgid "Display categories in thumbnail view"
+msgstr "Εμφάνιση κατηγοριών σε προβολή εικόνων επισκόπησης"
+
+#: Settings/ThumbnailsPage.cpp:86
+msgid "Auto display limit: "
+msgstr "Όριο αυτόματης εμφάνισης: "
+
+#: Settings/ThumbnailsPage.cpp:90 Settings/GeneralPage.cpp:28
+msgid "Never"
+msgstr "Ποτέ"
+
+#: Settings/ThumbnailsPage.cpp:96
+msgid "Thumbnail screen cache:"
+msgstr "Μνήμη εικονιδίων επισκόπησης:"
+
+#: Settings/ThumbnailsPage.cpp:112
+msgid ""
+"<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, "
+"then you will see a small tool tip window displaying information about the "
+"thumbnails. This window includes a small preview image. This option "
+"configures the image size.</p>"
+msgstr ""
+"<p>Αν επιλέξετε <b>Βοήθεια -&gt; Εμφάνιση υποδείξεων</b> στην προβολή "
+"επισκόπησης, τότε θα δείτε ένα μικρό παράθυρο βοήθειας που θα εμφανίζει "
+"πληροφορίες σχετικά με τις επισκοπήσεις. Αυτό το παράθυρο περιλαμβάνει μια "
+"μικρή εικόνα προεπισκόπησης. Αυτή η επιλογή ρυθμίζει το μέγεθος της εικόνας</"
+"p>"
+
+#: Settings/ThumbnailsPage.cpp:119
+msgid ""
+"<p>Thumbnail image size. You may also set the size simply by dragging the "
+"thumbnail view using the middle mouse button.</p>"
+msgstr ""
+"<p>Μέγεθος εικόνας επισκόπησης. Μπορείτε επίσης να ορίσετε το μέγεθος απλά "
+"σέρνοντας την προβολή εικόνων επισκόπησης, χρησιμοποιώντας το μεσαίο κουμπί "
+"του ποντικιού.</p>"
+
+#: Settings/ThumbnailsPage.cpp:123
+msgid ""
+"<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
+msgstr ""
+"<p>Επιλέξτε το λόγο διαστάσεων των κελιών που περιέχουν τις εικόνες "
+"επισκόπησης.</p>"
+
+#: Settings/ThumbnailsPage.cpp:126
+msgid ""
+"<p>Choose the format used for the thumbnails images, ppm is the faster, jpg "
+"the smaller. You need to restart application for this change to take effect."
+"</p>"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:130
+msgid "<p>How thick the cell padding should be.</p>"
+msgstr "<p>Πόσο κενό θα υπάρχει γύρω από τα κελιά.</p>"
+
+#: Settings/ThumbnailsPage.cpp:133
+msgid "<p>Background color to use in the thumbnail viewer</p>"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:137
+msgid ""
+"<p>If you want to see grid around your thumbnail images, select this option."
+"</p>"
+msgstr ""
+"<p>Αν επιθυμείτε να υπάρχει κάνναβος γύρω από τις εικόνες επισκόπησης,  ενεργοποιήστε αυτήν την επιλογή.</p>"
+
+#: Settings/ThumbnailsPage.cpp:141
+msgid ""
+"<p>Checking this option will show the base name for the file under "
+"thumbnails in the thumbnail view.</p>"
+msgstr ""
+"<p>Ενεργοποιώντας αυτή την επιλογή θα εμφανίζεται το όνομα του αρχείου κάτω "
+"από τις εικόνες επισκόπησης στην προβολή εικόνων επισκόπησης</p>"
+
+#: Settings/ThumbnailsPage.cpp:145
+msgid ""
+"<p>Checking this option will show the Categories for the file under "
+"thumbnails in the thumbnail view</p>"
+msgstr ""
+"<p>Ενεργοποιώντας αυτή την επιλογή θα εμφανίζονται οι κατηγορίες του αρχείου "
+"κάτω από τις εικόνες επισκόπησης στην προβολή εικόνων επισκόπησης</p>"
+
+#: Settings/ThumbnailsPage.cpp:149
+msgid ""
+"<p>When you are browsing, and the count gets below the value specified here, "
+"the thumbnails will be shown automatically. The alternative is to continue "
+"showing the browser until you press <i>Show Images</i></p>"
+msgstr ""
+"<p>Όταν κάνετε περιήγηση στις εικόνες, και ο αριθμός τους πέσει κάτω από "
+"αυτήν την τιμή, θα εμφανιστούν αυτόματα επισκοπήσεις. Εναλλακτικά μπορείτε "
+"να συνεχίσετε την περιήγηση πατώντας <i>Εμφάνιση εικόνων</i></p>"
+
+#: Settings/ThumbnailsPage.cpp:155
+msgid ""
+"<p>Specify number of screens the thumbnail cache should be able to hold.</p>"
+msgstr ""
+"<p>Καθορίστε τον αριθμό οθονών που θα διατηρεί η λανθάνουσα μνήμη των "
+"εικόνων επισκόπησης.</p>"
+
+#: Settings/ThumbnailsPage.cpp:193
+#, kde-format
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: Settings/ThumbnailsPage.cpp:194
+msgctxt "Thumbnail Cache Screens"
+msgid " Screen"
+msgid_plural " Screens"
+msgstr[0] " οθόνη"
+msgstr[1] " οθόνες"
+
+#: Settings/CategoryItem.cpp:120
+msgid ""
+"<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
+"renaming categories; otherwise all the filenames of the category thumbnails "
+"will be wrong, and thus lost.</p><p>So either press Cancel now (and it will "
+"not be renamed), or press Continue, and as your next step save the database."
+"</p>"
+msgstr ""
+"<p>Εξαιτίας μιας δυσχέρειας του KPhotoAlbum, θα πρέπει να αποθηκεύσετε τη "
+"βάση δεδομένων σας μετά από μετονομασία κατηγοριών γιατί σε άλλη περίπτωση "
+"όλα τα αρχεία των εικόνων επισκόπησης της κατηγορίας θα είναι εσφαλμένα.</"
+"p><p>Γι' αυτό μπορείτε είτε να πατήσετε ακύρωση τώρα (χωρίς να γίνει "
+"μετονομασία), ή να αποθηκεύσετε τη βάση δεδομένων σας αμέσως μετά.</p>"
+
+#: Settings/SubCategoriesPage.cpp:23 Settings/UntaggedGroupBox.cpp:19
+#: MainWindow/StatisticsDialog.cpp:99
+msgid "Category:"
+msgstr "Κατηγορία:"
+
+#: Settings/SubCategoriesPage.cpp:36
+msgid "Super Categories:"
+msgstr "Υπερκατηγορίες:"
+
+#: Settings/SubCategoriesPage.cpp:45
+msgid "Items of Category:"
+msgstr "Αντικείμενα της κατηγορίας:"
+
+#: Settings/SubCategoriesPage.cpp:55
+msgid "Add Super Category..."
+msgstr "Προσθήκη υπερκατηγορίας..."
+
+#: Settings/SubCategoriesPage.cpp:57
+msgid "Rename Super Category..."
+msgstr "Μετονομασία υπερκατηγορίας..."
+
+#: Settings/SubCategoriesPage.cpp:59
+msgid "Delete Super Category"
+msgstr "Διαγραφή υπερκατηγορίας"
+
+#: Settings/SubCategoriesPage.cpp:63
+msgid ""
+"<b>Notice:</b> It is also possible to set up subcategories in the annotation "
+"dialog, simply by dragging items."
+msgstr ""
+"<b>Σημείωση:</b> Υπάρχει η δυνατότητα να ορίσετε υποκατηγορίες στο διάλογο "
+"σημειώσεων, απλά σέρνοντας αντικείμενα."
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "New Group"
+msgstr "Νέα ομάδα"
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "Group name:"
+msgstr "Όνομα ομάδας:"
+
+#: Settings/SubCategoriesPage.cpp:172
+#, kde-format
+msgid "Really delete group %1?"
+msgstr "Θέλετε πραγματικά τη διαγραφή της ομάδας %1;"
+
+#: Settings/SubCategoriesPage.cpp:172
+msgid "Delete Group"
+msgstr "Διαγραφή ομάδας"
+
+#: Settings/SubCategoriesPage.cpp:172 AnnotationDialog/ListSelect.cpp:355
+msgid "&Delete"
+msgstr "&Διαγραφή"
+
+#: Settings/GeneralPage.cpp:21
+msgid "New Images"
+msgstr "Νέες εικόνες"
+
+#: Settings/GeneralPage.cpp:26
+msgid "Trust image dates:"
+msgstr "Χρήση των ημερομηνιών της εικόνας:"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Always"
+msgstr "Πάντα"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Ask"
+msgstr "Ερώτηση"
+
+#: Settings/GeneralPage.cpp:35
+msgid "Use EXIF orientation information"
+msgstr "Χρήση πληροφοριών προσανατολισμού EXIF"
+
+#: Settings/GeneralPage.cpp:37
+msgid "Use EXIF description"
+msgstr "Χρήση της περιγραφής EXIF"
+
+#: Settings/GeneralPage.cpp:40
+msgid "Search for new images and videos on startup"
+msgstr "Αναζήτηση για νέες εικόνες και βίντεο κατά την εκκίνηση"
+
+#: Settings/GeneralPage.cpp:41
+#, fuzzy
+#| msgid "Don't read RAW files if matching JPEG/TIFF file exists"
+msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
+msgstr "Να μη γίνει ανάγνωση αρχείων RAW αν υπάρχει αντίστοιχο JPEG/TIFF"
+
+#: Settings/GeneralPage.cpp:47
+#, fuzzy
+#| msgid "Size of histogram columns in datebar:"
+msgid "Size of histogram columns in date bar:"
+msgstr "Μέγεθος των πλαισίων ιστογράμματος στη γραμμή ημερομηνίας:"
+
+#: Settings/GeneralPage.cpp:61
+msgid "Show splash screen"
+msgstr "Εμφάνιση εισαγωγικής οθόνης"
+
+#: Settings/GeneralPage.cpp:65
+msgid "Category for virtual albums:"
+msgstr "Κατηγορία για εικονικά άλμπουμ:"
+
+#: Settings/GeneralPage.cpp:85
+msgid ""
+"<p>KPhotoAlbum will try to read the image date from EXIF information in the "
+"image. If that fails it will try to get the date from the file's time stamp."
+"</p><p>However, this information will be wrong if the image was scanned in "
+"(you want the date the image was taken, not the date of the scan).</p><p>If "
+"you only scan images, in contrast to sometimes using a digital camera, you "
+"should reply <b>no</b>. If you never scan images, you should reply <b>yes</"
+"b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
+"images are from the scanner or the camera, from session to session.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum θα προσπαθήσει να διαβάσει την ημερομηνία της εικόνας από "
+"πληροφορίες EXIF μέσα στην εικόνα. Αν αυτό αποτύχει θα προσπαθήσει να "
+"ανακτήσει την ημερομηνία από τη χρονική σφραγίδα του αρχείου.</p><p>Ωστόσο, "
+"αυτή η πληροφορία μπορεί να είναι λανθασμένη αν η εικόνα σαρώθηκε (ζητάτε "
+"την ημερομηνία που τραβήχτηκε η φωτογραφία, και όχι την ημερομηνία της "
+"σάρωσης).</p><p>Αν σαρώνετε φωτογραφίες, αντί να χρησιμοποιείτε ψηφιακή "
+"φωτογραφική μηχανή, θα πρέπει να απαντήσετε <b>όχι</b>. Αν δε σαρώνετε ποτέ "
+"φωτογραφίες, θα πρέπει να απαντήσετε <b>ναι</b>, σε άλλη περίπτωση απαντήστε "
+"<b>ερώτηση</b>. Αυτό θα σας επιτρέπει να αποφασίζετε αν οι εικόνες "
+"προέρχονται από σαρωτή ή φωτογραφική μηχανή, για κάθε συνεδρία.</p>"
+
+#: Settings/GeneralPage.cpp:96
+msgid ""
+"<p>JPEG images may contain information about rotation. If you have a reason "
+"for not using this information to get a default rotation of your images, "
+"uncheck this check box.</p><p>Note: Your digital camera may not write this "
+"information into the images at all.</p>"
+msgstr ""
+"<p>Οι εικόνες JPEG μπορεί να περιέχουν πληροφορίες σχετικά με την "
+"περιστροφή. Αν έχετε κάποιο λόγο να μη χρησιμοποιείτε αυτές τις πληροφορίες "
+"για να ανακτήσετε τον προσανατολισμό των εικόνων σας, ενεργοποιείστε αυτό το "
+"πλαίσιο επιλογής.</p><p>Σημείωση: Η ψηφιακή σας φωτογραφική μηχανή μπορεί να "
+"μην καταγράφει καθόλου αυτή την πληροφορία.</p>"
+
+#: Settings/GeneralPage.cpp:102
+msgid ""
+"<p>JPEG images may contain a description. Check this checkbox to specify if "
+"you want to use this as a default description for your images.</p>"
+msgstr ""
+"<p>Οι εικόνες JPEG μπορεί να περιέχουν μια περιγραφή. Ενεργοποιώντας αυτό το "
+"πλαίσιο επιλογής ορίζετε ότι θέλετε να χρησιμοποιήσετε αυτή την περιγραφή ως "
+"προκαθορισμένη για τις εικόνες σας.</p>"
+
+#: Settings/GeneralPage.cpp:107
+msgid ""
+"<p>KPhotoAlbum is capable of searching for new images and videos when "
+"started, this does, however, take some time, so instead you may wish to "
+"manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
+">Rescan for new images</b></p>"
+msgstr ""
+"<p>Το KPhotoAlbum είναι ικανό να αναζητεί για νέες εικόνες όταν εκκινηθεί, "
+"αυτό ωστόσο διαρκεί κάποιο χρόνο, έτσι μπορεί να επιθυμείτε να ορίσετε στο "
+"KPhotoAlbum τη χειροκίνητη αναζήτηση για νέες εικόνες χρησιμοποιώντας το "
+"<b>Συντήρηση->Επανασάρωση για νέες εικόνες</b></p>"
+
+#: Settings/GeneralPage.cpp:112
+msgid ""
+"<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  Some "
+"cameras store both a RAW image and a matching JPEG or TIFF image.  This "
+"causes duplicate images to be stored in KPhotoAlbum, which may be "
+"undesirable.  If this option is checked, KPhotoAlbum will not read RAW files "
+"for which matching image files also exist.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum έχει τη δυνατότητα να διαβάζει κάποια είδη ακατέργαστων "
+"μορφών εικόνων RAW. Μερικές φωτογραφικές μηχανές αποθηκεύουν τόσο την εικόνα "
+"RAW όσο και μια αντίστοιχη JPEG ή TIFF εικόνα.  Αυτό έχει σαν αποτέλεσμα "
+"διπλά αντίγραφα της κάθε εικόνας να αποθηκεύονται στο KPhotoAlbum, πράγμα "
+"που μπορεί να μην είναι επιθυμητό.  Αν ενεργοποιήσετε αυτή την επιλογή το "
+"KPhotoAlbum δε θα διαβάζει τα αρχεία RAW όταν υπάρχουν επίσης τα αντίστοιχα "
+"αρχεία εικόνας.</p>"
+
+#: Settings/GeneralPage.cpp:118
+#, fuzzy
+#| msgid ""
+#| "<p>KPhotoAlbum shares plugins with other imaging applications, some of "
+#| "which have the concept of albums. KPhotoAlbum does not have this concept; "
+#| "nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
+#| "plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
+#| "current album to be the current view - that is, all the images the "
+#| "browser offers to display.</p><p>In addition to the current album, "
+#| "KPhotoAlbum must also be able to give a list of all albums; the list of "
+#| "all albums is defined in the following way:<ul><li>When KPhotoAlbum's "
+#| "browser displays the content of a category, say all People, then each "
+#| "item in this category will look like an album to the plugin."
+#| "<li>Otherwise, the category you specify using this option will be used; e."
+#| "g. if you specify People with this option, then KPhotoAlbum will act as "
+#| "if you had just chosen to display people and then invoke the plugin which "
+#| "needs to know about all albums.</p><p>Most users would probably want to "
+#| "specify Events here.</p>"
+msgid ""
+"<p>KPhotoAlbum shares plugins with other imaging applications, some of which "
+"have the concept of albums. KPhotoAlbum does not have this concept; "
+"nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
+"plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
+"current album to be the current view - that is, all the images the browser "
+"offers to display.</p><p>In addition to the current album, KPhotoAlbum must "
+"also be able to give a list of all albums; the list of all albums is defined "
+"in the following way:<ul><li>When KPhotoAlbum's browser displays the content "
+"of a category, say all People, then each item in this category will look "
+"like an album to the plugin.</li><li>Otherwise, the category you specify "
+"using this option will be used; e.g. if you specify People with this option, "
+"then KPhotoAlbum will act as if you had just chosen to display people and "
+"then invoke the plugin which needs to know about all albums.</li></ul></"
+"p><p>Most users would probably want to specify Events here.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum μοιράζεται πρόσθετα με άλλες εφαρμογές επεξεργασίας "
+"εικόνας, που έχουν την έννοια των άλμπουμ. Το KPhotoAlbum δεν έχει αυτή την "
+"έννοια, αλλά για να δουλέψουν μερικά πρόσθετα το KPhotoAlbum συμπεριφέρεται "
+"σαν να τα υποστηρίζει.</p><p>Το KPhotoAlbum ορίζει ως τρέχον άλμπουμ την "
+"τρέχουσα προβολή - δηλαδή όλες τις εικόνες που ο περιηγητής εμφανίζει.</"
+"p><p>Επιπλέον του τρέχοντος άλμπουμ, το KPhotoAlbum πρέπει να δώσει και μια "
+"λίστα όλων των άλμπουμ. Αυτή ορίζεται ω ς εξής:<ul><li>Όταν το KPhotoAlbum "
+"εμφανίζει το περιεχόμενο μιας κατηγορίας, για παράδειγμα όλα τα πρόσωπα, "
+"τότε κάθε αντικείμενο της κατηγορίες θα εμφανίζεται ως άλμπουμ στο πρόσθετο."
+"<li>Σε άλλη περίπτωση, η κατηγορία που ορίζετε με αυτή την επιλογή θα "
+"χρησιμοποιηθεί. Για παράδειγμα αν ορίσετε τα πρόσωπα με αυτή την επιλογή "
+"τότε το KPhotoAlbum θα ενεργεί σαν να επιλέξατε την εμφάνιση των προσώπων "
+"πριν από την κλήση του πρόσθετου.</p><p>Οι περισσότεροι χρήστες πιθανώς θα "
+"ήθελαν να συμπληρώσουν εδώ γεγονότα.</p>"
+
+#: Settings/GeneralPage.cpp:134
+msgid "Show the KPhotoAlbum splash screen on start up"
+msgstr "Εμφάνιση της αρχικής οθόνης του KPhotoAlbum στην εκκίνηση"
+
+#: Settings/PluginsPage.cpp:18
+msgid "Choose Plugins to load:"
+msgstr "Επιλογή πρόσθετων για φόρτωση:"
+
+#: Settings/PluginsPage.cpp:24
+#, fuzzy
+#| msgid "Delay loading plug-ins till plug-in menu is opened"
+msgid "Delay loading plugins until the plugin menu is opened"
+msgstr ""
+"Καθυστέρηση της φόρτωσης των προσθέτων μέχρι να ανοίξει το μενού προσθέτων"
+
+#: Settings/SettingsData.cpp:195
+msgid ""
+"When reading time information of images, their EXIF info is used. Exif info "
+"may, however, not be supported by your KPhotoAlbum installation, or no valid "
+"information may be in the file. As a backup, KPhotoAlbum may use the "
+"timestamp of the image - this may, however, not be valid in case the image "
+"is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
+"on your images?"
+msgstr ""
+"Κατά την ανάγνωση πληροφοριών ώρας των εικόνων, χρησιμοποιούνται οι "
+"πληροφορίες EXIF. Οι πληροφορίες Exif υπάρχει περίπτωση να μην "
+"υποστηρίζονται από την εγκατάστασή σας του KPhotoAlbum ή να μην υπάρχουν "
+"έγκυρες πληροφορίες στο αρχείο. Ως εφεδρεία μπορεί να χρησιμοποιηθεί από το "
+"KPhotoAlbum η χρονική σφραγίδα του αρχείου της εικόνας - αυτό όμως μπορεί να "
+"μην είναι έγκυρο στην περίπτωση σάρωσης της εικόνας. Να είναι λοιπόν έμπιστη "
+"η χρονική σφραγίδα των εικόνων σας από το KPhotoAlbum;"
+
+#: Settings/SettingsData.cpp:201
+msgid "Trust Time Stamps?"
+msgstr "Χρησιμοποίηση χρονικών σφραγίδων;"
+
+#: Settings/DatabaseBackendPage.cpp:26
+msgid "Database backend to use"
+msgstr "Σύστημα υποστήριξης βάσης δεδομένων για χρήση"
+
+#: Settings/DatabaseBackendPage.cpp:29
+msgid "XML backend (recommended)"
+msgstr "Σύστημα XML (προτείνεται)"
+
+#: Settings/DatabaseBackendPage.cpp:32
+msgid "SQL backend (experimental)"
+msgstr "Σύστημα υποστήριξης SQL (δοκιμαστικό)"
+
+#: Settings/DatabaseBackendPage.cpp:37
+msgid "XML Database Setting"
+msgstr "Ρυθμίσεις βάσης δεδομένων XML"
+
+#: Settings/DatabaseBackendPage.cpp:41
+msgid "Choose speed over readability for index.xml file"
+msgstr "Επιλογή ταχύτητας αντί της αναγνωσιμότητας για το αρχείο index.xml"
+
+#: Settings/DatabaseBackendPage.cpp:42
+msgid "Compress backup file"
+msgstr "Συμπίεση αρχείου αντιγράφου ασφαλείας"
+
+#: Settings/DatabaseBackendPage.cpp:46
+msgid "Auto save every:"
+msgstr "Αυτόματη αποθήκευση κάθε:"
+
+#: Settings/DatabaseBackendPage.cpp:49
+msgid "min."
+msgstr "λεπτά"
+
+#: Settings/DatabaseBackendPage.cpp:59
+msgid "Number of backups to keep:"
+msgstr "Αριθμός αντιγράφων ασφαλείας για διατήρηση:"
+
+#: Settings/DatabaseBackendPage.cpp:64
+msgid "Infinite"
+msgstr "Απεριόριστα"
+
+#: Settings/DatabaseBackendPage.cpp:69
+msgid ""
+"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
+"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
+"the number of backup files to keep. KPhotoAlbum will delete the oldest "
+"backup file when it reaches the maximum number of backup files.</p><p>The "
+"index.xml file may grow substantially if you have many images, and in that "
+"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
+"disk space.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum έχει τη δυνατότητα να κάνει αντίγραφα ασφαλείας του "
+"αρχείου index.xml διατηρώντας αντίγραφα με ονόματα index.xml~1~ index.xml~2~ "
+"κτλ. Χρησιμοποιώντας το κουτί εναλλαγής ορίστε το πλήθος των αντιγράφων "
+"ασφαλείας που θα διατηρηθούν - Το KPhotoAlbum θα διαγράφει το παλιότερο "
+"αντίγραφο όταν ο αριθμός των αντιγράφων ασφαλείας φτάσει στο μέγιστο.</"
+"p><p>Το αρχείο index.xml μπορεί να μεγαλώσει αισθητά αν έχετε πολλές "
+"εικόνες, και σε αυτή την περίπτωση είναι χρήσιμο να ζητήσετε από το "
+"KPhotoAlbum να συμπιέσει τα αντίγραφα ασφαλείας για να γλιτώσετε χώρο στο "
+"δίσκο.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:79
+msgid ""
+"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+"With lots of images it may take a long time to read this file. You may cut "
+"down this time to approximately half, by checking this check box. The "
+"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum χρησιμοποιεί ένα απλό αρχείο index.xml ως τη <i>βάση "
+"δεδομένων</i> του. Με αρκετές εικόνες μπορεί να διαρκέσει αρκετά η ανάγνωση "
+"αυτού του αρχείου. Μπορείτε να μειώσετε αυτόν το χρόνο περίπου στο μισό "
+"ενεργοποιώντας αυτή την επιλογή. Το μειονέκτημα είναι ότι το αρχείο index."
+"xml θα είναι λιγότερο ευανάγνωστο από άνθρωπο.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:88
+msgid "SQL Database Settings"
+msgstr "Ρυθμίσεις βάσης δεδομένων SQL"
+
+#: Settings/DatabaseBackendPage.cpp:95
+#, fuzzy
+#| msgid ""
+#| "Warning! The password is saved as plain text to the configuration file."
+msgid "Warning: The password is saved as plain text to the configuration file."
+msgstr ""
+"Προειδοποίηση! Ο κωδικός πρόσβασης αποθηκεύεται ως απλό κείμενο στο αρχείο "
+"ρυθμίσεων."
+
+#: Settings/ViewerSizeConfig.cpp:29
+msgid "Launch in full screen"
+msgstr "Έναρξη σε πλήρη οθόνη"
+
+#: Settings/ViewerSizeConfig.cpp:34
+msgid "Size:"
+msgstr "Μέγεθος:"
+
+#: Settings/CategoryPage.cpp:36
+msgid "Label:"
+msgstr "Ετικέτα:"
+
+#: Settings/CategoryPage.cpp:47
+msgid "Icon:"
+msgstr "Εικονίδιο:"
+
+#: Settings/CategoryPage.cpp:58
+msgid "Thumbnail Size: "
+msgstr "Μέγεθος εικόνας επισκόπησης: "
+
+#: Settings/CategoryPage.cpp:69
+msgid "Preferred view:"
+msgstr "Προτιμώμενη προβολή:"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View"
+msgstr "Προβολή λίστας"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View with Custom Thumbnails"
+msgstr "Προβολή λίστας με προσαρμοσμένες επισκοπήσεις"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View"
+msgstr "Προβολή εικονιδίων"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View with Custom Thumbnails"
+msgstr "Προβολή εικονιδίων με προσαρμοσμένες επισκοπήσεις"
+
+#: Settings/CategoryPage.cpp:82
+msgid "New"
+msgstr "Νέο"
+
+#: Settings/CategoryPage.cpp:85 AnnotationDialog/ListSelect.cpp:287
+#: AnnotationDialog/Dialog.cpp:861 MainWindow/DeleteDialog.cpp:45
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: Settings/CategoryPage.cpp:154
+#, kde-format
+msgid "<p>Really delete category '%1'?</p>"
+msgstr "<p>Θέλετε πραγματικά τη διαγραφή της κατηγορίας '%1';</p>"
+
+#: Settings/UntaggedGroupBox.cpp:26 MainWindow/StatisticsDialog.cpp:105
+msgid "Tag:"
+msgstr "Ετικέτα:"
+
+#: Settings/UntaggedGroupBox.cpp:39
+#, fuzzy
+#| msgid "No Item Selected"
+msgid "None Selected"
+msgstr "Χωρίς επιλεγμένο αντικείμενο"
+
+#: Utilities/Util.cpp:101
+msgid "<b>File Name: </b> "
+msgstr "<b>Όνομα αρχείου: </b> "
+
+#: Utilities/Util.cpp:105
+msgid "<b>Date: </b> "
+msgstr "<b>Ημερομηνία: </b> "
+
+#: Utilities/Util.cpp:115
+msgid "x"
+msgstr "x"
+
+#: Utilities/Util.cpp:120
+msgctxt "Short for Mega Pixels"
+msgid "MP"
+msgstr "MP"
+
+#: Utilities/Util.cpp:122
+msgid "<b>Image Size: </b> "
+msgstr "<b>Μέγεθος εικόνας: </b> "
+
+#: Utilities/Util.cpp:168
+msgid "<b>Label: </b> "
+msgstr "<b>Ετικέτα: </b> "
+
+#: Utilities/Util.cpp:172
+msgid "<b>Description: </b> "
+msgstr "<b>Περιγραφή: </b> "
+
+#: Utilities/Util.cpp:226
+#, fuzzy, kde-format
+#| msgid ""
+#| "Backup file '%1' exists and is newer than '%2'. Should I use the backup "
+#| "file?"
+msgid ""
+"Backup file '%1' exists and is newer than '%2'. Should the backup file be "
+"used?"
+msgstr ""
+"Υπάρχει αντίγραφο ασφαλείας με αρχείο '%1' και είναι νεότερο από το '%2'. Να "
+"χρησιμοποιηθεί το αντίγραφο ασφαλείας;"
+
+#: Utilities/Util.cpp:229
+msgid "Found Backup File"
+msgstr "Βρέθηκε αντίγραφο ασφαλείας"
+
+#: Utilities/Util.cpp:256
+#, kde-format
+msgid "Unable to copy '%1' to '%2'."
+msgstr "Αδυναμία αντιγραφής του '%1' στο '%2'."
+
+#: Utilities/Util.cpp:270 Utilities/Util.cpp:305
+#, kde-format
+msgid "Unable to create directory '%1' needed for demo."
+msgstr ""
+"Αδυναμία δημιουργίας του καταλόγου '%1' που απαιτείται για την επίδειξη."
+
+#: Utilities/Util.cpp:288
+#, kde-format
+msgid "Unable to open '%1' for writing."
+msgstr "Αδυναμία ανοίγματος του '%1' για εγγραφή."
+
+#: Utilities/Util.cpp:367
+#, kde-format
+msgid "<p>Unable to find file %1</p>"
+msgstr "<p>Αδυναμία εύρεσης του αρχείου %1</p>"
+
+#: AnnotationDialog/ListSelect.cpp:90 AnnotationDialog/Dialog.cpp:831
+msgid "Sort Alphabetically"
+msgstr "Ταξινόμηση αλφαβητικά"
+
+#: AnnotationDialog/ListSelect.cpp:96
+msgid "Sort by date"
+msgstr ""
+
+#: AnnotationDialog/ListSelect.cpp:102
+msgid "Show only selected Ctrl+S"
+msgstr ""
+
+#: AnnotationDialog/ListSelect.cpp:277
+msgid "No Item Selected"
+msgstr "Χωρίς επιλεγμένο αντικείμενο"
+
+#: AnnotationDialog/ListSelect.cpp:288
+msgid "Rename..."
+msgstr "Μετονομασία..."
+
+#: AnnotationDialog/ListSelect.cpp:290
+msgid "<b>Sub Categories</b>"
+msgstr "<b>Υποκατηγορίες</b>"
+
+#: AnnotationDialog/ListSelect.cpp:298
+msgid "Super Categories"
+msgstr "Υπερκατηγορίες"
+
+#: AnnotationDialog/ListSelect.cpp:315
+msgid "New Category..."
+msgstr "Νέα κατηγορία..."
+
+#: AnnotationDialog/ListSelect.cpp:318
+msgid "Create Subcategory..."
+msgstr "Δημιουργία υποκατηγορίας..."
+
+#: AnnotationDialog/ListSelect.cpp:324
+#, kde-format
+msgid "Take item out of category %1"
+msgstr "Αφαίρεση του αντικειμένου από την κατηγορία %1"
+
+#: AnnotationDialog/ListSelect.cpp:327
+msgid "<b>Sorting</b>"
+msgstr "<b>Ταξινόμηση</b>"
+
+#: AnnotationDialog/ListSelect.cpp:333
+msgid "Usage"
+msgstr "Χρήση"
+
+#: AnnotationDialog/ListSelect.cpp:334
+msgid "Alphabetical"
+msgstr "Αλφαβητικά"
+
+#: AnnotationDialog/ListSelect.cpp:350
+#, kde-format
+msgid ""
+"<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
+"any information about it from any image containing the item.</p>"
+msgstr ""
+"<p>Επιθυμείτε πραγματικά τη διαγραφή του \"%1\";<br/>Η διαγραφή του "
+"αντικειμένου θα αφαιρέσει οποιαδήποτε πληροφορία σχετικά με αυτό σε όλες τις "
+"εικόνες που περιέχουν το αντικείμενο.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:354
+#, kde-format
+msgid "Really Delete %1?"
+msgstr "Πραγματικά διαγραφή του %1;"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Rename Item"
+msgstr "Μετονομασία αντικειμένου"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Enter new name:"
+msgstr "Εισαγωγή νέου ονόματος:"
+
+#: AnnotationDialog/ListSelect.cpp:367
+#, kde-format
+msgid ""
+"<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
+"\"%3\" on any image containing it.</p>"
+msgstr ""
+"<p>Επιθυμείτε πραγματικά τη μετονομασία του \"%1\" σε \"%2\";<br/>Αυτή η "
+"ενέργεια θα μετονομάσει το \"%3\" σε κάθε εικόνα που το περιέχει.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:371
+#, kde-format
+msgid "Really Rename %1?"
+msgstr "Πραγματικά μετονομασία του %1;"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category"
+msgstr "Νέα υπερκατηγορία"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category Name:"
+msgstr "Όνομα νέας υπερκατηγορίας:"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category"
+msgstr "Νέα υποκατηγορία"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category Name:"
+msgstr "Όνομα νέας υποκατηγορίας:"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:39
+msgid "Annotate previous image"
+msgstr "Σημείωση προηγούμενης εικόνας"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:45
+msgid "Annotate next image"
+msgstr "Σημείωση επόμενης εικόνας"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:65
+msgid "Copy tags from previously tagged image"
+msgstr "Αντιγραφή ετικετών από άλλη εικόνα"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:71
+msgid "Delete image"
+msgstr "Διαγραφή εικόνας"
+
+#: AnnotationDialog/Dialog.cpp:86
+msgid "Label and Dates"
+msgstr "Τίτλος και ημερομηνίες"
+
+#: AnnotationDialog/Dialog.cpp:88
+msgid "Image Preview"
+msgstr "Προεπισκόπηση εικόνας"
+
+#: AnnotationDialog/Dialog.cpp:110
+msgid "Revert This Item"
+msgstr "Επαναφορά αυτού του αντικειμένου"
+
+#: AnnotationDialog/Dialog.cpp:114
+msgid "Clear Form"
+msgstr "Καθαρισμός φόρμας"
+
+#: AnnotationDialog/Dialog.cpp:120
+#, fuzzy
+#| msgid "Options"
+msgid "Options..."
+msgstr "Επιλογές"
+
+#: AnnotationDialog/Dialog.cpp:126
+#, fuzzy
+#| msgid "None"
+msgid "&Done"
+msgstr "Κανένα"
+
+#: AnnotationDialog/Dialog.cpp:129
+msgid "Continue &Later"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:489
+msgid "&Search"
+msgstr "&Αναζήτηση"
+
+#: AnnotationDialog/Dialog.cpp:197
+msgid "Label: "
+msgstr "Ετικέτα: "
+
+#: AnnotationDialog/Dialog.cpp:210
+msgid "Date: "
+msgstr "Ημερομηνία: "
+
+#: AnnotationDialog/Dialog.cpp:231
+msgid "Time: "
+msgstr "Ώρα: "
+
+#: AnnotationDialog/Dialog.cpp:240
+msgid "Add Time Info..."
+msgstr "Προσθήκη πληροφοριών ώρας..."
+
+#: AnnotationDialog/Dialog.cpp:349
+#, kde-format
+msgid "KPhotoAlbum Annotations (%1/%2)"
+msgstr "Σημειώσεις του KPhotoAlbum (%1/%2)"
+
+#: AnnotationDialog/Dialog.cpp:497
+#, fuzzy
+#| msgid "None"
+msgid "Done"
+msgstr "Κανένα"
+
+#: AnnotationDialog/Dialog.cpp:502
+msgid "Annotations"
+msgstr "Σημειώσεις"
+
+#: AnnotationDialog/Dialog.cpp:531
+msgid "Save Current Window Setup"
+msgstr "Αποθήκευσης τρέχουσας ρύθμισης παραθύρων"
+
+#: AnnotationDialog/Dialog.cpp:532
+msgid "Reset layout"
+msgstr "Επαναφορά διάταξης"
+
+#: AnnotationDialog/Dialog.cpp:612
+msgid ""
+"<p>Some changes are made to annotations. Do you really want to cancel all "
+"recent changes for each affected file?</p>"
+msgstr ""
+"<p>Έγιναν κάποιες αλλαγές στις σημειώσεις. Θέλετε πραγματικά να να ακυρώσετε "
+"όλες τις πρόσφατες αλλαγές σε κάθε αρχείο που αλλάχθηκε;</p>"
+
+#: AnnotationDialog/Dialog.cpp:718
+msgid ""
+"<p>You have just opened the advanced search dialog; to get the most out of "
+"it, it is suggested that you read the section in the manual on <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\">advanced searching</"
+"a>.</p><p>This dialog is also used for typing in information about images; "
+"you can find extra tips on its usage by reading about <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
+msgstr ""
+"<p>Μόλις ανοίξατε το διάλογο προχωρημένης αναζήτησης. Για να κάνετε βέλτιστη "
+"χρήση του, προτείνεται να διαβάσετε το κεφάλαιο του εγχειριδίου <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\">προχωρημένη "
+"αναζήτηση</a>.</p><p>Αυτός ο διάλογος χρησιμοποιείται επίσης και για την "
+"πληκτρολόγηση πληροφοριών σχετικά με τις εικόνες. Μπορείτε να βρείτε "
+"επιπλέον βοήθεια σχετικά με τη χρήση του, διαβάζοντας σχετικά στο <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">πληκτρολογώντας</a>.</p>"
+
+#: AnnotationDialog/Dialog.cpp:727
+msgid ""
+"<p>You have just opened one of the most important windows in KPhotoAlbum; it "
+"contains lots of functionality which has been optimized for fast usage.</"
+"p><p>It is strongly recommended that you take 5 minutes to read the <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
+msgstr ""
+"<p>Μόλις ανοίξατε ένα από τα πιο σημαντικά παράθυρα του KPhotoAlbum. "
+"Περιέχει μεγάλη λειτουργικότητα και έχει βελτιστοποιηθεί για γρήγορη χρήση.</"
+"p><p>Συστήνεται έντονα να ξοδέψετε 5 λεπτά για να διαβάσετε την <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">τεκμηρίωση για το διάλογο αυτό</a></"
+"p>"
+
+#: AnnotationDialog/Dialog.cpp:836
+msgid "Sort Most Recently Used"
+msgstr "Ταξινόμηση πρόσφατα χρησιμοποιημένων"
+
+#: AnnotationDialog/Dialog.cpp:839
+msgid "Toggle Sorting"
+msgstr "Εναλλαγή ταξινόμησης"
+
+#: AnnotationDialog/Dialog.cpp:844
+msgid "Toggle Showing Selected Items Only"
+msgstr "Εναλλαγή εμφάνισης μόνο επιλεγμένων αντικειμένων"
+
+#: AnnotationDialog/Dialog.cpp:849
+msgid "Annotate Next"
+msgstr "Σημείωση επόμενου"
+
+#: AnnotationDialog/Dialog.cpp:853
+msgid "Annotate Previous"
+msgstr "Σημείωση προηγούμενου"
+
+#: AnnotationDialog/Dialog.cpp:857
+msgid "OK dialog"
+msgstr "διάλογος OK"
+
+#: AnnotationDialog/Dialog.cpp:865
+msgid "Copy tags from previous image"
+msgstr "Αντιγραφή ετικετών από την προηγούμενη εικόνα"
+
+#: AnnotationDialog/KDateEdit.cpp:70
+msgid "tomorrow"
+msgstr "αύριο"
+
+#: AnnotationDialog/KDateEdit.cpp:71
+msgid "today"
+msgstr "σήμερα"
+
+#: AnnotationDialog/KDateEdit.cpp:72
+msgid "yesterday"
+msgstr "χθες"
+
+#. i18n: file: kphotoalbumui.rc:25
+#. i18n: ectx: Menu (view)
+#: rc.cpp:3
+msgid "&View"
+msgstr "Π&ροβολή"
+
+#. i18n: file: kphotoalbumui.rc:40
+#. i18n: ectx: Menu (privacy)
+#: rc.cpp:6
+msgid "Privacy"
+msgstr "Ιδιωτικό απόρρητο"
+
+#. i18n: file: kphotoalbumui.rc:50
+#. i18n: ectx: Menu (maintenance)
+#: rc.cpp:9
+msgid "&Maintenance"
+msgstr "&Συντήρηση"
+
+#. i18n: file: kphotoalbumui.rc:68
+#. i18n: ectx: Menu (exportplugin)
+#: rc.cpp:15
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#. i18n: file: kphotoalbumui.rc:72
+#. i18n: ectx: Menu (importplugin)
+#: rc.cpp:18
+msgid "Import"
+msgstr "Εισαγωγή"
+
+#. i18n: file: kphotoalbumui.rc:80
+#. i18n: ectx: Menu (batch_plugins)
+#: rc.cpp:24
+msgid "Batch Plugins"
+msgstr "Ομαδικά πρόσθετα"
+
+#. i18n: file: kphotoalbumui.rc:84
+#. i18n: ectx: Menu (tool_plugins)
+#: rc.cpp:27
+msgid "Tools"
+msgstr "Εργαλεία"
+
+#. i18n: file: kphotoalbumui.rc:101
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:30
+msgid "Main Toolbar"
+msgstr "Κύρια γραμμή εργαλείων"
+
+#: rc.cpp:31
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Σπύρος Γεωργαράς, Τούσης Μανώλης"
+
+#: rc.cpp:32
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "sng@hellug.gr, manolis@koppermind.homelinux.org"
+
+#: CategoryListView/CheckDropItem.cpp:112
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>You have just dragged one or more items onto another one, this will "
+#| "make the dragged item a sub category, of the dragged onto item. Sub "
+#| "categories may be used to say that e.g. Las Vegas is in USA - in that "
+#| "example you would drag Las Vegas onto USA. When you've set up sub "
+#| "categories, you may e.g see all images from USA by simply selecting that "
+#| "item in the Browser.</p><p>Was it really your intention to make \"%1\" "
+#| "sub categorie(s) of \"%2\"?</p>"
+msgid ""
+"<p>You have just dragged an item onto another: this will make the dragged "
+"item a sub category of that onto which it was dropped. Sub categories may be "
+"used to denote facts such as 'Las Vegas is in the USA', in that example you "
+"would drag Las Vegas onto USA. When you have set up sub categories you can, "
+"for instance, see all images from the USA by simply selecting that item in "
+"the Browser.</p><p>Was it really your intention to make \"%2\" a sub "
+"category of \"%3\"?</p>"
+msgid_plural ""
+"<p>You have just dragged a number of items onto another: this will make the "
+"dragged items sub categories of that onto which they were dropped. Sub "
+"categories may be used to denote facts such as 'Las Vegas and New York are "
+"in the USA' in that example you would drag 'Las Vegas' and 'New York' onto "
+"USA. When you have set up sub categories you can, for instance, see all "
+"images from the USA by simply selecting that item in the Browser.</p><p>Was "
+"it really your intention to make \"%2\" sub categories of \"%3\"?</p>"
+msgstr[0] ""
+"<p>Μόλις σύρατε ένα ή περισσότερα αντικείμενα πάνω σε κάποιο άλλο. Αυτό θα "
+"καταστήσει το συρόμενο αντικείμενο μια υποκατηγορία, του αντικειμένου στο "
+"οποίο ελευθερώθηκε. Οι υποκατηγορίες χρησιμοποιούνται για παράδειγμα για να "
+"δηλώσουμε ότι το Las Vegas είναι στις ΗΠΑ - στο παράδειγμα αυτό θα σύρετε το "
+"Las Vegas στις ΗΠΑ. Αφού δημιουργήσετε υποκατηγορίες, μπορείτε για "
+"παράδειγμα να δείτε όλες τις εικόνες από τις ΗΠΑ απλά επιλέγοντας το "
+"αντικείμενο στην περιήγηση. </p><p>Πραγματικά έχετε πρόθεση να δημιουργήσετε "
+"υποκατηγορία(ες) \"%1\" του \\%2\";</p>"
+msgstr[1] ""
+"<p>Μόλις σύρατε ένα ή περισσότερα αντικείμενα πάνω σε κάποιο άλλο. Αυτό θα "
+"καταστήσει το συρόμενο αντικείμενο μια υποκατηγορία, του αντικειμένου στο "
+"οποίο ελευθερώθηκε. Οι υποκατηγορίες χρησιμοποιούνται για παράδειγμα για να "
+"δηλώσουμε ότι το Las Vegas είναι στις ΗΠΑ - στο παράδειγμα αυτό θα σύρετε το "
+"Las Vegas στις ΗΠΑ. Αφού δημιουργήσετε υποκατηγορίες, μπορείτε για "
+"παράδειγμα να δείτε όλες τις εικόνες από τις ΗΠΑ απλά επιλέγοντας το "
+"αντικείμενο στην περιήγηση. </p><p>Πραγματικά έχετε πρόθεση να δημιουργήσετε "
+"υποκατηγορία(ες) \"%1\" του \\%2\";</p>"
+
+#: CategoryListView/CheckDropItem.cpp:124
+msgid "Move Items"
+msgstr "Μετακίνηση αντικειμένων"
+
+#: MainWindow/FeatureDialog.cpp:37
+msgid "Feature Status"
+msgstr "Κατάσταση χαρακτηριστικών"
+
+#: MainWindow/FeatureDialog.cpp:42
+#, kde-format
+msgid ""
+"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+"features KPhotoAlbum has, and their status:</p>%1"
+msgstr ""
+"<h1>Περίληψη</h1><p>Παρακάτω μπορείτε να δείτε μια λίστα των χαρακτηριστικών "
+"κατά τη μεταγλώττιση του KPhotoAlbum καθώς και την κατάστασή τους:</p>%1"
+
+#: MainWindow/FeatureDialog.cpp:45
+msgid ""
+"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+"yourself, then please review the sections below to learn what to install to "
+"get the feature in question. If on the other hand you installed KPhotoAlbum "
+"from a binary package, please tell whoever made the package about this "
+"defect, eventually including the information from the section below.<p><p>In "
+"case you are missing a feature and you did not compile KPhotoAlbum yourself, "
+"please do consider doing so. It really isn't that hard. If you need help "
+"compiling KPhotoAlbum, feel free to ask on the <a href=\"http://mail.kdab."
+"net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p><p>The "
+"steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum."
+"org/download-source.html\">the KPhotoAlbum home page</a>. If you have never "
+"compiled a KDE application, then please ensure that you have the developer "
+"packages installed, in most distributions they go under names like "
+"kdelibs<i>-devel</i></p>"
+msgstr ""
+"<h1>Τί μπορώ να κάνω αν λείπει κάποιο χαρακτηριστικό;</h1><p>Αν "
+"μεταγλωττίσατε το KPhotoAlbum μόνοι σας, τότε διαβάστε τα παρακάτω για να "
+"δείτε τι πρέπει να εγκαταστήσετε ώστε να βρείτε το χαρακτηριστικό που "
+"επιθυμείτε. Αν από την άλλη εγκαταστήσατε το KPhotoAlbum από ένα δυαδικό "
+"πακέτο, παρακαλώ ενημερώστε το δημιουργό του πακέτου για την έλλειψη του "
+"χαρακτηριστικού που επιθυμείτε περιλαμβάνοντας τις πληροφορίες της παρακάτω "
+"παραγράφου.<p><p>Στη περίπτωση που σας λείπει κάποιο χαρακτηριστικό και δε "
+"μεταγλωττίσατε μόνοι σας το KPhotoAlbum, θα ήταν καλό να το κάνετε. Δεν "
+"είναι τόσο δύσκολο. Αν χρειάζεστε βοήθεια για τη μεταγλώττιση του "
+"KPhotoAlbum, ζητήστε ελεύθερα στη <a href=\"http://mail.kdab.net/mailman/"
+"listinfo/kphotoalbum\">Λίστα αλληλογραφίας του KPhotoAlbum</a></p><p>Τα "
+"βήματα για τη μεταγλώττιση του KPhotoAlbum μπορούν να βρεθούν στην <a href="
+"\"http://ktown.kde.org/kimdaba/download-source.html\">Αρχική σελίδα του "
+"KPhotoAlbum</a>. Αν ποτέ δεν έχετε μεταγλωττίσει μια εφαρμογή του KDE, "
+"σιγουρευτείτε ότι έχετε εγκατεστημένα τα πακέτα ανάπτυξης: Στις περισσότερες "
+"διανομές έχουν ονόματα όπως το kdelibs<i>-devel</i></p>"
+
+#: MainWindow/FeatureDialog.cpp:61
+msgid ""
+"<h1><a name=\"kipi\">Plug-ins Support</a></h1><p>KPhotoAlbum has a plug-in "
+"system with lots of extensions. You may among other things find plug-ins for:"
+"<ul><li>Writing images to cds or dvd's<li>Adjusting timestamps on your "
+"images<li>Making a calendar featuring your images<li>Uploading your images "
+"to flickr<li>Upload your images to facebook</ul></p><p>The plug-in library "
+"is called KIPI, and may be downloaded from the <a href=\"http://www.kipi-"
+"plugins.org\">KIPI Home page</a></p>"
+msgstr ""
+"<h1><a name=\"kipi\">Υποστήριξη πρόσθετων</a></h1><p>Το KPhotoAlbum περιέχει "
+"ένα σύστημα πρόσθετων με πολλές επεκτάσεις. Μπορείτε να βρείτε μεταξύ των "
+"άλλων, πρόσθετα για:<ul><li>Την εγγραφή εικόνων σε cd ή dvd <li>Τη διόρθωση "
+"των χρονικών σφραγίδων στις εικόνες σας<li>Τη δημιουργία ενός ημερολογίου με "
+"τις εικόνες σας<li>Την αποστολή των εικόνων σας στο flickr<li>Την αποστολή "
+"των εικόνων σας στο facebook</ul></p><p>Η βιβλιοθήκη προσθέτων ονομάζεται "
+"KIPI, και μπορείτε να την κατεβάσετε από την <a href=\"http://kipi-plugins."
+"org\">Αρχική σελίδα του KIPI</a></p>"
+
+#: MainWindow/FeatureDialog.cpp:74
+msgid ""
+"<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information like "
+"the date the image was shot, the shooting angle, focal length, and shutter-"
+"speed in what is known as EXIF information.</p><p>KPhotoAlbum uses the <a "
+"href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> to read EXIF "
+"information from images</p>"
+msgstr ""
+"<h1><a name=\"exiv2\">Υποστήριξη EXIF</a></h1><p>Οι εικόνες αποθηκεύουν "
+"πληροφορίες όπως την ημερομηνία που τραβήχτηκε η φωτογραφία, την γωνία "
+"λήψης, την απόσταση εστίασης, και το χρόνο του διαφράγματος, οι οποίες είναι "
+"γνωστές ως πληροφορίες EXIF.</p><p>Το KPhotoAlbum χρησιμοποιεί τη <a href="
+"\"http://freshmeat.net/projects/exiv2/\">Βιβλιοθήκη EXIV2</a> για την "
+"ανάγνωση των πληροφοριών EXIF από τις εικόνες</p>"
+
+#: MainWindow/FeatureDialog.cpp:82
+#, fuzzy
+#| msgid ""
+#| "<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum "
+#| "allows you to search using a certain number of EXIF tags. For this "
+#| "KPhotoAlbum needs a Sqlite database.In addition the qt package for sqlite "
+#| "(e.g.qt-sql-sqlite) must be installed.</p>"
+msgid ""
+"<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum allows "
+"you to search using a certain number of EXIF tags. For this KPhotoAlbum "
+"needs an Sqlite database. In addition the qt package for sqlite (e.g.qt-sql-"
+"sqlite) must be installed.</p>"
+msgstr ""
+"<h1><a name=\"database\">Υποστήριξη βάσης δεδομένων SQL</a></h1><p>Το "
+"KPhotoAlbum σας επιτρέπει να αναζητήσετε με τη χρήση ορισμένου αριθμού "
+"ετικετών EXIF. Για αυτήν τη λειτουργία το KPhotoAlbum χρειάζεται μια βάση "
+"δεδομένων Sqlite. Ταυτόχρονα θα πρέπει να έχετε εγκαταστήσει το πακέτο της "
+"qt για υποστήριξη της sqlite (π.χ.qt-sql-sqlite).</p>"
+
+#: MainWindow/FeatureDialog.cpp:87
+#, fuzzy
+#| msgid ""
+#| "<h1><a name=\"thumbnails\">Video Thumbnails Support</a></"
+#| "h1><p>KPhotoAlbum asks the KDE plug-in system for help when it needs to "
+#| "generate a thumbnail for videos. <p>Unfortunatly KDE4 does currently not "
+#| "come with any plug-ins for this, you therefore need manually to install "
+#| "<a href=\"http://www.kde-apps.org/content/show.php?content=41180"
+#| "\">MPlayerThumbs</a>.</p>"
+msgid ""
+"<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1><p>KPhotoAlbum "
+"asks the KDE plug-in system for help when it needs to generate a thumbnail "
+"for videos. <p>Unfortunately KDE4 does currently not come with any plug-ins "
+"for this, you therefore need manually to install <a href=\"http://www.kde-"
+"apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>"
+msgstr ""
+"<h1><a name=\"thumbnails\">Υποστήριξη εικόνων επισκόπησης βίντεο</a></"
+"h1><p>Το KPhotoAlbum ζητάει τη βοήθεια του υποσυστήματος προσθέτων του KDE "
+"για τη δημιουργία εικόνων επισκόπησης βίντεο. <p>Για την ώρα το KDE4 δεν "
+"εγκαθιστά κανένα πρόσθετο για τη λειτουργία αυτή, οπότε θα πρέπει να το "
+"εγκαταστήσετε χειροκίνητα <a href=\"http://www.kde-apps.org/content/show.php?"
+"content=41180\">MPlayerThumbs</a>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:92
+#, fuzzy
+#| msgid ""
+#| "<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on the "
+#| "Qt's Phonon architecture for displaying videos, this in turn relies on "
+#| "GStreamer. If this feature is not enabled for you, have a look at the <a "
+#| "href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"
+#| "\">KPhotoAlbum wiki article on video support</a>.</p>"
+msgid ""
+"<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on Qt's "
+"Phonon architecture for displaying videos; this in turn relies on GStreamer. "
+"If this feature is not enabled for you, have a look at the <a href=\"http://"
+"wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum "
+"wiki article on video support</a>.</p>"
+msgstr ""
+"<h1><a name=\"video\">Υποστήριξη βίντεο</a></h1><p>Το KPhotoAlbum εξαρτάται "
+"από την αρχιτεκτονική Qt Phonon για την προβολή βίντεο, το οποίο με τη σειρά "
+"του εξαρτάται από το GStreamer. Αν αυτό το χαρακτηριστικό δεν είναι "
+"ενεργοποιημένο στο σύστημά σας, μπορείτε να πάρετε βοήθεια από το <a href="
+"\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">άρθρο "
+"στο wiki του KPhotoAlbum για υποστήριξη βίντεο</a>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:100
+msgid ""
+"<p>No video mime types found, which indicates that either Qt was compiled "
+"without phonon support, or there were missing codecs</p>"
+msgstr ""
+"<p>Δε βρέθηκαν τύποι mime βίντεο, το οποίο υποδηλώνει ότι η Qt δε "
+"μεταγλωττίστηκε με υποστήριξη Phonon, ή δεν υπάρχουν κάποιοι κωδικοποιητές</"
+"p>"
+
+#: MainWindow/FeatureDialog.cpp:102
+#, kde-format
+msgid ""
+"<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></"
+"p>"
+msgstr ""
+"<p>Το Phonon έχει τη δυνατότητα αναπαραγωγής ταινιών αυτών των τύπων mime:"
+"<ul><li>%1</ul></p>"
+
+#: MainWindow/FeatureDialog.cpp:181
+msgid "Plug-ins available"
+msgstr "Διαθέσιμα πρόσθετα"
+
+#: MainWindow/FeatureDialog.cpp:182
+msgid "EXIF info supported"
+msgstr "Υποστήριξη πληροφοριών EXIF"
+
+#: MainWindow/FeatureDialog.cpp:183
+msgid "SQL Database Support"
+msgstr "Υποστήριξη βάσης δεδομένων SQL"
+
+#: MainWindow/FeatureDialog.cpp:184
+msgid "Sqlite Database Support (used for EXIF searches)"
+msgstr "Υποστήριξη βάσης δεδομένων Sqlite (για αναζητήσεις EXIF)"
+
+#: MainWindow/FeatureDialog.cpp:186
+#, fuzzy
+#| msgid "Video Thumbnails support"
+msgid "Video Thumbnail support"
+msgstr "Υποστήριξη εικόνων επισκόπησης βίντεο"
+
+#: MainWindow/FeatureDialog.cpp:188
+msgid "Video support"
+msgstr "Υποστήριξη βίντεο"
+
+#: MainWindow/FeatureDialog.cpp:191
+msgid "Yes"
+msgstr "Ναι"
+
+#: MainWindow/FeatureDialog.cpp:192
+msgid "No"
+msgstr "Όχι"
+
+#: MainWindow/DeleteDialog.cpp:43
+msgid "Delete from database"
+msgstr "Διαγραφή από τη βάση δεδομένων"
+
+#: MainWindow/DeleteDialog.cpp:55
+msgid "Delete file from disk as well"
+msgstr "Διαγραφή του αρχείου και από το δίσκο"
+
+#: MainWindow/DeleteDialog.cpp:64
+#, kde-format
+msgid ""
+"<p><b><center><font size=\"+3\">Delete Images/Videos from database<br/>%1 "
+"selected</font></center></b></p>"
+msgstr ""
+"<p><b><center><font size=\"+3\">Διαγραφή εικόνων/βίντεο από τη βάση "
+"δεδομένων<br/>Επιλέχθηκαν %1</font></center></b></p>"
+
+#: MainWindow/DeleteDialog.cpp:102
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p><b>Unable to physically delete %1 file(s). Do you have permission to "
+#| "delete these files?</b></p>"
+msgid ""
+"<p><b>Unable to physically delete a file. Do you have permission to do so?</"
+"b></p>"
+msgid_plural ""
+"<p><b>Unable to physically delete %1 files. Do you have permission to do so?"
+"</b></p>"
+msgstr[0] ""
+"<p><b>Αδύνατη η διαγραφή %1 αρχείου(ων). Έχετε άδεια να διαγράψετε αυτά τα "
+"αρχεία;</b></p>"
+msgstr[1] ""
+"<p><b>Αδύνατη η διαγραφή %1 αρχείου(ων). Έχετε άδεια να διαγράψετε αυτά τα "
+"αρχεία;</b></p>"
+
+#: MainWindow/DeleteDialog.cpp:106
+#, fuzzy
+#| msgid "Error Deleting Files"
+msgid "Error Deleting File"
+msgid_plural "Error Deleting Files"
+msgstr[0] "Σφάλμα διαγραφής αρχείων"
+msgstr[1] "Σφάλμα διαγραφής αρχείων"
+
+#: MainWindow/ImageCounter.cpp:32
+#, kde-format
+msgid "Showing 1 thumbnail"
+msgid_plural "Showing %1 thumbnails"
+msgstr[0] "Εμφανίζεται 1 εικόνα επισκόπησης"
+msgstr[1] "Εμφανίζονται %1 εικόνες  επισκόπησης"
+
+#: MainWindow/ImageCounter.cpp:37
+#, kde-format
+msgid "Total: %1"
+msgstr "Συνολικά: %1"
+
+#: MainWindow/ImageCounter.cpp:42
+#, kde-format
+msgid "1 match"
+msgid_plural "%1 matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: MainWindow/StatisticsDialog.cpp:26
+msgid ""
+"<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
+"different items in the category</td></tr><tr><td>Tags Total</td><td>This is "
+"a count of how many tags was made,<br/>i.e. a simple counting though all the "
+"images</tr></tr><tr><td>Tags Per Picture</td><td>This tells you how many "
+"tags are on each picture on average</td></tr></table><br/><br/>Don't get too "
+"attached to this dialog, it has the problem that it counts categories AND "
+"subcategories,<br/>so if an image has been taken in Las Vegas, Nevada, USA, "
+"then 3 tags are counted for that image,<br/>while it should only be one.</"
+"br>I'm not really sure if it is worth fixing that bug (as it is pretty hard "
+"to fix),<br/>so maybe the dialog will simply go away again"
+msgstr ""
+"<h1>Περιγραφή</h1><table><tr><td># αντικειμένων</td><td>Αυτός είναι ο "
+"αριθμός των διαφορετικών αντικειμένων στην κατηγορία</td></tr><tr><td>Σύνολο "
+"ετικετών</td><td>Αυτό είναι το πλήθος των ετικετών,<br/>, μια απλή μέτρηση "
+"σε όλες τις εικόνες</tr></tr><tr><td>Ετικέτες ανά εικόνα</td><td>Ο μέσος "
+"αριθμός ετικετών ανά εικόνα</td></tr></table><br/><br/>Σημειώστε ότι ο "
+"διάλογος αυτός έχει το πρόβλημα ότι μετρά τις κατηγορίες και τις "
+"υποκατηγορίες,<br/>έτσι αν μια εικόνα έχει συλληφθεί στο Λας Βέγκας, Νεβάδα, "
+"ΗΠΑ, τότε μετρούνται 3 ετικέτες στην εικόνα,<br/>ενώ θα 'πρεπε να ναι μόνο "
+"μία.</br>Δεν είμαι σίγουρος ότι αξίζει η διόρθωση του παραπάνω (καθώς είναι "
+"αρκετά δύσκολο να διορθωθεί),<br/>οπότε ίσως ο διάλογος αυτός απλά να "
+"αφαιρεθεί αργότερα"
+
+#: MainWindow/StatisticsDialog.cpp:43
+msgid "<h1>Statistics</h1>"
+msgstr "<h1>Στατιστικά</h1>"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "# of Items"
+msgstr "# αντικειμένων"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Totals"
+msgstr "Σύνολο ετικετών"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Per Picture"
+msgstr "Ετικέτες ανά εικόνα"
+
+#: MainWindow/StatisticsDialog.cpp:89
+msgid "Tag indication completed annotation"
+msgstr "Σημείωση υποδήλωσης ετικέτας"
+
+#: MainWindow/StatisticsDialog.cpp:95
+msgid ""
+"If you use a specific tag to indicate that an image has been tagged, then "
+"specify it here."
+msgstr ""
+"Αν χρησιμοποιείτε κάποια συγκεκριμένη ετικέτα για να υποδηλώσετε ότι η "
+"εικόνα έχει σημειωθεί, τότε καθορίστε την εδώ."
+
+#: MainWindow/StatisticsDialog.cpp:195
+msgid "Total"
+msgstr "Σύνολο"
+
+#: MainWindow/WelcomeDialog.cpp:55
+msgid ""
+"<h1>Welcome to KPhotoAlbum</h1><p>If you are interested in trying out "
+"KPhotoAlbum with a prebuilt set of images, then simply choose the <b>Load "
+"Demo</b> button. You may get to this demo at a later time from the <b>Help</"
+"b> menu.</p><p>Alternatively you may start making you own database of "
+"images, simply by pressing the <b>Create my own database</b> button."
+msgstr ""
+"<h1>Καλώς ήρθατε στο KPhotoAlbum</h1><p>Αν ενδιαφέρεστε να δοκιμάσετε το "
+"KPhotoAlbum με ένα προκατασκευασμένο σύνολο εικόνων, απλά επιλέξτε το κουμπί "
+"<b>Φόρτωση επίδειξης</b>. Μπορείτε να δείτε την επίδειξη αργότερα από το "
+"μενού <b>Βοήθεια</b>.</p><p>Εναλλακτικά μπορείτε να ξεκινήσετε να φτιάξετε "
+"τη δική σας βάση δεδομένων των εικόνων σας, απλά πατώντας το κουμπί "
+"<b>Δημιουργία βάσης δεδομένων</b>."
+
+#: MainWindow/WelcomeDialog.cpp:67
+msgid "Load Demo"
+msgstr "Φόρτωση επίδειξης"
+
+#: MainWindow/WelcomeDialog.cpp:70
+msgid "Create My Own Database..."
+msgstr "Δημιουργία βάσης δεδομένων..."
+
+#: MainWindow/WelcomeDialog.cpp:73
+msgid "Check My Feature Set"
+msgstr "Έλεγχος συνόλου των χαρακτηριστικών"
+
+#: MainWindow/WelcomeDialog.cpp:109
+msgid ""
+"<p>KPhotoAlbum requires that all your images and videos are stored with a "
+"common root directory. You are allowed to store your images in a directory "
+"tree under this directory. KPhotoAlbum will not modify or edit any of your "
+"images, so you can simply point KPhotoAlbum to the directory where you "
+"already have all your images located.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum απαιτεί όλες οι εικόνες σας και βίντεο να αποθηκεύονται "
+"κάτω από έναν κοινό βασικό κατάλογο. Επιτρέπεται να αποθηκεύετε εικόνες σε "
+"έναν κατάλογο κάτω από αυτόν το βασικό κατάλογο. Το KPhotoAlbum δε θα "
+"τροποποιήσει ή επεξεργαστεί κάποια από τις εικόνες σας, έτσι μπορείτε απλά "
+"να δηλώσετε στο KPhotoAlbum τον κατάλογο όπου ήδη έχετε τις εικόνες σας.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:118
+msgid "Image/Video root directory: "
+msgstr "Βασικός κατάλογος εικόνων/βίντεο: "
+
+#: MainWindow/WelcomeDialog.cpp:148
+#, fuzzy
+#| msgid "Directory does not exists, should I create it?"
+msgid "Directory does not exist, create it?"
+msgstr "Ο κατάλογος δεν υπάρχει, να δημιουργηθεί;"
+
+#: MainWindow/WelcomeDialog.cpp:152
+#, kde-format
+msgid "Could not create directory %1"
+msgstr "Αδυναμία δημιουργίας του καταλόγου %1"
+
+#: MainWindow/WelcomeDialog.cpp:159
+#, kde-format
+msgid "%1 exists, but is not a directory"
+msgstr "Το %1 υπάρχει, αλλά δεν είναι κατάλογος"
+
+#: MainWindow/WelcomeDialog.cpp:178
+#, kde-format
+msgid ""
+"<p>KPhotoAlbum does not seem to be build with support for all its features. "
+"The following is a list indicating to you what you may miss:<ul>%1</ul></"
+"p><p>For details on how to solve this problem, please choose <b>Help</b>|"
+"<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
+msgstr ""
+"<p>Το KPhotoAlbum δε φαίνεται να έχει κατασκευαστεί με υποστήριξη όλων των "
+"χαρακτηριστικών. Η παρακάτω λίστα σας εμφανίζει τι έχετε πιθανότατα χάσει:"
+"<ul>%1</ul></p><p>Για λεπτομέρειες επίλυσης του προβλήματος, παρακαλώ "
+"επιλέξτε τη <b>Βοήθεια</b>|<b>Κατάσταση χαρακτηριστικών του KPhotoAlbum</b> "
+"από του μενού.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:182 MainWindow/WelcomeDialog.cpp:186
+msgid "Feature Check"
+msgstr "Έλεγχος χαρακτηριστικών"
+
+#: MainWindow/WelcomeDialog.cpp:185
+#, fuzzy
+#| msgid "Congratulations! All dynamic features have been enabled"
+msgid "Congratulations: all dynamic features have been enabled."
+msgstr "Συγχαρητήρια! Όλα τα δυναμικά χαρακτηριστικά ενεργοποιήθηκαν"
+
+#: MainWindow/CategoryImagePopup.cpp:61
+msgid "Show Category Editor"
+msgstr "Εμφάνιση επεξεργαστή κατηγοριών"
+
+#: MainWindow/CategoryImagePopup.cpp:83
+#, fuzzy
+#| msgid "Configure Category Image"
+msgid "Make Category Image"
+msgstr "Ρύθμιση κατηγορίας εικόνας"
+
+#: MainWindow/TokenEditor.cpp:38 MainWindow/Window.cpp:661
+msgid "Remove Tokens"
+msgstr "Αφαίρεση ενδεικτικών"
+
+#: MainWindow/TokenEditor.cpp:45
+msgid "Select tokens to remove from all images and videos:"
+msgstr "Επιλογή ενδεικτικών για αφαίρεση από όλες τις εικόνες και βίντεο:"
+
+#: MainWindow/TokenEditor.cpp:64
+msgid "Select None"
+msgstr "Επιλογή κανενός"
+
+#: MainWindow/SearchBar.cpp:32
+msgid "Search:"
+msgstr "Αναζήτηση:"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "Current Item"
+msgstr "Τρέχον αντικείμενο"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "All Selected Items"
+msgstr "Όλα τα επιλεγμένα αντικείμενα"
+
+#: MainWindow/ExternalPopup.cpp:100
+msgid "Invoke External Program"
+msgstr "Κλήση εξωτερικού προγράμματος"
+
+#: MainWindow/InvalidDateFinder.cpp:42
+msgid "Search for Images and Videos with Missing Dates"
+msgstr "Αναζήτηση εικόνων και βίντεο χωρίς ημερομηνίες"
+
+#: MainWindow/InvalidDateFinder.cpp:49
+msgid "Which Images and Videos to Display"
+msgstr "Ποιες εικόνες και βίντεο θα εμφανιστούν"
+
+#: MainWindow/InvalidDateFinder.cpp:53
+msgid ""
+"Search for images and videos with a valid date but an invalid time stamp"
+msgstr ""
+"Αναζήτηση εικόνων και βίντεο με έγκυρη ημερομηνία αλλά με μη έγκυρη χρονική "
+"σφραγίδα"
+
+#: MainWindow/InvalidDateFinder.cpp:54
+msgid "Search for images and videos missing date and time"
+msgstr "Αναζήτηση εικόνων και βίντεο χωρίς ημερομηνία και ώρα"
+
+#: MainWindow/InvalidDateFinder.cpp:55
+msgid ""
+"Search for images and videos with only partial dates (like 1971 vs. 11/7-"
+"1971)"
+msgstr ""
+"Αναζήτηση εικόνων και βίντεο με μερική ημερομηνία (όπως 1971 αντί του 11/7-"
+"1971)"
+
+#: MainWindow/InvalidDateFinder.cpp:70
+msgid "Image Info"
+msgstr "Πληροφορίες εικόνας"
+
+#: MainWindow/InvalidDateFinder.cpp:79
+msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
+msgstr ""
+"<h1>Εδώ μπορείτε να δείτε τις τροποποιήσεις ημερομηνιών των εμφανιζόμενων "
+"αντικειμένων.</h1>"
+
+#: MainWindow/InvalidDateFinder.cpp:84
+msgid "Reading file properties"
+msgstr "Ανάγνωση ιδιοτήτων αρχείου"
+
+#: MainWindow/InvalidDateFinder.cpp:85
+msgid "Reading File Properties"
+msgstr "Ανάγνωση ιδιοτήτων αρχείου"
+
+#: MainWindow/Window.cpp:138
+msgid "Loading Database"
+msgstr "Φόρτωση βάσης δεδομένων"
+
+#: MainWindow/Window.cpp:144
+msgid "Loading Main Window"
+msgstr "Φόρτωση κύριου παράθυρου"
+
+#: MainWindow/Window.cpp:226
+msgid "Searching for New Files"
+msgstr "Αναζήτηση για νέα αρχεία"
+
+#: MainWindow/Window.cpp:235
+msgid "Loading Plug-ins"
+msgstr "Φόρτωση προσθέτων"
+
+#: MainWindow/Window.cpp:256
+msgid ""
+"EXIF database cannot be opened. Check that the image root directory is "
+"writable."
+msgstr ""
+"Η βάση δεδομένων EXIF δεν μπορεί να ανοιχτεί. Ελέγξτε αν η ριζική διαδρομή "
+"εικόνων είναι εγγράψιμη."
+
+#: MainWindow/Window.cpp:265
+msgid ""
+"<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
+"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
+"now? If you do not delete it, it will waste disk space; on the other hand, "
+"if you want to come back and try the demo again, you might want to keep it "
+"around with the changes you made through this session.</p>"
+msgstr ""
+"<p><b>Διαγραφή της προσωρινής βάσης δεδομένων επίδειξης</b></p><p>Ελπίζουμε "
+"να διασκεδάσατε με την επίδειξη του KPhotoAlbum. Η βάση δεδομένων επίδειξης "
+"αντιγράφτηκε στο /tmp, να διαγραφεί τώρα; Αν δεν την διαγράψετε, θα "
+"καταλαμβάνει χώρο, από την άλλη, αν θέλετε να ξαναδοκιμάσετε την επίδειξη "
+"ξανά, ίσως επιθυμείτε να διατηρήσετε τις αλλαγές που κάνατε σε αυτήν τη "
+"συνεδρία.</p>"
+
+#: MainWindow/Window.cpp:270
+msgid "Delete Demo Database"
+msgstr "Διαγραφή βάσης δεδομένων επίδειξης"
+
+#: MainWindow/Window.cpp:285
+msgid "Do you want to save the changes?"
+msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
+
+#: MainWindow/Window.cpp:286
+msgid "Save Changes?"
+msgstr "Αποθήκευση αλλαγών;"
+
+#: MainWindow/Window.cpp:323
+msgid ""
+"Some of the selected images already belong to a stack. Do you want to remove "
+"them from their stacks and create a completely new one?"
+msgstr ""
+"Κάποιες από τις επιλεγμένες εικόνες ανήκουν ήδη σε μια στοίβα. Επιθυμείτε "
+"την αφαίρεσή τους και τη δημιουργία μιας νέας στοίβας με αυτές;"
+
+#: MainWindow/Window.cpp:325 MainWindow/Window.cpp:330
+msgid "Stacking Error"
+msgstr "Σφάλμα στοίβας"
+
+#: MainWindow/Window.cpp:329
+#, fuzzy
+#| msgid "Something fishy happened, stack creation failed, sorry."
+msgid "Unknown error, stack creation failed."
+msgstr "Αποτυχία δημιουργίας στοίβας δυστυχώς από άγνωστη αιτία."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1205
+msgid "No item is selected."
+msgstr "Χωρίς επιλεγμένο αντικείμενο."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1206
+msgid "No Selection"
+msgstr "Καμία επιλογή"
+
+#: MainWindow/Window.cpp:459
+msgid "Saving..."
+msgstr "Αποθήκευση..."
+
+#: MainWindow/Window.cpp:463
+msgid "Saving... Done"
+msgstr "Αποθήκευση ... Έγινε"
+
+#: MainWindow/Window.cpp:558
+msgid "There are no images to be shown."
+msgstr "Δεν υπάρχουν εικόνες προς εμφάνιση."
+
+#: MainWindow/Window.cpp:625
+msgid "Generate HTML..."
+msgstr "Δημιουργία HTML..."
+
+#: MainWindow/Window.cpp:629
+msgid "Import..."
+msgstr "Εισαγωγή..."
+
+#: MainWindow/Window.cpp:632
+msgid "Export/Copy Images..."
+msgstr "Εξαγωγή/αντιγραφή εικόνων..."
+
+#: MainWindow/Window.cpp:655
+msgid "Delete Selected"
+msgstr "Διαγραφή επιλεγμένων"
+
+#: MainWindow/Window.cpp:664
+msgid "Open List of Files..."
+msgstr "Άνοιγμα λίστας αρχείων..."
+
+#: MainWindow/Window.cpp:668
+msgid "Annotate Individual Items"
+msgstr "Σημείωση εξατομικευμένων αντικειμένων"
+
+#: MainWindow/Window.cpp:672
+msgid "Annotate Multiple Items at a Time"
+msgstr "Σημείωση πολλαπλών αντικειμένων με τη μία"
+
+#: MainWindow/Window.cpp:676
+msgid "Merge Images into a Stack"
+msgstr "Συγχώνευση εικόνων στη στοίβα"
+
+#: MainWindow/Window.cpp:680
+msgid "Remove Images from Stack"
+msgstr "Αφαίρεση εικόνων από τη στοίβα"
+
+#: MainWindow/Window.cpp:697
+msgid "View"
+msgstr "Προβολή"
+
+#: MainWindow/Window.cpp:701
+msgid "View (In New Window)"
+msgstr "Προβολή (σε νέο παράθυρο)"
+
+#: MainWindow/Window.cpp:704
+msgid "Run Slide Show"
+msgstr "Εκτέλεση εμφάνισης σλάιντ"
+
+#: MainWindow/Window.cpp:709
+msgid "Run Randomized Slide Show"
+msgstr "Εκτέλεση εμφάνισης σλάιντ σε τυχαία σειρά"
+
+#: MainWindow/Window.cpp:715
+msgid "Collapse all stacks"
+msgstr "Σύμπτυξη όλων των στοιβών"
+
+#: MainWindow/Window.cpp:721
+msgid "Expand all stacks"
+msgstr "Ανάπτυξη όλων των στοιβών"
+
+#: MainWindow/Window.cpp:726
+msgid "Show &Oldest First"
+msgstr "Εμφάνιση πρώτα των &παλαιότερων"
+
+#: MainWindow/Window.cpp:731
+msgid "Show &Newest First"
+msgstr "Εμφάνιση πρώτα των &νεότερων"
+
+#: MainWindow/Window.cpp:736
+msgid "Sort Selected by Date && Time"
+msgstr "Ταξινόμηση επιλεγμένων ανά ημερομηνία && ώρα"
+
+#: MainWindow/Window.cpp:739
+msgid "Limit View to Marked"
+msgstr "Περιορισμός προβολής στα σημαδεμένα"
+
+#: MainWindow/Window.cpp:742
+msgid "Jump to Context"
+msgstr "Άλμα στο σχετικό"
+
+#: MainWindow/Window.cpp:747
+msgid "Lock Images"
+msgstr "Κλείδωμα εικόνων"
+
+#: MainWindow/Window.cpp:750
+msgid "Unlock"
+msgstr "Ξεκλείδωμα"
+
+#: MainWindow/Window.cpp:753
+msgid "Change Password..."
+msgstr "Αλλαγή κωδικού πρόσβασης..."
+
+#: MainWindow/Window.cpp:757
+msgid "Lock Away All Other Items"
+msgstr "Κλείδωμα όλων των άλλων αντικειμένων"
+
+#: MainWindow/Window.cpp:760
+msgid "Lock Away Current Set of Items"
+msgstr "Κλείδωμα του τρέχοντος συνόλου των αντικειμένων"
+
+#: MainWindow/Window.cpp:764
+msgid "Display Images and Videos Not on Disk"
+msgstr "Εμφάνιση εικόνων και βίντεο που δεν είναι στο δίσκο"
+
+#: MainWindow/Window.cpp:767
+msgid "Display Images and Videos with Incomplete Dates..."
+msgstr "Εμφάνιση εικόνων και βίντεο με ασυμπλήρωτες ημερομηνίες..."
+
+#: MainWindow/Window.cpp:771
+msgid "Display Images and Videos with Changed MD5 Sum"
+msgstr "Εμφάνιση εικόνων και βίντεο που έχουν αλλαγμένο MD5 Sum"
+
+#: MainWindow/Window.cpp:775
+msgid "Recalculate Checksum"
+msgstr "Επαναυπολογισμός αθροίσματος ελέγχου"
+
+#: MainWindow/Window.cpp:778
+msgid "Rescan for Images and Videos"
+msgstr "Επανασάρωση για εικόνες και βίντεο"
+
+#: MainWindow/Window.cpp:782
+msgid "Recreate Exif Search Database"
+msgstr "Επαναδημιουργία βάσης δεδομένων αναζήτησης Exif"
+
+#: MainWindow/Window.cpp:785
+msgid "Read EXIF Info From Files..."
+msgstr "Ανάγνωση πληροφοριών EXIF από τα αρχεία..."
+
+#: MainWindow/Window.cpp:790
+msgid "Convert Backend...(Experimental!)"
+msgstr "Πρόγραμμα μετατροπής... (Δοκιμαστικό!)"
+
+#: MainWindow/Window.cpp:795
+msgid "Build Thumbnails"
+msgstr "Κατασκευή εικόνων επισκόπησης"
+
+#: MainWindow/Window.cpp:798
+msgid "Statistics"
+msgstr "Στατιστικά"
+
+#: MainWindow/Window.cpp:807
+msgid "Enable All Messages"
+msgstr "Ενεργοποίηση όλων των μηνυμάτων"
+
+#: MainWindow/Window.cpp:810
+#, fuzzy
+#| msgid "Configure View"
+msgid "Configure Current View"
+msgstr "Ρύθμιση προβολής"
+
+#: MainWindow/Window.cpp:819
+#, fuzzy
+#| msgid "Theme:"
+msgid "Tree"
+msgstr "Θέμα:"
+
+#: MainWindow/Window.cpp:824
+msgid "Tree with User Icons"
+msgstr ""
+
+#: MainWindow/Window.cpp:830 MainWindow/Window.cpp:836
+#, fuzzy
+#| msgid "Icon:"
+msgid "Icons"
+msgstr "Εικονίδιο:"
+
+#: MainWindow/Window.cpp:848
+msgid "Show Tooltips in Thumbnails Window"
+msgstr "Εμφάνιση υποδείξεων στο παράθυρο εικόνων επισκόπησης"
+
+#: MainWindow/Window.cpp:854
+msgid "Run KPhotoAlbum Demo"
+msgstr "Εκτέλεση της επίδειξης του KPhotoAlbum"
+
+#: MainWindow/Window.cpp:857
+msgid "KPhotoAlbum Feature Status"
+msgstr "Κατάσταση χαρακτηριστικών του KPhotoAlbum"
+
+#: MainWindow/Window.cpp:860
+msgid "Show Demo Videos"
+msgstr "Εμφάνιση βίντεο επίδειξης"
+
+#: MainWindow/Window.cpp:865
+msgid "Show Exif Info"
+msgstr "Εμφάνιση πληροφοριών Exif"
+
+#: MainWindow/Window.cpp:868
+msgid "Recreate Selected Thumbnails"
+msgstr "Επανακατασκευή εικόνων επισκόπησης"
+
+#: MainWindow/Window.cpp:893
+msgid "Auto saving...."
+msgstr "Αυτόματη αποθήκευση...."
+
+#: MainWindow/Window.cpp:895
+msgid "Auto saving.... Done"
+msgstr "Αυτόματο αποθήκευση.... Έγινε"
+
+#: MainWindow/Window.cpp:1000
+#, kde-format
+msgid ""
+"SQL backend initialization failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Η αρχικοποίηση του συστήματος υποστήριξης SQL, επειδή συνέβη το παρακάτω "
+"σφάλμα:\n"
+"%1"
+
+#: MainWindow/Window.cpp:1004
+msgid "SQL database support is not compiled in."
+msgstr ""
+"Η υποστήριξη βάσης δεδομένων SQL δεν είναι μεταγλωττισμένη-ενσωματωμένη."
+
+#: MainWindow/Window.cpp:1009
+#, kde-format
+msgid "Invalid database backend: %1"
+msgstr "Μη έγκυρο σύστημα υποστήριξης βάσης δεδομένων: %1"
+
+#: MainWindow/Window.cpp:1014
+msgid "Do you want to use XML backend instead?"
+msgstr "Επιθυμείτε τη χρήση του συστήματος XML στη θέση;"
+
+#: MainWindow/Window.cpp:1077
+msgid ""
+"<p>The password protection is only a means of allowing your little sister to "
+"look in your images, without getting to those embarrassing images from your "
+"last party.</p><p>In other words, anyone with access to the index.xml file "
+"can easily circumvent this password.</b></p>"
+msgstr ""
+"<p>Η προστασία κωδικού υπάρχει για παράδειγμα για τη μικρή σας αδερφή που "
+"μπορεί να δει τις εικόνες σας, χωρίς να δει και τις ντροπιαστικές εικόνες "
+"σας από το τελευταίο πάρτι.</p><p>Με άλλα λόγια, οποιοσδήποτε με πρόσβαση "
+"στο αρχείο index.xml μπορεί άνετα να παρακάμψει τον κωδικό.</b></p>"
+
+#: MainWindow/Window.cpp:1082
+msgid "Password Protection"
+msgstr "Προστασία κωδικού πρόσβασης"
+
+#: MainWindow/Window.cpp:1096
+msgid "Type in Password to Unlock"
+msgstr "Πληκτρολογήστε τον κωδικό πρόσβασης για ξεκλείδωμα"
+
+#: MainWindow/Window.cpp:1105 MainWindow/Window.cpp:1145
+msgid "Invalid password."
+msgstr "Μη έγκυρος κωδικός πρόσβασης."
+
+#: MainWindow/Window.cpp:1136
+msgid "Type in Old Password"
+msgstr "Πληκτρολογήστε τον παλιό κωδικό πρόσβασης"
+
+#: MainWindow/Window.cpp:1148
+msgid "Type in New Password"
+msgstr "Πληκτρολογήστε το νέο κωδικό πρόσβασης"
+
+#: MainWindow/Window.cpp:1172
+msgid "Annotation Dialog"
+msgstr "Διάλογος σημειώσεων"
+
+#: MainWindow/Window.cpp:1332
+#, fuzzy
+#| msgid ""
+#| "<p>Really enable all messageboxes where you previously checked the do-not-"
+#| "show-again check box?</p>"
+msgid ""
+"<p>Really enable all message boxes where you previously checked the do-not-"
+"show-again check box?</p>"
+msgstr ""
+"<p>Θέλετε πραγματικά να γίνει ενεργοποίηση όλων των μηνυμάτων που επιλέξατε "
+"προηγουμένως να μην εμφανιστούν ξανά;</p>"
+
+#: MainWindow/Window.cpp:1343
+msgid ""
+"<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
+"Window::setupPluginMenu). This indicate that you forgot to do a make "
+"install. If you did compile KPhotoAlbum yourself, then please run make "
+"install. If not, please report this as a bug.</p><p>KPhotoAlbum will "
+"continue execution, but it is not entirely unlikely that it will crash later "
+"on due to the missing make install.</p>"
+msgstr ""
+
+#: MainWindow/Window.cpp:1343
+#, fuzzy
+#| msgid "Invoke External Program"
+msgid "Internal Error"
+msgstr "Κλήση εξωτερικού προγράμματος"
+
+#: MainWindow/Window.cpp:1511
+msgid "Open List of Files"
+msgstr "Άνοιγμα λίστας των αρχείων"
+
+#: MainWindow/Window.cpp:1511
+msgid "Enter file names"
+msgstr "Εισαγωγή ονομάτων αρχείων"
+
+#: MainWindow/Window.cpp:1525
+msgid "No images matching your input were found."
+msgstr "Δε βρέθηκαν εικόνες που ταιριάζουν στην εισαγωγή σας."
+
+#: MainWindow/Window.cpp:1525
+msgid "No Matches"
+msgstr "Κανένα ταίριασμα"
+
+#: MainWindow/Window.cpp:1594
+msgid "Database conversion from SQL database is not yet supported."
+msgstr "Η μετατροπή βάσης δεδομένων από βάση SQL δεν υποστηρίζεται ακόμη."
+
+#: MainWindow/Window.cpp:1601
+msgid ""
+"You should set SQL database settings before the conversion. Do you want to "
+"do this now?"
+msgstr ""
+"Πρέπει να ορίσετε τις ρυθμίσεις της βάσης δεδομένων SQL πριν από τη "
+"μετατροπή. Επιθυμείτε να γίνει αυτό τώρα;"
+
+#: MainWindow/Window.cpp:1621
+msgid "Converting database"
+msgstr "Μετατροπή βάσης δεδομένων"
+
+#: MainWindow/Window.cpp:1624
+msgid "Converting database to SQL."
+msgstr "Μετατροπή βάσης δεδομένων σε SQL."
+
+#: MainWindow/Window.cpp:1625
+msgid "Please wait."
+msgstr "Παρακαλώ περιμένετε."
+
+#: MainWindow/Window.cpp:1634
+msgid "Database conversion is ready."
+msgstr "Η μετατροπή της βάσης ολοκληρώθηκε."
+
+#: MainWindow/Window.cpp:1637
+#, kde-format
+msgid ""
+"Database conversion failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Αδύνατη η μετατροπή της βάσης δεδομένων, γιατί παρουσιάστηκε το ακόλουθο "
+"σφάλμα:\n"
+"%1"
+
+#: MainWindow/SplashScreen.cpp:67
+#, kde-format
+msgid "Version %1"
+msgstr "Έκδοση %1"
+
+#: MainWindow/SplashScreen.cpp:69
+#, kde-format
+msgid "Version: %1"
+msgstr "Έκδοση: %1"
+
+#: HTMLGenerator/HTMLDialog.cpp:50
+msgid "HTML Export"
+msgstr "Εξαγωγή HTML"
+
+#: HTMLGenerator/HTMLDialog.cpp:63 HTMLGenerator/HTMLDialog.cpp:64
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+#: HTMLGenerator/HTMLDialog.cpp:72
+msgid "Page title:"
+msgstr "Τίτλος σελίδας:"
+
+#: HTMLGenerator/HTMLDialog.cpp:79
+msgid "Copyright:"
+msgstr ""
+
+#: HTMLGenerator/HTMLDialog.cpp:88
+msgid "Description:"
+msgstr "Περιγραφή:"
+
+#: HTMLGenerator/HTMLDialog.cpp:95
+msgid "Create .kim export file"
+msgstr "Δημιουργία αρχείου εξαγωγής .kim"
+
+#: HTMLGenerator/HTMLDialog.cpp:99
+msgid "Inline Movies in pages"
+msgstr "Ενσωματωμένα βίντεο στις σελίδες"
+
+#: HTMLGenerator/HTMLDialog.cpp:104
+msgid "What to Include"
+msgstr "Τί να συμπεριληφθεί"
+
+#: HTMLGenerator/HTMLDialog.cpp:136 HTMLGenerator/HTMLDialog.cpp:137
+msgid "Layout"
+msgstr "Διάταξη"
+
+#: HTMLGenerator/HTMLDialog.cpp:146
+msgid "Thumbnail size:"
+msgstr "Μέγεθος εικόνας επισκόπησης:"
+
+#: HTMLGenerator/HTMLDialog.cpp:161
+msgid "Number of columns:"
+msgstr "Αριθμός στηλών:"
+
+#: HTMLGenerator/HTMLDialog.cpp:176
+msgid "Theme:"
+msgstr "Θέμα:"
+
+#: HTMLGenerator/HTMLDialog.cpp:187
+msgid "Image Sizes"
+msgstr "Μεγέθη εικόνας"
+
+#: HTMLGenerator/HTMLDialog.cpp:197
+msgid "Full size"
+msgstr "Πλήρες μέγεθος"
+
+#: HTMLGenerator/HTMLDialog.cpp:240 HTMLGenerator/HTMLDialog.cpp:241
+msgid "Destination"
+msgstr "Προορισμός"
+
+#: HTMLGenerator/HTMLDialog.cpp:250
+msgid "Base directory:"
+msgstr "Βασικός κατάλογος:"
+
+#: HTMLGenerator/HTMLDialog.cpp:268
+msgid "Base URL:"
+msgstr "Βασικό URL:"
+
+#: HTMLGenerator/HTMLDialog.cpp:277
+msgid "URL for final destination:"
+msgstr "URL για τελικό προορισμό:"
+
+#: HTMLGenerator/HTMLDialog.cpp:285
+msgid "Output directory:"
+msgstr "Κατάλογος εξόδου:"
+
+#: HTMLGenerator/HTMLDialog.cpp:291
+msgid "<b>Hint: Press the help button for descriptions of the fields</b>"
+msgstr "<b>Συμβουλή: Πιέστε το κουμπί βοήθειας για περιγραφές των πεδίων</b>"
+
+#: HTMLGenerator/HTMLDialog.cpp:302
+msgid "You must select at least one resolution."
+msgstr "Πρέπει να επιλέξετε τουλάχιστον μια ανάλυση."
+
+#: HTMLGenerator/HTMLDialog.cpp:339
+msgid ""
+"<p>You did not specify a base directory. This is the topmost directory for "
+"your images. Under this directory you will find each generated collection in "
+"separate directories.</p>"
+msgstr ""
+"<p>Δεν ορίσατε ένα βασικό κατάλογο. Αυτός είναι ο ανώτερος κατάλογος των "
+"φωτογραφιών σας. Κάτω από αυτόν τον κατάλογο θα βρείτε κάθε δημιουργημένη "
+"συλλογή σε ξεχωριστούς καταλόγους.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:343
+msgid "No Base Directory Specified"
+msgstr "Δεν ορίστηκε βασικός κατάλογος"
+
+#: HTMLGenerator/HTMLDialog.cpp:349
+msgid ""
+"<p>You did not specify an output directory. This is a directory containing "
+"the actual images. The directory will be in the base directory specified "
+"above.</p>"
+msgstr ""
+"<p>Δεν ορίσατε έναν κατάλογο εξόδου. Αυτός είναι ο κατάλογος που περιέχει "
+"τις ίδιες τις φωτογραφίες. Αυτός ο κατάλογος θα βρίσκεται στο βασικό "
+"κατάλογο που ορίσατε παραπάνω.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:352
+msgid "No Output Directory Specified"
+msgstr "Δεν ορίστηκε κατάλογος εξόδου"
+
+#: HTMLGenerator/HTMLDialog.cpp:360
+#, kde-format
+msgid ""
+"<p>Error while reading information about %1. This is most likely because the "
+"directory does not exist.</p>"
+msgstr ""
+"<p>Σφάλμα κατά την ανάγνωση πληροφοριών σχετικά με το %1. Αυτό πιθανώς να "
+"συμβαίνει επειδή ο κατάλογος δεν υπάρχει.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:368
+#, kde-format
+msgid "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+msgstr "<p>Το %1 δεν υπάρχει, δεν είναι κατάλογος ή δεν μπορεί να γραφτεί.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:378
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Output directory %1 already exists. Usually you should specify a new "
+#| "directory.</p><p>Should I delete %2 first?</p>"
+msgid ""
+"<p>Output directory %1 already exists. Usually, this means you should "
+"specify a new directory.</p><p>Should %2 be deleted first?</p>"
+msgstr ""
+"<p>Ο κατάλογος εξόδου %1 υπάρχει ήδη. Συνήθως πρέπει να ορίσετε ένα νέο "
+"κατάλογο.</p><p>Να διαγραφεί πρώτα ο %2 ;</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:381
+msgid "Directory Exists"
+msgstr "Ο κατάλογος υπάρχει"
+
+#: HTMLGenerator/HTMLDialog.cpp:452
+#, kde-format
+msgid "%1 (by %2)"
+msgstr "%1 (από %2)"
+
+#: HTMLGenerator/HTMLDialog.cpp:463
+msgid "Could not find any themes - this is very likely an installation error"
+msgstr ""
+"Αδυναμία εύρεσης κάποιου θέματος - αυτό πιθανώς να είναι πρόβλημα "
+"εγκατάστασης"
+
+#: HTMLGenerator/HTMLDialog.cpp:470
+#, kde-format
+msgid "More than one theme is set as default, using theme %1"
+msgstr ""
+
+#: HTMLGenerator/Generator.cpp:47
+msgid "Generating images for HTML page "
+msgstr "Δημιουργία εικόνων για σελίδα HTML "
+
+#: HTMLGenerator/Generator.cpp:137
+#, kde-format
+msgid "Error copying %1 to %2"
+msgstr "Σφάλμα αντιγραφής %1 στο %2"
+
+#: HTMLGenerator/Generator.cpp:344
+#, kde-format
+msgid "<a href=\"%1\">prev</a>"
+msgstr "<a href=\"%1\">προηγ</a>"
+
+#: HTMLGenerator/Generator.cpp:346 HTMLGenerator/Generator.cpp:354
+msgid "prev"
+msgstr "προηγ"
+
+#: HTMLGenerator/Generator.cpp:358
+#, c-format, kde-format
+msgid "<a href=\"index-%1.html\">index</a>"
+msgstr "<a href=\"index-%1.html\">δείκτης</a>"
+
+#: HTMLGenerator/Generator.cpp:367
+#, kde-format
+msgid "<a href=\"%1\">next</a>"
+msgstr "<a href=\"%1\">επόμενο</a>"
+
+#: HTMLGenerator/Generator.cpp:369 HTMLGenerator/Generator.cpp:376
+msgid "next"
+msgstr "επόμενο"
+
+#: HTMLGenerator/Generator.cpp:500
+#, kde-format
+msgid "Could not create file '%1'."
+msgstr "Αδυναμία δημιουργίας του αρχείου '%1'."
+
+#: HTMLGenerator/Generator.cpp:501
+msgid "Could Not Create File"
+msgstr "Αδυναμία δημιουργίας του αρχείου"
+
+#: HTMLGenerator/Generator.cpp:533
+#, kde-format
+msgid "<p>Unable to copy %1 to %2</p>"
+msgstr "<p>Αδυναμία αντιγραφής του %1 στο %2</p>"
+
+#: HTMLGenerator/Generator.cpp:565
+#, kde-format
+msgid "Unable to write image '%1'."
+msgstr "Αδυναμία εγγραφής της εικόνας '%1'."
+
+#: ThumbnailView/ThumbnailDND.cpp:90
+#, fuzzy
+#| msgid ""
+#| "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in "
+#| "the thumbnail viewer, you actually reorder them. This is very useful in "
+#| "case you don't know the exact date for the images. On the other hand, if "
+#| "the images themself have valid timestamps, you should use <b>Images -&gt; "
+#| "Sort Selected By Date and Time</b></p>"
+msgid ""
+"<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
+"thumbnail viewer, you actually reorder them. This is very useful where you "
+"do not know the exact date for the images. On the other hand, if the images "
+"have valid timestamps, you should use <b>Images -&gt; Sort Selected By Date "
+"and Time</b>.</p>"
+msgstr ""
+"<p><b>Σίγουρα αναταξινόμηση των εικόνων επισκόπησης;</b></p><p>Σέρνοντας "
+"εικόνες μέσα στον προβολέα εικόνων επισκόπησης, στην πράξη τις "
+"αναταξινομείτε. Αυτό είναι πολύ χρήσιμο αν δε γνωρίζετε την ακριβή "
+"ημερομηνία των εικόνων. Από την άλλη, αν οι εικόνες οι ίδιες έχουν μία "
+"έγκυρη χρονική σφραγίδα, θα πρέπει να χρησιμοποιήσετε την επιλογή <b>Εικόνες "
+"-&gt; Ταξινόμηση επιλογή κατά ημερομηνία και ώρα</b></p>"
+
+#: ThumbnailView/ThumbnailDND.cpp:96
+msgid "Reorder Thumbnails"
+msgstr "Αναταξινόμηση εικόνων επισκόπησης"
+
+#: ThumbnailView/ThumbnailBuilder.cpp:30
+msgid "Generating thumbnails"
+msgstr "Δημιουργία εικόνων επισκόπησης"
+
+#~ msgid "**NONE**"
+#~ msgstr "**ΚΑΜΙΑ**"
+
+#~ msgid "Read File Info"
+#~ msgstr "Ανάγνωση πληροφοριών αρχείου"
+
+#~ msgid "Show File List"
+#~ msgstr "Εμφάνιση λίστας αρχείων"
+
+#~ msgid ""
+#~ "<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></"
+#~ "center></b></p>"
+#~ msgstr ""
+#~ "<p><b><center><font size=\"+3\">Ανάγνωση πληροφοριών αρχείου<br/>%1 "
+#~ "επιλεγμένα</font></center></b></p>"
+
+#~ msgid ""
+#~ "<p><b>%1 files</b> are affected by this operation, their filenames can be "
+#~ "seen in the list below.</p>"
+#~ msgstr ""
+#~ "<p><b>%1 αρχεία</b> επηρεάζονται από αυτήν τη λειτουργία, τα ονόματα τους "
+#~ "φαίνονται στην παρακάτω λίστα.</p>"
+
+#~ msgid "Files affected"
+#~ msgstr "Επηρεαζόμενα αρχεία"
+
+#~ msgid "1 Image"
+#~ msgid_plural "%1 Images"
+#~ msgstr[0] "1 εικόνα"
+#~ msgstr[1] "%1 εικόνες"
+
+#~ msgid "1 Movie"
+#~ msgid_plural "%1 Movies"
+#~ msgstr[0] "1 ταινία"
+#~ msgstr[1] "%1 ταινίες"
+
+#~ msgid "What"
+#~ msgstr "Τι"
+
+#~ msgid "1 Category"
+#~ msgid_plural "%1 Categories"
+#~ msgstr[0] "1 κατηγορία"
+#~ msgstr[1] "%1 κατηγορίες"
+
+#~ msgid "Show thumbnails on dark background"
+#~ msgstr "Εμφάνιση εικόνων επισκόπησης σε σκοτεινό φόντο"
+
+#~ msgid ""
+#~ "<p>The background color in the thumbnail view is the systems' default "
+#~ "background; by checking this option, you can set it to be dark instead.</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p>Το χρώμα φόντου της προβολής εικόνων επισκόπησης είναι το "
+#~ "προκαθορισμένο φόντο του συστήματος: ενεργοποιώντας αυτήν την επιλογή "
+#~ "μπορείτε να το ορίσετε σκοτεινότερο.</p>"
+
+#~ msgid "Welcome to KPhotoAlbum"
+#~ msgstr "Καλώς ήρθατε στο KPhotoAlbum"
+
+#~ msgid "List View with Custom Icons"
+#~ msgstr "Προβολή λίστας με προσαρμοσμένα εικονίδια"
+
+#~ msgid "Icon View with Custom Icons"
+#~ msgstr "Προβολή εικονιδίων με προσαρμοσμένα εικονίδια"
+
+#~ msgid "&OK"
+#~ msgstr "&Εντάξει"
+
+#~ msgid "Failed"
+#~ msgstr "Απέτυχε"
+
+#~ msgid "OK"
+#~ msgstr "Εντάξει"
+
+#~ msgid "Untested"
+#~ msgstr "Μη ελεγμένο"
+
+#~ msgid "<h1><b>Error Loading Video</font></b></h1>"
+#~ msgstr "<h1><b>Σφάλμα φόρτωσης του βίντεο</font></b></h1>"
+
+#~ msgid "<tr><td>Finding mime type for file</td><td>%1</td><tr>"
+#~ msgstr "<tr><td>Εξακρίβωση του τύπου mime του αρχείου</td><td>%1</td><tr>"
+
+#~ msgid "<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Φόρτωση ενός KPart για τον τύπο mime </td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Getting a library for the part</tr><td>%1</td></tr>"
+#~ msgstr "<tr><td>Φόρτωση μιας βιβλιοθήκης για το τμήμα</tr><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Instantiating Part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Αρχικοποίηση του τμήματος</td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Fetching Widget from part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Λήψη γραφικού συστατικού από το τμήμα</td><td>%1</td></tr>"
+
+#~ msgid "Unable to show video %1"
+#~ msgstr "Αδυναμία προβολής του βίντεο %1"
+
+#~ msgid "Show More Help"
+#~ msgstr "Εμφάνιση περισσότερης βοήθειας"
+
+#~ msgid "Other: "
+#~ msgstr "Άλλο: "
+
+#~ msgid ""
+#~ "<p>This is the KPhotoAlbum survey. Its goal is to collect the information "
+#~ "needed to make KPhotoAlbum meet the needs of users like you.</p><p>Spend "
+#~ "a couple of minutes and share your experience of using KPhotoAlbum.</"
+#~ "p><p>At any time, you can quit the survey and return to it later on; it "
+#~ "will remember your previous answers.</p><p align=\"right\">Thanks in "
+#~ "advance! Jesper</p>"
+#~ msgstr ""
+#~ "<p>Αυτή είναι η έρευνα σχετικά με το KPhotoAlbum, πρόθεσή της είναι να "
+#~ "αναπτύξει το KPhotoAlbum με βάση τις ανάγκες σας.</p><p>Χρειάζονται μόνο "
+#~ "μερικά λεπτά για να κάνετε γνωστή την εμπειρία σας από τη χρήση του "
+#~ "KPhotoAlbum.</p><p>Οποιαδήποτε στιγμή μπορείτε να σταματήσετε το "
+#~ "ερωτηματολόγιο και να επιστρέψετε σε αυτό αργότερα, καθώς οι απαντήσεις "
+#~ "σας θα απομνημονευθούν</p><p align=\"right\">Ευχαριστώ προκαταβολικά - "
+#~ "Jesper</p>"
+
+#~ msgid "Length of Usage"
+#~ msgstr "Διάρκεια χρήσης"
+
+#~ msgid "How long have you used KPhotoAlbum?"
+#~ msgstr "Πόσο καιρό χρησιμοποιείτε το KPhotoAlbum;"
+
+#~ msgid "< 1 Month"
+#~ msgstr "< 1 Μήνα"
+
+#~ msgid "1-6 Months"
+#~ msgstr "1-6 Μήνες"
+
+#~ msgid "6-12 Months"
+#~ msgstr "6-12 Μήνες"
+
+#~ msgid "1-2 Year"
+#~ msgstr "1-2 Χρόνια"
+
+#~ msgid "> 2 Years"
+#~ msgstr "> 2 Χρόνια"
+
+#~ msgid "Image Count"
+#~ msgstr "Πλήθος εικόνων"
+
+#~ msgid "User demographics"
+#~ msgstr "Δημογραφικά στοιχεία χρήστη"
+
+#~ msgid ""
+#~ "In designing the software, it's important to know who uses it. You can "
+#~ "choose any number of categories from the list below."
+#~ msgstr ""
+#~ "Κατά το σχεδιασμό του λογισμικού είναι σημαντικό να γνωρίζουμε ποιος το "
+#~ "χρησιμοποιεί. Μπορείτε να επιλέξετε όσες κατηγορίες θέλετε από την "
+#~ "παρακάτω λίστα."
+
+#~ msgid "Which of these categories (if any) do you fit in?"
+#~ msgstr "Σε ποιες από αυτές τις κατηγορίες (αν υπάρχουν) ταιριάζετε;"
+
+#~ msgid "I'm a professional software developer"
+#~ msgstr "Είμαι επαγγελματίας προγραμματιστής λογισμικού"
+
+#~ msgid "I'm a professional photographer"
+#~ msgstr "Είμαι επαγγελματίας φωτογράφος"
+
+#~ msgid "I'm a C++ programmer"
+#~ msgstr "Είμαι προγραμματιστής C++"
+
+#~ msgid "I'm a student studying software development"
+#~ msgstr "Είμαι φοιτητής/τρια που σπουδάζει ανάπτυξη λογισμικού"
+
+#~ msgid "I'm a student studying something else"
+#~ msgstr "Είμαι φοιτητής/τρια που σπουδάζει κάτι άλλο"
+
+#~ msgid "Private albums"
+#~ msgstr "Ιδιωτικά άλμπουμ"
+
+#~ msgid "Professional"
+#~ msgstr "Επαγγελματικά"
+
+#~ msgid "For what are you using KPhotoAlbum?"
+#~ msgstr "Με ποιον τρόπο χρησιμοποιείτε το KPhotoAlbum;"
+
+#~ msgid ""
+#~ "If you are using KPhotoAlbum professionally, please send an email to me "
+#~ "at blackie@kde.org explaining how you are using KPhotoAlbum, and how I "
+#~ "may improve it in ways that would make it more valuable for professionals."
+#~ msgstr ""
+#~ "Αν χρησιμοποιείτε το KPhotoAlbum επαγγελματικά, παρακαλώ στείλτε ένα "
+#~ "email στο blackie@kde.org εξηγώντας πως χρησιμοποιείτε το KPhotoAlbum, "
+#~ "και πως θα μπορούσα να το βελτιώσω έτσι ώστε να γίνει πιο αξιόλογο για "
+#~ "επαγγελματίες."
+
+#~ msgid "General Comments"
+#~ msgstr "Γενικά σχόλια"
+
+#~ msgid ""
+#~ "<p>Every time my email client indicate a survey has been completed I "
+#~ "can't wait to the end of my working day so I can do some KPhotoAlbum "
+#~ "programming.</p><p>One problem with software development is that "
+#~ "developers most often hears about problems, and seldom about how much "
+#~ "people enjoy the applications. This is your chance to give me some "
+#~ "positive energy by telling me how much you like the application.</p>"
+#~ msgstr ""
+#~ "<p>Κάθε φορά που ο πελάτης αλληλογραφίας μου που δηλώνει ότι μια νέα "
+#~ "φόρμα έχει σταλεί, ανυπομονώ να τελειώσει η δουλειά για να συνεχίσω τον "
+#~ "προγραμματισμό του KPhotoAlbum.</p><p>Ένα σημαντικό πρόβλημα με την "
+#~ "ανάπτυξη λογισμικού είναι ότι οι προγραμματιστές συνήθως μαθαίνουν "
+#~ "σχετικά με προβλήματα και σπάνια για τις ευκολίες που προσφέρει η "
+#~ "εφαρμογή τους. Εδώ λοιπόν σας δίνεται η ευκαιρία να μεταδώσετε λίγη από "
+#~ "τη θετική σας ενέργεια σε μένα λέγοντας μου πόσο σας άρεσε η εφαρμογή.</p>"
+
+#~ msgid ""
+#~ "<p>Thank you very much for your time, I hope you will continue using "
+#~ "KPhotoAlbum for many years to come, and that future versions will fit "
+#~ "your purpose even better than it does today.</p>Finally, allow me to ask "
+#~ "you to consider giving a donation. See the Help->Donation menu on how to "
+#~ "make a donation.</p><p align=\"right\">Once again thanks for filling out "
+#~ "this survey - Jesper</p>"
+#~ msgstr ""
+#~ "<p>Σας ευχαριστώ πολύ για το χρόνο σας, ελπίζω να συνεχίσετε να "
+#~ "χρησιμοποιείτε το KPhotoAlbum και ότι οι μελλοντικές εκδόσεις του θα "
+#~ "ταιριάζουν ακόμη πιο πολύ στις ανάγκες σας.</p>Τέλος επιτρέψτε μου να σας "
+#~ "ζητήσω να σκεφτείτε κάποια δωρεά. Δείτε τη Βοήθεια->Δωρεά στο μενού για "
+#~ "τον τρόπο που μπορείτε να προσφέρετε χρήματα.</p><p align=\"right\">Για "
+#~ "μια άλλη φορά σας ευχαριστώ που συμπληρώσατε αυτό το ερωτηματολόγιο - "
+#~ "Jesper</p>"
+
+#~ msgid "<h1>%1 Survey</h1>"
+#~ msgstr "<h1>%1 ερωτηματολόγιο</h1>"
+
+#~ msgid "<h1>%1 Survey Completed</h1>"
+#~ msgstr "<h1>%1 ερωτηματολόγιο ολοκληρώθηκε</h1>"
+
+#~ msgid "How many images are in your database:"
+#~ msgstr "Πόσες εικόνες βρίσκονται στη βάση δεδομένων:"
+
+#~ msgid "How many percentages of your images are scanned in: "
+#~ msgstr "Το ποσοστό των εικόνων σας που είναι σαρωμένες: "
+
+#~ msgid "<< Prev"
+#~ msgstr "<< Προηγούμενο"
+
+#~ msgid "Next >>"
+#~ msgstr "Επόμενο >>"
+
+#~ msgid "Send Answers"
+#~ msgstr "Αποστολή απαντήσεων"
+
+#~ msgid "Pause Survey"
+#~ msgstr "Παύση ερωτηματολογίου"
+
+#~ msgid "Answer KPhotoAlbum Survey..."
+#~ msgstr "Απάντηση στην έρευνα του KPhotoAlbum..."
+
+#~ msgid "<img src=\"KRatingWidget://%1\"/>"
+#~ msgstr "<img src=\"KRatingWidget://%1\"/>"
+
+#~ msgid "Mbytes"
+#~ msgstr "Mbytes"
+
+#, fuzzy
+#~| msgid "Set"
+#~ msgid "Suggest"
+#~ msgstr "Ορισμός"
+
+#~ msgid "<p>Specify the size of the cache used to hold thumbnails.</p>"
+#~ msgstr ""
+#~ "<p>Καθορίστε το μέγεθος της λανθάνουσας μνήμης που χρησιμοποιείται για "
+#~ "την αποθήκευση των εικόνων επισκόπησης.</p>"
+
+#~ msgid "Show %1"
+#~ msgstr "Εμφάνιση του %1"
+
+#, fuzzy
+#~| msgid "MPEG video support"
+#~ msgid "MPEG video support *TODO*"
+#~ msgstr "Υποστήριξη βίντεο MPEG"
+
+#, fuzzy
+#~| msgid "Quicktime video support (aka mov)"
+#~ msgid "Quicktime video support (aka mov) *TODO*"
+#~ msgstr "Υποστήριξη βίντεο Quicktime (αρχεία mov)"
+
+#, fuzzy
+#~| msgid "ASF video support (aka wmv)"
+#~ msgid "ASF video support (aka wmv) *TODO*"
+#~ msgstr "Υποστήριξη βίντεο ASF (αρχεία wmv)"
+
+#, fuzzy
+#~| msgid "Real Media"
+#~ msgid "Real Media *TODO*"
+#~ msgstr "Real Media"

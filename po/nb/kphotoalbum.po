@@ -1,0 +1,4024 @@
+# Translation of kphotoalbum to Norwegian Bokmål
+#
+# Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kphotoalbum\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-10-26 06:48+0100\n"
+"PO-Revision-Date: 2009-05-14 10:24+0200\n"
+"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: MagicPO 0.4\n"
+"Language: nb\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: DB/ImageSearchInfo.cpp:173
+#, kde-format
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "Ingen %1"
+
+#: DB/ImageSearchInfo.cpp:176 AnnotationDialog/ListSelect.cpp:78
+msgid "and"
+msgstr "og"
+
+#: DB/ImageSearchInfo.cpp:181 AnnotationDialog/ListSelect.cpp:77
+msgid "or"
+msgstr "eller"
+
+#: DB/ImageSearchInfo.cpp:182
+msgid "not"
+msgstr "ikke"
+
+#: DB/ImageSearchInfo.cpp:186
+#, kde-format
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "Ingen andre %1"
+
+#: DB/ImageInfoList.cpp:81
+msgid ""
+"<p>You are about to sort a set of thumbnails with others in between.<br /"
+">This might result in an unexpected sort order.<br /><p>Are you sure you "
+"want to continue?</p>"
+msgstr ""
+"<p>Du skal til å sortere en gruppe minibilder med annet innimellom.<br /> "
+"Dette kan gi et uventet sorteringsresultat.<br /> <p>Er du sikker på at du "
+"vil fortsette?</p>"
+
+#: DB/ImageInfoList.cpp:83
+msgid "Sort Thumbnails?"
+msgstr "Sortere minibilder?"
+
+#: DB/NewImageFinder.cpp:168
+msgid ""
+"<p><b>Loading information from new files</b></p><p>Depending on the number "
+"of images, this may take some time.<br/>However, there is only a delay when "
+"new images are found.</p>"
+msgstr ""
+"<p><b>Laster informasjon fra nye filer</b></p> <p>Dette kan ta litt tid, "
+"etter som hvor mange bilder det er.<br /> Det er likevel bare en forsinkelse "
+"når nye bilder finnes.</p>"
+
+#: DB/NewImageFinder.cpp:245
+#, kde-format
+msgid ""
+"<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum for "
+"each image KPhotoAlbum is capable of finding images even when you have moved "
+"them on the disk.</p>"
+msgstr ""
+"<p><b>Beregner sjekksum for %1 filer</b></p> <p>KPhotoAlbum lagrer en "
+"sjekksum for hvert bilde og kan derfor finne bilder selv når du har flyttet "
+"dem på disken,</p>"
+
+#: DB/NewImageFinder.cpp:290
+msgid "Following files could not be read:"
+msgstr "Følgende filer kunne ikke leses:"
+
+#: DB/ImageDB.cpp:217
+msgid "Loading information from images"
+msgstr "Laster inn informasjon fra bilder"
+
+#: DB/ImageDB.cpp:218
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: DB/ImageDate.cpp:343
+msgid "jan"
+msgstr "jan"
+
+#: DB/ImageDate.cpp:343
+msgid "feb"
+msgstr "feb"
+
+#: DB/ImageDate.cpp:343
+msgid "mar"
+msgstr "mar"
+
+#: DB/ImageDate.cpp:343
+msgid "apr"
+msgstr "apr"
+
+#: DB/ImageDate.cpp:343
+msgid "may"
+msgstr "mai"
+
+#: DB/ImageDate.cpp:343
+msgid "jun"
+msgstr "jun"
+
+#: DB/ImageDate.cpp:344
+msgid "jul"
+msgstr "jul"
+
+#: DB/ImageDate.cpp:344
+msgid "aug"
+msgstr "aug"
+
+#: DB/ImageDate.cpp:344
+msgid "sep"
+msgstr "sep"
+
+#: DB/ImageDate.cpp:344
+msgid "oct"
+msgstr "okt"
+
+#: DB/ImageDate.cpp:344
+msgid "nov"
+msgstr "nov"
+
+#: DB/ImageDate.cpp:344
+msgid "dec"
+msgstr "des"
+
+#: DB/Category.cpp:139 DB/Category.cpp:147 XMLDB/FileReader.cpp:348
+msgid "People"
+msgstr "Personer"
+
+#: DB/Category.cpp:140 DB/Category.cpp:148 XMLDB/FileReader.cpp:349
+msgid "Places"
+msgstr "Steder"
+
+#: DB/Category.cpp:141 XMLDB/FileReader.cpp:350
+msgid "Events"
+msgstr "Hendelser"
+
+#: DB/Category.cpp:142
+msgid "Folder"
+msgstr "Mappe"
+
+#: DB/Category.cpp:143
+msgid "Tokens"
+msgstr "Symboler"
+
+#: DB/Category.cpp:144
+msgid "Media Type"
+msgstr "Mediatype"
+
+#: DB/Category.cpp:149
+msgid "Keywords"
+msgstr "Nøkkelord"
+
+#: DB/Category.cpp:196
+#, kde-format
+msgid "Unable to create directory '%1'."
+msgstr "Klarte ikke å opprette mappa «%1»."
+
+#: DB/Category.cpp:196
+msgid "Unable to Create Directory"
+msgstr "Klarer ikke å opprette mappe"
+
+#: DB/Category.cpp:203
+#, kde-format
+msgid "Error when saving image '%1'."
+msgstr "Feil ved lagring av bilde «%1»."
+
+#: DB/Category.cpp:203
+msgid "Error Saving Image"
+msgstr "Feil ved lagring av bildet"
+
+#: Exif/Database.cpp:77
+#, kde-format
+msgid ""
+"<p>There was an error while executing the SQL backend command. The error is "
+"likely due to a broken database file.</p><p>To fix this problem run "
+"Maintainance->Rebuild EXIF database.</p><hr/><p>For debugging: the command "
+"that was attempted to be executed was:<br/>%1</p><p>The error message "
+"obtained was:<br/>%2</p>"
+msgstr ""
+
+#: Exif/Database.cpp:85
+msgid "Error Executing Exif Command"
+msgstr "Feil ved kjøring av Exif-kommando"
+
+#: Exif/Database.cpp:308
+msgid "Rereading EXIF information from all images"
+msgstr "Leser EXIF-informasjon på nytt fra alle bilder"
+
+#: Exif/SearchDialog.cpp:37 Browser/OverviewPage.cpp:229
+msgid "EXIF Search"
+msgstr "EXIF-søk"
+
+#: Exif/SearchDialog.cpp:42 Settings/SettingsDialog.cpp:91
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: Exif/SearchDialog.cpp:62
+msgid "Aperture Value"
+msgstr "Blenderåpning"
+
+#: Exif/SearchDialog.cpp:63
+msgid "F Number"
+msgstr "F-tall"
+
+#: Exif/SearchDialog.cpp:66
+msgid "Focal Length"
+msgstr "Brennvidde"
+
+#: Exif/SearchDialog.cpp:70
+msgid "to"
+msgstr "til"
+
+#: Exif/SearchDialog.cpp:76
+msgctxt "This is millimeter for focal length, like 35mm"
+msgid "mm"
+msgstr ""
+
+#: Exif/SearchDialog.cpp:92
+msgid "Camera"
+msgstr "Kamera"
+
+#: Exif/SearchDialog.cpp:97
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: Exif/SearchDialog.cpp:118
+msgid "Iso setting"
+msgstr "ISO-innstilling"
+
+#: Exif/SearchDialog.cpp:123
+msgctxt "Example 1.6 secs (as in seconds)"
+msgid "secs."
+msgstr "sek"
+
+#: Exif/SearchDialog.cpp:162
+msgid "1 second"
+msgstr "1 sekund"
+
+#: Exif/SearchDialog.cpp:179
+msgid "Exposure time"
+msgstr "Eksponeringstid"
+
+#: Exif/SearchDialog.cpp:222
+msgid "Exposure Program"
+msgstr "Eksponeringsprogram"
+
+#: Exif/SearchDialog.cpp:223
+msgid "Not defined"
+msgstr "Ikke angitt"
+
+#: Exif/SearchDialog.cpp:224
+msgid "Manual"
+msgstr "Manuell"
+
+#: Exif/SearchDialog.cpp:225
+msgid "Normal program"
+msgstr "Normalprogram"
+
+#: Exif/SearchDialog.cpp:226
+msgid "Aperture priority"
+msgstr "Blenderprioritering"
+
+#: Exif/SearchDialog.cpp:227
+msgid "Shutter priority"
+msgstr "Lukkerprioritering"
+
+#: Exif/SearchDialog.cpp:228
+msgid "Creative program (biased toward depth of field)"
+msgstr "Kreativt program (vekt på skarphetsdybde)"
+
+#: Exif/SearchDialog.cpp:229
+msgid "Action program (biased toward fast shutter speed)"
+msgstr "Aksjonsprogram (vekt på rask lukkerhastighet)"
+
+#: Exif/SearchDialog.cpp:230
+msgid "Portrait mode (for closeup photos with the background out of focus)"
+msgstr "Portrettprogram (for nærbilder med uskarp bakgrunn)"
+
+#: Exif/SearchDialog.cpp:231
+msgid "Landscape mode (for landscape photos with the background in focus)"
+msgstr "Landskapsprogram (for landskapsbilder med skarp bakgrunn)"
+
+#: Exif/SearchDialog.cpp:237 ImportExport/MD5CheckPage.cpp:59
+msgid "Orientation"
+msgstr "Retning"
+
+#: Exif/SearchDialog.cpp:238
+msgid "Not rotated"
+msgstr "Ikke rotert"
+
+#: Exif/SearchDialog.cpp:239
+msgid "Rotated counterclockwise"
+msgstr "Rotert mot klokka"
+
+#: Exif/SearchDialog.cpp:240
+msgid "Rotated clockwise"
+msgstr "Rotert med klokka"
+
+#: Exif/SearchDialog.cpp:241
+msgid "Rotated 180 degrees"
+msgstr "Rotert 180 grader"
+
+#: Exif/SearchDialog.cpp:247
+msgid "Metering Mode"
+msgstr "Målemodus"
+
+#: Exif/SearchDialog.cpp:248
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: Exif/SearchDialog.cpp:249
+msgid "Average"
+msgstr "Gjennomsnitt"
+
+#: Exif/SearchDialog.cpp:250
+msgid "CenterWeightedAverage"
+msgstr "SenterVektetGjennomsnitt"
+
+#: Exif/SearchDialog.cpp:251
+msgid "Spot"
+msgstr "Punktlys"
+
+#: Exif/SearchDialog.cpp:252
+msgid "MultiSpot"
+msgstr "Flerpunkt-lys"
+
+#: Exif/SearchDialog.cpp:253
+msgid "Pattern"
+msgstr "Mønster"
+
+#: Exif/SearchDialog.cpp:254
+msgid "Partial"
+msgstr "Delvis"
+
+#: Exif/SearchDialog.cpp:255
+msgid "Other"
+msgstr "Andre"
+
+#: Exif/SearchDialog.cpp:261
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: Exif/SearchDialog.cpp:262 Exif/SearchDialog.cpp:271
+#: Exif/SearchDialog.cpp:280
+msgid "Normal"
+msgstr "Normal"
+
+#: Exif/SearchDialog.cpp:263 Exif/SearchDialog.cpp:272
+msgid "Soft"
+msgstr "Bløtt"
+
+#: Exif/SearchDialog.cpp:264 Exif/SearchDialog.cpp:273
+msgid "Hard"
+msgstr "Hardt"
+
+#: Exif/SearchDialog.cpp:270
+msgid "Sharpness"
+msgstr "Skarphet"
+
+#: Exif/SearchDialog.cpp:279
+msgid "Saturation"
+msgstr "Metning"
+
+#: Exif/SearchDialog.cpp:281
+msgid "Low"
+msgstr "Lav"
+
+#: Exif/SearchDialog.cpp:282
+msgid "High"
+msgstr "Høy"
+
+#: Exif/SearchDialog.cpp:334
+msgid "No cameras found in the database"
+msgstr "Fant ingen kameraer i databasen"
+
+#: Exif/ReReadDialog.cpp:34
+msgid "Read EXIF info from files"
+msgstr ""
+
+#: Exif/ReReadDialog.cpp:41
+msgid "Update EXIF search database"
+msgstr "Oppdater EXIF søkedatabase"
+
+#: Exif/ReReadDialog.cpp:47
+msgid "Update image date"
+msgstr "Oppdater bildedato"
+
+#: Exif/ReReadDialog.cpp:50
+msgid "Use modification date if EXIF not found"
+msgstr "Bruk endringsdato hvis EXIF ikke finnes"
+
+#: Exif/ReReadDialog.cpp:53
+msgid "Update image orientation from EXIF information"
+msgstr "Bruk bildeorientering frqa EXIF-informasjonen"
+
+#: Exif/ReReadDialog.cpp:56
+msgid "Update image description from EXIF information"
+msgstr "Oppdater bildebeskrivelsen fra EXIF-informasjonen"
+
+#: Exif/ReReadDialog.cpp:59
+msgid "Affected Files"
+msgstr ""
+
+#: Exif/ReReadDialog.cpp:112
+msgid ""
+"<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
+"have previously entered manually using the image configuration dialog.</p>"
+msgstr ""
+"<p>Merk at data som settes inn fra EXIF kan <b>overskrive</b> data som du "
+"tidligere har angitt manuelt med bildeoppsettsdialogen.</p>"
+
+#: Exif/ReReadDialog.cpp:115
+msgid "Override image dates"
+msgstr "Overstyr bildedatoer"
+
+#: Exif/InfoDialog.cpp:41
+msgid "EXIF Information"
+msgstr "EXIF-informasjon"
+
+#: Exif/InfoDialog.cpp:74
+msgid "Current EXIF Label Search: "
+msgstr "Gjeldende søk etter EXIF-etikett:"
+
+#: Exif/InfoDialog.cpp:88
+msgid "IPTC character set:"
+msgstr "IPTC-tegnsett:"
+
+#: Exif/InfoDialog.cpp:107
+msgid "<No Search>"
+msgstr "<Ikke noe søk>"
+
+#: SQLDB/SQLSettingsWidget.cpp:258
+msgid "Database driver:"
+msgstr "Databasedriver:"
+
+#: SQLDB/SQLSettingsWidget.cpp:259
+msgid "Database file:"
+msgstr "Databasefil:"
+
+#: SQLDB/SQLSettingsWidget.cpp:260
+msgid "KPhotoAlbum database files (*.db)"
+msgstr "KPhotoAlbum databasefiler (*.db)"
+
+#: SQLDB/SQLSettingsWidget.cpp:261
+msgid "Server address:"
+msgstr "Tjeneradresse:"
+
+#: SQLDB/SQLSettingsWidget.cpp:262
+msgid "Server port:"
+msgstr "Tjenerport:"
+
+#: SQLDB/SQLSettingsWidget.cpp:263
+msgid "Default"
+msgstr "Standard"
+
+#: SQLDB/SQLSettingsWidget.cpp:264
+msgid "Database name:"
+msgstr "Databasenavn:"
+
+#: SQLDB/SQLSettingsWidget.cpp:265
+msgid "Username:"
+msgstr "Brukernavn:"
+
+#: SQLDB/SQLSettingsWidget.cpp:266
+msgid "Password:"
+msgstr "Passord:"
+
+#: SQLDB/SQLSettingsWidget.cpp:301
+msgid "No SQL database drivers found."
+msgstr "Fant ingen drivere for SQL-database."
+
+#: SQLDB/SQLSettingsWidget.cpp:305
+msgid "Invalid driver."
+msgstr "Ugyldig driver."
+
+#: SQLDB/DriverManager.cpp:67
+#, kde-format
+msgid "Database driver not found: %1"
+msgstr "Fant ikke database-driver: %1"
+
+#: SQLDB/DriverManager.cpp:86
+#, kde-format
+msgid "Unknown or unsupported database driver: %1"
+msgstr "Ukjent eller ikke støttet databasedriver: %1"
+
+#: SQLDB/DatabaseInitialization.cpp:137
+msgid "Database schema is incompatible."
+msgstr "Databaseskjemaet er ikke kompatibelt."
+
+#: XMLDB/Database.cpp:619
+#, kde-format
+msgid ""
+"<p>Unknown tag %1, while reading configuration file.</p><p>Expected one of: "
+"Options, Drawings</p>"
+msgstr ""
+"<p>Ukjent tagg %1 funnet mens oppsettsfila ble lest.</p><p>Forventet en av: "
+"Options, Drawings</p>"
+
+#: XMLDB/NumberedBackup.cpp:40
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Feil ved oppretting av zip-fil %1"
+
+#: XMLDB/FileWriter.cpp:66
+#, kde-format
+msgid "Could not open file '%1'."
+msgstr "Klarte ikke åpne fila «%1»."
+
+#: XMLDB/FileReader.cpp:80
+#, kde-format
+msgid "Error in file %1: unexpected element: '%2'"
+msgstr "Feil i fil %1: uventet element: «%2»"
+
+#: XMLDB/FileReader.cpp:86
+#, kde-format
+msgid "Unable to find 'Options' tag in configuration file %1."
+msgstr "Karer ikke finne «Options»-tagg i oppsettsfila %1."
+
+#: XMLDB/FileReader.cpp:88
+#, kde-format
+msgid "Unable to find 'Images' tag in configuration file %1."
+msgstr "Karer ikke finne «images»-tagg i oppsettsfila %1."
+
+#: XMLDB/FileReader.cpp:263
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p>You can then select "
+"the images that you have reason to believe have a correct date in either "
+"their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</"
+"b> to reread the information.</p><p>Finally, once all images have their "
+"dates set, you can execute <b>Images->Sort Selected by Date & Time</b> to "
+"sort them in the database.</p>"
+msgstr ""
+"<p>Dine bilder/filmer er ikke sortert, så søking med datolinja vil ikke "
+"virke på beste måte.</p> <p>I menyen <b>Vedlikehold</b> finner du <b>Vis "
+"bilder med ufullstendig dato</b> som du kan bruke til å finne bilder som "
+"mangler datoinformasjon.</p> <p>Så kan du velge de bildene som du har grunn "
+"til å tro har riktig dato enten i EXIF-dataene eller på fila, og kjøre "
+"<b>Maintenance→Les EXIF-info</b> for å lese informasjonen omigjen.</p><p>Til "
+"slutt, når alle bildene har fått satt dato, så kan du kjøre <b>Bilder→Sorter "
+"utvalg på dato og tid</b> for å sortere dem i databasen.</p>"
+
+#: XMLDB/FileReader.cpp:273
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>You also do not have EXIF "
+"support available, which means that you cannot read image dates from JPEG "
+"metadata. It is strongly recommended to recompile KPhotoAlbum with the "
+"<code>exiv2</code> library. After you have done so, you will be asked what "
+"to do to correct all the missing information.</p>"
+msgstr ""
+
+#: XMLDB/FileReader.cpp:280
+msgid "Images/Videos Are Not Sorted"
+msgstr "Bilder/filmer er ikke sortert"
+
+#: XMLDB/FileReader.cpp:295
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Ikke alle bildene i databasen har opplysninger om bildestørrelsene; dette "
+"trengs for å få beste resultat i minibilde-visningen. Dette kan ordnes ved å "
+"gå til menyen <b>Vedlikehold</b>, først velge <b>Fjern alle minibilder</b> "
+"og deretter <tt>Bygg minibilder</tt>.</p><p>Om det ikke gjøres blir det litt "
+"ekstra plass rundt bildene i minibildevisningen, det er alt, så det har "
+"ingen hast.</p>"
+
+#: XMLDB/FileReader.cpp:300
+msgid "Not All Images Have Size Information"
+msgstr "Ikke alle bilder har informasjon om størrelsen"
+
+#: XMLDB/FileReader.cpp:310
+msgid ""
+"<p>The index.xml file read was from an older version of KPhotoAlbum. "
+"KPhotoAlbum read the old format without problems, but to be able to convert "
+"back to KimDaBa 2.1 format, you need to run the current KPhotoAlbum using "
+"the flag <b>export-in-2.1-format</b>, and then save.</p>"
+msgstr ""
+"<p>Den index.xml-fila som ble lest var fra en eldre versjon av KPhotoAlbum. "
+"KPhotoAlbum leste det gamle formatet uten problemer, men for å konvertere "
+"tilbake tl KimDaBa 2.1-formatet må du kjøre denne versjonen av KPhotoAlbum "
+"med flagget <b>export-in-2.1-format</b> og så lagre.</p>"
+
+#: XMLDB/FileReader.cpp:314
+msgid "Old File Format read"
+msgstr "Leste gammelt filformat"
+
+#: XMLDB/FileReader.cpp:335
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation directory.</p><p>If you for example ran "
+"configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>KPhotoAlbum klarte ikke å laste inn et standardoppsett; dette tyder på en "
+"feil i installasjonen</p><p> Hvis du har installert KPhotoAlbim selv, så må "
+"du huske på å sette miljøvariablen <b>KDEDIRS</b> til å peke på roten av "
+"installasjonstreet.</p> <p>Hvis du for eksempel kjørte configure med <b>--"
+"prefix=/usr/local/kde</b>, så må du bruke følgende oppsett for miljøvariabel "
+"(dette eksempelet er for bash og kompatible skall): </p> <p><b>export "
+"KDEDIRS=/usr/local/kde</b></p><p> Hvis KDEDIRS allerede har en verdi, så "
+"bare legg til strengen akkurat som om du satte miljøvariablen <b>PATH</b></p>"
+
+#: XMLDB/FileReader.cpp:342
+msgid "No default setup file found"
+msgstr "Fant ingen standard oppsettsfil"
+
+#: XMLDB/FileReader.cpp:359
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "Klarte ikke å åpne «%1» for lesing"
+
+#: XMLDB/FileReader.cpp:359 Utilities/Util.cpp:256 Utilities/Util.cpp:270
+#: Utilities/Util.cpp:288 Utilities/Util.cpp:305
+msgid "Error Running Demo"
+msgstr "Feil ved kjøring av demonstrasjonen"
+
+#: XMLDB/FileReader.cpp:368
+#, kde-format
+msgid "Error on line %1 column %2 in file %3: %4"
+msgstr "Feil ved linje %1 kolonne %2 i fil %3: %4"
+
+#: XMLDB/FileReader.cpp:376
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Feil i fil %1: ingen elementer funnet"
+
+#: XMLDB/FileReader.cpp:382
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr "Feil i fil %1; forventet «KPhotoAlbum» som toppelement men fant «%2»"
+
+#: Plugins/CategoryImageCollection.cpp:35 Browser/AbstractCategoryModel.cpp:46
+#: MainWindow/StatisticsDialog.cpp:112
+msgid "None"
+msgstr "Ingen"
+
+#: Plugins/Interface.cpp:97
+#, kde-format
+msgid ""
+"<p>Image needs to be placed in a sub directory of your photo album, which is "
+"rooted at %1. Image path was %2</p>"
+msgstr ""
+"<p>Bildet må plasseres i en undermappe til fotoalbumet, som har rot ved %1. "
+"Stien til bildet var %2</p>"
+
+#: Plugins/ImageCollection.cpp:44
+msgid "unknown (Selection)"
+msgstr "ukjent (utvalg)"
+
+#: Plugins/ImageCollection.cpp:47
+msgid " (Selection)"
+msgstr "(Utvalg)"
+
+#: Plugins/ImageCollection.cpp:52 Plugins/ImageCollection.cpp:55
+msgid "unknown"
+msgstr "ukjent"
+
+#: Plugins/ImageCollection.cpp:59
+msgid "none"
+msgstr "ingen"
+
+#: Browser/Breadcrumb.cpp:36 MainWindow/StatisticsDialog.cpp:150
+msgid "All"
+msgstr "Alle"
+
+#: Browser/OverviewPage.cpp:132
+msgid "Exif Info"
+msgstr "Exif-info"
+
+#: Browser/OverviewPage.cpp:143 AnnotationDialog/Dialog.cpp:493
+msgid "Search"
+msgstr "Søk"
+
+#: Browser/OverviewPage.cpp:152 Settings/UntaggedGroupBox.cpp:12
+msgid "Untagged Images"
+msgstr ""
+
+#: Browser/OverviewPage.cpp:162
+msgid "Show Thumbnails"
+msgstr "Vis miniatyrbilder"
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Search did not match any images or videos."
+msgstr "Søket traff ingen bilder eller videoer."
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Empty Search Result"
+msgstr "Tomt søkeresultat"
+
+#: Browser/OverviewPage.cpp:252
+msgid "search"
+msgstr ""
+
+#: Browser/OverviewPage.cpp:276
+msgid ""
+"<p>You have not yet configured which tag to use for indicating untagged "
+"images.</p><p>Please follow these steps to do so:<ul><li>In the menu bar "
+"choose <b>Settings</b></li><li>From there choose <b>Configure KPhotoAlbum</"
+"b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
+"section <b>Untagged Images</b></li></ul></p>"
+msgstr ""
+
+#: Browser/OverviewPage.cpp:282
+msgid "Features has not been configured"
+msgstr ""
+
+#: Browser/AbstractCategoryModel.cpp:48
+msgid "No other"
+msgstr "Ingen andre"
+
+#: Browser/AbstractCategoryModel.cpp:51
+msgid "Video"
+msgstr "Video"
+
+#: Browser/AbstractCategoryModel.cpp:53
+msgid "Image"
+msgstr "Bilde"
+
+#: Browser/AbstractCategoryModel.cpp:100
+#, kde-format
+msgid "1 image"
+msgid_plural "%1 images"
+msgstr[0] "1 bilde"
+msgstr[1] "%1 bilder"
+
+#: Browser/AbstractCategoryModel.cpp:101
+#, kde-format
+msgid "1 video"
+msgid_plural "%1 videos"
+msgstr[0] "1 video"
+msgstr[1] "%1 videoer"
+
+#. i18n: file: kphotoalbumui.rc:76
+#. i18n: ectx: Menu (imagesplugins)
+#: Browser/AbstractCategoryModel.cpp:138 rc.cpp:21
+msgid "Images"
+msgstr "Bilder"
+
+#: Browser/AbstractCategoryModel.cpp:139
+msgid "Videos"
+msgstr "Film"
+
+#: Viewer/ImageDisplay.cpp:342
+#, kde-format
+msgid "[ zoom x%1 ]"
+msgstr "[ forstørr x%1 ]"
+
+#: Viewer/CategoryImageConfig.cpp:42
+msgid "Configure Category Image"
+msgstr "Sett opp kategoribilde"
+
+#: Viewer/CategoryImageConfig.cpp:44
+msgid "Set"
+msgstr "Velg"
+
+#: Viewer/CategoryImageConfig.cpp:54
+msgid "Group:"
+msgstr "Gruppe:"
+
+#: Viewer/CategoryImageConfig.cpp:61
+msgid "Member:"
+msgstr "Medlem:"
+
+#: Viewer/CategoryImageConfig.cpp:70
+msgid "Current image:"
+msgstr "Gjeldende bilde:"
+
+#: Viewer/CategoryImageConfig.cpp:78
+msgid "New image:"
+msgstr "Nytt bilde:"
+
+#: Viewer/VisibleOptionsMenu.cpp:16
+msgid "Show..."
+msgstr "Vis …"
+
+#: Viewer/VisibleOptionsMenu.cpp:19
+msgid "Show"
+msgstr "Vis"
+
+#: Viewer/VisibleOptionsMenu.cpp:23
+msgid "Show Info Box"
+msgstr "Vis informasjonsboks"
+
+#: Viewer/VisibleOptionsMenu.cpp:29
+msgid "Show Label"
+msgstr "Vis etikett"
+
+#: Viewer/VisibleOptionsMenu.cpp:35
+msgid "Show Description"
+msgstr "Vis beskrivelse"
+
+#: Viewer/VisibleOptionsMenu.cpp:41
+msgid "Show Date"
+msgstr "Vis dato"
+
+#: Viewer/VisibleOptionsMenu.cpp:46
+msgid "Show Time"
+msgstr "Vis tid"
+
+#: Viewer/VisibleOptionsMenu.cpp:51
+msgid "Show Filename"
+msgstr "Vis filnavn"
+
+#: Viewer/VisibleOptionsMenu.cpp:56
+msgid "Show EXIF"
+msgstr "Vis EXIF"
+
+#: Viewer/VisibleOptionsMenu.cpp:61
+msgid "Show Image Size"
+msgstr "Vis bildestørrelse"
+
+#: Viewer/VideoDisplay.cpp:195
+msgid "Error playing media"
+msgstr "Feil under avspilling av media"
+
+#: Viewer/SpeedDisplay.cpp:46
+#, kde-format
+msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:52
+msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
+msgstr ""
+"<p><center><font size=\"+4\">Starter lysbildevisning</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:72
+msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgstr ""
+"<p><center><font size=\"+4\">Avslutter lysbildevisning</font></center></p>"
+
+#: Viewer/ViewerWidget.cpp:141
+msgid "Annotate..."
+msgstr "Skriv merknad …"
+
+#: Viewer/ViewerWidget.cpp:146 MainWindow/Window.cpp:683
+msgid "Set as First Image in Stack"
+msgstr "Sett som første bilde i stakken"
+
+#: Viewer/ViewerWidget.cpp:152
+msgid "Show EXIF Viewer"
+msgstr "EXIF-visning"
+
+#: Viewer/ViewerWidget.cpp:157 ImportExport/MiniViewer.cpp:69
+msgid "Close"
+msgstr "Lukk"
+
+#: Viewer/ViewerWidget.cpp:181
+msgid "Set as Wallpaper"
+msgstr "Sett som bakgrunnsbilde"
+
+#: Viewer/ViewerWidget.cpp:184
+msgid "Centered"
+msgstr "Sentrert"
+
+#: Viewer/ViewerWidget.cpp:188
+msgid "Tiled"
+msgstr "Flislagt"
+
+#: Viewer/ViewerWidget.cpp:192
+msgid "Center Tiled"
+msgstr "Sentrert flislagt"
+
+#: Viewer/ViewerWidget.cpp:196
+msgid "Centered Maxpect"
+msgstr "Sentrert og størst mulig"
+
+#: Viewer/ViewerWidget.cpp:200
+msgid "Tiled Maxpect"
+msgstr "Flislagt og størst mulig"
+
+#: Viewer/ViewerWidget.cpp:204
+msgid "Scaled"
+msgstr "Skalert"
+
+#: Viewer/ViewerWidget.cpp:208
+msgid "Centered Auto Fit"
+msgstr "Sentrert autotilpasset"
+
+#: Viewer/ViewerWidget.cpp:225
+msgid "Rotate"
+msgstr "Roter"
+
+#: Viewer/ViewerWidget.cpp:228 AnnotationDialog/ImagePreviewWidget.cpp:59
+#: AnnotationDialog/Dialog.cpp:872 MainWindow/Window.cpp:692
+msgid "Rotate clockwise"
+msgstr "Roter med klokka"
+
+#: Viewer/ViewerWidget.cpp:233
+msgid "Flip Over"
+msgstr "Vend"
+
+#: Viewer/ViewerWidget.cpp:238 AnnotationDialog/ImagePreviewWidget.cpp:53
+#: AnnotationDialog/Dialog.cpp:869 MainWindow/Window.cpp:687
+msgid "Rotate counterclockwise"
+msgstr "Roter mot klokka"
+
+#: Viewer/ViewerWidget.cpp:248
+msgid "Skip"
+msgstr "Hopp over"
+
+#: Viewer/ViewerWidget.cpp:251
+msgid "First"
+msgstr "Første"
+
+#: Viewer/ViewerWidget.cpp:257
+msgid "Last"
+msgstr "Siste"
+
+#: Viewer/ViewerWidget.cpp:263
+msgid "Show Next"
+msgstr "Vis neste"
+
+#: Viewer/ViewerWidget.cpp:273
+msgid "Skip 10 Forward"
+msgstr "Hopp over 10 forover"
+
+#: Viewer/ViewerWidget.cpp:279
+msgid "Skip 100 Forward"
+msgstr "Hopp over 100 forover"
+
+#: Viewer/ViewerWidget.cpp:285
+msgid "Skip 1000 Forward"
+msgstr "Hopp over 1000 forover"
+
+#: Viewer/ViewerWidget.cpp:291
+msgid "Show Previous"
+msgstr "Vis forrige"
+
+#: Viewer/ViewerWidget.cpp:297
+msgid "Skip 10 Backward"
+msgstr "Hopp over 10 bakover"
+
+#: Viewer/ViewerWidget.cpp:303
+msgid "Skip 100 Backward"
+msgstr "Hopp over 100 bakover"
+
+#: Viewer/ViewerWidget.cpp:309
+msgid "Skip 1000 Backward"
+msgstr "Hopp over 1000 bakover"
+
+#: Viewer/ViewerWidget.cpp:315
+msgid "Remove Image from Display List"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:325
+msgid "Zoom"
+msgstr "Forstørre/-minske"
+
+#: Viewer/ViewerWidget.cpp:329
+msgid "Zoom In"
+msgstr "Forstørr"
+
+#: Viewer/ViewerWidget.cpp:334
+msgid "Zoom Out"
+msgstr "Forminsk"
+
+#: Viewer/ViewerWidget.cpp:339
+msgid "Full View"
+msgstr "Full visning"
+
+#: Viewer/ViewerWidget.cpp:344
+msgid "Pixel for Pixel View"
+msgstr "Piksel for piksel-visning"
+
+#: Viewer/ViewerWidget.cpp:349
+msgid "Toggle Full Screen"
+msgstr "Slå fullskjerm av/på"
+
+#: Viewer/ViewerWidget.cpp:360
+msgid "Slideshow"
+msgstr "Lysbildevisning"
+
+#: Viewer/ViewerWidget.cpp:363 Viewer/ViewerWidget.cpp:769
+msgid "Run Slideshow"
+msgstr "Kjør lysbildevisning"
+
+#: Viewer/ViewerWidget.cpp:368
+msgid "Run Faster"
+msgstr "Kjør fortere"
+
+#: Viewer/ViewerWidget.cpp:373
+msgid "Run Slower"
+msgstr "Kjør saktere"
+
+#: Viewer/ViewerWidget.cpp:407
+msgid "File not available"
+msgstr "Fil ikke tilgjengelig"
+
+#: Viewer/ViewerWidget.cpp:463
+msgid "Play"
+msgstr "Spill"
+
+#: Viewer/ViewerWidget.cpp:465
+msgid "Pause"
+msgstr "Pause"
+
+#: Viewer/ViewerWidget.cpp:775
+msgid "Stop Slideshow"
+msgstr "Stopp lysbildevisning"
+
+#: Viewer/ViewerWidget.cpp:994
+msgid "Seek"
+msgstr "Søk"
+
+#: Viewer/ViewerWidget.cpp:998
+msgid "10 minutes backward"
+msgstr "10 minutter bakover"
+
+#: Viewer/ViewerWidget.cpp:999
+msgid "1 minute backward"
+msgstr "1minutt bakover"
+
+#: Viewer/ViewerWidget.cpp:1000
+msgid "10 seconds backward"
+msgstr "10 sekunder bakover"
+
+#: Viewer/ViewerWidget.cpp:1001
+msgid "1 seconds backward"
+msgstr "1 sekund bakover"
+
+#: Viewer/ViewerWidget.cpp:1002
+msgid "100 milliseconds backward"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1003
+msgid "100 milliseconds forward"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1004
+msgid "1 seconds forward"
+msgstr "1 sekund forover"
+
+#: Viewer/ViewerWidget.cpp:1005
+msgid "10 seconds forward"
+msgstr "10 sekunder forover"
+
+#: Viewer/ViewerWidget.cpp:1006
+msgid "1 minute forward"
+msgstr "1 minutt forover"
+
+#: Viewer/ViewerWidget.cpp:1007
+msgid "10 minutes forward"
+msgstr "10 minutter forover"
+
+#: Viewer/ViewerWidget.cpp:1030
+msgid "Stop"
+msgstr "Stopp"
+
+#: Viewer/ViewerWidget.cpp:1036
+msgid "Toggle playback"
+msgstr "Slå avspilling på/av"
+
+#: Viewer/ViewerWidget.cpp:1041
+msgid "Restart"
+msgstr "Omstart"
+
+#: DateBar/ViewHandler.cpp:129
+msgid "1 Year"
+msgstr "1 år"
+
+#: DateBar/ViewHandler.cpp:161
+msgid "1 Month"
+msgstr "1 måned"
+
+#: DateBar/ViewHandler.cpp:201
+msgid "1 Week"
+msgstr "1 uke"
+
+#: DateBar/ViewHandler.cpp:229
+msgid "1 Day"
+msgstr "1 dag"
+
+#: DateBar/ViewHandler.cpp:272
+msgid "2 Hours"
+msgstr "2 timer"
+
+#: DateBar/ViewHandler.cpp:308
+msgid "10 Minutes"
+msgstr "10 minutter"
+
+#: DateBar/DateBarWidget.cpp:81
+msgid "Widen selection to include all images and videos again"
+msgstr "Utvid utvalget til å ta med alle bilder og videoer igjen"
+
+#: DateBar/DateBarWidget.cpp:511
+msgid "Show Ranges"
+msgstr "Vis områder"
+
+#: DateBar/DateBarWidget.cpp:517
+msgid "Show Resolution Indicator"
+msgstr "Vis oppløsningsindikator"
+
+#: DateBar/DateBarWidget.cpp:635
+#, kde-format
+msgid "%1 exact + %2 ranges = %3 total"
+msgstr "%1 nøyaktig + %2 områder = %3 total"
+
+#: DateBar/DateBarWidget.cpp:637
+#, kde-format
+msgid "%1 images/videos"
+msgstr "%1 bilder/videoer"
+
+#: DateBar/DateBarWidget.cpp:639
+#, kde-format
+msgid "%1 | %2"
+msgstr "%1 | %2"
+
+#: main.cpp:38
+msgid "KPhotoAlbum"
+msgstr "KPhotoAlbum"
+
+#: main.cpp:39
+msgid "KDE Photo Album"
+msgstr "KDE Fotoalbum"
+
+#: main.cpp:41
+msgid "Jesper K. Pedersen"
+msgstr "Jesper K. Pedersen"
+
+#: main.cpp:41 main.cpp:42 main.cpp:43 main.cpp:45 main.cpp:46
+msgid "Development"
+msgstr "Utvikling"
+
+#: main.cpp:42
+msgid "Hassan Ibraheem"
+msgstr ""
+
+#: main.cpp:43
+msgid "Miika Turkia"
+msgstr ""
+
+#: main.cpp:44
+msgid "Tuomas Suutari"
+msgstr "Tuomas Suutari"
+
+#: main.cpp:44
+msgid "SQL backend and numerous features"
+msgstr "SQL-motor og tallrike funksjoner"
+
+#: main.cpp:45
+msgid "Jan Kundrat"
+msgstr "Jan Kundrat"
+
+#: main.cpp:46
+msgid "Henner Zeller"
+msgstr "Henner Zeller"
+
+#: main.cpp:49
+msgid "Will Stephenson"
+msgstr "Will Stephenson"
+
+#: main.cpp:49
+msgid "Developing an Icon for KPhotoAlbum"
+msgstr "Utvikler et ikon for KPhotoAlbum"
+
+#: main.cpp:50
+msgid "Teemu Rytilahti"
+msgstr "Teemu Rytilahti"
+
+#: main.cpp:51
+msgid ""
+"Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+"(.) Theme support for HTML generation"
+msgstr ""
+"Sender patcher som implementerer (.) menyen «Sett som bakgrunnsbilde» i "
+"framviseren.(.) Temastøtte for HTML-generering"
+
+#: main.cpp:53
+msgid "Reimar Imhof"
+msgstr "Reimar Imhof"
+
+#: main.cpp:53
+msgid "Patch to sort items in option listboxes"
+msgstr "Patch for å sortere elementer i valg-listebokser"
+
+#: main.cpp:54
+msgid "Thomas Schwarzgruber"
+msgstr "Thomas Schwarzgruber"
+
+#: main.cpp:54
+msgid ""
+"Patch to sort images in the thumbnail view, plus reading time info out of "
+"EXIF images for existing images"
+msgstr ""
+"Patch for å sortere bilder i minibildevisningen, og lese tidsinformasjon fra "
+"EXIF-bilder for eksisterende bilder"
+
+#: main.cpp:55
+msgid "Marcel Wiesweg"
+msgstr "Marcel Wiesweg"
+
+#: main.cpp:55
+msgid ""
+"Patch which speed up loading of thumbnails plus preview in image property "
+"dialog."
+msgstr ""
+"Patch som gjør det raskere å laste inn minibilder, og foråndsvisning i "
+"dialogvinduet for bildeegenskaper."
+
+#: main.cpp:56
+msgid "Marco Caldarelli"
+msgstr "Marco Caldarelli"
+
+#: main.cpp:56
+msgid "Patch for making it possible to reread EXIF info using a nice dialog."
+msgstr ""
+"Patch som gjør det mulig å lese EXIF-informasjon på nytt med en fin dialog."
+
+#: main.cpp:57
+msgid "Jean-Michel FAYARD"
+msgstr "Jean-Michel FAYARD"
+
+#: main.cpp:57
+msgid ""
+"(.) Patch with directory info made available through the browser. (.) Patch "
+"for adding a check box for \"and/or\" searches in the search page."
+msgstr ""
+"(.) Patch med mappeinformasjon gjort tilgjengelig via nettleser. (.) Patch "
+"som legger til avkryssingsboks for «og/eller»søk på søkesiden."
+
+#: main.cpp:58
+msgid "Robert L Krawitz"
+msgstr "Robert L Krawitz"
+
+#: main.cpp:58
+msgid "Numerous patches plus profiling KPhotoAlbum again and again."
+msgstr "Tallrike patcher samt profilkjøring av KPhotoAlbum igjen og igjen."
+
+#: main.cpp:59
+msgid "Christoph Moseler"
+msgstr "Christoph Moseler"
+
+#: main.cpp:59
+msgid "Numerous patches for lots of bugs plus patches for a few new features"
+msgstr "Tallrike patcher for mange feil, og patcher for noen få nye funksjoner"
+
+#: main.cpp:60
+msgid "Clytie Siddall"
+msgstr "Clytie Siddall"
+
+#: main.cpp:60
+msgid "Tremendous help with the English text in the application."
+msgstr ""
+
+#: main.cpp:65
+msgid "Config file"
+msgstr "Oppsettsfil"
+
+#: main.cpp:66
+msgid "Database engine to use"
+msgstr "Databasemotor som skal brukes"
+
+#: main.cpp:67
+msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+msgstr "Starter KPhotoAlbum med forhåndslagede demo-bilder"
+
+#: main.cpp:68
+msgid "Import file"
+msgstr "Importer fil"
+
+#: main.cpp:69
+msgid ""
+"This will make an attempt at saving in a format understandable by KimDaBa 2.1"
+msgstr "Dette gjør et forsøk på å lagre i et format som KimDaBa 2.1 forstår"
+
+#: ImportExport/KimFileReader.cpp:18
+#, kde-format
+msgid "Unable to open '%1' for reading."
+msgstr "Klarte ikke å åpne «%1» for lesing."
+
+#: ImportExport/KimFileReader.cpp:18
+msgid "Error Importing Data"
+msgstr "Feil ved importering av data"
+
+#: ImportExport/KimFileReader.cpp:26
+#, kde-format
+msgid ""
+"Error reading directory contents of file %1; it is likely that the file is "
+"broken."
+msgstr ""
+"Feil under lesing av mappeinholdet i fila %1; fila er antakelig ødelagt."
+
+#: ImportExport/KimFileReader.cpp:40
+#, kde-format
+msgid ""
+"Error reading index.xml file from %1; it is likely that the file is broken."
+msgstr "Feil ved lesing av index.xml fra %1; fila er antakelig ødelagt."
+
+#: ImportExport/KimFileReader.cpp:60
+msgid ""
+"Thumbnail item in export file was not a directory, this indicates that the "
+"file is broken."
+msgstr ""
+"Minibilde-elementet i eksportfila var ikke en mappe, dette tyder på at fila "
+"er ødelagt."
+
+#: ImportExport/KimFileReader.cpp:70
+#, kde-format
+msgid "No thumbnail existed in export file for %1"
+msgstr "Det fantes ikke noe minibilde i eksportfila for %1"
+
+#: ImportExport/KimFileReader.cpp:85
+msgid ""
+"export file did not contain a Images subdirectory, this indicates that the "
+"file is broken"
+msgstr ""
+"eksportfila inneholdt ikke en undermappe for bilder, dette tyder på at fila "
+"er ødelagt"
+
+#: ImportExport/KimFileReader.cpp:90
+msgid ""
+"Images item in export file was not a directory, this indicates that the file "
+"is broken"
+msgstr ""
+"Bilder-elementet i eksportfila var ikke en mappe, dette tyder på at fila er "
+"ødelagt"
+
+#: ImportExport/KimFileReader.cpp:98
+#, kde-format
+msgid "No image existed in export file for %1"
+msgstr "Det fantes ikke noe bilde i eksportfila for %1"
+
+#: ImportExport/ImportDialog.cpp:82
+#, kde-format
+msgid "Error in file %1 on line %2 col %3: %4"
+msgstr "Feil i  fil %1 på linje %2 kol %3: %4"
+
+#: ImportExport/ImportDialog.cpp:89
+#, kde-format
+msgid ""
+"Unexpected top element while reading file %1. Expected KPhotoAlbum-export "
+"found %2"
+msgstr ""
+"Uventet toppelement mens fila %1 leses. Forventet KPhotoAlbum-export, fant %2"
+
+#: ImportExport/ImportDialog.cpp:97
+msgid ""
+"<p>XML file did not specify the source of the images, this is a strong "
+"indication that the file is corrupted</p>"
+msgstr ""
+"<p>XML-fila oppga ikke kilde for bildene, dette er et sterkt tegn på at fila "
+"er ødelagt</p>"
+
+#: ImportExport/ImportDialog.cpp:109
+#, kde-format
+msgid "Unknown element while reading %1, expected image."
+msgstr "Ukjent element mens %1 leses, forventet bilde."
+
+#: ImportExport/ImportDialog.cpp:133
+msgid ""
+"<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
+"will take you through the steps of an import operation. The steps are: "
+"<ol><li>First you must select which images you want to import from the "
+"export file. You do so by selecting the checkbox next to the image.</"
+"li><li>Next you must tell KPhotoAlbum in which directory to put the images. "
+"This directory must of course be below the directory root KPhotoAlbum uses "
+"for images. KPhotoAlbum will take care to avoid name clashes</li><li>The "
+"next step is to specify which categories you want to import (People, "
+"Places, ... ) and also tell KPhotoAlbum how to match the categories from the "
+"file to your categories. Imagine you load from a file, where a category is "
+"called <b>Blomst</b> (which is the Danish word for flower), then you would "
+"likely want to match this with your category, which might be called "
+"<b>Blume</b> (which is the German word for flower) - of course given you are "
+"German.</li><li>The final steps, is matching the individual tokens from the "
+"categories. I may call myself <b>Jesper</b> in my image database, while you "
+"want to call me by my full name, namely <b>Jesper K. Pedersen</b>. In this "
+"step non matches will be highlighted in red, so you can see which tokens was "
+"not found in your database, or which tokens was only a partial match.</li></"
+"ol>"
+msgstr ""
+"<h1><font size=\"+2\">V eiviser for  KPhotoAlbum Import</font></h1>Denne "
+"veiviseren går gjennom stegene for en import-handling. Stegene er:"
+"<ol><li>Først må du velge hvilke bilder du vil importere fra eksportfila. "
+"Det gjør du ved å krysse av i boksen ved siden av bildet.</li><li>Så må du "
+"si til KPhotoAlbum hvilken mappe som skal ha bildene. Denne mappa må "
+"naturligvis være under rot-mappa som KPhotoAlbum bruker til bilder. "
+"KPhotoAlbum vil passe på at det ikke oppstår navnekollisjoner</li><li>Neste "
+"steg er å bestemme hvilke kategorier du vil importere (Folk, Steder, … ) og "
+"også si til KPhotoAlbum hvordan kategoriene fra fila skal tilpasses dine "
+"egne kategorier. Tenk deg at du laster inn fra en fil hvor en kategori heter "
+"<b>Fiori</b> (som er italiensk for blomster), så vil du antakelig at dette "
+"skal passe med din egen kategori <b>Blomster</b> – hvis du altså bruker "
+"norskl språk.</li><li>Det siste steget er å tilpasse individuelle symboler "
+"fra kategoriene. Jeg kaller meg kanskje <b>Jesper</b> i min bildedatabase, "
+"mens du kanskje vil bruke mitt fulle navn, <b>Jesper K. Pedersen</b>. I "
+"dette steget vil symboler som ikke passer fremhevet i rødt, så du kan se "
+"hvilke symboler som ikke fantes i databasen din, eller hvilke symboler som "
+"bare hadde et delvis treff.</li></ol>"
+
+#: ImportExport/ImportDialog.cpp:152
+msgid "Introduction"
+msgstr "Innledning"
+
+#: ImportExport/ImportDialog.cpp:168 MainWindow/TokenEditor.cpp:63
+msgid "Select All"
+msgstr "Velg alt"
+
+#: ImportExport/ImportDialog.cpp:170
+msgid "Deselect All"
+msgstr "Fravelg alle"
+
+#: ImportExport/ImportDialog.cpp:205
+msgid "Select Which Images to Import"
+msgstr "Velg hvilke bilder som skal importeres"
+
+#: ImportExport/ImportDialog.cpp:217
+msgid "Destination of images: "
+msgstr "Hvor bildene skal lagres:"
+
+#: ImportExport/ImportDialog.cpp:231
+msgid "Destination of Images"
+msgstr "Hvor bildene skal lagres"
+
+#: ImportExport/ImportDialog.cpp:239
+#, kde-format
+msgid "The directory must be a subdirectory of %1"
+msgstr "Mappa må være en undermappe av %1"
+
+#: ImportExport/ImportDialog.cpp:281
+msgid "Match Categories"
+msgstr "Avstem kategoriene"
+
+#: ImportExport/ImportDialog.cpp:313
+#, kde-format
+msgid "Directory %1 does not exist. Should it be created?"
+msgstr ""
+
+#: ImportExport/ImportDialog.cpp:317
+#, kde-format
+msgid "Error creating directory %1"
+msgstr "Feil under oppretting av mappe %1"
+
+#: ImportExport/ImportDialog.cpp:403
+msgid "How to resolve clashes"
+msgstr "Hvordan konflikter skal løses"
+
+#: ImportExport/Import.cpp:46
+msgid "Unable to create temporary file"
+msgstr "Klarte ikke opprette midlertidig fil"
+
+#: ImportExport/Export.cpp:72
+msgid "Export Configuration / Copy Images"
+msgstr "Eksporter oppsett / kopier bilder"
+
+#: ImportExport/Export.cpp:80
+msgid "How to Handle Images"
+msgstr "Hvordan bilder skal håndteres"
+
+#: ImportExport/Export.cpp:84
+msgid "Include in .kim file"
+msgstr "Ta med i .kim-fila"
+
+#: ImportExport/Export.cpp:85
+msgid "Manual copy next to .kim file"
+msgstr "Kopier manuelt ved siden av .kim-fila"
+
+#: ImportExport/Export.cpp:86
+msgid "Automatically copy next to .kim file"
+msgstr "Kopier automatisk ved siden av .kim-fila"
+
+#: ImportExport/Export.cpp:87
+msgid "Hard link next to .kim file"
+msgstr "Fast lenke ved siden av .kim-fila"
+
+#: ImportExport/Export.cpp:96
+msgid "Compress export file"
+msgstr "Komprimer eksportfil"
+
+#: ImportExport/Export.cpp:100
+msgid "Generate thumbnails"
+msgstr "Lag minibilder"
+
+#: ImportExport/Export.cpp:108
+msgid "Limit maximum image dimensions to: "
+msgstr "Begrens bildestørrelsen til høyst:"
+
+#: ImportExport/Export.cpp:120
+msgid ""
+"<p>If your images are stored in a non-compressed file format then you may "
+"check this; otherwise, this just wastes time during import and export "
+"operations.</p><p>In other words, do not check this if your images are "
+"stored in jpg, png or gif; but do check this if your images are stored in "
+"tiff.</p>"
+msgstr ""
+"<p>Hvis bildene er lagret i et ikke-komprimert format kan du krysse av "
+"dette, ellers kaster det bare bort tid under import og eksport.</p> <p>Med "
+"andre ord, kryss av her hvis bildene er lagret i tiff, men ikke i jpg, png "
+"eller gif.</p>"
+
+#: ImportExport/Export.cpp:126
+msgid "<p>Generate thumbnail images</p>"
+msgstr "<p>Lag minibilder</p>"
+
+#: ImportExport/Export.cpp:129
+msgid ""
+"<p>With this option you may limit the maximum dimensions (width and height) "
+"of your images. Doing so will make the resulting export file smaller, but "
+"will of course also make the quality worse if someone wants to see the "
+"exported images with larger dimensions.</p>"
+msgstr ""
+"<p>Med dette valget kan du begrense dimensjonene (bredde og høyde) på "
+"bildene. Dette vil kunne gjøre eksportfila mindre, men naturligvis også "
+"gjøre kvaliteten dårliere hvis noen vil se på de eksporterte bildene med "
+"større dimensjoner.</p>"
+
+#: ImportExport/Export.cpp:136
+msgid ""
+"<p>When exporting images, bear in mind that there are two things the person "
+"importing these images again will need:<br/>1) meta information (image "
+"content, date etc.)<br/>2) the images themselves.</p><p>The images "
+"themselves can either be placed next to the .kim file, or copied into the ."
+"kim file. Copying the images into the .kim file works well for a recipient "
+"who wants all, or most of those images, for example when emailing a whole "
+"group of images. However, when you place the images on the Web, a lot of "
+"people will see them but most likely only download a few of them. It works "
+"better in this kind of case, to separate the images and the .kim file, by "
+"place them next to each other, so the user can access the images s/he wants."
+"</p>"
+msgstr ""
+"<p>Når bilder eksporteres, så husk på at den som importerer bildene igjen "
+"trenger;<br/> 1) meta-informasjon (bildeinnhold, dato osv,)<br/> 2) selve "
+"bildene.</p> <p>Selve bildene kan enten plasseres ved siden av .kim-fila "
+"eller kopieres inn i .kim-fila. Det er greitt å kopiere bildene inn i .kim-"
+"fila for en mottaker som vil ha alle eller de fleste bildene, f.eks. når en "
+"hel bunke bilder sendes med e-post; men når bildene legges på en nettside, "
+"så vil mange mennesker se dem men antakelig bare laste ned noen få av dem. I "
+"det siste tilfellet er det bedre å skille bildene og .kim-fila fra "
+"hverandre, slik at brukeren kan velge hvilke bilder hun/han vil ha.</p>"
+
+#: ImportExport/Export.cpp:189
+msgid "Error creating zip file"
+msgstr "Feil ved oppretting av zip-fil"
+
+#: ImportExport/Export.cpp:202 ImportExport/ImportHandler.cpp:66
+#: ImportExport/ImportHandler.cpp:118
+msgid "&Cancel"
+msgstr "&Avbryt"
+
+#: ImportExport/Export.cpp:219
+msgid "Creating index file"
+msgstr "Lager registerfil"
+
+#: ImportExport/Export.cpp:234
+msgid "Creating thumbnails"
+msgstr "Lager minibilder"
+
+#: ImportExport/Export.cpp:256
+msgid "Copying image files"
+msgstr "Kopierer bildefiler"
+
+#: ImportExport/Export.cpp:320
+#, kde-format
+msgid "Error writing file %1"
+msgstr "Feil ved skriving til fil %1"
+
+#: ImportExport/Export.cpp:350
+msgid ""
+"<p>Other KPhotoAlbum users may now load the import file into their database, "
+"by choosing <b>import</b> in the file menu.</p><p>If they find it on a web "
+"site, and the web server is correctly configured, all they need to do is "
+"simply to click it from within konqueror. To enable this, your web server "
+"needs to be configured for KPhotoAlbum. You do so by adding the following "
+"line to <b>/etc/httpd/mime.types</b> or similar:<pre>application/vnd.kde."
+"kphotoalbum-import kim</pre>This will make your web server tell konqueror "
+"that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
+"server will just tell konqueror that it is a plain text file.</p>"
+msgstr ""
+"<p>Nå kan andre KPhotoAlbum-brukere laste inn importfila til sin database "
+"ved å velge <b>importer</b> i filmenyen.</p> <p>Hvis de finner den på en "
+"nettside, og nett-tjeneren er riktig satt opp, så trenger de bare å trykke "
+"på den inne i Konqueror. For å slå på dette må nettjeneren din settes opp "
+"for KPhotoAlbum. Det gjør du ved å legge til følgende linje i <b>/etc/httpd/"
+"mime.types</b> eller liknende: <pre>application/vnd.kde.kphotoalbum-import "
+"kim</pre> Dette får nettjeneren din til å si til Konqueror at dette er en "
+"KPhotoAlbum-fil når brukeren trykker på lenka, ellers vil tjeneren bare si "
+"at det er en ren tekstfil.</p>"
+
+#: ImportExport/Export.cpp:359
+msgid "How to Use the Export File"
+msgstr "Hvordan eksportfila brukes"
+
+#: ImportExport/ImportHandler.cpp:66 ImportExport/ImportHandler.cpp:118
+msgid "Copying Images"
+msgstr "Kopierer bilder"
+
+#: ImportExport/ImportHandler.cpp:132
+#, kde-format
+msgid "Error when writing image %1"
+msgstr "Feil ved skriving til bilde %1"
+
+#: ImportExport/ImportHandler.cpp:151
+msgid "Updating Database"
+msgstr "Oppdaterer database"
+
+#: ImportExport/ImportHandler.cpp:180
+msgid "Cannot copy from any of the following locations:"
+msgstr ""
+
+#: ImportExport/ImportHandler.cpp:181
+msgid "Continue without Asking"
+msgstr "Fortsett uten å spørre"
+
+#: ImportExport/ImportMatcher.cpp:45
+msgid "Key in file"
+msgstr "Nøkkel i fil"
+
+#: ImportExport/ImportMatcher.cpp:56
+msgid "Key in your database"
+msgstr "Nøkkel i din database"
+
+#: ImportExport/MD5CheckPage.cpp:32
+#, kde-format
+msgid ""
+"One image from the import file, has the same MD5 sum as an image in the "
+"Database, how should that be resolved?"
+msgid_plural ""
+"%1 images from the import file, have the same MD5 sum as images in the "
+"Database, how should that be resolved?"
+msgstr[0] ""
+"Et bilde fra importfila har samme MD5-sum som et bilde i databasen, hvordan "
+"skal dette løses?"
+msgstr[1] ""
+"%1 bilder fra importfila har samme MD5-sum som bilder i databasen, hvordan "
+"skal dette løses?"
+
+#: ImportExport/MD5CheckPage.cpp:47
+msgid ""
+"Use data from\n"
+"Import File"
+msgstr ""
+"Bruk data fra\n"
+"importfila"
+
+#: ImportExport/MD5CheckPage.cpp:50
+msgid ""
+"Use data from\n"
+"Database"
+msgstr ""
+"Bruk data fra\n"
+"databasen"
+
+#: ImportExport/MD5CheckPage.cpp:53
+msgid "Merge data"
+msgstr "Flett sammen data"
+
+#: ImportExport/MD5CheckPage.cpp:57
+msgid "Label"
+msgstr "Etikett"
+
+#: ImportExport/MD5CheckPage.cpp:58 AnnotationDialog/Dialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:108
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ImportExport/MD5CheckPage.cpp:60
+msgid "Date and Time"
+msgstr "Dato og klokkeslett"
+
+#: tips.cc:3
+msgid ""
+"<p>On KPhotoAlbum's home page (http://www.kphotoalbum.org/) you may see a "
+"few videos featuring a number of\n"
+"different KPhotoAlbum features.</p>\n"
+msgstr ""
+"<p>På nettsida til KPhotoAlbum (http://www.kphotoalbum.org) kan du se noen "
+"videoer som viser\n"
+" en del av egenskapene til KPhotoAlbum.</p>\n"
+
+#: tips.cc:9
+msgid ""
+"<p>It is possible to create new categories - that are alternatives\n"
+"to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation\n"
+"dialog. \n"
+"To add new categories or remove existing ones, go to the <b>Settings-&gt;"
+"Configure KPhotoAlbum</b> dialog, and choose\n"
+"<b>Categories</b> in the side bar.</p>\n"
+msgstr ""
+"<p>Det er mulig å opprette nye kategorier – som er alternativer\n"
+"til <b>Folk</b>, <b>Steder</b> og <b>Hendelser</b> – i merknads-\n"
+"dialogen.\n"
+"For å legge inn nye kategorier eller slette gamle kan du gå til dialogen\n"
+"<b>Innstillinger→Sett opp KPhotoAlbum</b> og velge <b>Kategorier</b>\n"
+"i sidestolpen.</p>\n"
+
+#: tips.cc:18
+msgid ""
+"<p>You may rename or delete a person, location, keyword or similar by\n"
+"right-clicking on the item in the image property dialog.</p>\n"
+msgstr ""
+"<p>Du kan endre navn på eller slette en person, et sted, nøkkelord\n"
+"e.l. ved å høyre-klikke på elementet i egenskapsdialogen for bildet.</p>\n"
+
+#: tips.cc:24
+msgid ""
+"<p>When generating HTML you must specify a base directory for\n"
+"the images. Here you can specify any <a\n"
+"href=\"help:/kioslave/index.html\">protocol</a> supported by KDE, like ftp "
+"or\n"
+"fish.</p>\n"
+"<p>Examples:\n"
+"<ul>\n"
+"  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
+"  <li> fish://someserver/home/foo/images (upload using ssh)\n"
+"  <li> smb://someserver/c/images (upload to a Windows share)\n"
+"</ul>\n"
+"</p>\n"
+msgstr ""
+"<p>Når du lager HTML må du oppgi en rotmappe for bilder.\n"
+"Her kan du bruke enhver <a href=\"help:/kioslave/index.html\">protokoll</a> "
+"som KDE støtter, \n"
+" slik som ftp eller fish.</p>\n"
+"<p>Eksempler:\n"
+"<ul>\n"
+"  <li> ftp://entjener/min-opplaste-mappe/bilder (opplasting med FTP)\n"
+"  <li> fish://entjener/home/foo/bilder (opplasting med ssh)\n"
+"  <li> smb://enwintjener/c/bilder (opplasting til en Windows share)\n"
+"</ul>\n"
+"</p>\n"
+
+#: tips.cc:39
+msgid ""
+"<p>When you bring new images to your collection, you might not have time\n"
+"right away to categorize them (i.e. specify People, Places,\n"
+"etc.). Therefore, you might later want to find those images which have not\n"
+"yet been categorized. Here is what I do.</p> \n"
+"<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've\n"
+"categorized them (i.e. just like you may have a keyword for <b>Summer\n"
+"Party</b> or <b>Interrail trip 1990</b>, you now have a keyword\n"
+"<b>OK</b>). To find uncategorized images, I choose the\n"
+"<b>Search</b> item from the browser, and in the keywords field, I\n"
+"type <b>!OK</b>. This will find all images which do <b>not</b> have the\n"
+"<b>OK</b> item.\n"
+msgstr ""
+"<p>Når du henter inn nye bilder til samlingen har du kanskje ikke tid til å\n"
+"kategorisere dem med en gang (dvs. angi Folk, Steder, osv,)\n"
+"Derfor vil du kanskje senere finne fram de bildene som ikke ennå er blitt\n"
+"kategorisert. Slik gjør jeg det.</p>\n"
+"<p>Jeg bruker <b>nøkkelordet</b> <b>OK</b> som jeg setter på bilder\n"
+"når jeg har kategorisert dem (dvs. akkurat som du kan lage nøkkelord for \n"
+"<b>Sommerfest</b> eller <b>Interrail 1990</b> så har du nå OK som et \n"
+"nøkkelord. ) For å finne bilder uten kategori velger jeg nå <b>Søk</b> i \n"
+"framviseren, og i nøkkelordfeltet skriver jeg <b>!OK</b>. Dette finner alle\n"
+"bider som <b>ikke</b> har nøkkelordet <b>OK</b>.\n"
+
+#: tips.cc:54
+msgid ""
+"<p>You can reorder images on your hard disk after having loaded them into\n"
+"KPhotoAlbum - KPhotoAlbum will still remember them, as it calculates "
+"checksums for\n"
+"the images.</p>\n"
+msgstr ""
+"<p>Du kan omordne bilder på harddisken etter at du har lastet dem inn i\n"
+"KPhotoAlbum – KPhotoAlbum husker dem likevel, fordi det beregner en \n"
+"sjekksum for bildene.</p>\n"
+
+#: tips.cc:61
+msgid ""
+"<p>If you like KPhotoAlbum, and it adds value to your daily life, please\n"
+"consider donating money to the KPhotoAlbum developer as a courtesy. See\n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+msgstr ""
+"<p>Hvis du liker KPhotoAlbum og det har verdi for deg i dagliglivet, \n"
+"tenk over om du kan støtte utvikleren med en liten sum. Se \n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+
+#: tips.cc:69
+msgid ""
+"<p>It's possible to associate images with categories. That way when "
+"browsing, say people, you\n"
+"may get a small icon for each person with e.g. the person's face.</p>\n"
+"<p>To specify an icon for a person, load the person in the viewer, zoom to\n"
+"the part which you want to make into an icon, and choose\n"
+"<b>Show Category Editor</b>. This will bring up a dialog where you can\n"
+"find the person, and set the image.\n"
+"</p>\n"
+msgstr ""
+"<p>Det er mulig å tilordne bilder med kategorier. På den måten kan du f.eks. "
+"få\n"
+"et lite ikon med ansiktet til hvert menneske i Folk-kategorien når du blar.</"
+"p>\n"
+"<p>Et ikon tilordnes en person på denne måten: Last personen i visningen,\n"
+"forstørr til den delen du vil lage til et ikon, og velg så \n"
+"<b>Vis kategoriredigering</b>. Da vises det en dialog\n"
+" der du kan finne personen og angi bildet som ikon.\n"
+"</p>\n"
+
+#: tips.cc:80
+msgid ""
+"<p>You may close the image annotation dialog (the one where you specify\n"
+"people, places, etc. for the images) by pressing Ctrl+Enter.\n"
+"</p>\n"
+msgstr ""
+"<p>Du kan lukke merknadsdialogen (der du oppgir folk, steder osv. for\n"
+"bildene) ved å trykke CTRL+ENTER.\n"
+"</p>\n"
+
+#: tips.cc:87
+msgid ""
+"<p>KPhotoAlbum has a mailing list at\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an "
+"IRC\n"
+"channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>\n"
+msgstr ""
+"<p>KPhotoAlbum har en e-postliste hos\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, og en IRC\n"
+"kanal som heter <b>#kphotoalbum</b> på <b>irc.kde.org</b>.</p>\n"
+
+#: tips.cc:94
+msgid ""
+"<p>You may reorder images by dragging and dropping one image onto\n"
+"another. If you drop it on the left edge, it will end up in front of\n"
+"the other, if you drop it on the right edge it will be inserted behind.</p>\n"
+"<p align=\"right\">-- Tip contributed by Eivind Kjorstad</p>\n"
+msgstr ""
+"<p>Du kan endre rekkefølge på bilder ved å dra og slippe et bilde på\n"
+"et annet. Hvis du slipper det på venstre kant, kommer det foran det andre,\n"
+"og hvis du slipper det på høyre kant blir det satt inn bak.</p>\n"
+"<p align=\"right\">-- tipsbidrag fra Eivind Kjørstad</p>\n"
+
+#: tips.cc:102
+msgid ""
+"<p>\n"
+"On the thumbnail view, you can resize the grid to your needs just by "
+"clicking \n"
+"the middle mouse button and dragging around. On most systems you can "
+"emulate \n"
+"the middle mouse button by left and right clicking at the same time. \n"
+"</p>\n"
+"<p align=\"right\">-- Tip contributed by Rafael Beccar</p>\n"
+msgstr ""
+"<p>\n"
+"På minibildevisningen kan du endre størrelse på rutenettet slik du vil ved "
+"å\n"
+"trykke midre museknapp og trekke omkring. På de fleste systemer kan du \n"
+"emulere midtknappen ved å trykke høyre og venstre knapp samtidig.\n"
+"</p>\n"
+"<p align=\"right\">-- tipsbidrag fra Rafael Beccar</p>\n"
+
+#: tips.cc:112
+msgid ""
+"<p>This is the last tip. If you know any additional tips or tricks, then "
+"please\n"
+"send an email to <a href=\"mailto:blackie@kde.org\">blackie@kde.org</a>.</"
+"p>\n"
+msgstr ""
+"<p>Dette er det siste tipset. Hvis du vet om flere tips og knep, så send en\n"
+"e-post til <a href=\"mailto:blackie@kde.org\">blackie@kde.org</a>.</p>\n"
+
+#: Settings/ViewerPage.cpp:16
+msgid "Running Slide Show From Thumbnail View"
+msgstr "Kjører lysbildevisning fra minibildevisningen"
+
+#: Settings/ViewerPage.cpp:19
+msgid "Viewing Images and Videos From Thumbnail View"
+msgstr "Viser bilder og filmer fra minibildevisningen"
+
+#: Settings/ViewerPage.cpp:25
+msgid "Slideshow interval:"
+msgstr "Lysbildeintervall:"
+
+#: Settings/ViewerPage.cpp:31
+msgid " sec"
+msgstr " sek"
+
+#: Settings/ViewerPage.cpp:34
+msgid "Image cache:"
+msgstr "Bildemellomlager:"
+
+#: Settings/ViewerPage.cpp:40
+msgid " Mbytes"
+msgstr " Mbyte"
+
+#: Settings/ViewerPage.cpp:46
+msgid "Standard size in viewer:"
+msgstr "Standardstørrelse i visning:"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Full Viewer Size"
+msgstr "Full størrelse"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size"
+msgstr "Naturlig bildestørrelse"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size If Possible"
+msgstr "Naturlig bildestørrelse hvis mulig"
+
+#: Settings/ViewerPage.cpp:53
+msgid ""
+"<p>Set the standard size for images to be displayed in the viewer.</p> "
+"<p><b>Full Viewer Size</b> indicates that the image will be stretched or "
+"shrunk to fill the viewer window.</p> <p><b>Natural Image Size</b> indicates "
+"that the image will be displayed pixel for pixel.</p> <p><b>Natural Image "
+"Size If Possible</b> indicates that the image will be displayed pixel for "
+"pixel if it would fit the window, otherwise it will be shrunk to fit the "
+"viewer.</p>"
+msgstr ""
+"<p>Still inn standardstørrelse for bilder i framviseren.</p> <p><b>Full "
+"størrelse</b> angir at bildet blir forstørret eller forminsket til å fylle "
+"visningsvinduet. <p><b>Naturlig bildestørrelse</b>  angir at bildet vises "
+"piksel for piksel.</p><b>Naturlig bildestørrelse  hvis mulig</b> angir at "
+"bildet blir vist piksel for piksel hvis det passer i vinduet, ellers blir "
+"det forminsket til det passer i visningsvinduet.</p>"
+
+#: Settings/ViewerPage.cpp:60
+msgid "Scaling Algorithm"
+msgstr "Skaleringsalgoritme"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Fastest"
+msgstr "Raskest"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Best"
+msgstr "Best"
+
+#: Settings/ViewerPage.cpp:67
+msgid ""
+"<p>When displaying images, KPhotoAlbum normally performs smooth scaling of "
+"the image. If this option is not set, KPhotoAlbum will use a faster but less "
+"smooth scaling method.</p>"
+msgstr ""
+"<p>KPhotoAlbum bruker normalt jevn bildeskalering når bilder vises. Hvis "
+"dette ikke er slått på vil KPhotoAlbum bruke en raskere men mer ujevn "
+"skaleringsmetode.</p>"
+
+#: Settings/ExifPage.cpp:25
+msgid "EXIF/IPTC info to show in the Viewer"
+msgstr "EXIF/IPTC-informasjon som synes i visningen"
+
+#: Settings/ExifPage.cpp:28
+msgid "EXIF/IPTC info to show in the EXIF dialog"
+msgstr "EXIF/IPTC-informasjonsom vises i EXIF-dialogen"
+
+#: Settings/ExifPage.cpp:31
+msgid "Character set for image metadata:"
+msgstr "Tegnsett for bilde-metadata:"
+
+#: Settings/SettingsDialog.cpp:64 MainWindow/Window.cpp:1158
+msgid "General"
+msgstr "Generelt"
+
+#: Settings/SettingsDialog.cpp:65
+msgid "Thumbnail View"
+msgstr "Småbildevisning"
+
+#: Settings/SettingsDialog.cpp:66
+msgid "Categories"
+msgstr "Kategorier"
+
+#: Settings/SettingsDialog.cpp:67
+msgid "Subcategories"
+msgstr "Underkategorier"
+
+#: Settings/SettingsDialog.cpp:68 MainWindow/Window.cpp:1159
+msgid "Viewer"
+msgstr "Framviser"
+
+#. i18n: file: kphotoalbumui.rc:66
+#. i18n: ectx: Menu (plugins)
+#: Settings/SettingsDialog.cpp:70 rc.cpp:12
+msgid "Plugins"
+msgstr "Programtillegg"
+
+#: Settings/SettingsDialog.cpp:74
+msgid "EXIF/IPTC Information"
+msgstr "EXIF/IPTC-informasjon"
+
+#: Settings/SettingsDialog.cpp:76
+msgid "Database backend"
+msgstr "Databasemotor"
+
+#: Settings/ThumbnailsPage.cpp:19
+msgid "Tooltip preview image size:"
+msgstr "Bildestørrelse på verktøytipsets forhåndsvisning:"
+
+#: Settings/ThumbnailsPage.cpp:23
+msgid "No Image Preview"
+msgstr "Ingen forhåndsvisning"
+
+#: Settings/ThumbnailsPage.cpp:29
+msgid "Thumbnail image size:"
+msgstr "Størrelse på småbildene:"
+
+#: Settings/ThumbnailsPage.cpp:38
+msgid "Thumbnail table cells aspect ratio"
+msgstr "Høyde/bredde-forhold for minibilder i tabellceller"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "1:1"
+msgstr "1:1"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "4:3"
+msgstr "4:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:2"
+msgstr "3:2"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "16:9"
+msgstr "16:9"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:4"
+msgstr "3:4"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "2:3"
+msgstr "2:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "9:16"
+msgstr "9:16"
+
+#: Settings/ThumbnailsPage.cpp:47
+msgid "Thumbnail format"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "ppm"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "png"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:50
+msgid "jpg"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:56
+msgid "Space around cells"
+msgstr "Plass rundt cellene"
+
+#: Settings/ThumbnailsPage.cpp:64
+msgid "Background Color"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:71
+msgid "Display grid around thumbnails"
+msgstr "Vis rutenett rundt miniatyrbilder"
+
+#: Settings/ThumbnailsPage.cpp:76
+msgid "Display labels in thumbnail view"
+msgstr "Vis etiketter i minibildevisning"
+
+#: Settings/ThumbnailsPage.cpp:81
+msgid "Display categories in thumbnail view"
+msgstr "Vis kategorier i minibildevisning"
+
+#: Settings/ThumbnailsPage.cpp:86
+msgid "Auto display limit: "
+msgstr "Grense for auto-visning:"
+
+#: Settings/ThumbnailsPage.cpp:90 Settings/GeneralPage.cpp:28
+msgid "Never"
+msgstr "Aldri"
+
+#: Settings/ThumbnailsPage.cpp:96
+msgid "Thumbnail screen cache:"
+msgstr "Mellomlager for minibildeskjerm"
+
+#: Settings/ThumbnailsPage.cpp:112
+msgid ""
+"<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, "
+"then you will see a small tool tip window displaying information about the "
+"thumbnails. This window includes a small preview image. This option "
+"configures the image size.</p>"
+msgstr ""
+"<p>Hvis du velger <b>Innstillinger→Vis verktøytips</b> i minibildevisning, "
+"så får du se et lite verktøytips-vindu som viser informasjon om minibildene. "
+"Dette vinduet inneholder et lite forhåndsvisningsbilde. Dette valget setter "
+"opp størrelsen på bildet.</p>"
+
+#: Settings/ThumbnailsPage.cpp:119
+msgid ""
+"<p>Thumbnail image size. You may also set the size simply by dragging the "
+"thumbnail view using the middle mouse button.</p>"
+msgstr ""
+"<p>Størrelse for minibilder. Du kan også sette størrelsen ved ganske enkelt "
+"å dra minibildevisningen med midtknappen på musa.</p>"
+
+#: Settings/ThumbnailsPage.cpp:123
+msgid ""
+"<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
+msgstr "<p>Velg høyde/bredde-forhold på cellene som inneholder minibilder.</p>"
+
+#: Settings/ThumbnailsPage.cpp:126
+msgid ""
+"<p>Choose the format used for the thumbnails images, ppm is the faster, jpg "
+"the smaller. You need to restart application for this change to take effect."
+"</p>"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:130
+msgid "<p>How thick the cell padding should be.</p>"
+msgstr "<p>Hvor tykk cellepolstringen skal være.</p>"
+
+#: Settings/ThumbnailsPage.cpp:133
+msgid "<p>Background color to use in the thumbnail viewer</p>"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:137
+msgid ""
+"<p>If you want to see grid around your thumbnail images, select this option."
+"</p>"
+msgstr "<p>Velg dette hvis du vil se rutenettet rundt minibildene.</p>"
+
+#: Settings/ThumbnailsPage.cpp:141
+msgid ""
+"<p>Checking this option will show the base name for the file under "
+"thumbnails in the thumbnail view.</p>"
+msgstr ""
+"<p>Kryss av her for å se base-navnet for fila under minibildene i "
+"minibildebvisningen.</p>"
+
+#: Settings/ThumbnailsPage.cpp:145
+msgid ""
+"<p>Checking this option will show the Categories for the file under "
+"thumbnails in the thumbnail view</p>"
+msgstr ""
+"<p>Kryss av her for å vise kategorien for fila under minibildet i "
+"minibildevisningen.</p>"
+
+#: Settings/ThumbnailsPage.cpp:149
+msgid ""
+"<p>When you are browsing, and the count gets below the value specified here, "
+"the thumbnails will be shown automatically. The alternative is to continue "
+"showing the browser until you press <i>Show Images</i></p>"
+msgstr ""
+"<p>Når du blar, og antallet blir mindre enn det som er oppgitt her, så blir "
+"minibildene vist automatisk. Alternativet er å fortsette å vise blaingen til "
+"du trykker <i>Vis bilder</i></p>"
+
+#: Settings/ThumbnailsPage.cpp:155
+msgid ""
+"<p>Specify number of screens the thumbnail cache should be able to hold.</p>"
+msgstr ""
+"<p>Oppgi antall skjermer som skal kunne lagres i mellomlageret for "
+"minibilder.</p>"
+
+#: Settings/ThumbnailsPage.cpp:193
+#, kde-format
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: Settings/ThumbnailsPage.cpp:194
+msgctxt "Thumbnail Cache Screens"
+msgid " Screen"
+msgid_plural " Screens"
+msgstr[0] "Skjerm"
+msgstr[1] "Skjermer"
+
+#: Settings/CategoryItem.cpp:120
+msgid ""
+"<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
+"renaming categories; otherwise all the filenames of the category thumbnails "
+"will be wrong, and thus lost.</p><p>So either press Cancel now (and it will "
+"not be renamed), or press Continue, and as your next step save the database."
+"</p>"
+msgstr ""
+"<p>På grunn av en svakhet i KPhotoAlbum må du lagre databasen etter at "
+"kategorier har fått nye navn, ellers vil filnavnene på alle minibildene for "
+"kategoriene bli feil og derfor gå tapt.</p><p> Du bør enten trykke Avbryt nå "
+"(og ikke gi nytt navn), eller trykk Fortsett og som neste steg lagre "
+"databasen. </p>"
+
+#: Settings/SubCategoriesPage.cpp:23 Settings/UntaggedGroupBox.cpp:19
+#: MainWindow/StatisticsDialog.cpp:99
+msgid "Category:"
+msgstr "Kategori:"
+
+#: Settings/SubCategoriesPage.cpp:36
+msgid "Super Categories:"
+msgstr "Overkategorier:"
+
+#: Settings/SubCategoriesPage.cpp:45
+msgid "Items of Category:"
+msgstr "Elementer i kategorien:"
+
+#: Settings/SubCategoriesPage.cpp:55
+msgid "Add Super Category..."
+msgstr "Legg til overkategori …"
+
+#: Settings/SubCategoriesPage.cpp:57
+msgid "Rename Super Category..."
+msgstr "Nytt navn på overkategori …"
+
+#: Settings/SubCategoriesPage.cpp:59
+msgid "Delete Super Category"
+msgstr "Slett overkategori"
+
+#: Settings/SubCategoriesPage.cpp:63
+msgid ""
+"<b>Notice:</b> It is also possible to set up subcategories in the annotation "
+"dialog, simply by dragging items."
+msgstr ""
+"<b>Merk:</b> det er også mulig å sette opp underkategorien i dialogen for "
+"merknader, ganske enkelt ved å dra elementer,"
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "New Group"
+msgstr "Ny gruppe"
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "Group name:"
+msgstr "Gruppenavn:"
+
+#: Settings/SubCategoriesPage.cpp:172
+#, kde-format
+msgid "Really delete group %1?"
+msgstr "Er du sikker på at du vil slette gruppe %1?"
+
+#: Settings/SubCategoriesPage.cpp:172
+msgid "Delete Group"
+msgstr "Slett gruppe"
+
+#: Settings/SubCategoriesPage.cpp:172 AnnotationDialog/ListSelect.cpp:355
+msgid "&Delete"
+msgstr "&Slett"
+
+#: Settings/GeneralPage.cpp:21
+msgid "New Images"
+msgstr "Nye bilder"
+
+#: Settings/GeneralPage.cpp:26
+msgid "Trust image dates:"
+msgstr "Stol på bildedatoer:"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Always"
+msgstr "Alltid"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Ask"
+msgstr "Spør"
+
+#: Settings/GeneralPage.cpp:35
+msgid "Use EXIF orientation information"
+msgstr "Bruk orienteringsinformasjon fra EXIF"
+
+#: Settings/GeneralPage.cpp:37
+msgid "Use EXIF description"
+msgstr "Bruk beskrivelse fra EXIF"
+
+#: Settings/GeneralPage.cpp:40
+msgid "Search for new images and videos on startup"
+msgstr "Let etter nye bilder og filmer ved oppstart"
+
+#: Settings/GeneralPage.cpp:41
+msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
+msgstr ""
+
+#: Settings/GeneralPage.cpp:47
+msgid "Size of histogram columns in date bar:"
+msgstr ""
+
+#: Settings/GeneralPage.cpp:61
+msgid "Show splash screen"
+msgstr "Vis velkomstbilde"
+
+#: Settings/GeneralPage.cpp:65
+msgid "Category for virtual albums:"
+msgstr "Kategori for virtuelle albumer:"
+
+#: Settings/GeneralPage.cpp:85
+msgid ""
+"<p>KPhotoAlbum will try to read the image date from EXIF information in the "
+"image. If that fails it will try to get the date from the file's time stamp."
+"</p><p>However, this information will be wrong if the image was scanned in "
+"(you want the date the image was taken, not the date of the scan).</p><p>If "
+"you only scan images, in contrast to sometimes using a digital camera, you "
+"should reply <b>no</b>. If you never scan images, you should reply <b>yes</"
+"b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
+"images are from the scanner or the camera, from session to session.</p>"
+msgstr ""
+"<p>KPhotoAlbum vil forsøke å lese bildedata fra EXIF-informasjonen i bildet. "
+"Hvis det mislykkes vil det forsøke å hente datoeen fra tidsstempelet på fila."
+"</p><p>Imidlertid er denne informasjonen feil hvis bildet ble skannet inn "
+"(du trenger datoen bildet ble tatt, ikke når det ble skannet).</p><p>Hvis du "
+"bare skanner bilder, i motsetning til å bruke digitalkamera noen ganger, så "
+"bør du svare <b>nei</b>. Hvis du aldri skanner bilder bør du svare <b>ja</"
+"b>, ellers <b>spør</b>. Da kan du avgjøre om bildet er fra skanneren og "
+"kamera, fra økt til økt.</p>"
+
+#: Settings/GeneralPage.cpp:96
+msgid ""
+"<p>JPEG images may contain information about rotation. If you have a reason "
+"for not using this information to get a default rotation of your images, "
+"uncheck this check box.</p><p>Note: Your digital camera may not write this "
+"information into the images at all.</p>"
+msgstr ""
+"<p>JPEG-bilder kan inneholde informasjon om rotasjon. Ta vekk krysset hvis "
+"du har grunn til ikke å bruke denne informasjonen til å hente "
+"standardrotasjon for bildene.</p><p>Merk: Det kan være at digitalkameraet "
+"ikke skriver denne informasjonen i bildet i det hele tatt.</p>"
+
+#: Settings/GeneralPage.cpp:102
+msgid ""
+"<p>JPEG images may contain a description. Check this checkbox to specify if "
+"you want to use this as a default description for your images.</p>"
+msgstr ""
+"<p>JPEG-bilder kan inneholde en beskrivelse. Kryss av her om du vil bruke "
+"denne som standardbeskrivelse for bildene.</p>"
+
+#: Settings/GeneralPage.cpp:107
+msgid ""
+"<p>KPhotoAlbum is capable of searching for new images and videos when "
+"started, this does, however, take some time, so instead you may wish to "
+"manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
+">Rescan for new images</b></p>"
+msgstr ""
+"<p>KPhotoAlbum kan lete etter nye bilder og filmer ved oppstarten, men dette "
+"tar litt tid, så kanskje du heller vil be KPhotoAlbum lete etter nye bilder "
+"når du vil, ved å bruke <b>Vedlikehold→Let etter nye bilder</b></p>"
+
+#: Settings/GeneralPage.cpp:112
+msgid ""
+"<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  Some "
+"cameras store both a RAW image and a matching JPEG or TIFF image.  This "
+"causes duplicate images to be stored in KPhotoAlbum, which may be "
+"undesirable.  If this option is checked, KPhotoAlbum will not read RAW files "
+"for which matching image files also exist.</p>"
+msgstr ""
+"<p>KPhotoAlbum kan lese noen typer RAW-bilder. Noen kameraer lagrer både et "
+"RAW-bilde og et tilsvarende JPEG eller TIFF-bilde. Dette gjør at det lagres "
+"dupliserte bilder i KPhotoAlbum, noe som kan være uønsket. Hvis dette er "
+"krysset av vil KPhotoAlbum ikke lese RAW-filer som har tilsvarende "
+"bildefiler.</p>"
+
+#: Settings/GeneralPage.cpp:118
+msgid ""
+"<p>KPhotoAlbum shares plugins with other imaging applications, some of which "
+"have the concept of albums. KPhotoAlbum does not have this concept; "
+"nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
+"plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
+"current album to be the current view - that is, all the images the browser "
+"offers to display.</p><p>In addition to the current album, KPhotoAlbum must "
+"also be able to give a list of all albums; the list of all albums is defined "
+"in the following way:<ul><li>When KPhotoAlbum's browser displays the content "
+"of a category, say all People, then each item in this category will look "
+"like an album to the plugin.</li><li>Otherwise, the category you specify "
+"using this option will be used; e.g. if you specify People with this option, "
+"then KPhotoAlbum will act as if you had just chosen to display people and "
+"then invoke the plugin which needs to know about all albums.</li></ul></"
+"p><p>Most users would probably want to specify Events here.</p>"
+msgstr ""
+
+#: Settings/GeneralPage.cpp:134
+msgid "Show the KPhotoAlbum splash screen on start up"
+msgstr "Vis velkomstbildet til KPhotoAlbum ved oppstart"
+
+#: Settings/PluginsPage.cpp:18
+msgid "Choose Plugins to load:"
+msgstr "Vekg programtillegg som skal lastes inn:"
+
+#: Settings/PluginsPage.cpp:24
+msgid "Delay loading plugins until the plugin menu is opened"
+msgstr ""
+
+#: Settings/SettingsData.cpp:195
+msgid ""
+"When reading time information of images, their EXIF info is used. Exif info "
+"may, however, not be supported by your KPhotoAlbum installation, or no valid "
+"information may be in the file. As a backup, KPhotoAlbum may use the "
+"timestamp of the image - this may, however, not be valid in case the image "
+"is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
+"on your images?"
+msgstr ""
+"Når tidsinformasjon leses fra bildene brukes bildenes EXIF-informasjon. "
+"Imidlertid kan det hende at denne installasjonen ikke støtter EXIF-"
+"informasjon, eller det er kanskje ingen gyldig informasjon i fila. "
+"KPhotoAlbum kan falle tilbake på bildets tidsstempel – men dette er kanskje "
+"ikke gyldig hvis bildet er skannet inn. Spørsmålet er, skal KPhotoAlbum "
+"stole på tidsstemplene på bildene?"
+
+#: Settings/SettingsData.cpp:201
+msgid "Trust Time Stamps?"
+msgstr "Stole på tidsstempler? …"
+
+#: Settings/DatabaseBackendPage.cpp:26
+msgid "Database backend to use"
+msgstr "Databasemotor som skal brukes"
+
+#: Settings/DatabaseBackendPage.cpp:29
+msgid "XML backend (recommended)"
+msgstr "XML-motor (anbefalt)"
+
+#: Settings/DatabaseBackendPage.cpp:32
+msgid "SQL backend (experimental)"
+msgstr "SQL-motor (eksperimentell)"
+
+#: Settings/DatabaseBackendPage.cpp:37
+msgid "XML Database Setting"
+msgstr "Innstillinger for XML-database"
+
+#: Settings/DatabaseBackendPage.cpp:41
+msgid "Choose speed over readability for index.xml file"
+msgstr "Velg fart framfor lesbarhet for fila index.xml"
+
+#: Settings/DatabaseBackendPage.cpp:42
+msgid "Compress backup file"
+msgstr "Komprimer sikkerhetskopi-fila"
+
+#: Settings/DatabaseBackendPage.cpp:46
+msgid "Auto save every:"
+msgstr "Autolagre hvert:"
+
+#: Settings/DatabaseBackendPage.cpp:49
+msgid "min."
+msgstr "min."
+
+#: Settings/DatabaseBackendPage.cpp:59
+msgid "Number of backups to keep:"
+msgstr "Antall sikkerhetskopier som skal beholdes:"
+
+#: Settings/DatabaseBackendPage.cpp:64
+msgid "Infinite"
+msgstr "Uendelig"
+
+#: Settings/DatabaseBackendPage.cpp:69
+msgid ""
+"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
+"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
+"the number of backup files to keep. KPhotoAlbum will delete the oldest "
+"backup file when it reaches the maximum number of backup files.</p><p>The "
+"index.xml file may grow substantially if you have many images, and in that "
+"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
+"disk space.</p>"
+msgstr ""
+"<p>KPhotoAlbum kan sikkerhetskopiere index.xml-fila ved å beholde kopier med "
+"navnene  index.xml~1~ index.xml~2~ osv. og tallboksen kan brukes til å oppgi "
+"hvor mange sikkerhetskopier som skal beholdes. Når det største antallet "
+"filer er nådd vil KPhotoAlbum slette den eldste kopien.</p> <p>index.xml-"
+"fila kan bli stor hvis du har mange bilder, og i så fall er er det nyttig å "
+"be KPhotoAlbum zip-komprimere sikkerhetskopiene for å spare diskplass.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:79
+msgid ""
+"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+"With lots of images it may take a long time to read this file. You may cut "
+"down this time to approximately half, by checking this check box. The "
+"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+msgstr ""
+"<p>KPhotoAlbum bruker én index.xml-fil som sin <i>database</i>. Med mange "
+"bilder kan det ta lang tid å lese denne fila. Tida kan reduseres til omtrent "
+"halvparten ved å krysse av her. Ulempen er at index.xml-fila blir "
+"vanskeligere å lese for menneskeøyne.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:88
+msgid "SQL Database Settings"
+msgstr "Innstillinger for SQL-database"
+
+#: Settings/DatabaseBackendPage.cpp:95
+msgid "Warning: The password is saved as plain text to the configuration file."
+msgstr ""
+
+#: Settings/ViewerSizeConfig.cpp:29
+msgid "Launch in full screen"
+msgstr "Start i fullskjerm"
+
+#: Settings/ViewerSizeConfig.cpp:34
+msgid "Size:"
+msgstr "Størrelse:"
+
+#: Settings/CategoryPage.cpp:36
+msgid "Label:"
+msgstr "Merkelapp:"
+
+#: Settings/CategoryPage.cpp:47
+msgid "Icon:"
+msgstr "Ikon:"
+
+#: Settings/CategoryPage.cpp:58
+msgid "Thumbnail Size: "
+msgstr "Størrelse på minibildene:"
+
+#: Settings/CategoryPage.cpp:69
+msgid "Preferred view:"
+msgstr "Foretrukket visning:"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View"
+msgstr "Listevisning"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View with Custom Thumbnails"
+msgstr "Listevisning med selvvalgte minibilder"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View"
+msgstr "Ikonvisning"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View with Custom Thumbnails"
+msgstr "Ikonvisning med selvvalgte minibilder"
+
+#: Settings/CategoryPage.cpp:82
+msgid "New"
+msgstr "Ny"
+
+#: Settings/CategoryPage.cpp:85 AnnotationDialog/ListSelect.cpp:287
+#: AnnotationDialog/Dialog.cpp:861 MainWindow/DeleteDialog.cpp:45
+msgid "Delete"
+msgstr "Slett"
+
+#: Settings/CategoryPage.cpp:154
+#, kde-format
+msgid "<p>Really delete category '%1'?</p>"
+msgstr "<p>Er det sikkert at du vil slette kategori «%1»?</p>"
+
+#: Settings/UntaggedGroupBox.cpp:26 MainWindow/StatisticsDialog.cpp:105
+msgid "Tag:"
+msgstr "Merke:"
+
+#: Settings/UntaggedGroupBox.cpp:39
+msgid "None Selected"
+msgstr ""
+
+#: Utilities/Util.cpp:101
+msgid "<b>File Name: </b> "
+msgstr "<b>Filnavn: </b>"
+
+#: Utilities/Util.cpp:105
+msgid "<b>Date: </b> "
+msgstr "<b>Dato: </b>"
+
+#: Utilities/Util.cpp:115
+msgid "x"
+msgstr "x"
+
+#: Utilities/Util.cpp:120
+msgctxt "Short for Mega Pixels"
+msgid "MP"
+msgstr "MP"
+
+#: Utilities/Util.cpp:122
+msgid "<b>Image Size: </b> "
+msgstr "<b>Bildestørrelse: </b>"
+
+#: Utilities/Util.cpp:168
+msgid "<b>Label: </b> "
+msgstr "<b>Etikett:</b>"
+
+#: Utilities/Util.cpp:172
+msgid "<b>Description: </b> "
+msgstr "<b>Beskrivelse:</b>"
+
+#: Utilities/Util.cpp:226
+#, kde-format
+msgid ""
+"Backup file '%1' exists and is newer than '%2'. Should the backup file be "
+"used?"
+msgstr ""
+
+#: Utilities/Util.cpp:229
+msgid "Found Backup File"
+msgstr "Fant sikkerhetskopi"
+
+#: Utilities/Util.cpp:256
+#, kde-format
+msgid "Unable to copy '%1' to '%2'."
+msgstr "Klarer ikke kopiere «%1» til «%2»."
+
+#: Utilities/Util.cpp:270 Utilities/Util.cpp:305
+#, kde-format
+msgid "Unable to create directory '%1' needed for demo."
+msgstr "Klarer ikke å opprette mappe «%1» som trengs for demo."
+
+#: Utilities/Util.cpp:288
+#, kde-format
+msgid "Unable to open '%1' for writing."
+msgstr "Klarer ikke åpne «%1» for skriving."
+
+#: Utilities/Util.cpp:367
+#, kde-format
+msgid "<p>Unable to find file %1</p>"
+msgstr "<p>Klarer ikke finne fila %1</p>"
+
+#: AnnotationDialog/ListSelect.cpp:90 AnnotationDialog/Dialog.cpp:831
+msgid "Sort Alphabetically"
+msgstr "Sorter alfabetisk"
+
+#: AnnotationDialog/ListSelect.cpp:96
+msgid "Sort by date"
+msgstr ""
+
+#: AnnotationDialog/ListSelect.cpp:102
+msgid "Show only selected Ctrl+S"
+msgstr ""
+
+#: AnnotationDialog/ListSelect.cpp:277
+msgid "No Item Selected"
+msgstr "Ingen elementer valgt"
+
+#: AnnotationDialog/ListSelect.cpp:288
+msgid "Rename..."
+msgstr "Endre navn …"
+
+#: AnnotationDialog/ListSelect.cpp:290
+msgid "<b>Sub Categories</b>"
+msgstr "<b>Underkategorier</b>"
+
+#: AnnotationDialog/ListSelect.cpp:298
+msgid "Super Categories"
+msgstr "Overkategorier"
+
+#: AnnotationDialog/ListSelect.cpp:315
+msgid "New Category..."
+msgstr "Ny kategori …"
+
+#: AnnotationDialog/ListSelect.cpp:318
+msgid "Create Subcategory..."
+msgstr "Opprett underkategori …"
+
+#: AnnotationDialog/ListSelect.cpp:324
+#, kde-format
+msgid "Take item out of category %1"
+msgstr "Ta elementet ut av kategori %1"
+
+#: AnnotationDialog/ListSelect.cpp:327
+msgid "<b>Sorting</b>"
+msgstr "<b>Sortering</b>"
+
+#: AnnotationDialog/ListSelect.cpp:333
+msgid "Usage"
+msgstr "Bruk"
+
+#: AnnotationDialog/ListSelect.cpp:334
+msgid "Alphabetical"
+msgstr "Alfabetisk"
+
+#: AnnotationDialog/ListSelect.cpp:350
+#, kde-format
+msgid ""
+"<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
+"any information about it from any image containing the item.</p>"
+msgstr ""
+"<p>Er du sikker på at du vil slette «%1»?<br/> Om dette slettes blir all "
+"informasjon om det slettet fra alle bilder som inneholder elementet.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:354
+#, kde-format
+msgid "Really Delete %1?"
+msgstr "Sikkert at du vil slette %1?"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Rename Item"
+msgstr "Endre navn på element"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Enter new name:"
+msgstr "Oppgi nytt navn:"
+
+#: AnnotationDialog/ListSelect.cpp:367
+#, kde-format
+msgid ""
+"<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
+"\"%3\" on any image containing it.</p>"
+msgstr ""
+"<p>Er du sikker på at du vil gi «%1» det nye navnet «%2»?<br/> Om du gjør det "
+"vil «%3» få nytt navn på alle bilder der det finnes.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:371
+#, kde-format
+msgid "Really Rename %1?"
+msgstr "Bekreft navneendring på %1?"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category"
+msgstr "Ny overkategori"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category Name:"
+msgstr "Navn på ny overkategori:"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category"
+msgstr "Ny underkategori"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category Name:"
+msgstr "Navn på ny underkategori:"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:39
+msgid "Annotate previous image"
+msgstr "Skriv merknad til forrige bilde"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:45
+msgid "Annotate next image"
+msgstr "Skriv merknad til neste bilde"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:65
+msgid "Copy tags from previously tagged image"
+msgstr "Kopier merker fra tidligere merket bilde"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:71
+msgid "Delete image"
+msgstr "Slett bilde"
+
+#: AnnotationDialog/Dialog.cpp:86
+msgid "Label and Dates"
+msgstr "Etikett og datoer"
+
+#: AnnotationDialog/Dialog.cpp:88
+msgid "Image Preview"
+msgstr "Bildeforhåndsvisning"
+
+#: AnnotationDialog/Dialog.cpp:110
+msgid "Revert This Item"
+msgstr "Tilbakestill dette elementet"
+
+#: AnnotationDialog/Dialog.cpp:114
+msgid "Clear Form"
+msgstr "Tøm skjemaet"
+
+#: AnnotationDialog/Dialog.cpp:120
+msgid "Options..."
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:126
+msgid "&Done"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:129
+msgid "Continue &Later"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:489
+msgid "&Search"
+msgstr "&Søk"
+
+#: AnnotationDialog/Dialog.cpp:197
+msgid "Label: "
+msgstr "Etikett:"
+
+#: AnnotationDialog/Dialog.cpp:210
+msgid "Date: "
+msgstr "Dato: "
+
+#: AnnotationDialog/Dialog.cpp:231
+msgid "Time: "
+msgstr "Tid:"
+
+#: AnnotationDialog/Dialog.cpp:240
+msgid "Add Time Info..."
+msgstr "Legg til tidsinfo …"
+
+#: AnnotationDialog/Dialog.cpp:349
+#, kde-format
+msgid "KPhotoAlbum Annotations (%1/%2)"
+msgstr "KPhotoAlbum merknader (%1/%2)"
+
+#: AnnotationDialog/Dialog.cpp:497
+msgid "Done"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:502
+msgid "Annotations"
+msgstr "Merknader"
+
+#: AnnotationDialog/Dialog.cpp:531
+msgid "Save Current Window Setup"
+msgstr "Lagre gjeldende vindusoppsett"
+
+#: AnnotationDialog/Dialog.cpp:532
+msgid "Reset layout"
+msgstr "Tilbakestill utformingen"
+
+#: AnnotationDialog/Dialog.cpp:612
+msgid ""
+"<p>Some changes are made to annotations. Do you really want to cancel all "
+"recent changes for each affected file?</p>"
+msgstr ""
+"<p>Det er gjort noen endringer i merknadene. Er du sikker på at du vil "
+"slette alle nylige endringer for hver fil  dette gjelder?</p>"
+
+#: AnnotationDialog/Dialog.cpp:718
+msgid ""
+"<p>You have just opened the advanced search dialog; to get the most out of "
+"it, it is suggested that you read the section in the manual on <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\">advanced searching</"
+"a>.</p><p>This dialog is also used for typing in information about images; "
+"you can find extra tips on its usage by reading about <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
+msgstr ""
+"<p>Du har nettopp åpnet dialogen for avansert søk; det foreslås at du leser "
+"avsnittet i håndboka om <a href=\"help:/kphotoalbum/sect-general-image-"
+"searches.html\">avansert søk</a> for å få best utbytte av det.</p> <p>Denne "
+"dialogen brukes også for å taste inn informasjon om bilder; du kan finne "
+"ekstra tips om hvordan dette brukes ved å lese om  <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">inntasting</a>.</p>"
+
+#: AnnotationDialog/Dialog.cpp:727
+msgid ""
+"<p>You have just opened one of the most important windows in KPhotoAlbum; it "
+"contains lots of functionality which has been optimized for fast usage.</"
+"p><p>It is strongly recommended that you take 5 minutes to read the <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
+msgstr ""
+"<p>Du har nettopp åpnet et av de viktigste vinduene i KPhotoAlbum, det "
+"inneholder en mengde funksjoner som er optimert for raskt bruk. </p> <p>Det "
+"anbefales sterkt at du bruker 5 minutter for å lese <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">dokumentasjonen for denne dialogen</a></p>"
+
+#: AnnotationDialog/Dialog.cpp:836
+msgid "Sort Most Recently Used"
+msgstr "Sorter mest nylig brukt"
+
+#: AnnotationDialog/Dialog.cpp:839
+msgid "Toggle Sorting"
+msgstr "Slå sortering av/på"
+
+#: AnnotationDialog/Dialog.cpp:844
+msgid "Toggle Showing Selected Items Only"
+msgstr "Slå av/på visning av bare valgte elementer"
+
+#: AnnotationDialog/Dialog.cpp:849
+msgid "Annotate Next"
+msgstr "Skriv merknad til neste"
+
+#: AnnotationDialog/Dialog.cpp:853
+msgid "Annotate Previous"
+msgstr "Skriv merknad til forrige"
+
+#: AnnotationDialog/Dialog.cpp:857
+msgid "OK dialog"
+msgstr "OK dialog"
+
+#: AnnotationDialog/Dialog.cpp:865
+msgid "Copy tags from previous image"
+msgstr "Kopier merker fra forrige bilde"
+
+#: AnnotationDialog/KDateEdit.cpp:70
+msgid "tomorrow"
+msgstr "i morgen"
+
+#: AnnotationDialog/KDateEdit.cpp:71
+msgid "today"
+msgstr "i dag"
+
+#: AnnotationDialog/KDateEdit.cpp:72
+msgid "yesterday"
+msgstr "i går"
+
+#. i18n: file: kphotoalbumui.rc:25
+#. i18n: ectx: Menu (view)
+#: rc.cpp:3
+msgid "&View"
+msgstr "&Vis"
+
+#. i18n: file: kphotoalbumui.rc:40
+#. i18n: ectx: Menu (privacy)
+#: rc.cpp:6
+msgid "Privacy"
+msgstr "Personvern"
+
+#. i18n: file: kphotoalbumui.rc:50
+#. i18n: ectx: Menu (maintenance)
+#: rc.cpp:9
+msgid "&Maintenance"
+msgstr "&Vedlikehold"
+
+#. i18n: file: kphotoalbumui.rc:68
+#. i18n: ectx: Menu (exportplugin)
+#: rc.cpp:15
+msgid "Export"
+msgstr "Eksporter"
+
+#. i18n: file: kphotoalbumui.rc:72
+#. i18n: ectx: Menu (importplugin)
+#: rc.cpp:18
+msgid "Import"
+msgstr "Importer"
+
+#. i18n: file: kphotoalbumui.rc:80
+#. i18n: ectx: Menu (batch_plugins)
+#: rc.cpp:24
+msgid "Batch Plugins"
+msgstr "Programtillegg for satsvis kjøring"
+
+#. i18n: file: kphotoalbumui.rc:84
+#. i18n: ectx: Menu (tool_plugins)
+#: rc.cpp:27
+msgid "Tools"
+msgstr "Verktøy"
+
+#. i18n: file: kphotoalbumui.rc:101
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:30
+msgid "Main Toolbar"
+msgstr "Hovedverktøylinje"
+
+#: rc.cpp:31
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Bjørn Steensrud"
+
+#: rc.cpp:32
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "bjornst@skogkatt.homelinux.org"
+
+#: CategoryListView/CheckDropItem.cpp:112
+#, kde-format
+msgid ""
+"<p>You have just dragged an item onto another: this will make the dragged "
+"item a sub category of that onto which it was dropped. Sub categories may be "
+"used to denote facts such as 'Las Vegas is in the USA', in that example you "
+"would drag Las Vegas onto USA. When you have set up sub categories you can, "
+"for instance, see all images from the USA by simply selecting that item in "
+"the Browser.</p><p>Was it really your intention to make \"%2\" a sub "
+"category of \"%3\"?</p>"
+msgid_plural ""
+"<p>You have just dragged a number of items onto another: this will make the "
+"dragged items sub categories of that onto which they were dropped. Sub "
+"categories may be used to denote facts such as 'Las Vegas and New York are "
+"in the USA' in that example you would drag 'Las Vegas' and 'New York' onto "
+"USA. When you have set up sub categories you can, for instance, see all "
+"images from the USA by simply selecting that item in the Browser.</p><p>Was "
+"it really your intention to make \"%2\" sub categories of \"%3\"?</p>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: CategoryListView/CheckDropItem.cpp:124
+msgid "Move Items"
+msgstr "Flytt elementer"
+
+#: MainWindow/FeatureDialog.cpp:37
+msgid "Feature Status"
+msgstr "Status for funksjonen"
+
+#: MainWindow/FeatureDialog.cpp:42
+#, kde-format
+msgid ""
+"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+"features KPhotoAlbum has, and their status:</p>%1"
+msgstr ""
+"<h1>Oversikt</h1><p>Nedenfor kan du se lista over funksjoner som er "
+"kompilert inn i KPhotoAlbum, og deres status:</p>%1"
+
+#: MainWindow/FeatureDialog.cpp:45
+msgid ""
+"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+"yourself, then please review the sections below to learn what to install to "
+"get the feature in question. If on the other hand you installed KPhotoAlbum "
+"from a binary package, please tell whoever made the package about this "
+"defect, eventually including the information from the section below.<p><p>In "
+"case you are missing a feature and you did not compile KPhotoAlbum yourself, "
+"please do consider doing so. It really isn't that hard. If you need help "
+"compiling KPhotoAlbum, feel free to ask on the <a href=\"http://mail.kdab."
+"net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p><p>The "
+"steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum."
+"org/download-source.html\">the KPhotoAlbum home page</a>. If you have never "
+"compiled a KDE application, then please ensure that you have the developer "
+"packages installed, in most distributions they go under names like "
+"kdelibs<i>-devel</i></p>"
+msgstr ""
+"<h1>Hva kan jeg gjøre hvis eg savneer en funksjon?</h1><p>Hvis du kompilerte "
+"KPhotoAlbum selv, så se igjennom avsnittene nedenfor for å se hva du kan "
+"installere for å få den funksjonen du søker. Hvis du på den annen side "
+"installerte KPhotoAlbum fra en binær pakke, så fortell den som laget pakka "
+"om denne mangelen, ta eventuelt med opplysninger fra avsnittet nedenfor.</"
+"p><p> Hvis du savner en funksjon og ikke kompilerte KPhotoAlbum selv, tenk "
+"etter om du kunne gjøre det. Det er faktisk ikke så vanskelig. Hvis du "
+"trenger hjelp med å kompilere KPhotoAlbum, så spør gjerne på <a href="
+"\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">e-postlista for "
+"KPhotoAlbum</a></p><p>Det du må gjøre for å kompilere KPhotoAlbum finner du "
+"på <a href=\"http://www.kphotoalbum.org/download-source.html\">the "
+"KPhotoAlbums nettsted.</a> Hvis du aldri har kompilert et KDE-program før, "
+"så pass på at du har installert utviklerpakkene, i de fleste distribusjoner "
+"heter de noe slikt som kdelibs<i>-devel</i></p>"
+
+#: MainWindow/FeatureDialog.cpp:61
+msgid ""
+"<h1><a name=\"kipi\">Plug-ins Support</a></h1><p>KPhotoAlbum has a plug-in "
+"system with lots of extensions. You may among other things find plug-ins for:"
+"<ul><li>Writing images to cds or dvd's<li>Adjusting timestamps on your "
+"images<li>Making a calendar featuring your images<li>Uploading your images "
+"to flickr<li>Upload your images to facebook</ul></p><p>The plug-in library "
+"is called KIPI, and may be downloaded from the <a href=\"http://www.kipi-"
+"plugins.org\">KIPI Home page</a></p>"
+msgstr ""
+"<h1><a name=\"kipi\">Programtillegg</a></h1><p>KPhotoAlbum har et system for "
+"programtillegg med mange utvidelser. Blant annet finnes det programtillegg "
+"for å:<ul><li>Skrive bilder til CD-er eller DVD-er <li>Justere tidsmerkene "
+"på bildene <li>Lage en kalender med bildene dine<li>Laste opp bildene dine "
+"til flickr <li>Laste opp bildene dine til facebook</ul></p> <p>Biblioteket "
+"for programtillegg heter KIPI og kan lastes ned fra  <a href=\"http://www."
+"kipi-plugins.org\">KIPIs nettsted</a></p>"
+
+#: MainWindow/FeatureDialog.cpp:74
+msgid ""
+"<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information like "
+"the date the image was shot, the shooting angle, focal length, and shutter-"
+"speed in what is known as EXIF information.</p><p>KPhotoAlbum uses the <a "
+"href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> to read EXIF "
+"information from images</p>"
+msgstr ""
+"<h1><a name=\"exiv2\">EXIF-støtte</a></h1><p>Bilder lagrer informasjon om "
+"når bilder ble tatt, vinkel, brennvidde og lukkerhastighet i det som kalles "
+"EXIF-informasjon.</p><p>KPhotoAlbum bruker <a href=\"http://freshmeat.net/"
+"projects/exiv2/\">EXIV2-biblioteket</a> til å lese EXIF-informasjon fra "
+"bilder.</p>"
+
+#: MainWindow/FeatureDialog.cpp:82
+msgid ""
+"<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum allows "
+"you to search using a certain number of EXIF tags. For this KPhotoAlbum "
+"needs an Sqlite database. In addition the qt package for sqlite (e.g.qt-sql-"
+"sqlite) must be installed.</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:87
+msgid ""
+"<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1><p>KPhotoAlbum "
+"asks the KDE plug-in system for help when it needs to generate a thumbnail "
+"for videos. <p>Unfortunately KDE4 does currently not come with any plug-ins "
+"for this, you therefore need manually to install <a href=\"http://www.kde-"
+"apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:92
+msgid ""
+"<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on Qt's "
+"Phonon architecture for displaying videos; this in turn relies on GStreamer. "
+"If this feature is not enabled for you, have a look at the <a href=\"http://"
+"wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum "
+"wiki article on video support</a>.</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:100
+msgid ""
+"<p>No video mime types found, which indicates that either Qt was compiled "
+"without phonon support, or there were missing codecs</p>"
+msgstr ""
+"<p>Fant ingen video mime-typer, som tyder på at enten var Qt kompilert uten "
+"phonon-støtte, eller kodeker manglet</p>"
+
+#: MainWindow/FeatureDialog.cpp:102
+#, kde-format
+msgid ""
+"<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></"
+"p>"
+msgstr "<p>Phonon kan spille filmer med disse mimetypene:<ul><li>%1</ul></p>"
+
+#: MainWindow/FeatureDialog.cpp:181
+msgid "Plug-ins available"
+msgstr "Tilgjengelige programtillegg"
+
+#: MainWindow/FeatureDialog.cpp:182
+msgid "EXIF info supported"
+msgstr "EXIF-info som er støttet"
+
+#: MainWindow/FeatureDialog.cpp:183
+msgid "SQL Database Support"
+msgstr "SQL Databasestøtte"
+
+#: MainWindow/FeatureDialog.cpp:184
+msgid "Sqlite Database Support (used for EXIF searches)"
+msgstr "Sqlite databasestøtte (brukt til EXIF-søk)"
+
+#: MainWindow/FeatureDialog.cpp:186
+msgid "Video Thumbnail support"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:188
+msgid "Video support"
+msgstr "Videostøtte"
+
+#: MainWindow/FeatureDialog.cpp:191
+msgid "Yes"
+msgstr "Ja"
+
+#: MainWindow/FeatureDialog.cpp:192
+msgid "No"
+msgstr "Nei"
+
+#: MainWindow/DeleteDialog.cpp:43
+msgid "Delete from database"
+msgstr "Slett fra databasen"
+
+#: MainWindow/DeleteDialog.cpp:55
+msgid "Delete file from disk as well"
+msgstr "Slett fra disken også"
+
+#: MainWindow/DeleteDialog.cpp:64
+#, kde-format
+msgid ""
+"<p><b><center><font size=\"+3\">Delete Images/Videos from database<br/>%1 "
+"selected</font></center></b></p>"
+msgstr ""
+"<p><b><center><font size=\"+3\">Slett bilder/videoer fra databasen<br/>%1 "
+"valgt</font></center></b></p>"
+
+#: MainWindow/DeleteDialog.cpp:102
+#, kde-format
+msgid ""
+"<p><b>Unable to physically delete a file. Do you have permission to do so?</"
+"b></p>"
+msgid_plural ""
+"<p><b>Unable to physically delete %1 files. Do you have permission to do so?"
+"</b></p>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: MainWindow/DeleteDialog.cpp:106
+msgid "Error Deleting File"
+msgid_plural "Error Deleting Files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: MainWindow/ImageCounter.cpp:32
+#, kde-format
+msgid "Showing 1 thumbnail"
+msgid_plural "Showing %1 thumbnails"
+msgstr[0] "Viser 1 minibilde"
+msgstr[1] "Viser %1 minibilder"
+
+#: MainWindow/ImageCounter.cpp:37
+#, kde-format
+msgid "Total: %1"
+msgstr "Totalt: %1"
+
+#: MainWindow/ImageCounter.cpp:42
+#, kde-format
+msgid "1 match"
+msgid_plural "%1 matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: MainWindow/StatisticsDialog.cpp:26
+msgid ""
+"<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
+"different items in the category</td></tr><tr><td>Tags Total</td><td>This is "
+"a count of how many tags was made,<br/>i.e. a simple counting though all the "
+"images</tr></tr><tr><td>Tags Per Picture</td><td>This tells you how many "
+"tags are on each picture on average</td></tr></table><br/><br/>Don't get too "
+"attached to this dialog, it has the problem that it counts categories AND "
+"subcategories,<br/>so if an image has been taken in Las Vegas, Nevada, USA, "
+"then 3 tags are counted for that image,<br/>while it should only be one.</"
+"br>I'm not really sure if it is worth fixing that bug (as it is pretty hard "
+"to fix),<br/>so maybe the dialog will simply go away again"
+msgstr ""
+"<h1>Beskrivelse</h1><table><tr><td>no. elementer</td><td>Dette er antall "
+"forskjellige elementer i kategorien</td></tr><tr><td>Totalt merker</td><td> "
+"Dette er en opptelling av hvor mange merker som ble satt,<br/>dvs. en emkel "
+"telling gjennom alle bilder</tr></tr><tr><td>Merke pr. bilde</td><td>Dette  "
+"viser gjennomsnittlig antall merker på ett bilde</td></tr></table><br/><br/> "
+"Ikke legg for mye vekt på denne dialogen, den har det problemet at den "
+"teller kategorier OG underkategorier,<br/> så hvis et bilde er tatt på "
+"Finse, Hardangervidda, Norge, så telles tre merker for det bildet mens det "
+"skulle <br/> vært bare ett.<br/> Jeg er ikke sikker på om det er verd "
+"strevet å rette på den feilen (som er ganske vanskelig å rette)<br/> så "
+"kanskje dialogen vil bare forsvinne igjen"
+
+#: MainWindow/StatisticsDialog.cpp:43
+msgid "<h1>Statistics</h1>"
+msgstr "<h1>Statistikk</h1>"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Category"
+msgstr "Kategori"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "# of Items"
+msgstr "no. elementer"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Totals"
+msgstr "Totalt merker"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Per Picture"
+msgstr "Merker pr. bilde"
+
+#: MainWindow/StatisticsDialog.cpp:89
+msgid "Tag indication completed annotation"
+msgstr "Merke som viser fullført merknad"
+
+#: MainWindow/StatisticsDialog.cpp:95
+msgid ""
+"If you use a specific tag to indicate that an image has been tagged, then "
+"specify it here."
+msgstr ""
+"Hvis du bruker et spesielt merke for å vise at et bilde er blitt kommentert, "
+"så oppgi det her."
+
+#: MainWindow/StatisticsDialog.cpp:195
+msgid "Total"
+msgstr "Totalt"
+
+#: MainWindow/WelcomeDialog.cpp:55
+msgid ""
+"<h1>Welcome to KPhotoAlbum</h1><p>If you are interested in trying out "
+"KPhotoAlbum with a prebuilt set of images, then simply choose the <b>Load "
+"Demo</b> button. You may get to this demo at a later time from the <b>Help</"
+"b> menu.</p><p>Alternatively you may start making you own database of "
+"images, simply by pressing the <b>Create my own database</b> button."
+msgstr ""
+"<h1>Dette er KPhotoAlbum</h1><p>Hvis du har lyst til å forsøke KPhotoAlbum "
+"med et forhåndsinnstilt sett bilder, så bare trykk knappen <b>Last inn demo</"
+"b>. Du kan få tak i denne demoen senere via <b>Hjelp</b>-menyen. </"
+"p><p>Ellers kan du begynne å lage din egen bildedatabase. bare trykk knappen "
+"<b>Opprett min egen database</b>."
+
+#: MainWindow/WelcomeDialog.cpp:67
+msgid "Load Demo"
+msgstr "Last inn demo"
+
+#: MainWindow/WelcomeDialog.cpp:70
+msgid "Create My Own Database..."
+msgstr "Opprett min egen database …"
+
+#: MainWindow/WelcomeDialog.cpp:73
+msgid "Check My Feature Set"
+msgstr "Sjekk funksjonene"
+
+#: MainWindow/WelcomeDialog.cpp:109
+msgid ""
+"<p>KPhotoAlbum requires that all your images and videos are stored with a "
+"common root directory. You are allowed to store your images in a directory "
+"tree under this directory. KPhotoAlbum will not modify or edit any of your "
+"images, so you can simply point KPhotoAlbum to the directory where you "
+"already have all your images located.</p>"
+msgstr ""
+"<p>KPhotoAlbum krever at alle bilder og filmer er lagret med en felles "
+"rotmappe. Du kan lagre bildene i et mappetre under denne mappa. KPhotoAlbum "
+"vil ikke endre eller redigere noen av bildene, så du kan bare vise "
+"KPhotoAlbum til rot-mappa der alle bildene allerede finnes.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:118
+msgid "Image/Video root directory: "
+msgstr "Rot-mappe for bilder/film"
+
+#: MainWindow/WelcomeDialog.cpp:148
+msgid "Directory does not exist, create it?"
+msgstr ""
+
+#: MainWindow/WelcomeDialog.cpp:152
+#, kde-format
+msgid "Could not create directory %1"
+msgstr "Klarte ikke opprette mappe %1"
+
+#: MainWindow/WelcomeDialog.cpp:159
+#, kde-format
+msgid "%1 exists, but is not a directory"
+msgstr "%1 finnes, men er ikke en mappe"
+
+#: MainWindow/WelcomeDialog.cpp:178
+#, kde-format
+msgid ""
+"<p>KPhotoAlbum does not seem to be build with support for all its features. "
+"The following is a list indicating to you what you may miss:<ul>%1</ul></"
+"p><p>For details on how to solve this problem, please choose <b>Help</b>|"
+"<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
+msgstr ""
+"<p>Det ser ikke ut til at KPHotoAlbum er bygget med støtte for alle sine "
+"funksjoner. Det følgende er en liste som viser hva som kan mangle: <ul>%1</"
+"ul></p><p> Velg <b>Hjelp</b>|<b>KPhotoAlbum funksjonsstatus</b> fra menyene."
+"</p>"
+
+#: MainWindow/WelcomeDialog.cpp:182 MainWindow/WelcomeDialog.cpp:186
+msgid "Feature Check"
+msgstr "Funksjonssjekk"
+
+#: MainWindow/WelcomeDialog.cpp:185
+msgid "Congratulations: all dynamic features have been enabled."
+msgstr ""
+
+#: MainWindow/CategoryImagePopup.cpp:61
+msgid "Show Category Editor"
+msgstr "Vis kategoriredigering"
+
+#: MainWindow/CategoryImagePopup.cpp:83
+msgid "Make Category Image"
+msgstr ""
+
+#: MainWindow/TokenEditor.cpp:38 MainWindow/Window.cpp:661
+msgid "Remove Tokens"
+msgstr "Fjern symboler"
+
+#: MainWindow/TokenEditor.cpp:45
+msgid "Select tokens to remove from all images and videos:"
+msgstr "Velg symboler som skal fjernes fra alle bilder og filmer:"
+
+#: MainWindow/TokenEditor.cpp:64
+msgid "Select None"
+msgstr "Velg ingen"
+
+#: MainWindow/SearchBar.cpp:32
+msgid "Search:"
+msgstr "Søk:"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "Current Item"
+msgstr "Gjeldende element"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "All Selected Items"
+msgstr "Alle valgte elementer"
+
+#: MainWindow/ExternalPopup.cpp:100
+msgid "Invoke External Program"
+msgstr "Start eksternt program"
+
+#: MainWindow/InvalidDateFinder.cpp:42
+msgid "Search for Images and Videos with Missing Dates"
+msgstr "Søk etter bilder og videoer som mangler datoer"
+
+#: MainWindow/InvalidDateFinder.cpp:49
+msgid "Which Images and Videos to Display"
+msgstr "Hvilke bilder og videoer skal vises"
+
+#: MainWindow/InvalidDateFinder.cpp:53
+msgid ""
+"Search for images and videos with a valid date but an invalid time stamp"
+msgstr "Søk etter bilder og videoer med gyldig dato men ugyldig klokkeslett"
+
+#: MainWindow/InvalidDateFinder.cpp:54
+msgid "Search for images and videos missing date and time"
+msgstr "Søk etter bilder og videoer som mangler dato og tid"
+
+#: MainWindow/InvalidDateFinder.cpp:55
+msgid ""
+"Search for images and videos with only partial dates (like 1971 vs. 11/7-"
+"1971)"
+msgstr ""
+"Søk etter bilder og filmer med bare deler av dato (slik som 1971 i stedet "
+"for 11/7-1971)"
+
+#: MainWindow/InvalidDateFinder.cpp:70
+msgid "Image Info"
+msgstr "Bildeinformasjon"
+
+#: MainWindow/InvalidDateFinder.cpp:79
+msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
+msgstr "<h1>Her kan du se datoendringene for de viste elementene.</h1>"
+
+#: MainWindow/InvalidDateFinder.cpp:84
+msgid "Reading file properties"
+msgstr "Leser filegenskaper"
+
+#: MainWindow/InvalidDateFinder.cpp:85
+msgid "Reading File Properties"
+msgstr "Leser filegenskaper"
+
+#: MainWindow/Window.cpp:138
+msgid "Loading Database"
+msgstr "Laster inn database"
+
+#: MainWindow/Window.cpp:144
+msgid "Loading Main Window"
+msgstr "Laster hovedvinduet"
+
+#: MainWindow/Window.cpp:226
+msgid "Searching for New Files"
+msgstr "Leter etter nye filer"
+
+#: MainWindow/Window.cpp:235
+msgid "Loading Plug-ins"
+msgstr "Laster progrqamtillegg"
+
+#: MainWindow/Window.cpp:256
+msgid ""
+"EXIF database cannot be opened. Check that the image root directory is "
+"writable."
+msgstr ""
+"Klarte ikke åpne EXIF-databasen. Se etter at rot-mappa for bilder kan "
+"skrives."
+
+#: MainWindow/Window.cpp:265
+msgid ""
+"<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
+"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
+"now? If you do not delete it, it will waste disk space; on the other hand, "
+"if you want to come back and try the demo again, you might want to keep it "
+"around with the changes you made through this session.</p>"
+msgstr ""
+"<p><b>Slett den midlertidige demo-databasen</b></p><p>Vi håper du likte "
+"demoen av KPhotoAlbum. Demo-databasen ble kopiert til /tmp, skal den slettes "
+"nå? Hvis du ikke sletter den er det bortkastet diskplass; men kanskje du har "
+"lyst til å komme tilbake og forsøke demoen igjen, da kan du la den ligge med "
+"de endringene du har gjort i løpet av denne økta.</p>"
+
+#: MainWindow/Window.cpp:270
+msgid "Delete Demo Database"
+msgstr "Slett demo-databasen"
+
+#: MainWindow/Window.cpp:285
+msgid "Do you want to save the changes?"
+msgstr "Vil du lagre endringene?"
+
+#: MainWindow/Window.cpp:286
+msgid "Save Changes?"
+msgstr "Lagre endringer?"
+
+#: MainWindow/Window.cpp:323
+msgid ""
+"Some of the selected images already belong to a stack. Do you want to remove "
+"them from their stacks and create a completely new one?"
+msgstr ""
+"Noen av de valgte bildene tilhører alt en stakk. VIl du ta dem ut av "
+"stakkene og lage en helt ny stakk?"
+
+#: MainWindow/Window.cpp:325 MainWindow/Window.cpp:330
+msgid "Stacking Error"
+msgstr "Stakkingsfeil"
+
+#: MainWindow/Window.cpp:329
+msgid "Unknown error, stack creation failed."
+msgstr ""
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1205
+msgid "No item is selected."
+msgstr "Ikke noe element er valgt"
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1206
+msgid "No Selection"
+msgstr "Ingenting valgt"
+
+#: MainWindow/Window.cpp:459
+msgid "Saving..."
+msgstr "Lagrer …"
+
+#: MainWindow/Window.cpp:463
+msgid "Saving... Done"
+msgstr "Lagrer … Ferdig"
+
+#: MainWindow/Window.cpp:558
+msgid "There are no images to be shown."
+msgstr "Det er ingen bilder som skal vises."
+
+#: MainWindow/Window.cpp:625
+msgid "Generate HTML..."
+msgstr "Generer HTML"
+
+#: MainWindow/Window.cpp:629
+msgid "Import..."
+msgstr "Importer …"
+
+#: MainWindow/Window.cpp:632
+msgid "Export/Copy Images..."
+msgstr "Eksporter/kopier bilder …"
+
+#: MainWindow/Window.cpp:655
+msgid "Delete Selected"
+msgstr "Slett merkede"
+
+#: MainWindow/Window.cpp:664
+msgid "Open List of Files..."
+msgstr "Åpne filliste …"
+
+#: MainWindow/Window.cpp:668
+msgid "Annotate Individual Items"
+msgstr "Kommenter enkeltelementer"
+
+#: MainWindow/Window.cpp:672
+msgid "Annotate Multiple Items at a Time"
+msgstr "Kommenter flere elementer samtidig"
+
+#: MainWindow/Window.cpp:676
+msgid "Merge Images into a Stack"
+msgstr "Flett bilder sammen til en stakk"
+
+#: MainWindow/Window.cpp:680
+msgid "Remove Images from Stack"
+msgstr "Fjern bilder fra stakk"
+
+#: MainWindow/Window.cpp:697
+msgid "View"
+msgstr "Vis"
+
+#: MainWindow/Window.cpp:701
+msgid "View (In New Window)"
+msgstr "Vis (i nytt vindu)"
+
+#: MainWindow/Window.cpp:704
+msgid "Run Slide Show"
+msgstr "Kjør lysbildeframvisning"
+
+#: MainWindow/Window.cpp:709
+msgid "Run Randomized Slide Show"
+msgstr "Kjør lysbildeframvisning i vilkårlig rekkefølge"
+
+#: MainWindow/Window.cpp:715
+msgid "Collapse all stacks"
+msgstr "Fold sammen alle stakker"
+
+#: MainWindow/Window.cpp:721
+msgid "Expand all stacks"
+msgstr "Fold ut alle stakker"
+
+#: MainWindow/Window.cpp:726
+msgid "Show &Oldest First"
+msgstr "Vis &eldste først"
+
+#: MainWindow/Window.cpp:731
+msgid "Show &Newest First"
+msgstr "Vis &nyeste først"
+
+#: MainWindow/Window.cpp:736
+msgid "Sort Selected by Date && Time"
+msgstr "Sorter utvalget etter dato og tid"
+
+#: MainWindow/Window.cpp:739
+msgid "Limit View to Marked"
+msgstr "Begrens visning til det utvalgte"
+
+#: MainWindow/Window.cpp:742
+msgid "Jump to Context"
+msgstr "Hopp til kontekst"
+
+#: MainWindow/Window.cpp:747
+msgid "Lock Images"
+msgstr "Lås bilder"
+
+#: MainWindow/Window.cpp:750
+msgid "Unlock"
+msgstr "Lås opp"
+
+#: MainWindow/Window.cpp:753
+msgid "Change Password..."
+msgstr "Endre passord …"
+
+#: MainWindow/Window.cpp:757
+msgid "Lock Away All Other Items"
+msgstr "Lås bort alle andre elementer"
+
+#: MainWindow/Window.cpp:760
+msgid "Lock Away Current Set of Items"
+msgstr "Lås bort disse elementene"
+
+#: MainWindow/Window.cpp:764
+msgid "Display Images and Videos Not on Disk"
+msgstr "Vis bilder og filmer som ikke er på disken"
+
+#: MainWindow/Window.cpp:767
+msgid "Display Images and Videos with Incomplete Dates..."
+msgstr "Vis bilder og filmer med ufullstendige datoer …"
+
+#: MainWindow/Window.cpp:771
+msgid "Display Images and Videos with Changed MD5 Sum"
+msgstr "Vis bilder og filmer med endret MD5-dum"
+
+#: MainWindow/Window.cpp:775
+msgid "Recalculate Checksum"
+msgstr "Beregn sjekksum på nytt"
+
+#: MainWindow/Window.cpp:778
+msgid "Rescan for Images and Videos"
+msgstr "Skann på nytt etter bilder og filmer"
+
+#: MainWindow/Window.cpp:782
+msgid "Recreate Exif Search Database"
+msgstr "Gjenopprett Exif søkedatabase"
+
+#: MainWindow/Window.cpp:785
+msgid "Read EXIF Info From Files..."
+msgstr "Les EXIF-informasjon fra filer …"
+
+#: MainWindow/Window.cpp:790
+msgid "Convert Backend...(Experimental!)"
+msgstr "Konverter motor … (eksperimentelt!)"
+
+#: MainWindow/Window.cpp:795
+msgid "Build Thumbnails"
+msgstr "Bygg miniatyrbilder"
+
+#: MainWindow/Window.cpp:798
+msgid "Statistics"
+msgstr "Statistikk"
+
+#: MainWindow/Window.cpp:807
+msgid "Enable All Messages"
+msgstr "Slå på alle meldinger"
+
+#: MainWindow/Window.cpp:810
+msgid "Configure Current View"
+msgstr ""
+
+#: MainWindow/Window.cpp:819
+msgid "Tree"
+msgstr ""
+
+#: MainWindow/Window.cpp:824
+msgid "Tree with User Icons"
+msgstr ""
+
+#: MainWindow/Window.cpp:830 MainWindow/Window.cpp:836
+msgid "Icons"
+msgstr ""
+
+#: MainWindow/Window.cpp:848
+msgid "Show Tooltips in Thumbnails Window"
+msgstr "Vis verktøytips i minibilde-vinduet"
+
+#: MainWindow/Window.cpp:854
+msgid "Run KPhotoAlbum Demo"
+msgstr "Kjør KPhotoAlbum-demonstrasjon"
+
+#: MainWindow/Window.cpp:857
+msgid "KPhotoAlbum Feature Status"
+msgstr "Funkjonsstatus for KPhotoAlbum"
+
+#: MainWindow/Window.cpp:860
+msgid "Show Demo Videos"
+msgstr "Vis demo-filmer"
+
+#: MainWindow/Window.cpp:865
+msgid "Show Exif Info"
+msgstr "Vis EXIF-informasjon"
+
+#: MainWindow/Window.cpp:868
+msgid "Recreate Selected Thumbnails"
+msgstr "Gjenopprett utvalgte minibilder"
+
+#: MainWindow/Window.cpp:893
+msgid "Auto saving...."
+msgstr "Autolagrer …"
+
+#: MainWindow/Window.cpp:895
+msgid "Auto saving.... Done"
+msgstr "Autolagrer … ferdig"
+
+#: MainWindow/Window.cpp:1000
+#, kde-format
+msgid ""
+"SQL backend initialization failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Klargjøring av SQL-motoren mislyktes, fordi følgende feil oppsto:\n"
+"%1 …"
+
+#: MainWindow/Window.cpp:1004
+msgid "SQL database support is not compiled in."
+msgstr "Det er ikke kompilert inn støtte for SQL-database."
+
+#: MainWindow/Window.cpp:1009
+#, kde-format
+msgid "Invalid database backend: %1"
+msgstr "Ugyldig databasemotor: %1"
+
+#: MainWindow/Window.cpp:1014
+msgid "Do you want to use XML backend instead?"
+msgstr "Vil du bruke XML-motor i stedet?"
+
+#: MainWindow/Window.cpp:1077
+msgid ""
+"<p>The password protection is only a means of allowing your little sister to "
+"look in your images, without getting to those embarrassing images from your "
+"last party.</p><p>In other words, anyone with access to the index.xml file "
+"can easily circumvent this password.</b></p>"
+msgstr ""
+"<p>Passordbeskyttelsen er bare en måte å la lillesøstra di bla i bildene "
+"uten å få tak i de pinlige bildene fra den siste festen du var på.</p><p>Med "
+"andre ord, den som kan lese index.xml-fila kan lett komme rundt dette "
+"passordet.</p<"
+
+#: MainWindow/Window.cpp:1082
+msgid "Password Protection"
+msgstr "Passordbeskyttelse"
+
+#: MainWindow/Window.cpp:1096
+msgid "Type in Password to Unlock"
+msgstr "Skriv inn passord for å låse opp"
+
+#: MainWindow/Window.cpp:1105 MainWindow/Window.cpp:1145
+msgid "Invalid password."
+msgstr "Ugyldig passord."
+
+#: MainWindow/Window.cpp:1136
+msgid "Type in Old Password"
+msgstr "Skriv inn det gamle passordet"
+
+#: MainWindow/Window.cpp:1148
+msgid "Type in New Password"
+msgstr "Skriv inn nytt passord"
+
+#: MainWindow/Window.cpp:1172
+msgid "Annotation Dialog"
+msgstr "Kommentardialog"
+
+#: MainWindow/Window.cpp:1332
+msgid ""
+"<p>Really enable all message boxes where you previously checked the do-not-"
+"show-again check box?</p>"
+msgstr ""
+
+#: MainWindow/Window.cpp:1343
+msgid ""
+"<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
+"Window::setupPluginMenu). This indicate that you forgot to do a make "
+"install. If you did compile KPhotoAlbum yourself, then please run make "
+"install. If not, please report this as a bug.</p><p>KPhotoAlbum will "
+"continue execution, but it is not entirely unlikely that it will crash later "
+"on due to the missing make install.</p>"
+msgstr ""
+
+#: MainWindow/Window.cpp:1343
+msgid "Internal Error"
+msgstr ""
+
+#: MainWindow/Window.cpp:1511
+msgid "Open List of Files"
+msgstr "Åpne filliste"
+
+#: MainWindow/Window.cpp:1511
+msgid "Enter file names"
+msgstr "Skriv inn filnavn"
+
+#: MainWindow/Window.cpp:1525
+msgid "No images matching your input were found."
+msgstr "Fant ingen bilder som stemte med det du oppga."
+
+#: MainWindow/Window.cpp:1525
+msgid "No Matches"
+msgstr "Ingen treff"
+
+#: MainWindow/Window.cpp:1594
+msgid "Database conversion from SQL database is not yet supported."
+msgstr "Det er ikke støtte ennå for databasekonvertering fra SQL."
+
+#: MainWindow/Window.cpp:1601
+msgid ""
+"You should set SQL database settings before the conversion. Do you want to "
+"do this now?"
+msgstr ""
+"Du bør sette opp innstillinger for SQL-databasen før konvertering. Vil du "
+"gjøre dette nå?"
+
+#: MainWindow/Window.cpp:1621
+msgid "Converting database"
+msgstr "Konverterer databasen"
+
+#: MainWindow/Window.cpp:1624
+msgid "Converting database to SQL."
+msgstr "Konverterer databasen til SQL …"
+
+#: MainWindow/Window.cpp:1625
+msgid "Please wait."
+msgstr "Vent litt."
+
+#: MainWindow/Window.cpp:1634
+msgid "Database conversion is ready."
+msgstr "Databasekonvertering er klar."
+
+#: MainWindow/Window.cpp:1637
+#, kde-format
+msgid ""
+"Database conversion failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Databasekonvertering mislyktes, fordi følgende feil oppsto:\n"
+"%1 …"
+
+#: MainWindow/SplashScreen.cpp:67
+#, kde-format
+msgid "Version %1"
+msgstr "Versjon %1"
+
+#: MainWindow/SplashScreen.cpp:69
+#, kde-format
+msgid "Version: %1"
+msgstr "Versjon: %1"
+
+#: HTMLGenerator/HTMLDialog.cpp:50
+msgid "HTML Export"
+msgstr "HTML-eksport"
+
+#: HTMLGenerator/HTMLDialog.cpp:63 HTMLGenerator/HTMLDialog.cpp:64
+msgid "Content"
+msgstr "Innhold"
+
+#: HTMLGenerator/HTMLDialog.cpp:72
+msgid "Page title:"
+msgstr "Sidenavn:"
+
+#: HTMLGenerator/HTMLDialog.cpp:79
+msgid "Copyright:"
+msgstr ""
+
+#: HTMLGenerator/HTMLDialog.cpp:88
+msgid "Description:"
+msgstr "Beskrivelse:"
+
+#: HTMLGenerator/HTMLDialog.cpp:95
+msgid "Create .kim export file"
+msgstr "Opprett .kim eksportfil"
+
+#: HTMLGenerator/HTMLDialog.cpp:99
+msgid "Inline Movies in pages"
+msgstr "Filmer innebygget i sider"
+
+#: HTMLGenerator/HTMLDialog.cpp:104
+msgid "What to Include"
+msgstr "Hva som skal tas med"
+
+#: HTMLGenerator/HTMLDialog.cpp:136 HTMLGenerator/HTMLDialog.cpp:137
+msgid "Layout"
+msgstr "Utseende"
+
+#: HTMLGenerator/HTMLDialog.cpp:146
+msgid "Thumbnail size:"
+msgstr "Størrelse på småbildene:"
+
+#: HTMLGenerator/HTMLDialog.cpp:161
+msgid "Number of columns:"
+msgstr "Antall kolonner:"
+
+#: HTMLGenerator/HTMLDialog.cpp:176
+msgid "Theme:"
+msgstr "Tema:"
+
+#: HTMLGenerator/HTMLDialog.cpp:187
+msgid "Image Sizes"
+msgstr "Bildestørrrelser"
+
+#: HTMLGenerator/HTMLDialog.cpp:197
+msgid "Full size"
+msgstr "Full størrelse"
+
+#: HTMLGenerator/HTMLDialog.cpp:240 HTMLGenerator/HTMLDialog.cpp:241
+msgid "Destination"
+msgstr "Mål"
+
+#: HTMLGenerator/HTMLDialog.cpp:250
+msgid "Base directory:"
+msgstr "Basismappe:"
+
+#: HTMLGenerator/HTMLDialog.cpp:268
+msgid "Base URL:"
+msgstr "Basis-URL:"
+
+#: HTMLGenerator/HTMLDialog.cpp:277
+msgid "URL for final destination:"
+msgstr "URL for endelig mål:"
+
+#: HTMLGenerator/HTMLDialog.cpp:285
+msgid "Output directory:"
+msgstr "Angi utdatamappe:"
+
+#: HTMLGenerator/HTMLDialog.cpp:291
+msgid "<b>Hint: Press the help button for descriptions of the fields</b>"
+msgstr "<b>Tips: Trykk Hjelp-knappen for å få en beskrivelse av feltene</b>"
+
+#: HTMLGenerator/HTMLDialog.cpp:302
+msgid "You must select at least one resolution."
+msgstr "Du må velge minst én oppløsning."
+
+#: HTMLGenerator/HTMLDialog.cpp:339
+msgid ""
+"<p>You did not specify a base directory. This is the topmost directory for "
+"your images. Under this directory you will find each generated collection in "
+"separate directories.</p>"
+msgstr ""
+"<p>Ingen basismappe er oppgitt. Dette er mappe på øverste nivå for bilder. I "
+"denne mappa finnes hver genererte samling i atskilte mapper.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:343
+msgid "No Base Directory Specified"
+msgstr "Ingen basismappe oppgitt"
+
+#: HTMLGenerator/HTMLDialog.cpp:349
+msgid ""
+"<p>You did not specify an output directory. This is a directory containing "
+"the actual images. The directory will be in the base directory specified "
+"above.</p>"
+msgstr ""
+"<p>Ingen utdata-mappe er oppgitt. Dette er en mappe som inneholder selve "
+"bildene. Mappa vil ligge inne i basismappa oppgitt ovenfor.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:352
+msgid "No Output Directory Specified"
+msgstr "Ingen utdata-mappe oppgitt"
+
+#: HTMLGenerator/HTMLDialog.cpp:360
+#, kde-format
+msgid ""
+"<p>Error while reading information about %1. This is most likely because the "
+"directory does not exist.</p>"
+msgstr ""
+"<p>Det oppsto en feil ved lesing av informasjon om %1. Dette er antakelig "
+"fordi mappa ikke finnes.</p> "
+
+#: HTMLGenerator/HTMLDialog.cpp:368
+#, kde-format
+msgid "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+msgstr "<p>%1 finnes ikke, er ikke en mappe eller kan ikke skrives til.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:378
+#, kde-format
+msgid ""
+"<p>Output directory %1 already exists. Usually, this means you should "
+"specify a new directory.</p><p>Should %2 be deleted first?</p>"
+msgstr ""
+
+#: HTMLGenerator/HTMLDialog.cpp:381
+msgid "Directory Exists"
+msgstr "Mappa finnes"
+
+#: HTMLGenerator/HTMLDialog.cpp:452
+#, kde-format
+msgid "%1 (by %2)"
+msgstr "%1 (av %2)"
+
+#: HTMLGenerator/HTMLDialog.cpp:463
+msgid "Could not find any themes - this is very likely an installation error"
+msgstr ""
+"Kan ikke fonne noen temaer – dette er sannsynligvis en installasjonsfeil"
+
+#: HTMLGenerator/HTMLDialog.cpp:470
+#, kde-format
+msgid "More than one theme is set as default, using theme %1"
+msgstr ""
+
+#: HTMLGenerator/Generator.cpp:47
+msgid "Generating images for HTML page "
+msgstr "Lager bilder for en HTML-side"
+
+#: HTMLGenerator/Generator.cpp:137
+#, kde-format
+msgid "Error copying %1 to %2"
+msgstr "Feil ved kopiering av %1 til %2"
+
+#: HTMLGenerator/Generator.cpp:344
+#, kde-format
+msgid "<a href=\"%1\">prev</a>"
+msgstr "<a href=\"%1\">forrige</a>"
+
+#: HTMLGenerator/Generator.cpp:346 HTMLGenerator/Generator.cpp:354
+msgid "prev"
+msgstr "forrige"
+
+#: HTMLGenerator/Generator.cpp:358
+#, c-format, kde-format
+msgid "<a href=\"index-%1.html\">index</a>"
+msgstr "<a href=\"index-%1.html\">indeks</a>"
+
+#: HTMLGenerator/Generator.cpp:367
+#, kde-format
+msgid "<a href=\"%1\">next</a>"
+msgstr "<a href=\"%1\">neste</a>"
+
+#: HTMLGenerator/Generator.cpp:369 HTMLGenerator/Generator.cpp:376
+msgid "next"
+msgstr "neste"
+
+#: HTMLGenerator/Generator.cpp:500
+#, kde-format
+msgid "Could not create file '%1'."
+msgstr "Klarte ikke å lage fila «%1»."
+
+#: HTMLGenerator/Generator.cpp:501
+msgid "Could Not Create File"
+msgstr "Klarte ikke å opprette fil"
+
+#: HTMLGenerator/Generator.cpp:533
+#, kde-format
+msgid "<p>Unable to copy %1 to %2</p>"
+msgstr "<p>Klarer ikke kopiere %1 til %2</p>"
+
+#: HTMLGenerator/Generator.cpp:565
+#, kde-format
+msgid "Unable to write image '%1'."
+msgstr "Klarer ikke å skrive bildet «%1»."
+
+#: ThumbnailView/ThumbnailDND.cpp:90
+msgid ""
+"<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
+"thumbnail viewer, you actually reorder them. This is very useful where you "
+"do not know the exact date for the images. On the other hand, if the images "
+"have valid timestamps, you should use <b>Images -&gt; Sort Selected By Date "
+"and Time</b>.</p>"
+msgstr ""
+
+#: ThumbnailView/ThumbnailDND.cpp:96
+msgid "Reorder Thumbnails"
+msgstr "Endre rekkefølge på minibilder"
+
+#: ThumbnailView/ThumbnailBuilder.cpp:30
+msgid "Generating thumbnails"
+msgstr "Lager miniatyrbilder"

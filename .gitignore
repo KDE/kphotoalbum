@@ -1,5 +1,7 @@
 .svn
-*.cmake
+cmake_install.cmake
+CTestTestfile.cmake
+cmake_uninstall.cmake
 moc_*.cpp
 CMakeFiles
 Makefile

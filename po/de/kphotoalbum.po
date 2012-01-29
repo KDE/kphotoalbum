@@ -1,0 +1,4295 @@
+# translation of kphotoalbum.po to german
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Oliver Dörr <kde@doerr-privat.de>, 2007, 2008, 2009.
+# Burkhard Lück <lueck@hube-lueck.de>, 2008, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kphotoalbum\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-10-26 06:48+0100\n"
+"PO-Revision-Date: 2009-11-13 12:56+0100\n"
+"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: DB/ImageSearchInfo.cpp:173
+#, kde-format
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "Keine %1"
+
+#: DB/ImageSearchInfo.cpp:176 AnnotationDialog/ListSelect.cpp:78
+msgid "and"
+msgstr "und"
+
+#: DB/ImageSearchInfo.cpp:181 AnnotationDialog/ListSelect.cpp:77
+msgid "or"
+msgstr "oder"
+
+#: DB/ImageSearchInfo.cpp:182
+msgid "not"
+msgstr "nicht"
+
+#: DB/ImageSearchInfo.cpp:186
+#, kde-format
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "Keine weiteren %1"
+
+#: DB/ImageInfoList.cpp:81
+msgid ""
+"<p>You are about to sort a set of thumbnails with others in between.<br /"
+">This might result in an unexpected sort order.<br /><p>Are you sure you "
+"want to continue?</p>"
+msgstr ""
+"<p>Sie sind dabei, einen Satz Bilder zu sortieren in denen auch noch andere "
+"dazwischen liegen.<br />Dies kann zu einer unerwarteten Reihenfolge führen.</"
+"br><p>Sind Sie sich sicher, dass Sie fortfahren wollen?</p>"
+
+#: DB/ImageInfoList.cpp:83
+msgid "Sort Thumbnails?"
+msgstr "Vorschaubilder sortieren?"
+
+#: DB/NewImageFinder.cpp:168
+msgid ""
+"<p><b>Loading information from new files</b></p><p>Depending on the number "
+"of images, this may take some time.<br/>However, there is only a delay when "
+"new images are found.</p>"
+msgstr ""
+"<p><b>Bildinformationen werden aus den neuen Dateien geladen.</b></"
+"p><p>Abhängig von der Anzahl Ihrer Bilder kann dies ein wenig Zeit in "
+"Anspruch nehmen.<br/>Wie auch immer, diese Verzögerung tritt nur auf, wenn "
+"neue Bilder gefunden wurden.</p>"
+
+#: DB/NewImageFinder.cpp:245
+#, kde-format
+msgid ""
+"<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum for "
+"each image KPhotoAlbum is capable of finding images even when you have moved "
+"them on the disk.</p>"
+msgstr ""
+"<p><b>Die Prüfsummen für %1 Dateien werden errechnet.<b></p><p>Durch das "
+"Speichern der Prüfsumme für jedes Bild kann KPhotoAlbum Bilder wiederfinden "
+"- auch wenn die Bilder auf der Festplatte verschoben wurden.</p>"
+
+#: DB/NewImageFinder.cpp:290
+msgid "Following files could not be read:"
+msgstr "Die folgenden Dateien konnten nicht gelesen werden:"
+
+#: DB/ImageDB.cpp:217
+msgid "Loading information from images"
+msgstr "Bildinformationen werden geladen"
+
+#: DB/ImageDB.cpp:218
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: DB/ImageDate.cpp:343
+msgid "jan"
+msgstr "Jan"
+
+#: DB/ImageDate.cpp:343
+msgid "feb"
+msgstr "Feb"
+
+#: DB/ImageDate.cpp:343
+msgid "mar"
+msgstr "Mär"
+
+#: DB/ImageDate.cpp:343
+msgid "apr"
+msgstr "Apr"
+
+#: DB/ImageDate.cpp:343
+msgid "may"
+msgstr "Mai"
+
+#: DB/ImageDate.cpp:343
+msgid "jun"
+msgstr "Jun"
+
+#: DB/ImageDate.cpp:344
+msgid "jul"
+msgstr "Jul"
+
+#: DB/ImageDate.cpp:344
+msgid "aug"
+msgstr "Aug"
+
+#: DB/ImageDate.cpp:344
+msgid "sep"
+msgstr "Sep"
+
+#: DB/ImageDate.cpp:344
+msgid "oct"
+msgstr "Okt"
+
+#: DB/ImageDate.cpp:344
+msgid "nov"
+msgstr "Nov"
+
+#: DB/ImageDate.cpp:344
+msgid "dec"
+msgstr "Dez"
+
+#: DB/Category.cpp:139 DB/Category.cpp:147 XMLDB/FileReader.cpp:348
+msgid "People"
+msgstr "Leute"
+
+#: DB/Category.cpp:140 DB/Category.cpp:148 XMLDB/FileReader.cpp:349
+msgid "Places"
+msgstr "Orte"
+
+#: DB/Category.cpp:141 XMLDB/FileReader.cpp:350
+msgid "Events"
+msgstr "Ereignisse"
+
+#: DB/Category.cpp:142
+msgid "Folder"
+msgstr "Ordner"
+
+#: DB/Category.cpp:143
+msgid "Tokens"
+msgstr "Merkmale"
+
+#: DB/Category.cpp:144
+msgid "Media Type"
+msgstr "Medientyp"
+
+#: DB/Category.cpp:149
+msgid "Keywords"
+msgstr "Schlüsselbegriffe"
+
+#: DB/Category.cpp:196
+#, kde-format
+msgid "Unable to create directory '%1'."
+msgstr "Der Ordner „%1“ lässt sich nicht erstellen."
+
+#: DB/Category.cpp:196
+msgid "Unable to Create Directory"
+msgstr "Der Ordner lässt sich nicht erstellen."
+
+#: DB/Category.cpp:203
+#, kde-format
+msgid "Error when saving image '%1'."
+msgstr "Fehler beim Speichern des Bildes „%1“."
+
+#: DB/Category.cpp:203
+msgid "Error Saving Image"
+msgstr "Fehler beim Speichern des Bildes."
+
+#: Exif/Database.cpp:77
+#, kde-format
+msgid ""
+"<p>There was an error while executing the SQL backend command. The error is "
+"likely due to a broken database file.</p><p>To fix this problem run "
+"Maintainance->Rebuild EXIF database.</p><hr/><p>For debugging: the command "
+"that was attempted to be executed was:<br/>%1</p><p>The error message "
+"obtained was:<br/>%2</p>"
+msgstr ""
+"<p>Bei der Ausführung des SQL-Befehls ist ein Fehler aufgetreten. Der Fehler "
+"wird wahrscheinlich von einer defekten Datenbankdatei verursacht.</p><p>Um "
+"dieses Problem zu lösen, müssen Sie Wartung->EXIF-Datenbank neu erzeugen "
+"auswählen.</p><hr/><p>Zur Fehlersuche: Der Fehler ist bei der Ausführung "
+"dieses Befehls aufgetreten:<br/>%1</p><p>Die Fehlermeldung lautet:<br/>%2</p>"
+
+#: Exif/Database.cpp:85
+msgid "Error Executing Exif Command"
+msgstr "Fehler beim Ausführen des Exif-Befehls"
+
+#: Exif/Database.cpp:308
+msgid "Rereading EXIF information from all images"
+msgstr "Exif-Informationen werden für alle Bilder neu eingelesen"
+
+#: Exif/SearchDialog.cpp:37 Browser/OverviewPage.cpp:229
+msgid "EXIF Search"
+msgstr "EXIF-Suche"
+
+#: Exif/SearchDialog.cpp:42 Settings/SettingsDialog.cpp:91
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: Exif/SearchDialog.cpp:62
+msgid "Aperture Value"
+msgstr "Blendeneinstellung"
+
+#: Exif/SearchDialog.cpp:63
+msgid "F Number"
+msgstr "F-Nummer"
+
+#: Exif/SearchDialog.cpp:66
+msgid "Focal Length"
+msgstr "Brennweite"
+
+#: Exif/SearchDialog.cpp:70
+msgid "to"
+msgstr "auf"
+
+#: Exif/SearchDialog.cpp:76
+msgctxt "This is millimeter for focal length, like 35mm"
+msgid "mm"
+msgstr "mm"
+
+#: Exif/SearchDialog.cpp:92
+msgid "Camera"
+msgstr "Kamera"
+
+#: Exif/SearchDialog.cpp:97
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+#: Exif/SearchDialog.cpp:118
+msgid "Iso setting"
+msgstr "ISO-Einstellung"
+
+#: Exif/SearchDialog.cpp:123
+msgctxt "Example 1.6 secs (as in seconds)"
+msgid "secs."
+msgstr "Sek."
+
+#: Exif/SearchDialog.cpp:162
+msgid "1 second"
+msgstr "1 Sekunde"
+
+#: Exif/SearchDialog.cpp:179
+msgid "Exposure time"
+msgstr "Belichtungszeit"
+
+#: Exif/SearchDialog.cpp:222
+msgid "Exposure Program"
+msgstr "Belichtungsprogramm"
+
+#: Exif/SearchDialog.cpp:223
+msgid "Not defined"
+msgstr "Nicht definiert"
+
+#: Exif/SearchDialog.cpp:224
+msgid "Manual"
+msgstr "Manuell"
+
+#: Exif/SearchDialog.cpp:225
+msgid "Normal program"
+msgstr "Normales Programm"
+
+#: Exif/SearchDialog.cpp:226
+msgid "Aperture priority"
+msgstr "Blenden-Priorität"
+
+#: Exif/SearchDialog.cpp:227
+msgid "Shutter priority"
+msgstr "Verschluss-Priorität"
+
+#: Exif/SearchDialog.cpp:228
+msgid "Creative program (biased toward depth of field)"
+msgstr "Kreativ-Programm (optimiert auf Tiefenschärfe)"
+
+#: Exif/SearchDialog.cpp:229
+msgid "Action program (biased toward fast shutter speed)"
+msgstr "Action-Programm (optimiert auf kurze Verschlusszeit)"
+
+#: Exif/SearchDialog.cpp:230
+msgid "Portrait mode (for closeup photos with the background out of focus)"
+msgstr "Portrait-Programm (für Portrait-Aufnahmen mit unscharfem Hintergrund)"
+
+#: Exif/SearchDialog.cpp:231
+msgid "Landscape mode (for landscape photos with the background in focus)"
+msgstr ""
+"Landschafts-Programm (für Landschaftsaufnahmen mit scharfem Hintergrund)"
+
+#: Exif/SearchDialog.cpp:237 ImportExport/MD5CheckPage.cpp:59
+msgid "Orientation"
+msgstr "Orientierung"
+
+#: Exif/SearchDialog.cpp:238
+msgid "Not rotated"
+msgstr "Nicht gedreht"
+
+#: Exif/SearchDialog.cpp:239
+msgid "Rotated counterclockwise"
+msgstr "Gegen den Uhrzeigersinn drehen"
+
+#: Exif/SearchDialog.cpp:240
+msgid "Rotated clockwise"
+msgstr "Im Uhrzeigersinn drehen"
+
+#: Exif/SearchDialog.cpp:241
+msgid "Rotated 180 degrees"
+msgstr "180 Grad gedreht"
+
+#: Exif/SearchDialog.cpp:247
+msgid "Metering Mode"
+msgstr "Messmethode"
+
+#: Exif/SearchDialog.cpp:248
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: Exif/SearchDialog.cpp:249
+msgid "Average"
+msgstr "Durchschnitt"
+
+#: Exif/SearchDialog.cpp:250
+msgid "CenterWeightedAverage"
+msgstr "Mitte gewichteter Durchschnitt"
+
+#: Exif/SearchDialog.cpp:251
+msgid "Spot"
+msgstr "Punkt"
+
+#: Exif/SearchDialog.cpp:252
+msgid "MultiSpot"
+msgstr "Vielpunkt"
+
+#: Exif/SearchDialog.cpp:253
+msgid "Pattern"
+msgstr "Muster"
+
+#: Exif/SearchDialog.cpp:254
+msgid "Partial"
+msgstr "Partiell"
+
+#: Exif/SearchDialog.cpp:255
+msgid "Other"
+msgstr "Andere"
+
+#: Exif/SearchDialog.cpp:261
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: Exif/SearchDialog.cpp:262 Exif/SearchDialog.cpp:271
+#: Exif/SearchDialog.cpp:280
+msgid "Normal"
+msgstr "Normal"
+
+#: Exif/SearchDialog.cpp:263 Exif/SearchDialog.cpp:272
+msgid "Soft"
+msgstr "Weich"
+
+#: Exif/SearchDialog.cpp:264 Exif/SearchDialog.cpp:273
+msgid "Hard"
+msgstr "Hart"
+
+#: Exif/SearchDialog.cpp:270
+msgid "Sharpness"
+msgstr "Schärfe"
+
+#: Exif/SearchDialog.cpp:279
+msgid "Saturation"
+msgstr "Sättigung"
+
+#: Exif/SearchDialog.cpp:281
+msgid "Low"
+msgstr "Niedrig"
+
+#: Exif/SearchDialog.cpp:282
+msgid "High"
+msgstr "Hoch"
+
+#: Exif/SearchDialog.cpp:334
+msgid "No cameras found in the database"
+msgstr "Keine Kameras in der Datenbank gefunden"
+
+#: Exif/ReReadDialog.cpp:34
+msgid "Read EXIF info from files"
+msgstr "EXIF-Info aus den Dateien einlesen"
+
+#: Exif/ReReadDialog.cpp:41
+msgid "Update EXIF search database"
+msgstr "EXIF Suchdatenbank aktualisieren"
+
+#: Exif/ReReadDialog.cpp:47
+msgid "Update image date"
+msgstr "Bilddatum aktualisieren"
+
+#: Exif/ReReadDialog.cpp:50
+msgid "Use modification date if EXIF not found"
+msgstr "Änderungsdatum benutzen wenn kein EXIF-Eintrag gefunden wurde"
+
+#: Exif/ReReadDialog.cpp:53
+msgid "Update image orientation from EXIF information"
+msgstr "Bildorientierung anhand der EXIF-Informationen aktualisieren"
+
+#: Exif/ReReadDialog.cpp:56
+msgid "Update image description from EXIF information"
+msgstr "Bildbeschreibung anhand der EXIF-Informationen aktualisieren"
+
+#: Exif/ReReadDialog.cpp:59
+msgid "Affected Files"
+msgstr "Betroffene Dateien"
+
+#: Exif/ReReadDialog.cpp:112
+msgid ""
+"<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
+"have previously entered manually using the image configuration dialog.</p>"
+msgstr ""
+"<p>Sie sollten sich bewusst sein, dass das Setzen von EXIF-Daten eventuell "
+"die Daten <b>überschreibt</b>, die Sie vorher manuell mit dem Dialog zur "
+"Bildeinrichtung eingegeben haben.</p>"
+
+#: Exif/ReReadDialog.cpp:115
+msgid "Override image dates"
+msgstr "Datum der Bilder überschreiben"
+
+#: Exif/InfoDialog.cpp:41
+msgid "EXIF Information"
+msgstr "EXIF-Informationen"
+
+#: Exif/InfoDialog.cpp:74
+msgid "Current EXIF Label Search: "
+msgstr "Nach dem aktuellen EXIF-Namen suchen: "
+
+#: Exif/InfoDialog.cpp:88
+msgid "IPTC character set:"
+msgstr "IPTC-Zeichensatz:"
+
+#: Exif/InfoDialog.cpp:107
+msgid "<No Search>"
+msgstr "<Keine Suche>"
+
+#: SQLDB/SQLSettingsWidget.cpp:258
+msgid "Database driver:"
+msgstr "Datenbanktreiber:"
+
+#: SQLDB/SQLSettingsWidget.cpp:259
+msgid "Database file:"
+msgstr "Datenbankdatei:"
+
+#: SQLDB/SQLSettingsWidget.cpp:260
+msgid "KPhotoAlbum database files (*.db)"
+msgstr "KPhotoAlbum Datenbankdateien (*.db)"
+
+#: SQLDB/SQLSettingsWidget.cpp:261
+msgid "Server address:"
+msgstr "Serveradresse:"
+
+#: SQLDB/SQLSettingsWidget.cpp:262
+msgid "Server port:"
+msgstr "Serverport:"
+
+#: SQLDB/SQLSettingsWidget.cpp:263
+msgid "Default"
+msgstr "Standard"
+
+#: SQLDB/SQLSettingsWidget.cpp:264
+msgid "Database name:"
+msgstr "Datenbankname:"
+
+#: SQLDB/SQLSettingsWidget.cpp:265
+msgid "Username:"
+msgstr "Benutzername:"
+
+#: SQLDB/SQLSettingsWidget.cpp:266
+msgid "Password:"
+msgstr "Passwort:"
+
+#: SQLDB/SQLSettingsWidget.cpp:301
+msgid "No SQL database drivers found."
+msgstr "Es wurden keine SQL-Datenbanktreiber gefunden."
+
+#: SQLDB/SQLSettingsWidget.cpp:305
+msgid "Invalid driver."
+msgstr "Ungültiger Treiber."
+
+#: SQLDB/DriverManager.cpp:67
+#, kde-format
+msgid "Database driver not found: %1"
+msgstr "Datenbanktreiber nicht gefunden: %1"
+
+#: SQLDB/DriverManager.cpp:86
+#, kde-format
+msgid "Unknown or unsupported database driver: %1"
+msgstr "Unbekannter oder nicht unterstützer Datenbanktreiber: %1"
+
+#: SQLDB/DatabaseInitialization.cpp:137
+msgid "Database schema is incompatible."
+msgstr "Die Datenbankschemata sind inkompatibel."
+
+#: XMLDB/Database.cpp:619
+#, kde-format
+msgid ""
+"<p>Unknown tag %1, while reading configuration file.</p><p>Expected one of: "
+"Options, Drawings</p>"
+msgstr ""
+"<p>Ein unbekanntes Stichwort %1 wurde in der Konfigurationsdatei gefunden.</"
+"p><p>Erwartet wurde: Options, Drawings</p>"
+
+#: XMLDB/NumberedBackup.cpp:40
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Fehler beim Erstellen der Zip-Datei %1"
+
+#: XMLDB/FileWriter.cpp:66
+#, kde-format
+msgid "Could not open file '%1'."
+msgstr "Die Datei „%1“ lässt sich nicht öffnen."
+
+#: XMLDB/FileReader.cpp:80
+#, kde-format
+msgid "Error in file %1: unexpected element: '%2'"
+msgstr "Fehler in der Datei %1: unerwartetes Element: ‚%2‘"
+
+#: XMLDB/FileReader.cpp:86
+#, kde-format
+msgid "Unable to find 'Options' tag in configuration file %1."
+msgstr ""
+"Konnte das Stichwort ‚Options‘ nicht in der Konfigurationsdatei %1 finden."
+
+#: XMLDB/FileReader.cpp:88
+#, kde-format
+msgid "Unable to find 'Images' tag in configuration file %1."
+msgstr ""
+"Konnte das Stichwort ‚Images‘ nicht in der Konfigurationsdatei %1 finden."
+
+#: XMLDB/FileReader.cpp:263
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p>You can then select "
+"the images that you have reason to believe have a correct date in either "
+"their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</"
+"b> to reread the information.</p><p>Finally, once all images have their "
+"dates set, you can execute <b>Images->Sort Selected by Date & Time</b> to "
+"sort them in the database.</p>"
+msgstr ""
+"<p>Ihre Bilder/Videos sind nicht sortiert. Daher können Sie nicht optimal "
+"mit der Datums-Werkzeugleiste navigieren.</p><p>Im Menü <b>Wartung</b> "
+"finden Sie den Eintrag <b>Bilder mit unvollständigen Datumsangaben anzeigen</"
+"b>. Mit dieser Funktion können Sie die Bilder ohne Datumsinformationen "
+"finden.</p> Sie können dann die Bilder auswählen von denen Sie glauben, dass "
+"Sie das richtige Datum entweder in den EXIF-Daten oder als Dateidatum "
+"besitzen. Starten Sie dann <b>Wartung -> EXIF-Info aus den Dateien lesen</"
+"b>, um diese Information auszulesen.</p><p>Abschließend können Sie die Daten "
+"auf einmal setzen, indem Sie <b>Bilder -> Ausgewählte Bilder nach Datum & "
+"Zeit sortieren</b> benutzen, um diese in der Datenbank zu sortieren.</p>"
+
+#: XMLDB/FileReader.cpp:273
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>You also do not have EXIF "
+"support available, which means that you cannot read image dates from JPEG "
+"metadata. It is strongly recommended to recompile KPhotoAlbum with the "
+"<code>exiv2</code> library. After you have done so, you will be asked what "
+"to do to correct all the missing information.</p>"
+msgstr ""
+"<p>Ihre Bilder/Videos sind nicht sortiert. Daher können Sie nicht optimal "
+"mit der Datums-Werkzeugleiste navigieren.</p> <p>Darüber hinaus haben Sie "
+"keine EXIF-Unterstützung. Sie können also die Bilddaten nicht aus den JPEG-"
+"Metadaten auslesen. Wir empfehlen Ihnen daher dringend, KPhotoAlbum mit der "
+"<code>exiv2</code> Bibliothek neu zu übersetzen. Danach werden Sie "
+"aufgefordert, die fehlenden Informationen zu korrigieren.</p>"
+
+#: XMLDB/FileReader.cpp:280
+msgid "Images/Videos Are Not Sorted"
+msgstr "Die Bilder/Videos sind unsortiert."
+
+#: XMLDB/FileReader.cpp:295
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Nicht alle Bilder in der Datenbank enthalten Informationen über die "
+"Bildgröße. Diese wird aber benötigt, um das beste Ergebnis in der "
+"Vorschauansicht zu erzeugen. Um dies zu beheben können Sie im Menü "
+"<tt>Datenpflege</tt> erst den Eintrag <tt>Vorschaubilder entfernen</tt> und "
+"dann den Eintrag <tt>Vorschaubilder erstellen</tt> benutzen.</p><p>Wenn Sie "
+"dies überspringen werden Sie nur etwas zusätzlichen freien Raum um die "
+"Bilder in der Vorschauansicht angezeigt bekommen; der Schritt ist also nicht "
+"so dringend.</p>"
+
+#: XMLDB/FileReader.cpp:300
+msgid "Not All Images Have Size Information"
+msgstr "Nicht alle Bilder enthalten Größeninformationen"
+
+#: XMLDB/FileReader.cpp:310
+msgid ""
+"<p>The index.xml file read was from an older version of KPhotoAlbum. "
+"KPhotoAlbum read the old format without problems, but to be able to convert "
+"back to KimDaBa 2.1 format, you need to run the current KPhotoAlbum using "
+"the flag <b>export-in-2.1-format</b>, and then save.</p>"
+msgstr ""
+"<p>Die eingelesene Datei index.xml stammt von einer älteren Version von "
+"KPhotoAlbum. KPhotoAlbum kann dieses veraltete Format ohne Probleme lesen, "
+"aber um es in das KimDaBa 2.1 Fomat zurückzukonvertieren müssen Sie das "
+"aktuelle KPhotoAlbum mit der Option <b>export-in-2.1-format</b> starten und "
+"dann speichern.</p>"
+
+#: XMLDB/FileReader.cpp:314
+msgid "Old File Format read"
+msgstr "Altes Dateiformat gelesen"
+
+#: XMLDB/FileReader.cpp:335
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation directory.</p><p>If you for example ran "
+"configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>KPhotoAlbum konnte keine Standardeinstellungen laden. Dies weist auf "
+"einen Installationsfehler hin.</p><p>Falls Sie KPhotoAlbum selbst "
+"installiert haben, sollten Sie die Umgebungsvariable <b>KDEDIRS</b> vorher "
+"auf den Installationsordner setzen.</p><p>Wenn Sie z. B. den Befehl "
+"„configure“ mit <tt>--prefix=/usr/local/kde</tt> gestartet haben, müssen Sie "
+"die folgenden Variableneinstellungen für die Bash und kompatible Shells "
+"benutzen:</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Falls Sie KDEDIRS "
+"schon gesetzt haben, sollten Sie diese Zeichenkette einfach an die "
+"Umgebungsvariable <b>PATH</b> anhängen.</p>"
+
+#: XMLDB/FileReader.cpp:342
+msgid "No default setup file found"
+msgstr "Keine Datei mit Standardeinstellungen gefunden"
+
+#: XMLDB/FileReader.cpp:359
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "„%1“ lässt sich nicht zum Lesen öffnen"
+
+#: XMLDB/FileReader.cpp:359 Utilities/Util.cpp:256 Utilities/Util.cpp:270
+#: Utilities/Util.cpp:288 Utilities/Util.cpp:305
+msgid "Error Running Demo"
+msgstr "Fehler bei der Ausführung der Demonstration"
+
+#: XMLDB/FileReader.cpp:368
+#, kde-format
+msgid "Error on line %1 column %2 in file %3: %4"
+msgstr "Fehler in der Zeile %1, Spalte %2 in der Datei %3: %4"
+
+#: XMLDB/FileReader.cpp:376
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Fehler in der Datei %1: Keine Elemente gefunden."
+
+#: XMLDB/FileReader.cpp:382
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr ""
+"Fehler in der Datei %1: ‚KPhotoAlbum‘ wurde als oberstes Element erwartet, "
+"aber ‚%2‘ wurde gefunden."
+
+#: Plugins/CategoryImageCollection.cpp:35 Browser/AbstractCategoryModel.cpp:46
+#: MainWindow/StatisticsDialog.cpp:112
+msgid "None"
+msgstr "Keine"
+
+#: Plugins/Interface.cpp:97
+#, kde-format
+msgid ""
+"<p>Image needs to be placed in a sub directory of your photo album, which is "
+"rooted at %1. Image path was %2</p>"
+msgstr ""
+"<p>Das Bild muss in einem Unterordner des Fotoalbums platziert werden. "
+"Dieser liegt unter %1, der Pfad des Bildes ist aber %2.</p>"
+
+#: Plugins/ImageCollection.cpp:44
+msgid "unknown (Selection)"
+msgstr "unbekannt (Auswahl)"
+
+#: Plugins/ImageCollection.cpp:47
+msgid " (Selection)"
+msgstr " (Auswahl)"
+
+#: Plugins/ImageCollection.cpp:52 Plugins/ImageCollection.cpp:55
+msgid "unknown"
+msgstr "unbekannt"
+
+#: Plugins/ImageCollection.cpp:59
+msgid "none"
+msgstr "keine"
+
+#: Browser/Breadcrumb.cpp:36 MainWindow/StatisticsDialog.cpp:150
+msgid "All"
+msgstr "Alle"
+
+#: Browser/OverviewPage.cpp:132
+msgid "Exif Info"
+msgstr "EXIF-Info"
+
+#: Browser/OverviewPage.cpp:143 AnnotationDialog/Dialog.cpp:493
+msgid "Search"
+msgstr "Suchen"
+
+#: Browser/OverviewPage.cpp:152 Settings/UntaggedGroupBox.cpp:12
+msgid "Untagged Images"
+msgstr "Bilder ohne Stichwort"
+
+#: Browser/OverviewPage.cpp:162
+msgid "Show Thumbnails"
+msgstr "Vorschaubilder anzeigen"
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Search did not match any images or videos."
+msgstr "Die Suche konnte keine Bilder oder Videos finden."
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Empty Search Result"
+msgstr "Die Suche war erfolglos"
+
+#: Browser/OverviewPage.cpp:252
+msgid "search"
+msgstr "Suchen"
+
+#: Browser/OverviewPage.cpp:276
+msgid ""
+"<p>You have not yet configured which tag to use for indicating untagged "
+"images.</p><p>Please follow these steps to do so:<ul><li>In the menu bar "
+"choose <b>Settings</b></li><li>From there choose <b>Configure KPhotoAlbum</"
+"b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
+"section <b>Untagged Images</b></li></ul></p>"
+msgstr ""
+
+#: Browser/OverviewPage.cpp:282
+msgid "Features has not been configured"
+msgstr ""
+
+#: Browser/AbstractCategoryModel.cpp:48
+msgid "No other"
+msgstr "Keine weiteren"
+
+#: Browser/AbstractCategoryModel.cpp:51
+msgid "Video"
+msgstr "Video"
+
+#: Browser/AbstractCategoryModel.cpp:53
+msgid "Image"
+msgstr "Bild"
+
+#: Browser/AbstractCategoryModel.cpp:100
+#, kde-format
+msgid "1 image"
+msgid_plural "%1 images"
+msgstr[0] "1 Bild"
+msgstr[1] "%1 Bilder"
+
+#: Browser/AbstractCategoryModel.cpp:101
+#, kde-format
+msgid "1 video"
+msgid_plural "%1 videos"
+msgstr[0] "1 Video"
+msgstr[1] "%1 Videos"
+
+#. i18n: file: kphotoalbumui.rc:76
+#. i18n: ectx: Menu (imagesplugins)
+#: Browser/AbstractCategoryModel.cpp:138 rc.cpp:21
+msgid "Images"
+msgstr "Bilder"
+
+#: Browser/AbstractCategoryModel.cpp:139
+msgid "Videos"
+msgstr "Videos"
+
+#: Viewer/ImageDisplay.cpp:342
+#, kde-format
+msgid "[ zoom x%1 ]"
+msgstr "[ Zoom x %1 ]"
+
+#: Viewer/CategoryImageConfig.cpp:42
+msgid "Configure Category Image"
+msgstr "Bilderkategorie einrichten"
+
+#: Viewer/CategoryImageConfig.cpp:44
+msgid "Set"
+msgstr "Setzen"
+
+#: Viewer/CategoryImageConfig.cpp:54
+msgid "Group:"
+msgstr "Gruppe:"
+
+#: Viewer/CategoryImageConfig.cpp:61
+msgid "Member:"
+msgstr "Mitglied:"
+
+#: Viewer/CategoryImageConfig.cpp:70
+msgid "Current image:"
+msgstr "Aktuelles Bild:"
+
+#: Viewer/CategoryImageConfig.cpp:78
+msgid "New image:"
+msgstr "Neues Bild:"
+
+#: Viewer/VisibleOptionsMenu.cpp:16
+msgid "Show..."
+msgstr "Zeige ..."
+
+#: Viewer/VisibleOptionsMenu.cpp:19
+msgid "Show"
+msgstr "Anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:23
+msgid "Show Info Box"
+msgstr "Infobereich anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:29
+msgid "Show Label"
+msgstr "Name anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:35
+msgid "Show Description"
+msgstr "Beschreibung anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:41
+msgid "Show Date"
+msgstr "Datum anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:46
+msgid "Show Time"
+msgstr "Zeit anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:51
+msgid "Show Filename"
+msgstr "Dateiname anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:56
+msgid "Show EXIF"
+msgstr "EXIF anzeigen"
+
+#: Viewer/VisibleOptionsMenu.cpp:61
+msgid "Show Image Size"
+msgstr "Bildgröße anzeigen"
+
+#: Viewer/VideoDisplay.cpp:195
+msgid "Error playing media"
+msgstr "Fehler beim Abspielen des Mediums."
+
+#: Viewer/SpeedDisplay.cpp:46
+#, kde-format
+msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:52
+msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
+msgstr "<p><center><font size=\"+4\">Diaschau starten</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:72
+msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgstr "<p><center><font size=\"+4\">Diaschau ist beendet</font></center></p>"
+
+#: Viewer/ViewerWidget.cpp:141
+msgid "Annotate..."
+msgstr "Kategorisieren ..."
+
+#: Viewer/ViewerWidget.cpp:146 MainWindow/Window.cpp:683
+msgid "Set as First Image in Stack"
+msgstr "Als erstes Bild des Stapels setzen"
+
+#: Viewer/ViewerWidget.cpp:152
+msgid "Show EXIF Viewer"
+msgstr "EXIF-Betrachter anzeigen"
+
+#: Viewer/ViewerWidget.cpp:157 ImportExport/MiniViewer.cpp:69
+msgid "Close"
+msgstr "Schließen"
+
+#: Viewer/ViewerWidget.cpp:181
+msgid "Set as Wallpaper"
+msgstr "Als Hintergrund festlegen"
+
+#: Viewer/ViewerWidget.cpp:184
+msgid "Centered"
+msgstr "Zentriert"
+
+#: Viewer/ViewerWidget.cpp:188
+msgid "Tiled"
+msgstr "Gekachelt"
+
+#: Viewer/ViewerWidget.cpp:192
+msgid "Center Tiled"
+msgstr "Zentrierte Kacheln"
+
+#: Viewer/ViewerWidget.cpp:196
+msgid "Centered Maxpect"
+msgstr "Zentrierte Maximalausdehnung"
+
+#: Viewer/ViewerWidget.cpp:200
+msgid "Tiled Maxpect"
+msgstr "Gekachelte Maximalausdehnung"
+
+#: Viewer/ViewerWidget.cpp:204
+msgid "Scaled"
+msgstr "Skaliert"
+
+#: Viewer/ViewerWidget.cpp:208
+msgid "Centered Auto Fit"
+msgstr "Zentriert mit autom. Anpassung"
+
+#: Viewer/ViewerWidget.cpp:225
+msgid "Rotate"
+msgstr "Drehen"
+
+#: Viewer/ViewerWidget.cpp:228 AnnotationDialog/ImagePreviewWidget.cpp:59
+#: AnnotationDialog/Dialog.cpp:872 MainWindow/Window.cpp:692
+msgid "Rotate clockwise"
+msgstr "Mit dem Uhrzeigersinn drehen"
+
+#: Viewer/ViewerWidget.cpp:233
+msgid "Flip Over"
+msgstr "Umdrehen"
+
+#: Viewer/ViewerWidget.cpp:238 AnnotationDialog/ImagePreviewWidget.cpp:53
+#: AnnotationDialog/Dialog.cpp:869 MainWindow/Window.cpp:687
+msgid "Rotate counterclockwise"
+msgstr "Gegen den Uhrzeigersinn drehen"
+
+#: Viewer/ViewerWidget.cpp:248
+msgid "Skip"
+msgstr "Überspringen"
+
+#: Viewer/ViewerWidget.cpp:251
+msgid "First"
+msgstr "Erstes"
+
+#: Viewer/ViewerWidget.cpp:257
+msgid "Last"
+msgstr "Letztes"
+
+#: Viewer/ViewerWidget.cpp:263
+msgid "Show Next"
+msgstr "Nächstes anzeigen"
+
+#: Viewer/ViewerWidget.cpp:273
+msgid "Skip 10 Forward"
+msgstr "10 vorwärts springen"
+
+#: Viewer/ViewerWidget.cpp:279
+msgid "Skip 100 Forward"
+msgstr "100 vorwärts springen"
+
+#: Viewer/ViewerWidget.cpp:285
+msgid "Skip 1000 Forward"
+msgstr "1000 vorwärts springen"
+
+#: Viewer/ViewerWidget.cpp:291
+msgid "Show Previous"
+msgstr "Vorheriges anzeigen"
+
+#: Viewer/ViewerWidget.cpp:297
+msgid "Skip 10 Backward"
+msgstr "10 rückwärts springen"
+
+#: Viewer/ViewerWidget.cpp:303
+msgid "Skip 100 Backward"
+msgstr "100 rückwärts springen"
+
+#: Viewer/ViewerWidget.cpp:309
+msgid "Skip 1000 Backward"
+msgstr "1000 rückwärts springen"
+
+#: Viewer/ViewerWidget.cpp:315
+msgid "Remove Image from Display List"
+msgstr "Bild aus der Anzeigeliste entfernen"
+
+#: Viewer/ViewerWidget.cpp:325
+msgid "Zoom"
+msgstr "Zoom"
+
+#: Viewer/ViewerWidget.cpp:329
+msgid "Zoom In"
+msgstr "Vergrößern"
+
+#: Viewer/ViewerWidget.cpp:334
+msgid "Zoom Out"
+msgstr "Verkleinern"
+
+#: Viewer/ViewerWidget.cpp:339
+msgid "Full View"
+msgstr "Gesamtansicht"
+
+#: Viewer/ViewerWidget.cpp:344
+msgid "Pixel for Pixel View"
+msgstr "1:1-Ansicht"
+
+#: Viewer/ViewerWidget.cpp:349
+msgid "Toggle Full Screen"
+msgstr "Vollbild umschalten"
+
+#: Viewer/ViewerWidget.cpp:360
+msgid "Slideshow"
+msgstr "Diaschau"
+
+#: Viewer/ViewerWidget.cpp:363 Viewer/ViewerWidget.cpp:769
+msgid "Run Slideshow"
+msgstr "Diaschau starten"
+
+#: Viewer/ViewerWidget.cpp:368
+msgid "Run Faster"
+msgstr "Schneller"
+
+#: Viewer/ViewerWidget.cpp:373
+msgid "Run Slower"
+msgstr "Langsamer"
+
+#: Viewer/ViewerWidget.cpp:407
+msgid "File not available"
+msgstr "Datei nicht verfügbar"
+
+#: Viewer/ViewerWidget.cpp:463
+msgid "Play"
+msgstr "Wiedergeben"
+
+#: Viewer/ViewerWidget.cpp:465
+msgid "Pause"
+msgstr "Pause"
+
+#: Viewer/ViewerWidget.cpp:775
+msgid "Stop Slideshow"
+msgstr "Diaschau anhalten"
+
+#: Viewer/ViewerWidget.cpp:994
+msgid "Seek"
+msgstr "Suche"
+
+#: Viewer/ViewerWidget.cpp:998
+msgid "10 minutes backward"
+msgstr "10 Minuten zurück"
+
+#: Viewer/ViewerWidget.cpp:999
+msgid "1 minute backward"
+msgstr "1 Minute zurück"
+
+#: Viewer/ViewerWidget.cpp:1000
+msgid "10 seconds backward"
+msgstr "10 Sekunden zurück"
+
+#: Viewer/ViewerWidget.cpp:1001
+msgid "1 seconds backward"
+msgstr "1 Sekunde zurück"
+
+#: Viewer/ViewerWidget.cpp:1002
+msgid "100 milliseconds backward"
+msgstr "100 Millisekunden zurück"
+
+#: Viewer/ViewerWidget.cpp:1003
+msgid "100 milliseconds forward"
+msgstr "100 Millisekunde vor"
+
+#: Viewer/ViewerWidget.cpp:1004
+msgid "1 seconds forward"
+msgstr "1 Sekunde vor"
+
+#: Viewer/ViewerWidget.cpp:1005
+msgid "10 seconds forward"
+msgstr "1 Sekunde vor"
+
+#: Viewer/ViewerWidget.cpp:1006
+msgid "1 minute forward"
+msgstr "1 Minute vor"
+
+#: Viewer/ViewerWidget.cpp:1007
+msgid "10 minutes forward"
+msgstr "10 Minuten vor"
+
+#: Viewer/ViewerWidget.cpp:1030
+msgid "Stop"
+msgstr "Stopp"
+
+#: Viewer/ViewerWidget.cpp:1036
+msgid "Toggle playback"
+msgstr "Playback umschalten"
+
+#: Viewer/ViewerWidget.cpp:1041
+msgid "Restart"
+msgstr "Neustart"
+
+#: DateBar/ViewHandler.cpp:129
+msgid "1 Year"
+msgstr "1 Jahr"
+
+#: DateBar/ViewHandler.cpp:161
+msgid "1 Month"
+msgstr "1 Monat"
+
+#: DateBar/ViewHandler.cpp:201
+msgid "1 Week"
+msgstr "1 Woche"
+
+#: DateBar/ViewHandler.cpp:229
+msgid "1 Day"
+msgstr "1 Tag"
+
+#: DateBar/ViewHandler.cpp:272
+msgid "2 Hours"
+msgstr "2 Stunden"
+
+#: DateBar/ViewHandler.cpp:308
+msgid "10 Minutes"
+msgstr "10 Minuten"
+
+#: DateBar/DateBarWidget.cpp:81
+msgid "Widen selection to include all images and videos again"
+msgstr ""
+"Die Auswahl so erweitern, dass wieder alle Bilder/Videos enthalten sind."
+
+#: DateBar/DateBarWidget.cpp:511
+msgid "Show Ranges"
+msgstr "Bereiche anzeigen"
+
+#: DateBar/DateBarWidget.cpp:517
+msgid "Show Resolution Indicator"
+msgstr "Auflösungsindikator anzeigen"
+
+#: DateBar/DateBarWidget.cpp:635
+#, kde-format
+msgid "%1 exact + %2 ranges = %3 total"
+msgstr "%1 Exakt + %2 Bereiche = %3 Gesamt"
+
+#: DateBar/DateBarWidget.cpp:637
+#, kde-format
+msgid "%1 images/videos"
+msgstr "%1 Bilder/Videos"
+
+#: DateBar/DateBarWidget.cpp:639
+#, kde-format
+msgid "%1 | %2"
+msgstr "%1 | %2"
+
+#: main.cpp:38
+msgid "KPhotoAlbum"
+msgstr "KPhotoAlbum"
+
+#: main.cpp:39
+msgid "KDE Photo Album"
+msgstr "KDE Fotoalbum"
+
+#: main.cpp:41
+msgid "Jesper K. Pedersen"
+msgstr "Jesper K. Pedersen"
+
+#: main.cpp:41 main.cpp:42 main.cpp:43 main.cpp:45 main.cpp:46
+msgid "Development"
+msgstr "Entwicklung"
+
+#: main.cpp:42
+msgid "Hassan Ibraheem"
+msgstr "Hassan Ibraheem"
+
+#: main.cpp:43
+msgid "Miika Turkia"
+msgstr "Miika Turkia"
+
+#: main.cpp:44
+msgid "Tuomas Suutari"
+msgstr "Tuomas Suutari"
+
+#: main.cpp:44
+msgid "SQL backend and numerous features"
+msgstr "SQL-Treiber und verschiedene Fähigkeiten"
+
+#: main.cpp:45
+msgid "Jan Kundrat"
+msgstr "Jan Kundrat"
+
+#: main.cpp:46
+msgid "Henner Zeller"
+msgstr "Henner Zeller"
+
+#: main.cpp:49
+msgid "Will Stephenson"
+msgstr "Will Stephenson"
+
+#: main.cpp:49
+msgid "Developing an Icon for KPhotoAlbum"
+msgstr "Entwicklung eines Symbols für KPhotoAlbum"
+
+#: main.cpp:50
+msgid "Teemu Rytilahti"
+msgstr "Teemu Rytilahti"
+
+#: main.cpp:51
+msgid ""
+"Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+"(.) Theme support for HTML generation"
+msgstr ""
+"Korrekturen, die (.) das Menü „Als Hintergrund festlegen“ im Betrachter "
+"implementieren. (.) Unterstützung für das Design bei der Generierung von "
+"HTML."
+
+#: main.cpp:53
+msgid "Reimar Imhof"
+msgstr "Reimar Imhof"
+
+#: main.cpp:53
+msgid "Patch to sort items in option listboxes"
+msgstr "Korrektur, um die Einträge in den Optionslisten zu sortieren"
+
+#: main.cpp:54
+msgid "Thomas Schwarzgruber"
+msgstr "Thomas Schwarzgruber"
+
+#: main.cpp:54
+msgid ""
+"Patch to sort images in the thumbnail view, plus reading time info out of "
+"EXIF images for existing images"
+msgstr ""
+"Korrektur, um die Bilder in der Vorschauansicht zu sortieren, um dem "
+"Auslesen der Zeitinformationen von EXIF-Bildern der existierenden Bilder"
+
+#: main.cpp:55
+msgid "Marcel Wiesweg"
+msgstr "Marcel Wiesweg"
+
+#: main.cpp:55
+msgid ""
+"Patch which speed up loading of thumbnails plus preview in image property "
+"dialog."
+msgstr ""
+"Korrektur die die Geschwindigkeit des Ladens der Vorschaubilder und des "
+"Bildeigenschaftdialoges erhöht."
+
+#: main.cpp:56
+msgid "Marco Caldarelli"
+msgstr "Marco Caldarelli"
+
+#: main.cpp:56
+msgid "Patch for making it possible to reread EXIF info using a nice dialog."
+msgstr ""
+"Korrektur die es möglich macht, die EXIF-Info erneut über einen netten "
+"Dialog auszulesen."
+
+#: main.cpp:57
+msgid "Jean-Michel FAYARD"
+msgstr "Jean-Michel FAYARD"
+
+#: main.cpp:57
+msgid ""
+"(.) Patch with directory info made available through the browser. (.) Patch "
+"for adding a check box for \"and/or\" searches in the search page."
+msgstr ""
+"(.) Korrektur, um die Ordnerinfo für den Browser zur Verfügung zu stellen. "
+"(.) Korrektur zum Hinzufügen eines Ankreutzfeldes für „und/oder“ Suchen über "
+"die Suchseite."
+
+#: main.cpp:58
+msgid "Robert L Krawitz"
+msgstr "Robert L Krawitz"
+
+#: main.cpp:58
+msgid "Numerous patches plus profiling KPhotoAlbum again and again."
+msgstr "Einige Korrekturen und immer wieder Profilierung für KPhotoAlbum."
+
+#: main.cpp:59
+msgid "Christoph Moseler"
+msgstr "Christoph Moseler"
+
+#: main.cpp:59
+msgid "Numerous patches for lots of bugs plus patches for a few new features"
+msgstr "Viele Korrekturen für viele Fehler und einige für neue Fähigkeiten"
+
+#: main.cpp:60
+msgid "Clytie Siddall"
+msgstr "Clytie Siddall"
+
+#: main.cpp:60
+msgid "Tremendous help with the English text in the application."
+msgstr "Umfangreiche Hilfe beim englischen Text für das Programm."
+
+#: main.cpp:65
+msgid "Config file"
+msgstr "Konfigurationsdatei"
+
+#: main.cpp:66
+msgid "Database engine to use"
+msgstr "Zu benutzende Datenbank"
+
+#: main.cpp:67
+msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+msgstr "Startet KPhotoAlbum mit einem vorinstallierten Satz an Demobildern"
+
+#: main.cpp:68
+msgid "Import file"
+msgstr "Importdatei"
+
+#: main.cpp:69
+msgid ""
+"This will make an attempt at saving in a format understandable by KimDaBa 2.1"
+msgstr ""
+"Hierdurch wird ein Speicherformat verwendet, welches von KimDaBa 2.1 gelesen "
+"werdenkann."
+
+#: ImportExport/KimFileReader.cpp:18
+#, kde-format
+msgid "Unable to open '%1' for reading."
+msgstr "„%1“ lässt sich nicht zum Lesen öffnen."
+
+#: ImportExport/KimFileReader.cpp:18
+msgid "Error Importing Data"
+msgstr "Fehler beim Importieren der Daten"
+
+#: ImportExport/KimFileReader.cpp:26
+#, kde-format
+msgid ""
+"Error reading directory contents of file %1; it is likely that the file is "
+"broken."
+msgstr ""
+"Fehler beim Lesen des Ordnerinhalts der Datei %1. Höchstwahrscheinlich ist "
+"die Datei beschädigt."
+
+#: ImportExport/KimFileReader.cpp:40
+#, kde-format
+msgid ""
+"Error reading index.xml file from %1; it is likely that the file is broken."
+msgstr ""
+"Fehler beim Lesen der Datei index.xml von %1. Höchstwahrscheinlich ist die "
+"Datei beschädigt."
+
+#: ImportExport/KimFileReader.cpp:60
+msgid ""
+"Thumbnail item in export file was not a directory, this indicates that the "
+"file is broken."
+msgstr ""
+"Der Vorschaueintrag in der Exportdatei ist kein Ordner. Dies weist "
+"daraufhin, dass die Datei beschädigt ist."
+
+#: ImportExport/KimFileReader.cpp:70
+#, kde-format
+msgid "No thumbnail existed in export file for %1"
+msgstr "Keine Vorschau in der Exportdatei für %1 gefunden"
+
+#: ImportExport/KimFileReader.cpp:85
+msgid ""
+"export file did not contain a Images subdirectory, this indicates that the "
+"file is broken"
+msgstr ""
+"Die Exportdatei enthält keinen Unterordner für Bilder. Dies weist daraufhin, "
+"dass die Datei beschädigt ist."
+
+#: ImportExport/KimFileReader.cpp:90
+msgid ""
+"Images item in export file was not a directory, this indicates that the file "
+"is broken"
+msgstr ""
+"Der Eintrag „Images“ in der Exportdatei ist kein Ordner. Dies weist "
+"daraufhin, dass die Datei beschädigt ist."
+
+#: ImportExport/KimFileReader.cpp:98
+#, kde-format
+msgid "No image existed in export file for %1"
+msgstr "Es existiert kein Bild in der Exportdatei für %1"
+
+#: ImportExport/ImportDialog.cpp:82
+#, kde-format
+msgid "Error in file %1 on line %2 col %3: %4"
+msgstr "Fehler in der Datei %1 in Zeile %2 Spalte %3: %4"
+
+#: ImportExport/ImportDialog.cpp:89
+#, kde-format
+msgid ""
+"Unexpected top element while reading file %1. Expected KPhotoAlbum-export "
+"found %2"
+msgstr ""
+"Unerwartetes Top-Element während des Lesens der Datei %1. Im erwarteten "
+"KPhotoAlbum-Export gefunden %2"
+
+#: ImportExport/ImportDialog.cpp:97
+msgid ""
+"<p>XML file did not specify the source of the images, this is a strong "
+"indication that the file is corrupted</p>"
+msgstr ""
+"<p>Die XML-Datei enthielt nicht die Quelle der Bilder. Dies weist stark "
+"darauf hin, dass die Datei beschädigt ist.</p>"
+
+#: ImportExport/ImportDialog.cpp:109
+#, kde-format
+msgid "Unknown element while reading %1, expected image."
+msgstr ""
+"Unbekanntes Element während des Lesens von %1 gefunden. Es wurde ein Bild "
+"erwartet."
+
+#: ImportExport/ImportDialog.cpp:133
+msgid ""
+"<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
+"will take you through the steps of an import operation. The steps are: "
+"<ol><li>First you must select which images you want to import from the "
+"export file. You do so by selecting the checkbox next to the image.</"
+"li><li>Next you must tell KPhotoAlbum in which directory to put the images. "
+"This directory must of course be below the directory root KPhotoAlbum uses "
+"for images. KPhotoAlbum will take care to avoid name clashes</li><li>The "
+"next step is to specify which categories you want to import (People, "
+"Places, ... ) and also tell KPhotoAlbum how to match the categories from the "
+"file to your categories. Imagine you load from a file, where a category is "
+"called <b>Blomst</b> (which is the Danish word for flower), then you would "
+"likely want to match this with your category, which might be called "
+"<b>Blume</b> (which is the German word for flower) - of course given you are "
+"German.</li><li>The final steps, is matching the individual tokens from the "
+"categories. I may call myself <b>Jesper</b> in my image database, while you "
+"want to call me by my full name, namely <b>Jesper K. Pedersen</b>. In this "
+"step non matches will be highlighted in red, so you can see which tokens was "
+"not found in your database, or which tokens was only a partial match.</li></"
+"ol>"
+msgstr ""
+"<h1><font size=\"+2\">Willkommen zum Import von KPhotoAlbum</font></"
+"h1>Dieser Assistent begleitet Sie durch die Schritte eines Imports. Dies "
+"sind: <ol><li>Zuerst müssen Sie die Bilder aus der Exportdatei auswählen, "
+"die Sie importieren wollen. Dies machen Sie, indem Sie das Ankreuzfeld neben "
+"dem Bild benutzen.</li><li>Danach müssen Sie KPhotoAlbum mitteilen, in "
+"welchem Ordner die Bilder gespeichert werden sollen. Dieser Ordner muss "
+"unterhalb des Basisordners, den KPhotoAlbum für Bilder benutzt, liegen. "
+"KPhotoAlbum wird etwaige Namensüberschneidungen automatisch behandeln.</"
+"li><li>Der nächste Schritt, ist das Angeben der Kategorien, wie z. B. "
+"Personen, Orte, etc., die Sie importieren wollen und KPhotoAlbum anzuweisen, "
+"wie diese auf Ihre vorhandenen Kategorien abzubilden sind. Stellen Sie sich "
+"dafür einfach vor, dass es dort eine Kategorie namens <b>Blomst</b>, dänisch "
+"für Blume, gibt. Diese wollen Sie dann sicher Ihrer Kategorie <b>Blume</b> "
+"zuweisen.</li><li>Der letzte Schritt ist das Abbilden der individuellen "
+"Merkmale der Kategorien. Ich könnte mich z. B. <b>Jesper</b> in meiner "
+"Bilddatenbank nennen. In Ihrer dagegen würde ich <b>Jesper K. Pedersen</b> "
+"genannt. In diesem Schritt werden Merkmale, die nicht abgebildet werden "
+"können, rot hervorgehoben. Sie können also sehen welche Merkmale in Ihrer "
+"Datenbank nicht gefunden wurden und welche nur teilweise übereinstimmen.</"
+"li></ol>"
+
+#: ImportExport/ImportDialog.cpp:152
+msgid "Introduction"
+msgstr "Einführung"
+
+#: ImportExport/ImportDialog.cpp:168 MainWindow/TokenEditor.cpp:63
+msgid "Select All"
+msgstr "Alle auswählen"
+
+#: ImportExport/ImportDialog.cpp:170
+msgid "Deselect All"
+msgstr "Nichts auswählen"
+
+#: ImportExport/ImportDialog.cpp:205
+msgid "Select Which Images to Import"
+msgstr "Wählen Sie die zu importierenden Bilder"
+
+#: ImportExport/ImportDialog.cpp:217
+msgid "Destination of images: "
+msgstr "Ziel der Bilder: "
+
+#: ImportExport/ImportDialog.cpp:231
+msgid "Destination of Images"
+msgstr "Ziel der Bilder"
+
+#: ImportExport/ImportDialog.cpp:239
+#, kde-format
+msgid "The directory must be a subdirectory of %1"
+msgstr "Der Ordner muss ein Unterordner von %1 sein"
+
+#: ImportExport/ImportDialog.cpp:281
+msgid "Match Categories"
+msgstr "Kategorien abbilden"
+
+#: ImportExport/ImportDialog.cpp:313
+#, kde-format
+msgid "Directory %1 does not exist. Should it be created?"
+msgstr "Der Ordner %1 existiert nicht. Soll er erstellt werden?"
+
+#: ImportExport/ImportDialog.cpp:317
+#, kde-format
+msgid "Error creating directory %1"
+msgstr "Fehler beim Erstellen des Ordners %1"
+
+#: ImportExport/ImportDialog.cpp:403
+msgid "How to resolve clashes"
+msgstr "Wie sollen Probleme behandelt werden"
+
+#: ImportExport/Import.cpp:46
+msgid "Unable to create temporary file"
+msgstr "Temporäre Datei kann nicht erstellt werden"
+
+#: ImportExport/Export.cpp:72
+msgid "Export Configuration / Copy Images"
+msgstr "Export-Einrichtung/Bilder kopieren"
+
+#: ImportExport/Export.cpp:80
+msgid "How to Handle Images"
+msgstr "Wie sollen Bilder benahdelt werden"
+
+#: ImportExport/Export.cpp:84
+msgid "Include in .kim file"
+msgstr "In die .kim-Datei einfügen"
+
+#: ImportExport/Export.cpp:85
+msgid "Manual copy next to .kim file"
+msgstr "Manuell neben die .kim-Datei kopieren"
+
+#: ImportExport/Export.cpp:86
+msgid "Automatically copy next to .kim file"
+msgstr "Automatisch neben die .kim-Datei kopieren"
+
+#: ImportExport/Export.cpp:87
+msgid "Hard link next to .kim file"
+msgstr "Hartlink neben die .kim-Datei"
+
+#: ImportExport/Export.cpp:96
+msgid "Compress export file"
+msgstr "Exportdatei komprimieren"
+
+#: ImportExport/Export.cpp:100
+msgid "Generate thumbnails"
+msgstr "Vorschaubilder erzeugen"
+
+#: ImportExport/Export.cpp:108
+msgid "Limit maximum image dimensions to: "
+msgstr "Maximale Bildgröße begrenzen auf:"
+
+#: ImportExport/Export.cpp:120
+msgid ""
+"<p>If your images are stored in a non-compressed file format then you may "
+"check this; otherwise, this just wastes time during import and export "
+"operations.</p><p>In other words, do not check this if your images are "
+"stored in jpg, png or gif; but do check this if your images are stored in "
+"tiff.</p>"
+msgstr ""
+"<p>Falls Sie Bilder in ein nicht-komprimierendes Dateiformat speichern, "
+"wollen Sie diese Option evtl. aktivieren. Andernfalls ist dies eine "
+"Verschwendung von Zeit während des Im- und Exports.</p><p>Mit anderen "
+"Worten, wählen Sie diese Option nicht, falls Sie Ihre Bilder in jpg, png "
+"oder gif speichern. Wählen Sie sie, wenn Sie Ihre Bilder in tiff speichern.</"
+"p>"
+
+#: ImportExport/Export.cpp:126
+msgid "<p>Generate thumbnail images</p>"
+msgstr "<p>Vorschaubilder erzeugen</p>"
+
+#: ImportExport/Export.cpp:129
+msgid ""
+"<p>With this option you may limit the maximum dimensions (width and height) "
+"of your images. Doing so will make the resulting export file smaller, but "
+"will of course also make the quality worse if someone wants to see the "
+"exported images with larger dimensions.</p>"
+msgstr ""
+"<p>Mit dieser Option begrenzen Sie die maximale Größe (Höhe und Breite) "
+"Ihrer Bilder. Dies wird zu kleineren Exportdateien führen, aber wird auch "
+"die Qualität verschlechtern, falls jemand Ihre exportierten Bilder in einem "
+"größeren Maßstab betrachtet.</p>"
+
+#: ImportExport/Export.cpp:136
+msgid ""
+"<p>When exporting images, bear in mind that there are two things the person "
+"importing these images again will need:<br/>1) meta information (image "
+"content, date etc.)<br/>2) the images themselves.</p><p>The images "
+"themselves can either be placed next to the .kim file, or copied into the ."
+"kim file. Copying the images into the .kim file works well for a recipient "
+"who wants all, or most of those images, for example when emailing a whole "
+"group of images. However, when you place the images on the Web, a lot of "
+"people will see them but most likely only download a few of them. It works "
+"better in this kind of case, to separate the images and the .kim file, by "
+"place them next to each other, so the user can access the images s/he wants."
+"</p>"
+msgstr ""
+"<p>Wenn Sie Bilder exportieren, so benötigt die Person die sie importiert "
+"zwei Dinge:<br/>1) Metainformationen (Bildinhalt, Datum usw.)<br/>2) die "
+"Bilder selber</p><p>Die Bilder können entweder neben der .kim-Datei oder in "
+"der .kim-Datei kopiert werden. Das Hereinkopieren der Bilder in die .kim-"
+"Datei könnte die richtige Lösung sein, wenn Sie die Bilder per E-Mail an "
+"jemandem senden der höchstwahrscheinlich alle Bilder möchte. Auf der anderen "
+"Seite, falls Sie die Bilder ins Internet stellen und eine Menge Leute diese "
+"dann sehen, so werden diese wahrscheinlich nur ein paar von Ihnen "
+"herunterladen. Dann ist es besser, die Bilder neben der .kim-Datei zu "
+"platzieren, um zu vermeiden, dass man alle Bilder herunterladen muss. Dies "
+"wäre dann nämlich eine große Datei.</p>"
+
+#: ImportExport/Export.cpp:189
+msgid "Error creating zip file"
+msgstr "Fehler beim Erstellen der ZIP-Datei"
+
+#: ImportExport/Export.cpp:202 ImportExport/ImportHandler.cpp:66
+#: ImportExport/ImportHandler.cpp:118
+msgid "&Cancel"
+msgstr "A&bbrechen"
+
+#: ImportExport/Export.cpp:219
+msgid "Creating index file"
+msgstr "Indexdatei wird erstellt"
+
+#: ImportExport/Export.cpp:234
+msgid "Creating thumbnails"
+msgstr "Vorschaubilder werden erstellt"
+
+#: ImportExport/Export.cpp:256
+msgid "Copying image files"
+msgstr "Bilddateien werden kopiert"
+
+#: ImportExport/Export.cpp:320
+#, kde-format
+msgid "Error writing file %1"
+msgstr "Fehler beim Schreiben der Datei %1"
+
+#: ImportExport/Export.cpp:350
+msgid ""
+"<p>Other KPhotoAlbum users may now load the import file into their database, "
+"by choosing <b>import</b> in the file menu.</p><p>If they find it on a web "
+"site, and the web server is correctly configured, all they need to do is "
+"simply to click it from within konqueror. To enable this, your web server "
+"needs to be configured for KPhotoAlbum. You do so by adding the following "
+"line to <b>/etc/httpd/mime.types</b> or similar:<pre>application/vnd.kde."
+"kphotoalbum-import kim</pre>This will make your web server tell konqueror "
+"that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
+"server will just tell konqueror that it is a plain text file.</p>"
+msgstr ""
+"<p>Andere Benutzer von KPhotoAlbum können nun die Importdatei in Ihre "
+"Datenbank laden, indem Sie <b>Importieren</b> im Datei-Menü benutzen.</"
+"p><p>Wenn Sie eine Importdatei auf einer Webseite finden und der Webserver "
+"richtig eingerichtet ist, dann müssen Sie die Datei nur im Konqueror "
+"anklicken. Damit dies funktioniert muss der Web Server für KPhotoAlbum "
+"eingerichtet werden. Dies können Sie machen in dem Sie die folgende Zeile "
+"zur Datei <b>/etc/httpd/mime.types</b> hinzufügen:<pre>application/vnd.kde."
+"kphotoalbum-import kim</pre> Danach teilt Ihr Webserver dem Browser "
+"Konqueror mit, dass es sich um eine KPhotoAlbum-Datei handelt. Ansonsten "
+"wird der Webserver Konqueror die Daten als eine einfache Textdatei anbieten."
+"</p>"
+
+#: ImportExport/Export.cpp:359
+msgid "How to Use the Export File"
+msgstr "Wie werden Exportdateien benutzt"
+
+#: ImportExport/ImportHandler.cpp:66 ImportExport/ImportHandler.cpp:118
+msgid "Copying Images"
+msgstr "Bilder kopieren"
+
+#: ImportExport/ImportHandler.cpp:132
+#, kde-format
+msgid "Error when writing image %1"
+msgstr "Fehler beim Schreiben des Bildes %1"
+
+#: ImportExport/ImportHandler.cpp:151
+msgid "Updating Database"
+msgstr "Datenbank wird aktualisiert"
+
+#: ImportExport/ImportHandler.cpp:180
+msgid "Cannot copy from any of the following locations:"
+msgstr "Die Datei kann von keiner der folgenden Orte kopiert werden:"
+
+#: ImportExport/ImportHandler.cpp:181
+msgid "Continue without Asking"
+msgstr "Fortfahren ohne weitere Nachfragen"
+
+#: ImportExport/ImportMatcher.cpp:45
+msgid "Key in file"
+msgstr "Schlüssel in der Datei"
+
+#: ImportExport/ImportMatcher.cpp:56
+msgid "Key in your database"
+msgstr "Schlüssel in Ihrer Datenbank"
+
+#: ImportExport/MD5CheckPage.cpp:32
+#, kde-format
+msgid ""
+"One image from the import file, has the same MD5 sum as an image in the "
+"Database, how should that be resolved?"
+msgid_plural ""
+"%1 images from the import file, have the same MD5 sum as images in the "
+"Database, how should that be resolved?"
+msgstr[0] ""
+"Ein Bild aus der Importdatei hat die gleiche MD5 Summe wie ein Bild in der "
+"Datenbank. Wie soll das gelöst werden?"
+msgstr[1] ""
+"%1 Bilder aus der Importdatei haben die gleichen MD5 Summen wie Bilder in "
+"der Datenbank. Wie soll das gelöst werden?"
+
+#: ImportExport/MD5CheckPage.cpp:47
+msgid ""
+"Use data from\n"
+"Import File"
+msgstr ""
+"Die Daten aus der\n"
+"Importdatei benutzen"
+
+#: ImportExport/MD5CheckPage.cpp:50
+msgid ""
+"Use data from\n"
+"Database"
+msgstr ""
+"Die Daten aus der\n"
+"Datenbank benutzen"
+
+#: ImportExport/MD5CheckPage.cpp:53
+msgid "Merge data"
+msgstr "Daten zusammenführen"
+
+#: ImportExport/MD5CheckPage.cpp:57
+msgid "Label"
+msgstr "Bezeichnung"
+
+#: ImportExport/MD5CheckPage.cpp:58 AnnotationDialog/Dialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:108
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ImportExport/MD5CheckPage.cpp:60
+msgid "Date and Time"
+msgstr "Datum und Zeit"
+
+#: tips.cc:3
+msgid ""
+"<p>On KPhotoAlbum's home page (http://www.kphotoalbum.org/) you may see a "
+"few videos featuring a number of\n"
+"different KPhotoAlbum features.</p>\n"
+msgstr ""
+"<p>Auf der KPhotoAlbum Homepage http://www.kphotoalbum.org können Sie einige "
+"Videos sehen, die\n"
+"unterschiedliche KPhotoAlbum-Funktionen veranschaulichen.</p>\n"
+
+#: tips.cc:9
+msgid ""
+"<p>It is possible to create new categories - that are alternatives\n"
+"to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation\n"
+"dialog. \n"
+"To add new categories or remove existing ones, go to the <b>Settings-&gt;"
+"Configure KPhotoAlbum</b> dialog, and choose\n"
+"<b>Categories</b> in the side bar.</p>\n"
+msgstr ""
+"<p>Es ist möglich, neue Kategorien als Alternativen zu <b>Personen</b>,\n"
+"<b>Orte</b> und <b>Ereignisse</b> in den Bildeigenschaften zu\n"
+"erstellen. Gehen Sie dazu über <b>Einstellungen-&gt;KPhotoAlbum einrichten</"
+"b>,\n"
+" um Ihre eigenen hinzuzufügen bzw. die existierenden zu löschen.</p>\n"
+
+#: tips.cc:18
+msgid ""
+"<p>You may rename or delete a person, location, keyword or similar by\n"
+"right-clicking on the item in the image property dialog.</p>\n"
+msgstr ""
+"<p>Sie können eine Person, einen Ort, einen Schlüsselbegriff oder\n"
+"ähnliches umbenennen oder löschen in dem Sie mit der rechten\n"
+"Maustaste im Bildeigenschaften Dialog klicken.</p>\n"
+
+#: tips.cc:24
+msgid ""
+"<p>When generating HTML you must specify a base directory for\n"
+"the images. Here you can specify any <a\n"
+"href=\"help:/kioslave/index.html\">protocol</a> supported by KDE, like ftp "
+"or\n"
+"fish.</p>\n"
+"<p>Examples:\n"
+"<ul>\n"
+"  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
+"  <li> fish://someserver/home/foo/images (upload using ssh)\n"
+"  <li> smb://someserver/c/images (upload to a Windows share)\n"
+"</ul>\n"
+"</p>\n"
+msgstr ""
+"<p>Wenn Sie HTML erzeugen, müssen Sie einen Basisordner für\n"
+"Ihre Bilder angeben. Sie können diesen mit jedem <a href=\"help:/kioslave/"
+"index.html\">Protokoll</a>, wie ftp oder fish, das KDE unterstützt angeben.</"
+"p>\n"
+"<p>Beispiele:\n"
+"<ul>\n"
+"<li> ftp://einserver/mein-upload-bereich/bilder (upload mit FTP)\n"
+"<li> fish://einserver/home/foo/bilder (upload mit ssh)\n"
+"<li> smb://einserver/c/bilder (upload auf eine Windows Freigabe)\n"
+"</ul>\n"
+"</p>\n"
+
+#: tips.cc:39
+msgid ""
+"<p>When you bring new images to your collection, you might not have time\n"
+"right away to categorize them (i.e. specify People, Places,\n"
+"etc.). Therefore, you might later want to find those images which have not\n"
+"yet been categorized. Here is what I do.</p> \n"
+"<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've\n"
+"categorized them (i.e. just like you may have a keyword for <b>Summer\n"
+"Party</b> or <b>Interrail trip 1990</b>, you now have a keyword\n"
+"<b>OK</b>). To find uncategorized images, I choose the\n"
+"<b>Search</b> item from the browser, and in the keywords field, I\n"
+"type <b>!OK</b>. This will find all images which do <b>not</b> have the\n"
+"<b>OK</b> item.\n"
+msgstr ""
+"<p>Wenn Sie neue Bilder in Ihre Sammlung importieren, haben Sie unter\n"
+"Umständen nicht die Zeit, die Bilder sofort zu kategorisieren, also ihnen\n"
+"Personen, Orte, etc. zuzuordnen. Sie müssen daher die unkategorisierte "
+"Bilder wiederfinden. Dazu:</p> \n"
+"<p>benutze ich den <b>Schlüsselbegriff</b> <b>OK</b>. Den weise ich\n"
+"jedem kategorisierten Bild, wie alle anderen Schlüsselbegriffe, zu. Sie "
+"haben\n"
+"als den Schlüsselbegriff <b>OK</b> an alle kategorisierten Bilder vergeben.\n"
+"Um die Bilder zu finden, die noch nicht kategorisiert wurden, können Sie \n"
+"<b>Suchen</b> aus dem Browser auswählen und in der Zeile mit den\n"
+"Schlüsselbegriffen <b>!OK</b> eingeben. Dies wird Ihnen alle noch <b>nicht</"
+"b>\n"
+"kategorisierten Bilder anzeigen.\n"
+
+#: tips.cc:54
+msgid ""
+"<p>You can reorder images on your hard disk after having loaded them into\n"
+"KPhotoAlbum - KPhotoAlbum will still remember them, as it calculates "
+"checksums for\n"
+"the images.</p>\n"
+msgstr ""
+"<p>Sie können Ihre Bilder auf Ihrer Festplatte neu sortieren nachdem Sie "
+"sie\n"
+"in KPhotoAlbum geladen haben. KPhotoAlbum wird die Bilder aufgrund der "
+"Prüfsummen\n"
+"immer wieder erkennen.</p>\n"
+
+#: tips.cc:61
+msgid ""
+"<p>If you like KPhotoAlbum, and it adds value to your daily life, please\n"
+"consider donating money to the KPhotoAlbum developer as a courtesy. See\n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+msgstr ""
+"<p>Wenn Sie KPhotoAlbum mögen und es eine Bereicherung Ihres täglichen "
+"Lebens ist, dann\n"
+"denken Sie bitte darüber nach, Geld an den Entwickler von KPhotoAlbum zu "
+"spenden. Informationen hier zu finden Sie unter \n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+
+#: tips.cc:69
+msgid ""
+"<p>It's possible to associate images with categories. That way when "
+"browsing, say people, you\n"
+"may get a small icon for each person with e.g. the person's face.</p>\n"
+"<p>To specify an icon for a person, load the person in the viewer, zoom to\n"
+"the part which you want to make into an icon, and choose\n"
+"<b>Show Category Editor</b>. This will bring up a dialog where you can\n"
+"find the person, and set the image.\n"
+"</p>\n"
+msgstr ""
+"<p>Es ist möglich, Bilder an Kategorien zuzuweisen. Auf diese Weise\n"
+"können Sie jeder Person Ihr kleines Gesicht zuordnen.</p>\n"
+"<p>Um für eine Person ein Symbol zu hinterlegen müssen Sie die Person\n"
+"im Bildbetrachter laden, den Teil den Sie zum Symbol machen wollen "
+"vergrößern,\n"
+"und mit der rechten Maustaste <b>Kategorie-Editor anzeigen</b> auswählen.\n"
+"Dies startet einen Dialog, indem Sie Personen suchen und Ihr Bild setzen "
+"können.\n"
+"</p>\n"
+
+#: tips.cc:80
+msgid ""
+"<p>You may close the image annotation dialog (the one where you specify\n"
+"people, places, etc. for the images) by pressing Ctrl+Enter.\n"
+"</p>\n"
+msgstr ""
+"<p>Sie können den Bild-Kategorisierungsdialog, der Dialog in dem Sie "
+"Personen, Orte usw. für Bilder hinterlegen, durch Drücken von Strg"
+"+Eingabetaste schließen.\n"
+"</p>\n"
+
+#: tips.cc:87
+msgid ""
+"<p>KPhotoAlbum has a mailing list at\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an "
+"IRC\n"
+"channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>\n"
+msgstr ""
+"<p>KPhotoAlbum hat eine Mailingliste unter\n"
+" http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum und einen "
+"IRC-Kanal namens<b>#kphotoalbum</b> bei <b>irc.kde.org</b></p>.\n"
+
+#: tips.cc:94
+msgid ""
+"<p>You may reorder images by dragging and dropping one image onto\n"
+"another. If you drop it on the left edge, it will end up in front of\n"
+"the other, if you drop it on the right edge it will be inserted behind.</p>\n"
+"<p align=\"right\">-- Tip contributed by Eivind Kjorstad</p>\n"
+msgstr ""
+"<p>Sie können die Bilder neu sortieren indem Sie ein Bild ziehen und\n"
+"auf das andere ablegen. Wenn Sie es auf der linken Seite fallen lassen,\n"
+"so wird es vor dem anderen einsortiert. Auf der rechten Seite dahinter.</p>\n"
+"<p align=\"right\">-- Ein Tipp von Eivind Kjorstad</p>\n"
+
+#: tips.cc:102
+msgid ""
+"<p>\n"
+"On the thumbnail view, you can resize the grid to your needs just by "
+"clicking \n"
+"the middle mouse button and dragging around. On most systems you can "
+"emulate \n"
+"the middle mouse button by left and right clicking at the same time. \n"
+"</p>\n"
+"<p align=\"right\">-- Tip contributed by Rafael Beccar</p>\n"
+msgstr ""
+"<p>\n"
+"In der Vorschau können Sie das Gitter an Ihre Bedürfnisse anpassen indem Sie "
+"den\n"
+" mittleren Mausknopf drücken und das Gebiet markieren. In vielen Fällen "
+"können Sie statt der mittleren Maustaste\n"
+"auch die linke und rechte Maustaste zusammen drücken. \n"
+"</p>\n"
+"<p align=\"right\">-- Ein Tipp von Rafael Beccar</p>\n"
+
+#: tips.cc:112
+msgid ""
+"<p>This is the last tip. If you know any additional tips or tricks, then "
+"please\n"
+"send an email to <a href=\"mailto:blackie@kde.org\">blackie@kde.org</a>.</"
+"p>\n"
+msgstr ""
+"<p>Dies ist der letzte Tipp. Falls Sie weitere Tipps oder Tricks kennen, so "
+"schreiben Sie bitte eine E-Mail an <a href=\"mailto:blackie@kde.org"
+"\">blackie@kde.org</a>.</p>\n"
+
+#: Settings/ViewerPage.cpp:16
+msgid "Running Slide Show From Thumbnail View"
+msgstr "Diaschau aus der Vorschauansicht starten"
+
+#: Settings/ViewerPage.cpp:19
+msgid "Viewing Images and Videos From Thumbnail View"
+msgstr "Bilder/Videos aus der Vorschauansicht ansehen"
+
+#: Settings/ViewerPage.cpp:25
+msgid "Slideshow interval:"
+msgstr "Diaschau-Intervall:"
+
+#: Settings/ViewerPage.cpp:31
+msgid " sec"
+msgstr " Sek."
+
+#: Settings/ViewerPage.cpp:34
+msgid "Image cache:"
+msgstr "Bildzwischenspeicher:"
+
+#: Settings/ViewerPage.cpp:40
+msgid " Mbytes"
+msgstr " MByte"
+
+#: Settings/ViewerPage.cpp:46
+msgid "Standard size in viewer:"
+msgstr "Standardgröße im Betrachter:"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Full Viewer Size"
+msgstr "Betrachter komplett ausnutzen"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size"
+msgstr "Größe des Originalbildes"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size If Possible"
+msgstr "Größe des Originalbildes, wenn möglich"
+
+#: Settings/ViewerPage.cpp:53
+msgid ""
+"<p>Set the standard size for images to be displayed in the viewer.</p> "
+"<p><b>Full Viewer Size</b> indicates that the image will be stretched or "
+"shrunk to fill the viewer window.</p> <p><b>Natural Image Size</b> indicates "
+"that the image will be displayed pixel for pixel.</p> <p><b>Natural Image "
+"Size If Possible</b> indicates that the image will be displayed pixel for "
+"pixel if it would fit the window, otherwise it will be shrunk to fit the "
+"viewer.</p>"
+msgstr ""
+"<p>Legt die Standardgröße für Bilder fest, die im Betrachter angezeigt "
+"werden.</p> <p><b>Betrachter komplett ausnutzen</b> sorgt dafür, dass das "
+"Bild vergrößert oder verkleinert wird, um das Betrachterfenster voll "
+"auszunutzen.</p> <p><b>Größe des Originalbildes</b> sorgt dafür, dass das "
+"Bild Pixel für Pixel (1:1) angezeigt wird.</p> <p><b>Größe des "
+"Originalbildes, wenn möglich</b> sorgt dafür dass das Bild Pixel für Pixel "
+"(1:1) dargestellt wird, wenn es in das Betrachterfenster passt. Andernfalls "
+"wird es entsprechend verkleinert.</p>"
+
+#: Settings/ViewerPage.cpp:60
+msgid "Scaling Algorithm"
+msgstr "Skalierungsmethode"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Fastest"
+msgstr "Schnellste"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Best"
+msgstr "Beste"
+
+#: Settings/ViewerPage.cpp:67
+msgid ""
+"<p>When displaying images, KPhotoAlbum normally performs smooth scaling of "
+"the image. If this option is not set, KPhotoAlbum will use a faster but less "
+"smooth scaling method.</p>"
+msgstr ""
+"<p>Wenn Bilder angezeigt werden, werden Sie normalerweise von KPhotoAlbum "
+"mit Glättung skaliert. Wenn diese Einstellung deaktiviert ist, wird "
+"KPhotoAlbum eine schnellere, aber weniger glatte Skalierungsmethode "
+"verwenden.</p>"
+
+#: Settings/ExifPage.cpp:25
+msgid "EXIF/IPTC info to show in the Viewer"
+msgstr "Im Betrachter anzuzeigende EXIF/IPTC-Informationen"
+
+#: Settings/ExifPage.cpp:28
+msgid "EXIF/IPTC info to show in the EXIF dialog"
+msgstr "Im EXIF-Dialog anzuzeigende EXIF/IPTC-Informationen"
+
+#: Settings/ExifPage.cpp:31
+msgid "Character set for image metadata:"
+msgstr "Zeichensatz für Bildmetadaten:"
+
+#: Settings/SettingsDialog.cpp:64 MainWindow/Window.cpp:1158
+msgid "General"
+msgstr "Allgemein"
+
+#: Settings/SettingsDialog.cpp:65
+msgid "Thumbnail View"
+msgstr "Vorschauansicht"
+
+#: Settings/SettingsDialog.cpp:66
+msgid "Categories"
+msgstr "Kategorien"
+
+#: Settings/SettingsDialog.cpp:67
+msgid "Subcategories"
+msgstr "Unterkategorien"
+
+#: Settings/SettingsDialog.cpp:68 MainWindow/Window.cpp:1159
+msgid "Viewer"
+msgstr "Betrachter"
+
+#. i18n: file: kphotoalbumui.rc:66
+#. i18n: ectx: Menu (plugins)
+#: Settings/SettingsDialog.cpp:70 rc.cpp:12
+msgid "Plugins"
+msgstr "Module"
+
+#: Settings/SettingsDialog.cpp:74
+msgid "EXIF/IPTC Information"
+msgstr "EXIF/IPTC-Informationen"
+
+#: Settings/SettingsDialog.cpp:76
+msgid "Database backend"
+msgstr "Datenbank"
+
+#: Settings/ThumbnailsPage.cpp:19
+msgid "Tooltip preview image size:"
+msgstr "Bildgröße der Vorschau im Kurzinfo:"
+
+#: Settings/ThumbnailsPage.cpp:23
+msgid "No Image Preview"
+msgstr "Keine Bildvorschau"
+
+#: Settings/ThumbnailsPage.cpp:29
+msgid "Thumbnail image size:"
+msgstr "Vorschaugröße:"
+
+#: Settings/ThumbnailsPage.cpp:38
+msgid "Thumbnail table cells aspect ratio"
+msgstr "Seitenverhältnis der Gitterzellen"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "1:1"
+msgstr "1:1"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "4:3"
+msgstr "4:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:2"
+msgstr "3:2"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "16:9"
+msgstr "16:9"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:4"
+msgstr "3:4"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "2:3"
+msgstr "2:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "9:16"
+msgstr "9:16"
+
+#: Settings/ThumbnailsPage.cpp:47
+msgid "Thumbnail format"
+msgstr "Vorschauformat"
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "ppm"
+msgstr "ppm"
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "png"
+msgstr "png"
+
+#: Settings/ThumbnailsPage.cpp:50
+msgid "jpg"
+msgstr "jpg"
+
+#: Settings/ThumbnailsPage.cpp:56
+msgid "Space around cells"
+msgstr "Leeriraum um die Zellen"
+
+#: Settings/ThumbnailsPage.cpp:64
+msgid "Background Color"
+msgstr "Hintergrundfarbe"
+
+#: Settings/ThumbnailsPage.cpp:71
+msgid "Display grid around thumbnails"
+msgstr "Gitter um die Vorschauen anzeigen"
+
+#: Settings/ThumbnailsPage.cpp:76
+msgid "Display labels in thumbnail view"
+msgstr "Namen in der Vorschauansicht anzeigen"
+
+#: Settings/ThumbnailsPage.cpp:81
+msgid "Display categories in thumbnail view"
+msgstr "Kategorien in der Vorschauansicht anzeigen"
+
+#: Settings/ThumbnailsPage.cpp:86
+msgid "Auto display limit: "
+msgstr "Automatische Anzeigegrenze: "
+
+#: Settings/ThumbnailsPage.cpp:90 Settings/GeneralPage.cpp:28
+msgid "Never"
+msgstr "Niemals"
+
+#: Settings/ThumbnailsPage.cpp:96
+msgid "Thumbnail screen cache:"
+msgstr "Vorschau-Zwischenspeicher:"
+
+#: Settings/ThumbnailsPage.cpp:112
+msgid ""
+"<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, "
+"then you will see a small tool tip window displaying information about the "
+"thumbnails. This window includes a small preview image. This option "
+"configures the image size.</p>"
+msgstr ""
+"<p>Wenn Sie <b>Einstellungen -&gt; Kurzinfos anzeigen</b> in der "
+"Vorschauansicht auswählen, werden Sie kleine Kurzinfos mit Informationen "
+"über die Vorschau angezeigt bekommen. Dieses Fenster enthält auch eine "
+"kleine Vorschau des Bildes. Diese Einstellung legt die Größe dieser Vorschau "
+"fest.</p>"
+
+#: Settings/ThumbnailsPage.cpp:119
+msgid ""
+"<p>Thumbnail image size. You may also set the size simply by dragging the "
+"thumbnail view using the middle mouse button.</p>"
+msgstr ""
+"<p>Größe der Bildvorschau. Sie können die Größe auch einstellen, indem Sie "
+"die Vorschauansicht mit der mittleren Maustaste ziehen.</p>"
+
+#: Settings/ThumbnailsPage.cpp:123
+msgid ""
+"<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
+msgstr ""
+"<p>Wählen Sie hier das Seitenverhältnis der Gitterzellen, die die "
+"Vorschaubilder enthalten.</p>"
+
+#: Settings/ThumbnailsPage.cpp:126
+msgid ""
+"<p>Choose the format used for the thumbnails images, ppm is the faster, jpg "
+"the smaller. You need to restart application for this change to take effect."
+"</p>"
+msgstr ""
+
+#: Settings/ThumbnailsPage.cpp:130
+msgid "<p>How thick the cell padding should be.</p>"
+msgstr "<p>Wie groß soll der Leerraum um die Zellen sein.</p>"
+
+#: Settings/ThumbnailsPage.cpp:133
+msgid "<p>Background color to use in the thumbnail viewer</p>"
+msgstr "<p>Hintergrundfarbe für die Vorschauansicht</p>"
+
+#: Settings/ThumbnailsPage.cpp:137
+msgid ""
+"<p>If you want to see grid around your thumbnail images, select this option."
+"</p>"
+msgstr ""
+"<p>Wählen Sie diese Option, wenn Sie ein Gitter um Ihre Vorschaubilder sehen "
+"wollen.</p>"
+
+#: Settings/ThumbnailsPage.cpp:141
+msgid ""
+"<p>Checking this option will show the base name for the file under "
+"thumbnails in the thumbnail view.</p>"
+msgstr ""
+"<p>Wenn diese Einstellung aktiviert ist, erscheint unter der Vorschau der "
+"Basisname der Datei.</p>"
+
+#: Settings/ThumbnailsPage.cpp:145
+msgid ""
+"<p>Checking this option will show the Categories for the file under "
+"thumbnails in the thumbnail view</p>"
+msgstr ""
+"<p>Wenn diese Einstellung aktiviert ist, erscheint unter der Vorschau die "
+"Kategorien der Datei.</p>"
+
+#: Settings/ThumbnailsPage.cpp:149
+msgid ""
+"<p>When you are browsing, and the count gets below the value specified here, "
+"the thumbnails will be shown automatically. The alternative is to continue "
+"showing the browser until you press <i>Show Images</i></p>"
+msgstr ""
+"<p>Wenn Sie Bilder betrachten und die Anzahl unter dem hier angegebenen Wert "
+"sinkt, werden automatisch Vorschaubilder angezeigt. Alternativ können Sie "
+"weiter den Browser benutzen und <i>Bilder anzeigen</i> drücken.</p>"
+
+#: Settings/ThumbnailsPage.cpp:155
+msgid ""
+"<p>Specify number of screens the thumbnail cache should be able to hold.</p>"
+msgstr ""
+"<p>Geben Sie die Anzahl von Seiten an, die der Zwischenspeicher für "
+"Bildvorschauen vorrätig hält.</p>"
+
+#: Settings/ThumbnailsPage.cpp:193
+#, kde-format
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: Settings/ThumbnailsPage.cpp:194
+msgctxt "Thumbnail Cache Screens"
+msgid " Screen"
+msgid_plural " Screens"
+msgstr[0] "Seite"
+msgstr[1] " Seiten"
+
+#: Settings/CategoryItem.cpp:120
+msgid ""
+"<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
+"renaming categories; otherwise all the filenames of the category thumbnails "
+"will be wrong, and thus lost.</p><p>So either press Cancel now (and it will "
+"not be renamed), or press Continue, and as your next step save the database."
+"</p>"
+msgstr ""
+"<p>Aufgrund eines Defizits in KPhotoAlbum müssen Sie Ihre Datenbank "
+"speichern, nachdem Sie Kategorien umbenannt haben. Andernfalls wären alle "
+"Dateinamen der Vorschaubilder dieser Kategorie falsch und damit verloren.</"
+"p><p>Drücken Sie daher nun entweder „Abbruch“ und die Kategorie wird nicht "
+"umbenannt oder „Weiter“ und speichern Sie im nächsten Schritt die Datenbank."
+"</p>"
+
+#: Settings/SubCategoriesPage.cpp:23 Settings/UntaggedGroupBox.cpp:19
+#: MainWindow/StatisticsDialog.cpp:99
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: Settings/SubCategoriesPage.cpp:36
+msgid "Super Categories:"
+msgstr "Superkategorien"
+
+#: Settings/SubCategoriesPage.cpp:45
+msgid "Items of Category:"
+msgstr "Einträge der Kategorie:"
+
+#: Settings/SubCategoriesPage.cpp:55
+msgid "Add Super Category..."
+msgstr "Superkategorie hinzufügen ..."
+
+#: Settings/SubCategoriesPage.cpp:57
+msgid "Rename Super Category..."
+msgstr "Superkategorie umbenennen ..."
+
+#: Settings/SubCategoriesPage.cpp:59
+msgid "Delete Super Category"
+msgstr "Superkategorie löschen"
+
+#: Settings/SubCategoriesPage.cpp:63
+msgid ""
+"<b>Notice:</b> It is also possible to set up subcategories in the annotation "
+"dialog, simply by dragging items."
+msgstr ""
+"<b>Achtung:</b> Sie können Unterkategorien auch im Kategorisierungsdialog "
+"einrichten, indem Sie die Einträge einfach verschieben."
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "New Group"
+msgstr "Neue Gruppe"
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "Group name:"
+msgstr "Gruppenname:"
+
+#: Settings/SubCategoriesPage.cpp:172
+#, kde-format
+msgid "Really delete group %1?"
+msgstr "Die Gruppe %1 wirklich löschen?"
+
+#: Settings/SubCategoriesPage.cpp:172
+msgid "Delete Group"
+msgstr "Gruppe löschen"
+
+#: Settings/SubCategoriesPage.cpp:172 AnnotationDialog/ListSelect.cpp:355
+msgid "&Delete"
+msgstr "&Löschen"
+
+#: Settings/GeneralPage.cpp:21
+msgid "New Images"
+msgstr "Neue Bilder"
+
+#: Settings/GeneralPage.cpp:26
+msgid "Trust image dates:"
+msgstr "Bilddaten vertrauen:"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Always"
+msgstr "Immer"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Ask"
+msgstr "Nachfragen"
+
+#: Settings/GeneralPage.cpp:35
+msgid "Use EXIF orientation information"
+msgstr "EXIF-Orientierungsinformation benutzen"
+
+#: Settings/GeneralPage.cpp:37
+msgid "Use EXIF description"
+msgstr "EXIF-Beschreibung benutzen"
+
+#: Settings/GeneralPage.cpp:40
+msgid "Search for new images and videos on startup"
+msgstr "Beim Start nach neuen Bildern und Videos suchen"
+
+#: Settings/GeneralPage.cpp:41
+msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
+msgstr ""
+"Rohdateien nicht lesen, wenn passende JPEG- oder TIFF-Dateien existieren."
+
+#: Settings/GeneralPage.cpp:47
+msgid "Size of histogram columns in date bar:"
+msgstr "Größe der Histogrammspalten in der Datumsleiste:"
+
+#: Settings/GeneralPage.cpp:61
+msgid "Show splash screen"
+msgstr "Startlogo anzeigen"
+
+#: Settings/GeneralPage.cpp:65
+msgid "Category for virtual albums:"
+msgstr "Kategorie für virtuelle Alben:"
+
+#: Settings/GeneralPage.cpp:85
+msgid ""
+"<p>KPhotoAlbum will try to read the image date from EXIF information in the "
+"image. If that fails it will try to get the date from the file's time stamp."
+"</p><p>However, this information will be wrong if the image was scanned in "
+"(you want the date the image was taken, not the date of the scan).</p><p>If "
+"you only scan images, in contrast to sometimes using a digital camera, you "
+"should reply <b>no</b>. If you never scan images, you should reply <b>yes</"
+"b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
+"images are from the scanner or the camera, from session to session.</p>"
+msgstr ""
+"<p>KPhotoAlbum wird versuchen, das Bilddatum aus den EXIF-Informationen im "
+"Bild auszulesen. Falls dies nicht funktioniert, wird stattdessen der "
+"Zeitstempel der Datei genutzt.</p><p>Diese Information ist allerdings "
+"falsch, wenn das Bild eingescannt wurde. In diesem Fall ist das Dateidatum "
+"das des Scans und nicht das des Fotos.</p><p>Wenn Sie alle Ihre Bilder "
+"einscannen und nicht mit einer Digitalkamera arbeiten, sollten Sie <b>Nein</"
+"b> antworten. Falls Sie niemals Bilder einscannen ist die Antwort <b>Ja</b>. "
+"Machen Sie beides, sollten Sie <b>Fragen</b> antworten. Dies erlaubt es "
+"Ihnen, von Sitzung zu Sitzung zu entscheiden, ob die Bilder vom Scanner oder "
+"der Kamera stammen.</p>"
+
+#: Settings/GeneralPage.cpp:96
+msgid ""
+"<p>JPEG images may contain information about rotation. If you have a reason "
+"for not using this information to get a default rotation of your images, "
+"uncheck this check box.</p><p>Note: Your digital camera may not write this "
+"information into the images at all.</p>"
+msgstr ""
+"<p>JPEG-Bilder können Informationen über die Drehung enthalten. Falls Sie "
+"einen Grund haben, diese Informationen nicht zu benutzen, um eine "
+"Standarddrehung zu erreichen, dann können Sie dieses Ankreuzfeld benutzen.</"
+"p><p>Beachten Sie, dass Ihre Digitalkamera diese Informationen unter "
+"Umständen gar nicht den Bildern beifügt.</p>"
+
+#: Settings/GeneralPage.cpp:102
+msgid ""
+"<p>JPEG images may contain a description. Check this checkbox to specify if "
+"you want to use this as a default description for your images.</p>"
+msgstr ""
+"<p>JPEG-Bilder können eine Beschreibung enthalten. Mit diesem Ankreuzfeld "
+"können Sie diese als Standardbeschreibung Ihrer Bilder benutzen.</p>"
+
+#: Settings/GeneralPage.cpp:107
+msgid ""
+"<p>KPhotoAlbum is capable of searching for new images and videos when "
+"started, this does, however, take some time, so instead you may wish to "
+"manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
+">Rescan for new images</b></p>"
+msgstr ""
+"<p>KPhotoAlbum kann beim Start nach neuen Bildern suchen. Dies kostet "
+"allerdings etwas Zeit; Sie können daher die Suche auch manuell mit "
+"<b>Wartung->Bilder neu einlesen</b> starten.</p>"
+
+#: Settings/GeneralPage.cpp:112
+msgid ""
+"<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  Some "
+"cameras store both a RAW image and a matching JPEG or TIFF image.  This "
+"causes duplicate images to be stored in KPhotoAlbum, which may be "
+"undesirable.  If this option is checked, KPhotoAlbum will not read RAW files "
+"for which matching image files also exist.</p>"
+msgstr ""
+"<p>KPhotoAlbum kann verschiedene Arten von Rohbildern verarbeiten. Einige "
+"Kameras speichern sowohl das Rohbild als auch das passende JPEG- oder TIFF-"
+"Bild. Dadurch entstehen doppelte Bilder in KPhotoAlbum, was unter Umständen "
+"unerwünscht ist. Wenn diese Einstellung aktiviert ist, wird KPhotoAlbum die "
+"Rohdateien, für die auch eine normale Bilddatei existiert, nicht einlesen.</"
+"p>"
+
+#: Settings/GeneralPage.cpp:118
+msgid ""
+"<p>KPhotoAlbum shares plugins with other imaging applications, some of which "
+"have the concept of albums. KPhotoAlbum does not have this concept; "
+"nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
+"plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
+"current album to be the current view - that is, all the images the browser "
+"offers to display.</p><p>In addition to the current album, KPhotoAlbum must "
+"also be able to give a list of all albums; the list of all albums is defined "
+"in the following way:<ul><li>When KPhotoAlbum's browser displays the content "
+"of a category, say all People, then each item in this category will look "
+"like an album to the plugin.</li><li>Otherwise, the category you specify "
+"using this option will be used; e.g. if you specify People with this option, "
+"then KPhotoAlbum will act as if you had just chosen to display people and "
+"then invoke the plugin which needs to know about all albums.</li></ul></"
+"p><p>Most users would probably want to specify Events here.</p>"
+msgstr ""
+"<p>KPhotoAlbum teilt sich Module mit anderen bildverarbeitenden Anwendungen. "
+"Einige von Ihnen kennen das Konzept von Alben, KPhotoAlbum benutzt dieses "
+"Konzept aber nicht. Für das Modulsystem wird dies vorgetäuscht.</p><p>Dies "
+"geschieht dadurch, dass die aktuelle Ansicht, also alles was im Browser zu "
+"sehen ist, als Album definiert wird.</p><p>Zusätzlich zu dem aktuellen Album "
+"muss KPhotoAlbum ebenfalls eine Liste aller Alben generieren. Diese Liste "
+"wird auf die folgende Art definiert:<ul><li>Wenn der Browser von KPhotoAlbum "
+"den Inhalt einer Kategorie, z. B. Personen, anzeigt, dann ist jeder Eintrag "
+"in dieser Kategorie für das Modul ein Album.</li><li>Andernfalls wird die "
+"Kategorie die Sie mit diese Option angeben benutzt. Wenn Sie z. B. Personen "
+"in dieser Option auswählen, dann wird KPhotoAlbum sich so verhalten, als ob "
+"Sie sich Personen anzeigen lassen und dann das Modul starten.</li></ul></"
+"p><p>Die meisten Benutzer werden hier Ereignisse eintragen.</p>"
+
+#: Settings/GeneralPage.cpp:134
+msgid "Show the KPhotoAlbum splash screen on start up"
+msgstr "Zeigt das Startlogo von KPhotoAlbum beim Starten an"
+
+#: Settings/PluginsPage.cpp:18
+msgid "Choose Plugins to load:"
+msgstr "Wählen Sie die zu ladenden Module:"
+
+#: Settings/PluginsPage.cpp:24
+msgid "Delay loading plugins until the plugin menu is opened"
+msgstr "Module erst laden, nachdem das entsprechende Menü geöffnet wurde"
+
+#: Settings/SettingsData.cpp:195
+msgid ""
+"When reading time information of images, their EXIF info is used. Exif info "
+"may, however, not be supported by your KPhotoAlbum installation, or no valid "
+"information may be in the file. As a backup, KPhotoAlbum may use the "
+"timestamp of the image - this may, however, not be valid in case the image "
+"is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
+"on your images?"
+msgstr ""
+"Wenn die Zeitinformationen von Bildern ausgelesen werden, dann werden die "
+"Exif- Informationen benutzt. Exif könnte aber von Ihrer KPhotoAlbum "
+"Installation nicht unterstützt sein oder die Dateien könnten keine sinnvolle "
+"Daten enthalten. KPhotoAlbum kann daher auch des Zeitstempel des Bildes "
+"benutzen. Diese Werte sind natürlich falsch, wenn das Bild eingescannt "
+"wurde. Es stellt sich also die Frage, ob KPhotoAlbum den Zeitstempeln Ihrer "
+"Bilder vertrauen kann?"
+
+#: Settings/SettingsData.cpp:201
+msgid "Trust Time Stamps?"
+msgstr "Zeitstempel vertrauenswürdig?"
+
+#: Settings/DatabaseBackendPage.cpp:26
+msgid "Database backend to use"
+msgstr "Zu benutzende Datenbank"
+
+#: Settings/DatabaseBackendPage.cpp:29
+msgid "XML backend (recommended)"
+msgstr "XML-Datenbank (empfohlen)"
+
+#: Settings/DatabaseBackendPage.cpp:32
+msgid "SQL backend (experimental)"
+msgstr "SQL-Datenbank (experimentell!)"
+
+#: Settings/DatabaseBackendPage.cpp:37
+msgid "XML Database Setting"
+msgstr "XML-Datenbankeinstellungen"
+
+#: Settings/DatabaseBackendPage.cpp:41
+msgid "Choose speed over readability for index.xml file"
+msgstr "Wählen Sie Geschwindigkeit anstatt Lesbarkeit für die Datei index.xml"
+
+#: Settings/DatabaseBackendPage.cpp:42
+msgid "Compress backup file"
+msgstr "Sicherungsdatei komprimieren"
+
+#: Settings/DatabaseBackendPage.cpp:46
+msgid "Auto save every:"
+msgstr "Automatisch speichern alle:"
+
+#: Settings/DatabaseBackendPage.cpp:49
+msgid "min."
+msgstr "Min."
+
+#: Settings/DatabaseBackendPage.cpp:59
+msgid "Number of backups to keep:"
+msgstr "Anzahl der Sicherungen die behalten werden:"
+
+#: Settings/DatabaseBackendPage.cpp:64
+msgid "Infinite"
+msgstr "Unendlich"
+
+#: Settings/DatabaseBackendPage.cpp:69
+msgid ""
+"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
+"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
+"the number of backup files to keep. KPhotoAlbum will delete the oldest "
+"backup file when it reaches the maximum number of backup files.</p><p>The "
+"index.xml file may grow substantially if you have many images, and in that "
+"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
+"disk space.</p>"
+msgstr ""
+"<p>KPhotoAlbum kann seine index.xml-Datei sichern indem es Kopien mit "
+"anderen Namen index.xml~1~ index.xml~2~ usw. vorhält. Benutzen Sie das "
+"Drehfeld , um die Anzahl der Sicherungsdateien festzulegen. KPhotoAlbum "
+"löscht die älteste Sicherungsdatei wenn die maximale Anzahl von Dateien "
+"erreicht wird.</p><p>Die Datei index.xml kann sehr groß werden, wenn Sie "
+"viele Bilder haben. In diesem Fall ist es sinnvoll, wenn KPhotoAlbum die "
+"Sicherungsdateien komprimiert und somit Plattenplatz spart.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:79
+msgid ""
+"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+"With lots of images it may take a long time to read this file. You may cut "
+"down this time to approximately half, by checking this check box. The "
+"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+msgstr ""
+"<p>KPhotoAlbum benutzt eine einzelne index.xml-Datei als <i>Datenbank</i>. "
+"Wenn diese viele Bilder enthält, kann es sehr lange dauern, diese Datei zu "
+"lesen. Sie können diese Zeit um den Faktor 2 verringern, wenn Sie diese "
+"Einstellung benutzen. Der Nachteil ist, dass die Datei dann schlechter für "
+"das menschliche Auge lesbar ist.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:88
+msgid "SQL Database Settings"
+msgstr "SQL Datenbankeinstellungen"
+
+#: Settings/DatabaseBackendPage.cpp:95
+msgid "Warning: The password is saved as plain text to the configuration file."
+msgstr ""
+"Achtung: Das Kennwort wird als Klartext in der Konfigurationsdatei "
+"gespeichert."
+
+#: Settings/ViewerSizeConfig.cpp:29
+msgid "Launch in full screen"
+msgstr "Im Vollbildmodus starten"
+
+#: Settings/ViewerSizeConfig.cpp:34
+msgid "Size:"
+msgstr "Größe:"
+
+#: Settings/CategoryPage.cpp:36
+msgid "Label:"
+msgstr "Name:"
+
+#: Settings/CategoryPage.cpp:47
+msgid "Icon:"
+msgstr "Symbol:"
+
+#: Settings/CategoryPage.cpp:58
+msgid "Thumbnail Size: "
+msgstr "Vorschaugröße: "
+
+#: Settings/CategoryPage.cpp:69
+msgid "Preferred view:"
+msgstr "Bevorzugte Ansicht:"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View"
+msgstr "Listenansicht"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View with Custom Thumbnails"
+msgstr "Listenansicht mit angepassten Vorschaubildern"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View"
+msgstr "Symbolansicht"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View with Custom Thumbnails"
+msgstr "Symbolansicht mit angepassten Vorschaubildern"
+
+#: Settings/CategoryPage.cpp:82
+msgid "New"
+msgstr "Neu"
+
+#: Settings/CategoryPage.cpp:85 AnnotationDialog/ListSelect.cpp:287
+#: AnnotationDialog/Dialog.cpp:861 MainWindow/DeleteDialog.cpp:45
+msgid "Delete"
+msgstr "Löschen"
+
+#: Settings/CategoryPage.cpp:154
+#, kde-format
+msgid "<p>Really delete category '%1'?</p>"
+msgstr "<p>Die Kategorie „%1“ wirklich löschen?</p>"
+
+#: Settings/UntaggedGroupBox.cpp:26 MainWindow/StatisticsDialog.cpp:105
+msgid "Tag:"
+msgstr "Stichwort:"
+
+#: Settings/UntaggedGroupBox.cpp:39
+msgid "None Selected"
+msgstr "Nichts ausgewählt"
+
+#: Utilities/Util.cpp:101
+msgid "<b>File Name: </b> "
+msgstr "<b>Dateiname: </b> "
+
+#: Utilities/Util.cpp:105
+msgid "<b>Date: </b> "
+msgstr "<b>Datum: </b> "
+
+#: Utilities/Util.cpp:115
+msgid "x"
+msgstr "x"
+
+#: Utilities/Util.cpp:120
+msgctxt "Short for Mega Pixels"
+msgid "MP"
+msgstr "MP"
+
+#: Utilities/Util.cpp:122
+msgid "<b>Image Size: </b> "
+msgstr "<b>Bildgröße: </b> "
+
+#: Utilities/Util.cpp:168
+msgid "<b>Label: </b> "
+msgstr "<b>Name: </b> "
+
+#: Utilities/Util.cpp:172
+msgid "<b>Description: </b> "
+msgstr "<b>Beschreibung: </b> "
+
+#: Utilities/Util.cpp:226
+#, kde-format
+msgid ""
+"Backup file '%1' exists and is newer than '%2'. Should the backup file be "
+"used?"
+msgstr ""
+"Sicherungsdatei „%1“ existiert bereits und ist neuer als „%2“. Soll die "
+"Sicherungsdatei benutzt werden?"
+
+#: Utilities/Util.cpp:229
+msgid "Found Backup File"
+msgstr "Sicherungsdatei gefunden"
+
+#: Utilities/Util.cpp:256
+#, kde-format
+msgid "Unable to copy '%1' to '%2'."
+msgstr "„%1“ lässt sich nicht nach „%2“ kopieren."
+
+#: Utilities/Util.cpp:270 Utilities/Util.cpp:305
+#, kde-format
+msgid "Unable to create directory '%1' needed for demo."
+msgstr ""
+"Der Ordner „%1“, der für die Demo benötigt wird, lässt sich nicht erstellen."
+
+#: Utilities/Util.cpp:288
+#, kde-format
+msgid "Unable to open '%1' for writing."
+msgstr "„%1“ lässt sich nicht zum Schreiben öffnen."
+
+#: Utilities/Util.cpp:367
+#, kde-format
+msgid "<p>Unable to find file %1</p>"
+msgstr "<p>Die Datei %1 ist nicht auffindbar.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:90 AnnotationDialog/Dialog.cpp:831
+msgid "Sort Alphabetically"
+msgstr "Alphabetisch sortieren"
+
+#: AnnotationDialog/ListSelect.cpp:96
+msgid "Sort by date"
+msgstr "Nach Datum sortieren"
+
+#: AnnotationDialog/ListSelect.cpp:102
+msgid "Show only selected Ctrl+S"
+msgstr "Nur Ausgewählte anzeigen Strg+S"
+
+#: AnnotationDialog/ListSelect.cpp:277
+msgid "No Item Selected"
+msgstr "Es ist kein Element ausgewählt."
+
+#: AnnotationDialog/ListSelect.cpp:288
+msgid "Rename..."
+msgstr "Umbenennen ..."
+
+#: AnnotationDialog/ListSelect.cpp:290
+msgid "<b>Sub Categories</b>"
+msgstr "<b>Unterkategorien</b>"
+
+#: AnnotationDialog/ListSelect.cpp:298
+msgid "Super Categories"
+msgstr "Superkategorien"
+
+#: AnnotationDialog/ListSelect.cpp:315
+msgid "New Category..."
+msgstr "Neue Kategorie ..."
+
+#: AnnotationDialog/ListSelect.cpp:318
+msgid "Create Subcategory..."
+msgstr "Unterkategorie erstellen ..."
+
+#: AnnotationDialog/ListSelect.cpp:324
+#, kde-format
+msgid "Take item out of category %1"
+msgstr "Eintrag aus der Kategorie %1 entfernen"
+
+#: AnnotationDialog/ListSelect.cpp:327
+msgid "<b>Sorting</b>"
+msgstr "<b>Sortierung</b>"
+
+#: AnnotationDialog/ListSelect.cpp:333
+msgid "Usage"
+msgstr "Benutzung"
+
+#: AnnotationDialog/ListSelect.cpp:334
+msgid "Alphabetical"
+msgstr "Alphabetisch"
+
+#: AnnotationDialog/ListSelect.cpp:350
+#, kde-format
+msgid ""
+"<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
+"any information about it from any image containing the item.</p>"
+msgstr ""
+"<p>Wollen Sie „%1“ wirklich löschen?<br/>Das Löschen des Eintrags wird jede "
+"Information über ihn aus allen Bildern, die ihn enthalten, löschen.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:354
+#, kde-format
+msgid "Really Delete %1?"
+msgstr "%1 wirklich löschen?"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Rename Item"
+msgstr "Eintrag umbenennen"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Enter new name:"
+msgstr "Neuen Namen eingeben:"
+
+#: AnnotationDialog/ListSelect.cpp:367
+#, kde-format
+msgid ""
+"<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
+"\"%3\" on any image containing it.</p>"
+msgstr ""
+"<p>Wollen Sie „%1“ wirklich nach „%2“ umbenennen?<br/>Das Umbenennen wird „%"
+"3“ in jedem Bild, das es enthält, betreffen.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:371
+#, kde-format
+msgid "Really Rename %1?"
+msgstr "%1 wirklich umbenennen?"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category"
+msgstr "Neue Superkategorie"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category Name:"
+msgstr "Neuer Name für die Superkategorie:"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category"
+msgstr "Neue Unterkategorie"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category Name:"
+msgstr "Neuer Name für die Unterkategorie:"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:39
+msgid "Annotate previous image"
+msgstr "Vorheriges Bild kategorisieren"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:45
+msgid "Annotate next image"
+msgstr "Nächstes Bild kategorisieren"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:65
+msgid "Copy tags from previously tagged image"
+msgstr ""
+"Die Stichwörter von dem zuletzt mit Stichwörtern versehenden Bild kopieren"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:71
+msgid "Delete image"
+msgstr "Bild löschen"
+
+#: AnnotationDialog/Dialog.cpp:86
+msgid "Label and Dates"
+msgstr "Name und Daten"
+
+#: AnnotationDialog/Dialog.cpp:88
+msgid "Image Preview"
+msgstr "Bildvorschau"
+
+#: AnnotationDialog/Dialog.cpp:110
+msgid "Revert This Item"
+msgstr "Diesen Eintrag zurücksetzen"
+
+#: AnnotationDialog/Dialog.cpp:114
+msgid "Clear Form"
+msgstr "Formular zurücksetzen"
+
+#: AnnotationDialog/Dialog.cpp:120
+msgid "Options..."
+msgstr "Optionen ..."
+
+#: AnnotationDialog/Dialog.cpp:126
+msgid "&Done"
+msgstr "&Fertig"
+
+#: AnnotationDialog/Dialog.cpp:129
+msgid "Continue &Later"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:489
+msgid "&Search"
+msgstr "&Suchen"
+
+#: AnnotationDialog/Dialog.cpp:197
+msgid "Label: "
+msgstr "Name: "
+
+#: AnnotationDialog/Dialog.cpp:210
+msgid "Date: "
+msgstr "Datum: "
+
+#: AnnotationDialog/Dialog.cpp:231
+msgid "Time: "
+msgstr "Zeit: "
+
+#: AnnotationDialog/Dialog.cpp:240
+msgid "Add Time Info..."
+msgstr "Zeitinformation hinzufügen ..."
+
+#: AnnotationDialog/Dialog.cpp:349
+#, kde-format
+msgid "KPhotoAlbum Annotations (%1/%2)"
+msgstr "KPhotoAlbum Kategorisation (%1/%2)"
+
+#: AnnotationDialog/Dialog.cpp:497
+msgid "Done"
+msgstr "Fertig"
+
+#: AnnotationDialog/Dialog.cpp:502
+msgid "Annotations"
+msgstr "Kategorisierung"
+
+#: AnnotationDialog/Dialog.cpp:531
+msgid "Save Current Window Setup"
+msgstr "Aktuelle Fenstereinstellung speichern"
+
+#: AnnotationDialog/Dialog.cpp:532
+msgid "Reset layout"
+msgstr "Layout zurücksetzen"
+
+#: AnnotationDialog/Dialog.cpp:612
+msgid ""
+"<p>Some changes are made to annotations. Do you really want to cancel all "
+"recent changes for each affected file?</p>"
+msgstr ""
+"<p>Einige Kategorsierungen wurden geändert. Wollen Sie wirklich für jedes "
+"betroffene Bild die letzten Änderungen rückgängig machen ?</p>"
+
+#: AnnotationDialog/Dialog.cpp:718
+msgid ""
+"<p>You have just opened the advanced search dialog; to get the most out of "
+"it, it is suggested that you read the section in the manual on <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\">advanced searching</"
+"a>.</p><p>This dialog is also used for typing in information about images; "
+"you can find extra tips on its usage by reading about <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
+msgstr ""
+"<p>Sie haben soeben den Dialog zur erweiterten Suche geöffnet. Damit Sie ihn "
+"optimal benutzen können, empfehlen wir Ihnen den entsprechenden Abschnitt im "
+"Handbuch über die <a href=\"help:/kphotoalbum/sect-general-image-searches."
+"html\">Erweiterte Suche</a> zu lesen.</p><p>Dieser Dialog wird ebenfalls "
+"benutzt, um Informationen über die Bilder einzugeben. Tipps hierzu finden "
+"Sie im Abschnitt <a href=\"help:/kphotoalbum/chp-typingIn.html\">Eingeben</"
+"a>.</p>"
+
+#: AnnotationDialog/Dialog.cpp:727
+msgid ""
+"<p>You have just opened one of the most important windows in KPhotoAlbum; it "
+"contains lots of functionality which has been optimized for fast usage.</"
+"p><p>It is strongly recommended that you take 5 minutes to read the <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
+msgstr ""
+"<p>Sie haben soeben eines der wichtigsten Fenster von KPhotoAlbum geöffnet. "
+"Es enthält eine Menge Funktionen, die für eine schnelle Benutzung optimiert "
+"wurden.</p><p>Wir empfehlen Ihnen daher, dass Sie sich ein paar Minuten Zeit "
+"nehmen, um die <a href=\"help:/kphotoalbum/chp-typingIn.html\">Dokumentation "
+"zu diesem Dialog</a> zu lesen.</p>"
+
+#: AnnotationDialog/Dialog.cpp:836
+msgid "Sort Most Recently Used"
+msgstr "Nach der häufigsten Nutzung sortieren"
+
+#: AnnotationDialog/Dialog.cpp:839
+msgid "Toggle Sorting"
+msgstr "Sortierung umschalten"
+
+#: AnnotationDialog/Dialog.cpp:844
+msgid "Toggle Showing Selected Items Only"
+msgstr "Anzeige nur ausgewählter Einträge umschalten"
+
+#: AnnotationDialog/Dialog.cpp:849
+msgid "Annotate Next"
+msgstr "Nächstes kategorisieren"
+
+#: AnnotationDialog/Dialog.cpp:853
+msgid "Annotate Previous"
+msgstr "Vorheriges kategorisieren"
+
+#: AnnotationDialog/Dialog.cpp:857
+msgid "OK dialog"
+msgstr "OK-Dialog"
+
+#: AnnotationDialog/Dialog.cpp:865
+msgid "Copy tags from previous image"
+msgstr "Stichwörter vom letzten Bild kopieren"
+
+#: AnnotationDialog/KDateEdit.cpp:70
+msgid "tomorrow"
+msgstr "morgen"
+
+#: AnnotationDialog/KDateEdit.cpp:71
+msgid "today"
+msgstr "heute"
+
+#: AnnotationDialog/KDateEdit.cpp:72
+msgid "yesterday"
+msgstr "gestern"
+
+#. i18n: file: kphotoalbumui.rc:25
+#. i18n: ectx: Menu (view)
+#: rc.cpp:3
+msgid "&View"
+msgstr "&Ansicht"
+
+#. i18n: file: kphotoalbumui.rc:40
+#. i18n: ectx: Menu (privacy)
+#: rc.cpp:6
+msgid "Privacy"
+msgstr "Privatsphäre"
+
+#. i18n: file: kphotoalbumui.rc:50
+#. i18n: ectx: Menu (maintenance)
+#: rc.cpp:9
+msgid "&Maintenance"
+msgstr "&Wartung"
+
+#. i18n: file: kphotoalbumui.rc:68
+#. i18n: ectx: Menu (exportplugin)
+#: rc.cpp:15
+msgid "Export"
+msgstr "Exportieren"
+
+#. i18n: file: kphotoalbumui.rc:72
+#. i18n: ectx: Menu (importplugin)
+#: rc.cpp:18
+msgid "Import"
+msgstr "Importieren"
+
+#. i18n: file: kphotoalbumui.rc:80
+#. i18n: ectx: Menu (batch_plugins)
+#: rc.cpp:24
+msgid "Batch Plugins"
+msgstr "Stapel-Module"
+
+#. i18n: file: kphotoalbumui.rc:84
+#. i18n: ectx: Menu (tool_plugins)
+#: rc.cpp:27
+msgid "Tools"
+msgstr "Extras"
+
+#. i18n: file: kphotoalbumui.rc:101
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:30
+msgid "Main Toolbar"
+msgstr "Haupt-Werkzeugleiste"
+
+#: rc.cpp:31
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Oliver Dörr"
+
+#: rc.cpp:32
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@doerr-privat.de"
+
+#: CategoryListView/CheckDropItem.cpp:112
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>You have just dragged one or more items onto another one, this will "
+#| "make the dragged item a sub category, of the dragged onto item. Sub "
+#| "categories may be used to say that e.g. Las Vegas is in USA - in that "
+#| "example you would drag Las Vegas onto USA. When you've set up sub "
+#| "categories, you may e.g see all images from USA by simply selecting that "
+#| "item in the Browser.</p><p>Was it really your intention to make \"%1\" "
+#| "sub categorie(s) of \"%2\"?</p>"
+msgid ""
+"<p>You have just dragged an item onto another: this will make the dragged "
+"item a sub category of that onto which it was dropped. Sub categories may be "
+"used to denote facts such as 'Las Vegas is in the USA', in that example you "
+"would drag Las Vegas onto USA. When you have set up sub categories you can, "
+"for instance, see all images from the USA by simply selecting that item in "
+"the Browser.</p><p>Was it really your intention to make \"%2\" a sub "
+"category of \"%3\"?</p>"
+msgid_plural ""
+"<p>You have just dragged a number of items onto another: this will make the "
+"dragged items sub categories of that onto which they were dropped. Sub "
+"categories may be used to denote facts such as 'Las Vegas and New York are "
+"in the USA' in that example you would drag 'Las Vegas' and 'New York' onto "
+"USA. When you have set up sub categories you can, for instance, see all "
+"images from the USA by simply selecting that item in the Browser.</p><p>Was "
+"it really your intention to make \"%2\" sub categories of \"%3\"?</p>"
+msgstr[0] ""
+"<p>Sie haben soeben einen oder mehrere Einträge auf einem anderen abgelegt. "
+"Dies macht den abgelegten Eintrag zu einer Unterkategorie des Eintrags, auf "
+"dem er abgelegt wurde. Unterkategorien können benutzt werden, um z. B. "
+"auszudrücken, dass Las Vegas in den USA liegt. In diesem Beispiel würden Sie "
+"Las Vegas auf die USA ziehen und dort ablegen. Wenn Sie Unterkategorien "
+"einrichten, können Sie z. B. alle Bilder aus der USA sehen, indem Sie den "
+"Eintrag im Browser auswählen.</p><p>Wollten Sie aus „%1“ eine Unterkategorie "
+"von „%2“ machen?</p>"
+msgstr[1] ""
+"<p>Sie haben soeben einen oder mehrere Einträge auf einem anderen abgelegt. "
+"Dies macht den abgelegten Eintrag zu einer Unterkategorie des Eintrags, auf "
+"dem er abgelegt wurde. Unterkategorien können benutzt werden, um z. B. "
+"auszudrücken, dass Las Vegas in den USA liegt. In diesem Beispiel würden Sie "
+"Las Vegas auf die USA ziehen und dort ablegen. Wenn Sie Unterkategorien "
+"einrichten, können Sie z. B. alle Bilder aus der USA sehen, indem Sie den "
+"Eintrag im Browser auswählen.</p><p>Wollten Sie aus „%1“ eine Unterkategorie "
+"von „%2“ machen?</p>"
+
+#: CategoryListView/CheckDropItem.cpp:124
+msgid "Move Items"
+msgstr "Einträge verschieben"
+
+#: MainWindow/FeatureDialog.cpp:37
+msgid "Feature Status"
+msgstr "Status der Fähigkeiten"
+
+#: MainWindow/FeatureDialog.cpp:42
+#, kde-format
+msgid ""
+"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+"features KPhotoAlbum has, and their status:</p>%1"
+msgstr ""
+"<h1>Überblick</h1><p>Unten sehen Sie eine Liste von Compile- und "
+"Laufzeitfunktionen die KPhotoAlbum besitzt und deren Status:</p>%1"
+
+#: MainWindow/FeatureDialog.cpp:45
+msgid ""
+"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+"yourself, then please review the sections below to learn what to install to "
+"get the feature in question. If on the other hand you installed KPhotoAlbum "
+"from a binary package, please tell whoever made the package about this "
+"defect, eventually including the information from the section below.<p><p>In "
+"case you are missing a feature and you did not compile KPhotoAlbum yourself, "
+"please do consider doing so. It really isn't that hard. If you need help "
+"compiling KPhotoAlbum, feel free to ask on the <a href=\"http://mail.kdab."
+"net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p><p>The "
+"steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum."
+"org/download-source.html\">the KPhotoAlbum home page</a>. If you have never "
+"compiled a KDE application, then please ensure that you have the developer "
+"packages installed, in most distributions they go under names like "
+"kdelibs<i>-devel</i></p>"
+msgstr ""
+"<h1>Was kann ich tun, wenn ich eine Funktion vermisse?</h1><p>Falls Sie "
+"KPhotoAlbum selbst kompiliert haben, sollten Sie die Abschnitte unten "
+"durchlesen, um zu erfahren, was Sie Installieren müssen um die gewünschte "
+"Funktion zu bekommen. Falls Sie auf der anderen Seite KPhotoAlbum als "
+"Binärpaket installiert haben, so informieren Sie bitte den Ersteller des "
+"Pakets über den Defekt. Eventuell sollten Sie die Informationen aus dem "
+"Abschnitt unten hinzufügen.<p><p>In dem Fall, dass Sie eine Fähigkeit "
+"vermissen und KPhotoAlbum nicht selbst kompiliert haben, sollten Sie darüber "
+"nachdenken dies zu tun. Dies ist nicht wirklich schwer. Falls Sie Hilfe "
+"benötigen, können Sie auf Englisch die <a href=\"http://mail.kdab.net/"
+"mailman/listinfo/kphotoalbum\">KPhotoAlbum Mailingliste</a> fragen.</"
+"p><p>Die benötigten Schritte um KPhotoAlbum zu kompilieren können auf der <a "
+"href=\"http://www.kphotoalbum.org/download-source.html\">KPhotoAlbum "
+"Homepage</a> nachgelesen werden. Wenn Sie noch nie ein KDE-Programm "
+"kompiliert haben, sollten Sie sicherstellen, dass Sie die Entwicklerpakete "
+"installiert haben. In den meisten Distributionen tragen sie Namen wie "
+"kdelibs<i>-devel</i> etc.</p>"
+
+#: MainWindow/FeatureDialog.cpp:61
+msgid ""
+"<h1><a name=\"kipi\">Plug-ins Support</a></h1><p>KPhotoAlbum has a plug-in "
+"system with lots of extensions. You may among other things find plug-ins for:"
+"<ul><li>Writing images to cds or dvd's<li>Adjusting timestamps on your "
+"images<li>Making a calendar featuring your images<li>Uploading your images "
+"to flickr<li>Upload your images to facebook</ul></p><p>The plug-in library "
+"is called KIPI, and may be downloaded from the <a href=\"http://www.kipi-"
+"plugins.org\">KIPI Home page</a></p>"
+msgstr ""
+"<h1><a name=\"kipi\">Modulunterstützung</a></h1><p>KPhotoAlbum besitzt ein "
+"Modulsystem mit vielen Erweiterungen. Unter anderen finden Sie dort Module "
+"für:<ul><li>das Brennen von Bildern auf CDs oder DVDs<li>die Justierung der "
+"Zeitstempel Ihrer Bilder<li>das Erstellen eines Kalenders mit Ihren "
+"Bildern<li>das Hochladen von Bildern nach flickr<li>das Hochladen der Bilder "
+"zu Facebook</ul></p><p>Die Modulbibliothek heißt KIPI und kann von der <a "
+"href=\"http://www.kipi-plugins.org\">KIPI-Homepage</a> heruntergeladen "
+"werden.</p>"
+
+#: MainWindow/FeatureDialog.cpp:74
+msgid ""
+"<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information like "
+"the date the image was shot, the shooting angle, focal length, and shutter-"
+"speed in what is known as EXIF information.</p><p>KPhotoAlbum uses the <a "
+"href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> to read EXIF "
+"information from images</p>"
+msgstr ""
+"<h1><a name=\"exiv2\">EXIF-Unterstützung</a></h1><p>Bilder speichern "
+"Informationen über das Wie und Wann und mit welchem Winkel die Aufnahme "
+"erfolgte, Fokuslänge und Verschlusszeiten. Diese Informationen nennt man "
+"EXIF-Informationen.</p><p>KPhotoAlbum benutzt die <a href=\"http://freshmeat."
+"net/projects/exiv2/\">EXIV2 Bibliothek</a> um EXIF-Informationen aus den "
+"Bildern zu lesen.</p>"
+
+#: MainWindow/FeatureDialog.cpp:82
+msgid ""
+"<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum allows "
+"you to search using a certain number of EXIF tags. For this KPhotoAlbum "
+"needs an Sqlite database. In addition the qt package for sqlite (e.g.qt-sql-"
+"sqlite) must be installed.</p>"
+msgstr ""
+"<h1><a name=\"database\">SQL-Datenbankunterstützung</a></h1><p>KPhotoAlbum "
+"ermöglicht es, anhand von EXIF-Stichwörtern zu suchen. Dafür benötigt "
+"KPhotoAlbum eine Sqlite-Datenbank und es muss das Qt-Paket für Sqlite (z. B. "
+"qt-sql-sqlite) installiert werden.</p>"
+
+#: MainWindow/FeatureDialog.cpp:87
+msgid ""
+"<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1><p>KPhotoAlbum "
+"asks the KDE plug-in system for help when it needs to generate a thumbnail "
+"for videos. <p>Unfortunately KDE4 does currently not come with any plug-ins "
+"for this, you therefore need manually to install <a href=\"http://www.kde-"
+"apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>"
+msgstr ""
+"<h1><a name=\"thumbnails\">Video-Vorschauunterstützung</a></"
+"h1><p>KPhotoAlbum benutzt das KDE-Modulsystem, wenn es ein Vorschaubild für "
+"eine Video generiert. Leider enthält KDE4 zurzeit keine Module dafür. Sie "
+"müssen also  <a href=\"http://www.kde-apps.org/content/show.php?content=41180"
+"\">MPlayerThumbs</a></p> manuell installieren."
+
+#: MainWindow/FeatureDialog.cpp:92
+msgid ""
+"<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on Qt's "
+"Phonon architecture for displaying videos; this in turn relies on GStreamer. "
+"If this feature is not enabled for you, have a look at the <a href=\"http://"
+"wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum "
+"wiki article on video support</a>.</p>"
+msgstr ""
+"<h1><a name=\"video\">Videounterstützung</a></h1><p>KPhotoAlbum benutzt die "
+"Phonon-Architektur von Qt zur Anzeige von Videos. Wenn dies bei Ihnen nicht "
+"funktioniert, so können Sie auf englisch diesen <a href=\"http://wiki.kde."
+"org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum Wiki-Artikel "
+"über Video Unterstützung</a> lesen.</p>"
+
+#: MainWindow/FeatureDialog.cpp:100
+msgid ""
+"<p>No video mime types found, which indicates that either Qt was compiled "
+"without phonon support, or there were missing codecs</p>"
+msgstr ""
+"<p>Es wurden keine Dateizuordnungen für Video gefunden. Das weist darauf hin "
+"das entweder Qt ohne Phonon-Unterstützung übersetzt wurde oder das "
+"entsprechende Codecs fehlen.</p>"
+
+#: MainWindow/FeatureDialog.cpp:102
+#, kde-format
+msgid ""
+"<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></"
+"p>"
+msgstr ""
+"<p>Phonon kann diese Dateizuordnungen als Videos wieder geben:<ul><li>%1</"
+"ul></p>"
+
+#: MainWindow/FeatureDialog.cpp:181
+msgid "Plug-ins available"
+msgstr "Verfügbare Module"
+
+#: MainWindow/FeatureDialog.cpp:182
+msgid "EXIF info supported"
+msgstr "Unterstützte EXIF-Informationen"
+
+#: MainWindow/FeatureDialog.cpp:183
+msgid "SQL Database Support"
+msgstr "SQL-Datenbankunterstützung"
+
+#: MainWindow/FeatureDialog.cpp:184
+msgid "Sqlite Database Support (used for EXIF searches)"
+msgstr "Sqlite Datenbankunterstützung (wird für EXIF-Suchen benutzt)"
+
+#: MainWindow/FeatureDialog.cpp:186
+msgid "Video Thumbnail support"
+msgstr "Video-Vorschaubildunterstützung"
+
+#: MainWindow/FeatureDialog.cpp:188
+msgid "Video support"
+msgstr "Video-Unterstützung"
+
+#: MainWindow/FeatureDialog.cpp:191
+msgid "Yes"
+msgstr "Ja"
+
+#: MainWindow/FeatureDialog.cpp:192
+msgid "No"
+msgstr "Nein"
+
+#: MainWindow/DeleteDialog.cpp:43
+msgid "Delete from database"
+msgstr "Aus der Datenbank löschen"
+
+#: MainWindow/DeleteDialog.cpp:55
+msgid "Delete file from disk as well"
+msgstr "Löscht die Dateien auch von der Festplatte"
+
+#: MainWindow/DeleteDialog.cpp:64
+#, kde-format
+msgid ""
+"<p><b><center><font size=\"+3\">Delete Images/Videos from database<br/>%1 "
+"selected</font></center></b></p>"
+msgstr ""
+"<p><b><center><font size=\"+3\">Bilder/Videos aus der Datenbank löschen<br/>%"
+"1 ausgewählt</font></center></b></p>"
+
+#: MainWindow/DeleteDialog.cpp:102
+#, kde-format
+msgid ""
+"<p><b>Unable to physically delete a file. Do you have permission to do so?</"
+"b></p>"
+msgid_plural ""
+"<p><b>Unable to physically delete %1 files. Do you have permission to do so?"
+"</b></p>"
+msgstr[0] ""
+"<p><b>Eine Datei kann nicht von der Festplatte gelöscht werden. Haben Sie "
+"die dafür nötigen Berechtigungen?</b></p>"
+msgstr[1] ""
+"<p><b>%1 Dateien können nicht von der Platte gelöscht werden. Haben Sie die "
+"dafür nötigen Berechtigungen?</b></p>"
+
+#: MainWindow/DeleteDialog.cpp:106
+msgid "Error Deleting File"
+msgid_plural "Error Deleting Files"
+msgstr[0] "Fehler beim Löschen der Datei"
+msgstr[1] "Fehler beim Löschen der Dateien"
+
+#: MainWindow/ImageCounter.cpp:32
+#, kde-format
+msgid "Showing 1 thumbnail"
+msgid_plural "Showing %1 thumbnails"
+msgstr[0] "1 Bildvorschau anzeigen"
+msgstr[1] "%1 Bildvorschauen anzeigen"
+
+#: MainWindow/ImageCounter.cpp:37
+#, kde-format
+msgid "Total: %1"
+msgstr "Gesamt: %1"
+
+#: MainWindow/ImageCounter.cpp:42
+#, kde-format
+msgid "1 match"
+msgid_plural "%1 matches"
+msgstr[0] "1 Übereinstimmung"
+msgstr[1] "%1 Übereinstimmungen"
+
+#: MainWindow/StatisticsDialog.cpp:26
+msgid ""
+"<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
+"different items in the category</td></tr><tr><td>Tags Total</td><td>This is "
+"a count of how many tags was made,<br/>i.e. a simple counting though all the "
+"images</tr></tr><tr><td>Tags Per Picture</td><td>This tells you how many "
+"tags are on each picture on average</td></tr></table><br/><br/>Don't get too "
+"attached to this dialog, it has the problem that it counts categories AND "
+"subcategories,<br/>so if an image has been taken in Las Vegas, Nevada, USA, "
+"then 3 tags are counted for that image,<br/>while it should only be one.</"
+"br>I'm not really sure if it is worth fixing that bug (as it is pretty hard "
+"to fix),<br/>so maybe the dialog will simply go away again"
+msgstr ""
+"<h1>Beschreibung</h1><table><tr><td># der Einträge</td><td>Dies ist die "
+"Anzahl der unterschiedlichen Einträge in der Kategorie</td></"
+"tr><tr><td>Stichwörter insgesamt</td><td>Dies ist die Anzahl der insgesamt "
+"benutzten Stichwörter,<br/>z. B. ein einfaches durchzählen durch alle "
+"Bilder</tr></tr><tr><td>Stichwörter pro Bild</td><td>Dies gibt Ihnen die "
+"Durchschnittsanzahl der Stichwörter pro Bild an</td></tr></table><br/><br/"
+">Verlassen Sie sich nicht zu sehr auf diesen Dialog. Er hat das Problem, "
+"dass er Kategorien und Unterkategorien durchzählt.<br/>Wenn Sie also ein "
+"Bild in Las Vegas, Nevada, USA gemacht haben, dann werden drei Stichwörter "
+"für das Bild gezählt.<br/>Es sollte aber nur eins sein.</br>Ich bin mir "
+"nicht sicher, ob es wirklich sinnvoll ist diesen Fehler zu beheben, da dies "
+"nicht einfach ist.<br/>Eventuell wird der Dialog auch einfach wieder "
+"verschwinden."
+
+#: MainWindow/StatisticsDialog.cpp:43
+msgid "<h1>Statistics</h1>"
+msgstr "<h1>Statistiken</h1>"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Category"
+msgstr "Kategorie"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "# of Items"
+msgstr "# der Einträge"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Totals"
+msgstr "Stichwörter insgesamt"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Per Picture"
+msgstr "Stichwörter pro Bild"
+
+#: MainWindow/StatisticsDialog.cpp:89
+msgid "Tag indication completed annotation"
+msgstr "Stichwortindikator für abgeschlossene Kategorisierung"
+
+#: MainWindow/StatisticsDialog.cpp:95
+msgid ""
+"If you use a specific tag to indicate that an image has been tagged, then "
+"specify it here."
+msgstr ""
+"Wenn Sie ein bestimmtes Stichwort benutzen, um festzustellen, dass ein Bild "
+"kategorisiert wurde, dann geben Sie es hier an."
+
+#: MainWindow/StatisticsDialog.cpp:195
+msgid "Total"
+msgstr "Gesamt"
+
+#: MainWindow/WelcomeDialog.cpp:55
+msgid ""
+"<h1>Welcome to KPhotoAlbum</h1><p>If you are interested in trying out "
+"KPhotoAlbum with a prebuilt set of images, then simply choose the <b>Load "
+"Demo</b> button. You may get to this demo at a later time from the <b>Help</"
+"b> menu.</p><p>Alternatively you may start making you own database of "
+"images, simply by pressing the <b>Create my own database</b> button."
+msgstr ""
+"<h1>Willkommen bei KPhotoAlbum</h1> <p>Wenn Sie wollen können Sie "
+"KPhotoAlbum mit einem eingebauten Satz von Bildern testen. Benutzen Sie dazu "
+"den Knopf <b>Demo laden</b>. Sie können diese Demo später über das Menü "
+"<b>Hilfe</b> erreichen.</p><p>Alternativ können Sie auch mit Ihrer eigenen "
+"Bilderdatenbank starten, indem Sie den Knopf <b>Meine eigene Datenbank "
+"erstellen</b> benutzen."
+
+#: MainWindow/WelcomeDialog.cpp:67
+msgid "Load Demo"
+msgstr "Demo laden"
+
+#: MainWindow/WelcomeDialog.cpp:70
+msgid "Create My Own Database..."
+msgstr "Meine eigene Datenbank erstellen ..."
+
+#: MainWindow/WelcomeDialog.cpp:73
+msgid "Check My Feature Set"
+msgstr "Meine eigenen Fähigkeitensatz überprüfen"
+
+#: MainWindow/WelcomeDialog.cpp:109
+msgid ""
+"<p>KPhotoAlbum requires that all your images and videos are stored with a "
+"common root directory. You are allowed to store your images in a directory "
+"tree under this directory. KPhotoAlbum will not modify or edit any of your "
+"images, so you can simply point KPhotoAlbum to the directory where you "
+"already have all your images located.</p>"
+msgstr ""
+"<p>KPhotoAlbum setzt voraus, dass alle Ihre Bilder und Videos unter einem "
+"gemeinsamen Basisordner gespeichert werden. Sie können Ihre Bilder in einem "
+"Ordnerbaum unter diesem Basisordner speichern. KPhotoAlbum wird keines Ihrer "
+"Bilder ändern oder bearbeiten. Sie können also KPhotoAlbum einfach auf den "
+"Ordner setzen, in dem Sie alle Ihre Bilder schon gespeichert haben.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:118
+msgid "Image/Video root directory: "
+msgstr "Basisordner für Bilder/Videos: "
+
+#: MainWindow/WelcomeDialog.cpp:148
+msgid "Directory does not exist, create it?"
+msgstr "Der Ordner existiert nicht. Soll er erstellt werden?"
+
+#: MainWindow/WelcomeDialog.cpp:152
+#, kde-format
+msgid "Could not create directory %1"
+msgstr "Der Ordner %1 lässt sich nicht erstellen."
+
+#: MainWindow/WelcomeDialog.cpp:159
+#, kde-format
+msgid "%1 exists, but is not a directory"
+msgstr "%1 existiert bereits, ist aber kein Ordner."
+
+#: MainWindow/WelcomeDialog.cpp:178
+#, kde-format
+msgid ""
+"<p>KPhotoAlbum does not seem to be build with support for all its features. "
+"The following is a list indicating to you what you may miss:<ul>%1</ul></"
+"p><p>For details on how to solve this problem, please choose <b>Help</b>|"
+"<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
+msgstr ""
+"<p>KPhotoAlbum scheint nicht mit all diesen Fähigkeiten erstellt worden zu "
+"sein. Die folgende Liste zeigt Ihnen was fehlt:<ul>%1</ul></p><p>Für Details "
+"wie Sie diese Probleme lösen können, benutzen Sie bitte <b>Hilfe</b> -> "
+"<b>KPhotoAlbum Funktions-Status</b> aus dem Menü.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:182 MainWindow/WelcomeDialog.cpp:186
+msgid "Feature Check"
+msgstr "Fähigkeitenüberprüfung"
+
+#: MainWindow/WelcomeDialog.cpp:185
+msgid "Congratulations: all dynamic features have been enabled."
+msgstr "Gratulation! Alle dynamischen Fähigkeiten sind eingeschaltet worden."
+
+#: MainWindow/CategoryImagePopup.cpp:61
+msgid "Show Category Editor"
+msgstr "Kategorie-Editor anzeigen"
+
+#: MainWindow/CategoryImagePopup.cpp:83
+#, fuzzy
+#| msgid "Configure Category Image"
+msgid "Make Category Image"
+msgstr "Bilderkategorie einrichten"
+
+#: MainWindow/TokenEditor.cpp:38 MainWindow/Window.cpp:661
+msgid "Remove Tokens"
+msgstr "Merkmale entfernen"
+
+#: MainWindow/TokenEditor.cpp:45
+msgid "Select tokens to remove from all images and videos:"
+msgstr ""
+"Wählen Sie die Merkmale die von allen Bildern und Videos entfernt werden "
+"sollen:"
+
+#: MainWindow/TokenEditor.cpp:64
+msgid "Select None"
+msgstr "Auswahl aufheben"
+
+#: MainWindow/SearchBar.cpp:32
+msgid "Search:"
+msgstr "Suchen:"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "Current Item"
+msgstr "Aktueller Eintrag"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "All Selected Items"
+msgstr "Alle ausgewählten Einträge"
+
+#: MainWindow/ExternalPopup.cpp:100
+msgid "Invoke External Program"
+msgstr "Externes Programm starten"
+
+#: MainWindow/InvalidDateFinder.cpp:42
+msgid "Search for Images and Videos with Missing Dates"
+msgstr "Suche nach Bildern und Videos mit fehlendem Datum"
+
+#: MainWindow/InvalidDateFinder.cpp:49
+msgid "Which Images and Videos to Display"
+msgstr "Welche Bilder und Videos sollen angezeigt werden"
+
+#: MainWindow/InvalidDateFinder.cpp:53
+msgid ""
+"Search for images and videos with a valid date but an invalid time stamp"
+msgstr ""
+"Suche nach Bildern und Videos mit einem gültigen Datum, aber einem "
+"ungültigen Zeitstempel"
+
+#: MainWindow/InvalidDateFinder.cpp:54
+msgid "Search for images and videos missing date and time"
+msgstr "Suche nach Bilder und Videos ohne Datum und Zeit"
+
+#: MainWindow/InvalidDateFinder.cpp:55
+msgid ""
+"Search for images and videos with only partial dates (like 1971 vs. 11/7-"
+"1971)"
+msgstr ""
+"Suche nach Bildern und Videos mit Teildatum wie z. B. 1971 statt 07.11.1971"
+
+#: MainWindow/InvalidDateFinder.cpp:70
+msgid "Image Info"
+msgstr "Bildinformation"
+
+#: MainWindow/InvalidDateFinder.cpp:79
+msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
+msgstr ""
+"<h1>Sie können hier die Datumsänderungen für die angezeigten Einträge sehen."
+"</h1>"
+
+#: MainWindow/InvalidDateFinder.cpp:84
+msgid "Reading file properties"
+msgstr "Dateieigenschaften werden gelesen"
+
+#: MainWindow/InvalidDateFinder.cpp:85
+msgid "Reading File Properties"
+msgstr "Dateieigenschaften werden gelesen"
+
+#: MainWindow/Window.cpp:138
+msgid "Loading Database"
+msgstr "Datenbank wird geladen"
+
+#: MainWindow/Window.cpp:144
+msgid "Loading Main Window"
+msgstr "Hauptfenster wird geladen"
+
+#: MainWindow/Window.cpp:226
+msgid "Searching for New Files"
+msgstr "Nach neuen Dateien suchen"
+
+#: MainWindow/Window.cpp:235
+msgid "Loading Plug-ins"
+msgstr "Lade Module"
+
+#: MainWindow/Window.cpp:256
+msgid ""
+"EXIF database cannot be opened. Check that the image root directory is "
+"writable."
+msgstr ""
+"EXIF-Datenbank lässt sich nicht öffnen. Überprüfen Sie bitte, ob Sie im "
+"Basisordner der Bilder Schreibberechtigung haben."
+
+#: MainWindow/Window.cpp:265
+msgid ""
+"<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
+"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
+"now? If you do not delete it, it will waste disk space; on the other hand, "
+"if you want to come back and try the demo again, you might want to keep it "
+"around with the changes you made through this session.</p>"
+msgstr ""
+"<p><b>Temporäre Demo-Datenbank löschen</b></p><p>Ich hoffe, dass Ihnen die "
+"KPhotoAlbum-Demo Spaß gemacht hat. Diese Datenbank wurde nach /tmp kopiert. "
+"Soll Sie nun gelöscht werden? Falls Sie sie nicht löschen, verbraucht sie "
+"Plattenplatz, andererseits können Sie sonst natürlich auch jederzeit wieder "
+"zurück kommen und die Demo weiter testen.</p>"
+
+#: MainWindow/Window.cpp:270
+msgid "Delete Demo Database"
+msgstr "Demo-Datenbank löschen"
+
+#: MainWindow/Window.cpp:285
+msgid "Do you want to save the changes?"
+msgstr "Möchten Sie die Änderungen speichern?"
+
+#: MainWindow/Window.cpp:286
+msgid "Save Changes?"
+msgstr "Änderungen speichern?"
+
+#: MainWindow/Window.cpp:323
+msgid ""
+"Some of the selected images already belong to a stack. Do you want to remove "
+"them from their stacks and create a completely new one?"
+msgstr ""
+"Einige der ausgewählten Bilder gehören bereits in einen Stapel. Sollen diese "
+"aus ihren alten Stapeln entfernt und ein komplett neuer erstellt werden?"
+
+#: MainWindow/Window.cpp:325 MainWindow/Window.cpp:330
+msgid "Stacking Error"
+msgstr "Stapelfehler"
+
+#: MainWindow/Window.cpp:329
+msgid "Unknown error, stack creation failed."
+msgstr "Unbekannter Fehler, die Erstellung des Stapels schlug fehl."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1205
+msgid "No item is selected."
+msgstr "Es ist kein Element ausgewählt."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1206
+msgid "No Selection"
+msgstr "Keine Auswahl"
+
+#: MainWindow/Window.cpp:459
+msgid "Saving..."
+msgstr "Speicherung läuft ..."
+
+#: MainWindow/Window.cpp:463
+msgid "Saving... Done"
+msgstr "Speicherung ... abgeschlossen"
+
+#: MainWindow/Window.cpp:558
+msgid "There are no images to be shown."
+msgstr "Es gibt keine Bilder zum Anzeigen."
+
+#: MainWindow/Window.cpp:625
+msgid "Generate HTML..."
+msgstr "HTML erstellen ..."
+
+#: MainWindow/Window.cpp:629
+msgid "Import..."
+msgstr "Importieren ..."
+
+#: MainWindow/Window.cpp:632
+msgid "Export/Copy Images..."
+msgstr "Exporieren/Bilder kopieren ..."
+
+#: MainWindow/Window.cpp:655
+msgid "Delete Selected"
+msgstr "Auswahl löschen"
+
+#: MainWindow/Window.cpp:664
+msgid "Open List of Files..."
+msgstr "Liste von Dateien öffnen ..."
+
+#: MainWindow/Window.cpp:668
+msgid "Annotate Individual Items"
+msgstr "Einzelne Einträge kategoriesieren"
+
+#: MainWindow/Window.cpp:672
+msgid "Annotate Multiple Items at a Time"
+msgstr "Mehrere Eingträge gleichzeitig kategorisieren"
+
+#: MainWindow/Window.cpp:676
+msgid "Merge Images into a Stack"
+msgstr "Bilder in einen Stapel zusammen führen"
+
+#: MainWindow/Window.cpp:680
+msgid "Remove Images from Stack"
+msgstr "Bilder aus dem Stapel entfernen"
+
+#: MainWindow/Window.cpp:697
+msgid "View"
+msgstr "Ansicht"
+
+#: MainWindow/Window.cpp:701
+msgid "View (In New Window)"
+msgstr "Anzeigen (in einem neuen Fenster)"
+
+#: MainWindow/Window.cpp:704
+msgid "Run Slide Show"
+msgstr "Diaschau starten"
+
+#: MainWindow/Window.cpp:709
+msgid "Run Randomized Slide Show"
+msgstr "Diaschau in zufälliger Abfolge starten"
+
+#: MainWindow/Window.cpp:715
+msgid "Collapse all stacks"
+msgstr "Alle Stapel zuklappen"
+
+#: MainWindow/Window.cpp:721
+msgid "Expand all stacks"
+msgstr "Alle Stapel aufklappen"
+
+#: MainWindow/Window.cpp:726
+msgid "Show &Oldest First"
+msgstr "Das &älteste zuerst zeigen"
+
+#: MainWindow/Window.cpp:731
+msgid "Show &Newest First"
+msgstr "Das &neuste zuerst zeigen"
+
+#: MainWindow/Window.cpp:736
+msgid "Sort Selected by Date && Time"
+msgstr "Ausgewählte Bilder nach Datum && Zeit sortieren"
+
+#: MainWindow/Window.cpp:739
+msgid "Limit View to Marked"
+msgstr "Ansicht auf Auswahl beschränken"
+
+#: MainWindow/Window.cpp:742
+msgid "Jump to Context"
+msgstr "Zum Kontext springen"
+
+#: MainWindow/Window.cpp:747
+msgid "Lock Images"
+msgstr "Bilder sperren"
+
+#: MainWindow/Window.cpp:750
+msgid "Unlock"
+msgstr "Sperre aufheben"
+
+#: MainWindow/Window.cpp:753
+msgid "Change Password..."
+msgstr "Passwort ändern ..."
+
+#: MainWindow/Window.cpp:757
+msgid "Lock Away All Other Items"
+msgstr "Alle anderen Einträge sperren"
+
+#: MainWindow/Window.cpp:760
+msgid "Lock Away Current Set of Items"
+msgstr "Aktuellen Satz von Einträgen sperren"
+
+#: MainWindow/Window.cpp:764
+msgid "Display Images and Videos Not on Disk"
+msgstr "Bilder und Videos, die nicht auf der Festplatte sind, anzeigen"
+
+#: MainWindow/Window.cpp:767
+msgid "Display Images and Videos with Incomplete Dates..."
+msgstr "Bilder und Videos mit unvollständigen Datumsangaben anzeigen ..."
+
+#: MainWindow/Window.cpp:771
+msgid "Display Images and Videos with Changed MD5 Sum"
+msgstr "Bilder und Videos mit einer geänderten MD5 Summe anzeigen"
+
+#: MainWindow/Window.cpp:775
+msgid "Recalculate Checksum"
+msgstr "Prüfsumme neu berechnen"
+
+#: MainWindow/Window.cpp:778
+msgid "Rescan for Images and Videos"
+msgstr "Bilder und Videos neu einlesen"
+
+#: MainWindow/Window.cpp:782
+msgid "Recreate Exif Search Database"
+msgstr "EXIF Suchdatenbank neu erstellen"
+
+#: MainWindow/Window.cpp:785
+msgid "Read EXIF Info From Files..."
+msgstr "EXIF-Info aus den Dateien einlesen ..."
+
+#: MainWindow/Window.cpp:790
+msgid "Convert Backend...(Experimental!)"
+msgstr "Backend konvertieren ... (experimentell!)"
+
+#: MainWindow/Window.cpp:795
+msgid "Build Thumbnails"
+msgstr "Vorschaubilder erstellen"
+
+#: MainWindow/Window.cpp:798
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: MainWindow/Window.cpp:807
+msgid "Enable All Messages"
+msgstr "Alle Meldungen aktivieren"
+
+#: MainWindow/Window.cpp:810
+msgid "Configure Current View"
+msgstr "Aktuelle Ansicht einrichten"
+
+#: MainWindow/Window.cpp:819
+msgid "Tree"
+msgstr "Baumansicht"
+
+#: MainWindow/Window.cpp:824
+msgid "Tree with User Icons"
+msgstr ""
+
+#: MainWindow/Window.cpp:830 MainWindow/Window.cpp:836
+msgid "Icons"
+msgstr "Symbole"
+
+#: MainWindow/Window.cpp:848
+msgid "Show Tooltips in Thumbnails Window"
+msgstr "Kurzinfos in der Vorschauansicht anzeigen"
+
+#: MainWindow/Window.cpp:854
+msgid "Run KPhotoAlbum Demo"
+msgstr "KPhotoAlbum-Demo starten"
+
+#: MainWindow/Window.cpp:857
+msgid "KPhotoAlbum Feature Status"
+msgstr "KPhotoAlbum Funktions-Status"
+
+#: MainWindow/Window.cpp:860
+msgid "Show Demo Videos"
+msgstr "Demo-Videos anzeigen"
+
+#: MainWindow/Window.cpp:865
+msgid "Show Exif Info"
+msgstr "EXIF-Info anzeigen"
+
+#: MainWindow/Window.cpp:868
+msgid "Recreate Selected Thumbnails"
+msgstr "Ausgewählte Vorschaubilder neu erstellen"
+
+#: MainWindow/Window.cpp:893
+msgid "Auto saving...."
+msgstr "Autom. Speicherung ..."
+
+#: MainWindow/Window.cpp:895
+msgid "Auto saving.... Done"
+msgstr "Autom. Speicherung ... abgeschlossen"
+
+#: MainWindow/Window.cpp:1000
+#, kde-format
+msgid ""
+"SQL backend initialization failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Die Initialisierung der SQL-Datenbank ist fehlgeschlagen, da der folgende "
+"Fehler auftrat:\n"
+"%1"
+
+#: MainWindow/Window.cpp:1004
+msgid "SQL database support is not compiled in."
+msgstr "Die Unterstützung von SQL-Datenbanken wurde nicht einkompiliert."
+
+#: MainWindow/Window.cpp:1009
+#, kde-format
+msgid "Invalid database backend: %1"
+msgstr "Ungültiger Datenbanktyp: %1"
+
+#: MainWindow/Window.cpp:1014
+msgid "Do you want to use XML backend instead?"
+msgstr "Wollen Sie stattdessen XML als Datenbank verwenden?"
+
+#: MainWindow/Window.cpp:1077
+msgid ""
+"<p>The password protection is only a means of allowing your little sister to "
+"look in your images, without getting to those embarrassing images from your "
+"last party.</p><p>In other words, anyone with access to the index.xml file "
+"can easily circumvent this password.</b></p>"
+msgstr ""
+"<p>Der Passwortschutz ist nur ein Weg, um es Ihrer ‚kleinen Schwester‘ zu "
+"erlauben Ihre Bilder zu sehen, ohne die peinlichen Bilder Ihrer letzten "
+"Party Preis zu geben ;-).</p><p>Mit anderen Worten, jeder, der Zugriff auf "
+"die Datei index.XML hat, kann den Passwortschutz leicht umgehen.</b></p>"
+
+#: MainWindow/Window.cpp:1082
+msgid "Password Protection"
+msgstr "Passwortschutz"
+
+#: MainWindow/Window.cpp:1096
+msgid "Type in Password to Unlock"
+msgstr "Bitte geben Sie das Passwort zum Aufheben der Sperre ein"
+
+#: MainWindow/Window.cpp:1105 MainWindow/Window.cpp:1145
+msgid "Invalid password."
+msgstr "Ungültiges Passwort."
+
+#: MainWindow/Window.cpp:1136
+msgid "Type in Old Password"
+msgstr "Altes Passwort eingeben"
+
+#: MainWindow/Window.cpp:1148
+msgid "Type in New Password"
+msgstr "Neues Passwort eingeben"
+
+#: MainWindow/Window.cpp:1172
+msgid "Annotation Dialog"
+msgstr "Kategorisationsdialog"
+
+#: MainWindow/Window.cpp:1332
+msgid ""
+"<p>Really enable all message boxes where you previously checked the do-not-"
+"show-again check box?</p>"
+msgstr ""
+"<p>Sollen wirklich alle Meldungen, für die Sie vorher „Nicht noch einmal "
+"anzeigen“ angewählt haben, wieder angezeigt werden?</p>"
+
+#: MainWindow/Window.cpp:1343
+msgid ""
+"<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
+"Window::setupPluginMenu). This indicate that you forgot to do a make "
+"install. If you did compile KPhotoAlbum yourself, then please run make "
+"install. If not, please report this as a bug.</p><p>KPhotoAlbum will "
+"continue execution, but it is not entirely unlikely that it will crash later "
+"on due to the missing make install.</p>"
+msgstr ""
+
+#: MainWindow/Window.cpp:1343
+msgid "Internal Error"
+msgstr "Interner Fehler"
+
+#: MainWindow/Window.cpp:1511
+msgid "Open List of Files"
+msgstr "Liste von Dateien öffnen"
+
+#: MainWindow/Window.cpp:1511
+msgid "Enter file names"
+msgstr "Dateinamen eingeben:"
+
+#: MainWindow/Window.cpp:1525
+msgid "No images matching your input were found."
+msgstr "Es konnten keine Bilder gefunden werde die Ihrer Eingabe entsprechen."
+
+#: MainWindow/Window.cpp:1525
+msgid "No Matches"
+msgstr "Keine Treffer"
+
+#: MainWindow/Window.cpp:1594
+msgid "Database conversion from SQL database is not yet supported."
+msgstr ""
+"Datenbankkonvertierung einer SQL-Datenbank wird zur Zeit nicht unterstützt."
+
+#: MainWindow/Window.cpp:1601
+msgid ""
+"You should set SQL database settings before the conversion. Do you want to "
+"do this now?"
+msgstr ""
+"Sie sollten die Einstellungen der SQL-Datenbank vor der Konvertierung "
+"setzen. Wollen Sie dies jetzt durchführen?"
+
+#: MainWindow/Window.cpp:1621
+msgid "Converting database"
+msgstr "Datenbank wird konvertiert"
+
+#: MainWindow/Window.cpp:1624
+msgid "Converting database to SQL."
+msgstr "Datenbank wird nach SQL konvertiert."
+
+#: MainWindow/Window.cpp:1625
+msgid "Please wait."
+msgstr "Bitte warten."
+
+#: MainWindow/Window.cpp:1634
+msgid "Database conversion is ready."
+msgstr "Die Datenbankkonvertierung ist fertig."
+
+#: MainWindow/Window.cpp:1637
+#, kde-format
+msgid ""
+"Database conversion failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Die Datenbankkonvertierung ist fehlgeschlagen, da der folgende Fehler "
+"auftrat:\n"
+"%1"
+
+#: MainWindow/SplashScreen.cpp:67
+#, kde-format
+msgid "Version %1"
+msgstr "Version %1"
+
+#: MainWindow/SplashScreen.cpp:69
+#, kde-format
+msgid "Version: %1"
+msgstr "Version: %1"
+
+#: HTMLGenerator/HTMLDialog.cpp:50
+msgid "HTML Export"
+msgstr "HTML-Export."
+
+#: HTMLGenerator/HTMLDialog.cpp:63 HTMLGenerator/HTMLDialog.cpp:64
+msgid "Content"
+msgstr "Inhalt"
+
+#: HTMLGenerator/HTMLDialog.cpp:72
+msgid "Page title:"
+msgstr "Seitentitel:"
+
+#: HTMLGenerator/HTMLDialog.cpp:79
+msgid "Copyright:"
+msgstr "Copyright:"
+
+#: HTMLGenerator/HTMLDialog.cpp:88
+msgid "Description:"
+msgstr "Beschreibung:"
+
+#: HTMLGenerator/HTMLDialog.cpp:95
+msgid "Create .kim export file"
+msgstr ".kim Exportdatei erstellen"
+
+#: HTMLGenerator/HTMLDialog.cpp:99
+msgid "Inline Movies in pages"
+msgstr "Integrierte Filme in den Seiten"
+
+#: HTMLGenerator/HTMLDialog.cpp:104
+msgid "What to Include"
+msgstr "Was soll enthalten sein"
+
+#: HTMLGenerator/HTMLDialog.cpp:136 HTMLGenerator/HTMLDialog.cpp:137
+msgid "Layout"
+msgstr "Layout"
+
+#: HTMLGenerator/HTMLDialog.cpp:146
+msgid "Thumbnail size:"
+msgstr "Vorschaugröße:"
+
+#: HTMLGenerator/HTMLDialog.cpp:161
+msgid "Number of columns:"
+msgstr "Anzahl der Spalten:"
+
+#: HTMLGenerator/HTMLDialog.cpp:176
+msgid "Theme:"
+msgstr "Design:"
+
+#: HTMLGenerator/HTMLDialog.cpp:187
+msgid "Image Sizes"
+msgstr "Bildgrößen"
+
+#: HTMLGenerator/HTMLDialog.cpp:197
+msgid "Full size"
+msgstr "Volle Größe"
+
+#: HTMLGenerator/HTMLDialog.cpp:240 HTMLGenerator/HTMLDialog.cpp:241
+msgid "Destination"
+msgstr "Ziel"
+
+#: HTMLGenerator/HTMLDialog.cpp:250
+msgid "Base directory:"
+msgstr "Basisordner:"
+
+#: HTMLGenerator/HTMLDialog.cpp:268
+msgid "Base URL:"
+msgstr "Basis-URL:"
+
+#: HTMLGenerator/HTMLDialog.cpp:277
+msgid "URL for final destination:"
+msgstr "URL für das endgültige Ziel:"
+
+#: HTMLGenerator/HTMLDialog.cpp:285
+msgid "Output directory:"
+msgstr "Ausgabeordner:"
+
+#: HTMLGenerator/HTMLDialog.cpp:291
+msgid "<b>Hint: Press the help button for descriptions of the fields</b>"
+msgstr ""
+"<b>Tipp: Drücken Sie den Hilfe-Knopf für die Beschreibungen der Felder.</b>"
+
+#: HTMLGenerator/HTMLDialog.cpp:302
+msgid "You must select at least one resolution."
+msgstr "Sie müssen mindestens eine Auflösung auswählen"
+
+#: HTMLGenerator/HTMLDialog.cpp:339
+msgid ""
+"<p>You did not specify a base directory. This is the topmost directory for "
+"your images. Under this directory you will find each generated collection in "
+"separate directories.</p>"
+msgstr ""
+"<p>Sie haben keinen Basisordner angegeben. Dies ist der oberste Ordner für "
+"Ihre Bilder. Unter diesem Ordner werden Sie alle erstellten Sammlungen in "
+"unterschiedlichen Ordnern finden.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:343
+msgid "No Base Directory Specified"
+msgstr "Kein Basisordner angegeben"
+
+#: HTMLGenerator/HTMLDialog.cpp:349
+msgid ""
+"<p>You did not specify an output directory. This is a directory containing "
+"the actual images. The directory will be in the base directory specified "
+"above.</p>"
+msgstr ""
+"<p>Sie haben keinen Ausgabeordner angegeben. Dieser Ordner enthält die "
+"tatsächlichen Bilder. Der Ordner wird in dem oben angegebenen Basisordner "
+"liegen.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:352
+msgid "No Output Directory Specified"
+msgstr "Kein Ausgabeordner angegeben"
+
+#: HTMLGenerator/HTMLDialog.cpp:360
+#, kde-format
+msgid ""
+"<p>Error while reading information about %1. This is most likely because the "
+"directory does not exist.</p>"
+msgstr ""
+"<p>Fehler beim Lesen der Informationen über %1. Vermutlich existiert der "
+"Ordner nicht.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:368
+#, kde-format
+msgid "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+msgstr ""
+"<p>%1 existiert nicht, ist kein Ordner oder Sie haben keine "
+"Schreibberechtigung.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:378
+#, kde-format
+msgid ""
+"<p>Output directory %1 already exists. Usually, this means you should "
+"specify a new directory.</p><p>Should %2 be deleted first?</p>"
+msgstr ""
+"<p>Der Ausgabeordner %1 existiert bereits. Sie sollten daher einen neuen "
+"Ordner angeben.</p> <p>Soll %2 erst gelöscht werden?</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:381
+msgid "Directory Exists"
+msgstr "Ordner existiert"
+
+#: HTMLGenerator/HTMLDialog.cpp:452
+#, kde-format
+msgid "%1 (by %2)"
+msgstr "%1 (durch %2)"
+
+#: HTMLGenerator/HTMLDialog.cpp:463
+msgid "Could not find any themes - this is very likely an installation error"
+msgstr ""
+"Es sind keine Designs auffindbar. Dies ist wahrscheinlich ein "
+"Installationsfehler."
+
+#: HTMLGenerator/HTMLDialog.cpp:470
+#, kde-format
+msgid "More than one theme is set as default, using theme %1"
+msgstr ""
+
+#: HTMLGenerator/Generator.cpp:47
+msgid "Generating images for HTML page "
+msgstr "Bilder für die HTML-Seite werden erzeugt"
+
+#: HTMLGenerator/Generator.cpp:137
+#, kde-format
+msgid "Error copying %1 to %2"
+msgstr "Fehler beim Kopieren von %1 nach %2"
+
+#: HTMLGenerator/Generator.cpp:344
+#, kde-format
+msgid "<a href=\"%1\">prev</a>"
+msgstr "<a href=\"%1\">Vorherige</a>"
+
+#: HTMLGenerator/Generator.cpp:346 HTMLGenerator/Generator.cpp:354
+msgid "prev"
+msgstr "Vorherige"
+
+#: HTMLGenerator/Generator.cpp:358
+#, c-format, kde-format
+msgid "<a href=\"index-%1.html\">index</a>"
+msgstr "<a href=\"index-%1.html\">Index</a>"
+
+#: HTMLGenerator/Generator.cpp:367
+#, kde-format
+msgid "<a href=\"%1\">next</a>"
+msgstr "<a href=\"%1\">Nächste</a>"
+
+#: HTMLGenerator/Generator.cpp:369 HTMLGenerator/Generator.cpp:376
+msgid "next"
+msgstr "Nächste"
+
+#: HTMLGenerator/Generator.cpp:500
+#, kde-format
+msgid "Could not create file '%1'."
+msgstr "Die Datei „%1“ lässt sich nicht erstellen."
+
+#: HTMLGenerator/Generator.cpp:501
+msgid "Could Not Create File"
+msgstr "Die Datei lässt sich nicht erstellen."
+
+#: HTMLGenerator/Generator.cpp:533
+#, kde-format
+msgid "<p>Unable to copy %1 to %2</p>"
+msgstr "<p>%1 lässt sich nicht nach %2 kopieren</p>"
+
+#: HTMLGenerator/Generator.cpp:565
+#, kde-format
+msgid "Unable to write image '%1'."
+msgstr "Das Bild „%1“ lässt sich nicht schreiben."
+
+#: ThumbnailView/ThumbnailDND.cpp:90
+msgid ""
+"<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
+"thumbnail viewer, you actually reorder them. This is very useful where you "
+"do not know the exact date for the images. On the other hand, if the images "
+"have valid timestamps, you should use <b>Images -&gt; Sort Selected By Date "
+"and Time</b>.</p>"
+msgstr ""
+"<p><b>Sollen die Vorschaubilder wirklich neu sortiert werden?</b></"
+"p><p>Durch das Ziehen der Bilder in der Vorschauansicht können Sie diese neu "
+"sortieren. Die ist nützlich, falls Sie das genaue Datum der Bilder nicht "
+"kennen. Auf der anderen Seite, wenn die Bilder einen gültigen Zeitstempel "
+"haben sollten Sie <b>Bilder -&gt; Ausgewählte Bilder nach Datum und Zeit "
+"sortieren</b> benutzen.</p>"
+
+#: ThumbnailView/ThumbnailDND.cpp:96
+msgid "Reorder Thumbnails"
+msgstr "Vorschaubilder neuordnen"
+
+#: ThumbnailView/ThumbnailBuilder.cpp:30
+msgid "Generating thumbnails"
+msgstr "Vorschaubilder werden erzeugt"
+
+#~ msgid "**NONE**"
+#~ msgstr "**Keine**"
+
+#~ msgid "Read File Info"
+#~ msgstr "Dateiinfo lesen"
+
+#~ msgid "Show File List"
+#~ msgstr "Dateiliste anzeigen"
+
+#~ msgid ""
+#~ "<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></"
+#~ "center></b></p>"
+#~ msgstr ""
+#~ "<p><b><center><font size=\"+3\">Dateiinfo einlesen<br/>%1 ausgewählt</"
+#~ "font></center></b></p>"
+
+#~ msgid ""
+#~ "<p><b>%1 files</b> are affected by this operation, their filenames can be "
+#~ "seen in the list below.</p>"
+#~ msgstr ""
+#~ "<p><b>%1 Dateien</b> werden durch diese Operation geändert. Ihre "
+#~ "Dateinamen können in der Liste unten betrachtet werden.</p>"
+
+#~ msgid "Files affected"
+#~ msgstr "Betroffene Dateien"
+
+#~ msgid "1 Image"
+#~ msgid_plural "%1 Images"
+#~ msgstr[0] "1 Bild"
+#~ msgstr[1] "%1 Bilder"
+
+#~ msgid "1 Movie"
+#~ msgid_plural "%1 Movies"
+#~ msgstr[0] "1 Film"
+#~ msgstr[1] "%1 Filme"
+
+#~ msgid "What"
+#~ msgstr "Was"
+
+#~ msgid "1 Category"
+#~ msgid_plural "%1 Categories"
+#~ msgstr[0] "1 Kategorie"
+#~ msgstr[1] "%1 Kategorien"
+
+#~ msgid "Show thumbnails on dark background"
+#~ msgstr "Vorschau auf schwarzem Hintergrund anzeigen"
+
+#~ msgid ""
+#~ "<p>The background color in the thumbnail view is the systems' default "
+#~ "background; by checking this option, you can set it to be dark instead.</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p>Die Farbe des Hintergrunds in der Vorschauansicht ist die "
+#~ "Standardhintergrundfarbe des Systems. Wenn Sie diese Option setzen, wird "
+#~ "sie stattdessen auf Schwarz gesetzt.</p>"
+
+#~ msgid "Welcome to KPhotoAlbum"
+#~ msgstr "Willkommen bei KPhotoAlbum"
+
+#~ msgid "List View with Custom Icons"
+#~ msgstr "Listenansicht mit angepassten Symbolen"
+
+#~ msgid "Icon View with Custom Icons"
+#~ msgstr "Symbolansicht mit angepassten Symbolen"
+
+#~ msgid "&OK"
+#~ msgstr "&OK"
+
+#~ msgid "Failed"
+#~ msgstr "Fehlgeschlagen"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Untested"
+#~ msgstr "Nicht getestet"
+
+#~ msgid "<h1><b>Error Loading Video</font></b></h1>"
+#~ msgstr "<h1><b>Fehler beim Laden des Videos</font></b></h1>"
+
+#~ msgid "<tr><td>Finding mime type for file</td><td>%1</td><tr>"
+#~ msgstr "<tr><td>Suche die Dateizuordnung für die Datei </td><td>%1</td><tr>"
+
+#~ msgid "<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>"
+#~ msgstr ""
+#~ "<tr><td>Lade einen KPart für die Dateizuordnung </td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Getting a library for the part</tr><td>%1</td></tr>"
+#~ msgstr "<tr><td>Lade eine Bibliothek für den KPart </tr><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Instantiating Part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Initialisierie KPart </td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Fetching Widget from part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Hole die Bedienelemente aus dem KPart</td><td>%1</td></tr>"
+
+#~ msgid "Unable to show video %1"
+#~ msgstr "Das Video „%1“ kann nicht angezeigt werden."
+
+#~ msgid "Show More Help"
+#~ msgstr "Weitere Hilfe anzeigen"

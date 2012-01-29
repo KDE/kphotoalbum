@@ -1,0 +1,4379 @@
+# translation of kphotoalbum.po to Estonian
+# Copyright (C) 2003, 2008 Free Software Foundation, Inc.
+#
+# Marek Laane <bald@starman.ee>, 2003-2008.
+# Marek Laane <bald@smail.ee>, 2008-2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kphotoalbum\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-10-26 06:48+0100\n"
+"PO-Revision-Date: 2009-10-27 17:20+0200\n"
+"Last-Translator: Marek Laane <bald@smail.ee>\n"
+"Language-Team: Estonian <kde-et@linux.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: DB/ImageSearchInfo.cpp:173
+#, kde-format
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "%1 - puudub"
+
+#: DB/ImageSearchInfo.cpp:176 AnnotationDialog/ListSelect.cpp:78
+msgid "and"
+msgstr "ja"
+
+#: DB/ImageSearchInfo.cpp:181 AnnotationDialog/ListSelect.cpp:77
+msgid "or"
+msgstr "või"
+
+#: DB/ImageSearchInfo.cpp:182
+msgid "not"
+msgstr "mitte"
+
+#: DB/ImageSearchInfo.cpp:186
+#, kde-format
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "%1 - rohkem pole"
+
+#: DB/ImageInfoList.cpp:81
+msgid ""
+"<p>You are about to sort a set of thumbnails with others in between.<br /"
+">This might result in an unexpected sort order.<br /><p>Are you sure you "
+"want to continue?</p>"
+msgstr ""
+"<p>Kavatsed sortida valiku pilte, kuid nende vahel on ka teisi.<br />Selle "
+"tulemuseks võib olla ootamatu järjekord.<br /><p>Kas tahad ikka kindlasti "
+"jätkata?</p>"
+
+#: DB/ImageInfoList.cpp:83
+msgid "Sort Thumbnails?"
+msgstr "Kas sortida pisipildid?"
+
+#: DB/NewImageFinder.cpp:168
+msgid ""
+"<p><b>Loading information from new files</b></p><p>Depending on the number "
+"of images, this may take some time.<br/>However, there is only a delay when "
+"new images are found.</p>"
+msgstr ""
+"<p><b>Uute failide info laadimine</b></p><p>Sõltuvalt piltide arvust võib "
+"selleks kuluda tükk aega,<br/>kuid ainult sel juhul, kui leitakse uusi pilte."
+"</p>"
+
+#: DB/NewImageFinder.cpp:245
+#, kde-format
+msgid ""
+"<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum for "
+"each image KPhotoAlbum is capable of finding images even when you have moved "
+"them on the disk.</p>"
+msgstr ""
+"<p><b>%1 faili kontrollsumma arvutamine</b></p><p>Iga pildi kontrollsummat "
+"salvestades suudab KPhotoAlbum leida pildi isegi siis, kui oled selle "
+"kettalt eemaldanud.</p>"
+
+#: DB/NewImageFinder.cpp:290
+msgid "Following files could not be read:"
+msgstr "Järgmiste failide lugemine nurjus:"
+
+#: DB/ImageDB.cpp:217
+msgid "Loading information from images"
+msgstr "Info laadimine piltidest"
+
+#: DB/ImageDB.cpp:218
+msgid "Cancel"
+msgstr "Loobu"
+
+#: DB/ImageDate.cpp:343
+msgid "jan"
+msgstr "jaan"
+
+#: DB/ImageDate.cpp:343
+msgid "feb"
+msgstr "veebr"
+
+#: DB/ImageDate.cpp:343
+msgid "mar"
+msgstr "märts"
+
+#: DB/ImageDate.cpp:343
+msgid "apr"
+msgstr "apr"
+
+#: DB/ImageDate.cpp:343
+msgid "may"
+msgstr "mai"
+
+#: DB/ImageDate.cpp:343
+msgid "jun"
+msgstr "juuni"
+
+#: DB/ImageDate.cpp:344
+msgid "jul"
+msgstr "juuli"
+
+#: DB/ImageDate.cpp:344
+msgid "aug"
+msgstr "aug"
+
+#: DB/ImageDate.cpp:344
+msgid "sep"
+msgstr "sept"
+
+#: DB/ImageDate.cpp:344
+msgid "oct"
+msgstr "okt"
+
+#: DB/ImageDate.cpp:344
+msgid "nov"
+msgstr "nov"
+
+#: DB/ImageDate.cpp:344
+msgid "dec"
+msgstr "dets"
+
+#: DB/Category.cpp:139 DB/Category.cpp:147 XMLDB/FileReader.cpp:348
+msgid "People"
+msgstr "Inimesed"
+
+#: DB/Category.cpp:140 DB/Category.cpp:148 XMLDB/FileReader.cpp:349
+msgid "Places"
+msgstr "Kohad"
+
+#: DB/Category.cpp:141 XMLDB/FileReader.cpp:350
+msgid "Events"
+msgstr "Sündmused"
+
+#: DB/Category.cpp:142
+msgid "Folder"
+msgstr "Kataloog"
+
+#: DB/Category.cpp:143
+msgid "Tokens"
+msgstr "Märgised"
+
+#: DB/Category.cpp:144
+msgid "Media Type"
+msgstr "Andmekandja tüüp"
+
+#: DB/Category.cpp:149
+msgid "Keywords"
+msgstr "Võtmesõnad"
+
+#: DB/Category.cpp:196
+#, kde-format
+msgid "Unable to create directory '%1'."
+msgstr "Kataloogi '%1' loomine nurjus."
+
+#: DB/Category.cpp:196
+msgid "Unable to Create Directory"
+msgstr "Kataloogi loomine nurjus"
+
+#: DB/Category.cpp:203
+#, kde-format
+msgid "Error when saving image '%1'."
+msgstr "Viga pildi '%1' salvestamisel."
+
+#: DB/Category.cpp:203
+msgid "Error Saving Image"
+msgstr "Viga pildi salvestamisel"
+
+#: Exif/Database.cpp:77
+#, kde-format
+msgid ""
+"<p>There was an error while executing the SQL backend command. The error is "
+"likely due to a broken database file.</p><p>To fix this problem run "
+"Maintainance->Rebuild EXIF database.</p><hr/><p>For debugging: the command "
+"that was attempted to be executed was:<br/>%1</p><p>The error message "
+"obtained was:<br/>%2</p>"
+msgstr ""
+"<p>SQL-i taustaprogrammi käsu täitmisel tekkis viga. Viga oli arvatavasti "
+"tingitud vigasest andmebaasifailist.</p><p>Probleemi lahendamiseks vali "
+"Hooldus->Loo EXIF-i andmebaas uuesti.</p><hr/><p>Silumise huvides prooviti "
+"kasutada käsku:<br/>%1</p><p>Saadud veateade oli:<br/>%2</p>"
+
+#: Exif/Database.cpp:85
+msgid "Error Executing Exif Command"
+msgstr "Viga EXIF-i käsu täitmisel"
+
+#: Exif/Database.cpp:308
+msgid "Rereading EXIF information from all images"
+msgstr "EXIF-info uuestulugemine kõigist piltidest"
+
+#: Exif/SearchDialog.cpp:37 Browser/OverviewPage.cpp:229
+msgid "EXIF Search"
+msgstr "EXIF-otsing"
+
+#: Exif/SearchDialog.cpp:42 Settings/SettingsDialog.cpp:91
+msgid "Settings"
+msgstr "Seadistused"
+
+#: Exif/SearchDialog.cpp:62
+msgid "Aperture Value"
+msgstr "Ava läbimõõt"
+
+#: Exif/SearchDialog.cpp:63
+msgid "F Number"
+msgstr "F-arv"
+
+#: Exif/SearchDialog.cpp:66
+msgid "Focal Length"
+msgstr "Fookuskaugus"
+
+#: Exif/SearchDialog.cpp:70
+msgid "to"
+msgstr "kuni"
+
+#: Exif/SearchDialog.cpp:76
+msgctxt "This is millimeter for focal length, like 35mm"
+msgid "mm"
+msgstr "mm"
+
+#: Exif/SearchDialog.cpp:92
+msgid "Camera"
+msgstr "Kaamera"
+
+#: Exif/SearchDialog.cpp:97
+msgid "Miscellaneous"
+msgstr "Muud"
+
+#: Exif/SearchDialog.cpp:118
+msgid "Iso setting"
+msgstr "ISO"
+
+#: Exif/SearchDialog.cpp:123
+msgctxt "Example 1.6 secs (as in seconds)"
+msgid "secs."
+msgstr " sek"
+
+#: Exif/SearchDialog.cpp:162
+msgid "1 second"
+msgstr "1 sek"
+
+#: Exif/SearchDialog.cpp:179
+msgid "Exposure time"
+msgstr "Säriaeg"
+
+#: Exif/SearchDialog.cpp:222
+msgid "Exposure Program"
+msgstr "Särimeetod"
+
+#: Exif/SearchDialog.cpp:223
+msgid "Not defined"
+msgstr "Määramata"
+
+#: Exif/SearchDialog.cpp:224
+msgid "Manual"
+msgstr "Käsitsi"
+
+#: Exif/SearchDialog.cpp:225
+msgid "Normal program"
+msgstr "Normaalne"
+
+#: Exif/SearchDialog.cpp:226
+msgid "Aperture priority"
+msgstr "Ava läbimõõdu prioriteet"
+
+#: Exif/SearchDialog.cpp:227
+msgid "Shutter priority"
+msgstr "Säritusaja prioriteet"
+
+#: Exif/SearchDialog.cpp:228
+msgid "Creative program (biased toward depth of field)"
+msgstr "Loov programm (nihe suurema säritusaja poole)"
+
+#: Exif/SearchDialog.cpp:229
+msgid "Action program (biased toward fast shutter speed)"
+msgstr "Tegevusprogramm (nihe suurema säritusaja poole)"
+
+#: Exif/SearchDialog.cpp:230
+msgid "Portrait mode (for closeup photos with the background out of focus)"
+msgstr "Püstpaigutusrežiim (lähifotodele, millel taust pole fookuses)"
+
+#: Exif/SearchDialog.cpp:231
+msgid "Landscape mode (for landscape photos with the background in focus)"
+msgstr "Rõhtpaigutusrežiim (maastikufotodele, millel fookuses taust)"
+
+#: Exif/SearchDialog.cpp:237 ImportExport/MD5CheckPage.cpp:59
+msgid "Orientation"
+msgstr "Orientatsioon"
+
+#: Exif/SearchDialog.cpp:238
+msgid "Not rotated"
+msgstr "Pööramata"
+
+#: Exif/SearchDialog.cpp:239
+msgid "Rotated counterclockwise"
+msgstr "Pööra vastupäeva"
+
+#: Exif/SearchDialog.cpp:240
+msgid "Rotated clockwise"
+msgstr "Pööratud päripäeva"
+
+#: Exif/SearchDialog.cpp:241
+msgid "Rotated 180 degrees"
+msgstr "Pööratud 180 kraadi"
+
+#: Exif/SearchDialog.cpp:247
+msgid "Metering Mode"
+msgstr "Mõõterežiim"
+
+#: Exif/SearchDialog.cpp:248
+msgid "Unknown"
+msgstr "Teadmata"
+
+#: Exif/SearchDialog.cpp:249
+msgid "Average"
+msgstr "Keskmine"
+
+#: Exif/SearchDialog.cpp:250
+msgid "CenterWeightedAverage"
+msgstr "Tsentrirõhuga keskmine"
+
+#: Exif/SearchDialog.cpp:251
+msgid "Spot"
+msgstr "Laik"
+
+#: Exif/SearchDialog.cpp:252
+msgid "MultiSpot"
+msgstr "Multilaik"
+
+#: Exif/SearchDialog.cpp:253
+msgid "Pattern"
+msgstr "Muster"
+
+#: Exif/SearchDialog.cpp:254
+msgid "Partial"
+msgstr "Osaline"
+
+#: Exif/SearchDialog.cpp:255
+msgid "Other"
+msgstr "Muu"
+
+#: Exif/SearchDialog.cpp:261
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: Exif/SearchDialog.cpp:262 Exif/SearchDialog.cpp:271
+#: Exif/SearchDialog.cpp:280
+msgid "Normal"
+msgstr "Normaalne"
+
+#: Exif/SearchDialog.cpp:263 Exif/SearchDialog.cpp:272
+msgid "Soft"
+msgstr "Mahe"
+
+#: Exif/SearchDialog.cpp:264 Exif/SearchDialog.cpp:273
+msgid "Hard"
+msgstr "Kõva"
+
+#: Exif/SearchDialog.cpp:270
+msgid "Sharpness"
+msgstr "Teravus"
+
+#: Exif/SearchDialog.cpp:279
+msgid "Saturation"
+msgstr "Küllastus"
+
+#: Exif/SearchDialog.cpp:281
+msgid "Low"
+msgstr "Madal"
+
+#: Exif/SearchDialog.cpp:282
+msgid "High"
+msgstr "Kõrge"
+
+#: Exif/SearchDialog.cpp:334
+msgid "No cameras found in the database"
+msgstr "Andmebaasist ei leitud kaameraid"
+
+#: Exif/ReReadDialog.cpp:34
+msgid "Read EXIF info from files"
+msgstr "Loe EXIF-info failidest"
+
+#: Exif/ReReadDialog.cpp:41
+msgid "Update EXIF search database"
+msgstr "EXIF-otsingu andmebaasi uuendamine"
+
+#: Exif/ReReadDialog.cpp:47
+msgid "Update image date"
+msgstr "Pildi kuupäeva uuendamine"
+
+#: Exif/ReReadDialog.cpp:50
+msgid "Use modification date if EXIF not found"
+msgstr "Muutmise kuupäeva kasutamine, kui EXIF-it ei leita"
+
+#: Exif/ReReadDialog.cpp:53
+msgid "Update image orientation from EXIF information"
+msgstr "Pildi orientatsiooni uuendamine EXIF-info põhjal"
+
+#: Exif/ReReadDialog.cpp:56
+msgid "Update image description from EXIF information"
+msgstr "Pildi kirjelduse uuendamine EXIF-info põhjal"
+
+#: Exif/ReReadDialog.cpp:59
+msgid "Affected Files"
+msgstr "Mõjutatud failid"
+
+#: Exif/ReReadDialog.cpp:112
+msgid ""
+"<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
+"have previously entered manually using the image configuration dialog.</p>"
+msgstr ""
+"<p>Arvesta, et EXIF-i andmete kasutamine võib <b>üle kirjutada</b> andmed, "
+"mida oled varem käsitsi sisestanud piltide seadistamise dialoogis.</p>"
+
+#: Exif/ReReadDialog.cpp:115
+msgid "Override image dates"
+msgstr "Piltide kuupäevade tühistamine"
+
+#: Exif/InfoDialog.cpp:41
+msgid "EXIF Information"
+msgstr "EXIF-info"
+
+#: Exif/InfoDialog.cpp:74
+msgid "Current EXIF Label Search: "
+msgstr "Aktiivne EXIF-sildi otsing: "
+
+#: Exif/InfoDialog.cpp:88
+msgid "IPTC character set:"
+msgstr "IPTC kodeering:"
+
+#: Exif/InfoDialog.cpp:107
+msgid "<No Search>"
+msgstr "<Otsing puudub>"
+
+#: SQLDB/SQLSettingsWidget.cpp:258
+msgid "Database driver:"
+msgstr "Andmebaasidraiver:"
+
+#: SQLDB/SQLSettingsWidget.cpp:259
+msgid "Database file:"
+msgstr "Andmebaasifail:"
+
+#: SQLDB/SQLSettingsWidget.cpp:260
+msgid "KPhotoAlbum database files (*.db)"
+msgstr "KPhotoAlbumi andmebaasifailid (*.db)"
+
+#: SQLDB/SQLSettingsWidget.cpp:261
+msgid "Server address:"
+msgstr "Serveri aadress:"
+
+#: SQLDB/SQLSettingsWidget.cpp:262
+msgid "Server port:"
+msgstr "Serveri port:"
+
+#: SQLDB/SQLSettingsWidget.cpp:263
+msgid "Default"
+msgstr "Vaikimisi"
+
+#: SQLDB/SQLSettingsWidget.cpp:264
+msgid "Database name:"
+msgstr "Andmebaasi nimi:"
+
+#: SQLDB/SQLSettingsWidget.cpp:265
+msgid "Username:"
+msgstr "Kasutajanimi:"
+
+#: SQLDB/SQLSettingsWidget.cpp:266
+msgid "Password:"
+msgstr "Parool:"
+
+#: SQLDB/SQLSettingsWidget.cpp:301
+msgid "No SQL database drivers found."
+msgstr "Ühtegi SQL andmebaasidraiverit ei leitud."
+
+#: SQLDB/SQLSettingsWidget.cpp:305
+msgid "Invalid driver."
+msgstr "Vigane draiver."
+
+#: SQLDB/DriverManager.cpp:67
+#, kde-format
+msgid "Database driver not found: %1"
+msgstr "Andmebaasidraiverit ei leitud: %1"
+
+#: SQLDB/DriverManager.cpp:86
+#, kde-format
+msgid "Unknown or unsupported database driver: %1"
+msgstr "Tundmatu või toetamata andmebaasidraiver: %1"
+
+#: SQLDB/DatabaseInitialization.cpp:137
+msgid "Database schema is incompatible."
+msgstr "Andmebaasi skeem ei ole ühilduv."
+
+#: XMLDB/Database.cpp:619
+#, kde-format
+msgid ""
+"<p>Unknown tag %1, while reading configuration file.</p><p>Expected one of: "
+"Options, Drawings</p>"
+msgstr ""
+"<p>Tundmatu silt %1 seadistustefaili lugemisel.</p><p>Oodati Options, "
+"Drawings</p>"
+
+#: XMLDB/NumberedBackup.cpp:40
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Viga zip-faili %1 loomisel"
+
+#: XMLDB/FileWriter.cpp:66
+#, kde-format
+msgid "Could not open file '%1'."
+msgstr "Faili '%1' avamine nurjus."
+
+#: XMLDB/FileReader.cpp:80
+#, kde-format
+msgid "Error in file %1: unexpected element: '%2'"
+msgstr "Viga failis %1: ootamatu element: '%2'"
+
+#: XMLDB/FileReader.cpp:86
+#, kde-format
+msgid "Unable to find 'Options' tag in configuration file %1."
+msgstr "Sildi 'Options' avamine seadistustefailis %1 nurjus."
+
+#: XMLDB/FileReader.cpp:88
+#, kde-format
+msgid "Unable to find 'Images' tag in configuration file %1."
+msgstr "Sildi 'Images' leidmine seadistustefailis %1 nurjus."
+
+#: XMLDB/FileReader.cpp:263
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p>You can then select "
+"the images that you have reason to believe have a correct date in either "
+"their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</"
+"b> to reread the information.</p><p>Finally, once all images have their "
+"dates set, you can execute <b>Images->Sort Selected by Date & Time</b> to "
+"sort them in the database.</p>"
+msgstr ""
+"<p>Sinu pildid/videod pole sorditud, mis tähendab, et liikumine kuupäevariba "
+"abil ei pruugi just eriti hästi õnnestuda.</p><p>Menüüs <b>Hooldus</b> leiad "
+"käsu <b>Näita ebatäieliku kuupäevaga pilte</b>, mida kasutades saad leida "
+"pildid, millel kuupäevainfo puudub.</p><p>Seejärel võid valida pildid, "
+"millel sinu arvates peaks olema kuupäev kas EXIF-andmetes või otse failis "
+"ning lugeda selle info uuesti sisse käsuga <b>Hooldus -> Loe EXIF-info</b>.</"
+"p><p>Kui lõpuks on kõigil piltidel kuupäev olemas, saad neid andmebaasis "
+"sortida käsuga <b>Pildid -> Sorteeri valitud kuupäeva ja kellaaja järgi</b>."
+"</p>"
+
+#: XMLDB/FileReader.cpp:273
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>You also do not have EXIF "
+"support available, which means that you cannot read image dates from JPEG "
+"metadata. It is strongly recommended to recompile KPhotoAlbum with the "
+"<code>exiv2</code> library. After you have done so, you will be asked what "
+"to do to correct all the missing information.</p>"
+msgstr ""
+"<p>Sinu pildid/videod pole sorditud, mis tähendab, et liikumine kuupäevariba "
+"abil ei pruugi just eriti hästi õnnestuda.</p><p>Kasutada ei saa ka EXIF-i "
+"toetust, mis tähendab, et sa ei saa JPEG-failide metaandmetest lugeda "
+"piltide andmeid. Äärmiselt soovitatav on kompileerida KPhotoAlbum uuesti "
+"teegiga <code>exiv2</code>. Pärast seda päritakse sinu käest, mida ette "
+"võtta puuduva teabe korrigeerimiseks.</p>"
+
+#: XMLDB/FileReader.cpp:280
+msgid "Images/Videos Are Not Sorted"
+msgstr "Pildid/videod pole sorditud"
+
+#: XMLDB/FileReader.cpp:295
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Mitte kõigil andmebaasis leiduvatel piltidel pole infot suuruse kohta, "
+"seda on aga vaja pisipildivaates parimate tulemuste saavutamiseks. Selle "
+"parandamiseks ava menüü <b>Hooldus</b> ning vali seal esmalt <b>Eemalda kõik "
+"pisipildid</b> ja seejärel <b>Tekita pisipildid</b>.</p><p>Kui sa seda ei "
+"tee, tekib pisipildivaates piltide ümber lihtsalt tühja ruumi. Kui see sind "
+"ei häiri, siis ei pruugi sa ka midagi ette võtta.</p>"
+
+#: XMLDB/FileReader.cpp:300
+msgid "Not All Images Have Size Information"
+msgstr "Kõigil piltidel pole suuruseinfot"
+
+#: XMLDB/FileReader.cpp:310
+msgid ""
+"<p>The index.xml file read was from an older version of KPhotoAlbum. "
+"KPhotoAlbum read the old format without problems, but to be able to convert "
+"back to KimDaBa 2.1 format, you need to run the current KPhotoAlbum using "
+"the flag <b>export-in-2.1-format</b>, and then save.</p>"
+msgstr ""
+"<p>Fail index.xml on pärit KPhotoAlbumi vanemast versioonist. KPhotoAlbum "
+"loeb vana vormingut probleemideta, kuid selleks, et teisendada tagasi "
+"KimDaBa 2.1 vormingusse, tuleb praegune KPhotoAlbum käivitada võtmega "
+"<b>export-in-2.1-format</b> ja seejärel salvestada.</p>"
+
+#: XMLDB/FileReader.cpp:314
+msgid "Old File Format read"
+msgstr "Vana failivorming"
+
+#: XMLDB/FileReader.cpp:335
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation directory.</p><p>If you for example ran "
+"configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>KPhotoAlbum ei suutnud laadida vaikeseadistust, mis osutab paigaldusveale."
+"</p><p>Kui paigaldasid KPhotoAlbumi lähtekoodist ise, siis jätsid ehk "
+"andmata keskkonnamuutuja <b>KDEDIRS</b> või ei määranud seda viitama "
+"paigalduse baaskataloogile.</p><p>Kui näiteks konfigureerid võtmega <b>-"
+"prefix=/usr/local/kde</b>, tuleb keskkonnamuutuja määrata nii (Bashi ja "
+"sellega ühilduvate shellide korral):</p><p><b>export KDEDIRS=/usr/local/kde</"
+"b></p><p>Kui KDEDIRS on juba seatud, lisa lihtsalt string, nagu määraksid "
+"keskkonnamuutujat <b>PATH</b></p>"
+
+#: XMLDB/FileReader.cpp:342
+msgid "No default setup file found"
+msgstr "Vaikimisi seadistusfaili ei leitud"
+
+#: XMLDB/FileReader.cpp:359
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "'%1' avamine lugemiseks nurjus"
+
+#: XMLDB/FileReader.cpp:359 Utilities/Util.cpp:256 Utilities/Util.cpp:270
+#: Utilities/Util.cpp:288 Utilities/Util.cpp:305
+msgid "Error Running Demo"
+msgstr "Viga demo käivitamisel"
+
+#: XMLDB/FileReader.cpp:368
+#, kde-format
+msgid "Error on line %1 column %2 in file %3: %4"
+msgstr "Viga real %1 veerus %2 failis %3: %4"
+
+#: XMLDB/FileReader.cpp:376
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Viga failis %1: ühtegi elementi ei leitud"
+
+#: XMLDB/FileReader.cpp:382
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr "Viga failis %1: oodati ülemelementi 'KPhotoAlbum', aga leiti '%2'"
+
+#: Plugins/CategoryImageCollection.cpp:35 Browser/AbstractCategoryModel.cpp:46
+#: MainWindow/StatisticsDialog.cpp:112
+msgid "None"
+msgstr "Puudub"
+
+#: Plugins/Interface.cpp:97
+#, kde-format
+msgid ""
+"<p>Image needs to be placed in a sub directory of your photo album, which is "
+"rooted at %1. Image path was %2</p>"
+msgstr ""
+"<p>Pilt tuleb asetada omaette alamkataloogi fotoalbumi piltide andmebaasis, "
+"mille baaskataloogi asukoht on %1. Pildi asukoht oli %2</p>"
+
+#: Plugins/ImageCollection.cpp:44
+msgid "unknown (Selection)"
+msgstr "tundmatu (valik)"
+
+#: Plugins/ImageCollection.cpp:47
+msgid " (Selection)"
+msgstr " (valik)"
+
+#: Plugins/ImageCollection.cpp:52 Plugins/ImageCollection.cpp:55
+msgid "unknown"
+msgstr "tundmatu"
+
+#: Plugins/ImageCollection.cpp:59
+msgid "none"
+msgstr "puudub"
+
+#: Browser/Breadcrumb.cpp:36 MainWindow/StatisticsDialog.cpp:150
+msgid "All"
+msgstr "Kõik"
+
+#: Browser/OverviewPage.cpp:132
+msgid "Exif Info"
+msgstr "EXIF-info"
+
+#: Browser/OverviewPage.cpp:143 AnnotationDialog/Dialog.cpp:493
+msgid "Search"
+msgstr "Otsi"
+
+#: Browser/OverviewPage.cpp:152 Settings/UntaggedGroupBox.cpp:12
+msgid "Untagged Images"
+msgstr "Sildistamata pildid"
+
+#: Browser/OverviewPage.cpp:162
+msgid "Show Thumbnails"
+msgstr "Näita pisipilte"
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Search did not match any images or videos."
+msgstr "Otsing ei leidnud ühtegi sobivat pilti või videod."
+
+#: Browser/OverviewPage.cpp:225 Browser/OverviewPage.cpp:248
+msgid "Empty Search Result"
+msgstr "Tühi otsingutulemus"
+
+#: Browser/OverviewPage.cpp:252
+msgid "search"
+msgstr "otsi"
+
+#: Browser/OverviewPage.cpp:276
+msgid ""
+"<p>You have not yet configured which tag to use for indicating untagged "
+"images.</p><p>Please follow these steps to do so:<ul><li>In the menu bar "
+"choose <b>Settings</b></li><li>From there choose <b>Configure KPhotoAlbum</"
+"b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
+"section <b>Untagged Images</b></li></ul></p>"
+msgstr ""
+"<p>Sa ei ole veel määranud, millist silti kasutada sildistamata piltide "
+"jaoks.</p><p>Palun võta ette järgmised sammud:<ul><li>Vali menüüribal "
+"<b>Seadistused</b></li><li>Vali menüüst <b>KPhotoAlbumi seadistamine</b></"
+"li><li>Nüüd vali <b>Kategooriad</b> icon</li><li>Nüüd vali seadistus "
+"sektsioonis <b>Sildistamata pildid</b></li></ul></p>"
+
+#: Browser/OverviewPage.cpp:282
+msgid "Features has not been configured"
+msgstr "Omadusi pole veel seadistatud"
+
+#: Browser/AbstractCategoryModel.cpp:48
+msgid "No other"
+msgstr "Rohkem pole"
+
+#: Browser/AbstractCategoryModel.cpp:51
+msgid "Video"
+msgstr "Video"
+
+#: Browser/AbstractCategoryModel.cpp:53
+msgid "Image"
+msgstr "Pilt"
+
+#: Browser/AbstractCategoryModel.cpp:100
+#, kde-format
+msgid "1 image"
+msgid_plural "%1 images"
+msgstr[0] "1 pilt"
+msgstr[1] "%1 pilti"
+
+#: Browser/AbstractCategoryModel.cpp:101
+#, kde-format
+msgid "1 video"
+msgid_plural "%1 videos"
+msgstr[0] "1 video"
+msgstr[1] "%1 videot"
+
+#. i18n: file: kphotoalbumui.rc:76
+#. i18n: ectx: Menu (imagesplugins)
+#: Browser/AbstractCategoryModel.cpp:138 rc.cpp:21
+msgid "Images"
+msgstr "Pildid"
+
+#: Browser/AbstractCategoryModel.cpp:139
+msgid "Videos"
+msgstr "Videod"
+
+#: Viewer/ImageDisplay.cpp:342
+#, kde-format
+msgid "[ zoom x%1 ]"
+msgstr "[ suurendus x%1 ]"
+
+#: Viewer/CategoryImageConfig.cpp:42
+msgid "Configure Category Image"
+msgstr "Kategooria pildi seadistamine"
+
+#: Viewer/CategoryImageConfig.cpp:44
+msgid "Set"
+msgstr "Määra"
+
+#: Viewer/CategoryImageConfig.cpp:54
+msgid "Group:"
+msgstr "Grupp:"
+
+#: Viewer/CategoryImageConfig.cpp:61
+msgid "Member:"
+msgstr "Liige:"
+
+#: Viewer/CategoryImageConfig.cpp:70
+msgid "Current image:"
+msgstr "Aktiivne pilt:"
+
+#: Viewer/CategoryImageConfig.cpp:78
+msgid "New image:"
+msgstr "Uus pilt:"
+
+#: Viewer/VisibleOptionsMenu.cpp:16
+msgid "Show..."
+msgstr "Näita..."
+
+#: Viewer/VisibleOptionsMenu.cpp:19
+msgid "Show"
+msgstr "Näita"
+
+#: Viewer/VisibleOptionsMenu.cpp:23
+msgid "Show Info Box"
+msgstr "Näita infokasti"
+
+#: Viewer/VisibleOptionsMenu.cpp:29
+msgid "Show Label"
+msgstr "Näita silti"
+
+#: Viewer/VisibleOptionsMenu.cpp:35
+msgid "Show Description"
+msgstr "Näita kirjeldust"
+
+#: Viewer/VisibleOptionsMenu.cpp:41
+msgid "Show Date"
+msgstr "Näita kuupäeva"
+
+#: Viewer/VisibleOptionsMenu.cpp:46
+msgid "Show Time"
+msgstr "Näita aega"
+
+#: Viewer/VisibleOptionsMenu.cpp:51
+msgid "Show Filename"
+msgstr "Näita failinime"
+
+#: Viewer/VisibleOptionsMenu.cpp:56
+msgid "Show EXIF"
+msgstr "Näita EXIF-infot"
+
+#: Viewer/VisibleOptionsMenu.cpp:61
+msgid "Show Image Size"
+msgstr "Näita pildi suurust"
+
+#: Viewer/VideoDisplay.cpp:195
+msgid "Error playing media"
+msgstr "Viga andmekandja esitamisel"
+
+#: Viewer/SpeedDisplay.cpp:46
+#, kde-format
+msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:52
+msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
+msgstr ""
+"<p><center><font size=\"+4\">Slaidiseansi alustamine</font></center></p>"
+
+#: Viewer/SpeedDisplay.cpp:72
+msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgstr ""
+"<p><center><font size=\"+4\">Slaidiseansi lõpetamine</font></center></p>"
+
+#: Viewer/ViewerWidget.cpp:141
+msgid "Annotate..."
+msgstr "Annoteeri..."
+
+#: Viewer/ViewerWidget.cpp:146 MainWindow/Window.cpp:683
+msgid "Set as First Image in Stack"
+msgstr "Määra pinu esimeseks pildiks"
+
+#: Viewer/ViewerWidget.cpp:152
+msgid "Show EXIF Viewer"
+msgstr "Näita EXIF-infot"
+
+#: Viewer/ViewerWidget.cpp:157 ImportExport/MiniViewer.cpp:69
+msgid "Close"
+msgstr "Sulge"
+
+#: Viewer/ViewerWidget.cpp:181
+msgid "Set as Wallpaper"
+msgstr "Sea taustapildiks"
+
+#: Viewer/ViewerWidget.cpp:184
+msgid "Centered"
+msgstr "Tsentreeritud"
+
+#: Viewer/ViewerWidget.cpp:188
+msgid "Tiled"
+msgstr "Paanidena"
+
+#: Viewer/ViewerWidget.cpp:192
+msgid "Center Tiled"
+msgstr "Tsentreeritud paanidena"
+
+#: Viewer/ViewerWidget.cpp:196
+msgid "Centered Maxpect"
+msgstr "Tsentreeritud maksimaalsena"
+
+#: Viewer/ViewerWidget.cpp:200
+msgid "Tiled Maxpect"
+msgstr "Paanidena maksimaalselt"
+
+#: Viewer/ViewerWidget.cpp:204
+msgid "Scaled"
+msgstr "Skaleeritud"
+
+#: Viewer/ViewerWidget.cpp:208
+msgid "Centered Auto Fit"
+msgstr "Tsentreeritud automaatsobitusega"
+
+#: Viewer/ViewerWidget.cpp:225
+msgid "Rotate"
+msgstr "Pööra"
+
+#: Viewer/ViewerWidget.cpp:228 AnnotationDialog/ImagePreviewWidget.cpp:59
+#: AnnotationDialog/Dialog.cpp:872 MainWindow/Window.cpp:692
+msgid "Rotate clockwise"
+msgstr "Pööra päripäeva"
+
+#: Viewer/ViewerWidget.cpp:233
+msgid "Flip Over"
+msgstr "Pööra pea peale"
+
+#: Viewer/ViewerWidget.cpp:238 AnnotationDialog/ImagePreviewWidget.cpp:53
+#: AnnotationDialog/Dialog.cpp:869 MainWindow/Window.cpp:687
+msgid "Rotate counterclockwise"
+msgstr "Pööra vastupäeva"
+
+#: Viewer/ViewerWidget.cpp:248
+msgid "Skip"
+msgstr "Jäta vahele"
+
+#: Viewer/ViewerWidget.cpp:251
+msgid "First"
+msgstr "Esimene"
+
+#: Viewer/ViewerWidget.cpp:257
+msgid "Last"
+msgstr "Viimane"
+
+#: Viewer/ViewerWidget.cpp:263
+msgid "Show Next"
+msgstr "Näita järgmist"
+
+#: Viewer/ViewerWidget.cpp:273
+msgid "Skip 10 Forward"
+msgstr "Hüppa 10 edasi"
+
+#: Viewer/ViewerWidget.cpp:279
+msgid "Skip 100 Forward"
+msgstr "Hüppa 100 edasi"
+
+#: Viewer/ViewerWidget.cpp:285
+msgid "Skip 1000 Forward"
+msgstr "Hüppa 1000 edasi"
+
+#: Viewer/ViewerWidget.cpp:291
+msgid "Show Previous"
+msgstr "Näita eelmist"
+
+#: Viewer/ViewerWidget.cpp:297
+msgid "Skip 10 Backward"
+msgstr "Hüppa 10 tagasi"
+
+#: Viewer/ViewerWidget.cpp:303
+msgid "Skip 100 Backward"
+msgstr "Hüppa 100 tagasi"
+
+#: Viewer/ViewerWidget.cpp:309
+msgid "Skip 1000 Backward"
+msgstr "Hüppa 1000 tagasi"
+
+#: Viewer/ViewerWidget.cpp:315
+msgid "Remove Image from Display List"
+msgstr "Eemalda pilt nimekirjast"
+
+#: Viewer/ViewerWidget.cpp:325
+msgid "Zoom"
+msgstr "Suurendus"
+
+#: Viewer/ViewerWidget.cpp:329
+msgid "Zoom In"
+msgstr "Suurenda"
+
+#: Viewer/ViewerWidget.cpp:334
+msgid "Zoom Out"
+msgstr "Vähenda"
+
+#: Viewer/ViewerWidget.cpp:339
+msgid "Full View"
+msgstr "Täielik vaade"
+
+#: Viewer/ViewerWidget.cpp:344
+msgid "Pixel for Pixel View"
+msgstr "Loomuliku suuruse vaade"
+
+#: Viewer/ViewerWidget.cpp:349
+msgid "Toggle Full Screen"
+msgstr "Lülitu täisekraani"
+
+#: Viewer/ViewerWidget.cpp:360
+msgid "Slideshow"
+msgstr "Slaidiseanss"
+
+#: Viewer/ViewerWidget.cpp:363 Viewer/ViewerWidget.cpp:769
+msgid "Run Slideshow"
+msgstr "Käivita slaidiseanss"
+
+#: Viewer/ViewerWidget.cpp:368
+msgid "Run Faster"
+msgstr "Kiiremini"
+
+#: Viewer/ViewerWidget.cpp:373
+msgid "Run Slower"
+msgstr "Aeglasemalt"
+
+#: Viewer/ViewerWidget.cpp:407
+msgid "File not available"
+msgstr "Fail pole kättesaadav"
+
+#: Viewer/ViewerWidget.cpp:463
+msgid "Play"
+msgstr "Esita"
+
+#: Viewer/ViewerWidget.cpp:465
+msgid "Pause"
+msgstr "Paus"
+
+#: Viewer/ViewerWidget.cpp:775
+msgid "Stop Slideshow"
+msgstr "Peata slaidiseanss"
+
+#: Viewer/ViewerWidget.cpp:994
+msgid "Seek"
+msgstr "Liikumine"
+
+#: Viewer/ViewerWidget.cpp:998
+msgid "10 minutes backward"
+msgstr "10 minutit tagasi"
+
+#: Viewer/ViewerWidget.cpp:999
+msgid "1 minute backward"
+msgstr "1 minut tagasi"
+
+#: Viewer/ViewerWidget.cpp:1000
+msgid "10 seconds backward"
+msgstr "10 sekundit tagasi"
+
+#: Viewer/ViewerWidget.cpp:1001
+msgid "1 seconds backward"
+msgstr "1 sekund tagasi"
+
+#: Viewer/ViewerWidget.cpp:1002
+msgid "100 milliseconds backward"
+msgstr "100 millisekundit tagasi"
+
+#: Viewer/ViewerWidget.cpp:1003
+msgid "100 milliseconds forward"
+msgstr "100 millisekundit edasi"
+
+#: Viewer/ViewerWidget.cpp:1004
+msgid "1 seconds forward"
+msgstr "1 sekund edasi"
+
+#: Viewer/ViewerWidget.cpp:1005
+msgid "10 seconds forward"
+msgstr "10 sekundit edasi"
+
+#: Viewer/ViewerWidget.cpp:1006
+msgid "1 minute forward"
+msgstr "1 minut edasi"
+
+#: Viewer/ViewerWidget.cpp:1007
+msgid "10 minutes forward"
+msgstr "10 minutit edasi"
+
+#: Viewer/ViewerWidget.cpp:1030
+msgid "Stop"
+msgstr "Peata"
+
+#: Viewer/ViewerWidget.cpp:1036
+msgid "Toggle playback"
+msgstr "Taasesituse lülitamine"
+
+#: Viewer/ViewerWidget.cpp:1041
+msgid "Restart"
+msgstr "Käivita uuesti"
+
+#: DateBar/ViewHandler.cpp:129
+msgid "1 Year"
+msgstr "1 aasta"
+
+#: DateBar/ViewHandler.cpp:161
+msgid "1 Month"
+msgstr "1 kuu"
+
+#: DateBar/ViewHandler.cpp:201
+msgid "1 Week"
+msgstr "1 nädal"
+
+#: DateBar/ViewHandler.cpp:229
+msgid "1 Day"
+msgstr "1 päev"
+
+#: DateBar/ViewHandler.cpp:272
+msgid "2 Hours"
+msgstr "2 tundi"
+
+#: DateBar/ViewHandler.cpp:308
+msgid "10 Minutes"
+msgstr "10 minutit"
+
+#: DateBar/DateBarWidget.cpp:81
+msgid "Widen selection to include all images and videos again"
+msgstr "Valiku laiendamine kõigi piltide/videode hõlmamiseks"
+
+#: DateBar/DateBarWidget.cpp:511
+msgid "Show Ranges"
+msgstr "Näita vahemikku"
+
+#: DateBar/DateBarWidget.cpp:517
+msgid "Show Resolution Indicator"
+msgstr "Näita lahutuse indikaatorit"
+
+#: DateBar/DateBarWidget.cpp:635
+#, kde-format
+msgid "%1 exact + %2 ranges = %3 total"
+msgstr "%1 täpne + %2 vahemikku = %3 kokku"
+
+#: DateBar/DateBarWidget.cpp:637
+#, kde-format
+msgid "%1 images/videos"
+msgstr "%1 pilti/videod"
+
+#: DateBar/DateBarWidget.cpp:639
+#, kde-format
+msgid "%1 | %2"
+msgstr "%1 | %2"
+
+#: main.cpp:38
+msgid "KPhotoAlbum"
+msgstr "KPhotoAlbum"
+
+#: main.cpp:39
+msgid "KDE Photo Album"
+msgstr "KDE fotoalbum"
+
+#: main.cpp:41
+msgid "Jesper K. Pedersen"
+msgstr "Jesper K. Pedersen"
+
+#: main.cpp:41 main.cpp:42 main.cpp:43 main.cpp:45 main.cpp:46
+msgid "Development"
+msgstr "Arendus"
+
+#: main.cpp:42
+msgid "Hassan Ibraheem"
+msgstr "Hassan Ibraheem"
+
+#: main.cpp:43
+msgid "Miika Turkia"
+msgstr "Miika Turkia"
+
+#: main.cpp:44
+msgid "Tuomas Suutari"
+msgstr "Tuomas Suutari"
+
+#: main.cpp:44
+msgid "SQL backend and numerous features"
+msgstr "SQL taustaprogramm ja arvukad muud asjad"
+
+#: main.cpp:45
+msgid "Jan Kundrat"
+msgstr "Jan Kundrat"
+
+#: main.cpp:46
+msgid "Henner Zeller"
+msgstr "Henner Zeller"
+
+#: main.cpp:49
+msgid "Will Stephenson"
+msgstr "Will Stephenson"
+
+#: main.cpp:49
+msgid "Developing an Icon for KPhotoAlbum"
+msgstr "KPhotoAlbumi ikooni arendamine"
+
+#: main.cpp:50
+msgid "Teemu Rytilahti"
+msgstr "Teemu Rytilahti"
+
+#: main.cpp:51
+msgid ""
+"Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+"(.) Theme support for HTML generation"
+msgstr ""
+"Paigad, mis teostasid taustapildiks määramise menüü näitajas ning teemade "
+"toetuse HTML-i genereerimisel"
+
+#: main.cpp:53
+msgid "Reimar Imhof"
+msgstr "Reimar Imhof"
+
+#: main.cpp:53
+msgid "Patch to sort items in option listboxes"
+msgstr "Elementide sortimise paik valikukastides"
+
+#: main.cpp:54
+msgid "Thomas Schwarzgruber"
+msgstr "Thomas Schwarzgruber"
+
+#: main.cpp:54
+msgid ""
+"Patch to sort images in the thumbnail view, plus reading time info out of "
+"EXIF images for existing images"
+msgstr ""
+"Paik piltide sortimiseks pisipildivaates ning ajainfo lugemine piltide EXIF-"
+"infost"
+
+#: main.cpp:55
+msgid "Marcel Wiesweg"
+msgstr "Marcel Wiesweg"
+
+#: main.cpp:55
+msgid ""
+"Patch which speed up loading of thumbnails plus preview in image property "
+"dialog."
+msgstr ""
+"Paik, mis kiirendab pisipiltide laadimist ning eelvaatlus pildi omaduste "
+"dialoogis."
+
+#: main.cpp:56
+msgid "Marco Caldarelli"
+msgstr "Marco Caldarelli"
+
+#: main.cpp:56
+msgid "Patch for making it possible to reread EXIF info using a nice dialog."
+msgstr "Paik, mis võimaldab EXIF-infot uuesti lugeda kena dialoogi vahendusel."
+
+#: main.cpp:57
+msgid "Jean-Michel FAYARD"
+msgstr "Jean-Michel FAYARD"
+
+#: main.cpp:57
+msgid ""
+"(.) Patch with directory info made available through the browser. (.) Patch "
+"for adding a check box for \"and/or\" searches in the search page."
+msgstr ""
+"Paik, mis muudab kataloogiinfo kättesaadavaks brauseri vahendusel, ning paik "
+"märkekasti lisamiseks ja/või-otsingutele otsingudialoogis."
+
+#: main.cpp:58
+msgid "Robert L Krawitz"
+msgstr "Robert L Krawitz"
+
+#: main.cpp:58
+msgid "Numerous patches plus profiling KPhotoAlbum again and again."
+msgstr "Arvukad paigad ja KPhotoAlbumi lakkamatu profileerimine."
+
+#: main.cpp:59
+msgid "Christoph Moseler"
+msgstr "Christoph Moseler"
+
+#: main.cpp:59
+msgid "Numerous patches for lots of bugs plus patches for a few new features"
+msgstr "Arvukad paigad paljudele vigadele ja mitmele uuele omadusele"
+
+#: main.cpp:60
+msgid "Clytie Siddall"
+msgstr "Clytie Siddall"
+
+#: main.cpp:60
+msgid "Tremendous help with the English text in the application."
+msgstr "Tohutu abi rakenduse ingliskeelse tekstiga."
+
+#: main.cpp:65
+msgid "Config file"
+msgstr "Seadistustefail"
+
+#: main.cpp:66
+msgid "Database engine to use"
+msgstr "Kasutatav andmebaasi mootor"
+
+#: main.cpp:67
+msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+msgstr "Käivitab KPhotoAlbumi eelnevalt määratud demopiltide valikuga"
+
+#: main.cpp:68
+msgid "Import file"
+msgstr "Impordib faili"
+
+#: main.cpp:69
+msgid ""
+"This will make an attempt at saving in a format understandable by KimDaBa 2.1"
+msgstr "Sellega üritatakse salvestada vormingus, mida mõistab ka KimDaBa 2.1"
+
+#: ImportExport/KimFileReader.cpp:18
+#, kde-format
+msgid "Unable to open '%1' for reading."
+msgstr "'%1' avamine lugemiseks nurjus."
+
+#: ImportExport/KimFileReader.cpp:18
+msgid "Error Importing Data"
+msgstr "Viga andmete importimisel"
+
+#: ImportExport/KimFileReader.cpp:26
+#, kde-format
+msgid ""
+"Error reading directory contents of file %1; it is likely that the file is "
+"broken."
+msgstr "Viga faili %1 kataloogi sisu lugemisel. Tõenäoliselt on fail katki."
+
+#: ImportExport/KimFileReader.cpp:40
+#, kde-format
+msgid ""
+"Error reading index.xml file from %1; it is likely that the file is broken."
+msgstr ""
+"Viga faili index.xml lugemisel (asukoht %1). Tõenäoliselt on fail katki."
+
+#: ImportExport/KimFileReader.cpp:60
+msgid ""
+"Thumbnail item in export file was not a directory, this indicates that the "
+"file is broken."
+msgstr ""
+"Eksportfaili element Thumbnail ei ole kataloog, mis näitab, et fail on katki."
+
+#: ImportExport/KimFileReader.cpp:70
+#, kde-format
+msgid "No thumbnail existed in export file for %1"
+msgstr "Eksportfailis puudus %1 jaoks pisipilt"
+
+#: ImportExport/KimFileReader.cpp:85
+msgid ""
+"export file did not contain a Images subdirectory, this indicates that the "
+"file is broken"
+msgstr "eksportfailis puudub alamkataloog Images, mis näitab, et fail on katki"
+
+#: ImportExport/KimFileReader.cpp:90
+msgid ""
+"Images item in export file was not a directory, this indicates that the file "
+"is broken"
+msgstr ""
+"eksportfaili element Images ei ole kataloog, mis näitab, et fail on katki"
+
+#: ImportExport/KimFileReader.cpp:98
+#, kde-format
+msgid "No image existed in export file for %1"
+msgstr "Eksportfailis puudus %1 jaoks pilt"
+
+#: ImportExport/ImportDialog.cpp:82
+#, kde-format
+msgid "Error in file %1 on line %2 col %3: %4"
+msgstr "Viga failis %1 real %2 veerus %3: %4"
+
+#: ImportExport/ImportDialog.cpp:89
+#, kde-format
+msgid ""
+"Unexpected top element while reading file %1. Expected KPhotoAlbum-export "
+"found %2"
+msgstr ""
+"Ootamatu tippelement faili %1 lugemisel. Oodati elementi KPhotoAlbum-export, "
+"leiti %2"
+
+#: ImportExport/ImportDialog.cpp:97
+msgid ""
+"<p>XML file did not specify the source of the images, this is a strong "
+"indication that the file is corrupted</p>"
+msgstr ""
+"<p>XML-fail ei määra piltide allikat, mis osutab üsna kindlasti sellele, et "
+"fail on katki</p>"
+
+#: ImportExport/ImportDialog.cpp:109
+#, kde-format
+msgid "Unknown element while reading %1, expected image."
+msgstr "Tundmatu element %1 lugemisel, oodati pilti."
+
+#: ImportExport/ImportDialog.cpp:133
+msgid ""
+"<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
+"will take you through the steps of an import operation. The steps are: "
+"<ol><li>First you must select which images you want to import from the "
+"export file. You do so by selecting the checkbox next to the image.</"
+"li><li>Next you must tell KPhotoAlbum in which directory to put the images. "
+"This directory must of course be below the directory root KPhotoAlbum uses "
+"for images. KPhotoAlbum will take care to avoid name clashes</li><li>The "
+"next step is to specify which categories you want to import (People, "
+"Places, ... ) and also tell KPhotoAlbum how to match the categories from the "
+"file to your categories. Imagine you load from a file, where a category is "
+"called <b>Blomst</b> (which is the Danish word for flower), then you would "
+"likely want to match this with your category, which might be called "
+"<b>Blume</b> (which is the German word for flower) - of course given you are "
+"German.</li><li>The final steps, is matching the individual tokens from the "
+"categories. I may call myself <b>Jesper</b> in my image database, while you "
+"want to call me by my full name, namely <b>Jesper K. Pedersen</b>. In this "
+"step non matches will be highlighted in red, so you can see which tokens was "
+"not found in your database, or which tokens was only a partial match.</li></"
+"ol>"
+msgstr ""
+"<h1><font size=\"+2\">Tere tulemast kasutama KPhotoAlbumi impordinõustajat</"
+"font></h1>See aitab sul mõne lihtsa sammuga importimine teoks teha. Sammud "
+"on järgmised: <ol><li>Kõigepealt tuleb valida, milliseid pilte soovid üldse "
+"importida. Selleks märgi pildi kõrval asuv kastike.</li><li>Seejärel tuleb "
+"KPhotoAlbumile teada anda, kuhu pildid importida. Kataloog peab mõistagi "
+"asuma hierarhias selle kataloogi sees, kus KPhotoAlbum pilte hoiab. "
+"KPhotoAlbum kannab hoolt, et ei tekiks nimekonflikte.</li><li>Siis tuleb "
+"määrata, millised kategooriad importida (isikud, asukohad ... ), samuti teha "
+"KPhotoAlbumile selgeks, kuidas seada faili kategooriad vastavusse sinu "
+"määratud kategooriatega. Oletame, et tegemist on pildiga, mille kategooriaks "
+"on <b>Flower</b> (inglise keeles 'lill'). Sellisel juhul tuleks see ilmselt "
+"sobitada kategooriaga, mille nimi on <b>Lill</b> - seda muidugi juhul, kui "
+"soovid, et see ikka oleks eesti keeles.</li><li>Lõpuks tuleb sobitada "
+"konkreetsed kategooriate sümbolid. Mina võin ju enda kohta kasutada nime "
+"<b>Jesper</b> oma piltide andmebaasis, sina aga võid soovida pruukida minu "
+"täisnime <b>Jesper K. Pedersen</b>. Sellel sammul on veel sobitamata kirjed "
+"näidatud punaselt, nii on väga hõlpus aru saada, milliseid sümboleid ei ole "
+"sinu andmebaasist leitud või millised ainult osaliselt sobivad.</li></ol>"
+
+#: ImportExport/ImportDialog.cpp:152
+msgid "Introduction"
+msgstr "Sissejuhatus"
+
+#: ImportExport/ImportDialog.cpp:168 MainWindow/TokenEditor.cpp:63
+msgid "Select All"
+msgstr "Vali kõik"
+
+#: ImportExport/ImportDialog.cpp:170
+msgid "Deselect All"
+msgstr "Tühista kõigi valimine"
+
+#: ImportExport/ImportDialog.cpp:205
+msgid "Select Which Images to Import"
+msgstr "Imporditavate piltide valik"
+
+#: ImportExport/ImportDialog.cpp:217
+msgid "Destination of images: "
+msgstr "Piltide sihtkoht:"
+
+#: ImportExport/ImportDialog.cpp:231
+msgid "Destination of Images"
+msgstr "Piltide sihtkoht"
+
+#: ImportExport/ImportDialog.cpp:239
+#, kde-format
+msgid "The directory must be a subdirectory of %1"
+msgstr "See kataloog peab olema %1 alamkataloog"
+
+#: ImportExport/ImportDialog.cpp:281
+msgid "Match Categories"
+msgstr "Kategooriate sobitamine"
+
+#: ImportExport/ImportDialog.cpp:313
+#, kde-format
+msgid "Directory %1 does not exist. Should it be created?"
+msgstr "Kataloogi %1 ei ole olemas. Kas luua see?"
+
+#: ImportExport/ImportDialog.cpp:317
+#, kde-format
+msgid "Error creating directory %1"
+msgstr "Viga kataloogi %1 loomisel"
+
+#: ImportExport/ImportDialog.cpp:403
+msgid "How to resolve clashes"
+msgstr "Kuidas lahendada konfliktid"
+
+#: ImportExport/Import.cpp:46
+msgid "Unable to create temporary file"
+msgstr "Ajutise faili loomine nurjus"
+
+#: ImportExport/Export.cpp:72
+msgid "Export Configuration / Copy Images"
+msgstr "Piltide ekspordi/kopeerimise seadistused"
+
+#: ImportExport/Export.cpp:80
+msgid "How to Handle Images"
+msgstr "Kuidas pilte käsitleda"
+
+#: ImportExport/Export.cpp:84
+msgid "Include in .kim file"
+msgstr "Kaasamine .kim-faili"
+
+#: ImportExport/Export.cpp:85
+msgid "Manual copy next to .kim file"
+msgstr "Käsitsi kopeerimine .kim-faili"
+
+#: ImportExport/Export.cpp:86
+msgid "Automatically copy next to .kim file"
+msgstr "Automaatne kopeerimine .kim-faili"
+
+#: ImportExport/Export.cpp:87
+msgid "Hard link next to .kim file"
+msgstr "Otseviit .kim-failile"
+
+#: ImportExport/Export.cpp:96
+msgid "Compress export file"
+msgstr "Eksportfail tihendatakse"
+
+#: ImportExport/Export.cpp:100
+msgid "Generate thumbnails"
+msgstr "Pisipiltide tekitamine"
+
+#: ImportExport/Export.cpp:108
+msgid "Limit maximum image dimensions to: "
+msgstr "Piltide maks. mõõtmed: "
+
+#: ImportExport/Export.cpp:120
+msgid ""
+"<p>If your images are stored in a non-compressed file format then you may "
+"check this; otherwise, this just wastes time during import and export "
+"operations.</p><p>In other words, do not check this if your images are "
+"stored in jpg, png or gif; but do check this if your images are stored in "
+"tiff.</p>"
+msgstr ""
+"<p>Kui sinu pildid on salvestatud tihendamata failivormingus, võid selle ära "
+"märkida, vastasel juhul suurendab see lihtsalt importimisele ja "
+"eksportimisele kuluvat aega.</p><p>See tähendab, et kui sinu piltide vorming "
+"on jpg, png või gif, ära seda märgi, aga kui tiff, siis tasuks märkida küll."
+"</p>"
+
+#: ImportExport/Export.cpp:126
+msgid "<p>Generate thumbnail images</p>"
+msgstr "<p>Pisipiltide tekitamine</p>"
+
+#: ImportExport/Export.cpp:129
+msgid ""
+"<p>With this option you may limit the maximum dimensions (width and height) "
+"of your images. Doing so will make the resulting export file smaller, but "
+"will of course also make the quality worse if someone wants to see the "
+"exported images with larger dimensions.</p>"
+msgstr ""
+"<p>Selle võimalusega saab piirata piltide maksimaalseid mõõtmeid (laius või "
+"kõrgus). Nii on võimalik eksportfaili mahtu vähendada, kuid mõistagi muutub "
+"kvaliteet kesisemaks, kui hiljem soovib keegi neid pilte suuremana näha.</p>"
+
+#: ImportExport/Export.cpp:136
+msgid ""
+"<p>When exporting images, bear in mind that there are two things the person "
+"importing these images again will need:<br/>1) meta information (image "
+"content, date etc.)<br/>2) the images themselves.</p><p>The images "
+"themselves can either be placed next to the .kim file, or copied into the ."
+"kim file. Copying the images into the .kim file works well for a recipient "
+"who wants all, or most of those images, for example when emailing a whole "
+"group of images. However, when you place the images on the Web, a lot of "
+"people will see them but most likely only download a few of them. It works "
+"better in this kind of case, to separate the images and the .kim file, by "
+"place them next to each other, so the user can access the images s/he wants."
+"</p>"
+msgstr ""
+"<p>Piltide eksportimisel on kaks asja, mida pilte importiv isik vajab:<br/"
+">1) metainfo (kes on pildil, millal see on tehtud jne.)<br/>2) pilt ise.</"
+"p><p>Pilte võib lisada .kim-failile või siis .kim-faili kopeerida. Piltide "
+"kopeerimine .kim-faili oleks mõttekas, kui näiteks soovid saata pildid e-"
+"postiga kellelegi, kes ilmselt soovib kõiki pilte näha. Kui aga paned pildid "
+"näiteks veebi ja neid vaatab arvatavasti küll palju inimesi, aga ainult "
+"mõningaid laaditakse alla, siis on mõttekam pildid .kim-failile lisada, et "
+"pildisoovija ei peaks kõiki pilte alla laadima (sest just seda peab ta ühe "
+"suuri faili korral tegema).</p>"
+
+#: ImportExport/Export.cpp:189
+msgid "Error creating zip file"
+msgstr "Viga zip-faili loomisel"
+
+#: ImportExport/Export.cpp:202 ImportExport/ImportHandler.cpp:66
+#: ImportExport/ImportHandler.cpp:118
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: ImportExport/Export.cpp:219
+msgid "Creating index file"
+msgstr "Indeksifaili loomine"
+
+#: ImportExport/Export.cpp:234
+msgid "Creating thumbnails"
+msgstr "Pisipiltide tekitamine"
+
+#: ImportExport/Export.cpp:256
+msgid "Copying image files"
+msgstr "Pildifailide kopeerimine"
+
+#: ImportExport/Export.cpp:320
+#, kde-format
+msgid "Error writing file %1"
+msgstr "Viga faili %1 kirjutamisel"
+
+#: ImportExport/Export.cpp:350
+msgid ""
+"<p>Other KPhotoAlbum users may now load the import file into their database, "
+"by choosing <b>import</b> in the file menu.</p><p>If they find it on a web "
+"site, and the web server is correctly configured, all they need to do is "
+"simply to click it from within konqueror. To enable this, your web server "
+"needs to be configured for KPhotoAlbum. You do so by adding the following "
+"line to <b>/etc/httpd/mime.types</b> or similar:<pre>application/vnd.kde."
+"kphotoalbum-import kim</pre>This will make your web server tell konqueror "
+"that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
+"server will just tell konqueror that it is a plain text file.</p>"
+msgstr ""
+"<p>Teised KPhotoAlbumi kasutajad võivad nüüd laadida importfaili oma "
+"andmebaasi, valides failimenüüst käsu <b>import</b>.</p><p>Kui nad leiavad "
+"selle veebileheküljel ja veebiserver on korrektselt seadistatud, on lihtsalt "
+"vaja sellel Konqueroris klõpsata. Selleks peab veebiserver olema "
+"KPhotoAlbumi tarbeks seadistatud. Seda saab teha, kui lisada järgnev rida "
+"failile <b>/etc/httpd/mime.types</b>:<pre>application/vnd.kde.kphotoalbum-"
+"import kim</pre>See paneb sinu veebiserveri Konquerorile teatama, et viidale "
+"klõpsates on tegemist KPhotoAlbumi failiga, vastasel juhul teatab "
+"veebiserver, et tegemist on tavalise tekstifailiga.</p>"
+
+#: ImportExport/Export.cpp:359
+msgid "How to Use the Export File"
+msgstr "Kuidas eksportfaili kasutada"
+
+#: ImportExport/ImportHandler.cpp:66 ImportExport/ImportHandler.cpp:118
+msgid "Copying Images"
+msgstr "Piltide kopeerimine"
+
+#: ImportExport/ImportHandler.cpp:132
+#, kde-format
+msgid "Error when writing image %1"
+msgstr "Viga pildi %1 salvestamisel"
+
+#: ImportExport/ImportHandler.cpp:151
+msgid "Updating Database"
+msgstr "Andmebaasi uuendamine"
+
+#: ImportExport/ImportHandler.cpp:180
+msgid "Cannot copy from any of the following locations:"
+msgstr "Kopeerimine järgmistest asukohtadest nurjus:"
+
+#: ImportExport/ImportHandler.cpp:181
+msgid "Continue without Asking"
+msgstr "Jätka küsimusi esitamata"
+
+#: ImportExport/ImportMatcher.cpp:45
+msgid "Key in file"
+msgstr "Võti failis"
+
+#: ImportExport/ImportMatcher.cpp:56
+msgid "Key in your database"
+msgstr "Võti sinu andmebaasis"
+
+#: ImportExport/MD5CheckPage.cpp:32
+#, kde-format
+msgid ""
+"One image from the import file, has the same MD5 sum as an image in the "
+"Database, how should that be resolved?"
+msgid_plural ""
+"%1 images from the import file, have the same MD5 sum as images in the "
+"Database, how should that be resolved?"
+msgstr[0] ""
+"Ühel importfaili pildil on sama MD5 kontrollsumma nagu andmebaasi pildil. "
+"Kuidas probleem lahendada?"
+msgstr[1] ""
+"%1 importfaili pildil on sama MD5 kontrollsumma nagu andmebaasi piltidel. "
+"Kuidas probleem lahendada?"
+
+#: ImportExport/MD5CheckPage.cpp:47
+msgid ""
+"Use data from\n"
+"Import File"
+msgstr ""
+"Importfaili andmete\n"
+"kasutamine"
+
+#: ImportExport/MD5CheckPage.cpp:50
+msgid ""
+"Use data from\n"
+"Database"
+msgstr ""
+"Andmebaasi andmete\n"
+"kasutamine"
+
+#: ImportExport/MD5CheckPage.cpp:53
+msgid "Merge data"
+msgstr "Andmete ühendamine"
+
+#: ImportExport/MD5CheckPage.cpp:57
+msgid "Label"
+msgstr "Pealdis"
+
+#: ImportExport/MD5CheckPage.cpp:58 AnnotationDialog/Dialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:108
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: ImportExport/MD5CheckPage.cpp:60
+msgid "Date and Time"
+msgstr "Kuupäev ja kellaaeg"
+
+#: tips.cc:3
+msgid ""
+"<p>On KPhotoAlbum's home page (http://www.kphotoalbum.org/) you may see a "
+"few videos featuring a number of\n"
+"different KPhotoAlbum features.</p>\n"
+msgstr ""
+"<p>KPhotoAlbumi koduleheküljel (http://www.kphotoalbum.org/) võib vaadata "
+"mitut videot\n"
+"KPhotoAlbumi erinevate omaduste kohta.</p>\n"
+
+#: tips.cc:9
+msgid ""
+"<p>It is possible to create new categories - that are alternatives\n"
+"to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation\n"
+"dialog. \n"
+"To add new categories or remove existing ones, go to the <b>Settings-&gt;"
+"Configure KPhotoAlbum</b> dialog, and choose\n"
+"<b>Categories</b> in the side bar.</p>\n"
+msgstr ""
+"<p>Võimalik on luua uusi kategooriaid ehk siis lisandusi pildi omaduste\n"
+"leheküljel pakutavatele gruppidele <b>Inimesed</b>, <b>Kohad</b> ja\n"
+"<b>Võtmesõnad</b>. Selleks ava dialoog <b>Seadistused->KPhotoAlbumi \n"
+"seadistamine</b>, vali külgribal <b>Kategooriad</b> ja saadki lisada uusi \n"
+"või kustutada olemasolevaid gruppe.</p>\n"
+
+#: tips.cc:18
+msgid ""
+"<p>You may rename or delete a person, location, keyword or similar by\n"
+"right-clicking on the item in the image property dialog.</p>\n"
+msgstr ""
+"<p>Inimese, koha, võtmesõna või millegi muu saab ümber nimetada või\n"
+"kustutada, kui klõpsata elemendil pildi omaduste dialoogis hiire parema "
+"nupuga.</p>\n"
+
+#: tips.cc:24
+msgid ""
+"<p>When generating HTML you must specify a base directory for\n"
+"the images. Here you can specify any <a\n"
+"href=\"help:/kioslave/index.html\">protocol</a> supported by KDE, like ftp "
+"or\n"
+"fish.</p>\n"
+"<p>Examples:\n"
+"<ul>\n"
+"  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
+"  <li> fish://someserver/home/foo/images (upload using ssh)\n"
+"  <li> smb://someserver/c/images (upload to a Windows share)\n"
+"</ul>\n"
+"</p>\n"
+msgstr ""
+"<p>Eksportimisel HTML-i tuleb määrata piltide baaskataloog. Siin\n"
+"on võimalik määrata iga <a\n"
+"href=\"help:/kioslave/index.html\">protokoll</a>,\n"
+"mida KDE toetab, näiteks FTP või Fish.</p>\n"
+"<p>Näited:\n"
+"<ul>\n"
+"  <li> ftp://mingiserver/minu-ruum-serveris/pildid (üleslaadimine FTP-ga)\n"
+"  <li> fish://mingiserver/home/mingikataloog/pildid (üleslaadimine ssh-ga)\n"
+"  <li> smb://mingiserver/c/pildid (üleslaadimine Windowsi jagatud "
+"ressursile)\n"
+"</ul>\n"
+"</p>\n"
+
+#: tips.cc:39
+msgid ""
+"<p>When you bring new images to your collection, you might not have time\n"
+"right away to categorize them (i.e. specify People, Places,\n"
+"etc.). Therefore, you might later want to find those images which have not\n"
+"yet been categorized. Here is what I do.</p> \n"
+"<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've\n"
+"categorized them (i.e. just like you may have a keyword for <b>Summer\n"
+"Party</b> or <b>Interrail trip 1990</b>, you now have a keyword\n"
+"<b>OK</b>). To find uncategorized images, I choose the\n"
+"<b>Search</b> item from the browser, and in the keywords field, I\n"
+"type <b>!OK</b>. This will find all images which do <b>not</b> have the\n"
+"<b>OK</b> item.\n"
+msgstr ""
+"<p>Kui lisad oma kogusse uusi pilte, ei pruugi sul alati olla parajasti\n"
+"aega neid kategoriseerida (s.t. määrata nad isikute, asukohtade jne.\n"
+"alla). Seepärast oleks hea hiljem hõlpsasti üles leida kategooriatesse\n"
+"jagamata pildid. Mina teen seda nii:</p> \n"
+"<p>Ma kasutan pilte lisades <b>võtmesõna</b> <b>OK</b>, kui olen nad\n"
+"kategoriseerinud (st. tavalise võtmesõna asemel, näiteks <b>Suvepidu</b>\n"
+"või <b>Rongireis 1990</b>, on nüüd võtmesõna <b>OK</b>). Kategooriasse\n"
+"seadmata piltide leidmiseks valin sirvijast käsu <b>Otsi</b> ja võtmesõna\n"
+"reale kirjutan <b>!OK</b>. Sel moel otsitakse üles kõik pildid, millel\n"
+"<b>ei ole</b> võtmesõna <b>OK</b>.\n"
+
+#: tips.cc:54
+msgid ""
+"<p>You can reorder images on your hard disk after having loaded them into\n"
+"KPhotoAlbum - KPhotoAlbum will still remember them, as it calculates "
+"checksums for\n"
+"the images.</p>\n"
+msgstr ""
+"<p>Pilte võib kõvakettal ümber korraldada, kui oled need KPhotoAlbumisse\n"
+"laadinud, sest KPhotoAlbum jätab need kontrollsummat arvutades meelde.</p>\n"
+
+#: tips.cc:61
+msgid ""
+"<p>If you like KPhotoAlbum, and it adds value to your daily life, please\n"
+"consider donating money to the KPhotoAlbum developer as a courtesy. See\n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+msgstr ""
+"<p>Kui KPhotoAlbum sulle meeldib ja see annab sinu elule värvi juurde,\n"
+"võiksid kaaluda tänutäheks raha annetamist KPhotoAlbumi arendajale. Vaata\n"
+"http://www.kphotoalbum.org/support.htm.\n"
+"</p>\n"
+
+#: tips.cc:69
+msgid ""
+"<p>It's possible to associate images with categories. That way when "
+"browsing, say people, you\n"
+"may get a small icon for each person with e.g. the person's face.</p>\n"
+"<p>To specify an icon for a person, load the person in the viewer, zoom to\n"
+"the part which you want to make into an icon, and choose\n"
+"<b>Show Category Editor</b>. This will bring up a dialog where you can\n"
+"find the person, and set the image.\n"
+"</p>\n"
+msgstr ""
+"<p>Pilte on võimalik seostada isikute, kohtade, võtmesõnadega jms.\n"
+"Nii võid näiteks isikute sirvimisel näha iga isiku näopilti.</p>\n"
+"<p>Isikule ikooni määramiseks lae isiku pilt vaatajasse, suurenda see\n"
+"koht, mida tahad kasutada ikoonina, ja vali <b>Näita kategooriaredaktorit</"
+"b>,\n"
+"mis avab dialoogi, kus võid leida isiku ja määrata talle pildi.\n"
+"</p>\n"
+
+#: tips.cc:80
+msgid ""
+"<p>You may close the image annotation dialog (the one where you specify\n"
+"people, places, etc. for the images) by pressing Ctrl+Enter.\n"
+"</p>\n"
+msgstr ""
+"<p>Pildi annoteerimisdialoogi (selles saab määrata kindlaks\n"
+"pildil olevaid isikuid, asukohti jne.) saab sulgeda kiirklahviga Ctrl"
+"+Enter.\n"
+"</p>\n"
+
+#: tips.cc:87
+msgid ""
+"<p>KPhotoAlbum has a mailing list at\n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an "
+"IRC\n"
+"channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>\n"
+msgstr ""
+"<p>KPhotoAlbumil on oma postiloend \n"
+"http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum \n"
+"ning IRC kanal nimega <b>#kphotoalbum</b> serveris <b>irc.kde.org</b>.</p>\n"
+
+#: tips.cc:94
+msgid ""
+"<p>You may reorder images by dragging and dropping one image onto\n"
+"another. If you drop it on the left edge, it will end up in front of\n"
+"the other, if you drop it on the right edge it will be inserted behind.</p>\n"
+"<p align=\"right\">-- Tip contributed by Eivind Kjorstad</p>\n"
+msgstr ""
+"<p>Pilte võib ümber korraldada, lohistades üht pilti teise peale.\n"
+"Kui kukutad pildi teise pildi vasakule servale, jääb see selle ette,\n"
+"kui paremale servale, selle taha.</p>\n"
+"<p align=\"right\">-- Nõuande saatis Eivind Kjorstad</p>\n"
+
+#: tips.cc:102
+msgid ""
+"<p>\n"
+"On the thumbnail view, you can resize the grid to your needs just by "
+"clicking \n"
+"the middle mouse button and dragging around. On most systems you can "
+"emulate \n"
+"the middle mouse button by left and right clicking at the same time. \n"
+"</p>\n"
+"<p align=\"right\">-- Tip contributed by Rafael Beccar</p>\n"
+msgstr ""
+"<p>\n"
+"Pisipildivaates võid alusvõrgu suurust muuta endale meelepäraseks, \n"
+"klõpsates hiire keskmise nupuga ja seda lohistades. Enamasti saab \n"
+"keskmise nupu klõpsu emuleerida korraga vasakut ja paremat nuppu "
+"vajutades. \n"
+"</p>\n"
+"<p align=\"right\">-- Nõuande saatis Rafael Beccar</p>\n"
+
+#: tips.cc:112
+msgid ""
+"<p>This is the last tip. If you know any additional tips or tricks, then "
+"please\n"
+"send an email to <a href=\"mailto:blackie@kde.org\">blackie@kde.org</a>.</"
+"p>\n"
+msgstr ""
+"<p>See on nüüd viimane nõuanne. Kui tead veel mõnda nippi või nõuannet, anna "
+"sellest palun teada aadressil <a href=\"mailto:blackie@kde.org\">blackie@kde."
+"org</a>.</p>\n"
+
+#: Settings/ViewerPage.cpp:16
+msgid "Running Slide Show From Thumbnail View"
+msgstr "Slaidiseansi käivitamine pisipildivaatest"
+
+#: Settings/ViewerPage.cpp:19
+msgid "Viewing Images and Videos From Thumbnail View"
+msgstr "Piltide ja videode vaatamine pisipildivaatest"
+
+#: Settings/ViewerPage.cpp:25
+msgid "Slideshow interval:"
+msgstr "Slaidiseansi intervall:"
+
+#: Settings/ViewerPage.cpp:31
+msgid " sec"
+msgstr " sek"
+
+#: Settings/ViewerPage.cpp:34
+msgid "Image cache:"
+msgstr "Pildipuhver:"
+
+#: Settings/ViewerPage.cpp:40
+msgid " Mbytes"
+msgstr " MB"
+
+#: Settings/ViewerPage.cpp:46
+msgid "Standard size in viewer:"
+msgstr "Standardsuurus vaatajas:"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Full Viewer Size"
+msgstr "Vaataja täissuurus"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size"
+msgstr "Pildi loomulik suurus"
+
+#: Settings/ViewerPage.cpp:48
+msgid "Natural Image Size If Possible"
+msgstr "Võimaluse korral pildi loomulik suurus"
+
+#: Settings/ViewerPage.cpp:53
+msgid ""
+"<p>Set the standard size for images to be displayed in the viewer.</p> "
+"<p><b>Full Viewer Size</b> indicates that the image will be stretched or "
+"shrunk to fill the viewer window.</p> <p><b>Natural Image Size</b> indicates "
+"that the image will be displayed pixel for pixel.</p> <p><b>Natural Image "
+"Size If Possible</b> indicates that the image will be displayed pixel for "
+"pixel if it would fit the window, otherwise it will be shrunk to fit the "
+"viewer.</p>"
+msgstr ""
+"<p>Määrab piltide standardsuuruse nende näitamisel vaatajas.</p> "
+"<p><b>Vaataja täissuurus</b> tähendab, et pilti suurendatakse või "
+"vähendatakse, et see täidaks vaataja akna.</p> <p><b>Pildi loomulik suurus</"
+"b> tähendab, et pilti näidatakse loomulikus suuruses.</p> <p><b>Võimaluse "
+"korral pildi loomulik suurus</b> tähendab, et pilti näidatakse loomulikus "
+"suuruses, kui see mahub aknasse, kui aga mitte, siis kahandatakse seda, et "
+"see vaataja aknasse ära mahuks.</p>"
+
+#: Settings/ViewerPage.cpp:60
+msgid "Scaling Algorithm"
+msgstr "Skaleerimisalgoritm"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Fastest"
+msgstr "Kiireim"
+
+#: Settings/ViewerPage.cpp:62
+msgid "Best"
+msgstr "Parim"
+
+#: Settings/ViewerPage.cpp:67
+msgid ""
+"<p>When displaying images, KPhotoAlbum normally performs smooth scaling of "
+"the image. If this option is not set, KPhotoAlbum will use a faster but less "
+"smooth scaling method.</p>"
+msgstr ""
+"<p>Piltide näitamisel võtab KPhotoAlbum tavaliselt ette nende sujuva "
+"skaleerimise. Kui see valik ei ole sisse lülitatud, kasutab KPhotoAlbum "
+"kiiremat, kuid mitte nii sujuvat skaleerimismeetodit.</p>"
+
+#: Settings/ExifPage.cpp:25
+msgid "EXIF/IPTC info to show in the Viewer"
+msgstr "EXIF/IPTC info näitajas"
+
+#: Settings/ExifPage.cpp:28
+msgid "EXIF/IPTC info to show in the EXIF dialog"
+msgstr "EXIF/IPTC info EXIF-i dialoogis"
+
+#: Settings/ExifPage.cpp:31
+msgid "Character set for image metadata:"
+msgstr "Pildi metaandmete kodeering:"
+
+#: Settings/SettingsDialog.cpp:64 MainWindow/Window.cpp:1158
+msgid "General"
+msgstr "Üldine"
+
+#: Settings/SettingsDialog.cpp:65
+msgid "Thumbnail View"
+msgstr "Pisipildivaade"
+
+#: Settings/SettingsDialog.cpp:66
+msgid "Categories"
+msgstr "Kategooriad"
+
+#: Settings/SettingsDialog.cpp:67
+msgid "Subcategories"
+msgstr "Alamkategooriad"
+
+#: Settings/SettingsDialog.cpp:68 MainWindow/Window.cpp:1159
+msgid "Viewer"
+msgstr "Näitaja"
+
+#. i18n: file: kphotoalbumui.rc:66
+#. i18n: ectx: Menu (plugins)
+#: Settings/SettingsDialog.cpp:70 rc.cpp:12
+msgid "Plugins"
+msgstr "Pluginad"
+
+#: Settings/SettingsDialog.cpp:74
+msgid "EXIF/IPTC Information"
+msgstr "EXIF/IPTC-info"
+
+#: Settings/SettingsDialog.cpp:76
+msgid "Database backend"
+msgstr "Andmebaasi taustaprogramm"
+
+#: Settings/ThumbnailsPage.cpp:19
+msgid "Tooltip preview image size:"
+msgstr "Kohtspikri eelvaatluse pildi suurus:"
+
+#: Settings/ThumbnailsPage.cpp:23
+msgid "No Image Preview"
+msgstr "Piltide eelvaatluseta"
+
+#: Settings/ThumbnailsPage.cpp:29
+msgid "Thumbnail image size:"
+msgstr "Pisipildi suurus:"
+
+#: Settings/ThumbnailsPage.cpp:38
+msgid "Thumbnail table cells aspect ratio"
+msgstr "Pisipilditabeli lahtrite proportsioon"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "1:1"
+msgstr "1:1"
+
+#: Settings/ThumbnailsPage.cpp:40
+msgid "4:3"
+msgstr "4:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:2"
+msgstr "3:2"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "16:9"
+msgstr "16:9"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "3:4"
+msgstr "3:4"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "2:3"
+msgstr "2:3"
+
+#: Settings/ThumbnailsPage.cpp:41
+msgid "9:16"
+msgstr "9:16"
+
+#: Settings/ThumbnailsPage.cpp:47
+msgid "Thumbnail format"
+msgstr "Pisipildi vorming"
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "ppm"
+msgstr "ppm"
+
+#: Settings/ThumbnailsPage.cpp:49
+msgid "png"
+msgstr "png"
+
+#: Settings/ThumbnailsPage.cpp:50
+msgid "jpg"
+msgstr "jpg"
+
+#: Settings/ThumbnailsPage.cpp:56
+msgid "Space around cells"
+msgstr "Ruum lahtrite ümber"
+
+#: Settings/ThumbnailsPage.cpp:64
+msgid "Background Color"
+msgstr "Taustavärv"
+
+#: Settings/ThumbnailsPage.cpp:71
+msgid "Display grid around thumbnails"
+msgstr "Võrgustiku näitamine pisipiltide ümber"
+
+#: Settings/ThumbnailsPage.cpp:76
+msgid "Display labels in thumbnail view"
+msgstr "Pealdiste näitamine pisipildivaates"
+
+#: Settings/ThumbnailsPage.cpp:81
+msgid "Display categories in thumbnail view"
+msgstr "Kategooriate näitamine pisipildivaates"
+
+#: Settings/ThumbnailsPage.cpp:86
+msgid "Auto display limit: "
+msgstr "Automaatse esituse limiit: "
+
+#: Settings/ThumbnailsPage.cpp:90 Settings/GeneralPage.cpp:28
+msgid "Never"
+msgstr "Mitte kunagi"
+
+#: Settings/ThumbnailsPage.cpp:96
+msgid "Thumbnail screen cache:"
+msgstr "Pisipildi puhver:"
+
+#: Settings/ThumbnailsPage.cpp:112
+msgid ""
+"<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, "
+"then you will see a small tool tip window displaying information about the "
+"thumbnails. This window includes a small preview image. This option "
+"configures the image size.</p>"
+msgstr ""
+"<p>Kui valid pisipildivaates <b>Seadistused->Kohtspikrite näitamine</b>, "
+"näed pisikest kohtspikrit infoga pisipildi kohta, kaasa arvatud väga väikest "
+"eelvaatlust. See võimalus lubab pildi suurust täpsustada.</p>"
+
+#: Settings/ThumbnailsPage.cpp:119
+msgid ""
+"<p>Thumbnail image size. You may also set the size simply by dragging the "
+"thumbnail view using the middle mouse button.</p>"
+msgstr ""
+"<p>Pisipildi suurus. Suuruse võib määrata ka lihtsalt pisipildivaates hiire "
+"keskmise nupuga lohistades.</p>"
+
+#: Settings/ThumbnailsPage.cpp:123
+msgid ""
+"<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
+msgstr ""
+"<p>Siin saab valida, millise proportsiooniga on pisipilte sisaldavad lahtrid."
+"</p>"
+
+#: Settings/ThumbnailsPage.cpp:126
+msgid ""
+"<p>Choose the format used for the thumbnails images, ppm is the faster, jpg "
+"the smaller. You need to restart application for this change to take effect."
+"</p>"
+msgstr ""
+"<p>Vali, millist vormingut kasutada pisipiltide jaoks: ppm on kiireim, jpg "
+"väikseim. Muudatuse rakendamiseks tuleb rakendus taaskäivitada.</p>"
+
+#: Settings/ThumbnailsPage.cpp:130
+msgid "<p>How thick the cell padding should be.</p>"
+msgstr "<p>Kui palju ruumi jäetakse lahtrite ümber.</p>"
+
+#: Settings/ThumbnailsPage.cpp:133
+msgid "<p>Background color to use in the thumbnail viewer</p>"
+msgstr "<p>Pisipiltide näitaja taustavärv</p>"
+
+#: Settings/ThumbnailsPage.cpp:137
+msgid ""
+"<p>If you want to see grid around your thumbnail images, select this option."
+"</p>"
+msgstr "<p>Vali, kui soovid näha pisipiltide ümber võrgustikku.</p>"
+
+#: Settings/ThumbnailsPage.cpp:141
+msgid ""
+"<p>Checking this option will show the base name for the file under "
+"thumbnails in the thumbnail view.</p>"
+msgstr ""
+"<p>Selle märkimisel näidatakse pisipildivaates pisipildi all faili baasnime</"
+"p>"
+
+#: Settings/ThumbnailsPage.cpp:145
+msgid ""
+"<p>Checking this option will show the Categories for the file under "
+"thumbnails in the thumbnail view</p>"
+msgstr ""
+"<p>Selle märkimisel näidatakse pisipildivaates pisipildi all faili "
+"kategooriat</p>"
+
+#: Settings/ThumbnailsPage.cpp:149
+msgid ""
+"<p>When you are browsing, and the count gets below the value specified here, "
+"the thumbnails will be shown automatically. The alternative is to continue "
+"showing the browser until you press <i>Show Images</i></p>"
+msgstr ""
+"<p>Selle märkimisel näidatakse automaatselt pisipildivaadet, kui sinu "
+"sirvitud piltide arv ületab siin määratud väärtuse. Alternatiiv on jätkata "
+"sirvija näitamist, kuni klõpsad <i>Näita pilte</i>.</p>"
+
+#: Settings/ThumbnailsPage.cpp:155
+msgid ""
+"<p>Specify number of screens the thumbnail cache should be able to hold.</p>"
+msgstr ""
+"<p>Siin saab määrata ekraanide arvu, milles hoitakse pisipiltide puhvrit.</p>"
+
+#: Settings/ThumbnailsPage.cpp:193
+#, kde-format
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: Settings/ThumbnailsPage.cpp:194
+msgctxt "Thumbnail Cache Screens"
+msgid " Screen"
+msgid_plural " Screens"
+msgstr[0] " ekraan"
+msgstr[1] " ekraani"
+
+#: Settings/CategoryItem.cpp:120
+msgid ""
+"<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
+"renaming categories; otherwise all the filenames of the category thumbnails "
+"will be wrong, and thus lost.</p><p>So either press Cancel now (and it will "
+"not be renamed), or press Continue, and as your next step save the database."
+"</p>"
+msgstr ""
+"<p>KPhotoAlbumi probleemide tõttu tuleb andmebaas salvestada pärast "
+"kategooriate ümbernimetamist, vastasel juhul on kõigi kategooria pisipiltide "
+"failinimed valed ja lähevad kaotsi.</p><p>Seepärast loobu kas kohe "
+"(ümbernimetamist sel juhul ei toimu) või jätka ja salvesta kohe seejärel "
+"andmebaas.</p>"
+
+#: Settings/SubCategoriesPage.cpp:23 Settings/UntaggedGroupBox.cpp:19
+#: MainWindow/StatisticsDialog.cpp:99
+msgid "Category:"
+msgstr "Kategooria:"
+
+#: Settings/SubCategoriesPage.cpp:36
+msgid "Super Categories:"
+msgstr "Ülemkategooriad:"
+
+#: Settings/SubCategoriesPage.cpp:45
+msgid "Items of Category:"
+msgstr "Kategooria elemendid:"
+
+#: Settings/SubCategoriesPage.cpp:55
+msgid "Add Super Category..."
+msgstr "Lisa ülemkategooria..."
+
+#: Settings/SubCategoriesPage.cpp:57
+msgid "Rename Super Category..."
+msgstr "Nimeta ülemkategooria ümber..."
+
+#: Settings/SubCategoriesPage.cpp:59
+msgid "Delete Super Category"
+msgstr "Kustuta ülemkategooria"
+
+#: Settings/SubCategoriesPage.cpp:63
+msgid ""
+"<b>Notice:</b> It is also possible to set up subcategories in the annotation "
+"dialog, simply by dragging items."
+msgstr ""
+"<b>Märkus:</b> alamkategooriaid saab luua ka annoteerimisdialoogis lihtsalt "
+"elemente lohistades."
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "New Group"
+msgstr "Uus grupp"
+
+#: Settings/SubCategoriesPage.cpp:142 Settings/SubCategoriesPage.cpp:158
+msgid "Group name:"
+msgstr "Grupi nimi:"
+
+#: Settings/SubCategoriesPage.cpp:172
+#, kde-format
+msgid "Really delete group %1?"
+msgstr "Kas tõesti kustutada grupp %1?"
+
+#: Settings/SubCategoriesPage.cpp:172
+msgid "Delete Group"
+msgstr "Kustuta grupp"
+
+#: Settings/SubCategoriesPage.cpp:172 AnnotationDialog/ListSelect.cpp:355
+msgid "&Delete"
+msgstr "&Kustuta"
+
+#: Settings/GeneralPage.cpp:21
+msgid "New Images"
+msgstr "Uued pildid"
+
+#: Settings/GeneralPage.cpp:26
+msgid "Trust image dates:"
+msgstr "Piltide kuupäevade usaldamine:"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Always"
+msgstr "Alati"
+
+#: Settings/GeneralPage.cpp:28
+msgid "Ask"
+msgstr "Küsitakse"
+
+#: Settings/GeneralPage.cpp:35
+msgid "Use EXIF orientation information"
+msgstr "EXIF-i orientatsiooniinfo kasutamine"
+
+#: Settings/GeneralPage.cpp:37
+msgid "Use EXIF description"
+msgstr "EXIF-i kirjelduse kasutamine"
+
+#: Settings/GeneralPage.cpp:40
+msgid "Search for new images and videos on startup"
+msgstr "Uute piltide ja videode otsimine käivitumisel"
+
+#: Settings/GeneralPage.cpp:41
+msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
+msgstr "Sobiva JPEG/TIFF-faili olemasolul ei loeta toorfaile"
+
+#: Settings/GeneralPage.cpp:47
+msgid "Size of histogram columns in date bar:"
+msgstr "Histogrammikastide suurus kuupäevaribal:"
+
+#: Settings/GeneralPage.cpp:61
+msgid "Show splash screen"
+msgstr "Käivitusekraani näitamine"
+
+#: Settings/GeneralPage.cpp:65
+msgid "Category for virtual albums:"
+msgstr "Virtuaalalbumite kategooria:"
+
+#: Settings/GeneralPage.cpp:85
+msgid ""
+"<p>KPhotoAlbum will try to read the image date from EXIF information in the "
+"image. If that fails it will try to get the date from the file's time stamp."
+"</p><p>However, this information will be wrong if the image was scanned in "
+"(you want the date the image was taken, not the date of the scan).</p><p>If "
+"you only scan images, in contrast to sometimes using a digital camera, you "
+"should reply <b>no</b>. If you never scan images, you should reply <b>yes</"
+"b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
+"images are from the scanner or the camera, from session to session.</p>"
+msgstr ""
+"<p>KPhotoAlbum püüab pildi EXIF-infot välja lugeda pildi kuupäeva. Kui see "
+"nurjub, üritatakse kuupäev hankida faili ajatemplist.</p><p>See info võib "
+"aga olla vale, kui pilt on näiteks skaneeritud (sa võid ju tahta näha pildi "
+"tegemise, mitte skaneerimise kuupäeva).</p><p>Kui sa tegeled ainult piltide "
+"skaneerimisega ega kasuta reeglina digikaamerat, võid valida <b>ei</b>. Kui "
+"sa kunagi pilte ei skaneeri, peaksid valima <b>jah</b>. Lisavõimalus on "
+"valida <b>küsitakse</b>. See võimaldab sul iga kord eraldi otsustada, kas "
+"tahad seda või mitte - sõltuvalt näiteks sellest, kas pildid on pärit "
+"skännerist või kaamerast.</p>"
+
+#: Settings/GeneralPage.cpp:96
+msgid ""
+"<p>JPEG images may contain information about rotation. If you have a reason "
+"for not using this information to get a default rotation of your images, "
+"uncheck this check box.</p><p>Note: Your digital camera may not write this "
+"information into the images at all.</p>"
+msgstr ""
+"<p>JPEG-pildid võivad sisaldada pööramisinfot. Kui sul on mingi põhjus seda "
+"mitte kasutada ja sa sooovid oma piltide vaikimisi pööramist kuidagi teisiti "
+"määrata, ära seda kastikest märgi.</p><p>Märkus: sinu digikaamera ei pruugi "
+"seda infot üldse piltidesse kirjutada.</p>"
+
+#: Settings/GeneralPage.cpp:102
+msgid ""
+"<p>JPEG images may contain a description. Check this checkbox to specify if "
+"you want to use this as a default description for your images.</p>"
+msgstr ""
+"<p>JPEG-pildid võivad sisaldada kirjeldust. Kastikese märkimisega saab anda "
+"märku, kas soovid kasutada seda oma piltide vaikimisi kirjeldusena.</p>"
+
+#: Settings/GeneralPage.cpp:107
+msgid ""
+"<p>KPhotoAlbum is capable of searching for new images and videos when "
+"started, this does, however, take some time, so instead you may wish to "
+"manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
+">Rescan for new images</b></p>"
+msgstr ""
+"<p>KPhotoAlbum võib uusi pilte otsida automaatselt juba käivitumisel. See "
+"võtab küll natuke aega, nii et selle asemel võib seda lasta ka hiljem teha "
+"käsuga <b>Hooldus->Otsi uusi pilte</b></p>"
+
+#: Settings/GeneralPage.cpp:112
+msgid ""
+"<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  Some "
+"cameras store both a RAW image and a matching JPEG or TIFF image.  This "
+"causes duplicate images to be stored in KPhotoAlbum, which may be "
+"undesirable.  If this option is checked, KPhotoAlbum will not read RAW files "
+"for which matching image files also exist.</p>"
+msgstr ""
+"<p>KPhotoAlbum suudab lugeda teatud laadi toorpilte (RAW). Mõned kaamerad "
+"salvestavad nii toorpildi kui ka vastava JPEG- või TIFF-pildi. See põhjustab "
+"topeltpiltide salvestamise KPhotoAlbumi, mis ei pruugi sulle meeldida. Selle "
+"valiku märkimisel ei loe KPhotoAlbum toorfaile, kui olemas on ka vastavad "
+"pildifailid.</p>"
+
+#: Settings/GeneralPage.cpp:118
+msgid ""
+"<p>KPhotoAlbum shares plugins with other imaging applications, some of which "
+"have the concept of albums. KPhotoAlbum does not have this concept; "
+"nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
+"plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
+"current album to be the current view - that is, all the images the browser "
+"offers to display.</p><p>In addition to the current album, KPhotoAlbum must "
+"also be able to give a list of all albums; the list of all albums is defined "
+"in the following way:<ul><li>When KPhotoAlbum's browser displays the content "
+"of a category, say all People, then each item in this category will look "
+"like an album to the plugin.</li><li>Otherwise, the category you specify "
+"using this option will be used; e.g. if you specify People with this option, "
+"then KPhotoAlbum will act as if you had just chosen to display people and "
+"then invoke the plugin which needs to know about all albums.</li></ul></"
+"p><p>Most users would probably want to specify Events here.</p>"
+msgstr ""
+"<p>KPhotoAlbum kasutab pluginaid, mida pruugivad teisedki rakendused, "
+"millest mõned kasutavad albumi põhimõtet. KPhotoAlbum albumiideed ei kasuta, "
+"kuid mõningate pluginate toimimiseks on selle teesklemine siiski hädavajalik."
+"</p><p>KPhotoAlbum määrab selleks aktiivseks albumiks aktiivse vaate - seda "
+"pakuvad siis kõik pildinäitajad näha.</p><p>Lisaks aktiivsele albumile peab "
+"KPhotoAlbum ka suutma pakkuda kõigi albumite loendi. See määratakse kindlaks "
+"järgmiselt:<ul><li>Kui KPhotoAlbumi lehitseja näitab mingi kategooria sisu, "
+"olgu selleks näiteks isikud, siis iga selle kategooria elementi käsitleb "
+"plugin albumina.</li><li>Vastasel juhul kasutatakse kategooriat, mida sa "
+"antud võimalusega määrad. Nii et kui määrad siin kategooriaks 'Isikud', "
+"käitub KPhotoAlbum, nagu sa oleks valinud isikute näitamise võimaluse ja "
+"seejärel kutsunud välja plugina, mis tahab teada saada kõigi albumite loendi."
+"</li></ul></ p><p>Enamik kasutajaid võiks siin tõenäoliselt määrata "
+"sündmused.</p>"
+
+#: Settings/GeneralPage.cpp:134
+msgid "Show the KPhotoAlbum splash screen on start up"
+msgstr "KPhotoAlbumi käivitusekraani näitamine rakenduse käivitamisel"
+
+#: Settings/PluginsPage.cpp:18
+msgid "Choose Plugins to load:"
+msgstr "Laaditavad pluginad:"
+
+#: Settings/PluginsPage.cpp:24
+msgid "Delay loading plugins until the plugin menu is opened"
+msgstr "Pluginad laaditakse alles pärast pluginamenüü avamist"
+
+#: Settings/SettingsData.cpp:195
+msgid ""
+"When reading time information of images, their EXIF info is used. Exif info "
+"may, however, not be supported by your KPhotoAlbum installation, or no valid "
+"information may be in the file. As a backup, KPhotoAlbum may use the "
+"timestamp of the image - this may, however, not be valid in case the image "
+"is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
+"on your images?"
+msgstr ""
+"Piltide ajainfot lugedes kasutatakse nende EXIF-infot. Siiski võib juhtuda, "
+"et sinu KPhotoAlbumi paigaldus ei toeta EXIF-infot või ei leidu failis "
+"korrektset teavet. Varuvõimalusena võib KPhotoAlbum kasutada piltide "
+"ajatemplit, mis aga ei pruugi olla sugugi õige näiteks skaneeritud piltide "
+"puhul. Niisiis pead vastama küsimusele, kas KPhotoAlbum peaks usaldama sinu "
+"piltide ajatemplit?"
+
+#: Settings/SettingsData.cpp:201
+msgid "Trust Time Stamps?"
+msgstr "Kas usaldada ajatempleid?"
+
+#: Settings/DatabaseBackendPage.cpp:26
+msgid "Database backend to use"
+msgstr "Kasutatav andmebaasi taustaprogramm"
+
+#: Settings/DatabaseBackendPage.cpp:29
+msgid "XML backend (recommended)"
+msgstr "XML-taustaprogramm (soovitatav)"
+
+#: Settings/DatabaseBackendPage.cpp:32
+msgid "SQL backend (experimental)"
+msgstr "SQL-taustaprogramm (eksperimentaalne!)"
+
+#: Settings/DatabaseBackendPage.cpp:37
+msgid "XML Database Setting"
+msgstr "XML-andmebaasi seadistus"
+
+#: Settings/DatabaseBackendPage.cpp:41
+msgid "Choose speed over readability for index.xml file"
+msgstr "index.xml-faili kiiruse eelistamine loetavusele"
+
+#: Settings/DatabaseBackendPage.cpp:42
+msgid "Compress backup file"
+msgstr "Varukoopiafail tihendatakse"
+
+#: Settings/DatabaseBackendPage.cpp:46
+msgid "Auto save every:"
+msgstr "Automaatsalvestamise intervall:"
+
+#: Settings/DatabaseBackendPage.cpp:49
+msgid "min."
+msgstr "min"
+
+#: Settings/DatabaseBackendPage.cpp:59
+msgid "Number of backups to keep:"
+msgstr "Säilitatavate varukoopiate arv:"
+
+#: Settings/DatabaseBackendPage.cpp:64
+msgid "Infinite"
+msgstr "Lõputu"
+
+#: Settings/DatabaseBackendPage.cpp:69
+msgid ""
+"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
+"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
+"the number of backup files to keep. KPhotoAlbum will delete the oldest "
+"backup file when it reaches the maximum number of backup files.</p><p>The "
+"index.xml file may grow substantially if you have many images, and in that "
+"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
+"disk space.</p>"
+msgstr ""
+"<p>KPhotoAlbum võib varundada index.xml-faili, tehes sellest koopiaid index."
+"xml~1~, index.xml~2~ jne. just sellisel hulgal, nagu määrad kerimiskastis. "
+"KPhotoAlbum hävitab vanemad varukoopiafailid, kui neid tekib rohkem kui "
+"kastis määratud arv.</p><p>Fail index.xml võib kasvada üsna suureks, kui sul "
+"on palju pilte. Sel juhul oleks mõttekam kettaruumi kokkuhoidmiseks "
+"varukoopiad tihendada.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:79
+msgid ""
+"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+"With lots of images it may take a long time to read this file. You may cut "
+"down this time to approximately half, by checking this check box. The "
+"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+msgstr ""
+"<p>KPhotoAlbum kasutab üht index.xml-faili oma <i>andmebaasina</i>. Paljude "
+"piltide korral võtab faili lugemine aega. Seda saab lühendada umbes kaks "
+"korda antud kastikest märkides. Miinuseks on see, et index.xml-fail on sel "
+"juhul oma silmaga palju raskem lugeda.</p>"
+
+#: Settings/DatabaseBackendPage.cpp:88
+msgid "SQL Database Settings"
+msgstr "SQL-andmebaasi seadistused"
+
+#: Settings/DatabaseBackendPage.cpp:95
+msgid "Warning: The password is saved as plain text to the configuration file."
+msgstr "Hoiatus: parool salvestatakse seadistustefaili klaartekstina."
+
+#: Settings/ViewerSizeConfig.cpp:29
+msgid "Launch in full screen"
+msgstr "Käivitamine täisekraanrežiimis"
+
+#: Settings/ViewerSizeConfig.cpp:34
+msgid "Size:"
+msgstr "Suurus:"
+
+#: Settings/CategoryPage.cpp:36
+msgid "Label:"
+msgstr "Pealdis:"
+
+#: Settings/CategoryPage.cpp:47
+msgid "Icon:"
+msgstr "Ikoon:"
+
+#: Settings/CategoryPage.cpp:58
+msgid "Thumbnail Size: "
+msgstr "Pisipildi suurus: "
+
+#: Settings/CategoryPage.cpp:69
+msgid "Preferred view:"
+msgstr "Eelistatud vaade:"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View"
+msgstr "Nimekirjavaade"
+
+#: Settings/CategoryPage.cpp:75
+msgid "List View with Custom Thumbnails"
+msgstr "Nimekirjavaade kohandatud pisipiltidega"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View"
+msgstr "Ikoonivaade"
+
+#: Settings/CategoryPage.cpp:75
+msgid "Icon View with Custom Thumbnails"
+msgstr "Ikoonivaade kohandatud pisipiltidega"
+
+#: Settings/CategoryPage.cpp:82
+msgid "New"
+msgstr "Uus"
+
+#: Settings/CategoryPage.cpp:85 AnnotationDialog/ListSelect.cpp:287
+#: AnnotationDialog/Dialog.cpp:861 MainWindow/DeleteDialog.cpp:45
+msgid "Delete"
+msgstr "Kustuta"
+
+#: Settings/CategoryPage.cpp:154
+#, kde-format
+msgid "<p>Really delete category '%1'?</p>"
+msgstr "<p>Kas tõesti kustutada kategooria '%1'?</p>"
+
+#: Settings/UntaggedGroupBox.cpp:26 MainWindow/StatisticsDialog.cpp:105
+msgid "Tag:"
+msgstr "Silt:"
+
+#: Settings/UntaggedGroupBox.cpp:39
+msgid "None Selected"
+msgstr "Midagi ei ole valitud"
+
+#: Utilities/Util.cpp:101
+msgid "<b>File Name: </b> "
+msgstr "<b>Failinimi: </b> "
+
+#: Utilities/Util.cpp:105
+msgid "<b>Date: </b> "
+msgstr "<b>Kuupäev: </b> "
+
+#: Utilities/Util.cpp:115
+msgid "x"
+msgstr "x"
+
+#: Utilities/Util.cpp:120
+msgctxt "Short for Mega Pixels"
+msgid "MP"
+msgstr "MP"
+
+#: Utilities/Util.cpp:122
+msgid "<b>Image Size: </b> "
+msgstr "<b>Pildi suurus: </b> "
+
+#: Utilities/Util.cpp:168
+msgid "<b>Label: </b> "
+msgstr "<b>Silt: </b> "
+
+#: Utilities/Util.cpp:172
+msgid "<b>Description: </b> "
+msgstr "<b>Kirjeldus: </b> "
+
+#: Utilities/Util.cpp:226
+#, kde-format
+msgid ""
+"Backup file '%1' exists and is newer than '%2'. Should the backup file be "
+"used?"
+msgstr ""
+"Varukoopia fail '%1' on olemas ja uuem kui '%2'. Kas kasutada varukoopiat?"
+
+#: Utilities/Util.cpp:229
+msgid "Found Backup File"
+msgstr "Leiti varukoopia"
+
+#: Utilities/Util.cpp:256
+#, kde-format
+msgid "Unable to copy '%1' to '%2'."
+msgstr "Kopeerimine '%1' -> '%2' nurjus."
+
+#: Utilities/Util.cpp:270 Utilities/Util.cpp:305
+#, kde-format
+msgid "Unable to create directory '%1' needed for demo."
+msgstr "Demoks vajaliku kataloogi '%1' loomine nurjus."
+
+#: Utilities/Util.cpp:288
+#, kde-format
+msgid "Unable to open '%1' for writing."
+msgstr "'%1' avamine kirjutamiseks nurjus."
+
+#: Utilities/Util.cpp:367
+#, kde-format
+msgid "<p>Unable to find file %1</p>"
+msgstr "<p>Faili %1 ei leitud</p>"
+
+#: AnnotationDialog/ListSelect.cpp:90 AnnotationDialog/Dialog.cpp:831
+msgid "Sort Alphabetically"
+msgstr "Sorteeri alfabeetiliselt"
+
+#: AnnotationDialog/ListSelect.cpp:96
+msgid "Sort by date"
+msgstr "Sortimine kuupäeva järgi"
+
+#: AnnotationDialog/ListSelect.cpp:102
+msgid "Show only selected Ctrl+S"
+msgstr "Ainult valitute näitamine Ctrl+S"
+
+#: AnnotationDialog/ListSelect.cpp:277
+msgid "No Item Selected"
+msgstr "Ühtki elementi ei ole valitud"
+
+#: AnnotationDialog/ListSelect.cpp:288
+msgid "Rename..."
+msgstr "Nimeta ümber..."
+
+#: AnnotationDialog/ListSelect.cpp:290
+msgid "<b>Sub Categories</b>"
+msgstr "<b>Alamkategooriad</b>"
+
+#: AnnotationDialog/ListSelect.cpp:298
+msgid "Super Categories"
+msgstr "Ülemkategooriad"
+
+#: AnnotationDialog/ListSelect.cpp:315
+msgid "New Category..."
+msgstr "Uus kategooria..."
+
+#: AnnotationDialog/ListSelect.cpp:318
+msgid "Create Subcategory..."
+msgstr "Loo alamkategooria..."
+
+#: AnnotationDialog/ListSelect.cpp:324
+#, kde-format
+msgid "Take item out of category %1"
+msgstr "Eemalda element kategooriast %1"
+
+#: AnnotationDialog/ListSelect.cpp:327
+msgid "<b>Sorting</b>"
+msgstr "<b>Sortimine</b>"
+
+#: AnnotationDialog/ListSelect.cpp:333
+msgid "Usage"
+msgstr "Kasutamine"
+
+#: AnnotationDialog/ListSelect.cpp:334
+msgid "Alphabetical"
+msgstr "Alfabeetiline"
+
+#: AnnotationDialog/ListSelect.cpp:350
+#, kde-format
+msgid ""
+"<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
+"any information about it from any image containing the item.</p>"
+msgstr ""
+"<p>Kas tõesti kustutada \"%1\"?<br/>Selle elemendi kustutamine eemaldab info "
+"selle kohta igalt elementi sisaldavalt pildilt.</p>"
+
+#: AnnotationDialog/ListSelect.cpp:354
+#, kde-format
+msgid "Really Delete %1?"
+msgstr "Kas tõesti kustutada %1?"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Rename Item"
+msgstr "Elemendi ümbernimetamine"
+
+#: AnnotationDialog/ListSelect.cpp:363
+msgid "Enter new name:"
+msgstr "Uus nimi:"
+
+#: AnnotationDialog/ListSelect.cpp:367
+#, kde-format
+msgid ""
+"<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
+"\"%3\" on any image containing it.</p>"
+msgstr ""
+"<p>Kas tõesti nimetada \"%1\" ümber ja anda sellele nimeks \"%2\"?<br/>Sel "
+"moel hakkab see igas seda sisaldavas pildis kandma nime \"%3\".</p>"
+
+#: AnnotationDialog/ListSelect.cpp:371
+#, kde-format
+msgid "Really Rename %1?"
+msgstr "Kas tõesti nimetada %1 ümber?"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category"
+msgstr "Uus ülemkategooria"
+
+#: AnnotationDialog/ListSelect.cpp:394
+msgid "New Super Category Name:"
+msgstr "Uue ülemkategooria nimi:"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category"
+msgstr "Uus alamkategooria"
+
+#: AnnotationDialog/ListSelect.cpp:403
+msgid "New Sub Category Name:"
+msgstr "Uue alamkategooria nimi:"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:39
+msgid "Annotate previous image"
+msgstr "Annoteeri eelmine pilt"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:45
+msgid "Annotate next image"
+msgstr "Annoteeri järgmine pilt"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:65
+msgid "Copy tags from previously tagged image"
+msgstr "Kopeeri sildid eelmiselt sildistatud pildilt"
+
+#: AnnotationDialog/ImagePreviewWidget.cpp:71
+msgid "Delete image"
+msgstr "Kustuta pilt"
+
+#: AnnotationDialog/Dialog.cpp:86
+msgid "Label and Dates"
+msgstr "Pealdis ja kuupäevad"
+
+#: AnnotationDialog/Dialog.cpp:88
+msgid "Image Preview"
+msgstr "Pildi eelvaatlus"
+
+#: AnnotationDialog/Dialog.cpp:110
+msgid "Revert This Item"
+msgstr "Taasta elemendi algolek"
+
+#: AnnotationDialog/Dialog.cpp:114
+msgid "Clear Form"
+msgstr "Puhasta vorm"
+
+#: AnnotationDialog/Dialog.cpp:120
+msgid "Options..."
+msgstr "Valikud"
+
+#: AnnotationDialog/Dialog.cpp:126
+msgid "&Done"
+msgstr "Tehtu&d"
+
+#: AnnotationDialog/Dialog.cpp:129
+msgid "Continue &Later"
+msgstr "Jätka hi&ljem"
+
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:489
+msgid "&Search"
+msgstr "&Otsi"
+
+#: AnnotationDialog/Dialog.cpp:197
+msgid "Label: "
+msgstr "Pealdis: "
+
+#: AnnotationDialog/Dialog.cpp:210
+msgid "Date: "
+msgstr "Kuupäev: "
+
+#: AnnotationDialog/Dialog.cpp:231
+msgid "Time: "
+msgstr "Kellaaeg: "
+
+#: AnnotationDialog/Dialog.cpp:240
+msgid "Add Time Info..."
+msgstr "Lisa kellaajainfo..."
+
+#: AnnotationDialog/Dialog.cpp:349
+#, kde-format
+msgid "KPhotoAlbum Annotations (%1/%2)"
+msgstr "KPhotoAlbumi annotatsioonid (%1/%2)"
+
+#: AnnotationDialog/Dialog.cpp:497
+msgid "Done"
+msgstr "Tehtud"
+
+#: AnnotationDialog/Dialog.cpp:502
+msgid "Annotations"
+msgstr "Annotatsioonid"
+
+#: AnnotationDialog/Dialog.cpp:531
+msgid "Save Current Window Setup"
+msgstr "Salvesta akna praegused seadistused"
+
+#: AnnotationDialog/Dialog.cpp:532
+msgid "Reset layout"
+msgstr "Lähtesta paigutus"
+
+#: AnnotationDialog/Dialog.cpp:612
+msgid ""
+"<p>Some changes are made to annotations. Do you really want to cancel all "
+"recent changes for each affected file?</p>"
+msgstr ""
+"<p>Annotatsioonidesse on tehtud muudatusi. Kas tõesti tühistada kõigi "
+"failide äsjased muudatused?</p>"
+
+#: AnnotationDialog/Dialog.cpp:718
+msgid ""
+"<p>You have just opened the advanced search dialog; to get the most out of "
+"it, it is suggested that you read the section in the manual on <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\">advanced searching</"
+"a>.</p><p>This dialog is also used for typing in information about images; "
+"you can find extra tips on its usage by reading about <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
+msgstr ""
+"<p>Avasid äsja täppisotsingu dialoogi. Selle paremaks kasutamiseks oleks "
+"mõttekas tutvuda käsiraamatu <a href=\"help:/kphotoalbum/sect-general-image-"
+"searches.html\">täppisotsingut</a> tutvustava osaga.</p><p>Dialoogi saab "
+"kasutada ka piltidele info lisamiseks. Selle kohta annab lähemat infot "
+"samuti <a href=\"help:/kphotoalbum/chp-typingIn.html\">käsiraamatu vastav "
+"osa</a>.</p>"
+
+#: AnnotationDialog/Dialog.cpp:727
+msgid ""
+"<p>You have just opened one of the most important windows in KPhotoAlbum; it "
+"contains lots of functionality which has been optimized for fast usage.</"
+"p><p>It is strongly recommended that you take 5 minutes to read the <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
+msgstr ""
+"<p>Avasid äsja KPhotoAlbumi ühe kõige olulisema akna, mis pakub paljusid "
+"kiirele ja mugavale kasutamisele orienteeritud võimalusi.</p><p>Äärmiselt "
+"soovitav oleks kulutada mõni minut <a href=\"help:/kphotoalbum/chp-typingIn."
+"html\">dialoogi kohta käiva käsiraamatu osa lugemisele</a>.</p>"
+
+#: AnnotationDialog/Dialog.cpp:836
+msgid "Sort Most Recently Used"
+msgstr "Sorteeri viimase kasutamise järgi"
+
+#: AnnotationDialog/Dialog.cpp:839
+msgid "Toggle Sorting"
+msgstr "Lülita sortimist"
+
+#: AnnotationDialog/Dialog.cpp:844
+msgid "Toggle Showing Selected Items Only"
+msgstr "Lülita ainult valitud elementide näitamist"
+
+#: AnnotationDialog/Dialog.cpp:849
+msgid "Annotate Next"
+msgstr "Annoteeri järgmine"
+
+#: AnnotationDialog/Dialog.cpp:853
+msgid "Annotate Previous"
+msgstr "Annoteeri eelmine"
+
+#: AnnotationDialog/Dialog.cpp:857
+msgid "OK dialog"
+msgstr "OK-dialoog"
+
+#: AnnotationDialog/Dialog.cpp:865
+msgid "Copy tags from previous image"
+msgstr "Kopeeri sildid eelmisest pildist"
+
+#: AnnotationDialog/KDateEdit.cpp:70
+msgid "tomorrow"
+msgstr "homme"
+
+#: AnnotationDialog/KDateEdit.cpp:71
+msgid "today"
+msgstr "täna"
+
+#: AnnotationDialog/KDateEdit.cpp:72
+msgid "yesterday"
+msgstr "eile"
+
+#. i18n: file: kphotoalbumui.rc:25
+#. i18n: ectx: Menu (view)
+#: rc.cpp:3
+msgid "&View"
+msgstr "&Vaade"
+
+#. i18n: file: kphotoalbumui.rc:40
+#. i18n: ectx: Menu (privacy)
+#: rc.cpp:6
+msgid "Privacy"
+msgstr "Privaatsus"
+
+#. i18n: file: kphotoalbumui.rc:50
+#. i18n: ectx: Menu (maintenance)
+#: rc.cpp:9
+msgid "&Maintenance"
+msgstr "&Hooldus"
+
+#. i18n: file: kphotoalbumui.rc:68
+#. i18n: ectx: Menu (exportplugin)
+#: rc.cpp:15
+msgid "Export"
+msgstr "Eksport"
+
+#. i18n: file: kphotoalbumui.rc:72
+#. i18n: ectx: Menu (importplugin)
+#: rc.cpp:18
+msgid "Import"
+msgstr "Import"
+
+#. i18n: file: kphotoalbumui.rc:80
+#. i18n: ectx: Menu (batch_plugins)
+#: rc.cpp:24
+msgid "Batch Plugins"
+msgstr "Pakktöötluse pluginad"
+
+#. i18n: file: kphotoalbumui.rc:84
+#. i18n: ectx: Menu (tool_plugins)
+#: rc.cpp:27
+msgid "Tools"
+msgstr "Tööriistad"
+
+#. i18n: file: kphotoalbumui.rc:101
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:30
+msgid "Main Toolbar"
+msgstr "Peamine tööriistariba"
+
+#: rc.cpp:31
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Marek Laane"
+
+#: rc.cpp:32
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "bald@starman.ee"
+
+#: CategoryListView/CheckDropItem.cpp:112
+#, kde-format
+msgid ""
+"<p>You have just dragged an item onto another: this will make the dragged "
+"item a sub category of that onto which it was dropped. Sub categories may be "
+"used to denote facts such as 'Las Vegas is in the USA', in that example you "
+"would drag Las Vegas onto USA. When you have set up sub categories you can, "
+"for instance, see all images from the USA by simply selecting that item in "
+"the Browser.</p><p>Was it really your intention to make \"%2\" a sub "
+"category of \"%3\"?</p>"
+msgid_plural ""
+"<p>You have just dragged a number of items onto another: this will make the "
+"dragged items sub categories of that onto which they were dropped. Sub "
+"categories may be used to denote facts such as 'Las Vegas and New York are "
+"in the USA' in that example you would drag 'Las Vegas' and 'New York' onto "
+"USA. When you have set up sub categories you can, for instance, see all "
+"images from the USA by simply selecting that item in the Browser.</p><p>Was "
+"it really your intention to make \"%2\" sub categories of \"%3\"?</p>"
+msgstr[0] ""
+"<p>Lohistasid äsja ühe elemendi teise peale, mis muudab elemendi selle "
+"elemendi alamkategooriaks, mille peale sa selle lohistasid. Alamkategooriaks "
+"võib olla näiteks Las Vegas USA-s - seda juhul, kui lohistasid Las Vegase "
+"USA peale. Alamkategooriaid luues saad näha näiteks kõiki USA pilte lihtsalt "
+"seda kirjet sirvijas valides.</p><p>Kas kavatsesid tõepoolest muuta \"%2\" "
+"\"%3\" alamkategooriaks?</p>"
+msgstr[1] ""
+"<p>Lohistasid äsja mitu elementi teise peale, mis muudab nad selle elemendi "
+"alamkategooriaks, mille peale sa nad lohistasid. Alamkategooriaks võib olla "
+"näiteks Las Vegas USA-s - seda juhul, kui lohistasid Las Vegase USA peale. "
+"Alamkategooriaid luues saad näha näiteks kõiki USA pilte lihtsalt seda "
+"kirjet sirvijas valides.</p><p>Kas kavatsesid tõepoolest muuta \"%2\" \"%3\" "
+"alamkategooriateks?</p>"
+
+#: CategoryListView/CheckDropItem.cpp:124
+msgid "Move Items"
+msgstr "Elementide liigutamine"
+
+#: MainWindow/FeatureDialog.cpp:37
+msgid "Feature Status"
+msgstr "Omaduste olek"
+
+#: MainWindow/FeatureDialog.cpp:42
+#, kde-format
+msgid ""
+"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+"features KPhotoAlbum has, and their status:</p>%1"
+msgstr ""
+"<h1>Ülevaade</h1><p>Allpool näed KPhotoAlbumi kompileerimis- ja "
+"käitamisaegsete omaduste loendit ning nende olekut:</p>%1"
+
+#: MainWindow/FeatureDialog.cpp:45
+msgid ""
+"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+"yourself, then please review the sections below to learn what to install to "
+"get the feature in question. If on the other hand you installed KPhotoAlbum "
+"from a binary package, please tell whoever made the package about this "
+"defect, eventually including the information from the section below.<p><p>In "
+"case you are missing a feature and you did not compile KPhotoAlbum yourself, "
+"please do consider doing so. It really isn't that hard. If you need help "
+"compiling KPhotoAlbum, feel free to ask on the <a href=\"http://mail.kdab."
+"net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p><p>The "
+"steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum."
+"org/download-source.html\">the KPhotoAlbum home page</a>. If you have never "
+"compiled a KDE application, then please ensure that you have the developer "
+"packages installed, in most distributions they go under names like "
+"kdelibs<i>-devel</i></p>"
+msgstr ""
+"<h1>Kui mõni omadus puudub?</h1><p>Kui oled KPhotoAlbumi ise kompileerinud, "
+"uuri allpool olevaid sektsioone, kust selgub, kuidas antud omaduse toetus "
+"paigaldada. Kui aga oled KPhotoAlbumi paigaldanud valmispaketist, teata "
+"paketi valmistajale puudusest. Sel juhul oleks hea lisada ka allpool nähtav "
+"info.<p><p>Kui mõni omadus puudub ja sa ei ole ise KPhotoAlbumit "
+"kompileerinud, võiksid kaaluda selle ettevõtmist. Tegelikult polegi see nii "
+"keeruline. Kui vajad abi, võid seda küsida <a href=\"http://mail.kdab.net/"
+"mailman/listinfo/kphotoalbum\">KPhotoAlbumi meililistist</a>.</"
+"p><p>KPhotoAlbumi kompileerimiseks vajalikke samme näeb ka <a href=\"http://"
+"www.kphotoalbum.org/download-source.html\">KPhotoAlbumi koduleheküljel</a>. "
+"Kui sa ei ole kunagi varem KDE rakendusi kompileerinud, kontrolli, et sul "
+"oleks olemas kõik vajalikud arenduspaketid, mis enamikus distributsioonides "
+"kannavad nime kdelibs<i>-devel</i> või midagi sellist.</p>"
+
+#: MainWindow/FeatureDialog.cpp:61
+msgid ""
+"<h1><a name=\"kipi\">Plug-ins Support</a></h1><p>KPhotoAlbum has a plug-in "
+"system with lots of extensions. You may among other things find plug-ins for:"
+"<ul><li>Writing images to cds or dvd's<li>Adjusting timestamps on your "
+"images<li>Making a calendar featuring your images<li>Uploading your images "
+"to flickr<li>Upload your images to facebook</ul></p><p>The plug-in library "
+"is called KIPI, and may be downloaded from the <a href=\"http://www.kipi-"
+"plugins.org\">KIPI Home page</a></p>"
+msgstr ""
+"<h1><a name=\"kipi\">Pluginate toetus</a></h1><p>KPhotoAlbumi pluginasüsteem "
+"pakub palju võimalusi, sealhulgas:<ul><li>Piltide kirjutamiseks CD-le või "
+"DVD-le<li>Piltide ajatempli muutmiseks<li>Kalendri loomiseks oma "
+"piltidega<li>Piltide üleslaadimiseks flickr'isse<li>Piltide üleslaadimiseks "
+"Facebooki</ul></p><p>Pluginateek kannab nime KIPI ja selle saab alla laadida "
+"<a href=\"http://www.kipi-plugins.org\">KIPI koduleheküljelt</a>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:74
+msgid ""
+"<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information like "
+"the date the image was shot, the shooting angle, focal length, and shutter-"
+"speed in what is known as EXIF information.</p><p>KPhotoAlbum uses the <a "
+"href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> to read EXIF "
+"information from images</p>"
+msgstr ""
+"<h1><a name=\"exiv2\">EXIF-i toetus</a></h1><p>Pildid võivad niinimetatud "
+"EXIF-infona salvestada aja, millal pilt tehti, millise nurga all see tehti, "
+"fookuskauguse ja säriaja.</p><p>KPhotoAlbum kasutab piltidest EXIF-info "
+"lugemiseks <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 teeki</a>."
+"</p>"
+
+#: MainWindow/FeatureDialog.cpp:82
+msgid ""
+"<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum allows "
+"you to search using a certain number of EXIF tags. For this KPhotoAlbum "
+"needs an Sqlite database. In addition the qt package for sqlite (e.g.qt-sql-"
+"sqlite) must be installed.</p>"
+msgstr ""
+"<h1><a name=\"database\">SQL andmebaasi toetus</a></h1><p>KPhotoAlbum "
+"võimaldab otsida teatud EXIF-silte kasutades. Selleks vajab KPhotoAlbum "
+"Sqlite andmebaasi. Lisaks peab olema paigaldatud Qt Sqlite'i pakett (nt. qt-"
+"sql-sqlite).</p>"
+
+#: MainWindow/FeatureDialog.cpp:87
+msgid ""
+"<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1><p>KPhotoAlbum "
+"asks the KDE plug-in system for help when it needs to generate a thumbnail "
+"for videos. <p>Unfortunately KDE4 does currently not come with any plug-ins "
+"for this, you therefore need manually to install <a href=\"http://www.kde-"
+"apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>"
+msgstr ""
+"<h1><a name=\"thumbnails\">Video pisipiltide toetus</a></h1><p>KPhotoAlbum "
+"palub KDE pluginasüsteemilt abi, kui peab tekitama videode pisipildid.</"
+"p><p>Paraku ei paku KDE4 praegu selleks ühtegi pluginat, mistõttu tuleb "
+"käsitsi paigaldada <a href=\"http://www.kde-apps.org/content/show.php?"
+"content=41180\">MPlayerThumbs</a>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:92
+msgid ""
+"<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on Qt's "
+"Phonon architecture for displaying videos; this in turn relies on GStreamer. "
+"If this feature is not enabled for you, have a look at the <a href=\"http://"
+"wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum "
+"wiki article on video support</a>.</p>"
+msgstr ""
+"<h1><a name=\"video\">Video toetus</a></h1><p>KPhotoAlbum tugineb video "
+"esitamisel KDE pluginate alamsüsteemile. Kui see omadus ei ole sisse "
+"lülitatud, võiksid uurida <a href=\"http://wiki.kde.org/tiki-index.php?"
+"page=KPhotoAlbum+Video+Support\">KPhotoAlbumi wiki artiklit video toetuse "
+"kohta</a>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:100
+msgid ""
+"<p>No video mime types found, which indicates that either Qt was compiled "
+"without phonon support, or there were missing codecs</p>"
+msgstr ""
+"<p>Ühtegi video MIME tüüpi ei leitud, mis osutab sellele, et Qt on "
+"kompileeritud Phononi toetuseta või puuduvad koodekid</p>"
+
+#: MainWindow/FeatureDialog.cpp:102
+#, kde-format
+msgid ""
+"<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></"
+"p>"
+msgstr ""
+"<p>Phonon suudab esitada järgmiste MIME tüüpidega filme:<ul><li>%1</ul></p>"
+
+#: MainWindow/FeatureDialog.cpp:181
+msgid "Plug-ins available"
+msgstr "Saadaolevad pluginad"
+
+#: MainWindow/FeatureDialog.cpp:182
+msgid "EXIF info supported"
+msgstr "EXIF-info toetus"
+
+#: MainWindow/FeatureDialog.cpp:183
+msgid "SQL Database Support"
+msgstr "SQL-andmebaasi toetus"
+
+#: MainWindow/FeatureDialog.cpp:184
+msgid "Sqlite Database Support (used for EXIF searches)"
+msgstr "Sqlite-andmebaasi toetus (kasutusel EXIF-otsingus)"
+
+#: MainWindow/FeatureDialog.cpp:186
+msgid "Video Thumbnail support"
+msgstr "Video pisipiltide toetus"
+
+#: MainWindow/FeatureDialog.cpp:188
+msgid "Video support"
+msgstr "Video toetus"
+
+#: MainWindow/FeatureDialog.cpp:191
+msgid "Yes"
+msgstr "Jah"
+
+#: MainWindow/FeatureDialog.cpp:192
+msgid "No"
+msgstr "Ei"
+
+#: MainWindow/DeleteDialog.cpp:43
+msgid "Delete from database"
+msgstr "Kustuta andmebaasist"
+
+#: MainWindow/DeleteDialog.cpp:55
+msgid "Delete file from disk as well"
+msgstr "Kustuta failid ka kettalt"
+
+#: MainWindow/DeleteDialog.cpp:64
+#, kde-format
+msgid ""
+"<p><b><center><font size=\"+3\">Delete Images/Videos from database<br/>%1 "
+"selected</font></center></b></p>"
+msgstr ""
+"<p><b><center><font size=\"+3\">Piltide/videode kustutamine andmebaasist<br/>"
+"%1 valitud</font></center></b></p>"
+
+#: MainWindow/DeleteDialog.cpp:102
+#, kde-format
+msgid ""
+"<p><b>Unable to physically delete a file. Do you have permission to do so?</"
+"b></p>"
+msgid_plural ""
+"<p><b>Unable to physically delete %1 files. Do you have permission to do so?"
+"</b></p>"
+msgstr[0] ""
+"<p><b>Faili füüsiline kustutamine nurjus. Kas sul on ikka õigused seda faili "
+"kustutada?</b></p>"
+msgstr[1] ""
+"<p><b>%1 faili füüsiline kustutamine nurjus. Kas sul on ikka õigused neid "
+"faile kustutada?</b></p>"
+
+#: MainWindow/DeleteDialog.cpp:106
+msgid "Error Deleting File"
+msgid_plural "Error Deleting Files"
+msgstr[0] "Viga faili kustutamisel"
+msgstr[1] "Viga failide kustutamisel"
+
+#: MainWindow/ImageCounter.cpp:32
+#, kde-format
+msgid "Showing 1 thumbnail"
+msgid_plural "Showing %1 thumbnails"
+msgstr[0] "1 pisipildi näitamine"
+msgstr[1] "%1 pisipildi näitamine"
+
+#: MainWindow/ImageCounter.cpp:37
+#, kde-format
+msgid "Total: %1"
+msgstr "Kokku: %1"
+
+#: MainWindow/ImageCounter.cpp:42
+#, kde-format
+msgid "1 match"
+msgid_plural "%1 matches"
+msgstr[0] "1 vaste"
+msgstr[1] "%1 vastet"
+
+#: MainWindow/StatisticsDialog.cpp:26
+msgid ""
+"<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
+"different items in the category</td></tr><tr><td>Tags Total</td><td>This is "
+"a count of how many tags was made,<br/>i.e. a simple counting though all the "
+"images</tr></tr><tr><td>Tags Per Picture</td><td>This tells you how many "
+"tags are on each picture on average</td></tr></table><br/><br/>Don't get too "
+"attached to this dialog, it has the problem that it counts categories AND "
+"subcategories,<br/>so if an image has been taken in Las Vegas, Nevada, USA, "
+"then 3 tags are counted for that image,<br/>while it should only be one.</"
+"br>I'm not really sure if it is worth fixing that bug (as it is pretty hard "
+"to fix),<br/>so maybe the dialog will simply go away again"
+msgstr ""
+"<h1> Kirjeldus</h1><table><tr><td>Elementide arv</td><td>See on kategooria "
+"erinevate elementide arv</td></tr><tr><td>Silte kokku</td><td>See on siltide "
+"koguarv,<br/>s.t nende arv kõigis piltides kokku</tr></tr><tr><td>Silte "
+"pildi kohta</td><td>See annab teada, kui palju on piltidel keskmiselt silte</"
+"td></tr></table><br/><br/>Seda dialoogi ei tasu võtta absoluutse tõe pähe, "
+"sest see arvestab nii kategooriaid kui ka alamkategooriaid,<br/>ni et kui "
+"pilt on tehtud Las Vegases, Nevadas, USA-s, siis loetakse pildi kohta kolm "
+"silti,<br/>kuigi tegelikult peaks neid olema ainult üks.</br>Ma ei ole veel "
+"kindel, kuidas seda viga lahendada (sest lahendus on päris keeruline),<br/"
+">nii et võib-olla see dialoog tulevikus isegi kaob."
+
+#: MainWindow/StatisticsDialog.cpp:43
+msgid "<h1>Statistics</h1>"
+msgstr "<h1>Statistika</h1>"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Category"
+msgstr "Kategooria"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "# of Items"
+msgstr "Elementide arv"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Totals"
+msgstr "Silte kokku"
+
+#: MainWindow/StatisticsDialog.cpp:50
+msgid "Tags Per Picture"
+msgstr "Silte pildi kohta"
+
+#: MainWindow/StatisticsDialog.cpp:89
+msgid "Tag indication completed annotation"
+msgstr "Sildistamist tähistav märge"
+
+#: MainWindow/StatisticsDialog.cpp:95
+msgid ""
+"If you use a specific tag to indicate that an image has been tagged, then "
+"specify it here."
+msgstr ""
+"Kui kasutad konkreetset silti märkimaks, et pilt on sildistatud, tuleb see "
+"siin määrata."
+
+#: MainWindow/StatisticsDialog.cpp:195
+msgid "Total"
+msgstr "Kokku"
+
+#: MainWindow/WelcomeDialog.cpp:55
+msgid ""
+"<h1>Welcome to KPhotoAlbum</h1><p>If you are interested in trying out "
+"KPhotoAlbum with a prebuilt set of images, then simply choose the <b>Load "
+"Demo</b> button. You may get to this demo at a later time from the <b>Help</"
+"b> menu.</p><p>Alternatively you may start making you own database of "
+"images, simply by pressing the <b>Create my own database</b> button."
+msgstr ""
+"<h1>Tere tulemast kasutama KPhotoAlbumit!</h1><p>Kui soovid KPhotoAlbumiga "
+"tutvust teha eelnevalt määratud piltide kogu põhjal, klõpsa nupule <b>Laadi "
+"demo</b>. Demo võid vaadata ka hiljem, selle leiab menüüst <b>Abi</b>.</"
+"p><p>Teine võimalus on luua omaenda piltide andmebaas, milleks klõpsa nupule "
+"<b>Loo minu isiklik andmebaas</b>."
+
+#: MainWindow/WelcomeDialog.cpp:67
+msgid "Load Demo"
+msgstr "Laadi demo"
+
+#: MainWindow/WelcomeDialog.cpp:70
+msgid "Create My Own Database..."
+msgstr "Loo minu isiklik andmebaas..."
+
+#: MainWindow/WelcomeDialog.cpp:73
+msgid "Check My Feature Set"
+msgstr "Kontrolli võimalusi"
+
+#: MainWindow/WelcomeDialog.cpp:109
+msgid ""
+"<p>KPhotoAlbum requires that all your images and videos are stored with a "
+"common root directory. You are allowed to store your images in a directory "
+"tree under this directory. KPhotoAlbum will not modify or edit any of your "
+"images, so you can simply point KPhotoAlbum to the directory where you "
+"already have all your images located.</p>"
+msgstr ""
+"<p>KPhotoAlbum eeldab, et kõik sinu pildi- ja videofailid asuvad ühes "
+"baaskataloogis. Sul on võimalik salvestada oma pilte sellesse kataloogi või "
+"sellesse loodavatesse alamkataloogidesse. KPhotoAlbum ei muuda mingil moel "
+"sinu pilte, nii et võid rahumeeli anda KPhotoAlbumile ette kataloogi, kus "
+"juba asuvad sinu pildid.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:118
+msgid "Image/Video root directory: "
+msgstr "Piltide/videode baaskataloog: "
+
+#: MainWindow/WelcomeDialog.cpp:148
+msgid "Directory does not exist, create it?"
+msgstr "Kataloogi ei ole olemas. Kas luua see?"
+
+#: MainWindow/WelcomeDialog.cpp:152
+#, kde-format
+msgid "Could not create directory %1"
+msgstr "Kataloogi %1 loomine nurjus"
+
+#: MainWindow/WelcomeDialog.cpp:159
+#, kde-format
+msgid "%1 exists, but is not a directory"
+msgstr "%1 on olemas, aga see pole kataloog"
+
+#: MainWindow/WelcomeDialog.cpp:178
+#, kde-format
+msgid ""
+"<p>KPhotoAlbum does not seem to be build with support for all its features. "
+"The following is a list indicating to you what you may miss:<ul>%1</ul></"
+"p><p>For details on how to solve this problem, please choose <b>Help</b>|"
+"<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
+msgstr ""
+"<p>KPhotoAlbum ei paista olevat ehitatud kõigi omaduste toetusega. Puuduvad "
+"nimelt järgmised võimalused:<ul>%1</ul></p><p>Kuidas neid omadusi siiski "
+"kasutada, uuri menüükäsuga <b>Abi</b>|<b>KPhotoAlbumi omaduste olek</b>.</p>"
+
+#: MainWindow/WelcomeDialog.cpp:182 MainWindow/WelcomeDialog.cpp:186
+msgid "Feature Check"
+msgstr "Omaduste kontroll"
+
+#: MainWindow/WelcomeDialog.cpp:185
+msgid "Congratulations: all dynamic features have been enabled."
+msgstr "Õnnitleme: kõik dünaamilised omadused on sisse lülitatud."
+
+#: MainWindow/CategoryImagePopup.cpp:61
+msgid "Show Category Editor"
+msgstr "Näita kategooriaredaktorit"
+
+#: MainWindow/CategoryImagePopup.cpp:83
+msgid "Make Category Image"
+msgstr "Loo kategooria pilt"
+
+#: MainWindow/TokenEditor.cpp:38 MainWindow/Window.cpp:661
+msgid "Remove Tokens"
+msgstr "Eemalda märgised"
+
+#: MainWindow/TokenEditor.cpp:45
+msgid "Select tokens to remove from all images and videos:"
+msgstr "Vali kõigilt piltidelt ja videodelt eemaldatavad märgised:"
+
+#: MainWindow/TokenEditor.cpp:64
+msgid "Select None"
+msgstr "Ära vali midagi"
+
+#: MainWindow/SearchBar.cpp:32
+msgid "Search:"
+msgstr "Otsimine:"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "Current Item"
+msgstr "Aktiivne element"
+
+#: MainWindow/ExternalPopup.cpp:41
+msgid "All Selected Items"
+msgstr "Kõik valitud elemendid"
+
+#: MainWindow/ExternalPopup.cpp:100
+msgid "Invoke External Program"
+msgstr "Välise rakenduse väljakutsumine"
+
+#: MainWindow/InvalidDateFinder.cpp:42
+msgid "Search for Images and Videos with Missing Dates"
+msgstr "Puuduva kuupäevaga piltide ja videode otsing"
+
+#: MainWindow/InvalidDateFinder.cpp:49
+msgid "Which Images and Videos to Display"
+msgstr "Milliseid pilte ja videoid näidata"
+
+#: MainWindow/InvalidDateFinder.cpp:53
+msgid ""
+"Search for images and videos with a valid date but an invalid time stamp"
+msgstr "Korraliku kuupäeva, aga vigase ajatempliga piltide ja videode otsing"
+
+#: MainWindow/InvalidDateFinder.cpp:54
+msgid "Search for images and videos missing date and time"
+msgstr "Puuduva kuupäeva ja kellaajaga piltide ja videode otsing"
+
+#: MainWindow/InvalidDateFinder.cpp:55
+msgid ""
+"Search for images and videos with only partial dates (like 1971 vs. 11/7-"
+"1971)"
+msgstr ""
+"Osalise kuupäevaga piltide ja videode otsing (nt. 1971, mitte 11/7-1971)"
+
+#: MainWindow/InvalidDateFinder.cpp:70
+msgid "Image Info"
+msgstr "Pildi info"
+
+#: MainWindow/InvalidDateFinder.cpp:79
+msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
+msgstr "<h1>Siin näeb näidatavate elementide kuupäeva muutusi.</h1>"
+
+#: MainWindow/InvalidDateFinder.cpp:84
+msgid "Reading file properties"
+msgstr "Faili omaduste lugemine"
+
+#: MainWindow/InvalidDateFinder.cpp:85
+msgid "Reading File Properties"
+msgstr "Faili omaduste lugemine"
+
+#: MainWindow/Window.cpp:138
+msgid "Loading Database"
+msgstr "Andmebaasi laadimine"
+
+#: MainWindow/Window.cpp:144
+msgid "Loading Main Window"
+msgstr "Peaakna laadimine"
+
+#: MainWindow/Window.cpp:226
+msgid "Searching for New Files"
+msgstr "Uute failide otsimine"
+
+#: MainWindow/Window.cpp:235
+msgid "Loading Plug-ins"
+msgstr "Pluginate laadimine"
+
+#: MainWindow/Window.cpp:256
+msgid ""
+"EXIF database cannot be opened. Check that the image root directory is "
+"writable."
+msgstr ""
+"EXIF-andmebaasi avamine ei ole võimalik. Kontrolli, kas sul on piltide "
+"baaskataloogis kirjutamisõigus."
+
+#: MainWindow/Window.cpp:265
+msgid ""
+"<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
+"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
+"now? If you do not delete it, it will waste disk space; on the other hand, "
+"if you want to come back and try the demo again, you might want to keep it "
+"around with the changes you made through this session.</p>"
+msgstr ""
+"<p><b>Ajutise demoandmebaasi kustutamine</b></p><p>Ma loodan, et "
+"KPhotoAlbumi demo sulle meeldis. Demoandmebaas kopeeriti kataloogi /tmp, "
+"mille võiks nüüd kustutada. Kui sa seda ei kustuta, raiskab see lihtsalt "
+"kettaruumi. Samas - kui sa tahad peagi uuesti demo vaadata, võid selle ka "
+"alles hoida.</p>"
+
+#: MainWindow/Window.cpp:270
+msgid "Delete Demo Database"
+msgstr "Kustuta demoandmebaas"
+
+#: MainWindow/Window.cpp:285
+msgid "Do you want to save the changes?"
+msgstr "Kas soovid muudatused salvestada?"
+
+#: MainWindow/Window.cpp:286
+msgid "Save Changes?"
+msgstr "Kas salvestada muudatused?"
+
+#: MainWindow/Window.cpp:323
+msgid ""
+"Some of the selected images already belong to a stack. Do you want to remove "
+"them from their stacks and create a completely new one?"
+msgstr ""
+"Osa valitud pilte on juba pinus. Kas eemaldada need oma pinust ja luua "
+"täiesti uus?"
+
+#: MainWindow/Window.cpp:325 MainWindow/Window.cpp:330
+msgid "Stacking Error"
+msgstr "Pinu loomise viga"
+
+#: MainWindow/Window.cpp:329
+msgid "Unknown error, stack creation failed."
+msgstr "Tundmatu viga, pinu loomine nurjus."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1205
+msgid "No item is selected."
+msgstr "Ühtki elementi ei ole valitud."
+
+#: MainWindow/Window.cpp:411 MainWindow/Window.cpp:1206
+msgid "No Selection"
+msgstr "Valik puudub"
+
+#: MainWindow/Window.cpp:459
+msgid "Saving..."
+msgstr "Salvestamine..."
+
+#: MainWindow/Window.cpp:463
+msgid "Saving... Done"
+msgstr "Salvestamine... Tehtud"
+
+#: MainWindow/Window.cpp:558
+msgid "There are no images to be shown."
+msgstr "Pole ühtegi pilti näidata."
+
+#: MainWindow/Window.cpp:625
+msgid "Generate HTML..."
+msgstr "Tekita HTML..."
+
+#: MainWindow/Window.cpp:629
+msgid "Import..."
+msgstr "Import..."
+
+#: MainWindow/Window.cpp:632
+msgid "Export/Copy Images..."
+msgstr "Piltide eksport/kopeerimine"
+
+#: MainWindow/Window.cpp:655
+msgid "Delete Selected"
+msgstr "Kustuta valitud"
+
+#: MainWindow/Window.cpp:664
+msgid "Open List of Files..."
+msgstr "Ava failide nimekiri..."
+
+#: MainWindow/Window.cpp:668
+msgid "Annotate Individual Items"
+msgstr "Annoteeri üks element korraga"
+
+#: MainWindow/Window.cpp:672
+msgid "Annotate Multiple Items at a Time"
+msgstr "Annoteeri mitu elementi korraga"
+
+#: MainWindow/Window.cpp:676
+msgid "Merge Images into a Stack"
+msgstr "Ühenda pildid pinusse"
+
+#: MainWindow/Window.cpp:680
+msgid "Remove Images from Stack"
+msgstr "Eemalda pildid pinust"
+
+#: MainWindow/Window.cpp:697
+msgid "View"
+msgstr "Näita"
+
+#: MainWindow/Window.cpp:701
+msgid "View (In New Window)"
+msgstr "Näita (uues aknas)"
+
+#: MainWindow/Window.cpp:704
+msgid "Run Slide Show"
+msgstr "Käivita slaidiseanss"
+
+#: MainWindow/Window.cpp:709
+msgid "Run Randomized Slide Show"
+msgstr "Käivita juhuslikus järjekorras slaidiseanss"
+
+#: MainWindow/Window.cpp:715
+msgid "Collapse all stacks"
+msgstr "Keri kõik pinud kokku"
+
+#: MainWindow/Window.cpp:721
+msgid "Expand all stacks"
+msgstr "Keri kõik pinud lahti"
+
+#: MainWindow/Window.cpp:726
+msgid "Show &Oldest First"
+msgstr "Näita &vanimat esimesena"
+
+#: MainWindow/Window.cpp:731
+msgid "Show &Newest First"
+msgstr "&Näita uusimat esimesena"
+
+#: MainWindow/Window.cpp:736
+msgid "Sort Selected by Date && Time"
+msgstr "Sorteeri valitud kuupäeva ja kellaaja järgi"
+
+#: MainWindow/Window.cpp:739
+msgid "Limit View to Marked"
+msgstr "Näita vaates ainult märgituid"
+
+#: MainWindow/Window.cpp:742
+msgid "Jump to Context"
+msgstr "Hüppa kontekstile"
+
+#: MainWindow/Window.cpp:747
+msgid "Lock Images"
+msgstr "Lukusta pildid"
+
+#: MainWindow/Window.cpp:750
+msgid "Unlock"
+msgstr "Eemalda lukk"
+
+#: MainWindow/Window.cpp:753
+msgid "Change Password..."
+msgstr "Muuda parooli..."
+
+#: MainWindow/Window.cpp:757
+msgid "Lock Away All Other Items"
+msgstr "Lukusta kõik muud elemendid"
+
+#: MainWindow/Window.cpp:760
+msgid "Lock Away Current Set of Items"
+msgstr "Lukusta praegune elementide valik"
+
+#: MainWindow/Window.cpp:764
+msgid "Display Images and Videos Not on Disk"
+msgstr "Näita kettalt puuduvaid pilte ja videoid"
+
+#: MainWindow/Window.cpp:767
+msgid "Display Images and Videos with Incomplete Dates..."
+msgstr "Näita ebatäieliku kuupäevaga pilte ja videoid..."
+
+#: MainWindow/Window.cpp:771
+msgid "Display Images and Videos with Changed MD5 Sum"
+msgstr "Näitamuudetud MD5 kontrollsummaga pilte ja videoid"
+
+#: MainWindow/Window.cpp:775
+msgid "Recalculate Checksum"
+msgstr "Arvuta kontrollsumma uuesti"
+
+#: MainWindow/Window.cpp:778
+msgid "Rescan for Images and Videos"
+msgstr "Otsi pilte ja videoid uuesti"
+
+#: MainWindow/Window.cpp:782
+msgid "Recreate Exif Search Database"
+msgstr "Loo EXIF-otsingu andmebaas uuesti"
+
+#: MainWindow/Window.cpp:785
+msgid "Read EXIF Info From Files..."
+msgstr "Loe EXIF-info failidest..."
+
+#: MainWindow/Window.cpp:790
+msgid "Convert Backend...(Experimental!)"
+msgstr "Teisendamise taustaprogramm... (eksperimentaalne!)"
+
+#: MainWindow/Window.cpp:795
+msgid "Build Thumbnails"
+msgstr "Tekita pisipildid"
+
+#: MainWindow/Window.cpp:798
+msgid "Statistics"
+msgstr "Statistika"
+
+#: MainWindow/Window.cpp:807
+msgid "Enable All Messages"
+msgstr "Kõigi teadete lubamine"
+
+#: MainWindow/Window.cpp:810
+msgid "Configure Current View"
+msgstr "Aktiivse vaate seadistamine"
+
+#: MainWindow/Window.cpp:819
+msgid "Tree"
+msgstr "Puu"
+
+#: MainWindow/Window.cpp:824
+msgid "Tree with User Icons"
+msgstr "Puu kasutaja ikoonidega"
+
+#: MainWindow/Window.cpp:830 MainWindow/Window.cpp:836
+msgid "Icons"
+msgstr "Ikoonid"
+
+#: MainWindow/Window.cpp:848
+msgid "Show Tooltips in Thumbnails Window"
+msgstr "Näita pisipildiaknas kohtspikreid"
+
+#: MainWindow/Window.cpp:854
+msgid "Run KPhotoAlbum Demo"
+msgstr "KPhotoAlbumi demo käivitamine"
+
+#: MainWindow/Window.cpp:857
+msgid "KPhotoAlbum Feature Status"
+msgstr "KPhotoAlbumi omaduste olek"
+
+#: MainWindow/Window.cpp:860
+msgid "Show Demo Videos"
+msgstr "Näita demovideosid"
+
+#: MainWindow/Window.cpp:865
+msgid "Show Exif Info"
+msgstr "EXIF-info näitamine"
+
+#: MainWindow/Window.cpp:868
+msgid "Recreate Selected Thumbnails"
+msgstr "Valitud pisipiltide taasloomine"
+
+#: MainWindow/Window.cpp:893
+msgid "Auto saving...."
+msgstr "Automaatne salvestamine..."
+
+#: MainWindow/Window.cpp:895
+msgid "Auto saving.... Done"
+msgstr "Automaatne salvestamine... Tehtud"
+
+#: MainWindow/Window.cpp:1000
+#, kde-format
+msgid ""
+"SQL backend initialization failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"SQL-taustaprogrammi initsialiseerimine nurjus järgmise vea tõttu:\n"
+"%1"
+
+#: MainWindow/Window.cpp:1004
+msgid "SQL database support is not compiled in."
+msgstr "SQL-andmebaasi toetus ei ole rakendusse kompileeritud."
+
+#: MainWindow/Window.cpp:1009
+#, kde-format
+msgid "Invalid database backend: %1"
+msgstr "Vigane andmebaasi taustaprogramm: %1"
+
+#: MainWindow/Window.cpp:1014
+msgid "Do you want to use XML backend instead?"
+msgstr "Kas soovid kasutada selle asemel XML-taustaprogrammi?"
+
+#: MainWindow/Window.cpp:1077
+msgid ""
+"<p>The password protection is only a means of allowing your little sister to "
+"look in your images, without getting to those embarrassing images from your "
+"last party.</p><p>In other words, anyone with access to the index.xml file "
+"can easily circumvent this password.</b></p>"
+msgstr ""
+"<p>Paroolikaitse on siin mõeldud ainult sinu pisikesele õeraasule, et kui "
+"see sinu, vanema venna pilte vaatama satub, ei näeks ta neid, nojah, tead "
+"küll, mida...</p><p>Ehk siis teisisõnu: kui keegi pääseb ligi sinu index.xml "
+"failile, saab ta paroolist tahtmise korral ikka mööda!</b></p>"
+
+#: MainWindow/Window.cpp:1082
+msgid "Password Protection"
+msgstr "Paroolikaitse"
+
+#: MainWindow/Window.cpp:1096
+msgid "Type in Password to Unlock"
+msgstr "Kirjuta lahtilukustamiseks parool"
+
+#: MainWindow/Window.cpp:1105 MainWindow/Window.cpp:1145
+msgid "Invalid password."
+msgstr "Vigane parool."
+
+#: MainWindow/Window.cpp:1136
+msgid "Type in Old Password"
+msgstr "Kirjuta vana parool"
+
+#: MainWindow/Window.cpp:1148
+msgid "Type in New Password"
+msgstr "Kirjuta uus parool"
+
+#: MainWindow/Window.cpp:1172
+msgid "Annotation Dialog"
+msgstr "Annotatsioonidialoog"
+
+#: MainWindow/Window.cpp:1332
+msgid ""
+"<p>Really enable all message boxes where you previously checked the do-not-"
+"show-again check box?</p>"
+msgstr ""
+"<p>Kas tõesti lubada kõik teatekastid - ka seal, kus oled varem ära märkinud "
+"võimaluse dialoogi mitte näidata?</p>"
+
+#: MainWindow/Window.cpp:1343
+msgid ""
+"<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
+"Window::setupPluginMenu). This indicate that you forgot to do a make "
+"install. If you did compile KPhotoAlbum yourself, then please run make "
+"install. If not, please report this as a bug.</p><p>KPhotoAlbum will "
+"continue execution, but it is not entirely unlikely that it will crash later "
+"on due to the missing make install.</p>"
+msgstr ""
+"<p>KPhotoAlbumit tabas sisemine tõrge (puuduv lisatav menüü funktsioonis "
+"MainWindow::Window::setupPluginMenu). See viitab sellele, et oled unustanud "
+"kompileerimisel andmast käsu make install. Kui kompileerisid KPhotoAlbumi "
+"ise, palun anna see käsk, kui mitte, teata veast.</p><p>KPhotoAlbum jätkab "
+"tööd, kuid on üpris tõenäoline, et mainitud põhjusel tabab teda hiljem krahh."
+"</p>"
+
+#: MainWindow/Window.cpp:1343
+msgid "Internal Error"
+msgstr "Sisemine viga"
+
+#: MainWindow/Window.cpp:1511
+msgid "Open List of Files"
+msgstr "Failide nimekirja avamine"
+
+#: MainWindow/Window.cpp:1511
+msgid "Enter file names"
+msgstr "Kirjuta failide nimed"
+
+#: MainWindow/Window.cpp:1525
+msgid "No images matching your input were found."
+msgstr "Sisestatutel vastavaid pilte ei leitud."
+
+#: MainWindow/Window.cpp:1525
+msgid "No Matches"
+msgstr "Sobivusi pole"
+
+#: MainWindow/Window.cpp:1594
+msgid "Database conversion from SQL database is not yet supported."
+msgstr "Andmebaasi teisendamine SQL-andmebaasist pole veel toetatud."
+
+#: MainWindow/Window.cpp:1601
+msgid ""
+"You should set SQL database settings before the conversion. Do you want to "
+"do this now?"
+msgstr ""
+"SQL-andmebaasi seadistused tuleb määrata enne teisendamist. Kas soovid seda "
+"teha nüüd?"
+
+#: MainWindow/Window.cpp:1621
+msgid "Converting database"
+msgstr "Andmebaasi teisendamine"
+
+#: MainWindow/Window.cpp:1624
+msgid "Converting database to SQL."
+msgstr "Andmebaasi teisendamine SQL-i."
+
+#: MainWindow/Window.cpp:1625
+msgid "Please wait."
+msgstr "Palun oota."
+
+#: MainWindow/Window.cpp:1634
+msgid "Database conversion is ready."
+msgstr "Andmebaas teisendatud."
+
+#: MainWindow/Window.cpp:1637
+#, kde-format
+msgid ""
+"Database conversion failed, because following error occurred:\n"
+"%1"
+msgstr ""
+"Andmebaasi teisendamine nurjus järgmise vea tõttu:\n"
+"%1"
+
+#: MainWindow/SplashScreen.cpp:67
+#, kde-format
+msgid "Version %1"
+msgstr "Versioon %1"
+
+#: MainWindow/SplashScreen.cpp:69
+#, kde-format
+msgid "Version: %1"
+msgstr "Versioon: %1"
+
+#: HTMLGenerator/HTMLDialog.cpp:50
+msgid "HTML Export"
+msgstr "HTML eksport"
+
+#: HTMLGenerator/HTMLDialog.cpp:63 HTMLGenerator/HTMLDialog.cpp:64
+msgid "Content"
+msgstr "Sisu"
+
+#: HTMLGenerator/HTMLDialog.cpp:72
+msgid "Page title:"
+msgstr "Lehe pealkiri:"
+
+#: HTMLGenerator/HTMLDialog.cpp:79
+msgid "Copyright:"
+msgstr "Autoriõigus:"
+
+#: HTMLGenerator/HTMLDialog.cpp:88
+msgid "Description:"
+msgstr "Kirjeldus:"
+
+#: HTMLGenerator/HTMLDialog.cpp:95
+msgid "Create .kim export file"
+msgstr ".kim-eksportfaili loomine"
+
+#: HTMLGenerator/HTMLDialog.cpp:99
+msgid "Inline Movies in pages"
+msgstr "Filmid lisatakse lehtedele"
+
+#: HTMLGenerator/HTMLDialog.cpp:104
+msgid "What to Include"
+msgstr "Mida kaasata"
+
+#: HTMLGenerator/HTMLDialog.cpp:136 HTMLGenerator/HTMLDialog.cpp:137
+msgid "Layout"
+msgstr "Paigutus"
+
+#: HTMLGenerator/HTMLDialog.cpp:146
+msgid "Thumbnail size:"
+msgstr "Pisipildi suurus:"
+
+#: HTMLGenerator/HTMLDialog.cpp:161
+msgid "Number of columns:"
+msgstr "Veergude arv:"
+
+#: HTMLGenerator/HTMLDialog.cpp:176
+msgid "Theme:"
+msgstr "Teema:"
+
+#: HTMLGenerator/HTMLDialog.cpp:187
+msgid "Image Sizes"
+msgstr "Piltide suurus"
+
+#: HTMLGenerator/HTMLDialog.cpp:197
+msgid "Full size"
+msgstr "Täielik suurus"
+
+#: HTMLGenerator/HTMLDialog.cpp:240 HTMLGenerator/HTMLDialog.cpp:241
+msgid "Destination"
+msgstr "Sihtkoht"
+
+#: HTMLGenerator/HTMLDialog.cpp:250
+msgid "Base directory:"
+msgstr "Baaskataloog:"
+
+#: HTMLGenerator/HTMLDialog.cpp:268
+msgid "Base URL:"
+msgstr "Baas-URL:"
+
+#: HTMLGenerator/HTMLDialog.cpp:277
+msgid "URL for final destination:"
+msgstr "Sihtkoha URL:"
+
+#: HTMLGenerator/HTMLDialog.cpp:285
+msgid "Output directory:"
+msgstr "Väljundkataloog:"
+
+#: HTMLGenerator/HTMLDialog.cpp:291
+msgid "<b>Hint: Press the help button for descriptions of the fields</b>"
+msgstr "<b>Vihje: vajuta väljade kirjelduse nägemiseks abinuppu</b>"
+
+#: HTMLGenerator/HTMLDialog.cpp:302
+msgid "You must select at least one resolution."
+msgstr "Mingi lahutus tuleb ikka valida."
+
+#: HTMLGenerator/HTMLDialog.cpp:339
+msgid ""
+"<p>You did not specify a base directory. This is the topmost directory for "
+"your images. Under this directory you will find each generated collection in "
+"separate directories.</p>"
+msgstr ""
+"<p>Jätsid baaskataloogi määramata. See on sinu piltide ülemkataloog, milles "
+"asuvad eraldi kataloogides kõik sinu pildikollektsioonid.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:343
+msgid "No Base Directory Specified"
+msgstr "Baaskataloog ei ole määratud"
+
+#: HTMLGenerator/HTMLDialog.cpp:349
+msgid ""
+"<p>You did not specify an output directory. This is a directory containing "
+"the actual images. The directory will be in the base directory specified "
+"above.</p>"
+msgstr ""
+"<p>Jätsid väljundkataloogi määramata. See on tegelikult pilte sisaldav "
+"kataloog. See asub ülal määratud baaskataloogis.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:352
+msgid "No Output Directory Specified"
+msgstr "Väljundkataloog ei ole määratud"
+
+#: HTMLGenerator/HTMLDialog.cpp:360
+#, kde-format
+msgid ""
+"<p>Error while reading information about %1. This is most likely because the "
+"directory does not exist.</p>"
+msgstr ""
+"<p>Viga %1 info lugemisel. Tõenäoliselt ei ole sellist kataloogi lihtsalt "
+"olemas.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:368
+#, kde-format
+msgid "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+msgstr ""
+"<p>%1 puudub, ei ole kataloog või ei ole sul sinna kirjutamisõigust.</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:378
+#, kde-format
+msgid ""
+"<p>Output directory %1 already exists. Usually, this means you should "
+"specify a new directory.</p><p>Should %2 be deleted first?</p>"
+msgstr ""
+"<p>Väljundkataloog %1 on juba olemas. Tavaliselt oleks mõtet määrata uus "
+"kataloog.</p><p>Kas kustutada kõigepealt %2?</p>"
+
+#: HTMLGenerator/HTMLDialog.cpp:381
+msgid "Directory Exists"
+msgstr "Kataloog on olemas"
+
+#: HTMLGenerator/HTMLDialog.cpp:452
+#, kde-format
+msgid "%1 (by %2)"
+msgstr "%1 (autor: %2)"
+
+#: HTMLGenerator/HTMLDialog.cpp:463
+msgid "Could not find any themes - this is very likely an installation error"
+msgstr "Ühtki teemat ei leitud - see peaks küll olema paigalduse viga"
+
+#: HTMLGenerator/HTMLDialog.cpp:470
+#, kde-format
+msgid "More than one theme is set as default, using theme %1"
+msgstr "Enam kui üks teema on määratud vaiketeemaks, kasutatakse teemat %1"
+
+#: HTMLGenerator/Generator.cpp:47
+msgid "Generating images for HTML page "
+msgstr "Piltide genereerimine HTML-leheküljele "
+
+#: HTMLGenerator/Generator.cpp:137
+#, kde-format
+msgid "Error copying %1 to %2"
+msgstr "Viga %1 kopeerimisel asukohta %2"
+
+#: HTMLGenerator/Generator.cpp:344
+#, kde-format
+msgid "<a href=\"%1\">prev</a>"
+msgstr "<a href=\"%1\">eelmine</a>"
+
+#: HTMLGenerator/Generator.cpp:346 HTMLGenerator/Generator.cpp:354
+msgid "prev"
+msgstr "eelmine"
+
+#: HTMLGenerator/Generator.cpp:358
+#, c-format, kde-format
+msgid "<a href=\"index-%1.html\">index</a>"
+msgstr "<a href=\"index-%1.html\">indeks</a>"
+
+#: HTMLGenerator/Generator.cpp:367
+#, kde-format
+msgid "<a href=\"%1\">next</a>"
+msgstr "<a href=\"%1\">järgmine</a>"
+
+#: HTMLGenerator/Generator.cpp:369 HTMLGenerator/Generator.cpp:376
+msgid "next"
+msgstr "järgmine"
+
+#: HTMLGenerator/Generator.cpp:500
+#, kde-format
+msgid "Could not create file '%1'."
+msgstr "Faili '%1' loomine nurjus."
+
+#: HTMLGenerator/Generator.cpp:501
+msgid "Could Not Create File"
+msgstr "Faili loomine nurjus"
+
+#: HTMLGenerator/Generator.cpp:533
+#, kde-format
+msgid "<p>Unable to copy %1 to %2</p>"
+msgstr "<qt>Kopeerimine %1 -> %2 nurjus</qt>"
+
+#: HTMLGenerator/Generator.cpp:565
+#, kde-format
+msgid "Unable to write image '%1'."
+msgstr "Pildi '%1' kirjutamine nurjus."
+
+#: ThumbnailView/ThumbnailDND.cpp:90
+msgid ""
+"<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
+"thumbnail viewer, you actually reorder them. This is very useful where you "
+"do not know the exact date for the images. On the other hand, if the images "
+"have valid timestamps, you should use <b>Images -&gt; Sort Selected By Date "
+"and Time</b>.</p>"
+msgstr ""
+"<p><b>Kas pisipildid tõesti ümber korraldada?</b></p><p>Pilte "
+"pisipildivaates lohistades korraldatakse need ümber. See on väga kasulik "
+"näiteks juhul, kui sa ei tea piltide täpset kuupäeva. Kui aga piltidel on "
+"korrektsed ajatemplid, tuleks kasutada käsku <tt>Pildid -&gt; Sorteeri "
+"valitud kuupäeva ja kellaaja järgi</tt></p>"
+
+#: ThumbnailView/ThumbnailDND.cpp:96
+msgid "Reorder Thumbnails"
+msgstr "Pisipiltide ümberkorraldamine"
+
+#: ThumbnailView/ThumbnailBuilder.cpp:30
+msgid "Generating thumbnails"
+msgstr "Pisipiltide tekitamine"
+
+#~ msgid "**NONE**"
+#~ msgstr "**PUUDUB**"
+
+#~ msgid "Read File Info"
+#~ msgstr "Faili info lugemine"
+
+#~ msgid "Show File List"
+#~ msgstr "Failinimekirja näitamine"
+
+#~ msgid ""
+#~ "<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></"
+#~ "center></b></p>"
+#~ msgstr ""
+#~ "<p><b><center><font size=\"+3\">Faili info lugemine<br/>%1 valitud</"
+#~ "font></center></b></p>"
+
+#~ msgid ""
+#~ "<p><b>%1 files</b> are affected by this operation, their filenames can be "
+#~ "seen in the list below.</p>"
+#~ msgstr ""
+#~ "<p>See toiming puudutab <b>%1 faili</b>, mille nimed on näha allpool.</p>"
+
+#~ msgid "Files affected"
+#~ msgstr "Mõjutatud failid"
+
+#~ msgid "1 Image"
+#~ msgid_plural "%1 Images"
+#~ msgstr[0] "1 pilt"
+#~ msgstr[1] "%1 pilti"
+
+#~ msgid "1 Movie"
+#~ msgid_plural "%1 Movies"
+#~ msgstr[0] "1 film"
+#~ msgstr[1] "%1 filmi"
+
+#~ msgid "What"
+#~ msgstr "Mis"
+
+#~ msgid "1 Category"
+#~ msgid_plural "%1 Categories"
+#~ msgstr[0] "1 kategooria"
+#~ msgstr[1] "%1 kategooriat"
+
+#~ msgid "Show thumbnails on dark background"
+#~ msgstr "Pisipiltide näitamine tumedal taustal"
+
+#~ msgid ""
+#~ "<p>The background color in the thumbnail view is the systems' default "
+#~ "background; by checking this option, you can set it to be dark instead.</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p>Pisipildivaate taustavärvina kasutatakse süsteemi vaikimisi "
+#~ "taustavärvi, kuid selle valikuga võib taustavärvi määrata tumedaks.</p>"
+
+#~ msgid "Welcome to KPhotoAlbum"
+#~ msgstr "Tere tulemast kasutama KPhotoAlbumit"
+
+#~ msgid "List View with Custom Icons"
+#~ msgstr "Nimekirjavaade kohandatud ikoonidega"
+
+#~ msgid "Icon View with Custom Icons"
+#~ msgstr "Ikoonivaade kohandatud ikoonidega"
+
+#~ msgid "&OK"
+#~ msgstr "&OK"
+
+#~ msgid "Failed"
+#~ msgstr "Nurjumine"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Untested"
+#~ msgstr "Testimata"
+
+#~ msgid "<h1><b>Error Loading Video</font></b></h1>"
+#~ msgstr "<h1><b>Viga video laadimisel</font></b></h1>"
+
+#~ msgid "<tr><td>Finding mime type for file</td><td>%1</td><tr>"
+#~ msgstr "<tr><td>MIME tüübi leidmine failile</td><td>%1</td><tr>"
+
+#~ msgid "<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>KPart'i hankimine MIME tüübile</td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Getting a library for the part</tr><td>%1</td></tr>"
+#~ msgstr "<tr><td>Teegi hankimine komponendile</tr><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Instantiating Part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Initsialiseeritakse komponent</td><td>%1</td></tr>"
+
+#~ msgid "<tr><td>Fetching Widget from part</td><td>%1</td></tr>"
+#~ msgstr "<tr><td>Vidina tõmbamine komponendist</td><td>%1</td></tr>"
+
+#~ msgid "Unable to show video %1"
+#~ msgstr "Video %1 esitamine nurjus"
+
+#~ msgid "Show More Help"
+#~ msgstr "Näita rohkem abi"
+
+#~ msgid "Other: "
+#~ msgstr "Muu: "
+
+#~ msgid ""
+#~ "<p>This is the KPhotoAlbum survey. Its goal is to collect the information "
+#~ "needed to make KPhotoAlbum meet the needs of users like you.</p><p>Spend "
+#~ "a couple of minutes and share your experience of using KPhotoAlbum.</"
+#~ "p><p>At any time, you can quit the survey and return to it later on; it "
+#~ "will remember your previous answers.</p><p align=\"right\">Thanks in "
+#~ "advance! Jesper</p>"
+#~ msgstr ""
+#~ "<p>See on KPhotoAlbumi uuring, mille eesmärk on muuta KPhotoAlbum just "
+#~ "sinu - minu kalli kasutaja - vajadustele vastavaks.</p><p>Kuluta paar "
+#~ "minutit oma kallist ajast ja anna teada, mida sa rakendusest arvad.</"
+#~ "p><p>Sa võid uuringu iga hetk lõpetada ja vastamist hiljem jätkata - sinu "
+#~ "vastused jäetakse seniks meelde.</p><p align=\"right\">Tänan sind juba "
+#~ "ette - sinu Jesper</p>"
+
+#~ msgid "Length of Usage"
+#~ msgstr "Kasutamisaeg"
+
+#~ msgid "How long have you used KPhotoAlbum?"
+#~ msgstr "Kui kaua oled KPhotoAlbumit kasutanud?"
+
+#~ msgid "< 1 Month"
+#~ msgstr "Alla 1 kuu"
+
+#~ msgid "1-6 Months"
+#~ msgstr "1-6 kuud"
+
+#~ msgid "6-12 Months"
+#~ msgstr "6-12 kuud"
+
+#~ msgid "1-2 Year"
+#~ msgstr "1-2 aastat"
+
+#~ msgid "> 2 Years"
+#~ msgstr "Üle 2 aasta"
+
+#~ msgid "Image Count"
+#~ msgstr "Piltide arv"
+
+#~ msgid "User demographics"
+#~ msgstr "Kasutaja üldandmed"
+
+#~ msgid ""
+#~ "In designing the software, it's important to know who uses it. You can "
+#~ "choose any number of categories from the list below."
+#~ msgstr ""
+#~ "Tarkvara luues on kasulik teada, kes seda kasutavad. Sa võid valida "
+#~ "allolevast loendist mis tahes hulga kategooriaid."
+
+#~ msgid "Which of these categories (if any) do you fit in?"
+#~ msgstr "Millisesse kategooriasse sa kuulud (kui üldse mõnda)?"
+
+#~ msgid "I'm a professional software developer"
+#~ msgstr "Olen professionaalne tarkvara-arendaja"
+
+#~ msgid "I'm a professional photographer"
+#~ msgstr "Olen professionaalne fotograaf"
+
+#~ msgid "I'm a C++ programmer"
+#~ msgstr "Olen C++ programmeerija"
+
+#~ msgid "I'm a student studying software development"
+#~ msgstr "Olen tarkvara-arendust õppiv tudeng"
+
+#~ msgid "I'm a student studying something else"
+#~ msgstr "Olen mingi muu eriala tudeng"
+
+#~ msgid "Private albums"
+#~ msgstr "Eraalbumid"
+
+#~ msgid "Professional"
+#~ msgstr "Professionaalsed huvid"
+
+#~ msgid "For what are you using KPhotoAlbum?"
+#~ msgstr "Milleks sa KPhotoAlbumit kasutad?"
+
+#~ msgid ""
+#~ "If you are using KPhotoAlbum professionally, please send an email to me "
+#~ "at blackie@kde.org explaining how you are using KPhotoAlbum, and how I "
+#~ "may improve it in ways that would make it more valuable for professionals."
+#~ msgstr ""
+#~ "Kui kasutad KPhotoAlbumit professionaalina, saada palun mulle e-kiri "
+#~ "aadressile blackie@kde.org ja räägi, kuidas sa KPhotoAlbumit kasutad, "
+#~ "ning kuidas mina saaksin seda parandada nii, et sellest oleks rohkem kasu "
+#~ "ka professionaalidele."
+
+#~ msgid "General Comments"
+#~ msgstr "Üldised märkused"
+
+#~ msgid ""
+#~ "<p>Every time my email client indicate a survey has been completed I "
+#~ "can't wait to the end of my working day so I can do some KPhotoAlbum "
+#~ "programming.</p><p>One problem with software development is that "
+#~ "developers most often hears about problems, and seldom about how much "
+#~ "people enjoy the applications. This is your chance to give me some "
+#~ "positive energy by telling me how much you like the application.</p>"
+#~ msgstr ""
+#~ "<p>Alati, kui mu e-posti klient näitab, et saadetud on mõni uuring, ei "
+#~ "malda ma tööpäeva lõpuni oodata, et saaks asuda KPhotoAlbumi "
+#~ "programmeerimise kallale.</p><p>Tarkvara arendamise üks probleem seisneb "
+#~ "selles, et arendajad kuulevad peamiselt probleemidest, väga harva aga "
+#~ "sellest, et nende rakendus inimestele meeldib. See on nüüd sinu võimalus "
+#~ "anda mulle positiivset energiat, öeldes, kui väga minu rakendus sulle "
+#~ "meeldib.</p>"
+
+#~ msgid ""
+#~ "<p>Thank you very much for your time, I hope you will continue using "
+#~ "KPhotoAlbum for many years to come, and that future versions will fit "
+#~ "your purpose even better than it does today.</p>Finally, allow me to ask "
+#~ "you to consider giving a donation. See the Help->Donation menu on how to "
+#~ "make a donation.</p><p align=\"right\">Once again thanks for filling out "
+#~ "this survey - Jesper</p>"
+#~ msgstr ""
+#~ "<p>Tänan, et kulutasid nii palju aega. Ma loodan, et sa kasutad "
+#~ "KPhotoAlbumit veel aastaid ja et tulevased versioonid vastavad veelgi "
+#~ "paremini just sinu vajadustele.</p>Lõpuks pakun välja ka võimaluse "
+#~ "abistada mind rahaliselt. Minu digikaamera hakkab juba vanaks jääma, nii "
+#~ "et mul poleks midagi selle vastu, et kui sulle peaks minu töö tulemus "
+#~ "meeldima, aitaksid sa mul uue kaamera hankida, et ma saaksin taas nautida "
+#~ "pildistamist ja tehtud pilte elu lõpuni muudkui sortida. Vali annetamise "
+#~ "täpsete võimaluste uurimiseks menüükäsk Abi->Annetamine.</p><p align="
+#~ "\"right\">Veel kord tänu uuringu läbimise eest - Jesper</p>"
+
+#~ msgid "<h1>%1 Survey</h1>"
+#~ msgstr "<h1>%1i uuring</h1>"
+
+#~ msgid "<h1>%1 Survey Completed</h1>"
+#~ msgstr "<h1>%1i uuring lõpetatud</h1>"
+
+#~ msgid "How many images are in your database:"
+#~ msgstr "Piltide arv sinu andmebaasis:"
+
+#~ msgid "How many percentages of your images are scanned in: "
+#~ msgstr "Skaneeritud piltide protsent sinu piltide koguarvust:"
+
+#~ msgid "<< Prev"
+#~ msgstr "<< Eelmine"
+
+#~ msgid "Next >>"
+#~ msgstr "Järgmine >>"
+
+#~ msgid "Send Answers"
+#~ msgstr "Saada vastused"
+
+#~ msgid "Pause Survey"
+#~ msgstr "Peata uuring"
+
+#~ msgid "Answer KPhotoAlbum Survey..."
+#~ msgstr "KPhotoAlbumi uuringule vastamine..."
+
+#~ msgid "Mbytes"
+#~ msgstr " MB"
+
+#, fuzzy
+#~| msgid "No Suggestions"
+#~ msgid "Suggest"
+#~ msgstr "Ettepanekud puuduvad"
+
+#~ msgid "<p>Specify the size of the cache used to hold thumbnails.</p>"
+#~ msgstr "<p>Siin saab määrata pisipiltide puhvri suuruse.</p>"
+
+#~ msgid "Show %1"
+#~ msgstr "%1 näitamine"
+
+#~ msgid "MPEG video support *TODO*"
+#~ msgstr "MPEG-video toetus"
+
+#~ msgid "Quicktime video support (aka mov) *TODO*"
+#~ msgstr "Quicktime-video toetus (mov)"
+
+#~ msgid "ASF video support (aka wmv) *TODO*"
+#~ msgstr "ASF-video toetus (wmv)"
+
+#~ msgid "Real Media *TODO*"
+#~ msgstr "Real Media"
+
+#~ msgid "New images were found. Should I trust their time stamps?"
+#~ msgstr "Leiti uusi pilte. Kas usaldada nende ajatemplit?"
+
+#~ msgid "Replacements"
+#~ msgstr "Asendused"

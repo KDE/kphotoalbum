@@ -830,12 +830,10 @@ void AnnotationDialog::Dialog::setupFocus()
         }
         prev = *orderedIt;
     }
-    if (prev && first) {
+
+    if ( first ) {
         qDebug() << "tabbing " << prev->objectName() << " -> " << first->objectName();
         setTabOrder( prev, first );
-    } else if (prev) {
-        qDebug() << "tabbing " << prev->objectName() << " -> " << prev->objectName();
-        setTabOrder( prev, prev );
     }
 
 

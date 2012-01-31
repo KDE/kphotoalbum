@@ -93,6 +93,8 @@ void InvalidDateFinder::accept()
         qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
             break;
+        if ( info.isNull() )
+            continue;
 
         DB::ImageDate date = info->date();
         bool show = false;

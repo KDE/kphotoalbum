@@ -56,7 +56,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     StackMap stackContents;
     Q_FOREACH(const DB::Id& id, _imageList) {
         DB::ImageInfoPtr imageInfo = id.fetchInfo();
-        if (imageInfo->isStacked()) {
+        if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
             stackContents[stackid].append(id);
         }
@@ -78,7 +78,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     QSet<DB::StackID> alreadyShownStacks;
     Q_FOREACH( const DB::Id& id, _imageList) {
         DB::ImageInfoPtr imageInfo = id.fetchInfo();
-        if (imageInfo->isStacked()) {
+        if ( !imageInfo.isNull() && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
                 continue;
@@ -261,6 +261,8 @@ QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role 
 void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, const ImageManager::Priority priority )
 {
     DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
+    if ( imageInfo.isNull() )
+        return;
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
@@ -279,7 +281,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const
     DB::ImageInfoPtr imageInfo = id.fetchInfo();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.
-    if ( fullSize.isValid() ) {
+    if ( fullSize.isValid() && !imageInfo.isNull() ) {
         imageInfo->setSize( fullSize );
     }
 
@@ -407,6 +409,8 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
     // and maybe also move the caching stuff into the ImageManager
     Q_FOREACH( const DB::Id item, _displayList ) {
         const DB::ImageInfoPtr imageInfo = item.fetchInfo();
+        if ( imageInfo.isNull() )
+            continue;
         const QString fileName = imageInfo->fileName(DB::AbsolutePath);
 
         if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )

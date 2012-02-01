@@ -1561,7 +1561,7 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
-    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") )
+    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here.") )
                        .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;
@@ -1569,6 +1569,8 @@ void MainWindow::Window::slotShowListOfFiles()
     DB::IdList out;
     for ( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
+        if ( fileName.isNull() )
+            continue;
         DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
         if ( !id.isNull() )
             out.append(id);

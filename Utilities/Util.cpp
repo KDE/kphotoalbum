@@ -614,6 +614,8 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return fileName;
     else if ( fileName.startsWith( QString::fromAscii("file://") ) )
         return imageFileNameToAbsolute( fileName.mid( 7 ) ); // 7 == length("file://")
+    else if ( fileName.startsWith( QString::fromAscii("/") ) )
+        return QString::null; // Not within our image root
     else
         return absoluteImageFileName( fileName );
 }

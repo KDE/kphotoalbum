@@ -142,7 +142,7 @@ static bool isMouseResizeGesture( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
-    if ( isMouseOverStackIndicator( event->pos() ) ) {
+    if ( (!(event->modifiers() & ( Qt::ControlModifier | Qt::ShiftModifier ) )) && isMouseOverStackIndicator( event->pos() ) ) {
         model()->toggleStackExpansion( mediaIdUnderCursor() );
         m_pressOnStackIndicator = true;
         return;

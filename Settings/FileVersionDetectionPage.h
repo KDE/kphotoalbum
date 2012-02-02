@@ -37,6 +37,7 @@ public:
 
 private:
     QCheckBox* _searchForImagesOnStart;
+    QCheckBox* _skipSymlinks;
     QCheckBox* _skipRawIfOtherMatches;
     QLineEdit* _excludeDirectories; // Directories to exclude
     QCheckBox* _detectModifiedFiles;

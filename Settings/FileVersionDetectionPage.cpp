@@ -38,6 +38,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
     // Search for images on startup
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
+    _skipSymlinks = new QCheckBox( i18n("Skip symbolic links when searching for new images"), generalBox );
     _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
 
     // Exclude directories from search
@@ -77,6 +78,11 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                 "using <b>Maintenance->Rescan for new images</b></p>");
     _searchForImagesOnStart->setWhatsThis( txt );
 
+    txt = i18n( "<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
+                "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
+                "both the original files and and symbolic links to these files within your image directory.</p>");
+    _skipSymlinks->setWhatsThis( txt );
+
     txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
                 "Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
                 "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
@@ -102,6 +108,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* opt )
 {
     _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
+    _skipSymlinks->setChecked( opt->skipSymlinks() );
     _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
     _excludeDirectories->setText( opt->excludeDirectories() );
     _detectModifiedFiles->setChecked( opt->detectModifiedFiles() );
@@ -116,6 +123,7 @@ void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* o
 void Settings::FileVersionDetectionPage::saveSettings( Settings::SettingsData* opt )
 {
     opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
+    opt->setSkipSymlinks( _skipSymlinks->isChecked() );
     opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
     opt->setExcludeDirectories( _excludeDirectories->text() );
     opt->setDetectModifiedFiles( _detectModifiedFiles->isChecked() );

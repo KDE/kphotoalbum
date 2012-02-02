@@ -87,6 +87,9 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
     QStringList excluded;
     excluded << Settings::SettingsData::instance()->excludeDirectories();
     excluded = excluded.at(0).split(QString::fromLatin1(","));
+
+    bool skipSymlinks = Settings::SettingsData::instance()->skipSymlinks();
+
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
 	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
@@ -98,6 +101,8 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
         QFileInfo fi( file );
 
 	    if ( !fi.isReadable() )
+	        continue;
+	    if ( skipSymlinks && fi.isSymLink() )
 	        continue;
 
         if ( fi.isFile() ) {

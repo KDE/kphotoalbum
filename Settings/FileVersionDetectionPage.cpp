@@ -98,7 +98,9 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     _moveOriginalContents->setWhatsThis( txt );
     _autoStackNewFiles->setWhatsThis( txt );
 
-    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external program.  These settings set the original regexp to search for and contents to replace it with when deciding what the new filename should be.</p>");
+    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external application. This configuration defines how the new file is named.</p>"
+               "<p>The regular expression defines the part of the original file name that is replaced with the <i>replacement text</i>. "
+               "E.g. regexp <i>\"\\.(jpg|png)\"</i> and replacement text <i>\"-mod.\\1\"</i> would copy test.jpg to test-mod.jpg and open the new file in selected application.</p>");
     copyFileComponentLabel->setWhatsThis( txt );
     _copyFileComponent->setWhatsThis( txt );
     copyFileReplacementComponentLabel->setWhatsThis( txt );

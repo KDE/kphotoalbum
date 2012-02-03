@@ -295,6 +295,17 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
 bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
 {
     if (obj == lineEdit()) {
+        if (e->type() == QEvent::Wheel) {
+            // Up and down arrow keys step the date
+            QWheelEvent* we = dynamic_cast<QWheelEvent*>(e);
+			Q_ASSERT( we != null );
+
+			int step = 0;
+			step = we->delta() > 0 ? 1 : -1;
+			if (we->orientation() == Qt::Vertical) {
+				setDate( value.addDays(step) );
+			}
+        }
         if (e->type() == QEvent::KeyPress) {
             // Up and down arrow keys step the date
             QKeyEvent* ke = (QKeyEvent*)e;

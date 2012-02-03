@@ -306,16 +306,6 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
 				setDate( value.addDays(step) );
 			}
         }
-        if (e->type() == QEvent::KeyPress) {
-            // Up and down arrow keys step the date
-            QKeyEvent* ke = (QKeyEvent*)e;
-
-            int step = 0;
-            if (ke->key() == Qt::Key_Up)
-                step = 1;
-            else if (ke->key() == Qt::Key_Down)
-                step = -1;
-        }
     }
     else {
         // It's a date picker event

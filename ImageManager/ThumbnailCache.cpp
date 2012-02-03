@@ -25,6 +25,11 @@
 #include <QPixmap>
 #include <QFile>
 
+/* If we're not using GNU C, elide __attribute__ */
+#ifndef __GNUC__
+#  define  __attribute__(x)  /*NOTHING*/
+#endif
+
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
 const int FILEVERSION=3;
@@ -51,7 +56,9 @@ void ImageManager::ThumbnailCache::insert( const QString& name, const QImage& im
 
     QByteArray data;
     QBuffer buffer( &data );
-    bool OK = buffer.open( QIODevice::WriteOnly );
+	// suppress compiler warnings when OK is not used:
+    bool OK __attribute__((unused));
+	OK = buffer.open( QIODevice::WriteOnly );
     Q_ASSERT( OK );
 
     OK = image.save( &buffer, "JPG" );

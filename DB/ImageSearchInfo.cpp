@@ -36,7 +36,7 @@ using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _rating( -1 ), ratingSearchMode( 0 ), _megapixel( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
 {
 }
 
@@ -51,7 +51,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _rating( -1 ), ratingSearchMode( 0 ), _megapixel( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
+    : _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
 {
 }
 

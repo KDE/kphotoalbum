@@ -100,8 +100,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     _description = new KTextEdit;
     _description->setProperty( "WantsFocus", true );
-    _description->setCheckSpellingEnabled( true );
     _description->setObjectName( i18n("Description") );
+    _description->setCheckSpellingEnabled( true );
+    _description->setTabChangesFocus( true ); // this allows tabbing to the next item in the tab order.
 
     QDockWidget* dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );

@@ -371,40 +371,45 @@ void XMLDB::Database::reorder(
 
 // Remove all the images from the database that match the given selection and
 // return that sublist.
-// Note: The selection is known to be sorted wrt the order in the image list,
-// i.e. it is a common subsequence.
+// This returns the selected and erased images in the order in which they apear
+// in the image list itself.
 DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& selection)
 {
     DB::ImageInfoList result;
     if (selection.isEmpty())
         return result;
 
-    DB::IdList::ConstIterator subsequenceIt = selection.begin();
-    QString file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
-
+    // iterate over all images (expensive!!) TODO: improve?
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
-        if ( (*it)->fileName(DB::AbsolutePath) == file ) {
+        QString imagefile = (*it)->fileName(DB::AbsolutePath);
+        DB::IdList::ConstIterator si = selection.begin();
+        // for each image, iterate over selection, break on match
+        for ( /**/; si != selection.end(); ++si ) {
+            QString file = (*si).fetchInfo()->fileName(DB::AbsolutePath);
+            if ( imagefile == file ) {
+                break;
+            }
+        }
+        // if image is not in selection, simply advance to next, if not add to result and erase
+        if (si == selection.end()) {
+            ++it;
+        } else {
             result << *it;
             it = _images.erase(it);
-            ++subsequenceIt;
-            if (subsequenceIt == selection.end())
-                break;
-            file = (*subsequenceIt).fetchInfo()->fileName(DB::AbsolutePath);
-        } else {
-            ++it;
         }
+        // if all images from selection are in result (size of lists is equal) break.
+        if (result.size() == selection.size())
+            break;
     }
-    Q_ASSERT( subsequenceIt == selection.end() );  // if not, selection was not a subsequence
 
     return result;
 }
 
-DB::IdList XMLDB::Database::insertList(
+void XMLDB::Database::insertList(
     const DB::Id& id,
     const DB::ImageInfoList& list,
     bool after)
 {
-    DB::IdList result;
     QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
 
     DB::ImageInfoListIterator imageIt = _images.begin();
@@ -413,16 +418,16 @@ DB::IdList XMLDB::Database::insertList(
             break;
         }
     }
-
+    // since insert() inserts before iterator increment when inserting AFTER image
     if ( after )
         imageIt++;
     for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
-        _images.insert( imageIt, *it );
-        result.append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
+        // the call to insert() destroys the given iterator so use the new one after the call
+        imageIt = _images.insert( imageIt, *it );
+        // increment always to retain order of selected images
+        imageIt++;
     }
     emit dirty();
-
-    return result;
 }
 
 

@@ -86,7 +86,7 @@ namespace XMLDB {
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
         DB::ImageInfoList takeImagesFromSelection(const DB::IdList& list);
-        DB::IdList insertList( const DB::Id& id, const DB::ImageInfoList& list, bool after );
+        void insertList( const DB::Id& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 

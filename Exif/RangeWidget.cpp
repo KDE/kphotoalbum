@@ -23,9 +23,14 @@
 Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, Q3Grid* parent )
     : QObject( parent ),_searchTag ( searchTag ), _list( list )
 {
-    QLabel* label = new QLabel( text, parent );
+	// widget layout: <title text> <from_value> "to" <to_value>
+	// register title text:
+    new QLabel( text, parent );
+	// register from-field:
     _from = new QComboBox( parent );
-    label = new QLabel( QString::fromLatin1( "to" ), parent );
+	// register filler between from- and to-field:
+    new QLabel( QString::fromLatin1( "to" ), parent );
+	// register to-field:
     _to = new QComboBox( parent );
 
     Q_ASSERT( list.count() > 2 );

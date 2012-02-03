@@ -67,11 +67,11 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     grid->setSpacing( 6 );
     hlay->addWidget( grid );
     hlay->addStretch( 1 );
-    QLabel* label = new QLabel( i18n( "Focal Length" ), grid );
+    new QLabel( i18n( "Focal Length" ), grid );
     _fromFocalLength = new QSpinBox( grid );
     _fromFocalLength->setRange( 0, 10000 );
     _fromFocalLength->setSingleStep( 10 );
-    label = new QLabel( i18n("to"), grid );
+    new QLabel( i18n("to"), grid );
     _toFocalLength = new QSpinBox( grid );
     _toFocalLength->setRange( 0, 10000 );
     _toFocalLength->setSingleStep( 10 );

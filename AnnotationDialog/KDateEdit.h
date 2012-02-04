@@ -130,6 +130,7 @@ protected slots:
     virtual void mousePressEvent(QMouseEvent *);
 
 private:
+    void keyPressEvent( QKeyEvent *event );
     virtual bool eventFilter(QObject *o, QEvent *e);
     bool readDate(QDate& result, QDate* end) const;
 

@@ -289,6 +289,19 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     return true;
 }
 
+void AnnotationDialog::KDateEdit::keyPressEvent( QKeyEvent *event )
+{
+    int step = 0;
+ 
+    if ( event->key() == Qt::Key_Up )
+        step = 1;
+    else if ( event->key() == Qt::Key_Down )
+        step = -1;
+ 
+    setDate( value.addDays(step) );
+    QComboBox::keyPressEvent( event );
+}
+
 /* Checks for a focus out event. The display of the date is updated
  * to display the proper date when the focus leaves.
  */

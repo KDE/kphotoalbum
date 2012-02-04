@@ -268,7 +268,7 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
-    QString importName = Utilities::stripImageDirectory(m_fileMapper->uniqNameFor(info->fileName(DB::RelativeToImageRoot)));
+    QString importName = info->fileName( DB::RelativeToImageRoot );
 
     DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
     updateInfo->setLabel( info->label() );

@@ -266,8 +266,8 @@ bool Browser::OverviewPage::showDuringMovement() const
 Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
 {
     if ( Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured() ) {
-        DB::ImageSearchInfo info;
-        info.setCategoryMatchText( Settings::SettingsData::instance()->untaggedCategory(),
+        DB::ImageSearchInfo info = BrowserPage::searchInfo();
+        info.addAnd( Settings::SettingsData::instance()->untaggedCategory(),
                                    Settings::SettingsData::instance()->untaggedTag() );
         return new ImageViewPage( info, browser()  );
     }

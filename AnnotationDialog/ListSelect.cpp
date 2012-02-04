@@ -136,7 +136,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 void AnnotationDialog::ListSelect::slotReturn()
 {
     if ( isInputMode() )  {
-        QString txt = _lineEdit->text();
+        QString txt = _lineEdit->text().trimmed();
         if ( txt.isEmpty() )
             return;
 

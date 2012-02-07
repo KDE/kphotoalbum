@@ -18,6 +18,7 @@
 
 #include "HTMLDialog.h"
 #include <QComboBox>
+#include <QLabel>
 
 #include <klocale.h>
 #include <qlayout.h>
@@ -185,9 +186,13 @@ void HTMLDialog::createLayoutPage()
     _themeBox = new QComboBox( layoutPage );
     label->setBuddy( _themeBox );
     lay4->addWidget( _themeBox );
-    lay4->addStretch( 1 );
-    populateThemesCombo();
-
+    lay4->addStretch( 1 );    
+    _themeInfo = new QLabel( i18n("Theme Description"), layoutPage );
+    _themeInfo->setWordWrap(true);
+    lay2->addWidget( _themeInfo, 3, 1 );
+    connect(_themeBox, SIGNAL(currentIndexChanged( int )), this, SLOT(displayThemeDescription( int )));  // update theme description whenever ComboBox changes
+    populateThemesCombo();   
+    
     // Image sizes
     Q3HGroupBox* sizes = new Q3HGroupBox( i18n("Image Sizes"), layoutPage );
     lay1->addWidget( sizes );
@@ -451,13 +456,17 @@ void HTMLDialog::populateThemesCombo()
             KConfig themeconfig( QString::fromLatin1( "%1/kphotoalbum.theme").arg( themePath ), KConfig::SimpleConfig );
             KConfigGroup config = themeconfig.group("theme");
             QString themeName = config.readEntry( "Name" );
-            QString themeAuthor = config.readEntry( "Author" );
+            QString themeAuthor = config.readEntry( "Author" );  
+            _themeAuthors << themeAuthor; // save author to display later
             QString themeDefault = config.readEntry( "Default" );
-
+            QString themeDescription = config.readEntry( "Description" );
+            _themeDescriptions << themeDescription; // save description to display later
+            
             enableButtonOk( true );
-            _themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) );
+            //_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
+            _themeBox->insertItem( i, i18n( "%1",themeName) );
             _themes.insert( i, themePath );
-
+            
             if (themeDefault == QString::fromLatin1("true")) {
 		theme = i;
 		defaultthemes++;
@@ -469,12 +478,24 @@ void HTMLDialog::populateThemesCombo()
         KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
     }
     if (Settings::SettingsData::instance()->HTMLTheme() >= 0)
-	_themeBox->setCurrentIndex( Settings::SettingsData::instance()->HTMLTheme() );
+        _themeBox->setCurrentIndex( Settings::SettingsData::instance()->HTMLTheme() );
     else {
-	_themeBox->setCurrentIndex( theme );
-	if (defaultthemes > 1)
-	    KMessageBox::information( this, i18n("More than one theme is set as default, using theme %1", _themeBox->currentText()) );
+        _themeBox->setCurrentIndex( theme );
+        if (defaultthemes > 1)
+            KMessageBox::information( this, i18n("More than one theme is set as default, using theme %1", _themeBox->currentText()) );
     }
+}
+
+void HTMLDialog::displayThemeDescription(int themenr)
+{
+   // SLOT: update _themeInfo label whenever the _theme QComboBox changes.
+   QString outtxt = i18n( "by " );
+   outtxt.append( _themeAuthors[themenr] );
+   outtxt.append( i18n( "\n " ) );
+   outtxt.append( _themeDescriptions[themenr] );
+   _themeInfo->setText( outtxt );
+   // Instead of two separate lists for authors and descriptions one could have a combined one by appending the text prior to storing within populateThemesCombo(), 
+   // however, storing author and descriptions separately might be cleaner.
 }
 
 int HTMLDialog::exec(const DB::IdList& list)

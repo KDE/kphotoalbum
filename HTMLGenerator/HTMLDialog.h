@@ -19,6 +19,7 @@
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
 #include <KPageDialog>
+class QLabel;
 class QComboBox;
 class QTextEdit;
 class KLineEdit;
@@ -42,6 +43,7 @@ public:
 protected slots:
     void slotOk();
     void selectDir();
+    void displayThemeDescription(int);
 
 protected:
     bool checkVars();
@@ -68,7 +70,10 @@ private:
     QCheckBox* _generateKimFile;
     QCheckBox* _inlineMovies;
     QMap<int,QString> _themes;
-    QComboBox *_themeBox;
+    QComboBox* _themeBox;
+    QLabel* _themeInfo;
+    QStringList _themeAuthors;
+    QStringList _themeDescriptions;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
     QList<ImageSizeCheckBox*> _cbs;
     DB::IdList _list;

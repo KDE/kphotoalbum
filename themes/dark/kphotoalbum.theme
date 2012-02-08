@@ -1,3 +1,4 @@
 [theme]
 Name=Dark v1.0.1
 Author=Miika Turkia
+Description=This theme uses darkish colours and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigat images with keyboard is added if JavaScript support is enabled.

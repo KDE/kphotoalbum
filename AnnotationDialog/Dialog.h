@@ -163,6 +163,8 @@ private:
     QSpinBox* _megapixel;
     QLabel* _megapixelLabel;
     QCheckBox* _searchRAW;
+    QString conflictText;
+    QString firstDescription;
 
     KActionCollection* _actions;
 

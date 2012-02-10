@@ -1621,6 +1621,7 @@ void MainWindow::Window::slotJumpToContext()
 void MainWindow::Window::setDateRange( const DB::ImageDate& range )
 {
     DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
+    _statusBar->_partial->showBrowserMatches( this->selectedOnDisk().size() );
     _browser->reload();
     reloadThumbnails( ThumbnailView::MaintainSelection );
 }

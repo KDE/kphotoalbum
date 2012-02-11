@@ -283,10 +283,10 @@ bool  NewImageFinder::calculateMD5sums(
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
     dialog.setLabelText(
-        i18n("<p><b>Calculating checksum for %1 files<b></p>"
-             "<p>By storing a checksum for each image "
+        i18np("<p><b>Calculating checksum for %1 file<b></p>","<p><b>Calculating checksums for %1 files<b></p>", list.size())
+		+ i18n("<p>By storing a checksum for each image "
              "KPhotoAlbum is capable of finding images "
-             "even when you have moved them on the disk.</p>", list.size()));
+             "even when you have moved them on the disk.</p>"));
     dialog.setMaximum(list.size());
     dialog.setMinimumDuration( 1000 );
 

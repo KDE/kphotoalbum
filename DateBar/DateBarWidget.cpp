@@ -632,9 +632,11 @@ void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 
     QString cnt;
     if ( count._rangeMatch != 0 && includeFuzzyCounts())
-        cnt = i18n("%1 exact + %2 ranges = %3 total", count._exact , count._rangeMatch , count._exact + count._rangeMatch );
+        cnt = i18np("1 exact", "%1 exact", count._exact)
+				+ i18np(" + 1 range", " + %1 ranges", count._rangeMatch)
+				+ i18np(" = 1 total", " = %1 total",  count._exact + count._rangeMatch );
     else
-        cnt = i18n("%1 images/videos", count._exact );
+        cnt = i18np("%1 image/video","%1 images/videos", count._exact );
 
     QString res = i18n("%1 | %2", range.toString(), cnt);
 

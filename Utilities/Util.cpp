@@ -103,7 +103,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     }
 
     if ( Settings::SettingsData::instance()->showDate() )  {
-        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString( true ),
+        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString( Settings::SettingsData::instance()->showTime() ? true : false ),
                         &result);
     }
 

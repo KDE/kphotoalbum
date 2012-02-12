@@ -63,6 +63,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
     _showTime->setText( i18n("Show Time") );
     connect( _showTime, SIGNAL( toggled(bool) ), this, SLOT( toggleShowTime( bool ) ) );
     addAction( _showTime );
+    _showTime->setVisible( _showDate->isChecked() );
 
     _showFileName = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-filename") );
     _showFileName->setText( i18n("Show Filename") );
@@ -112,6 +113,7 @@ void Viewer::VisibleOptionsMenu::toggleShowDescription( bool b )
 void Viewer::VisibleOptionsMenu::toggleShowDate( bool b )
 {
     Settings::SettingsData::instance()->setShowDate( b );
+    _showTime->setVisible( b );
     emit visibleOptionsChanged();
 }
 

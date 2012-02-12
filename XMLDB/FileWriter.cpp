@@ -73,7 +73,9 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 		{
 			KMessageBox::sorry( messageParent(), 
 					i18n("<p>Could not save the image database to XML.</p>"
-						"File %1 could not be written because of the following error: %2"
+						"<p>File %1 could not be written because of the following error: %2</p>"
+						"<p><b>Important:</b> In this state, the database file is possibly in a "
+						"corrupted state! Try to fix the mentioned error and then <b>save the file again!</b></p>"
 						, out.fileName(), out.errorString() ) 
 					);
 		}

@@ -60,11 +60,23 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     QFile out( fileName );
 
-    if ( !out.open( QIODevice::WriteOnly ) )
-        KMessageBox::sorry( messageParent(), i18n( "Could not open file '%1'." , fileName ) );
+    if ( !out.open( QIODevice::WriteOnly ) ) {
+		KMessageBox::sorry( messageParent(), 
+				i18n("<p>Could not save the image database to XML.</p>"
+					"File %1 could not be opened because of the following error: %2"
+					, out.fileName(), out.errorString() ) 
+				);
+	}
     else {
         QByteArray s = doc.toByteArray();
-        out.write( s.data(), s.size()-1 );
+        if ( ! ( out.write( s.data(), s.size()-1 ) == s.size()-1  && out.flush() ) )
+		{
+			KMessageBox::sorry( messageParent(), 
+					i18n("<p>Could not save the image database to XML.</p>"
+						"File %1 could not be written because of the following error: %2"
+						, out.fileName(), out.errorString() ) 
+					);
+		}
         out.close();
     }
 }

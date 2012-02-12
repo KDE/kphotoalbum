@@ -41,7 +41,10 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
             return;
         }
 
-        zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ), fileName );
+        if ( !zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ), fileName ) )
+		{
+			KMessageBox::error( 0, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir) );
+		}
         zip.close();
     }
     else {

@@ -357,7 +357,8 @@ bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
 
 bool Utilities::canReadImage( const QString& fileName )
 {
-    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, true )->name() ).isEmpty() ||
+	bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
+    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, fastMode )->name() ).isEmpty() ||
         ImageManager::ImageDecoder::mightDecode( fileName );
     // KMimeType::findByPath() never returns null pointer
 }

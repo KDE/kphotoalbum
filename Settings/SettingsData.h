@@ -78,6 +78,7 @@ public:
     property_copy( useEXIFRotate         , setUseEXIFRotate         , bool );
     property_copy( useEXIFComments       , setUseEXIFComments       , bool );
     property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );
+    property_copy( ignoreFileExtension   , setIgnoreFileExtension   , bool );
     property_copy( skipSymlinks          , setSkipSymlinks          , bool );
     property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool );
     property_copy( useRawThumbnail       , setUseRawThumbnail       , bool );

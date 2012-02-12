@@ -38,6 +38,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
     // Search for images on startup
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
+    _ignoreFileExtension = new QCheckBox( i18n("Ignore file extensions when searching for new images and videos"), generalBox);
     _skipSymlinks = new QCheckBox( i18n("Skip symbolic links when searching for new images"), generalBox );
     _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
 
@@ -78,6 +79,12 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                 "using <b>Maintenance->Rescan for new images</b></p>");
     _searchForImagesOnStart->setWhatsThis( txt );
 
+    txt = i18n( "<p>KPhotoAlbum will normally search new images and videos by their file extension."
+                "If this option is set, <em>all</em> files neither in the database nor in the block list"
+                "will be checked by their Mime type, regardless of their extension. This will take "
+                "significantly longer than finding files by extension!</p>");
+    _ignoreFileExtension->setWhatsThis( txt );
+
     txt = i18n( "<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
                 "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
                 "both the original files and and symbolic links to these files within your image directory.</p>");
@@ -110,6 +117,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* opt )
 {
     _searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );
+    _ignoreFileExtension->setChecked( opt->ignoreFileExtension() );
     _skipSymlinks->setChecked( opt->skipSymlinks() );
     _skipRawIfOtherMatches->setChecked( opt->skipRawIfOtherMatches() );
     _excludeDirectories->setText( opt->excludeDirectories() );
@@ -125,6 +133,7 @@ void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* o
 void Settings::FileVersionDetectionPage::saveSettings( Settings::SettingsData* opt )
 {
     opt->setSearchForImagesOnStart( _searchForImagesOnStart->isChecked() );
+    opt->setIgnoreFileExtension( _ignoreFileExtension->isChecked() );
     opt->setSkipSymlinks( _skipSymlinks->isChecked() );
     opt->setSkipRawIfOtherMatches( _skipRawIfOtherMatches->isChecked() );
     opt->setExcludeDirectories( _excludeDirectories->text() );

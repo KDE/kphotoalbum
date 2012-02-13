@@ -118,7 +118,7 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
                                      "simply point KPhotoAlbum to the directory where you already have all your "
                                      "images.</p>"
                                      "<p>If you have an existing KPhotoAlbum database and root directory somewhere, "
-                                     "point KPhotoAlbum to that directory to start using it again." ), top );
+                                     "point KPhotoAlbum to that directory to start using it again.</p>" ), top );
     label->setWordWrap( true );
     lay1->addWidget( label );
 

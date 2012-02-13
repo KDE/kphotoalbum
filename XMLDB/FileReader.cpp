@@ -265,7 +265,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
                                        "which you can use to find the images that are missing date information.</p>"
-                                       "You can then select the images that you have reason to believe have a correct date "
+                                       "<p>You can then select the images that you have reason to believe have a correct date "
                                        "in either their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</b> "
                                        "to reread the information.</p>"
                                        "<p>Finally, once all images have their dates set, you can execute "

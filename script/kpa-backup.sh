@@ -1,8 +1,8 @@
 #!/bin/bash
 # Author: Johannes Zarl <isilmendil@gmx.at>
 # default locations:
-KPARC=.kde/share/config/kphotoalbumrc
-KPAUIRC=.kde/share/apps/kphotoalbum/kphotoalbumui.rc
+KPARC=$HOME/.kde/share/config/kphotoalbumrc
+KPAUIRC=$HOME/.kde/share/apps/kphotoalbum/kphotoalbumui.rc
 BACKEND=
 INDEXFILE=
 KPA_FOLDER=

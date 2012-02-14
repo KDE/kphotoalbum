@@ -79,8 +79,8 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                 "using <b>Maintenance->Rescan for new images</b></p>");
     _searchForImagesOnStart->setWhatsThis( txt );
 
-    txt = i18n( "<p>KPhotoAlbum will normally search new images and videos by their file extension."
-                "If this option is set, <em>all</em> files neither in the database nor in the block list"
+    txt = i18n( "<p>KPhotoAlbum will normally search new images and videos by their file extension. "
+                "If this option is set, <em>all</em> files neither in the database nor in the block list "
                 "will be checked by their Mime type, regardless of their extension. This will take "
                 "significantly longer than finding files by extension!</p>");
     _ignoreFileExtension->setWhatsThis( txt );

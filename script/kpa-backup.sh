@@ -38,8 +38,8 @@ do_backup()
 {
 	if [ ! -d "$BACKUP_LOCATION" ]
 	then
-		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
-		exit 1
+		echo "Backup location ($BACKUP_LOCATION) is not a directory, creating it." >&2
+		mkdir "$BACKUP_LOCATION"
 	fi
 
 	echo "Backing up essential files..."

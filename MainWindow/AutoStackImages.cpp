@@ -103,7 +103,7 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
     // First make a map of MD5 sums with corresponding images
     Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
         QString fileName = info->fileName(DB::AbsolutePath);
-        DB::MD5 sum = Utilities::MD5Sum( info->fileName(DB::AbsolutePath) );
+        DB::MD5 sum = info->MD5Sum();
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
             if (tostack[sum].isEmpty())
                 tostack.insert(sum, (QStringList) fileName);

@@ -41,16 +41,20 @@ do_backup()
 		echo "Backup location ($BACKUP_LOCATION) is not a directory, creating it." >&2
 		mkdir "$BACKUP_LOCATION"
 	fi
+	BACKUP_LOCATION_WDATE="$BACKUP_LOCATION"/"`date +%Y%m%d-%H%M%S`"
+	mkdir "$BACKUP_LOCATION_WDATE"
+	rm "$BACKUP_LOCATION"/latest
+	ln -s "$BACKUP_LOCATION_WDATE" "$BACKUP_LOCATION"/latest
 
 	echo "Backing up essential files..."
 	for f in "$KPARC" "$KPAUIRC" "$INDEXFILE"
 	do
-		cp -avi "$f" "$BACKUP_LOCATION"
+		tar -Pcvz -f "$BACKUP_LOCATION_WDATE"/`basename "$f"`.tgz "$f"
 	done
 	echo "Backing up additional files..."
 	for f in $ADD_FILES_RELATIVE
 	do
-		[ -f "$KPA_FOLDER/$f" ] && cp -avi "$KPA_FOLDER/$f" "$BACKUP_LOCATION"
+		[ -f "$KPA_FOLDER/$f" ] && tar -Pcvz -f "$BACKUP_LOCATION_WDATE"/`basename "$f"`.tgz "$KPA_FOLDER/$f"
 	done
 }
 
@@ -59,12 +63,12 @@ do_restore()
 	echo "Restoring essential files..."
 	for f in "$KPARC" "$KPAUIRC" "$INDEXFILE"
 	do
-		cp -avi "$BACKUP_LOCATION/`basename "$f"`" "$f"
+		tar -Pwxvz -f "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
 	done
 	echo "Restoring additional files..."
 	for f in $ADD_FILES_RELATIVE
 	do
-		[ -f "$BACKUP_LOCATION/$f" ] && cp -avi "$BACKUP_LOCATION/$f" "$KPA_FOLDER"
+		[ -f "$BACKUP_LOCATION/$f" ] && tar -Pwxvz -f "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
 	done
 }
 

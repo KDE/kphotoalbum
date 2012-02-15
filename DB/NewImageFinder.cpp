@@ -42,6 +42,7 @@
 #include "ImageManager/RawImageDecoder.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
+#include <MainWindow/Window.h>
 
 using namespace DB;
 
@@ -260,14 +261,22 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
         DB::IdList tostack = DB::IdList();
 
+        // the newest file should go to the top of the stack
         tostack.append(newerfile);
-        tostack.append(olderfile);
+
+        DB::IdList oldStack;
+        if ( ( oldStack = DB::ImageDB::instance()->getStackFor( olderfile ) ).isEmpty() ) {
+            tostack.append(olderfile);
+        } else {
+            Q_FOREACH( DB::Id tmp, oldStack ) {
+                tostack.append( tmp );
+            }
+        }
         DB::ImageDB::instance()->stack(tostack);
+        MainWindow::Window::theMainWindow()->setStackHead( newerfile );
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
-
-        // XXX: deal with already-stacked items; currently a silent fail
 
         info = NULL;  // we already added it, so don't process again
     }

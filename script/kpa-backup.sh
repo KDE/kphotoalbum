@@ -39,7 +39,7 @@ do_backup()
 	if [ ! -d "$BACKUP_LOCATION" ]
 	then
 		echo "Backup location ($BACKUP_LOCATION) is not a directory, creating it." >&2
-		mkdir "$BACKUP_LOCATION"
+		mkdir "$BACKUP_LOCATION" || exit 1
 	fi
 	BACKUP_LOCATION_WDATE="$BACKUP_LOCATION"/"`date +%Y%m%d-%H%M%S`"
 	mkdir "$BACKUP_LOCATION_WDATE"

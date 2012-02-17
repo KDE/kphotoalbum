@@ -60,7 +60,8 @@
   thumbnail in question. To implement this, we need to subclass
   \ref ImageManager::ImageRequest - that's exactly what this class is about.
 
-  \li \ref ThumbnailBuilder - It is possible from the menus to ask the
+
+  \li \ref ImageManager::ThumbnailBuilder - It is possible from the menus to ask the
   application to rebuild all its thumnails on disk. This class will do that
   for us.
 

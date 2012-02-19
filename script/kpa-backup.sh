@@ -34,6 +34,18 @@ print_help()
 	echo "" >&2
 }
 
+untar_if_changed()
+{
+	local tarfile="$1"
+	local dstfile=`tar -Ptz -f "$tarfile"`
+	if tar -PxzO -f "$tarfile" | diff -u - "$dstfile"
+	then
+		echo "Not changed: $dstfile"
+	else
+		tar -Pwxvz -f "$tarfile" 
+	fi
+}
+
 do_backup()
 {
 	if [ ! -d "$BACKUP_LOCATION" ]
@@ -63,12 +75,12 @@ do_restore()
 	echo "Restoring essential files..."
 	for f in "$KPARC" "$KPAUIRC" "$INDEXFILE"
 	do
-		tar -Pwxvz -f "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
+		untar_if_changed "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
 	done
 	echo "Restoring additional files..."
 	for f in $ADD_FILES_RELATIVE
 	do
-		[ -f "$BACKUP_LOCATION/$f" ] && tar -Pwxvz -f "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
+		[ -f "$BACKUP_LOCATION/$f" ] && untar_if_changed "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
 	done
 }
 

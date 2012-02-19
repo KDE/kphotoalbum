@@ -35,6 +35,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
 
+    // prepare XML document for saving:
     _db->_categoryCollection.initIdMap();
     QDomDocument doc;
 
@@ -58,28 +59,58 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     saveBlockList( doc, top );
     saveMemberGroups( doc, top );
 
-    QFile out( fileName );
+    // save XML document to temporary file:
+    QFile out( fileName + QString::fromAscii(".tmp") );
 
     if ( !out.open( QIODevice::WriteOnly ) ) {
-		KMessageBox::sorry( messageParent(), 
-				i18n("<p>Could not save the image database to XML.</p>"
-					"File %1 could not be opened because of the following error: %2"
-					, out.fileName(), out.errorString() ) 
-				);
-	}
+        KMessageBox::sorry( messageParent(), 
+                i18n("<p>Could not save the image database to XML.</p>"
+                    "File %1 could not be opened because of the following error: %2"
+                    , out.fileName(), out.errorString() ) 
+                );
+        return;
+    }
     else {
         QByteArray s = doc.toByteArray();
         if ( ! ( out.write( s.data(), s.size()-1 ) == s.size()-1  && out.flush() ) )
-		{
-			KMessageBox::sorry( messageParent(), 
-					i18n("<p>Could not save the image database to XML.</p>"
-						"<p>File %1 could not be written because of the following error: %2</p>"
-						"<p><b>Important:</b> In this state, the database file is possibly in a "
-						"corrupted state! Try to fix the mentioned error and then <b>save the file again!</b></p>"
-						, out.fileName(), out.errorString() ) 
-					);
-		}
-        out.close();
+        {
+            KMessageBox::sorry( messageParent(), 
+                    i18n("<p>Could not save the image database to XML.</p>"
+                        "<p>File %1 could not be written because of the following error: %2</p>"
+                        "<p>Your XML file still contains the previous version of the image database! "
+                        "To avoid losing your modifications to the image database, try to fix "
+                        "the mentioned error and then <b>save the file again.</b></p>"
+                        , out.fileName(), out.errorString() ) 
+                    );
+            // clean up (damaged) temporary file:
+            out.remove(); 
+        } else {
+            out.close();
+            // State: index.xml has previous DB version, index.xml.tmp has the current version.
+
+            // original file can be safely deleted
+            if ( ! QFile::remove( fileName ) )
+            {
+                KMessageBox::sorry( messageParent(),
+                        i18n("<p>Failed to remove old version of image database.</p>"
+                            "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                            fileName, out.fileName() )
+                        );
+                return;
+            }
+            // State: index.xml doesn't exist, index.xml.tmp has the current version.
+            if ( ! out.rename( fileName ) )
+            {
+                KMessageBox::sorry( messageParent(),
+                        i18n("<p>Failed to move temporary XML file to permanent location.</p"
+                            "<p>Please try again or rename file %1 to %2 manually!</p>",
+                            out.fileName(), fileName )
+                           );
+                // State: index.xml.tmp has the current version.
+                return;
+            }
+            // State: index.xml has the current version.
+           }
     }
 }
 
@@ -367,4 +398,4 @@ QWidget *XMLDB::FileWriter::messageParent()
     return MainWindow::Window::theMainWindow();
 }
 
-
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -55,7 +55,10 @@ do_backup()
 	fi
 	BACKUP_LOCATION_WDATE="$BACKUP_LOCATION"/"`date +%Y%m%d-%H%M%S`"
 	mkdir "$BACKUP_LOCATION_WDATE"
-	rm "$BACKUP_LOCATION"/latest
+	if [ -e "$BACKUP_LOCATION"/latest ]
+	then
+		rm "$BACKUP_LOCATION"/latest
+	fi
 	ln -s "$BACKUP_LOCATION_WDATE" "$BACKUP_LOCATION"/latest
 
 	echo "Backing up essential files..."

@@ -20,7 +20,6 @@
 #include <config-kpa-exiv2.h>
 
 #include <kdeversion.h>
-#include "Viewer/ViewerWidget.h"
 #include <QContextMenuEvent>
 #include <QtDBus>
 #include <QKeyEvent>

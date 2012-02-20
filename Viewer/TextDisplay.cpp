@@ -16,11 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "TextDisplay.h"
 #include <qlabel.h>
 #include <qlayout.h>
 #include <QLabel>
 #include <QVBoxLayout>
-#include "TextDisplay.h"
 #include "ImageDisplay.h"
 #include "DB/ImageDB.h"
 

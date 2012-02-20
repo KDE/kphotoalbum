@@ -18,6 +18,7 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
+#include "CenteringIconView.h"
 #include "BreadcrumbList.h"
 #include <QListView>
 #include "Settings/SettingsData.h"

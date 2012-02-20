@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <QComboBox>
 #include "Exif/InfoDialog.h"
+#include <KComboBox>
 #include <klocale.h>
 #include "Exif/Info.h"
 #include <qlayout.h>
@@ -79,7 +79,7 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
     hlay->addStretch( 1 );
 
     QLabel* iptcLabel = new QLabel( i18n("IPTC character set:"), top );
-    m_iptcCharset = new QComboBox( top );
+    m_iptcCharset = new KComboBox( top );
     QStringList charsets;
     QList<QByteArray> charsetsBA = QTextCodec::availableCodecs();
     for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it )
@@ -122,7 +122,7 @@ void Exif::Grid::slotCharsetChange( const QString& charset )
     StringSet groups = exifGroups( map );
     int index = 0;
     for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
-        if ( index %2 ) // We need to start next header in coloumn 0
+        if ( index %2 ) // We need to start next header in column 0
             ++index;
 
         // Header for group.

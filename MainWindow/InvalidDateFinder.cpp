@@ -30,7 +30,7 @@
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
 #include <QGroupBox>
-#include <QTextEdit>
+#include <KTextEdit>
 #include <KProgressDialog>
 #include <kdebug.h>
 
@@ -74,7 +74,7 @@ void InvalidDateFinder::accept()
     info->setMainWidget( top );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
-    QTextEdit* edit = new QTextEdit( top );
+    KTextEdit* edit = new KTextEdit( top );
     lay1->addWidget( edit );
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 

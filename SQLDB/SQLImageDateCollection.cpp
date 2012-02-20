@@ -32,7 +32,7 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
     // In a perfect world, we should check that the db hasn't changed, but
     // as we will get a new instance of this class each time the search
     // changes, it is really not that important, esp. because it is only
-    // for the datebar, where a bit out of sync doens't matter too much.
+    // for the datebar, where a bit out of sync doesn't matter too much.
 
     static QMap<DB::ImageDate, DB::ImageCount> cache;
     if ( cache.contains( range ) )

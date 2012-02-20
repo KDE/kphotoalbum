@@ -31,7 +31,6 @@
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/QueryErrors.h"
 #endif
-#include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <kdebug.h>
 
@@ -79,7 +78,7 @@ int main( int argc, char** argv ) {
 
     // FIXME: There is no point in using try here, because exceptions
     // and Qt event loop don't mix. Rather exceptions should be
-    // catched earlier and not passed through Qt code.
+    // caught earlier and not passed through Qt code.
     try {
         MainWindow::Window* view = new MainWindow::Window( 0 );
 
@@ -94,7 +93,7 @@ int main( int argc, char** argv ) {
     }
 #ifdef SQLDB_SUPPORT
     catch (SQLDB::Error& e) {
-        qFatal("Exception occured in SQLDB:\n%s", e.what());
+        qFatal("Exception occurred in SQLDB:\n%s", e.what());
     }
 #endif
     catch (...) {

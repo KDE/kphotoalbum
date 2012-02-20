@@ -110,7 +110,7 @@ const char* BaseCSG::getPolicyKeyword(Policy p) const
 
 void BaseCSG::makeTable(const TableSchema& t, list<string>& destList) const
 {
-    string destStr = "CREATE TABLE " + t.name() + "(";
+    string destStr = "CREATE TABLE " + t.name() + '(';
     const FieldList& fl = t.fields();
     for (FieldList::const_iterator f = fl.begin(); f != fl.end(); ++f) {
         if (f != fl.begin())
@@ -118,13 +118,13 @@ void BaseCSG::makeTable(const TableSchema& t, list<string>& destList) const
         makeField(**f, destStr);
     }
     makeConstraints(t, destStr);
-    destStr += ")";
+    destStr += ')';
     destList.push_back(destStr);
 }
 
 void BaseCSG::makeField(const Field& f, string& destStr) const
 {
-    destStr += f.name() + " ";
+    destStr += f.name() + ' ';
     makeFieldSuffix(f, destStr);
 }
 
@@ -140,13 +140,13 @@ void BaseCSG::makeFieldType(const Field& f, string& destStr) const
     destStr += getTypeKeyword(f);
     const FieldType& type = f.type();
     if (type.length1() != FieldType::noLength) {
-        destStr += "(";
+        destStr += '(';
         makeNumber(type.length1(), destStr);
         if (type.length2() != FieldType::noLength) {
-            destStr += ",";
+            destStr += ',';
             makeNumber(type.length2(), destStr);
         }
-        destStr += ")";
+        destStr += ')';
     }
 }
 
@@ -157,7 +157,7 @@ void BaseCSG::makeFieldConstraints(const Field& f, string& destStr) const
          c != constraints.end(); ++c) {
         string ckw = getConstraintKeyword(*c);
         if (!ckw.empty())
-            destStr += " " + ckw;
+            destStr += ' ' + ckw;
     }
 }
 
@@ -165,7 +165,7 @@ void BaseCSG::makeFieldDefaultValue(const Field& f, string& destStr) const
 {
     const string& defaultValue = f.defaultValue();
     if (!defaultValue.empty())
-        destStr += " DEFAULT '" + defaultValue + "'";
+        destStr += " DEFAULT '" + defaultValue + '\'';
 }
 
 void BaseCSG::makeConstraints(const TableSchema& t, string& destStr) const
@@ -182,7 +182,7 @@ void BaseCSG::makePrimaryKey(const StringTuple& pk, string& destStr) const
     if (!pk.empty()) {
         destStr += ", PRIMARY KEY(";
         makeStringTuple(pk, destStr);
-        destStr += ")";
+        destStr += ')';
     }
 }
 
@@ -192,7 +192,7 @@ void BaseCSG::makeForeignKey(const ForeignKey& fk, string& destStr) const
     makeStringTuple(fk.sourceFields(), destStr);
     destStr += ") REFERENCES ";
     destStr += fk.destinationTable();
-    destStr += "(";
+    destStr += '(';
     makeStringTuple(fk.destinationFields(), destStr);
     destStr += ") ON DELETE ";
     destStr += getPolicyKeyword(fk.deletePolicy());
@@ -206,7 +206,7 @@ BaseCSG::makeUniqueIndices(const StringTupleList& ul, string& destStr) const
     for (StringTupleList::const_iterator u = ul.begin(); u != ul.end(); ++u) {
         destStr += ", UNIQUE(";
         makeStringTuple(**u, destStr);
-        destStr += ")";
+        destStr += ')';
     }
 }
 
@@ -218,9 +218,9 @@ void BaseCSG::makeIndices(const TableSchema& t, list<string>& destList) const
          i != idx.end(); ++i) {
         string destStr = "CREATE INDEX " + t.name() + "_idx";
         makeNumber(++n, destStr);
-        destStr += " ON " + t.name() + "(";
+        destStr += " ON " + t.name() + '(';
         makeStringTuple(**i, destStr);
-        destStr += ")";
+        destStr += ')';
         destList.push_back(destStr);
     }
 }

@@ -358,7 +358,7 @@ property_copy( delayLoadingPlugins, setDelayLoadingPlugins,  bool, Plug-ins, tru
 property_ref_(
         HTMLBaseDir, setHTMLBaseDir, QString,
         groupForDatabase( "HTML Settings" ),
-        QString::fromLocal8Bit(getenv( "HOME" )) + STR( "/public_html" ) )
+        QString::fromLocal8Bit(qgetenv( "HOME" )) + STR( "/public_html" ) )
 property_ref_(
         HTMLBaseURL, setHTMLBaseURL, QString,
         groupForDatabase( "HTML Settings" ),

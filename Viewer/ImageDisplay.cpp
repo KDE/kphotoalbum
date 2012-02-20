@@ -17,7 +17,7 @@
 */
 
 
-#include "Viewer/ImageDisplay.h"
+#include "ImageDisplay.h"
 #include <qpainter.h>
 #include <QPaintEvent>
 #include <QResizeEvent>
@@ -31,7 +31,6 @@
 #include <qapplication.h>
 #include <math.h>
 #include "DB/ImageDB.h"
-#include "ImageDisplay.h"
 #include <qtimer.h>
 
 /**

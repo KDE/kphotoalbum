@@ -87,7 +87,7 @@ public:
         const ImageDate& range,
         bool includeRanges) const;
 
-public: // Methods that must be overriden
+public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
     virtual DB::IdList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
 

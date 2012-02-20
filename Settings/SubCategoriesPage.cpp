@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include <QPushButton>
 #include <Q3ListBox>
-#include <QComboBox>
+#include <KComboBox>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -39,7 +39,7 @@ Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
 
     QLabel* label = new QLabel( i18n( "Category:" ), this );
     lay2->addWidget( label );
-    _category = new QComboBox( this );
+    _category = new KComboBox( this );
     lay2->addWidget( _category );
     lay2->addStretch(1);
 

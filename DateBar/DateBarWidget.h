@@ -73,7 +73,7 @@ signals:
     void dateRangeCleared();
 
 public:
-    // Overriden methods for internal purpose
+    // Overridden methods for internal purpose
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
 

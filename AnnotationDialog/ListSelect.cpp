@@ -440,7 +440,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     }
     else {
         QString checkedItem = which->data().value<QString>();
-        if ( which->isChecked() ) // chosing the item doesn't check it, so this is the value before.
+        if ( which->isChecked() ) // choosing the item doesn't check it, so this is the value before.
             memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
         else
             memberMap.removeMemberFromGroup( _category->name(), checkedItem, item->text(0) );

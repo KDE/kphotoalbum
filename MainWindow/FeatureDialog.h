@@ -17,7 +17,7 @@
 */
 #ifndef FEATUREDIALOG_H
 #define FEATUREDIALOG_H
-#include <QTextBrowser>
+#include <KTextBrowser>
 #include <kdialog.h>
 
 namespace MainWindow
@@ -39,10 +39,10 @@ protected:
     static bool hasEXIV2DBSupport();
 };
 
-class HelpBrowser :public QTextBrowser
+class HelpBrowser :public KTextBrowser
 {
 public:
-    HelpBrowser( QWidget* parent, const char* name = 0 );
+    explicit HelpBrowser( QWidget* parent, const char* name = 0 );
     virtual void setSource( const QUrl& name );
 };
 

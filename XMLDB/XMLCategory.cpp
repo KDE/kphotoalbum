@@ -18,7 +18,6 @@
 #include "XMLCategory.h"
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
-#include <DB/ImageDB.h>
 #include "Utilities/List.h"
 #include <kdebug.h>
 

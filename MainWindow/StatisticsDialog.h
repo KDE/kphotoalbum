@@ -22,7 +22,7 @@
 class QGridLayout;
 class QLabel;
 class QGroupBox;
-class QComboBox;
+class KComboBox;
 class QTreeWidgetItem;
 class QTreeWidget;
 
@@ -50,9 +50,9 @@ private slots:
 
 private:
     QTreeWidget* m_treeWidget;
-    QComboBox* m_category;
+    KComboBox* m_category;
     QLabel* m_tagLabel;
-    QComboBox* m_tag;
+    KComboBox* m_tag;
     QGridLayout* m_boxLayout;
 };
 

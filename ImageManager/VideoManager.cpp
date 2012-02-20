@@ -26,7 +26,6 @@
 #include <qimage.h>
 #include <QPixmap>
 #include <kiconloader.h>
-#include "Settings/SettingsData.h"
 #include <kcodecs.h>
 #include <QDir>
 #include "VideoImageRescaleRequest.h"
@@ -34,6 +33,12 @@
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
 {
+    _eventLoop = new QEventLoop;
+}
+
+ImageManager::VideoManager::~VideoManager()
+{
+    delete _eventLoop;
 }
 
 ImageManager::VideoManager& ImageManager::VideoManager::instance()
@@ -126,20 +131,20 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
     connect(job, SIGNAL(failed(const KFileItem&)),
             this, SLOT(testPreviewFailed()) );
 
-    _eventLoop.exec();
+    _eventLoop->exec();
     return _hasVideoSupport;
 }
 
 void ImageManager::VideoManager::testGotPreview(const KFileItem&, const QPixmap& pixmap )
 {
     _hasVideoSupport = !pixmap.isNull();
-    _eventLoop.exit();
+    _eventLoop->exit();
 }
 
 void ImageManager::VideoManager::testPreviewFailed()
 {
     _hasVideoSupport = false;
-    _eventLoop.exit();
+    _eventLoop->exit();
 }
 
 void ImageManager::VideoManager::sendResult(QImage image)

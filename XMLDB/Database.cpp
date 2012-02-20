@@ -28,7 +28,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/CategoryCollection.h"
-#include "DB/Id.h"
 #include "Database.moc"
 #include "XMLCategory.h"
 #include <ksharedptr.h>
@@ -371,7 +370,7 @@ void XMLDB::Database::reorder(
 
 // Remove all the images from the database that match the given selection and
 // return that sublist.
-// This returns the selected and erased images in the order in which they apear
+// This returns the selected and erased images in the order in which they appear
 // in the image list itself.
 DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& selection)
 {

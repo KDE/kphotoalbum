@@ -17,7 +17,7 @@
 */
 #include "StatisticsDialog.h"
 #include <QDebug>
-#include <QComboBox>
+#include <KComboBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QFormLayout>
@@ -116,14 +116,14 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
     label = new QLabel( i18n("Category:") );
     m_boxLayout->addWidget( label, ++row, 0 );
 
-    m_category = new QComboBox;
+    m_category = new KComboBox;
     m_boxLayout->addWidget( m_category, row, 1 );
 
     m_tagLabel = new QLabel(i18n("Tag:") );
     m_boxLayout->addWidget( m_tagLabel, ++row, 0 );
 
-    m_tag = new QComboBox;
-    m_tag->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    m_tag = new KComboBox;
+    m_tag->setSizeAdjustPolicy(KComboBox::AdjustToContents);
     m_boxLayout->addWidget( m_tag, row, 1 );
 
     m_category->addItem( i18n("None") );

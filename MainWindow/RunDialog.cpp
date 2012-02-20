@@ -39,7 +39,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     QLabel* label = new QLabel(txt);
     layout->addWidget(label);
 
-    _cmd = new QLineEdit();
+    _cmd = new KLineEdit();
     layout->addWidget(_cmd);
     _cmd->setMinimumWidth(400);
     // xgettext: no-c-format

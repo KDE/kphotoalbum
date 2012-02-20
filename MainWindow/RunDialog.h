@@ -21,7 +21,7 @@
 #define RUNDIALOG_H
 
 #include <KDialog>
-#include <QLineEdit>
+#include <KLineEdit>
 
 namespace MainWindow
 {
@@ -39,7 +39,7 @@ class RunDialog :public KDialog {
 
       private:
         bool* _ok;
-        QLineEdit* _cmd;
+        KLineEdit* _cmd;
         QStringList _fileList;
         //QRadioButton* _include;
 };

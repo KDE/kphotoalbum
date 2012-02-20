@@ -76,7 +76,7 @@ static void showError( QSqlQuery& query )
     const QString txt =
         i18n("<p>There was an error while executing the SQL backend command. "
              "The error is likely due to a broken database file.</p>"
-             "<p>To fix this problem run Maintainance->Recreate Exif Search database.</p>"
+             "<p>To fix this problem run Maintenance->Recreate Exif Search database.</p>"
              "<hr/>"
              "<p>For debugging: the command that was attempted to be executed was:<br/>%1</p>"
              "<p>The error message obtained was:<br/>%2</p>",
@@ -104,7 +104,7 @@ void Exif::Database::openDatabase()
     else
         _isOpen = true;
 
-    // If SQLite in Qt has Unicode feature, it will convert querys to
+    // If SQLite in Qt has Unicode feature, it will convert queries to
     // UTF-8 automatically. Otherwise we should do the conversion to
     // be able to store any Unicode character.
     _doUTF8Conversion = !_db.driver()->hasFeature(QSqlDriver::Unicode);

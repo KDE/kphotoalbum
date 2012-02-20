@@ -94,7 +94,7 @@ namespace SQLDB
     class SQLError: public Error
     {
     public:
-        SQLError(const QString& queryLine=QString(),
+        explicit SQLError(const QString& queryLine=QString(),
                  const QString& message=QString()):
             Error(message), _queryLine(queryLine) {}
         virtual ~SQLError() throw() {}
@@ -124,7 +124,7 @@ namespace SQLDB
         {
             Q_ASSERT(_qtError.isValid());
         }
-        QtSQLError(const QSqlQuery& executedQuery,
+        explicit QtSQLError(const QSqlQuery& executedQuery,
                    const QString& message=QString()):
             SQLError(executedQuery.lastQuery(), message),
             _qtError(executedQuery.lastError()),

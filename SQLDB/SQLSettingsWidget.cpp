@@ -27,7 +27,7 @@
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <QLabel>
-#include <QComboBox>
+#include <KComboBox>
 #include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QGridLayout>
@@ -88,7 +88,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
 
     _driverLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_driverLabel, row, 0);
-    _driverCombo = new QComboBox(stackPage);
+    _driverCombo = new KComboBox(stackPage);
     _driverCombo->setEditable(false);
     stackPage2Layout->addWidget(_driverCombo, row, 1);
 

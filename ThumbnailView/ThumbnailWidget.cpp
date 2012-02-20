@@ -89,7 +89,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
 
     connect( selectionModel(), SIGNAL( selectionChanged( QItemSelection, QItemSelection ) ), this, SLOT( emitSelectionChangedSignal() ) );
 
-    setDragEnabled(false); // We run our own draging, so disable QListView's version.
+    setDragEnabled(false); // We run our own dragging, so disable QListView's version.
 
     connect( verticalScrollBar(), SIGNAL( valueChanged(int) ), model(), SLOT( updateVisibleRowInfo() ) );
     setupDateChangeTimer();
@@ -108,8 +108,8 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 
 void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 {
-    const bool propogate = _keyboardHandler->keyReleaseEvent( event );
-    if ( propogate )
+    const bool propagate = _keyboardHandler->keyReleaseEvent( event );
+    if ( propagate )
         QListView::keyReleaseEvent(event);
 }
 

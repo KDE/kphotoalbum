@@ -24,7 +24,7 @@
 #include <QVBoxLayout>
 #include <QList>
 #include <klocale.h>
-#include <qcombobox.h>
+#include <KComboBox>
 #include "Settings/SettingsData.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
@@ -53,14 +53,14 @@ CategoryImageConfig::CategoryImageConfig()
     // Group
     QLabel* label = new QLabel( i18n("Group:" ), top );
     lay2->addWidget( label, 0, 0 );
-    _group = new QComboBox( top );
+    _group = new KComboBox( top );
     lay2->addWidget( _group, 0, 1 );
     connect( _group, SIGNAL( activated( int ) ), this, SLOT( groupChanged() ) );
 
     // Member
     label = new QLabel( i18n( "Member:" ), top );
     lay2->addWidget( label, 1, 0 );
-    _member = new QComboBox( top );
+    _member = new KComboBox( top );
     lay2->addWidget( _member, 1, 1 );
     connect( _member, SIGNAL( activated( int ) ), this, SLOT( memberChanged() ) );
 

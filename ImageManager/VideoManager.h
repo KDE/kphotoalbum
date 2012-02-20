@@ -25,6 +25,7 @@ class KFileItem;
 #include "RequestQueue.h"
 #include "Manager.h"
 #include <QEventLoop>
+#include <QPointer>
 
 namespace ImageManager
 {
@@ -59,10 +60,11 @@ protected slots:
 
 private:
     VideoManager();
+    ~VideoManager();
     RequestQueue _pending;
     ImageRequest* _currentRequest;
     bool _hasVideoSupport;
-    mutable QEventLoop _eventLoop;
+    mutable QPointer<QEventLoop> _eventLoop;
 };
 
 }

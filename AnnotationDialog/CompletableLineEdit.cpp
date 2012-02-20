@@ -21,7 +21,7 @@
 #include <QKeyEvent>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
-    :QLineEdit( parent )
+    :KLineEdit( parent )
 {
     _listSelect = parent;
 }
@@ -60,7 +60,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     QString prevContent = text();
 
     if ( ev->text().isEmpty() || !ev->text()[0].isPrint() ) {
-        QLineEdit::keyPressEvent( ev );
+        KLineEdit::keyPressEvent( ev );
         if ( prevContent != text() )
             _listSelect->showOnlyItemsMatching( text() );
         return;
@@ -76,7 +76,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     int cursorPos = cursorPosition();
     int selStart = selectionStart();
 
-    QLineEdit::keyPressEvent( ev );
+    KLineEdit::keyPressEvent( ev );
 
 
     // Find the text of the current item

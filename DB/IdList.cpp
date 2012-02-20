@@ -125,7 +125,7 @@ const QList<DB::RawId>& DB::IdList::rawIdList() const
 DB::IdList DB::IdList::reversed() const
 {
     IdList res;
-    Q_FOREACH(Id id, *this) {
+    Q_FOREACH(const Id& id, *this) {
         res.prepend(id);
     }
     return res;

@@ -107,7 +107,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
-    :QTextBrowser( parent )
+    :KTextBrowser( parent )
 {
     setObjectName(QString::fromLatin1(name));
 }
@@ -117,7 +117,7 @@ void HelpBrowser::setSource( const QUrl& url )
     const QString name = url.toString();
 
     if ( name.startsWith( QString::fromLatin1( "#" ) ) )
-        QTextBrowser::setSource( name );
+        KTextBrowser::setSource( name );
     else
         KToolInvocation::invokeBrowser( name );
 }

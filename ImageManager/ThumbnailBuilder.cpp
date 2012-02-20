@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <KLocale>
 #include "ThumbnailBuilder.h"
+#include <KLocale>
 #include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/StatusBar.h"
 #include "ThumbnailView/CellGeometry.h"

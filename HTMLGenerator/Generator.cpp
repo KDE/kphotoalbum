@@ -46,8 +46,13 @@ HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
 {
     setLabelText( i18n("Generating images for HTML page ") );
     _setup = setup;
+    _eventLoop = new QEventLoop;
 }
 
+HTMLGenerator::Generator::~Generator()
+{
+    delete _eventLoop;
+}
 void HTMLGenerator::Generator::generate()
 {
     // Generate .kim file
@@ -108,7 +113,7 @@ void HTMLGenerator::Generator::generate()
 
     if ( _waitCounter > 0 ) {
         _hasEnteredLoop = true;
-        _eventLoop.exec();
+        _eventLoop->exec();
     }
 
     if ( wasCanceled() )
@@ -145,7 +150,7 @@ void HTMLGenerator::Generator::generate()
     KIO::CopyJob* job = KIO::move( KUrl( _tempDir.name() ), KUrl(outputDir) );
     connect( job, SIGNAL( result( KJob* ) ), this, SLOT( showBrowser() ) );
 
-    _eventLoop.exec();
+    _eventLoop->exec();
     return;
 }
 
@@ -576,7 +581,7 @@ void HTMLGenerator::Generator::slotCancelGenerate()
     ImageManager::Manager::instance()->stop( this );
     _waitCounter = 0;
     if ( _hasEnteredLoop )
-        _eventLoop.exit();
+        _eventLoop->exit();
 }
 
 void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
@@ -610,7 +615,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
 #endif
 
     if ( _waitCounter == 0 && _hasEnteredLoop) {
-        _eventLoop.exit();
+        _eventLoop->exit();
     }
 }
 
@@ -664,7 +669,7 @@ void HTMLGenerator::Generator::showBrowser()
         new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ),
                        MainWindow::Window::theMainWindow());
 
-    _eventLoop.exit();
+    _eventLoop->exit();
 }
 
 QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info )

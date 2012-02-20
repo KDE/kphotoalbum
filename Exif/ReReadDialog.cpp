@@ -16,9 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "Exif/ReReadDialog.h"
 #include <QListWidget>
 #include <QGroupBox>
-#include "Exif/ReReadDialog.h"
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>

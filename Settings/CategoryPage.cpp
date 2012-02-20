@@ -21,12 +21,12 @@
 #include "SettingsDialog.h"
 #include <kmessagebox.h>
 #include "CategoryItem.h"
-#include <QComboBox>
+#include <KComboBox>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <QSpinBox>
 #include <kicondialog.h>
-#include <QLineEdit>
+#include <KLineEdit>
 #include <QLabel>
 #include <QGridLayout>
 #include <Q3ListBoxItem>
@@ -53,7 +53,7 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     _labelLabel = new QLabel( i18n( "Label:" ), this );
     lay3->addWidget( _labelLabel, 0, 0 );
 
-    _text = new QLineEdit( this );
+    _text = new KLineEdit( this );
     connect( _text, SIGNAL( textChanged( const QString& ) ),
              this, SLOT( slotLabelChanged( const QString& ) ) );
 
@@ -82,11 +82,11 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     connect( _thumbnailSizeInCategory, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailSizeChanged( int ) ) );
 
 
-    // Prefered View
+    // Preferred View
     _preferredViewLabel = new QLabel( i18n("Preferred view:"), this );
     lay3->addWidget( _preferredViewLabel, 3, 0 );
 
-    _preferredView = new QComboBox( this );
+    _preferredView = new KComboBox( this );
     lay3->addWidget( _preferredView, 3, 1 );
     QStringList list;
     list << i18n("List View") << i18n("List View with Custom Thumbnails") << i18n("Icon View") << i18n("Icon View with Custom Thumbnails");

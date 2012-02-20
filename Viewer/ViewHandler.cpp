@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageDisplay.h"
 #include "Viewer/ViewHandler.h"
 #include <QRubberBand>
 #include <qpainter.h>

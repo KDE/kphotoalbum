@@ -20,6 +20,8 @@
 #define VIEWHANDLER_H
 #include <qpoint.h>
 #include <QMouseEvent>
+#include "ImageDisplay.h"
+
 class ImageDisplay;
 class QRubberBand;
 

@@ -61,7 +61,7 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
 
         // If none of the images were to be copied, then we flushed the loop before we got started, in that case, don't start the loop.
         if ( _pendingCopies.count() > 0 )
-            ok = m_eventLoop.exec();
+            ok = m_eventLoop->exec();
         else
             ok = false;
     }
@@ -202,7 +202,7 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
         // This might be late -- if we managed to copy some files, we will
         // just throw away any changes to the DB, but some new image files
         // might be in the image directory...
-        m_eventLoop.exit(false);
+        m_eventLoop->exit(false);
         break;
 
     case KMessageBox::No:
@@ -217,14 +217,14 @@ void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
 {
     if ( job && job->error() ) {
         job->uiDelegate()->showErrorMessage();
-        m_eventLoop.exit(false);
+        m_eventLoop->exit(false);
     }
     else if ( _pendingCopies.count() == 0 ) {
         updateDB();
-        m_eventLoop.exit(true);
+        m_eventLoop->exit(true);
     }
     else if ( _progress->wasCanceled() ) {
-        m_eventLoop.exit(false);
+        m_eventLoop->exit(false);
     }
     else {
         _progress->setValue( ++_totalCopied );

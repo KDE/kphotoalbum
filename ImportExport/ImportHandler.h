@@ -20,6 +20,7 @@
 
 #include "ImportSettings.h"
 #include <QEventLoop>
+#include <QPointer>
 #include "DB/ImageInfoPtr.h"
 
 namespace KIO { class FileCopyJob; }
@@ -68,7 +69,7 @@ private:
     int _totalCopied;
     KIO::FileCopyJob* _job;
     bool _reportUnreadableFiles;
-    QEventLoop m_eventLoop;
+    QPointer<QEventLoop> m_eventLoop;
     ImportSettings m_settings;
     KimFileReader* m_kimFileReader;
 };

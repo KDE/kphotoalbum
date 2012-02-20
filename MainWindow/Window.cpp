@@ -115,7 +115,6 @@
 #include <kglobal.h>
 #include <kvbox.h>
 #include "DirtyIndicator.h"
-#include "Utilities/ShowBusyCursor.h"
 #include <KToggleAction>
 #include <KActionMenu>
 #include <KHBox>
@@ -123,7 +122,6 @@
 #include <qclipboard.h>
 #include <stdexcept>
 #include <KInputDialog>
-#include "DB/IdList.h"
 #include "ThumbnailView/enums.h"
 #include "DB/MD5.h"
 #include "DB/MD5Map.h"
@@ -542,9 +540,10 @@ void MainWindow::Window::slotAutoStackImages()
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
         return;
     }
-    AutoStackImages stacker( this, list );
-    if ( stacker.exec() == QDialog::Accepted )
+    QPointer<MainWindow::AutoStackImages> stacker = new AutoStackImages( this, list );
+    if ( stacker->exec() == QDialog::Accepted )
         showThumbNails();
+    delete stacker;
 }
 
 DB::IdList MainWindow::Window::selected()
@@ -641,9 +640,12 @@ void MainWindow::Window::slotSortByDateAndTime()
 
 QString MainWindow::Window::welcome()
 {
-    WelcomeDialog dialog( this );
-    dialog.exec();
-    return dialog.configFileName();
+    QString configFileName;
+    QPointer<MainWindow::WelcomeDialog> dialog = new WelcomeDialog( this );
+    dialog->exec();
+    configFileName = dialog->configFileName();
+    delete dialog;
+    return configFileName;
 }
 
 void MainWindow::Window::closeEvent( QCloseEvent* e )
@@ -1051,7 +1053,7 @@ bool MainWindow::Window::load()
         try {
             SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(config);
 
-            // Initialize SQLDB with the paramaters
+            // Initialize SQLDB with the parameters
             DB::ImageDB::setupSQLDB(address);
             return true;
         }
@@ -1150,13 +1152,13 @@ void MainWindow::Window::lockToDefaultScope()
 void MainWindow::Window::unlockFromDefaultScope()
 {
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
+    QPointer <KPasswordDialog> dialog = new KPasswordDialog( this );
     while ( !OK ) {
-        KPasswordDialog dialog( this );
-        dialog.setPrompt( i18n("Type in Password to Unlock") );
-        const int code = dialog.exec();
+        dialog->setPrompt( i18n("Type in Password to Unlock") );
+        const int code = dialog->exec();
         if ( code == QDialog::Rejected )
             return;
-        const QString passwd = dialog.password();
+        const QString passwd = dialog->password();
 
         OK = (Settings::SettingsData::instance()->password() == passwd);
 
@@ -1164,6 +1166,7 @@ void MainWindow::Window::unlockFromDefaultScope()
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
     setLocked( false, false );
+    delete dialog;
 }
 
 void MainWindow::Window::setLocked( bool locked, bool force )
@@ -1182,14 +1185,14 @@ void MainWindow::Window::changePassword()
 {
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
 
-    KPasswordDialog dialog;
+    QPointer<KPasswordDialog> dialog = new KPasswordDialog;
 
     while ( !OK ) {
-        dialog.setPrompt( i18n("Type in Old Password") );
-        const int code = dialog.exec();
+        dialog->setPrompt( i18n("Type in Old Password") );
+        const int code = dialog->exec();
         if ( code == QDialog::Rejected )
             return;
-        const QString passwd = dialog.password();
+        const QString passwd = dialog->password();
 
         OK = (Settings::SettingsData::instance()->password() == QString(passwd));
 
@@ -1197,10 +1200,11 @@ void MainWindow::Window::changePassword()
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
 
-    dialog.setPrompt( i18n("Type in New Password") );
-    const int code = dialog.exec();
+    dialog->setPrompt( i18n("Type in New Password") );
+    const int code = dialog->exec();
     if ( code == QDialog::Accepted )
-        Settings::SettingsData::instance()->setPassword( dialog.password() );
+        Settings::SettingsData::instance()->setPassword( dialog->password() );
+    delete dialog;
 }
 
 void MainWindow::Window::slotConfigureKeyBindings()
@@ -1355,11 +1359,11 @@ MainWindow::Window* MainWindow::Window::theMainWindow()
 
 void MainWindow::Window::slotConfigureToolbars()
 {
-    KEditToolBar dlg(guiFactory());
-    connect(&dlg, SIGNAL( newToolbarConfig() ),
+    QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
+    connect(dlg, SIGNAL( newToolbarConfig() ),
                   SLOT( slotNewToolbarConfig() ));
-    dlg.exec();
-
+    dlg->exec();
+    delete dlg;
 }
 
 void MainWindow::Window::slotNewToolbarConfig()
@@ -1598,9 +1602,10 @@ void MainWindow::Window::updateDateBar()
 
 void MainWindow::Window::slotShowImagesWithInvalidDate()
 {
-    InvalidDateFinder finder( this );
-    if ( finder.exec() == QDialog::Accepted )
+    QPointer<InvalidDateFinder> finder = new InvalidDateFinder( this );
+    if ( finder->exec() == QDialog::Accepted )
         showThumbNails();
+    delete finder;
 }
 
 void MainWindow::Window::showDateBarTip( const QString& msg )

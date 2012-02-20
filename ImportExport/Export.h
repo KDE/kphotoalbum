@@ -23,6 +23,7 @@
 #include <KDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
+#include <QPointer>
 
 namespace DB { class IdList; }
 
@@ -70,7 +71,7 @@ private:
     Utilities::UniqFilenameMapper _filenameMapper;
     bool _copyingFiles;
     QString _destdir;
-    QEventLoop _eventLoop;
+    QPointer <QEventLoop> _eventLoop;
 };
 
 class ExportConfig :public KDialog {

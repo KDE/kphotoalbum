@@ -1,4 +1,4 @@
-/* Copyright (C) 2010 Miika Turkia
+/* Copyright (C) 2010 Miika Turkia <miika.turkia@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -129,7 +129,7 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
             }
             if ( stack.size() > 1 ) {
                 
-                foreach( QString a, showIfStacked ) {
+                foreach( const QString& a, showIfStacked ) {
 
                     if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( a ) ).isEmpty() )
                         foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( a ) ) )

@@ -21,7 +21,7 @@
 #include "InfoBoxResizer.h"
 #include <QMouseEvent>
 #include "ViewerWidget.h"
-#include <QTextBrowser>
+#include <KTextBrowser>
 #include "config-kpa-nepomuk.h"
 #ifdef HAVE_NEPOMUK
 #   include <nepomuk/kratingwidget.h>
@@ -35,7 +35,7 @@ namespace Viewer
 {
 class VisibleOptionsMenu;
 
-class InfoBox :public QTextBrowser {
+class InfoBox :public KTextBrowser {
     Q_OBJECT
 
 public:

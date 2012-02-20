@@ -81,7 +81,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
 
 /**
    Handle key release event.
-   \return true if the event should propogate
+   \return true if the event should propagate
 */
 bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
 {
@@ -89,7 +89,7 @@ bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
         widget()->_gridResizeInteraction.leaveGridResizingMode();
         widget()->_wheelResizing = false;
 
-        return false; // Don't propogate the event - I'm not sure why.
+        return false; // Don't propagate the event - I'm not sure why.
     }
     return true;
 }

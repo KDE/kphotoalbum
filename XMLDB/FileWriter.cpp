@@ -210,7 +210,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
                 elm.setAttribute( QString::fromLatin1( "category" ), categoryName );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
-                Q_FOREACH(const QString member, members) {
+                Q_FOREACH(const QString& member, members) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( memberMapIt.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( member ) ) );
@@ -219,7 +219,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
                 memberNode.appendChild( elm );
             }
             else {
-                Q_FOREACH(const QString member, members) {
+                Q_FOREACH(const QString& member, members) {
                     QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                     memberNode.appendChild( elm );
                     elm.setAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
@@ -234,7 +234,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
 }
 
 // This function will save an empty config element and a valid configWindowSetup element in the XML file.
-// In versions of KPhotoAlbum newer than 2.1, these informations are stored
+// In versions of KPhotoAlbum newer than 2.1, this information is stored
 // using KConfig, rather than in the database, so I need to add them like
 // this to make the file readable by KPhotoAlbum 2.1.
 void XMLDB::FileWriter::add21CompatXML( QDomElement& top )
@@ -324,7 +324,7 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
 
         StringSet items = info->itemsOfCategory(name);
         bool any = false;
-        Q_FOREACH(const QString itemValue, items) {
+        Q_FOREACH(const QString& itemValue, items) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), itemValue );
             opt.appendChild( val );

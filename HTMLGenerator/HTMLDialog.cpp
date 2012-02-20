@@ -39,7 +39,7 @@
 #include "DB/ImageDB.h"
 #include "Generator.h"
 #include "ImageSizeCheckBox.h"
-#include <QTextEdit>
+#include <KTextEdit>
 #include <QStringMatcher>
 using namespace HTMLGenerator;
 
@@ -89,7 +89,7 @@ void HTMLDialog::createContentPage()
     label = new QLabel( i18n("Description:"), contentPage );
     label->setAlignment( Qt::AlignTop );
     lay2->addWidget( label, 2, 0 );
-    _description = new QTextEdit( contentPage );
+    _description = new KTextEdit( contentPage );
     label->setBuddy( _description );
     lay2->addWidget( _description, 2, 1 );
 
@@ -183,7 +183,7 @@ void HTMLDialog::createLayoutPage()
     lay2->addWidget( label, 2, 0 );
     lay4 = new QHBoxLayout;
     lay2->addLayout( lay4, 2, 1 );
-    _themeBox = new QComboBox( layoutPage );
+    _themeBox = new KComboBox( layoutPage );
     label->setBuddy( _themeBox );
     lay4->addWidget( _themeBox );
     lay4->addStretch( 1 );    

@@ -22,7 +22,7 @@
  *
  * This widget also supports advanced features like allowing the user
  * to type in the day name to get the date. The following keywords
- * are supported (in the native language): tomorrow, yesturday, today,
+ * are supported (in the native language): tomorrow, yesterday, today,
  * monday, tuesday, wednesday, thursday, friday, saturday, sunday.
  *
  * @author Cornelius Schumacher <schumacher@kde.org>
@@ -34,7 +34,7 @@
 #define ANNOTATIONDIALOG_KDATEEDIT_H
 
 #include <q3vbox.h>
-#include <qcombobox.h>
+#include <KComboBox>
 #include <qmap.h>
 #include <QEvent>
 #include <QMouseEvent>
@@ -46,11 +46,11 @@ class KDatePicker;
 namespace AnnotationDialog
 {
 
-class KDateEdit : public QComboBox
+class KDateEdit : public KComboBox
 {
     Q_OBJECT
 public:
-    KDateEdit( bool isStartEdit, QWidget *parent=0 );
+    explicit KDateEdit( bool isStartEdit, QWidget *parent=0 );
     virtual ~KDateEdit();
 
     /** @return True if the date in the text edit is valid,

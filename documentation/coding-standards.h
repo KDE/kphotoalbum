@@ -8,7 +8,7 @@
    \li Indentation is 4 spaces
    \li Instance variables are prefixed either with an underscore or
    m_. Please stick to one of the two for a given class.
-   \li Methods that are overriden from a superclass should be marked with
+   \li Methods that are overridden from a superclass should be marked with
    the macro OVERRIDE. This macro expands to nothing, so it is purely for
    bringing to peoples attention that this is actually overriding a method.
    \li KPhotoAlbum is warning free zone. Please keep it that way. No warnings during compilations are accepted.

@@ -16,8 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "CenteringIconView.h"
-
 #include "BrowserWidget.h"
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -36,7 +34,6 @@
 #include "Settings/SettingsData.h"
 #include <qtimer.h>
 #include <QHBoxLayout>
-#include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include "Utilities/ShowBusyCursor.h"
 #include <QStackedWidget>

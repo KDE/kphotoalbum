@@ -50,7 +50,6 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <sys/stat.h>
 #include <setjmp.h>
 #include <sys/types.h>
@@ -89,7 +88,7 @@ static void AddNonEmptyInfo(const QString &label, const QString &info,
  * thumbnail view.
  *
  * As the HTML text is created, the parameter linkMap is filled with
- * informations about hyberlinks. The map maps from an index to a pair of
+ * information about hyberlinks. The map maps from an index to a pair of
  * (categoryName, categoryItem). This linkMap is used when the user selects
  * one of the hyberlinks.
  */
@@ -263,7 +262,7 @@ void Utilities::copyList( const QStringList& from, const QString& directoryTo )
 
 QString Utilities::setupDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( qgetenv( "LOGNAME" ) );
     QFileInfo fi(dir);
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir );
@@ -580,7 +579,7 @@ bool Utilities::runningDemo()
 
 void Utilities::deleteDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( qgetenv( "LOGNAME" ) );
     KUrl url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
@@ -616,7 +615,7 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
     else if ( fileName.startsWith( QString::fromAscii("file://") ) )
         return imageFileNameToAbsolute( fileName.mid( 7 ) ); // 7 == length("file://")
     else if ( fileName.startsWith( QString::fromAscii("/") ) )
-        return QString::null; // Not within our image root
+        return QString(); // Not within our image root
     else
         return absoluteImageFileName( fileName );
 }

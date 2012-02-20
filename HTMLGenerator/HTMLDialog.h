@@ -19,6 +19,7 @@
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
 #include <KPageDialog>
+#include <KComboBox>
 class QLabel;
 class QComboBox;
 class QTextEdit;
@@ -70,7 +71,7 @@ private:
     QCheckBox* _generateKimFile;
     QCheckBox* _inlineMovies;
     QMap<int,QString> _themes;
-    QComboBox* _themeBox;
+    KComboBox* _themeBox;
     QLabel* _themeInfo;
     QStringList _themeAuthors;
     QStringList _themeDescriptions;

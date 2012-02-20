@@ -205,21 +205,21 @@ bool Browser::OverviewPage::isSearchable() const
 Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 {
 #ifdef HAVE_EXIV2
-    Exif::SearchDialog dialog( browser() );
+    QPointer<Exif::SearchDialog> dialog = new Exif::SearchDialog( browser() );
 
     {
         Utilities::ShowBusyCursor undoTheBusyWhileShowingTheDialog( Qt::ArrowCursor );
 
-        if ( dialog.exec() == QDialog::Rejected )
+        if ( dialog->exec() == QDialog::Rejected )
             return 0;
     }
 
 
-    Exif::SearchInfo result = dialog.info();
+    Exif::SearchInfo result = dialog->info();
 
     DB::ImageSearchInfo info = BrowserPage::searchInfo();
 
-    info.addExifSearchInfo( dialog.info() );
+    info.addExifSearchInfo( dialog->info() );
 
     if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
         KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );

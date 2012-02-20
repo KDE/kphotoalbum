@@ -19,7 +19,7 @@
 #include "SettingsData.h"
 #include <QTextCodec>
 #include <klocale.h>
-#include <QComboBox>
+#include <KComboBox>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -46,7 +46,7 @@ Settings::ExifPage::ExifPage( QWidget* parent )
     hlay1->addWidget( _exifForDialog );
 
     QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), this );
-    _iptcCharset = new QComboBox( this );
+    _iptcCharset = new KComboBox( this );
     QStringList _charsets;
     QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
     for (QList<QByteArray>::const_iterator it = _charsetsBA.constBegin(); it != _charsetsBA.constEnd(); ++it )

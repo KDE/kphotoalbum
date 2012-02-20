@@ -307,7 +307,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText( const QModelIndex& index )
 
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int thumbnailHeight = cellSize.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
-    const int thumbnailWidth = cellSize.width(); // no substracting here
+    const int thumbnailWidth = cellSize.width(); // no subtracting here
     const int maxCharacters = thumbnailHeight / QFontMetrics( widget()->font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {

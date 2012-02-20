@@ -27,6 +27,7 @@
 #include <QEventLoop>
 #include <KTempDir>
 #include "Utilities/Set.h"
+#include <QPointer>
 
 namespace DB { class Id; }
 
@@ -40,6 +41,7 @@ class Generator :public QProgressDialog, private ImageManager::ImageClient
 
 public:
     Generator( const Setup& setup,  QWidget* parent );
+    ~Generator();
     void generate();
 
 protected slots:
@@ -82,7 +84,7 @@ private:
     QSet< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;
-    QEventLoop _eventLoop;
+    QPointer<QEventLoop> _eventLoop;
 };
 
 }

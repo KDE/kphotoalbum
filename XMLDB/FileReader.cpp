@@ -295,7 +295,7 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
     if ( _db->_anyImageWithEmptySize ) {
         KMessageBox::information( messageParent(),
                                   i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
-                                       "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintainance</b> menu, "
+                                       "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintenance</b> menu, "
                                        "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
                                        "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
                                        "there is no urgency in doing it.</p>"),

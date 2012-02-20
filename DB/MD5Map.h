@@ -28,7 +28,7 @@ namespace DB
 using Utilities::StringSet;
 
 /**
-   This class may be overriden by a which wants to store md5 information
+   This class may be overridden by a which wants to store md5 information
    directly in a database, rather than in a map in memory.
 **/
 class MD5Map

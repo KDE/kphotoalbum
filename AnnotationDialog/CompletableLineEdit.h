@@ -19,7 +19,7 @@
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
 #include "enums.h"
-#include <QLineEdit>
+#include <KLineEdit>
 class Q3ListViewItem;
 class Q3ListView;
 class QKeyEvent;
@@ -28,7 +28,7 @@ namespace AnnotationDialog
 {
 class ListSelect;
 
-class CompletableLineEdit :public QLineEdit {
+class CompletableLineEdit :public KLineEdit {
 
 public:
     CompletableLineEdit( ListSelect* parent );

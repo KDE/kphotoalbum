@@ -125,7 +125,7 @@ namespace SQLDB
         public:
             static const int noLength = -1;
 
-            FieldType(DataType dataType,
+            explicit FieldType(DataType dataType,
                       int length1=noLength,
                       int length2=noLength);
 

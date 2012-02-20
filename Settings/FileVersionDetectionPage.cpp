@@ -25,7 +25,7 @@
 #include <QVBoxLayout>
 #include <Q3VGroupBox>
 #include <QCheckBox>
-#include <QLineEdit>
+#include <KLineEdit>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     : QWidget( parent )
@@ -44,7 +44,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
     // Exclude directories from search
     QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
-    _excludeDirectories = new QLineEdit( generalBox );
+    _excludeDirectories = new KLineEdit( generalBox );
     excludeDirectoriesLabel->setBuddy( _excludeDirectories );
 
     // Original/Modified File Support
@@ -54,10 +54,10 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     _detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
 
     QLabel* modifiedFileComponentLabel = new QLabel( i18n("File versions search regexp:" ), modifiedBox );
-    _modifiedFileComponent = new QLineEdit(modifiedBox);
+    _modifiedFileComponent = new KLineEdit(modifiedBox);
 
     QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
-    _originalFileComponent = new QLineEdit(modifiedBox);
+    _originalFileComponent = new KLineEdit(modifiedBox);
 
     _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
 
@@ -68,10 +68,10 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     lay1->addWidget( copyBox );
 
     QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
-    _copyFileComponent = new QLineEdit(copyBox);
+    _copyFileComponent = new KLineEdit(copyBox);
 
     QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
-    _copyFileReplacementComponent = new QLineEdit(copyBox);
+    _copyFileReplacementComponent = new KLineEdit(copyBox);
 
     QString txt;
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "

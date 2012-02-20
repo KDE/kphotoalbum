@@ -247,7 +247,7 @@ void Export::generateThumbnails(const DB::IdList& list)
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
-        _eventLoop.exec();
+        _eventLoop->exec();
     }
 }
 
@@ -299,7 +299,7 @@ void Export::copyImages(const DB::IdList& list)
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
-        _eventLoop.exec();
+        _eventLoop->exec();
     }
 }
 
@@ -337,7 +337,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 
     if ( canceled ) {
         _ok = false;
-        _eventLoop.exit();
+        _eventLoop->exit();
         ImageManager::Manager::instance()->stop( this );
         return;
     }
@@ -348,7 +348,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 
 
         if ( _filesRemaining == 0 && _loopEntered )
-            _eventLoop.exit();
+            _eventLoop->exit();
 }
 
 void Export::showUsageDialog()

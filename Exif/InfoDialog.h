@@ -21,7 +21,7 @@
 #include <q3gridview.h>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
-class QComboBox;
+class KComboBox;
 class QLabel;
 class QKeyEvent;
 class QResizeEvent;
@@ -52,7 +52,7 @@ protected slots:
 private:
     QLabel* m_searchLabel;
     QLabel* m_pix;
-    QComboBox* m_iptcCharset;
+    KComboBox* m_iptcCharset;
     Grid* m_grid;
     QLabel* m_fileNameLabel;
 };
@@ -62,7 +62,7 @@ class Grid :public Q3GridView
     Q_OBJECT
 
 public:
-    Grid( QWidget* parent, const char* name = 0 );
+    explicit Grid( QWidget* parent, const char* name = 0 );
     void setFileName( const QString& fileName );
 
 signals:

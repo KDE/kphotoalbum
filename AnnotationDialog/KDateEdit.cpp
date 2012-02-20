@@ -22,7 +22,7 @@
  *
  * This widget also supports advanced features like allowing the user
  * to type in the day name to get the date. The following keywords
- * are supported (in the native language): tomorrow, yesturday, today,
+ * are supported (in the native language): tomorrow, yesterday, today,
  * monday, tuesday, wednesday, thursday, friday, saturday, sunday.
  *
  * @author Cornelius Schumacher <schumacher@kde.org>
@@ -52,7 +52,7 @@
 
 
 AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
-    : QComboBox( parent ),
+    : KComboBox( parent ),
       defaultValue( QDate::currentDate() ),
       mReadOnly(false),
       mDiscardNextMousePress(false),
@@ -299,7 +299,7 @@ void AnnotationDialog::KDateEdit::keyPressEvent( QKeyEvent *event )
         step = -1;
  
     setDate( value.addDays(step) );
-    QComboBox::keyPressEvent( event );
+    KComboBox::keyPressEvent( event );
 }
 
 /* Checks for a focus out event. The display of the date is updated
@@ -350,7 +350,7 @@ void AnnotationDialog::KDateEdit::mousePressEvent(QMouseEvent *e)
         mDiscardNextMousePress = false;
         return;
     }
-    QComboBox::mousePressEvent(e);
+    KComboBox::mousePressEvent(e);
 }
 
 void AnnotationDialog::KDateEdit::slotTextChanged(const QString &)

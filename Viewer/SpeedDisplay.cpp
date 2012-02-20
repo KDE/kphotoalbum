@@ -18,7 +18,6 @@
 
 #include "SpeedDisplay.h"
 #include <QTimeLine>
-#include "Viewer/SpeedDisplay.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>

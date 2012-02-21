@@ -7,6 +7,13 @@ different KPhotoAlbum features.</p>
 
 <tip category="KPhotoAlbum">
 <html>
+<p>KPhotoAlbum's Handbook is available from Help menu. Online and PDF versions
+are available at KDE documentation site http://docs.kde.org/.</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
 <p>It is possible to create new categories - that are alternatives
 to <b>People</b>, <b>Places</b>, and <b>Events</b> - in the annotation
 dialog. 
@@ -40,17 +47,11 @@ fish.</p>
 
 <tip category="KPhotoAlbum">
 <html>
-<p>When you bring new images to your collection, you might not have time
-right away to categorize them (i.e. specify People, Places,
-etc.). Therefore, you might later want to find those images which have not
-yet been categorized. Here is what I do.</p> 
-<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've
-categorized them (i.e. just like you may have a keyword for <b>Summer
-Party</b> or <b>Interrail trip 1990</b>, you now have a keyword
-<b>OK</b>). To find uncategorized images, I choose the
-<b>Search</b> item from the browser, and in the keywords field, I
-type <b>!OK</b>. This will find all images which do <b>not</b> have the
-<b>OK</b> item.
+<p>New images are automatically marked as <tt>Untagged</tt>. You can easily
+search for these images from main window by clicking the appropriate icon. Once
+you are done tagging an image just click <tt>Done</tt> and the Untagged flag is
+automatically removed. On the other hand, the <tt>Continue Later</tt> button
+finishes the tagging but leaves the Untagged flag intact.</p>
 </html>
 </tip>
 
@@ -118,10 +119,37 @@ images by selecting the appropriate star rating.</p>
 </html>
 </tip>
 
+
+<tip category="KPhotoAlbum">
+<html>
+<p>Sometimes it is useful to group several related images into an image stack.
+You can merge several images into a stack by first selecting them on Thumbnail
+View and then pressing <tt>Ctrl+3</tt> or selecting <tt>Merge Images into a
+Stack</tt> from menu.</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
+<p>When searching for new images, KPhotoAlbum can automatically put new versions
+of images into stacks by looking at their filenames. To configure this feature,
+chose "Configure KPhotoalbum..." from the Settings menu and set appropriate
+values in the "File Searching & Versions" tab.</p>
+<p>
+<ul>
+<li>Enable the checkbox "Try to detect multiple versions of files"</li>
+<li>Enter a regular expression for your modified files:<br/><tt>^(.*)-adjusted\.(.*)</tt></li>
+<li>Enter a regular expression for your original file:<br/><tt>\1.\2</tt></li>
+</ul>
+</p>
+</html>
+</tip>
+
+
 <tip category="KPhotoAlbum">
 <html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
-send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a>.</p>
+send an email to <a href="mailto:kphotoalbum@kdab.com">kphotoalbum@kdab.com</a>.</p>
 </html>
 </tip>
 

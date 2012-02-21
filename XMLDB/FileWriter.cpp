@@ -102,7 +102,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
             if ( ! out.rename( fileName ) )
             {
                 KMessageBox::sorry( messageParent(),
-                        i18n("<p>Failed to move temporary XML file to permanent location.</p"
+                        i18n("<p>Failed to move temporary XML file to permanent location.</p>"
                             "<p>Please try again or rename file %1 to %2 manually!</p>",
                             out.fileName(), fileName )
                            );

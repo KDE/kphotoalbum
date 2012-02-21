@@ -41,7 +41,7 @@ ImageDB* ImageDB::_instance = 0;
 ImageDB* DB::ImageDB::instance()
 {
     if ( _instance == 0 )
-        qFatal("ImageDB::instance must not be called before ImageDB::setup");
+        exit(0); // Either we are closing down or ImageDB::instance was called before ImageDB::setup
     return _instance;
 }
 

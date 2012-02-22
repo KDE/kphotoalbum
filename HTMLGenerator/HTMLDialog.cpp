@@ -477,7 +477,7 @@ void HTMLDialog::populateThemesCombo()
     if(_themeBox->count() < 1) {
         KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
     }
-    if (Settings::SettingsData::instance()->HTMLTheme() >= 0)
+    if ( (Settings::SettingsData::instance()->HTMLTheme() >= 0) && (Settings::SettingsData::instance()->HTMLTheme() < _themeBox->count()) )
         _themeBox->setCurrentIndex( Settings::SettingsData::instance()->HTMLTheme() );
     else {
         _themeBox->setCurrentIndex( theme );

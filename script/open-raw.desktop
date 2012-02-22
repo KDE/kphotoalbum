@@ -1,0 +1,16 @@
+# Copyright 2012 Miika Turkia <miika.turkia@gmail.com>
+#
+# Copy this file to /usr/local/share/applications/
+# Update the Exec and Icon variables as appropriate
+# Default icon comes from kipi-plugins-common package
+
+[Desktop Entry]
+Version=1.0
+Name=Open in RAW editor
+Comment=Send RAW files to external editor on command line
+Exec=/usr/local/bin/open-raw.pl %F
+Terminal=false
+Icon=/usr/share/icons/oxygen/64x64/apps/rawconverter.png
+Type=Application
+Categories=Graphics;Photography;
+MimeType=image/x-canon-crw;image/x-canon-cr2;image/x-sony-arw;image/x-nikon-nef;image/x-olympus-orf;image/x-pentax-pef;image/x-adobe-dng;image/tiff;image/x-raw;image/gif;image/tiff;image/jpeg;

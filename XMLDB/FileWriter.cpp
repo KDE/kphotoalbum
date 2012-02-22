@@ -89,7 +89,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
             // State: index.xml has previous DB version, index.xml.tmp has the current version.
 
             // original file can be safely deleted
-            if ( QFile::exists( fileName ) && ( ! QFile::remove( fileName ) ) )
+            if ( ( ! QFile::remove( fileName ) ) && QFile::exists( fileName ) )
             {
                 KMessageBox::sorry( messageParent(),
                         i18n("<p>Failed to remove old version of image database.</p>"

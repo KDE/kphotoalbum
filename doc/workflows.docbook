@@ -49,7 +49,7 @@
   and brows to the new directory. Then go to the
   <literal>Thumbnails</literal>, select all
   and <guimenu>Annotate Multiple Items at a Time</guimenu> or <keycombo
-  action='simul'><keycap>Ctrl</keycap><keycap>2</keycap></keycombo>. Insert the
+  action='simul'>&Ctrl;<keycap>2</keycap></keycombo>. Insert the
   proper place like Finland-Helsinki (see <xref
   linkend="sec-member-groups-in-property-editor"/>).
   </para>
@@ -60,7 +60,7 @@
   rating for good images, just press the appropriate number from
   <keycap>1</keycap> to <keycap>5</keycap>. I only give 3 to 5 ratings
   and hit <keycombo
-  action='simul'><keycap>Ctrl</keycap><keycap>Del</keycap></keycombo>
+  action='simul'>&Ctrl;<keycap>Del</keycap></keycombo>
   for the bad photos to delete them. At this point I might add also
   People names if there happens to be a diver in the photo. Once the
   first round is done I exit the Viewer by hitting <keycap>Esc</keycap>
@@ -71,7 +71,7 @@
   <para>Next I select only the images that have high enough rating using
   the search function. Naturally the Place has to be set if search is
   started with <keycombo
-  action='simul'><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>.
+  action='simul'>&Ctrl;<keycap>F</keycap></keycombo>.
   However, if search is invoked from the Main Window the current
   selection is drilled down to the more precise match. Anyway, at this
   point I go through the better rated images again doing refining on the

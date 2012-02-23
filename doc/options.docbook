@@ -1,7 +1,7 @@
 <chapter id="chp-options">
   <title>Configuring &kphotoalbum;</title>
   <para>Selecting
-<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure 
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 KPhotoAlbum...</guimenuitem></menuchoice> from the menu
 bar will bring up the options dialog. This chapter will tell you about the
 configuration option available there.</para>
@@ -13,7 +13,7 @@ configuration option available there.</para>
 <para>Below you can see the configuration page for general options. Some of
 these options are briefly described here and you can also access an
 informational menu while doing configurations by right clicking any option and
-selecting the What's This? menu item.</para>
+selecting the <guimenuitem>What's This?</guimenuitem> menu item.</para>
 
 <figure id="fig-options-general">
 <title>General Options</title>
@@ -35,10 +35,10 @@ image is decoded if the thumbnail is of useless size.</para>
 
 <sect1 id="opt-search-new">
   <title>New Image Finder Settings</title>
-<para>The left pane gives you access to other settings like File Searching
-&amp; Versions. These settings define &kphotoalbum;'s behavior when new images
+<para>The left pane gives you access to other settings like <guimenuitem>File Searching
+&amp; Versions</guimenuitem>. These settings define &kphotoalbum;'s behavior when new images
 are found. These can be searched for automatically on start-up or manually from
-the Maintenance menu. Again the options are well described in the online help
+the <guimenu>Maintenance</guimenu> menu. Again the options are well described in the online help
 menu but a few should probably be given a brief introduction here.</para>
 
 <figure id="fig-options-file-versions">
@@ -58,7 +58,7 @@ menu but a few should probably be given a brief introduction here.</para>
     needed.</para></listitem>
     <listitem>
         <para>New versions of same files can be automatically detected to
-	some extent. If you want to e.g. automatically stack new versions of same image
+	some extent. If you want to &eg; automatically stack new versions of same image
 	to a stack you can configure regular expression to be used to look whether the
 	new file is a new version of an original file. Following settings where first
 	is the search regexp and second original file test should get you
@@ -72,7 +72,7 @@ menu but a few should probably be given a brief introduction here.</para>
 Note that the Original file replacement text can have multiple suffixes
 separated by semicolon and reference to regexp match can be used in the format
 of \1. Original file is being searched from the same directory as the new file.
-Oh, and the example regexp will match e.g. the following files: example_v1.jpg,
+Oh, and the example regexp will match &eg; the following files: example_v1.jpg,
 example_12.tif, example.PNG.
 </para>
 </sect1>
@@ -101,7 +101,7 @@ example_12.tif, example.PNG.
 <sect1 id="opt-viewer">
   <title>Viewer Settings</title>
   <para>Another rather simple configuration. Mainly you can select the
-  preferred size of Viever or SlideShow window or to display them in
+  preferred size of Viewer or SlideShow window or to display them in
   full screen mode. Basic SlideShow interval can be set here but a more
   feature rich Advanced SlideShow is available from KIPI plugins. The
   scaling algorithm can be <emphasis>Best</emphasis> or
@@ -153,7 +153,7 @@ label and an icon.</para>
 
 <para>In <xref linkend="sec-member-groups-in-property-editor"/> we
 discussed sub categories. From the settings dialog, it is possible to configure
-entire member groups, i.e. configure all members of a group in one go rather
+entire member groups, &ie; configure all members of a group in one go rather
 than configure all groups for a member as was the situation in <xref
 linkend="sec-member-groups-in-property-editor"/>.</para>
 

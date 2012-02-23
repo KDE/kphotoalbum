@@ -3,14 +3,14 @@
   <para>In <xref linkend="fig-empty-browser-window"/> you can see
 an example of the window that will greet you once you have started &kphotoalbum;
 with your own images.</para>
-  
+
   <para>At the top of the screen you will find a menu and toolbar, as you
 know from any KDE application. Below the toolbar you see the browser
 window. In browser window you can select different categories to limit the images you will be inspecting. In <xref
       linkend="chp-browsing"/> we will get back to the browser, but for
 now, simply press the <guibutton>Show Thumbnails</guibutton> item, which will show
 you a thumbnail view of all your images.</para>
-  
+
   <figure id="fig-empty-browser-window">
     <title>Starting &kphotoalbum; with your own images</title>
     <mediaobject>
@@ -20,9 +20,9 @@ you a thumbnail view of all your images.</para>
       </imageobject>
     </mediaobject>
   </figure>
-  
+
     <para>The key feature of &kphotoalbum; is that you can annotate your images. This includes who is on a given image, where it is taken,
-etc. You can do this either one image at a time, or you can annotate a number of images simultaneously (For example, all these
+&etc; You can do this either one image at a time, or you can annotate a number of images simultaneously (For example, all these
 images contain the person <emphasis>Jesper</emphasis>, and is taken in
 <emphasis>Copenhagen</emphasis>.)</para>
 
@@ -35,8 +35,8 @@ annotate all the selected items as if it was one single item. In other
 words, with this option you mass-annotate your image - e.g. saying all
 these images were shot in Copenhagen. These two options are also available from a context menu, that you
 get by right clicking the mouse in the thumbnail overview or using keyboard shortcut. An example of
-this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para> 
-    
+this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
+
     <figure id="fig-edit-properies-menu">
       <title>Context menu for editing properties</title>
       <mediaobject>
@@ -46,7 +46,7 @@ this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
         </imageobject>
       </mediaobject>
     </figure>
-    
+
     <para>In <xref linkend="fig-image-config-window"/> below you can see
 the window for annotating images and videos. In this window you can specify
 the date of the item, the label of the item <footnote><para>The label is
@@ -57,9 +57,9 @@ different <emphasis>categories</emphasis> for the item. In the screen shot, thes
 <literal>People</literal>, <literal>Places</literal>, and
 <literal>Keywords</literal>, but as you will see in <xref
         linkend="sec-specifying-categories"/>, these three predefined
-categories may be changed to your preferences. 
+categories may be changed to your preferences.
  </para>
-    
+
     <figure id="fig-image-config-window">
       <title>Annotating images and videos</title>
       <mediaobject>
@@ -69,14 +69,14 @@ categories may be changed to your preferences.
         </imageobject>
       </mediaobject>
     </figure>
-    
+
     <para>All these annotations may be used for searching and
 browsing, as we will see in <xref linkend="chp-browsing"/>. On request you
 may see these annotations when viewing the items in the build-in viewer.</para>
-    
-    
-    
-    
+
+
+
+
     <sect1 id="sect-specifying-options">
       <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
@@ -84,7 +84,7 @@ list boxes combined with line edits for specifying people, places and
 keywords. These widget are a very important part of &kphotoalbum;,
 as you will use them over and over again, when specifying information about
 your images.</para>
-      
+
       <para> You can specify a property from a list box, simply by
 selecting it (Select say <literal>Donna</literal> to specify that Donna is
 on the given image. Alternatively you may type its name in the line edit.
@@ -96,8 +96,8 @@ simply press enter to select this item in the listbox. The item will now be
 moved to the top of the view, so next time you need the given item it is
 even easier to find. There is also a "seamless" way of annotating from Image
 Viewer that is described later on in <xref
-linkend="category-selectors-in-viewer" />.</para> 
-      
+linkend="category-selectors-in-viewer" />.</para>
+
       <para>The idea behind moving items to the top when they have been
 selected is, that when going to, say a family party, you will get perhaps
 50 images all with the same 5-10 people. When typing in information about these
@@ -107,8 +107,8 @@ you have typed in their name the first time.</para>
      <para>If you prefer to have the list alphabetically sorted instead,
 simply press the icon for sorting under the list box.</para>
     </sect1>
-    
-    
+
+
     <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
       <title>Annotating one item at a time</title>
       <para>When you specify properties for one image at a time, you may
@@ -117,13 +117,13 @@ annotate these images</emphasis>. In this situation, you will
 find a next and previous button under the image in the topmost rightmost
 corner. </para>
     </sect1>
-    
+
     <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
       <title>Annotating multiple items at a time</title>
       <para>If you have several images with, say the same person, then it
 might be more convenient to select those images, and specify that this
 person is on all images using the <emphasis>Annotate Multiple Items at a Time</emphasis>.</para>
-      
+
     </sect1>
 
 
@@ -139,7 +139,7 @@ tell &kphotoalbum; that San Francisco, and Los Angeles are in California, and th
 others are in USA. Doing so the browser (see <xref
 linkend="chp-browsing"/>) will offer you an item for USA, and an item for
 California in addition to all your normal items. Selecting California, you
-will see all images from San Francisco, Los Angeles, etc.</para>
+will see all images from San Francisco, Los Angeles, &etc;</para>
 
 <para>In <xref linkend="fig-usa-as-a-member"/> you can see a browser
 window, containing USA as a super category. To indicate to you that this is a
@@ -173,7 +173,7 @@ alphabetically. See <xref linkend="fig-membergroup-config"/>.</para>
 
 
 
-  
+
 
 
   <sect1 id="sect-changing-layout-of-the-property-window">
@@ -181,18 +181,18 @@ alphabetically. See <xref linkend="fig-membergroup-config"/>.</para>
     <para>It is possible to move the items of the annotation dialog
 around, simply from the bar at the top of the frames, and move them around
 - you can even make a frame into a top level window on its own.</para>
-    
+
     <para>Once you have found a layout that works well on your your screen,
-your usage of &kphotoalbum;, etc. simply press the <guibutton>Options...</guibutton>
+your usage of &kphotoalbum;, &etc; simply press the <guibutton>Options...</guibutton>
 button, that will display a pop-up menu from which you can save the current
 window layout.</para>
-    
+
     <para>You may also choose to hide away a frame. It appears that currently
 the only way to include the deleted frame is to fully reset the layout
 <guibutton>Options...</guibutton> button, and from there the
 <guimenuitem>Reset layout</guimenuitem> item. This can be see in <xref
         linkend="fig-redisplay-frames"/>.</para>
-  
+
 
   <figure id="fig-redisplay-frames">
     <title>Showing previously hidden windows.</title>
@@ -202,7 +202,7 @@ the only way to include the deleted frame is to fully reset the layout
       </imageobject>
     </mediaobject>
   </figure>
-  
+
   </sect1>
 
   </chapter>

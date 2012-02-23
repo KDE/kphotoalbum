@@ -6,13 +6,13 @@ point want to look at them. For that purpose &kphotoalbum; has an viewer
 capable of showing your images and videos. You open the viewer from the
 thumbnail view as described in <xref
       linkend="chp-thumbnail-view"/>.</para>
-  
+
   <para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
 does of course show you the image, but in addition to that it also shows
 you the information you specified for each image, including, who is on the
- images, where and when it was takes etc.
+ images, where and when it was takes, &etc;
 </para>
-  
+
   <figure id="fig-viewer">
     <title>The Viewer</title>
     <mediaobject>
@@ -21,7 +21,7 @@ you the information you specified for each image, including, who is on the
       </imageobject>
     </mediaobject>
   </figure>
-  
+
   <para>In case the info box is located on top of part of the images you actually
 want to see, you can simply grab it with the mouse, and move it elsewhere
 on the image. It is possible to configure what should be shown in the
@@ -29,7 +29,7 @@ info box, and of course whether it should be shown at all. All these
 options are available by right clicking your mouse on the viewer. The
 context menu can be seen in <xref linkend="fig-viewer-contextmenu"/>
 below.</para>
-  
+
   <figure id="fig-viewer-contextmenu">
     <title>The viewer's context menu</title>
     <mediaobject>
@@ -38,7 +38,7 @@ below.</para>
       </imageobject>
     </mediaobject>
   </figure>
-  
+
   <para>Some of the words in the info box is underlines. If you click the
 mouse on one of these words the browser (see <xref linkend="chp-browsing"/>)
 will go into scope of that item. Thus if you click on <literal>Anne
@@ -46,7 +46,7 @@ Helene</literal> the browser will show you all images of Anne Helene, just
 as it would have done if you selected <literal>People</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
-  
+
 <para>In the info box you can see a small button with the &kphotoalbum;
 logo. Pressing that button will get you to the thumbnail viewer. The
 thumbnail view will display all images, and the image you just had in the
@@ -63,19 +63,19 @@ forth and back using <keycap>Page Up</keycap> and <keycap>Page
 Down</keycap>. You can go to the first and last images
 using <keycap>Home</keycap> and <keycap>End</keycap>. These functions
 are of course also available from the context menu.</para>
-  
+
   <para>If several images was loaded into the viewer, you can ask it to run
 them as a slide show, which means that &kphotoalbum; loads a new image every few
 second. How often it loads a new image is configure by pressing the control
 key and respective plus (for go faster) or minus
 (go slower). Starting and stopping the slide show is
 done simply by pressing <keycombo>&Ctrl;<keycap>S</keycap></keycombo>.</para>
-  
+
   <para>A very useful feature of the &kphotoalbum; viewer is it ability to go into
 full screen mode. In this mode, the viewer is using the complete screen
 space, simply press the return key to make it go into and out of full screen
 mode.</para>
-  
+
   <para>Using the viewer, you may zoom in and out of your image, simply by
 dragging out a rectangle with the mouse. Pressing the minus key will zoom
 out again. Pressing the plus key will zoom in at the center of the image. <xref
@@ -89,7 +89,7 @@ each pixel on the screen correspond to a pixel in the image.</para>
 
 <para>Notice, for technical the only zooming operation that works when watching videos are  zoom in and out
 (the plus and minus key).</para>
-  
+
   <figure id="fig-marking-zoom-rectangle">
     <title>Zooming in the viewer</title>
     <mediaobject>
@@ -99,7 +99,7 @@ each pixel on the screen correspond to a pixel in the image.</para>
       </imageobject>
     </mediaobject>
   </figure>
-  
+
   <figure id="fig-zoomed-view">
     <title>Zooming in the viewer</title>
     <mediaobject>
@@ -109,7 +109,7 @@ each pixel on the screen correspond to a pixel in the image.</para>
       </imageobject>
     </mediaobject>
   </figure>
-    
+
   <para>Choosing the rotate operations from the context menu, you may
 rotate the image (Does not work for videos). You can annotate the current
 image, simply by choosing <guimenuitem>Annotate</guimenuitem> in the context menu.</para>
@@ -117,7 +117,7 @@ image, simply by choosing <guimenuitem>Annotate</guimenuitem> in the context men
 
 
 
-  
+
 <sect1 id="tokens">
 <title>Setting Tokens from the Viewer</title>
 <para>When viewing the images you may find that a given image contains a person
@@ -127,13 +127,13 @@ person. However, you may prefer to just tag the image and continue on
 viewing images.</para>
 
 <para>An alternative situation is if you want to sent a number of images
-to a printer to get them developed on paper. To see which you want, you 
-start the viewer on the images, and tag them as good or bad while by 
+to a printer to get them developed on paper. To see which you want, you
+start the viewer on the images, and tag them as good or bad while by
 inspecting see each one.</para>
 
 <para>For the above two examples the viewer offers you to set tokens on the
 images when viewing them. Tokens are named from A to Z, and you set a token
-simply by pressing its letter. In <xref linkend="fig-images-with-tokens"/> 
+simply by pressing its letter. In <xref linkend="fig-images-with-tokens"/>
 you may see an image where the tokens A, B and C are set.</para>
 
   <figure id="fig-images-with-tokens">
@@ -215,7 +215,7 @@ keyword immediately to the image. Typing "b" will show B{ad,oring} in the info
 box and typing "a" or "o" next will complete the match and assign the result to
 the image. Typing "/p" will work similarly and show the partial category match
 "P{eople,laces} so you can type "e" or "l" to complete "People" or "Places"
-respectively. 
+respectively.
 <itemizedlist mark='opencircle'>
     <listitem><para>Tokens</para>
     <itemizedlist mark='opencircle'>
@@ -310,7 +310,7 @@ database, that way you can undo your drawing at a later point.</para>
 <para>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
 on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem>Draw on
 Image</guimenuitem> from the context menu. To quit drawing, press the cross in
-the toolbar at the top of the window.</para> 
+the toolbar at the top of the window.</para>
 
 <figure id="fig-draw-on-image">
 <title>Drawing on Images</title>

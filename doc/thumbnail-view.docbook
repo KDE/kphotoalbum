@@ -62,10 +62,10 @@ selected in random order.</para>
 </mediaobject>
 </figure>
 
-  <para>There are two ways of deleting an image in &kphotoalbum;, namely either
-delete it from the disk, which means that it will be permanently gone, or
-tell &kphotoalbum; not to include it. In the later situation, &kphotoalbum; will never
-again show the image, but it will keep it on disk. This is useful if
+  <para>There are three ways of deleting an image in &kphotoalbum;, namely
+move to thrash, delete it from the disk - which means that it will be permanently gone - or
+tell &kphotoalbum; not to include it. In the latter case, &kphotoalbum; will never
+show the image again, but it will keep it on disk. This is useful if
 there for example is <emphasis>thumbnail images</emphasis> stored among
 your images. This thumbnail image would contain an overview of all the
 other images, and would thus be useless in &kphotoalbum;, but for other
@@ -99,10 +99,13 @@ finding all needed images on the disk.</para>
 </mediaobject>
 </figure>
 
-<para>Images which has the corner cut of (that is image 1-9) are not
-available on disk. Thumbnails are, however, available for images 5-9,
-therefore &kphotoalbum; can show you the thumbnails for these images. You can,
-however, still not display these images in the viewer.</para>
+<para>Images which have the corner cut of (that is images 1-4) are not
+available on disk. Thumbnails are, available for images 5-9, even though the
+images are missing from disk.  Therefore &kphotoalbum; can show you the
+thumbnails for these images but you cannot view them in the viewer. (We used to
+cut of the corner of thumbnails to indicate the image is missing from disk but
+that feature seems to be currently broken.)
+</para>
 
 <para>As you can see, this feature requires you to copy files in and out of
 your directories, &kphotoalbum; does not have any support for asking you to

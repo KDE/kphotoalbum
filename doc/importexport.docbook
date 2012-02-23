@@ -3,7 +3,7 @@
   <para>If you attend a family party, a company meeting, a conference, or
       any other event where other &kphotoalbum; users may be present, you may
       wish to share your images with those people. You may of course choose
-      to generate HTML pages for them to browse, but given you already have
+      to generate &HTML; pages for them to browse, but given you already have
     spent time classifying all images (Who is on the images, where were they
       taken etc), there are no reason for them to redo all that
       work.</para>
@@ -22,8 +22,8 @@
     <para>There are two places from which you may generate a
       <literal role="extension">.kim</literal> file, namely directly from
       <menuchoice><guimenu>File</guimenu><guimenuitem>Export...</guimenuitem></menuchoice>, 
-      or along with HTML pages (see <xref linkend="chp-generating-html"/>). Creating a
-      <literal role="extension">.kim</literal> file during HTML export will create an
+      or along with &HTML; pages (see <xref linkend="chp-generating-html"/>). Creating a
+      <literal role="extension">.kim</literal> file during &HTML; export will create an
       external <literal role="extension">.kim</literal> file.</para>
 
     <para>External <literal role="extension">.kim</literal> files will search for images in
@@ -31,7 +31,7 @@
       <literal role="extension">.kim</literal> file, and if not found, it will search for them
       at the URL specified when the <literal role="extension">.kim</literal> file was
       created. Notice the later is only possible for
-      <literal role="extension">.kim</literal> files created during HTML export.</para>
+      <literal role="extension">.kim</literal> files created during &HTML; export.</para>
     
     <sect1 id="chp-exportDialog">
       <title>Export Dialog</title>

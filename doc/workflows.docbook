@@ -1,0 +1,134 @@
+<chapter id="work-flow">
+  <title>Workflows with &kphotoalbum;</title>
+  <para>Workflow is rather important aspect in digital imaging. In this
+  chapter we describe different workflows that fit on different needs.
+  There are many different factors that must be considered when
+  developing a workflow. Hopefully these examples will provide you with
+  sufficient ideas of how to tune-up your own method of working with
+  digital imaging.</para>
+
+  <sect1 id="raw-workflow">
+  <title>RAW workflow using &kphotoalbum; and Bibble5</title>
+  <para>When shooting RAW images the files from camera must be developed
+  to commonly recognized format like JPEG or TIFF. There are a few
+  options to choose from when working on Linux. For example RawTherapee
+  and Ufraw are open-source alternatives when Bibble5/AfterShotPro are
+  commercial application for this purpose.</para>
+
+  <para>There are a few settings that are recommended for a RAW workflow.
+  First is to enable the using of the embedded thumbnail. This will give
+  a tremendous speed boost over decoding each raw file each time they are
+  viewed (check also the minimum dimension configuration to ensure decent
+  quality). Second one is for the New Image Finder to automatically stack the
+  developed versions over the RAW file. This requires regular expressions as
+  described in <xref linkend="opt-search-new" />. Two helper scripts are
+  provided in &kphotoalbum; sources to help in RAW workflow. These are
+  open-raw.desktop and open-raw.pl. The first one enables GUI applications to
+  open the RAW files in the open-raw.pl script that tries to find the original
+  RAW file and open that instead of the developed image.
+  </para>
+
+  <figure id="fig-raw-workflow">
+    <title>Sending Images to RAW Editor</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para>First step in actual workflow is to copy the images from camera to the
+  computer. A simple copy on a terminal window is all that is needed:
+  <screen><userinput><command>cp</command> <option>-a</option> <filename>/media/.../101CANON/</filename> <filename>~/Pictures/2012/sample</filename>
+  </userinput></screen>
+  Then either start &kphotoalbum; or run
+  <menuchoice><guimenu>Maintenance</guimenu><guimenuitem>Rescan for
+  Images and Videos</guimenuitem></menuchoice>. New images should be
+  found and now is time for initially tagging the images. As I usually photograph while
+  traveling I first insert the place. (Select <literal>Folder</literal>
+  and brows to the new directory. Then go to the
+  <literal>Thumbnails</literal>, select all
+  and <guimenu>Annotate Multiple Items at a Time</guimenu> or <keycombo
+  action='simul'><keycap>Ctrl</keycap><keycap>2</keycap></keycombo>. Insert the
+  proper place like Finland-Helsinki (see <xref
+  linkend="sec-member-groups-in-property-editor"/>).
+  </para>
+
+  <para>Now that the new images are easy to find I do the
+  initial ranking and deletion. For this I go to the thumbnail
+  view and start the Viewer by hitting <keycap>Enter</keycap>. I use
+  rating for good images, just press the appropriate number from
+  <keycap>1</keycap> to <keycap>5</keycap>. I only give 3 to 5 ratings
+  and hit <keycombo
+  action='simul'><keycap>Ctrl</keycap><keycap>Del</keycap></keycombo>
+  for the bad photos to delete them. At this point I might add also
+  People names if there happens to be a diver in the photo. Once the
+  first round is done I exit the Viewer by hitting <keycap>Esc</keycap>
+  and select <literal>Delete file from disk</literal> to get rid off the
+  bad images for good.
+  </para>
+
+  <para>Next I select only the images that have high enough rating using
+  the search function. Naturally the Place has to be set if search is
+  started with <keycombo
+  action='simul'><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>.
+  However, if search is invoked from the Main Window the current
+  selection is drilled down to the more precise match. Anyway, at this
+  point I go through the better rated images again doing refining on the
+  rating. E.g. if I have 5 similar photos of one Nudibranch species I
+  generally decrease the rating of the poorer images and might increase
+  the best one. Comparing images can be done by selecting the ones you
+  want to compare and starting the Viewer. Removing images from the
+  Viewer selection can be done with <keycap>Delete</keycap>. This only
+  disables the viewing of the current image while within the Viewer,
+  nothing is removed or deleted. This allows comparing 2 or 3 better
+  images next to each other moving between them with
+  <keycap>PgUp</keycap> and <keycap>PgDn</keycap>. I quite commonly use
+  a <literal>tmp</literal> category to mark e.g. crabs and shrimps to be
+  easily able to display only selected type of images during the later
+  phases of selection and identification.</para>
+
+  <para>After a reduced amount of images is left I start tagging them. I
+  add the Latin Name of the species and Common Name. Whenever I have
+  these two categories completed I consider the image Done and get rid
+  of the Untagged marking. (As the tags are copied over to new version
+  of images only when the new image is found and not when the top of the
+  stack is re-tagged it is good to have as final tagging done as
+  possible before developing JPEGs.)</para>
+
+  <para>The best images are sent to external application for developing.
+  With wanted images selected, right click on selected thumbnail and
+  select <menuchoice><guimenuitem>Invoke External
+  Program</guimenuitem><guimenuitem>All Selected
+  Images</guimenuitem><guimenuitem>Send
+  Bibble5</guimenuitem></menuchoice>. The application
+  selected is actually my script that detects if there is a RAW file for
+  the possibly already developed images available and uses that if possible.
+  Within the external application I do some tuning up and cropping if
+  required and then output the developed JPEGs next to the original RAW file.
+  File naming is rather simple, change the extension or add underscore
+  and running number if needed.
+  </para>
+
+  <para>Now that there is plenty of new JPEGs in the image directories I
+  let &kphotoalbum; search for new images and automatically stack the
+  new ones on top of the original RAW (<xref linkend="fig-options-file-versions" />).
+  Then a final round of selection with the developed images and adding some
+  descriptions if needed.</para>
+
+  <para>Final step is to generate static &HTML; pages and upload to my web
+  server for the enjoyment of friends and colleagues. &HTML; generation is
+  described in <xref linkend="chp-generating-html"/></para>
+  </sect1>
+
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

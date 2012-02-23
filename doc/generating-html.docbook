@@ -1,13 +1,13 @@
   <chapter id="chp-generating-html">
-    <title>Generating HTML</title>
-    <para>&kphotoalbum; offers two possibilities for generating HTML from your
+    <title>Generating &HTML;</title>
+    <para>&kphotoalbum; offers two possibilities for generating &HTML; from your
       photo album. One is the implementation build into &kphotoalbum;, the other is
       available as an plugin (see <xref linkend="chp-plugins"/>). This section
       will describe the build in version, which you may find in the menubar
       <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 
-      HTML</guimenuitem></menuchoice></para>
+      &HTML;</guimenuitem></menuchoice></para>
     
-    <para>Before HTML pages are generated, you need to specify a bit of
+    <para>Before &HTML; pages are generated, you need to specify a bit of
       information, split over the three pages
       <guilabel>Content</guilabel>, <guilabel>Layout</guilabel> and
       <guilabel>Destination</guilabel>. The following section describes each
@@ -16,19 +16,34 @@
     <sect1 id="the_content_page">
       <title>The <guilabel>Content</guilabel> page</title>
       <para>In the content page you specify which information should be
-        generated to the HTML pages.</para>
+        generated to the &HTML; pages.</para>
+
+	<figure id="html-content">
+	<title>HTML Generator Content Configuration</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
 
       <para>First you specify the title of the overview pages, plus a
-        description generated on these pages. See <ulink
-          url="http://www.kphotoalbum.org/rounded-theme/index.html">&kphotoalbum; example HTML pages</ulink> 
-        to see an example of this.</para>
+	description generated on these pages. If the theme you select supports
+	copyright notice this can also be specified here.
+	<!--
+	See <ulink
+          url="http://www.kphotoalbum.org/rounded-theme/index.html">&kphotoalbum; example &HTML; pages</ulink> 
+        to see an example of this.-->
+	</para>
 
       <para>Next you specify whether a &kphotoalbum; export file should be
         generated, and put on the overview page. See <xref
-          linkend="chp-importExport"/> for details on export files.</para>
+	  linkend="chp-importExport"/> for details on export files. And if you
+	  want to have movies included in-line or as downloadable
+	  objects.</para>
 
       <para>Finally you may specify which information should be generated
-        on the HTML pages. This way you may skip generating information
+        on the &HTML; pages. This way you may skip generating information
         which might be obvious to the reader of the pages (say these images
         was from the party we all attended). Notice, &kphotoalbum; does currently not
         allow you to exclude certain categories from the export file, so
@@ -38,9 +53,20 @@
 
     <sect1 id="the_layout_page">
       <title>The <guilabel>Layout</guilabel> page</title>
-      <para>On the layout page you specify what your HTML pages should look
+      <para>On the layout page you specify what your &HTML; pages should look
         like. Most of the options on this page are straight forward, and do
-        not need further description here.</para>
+	not need further description here. A short intro to each theme is shown
+	when you select the theme to give some idea what it should look
+	like.</para>
+
+	<figure id="html-layout">
+	<title>HTML Generator Layout Configuration</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
 
       <para>At the bottom of this page it is possible to specify several
         resolution for images. This way people reading your pages are not
@@ -57,11 +83,20 @@
     <sect1 id="the_destination_page">
       <title>The <guilabel>Destination</guilabel> page</title>
       <para>On the destination page you specify several directories and
-        URL's specifying where your pages goes.</para>
+        URL's specifying where your pages go.</para>
 
       <para>The philosophy is that you specify a base directory
         for all your generations, and for each generation specify a new
         subdirectory.</para>
+
+	<figure id="html-destination">
+	<title>HTML Generator Destination Configuration</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
 
       <para>First you need to specify the base directory for all your
         images. This directory will be remembered from session to session,
@@ -80,11 +115,11 @@
       <para>Once you are done generating your images, you may want to check
         whether they are really available to your audience. If you specify a
         URL in the <guilabel>Base URL</guilabel> line edit, a web browser will
-        be spawned once HTML pages has been generated. The URL you specify
+        be spawned once &HTML; pages has been generated. The URL you specify
         here should match the directory you specified above. Thus the web
         browser will be started on the subdirectories of this URL.</para>
       
-      <para>Once you have generated HTML pages, your pages may still not be
+      <para>Once you have generated &HTML; pages, your pages may still not be
         in their final destination, you may still need special upload
         procedures out of the control of &kphotoalbum;. For
         the Import feature (see <xref linkend="chp-importExport"/>) to

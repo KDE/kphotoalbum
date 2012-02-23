@@ -46,7 +46,7 @@ images of that friend.</para></listitem>
 annotating your images, (2) browsing and viewing images and (3)
 advanced topics and customization.</para>
 
-<para>KPhotoAlbum started out as an application for managing your images,
+<para>&kphotoalbum; started out as an application for managing your images,
 but since then it has been extended, so it today also takes care of your
 videos. In many places in this manual I will talk about images, but just as
 often the discussion does include videos.</para>
@@ -59,7 +59,7 @@ often the discussion does include videos.</para>
   <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
     <title>Organization of images and &kphotoalbum; files</title>
     <para>&kphotoalbum; uses all the images of a directory and all subdirectories
-below it, first time you start &kphotoalbum;, you will be ask for the location of
+below it, first time you start &kphotoalbum;, you will be asked for the location of
 this directory. &kphotoalbum; will not modify any images, so you do not have to
 be afraid of &kphotoalbum; altering your images <footnote><para>The two
 exceptions to this rule is (1) if you ask &kphotoalbum; to delete individual
@@ -72,7 +72,10 @@ write protected.</para>
 <filename>index.xml</filename> in your topmost image directory. This file
 is a simple XML file, so you can easily back it up using whatever tools
 you prefer, including normal backup utilities, copying the file to a
-floppy disk, or keeping revisions using CVS.</para>
+floppy disk, or keeping revisions using CVS. There is also a backup script
+(<emphasis>kpa-backup.sh</emphasis>) provided in &kphotoalbum;'s sources that
+backs up not only the index.xml but also the configuration files inside user's
+home directory.</para>
     
     <para>&kphotoalbum; will remember where you told it your images were
 located, and reuse that in future use of &kphotoalbum;. Should you ever want to

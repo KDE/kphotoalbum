@@ -103,7 +103,7 @@
         and allows you to once and for all tell where all subsequent images
         should go. Here you may specify a directory, or any <ulink
           url="help:/kioslave/index.html">protocol</ulink> supported by
-        KDE. Examples includes:
+        &kde;. Examples includes:
         
         <itemizedlist>
           <listitem><para>ftp://someserver/my-upload-area/images (upload using FTP)</para></listitem>

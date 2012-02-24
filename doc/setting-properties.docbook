@@ -5,7 +5,7 @@ an example of the window that will greet you once you have started &kphotoalbum;
 with your own images.</para>
 
   <para>At the top of the screen you will find a menu and toolbar, as you
-know from any KDE application. Below the toolbar you see the browser
+know from any &kde; application. Below the toolbar you see the browser
 window. In browser window you can select different categories to limit the images you will be inspecting. In <xref
       linkend="chp-browsing"/> we will get back to the browser, but for
 now, simply press the <guibutton>Show Thumbnails</guibutton> item, which will show

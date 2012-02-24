@@ -15,12 +15,13 @@
   and Ufraw are open-source alternatives when Bibble5/AfterShotPro are
   commercial application for this purpose.</para>
 
-  <para>There are a few settings that are recommended for a RAW workflow.
+  <para>A few settings are recommended for a RAW workflow.
   First is to enable the using of the embedded thumbnail. This will give
   a tremendous speed boost over decoding each raw file each time they are
   viewed (check also the minimum dimension configuration to ensure decent
   quality). Second one is for the New Image Finder to automatically stack the
-  developed versions over the RAW file. This requires regular expressions as
+  developed versions over the RAW file (developed image must be on same
+  directory as the original). This requires regular expressions as
   described in <xref linkend="opt-search-new" />. Two helper scripts are
   provided in &kphotoalbum; sources to help in RAW workflow. These are
   open-raw.desktop and open-raw.pl. The first one enables GUI applications to

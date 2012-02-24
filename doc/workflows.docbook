@@ -57,14 +57,14 @@
 
   <para>Now that the new images are easy to find I do the
   initial ranking and deletion. For this I go to the thumbnail
-  view and start the Viewer by hitting <keycap>Enter</keycap>. I use
+  view and start the Viewer by hitting &Enter;. I use
   rating for good images, just press the appropriate number from
   <keycap>1</keycap> to <keycap>5</keycap>. I only give 3 to 5 ratings
   and hit <keycombo
   action='simul'>&Ctrl;<keycap>Del</keycap></keycombo>
   for the bad photos to delete them. At this point I might add also
   People names if there happens to be a diver in the photo. Once the
-  first round is done I exit the Viewer by hitting <keycap>Esc</keycap>
+  first round is done I exit the Viewer by hitting &Esc;
   and select <literal>Delete file from disk</literal> to get rid off the
   bad images for good.
   </para>
@@ -85,7 +85,7 @@
   nothing is removed or deleted. This allows comparing 2 or 3 better
   images next to each other moving between them with
   <keycap>PgUp</keycap> and <keycap>PgDn</keycap>. I quite commonly use
-  a <literal>tmp</literal> category to mark e.g. crabs and shrimps to be
+  a <literal>tmp</literal> category to mark &eg; crabs and shrimps to be
   easily able to display only selected type of images during the later
   phases of selection and identification.</para>
 
@@ -119,7 +119,7 @@
 
   <para>Final step is to generate static &HTML; pages and upload to my web
   server for the enjoyment of friends and colleagues. &HTML; generation is
-  described in <xref linkend="chp-generating-html"/></para>
+  described in <xref linkend="chp-generating-html"/>.</para>
   </sect1>
 
 </chapter>

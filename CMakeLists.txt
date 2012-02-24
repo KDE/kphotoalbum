@@ -61,8 +61,14 @@ macro_optional_find_package(Nepomuk)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
 
 if(QT_QTSQL_FOUND)
-  set(SQLDB_SUPPORT TRUE)
+  option(KPA_ENABLE_SQLDB "Build support for the experimental SQL database backend." OFF)
 endif(QT_QTSQL_FOUND)
+
+if(QT_QTSQL_FOUND AND KPA_ENABLE_SQLDB )
+  set(SQLDB_SUPPORT TRUE)
+else()
+  set(SQLDB_SUPPORT FALSE)
+endif(QT_QTSQL_FOUND AND KPA_ENABLE_SQLDB )
 
 # For config-kpa-*.h
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
@@ -286,12 +292,13 @@ if(SQLDB_SUPPORT)
 endif(SQLDB_SUPPORT)
 
 set(EXIV2_SRCS)
-if(EXIV2_FOUND)
- 	set(EXIV2_SRCS 
-# ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp 
- ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
-  ${libexif_SRCS})
-endif(EXIV2_FOUND)
+if(EXIV2_FOUND AND QT_QTSQL_FOUND)
+  set(EXIV2_SRCS 
+    # ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
+    ${libexif_SRCS}
+  )
+endif(EXIV2_FOUND AND QT_QTSQL_FOUND)
 
 ########### next target ###############
 
@@ -337,9 +344,9 @@ if(KDCRAW_FOUND)
   target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
 endif(KDCRAW_FOUND)
 
-if(EXIV2_FOUND)
- 	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )
-endif(EXIV2_FOUND)
+if(EXIV2_FOUND AND QT_QTSQL_FOUND)
+	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} ${QT_QTSQL_LIBRARY})
+endif(EXIV2_FOUND AND QT_QTSQL_FOUND)
 
 if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES} )

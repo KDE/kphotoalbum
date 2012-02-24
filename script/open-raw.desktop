@@ -13,4 +13,4 @@ Terminal=false
 Icon=/usr/share/icons/oxygen/64x64/apps/rawconverter.png
 Type=Application
 Categories=Graphics;Photography;
-MimeType=image/x-canon-crw;image/x-canon-cr2;image/x-sony-arw;image/x-nikon-nef;image/x-olympus-orf;image/x-pentax-pef;image/x-adobe-dng;image/tiff;image/x-raw;image/gif;image/tiff;image/jpeg;
+MimeType=image/x-canon-crw;image/x-canon-cr2;image/x-sony-arw;image/x-nikon-nef;image/x-olympus-orf;image/x-pentax-pef;image/x-adobe-dng;image/x-raw;image/gif;image/tiff;image/jpeg;

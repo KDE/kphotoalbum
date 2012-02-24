@@ -74,7 +74,7 @@ class IdList
     IdList reversed() const;
 
     DB::Id at(int index) const;
-    uint size() const;
+    int size() const;
     bool isEmpty() const;
     int indexOf(const DB::Id&) const;
     ConstIterator begin() const;

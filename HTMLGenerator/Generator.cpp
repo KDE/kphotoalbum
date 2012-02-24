@@ -85,7 +85,7 @@ void HTMLGenerator::Generator::generate()
         if ( !ok )
             return;
         const DB::IdList& imageList = _setup.imageList();
-        for (uint index = 0; index < imageList.size(); ++index) {
+        for (int index = 0; index < imageList.size(); ++index) {
             DB::Id current = imageList.at(index);
             DB::Id prev;
             DB::Id next;

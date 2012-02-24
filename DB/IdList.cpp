@@ -60,7 +60,7 @@ DB::Id DB::IdList::at(int index) const
     return DB::Id(_items[index], *this);
 }
 
-uint DB::IdList::size() const
+int DB::IdList::size() const
 {
     return _items.size();
 }

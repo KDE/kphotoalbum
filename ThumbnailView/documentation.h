@@ -94,7 +94,7 @@
   \li Keyboard event handlers are implemented in \ref KeyboardEventHandler.
 
   <h2>Tooltips</h2>
-  \li \ref ThumbnailToolTip - In the thumbanil viewer, it is possible to show
+  \li \ref ThumbnailToolTip - In the thumbnail viewer, it is possible to show
   some tooltips which shows details about the thumbnail the cursor is on
   top of. This is implemented using this class.
 

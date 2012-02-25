@@ -108,10 +108,10 @@ keywords).</para>
 
 <para>It is, however, your job to tell it which images to use for each
 individual person. To do so, you must open the viewer (see <xref
-linkend="chp-viewer"/>), and from the context menu choose <guimenuitem>show
-category editor</guimenuitem>, this will bring up the category editor which
+linkend="chp-viewer"/>), and from the context menu choose <guimenuitem>Show
+Category Editor</guimenuitem>, this will bring up the category editor which
 can be seen in <xref linkend="fig-categoryEditor"/>. In the category editor
-you choose the image for the given person. In the viewer its possible to zoom to part of
+you choose the image for the given person. In the viewer it is possible to zoom to part of
 the image, and that way crop what part should be shown.</para>
 
 
@@ -157,13 +157,13 @@ that text will be searched for using substring searches. Likewise you can
 also specify a date to search for, either as part of a date, say 1971, or
 as a complete date. You may also specify date ranges, like 1971-1980.</para>
     
-    <para>The options item allow a very limited form of writing
-expression, as you can see an example of in the <xref
+    <para>The options item allows a very limited form of writing
+an expression, as you can see in the example in <xref
         linkend="fig-search"/>. Here we search for images with <literal>Jesper</literal>,
 but without <literal>Anne Helene</literal>.</para>
     
-    <para>The allowed operations are &amp; (meaning and), | (meaning
-or), and ! (not meaning not).</para>
+    <para>The allowed operations are &amp; (meaning: and), | (meaning:
+or), and ! (meaning: not).</para>
     
   </sect1>
 </chapter>

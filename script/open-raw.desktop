@@ -7,7 +7,23 @@
 [Desktop Entry]
 Version=1.0
 Name=Open in RAW editor
+Name[ca]=Obre en un editor RAW
+Name[it]=Apri nell'editor RAW
+Name[nl]=In RAW-bewerker openen
+Name[pt]=Abrir no editor RAW
+Name[pt_BR]=Abrir no editor RAW
+Name[sv]=Öppna i editor för obehandlade bilder
+Name[uk]=Відкрити у редакторі цифрових негативів
+Name[x-test]=xxOpen in RAW editorxx
 Comment=Send RAW files to external editor on command line
+Comment[ca]=Envia fitxers a un editor extern a través de la línia d'ordres
+Comment[it]=Invia tutti i file RAW all'editor esterno sulla riga di comando
+Comment[nl]=RAW-bestanden verzenden naar de externe bewerker op de opdrachtregel
+Comment[pt]=Enviar os ficheiros RAW para o editor externo na linha de comandos
+Comment[pt_BR]=Enviar os arquivos RAW para o editor externo na linha de comandos
+Comment[sv]=Skicka obehandlade bilder till en extern editor på kommandoraden
+Comment[uk]=Надіслати файли цифрових негативів до зовнішнього редактора за допомогою командного рядка
+Comment[x-test]=xxSend RAW files to external editor on command linexx
 Exec=/usr/local/bin/open-raw.pl %F
 Terminal=false
 Icon=/usr/share/icons/oxygen/64x64/apps/rawconverter.png

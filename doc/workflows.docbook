@@ -46,9 +46,9 @@
   <menuchoice><guimenu>Maintenance</guimenu><guimenuitem>Rescan for
   Images and Videos</guimenuitem></menuchoice>. New images should be
   found and now is time for initially tagging the images. As I usually photograph while
-  traveling I first insert the place. (Select <literal>Folder</literal>
-  and brows to the new directory. Then go to the
-  <literal>Thumbnails</literal>, select all
+  traveling I first insert the place. Select <guilabel>Folder</guilabel>
+  and browse to the new directory. Then go to the
+  <guilabel>Show Thumbnails</guilabel>, select all
   and <guimenu>Annotate Multiple Items at a Time</guimenu> or <keycombo
   action='simul'>&Ctrl;<keycap>2</keycap></keycombo>. Insert the
   proper place like Finland-Helsinki (see <xref
@@ -65,7 +65,7 @@
   for the bad photos to delete them. At this point I might add also
   People names if there happens to be a diver in the photo. Once the
   first round is done I exit the Viewer by hitting &Esc;
-  and select <literal>Delete file from disk</literal> to get rid off the
+  and select <guimenuitem>Delete file from disk</guimenuitem> to get rid off the
   bad images for good.
   </para>
 

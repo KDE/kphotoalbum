@@ -51,8 +51,3 @@ bool DB::ValueCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
     return !_sign;
 }
 
-bool DB::ValueCategoryMatcher::hasEmptyMatcher() const
-{
-    return false;
-}
-

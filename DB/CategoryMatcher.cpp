@@ -25,13 +25,6 @@ QString CategoryMatcher::spaces(int level ) const
     return QString::fromLatin1("").rightJustified(level*3 );
 }
 
-void DB::CategoryMatcher::finalize()
-{
-    _shouldPrepareMatchedSet = hasEmptyMatcher();
-    setShouldCreateMatchedSet( _shouldPrepareMatchedSet );
-}
-
-
 void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
 {
     _shouldPrepareMatchedSet = b;

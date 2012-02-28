@@ -16,24 +16,31 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef NOOTHERITEMSCATEGORYMATCHER_H
-#define NOOTHERITEMSCATEGORYMATCHER_H
+#ifndef NOTAGCATEGORYMATCHER_H
+#define NOTAGCATEGORYMATCHER_H
 
-#include "SimpleCategoryMatcher.h"
+#include "CategoryMatcher.h"
 
 namespace DB
 {
 
-class NoOtherItemsCategoryMatcher :public SimpleCategoryMatcher
+/**
+   \brief Match pictures with no tags set for a certain category.
+*/
+class NoTagCategoryMatcher :public CategoryMatcher
 {
 public:
-    NoOtherItemsCategoryMatcher( const QString& category, bool sign );
-    OVERRIDE bool eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched);
+    NoTagCategoryMatcher(const QString& category);
+    virtual ~NoTagCategoryMatcher();
+    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
     OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
+
+private:
+    const QString _category;
 };
 
 }
 
-#endif /* NOOTHERITEMSCATEGORYMATCHER_H */
+#endif /* NOTAGCATEGORYMATCHER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

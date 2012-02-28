@@ -15,37 +15,29 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "NoOtherItemsCategoryMatcher.h"
+#include "NoTagCategoryMatcher.h"
 #include "ImageInfo.h"
+#include "qdebug.h"
 
-DB::NoOtherItemsCategoryMatcher::NoOtherItemsCategoryMatcher( const QString& category, bool sign )
+DB::NoTagCategoryMatcher::NoTagCategoryMatcher( const QString& category)
+    : _category(category)
 {
-    _category = category;
-    _sign = sign;
 }
 
-bool DB::NoOtherItemsCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
+DB::NoTagCategoryMatcher::~NoTagCategoryMatcher()
 {
-    Q_ASSERT( _shouldPrepareMatchedSet );
-    bool allMatched = true;
-    Q_FOREACH(const QString& item, info->itemsOfCategory(_category))
-    {
-        if (!alreadyMatched[_category].contains(item))
-        {
-            allMatched = false;
-            break;
-        }
-    }
-    return _sign ? allMatched : !allMatched;
 }
 
-void DB::NoOtherItemsCategoryMatcher::debug( int level ) const
+bool DB::NoTagCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    qDebug("%s%s:EMPTY", qPrintable(spaces(level)), qPrintable(_category) );
+    Q_UNUSED( alreadyMatched );
+    return info->itemsOfCategory(_category).isEmpty();
 }
 
-bool DB::NoOtherItemsCategoryMatcher::hasEmptyMatcher() const
+void DB::NoTagCategoryMatcher::debug( int level ) const
 {
-    return true;
+    qDebug() << qPrintable(spaces(level)) << "No Tags for category " << _category ;
 }
 
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

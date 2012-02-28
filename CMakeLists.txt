@@ -203,6 +203,7 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/Category.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryCollection.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ExactCategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDate.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/MD5Map.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/MemberMap.cpp
@@ -210,13 +211,13 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDB.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/NewImageFinder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/NoTagCategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/GroupCounter.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageSearchInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/Id.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/IdList.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/NoOtherItemsCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp

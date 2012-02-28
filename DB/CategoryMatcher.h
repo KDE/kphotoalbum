@@ -39,11 +39,6 @@ using Utilities::StringSet;
    however, is rather expensive, so this collection is only turned on in
    that case.
 
-   To facilitate this, the method \ref finalize is called when the matcher
-   tree has been set up, and it will search the tree by recursively calling
-   \ref hasEmptyMatcher. When it has come to a conclusion if there is an
-   empty matcher, then it will recursively call \ref setShouldCreateMatchedSet.
-
 */
 class CategoryMatcher
 {
@@ -52,8 +47,6 @@ public:
     virtual void debug( int level ) const = 0;
 
     virtual bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) = 0;
-    void finalize();
-    virtual bool hasEmptyMatcher() const = 0;
     virtual void setShouldCreateMatchedSet(bool);
 
 protected:

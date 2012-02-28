@@ -30,7 +30,6 @@ public:
     ValueCategoryMatcher( const QString& category, const QString& value, bool sign );
     OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
     OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
 
     QString _option;
     StringSet _members;

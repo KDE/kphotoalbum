@@ -30,7 +30,6 @@ public:
     void addElement( CategoryMatcher* );
     ~ContainerCategoryMatcher();
     OVERRIDE void debug( int level ) const;
-    OVERRIDE bool hasEmptyMatcher() const;
     OVERRIDE void setShouldCreateMatchedSet(bool);
 
     QList<CategoryMatcher*> _elements;

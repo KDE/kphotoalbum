@@ -18,7 +18,8 @@
 
 #include "ImageSearchInfo.h"
 #include "ValueCategoryMatcher.h"
-#include "NoOtherItemsCategoryMatcher.h"
+#include "ExactCategoryMatcher.h"
+#include "NoTagCategoryMatcher.h"
 #include "AndCategoryMatcher.h"
 #include "ContainerCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
@@ -302,12 +303,9 @@ void ImageSearchInfo::compile() const
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
             QStringList andParts = (*itOr).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
 
-            DB::ContainerCategoryMatcher* andMatcher = orMatcher;
-            if ( andParts.count() > 1 ) {
-                andMatcher = new DB::AndCategoryMatcher;
-                orMatcher->addElement( andMatcher );
-            }
-
+            DB::ContainerCategoryMatcher* andMatcher;
+            bool exactMatch=false;
+            andMatcher = new DB::AndCategoryMatcher;
 
             for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
                 QString str = *itAnd;
@@ -320,11 +318,35 @@ void ImageSearchInfo::compile() const
                 str = str.trimmed();
                 CategoryMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
-                    valueMatcher = new DB::NoOtherItemsCategoryMatcher( category, !negate );
+                { // mark AND-group as containing a "No other" condition
+                    exactMatch = true;
+                    continue;
+                }
                 else
                     valueMatcher = new DB::ValueCategoryMatcher( category, str, !negate );
                 andMatcher->addElement( valueMatcher );
             }
+            if ( exactMatch )
+            {
+                // if andMatcher has exactMatch set, but no CategoryMatchers, then
+                // matching "category / None" is what we want:
+                if ( andMatcher->_elements.count() == 0 )
+                    orMatcher->addElement( new DB::NoTagCategoryMatcher( category ) );
+                else
+                {
+                    ExactCategoryMatcher *noOtherMatcher = new ExactCategoryMatcher( category );
+                    if ( andMatcher->_elements.count() == 1 )
+                        noOtherMatcher->setMatcher( andMatcher->_elements[0] );
+                    else
+                        noOtherMatcher->setMatcher( andMatcher );
+                    orMatcher->addElement( noOtherMatcher );
+                }
+            } 
+            else
+                if ( andMatcher->_elements.count() == 1 )
+                    orMatcher->addElement( andMatcher->_elements[0] );
+                else if ( andMatcher->_elements.count() > 1 )
+                    orMatcher->addElement( andMatcher );
         }
         CategoryMatcher* matcher = 0;
         if ( orMatcher->_elements.count() == 1 )
@@ -333,10 +355,8 @@ void ImageSearchInfo::compile() const
             matcher = orMatcher;
 
 
-        if ( matcher ) {
-            matcher->finalize();
+        if ( matcher )
             _categoryMatchers.append( matcher );
-        }
     }
     _compiled = true;
 }
@@ -475,3 +495,4 @@ void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString&
     _categoryMatchText.remove( oldName );
     _compiled = false;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

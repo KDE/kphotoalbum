@@ -35,14 +35,6 @@ void DB::ContainerCategoryMatcher::debug( int level ) const
     }
 }
 
-bool DB::ContainerCategoryMatcher::hasEmptyMatcher() const
-{
-    Q_FOREACH( const DB::CategoryMatcher* matcher,_elements )
-        if ( matcher->hasEmptyMatcher() )
-            return true;
-
-    return false;
-}
 
 void DB::ContainerCategoryMatcher::setShouldCreateMatchedSet(bool b)
 {

@@ -18,7 +18,7 @@
 #include "ExactCategoryMatcher.h"
 #include "ImageInfo.h"
 
-DB::ExactCategoryMatcher::ExactCategoryMatcher( const QString& category)
+DB::ExactCategoryMatcher::ExactCategoryMatcher( const QString category)
     : _category(category), _matcher(0)
 {
 }
@@ -55,10 +55,9 @@ bool DB::ExactCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
         return false;
 
     // if the match succeeded, check if it is exact:
-    if ( matchedTags.contains( _category ) )
-        Q_FOREACH(const QString& item, info->itemsOfCategory(_category))
-            if ( !matchedTags[_category].contains(item) )
-                return false; // tag was not contained in matcher
+    Q_FOREACH(const QString& item, info->itemsOfCategory(_category))
+        if ( !matchedTags[_category].contains(item) )
+            return false; // tag was not contained in matcher
     return true;
 }
 

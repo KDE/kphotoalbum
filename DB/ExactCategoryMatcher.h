@@ -42,7 +42,7 @@ namespace DB
 class ExactCategoryMatcher :public CategoryMatcher
 {
 public:
-    ExactCategoryMatcher( const QString& category );
+    ExactCategoryMatcher( const QString category );
     virtual ~ExactCategoryMatcher();
     void setMatcher( CategoryMatcher * subMatcher );
     OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
@@ -51,7 +51,7 @@ public:
     OVERRIDE void setShouldCreateMatchedSet(bool);
 
 private:
-    const QString &_category;
+    const QString _category;
     CategoryMatcher *_matcher;
 };
 

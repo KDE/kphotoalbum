@@ -37,12 +37,10 @@ DB::ValueCategoryMatcher::ValueCategoryMatcher( const QString& category, const Q
 
 bool DB::ValueCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-    // Following block does same as the old statement:
-    // info->setMatched(_category, _option)
-    if ( _shouldPrepareMatchedSet ) {
+    // Only add the tag _option to the alreadyMatched tags,
+	// and omit the tags in _members
+    if ( _shouldPrepareMatchedSet )
         alreadyMatched[_category].insert(_option);
-        alreadyMatched[_category].unite(_members);
-    }
 
     if ( info->hasCategoryInfo( _category, _option ) ) {
         return _sign;

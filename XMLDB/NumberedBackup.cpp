@@ -31,6 +31,10 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
     int max = getMaxId();
     QString fileName;
     fileName.sprintf( "index.xml~%04d~", max+1 );
+
+    if ( !QFileInfo( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ) ).exists() )
+        return;
+
     if ( Settings::SettingsData::instance()->compressBackup() ) {
         QString fileNameWithExt = fileName + QString::fromLatin1( ".zip" );
 

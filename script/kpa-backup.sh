@@ -71,14 +71,9 @@ do_backup()
 do_restore()
 {
 	echo "Restoring essential files..."
-	for f in "$KPARC" "$KPAUIRC" "$INDEXFILE"
+	for f in "$BACKUP_LOCATION/latest"/*.tgz
 	do
-		untar_if_changed "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
-	done
-	echo "Restoring additional files..."
-	for f in $ADD_FILES_RELATIVE
-	do
-		[ -f "$BACKUP_LOCATION/$f" ] && untar_if_changed "$BACKUP_LOCATION/latest/`basename "$f"`".tgz
+		untar_if_changed "$f"
 	done
 }
 

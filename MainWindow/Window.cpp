@@ -1081,20 +1081,21 @@ bool MainWindow::Window::load()
     if ( args->isSet( "c" ) ) {
         QFileInfo fi( configFile );
 
-        // We use index.xml as the XML backend, thus we want to test for exactly it
-        fi.setFile( QString::fromLatin1( "%1/index.xml" ).arg( fi.absolutePath() ) );
-        if ( !fi.exists() ) {
-            if ( !fi.dir().exists() ) {
-                KMessageBox::error( this, i18n("<p>Could not open given index.xml as given directory does not exist.<br />%1</p>",
-                                               fi.absolutePath()) );
-                return false;
-            } else {
-                int answer = KMessageBox::questionYesNo(this,i18n("<p>Given index file does not exist, do you want to create following?"
-                        "<br />%1/index.xml</p>", fi.absolutePath() ) );
-                if (answer != KMessageBox::Yes)
-                    return false;
-            }
+        if ( !fi.dir().exists() ) {
+            KMessageBox::error( this, i18n("<p>Could not open given index.xml as provided directory does not exist.<br />%1</p>",
+                                           fi.absolutePath()) );
+            return false;
         }
+
+        // We use index.xml as the XML backend, thus we want to test for exactly it
+        fi.setFile( QString::fromLatin1( "%1/index.xml" ).arg( fi.dir().absolutePath() ) );
+        if ( !fi.exists() ) {
+            int answer = KMessageBox::questionYesNo(this,i18n("<p>Given index file does not exist, do you want to create following?"
+            "<br />%1/index.xml</p>", fi.absolutePath() ) );
+            if (answer != KMessageBox::Yes)
+                return false;
+        }
+        configFile = fi.absoluteFilePath();
     }
     DB::ImageDB::setupXMLDB( configFile );
 

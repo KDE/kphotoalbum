@@ -14,14 +14,9 @@ ADD_FILES_RELATIVE="exif-info.db layout.dat"
 # Helper functions:
 ###
 
-get_backend_type()
+get_config_value()
 {
-	sed -n 's/#.*// ; s/backend=\(.*\)/\1/p' "$KPARC"
-}
-
-get_index_location()
-{
-	sed -n 's/#.*// ; s/configfile=\(.*\)/\1/p' "$KPARC"
+	sed -n 's/#.*// ; s/'$1'=\(.*\)/\1/p' "$KPARC"
 }
 
 print_help()
@@ -126,32 +121,50 @@ then
 	echo "RC-file ($KPARC) not readable!" >&2
 	exit 1
 fi
-if [ ! -r "$KPAUIRC" ]
+if [ "$ACTION" == "backup" ] && [ ! -r "$KPAUIRC" ]
 then
 	echo "User-interface RC-file ($KPAUIRC) not readable!" >&2
 	exit 1
 fi
 
-BACKEND=`get_backend_type`
+# KPA gets the image directory from the configfile entry, even when the sql backend is used!
+INDEXFILE=`get_config_value configfile`
+KPA_FOLDER=`dirname "$INDEXFILE"`
+if [ ! -d "$KPA_FOLDER" ]
+then
+	echo "Kphotoalbum image directory ($KPA_FOLDER) does not exist!" >&2
+	exit 1
+fi
+
+BACKEND=`get_config_value backend`
 case "$BACKEND" in
 	xml)
 		echo "KPhotoalbum uses XML backend..."
-		INDEXFILE=`get_index_location`
 		if [ "$ACTION" == "backup" ] && [ ! -r "$INDEXFILE" ]
 		then
 			echo "Kphotoalbum XML database file ($INDEXFILE) not readable!" >&2
 			exit 1
 		fi
-		KPA_FOLDER=`dirname "$INDEXFILE"`
-		if [ ! -d "$KPA_FOLDER" ]
+		;;
+	sql)
+		DBMS=`get_config_value dbms`
+		if [ "$DBMS" == "QSQLITE" ]
 		then
-			echo "Kphotoalbum image directory ("$KPA_FOLDER") does not exist!" >&2
+			INDEXFILE=`get_config_value database`
+			if [ "$ACTION" == "backup" ] && [ ! -r "$INDEXFILE" ]
+			then
+				echo "KPhotoalbum SQLite database file ($INDEXFILE) is not readable!" >&2
+				REVOVER_ONLY=true
+			fi
+		else
+			echo "KPhotoalbum uses the SQL backend \`$DBMS'..." >&2
+			echo "This backend variant is not currently supported!" >&2
 			exit 1
 		fi
 		;;
 	*)
-		echo "KPhotoalbum uses backend \`$BACKEND'..."
-		echo "This backend is not currently supported!"
+		echo "KPhotoalbum uses backend \`$BACKEND'..." >&2
+		echo "This backend is not currently supported!" >&2
 		exit 1
 		;;
 esac

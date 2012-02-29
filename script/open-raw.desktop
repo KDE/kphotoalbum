@@ -8,6 +8,7 @@
 Version=1.0
 Name=Open in RAW editor
 Name[ca]=Obre en un editor RAW
+Name[el]=Άνοιγμα σε επεξεργαστή RAW
 Name[it]=Apri nell'editor RAW
 Name[nl]=In RAW-bewerker openen
 Name[pt]=Abrir no editor RAW
@@ -17,6 +18,7 @@ Name[uk]=Відкрити у редакторі цифрових негатив�
 Name[x-test]=xxOpen in RAW editorxx
 Comment=Send RAW files to external editor on command line
 Comment[ca]=Envia fitxers a un editor extern a través de la línia d'ordres
+Comment[el]=Αποστολή RAW αρχείων σε εξωτερικό επεξεργαστή από τη γραμμή εντολών
 Comment[it]=Invia tutti i file RAW all'editor esterno sulla riga di comando
 Comment[nl]=RAW-bestanden verzenden naar de externe bewerker op de opdrachtregel
 Comment[pt]=Enviar os ficheiros RAW para o editor externo na linha de comandos

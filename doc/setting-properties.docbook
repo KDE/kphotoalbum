@@ -187,10 +187,11 @@ your usage of &kphotoalbum;, &etc; simply press the <guibutton>Options...</guibu
 button, that will display a pop-up menu from which you can save the current
 window layout.</para>
 
-    <para>You may also choose to hide away a frame. It appears that currently
-the only way to include the deleted frame is to fully reset the layout
-<guibutton>Options...</guibutton> button, and from there the
-<guimenuitem>Reset layout</guimenuitem> item. This can be see in <xref
+    <para>You may also choose to hide away a frame, or enable some that
+    are not visible by default. You can always
+    revert back to the original layout by Going through
+<guibutton>Options...</guibutton> button, and selecting
+<guimenuitem>Reset layout</guimenuitem> from the popup menu. This can be see in <xref
         linkend="fig-redisplay-frames"/>.</para>
 
 

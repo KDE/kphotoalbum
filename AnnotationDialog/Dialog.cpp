@@ -600,10 +600,10 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
 
 void AnnotationDialog::Dialog::slotOptions()
 {
-    QMenu menu( this );
-    QAction* saveCurrent = menu.addAction( i18n("Save Current Window Setup") );
-    QAction* reset = menu.addAction( i18n( "Reset layout" ) );
-    QAction* res = menu.exec( QCursor::pos() );
+    QMenu* menu = _dockWindow->createPopupMenu();
+    QAction* saveCurrent = menu->addAction( i18n("Save Current Window Setup") );
+    QAction* reset = menu->addAction( i18n( "Reset layout" ) );
+    QAction* res = menu->exec( QCursor::pos() );
     if ( res == saveCurrent )
         slotSaveWindowSetup();
     else if ( res == reset )

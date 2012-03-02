@@ -210,7 +210,12 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
     {
         Utilities::ShowBusyCursor undoTheBusyWhileShowingTheDialog( Qt::ArrowCursor );
 
-        if ( dialog->exec() == QDialog::Rejected )
+        if ( dialog->exec() == QDialog::Rejected ) {
+            delete dialog;
+            return 0;
+        }
+        // Dialog can be deleted by its parent in event loop while in exec()
+        if ( dialog.isNull() )
             return 0;
     }
 
@@ -220,6 +225,8 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
     DB::ImageSearchInfo info = BrowserPage::searchInfo();
 
     info.addExifSearchInfo( dialog->info() );
+
+    delete dialog;
 
     if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
         KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );

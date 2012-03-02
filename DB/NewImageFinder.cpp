@@ -251,7 +251,6 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         Settings::SettingsData::instance()->autoStackNewFiles() ) {
         // we have to do this immediately to get the ids
         ImageInfoList newImages;
-        markUnTagged(info);
         newImages.append(info);
         DB::ImageDB::instance()->addImages( newImages );
 

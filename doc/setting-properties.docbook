@@ -189,9 +189,9 @@ window layout.</para>
 
     <para>You may also choose to hide away a frame, or enable some that
     are not visible by default. You can always
-    revert back to the original layout by Going through
+    revert back to the original layout by going through
 <guibutton>Options...</guibutton> button, and selecting
-<guimenuitem>Reset layout</guimenuitem> from the popup menu. This can be see in <xref
+<guimenuitem>Reset layout</guimenuitem> from the popup menu. This can be seen in <xref
         linkend="fig-redisplay-frames"/>.</para>
 
 

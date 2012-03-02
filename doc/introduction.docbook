@@ -72,7 +72,7 @@ write protected.</para>
 <filename>index.xml</filename> in your topmost image directory. This file
 is a simple XML file, so you can easily back it up using whatever tools
 you prefer, including normal backup utilities, copying the file to a
-floppy disk, or keeping revisions using CVS. There is also a backup script
+floppy disk, or keeping revisions using VCS. There is also a backup script
 (<emphasis>kpa-backup.sh</emphasis>) provided in &kphotoalbum;'s sources that
 backs up not only the index.xml but also the configuration files inside user's
 home directory.</para>

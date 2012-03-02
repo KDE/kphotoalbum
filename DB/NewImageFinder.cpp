@@ -140,7 +140,7 @@ void NewImageFinder::loadExtraFiles()
         if ( dialog.wasCanceled() )
             return;
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
-        if ( info ) {
+        if ( info.isNull() ) {
             markUnTagged(info);
             newImages.append(info);
         }

@@ -367,8 +367,13 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         int errCol;
 
         if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( messageParent(), i18n("Error on line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
-            exit(-1);
+            file.close();
+            // If parsing index.xml fails let's see if we could use a backup instead
+            Utilities::checkForBackupFile( configFile, i18n( "line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
+            if ( !file.open( QIODevice::ReadOnly ) || ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol ) ) ) {
+                KMessageBox::error( messageParent(), i18n( "Failed to recover the backup: %1", errMsg ) );
+                exit(-1);
+            }
         }
     }
 

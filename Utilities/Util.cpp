@@ -215,18 +215,26 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     return result;
 }
 
-void Utilities::checkForBackupFile( const QString& fileName )
+void Utilities::checkForBackupFile( const QString& fileName, const QString& message )
 {
     QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
     QFileInfo indexFile( fileName );
-    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
-        return;
 
-    int code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
-                                                   "Should the backup file be used?",
-                                           backupName,fileName),
-                                           i18n("Found Backup File") );
+    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
+        if ( !( backUpFile.exists() && !message.isNull() ) )
+            return;
+
+    int code;
+    if ( message.isNull() )
+        code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
+                "Should the backup file be used?", backupName, fileName),
+                i18n("Found Backup File") );
+    else
+        code = KMessageBox::warningYesNo( 0,i18n( "<p>Cannot use current database file '%1':</p><p>%2</p>"
+                "<p>Do you want to use a backup instead of exiting?</p>", fileName, message ),
+                i18n("Recover from backup?") );
+ 
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
         if ( in.open( QIODevice::ReadOnly ) ) {
@@ -238,7 +246,8 @@ void Utilities::checkForBackupFile( const QString& fileName )
                     out.write( data, len );
             }
         }
-    }
+    } else if ( !message.isNull() )
+        exit(-1);
 }
 
 bool Utilities::ctrlKeyDown()

@@ -64,7 +64,7 @@ menu but a few should probably be given a brief introduction here.</para>
 	is the search regexp and second original file test should get you
 	started, but might need some tuning to suit your naming convention:</para>
     <orderedlist>
-    <listitem><para>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para></listitem>
+    <listitem><para>(_(v){0,1}([0-9]){1,2})\.(jpg|JPG|tif|TIF|png|PNG)</para></listitem>
     <listitem><para>.CR2;.NEF;.JPG;.jpg</para></listitem>
     </orderedlist>
     </listitem>

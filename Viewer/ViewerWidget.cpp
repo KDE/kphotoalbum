@@ -1154,8 +1154,10 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             Qt::Key key = (Qt::Key) event->key();
             if (_inputMacros->contains(key)) {
                 // Use the requested toggle
-                if ( currentInfo()->hasCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second ) ) {
-                    currentInfo()->removeCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
+                if ( event->modifiers() == Qt::ShiftModifier ) {
+                    if ( currentInfo()->hasCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second ) ) {
+                        currentInfo()->removeCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
+                    }
                 } else {
                     currentInfo()->addCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
                 }

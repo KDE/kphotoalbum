@@ -152,13 +152,13 @@ case "$BACKEND" in
 				REVOVER_ONLY=true
 			fi
 		else
-			echo "KPhotoalbum uses the SQL backend \`$DBMS'..." >&2
+			echo "KPhotoalbum uses the SQL backend '$DBMS'..." >&2
 			echo "This backend variant is not currently supported!" >&2
 			exit 1
 		fi
 		;;
 	*)
-		echo "KPhotoalbum uses backend \`$BACKEND'..." >&2
+		echo "KPhotoalbum uses backend '$BACKEND'..." >&2
 		echo "This backend is not currently supported!" >&2
 		exit 1
 		;;

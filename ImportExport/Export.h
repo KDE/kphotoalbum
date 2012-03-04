@@ -48,6 +48,7 @@ public:
             ImageFileLocation, const QString& baseUrl,
             bool generateThumbnails,
             bool *ok);
+    ~Export();
 
     static void showUsageDialog();
 

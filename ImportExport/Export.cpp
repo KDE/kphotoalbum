@@ -172,6 +172,10 @@ ImageFileLocation ExportConfig::imageFileLocation() const
         return AutoCopy;
 }
 
+Export::~Export()
+{
+    delete _eventLoop;
+}
 
 Export::Export(
     const DB::IdList& list,
@@ -185,6 +189,7 @@ Export::Export(
     : _ok( ok )
     , _maxSize( maxSize )
     , _location( location )
+    , _eventLoop( new QEventLoop )
 {
     *ok = true;
     _destdir = QFileInfo( zipFile ).path();

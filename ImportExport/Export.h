@@ -72,7 +72,7 @@ private:
     Utilities::UniqFilenameMapper _filenameMapper;
     bool _copyingFiles;
     QString _destdir;
-    QPointer <QEventLoop> _eventLoop;
+    const QPointer <QEventLoop> _eventLoop;
 };
 
 class ExportConfig :public KDialog {

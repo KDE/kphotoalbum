@@ -40,12 +40,14 @@ using namespace ImportExport;
 
 ImportExport::ImportHandler::ImportHandler()
     : m_fileMapper(NULL), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
+    , m_eventLoop( new QEventLoop )
 
 {
 }
 
 ImportHandler::~ImportHandler() {
     delete m_fileMapper;
+    delete m_eventLoop;
 }
 
 bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileReader* kimFileReader )
@@ -203,6 +205,7 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
         // just throw away any changes to the DB, but some new image files
         // might be in the image directory...
         m_eventLoop->exit(false);
+        _pendingCopies.pop_front();
         break;
 
     case KMessageBox::No:

@@ -1,14 +1,13 @@
 <tip category="KPhotoAlbum">
 <html>
-<p>On KPhotoAlbum's home page (http://www.kphotoalbum.org/) you may see a few videos featuring a number of
+<p>On KPhotoAlbum's home page <a href="http://www.kphotoalbum.org/">www.kphotoalbum.org</a> you may see a few videos featuring a number of
 different KPhotoAlbum features.</p>
 </html>
 </tip>
 
 <tip category="KPhotoAlbum">
 <html>
-<p>KPhotoAlbum's Handbook is available from Help menu. Online and PDF versions
-are available at KDE documentation site http://docs.kde.org/.</p>
+<p>KPhotoAlbum's Handbook is available from Help menu. Online and PDF versions are available at <a href="http://docs.kde.org/development/en/extragear-graphics/kphotoalbum/index.html">KDE documentation site</a>.</p>
 </html>
 </tip>
 
@@ -32,8 +31,7 @@ right-clicking on the item in the image property dialog.</p>
 <tip category="KPhotoAlbum">
 <html>
 <p>When generating HTML you must specify a base directory for
-the images. Here you can specify any <a
-href="help:/kioslave/index.html">protocol</a> supported by KDE, like ftp or
+the images. Here you can specify any protocol supported by KDE, like ftp or
 fish.</p>
 <p>Examples:
 <ul>
@@ -85,9 +83,13 @@ people, places, etc. for the images) by pressing Ctrl+Enter.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>KPhotoAlbum has a mailing list at
-http://mail.kdab.com/mailman/listinfo/kphotoalbum, and an IRC
-channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>
+<p>To hear more about latest changes in KPhotoAlbum and to get help in using and developing KPhotoAlbum, you're welcome to join the KPhotoAlbum mailing list at <a href="http://mail.kdab.com/mailman/listinfo/kphotoalbum">http://mail.kdab.com/mailman/listinfo/kphotoalbum</a>.</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
+<p>To discuss KPhotoAlbum with other users and developers and ask any questions that come into your mind, feel free to join our IRC channel <b>#kphotoalbum@freenode</b> or <a href="http://webchat.freenode.net/?channels=kphotoalbum">http://webchat.freenode.net/?channels=kphotoalbum</a></p>
 </html>
 </tip>
 

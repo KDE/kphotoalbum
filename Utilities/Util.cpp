@@ -221,7 +221,7 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
     QFileInfo backUpFile( backupName);
     QFileInfo indexFile( fileName );
 
-    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
+    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
         if ( !( backUpFile.exists() && !message.isNull() ) )
             return;
 
@@ -230,11 +230,16 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
         code = KMessageBox::questionYesNo( 0, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
                 "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
                 i18n("Found Autosave File") );
-    else
+    else if ( backUpFile.size() > 0 )
         code = KMessageBox::warningYesNo( 0,i18n( "<p>Error: %2</p>"
                 "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
                 "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
                 i18n("Recover from Autosave?") );
+    else {
+        KMessageBox::error( 0, i18n( "<p>Error: %1</p><p>Also autosave file is empty, check manually "
+                        "if numbered backup files exist and can be used to restore index.xml.</p>", message ) );
+        exit(-1);
+    }
  
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );

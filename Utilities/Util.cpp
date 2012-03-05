@@ -227,13 +227,14 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
 
     int code;
     if ( message.isNull() )
-        code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
-                "Should the backup file be used?", backupName, fileName),
-                i18n("Found Backup File") );
+        code = KMessageBox::questionYesNo( 0, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+                "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
+                i18n("Found Autosave File") );
     else
-        code = KMessageBox::warningYesNo( 0,i18n( "<p>Cannot use current database file '%1':</p><p>%2</p>"
-                "<p>Do you want to use a backup instead of exiting?</p>", fileName, message ),
-                i18n("Recover from backup?") );
+        code = KMessageBox::warningYesNo( 0,i18n( "<p>Error: %2</p>"
+                "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
+                "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
+                i18n("Recover from Autosave?") );
  
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );

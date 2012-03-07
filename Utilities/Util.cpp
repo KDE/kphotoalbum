@@ -637,9 +637,10 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
 
 QString Utilities::imageFileNameToRelative( const QString& fileName )
 {
+    QRegExp regexp( QString::fromLatin1( "^/*" ) );
     // A bit back and forth, but this function is to go away anyway (hzeller).
     QString s = imageFileNameToAbsolute(fileName).mid( Settings::SettingsData::instance()->imageDirectory().length());
-    return s;
+    return s.replace( regexp, QString::fromLatin1( "" ) );
 }
 
 bool operator>( const QPoint& p1, const QPoint& p2)

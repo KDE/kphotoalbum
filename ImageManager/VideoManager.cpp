@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include <kdeversion.h>
 #include "VideoManager.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "ImageManager/ImageClient.h"
@@ -64,12 +65,24 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     }
 
     _currentRequest = request;
+#if KDE_IS_VERSION(4,7,0)
+    KFileItemList list;
+    list.append( 
+			KFileItem( KFileItem::Unknown /* mode */
+				, KFileItem::Unknown /* permissions */
+				, request->databaseFileName() )
+			);
+
+    KIO::PreviewJob* job = KIO::filePreview(list, QSize(1024,1024) );
+	job->setScaleType( KIO::PreviewJob::Scaled );
+#else
     KUrl::List list;
     list.append( request->databaseFileName() );
     // All the extra parameters are the defaults. I need the last false,
     // which says "Don't cache". If it caches, then I wont get a new shot
     // when the user chooses load new thumbnail
     KIO::PreviewJob* job=KIO::filePreview(list, 1024, 0,0, 100, true, false );
+#endif
 
     job->setIgnoreMaximumSize( true );
 
@@ -121,9 +134,20 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
 
 bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 {
+#if KDE_IS_VERSION(4,7,0)
+    KFileItemList list;
+    list.append( 
+			KFileItem( KFileItem::Unknown /* mode */
+				, KFileItem::Unknown /* permissions */
+				, Utilities::locateDataFile(QString::fromLatin1("demo/movie.avi")) )
+			);
+
+    KIO::PreviewJob* job = KIO::filePreview(list, QSize(64,64) );
+#else
     KUrl::List list;
     list.append(Utilities::locateDataFile(QString::fromLatin1("demo/movie.avi")));
     KIO::PreviewJob* job=KIO::filePreview(list, 64 );
+#endif
     job->setIgnoreMaximumSize( true );
 
     connect(job, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),

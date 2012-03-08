@@ -804,7 +804,7 @@ void Viewer::ViewerWidget::updateInfoBox()
         }
         if (selecttext != QString::fromLatin1(""))
             text = selecttext + QString::fromLatin1("<br />") + text;
-        if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() ) {
+        if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && ( _type != InlineViewer ) ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();
 

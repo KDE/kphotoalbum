@@ -1,3 +1,17 @@
+Other changes done since 4.1.1
+
+	* Helper scripts for RAW workflow and backup
+	* Documentation and tips
+	* Fixes to prevent file corruption
+	* Annotation dialog and search improvements
+	* HTML export improvements
+	* Option to skip symbolic links when detecting new files
+	* Multi core CPU improvements
+	* Background thumbnail building
+	* Thumbnail pre-loading
+	* Thumbnail tooltip fixes
+	* Plenty of other bug and crash fixes
+
 2011-05-30  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Improvement: If you start the exif viewer from the image viewer,

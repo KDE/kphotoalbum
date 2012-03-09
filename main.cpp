@@ -46,6 +46,8 @@ int main( int argc, char** argv ) {
     aboutData.addAuthor( ki18n("Tuomas Suutari"), ki18n("SQL backend and numerous features"), "thsuut@utu.fi" );
     aboutData.addAuthor( ki18n("Jan Kundr&aacute;t"), ki18n("Development"), "jkt@gentoo.org");
     aboutData.addAuthor( ki18n("Henner Zeller"),ki18n("Development"), "h.zeller@acm.org");
+    aboutData.addAuthor( ki18n("Andreas Neustifter"),ki18n("Development"), "andreas.neustifter@gmail.com");
+    aboutData.addAuthor( ki18n("Johannes Zarl"),ki18n("Development"), "isilmendil@gmx.net");
 
 
     aboutData.addCredit( ki18n("Will Stephenson"), ki18n("Developing an Icon for KPhotoAlbum"), "will@stevello.free-online.co.uk" );
@@ -60,6 +62,7 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( ki18n("Robert L Krawitz"), ki18n("Numerous patches plus profiling KPhotoAlbum again and again."), "rlk@alum.mit.edu" );
     aboutData.addCredit( ki18n("Christoph Moseler"), ki18n("Numerous patches for lots of bugs plus patches for a few new features"), "forums@moseler.net" );
     aboutData.addCredit( ki18n("Clytie Siddall"), ki18n("Tremendous help with the English text in the application."), "clytie@riverland.net.au" );
+    aboutData.addCredit( ki18n("Wes Hardaker"),ki18n("Some very useful features to improve workflow"), "kpa@capturedonearth.com");
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 

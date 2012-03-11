@@ -182,7 +182,7 @@ alphabetically. See <xref linkend="fig-membergroup-config"/>.</para>
 around, simply from the bar at the top of the frames, and move them around
 - you can even make a frame into a top level window on its own.</para>
 
-    <para>Once you have found a layout that works well on your your screen,
+    <para>Once you have found a layout that works well on your screen,
 your usage of &kphotoalbum;, &etc; simply press the <guibutton>Options...</guibutton>
 button, that will display a pop-up menu from which you can save the current
 window layout.</para>

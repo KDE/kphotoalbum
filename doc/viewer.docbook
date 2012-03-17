@@ -283,16 +283,14 @@ respectively.
 <para>
     If the current input is blank (e.g. you're not in the middle of selecting
     anything) and you hit a function key (F1-F35), it will assign the last
-    matched assignment to that key. This is useful for quickly assigning
+    matched assignment to that key. You can apply the same assignment to
+    new images just by hitting the shortcut key. To  remove use shift
+    modifier and the shortcut (<keycombo>&Shift;<keycap>F#</keycap></keycombo>). This is useful for quickly assigning
     frequently repeating items in your current set of images. It
     remembers both the category and the category item. These shortcuts are
-    only remembered until the viewer window is closed.
+    remembered until &kphotoalbum; is closed, there is currently no
+    support for replacing the assigned shortcut.
     </para>
-    <para>
-To reset the keys you just exit the viewer and re-enter. There is no support
-for doing a "replacement" (e.g. once it's assigned there is no way to reassign
-it to something else until you leave the viewer).
-</para>
   </sect2>
 </sect1>
 

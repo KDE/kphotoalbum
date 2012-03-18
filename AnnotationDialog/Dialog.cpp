@@ -76,7 +76,7 @@ using Utilities::StringSet;
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
     : QDialog( parent ),
     _ratingChanged( false ),
-    conflictText( QString::fromLatin1("(different text on individual images, setting text here will override them all)" ) )
+    conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;

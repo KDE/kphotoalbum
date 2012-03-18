@@ -71,7 +71,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         return;
     }
     else {
-        QByteArray s = doc.toByteArray();
+        QByteArray s = doc.toByteArray().append( '\n' );
         if ( ! ( out.write( s.data(), s.size()-1 ) == s.size()-1  && out.flush() ) )
         {
             KMessageBox::sorry( messageParent(), 

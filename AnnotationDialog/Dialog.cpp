@@ -462,6 +462,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _current = 0;
         _preview->configure( &_editList, true );
         load();
+        firstDescription = _editList[ _current ].description();
     }
     else {
         uint descrCount = 0;
@@ -716,11 +717,12 @@ bool AnnotationDialog::Dialog::hasChanges()
 {
     bool changed = false;
     if ( _setup == InputSingleImageConfigMode )  {
-        // PENDING(blackie) how about description and label?
+        // PENDING(blackie) how about label?
         writeToInfo();
         for ( int i = 0; i < _editList.count(); ++i )  {
             changed |= (*(_origList[i]) != _editList[i]);
         }
+        changed |= _description->toPlainText().compare( firstDescription );
     }
 
     else if ( _setup == InputMultiImageConfigMode ) {

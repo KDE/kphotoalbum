@@ -59,6 +59,10 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
     lay1->addWidget( containerContinuous );
     QHBoxLayout* hlayContinuous = new QHBoxLayout( containerContinuous );
 
+    //FIXME: This is hard to translate because of the split sentence. It is better
+    //to use a single sentence here like "Stack images that are (were?) shot
+    //within this time:" and use the spin method setSuffix() to set the "seconds".
+    //Also: Would minutes not be a more sane time unit here? (schwarzer)
     _continuousShooting = new QCheckBox( i18n( "Stack images that are shot within" ) );
     _continuousShooting->setChecked( true );
     hlayContinuous->addWidget( _continuousShooting );
@@ -90,7 +94,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
 }
 
 /*
- * This functions searches for images with matching MD5 sums
+ * This function searches for images with matching MD5 sums
  * Matches are automatically stacked
  */
 

@@ -63,7 +63,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
     //to use a single sentence here like "Stack images that are (were?) shot
     //within this time:" and use the spin method setSuffix() to set the "seconds".
     //Also: Would minutes not be a more sane time unit here? (schwarzer)
-    _continuousShooting = new QCheckBox( i18n( "Stack images that are shot within" ) );
+    _continuousShooting = new QCheckBox( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. So images that are shot in one burst are automatically stacked together. (This sentence is before the x.)", "Stack images that are shot within" ) );
     _continuousShooting->setChecked( true );
     hlayContinuous->addWidget( _continuousShooting );
 
@@ -73,7 +73,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
     _continuousThreshold->setValue( 2 );
     hlayContinuous->addWidget( _continuousThreshold );
 
-    QLabel* sec = new QLabel( i18n( "seconds" ), containerContinuous );
+    QLabel* sec = new QLabel( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. (This being the text after x.)", "seconds" ), containerContinuous );
     hlayContinuous->addWidget( sec );
 
     QGroupBox* grpOptions = new QGroupBox( i18n("AutoStacking Options") );

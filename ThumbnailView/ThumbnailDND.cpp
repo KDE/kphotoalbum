@@ -44,6 +44,10 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
 
     const QRect rect = widget()->visualRect( widget()->indexUnderCursor() );
 
+    if ( ( event->pos().y() < 10 ) )
+        widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
+    if ( ( event->pos().y() > widget()->viewport()->visibleRegion().rects().first().height() - 10 ) )
+        widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
         if ( id.isNull() ) {

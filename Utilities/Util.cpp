@@ -231,7 +231,7 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
                 "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
                 i18n("Found Autosave File") );
     else if ( backUpFile.size() > 0 )
-        code = KMessageBox::warningYesNo( 0,i18n( "<p>Error: %2</p>"
+        code = KMessageBox::warningYesNo( 0,i18n( "<p>Error: Cannot use current database file '%1':</p><p>%2</p>"
                 "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
                 "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
                 i18n("Recover from Autosave?") );

@@ -489,7 +489,7 @@ void HTMLDialog::populateThemesCombo()
 void HTMLDialog::displayThemeDescription(int themenr)
 {
    // SLOT: update _themeInfo label whenever the _theme QComboBox changes.
-   QString outtxt = i18n( "by " );
+   QString outtxt = i18nc( "This is to show the author of the theme. E.g. copyright character (&#169;) by itself will work fine on this context if no proper word is available in your language.", "by " );
    outtxt.append( _themeAuthors[themenr] );
    outtxt.append( i18n( "\n " ) );
    outtxt.append( _themeDescriptions[themenr] );

@@ -46,7 +46,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
                   "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
                   "to get the feature in question. If on the other hand you installed KPhotoAlbum from a binary package, please tell "
-                  "whoever made the package about this defect, eventually including the information from the section below.<p>"
+                  "whoever made the package about this defect, eventually including the information from the section below.</p>"
 
                   "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
                   "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
@@ -61,11 +61,11 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     text += i18n( "<h1><a name=\"kipi\">Plug-ins Support</a></h1>"
                  "<p>KPhotoAlbum has a plug-in system with lots of extensions. You may among other things find plug-ins for:"
                   "<ul>"
-                  "<li>Writing images to cds or dvd's"
-                  "<li>Adjusting timestamps on your images"
-                  "<li>Making a calendar featuring your images"
-                  "<li>Uploading your images to flickr"
-                  "<li>Upload your images to facebook"
+                  "<li>Writing images to cds or dvd's</li>"
+                  "<li>Adjusting timestamps on your images</li>"
+                  "<li>Making a calendar featuring your images</li>"
+                  "<li>Uploading your images to flickr</li>"
+                  "<li>Upload your images to facebook</li>"
                   "</ul></p>"
 
                   "<p>The plug-in library is called KIPI, and may be downloaded from the "
@@ -85,7 +85,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
-                 "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
+                 "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos.</p>"
                  "<p>Unfortunately KDE4 does currently not come with any plug-ins for this, you therefore need manually to install "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
 

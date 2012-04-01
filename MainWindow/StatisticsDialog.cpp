@@ -48,7 +48,7 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
                        "</table><br/><br/>"
                        "Don't get too attached to this dialog, it has the problem that it counts categories AND subcategories,<br/>"
                        "so if an image has been taken in Las Vegas, Nevada, USA, then 3 tags are counted for that image,<br/>"
-                       "while it should only be one.</br>"
+                       "while it should only be one.<br/>"
                        "I'm not really sure if it is worth fixing that bug (as it is pretty hard to fix),<br/>"
                        "so maybe the dialog will simply go away again");
 

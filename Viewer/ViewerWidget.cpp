@@ -429,8 +429,8 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    bool isReadable = QFileInfo( currentInfo()->fileName(DB::AbsolutePath) ).isReadable();
-    bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName(DB::AbsolutePath) );
+    const bool isReadable = QFileInfo( currentInfo()->fileName(DB::AbsolutePath) ).isReadable();
+    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName(DB::AbsolutePath) );
 
     if ( isReadable ) {
         if ( isVideo ) {

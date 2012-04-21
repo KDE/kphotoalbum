@@ -67,7 +67,7 @@ public:
     KActionCollection* actions();
 
 public slots:
-    virtual bool close(bool alsoDelete = false );
+    OVERRIDE bool close(bool alsoDelete = false );
     void updateInfoBox();
     void test();
     void moveInfoBox( int );

@@ -282,7 +282,8 @@ respectively.
     <title>Assigning shortcuts</title>
 <para>
     If the current input is blank (e.g. you're not in the middle of selecting
-    anything) and you hit a function key (F1-F35), it will assign the last
+    anything) and you hit a function key F1 through F12 (or up to F35 if
+    your keyboard supports), it will assign the last
     matched assignment to that key. You can apply the same assignment to
     new images just by hitting the shortcut key. To  remove use shift
     modifier and the shortcut (<keycombo>&Shift;<keycap>F#</keycap></keycombo>). This is useful for quickly assigning

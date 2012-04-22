@@ -22,6 +22,10 @@ private slots:
 
 private:
     void requestVideoLength();
+    void requestFrames();
+    void requestNextFrame();
+    void frameFetched();
+    void thumbnailRequestCompleted();
 
     enum State { FetchingLength, ReadingFrames };
 
@@ -30,6 +34,7 @@ private:
     QString m_stdout;
     State m_state;
     double m_length;
+    int m_frameNumber;
 };
 
 }

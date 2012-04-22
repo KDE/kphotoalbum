@@ -3,23 +3,59 @@
 #include <QTextStream>
 #include <QDebug>
 
+#define STR(x) QString::fromUtf8(x)
+
 ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const QString& fileName )
     :m_fileName(fileName)
 {
     m_process = new QProcess;
+    m_process->setWorkingDirectory(STR("/tmp")); // PENDING(blackie) there gotta be a service for telling me where that is.
     connect( m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStandardError()));
     connect( m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStandardOutput()));
     connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
     requestVideoLength();
 }
 
-#define STR(x) QString::fromUtf8(x)
 void ImageManager::VideoThumbnailsExtractor::requestVideoLength()
 {
     m_state = FetchingLength;
     QStringList arguments;
     arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null") << STR("-vo") << STR("null") << STR("-ao") << STR("null") << m_fileName;
     m_process->start(STR("mplayer"), arguments);
+}
+
+void ImageManager::VideoThumbnailsExtractor::requestFrames()
+{
+    m_state = ReadingFrames;
+    m_frameNumber = 0;
+    requestNextFrame();
+}
+
+void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
+{
+    if ( m_frameNumber == 10 ) {
+        thumbnailRequestCompleted();
+        return;
+    }
+
+    const double offset = m_length * m_frameNumber / 10;
+    QStringList arguments;
+    arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf") << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName;
+
+    m_process->start(STR("mplayer"), arguments);
+
+    m_frameNumber++;
+}
+
+void ImageManager::VideoThumbnailsExtractor::frameFetched()
+{
+    // STR("/tmp/00000001.png");
+    requestNextFrame();
+}
+
+void ImageManager::VideoThumbnailsExtractor::thumbnailRequestCompleted()
+{
+    qDebug("YAY!");
 }
 
 void ImageManager::VideoThumbnailsExtractor::readStandardError()
@@ -42,6 +78,8 @@ void ImageManager::VideoThumbnailsExtractor::processEnded()
 {
     if ( m_state == FetchingLength )
         extractVideoLength();
+    else
+        frameFetched();
 }
 
 void ImageManager::VideoThumbnailsExtractor::extractVideoLength()
@@ -69,6 +107,10 @@ void ImageManager::VideoThumbnailsExtractor::extractVideoLength()
         return;
     }
 
-    qDebug() << m_length;
+    if ( m_length == 0 ) {
+        qWarning("Length returned was 0!");
+        return;
+    }
 
+    requestFrames();
 }

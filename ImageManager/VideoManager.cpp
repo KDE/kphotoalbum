@@ -186,10 +186,15 @@ void ImageManager::VideoManager::sendResult(QImage image)
 
 void ImageManager::VideoManager::saveFullScaleFrame(const QImage &image)
 {
+    saveFullScaleFrame(_currentRequest->databaseFileName(), image);
+}
+
+void ImageManager::VideoManager::saveFullScaleFrame(const QString &fileName, const QImage &image)
+{
     QDir dir( Settings::SettingsData::instance()->imageDirectory() );
     if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
         dir.mkdir(QString::fromLatin1(".videoThumbnails"));
-    image.save(pathForRequest(_currentRequest->databaseFileName()), "JPEG");
+    image.save(pathForRequest(fileName), "JPEG");
 }
 
 bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageRequest *request)

@@ -140,7 +140,9 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VisibleOptionsMenu.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VisibleOptionsMenu.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoShooter.cpp
+        )
 
 set(libCategoryListView_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableListView.cpp 

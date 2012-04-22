@@ -48,6 +48,7 @@ class TextDisplay;
 class Display;
 class SpeedDisplay;
 class InfoBox;
+class VideoShooter;
 
 class ViewerWidget :public QStackedWidget
 {
@@ -158,12 +159,14 @@ protected slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
+    void makeThumbnailImage();
 
     /** Set the current window title (filename) and add the given detail */
     void setCaptionWithDetail( const QString& detail );
 
 private:
     static ViewerWidget* _latest;
+    friend class VideoShooter;
 
     QList<KAction*> _forwardActions;
     QList<KAction*> _backwardActions;
@@ -219,6 +222,7 @@ private:
     QList<QAction*> _videoActions;
     KAction* _stop;
     KAction* _playPause;
+    KAction* _makeThumbnailImage;
     bool _videoPlayerStoppedManually;
     UsageType _type;
 

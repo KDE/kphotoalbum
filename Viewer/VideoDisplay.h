@@ -41,6 +41,7 @@ public:
     virtual bool setImage( DB::ImageInfoPtr info, bool forward );
     bool isPaused() const;
     bool isPlaying() const;
+    QImage screenShoot();
 
 signals:
     void stopped();

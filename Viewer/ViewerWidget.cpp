@@ -62,6 +62,7 @@
 #include <KProcess>
 #include <KStandardDirs>
 #include "MainWindow/DeleteDialog.h"
+#include "VideoShooter.h"
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -1253,6 +1254,11 @@ void Viewer::ViewerWidget::zoomPixelForPixel()
     _display->zoomPixelForPixel();
 }
 
+void Viewer::ViewerWidget::makeThumbnailImage()
+{
+    VideoShooter::go(currentInfo(), this);
+}
+
 
 struct SeekInfo
 {
@@ -1314,6 +1320,13 @@ void Viewer::ViewerWidget::createVideoMenu()
     _playPause->setShortcut( Qt::Key_P );
     _popup->addAction( _playPause );
     _videoActions.append( _playPause );
+
+    _makeThumbnailImage = _actions->addAction( QString::fromLatin1("make-thumbnail-image"), this, SLOT(makeThumbnailImage()));
+    _makeThumbnailImage->setShortcut(Qt::ControlModifier + Qt::Key_S);
+    _makeThumbnailImage->setText( tr("Use current frame in thumbnail view") );
+    _popup->addAction(_makeThumbnailImage);
+    _videoActions.append(_makeThumbnailImage);
+
     KAction* restart = _actions->addAction( QString::fromLatin1("viewer-video-restart"), _videoDisplay, SLOT( restart() ) );
     restart->setText( i18n("Restart") );
     _popup->addAction( restart );

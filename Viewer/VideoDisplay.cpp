@@ -153,6 +153,11 @@ void Viewer::VideoDisplay::playPause()
         _mediaObject->pause();
 }
 
+QImage Viewer::VideoDisplay::screenShoot()
+{
+    return QPixmap::grabWindow( _videoWidget->winId()).toImage();
+}
+
 void Viewer::VideoDisplay::restart()
 {
     if ( !_mediaObject )

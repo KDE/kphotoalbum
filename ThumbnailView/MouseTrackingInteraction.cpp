@@ -19,6 +19,8 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
+#include <ImageManager/VideoThumbnailsExtractor.h>
+#include <Utilities/Util.h>
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),
@@ -30,6 +32,19 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
 {
     updateStackingIndication( event );
     handleCursorOverNewIcon();
+
+    {
+        static bool dummy = false;
+        if ( !dummy) {
+            const DB::Id id = widget()->mediaIdUnderCursor();
+            DB::ImageInfoPtr info = id.fetchInfo();
+            const QString fileName = info->fileName(DB::AbsolutePath);
+            if ( Utilities::isVideo(fileName)) {
+                new ImageManager::VideoThumbnailsExtractor(fileName);
+                dummy = true;
+            }
+        }
+    }
     return false;
 }
 

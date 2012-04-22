@@ -21,9 +21,12 @@
 #include "ThumbnailComponent.h"
 #include "MouseInteraction.h"
 #include <QMouseEvent>
+#include <QScopedPointer>
+#include "VideoThumbnailCycler.h"
 
 namespace ThumbnailView
 {
+
 class MouseTrackingInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
     Q_OBJECT
 
@@ -39,6 +42,7 @@ private:
     void handleCursorOverNewIcon();
 
 private:
+    QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
     bool _cursorWasAtStackIcon;
 };
 

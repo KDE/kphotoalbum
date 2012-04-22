@@ -115,6 +115,7 @@ set(libThumbnailView_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailDND.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Delegate.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionMaintainer.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/VideoThumbnailCycler.cpp
 )
 set(libPlugins_SRCS)
 

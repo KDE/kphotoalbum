@@ -18,7 +18,7 @@
 
 #ifndef VIEWER_TEXTDISPLAY_H
 #define VIEWER_TEXTDISPLAY_H
-#include "Display.h"
+#include "AbstractDisplay.h"
 #include "DB/ImageInfoPtr.h"
 
 class QWidget;
@@ -27,7 +27,7 @@ class QLabel;
 namespace Viewer
 {
 
-class TextDisplay :public Viewer::Display {
+class TextDisplay :public Viewer::AbstractDisplay {
 Q_OBJECT
 public:
     TextDisplay( QWidget* parent );

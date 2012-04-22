@@ -26,7 +26,7 @@
 #include <qimage.h>
 #include <q3ptrvector.h>
 #include "DB/ImageInfoPtr.h"
-#include "Display.h"
+#include "AbstractDisplay.h"
 #include "Settings/SettingsData.h"
 
 class QTimer;
@@ -50,7 +50,7 @@ struct ViewPreloadInfo
     int angle;
 };
 
-class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
+class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageClient {
 Q_OBJECT
 public:
     ImageDisplay( QWidget* parent );

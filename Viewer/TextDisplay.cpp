@@ -29,7 +29,7 @@
  */
 
 Viewer::TextDisplay::TextDisplay( QWidget* parent )
-    :Display( parent )
+    :AbstractDisplay( parent )
 {
     QVBoxLayout *lay = new QVBoxLayout( this );
     _text = new QLabel( this );

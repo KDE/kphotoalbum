@@ -45,7 +45,7 @@ namespace Viewer
 class VideoDisplay;
 class ImageDisplay;
 class TextDisplay;
-class Display;
+class AbstractDisplay;
 class SpeedDisplay;
 class InfoBox;
 class VideoShooter;
@@ -182,7 +182,7 @@ private:
     KAction* _filterHistogramEqualization;
     KAction* _filterMono;
 
-    Display* _display;
+    AbstractDisplay* _display;
     ImageDisplay* _imageDisplay;
     VideoDisplay* _videoDisplay;
     TextDisplay* _textDisplay;

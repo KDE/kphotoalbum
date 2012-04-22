@@ -136,7 +136,7 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBox.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CategoryImageConfig.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Display.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AbstractDisplay.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp

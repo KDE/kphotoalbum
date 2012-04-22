@@ -45,7 +45,7 @@
 #include <phonon/mediaobject.h>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
-    :Viewer::Display( parent ), _zoomType( FullZoom ), _zoomFactor(1)
+    :Viewer::AbstractDisplay( parent ), _zoomType( FullZoom ), _zoomFactor(1)
 {
     QPalette pal = palette();
     pal.setColor( QPalette::Window, Qt::black );
@@ -125,7 +125,7 @@ void Viewer::VideoDisplay::resize( double factor )
 
 void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
 {
-    Display::resizeEvent( event );
+    AbstractDisplay::resizeEvent( event );
     setVideoWidgetSize();
 }
 

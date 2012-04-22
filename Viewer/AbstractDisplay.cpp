@@ -15,34 +15,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-
-#ifndef VIEWER_DISPLAY_H
-#define VIEWER_DISPLAY_H
-
-#include <qwidget.h>
-#include <DB/ImageInfoPtr.h>
-
-namespace Viewer
+#include "AbstractDisplay.h"
+#include <Settings/SettingsData.h>
+#include <DB/ImageInfo.h>
+Viewer::AbstractDisplay::AbstractDisplay( QWidget* parent )
+    :QWidget( parent ), _info( 0 )
 {
-class Display :public QWidget
-{
-    Q_OBJECT
-
-public:
-    Display( QWidget* parent );
-    virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
-
-public slots:
-    virtual void zoomIn() = 0;
-    virtual void zoomOut() = 0;
-    virtual void zoomFull() = 0;
-    virtual void zoomPixelForPixel() = 0;
-
-protected:
-    DB::ImageInfoPtr _info;
-};
-
 }
 
-#endif /* VIEWER_DISPLAY_H */
-
+#include "AbstractDisplay.moc"

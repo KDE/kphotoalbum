@@ -70,7 +70,7 @@
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
-    :Display( parent ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ),
+    :AbstractDisplay( parent ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ),
     _cursorHiding(true)
 {
     _viewHandler = new ViewHandler( this );

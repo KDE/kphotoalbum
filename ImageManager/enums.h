@@ -39,6 +39,9 @@ enum Priority {
 };
 
 enum ThumbnailBuildStart { StartNow, StartDelayed };
+
+enum StopAction { StopAll, StopOnlyNonPriorityLoads };
+
 }
 
 

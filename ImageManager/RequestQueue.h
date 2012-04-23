@@ -20,7 +20,7 @@
 
 #include <QQueue>
 #include <QSet>
-#include "StopAction.h"
+#include "enums.h"
 #include "ImageManager/ImageRequest.h"
 
 namespace ImageManager

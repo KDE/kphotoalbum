@@ -24,7 +24,7 @@
 
 namespace ImageManager
 {
-class Manager;
+class AsyncLoader;
 class ImageRequest;
 class ThumbnailStorage;
 

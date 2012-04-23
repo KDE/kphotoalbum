@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Manager.h"
+#include "AsyncLoader.h"
 #include <KIcon>
 #include "ThumbnailCache.h"
 #include "ImageLoader.h"
@@ -29,14 +29,14 @@
 #include "ImageEvent.h"
 #include "CancelEvent.h"
 
-ImageManager::Manager* ImageManager::Manager::_instance = 0;
+ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = 0;
 
 // -- Manager --
 
-ImageManager::Manager* ImageManager::Manager::instance()
+ImageManager::AsyncLoader* ImageManager::AsyncLoader::instance()
 {
     if ( !_instance )  {
-        _instance = new Manager;
+        _instance = new AsyncLoader;
         _instance->init();
     }
 
@@ -45,7 +45,7 @@ ImageManager::Manager* ImageManager::Manager::instance()
 
 // We need this as a separate method as the _instance variable will otherwise not be initialized
 // corrected before the thread starts.
-void ImageManager::Manager::init()
+void ImageManager::AsyncLoader::init()
 {
     // Use up to three cores for thumbnail generation. No more than three as that
     // likely will make it less efficient due to three cores hitting the harddisk at the same time.
@@ -64,7 +64,7 @@ void ImageManager::Manager::init()
     }
 }
 
-void ImageManager::Manager::load( ImageRequest* request )
+void ImageManager::AsyncLoader::load( ImageRequest* request )
 {
     if ( Utilities::isVideo( request->fileSystemFileName() ) )
         loadVideo( request );
@@ -72,12 +72,12 @@ void ImageManager::Manager::load( ImageRequest* request )
         loadImage( request );
 }
 
-void ImageManager::Manager::loadVideo( ImageRequest* request)
+void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
     VideoManager::instance().request( request );
 }
 
-void ImageManager::Manager::loadImage( ImageRequest* request )
+void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
     QSet<ImageRequest*>::const_iterator req = _currentLoading.find( request );
@@ -94,7 +94,7 @@ void ImageManager::Manager::loadImage( ImageRequest* request )
         _sleepers.wakeOne();
 }
 
-void ImageManager::Manager::stop( ImageClient* client, StopAction action )
+void ImageManager::AsyncLoader::stop( ImageClient* client, StopAction action )
 {
     // remove from pending map.
     _lock.lock();
@@ -104,7 +104,7 @@ void ImageManager::Manager::stop( ImageClient* client, StopAction action )
     VideoManager::instance().stop( client, action );
 }
 
-ImageManager::ImageRequest* ImageManager::Manager::next()
+ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
     QMutexLocker dummy(&_lock );
     ImageRequest* request = 0;
@@ -115,7 +115,7 @@ ImageManager::ImageRequest* ImageManager::Manager::next()
     return request;
 }
 
-void ImageManager::Manager::customEvent( QEvent* ev )
+void ImageManager::AsyncLoader::customEvent( QEvent* ev )
 {
     if ( ev->type() == ImageEventID )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
@@ -157,4 +157,4 @@ void ImageManager::Manager::customEvent( QEvent* ev )
     }
 }
 
-#include "Manager.moc"
+#include "AsyncLoader.moc"

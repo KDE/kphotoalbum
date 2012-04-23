@@ -25,7 +25,7 @@
 #include <q3progressdialog.h>
 #include <klocale.h>
 #include <time.h>
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "DB/ImageInfo.h"
 #include "DB/Id.h"
 #include <qapplication.h>
@@ -248,7 +248,7 @@ void Export::generateThumbnails(const DB::IdList& list)
     Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), QSize( 128, 128 ), info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
-        ImageManager::Manager::instance()->load( request );
+        ImageManager::AsyncLoader::instance()->load( request );
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
@@ -291,7 +291,7 @@ void Export::copyImages(const DB::IdList& list)
             ImageManager::ImageRequest* request =
                 new ImageManager::ImageRequest( file, QSize( _maxSize, _maxSize ), 0, this );
             request->setPriority( ImageManager::BatchTask );
-            ImageManager::Manager::instance()->load( request );
+            ImageManager::AsyncLoader::instance()->load( request );
         }
 
         // Test if the cancel button was pressed.
@@ -343,7 +343,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( canceled ) {
         _ok = false;
         _eventLoop->exit();
-        ImageManager::Manager::instance()->stop( this );
+        ImageManager::AsyncLoader::instance()->stop( this );
         return;
     }
 

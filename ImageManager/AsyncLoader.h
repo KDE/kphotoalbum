@@ -24,7 +24,7 @@
 #include <qmutex.h>
 #include <qimage.h>
 #include "RequestQueue.h"
-#include "StopAction.h"
+#include "enums.h"
 
 namespace ImageManager
 {
@@ -34,11 +34,11 @@ class ImageClient;
 class ImageLoader;
 
 // This class needs to inherit QObject to be capable of receiving events.
-class Manager :public QObject {
+class AsyncLoader :public QObject {
     Q_OBJECT
 
 public:
-    static Manager* instance();
+    static AsyncLoader* instance();
 
     // Request to load an image. The Manager takes over the ownership of
     // the request.
@@ -58,7 +58,7 @@ private:
 
     ImageRequest* next();
 
-    static Manager* _instance;
+    static AsyncLoader* _instance;
 
     RequestQueue _loadList;
     QWaitCondition _sleepers;

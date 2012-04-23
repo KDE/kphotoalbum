@@ -17,7 +17,7 @@
 */
 
 #include "ImagePreview.h"
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "ImageManager/ImageLoader.h"
 #include "Utilities/Util.h"
 
@@ -89,10 +89,10 @@ void ImagePreview::reload()
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QPixmap()); //erase old image
-            ImageManager::Manager::instance()->stop(this);
+            ImageManager::AsyncLoader::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(DB::AbsolutePath), QSize( width(), height() ), _info.angle(), this );
             request->setPriority( ImageManager::Viewer );
-            ImageManager::Manager::instance()->load( request );
+            ImageManager::AsyncLoader::instance()->load( request );
         }
     }
     else {
@@ -191,16 +191,16 @@ void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int widt
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
-    ImageManager::Manager::instance()->stop(this);
+    ImageManager::AsyncLoader::instance()->stop(this);
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
     request->setPriority( ImageManager::ViewerPreload );
-    ImageManager::Manager::instance()->load( request );
+    ImageManager::AsyncLoader::instance()->load( request );
 }
 
 void ImagePreview::PreviewLoader::cancelPreload()
 {
     reset();
-    ImageManager::Manager::instance()->stop(this);
+    ImageManager::AsyncLoader::instance()->stop(this);
 }
 
 QImage AnnotationDialog::ImagePreview::rotateAndScale(QImage img, int width, int height, int angle) const

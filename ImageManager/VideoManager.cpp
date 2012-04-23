@@ -202,7 +202,7 @@ bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageReques
     const QString path = pathForRequest(request->databaseFileName());
     if ( QFile::exists(path) ) {
         VideoImageRescaleRequest* newRequest = new VideoImageRescaleRequest( request, path );
-        Manager::instance()->load( newRequest );
+        AsyncLoader::instance()->load( newRequest );
         return true;
     }
     else

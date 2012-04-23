@@ -186,7 +186,7 @@ set(libMainWindow_SRCS
 
 set(libImageManager_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageLoader.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/Manager.cpp 
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/AsyncLoader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageRequest.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageClient.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp 

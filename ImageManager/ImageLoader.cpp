@@ -20,7 +20,7 @@
 #include "ThumbnailCache.h"
 
 #include "ImageDecoder.h"
-#include "Manager.h"
+#include "AsyncLoader.h"
 #include "RawImageDecoder.h"
 #include "Utilities/Util.h"
 
@@ -53,7 +53,7 @@ namespace ImageManager
 void ImageManager::ImageLoader::run()
 {
     while ( true ) {
-        ImageRequest* request = Manager::instance()->next();
+        ImageRequest* request = AsyncLoader::instance()->next();
         Q_ASSERT( request );
         bool ok;
 
@@ -65,7 +65,7 @@ void ImageManager::ImageLoader::run()
 
         request->setLoadedOK( ok );
         ImageEvent* iew = new ImageEvent( request, img );
-        QApplication::postEvent( Manager::instance(),  iew );
+        QApplication::postEvent( AsyncLoader::instance(),  iew );
     }
 }
 

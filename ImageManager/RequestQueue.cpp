@@ -20,7 +20,7 @@
 #include "ImageClient.h"
 #include "CancelEvent.h"
 #include <QApplication>
-#include "Manager.h"
+#include "AsyncLoader.h"
 
 bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
@@ -51,7 +51,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 removeRequest( request );
                 request->setLoadedOK( false );
                 CancelEvent* event = new CancelEvent( request );
-                QApplication::postEvent( Manager::instance(),  event );
+                QApplication::postEvent( AsyncLoader::instance(),  event );
             } else {
                 _uniquePending.remove( request );
                 return request;

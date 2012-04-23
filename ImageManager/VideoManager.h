@@ -23,7 +23,7 @@ class KFileItem;
 
 #include <qobject.h>
 #include "RequestQueue.h"
-#include "Manager.h"
+#include "AsyncLoader.h"
 #include <QEventLoop>
 #include <QPointer>
 

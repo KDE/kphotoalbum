@@ -26,7 +26,7 @@
 #include <klocale.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <math.h>
@@ -192,7 +192,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 
 void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
 {
-    ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
+    ImageManager::AsyncLoader::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();
@@ -691,7 +691,7 @@ void Viewer::ImageDisplay::potentialyLoadFullSize()
     if ( _info->size() != _loadedImage.size() ) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(DB::AbsolutePath), QSize(-1,-1), _info->angle(), this );
         request->setPriority( ImageManager::Viewer );
-        ImageManager::Manager::instance()->load( request );
+        ImageManager::AsyncLoader::instance()->load( request );
         busy();
         _reloadImageInProgress = true;
     }
@@ -720,7 +720,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
     request->setPriority( priority ? ImageManager::Viewer : ImageManager::ViewerPreload );
-    ImageManager::Manager::instance()->load( request );
+    ImageManager::AsyncLoader::instance()->load( request );
 }
 
 void Viewer::ImageDisplay::hideEvent(QHideEvent *)

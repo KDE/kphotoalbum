@@ -17,9 +17,9 @@
 */
 
 #include "ImageClient.h"
-#include "Manager.h"
+#include "AsyncLoader.h"
 
 ImageManager::ImageClient::~ImageClient()
 {
-    Manager::instance()->stop( this );
+    AsyncLoader::instance()->stop( this );
 }

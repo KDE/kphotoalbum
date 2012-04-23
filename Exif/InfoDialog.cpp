@@ -24,7 +24,7 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <QTextCodec>
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
@@ -290,7 +290,7 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
     request->setPriority( ImageManager::Viewer );
-    ImageManager::Manager::instance()->load( request );
+    ImageManager::AsyncLoader::instance()->load( request );
 }
 
 void Exif::Grid::setFileName(const QString &fileName)

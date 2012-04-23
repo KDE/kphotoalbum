@@ -25,7 +25,7 @@
 
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"
 #include "Utilities/Util.h"
@@ -172,7 +172,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
             // request->setCache();  // TODO: do caching in callback.
             request->setPriority( ImageManager::Viewer );
-            ImageManager::Manager::instance()->load( request );
+            ImageManager::AsyncLoader::instance()->load( request );
             return false;
         }
     }

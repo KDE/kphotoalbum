@@ -22,7 +22,7 @@
 #include "ThumbnailRequest.h"
 #include "DB/ImageDB.h"
 #include "ThumbnailWidget.h"
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include "ImageManager/ThumbnailCache.h"
@@ -41,7 +41,7 @@ static bool stackOrderComparator(const DB::Id& a, const DB::Id& b) {
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
 {
-    ImageManager::Manager::instance()->stop( model(), ImageManager::StopOnlyNonPriorityLoads );
+    ImageManager::AsyncLoader::instance()->stop( model(), ImageManager::StopOnlyNonPriorityLoads );
 
     // Note, this can be simplified, if we make the database backend already
     // return things in the right order. Then we only need one pass while now
@@ -268,7 +268,7 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     ThumbnailRequest* request
         = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(DB::AbsolutePath), cellSize, angle, this );
     request->setPriority( priority );
-    ImageManager::Manager::instance()->load( request );
+    ImageManager::AsyncLoader::instance()->load( request );
 }
 
 void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)

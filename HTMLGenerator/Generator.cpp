@@ -21,7 +21,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QList>
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include <KFileDialog>
 #include <KRun>
 #include <KMessageBox>
@@ -502,7 +502,7 @@ QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
             new ImageManager::ImageRequest( fileName, QSize( size, size ),
                                             info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
-        ImageManager::Manager::instance()->load( request );
+        ImageManager::AsyncLoader::instance()->load( request );
         _generatedFiles.insert( qMakePair( fileName, size ) );
     }
 
@@ -578,7 +578,7 @@ bool HTMLGenerator::Generator::linkIndexFile()
 
 void HTMLGenerator::Generator::slotCancelGenerate()
 {
-    ImageManager::Manager::instance()->stop( this );
+    ImageManager::AsyncLoader::instance()->stop( this );
     _waitCounter = 0;
     if ( _hasEnteredLoop )
         _eventLoop->exit();

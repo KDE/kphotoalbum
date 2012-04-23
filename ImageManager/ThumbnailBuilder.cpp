@@ -21,7 +21,7 @@
 #include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/StatusBar.h"
 #include "ThumbnailView/CellGeometry.h"
-#include "ImageManager/Manager.h"
+#include "ImageManager/AsyncLoader.h"
 #include "DB/ImageDB.h"
 #include "DB/Id.h"
 #include "PreloadRequest.h"
@@ -42,7 +42,7 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusB
 
 void ImageManager::ThumbnailBuilder::cancelRequests()
 {
-    ImageManager::Manager::instance()->stop( this, ImageManager::StopAll );
+    ImageManager::AsyncLoader::instance()->stop( this, ImageManager::StopAll );
     m_isBuilding = false;
     m_statusBar->setProgressBarVisible(false);
     m_startBuildTimer->stop();
@@ -108,7 +108,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );
-        ImageManager::Manager::instance()->load( request );
+        ImageManager::AsyncLoader::instance()->load( request );
     }
     m_count = 0;
 }

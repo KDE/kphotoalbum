@@ -1,8 +1,9 @@
 #ifndef VIDEOTHUMBNAILSEXTRACTOR_H
 #define VIDEOTHUMBNAILSEXTRACTOR_H
 
-class QProcess;
 #include <QObject>
+class QProcess;
+class QImage;
 
 namespace ImageManager
 {
@@ -19,6 +20,9 @@ private slots:
     void readStandardOutput();
     void processEnded();
     void extractVideoLength();
+
+signals:
+    void frameLoaded(int index, const QImage& image );
 
 private:
     void requestVideoLength();

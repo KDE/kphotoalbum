@@ -22,7 +22,7 @@
 #include "VideoThumbnailCycler.h"
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ), m_videoThumbnailCycler( new VideoThumbnailCycler ),
+    : ThumbnailComponent( factory ), m_videoThumbnailCycler( new VideoThumbnailCycler(model()) ),
       _cursorWasAtStackIcon(false)
 {
 }

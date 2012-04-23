@@ -2,6 +2,7 @@
 #include <QProcess>
 #include <QTextStream>
 #include <QDebug>
+#include <QImage>
 
 #define STR(x) QString::fromUtf8(x)
 
@@ -27,12 +28,13 @@ void ImageManager::VideoThumbnailsExtractor::requestVideoLength()
 void ImageManager::VideoThumbnailsExtractor::requestFrames()
 {
     m_state = ReadingFrames;
-    m_frameNumber = 0;
+    m_frameNumber = -1;
     requestNextFrame();
 }
 
 void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 {
+    m_frameNumber++;
     if ( m_frameNumber == 10 ) {
         thumbnailRequestCompleted();
         return;
@@ -43,13 +45,12 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf") << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName;
 
     m_process->start(STR("mplayer"), arguments);
-
-    m_frameNumber++;
 }
 
 void ImageManager::VideoThumbnailsExtractor::frameFetched()
 {
-    // STR("/tmp/00000001.png");
+    QImage image(STR("/tmp/00000001.png"));
+    emit frameLoaded(m_frameNumber, image);
     requestNextFrame();
 }
 

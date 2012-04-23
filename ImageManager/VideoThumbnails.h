@@ -16,44 +16,36 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIDEOTHUMBNAILCYCLER_H
-#define VIDEOTHUMBNAILCYCLER_H
+#ifndef VIDEOTHUMBNAILEXTRACTOR_H
+#define VIDEOTHUMBNAILEXTRACTOR_H
 
 #include <QObject>
-#include <DB/Id.h>
-
-class QTimer;
+#include <QImage>
 
 namespace ImageManager {
-    class VideoThumbnails;
-}
-namespace ThumbnailView {
-    class ThumbnailModel;
 
-class VideoThumbnailCycler : public QObject
+class VideoThumbnailsExtractor;
+
+class VideoThumbnails : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = 0);
-    void setActiveId( const DB::Id& id );
+    explicit VideoThumbnails(QObject *parent = 0);
+    void setVideoFile( const QString& fileName );
+    void requestFrame(int fraction); // 0..9
+
+signals:
+    void frameLoaded( const QImage& );
 
 private slots:
-    void updateThumbnail();
-    void gotFrame(const QImage& image );
+    void gotFrame(int index, const QImage& image );
 
 private:
-    void resetPreviousThumbail();
-    bool isVideo( const DB::Id& id ) const;
-    QString fileNameForId( const DB::Id& ) const;
-    void startCycle();
-    void stopCycle();
-
-    DB::Id m_id;
-    int m_index;
-    QTimer* m_timer;
-    ImageManager::VideoThumbnails *m_thumbnails;
-    ThumbnailModel* m_model;
+    QString m_videoFile;
+    QVector<QImage> m_cache;
+    ImageManager::VideoThumbnailsExtractor* m_extractor;
+    int m_pendingRequest;
 };
 
 }
-#endif // VIDEOTHUMBNAILCYCLER_H
+#endif // VIDEOTHUMBNAILEXTRACTOR_H

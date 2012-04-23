@@ -231,6 +231,17 @@ int ThumbnailView::ThumbnailModel::imageCount() const
     return _displayList.size();
 }
 
+void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::Id &id, const QPixmap &pixmap)
+{
+    if ( pixmap.isNull() )
+        m_overrideId = DB::Id();
+    else {
+        m_overrideId = id;
+        m_overrideImage = pixmap;
+    }
+    emit dataChanged( idToIndex(id), idToIndex(id) );
+}
+
 DB::Id ThumbnailView::ThumbnailModel::imageAt( int index ) const
 {
     Q_ASSERT( index >= 0 && index < imageCount() );
@@ -377,6 +388,8 @@ QModelIndex ThumbnailView::ThumbnailModel::idToIndex( const DB::Id& id ) const
 
 QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
 {
+    if ( m_overrideId == mediaId )
+        return m_overrideImage;
 
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     if (imageInfo == DB::ImageInfoPtr(NULL) )

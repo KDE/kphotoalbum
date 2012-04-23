@@ -25,6 +25,7 @@
 #include "ThumbnailView/enums.h"
 #include "DB/ImageInfo.h"
 #include "enums.h"
+#include <QPixmap>
 
 namespace ThumbnailView
 {
@@ -73,6 +74,7 @@ public:
     void setImageList(const DB::IdList& list);
     DB::IdList imageList(Order) const;
     int imageCount() const;
+    void setOverrideImage( const DB::Id& id, const QPixmap& pixmap );
 
     //-------------------------------------------------- Misc.
     void updateDisplayModel();
@@ -139,6 +141,9 @@ private: // Instance variables.
 
     int _firstVisibleRow;
     int _lastVisibleRow;
+
+    DB::Id m_overrideId;
+    QPixmap m_overrideImage;
 };
 
 }

@@ -1,3 +1,21 @@
+/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
+*/
+
 #include "VideoThumbnailCycler.h"
 #include <QDebug>
 #include <DB/ImageInfoPtr.h>
@@ -6,12 +24,15 @@
 #include <ImageManager/VideoThumbnailsExtractor.h>
 #include <Utilities/Util.h>
 #include <QTimer>
+#include <ImageManager/VideoThumbnails.h>
+#include "ThumbnailModel.h"
 
-ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(QObject *parent) :
-    QObject(parent)
+ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
+    QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)
 {
     m_timer = new QTimer(this);
     connect( m_timer, SIGNAL(timeout()), this, SLOT(updateThumbnail()));
+    connect(m_thumbnails, SIGNAL(frameLoaded(QImage)), this, SLOT(gotFrame(QImage)));
 }
 
 void ThumbnailView::VideoThumbnailCycler::setActiveId(const DB::Id &id)
@@ -29,12 +50,15 @@ void ThumbnailView::VideoThumbnailCycler::setActiveId(const DB::Id &id)
 
 void ThumbnailView::VideoThumbnailCycler::updateThumbnail()
 {
-    qDebug("Cycling %s", qPrintable(fileNameForId(m_id)));
-    //    const QString fileName = info->fileName(DB::AbsolutePath);
-//    if ( Utilities::isVideo(fileName)) {
-//        qDebug() << fileName;
-//        //        new ImageManager::VideoThumbnailsExtractor(fileName);
-//    }
+    m_index++;
+    m_index = m_index % 10;
+    m_thumbnails->requestFrame(m_index);
+}
+
+void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
+{
+    QImage img = image.scaled(265, 265*3/4);
+    m_model->setOverrideImage(m_id, QPixmap::fromImage(img));
 }
 
 void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
@@ -42,7 +66,7 @@ void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
     if ( m_id.isNull() || !isVideo(m_id) )
         return;
 
-    qDebug("Resting %s", qPrintable(fileNameForId(m_id)));
+    m_model->setOverrideImage(m_id,QPixmap());
 }
 
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const
@@ -58,8 +82,10 @@ QString ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) con
 
 void ThumbnailView::VideoThumbnailCycler::startCycle()
 {
+    m_thumbnails->setVideoFile(fileNameForId(m_id));
+    m_thumbnails->requestFrame(0);
     m_index = 0;
-    m_timer->start(1000);
+    m_timer->start(500);
 }
 
 void ThumbnailView::VideoThumbnailCycler::stopCycle()

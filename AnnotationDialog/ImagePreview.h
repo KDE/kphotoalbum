@@ -20,13 +20,13 @@
 #define IMAGEPREVIEW_H
 #include <QLabel>
 #include "DB/ImageInfo.h"
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 class QResizeEvent;
 
 namespace AnnotationDialog
 {
 
-class ImagePreview :public QLabel, public ImageManager::ImageClient {
+class ImagePreview :public QLabel, public ImageManager::ImageClientInterface {
     Q_OBJECT
 public:
     ImagePreview( QWidget* parent );
@@ -66,7 +66,7 @@ protected:
         int _angle;
     };
 
-    class PreviewLoader : public ImageManager::ImageClient, public PreviewImage  {
+    class PreviewLoader : public ImageManager::ImageClientInterface, public PreviewImage  {
     public:
         void preloadImage( const QString& fileName, int width, int height, int angle);
         void cancelPreload();

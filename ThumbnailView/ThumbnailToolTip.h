@@ -21,14 +21,14 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <QEvent>
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 namespace DB { class ImageInfo; }
 
 namespace ThumbnailView
 {
 class ThumbnailWidget;
 
-class ThumbnailToolTip :public QLabel, public ImageManager::ImageClient {
+class ThumbnailToolTip :public QLabel, public ImageManager::ImageClientInterface {
     Q_OBJECT
 
 public:

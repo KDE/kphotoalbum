@@ -20,7 +20,7 @@
 
 #include <DB/CategoryPtr.h>
 #include <qstring.h>
-#include <ImageManager/ImageClient.h>
+#include <ImageManager/ImageClientInterface.h>
 #include <QProgressDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include "Setup.h"
@@ -35,7 +35,7 @@ namespace HTMLGenerator
 {
 using Utilities::StringSet;
 
-class Generator :public QProgressDialog, private ImageManager::ImageClient
+class Generator :public QProgressDialog, private ImageManager::ImageClientInterface
 {
     Q_OBJECT
 

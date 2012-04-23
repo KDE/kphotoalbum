@@ -20,7 +20,7 @@
 #define VIDEOIMAGERESCALEREQUEST_H
 
 #include "ImageRequest.h"
-#include "ImageClient.h"
+#include "ImageClientInterface.h"
 
 namespace ImageManager
 {

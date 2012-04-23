@@ -18,7 +18,7 @@
 #include <kdeversion.h>
 #include "VideoManager.h"
 #include "ImageManager/ThumbnailCache.h"
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include <kurl.h>
 #include "ImageRequest.h"
 #include "Utilities/Util.h"
@@ -67,7 +67,7 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     _currentRequest = request;
 #if KDE_IS_VERSION(4,7,0)
     KFileItemList list;
-    list.append( 
+    list.append(
 			KFileItem( KFileItem::Unknown /* mode */
 				, KFileItem::Unknown /* permissions */
 				, request->databaseFileName() )
@@ -126,7 +126,7 @@ void ImageManager::VideoManager::requestLoadNext()
         load( _currentRequest );
 }
 
-void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
+void ImageManager::VideoManager::stop( ImageClientInterface* client, StopAction action )
 {
     _pending.cancelRequests( client, action );
 }
@@ -136,7 +136,7 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 {
 #if KDE_IS_VERSION(4,7,0)
     KFileItemList list;
-    list.append( 
+    list.append(
 			KFileItem( KFileItem::Unknown /* mode */
 				, KFileItem::Unknown /* permissions */
 				, Utilities::locateDataFile(QString::fromLatin1("demo/movie.avi")) )

@@ -20,7 +20,7 @@
 #include <KIcon>
 #include "ThumbnailCache.h"
 #include "ImageLoaderThread.h"
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include "Utilities/Util.h"
 #include "VideoManager.h"
 
@@ -94,7 +94,7 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
         _sleepers.wakeOne();
 }
 
-void ImageManager::AsyncLoader::stop( ImageClient* client, StopAction action )
+void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction action )
 {
     // remove from pending map.
     _lock.lock();

@@ -22,7 +22,7 @@
 #include <QList>
 #include <QProgressDialog>
 #include <QImage>
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include "DB/ImageInfoPtr.h"
 #include "enums.h"
 
@@ -34,7 +34,7 @@ class QTimer;
 namespace ImageManager
 {
 
-class ThumbnailBuilder :public QObject, public ImageManager::ImageClient {
+class ThumbnailBuilder :public QObject, public ImageManager::ImageClientInterface {
     Q_OBJECT
 
 public:

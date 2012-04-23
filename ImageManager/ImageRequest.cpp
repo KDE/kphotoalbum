@@ -19,7 +19,7 @@
 
 ImageManager::ImageRequest::ImageRequest( const QString& fileName,
                                           const QSize& size, int angle,
-                                          ImageManager::ImageClient* client )
+                                          ImageManager::ImageClientInterface* client )
     : _null( false ),
       _fileName( fileName ),
       _width( size.width() ),
@@ -77,7 +77,7 @@ bool ImageManager::ImageRequest::operator==( const ImageRequest& other ) const
              _priority == other._priority );
 }
 
-ImageManager::ImageClient* ImageManager::ImageRequest::client() const
+ImageManager::ImageClientInterface* ImageManager::ImageRequest::client() const
 {
     return _client;
 }

@@ -30,7 +30,7 @@ namespace ImageManager
 {
 
 class ImageRequest;
-class ImageClient;
+class ImageClientInterface;
 class ImageLoaderThread;
 
 // This class needs to inherit QObject to be capable of receiving events.
@@ -45,7 +45,7 @@ public:
     void load( ImageRequest* request );
 
     // Stop loading all images requested by the given client.
-    void stop( ImageClient*, StopAction action = StopAll );
+    void stop( ImageClientInterface*, StopAction action = StopAll );
 
 protected:
     virtual void customEvent( QEvent* ev );

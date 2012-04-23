@@ -29,7 +29,7 @@ class KFileItem;
 
 namespace ImageManager
 {
-class ImageClient;
+class ImageClientInterface;
 class ImageRequest;
 
 class VideoManager :public QObject
@@ -39,7 +39,7 @@ class VideoManager :public QObject
 public:
     static VideoManager& instance();
     void request( ImageRequest* request );
-    void stop( ImageClient*, StopAction action );
+    void stop( ImageClientInterface*, StopAction action );
     bool hasVideoThumbnailSupport() const;
     void removeFullScaleFrame( const QString& fileName );
     static void saveFullScaleFrame( const QString& fileName, const QImage& image );

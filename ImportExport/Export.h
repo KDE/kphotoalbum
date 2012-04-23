@@ -19,7 +19,7 @@
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
 
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include <KDialog>
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
@@ -38,7 +38,7 @@ namespace ImportExport
 
 enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link, Symlink };
 
-class Export :public ImageManager::ImageClient {
+class Export :public ImageManager::ImageClientInterface {
 
 public:
     static void imageExport(const DB::IdList& list);

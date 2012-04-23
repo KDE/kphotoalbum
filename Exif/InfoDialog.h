@@ -20,7 +20,7 @@
 #include <KDialog>
 #include <q3gridview.h>
 #include "Utilities/Set.h"
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 class KComboBox;
 class QLabel;
 class QKeyEvent;
@@ -33,7 +33,7 @@ namespace Exif
 using Utilities::StringSet;
 class Grid;
 
-class InfoDialog : public KDialog, public ImageManager::ImageClient {
+class InfoDialog : public KDialog, public ImageManager::ImageClientInterface {
     Q_OBJECT
 
 public:

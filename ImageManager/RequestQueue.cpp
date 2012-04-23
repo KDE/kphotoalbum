@@ -17,7 +17,7 @@
 */
 #include "RequestQueue.h"
 #include "ImageRequest.h"
-#include "ImageClient.h"
+#include "ImageClientInterface.h"
 #include "CancelEvent.h"
 #include <QApplication>
 #include "AsyncLoader.h"
@@ -62,7 +62,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
     return NULL;
 }
 
-void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction action )
+void ImageManager::RequestQueue::cancelRequests( ImageClientInterface* client, StopAction action )
 {
     // remove from active map
     for( QSet<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {

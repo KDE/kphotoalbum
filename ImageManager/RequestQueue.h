@@ -25,7 +25,7 @@
 
 namespace ImageManager
 {
-class ImageClient;
+class ImageClientInterface;
 
 // RequestQueue for ImageRequests. Non-synchronized, locking has to be
 // provided by the user.
@@ -46,7 +46,7 @@ public:
     ImageRequest* popNext();
 
     // Remove all pending requests from the given client.
-    void cancelRequests( ImageClient* client, StopAction action );
+    void cancelRequests( ImageClientInterface* client, StopAction action );
 
     bool isRequestStillValid( ImageRequest* request );
     void removeRequest( ImageRequest* );

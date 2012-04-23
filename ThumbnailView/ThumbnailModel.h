@@ -17,7 +17,7 @@
 */
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include "ImageManager/ImageRequest.h"
 #include <QAbstractListModel>
 #include "ThumbnailComponent.h"
@@ -30,7 +30,7 @@ namespace ThumbnailView
 {
 class ThumbnailFactory;
 
-class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClient, private ThumbnailComponent
+class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClientInterface, private ThumbnailComponent
 {
     Q_OBJECT
 

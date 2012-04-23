@@ -22,7 +22,7 @@
 #include <QResizeEvent>
 #include <QMouseEvent>
 #include <QPaintEvent>
-#include "ImageManager/ImageClient.h"
+#include "ImageManager/ImageClientInterface.h"
 #include <qimage.h>
 #include <q3ptrvector.h>
 #include "DB/ImageInfoPtr.h"
@@ -50,7 +50,7 @@ struct ViewPreloadInfo
     int angle;
 };
 
-class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageClient {
+class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageClientInterface {
 Q_OBJECT
 public:
     ImageDisplay( QWidget* parent );

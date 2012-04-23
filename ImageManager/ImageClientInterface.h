@@ -16,10 +16,34 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageClient.h"
-#include "AsyncLoader.h"
+#ifndef IMAGECLIENTINTERFACE_H
+#define IMAGECLIENTINTERFACE_H
+class QSize;
+class QImage;
+class QString;
 
-ImageManager::ImageClient::~ImageClient()
+namespace ImageManager
 {
-    AsyncLoader::instance()->stop( this );
+
+/**
+ * An ImageClient is part of the ImageRequest and is called back when
+ * an image has been loaded.
+ */
+class ImageClientInterface {
+public:
+    virtual ~ImageClientInterface();
+
+    /**
+     * Callback on loaded image.
+     */
+    virtual void pixmapLoaded( const QString& fileName,
+                               const QSize& size, const QSize& fullSize,
+                               int angle, const QImage& image,
+                               const bool loadedOK) = 0;
+    virtual void requestCanceled() {}
+};
+
 }
+
+#endif /* IMAGECLIENTINTERFACE_H */
+

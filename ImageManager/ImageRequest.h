@@ -32,11 +32,11 @@
 
 namespace ImageManager
 {
-class ImageClient;
+class ImageClientInterface;
 
 class ImageRequest {
 public:
-    ImageRequest( const QString& fileName, const QSize& size, int angle, ImageClient* client);
+    ImageRequest( const QString& fileName, const QSize& size, int angle, ImageClientInterface* client);
     virtual ~ImageRequest() {}
 
     bool isNull() const;
@@ -60,7 +60,7 @@ public:
     QSize size() const;
     int angle() const;
 
-    ImageClient* client() const;
+    ImageClientInterface* client() const;
 
     QSize fullSize() const;
     void setFullSize( const QSize& );
@@ -87,7 +87,7 @@ private:
 
     int _width;
     int _height;
-    ImageClient* _client;
+    ImageClientInterface* _client;
     int _angle;
     QSize _fullSize;
     Priority _priority;

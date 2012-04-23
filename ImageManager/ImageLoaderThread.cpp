@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageLoader.h"
+#include "ImageLoaderThread.h"
 #include "ThumbnailCache.h"
 
 #include "ImageDecoder.h"
@@ -50,7 +50,7 @@ namespace ImageManager
 
 
 
-void ImageManager::ImageLoader::run()
+void ImageManager::ImageLoaderThread::run()
 {
     while ( true ) {
         ImageRequest* request = AsyncLoader::instance()->next();
@@ -69,7 +69,7 @@ void ImageManager::ImageLoader::run()
     }
 }
 
-QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
+QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& ok )
 {
     int dim = calcLoadSize( request );
     QSize fullSize;
@@ -106,12 +106,12 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 }
 
 
-int ImageManager::ImageLoader::calcLoadSize( ImageRequest* request )
+int ImageManager::ImageLoaderThread::calcLoadSize( ImageRequest* request )
 {
     return qMax( request->width(), request->height() );
 }
 
-QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
+QImage ImageManager::ImageLoaderThread::scaleAndRotate( ImageRequest* request, QImage img )
 {
     if ( request->angle() != 0 )  {
         QMatrix matrix;
@@ -130,7 +130,7 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
     return img;
 }
 
-bool ImageManager::ImageLoader::shouldImageBeScale( const QImage& img, ImageRequest* request )
+bool ImageManager::ImageLoaderThread::shouldImageBeScale( const QImage& img, ImageRequest* request )
 {
     // No size specified, meaning we want it full size.
     if ( request->width() == -1 )

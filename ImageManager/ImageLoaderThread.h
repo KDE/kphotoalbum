@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef IMAGELOADER_H
-#define IMAGELOADER_H
+#ifndef IMAGELOADERTHREAD_H
+#define IMAGELOADERTHREAD_H
 
 #include <qthread.h>
 #include <QImage>
@@ -28,7 +28,7 @@ class AsyncLoader;
 class ImageRequest;
 class ThumbnailStorage;
 
-class ImageLoader :public QThread {
+class ImageLoaderThread :public QThread {
 protected:
     virtual void run();
     QImage loadImage( ImageRequest* request, bool& ok );
@@ -39,5 +39,5 @@ protected:
 
 }
 
-#endif /* IMAGELOADER_H */
+#endif /* IMAGELOADERTHREAD_H */
 

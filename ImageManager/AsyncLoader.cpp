@@ -19,7 +19,7 @@
 #include "AsyncLoader.h"
 #include <KIcon>
 #include "ThumbnailCache.h"
-#include "ImageLoader.h"
+#include "ImageLoaderThread.h"
 #include "ImageManager/ImageClient.h"
 #include "Utilities/Util.h"
 #include "VideoManager.h"
@@ -58,7 +58,7 @@ void ImageManager::AsyncLoader::init()
     const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount() ) );
 
     for ( int i = 0; i < cores; ++i) {
-        ImageLoader* imageLoader = new ImageLoader();
+        ImageLoaderThread* imageLoader = new ImageLoaderThread();
         // The thread is set to the lowest priority to ensure that it doesn't starve the GUI thread.
         imageLoader->start( QThread::IdlePriority );
     }

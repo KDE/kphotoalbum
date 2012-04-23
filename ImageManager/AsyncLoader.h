@@ -31,7 +31,7 @@ namespace ImageManager
 
 class ImageRequest;
 class ImageClient;
-class ImageLoader;
+class ImageLoaderThread;
 
 // This class needs to inherit QObject to be capable of receiving events.
 class AsyncLoader :public QObject {
@@ -53,7 +53,7 @@ protected:
     void loadImage( ImageRequest* );
 
 private:
-    friend class ImageLoader;  // may call 'next()'
+    friend class ImageLoaderThread;  // may call 'next()'
     void init();
 
     ImageRequest* next();

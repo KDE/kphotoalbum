@@ -137,6 +137,7 @@ public:
     property_copy( showDescription          , setShowDescription          , bool             );
     property_copy( showDate                 , setShowDate                 , bool             );
     property_copy( showImageSize            , setShowImageSize            , bool             );
+    property_copy( showRating               , setShowRating               , bool             );
     property_copy( showTime                 , setShowTime                 , bool             );
     property_copy( showFilename             , setShowFilename             , bool             );
     property_copy( showEXIF                 , setShowEXIF                 , bool             );

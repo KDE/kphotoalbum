@@ -106,6 +106,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                         &result);
     }
 
+    /* XXX */
     if ( Settings::SettingsData::instance()->showImageSize() && info->mediaType() == DB::Image)  {
         const QSize imageSize = info->size();
         // Do not add -1 x -1 text
@@ -124,7 +125,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     }
 
 #ifdef HAVE_NEPOMUK
-    if ( true /* FIXME */ ) {
+    if ( Settings::SettingsData::instance()->showRating() ) {
         if ( info->rating() != -1 ) {
             if ( ! result.isEmpty() )
                 result += QString::fromLatin1("<br/>");

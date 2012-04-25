@@ -46,6 +46,7 @@ private slots:
     void toggleShowFilename( bool );
     void toggleShowEXIF( bool );
     void toggleShowImageSize( bool );
+    void toggleShowRating( bool );
 
 private:
     KToggleAction* _showInfoBox;
@@ -56,6 +57,7 @@ private:
     KToggleAction* _showFileName;
     KToggleAction* _showExif;
     KToggleAction* _showImageSize;
+    KToggleAction* _showRating;
     QList<KToggleAction*> _actionList;
 };
 

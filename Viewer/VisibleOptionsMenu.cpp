@@ -80,6 +80,11 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
     connect( _showImageSize, SIGNAL( toggled(bool) ), this, SLOT( toggleShowImageSize( bool ) ) );
     addAction( _showImageSize );
 
+    _showRating = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-rating") );
+    _showRating->setText( i18n("Show Rating") );
+    connect( _showRating, SIGNAL( toggled(bool) ), this, SLOT( toggleShowRating( bool ) ) );
+    addAction( _showRating );
+
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         KToggleAction* taction = actions->add<KToggleAction>( (*it)->name() );
@@ -141,6 +146,12 @@ void Viewer::VisibleOptionsMenu::toggleShowImageSize( bool b )
     emit visibleOptionsChanged();
 }
 
+void Viewer::VisibleOptionsMenu::toggleShowRating( bool b )
+{
+    Settings::SettingsData::instance()->setShowRating( b );
+    emit visibleOptionsChanged();
+}
+
 void Viewer::VisibleOptionsMenu::toggleShowInfoBox( bool b )
 {
     Settings::SettingsData::instance()->setShowInfoBox( b );
@@ -157,6 +168,7 @@ void Viewer::VisibleOptionsMenu::updateState()
     _showFileName->setChecked( Settings::SettingsData::instance()->showFilename() );
     _showExif->setChecked( Settings::SettingsData::instance()->showEXIF() );
     _showImageSize->setChecked( Settings::SettingsData::instance()->showImageSize() );
+    _showRating->setChecked( Settings::SettingsData::instance()->showRating() );
 
     Q_FOREACH( KToggleAction* action, _actionList ) {
         action->setChecked( DB::ImageDB::instance()->categoryCollection()->categoryForName(action->data().value<QString>())->doShow() );

@@ -263,6 +263,7 @@ property_copy( showLabel                , setShowLabel                , bool    
 property_copy( showDescription          , setShowDescription          , bool            , Viewer, true           )
 property_copy( showDate                 , setShowDate                 , bool            , Viewer, true           )
 property_copy( showImageSize            , setShowImageSize            , bool            , Viewer, true           )
+property_copy( showRating               , setShowRating                , bool            , Viewer, true           )
 property_copy( showTime                 , setShowTime                 , bool            , Viewer, true           )
 property_copy( showFilename             , setShowFilename             , bool            , Viewer, false          )
 property_copy( showEXIF                 , setShowEXIF                 , bool            , Viewer, true           )

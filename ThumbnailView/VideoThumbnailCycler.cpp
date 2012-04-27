@@ -41,11 +41,11 @@ void ThumbnailView::VideoThumbnailCycler::setActiveId(const DB::Id &id)
         return;
 
     resetPreviousThumbail();
+    stopCycle();
+
     m_id = id;
-    if ( isVideo(m_id) )
+    if ( !m_id.isNull() && isVideo(m_id) )
         startCycle();
-    else
-        stopCycle();
 }
 
 void ThumbnailView::VideoThumbnailCycler::updateThumbnail()

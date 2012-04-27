@@ -278,7 +278,7 @@ void Utilities::copyList( const QStringList& from, const QString& directoryTo )
 
 QString Utilities::setupDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( qgetenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ));
     QFileInfo fi(dir);
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir );
@@ -595,7 +595,7 @@ bool Utilities::runningDemo()
 
 void Utilities::deleteDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( qgetenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ) );
     KUrl url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );

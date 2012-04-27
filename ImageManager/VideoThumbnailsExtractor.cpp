@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QImage>
+#include <QDir>
 
 #define STR(x) QString::fromUtf8(x)
 
@@ -10,7 +11,7 @@ ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const QString&
     :m_fileName(fileName)
 {
     m_process = new QProcess;
-    m_process->setWorkingDirectory(STR("/tmp")); // PENDING(blackie) there gotta be a service for telling me where that is.
+    m_process->setWorkingDirectory(QDir::tempPath());
     connect( m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStandardError()));
     connect( m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStandardOutput()));
     connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
@@ -49,7 +50,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 
 void ImageManager::VideoThumbnailsExtractor::frameFetched()
 {
-    QImage image(STR("/tmp/00000001.png"));
+    QImage image(QDir::tempPath() + STR("/00000001.png"));
     emit frameLoaded(m_frameNumber, image);
     requestNextFrame();
 }

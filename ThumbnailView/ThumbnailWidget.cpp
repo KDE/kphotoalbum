@@ -370,15 +370,20 @@ DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMo
     DB::IdList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
         DB::Id currId = model()->imageAt( index.row() );
+        bool includeAllStacks = false;
         switch ( mode )
         {
+            case IncludeAllStacks:
+                includeAllStacks = true;
+                // no break!
             case ExpandCollapsedStacks:
                 {
                     // if the selected image belongs to a collapsed thread,
                     // imply that all images in the stack are selected:
                     DB::ImageInfoPtr imageInfo = currId.fetchInfo();
                     if ( imageInfo && imageInfo->isStacked()
-                            && ! model()->isItemInExpandedStack( imageInfo->stackId() ) )
+                            && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) ) 
+                            )
                     {
                         // add all images in the same stack
                         DB::IdList stack = DB::ImageDB::instance()->getStackFor( currId );

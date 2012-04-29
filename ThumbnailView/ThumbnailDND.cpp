@@ -97,11 +97,13 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
               "<b>Images -&gt; Sort Selected By Date and Time</b>.</p>" );
 
     if ( KMessageBox::questionYesNo( widget(), msg, i18n("Reorder Thumbnails") , KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                     QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
+                                     QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes )
+    {
+        // expand selection so that stacks are always selected as a whole:
+        const DB::IdList selected = widget()->selection( IncludeAllStacks );
 
         // protect against self drop
-        if ( !widget()->isSelected( model()->leftDropItem() ) && ! widget()->isSelected( model()->rightDropItem() ) ) {
-            const DB::IdList selected = widget()->selection( ExpandCollapsedStacks );
+        if ( selected.indexOf( model()->leftDropItem() ) == -1 && selected.indexOf( model()->rightDropItem() ) == -1 ) {
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );
@@ -133,3 +135,5 @@ void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * even
     else
         event->ignore();
 }
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

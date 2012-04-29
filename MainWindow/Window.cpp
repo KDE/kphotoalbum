@@ -546,10 +546,10 @@ void MainWindow::Window::slotAutoStackImages()
     delete stacker;
 }
 
-DB::IdList MainWindow::Window::selected()
+DB::IdList MainWindow::Window::selected( ThumbnailView::SelectionMode mode)
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
-        return _thumbnailView->selection();
+        return _thumbnailView->selection(mode);
     else
         return DB::IdList();
 }
@@ -581,7 +581,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    launchViewer( selected(), reuse, slideShow, random );
+    launchViewer( selected( ThumbnailView::NoExpandCollapsedStacks ), reuse, slideShow, random );
 }
 
 void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reuse, bool slideShow, bool random)

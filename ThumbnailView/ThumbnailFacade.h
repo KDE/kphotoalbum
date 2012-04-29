@@ -36,7 +36,7 @@ public:
     QWidget* gui();
     void setCurrentItem( const DB::Id& id );
     void reload( SelectionUpdateMethod method );
-    DB::IdList selection() const;
+    DB::IdList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
     DB::IdList imageList(Order) const;
     DB::Id mediaIdUnderCursor() const;
     DB::Id currentItem() const;

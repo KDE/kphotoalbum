@@ -74,9 +74,9 @@ void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
     _widget->reload( method );
 }
 
-DB::IdList ThumbnailView::ThumbnailFacade::selection() const
+DB::IdList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
 {
-    return _widget->selection();
+    return _widget->selection(mode);
 }
 
 DB::IdList ThumbnailView::ThumbnailFacade::imageList(Order order) const
@@ -166,7 +166,7 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::Id& id, widget()->selection() ) {
+    Q_FOREACH( const DB::Id& id, widget()->selection( NoExpandCollapsedStacks ) ) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         const QString fileName = info->fileName(DB::AbsolutePath);
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );

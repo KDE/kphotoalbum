@@ -101,7 +101,7 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
         // protect against self drop
         if ( !widget()->isSelected( model()->leftDropItem() ) && ! widget()->isSelected( model()->rightDropItem() ) ) {
-            const DB::IdList selected = widget()->selection();
+            const DB::IdList selected = widget()->selection( ExpandCollapsedStacks );
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );

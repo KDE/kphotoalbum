@@ -59,7 +59,7 @@ public:
     // Misc
     int cellWidth() const;
     OVERRIDE void showEvent( QShowEvent* );
-    DB::IdList selection() const;
+    DB::IdList selection( ThumbnailView::SelectionMode mode ) const;
     bool isSelected( const DB::Id& id ) const;
     void select( const DB::IdList& );
 

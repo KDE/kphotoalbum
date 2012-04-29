@@ -263,7 +263,7 @@ void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
     cellGeometryInfo()->flushCache();
     updatePalette();
 
-    const DB::IdList selectedItems = selection();
+    const DB::IdList selectedItems = selection( NoExpandCollapsedStacks );
     ThumbnailComponent::model()->reset();
 
     if ( method == ClearSelection )
@@ -338,7 +338,7 @@ int ThumbnailView::ThumbnailWidget::cellWidth() const
 
 void ThumbnailView::ThumbnailWidget::emitSelectionChangedSignal()
 {
-    emit selectionCountChanged( selectionModel()->selectedIndexes().count() );
+    emit selectionCountChanged( selection( ExpandCollapsedStacks ).size() );
 }
 
 void ThumbnailView::ThumbnailWidget::scheduleDateChangeSignal()
@@ -365,18 +365,40 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )
     QListView::showEvent( event );
 }
 
-DB::IdList ThumbnailView::ThumbnailWidget::selection() const
+DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMode mode ) const
 {
     DB::IdList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
-        res.append(model()->imageAt( index.row() ));
+        DB::Id currId = model()->imageAt( index.row() );
+        switch ( mode )
+        {
+            case ExpandCollapsedStacks:
+                {
+                    // if the selected image belongs to a collapsed thread,
+                    // imply that all images in the stack are selected:
+                    DB::ImageInfoPtr imageInfo = currId.fetchInfo();
+                    if ( imageInfo && imageInfo->isStacked()
+                            && ! model()->isItemInExpandedStack( imageInfo->stackId() ) )
+                    {
+                        // add all images in the same stack
+                        DB::IdList stack = DB::ImageDB::instance()->getStackFor( currId );
+                        Q_FOREACH( const DB::Id & id, stack )
+                            res.append(id);
+                    } else
+                        res.append(currId);
+                } 
+                break;
+            case NoExpandCollapsedStacks:
+                res.append(currId);
+                break;
+        }
     }
     return res;
 }
 
 bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
 {
-    return selectedIndexes().contains( model()->idToIndex(id) );
+    return selection( NoExpandCollapsedStacks ).indexOf( id ) != -1;
 }
 
 /**
@@ -386,7 +408,7 @@ bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
 */
 void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::Id& id)
 {
-    if ( selection().size() == 1 ) {
+    if ( selection( NoExpandCollapsedStacks ).size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();
         selection->select( model()->idToIndex(id), QItemSelectionModel::ClearAndSelect );
         setCurrentItem( id );
@@ -399,3 +421,4 @@ void ThumbnailView::ThumbnailWidget::select(const DB::IdList& items )
         selectionModel()->select(model()->idToIndex(id), QItemSelectionModel::Select );
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

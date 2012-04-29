@@ -30,6 +30,7 @@ enum VisibleState { FullyVisible, PartlyVisible };
 typedef QSet<DB::Id> IdSet;
 
 enum SelectionUpdateMethod { ClearSelection, MaintainSelection };
+enum SelectionMode { NoExpandCollapsedStacks, ExpandCollapsedStacks };
 
 }
 

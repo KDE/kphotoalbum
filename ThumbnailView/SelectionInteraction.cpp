@@ -60,7 +60,7 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     KUrl::List urls;
-    Q_FOREACH(DB::ImageInfoPtr info, widget()->selection().fetchInfos()) {
+    Q_FOREACH(DB::ImageInfoPtr info, widget()->selection( NoExpandCollapsedStacks ).fetchInfos()) {
         const QString fileName = info->fileName(DB::AbsolutePath);
         urls.append( fileName );
     }

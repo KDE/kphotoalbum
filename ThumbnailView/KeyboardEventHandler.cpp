@@ -38,7 +38,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        const DB::IdList selection = widget()->selection();
+        const DB::IdList selection = widget()->selection( NoExpandCollapsedStacks );
         for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
             DB::ImageInfoPtr info = (*it).fetchInfo();
             if ( ! hadHit ) {
@@ -61,7 +61,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            const DB::IdList selection = widget()->selection();
+            const DB::IdList selection = widget()->selection( NoExpandCollapsedStacks );
             for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
                 DB::ImageInfoPtr info = (*it).fetchInfo();
                 info->setRating(rating * 2);

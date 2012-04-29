@@ -22,7 +22,7 @@ ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget,
 {
     m_currentItem = widget->currentItem();
     m_currentRow = widget->currentIndex().row();
-    m_selectedItems = widget->selection();
+    m_selectedItems = widget->selection( NoExpandCollapsedStacks );
     if ( m_selectedItems.isEmpty())
         m_firstRow = -1;
     else

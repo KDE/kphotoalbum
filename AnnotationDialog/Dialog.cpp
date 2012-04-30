@@ -430,8 +430,10 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     _megapixel->setVisible( show );
     _megapixelLabel->setVisible( show );
     _searchRAW->setVisible( show );
+#ifdef HAVE_NEPOMUK
     _ratingSearchMode->setVisible( show );
     _ratingSearchLabel->setVisible( show );
+#endif
 }
 
 
@@ -542,10 +544,10 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
           _oldSearch.setRating( _rating->rating() );
 
         _ratingChanged = false;
+        _oldSearch.setSearchMode( _ratingSearchMode->currentIndex() );
 #endif
 	_oldSearch.setMegaPixel( _megapixel->value() );
 	_oldSearch.setSearchRAW( _searchRAW->isChecked() );
-	_oldSearch.setSearchMode( _ratingSearchMode->currentIndex() );
         return _oldSearch;
     }
     else

@@ -565,7 +565,7 @@ void MainWindow::Window::slotViewNewWindow()
  * */
 DB::IdList MainWindow::Window::selectedOnDisk()
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = selected( ThumbnailView::NoExpandCollapsedStacks );
     if (list.isEmpty())
         return DB::ImageDB::instance()->currentScope( true );
 

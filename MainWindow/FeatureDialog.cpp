@@ -121,8 +121,10 @@ void HelpBrowser::setSource( const QUrl& url )
 {
     const QString name = url.toString();
 
-    if ( name.startsWith( QString::fromLatin1( "#" ) ) )
-        KTextBrowser::setSource( name );
+    if ( name.startsWith( QString::fromLatin1( "#" ) ) ) {
+        // Must be QTextBrowser rather than KTextBrowser, as KTextBrowser opens the URL in an external browser, rather than jumping to the target.
+        QTextBrowser::setSource( name );
+    }
     else
         KToolInvocation::invokeBrowser( name );
 }

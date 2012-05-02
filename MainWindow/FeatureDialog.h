@@ -31,13 +31,13 @@ public:
     static bool hasAllFeaturesAvailable();
     static QString featureString();
     static QStringList supportedVideoMimeTypes();
+    static QString mplayerBinary();
 
 protected:
     static bool hasKIPISupport();
     static bool hasSQLDBSupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
-    static QString mplayerBinary();
 };
 
 class HelpBrowser :public KTextBrowser

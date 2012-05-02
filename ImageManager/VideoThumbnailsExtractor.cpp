@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QImage>
 #include <QDir>
+#include <MainWindow/FeatureDialog.h>
 
 #define STR(x) QString::fromUtf8(x)
 
@@ -22,8 +23,10 @@ void ImageManager::VideoThumbnailsExtractor::requestVideoLength()
 {
     m_state = FetchingLength;
     QStringList arguments;
+
+    // PENDING(blackie) Handle situation where the binary is not there!
     arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null") << STR("-vo") << STR("null") << STR("-ao") << STR("null") << m_fileName;
-    m_process->start(STR("mplayer"), arguments);
+    m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }
 
 void ImageManager::VideoThumbnailsExtractor::requestFrames()
@@ -45,7 +48,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     QStringList arguments;
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf") << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName;
 
-    m_process->start(STR("mplayer"), arguments);
+    m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }
 
 void ImageManager::VideoThumbnailsExtractor::frameFetched()

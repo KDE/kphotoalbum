@@ -31,6 +31,7 @@ namespace XMLDB {
         virtual DB::CategoryPtr categoryForName( const QString& name ) const;
         void addCategory( DB::CategoryPtr );
         virtual QStringList categoryNames() const;
+        virtual QStringList categoryTexts() const;
         virtual void removeCategory( const QString& name );
         virtual void rename( const QString& oldName, const QString& newName );
         virtual QList<DB::CategoryPtr> categories() const;

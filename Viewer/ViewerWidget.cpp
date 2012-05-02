@@ -1107,7 +1107,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
                 _currentInput.left(1) == QString::fromLatin1("\'")) {
                 _currentInput = _currentInput.right(_currentInput.length()-1);
             }
-            currentInfo()->addCategoryInfo( _currentCategory, _currentInput );
+            currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( _currentCategory ), _currentInput );
             DB::CategoryPtr category =
                 DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
             category->addItem(_currentInput);
@@ -1172,7 +1172,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         } else if (_currentCategory == QString::fromLatin1("")) {
             // still searching for a category to lock to
             _currentInput += incomingKey;
-            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryNames();
+            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryTexts();
             if (find_tag_in_list(categorynames, namefound) == 1) {
                 // yay, we have exactly one!
                 _currentCategory = namefound;
@@ -1183,14 +1183,14 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             _currentInput += incomingKey;
 
             DB::CategoryPtr category =
-                DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( DB::ImageDB::instance()->categoryCollection()->nameForText( _currentCategory ) );
             QStringList items = category->items();
             if (find_tag_in_list(items, namefound) == 1) {
                 // yay, we have exactly one!
-                if ( currentInfo()->hasCategoryInfo( _currentCategory, namefound ) )
-                    currentInfo()->removeCategoryInfo( _currentCategory, namefound );
+                if ( currentInfo()->hasCategoryInfo( category->name(), namefound ) )
+                    currentInfo()->removeCategoryInfo( category->name(), namefound );
                 else
-                    currentInfo()->addCategoryInfo( _currentCategory, namefound );
+                    currentInfo()->addCategoryInfo( category->name(), namefound );
 
                 _lastFound = namefound;
                 _lastCategory = _currentCategory;

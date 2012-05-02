@@ -24,7 +24,7 @@
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {
     for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
-        if ( (*it)->name() == name )
+        if ( (*it)->name() == name || (*it)->text() == name )
             return *it;
     }
     return DB::CategoryPtr();
@@ -44,6 +44,15 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames() const
     QStringList res;
     for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
         res.append( (*it)->name() );
+    }
+    return res;
+}
+
+QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
+{
+    QStringList res;
+    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+        res.append( (*it)->text() );
     }
     return res;
 }

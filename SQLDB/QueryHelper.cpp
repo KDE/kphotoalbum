@@ -219,6 +219,11 @@ QStringList QueryHelper::categoryNames() const
     return executeQuery("SELECT name FROM category").asList<QString>();
 }
 
+QStringList QueryHelper::categoryTexts() const
+{
+    return executeQuery("SELECT text FROM category").asList<QString>();
+}
+
 int QueryHelper::categoryId(const QString& category) const
 {
     QVariant r = executeQuery(

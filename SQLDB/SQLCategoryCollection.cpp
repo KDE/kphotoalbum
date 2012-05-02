@@ -70,6 +70,11 @@ QStringList SQLDB::SQLCategoryCollection::categoryNames() const
     return _specialCategoryNames + _qh.categoryNames();
 }
 
+QStringList SQLDB::SQLCategoryCollection::categoryTexts() const
+{
+    return _specialCategoryNames + _qh.categoryTexts();
+}
+
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
     if (_specialCategoryNames.contains(name))

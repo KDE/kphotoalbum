@@ -33,6 +33,7 @@ namespace SQLDB {
 
         virtual DB::CategoryPtr categoryForName(const QString& name) const;
         virtual QStringList categoryNames() const;
+        virtual QStringList categoryTexts() const;
         virtual void removeCategory( const QString& name );
         virtual void rename( const QString& oldName, const QString& newName );
         virtual QList<DB::CategoryPtr> categories() const;

@@ -64,6 +64,7 @@ public:
     QString mediaItemFilename(DB::RawId id) const;
 
     QStringList categoryNames() const;
+    QStringList categoryTexts() const;
 
     int categoryId(const QString& category) const;
 

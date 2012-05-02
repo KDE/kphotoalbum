@@ -28,6 +28,7 @@
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
 #include <phonon/backendcapabilities.h>
+#include <KStandardDirs>
 
 using namespace MainWindow;
 
@@ -58,7 +59,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
 
 
-    text += i18n( "<h1><a name=\"kipi\">Plug-ins Support</a></h1>"
+    text += i18n( "<h1><a name=\"kipi\">Plug-ins support</a></h1>"
                  "<p>KPhotoAlbum has a plug-in system with lots of extensions. You may among other things find plug-ins for:"
                   "<ul>"
                   "<li>Writing images to cds or dvd's</li>"
@@ -79,17 +80,17 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "to read EXIF information from images</p>" );
 
 
-    text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
+    text += i18n( "<h1><a name=\"database\">SQL database support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
-    text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
+    text += i18n("<h1><a name=\"thumbnails\">Video thumbnails support</a></h1>"
                  "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos.</p>"
                  "<p>Unfortunately KDE4 does currently not come with any plug-ins for this, you therefore need manually to install "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
 
-    text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
+    text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
                  "If this feature is not enabled for you, have a look at the "
                  "<a href=\"http://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki article on video support</a>.</p>");
@@ -100,6 +101,10 @@ FeatureDialog::FeatureDialog( QWidget* parent )
         text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there were missing codecs</p>");
     else
         text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeTypes.join(QString::fromLatin1( "<li>" ) ) );
+
+    text += i18n("<h1><a name=\"videoPreview\">Video preview</a></h1>"
+                 "<p>KPhotoAlbum uses <tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
+                 "videos in the thumbnail viewer.</p>");
 
     edit->setText( text );
 
@@ -159,6 +164,11 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 #endif
 }
 
+QString FeatureDialog::mplayerBinary()
+{
+    return KStandardDirs::findExe(QString::fromLatin1("mplayer"));
+}
+
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
@@ -180,12 +190,13 @@ QString MainWindow::FeatureDialog::featureString()
      QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
-    features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
-    features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
+    features << Data( i18n("SQL fatabase support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
+    features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "Video Thumbnail support" ), QString::fromLatin1("#thumbnails"),
+    features << Data( i18n( "Video thumbnail support" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
+    features << Data( i18n( "Video preview"), QString::fromLatin1("#videoPreview"), !mplayerBinary().isEmpty());
 
     QString result = QString::fromLatin1("<p><table>");
     const QString yes = i18n("Yes");

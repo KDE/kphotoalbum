@@ -31,6 +31,7 @@ ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
 void ImageManager::VideoThumbnails::setVideoFile(const QString &fileName)
 {
     delete m_extractor;
+    m_extractor = 0;
 
     m_videoFile = fileName;
     m_pendingRequest = 0;

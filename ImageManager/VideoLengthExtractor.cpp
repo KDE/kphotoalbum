@@ -25,15 +25,18 @@
 #define STR(x) QString::fromUtf8(x)
 
 ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
-    QObject(parent)
+    QObject(parent), m_process(0)
 {
-    m_process = new Utilities::Process(this);
-    m_process->setWorkingDirectory(QDir::tempPath());
-    connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
 }
 
 void ImageManager::VideoLengthExtractor::extract(const QString &fileName)
 {
+    delete m_process;
+
+    m_process = new Utilities::Process(this);
+    m_process->setWorkingDirectory(QDir::tempPath());
+    connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
+
     if (MainWindow::FeatureDialog::mplayerBinary().isEmpty()) {
         kWarning() << "mplayer not found. Unable to extract length of video file";
         emit unableToDetermineLength();

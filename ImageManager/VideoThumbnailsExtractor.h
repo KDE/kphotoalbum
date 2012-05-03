@@ -5,6 +5,8 @@
 class QProcess;
 class QImage;
 
+namespace Utilities { class Process; }
+
 namespace ImageManager
 {
 
@@ -13,30 +15,20 @@ class VideoThumbnailsExtractor :public QObject
 Q_OBJECT
 
 public:
-    VideoThumbnailsExtractor( const QString& fileName );
+    VideoThumbnailsExtractor( const QString& fileName, int videoLength );
 
 private slots:
-    void readStandardError();
-    void readStandardOutput();
-    void processEnded();
-    void extractVideoLength();
+    void frameFetched();
 
 signals:
     void frameLoaded(int index, const QImage& image );
 
 private:
-    void requestVideoLength();
-    void requestFrames();
     void requestNextFrame();
-    void frameFetched();
     void thumbnailRequestCompleted();
 
-    enum State { FetchingLength, ReadingFrames };
-
-    QProcess* m_process;
+    Utilities::Process* m_process;
     QString m_fileName;
-    QString m_stdout;
-    State m_state;
     double m_length;
     int m_frameNumber;
 };

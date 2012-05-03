@@ -25,6 +25,7 @@
 namespace ImageManager {
 
 class VideoThumbnailsExtractor;
+class VideoLengthExtractor;
 
 class VideoThumbnails : public QObject
 {
@@ -39,10 +40,12 @@ signals:
 
 private slots:
     void gotFrame(int index, const QImage& image );
+    void setLength(int length);
 
 private:
     QString m_videoFile;
     QVector<QImage> m_cache;
+    ImageManager::VideoLengthExtractor* m_lengthExtractor;
     ImageManager::VideoThumbnailsExtractor* m_extractor;
     int m_pendingRequest;
 };

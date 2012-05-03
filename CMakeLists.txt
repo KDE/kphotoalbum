@@ -163,6 +163,7 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Set.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
     )
 
 set(libMainWindow_SRCS
@@ -202,6 +203,7 @@ set(libImageManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoImageRescaleRequest.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailsExtractor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
 )
 
 set(libDB_SRCS 

@@ -18,22 +18,26 @@
 
 #include "VideoThumbnails.h"
 #include "VideoThumbnailsExtractor.h"
+#include "VideoLengthExtractor.h"
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
     QObject(parent), m_extractor(0)
 {
     m_cache.resize(10);
+    m_lengthExtractor = new VideoLengthExtractor(this);
+    connect( m_lengthExtractor, SIGNAL(lengthFound(int)), this, SLOT(setLength(int)));
 }
 
 void ImageManager::VideoThumbnails::setVideoFile(const QString &fileName)
 {
+    delete m_extractor;
+
     m_videoFile = fileName;
     m_pendingRequest = 0;
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
 
-    m_extractor = new ImageManager::VideoThumbnailsExtractor(fileName);
-    connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
+    m_lengthExtractor->extract(fileName);
 }
 
 void ImageManager::VideoThumbnails::requestFrame(int fraction)
@@ -49,4 +53,10 @@ void ImageManager::VideoThumbnails::gotFrame(int index, const QImage &image)
     m_cache[index]=image;
     if ( m_pendingRequest == index )
         emit frameLoaded(image);
+}
+
+void ImageManager::VideoThumbnails::setLength(int length)
+{
+    m_extractor = new ImageManager::VideoThumbnailsExtractor(m_videoFile, length);
+    connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
 }

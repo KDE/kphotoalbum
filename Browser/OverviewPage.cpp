@@ -286,7 +286,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
                                        "<li>From there choose <b>Configure KPhotoAlbum</b></li>"
                                        "<li>Now choose the <b>Categories</b> icon</li>"
                                        "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
-                                  i18n("Features has not been configured") );
+                                  i18n("Feature has not been configured") );
         return 0;
     }
 }

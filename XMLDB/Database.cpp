@@ -608,6 +608,9 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
                 elm.attribute( QLatin1String("gpsAlt") ).toDouble(),
                 gpsPrecision));
 
+    if ( elm.hasAttribute(QLatin1String("videoLength")))
+        info->setVideoLength(elm.attribute(QLatin1String("videoLength")).toInt());
+
     DB::ImageInfoPtr result(info);
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {

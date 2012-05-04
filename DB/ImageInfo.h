@@ -145,6 +145,7 @@ public:
 
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; saveChangesIfNotDelayed(); }
+    bool isVideo() const;
 
     void createFolderCategoryItem( DB::CategoryPtr, DB::MemberMap& memberMap );
 

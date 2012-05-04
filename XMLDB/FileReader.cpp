@@ -178,8 +178,6 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
 
 void XMLDB::FileReader::loadImages( const QDomElement& images )
 {
-    QString directory = Settings::SettingsData::instance()->imageDirectory();
-
     for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
         if ( node.isElement() )

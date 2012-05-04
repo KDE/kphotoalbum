@@ -25,6 +25,7 @@
 #include "CellGeometry.h"
 #include <QPainter>
 #include "ThumbnailModel.h"
+#include <KLocale>
 
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
     :ThumbnailComponent( factory )
@@ -248,6 +249,9 @@ bool ThumbnailView::Delegate::isLast( int row ) const
 QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageInfo) const
 {
     const int length = imageInfo->videoLength();
+    if ( length < 0 )
+        return i18n("video");
+
     const int minutes = length/60;
     const int secs = length % 60;
     return QString::number(minutes) +

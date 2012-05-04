@@ -33,16 +33,16 @@
 using namespace DB;
 
 ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
-    _geoPosition(),
+    _geoPosition(), _videoLength(-1),
     _locked( false ), _dirty( false ), _delaySaving( false )
 {
 }
 
 ImageInfo::ImageInfo( const QString& relativeFileName, MediaType type, bool readExifInfo )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
-    _rating(-1), _stackId(0), _stackOrder(0),
-    _geoPosition(),
-    _locked(false), _delaySaving( true )
+      _rating(-1), _stackId(0), _stackOrder(0),
+      _geoPosition(), _videoLength(-1),
+      _locked(false), _delaySaving( true )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ relativeFileName;
     QFileInfo fi( fullPath );
@@ -267,7 +267,6 @@ void ImageInfo::setVideoLength(int length)
 
 int ImageInfo::videoLength() const
 {
-    return 182;
     return _videoLength;
 }
 
@@ -463,6 +462,11 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 MediaType DB::ImageInfo::mediaType() const
 {
     return _type;
+}
+
+bool ImageInfo::isVideo() const
+{
+    return _type == Video;
 }
 
 /**

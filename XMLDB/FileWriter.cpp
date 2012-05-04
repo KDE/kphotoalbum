@@ -272,7 +272,6 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
         elm.setAttribute( QString::fromLatin1("yearTo"), end.date().year() );
         elm.setAttribute( QString::fromLatin1("monthTo"),  end.date().month() );
         elm.setAttribute( QString::fromLatin1("dayTo"),  end.date().day() );
-
     }
     else {
         elm.setAttribute( QString::fromLatin1( "startDate" ), start.toString(Qt::ISODate) );
@@ -300,6 +299,9 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
         elm.setAttribute( QLatin1String("gpsLat"), geoPos.latitude() );
         elm.setAttribute( QLatin1String("gpsAlt"), geoPos.altitude() );
     }
+
+    if ( info->isVideo() )
+        elm.setAttribute( QLatin1String("videoLength"), info->videoLength() );
 
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );

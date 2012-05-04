@@ -54,7 +54,7 @@ bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1
 bool isJPEG( const QString& fileName );
 
 bool areSameFile( const QString fileName1, const QString fileName2 );
-QString stripSlash( const QString& fileName );
+QString stripEndingForwardSlash( const QString& fileName );
 
 // These functions are likely to go away.
 QString absoluteImageFileName( const QString& relativeName );

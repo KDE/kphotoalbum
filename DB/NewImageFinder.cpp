@@ -74,8 +74,7 @@ bool NewImageFinder::findImages()
 void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QString directory )
 {
     qApp->processEvents( QEventLoop::AllEvents );
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
+    directory = Utilities::stripEndingForwardSlash(directory);
 
     QString imageDir = Settings::SettingsData::instance()->imageDirectory();
     if ( imageDir.endsWith( QString::fromLatin1("/") ) )

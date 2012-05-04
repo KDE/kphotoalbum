@@ -570,7 +570,7 @@ bool Utilities::areSameFile( const QString fileName1, const QString fileName2 )
     // Maybe use inode numbers to solve those problems?
 }
 
-QString Utilities::stripSlash( const QString& fileName )
+QString Utilities::stripEndingForwardSlash( const QString& fileName )
 {
     if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )
         return fileName.left( fileName.length()-1);
@@ -621,7 +621,7 @@ QString Utilities::stripImageDirectory( const QString& fileName )
 
 QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
-    return stripSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
+    return stripEndingForwardSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }
 
 QString Utilities::imageFileNameToAbsolute( const QString& fileName )

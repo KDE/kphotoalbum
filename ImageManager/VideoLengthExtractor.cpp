@@ -21,8 +21,15 @@
 #include <QDir>
 #include <MainWindow/FeatureDialog.h>
 #include <KDebug>
+#include <QDebug>
 
 #define STR(x) QString::fromUtf8(x)
+
+#if 0
+#  define Debug qDebug
+#else
+#  define Debug if(0) qDebug
+#endif
 
 ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
     QObject(parent), m_process(0)
@@ -31,6 +38,7 @@ ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
 
 void ImageManager::VideoLengthExtractor::extract(const QString &fileName)
 {
+    m_fileName = fileName;
     delete m_process;
 
     m_process = new Utilities::Process(this);
@@ -52,10 +60,13 @@ void ImageManager::VideoLengthExtractor::extract(const QString &fileName)
 
 void ImageManager::VideoLengthExtractor::processEnded()
 {
+    if ( !m_process->stderr().isEmpty() )
+        Debug() << m_process->stderr();
+
     QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
     list = list.filter(STR("ID_LENGTH="));
     if ( list.count() == 0 ) {
-        kWarning() << "Unable to find ID_LENGTH in output from mplayer\n"
+        kWarning() << "Unable to find ID_LENGTH in output from mplayer for file " << m_fileName << "\n"
                    << "Output was:\n"
                    << m_process->stdout();
         emit unableToDetermineLength();
@@ -66,7 +77,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
     bool ok = regexp.exactMatch(match);
     if ( !ok ) {
-        kWarning() << STR("Unable to match regexp for string: %1").arg(match);
+        kWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName);
         emit unableToDetermineLength();
         return;
     }
@@ -75,13 +86,13 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
     const int length = cap.toDouble(&ok);
     if ( !ok ) {
-        kWarning() << STR("Unable to convert string \"%s\"to integer").arg(cap);
+        kWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName);
         emit unableToDetermineLength();
         return;
     }
 
     if ( length == 0 ) {
-        kWarning() << "video length returned was 0";
+        kWarning() << "video length returned was 0 for file " << m_fileName;
         emit unableToDetermineLength();
         return;
     }

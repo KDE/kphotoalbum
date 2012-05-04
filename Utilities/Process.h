@@ -30,6 +30,7 @@ class Process : public QProcess
 public:
     explicit Process(QObject *parent = 0);
     QString stdout() const;
+    QString stderr() const;
     
 private slots:
     void readStandardError();
@@ -37,6 +38,7 @@ private slots:
 
 private:
     QString m_stdout;
+    QString m_stderr;
 };
 
 }

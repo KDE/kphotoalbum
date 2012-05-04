@@ -41,6 +41,7 @@ private slots:
 
 private:
     Utilities::Process* m_process;
+    QString m_fileName;
 };
 
 }

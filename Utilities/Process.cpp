@@ -36,11 +36,16 @@ QString Utilities::Process::stdout() const
     return m_stdout;
 }
 
+QString Utilities::Process::stderr() const
+{
+    return m_stderr;
+}
+
 void Utilities::Process::readStandardError()
 {
     setReadChannel(QProcess::StandardError);
     QTextStream stream(this);
-    kWarning() << stream.readAll();
+    m_stderr.append(stream.readAll());
 }
 
 void Utilities::Process::readStandardOutput()

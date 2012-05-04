@@ -337,7 +337,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
                                       i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                             "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                                             "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                            "<p>If you for example ran configure with <b>--prefix=/usr/local/kde</b>, then you must use the following "
+                                            "<p>If you for example ran cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the following "
                                             "environment variable setup (this example is for Bash and compatible shells):</p>"
                                             "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
                                             "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "

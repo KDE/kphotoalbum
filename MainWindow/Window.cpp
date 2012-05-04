@@ -214,8 +214,7 @@ MainWindow::Window::Window( QWidget* parent )
     // Automatically save toolbar settings
     setAutoSaveSettings();
 
-    new ImageManager::ThumbnailBuilder( _statusBar, this );
-    ImageManager::ThumbnailBuilder::instance()->buildMissing();
+    executeStartupActions();
 }
 
 MainWindow::Window::~Window()
@@ -1799,6 +1798,12 @@ void MainWindow::Window::createSarchBar()
     connect( bar, SIGNAL( keyPressed( QKeyEvent* ) ), _browser, SLOT( scrollKeyPressed( QKeyEvent* ) ) );
     connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
     connect( _browser, SIGNAL( isSearchable( bool ) ), bar, SLOT( setLineEditEnabled( bool ) ) );
+}
+
+void MainWindow::Window::executeStartupActions()
+{
+    new ImageManager::ThumbnailBuilder( _statusBar, this );
+    ImageManager::ThumbnailBuilder::instance()->buildMissing();
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

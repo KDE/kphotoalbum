@@ -173,6 +173,7 @@ protected:
     void setupStatusBar();
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSarchBar();
+    void executeStartupActions();
 
 private:
     static Window* _instance;

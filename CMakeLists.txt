@@ -285,10 +285,12 @@ set(libexif_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
 
-##set(libthreading_SRCS
-##	${CMAKE_CURRENT_SOURCE_DIR}/Threading/Test.cpp  
-##	${CMAKE_CURRENT_SOURCE_DIR}/Threading/SearchForNewImagesJob.cpp
-##   )
+set(libBackgroundTasks_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobInterface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/SearchForVideosWithoutLengthInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/ReadVideoLengthJob.cpp
+)
 
 add_subdirectory( images )
 add_subdirectory( icons )
@@ -328,7 +330,7 @@ set(kphotoalbum_SRCS
   ${libAnnotationDialog_SRCS} 
   ${EXIV2_SRCS} 
   ${libBrowser_SRCS} 
-## ${libthreading_SRCS}
+  ${libBackgroundTasks_SRCS}
 )
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
@@ -365,8 +367,6 @@ if(NEPOMUK_FOUND)
     ADD_DEFINITIONS(${NEPOMUK_DEFINITIONS})
     INCLUDE_DIRECTORIES(${NEPOMUK_INCLUDE_DIR})
 endif(NEPOMUK_FOUND)
-
-##target_link_libraries(kphotoalbum threadweaver )
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 

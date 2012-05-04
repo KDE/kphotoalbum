@@ -429,6 +429,7 @@ ImageInfo::ImageInfo( const QString& fileName,
     _geoPosition = geoPosition;
     _stackId = stackId;
     _stackOrder = stackOrder;
+    _videoLength= -1;
 }
 
 // TODO: we should get rid of this operator. It seems only be necessary

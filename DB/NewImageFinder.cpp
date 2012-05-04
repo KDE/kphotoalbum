@@ -76,13 +76,11 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
     qApp->processEvents( QEventLoop::AllEvents );
     directory = Utilities::stripEndingForwardSlash(directory);
 
-    QString imageDir = Settings::SettingsData::instance()->imageDirectory();
-    if ( imageDir.endsWith( QString::fromLatin1("/") ) )
-        imageDir = imageDir.mid( 0, imageDir.length()-1 );
+    const QString imageDir = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory());
 
     FastDir dir( directory );
-    QStringList dirList = dir.entryList( );
-    ImageManager::RAWImageDecoder dec;   // TODO: DEPENDENCY: DB:: should not reference other directories
+    const QStringList dirList = dir.entryList( );
+    ImageManager::RAWImageDecoder dec;
     QStringList excluded;
     excluded << Settings::SettingsData::instance()->excludeDirectories();
     excluded = excluded.at(0).split(QString::fromLatin1(","));

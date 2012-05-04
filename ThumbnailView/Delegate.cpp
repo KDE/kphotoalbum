@@ -174,7 +174,7 @@ void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QR
         leftX = pixmapRect.left() + pixmapRect.width()/2;
 
     if ( isLast( index.row() ) )
-         rightX = pixmapRect.right();
+        rightX = pixmapRect.right();
 
     QPoint bottomLeftPoint( leftX, pixmapRect.bottom() );
     QPoint bottomRightPoint( rightX, pixmapRect.bottom() );
@@ -202,9 +202,9 @@ bool ThumbnailView::Delegate::isFirst( int row ) const
     const DB::StackID curId = getStackId(model()->imageAt(row));
 
     return
-        !model()->isItemInExpandedStack(curId) ||
-        row == 0 ||
-        getStackId(model()->imageAt(row-1)) != curId;
+            !model()->isItemInExpandedStack(curId) ||
+            row == 0 ||
+            getStackId(model()->imageAt(row-1)) != curId;
 }
 
 bool ThumbnailView::Delegate::isLast( int row ) const
@@ -212,9 +212,9 @@ bool ThumbnailView::Delegate::isLast( int row ) const
     const DB::StackID curId = getStackId(model()->imageAt(row));
 
     return
-        !model()->isItemInExpandedStack(curId) ||
-        row == model()->imageCount() -1 ||
-        getStackId(model()->imageAt(row+1)) != curId;
+            !model()->isItemInExpandedStack(curId) ||
+            row == model()->imageCount() -1 ||
+            getStackId(model()->imageAt(row+1)) != curId;
 }
 
 

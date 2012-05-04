@@ -109,6 +109,9 @@ public:
     const GpsCoordinates& geoPosition() const;
     void setGeoPosition(const GpsCoordinates& geoPosition);
 
+    void setVideoLength(int seconds);
+    int videoLength() const;
+
     void setCategoryInfo( const QString& key,  const StringSet& value );
     void addCategoryInfo( const QString& category, const StringSet& values );
     void addCategoryInfo( const QString& category, const QString& value );
@@ -190,6 +193,7 @@ private:
     StackID _stackId;
     unsigned int _stackOrder;
     GpsCoordinates _geoPosition;
+    int _videoLength;
 
     // Cache information
     bool _locked;

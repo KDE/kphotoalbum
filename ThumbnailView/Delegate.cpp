@@ -66,12 +66,40 @@ void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOp
     const QRect pixmapRect = cellGeometryInfo()->iconGeometry( pixmap ).translated(option.rect.topLeft());
     paintBoundingRect( painter, pixmapRect, index );
     painter->drawPixmap( pixmapRect, pixmap );
+    paintVideoInfo(painter, pixmapRect, index );
     paintDropIndicator( painter, option.rect, index );
     paintStackedIndicator(painter, pixmapRect, index);
 
     // Paint transparent pixels over the widget for selection.
     if ( widget()->selectionModel()->isSelected( index ) )
         painter->fillRect( option.rect, QColor(58,98,134, 127) );
+}
+
+void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pixmapRect, const QModelIndex &index) const
+{
+    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).fetchInfo();
+    if (!imageInfo || imageInfo->mediaType() != DB::Video )
+        return;
+
+    const QString text = videoLengthText(imageInfo);
+    const QRect metricsRect = painter->fontMetrics().boundingRect(text);
+
+    const int margin = 3;
+    const QRect textRect = QRect(pixmapRect.right()-metricsRect.width()-margin,
+                                 pixmapRect.bottom()-metricsRect.height()-margin,
+                                 metricsRect.width(), metricsRect.height());
+    const QRect backgroundRect =  textRect.adjusted(-margin,-margin, margin, margin);
+
+    if ( backgroundRect.width() > pixmapRect.width()/2  ) {
+        // Dont show the time if the box would fill more than half the thumbnail
+        return;
+    }
+
+    painter->save();
+    painter->fillRect(backgroundRect, QBrush( QColor(0,0,0,128)));
+    painter->setPen(Qt::white);
+    painter->drawText(textRect, text);
+    painter->restore();
 }
 
 void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
@@ -215,6 +243,17 @@ bool ThumbnailView::Delegate::isLast( int row ) const
             !model()->isItemInExpandedStack(curId) ||
             row == model()->imageCount() -1 ||
             getStackId(model()->imageAt(row+1)) != curId;
+}
+
+QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageInfo) const
+{
+    const int length = imageInfo->videoLength();
+    const int minutes = length/60;
+    const int secs = length % 60;
+    return QString::number(minutes) +
+           QString::fromLatin1(":") +
+           ( secs > 10 ? QString::fromLatin1("") : QString::fromLatin1("0") ) +
+           QString::number(secs);
 }
 
 

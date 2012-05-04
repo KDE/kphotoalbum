@@ -19,6 +19,7 @@
 #define DELEGATE_H
 #include "ThumbnailComponent.h"
 #include <QStyledItemDelegate>
+#include <DB/ImageInfoPtr.h>
 
 namespace ThumbnailView
 {
@@ -33,12 +34,15 @@ public:
 private:
     void paintCellBackground( QPainter* painter, const QRect& rect ) const;
     void paintCellPixmap( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
+    void paintVideoInfo( QPainter* painter, const QRect& pixmapRect, const QModelIndex& index ) const;
     void paintCellText( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
     void paintBoundingRect( QPainter* painter, const QRect& pixmapRect, const QModelIndex& index  ) const;
     void paintStackedIndicator( QPainter* painter, const QRect &rect, const QModelIndex& index ) const;
     void paintDropIndicator( QPainter* painter, const QRect& rect, const QModelIndex& index ) const;
     bool isFirst( int row ) const;
     bool isLast( int row ) const;
+
+    QString videoLengthText( const DB::ImageInfoPtr& imageInfo ) const;
 };
 
 }

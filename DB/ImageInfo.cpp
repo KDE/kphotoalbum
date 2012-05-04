@@ -257,6 +257,20 @@ void ImageInfo::setGeoPosition( const GpsCoordinates& geoPosition )
     saveChangesIfNotDelayed();
 }
 
+void ImageInfo::setVideoLength(int length)
+{
+    if ( _videoLength != length )
+        _dirty = true;
+    _videoLength = length;
+    saveChangesIfNotDelayed();
+}
+
+int ImageInfo::videoLength() const
+{
+    return 182;
+    return _videoLength;
+}
+
 void ImageInfo::setDate( const ImageDate& date )
 {
     if (date != _date)
@@ -440,7 +454,7 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _stackId = other._stackId;
     _stackOrder = other._stackOrder;
     _geoPosition = other._geoPosition;
-
+    _videoLength = other._videoLength;
     delaySavingChanges(false);
 
     return *this;

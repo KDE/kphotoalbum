@@ -43,6 +43,8 @@
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include <MainWindow/Window.h>
+#include <BackgroundTasks/JobManager.h>
+#include <BackgroundTasks/ReadVideoLengthJob.h>
 
 using namespace DB;
 
@@ -143,6 +145,13 @@ void NewImageFinder::loadExtraFiles()
         }
     }
     DB::ImageDB::instance()->addImages( newImages );
+
+    // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
+    Q_FOREACH( const ImageInfoPtr& info, newImages ) {
+        if ( info->isVideo() )
+            BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::ReadVideoLengthJob(info->fileName(DB::AbsolutePath)) );
+    }
+
 }
 
 void NewImageFinder::setupFileVersionDetection() {

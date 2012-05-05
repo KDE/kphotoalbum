@@ -252,12 +252,26 @@ QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageIn
     if ( length < 0 )
         return i18n("video");
 
-    const int minutes = length/60;
+    const int hours = length/60/60;
+    const int minutes = (length/60)%60;
     const int secs = length % 60;
-    return QString::number(minutes) +
-           QString::fromLatin1(":") +
-           ( secs > 10 ? QString::fromLatin1("") : QString::fromLatin1("0") ) +
-           QString::number(secs);
+
+    QString res;
+    if (hours > 0)
+        res = QString::number(hours) + QLatin1String(":");
+
+    if (minutes < 10 && hours > 0)
+        res += QLatin1String("0");
+
+    res += QString::number(minutes);
+    res += QLatin1String(":");
+
+    if (secs < 10)
+        res += QLatin1String("0");
+
+    res += QString::number(secs);
+
+    return res;
 }
 
 

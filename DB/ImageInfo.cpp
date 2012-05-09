@@ -158,6 +158,11 @@ QString ImageInfo::zzzfileName( PathType type ) const
     }
 }
 
+DB::FileName ImageInfo::fileName() const
+{
+    return _fileName;
+}
+
 void ImageInfo::setFileName( const QString& relativeFileName )
 {
     if (relativeFileName != _fileName.relative()) // ZZZ

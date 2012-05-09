@@ -26,6 +26,7 @@
 #include <QTimer>
 #include <ImageManager/VideoThumbnails.h>
 #include "ThumbnailModel.h"
+#include <ThumbnailView/CellGeometry.h>
 
 ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)
@@ -57,7 +58,7 @@ void ThumbnailView::VideoThumbnailCycler::updateThumbnail()
 
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
-    QImage img = image.scaled(265, 265*3/4);
+    QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize());
     m_model->setOverrideImage(m_id, QPixmap::fromImage(img));
 }
 

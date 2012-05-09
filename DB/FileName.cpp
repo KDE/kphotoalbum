@@ -58,7 +58,7 @@ QString DB::FileName::relative() const
     return m_relativePath;
 }
 
-bool DB::FileName::isEmpty() const
+bool DB::FileName::isValid() const
 {
     return !m_isNull;
 }

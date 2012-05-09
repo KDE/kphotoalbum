@@ -33,7 +33,7 @@ public:
     static FileName fromRelativePath( const QString& fileName );
     QString absolute() const;
     QString relative() const;
-    bool isEmpty() const;
+    bool isValid() const;
     bool isNull() const;
     bool operator==( const FileName& other ) const;
     bool operator!=( const FileName& other ) const;

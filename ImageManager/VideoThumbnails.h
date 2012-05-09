@@ -43,6 +43,9 @@ private slots:
     void setLength(int length);
 
 private:
+    QString frameName(const QString& videoName, int frameNumber ) const;
+    bool loadFramesFromCache(const QString& fileName);
+
     QString m_videoFile;
     QVector<QImage> m_cache;
     ImageManager::VideoLengthExtractor* m_lengthExtractor;

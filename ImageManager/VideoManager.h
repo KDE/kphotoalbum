@@ -43,6 +43,7 @@ public:
     bool hasVideoThumbnailSupport() const;
     void removeFullScaleFrame( const QString& fileName );
     static void saveFullScaleFrame( const QString& fileName, const QImage& image );
+    static QString pathForRequest( const QString& fileName  );
 
 protected:
     void load( ImageRequest* request );
@@ -50,7 +51,6 @@ protected:
     void sendResult( QImage image );
     void saveFullScaleFrame( const QImage& image );
     bool requestFullScaleFrame( ImageRequest* request );
-    static QString pathForRequest( const QString& fileName  );
 
 protected slots:
     void slotGotPreview(const KFileItem&, const QPixmap& pixmap );

@@ -485,7 +485,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
-        const QString fileName = info->zzzfileName(DB::AbsolutePath);
+        const QString fileName = info->fileName().absolute(); // ZZZ
         urls.append( fileName );
         urlcount++;
     }
@@ -573,7 +573,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 
     DB::IdList listOnDisk;
     Q_FOREACH(DB::Id id, list) {
-        const QString fileName = id.fetchInfo()->zzzfileName(DB::AbsolutePath);
+        const QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk.append(id);
     }
@@ -1264,7 +1264,7 @@ void MainWindow::Window::slotSetFileName( const DB::Id& id )
     else {
         infos = id.fetchInfo();
         if (infos != ImageInfoPtr(NULL) )
-            _statusBar->showMessage( id.fetchInfo()->zzzfileName(DB::AbsolutePath), 4000 );
+            _statusBar->showMessage( id.fetchInfo()->fileName().absolute(), 4000 ); // ZZZ
     }
 }
 
@@ -1291,7 +1291,7 @@ void MainWindow::Window::rotateSelected( int angle )
     } else {
         Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
             info->rotate(angle);
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->zzzfileName( DB::AbsolutePath) );
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName().absolute() ); // ZZZ
         }
         _statusBar->_dirtyIndicator->markDirty();
     }
@@ -1334,7 +1334,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     DB::IdList notOnDisk;
     Q_FOREACH(DB::Id id, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = id.fetchInfo();
-        QFileInfo fi( info->zzzfileName(DB::AbsolutePath) );
+        QFileInfo fi( info->fileName().absolute() ); // ZZZ
         if ( !fi.exists() )
             notOnDisk.append(id);
     }
@@ -1640,7 +1640,7 @@ void MainWindow::Window::slotJumpToContext()
     DB::Id id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
-        QString fileName = id.fetchInfo()->zzzfileName(DB::AbsolutePath);
+        QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
         _browser->addImageView( fileName );
    }
 }

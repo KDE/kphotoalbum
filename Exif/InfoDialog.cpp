@@ -284,7 +284,7 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
     DB::ImageInfoPtr info = id.fetchInfo();
     if ( info.isNull() )
         return;
-    QString fileName = info->zzzfileName(DB::AbsolutePath);
+    QString fileName = info->fileName().absolute(); // ZZZ
     m_fileNameLabel->setText( fileName );
     m_grid->setFileName( fileName );
 

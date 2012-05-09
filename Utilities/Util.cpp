@@ -98,7 +98,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 
     QString result;
     if ( Settings::SettingsData::instance()->showFilename() ) {
-        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->zzzfileName(DB::AbsolutePath), &result);
+        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName().absolute(), &result); // ZZZ
     }
 
     if ( Settings::SettingsData::instance()->showDate() )  {
@@ -179,7 +179,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         typedef QMap<QString,QStringList> ExifMap;
         typedef ExifMap::const_iterator ExifMapIterator;
-        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->zzzfileName(DB::AbsolutePath), Settings::SettingsData::instance()->iptcCharset() );
+        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName().absolute(), Settings::SettingsData::instance()->iptcCharset() ); // ZZZ
 
         for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
@@ -606,7 +606,7 @@ QStringList Utilities::infoListToStringList( const DB::ImageInfoList& list )
 {
     QStringList result;
     for( DB::ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        result.append( (*it)->zzzfileName(DB::AbsolutePath) );
+        result.append( (*it)->fileName().absolute() ); // ZZZ
     }
     return result;
 }

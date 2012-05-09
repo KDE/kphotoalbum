@@ -71,7 +71,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     bool ok = true;
 #ifdef HAVE_EXIV2
-    ok = _exifSearchInfo.matches( info->zzzfileName(DB::AbsolutePath) );
+    ok = _exifSearchInfo.matches( info->fileName().absolute() ); // ZZZ
 #endif
 
     if ( !_date.start().isNull() ) {
@@ -109,7 +109,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
 
     // -------------------------------------------------- RAW
-    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->zzzfileName(DB::AbsolutePath)) );
+    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName().absolute()) ); // ZZZ
 
     // -------------------------------------------------- Rating
 

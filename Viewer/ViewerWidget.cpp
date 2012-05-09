@@ -430,8 +430,8 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    const bool isReadable = QFileInfo( currentInfo()->zzzfileName(DB::AbsolutePath) ).isReadable();
-    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->zzzfileName(DB::AbsolutePath) );
+    const bool isReadable = QFileInfo( currentInfo()->fileName().absolute() ).isReadable(); // ZZZ
+    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName().absolute() ); // ZZZ
 
     if ( isReadable ) {
         if ( isVideo ) {
@@ -455,7 +455,7 @@ void Viewer::ViewerWidget::load()
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
     if ( _exifViewer )
-      _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->zzzfileName(DB::AbsolutePath)) );
+        _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName().absolute()) ); // ZZZ
 #endif
 
     Q_FOREACH( QAction* videoAction, _videoActions ) {
@@ -492,7 +492,7 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
     setWindowTitle( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                    .arg( currentInfo()->zzzfileName(DB::AbsolutePath) )
+                    .arg( currentInfo()->fileName().absolute() ) // ZZZ
                     .arg( detail ) );
 }
 
@@ -1228,7 +1228,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->zzzfileName(DB::AbsolutePath)), this );
+    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName().absolute()), this ); // ZZZ
     _exifViewer->show();
 #endif
 
@@ -1403,7 +1403,7 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->zzzfileName( DB::AbsolutePath ) );
+    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName().absolute() ); // ZZZ
 }
 
 #include "ViewerWidget.moc"

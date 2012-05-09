@@ -81,16 +81,16 @@ void ImagePreview::reload()
 {
     if ( !_info.isNull() ) {
         QImage img;
-        if (_preloader.has(_info.zzzfileName(DB::AbsolutePath)))
+        if (_preloader.has(_info.fileName().absolute())) // ZZZ
             setCurrentImage(_preloader.getImage());
-        else if (_lastImage.has(_info.zzzfileName(DB::AbsolutePath)))
+        else if (_lastImage.has(_info.fileName().absolute())) // ZZZ
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where _lastImage is changed...)
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.zzzfileName(DB::AbsolutePath), QSize( width(), height() ), _info.angle(), this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName().absolute(), QSize( width(), height() ), _info.angle(), this ); // ZZZ
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );
         }
@@ -112,7 +112,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
 {
     //cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
-    _currentImage.set(_info.zzzfileName(DB::AbsolutePath), image);
+    _currentImage.set(_info.fileName().absolute(), image); // ZZZ
     setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
     if (!_anticipated._fileName.isEmpty())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
@@ -121,7 +121,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
 void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK && !_info.isNull() ) {
-        if (_info.zzzfileName(DB::AbsolutePath) == fileName)
+        if (_info.fileName().absolute() == fileName) // ZZZ
             setCurrentImage(image);
     }
 }
@@ -130,7 +130,7 @@ void ImagePreview::anticipate(DB::ImageInfo &info1) {
     //We cannot call _preloader.preloadImage right here:
     //this function is called before reload(), so if we preload here,
     //the preloader will always be loading the image after the next image.
-    _anticipated.set(info1.zzzfileName(DB::AbsolutePath), info1.angle());
+    _anticipated.set(info1.fileName().absolute(), info1.angle()); // ZZZ
 }
 
 

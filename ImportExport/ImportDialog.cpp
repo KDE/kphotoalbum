@@ -184,7 +184,7 @@ void ImportDialog::createImagesPage()
         ImageRow* ir = new ImageRow( info, this, _kimFileReader, container );
         lay3->addWidget( ir->m_checkbox, row, 0 );
 
-        QPixmap pixmap = _kimFileReader->loadThumbnail( info->zzzfileName( DB::RelativeToImageRoot ) );
+        QPixmap pixmap = _kimFileReader->loadThumbnail( info->fileName().relative() ); // ZZZ
         if ( !pixmap.isNull() ) {
             QPushButton* but = new QPushButton( container );
             but->setIcon( pixmap );

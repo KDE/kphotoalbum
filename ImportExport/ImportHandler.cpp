@@ -100,7 +100,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         return;
     }
 
-    QString fileName = info->zzzfileName( DB::RelativeToImageRoot );
+    QString fileName = info->fileName().relative(); // ZZZ
     KUrl src1 = m_settings.kimFile();
     KUrl src2 = m_settings.baseURL();
     bool succeeded = false;
@@ -140,7 +140,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         if ( !isImageAlreadyInDB( *it ) ) {
-            QString fileName = (*it)->zzzfileName( DB::RelativeToImageRoot );
+            QString fileName = (*it)->fileName().relative(); // ZZZ
             QByteArray data = m_kimFileReader->loadImage( fileName );
             if ( data.isNull() )
                 return false;
@@ -271,14 +271,14 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
-    QString importName = info->zzzfileName( DB::RelativeToImageRoot );
+    QString importName = info->fileName().relative(); // ZZZ
 
     DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
     updateInfo->setLabel( info->label() );
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );
     updateInfo->setAngle( info->angle() );
-    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->zzzfileName(DB::AbsolutePath) ) );
+    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName().absolute() ) ); // ZZZ
 
 
     DB::ImageInfoList list;

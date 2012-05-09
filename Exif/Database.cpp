@@ -312,7 +312,7 @@ void Exif::Database::recreate()
     Q_FOREACH(const DB::ImageInfoPtr info, allImages.fetchInfos()) {
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {
-            success &= add(info->zzzfileName(DB::AbsolutePath));
+            success &= add(info->fileName().absolute()); // ZZZ
         }
         if ( i % 10 )
             qApp->processEvents();

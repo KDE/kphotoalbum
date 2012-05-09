@@ -43,7 +43,7 @@ void ImageRow::showImage()
             KUrl src = src1;
             if ( i == 1 )
                 src = src2;
-            src.setFileName( m_info->zzzfileName( DB::RelativeToImageRoot ) );
+            src.setFileName( m_info->fileName().relative() ); // ZZZ
             QString tmpFile;
 
             if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
@@ -55,7 +55,7 @@ void ImageRow::showImage()
         }
     }
     else {
-        QImage img = QImage::fromData(m_kimFileReader->loadImage( m_info->zzzfileName( DB::RelativeToImageRoot) ) );
+        QImage img = QImage::fromData(m_kimFileReader->loadImage( m_info->fileName().relative() ) ); // ZZZ
         MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
     }
 }

@@ -225,11 +225,12 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/Id.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/IdList.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp
     )
 
 set(libImportExport_SRCS

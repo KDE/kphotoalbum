@@ -147,7 +147,7 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
     }
 }
 
-QString ImageInfo::fileName( PathType type ) const
+QString ImageInfo::zzzfileName( PathType type ) const
 {
     switch (type) {
     case DB::RelativeToImageRoot: return _fileName.relative(); // ZZZ

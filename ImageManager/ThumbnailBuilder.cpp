@@ -78,7 +78,7 @@ void ImageManager::ThumbnailBuilder::buildMissing()
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
     QList<DB::ImageInfoPtr> needed;
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName(DB::AbsolutePath) ) )
+        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->zzzfileName(DB::AbsolutePath) ) )
             needed.append( info );
     }
     scheduleThumbnailBuild( needed, StartDelayed );
@@ -103,7 +103,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 
     Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
         ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( info->fileName(DB::AbsolutePath),
+            = new ImageManager::PreloadRequest( info->zzzfileName(DB::AbsolutePath),
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);

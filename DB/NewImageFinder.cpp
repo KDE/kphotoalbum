@@ -59,7 +59,7 @@ bool NewImageFinder::findImages()
     // whole info.
     Q_FOREACH( const DB::ImageInfoPtr& info,
         DB::ImageDB::instance()->images().fetchInfos() ) {
-        loadedFiles.insert(info->fileName(DB::AbsolutePath));
+        loadedFiles.insert(info->zzzfileName(DB::AbsolutePath));
     }
 
     _pendingLoad.clear();
@@ -149,7 +149,7 @@ void NewImageFinder::loadExtraFiles()
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
     Q_FOREACH( const ImageInfoPtr& info, newImages ) {
         if ( info->isVideo() )
-            BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::ReadVideoLengthJob(info->fileName(DB::AbsolutePath)) );
+            BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::ReadVideoLengthJob(info->zzzfileName(DB::AbsolutePath)) );
     }
 
 }
@@ -189,7 +189,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
-                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
+                DB::ImageDB::instance()->md5Map()->insert( sum, info->zzzfileName(DB::RelativeToImageRoot) );
 
 #ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( absoluteMatchedFileName );
@@ -251,7 +251,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
     // also inserts image into exif db if present:
     info->setMD5Sum(sum);
-    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(DB::RelativeToImageRoot) );
+    DB::ImageDB::instance()->md5Map()->insert( sum, info->zzzfileName(DB::RelativeToImageRoot) );
 
     if (originalInfo &&
         Settings::SettingsData::instance()->autoStackNewFiles() ) {
@@ -262,7 +262,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
         // stack the files together
         DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
-        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName(DB::AbsolutePath));
+        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->zzzfileName(DB::AbsolutePath));
         DB::IdList tostack = DB::IdList();
 
         // the newest file should go to the top of the stack
@@ -308,7 +308,7 @@ bool  NewImageFinder::calculateMD5sums(
     bool dirty = false;
 
     Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-        const QString absoluteFileName = info->fileName(DB::AbsolutePath );
+        const QString absoluteFileName = info->zzzfileName(DB::AbsolutePath );
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -332,7 +332,7 @@ bool  NewImageFinder::calculateMD5sums(
             ImageManager::ThumbnailCache::instance()->removeThumbnail( absoluteFileName );
         }
 
-        md5Map->insert( md5, info->fileName(DB::RelativeToImageRoot) );
+        md5Map->insert( md5, info->zzzfileName(DB::RelativeToImageRoot) );
 
         ++count;
     }

@@ -277,7 +277,7 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
-        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(DB::AbsolutePath), cellSize, angle, this );
+        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->zzzfileName(DB::AbsolutePath), cellSize, angle, this );
     request->setPriority( priority );
     ImageManager::AsyncLoader::instance()->load( request );
 }
@@ -395,7 +395,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     if (imageInfo == DB::ImageInfoPtr(NULL) )
         return QPixmap();
-    const QString fileName = imageInfo->fileName(DB::AbsolutePath);
+    const QString fileName = imageInfo->zzzfileName(DB::AbsolutePath);
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
         return ImageManager::ThumbnailCache::instance()->lookup( fileName );
@@ -425,7 +425,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
         const DB::ImageInfoPtr imageInfo = item.fetchInfo();
         if ( imageInfo.isNull() )
             continue;
-        const QString fileName = imageInfo->fileName(DB::AbsolutePath);
+        const QString fileName = imageInfo->zzzfileName(DB::AbsolutePath);
 
         if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
             continue;

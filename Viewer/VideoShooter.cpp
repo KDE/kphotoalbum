@@ -74,7 +74,7 @@ void Viewer::VideoShooter::doShoot()
 {
     // Make the screenshot and save it
     const QImage image = m_viewer->_videoDisplay->screenShoot();
-    const QString& fileName = m_info->fileName(DB::AbsolutePath);
+    const QString& fileName = m_info->zzzfileName(DB::AbsolutePath);
     ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
     ImageManager::VideoManager::saveFullScaleFrame(fileName, image);
 

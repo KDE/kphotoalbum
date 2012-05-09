@@ -79,7 +79,7 @@ bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const
 QString ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) const
 {
     DB::ImageInfoPtr info = id.fetchInfo();
-    return info->fileName(DB::AbsolutePath);
+    return info->zzzfileName(DB::AbsolutePath);
 }
 
 void ThumbnailView::VideoThumbnailCycler::startCycle()

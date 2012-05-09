@@ -133,7 +133,7 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
 void XMLDB::Database::addToBlockList(const DB::IdList& list)
 {
     Q_FOREACH(DB::ImageInfoPtr inf, list.fetchInfos()) {
-        _blockList << inf->fileName( DB::RelativeToImageRoot );
+        _blockList << inf->zzzfileName( DB::RelativeToImageRoot );
     }
     deleteList( list );
 }
@@ -162,9 +162,9 @@ void XMLDB::Database::deleteList(const DB::IdList& list)
             }
         }
 #ifdef HAVE_EXIV2
-        Exif::Database::instance()->remove( inf->fileName( DB::AbsolutePath) );
+        Exif::Database::instance()->remove( inf->zzzfileName( DB::AbsolutePath) );
 #endif
-        _idMapper.remove( inf->fileName(DB::RelativeToImageRoot) );
+        _idMapper.remove( inf->zzzfileName(DB::RelativeToImageRoot) );
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -233,7 +233,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 
     Q_FOREACH( const DB::ImageInfoPtr& info, images ) {
-        _idMapper.add( info->fileName(DB::RelativeToImageRoot) );
+        _idMapper.add( info->zzzfileName(DB::RelativeToImageRoot) );
     }
 
     emit totalChanged( _images.count() );
@@ -243,9 +243,9 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
 {
     info->delaySavingChanges(false);
-    _idMapper.remove( info->fileName(DB::RelativeToImageRoot) );
+    _idMapper.remove( info->zzzfileName(DB::RelativeToImageRoot) );
     info->setFileName( newName );
-    _idMapper.add( info->fileName(DB::RelativeToImageRoot) );
+    _idMapper.add( info->zzzfileName(DB::RelativeToImageRoot) );
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName, DB::PathType type ) const
@@ -261,7 +261,7 @@ DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName, DB::PathType ty
     else {
         fileMap.clear();
         for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-            fileMap.insert( (*it)->fileName(DB::AbsolutePath), *it );
+            fileMap.insert( (*it)->zzzfileName(DB::AbsolutePath), *it );
         }
         if ( fileMap.contains( name ) )
             return fileMap[ name ];
@@ -310,7 +310,7 @@ DB::IdList XMLDB::Database::images()
 {
     QList<DB::RawId> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        result.append( _idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
+        result.append( _idMapper[(*it)->zzzfileName( DB::RelativeToImageRoot )]);
     }
     return DB::IdList(result);
 }
@@ -332,10 +332,10 @@ DB::IdList XMLDB::Database::searchPrivate(
     QList<DB::RawId> result;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
-        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName(DB::AbsolutePath) );
+        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->zzzfileName(DB::AbsolutePath) );
 
         if (match)
-            result.append(_idMapper[(*it)->fileName( DB::RelativeToImageRoot )]);
+            result.append(_idMapper[(*it)->zzzfileName( DB::RelativeToImageRoot )]);
     }
     return DB::IdList(result);
 }
@@ -380,11 +380,11 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& sel
 
     // iterate over all images (expensive!!) TODO: improve?
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
-        QString imagefile = (*it)->fileName(DB::AbsolutePath);
+        QString imagefile = (*it)->zzzfileName(DB::AbsolutePath);
         DB::IdList::ConstIterator si = selection.begin();
         // for each image, iterate over selection, break on match
         for ( /**/; si != selection.end(); ++si ) {
-            QString file = (*si).fetchInfo()->fileName(DB::AbsolutePath);
+            QString file = (*si).fetchInfo()->zzzfileName(DB::AbsolutePath);
             if ( imagefile == file ) {
                 break;
             }
@@ -409,11 +409,11 @@ void XMLDB::Database::insertList(
     const DB::ImageInfoList& list,
     bool after)
 {
-    QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
+    QString fileName = id.fetchInfo()->zzzfileName(DB::AbsolutePath);
 
     DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
-        if ( (*imageIt)->fileName(DB::AbsolutePath) == fileName ) {
+        if ( (*imageIt)->zzzfileName(DB::AbsolutePath) == fileName ) {
             break;
         }
     }
@@ -456,7 +456,7 @@ bool XMLDB::Database::stack(const DB::IdList& items)
             ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath)));
+        _stackMap[stackId].append(ID_FOR_FILE((*it)->zzzfileName(DB::AbsolutePath)));
         ++changed;
     }
 
@@ -511,7 +511,7 @@ DB::IdList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            _stackMap[stackid].append(ID_FOR_FILE((*it)->fileName(DB::AbsolutePath))); // will need to be sorted later
+            _stackMap[stackid].append(ID_FOR_FILE((*it)->zzzfileName(DB::AbsolutePath))); // will need to be sorted later
         }
     }
 

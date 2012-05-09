@@ -167,7 +167,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
     // Find the index of the current image
     _curIndex = 0;
     for( QStringList::Iterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
-        if ( *it == info->fileName(DB::AbsolutePath) )
+        if ( *it == info->zzzfileName(DB::AbsolutePath) )
             break;
         ++_curIndex;
     }
@@ -521,7 +521,7 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
 void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
                                          const QImage& img, const bool loadedOK)
 {
-    if ( loadedOK && fileName == _info->fileName(DB::AbsolutePath) ) {
+    if ( loadedOK && fileName == _info->zzzfileName(DB::AbsolutePath) ) {
         if ( fullSize.isValid() && !_info->size().isValid() )
             _info->setSize( fullSize );
 
@@ -689,7 +689,7 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
 void Viewer::ImageDisplay::potentialyLoadFullSize()
 {
     if ( _info->size() != _loadedImage.size() ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(DB::AbsolutePath), QSize(-1,-1), _info->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->zzzfileName(DB::AbsolutePath), QSize(-1,-1), _info->angle(), this );
         request->setPriority( ImageManager::Viewer );
         ImageManager::AsyncLoader::instance()->load( request );
         busy();
@@ -717,7 +717,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
     if ( viewSize == Settings::NaturalSize )
         s = QSize(-1,-1);
 
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), s, info->angle(), this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->zzzfileName(DB::AbsolutePath), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
     request->setPriority( priority ? ImageManager::Viewer : ImageManager::ViewerPreload );
     ImageManager::AsyncLoader::instance()->load( request );

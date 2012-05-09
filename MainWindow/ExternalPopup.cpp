@@ -58,7 +58,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         // Fetch set of offers
         OfferType offers;
         if ( which == 0 )
-            offers = appInfos( QStringList() << current->fileName(DB::AbsolutePath) );
+            offers = appInfos( QStringList() << current->zzzfileName(DB::AbsolutePath) );
         else
             offers = appInfos( imageList );
 
@@ -104,7 +104,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
                 lst.append( KUrl(*it) );
         }
     } else if (action->data() == 2) {
-        QString origFile = _currentInfo->fileName(DB::AbsolutePath);
+        QString origFile = _currentInfo->zzzfileName(DB::AbsolutePath);
         QString newFile = origFile;
 
         QString origRegexpString =
@@ -124,7 +124,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
 
     } else {
-        lst.append( KUrl(_currentInfo->fileName(DB::AbsolutePath)));
+        lst.append( KUrl(_currentInfo->zzzfileName(DB::AbsolutePath)));
     }
 
 

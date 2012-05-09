@@ -34,11 +34,11 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( !info->isVideo() )
             continue;
 
-        const QString thumbnailName = ImageManager::VideoThumbnailsExtractor::frameName(info->fileName(DB::AbsolutePath),9);
+        const QString thumbnailName = ImageManager::VideoThumbnailsExtractor::frameName(info->zzzfileName(DB::AbsolutePath),9);
         if ( QFile::exists(thumbnailName) )
             continue;
 
-        JobManager::instance()->addJob( new CreateVideoThumbnailsJob(info->fileName(DB::AbsolutePath)) );
+        JobManager::instance()->addJob( new CreateVideoThumbnailsJob(info->zzzfileName(DB::AbsolutePath)) );
     }
     emit completed();
 }

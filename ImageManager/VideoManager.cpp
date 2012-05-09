@@ -212,7 +212,7 @@ bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageReques
 QString ImageManager::VideoManager::pathForRequest(const QString& fileName )
 {
     KMD5 md5(fileName.toUtf8());
-    return QString::fromLatin1("%1/.videoThumbnails/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(QString::fromUtf8(md5.hexDigest()));
+    return QString::fromLatin1("%1/.videoThumbnails/%2").arg(Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory())).arg(QString::fromUtf8(md5.hexDigest()));
 }
 
 void ImageManager::VideoManager::removeFullScaleFrame(const QString &fileName)

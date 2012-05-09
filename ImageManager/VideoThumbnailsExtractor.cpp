@@ -1,10 +1,10 @@
 #include "VideoThumbnailsExtractor.h"
 #include <Utilities/Process.h>
 #include <QTextStream>
-#include <QDebug>
 #include <QImage>
 #include <QDir>
 #include <MainWindow/FeatureDialog.h>
+#include "VideoManager.h"
 
 #define STR(x) QString::fromUtf8(x)
 
@@ -23,7 +23,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 {
     m_frameNumber++;
     if ( m_frameNumber == 10 ) {
-        thumbnailRequestCompleted();
+        emit completed();
         return;
     }
 
@@ -38,11 +38,13 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 void ImageManager::VideoThumbnailsExtractor::frameFetched()
 {
     QImage image(QDir::tempPath() + STR("/00000001.png"));
+    image.save(frameName(m_fileName,m_frameNumber),"JPEG");
     emit frameLoaded(m_frameNumber, image);
     requestNextFrame();
 }
 
-void ImageManager::VideoThumbnailsExtractor::thumbnailRequestCompleted()
+QString ImageManager::VideoThumbnailsExtractor::frameName(const QString &videoName, int frameNumber)
 {
-    qDebug("YAY!");
+    return ImageManager::VideoManager::pathForRequest(videoName) + QLatin1String("-") + QString::number(frameNumber);
 }
+

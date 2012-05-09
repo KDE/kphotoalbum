@@ -19,7 +19,7 @@
 #include "VideoThumbnails.h"
 #include "VideoThumbnailsExtractor.h"
 #include "VideoLengthExtractor.h"
-#include "VideoManager.h"
+#include <QFile>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
     QObject(parent), m_extractor(0)
@@ -56,7 +56,6 @@ void ImageManager::VideoThumbnails::requestFrame(int fraction)
 void ImageManager::VideoThumbnails::gotFrame(int index, const QImage &image)
 {
     m_cache[index]=image;
-    image.save(frameName(m_videoFile,index),"JPEG");
 
     if ( m_pendingRequest == index )
         emit frameLoaded(image);
@@ -68,15 +67,10 @@ void ImageManager::VideoThumbnails::setLength(int length)
     connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
 }
 
-QString ImageManager::VideoThumbnails::frameName(const QString &videoName, int frameNumber) const
-{
-    return ImageManager::VideoManager::pathForRequest(videoName) + QLatin1String("-") + QString::number(frameNumber);
-}
-
 bool ImageManager::VideoThumbnails::loadFramesFromCache(const QString& fileName)
 {
     for (int i=0; i <10; ++i) {
-        const QString thumbnailFile = frameName(fileName, i);
+        const QString thumbnailFile = VideoThumbnailsExtractor::frameName(fileName, i);
         if ( !QFile::exists(thumbnailFile))
             return false;
 

@@ -16,16 +16,17 @@ Q_OBJECT
 
 public:
     VideoThumbnailsExtractor( const QString& fileName, int videoLength );
+    static QString frameName(const QString& videoName, int frameNumber );
 
 private slots:
     void frameFetched();
 
 signals:
     void frameLoaded(int index, const QImage& image );
+    void completed();
 
 private:
     void requestNextFrame();
-    void thumbnailRequestCompleted();
 
     Utilities::Process* m_process;
     QString m_fileName;

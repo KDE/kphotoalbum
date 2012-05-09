@@ -128,6 +128,7 @@
 #include "StatusBar.h"
 #include <BackgroundTasks/JobManager.h>
 #include <BackgroundTasks/SearchForVideosWithoutLengthInfo.h>
+#include <BackgroundTasks/SearchForVideosWithoutVideoThumbnailsJob.h>
 
 using namespace DB;
 
@@ -1807,7 +1808,7 @@ void MainWindow::Window::executeStartupActions()
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
     BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::SearchForVideosWithoutLengthInfo );
-
+    BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob );
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

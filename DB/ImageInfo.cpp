@@ -150,8 +150,8 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
 QString ImageInfo::fileName( PathType type ) const
 {
     switch (type) {
-    case DB::RelativeToImageRoot: return _relativeFileName;
-    case DB::AbsolutePath:        return _absoluteFileName;
+    case DB::RelativeToImageRoot: return _fileName.relative(); // ZZZ
+    case DB::AbsolutePath:        return _fileName.absolute(); // ZZZ
     default:
         kFatal("Invalid parameter to ImageInfo::fileName()");
         return QString();
@@ -160,10 +160,10 @@ QString ImageInfo::fileName( PathType type ) const
 
 void ImageInfo::setFileName( const QString& relativeFileName )
 {
-    if (relativeFileName != _relativeFileName)
+    if (relativeFileName != _fileName.relative()) // ZZZ
         _dirty = true;
-    _relativeFileName = relativeFileName;
-    setAbsoluteFileName();
+    _fileName = FileName::fromRelativePath(relativeFileName);
+
     _imageOnDisk = Unchecked;
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
         categoryForName(QString::fromLatin1("Folder"));
@@ -296,7 +296,7 @@ bool ImageInfo::operator!=( const ImageInfo& other ) const
 bool ImageInfo::operator==( const ImageInfo& other ) const
 {
     bool changed =
-        ( _relativeFileName != other._relativeFileName ||
+        ( _fileName != other._fileName ||
           _label != other._label ||
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _date != other._date ||
@@ -406,8 +406,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const GpsCoordinates& geoPosition )
 {
     _delaySaving = true;
-    _relativeFileName = fileName;
-    setAbsoluteFileName();
+    _fileName = FileName::fromRelativePath(fileName);
     _label =label;
     _description =description;
     _date = date;
@@ -438,8 +437,7 @@ ImageInfo::ImageInfo( const QString& fileName,
 // storing strategies.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
-    _relativeFileName = other._relativeFileName;
-    setAbsoluteFileName();
+    _fileName = other._fileName;
     _label = other._label;
     _description = other._description;
     _date = other._date;
@@ -470,20 +468,9 @@ bool ImageInfo::isVideo() const
     return _type == Video;
 }
 
-/**
- * During profiling I found that it took almost 5% of the time during
- * categorizing when browsing, simply to calculate the absolute filename, therefore it is
- * now an instance variable rather than calculated dynamically in
- * fileName().
- */
-void DB::ImageInfo::setAbsoluteFileName()
-{
-    _absoluteFileName = Settings::SettingsData::instance()->imageDirectory() + _relativeFileName;
-}
-
 void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
-    QString folderName = Utilities::relativeFolderName( _relativeFileName );
+    QString folderName = Utilities::relativeFolderName( _fileName.relative() ); // ZZZ
     if ( folderName.isEmpty() )
         return;
 

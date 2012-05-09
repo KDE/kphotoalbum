@@ -30,6 +30,7 @@
 #include "DB/CategoryPtr.h"
 #include <QSize>
 #include "config-kpa-sqldb.h"
+#include "FileName.h"
 
 namespace Plugins
 {
@@ -164,7 +165,6 @@ protected:
 
     void saveChangesIfNotDelayed() { if (!_delaySaving) saveChanges(); }
 
-    void setAbsoluteFileName();
     void setIsNull(bool b) { _null = b; }
     bool isDirty() const { return _dirty; }
     void setIsDirty(bool b)  { _dirty = b; }
@@ -177,8 +177,7 @@ protected:
 #endif
 
 private:
-    QString _relativeFileName;
-    QString _absoluteFileName;
+    DB::FileName _fileName;
     QString _label;
     QString _description;
     ImageDate _date;

@@ -20,6 +20,7 @@
 #define IMAGEVIEWPAGE_H
 #include "BrowserPage.h"
 #include <DB/ImageSearchInfo.h>
+#include <DB/FileName.h>
 
 namespace Browser {
 
@@ -32,7 +33,7 @@ class ImageViewPage :public BrowserPage
 {
 public:
     ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    ImageViewPage( const QString& context, BrowserWidget* browser );
+    ImageViewPage( const DB::FileName& context, BrowserWidget* browser );
     OVERRIDE void activate();
     OVERRIDE Viewer viewer();
     OVERRIDE bool isSearchable() const;
@@ -41,7 +42,7 @@ public:
 
 
 private:
-    QString _context;
+    DB::FileName _context;
 };
 
 }

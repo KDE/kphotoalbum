@@ -33,6 +33,7 @@ class QStackedWidget;
 namespace DB
 {
     class ImageSearchInfo;
+    class FileName;
 }
 
 namespace Browser
@@ -51,7 +52,7 @@ class BrowserWidget :public QWidget {
 public:
     BrowserWidget( QWidget* parent );
     void addSearch( DB::ImageSearchInfo& info );
-    void addImageView( const QString& context );
+    void addImageView( const DB::FileName& context );
     static BrowserWidget* instance();
     void load( const QString& category, const QString& value );
     DB::ImageSearchInfo currentContext();

@@ -1642,8 +1642,7 @@ void MainWindow::Window::slotJumpToContext()
     DB::Id id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
-        QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
-        _browser->addImageView( fileName );
+        _browser->addImageView( id.fetchInfo()->fileName() );
    }
 }
 

@@ -692,7 +692,7 @@ bool Utilities::isVideo( const DB::FileName& fileName )
     return videoExtensions.contains( ext );
 }
 
-bool Utilities::isRAW( const QString& fileName )
+bool Utilities::isRAW( const DB::FileName& fileName )
 {
     return ImageManager::RAWImageDecoder::isRAW( fileName );
 }

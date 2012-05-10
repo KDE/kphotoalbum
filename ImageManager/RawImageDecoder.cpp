@@ -26,6 +26,7 @@
 #  include <libkdcraw/rawfiles.h>
 #endif
 #include <kdebug.h>
+#include <DB/FileName.h>
 
 namespace ImageManager
 {
@@ -198,11 +199,11 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 	return false;
 }
 
-bool RAWImageDecoder::isRAW( const QString& imageFile )
+bool RAWImageDecoder::isRAW( const DB::FileName& imageFile )
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
-    return _fileEndsWithExtensions(imageFile, _rawExtensions);
+    return _fileEndsWithExtensions(imageFile.relative(), _rawExtensions);
 }
 
 bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const

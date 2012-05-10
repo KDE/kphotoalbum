@@ -109,7 +109,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
 
     // -------------------------------------------------- RAW
-    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName().absolute()) ); // ZZZ
+    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
 
     // -------------------------------------------------- Rating
 

@@ -606,7 +606,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const
 #ifdef HAVE_EXIV2
     if ( !Utilities::isVideo( fileName ) ) {
         try {
-            Exif::Info::instance()->writeInfoToFile( fileName.absolute(), file ); // ZZZ
+            Exif::Info::instance()->writeInfoToFile( fileName, file );
         }
         catch (...)
         {

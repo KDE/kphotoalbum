@@ -45,7 +45,7 @@ public:
     QMap<QString, QStringList> infoForDialog( const DB::FileName& fileName, const QString& charset );
     StringSet availableKeys();
     StringSet standardKeys();
-    void writeInfoToFile( const QString& srcName, const QString& destName );
+    void writeInfoToFile( const DB::FileName& srcName, const QString& destName );
     Metadata metadata( const DB::FileName& fileName );
 
 protected:

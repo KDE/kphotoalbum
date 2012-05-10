@@ -184,16 +184,16 @@ Info::Info()
     _keys = standardKeys();
 }
 
-void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destName )
+void Exif::Info::writeInfoToFile( const DB::FileName& srcName, const QString& destName )
 {
     // Load Exif from source image
     Exiv2::Image::AutoPtr image =
-        Exiv2::ImageFactory::open( QFile::encodeName(srcName).data() );
+        Exiv2::ImageFactory::open( QFile::encodeName(srcName.absolute()).data() );
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(srcName) ); // ZZZ
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
     data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );

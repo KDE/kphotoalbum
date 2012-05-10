@@ -71,19 +71,13 @@ void ImagePreview::setImage( const QString& fileName )
     reload();
 }
 
-const QString& ImagePreview::lastImageFileName()
-{
-    return _lastImage.getName();
-}
-
-
 void ImagePreview::reload()
 {
     if ( !_info.isNull() ) {
         QImage img;
-        if (_preloader.has(_info.fileName().absolute())) // ZZZ
+        if (_preloader.has(_info.fileName()))
             setCurrentImage(_preloader.getImage());
-        else if (_lastImage.has(_info.fileName().absolute())) // ZZZ
+        else if (_lastImage.has(_info.fileName()))
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where _lastImage is changed...)
             setCurrentImage(QImage(_lastImage.getImage()));
@@ -112,7 +106,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
 {
     //cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
-    _currentImage.set(_info.fileName().absolute(), image); // ZZZ
+    _currentImage.set(_info.fileName(), image);
     setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
     if (!_anticipated._fileName.isEmpty())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
@@ -145,7 +139,7 @@ void ImagePreview::PreloadInfo::set(const QString& fileName, int angle)
 }
 
 
-bool ImagePreview::PreviewImage::has(const QString &fileName) const
+bool ImagePreview::PreviewImage::has(const DB::FileName &fileName) const
 {
     return fileName==_fileName && !_image.isNull();
 }
@@ -155,12 +149,7 @@ QImage &ImagePreview::PreviewImage::getImage()
     return _image;
 }
 
-const QString &ImagePreview::PreviewImage::getName() const
-{
-    return _fileName;
-}
-
-void ImagePreview::PreviewImage::set(const QString &fileName, const QImage &image)
+void ImagePreview::PreviewImage::set(const DB::FileName &fileName, const QImage &image)
 {
     _fileName=fileName;
     _image=image;
@@ -174,7 +163,7 @@ void ImagePreview::PreviewImage::set(const PreviewImage &other)
 
 void ImagePreview::PreviewImage::reset()
 {
-    _fileName.clear();
+    _fileName = DB::FileName();
     _image=QImage();
 }
 
@@ -183,7 +172,7 @@ void ImagePreview::PreviewLoader::pixmapLoaded( const DB::FileName& fileName, co
                                                 const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK )
-        set(fileName.absolute(), image); // ZZZ
+        set(fileName, image);
 }
 
 

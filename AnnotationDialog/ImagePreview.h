@@ -36,7 +36,6 @@ public:
     void setImage( const QString& fileName );
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
-    const QString& lastImageFileName();
     OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
@@ -48,14 +47,13 @@ protected:
 
     class PreviewImage {
     public:
-        bool has(const QString &fileName) const;
+        bool has(const DB::FileName &fileName) const;
         QImage &getImage();
-        const QString &getName() const;
-        void set(const QString &fileName, const QImage &image);
+        void set(const DB::FileName &fileName, const QImage &image);
         void set(const PreviewImage &other);
         void reset();
     protected:
-        QString _fileName;
+        DB::FileName _fileName;
         QImage _image;
     };
 

@@ -200,11 +200,6 @@ void ImagePreviewWidget::setImage( const int index )
 }
 
 
-const QString& ImagePreviewWidget::lastImage()
-{
-    return _preview->lastImageFileName();
-}
-
 void ImagePreviewWidget::setImage( const QString& fileName )
 {
     _preview->setImage( fileName );

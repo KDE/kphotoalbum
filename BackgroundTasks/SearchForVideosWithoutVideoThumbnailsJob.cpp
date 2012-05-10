@@ -38,7 +38,7 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( QFile::exists(thumbnailName) )
             continue;
 
-        JobManager::instance()->addJob( new CreateVideoThumbnailsJob(info->fileName().absolute()) ); // ZZZ
+        JobManager::instance()->addJob( new CreateVideoThumbnailsJob(info->fileName()) );
     }
     emit completed();
 }

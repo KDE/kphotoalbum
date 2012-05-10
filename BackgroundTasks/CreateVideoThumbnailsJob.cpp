@@ -21,21 +21,21 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 
-BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const QString &fileName)
+BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const DB::FileName &fileName)
     :m_fileName(fileName)
 {
 }
 
 void BackgroundTasks::CreateVideoThumbnailsJob::execute()
 {
-    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(m_fileName)); // ZZZ
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
     const int length = info->videoLength();
     if ( length <= 0 ) {
         emit completed();
         return;
     }
 
-    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( DB::FileName::fromAbsolutePath(m_fileName), length ); // ZZZ
+    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( m_fileName, length );
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
 }
 

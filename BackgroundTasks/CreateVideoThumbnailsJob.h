@@ -21,6 +21,7 @@
 
 #include "JobInterface.h"
 #include <QObject>
+#include <DB/FileName.h>
 
 namespace BackgroundTasks
 {
@@ -30,11 +31,11 @@ class CreateVideoThumbnailsJob : public JobInterface
     Q_OBJECT
 
 public:
-    CreateVideoThumbnailsJob( const QString& fileName );
+    CreateVideoThumbnailsJob( const DB::FileName& fileName );
     OVERRIDE void execute();
 
 private:
-    QString m_fileName;
+    DB::FileName m_fileName;
 };
 
 }

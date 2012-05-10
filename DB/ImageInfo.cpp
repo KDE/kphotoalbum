@@ -329,7 +329,7 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
 {
-    DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
+    DB::FileInfo exifInfo = DB::FileInfo::read( DB::FileName::fromAbsolutePath(fullPath), mode ); // ZZZ
 
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);

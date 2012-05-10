@@ -752,7 +752,7 @@ void AnnotationDialog::Dialog::rotate( int angle )
     else {
         DB::ImageInfo& info = _editList[ _current ];
         info.rotate(angle);
-        _rotatedFiles.insert( info.fileName().absolute() ); // ZZZ
+        _rotatedFiles.insert( info.fileName() );
     }
 }
 
@@ -1095,7 +1095,7 @@ void AnnotationDialog::Dialog::togglePreview()
     }
 }
 
-Utilities::StringSet AnnotationDialog::Dialog::rotatedFiles() const
+DB::FileNameSet AnnotationDialog::Dialog::rotatedFiles() const
 {
     return _rotatedFiles;
 }

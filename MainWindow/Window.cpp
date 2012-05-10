@@ -439,8 +439,8 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
         return;
 
     reloadThumbnails(  ThumbnailView::MaintainSelection );
-    Q_FOREACH( const QString& fileName, _annotationDialog->rotatedFiles() )
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
+    Q_FOREACH( const DB::FileName& fileName, _annotationDialog->rotatedFiles() )
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName.absolute() ); // ZZZ
 }
 
 

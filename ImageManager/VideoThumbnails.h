@@ -21,6 +21,7 @@
 
 #include <QObject>
 #include <QImage>
+#include <DB/FileName.h>
 
 namespace ImageManager {
 
@@ -32,7 +33,7 @@ class VideoThumbnails : public QObject
     Q_OBJECT
 public:
     explicit VideoThumbnails(QObject *parent = 0);
-    void setVideoFile( const QString& fileName );
+    void setVideoFile( const DB::FileName& fileName );
     void requestFrame(int fraction); // 0..9
 
 signals:
@@ -45,7 +46,7 @@ private slots:
 private:
     bool loadFramesFromCache(const QString& fileName);
 
-    QString m_videoFile;
+    DB::FileName m_videoFile;
     QVector<QImage> m_cache;
     ImageManager::VideoLengthExtractor* m_lengthExtractor;
     ImageManager::VideoThumbnailsExtractor* m_extractor;

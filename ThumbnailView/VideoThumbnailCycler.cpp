@@ -84,7 +84,7 @@ DB::FileName ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id
 
 void ThumbnailView::VideoThumbnailCycler::startCycle()
 {
-    m_thumbnails->setVideoFile(fileNameForId(m_id).absolute()); // ZZZ
+    m_thumbnails->setVideoFile(fileNameForId(m_id));
     m_thumbnails->requestFrame(0);
     m_index = 0;
     m_timer->start(500);

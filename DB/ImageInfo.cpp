@@ -463,7 +463,7 @@ bool ImageInfo::isVideo() const
 
 void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
-    QString folderName = Utilities::relativeFolderName( _fileName.relative() ); // ZZZ
+    QString folderName = Utilities::relativeFolderName( _fileName.relative() );
     if ( folderName.isEmpty() )
         return;
 

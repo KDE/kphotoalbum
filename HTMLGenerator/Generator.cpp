@@ -224,19 +224,19 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
         row.appendChild( col );
 
-        const QString fileName = info->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = info->fileName();
 
         if (first.isEmpty())
             first = namePage( width, height, fileName);
         else
             last = namePage( width, height, fileName);
 
-    if (!Utilities::isVideo(DB::FileName::fromAbsolutePath(fileName))) // ZZZ
+    if (!Utilities::isVideo(fileName))
             images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
                   .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
 	else
             images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
-                  .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( QFileInfo(fileName).fileName() );
+                    .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( QFileInfo(fileName.absolute()).fileName() );
 
         // -------------------------------------------------- Description
         QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);
@@ -337,7 +337,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
         return false;
 
     DB::ImageInfoPtr info = current.fetchInfo();
-    QString currentFile = info->fileName().absolute(); // ZZZ
+    const DB::FileName currentFile = info->fileName();
 
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
     QRegExp rx( QString::fromLatin1( "^(<!DOCTYPE[^>]*>)" ) );
@@ -354,7 +354,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
 
     // Image or video content
-    if (Utilities::isVideo(DB::FileName::fromAbsolutePath(currentFile))) { // ZZZ
+    if (Utilities::isVideo(currentFile)) {
         QString videoFile = createVideo( currentFile );
         if ( _setup.inlineMovies() )
             content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
@@ -379,7 +379,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
     // prev link
     if ( !prev.isNull() )
-        link = i18n( "<a href=\"%1\">prev</a>", namePage( width, height, prev.fetchInfo()->fileName().absolute())); // ZZZ
+        link = i18n( "<a href=\"%1\">prev</a>", namePage( width, height, prev.fetchInfo()->fileName()));
     else
         link = i18n( "prev" );
     content.replace( QString::fromLatin1( "**PREV**" ), link );
@@ -387,7 +387,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     // PENDING(blackie) These next 5 line also exists exactly like that in HTMLGenerator::Generator::generateIndexPage. Please refactor.
     // prevfile
     if ( !prev.isNull() )
-        link = namePage( width, height, prev.fetchInfo()->fileName().absolute()); // ZZZ
+        link = namePage( width, height, prev.fetchInfo()->fileName());
     else
         link = i18n( "prev" );
     content.replace( QString::fromLatin1( "**PREVFILE**" ), link );
@@ -402,20 +402,20 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
     // Next Link
     if ( !next.isNull() )
-        link = i18n( "<a href=\"%1\">next</a>", namePage( width, height, next.fetchInfo()->fileName().absolute())); // ZZZ
+        link = i18n( "<a href=\"%1\">next</a>", namePage( width, height, next.fetchInfo()->fileName()));
     else
         link = i18n( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
 
     // Nextfile
     if ( !next.isNull() )
-        link = namePage( width, height, next.fetchInfo()->fileName().absolute()); // ZZZ
+        link = namePage( width, height, next.fetchInfo()->fileName());
     else
         link = i18n( "next" );
     content.replace( QString::fromLatin1( "**NEXTFILE**" ), link );
 
     if ( !next.isNull() )
-        link = namePage( width, height, next.fetchInfo()->fileName().absolute() ); // ZZZ
+        link = namePage( width, height, next.fetchInfo()->fileName() );
     else
         link = QString::fromLatin1( "index-%1.html" ).arg(ImageSizeCheckBox::text(width,height,true));
 
@@ -469,18 +469,18 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     return true;
 }
 
-QString HTMLGenerator::Generator::namePage( int width, int height, const QString& fileName )
+QString HTMLGenerator::Generator::namePage( int width, int height, const DB::FileName& fileName )
 {
-    QString name = _filenameMapper.uniqNameFor(fileName);
+    QString name = _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
     QString base = QFileInfo( name ).completeBaseName();
     return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
-QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
+QString HTMLGenerator::Generator::nameImage( const DB::FileName& fileName, int size )
 {
-    QString name = _filenameMapper.uniqNameFor(fileName);
+    QString name = _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
     QString base = QFileInfo( name ).completeBaseName();
-    if ( size == maxImageSize() && !Utilities::isVideo( DB::FileName::fromUnknown(fileName ) ) ) // ZZZ
+    if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
         if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
                 name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
             return name;
@@ -493,32 +493,32 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
 QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
 {
     DB::ImageInfoPtr info = id.fetchInfo();
-    const QString fileName = info->fileName().absolute(); // ZZZ
-    if ( _generatedFiles.contains( qMakePair(fileName,size) ) ) {
+    const DB::FileName fileName = info->fileName();
+    if ( _generatedFiles.contains( qMakePair(fileName.absolute(),size) ) ) { // ZZZ
         _waitCounter--;
     }
     else {
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( size, size ), // ZZZ
+            new ImageManager::ImageRequest( fileName, QSize( size, size ),
                                             info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
-        _generatedFiles.insert( qMakePair( fileName, size ) );
+        _generatedFiles.insert( qMakePair( fileName.absolute(), size ) ); // ZZZ
     }
 
     return nameImage( fileName, size );
 }
 
-QString HTMLGenerator::Generator::createVideo( const QString& fileName )
+QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
 {
     setValue( _total - _waitCounter );
     qApp->processEvents();
 
-    QString baseName = QFileInfo(fileName).fileName();
+    QString baseName = QFileInfo(fileName.absolute()).fileName();
     QString destName = _tempDir.name() + QString::fromLatin1("/") + baseName;
-    if ( !_copiedVideos.contains( fileName )) {
-        Utilities::copy( fileName, destName );
-        _copiedVideos.insert( fileName );
+    if ( !_copiedVideos.contains( fileName.absolute() )) { // ZZZ
+        Utilities::copy( fileName.absolute(), destName );
+        _copiedVideos.insert( fileName.absolute() ); // ZZZ
     }
     return baseName;
 }
@@ -592,7 +592,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const
     _waitCounter--;
 
     int size = imgSize.width();
-    QString file = _tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName.absolute(), size ); // ZZZ
+    QString file = _tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
     bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {

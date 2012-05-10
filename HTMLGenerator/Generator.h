@@ -56,11 +56,11 @@ protected:
     QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
 
 public:
-    QString namePage( int width, int height, const QString& fileName );
-    QString nameImage( const QString& fileName, int size );
+    QString namePage( int width, int height, const DB::FileName& fileName );
+    QString nameImage( const DB::FileName& fileName, int size );
 
     QString createImage( const DB::Id& id, int size );
-    QString createVideo( const QString& fileName );
+    QString createVideo( const DB::FileName& fileName );
 
     QString kimFileName( bool relative );
     bool writeToFile( const QString& fileName, const QString& str );

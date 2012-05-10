@@ -33,7 +33,7 @@ DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
     FileName res;
     res.m_isNull = false;
     res.m_absoluteFilePath = fileName;
-    res.m_relativePath = fileName.right(imageRoot.length());
+    res.m_relativePath = fileName.mid(imageRoot.length());
     return res;
 }
 

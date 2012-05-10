@@ -35,7 +35,7 @@ void BackgroundTasks::CreateVideoThumbnailsJob::execute()
         return;
     }
 
-    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( m_fileName, length );
+    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( DB::FileName::fromAbsolutePath(m_fileName), length ); // ZZZ
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
 }
 

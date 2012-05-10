@@ -27,7 +27,7 @@
 
 #define STR(x) QString::fromUtf8(x)
 
-ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const QString& fileName, int videoLength )
+ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength )
     :m_fileName(fileName), m_length(videoLength)
 {
     m_process = new Utilities::Process(this);
@@ -49,7 +49,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     const double offset = m_length * m_frameNumber / 10;
     QStringList arguments;
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
-              << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName;
+              << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName.absolute();
 
     m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }
@@ -57,7 +57,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 void ImageManager::VideoThumbnailsExtractor::frameFetched()
 {
     QImage image(QDir::tempPath() + STR("/00000001.png"));
-    image.save(frameName(m_fileName,m_frameNumber),"JPEG");
+    image.save(frameName(m_fileName.absolute(),m_frameNumber),"JPEG"); // ZZZ
     emit frameLoaded(m_frameNumber, image);
     requestNextFrame();
 }

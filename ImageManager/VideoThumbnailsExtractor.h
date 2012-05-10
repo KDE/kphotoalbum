@@ -21,6 +21,7 @@
 #define VIDEOTHUMBNAILSEXTRACTOR_H
 
 #include <QObject>
+#include <DB/FileName.h>
 class QProcess;
 class QImage;
 
@@ -34,7 +35,7 @@ class VideoThumbnailsExtractor :public QObject
 Q_OBJECT
 
 public:
-    VideoThumbnailsExtractor( const QString& fileName, int videoLength );
+    VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength );
     static QString frameName(const QString& videoName, int frameNumber );
 
 private slots:
@@ -48,7 +49,7 @@ private:
     void requestNextFrame();
 
     Utilities::Process* m_process;
-    QString m_fileName;
+    DB::FileName m_fileName;
     double m_length;
     int m_frameNumber;
 };

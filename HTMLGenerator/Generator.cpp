@@ -231,7 +231,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         else
             last = namePage( width, height, fileName);
 
-	if (!Utilities::isVideo(fileName))
+    if (!Utilities::isVideo(DB::FileName::fromAbsolutePath(fileName))) // ZZZ
             images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
                   .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
 	else
@@ -354,7 +354,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
 
     // Image or video content
-    if (Utilities::isVideo(currentFile)) {
+    if (Utilities::isVideo(DB::FileName::fromAbsolutePath(currentFile))) { // ZZZ
         QString videoFile = createVideo( currentFile );
         if ( _setup.inlineMovies() )
             content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
@@ -480,7 +480,7 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
 {
     QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
-    if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
+    if ( size == maxImageSize() && !Utilities::isVideo( DB::FileName::fromUnknown(fileName ) ) ) // ZZZ
         if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
                 name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
             return name;
@@ -604,7 +604,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     }
 
 #ifdef HAVE_EXIV2
-    if ( !Utilities::isVideo( fileName ) ) {
+    if ( !Utilities::isVideo( DB::FileName::fromUnknown(fileName) ) ) { // ZZZ
         try {
             Exif::Info::instance()->writeInfoToFile( fileName, file );
         }

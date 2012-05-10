@@ -73,7 +73,7 @@ void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
 
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const
 {
-    return Utilities::isVideo(fileNameForId(id));
+    return Utilities::isVideo(DB::FileName::fromAbsolutePath(fileNameForId(id)));
 }
 
 QString ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) const

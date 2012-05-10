@@ -31,6 +31,7 @@ public:
     FileName();
     static FileName fromAbsolutePath( const QString& fileName );
     static FileName fromRelativePath( const QString& fileName );
+    static FileName fromUnknown( const QString& fileName ); // ZZZ
     QString absolute() const;
     QString relative() const;
     bool isValid() const;

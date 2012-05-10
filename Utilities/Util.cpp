@@ -654,7 +654,7 @@ bool operator<( const QPoint& p1, const QPoint& p2)
     return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
 }
 
-bool Utilities::isVideo( const QString& fileName )
+bool Utilities::isVideo( const DB::FileName& fileName )
 {
     static StringSet videoExtensions;
     if ( videoExtensions.empty() ) {
@@ -687,7 +687,7 @@ bool Utilities::isVideo( const QString& fileName )
         videoExtensions.insert( QString::fromLatin1( "ogv" ) );
     }
 
-    QFileInfo fi( fileName );
+    QFileInfo fi( fileName.relative() );
     QString ext = fi.suffix().toLower();
     return videoExtensions.contains( ext );
 }

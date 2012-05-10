@@ -66,7 +66,7 @@ void ImageManager::AsyncLoader::init()
 
 void ImageManager::AsyncLoader::load( ImageRequest* request )
 {
-    if ( Utilities::isVideo( request->fileSystemFileName().absolute() ) ) // ZZZ
+    if ( Utilities::isVideo( request->fileSystemFileName() ) )
         loadVideo( request );
     else
         loadImage( request );

@@ -61,7 +61,7 @@ bool DB::FileInfo::updateDatFromFileTimeStamp(const QString& fileName, DB::ExifM
         return true;
 
     // Always trust for videos (this is a way to say that we should not trust for scaned in images - which makes no sense for videos)
-    if ( Utilities::isVideo(fileName) )
+    if ( Utilities::isVideo(DB::FileName::fromUnknown(fileName)) ) // ZZZ
         return true;
 
     // Finally use the info from the settings dialog

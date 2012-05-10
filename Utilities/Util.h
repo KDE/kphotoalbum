@@ -46,7 +46,7 @@ bool runningDemo();
 void deleteDemo();
 QString setupDemo();
 bool canReadImage( const QString& fileName );
-bool isVideo( const QString& fileName );
+bool isVideo( const DB::FileName& fileName );
 bool isRAW( const QString& fileName );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );

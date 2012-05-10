@@ -589,7 +589,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
-    DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
+    DB::MediaType mediaType = Utilities::isVideo(DB::FileName::fromUnknown(fileName)) ? DB::Video : DB::Image;
 
     short rating = elm.attribute( QString::fromLatin1("rating"), QString::fromLatin1("-1") ).toShort();
     DB::StackID stackId = elm.attribute( QString::fromLatin1("stackId"), QString::fromLatin1("0") ).toULong();

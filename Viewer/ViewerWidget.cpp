@@ -431,7 +431,7 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 void Viewer::ViewerWidget::load()
 {
     const bool isReadable = QFileInfo( currentInfo()->fileName().absolute() ).isReadable(); // ZZZ
-    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName().absolute() ); // ZZZ
+    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
 
     if ( isReadable ) {
         if ( isVideo ) {

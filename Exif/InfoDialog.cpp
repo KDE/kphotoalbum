@@ -116,7 +116,7 @@ void Exif::Grid::slotCharsetChange( const QString& charset )
     m_texts.clear();
     m_headers.clear();
 
-    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( DB::FileName::fromUnknown(m_fileName), charset ); // ZZZ
+    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
     calculateMaxKeyWidth( map );
 
     StringSet groups = exifGroups( map );
@@ -286,14 +286,14 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
         return;
     const DB::FileName fileName = info->fileName();
     m_fileNameLabel->setText( fileName.absolute() ); // ZZZ
-    m_grid->setFileName( fileName.absolute() ); // ZZZ
+    m_grid->setFileName( fileName );
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
     request->setPriority( ImageManager::Viewer );
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void Exif::Grid::setFileName(const QString &fileName)
+void Exif::Grid::setFileName(const DB::FileName &fileName)
 {
     m_fileName = fileName;
     slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );

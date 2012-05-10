@@ -285,7 +285,7 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
     if ( info.isNull() )
         return;
     const DB::FileName fileName = info->fileName();
-    m_fileNameLabel->setText( fileName.absolute() ); // ZZZ
+    m_fileNameLabel->setText( fileName.relative() );
     m_grid->setFileName( fileName );
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );

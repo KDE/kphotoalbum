@@ -42,7 +42,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
 
-    m_lengthExtractor->extract(fileName.absolute()); // ZZZ
+    m_lengthExtractor->extract(fileName);
 }
 
 void ImageManager::VideoThumbnails::requestFrame(int fraction)

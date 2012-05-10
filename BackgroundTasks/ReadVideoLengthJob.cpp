@@ -34,7 +34,7 @@ BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &file
 void BackgroundTasks::ReadVideoLengthJob::execute()
 {
     ImageManager::VideoLengthExtractor* extractor = new ImageManager::VideoLengthExtractor(this);
-    extractor->extract(m_fileName.absolute()); // ZZZ
+    extractor->extract(m_fileName);
     connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
 }

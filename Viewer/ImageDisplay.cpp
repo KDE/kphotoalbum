@@ -549,7 +549,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
             return; // Might be an old preload version, or a loaded version that never made it in time
 
         ViewPreloadInfo* info = new ViewPreloadInfo( img, fullSize, angle );
-        bool ok = _cache.insert( indexOf(fileName.absolute()), info ); // ZZZ
+        bool ok = _cache.insert( indexOf(fileName), info );
         if ( !ok )
             delete info;
         updatePreload();
@@ -624,11 +624,11 @@ void Viewer::ImageDisplay::updatePreload()
 }
 
 
-int Viewer::ImageDisplay::indexOf( const QString& fileName )
+int Viewer::ImageDisplay::indexOf( const DB::FileName& fileName )
 {
     int i = 0;
     for( DB::FileNameList::ConstIterator it = _imageList.constBegin(); it != _imageList.constEnd(); ++it ) {
-        if ( *it == DB::FileName::fromUnknown(fileName) ) // ZZZ
+        if ( *it == fileName )
             break;
         ++i;
     }

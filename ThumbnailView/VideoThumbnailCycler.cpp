@@ -73,18 +73,18 @@ void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
 
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const
 {
-    return Utilities::isVideo(DB::FileName::fromAbsolutePath(fileNameForId(id)));
+    return Utilities::isVideo(fileNameForId(id));
 }
 
-QString ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) const
+DB::FileName ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) const
 {
     DB::ImageInfoPtr info = id.fetchInfo();
-    return info->fileName().absolute(); // ZZZ
+    return info->fileName();
 }
 
 void ThumbnailView::VideoThumbnailCycler::startCycle()
 {
-    m_thumbnails->setVideoFile(fileNameForId(m_id));
+    m_thumbnails->setVideoFile(fileNameForId(m_id).absolute()); // ZZZ
     m_thumbnails->requestFrame(0);
     m_index = 0;
     m_timer->start(500);

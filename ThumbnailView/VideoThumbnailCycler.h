@@ -25,9 +25,9 @@
 
 class QTimer;
 
-namespace ImageManager {
-    class VideoThumbnails;
-}
+namespace DB { class FileName; }
+namespace ImageManager { class VideoThumbnails; }
+
 namespace ThumbnailView {
     class ThumbnailModel;
 
@@ -45,7 +45,7 @@ private slots:
 private:
     void resetPreviousThumbail();
     bool isVideo( const DB::Id& id ) const;
-    QString fileNameForId( const DB::Id& ) const;
+    DB::FileName fileNameForId( const DB::Id& ) const;
     void startCycle();
     void stopCycle();
 

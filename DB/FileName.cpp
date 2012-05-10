@@ -96,3 +96,8 @@ bool DB::FileName::exists() const
 {
     return QFile::exists(absolute());
 }
+
+uint DB::qHash( const DB::FileName& fileName )
+{
+    return qHash(fileName.relative());
+}

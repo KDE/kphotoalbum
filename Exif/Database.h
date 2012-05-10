@@ -22,18 +22,15 @@
 #include <qstring.h>
 #include <QList>
 #include <qpair.h>
-#include "Utilities/Set.h"
+#include <DB/FileName.h>
 
 namespace Exiv2 { class ExifData; }
-namespace DB { class FileName; }
 
 typedef QPair<int,int> Rational;
 typedef QList<Rational> RationalList;
 
 namespace Exif
 {
-
-using Utilities::StringSet;
 
 // ============================================================================
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
@@ -55,7 +52,7 @@ public:
     bool isUsable() const;
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
-    StringSet filesMatchingQuery( const QString& query );
+    DB::FileNameSet filesMatchingQuery( const QString& query );
     CameraList cameras() const;
     void recreate();
 

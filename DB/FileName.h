@@ -21,6 +21,7 @@
 #define FILENAME_H
 
 #include <QString>
+#include <QSet>
 
 namespace DB
 {
@@ -49,6 +50,10 @@ private:
     bool m_isNull;
 };
 
+uint qHash( const DB::FileName& fileName );
+typedef QSet<DB::FileName> FileNameSet;
 }
+
+
 
 #endif // FILENAME_H

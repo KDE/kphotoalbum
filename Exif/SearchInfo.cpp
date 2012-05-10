@@ -18,6 +18,7 @@
 
 #include "SearchInfo.h"
 #include "Exif/Database.h"
+#include <DB/FileName.h>
 
 /**
  * \class Exif::SearchInfo
@@ -144,7 +145,7 @@ bool Exif::SearchInfo::matches( const QString& fileName ) const
     if ( _emptyQuery )
         return true;
 
-    return _matches.contains( fileName );
+    return _matches.contains( DB::FileName::fromUnknown(fileName) ); // ZZZ
 }
 
 void Exif::SearchInfo::addCamera( const CameraList& list )

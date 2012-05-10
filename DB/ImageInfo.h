@@ -63,7 +63,7 @@ class ImageInfo :public KShared {
 
 public:
     ImageInfo();
-    explicit ImageInfo( const QString& relativeFileName, MediaType type = Image, bool readExifInfo = true );
+    explicit ImageInfo( const DB::FileName& fileName, MediaType type = Image, bool readExifInfo = true );
     ImageInfo( const QString& relativeFileName,
                const QString& label,
                const QString& description,

@@ -201,7 +201,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     }
 
     // check to see if this is a new version of a previous image
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( DB::FileName::fromRelativePath(relativeNewFileName), type )); // ZZZ
     ImageInfoPtr originalInfo;
     QString originalFileName;
 

@@ -271,7 +271,7 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
-    QString importName = info->fileName().relative(); // ZZZ
+    const DB::FileName importName = info->fileName();
 
     DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
     updateInfo->setLabel( info->label() );

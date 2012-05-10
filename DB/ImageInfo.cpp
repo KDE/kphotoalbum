@@ -38,22 +38,21 @@ ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
 {
 }
 
-ImageInfo::ImageInfo( const QString& relativeFileName, MediaType type, bool readExifInfo )
+ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
       _rating(-1), _stackId(0), _stackOrder(0),
       _geoPosition(), _videoLength(-1),
       _locked(false), _delaySaving( true )
 {
-    QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ relativeFileName;
-    QFileInfo fi( fullPath );
+    QFileInfo fi( fileName.absolute() );
     _label = fi.completeBaseName();
     _angle = 0;
 
-    setFileName(relativeFileName);
+    setFileName(fileName.relative()); // ZZZ
 
     // Read EXIF information
     if ( readExifInfo )
-        readExif(DB::FileName::fromAbsolutePath(fullPath), EXIFMODE_INIT); // ZZZ
+        readExif(fileName, EXIFMODE_INIT);
 
     _dirty = false;
     _delaySaving = false;

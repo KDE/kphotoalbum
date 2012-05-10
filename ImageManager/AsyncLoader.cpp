@@ -145,7 +145,7 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
 
 
         if ( requestStillNeeded && request->client() ) {
-            request->client()->pixmapLoaded( request->databaseFileName().absolute(), request->size(), // ZZZ
+            request->client()->pixmapLoaded( request->databaseFileName(), request->size(),
                                              request->fullSize(), request->angle(),
                                              image, request->loadedOK());
         }

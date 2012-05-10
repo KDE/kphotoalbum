@@ -584,7 +584,7 @@ void HTMLGenerator::Generator::slotCancelGenerate()
         _eventLoop->exit();
 }
 
-void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
+void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize,
                                              const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
 {
     setValue( _total - _waitCounter );
@@ -592,7 +592,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     _waitCounter--;
 
     int size = imgSize.width();
-    QString file = _tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
+    QString file = _tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName.absolute(), size ); // ZZZ
 
     bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {
@@ -604,9 +604,9 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     }
 
 #ifdef HAVE_EXIV2
-    if ( !Utilities::isVideo( DB::FileName::fromUnknown(fileName) ) ) { // ZZZ
+    if ( !Utilities::isVideo( fileName ) ) {
         try {
-            Exif::Info::instance()->writeInfoToFile( fileName, file );
+            Exif::Info::instance()->writeInfoToFile( fileName.absolute(), file ); // ZZZ
         }
         catch (...)
         {

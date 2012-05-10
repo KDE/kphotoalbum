@@ -308,16 +308,16 @@ void Export::copyImages(const DB::IdList& list)
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
+void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
 {
     if ( !loadedOK )
         return;
 
-    const QString ext = (Utilities::isVideo( DB::FileName::fromUnknown(fileName) ) || Utilities::isRAW( DB::FileName::fromUnknown(fileName) )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix(); // ZZZ
+    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName.absolute()) ).completeSuffix(); // ZZZ
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(_subdir))
-        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName) ).baseName()).arg( ext );
+        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName.absolute()) ).baseName()).arg( ext ); // ZZZ
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
@@ -326,7 +326,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( _location == Inline || !_copyingFiles )
         _zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
     else {
-        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
+        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1", file ) );

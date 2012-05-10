@@ -111,7 +111,7 @@ void ImageManager::VideoManager::previewFailed()
             ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), pix.toImage() ); // ZZZ
 
         _currentRequest->setLoadedOK( false );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName().absolute(), size, size, 0, pix.toImage(), true); // ZZZ
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), size, size, 0, pix.toImage(), true);
     }
 
     requestLoadNext();
@@ -178,7 +178,7 @@ void ImageManager::VideoManager::sendResult(QImage image)
         if ( _currentRequest->isThumbnailRequest() )
             ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), image ); // ZZZ
         _currentRequest->setLoadedOK( true );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName().absolute(), image.size(), QSize(-1,-1), 0, image, !image.isNull()); // ZZZ
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
     }
 
     requestLoadNext();

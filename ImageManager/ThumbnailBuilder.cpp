@@ -48,12 +48,12 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
     m_startBuildTimer->stop();
 }
 
-void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
+void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
 {
     Q_UNUSED(size)
     Q_UNUSED(loadedOK)
     if ( fullSize.width() != -1 ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName.absolute(), DB::AbsolutePath ); // ZZZ
         info->setSize( fullSize );
     }
     m_statusBar->setProgress( ++m_count );

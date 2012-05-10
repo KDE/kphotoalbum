@@ -518,10 +518,10 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
     return false;
 }
 
-void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
+void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
                                          const QImage& img, const bool loadedOK)
 {
-    if ( loadedOK && fileName == _info->fileName().absolute() ) { // ZZZ
+    if ( loadedOK && fileName == _info->fileName() ) {
         if ( fullSize.isValid() && !_info->size().isValid() )
             _info->setSize( fullSize );
 
@@ -549,7 +549,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
             return; // Might be an old preload version, or a loaded version that never made it in time
 
         ViewPreloadInfo* info = new ViewPreloadInfo( img, fullSize, angle );
-        bool ok = _cache.insert( indexOf(fileName), info );
+        bool ok = _cache.insert( indexOf(fileName.absolute()), info ); // ZZZ
         if ( !ok )
             delete info;
         updatePreload();

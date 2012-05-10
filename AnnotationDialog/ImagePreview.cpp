@@ -118,10 +118,10 @@ void ImagePreview::setCurrentImage(const QImage &image)
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
-void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
+void ImagePreview::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK && !_info.isNull() ) {
-        if (_info.fileName().absolute() == fileName) // ZZZ
+        if (_info.fileName() == fileName)
             setCurrentImage(image);
     }
 }
@@ -179,11 +179,11 @@ void ImagePreview::PreviewImage::reset()
 }
 
 
-void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+void ImagePreview::PreviewLoader::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
                                                 const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK )
-        set(fileName, image);
+        set(fileName.absolute(), image); // ZZZ
 }
 
 

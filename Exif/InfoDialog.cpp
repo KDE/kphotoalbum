@@ -273,7 +273,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
 }
 
 
-void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
+void Exif::InfoDialog::pixmapLoaded( const DB::FileName& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
 {
     if ( loadedOK )
       m_pix->setPixmap( QPixmap::fromImage(img) );

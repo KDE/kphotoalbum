@@ -42,7 +42,7 @@ public:
     void buildAll(ThumbnailBuildStart when );
     void buildMissing();
 
-    OVERRIDE void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
     OVERRIDE void requestCanceled();
 
 public slots:

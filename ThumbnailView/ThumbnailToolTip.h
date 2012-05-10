@@ -22,6 +22,8 @@
 #include <qlabel.h>
 #include <QEvent>
 #include "ImageManager/ImageClientInterface.h"
+#include <DB/FileName.h>
+
 namespace DB { class ImageInfo; }
 
 namespace ThumbnailView
@@ -35,7 +37,7 @@ public:
     ThumbnailToolTip( ThumbnailWidget* view );
     void showToolTips( bool force );
     virtual void setActive(bool);
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );
@@ -44,7 +46,7 @@ protected:
 
 private:
     ThumbnailWidget* _view;
-    QString _currentFileName;
+    DB::FileName _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
     QTimer *timer;

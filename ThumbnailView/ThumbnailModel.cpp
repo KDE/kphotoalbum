@@ -283,14 +283,14 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)
+void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)
 {
 #if 0 // THIS ISN'T EVEN USED!!!!
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
         pixmap = QPixmap::fromImage( image );
 #endif
-    DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(fileName) ); // ZZZ
+    DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
     DB::ImageInfoPtr imageInfo = id.fetchInfo();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.

@@ -252,7 +252,7 @@ void XMLDB::FileWriter::add21CompatXML( QDomElement& top )
 QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
-    elm.setAttribute( QString::fromLatin1("file"),  info->fileName().relative() ); // ZZZ
+    elm.setAttribute( QString::fromLatin1("file"),  info->fileName().relative() );
     elm.setAttribute( QString::fromLatin1("label"),  info->label() );
     if ( !info->description().isEmpty() )
         elm.setAttribute( QString::fromLatin1("description"), info->description() );

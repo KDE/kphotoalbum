@@ -37,6 +37,8 @@ public:
     bool isNull() const;
     bool operator==( const FileName& other ) const;
     bool operator!=( const FileName& other ) const;
+    bool operator<( const FileName& other ) const;
+    bool exists() const;
 
 private:
     // During previous profilation it showed that converting between absolute and relative took quite some time,

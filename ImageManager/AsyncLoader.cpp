@@ -66,7 +66,7 @@ void ImageManager::AsyncLoader::init()
 
 void ImageManager::AsyncLoader::load( ImageRequest* request )
 {
-    if ( Utilities::isVideo( request->fileSystemFileName() ) )
+    if ( Utilities::isVideo( request->fileSystemFileName().absolute() ) ) // ZZZ
         loadVideo( request );
     else
         loadImage( request );
@@ -141,11 +141,11 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         }
 
         if ( request->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName(), image );
+            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName().absolute(), image ); // ZZZ
 
 
         if ( requestStillNeeded && request->client() ) {
-            request->client()->pixmapLoaded( request->databaseFileName(), request->size(),
+            request->client()->pixmapLoaded( request->databaseFileName().absolute(), request->size(), // ZZZ
                                              request->fullSize(), request->angle(),
                                              image, request->loadedOK());
         }

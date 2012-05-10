@@ -246,7 +246,7 @@ void Export::generateThumbnails(const DB::IdList& list)
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.size(); // Used to break the event loop.
     Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName().absolute(), QSize( 128, 128 ), info->angle(), this ); // ZZZ
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( 128, 128 ), info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
     }
@@ -289,7 +289,7 @@ void Export::copyImages(const DB::IdList& list)
         else {
             _filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( file, QSize( _maxSize, _maxSize ), 0, this );
+                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( _maxSize, _maxSize ), 0, this ); // ZZZ
             request->setPriority( ImageManager::BatchTask );
             ImageManager::AsyncLoader::instance()->load( request );
         }

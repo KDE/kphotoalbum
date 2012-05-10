@@ -278,7 +278,7 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
-        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName().absolute(), cellSize, angle, this ); // ZZZ
+        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(), cellSize, angle, this );
     request->setPriority( priority );
     ImageManager::AsyncLoader::instance()->load( request );
 }

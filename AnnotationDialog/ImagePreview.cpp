@@ -90,7 +90,7 @@ void ImagePreview::reload()
         else {
             setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName().absolute(), QSize( width(), height() ), _info.angle(), this ); // ZZZ
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );
         }
@@ -192,7 +192,7 @@ void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int widt
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
     ImageManager::AsyncLoader::instance()->stop(this);
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( width, height ), angle, this ); // ZZZ
     request->setPriority( ImageManager::ViewerPreload );
     ImageManager::AsyncLoader::instance()->load( request );
 }

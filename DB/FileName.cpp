@@ -19,6 +19,7 @@
 
 #include "FileName.h"
 #include <Utilities/Util.h>
+#include <QFile>
 
 DB::FileName::FileName()
     : m_isNull(false)
@@ -76,4 +77,14 @@ bool DB::FileName::operator ==(const DB::FileName &other) const
 bool DB::FileName::operator !=(const DB::FileName &other) const
 {
     return !(*this == other);
+}
+
+bool DB::FileName::operator <(const DB::FileName &other) const
+{
+    return relative() < other.relative();
+}
+
+bool DB::FileName::exists() const
+{
+    return QFile::exists(absolute());
 }

@@ -29,8 +29,8 @@ ImageManager::VideoImageRescaleRequest::~VideoImageRescaleRequest()
     delete m_originalRequest;
 }
 
-QString ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
+DB::FileName ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
 {
-    return m_path;
+    return DB::FileName::fromAbsolutePath(m_path); // ZZZ
 }
 

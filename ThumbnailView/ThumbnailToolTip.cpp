@@ -169,7 +169,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
     if ( size != 0 ) {
         if ( fileName != _currentFileName ) {
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( size, size ), info->angle(), this );
             // request->setCache();  // TODO: do caching in callback.
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );

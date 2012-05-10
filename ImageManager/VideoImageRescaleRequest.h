@@ -30,7 +30,7 @@ class VideoImageRescaleRequest : public ImageRequest
 public:
     VideoImageRescaleRequest( ImageRequest* originalRequest, const QString& path );
     ~VideoImageRescaleRequest();
-    OVERRIDE QString fileSystemFileName() const;
+    OVERRIDE DB::FileName fileSystemFileName() const;
 
 private:
     ImageRequest* m_originalRequest;

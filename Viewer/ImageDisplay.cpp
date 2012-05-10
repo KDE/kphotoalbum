@@ -689,7 +689,7 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
 void Viewer::ImageDisplay::potentialyLoadFullSize()
 {
     if ( _info->size() != _loadedImage.size() ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName().absolute(), QSize(-1,-1), _info->angle(), this ); // ZZZ
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
         request->setPriority( ImageManager::Viewer );
         ImageManager::AsyncLoader::instance()->load( request );
         busy();
@@ -717,7 +717,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
     if ( viewSize == Settings::NaturalSize )
         s = QSize(-1,-1);
 
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName().absolute(), s, info->angle(), this ); // ZZZ
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
     request->setPriority( priority ? ImageManager::Viewer : ImageManager::ViewerPreload );
     ImageManager::AsyncLoader::instance()->load( request );

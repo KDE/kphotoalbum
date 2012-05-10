@@ -284,9 +284,9 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
     DB::ImageInfoPtr info = id.fetchInfo();
     if ( info.isNull() )
         return;
-    QString fileName = info->fileName().absolute(); // ZZZ
-    m_fileNameLabel->setText( fileName );
-    m_grid->setFileName( fileName );
+    const DB::FileName fileName = info->fileName();
+    m_fileNameLabel->setText( fileName.absolute() ); // ZZZ
+    m_grid->setFileName( fileName.absolute() ); // ZZZ
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
     request->setPriority( ImageManager::Viewer );

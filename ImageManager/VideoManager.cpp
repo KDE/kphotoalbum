@@ -70,7 +70,7 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     list.append(
 			KFileItem( KFileItem::Unknown /* mode */
 				, KFileItem::Unknown /* permissions */
-				, request->databaseFileName() )
+                , request->databaseFileName().absolute() ) // ZZZ
 			);
 
     KIO::PreviewJob* job = KIO::filePreview(list, QSize(1024,1024) );
@@ -108,10 +108,10 @@ void ImageManager::VideoManager::previewFailed()
         const QSize size( _currentRequest->width(), _currentRequest->height());
         pix = pix.scaled(size,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), pix.toImage() );
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), pix.toImage() ); // ZZZ
 
         _currentRequest->setLoadedOK( false );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), size, size, 0, pix.toImage(), true);
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName().absolute(), size, size, 0, pix.toImage(), true); // ZZZ
     }
 
     requestLoadNext();
@@ -176,9 +176,9 @@ void ImageManager::VideoManager::sendResult(QImage image)
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         image = image.scaled( QSize(_currentRequest->width(), _currentRequest->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), image );
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), image ); // ZZZ
         _currentRequest->setLoadedOK( true );
-        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
+        _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName().absolute(), image.size(), QSize(-1,-1), 0, image, !image.isNull()); // ZZZ
     }
 
     requestLoadNext();
@@ -186,7 +186,7 @@ void ImageManager::VideoManager::sendResult(QImage image)
 
 void ImageManager::VideoManager::saveFullScaleFrame(const QImage &image)
 {
-    saveFullScaleFrame(_currentRequest->databaseFileName(), image);
+    saveFullScaleFrame(_currentRequest->databaseFileName().absolute(), image); // ZZZ
 }
 
 void ImageManager::VideoManager::saveFullScaleFrame(const QString &fileName, const QImage &image)
@@ -199,7 +199,7 @@ void ImageManager::VideoManager::saveFullScaleFrame(const QString &fileName, con
 
 bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageRequest *request)
 {
-    const QString path = pathForRequest(request->databaseFileName());
+    const QString path = pathForRequest(request->databaseFileName().absolute()); // ZZZ
     if ( QFile::exists(path) ) {
         VideoImageRescaleRequest* newRequest = new VideoImageRescaleRequest( request, path );
         AsyncLoader::instance()->load( newRequest );

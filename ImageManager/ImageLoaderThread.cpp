@@ -75,12 +75,12 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
     QSize fullSize;
 
     ok = false;
-    if ( !QFile( request->fileSystemFileName() ).exists() )
+    if ( !request->fileSystemFileName().exists() )
         return QImage();
 
     QImage img;
-    if (Utilities::isJPEG(request->fileSystemFileName())) {
-        ok = Utilities::loadJPEG(&img, request->fileSystemFileName(),  &fullSize, dim);
+    if (Utilities::isJPEG(request->fileSystemFileName().absolute())) { // ZZZ
+        ok = Utilities::loadJPEG(&img, request->fileSystemFileName().absolute(),  &fullSize, dim); // ZZZ
         if (ok == true)
             request->setFullSize( fullSize );
     }
@@ -89,14 +89,14 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
         // At first, we have to give our RAW decoders a try. If we allowed
         // QImage's load() method, it'd for example load a tiny thumbnail from
         // NEF files, which is not what we want.
-        ok = ImageDecoder::decode( &img, request->fileSystemFileName(),  &fullSize, dim);
+        ok = ImageDecoder::decode( &img, request->fileSystemFileName().absolute(),  &fullSize, dim); // ZZZ
         if (ok)
             request->setFullSize( img.size() );
     }
 
     if (!ok) {
         // Now we can try QImage's stuff as a fallback...
-        ok = img.load( request->fileSystemFileName() );
+        ok = img.load( request->fileSystemFileName().absolute() );
         if (ok)
             request->setFullSize( img.size() );
 

@@ -499,7 +499,7 @@ QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
     }
     else {
         ImageManager::ImageRequest* request =
-            new ImageManager::ImageRequest( fileName, QSize( size, size ),
+            new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( size, size ), // ZZZ
                                             info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );

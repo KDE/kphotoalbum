@@ -103,7 +103,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 
     Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
         ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( info->fileName().absolute(), // ZZZ
+            = new ImageManager::PreloadRequest( info->fileName(),
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);

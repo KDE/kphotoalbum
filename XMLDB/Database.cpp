@@ -38,6 +38,7 @@
 #ifdef HAVE_EXIV2
 #   include "Exif/Database.h"
 #endif
+#include <DB/FileName.h>
 
 using Utilities::StringSet;
 
@@ -456,7 +457,7 @@ bool XMLDB::Database::stack(const DB::IdList& items)
             ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName().absolute())); // ZZZ
+        _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName()));
         ++changed;
     }
 
@@ -511,7 +512,7 @@ DB::IdList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            _stackMap[stackid].append(ID_FOR_FILE((*it)->fileName().absolute())); // will need to be sorted later // ZZZ
+            _stackMap[stackid].append(ID_FOR_FILE((*it)->fileName())); // will need to be sorted later
         }
     }
 
@@ -698,8 +699,8 @@ QStringList XMLDB::Database::CONVERT(const DB::IdList& items)
     return result;
 }
 
-DB::Id XMLDB::Database::ID_FOR_FILE( const QString& filename) const {
-    return DB::Id::createContextless(_idMapper[ Utilities::imageFileNameToRelative(filename)]);
+DB::Id XMLDB::Database::ID_FOR_FILE( const DB::FileName& fileName) const {
+    return DB::Id::createContextless(_idMapper[ fileName.relative()]); // ZZZ
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const

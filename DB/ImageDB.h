@@ -41,6 +41,7 @@ class ImageDateCollection;
 class IdList;
 class Id;
 class ImageSearchInfo;
+class FileName;
 
 class ImageDB  :public QObject {
     Q_OBJECT
@@ -133,7 +134,7 @@ public: // Methods that must be overridden
      * If that turns out to be true, lowercasify this method, and update
      * this comment.
      */
-    virtual DB::Id ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
+    virtual DB::Id ID_FOR_FILE( const DB::FileName& ) const = 0; // QWERTY DIE ?
 
     /** @short Create a stack of images/videos/whatever
      *

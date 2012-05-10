@@ -75,7 +75,7 @@ namespace SQLDB {
                                                    bool includeRanges) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&);
-        OVERRIDE DB::Id ID_FOR_FILE( const QString& ) const;
+        OVERRIDE DB::Id ID_FOR_FILE( const DB::FileName& ) const;
 
         OVERRIDE bool stack(const DB::IdList& items);
         OVERRIDE void unstack(const DB::IdList& items);

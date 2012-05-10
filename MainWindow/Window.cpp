@@ -515,7 +515,7 @@ void MainWindow::Window::slotPasteInformation()
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
         originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );
     } else {
-        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
+        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(string) ); // ZZZ
         originalInfo = ID.fetchInfo();
     }
     Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
@@ -1597,7 +1597,7 @@ void MainWindow::Window::slotShowListOfFiles()
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
         if ( fileName.isNull() )
             continue;
-        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
+        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(fileName)); // ZZZ
         if ( !id.isNull() )
             out.append(id);
     }

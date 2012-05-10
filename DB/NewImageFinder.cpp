@@ -261,8 +261,8 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         DB::ImageDB::instance()->addImages( newImages );
 
         // stack the files together
-        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
-        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName().absolute()); // ZZZ
+        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(originalFileName)); // ZZZ
+        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName());
         DB::IdList tostack = DB::IdList();
 
         // the newest file should go to the top of the stack

@@ -27,6 +27,7 @@
 #include "Utilities/Util.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "SelectionMaintainer.h"
+#include <DB/FileName.h>
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
@@ -289,7 +290,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const
     if ( loadedOK && !image.isNull() )
         pixmap = QPixmap::fromImage( image );
 #endif
-    DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(fileName) ); // ZZZ
     DB::ImageInfoPtr imageInfo = id.fetchInfo();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.

@@ -22,6 +22,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfoList.h"
 #include "DB/MediaCount.h"
+#include <DB/FileNameList.h>
 
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
@@ -65,7 +66,7 @@ public slots:
     virtual void slotRescan();
     void slotRecalcCheckSums(const DB::IdList& selection);
     virtual MediaCount count( const ImageSearchInfo& info );
-    virtual void slotReread( const QStringList& list, DB::ExifMode mode);
+    virtual void slotReread( const DB::FileNameList& list, DB::ExifMode mode);
 
 protected:
     ImageDate _selectionRange;

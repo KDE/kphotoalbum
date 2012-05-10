@@ -33,6 +33,7 @@
 #include "SQLDB/DatabaseAddress.h"
 #endif
 #include <QProgressDialog>
+#include <DB/FileName.h>
 
 using namespace DB;
 
@@ -211,14 +212,14 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
         progressBar->setValue(n);
 }
 
-void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
+void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
 {
 // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("Loading information from images"),
                              i18n("Cancel"), 0, list.count() );
 
     uint count=0;
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
+    for( DB::FileNameList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -227,10 +228,10 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
                 return;
         }
 
-        QFileInfo fi( *it );
+        QFileInfo fi( (*it).absolute() );
 
         if (fi.exists())
-            info(DB::FileName::fromAbsolutePath(*it))->readExif(DB::FileName::fromAbsolutePath(*it), mode); // ZZZ
+            info(*it)->readExif(*it, mode);
         markDirty();
     }
 }

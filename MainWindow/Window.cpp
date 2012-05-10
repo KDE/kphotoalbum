@@ -528,7 +528,7 @@ void MainWindow::Window::slotPasteInformation()
 void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HAVE_EXIV2
-    QStringList files = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
+    DB::FileNameList files = DB::ImageDB::instance()->CONVERT2(selectedOnDisk());
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );

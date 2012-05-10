@@ -23,6 +23,7 @@
 #include "DB/ImageInfoList.h"
 #include <Utilities/Set.h>
 #include <qpair.h>
+#include <DB/FileNameList.h>
 
 namespace DB
 {

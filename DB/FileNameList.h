@@ -17,43 +17,24 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef FILENAME_H
-#define FILENAME_H
+#ifndef FILENAMELIST_H
+#define FILENAMELIST_H
 
-#include <QString>
-#include <QSet>
+#include <QStringList>
+#include <QList>
+#include "FileName.h"
+#include "ImageInfo.h"
 
 namespace DB
 {
 
-class FileName
+class FileNameList : public QList<DB::FileName>
 {
 public:
-    FileName();
-    static FileName fromAbsolutePath( const QString& fileName );
-    static FileName fromRelativePath( const QString& fileName );
-    static FileName fromUnknown( const QString& fileName ); // ZZZ
-    QString absolute() const;
-    QString relative() const;
-    bool isValid() const;
-    bool isNull() const;
-    bool operator==( const FileName& other ) const;
-    bool operator!=( const FileName& other ) const;
-    bool operator<( const FileName& other ) const;
-    bool exists() const;
-
-private:
-    // During previous profilation it showed that converting between absolute and relative took quite some time,
-    // so to avoid that, I store both.
-    QString m_relativePath;
-    QString m_absoluteFilePath;
-    bool m_isNull;
+    QStringList toStringList(DB::PathType) const;
+    FileNameList& operator<<(const DB::FileName& );
 };
 
-uint qHash( const DB::FileName& fileName );
-typedef QSet<DB::FileName> FileNameSet;
 }
 
-
-
-#endif // FILENAME_H
+#endif // FILENAMELIST_H

@@ -28,7 +28,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "AbstractDisplay.h"
 #include "Settings/SettingsData.h"
-
+#include <DB/FileNameList.h>
 class QTimer;
 
 namespace DB

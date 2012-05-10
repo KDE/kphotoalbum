@@ -19,6 +19,7 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 #include <KDialog>
+#include <DB/FileNameList.h>
 class QListWidget;
 class QLabel;
 class QCheckBox;
@@ -31,14 +32,14 @@ class ReReadDialog :public KDialog {
 
 public:
     ReReadDialog( QWidget* parent );
-    int exec( const QStringList& );
+    int exec( const DB::FileNameList& );
 
 protected slots:
     void readInfo();
     void warnAboutDates( bool );
 
 private:
-    QStringList _list;
+    DB::FileNameList _list;
     QCheckBox* _exifDB;
     QCheckBox* _date;
     QCheckBox* _orientation;

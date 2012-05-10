@@ -35,6 +35,7 @@
 #include <KIcon>
 #include "Window.h"
 #include "RunDialog.h"
+#include <DB/FileNameList.h>
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {

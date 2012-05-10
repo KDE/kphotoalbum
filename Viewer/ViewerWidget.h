@@ -27,7 +27,7 @@
 #include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
 #include <QPointer>
-#include <DB/FileName.h>
+#include <DB/FileNameList.h>
 
 class QKeyEvent;
 class QResizeEvent;

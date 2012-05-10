@@ -231,6 +231,7 @@ set(libDB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileNameList.cpp
     )
 
 set(libImportExport_SRCS

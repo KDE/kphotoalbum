@@ -22,7 +22,7 @@
 
 #include <KDialog>
 #include <KLineEdit>
-#include <DB/FileName.h>
+#include <DB/FileNameList.h>
 
 namespace MainWindow
 {

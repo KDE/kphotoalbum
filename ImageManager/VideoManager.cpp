@@ -108,7 +108,7 @@ void ImageManager::VideoManager::previewFailed()
         const QSize size( _currentRequest->width(), _currentRequest->height());
         pix = pix.scaled(size,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), pix.toImage() ); // ZZZ
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), pix.toImage() );
 
         _currentRequest->setLoadedOK( false );
         _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), size, size, 0, pix.toImage(), true);
@@ -176,7 +176,7 @@ void ImageManager::VideoManager::sendResult(QImage image)
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         image = image.scaled( QSize(_currentRequest->width(), _currentRequest->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
         if ( _currentRequest->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName().absolute(), image ); // ZZZ
+            ImageManager::ThumbnailCache::instance()->insert( _currentRequest->databaseFileName(), image );
         _currentRequest->setLoadedOK( true );
         _currentRequest->client()->pixmapLoaded( _currentRequest->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
     }

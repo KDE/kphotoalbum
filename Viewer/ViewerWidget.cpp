@@ -1403,7 +1403,7 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName().absolute() ); // ZZZ
+    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName() );
 }
 
 #include "ViewerWidget.moc"

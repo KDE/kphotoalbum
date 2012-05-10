@@ -78,7 +78,7 @@ void ImageManager::ThumbnailBuilder::buildMissing()
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
     QList<DB::ImageInfoPtr> needed;
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName().absolute() ) ) // ZZZ
+        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName() ) )
             needed.append( info );
     }
     scheduleThumbnailBuild( needed, StartDelayed );

@@ -440,7 +440,7 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
 
     reloadThumbnails(  ThumbnailView::MaintainSelection );
     Q_FOREACH( const DB::FileName& fileName, _annotationDialog->rotatedFiles() )
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName.absolute() ); // ZZZ
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }
 
 
@@ -1293,7 +1293,7 @@ void MainWindow::Window::rotateSelected( int angle )
     } else {
         Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
             info->rotate(angle);
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName().absolute() ); // ZZZ
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName() );
         }
         _statusBar->_dirtyIndicator->markDirty();
     }
@@ -1541,7 +1541,7 @@ void MainWindow::Window::setPluginMenuState( const char* name, const QList<QActi
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromUnknown((*it).path()) ); // ZZZ
     }
     _statusBar->_dirtyIndicator->markDirty();
     reloadThumbnails( ThumbnailView::MaintainSelection );

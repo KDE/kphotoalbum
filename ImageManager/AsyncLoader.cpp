@@ -141,7 +141,7 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         }
 
         if ( request->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName().absolute(), image ); // ZZZ
+            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName(), image );
 
 
         if ( requestStillNeeded && request->client() ) {

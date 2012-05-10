@@ -168,9 +168,9 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
     Q_FOREACH( const DB::Id& id, widget()->selection( NoExpandCollapsedStacks ) ) {
         const DB::ImageInfoPtr info = id.fetchInfo();
-        const QString fileName = info->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = info->fileName();
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
+        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName.absolute()); // ZZZ
         _model->updateCell( id );
     }
 }

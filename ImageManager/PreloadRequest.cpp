@@ -27,5 +27,5 @@ ImageManager::PreloadRequest::PreloadRequest(const DB::FileName& fileName, const
 
 bool ImageManager::PreloadRequest::stillNeeded() const
 {
-    return !ThumbnailCache::instance()->contains( databaseFileName().absolute() ); // ZZZ
+    return !ThumbnailCache::instance()->contains( databaseFileName() );
 }

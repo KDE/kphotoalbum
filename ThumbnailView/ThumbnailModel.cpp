@@ -396,7 +396,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     if (imageInfo == DB::ImageInfoPtr(NULL) )
         return QPixmap();
-    const QString fileName = imageInfo->fileName().absolute(); // ZZZ
+    const DB::FileName fileName = imageInfo->fileName();
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
         return ImageManager::ThumbnailCache::instance()->lookup( fileName );
@@ -426,7 +426,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
         const DB::ImageInfoPtr imageInfo = item.fetchInfo();
         if ( imageInfo.isNull() )
             continue;
-        const QString fileName = imageInfo->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = imageInfo->fileName();
 
         if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
             continue;

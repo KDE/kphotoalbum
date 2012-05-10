@@ -329,7 +329,7 @@ bool  NewImageFinder::calculateMD5sums(
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( absoluteFileName );
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromUnknown(absoluteFileName) ); // ZZZ
         }
 
         md5Map->insert( md5, info->fileName().relative() ); // ZZZ

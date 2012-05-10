@@ -97,10 +97,10 @@ void DeleteDialog::deleteImages()
     KUrl KUrlToDelete;
 
     Q_FOREACH(const DB::Id id, _list) {
-        const QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
-        if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
+        const DB::FileName fileName = id.fetchInfo()->fileName();
+        if ( DB::ImageInfo::imageOnDisk( fileName.absolute() ) ) { // ZZZ
             if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
-                KUrlToDelete.setPath(fileName);
+                KUrlToDelete.setPath(fileName.absolute());
                 listKUrlToDelete.append(KUrlToDelete);
                 listToDelete.append(id);
                 ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );

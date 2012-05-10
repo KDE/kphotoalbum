@@ -98,7 +98,7 @@ public: // Methods that must be overridden
     virtual IdList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
     /** @short Update file name stored in the DB */
-    virtual void renameImage( const ImageInfoPtr info, const QString& newName ) = 0;
+    virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
 
     virtual void addToBlockList(const DB::IdList& list) = 0;
     virtual bool isBlocking( const QString& fileName ) = 0;

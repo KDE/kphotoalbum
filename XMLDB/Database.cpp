@@ -241,11 +241,11 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     emit dirty();
 }
 
-void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName )
+void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
 {
     info->delaySavingChanges(false);
     _idMapper.remove( info->fileName().relative() ); // ZZZ
-    info->setFileName( DB::FileName::fromUnknown(newName )); // ZZZ
+    info->setFileName(newName);
     _idMapper.add( info->fileName().relative() ); // ZZZ
 }
 

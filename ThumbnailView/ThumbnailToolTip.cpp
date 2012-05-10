@@ -84,7 +84,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 
     DB::FileName fileName = id.fetchInfo()->fileName();
     if ( force || (fileName != _currentFileName) ) {
-        if ( loadImage( fileName.absolute() ) ) { // ZZZ
+        if ( loadImage( fileName ) ) {
             setText( QString() );
             int size = Settings::SettingsData::instance()->previewSize();
             if ( size != 0 ) {
@@ -163,13 +163,13 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 }
 
 
-bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
+bool ThumbnailView::ThumbnailToolTip::loadImage( const DB::FileName& fileName )
 {
     int size = Settings::SettingsData::instance()->previewSize();
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(fileName) ); // ZZZ
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
-        if ( fileName != _currentFileName.absolute() ) { // ZZZ
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( size, size ), info->angle(), this );
+        if ( fileName != _currentFileName ) {
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
             // request->setCache();  // TODO: do caching in callback.
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );

@@ -41,7 +41,7 @@ public:
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );
-    bool loadImage( const QString& fileName );
+    bool loadImage( const DB::FileName& fileName );
     void placeWindow();
 
 private:

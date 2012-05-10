@@ -210,7 +210,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
         if (_modifiedFileCompString.length() >= 0 &&
             relativeNewFileName.contains(_modifiedFileComponent)) {
 
-            for( QStringList::const_iterator it = _originalFileComponents.constBegin(); 
+            for( QStringList::const_iterator it = _originalFileComponents.constBegin();
                  it != _originalFileComponents.constEnd(); ++it ) {
                 originalFileName = relativeNewFileName;
                 originalFileName.replace(_modifiedFileComponent, (*it));

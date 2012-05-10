@@ -516,9 +516,9 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
 
     QString baseName = QFileInfo(fileName.absolute()).fileName();
     QString destName = _tempDir.name() + QString::fromLatin1("/") + baseName;
-    if ( !_copiedVideos.contains( fileName.absolute() )) { // ZZZ
+    if ( !_copiedVideos.contains( fileName )) {
         Utilities::copy( fileName.absolute(), destName );
-        _copiedVideos.insert( fileName.absolute() ); // ZZZ
+        _copiedVideos.insert( fileName );
     }
     return baseName;
 }

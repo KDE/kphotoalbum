@@ -82,7 +82,7 @@ private:
     KTempDir _tempDir;
     Utilities::UniqFilenameMapper _filenameMapper;
     QSet< QPair<DB::FileName,int> > _generatedFiles;
-    StringSet _copiedVideos;
+    DB::FileNameSet _copiedVideos;
     bool _hasEnteredLoop;
     QPointer<QEventLoop> _eventLoop;
 };

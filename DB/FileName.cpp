@@ -22,7 +22,7 @@
 #include <QFile>
 
 DB::FileName::FileName()
-    : m_isNull(false)
+    : m_isNull(true)
 {
 }
 

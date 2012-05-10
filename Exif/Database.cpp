@@ -148,7 +148,7 @@ bool Exif::Database::add( const DB::FileName& fileName )
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
-        insert( fileName.absolute(), exifData ); // ZZZ
+        insert( fileName, exifData );
         return true;
     }
     catch (...)
@@ -164,12 +164,12 @@ void Exif::Database::remove( const DB::FileName& fileName )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, fileName.absolute() );
+    query.bindValue( 0, fileName.relative() );
     if ( !query.exec() )
         showError( query );
 }
 
-void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
+void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data )
 {
     if ( !isUsable() )
         return;
@@ -181,7 +181,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
-    query.bindValue(  0, filename );
+    query.bindValue(  0, filename.relative() );
     int i = 1;
     for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );

@@ -64,7 +64,7 @@ protected:
     void openDatabase();
     void populateDatabase();
     static QString connectionName();
-    void insert( const QString& filename, Exiv2::ExifData );
+    void insert( const DB::FileName& filename, Exiv2::ExifData );
 
 private:
     bool _isOpen;

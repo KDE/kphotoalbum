@@ -25,6 +25,7 @@
 #include "Utilities/Set.h"
 
 namespace Exiv2 { class ExifData; }
+namespace DB { class FileName; }
 
 typedef QPair<int,int> Rational;
 typedef QList<Rational> RationalList;
@@ -52,8 +53,8 @@ public:
 
     bool isOpen() const;
     bool isUsable() const;
-    bool add( const QString& fileName );
-    void remove( const QString& fileName );
+    bool add( const DB::FileName& fileName );
+    void remove( const DB::FileName& fileName );
     StringSet filesMatchingQuery( const QString& query );
     CameraList cameras() const;
     void recreate();

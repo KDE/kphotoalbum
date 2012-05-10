@@ -138,33 +138,33 @@ void Exif::Database::populateDatabase()
         showError( query );
 }
 
-bool Exif::Database::add( const QString& fileName )
+bool Exif::Database::add( const DB::FileName& fileName )
 {
     if ( !isUsable() )
         return false;
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.toLocal8Bit().data());
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
-        insert( fileName, exifData );
+        insert( fileName.absolute(), exifData ); // ZZZ
         return true;
     }
     catch (...)
     {
-        qWarning("Error while reading exif information from %s", qPrintable(fileName) );
+        qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()) );
         return false;
     }
 }
 
-void Exif::Database::remove( const QString& fileName )
+void Exif::Database::remove( const DB::FileName& fileName )
 {
     if ( !isUsable() )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, fileName );
+    query.bindValue( 0, fileName.absolute() );
     if ( !query.exec() )
         showError( query );
 }
@@ -312,7 +312,7 @@ void Exif::Database::recreate()
     Q_FOREACH(const DB::ImageInfoPtr info, allImages.fetchInfos()) {
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {
-            success &= add(info->fileName().absolute()); // ZZZ
+            success &= add(info->fileName());
         }
         if ( i % 10 )
             qApp->processEvents();

@@ -192,8 +192,8 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName().relative()); // ZZZ
 
 #ifdef HAVE_EXIV2
-                Exif::Database::instance()->remove( absoluteMatchedFileName );
-                Exif::Database::instance()->add( absoluteNewFileName );
+                Exif::Database::instance()->remove( DB::FileName::fromAbsolutePath(absoluteMatchedFileName) ); // ZZZ
+                Exif::Database::instance()->add( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
 #endif
                 return DB::ImageInfoPtr();
             }

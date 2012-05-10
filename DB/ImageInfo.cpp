@@ -355,8 +355,8 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
 #ifdef HAVE_EXIV2
-        Exif::Database::instance()->remove( fullPath.absolute() ); // ZZZ
-        Exif::Database::instance()->add( fullPath.absolute() ); // ZZZ
+        Exif::Database::instance()->remove( fullPath );
+        Exif::Database::instance()->add( fullPath );
 #endif
     }
 }

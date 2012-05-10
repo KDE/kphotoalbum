@@ -163,7 +163,7 @@ void XMLDB::Database::deleteList(const DB::IdList& list)
             }
         }
 #ifdef HAVE_EXIV2
-        Exif::Database::instance()->remove( inf->fileName().absolute() ); // ZZZ
+        Exif::Database::instance()->remove( inf->fileName() );
 #endif
         _idMapper.remove( inf->fileName().relative() ); // ZZZ
         _images.remove( inf );

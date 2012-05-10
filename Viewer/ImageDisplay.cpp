@@ -166,8 +166,8 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 
     // Find the index of the current image
     _curIndex = 0;
-    for( QStringList::Iterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
-        if ( *it == info->fileName().absolute() ) // ZZZ
+    for( DB::FileNameList::Iterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+        if ( *it == info->fileName() )
             break;
         ++_curIndex;
     }
@@ -558,7 +558,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
     emit possibleChange();
 }
 
-void Viewer::ImageDisplay::setImageList( const QStringList& list )
+void Viewer::ImageDisplay::setImageList( const DB::FileNameList& list )
 {
     _imageList = list;
     _cache.fill( 0, list.count() );
@@ -576,7 +576,7 @@ void Viewer::ImageDisplay::updatePreload()
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(_imageList[i])); // ZZZ
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_imageList[i]);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;
@@ -627,8 +627,8 @@ void Viewer::ImageDisplay::updatePreload()
 int Viewer::ImageDisplay::indexOf( const QString& fileName )
 {
     int i = 0;
-    for( QStringList::ConstIterator it = _imageList.constBegin(); it != _imageList.constEnd(); ++it ) {
-        if ( *it == fileName )
+    for( DB::FileNameList::ConstIterator it = _imageList.constBegin(); it != _imageList.constEnd(); ++it ) {
+        if ( *it == DB::FileName::fromUnknown(fileName) ) // ZZZ
             break;
         ++i;
     }

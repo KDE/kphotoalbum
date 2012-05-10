@@ -1091,7 +1091,7 @@ void AnnotationDialog::Dialog::togglePreview()
     }
     else {
         _stack->setCurrentWidget( _fullScreenPreview );
-        _fullScreenPreview->load( QStringList() << _editList[ _current].fileName().absolute() ); // ZZZ
+        _fullScreenPreview->load( DB::FileNameList() << _editList[ _current].fileName() );
     }
 }
 

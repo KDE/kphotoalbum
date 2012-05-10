@@ -57,7 +57,7 @@ public:
     bool setImage( DB::ImageInfoPtr info, bool forward );
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
-    void setImageList( const QStringList& list );
+    void setImageList( const DB::FileNameList& list );
 
     void filterNone();
     void filterSelected();
@@ -124,7 +124,7 @@ private:
     QPoint _zEnd;
 
     Q3PtrVector<ViewPreloadInfo> _cache;
-    QStringList _imageList;
+    DB::FileNameList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _reloadImageInProgress;
     int _forward;

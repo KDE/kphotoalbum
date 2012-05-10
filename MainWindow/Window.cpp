@@ -616,7 +616,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 
     // Here, we need to switch back to the StringList until the Viewer is
     // converted.
-    QStringList fileNameList = DB::ImageDB::instance()->CONVERT(mediaList);
+    DB::FileNameList fileNameList = DB::ImageDB::instance()->CONVERT2(mediaList);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {
@@ -1134,7 +1134,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().fetchInfo();
 
-        externalCommands->populate( info, DB::ImageDB::instance()->CONVERT(selected() ));
+        externalCommands->populate( info, DB::ImageDB::instance()->CONVERT2(selected()));
         QAction* action = menu.addMenu( externalCommands );
         if (info.isNull() && selected().isEmpty())
             action->setEnabled( false );

@@ -415,7 +415,7 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 }
 
 
-void Viewer::ViewerWidget::load( const QStringList& list, int index )
+void Viewer::ViewerWidget::load( const DB::FileNameList& list, int index )
 {
     _list = list;
     _imageDisplay->setImageList( list );
@@ -462,7 +462,7 @@ void Viewer::ViewerWidget::load()
         videoAction->setVisible( isVideo );
     }
 
-    emit soughtTo( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(_list[ _current ]) ) ); // ZZZ
+    emit soughtTo( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
 
     bool ok = _display->setImage( currentInfo(), _forward );
     if ( !ok ) {
@@ -545,8 +545,8 @@ void Viewer::ViewerWidget::deleteCurrent()
 
 void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
 {
-    const QString fileName = _list[_current];
-    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(fileName) ); // ZZZ
+    const DB::FileName fileName = _list[_current];
+    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
 
     if ( action == RemoveImageFromDatabase )
         _removed.append(id);
@@ -699,7 +699,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(_list[ _current])); // PENDING(blackie) can we postpone this lookup? // ZZZ
+    return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::ViewerWidget::infoBoxMove()
@@ -981,7 +981,7 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(_list[ _current ]) ) ); // ZZZ
+    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const

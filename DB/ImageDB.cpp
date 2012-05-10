@@ -260,6 +260,15 @@ DB::Id ImageDB::findFirstItemInRange(const DB::IdList& images,
     return candidate;
 }
 
+DB::FileNameList ImageDB::CONVERT2(const IdList & idList)
+{
+    QStringList list = CONVERT(idList);
+    DB::FileNameList res;
+    Q_FOREACH( const QString& str, list )
+        res.append( DB::FileName::fromUnknown(str));
+    return res;
+}
+
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )
  * \brief Rename category in media items stored in database.
  */

@@ -52,6 +52,7 @@ private:
 
 uint qHash( const DB::FileName& fileName );
 typedef QSet<DB::FileName> FileNameSet;
+typedef QList<DB::FileName> FileNameList;
 }
 
 

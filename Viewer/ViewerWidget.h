@@ -27,6 +27,7 @@
 #include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
 #include <QPointer>
+#include <DB/FileName.h>
 
 class QKeyEvent;
 class QResizeEvent;
@@ -60,7 +61,7 @@ public:
                   QMap<Qt::Key, QPair<QString,QString> > *macroStore = 0);
     ~ViewerWidget();
     static ViewerWidget* latest();
-    void load( const QStringList& list, int index = 0 );
+    void load( const DB::FileNameList& list, int index = 0 );
     void infoBoxMove();
     bool showingFullScreen() const;
     void setShowFullScreen( bool on );
@@ -188,7 +189,7 @@ private:
     TextDisplay* _textDisplay;
 
     int m_screenSaverCookie;
-    QStringList _list;
+    DB::FileNameList _list;
     DB::IdList _removed;
     int _current;
     QRect _textRect;

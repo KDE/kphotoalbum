@@ -126,6 +126,7 @@ public: // Methods that must be overridden
      */
     virtual QStringList CONVERT(const DB::IdList&) = 0; //QWERTY DIE
 
+    DB::FileNameList CONVERT2(const DB::IdList&); // ZZZ
     /**
      * there are some cases in which we have a filename and need to map back
      * to ID. Provided here to push down that part of refactoring. It

@@ -179,7 +179,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         typedef QMap<QString,QStringList> ExifMap;
         typedef ExifMap::const_iterator ExifMapIterator;
-        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName().absolute(), Settings::SettingsData::instance()->iptcCharset() ); // ZZZ
+        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
 
         for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )

@@ -72,7 +72,7 @@ bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB:
 #ifdef HAVE_EXIV2
 void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
 {
-    Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName.absolute() ).exif; // ZZZ
+    Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
 
     // Date
     _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );

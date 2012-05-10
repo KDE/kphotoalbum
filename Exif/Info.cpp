@@ -31,7 +31,7 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
+QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
 {
     QMap<QString, QStringList> result;
 
@@ -88,12 +88,12 @@ StringSet Info::availableKeys()
     return _keys;
 }
 
-QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, const QString& charset )
+QMap<QString, QStringList> Info::infoForViewer( const DB::FileName& fileName, const QString& charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false, charset );
 }
 
-QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, const QString& charset )
+QMap<QString, QStringList> Info::infoForDialog( const DB::FileName& fileName, const QString& charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset );
 }
@@ -220,12 +220,12 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
     return fileName;
 }
 
-Exif::Metadata Exif::Info::metadata( const QString& fileName )
+Exif::Metadata Exif::Info::metadata( const DB::FileName& fileName )
 {
     try {
         Exif::Metadata result;
         Exiv2::Image::AutoPtr image =
-            Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
+                Exiv2::ImageFactory::open( QFile::encodeName(fileName.absolute()).data() );
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
         result.exif = image->exifData();

@@ -116,7 +116,7 @@ void Exif::Grid::slotCharsetChange( const QString& charset )
     m_texts.clear();
     m_headers.clear();
 
-    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
+    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( DB::FileName::fromUnknown(m_fileName), charset ); // ZZZ
     calculateMaxKeyWidth( map );
 
     StringSet groups = exifGroups( map );

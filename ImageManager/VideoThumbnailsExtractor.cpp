@@ -64,6 +64,6 @@ void ImageManager::VideoThumbnailsExtractor::frameFetched()
 
 QString ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileName &videoName, int frameNumber)
 {
-    return ImageManager::VideoManager::pathForRequest(videoName.absolute()) + QLatin1String("-") + QString::number(frameNumber);
+    return ImageManager::VideoManager::pathForRequest(videoName) + QLatin1String("-") + QString::number(frameNumber);
 }
 

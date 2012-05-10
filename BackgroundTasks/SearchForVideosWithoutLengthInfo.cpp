@@ -37,7 +37,7 @@ void BackgroundTasks::SearchForVideosWithoutLengthInfo::execute()
             continue;
         int length = info->videoLength();
         if ( length == -1 ) {
-            JobManager::instance()->addJob( new ReadVideoLengthJob(info->fileName().absolute()) ); // ZZZ
+            JobManager::instance()->addJob( new ReadVideoLengthJob(info->fileName()) );
         }
     }
     emit completed();

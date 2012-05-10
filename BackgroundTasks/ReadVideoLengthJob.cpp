@@ -26,7 +26,7 @@
   \brief Read the length of a video file and writes that to the database
 */
 
-BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const QString &fileName)
+BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName)
     :m_fileName(fileName)
 {
 }
@@ -34,14 +34,14 @@ BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const QString &fileName)
 void BackgroundTasks::ReadVideoLengthJob::execute()
 {
     ImageManager::VideoLengthExtractor* extractor = new ImageManager::VideoLengthExtractor(this);
-    extractor->extract(m_fileName);
+    extractor->extract(m_fileName.absolute()); // ZZZ
     connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
 }
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(m_fileName)); // ZZZ
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
     info->setVideoLength(length);
     MainWindow::DirtyIndicator::markDirty();
     emit completed();

@@ -245,7 +245,7 @@ void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName
 {
     info->delaySavingChanges(false);
     _idMapper.remove( info->fileName().relative() ); // ZZZ
-    info->setFileName( newName );
+    info->setFileName( DB::FileName::fromUnknown(newName )); // ZZZ
     _idMapper.add( info->fileName().relative() ); // ZZZ
 }
 

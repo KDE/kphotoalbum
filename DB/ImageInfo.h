@@ -81,7 +81,7 @@ public:
     // TODO: this should have a method to access the ID.
 
     FileName fileName() const;
-    void setFileName( const QString& relativeFileName );
+    void setFileName( const DB::FileName& relativeFileName );
 
     void setLabel( const QString& );
     QString label() const;

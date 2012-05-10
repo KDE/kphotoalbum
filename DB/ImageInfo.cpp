@@ -48,7 +48,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     _label = fi.completeBaseName();
     _angle = 0;
 
-    setFileName(fileName.relative()); // ZZZ
+    setFileName(fileName);
 
     // Read EXIF information
     if ( readExifInfo )
@@ -151,11 +151,11 @@ DB::FileName ImageInfo::fileName() const
     return _fileName;
 }
 
-void ImageInfo::setFileName( const QString& relativeFileName )
+void ImageInfo::setFileName( const DB::FileName& fileName )
 {
-    if (relativeFileName != _fileName.relative()) // ZZZ
+    if (fileName != _fileName)
         _dirty = true;
-    _fileName = FileName::fromRelativePath(relativeFileName);
+    _fileName = fileName;
 
     _imageOnDisk = Unchecked;
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->

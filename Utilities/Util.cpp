@@ -636,7 +636,7 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return absoluteImageFileName( fileName );
 }
 
-QString Utilities::imageFileNameToRelative( const QString& fileName )
+QString Utilities::imageFileNameToRelative( const QString& fileName ) // ZZZ Remove
 {
     QRegExp regexp( QString::fromLatin1( "^/*" ) );
     // A bit back and forth, but this function is to go away anyway (hzeller).

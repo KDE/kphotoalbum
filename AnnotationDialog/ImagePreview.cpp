@@ -108,7 +108,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
     _lastImage.set(_currentImage);
     _currentImage.set(_info.fileName(), image);
     setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
-    if (!_anticipated._fileName.isEmpty())
+    if (!_anticipated._fileName.isNull())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
@@ -124,7 +124,7 @@ void ImagePreview::anticipate(DB::ImageInfo &info1) {
     //We cannot call _preloader.preloadImage right here:
     //this function is called before reload(), so if we preload here,
     //the preloader will always be loading the image after the next image.
-    _anticipated.set(info1.fileName().absolute(), info1.angle()); // ZZZ
+    _anticipated.set(info1.fileName(), info1.angle());
 }
 
 
@@ -132,7 +132,7 @@ ImagePreview::PreloadInfo::PreloadInfo() : _angle(0)
 {
 }
 
-void ImagePreview::PreloadInfo::set(const QString& fileName, int angle)
+void ImagePreview::PreloadInfo::set(const DB::FileName& fileName, int angle)
 {
     _fileName=fileName;
     _angle=angle;
@@ -176,12 +176,12 @@ void ImagePreview::PreviewLoader::pixmapLoaded( const DB::FileName& fileName, co
 }
 
 
-void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int width, int height, int angle)
+void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int width, int height, int angle)
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
     ImageManager::AsyncLoader::instance()->stop(this);
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( width, height ), angle, this ); // ZZZ
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
     request->setPriority( ImageManager::ViewerPreload );
     ImageManager::AsyncLoader::instance()->load( request );
 }

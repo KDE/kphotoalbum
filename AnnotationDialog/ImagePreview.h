@@ -59,14 +59,14 @@ protected:
 
     struct PreloadInfo {
         PreloadInfo();
-        void set(const QString& fileName, int angle);
-        QString _fileName;
+        void set(const DB::FileName& fileName, int angle);
+        DB::FileName _fileName;
         int _angle;
     };
 
     class PreviewLoader : public ImageManager::ImageClientInterface, public PreviewImage  {
     public:
-        void preloadImage( const QString& fileName, int width, int height, int angle);
+        void preloadImage( const DB::FileName& fileName, int width, int height, int angle);
         void cancelPreload();
         virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
     };

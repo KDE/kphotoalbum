@@ -141,7 +141,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         if ( !isImageAlreadyInDB( *it ) ) {
             const DB::FileName fileName = (*it)->fileName();
-            QByteArray data = m_kimFileReader->loadImage( fileName.relative() ); // ZZZ
+            QByteArray data = m_kimFileReader->loadImage( fileName.relative() );
             if ( data.isNull() )
                 return false;
             QString newName = m_fileMapper->uniqNameFor(fileName);

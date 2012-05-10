@@ -192,7 +192,7 @@ QString MainWindow::FeatureDialog::featureString()
      QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
-    features << Data( i18n("SQL fatabase support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
+    features << Data( i18n("SQL database support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
     features << Data( i18n( "Video thumbnail support" ), QString::fromLatin1("#thumbnails"),

@@ -53,7 +53,7 @@ ImageInfo::ImageInfo( const QString& relativeFileName, MediaType type, bool read
 
     // Read EXIF information
     if ( readExifInfo )
-        readExif(fullPath, EXIFMODE_INIT);
+        readExif(DB::FileName::fromAbsolutePath(fullPath), EXIFMODE_INIT); // ZZZ
 
     _dirty = false;
     _delaySaving = false;
@@ -327,9 +327,9 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
+void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 {
-    DB::FileInfo exifInfo = DB::FileInfo::read( DB::FileName::fromAbsolutePath(fullPath), mode ); // ZZZ
+    DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
 
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
@@ -355,8 +355,8 @@ void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
 #ifdef HAVE_EXIV2
-        Exif::Database::instance()->remove( fullPath );
-        Exif::Database::instance()->add( fullPath );
+        Exif::Database::instance()->remove( fullPath.absolute() ); // ZZZ
+        Exif::Database::instance()->add( fullPath.absolute() ); // ZZZ
 #endif
     }
 }

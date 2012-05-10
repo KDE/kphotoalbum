@@ -92,7 +92,7 @@ public:
     void setDate( const ImageDate& );
     ImageDate date() const;
     ImageDate& date();
-    void readExif(const QString& fullPath, DB::ExifMode mode);
+    void readExif(const DB::FileName& fullPath, DB::ExifMode mode);
 
     void rotate( int degrees );
     int angle() const;

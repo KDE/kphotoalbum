@@ -34,7 +34,7 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( !info->isVideo() )
             continue;
 
-        const QString thumbnailName = ImageManager::VideoThumbnailsExtractor::frameName(info->fileName().absolute(),9); // ZZZ
+        const QString thumbnailName = ImageManager::VideoThumbnailsExtractor::frameName(info->fileName(),9);
         if ( QFile::exists(thumbnailName) )
             continue;
 

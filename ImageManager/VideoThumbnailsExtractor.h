@@ -36,7 +36,7 @@ Q_OBJECT
 
 public:
     VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength );
-    static QString frameName(const QString& videoName, int frameNumber );
+    static QString frameName(const DB::FileName& videoName, int frameNumber );
 
 private slots:
     void frameFetched();

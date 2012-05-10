@@ -100,7 +100,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         return;
     }
 
-    QString fileName = info->fileName().relative(); // ZZZ
+    const DB::FileName fileName = info->fileName();
     KUrl src1 = m_settings.kimFile();
     KUrl src2 = m_settings.baseURL();
     bool succeeded = false;
@@ -113,7 +113,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         if ( i == 1 )
             src = src2;
 
-        src.setFileName( fileName );
+        src.setFileName( fileName.absolute() );
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );
@@ -140,8 +140,8 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         if ( !isImageAlreadyInDB( *it ) ) {
-            QString fileName = (*it)->fileName().relative(); // ZZZ
-            QByteArray data = m_kimFileReader->loadImage( fileName );
+            const DB::FileName fileName = (*it)->fileName();
+            QByteArray data = m_kimFileReader->loadImage( fileName.relative() ); // ZZZ
             if ( data.isNull() )
                 return false;
             QString newName = m_fileMapper->uniqNameFor(fileName);

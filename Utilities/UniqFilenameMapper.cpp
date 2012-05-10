@@ -40,12 +40,12 @@ bool Utilities::UniqFilenameMapper::fileClashes(const QString &file) {
         || (!_targetDirectory.isNull() && QFileInfo(file).exists());
 }
 
-QString Utilities::UniqFilenameMapper::uniqNameFor(const QString& filename) {
+QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename) {
     if (_origToUniq.contains(filename))
         return _origToUniq[filename];
 
-    const QString extension = QFileInfo(filename).completeSuffix();
-    QString base = QFileInfo(filename).baseName();
+    const QString extension = QFileInfo(filename.absolute()).completeSuffix();
+    QString base = QFileInfo(filename.absolute()).baseName();
     if (!_targetDirectory.isNull()) {
         base = QString::fromAscii("%1/%2")
             .arg(_targetDirectory).arg(base);

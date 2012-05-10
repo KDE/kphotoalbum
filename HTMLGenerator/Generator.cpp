@@ -471,14 +471,14 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 
 QString HTMLGenerator::Generator::namePage( int width, int height, const DB::FileName& fileName )
 {
-    QString name = _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
+    QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
 QString HTMLGenerator::Generator::nameImage( const DB::FileName& fileName, int size )
 {
-    QString name = _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
+    QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
         if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
@@ -494,7 +494,7 @@ QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
 {
     DB::ImageInfoPtr info = id.fetchInfo();
     const DB::FileName fileName = info->fileName();
-    if ( _generatedFiles.contains( qMakePair(fileName.absolute(),size) ) ) { // ZZZ
+    if ( _generatedFiles.contains( qMakePair(fileName,size) ) ) {
         _waitCounter--;
     }
     else {
@@ -503,7 +503,7 @@ QString HTMLGenerator::Generator::createImage( const DB::Id& id, int size )
                                             info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
-        _generatedFiles.insert( qMakePair( fileName.absolute(), size ) ); // ZZZ
+        _generatedFiles.insert( qMakePair( fileName, size ) );
     }
 
     return nameImage( fileName, size );

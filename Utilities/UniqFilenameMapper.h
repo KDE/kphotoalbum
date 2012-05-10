@@ -23,6 +23,7 @@
 #include <QMap>
 #include <QSet>
 #include <QString>
+#include <DB/FileName.h>
 
 namespace Utilities {
 
@@ -51,7 +52,7 @@ public:
     // Create a unique, flat filename for the target directory. If this method
     // has been called before with the same argument, the unique name that has
     // been created before is returned (see example above).
-    QString uniqNameFor(const QString& filename);
+    QString uniqNameFor(const DB::FileName& filename);
 
     // Reset all mappings.
     void reset();
@@ -62,7 +63,7 @@ private:
     bool fileClashes(const QString& file);
 
     const QString _targetDirectory;
-    typedef QMap<QString, QString> FileNameMap;
+    typedef QMap<DB::FileName, QString> FileNameMap;
     FileNameMap _origToUniq;
     QSet<QString> _uniqFiles;
 };

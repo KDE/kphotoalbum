@@ -267,10 +267,11 @@ void Export::copyImages(const DB::IdList& list)
 
     _filesRemaining = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        QString file = info->fileName().absolute(); // ZZZ
-        QString zippedName = _filenameMapper.uniqNameFor(file);
+        const DB::FileName fileName = info->fileName();
+        QString file = fileName.absolute();
+        QString zippedName = _filenameMapper.uniqNameFor(fileName);
 
-        if ( _maxSize == -1 || Utilities::isVideo( DB::FileName::fromAbsolutePath(file) ) || Utilities::isRAW( DB::FileName::fromAbsolutePath(file) )) { // ZZZ
+        if ( _maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
@@ -313,11 +314,11 @@ void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, 
     if ( !loadedOK )
         return;
 
-    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName.absolute()) ).completeSuffix(); // ZZZ
+    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(_subdir))
-        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName.absolute()) ).baseName()).arg( ext ); // ZZZ
+        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName) ).baseName()).arg( ext );
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
@@ -326,7 +327,7 @@ void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, 
     if ( _location == Inline || !_copyingFiles )
         _zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
     else {
-        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName.absolute()); // ZZZ
+        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1", file ) );

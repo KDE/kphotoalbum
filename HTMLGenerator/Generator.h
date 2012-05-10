@@ -81,7 +81,7 @@ private:
     int _total;
     KTempDir _tempDir;
     Utilities::UniqFilenameMapper _filenameMapper;
-    QSet< QPair<QString,int> > _generatedFiles;
+    QSet< QPair<DB::FileName,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;
     QPointer<QEventLoop> _eventLoop;

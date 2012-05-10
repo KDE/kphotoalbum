@@ -140,12 +140,12 @@ void Exif::SearchInfo::search() const
     _matches = Exif::Database::instance()->filesMatchingQuery( queryStr );
 }
 
-bool Exif::SearchInfo::matches( const QString& fileName ) const
+bool Exif::SearchInfo::matches( const DB::FileName& fileName ) const
 {
     if ( _emptyQuery )
         return true;
 
-    return _matches.contains( DB::FileName::fromUnknown(fileName) ); // ZZZ
+    return _matches.contains( fileName );
 }
 
 void Exif::SearchInfo::addCamera( const CameraList& list )

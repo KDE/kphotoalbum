@@ -47,7 +47,7 @@ public:
     void addCamera( const CameraList& list);
 
     void search() const;
-    bool matches( const QString& fileName ) const;
+    bool matches( const DB::FileName& fileName ) const;
 
 protected:
     QString buildQuery() const;

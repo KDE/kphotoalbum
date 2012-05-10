@@ -53,7 +53,7 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName,
     Q_UNUSED(size)
     Q_UNUSED(loadedOK)
     if ( fullSize.width() != -1 ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName.absolute(), DB::AbsolutePath ); // ZZZ
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
         info->setSize( fullSize );
     }
     m_statusBar->setProgress( ++m_count );

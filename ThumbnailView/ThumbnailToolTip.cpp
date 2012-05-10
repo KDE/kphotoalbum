@@ -90,10 +90,10 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
                          .arg(_tmpFileForThumbnailView->fileName()).
-                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName.absolute(), DB::AbsolutePath ), 0 ) ) ); // ZZZ
+                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName.absolute(), DB::AbsolutePath ), 0 ) ) ); // ZZZ
+                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             setWordWrap( true );
         }
@@ -166,7 +166,7 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
     int size = Settings::SettingsData::instance()->previewSize();
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(fileName) ); // ZZZ
     if ( size != 0 ) {
         if ( fileName != _currentFileName.absolute() ) { // ZZZ
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(fileName), QSize( size, size ), info->angle(), this );

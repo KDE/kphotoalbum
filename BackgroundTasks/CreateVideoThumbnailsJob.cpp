@@ -28,7 +28,7 @@ BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const QStrin
 
 void BackgroundTasks::CreateVideoThumbnailsJob::execute()
 {
-    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName, DB::AbsolutePath );
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(m_fileName)); // ZZZ
     const int length = info->videoLength();
     if ( length <= 0 ) {
         emit completed();

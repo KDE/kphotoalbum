@@ -193,7 +193,7 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(srcName) ); // ZZZ
     data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );

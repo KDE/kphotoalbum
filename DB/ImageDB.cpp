@@ -230,7 +230,7 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
         QFileInfo fi( *it );
 
         if (fi.exists())
-            info(*it, DB::AbsolutePath)->readExif(*it, mode);
+            info(DB::FileName::fromAbsolutePath(*it))->readExif(*it, mode); // ZZZ
         markDirty();
     }
 }

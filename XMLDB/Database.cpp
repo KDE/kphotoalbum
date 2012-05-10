@@ -249,13 +249,11 @@ void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const QString& newName
     _idMapper.add( info->fileName().relative() ); // ZZZ
 }
 
-DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName, DB::PathType type ) const
+DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;
 
-    QString name = fileName;
-    if ( type == DB::RelativeToImageRoot )
-        name = Settings::SettingsData::instance()->imageDirectory() + fileName;
+    const QString name = fileName.absolute(); // ZZZ
 
     if ( fileMap.contains( name ) )
         return fileMap[ name ];
@@ -536,8 +534,8 @@ XMLDB::Database::StackSortHelper::StackSortHelper( const Database* const db ): _
 
 int XMLDB::Database::StackSortHelper::operator()( const QString& fileA, const QString& fileB ) const
 {
-    DB::ImageInfoPtr a = _db->info( fileA, DB::AbsolutePath );
-    DB::ImageInfoPtr b = _db->info( fileB, DB::AbsolutePath );
+    DB::ImageInfoPtr a = _db->info( DB::FileName::fromAbsolutePath(fileA) ); // ZZZ
+    DB::ImageInfoPtr b = _db->info( DB::FileName::fromAbsolutePath(fileB) ); // ZZZ
     if ( !a && !b )
         return -1;
     return ( a->stackId() == b->stackId() ) && ( a->stackOrder() < b->stackOrder() );
@@ -707,5 +705,5 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
 {
     if (id.isNull())
         return DB::ImageInfoPtr(NULL);
-    return info( _idMapper[id.rawId()],DB::RelativeToImageRoot);
+    return info( DB::FileName::fromRelativePath(_idMapper[id.rawId()])); // ZZZ
 }

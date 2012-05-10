@@ -56,7 +56,7 @@ namespace XMLDB {
         OVERRIDE void addToBlockList(const DB::IdList& list);
         OVERRIDE bool isBlocking( const QString& fileName );
         OVERRIDE void deleteList(const DB::IdList& list);
-        OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );

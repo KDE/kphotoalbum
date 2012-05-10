@@ -510,12 +510,14 @@ void MainWindow::Window::slotPasteInformation()
     // fail silent if more than one image is in clipboard.
     if (string.count(QString::fromLatin1("\n")) != 0) return;
 
-    MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( string ) );
+    const DB::FileName fileName = DB::FileName::fromRelativePath(string);
+
+    MD5 originalSum = Utilities::MD5Sum( fileName.absolute() ); // ZZZ
     ImageInfoPtr originalInfo;
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
-        originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );
+        originalInfo = DB::ImageDB::instance()->info( fileName );
     } else {
-        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(string) ); // ZZZ
+        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
         originalInfo = ID.fetchInfo();
     }
     Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {

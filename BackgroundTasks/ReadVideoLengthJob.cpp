@@ -41,7 +41,7 @@ void BackgroundTasks::ReadVideoLengthJob::execute()
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(DB::FileName::fromAbsolutePath(m_fileName)); // ZZZ
     info->setVideoLength(length);
     MainWindow::DirtyIndicator::markDirty();
     emit completed();

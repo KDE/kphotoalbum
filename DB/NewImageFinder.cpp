@@ -174,7 +174,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = DB::ImageDB::instance()->info( relativeMatchedFileName, DB::RelativeToImageRoot );
+            ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(relativeMatchedFileName)); // ZZZ
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(relativeMatchedFileName));
             else {
@@ -219,7 +219,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
                     // from the original.
-                    originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
+                    originalInfo = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(originalFileName) ); // ZZZ
                     if ( !originalInfo ) {
                         qDebug() << "Original info not found by name for " << originalFileName << ", trying by MD5 sum.";
                         originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum );
@@ -227,7 +227,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                         if (!originalFileName.isNull())
                         {
                             qDebug() << "Substitute image " << originalFileName << " found.";
-                            originalInfo = DB::ImageDB::instance()->info( originalFileName, DB::RelativeToImageRoot );
+                            originalInfo = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(originalFileName) ); // ZZZ
                         }
 
                         if ( !originalInfo )

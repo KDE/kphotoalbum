@@ -110,7 +110,7 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
             continue;
 
         const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-        DB::ImageInfoPtr other = DB::ImageDB::instance()->info( name, DB::RelativeToImageRoot );
+        DB::ImageInfoPtr other = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(name) ); // ZZZ
         if ( info->label() != other->label() )
             res.label = true;
         if ( info->description() != other->description() )

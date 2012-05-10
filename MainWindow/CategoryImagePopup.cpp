@@ -30,7 +30,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const QStrin
     clear();
 
     _image = image;
-    _imageInfo = DB::ImageDB::instance()->info( imageName, DB::AbsolutePath );
+    _imageInfo = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(imageName) ); // ZZZ
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();

@@ -109,7 +109,7 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
 
 void Plugins::Interface::delImage( const KUrl& url )
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path(), DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(url.path()));
     if ( info ) {
         DB::IdList list;
         list.append(DB::ImageDB::instance()->ID_FOR_FILE(info->fileName()));

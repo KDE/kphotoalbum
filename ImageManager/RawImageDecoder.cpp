@@ -206,13 +206,13 @@ bool RAWImageDecoder::isRAW( const DB::FileName& imageFile )
     return _fileEndsWithExtensions(imageFile.relative(), _rawExtensions);
 }
 
-bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const
+bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB::FileName& imageFile ) const
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
 
 	// We're not interested in thumbnail and other files.
-	if (_fileEndsWithExtensions(imageFile, _ignoredExtensions)) return true;
+    if (_fileEndsWithExtensions(imageFile.absolute(), _ignoredExtensions)) return true; // ZZZ
 
 	// If we *are* interested in raw files even when other equivalent
 	// non-raw files are available, then we're interested in this file.
@@ -220,7 +220,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QSt
 
 	// If the file ends with something other than a known raw extension,
 	// we're interested in it.
-	if (! _fileEndsWithExtensions(imageFile, _rawExtensions)) return false;
+    if (! _fileEndsWithExtensions(imageFile.absolute(), _rawExtensions)) return false; // ZZZ
 
 	// At this point, the file ends with a known raw extension, and we're
 	// not interested in raw files when other non-raw files are available.
@@ -231,7 +231,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const QSt
 	// same algorithm as _mightDecode above.
 	// -- Robert Krawitz rlk@alum.mit.edu 2007-07-22
 
-	return _fileIsKnownWithExtensions(loadedFiles, imageFile, _standardExtensions);
+    return _fileIsKnownWithExtensions(loadedFiles, imageFile.absolute(), _standardExtensions); // ZZZ
 }
 
 }

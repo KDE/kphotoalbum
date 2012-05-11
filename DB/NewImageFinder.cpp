@@ -93,7 +93,7 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
         QString file = directory + QString::fromLatin1("/") + *it;
 	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
                 excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
-                dec._skipThisFile(loadedFiles, file) ||
+                dec._skipThisFile(loadedFiles, DB::FileName::fromAbsolutePath(file)) || // ZZZ
                 (*it) == QString::fromLatin1("CategoryImages") )
 	    continue;
 

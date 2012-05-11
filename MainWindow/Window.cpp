@@ -485,7 +485,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
-        const QString fileName = info->fileName().absolute(); // ZZZ
+        const QString fileName = info->fileName().absolute();
         urls.append( fileName );
         urlcount++;
     }
@@ -1266,7 +1266,7 @@ void MainWindow::Window::slotSetFileName( const DB::Id& id )
     else {
         infos = id.fetchInfo();
         if (infos != ImageInfoPtr(NULL) )
-            _statusBar->showMessage( id.fetchInfo()->fileName().absolute(), 4000 ); // ZZZ
+            _statusBar->showMessage( id.fetchInfo()->fileName().absolute(), 4000 );
     }
 }
 
@@ -1336,8 +1336,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     DB::IdList notOnDisk;
     Q_FOREACH(DB::Id id, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = id.fetchInfo();
-        QFileInfo fi( info->fileName().absolute() ); // ZZZ
-        if ( !fi.exists() )
+        if ( !info->fileName().exists() )
             notOnDisk.append(id);
     }
 
@@ -1541,7 +1540,7 @@ void MainWindow::Window::setPluginMenuState( const char* name, const QList<QActi
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromUnknown((*it).path()) ); // ZZZ
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromAbsolutePath((*it).path()) );
     }
     _statusBar->_dirtyIndicator->markDirty();
     reloadThumbnails( ThumbnailView::MaintainSelection );
@@ -1599,7 +1598,7 @@ void MainWindow::Window::slotShowListOfFiles()
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
         if ( fileName.isNull() )
             continue;
-        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(fileName)); // ZZZ
+        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(fileName));
         if ( !id.isNull() )
             out.append(id);
     }

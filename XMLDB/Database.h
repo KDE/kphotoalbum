@@ -119,14 +119,6 @@ namespace XMLDB {
         static bool _anyImageWithEmptySize;
 
         DB::IdNameMapper _idMapper;
-
-
-        class StackSortHelper {
-            const Database* const _db;
-        public:
-            StackSortHelper( const Database* const db );
-            int operator()( const QString& a, const QString& b ) const;
-        };
     };
 }
 

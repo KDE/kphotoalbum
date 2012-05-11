@@ -514,31 +514,11 @@ DB::IdList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
         }
     }
 
-#ifdef KDAB_TEMPORARILY_REMOVED  // TODO(hzeller)/QWERTY: won't work with the limited iterator impl. of IdList.
-    StackSortHelper sortHelper( this );
-    for ( QMap<DB::StackID,QStringList>::iterator it = _stackMap.begin(); it != _stackMap.end(); ++it ) {
-        qSort( it->begin(), it->end(), sortHelper );
-    }
-#endif
-
     found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
         return found.value();
     else
         return DB::IdList();
-}
-
-XMLDB::Database::StackSortHelper::StackSortHelper( const Database* const db ): _db(db)
-{
-}
-
-int XMLDB::Database::StackSortHelper::operator()( const QString& fileA, const QString& fileB ) const
-{
-    DB::ImageInfoPtr a = _db->info( DB::FileName::fromAbsolutePath(fileA) ); // ZZZ
-    DB::ImageInfoPtr b = _db->info( DB::FileName::fromAbsolutePath(fileB) ); // ZZZ
-    if ( !a && !b )
-        return -1;
-    return ( a->stackId() == b->stackId() ) && ( a->stackOrder() < b->stackOrder() );
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )

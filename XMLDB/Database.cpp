@@ -253,14 +253,14 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;
 
-    const QString name = fileName.absolute(); // ZZZ
+    const QString name = fileName.absolute();
 
     if ( fileMap.contains( name ) )
         return fileMap[ name ];
     else {
         fileMap.clear();
         for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-            fileMap.insert( (*it)->fileName().absolute(), *it ); // ZZZ
+            fileMap.insert( (*it)->fileName().absolute(), *it );
         }
         if ( fileMap.contains( name ) )
             return fileMap[ name ];

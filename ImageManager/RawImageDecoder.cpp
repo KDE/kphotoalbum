@@ -148,11 +148,11 @@ void RAWImageDecoder::_initializeExtensionLists( QStringList& rawExtensions, QSt
     ignoredExtensions = _ignoredExtensions;
 }
 
-bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
+bool RAWImageDecoder::_fileExistsWithExtensions( const DB::FileName& fileName,
                                                  const QStringList& extensionList) const
 {
-    QString baseFileName = fileName;
-    int extStart = fileName.lastIndexOf(QChar::fromLatin1('.'));
+    QString baseFileName = fileName.absolute();
+    int extStart = baseFileName.lastIndexOf(QChar::fromLatin1('.'));
     // We're interested in xxx.yyy, not .yyy
     if (extStart <= 1) return false;
     baseFileName.remove(extStart, baseFileName.length() - extStart);
@@ -194,7 +194,7 @@ bool RAWImageDecoder::_mightDecode( const DB::FileName& imageFile )
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
 
     if (Settings::SettingsData::instance()->skipRawIfOtherMatches() &&
-            _fileExistsWithExtensions(imageFile.absolute(), _standardExtensions)) return false; // ZZZ
+            _fileExistsWithExtensions(imageFile, _standardExtensions)) return false;
     if (_fileEndsWithExtensions(imageFile, _rawExtensions)) return true;
     return false;
 }

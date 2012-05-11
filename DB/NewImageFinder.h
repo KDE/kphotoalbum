@@ -35,7 +35,7 @@ public:
     bool calculateMD5sums(const DB::IdList& list, DB::MD5Map* map, bool* wasCanceled=0);
 
 protected:
-    void searchForNewFiles( const QSet<QString>& loadedFiles, QString directory );
+    void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );
     void setupFileVersionDetection();
     void loadExtraFiles();
     ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );

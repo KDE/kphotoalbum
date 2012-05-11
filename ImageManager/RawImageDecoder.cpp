@@ -163,7 +163,7 @@ bool RAWImageDecoder::_fileExistsWithExtensions( const DB::FileName& fileName,
     return false;
 }
 
-bool RAWImageDecoder::_fileIsKnownWithExtensions( const QSet<QString>& files,
+bool RAWImageDecoder::_fileIsKnownWithExtensions( const DB::FileNameSet& files,
                                                   const DB::FileName& fileName,
                                                   const QStringList& extensionList) const
 {
@@ -173,7 +173,8 @@ bool RAWImageDecoder::_fileIsKnownWithExtensions( const QSet<QString>& files,
     baseFileName.remove(extStart, baseFileName.length() - extStart);
     for ( QStringList::ConstIterator it = extensionList.begin();
           it != extensionList.end(); ++it ) {
-        if (files.contains(baseFileName + *it) ) return true;
+        if (files.contains(DB::FileName::fromAbsolutePath(baseFileName + *it)) )
+            return true;
     }
     return false;
 }
@@ -206,7 +207,7 @@ bool RAWImageDecoder::isRAW( const DB::FileName& imageFile )
     return _fileEndsWithExtensions(imageFile, _rawExtensions);
 }
 
-bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB::FileName& imageFile ) const
+bool RAWImageDecoder::_skipThisFile( const DB::FileNameSet& loadedFiles, const DB::FileName& imageFile ) const
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );

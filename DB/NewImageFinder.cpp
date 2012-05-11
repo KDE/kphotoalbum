@@ -51,7 +51,7 @@ using namespace DB;
 bool NewImageFinder::findImages()
 {
     // Load the information from the XML file.
-    QSet<QString> loadedFiles;
+    DB::FileNameSet loadedFiles;
 
     // TODO: maybe the databas interface should allow to query if it
     // knows about an image ? Here we've to iterate through all of them and it
@@ -59,7 +59,7 @@ bool NewImageFinder::findImages()
     // whole info.
     Q_FOREACH( const DB::ImageInfoPtr& info,
         DB::ImageDB::instance()->images().fetchInfos() ) {
-        loadedFiles.insert(info->fileName().absolute()); // ZZZ
+        loadedFiles.insert(info->fileName());
     }
 
     _pendingLoad.clear();
@@ -73,7 +73,7 @@ bool NewImageFinder::findImages()
 }
 
 
-void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QString directory )
+void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory )
 {
     qApp->processEvents( QEventLoop::AllEvents );
     directory = Utilities::stripEndingForwardSlash(directory);
@@ -92,7 +92,7 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
 	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-                excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
+                excluded.contains( (*it) ) || loadedFiles.contains( DB::FileName::fromAbsolutePath(file) ) || // ZZZ
                 dec._skipThisFile(loadedFiles, DB::FileName::fromAbsolutePath(file)) || // ZZZ
                 (*it) == QString::fromLatin1("CategoryImages") )
 	    continue;

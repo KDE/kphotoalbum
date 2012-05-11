@@ -44,7 +44,7 @@ private slots:
     void setLength(int length);
 
 private:
-    bool loadFramesFromCache(const QString& fileName);
+    bool loadFramesFromCache(const DB::FileName& fileName);
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;

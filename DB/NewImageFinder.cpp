@@ -107,7 +107,7 @@ void NewImageFinder::searchForNewFiles( const QSet<QString>& loadedFiles, QStrin
         if ( fi.isFile() ) {
             QString baseName = file.mid( imageDir.length()+1 );
             if ( ! DB::ImageDB::instance()->isBlocking( DB::FileName::fromUnknown(baseName) ) ) { // ZZZ
-                if ( Utilities::canReadImage(file) )
+                if ( Utilities::canReadImage(DB::FileName::fromAbsolutePath(file)) )
                     _pendingLoad.append( qMakePair( baseName, DB::Image ) );
                 else if ( Utilities::isVideo( DB::FileName::fromUnknown(file) ) ) // ZZZ
                     _pendingLoad.append( qMakePair( baseName, DB::Video ) );

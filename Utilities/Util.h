@@ -45,7 +45,7 @@ bool makeHardLink( const QString& from, const QString& to );
 bool runningDemo();
 void deleteDemo();
 QString setupDemo();
-bool canReadImage( const QString& fileName );
+bool canReadImage( const DB::FileName& fileName );
 bool isVideo( const DB::FileName& fileName );
 bool isRAW( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);

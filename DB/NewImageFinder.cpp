@@ -304,11 +304,11 @@ bool  NewImageFinder::calculateMD5sums(
     dialog.setMinimumDuration( 1000 );
 
     int count = 0;
-    QStringList cantRead;
+    DB::FileNameList cantRead;
     bool dirty = false;
 
     Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-        const QString absoluteFileName = info->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = info->fileName();
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -320,16 +320,16 @@ bool  NewImageFinder::calculateMD5sums(
             }
         }
 
-        MD5 md5 = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(absoluteFileName) ); // ZZZ
+        MD5 md5 = Utilities::MD5Sum( fileName );
         if (md5.isNull()) {
-            cantRead << absoluteFileName;
+            cantRead << fileName;
             continue;
         }
 
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromUnknown(absoluteFileName) ); // ZZZ
+            ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
 
         md5Map->insert( md5, info->fileName() );
@@ -340,7 +340,7 @@ bool  NewImageFinder::calculateMD5sums(
         *wasCanceled = false;
 
     if ( !cantRead.empty() )
-        KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead );
+        KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead.toStringList(DB::RelativeToImageRoot) );
 
     return dirty;
 }

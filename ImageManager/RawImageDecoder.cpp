@@ -178,12 +178,12 @@ bool RAWImageDecoder::_fileIsKnownWithExtensions( const QSet<QString>& files,
 	return false;
 }
 
-bool RAWImageDecoder::_fileEndsWithExtensions( const QString& fileName,
+bool RAWImageDecoder::_fileEndsWithExtensions( const DB::FileName& fileName,
 					      const QStringList& extensionList)
 {
 	for ( QStringList::ConstIterator it = extensionList.begin();
 	      it != extensionList.end(); ++it ) {
-	    if( fileName.endsWith( *it, Qt::CaseInsensitive ) ) return true;
+        if( fileName.relative().endsWith( *it, Qt::CaseInsensitive ) ) return true;
 	}
 	return false;
 }
@@ -195,7 +195,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 
 	if (Settings::SettingsData::instance()->skipRawIfOtherMatches() &&
 	    _fileExistsWithExtensions(imageFile, _standardExtensions)) return false;
-	if (_fileEndsWithExtensions(imageFile, _rawExtensions)) return true;
+    if (_fileEndsWithExtensions(DB::FileName::fromUnknown(imageFile), _rawExtensions)) return true; // ZZZ
 	return false;
 }
 
@@ -203,7 +203,7 @@ bool RAWImageDecoder::isRAW( const DB::FileName& imageFile )
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
-    return _fileEndsWithExtensions(imageFile.relative(), _rawExtensions);
+    return _fileEndsWithExtensions(imageFile, _rawExtensions);
 }
 
 bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB::FileName& imageFile ) const
@@ -212,7 +212,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB:
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
 
 	// We're not interested in thumbnail and other files.
-    if (_fileEndsWithExtensions(imageFile.absolute(), _ignoredExtensions)) return true; // ZZZ
+    if (_fileEndsWithExtensions(imageFile, _ignoredExtensions)) return true;
 
 	// If we *are* interested in raw files even when other equivalent
 	// non-raw files are available, then we're interested in this file.
@@ -220,7 +220,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB:
 
 	// If the file ends with something other than a known raw extension,
 	// we're interested in it.
-    if (! _fileEndsWithExtensions(imageFile.absolute(), _rawExtensions)) return false; // ZZZ
+    if (! _fileEndsWithExtensions(imageFile, _rawExtensions)) return false;
 
 	// At this point, the file ends with a known raw extension, and we're
 	// not interested in raw files when other non-raw files are available.

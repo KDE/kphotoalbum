@@ -379,11 +379,11 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& sel
 
     // iterate over all images (expensive!!) TODO: improve?
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
-        QString imagefile = (*it)->fileName().absolute(); // ZZZ
+        const DB::FileName imagefile = (*it)->fileName();
         DB::IdList::ConstIterator si = selection.begin();
         // for each image, iterate over selection, break on match
         for ( /**/; si != selection.end(); ++si ) {
-            QString file = (*si).fetchInfo()->fileName().absolute(); // ZZZ
+            const DB::FileName file = (*si).fetchInfo()->fileName();
             if ( imagefile == file ) {
                 break;
             }
@@ -408,11 +408,11 @@ void XMLDB::Database::insertList(
     const DB::ImageInfoList& list,
     bool after)
 {
-    QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
+    const DB::FileName fileName = id.fetchInfo()->fileName();
 
     DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
-        if ( (*imageIt)->fileName().absolute() == fileName ) { // ZZZ
+        if ( (*imageIt)->fileName() == fileName ) {
             break;
         }
     }

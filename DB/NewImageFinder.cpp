@@ -164,8 +164,7 @@ void NewImageFinder::setupFileVersionDetection() {
 
 ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileName, DB::MediaType type )
 {
-    QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName.relative() ); // ZZZ
-    MD5 sum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
+    MD5 sum = Utilities::MD5Sum( relativeNewFileName );
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QFileInfo fi( matchedFileName.absolute() );
@@ -192,7 +191,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileN
 
 #ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( matchedFileName );
-                Exif::Database::instance()->add( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
+                Exif::Database::instance()->add( relativeNewFileName);
 #endif
                 return DB::ImageInfoPtr();
             }

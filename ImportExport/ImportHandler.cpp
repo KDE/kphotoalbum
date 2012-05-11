@@ -278,7 +278,7 @@ void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );
     updateInfo->setAngle( info->angle() );
-    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName().absolute() ) ); // ZZZ
+    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName() ) );
 
 
     DB::ImageInfoList list;

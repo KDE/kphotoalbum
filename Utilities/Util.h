@@ -72,7 +72,7 @@ QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=
 
 QString cStringWithEncoding( const char *c_str, const QString& charset );
 
-DB::MD5 MD5Sum( const QString& fileName );
+DB::MD5 MD5Sum( const DB::FileName& fileName );
 
 QColor contrastColor( const QColor& );
 }

@@ -166,7 +166,7 @@ void NewImageFinder::setupFileVersionDetection() {
 ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
-    MD5 sum = Utilities::MD5Sum( absoluteNewFileName );
+    MD5 sum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QFileInfo fi( matchedFileName.absolute() );
@@ -215,7 +215,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 originalFileName = relativeNewFileName;
                 originalFileName.replace(_modifiedFileComponent, (*it));
 
-                MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( originalFileName ) );
+                MD5 originalSum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(Utilities::absoluteImageFileName( originalFileName ) )); // ZZZ
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
                     // from the original.
@@ -320,7 +320,7 @@ bool  NewImageFinder::calculateMD5sums(
             }
         }
 
-        MD5 md5 = Utilities::MD5Sum( absoluteFileName );
+        MD5 md5 = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(absoluteFileName) ); // ZZZ
         if (md5.isNull()) {
             cantRead << absoluteFileName;
             continue;

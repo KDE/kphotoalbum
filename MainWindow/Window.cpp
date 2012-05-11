@@ -512,7 +512,7 @@ void MainWindow::Window::slotPasteInformation()
 
     const DB::FileName fileName = DB::FileName::fromRelativePath(string);
 
-    MD5 originalSum = Utilities::MD5Sum( fileName.absolute() ); // ZZZ
+    MD5 originalSum = Utilities::MD5Sum( fileName );
     ImageInfoPtr originalInfo;
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
         originalInfo = DB::ImageDB::instance()->info( fileName );

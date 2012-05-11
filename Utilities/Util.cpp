@@ -716,9 +716,9 @@ QString Utilities::cStringWithEncoding( const char *c_str, const QString& charse
     return codec->toUnicode( c_str );
 }
 
-DB::MD5 Utilities::MD5Sum( const QString& fileName )
+DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
 {
-    QFile file( fileName );
+    QFile file( fileName.absolute() );
     if ( !file.open( QIODevice::ReadOnly ) )
         return DB::MD5();
 

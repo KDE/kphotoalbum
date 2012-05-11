@@ -170,7 +170,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
         const DB::ImageInfoPtr info = id.fetchInfo();
         const DB::FileName fileName = info->fileName();
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName.absolute()); // ZZZ
+        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
         _model->updateCell( id );
     }
 }

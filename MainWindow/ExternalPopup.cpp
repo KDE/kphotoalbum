@@ -105,7 +105,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
                 lst.append( KUrl((*it).absolute()) );
         }
     } else if (action->data() == 2) {
-        QString origFile = _currentInfo->fileName().absolute(); // ZZZ
+        QString origFile = _currentInfo->fileName().absolute();
         QString newFile = origFile;
 
         QString origRegexpString =
@@ -125,7 +125,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
 
     } else {
-        lst.append( KUrl(_currentInfo->fileName().absolute())); // ZZZ
+        lst.append( KUrl(_currentInfo->fileName().absolute()));
     }
 
 

@@ -104,7 +104,7 @@ void InvalidDateFinder::accept()
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {
                 edit->append( QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3" )
-                              .arg(info->fileName().absolute()) // ZZZ
+                              .arg(info->fileName().relative())
                               .arg(date.start().toString())
                               .arg(fi.dateTime().toString()) );
             }

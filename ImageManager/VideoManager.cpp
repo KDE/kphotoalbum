@@ -70,7 +70,7 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     list.append(
 			KFileItem( KFileItem::Unknown /* mode */
 				, KFileItem::Unknown /* permissions */
-                , request->databaseFileName().absolute() ) // ZZZ
+                , request->databaseFileName().absolute() )
 			);
 
     KIO::PreviewJob* job = KIO::filePreview(list, QSize(1024,1024) );

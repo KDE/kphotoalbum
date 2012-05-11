@@ -98,7 +98,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 
     QString result;
     if ( Settings::SettingsData::instance()->showFilename() ) {
-        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName().absolute(), &result); // ZZZ
+        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName().relative(), &result);
     }
 
     if ( Settings::SettingsData::instance()->showDate() )  {

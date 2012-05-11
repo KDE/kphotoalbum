@@ -80,7 +80,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail( QString fileName )
 
     const KArchiveDirectory* thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
 
-    const QString ext = Utilities::isVideo( DB::FileName::fromUnknown(fileName) ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).completeSuffix(); // ZZZ
+    const QString ext = Utilities::isVideo( DB::FileName::fromRelativePath(fileName) ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).completeSuffix();
     fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripEndingForwardSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {

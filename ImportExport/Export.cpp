@@ -290,7 +290,7 @@ void Export::copyImages(const DB::IdList& list)
         else {
             _filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( _maxSize, _maxSize ), 0, this ); // ZZZ
+                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( _maxSize, _maxSize ), 0, this );
             request->setPriority( ImageManager::BatchTask );
             ImageManager::AsyncLoader::instance()->load( request );
         }

@@ -38,11 +38,11 @@ protected:
     void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );
     void setupFileVersionDetection();
     void loadExtraFiles();
-    ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
+    ImageInfoPtr loadExtraFile( const DB::FileName& name, DB::MediaType type );
     void markUnTagged( ImageInfoPtr info );
 
 private:
-    typedef QList< QPair< QString, DB::MediaType > > LoadList;
+    typedef QList< QPair< DB::FileName, DB::MediaType > > LoadList;
     LoadList _pendingLoad;
 
     QString _modifiedFileCompString;

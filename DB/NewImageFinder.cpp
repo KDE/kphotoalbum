@@ -105,12 +105,11 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 	        continue;
 
         if ( fi.isFile() ) {
-            QString baseName = file.relative(); // ZZZ
             if ( ! DB::ImageDB::instance()->isBlocking( file ) ) {
                 if ( Utilities::canReadImage(file) )
-                    _pendingLoad.append( qMakePair( baseName, DB::Image ) );
+                    _pendingLoad.append( qMakePair( file, DB::Image ) );
                 else if ( Utilities::isVideo( file ) )
-                    _pendingLoad.append( qMakePair( baseName, DB::Video ) );
+                    _pendingLoad.append( qMakePair( file, DB::Video ) );
             }
         } else if ( fi.isDir() )  {
             searchForNewFiles( loadedFiles, file.absolute() );
@@ -163,9 +162,9 @@ void NewImageFinder::setupFileVersionDetection() {
     _originalFileComponents = _originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
+ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileName, DB::MediaType type )
 {
-    QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
+    QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName.relative() ); // ZZZ
     MD5 sum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
@@ -180,11 +179,11 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 info->delaySavingChanges(true);
                 fi = QFileInfo ( matchedFileName.relative() );
                 if ( info->label() == fi.completeBaseName() ) {
-                    fi = QFileInfo( relativeNewFileName );
+                    fi = QFileInfo( relativeNewFileName.absolute() );
                     info->setLabel( fi.completeBaseName() );
                 }
 
-                DB::ImageDB::instance()->renameImage( info, DB::FileName::fromRelativePath(relativeNewFileName) ); // ZZZ
+                DB::ImageDB::instance()->renameImage( info, relativeNewFileName );
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
@@ -201,18 +200,18 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     }
 
     // check to see if this is a new version of a previous image
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( DB::FileName::fromRelativePath(relativeNewFileName), type )); // ZZZ
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
     ImageInfoPtr originalInfo;
     QString originalFileName;
 
     if (Settings::SettingsData::instance()->detectModifiedFiles()) {
         // requires at least *something* in the modifiedFileComponent
         if (_modifiedFileCompString.length() >= 0 &&
-            relativeNewFileName.contains(_modifiedFileComponent)) {
+            relativeNewFileName.relative().contains(_modifiedFileComponent)) { // ZZZ
 
             for( QStringList::const_iterator it = _originalFileComponents.constBegin();
                  it != _originalFileComponents.constEnd(); ++it ) {
-                originalFileName = relativeNewFileName;
+                originalFileName = relativeNewFileName.relative();
                 originalFileName.replace(_modifiedFileComponent, (*it));
 
                 MD5 originalSum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(Utilities::absoluteImageFileName( originalFileName ) )); // ZZZ
@@ -232,7 +231,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
                         if ( !originalInfo )
                         {
-                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName));
+                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName.absolute()));
                             continue;
                         }
                     }

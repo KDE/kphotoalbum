@@ -37,7 +37,7 @@ public:
 protected:
 	ImageDecoder();
     virtual bool _decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1 ) = 0;
-	virtual bool _mightDecode( const QString& imageFile ) = 0;
+    virtual bool _mightDecode( const DB::FileName& imageFile ) = 0;
 
 private:
 	static Q3PtrList<ImageDecoder>* decoders();

@@ -48,7 +48,7 @@ bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
 {
 	Q3PtrList<ImageDecoder>* lst = decoders();
 	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
-        if( (*it)->_mightDecode(imageFile.absolute()) ) return true; // ZZZ
+        if( (*it)->_mightDecode(imageFile) ) return true;
 	}
 	return false;
 }

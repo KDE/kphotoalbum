@@ -30,7 +30,7 @@ namespace ImageManager
 class RAWImageDecoder : public ImageDecoder {
 public:
     virtual bool _decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1);
-	virtual bool _mightDecode( const QString& imageFile );
+    virtual bool _mightDecode( const DB::FileName& imageFile );
     virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const DB::FileName& imageFile ) const;
     static bool isRAW( const DB::FileName& imageFile );
 

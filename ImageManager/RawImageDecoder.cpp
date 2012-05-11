@@ -188,14 +188,14 @@ bool RAWImageDecoder::_fileEndsWithExtensions( const DB::FileName& fileName,
     return false;
 }
 
-bool RAWImageDecoder::_mightDecode( const QString& imageFile )
+bool RAWImageDecoder::_mightDecode( const DB::FileName& imageFile )
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
     _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
 
     if (Settings::SettingsData::instance()->skipRawIfOtherMatches() &&
-            _fileExistsWithExtensions(imageFile, _standardExtensions)) return false;
-    if (_fileEndsWithExtensions(DB::FileName::fromUnknown(imageFile), _rawExtensions)) return true; // ZZZ
+            _fileExistsWithExtensions(imageFile.absolute(), _standardExtensions)) return false; // ZZZ
+    if (_fileEndsWithExtensions(imageFile, _rawExtensions)) return true;
     return false;
 }
 

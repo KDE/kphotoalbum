@@ -134,7 +134,7 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
 void XMLDB::Database::addToBlockList(const DB::IdList& list)
 {
     Q_FOREACH(DB::ImageInfoPtr inf, list.fetchInfos()) {
-        _blockList << inf->fileName().relative(); // ZZZ
+        _blockList << inf->fileName();
     }
     deleteList( list );
 }
@@ -299,7 +299,7 @@ DB::MD5Map* XMLDB::Database::md5Map()
     return &_md5map;
 }
 
-bool XMLDB::Database::isBlocking( const QString& fileName )
+bool XMLDB::Database::isBlocking( const DB::FileName& fileName )
 {
     return _blockList.contains( fileName );
 }

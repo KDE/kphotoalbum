@@ -29,6 +29,7 @@
 #include "XMLCategoryCollection.h"
 #include "DB/MD5Map.h"
 #include <qdom.h>
+#include <DB/FileNameList.h>
 
 namespace DB
 {
@@ -54,7 +55,7 @@ namespace XMLDB {
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName );
 
         OVERRIDE void addToBlockList(const DB::IdList& list);
-        OVERRIDE bool isBlocking( const QString& fileName );
+        OVERRIDE bool isBlocking( const DB::FileName& fileName );
         OVERRIDE void deleteList(const DB::IdList& list);
         OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
@@ -104,7 +105,7 @@ namespace XMLDB {
 
         QString _fileName;
         DB::ImageInfoList _images;
-        QStringList _blockList;
+        DB::FileNameList _blockList;
         DB::ImageInfoList _missingTimes;
         XMLCategoryCollection _categoryCollection;
         DB::MemberMap _members;

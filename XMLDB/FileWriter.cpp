@@ -177,10 +177,10 @@ void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
 {
     QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
     bool any=false;
-    Q_FOREACH(const QString &block, _db->_blockList) {
+    Q_FOREACH(const DB::FileName &block, _db->_blockList) {
         any=true;
         QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
-        elm.setAttribute( QString::fromLatin1( "file" ), block );
+        elm.setAttribute( QString::fromLatin1( "file" ), block.relative() );
         blockList.appendChild( elm );
     }
 

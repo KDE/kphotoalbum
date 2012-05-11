@@ -216,7 +216,7 @@ void XMLDB::FileReader::loadBlockList( const QDomElement& blockList )
 
         QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
         if ( !fileName.isEmpty() )
-            _db->_blockList << fileName;
+            _db->_blockList << DB::FileName::fromRelativePath(fileName);
     }
 }
 

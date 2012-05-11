@@ -672,7 +672,7 @@ QStringList XMLDB::Database::CONVERT(const DB::IdList& items)
 {
     QStringList result;
     Q_FOREACH(DB::Id id, items) {
-        result << _idMapper[id.rawId()].relative(); // ZZZ
+        result << _idMapper[id.rawId()].relative();
     }
     return result;
 }

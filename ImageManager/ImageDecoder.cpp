@@ -34,7 +34,7 @@ ImageManager::ImageDecoder::~ImageDecoder()
 	decoders()->remove(this);
 }
 
-bool ImageManager::ImageDecoder::decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
 	Q3PtrList<ImageDecoder>* lst = decoders();
 	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {

@@ -50,8 +50,8 @@ bool isVideo( const DB::FileName& fileName );
 bool isRAW( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
-bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-bool isJPEG( const QString& fileName );
+bool loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1);
+bool isJPEG( const DB::FileName& fileName );
 
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripEndingForwardSlash( const QString& fileName );

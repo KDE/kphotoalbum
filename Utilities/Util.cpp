@@ -430,9 +430,9 @@ namespace Utilities
     bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim );
 }
 
-bool Utilities::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
+    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()), "rb");
     if(!inputFile)
         return false;
     bool ok = loadJPEG( img, inputFile, fullSize, dim );
@@ -530,9 +530,9 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     return true;
 }
 
-bool Utilities::isJPEG( const QString& fileName )
+bool Utilities::isJPEG( const DB::FileName& fileName )
 {
-    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName ) );
+    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName.relative() ) );
     return format == QString::fromLocal8Bit( "jpeg" );
 }
 

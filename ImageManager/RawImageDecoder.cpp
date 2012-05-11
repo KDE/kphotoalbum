@@ -31,13 +31,13 @@
 namespace ImageManager
 {
 
-bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
     /* width and height seem to be only hints, ignore */
     Q_UNUSED( dim );
 
 #ifdef HAVE_KDCRAW
-    if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
+    if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile.absolute() ) )
         return false;
 
     if ( Settings::SettingsData::instance()->useRawThumbnail() &&
@@ -47,7 +47,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 
     KDcrawIface::DcrawInfoContainer metadata;
 
-    if ( !KDcrawIface::KDcraw::rawFileIdentify( metadata, imageFile ) ||
+    if ( !KDcrawIface::KDcraw::rawFileIdentify( metadata, imageFile.absolute() ) ||
             ( img->width() < metadata.imageSize.width() * 0.8 ) ||
             ( img->height() < metadata.imageSize.height() * 0.8 ) ) {
 
@@ -61,7 +61,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
         } else {
             QByteArray imageData; /* 3 bytes for each pixel,  */
             int width, height, rgbmax;
-            if ( !decoder.decodeRAWImage( imageFile, rawDecodingSettings, imageData, width, height, rgbmax ) )
+            if ( !decoder.decodeRAWImage( imageFile.absolute(), rawDecodingSettings, imageData, width, height, rgbmax ) )
                 return false;
 
             // Now the funny part, how to turn this fugly QByteArray into an QImage. Yay!

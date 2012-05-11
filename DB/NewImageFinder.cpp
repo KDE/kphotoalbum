@@ -162,9 +162,9 @@ void NewImageFinder::setupFileVersionDetection() {
     _originalFileComponents = _originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileName, DB::MediaType type )
+ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
 {
-    MD5 sum = Utilities::MD5Sum( relativeNewFileName );
+    MD5 sum = Utilities::MD5Sum( newFileName );
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QFileInfo fi( matchedFileName.absolute() );
@@ -178,11 +178,11 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileN
                 info->delaySavingChanges(true);
                 fi = QFileInfo ( matchedFileName.relative() );
                 if ( info->label() == fi.completeBaseName() ) {
-                    fi = QFileInfo( relativeNewFileName.absolute() );
+                    fi = QFileInfo( newFileName.absolute() );
                     info->setLabel( fi.completeBaseName() );
                 }
 
-                DB::ImageDB::instance()->renameImage( info, relativeNewFileName );
+                DB::ImageDB::instance()->renameImage( info, newFileName );
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
@@ -191,7 +191,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileN
 
 #ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( matchedFileName );
-                Exif::Database::instance()->add( relativeNewFileName);
+                Exif::Database::instance()->add( newFileName);
 #endif
                 return DB::ImageInfoPtr();
             }
@@ -199,38 +199,40 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileN
     }
 
     // check to see if this is a new version of a previous image
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( relativeNewFileName, type ));
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type ));
     ImageInfoPtr originalInfo;
-    QString originalFileName;
+    DB::FileName originalFileName;
 
     if (Settings::SettingsData::instance()->detectModifiedFiles()) {
         // requires at least *something* in the modifiedFileComponent
         if (_modifiedFileCompString.length() >= 0 &&
-            relativeNewFileName.relative().contains(_modifiedFileComponent)) { // ZZZ
+            newFileName.relative().contains(_modifiedFileComponent)) {
 
             for( QStringList::const_iterator it = _originalFileComponents.constBegin();
                  it != _originalFileComponents.constEnd(); ++it ) {
-                originalFileName = relativeNewFileName.relative();
-                originalFileName.replace(_modifiedFileComponent, (*it));
+                QString tmp = newFileName.relative();
+                tmp.replace(_modifiedFileComponent, (*it));
+                originalFileName = DB::FileName::fromRelativePath(tmp);
 
-                MD5 originalSum = Utilities::MD5Sum( DB::FileName::fromAbsolutePath(Utilities::absoluteImageFileName( originalFileName ) )); // ZZZ
+                MD5 originalSum = Utilities::MD5Sum( originalFileName );
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
                     // from the original.
-                    originalInfo = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(originalFileName) ); // ZZZ
+                    originalInfo = DB::ImageDB::instance()->info( originalFileName );
                     if ( !originalInfo ) {
-                        qDebug() << "Original info not found by name for " << originalFileName << ", trying by MD5 sum.";
-                        originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum ).relative(); // ZZZ
+                        qDebug() << "Original info not found by name for " << originalFileName.absolute() << ", trying by MD5 sum.";
+                        originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum );
 
                         if (!originalFileName.isNull())
                         {
-                            qDebug() << "Substitute image " << originalFileName << " found.";
-                            originalInfo = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(originalFileName) ); // ZZZ
+                            qDebug() << "Substitute image " << originalFileName.absolute() << " found.";
+                            originalInfo = DB::ImageDB::instance()->info( originalFileName );
                         }
 
                         if ( !originalInfo )
                         {
-                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s", qPrintable(originalFileName), qPrintable(relativeNewFileName.absolute()));
+                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s",
+                                     qPrintable(originalFileName.absolute()), qPrintable(newFileName.absolute()));
                             continue;
                         }
                     }
@@ -259,7 +261,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& relativeNewFileN
         DB::ImageDB::instance()->addImages( newImages );
 
         // stack the files together
-        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(originalFileName)); // ZZZ
+        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
         DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName());
         DB::IdList tostack = DB::IdList();
 

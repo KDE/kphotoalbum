@@ -98,7 +98,7 @@ void DeleteDialog::deleteImages()
 
     Q_FOREACH(const DB::Id id, _list) {
         const DB::FileName fileName = id.fetchInfo()->fileName();
-        if ( DB::ImageInfo::imageOnDisk( fileName.absolute() ) ) { // ZZZ
+        if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
                 KUrlToDelete.setPath(fileName.absolute());
                 listKUrlToDelete.append(KUrlToDelete);

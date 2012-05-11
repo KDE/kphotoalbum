@@ -575,7 +575,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 
     DB::IdList listOnDisk;
     Q_FOREACH(DB::Id id, list) {
-        const QString fileName = id.fetchInfo()->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = id.fetchInfo()->fileName();
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk.append(id);
     }

@@ -379,10 +379,9 @@ void ImageInfo::setSize( const QSize& size )
     saveChangesIfNotDelayed();
 }
 
-bool ImageInfo::imageOnDisk( const QString& fileName )
+bool ImageInfo::imageOnDisk( const DB::FileName& fileName )
 {
-    QFileInfo fi( fileName );
-    return fi.exists();
+    return fileName.exists();
 }
 
 ImageInfo::ImageInfo( const DB::FileName& fileName,

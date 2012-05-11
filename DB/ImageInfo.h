@@ -132,7 +132,7 @@ public:
     bool operator==( const ImageInfo& other ) const;
     ImageInfo& operator=( const ImageInfo& other );
 
-    static bool imageOnDisk( const QString& fileName );
+    static bool imageOnDisk( const DB::FileName& fileName );
 
     const MD5& MD5Sum() const { return _md5sum; }
     void setMD5Sum( const MD5& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; saveChangesIfNotDelayed(); }

@@ -331,7 +331,7 @@ DB::IdList XMLDB::Database::searchPrivate(
     QList<DB::RawId> result;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
-        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName().absolute() ); // ZZZ
+        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName() );
 
         if (match)
             result.append(_idMapper[(*it)->fileName()]);

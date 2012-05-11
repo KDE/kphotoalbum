@@ -601,16 +601,6 @@ void Utilities::deleteDemo()
     (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
 }
 
-// PENDING(blackie) delete this method
-QStringList Utilities::infoListToStringList( const DB::ImageInfoList& list )
-{
-    QStringList result;
-    for( DB::ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        result.append( (*it)->fileName().absolute() ); // ZZZ
-    }
-    return result;
-}
-
 QString Utilities::stripImageDirectory( const QString& fileName )
 {
     if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
@@ -634,14 +624,6 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return QString(); // Not within our image root
     else
         return absoluteImageFileName( fileName );
-}
-
-QString Utilities::imageFileNameToRelative( const QString& fileName ) // ZZZ Remove
-{
-    QRegExp regexp( QString::fromLatin1( "^/*" ) );
-    // A bit back and forth, but this function is to go away anyway (hzeller).
-    QString s = imageFileNameToAbsolute(fileName).mid( Settings::SettingsData::instance()->imageDirectory().length());
-    return s.replace( regexp, QString::fromLatin1( "" ) );
 }
 
 bool operator>( const QPoint& p1, const QPoint& p2)

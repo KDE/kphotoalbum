@@ -100,46 +100,46 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
 
 void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
 {
-    QMap< DB::MD5, QList<QString> > tostack;
-    QList< QString > showIfStacked;
+    QMap< DB::MD5, DB::FileNameList > tostack;
+    DB::FileNameList showIfStacked;
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
     Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
-        QString fileName = info->fileName().absolute(); // ZZZ
+        const DB::FileName fileName = info->fileName();
         DB::MD5 sum = info->MD5Sum();
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
             if (tostack[sum].isEmpty())
-                tostack.insert(sum, (QStringList) fileName);
+                tostack.insert(sum, DB::FileNameList() << fileName);
             else
                 tostack[sum].append(fileName);
         }
     }
 
     // Then add images to stack (depending on configuration options)
-    for( QMap<DB::MD5, QList<QString> >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
+    for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
         if ( tostack[it.key()].count() > 1 ) {
             DB::IdList stack = DB::IdList();
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(tostack[it.key()][i] )) ).isEmpty() ) { // ZZZ
+                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i]) ).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(tostack[it.key()][i]) ) ); // ZZZ
+                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
 
                 showIfStacked.append( tostack[it.key()][i] );
-                stack.append( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(tostack[it.key()][i]) ) ); // ZZZ
+                stack.append( DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
             }
             if ( stack.size() > 1 ) {
 
-                foreach( const QString& a, showIfStacked ) {
+                foreach( const DB::FileName& a, showIfStacked ) {
 
-                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(a) ) ).isEmpty() ) // ZZZ
-                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(a) ) ) ) // ZZZ
+                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)).isEmpty() )
+                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)))
                             toBeShown.append( b );
                     else
-                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( DB::FileName::fromAbsolutePath(a) ) ); // ZZZ
+                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
                 }
                 DB::ImageDB::instance()->stack( stack );
             }
@@ -179,7 +179,7 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
             stack.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
             stack.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
             if ( !toBeShown.isEmpty() ) {
-                if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName().relative() != prev->fileName().relative() ) // ZZZ
+                if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName() != prev->fileName() )
                     toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image

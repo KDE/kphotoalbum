@@ -21,6 +21,7 @@
 #include "DB/RawId.h"
 #include <QMap>
 #include <QString>
+#include <DB/FileName.h>
 
 namespace DB
 {
@@ -28,17 +29,17 @@ class IdNameMapper
 {
 public:
     IdNameMapper();
-    void add( const QString& fileName );
+    void add( const DB::FileName& fileName );
     void remove( DB::RawId id );
-    void remove( const QString& fileName );
+    void remove( const DB::FileName& fileName );
 
-    bool exists(const QString & filename) const;
+    bool exists(const DB::FileName & filename) const;
 
-    DB::RawId operator[](const QString& ) const;
-    QString operator[]( DB::RawId ) const;
+    DB::RawId operator[](const DB::FileName& ) const;
+    DB::FileName operator[]( DB::RawId ) const;
 private:
-    QMap<DB::RawId, QString> _idTofileName;
-    QMap<QString, DB::RawId> _fileNameToId;
+    QMap<DB::RawId, DB::FileName> _idTofileName;
+    QMap<DB::FileName, DB::RawId> _fileNameToId;
     int _maxId;
 };
 

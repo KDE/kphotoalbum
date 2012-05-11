@@ -165,7 +165,7 @@ void XMLDB::Database::deleteList(const DB::IdList& list)
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName() );
 #endif
-        _idMapper.remove( inf->fileName().relative() ); // ZZZ
+        _idMapper.remove( inf->fileName() );
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -234,7 +234,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 
     Q_FOREACH( const DB::ImageInfoPtr& info, images ) {
-        _idMapper.add( info->fileName().relative() ); // ZZZ
+        _idMapper.add( info->fileName() );
     }
 
     emit totalChanged( _images.count() );
@@ -244,9 +244,9 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
 {
     info->delaySavingChanges(false);
-    _idMapper.remove( info->fileName().relative() ); // ZZZ
+    _idMapper.remove( info->fileName() );
     info->setFileName(newName);
-    _idMapper.add( info->fileName().relative() ); // ZZZ
+    _idMapper.add( info->fileName() );
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
@@ -309,7 +309,7 @@ DB::IdList XMLDB::Database::images()
 {
     QList<DB::RawId> result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        result.append( _idMapper[(*it)->fileName().relative()]); // ZZZ
+        result.append( _idMapper[(*it)->fileName()]);
     }
     return DB::IdList(result);
 }
@@ -334,7 +334,7 @@ DB::IdList XMLDB::Database::searchPrivate(
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName().absolute() ); // ZZZ
 
         if (match)
-            result.append(_idMapper[(*it)->fileName().relative()]); // ZZZ
+            result.append(_idMapper[(*it)->fileName()]);
     }
     return DB::IdList(result);
 }
@@ -692,18 +692,18 @@ QStringList XMLDB::Database::CONVERT(const DB::IdList& items)
 {
     QStringList result;
     Q_FOREACH(DB::Id id, items) {
-        result << Utilities::absoluteImageFileName(_idMapper[id.rawId()]);
+        result << _idMapper[id.rawId()].relative(); // ZZZ
     }
     return result;
 }
 
 DB::Id XMLDB::Database::ID_FOR_FILE( const DB::FileName& fileName) const {
-    return DB::Id::createContextless(_idMapper[ fileName.relative()]); // ZZZ
+    return DB::Id::createContextless(_idMapper[ fileName]);
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
 {
     if (id.isNull())
         return DB::ImageInfoPtr(NULL);
-    return info( DB::FileName::fromRelativePath(_idMapper[id.rawId()])); // ZZZ
+    return info( _idMapper[id.rawId()]);
 }

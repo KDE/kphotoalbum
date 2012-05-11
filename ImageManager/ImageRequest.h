@@ -99,7 +99,7 @@ private:
 
 inline uint qHash(const ImageRequest& ir)
 {
-    return ::qHash(ir.databaseFileName().absolute()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle()); // ZZZ
+    return DB::qHash(ir.databaseFileName()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle());
 }
 
 }

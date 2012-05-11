@@ -57,13 +57,13 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
 void ImageManager::VideoThumbnailsExtractor::frameFetched()
 {
     QImage image(QDir::tempPath() + STR("/00000001.png"));
-    image.save(frameName(m_fileName,m_frameNumber),"JPEG");
+    image.save(frameName(m_fileName,m_frameNumber).absolute(),"JPEG");
     emit frameLoaded(m_frameNumber, image);
     requestNextFrame();
 }
 
-QString ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileName &videoName, int frameNumber)
+DB::FileName ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileName &videoName, int frameNumber)
 {
-    return ImageManager::VideoManager::pathForRequest(videoName) + QLatin1String("-") + QString::number(frameNumber);
+    return DB::FileName::fromRelativePath( ImageManager::VideoManager::pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
 }
 

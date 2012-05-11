@@ -194,13 +194,13 @@ void ImageManager::VideoManager::saveFullScaleFrame(const QString &fileName, con
     QDir dir( Settings::SettingsData::instance()->imageDirectory() );
     if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
         dir.mkdir(QString::fromLatin1(".videoThumbnails"));
-    image.save(pathForRequest(DB::FileName::fromAbsolutePath(fileName)), "JPEG"); // ZZZ
+    image.save(pathForRequest(DB::FileName::fromAbsolutePath(fileName)).absolute(), "JPEG"); // ZZZ
 }
 
 bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageRequest *request)
 {
-    const QString path = pathForRequest(request->databaseFileName());
-    if ( QFile::exists(path) ) {
+    const DB::FileName path = pathForRequest(request->databaseFileName());
+    if ( path.exists() ) {
         VideoImageRescaleRequest* newRequest = new VideoImageRescaleRequest( request, path );
         AsyncLoader::instance()->load( newRequest );
         return true;
@@ -209,15 +209,15 @@ bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageReques
         return false;
 }
 
-QString ImageManager::VideoManager::pathForRequest(const DB::FileName& fileName )
+DB::FileName ImageManager::VideoManager::pathForRequest(const DB::FileName& fileName )
 {
     KMD5 md5(fileName.absolute().toUtf8());
-    return QString::fromLatin1("%1/.videoThumbnails/%2").arg(Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory())).arg(QString::fromUtf8(md5.hexDigest()));
+    return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.hexDigest())));
 }
 
 void ImageManager::VideoManager::removeFullScaleFrame(const QString &fileName)
 {
-    QDir().remove(pathForRequest(DB::FileName::fromAbsolutePath(fileName))); // ZZZ
+    QDir().remove(pathForRequest(DB::FileName::fromAbsolutePath(fileName)).absolute()); // ZZZ
 }
 
 #include "VideoManager.moc"

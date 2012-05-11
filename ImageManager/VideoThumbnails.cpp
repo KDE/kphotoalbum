@@ -70,11 +70,11 @@ void ImageManager::VideoThumbnails::setLength(int length)
 bool ImageManager::VideoThumbnails::loadFramesFromCache(const QString& fileName)
 {
     for (int i=0; i <10; ++i) {
-        const QString thumbnailFile = VideoThumbnailsExtractor::frameName(DB::FileName::fromAbsolutePath(fileName), i); // ZZZ
-        if ( !QFile::exists(thumbnailFile))
+        const DB::FileName thumbnailFile = VideoThumbnailsExtractor::frameName(DB::FileName::fromAbsolutePath(fileName), i); // ZZZ
+        if ( !thumbnailFile.exists())
             return false;
 
-        QImage image(thumbnailFile);
+        QImage image(thumbnailFile.absolute());
         if ( image.isNull() )
             return false;
 

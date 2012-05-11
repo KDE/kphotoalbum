@@ -430,7 +430,7 @@ void Viewer::ViewerWidget::load( const DB::FileNameList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    const bool isReadable = QFileInfo( currentInfo()->fileName().absolute() ).isReadable(); // ZZZ
+    const bool isReadable = QFileInfo( currentInfo()->fileName().absolute() ).isReadable();
     const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
 
     if ( isReadable ) {
@@ -492,7 +492,7 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
     setWindowTitle( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                    .arg( currentInfo()->fileName().absolute() ) // ZZZ
+                    .arg( currentInfo()->fileName().absolute() )
                     .arg( detail ) );
 }
 

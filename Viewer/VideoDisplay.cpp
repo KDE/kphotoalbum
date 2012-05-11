@@ -87,7 +87,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         setup();
 
     _info = info;
-    _mediaObject->setCurrentSource( info->fileName().absolute() ); // ZZZ
+    _mediaObject->setCurrentSource( info->fileName().absolute() );
     _mediaObject->play();
 
     return true;

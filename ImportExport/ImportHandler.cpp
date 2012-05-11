@@ -242,8 +242,8 @@ bool ImportExport::ImportHandler::isImageAlreadyInDB( const DB::ImageInfoPtr& in
 
 DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::ImageInfoPtr& info )
 {
-    const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-    return DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(name) ); // ZZZ
+    const DB::FileName name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
+    return DB::ImageDB::instance()->info(name);
 }
 
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )

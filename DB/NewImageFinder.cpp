@@ -168,18 +168,17 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
     MD5 sum = Utilities::MD5Sum( absoluteNewFileName );
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
-        QString relativeMatchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
-        QString absoluteMatchedFileName = Utilities::absoluteImageFileName( relativeMatchedFileName );
-        QFileInfo fi( absoluteMatchedFileName );
+        const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
+        QFileInfo fi( matchedFileName.absolute() );
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(relativeMatchedFileName)); // ZZZ
+            ImageInfoPtr info = DB::ImageDB::instance()->info( matchedFileName);
             if ( !info )
-                qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(relativeMatchedFileName));
+                qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(matchedFileName.relative()));
             else {
                 info->delaySavingChanges(true);
-                fi = QFileInfo ( relativeMatchedFileName );
+                fi = QFileInfo ( matchedFileName.relative() );
                 if ( info->label() == fi.completeBaseName() ) {
                     fi = QFileInfo( relativeNewFileName );
                     info->setLabel( fi.completeBaseName() );
@@ -189,10 +188,11 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
-                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName().relative()); // ZZZ
+
+                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
 
 #ifdef HAVE_EXIV2
-                Exif::Database::instance()->remove( DB::FileName::fromAbsolutePath(absoluteMatchedFileName) ); // ZZZ
+                Exif::Database::instance()->remove( matchedFileName );
                 Exif::Database::instance()->add( DB::FileName::fromAbsolutePath(absoluteNewFileName) ); // ZZZ
 #endif
                 return DB::ImageInfoPtr();
@@ -222,7 +222,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                     originalInfo = DB::ImageDB::instance()->info( DB::FileName::fromRelativePath(originalFileName) ); // ZZZ
                     if ( !originalInfo ) {
                         qDebug() << "Original info not found by name for " << originalFileName << ", trying by MD5 sum.";
-                        originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum );
+                        originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum ).relative(); // ZZZ
 
                         if (!originalFileName.isNull())
                         {
@@ -251,7 +251,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
     // also inserts image into exif db if present:
     info->setMD5Sum(sum);
-    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName().relative()); // ZZZ
+    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
 
     if (originalInfo &&
         Settings::SettingsData::instance()->autoStackNewFiles() ) {
@@ -332,7 +332,7 @@ bool  NewImageFinder::calculateMD5sums(
             ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromUnknown(absoluteFileName) ); // ZZZ
         }
 
-        md5Map->insert( md5, info->fileName().relative() ); // ZZZ
+        md5Map->insert( md5, info->fileName() );
 
         ++count;
     }

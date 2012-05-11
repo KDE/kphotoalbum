@@ -185,16 +185,17 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
         else
             continue;
 
-        QString fileName = elm.attribute( QString::fromLatin1("file") );
-        if ( fileName.isNull() ) {
+        const QString fileNameStr = elm.attribute( QString::fromLatin1("file") );
+        if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
-        } else if (_db->_idMapper.exists(fileName)) {
-            qDebug() << fileName << " already in database";
+        } else if (_db->_idMapper.exists(fileNameStr)) {
+            qDebug() << fileNameStr << " already in database";
         } else {
-            DB::ImageInfoPtr info = load( fileName, elm );
+            const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
+            DB::ImageInfoPtr info = load( fileNameStr, elm ); // ZZZ
             _db->_images.append(info);
-            _db->_idMapper.add(fileName );
-            _db->_md5map.insert( info->MD5Sum(), fileName );
+            _db->_idMapper.add(fileNameStr ); // ZZZ
+            _db->_md5map.insert( info->MD5Sum(), dbFileName );
         }
     }
 

@@ -128,20 +128,15 @@ void ImageDB::slotRecalcCheckSums(const DB::IdList& inputList)
     emit totalChanged( totalCount() );
 }
 
-StringSet DB::ImageDB::imagesWithMD5Changed()
+DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
     NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
     if ( wasCanceled )
-        return StringSet();
+        return DB::FileNameSet();
 
-    StringSet changes =  md5Map()->diff( map );
-    StringSet res;
-    for ( StringSet::const_iterator it = changes.begin(); it != changes.end(); ++it )
-        res.insert( Settings::SettingsData::instance()->imageDirectory() + *it );
-    return res;
-
+    return md5Map()->diff( map );
 }
 
 

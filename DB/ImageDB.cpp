@@ -260,8 +260,12 @@ DB::FileNameList ImageDB::CONVERT2(const IdList & idList)
 {
     QStringList list = CONVERT(idList);
     DB::FileNameList res;
-    Q_FOREACH( const QString& str, list )
-        res.append( DB::FileName::fromUnknown(str));
+    Q_FOREACH( const QString& str, list ) {
+        if ( str.startsWith(QLatin1String("/") ) )
+            res.append(FileName::fromAbsolutePath(str));
+        else
+            res.append(FileName::fromRelativePath(str));
+    }
     return res;
 }
 

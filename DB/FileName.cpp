@@ -47,14 +47,6 @@ DB::FileName DB::FileName::fromRelativePath(const QString &fileName)
     return res;
 }
 
-DB::FileName DB::FileName::fromUnknown(const QString &fileName)
-{
-    if ( fileName.startsWith(QLatin1String("/") ) )
-        return FileName::fromAbsolutePath(fileName);
-    else
-        return FileName::fromRelativePath(fileName);
-}
-
 QString DB::FileName::absolute() const
 {
     Q_ASSERT(!isNull());

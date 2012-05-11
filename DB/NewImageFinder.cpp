@@ -90,14 +90,14 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
     bool skipSymlinks = Settings::SettingsData::instance()->skipSymlinks();
 
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
-        QString file = directory + QString::fromLatin1("/") + *it;
+        const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
 	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-                excluded.contains( (*it) ) || loadedFiles.contains( DB::FileName::fromAbsolutePath(file) ) || // ZZZ
-                dec._skipThisFile(loadedFiles, DB::FileName::fromAbsolutePath(file)) || // ZZZ
+                excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
+                dec._skipThisFile(loadedFiles, file) ||
                 (*it) == QString::fromLatin1("CategoryImages") )
 	    continue;
 
-        QFileInfo fi( file );
+        QFileInfo fi( file.absolute() );
 
 	    if ( !fi.isReadable() )
 	        continue;
@@ -105,15 +105,15 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 	        continue;
 
         if ( fi.isFile() ) {
-            QString baseName = file.mid( imageDir.length()+1 );
-            if ( ! DB::ImageDB::instance()->isBlocking( DB::FileName::fromUnknown(baseName) ) ) { // ZZZ
-                if ( Utilities::canReadImage(DB::FileName::fromAbsolutePath(file)) )
+            QString baseName = file.relative(); // ZZZ
+            if ( ! DB::ImageDB::instance()->isBlocking( file ) ) {
+                if ( Utilities::canReadImage(file) )
                     _pendingLoad.append( qMakePair( baseName, DB::Image ) );
-                else if ( Utilities::isVideo( DB::FileName::fromUnknown(file) ) ) // ZZZ
+                else if ( Utilities::isVideo( file ) )
                     _pendingLoad.append( qMakePair( baseName, DB::Video ) );
             }
         } else if ( fi.isDir() )  {
-            searchForNewFiles( loadedFiles, file );
+            searchForNewFiles( loadedFiles, file.absolute() );
         }
     }
 }

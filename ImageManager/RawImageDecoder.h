@@ -37,7 +37,7 @@ public:
 private:
 	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
     static bool _fileEndsWithExtensions( const DB::FileName& fileName, const QStringList& extensionList );
-	bool _fileIsKnownWithExtensions( const QSet<QString>& files, const QString& fileName, const QStringList& extensionList ) const;
+    bool _fileIsKnownWithExtensions( const QSet<QString>& files, const DB::FileName& fileName, const QStringList& extensionList ) const;
 	static void _initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions );
 };
 

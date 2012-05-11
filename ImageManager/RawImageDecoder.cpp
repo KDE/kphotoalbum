@@ -164,11 +164,11 @@ bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
 }
 
 bool RAWImageDecoder::_fileIsKnownWithExtensions( const QSet<QString>& files,
-						 const QString& fileName,
-						 const QStringList& extensionList) const
+                                                  const DB::FileName& fileName,
+                                                  const QStringList& extensionList) const
 {
-	QString baseFileName = fileName;
-	int extStart = fileName.lastIndexOf(QChar::fromLatin1('.'));
+    QString baseFileName = fileName.absolute();
+    int extStart = baseFileName.lastIndexOf(QChar::fromLatin1('.'));
 	if (extStart <= 1) return false;
 	baseFileName.remove(extStart, baseFileName.length() - extStart);
 	for ( QStringList::ConstIterator it = extensionList.begin();
@@ -231,7 +231,7 @@ bool RAWImageDecoder::_skipThisFile( const QSet<QString>& loadedFiles, const DB:
 	// same algorithm as _mightDecode above.
 	// -- Robert Krawitz rlk@alum.mit.edu 2007-07-22
 
-    return _fileIsKnownWithExtensions(loadedFiles, imageFile.absolute(), _standardExtensions); // ZZZ
+    return _fileIsKnownWithExtensions(loadedFiles, imageFile, _standardExtensions);
 }
 
 }

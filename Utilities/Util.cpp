@@ -374,7 +374,7 @@ bool Utilities::canReadImage( const DB::FileName& fileName )
 {
 	bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
     return ! KImageIO::typeForMime( KMimeType::findByPath( fileName.absolute(), 0, fastMode )->name() ).isEmpty() ||
-        ImageManager::ImageDecoder::mightDecode( fileName.absolute() ); // ZZZ
+        ImageManager::ImageDecoder::mightDecode( fileName );
     // KMimeType::findByPath() never returns null pointer
 }
 

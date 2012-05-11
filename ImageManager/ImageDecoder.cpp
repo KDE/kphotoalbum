@@ -17,6 +17,7 @@
 */
 #include "ImageDecoder.h"
 #include <Q3PtrList>
+#include <DB/FileName.h>
 
 Q3PtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()
 {
@@ -43,11 +44,11 @@ bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFi
 	return false;
 }
 
-bool ImageManager::ImageDecoder::mightDecode( const QString& imageFile )
+bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
 {
 	Q3PtrList<ImageDecoder>* lst = decoders();
 	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
-		if( (*it)->_mightDecode(imageFile) ) return true;
+        if( (*it)->_mightDecode(imageFile.absolute()) ) return true; // ZZZ
 	}
 	return false;
 }

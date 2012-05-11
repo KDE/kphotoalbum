@@ -196,7 +196,7 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
         if (_db->_idMapper.exists(dbFileName)) {
             qDebug() << fileNameStr << " already in database";
         } else {
-            DB::ImageInfoPtr info = load( fileNameStr, elm ); // ZZZ
+            DB::ImageInfoPtr info = load( dbFileName, elm );
             _db->_images.append(info);
             _db->_idMapper.add(dbFileName );
             _db->_md5map.insert( info->MD5Sum(), dbFileName );
@@ -320,7 +320,7 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
     }
 }
 
-DB::ImageInfoPtr XMLDB::FileReader::load( const QString& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );

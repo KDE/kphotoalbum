@@ -111,7 +111,8 @@ bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        const DB::FileName fileName = DB::FileName::fromRelativePath(elm.attribute(QString::fromLatin1( "file" )));
+        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm );
         _images.append( info );
     }
 

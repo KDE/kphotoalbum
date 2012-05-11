@@ -541,7 +541,7 @@ int XMLDB::Database::StackSortHelper::operator()( const QString& fileA, const QS
     return ( a->stackId() == b->stackId() ) && ( a->stackOrder() < b->stackOrder() );
 }
 
-DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, const QDomElement& elm, Database* db )
+DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )
 {
     QString label = elm.attribute( QString::fromLatin1("label") );
     QString description;
@@ -587,7 +587,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
-    DB::MediaType mediaType = Utilities::isVideo(DB::FileName::fromUnknown(fileName)) ? DB::Video : DB::Image;
+    DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
     short rating = elm.attribute( QString::fromLatin1("rating"), QString::fromLatin1("-1") ).toShort();
     DB::StackID stackId = elm.attribute( QString::fromLatin1("stackId"), QString::fromLatin1("0") ).toULong();

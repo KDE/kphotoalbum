@@ -385,7 +385,7 @@ bool ImageInfo::imageOnDisk( const QString& fileName )
     return fi.exists();
 }
 
-ImageInfo::ImageInfo( const QString& fileName,
+ImageInfo::ImageInfo( const DB::FileName& fileName,
                       const QString& label,
                       const QString& description,
                       const ImageDate& date,
@@ -399,7 +399,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const GpsCoordinates& geoPosition )
 {
     _delaySaving = true;
-    _fileName = FileName::fromRelativePath(fileName);
+    _fileName = fileName;
     _label =label;
     _description =description;
     _date = date;

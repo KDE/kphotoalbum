@@ -295,7 +295,7 @@ QStringList SQLDB::Database::CONVERT(const DB::IdList& result)
 
 DB::Id SQLDB::Database::ID_FOR_FILE(const DB::FileName& filename) const
 {
-    return DB::Id::createContextless(_qh.mediaItemId(filename.relative()))); // ZZZ
+    return DB::Id::createContextless(_qh.mediaItemId(filename.relative())));
 }
 
 DB::ImageInfoPtr SQLDB::Database::info(const DB::Id& id) const

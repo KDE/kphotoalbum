@@ -56,13 +56,11 @@ bool isJPEG( const DB::FileName& fileName );
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripEndingForwardSlash( const QString& fileName );
 
-// These functions are likely to go away.
 QString absoluteImageFileName( const QString& relativeName );
 QString imageFileNameToAbsolute( const QString& fileName );
 
 QString relativeFolderName( const QString& fileName);
 
-// returns a list of absolute pathes from the ImageInfos. PENDING(blackie): remove
 QString stripImageDirectory( const QString& fileName );
 
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );

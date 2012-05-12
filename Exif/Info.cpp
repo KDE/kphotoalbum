@@ -36,7 +36,7 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
     QMap<QString, QStringList> result;
 
     try {
-        Metadata data = metadata( fileName );
+        Metadata data = metadata( exifInfoFile(fileName) );
 
         for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != data.exif.end(); ++i) {
             QString key = QString::fromLocal8Bit(i->key().c_str());
@@ -205,16 +205,16 @@ void Exif::Info::writeInfoToFile( const DB::FileName& srcName, const QString& de
  * Some Canon cameras stores EXIF info in files ending in .thm, so we need to use those files for fetching EXIF info
  * if they exists.
  */
-QString Exif::Info::exifInfoFile( const QString& fileName )
+DB::FileName Exif::Info::exifInfoFile( const DB::FileName& fileName )
 {
-    QString dirName = QFileInfo( fileName ).path();
-    QString baseName = QFileInfo( fileName ).baseName();
-    QString name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
-    if ( QFileInfo(name).exists() )
+    QString dirName = QFileInfo( fileName.relative() ).path();
+    QString baseName = QFileInfo( fileName.relative() ).baseName();
+    DB::FileName name = DB::FileName::fromRelativePath(dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" ));
+    if ( name.exists() )
         return name;
 
-    name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
-    if ( QFileInfo(name).exists() )
+    name = DB::FileName::fromRelativePath(dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" ));
+    if ( name.exists() )
         return name;
 
     return fileName;

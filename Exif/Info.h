@@ -49,7 +49,7 @@ public:
     Metadata metadata( const DB::FileName& fileName );
 
 protected:
-    QString exifInfoFile( const QString& fileName );
+    DB::FileName exifInfoFile( const DB::FileName& fileName );
 
 private:
     static Info* _instance;

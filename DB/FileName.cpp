@@ -40,6 +40,7 @@ DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 
 DB::FileName DB::FileName::fromRelativePath(const QString &fileName)
 {
+    Q_ASSERT(!fileName.startsWith(QChar::fromLatin1('/')));
     FileName res;
     res.m_isNull = false;
     res.m_relativePath = fileName;
@@ -57,11 +58,6 @@ QString DB::FileName::relative() const
 {
     Q_ASSERT(!isNull());
     return m_relativePath;
-}
-
-bool DB::FileName::isValid() const
-{
-    return !m_isNull;
 }
 
 bool DB::FileName::isNull() const

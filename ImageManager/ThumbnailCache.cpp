@@ -32,7 +32,7 @@
 
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
-const int FILEVERSION=3;
+const int FILEVERSION=4;
 
 ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = 0;
 

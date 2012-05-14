@@ -64,5 +64,10 @@ DB::IdNameMapper::IdNameMapper()
 
 bool DB::IdNameMapper::exists(const DB::FileName& fileName ) const
 {
-  return _fileNameToId.find(fileName) != _fileNameToId.end();
+    return _fileNameToId.find(fileName) != _fileNameToId.end();
+}
+
+bool DB::IdNameMapper::exists(DB::RawId id) const
+{
+    return _idTofileName.find(id) != _idTofileName.end();
 }

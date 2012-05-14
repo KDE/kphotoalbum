@@ -34,6 +34,7 @@ public:
     void remove( const DB::FileName& fileName );
 
     bool exists(const DB::FileName & filename) const;
+    bool exists( DB::RawId ) const;
 
     DB::RawId operator[](const DB::FileName& ) const;
     DB::FileName operator[]( DB::RawId ) const;

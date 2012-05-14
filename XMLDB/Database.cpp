@@ -683,7 +683,7 @@ DB::Id XMLDB::Database::ID_FOR_FILE( const DB::FileName& fileName) const {
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
 {
-    if (id.isNull())
+    if (id.isNull() || !_idMapper.exists(id.rawId()) )
         return DB::ImageInfoPtr(NULL);
     return info( _idMapper[id.rawId()]);
 }

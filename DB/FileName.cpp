@@ -56,7 +56,7 @@ QString DB::FileName::absolute() const
 
 QString DB::FileName::relative() const
 {
-    Q_ASSERT(!isNull());
+    Q_ASSERT(!m_isNull);
     return m_relativePath;
 }
 

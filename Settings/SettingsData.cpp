@@ -224,8 +224,8 @@ property_copy( modifiedFileComponent , setModifiedFileComponent , QString       
 property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, QString()           )
 property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , FileVersionDetection, false               )
 property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , FileVersionDetection, true                )
-property_copy( copyFileComponent     , setCopyFileComponent     , QString       , FileVersionDetection, QString()           )
-property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString  , FileVersionDetection, QString()  )
+property_copy( copyFileComponent     , setCopyFileComponent     , QString       , FileVersionDetection, "(.[^.]+)$"         )
+property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , QString  , FileVersionDetection, "-edited\\1")
 
 ////////////////////
 //// Thumbnails ////

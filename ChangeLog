@@ -1,3 +1,8 @@
+2012-05-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Add reasonable defaults for "Settings->File Searching and
+	Versions->Copy File and Open with an External Application"
+
 2012-05-12  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* BUGFIX: Exif info is now correctly extracted from .thm and .THM

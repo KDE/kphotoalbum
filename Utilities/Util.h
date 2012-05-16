@@ -45,26 +45,22 @@ bool makeHardLink( const QString& from, const QString& to );
 bool runningDemo();
 void deleteDemo();
 QString setupDemo();
-bool canReadImage( const QString& fileName );
-bool isVideo( const QString& fileName );
-bool isRAW( const QString& fileName );
+bool canReadImage( const DB::FileName& fileName );
+bool isVideo( const DB::FileName& fileName );
+bool isRAW( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
-bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-bool isJPEG( const QString& fileName );
+bool loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1);
+bool isJPEG( const DB::FileName& fileName );
 
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripEndingForwardSlash( const QString& fileName );
 
-// These functions are likely to go away.
 QString absoluteImageFileName( const QString& relativeName );
 QString imageFileNameToAbsolute( const QString& fileName );
-QString imageFileNameToRelative( const QString& fileName );
 
 QString relativeFolderName( const QString& fileName);
 
-// returns a list of absolute pathes from the ImageInfos. PENDING(blackie): remove
-QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
 
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
@@ -72,7 +68,7 @@ QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=
 
 QString cStringWithEncoding( const char *c_str, const QString& charset );
 
-DB::MD5 MD5Sum( const QString& fileName );
+DB::MD5 MD5Sum( const DB::FileName& fileName );
 
 QColor contrastColor( const QColor& );
 }

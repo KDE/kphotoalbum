@@ -42,7 +42,7 @@ protected:
     void loadImages( const QDomElement& images );
     void loadBlockList( const QDomElement& blockList );
     void loadMemberGroups( const QDomElement& memberGroups );
-    DB::ImageInfoPtr load( const QString& filename, QDomElement elm );
+    DB::ImageInfoPtr load( const DB::FileName& filename, QDomElement elm );
     QDomElement readConfigFile( const QString& configFile );
 
     void createSpecialCategories();

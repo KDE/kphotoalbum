@@ -28,7 +28,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "AbstractDisplay.h"
 #include "Settings/SettingsData.h"
-
+#include <DB/FileNameList.h>
 class QTimer;
 
 namespace DB
@@ -56,8 +56,8 @@ public:
     ImageDisplay( QWidget* parent );
     bool setImage( DB::ImageInfoPtr info, bool forward );
     QImage currentViewAsThumbnail() const;
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
-    void setImageList( const QStringList& list );
+    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    void setImageList( const DB::FileNameList& list );
 
     void filterNone();
     void filterSelected();
@@ -95,7 +95,7 @@ protected:
     void xformPainter( QPainter* );
     void cropAndScale();
     void updatePreload();
-    int indexOf( const QString& fileName );
+    int indexOf( const DB::FileName& fileName );
     void requestImage( const DB::ImageInfoPtr& info, bool priority = false );
 
     /** display zoom factor in title of display window */
@@ -124,7 +124,7 @@ private:
     QPoint _zEnd;
 
     Q3PtrVector<ViewPreloadInfo> _cache;
-    QStringList _imageList;
+    DB::FileNameList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _reloadImageInProgress;
     int _forward;

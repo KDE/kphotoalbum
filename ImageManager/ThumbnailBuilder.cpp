@@ -48,12 +48,12 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
     m_startBuildTimer->stop();
 }
 
-void ImageManager::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
+void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
 {
     Q_UNUSED(size)
     Q_UNUSED(loadedOK)
     if ( fullSize.width() != -1 ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
         info->setSize( fullSize );
     }
     m_statusBar->setProgress( ++m_count );
@@ -78,7 +78,7 @@ void ImageManager::ThumbnailBuilder::buildMissing()
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
     QList<DB::ImageInfoPtr> needed;
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName(DB::AbsolutePath) ) )
+        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName() ) )
             needed.append( info );
     }
     scheduleThumbnailBuild( needed, StartDelayed );
@@ -103,7 +103,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 
     Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
         ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( info->fileName(DB::AbsolutePath),
+            = new ImageManager::PreloadRequest( info->fileName(),
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);

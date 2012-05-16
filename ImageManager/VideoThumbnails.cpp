@@ -29,7 +29,7 @@ ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
     connect( m_lengthExtractor, SIGNAL(lengthFound(int)), this, SLOT(setLength(int)));
 }
 
-void ImageManager::VideoThumbnails::setVideoFile(const QString &fileName)
+void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
     if ( loadFramesFromCache(fileName) )
         return;
@@ -67,14 +67,14 @@ void ImageManager::VideoThumbnails::setLength(int length)
     connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
 }
 
-bool ImageManager::VideoThumbnails::loadFramesFromCache(const QString& fileName)
+bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& fileName)
 {
     for (int i=0; i <10; ++i) {
-        const QString thumbnailFile = VideoThumbnailsExtractor::frameName(fileName, i);
-        if ( !QFile::exists(thumbnailFile))
+        const DB::FileName thumbnailFile = VideoThumbnailsExtractor::frameName(fileName, i);
+        if ( !thumbnailFile.exists())
             return false;
 
-        QImage image(thumbnailFile);
+        QImage image(thumbnailFile.absolute());
         if ( image.isNull() )
             return false;
 

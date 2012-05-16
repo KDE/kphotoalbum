@@ -109,8 +109,8 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if ( !DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum()) )
             continue;
 
-        const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-        DB::ImageInfoPtr other = DB::ImageDB::instance()->info( name, DB::RelativeToImageRoot );
+        const DB::FileName name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
+        DB::ImageInfoPtr other = DB::ImageDB::instance()->info(name);
         if ( info->label() != other->label() )
             res.label = true;
         if ( info->description() != other->description() )

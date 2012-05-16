@@ -22,6 +22,7 @@
 
 #include <KDialog>
 #include <KLineEdit>
+#include <DB/FileNameList.h>
 
 namespace MainWindow
 {
@@ -31,7 +32,7 @@ class RunDialog :public KDialog {
 
       public:
         RunDialog( QWidget* parent );
-        void setImageList( QStringList fileList );
+        void setImageList( const DB::FileNameList& fileList );
         void show();
 
       protected slots:
@@ -40,7 +41,7 @@ class RunDialog :public KDialog {
       private:
         bool* _ok;
         KLineEdit* _cmd;
-        QStringList _fileList;
+        DB::FileNameList _fileList;
         //QRadioButton* _include;
 };
 }

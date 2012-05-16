@@ -20,6 +20,7 @@
 #define READVIDEOLENGTHJOB_H
 
 #include "JobInterface.h"
+#include <DB/FileName.h>
 
 namespace BackgroundTasks
 {
@@ -29,7 +30,7 @@ class ReadVideoLengthJob : public JobInterface
     Q_OBJECT
 
 public:
-    ReadVideoLengthJob( const QString& fileName );
+    ReadVideoLengthJob( const DB::FileName& fileName );
     OVERRIDE void execute();
 
 private slots:
@@ -37,7 +38,7 @@ private slots:
     void unableToDetermindLength();
 
 private:
-    QString m_fileName;
+    DB::FileName m_fileName;
 };
 
 }

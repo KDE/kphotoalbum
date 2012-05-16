@@ -1,5 +1,5 @@
-/* Copyright 2012  Jesper K. Pedersen <blackie@kde.org>
-
+/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+  
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
    published by the Free Software Foundation; either version 2 of
@@ -7,45 +7,33 @@
    accepted by the membership of KDE e.V. (or its successor approved
    by the membership of KDE e.V.), which shall act as a proxy
    defined in Section 14 of version 3 of the license.
-
+   
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
+   
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef VIDEOLENGTHEXTRACTOR_H
-#define VIDEOLENGTHEXTRACTOR_H
+#include "FileNameList.h"
 
-#include <QObject>
-#include <DB/FileName.h>
-
-namespace Utilities { class Process; }
-
-namespace ImageManager {
-
-class VideoLengthExtractor : public QObject
+QStringList DB::FileNameList::toStringList(DB::PathType type) const
 {
-    Q_OBJECT
-public:
-    explicit VideoLengthExtractor(QObject *parent = 0);
-    void extract(const DB::FileName& fileName );
-    
-signals:
-    void lengthFound(int length);
-    void unableToDetermineLength();
+    QStringList res;
 
-private slots:
-    void processEnded();
-
-private:
-    Utilities::Process* m_process;
-    DB::FileName m_fileName;
-};
-
+    Q_FOREACH( const DB::FileName& fileName, *this) {
+        if ( type == DB::RelativeToImageRoot )
+            res.append( fileName.relative() );
+        else
+            res.append( fileName.absolute());
+    }
+    return res;
 }
 
-#endif // VIDEOLENGTHEXTRACTOR_H
+DB::FileNameList &DB::FileNameList::operator <<(const DB::FileName & fileName)
+{
+    QList<DB::FileName>::operator<<(fileName);
+    return *this;
+}

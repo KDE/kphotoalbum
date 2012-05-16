@@ -1,3 +1,21 @@
+2012-05-16  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Internal: Introduced the class DB::FileName to represent a
+	filename in the database. This is to solve the problem that files
+	previously was represented by a QString, and it was impossible to
+	know if the filename was relative to the image root or an absolute
+	path.
+
+2012-05-14  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Add reasonable defaults for "Settings->File Searching and
+	Versions->Copy File and Open with an External Application"
+
+2012-05-12  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* BUGFIX: Exif info is now correctly extracted from .thm and .THM
+	files again (has been broken since January 2006)
+
 2012-05-09  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* New Feature: KPA now shows video lengths on top of video thumbnails.

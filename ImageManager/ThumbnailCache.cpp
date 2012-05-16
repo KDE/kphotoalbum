@@ -32,7 +32,7 @@
 
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
-const int FILEVERSION=3;
+const int FILEVERSION=4;
 
 ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = 0;
 
@@ -48,7 +48,7 @@ ImageManager::ThumbnailCache::ThumbnailCache()
     connect( m_timer, SIGNAL(timeout()), this, SLOT(save()));
 }
 
-void ImageManager::ThumbnailCache::insert( const QString& name, const QImage& image )
+void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
 {
     QFile file( fileNameForIndex(m_currentFile) );
     if ( ! file.open(QIODevice::ReadWrite ) )
@@ -99,7 +99,7 @@ QString ImageManager::ThumbnailCache::fileNameForIndex( int index ) const
     return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index) );
 }
 
-QPixmap ImageManager::ThumbnailCache::lookup( const QString& name ) const
+QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
 {
 
     CacheFileInfo info = m_map[name];
@@ -145,9 +145,9 @@ void ImageManager::ThumbnailCache::save() const
            << m_currentOffset
            << m_map.count();
 
-    for( QMap<QString,CacheFileInfo>::ConstIterator it = m_map.begin(); it != m_map.end(); ++it ) {
+    for( QMap<DB::FileName,CacheFileInfo>::ConstIterator it = m_map.begin(); it != m_map.end(); ++it ) {
         const CacheFileInfo& cacheInfo = it.value();
-        stream << it.key()
+        stream << it.key().relative()
                << cacheInfo.fileIndex
                << cacheInfo.offset
                << cacheInfo.size;
@@ -188,11 +188,11 @@ void ImageManager::ThumbnailCache::load()
                >> fileIndex
                >> offset
                >> size;
-        m_map.insert( name, CacheFileInfo( fileIndex, offset, size ) );
+        m_map.insert( DB::FileName::fromRelativePath(name), CacheFileInfo( fileIndex, offset, size ) );
     }
 }
 
-bool ImageManager::ThumbnailCache::contains( const QString& name ) const
+bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const
 {
     return m_map.contains(name);
 }
@@ -221,7 +221,7 @@ void ImageManager::ThumbnailCache::flush()
     save();
 }
 
-void ImageManager::ThumbnailCache::removeThumbnail( const QString& fileName )
+void ImageManager::ThumbnailCache::removeThumbnail( const DB::FileName& fileName )
 {
     m_map.remove( fileName );
     save();

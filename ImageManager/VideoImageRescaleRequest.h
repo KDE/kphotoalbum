@@ -28,13 +28,13 @@ namespace ImageManager
 class VideoImageRescaleRequest : public ImageRequest
 {
 public:
-    VideoImageRescaleRequest( ImageRequest* originalRequest, const QString& path );
+    VideoImageRescaleRequest( ImageRequest* originalRequest, const DB::FileName& path );
     ~VideoImageRescaleRequest();
-    OVERRIDE QString fileSystemFileName() const;
+    OVERRIDE DB::FileName fileSystemFileName() const;
 
 private:
     ImageRequest* m_originalRequest;
-    QString m_path;
+    DB::FileName m_path;
 };
 
 }

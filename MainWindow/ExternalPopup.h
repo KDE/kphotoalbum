@@ -23,6 +23,7 @@
 #include "DB/ImageInfoList.h"
 #include <Utilities/Set.h>
 #include <qpair.h>
+#include <DB/FileNameList.h>
 
 namespace DB
 {
@@ -41,18 +42,18 @@ class ExternalPopup :public QMenu {
 
 public:
     ExternalPopup( QWidget* parent );
-    void populate( DB::ImageInfoPtr current, const QStringList& list );
+    void populate( DB::ImageInfoPtr current, const DB::FileNameList& list );
 
 protected slots:
     void slotExecuteService( QAction* );
 
 protected:
-    QString mimeType( const QString& file );
-    StringSet mimeTypes( const QStringList& files );
-    OfferType appInfos( const QStringList& files );
+    QString mimeType( const DB::FileName& file );
+    StringSet mimeTypes( const DB::FileNameList& files );
+    OfferType appInfos( const DB::FileNameList& files );
 
 private:
-    QStringList _list;
+    DB::FileNameList _list;
     DB::ImageInfoPtr _currentInfo;
     QMap<QString,StringSet> _appToMimeTypeMap;
 };

@@ -36,8 +36,7 @@ public:
     void setImage( const QString& fileName );
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
-    const QString& lastImageFileName();
-    OVERRIDE void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
     virtual void resizeEvent( QResizeEvent* );
@@ -48,29 +47,28 @@ protected:
 
     class PreviewImage {
     public:
-        bool has(const QString &fileName) const;
+        bool has(const DB::FileName &fileName) const;
         QImage &getImage();
-        const QString &getName() const;
-        void set(const QString &fileName, const QImage &image);
+        void set(const DB::FileName &fileName, const QImage &image);
         void set(const PreviewImage &other);
         void reset();
     protected:
-        QString _fileName;
+        DB::FileName _fileName;
         QImage _image;
     };
 
     struct PreloadInfo {
         PreloadInfo();
-        void set(const QString& fileName, int angle);
-        QString _fileName;
+        void set(const DB::FileName& fileName, int angle);
+        DB::FileName _fileName;
         int _angle;
     };
 
     class PreviewLoader : public ImageManager::ImageClientInterface, public PreviewImage  {
     public:
-        void preloadImage( const QString& fileName, int width, int height, int angle);
+        void preloadImage( const DB::FileName& fileName, int width, int height, int angle);
         void cancelPreload();
-        virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+        virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
     };
     PreviewLoader _preloader;
 

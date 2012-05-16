@@ -87,7 +87,7 @@ KUrl::List Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList
     KUrl::List urlList;
     for( DB::ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
         KUrl url;
-        url.setPath( (*it)->fileName(DB::AbsolutePath) );
+        url.setPath( (*it)->fileName().absolute() );
         urlList.append( url );
     }
     return urlList;

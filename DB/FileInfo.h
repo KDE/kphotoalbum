@@ -30,27 +30,28 @@
 
 namespace DB
 {
+class FileName;
 
 class FileInfo
 {
 public:
-    static FileInfo read( const QString& fileName, DB::ExifMode mode );
+    static FileInfo read( const DB::FileName& fileName, DB::ExifMode mode );
     QDateTime dateTime() { return _date; }
     int angle() { return _angle; };
     QString description() {return _description; }
 
 protected:
 #ifdef HAVE_EXIV2
-    void parseEXIV2( const QString& fileName );
+    void parseEXIV2( const DB::FileName& fileName );
     QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
 #endif
 
-    void parseKFileMetaInfo( const QString& fileName );
+    void parseKFileMetaInfo( const DB::FileName& fileName );
     int orientationToAngle( int orientation );
 
 private:
-    FileInfo( const QString& fileName, DB::ExifMode mode );
-    bool updateDatFromFileTimeStamp( const QString& fileName, DB::ExifMode mode);
+    FileInfo( const DB::FileName& fileName, DB::ExifMode mode );
+    bool updateDataFromFileTimeStamp( const DB::FileName& fileName, DB::ExifMode mode);
     QDateTime _date;
     int _angle;
     QString _description;

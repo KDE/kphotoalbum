@@ -17,27 +17,25 @@
 */
 #include "IdNameMapper.h"
 
-void DB::IdNameMapper::add( const QString& fileName )
+void DB::IdNameMapper::add( const DB::FileName& fileName )
 {
     const DB::RawId id(++_maxId);
     Q_ASSERT(id != DB::RawId());
     _idTofileName.insert( id, fileName );
     _fileNameToId.insert( fileName, id );
-    Q_ASSERT( !fileName.startsWith(QLatin1String("/")));
 }
 
-DB::RawId DB::IdNameMapper::operator[](const QString& fileName ) const
+DB::RawId DB::IdNameMapper::operator[](const DB::FileName& fileName ) const
 {
-    Q_ASSERT( !fileName.startsWith( QLatin1String("/") ) );
     if ( !_fileNameToId.contains( fileName ) )
         return DB::RawId();
     return _fileNameToId[fileName];
 }
 
-QString DB::IdNameMapper::operator[]( DB::RawId id ) const
+DB::FileName DB::IdNameMapper::operator[]( DB::RawId id ) const
 {
     if (!_idTofileName.contains( id ) ) {
-        return QString::fromLatin1( "" );
+        return DB::FileName();
     }
     return _idTofileName[id];
 }
@@ -51,11 +49,10 @@ void DB::IdNameMapper::remove( DB::RawId id )
     _idTofileName.remove( id );
 }
 
-void DB::IdNameMapper::remove( const QString& fileName )
+void DB::IdNameMapper::remove( const DB::FileName& fileName )
 {
     if ( !_fileNameToId.contains( fileName ) )
         return;
-    Q_ASSERT( !fileName.startsWith( QLatin1String("/") ) );
     _idTofileName.remove( _fileNameToId[fileName] );
     _fileNameToId.remove( fileName );
 }
@@ -65,7 +62,12 @@ DB::IdNameMapper::IdNameMapper()
 {
 }
 
-bool DB::IdNameMapper::exists(const QString& fileName ) const
+bool DB::IdNameMapper::exists(const DB::FileName& fileName ) const
 {
-  return _fileNameToId.find(fileName) != _fileNameToId.end();
+    return _fileNameToId.find(fileName) != _fileNameToId.end();
+}
+
+bool DB::IdNameMapper::exists(DB::RawId id) const
+{
+    return _idTofileName.find(id) != _idTofileName.end();
 }

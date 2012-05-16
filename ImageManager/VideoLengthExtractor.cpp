@@ -37,7 +37,7 @@ ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
 {
 }
 
-void ImageManager::VideoLengthExtractor::extract(const QString &fileName)
+void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
 {
     m_fileName = fileName;
     delete m_process;
@@ -54,7 +54,7 @@ void ImageManager::VideoLengthExtractor::extract(const QString &fileName)
 
     QStringList arguments;
     arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null")
-              << STR("-vo") << STR("null") << STR("-ao") << STR("null") <<  fileName;
+              << STR("-vo") << STR("null") << STR("-ao") << STR("null") <<  fileName.absolute();
 
     m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }
@@ -67,7 +67,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
     list = list.filter(STR("ID_LENGTH="));
     if ( list.count() == 0 ) {
-        kWarning() << "Unable to find ID_LENGTH in output from mplayer for file " << m_fileName << "\n"
+        kWarning() << "Unable to find ID_LENGTH in output from mplayer for file " << m_fileName.absolute() << "\n"
                    << "Output was:\n"
                    << m_process->stdout();
         emit unableToDetermineLength();
@@ -78,7 +78,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
     bool ok = regexp.exactMatch(match);
     if ( !ok ) {
-        kWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName);
+        kWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }
@@ -87,13 +87,13 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
     const int length = cap.toDouble(&ok);
     if ( !ok ) {
-        kWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName);
+        kWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }
 
     if ( length == 0 ) {
-        kWarning() << "video length returned was 0 for file " << m_fileName;
+        kWarning() << "video length returned was 0 for file " << m_fileName.absolute();
         emit unableToDetermineLength();
         return;
     }

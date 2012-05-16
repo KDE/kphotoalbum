@@ -76,7 +76,7 @@ void ImageInfoList::appendList( ImageInfoList& list )
 void ImageInfoList::printItems()
 {
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        qDebug() << (*it)->fileName(DB::AbsolutePath);
+        qDebug() << (*it)->fileName().absolute();
     }
 }
 

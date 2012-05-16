@@ -56,11 +56,11 @@ protected:
     QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
 
 public:
-    QString namePage( int width, int height, const QString& fileName );
-    QString nameImage( const QString& fileName, int size );
+    QString namePage( int width, int height, const DB::FileName& fileName );
+    QString nameImage( const DB::FileName& fileName, int size );
 
     QString createImage( const DB::Id& id, int size );
-    QString createVideo( const QString& fileName );
+    QString createVideo( const DB::FileName& fileName );
 
     QString kimFileName( bool relative );
     bool writeToFile( const QString& fileName, const QString& str );
@@ -69,7 +69,7 @@ public:
     void getThemeInfo( QString* baseDir, QString* name, QString* author );
 
 
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size,
+    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size,
                                const QSize& fullSize, int angle, const QImage&,
                                const bool loadedOK);
     int maxImageSize();
@@ -81,8 +81,8 @@ private:
     int _total;
     KTempDir _tempDir;
     Utilities::UniqFilenameMapper _filenameMapper;
-    QSet< QPair<QString,int> > _generatedFiles;
-    StringSet _copiedVideos;
+    QSet< QPair<DB::FileName,int> > _generatedFiles;
+    DB::FileNameSet _copiedVideos;
     bool _hasEnteredLoop;
     QPointer<QEventLoop> _eventLoop;
 };

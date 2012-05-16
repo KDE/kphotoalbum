@@ -21,21 +21,22 @@
 #include "ImageDecoder.h"
 #include <QSet>
 #include <QStringList>
+#include <DB/FileName.h>
 
 namespace ImageManager
 {
 
 class RAWImageDecoder : public ImageDecoder {
 public:
-	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-	virtual bool _mightDecode( const QString& imageFile );
-	virtual bool _skipThisFile( const QSet<QString>& loadedFiles, const QString& imageFile ) const;
-	static bool isRAW( const QString& imageFile );
+    virtual bool _decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1);
+    virtual bool _mightDecode( const DB::FileName& imageFile );
+    virtual bool _skipThisFile( const DB::FileNameSet& loadedFiles, const DB::FileName& imageFile ) const;
+    static bool isRAW( const DB::FileName& imageFile );
 
 private:
-	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
-	static bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList );
-	bool _fileIsKnownWithExtensions( const QSet<QString>& files, const QString& fileName, const QStringList& extensionList ) const;
+    bool _fileExistsWithExtensions( const DB::FileName& fileName, const QStringList& extensionList ) const;
+    static bool _fileEndsWithExtensions( const DB::FileName& fileName, const QStringList& extensionList );
+    bool _fileIsKnownWithExtensions( const DB::FileNameSet& files, const DB::FileName& fileName, const QStringList& extensionList ) const;
 	static void _initializeExtensionLists( QStringList& rawExtensions, QStringList& standardExtensions, QStringList& ignoredExtensions );
 };
 

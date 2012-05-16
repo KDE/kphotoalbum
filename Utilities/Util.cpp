@@ -98,7 +98,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 
     QString result;
     if ( Settings::SettingsData::instance()->showFilename() ) {
-        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName(DB::AbsolutePath), &result);
+        AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName().relative(), &result);
     }
 
     if ( Settings::SettingsData::instance()->showDate() )  {
@@ -179,7 +179,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         typedef QMap<QString,QStringList> ExifMap;
         typedef ExifMap::const_iterator ExifMapIterator;
-        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(DB::AbsolutePath), Settings::SettingsData::instance()->iptcCharset() );
+        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
 
         for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
             if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
@@ -370,10 +370,10 @@ bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
         return true;
 }
 
-bool Utilities::canReadImage( const QString& fileName )
+bool Utilities::canReadImage( const DB::FileName& fileName )
 {
 	bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
-    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, fastMode )->name() ).isEmpty() ||
+    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName.absolute(), 0, fastMode )->name() ).isEmpty() ||
         ImageManager::ImageDecoder::mightDecode( fileName );
     // KMimeType::findByPath() never returns null pointer
 }
@@ -430,9 +430,9 @@ namespace Utilities
     bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim );
 }
 
-bool Utilities::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
+    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()), "rb");
     if(!inputFile)
         return false;
     bool ok = loadJPEG( img, inputFile, fullSize, dim );
@@ -530,9 +530,9 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     return true;
 }
 
-bool Utilities::isJPEG( const QString& fileName )
+bool Utilities::isJPEG( const DB::FileName& fileName )
 {
-    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName ) );
+    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName.relative() ) );
     return format == QString::fromLocal8Bit( "jpeg" );
 }
 
@@ -601,16 +601,6 @@ void Utilities::deleteDemo()
     (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
 }
 
-// PENDING(blackie) delete this method
-QStringList Utilities::infoListToStringList( const DB::ImageInfoList& list )
-{
-    QStringList result;
-    for( DB::ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        result.append( (*it)->fileName(DB::AbsolutePath) );
-    }
-    return result;
-}
-
 QString Utilities::stripImageDirectory( const QString& fileName )
 {
     if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
@@ -636,14 +626,6 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return absoluteImageFileName( fileName );
 }
 
-QString Utilities::imageFileNameToRelative( const QString& fileName )
-{
-    QRegExp regexp( QString::fromLatin1( "^/*" ) );
-    // A bit back and forth, but this function is to go away anyway (hzeller).
-    QString s = imageFileNameToAbsolute(fileName).mid( Settings::SettingsData::instance()->imageDirectory().length());
-    return s.replace( regexp, QString::fromLatin1( "" ) );
-}
-
 bool operator>( const QPoint& p1, const QPoint& p2)
 {
     return p1.y() > p2.y() || (p1.y() == p2.y() && p1.x() > p2.x() );
@@ -654,7 +636,7 @@ bool operator<( const QPoint& p1, const QPoint& p2)
     return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
 }
 
-bool Utilities::isVideo( const QString& fileName )
+bool Utilities::isVideo( const DB::FileName& fileName )
 {
     static StringSet videoExtensions;
     if ( videoExtensions.empty() ) {
@@ -687,12 +669,12 @@ bool Utilities::isVideo( const QString& fileName )
         videoExtensions.insert( QString::fromLatin1( "ogv" ) );
     }
 
-    QFileInfo fi( fileName );
+    QFileInfo fi( fileName.relative() );
     QString ext = fi.suffix().toLower();
     return videoExtensions.contains( ext );
 }
 
-bool Utilities::isRAW( const QString& fileName )
+bool Utilities::isRAW( const DB::FileName& fileName )
 {
     return ImageManager::RAWImageDecoder::isRAW( fileName );
 }
@@ -716,9 +698,9 @@ QString Utilities::cStringWithEncoding( const char *c_str, const QString& charse
     return codec->toUnicode( c_str );
 }
 
-DB::MD5 Utilities::MD5Sum( const QString& fileName )
+DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
 {
-    QFile file( fileName );
+    QFile file( fileName.absolute() );
     if ( !file.open( QIODevice::ReadOnly ) )
         return DB::MD5();
 

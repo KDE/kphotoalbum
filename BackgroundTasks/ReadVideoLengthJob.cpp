@@ -26,7 +26,7 @@
   \brief Read the length of a video file and writes that to the database
 */
 
-BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const QString &fileName)
+BackgroundTasks::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName)
     :m_fileName(fileName)
 {
 }
@@ -41,7 +41,7 @@ void BackgroundTasks::ReadVideoLengthJob::execute()
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)
 {
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
     info->setVideoLength(length);
     MainWindow::DirtyIndicator::markDirty();
     emit completed();

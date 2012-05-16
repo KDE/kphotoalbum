@@ -38,22 +38,21 @@ ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
 {
 }
 
-ImageInfo::ImageInfo( const QString& relativeFileName, MediaType type, bool readExifInfo )
+ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
       _rating(-1), _stackId(0), _stackOrder(0),
       _geoPosition(), _videoLength(-1),
       _locked(false), _delaySaving( true )
 {
-    QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ relativeFileName;
-    QFileInfo fi( fullPath );
+    QFileInfo fi( fileName.absolute() );
     _label = fi.completeBaseName();
     _angle = 0;
 
-    setFileName(relativeFileName);
+    setFileName(fileName);
 
     // Read EXIF information
     if ( readExifInfo )
-        readExif(fullPath, EXIFMODE_INIT);
+        readExif(fileName, EXIFMODE_INIT);
 
     _dirty = false;
     _delaySaving = false;
@@ -147,23 +146,17 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
     }
 }
 
-QString ImageInfo::fileName( PathType type ) const
+DB::FileName ImageInfo::fileName() const
 {
-    switch (type) {
-    case DB::RelativeToImageRoot: return _relativeFileName;
-    case DB::AbsolutePath:        return _absoluteFileName;
-    default:
-        kFatal("Invalid parameter to ImageInfo::fileName()");
-        return QString();
-    }
+    return _fileName;
 }
 
-void ImageInfo::setFileName( const QString& relativeFileName )
+void ImageInfo::setFileName( const DB::FileName& fileName )
 {
-    if (relativeFileName != _relativeFileName)
+    if (fileName != _fileName)
         _dirty = true;
-    _relativeFileName = relativeFileName;
-    setAbsoluteFileName();
+    _fileName = fileName;
+
     _imageOnDisk = Unchecked;
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
         categoryForName(QString::fromLatin1("Folder"));
@@ -296,7 +289,7 @@ bool ImageInfo::operator!=( const ImageInfo& other ) const
 bool ImageInfo::operator==( const ImageInfo& other ) const
 {
     bool changed =
-        ( _relativeFileName != other._relativeFileName ||
+        ( _fileName != other._fileName ||
           _label != other._label ||
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _date != other._date ||
@@ -333,7 +326,7 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-void ImageInfo::readExif(const QString& fullPath, DB::ExifMode mode)
+void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 {
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
 
@@ -386,13 +379,12 @@ void ImageInfo::setSize( const QSize& size )
     saveChangesIfNotDelayed();
 }
 
-bool ImageInfo::imageOnDisk( const QString& fileName )
+bool ImageInfo::imageOnDisk( const DB::FileName& fileName )
 {
-    QFileInfo fi( fileName );
-    return fi.exists();
+    return fileName.exists();
 }
 
-ImageInfo::ImageInfo( const QString& fileName,
+ImageInfo::ImageInfo( const DB::FileName& fileName,
                       const QString& label,
                       const QString& description,
                       const ImageDate& date,
@@ -406,8 +398,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const GpsCoordinates& geoPosition )
 {
     _delaySaving = true;
-    _relativeFileName = fileName;
-    setAbsoluteFileName();
+    _fileName = fileName;
     _label =label;
     _description =description;
     _date = date;
@@ -438,8 +429,7 @@ ImageInfo::ImageInfo( const QString& fileName,
 // storing strategies.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
-    _relativeFileName = other._relativeFileName;
-    setAbsoluteFileName();
+    _fileName = other._fileName;
     _label = other._label;
     _description = other._description;
     _date = other._date;
@@ -470,20 +460,9 @@ bool ImageInfo::isVideo() const
     return _type == Video;
 }
 
-/**
- * During profiling I found that it took almost 5% of the time during
- * categorizing when browsing, simply to calculate the absolute filename, therefore it is
- * now an instance variable rather than calculated dynamically in
- * fileName().
- */
-void DB::ImageInfo::setAbsoluteFileName()
-{
-    _absoluteFileName = Settings::SettingsData::instance()->imageDirectory() + _relativeFileName;
-}
-
 void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
-    QString folderName = Utilities::relativeFolderName( _relativeFileName );
+    QString folderName = Utilities::relativeFolderName( _fileName.relative() );
     if ( folderName.isEmpty() )
         return;
 

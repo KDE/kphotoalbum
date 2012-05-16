@@ -21,14 +21,14 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 
-BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const QString &fileName)
+BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const DB::FileName &fileName)
     :m_fileName(fileName)
 {
 }
 
 void BackgroundTasks::CreateVideoThumbnailsJob::execute()
 {
-    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName, DB::AbsolutePath );
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
     const int length = info->videoLength();
     if ( length <= 0 ) {
         emit completed();

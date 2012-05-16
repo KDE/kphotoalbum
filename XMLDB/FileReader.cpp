@@ -185,16 +185,21 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
         else
             continue;
 
-        QString fileName = elm.attribute( QString::fromLatin1("file") );
-        if ( fileName.isNull() ) {
+        const QString fileNameStr = elm.attribute( QString::fromLatin1("file") );
+        if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
-        } else if (_db->_idMapper.exists(fileName)) {
-            qDebug() << fileName << " already in database";
+            return;
+        }
+
+        const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
+
+        if (_db->_idMapper.exists(dbFileName)) {
+            qDebug() << fileNameStr << " already in database";
         } else {
-            DB::ImageInfoPtr info = load( fileName, elm );
+            DB::ImageInfoPtr info = load( dbFileName, elm );
             _db->_images.append(info);
-            _db->_idMapper.add(fileName );
-            _db->_md5map.insert( info->MD5Sum(), fileName );
+            _db->_idMapper.add(dbFileName );
+            _db->_md5map.insert( info->MD5Sum(), dbFileName );
         }
     }
 
@@ -211,7 +216,7 @@ void XMLDB::FileReader::loadBlockList( const QDomElement& blockList )
 
         QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
         if ( !fileName.isEmpty() )
-            _db->_blockList << fileName;
+            _db->_blockList << DB::FileName::fromRelativePath(fileName);
     }
 }
 
@@ -315,7 +320,7 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
     }
 }
 
-DB::ImageInfoPtr XMLDB::FileReader::load( const QString& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );

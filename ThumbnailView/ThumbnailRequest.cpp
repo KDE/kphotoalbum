@@ -18,7 +18,7 @@
 #include "ThumbnailRequest.h"
 #include "ThumbnailModel.h"
 
-ThumbnailView::ThumbnailRequest::ThumbnailRequest( int row, const QString& fileName, const QSize& size, int angle, ThumbnailModel* client)
+ThumbnailView::ThumbnailRequest::ThumbnailRequest( int row, const DB::FileName& fileName, const QSize& size, int angle, ThumbnailModel* client)
     : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailModel( client ), m_row(row)
 {
     setIsThumbnailRequest(true);

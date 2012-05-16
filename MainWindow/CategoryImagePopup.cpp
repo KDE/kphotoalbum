@@ -25,12 +25,12 @@
 #include "Viewer/CategoryImageConfig.h"
 
 
-void MainWindow::CategoryImagePopup::populate( const QImage& image, const QString& imageName )
+void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::FileName& imageName )
 {
     clear();
 
     _image = image;
-    _imageInfo = DB::ImageDB::instance()->info( imageName, DB::AbsolutePath );
+    _imageInfo = DB::ImageDB::instance()->info( imageName );
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();

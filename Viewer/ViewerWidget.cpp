@@ -415,7 +415,7 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 }
 
 
-void Viewer::ViewerWidget::load( const QStringList& list, int index )
+void Viewer::ViewerWidget::load( const DB::FileNameList& list, int index )
 {
     _list = list;
     _imageDisplay->setImageList( list );
@@ -430,8 +430,8 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    const bool isReadable = QFileInfo( currentInfo()->fileName(DB::AbsolutePath) ).isReadable();
-    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName(DB::AbsolutePath) );
+    const bool isReadable = QFileInfo( currentInfo()->fileName().absolute() ).isReadable();
+    const bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
 
     if ( isReadable ) {
         if ( isVideo ) {
@@ -455,14 +455,14 @@ void Viewer::ViewerWidget::load()
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
     if ( _exifViewer )
-      _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName(DB::AbsolutePath)) );
+        _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName()) );
 #endif
 
     Q_FOREACH( QAction* videoAction, _videoActions ) {
         videoAction->setVisible( isVideo );
     }
 
-    emit soughtTo( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ] ) );
+    emit soughtTo( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
 
     bool ok = _display->setImage( currentInfo(), _forward );
     if ( !ok ) {
@@ -492,7 +492,7 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
     setWindowTitle( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                    .arg( currentInfo()->fileName(DB::AbsolutePath) )
+                    .arg( currentInfo()->fileName().absolute() )
                     .arg( detail ) );
 }
 
@@ -545,7 +545,7 @@ void Viewer::ViewerWidget::deleteCurrent()
 
 void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
 {
-    const QString fileName = _list[_current];
+    const DB::FileName fileName = _list[_current];
     const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
 
     if ( action == RemoveImageFromDatabase )
@@ -699,7 +699,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(_list[ _current], DB::AbsolutePath); // PENDING(blackie) can we postpone this lookup?
+    return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::ViewerWidget::infoBoxMove()
@@ -981,7 +981,7 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ] ) );
+    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const
@@ -1228,7 +1228,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName(DB::AbsolutePath)), this );
+    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName()), this );
     _exifViewer->show();
 #endif
 
@@ -1403,7 +1403,7 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName( DB::AbsolutePath ) );
+    ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName() );
 }
 
 #include "ViewerWidget.moc"

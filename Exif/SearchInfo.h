@@ -22,11 +22,9 @@
 #include <QStringList>
 #include <QPair>
 #include "Exif/Database.h"
-#include "Utilities/Set.h"
+#include <DB/FileName.h>
 
 namespace Exif {
-
-using Utilities::StringSet;
 
 class SearchInfo  {
 public:
@@ -49,7 +47,7 @@ public:
     void addCamera( const CameraList& list);
 
     void search() const;
-    bool matches( const QString& fileName ) const;
+    bool matches( const DB::FileName& fileName ) const;
 
 protected:
     QString buildQuery() const;
@@ -63,7 +61,7 @@ private:
     IntKeyList _intKeys;
     QList<Range> _rangeKeys;
     CameraList _cameras;
-    mutable StringSet _matches;
+    mutable DB::FileNameSet _matches;
     mutable bool _emptyQuery;
 };
 

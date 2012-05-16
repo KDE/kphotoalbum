@@ -29,6 +29,7 @@
 #include "XMLCategoryCollection.h"
 #include "DB/MD5Map.h"
 #include <qdom.h>
+#include <DB/FileNameList.h>
 
 namespace DB
 {
@@ -51,12 +52,12 @@ namespace XMLDB {
         OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask );
         OVERRIDE DB::IdList images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
-        OVERRIDE void renameImage( DB::ImageInfoPtr info, const QString& newName );
+        OVERRIDE void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName );
 
         OVERRIDE void addToBlockList(const DB::IdList& list);
-        OVERRIDE bool isBlocking( const QString& fileName );
+        OVERRIDE bool isBlocking( const DB::FileName& fileName );
         OVERRIDE void deleteList(const DB::IdList& list);
-        OVERRIDE DB::ImageInfoPtr info( const QString& fileName, DB::PathType ) const;
+        OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;
         OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
@@ -69,14 +70,14 @@ namespace XMLDB {
             const DB::IdList& cutList,
             bool after);
 
-        static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
+        static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
         OVERRIDE bool stack(const DB::IdList& items);
         OVERRIDE void unstack(const DB::IdList& images);
         OVERRIDE DB::IdList getStackFor(const DB::Id& referenceId) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&);
-        OVERRIDE DB::Id ID_FOR_FILE( const QString& ) const;
+        OVERRIDE DB::Id ID_FOR_FILE( const DB::FileName& ) const;
 
     protected:
         DB::IdList searchPrivate(
@@ -104,7 +105,7 @@ namespace XMLDB {
 
         QString _fileName;
         DB::ImageInfoList _images;
-        QStringList _blockList;
+        DB::FileNameList _blockList;
         DB::ImageInfoList _missingTimes;
         XMLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
@@ -118,14 +119,6 @@ namespace XMLDB {
         static bool _anyImageWithEmptySize;
 
         DB::IdNameMapper _idMapper;
-
-
-        class StackSortHelper {
-            const Database* const _db;
-        public:
-            StackSortHelper( const Database* const db );
-            int operator()( const QString& a, const QString& b ) const;
-        };
     };
 }
 

@@ -82,7 +82,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     if ( id.isNull() )
         return;
 
-    QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
+    DB::FileName fileName = id.fetchInfo()->fileName();
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
             setText( QString() );
@@ -90,10 +90,10 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
                          .arg(_tmpFileForThumbnailView->fileName()).
-                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName, DB::AbsolutePath ), 0 ) ) );
+                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName, DB::AbsolutePath ), 0 ) ) );
+                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             setWordWrap( true );
         }
@@ -163,10 +163,10 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 }
 
 
-bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
+bool ThumbnailView::ThumbnailToolTip::loadImage( const DB::FileName& fileName )
 {
     int size = Settings::SettingsData::instance()->previewSize();
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
         if ( fileName != _currentFileName ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
@@ -179,7 +179,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     return true;
 }
 
-void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
                                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool /*loadedOK*/)
 {
     delete _tmpFileForThumbnailView;

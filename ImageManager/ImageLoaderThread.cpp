@@ -75,7 +75,7 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
     QSize fullSize;
 
     ok = false;
-    if ( !QFile( request->fileSystemFileName() ).exists() )
+    if ( !request->fileSystemFileName().exists() )
         return QImage();
 
     QImage img;
@@ -96,7 +96,7 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
 
     if (!ok) {
         // Now we can try QImage's stuff as a fallback...
-        ok = img.load( request->fileSystemFileName() );
+        ok = img.load( request->fileSystemFileName().absolute() );
         if (ok)
             request->setFullSize( img.size() );
 

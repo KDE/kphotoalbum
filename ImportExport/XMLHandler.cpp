@@ -54,7 +54,7 @@ QByteArray ImportExport::XMLHandler::createIndexXML(
 
 
     Q_FOREACH(const DB::ImageInfoPtr info, images.fetchInfos()) {
-        QString mappedFile = nameMap->uniqNameFor(info->fileName(DB::AbsolutePath));
+        const QString mappedFile = nameMap->uniqNameFor(info->fileName());
         QDomElement elm = save(doc, info);
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );

@@ -20,6 +20,7 @@
 #include "CacheFileInfo.h"
 #include <QMap>
 #include <QImage>
+#include <DB/FileName.h>
 
 namespace ImageManager {
 
@@ -30,11 +31,11 @@ class ThumbnailCache :public QObject
 public:
     static ThumbnailCache* instance();
     ThumbnailCache();
-    void insert( const QString& name, const QImage& image );
-    QPixmap lookup( const QString& name ) const;
-    bool contains( const QString& name ) const;
+    void insert( const DB::FileName& name, const QImage& image );
+    QPixmap lookup( const DB::FileName& name ) const;
+    bool contains( const DB::FileName& name ) const;
     void load();
-    void removeThumbnail( const QString& );
+    void removeThumbnail( const DB::FileName& );
 
 public slots:
     void save() const;
@@ -45,7 +46,7 @@ private:
     QString thumbnailPath( const QString& fileName ) const;
 
     static ThumbnailCache* m_instance;
-    QMap<QString, CacheFileInfo> m_map;
+    QMap<DB::FileName, CacheFileInfo> m_map;
     int m_currentFile;
     int m_currentOffset;
     QTimer* m_timer;

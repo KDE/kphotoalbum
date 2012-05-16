@@ -17,7 +17,7 @@
 */
 #include "VideoImageRescaleRequest.h"
 
-ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest( ImageRequest* originalRequest, const QString& path )
+ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest( ImageRequest* originalRequest, const DB::FileName& path )
     : ImageRequest( originalRequest->databaseFileName(), originalRequest->size(), originalRequest->angle(), originalRequest->client() ),
       m_originalRequest( originalRequest ), m_path(path)
 {
@@ -29,7 +29,7 @@ ImageManager::VideoImageRescaleRequest::~VideoImageRescaleRequest()
     delete m_originalRequest;
 }
 
-QString ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
+DB::FileName ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
 {
     return m_path;
 }

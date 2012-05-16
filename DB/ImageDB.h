@@ -22,6 +22,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfoList.h"
 #include "DB/MediaCount.h"
+#include <DB/FileNameList.h>
 
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
@@ -41,6 +42,7 @@ class ImageDateCollection;
 class IdList;
 class Id;
 class ImageSearchInfo;
+class FileName;
 
 class ImageDB  :public QObject {
     Q_OBJECT
@@ -56,7 +58,7 @@ public:
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
     bool operator!=(const ImageDB& other) const { return !operator==(other); }
-    StringSet imagesWithMD5Changed();
+    DB::FileNameSet imagesWithMD5Changed();
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
@@ -64,7 +66,7 @@ public slots:
     virtual void slotRescan();
     void slotRecalcCheckSums(const DB::IdList& selection);
     virtual MediaCount count( const ImageSearchInfo& info );
-    virtual void slotReread( const QStringList& list, DB::ExifMode mode);
+    virtual void slotReread( const DB::FileNameList& list, DB::ExifMode mode);
 
 protected:
     ImageDate _selectionRange;
@@ -97,12 +99,12 @@ public: // Methods that must be overridden
     virtual IdList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
     /** @short Update file name stored in the DB */
-    virtual void renameImage( const ImageInfoPtr info, const QString& newName ) = 0;
+    virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
 
     virtual void addToBlockList(const DB::IdList& list) = 0;
-    virtual bool isBlocking( const QString& fileName ) = 0;
+    virtual bool isBlocking( const DB::FileName& fileName ) = 0;
     virtual void deleteList(const DB::IdList& list) = 0;
-    virtual ImageInfoPtr info( const QString& fileName, DB::PathType ) const = 0; //QWERTY DIE
+    virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0; //QWERTY DIE
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
@@ -125,6 +127,7 @@ public: // Methods that must be overridden
      */
     virtual QStringList CONVERT(const DB::IdList&) = 0; //QWERTY DIE
 
+    DB::FileNameList CONVERT2(const DB::IdList&); // QWERTY DIE
     /**
      * there are some cases in which we have a filename and need to map back
      * to ID. Provided here to push down that part of refactoring. It
@@ -133,7 +136,7 @@ public: // Methods that must be overridden
      * If that turns out to be true, lowercasify this method, and update
      * this comment.
      */
-    virtual DB::Id ID_FOR_FILE( const QString& ) const = 0; // QWERTY DIE ?
+    virtual DB::Id ID_FOR_FILE( const DB::FileName& ) const = 0; // QWERTY DIE ?
 
     /** @short Create a stack of images/videos/whatever
      *

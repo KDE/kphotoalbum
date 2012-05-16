@@ -30,6 +30,7 @@
 #include "DB/CategoryPtr.h"
 #include <QSize>
 #include "config-kpa-sqldb.h"
+#include "FileName.h"
 
 namespace Plugins
 {
@@ -62,8 +63,8 @@ class ImageInfo :public KShared {
 
 public:
     ImageInfo();
-    explicit ImageInfo( const QString& relativeFileName, MediaType type = Image, bool readExifInfo = true );
-    ImageInfo( const QString& relativeFileName,
+    explicit ImageInfo( const DB::FileName& fileName, MediaType type = Image, bool readExifInfo = true );
+    ImageInfo( const DB::FileName& fileName,
                const QString& label,
                const QString& description,
                const ImageDate& date,
@@ -79,8 +80,8 @@ public:
 
     // TODO: this should have a method to access the ID.
 
-    QString fileName( DB::PathType type ) const;
-    void setFileName( const QString& relativeFileName );
+    FileName fileName() const;
+    void setFileName( const DB::FileName& relativeFileName );
 
     void setLabel( const QString& );
     QString label() const;
@@ -91,7 +92,7 @@ public:
     void setDate( const ImageDate& );
     ImageDate date() const;
     ImageDate& date();
-    void readExif(const QString& fullPath, DB::ExifMode mode);
+    void readExif(const DB::FileName& fullPath, DB::ExifMode mode);
 
     void rotate( int degrees );
     int angle() const;
@@ -131,7 +132,7 @@ public:
     bool operator==( const ImageInfo& other ) const;
     ImageInfo& operator=( const ImageInfo& other );
 
-    static bool imageOnDisk( const QString& fileName );
+    static bool imageOnDisk( const DB::FileName& fileName );
 
     const MD5& MD5Sum() const { return _md5sum; }
     void setMD5Sum( const MD5& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; saveChangesIfNotDelayed(); }
@@ -164,7 +165,6 @@ protected:
 
     void saveChangesIfNotDelayed() { if (!_delaySaving) saveChanges(); }
 
-    void setAbsoluteFileName();
     void setIsNull(bool b) { _null = b; }
     bool isDirty() const { return _dirty; }
     void setIsDirty(bool b)  { _dirty = b; }
@@ -177,8 +177,7 @@ protected:
 #endif
 
 private:
-    QString _relativeFileName;
-    QString _absoluteFileName;
+    DB::FileName _fileName;
     QString _label;
     QString _description;
     ImageDate _date;

@@ -100,46 +100,46 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
 
 void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
 {
-    QMap< DB::MD5, QList<QString> > tostack;
-    QList< QString > showIfStacked;
+    QMap< DB::MD5, DB::FileNameList > tostack;
+    DB::FileNameList showIfStacked;
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
     Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
-        QString fileName = info->fileName(DB::AbsolutePath);
+        const DB::FileName fileName = info->fileName();
         DB::MD5 sum = info->MD5Sum();
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
             if (tostack[sum].isEmpty())
-                tostack.insert(sum, (QStringList) fileName);
+                tostack.insert(sum, DB::FileNameList() << fileName);
             else
                 tostack[sum].append(fileName);
         }
     }
 
     // Then add images to stack (depending on configuration options)
-    for( QMap<DB::MD5, QList<QString> >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
+    for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
         if ( tostack[it.key()].count() > 1 ) {
             DB::IdList stack = DB::IdList();
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i] ) ).isEmpty() ) {
+                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i]) ).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i] ) );
+                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
 
                 showIfStacked.append( tostack[it.key()][i] );
-                stack.append( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i] ) );
+                stack.append( DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
             }
             if ( stack.size() > 1 ) {
-                
-                foreach( const QString& a, showIfStacked ) {
 
-                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( a ) ).isEmpty() )
-                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( a ) ) )
+                foreach( const DB::FileName& a, showIfStacked ) {
+
+                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)).isEmpty() )
+                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)))
                             toBeShown.append( b );
                     else
-                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( a ) );
+                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
                 }
                 DB::ImageDB::instance()->stack( stack );
             }
@@ -162,39 +162,39 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
         if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
             DB::IdList stack = DB::IdList();
 
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName( DB::AbsolutePath ) ) ).isEmpty() ) {
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName( DB::AbsolutePath ) ) );
-                else if ( _autostackSkip->isChecked() )
-                    continue;
-            }
-            
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) ).isEmpty() ) {
-                if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) );
+                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName(DB::AbsolutePath) ) );
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName(DB::AbsolutePath) ) );
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() ) {
+                if ( _autostackUnstack->isChecked() )
+                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+                else if ( _autostackSkip->isChecked() )
+                    continue;
+            }
+
+            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
             if ( !toBeShown.isEmpty() ) {
-                if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName( DB::RelativeToImageRoot ) != prev->fileName( DB::RelativeToImageRoot ) )
-                     toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName( DB::AbsolutePath ) ) );
+                if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName() != prev->fileName() )
+                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) ).isEmpty() )
-                    foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName( DB::AbsolutePath ) ) ) )
+                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
+                    foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ) )
                         toBeShown.append( a );
                 else
-                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName( DB::AbsolutePath ) ) );
+                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
             }
             // Inserting stacked images from the current image
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) ).isEmpty() )
-                foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) ) )
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
+                foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ) )
                     toBeShown.append( a );
             else
-                toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName( DB::AbsolutePath ) ) );
+                toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
             DB::ImageDB::instance()->stack( stack );
         }
 

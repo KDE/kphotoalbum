@@ -752,7 +752,7 @@ void AnnotationDialog::Dialog::rotate( int angle )
     else {
         DB::ImageInfo& info = _editList[ _current ];
         info.rotate(angle);
-        _rotatedFiles.insert( info.fileName( DB::AbsolutePath ) );
+        _rotatedFiles.insert( info.fileName() );
     }
 }
 
@@ -1091,11 +1091,11 @@ void AnnotationDialog::Dialog::togglePreview()
     }
     else {
         _stack->setCurrentWidget( _fullScreenPreview );
-        _fullScreenPreview->load( QStringList() << _editList[ _current].fileName(DB::AbsolutePath) );
+        _fullScreenPreview->load( DB::FileNameList() << _editList[ _current].fileName() );
     }
 }
 
-Utilities::StringSet AnnotationDialog::Dialog::rotatedFiles() const
+DB::FileNameSet AnnotationDialog::Dialog::rotatedFiles() const
 {
     return _rotatedFiles;
 }

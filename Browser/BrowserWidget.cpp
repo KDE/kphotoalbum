@@ -100,7 +100,7 @@ void Browser::BrowserWidget::addSearch( DB::ImageSearchInfo& info )
     addAction( new OverviewPage( Breadcrumb::empty(), info, this ) );
 }
 
-void Browser::BrowserWidget::addImageView( const QString& context )
+void Browser::BrowserWidget::addImageView( const DB::FileName& context )
 {
     addAction( new ImageViewPage( context, this ) );
 }

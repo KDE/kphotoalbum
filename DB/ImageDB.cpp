@@ -33,6 +33,7 @@
 #include "SQLDB/DatabaseAddress.h"
 #endif
 #include <QProgressDialog>
+#include <DB/FileName.h>
 
 using namespace DB;
 
@@ -127,20 +128,15 @@ void ImageDB::slotRecalcCheckSums(const DB::IdList& inputList)
     emit totalChanged( totalCount() );
 }
 
-StringSet DB::ImageDB::imagesWithMD5Changed()
+DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
     NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
     if ( wasCanceled )
-        return StringSet();
+        return DB::FileNameSet();
 
-    StringSet changes =  md5Map()->diff( map );
-    StringSet res;
-    for ( StringSet::const_iterator it = changes.begin(); it != changes.end(); ++it )
-        res.insert( Settings::SettingsData::instance()->imageDirectory() + *it );
-    return res;
-
+    return md5Map()->diff( map );
 }
 
 
@@ -211,14 +207,14 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
         progressBar->setValue(n);
 }
 
-void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
+void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
 {
 // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("Loading information from images"),
                              i18n("Cancel"), 0, list.count() );
 
     uint count=0;
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
+    for( DB::FileNameList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -227,10 +223,10 @@ void ImageDB::slotReread( const QStringList& list, DB::ExifMode mode)
                 return;
         }
 
-        QFileInfo fi( *it );
+        QFileInfo fi( (*it).absolute() );
 
         if (fi.exists())
-            info(*it, DB::AbsolutePath)->readExif(*it, mode);
+            info(*it)->readExif(*it, mode);
         markDirty();
     }
 }
@@ -258,6 +254,19 @@ DB::Id ImageDB::findFirstItemInRange(const DB::IdList& images,
         }
     }
     return candidate;
+}
+
+DB::FileNameList ImageDB::CONVERT2(const IdList & idList)
+{
+    QStringList list = CONVERT(idList);
+    DB::FileNameList res;
+    Q_FOREACH( const QString& str, list ) {
+        if ( str.startsWith(QLatin1String("/") ) )
+            res.append(FileName::fromAbsolutePath(str));
+        else
+            res.append(FileName::fromRelativePath(str));
+    }
+    return res;
 }
 
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )

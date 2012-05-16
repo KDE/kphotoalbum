@@ -22,6 +22,8 @@ class QSize;
 class QImage;
 class QString;
 
+namespace DB { class FileName; }
+
 namespace ImageManager
 {
 
@@ -36,7 +38,7 @@ public:
     /**
      * Callback on loaded image.
      */
-    virtual void pixmapLoaded( const QString& fileName,
+    virtual void pixmapLoaded( const DB::FileName& fileName,
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK) = 0;

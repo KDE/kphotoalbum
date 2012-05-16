@@ -26,7 +26,7 @@ class ThumbnailModel;
 class ThumbnailRequest : public ImageManager::ImageRequest
 {
 public:
-    ThumbnailRequest( int row, const QString& fileName, const QSize& size, int angle, ThumbnailModel* client);
+    ThumbnailRequest( int row, const DB::FileName& fileName, const QSize& size, int angle, ThumbnailModel* client);
     virtual bool stillNeeded() const;
 
 private:

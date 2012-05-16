@@ -20,7 +20,7 @@
 #include "ThumbnailCache.h"
 #include <QDebug>
 
-ImageManager::PreloadRequest::PreloadRequest(const QString& fileName, const QSize& size, int angle, ImageClientInterface* client) :
+ImageManager::PreloadRequest::PreloadRequest(const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client) :
     ImageRequest( fileName, size, angle, client )
 {
 }

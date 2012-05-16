@@ -100,7 +100,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         return;
     }
 
-    QString fileName = info->fileName( DB::RelativeToImageRoot );
+    const DB::FileName fileName = info->fileName();
     KUrl src1 = m_settings.kimFile();
     KUrl src2 = m_settings.baseURL();
     bool succeeded = false;
@@ -113,7 +113,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         if ( i == 1 )
             src = src2;
 
-        src.setFileName( fileName );
+        src.setFileName( fileName.absolute() );
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );
@@ -140,8 +140,8 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         if ( !isImageAlreadyInDB( *it ) ) {
-            QString fileName = (*it)->fileName( DB::RelativeToImageRoot );
-            QByteArray data = m_kimFileReader->loadImage( fileName );
+            const DB::FileName fileName = (*it)->fileName();
+            QByteArray data = m_kimFileReader->loadImage( fileName.relative() );
             if ( data.isNull() )
                 return false;
             QString newName = m_fileMapper->uniqNameFor(fileName);
@@ -242,8 +242,8 @@ bool ImportExport::ImportHandler::isImageAlreadyInDB( const DB::ImageInfoPtr& in
 
 DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::ImageInfoPtr& info )
 {
-    const QString& name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-    return DB::ImageDB::instance()->info( name, DB::RelativeToImageRoot );
+    const DB::FileName name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
+    return DB::ImageDB::instance()->info(name);
 }
 
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
@@ -271,14 +271,14 @@ void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::Image
 
 void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
-    QString importName = info->fileName( DB::RelativeToImageRoot );
+    const DB::FileName importName = info->fileName();
 
     DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
     updateInfo->setLabel( info->label() );
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );
     updateInfo->setAngle( info->angle() );
-    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName(DB::AbsolutePath) ) );
+    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName() ) );
 
 
     DB::ImageInfoList list;

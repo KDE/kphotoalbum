@@ -273,7 +273,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
 }
 
 
-void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
+void Exif::InfoDialog::pixmapLoaded( const DB::FileName& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
 {
     if ( loadedOK )
       m_pix->setPixmap( QPixmap::fromImage(img) );
@@ -284,8 +284,8 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
     DB::ImageInfoPtr info = id.fetchInfo();
     if ( info.isNull() )
         return;
-    QString fileName = info->fileName(DB::AbsolutePath);
-    m_fileNameLabel->setText( fileName );
+    const DB::FileName fileName = info->fileName();
+    m_fileNameLabel->setText( fileName.relative() );
     m_grid->setFileName( fileName );
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
@@ -293,7 +293,7 @@ void Exif::InfoDialog::setImage(const DB::Id &id)
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void Exif::Grid::setFileName(const QString &fileName)
+void Exif::Grid::setFileName(const DB::FileName &fileName)
 {
     m_fileName = fileName;
     slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );

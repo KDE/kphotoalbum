@@ -27,12 +27,12 @@
 
 using namespace DB;
 
-FileInfo FileInfo::read( const QString& fileName, DB::ExifMode mode )
+FileInfo FileInfo::read( const DB::FileName& fileName, DB::ExifMode mode )
 {
     return FileInfo( fileName, mode );
 }
 
-DB::FileInfo::FileInfo( const QString& fileName, DB::ExifMode mode )
+DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
     : _angle(0)
 {
 #ifdef HAVE_EXIV2
@@ -42,11 +42,11 @@ DB::FileInfo::FileInfo( const QString& fileName, DB::ExifMode mode )
 #endif
 
 
-    if ( updateDatFromFileTimeStamp(fileName,mode))
-        _date = QFileInfo( fileName ).lastModified();
+    if ( updateDataFromFileTimeStamp(fileName,mode))
+        _date = QFileInfo( fileName.absolute() ).lastModified();
 }
 
-bool DB::FileInfo::updateDatFromFileTimeStamp(const QString& fileName, DB::ExifMode mode)
+bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB::ExifMode mode)
 {
     // If the date is valid from EXIF reading, then we should not use the time stamp from the file.
     if ( _date.isValid() )
@@ -70,7 +70,7 @@ bool DB::FileInfo::updateDatFromFileTimeStamp(const QString& fileName, DB::ExifM
 }
 
 #ifdef HAVE_EXIV2
-void DB::FileInfo::parseEXIV2( const QString& fileName )
+void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
 {
     Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
 
@@ -116,21 +116,9 @@ QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 }
 #endif
 
-void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
+void DB::FileInfo::parseKFileMetaInfo( const DB::FileName& fileName )
 {
-    QString tempFileName( fileName );
-#ifdef REMOVED_FOR_SOME_REASON_ALSO_IN_KDE3
-    if ( Util::isCRW( fileName ) ) {
-      QString dirName = QFileInfo( fileName ).path();
-      QString baseName = QFileInfo( fileName ).baseName();
-      tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
-      QFileInfo tempFile (tempFileName);
-      if ( !tempFile.exists() )
-          tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
-    }
-#endif
-
-    KFileMetaInfo metainfo( tempFileName );
+    KFileMetaInfo metainfo( fileName.absolute() );
     if ( !metainfo.isValid() )
         return;
 

@@ -246,7 +246,7 @@ void Export::generateThumbnails(const DB::IdList& list)
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.size(); // Used to break the event loop.
     Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(DB::AbsolutePath), QSize( 128, 128 ), info->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( 128, 128 ), info->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
     }
@@ -267,10 +267,11 @@ void Export::copyImages(const DB::IdList& list)
 
     _filesRemaining = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        QString file = info->fileName(DB::AbsolutePath);
-        QString zippedName = _filenameMapper.uniqNameFor(file);
+        const DB::FileName fileName = info->fileName();
+        QString file = fileName.absolute();
+        QString zippedName = _filenameMapper.uniqNameFor(fileName);
 
-        if ( _maxSize == -1 || Utilities::isVideo( file ) || Utilities::isRAW( file )) {
+        if ( _maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
@@ -289,7 +290,7 @@ void Export::copyImages(const DB::IdList& list)
         else {
             _filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( file, QSize( _maxSize, _maxSize ), 0, this );
+                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( _maxSize, _maxSize ), 0, this );
             request->setPriority( ImageManager::BatchTask );
             ImageManager::AsyncLoader::instance()->load( request );
         }
@@ -308,7 +309,7 @@ void Export::copyImages(const DB::IdList& list)
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
+void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
 {
     if ( !loadedOK )
         return;

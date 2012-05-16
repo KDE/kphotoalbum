@@ -41,9 +41,9 @@ public:
     void request( ImageRequest* request );
     void stop( ImageClientInterface*, StopAction action );
     bool hasVideoThumbnailSupport() const;
-    void removeFullScaleFrame( const QString& fileName );
-    static void saveFullScaleFrame( const QString& fileName, const QImage& image );
-    static QString pathForRequest( const QString& fileName  );
+    void removeFullScaleFrame( const DB::FileName& fileName );
+    static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
+    static DB::FileName pathForRequest( const DB::FileName& fileName  );
 
 protected:
     void load( ImageRequest* request );

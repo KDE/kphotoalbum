@@ -439,7 +439,7 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
         return;
 
     reloadThumbnails(  ThumbnailView::MaintainSelection );
-    Q_FOREACH( const QString& fileName, _annotationDialog->rotatedFiles() )
+    Q_FOREACH( const DB::FileName& fileName, _annotationDialog->rotatedFiles() )
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }
 
@@ -485,7 +485,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
     Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
-        const QString fileName = info->fileName(DB::AbsolutePath);
+        const QString fileName = info->fileName().absolute();
         urls.append( fileName );
         urlcount++;
     }
@@ -510,12 +510,14 @@ void MainWindow::Window::slotPasteInformation()
     // fail silent if more than one image is in clipboard.
     if (string.count(QString::fromLatin1("\n")) != 0) return;
 
-    MD5 originalSum = Utilities::MD5Sum( Utilities::absoluteImageFileName( string ) );
+    const DB::FileName fileName = DB::FileName::fromRelativePath(string);
+
+    MD5 originalSum = Utilities::MD5Sum( fileName );
     ImageInfoPtr originalInfo;
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
-        originalInfo = DB::ImageDB::instance()->info( string, DB::RelativeToImageRoot );
+        originalInfo = DB::ImageDB::instance()->info( fileName );
     } else {
-        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( string );
+        DB::Id ID = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
         originalInfo = ID.fetchInfo();
     }
     Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
@@ -526,7 +528,7 @@ void MainWindow::Window::slotPasteInformation()
 void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HAVE_EXIV2
-    QStringList files = DB::ImageDB::instance()->CONVERT(selectedOnDisk());
+    DB::FileNameList files = DB::ImageDB::instance()->CONVERT2(selectedOnDisk());
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
@@ -573,7 +575,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 
     DB::IdList listOnDisk;
     Q_FOREACH(DB::Id id, list) {
-        const QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
+        const DB::FileName fileName = id.fetchInfo()->fileName();
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
             listOnDisk.append(id);
     }
@@ -614,7 +616,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 
     // Here, we need to switch back to the StringList until the Viewer is
     // converted.
-    QStringList fileNameList = DB::ImageDB::instance()->CONVERT(mediaList);
+    DB::FileNameList fileNameList = DB::ImageDB::instance()->CONVERT2(mediaList);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {
@@ -1132,7 +1134,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().fetchInfo();
 
-        externalCommands->populate( info, DB::ImageDB::instance()->CONVERT(selected() ));
+        externalCommands->populate( info, DB::ImageDB::instance()->CONVERT2(selected()));
         QAction* action = menu.addMenu( externalCommands );
         if (info.isNull() && selected().isEmpty())
             action->setEnabled( false );
@@ -1264,7 +1266,7 @@ void MainWindow::Window::slotSetFileName( const DB::Id& id )
     else {
         infos = id.fetchInfo();
         if (infos != ImageInfoPtr(NULL) )
-            _statusBar->showMessage( id.fetchInfo()->fileName(DB::AbsolutePath), 4000 );
+            _statusBar->showMessage( id.fetchInfo()->fileName().absolute(), 4000 );
     }
 }
 
@@ -1291,7 +1293,7 @@ void MainWindow::Window::rotateSelected( int angle )
     } else {
         Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
             info->rotate(angle);
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName( DB::AbsolutePath) );
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName() );
         }
         _statusBar->_dirtyIndicator->markDirty();
     }
@@ -1334,8 +1336,7 @@ void MainWindow::Window::slotShowNotOnDisk()
     DB::IdList notOnDisk;
     Q_FOREACH(DB::Id id, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = id.fetchInfo();
-        QFileInfo fi( info->fileName(DB::AbsolutePath) );
-        if ( !fi.exists() )
+        if ( !info->fileName().exists() )
             notOnDisk.append(id);
     }
 
@@ -1539,7 +1540,7 @@ void MainWindow::Window::setPluginMenuState( const char* name, const QList<QActi
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( (*it).path() );
+        ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromAbsolutePath((*it).path()) );
     }
     _statusBar->_dirtyIndicator->markDirty();
     reloadThumbnails( ThumbnailView::MaintainSelection );
@@ -1597,7 +1598,7 @@ void MainWindow::Window::slotShowListOfFiles()
         QString fileName = Utilities::imageFileNameToAbsolute( *it );
         if ( fileName.isNull() )
             continue;
-        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(fileName);
+        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE(DB::FileName::fromAbsolutePath(fileName));
         if ( !id.isNull() )
             out.append(id);
     }
@@ -1640,8 +1641,7 @@ void MainWindow::Window::slotJumpToContext()
     DB::Id id =_thumbnailView->currentItem();
     if ( !id.isNull() ) {
         // QWERTY: addImageView should take id as well.
-        QString fileName = id.fetchInfo()->fileName(DB::AbsolutePath);
-        _browser->addImageView( fileName );
+        _browser->addImageView( id.fetchInfo()->fileName() );
    }
 }
 

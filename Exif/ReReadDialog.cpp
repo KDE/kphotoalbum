@@ -70,7 +70,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     connect( _date, SIGNAL( toggled( bool ) ), this, SLOT( warnAboutDates( bool ) ) );
 }
 
-int Exif::ReReadDialog::exec( const QStringList& list )
+int Exif::ReReadDialog::exec( const DB::FileNameList& list )
 {
     Settings::SettingsData *opt = Settings::SettingsData::instance();
 
@@ -83,7 +83,7 @@ int Exif::ReReadDialog::exec( const QStringList& list )
 
     _list = list;
     _fileList->clear();
-    _fileList->addItems( list );
+    _fileList->addItems( list.toStringList(DB::RelativeToImageRoot) );
 
     return KDialog::exec();
 }

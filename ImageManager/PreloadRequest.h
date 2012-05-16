@@ -25,7 +25,7 @@ namespace ImageManager {
 class PreloadRequest : public ImageRequest
 {
 public:
-    explicit PreloadRequest( const QString& fileName, const QSize& size, int angle, ImageClientInterface* client);
+    explicit PreloadRequest( const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client);
     OVERRIDE bool stillNeeded() const;
 };
 

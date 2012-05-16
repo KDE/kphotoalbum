@@ -31,12 +31,12 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
+QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
 {
     QMap<QString, QStringList> result;
 
     try {
-        Metadata data = metadata( fileName );
+        Metadata data = metadata( exifInfoFile(fileName) );
 
         for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != data.exif.end(); ++i) {
             QString key = QString::fromLocal8Bit(i->key().c_str());
@@ -88,12 +88,12 @@ StringSet Info::availableKeys()
     return _keys;
 }
 
-QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, const QString& charset )
+QMap<QString, QStringList> Info::infoForViewer( const DB::FileName& fileName, const QString& charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false, charset );
 }
 
-QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, const QString& charset )
+QMap<QString, QStringList> Info::infoForDialog( const DB::FileName& fileName, const QString& charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset );
 }
@@ -184,16 +184,16 @@ Info::Info()
     _keys = standardKeys();
 }
 
-void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destName )
+void Exif::Info::writeInfoToFile( const DB::FileName& srcName, const QString& destName )
 {
     // Load Exif from source image
     Exiv2::Image::AutoPtr image =
-        Exiv2::ImageFactory::open( QFile::encodeName(srcName).data() );
+        Exiv2::ImageFactory::open( QFile::encodeName(srcName.absolute()).data() );
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName, DB::AbsolutePath );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
     data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );
@@ -205,27 +205,27 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
  * Some Canon cameras stores EXIF info in files ending in .thm, so we need to use those files for fetching EXIF info
  * if they exists.
  */
-QString Exif::Info::exifInfoFile( const QString& fileName )
+DB::FileName Exif::Info::exifInfoFile( const DB::FileName& fileName )
 {
-    QString dirName = QFileInfo( fileName ).path();
-    QString baseName = QFileInfo( fileName ).baseName();
-    QString name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
-    if ( QFileInfo(name).exists() )
+    QString dirName = QFileInfo( fileName.relative() ).path();
+    QString baseName = QFileInfo( fileName.relative() ).baseName();
+    DB::FileName name = DB::FileName::fromRelativePath(dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" ));
+    if ( name.exists() )
         return name;
 
-    name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
-    if ( QFileInfo(name).exists() )
+    name = DB::FileName::fromRelativePath(dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" ));
+    if ( name.exists() )
         return name;
 
     return fileName;
 }
 
-Exif::Metadata Exif::Info::metadata( const QString& fileName )
+Exif::Metadata Exif::Info::metadata( const DB::FileName& fileName )
 {
     try {
         Exif::Metadata result;
         Exiv2::Image::AutoPtr image =
-            Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
+                Exiv2::ImageFactory::open( QFile::encodeName(fileName.absolute()).data() );
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
         result.exif = image->exifData();

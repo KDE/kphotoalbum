@@ -111,7 +111,8 @@ bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        const DB::FileName fileName = DB::FileName::fromRelativePath(elm.attribute(QString::fromLatin1( "file" )));
+        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm );
         _images.append( info );
     }
 
@@ -184,8 +185,8 @@ void ImportDialog::createImagesPage()
         ImageRow* ir = new ImageRow( info, this, _kimFileReader, container );
         lay3->addWidget( ir->m_checkbox, row, 0 );
 
-        QPixmap pixmap = _kimFileReader->loadThumbnail( info->fileName( DB::RelativeToImageRoot ) );
-        if ( !pixmap.isNull() ) {
+        QPixmap pixmap = _kimFileReader->loadThumbnail( info->fileName().relative() );
+         if ( !pixmap.isNull() ) {
             QPushButton* but = new QPushButton( container );
             but->setIcon( pixmap );
             but->setIconSize( pixmap.size() );

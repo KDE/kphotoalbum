@@ -27,6 +27,7 @@
 #include "Utilities/Util.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "SelectionMaintainer.h"
+#include <DB/FileName.h>
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
@@ -277,12 +278,12 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
-        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(DB::AbsolutePath), cellSize, angle, this );
+        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(), cellSize, angle, this );
     request->setPriority( priority );
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void ThumbnailView::ThumbnailModel::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)
+void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)
 {
 #if 0 // THIS ISN'T EVEN USED!!!!
     QPixmap pixmap( size );
@@ -395,7 +396,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
     if (imageInfo == DB::ImageInfoPtr(NULL) )
         return QPixmap();
-    const QString fileName = imageInfo->fileName(DB::AbsolutePath);
+    const DB::FileName fileName = imageInfo->fileName();
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
         return ImageManager::ThumbnailCache::instance()->lookup( fileName );
@@ -425,7 +426,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
         const DB::ImageInfoPtr imageInfo = item.fetchInfo();
         if ( imageInfo.isNull() )
             continue;
-        const QString fileName = imageInfo->fileName(DB::AbsolutePath);
+        const DB::FileName fileName = imageInfo->fileName();
 
         if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
             continue;

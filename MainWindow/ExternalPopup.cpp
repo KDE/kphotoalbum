@@ -35,8 +35,9 @@
 #include <KIcon>
 #include "Window.h"
 #include "RunDialog.h"
+#include <DB/FileNameList.h>
 
-void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStringList& imageList )
+void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {
     _list = imageList;
     _currentInfo = current;
@@ -58,7 +59,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         // Fetch set of offers
         OfferType offers;
         if ( which == 0 )
-            offers = appInfos( QStringList() << current->fileName(DB::AbsolutePath) );
+            offers = appInfos( DB::FileNameList() << current->fileName() );
         else
             offers = appInfos( imageList );
 
@@ -99,12 +100,12 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     {
 	return;  //user clicked the title entry. (i.e: "All Selected Items")
     } else if ( action->data() == 1 ) {
-        for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
+        for( DB::FileNameList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
-                lst.append( KUrl(*it) );
+                lst.append( KUrl((*it).absolute()) );
         }
     } else if (action->data() == 2) {
-        QString origFile = _currentInfo->fileName(DB::AbsolutePath);
+        QString origFile = _currentInfo->fileName().absolute();
         QString newFile = origFile;
 
         QString origRegexpString =
@@ -124,7 +125,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
 
     } else {
-        lst.append( KUrl(_currentInfo->fileName(DB::AbsolutePath)));
+        lst.append( KUrl(_currentInfo->fileName().absolute()));
     }
 
 
@@ -161,28 +162,28 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
     connect( this, SIGNAL( triggered( QAction* ) ), this, SLOT( slotExecuteService( QAction* ) ) );
 }
 
-QString MainWindow::ExternalPopup::mimeType( const QString& file )
+QString MainWindow::ExternalPopup::mimeType( const DB::FileName& file )
 {
-    return KMimeType::findByPath(file, 0, true)->name();
+    return KMimeType::findByPath(file.absolute(), 0, true)->name();
 }
 
-Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
+Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const DB::FileNameList& files )
 {
     StringSet res;
     StringSet extensions;
-    for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
-       QString baseFileName = *fileIt;
-       int extStart = baseFileName.lastIndexOf(QChar::fromLatin1('.'));
-       baseFileName.remove(0, extStart);
-       if (! extensions.contains(baseFileName)) {
+    for( DB::FileNameList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
+       const DB::FileName baseFileName = *fileIt;
+       const int extStart = baseFileName.relative().lastIndexOf(QChar::fromLatin1('.'));
+       const QString ext = baseFileName.relative().mid(extStart);
+       if (! extensions.contains(ext)) {
            res.insert( mimeType( *fileIt ) );
-           extensions.insert( baseFileName );
+           extensions.insert( ext );
        }
     }
     return res;
 }
 
-MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& files )
+MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList& files )
 {
     StringSet types = mimeTypes( files );
     OfferType res;

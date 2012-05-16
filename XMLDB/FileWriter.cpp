@@ -63,10 +63,10 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     QFile out( fileName + QString::fromAscii(".tmp") );
 
     if ( !out.open( QIODevice::WriteOnly ) ) {
-        KMessageBox::sorry( messageParent(), 
+        KMessageBox::sorry( messageParent(),
                 i18n("<p>Could not save the image database to XML.</p>"
                     "File %1 could not be opened because of the following error: %2"
-                    , out.fileName(), out.errorString() ) 
+                    , out.fileName(), out.errorString() )
                 );
         return;
     }
@@ -74,16 +74,16 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         QByteArray s = doc.toByteArray().append( '\n' );
         if ( ! ( out.write( s.data(), s.size()-1 ) == s.size()-1  && out.flush() ) )
         {
-            KMessageBox::sorry( messageParent(), 
+            KMessageBox::sorry( messageParent(),
                     i18n("<p>Could not save the image database to XML.</p>"
                         "<p>File %1 could not be written because of the following error: %2</p>"
                         "<p>Your XML file still contains the previous version of the image database! "
                         "To avoid losing your modifications to the image database, try to fix "
                         "the mentioned error and then <b>save the file again.</b></p>"
-                        , out.fileName(), out.errorString() ) 
+                        , out.fileName(), out.errorString() )
                     );
             // clean up (damaged) temporary file:
-            out.remove(); 
+            out.remove();
         } else {
             out.close();
             // State: index.xml has previous DB version, index.xml.tmp has the current version.
@@ -177,10 +177,10 @@ void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
 {
     QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
     bool any=false;
-    Q_FOREACH(const QString &block, _db->_blockList) {
+    Q_FOREACH(const DB::FileName &block, _db->_blockList) {
         any=true;
         QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
-        elm.setAttribute( QString::fromLatin1( "file" ), block );
+        elm.setAttribute( QString::fromLatin1( "file" ), block.relative() );
         blockList.appendChild( elm );
     }
 
@@ -252,7 +252,7 @@ void XMLDB::FileWriter::add21CompatXML( QDomElement& top )
 QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
-    elm.setAttribute( QString::fromLatin1("file"),  info->fileName( DB::RelativeToImageRoot ) );
+    elm.setAttribute( QString::fromLatin1("file"),  info->fileName().relative() );
     elm.setAttribute( QString::fromLatin1("label"),  info->label() );
     if ( !info->description().isEmpty() )
         elm.setAttribute( QString::fromLatin1("description"), info->description() );
@@ -379,7 +379,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
     // Regex to match characters that are not allowed to start XML attribute names
     QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
     int pos = 0;
-    
+
     // Encoding special characters if compressed XML is selected
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {

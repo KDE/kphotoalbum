@@ -71,26 +71,20 @@ void ImagePreview::setImage( const QString& fileName )
     reload();
 }
 
-const QString& ImagePreview::lastImageFileName()
-{
-    return _lastImage.getName();
-}
-
-
 void ImagePreview::reload()
 {
     if ( !_info.isNull() ) {
         QImage img;
-        if (_preloader.has(_info.fileName(DB::AbsolutePath)))
+        if (_preloader.has(_info.fileName()))
             setCurrentImage(_preloader.getImage());
-        else if (_lastImage.has(_info.fileName(DB::AbsolutePath)))
+        else if (_lastImage.has(_info.fileName()))
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where _lastImage is changed...)
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(DB::AbsolutePath), QSize( width(), height() ), _info.angle(), this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );
         }
@@ -112,16 +106,16 @@ void ImagePreview::setCurrentImage(const QImage &image)
 {
     //cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
-    _currentImage.set(_info.fileName(DB::AbsolutePath), image);
+    _currentImage.set(_info.fileName(), image);
     setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
-    if (!_anticipated._fileName.isEmpty())
+    if (!_anticipated._fileName.isNull())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
-void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
+void ImagePreview::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK && !_info.isNull() ) {
-        if (_info.fileName(DB::AbsolutePath) == fileName)
+        if (_info.fileName() == fileName)
             setCurrentImage(image);
     }
 }
@@ -130,7 +124,7 @@ void ImagePreview::anticipate(DB::ImageInfo &info1) {
     //We cannot call _preloader.preloadImage right here:
     //this function is called before reload(), so if we preload here,
     //the preloader will always be loading the image after the next image.
-    _anticipated.set(info1.fileName(DB::AbsolutePath), info1.angle());
+    _anticipated.set(info1.fileName(), info1.angle());
 }
 
 
@@ -138,14 +132,14 @@ ImagePreview::PreloadInfo::PreloadInfo() : _angle(0)
 {
 }
 
-void ImagePreview::PreloadInfo::set(const QString& fileName, int angle)
+void ImagePreview::PreloadInfo::set(const DB::FileName& fileName, int angle)
 {
     _fileName=fileName;
     _angle=angle;
 }
 
 
-bool ImagePreview::PreviewImage::has(const QString &fileName) const
+bool ImagePreview::PreviewImage::has(const DB::FileName &fileName) const
 {
     return fileName==_fileName && !_image.isNull();
 }
@@ -155,12 +149,7 @@ QImage &ImagePreview::PreviewImage::getImage()
     return _image;
 }
 
-const QString &ImagePreview::PreviewImage::getName() const
-{
-    return _fileName;
-}
-
-void ImagePreview::PreviewImage::set(const QString &fileName, const QImage &image)
+void ImagePreview::PreviewImage::set(const DB::FileName &fileName, const QImage &image)
 {
     _fileName=fileName;
     _image=image;
@@ -174,12 +163,12 @@ void ImagePreview::PreviewImage::set(const PreviewImage &other)
 
 void ImagePreview::PreviewImage::reset()
 {
-    _fileName.clear();
+    _fileName = DB::FileName();
     _image=QImage();
 }
 
 
-void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+void ImagePreview::PreviewLoader::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
                                                 const QSize& /*fullSize*/, int, const QImage& image, const bool loadedOK)
 {
     if ( loadedOK )
@@ -187,7 +176,7 @@ void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, const Q
 }
 
 
-void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int width, int height, int angle)
+void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int width, int height, int angle)
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();

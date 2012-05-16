@@ -18,6 +18,7 @@
 
 #include "SearchInfo.h"
 #include "Exif/Database.h"
+#include <DB/FileName.h>
 
 /**
  * \class Exif::SearchInfo
@@ -139,7 +140,7 @@ void Exif::SearchInfo::search() const
     _matches = Exif::Database::instance()->filesMatchingQuery( queryStr );
 }
 
-bool Exif::SearchInfo::matches( const QString& fileName ) const
+bool Exif::SearchInfo::matches( const DB::FileName& fileName ) const
 {
     if ( _emptyQuery )
         return true;

@@ -57,7 +57,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMarkGo() ) );
 }
 
-void MainWindow::RunDialog::setImageList( QStringList fileList )
+void MainWindow::RunDialog::setImageList( const DB::FileNameList& fileList )
 {
     _fileList = fileList;
 }
@@ -71,14 +71,18 @@ void MainWindow::RunDialog::slotMarkGo( )
     QRegExp replaceeach = QRegExp(i18n("%each"));
 
     // Replace the %all argument first
-    cmdString.replace(replaceall, KShell::joinArgs(_fileList));
+    QStringList fileList;
+    Q_FOREACH( const DB::FileName& fileName, _fileList )
+        fileList.append(fileName.absolute());
+
+    cmdString.replace(replaceall, KShell::joinArgs(fileList));
 
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for( QStringList::Iterator it = _fileList.begin(); it != _fileList.end(); ++it ) {
+        for( DB::FileNameList::Iterator it = _fileList.begin(); it != _fileList.end(); ++it ) {
             cmdOnce = cmdString;
-            cmdOnce.replace(replaceeach, *it);
+            cmdOnce.replace(replaceeach, (*it).absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());
         }
     } else {

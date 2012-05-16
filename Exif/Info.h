@@ -23,6 +23,8 @@
 #include <exiv2/exif.hpp>
 #include <exiv2/iptc.hpp>
 
+namespace DB { class FileName; }
+
 namespace Exif {
 
 using Utilities::StringSet;
@@ -38,16 +40,16 @@ class Info {
 public:
     Info();
     static Info* instance();
-    QMap<QString, QStringList> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset );
-    QMap<QString, QStringList> infoForViewer( const QString& fileName, const QString& charset );
-    QMap<QString, QStringList> infoForDialog( const QString& fileName, const QString& charset );
+    QMap<QString, QStringList> info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset );
+    QMap<QString, QStringList> infoForViewer( const DB::FileName& fileName, const QString& charset );
+    QMap<QString, QStringList> infoForDialog( const DB::FileName& fileName, const QString& charset );
     StringSet availableKeys();
     StringSet standardKeys();
-    void writeInfoToFile( const QString& srcName, const QString& destName );
-    Metadata metadata( const QString& fileName );
+    void writeInfoToFile( const DB::FileName& srcName, const QString& destName );
+    Metadata metadata( const DB::FileName& fileName );
 
 protected:
-    QString exifInfoFile( const QString& fileName );
+    DB::FileName exifInfoFile( const DB::FileName& fileName );
 
 private:
     static Info* _instance;

@@ -171,10 +171,6 @@ protected:
 
     void setStackId( const StackID stackId );
     friend class XMLDB::Database;
-#ifdef SQLDB_SUPPORT
-    friend class SQLDB::Database;
-#endif
-
 private:
     DB::FileName _fileName;
     QString _label;

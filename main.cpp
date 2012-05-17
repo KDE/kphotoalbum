@@ -90,11 +90,6 @@ int main( int argc, char** argv ) {
         delete _tmpFileForThumbnailView;
         return code;
     }
-#ifdef SQLDB_SUPPORT
-    catch (SQLDB::Error& e) {
-        qFatal("Exception occurred in SQLDB:\n%s", e.what());
-    }
-#endif
     catch (...) {
         qFatal("Unknown exception caught");
     }

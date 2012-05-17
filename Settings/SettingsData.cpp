@@ -142,7 +142,6 @@ SettingsData::SettingsData( const QString& imageDirectory )
 //// General ////
 /////////////////
 
-property_ref ( backend               , setBackend               , QString       , General, QString::fromLatin1("xml") )
 property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          , General, true                       )
 property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       )
 property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       )

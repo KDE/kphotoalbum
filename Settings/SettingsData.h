@@ -68,7 +68,6 @@ public:
     /////////////////
 
     property_ref ( histogramSize         , setHistogramSize         , QSize );
-    property_ref ( backend               , setBackend               , QString );
     property_copy( useEXIFRotate         , setUseEXIFRotate         , bool );
     property_copy( useEXIFComments       , setUseEXIFComments       , bool );
     property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );

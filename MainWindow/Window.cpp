@@ -1030,44 +1030,6 @@ bool MainWindow::Window::load()
         qApp->processEvents();
     }
 
-    // Choose backend
-    QString backEnd = Settings::SettingsData::instance()->backend();
-    // Command line override for backend
-    if ( args->isSet( "e" ) )
-        backEnd = args->getOption( "e" );
-
-    // Initialize correct back-end
-    if ( backEnd == QString::fromLatin1("sql") ) {
-#ifdef SQLDB_SUPPORT
-        // SQL back-end needs some extra configuration first
-        KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
-        try {
-            SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(config);
-
-            // Initialize SQLDB with the parameters
-            DB::ImageDB::setupSQLDB(address);
-            return true;
-        }
-        catch (SQLDB::Error& e){
-            KMessageBox::error(this, i18n("SQL backend initialization failed, "
-                                          "because following error occurred:\n%1",e.whatAsQString()));
-        }
-#else
-        KMessageBox::error(this, i18n("SQL database support is not compiled in."));
-#endif
-    }
-    else if ( backEnd == QString::fromLatin1("xml") );
-    else {
-        KMessageBox::error(this, i18n("Invalid database backend: %1",backEnd));
-    }
-
-    if (backEnd != QString::fromLatin1("xml")) {
-        int answer =
-            KMessageBox::questionYesNo(this, i18n("Do you want to use XML backend instead?"));
-        if (answer != KMessageBox::Yes)
-            return false;
-    }
-
     // Doing some validation on user provided index file
     if ( args->isSet( "c" ) ) {
         QFileInfo fi( configFile );

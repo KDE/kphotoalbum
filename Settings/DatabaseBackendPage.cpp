@@ -91,10 +91,6 @@ void Settings::DatabaseBackendPage::loadSettings( Settings::SettingsData* opt )
     _autosave->setValue( opt->autoSave() );
     _backupCount->setValue( opt->backupCount() );
     _compressBackup->setChecked( opt->compressBackup() );
-
-#ifdef SQLDB_SUPPORT
-    _sqlSettings->setSettings(Settings::SettingsData::instance()->SQLParameters());
-#endif
 }
 
 void Settings::DatabaseBackendPage::saveSettings( Settings::SettingsData* opt )

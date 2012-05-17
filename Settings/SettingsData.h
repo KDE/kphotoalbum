@@ -171,14 +171,6 @@ public:
     property_copy( updateOrientation        , setUpdateOrientation        , bool             );
     property_copy( updateDescription        , setUpdateDescription        , bool             );
 
-    ///////////////
-    //// SQLDB ////
-    ///////////////
-
-#ifdef SQLDB_SUPPORT
-    property_ref( SQLParameters, setSQLParameters, SQLDB::DatabaseAddress);
-#endif
-
     ///////////////////////
     //// Miscellaneous ////
     ///////////////////////

@@ -555,21 +555,6 @@ QString dereferenceSymLinks( const QString& fileName )
 }
 }
 
-bool Utilities::areSameFile( const QString fileName1, const QString fileName2 )
-{
-    if (fileName1 == fileName2)
-        return true;
-
-    // If filenames are symbolic links, relative or contain more than
-    // one consecutive slashes, above test won't work, so try with
-    // normalized filenames.
-    return (normalizedFileName(dereferenceSymLinks(fileName1)) ==
-            normalizedFileName(dereferenceSymLinks(fileName2)));
-
-    // FIXME: Hard links. Different paths to same file (with symlinks)
-    // Maybe use inode numbers to solve those problems?
-}
-
 QString Utilities::stripEndingForwardSlash( const QString& fileName )
 {
     if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )

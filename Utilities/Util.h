@@ -53,7 +53,6 @@ QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const DB::FileName& fileName );
 
-bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripEndingForwardSlash( const QString& fileName );
 
 QString absoluteImageFileName( const QString& relativeName );

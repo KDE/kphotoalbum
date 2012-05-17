@@ -140,7 +140,6 @@ protected slots:
     void setDateRange( const DB::ImageDate& );
     void clearDateRange();
     void startAutoSaveTimer();
-    void convertBackend();
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();

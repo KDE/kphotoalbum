@@ -843,12 +843,6 @@ void MainWindow::Window::setupMenuBar()
     _AutoStackImages = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT ( slotAutoStackImages() ) );
     _AutoStackImages->setText( i18n("Automatically Stack Selected Images...") );
 
-#ifdef SQLDB_SUPPORT
-    a = actionCollection()->addAction( QString::fromLatin1("convertBackend"), this, SLOT( convertBackend() ) );
-    a->setText( i18n("Convert Backend...(Experimental!)" ) );
-#endif
-
-
     a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT( slotBuildThumbnails() ) );
     a->setText( i18n("Build Thumbnails") );
 
@@ -1658,61 +1652,6 @@ void MainWindow::Window::showThumbNails(const DB::IdList& items)
     _thumbnailView->setImageList( items );
     _statusBar->_partial->setMatchCount(items.size());
     showThumbNails();
-}
-
-void MainWindow::Window::convertBackend()
-{
-#ifdef SQLDB_SUPPORT
-    // Converting from SQLDB to the same SQLDB will not work and there
-    // is currently no way to check if two SQL back-ends use the same
-    // database. So this is my current workaround for it.
-    if (dynamic_cast<SQLDB::Database*>(DB::ImageDB::instance())) {
-        KMessageBox::sorry(this, i18n("Database conversion from SQL database is not yet supported."));
-        return;
-    }
-
-    KConfigGroup config = KGlobal::config()->group( QString::fromLatin1("SQLDB") );
-    if (!config.exists()) {
-        int ret =
-            KMessageBox::questionYesNo(this, i18n("You should set SQL database settings before the conversion. "
-                                                  "Do you want to do this now?"));
-        if (ret != KMessageBox::Yes)
-            return;
-        if (!_settingsDialog)
-            _settingsDialog = new Settings::SettingsDialog(this);
-        _settingsDialog->showBackendPage();
-        ret = _settingsDialog->exec();
-        if (ret != Settings::SettingsDialog::Accepted)
-            return;
-    }
-    try {
-        SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(config);
-
-        SQLDB::Database sqlBackend(address);
-
-        // TODO: ask if old database should be flushed first
-
-        KProgressDialog dialog(this);
-        dialog.setModal(true);
-        dialog.setCaption(i18n("Converting database"));
-        dialog.setLabelText
-            (QString::fromLatin1("<p><b><nobr>%1</nobr></b></p><p>%2</p>")
-             .arg(i18n("Converting database to SQL."))
-             .arg(i18n("Please wait.")));
-        dialog.setAllowCancel(false);
-        dialog.setAutoClose(true);
-        dialog.setFixedSize(dialog.sizeHint());
-        dialog.setMinimumDuration(0);
-        qApp->processEvents();
-
-        DB::ImageDB::instance()->convertBackend(&sqlBackend, dialog.progressBar());
-
-        KMessageBox::information(this, i18n("Database conversion is ready."));
-    }
-    catch (SQLDB::Error& e) {
-        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1",e.whatAsQString()));
-    }
-#endif
 }
 
 void MainWindow::Window::slotRecalcCheckSums()

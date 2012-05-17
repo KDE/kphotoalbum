@@ -141,56 +141,6 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     return MediaCount( images, videos );
 }
 
-void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
-{
-    const DB::IdList allImages = images();
-
-    CategoryCollection* origCategories = categoryCollection();
-    CategoryCollection* newCategories = newBackend->categoryCollection();
-
-     QList<CategoryPtr> categories = origCategories->categories();
-
-    if (progressBar) {
-        progressBar->setMaximum(categories.count() + allImages.size());
-        progressBar->setValue(0);
-    }
-
-    uint n = 0;
-
-    // Convert the Category info
-     for( QList<CategoryPtr>::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
-        newCategories->addCategory( (*it)->name(), (*it)->iconName(), (*it)->viewType(),
-                                    (*it)->thumbnailSize(), (*it)->doShow() );
-        newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );
-
-        if (progressBar) {
-            progressBar->setValue(n++);
-            qApp->processEvents();
-        }
-    }
-
-    // Convert member map
-    newBackend->memberMap() = memberMap();
-
-    // Convert all images to the new back end
-    uint count = 0;
-    ImageInfoList list;
-    Q_FOREACH(const DB::ImageInfoPtr info, allImages.fetchInfos()) {
-        list.append(info);
-        if (++count % 100 == 0) {
-            newBackend->addImages( list );
-            list.clear();
-        }
-        if (progressBar) {
-            progressBar->setValue(n++);
-            qApp->processEvents();
-        }
-    }
-    newBackend->addImages(list);
-    if (progressBar)
-        progressBar->setValue(n);
-}
-
 void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
 {
 // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data

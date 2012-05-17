@@ -22,7 +22,6 @@
 
 namespace KIPI { class ConfigWidget; }
 namespace Exif { class TreeView; }
-namespace SQLDB { class SQLSettingsWidget; }
 
 namespace Settings
 {

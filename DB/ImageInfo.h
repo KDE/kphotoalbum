@@ -40,10 +40,6 @@ namespace XMLDB {
 class Database;
 }
 
-namespace SQLDB {
-class Database;
-}
-
 namespace DB
 {
 enum PathType {

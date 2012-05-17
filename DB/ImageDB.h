@@ -47,8 +47,6 @@ public:
     static void setupXMLDB( const QString& configFile );
     static void deleteInstance();
 
-    virtual bool operator==(const ImageDB& other) const = 0;
-    bool operator!=(const ImageDB& other) const { return !operator==(other); }
     DB::FileNameSet imagesWithMD5Changed();
 
 public slots:

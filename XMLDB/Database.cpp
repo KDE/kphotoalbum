@@ -67,15 +67,6 @@ uint XMLDB::Database::totalCount() const
     return _images.count();
 }
 
-bool XMLDB::Database::operator==(const DB::ImageDB& other) const
-{
-    const XMLDB::Database* xmlOther =
-        dynamic_cast<const XMLDB::Database*>(&other);
-    if (!xmlOther)
-        return false;
-    return Utilities::areSameFile(_fileName, xmlOther->_fileName);
-}
-
 /**
  * I was considering merging the two calls to this method (one for images, one for video), but then I
  * realized that all the work is really done after the check for whether the given

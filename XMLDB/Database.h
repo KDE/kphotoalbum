@@ -42,7 +42,6 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
         OVERRIDE DB::IdList search(
             const DB::ImageSearchInfo&,

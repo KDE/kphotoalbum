@@ -29,12 +29,6 @@
 #endif
 
 #include "Utilities/Set.h"
-#include <config-kpa-sqldb.h>
-
-#ifdef SQLDB_SUPPORT
-    namespace SQLDB { class DatabaseAddress; }
-#endif
-
 #define property( GET_TYPE,GET_FUNC, SET_FUNC,SET_TYPE ) \
     GET_TYPE GET_FUNC() const;                           \
     void SET_FUNC( const SET_TYPE )

@@ -104,13 +104,6 @@
 
 #include "FeatureDialog.h"
 
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
-#  include "SQLDB/Database.h"
-#  include "SQLDB/ConfigFileHandler.h"
-#  include "SQLDB/QueryErrors.h"
-#  include <kprogressdialog.h>
-#endif
 #include <krun.h>
 #include <kglobal.h>
 #include <kvbox.h>

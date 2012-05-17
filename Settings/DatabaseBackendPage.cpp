@@ -27,13 +27,7 @@
 #include <Q3VGroupBox>
 #include <QRadioButton>
 #include <QVBoxLayout>
-#include "config-kpa-sqldb.h"
 #include "MainWindow/DirtyIndicator.h"
-
-#ifdef SQLDB_SUPPORT
-#  include <SQLDB/SQLSettingsWidget.h>
-#  include <SQLDB/DatabaseAddress.h>
-#endif
 
 Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     :QWidget( parent )

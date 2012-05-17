@@ -27,10 +27,6 @@
 #include <kaboutdata.h>
 #include <kimageio.h>
 #include "MainWindow/SplashScreen.h"
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
-#include "SQLDB/QueryErrors.h"
-#endif
 #include <klocale.h>
 #include <kdebug.h>
 

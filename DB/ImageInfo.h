@@ -29,7 +29,6 @@
 #include "ExifMode.h"
 #include "DB/CategoryPtr.h"
 #include <QSize>
-#include "config-kpa-sqldb.h"
 #include "FileName.h"
 
 namespace Plugins

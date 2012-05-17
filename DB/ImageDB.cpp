@@ -27,11 +27,6 @@
 #include <qapplication.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
-#include "SQLDB/Database.h"
-#include "SQLDB/DatabaseAddress.h"
-#endif
 #include <QProgressDialog>
 #include <DB/FileName.h>
 

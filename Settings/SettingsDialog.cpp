@@ -32,7 +32,6 @@
 #include <kglobal.h>
 #include "Utilities/ShowBusyCursor.h"
 
-#include "config-kpa-sqldb.h"
 #include "config-kpa-kipi.h"
 struct Data
 {

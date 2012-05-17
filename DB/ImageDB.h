@@ -24,11 +24,6 @@
 #include "DB/MediaCount.h"
 #include <DB/FileNameList.h>
 
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
-namespace SQLDB { class DatabaseAddress; }
-#endif
-
 class QProgressBar;
 
 namespace DB

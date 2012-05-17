@@ -40,13 +40,6 @@
 #include "DB/MemberMap.h"
 #include "Utilities/Util.h"
 
-#include "config-kpa-sqldb.h"
-#ifdef SQLDB_SUPPORT
-#  include "SQLDB/ConfigFileHandler.h"
-#  include "SQLDB/DatabaseAddress.h"
-#  include "SQLDB/QueryErrors.h"
-#endif
-
 #define STR(x) QString::fromLatin1(x)
 
 #define value( GROUP, OPTION, DEFAULT )                            \

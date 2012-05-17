@@ -32,34 +32,32 @@
 Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     :QWidget( parent )
 {
-    QVBoxLayout* lay1 = new QVBoxLayout(this);
-
-    // XML Backend
-    Q3VGroupBox* xmlBox = new Q3VGroupBox( i18n("XML Database Setting"), this );
-    lay1->addWidget( xmlBox );
+    QVBoxLayout* topLayout = new QVBoxLayout(this);
 
     // Compressed index.xml
-    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), xmlBox );
+    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
+    topLayout->addWidget(_compressedIndexXML);
     connect( _compressedIndexXML, SIGNAL( clicked(bool) ), this, SLOT ( markDirty() ) );
 
-    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), xmlBox );
+    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
+    topLayout->addWidget(_compressBackup);
 
     // Auto save
-    QWidget* box = new QWidget( xmlBox );
-    QLabel* label = new QLabel( i18n("Auto save every:"), box );
+    QLabel* label = new QLabel( i18n("Auto save every:"), this );
     _autosave = new QSpinBox;
     _autosave->setRange( 1, 120 );
     _autosave->setSuffix( i18n( "min." ) );
 
-    QHBoxLayout* lay = new QHBoxLayout( box );
+    QHBoxLayout* lay = new QHBoxLayout;
+    topLayout->addLayout(lay);
     lay->addWidget( label );
     lay->addWidget( _autosave );
     lay->addStretch( 1 );
 
     // Backup
-    box = new QWidget( xmlBox );
-    lay = new QHBoxLayout( box );
-    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), box );
+    lay = new QHBoxLayout;
+    topLayout->addLayout(lay);
+    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), this );
     lay->addWidget( backupLabel );
 
     _backupCount = new QSpinBox;
@@ -67,6 +65,8 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     _backupCount->setSpecialValueText( i18n( "Infinite" ) );
     lay->addWidget( _backupCount );
     lay->addStretch( 1 );
+
+    topLayout->addStretch(1);
 
     QString txt;
     txt = i18n("<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc. "

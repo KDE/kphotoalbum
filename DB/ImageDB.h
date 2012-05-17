@@ -45,9 +45,6 @@ class ImageDB  :public QObject {
 public:
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
-#ifdef SQLDB_SUPPORT
-    static void setupSQLDB( const SQLDB::DatabaseAddress& address );
-#endif
     static void deleteInstance();
 
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);

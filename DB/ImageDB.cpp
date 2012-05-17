@@ -49,17 +49,6 @@ void ImageDB::setupXMLDB( const QString& configFile )
     connectSlots();
 }
 
-#ifdef SQLDB_SUPPORT
-void ImageDB::setupSQLDB( const SQLDB::DatabaseAddress& address )
-{
-    if (_instance)
-        qFatal("ImageDB::setupSQLDB: Setup must be called only once.");
-    _instance = new SQLDB::Database(address);
-
-    connectSlots();
-}
-#endif /* SQLDB_SUPPORT */
-
 void ImageDB::deleteInstance()
 {
     delete _instance;

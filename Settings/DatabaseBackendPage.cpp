@@ -83,26 +83,6 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
     _compressedIndexXML->setWhatsThis( txt );
-
-    // SQL Backend
-#ifdef SQLDB_SUPPORT
-    Q3VGroupBox* sqlBox = new Q3VGroupBox(i18n("SQL Database Settings"), this);
-    //sqlBox->setEnabled(false);
-    lay1->addWidget(sqlBox);
-
-    _sqlSettings = new SQLDB::SQLSettingsWidget(sqlBox);
-
-    QLabel* passwordWarning =
-        new QLabel(i18n("Warning: The password is saved as plain text to the configuration file."), this);
-    passwordWarning->hide();
-    lay1->addWidget(passwordWarning);
-
-    QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    lay1->addItem(spacer);
-
-    //connect(sqlButton, SIGNAL(toggled(bool)), sqlBox, SLOT(setEnabled(bool)));
-    connect(_sqlSettings, SIGNAL(passwordChanged(const QString&)), passwordWarning, SLOT(show()));
-#endif /* SQLDB_SUPPORT */
 }
 
 void Settings::DatabaseBackendPage::loadSettings( Settings::SettingsData* opt )

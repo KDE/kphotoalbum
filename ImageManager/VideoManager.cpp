@@ -77,7 +77,7 @@ void ImageManager::VideoManager::load( ImageRequest* request )
 	job->setScaleType( KIO::PreviewJob::Scaled );
 #else
     KUrl::List list;
-    list.append( request->databaseFileName() );
+    list.append( request->databaseFileName().absolute() );
     // All the extra parameters are the defaults. I need the last false,
     // which says "Don't cache". If it caches, then I wont get a new shot
     // when the user chooses load new thumbnail

@@ -343,13 +343,13 @@ KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 }
 
 void XMLDB::Database::reorder(
-    const DB::Id& item,
+    const DB::FileName& item,
     const DB::FileNameList& selection,
     bool after)
 {
     Q_ASSERT(!item.isNull());
     DB::ImageInfoList list = takeImagesFromSelection( ZZZ(selection) );
-    insertList( item, list, after );
+    insertList( ZZZ(item), list, after );
 }
 
 // Remove all the images from the database that match the given selection and

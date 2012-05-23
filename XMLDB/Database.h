@@ -68,7 +68,7 @@ namespace XMLDB {
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
         OVERRIDE void reorder(
-            const DB::Id& item,
+            const DB::FileName& item,
             const DB::FileNameList& cutList,
             bool after);
 

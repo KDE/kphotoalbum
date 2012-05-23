@@ -112,7 +112,7 @@ public: // Methods that must be overridden
      * cutList directly before or after the given item.
      * If the parameter "after" determines where to place it.
      */
-    virtual void reorder(const DB::Id& item, const DB::FileNameList& cutList, bool after) = 0;
+    virtual void reorder(const DB::FileName& item, const DB::FileNameList& cutList, bool after) = 0;
 
     /**
      * temporary method to convert a DB::IdList back to the usual

@@ -168,17 +168,17 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {
-    DB::Id candidate;
+    DB::FileName candidate;
     QDateTime candidateDateStart;
-    Q_FOREACH(DB::Id id, ZZZ(images)) {
-        ImageInfoPtr iInfo = id.fetchInfo();
+    Q_FOREACH(const DB::FileName& fileName, images) {
+        ImageInfoPtr iInfo = info(fileName);
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
         if (match == DB::ImageDate::ExactMatch ||
             (includeRanges && match == DB::ImageDate::RangeMatch)) {
             if (candidate.isNull() ||
                 iInfo->date().start() < candidateDateStart) {
-                candidate = id;
+                candidate = fileName;
                 // Looking at this, can't this just be iInfo->date().start()?
                 // Just in the middle of refactoring other stuff, so leaving
                 // this alone now. TODO(hzeller): revisit.
@@ -186,7 +186,7 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
             }
         }
     }
-    return ZZZ(candidate);
+    return candidate;
 }
 
 DB::FileNameList ImageDB::ZZZ(const IdList & idList) const

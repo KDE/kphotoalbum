@@ -68,7 +68,7 @@ namespace XMLDB {
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
         OVERRIDE void reorder(
             const DB::Id& item,
-            const DB::IdList& cutList,
+            const DB::FileNameList& cutList,
             bool after);
 
         static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db = 0 );

@@ -101,7 +101,7 @@ public: // Methods that must be overridden
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
-    virtual void sortAndMergeBackIn(const DB::FileNameList& idlist) = 0;
+    virtual void sortAndMergeBackIn(const DB::FileNameList& list) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
@@ -111,7 +111,7 @@ public: // Methods that must be overridden
      * cutList directly before or after the given item.
      * If the parameter "after" determines where to place it.
      */
-    virtual void reorder(const DB::Id& item, const DB::IdList& cutList, bool after) = 0;
+    virtual void reorder(const DB::Id& item, const DB::FileNameList& cutList, bool after) = 0;
 
     /**
      * temporary method to convert a DB::IdList back to the usual

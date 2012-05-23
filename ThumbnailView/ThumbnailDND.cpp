@@ -106,10 +106,10 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
         if ( selected.indexOf( model()->leftDropItem() ) == -1 && selected.indexOf( model()->rightDropItem() ) == -1 ) {
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
-                DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );
+                DB::ImageDB::instance()->reorder( model()->leftDropItem(), ZZZ(selected), false );
             }
             else
-                DB::ImageDB::instance()->reorder( model()->rightDropItem(), selected, true );
+                DB::ImageDB::instance()->reorder( model()->rightDropItem(), ZZZ(selected), true );
 
             Browser::BrowserWidget::instance()->reload();
         }

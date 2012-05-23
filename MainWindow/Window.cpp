@@ -325,7 +325,7 @@ void MainWindow::Window::slotCreateImageStack()
                     i18n("Some of the selected images already belong to a stack. "
                         "Do you want to remove them from their stacks and create a "
                         "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
-            DB::ImageDB::instance()->unstack( list );
+            DB::ImageDB::instance()->unstack( ZZZ(list) );
             if ( ! DB::ImageDB::instance()->stack( ZZZ(list) ) ) {
                 KMessageBox::sorry( this,
                         i18n("Unknown error, stack creation failed."),
@@ -389,7 +389,7 @@ void MainWindow::Window::slotUnStackImages()
     if (list.isEmpty())
         return;
 
-    DB::ImageDB::instance()->unstack( list );
+    DB::ImageDB::instance()->unstack( ZZZ(list) );
     DirtyIndicator::markDirty();
     _thumbnailView->updateDisplayModel();
 }

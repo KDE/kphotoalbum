@@ -123,7 +123,7 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
                 if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i]) ).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
+                        DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i])));
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
@@ -164,14 +164,14 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
 
             if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ));
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
             if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ));
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }

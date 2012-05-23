@@ -450,9 +450,9 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
     return changed;
 }
 
-void XMLDB::Database::unstack(const DB::IdList& items)
+void XMLDB::Database::unstack(const DB::FileNameList& items)
 {
-    Q_FOREACH(DB::Id id, items) {
+    Q_FOREACH(DB::Id id, ZZZ(items)) {
         DB::IdList allInStack = getStackFor(id);
         if (allInStack.size() <= 2) {
             // we're destroying stack here

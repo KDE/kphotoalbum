@@ -156,7 +156,7 @@ public: // Methods that must be overridden
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack(const DB::IdList& images) = 0;
+    virtual void unstack(const DB::FileNameList& images) = 0;
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *

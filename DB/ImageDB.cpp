@@ -104,7 +104,7 @@ void ImageDB::slotRecalcCheckSums(const DB::FileNameList& inputList)
         md5Map()->clear();
     }
 
-    bool d = NewImageFinder().calculateMD5sums( ZZZ(list), md5Map() );
+    bool d = NewImageFinder().calculateMD5sums( list, md5Map() );
     if ( d )
         markDirty();
 
@@ -115,7 +115,7 @@ DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
-    NewImageFinder().calculateMD5sums(ZZZ(images()), &map, &wasCanceled);
+    NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
     if ( wasCanceled )
         return DB::FileNameSet();
 

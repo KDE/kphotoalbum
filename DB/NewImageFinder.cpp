@@ -289,7 +289,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 }
 
 bool  NewImageFinder::calculateMD5sums(
-    const DB::IdList& list,
+    const DB::FileNameList& list,
     DB::MD5Map* md5Map,
     bool* wasCanceled)
 {
@@ -307,8 +307,7 @@ bool  NewImageFinder::calculateMD5sums(
     DB::FileNameList cantRead;
     bool dirty = false;
 
-    Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-        const DB::FileName fileName = info->fileName();
+    Q_FOREACH(const FileName& fileName, list) {
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -326,13 +325,14 @@ bool  NewImageFinder::calculateMD5sums(
             continue;
         }
 
+        ImageInfoPtr info = ImageDB::instance()->info(fileName);
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
             ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
 
-        md5Map->insert( md5, info->fileName() );
+        md5Map->insert( md5, fileName );
 
         ++count;
     }

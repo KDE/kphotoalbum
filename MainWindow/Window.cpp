@@ -1283,7 +1283,7 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 void MainWindow::Window::slotShowNotOnDisk()
 {
     DB::IdList notOnDisk;
-    Q_FOREACH(DB::Id id, DB::ImageDB::instance()->images()) {
+    Q_FOREACH(DB::Id id, ZZZ(DB::ImageDB::instance()->images())) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         if ( !info->fileName().exists() )
             notOnDisk.append(id);

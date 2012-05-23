@@ -22,7 +22,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <QDebug>
-
+#include <DB/FileNameList.h>
 using namespace DB;
 
 ImageInfoList ImageInfoList::sort() const
@@ -124,4 +124,12 @@ void ImageInfoList::remove( const ImageInfoPtr& info )
             return;
         }
     }
+}
+
+DB::FileNameList ImageInfoList::files() const
+{
+    DB::FileNameList res;
+    Q_FOREACH( const ImageInfoPtr& info, *this)
+        res.append(info->fileName());
+    return res;
 }

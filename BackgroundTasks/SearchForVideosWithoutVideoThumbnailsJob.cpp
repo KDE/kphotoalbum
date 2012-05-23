@@ -27,7 +27,7 @@
 
 void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
-    const DB::IdList images = DB::ImageDB::instance()->images();
+    const DB::IdList images = ZZZ(DB::ImageDB::instance()->images());
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
 
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {

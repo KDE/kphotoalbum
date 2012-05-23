@@ -62,7 +62,7 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName,
 void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 {
     ImageManager::ThumbnailCache::instance()->flush();
-    const DB::IdList images = DB::ImageDB::instance()->images();
+    const DB::IdList images =ZZZ(DB::ImageDB::instance()->images());
     scheduleThumbnailBuild( images.fetchInfos(), when );
 }
 
@@ -74,7 +74,7 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
-    const DB::IdList images = DB::ImageDB::instance()->images();
+    const DB::IdList images = ZZZ(DB::ImageDB::instance()->images());
     const QList<DB::ImageInfoPtr> list = images.fetchInfos();
     QList<DB::ImageInfoPtr> needed;
     Q_FOREACH( const DB::ImageInfoPtr& info, list ) {

@@ -23,6 +23,7 @@
 #include "DB/ImageInfoList.h"
 #include "DB/MediaCount.h"
 #include <DB/FileNameList.h>
+#include <DB/IdList.h>
 
 class QProgressBar;
 
@@ -43,6 +44,7 @@ class ImageDB  :public QObject {
     Q_OBJECT
 
 public:
+    virtual DB::IdList ZZZ( const DB::FileNameList& list ) = 0;
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
     static void deleteInstance();
@@ -85,7 +87,7 @@ public: // Methods that must be overridden
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
-    virtual IdList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
+    virtual FileNameList images() = 0;
     virtual void addImages( const ImageInfoList& images ) = 0;
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
@@ -179,6 +181,10 @@ signals:
     void imagesDeleted( const DB::IdList& );
 };
 
+}
+
+inline DB::IdList ZZZ( const DB::FileNameList& list ) {
+    return DB::ImageDB::instance()->ZZZ(list);
 }
 
 #endif /* IMAGEDB_H */

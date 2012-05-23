@@ -296,13 +296,9 @@ bool XMLDB::Database::isBlocking( const DB::FileName& fileName )
 }
 
 
-DB::IdList XMLDB::Database::images()
+DB::FileNameList XMLDB::Database::images()
 {
-    QList<DB::RawId> result;
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        result.append( _idMapper[(*it)->fileName()]);
-    }
-    return DB::IdList(result);
+    return _images.files();
 }
 
 DB::IdList XMLDB::Database::search(
@@ -677,4 +673,13 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
     if (id.isNull() || !_idMapper.exists(id.rawId()) )
         return DB::ImageInfoPtr(NULL);
     return info( _idMapper[id.rawId()]);
+}
+
+DB::IdList XMLDB::Database::ZZZ( const DB::FileNameList& list )
+{
+    QList<DB::RawId> result;
+    Q_FOREACH( const DB::FileName& fileName, list )
+        result.append( _idMapper[fileName]);
+
+    return DB::IdList(result);
 }

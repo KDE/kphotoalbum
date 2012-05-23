@@ -136,7 +136,7 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
                 foreach( const DB::FileName& a, showIfStacked ) {
 
                     if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)).isEmpty() )
-                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)))
+                        foreach( DB::Id b, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a))))
                             toBeShown.append( b );
                     else
                         toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
@@ -184,14 +184,14 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image
                 if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                    foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ) )
+                    foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ) ) )
                         toBeShown.append( a );
                 else
                     toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
             }
             // Inserting stacked images from the current image
             if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ) )
+                foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ) ) )
                     toBeShown.append( a );
             else
                 toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );

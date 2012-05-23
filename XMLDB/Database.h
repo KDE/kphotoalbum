@@ -75,7 +75,7 @@ namespace XMLDB {
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
         OVERRIDE bool stack(const DB::FileNameList& items);
         OVERRIDE void unstack(const DB::FileNameList& images);
-        OVERRIDE DB::IdList getStackFor(const DB::Id& referenceId) const;
+        OVERRIDE DB::FileNameList getStackFor(const DB::Id& referenceId) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&) const;
         OVERRIDE DB::Id ID_FOR_FILE( const DB::FileName& ) const;

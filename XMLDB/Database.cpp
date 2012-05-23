@@ -453,7 +453,7 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
 void XMLDB::Database::unstack(const DB::FileNameList& items)
 {
     Q_FOREACH(DB::Id id, ZZZ(items)) {
-        DB::IdList allInStack = getStackFor(id);
+        DB::IdList allInStack = ZZZ(getStackFor(id));
         if (allInStack.size() <= 2) {
             // we're destroying stack here
             Q_FOREACH(DB::ImageInfoPtr imgInfo, allInStack.fetchInfos()) {
@@ -479,16 +479,16 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
         emit dirty();
 }
 
-DB::IdList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
+DB::FileNameList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
 {
     DB::ImageInfoPtr imageInfo = info( referenceImg );
 
     if ( !imageInfo || ! imageInfo->isStacked() )
-        return DB::IdList();
+        return DB::FileNameList();
 
     StackMap::iterator found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
-        return found.value();
+        return ZZZ(found.value());
 
     // it wasn't in the cache -> rebuild it
     _stackMap.clear();
@@ -501,9 +501,9 @@ DB::IdList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
 
     found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
-        return found.value();
+        return ZZZ(found.value());
     else
-        return DB::IdList();
+        return DB::FileNameList();
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )

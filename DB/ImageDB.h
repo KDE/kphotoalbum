@@ -164,7 +164,7 @@ public: // Methods that must be overridden
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual DB::IdList getStackFor(const DB::Id& referenceId) const = 0;
+    virtual DB::FileNameList getStackFor(const DB::Id& referenceId) const = 0;
 
  protected:
     friend class DB::Id;

@@ -78,7 +78,7 @@ public:
     static QString NONE();
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
-    virtual DB::Id findFirstItemInRange(
+    virtual DB::FileName findFirstItemInRange(
         const FileNameList& images,
         const ImageDate& range,
         bool includeRanges) const;

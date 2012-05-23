@@ -248,8 +248,8 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
 void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
-    DB::Id candidate = DB::ImageDB::instance()
-                             ->findFirstItemInRange(ZZZ(model()->imageList(ViewOrder)), date, includeRanges);
+    DB::Id candidate = ZZZ(DB::ImageDB::instance()
+                             ->findFirstItemInRange(ZZZ(model()->imageList(ViewOrder)), date, includeRanges));
     if ( !candidate.isNull() )
         setCurrentItem( candidate );
 

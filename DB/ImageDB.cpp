@@ -164,7 +164,7 @@ void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
     }
 }
 
-DB::Id ImageDB::findFirstItemInRange(const DB::FileNameList& images,
+DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {
@@ -186,7 +186,7 @@ DB::Id ImageDB::findFirstItemInRange(const DB::FileNameList& images,
             }
         }
     }
-    return candidate;
+    return ZZZ(candidate);
 }
 
 DB::FileNameList ImageDB::ZZZ(const IdList & idList) const

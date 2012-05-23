@@ -46,7 +46,6 @@ class ImageDB  :public QObject {
 
 public:
     virtual DB::IdList ZZZ( const DB::FileNameList& list )  const= 0;
-    DB::FileNameList ZZZ(const DB::IdList& list ) const { return CONVERT2(list); }
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
     static void deleteInstance();
@@ -120,7 +119,7 @@ public: // Methods that must be overridden
      */
     virtual QStringList CONVERT(const DB::IdList&) const = 0; //QWERTY DIE
 
-    DB::FileNameList CONVERT2(const DB::IdList&) const; // QWERTY DIE
+    DB::FileNameList ZZZ(const DB::IdList&) const; // QWERTY DIE
     /**
      * there are some cases in which we have a filename and need to map back
      * to ID. Provided here to push down that part of refactoring. It
@@ -190,7 +189,7 @@ inline DB::IdList ZZZ( const DB::FileNameList& list ) {
 }
 
 inline DB::FileNameList ZZZ( const DB::IdList& list ) {
-    return DB::ImageDB::instance()->CONVERT2(list);
+    return DB::ImageDB::instance()->ZZZ(list);
 }
 
 inline DB::Id ZZZ( const DB::FileName& fileName ) {

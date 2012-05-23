@@ -189,7 +189,7 @@ DB::Id ImageDB::findFirstItemInRange(const DB::FileNameList& images,
     return candidate;
 }
 
-DB::FileNameList ImageDB::CONVERT2(const IdList & idList) const
+DB::FileNameList ImageDB::ZZZ(const IdList & idList) const
 {
     QStringList list = CONVERT(idList);
     DB::FileNameList res;

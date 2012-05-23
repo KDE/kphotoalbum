@@ -98,13 +98,13 @@ void ImageDB::slotRescan()
 
 void ImageDB::slotRecalcCheckSums(const DB::FileNameList& inputList)
 {
-    DB::IdList list = ZZZ(inputList);
+    DB::FileNameList list = inputList;
     if (list.isEmpty()) {
-        list = ZZZ(images());
+        list = images();
         md5Map()->clear();
     }
 
-    bool d = NewImageFinder().calculateMD5sums( list, md5Map() );
+    bool d = NewImageFinder().calculateMD5sums( ZZZ(list), md5Map() );
     if ( d )
         markDirty();
 

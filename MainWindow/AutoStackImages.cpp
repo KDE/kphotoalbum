@@ -141,7 +141,7 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
                     else
                         toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
                 }
-                DB::ImageDB::instance()->stack( stack );
+                DB::ImageDB::instance()->stack( ZZZ(stack) );
             }
             showIfStacked.clear();
         }
@@ -195,7 +195,7 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
                     toBeShown.append( a );
             else
                 toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
-            DB::ImageDB::instance()->stack( stack );
+            DB::ImageDB::instance()->stack( ZZZ(stack) );
         }
 
         prev = info;

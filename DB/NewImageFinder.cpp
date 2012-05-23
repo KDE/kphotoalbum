@@ -276,7 +276,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
                 tostack.append( tmp );
             }
         }
-        DB::ImageDB::instance()->stack(tostack);
+        DB::ImageDB::instance()->stack(ZZZ(tostack));
         MainWindow::Window::theMainWindow()->setStackHead( newerfile );
 
         // ordering: XXX we ideally want to place the new image right

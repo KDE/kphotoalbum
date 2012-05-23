@@ -147,7 +147,7 @@ public: // Methods that must be overridden
      * the stack. The order of images which were already in the stack is not
      * changed.
      * */
-    virtual bool stack(const DB::IdList& items) = 0;
+    virtual bool stack(const DB::FileNameList& items) = 0;
 
     /** @short Remove all images from whichever stacks they might be in
      *

@@ -414,14 +414,14 @@ void XMLDB::Database::insertList(
 }
 
 
-bool XMLDB::Database::stack(const DB::IdList& items)
+bool XMLDB::Database::stack(const DB::FileNameList& items)
 {
     unsigned int changed = 0;
     QSet<DB::StackID> stacks;
     QList<DB::ImageInfoPtr> images;
     unsigned int stackOrder = 1;
 
-    Q_FOREACH(DB::ImageInfoPtr imgInfo, items.fetchInfos()) {
+    Q_FOREACH(DB::ImageInfoPtr imgInfo, ZZZ(items).fetchInfos()) {
         Q_ASSERT( imgInfo );
         if ( imgInfo->isStacked() ) {
             stacks << imgInfo->stackId();

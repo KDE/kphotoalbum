@@ -73,7 +73,7 @@ namespace XMLDB {
 
         static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        OVERRIDE bool stack(const DB::IdList& items);
+        OVERRIDE bool stack(const DB::FileNameList& items);
         OVERRIDE void unstack(const DB::IdList& images);
         OVERRIDE DB::IdList getStackFor(const DB::Id& referenceId) const;
 

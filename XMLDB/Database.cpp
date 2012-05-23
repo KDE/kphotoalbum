@@ -125,12 +125,12 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
 void XMLDB::Database::addToBlockList(const DB::FileNameList& list)
 {
     _blockList.append(list);
-    deleteList( ZZZ(list) );
+    deleteList( list );
 }
 
-void XMLDB::Database::deleteList(const DB::IdList& list)
+void XMLDB::Database::deleteList(const DB::FileNameList& list)
 {
-    Q_FOREACH(DB::Id id, list) {
+    Q_FOREACH(DB::Id id, ZZZ(list)) {
         DB::ImageInfoPtr inf = id.fetchInfo();
         StackMap::iterator found = _stackMap.find(inf->stackId());
         if ( inf->isStacked() && found != _stackMap.end() ) {
@@ -158,7 +158,7 @@ void XMLDB::Database::deleteList(const DB::IdList& list)
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
-    emit imagesDeleted( list );
+    emit imagesDeleted( ZZZ(list) );
 }
 
 void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )

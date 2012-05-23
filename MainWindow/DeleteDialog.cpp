@@ -123,7 +123,7 @@ void DeleteDialog::deleteImages()
 
     if(!listToDelete.isEmpty()) {
         if ( _deleteFile->isChecked() || _useTrash->isChecked() )
-            DB::ImageDB::instance()->deleteList( listToDelete );
+            DB::ImageDB::instance()->deleteList( ZZZ(listToDelete) );
         else
             DB::ImageDB::instance()->addToBlockList( ZZZ(listToDelete) );
         MainWindow::DirtyIndicator::markDirty();

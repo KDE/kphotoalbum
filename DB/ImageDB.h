@@ -96,7 +96,7 @@ public: // Methods that must be overridden
 
     virtual void addToBlockList(const DB::FileNameList& list) = 0;
     virtual bool isBlocking( const DB::FileName& fileName ) = 0;
-    virtual void deleteList(const DB::IdList& list) = 0;
+    virtual void deleteList(const DB::FileNameList& list) = 0;
     virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0; //QWERTY DIE
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;

@@ -68,8 +68,7 @@ QString ImageDB::NONE()
 
 DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const
 {
-    // TODO: DEPENDENCY: DB:: should not depend on other directories.
-    return ZZZ(search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk ));
+    return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
 }
 
 void ImageDB::markDirty()
@@ -132,7 +131,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
     uint images = 0;
     uint videos = 0;
-    Q_FOREACH(const DB::ImageInfoPtr inf, search(searchInfo).fetchInfos()) {
+    Q_FOREACH(const DB::ImageInfoPtr inf, ZZZ(search(searchInfo)).fetchInfos()) {
         if ( inf->mediaType() == Image )
             ++images;
         else

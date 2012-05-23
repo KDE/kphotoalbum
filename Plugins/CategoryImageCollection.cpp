@@ -41,7 +41,7 @@ KUrl::List Plugins::CategoryImageCollection::images()
 {
     DB::ImageSearchInfo context( _context );
     context.addAnd( _category, _value );
-    QStringList list = DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->search( context, true ));
+    QStringList list = DB::ImageDB::instance()->CONVERT(ZZZ(DB::ImageDB::instance()->search( context, true )));
     return stringListToUrlList( list );
 }
 #endif // KIPI

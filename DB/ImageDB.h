@@ -45,7 +45,7 @@ class ImageDB  :public QObject {
     Q_OBJECT
 
 public:
-    virtual DB::IdList ZZZ( const DB::FileNameList& list ) = 0;
+    virtual DB::IdList ZZZ( const DB::FileNameList& list )  const= 0;
     DB::FileNameList ZZZ(const DB::IdList& list ) const { return CONVERT2(list); }
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
@@ -84,7 +84,7 @@ public:
 
 public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
-    virtual DB::IdList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
+    virtual DB::FileNameList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 

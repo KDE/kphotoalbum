@@ -301,11 +301,11 @@ DB::FileNameList XMLDB::Database::images()
     return _images.files();
 }
 
-DB::IdList XMLDB::Database::search(
+DB::FileNameList XMLDB::Database::search(
     const DB::ImageSearchInfo& info,
     bool requireOnDisk) const
 {
-    return searchPrivate( info, requireOnDisk, true );
+    return ZZZ(searchPrivate( info, requireOnDisk, true ));
 }
 
 DB::IdList XMLDB::Database::searchPrivate(
@@ -675,7 +675,7 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
     return info( _idMapper[id.rawId()]);
 }
 
-DB::IdList XMLDB::Database::ZZZ( const DB::FileNameList& list )
+DB::IdList XMLDB::Database::ZZZ( const DB::FileNameList& list ) const
 {
     QList<DB::RawId> result;
     Q_FOREACH( const DB::FileName& fileName, list )

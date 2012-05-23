@@ -42,9 +42,10 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        DB::IdList ZZZ( const DB::FileNameList& list );
+        DB::IdList ZZZ( const DB::FileNameList& list ) const;
+        DB::FileNameList ZZZ(const DB::IdList& list ) const { return DB::ImageDB::ZZZ(list); }
         OVERRIDE uint totalCount() const;
-        OVERRIDE DB::IdList search(
+        OVERRIDE DB::FileNameList search(
             const DB::ImageSearchInfo&,
             bool requireOnDisk=false) const;
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );

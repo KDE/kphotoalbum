@@ -386,7 +386,7 @@ DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMo
                             )
                     {
                         // add all images in the same stack
-                        DB::IdList stack = ZZZ(DB::ImageDB::instance()->getStackFor( currId ));
+                        DB::IdList stack = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(currId) ));
                         Q_FOREACH( const DB::Id & id, stack )
                             res.append(id);
                     } else

@@ -453,7 +453,7 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
 void XMLDB::Database::unstack(const DB::FileNameList& items)
 {
     Q_FOREACH(DB::Id id, ZZZ(items)) {
-        DB::IdList allInStack = ZZZ(getStackFor(id));
+        DB::IdList allInStack = ZZZ(getStackFor(ZZZ(id)));
         if (allInStack.size() <= 2) {
             // we're destroying stack here
             Q_FOREACH(DB::ImageInfoPtr imgInfo, allInStack.fetchInfos()) {
@@ -479,7 +479,7 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
         emit dirty();
 }
 
-DB::FileNameList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
+DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) const
 {
     DB::ImageInfoPtr imageInfo = info( referenceImg );
 

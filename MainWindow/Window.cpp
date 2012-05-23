@@ -368,7 +368,7 @@ void MainWindow::Window::setStackHead( const DB::Id image )
 
     unsigned int oldOrder = image.fetchInfo()->stackOrder();
 
-    DB::IdList others = ZZZ(DB::ImageDB::instance()->getStackFor( image ));
+    DB::IdList others = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(image) ));
     others.fetchInfos();
     for ( DB::IdList::const_iterator it = others.begin(); it != others.end(); ++it ) {
         DB::Id current = *it;

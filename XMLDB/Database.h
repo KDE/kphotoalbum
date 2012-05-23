@@ -43,6 +43,7 @@ namespace XMLDB {
 
     public:
         DB::IdList ZZZ( const DB::FileNameList& list ) const;
+        DB::FileName ZZZ( const DB::Id& id ) const { return ImageDB::ZZZ(id); }
         DB::FileNameList ZZZ(const DB::IdList& list ) const { return DB::ImageDB::ZZZ(list); }
         OVERRIDE uint totalCount() const;
         OVERRIDE DB::FileNameList search(
@@ -75,7 +76,7 @@ namespace XMLDB {
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
         OVERRIDE bool stack(const DB::FileNameList& items);
         OVERRIDE void unstack(const DB::FileNameList& images);
-        OVERRIDE DB::FileNameList getStackFor(const DB::Id& referenceId) const;
+        OVERRIDE DB::FileNameList getStackFor(const DB::FileName& referenceId) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&) const;
         OVERRIDE DB::Id ZZZ( const DB::FileName& ) const;

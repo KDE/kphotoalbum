@@ -269,7 +269,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         tostack.append(newerfile);
 
         DB::IdList oldStack;
-        if ( ( oldStack = ZZZ(DB::ImageDB::instance()->getStackFor( olderfile )) ).isEmpty() ) {
+        if ( ( oldStack = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(olderfile) )) ).isEmpty() ) {
             tostack.append(olderfile);
         } else {
             Q_FOREACH( DB::Id tmp, oldStack ) {

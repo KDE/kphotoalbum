@@ -46,6 +46,8 @@ class ImageDB  :public QObject {
 
 public:
     virtual DB::IdList ZZZ( const DB::FileNameList& list )  const= 0;
+    DB::FileName ZZZ( const DB::Id& id ) const { return id.fetchInfo()->fileName(); }
+
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
     static void deleteInstance();
@@ -163,7 +165,7 @@ public: // Methods that must be overridden
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual DB::FileNameList getStackFor(const DB::Id& referenceId) const = 0;
+    virtual DB::FileNameList getStackFor(const DB::FileName& referenceId) const = 0;
 
  protected:
     friend class DB::Id;

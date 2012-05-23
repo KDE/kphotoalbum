@@ -131,8 +131,8 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
     uint images = 0;
     uint videos = 0;
-    Q_FOREACH(const DB::ImageInfoPtr inf, ZZZ(search(searchInfo)).fetchInfos()) {
-        if ( inf->mediaType() == Image )
+    Q_FOREACH(const DB::FileName& fileName, search(searchInfo)) {
+        if ( info(fileName)->mediaType() == Image )
             ++images;
         else
             ++videos;

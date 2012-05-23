@@ -66,10 +66,10 @@ QString ImageDB::NONE()
     return QString::fromLatin1("**NONE**");
 }
 
-DB::IdList ImageDB::currentScope(bool requireOnDisk) const
+DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const
 {
     // TODO: DEPENDENCY: DB:: should not depend on other directories.
-    return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
+    return ZZZ(search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk ));
 }
 
 void ImageDB::markDirty()

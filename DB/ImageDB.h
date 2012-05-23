@@ -75,7 +75,7 @@ protected:
 
 public:
     static QString NONE();
-    DB::IdList currentScope(bool requireOnDisk) const;
+    DB::FileNameList currentScope(bool requireOnDisk) const;
 
     virtual DB::Id findFirstItemInRange(
         const IdList& images,

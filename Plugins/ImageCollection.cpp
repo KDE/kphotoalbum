@@ -70,7 +70,7 @@ KUrl::List Plugins::ImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
-        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->currentScope( false ) ));
+        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(ZZZ(DB::ImageDB::instance()->currentScope( false ) )));
 
     case CurrentSelection:
         return stringListToUrlList( DB::ImageDB::instance()->CONVERT(MainWindow::Window::theMainWindow()->selected( ThumbnailView::NoExpandCollapsedStacks) ));

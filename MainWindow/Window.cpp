@@ -564,7 +564,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 {
     const DB::IdList& list = selected( ThumbnailView::NoExpandCollapsedStacks );
     if (list.isEmpty())
-        return DB::ImageDB::instance()->currentScope( true );
+        return ZZZ(DB::ImageDB::instance()->currentScope( true ));
 
     DB::IdList listOnDisk;
     Q_FOREACH(DB::Id id, list) {
@@ -596,7 +596,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
     }
 
     if (mediaList.isEmpty())
-        mediaList = DB::ImageDB::instance()->currentScope( false );
+        mediaList = ZZZ(DB::ImageDB::instance()->currentScope( false ));
 
     if (mediaList.isEmpty()) {
         KMessageBox::sorry( this, i18n("There are no images to be shown.") );

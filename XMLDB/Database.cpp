@@ -122,12 +122,10 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
     }
 }
 
-void XMLDB::Database::addToBlockList(const DB::IdList& list)
+void XMLDB::Database::addToBlockList(const DB::FileNameList& list)
 {
-    Q_FOREACH(DB::ImageInfoPtr inf, list.fetchInfos()) {
-        _blockList << inf->fileName();
-    }
-    deleteList( list );
+    _blockList.append(list);
+    deleteList( ZZZ(list) );
 }
 
 void XMLDB::Database::deleteList(const DB::IdList& list)

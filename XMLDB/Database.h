@@ -55,7 +55,7 @@ namespace XMLDB {
         OVERRIDE void addImages( const DB::ImageInfoList& images );
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName );
 
-        OVERRIDE void addToBlockList(const DB::IdList& list);
+        OVERRIDE void addToBlockList(const DB::FileNameList& list);
         OVERRIDE bool isBlocking( const DB::FileName& fileName );
         OVERRIDE void deleteList(const DB::IdList& list);
         OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;

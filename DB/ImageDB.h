@@ -94,7 +94,7 @@ public: // Methods that must be overridden
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
 
-    virtual void addToBlockList(const DB::IdList& list) = 0;
+    virtual void addToBlockList(const DB::FileNameList& list) = 0;
     virtual bool isBlocking( const DB::FileName& fileName ) = 0;
     virtual void deleteList(const DB::IdList& list) = 0;
     virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0; //QWERTY DIE

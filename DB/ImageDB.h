@@ -78,7 +78,7 @@ public:
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
     virtual DB::Id findFirstItemInRange(
-        const IdList& images,
+        const FileNameList& images,
         const ImageDate& range,
         bool includeRanges) const;
 

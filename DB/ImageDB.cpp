@@ -164,13 +164,13 @@ void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
     }
 }
 
-DB::Id ImageDB::findFirstItemInRange(const DB::IdList& images,
+DB::Id ImageDB::findFirstItemInRange(const DB::FileNameList& images,
                                            const ImageDate& range,
                                            bool includeRanges) const
 {
     DB::Id candidate;
     QDateTime candidateDateStart;
-    Q_FOREACH(DB::Id id, images) {
+    Q_FOREACH(DB::Id id, ZZZ(images)) {
         ImageInfoPtr iInfo = id.fetchInfo();
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);

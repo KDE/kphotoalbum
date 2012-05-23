@@ -63,7 +63,7 @@ namespace XMLDB {
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
-        OVERRIDE void sortAndMergeBackIn(const DB::IdList& idList);
+        OVERRIDE void sortAndMergeBackIn(const DB::FileNameList& idList);
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
         OVERRIDE void reorder(

@@ -629,7 +629,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( selected());
+    DB::ImageDB::instance()->sortAndMergeBackIn( ZZZ(selected()));
     showThumbNails( ZZZ(DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) ));
     DirtyIndicator::markDirty();
 }

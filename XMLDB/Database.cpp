@@ -324,10 +324,10 @@ DB::IdList XMLDB::Database::searchPrivate(
     return DB::IdList(result);
 }
 
-void XMLDB::Database::sortAndMergeBackIn(const DB::IdList& idList)
+void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& idList)
 {
     DB::ImageInfoList infoList;
-    infoList += idList.fetchInfos();
+    infoList += ZZZ(idList).fetchInfos();
     _images.sortAndMergeBackIn(infoList);
 }
 

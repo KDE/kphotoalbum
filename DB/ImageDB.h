@@ -101,7 +101,7 @@ public: // Methods that must be overridden
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
-    virtual void sortAndMergeBackIn(const DB::IdList& idlist) = 0;
+    virtual void sortAndMergeBackIn(const DB::FileNameList& idlist) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;

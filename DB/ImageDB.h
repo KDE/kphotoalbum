@@ -57,7 +57,7 @@ public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
-    void slotRecalcCheckSums(const DB::IdList& selection);
+    void slotRecalcCheckSums(const DB::FileNameList& selection);
     virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const DB::FileNameList& list, DB::ExifMode mode);
 

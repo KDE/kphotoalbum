@@ -96,9 +96,9 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums(const DB::IdList& inputList)
+void ImageDB::slotRecalcCheckSums(const DB::FileNameList& inputList)
 {
-    DB::IdList list = inputList;
+    DB::IdList list = ZZZ(inputList);
     if (list.isEmpty()) {
         list = ZZZ(images());
         md5Map()->clear();

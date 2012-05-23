@@ -1618,7 +1618,7 @@ void MainWindow::Window::showThumbNails(const DB::IdList& items)
 
 void MainWindow::Window::slotRecalcCheckSums()
 {
-    DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
+    DB::ImageDB::instance()->slotRecalcCheckSums( ZZZ(selected()) );
 }
 
 void MainWindow::Window::slotShowExifInfo()

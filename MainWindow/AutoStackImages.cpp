@@ -121,25 +121,25 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
         if ( tostack[it.key()].count() > 1 ) {
             DB::IdList stack = DB::IdList();
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i]) ).isEmpty() ) {
+                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( tostack[it.key()][i]) ).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i])));
+                        DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ZZZ(tostack[it.key()][i])));
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
 
                 showIfStacked.append( tostack[it.key()][i] );
-                stack.append( DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
+                stack.append( DB::ImageDB::instance()->ZZZ(tostack[it.key()][i]));
             }
             if ( stack.size() > 1 ) {
 
                 foreach( const DB::FileName& a, showIfStacked ) {
 
-                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)).isEmpty() )
-                        foreach( DB::Id b, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a))))
+                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ(a)).isEmpty() )
+                        foreach( DB::Id b, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ(a))))
                             toBeShown.append( b );
                     else
-                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
+                        toBeShown.append( DB::ImageDB::instance()->ZZZ(a));
                 }
                 DB::ImageDB::instance()->stack( ZZZ(stack) );
             }
@@ -162,39 +162,39 @@ void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
         if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
             DB::IdList stack = DB::IdList();
 
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ).isEmpty() ) {
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( prev->fileName() ) ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ));
+                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ZZZ( prev->fileName() ) ));
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() ) {
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( info->fileName() ) ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ));
+                    DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ZZZ( info->fileName() ) ));
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+            stack.append( DB::ImageDB::instance()->ZZZ( prev->fileName() ) );
+            stack.append( DB::ImageDB::instance()->ZZZ( info->fileName() ) );
             if ( !toBeShown.isEmpty() ) {
                 if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName() != prev->fileName() )
-                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                    toBeShown.append( DB::ImageDB::instance()->ZZZ( prev->fileName() ) );
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                    foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ) ) )
+                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( info->fileName() ) ).isEmpty() )
+                    foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( prev->fileName() ) ) ) )
                         toBeShown.append( a );
                 else
-                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                    toBeShown.append( DB::ImageDB::instance()->ZZZ( prev->fileName() ) );
             }
             // Inserting stacked images from the current image
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ) ) )
+            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( info->fileName() ) ).isEmpty() )
+                foreach( DB::Id a, ZZZ(DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ZZZ( info->fileName() ) ) ) )
                     toBeShown.append( a );
             else
-                toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+                toBeShown.append( DB::ImageDB::instance()->ZZZ( info->fileName() ) );
             DB::ImageDB::instance()->stack( ZZZ(stack) );
         }
 

@@ -128,7 +128,7 @@ public: // Methods that must be overridden
      * If that turns out to be true, lowercasify this method, and update
      * this comment.
      */
-    virtual DB::Id ID_FOR_FILE( const DB::FileName& ) const = 0; // QWERTY DIE ?
+    virtual DB::Id ZZZ( const DB::FileName& ) const = 0; // QWERTY DIE ?
 
     /** @short Create a stack of images/videos/whatever
      *
@@ -193,7 +193,7 @@ inline DB::FileNameList ZZZ( const DB::IdList& list ) {
 }
 
 inline DB::Id ZZZ( const DB::FileName& fileName ) {
-    return DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    return DB::ImageDB::instance()->ZZZ( fileName );
 }
 
 inline DB::FileName ZZZ(const DB::Id& id ) {

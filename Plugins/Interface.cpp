@@ -111,7 +111,7 @@ void Plugins::Interface::delImage( const KUrl& url )
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(url.path()));
     if ( info ) {
         DB::IdList list;
-        list.append(DB::ImageDB::instance()->ID_FOR_FILE(info->fileName()));
+        list.append(DB::ImageDB::instance()->ZZZ(info->fileName()));
         DB::ImageDB::instance()->deleteList( ZZZ(list) );
     }
 }

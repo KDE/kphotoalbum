@@ -455,14 +455,14 @@ void Viewer::ViewerWidget::load()
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
     if ( _exifViewer )
-        _exifViewer->setImage( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName()) );
+        _exifViewer->setImage( DB::ImageDB::instance()->ZZZ(currentInfo()->fileName()) );
 #endif
 
     Q_FOREACH( QAction* videoAction, _videoActions ) {
         videoAction->setVisible( isVideo );
     }
 
-    emit soughtTo( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
+    emit soughtTo( DB::ImageDB::instance()->ZZZ( _list[ _current ]) );
 
     bool ok = _display->setImage( currentInfo(), _forward );
     if ( !ok ) {
@@ -546,7 +546,7 @@ void Viewer::ViewerWidget::deleteCurrent()
 void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
 {
     const DB::FileName fileName = _list[_current];
-    const DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    const DB::Id id = DB::ImageDB::instance()->ZZZ( fileName );
 
     if ( action == RemoveImageFromDatabase )
         _removed.append(id);
@@ -981,7 +981,7 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ID_FOR_FILE( _list[ _current ]) );
+    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ZZZ( _list[ _current ]) );
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const
@@ -1228,7 +1228,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ID_FOR_FILE(currentInfo()->fileName()), this );
+    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ZZZ(currentInfo()->fileName()), this );
     _exifViewer->show();
 #endif
 

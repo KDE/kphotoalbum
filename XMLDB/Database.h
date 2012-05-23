@@ -78,7 +78,7 @@ namespace XMLDB {
         OVERRIDE DB::FileNameList getStackFor(const DB::Id& referenceId) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&) const;
-        OVERRIDE DB::Id ID_FOR_FILE( const DB::FileName& ) const;
+        OVERRIDE DB::Id ZZZ( const DB::FileName& ) const;
 
     protected:
         DB::IdList searchPrivate(

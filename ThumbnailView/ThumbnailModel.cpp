@@ -290,7 +290,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, 
     if ( loadedOK && !image.isNull() )
         pixmap = QPixmap::fromImage( image );
 #endif
-    DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( fileName );
+    DB::Id id = DB::ImageDB::instance()->ZZZ( fileName );
     DB::ImageInfoPtr imageInfo = id.fetchInfo();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.

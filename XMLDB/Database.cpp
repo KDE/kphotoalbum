@@ -440,7 +440,7 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
             ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        _stackMap[stackId].append(ID_FOR_FILE((*it)->fileName()));
+        _stackMap[stackId].append(ZZZ((*it)->fileName()));
         ++changed;
     }
 
@@ -495,7 +495,7 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::Id& referenceImg) const
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            _stackMap[stackid].append(ID_FOR_FILE((*it)->fileName())); // will need to be sorted later
+            _stackMap[stackid].append(ZZZ((*it)->fileName())); // will need to be sorted later
         }
     }
 
@@ -662,7 +662,7 @@ QStringList XMLDB::Database::CONVERT(const DB::IdList& items) const
     return result;
 }
 
-DB::Id XMLDB::Database::ID_FOR_FILE( const DB::FileName& fileName) const {
+DB::Id XMLDB::Database::ZZZ( const DB::FileName& fileName) const {
     return DB::Id::createContextless(_idMapper[ fileName]);
 }
 

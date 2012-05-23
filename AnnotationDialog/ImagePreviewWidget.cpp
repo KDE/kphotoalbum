@@ -164,7 +164,7 @@ void ImagePreviewWidget::slotDeleteImage()
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfo info = _imageList->at( _current );
 
-    DB::Id idToDelete = DB::ImageDB::instance()->ID_FOR_FILE(info.fileName());
+    DB::Id idToDelete = DB::ImageDB::instance()->ZZZ(info.fileName());
     const DB::IdList deleteList = DB::IdList(idToDelete);
 
     int ret = dialog.exec( deleteList );

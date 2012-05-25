@@ -509,7 +509,7 @@ void MainWindow::Window::slotPasteInformation()
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
         originalInfo = DB::ImageDB::instance()->info( fileName );
     } else {
-        originalInfo = fileName.info()
+        originalInfo = fileName.info();
     }
     Q_FOREACH(const DB::FileName& newFile, selected()) {
         newFile.info()->copyExtraData(*originalInfo, false);

@@ -61,9 +61,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            const DB::IdList selection = ZZZ(widget()->selection( NoExpandCollapsedStacks ));
-            for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
-                DB::ImageInfoPtr info = (*it).fetchInfo();
+            const DB::FileNameList selection = widget()->selection( NoExpandCollapsedStacks );
+            Q_FOREACH( const DB::FileName& fileName, selection ) {
+                DB::ImageInfoPtr info = fileName.info();
                 info->setRating(rating * 2);
             }
             MainWindow::DirtyIndicator::markDirty();

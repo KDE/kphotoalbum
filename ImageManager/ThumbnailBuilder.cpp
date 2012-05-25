@@ -74,12 +74,11 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
-    const DB::IdList images = ZZZ(DB::ImageDB::instance()->images());
-    const QList<DB::ImageInfoPtr> list = images.fetchInfos();
+    const DB::FileNameList images = DB::ImageDB::instance()->images();
     QList<DB::ImageInfoPtr> needed;
-    Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName() ) )
-            needed.append( info );
+    Q_FOREACH( const DB::FileName& fileName, images ) {
+        if ( ! ImageManager::ThumbnailCache::instance()->contains( fileName ) )
+            needed.append( fileName.info() );
     }
     scheduleThumbnailBuild( needed, StartDelayed );
 }

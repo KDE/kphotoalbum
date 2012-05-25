@@ -406,14 +406,14 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList& list = selected();
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
     else {
         DB::ImageInfoList images;
-        Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-            images.append(info);
+        Q_FOREACH( const DB::FileName& fileName, list) {
+            images.append(fileName.info());
         }
         configureImages( images, oneAtATime );
     }

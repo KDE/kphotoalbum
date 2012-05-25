@@ -70,7 +70,7 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::IdList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
+    DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
     void setStackHead( const DB::Id image );

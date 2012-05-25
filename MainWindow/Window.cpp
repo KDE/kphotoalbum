@@ -313,7 +313,7 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if (list.size() < 2) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
@@ -352,7 +352,7 @@ void MainWindow::Window::slotCreateImageStack()
  * */
 void MainWindow::Window::slotSetStackHead()
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if ( list.size() != 1 ) {
         // this should be checked by enabling/disabling of QActions
         return;
@@ -385,7 +385,7 @@ void MainWindow::Window::setStackHead( const DB::Id image )
 
 void MainWindow::Window::slotUnStackImages()
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if (list.isEmpty())
         return;
 
@@ -406,7 +406,7 @@ void MainWindow::Window::slotConfigureImagesOneAtATime()
 
 void MainWindow::Window::configureImages( bool oneAtATime )
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
@@ -468,7 +468,7 @@ void MainWindow::Window::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
-    if ( _deleteDialog->exec( ZZZ(selected()) ) != QDialog::Accepted )
+    if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
         return;
 
     DirtyIndicator::markDirty();
@@ -477,7 +477,7 @@ void MainWindow::Window::slotDeleteSelected()
 void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
-    Q_FOREACH(const DB::ImageInfoPtr info, selected().fetchInfos()) {
+    Q_FOREACH(const DB::ImageInfoPtr info, ZZZ(selected()).fetchInfos()) {
         const QString fileName = info->fileName().absolute();
         urls.append( fileName );
         urlcount++;
@@ -513,7 +513,7 @@ void MainWindow::Window::slotPasteInformation()
         DB::Id ID = DB::ImageDB::instance()->ZZZ( fileName );
         originalInfo = ID.fetchInfo();
     }
-    Q_FOREACH(DB::ImageInfoPtr newInfo, selected().fetchInfos()) {
+    Q_FOREACH(DB::ImageInfoPtr newInfo, ZZZ(selected()).fetchInfos()) {
         newInfo->copyExtraData(*originalInfo, false);
     }
 }
@@ -532,7 +532,7 @@ void MainWindow::Window::slotReReadExifInfo()
 
 void MainWindow::Window::slotAutoStackImages()
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
         return;
@@ -543,12 +543,12 @@ void MainWindow::Window::slotAutoStackImages()
     delete stacker;
 }
 
-DB::IdList MainWindow::Window::selected( ThumbnailView::SelectionMode mode)
+DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode)
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
-        return _thumbnailView->selection(mode);
+        return ZZZ(_thumbnailView->selection(mode));
     else
-        return DB::IdList();
+        return DB::FileNameList();
 }
 
 void MainWindow::Window::slotViewNewWindow()
@@ -562,7 +562,7 @@ void MainWindow::Window::slotViewNewWindow()
  * */
 DB::IdList MainWindow::Window::selectedOnDisk()
 {
-    const DB::IdList& list = selected( ThumbnailView::NoExpandCollapsedStacks );
+    const DB::IdList& list = ZZZ(selected( ThumbnailView::NoExpandCollapsedStacks ));
     if (list.isEmpty())
         return ZZZ(DB::ImageDB::instance()->currentScope( true ));
 
@@ -578,7 +578,7 @@ DB::IdList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    launchViewer( selected( ThumbnailView::NoExpandCollapsedStacks ), reuse, slideShow, random );
+    launchViewer( ZZZ(selected( ThumbnailView::NoExpandCollapsedStacks )), reuse, slideShow, random );
 }
 
 void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reuse, bool slideShow, bool random)
@@ -629,7 +629,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( ZZZ(selected()));
+    DB::ImageDB::instance()->sortAndMergeBackIn( selected());
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
     DirtyIndicator::markDirty();
 }
@@ -660,7 +660,7 @@ void MainWindow::Window::closeEvent( QCloseEvent* e )
 void MainWindow::Window::slotLimitToSelected()
 {
     Utilities::ShowBusyCursor dummy;
-    showThumbNails( ZZZ(selected()) );
+    showThumbNails( selected() );
 }
 
 void MainWindow::Window::setupMenuBar()
@@ -1083,7 +1083,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().fetchInfo();
 
-        externalCommands->populate( info, ZZZ(selected()));
+        externalCommands->populate( info, selected());
         QAction* action = menu.addMenu( externalCommands );
         if (info.isNull() && selected().isEmpty())
             action->setEnabled( false );
@@ -1235,7 +1235,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    const DB::IdList& list = selected();
+    const DB::IdList& list = ZZZ(selected());
     if (list.isEmpty())  {
         KMessageBox::sorry( this, i18n("No item is selected."),
                             i18n("No Selection") );
@@ -1618,7 +1618,7 @@ void MainWindow::Window::showThumbNails(const DB::FileNameList& items)
 
 void MainWindow::Window::slotRecalcCheckSums()
 {
-    DB::ImageDB::instance()->slotRecalcCheckSums( ZZZ(selected()) );
+    DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
 }
 
 void MainWindow::Window::slotShowExifInfo()

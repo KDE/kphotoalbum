@@ -73,7 +73,7 @@ KUrl::List Plugins::ImageCollection::images()
         return stringListToUrlList( DB::ImageDB::instance()->CONVERT(ZZZ(DB::ImageDB::instance()->currentScope( false ) )));
 
     case CurrentSelection:
-        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(MainWindow::Window::theMainWindow()->selected( ThumbnailView::NoExpandCollapsedStacks) ));
+        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(ZZZ(MainWindow::Window::theMainWindow()->selected( ThumbnailView::NoExpandCollapsedStacks) )));
 
     case SubClass:
         qFatal( "The subclass should implement images()" );

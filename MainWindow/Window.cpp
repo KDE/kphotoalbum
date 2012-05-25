@@ -562,18 +562,17 @@ void MainWindow::Window::slotViewNewWindow()
  * */
 DB::IdList MainWindow::Window::selectedOnDisk()
 {
-    const DB::IdList& list = ZZZ(selected( ThumbnailView::NoExpandCollapsedStacks ));
+    const DB::FileNameList list = selected(ThumbnailView::NoExpandCollapsedStacks);
     if (list.isEmpty())
         return ZZZ(DB::ImageDB::instance()->currentScope( true ));
 
-    DB::IdList listOnDisk;
-    Q_FOREACH(DB::Id id, list) {
-        const DB::FileName fileName = id.fetchInfo()->fileName();
+    DB::FileNameList listOnDisk;
+    Q_FOREACH( const DB::FileName& fileName, list) {
         if ( DB::ImageInfo::imageOnDisk( fileName  ) )
-            listOnDisk.append(id);
+            listOnDisk.append(fileName);
     }
 
-    return listOnDisk;
+    return ZZZ(listOnDisk);
 }
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
@@ -629,7 +628,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 
 void MainWindow::Window::slotSortByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn( selected());
+    DB::ImageDB::instance()->sortAndMergeBackIn(selected());
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
     DirtyIndicator::markDirty();
 }

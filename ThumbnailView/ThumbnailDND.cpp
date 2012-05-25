@@ -100,16 +100,16 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes )
     {
         // expand selection so that stacks are always selected as a whole:
-        const DB::IdList selected = ZZZ(widget()->selection( IncludeAllStacks ));
+        const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 
         // protect against self drop
-        if ( selected.indexOf( model()->leftDropItem() ) == -1 && selected.indexOf( model()->rightDropItem() ) == -1 ) {
+        if ( selected.indexOf( ZZZ(model()->leftDropItem()) ) == -1 && selected.indexOf( ZZZ(model()->rightDropItem()) ) == -1 ) {
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
-                DB::ImageDB::instance()->reorder( ZZZ(model()->leftDropItem()), ZZZ(selected), false );
+                DB::ImageDB::instance()->reorder( ZZZ(model()->leftDropItem()), selected, false );
             }
             else
-                DB::ImageDB::instance()->reorder( ZZZ(model()->rightDropItem()), ZZZ(selected), true );
+                DB::ImageDB::instance()->reorder( ZZZ(model()->rightDropItem()), selected, true );
 
             Browser::BrowserWidget::instance()->reload();
         }

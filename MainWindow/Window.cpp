@@ -512,8 +512,8 @@ void MainWindow::Window::slotPasteInformation()
         DB::Id ID = DB::ImageDB::instance()->ZZZ( fileName );
         originalInfo = ID.fetchInfo();
     }
-    Q_FOREACH(DB::ImageInfoPtr newInfo, ZZZ(selected()).fetchInfos()) {
-        newInfo->copyExtraData(*originalInfo, false);
+    Q_FOREACH(const DB::FileName& newFile, selected()) {
+        newFile.info()->copyExtraData(*originalInfo, false);
     }
 }
 

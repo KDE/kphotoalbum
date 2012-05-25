@@ -20,6 +20,7 @@
 #include "FileName.h"
 #include <Utilities/Util.h>
 #include <QFile>
+#include "ImageDB.h"
 
 DB::FileName::FileName()
     : m_isNull(true)
@@ -83,6 +84,11 @@ bool DB::FileName::operator <(const DB::FileName &other) const
 bool DB::FileName::exists() const
 {
     return QFile::exists(absolute());
+}
+
+DB::ImageInfoPtr DB::FileName::info() const
+{
+    return ImageDB::instance()->info(*this);
 }
 
 uint DB::qHash( const DB::FileName& fileName )

@@ -167,12 +167,10 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::Id& id, ZZZ(widget()->selection( NoExpandCollapsedStacks ) )) {
-        const DB::ImageInfoPtr info = id.fetchInfo();
-        const DB::FileName fileName = info->fileName();
+    Q_FOREACH( const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
         ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
-        _model->updateCell( id );
+        _model->updateCell( ZZZ(fileName) );
     }
 }
 

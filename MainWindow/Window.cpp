@@ -1233,14 +1233,14 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
 
 void MainWindow::Window::rotateSelected( int angle )
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList list = selected();
     if (list.isEmpty())  {
         KMessageBox::sorry( this, i18n("No item is selected."),
                             i18n("No Selection") );
     } else {
-        Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-            info->rotate(angle);
-            ImageManager::ThumbnailCache::instance()->removeThumbnail( info->fileName() );
+        Q_FOREACH(const DB::FileName& fileName, list) {
+            fileName.info()->rotate(angle);
+            ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
         _statusBar->_dirtyIndicator->markDirty();
     }

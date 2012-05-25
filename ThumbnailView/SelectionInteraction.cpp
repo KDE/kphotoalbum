@@ -29,7 +29,7 @@
 #include "MainWindow/Window.h"
 #include "ThumbnailWidget.h"
 #include <DB/FileNameList.h>
-#include <DB/ImageDB.h> // ZZZ
+
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),
       _dragInProgress( false ), _dragSelectionInProgress( false )

@@ -313,7 +313,7 @@ void Exif::Database::recreate()
         const DB::ImageInfoPtr info = fileName.info();
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {
-            success &= add(info->fileName());
+            success &= add(fileName);
         }
         if ( i % 10 )
             qApp->processEvents();

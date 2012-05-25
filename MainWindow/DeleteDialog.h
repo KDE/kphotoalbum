@@ -22,7 +22,8 @@
 #include <QLabel>
 #include <kjob.h>
 #include <qradiobutton.h>
-#include "DB/IdList.h"
+#include <DB/FileNameList.h>
+#include <DB/IdList.h>
 
 class QLabel;
 class QCheckBox;
@@ -43,7 +44,7 @@ protected slots:
     void slotKIOJobCompleted( KJob* );
 
 private:
-    DB::IdList _list;
+    DB::FileNameList _list;
     QLabel* _label;
     QRadioButton* _deleteFile;
     QRadioButton* _useTrash;

@@ -84,7 +84,7 @@ int DeleteDialog::exec(const DB::IdList& list)
 
     _label->setText( txt );
     _useTrash->setChecked( true );
-    _list = list;
+    _list = ZZZ(list);
 
     return KDialog::exec();
 }
@@ -92,24 +92,23 @@ int DeleteDialog::exec(const DB::IdList& list)
 void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
-    DB::IdList listToDelete;
+    DB::FileNameList listToDelete;
     KUrl::List listKUrlToDelete;
     KUrl KUrlToDelete;
 
-    Q_FOREACH(const DB::Id id, _list) {
-        const DB::FileName fileName = id.fetchInfo()->fileName();
+    Q_FOREACH(const DB::FileName fileName, _list) {
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
                 KUrlToDelete.setPath(fileName.absolute());
                 listKUrlToDelete.append(KUrlToDelete);
-                listToDelete.append(id);
+                listToDelete.append(fileName);
                 ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             } else {
-                listToDelete.append(id);
+                listToDelete.append(fileName);
                 ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             }
         } else
-            listToDelete.append(id);
+            listToDelete.append(fileName);
     }
 
     if ( _deleteFile->isChecked() || _useTrash->isChecked() ) {
@@ -123,9 +122,9 @@ void DeleteDialog::deleteImages()
 
     if(!listToDelete.isEmpty()) {
         if ( _deleteFile->isChecked() || _useTrash->isChecked() )
-            DB::ImageDB::instance()->deleteList( ZZZ(listToDelete) );
+            DB::ImageDB::instance()->deleteList( listToDelete );
         else
-            DB::ImageDB::instance()->addToBlockList( ZZZ(listToDelete) );
+            DB::ImageDB::instance()->addToBlockList( listToDelete );
         MainWindow::DirtyIndicator::markDirty();
         accept();
     } else {

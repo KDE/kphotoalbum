@@ -28,7 +28,8 @@
 
 #include "MainWindow/Window.h"
 #include "ThumbnailWidget.h"
-
+#include <DB/FileNameList.h>
+#include <DB/ImageDB.h> // ZZZ
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),
       _dragInProgress( false ), _dragSelectionInProgress( false )
@@ -60,7 +61,7 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     KUrl::List urls;
-    Q_FOREACH(DB::ImageInfoPtr info, widget()->selection( NoExpandCollapsedStacks ).fetchInfos()) {
+    Q_FOREACH(DB::ImageInfoPtr info, ZZZ(widget()->selection( NoExpandCollapsedStacks )).fetchInfos()) {
         const QString fileName = info->fileName().absolute();
         urls.append( fileName );
     }

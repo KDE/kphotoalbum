@@ -100,7 +100,7 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes )
     {
         // expand selection so that stacks are always selected as a whole:
-        const DB::IdList selected = widget()->selection( IncludeAllStacks );
+        const DB::IdList selected = ZZZ(widget()->selection( IncludeAllStacks ));
 
         // protect against self drop
         if ( selected.indexOf( model()->leftDropItem() ) == -1 && selected.indexOf( model()->rightDropItem() ) == -1 ) {

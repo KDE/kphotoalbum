@@ -16,13 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionMaintainer.h"
+#include <DB/FileNameList.h>
+#include <DB/ImageDB.h> // ZZZ
 
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     :m_widget(widget), m_model(model), m_enabled(true)
 {
     m_currentItem = widget->currentItem();
     m_currentRow = widget->currentIndex().row();
-    m_selectedItems = widget->selection( NoExpandCollapsedStacks );
+    m_selectedItems = ZZZ(widget->selection( NoExpandCollapsedStacks ));
     if ( m_selectedItems.isEmpty())
         m_firstRow = -1;
     else

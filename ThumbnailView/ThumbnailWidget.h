@@ -28,7 +28,7 @@
 class QTimer;
 class QDateTime;
 
-namespace DB { class ImageDate; class Id; }
+namespace DB { class ImageDate; class Id; class FileNameList;}
 
 
 namespace ThumbnailView
@@ -59,7 +59,7 @@ public:
     // Misc
     int cellWidth() const;
     OVERRIDE void showEvent( QShowEvent* );
-    DB::IdList selection( ThumbnailView::SelectionMode mode ) const;
+    DB::FileNameList selection( ThumbnailView::SelectionMode mode ) const;
     bool isSelected( const DB::Id& id ) const;
     void select( const DB::IdList& );
 

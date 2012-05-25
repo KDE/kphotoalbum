@@ -263,7 +263,8 @@ void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
     cellGeometryInfo()->flushCache();
     updatePalette();
 
-    const DB::IdList selectedItems = selection( NoExpandCollapsedStacks );
+    // const DB::IdList selectedItems = selection( NoExpandCollapsedStacks );
+    // PENDING(blackie) the selection wasn't used
     ThumbnailComponent::model()->reset();
 
     if ( method == ClearSelection )
@@ -365,9 +366,9 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )
     QListView::showEvent( event );
 }
 
-DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMode mode ) const
+DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMode mode ) const
 {
-    DB::IdList res;
+    DB::FileNameList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
         DB::Id currId = model()->imageAt( index.row() );
         bool includeAllStacks = false;
@@ -386,15 +387,13 @@ DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMo
                             )
                     {
                         // add all images in the same stack
-                        DB::IdList stack = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(currId) ));
-                        Q_FOREACH( const DB::Id & id, stack )
-                            res.append(id);
+                        res.append(DB::ImageDB::instance()->getStackFor( ZZZ(currId) ));
                     } else
-                        res.append(currId);
+                        res.append(ZZZ(currId));
                 } 
                 break;
             case NoExpandCollapsedStacks:
-                res.append(currId);
+                res.append(ZZZ(currId));
                 break;
         }
     }
@@ -403,7 +402,7 @@ DB::IdList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::SelectionMo
 
 bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
 {
-    return selection( NoExpandCollapsedStacks ).indexOf( id ) != -1;
+    return selection( NoExpandCollapsedStacks ).indexOf( ZZZ(id) ) != -1;
 }
 
 /**

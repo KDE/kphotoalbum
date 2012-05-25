@@ -19,6 +19,7 @@
 #define THUMBNAILFACADE_H
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
+#include <DB/FileNameList.h>
 
 namespace ThumbnailView
 {
@@ -36,7 +37,7 @@ public:
     QWidget* gui();
     void setCurrentItem( const DB::Id& id );
     void reload( SelectionUpdateMethod method );
-    DB::IdList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
+    DB::FileNameList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
     DB::IdList imageList(Order) const;
     DB::Id mediaIdUnderCursor() const;
     DB::Id currentItem() const;

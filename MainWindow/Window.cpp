@@ -545,7 +545,7 @@ void MainWindow::Window::slotAutoStackImages()
 DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode)
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
-        return ZZZ(_thumbnailView->selection(mode));
+        return _thumbnailView->selection(mode);
     else
         return DB::FileNameList();
 }

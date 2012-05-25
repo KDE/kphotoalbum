@@ -24,6 +24,7 @@
 #include "ThumbnailModel.h"
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
+#include <DB/ImageDB.h> // ZZZ3
 
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = 0;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
@@ -74,7 +75,7 @@ void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
     _widget->reload( method );
 }
 
-DB::IdList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
+DB::FileNameList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
 {
     return _widget->selection(mode);
 }
@@ -166,7 +167,7 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::Id& id, widget()->selection( NoExpandCollapsedStacks ) ) {
+    Q_FOREACH( const DB::Id& id, ZZZ(widget()->selection( NoExpandCollapsedStacks ) )) {
         const DB::ImageInfoPtr info = id.fetchInfo();
         const DB::FileName fileName = info->fileName();
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );

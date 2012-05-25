@@ -477,9 +477,8 @@ void MainWindow::Window::slotDeleteSelected()
 void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
-    Q_FOREACH(const DB::ImageInfoPtr info, ZZZ(selected()).fetchInfos()) {
-        const QString fileName = info->fileName().absolute();
-        urls.append( fileName );
+    Q_FOREACH(const DB::FileName fileName, selected()) {
+        urls.append( fileName.absolute() );
         urlcount++;
     }
     if (urlcount == 1) _paste->setEnabled (true); else _paste->setEnabled(false);

@@ -190,7 +190,7 @@ private:
 
     int m_screenSaverCookie;
     DB::FileNameList _list;
-    DB::IdList _removed;
+    DB::FileNameList _removed;
     int _current;
     QRect _textRect;
     QMenu* _popup;

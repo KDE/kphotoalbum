@@ -546,10 +546,9 @@ void Viewer::ViewerWidget::deleteCurrent()
 void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
 {
     const DB::FileName fileName = _list[_current];
-    const DB::Id id = DB::ImageDB::instance()->ZZZ( fileName );
 
     if ( action == RemoveImageFromDatabase )
-        _removed.append(id);
+        _removed.append(fileName);
     _list.removeAll(fileName);
     if ( _list.isEmpty() )
         close();
@@ -687,7 +686,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
     if ( !_removed.isEmpty() ) {
         MainWindow::DeleteDialog dialog( this );
-        dialog.exec( ZZZ(_removed) );
+        dialog.exec( _removed );
     }
 
     _slideShowTimer->stop();

@@ -27,10 +27,10 @@
 
 void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
-    const DB::IdList images = ZZZ(DB::ImageDB::instance()->images());
-    const QList<DB::ImageInfoPtr> list = images.fetchInfos();
+    const DB::FileNameList images = DB::ImageDB::instance()->images();
 
-    Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
+    Q_FOREACH( const DB::FileName& image, images ) {
+        const DB::ImageInfoPtr info = image.info();
         if ( !info->isVideo() )
             continue;
 

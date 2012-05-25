@@ -313,20 +313,20 @@ void MainWindow::Window::slotOptions()
 
 void MainWindow::Window::slotCreateImageStack()
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList list = selected();
     if (list.size() < 2) {
         // it doesn't make sense to make a stack from one image, does it?
         return;
     }
 
-    bool ok = DB::ImageDB::instance()->stack( ZZZ(list) );
+    bool ok = DB::ImageDB::instance()->stack( list );
     if ( !ok ) {
         if ( KMessageBox::questionYesNo( this,
                     i18n("Some of the selected images already belong to a stack. "
                         "Do you want to remove them from their stacks and create a "
                         "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
-            DB::ImageDB::instance()->unstack( ZZZ(list) );
-            if ( ! DB::ImageDB::instance()->stack( ZZZ(list) ) ) {
+            DB::ImageDB::instance()->unstack(list);
+            if ( ! DB::ImageDB::instance()->stack(list)) {
                 KMessageBox::sorry( this,
                         i18n("Unknown error, stack creation failed."),
                         i18n("Stacking Error"));
@@ -339,7 +339,7 @@ void MainWindow::Window::slotCreateImageStack()
 
     DirtyIndicator::markDirty();
     // The current item might have just became invisible
-    _thumbnailView->setCurrentItem( list.at(0) );
+    _thumbnailView->setCurrentItem( ZZZ(list.at(0)) );
     _thumbnailView->updateDisplayModel();
 }
 

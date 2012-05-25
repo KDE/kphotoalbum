@@ -61,9 +61,8 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     KUrl::List urls;
-    Q_FOREACH(DB::ImageInfoPtr info, ZZZ(widget()->selection( NoExpandCollapsedStacks )).fetchInfos()) {
-        const QString fileName = info->fileName().absolute();
-        urls.append( fileName );
+    Q_FOREACH(const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
+        urls.append( fileName.absolute() );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;

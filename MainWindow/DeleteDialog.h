@@ -23,7 +23,6 @@
 #include <kjob.h>
 #include <qradiobutton.h>
 #include <DB/FileNameList.h>
-#include <DB/IdList.h>
 
 class QLabel;
 class QCheckBox;
@@ -37,7 +36,7 @@ class DeleteDialog :public KDialog {
 
 public:
     DeleteDialog( QWidget* parent );
-    int exec(const DB::IdList& list);
+    int exec(const DB::FileNameList& list);
 
 protected slots:
     void deleteImages();

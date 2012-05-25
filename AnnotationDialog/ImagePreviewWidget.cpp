@@ -167,7 +167,7 @@ void ImagePreviewWidget::slotDeleteImage()
     DB::Id idToDelete = DB::ImageDB::instance()->ZZZ(info.fileName());
     const DB::IdList deleteList = DB::IdList(idToDelete);
 
-    int ret = dialog.exec( deleteList );
+    int ret = dialog.exec( ZZZ(deleteList) );
     if ( ret == QDialog::Rejected ) //Delete Dialog rejected, do nothing
 	  return;
 

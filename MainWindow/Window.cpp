@@ -468,7 +468,7 @@ void MainWindow::Window::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
-    if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
+    if ( _deleteDialog->exec( ZZZ(selected()) ) != QDialog::Accepted )
         return;
 
     DirtyIndicator::markDirty();

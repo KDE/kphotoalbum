@@ -66,7 +66,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
      connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec(const DB::IdList& list)
+int DeleteDialog::exec(const DB::FileNameList& list)
 {
     if (!list.size()) return 0;
 
@@ -84,7 +84,7 @@ int DeleteDialog::exec(const DB::IdList& list)
 
     _label->setText( txt );
     _useTrash->setChecked( true );
-    _list = ZZZ(list);
+    _list = list;
 
     return KDialog::exec();
 }

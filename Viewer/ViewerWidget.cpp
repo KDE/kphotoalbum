@@ -687,7 +687,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
     if ( !_removed.isEmpty() ) {
         MainWindow::DeleteDialog dialog( this );
-        dialog.exec( _removed );
+        dialog.exec( ZZZ(_removed) );
     }
 
     _slideShowTimer->stop();

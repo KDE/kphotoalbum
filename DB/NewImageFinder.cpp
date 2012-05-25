@@ -57,9 +57,8 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    Q_FOREACH( const DB::ImageInfoPtr& info,
-        ZZZ(DB::ImageDB::instance()->images()).fetchInfos() ) {
-        loadedFiles.insert(info->fileName());
+    Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images()) {
+        loadedFiles.insert(fileName);
     }
 
     _pendingLoad.clear();

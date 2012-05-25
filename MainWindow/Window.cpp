@@ -630,7 +630,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
 void MainWindow::Window::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn( ZZZ(selected()));
-    showThumbNails( ZZZ(DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) ));
+    showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
     DirtyIndicator::markDirty();
 }
 
@@ -660,7 +660,7 @@ void MainWindow::Window::closeEvent( QCloseEvent* e )
 void MainWindow::Window::slotLimitToSelected()
 {
     Utilities::ShowBusyCursor dummy;
-    showThumbNails( selected() );
+    showThumbNails( ZZZ(selected()) );
 }
 
 void MainWindow::Window::setupMenuBar()
@@ -1289,7 +1289,7 @@ void MainWindow::Window::slotShowNotOnDisk()
             notOnDisk.append(id);
     }
 
-    showThumbNails(notOnDisk);
+    showThumbNails(ZZZ(notOnDisk));
 }
 
 
@@ -1555,7 +1555,7 @@ void MainWindow::Window::slotShowListOfFiles()
     if (out.isEmpty())
         KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
     else
-        showThumbNails( out );
+        showThumbNails(ZZZ(out) );
 }
 
 void MainWindow::Window::updateDateBar( const Browser::BreadcrumbList& path )
@@ -1609,9 +1609,9 @@ void MainWindow::Window::clearDateRange()
     reloadThumbnails( ThumbnailView::MaintainSelection );
 }
 
-void MainWindow::Window::showThumbNails(const DB::IdList& items)
+void MainWindow::Window::showThumbNails(const DB::FileNameList& items)
 {
-    _thumbnailView->setImageList( items );
+    _thumbnailView->setImageList( ZZZ(items) );
     _statusBar->_partial->setMatchCount(items.size());
     showThumbNails();
 }

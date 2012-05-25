@@ -28,7 +28,7 @@ Browser::ImageViewPage::ImageViewPage( const DB::ImageSearchInfo& info, BrowserW
 
 void Browser::ImageViewPage::activate()
 {
-    MainWindow::Window::theMainWindow()->showThumbNails( ZZZ(DB::ImageDB::instance()->search( searchInfo() ) ));
+    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo()));
 
     if ( !_context.isNull() ) {
         DB::Id id = DB::ImageDB::instance()->ZZZ( _context);

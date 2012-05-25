@@ -130,7 +130,7 @@ void InvalidDateFinder::accept()
     else
         delete info;
 
-    Window::theMainWindow()->showThumbNails( ZZZ(toBeShown) );
+    Window::theMainWindow()->showThumbNails( toBeShown );
 }
 
 #include "InvalidDateFinder.moc"

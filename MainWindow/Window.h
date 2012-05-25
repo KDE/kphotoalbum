@@ -77,7 +77,7 @@ public:
     void setHistogramVisibilty( bool visible ) const;
 
 public slots:
-    void showThumbNails(const DB::IdList& items);
+    void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
 
 protected slots:

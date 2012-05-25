@@ -213,7 +213,7 @@ void AutoStackImages::accept()
     if ( _continuousShooting->isChecked() )
         continuousShooting( toBeShown );
 
-    MainWindow::Window::theMainWindow()->showThumbNails( toBeShown );
+    MainWindow::Window::theMainWindow()->showThumbNails( ZZZ(toBeShown) );
 }
 
 #include "AutoStackImages.moc"

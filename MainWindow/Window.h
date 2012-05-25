@@ -166,7 +166,7 @@ protected:
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    DB::IdList selectedOnDisk();
+    DB::FileNameList selectedOnDisk();
     void setupPluginMenu();
     void launchViewer(const DB::IdList& mediaList, bool reuse, bool slideShow, bool random);
     void setupStatusBar();

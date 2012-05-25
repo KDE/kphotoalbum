@@ -521,7 +521,7 @@ void MainWindow::Window::slotPasteInformation()
 void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::FileNameList files = ZZZ(selectedOnDisk());
+    DB::FileNameList files = selectedOnDisk();
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
@@ -560,19 +560,19 @@ void MainWindow::Window::slotViewNewWindow()
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
  * */
-DB::IdList MainWindow::Window::selectedOnDisk()
+DB::FileNameList MainWindow::Window::selectedOnDisk()
 {
     const DB::FileNameList list = selected(ThumbnailView::NoExpandCollapsedStacks);
     if (list.isEmpty())
-        return ZZZ(DB::ImageDB::instance()->currentScope( true ));
+        return DB::ImageDB::instance()->currentScope(true);
 
     DB::FileNameList listOnDisk;
-    Q_FOREACH( const DB::FileName& fileName, list) {
-        if ( DB::ImageInfo::imageOnDisk( fileName  ) )
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        if (DB::ImageInfo::imageOnDisk(fileName))
             listOnDisk.append(fileName);
     }
 
-    return ZZZ(listOnDisk);
+    return listOnDisk;
 }
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
@@ -925,7 +925,7 @@ void MainWindow::Window::slotExportToHTML()
 {
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLGenerator::HTMLDialog( this );
-    _htmlDialog->exec(selectedOnDisk());
+    _htmlDialog->exec(ZZZ(selectedOnDisk()));
 }
 
 void MainWindow::Window::startAutoSaveTimer()
@@ -1350,7 +1350,7 @@ void MainWindow::Window::slotImport()
 
 void MainWindow::Window::slotExport()
 {
-    ImportExport::Export::imageExport(selectedOnDisk());
+    ImportExport::Export::imageExport(ZZZ(selectedOnDisk()));
 }
 
 void MainWindow::Window::slotReenableMessages()
@@ -1623,7 +1623,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::IdList items = selectedOnDisk();
+    DB::IdList items = ZZZ(selectedOnDisk());
     if (!items.isEmpty()) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog(items.at(0), this);
         exifDialog->show();

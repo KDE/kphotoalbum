@@ -385,11 +385,11 @@ void MainWindow::Window::setStackHead( const DB::Id image )
 
 void MainWindow::Window::slotUnStackImages()
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList& list = selected();
     if (list.isEmpty())
         return;
 
-    DB::ImageDB::instance()->unstack( ZZZ(list) );
+    DB::ImageDB::instance()->unstack(list);
     DirtyIndicator::markDirty();
     _thumbnailView->updateDisplayModel();
 }

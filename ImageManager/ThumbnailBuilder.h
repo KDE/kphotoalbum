@@ -25,6 +25,7 @@
 #include "ImageManager/ImageClientInterface.h"
 #include "DB/ImageInfoPtr.h"
 #include "enums.h"
+#include <DB/FileNameList.h>
 
 namespace MainWindow { class StatusBar; }
 namespace MainWindow { class Window; }
@@ -47,7 +48,7 @@ public:
 
 public slots:
     void cancelRequests( );
-    void scheduleThumbnailBuild( const QList<DB::ImageInfoPtr>& list, ThumbnailBuildStart when );
+    void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );
     void doThumbnailBuild();
 
 private:
@@ -58,7 +59,7 @@ private:
     int m_count;
     bool m_isBuilding;
     QTimer* m_startBuildTimer;
-    QList<DB::ImageInfoPtr> m_thumbnailsToBuild;
+    DB::FileNameList m_thumbnailsToBuild;
 };
 
 }

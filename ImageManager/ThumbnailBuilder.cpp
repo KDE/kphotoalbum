@@ -62,8 +62,7 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName,
 void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 {
     ImageManager::ThumbnailCache::instance()->flush();
-    const DB::IdList images =ZZZ(DB::ImageDB::instance()->images());
-    scheduleThumbnailBuild( images.fetchInfos(), when );
+    scheduleThumbnailBuild( DB::ImageDB::instance()->images(), when );
 }
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
@@ -75,15 +74,15 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
-    QList<DB::ImageInfoPtr> needed;
+    DB::FileNameList needed;
     Q_FOREACH( const DB::FileName& fileName, images ) {
         if ( ! ImageManager::ThumbnailCache::instance()->contains( fileName ) )
-            needed.append( fileName.info() );
+            needed.append( fileName );
     }
     scheduleThumbnailBuild( needed, StartDelayed );
 }
 
-void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const QList<DB::ImageInfoPtr>& list, ThumbnailBuildStart when )
+void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when )
 {
     if ( list.count() == 0 )
         return;
@@ -100,10 +99,10 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_isBuilding = true;
     m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
 
-    Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
+    Q_FOREACH(const DB::FileName& fileName, m_thumbnailsToBuild ) {
         ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( info->fileName(),
-                                              ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+            = new ImageManager::PreloadRequest( fileName,
+                                              ThumbnailView::CellGeometry::preferredIconSize(), fileName.info()->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );

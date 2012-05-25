@@ -70,10 +70,10 @@ KUrl::List Plugins::ImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
-        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(ZZZ(DB::ImageDB::instance()->currentScope( false ) )));
+        return stringListToUrlList( DB::ImageDB::instance()->currentScope( false ).toStringList(DB::AbsolutePath));
 
     case CurrentSelection:
-        return stringListToUrlList( DB::ImageDB::instance()->CONVERT(ZZZ(MainWindow::Window::theMainWindow()->selected( ThumbnailView::NoExpandCollapsedStacks) )));
+        return stringListToUrlList( MainWindow::Window::theMainWindow()->selected(ThumbnailView::NoExpandCollapsedStacks).toStringList(DB::AbsolutePath));
 
     case SubClass:
         qFatal( "The subclass should implement images()" );

@@ -137,7 +137,7 @@ void ThumbnailView::ThumbnailFacade::updateDisplayModel()
 
 void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::Id& id)
 {
-    _widget->changeSingleSelection(id);
+    _widget->changeSingleSelection(ZZZ(id));
 }
 
 ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailFacade::model()

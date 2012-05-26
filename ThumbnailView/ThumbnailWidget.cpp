@@ -410,12 +410,12 @@ bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
    if there only are one item selected. This is used from the Viewer when
    you start it without a selection, and are going forward or backward.
 */
-void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::Id& id)
+void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& fileName)
 {
     if ( selection( NoExpandCollapsedStacks ).size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();
-        selection->select( model()->idToIndex(id), QItemSelectionModel::ClearAndSelect );
-        setCurrentItem(ZZZ(id));
+        selection->select( model()->idToIndex(ZZZ(fileName)), QItemSelectionModel::ClearAndSelect );
+        setCurrentItem(fileName);
     }
 }
 

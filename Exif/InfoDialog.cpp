@@ -32,7 +32,7 @@
 
 using Utilities::StringSet;
 
-Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
+Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
     :KDialog( parent )
 {
     setWindowTitle( i18n("EXIF Information") );
@@ -91,7 +91,7 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
 
     connect( m_grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
     connect( m_iptcCharset, SIGNAL( activated( const QString& ) ), m_grid, SLOT( slotCharsetChange( const QString& ) ) );
-    setImage(ZZZ(id));
+    setImage(fileName);
     updateSearchString( QString() );
 }
 

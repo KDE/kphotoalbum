@@ -1227,7 +1227,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    _exifViewer = new Exif::InfoDialog( DB::ImageDB::instance()->ZZZ(currentInfo()->fileName()), this );
+    _exifViewer = new Exif::InfoDialog( currentInfo()->fileName(), this );
     _exifViewer->show();
 #endif
 

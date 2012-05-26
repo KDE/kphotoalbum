@@ -1621,7 +1621,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HAVE_EXIV2
-    DB::IdList items = ZZZ(selectedOnDisk());
+    DB::FileNameList items = selectedOnDisk();
     if (!items.isEmpty()) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog(items.at(0), this);
         exifDialog->show();

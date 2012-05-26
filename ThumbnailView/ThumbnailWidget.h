@@ -52,7 +52,7 @@ public:
 
     bool isMouseOverStackIndicator( const QPoint& point );
     bool isGridResizing() const;
-    void setCurrentItem(  const DB::Id& id );
+    void setCurrentItem(  const DB::FileName& fileName );
     DB::Id currentItem() const;
     void changeSingleSelection(const DB::Id& id);
 

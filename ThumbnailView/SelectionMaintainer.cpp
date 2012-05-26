@@ -37,13 +37,13 @@ ThumbnailView::SelectionMaintainer::~SelectionMaintainer()
         return;
 
    // We need to set the current item before we set the selection
-    m_widget->setCurrentItem(m_currentItem);
+    m_widget->setCurrentItem(ZZZ(m_currentItem));
 
     // If the previoius current item was deleted, then set the last item of the selection current
     // This, however, need to be an actualt item, some of the previous selected items might have been deleted.
     if ( m_widget->currentItem().isNull() ) {
         for ( int i = m_selectedItems.size()-1; i >= 0; --i ) {
-            m_widget->setCurrentItem(m_selectedItems.at(i));
+            m_widget->setCurrentItem(ZZZ(m_selectedItems.at(i)));
             if (!m_widget->currentItem().isNull() )
                  break;
         }

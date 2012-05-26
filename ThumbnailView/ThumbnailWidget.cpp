@@ -248,8 +248,8 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
 void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
-    DB::Id candidate = ZZZ(DB::ImageDB::instance()
-                             ->findFirstItemInRange(ZZZ(model()->imageList(ViewOrder)), date, includeRanges));
+    DB::FileName candidate = DB::ImageDB::instance()
+                             ->findFirstItemInRange(ZZZ(model()->imageList(ViewOrder)), date, includeRanges);
     if ( !candidate.isNull() )
         setCurrentItem( candidate );
 
@@ -307,12 +307,12 @@ void ThumbnailView::ThumbnailWidget::dragEnterEvent( QDragEnterEvent * event )
     _dndHandler->contentsDragEnterEvent( event );
 }
 
-void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::Id& id )
+void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::FileName& fileName )
 {
-    if ( id.isNull() )
+    if ( fileName.isNull() )
         return;
 
-    const int row = model()->indexOf(id);
+    const int row = model()->indexOf(ZZZ(fileName));
     setCurrentIndex( QListView::model()->index( row, 0 ) );
 }
 
@@ -415,7 +415,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::Id& id)
     if ( selection( NoExpandCollapsedStacks ).size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();
         selection->select( model()->idToIndex(id), QItemSelectionModel::ClearAndSelect );
-        setCurrentItem( id );
+        setCurrentItem(ZZZ(id));
     }
 }
 

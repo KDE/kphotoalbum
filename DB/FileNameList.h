@@ -33,6 +33,7 @@ class FileNameList : public QList<DB::FileName>
 public:
     QStringList toStringList(DB::PathType) const;
     FileNameList& operator<<(const DB::FileName& );
+    FileNameList reversed() const;
 };
 
 }

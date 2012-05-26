@@ -26,6 +26,7 @@
 #include "DB/ImageInfo.h"
 #include "enums.h"
 #include <QPixmap>
+#include <DB/FileNameList.h>
 
 namespace ThumbnailView
 {
@@ -107,20 +108,20 @@ private: // Instance variables.
      * shown, ie. it exclude images from stacks that are collapsed and thus
      * not visible.
      */
-    DB::IdList _displayList;
+    DB::FileNameList _displayList;
 
     /** The input list for images. See documentation for _displayList */
-    DB::IdList _imageList;
+    DB::FileNameList _imageList;
 
     /**
      * File which should have drop indication point drawn on its left side
      */
-    DB::Id _leftDrop;
+    DB::FileName _leftDrop;
 
     /**
      * File which should have drop indication point drawn on its right side
      */
-    DB::Id _rightDrop;
+    DB::FileName _rightDrop;
 
     SortDirection _sortDirection;
 
@@ -137,12 +138,12 @@ private: // Instance variables.
     /**
      * A map mapping from Id to its index in _displayList.
      */
-    QMap<DB::Id,int> _idToIndex;
+    QMap<DB::FileName,int> _fileNameToIndex;
 
     int _firstVisibleRow;
     int _lastVisibleRow;
 
-    DB::Id m_overrideId;
+    DB::FileName m_overrideFileName;
     QPixmap m_overrideImage;
 };
 

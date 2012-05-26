@@ -55,7 +55,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::Id> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    Q_FOREACH(const DB::Id& id, _imageList) {
+    Q_FOREACH(const DB::Id& id, ZZZ(_imageList)) {
         DB::ImageInfoPtr imageInfo = id.fetchInfo();
         if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
@@ -75,9 +75,9 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      * we got from the original, but the stacks shown with all images together
      * in the right sequence or collapsed showing only the top image.
      */
-    _displayList = DB::IdList();
+    _displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    Q_FOREACH( const DB::Id& id, _imageList) {
+    Q_FOREACH( const DB::Id& id, ZZZ(_imageList)) {
         DB::ImageInfoPtr imageInfo = id.fetchInfo();
         if ( !imageInfo.isNull() && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
@@ -88,20 +88,20 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
             const StackList& orderedStack = *found;
             if (_expandedStacks.contains(stackid)) {
                 Q_FOREACH( const DB::Id& id, orderedStack) {
-                    _displayList.append(id);
+                    _displayList.append(ZZZ(id));
                 }
             } else {
-                _displayList.append(orderedStack.at(0));
+                _displayList.append(ZZZ(orderedStack.at(0)));
             }
             alreadyShownStacks.insert(stackid);
         }
         else {
-            _displayList.append(id);
+            _displayList.append(ZZZ(id));
         }
     }
 
     if ( _sortDirection != OldestFirst )
-        _displayList = _displayList.reversed();
+        _displayList = ZZZ(ZZZ(_displayList).reversed());
 
     updateIndexCache();
 
@@ -139,7 +139,7 @@ void ThumbnailView::ThumbnailModel::expandAllStacks()
 
 void ThumbnailView::ThumbnailModel::setImageList(const DB::IdList& items)
 {
-    _imageList = items;
+    _imageList = ZZZ(items);
     _allStacks.clear();
     Q_FOREACH( const DB::ImageInfoPtr& info, items.fetchInfos()) {
         if ( info && info->isStacked() )
@@ -153,9 +153,9 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::IdList& items)
 DB::IdList ThumbnailView::ThumbnailModel::imageList(Order order) const
 {
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )
-        return _displayList.reversed();
+        return ZZZ(_displayList.reversed());
     else
-        return _displayList;
+        return ZZZ(_displayList);
 }
 
 void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::IdList& list )
@@ -163,8 +163,8 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::IdList& list 
     SelectionMaintainer dummy(widget(),model());
 
     Q_FOREACH( const DB::Id& id, list ) {
-        _displayList.removeAll( id );
-        _imageList.removeAll(id);
+        _displayList.removeAll( ZZZ(id) );
+        _imageList.removeAll(ZZZ(id));
     }
     updateDisplayModel();
 }
@@ -173,18 +173,18 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::IdList& list 
 int ThumbnailView::ThumbnailModel::indexOf(const DB::Id& id ) const
 {
     Q_ASSERT( !id.isNull() );
-    if ( !_idToIndex.contains(id) )
+    if ( !_fileNameToIndex.contains(ZZZ(id)) )
         return -1;
     else
-        return _idToIndex[id];
+        return _fileNameToIndex[ZZZ(id)];
 }
 
 void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
-    _idToIndex.clear();
+    _fileNameToIndex.clear();
     int index = 0;
-    Q_FOREACH( const DB::Id& id, _displayList) {
-        _idToIndex[id] = index;
+    Q_FOREACH( const DB::Id& id, ZZZ(_displayList)) {
+        _fileNameToIndex[ZZZ(id)] = index;
         ++index;
     }
 
@@ -192,22 +192,22 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 
 DB::Id ThumbnailView::ThumbnailModel::rightDropItem() const
 {
-    return _rightDrop;
+    return ZZZ(_rightDrop);
 }
 
 void ThumbnailView::ThumbnailModel::setRightDropItem( const DB::Id& item )
 {
-    _rightDrop = item;
+    _rightDrop = ZZZ(item);
 }
 
 DB::Id ThumbnailView::ThumbnailModel::leftDropItem() const
 {
-    return _leftDrop;
+    return ZZZ(_leftDrop);
 }
 
 void ThumbnailView::ThumbnailModel::setLeftDropItem( const DB::Id& item )
 {
-    _leftDrop = item;
+    _leftDrop = ZZZ(item);
 }
 
 void ThumbnailView::ThumbnailModel::setSortDirection( SortDirection direction )
@@ -235,9 +235,9 @@ int ThumbnailView::ThumbnailModel::imageCount() const
 void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::Id &id, const QPixmap &pixmap)
 {
     if ( pixmap.isNull() )
-        m_overrideId = DB::Id();
+        m_overrideFileName = DB::FileName();
     else {
-        m_overrideId = id;
+        m_overrideFileName = ZZZ(id);
         m_overrideImage = pixmap;
     }
     emit dataChanged( idToIndex(id), idToIndex(id) );
@@ -246,7 +246,7 @@ void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::Id &id, const QPi
 DB::Id ThumbnailView::ThumbnailModel::imageAt( int index ) const
 {
     Q_ASSERT( index >= 0 && index < imageCount() );
-    return _displayList.at(index);
+    return ZZZ(_displayList.at(index));
 }
 
 int ThumbnailView::ThumbnailModel::rowCount(const QModelIndex&) const
@@ -260,7 +260,7 @@ QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role 
         return QVariant();
 
     if ( role == Qt::DecorationRole ) {
-        const DB::Id mediaId = _displayList.at(index.row());
+        const DB::Id mediaId = ZZZ(_displayList.at(index.row()));
         return pixmap( mediaId );
     }
 
@@ -278,7 +278,7 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::Id& mediaId, con
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
-        = new ThumbnailRequest( _displayList.indexOf( mediaId ), imageInfo->fileName(), cellSize, angle, this );
+        = new ThumbnailRequest( _displayList.indexOf(ZZZ(mediaId)), imageInfo->fileName(), cellSize, angle, this );
     request->setPriority( priority );
     ImageManager::AsyncLoader::instance()->load( request );
 }
@@ -307,7 +307,7 @@ void ThumbnailView::ThumbnailModel::reset()
 
 int ThumbnailView::ThumbnailModel::indexOf( const DB::Id& id )
 {
-    return _displayList.indexOf( id );
+    return _displayList.indexOf(ZZZ(id));
 }
 
 
@@ -389,7 +389,7 @@ QModelIndex ThumbnailView::ThumbnailModel::idToIndex( const DB::Id& id ) const
 
 QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::Id& mediaId ) const
 {
-    if ( m_overrideId == mediaId )
+    if ( m_overrideFileName == ZZZ(mediaId))
         return m_overrideImage;
 
     const DB::ImageInfoPtr imageInfo = mediaId.fetchInfo();
@@ -421,7 +421,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
     // and maybe also move the caching stuff into the ImageManager
-    Q_FOREACH( const DB::Id item, _displayList ) {
+    Q_FOREACH( const DB::Id item, ZZZ(_displayList)) {
         const DB::ImageInfoPtr imageInfo = item.fetchInfo();
         if ( imageInfo.isNull() )
             continue;

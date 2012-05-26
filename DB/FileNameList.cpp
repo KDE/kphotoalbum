@@ -37,3 +37,12 @@ DB::FileNameList &DB::FileNameList::operator <<(const DB::FileName & fileName)
     QList<DB::FileName>::operator<<(fileName);
     return *this;
 }
+
+DB::FileNameList DB::FileNameList::reversed() const
+{
+    FileNameList res;
+    Q_FOREACH(const FileName& fileName, *this) {
+        res.prepend(fileName);
+    }
+    return res;
+}

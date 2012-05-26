@@ -316,12 +316,12 @@ void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::FileName& fileNam
     setCurrentIndex( QListView::model()->index( row, 0 ) );
 }
 
-DB::Id ThumbnailView::ThumbnailWidget::currentItem() const
+DB::FileName ThumbnailView::ThumbnailWidget::currentItem() const
 {
     if ( !currentIndex().isValid() )
-        return DB::Id::null;
+        return DB::FileName();
 
-    return model()->imageAt( currentIndex().row());
+    return ZZZ(model()->imageAt( currentIndex().row()));
 }
 
 void ThumbnailView::ThumbnailWidget::updatePalette()

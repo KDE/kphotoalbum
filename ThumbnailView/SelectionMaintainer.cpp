@@ -22,7 +22,7 @@
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     :m_widget(widget), m_model(model), m_enabled(true)
 {
-    m_currentItem = ZZZ(widget->currentItem());
+    m_currentItem = widget->currentItem();
     m_currentRow = widget->currentIndex().row();
     m_selectedItems = widget->selection(NoExpandCollapsedStacks);
     if ( m_selectedItems.isEmpty())

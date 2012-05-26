@@ -35,7 +35,7 @@ public:
     static ThumbnailFacade* instance();
     ThumbnailFacade();
     QWidget* gui();
-    void setCurrentItem( const DB::Id& id );
+    void setCurrentItem( const DB::FileName& fileName );
     void reload( SelectionUpdateMethod method );
     DB::FileNameList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
     DB::IdList imageList(Order) const;

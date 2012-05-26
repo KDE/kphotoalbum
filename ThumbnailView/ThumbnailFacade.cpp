@@ -65,9 +65,9 @@ void ThumbnailView::ThumbnailFacade::gotoDate( const DB::ImageDate& date, bool b
     _widget->gotoDate( date, b );
 }
 
-void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::Id& id )
+void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::FileName& fileName )
 {
-    widget()->setCurrentItem( id );
+    widget()->setCurrentItem( ZZZ(fileName) );
 }
 
 void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )

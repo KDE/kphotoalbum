@@ -339,7 +339,7 @@ void MainWindow::Window::slotCreateImageStack()
 
     DirtyIndicator::markDirty();
     // The current item might have just became invisible
-    _thumbnailView->setCurrentItem( ZZZ(list.at(0)) );
+    _thumbnailView->setCurrentItem(list.at(0));
     _thumbnailView->updateDisplayModel();
 }
 

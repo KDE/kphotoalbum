@@ -455,7 +455,7 @@ void Viewer::ViewerWidget::load()
 #ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
     if ( _exifViewer )
-        _exifViewer->setImage( DB::ImageDB::instance()->ZZZ(currentInfo()->fileName()) );
+        _exifViewer->setImage( currentInfo()->fileName() );
 #endif
 
     Q_FOREACH( QAction* videoAction, _videoActions ) {

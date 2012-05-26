@@ -91,7 +91,7 @@ Exif::InfoDialog::InfoDialog( const DB::Id& id, QWidget* parent )
 
     connect( m_grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
     connect( m_iptcCharset, SIGNAL( activated( const QString& ) ), m_grid, SLOT( slotCharsetChange( const QString& ) ) );
-    setImage(id);
+    setImage(ZZZ(id));
     updateSearchString( QString() );
 }
 
@@ -279,16 +279,12 @@ void Exif::InfoDialog::pixmapLoaded( const DB::FileName& , const QSize& , const 
       m_pix->setPixmap( QPixmap::fromImage(img) );
 }
 
-void Exif::InfoDialog::setImage(const DB::Id &id)
+void Exif::InfoDialog::setImage(const DB::FileName& fileName )
 {
-    DB::ImageInfoPtr info = id.fetchInfo();
-    if ( info.isNull() )
-        return;
-    const DB::FileName fileName = info->fileName();
     m_fileNameLabel->setText( fileName.relative() );
     m_grid->setFileName( fileName );
 
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), info->angle(), this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), fileName.info()->angle(), this );
     request->setPriority( ImageManager::Viewer );
     ImageManager::AsyncLoader::instance()->load( request );
 }

@@ -39,7 +39,7 @@ class InfoDialog : public KDialog, public ImageManager::ImageClientInterface {
 
 public:
     InfoDialog( const DB::Id& id, QWidget* parent );
-    void setImage( const DB::Id& id );
+    void setImage( const DB::FileName& fileName );
 
     OVERRIDE QSize sizeHint() const;
     OVERRIDE void enterEvent( QEvent* );

@@ -135,9 +135,9 @@ void ThumbnailView::ThumbnailFacade::updateDisplayModel()
     _model->updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::Id& id)
+void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::FileName& fileName)
 {
-    _widget->changeSingleSelection(ZZZ(id));
+    _widget->changeSingleSelection(fileName);
 }
 
 ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailFacade::model()

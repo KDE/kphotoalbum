@@ -462,7 +462,7 @@ void Viewer::ViewerWidget::load()
         videoAction->setVisible( isVideo );
     }
 
-    emit soughtTo( DB::ImageDB::instance()->ZZZ( _list[ _current ]) );
+    emit soughtTo( _list[ _current ]);
 
     bool ok = _display->setImage( currentInfo(), _forward );
     if ( !ok ) {

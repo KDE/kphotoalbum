@@ -76,7 +76,7 @@ public slots:
     void stopPlayback();
 
 signals:
-    void soughtTo( const DB::Id& id );
+    void soughtTo( const DB::FileName& id );
 
 protected:
     OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );

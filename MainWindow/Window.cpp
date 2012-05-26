@@ -617,7 +617,7 @@ void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reu
     else
         viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
                                           &_viewerInputMacros);
-    connect( viewer, SIGNAL( soughtTo(const DB::Id&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::Id&) ) );
+    connect( viewer, SIGNAL( soughtTo(const DB::FileName&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::FileName&) ) );
 
     viewer->show( slideShow );
     viewer->load( fileNameList, seek < 0 ? 0 : seek );

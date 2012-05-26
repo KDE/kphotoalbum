@@ -52,7 +52,7 @@ public slots:
     void collapseAllStacks();
     void expandAllStacks();
     void updateDisplayModel();
-    void changeSingleSelection(const DB::Id& id);
+    void changeSingleSelection(const DB::FileName& fileName);
     void slotRecreateThumbnail();
 
 signals:

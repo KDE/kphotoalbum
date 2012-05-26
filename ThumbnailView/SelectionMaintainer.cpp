@@ -22,13 +22,13 @@
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     :m_widget(widget), m_model(model), m_enabled(true)
 {
-    m_currentItem = widget->currentItem();
+    m_currentItem = ZZZ(widget->currentItem());
     m_currentRow = widget->currentIndex().row();
-    m_selectedItems = ZZZ(widget->selection( NoExpandCollapsedStacks ));
+    m_selectedItems = widget->selection(NoExpandCollapsedStacks);
     if ( m_selectedItems.isEmpty())
         m_firstRow = -1;
     else
-        m_firstRow = m_model->indexOf(m_selectedItems.at(0));
+        m_firstRow = m_model->indexOf(ZZZ(m_selectedItems.at(0)));
 }
 
 ThumbnailView::SelectionMaintainer::~SelectionMaintainer()
@@ -37,20 +37,20 @@ ThumbnailView::SelectionMaintainer::~SelectionMaintainer()
         return;
 
    // We need to set the current item before we set the selection
-    m_widget->setCurrentItem(ZZZ(m_currentItem));
+    m_widget->setCurrentItem(m_currentItem);
 
     // If the previoius current item was deleted, then set the last item of the selection current
     // This, however, need to be an actualt item, some of the previous selected items might have been deleted.
     if ( m_widget->currentItem().isNull() ) {
         for ( int i = m_selectedItems.size()-1; i >= 0; --i ) {
-            m_widget->setCurrentItem(ZZZ(m_selectedItems.at(i)));
+            m_widget->setCurrentItem(m_selectedItems.at(i));
             if (!m_widget->currentItem().isNull() )
                  break;
         }
     }
 
     // Now set the selection
-    m_widget->select( m_selectedItems );
+    m_widget->select(ZZZ(m_selectedItems));
 
     // If no item is current at this point, it means that all the items of the selection
     // had been deleted, so make the item just before the previous selection start the current.

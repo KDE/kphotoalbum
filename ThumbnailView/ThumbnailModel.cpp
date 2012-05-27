@@ -55,11 +55,11 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::Id> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    Q_FOREACH(const DB::Id& id, ZZZ(_imageList)) {
-        DB::ImageInfoPtr imageInfo = id.fetchInfo();
+    Q_FOREACH(const DB::FileName& fileName, _imageList) {
+        DB::ImageInfoPtr imageInfo = fileName.info();
         if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
-            stackContents[stackid].append(id);
+            stackContents[stackid].append(ZZZ(fileName));
         }
     }
 

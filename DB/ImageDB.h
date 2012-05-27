@@ -199,7 +199,10 @@ inline DB::Id ZZZ( const DB::FileName& fileName ) {
 }
 
 inline DB::FileName ZZZ(const DB::Id& id ) {
-    return id.fetchInfo()->fileName();
+    if ( id.isNull() )
+        return DB::FileName();
+    else
+        return id.fetchInfo()->fileName();
 }
 
 #endif /* IMAGEDB_H */

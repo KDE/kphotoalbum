@@ -190,24 +190,24 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 
 }
 
-DB::Id ThumbnailView::ThumbnailModel::rightDropItem() const
+DB::FileName ThumbnailView::ThumbnailModel::rightDropItem() const
 {
-    return ZZZ(_rightDrop);
+    return _rightDrop;
 }
 
-void ThumbnailView::ThumbnailModel::setRightDropItem( const DB::Id& item )
+void ThumbnailView::ThumbnailModel::setRightDropItem( const DB::FileName& item )
 {
-    _rightDrop = ZZZ(item);
+    _rightDrop = item;
 }
 
-DB::Id ThumbnailView::ThumbnailModel::leftDropItem() const
+DB::FileName ThumbnailView::ThumbnailModel::leftDropItem() const
 {
-    return ZZZ(_leftDrop);
+    return _leftDrop;
 }
 
-void ThumbnailView::ThumbnailModel::setLeftDropItem( const DB::Id& item )
+void ThumbnailView::ThumbnailModel::setLeftDropItem( const DB::FileName& item )
 {
-    _leftDrop = ZZZ(item);
+    _leftDrop = item;
 }
 
 void ThumbnailView::ThumbnailModel::setSortDirection( SortDirection direction )

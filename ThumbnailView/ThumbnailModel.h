@@ -54,10 +54,10 @@ public:
 
 
     //-------------------------------------------------- Drag and Drop of items
-    DB::Id rightDropItem() const;
-    void setRightDropItem( const DB::Id& item );
-    DB::Id leftDropItem() const;
-    void setLeftDropItem( const DB::Id& item );
+    DB::FileName rightDropItem() const;
+    void setRightDropItem( const DB::FileName& item );
+    DB::FileName leftDropItem() const;
+    void setLeftDropItem( const DB::FileName& item );
 
     //-------------------------------------------------- Stack
     void toggleStackExpansion(const DB::Id& id);

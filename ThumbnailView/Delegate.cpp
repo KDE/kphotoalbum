@@ -26,7 +26,7 @@
 #include <QPainter>
 #include "ThumbnailModel.h"
 #include <KLocale>
-
+#include <DB/ImageDB.h> // ZZZ
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
     :ThumbnailComponent( factory )
 {
@@ -279,10 +279,10 @@ void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect
 {
     const DB::Id mediaId = model()->imageAt( index.row() );
 
-    if ( model()->leftDropItem() == mediaId )
+    if ( ZZZ(model()->leftDropItem()) == mediaId )
         painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 
-    else if ( model()->rightDropItem() == mediaId )
+    else if ( ZZZ(model()->rightDropItem() )== mediaId )
         painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 }
 

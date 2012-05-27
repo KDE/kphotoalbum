@@ -52,24 +52,24 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     if ( left ) {
         if ( id.isNull() ) {
             // We're dragging behind the last item
-            model()->setRightDropItem( model()->imageAt( model()->imageCount() - 1 ) );
+            model()->setRightDropItem( ZZZ(model()->imageAt( model()->imageCount() - 1 ) ));
         } else {
-            model()->setLeftDropItem(id);
+            model()->setLeftDropItem(ZZZ(id));
             const int index = model()->indexOf(id) - 1;
             if ( index != -1 )
-                model()->setRightDropItem( model()->imageAt(index) );
+                model()->setRightDropItem( ZZZ(model()->imageAt(index) ));
         }
     }
 
     else {
-        model()->setRightDropItem(id);
+        model()->setRightDropItem(ZZZ(id));
         const int index = model()->indexOf(id) + 1;
         if (index != model()->imageCount())
-            model()->setLeftDropItem( model()->imageAt(index) );
+            model()->setLeftDropItem( ZZZ(model()->imageAt(index)) );
     }
 
-    model()->updateCell( model()->leftDropItem() );
-    model()->updateCell( model()->rightDropItem() );
+    model()->updateCell( ZZZ(model()->leftDropItem()) );
+    model()->updateCell( ZZZ(model()->rightDropItem()) );
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
@@ -103,13 +103,13 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
         const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 
         // protect against self drop
-        if ( selected.indexOf( ZZZ(model()->leftDropItem()) ) == -1 && selected.indexOf( ZZZ(model()->rightDropItem()) ) == -1 ) {
+        if ( selected.indexOf(model()->leftDropItem()) == -1 && selected.indexOf(model()->rightDropItem()) == -1 ) {
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
-                DB::ImageDB::instance()->reorder( ZZZ(model()->leftDropItem()), selected, false );
+                DB::ImageDB::instance()->reorder(model()->leftDropItem(), selected, false);
             }
             else
-                DB::ImageDB::instance()->reorder( ZZZ(model()->rightDropItem()), selected, true );
+                DB::ImageDB::instance()->reorder(model()->rightDropItem(), selected, true);
 
             Browser::BrowserWidget::instance()->reload();
         }
@@ -119,10 +119,10 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
 void ThumbnailView::ThumbnailDND::removeDropIndications()
 {
-    DB::Id left = model()->leftDropItem();
-    DB::Id right = model()->rightDropItem();
-    model()->setLeftDropItem( DB::Id::null );
-    model()->setRightDropItem( DB::Id::null );
+    DB::Id left = ZZZ(model()->leftDropItem());
+    DB::Id right = ZZZ(model()->rightDropItem());
+    model()->setLeftDropItem( DB::FileName() );
+    model()->setRightDropItem( DB::FileName() );
 
     model()->updateCell( left );
     model()->updateCell( right );

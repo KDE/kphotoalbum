@@ -69,7 +69,7 @@ public:
     DB::FileName imageAt( int index ) const;
     int indexOf(const DB::FileName& fileName ) const;
     int indexOf( const DB::FileName& fileName );
-    QModelIndex idToIndex( const DB::FileName& fileName ) const;
+    QModelIndex fileNameToIndex( const DB::FileName& fileName ) const;
 
     //-------------------------------------------------- Images
     void setImageList(const DB::FileNameList& list);

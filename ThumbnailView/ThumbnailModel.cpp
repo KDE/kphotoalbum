@@ -241,7 +241,7 @@ void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName& fileNam
         m_overrideFileName = fileName;
         m_overrideImage = pixmap;
     }
-    emit dataChanged( idToIndex(fileName), idToIndex(fileName));
+    emit dataChanged( fileNameToIndex(fileName), fileNameToIndex(fileName));
 }
 
 DB::FileName ThumbnailView::ThumbnailModel::imageAt( int index ) const
@@ -298,7 +298,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, 
         imageInfo->setSize( fullSize );
     }
 
-    emit dataChanged(idToIndex(fileName), idToIndex(fileName));
+    emit dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
 }
 
 void ThumbnailView::ThumbnailModel::reset()
@@ -380,7 +380,7 @@ void ThumbnailView::ThumbnailModel::updateCell( const DB::FileName& fileName )
     updateCell( indexOf(fileName) );
 }
 
-QModelIndex ThumbnailView::ThumbnailModel::idToIndex( const DB::FileName& fileName ) const
+QModelIndex ThumbnailView::ThumbnailModel::fileNameToIndex( const DB::FileName& fileName ) const
 {
     if ( fileName.isNull() )
         return QModelIndex();

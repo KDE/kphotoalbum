@@ -414,7 +414,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& f
 {
     if ( selection( NoExpandCollapsedStacks ).size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();
-        selection->select( model()->idToIndex(fileName), QItemSelectionModel::ClearAndSelect );
+        selection->select( model()->fileNameToIndex(fileName), QItemSelectionModel::ClearAndSelect );
         setCurrentItem(fileName);
     }
 }
@@ -422,7 +422,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& f
 void ThumbnailView::ThumbnailWidget::select(const DB::IdList& items )
 {
     Q_FOREACH( const DB::Id& id, items )
-        selectionModel()->select(model()->idToIndex(ZZZ(id)), QItemSelectionModel::Select );
+        selectionModel()->select(model()->fileNameToIndex(ZZZ(id)), QItemSelectionModel::Select );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

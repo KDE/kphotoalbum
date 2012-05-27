@@ -28,6 +28,7 @@
 #include <ImageManager/VideoThumbnails.h>
 #include "ThumbnailModel.h"
 #include <ThumbnailView/CellGeometry.h>
+#include <DB/ImageDB.h> // ZZZ
 
 ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)
@@ -60,7 +61,7 @@ void ThumbnailView::VideoThumbnailCycler::updateThumbnail()
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
     QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize());
-    m_model->setOverrideImage(m_id, QPixmap::fromImage(img));
+    m_model->setOverrideImage(ZZZ(m_id), QPixmap::fromImage(img));
 }
 
 void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
@@ -68,7 +69,7 @@ void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
     if ( m_id.isNull() || !isVideo(m_id) )
         return;
 
-    m_model->setOverrideImage(m_id,QPixmap());
+    m_model->setOverrideImage(ZZZ(m_id),QPixmap());
 }
 
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const

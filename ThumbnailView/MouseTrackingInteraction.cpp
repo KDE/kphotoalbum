@@ -20,6 +20,7 @@
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
 #include "VideoThumbnailCycler.h"
+#include <DB/ImageDB.h> // ZZZ
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ), m_videoThumbnailCycler( new VideoThumbnailCycler(model()) ),
@@ -55,8 +56,8 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
     const DB::Id id = widget()->mediaIdUnderCursor();
     if ( id != lastIdUderCursor ) {
         emit fileIdUnderCursorChanged(id);
-        model()->updateCell(lastIdUderCursor);
-        model()->updateCell(id);
+        model()->updateCell(ZZZ(lastIdUderCursor));
+        model()->updateCell(ZZZ(id));
         lastIdUderCursor = id;
     }
 }

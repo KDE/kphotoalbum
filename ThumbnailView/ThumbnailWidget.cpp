@@ -143,7 +143,7 @@ static bool isMouseResizeGesture( QMouseEvent* event )
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
     if ( (!(event->modifiers() & ( Qt::ControlModifier | Qt::ShiftModifier ) )) && isMouseOverStackIndicator( event->pos() ) ) {
-        model()->toggleStackExpansion( mediaIdUnderCursor() );
+        model()->toggleStackExpansion( ZZZ(mediaIdUnderCursor()) );
         m_pressOnStackIndicator = true;
         return;
     }
@@ -186,7 +186,7 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
 {
     if ( isMouseOverStackIndicator( event->pos() ) ) {
-        model()->toggleStackExpansion( mediaIdUnderCursor() );
+        model()->toggleStackExpansion(ZZZ(mediaIdUnderCursor()));
         m_pressOnStackIndicator = true;
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
         DB::Id id = mediaIdUnderCursor();
@@ -228,12 +228,12 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
     if (row == -1)
 	return;
 
-    DB::Id id = model()->imageAt( row );
-    if ( id.isNull() )
+    DB::FileName fileName = model()->imageAt( row );
+    if ( fileName.isNull() )
         return;
 
     static QDateTime lastDate;
-    QDateTime date = id.fetchInfo()->date().start();
+    QDateTime date = fileName.info()->date().start();
     if ( date != lastDate ) {
         lastDate = date;
         if ( date.date().year() != 1900 )
@@ -249,7 +249,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 {
     _isSettingDate = true;
     DB::FileName candidate = DB::ImageDB::instance()
-                             ->findFirstItemInRange(ZZZ(model()->imageList(ViewOrder)), date, includeRanges);
+                             ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
     if ( !candidate.isNull() )
         setCurrentItem( candidate );
 
@@ -275,7 +275,7 @@ DB::Id ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
     const QModelIndex index = indexUnderCursor();
     if ( index.isValid() )
-        return model()->imageAt( index.row() );
+        return ZZZ(model()->imageAt(index.row()));
     else
         return DB::Id();
 }
@@ -312,7 +312,7 @@ void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::FileName& fileNam
     if ( fileName.isNull() )
         return;
 
-    const int row = model()->indexOf(ZZZ(fileName));
+    const int row = model()->indexOf(fileName);
     setCurrentIndex( QListView::model()->index( row, 0 ) );
 }
 
@@ -321,7 +321,7 @@ DB::FileName ThumbnailView::ThumbnailWidget::currentItem() const
     if ( !currentIndex().isValid() )
         return DB::FileName();
 
-    return ZZZ(model()->imageAt( currentIndex().row()));
+    return model()->imageAt( currentIndex().row());
 }
 
 void ThumbnailView::ThumbnailWidget::updatePalette()
@@ -370,7 +370,7 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
 {
     DB::FileNameList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
-        DB::Id currId = model()->imageAt( index.row() );
+        DB::Id currId = ZZZ(model()->imageAt( index.row() ));
         bool includeAllStacks = false;
         switch ( mode )
         {
@@ -414,7 +414,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& f
 {
     if ( selection( NoExpandCollapsedStacks ).size() == 1 ) {
         QItemSelectionModel* selection = selectionModel();
-        selection->select( model()->idToIndex(ZZZ(fileName)), QItemSelectionModel::ClearAndSelect );
+        selection->select( model()->idToIndex(fileName), QItemSelectionModel::ClearAndSelect );
         setCurrentItem(fileName);
     }
 }
@@ -422,7 +422,7 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& f
 void ThumbnailView::ThumbnailWidget::select(const DB::IdList& items )
 {
     Q_FOREACH( const DB::Id& id, items )
-        selectionModel()->select(model()->idToIndex(id), QItemSelectionModel::Select );
+        selectionModel()->select(model()->idToIndex(ZZZ(id)), QItemSelectionModel::Select );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

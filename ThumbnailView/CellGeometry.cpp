@@ -20,6 +20,7 @@
 #include "ThumbnailModel.h"
 #include "DB/Id.h"
 #include "Settings/SettingsData.h"
+#include <DB/ImageDB.h> // ZZZ
 
 using Utilities::StringSet;
 
@@ -115,7 +116,7 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
-        Q_FOREACH(DB::Id id, model()->imageList(ViewOrder)) {
+        Q_FOREACH(DB::Id id, ZZZ(model()->imageList(ViewOrder))) {
             maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
         }
 

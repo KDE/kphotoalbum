@@ -52,24 +52,24 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     if ( left ) {
         if ( id.isNull() ) {
             // We're dragging behind the last item
-            model()->setRightDropItem( ZZZ(model()->imageAt( model()->imageCount() - 1 ) ));
+            model()->setRightDropItem(model()->imageAt( model()->imageCount() - 1));
         } else {
             model()->setLeftDropItem(ZZZ(id));
-            const int index = model()->indexOf(id) - 1;
+            const int index = model()->indexOf(ZZZ(id)) - 1;
             if ( index != -1 )
-                model()->setRightDropItem( ZZZ(model()->imageAt(index) ));
+                model()->setRightDropItem(model()->imageAt(index));
         }
     }
 
     else {
         model()->setRightDropItem(ZZZ(id));
-        const int index = model()->indexOf(id) + 1;
+        const int index = model()->indexOf(ZZZ(id)) + 1;
         if (index != model()->imageCount())
-            model()->setLeftDropItem( ZZZ(model()->imageAt(index)) );
+            model()->setLeftDropItem(model()->imageAt(index));
     }
 
-    model()->updateCell( ZZZ(model()->leftDropItem()) );
-    model()->updateCell( ZZZ(model()->rightDropItem()) );
+    model()->updateCell(model()->leftDropItem());
+    model()->updateCell(model()->rightDropItem());
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
@@ -124,8 +124,8 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
     model()->setLeftDropItem( DB::FileName() );
     model()->setRightDropItem( DB::FileName() );
 
-    model()->updateCell( left );
-    model()->updateCell( right );
+    model()->updateCell(ZZZ(left));
+    model()->updateCell(ZZZ(right));
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )

@@ -46,7 +46,7 @@ public:
     QString thumbnailText( const QModelIndex& index ) const;
     void updateCell( int row );
     void updateCell( const QModelIndex& index );
-    void updateCell( const DB::Id& id );
+    void updateCell( const DB::FileName& id );
 
     // -------------------------------------------------- ImageClient API
     OVERRIDE void pixmapLoaded( const DB::FileName&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK);
@@ -60,28 +60,28 @@ public:
     void setLeftDropItem( const DB::FileName& item );
 
     //-------------------------------------------------- Stack
-    void toggleStackExpansion(const DB::Id& id);
+    void toggleStackExpansion(const DB::FileName& id);
     void collapseAllStacks();
     void expandAllStacks();
     bool isItemInExpandedStack( const DB::StackID& id ) const;
 
     //-------------------------------------------------- Position Information
-    DB::Id imageAt( int index ) const;
-    int indexOf(const DB::Id& id ) const;
-    int indexOf( const DB::Id& id );
-    QModelIndex idToIndex( const DB::Id& id ) const;
+    DB::FileName imageAt( int index ) const;
+    int indexOf(const DB::FileName& fileName ) const;
+    int indexOf( const DB::FileName& fileName );
+    QModelIndex idToIndex( const DB::FileName& fileName ) const;
 
     //-------------------------------------------------- Images
-    void setImageList(const DB::IdList& list);
-    DB::IdList imageList(Order) const;
+    void setImageList(const DB::FileNameList& list);
+    DB::FileNameList imageList(Order) const;
     int imageCount() const;
-    void setOverrideImage( const DB::Id& id, const QPixmap& pixmap );
+    void setOverrideImage( const DB::FileName& fileName, const QPixmap& pixmap );
 
     //-------------------------------------------------- Misc.
     void updateDisplayModel();
     void updateIndexCache();
     void setSortDirection( SortDirection );
-    QPixmap pixmap( const DB::Id& id ) const;
+    QPixmap pixmap( const DB::FileName& fileName ) const;
 
 public slots:
     void updateVisibleRowInfo();
@@ -93,11 +93,11 @@ signals:
 
 
 private: // Methods
-    void requestThumbnail( const DB::Id& mediaId, const ImageManager::Priority priority );
+    void requestThumbnail( const DB::FileName& mediaId, const ImageManager::Priority priority );
     void preloadThumbnails();
 
 private slots:
-    void imagesDeletedFromDB( const DB::IdList& );
+    void imagesDeletedFromDB( const DB::FileNameList& );
 
 
 private: // Instance variables.

@@ -78,7 +78,7 @@ void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOp
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pixmapRect, const QModelIndex &index) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).fetchInfo();
+    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
     if (!imageInfo || imageInfo->mediaType() != DB::Video )
         return;
 
@@ -109,8 +109,8 @@ void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOpti
     if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
         return;
 
-    DB::Id mediaId = model()->imageAt( index.row() );
-    if ( mediaId.isNull() )
+    DB::FileName fileName = model()->imageAt( index.row() );
+    if ( fileName.isNull() )
         return;
 
     QString title = index.data( Qt::DisplayRole ).value<QString>();
@@ -189,7 +189,7 @@ static DB::StackID getStackId(const DB::Id& id)
 
 void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QRect &pixmapRect, const QModelIndex& index ) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).fetchInfo();
+    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
     if (!imageInfo || !imageInfo->isStacked())
         return;
 
@@ -228,22 +228,22 @@ void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QR
 
 bool ThumbnailView::Delegate::isFirst( int row ) const
 {
-    const DB::StackID curId = getStackId(model()->imageAt(row));
+    const DB::StackID curId = getStackId(ZZZ(model()->imageAt(row)));
 
     return
             !model()->isItemInExpandedStack(curId) ||
             row == 0 ||
-            getStackId(model()->imageAt(row-1)) != curId;
+            getStackId(ZZZ(model()->imageAt(row-1))) != curId;
 }
 
 bool ThumbnailView::Delegate::isLast( int row ) const
 {
-    const DB::StackID curId = getStackId(model()->imageAt(row));
+    const DB::StackID curId = getStackId(ZZZ(model()->imageAt(row)));
 
     return
             !model()->isItemInExpandedStack(curId) ||
             row == model()->imageCount() -1 ||
-            getStackId(model()->imageAt(row+1)) != curId;
+            getStackId(ZZZ(model()->imageAt(row+1))) != curId;
 }
 
 QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageInfo) const
@@ -277,12 +277,12 @@ QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageIn
 
 void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect& rect, const QModelIndex& index ) const
 {
-    const DB::Id mediaId = model()->imageAt( index.row() );
+    const DB::FileName fileName = model()->imageAt( index.row() );
 
-    if ( ZZZ(model()->leftDropItem()) == mediaId )
+    if ( model()->leftDropItem() == fileName )
         painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 
-    else if ( ZZZ(model()->rightDropItem() )== mediaId )
+    else if ( model()->rightDropItem() == fileName )
         painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 }
 

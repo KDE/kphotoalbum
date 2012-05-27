@@ -28,7 +28,7 @@ ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget,
     if ( m_selectedItems.isEmpty())
         m_firstRow = -1;
     else
-        m_firstRow = m_model->indexOf(ZZZ(m_selectedItems.at(0)));
+        m_firstRow = m_model->indexOf(m_selectedItems.at(0));
 }
 
 ThumbnailView::SelectionMaintainer::~SelectionMaintainer()

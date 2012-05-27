@@ -51,7 +51,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
             else
                 info->addCategoryInfo( QString::fromLatin1("Tokens"), token );
 
-            model()->updateCell( ZZZ(fileName) );
+            model()->updateCell(fileName);
         }
 
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );

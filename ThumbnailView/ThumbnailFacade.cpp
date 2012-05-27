@@ -82,7 +82,7 @@ DB::FileNameList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::Selec
 
 DB::IdList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 {
-    return _model->imageList(order);
+    return ZZZ(_model->imageList(order));
 }
 
 DB::Id ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
@@ -92,12 +92,12 @@ DB::Id ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 
 DB::Id ThumbnailView::ThumbnailFacade::currentItem() const
 {
-    return _model->imageAt(_widget->currentIndex().row());
+    return ZZZ(_model->imageAt(_widget->currentIndex().row()));
 }
 
 void ThumbnailView::ThumbnailFacade::setImageList(const DB::IdList& list)
 {
-    _model->setImageList( list );
+    _model->setImageList(ZZZ(list));
 }
 
 void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
@@ -117,7 +117,7 @@ void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
 
 void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::Id& id)
 {
-    _model->toggleStackExpansion(id);
+    _model->toggleStackExpansion(ZZZ(id));
 }
 
 void ThumbnailView::ThumbnailFacade::collapseAllStacks()
@@ -170,7 +170,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
     Q_FOREACH( const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
         ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
-        _model->updateCell( ZZZ(fileName) );
+        _model->updateCell(fileName);
     }
 }
 

@@ -33,7 +33,7 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     updateStackingIndication( event );
     handleCursorOverNewIcon();
 
-    m_videoThumbnailCycler->setActiveId(widget()->mediaIdUnderCursor());
+    m_videoThumbnailCycler->setActive(ZZZ(widget()->mediaIdUnderCursor()));
     return false;
 }
 

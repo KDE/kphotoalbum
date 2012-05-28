@@ -39,10 +39,12 @@
 #include "XMLHandler.h"
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <DB/FileNameList.h>
+#include <DB/ImageDB.h> // ZZZ
 
 using namespace ImportExport;
 
-void Export::imageExport(const DB::IdList& list)
+void Export::imageExport(const DB::FileNameList& list)
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -178,7 +180,7 @@ Export::~Export()
 }
 
 Export::Export(
-    const DB::IdList& list,
+    const DB::FileNameList& list,
     const QString& zipFile,
     bool compress,
     int maxSize,
@@ -227,7 +229,7 @@ Export::Export(
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
+        Q3CString indexml = XMLHandler().createIndexXML( ZZZ(list), baseUrl, _location, &_filenameMapper );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
@@ -239,14 +241,14 @@ Export::Export(
 }
 
 
-void Export::generateThumbnails(const DB::IdList& list)
+void Export::generateThumbnails(const DB::FileNameList& list)
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.size(); // Used to break the event loop.
-    Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( 128, 128 ), info->angle(), this );
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), fileName.info()->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
     }
@@ -256,7 +258,7 @@ void Export::generateThumbnails(const DB::IdList& list)
     }
 }
 
-void Export::copyImages(const DB::IdList& list)
+void Export::copyImages(const DB::FileNameList& list)
 {
     Q_ASSERT( _location != ManualCopy );
 
@@ -266,8 +268,7 @@ void Export::copyImages(const DB::IdList& list)
     _progressDialog->setLabelText( i18n("Copying image files") );
 
     _filesRemaining = 0;
-    Q_FOREACH(const DB::ImageInfoPtr info, list.fetchInfos()) {
-        const DB::FileName fileName = info->fileName();
+    Q_FOREACH(const DB::FileName& fileName, list) {
         QString file = fileName.absolute();
         QString zippedName = _filenameMapper.uniqNameFor(fileName);
 

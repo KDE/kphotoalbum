@@ -62,7 +62,7 @@ void HTMLGenerator::Generator::generate()
         if ( destURL.isEmpty() )
             destURL = _setup.baseURL();
 
-        ImportExport::Export exp( ZZZ(_setup.imageList()), kimFileName( false ),
+        ImportExport::Export exp( _setup.imageList(), kimFileName( false ),
                                   false, -1, ImportExport::ManualCopy,
                                   destURL + QString::fromLatin1("/") + _setup.outputDir(), true, &ok);
         if ( !ok )

@@ -1348,7 +1348,7 @@ void MainWindow::Window::slotImport()
 
 void MainWindow::Window::slotExport()
 {
-    ImportExport::Export::imageExport(ZZZ(selectedOnDisk()));
+    ImportExport::Export::imageExport(selectedOnDisk());
 }
 
 void MainWindow::Window::slotReenableMessages()

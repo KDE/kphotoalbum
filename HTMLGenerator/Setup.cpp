@@ -164,12 +164,12 @@ bool HTMLGenerator::Setup::includeCategory( const QString& category ) const
     return _resolutions;
 }
 
-void HTMLGenerator::Setup::setImageList(const DB::IdList& files)
+void HTMLGenerator::Setup::setImageList(const DB::FileNameList& files)
 {
     _images = files;
 }
 
-DB::IdList HTMLGenerator::Setup::imageList() const
+DB::FileNameList HTMLGenerator::Setup::imageList() const
 {
     return _images;
 }

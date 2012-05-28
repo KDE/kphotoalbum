@@ -525,7 +525,7 @@ Setup HTMLGenerator::HTMLDialog::setup() const
          includeIt != _whatToIncludeMap.end(); ++includeIt ) {
         setup.setIncludeCategory( includeIt.key(), includeIt.value()->isChecked() );
     }
-    setup.setImageList( _list );
+    setup.setImageList( ZZZ(_list) );
 
     setup.setResolutions( activeResolutions() );
     setup.setInlineMovies( _inlineMovies->isChecked() );

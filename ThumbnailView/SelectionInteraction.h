@@ -22,8 +22,7 @@
 #include "enums.h"
 #include "MouseInteraction.h"
 #include <qobject.h>
-
-namespace DB { class Id; }
+#include <DB/FileName.h>
 
 class QMouseEvent;
 namespace ThumbnailView
@@ -43,7 +42,6 @@ protected:
     void startDrag();
 
 private:
-    typedef QSet<DB::Id> IdSet;
     /**
      * This variable contains the position the mouse was pressed down.
      * The point is in contents coordinates.
@@ -55,7 +53,8 @@ private:
      */
     bool _isMouseDragOperation;
 
-    IdSet _originalSelectionBeforeDragStart;
+    // PENDING(blackie) this instance variable is unused!
+    DB::FileNameSet _originalSelectionBeforeDragStart;
     bool _dragInProgress;
     bool _dragSelectionInProgress;
     ThumbnailFactory* _JUMP;

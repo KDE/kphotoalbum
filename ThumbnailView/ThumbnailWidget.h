@@ -47,7 +47,7 @@ public:
     ThumbnailWidget( ThumbnailFactory* factory );
 
     void reload( SelectionUpdateMethod method );
-    DB::Id mediaIdUnderCursor() const;
+    DB::FileName mediaIdUnderCursor() const;
     QModelIndex indexUnderCursor() const;
 
     bool isMouseOverStackIndicator( const QPoint& point );
@@ -60,16 +60,16 @@ public:
     int cellWidth() const;
     OVERRIDE void showEvent( QShowEvent* );
     DB::FileNameList selection( ThumbnailView::SelectionMode mode ) const;
-    bool isSelected( const DB::Id& id ) const;
-    void select( const DB::IdList& );
+    bool isSelected( const DB::FileName& id ) const;
+    void select( const DB::FileNameList& );
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
 
 signals:
-    void showImage( const DB::Id& id );
+    void showImage( const DB::FileName& id );
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::Id& id );
+    void fileIdUnderCursorChanged( const DB::FileName& id );
     void currentDateChanged( const QDateTime& );
     void selectionCountChanged(int numberOfItemsSelected );
 

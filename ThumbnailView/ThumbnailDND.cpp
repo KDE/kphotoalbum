@@ -38,7 +38,7 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         return;
     }
 
-    DB::Id id = widget()->mediaIdUnderCursor();
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
 
     removeDropIndications();
 
@@ -50,20 +50,20 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
-        if ( id.isNull() ) {
+        if ( fileName.isNull() ) {
             // We're dragging behind the last item
             model()->setRightDropItem(model()->imageAt( model()->imageCount() - 1));
         } else {
-            model()->setLeftDropItem(ZZZ(id));
-            const int index = model()->indexOf(ZZZ(id)) - 1;
+            model()->setLeftDropItem(fileName);
+            const int index = model()->indexOf(fileName) - 1;
             if ( index != -1 )
                 model()->setRightDropItem(model()->imageAt(index));
         }
     }
 
     else {
-        model()->setRightDropItem(ZZZ(id));
-        const int index = model()->indexOf(ZZZ(id)) + 1;
+        model()->setRightDropItem(fileName);
+        const int index = model()->indexOf(fileName) + 1;
         if (index != model()->imageCount())
             model()->setLeftDropItem(model()->imageAt(index));
     }

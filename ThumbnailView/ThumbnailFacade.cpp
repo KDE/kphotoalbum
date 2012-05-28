@@ -87,7 +87,7 @@ DB::FileNameList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 
 DB::FileName ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 {
-    return ZZZ(_widget->mediaIdUnderCursor());
+    return _widget->mediaIdUnderCursor();
 }
 
 DB::FileName ThumbnailView::ThumbnailFacade::currentItem() const

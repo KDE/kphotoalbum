@@ -50,7 +50,7 @@ ThumbnailView::SelectionMaintainer::~SelectionMaintainer()
     }
 
     // Now set the selection
-    m_widget->select(ZZZ(m_selectedItems));
+    m_widget->select(m_selectedItems);
 
     // If no item is current at this point, it means that all the items of the selection
     // had been deleted, so make the item just before the previous selection start the current.

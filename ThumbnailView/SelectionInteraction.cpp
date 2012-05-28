@@ -40,8 +40,8 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
 bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressPos = event->pos();
-    DB::Id mediaId = widget()->mediaIdUnderCursor();
-    _isMouseDragOperation = widget()->isSelected( mediaId ) && !( event->modifiers() );
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
+    _isMouseDragOperation = widget()->isSelected(fileName) && !event->modifiers();
     return _isMouseDragOperation;
 }
 

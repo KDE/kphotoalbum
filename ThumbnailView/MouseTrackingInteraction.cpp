@@ -34,7 +34,7 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     updateStackingIndication( event );
     handleCursorOverNewIcon();
 
-    m_videoThumbnailCycler->setActive(ZZZ(widget()->mediaIdUnderCursor()));
+    m_videoThumbnailCycler->setActive(widget()->mediaIdUnderCursor());
     return false;
 }
 
@@ -54,7 +54,7 @@ void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEv
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 {
     static DB::FileName lastFileNameUderCursor;
-    const DB::FileName fileName = ZZZ(widget()->mediaIdUnderCursor());
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
     if ( fileName != lastFileNameUderCursor ) {
         emit fileIdUnderCursorChanged(fileName);
         model()->updateCell(lastFileNameUderCursor);

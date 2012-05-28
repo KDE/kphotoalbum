@@ -81,7 +81,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::Id ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::Id ) ) );
+    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::FileName ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::FileName ) ) );
     connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
 
     updatePalette();
@@ -118,7 +118,7 @@ void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator( const QPoint& point )
 {
     // first check if image is stack, if not return.
-    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().fetchInfo();
+    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().info();
     if (!imageInfo) return false;
     if (!imageInfo->isStacked()) return false;
 
@@ -143,7 +143,7 @@ static bool isMouseResizeGesture( QMouseEvent* event )
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
     if ( (!(event->modifiers() & ( Qt::ControlModifier | Qt::ShiftModifier ) )) && isMouseOverStackIndicator( event->pos() ) ) {
-        model()->toggleStackExpansion( ZZZ(mediaIdUnderCursor()) );
+        model()->toggleStackExpansion(mediaIdUnderCursor());
         m_pressOnStackIndicator = true;
         return;
     }
@@ -186,10 +186,10 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
 {
     if ( isMouseOverStackIndicator( event->pos() ) ) {
-        model()->toggleStackExpansion(ZZZ(mediaIdUnderCursor()));
+        model()->toggleStackExpansion(mediaIdUnderCursor());
         m_pressOnStackIndicator = true;
     } else if ( !( event->modifiers() & Qt::ControlModifier ) ) {
-        DB::Id id = mediaIdUnderCursor();
+        DB::FileName id = mediaIdUnderCursor();
         if ( !id.isNull() )
             emit showImage( id );
     }
@@ -271,13 +271,13 @@ void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
         maintainer.disable();
 }
 
-DB::Id ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
+DB::FileName ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
     const QModelIndex index = indexUnderCursor();
     if ( index.isValid() )
-        return ZZZ(model()->imageAt(index.row()));
+        return model()->imageAt(index.row());
     else
-        return DB::Id();
+        return DB::FileName();
 }
 
 QModelIndex ThumbnailView::ThumbnailWidget::indexUnderCursor() const
@@ -370,7 +370,7 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
 {
     DB::FileNameList res;
     Q_FOREACH(const QModelIndex& index, selectedIndexes()) {
-        DB::Id currId = ZZZ(model()->imageAt( index.row() ));
+        DB::FileName currFileName = model()->imageAt(index.row());
         bool includeAllStacks = false;
         switch ( mode )
         {
@@ -381,28 +381,28 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
                 {
                     // if the selected image belongs to a collapsed thread,
                     // imply that all images in the stack are selected:
-                    DB::ImageInfoPtr imageInfo = currId.fetchInfo();
+                    DB::ImageInfoPtr imageInfo = currFileName.info();
                     if ( imageInfo && imageInfo->isStacked()
                             && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) ) 
                             )
                     {
                         // add all images in the same stack
-                        res.append(DB::ImageDB::instance()->getStackFor( ZZZ(currId) ));
+                        res.append(DB::ImageDB::instance()->getStackFor(currFileName));
                     } else
-                        res.append(ZZZ(currId));
+                        res.append(currFileName);
                 } 
                 break;
             case NoExpandCollapsedStacks:
-                res.append(ZZZ(currId));
+                res.append(currFileName);
                 break;
         }
     }
     return res;
 }
 
-bool ThumbnailView::ThumbnailWidget::isSelected( const DB::Id& id ) const
+bool ThumbnailView::ThumbnailWidget::isSelected( const DB::FileName& fileName ) const
 {
-    return selection( NoExpandCollapsedStacks ).indexOf( ZZZ(id) ) != -1;
+    return selection( NoExpandCollapsedStacks ).indexOf(fileName) != -1;
 }
 
 /**
@@ -419,10 +419,10 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName& f
     }
 }
 
-void ThumbnailView::ThumbnailWidget::select(const DB::IdList& items )
+void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList& items )
 {
-    Q_FOREACH( const DB::Id& id, items )
-        selectionModel()->select(model()->fileNameToIndex(ZZZ(id)), QItemSelectionModel::Select );
+    Q_FOREACH( const DB::FileName& fileName, items )
+        selectionModel()->select(model()->fileNameToIndex(fileName), QItemSelectionModel::Select);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

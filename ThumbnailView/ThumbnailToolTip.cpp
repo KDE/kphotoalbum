@@ -77,12 +77,11 @@ bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 
 void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 {
-    DB::Id id = _view->mediaIdUnderCursor();
+    const DB::FileName fileName = _view->mediaIdUnderCursor();
     hide();
-    if ( id.isNull() )
+    if ( fileName.isNull() )
         return;
 
-    DB::FileName fileName = id.fetchInfo()->fileName();
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
             setText( QString() );

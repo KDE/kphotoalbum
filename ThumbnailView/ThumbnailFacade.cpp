@@ -37,12 +37,12 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade()
     _widget = new ThumbnailWidget(this);
     _toolTip = new ThumbnailToolTip( _widget );
 
-    connect( _widget, SIGNAL( showImage( const DB::Id& ) ),
-             this, SIGNAL( showImage( const DB::Id& ) ) );
+    connect( _widget, SIGNAL( showImage( const DB::FileName& ) ),
+             this, SIGNAL( showImage( const DB::FileName& ) ) );
     connect( _widget, SIGNAL( showSelection() ),
              this, SIGNAL( showSelection() ) );
-    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ),
-             this, SIGNAL( fileIdUnderCursorChanged( const DB::Id&  ) ) );
+    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::FileName& ) ),
+             this, SIGNAL( fileIdUnderCursorChanged( const DB::FileName&  ) ) );
     connect( _widget, SIGNAL( currentDateChanged( const QDateTime& ) ),
              this, SIGNAL( currentDateChanged( const QDateTime& ) ) );
     connect( _widget, SIGNAL( selectionCountChanged(int) ),
@@ -80,24 +80,24 @@ DB::FileNameList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::Selec
     return _widget->selection(mode);
 }
 
-DB::IdList ThumbnailView::ThumbnailFacade::imageList(Order order) const
+DB::FileNameList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 {
-    return ZZZ(_model->imageList(order));
+    return _model->imageList(order);
 }
 
-DB::Id ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
+DB::FileName ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 {
-    return _widget->mediaIdUnderCursor();
+    return ZZZ(_widget->mediaIdUnderCursor());
 }
 
-DB::Id ThumbnailView::ThumbnailFacade::currentItem() const
+DB::FileName ThumbnailView::ThumbnailFacade::currentItem() const
 {
-    return ZZZ(_model->imageAt(_widget->currentIndex().row()));
+    return _model->imageAt(_widget->currentIndex().row());
 }
 
-void ThumbnailView::ThumbnailFacade::setImageList(const DB::IdList& list)
+void ThumbnailView::ThumbnailFacade::setImageList(const DB::FileNameList& list)
 {
-    _model->setImageList(ZZZ(list));
+    _model->setImageList(list);
 }
 
 void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
@@ -115,9 +115,9 @@ void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
     _toolTip->setActive( on );
 }
 
-void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::Id& id)
+void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::FileName& fileName)
 {
-    _model->toggleStackExpansion(ZZZ(id));
+    _model->toggleStackExpansion(fileName);
 }
 
 void ThumbnailView::ThumbnailFacade::collapseAllStacks()

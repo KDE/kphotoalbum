@@ -38,17 +38,17 @@ public:
     void setCurrentItem( const DB::FileName& fileName );
     void reload( SelectionUpdateMethod method );
     DB::FileNameList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
-    DB::IdList imageList(Order) const;
-    DB::Id mediaIdUnderCursor() const;
-    DB::Id currentItem() const;
-    void setImageList(const DB::IdList& list);
+    DB::FileNameList imageList(Order) const;
+    DB::FileName mediaIdUnderCursor() const;
+    DB::FileName currentItem() const;
+    void setImageList(const DB::FileNameList& list);
     void setSortDirection( SortDirection );
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
-    void toggleStackExpansion(const DB::Id& id);
+    void toggleStackExpansion(const DB::FileName& id);
     void collapseAllStacks();
     void expandAllStacks();
     void updateDisplayModel();
@@ -56,9 +56,9 @@ public slots:
     void slotRecreateThumbnail();
 
 signals:
-    void showImage( const DB::Id& id );
+    void showImage( const DB::FileName& id );
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::Id& id );
+    void fileIdUnderCursorChanged( const DB::FileName& id );
     void currentDateChanged( const QDateTime& );
     void selectionChanged(int numberOfItemsSelected );
     void collapseAllStacksEnabled(bool enabled);

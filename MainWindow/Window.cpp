@@ -580,20 +580,20 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 
 void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bool reuse, bool slideShow, bool random)
 {
-    DB::IdList mediaList = ZZZ(inputMediaList);
+    DB::FileNameList mediaList = inputMediaList;
     int seek = -1;
     if (mediaList.isEmpty()) {
         mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
     } else if (mediaList.size() == 1) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
-        DB::Id first = mediaList.at(0);
+        const DB::FileName first = mediaList.at(0);
         mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
         seek = mediaList.indexOf(first);
     }
 
     if (mediaList.isEmpty())
-        mediaList = ZZZ(DB::ImageDB::instance()->currentScope( false ));
+        mediaList = DB::ImageDB::instance()->currentScope( false );
 
     if (mediaList.isEmpty()) {
         KMessageBox::sorry( this, i18n("There are no images to be shown.") );
@@ -601,12 +601,9 @@ void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bo
     }
 
     if (random) {
-        mediaList = DB::IdList(Utilities::shuffleList(mediaList.rawIdList()));
+        // mediaList = DB::FileNameList(Utilities::shuffleList(mediaList)); ZZZ I Can't git this to compile
+        qFatal("Missing porting of code"); // ZZZ
     }
-
-    // Here, we need to switch back to the StringList until the Viewer is
-    // converted.
-    DB::FileNameList fileNameList = ZZZ(mediaList);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {
@@ -620,7 +617,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bo
     connect( viewer, SIGNAL( soughtTo(const DB::FileName&) ), _thumbnailView, SLOT( changeSingleSelection(const DB::FileName&) ) );
 
     viewer->show( slideShow );
-    viewer->load( fileNameList, seek < 0 ? 0 : seek );
+    viewer->load( mediaList, seek < 0 ? 0 : seek );
     viewer->raise();
 }
 
@@ -1078,7 +1075,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction(_viewInNewWindow);
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
-        DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().fetchInfo();
+        DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().info();
 
         externalCommands->populate( info, selected());
         QAction* action = menu.addMenu( externalCommands );
@@ -1584,10 +1581,9 @@ void MainWindow::Window::showDateBarTip( const QString& msg )
 
 void MainWindow::Window::slotJumpToContext()
 {
-    DB::Id id =_thumbnailView->currentItem();
-    if ( !id.isNull() ) {
-        // QWERTY: addImageView should take id as well.
-        _browser->addImageView( id.fetchInfo()->fileName() );
+    const DB::FileName fileName =_thumbnailView->currentItem();
+    if ( !fileName.isNull() ) {
+        _browser->addImageView(fileName);
    }
 }
 
@@ -1608,7 +1604,7 @@ void MainWindow::Window::clearDateRange()
 
 void MainWindow::Window::showThumbNails(const DB::FileNameList& items)
 {
-    _thumbnailView->setImageList( ZZZ(items) );
+    _thumbnailView->setImageList(items);
     _statusBar->_partial->setMatchCount(items.size());
     showThumbNails();
 }

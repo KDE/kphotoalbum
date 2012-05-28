@@ -923,7 +923,7 @@ void MainWindow::Window::slotExportToHTML()
 {
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLGenerator::HTMLDialog( this );
-    _htmlDialog->exec(ZZZ(selectedOnDisk()));
+    _htmlDialog->exec(selectedOnDisk());
 }
 
 void MainWindow::Window::startAutoSaveTimer()

@@ -530,7 +530,7 @@ void MainWindow::Window::slotReReadExifInfo()
 
 void MainWindow::Window::slotAutoStackImages()
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList list = selected();
     if (list.isEmpty()) {
         KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
         return;

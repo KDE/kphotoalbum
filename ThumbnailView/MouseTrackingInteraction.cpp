@@ -21,6 +21,7 @@
 #include <QMouseEvent>
 #include "VideoThumbnailCycler.h"
 #include <DB/ImageDB.h> // ZZZ
+#include <DB/FileName.h>
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ), m_videoThumbnailCycler( new VideoThumbnailCycler(model()) ),
@@ -52,12 +53,12 @@ void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEv
 
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 {
-    static DB::Id lastIdUderCursor;
-    const DB::Id id = widget()->mediaIdUnderCursor();
-    if ( id != lastIdUderCursor ) {
-        emit fileIdUnderCursorChanged(id);
-        model()->updateCell(ZZZ(lastIdUderCursor));
-        model()->updateCell(ZZZ(id));
-        lastIdUderCursor = id;
+    static DB::FileName lastFileNameUderCursor;
+    const DB::FileName fileName = ZZZ(widget()->mediaIdUnderCursor());
+    if ( fileName != lastFileNameUderCursor ) {
+        emit fileIdUnderCursorChanged(fileName);
+        model()->updateCell(lastFileNameUderCursor);
+        model()->updateCell(fileName);
+        lastFileNameUderCursor = fileName;
     }
 }

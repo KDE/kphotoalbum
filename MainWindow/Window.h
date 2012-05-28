@@ -43,7 +43,7 @@ class KActionMenu;
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
-#include "DB/IdList.h"
+#include "DB/FileNameList.h"
 #include "DB/Id.h"
 #include "ThumbnailView/enums.h"
 
@@ -73,7 +73,7 @@ public:
     DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
-    void setStackHead( const DB::Id image );
+    void setStackHead( const DB::FileName& image );
     void setHistogramVisibilty( bool visible ) const;
 
 public slots:
@@ -112,7 +112,7 @@ protected slots:
     void unlockFromDefaultScope();
     void changePassword();
     void slotConfigureKeyBindings();
-    void slotSetFileName( const DB::Id& );
+    void slotSetFileName( const DB::FileName& );
     void updateContextMenuFromSelectionSize(int selectionSize);
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void slotUpdateViewMenu( DB::Category::ViewType );
@@ -143,7 +143,7 @@ protected slots:
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();
-    void showImage( const DB::Id& fileName );
+    void showImage( const DB::FileName& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
     void slotRotateSelectedLeft();
@@ -168,7 +168,7 @@ protected:
     void updateStates( bool thumbNailView );
     DB::FileNameList selectedOnDisk();
     void setupPluginMenu();
-    void launchViewer(const DB::IdList& mediaList, bool reuse, bool slideShow, bool random);
+    void launchViewer(const DB::FileNameList& mediaList, bool reuse, bool slideShow, bool random);
     void setupStatusBar();
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSarchBar();

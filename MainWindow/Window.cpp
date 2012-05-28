@@ -352,7 +352,7 @@ void MainWindow::Window::slotCreateImageStack()
  * */
 void MainWindow::Window::slotSetStackHead()
 {
-    const DB::IdList& list = ZZZ(selected());
+    const DB::FileNameList list = selected();
     if ( list.size() != 1 ) {
         // this should be checked by enabling/disabling of QActions
         return;
@@ -361,18 +361,18 @@ void MainWindow::Window::slotSetStackHead()
     setStackHead( *list.begin() );
 }
 
-void MainWindow::Window::setStackHead( const DB::Id image )
+void MainWindow::Window::setStackHead( const DB::FileName& image )
 {
-    if ( ! image.fetchInfo()->isStacked() )
+    if ( ! image.info()->isStacked() )
         return;
 
-    unsigned int oldOrder = image.fetchInfo()->stackOrder();
+    unsigned int oldOrder = image.info()->stackOrder();
 
-    DB::IdList others = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(image) ));
+    DB::IdList others = ZZZ(DB::ImageDB::instance()->getStackFor(image));
     others.fetchInfos();
     for ( DB::IdList::const_iterator it = others.begin(); it != others.end(); ++it ) {
         DB::Id current = *it;
-        if ( current == image ) {
+        if ( current == ZZZ(image) ) {
             current.fetchInfo()->setStackOrder( 1 );
         } else if ( current.fetchInfo()->stackOrder() < oldOrder ) {
             current.fetchInfo()->setStackOrder( current.fetchInfo()->stackOrder() + 1 );
@@ -575,12 +575,12 @@ DB::FileNameList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    launchViewer( ZZZ(selected( ThumbnailView::NoExpandCollapsedStacks )), reuse, slideShow, random );
+    launchViewer(selected(ThumbnailView::NoExpandCollapsedStacks), reuse, slideShow, random );
 }
 
-void MainWindow::Window::launchViewer(const DB::IdList& inputMediaList, bool reuse, bool slideShow, bool random)
+void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bool reuse, bool slideShow, bool random)
 {
-    DB::IdList mediaList = inputMediaList;
+    DB::IdList mediaList = ZZZ(inputMediaList);
     int seek = -1;
     if (mediaList.isEmpty()) {
         mediaList = _thumbnailView->imageList( ThumbnailView::ViewOrder );
@@ -1203,16 +1203,16 @@ void MainWindow::Window::slotConfigureKeyBindings()
     delete viewer;
 }
 
-void MainWindow::Window::slotSetFileName( const DB::Id& id )
+void MainWindow::Window::slotSetFileName( const DB::FileName& fileName )
 {
     ImageInfoPtr infos;
 
-    if ( id.isNull() )
+    if ( fileName.isNull() )
         _statusBar->clearMessage();
     else {
-        infos = id.fetchInfo();
+        infos = fileName.info();
         if (infos != ImageInfoPtr(NULL) )
-            _statusBar->showMessage( id.fetchInfo()->fileName().absolute(), 4000 );
+            _statusBar->showMessage( fileName.absolute(), 4000 );
     }
 }
 
@@ -1635,9 +1635,9 @@ void MainWindow::Window::showFeatures()
     dialog.exec();
 }
 
-void MainWindow::Window::showImage( const DB::Id& id )
+void MainWindow::Window::showImage( const DB::FileName& fileName )
 {
-    launchViewer(DB::IdList(id), true, false, false);
+    launchViewer(DB::FileNameList() << fileName, true, false, false);
 }
 
 void MainWindow::Window::slotBuildThumbnails()

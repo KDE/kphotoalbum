@@ -980,7 +980,7 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead( DB::ImageDB::instance()->ZZZ( _list[ _current ]) );
+    MainWindow::Window::theMainWindow()->setStackHead(_list[ _current ]);
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const

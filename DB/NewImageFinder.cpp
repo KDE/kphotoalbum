@@ -276,7 +276,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
             }
         }
         DB::ImageDB::instance()->stack(ZZZ(tostack));
-        MainWindow::Window::theMainWindow()->setStackHead( newerfile );
+        MainWindow::Window::theMainWindow()->setStackHead(ZZZ(newerfile));
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.

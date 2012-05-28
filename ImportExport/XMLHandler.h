@@ -31,7 +31,7 @@ class XMLHandler
 {
 public:
     QByteArray createIndexXML(
-        const DB::IdList& images,
+        const DB::FileNameList& images,
         const QString& baseUrl,
         ImageFileLocation location,
         Utilities::UniqFilenameMapper* nameMap);

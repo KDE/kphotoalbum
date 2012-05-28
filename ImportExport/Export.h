@@ -24,8 +24,7 @@
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
 #include <QPointer>
-
-namespace DB { class FileNameList; }
+#include <DB/FileNameList.h>
 
 class QRadioButton;
 class QSpinBox;

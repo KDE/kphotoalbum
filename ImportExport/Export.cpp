@@ -229,7 +229,7 @@ Export::Export(
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        Q3CString indexml = XMLHandler().createIndexXML( ZZZ(list), baseUrl, _location, &_filenameMapper );
+        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );

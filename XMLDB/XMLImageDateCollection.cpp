@@ -18,7 +18,7 @@
 
 #include "XMLImageDateCollection.h"
 #include "DB/ImageDB.h"
-#include "DB/Id.h"
+#include "DB/FileNameList.h"
 
 void XMLImageDateCollection::add( const DB::ImageDate& date )
 {
@@ -119,10 +119,10 @@ QDateTime XMLImageDateCollection::upperLimit() const
     return QDateTime( QDate( 2100, 1, 1 ) );
 }
 
-XMLImageDateCollection::XMLImageDateCollection(const DB::IdList& list)
+XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList& list)
 {
-    Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-        add(info->date());
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        add(fileName.info()->date());
     }
     buildIndex();
 }

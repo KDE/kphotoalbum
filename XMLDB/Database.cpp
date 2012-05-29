@@ -339,7 +339,7 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return KSharedPtr<DB::ImageDateCollection>(
-        new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
+        new XMLImageDateCollection( ZZZ(searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false))));
 }
 
 void XMLDB::Database::reorder(

@@ -82,14 +82,14 @@ namespace XMLDB {
         OVERRIDE DB::Id ZZZ( const DB::FileName& ) const;
 
     protected:
-        DB::IdList searchPrivate(
+        DB::FileNameList searchPrivate(
             const DB::ImageSearchInfo&,
             bool requireOnDisk,
             bool onlyItemsMatchingRange) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
-        DB::ImageInfoList takeImagesFromSelection(const DB::IdList& list);
-        void insertList( const DB::Id& id, const DB::ImageInfoList& list, bool after );
+        DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList& list);
+        void insertList( const DB::FileName& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 

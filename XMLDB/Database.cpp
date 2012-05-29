@@ -134,7 +134,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
         DB::ImageInfoPtr inf = id.fetchInfo();
         StackMap::iterator found = _stackMap.find(inf->stackId());
         if ( inf->isStacked() && found != _stackMap.end() ) {
-            const DB::IdList& origCache = found.value();
+            const DB::IdList origCache = found.value();
             DB::IdList newCache;
             Q_FOREACH(DB::Id cacheId, origCache) {
                 if (id != cacheId)
@@ -303,10 +303,10 @@ DB::FileNameList XMLDB::Database::search(
     const DB::ImageSearchInfo& info,
     bool requireOnDisk) const
 {
-    return ZZZ(searchPrivate( info, requireOnDisk, true ));
+    return searchPrivate( info, requireOnDisk, true );
 }
 
-DB::IdList XMLDB::Database::searchPrivate(
+DB::FileNameList XMLDB::Database::searchPrivate(
     const DB::ImageSearchInfo& info,
     bool requireOnDisk,
     bool onlyItemsMatchingRange) const
@@ -321,7 +321,7 @@ DB::IdList XMLDB::Database::searchPrivate(
         if (match)
             result.append(_idMapper[(*it)->fileName()]);
     }
-    return DB::IdList(result);
+    return ZZZ(DB::IdList(result));
 }
 
 void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& idList)
@@ -339,7 +339,7 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return KSharedPtr<DB::ImageDateCollection>(
-        new XMLImageDateCollection( ZZZ(searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false))));
+        new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false)));
 }
 
 void XMLDB::Database::reorder(
@@ -348,15 +348,15 @@ void XMLDB::Database::reorder(
     bool after)
 {
     Q_ASSERT(!item.isNull());
-    DB::ImageInfoList list = takeImagesFromSelection( ZZZ(selection) );
-    insertList( ZZZ(item), list, after );
+    DB::ImageInfoList list = takeImagesFromSelection(selection);
+    insertList(item, list, after );
 }
 
 // Remove all the images from the database that match the given selection and
 // return that sublist.
 // This returns the selected and erased images in the order in which they appear
 // in the image list itself.
-DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& selection)
+DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameList& selection)
 {
     DB::ImageInfoList result;
     if (selection.isEmpty())
@@ -365,10 +365,10 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& sel
     // iterate over all images (expensive!!) TODO: improve?
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
         const DB::FileName imagefile = (*it)->fileName();
-        DB::IdList::ConstIterator si = selection.begin();
+        DB::FileNameList::ConstIterator si = selection.begin();
         // for each image, iterate over selection, break on match
         for ( /**/; si != selection.end(); ++si ) {
-            const DB::FileName file = (*si).fetchInfo()->fileName();
+            const DB::FileName file = *si;
             if ( imagefile == file ) {
                 break;
             }
@@ -389,12 +389,10 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::IdList& sel
 }
 
 void XMLDB::Database::insertList(
-    const DB::Id& id,
+    const DB::FileName& fileName,
     const DB::ImageInfoList& list,
     bool after)
 {
-    const DB::FileName fileName = id.fetchInfo()->fileName();
-
     DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
         if ( (*imageIt)->fileName() == fileName ) {

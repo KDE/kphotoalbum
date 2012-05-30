@@ -17,7 +17,6 @@
 */
 #include "SelectionMaintainer.h"
 #include <DB/FileNameList.h>
-#include <DB/ImageDB.h> // ZZZ
 
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     :m_widget(widget), m_model(model), m_enabled(true)

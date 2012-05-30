@@ -119,13 +119,13 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
 void ThumbnailView::ThumbnailDND::removeDropIndications()
 {
-    DB::Id left = ZZZ(model()->leftDropItem());
-    DB::Id right = ZZZ(model()->rightDropItem());
+    const DB::FileName left = model()->leftDropItem();
+    const DB::FileName right = model()->rightDropItem();
     model()->setLeftDropItem( DB::FileName() );
     model()->setRightDropItem( DB::FileName() );
 
-    model()->updateCell(ZZZ(left));
-    model()->updateCell(ZZZ(right));
+    model()->updateCell(left);
+    model()->updateCell(right);
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )

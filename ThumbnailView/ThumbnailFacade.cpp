@@ -24,7 +24,6 @@
 #include "ThumbnailModel.h"
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
-#include <DB/ImageDB.h> // ZZZ3
 
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = 0;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()

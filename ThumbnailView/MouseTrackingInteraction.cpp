@@ -20,7 +20,6 @@
 #include "ThumbnailWidget.h"
 #include <QMouseEvent>
 #include "VideoThumbnailCycler.h"
-#include <DB/ImageDB.h> // ZZZ
 #include <DB/FileName.h>
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )

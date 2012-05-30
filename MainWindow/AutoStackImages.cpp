@@ -159,7 +159,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
         if ( info->date().start() != info->date().end() )
             continue;
         if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
-            DB::IdList stack = DB::IdList();
+            DB::FileNameList stack;
 
             if ( !DB::ImageDB::instance()->getStackFor( prev->fileName() ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
@@ -175,8 +175,8 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
                     continue;
             }
 
-            stack.append( DB::ImageDB::instance()->ZZZ( prev->fileName() ) );
-            stack.append( DB::ImageDB::instance()->ZZZ( info->fileName() ) );
+            stack.append(prev->fileName());
+            stack.append(info->fileName());
             if ( !toBeShown.isEmpty() ) {
                 if ( toBeShown.at( toBeShown.size() - 1 ).info()->fileName() != prev->fileName() )
                     toBeShown.append(prev->fileName());
@@ -194,7 +194,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
                     toBeShown.append( a );
             else
                 toBeShown.append(info->fileName());
-            DB::ImageDB::instance()->stack( ZZZ(stack) );
+            DB::ImageDB::instance()->stack(stack);
         }
 
         prev = info;

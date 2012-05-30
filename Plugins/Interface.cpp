@@ -109,11 +109,8 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
 void Plugins::Interface::delImage( const KUrl& url )
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(url.path()));
-    if ( info ) {
-        DB::IdList list;
-        list.append(DB::ImageDB::instance()->ZZZ(info->fileName()));
-        DB::ImageDB::instance()->deleteList( ZZZ(list) );
-    }
+    if ( info )
+        DB::ImageDB::instance()->deleteList(DB::FileNameList() << info->fileName() );
 }
 
 void Plugins::Interface::slotSelectionChanged( bool b )

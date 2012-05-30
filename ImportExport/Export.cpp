@@ -40,7 +40,6 @@
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <DB/FileNameList.h>
-#include <DB/ImageDB.h> // ZZZ
 
 using namespace ImportExport;
 

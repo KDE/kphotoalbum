@@ -118,17 +118,17 @@ void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
     // Then add images to stack (depending on configuration options)
     for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
         if ( tostack[it.key()].count() > 1 ) {
-            DB::IdList stack = DB::IdList();
+            DB::FileNameList stack;
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
                 if ( !DB::ImageDB::instance()->getStackFor( tostack[it.key()][i]).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( ZZZ((DB::IdList) DB::ImageDB::instance()->ZZZ(tostack[it.key()][i])));
+                        DB::ImageDB::instance()->unstack( DB::FileNameList() << tostack[it.key()][i]);
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
 
                 showIfStacked.append( tostack[it.key()][i] );
-                stack.append( DB::ImageDB::instance()->ZZZ(tostack[it.key()][i]));
+                stack.append( tostack[it.key()][i]);
             }
             if ( stack.size() > 1 ) {
 
@@ -139,7 +139,7 @@ void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
                     else
                         toBeShown.append(a);
                 }
-                DB::ImageDB::instance()->stack( ZZZ(stack) );
+                DB::ImageDB::instance()->stack(stack);
             }
             showIfStacked.clear();
         }

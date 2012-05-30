@@ -368,14 +368,12 @@ void MainWindow::Window::setStackHead( const DB::FileName& image )
 
     unsigned int oldOrder = image.info()->stackOrder();
 
-    DB::IdList others = ZZZ(DB::ImageDB::instance()->getStackFor(image));
-    others.fetchInfos();
-    for ( DB::IdList::const_iterator it = others.begin(); it != others.end(); ++it ) {
-        DB::Id current = *it;
-        if ( current == ZZZ(image) ) {
-            current.fetchInfo()->setStackOrder( 1 );
-        } else if ( current.fetchInfo()->stackOrder() < oldOrder ) {
-            current.fetchInfo()->setStackOrder( current.fetchInfo()->stackOrder() + 1 );
+    DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
+    Q_FOREACH( const DB::FileName& current, others ) {
+        if (current == image) {
+            current.info()->setStackOrder( 1 );
+        } else if ( current.info()->stackOrder() < oldOrder ) {
+            current.info()->setStackOrder( current.info()->stackOrder() + 1 );
         }
     }
 

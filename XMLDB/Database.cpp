@@ -420,7 +420,8 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
     QList<DB::ImageInfoPtr> images;
     unsigned int stackOrder = 1;
 
-    Q_FOREACH(DB::ImageInfoPtr imgInfo, ZZZ(items).fetchInfos()) {
+    Q_FOREACH(const DB::FileName& fileName, items) {
+        DB::ImageInfoPtr imgInfo = fileName.info();
         Q_ASSERT( imgInfo );
         if ( imgInfo->isStacked() ) {
             stacks << imgInfo->stackId();

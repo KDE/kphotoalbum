@@ -260,23 +260,23 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         DB::ImageDB::instance()->addImages( newImages );
 
         // stack the files together
-        DB::Id olderfile = DB::ImageDB::instance()->ZZZ(originalFileName);
-        DB::Id newerfile = DB::ImageDB::instance()->ZZZ(info->fileName());
-        DB::IdList tostack = DB::IdList();
+        DB::FileName olderfile = originalFileName;
+        DB::FileName newerfile = info->fileName();
+        DB::FileNameList tostack;
 
         // the newest file should go to the top of the stack
         tostack.append(newerfile);
 
-        DB::IdList oldStack;
-        if ( ( oldStack = ZZZ(DB::ImageDB::instance()->getStackFor( ZZZ(olderfile) )) ).isEmpty() ) {
+        DB::FileNameList oldStack;
+        if ( ( oldStack = DB::ImageDB::instance()->getStackFor( olderfile)).isEmpty() ) {
             tostack.append(olderfile);
         } else {
-            Q_FOREACH( DB::Id tmp, oldStack ) {
+            Q_FOREACH( const DB::FileName& tmp, oldStack ) {
                 tostack.append( tmp );
             }
         }
-        DB::ImageDB::instance()->stack(ZZZ(tostack));
-        MainWindow::Window::theMainWindow()->setStackHead(ZZZ(newerfile));
+        DB::ImageDB::instance()->stack(tostack);
+        MainWindow::Window::theMainWindow()->setStackHead(newerfile);
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.

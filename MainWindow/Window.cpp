@@ -1533,20 +1533,20 @@ void MainWindow::Window::slotShowListOfFiles()
     if ( list.isEmpty() )
         return;
 
-    DB::IdList out;
+    DB::FileNameList out;
     for ( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        QString fileName = Utilities::imageFileNameToAbsolute( *it );
-        if ( fileName.isNull() )
+        QString fileNameStr = Utilities::imageFileNameToAbsolute( *it );
+        if ( fileNameStr.isNull() )
             continue;
-        DB::Id id = DB::ImageDB::instance()->ZZZ(DB::FileName::fromAbsolutePath(fileName));
-        if ( !id.isNull() )
-            out.append(id);
+        const DB::FileName fileName = DB::FileName::fromAbsolutePath(fileNameStr);
+        if ( !fileName.isNull() )
+            out.append(fileName);
     }
 
     if (out.isEmpty())
         KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
     else
-        showThumbNails(ZZZ(out) );
+        showThumbNails(out);
 }
 
 void MainWindow::Window::updateDateBar( const Browser::BreadcrumbList& path )

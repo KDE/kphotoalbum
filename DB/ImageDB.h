@@ -181,7 +181,7 @@ protected slots:
 signals:
     void totalChanged( uint );
     void dirty();
-    void imagesDeleted( const DB::IdList& );
+    void imagesDeleted( const DB::FileNameList& );
 };
 
 }

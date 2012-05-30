@@ -28,7 +28,6 @@
 #include <ImageManager/VideoThumbnails.h>
 #include "ThumbnailModel.h"
 #include <ThumbnailView/CellGeometry.h>
-#include <DB/ImageDB.h> // ZZZ
 
 ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)

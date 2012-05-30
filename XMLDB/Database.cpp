@@ -158,7 +158,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
-    emit imagesDeleted( ZZZ(list) );
+    emit imagesDeleted(list);
 }
 
 void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
@@ -324,10 +324,11 @@ DB::FileNameList XMLDB::Database::searchPrivate(
     return ZZZ(DB::IdList(result));
 }
 
-void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& idList)
+void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& fileNameList)
 {
     DB::ImageInfoList infoList;
-    infoList += ZZZ(idList).fetchInfos();
+    Q_FOREACH( const DB::FileName fileName, fileNameList )
+        infoList.append(fileName.info());
     _images.sortAndMergeBackIn(infoList);
 }
 

@@ -36,7 +36,6 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
-#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"

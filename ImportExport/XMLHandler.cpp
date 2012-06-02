@@ -18,7 +18,6 @@
 #include "XMLHandler.h"
 #include <qdom.h>
 #include "Utilities/Util.h"
-#include "DB/Id.h"
 
 using Utilities::StringSet;
 

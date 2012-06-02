@@ -22,7 +22,6 @@
 #include <QList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include "DB/Id.h"
 #include <QProgressBar>
 #include <qapplication.h>
 #include "NewImageFinder.h"

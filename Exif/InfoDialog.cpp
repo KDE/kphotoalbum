@@ -28,7 +28,6 @@
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
-#include "DB/Id.h"
 
 using Utilities::StringSet;
 

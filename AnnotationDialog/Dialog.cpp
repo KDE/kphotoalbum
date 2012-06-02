@@ -52,8 +52,6 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include "DB/IdList.h"
-#include "DB/Id.h"
 #include "ImagePreviewWidget.h"
 #include "KDateEdit.h"
 #include "ListSelect.h"
@@ -65,6 +63,7 @@
 #include "Utilities/Util.h"
 #include "Viewer/ViewerWidget.h"
 #include "enums.h"
+#include <QDebug>
 
 using Utilities::StringSet;
 

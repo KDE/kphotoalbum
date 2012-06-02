@@ -20,7 +20,6 @@
 #include <ImageManager/VideoThumbnailsExtractor.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <DB/IdList.h>
 #include <QFile>
 #include "CreateVideoThumbnailsJob.h"
 #include "JobManager.h"

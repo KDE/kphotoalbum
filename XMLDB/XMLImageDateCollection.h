@@ -20,7 +20,6 @@
 
 #include <QMap>
 #include "DB/ImageDateCollection.h"
-#include "DB/IdList.h"
 
 namespace DB { class FileNameList; }
 

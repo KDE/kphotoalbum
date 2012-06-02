@@ -23,7 +23,6 @@
 #include "ThumbnailView/CellGeometry.h"
 #include "ImageManager/AsyncLoader.h"
 #include "DB/ImageDB.h"
-#include "DB/Id.h"
 #include "PreloadRequest.h"
 #include <QTimer>
 

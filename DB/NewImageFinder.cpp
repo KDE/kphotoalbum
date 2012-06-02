@@ -21,9 +21,6 @@
 #include "ImageManager/ThumbnailCache.h"
 
 #include "DB/ImageDB.h"
-#include "DB/Id.h"
-#include "DB/IdList.h"
-
 #include <qfileinfo.h>
 #include <QStringList>
 #include <QProgressDialog>
@@ -45,6 +42,7 @@
 #include <MainWindow/Window.h>
 #include <BackgroundTasks/JobManager.h>
 #include <BackgroundTasks/ReadVideoLengthJob.h>
+#include <QDebug>
 
 using namespace DB;
 

@@ -44,7 +44,6 @@ class KActionMenu;
 #  include <libkipi/pluginloader.h>
 #endif
 #include "DB/FileNameList.h"
-#include "DB/Id.h"
 #include "ThumbnailView/enums.h"
 
 namespace Plugins { class Interface; }

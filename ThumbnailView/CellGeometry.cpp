@@ -18,7 +18,6 @@
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
 #include "ThumbnailModel.h"
-#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 
 using Utilities::StringSet;

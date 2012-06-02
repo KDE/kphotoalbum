@@ -17,8 +17,6 @@
 */
 
 #include "Database.h"
-#include "DB/IdList.h"
-#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 #include <kmessagebox.h>
 #include <klocale.h>

@@ -18,7 +18,6 @@
 
 #ifndef XMLDB_DATABSE_H
 #define XMLDB_DATABSE_H
-#include "IdNameMapper.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include <qstringlist.h>

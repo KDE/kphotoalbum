@@ -27,7 +27,6 @@
 #include <time.h>
 #include "ImageManager/AsyncLoader.h"
 #include "DB/ImageInfo.h"
-#include "DB/Id.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
 #include <qlayout.h>

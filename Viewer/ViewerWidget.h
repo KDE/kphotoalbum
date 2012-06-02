@@ -24,7 +24,6 @@
 #include <QPixmap>
 #include <QMap>
 #include "DB/ImageInfoPtr.h"
-#include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
 #include <QPointer>
 #include <DB/FileNameList.h>

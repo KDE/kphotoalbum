@@ -23,8 +23,6 @@
 #include "DB/ImageInfoList.h"
 #include "DB/MediaCount.h"
 #include <DB/FileNameList.h>
-#include <DB/IdList.h>
-#include <DB/Id.h>
 
 class QProgressBar;
 

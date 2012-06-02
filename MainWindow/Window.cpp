@@ -91,8 +91,6 @@
 #include "InvalidDateFinder.h"
 #include "AutoStackImages.h"
 #include "DB/ImageInfo.h"
-#include "DB/Id.h"
-#include "DB/IdList.h"
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif

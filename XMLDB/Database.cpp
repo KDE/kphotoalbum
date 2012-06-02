@@ -155,7 +155,6 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName() );
 #endif
-        _idMapper.remove( inf->fileName() );
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -223,10 +222,6 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
                                info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
     }
 
-    Q_FOREACH( const DB::ImageInfoPtr& info, images ) {
-        _idMapper.add( info->fileName() );
-    }
-
     emit totalChanged( _images.count() );
     emit dirty();
 }
@@ -234,9 +229,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
 {
     info->delaySavingChanges(false);
-    _idMapper.remove( info->fileName() );
     info->setFileName(newName);
-    _idMapper.add( info->fileName() );
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
@@ -652,12 +645,5 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
             }
         }
     }
-}
-
-DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
-{
-    if (id.isNull() || !_idMapper.exists(id.rawId()) )
-        return DB::ImageInfoPtr(NULL);
-    return info( _idMapper[id.rawId()]);
 }
 

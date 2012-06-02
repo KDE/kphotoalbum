@@ -81,8 +81,6 @@ class IdList
     ConstIterator end() const;
     void debug() const;
 
-    QList<DB::ImageInfoPtr> fetchInfos() const;
-
     /** Get the raw list for offline manipulation */
     const QList<DB::RawId>& rawIdList() const;
 

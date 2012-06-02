@@ -63,12 +63,6 @@ public:
         return _rawId < other._rawId;
     }
 
-    /**
-     * Convenience method: fetch the associated ImageInfo for this ID or
-     * a ImageInfoPtr(NULL) if this id is Id::null
-     */
-    ImageInfoPtr fetchInfo() const;
-
  private:
     explicit Id(RawId rawId)
         : _rawId(rawId)

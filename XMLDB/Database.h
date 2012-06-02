@@ -57,7 +57,6 @@ namespace XMLDB {
         OVERRIDE bool isBlocking( const DB::FileName& fileName );
         OVERRIDE void deleteList(const DB::FileNameList& list);
         OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;
-        OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
@@ -113,8 +112,6 @@ namespace XMLDB {
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;
-
-        DB::IdNameMapper _idMapper;
     };
 }
 

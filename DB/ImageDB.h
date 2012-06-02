@@ -95,7 +95,7 @@ public: // Methods that must be overridden
     virtual void addToBlockList(const DB::FileNameList& list) = 0;
     virtual bool isBlocking( const DB::FileName& fileName ) = 0;
     virtual void deleteList(const DB::FileNameList& list) = 0;
-    virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0; //QWERTY DIE
+    virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
@@ -145,13 +145,6 @@ public: // Methods that must be overridden
      * They are returned sorted according to their stackOrder.
      * */
     virtual DB::FileNameList getStackFor(const DB::FileName& referenceId) const = 0;
-
- protected:
-    friend class DB::Id;
-
-    // Don't use directly, use DB::Id::fetchInfo() instead.
-    virtual ImageInfoPtr info( const DB::Id& ) const = 0;
-
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;

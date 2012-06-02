@@ -46,10 +46,6 @@ bool DB::Id::isNull() const {
     return _rawId == DB::RawId();
 }
 
-DB::ImageInfoPtr DB::Id::fetchInfo() const {
-    if (isNull()) return ImageInfoPtr(NULL);
-    return DB::ImageDB::instance()->info(*this);
-}
 
 const DB::IdList& DB::Id::context() const
 {

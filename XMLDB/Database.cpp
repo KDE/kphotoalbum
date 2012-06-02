@@ -314,15 +314,15 @@ DB::FileNameList XMLDB::Database::searchPrivate(
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
-    QList<DB::RawId> result;
+    DB::FileNameList result;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName() );
 
         if (match)
-            result.append(_idMapper[(*it)->fileName()]);
+            result.append((*it)->fileName());
     }
-    return ZZZ(DB::IdList(result));
+    return result;
 }
 
 void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& fileNameList)

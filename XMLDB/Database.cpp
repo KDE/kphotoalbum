@@ -130,19 +130,20 @@ void XMLDB::Database::addToBlockList(const DB::FileNameList& list)
 
 void XMLDB::Database::deleteList(const DB::FileNameList& list)
 {
-    Q_FOREACH(DB::Id id, ZZZ(list)) {
-        DB::ImageInfoPtr inf = id.fetchInfo();
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        DB::ImageInfoPtr inf = fileName.info();
         StackMap::iterator found = _stackMap.find(inf->stackId());
         if ( inf->isStacked() && found != _stackMap.end() ) {
-            const DB::IdList origCache = found.value();
-            DB::IdList newCache;
-            Q_FOREACH(DB::Id cacheId, origCache) {
-                if (id != cacheId)
-                    newCache.append(cacheId);
+            const DB::FileNameList origCache = found.value();
+            DB::FileNameList newCache;
+            Q_FOREACH(const DB::FileName& cacheName, origCache) {
+                if (fileName != cacheName)
+                    newCache.append(cacheName);
             }
             if (newCache.size() <= 1) {
                 // we're destroying a stack
-                Q_FOREACH(DB::ImageInfoPtr cacheInf, newCache.fetchInfos()) {
+                Q_FOREACH(const DB::FileName& cacheName, newCache) {
+                    DB::ImageInfoPtr cacheInf = cacheName.info();
                     cacheInf->setStackId(0);
                     cacheInf->setStackOrder(0);
                 }
@@ -440,7 +441,7 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
             ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        _stackMap[stackId].append(ZZZ((*it)->fileName()));
+        _stackMap[stackId].append((*it)->fileName());
         ++changed;
     }
 
@@ -468,7 +469,7 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
             DB::ImageInfoPtr imgInfo = id.fetchInfo();
             Q_ASSERT( imgInfo );
             if ( imgInfo->isStacked() ) {
-                _stackMap[imgInfo->stackId()].removeAll(id);
+                _stackMap[imgInfo->stackId()].removeAll(ZZZ(id));
                 imgInfo->setStackId( 0 );
                 imgInfo->setStackOrder( 0 );
             }
@@ -488,20 +489,20 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) 
 
     StackMap::iterator found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
-        return ZZZ(found.value());
+        return found.value();
 
     // it wasn't in the cache -> rebuild it
     _stackMap.clear();
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            _stackMap[stackid].append(ZZZ((*it)->fileName())); // will need to be sorted later
+            _stackMap[stackid].append((*it)->fileName());
         }
     }
 
     found = _stackMap.find(imageInfo->stackId());
     if ( found != _stackMap.end() )
-        return ZZZ(found.value());
+        return found.value();
     else
         return DB::FileNameList();
 }

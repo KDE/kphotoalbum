@@ -114,7 +114,7 @@ namespace XMLDB {
         DB::MD5Map _md5map;
 
         DB::StackID _nextStackId;
-        typedef QMap<DB::StackID, DB::IdList> StackMap;
+        typedef QMap<DB::StackID, DB::FileNameList> StackMap;
         mutable  StackMap _stackMap;
 
         // used for checking if any images are without image attribute from the database.

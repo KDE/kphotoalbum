@@ -189,19 +189,6 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
     return candidate;
 }
 
-DB::FileNameList ImageDB::ZZZ(const IdList & idList) const
-{
-    QStringList list = CONVERT(idList);
-    DB::FileNameList res;
-    Q_FOREACH( const QString& str, list ) {
-        if ( str.startsWith(QLatin1String("/") ) )
-            res.append(FileName::fromAbsolutePath(str));
-        else
-            res.append(FileName::fromRelativePath(str));
-    }
-    return res;
-}
-
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )
  * \brief Rename category in media items stored in database.
  */

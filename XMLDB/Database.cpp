@@ -664,10 +664,6 @@ QStringList XMLDB::Database::CONVERT(const DB::IdList& items) const
     return result;
 }
 
-DB::Id XMLDB::Database::ZZZ( const DB::FileName& fileName) const {
-    return DB::Id::createContextless(_idMapper[ fileName]);
-}
-
 DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
 {
     if (id.isNull() || !_idMapper.exists(id.rawId()) )
@@ -675,11 +671,3 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
     return info( _idMapper[id.rawId()]);
 }
 
-DB::IdList XMLDB::Database::ZZZ( const DB::FileNameList& list ) const
-{
-    QList<DB::RawId> result;
-    Q_FOREACH( const DB::FileName& fileName, list )
-        result.append( _idMapper[fileName]);
-
-    return DB::IdList(result);
-}

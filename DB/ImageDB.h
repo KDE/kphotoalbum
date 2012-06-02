@@ -45,9 +45,6 @@ class ImageDB  :public QObject {
     Q_OBJECT
 
 public:
-    virtual DB::IdList ZZZ( const DB::FileNameList& list )  const= 0;
-    DB::FileName ZZZ( const DB::Id& id ) const { return id.fetchInfo()->fileName(); }
-
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
     static void deleteInstance();
@@ -121,17 +118,6 @@ public: // Methods that must be overridden
      */
     virtual QStringList CONVERT(const DB::IdList&) const = 0; //QWERTY DIE
 
-    DB::FileNameList ZZZ(const DB::IdList&) const; // QWERTY DIE
-    /**
-     * there are some cases in which we have a filename and need to map back
-     * to ID. Provided here to push down that part of refactoring. It
-     * might be necessary to keep this method though because sometimes we
-     * get filenames from the UI and need to convert it into our internal IDs.
-     * If that turns out to be true, lowercasify this method, and update
-     * this comment.
-     */
-    virtual DB::Id ZZZ( const DB::FileName& ) const = 0; // QWERTY DIE ?
-
     /** @short Create a stack of images/videos/whatever
      *
      * If the specified images already belong to different stacks, then no
@@ -185,25 +171,5 @@ signals:
 };
 
 }
-
-inline DB::IdList ZZZ( const DB::FileNameList& list ) {
-    return DB::ImageDB::instance()->ZZZ(list);
-}
-
-inline DB::FileNameList ZZZ( const DB::IdList& list ) {
-    return DB::ImageDB::instance()->ZZZ(list);
-}
-
-inline DB::Id ZZZ( const DB::FileName& fileName ) {
-    return DB::ImageDB::instance()->ZZZ( fileName );
-}
-
-inline DB::FileName ZZZ(const DB::Id& id ) {
-    if ( id.isNull() )
-        return DB::FileName();
-    else
-        return id.fetchInfo()->fileName();
-}
-
 #endif /* IMAGEDB_H */
 

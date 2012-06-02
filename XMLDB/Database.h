@@ -42,9 +42,6 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        DB::IdList ZZZ( const DB::FileNameList& list ) const;
-        DB::FileName ZZZ( const DB::Id& id ) const { return ImageDB::ZZZ(id); }
-        DB::FileNameList ZZZ(const DB::IdList& list ) const { return DB::ImageDB::ZZZ(list); }
         OVERRIDE uint totalCount() const;
         OVERRIDE DB::FileNameList search(
             const DB::ImageSearchInfo&,
@@ -79,7 +76,6 @@ namespace XMLDB {
         OVERRIDE DB::FileNameList getStackFor(const DB::FileName& referenceId) const;
 
         OVERRIDE QStringList CONVERT(const DB::IdList&) const;
-        OVERRIDE DB::Id ZZZ( const DB::FileName& ) const;
 
     protected:
         DB::FileNameList searchPrivate(

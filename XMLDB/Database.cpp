@@ -654,16 +654,6 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     }
 }
 
-// PENDING(blackie) THIS NEEDS TO GO AWAY //QWERTY
-QStringList XMLDB::Database::CONVERT(const DB::IdList& items) const
-{
-    QStringList result;
-    Q_FOREACH(DB::Id id, items) {
-        result << _idMapper[id.rawId()].absolute();
-    }
-    return result;
-}
-
 DB::ImageInfoPtr XMLDB::Database::info( const DB::Id& id) const
 {
     if (id.isNull() || !_idMapper.exists(id.rawId()) )

@@ -111,13 +111,6 @@ public: // Methods that must be overridden
      */
     virtual void reorder(const DB::FileName& item, const DB::FileNameList& cutList, bool after) = 0;
 
-    /**
-     * temporary method to convert a DB::IdList back to the usual
-     * list of absolute filenames. This should not be necessary anymore after
-     * the refactoring to use DB::IdList everywhere
-     */
-    virtual QStringList CONVERT(const DB::IdList&) const = 0; //QWERTY DIE
-
     /** @short Create a stack of images/videos/whatever
      *
      * If the specified images already belong to different stacks, then no

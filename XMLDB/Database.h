@@ -75,8 +75,6 @@ namespace XMLDB {
         OVERRIDE void unstack(const DB::FileNameList& images);
         OVERRIDE DB::FileNameList getStackFor(const DB::FileName& referenceId) const;
 
-        OVERRIDE QStringList CONVERT(const DB::IdList&) const;
-
     protected:
         DB::FileNameList searchPrivate(
             const DB::ImageSearchInfo&,

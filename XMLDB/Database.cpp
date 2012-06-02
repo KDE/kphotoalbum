@@ -453,11 +453,12 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
 
 void XMLDB::Database::unstack(const DB::FileNameList& items)
 {
-    Q_FOREACH(DB::Id id, ZZZ(items)) {
-        DB::IdList allInStack = ZZZ(getStackFor(ZZZ(id)));
+    Q_FOREACH(const DB::FileName& fileName, items) {
+        DB::FileNameList allInStack = getStackFor(fileName);
         if (allInStack.size() <= 2) {
             // we're destroying stack here
-            Q_FOREACH(DB::ImageInfoPtr imgInfo, allInStack.fetchInfos()) {
+            Q_FOREACH(const DB::FileName& stackFileName, allInStack) {
+                DB::ImageInfoPtr imgInfo = stackFileName.info();
                 Q_ASSERT( imgInfo );
                 if ( imgInfo->isStacked() ) {
                     _stackMap.remove( imgInfo->stackId() );
@@ -466,10 +467,10 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
                 }
             }
         } else {
-            DB::ImageInfoPtr imgInfo = id.fetchInfo();
+            DB::ImageInfoPtr imgInfo = fileName.info();
             Q_ASSERT( imgInfo );
             if ( imgInfo->isStacked() ) {
-                _stackMap[imgInfo->stackId()].removeAll(ZZZ(id));
+                _stackMap[imgInfo->stackId()].removeAll(fileName);
                 imgInfo->setStackId( 0 );
                 imgInfo->setStackOrder( 0 );
             }

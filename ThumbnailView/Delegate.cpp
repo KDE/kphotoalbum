@@ -26,7 +26,6 @@
 #include <QPainter>
 #include "ThumbnailModel.h"
 #include <KLocale>
-#include <DB/ImageDB.h> // ZZZ
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
     :ThumbnailComponent( factory )
 {
@@ -182,9 +181,9 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
     }
 }
 
-static DB::StackID getStackId(const DB::Id& id)
+static DB::StackID getStackId(const DB::FileName& fileName)
 {
-    return id.fetchInfo()->stackId();
+    return fileName.info()->stackId();
 }
 
 void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QRect &pixmapRect, const QModelIndex& index ) const
@@ -228,22 +227,22 @@ void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QR
 
 bool ThumbnailView::Delegate::isFirst( int row ) const
 {
-    const DB::StackID curId = getStackId(ZZZ(model()->imageAt(row)));
+    const DB::StackID curId = getStackId(model()->imageAt(row));
 
     return
             !model()->isItemInExpandedStack(curId) ||
             row == 0 ||
-            getStackId(ZZZ(model()->imageAt(row-1))) != curId;
+            getStackId(model()->imageAt(row-1)) != curId;
 }
 
 bool ThumbnailView::Delegate::isLast( int row ) const
 {
-    const DB::StackID curId = getStackId(ZZZ(model()->imageAt(row)));
+    const DB::StackID curId = getStackId(model()->imageAt(row));
 
     return
             !model()->isItemInExpandedStack(curId) ||
             row == model()->imageCount() -1 ||
-            getStackId(ZZZ(model()->imageAt(row+1))) != curId;
+            getStackId(model()->imageAt(row+1)) != curId;
 }
 
 QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageInfo) const

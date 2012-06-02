@@ -184,8 +184,8 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
     _fileNameToIndex.clear();
     int index = 0;
-    Q_FOREACH( const DB::Id& id, ZZZ(_displayList)) {
-        _fileNameToIndex[ZZZ(id)] = index;
+    Q_FOREACH( const DB::FileName& fileName, _displayList) {
+        _fileNameToIndex[fileName] = index;
         ++index;
     }
 

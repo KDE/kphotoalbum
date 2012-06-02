@@ -77,8 +77,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      */
     _displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    Q_FOREACH( const DB::Id& id, ZZZ(_imageList)) {
-        DB::ImageInfoPtr imageInfo = id.fetchInfo();
+    Q_FOREACH( const DB::FileName& fileName, _imageList) {
+        DB::ImageInfoPtr imageInfo = fileName.info();
         if ( !imageInfo.isNull() && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
@@ -96,12 +96,12 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
             alreadyShownStacks.insert(stackid);
         }
         else {
-            _displayList.append(ZZZ(id));
+            _displayList.append(fileName);
         }
     }
 
     if ( _sortDirection != OldestFirst )
-        _displayList = ZZZ(ZZZ(_displayList).reversed());
+        _displayList = _displayList.reversed();
 
     updateIndexCache();
 

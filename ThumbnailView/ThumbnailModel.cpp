@@ -36,8 +36,8 @@ ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     connect( DB::ImageDB::instance(), SIGNAL( imagesDeleted( const DB::IdList& ) ), this, SLOT( imagesDeletedFromDB( const DB::IdList& ) ) );
 }
 
-static bool stackOrderComparator(const DB::Id& a, const DB::Id& b) {
-    return a.fetchInfo()->stackOrder() < b.fetchInfo()->stackOrder();
+static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
+    return a.info()->stackOrder() < b.info()->stackOrder();
 }
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
@@ -52,14 +52,14 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      * intermingled in the result so we need to know this ahead before
      * creating the display list.
      */
-    typedef QList<DB::Id> StackList;
+    typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
     Q_FOREACH(const DB::FileName& fileName, _imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
         if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
-            stackContents[stackid].append(ZZZ(fileName));
+            stackContents[stackid].append(fileName);
         }
     }
 
@@ -87,11 +87,11 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
             Q_ASSERT(found != stackContents.end());
             const StackList& orderedStack = *found;
             if (_expandedStacks.contains(stackid)) {
-                Q_FOREACH( const DB::Id& id, orderedStack) {
-                    _displayList.append(ZZZ(id));
+                Q_FOREACH( const DB::FileName& fileName, orderedStack) {
+                    _displayList.append(fileName);
                 }
             } else {
-                _displayList.append(ZZZ(orderedStack.at(0)));
+                _displayList.append(orderedStack.at(0));
             }
             alreadyShownStacks.insert(stackid);
         }

@@ -193,10 +193,10 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
     connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
-    connect( _thumbnailView, SIGNAL( showImage( const DB::Id& ) ), this, SLOT( showImage( const DB::Id& ) ) );
+    connect( _thumbnailView, SIGNAL( showImage( const DB::FileName& ) ), this, SLOT( showImage( const DB::FileName& ) ) );
     connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
 
-    connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ), this, SLOT( slotSetFileName( const DB::Id& ) ) );
+    connect( _thumbnailView, SIGNAL( fileIdUnderCursorChanged( const DB::FileName& ) ), this, SLOT( slotSetFileName( const DB::FileName& ) ) );
     connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _browser, SIGNAL( imageCount(uint)), _statusBar->_partial, SLOT( showBrowserMatches(uint) ) );

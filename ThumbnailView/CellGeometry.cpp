@@ -18,7 +18,6 @@
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
 #include "ThumbnailModel.h"
-#include "DB/Id.h"
 #include "Settings/SettingsData.h"
 
 using Utilities::StringSet;
@@ -55,14 +54,14 @@ QRect ThumbnailView::CellGeometry::iconGeometry( const QPixmap& pixmap  ) const
 /**
  * return the number of categories with valies in for the given image.
  */
-static int noOfCategoriesForImage(const DB::Id& image )
+static int noOfCategoriesForImage(const DB::FileName& image )
 {
     int catsInText = 0;
-    QStringList grps = image.fetchInfo()->availableCategories();
+    QStringList grps = image.info()->availableCategories();
     for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
         QString category = *it;
         if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
-            StringSet items = image.fetchInfo()->itemsOfCategory( category );
+            StringSet items = image.info()->itemsOfCategory( category );
             if (!items.empty()) {
                 catsInText++;
             }
@@ -115,8 +114,8 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
-        Q_FOREACH(DB::Id id, model()->imageList(ViewOrder)) {
-            maxCatsInText = qMax( noOfCategoriesForImage(id), maxCatsInText);
+        Q_FOREACH(const DB::FileName& fileName, model()->imageList(ViewOrder)) {
+            maxCatsInText = qMax( noOfCategoriesForImage(fileName), maxCatsInText);
         }
 
         m_textHeight += charHeight * maxCatsInText +5;

@@ -24,6 +24,7 @@
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
 #include <QStringList>
+#include <DB/FileName.h>
 
 template <class T>
 QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
@@ -122,7 +123,7 @@ QList<QVariant> Utilities::toVariantList(const T& l)
 INSTANTIATE_MERGELISTSUNIQLY(DB::RawId);
 INSTANTIATE_MERGELISTSUNIQLY(QString);
 INSTANTIATE_LISTSUBTRACT(DB::RawId);
-INSTANTIATE_SHUFFLELIST(DB::RawId);
+INSTANTIATE_SHUFFLELIST(DB::FileName);
 INSTANTIATE_TOVARIANTLIST(QList<int>);
 #ifndef DB_RAWID_IS_PLAIN_INTEGER
 INSTANTIATE_TOVARIANTLIST(QList<DB::RawId>);

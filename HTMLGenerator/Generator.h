@@ -51,7 +51,7 @@ protected slots:
 protected:
     bool generateIndexPage( int width, int height );
     bool generateContentPage( int width, int height,
-                              const DB::Id& prevInfo, const DB::Id& current, const DB::Id& nextInfo );
+                              const DB::FileName& prevInfo, const DB::FileName& current, const DB::FileName& nextInfo );
     bool linkIndexFile();
     QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
 
@@ -59,7 +59,7 @@ public:
     QString namePage( int width, int height, const DB::FileName& fileName );
     QString nameImage( const DB::FileName& fileName, int size );
 
-    QString createImage( const DB::Id& id, int size );
+    QString createImage( const DB::FileName& id, int size );
     QString createVideo( const DB::FileName& fileName );
 
     QString kimFileName( bool relative );

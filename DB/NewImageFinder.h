@@ -26,13 +26,13 @@ namespace DB
 {
 class MD5Map;
 class IdList;
-
+class FileNameList;
 
 class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums(const DB::IdList& list, DB::MD5Map* map, bool* wasCanceled=0);
+    bool calculateMD5sums(const DB::FileNameList& list, DB::MD5Map* map, bool* wasCanceled=0);
 
 protected:
     void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );

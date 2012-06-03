@@ -60,16 +60,6 @@ endif(MARBLE_FOUND)
 macro_optional_find_package(Nepomuk)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
 
-if(QT_QTSQL_FOUND)
-  option(KPA_ENABLE_SQLDB "Build support for the experimental SQL database backend." OFF)
-endif(QT_QTSQL_FOUND)
-
-if(QT_QTSQL_FOUND AND KPA_ENABLE_SQLDB )
-  set(SQLDB_SUPPORT TRUE)
-else()
-  set(SQLDB_SUPPORT FALSE)
-endif(QT_QTSQL_FOUND AND KPA_ENABLE_SQLDB )
-
 # For config-kpa-*.h
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -97,8 +87,7 @@ set(libxmldb_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLImageDateCollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/IdNameMapper.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp)
 
 set(libThumbnailView_SRCS 
   ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailRequest.cpp  
@@ -223,8 +212,6 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageSearchInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/DB/Id.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/DB/IdList.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/ContainerCategoryMatcher.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/ValueCategoryMatcher.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
@@ -301,9 +288,6 @@ add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )
 add_subdirectory( doc )
-if(SQLDB_SUPPORT)
-  add_subdirectory( SQLDB )
-endif(SQLDB_SUPPORT)
 
 set(EXIV2_SRCS)
 if(EXIV2_FOUND AND QT_QTSQL_FOUND)
@@ -342,9 +326,6 @@ kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 kde4_add_library(Utilities STATIC ${libUtilities_SRCS})
 
 # Internal components
-if(SQLDB_SUPPORT)
-  target_link_libraries(kphotoalbum SQLDB)
-endif(SQLDB_SUPPORT)
 target_link_libraries(kphotoalbum Utilities)
 
 # External components
@@ -386,6 +367,5 @@ install( FILES  kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
-configure_file(config-kpa-sqldb.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-sqldb.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 configure_file(config-kpa-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-nepomuk.h)

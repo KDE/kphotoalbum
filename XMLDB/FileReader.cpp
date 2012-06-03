@@ -193,14 +193,9 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
 
         const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
 
-        if (_db->_idMapper.exists(dbFileName)) {
-            qDebug() << fileNameStr << " already in database";
-        } else {
-            DB::ImageInfoPtr info = load( dbFileName, elm );
-            _db->_images.append(info);
-            _db->_idMapper.add(dbFileName );
-            _db->_md5map.insert( info->MD5Sum(), dbFileName );
-        }
+        DB::ImageInfoPtr info = load( dbFileName, elm );
+        _db->_images.append(info);
+        _db->_md5map.insert( info->MD5Sum(), dbFileName );
     }
 
 }

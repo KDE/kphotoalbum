@@ -37,7 +37,7 @@
 
 using namespace MainWindow;
 
-AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
+AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list )
     :KDialog( parent ), _list( list )
 {
     setWindowTitle( i18n("Automatically Stack Images" ) );
@@ -98,16 +98,15 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::IdList& list )
  * Matches are automatically stacked
  */
 
-void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
+void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
 {
     QMap< DB::MD5, DB::FileNameList > tostack;
     DB::FileNameList showIfStacked;
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
-    Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
-        const DB::FileName fileName = info->fileName();
-        DB::MD5 sum = info->MD5Sum();
+    Q_FOREACH(const DB::FileName& fileName, _list) {
+        DB::MD5 sum = fileName.info()->MD5Sum();
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
             if (tostack[sum].isEmpty())
                 tostack.insert(sum, DB::FileNameList() << fileName);
@@ -119,29 +118,28 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
     // Then add images to stack (depending on configuration options)
     for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
         if ( tostack[it.key()].count() > 1 ) {
-            DB::IdList stack = DB::IdList();
+            DB::FileNameList stack;
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( tostack[it.key()][i]) ).isEmpty() ) {
+                if ( !DB::ImageDB::instance()->getStackFor( tostack[it.key()][i]).isEmpty() ) {
                     if ( _autostackUnstack->isChecked() )
-                        DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
+                        DB::ImageDB::instance()->unstack( DB::FileNameList() << tostack[it.key()][i]);
                     else if ( _autostackSkip->isChecked() )
                         continue;
                 }
 
                 showIfStacked.append( tostack[it.key()][i] );
-                stack.append( DB::ImageDB::instance()->ID_FOR_FILE(tostack[it.key()][i]));
+                stack.append( tostack[it.key()][i]);
             }
             if ( stack.size() > 1 ) {
 
-                foreach( const DB::FileName& a, showIfStacked ) {
-
-                    if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)).isEmpty() )
-                        foreach( DB::Id b, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE(a)))
+                Q_FOREACH( const DB::FileName& a, showIfStacked ) {
+                    if ( !DB::ImageDB::instance()->getStackFor(a).isEmpty() )
+                        Q_FOREACH( const DB::FileName& b, DB::ImageDB::instance()->getStackFor(a))
                             toBeShown.append( b );
                     else
-                        toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE(a));
+                        toBeShown.append(a);
                 }
-                DB::ImageDB::instance()->stack( stack );
+                DB::ImageDB::instance()->stack(stack);
             }
             showIfStacked.clear();
         }
@@ -152,50 +150,51 @@ void AutoStackImages::matchingMD5( DB::IdList &toBeShown )
  * This function searches for images that are shot within specified time frame
  */
 
-void AutoStackImages::continuousShooting(DB::IdList &toBeShown )
+void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
 {
     DB::ImageInfoPtr prev;
-    Q_FOREACH(const DB::ImageInfoPtr info, _list.fetchInfos()) {
+    Q_FOREACH(const DB::FileName& fileName, _list) {
+        DB::ImageInfoPtr info = fileName.info();
         // Skipping images that do not have exact time stamp
         if ( info->date().start() != info->date().end() )
             continue;
         if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
-            DB::IdList stack = DB::IdList();
+            DB::FileNameList stack;
 
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ).isEmpty() ) {
+            if ( !DB::ImageDB::instance()->getStackFor( prev->fileName() ).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                    DB::ImageDB::instance()->unstack( DB::FileNameList() << prev->fileName());
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() ) {
+            if ( !DB::ImageDB::instance()->getStackFor(fileName).isEmpty() ) {
                 if ( _autostackUnstack->isChecked() )
-                    DB::ImageDB::instance()->unstack( (DB::IdList) DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+                    DB::ImageDB::instance()->unstack( DB::FileNameList() << fileName);
                 else if ( _autostackSkip->isChecked() )
                     continue;
             }
 
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
-            stack.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
+            stack.append(prev->fileName());
+            stack.append(info->fileName());
             if ( !toBeShown.isEmpty() ) {
-                if ( toBeShown.at( toBeShown.size() - 1 ).fetchInfo()->fileName() != prev->fileName() )
-                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                if ( toBeShown.at( toBeShown.size() - 1 ).info()->fileName() != prev->fileName() )
+                    toBeShown.append(prev->fileName());
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image
-                if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                    foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) ) )
+                if ( !DB::ImageDB::instance()->getStackFor( info->fileName() ).isEmpty() )
+                    Q_FOREACH( const DB::FileName& a, DB::ImageDB::instance()->getStackFor( prev->fileName() ) )
                         toBeShown.append( a );
                 else
-                    toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( prev->fileName() ) );
+                    toBeShown.append(prev->fileName());
             }
             // Inserting stacked images from the current image
-            if ( !DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ).isEmpty() )
-                foreach( DB::Id a, DB::ImageDB::instance()->getStackFor( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) ) )
+            if ( !DB::ImageDB::instance()->getStackFor( info->fileName() ).isEmpty() )
+                Q_FOREACH( const DB::FileName& a, DB::ImageDB::instance()->getStackFor(fileName))
                     toBeShown.append( a );
             else
-                toBeShown.append( DB::ImageDB::instance()->ID_FOR_FILE( info->fileName() ) );
-            DB::ImageDB::instance()->stack( stack );
+                toBeShown.append(info->fileName());
+            DB::ImageDB::instance()->stack(stack);
         }
 
         prev = info;
@@ -206,14 +205,14 @@ void AutoStackImages::accept()
 {
     KDialog::accept();
     Utilities::ShowBusyCursor dummy;
-    DB::IdList toBeShown;
+    DB::FileNameList toBeShown;
 
     if ( _matchingMD5->isChecked() )
         matchingMD5( toBeShown );
     if ( _continuousShooting->isChecked() )
         continuousShooting( toBeShown );
 
-    MainWindow::Window::theMainWindow()->showThumbNails( toBeShown );
+    MainWindow::Window::theMainWindow()->showThumbNails(toBeShown);
 }
 
 #include "AutoStackImages.moc"

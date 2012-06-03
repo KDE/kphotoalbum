@@ -24,7 +24,6 @@
 #include <QPixmap>
 #include <QMap>
 #include "DB/ImageInfoPtr.h"
-#include "DB/IdList.h"
 #include <config-kpa-exiv2.h>
 #include <QPointer>
 #include <DB/FileNameList.h>
@@ -76,7 +75,7 @@ public slots:
     void stopPlayback();
 
 signals:
-    void soughtTo( const DB::Id& id );
+    void soughtTo( const DB::FileName& id );
 
 protected:
     OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );
@@ -190,7 +189,7 @@ private:
 
     int m_screenSaverCookie;
     DB::FileNameList _list;
-    DB::IdList _removed;
+    DB::FileNameList _removed;
     int _current;
     QRect _textRect;
     QMenu* _popup;

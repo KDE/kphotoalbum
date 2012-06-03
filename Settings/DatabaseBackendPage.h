@@ -18,12 +18,8 @@
 #ifndef DATABASEBACKENDPAGE_H
 #define DATABASEBACKENDPAGE_H
 #include <QWidget>
-class Q3ButtonGroup;
 class QCheckBox;
 class QSpinBox;
-
-namespace SQLDB { class SQLSettingsWidget; }
-
 
 namespace Settings
 {
@@ -45,8 +41,6 @@ private:
     QSpinBox* _backupCount;
     QCheckBox* _compressBackup;
     QCheckBox* _compressedIndexXML;
-    Q3ButtonGroup* _backendButtons;
-    SQLDB::SQLSettingsWidget* _sqlSettings;
 };
 
 }

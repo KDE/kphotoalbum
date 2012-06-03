@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <DB/IdList.h>
 #include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #include "Plugins/CategoryImageCollection.h"
@@ -41,7 +40,7 @@ KUrl::List Plugins::CategoryImageCollection::images()
 {
     DB::ImageSearchInfo context( _context );
     context.addAnd( _category, _value );
-    QStringList list = DB::ImageDB::instance()->CONVERT(DB::ImageDB::instance()->search( context, true ));
+    QStringList list = DB::ImageDB::instance()->search( context, true ).toStringList(DB::AbsolutePath);
     return stringListToUrlList( list );
 }
 #endif // KIPI

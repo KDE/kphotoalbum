@@ -21,9 +21,10 @@
 #define VIDEOTHUMBNAILCYCLER_H
 
 #include <QObject>
-#include <DB/Id.h>
+#include <DB/FileName.h>
 
 class QTimer;
+class QImage;
 
 namespace DB { class FileName; }
 namespace ImageManager { class VideoThumbnails; }
@@ -36,7 +37,7 @@ class VideoThumbnailCycler : public QObject
     Q_OBJECT
 public:
     explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = 0);
-    void setActiveId( const DB::Id& id );
+    void setActive( const DB::FileName& id );
 
 private slots:
     void updateThumbnail();
@@ -44,12 +45,11 @@ private slots:
 
 private:
     void resetPreviousThumbail();
-    bool isVideo( const DB::Id& id ) const;
-    DB::FileName fileNameForId( const DB::Id& ) const;
+    bool isVideo( const DB::FileName& fileName ) const;
     void startCycle();
     void stopCycle();
 
-    DB::Id m_id;
+    DB::FileName m_fileName;
     int m_index;
     QTimer* m_timer;
     ImageManager::VideoThumbnails *m_thumbnails;

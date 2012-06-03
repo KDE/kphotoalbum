@@ -29,12 +29,6 @@
 #endif
 
 #include "Utilities/Set.h"
-#include <config-kpa-sqldb.h>
-
-#ifdef SQLDB_SUPPORT
-    namespace SQLDB { class DatabaseAddress; }
-#endif
-
 #define property( GET_TYPE,GET_FUNC, SET_FUNC,SET_TYPE ) \
     GET_TYPE GET_FUNC() const;                           \
     void SET_FUNC( const SET_TYPE )
@@ -74,7 +68,6 @@ public:
     /////////////////
 
     property_ref ( histogramSize         , setHistogramSize         , QSize );
-    property_ref ( backend               , setBackend               , QString );
     property_copy( useEXIFRotate         , setUseEXIFRotate         , bool );
     property_copy( useEXIFComments       , setUseEXIFComments       , bool );
     property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );
@@ -177,14 +170,6 @@ public:
     property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool             );
     property_copy( updateOrientation        , setUpdateOrientation        , bool             );
     property_copy( updateDescription        , setUpdateDescription        , bool             );
-
-    ///////////////
-    //// SQLDB ////
-    ///////////////
-
-#ifdef SQLDB_SUPPORT
-    property_ref( SQLParameters, setSQLParameters, SQLDB::DatabaseAddress);
-#endif
 
     ///////////////////////
     //// Miscellaneous ////

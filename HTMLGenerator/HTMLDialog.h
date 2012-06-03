@@ -26,7 +26,7 @@ class QTextEdit;
 class KLineEdit;
 class QSpinBox;
 class QCheckBox;
-#include "DB/IdList.h"
+#include "DB/FileNameList.h"
 
 namespace HTMLGenerator
 {
@@ -39,7 +39,7 @@ class HTMLDialog :public KPageDialog {
 
 public:
     HTMLDialog( QWidget* parent );
-    int exec(const DB::IdList& list);
+    int exec(const DB::FileNameList& list);
 
 protected slots:
     void slotOk();
@@ -77,7 +77,7 @@ private:
     QStringList _themeDescriptions;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
     QList<ImageSizeCheckBox*> _cbs;
-    DB::IdList _list;
+    DB::FileNameList _list;
 };
 
 }

@@ -19,7 +19,6 @@
 #include "SearchForVideosWithoutLengthInfo.h"
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <DB/IdList.h>
 #include "JobManager.h"
 #include "ReadVideoLengthJob.h"
 
@@ -30,9 +29,9 @@
 
 void BackgroundTasks::SearchForVideosWithoutLengthInfo::execute()
 {
-    const DB::IdList images = DB::ImageDB::instance()->images();
-    const QList<DB::ImageInfoPtr> list = images.fetchInfos();
-    Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
+    const DB::FileNameList images = DB::ImageDB::instance()->images();
+    Q_FOREACH( const DB::FileName& image, images ) {
+        const DB::ImageInfoPtr info = image.info();
         if ( !info->isVideo() )
             continue;
         int length = info->videoLength();

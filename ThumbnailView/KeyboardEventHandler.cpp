@@ -38,9 +38,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        const DB::IdList selection = widget()->selection( NoExpandCollapsedStacks );
-        for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
-            DB::ImageInfoPtr info = (*it).fetchInfo();
+        const DB::FileNameList selection = widget()->selection(NoExpandCollapsedStacks);
+        Q_FOREACH( const DB::FileName& fileName, selection ) {
+            DB::ImageInfoPtr info = fileName.info();
             if ( ! hadHit ) {
                 mustRemoveToken = info->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
                 hadHit = true;
@@ -51,7 +51,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
             else
                 info->addCategoryInfo( QString::fromLatin1("Tokens"), token );
 
-            model()->updateCell( *it );
+            model()->updateCell(fileName);
         }
 
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
@@ -61,9 +61,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            const DB::IdList selection = widget()->selection( NoExpandCollapsedStacks );
-            for( DB::IdList::ConstIterator it = selection.begin(); it != selection.end(); ++it ) {
-                DB::ImageInfoPtr info = (*it).fetchInfo();
+            const DB::FileNameList selection = widget()->selection( NoExpandCollapsedStacks );
+            Q_FOREACH( const DB::FileName& fileName, selection ) {
+                DB::ImageInfoPtr info = fileName.info();
                 info->setRating(rating * 2);
             }
             MainWindow::DirtyIndicator::markDirty();

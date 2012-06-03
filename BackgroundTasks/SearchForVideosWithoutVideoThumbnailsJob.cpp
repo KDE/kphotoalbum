@@ -20,17 +20,16 @@
 #include <ImageManager/VideoThumbnailsExtractor.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <DB/IdList.h>
 #include <QFile>
 #include "CreateVideoThumbnailsJob.h"
 #include "JobManager.h"
 
 void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
-    const DB::IdList images = DB::ImageDB::instance()->images();
-    const QList<DB::ImageInfoPtr> list = images.fetchInfos();
+    const DB::FileNameList images = DB::ImageDB::instance()->images();
 
-    Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
+    Q_FOREACH( const DB::FileName& image, images ) {
+        const DB::ImageInfoPtr info = image.info();
         if ( !info->isVideo() )
             continue;
 

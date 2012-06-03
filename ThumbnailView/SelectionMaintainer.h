@@ -20,6 +20,7 @@
 
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+#include <DB/FileNameList.h>
 
 namespace ThumbnailView {
 
@@ -34,9 +35,9 @@ public:
 private:
     ThumbnailWidget* m_widget;
     ThumbnailModel* m_model;
-    DB::Id m_currentItem;
+    DB::FileName m_currentItem;
     int m_currentRow;
-    DB::IdList m_selectedItems;
+    DB::FileNameList m_selectedItems;
     int m_firstRow;
     bool m_enabled;
 };

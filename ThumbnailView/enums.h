@@ -17,7 +17,6 @@
 */
 #ifndef THUMBNAILVIEW_ENUMS_H
 #define THUMBNAILVIEW_ENUMS_H
-#include "DB/Id.h"
 #include <QSet>
 
 namespace ThumbnailView
@@ -26,8 +25,6 @@ enum SortDirection { NewestFirst, OldestFirst };
 enum Order { ViewOrder, SortedOrder };
 enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
 enum VisibleState { FullyVisible, PartlyVisible };
-
-typedef QSet<DB::Id> IdSet;
 
 enum SelectionUpdateMethod { ClearSelection, MaintainSelection };
 /** @short Operation mode of selection in ThumbnailView.

@@ -23,6 +23,7 @@
 
 namespace DB
 {
+class FileNameList;
 
 class ImageInfoList :public QList<ImageInfoPtr>
 {
@@ -35,6 +36,7 @@ public:
     bool isSorted();
     void mergeIn( ImageInfoList list );
     void remove( const ImageInfoPtr& info );
+    DB::FileNameList files() const;
 };
 
 typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;

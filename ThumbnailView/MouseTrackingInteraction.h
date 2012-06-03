@@ -24,6 +24,8 @@
 #include <QScopedPointer>
 #include "VideoThumbnailCycler.h"
 
+namespace DB { class FileName; }
+
 namespace ThumbnailView
 {
 
@@ -35,7 +37,7 @@ public:
     OVERRIDE bool mouseMoveEvent( QMouseEvent* );
 
 signals:
-    void fileIdUnderCursorChanged( const DB::Id& id );
+    void fileIdUnderCursorChanged( const DB::FileName& id );
 
 private:
     void updateStackingIndication( QMouseEvent* event );

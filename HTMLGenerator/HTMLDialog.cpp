@@ -498,7 +498,7 @@ void HTMLDialog::displayThemeDescription(int themenr)
    // however, storing author and descriptions separately might be cleaner.
 }
 
-int HTMLDialog::exec(const DB::IdList& list)
+int HTMLDialog::exec(const DB::FileNameList& list)
 {
     _list = list;
     return KDialog::exec();
@@ -525,7 +525,7 @@ Setup HTMLGenerator::HTMLDialog::setup() const
          includeIt != _whatToIncludeMap.end(); ++includeIt ) {
         setup.setIncludeCategory( includeIt.key(), includeIt.value()->isChecked() );
     }
-    setup.setImageList( _list );
+    setup.setImageList(_list);
 
     setup.setResolutions( activeResolutions() );
     setup.setInlineMovies( _inlineMovies->isChecked() );

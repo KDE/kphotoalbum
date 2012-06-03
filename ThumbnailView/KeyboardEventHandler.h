@@ -39,7 +39,8 @@ signals:
 
 private:
     // For Shift + movement key selection handling
-    IdSet _selectionOnFirstShiftMovementKey;
+    // PENDING(blackie) This code doesn't seem to be used anymore
+    // IdSet _selectionOnFirstShiftMovementKey;
 
 };
 }

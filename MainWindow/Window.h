@@ -43,8 +43,7 @@ class KActionMenu;
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
-#include "DB/IdList.h"
-#include "DB/Id.h"
+#include "DB/FileNameList.h"
 #include "ThumbnailView/enums.h"
 
 namespace Plugins { class Interface; }
@@ -70,14 +69,14 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::IdList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
+    DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
-    void setStackHead( const DB::Id image );
+    void setStackHead( const DB::FileName& image );
     void setHistogramVisibilty( bool visible ) const;
 
 public slots:
-    void showThumbNails(const DB::IdList& items);
+    void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
 
 protected slots:
@@ -112,7 +111,7 @@ protected slots:
     void unlockFromDefaultScope();
     void changePassword();
     void slotConfigureKeyBindings();
-    void slotSetFileName( const DB::Id& );
+    void slotSetFileName( const DB::FileName& );
     void updateContextMenuFromSelectionSize(int selectionSize);
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void slotUpdateViewMenu( DB::Category::ViewType );
@@ -140,11 +139,10 @@ protected slots:
     void setDateRange( const DB::ImageDate& );
     void clearDateRange();
     void startAutoSaveTimer();
-    void convertBackend();
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();
-    void showImage( const DB::Id& fileName );
+    void showImage( const DB::FileName& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
     void slotRotateSelectedLeft();
@@ -167,9 +165,9 @@ protected:
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    DB::IdList selectedOnDisk();
+    DB::FileNameList selectedOnDisk();
     void setupPluginMenu();
-    void launchViewer(const DB::IdList& mediaList, bool reuse, bool slideShow, bool random);
+    void launchViewer(const DB::FileNameList& mediaList, bool reuse, bool slideShow, bool random);
     void setupStatusBar();
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSarchBar();

@@ -21,9 +21,6 @@
 #include "ImageManager/ThumbnailCache.h"
 
 #include "DB/ImageDB.h"
-#include "DB/Id.h"
-#include "DB/IdList.h"
-
 #include <qfileinfo.h>
 #include <QStringList>
 #include <QProgressDialog>
@@ -45,6 +42,7 @@
 #include <MainWindow/Window.h>
 #include <BackgroundTasks/JobManager.h>
 #include <BackgroundTasks/ReadVideoLengthJob.h>
+#include <QDebug>
 
 using namespace DB;
 
@@ -57,9 +55,8 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    Q_FOREACH( const DB::ImageInfoPtr& info,
-        DB::ImageDB::instance()->images().fetchInfos() ) {
-        loadedFiles.insert(info->fileName());
+    Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images()) {
+        loadedFiles.insert(fileName);
     }
 
     _pendingLoad.clear();
@@ -261,23 +258,23 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         DB::ImageDB::instance()->addImages( newImages );
 
         // stack the files together
-        DB::Id olderfile = DB::ImageDB::instance()->ID_FOR_FILE(originalFileName);
-        DB::Id newerfile = DB::ImageDB::instance()->ID_FOR_FILE(info->fileName());
-        DB::IdList tostack = DB::IdList();
+        DB::FileName olderfile = originalFileName;
+        DB::FileName newerfile = info->fileName();
+        DB::FileNameList tostack;
 
         // the newest file should go to the top of the stack
         tostack.append(newerfile);
 
-        DB::IdList oldStack;
-        if ( ( oldStack = DB::ImageDB::instance()->getStackFor( olderfile ) ).isEmpty() ) {
+        DB::FileNameList oldStack;
+        if ( ( oldStack = DB::ImageDB::instance()->getStackFor( olderfile)).isEmpty() ) {
             tostack.append(olderfile);
         } else {
-            Q_FOREACH( DB::Id tmp, oldStack ) {
+            Q_FOREACH( const DB::FileName& tmp, oldStack ) {
                 tostack.append( tmp );
             }
         }
         DB::ImageDB::instance()->stack(tostack);
-        MainWindow::Window::theMainWindow()->setStackHead( newerfile );
+        MainWindow::Window::theMainWindow()->setStackHead(newerfile);
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
@@ -289,7 +286,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 }
 
 bool  NewImageFinder::calculateMD5sums(
-    const DB::IdList& list,
+    const DB::FileNameList& list,
     DB::MD5Map* md5Map,
     bool* wasCanceled)
 {
@@ -307,8 +304,7 @@ bool  NewImageFinder::calculateMD5sums(
     DB::FileNameList cantRead;
     bool dirty = false;
 
-    Q_FOREACH(DB::ImageInfoPtr info, list.fetchInfos()) {
-        const DB::FileName fileName = info->fileName();
+    Q_FOREACH(const FileName& fileName, list) {
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );
@@ -326,13 +322,14 @@ bool  NewImageFinder::calculateMD5sums(
             continue;
         }
 
+        ImageInfoPtr info = ImageDB::instance()->info(fileName);
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
             ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
 
-        md5Map->insert( md5, info->fileName() );
+        md5Map->insert( md5, fileName );
 
         ++count;
     }

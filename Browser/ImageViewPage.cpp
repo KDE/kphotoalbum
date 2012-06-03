@@ -28,12 +28,11 @@ Browser::ImageViewPage::ImageViewPage( const DB::ImageSearchInfo& info, BrowserW
 
 void Browser::ImageViewPage::activate()
 {
-    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo() ) );
+    MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo()));
 
     if ( !_context.isNull() ) {
-        DB::Id id = DB::ImageDB::instance()->ID_FOR_FILE( _context);
         // PENDING(blackie) this is the only place that uses the ThumbnailFacade as a singleton. Rewrite to make it communicate with it otherwise.
-        ThumbnailView::ThumbnailFacade::instance()->setCurrentItem( id );
+        ThumbnailView::ThumbnailFacade::instance()->setCurrentItem(_context);
     }
 }
 

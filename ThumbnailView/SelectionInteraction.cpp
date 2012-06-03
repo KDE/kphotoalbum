@@ -28,6 +28,7 @@
 
 #include "MainWindow/Window.h"
 #include "ThumbnailWidget.h"
+#include <DB/FileNameList.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),
@@ -39,8 +40,8 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* fac
 bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressPos = event->pos();
-    DB::Id mediaId = widget()->mediaIdUnderCursor();
-    _isMouseDragOperation = widget()->isSelected( mediaId ) && !( event->modifiers() );
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
+    _isMouseDragOperation = widget()->isSelected(fileName) && !event->modifiers();
     return _isMouseDragOperation;
 }
 
@@ -60,9 +61,8 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
     KUrl::List urls;
-    Q_FOREACH(DB::ImageInfoPtr info, widget()->selection( NoExpandCollapsedStacks ).fetchInfos()) {
-        const QString fileName = info->fileName().absolute();
-        urls.append( fileName );
+    Q_FOREACH(const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
+        urls.append( fileName.absolute() );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;

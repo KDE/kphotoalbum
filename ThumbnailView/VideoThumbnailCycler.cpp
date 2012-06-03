@@ -21,7 +21,6 @@
 #include <QDebug>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
-#include <DB/Id.h>
 #include <ImageManager/VideoThumbnailsExtractor.h>
 #include <Utilities/Util.h>
 #include <QTimer>
@@ -37,16 +36,16 @@ ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model,
     connect(m_thumbnails, SIGNAL(frameLoaded(QImage)), this, SLOT(gotFrame(QImage)));
 }
 
-void ThumbnailView::VideoThumbnailCycler::setActiveId(const DB::Id &id)
+void ThumbnailView::VideoThumbnailCycler::setActive(const DB::FileName &fileName)
 {
-    if ( m_id == id )
+    if ( m_fileName == fileName )
         return;
 
     resetPreviousThumbail();
     stopCycle();
 
-    m_id = id;
-    if ( !m_id.isNull() && isVideo(m_id) )
+    m_fileName = fileName;
+    if ( !m_fileName.isNull() && isVideo(m_fileName))
         startCycle();
 }
 
@@ -60,38 +59,28 @@ void ThumbnailView::VideoThumbnailCycler::updateThumbnail()
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
     QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize());
-    m_model->setOverrideImage(m_id, QPixmap::fromImage(img));
+    m_model->setOverrideImage(m_fileName, QPixmap::fromImage(img));
 }
 
 void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
 {
-    if ( m_id.isNull() || !isVideo(m_id) )
+    if ( m_fileName.isNull() || !isVideo(m_fileName) )
         return;
 
-    m_model->setOverrideImage(m_id,QPixmap());
+    m_model->setOverrideImage(m_fileName,QPixmap());
 }
 
-bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::Id &id) const
+bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::FileName &fileName) const
 {
-    const DB::FileName fileName = fileNameForId(id);
     if ( !fileName.isNull() )
         return Utilities::isVideo(fileName);
     else
         return false;
 }
 
-DB::FileName ThumbnailView::VideoThumbnailCycler::fileNameForId(const DB::Id& id) const
-{
-    DB::ImageInfoPtr info = id.fetchInfo();
-    if ( info )
-        return info->fileName();
-    else
-        return DB::FileName();
-}
-
 void ThumbnailView::VideoThumbnailCycler::startCycle()
 {
-    m_thumbnails->setVideoFile(fileNameForId(m_id));
+    m_thumbnails->setVideoFile(m_fileName);
     m_thumbnails->requestFrame(0);
     m_index = 0;
     m_timer->start(500);

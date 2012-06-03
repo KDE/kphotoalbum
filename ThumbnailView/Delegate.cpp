@@ -26,7 +26,6 @@
 #include <QPainter>
 #include "ThumbnailModel.h"
 #include <KLocale>
-
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
     :ThumbnailComponent( factory )
 {
@@ -78,7 +77,7 @@ void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOp
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pixmapRect, const QModelIndex &index) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).fetchInfo();
+    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
     if (!imageInfo || imageInfo->mediaType() != DB::Video )
         return;
 
@@ -109,8 +108,8 @@ void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOpti
     if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
         return;
 
-    DB::Id mediaId = model()->imageAt( index.row() );
-    if ( mediaId.isNull() )
+    DB::FileName fileName = model()->imageAt( index.row() );
+    if ( fileName.isNull() )
         return;
 
     QString title = index.data( Qt::DisplayRole ).value<QString>();
@@ -182,14 +181,14 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
     }
 }
 
-static DB::StackID getStackId(const DB::Id& id)
+static DB::StackID getStackId(const DB::FileName& fileName)
 {
-    return id.fetchInfo()->stackId();
+    return fileName.info()->stackId();
 }
 
 void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QRect &pixmapRect, const QModelIndex& index ) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).fetchInfo();
+    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
     if (!imageInfo || !imageInfo->isStacked())
         return;
 
@@ -277,12 +276,12 @@ QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageIn
 
 void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect& rect, const QModelIndex& index ) const
 {
-    const DB::Id mediaId = model()->imageAt( index.row() );
+    const DB::FileName fileName = model()->imageAt( index.row() );
 
-    if ( model()->leftDropItem() == mediaId )
+    if ( model()->leftDropItem() == fileName )
         painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 
-    else if ( model()->rightDropItem() == mediaId )
+    else if ( model()->rightDropItem() == fileName )
         painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 }
 

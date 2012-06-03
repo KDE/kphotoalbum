@@ -29,7 +29,6 @@
 #include "ExifMode.h"
 #include "DB/CategoryPtr.h"
 #include <QSize>
-#include "config-kpa-sqldb.h"
 #include "FileName.h"
 
 namespace Plugins
@@ -38,10 +37,6 @@ namespace Plugins
 }
 
 namespace XMLDB {
-class Database;
-}
-
-namespace SQLDB {
 class Database;
 }
 
@@ -172,10 +167,6 @@ protected:
 
     void setStackId( const StackID stackId );
     friend class XMLDB::Database;
-#ifdef SQLDB_SUPPORT
-    friend class SQLDB::Database;
-#endif
-
 private:
     DB::FileName _fileName;
     QString _label;

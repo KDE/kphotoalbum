@@ -16,13 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionMaintainer.h"
+#include <DB/FileNameList.h>
 
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     :m_widget(widget), m_model(model), m_enabled(true)
 {
     m_currentItem = widget->currentItem();
     m_currentRow = widget->currentIndex().row();
-    m_selectedItems = widget->selection( NoExpandCollapsedStacks );
+    m_selectedItems = widget->selection(NoExpandCollapsedStacks);
     if ( m_selectedItems.isEmpty())
         m_firstRow = -1;
     else
@@ -48,7 +49,7 @@ ThumbnailView::SelectionMaintainer::~SelectionMaintainer()
     }
 
     // Now set the selection
-    m_widget->select( m_selectedItems );
+    m_widget->select(m_selectedItems);
 
     // If no item is current at this point, it means that all the items of the selection
     // had been deleted, so make the item just before the previous selection start the current.

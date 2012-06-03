@@ -40,13 +40,6 @@
 #include "DB/MemberMap.h"
 #include "Utilities/Util.h"
 
-#include "config-kpa-sqldb.h"
-#ifdef SQLDB_SUPPORT
-#  include "SQLDB/ConfigFileHandler.h"
-#  include "SQLDB/DatabaseAddress.h"
-#  include "SQLDB/QueryErrors.h"
-#endif
-
 #define STR(x) QString::fromLatin1(x)
 
 #define value( GROUP, OPTION, DEFAULT )                            \
@@ -149,7 +142,6 @@ SettingsData::SettingsData( const QString& imageDirectory )
 //// General ////
 /////////////////
 
-property_ref ( backend               , setBackend               , QString       , General, QString::fromLatin1("xml") )
 property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          , General, true                       )
 property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       )
 property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       )
@@ -326,29 +318,6 @@ property_copy( updateImageDate          , setUpdateImageDate          , bool , E
 property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool , ExifImport, true );
 property_copy( updateOrientation        , setUpdateOrientation        , bool , ExifImport, false );
 property_copy( updateDescription        , setUpdateDescription        , bool , ExifImport, false );
-
-///////////////
-//// SQLDB ////
-///////////////
-
-#ifdef SQLDB_SUPPORT
-SQLDB::DatabaseAddress SettingsData::SQLParameters() const
-{
-    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
-    try {
-        return SQLDB::readConnectionParameters(config);
-    }
-    catch (SQLDB::DriverNotFoundError&) {}
-    return SQLDB::DatabaseAddress();
-}
-
-void SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
-{
-    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
-    SQLDB::writeConnectionParameters(address, config);
-    config.sync();
-}
-#endif /* SQLDB_SUPPORT */
 
 ///////////////////////
 //// Miscellaneous ////

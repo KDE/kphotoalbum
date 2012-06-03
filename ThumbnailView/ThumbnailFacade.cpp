@@ -36,12 +36,12 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade()
     _widget = new ThumbnailWidget(this);
     _toolTip = new ThumbnailToolTip( _widget );
 
-    connect( _widget, SIGNAL( showImage( const DB::Id& ) ),
-             this, SIGNAL( showImage( const DB::Id& ) ) );
+    connect( _widget, SIGNAL( showImage( const DB::FileName& ) ),
+             this, SIGNAL( showImage( const DB::FileName& ) ) );
     connect( _widget, SIGNAL( showSelection() ),
              this, SIGNAL( showSelection() ) );
-    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::Id& ) ),
-             this, SIGNAL( fileIdUnderCursorChanged( const DB::Id&  ) ) );
+    connect( _widget, SIGNAL( fileIdUnderCursorChanged( const DB::FileName& ) ),
+             this, SIGNAL( fileIdUnderCursorChanged( const DB::FileName&  ) ) );
     connect( _widget, SIGNAL( currentDateChanged( const QDateTime& ) ),
              this, SIGNAL( currentDateChanged( const QDateTime& ) ) );
     connect( _widget, SIGNAL( selectionCountChanged(int) ),
@@ -64,9 +64,9 @@ void ThumbnailView::ThumbnailFacade::gotoDate( const DB::ImageDate& date, bool b
     _widget->gotoDate( date, b );
 }
 
-void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::Id& id )
+void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::FileName& fileName )
 {
-    widget()->setCurrentItem( id );
+    widget()->setCurrentItem(fileName);
 }
 
 void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
@@ -74,29 +74,29 @@ void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
     _widget->reload( method );
 }
 
-DB::IdList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
+DB::FileNameList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
 {
     return _widget->selection(mode);
 }
 
-DB::IdList ThumbnailView::ThumbnailFacade::imageList(Order order) const
+DB::FileNameList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 {
     return _model->imageList(order);
 }
 
-DB::Id ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
+DB::FileName ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 {
     return _widget->mediaIdUnderCursor();
 }
 
-DB::Id ThumbnailView::ThumbnailFacade::currentItem() const
+DB::FileName ThumbnailView::ThumbnailFacade::currentItem() const
 {
     return _model->imageAt(_widget->currentIndex().row());
 }
 
-void ThumbnailView::ThumbnailFacade::setImageList(const DB::IdList& list)
+void ThumbnailView::ThumbnailFacade::setImageList(const DB::FileNameList& list)
 {
-    _model->setImageList( list );
+    _model->setImageList(list);
 }
 
 void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
@@ -114,9 +114,9 @@ void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
     _toolTip->setActive( on );
 }
 
-void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::Id& id)
+void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::FileName& fileName)
 {
-    _model->toggleStackExpansion(id);
+    _model->toggleStackExpansion(fileName);
 }
 
 void ThumbnailView::ThumbnailFacade::collapseAllStacks()
@@ -134,9 +134,9 @@ void ThumbnailView::ThumbnailFacade::updateDisplayModel()
     _model->updateDisplayModel();
 }
 
-void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::Id& id)
+void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::FileName& fileName)
 {
-    _widget->changeSingleSelection(id);
+    _widget->changeSingleSelection(fileName);
 }
 
 ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailFacade::model()
@@ -166,12 +166,10 @@ ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH( const DB::Id& id, widget()->selection( NoExpandCollapsedStacks ) ) {
-        const DB::ImageInfoPtr info = id.fetchInfo();
-        const DB::FileName fileName = info->fileName();
+    Q_FOREACH( const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
         ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
-        _model->updateCell( id );
+        _model->updateCell(fileName);
     }
 }
 

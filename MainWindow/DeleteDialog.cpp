@@ -30,8 +30,6 @@
 #include "kio/copyjob.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include "DB/IdList.h"
-#include "DB/Id.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "Utilities/Util.h"
 #include "MainWindow/DirtyIndicator.h"
@@ -66,7 +64,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
      connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec(const DB::IdList& list)
+int DeleteDialog::exec(const DB::FileNameList& list)
 {
     if (!list.size()) return 0;
 
@@ -92,24 +90,23 @@ int DeleteDialog::exec(const DB::IdList& list)
 void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
-    DB::IdList listToDelete;
+    DB::FileNameList listToDelete;
     KUrl::List listKUrlToDelete;
     KUrl KUrlToDelete;
 
-    Q_FOREACH(const DB::Id id, _list) {
-        const DB::FileName fileName = id.fetchInfo()->fileName();
+    Q_FOREACH(const DB::FileName fileName, _list) {
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
                 KUrlToDelete.setPath(fileName.absolute());
                 listKUrlToDelete.append(KUrlToDelete);
-                listToDelete.append(id);
+                listToDelete.append(fileName);
                 ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             } else {
-                listToDelete.append(id);
+                listToDelete.append(fileName);
                 ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             }
         } else
-            listToDelete.append(id);
+            listToDelete.append(fileName);
     }
 
     if ( _deleteFile->isChecked() || _useTrash->isChecked() ) {

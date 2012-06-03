@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QSet>
+#include "ImageInfoPtr.h"
 
 namespace DB
 {
@@ -39,6 +40,7 @@ public:
     bool operator!=( const FileName& other ) const;
     bool operator<( const FileName& other ) const;
     bool exists() const;
+    ImageInfoPtr info() const;
 
 private:
     // During previous profilation it showed that converting between absolute and relative took quite some time,

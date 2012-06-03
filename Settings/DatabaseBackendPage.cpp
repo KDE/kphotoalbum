@@ -27,55 +27,37 @@
 #include <Q3VGroupBox>
 #include <QRadioButton>
 #include <QVBoxLayout>
-#include "config-kpa-sqldb.h"
 #include "MainWindow/DirtyIndicator.h"
-
-#ifdef SQLDB_SUPPORT
-#  include <SQLDB/SQLSettingsWidget.h>
-#  include <SQLDB/DatabaseAddress.h>
-#endif
 
 Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     :QWidget( parent )
 {
-    QVBoxLayout* lay1 = new QVBoxLayout(this);
-
-    _backendButtons = new Q3ButtonGroup(1, Qt::Horizontal,
-                                        i18n("Database backend to use"), this);
-    lay1->addWidget(_backendButtons);
-
-    new QRadioButton(i18n("XML backend (recommended)"), _backendButtons);
-#ifdef SQLDB_SUPPORT
-    //QRadioButton* sqlButton =
-    new QRadioButton(i18n("SQL backend (experimental)"), _backendButtons);
-#endif
-
-    // XML Backend
-    Q3VGroupBox* xmlBox = new Q3VGroupBox( i18n("XML Database Setting"), this );
-    lay1->addWidget( xmlBox );
+    QVBoxLayout* topLayout = new QVBoxLayout(this);
 
     // Compressed index.xml
-    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), xmlBox );
+    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
+    topLayout->addWidget(_compressedIndexXML);
     connect( _compressedIndexXML, SIGNAL( clicked(bool) ), this, SLOT ( markDirty() ) );
 
-    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), xmlBox );
+    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
+    topLayout->addWidget(_compressBackup);
 
     // Auto save
-    QWidget* box = new QWidget( xmlBox );
-    QLabel* label = new QLabel( i18n("Auto save every:"), box );
+    QLabel* label = new QLabel( i18n("Auto save every:"), this );
     _autosave = new QSpinBox;
     _autosave->setRange( 1, 120 );
     _autosave->setSuffix( i18n( "min." ) );
 
-    QHBoxLayout* lay = new QHBoxLayout( box );
+    QHBoxLayout* lay = new QHBoxLayout;
+    topLayout->addLayout(lay);
     lay->addWidget( label );
     lay->addWidget( _autosave );
     lay->addStretch( 1 );
 
     // Backup
-    box = new QWidget( xmlBox );
-    lay = new QHBoxLayout( box );
-    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), box );
+    lay = new QHBoxLayout;
+    topLayout->addLayout(lay);
+    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), this );
     lay->addWidget( backupLabel );
 
     _backupCount = new QSpinBox;
@@ -83,6 +65,8 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     _backupCount->setSpecialValueText( i18n( "Infinite" ) );
     lay->addWidget( _backupCount );
     lay->addStretch( 1 );
+
+    topLayout->addStretch(1);
 
     QString txt;
     txt = i18n("<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc. "
@@ -99,26 +83,6 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
     _compressedIndexXML->setWhatsThis( txt );
-
-    // SQL Backend
-#ifdef SQLDB_SUPPORT
-    Q3VGroupBox* sqlBox = new Q3VGroupBox(i18n("SQL Database Settings"), this);
-    //sqlBox->setEnabled(false);
-    lay1->addWidget(sqlBox);
-
-    _sqlSettings = new SQLDB::SQLSettingsWidget(sqlBox);
-
-    QLabel* passwordWarning =
-        new QLabel(i18n("Warning: The password is saved as plain text to the configuration file."), this);
-    passwordWarning->hide();
-    lay1->addWidget(passwordWarning);
-
-    QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    lay1->addItem(spacer);
-
-    //connect(sqlButton, SIGNAL(toggled(bool)), sqlBox, SLOT(setEnabled(bool)));
-    connect(_sqlSettings, SIGNAL(passwordChanged(const QString&)), passwordWarning, SLOT(show()));
-#endif /* SQLDB_SUPPORT */
 }
 
 void Settings::DatabaseBackendPage::loadSettings( Settings::SettingsData* opt )
@@ -127,38 +91,14 @@ void Settings::DatabaseBackendPage::loadSettings( Settings::SettingsData* opt )
     _autosave->setValue( opt->autoSave() );
     _backupCount->setValue( opt->backupCount() );
     _compressBackup->setChecked( opt->compressBackup() );
-
-    const QString backend = Settings::SettingsData::instance()->backend();
-    if (backend == QString::fromLatin1("xml"))
-        _backendButtons->setButton(0);
-#ifdef SQLDB_SUPPORT
-    else if (backend == QString::fromLatin1("sql"))
-        _backendButtons->setButton(1);
-
-    _sqlSettings->setSettings(Settings::SettingsData::instance()->SQLParameters());
-#endif
 }
 
 void Settings::DatabaseBackendPage::saveSettings( Settings::SettingsData* opt )
 {
-    const char* backendNames[] = { "xml", "sql" };
-    int backendIndex = _backendButtons->selectedId();
-    if (backendIndex < 0 || backendIndex >= 2)
-        backendIndex = 0;
-    opt->setBackend(QString::fromLatin1(backendNames[backendIndex]));
-
     opt->setBackupCount( _backupCount->value() );
     opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
     opt->setAutoSave( _autosave->value() );
-
-    // SQLDB
-#ifdef SQLDB_SUPPORT
-    if (_sqlSettings->hasSettings())
-        opt->setSQLParameters(_sqlSettings->getSettings());
-#endif
-
-
 }
 
 void Settings::DatabaseBackendPage::markDirty()

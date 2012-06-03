@@ -38,8 +38,8 @@ class InfoDialog : public KDialog, public ImageManager::ImageClientInterface {
     Q_OBJECT
 
 public:
-    InfoDialog( const DB::Id& id, QWidget* parent );
-    void setImage( const DB::Id& id );
+    InfoDialog( const DB::FileName& fileName, QWidget* parent );
+    void setImage( const DB::FileName& fileName );
 
     OVERRIDE QSize sizeHint() const;
     OVERRIDE void enterEvent( QEvent* );

@@ -38,7 +38,7 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         return;
     }
 
-    DB::Id id = widget()->mediaIdUnderCursor();
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
 
     removeDropIndications();
 
@@ -50,26 +50,26 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
-        if ( id.isNull() ) {
+        if ( fileName.isNull() ) {
             // We're dragging behind the last item
-            model()->setRightDropItem( model()->imageAt( model()->imageCount() - 1 ) );
+            model()->setRightDropItem(model()->imageAt( model()->imageCount() - 1));
         } else {
-            model()->setLeftDropItem(id);
-            const int index = model()->indexOf(id) - 1;
+            model()->setLeftDropItem(fileName);
+            const int index = model()->indexOf(fileName) - 1;
             if ( index != -1 )
-                model()->setRightDropItem( model()->imageAt(index) );
+                model()->setRightDropItem(model()->imageAt(index));
         }
     }
 
     else {
-        model()->setRightDropItem(id);
-        const int index = model()->indexOf(id) + 1;
+        model()->setRightDropItem(fileName);
+        const int index = model()->indexOf(fileName) + 1;
         if (index != model()->imageCount())
-            model()->setLeftDropItem( model()->imageAt(index) );
+            model()->setLeftDropItem(model()->imageAt(index));
     }
 
-    model()->updateCell( model()->leftDropItem() );
-    model()->updateCell( model()->rightDropItem() );
+    model()->updateCell(model()->leftDropItem());
+    model()->updateCell(model()->rightDropItem());
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
@@ -100,16 +100,16 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes )
     {
         // expand selection so that stacks are always selected as a whole:
-        const DB::IdList selected = widget()->selection( IncludeAllStacks );
+        const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 
         // protect against self drop
-        if ( selected.indexOf( model()->leftDropItem() ) == -1 && selected.indexOf( model()->rightDropItem() ) == -1 ) {
+        if ( selected.indexOf(model()->leftDropItem()) == -1 && selected.indexOf(model()->rightDropItem()) == -1 ) {
             if ( model()->rightDropItem().isNull() ) {
                 // We dropped onto the first image.
-                DB::ImageDB::instance()->reorder( model()->leftDropItem(), selected, false );
+                DB::ImageDB::instance()->reorder(model()->leftDropItem(), selected, false);
             }
             else
-                DB::ImageDB::instance()->reorder( model()->rightDropItem(), selected, true );
+                DB::ImageDB::instance()->reorder(model()->rightDropItem(), selected, true);
 
             Browser::BrowserWidget::instance()->reload();
         }
@@ -119,13 +119,13 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
 void ThumbnailView::ThumbnailDND::removeDropIndications()
 {
-    DB::Id left = model()->leftDropItem();
-    DB::Id right = model()->rightDropItem();
-    model()->setLeftDropItem( DB::Id::null );
-    model()->setRightDropItem( DB::Id::null );
+    const DB::FileName left = model()->leftDropItem();
+    const DB::FileName right = model()->rightDropItem();
+    model()->setLeftDropItem( DB::FileName() );
+    model()->setRightDropItem( DB::FileName() );
 
-    model()->updateCell( left );
-    model()->updateCell( right );
+    model()->updateCell(left);
+    model()->updateCell(right);
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )

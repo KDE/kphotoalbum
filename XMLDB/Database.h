@@ -18,7 +18,6 @@
 
 #ifndef XMLDB_DATABSE_H
 #define XMLDB_DATABSE_H
-#include "IdNameMapper.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include <qstringlist.h>
@@ -42,52 +41,47 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        OVERRIDE bool operator==(const DB::ImageDB& other) const;
         OVERRIDE uint totalCount() const;
-        OVERRIDE DB::IdList search(
+        OVERRIDE DB::FileNameList search(
             const DB::ImageSearchInfo&,
             bool requireOnDisk=false) const;
         OVERRIDE void renameCategory( const QString& oldName, const QString newName );
 
         OVERRIDE QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask );
-        OVERRIDE DB::IdList images();
+        OVERRIDE DB::FileNameList images();
         OVERRIDE void addImages( const DB::ImageInfoList& images );
         OVERRIDE void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName );
 
-        OVERRIDE void addToBlockList(const DB::IdList& list);
+        OVERRIDE void addToBlockList(const DB::FileNameList& list);
         OVERRIDE bool isBlocking( const DB::FileName& fileName );
-        OVERRIDE void deleteList(const DB::IdList& list);
+        OVERRIDE void deleteList(const DB::FileNameList& list);
         OVERRIDE DB::ImageInfoPtr info( const DB::FileName& fileName ) const;
-        OVERRIDE DB::ImageInfoPtr info( const DB::Id& ) const;
         OVERRIDE DB::MemberMap& memberMap();
         OVERRIDE void save( const QString& fileName, bool isAutoSave );
         OVERRIDE DB::MD5Map* md5Map();
-        OVERRIDE void sortAndMergeBackIn(const DB::IdList& idList);
+        OVERRIDE void sortAndMergeBackIn(const DB::FileNameList& idList);
         OVERRIDE DB::CategoryCollection* categoryCollection();
         OVERRIDE KSharedPtr<DB::ImageDateCollection> rangeCollection();
         OVERRIDE void reorder(
-            const DB::Id& item,
-            const DB::IdList& cutList,
+            const DB::FileName& item,
+            const DB::FileNameList& cutList,
             bool after);
 
         static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
-        OVERRIDE bool stack(const DB::IdList& items);
-        OVERRIDE void unstack(const DB::IdList& images);
-        OVERRIDE DB::IdList getStackFor(const DB::Id& referenceId) const;
-
-        OVERRIDE QStringList CONVERT(const DB::IdList&);
-        OVERRIDE DB::Id ID_FOR_FILE( const DB::FileName& ) const;
+        OVERRIDE bool stack(const DB::FileNameList& items);
+        OVERRIDE void unstack(const DB::FileNameList& images);
+        OVERRIDE DB::FileNameList getStackFor(const DB::FileName& referenceId) const;
 
     protected:
-        DB::IdList searchPrivate(
+        DB::FileNameList searchPrivate(
             const DB::ImageSearchInfo&,
             bool requireOnDisk,
             bool onlyItemsMatchingRange) const;
         bool rangeInclude( DB::ImageInfoPtr info ) const;
 
-        DB::ImageInfoList takeImagesFromSelection(const DB::IdList& list);
-        void insertList( const DB::Id& id, const DB::ImageInfoList& list, bool after );
+        DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList& list);
+        void insertList( const DB::FileName& id, const DB::ImageInfoList& list, bool after );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
 
 
@@ -112,13 +106,11 @@ namespace XMLDB {
         DB::MD5Map _md5map;
 
         DB::StackID _nextStackId;
-        typedef QMap<DB::StackID, DB::IdList> StackMap;
+        typedef QMap<DB::StackID, DB::FileNameList> StackMap;
         mutable  StackMap _stackMap;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;
-
-        DB::IdNameMapper _idMapper;
     };
 }
 

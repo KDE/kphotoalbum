@@ -24,11 +24,6 @@
 #include "DB/MediaCount.h"
 #include <DB/FileNameList.h>
 
-#include <config-kpa-sqldb.h>
-#ifdef SQLDB_SUPPORT
-namespace SQLDB { class DatabaseAddress; }
-#endif
-
 class QProgressBar;
 
 namespace DB
@@ -50,21 +45,15 @@ class ImageDB  :public QObject {
 public:
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
-#ifdef SQLDB_SUPPORT
-    static void setupSQLDB( const SQLDB::DatabaseAddress& address );
-#endif
     static void deleteInstance();
 
-    void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
-    virtual bool operator==(const ImageDB& other) const = 0;
-    bool operator!=(const ImageDB& other) const { return !operator==(other); }
     DB::FileNameSet imagesWithMD5Changed();
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
-    void slotRecalcCheckSums(const DB::IdList& selection);
+    void slotRecalcCheckSums(const DB::FileNameList& selection);
     virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const DB::FileNameList& list, DB::ExifMode mode);
 
@@ -82,33 +71,33 @@ protected:
 
 public:
     static QString NONE();
-    DB::IdList currentScope(bool requireOnDisk) const;
+    DB::FileNameList currentScope(bool requireOnDisk) const;
 
-    virtual DB::Id findFirstItemInRange(
-        const IdList& images,
+    virtual DB::FileName findFirstItemInRange(
+        const FileNameList& images,
         const ImageDate& range,
         bool includeRanges) const;
 
 public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
-    virtual DB::IdList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
+    virtual DB::FileNameList search(const ImageSearchInfo&, bool requireOnDisk=false) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
-    virtual IdList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
+    virtual FileNameList images() = 0;
     virtual void addImages( const ImageInfoList& images ) = 0;
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
 
-    virtual void addToBlockList(const DB::IdList& list) = 0;
+    virtual void addToBlockList(const DB::FileNameList& list) = 0;
     virtual bool isBlocking( const DB::FileName& fileName ) = 0;
-    virtual void deleteList(const DB::IdList& list) = 0;
-    virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0; //QWERTY DIE
+    virtual void deleteList(const DB::FileNameList& list) = 0;
+    virtual ImageInfoPtr info( const DB::FileName& fileName ) const = 0;
     virtual MemberMap& memberMap() = 0;
     virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
-    virtual void sortAndMergeBackIn(const DB::IdList& idlist) = 0;
+    virtual void sortAndMergeBackIn(const DB::FileNameList& list) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
@@ -118,25 +107,7 @@ public: // Methods that must be overridden
      * cutList directly before or after the given item.
      * If the parameter "after" determines where to place it.
      */
-    virtual void reorder(const DB::Id& item, const DB::IdList& cutList, bool after) = 0;
-
-    /**
-     * temporary method to convert a DB::IdList back to the usual
-     * list of absolute filenames. This should not be necessary anymore after
-     * the refactoring to use DB::IdList everywhere
-     */
-    virtual QStringList CONVERT(const DB::IdList&) = 0; //QWERTY DIE
-
-    DB::FileNameList CONVERT2(const DB::IdList&); // QWERTY DIE
-    /**
-     * there are some cases in which we have a filename and need to map back
-     * to ID. Provided here to push down that part of refactoring. It
-     * might be necessary to keep this method though because sometimes we
-     * get filenames from the UI and need to convert it into our internal IDs.
-     * If that turns out to be true, lowercasify this method, and update
-     * this comment.
-     */
-    virtual DB::Id ID_FOR_FILE( const DB::FileName& ) const = 0; // QWERTY DIE ?
+    virtual void reorder(const DB::FileName& item, const DB::FileNameList& cutList, bool after) = 0;
 
     /** @short Create a stack of images/videos/whatever
      *
@@ -154,7 +125,7 @@ public: // Methods that must be overridden
      * the stack. The order of images which were already in the stack is not
      * changed.
      * */
-    virtual bool stack(const DB::IdList& items) = 0;
+    virtual bool stack(const DB::FileNameList& items) = 0;
 
     /** @short Remove all images from whichever stacks they might be in
      *
@@ -163,7 +134,7 @@ public: // Methods that must be overridden
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack(const DB::IdList& images) = 0;
+    virtual void unstack(const DB::FileNameList& images) = 0;
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *
@@ -171,14 +142,7 @@ public: // Methods that must be overridden
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual DB::IdList getStackFor(const DB::Id& referenceId) const = 0;
-
- protected:
-    friend class DB::Id;
-
-    // Don't use directly, use DB::Id::fetchInfo() instead.
-    virtual ImageInfoPtr info( const DB::Id& ) const = 0;
-
+    virtual DB::FileNameList getStackFor(const DB::FileName& referenceId) const = 0;
 
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;
@@ -187,10 +151,9 @@ protected slots:
 signals:
     void totalChanged( uint );
     void dirty();
-    void imagesDeleted( const DB::IdList& );
+    void imagesDeleted( const DB::FileNameList& );
 };
 
 }
-
 #endif /* IMAGEDB_H */
 

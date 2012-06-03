@@ -24,8 +24,7 @@
 #include "Utilities/UniqFilenameMapper.h"
 #include <QEventLoop>
 #include <QPointer>
-
-namespace DB { class IdList; }
+#include <DB/FileNameList.h>
 
 class QRadioButton;
 class QSpinBox;
@@ -41,9 +40,9 @@ enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link, Symlink };
 class Export :public ImageManager::ImageClientInterface {
 
 public:
-    static void imageExport(const DB::IdList& list);
+    static void imageExport(const DB::FileNameList& list);
 
-    Export( const DB::IdList& list, const QString& zipFile,
+    Export( const DB::FileNameList& list, const QString& zipFile,
             bool compress, int maxSize,
             ImageFileLocation, const QString& baseUrl,
             bool generateThumbnails,
@@ -56,8 +55,8 @@ public:
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 protected:
-    void generateThumbnails(const DB::IdList& list);
-    void copyImages(const DB::IdList& list);
+    void generateThumbnails(const DB::FileNameList& list);
+    void copyImages(const DB::FileNameList& list);
 
 private:
     bool* _ok;

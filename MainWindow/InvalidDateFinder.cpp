@@ -24,7 +24,6 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
-#include "DB/Id.h"
 #include "MainWindow/Window.h"
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -79,32 +78,31 @@ void InvalidDateFinder::accept()
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
-    DB::IdList list = DB::ImageDB::instance()->images();
-    DB::IdList toBeShown;
+    const DB::FileNameList list = DB::ImageDB::instance()->images();
+    DB::FileNameList toBeShown;
     KProgressDialog dialog( 0, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
     dialog.progressBar()->setMaximum(list.size());
     dialog.progressBar()->setValue(0);
     int progress = 0;
 
-    Q_FOREACH(DB::Id id, list) {
-        DB::ImageInfoPtr info = id.fetchInfo();
+    Q_FOREACH(const DB::FileName& fileName, list) {
         dialog.progressBar()->setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
             break;
-        if ( info.isNull() )
+        if ( fileName.info()->isNull() )
             continue;
 
-        DB::ImageDate date = info->date();
+        DB::ImageDate date = fileName.info()->date();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
-            DB::FileInfo fi = DB::FileInfo::read( info->fileName(), DB::EXIFMODE_DATE );
+            DB::FileInfo fi = DB::FileInfo::read( fileName, DB::EXIFMODE_DATE );
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {
                 edit->append( QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3" )
-                              .arg(info->fileName().relative())
+                              .arg(fileName.relative())
                               .arg(date.start().toString())
                               .arg(fi.dateTime().toString()) );
             }
@@ -117,7 +115,7 @@ void InvalidDateFinder::accept()
         }
 
         if ( show )
-            toBeShown.append(id);
+            toBeShown.append(fileName);
     }
 
     if ( _dateNotTime->isChecked() ) {

@@ -19,6 +19,11 @@
 
 #include "FileNameList.h"
 
+DB::FileNameList::FileNameList(const QList<DB::FileName>& other )
+{
+    QList<DB::FileName>::operator=(other);
+}
+
 QStringList DB::FileNameList::toStringList(DB::PathType type) const
 {
     QStringList res;
@@ -36,4 +41,13 @@ DB::FileNameList &DB::FileNameList::operator <<(const DB::FileName & fileName)
 {
     QList<DB::FileName>::operator<<(fileName);
     return *this;
+}
+
+DB::FileNameList DB::FileNameList::reversed() const
+{
+    FileNameList res;
+    Q_FOREACH(const FileName& fileName, *this) {
+        res.prepend(fileName);
+    }
+    return res;
 }

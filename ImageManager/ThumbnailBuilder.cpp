@@ -23,9 +23,9 @@
 #include "ThumbnailView/CellGeometry.h"
 #include "ImageManager/AsyncLoader.h"
 #include "DB/ImageDB.h"
-#include "DB/Id.h"
 #include "PreloadRequest.h"
 #include <QTimer>
+#include <DB/ImageInfoPtr.h>
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
@@ -62,8 +62,7 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName,
 void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 {
     ImageManager::ThumbnailCache::instance()->flush();
-    const DB::IdList images = DB::ImageDB::instance()->images();
-    scheduleThumbnailBuild( images.fetchInfos(), when );
+    scheduleThumbnailBuild( DB::ImageDB::instance()->images(), when );
 }
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
@@ -74,17 +73,16 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
-    const DB::IdList images = DB::ImageDB::instance()->images();
-    const QList<DB::ImageInfoPtr> list = images.fetchInfos();
-    QList<DB::ImageInfoPtr> needed;
-    Q_FOREACH( const DB::ImageInfoPtr& info, list ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( info->fileName() ) )
-            needed.append( info );
+    const DB::FileNameList images = DB::ImageDB::instance()->images();
+    DB::FileNameList needed;
+    Q_FOREACH( const DB::FileName& fileName, images ) {
+        if ( ! ImageManager::ThumbnailCache::instance()->contains( fileName ) )
+            needed.append( fileName );
     }
     scheduleThumbnailBuild( needed, StartDelayed );
 }
 
-void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const QList<DB::ImageInfoPtr>& list, ThumbnailBuildStart when )
+void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when )
 {
     if ( list.count() == 0 )
         return;
@@ -99,17 +97,23 @@ void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const QList<DB::Ima
 void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 {
     m_isBuilding = true;
-    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
+    int numberOfThumbnailsToBuild = 0;
 
-    Q_FOREACH(const DB::ImageInfoPtr info, m_thumbnailsToBuild ) {
+    Q_FOREACH(const DB::FileName& fileName, m_thumbnailsToBuild ) {
+        DB::ImageInfoPtr info = fileName.info();
+        if ( info->isNull())
+            continue;
+
+        ++numberOfThumbnailsToBuild;
         ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( info->fileName(),
+            = new ImageManager::PreloadRequest( fileName,
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );
         ImageManager::AsyncLoader::instance()->load( request );
     }
+    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( numberOfThumbnailsToBuild - 1, 1 ) );
     m_count = 0;
 }
 

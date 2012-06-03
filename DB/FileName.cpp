@@ -20,6 +20,7 @@
 #include "FileName.h"
 #include <Utilities/Util.h>
 #include <QFile>
+#include "ImageDB.h"
 
 DB::FileName::FileName()
     : m_isNull(true)
@@ -29,7 +30,8 @@ DB::FileName::FileName()
 DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 {
     const QString imageRoot = Utilities::stripEndingForwardSlash( Settings::SettingsData::instance()->imageDirectory() ) + QLatin1String("/");
-    Q_ASSERT(fileName.startsWith(imageRoot));
+    if (!fileName.startsWith(imageRoot))
+        return FileName();
 
     FileName res;
     res.m_isNull = false;
@@ -83,6 +85,11 @@ bool DB::FileName::operator <(const DB::FileName &other) const
 bool DB::FileName::exists() const
 {
     return QFile::exists(absolute());
+}
+
+DB::ImageInfoPtr DB::FileName::info() const
+{
+    return ImageDB::instance()->info(*this);
 }
 
 uint DB::qHash( const DB::FileName& fileName )

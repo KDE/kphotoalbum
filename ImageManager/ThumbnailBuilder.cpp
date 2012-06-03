@@ -25,6 +25,7 @@
 #include "DB/ImageDB.h"
 #include "PreloadRequest.h"
 #include <QTimer>
+#include <DB/ImageInfoPtr.h>
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 
@@ -96,17 +97,23 @@ void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const DB::FileNameL
 void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 {
     m_isBuilding = true;
-    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
+    int numberOfThumbnailsToBuild = 0;
 
     Q_FOREACH(const DB::FileName& fileName, m_thumbnailsToBuild ) {
+        DB::ImageInfoPtr info = fileName.info();
+        if ( info->isNull())
+            continue;
+
+        ++numberOfThumbnailsToBuild;
         ImageManager::ImageRequest* request
             = new ImageManager::PreloadRequest( fileName,
-                                              ThumbnailView::CellGeometry::preferredIconSize(), fileName.info()->angle(),
+                                              ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );
         ImageManager::AsyncLoader::instance()->load( request );
     }
+    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( numberOfThumbnailsToBuild - 1, 1 ) );
     m_count = 0;
 }
 

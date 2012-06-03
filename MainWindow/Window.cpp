@@ -597,8 +597,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bo
     }
 
     if (random) {
-        // mediaList = DB::FileNameList(Utilities::shuffleList(mediaList)); ZZZ I Can't git this to compile
-        qFatal("Missing porting of code"); // ZZZ
+        mediaList = DB::FileNameList(Utilities::shuffleList(mediaList));
     }
 
     Viewer::ViewerWidget* viewer;

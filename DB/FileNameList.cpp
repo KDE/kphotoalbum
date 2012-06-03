@@ -21,7 +21,7 @@
 
 DB::FileNameList::FileNameList(const QList<DB::FileName>& other )
 {
-    *this = other;
+    QList<DB::FileName>::operator=(other);
 }
 
 QStringList DB::FileNameList::toStringList(DB::PathType type) const

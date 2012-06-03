@@ -1477,7 +1477,12 @@ void MainWindow::Window::setPluginMenuState( const char* name, const QList<QActi
 void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( DB::FileName::fromAbsolutePath((*it).path()) );
+        DB::FileName fileName = DB::FileName::fromAbsolutePath((*it).path());
+        if ( !fileName.isNull()) {
+            // Pluigins may report images outsite of the photodatabase
+            // This seems to be the case with the border image plugin, which reports the destination image
+            ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
+        }
     }
     _statusBar->_dirtyIndicator->markDirty();
     reloadThumbnails( ThumbnailView::MaintainSelection );

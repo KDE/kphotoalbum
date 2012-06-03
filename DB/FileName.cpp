@@ -30,7 +30,8 @@ DB::FileName::FileName()
 DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 {
     const QString imageRoot = Utilities::stripEndingForwardSlash( Settings::SettingsData::instance()->imageDirectory() ) + QLatin1String("/");
-    Q_ASSERT(fileName.startsWith(imageRoot));
+    if (!fileName.startsWith(imageRoot))
+        return FileName();
 
     FileName res;
     res.m_isNull = false;

@@ -1,3 +1,10 @@
+2012-06-03  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* Internal: Removed the SQL backend. This includes removing the
+	classes DB::Id and DB::IdList. This change was to simplify code,
+	as the introduction of these two classes made a lot of code more
+	complex.
+
 2012-05-16  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* Internal: Introduced the class DB::FileName to represent a

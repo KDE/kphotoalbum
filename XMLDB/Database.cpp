@@ -234,6 +234,9 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;
 
+    if ( fileName.isNull() )
+        return DB::ImageInfoPtr();
+
     const QString name = fileName.absolute();
 
     if ( fileMap.contains( name ) )

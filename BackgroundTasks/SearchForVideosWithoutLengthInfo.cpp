@@ -21,6 +21,7 @@
 #include <DB/ImageInfo.h>
 #include "JobManager.h"
 #include "ReadVideoLengthJob.h"
+#include <klocale.h>
 
 /**
   \class BackgroundTasks::SearchForVideosWithoutLengthInfo
@@ -40,4 +41,14 @@ void BackgroundTasks::SearchForVideosWithoutLengthInfo::execute()
         }
     }
     emit completed();
+}
+
+QString BackgroundTasks::SearchForVideosWithoutLengthInfo::title() const
+{
+    return i18n("Search for videos without length information");
+}
+
+QString BackgroundTasks::SearchForVideosWithoutLengthInfo::data() const
+{
+    return QString();
 }

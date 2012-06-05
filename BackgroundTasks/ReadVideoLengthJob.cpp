@@ -20,6 +20,7 @@
 #include "ImageManager/VideoLengthExtractor.h"
 #include <DB/ImageDB.h>
 #include <MainWindow/DirtyIndicator.h>
+#include <klocale.h>
 
 /**
   \class BackgroundTasks::ReadVideoLengthJob
@@ -37,6 +38,16 @@ void BackgroundTasks::ReadVideoLengthJob::execute()
     extractor->extract(m_fileName);
     connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
+}
+
+QString BackgroundTasks::ReadVideoLengthJob::data() const
+{
+    return m_fileName.relative();
+}
+
+QString BackgroundTasks::ReadVideoLengthJob::title() const
+{
+    return i18n("Read Video Length");
 }
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)

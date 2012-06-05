@@ -20,6 +20,7 @@
 #include <ImageManager/VideoThumbnailsExtractor.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
+#include <klocale.h>
 
 BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const DB::FileName &fileName)
     :m_fileName(fileName)
@@ -37,5 +38,15 @@ void BackgroundTasks::CreateVideoThumbnailsJob::execute()
 
     ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( m_fileName, length );
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
+}
+
+QString BackgroundTasks::CreateVideoThumbnailsJob::title() const
+{
+    return i18n("Create Video Thumbnails");
+}
+
+QString BackgroundTasks::CreateVideoThumbnailsJob::data() const
+{
+    return m_fileName.relative();
 }
 

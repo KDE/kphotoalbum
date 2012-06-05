@@ -17,45 +17,40 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "StatusIndicator.h"
-#include <QTimer>
-#include <QApplication>
-#include "JobManager.h"
-#include "JobViewer.h"
+#ifndef BACKGROUNDTASKS_JOBMODEL_H
+#define BACKGROUNDTASKS_JOBMODEL_H
+
+#include <QAbstractTableModel>
+#include "JobInterface.h"
 
 namespace BackgroundTasks {
 
-StatusIndicator::StatusIndicator( QWidget* parent )
-    : KLed( Qt::green, parent ), m_timer( new QTimer(this) ), m_jobViewer(0)
-{
-    connect( m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
-    setCursor(Qt::PointingHandCursor);
-    connect( JobManager::instance(), SIGNAL(started()), this, SLOT(startFlicker()));
-    connect( JobManager::instance(), SIGNAL(ended()), this, SLOT(stopFlicker()));
-}
+class PreviousJobData {
+public:
+    PreviousJobData( const QString& title, const QString& data )
+        :title(title),data(data) {}
 
-void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
-{
-    if ( !m_jobViewer )
-        m_jobViewer = new JobViewer;
+    QString title;
+    QString data;
+};
 
-    m_jobViewer->show();
-}
-
-void StatusIndicator::flicker()
+class JobModel : public QAbstractTableModel
 {
-    setColor( color() == Qt::green ? Qt::gray : Qt::green );
-}
+    Q_OBJECT
+public:
+    explicit JobModel(QObject *parent = 0);
+    OVERRIDE int rowCount(const QModelIndex&) const;
+    OVERRIDE int columnCount(const QModelIndex&) const;
+    OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-void StatusIndicator::startFlicker()
-{
-    m_timer->start(500);
-}
+private slots:
+    void jobEnded( JobInterface* job);
+    void jobStarted( JobInterface* job);
 
-void StatusIndicator::stopFlicker()
-{
-    setColor( Qt::gray );
-    m_timer->stop();
-}
+private:
+    QList<PreviousJobData> m_previousJobs;
+};
 
 } // namespace BackgroundTasks
+
+#endif // BACKGROUNDTASKS_JOBMODEL_H

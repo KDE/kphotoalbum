@@ -17,45 +17,17 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "StatusIndicator.h"
-#include <QTimer>
-#include <QApplication>
-#include "JobManager.h"
 #include "JobViewer.h"
+#include "ui_JobViewer.h"
+#include "JobModel.h"
 
 namespace BackgroundTasks {
 
-StatusIndicator::StatusIndicator( QWidget* parent )
-    : KLed( Qt::green, parent ), m_timer( new QTimer(this) ), m_jobViewer(0)
+JobViewer::JobViewer(QWidget *parent) :
+    KDialog(parent), ui( new Ui::JobViewer)
 {
-    connect( m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
-    setCursor(Qt::PointingHandCursor);
-    connect( JobManager::instance(), SIGNAL(started()), this, SLOT(startFlicker()));
-    connect( JobManager::instance(), SIGNAL(ended()), this, SLOT(stopFlicker()));
-}
-
-void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
-{
-    if ( !m_jobViewer )
-        m_jobViewer = new JobViewer;
-
-    m_jobViewer->show();
-}
-
-void StatusIndicator::flicker()
-{
-    setColor( color() == Qt::green ? Qt::gray : Qt::green );
-}
-
-void StatusIndicator::startFlicker()
-{
-    m_timer->start(500);
-}
-
-void StatusIndicator::stopFlicker()
-{
-    setColor( Qt::gray );
-    m_timer->stop();
+    ui->setupUi(this);
+    ui->view->setModel(new JobModel(this));
 }
 
 } // namespace BackgroundTasks

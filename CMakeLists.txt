@@ -282,6 +282,12 @@ set(libBackgroundTasks_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/SearchForVideosWithoutVideoThumbnailsJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/CreateVideoThumbnailsJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/StatusIndicator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobViewer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobModel.cpp
+)
+
+kde4_add_ui_files( libBackgroundTasks_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobViewer.ui
 )
 
 add_subdirectory( images )

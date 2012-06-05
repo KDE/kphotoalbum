@@ -30,6 +30,8 @@ class JobInterface : public QObject
 public:
     virtual ~JobInterface();
     virtual void execute() = 0;
+    virtual QString title() const = 0;
+    virtual QString data() const = 0;
     
 signals:
     void completed();

@@ -30,6 +30,8 @@ class SearchForVideosWithoutVideoThumbnailsJob : public JobInterface
 
 public:
     OVERRIDE void execute();
+    OVERRIDE QString title() const;
+    OVERRIDE QString data() const;
 };
 
 }

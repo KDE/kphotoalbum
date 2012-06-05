@@ -17,36 +17,24 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BACKGROUNDTASKS_STATUSINDICATOR_H
-#define BACKGROUNDTASKS_STATUSINDICATOR_H
+#ifndef BACKGROUNDTASKS_JOBVIEWER_H
+#define BACKGROUNDTASKS_JOBVIEWER_H
 
-#include <KLed>
-
-class QTimer;
+#include <KDialog>
+namespace Ui { class JobViewer; }
 
 namespace BackgroundTasks {
-class JobViewer;
 
-class StatusIndicator : public KLed
+class JobViewer : public KDialog
 {
     Q_OBJECT
-
 public:
-    StatusIndicator( QWidget* parent );
-
-protected:
-    OVERRIDE void mouseReleaseEvent(QMouseEvent* event);
-
-private slots:
-    void flicker();
-    void startFlicker();
-    void stopFlicker();
-
+    explicit JobViewer(QWidget *parent = 0);
+    
 private:
-    QTimer* m_timer;
-    JobViewer* m_jobViewer;
+    Ui::JobViewer* ui;
 };
 
 } // namespace BackgroundTasks
 
-#endif // BACKGROUNDTASKS_STATUSINDICATOR_H
+#endif // BACKGROUNDTASKS_JOBVIEWER_H

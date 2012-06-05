@@ -33,7 +33,7 @@
 BackgroundTasks::JobManager* BackgroundTasks::JobManager::m_instance = 0;
 
 BackgroundTasks::JobManager::JobManager() :
-    m_isRunning(false)
+    m_isRunning(false), m_active(0)
 {
 }
 
@@ -47,9 +47,11 @@ void BackgroundTasks::JobManager::execute()
 
     m_isRunning = true;
     emit started();
-    JobInterface* job = m_queue.dequeue();
-    connect(job,SIGNAL(completed()), this, SLOT(execute()));
-    job->execute();
+
+    m_active = m_queue.dequeue();
+    connect(m_active,SIGNAL(completed()), this, SLOT(jobCompleted()));
+    m_active->execute();
+    emit jobStarted(m_active);
 }
 
 void BackgroundTasks::JobManager::addJob(BackgroundTasks::JobInterface* job )
@@ -64,4 +66,12 @@ BackgroundTasks::JobManager *BackgroundTasks::JobManager::instance()
     if ( !m_instance )
         m_instance = new JobManager;
     return m_instance;
+}
+
+void BackgroundTasks::JobManager::jobCompleted()
+{
+    emit jobEnded(m_active);
+    delete m_active;
+    m_active = 0;
+    execute();
 }

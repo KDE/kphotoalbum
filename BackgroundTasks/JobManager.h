@@ -36,16 +36,20 @@ public:
 signals:
     void started();
     void ended();
+    void jobStarted(JobInterface* job);
+    void jobEnded(JobInterface* job);
 
 private slots:
     void execute();
+    void jobCompleted();
 
 private:
     JobManager();
     static JobManager* m_instance;
 
-    QQueue<JobInterface*> m_queue;
     bool m_isRunning;
+    JobInterface* m_active;
+    QQueue<JobInterface*> m_queue;
 };
 
 }

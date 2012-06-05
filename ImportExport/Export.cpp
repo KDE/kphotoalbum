@@ -298,7 +298,7 @@ void Export::copyImages(const DB::FileNameList& list)
         qApp->processEvents( QEventLoop::AllEvents );
 
         if ( _progressDialog->wasCanceled() ) {
-            _ok = false;
+            *_ok = false;
             return;
         }
     }
@@ -330,7 +330,7 @@ void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, 
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1", file ) );
-            _ok = false;
+            *_ok = false;
         }
         out.write( data, data.size() );
         out.close();
@@ -341,7 +341,7 @@ void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, 
     bool canceled = (!_ok ||  _progressDialog->wasCanceled());
 
     if ( canceled ) {
-        _ok = false;
+        *_ok = false;
         _eventLoop->exit();
         ImageManager::AsyncLoader::instance()->stop( this );
         return;

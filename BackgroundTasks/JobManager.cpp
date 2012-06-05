@@ -41,10 +41,12 @@ void BackgroundTasks::JobManager::execute()
 {
     if ( m_queue.isEmpty() ) {
         m_isRunning = false;
+        emit ended();
         return;
     }
 
     m_isRunning = true;
+    emit started();
     JobInterface* job = m_queue.dequeue();
     connect(job,SIGNAL(completed()), this, SLOT(execute()));
     job->execute();

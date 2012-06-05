@@ -20,6 +20,7 @@
 #include "StatusIndicator.h"
 #include <QTimer>
 #include <QApplication>
+#include "JobManager.h"
 
 namespace BackgroundTasks {
 
@@ -27,8 +28,9 @@ StatusIndicator::StatusIndicator( QWidget* parent )
     : KLed( Qt::green, parent ), m_timer( new QTimer(this) )
 {
     connect( m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
-    m_timer->start(500);
     setCursor(Qt::PointingHandCursor);
+    connect( JobManager::instance(), SIGNAL(started()), this, SLOT(startFlicker()));
+    connect( JobManager::instance(), SIGNAL(ended()), this, SLOT(stopFlicker()));
 }
 
 void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
@@ -39,6 +41,17 @@ void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
 void StatusIndicator::flicker()
 {
     setColor( color() == Qt::green ? Qt::gray : Qt::green );
+}
+
+void StatusIndicator::startFlicker()
+{
+    m_timer->start(500);
+}
+
+void StatusIndicator::stopFlicker()
+{
+    setColor( Qt::gray );
+    m_timer->stop();
 }
 
 } // namespace BackgroundTasks

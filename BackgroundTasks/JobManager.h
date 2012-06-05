@@ -33,6 +33,10 @@ public:
     void addJob(JobInterface*);
     static JobManager* instance();
 
+signals:
+    void started();
+    void ended();
+
 private slots:
     void execute();
 

@@ -38,6 +38,8 @@ protected:
 
 private slots:
     void flicker();
+    void startFlicker();
+    void stopFlicker();
 
 private:
     QTimer* m_timer;

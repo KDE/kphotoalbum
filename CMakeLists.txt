@@ -281,6 +281,7 @@ set(libBackgroundTasks_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/ReadVideoLengthJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/SearchForVideosWithoutVideoThumbnailsJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/CreateVideoThumbnailsJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/StatusIndicator.cpp
 )
 
 add_subdirectory( images )

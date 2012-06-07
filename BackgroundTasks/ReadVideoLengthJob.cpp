@@ -21,6 +21,7 @@
 #include <DB/ImageDB.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <klocale.h>
+#include "JobInfo.h"
 
 /**
   \class BackgroundTasks::ReadVideoLengthJob
@@ -40,14 +41,9 @@ void BackgroundTasks::ReadVideoLengthJob::execute()
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
 }
 
-QString BackgroundTasks::ReadVideoLengthJob::data() const
+BackgroundTasks::JobInfo BackgroundTasks::ReadVideoLengthJob::info() const
 {
-    return m_fileName.relative();
-}
-
-QString BackgroundTasks::ReadVideoLengthJob::title() const
-{
-    return i18n("Read Video Length");
+    return JobInfo( i18n("Read Video Length"), m_fileName.relative());
 }
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)

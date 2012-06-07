@@ -32,6 +32,8 @@ class JobManager : public QObject
 public:
     void addJob(JobInterface*);
     static JobManager* instance();
+    int activeJobCount() const;
+    JobInfo activeJob(int index) const;
 
 signals:
     void started();

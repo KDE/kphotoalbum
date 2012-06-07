@@ -66,4 +66,3 @@ DB::FileName ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileNam
 {
     return DB::FileName::fromRelativePath( ImageManager::VideoManager::pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
 }
-

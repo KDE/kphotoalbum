@@ -17,6 +17,7 @@
 */
 
 #include "JobManager.h"
+#include "JobInfo.h"
 
 /**
   \class BackgroundTasks::JobManager
@@ -66,6 +67,21 @@ BackgroundTasks::JobManager *BackgroundTasks::JobManager::instance()
     if ( !m_instance )
         m_instance = new JobManager;
     return m_instance;
+}
+
+int BackgroundTasks::JobManager::activeJobCount() const
+{
+    if ( m_active )
+        return 1;
+    else
+        return 0;
+}
+
+BackgroundTasks::JobInfo BackgroundTasks::JobManager::activeJob(int index) const
+{
+    // Pending extend to support multiple jobs
+    Q_UNUSED(index);
+    return m_active->info();
 }
 
 void BackgroundTasks::JobManager::jobCompleted()

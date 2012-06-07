@@ -19,6 +19,7 @@
 
 #include "JobModel.h"
 #include "JobManager.h"
+#include "JobInfo.h"
 
 namespace BackgroundTasks {
 
@@ -34,12 +35,12 @@ int JobModel::rowCount(const QModelIndex& index) const
     if ( index.isValid())
         return 0;
     else
-        return m_previousJobs.count();
+        return m_previousJobs.count() + JobManager::instance()->activeJobCount();
 }
 
 int JobModel::columnCount(const QModelIndex &) const
 {
-    return 2;
+    return 3;
 }
 
 QVariant JobModel::data(const QModelIndex &index, int role) const
@@ -50,11 +51,19 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
     const int col = index.column();
 
+    JobInfo info;
+    if ( row < m_previousJobs.count() )
+        info = m_previousJobs[row];
+    else
+        info = JobManager::instance()->activeJob(0);
+
     if ( role == Qt::DisplayRole ) {
-        if ( col == 0 )
-            return m_previousJobs[row].title;
-        else if (col == 1)
-            return m_previousJobs[row].data;
+        if (col == 0)
+            return (row<m_previousJobs.count() ? QLatin1String("OLD") : QLatin1String("Act"));
+        else if ( col == 1)
+            return info.title;
+        else if (col == 2)
+            return info.details;
         else
             return QVariant();
     }
@@ -64,12 +73,13 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
 
 void JobModel::jobEnded(JobInterface *job)
 {
-    m_previousJobs.append( PreviousJobData(job->title(), job->data()));
+    m_previousJobs.append( job->info() );
     reset();
 }
 
 void JobModel::jobStarted(JobInterface *job)
 {
+    Q_UNUSED(job);
     reset();
 }
 

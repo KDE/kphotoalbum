@@ -17,32 +17,17 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BACKGROUNDTASKS_JOBMODEL_H
-#define BACKGROUNDTASKS_JOBMODEL_H
-
-#include <QAbstractTableModel>
-#include "JobInterface.h"
 #include "JobInfo.h"
 
 namespace BackgroundTasks {
 
-class JobModel : public QAbstractTableModel
+JobInfo::JobInfo()
 {
-    Q_OBJECT
-public:
-    explicit JobModel(QObject *parent = 0);
-    OVERRIDE int rowCount(const QModelIndex&) const;
-    OVERRIDE int columnCount(const QModelIndex&) const;
-    OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+}
 
-private slots:
-    void jobEnded( JobInterface* job);
-    void jobStarted( JobInterface* job);
+JobInfo::JobInfo(const QString &title, const QString &details)
+    :title(title), details(details)
+{
+}
 
-private:
-    QList<JobInfo> m_previousJobs;
-};
-
-} // namespace BackgroundTasks
-
-#endif // BACKGROUNDTASKS_JOBMODEL_H
+}

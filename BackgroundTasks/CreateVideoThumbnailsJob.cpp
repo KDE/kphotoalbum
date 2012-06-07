@@ -21,6 +21,7 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <klocale.h>
+#include "JobInfo.h"
 
 BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const DB::FileName &fileName)
     :m_fileName(fileName)
@@ -40,13 +41,7 @@ void BackgroundTasks::CreateVideoThumbnailsJob::execute()
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
 }
 
-QString BackgroundTasks::CreateVideoThumbnailsJob::title() const
+BackgroundTasks::JobInfo BackgroundTasks::CreateVideoThumbnailsJob::info() const
 {
-    return i18n("Create Video Thumbnails");
+    return JobInfo(i18n("Create Video Thumbnails"), m_fileName.relative());
 }
-
-QString BackgroundTasks::CreateVideoThumbnailsJob::data() const
-{
-    return m_fileName.relative();
-}
-

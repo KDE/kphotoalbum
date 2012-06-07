@@ -26,8 +26,15 @@ namespace BackgroundTasks {
 JobViewer::JobViewer(QWidget *parent) :
     KDialog(parent), ui( new Ui::JobViewer)
 {
-    ui->setupUi(this);
+    QWidget* top = new QWidget;
+    ui->setupUi(top);
+    setMainWidget(top);
     ui->view->setModel(new JobModel(this));
+}
+
+QSize JobViewer::sizeHint() const
+{
+    return QSize(800,800);
 }
 
 } // namespace BackgroundTasks

@@ -30,6 +30,7 @@ class JobViewer : public KDialog
     Q_OBJECT
 public:
     explicit JobViewer(QWidget *parent = 0);
+    OVERRIDE QSize sizeHint() const;
     
 private:
     Ui::JobViewer* ui;

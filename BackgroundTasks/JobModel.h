@@ -41,6 +41,7 @@ private slots:
     void jobStarted( JobInterface* job);
 
 private:
+    enum Column { ActiveCol = 0, TitleCol = 1, DetailsCol = 2 };
     QList<JobInfo> m_previousJobs;
 };
 

@@ -59,14 +59,12 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
         info = JobManager::instance()->activeJob(0);
 
     if ( role == Qt::DisplayRole ) {
-        if (col == 0)
-            return (row<m_previousJobs.count() ? QLatin1String("OLD") : QLatin1String("Act"));
-        else if ( col == 1)
-            return info.title;
-        else if (col == 2)
-            return info.details;
-        else
-            return QVariant();
+        switch (col) {
+        case ActiveCol:  return (row<m_previousJobs.count() ? QLatin1String("OLD") : QLatin1String("Act"));
+        case TitleCol:   return info.title;
+        case DetailsCol: return info.details;
+        default: return QVariant();
+        }
     }
 
     return QVariant();
@@ -77,11 +75,11 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     if ( orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
     switch (section) {
-    case 0: return i18n("Status");
-    case 1: return i18n("Title");
-    case 2: return i18n("Details");
+    case ActiveCol:  return i18n("Status");
+    case TitleCol:   return i18n("Title");
+    case DetailsCol: return i18n("Details");
+    default: return QVariant();
     }
-    return QVariant();
 }
 
 void JobModel::jobEnded(JobInterface *job)

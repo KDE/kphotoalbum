@@ -20,6 +20,7 @@
 #include "JobModel.h"
 #include "JobManager.h"
 #include "JobInfo.h"
+#include <KLocale>
 
 namespace BackgroundTasks {
 
@@ -68,6 +69,18 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
             return QVariant();
     }
 
+    return QVariant();
+}
+
+QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if ( orientation != Qt::Horizontal || role != Qt::DisplayRole)
+        return QVariant();
+    switch (section) {
+    case 0: return i18n("Status");
+    case 1: return i18n("Title");
+    case 2: return i18n("Details");
+    }
     return QVariant();
 }
 

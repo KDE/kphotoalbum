@@ -34,6 +34,7 @@ public:
     OVERRIDE int rowCount(const QModelIndex&) const;
     OVERRIDE int columnCount(const QModelIndex&) const;
     OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    OVERRIDE QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 private slots:
     void jobEnded( JobInterface* job);

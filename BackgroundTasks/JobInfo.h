@@ -26,10 +26,13 @@ namespace BackgroundTasks {
 class JobInfo
 {
 public:
+    enum JobType { PastJob, CurrentJob, FutureJob };
+
     JobInfo();
     JobInfo(const QString& title, const QString& details );
     QString title;
     QString details;
+    JobType jobType;
 };
 
 }

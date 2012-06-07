@@ -42,6 +42,10 @@ private slots:
 
 private:
     enum Column { ActiveCol = 0, TitleCol = 1, DetailsCol = 2 };
+
+    JobInfo info(int row) const;
+    QString type( JobInfo::JobType type ) const;
+
     QList<JobInfo> m_previousJobs;
 };
 

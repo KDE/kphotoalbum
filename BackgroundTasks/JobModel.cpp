@@ -36,7 +36,7 @@ int JobModel::rowCount(const QModelIndex& index) const
     if ( index.isValid())
         return 0;
     else
-        return m_previousJobs.count() + JobManager::instance()->activeJobCount();
+        return m_previousJobs.count() + JobManager::instance()->activeJobCount() + JobManager::instance()->futureJobCount();
 }
 
 int JobModel::columnCount(const QModelIndex &) const
@@ -52,17 +52,13 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
     const int col = index.column();
 
-    JobInfo info;
-    if ( row < m_previousJobs.count() )
-        info = m_previousJobs[row];
-    else
-        info = JobManager::instance()->activeJob(0);
+    JobInfo inf = info(row);
 
     if ( role == Qt::DisplayRole ) {
         switch (col) {
-        case ActiveCol:  return (row<m_previousJobs.count() ? QLatin1String("OLD") : QLatin1String("Act"));
-        case TitleCol:   return info.title;
-        case DetailsCol: return info.details;
+        case ActiveCol:  return type(inf.jobType);
+        case TitleCol:   return inf.title;
+        case DetailsCol: return inf.details;
         default: return QVariant();
         }
     }
@@ -92,6 +88,38 @@ void JobModel::jobStarted(JobInterface *job)
 {
     Q_UNUSED(job);
     reset();
+}
+
+JobInfo JobModel::info(int row) const
+{
+    if ( row < m_previousJobs.count() ) {
+        JobInfo result = m_previousJobs[row];
+        result.jobType = JobInfo::PastJob;
+        return result;
+    }
+
+    row -= m_previousJobs.count();
+    if ( row  < JobManager::instance()->activeJobCount() ) {
+        JobInfo result = JobManager::instance()->activeJob(row);
+        result.jobType = JobInfo::CurrentJob;
+        return result;
+    }
+
+    row -= JobManager::instance()->activeJobCount();
+    Q_ASSERT( row < JobManager::instance()->futureJobCount() );
+    JobInfo result = JobManager::instance()->futureJob(row);
+    result.jobType = JobInfo::FutureJob;
+    return result;
+}
+
+QString JobModel::type(JobInfo::JobType type) const
+{
+    switch (type) {
+    case JobInfo::PastJob: return i18n("Past");
+    case JobInfo::CurrentJob: return i18n("Active");
+    case JobInfo::FutureJob: return i18n("Future");
+    }
+    return QString();
 }
 
 } // namespace BackgroundTasks

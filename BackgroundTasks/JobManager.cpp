@@ -84,6 +84,16 @@ BackgroundTasks::JobInfo BackgroundTasks::JobManager::activeJob(int index) const
     return m_active->info();
 }
 
+int BackgroundTasks::JobManager::futureJobCount() const
+{
+    return m_queue.count();
+}
+
+BackgroundTasks::JobInfo BackgroundTasks::JobManager::futureJob(int index) const
+{
+    return m_queue[index]->info();
+}
+
 void BackgroundTasks::JobManager::jobCompleted()
 {
     emit jobEnded(m_active);

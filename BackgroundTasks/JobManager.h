@@ -25,7 +25,6 @@
 
 namespace BackgroundTasks
 {
-
 class JobManager : public QObject
 {
     Q_OBJECT
@@ -34,6 +33,8 @@ public:
     static JobManager* instance();
     int activeJobCount() const;
     JobInfo activeJob(int index) const;
+    int futureJobCount() const;
+    JobInfo futureJob(int index) const;
 
 signals:
     void started();

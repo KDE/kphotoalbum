@@ -84,6 +84,11 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     }
 }
 
+void JobModel::reset()
+{
+    QAbstractTableModel::reset();
+}
+
 void JobModel::jobEnded(JobInterface *job)
 {
     m_previousJobs.append( new CompletedJobInfo(job) );
@@ -92,7 +97,7 @@ void JobModel::jobEnded(JobInterface *job)
 
 void JobModel::jobStarted(JobInterface *job)
 {
-    Q_UNUSED(job);
+    connect( job, SIGNAL(changed()), this, SLOT(reset()));
     reset();
 }
 

@@ -35,7 +35,7 @@ class VideoThumbnailsExtractor :public QObject
 Q_OBJECT
 
 public:
-    VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength );
+    VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent );
     static DB::FileName frameName(const DB::FileName& videoName, int frameNumber );
 
 private slots:

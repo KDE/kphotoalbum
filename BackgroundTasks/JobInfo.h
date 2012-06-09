@@ -36,6 +36,9 @@ public:
     virtual QString title() const = 0;
     virtual QString details() const = 0;
     JobType jobType;
+
+signals:
+    void changed() const;
 };
 
 }

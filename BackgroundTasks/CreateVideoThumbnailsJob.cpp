@@ -24,7 +24,7 @@
 #include "JobInfo.h"
 
 BackgroundTasks::CreateVideoThumbnailsJob::CreateVideoThumbnailsJob(const DB::FileName &fileName)
-    :m_fileName(fileName)
+    :m_fileName(fileName), m_currentFrame(0)
 {
 }
 
@@ -37,7 +37,8 @@ void BackgroundTasks::CreateVideoThumbnailsJob::execute()
         return;
     }
 
-    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( m_fileName, length );
+    ImageManager::VideoThumbnailsExtractor* extractor = new ImageManager::VideoThumbnailsExtractor( m_fileName, length, this );
+    connect(extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(frameLoaded(int)));
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
 }
 
@@ -48,5 +49,11 @@ QString BackgroundTasks::CreateVideoThumbnailsJob::title() const
 
 QString BackgroundTasks::CreateVideoThumbnailsJob::details() const
 {
-    return m_fileName.relative();
+    return QString::fromLatin1("%1 %2/10").arg(m_fileName.relative()).arg(m_currentFrame);
+}
+
+void BackgroundTasks::CreateVideoThumbnailsJob::frameLoaded(int index)
+{
+    m_currentFrame = index+1;
+    emit changed();
 }

@@ -38,6 +38,9 @@ public:
     OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     OVERRIDE QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
+public slots:
+    void reset();
+
 private slots:
     void jobEnded( JobInterface* job);
     void jobStarted( JobInterface* job);

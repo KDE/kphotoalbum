@@ -36,8 +36,12 @@ public:
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
 
+private slots:
+    void frameLoaded(int index);
+
 private:
     DB::FileName m_fileName;
+    int m_currentFrame;
 };
 
 }

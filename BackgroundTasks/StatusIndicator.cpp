@@ -39,7 +39,7 @@ void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
     if ( !m_jobViewer )
         m_jobViewer = new JobViewer;
 
-    m_jobViewer->show();
+    m_jobViewer->setVisible(!m_jobViewer->isVisible());
 }
 
 void StatusIndicator::flicker()

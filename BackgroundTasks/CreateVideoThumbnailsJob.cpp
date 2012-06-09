@@ -41,7 +41,12 @@ void BackgroundTasks::CreateVideoThumbnailsJob::execute()
     connect(extractor, SIGNAL(completed()), this, SIGNAL(completed()));
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::CreateVideoThumbnailsJob::info() const
+QString BackgroundTasks::CreateVideoThumbnailsJob::title() const
 {
-    return JobInfo(i18n("Create Video Thumbnails"), m_fileName.relative());
+    return i18n("Create Video Thumbnails");
+}
+
+QString BackgroundTasks::CreateVideoThumbnailsJob::details() const
+{
+    return m_fileName.relative();
 }

@@ -44,7 +44,12 @@ void BackgroundTasks::SearchForVideosWithoutLengthInfo::execute()
     emit completed();
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::SearchForVideosWithoutLengthInfo::info() const
+QString BackgroundTasks::SearchForVideosWithoutLengthInfo::title() const
 {
-    return JobInfo(i18n("Search for videos without length information"), QString());
+    return i18n("Search for videos without length information");
+}
+
+QString BackgroundTasks::SearchForVideosWithoutLengthInfo::details() const
+{
+    return QString();
 }

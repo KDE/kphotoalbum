@@ -44,7 +44,13 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
     emit completed();
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::info() const
+QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::title() const
 {
-    return JobInfo(i18n("Searching for videos without video thumbnails"), QString());
+    return i18n("Searching for videos without video thumbnails");
 }
+
+QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::details() const
+{
+    return QString();
+}
+

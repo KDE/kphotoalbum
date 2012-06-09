@@ -33,7 +33,8 @@ class CreateVideoThumbnailsJob : public JobInterface
 public:
     CreateVideoThumbnailsJob( const DB::FileName& fileName );
     OVERRIDE void execute();
-    OVERRIDE JobInfo info() const;
+    OVERRIDE QString title() const;
+    OVERRIDE QString details() const;
 
 private:
     DB::FileName m_fileName;

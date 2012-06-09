@@ -21,6 +21,7 @@
 #include "JobManager.h"
 #include "JobInfo.h"
 #include <KLocale>
+#include "CompletedJobInfo.h"
 
 namespace BackgroundTasks {
 
@@ -29,6 +30,11 @@ JobModel::JobModel(QObject *parent) :
 {
     connect( JobManager::instance(), SIGNAL(jobStarted(JobInterface*)), this, SLOT(jobStarted(JobInterface*)));
     connect( JobManager::instance(), SIGNAL(jobEnded(JobInterface*)), this, SLOT(jobEnded(JobInterface*)));
+}
+
+JobModel::~JobModel()
+{
+    qDeleteAll(m_previousJobs);
 }
 
 int JobModel::rowCount(const QModelIndex& index) const
@@ -52,13 +58,13 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
     const int col = index.column();
 
-    JobInfo inf = info(row);
+    JobInfo* inf = info(row);
 
     if ( role == Qt::DisplayRole ) {
         switch (col) {
-        case ActiveCol:  return type(inf.jobType);
-        case TitleCol:   return inf.title;
-        case DetailsCol: return inf.details;
+        case ActiveCol:  return type(inf->jobType);
+        case TitleCol:   return inf->title();
+        case DetailsCol: return inf->details();
         default: return QVariant();
         }
     }
@@ -80,7 +86,7 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
 
 void JobModel::jobEnded(JobInterface *job)
 {
-    m_previousJobs.append( job->info() );
+    m_previousJobs.append( new CompletedJobInfo(job) );
     reset();
 }
 
@@ -90,25 +96,25 @@ void JobModel::jobStarted(JobInterface *job)
     reset();
 }
 
-JobInfo JobModel::info(int row) const
+JobInfo* JobModel::info(int row) const
 {
     if ( row < m_previousJobs.count() ) {
-        JobInfo result = m_previousJobs[row];
-        result.jobType = JobInfo::PastJob;
+        JobInfo* result = m_previousJobs[row];
+        result->jobType = JobInfo::PastJob;
         return result;
     }
 
     row -= m_previousJobs.count();
     if ( row  < JobManager::instance()->activeJobCount() ) {
-        JobInfo result = JobManager::instance()->activeJob(row);
-        result.jobType = JobInfo::CurrentJob;
+        JobInfo* result = JobManager::instance()->activeJob(row);
+        result->jobType = JobInfo::CurrentJob;
         return result;
     }
 
     row -= JobManager::instance()->activeJobCount();
     Q_ASSERT( row < JobManager::instance()->futureJobCount() );
-    JobInfo result = JobManager::instance()->futureJob(row);
-    result.jobType = JobInfo::FutureJob;
+    JobInfo* result = JobManager::instance()->futureJob(row);
+    result->jobType = JobInfo::FutureJob;
     return result;
 }
 

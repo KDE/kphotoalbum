@@ -23,6 +23,7 @@
 #include <QAbstractTableModel>
 #include "JobInterface.h"
 #include "JobInfo.h"
+#include "CompletedJobInfo.h"
 
 namespace BackgroundTasks {
 
@@ -31,6 +32,7 @@ class JobModel : public QAbstractTableModel
     Q_OBJECT
 public:
     explicit JobModel(QObject *parent = 0);
+    ~JobModel();
     OVERRIDE int rowCount(const QModelIndex&) const;
     OVERRIDE int columnCount(const QModelIndex&) const;
     OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
@@ -43,10 +45,10 @@ private slots:
 private:
     enum Column { ActiveCol = 0, TitleCol = 1, DetailsCol = 2 };
 
-    JobInfo info(int row) const;
+    JobInfo* info(int row) const;
     QString type( JobInfo::JobType type ) const;
 
-    QList<JobInfo> m_previousJobs;
+    QList<CompletedJobInfo*> m_previousJobs;
 };
 
 } // namespace BackgroundTasks

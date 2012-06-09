@@ -20,18 +20,17 @@
 #define JOBINTERFACE_H
 
 #include <QObject>
+#include "JobInfo.h"
 
 namespace BackgroundTasks
 {
-class JobInfo;
 
-class JobInterface : public QObject
+class JobInterface : public JobInfo
 {
     Q_OBJECT
 public:
     virtual ~JobInterface();
     virtual void execute() = 0;
-    virtual JobInfo info() const = 0;
     
 signals:
     void completed();

@@ -17,26 +17,24 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef JOBINFO_H
-#define JOBINFO_H
-#include <QString>
-#include <QObject>
+#ifndef BACKGROUNDTASKS_COMPLETEDJOBINFO_H
+#define BACKGROUNDTASKS_COMPLETEDJOBINFO_H
 
+#include "JobInfo.h"
 namespace BackgroundTasks {
 
-class JobInfo :public QObject
+class CompletedJobInfo : public JobInfo
 {
-    Q_OBJECT
-
 public:
-    enum JobType { PastJob, CurrentJob, FutureJob };
-    JobInfo();
-    virtual ~JobInfo() {}
+    CompletedJobInfo(JobInfo* other);
+    OVERRIDE QString title() const;
+    OVERRIDE QString details() const;
 
-    virtual QString title() const = 0;
-    virtual QString details() const = 0;
-    JobType jobType;
+private:
+    QString m_title;
+    QString m_details;
 };
 
-}
-#endif // JOBINFO_H
+} // namespace BackgroundTasks
+
+#endif // BACKGROUNDTASKS_COMPLETEDJOBINFO_H

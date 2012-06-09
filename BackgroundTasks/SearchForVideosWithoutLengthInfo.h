@@ -27,7 +27,8 @@ class SearchForVideosWithoutLengthInfo : public JobInterface
 {
 public:
     OVERRIDE void execute();
-    OVERRIDE JobInfo info() const;
+    OVERRIDE QString title() const;
+    OVERRIDE QString details() const;
 };
 
 }

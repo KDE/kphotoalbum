@@ -285,6 +285,7 @@ set(libBackgroundTasks_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobViewer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobModel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/CompletedJobInfo.cpp
 )
 
 kde4_add_ui_files( libBackgroundTasks_SRCS

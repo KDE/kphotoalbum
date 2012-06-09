@@ -41,9 +41,14 @@ void BackgroundTasks::ReadVideoLengthJob::execute()
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::ReadVideoLengthJob::info() const
+QString BackgroundTasks::ReadVideoLengthJob::title() const
 {
-    return JobInfo( i18n("Read Video Length"), m_fileName.relative());
+    return i18n("Read Video Length");
+}
+
+QString BackgroundTasks::ReadVideoLengthJob::details() const
+{
+    return m_fileName.relative();
 }
 
 void BackgroundTasks::ReadVideoLengthJob::lengthFound(int length)

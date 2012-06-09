@@ -32,7 +32,8 @@ class ReadVideoLengthJob : public JobInterface
 public:
     ReadVideoLengthJob( const DB::FileName& fileName );
     OVERRIDE void execute();
-    OVERRIDE JobInfo info() const;
+    OVERRIDE QString title() const;
+    OVERRIDE QString details() const;
 
 private slots:
     void lengthFound(int);

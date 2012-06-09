@@ -24,10 +24,4 @@ namespace BackgroundTasks {
 JobInfo::JobInfo()
 {
 }
-
-JobInfo::JobInfo(const QString &title, const QString &details)
-    :title(title), details(details)
-{
-}
-
 }

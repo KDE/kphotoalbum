@@ -77,11 +77,11 @@ int BackgroundTasks::JobManager::activeJobCount() const
         return 0;
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::JobManager::activeJob(int index) const
+BackgroundTasks::JobInfo* BackgroundTasks::JobManager::activeJob(int index) const
 {
     // Pending extend to support multiple jobs
     Q_UNUSED(index);
-    return m_active->info();
+    return m_active;
 }
 
 int BackgroundTasks::JobManager::futureJobCount() const
@@ -89,9 +89,9 @@ int BackgroundTasks::JobManager::futureJobCount() const
     return m_queue.count();
 }
 
-BackgroundTasks::JobInfo BackgroundTasks::JobManager::futureJob(int index) const
+BackgroundTasks::JobInfo* BackgroundTasks::JobManager::futureJob(int index) const
 {
-    return m_queue[index]->info();
+    return m_queue[index];
 }
 
 void BackgroundTasks::JobManager::jobCompleted()

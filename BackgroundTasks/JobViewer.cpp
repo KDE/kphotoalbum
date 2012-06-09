@@ -26,6 +26,7 @@ namespace BackgroundTasks {
 JobViewer::JobViewer(QWidget *parent) :
     KDialog(parent), ui( new Ui::JobViewer)
 {
+    setWindowTitle(i18n("Background Job Viewer"));
     QWidget* top = new QWidget;
     ui->setupUi(top);
     setMainWidget(top);

@@ -20,18 +20,17 @@
 #ifndef BACKGROUNDTASKS_JOBVIEWER_H
 #define BACKGROUNDTASKS_JOBVIEWER_H
 
-#include <KDialog>
+#include <QDialog>
 namespace Ui { class JobViewer; }
 
 namespace BackgroundTasks {
 class JobModel;
 
-class JobViewer : public KDialog
+class JobViewer : public QDialog
 {
     Q_OBJECT
 public:
     explicit JobViewer(QWidget *parent = 0);
-    OVERRIDE QSize sizeHint() const;
     OVERRIDE void setVisible(bool);
 
 private:

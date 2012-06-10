@@ -50,8 +50,10 @@ private:
     JobManager();
     static JobManager* m_instance;
 
+    int maxJobCount() const;
+
     bool m_isRunning;
-    JobInterface* m_active;
+    QList<JobInterface*> m_active;
     QQueue<JobInterface*> m_queue;
 };
 

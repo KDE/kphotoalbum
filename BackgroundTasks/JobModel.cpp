@@ -68,17 +68,19 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
     const int col = index.column();
 
-    JobInfo* inf = info(row);
+    JobInfo* current = info(row);
+    if ( !current )
+        return QVariant();
 
     if ( role == Qt::DisplayRole ) {
         switch (col) {
-        case TitleCol:   return inf->title();
-        case DetailsCol: return inf->details();
+        case TitleCol:   return current->title();
+        case DetailsCol: return current->details();
         default: return QVariant();
         }
     }
     else if ( role == Qt::DecorationRole && col == TitleCol )
-        return statusImage(inf->jobType);
+        return statusImage(current->jobType);
 
     return QVariant();
 }

@@ -24,6 +24,7 @@
 namespace Ui { class JobViewer; }
 
 namespace BackgroundTasks {
+class JobModel;
 
 class JobViewer : public KDialog
 {
@@ -31,9 +32,11 @@ class JobViewer : public KDialog
 public:
     explicit JobViewer(QWidget *parent = 0);
     OVERRIDE QSize sizeHint() const;
-    
+    OVERRIDE void setVisible(bool);
+
 private:
     Ui::JobViewer* ui;
+    JobModel* m_model;
 };
 
 } // namespace BackgroundTasks

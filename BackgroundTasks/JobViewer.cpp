@@ -24,18 +24,29 @@
 namespace BackgroundTasks {
 
 JobViewer::JobViewer(QWidget *parent) :
-    KDialog(parent), ui( new Ui::JobViewer)
+    KDialog(parent), ui( new Ui::JobViewer), m_model(0)
 {
     setWindowTitle(i18n("Background Job Viewer"));
     QWidget* top = new QWidget;
     ui->setupUi(top);
     setMainWidget(top);
-    ui->view->setModel(new JobModel(this));
 }
 
 QSize JobViewer::sizeHint() const
 {
     return QSize(800,800);
+}
+
+void JobViewer::setVisible(bool b)
+{
+    if (b) {
+        m_model = new JobModel(this);
+        ui->view->setModel(m_model);
+    }
+    else
+        delete m_model;
+
+    KDialog::setVisible(b);
 }
 
 } // namespace BackgroundTasks

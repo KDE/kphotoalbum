@@ -22,6 +22,11 @@
 #include "JobInfo.h"
 #include <KLocale>
 #include "CompletedJobInfo.h"
+#include <QPixmap>
+#include <QPainter>
+#include <KLed>
+#include <QTime>
+#include <QTimer>
 
 namespace BackgroundTasks {
 
@@ -30,6 +35,11 @@ JobModel::JobModel(QObject *parent) :
 {
     connect( JobManager::instance(), SIGNAL(jobStarted(JobInterface*)), this, SLOT(jobStarted(JobInterface*)));
     connect( JobManager::instance(), SIGNAL(jobEnded(JobInterface*)), this, SLOT(jobEnded(JobInterface*)));
+
+    // Make the current task blink
+    QTimer* timer = new QTimer(this);
+    timer->start(500);
+    connect(timer, SIGNAL(timeout()), this, SLOT(reset()));
 }
 
 JobModel::~JobModel()
@@ -47,7 +57,7 @@ int JobModel::rowCount(const QModelIndex& index) const
 
 int JobModel::columnCount(const QModelIndex &) const
 {
-    return 3;
+    return 2;
 }
 
 QVariant JobModel::data(const QModelIndex &index, int role) const
@@ -62,12 +72,13 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
 
     if ( role == Qt::DisplayRole ) {
         switch (col) {
-        case ActiveCol:  return type(inf->jobType);
         case TitleCol:   return inf->title();
         case DetailsCol: return inf->details();
         default: return QVariant();
         }
     }
+    else if ( role == Qt::DecorationRole && col == TitleCol )
+        return statusImage(inf->jobType);
 
     return QVariant();
 }
@@ -77,7 +88,6 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     if ( orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
     switch (section) {
-    case ActiveCol:  return i18n("Status");
     case TitleCol:   return i18n("Title");
     case DetailsCol: return i18n("Details");
     default: return QVariant();
@@ -123,14 +133,22 @@ JobInfo* JobModel::info(int row) const
     return result;
 }
 
-QString JobModel::type(JobInfo::JobType type) const
+QPixmap JobModel::statusImage(JobInfo::JobType type) const
 {
-    switch (type) {
-    case JobInfo::PastJob: return i18n("Past");
-    case JobInfo::CurrentJob: return i18n("Active");
-    case JobInfo::FutureJob: return i18n("Future");
-    }
-    return QString();
+    QColor color;
+    if ( type == JobInfo::CurrentJob )
+        color = ( QTime::currentTime().msec() < 500 ) ?  Qt::gray : Qt::green;
+    else
+        color = Qt::red;
+
+    KLed led;
+    led.setColor(color);
+
+    QPalette pal = led.palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    led.setPalette(pal);
+
+    return QPixmap::grabWidget(&led);
 }
 
 } // namespace BackgroundTasks

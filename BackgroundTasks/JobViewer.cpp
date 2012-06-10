@@ -46,6 +46,7 @@ void JobViewer::setVisible(bool b)
     else
         delete m_model;
 
+    ui->view->setColumnWidth(0, 300);
     KDialog::setVisible(b);
 }
 

@@ -63,7 +63,7 @@ void ImageManager::VideoThumbnails::gotFrame(int index, const QImage &image)
 
 void ImageManager::VideoThumbnails::setLength(int length)
 {
-    m_extractor = new ImageManager::VideoThumbnailsExtractor(m_videoFile, length);
+    m_extractor = new ImageManager::VideoThumbnailsExtractor(m_videoFile, length, this);
     connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
 }
 

@@ -20,11 +20,12 @@
 #define JOBINTERFACE_H
 
 #include <QObject>
+#include "JobInfo.h"
 
 namespace BackgroundTasks
 {
 
-class JobInterface : public QObject
+class JobInterface : public JobInfo
 {
     Q_OBJECT
 public:

@@ -27,8 +27,8 @@
 
 #define STR(x) QString::fromUtf8(x)
 
-ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength )
-    :m_fileName(fileName), m_length(videoLength)
+ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent )
+    :QObject(parent), m_fileName(fileName), m_length(videoLength)
 {
     m_process = new Utilities::Process(this);
     m_process->setWorkingDirectory(QDir::tempPath());
@@ -66,4 +66,3 @@ DB::FileName ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileNam
 {
     return DB::FileName::fromRelativePath( ImageManager::VideoManager::pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
 }
-

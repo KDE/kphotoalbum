@@ -25,23 +25,36 @@
 
 namespace BackgroundTasks
 {
-
 class JobManager : public QObject
 {
     Q_OBJECT
 public:
     void addJob(JobInterface*);
     static JobManager* instance();
+    int activeJobCount() const;
+    JobInfo* activeJob(int index) const;
+    int futureJobCount() const;
+    JobInfo* futureJob(int index) const;
+
+signals:
+    void started();
+    void ended();
+    void jobStarted(JobInterface* job);
+    void jobEnded(JobInterface* job);
 
 private slots:
     void execute();
+    void jobCompleted();
 
 private:
     JobManager();
     static JobManager* m_instance;
 
-    QQueue<JobInterface*> m_queue;
+    int maxJobCount() const;
+
     bool m_isRunning;
+    QList<JobInterface*> m_active;
+    QQueue<JobInterface*> m_queue;
 };
 
 }

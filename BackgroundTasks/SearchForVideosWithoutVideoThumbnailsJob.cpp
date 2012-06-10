@@ -23,6 +23,8 @@
 #include <QFile>
 #include "CreateVideoThumbnailsJob.h"
 #include "JobManager.h"
+#include <klocale.h>
+#include "JobInfo.h"
 
 void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
@@ -37,7 +39,18 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( thumbnailName.exists() )
             continue;
 
-        JobManager::instance()->addJob( new CreateVideoThumbnailsJob(info->fileName()) );
+        JobManager::instance()->addJob( new BackgroundTasks::CreateVideoThumbnailsJob(info->fileName()) );
     }
     emit completed();
 }
+
+QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::title() const
+{
+    return i18n("Searching for videos without video thumbnails");
+}
+
+QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::details() const
+{
+    return QString();
+}
+

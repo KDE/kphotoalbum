@@ -1,11 +1,17 @@
-2012-06-03  Jesper K. Pedersen  <blackie@kdab.com>
+2012-06-10  Jesper K. Pedersen  <blackie@kde.org>
+
+	* New Feature: Introduced an led in the status bar, which blinks
+	when background jobs are executed. Click on the led to get a
+	detailed view of which jobs are executing.
+
+2012-06-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Internal: Removed the SQL backend. This includes removing the
 	classes DB::Id and DB::IdList. This change was to simplify code,
 	as the introduction of these two classes made a lot of code more
 	complex.
 
-2012-05-16  Jesper K. Pedersen  <blackie@kdab.com>
+2012-05-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Internal: Introduced the class DB::FileName to represent a
 	filename in the database. This is to solve the problem that files
@@ -13,17 +19,17 @@
 	know if the filename was relative to the image root or an absolute
 	path.
 
-2012-05-14  Jesper K. Pedersen  <blackie@kdab.com>
+2012-05-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Add reasonable defaults for "Settings->File Searching and
 	Versions->Copy File and Open with an External Application"
 
-2012-05-12  Jesper K. Pedersen  <blackie@kdab.com>
+2012-05-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Exif info is now correctly extracted from .thm and .THM
 	files again (has been broken since January 2006)
 
-2012-05-09  Jesper K. Pedersen  <blackie@kdab.com>
+2012-05-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* New Feature: KPA now shows video lengths on top of video thumbnails.
 
@@ -49,7 +55,7 @@ Other changes done since 4.1.1
 	* Thumbnail tooltip fixes
 	* Plenty of other bug and crash fixes
 
-2011-05-30  Jesper K. Pedersen  <blackie@kdab.com>
+2011-05-30  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improvement: If you start the exif viewer from the image viewer,
 	then going to the next image in the image viewer, will update the
@@ -71,7 +77,7 @@ Other changes done since 4.1.1
 
 	* Fixed bugs #255286 and #237889, crashes on missing exif information
 
-2010-10-22  Jesper K. Pedersen  <blackie@kdab.com>
+2010-10-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added "Export by symlink" to the export dialog. Thanks to Robert
 	Krawitz for a patch.
@@ -114,7 +120,7 @@ Other changes done since 4.1.1
 	used are the currently supported options). Thanks to Reimar Imhof for
 	the patch.
 
-2010-08-19  Jesper K. Pedersen  <blackie@kdab.com>
+2010-08-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* ThumbnailView has been completely rewritten, so that it is much
 	faster.
@@ -128,7 +134,7 @@ Other changes done since 4.1.1
 	stacking of matching MD5 sum as requested by someone on the IRC
 	channel).
 
-2010-07-03  Jesper K. Pedersen  <blackie@kdab.com>
+2010-07-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Continue reading info exif from files even if some fails. Thanks
 	for patch from Robert Krawitz.
@@ -228,7 +234,7 @@ Other changes done since 4.1.1
 
 	* Tip added to inform users about rating with number keys
 
-2009-12-30  Jesper K. Pedersen  <blackie@kdab.com>
+2009-12-30  Jesper K. Pedersen  <blackie@kde.org>
 
 	* fixed bug #220376: Shortcuts in the annotation dialog was broken
 	in some translations
@@ -243,7 +249,7 @@ Other changes done since 4.1.1
 	useful when deciding which focal lengths you use most before buying new
 	lens.
 
-2009-12-24  Jesper K. Pedersen  <blackie@kdab.com>
+2009-12-24  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: no more multiple lineedits with focus in the annotation dialog.
 
@@ -301,18 +307,18 @@ Other changes done since 4.1.1
 	* fixed bug #171520: preview images when annotating multiple
 	images at once
 
-2009-08-14  Jesper K. Pedersen  <blackie@kdab.com>
+2009-08-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improved zooming in rotated images (by Hassan Ibraheem)
 
-2009-07-25  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-25  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Show the file list directly in the Read Exif Info
 	dialog. Previously it was a secondary dialog, with a
 	do-not-show-again checkbox and a cancel button (none of those two
 	made any sense there)
 
-2009-07-20  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Add a keybinding for delete in the viewer that will take the
 	image of the display list. This is useful when comparing a number
@@ -320,7 +326,7 @@ Other changes done since 4.1.1
 	the best one. Thanks to Wes Hardaker <wes@hardakers.net> for a
 	patch implementing this.
 
-2009-07-19  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Now it is possible to chose the thumbnail storage format from
 	the settings dialog (ppm files which we used by default are pretty
@@ -339,35 +345,35 @@ Other changes done since 4.1.1
 	* Refactored the code of the thumbnail viewer, so it now is much
 	more clean and understandable.
 
-2009-07-14  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Thumbnail view icons are now square again, and background color
 	is customizable. The default has changed slightly, so the
 	background color is dark gray, and spacing are 4 pixels. This
 	gives IMHO the best 3D effect.
 
-2009-07-24  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-24  Jesper K. Pedersen  <blackie@kde.org>
 
 	* fixed bug #201116: kphotoalbum crashes when trying to remove image without deleting from disk
 
-2009-07-12  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Exif database insertion works again. Thanks to Matthias Fussel
 
-2009-07-12  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Fixed bug #199629 - new images don't trigger dirty state, thanks
 	to mat.fuessel@gmx.net
 
 	* Fixed bug #150971 - disable too low zoom levels, thanks to alexjironkin@gmail.com
 
-2009-07-11  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Now it is possible to add a category image from a context menu,
 	which makes that process much faster (this fixes bug
 	#195023). Thanks to Thomas Pircher for the work on that.
 
-2009-07-10  Jesper K. Pedersen  <blackie@kdab.com>
+2009-07-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Resizing the category overview page now is done without the
 	actual thumbnails, that makes it much faster and much more smooth
@@ -409,7 +415,7 @@ Other changes done since 4.1.1
 	* fixed bug #197107: Generated HTML pages have empty theme name and
 	theme author.
 
-2009-06-29  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-29  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made it much more explicit when done tagging images:
 	  - An item for showing images not yet tagged are available in the
@@ -421,7 +427,7 @@ Other changes done since 4.1.1
             annotation dialog. It is also possible to select "continue
 	    later" in that dialog
 
-2009-06-22  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Speed up browsing of categories with many sub categories. This
 	took browsing from the order of magnitude of half minutes to a second.
@@ -432,7 +438,7 @@ Other changes done since 4.1.1
 	* Added support for a copyright tag on the HTML generated pages
 	(Thanks to Miika Turkia for a patch for this)
 
-2009-06-21  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* When AnnotationDialog is called with multiple images, show
 	selected only shows also partially selected items. Thanks to
@@ -441,12 +447,12 @@ Other changes done since 4.1.1
 	* fixed bug #171517: Repopulate categories lists whenever an image
 	is loaded. Thanks to Hassan Ibraheem for patch.
 
-2009-06-16  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* fixed issue #196095 - Add icon for hide non selected. Thanks to
 	Hassan Ibraheem for patch.
 
-2009-06-14  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* fixed bug #165742: ListSelect blanks out when typing an initial
 	letter that does not match. Thanks to Hassan Ibraheem for the patch for this.
@@ -459,21 +465,21 @@ Other changes done since 4.1.1
 
 	* fixed bug #186708 - Tokens can not be access from the annotation dialog
 
-2009-06-10  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Somehow the XML database can get a file loaded twice. As a
 	remedy until we find the real bug, we will ignore the new files
 	when they are loaded from the database. Thanks to Franck Sicard
 	for a patch for this
 
-2009-06-08  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* New images was not correctly inserted into the exif database
 	(thanks to Bart Visscher for a patch that fixes this.)
 	Please rerun "Maintainance->Recreate Exif Search Database" to
 	ensure your database it working again.
 
-2009-06-02  Jesper K. Pedersen  <blackie@kdab.com>
+2009-06-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Reworked the browser completely, which has the following
 	consequences:
@@ -492,7 +498,7 @@ Other changes done since 4.1.1
 	    in the browser using the searchbar.
 	  * The overview page is now shown in icon mode with icons centered
 
-2009-05-31  Jesper K. Pedersen  <blackie@kdab.com>
+2009-05-31  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Avoid crash in case "make install" was not executed.
 
@@ -508,7 +514,7 @@ Other changes done since 4.0
 	annotation between sessions.
 
 
-2009-05-13  Jesper K. Pedersen  <blackie@kdab.com>
+2009-05-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Changed default shortcut for copy from previous image in the
 	annotation dialog to Alt+insert, as control+insert was eaten by
@@ -518,7 +524,7 @@ Other changes done since 4.0
 	* BUGFIX: The HTML generator did not display the available themes
 	correctly. Thanks to Miika Turkia for a patch for this.
 
-2009-05-11  Jesper K. Pedersen  <blackie@kdab.com>
+2009-05-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Invoke external application for multiple files did not
 	work. Thanks to Miika Turkia for a patch for this.
@@ -546,18 +552,18 @@ Previous changes
 
 	* fixed bug #164587 - KPA crashes when deleteing an image from the annotation dialog.
 
-2009-03-08  Jesper K. Pedersen  <blackie@kdab.com>
+2009-03-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Saving the toolbar now works again, including showing icons only.
 
 	* Generate HTML is now working again.
 
-2009-02-23  Jesper K. Pedersen  <blackie@kdab.com>
+2009-02-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Removed the code for setting an image as wall paper (That has
 	not yet been ported to KDE 4)
 
-2009-02-21  Jesper K. Pedersen  <blackie@kdab.com>
+2009-02-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* In the video viewer, it is now possible to zoom the image.
 
@@ -565,7 +571,7 @@ Previous changes
 
 ====================== Snapshot 11/2-2009  ===================================	
 
-2008-09-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-09-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Removed the survey.
 
@@ -589,24 +595,24 @@ Previous changes
 
 	* Fix recognition of video files whose name contains more than one dot
 
-2008-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* new icons for the default categories. These icons will now by
 	default be used in case the icon specified in the setup does not
 	exists - this will help users migrating from KDE3 KPA to KDE4
 	version, where the default installed icons have changed.
 
-2008-07-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Keywords has now been replaced with Events in the default setup
 	that people will get when they create a new database.
 
-2008-07-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-17  Jesper K. Pedersen  <blackie@kde.org>
 
 	* (regression) The text editor in the annotation dialog now offers
 	spell checking again - actually it is a completely new widget.
 
-2008-07-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* (regression) the search bar is now correctly highlighted again.
 
@@ -628,12 +634,12 @@ Previous changes
 
 	* exiv2 upstream changed their API
 
-2008-07-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added Maintenance->Statistics dialog, which shows a bit of
 	statistics about your annotations.
 
-2008-07-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-07-06  Jesper K. Pedersen  <blackie@kde.org>
 
 	* (regression) Images was not downloaded when importing from a
 	remote URL.
@@ -659,7 +665,7 @@ Previous changes
 
 	* Use all CPU cores for parallelization of image loading
 
-2008-06-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Replace linear search in XMLImageDateCollection with range
 	index. This means that the datebar will update way faster, making
@@ -671,20 +677,20 @@ Previous changes
 
 	* Improved display of ranges in datebar of Henner Zeller
 
-2008-06-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Speed up populating the datebar with a factor of 4. Before it
 	took 6 seconds to delete an image due to that, now it only take
 	1.5 second on my machine. This speed up should also be there for
 	any operation that changes the amount of images shown in the datebar.
 
-2008-06-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* A warning dialog came up complaining about images not being
 	sorted in case one of the images did not have a date.
 	* Sorting images did not work.
 
-2008-06-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* (regression bug) Settings was not syncs correct (esp the info
 	about where the database was located was not saves)
@@ -697,7 +703,7 @@ Previous changes
 	upgraded to the last major version.
  
 
-2008-06-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-18  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Feature test dialog is no more offered during start up, but is
 	instead part of the "welcome to KPA dialog".
@@ -707,7 +713,7 @@ Previous changes
 	are found, it will now tell you so instead of just showing an
 	empty window.
 
-2008-06-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2008-06-15  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Deleting an image that was no longer on disk resulted in an
 	error dialog telling that it could not be deleted. Now it will
@@ -859,7 +865,7 @@ Previous changes
 	and Baptiste Mathus for review.
 	Fixes bug 145309.
 
-2007-05-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2007-05-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Make it possible to configure the aspect ratio in the thumbnail
 	viewer - thanks to Jan Kundrat
@@ -926,19 +932,19 @@ Previous changes
 	* Bugfix: Selection was ignored in the first press of the Plugins
 	menu item, if plugin loading was delayed.
 
-2007-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2007-02-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* It is now possible to search for images with changed MD5 sum -
 	very useful for searching for corrupted image files.
 
-2007-01-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2007-01-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Limit extra space in thumbnail viewer when showing categories
 	(thx to Christoph Moseler).
 
 ====================== KPhotoAlbum 3.0 releases  ===================================	
 
-2006-12-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-12-24  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Do not show the current category when configuring sub
 	categories. (Thanks to  Baptiste Mathus for a patch)
@@ -951,7 +957,7 @@ Previous changes
 
 ====================== Snapshot Monday 27/11-2006  ===================================	
 
-2006-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Save configurations of special categories (should they be shown
 	in the viewer etc) (Thanks to Christoph Moseler)
@@ -961,7 +967,7 @@ Previous changes
 
 	* Bugfix: better error handling for video loading (thx to Henner Zeller)
 
-2006-11-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Renamed Persons to People and Locations to Places. A huge thank
 	you to Clytie Siddall clytie AT riverland DOT net DOT au for
@@ -970,7 +976,7 @@ Previous changes
 	* Instead of showing "No other Persons" show "None". Translated
 	versions had problems as the "No other" part depended on the category.
 
-2006-11-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: In the settings dialog you were asked if you really
 	wanted to delete a category. Despite your answer it would be
@@ -979,7 +985,7 @@ Previous changes
 	* Do not show image size for videos (currently there are not way
 	to get that information from the KDE video subsystem)
 
-2006-11-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-18  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Show mega pixel in info box, and zoom factor in viewer, thx to Henner Zeller
 
@@ -988,12 +994,12 @@ Previous changes
 
 ====================== Snapshot Wednesday 15/11-2006  ===================================	
 	
-2006-11-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: Recent added code to ensure that the splash screen would
 	update timely broke the size of the main dialog.
 
-2006-11-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Directories only show the filename part now in the browser
 	category directories. (Thanks to Christoph Moseler)
@@ -1004,7 +1010,7 @@ Previous changes
 	* Improved support for the flickr plug-in. Now tags are correctly
 	uploaded. Thanks to Mark Jaroski for a patch.
 
-2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* An item may be member of a number of categories. Mike may be a member of coworkers and friends.
 	Selecting the item in one subcategory, should select him in
@@ -1032,13 +1038,13 @@ Previous changes
 	selected. Doing so will change zoom preference each time we try to
 	go to the next image.
 
-2006-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improved video backend detection. Thanks to  Robert L Krawitz
 
 ====================== Snapshot Tuesday 7/11-2006  ===================================	
 
-2006-11-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-06  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Reworked the pixel by pixel zoom, so it doesn't flicker the real
 	sized image first.I beleive that pixel by pixel zoom now works in
@@ -1051,7 +1057,7 @@ Previous changes
 	is available - until then the user just sees the viewer sized
 	version he was original looking at. 
 
-2006-11-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-05  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Right clicking on an image should select it.
 
@@ -1062,7 +1068,7 @@ Previous changes
 
 	* Now Video playback also works with kaffein and kaboodle
 
-2006-11-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-11-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Enabling/Disabling the right items in the context menu in the
 	viewer depending on image vs. video.
@@ -1071,7 +1077,7 @@ Previous changes
 
 	* Improved info when videos can't be loaded.
 
-2006-10-29  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>
+2006-10-29  Jesper K. Pederse  <blackie@kde.org>
 
 	* Show splash screen during database loading phase (thx to
 	Christoph Moseler for finding this)
@@ -1089,7 +1095,7 @@ Previous changes
 
 ====================== Snapshot Sunday 23/10-2006  ===================================	
 
-2006-10-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-10-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* It is now possible to bring up the exif dialog from the viewer.
 
@@ -1104,7 +1110,7 @@ Previous changes
 	* Bugfix: The panes in the annotation dialog would not show up correctly
 	in translated version of KPhotoAlbum.
 
-2006-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-10-05  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: Database was marked as dirty when it started up.
 
@@ -1115,13 +1121,13 @@ Previous changes
 
 	* New splash screen.
 
-2006-09-25  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>
+2006-09-25  Jesper K. Pederse  <blackie@kde.org>
 
 	* Use alternate EXIF reading code in case EXIV2 is not installed.
 
 ====================== Snapshot Sunday 24/9-2006  ===================================	
 
-2006-09-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-24  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Warn the user at start up if not all features are installed.
 
@@ -1135,7 +1141,7 @@ Previous changes
 	categories marks the DB dirty.
 	
 
-2006-09-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Only write description element to the database if there is a description.
 
@@ -1152,7 +1158,7 @@ Previous changes
 	* Now that sub categories are shown with indentation, don't show a
 	special icons for the super categories any more.
 
-2006-09-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-17  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Fixed a crash happening when saving after a category had
 	been renamed, and that category was included in the privacy
@@ -1161,7 +1167,7 @@ Previous changes
 	* BUGFIX: When renaming a category also rename the category
 	thumbnails. (Thanks to Christoph Moseler for finding this)
 
-2006-09-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: The last snapshot had a bug where KPA would crash if you
 	right clicked, in the annotation dialogs listbox, outside of any
@@ -1177,7 +1183,7 @@ Previous changes
 	viewer. What was broken in the latest snapshot was that you where
 	not able to select a number of images, and drag them.
 
-2006-09-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: delete and rename of item in the annotation dialog
 	didn't work if the item was not top level or it had sub items.
@@ -1196,7 +1202,7 @@ Previous changes
 
 ====================== Snapshot Wednesday 6/9-2006  ===================================	
 
-2006-09-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-09-01  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The checkboxes in the annotation dialog are now tristate, which
 	means that there are no need for the "merge" and "remove"
@@ -1210,7 +1216,7 @@ Previous changes
 
 ====================== Snapshot Sunday 27/8-2006 ===================================	
 
-2006-08-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Tokens got kind of lost when importing from a KPhotoAlbum 2.2 index file.
 
@@ -1219,7 +1225,7 @@ Previous changes
 	* It is now possible to set up sub categories in the annotation
 	dialog, simply by dragging items onto other items.
 
-2006-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The listbox in the annotation dialog is now updated when an item is added as a sub item to another.
 
@@ -1228,7 +1234,7 @@ Previous changes
 	* BUGFIX: deselect all images when right clicking on an image that
 	is currently not selected.
 
-2006-08-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-25  Jesper K. Pedersen  <blackie@kde.org>
 
 	* It is now possible to use the search bar in the main window,
 	when showing folders.
@@ -1247,16 +1253,16 @@ Previous changes
 
 ====================== Snapshot Wednesday 23/8-2006 ===================================	
 
-2006-08-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Now it is also possible to bind rotate left/right in the
 	annotation dialog.
 
-2006-08-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a Media Type folder.
 
-2006-08-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: Selection using the shift key and mouse button was
 	broken if selected spanned several pages.
@@ -1270,7 +1276,7 @@ Previous changes
 	item (say a person), should jump directly to the images rather
 	than going back to main browser window. This did not work.
 
-2006-08-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* now it is possible to specify the icon size in used in the
 	browser - esp usefull for showing larger images for persons in an
@@ -1281,33 +1287,33 @@ Previous changes
 
 	* KPhotoAlbum is now capable of also managing videos.
 
-2006-08-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The list boxes in the AnnotationDialog now has an accelerator.
 
-2006-08-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added function to thumbnail context bar to regenerate thumbnails,
 	useful when the video thumbnail generator picks a random image for
 	thumbnail.
 
-2006-08-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* It is now possible to configure the key bindings in the
 	annotation dialog.
 
-2006-08-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-08-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* In the viewer it is now possible to use mouse wheel to scroll to
 	the next/prev image. (Thanks to Christoph Moseler for a patch).
 
-2006-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-07-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Make it possible to set a category image for sub categories.
 
 	* Show the category tree in the browser
 
-2006-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-07-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* A new menu item now exist in the annotation dialogs context
 	menu, namely "Add Sub Category"
@@ -1319,7 +1325,7 @@ Previous changes
 	* In the annotation dialog, pressing and releasing the control
 	will toggle showing items selected, only.
 
-2006-07-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-07-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* In the annotation dialog, it is now possible to scroll the list
 	of selected items, but pressing arrow up and down.
@@ -1329,16 +1335,16 @@ Previous changes
 
 =========================== KPhotoAlbum 2.2 released =============================
 	
-2006-04-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-04-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Fixed some problems with member groups, when renaming categories.
 
-2006-03-31  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-03-31  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX:Disallow pressing pgdown/pgup in the annotation dialog
 	when searching. Thanks to Martin Hoeller for finding this crash.
 
-2006-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-03-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: inaccurate times now survives a visit to the annotation dialog.
 
@@ -1352,7 +1358,7 @@ Previous changes
 
 	Thanks to Martin Hoeller for finding the three above issues.
 
-2006-03-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-03-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* VERY FINAL feature: Added a checkbox to the annotation dialog
 	offering to remove annotations. Thanks for Robert L Krawitz for
@@ -1370,7 +1376,7 @@ Previous changes
 	annotating multiple images at the same time, or when using the
 	dialog for searching. Thanks to Martin Hoeller for finding this crash.
 
-2006-03-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-03-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The datebar now has an explicit button for canceling selection.
 
@@ -1379,7 +1385,7 @@ Previous changes
 	browser resulted in only items in the scope of the datebar
 	selection being shown on the datebar.
 
-2006-02-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-02-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Drasticly improved performance of deleting images. Thanks for
 	Robert L Krawitz for his analysis of the problem.
@@ -1387,27 +1393,27 @@ Previous changes
 	* Don't show a warning about not being able to delete a file when
 	it doesn't exists in the first place. Thanks to Robert L Krawitz.
 
-2006-01-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-01-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Its now possible to select whether the newest or the oldest
 	thumbnail should be shown first.
 
-2006-01-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-01-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made it possible to configure the thumbnail cache.
 
-2006-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2006-01-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Completely reimplemented the thumbnail view, to solve a huge
 	amount of issues with QIconView.
 
-2005-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-11-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added an EXIF dialog (available from the browser), plus the
 	possibilities to see EXIF tags in the viewer. Set of EXIF tokens
 	shown is configurable in the settings dialog.
 
-2005-09-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-09-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Searches using the description field are now case insensitive.
 
@@ -1419,20 +1425,20 @@ Previous changes
 	* BUGFIX: Restart slideshow timer when user manually moves to a
 	new image.
 
-2005-08-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-29  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a Exif dialog to the context menu in the browser.
 
 	* KPhotoAlbum now stores its thumbnails in ~/.thumbnails complying
 	with many other applications.
 
-2005-08-28  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-28  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added an option to save the index.xml file in a compressed
 	format, this speeds up loading the xml file by approximate a
 	factor 2.
 
-2005-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added command line option --export-in-2.1-format to allow
 	KPhotoAlbum to save an index.xml that can be read by KPhotoAlbum 2.1. All
@@ -1443,16 +1449,16 @@ Previous changes
 	file: index.xml~0001~, index.xml~0002~ etc. In addition this file
 	can be zipped to preserve disk space.
 
-2005-08-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* recalculate checksum will now work only on the selected images
 	if there is a selection.
 
-2005-08-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-17  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Pressing return in the search bar now selects the current item.
 
-2005-08-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-08-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Internal: Simplify ImageDate so it now is only a from and a to
 	QDateTime - this makes it possible for backends to do better date
@@ -1461,7 +1467,7 @@ Previous changes
 	* Delay loading plugins - this will save us half a second at start
 	up.
 
-2005-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-07-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Threw away the date folder, it is redundant now we have the datebar.
 
@@ -1473,7 +1479,7 @@ Previous changes
 
 --------------------------- version 2.1 released --------------------------------------
 
-2005-04-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-04-07  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Using kapp->invokeHelp to show help rather than
 	kapp->invokeBrowser, as the later doesn't work unless your default
@@ -1483,14 +1489,14 @@ Previous changes
 
 	* BUGFIX: remove tokens didn't work for KDE 3.4
 
-2005-04-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-04-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: The pre-loading in the image viewer broke viewing images
 	from the import wizard.
 
 	* BUGFIX: The import dialog was broken with new versions of Qt.
 
-2005-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-03-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added member group config to context menu of list select (which
 	is the list boxes of the image property pages)
@@ -1501,31 +1507,31 @@ Previous changes
 	* BUGFIX: When quiting KDE, KPhotoAlbum will asks if you want to
 	save. This previously canceled logging out of KDE.
 
-2005-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-03-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Use KDE's date formater to given better result in the datebar.
 
-2005-03-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-03-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a survey, where I can get some feedback from the KPhotoAlbum users.
 
-2005-02-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-02-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* New images should be inserted sorted.
 
 	* When new images are found, the datebar are now updated.
 
-2005-01-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added protection against odd sized images - like 400x1
 	(Thanks	to Robert L Krawitz <rlk@alum.mit.edu>)
 
-2005-01-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Fixed deadlock when generating thumbnails from the Maintenance
 	menu (Thanks to Robert L Krawitz <rlk@alum.mit.edu>)
 
-2005-01-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made it possible to check if an image in the image loader was
 	needed just prior to loading it - this speeds up page down in the
@@ -1538,14 +1544,14 @@ Previous changes
 	thumbnail view
 	* Made it possible to configure space between columns.
 
-2005-01-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Display a grey thumbnail when the image for one reason or the
 	other couldn't be loaded. Previously this resulted in the
 	thumbnail containing garbage pixels. 
 	Thanks to Robert L Krawitz <rlk@alum.mit.edu>
 
-2005-01-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improves handling of EXIF data, in particular in the "Read EXIF
 	Data" dialog.  It does not overwrite the time, date, orientation,
@@ -1559,11 +1565,11 @@ Previous changes
 	image config dialog, unless the translated names matched the
 	untranslated ones.
 
-2005-01-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The date bar now support selecting a range of images.
 
-2005-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2005-01-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Reimplemented sort images as it could lead to image loss, plus
 	was not guaranteed to preserve sort order for images with same key.
@@ -1574,7 +1580,7 @@ Previous changes
 
 	* Read EXIF info out of .thm files (patch from Robert L Krawitz <rlk@alum.mit.edu>)
 
-2004-12-30  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-30  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added the possibility to zoom out from current scope, thus
 	seeing the context of the current image
@@ -1589,7 +1595,7 @@ Previous changes
 	* Added a date bar, that shows statistics about images, plus let
 	you navigate to a given date.
 
-2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-29  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a AND checkbox to the search page, that allows to
 	graphically choose among and/or searches. (Thanks to Jean-Michel
@@ -1604,13 +1610,13 @@ Previous changes
 	* Postpone checking if images is on disk till the information is
 	needed, this speeds up start up with a couple of seconds.
 
-2004-12-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* KPhotoAlbum will now escape all non-latin1 characters, so they still
 	look good on web servers that seems to ignore the meta tag. (Like
 	mine does ;-)
 
-2004-12-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Offer to make hard link from the export dialog (patch from  
 	Robert L Krawitz <rlk@alum.mit.edu>)
@@ -1626,14 +1632,14 @@ Previous changes
 	* Highlight date with images in the date picker. (Thanks to
 	Jean-Michel FAYARD <jmfayard@gmail.com> for a patch for this)
 
-2004-12-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Categories in Member Group config is now internationalized.
 
 	* Categories in virtual album configuration (General tab in
 	Settings) are now internationalized.
 
-2004-12-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-12-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* In the viewer moved away every default key binding on lettered
 	keys. The changes are:
@@ -1647,7 +1653,7 @@ Previous changes
 	to mark all images for say printing, by simply setting a token on
 	each of them, and the later browsing for that token.
 
-2004-11-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-11-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Only items from the current image are shown in the image
 	category editor.
@@ -1655,7 +1661,7 @@ Previous changes
 	* Added an option to automatically load images when matches in the
 	browser goes below what can be shown in a single view.
 
-2004-11-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-11-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made it possible to disable searching for images on start up.
 
@@ -1666,7 +1672,7 @@ Previous changes
 
 	* Added a search line.
 
-2004-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-11-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Markup in the editor (like highlight for spelling errors) got
 	saved and thus displayed with the image.
@@ -1680,31 +1686,31 @@ Previous changes
 
 --------------------------- version 2.0 released --------------------------------------
 	
-2004-10-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-10-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Items in the edit menu (among these "delete image") was
 	not available if "display images not on disk" was activated from
 	the browser. Thanks to Robert L Krawitz <rlk@alum.mit.edu> for
 	finding the bug.
 
-2004-09-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-09-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improved date editor: (1) sizing now works (2) there are no
 	default buttons, so it is possible to press enter in the line edit
 	to specify a date. (3) there now is a ">>" button to copy from
 	date to to-date
 
-2004-09-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-09-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The editor for image comments now has an on the fly spell checker.
 
 	* BUGFIX: Fixed tab order in the image config dialog.
 
-2004-09-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-09-05  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: remove splash screen before showing welcome dialog
 
-2004-09-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-09-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a way to browse directories within the database. Thanks to
 	Jean-Michel FAYARD <jmfayard@gmail.com> for patch.
@@ -1724,31 +1730,31 @@ Previous changes
 	Remember you can make your own key bindings in KPhotoAlbum, so this are
 	really just the defaults I change.
 
-2004-08-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-08-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Do not show items already matched when browsing. Thus do not
 	show Jesper, if he is already matches in the current browsing scope.
 
-2004-08-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-08-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The viewer now preloads images, which makes it feel a LOT more
 	responsive.
 
-2004-08-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-08-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added zoom out to full view in viewer.
 
-2004-08-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-08-07  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Removed the preload hack for preview, which was broken
 	anyway. Not needed now when image loading is so much faster.
 
-2004-08-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-08-06  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Size of main windows and configuration window are now stored in
 	the index.xml file, and restored for future sessions
 
-2004-07-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-07-24  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Moved all plugins to one menu rather than scattered out over all
 	the menus. The former seems like the best idea for easy finding a
@@ -1761,7 +1767,7 @@ Previous changes
 	KPhotoAlbum will first search for the images next to the .kim file,
 	and then at the URL the images originally was uploaded to.
 
-2004-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-07-22  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made it possible to hide the labels in the thumbnail view
 
@@ -1770,14 +1776,14 @@ Previous changes
 	* Tried to improve the layout of the thumbnail view. This is the
 	best I can do, unfortunately QIconView is utterly broken.
 
-2004-07-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-07-18  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: search dialog does now contain imported image attributes.
 
 	* Fixed code for going into full screen (This forces the min
 	version to be KDE 3.2, though)
 
-2004-07-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-07-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Automatic generated labels from file names now include all up
 	till the last dot (Thanks to Jean-Michel FAYARD
@@ -1786,27 +1792,27 @@ Previous changes
 	* Fixed utf-8 encoding description in HTML pages (Thanks to
 	Jean-Michel FAYARD <boulot.dodo@laposte.net>)
 
-2004-06-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-17  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Put count of images in caption of image config window
 
-2004-06-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added the filename to the caption of the viewer.
 
 	* Thanks to Marco Caldarelli <caldarel@yahoo.it> for a patch to
 	reread EXIF info, available from a dialog in the menu.
 
-2004-06-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Thanks to Marcel Wiesweg <marcel.wiesweg@gmx.de> for a patch for
 	optimizing loading in the image property dialog
 
-2004-06-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-08  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added a splash screen
 
-2004-06-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-06  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Bugfix: The time config was not set correctly for configuring
 	multiple images, often resulting in many images getting the same
@@ -1814,7 +1820,7 @@ Previous changes
 
 	* Its now possible to configure which plugins should be loaded.
 
-2004-06-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-06-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* demo directory are now copied rather than symlinked. With
 	symlink, the installed demo files will also be modified when
@@ -1822,7 +1828,7 @@ Previous changes
 
 	* Added KIPI support.
 
-2004-05-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-05-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: When you press cancel during the export process you still get the info
 	someone else could import your export. 
@@ -1834,14 +1840,14 @@ Previous changes
 
 	* BUGFIX: importing into a subdirectory did not always work.
 
-2004-05-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-05-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: KPhotoAlbum crashed in the following situation:
 	  - drag an image out from the thumbnail view
 	  - browse, so the thumbnail view shows some other images
 	  - drag another image out
 
-2004-04-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: The wrong image was invoked in the external viewer if
 	the thumbnail view was scrolled.
@@ -1849,7 +1855,7 @@ Previous changes
 	* BUGFIX: If description was not generated then other option
 	groups was not printed in HTML exports.
 
-2004-04-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-18  Jesper K. Pedersen  <blackie@kde.org>
 
 	* When opening the image config dialog, show a message box with
 	a link to the help page.
@@ -1865,7 +1871,7 @@ Previous changes
 	* Added a dialog with a description on how to enable webservers to
 	server KPhotoAlbum files.
 
-2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-16  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: If the destination directory for HTML export exists,
 	offer to remove it. This fixes the problem where it would instead
@@ -1891,7 +1897,7 @@ Previous changes
 	* now its possible to export images, and leave the .kim file next
 	to the image set rather than putting them into the .kim file. 
 
-2004-04-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-15  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Its now possible to delete images from within the image
 	configuration dialog
@@ -1899,13 +1905,13 @@ Previous changes
 	* Now you may click on a .kim file from say konqueror to start
 	importing that file into your db.
 
-2004-04-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-14  Jesper K. Pedersen  <blackie@kde.org>
 
 	* added Import/Export so its possible to share images with
 	friends, without them having to write comments, and tell how is on
 	the images.
 
-2004-04-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-12  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Its now possible to configure the toolbar
 
@@ -1913,7 +1919,7 @@ Previous changes
 
 	* Now its possible to configure the shortcuts in the viewer.
 
-2004-04-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-04-11  Jesper K. Pedersen  <blackie@kde.org>
 
 	* added run randomized slideshow
 
@@ -1925,20 +1931,20 @@ Previous changes
 	* Made slide show size configurable, plus made it possible to
 	specify full screen for configuration for configuration of normal view.
 
-2004-03-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* rewrote the handling of dates in the image property dialog, so
 	the GUI is much easier to work with - this must have been the
 	oldest wish on my which list ;-)
 
-2004-03-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added Images->sort to sort images in thumbnail view. Thanks to
 	Thomas Schwarzgruber <possebaer@gmx.at>
 
 	* Added Maintenance->remove all thumbnails and Maintenance->build thumbnails
 
-2004-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: now we are doing boundary check when panning, so you
 	can't pan outside the image.
@@ -1947,16 +1953,16 @@ Previous changes
 	images are selected. Context is the current search or current
 	browse - e.g. all images from say Las Vegas.
 
-2004-03-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-17  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added context menu for sorting options listbox 
 	(thanks to Reimar Imhof <Reimar.Imhof@netCologne.de> for a patch)
 
-2004-03-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Fixed crash when moving images arround
 
-2004-03-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-09  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: If you have to rotate an image to view it, you get black stripes besides your 
 	image because of the resolution of the image (it's much higher than wide). So 
@@ -1965,7 +1971,7 @@ Previous changes
 	(virtually) height changed.
 	Thanks to Thomas Schwarzgruber <possebaer@gmx.at> for a patch.
 
-2004-03-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-07  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: When renaming an item in the listselect, then category
 	image is now also renamed.
@@ -1983,25 +1989,25 @@ Previous changes
 	application, rather than Ctrl+left button as was the case
 	previously.
 
-2004-03-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-03-02  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: previous fix to member groups was broken.
 
 	* use smoothScale rather than scale to get better looking thumbnails.
 
-2004-02-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-02-15  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Pressing the rename button in member groups made
 	KPhotoAlbum crash if no member groups are selected.
 
 --------------------------- version 1.1 released --------------------------------------
 
-2004-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-02-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: description on index page was controlled by
 	"description" checkbox rather than the description for each page
 
-2004-02-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-02-01  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: categories was not available for translations.
 
@@ -2009,22 +2015,22 @@ Previous changes
 	translation everywhere, which resulted in the search dialog did
 	not work for translated languages.
 
-2004-01-31  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-31  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: changed viewer from QDialog to QWidget as base class so
 	the browser window could get on top of it.
 
-2004-01-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-29  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made the image preview size configurable.
 
 	* Ensure enable/disable state of menu bar is correct
 
-2004-01-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Made the KPhotoAlbum properties dialog look better.
 
-2004-01-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Changed QActions to KActions in the viewer to avoid mem
 	error when the viewer closes.
@@ -2032,7 +2038,7 @@ Previous changes
 	* BUGFIX: Fixed bug introduced yesterday, where rotating multiple
 	images resulting in them getting an odd angle.
 
-2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-25  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Split up the dialog for HTML generation, plus made it possible
 	to specify which of the category (Persons/Location/...) plus
@@ -2064,13 +2070,13 @@ Previous changes
 	* Added a configuration option for whether EXIF rotation
 	information should be used or not.
 
-2004-01-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: It was not possible to generate HTML more than once per session.
 
 	* Read date, orientation and description out of EXIF data.
 
-2004-01-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Thanks to Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, KPhotoAlbum
 	will now offer themes when generating HTML.
@@ -2078,7 +2084,7 @@ Previous changes
 	* Heavily optimized browsing functions. Now everything is
 	hopefully lightning fast.
 
-2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-20  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The thumbnail overview and the image viewer now has a menu item
 	for invoking an external program on the images. The list includes
@@ -2093,12 +2099,12 @@ Previous changes
 
 	* Only do auto save if there has been changes since the last auto save.
 
-2004-01-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-19  Jesper K. Pedersen  <blackie@kde.org>
 
 	* MD5 sums are now calculated for each image, so that KPhotoAlbum can
 	track movement of images in the directories
 
-2004-01-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-18  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Move cursor to the lower right corner when viewer goes into fullscreen mode
 
@@ -2112,11 +2118,11 @@ Previous changes
 
 	* BUGFIX: ensure that tip of the day has focus when it starts up.
 
-2004-01-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Improved HTML generation.
 
-2004-01-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* The tool tip for the thumbnail view now contains an enlargement
 	of the image. In addition the tool tip needs to be disabled,
@@ -2125,7 +2131,7 @@ Previous changes
 	The placement of the tool tip window is now improved, so it
 	doesn't get partly of screen.
 
-2004-01-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2004-01-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added an item to the context menu in the viewer for setting the
 	current image as the background. (Thanks to Teemu Rytilahti
@@ -2137,12 +2143,12 @@ Previous changes
 	show a different icon for each item (one icon for Joe, and another
 	for Bill).
 
-2003-12-30  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-12-30  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Member groups are not shown in the browser, in case the
 	member group do not contain any items.
 
-2003-12-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-12-26  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Update thumnail view when an image has been rotated.
 
@@ -2153,17 +2159,17 @@ Previous changes
 
 	* On public demand, the file name is now shown in the status bar.
 
-2003-12-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-12-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: fixed crash where KPhotoAlbum crashes if you right click outside
 	an item in one of the list boxes with properties (Persons,
 	Locations, ...)
 
-2003-12-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-12-05  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: KPhotoAlbum used to crash on moving images around.
 
-2003-12-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-12-01  Jesper K. Pedersen  <blackie@kde.org>
 
 	* New Feature: Its now possible to drag(copy) images from kphotoalbum
 	to say the desktop. Unfortunately KPhotoAlbum crashes in KDE code if I
@@ -2185,18 +2191,18 @@ Previous changes
 	* BUGFIX: Don't show HTML export dialog in case no item was selected.
 
 ---------------------------------- version 1.0 released --------------------
-2003-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-11-27  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: Previously the image loader was asked to load all images
 	on start up, making machines with low memory crash. This was
 	clearly unintentional, and as such a bug.
 
-2003-11-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-11-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: indicator marks are now properly shown during selection
 	of drawing on images.
 
-2003-11-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-11-13  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: File names did not contain an extension in the ThumbNail
 	directory. This resulted in a name class if two files existed with
@@ -2210,12 +2216,12 @@ Previous changes
 	now means run faster and ctrl+minus means run slower. This seems
 	much more intuitive.
 
-2003-10-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-10-21  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: First search for an image, then set properties, and the
 	app crashed.
 
-2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-10-05  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: KPhotoAlbum crashed when it found new images at start up.
 
@@ -2226,7 +2232,7 @@ Previous changes
 
 	* Its now possible to configure image properties from within the viewer.
 
-2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+2003-10-04  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Added new feature, which allows you to specify a default search
 	option, that applies to all searches. That way you can exclude all

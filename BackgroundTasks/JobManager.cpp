@@ -17,6 +17,7 @@
 */
 
 #include "JobManager.h"
+#include "JobInfo.h"
 
 /**
   \class BackgroundTasks::JobManager
@@ -37,24 +38,37 @@ BackgroundTasks::JobManager::JobManager() :
 {
 }
 
+int BackgroundTasks::JobManager::maxJobCount() const
+{
+    return 3; // This needs to be improved with CPU count while not running more than say 3 IO bound jobs at a time
+}
+
 void BackgroundTasks::JobManager::execute()
 {
     if ( m_queue.isEmpty() ) {
         m_isRunning = false;
+        emit ended();
         return;
     }
 
-    m_isRunning = true;
-    JobInterface* job = m_queue.dequeue();
-    connect(job,SIGNAL(completed()), this, SLOT(execute()));
-    job->execute();
+    else if (!m_isRunning) {
+        m_isRunning = true;
+        emit started();
+    }
+
+    while ( m_active.count() < maxJobCount() &&  !m_queue.isEmpty() ) {
+        JobInterface* job = m_queue.dequeue();
+        connect(job,SIGNAL(completed()), this, SLOT(jobCompleted()));
+        m_active.append(job);
+        emit jobStarted(job);
+        job->execute();
+    }
 }
 
 void BackgroundTasks::JobManager::addJob(BackgroundTasks::JobInterface* job )
 {
     m_queue.enqueue(job);
-    if (!m_isRunning)
-        execute();
+    execute();
 }
 
 BackgroundTasks::JobManager *BackgroundTasks::JobManager::instance()
@@ -62,4 +76,36 @@ BackgroundTasks::JobManager *BackgroundTasks::JobManager::instance()
     if ( !m_instance )
         m_instance = new JobManager;
     return m_instance;
+}
+
+int BackgroundTasks::JobManager::activeJobCount() const
+{
+    return m_active.count();
+}
+
+BackgroundTasks::JobInfo* BackgroundTasks::JobManager::activeJob(int index) const
+{
+    if ( index < m_active.count())
+        return m_active[index];
+    return 0;
+}
+
+int BackgroundTasks::JobManager::futureJobCount() const
+{
+    return m_queue.count();
+}
+
+BackgroundTasks::JobInfo* BackgroundTasks::JobManager::futureJob(int index) const
+{
+    return m_queue[index];
+}
+
+void BackgroundTasks::JobManager::jobCompleted()
+{
+    JobInterface* job = qobject_cast<JobInterface*>(sender());
+    Q_ASSERT(job);
+    emit jobEnded(job);
+    m_active.removeAll(job);
+    job->deleteLater();
+    execute();
 }

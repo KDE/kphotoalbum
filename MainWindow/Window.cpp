@@ -117,9 +117,9 @@
 #include "DB/MD5.h"
 #include "DB/MD5Map.h"
 #include "StatusBar.h"
-#include <BackgroundTasks/JobManager.h>
-#include <BackgroundTasks/SearchForVideosWithoutLengthInfo.h>
-#include <BackgroundTasks/SearchForVideosWithoutVideoThumbnailsJob.h>
+#include <BackgroundTaskManager/JobManager.h>
+#include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
+#include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 
 using namespace DB;
 
@@ -1693,8 +1693,8 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::SearchForVideosWithoutLengthInfo );
-    BackgroundTasks::JobManager::instance()->addJob( new BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob );
+    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutLengthInfo );
+    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

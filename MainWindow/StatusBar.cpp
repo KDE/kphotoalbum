@@ -28,7 +28,7 @@
 #include <KHBox>
 #include <kiconloader.h>
 #include <KIcon>
-#include <BackgroundTasks/StatusIndicator.h>
+#include <BackgroundTaskManager/StatusIndicator.h>
 
 MainWindow::StatusBar::StatusBar()
     : KStatusBar()
@@ -52,7 +52,7 @@ void MainWindow::StatusBar::setupGUI()
     _dirtyIndicator = new DirtyIndicator( indicators );
     connect( DB::ImageDB::instance(), SIGNAL( dirty() ), _dirtyIndicator, SLOT( markDirtySlot() ) );
 
-    new BackgroundTasks::StatusIndicator(indicators);
+    new BackgroundTaskManager::StatusIndicator(indicators);
 
     m_progressBar = new QProgressBar( this );
     m_progressBar->setMinimumWidth( 400 );

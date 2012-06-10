@@ -274,22 +274,25 @@ set(libexif_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
 
-set(libBackgroundTasks_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobInterface.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobManager.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/SearchForVideosWithoutLengthInfo.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/ReadVideoLengthJob.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/SearchForVideosWithoutVideoThumbnailsJob.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/CreateVideoThumbnailsJob.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/StatusIndicator.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobViewer.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobModel.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobInfo.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/CompletedJobInfo.cpp
+set(libBackgroundTaskManager_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInterface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/StatusIndicator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobViewer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobModel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/CompletedJobInfo.cpp
 )
 
-kde4_add_ui_files( libBackgroundTasks_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTasks/JobViewer.ui
+kde4_add_ui_files( libBackgroundTaskManager_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobViewer.ui
+)
+
+set(libBackgroundJobs_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoLengthJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/CreateVideoThumbnailsJob.cpp
 )
 
 add_subdirectory( images )
@@ -327,7 +330,8 @@ set(kphotoalbum_SRCS
   ${libAnnotationDialog_SRCS} 
   ${EXIV2_SRCS} 
   ${libBrowser_SRCS} 
-  ${libBackgroundTasks_SRCS}
+  ${libBackgroundTaskManager_SRCS}
+  ${libBackgroundJobs_SRCS}
 )
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})

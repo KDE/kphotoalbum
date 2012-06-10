@@ -1,15 +1,15 @@
 /* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
-  
+
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; see the file COPYING.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -22,11 +22,11 @@
 #include <DB/ImageInfo.h>
 #include <QFile>
 #include "CreateVideoThumbnailsJob.h"
-#include "JobManager.h"
+#include <BackgroundTaskManager/JobManager.h>
 #include <klocale.h>
-#include "JobInfo.h"
+#include <BackgroundTaskManager/JobInfo.h>
 
-void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
+void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
 
@@ -39,17 +39,17 @@ void BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( thumbnailName.exists() )
             continue;
 
-        JobManager::instance()->addJob( new BackgroundTasks::CreateVideoThumbnailsJob(info->fileName()) );
+        BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::CreateVideoThumbnailsJob(info->fileName()) );
     }
     emit completed();
 }
 
-QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::title() const
+QString BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::title() const
 {
     return i18n("Searching for videos without video thumbnails");
 }
 
-QString BackgroundTasks::SearchForVideosWithoutVideoThumbnailsJob::details() const
+QString BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::details() const
 {
     return QString();
 }

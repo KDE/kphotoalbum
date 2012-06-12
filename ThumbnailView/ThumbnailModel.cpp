@@ -284,13 +284,11 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::FileName& fileNa
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image, const bool loadedOK)
+void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, const QSize& , const QSize& fullSize, int, const QImage& , const bool )
 {
-#if 0 // THIS ISN'T EVEN USED!!!!
-    QPixmap pixmap( size );
-    if ( loadedOK && !image.isNull() )
-        pixmap = QPixmap::fromImage( image );
-#endif
+    // As a result of the image being loaded, we emit the dataChanged signal, which in turn asks the delegate to paint the cell
+    // The delegate now fetches the newly loaded image from the cache.
+
     DB::ImageInfoPtr imageInfo = fileName.info();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.

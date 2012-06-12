@@ -257,7 +257,7 @@ int ThumbnailView::ThumbnailModel::rowCount(const QModelIndex&) const
 
 QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role ) const
 {
-    if ( !index.isValid() || static_cast<uint>(index.row()) >= _displayList.size())
+    if ( !index.isValid() || index.row() >= _displayList.size())
         return QVariant();
 
     if ( role == Qt::DecorationRole ) {

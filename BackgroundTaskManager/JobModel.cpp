@@ -140,8 +140,10 @@ QPixmap JobModel::statusImage(JobInfo::JobType type) const
     QColor color;
     if ( type == JobInfo::CurrentJob )
         color = ( QTime::currentTime().msec() < 500 ) ?  Qt::gray : Qt::green;
-    else
+    else if ( type == JobInfo::PastJob )
         color = Qt::red;
+    else
+        color = QColor(Qt::yellow).darker();
 
     KLed led;
     led.setColor(color);

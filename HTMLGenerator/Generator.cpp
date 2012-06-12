@@ -225,8 +225,6 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
         row.appendChild( col );
 
-        const DB::FileName fileName = info->fileName();
-
         if (first.isEmpty())
             first = namePage( width, height, fileName);
         else

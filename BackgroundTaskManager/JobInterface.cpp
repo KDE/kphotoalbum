@@ -25,8 +25,21 @@
   Each job must override \ref execute, and must emit the signal completed.
   Emitting the signal is crusial, as the JobManager will otherwise stall.
 */
+
+
+BackgroundTaskManager::JobInterface::JobInterface()
+{
+    connect( this, SIGNAL(completed()), this, SLOT(stop()));
+}
+
 BackgroundTaskManager::JobInterface::~JobInterface()
 {
+}
+
+void BackgroundTaskManager::JobInterface::start()
+{
+    JobInfo::start();
+    execute();
 }
 
 #include "JobInterface.moc"

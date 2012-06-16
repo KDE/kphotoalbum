@@ -29,7 +29,11 @@ class JobInterface : public JobInfo
 {
     Q_OBJECT
 public:
+    JobInterface();
     virtual ~JobInterface();
+    void start();
+
+protected:
     virtual void execute() = 0;
 
 signals:

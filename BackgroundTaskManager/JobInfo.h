@@ -21,6 +21,7 @@
 #define JOBINFO_H
 #include <QString>
 #include <QObject>
+#include <QElapsedTimer>
 
 namespace BackgroundTaskManager {
 
@@ -29,16 +30,28 @@ class JobInfo :public QObject
     Q_OBJECT
 
 public:
-    enum JobType { PastJob, CurrentJob, FutureJob };
     JobInfo();
-    virtual ~JobInfo() {}
+    JobInfo( const JobInfo* other );
+    virtual ~JobInfo();
 
     virtual QString title() const = 0;
     virtual QString details() const = 0;
-    JobType jobType;
+
+    enum State { NotStarted, Running, Completed };
+    State state;
+
+    QString elapsed() const;
+
+protected slots:
+    void start();
+    void stop();
 
 signals:
     void changed() const;
+
+private:
+    QElapsedTimer m_timer;
+    uint m_elapsed;
 };
 
 }

@@ -46,10 +46,10 @@ private slots:
     void jobStarted( JobInterface* job);
 
 private:
-    enum Column { TitleCol = 0, DetailsCol = 1 };
+    enum Column { TitleCol = 0, DetailsCol = 1, ElapsedCol = 2 };
 
     JobInfo* info(int row) const;
-    QPixmap statusImage( JobInfo::JobType statusImage ) const;
+    QPixmap statusImage( JobInfo::State state ) const;
 
     QList<CompletedJobInfo*> m_previousJobs;
 };

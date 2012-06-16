@@ -57,7 +57,7 @@ int JobModel::rowCount(const QModelIndex& index) const
 
 int JobModel::columnCount(const QModelIndex &) const
 {
-    return 2;
+    return 3;
 }
 
 QVariant JobModel::data(const QModelIndex &index, int role) const
@@ -76,11 +76,12 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
         switch (col) {
         case TitleCol:   return current->title();
         case DetailsCol: return current->details();
+        case ElapsedCol: return current->elapsed();
         default: return QVariant();
         }
     }
     else if ( role == Qt::DecorationRole && col == TitleCol )
-        return statusImage(current->jobType);
+        return statusImage(current->state);
 
     return QVariant();
 }
@@ -92,6 +93,7 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     switch (section) {
     case TitleCol:   return i18n("Title");
     case DetailsCol: return i18n("Details");
+    case ElapsedCol: return i18n("Elapsed");
     default: return QVariant();
     }
 }
@@ -115,32 +117,24 @@ void JobModel::jobStarted(JobInterface *job)
 
 JobInfo* JobModel::info(int row) const
 {
-    if ( row < m_previousJobs.count() ) {
-        JobInfo* result = m_previousJobs[row];
-        result->jobType = JobInfo::PastJob;
-        return result;
-    }
+    if ( row < m_previousJobs.count() )
+        return  m_previousJobs[row];
 
     row -= m_previousJobs.count();
-    if ( row  < JobManager::instance()->activeJobCount() ) {
-        JobInfo* result = JobManager::instance()->activeJob(row);
-        result->jobType = JobInfo::CurrentJob;
-        return result;
-    }
+    if ( row  < JobManager::instance()->activeJobCount() )
+        return JobManager::instance()->activeJob(row);
 
     row -= JobManager::instance()->activeJobCount();
     Q_ASSERT( row < JobManager::instance()->futureJobCount() );
-    JobInfo* result = JobManager::instance()->futureJob(row);
-    result->jobType = JobInfo::FutureJob;
-    return result;
+    return JobManager::instance()->futureJob(row);
 }
 
-QPixmap JobModel::statusImage(JobInfo::JobType type) const
+QPixmap JobModel::statusImage(JobInfo::State state) const
 {
     QColor color;
-    if ( type == JobInfo::CurrentJob )
+    if ( state == JobInfo::Running )
         color = ( QTime::currentTime().msec() < 500 ) ?  Qt::gray : Qt::green;
-    else if ( type == JobInfo::PastJob )
+    else if ( state == JobInfo::Completed )
         color = Qt::red;
     else
         color = QColor(Qt::yellow).darker();

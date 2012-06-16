@@ -18,10 +18,56 @@
 */
 
 #include "JobInfo.h"
+#include <KLocale>
 
 namespace BackgroundTaskManager {
 
 JobInfo::JobInfo()
+    : state(NotStarted), m_elapsed(0)
 {
+}
+
+JobInfo::JobInfo(const JobInfo *other)
+{
+    state = other->state;
+    m_elapsed = other->m_elapsed;
+}
+
+JobInfo::~JobInfo()
+{
+}
+
+void JobInfo::start()
+{
+    m_timer.start();
+    state = Running;
+}
+
+void JobInfo::stop()
+{
+    m_elapsed = m_timer.elapsed();
+    state = Completed;
+}
+
+QString JobInfo::elapsed() const
+{
+    if (state == NotStarted)
+        return i18n("Not Started");
+
+    qint64 time = m_timer.elapsed() / 1000;
+    if ( state == Completed )
+        time = m_elapsed / 1000;
+
+    const int secs = time % 60;
+    const int minutes = time / 60;
+
+    if ( minutes > 0 ) {
+        QString secStr = QString::number(secs);
+        if ( secs < 10 )
+            secStr = QString::fromLatin1("0") + secStr;
+        return QString::fromLatin1("%1 min %2 secs").arg(minutes).arg(secStr);
+    }
+    else
+        return QString::fromLatin1("%1 secs").arg(secs);
 }
 }

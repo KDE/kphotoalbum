@@ -61,7 +61,7 @@ void BackgroundTaskManager::JobManager::execute()
         connect(job,SIGNAL(completed()), this, SLOT(jobCompleted()));
         m_active.append(job);
         emit jobStarted(job);
-        job->execute();
+        job->start();
     }
 }
 

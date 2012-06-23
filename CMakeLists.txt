@@ -193,6 +193,7 @@ set(libImageManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailsExtractor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp
 )
 
 set(libDB_SRCS 

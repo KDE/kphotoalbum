@@ -18,24 +18,16 @@
 */
 
 #include "VideoThumbnailsExtractor.h"
-#include <Utilities/Process.h>
-#include <QTextStream>
 #include <QImage>
-#include <QDir>
-#include <MainWindow/FeatureDialog.h>
 #include "VideoManager.h"
-
-#define STR(x) QString::fromUtf8(x)
+#include "ExtractOneVideoFrame.h"
 
 ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent )
-    :QObject(parent), m_fileName(fileName), m_length(videoLength)
+    :QObject(parent), m_oneFrameExtractor(new ExtractOneVideoFrame(this)), m_fileName(fileName), m_length(videoLength)
 {
-    m_process = new Utilities::Process(this);
-    m_process->setWorkingDirectory(QDir::tempPath());
-    connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
-
     m_frameNumber = -1;
     requestNextFrame();
+    connect( m_oneFrameExtractor, SIGNAL(frameFetched(QImage)), this, SLOT(frameFetched(QImage)));
 }
 
 void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
@@ -47,16 +39,11 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     }
 
     const double offset = m_length * m_frameNumber / 10;
-    QStringList arguments;
-    arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
-              << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << m_fileName.absolute();
-
-    m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
+    m_oneFrameExtractor->extract(m_fileName, offset);
 }
 
-void ImageManager::VideoThumbnailsExtractor::frameFetched()
+void ImageManager::VideoThumbnailsExtractor::frameFetched(const QImage& image)
 {
-    QImage image(QDir::tempPath() + STR("/00000001.png"));
     image.save(frameName(m_fileName,m_frameNumber).absolute(),"JPEG");
     emit frameLoaded(m_frameNumber, image);
     requestNextFrame();

@@ -23,7 +23,6 @@
 #include <QImage>
 #include <QDir>
 #include <Settings/SettingsData.h>
-#include <ImageManager/VideoManager.h> // PENDING(blackie) die!
 #include <ImageManager/ThumbnailCache.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <KLocale>

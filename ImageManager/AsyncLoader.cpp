@@ -22,7 +22,6 @@
 #include "ImageLoaderThread.h"
 #include "ImageManager/ImageClientInterface.h"
 #include "Utilities/Util.h"
-#include "VideoManager.h"
 
 #include <kurl.h>
 #include <qpixmapcache.h>
@@ -104,7 +103,10 @@ void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction a
     _loadList.cancelRequests( client, action );
     _lock.unlock();
 
-    VideoManager::instance().stop( client, action );
+    // PENDING(blackie) Reintroduce this
+    // VideoManager::instance().stop( client, action );
+    // Was implemented as _pending.cancelRequests( client, action );
+    // Where _pending is the RequestQueue
 }
 
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()

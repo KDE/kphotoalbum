@@ -24,7 +24,6 @@
 #include <QList>
 #include <kapplication.h>
 #include "Exif/Database.h"
-#include <ImageManager/VideoManager.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
 #include <phonon/backendcapabilities.h>

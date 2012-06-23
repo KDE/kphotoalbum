@@ -21,6 +21,7 @@
 #include <Utilities/Process.h>
 #include <MainWindow/FeatureDialog.h>
 #include <QDir>
+#include <cstdlib>
 
 namespace ImageManager {
 
@@ -28,8 +29,8 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(QObject *parent) :
     QObject(parent)
 {
     m_process = new Utilities::Process(this);
-    m_process->setWorkingDirectory(QDir::tempPath());
-    // PENDING Create a subdirectory so processes don't step on each others toes.
+    setupWorkingDirectory();
+    m_process->setWorkingDirectory(m_workingDirectory);
     // PENDING HOW ABOUT ERROR HANDLING?
     connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
 }
@@ -46,8 +47,20 @@ void ExtractOneVideoFrame::extract(const DB::FileName &fileName, int offset)
 
 void ExtractOneVideoFrame::frameFetched()
 {
-    QImage image(QDir::tempPath() + STR("/00000001.png"));
+    QImage image(m_workingDirectory + STR("/00000001.png"));
+    Q_ASSERT(!image.isNull());
     emit frameFetched(image);
+}
+
+void ExtractOneVideoFrame::setupWorkingDirectory()
+{
+    const QString tmpPath = STR("%1/KPA-XXXXXX").arg(QDir::tempPath());
+    char* cTmpPath = tmpPath.toUtf8().data();
+    m_workingDirectory = QString::fromUtf8(mkdtemp(cTmpPath));
+}
+
+void ExtractOneVideoFrame::deleteWorkingDirectory()
+{
 }
 
 } // namespace ImageManager

@@ -17,39 +17,38 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
-#define IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
+#ifndef BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
+#define BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
 
-#include <QObject>
-#include <DB/FileName.h>
+#include <BackgroundTaskManager/JobInterface.h>
+
+namespace ImageManager { class ImageRequest; }
+namespace DB { class FileName; }
 class QImage;
 
-namespace Utilities { class Process; }
+namespace BackgroundJobs {
 
-namespace ImageManager {
-
-class ExtractOneVideoFrame : public QObject
+class HandleVideoThumbnailRequestJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT
 public:
-    explicit ExtractOneVideoFrame(QObject *parent = 0);
-    void extract(const DB::FileName& filename, int offset);
+    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request);
+    OVERRIDE QString title() const;
+    OVERRIDE QString details() const;
 
-signals:
-    void frameFetched(const QImage& image);
+protected:
+    OVERRIDE void execute();
 
 private slots:
-    void frameFetched();
+    void frameLoaded(const QImage&);
 
 private:
-    void setupWorkingDirectory();
-    void deleteWorkingDirectory();
-    QString m_workingDirectory;
+    void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
+    void sendResult( QImage image );
 
-    Utilities::Process* m_process;
-
+    ImageManager::ImageRequest* m_request;
 };
 
-} // namespace ImageManager
+} // namespace BackgroundJobs
 
-#endif // IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
+#endif // BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H

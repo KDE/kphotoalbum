@@ -1,0 +1,81 @@
+/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+  
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e.V. (or its successor approved
+   by the membership of KDE e.V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "HandleVideoThumbnailRequestJob.h"
+#include <ImageManager/ImageRequest.h>
+#include <ImageManager/ExtractOneVideoFrame.h>
+#include <QImage>
+#include <QDir>
+#include <Settings/SettingsData.h>
+#include <ImageManager/VideoManager.h> // PENDING(blackie) die!
+#include <ImageManager/ThumbnailCache.h>
+#include <ImageManager/ImageClientInterface.h>
+#include <KLocale>
+
+namespace BackgroundJobs {
+
+HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request) :
+    BackgroundTaskManager::JobInterface(), m_request(request)
+{
+}
+
+QString HandleVideoThumbnailRequestJob::title() const
+{
+    return i18n("Extract Video Thumbnail");
+}
+
+QString HandleVideoThumbnailRequestJob::details() const
+{
+    return m_request->databaseFileName().relative();
+}
+
+void HandleVideoThumbnailRequestJob::execute()
+{
+    ImageManager::ExtractOneVideoFrame* extractor = new ImageManager::ExtractOneVideoFrame(this);
+    connect(extractor, SIGNAL(frameFetched(QImage)), this, SLOT(frameLoaded(QImage)));
+    extractor->extract(m_request->fileSystemFileName(), 0);
+}
+
+void HandleVideoThumbnailRequestJob::frameLoaded(const QImage& image )
+{
+    saveFullScaleFrame(m_request->databaseFileName(), image);
+    sendResult(image);
+    emit completed();
+}
+
+void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName& fileName, const QImage &image)
+{
+    QDir dir( Settings::SettingsData::instance()->imageDirectory() );
+    if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
+        dir.mkdir(QString::fromLatin1(".videoThumbnails"));
+    image.save(ImageManager::VideoManager::pathForRequest(fileName).absolute(), "JPEG");
+}
+
+void HandleVideoThumbnailRequestJob::sendResult(QImage image)
+{
+    //if ( m_request->isRequestStillValid(m_request) ) {
+        image = image.scaled( QSize(m_request->width(), m_request->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
+        if ( m_request->isThumbnailRequest() )
+            ImageManager::ThumbnailCache::instance()->insert( m_request->databaseFileName(), image );
+        m_request->setLoadedOK( true );
+        m_request->client()->pixmapLoaded( m_request->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
+    //}
+}
+
+} // namespace BackgroundJobs

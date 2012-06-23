@@ -28,6 +28,8 @@
 #include <qpixmapcache.h>
 #include "ImageEvent.h"
 #include "CancelEvent.h"
+#include <BackgroundTaskManager/JobManager.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
 ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = 0;
 
@@ -74,7 +76,8 @@ void ImageManager::AsyncLoader::load( ImageRequest* request )
 
 void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
-    VideoManager::instance().request( request );
+    BackgroundTaskManager::JobManager::instance()->addJob(new BackgroundJobs::HandleVideoThumbnailRequestJob(request));
+    //VideoManager::instance().request( request );
 }
 
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )

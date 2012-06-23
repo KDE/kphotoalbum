@@ -35,6 +35,7 @@ public:
     explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request);
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
+    static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
 
 protected:
     OVERRIDE void execute();
@@ -43,7 +44,6 @@ private slots:
     void frameLoaded(const QImage&);
 
 private:
-    void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
     void sendResult( QImage image );
 
     ImageManager::ImageRequest* m_request;

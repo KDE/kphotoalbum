@@ -22,7 +22,7 @@
 #include "VideoDisplay.h"
 #include "InfoBox.h"
 #include <QApplication>
-#include <ImageManager/VideoManager.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/ThumbnailCache.h>
 
@@ -76,7 +76,7 @@ void Viewer::VideoShooter::doShoot()
     const QImage image = m_viewer->_videoDisplay->screenShoot();
     const DB::FileName fileName = m_info->fileName();
     ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-    ImageManager::VideoManager::saveFullScaleFrame(fileName, image);
+    BackgroundJobs::HandleVideoThumbnailRequestJob::saveFullScaleFrame(fileName, image);
 
     // Show the infobox again
     if ( m_infoboxVisible )

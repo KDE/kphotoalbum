@@ -43,7 +43,6 @@ public:
     bool hasVideoThumbnailSupport() const;
     void removeFullScaleFrame( const DB::FileName& fileName );
     void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
-    static DB::FileName pathForRequest( const DB::FileName& fileName  );
 
 protected:
     void load( ImageRequest* request );

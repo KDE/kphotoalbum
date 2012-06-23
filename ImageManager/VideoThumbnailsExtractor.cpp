@@ -19,7 +19,7 @@
 
 #include "VideoThumbnailsExtractor.h"
 #include <QImage>
-#include "VideoManager.h"
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include "ExtractOneVideoFrame.h"
 
 ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent )
@@ -51,5 +51,5 @@ void ImageManager::VideoThumbnailsExtractor::frameFetched(const QImage& image)
 
 DB::FileName ImageManager::VideoThumbnailsExtractor::frameName(const DB::FileName &videoName, int frameNumber)
 {
-    return DB::FileName::fromRelativePath( ImageManager::VideoManager::pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
+    return DB::FileName::fromRelativePath( BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
 }

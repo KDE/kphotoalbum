@@ -36,6 +36,7 @@ public:
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
     static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
+    static DB::FileName pathForRequest( const DB::FileName& fileName  );
 
 protected:
     OVERRIDE void execute();

@@ -30,6 +30,7 @@
 #include <kcodecs.h>
 #include <QDir>
 #include "VideoImageRescaleRequest.h"
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
@@ -194,12 +195,12 @@ void ImageManager::VideoManager::saveFullScaleFrame(const DB::FileName &fileName
     QDir dir( Settings::SettingsData::instance()->imageDirectory() );
     if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
         dir.mkdir(QString::fromLatin1(".videoThumbnails"));
-    image.save(pathForRequest(fileName).absolute(), "JPEG");
+    image.save(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute(), "JPEG");
 }
 
 bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageRequest *request)
 {
-    const DB::FileName path = pathForRequest(request->databaseFileName());
+    const DB::FileName path = BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(request->databaseFileName());
     if ( path.exists() ) {
         VideoImageRescaleRequest* newRequest = new VideoImageRescaleRequest( request, path );
         AsyncLoader::instance()->load( newRequest );
@@ -209,15 +210,10 @@ bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageReques
         return false;
 }
 
-DB::FileName ImageManager::VideoManager::pathForRequest(const DB::FileName& fileName )
-{
-    KMD5 md5(fileName.absolute().toUtf8());
-    return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.hexDigest())));
-}
 
 void ImageManager::VideoManager::removeFullScaleFrame(const DB::FileName &fileName)
 {
-    QDir().remove(pathForRequest(fileName).absolute());
+    QDir().remove(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute());
 }
 
 #include "VideoManager.moc"

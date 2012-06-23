@@ -74,6 +74,11 @@ DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &
     return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.hexDigest())));
 }
 
+void HandleVideoThumbnailRequestJob::removeFullScaleFrame(const DB::FileName &fileName)
+{
+    QDir().remove(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute());
+}
+
 void HandleVideoThumbnailRequestJob::sendResult(QImage image)
 {
     //if ( m_request->isRequestStillValid(m_request) ) {

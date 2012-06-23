@@ -210,10 +210,4 @@ bool ImageManager::VideoManager::requestFullScaleFrame(ImageManager::ImageReques
         return false;
 }
 
-
-void ImageManager::VideoManager::removeFullScaleFrame(const DB::FileName &fileName)
-{
-    QDir().remove(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute());
-}
-
 #include "VideoManager.moc"

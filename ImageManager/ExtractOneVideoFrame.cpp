@@ -50,6 +50,7 @@ void ExtractOneVideoFrame::frameFetched()
     QImage image(m_workingDirectory + STR("/00000001.png"));
     Q_ASSERT(!image.isNull());
     emit frameFetched(image);
+    deleteWorkingDirectory();
 }
 
 void ExtractOneVideoFrame::setupWorkingDirectory()
@@ -61,6 +62,12 @@ void ExtractOneVideoFrame::setupWorkingDirectory()
 
 void ExtractOneVideoFrame::deleteWorkingDirectory()
 {
+    QDir dir(m_workingDirectory);
+    QStringList files = dir.entryList(QDir::Files);
+    Q_FOREACH( const QString& file, files )
+        dir.remove(file);
+
+    dir.rmdir(m_workingDirectory);
 }
 
 } // namespace ImageManager

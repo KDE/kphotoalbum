@@ -1693,8 +1693,13 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutLengthInfo );
-    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::SearchForVideosWithoutLengthInfo,
+                BackgroundTaskManager::BackgroundVideoPreviewRequest );
+
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob,
+                BackgroundTaskManager::BackgroundVideoPreviewRequest);
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

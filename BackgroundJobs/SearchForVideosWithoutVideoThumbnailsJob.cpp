@@ -39,7 +39,9 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( thumbnailName.exists() )
             continue;
 
-        BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::CreateVideoThumbnailsJob(info->fileName()) );
+        BackgroundTaskManager::JobManager::instance()->addJob(
+                    new BackgroundJobs::CreateVideoThumbnailsJob(info->fileName()),
+                    BackgroundTaskManager::BackgroundVideoPreviewRequest);
     }
     emit completed();
 }

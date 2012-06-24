@@ -47,7 +47,11 @@ QString HandleVideoThumbnailRequestJob::details() const
 
 void HandleVideoThumbnailRequestJob::execute()
 {
-    ImageManager::ExtractOneVideoFrame::extract(m_request->fileSystemFileName(), 0, this, SLOT(frameLoaded(QImage)));
+    QImage image( pathForRequest(m_request->fileSystemFileName()).absolute());
+    if (!image.isNull())
+        frameLoaded(image);
+    else
+        ImageManager::ExtractOneVideoFrame::extract(m_request->fileSystemFileName(), 0, this, SLOT(frameLoaded(QImage)));
 }
 
 void HandleVideoThumbnailRequestJob::frameLoaded(const QImage& image )

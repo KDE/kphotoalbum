@@ -23,7 +23,9 @@
 #include <QDir>
 #include <cstdlib>
 #include <QMetaObject>
-
+#include <KLocale>
+#include <KMessageBox>
+#include <MainWindow/Window.h>
 namespace ImageManager {
 
 #define STR(x) QString::fromUtf8(x)
@@ -40,6 +42,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int off
     m_process->setWorkingDirectory(m_workingDirectory);
     // PENDING HOW ABOUT ERROR HANDLING?
     connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
+    connect( m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
     connect( this, SIGNAL(result(QImage)), receiver, slot);
 
     QStringList arguments;
@@ -56,6 +59,24 @@ void ExtractOneVideoFrame::frameFetched()
     emit result(image);
     deleteWorkingDirectory();
     deleteLater();
+}
+
+void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
+{
+    QString message;
+    switch (error) {
+    case QProcess::FailedToStart: message = i18n("Failed to start"); break;
+    case QProcess::Crashed: message = i18n("Crashed"); break;
+    case QProcess::Timedout: message = i18n("Timedout"); break;
+    case QProcess::ReadError: message = i18n("Read error"); break;
+    case QProcess::WriteError: message = i18n("Write error"); break;
+    case QProcess::UnknownError: message = i18n("Unknown error"); break;
+    }
+
+    KMessageBox::information( MainWindow::Window::theMainWindow(),
+            i18n("<p>Error when extracting video thumbnails.<br>Error was: %1</p>" , message ),
+            QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
+    emit result(QImage());
 }
 
 void ExtractOneVideoFrame::setupWorkingDirectory()

@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <DB/FileName.h>
+#include <QProcess>
 class QImage;
 
 namespace Utilities { class Process; }
@@ -36,6 +37,7 @@ public:
 
 private slots:
     void frameFetched();
+    void handleError(QProcess::ProcessError);
 
 signals:
     void result(const QImage& );

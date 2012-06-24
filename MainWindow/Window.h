@@ -172,6 +172,7 @@ protected:
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSarchBar();
     void executeStartupActions();
+    void checkIfMplayerIsInstalled();
 
 private:
     static Window* _instance;

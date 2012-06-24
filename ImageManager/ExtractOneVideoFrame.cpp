@@ -40,6 +40,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int off
     m_process->setWorkingDirectory(m_workingDirectory);
     // PENDING HOW ABOUT ERROR HANDLING?
     connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
+    connect( this, SIGNAL(result(QImage)), receiver, slot);
 
     QStringList arguments;
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
@@ -52,7 +53,7 @@ void ExtractOneVideoFrame::frameFetched()
 {
     QImage image(m_workingDirectory + STR("/00000001.png"));
     Q_ASSERT(!image.isNull());
-    QMetaObject::invokeMethod(m_receiver, m_slot, Q_ARG(QImage, image));
+    emit result(image);
     deleteWorkingDirectory();
     deleteLater();
 }

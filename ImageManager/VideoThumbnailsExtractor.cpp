@@ -38,7 +38,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     }
 
     const double offset = m_length * m_frameNumber / 10;
-    ExtractOneVideoFrame::extract(m_fileName, offset, this, "frameFetched");
+    ExtractOneVideoFrame::extract(m_fileName, offset, this, SLOT(frameFetched(QImage)));
 }
 
 void ImageManager::VideoThumbnailsExtractor::frameFetched(const QImage& image)

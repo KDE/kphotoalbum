@@ -37,6 +37,9 @@ public:
 private slots:
     void frameFetched();
 
+signals:
+    void result(const QImage& );
+
 private:
     ExtractOneVideoFrame(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();

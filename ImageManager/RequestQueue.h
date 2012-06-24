@@ -29,9 +29,8 @@ class ImageClientInterface;
 
 // RequestQueue for ImageRequests. Non-synchronized, locking has to be
 // provided by the user.
-class RequestQueue :public QObject
+class RequestQueue
 {
-    Q_OBJECT
 
 public:
     RequestQueue();

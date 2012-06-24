@@ -161,5 +161,3 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         cancelEvent->request()->client()->requestCanceled();
     }
 }
-
-#include "AsyncLoader.moc"

@@ -22,22 +22,25 @@
 #include <MainWindow/FeatureDialog.h>
 #include <QDir>
 #include <cstdlib>
+#include <QMetaObject>
 
 namespace ImageManager {
 
-ExtractOneVideoFrame::ExtractOneVideoFrame(QObject *parent) :
-    QObject(parent)
+#define STR(x) QString::fromUtf8(x)
+void ExtractOneVideoFrame::extract(const DB::FileName &fileName, int offset, QObject* receiver, const char* slot)
+{
+    new ExtractOneVideoFrame(fileName, offset, receiver, slot);
+}
+
+ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int offset, QObject *receiver, const char *slot)
+    :m_receiver(receiver), m_slot(slot)
 {
     m_process = new Utilities::Process(this);
     setupWorkingDirectory();
     m_process->setWorkingDirectory(m_workingDirectory);
     // PENDING HOW ABOUT ERROR HANDLING?
     connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
-}
 
-#define STR(x) QString::fromUtf8(x)
-void ExtractOneVideoFrame::extract(const DB::FileName &fileName, int offset)
-{
     QStringList arguments;
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
               << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << fileName.absolute();
@@ -49,8 +52,9 @@ void ExtractOneVideoFrame::frameFetched()
 {
     QImage image(m_workingDirectory + STR("/00000001.png"));
     Q_ASSERT(!image.isNull());
-    emit frameFetched(image);
+    QMetaObject::invokeMethod(m_receiver, m_slot, Q_ARG(QImage, image));
     deleteWorkingDirectory();
+    deleteLater();
 }
 
 void ExtractOneVideoFrame::setupWorkingDirectory()

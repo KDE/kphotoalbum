@@ -27,7 +27,6 @@ class QImage;
 
 namespace ImageManager
 {
-class ExtractOneVideoFrame;
 
 class VideoThumbnailsExtractor :public QObject
 {
@@ -47,7 +46,6 @@ signals:
 private:
     void requestNextFrame();
 
-    ExtractOneVideoFrame* m_oneFrameExtractor;
     DB::FileName m_fileName;
     double m_length;
     int m_frameNumber;

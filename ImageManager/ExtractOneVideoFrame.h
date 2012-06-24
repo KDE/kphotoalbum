@@ -32,22 +32,20 @@ class ExtractOneVideoFrame : public QObject
 {
     Q_OBJECT
 public:
-    explicit ExtractOneVideoFrame(QObject *parent = 0);
-    void extract(const DB::FileName& filename, int offset);
-
-signals:
-    void frameFetched(const QImage& image);
+    static void extract(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
 
 private slots:
     void frameFetched();
 
 private:
+    ExtractOneVideoFrame(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();
     void deleteWorkingDirectory();
+
     QString m_workingDirectory;
-
     Utilities::Process* m_process;
-
+    QObject* m_receiver;
+    const char* m_slot;
 };
 
 } // namespace ImageManager

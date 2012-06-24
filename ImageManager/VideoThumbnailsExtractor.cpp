@@ -23,11 +23,10 @@
 #include "ExtractOneVideoFrame.h"
 
 ImageManager::VideoThumbnailsExtractor::VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent )
-    :QObject(parent), m_oneFrameExtractor(new ExtractOneVideoFrame(this)), m_fileName(fileName), m_length(videoLength)
+    :QObject(parent),  m_fileName(fileName), m_length(videoLength)
 {
     m_frameNumber = -1;
     requestNextFrame();
-    connect( m_oneFrameExtractor, SIGNAL(frameFetched(QImage)), this, SLOT(frameFetched(QImage)));
 }
 
 void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
@@ -39,7 +38,7 @@ void ImageManager::VideoThumbnailsExtractor::requestNextFrame()
     }
 
     const double offset = m_length * m_frameNumber / 10;
-    m_oneFrameExtractor->extract(m_fileName, offset);
+    ExtractOneVideoFrame::extract(m_fileName, offset, this, "frameFetched");
 }
 
 void ImageManager::VideoThumbnailsExtractor::frameFetched(const QImage& image)

@@ -17,6 +17,7 @@
 */
 
 #include "JobInterface.h"
+#include "JobManager.h"
 
 /**
   \class BackgroundTaskManager::JobInterface
@@ -40,6 +41,19 @@ void BackgroundTaskManager::JobInterface::start()
 {
     JobInfo::start();
     execute();
+}
+
+void BackgroundTaskManager::JobInterface::addDependency(BackgroundTaskManager::JobInterface *job)
+{
+    m_dependencies++;
+    connect(job,SIGNAL(completed()),this, SLOT(dependedJobCompleted()));
+}
+
+void BackgroundTaskManager::JobInterface::dependedJobCompleted()
+{
+    m_dependencies--;
+    if ( m_dependencies == 0 )
+        BackgroundTaskManager::JobManager::instance()->addJob(this,BackgroundTaskManager::BackgroundVideoThumbnailRequest); // PENDING: We need to set the priority on the job.
 }
 
 #include "JobInterface.moc"

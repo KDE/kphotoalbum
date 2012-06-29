@@ -32,12 +32,19 @@ public:
     JobInterface();
     virtual ~JobInterface();
     void start();
+    void addDependency(JobInterface* job);
 
 protected:
     virtual void execute() = 0;
 
 signals:
     void completed();
+
+private slots:
+    void dependedJobCompleted();
+
+private:
+    int m_dependencies;
 };
 
 }

@@ -74,6 +74,14 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     ok = _exifSearchInfo.matches( info->fileName() );
 #endif
 
+    QDateTime actualStart = info->date().start();
+    QDateTime actualEnd = info->date().end();
+    if ( actualEnd <= actualStart )  {
+        QDateTime tmp = actualStart;
+        actualStart = actualEnd;
+        actualEnd = tmp;
+    }
+
     if ( !_date.start().isNull() ) {
         // Date
         // the search date matches the actual date if:
@@ -81,19 +89,15 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
         // actual.start <= search.end <=actuel.end or
         // search.start <= actual.start and actual.end <= search.end
 
-        QDateTime actualStart = info->date().start();
-        QDateTime actualEnd = info->date().end();
-        if ( actualEnd <= actualStart )  {
-            QDateTime tmp = actualStart;
-            actualStart = actualEnd;
-        actualEnd = tmp;
-        }
-
         bool b1 =( actualStart <= _date.start() && _date.start() <= actualEnd );
         bool b2 =( actualStart <= _date.end() && _date.end() <= actualEnd );
-        bool b3 = ( _date.start() <= actualStart && actualEnd <= _date.end() );
+        bool b3 = ( _date.start() <= actualStart && ( actualEnd <= _date.end() || _date.end().isNull() ) );
 
         ok &= ( ( b1 || b2 || b3 ) );
+    } else if ( !_date.end().isNull() ) {
+        bool b1 = ( actualStart <= _date.end() && _date.end() <= actualEnd );
+        bool b2 = ( actualEnd <= _date.end() );
+        ok &= ( ( b1 || b2 ) );
     }
 
     // -------------------------------------------------- Options

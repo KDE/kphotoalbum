@@ -146,8 +146,7 @@ void NewImageFinder::loadExtraFiles()
     Q_FOREACH( const ImageInfoPtr& info, newImages ) {
         if ( info->isVideo() )
             BackgroundTaskManager::JobManager::instance()->addJob(
-                        new BackgroundJobs::ReadVideoLengthJob(info->fileName()),
-                        BackgroundTaskManager::BackgroundVideoPreviewRequest );
+                        new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
     }
 
 }

@@ -32,7 +32,7 @@ class HandleVideoThumbnailRequestJob : public BackgroundTaskManager::JobInterfac
 {
     Q_OBJECT
 public:
-    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request);
+    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request, BackgroundTaskManager::Priority priority);
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
     static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );

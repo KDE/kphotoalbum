@@ -28,7 +28,8 @@
 */
 
 
-BackgroundTaskManager::JobInterface::JobInterface()
+BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priority priority)
+    : JobInfo(priority)
 {
     connect( this, SIGNAL(completed()), this, SLOT(stop()));
 }
@@ -53,7 +54,7 @@ void BackgroundTaskManager::JobInterface::dependedJobCompleted()
 {
     m_dependencies--;
     if ( m_dependencies == 0 )
-        BackgroundTaskManager::JobManager::instance()->addJob(this,BackgroundTaskManager::BackgroundVideoThumbnailRequest); // PENDING: We need to set the priority on the job.
+        BackgroundTaskManager::JobManager::instance()->addJob(this);
 }
 
 #include "JobInterface.moc"

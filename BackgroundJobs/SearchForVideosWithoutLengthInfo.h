@@ -26,6 +26,7 @@ namespace BackgroundJobs {
 class SearchForVideosWithoutLengthInfo : public BackgroundTaskManager::JobInterface
 {
 public:
+    SearchForVideosWithoutLengthInfo();
     OVERRIDE void execute();
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;

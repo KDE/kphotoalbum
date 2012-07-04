@@ -80,8 +80,7 @@ void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
               ?  BackgroundTaskManager::ActiveThumbnailRequest
               : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
     BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::HandleVideoThumbnailRequestJob(request),
-                priority);
+                new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));
 }
 
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )

@@ -65,9 +65,9 @@ void BackgroundTaskManager::JobManager::execute()
     }
 }
 
-void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterface* job, BackgroundTaskManager::Priority priority )
+void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterface* job )
 {
-    m_queue.enqueue(job, priority);
+    m_queue.enqueue(job, job->priority());
     execute();
 }
 

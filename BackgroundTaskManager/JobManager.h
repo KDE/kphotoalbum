@@ -29,7 +29,7 @@ class JobManager : public QObject
 {
     Q_OBJECT
 public:
-    void addJob(JobInterface*, BackgroundTaskManager::Priority priority);
+    void addJob(JobInterface* job);
     static JobManager* instance();
     int activeJobCount() const;
     JobInfo* activeJob(int index) const;

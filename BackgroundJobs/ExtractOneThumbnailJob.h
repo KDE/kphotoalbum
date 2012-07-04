@@ -32,7 +32,7 @@ class ExtractOneThumbnailJob : public BackgroundTaskManager::JobInterface
     Q_OBJECT
 
 public:
-    ExtractOneThumbnailJob(const DB::FileName& fileName, int index);
+    ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority);
     OVERRIDE void execute();
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;

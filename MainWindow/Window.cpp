@@ -1696,12 +1696,10 @@ void MainWindow::Window::executeStartupActions()
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
     BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::SearchForVideosWithoutLengthInfo,
-                BackgroundTaskManager::BackgroundVideoPreviewRequest );
+                new BackgroundJobs::SearchForVideosWithoutLengthInfo );
 
     BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob,
-                BackgroundTaskManager::BackgroundVideoPreviewRequest);
+                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
 }
 
 void MainWindow::Window::checkIfMplayerIsInstalled()

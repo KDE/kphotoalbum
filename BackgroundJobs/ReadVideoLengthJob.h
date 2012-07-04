@@ -30,7 +30,7 @@ class ReadVideoLengthJob : public BackgroundTaskManager::JobInterface
     Q_OBJECT
 
 public:
-    ReadVideoLengthJob( const DB::FileName& fileName );
+    ReadVideoLengthJob( const DB::FileName& fileName, BackgroundTaskManager::Priority priority );
     OVERRIDE void execute();
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;

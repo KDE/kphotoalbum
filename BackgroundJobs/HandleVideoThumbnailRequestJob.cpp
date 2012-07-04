@@ -30,8 +30,8 @@
 
 namespace BackgroundJobs {
 
-HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request) :
-    BackgroundTaskManager::JobInterface(), m_request(request)
+HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request, BackgroundTaskManager::Priority priority) :
+    BackgroundTaskManager::JobInterface(priority), m_request(request)
 {
 }
 

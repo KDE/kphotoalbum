@@ -22,6 +22,7 @@
 #include <QString>
 #include <QObject>
 #include <QElapsedTimer>
+#include "Priority.h"
 
 namespace BackgroundTaskManager {
 
@@ -30,12 +31,13 @@ class JobInfo :public QObject
     Q_OBJECT
 
 public:
-    JobInfo();
+    JobInfo(BackgroundTaskManager::Priority priority);
     JobInfo( const JobInfo* other );
     virtual ~JobInfo();
 
     virtual QString title() const = 0;
     virtual QString details() const = 0;
+    BackgroundTaskManager::Priority priority() const;
 
     enum State { NotStarted, Running, Completed };
     State state;
@@ -50,6 +52,7 @@ signals:
     void changed() const;
 
 private:
+    BackgroundTaskManager::Priority m_priority;
     QElapsedTimer m_timer;
     uint m_elapsed;
 };

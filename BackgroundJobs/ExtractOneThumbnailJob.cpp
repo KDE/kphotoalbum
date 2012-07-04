@@ -27,8 +27,8 @@
 
 namespace BackgroundJobs {
 
-ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int index)
-    : m_fileName(fileName), m_index(index)
+ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority)
+    : JobInterface(priority), m_fileName(fileName), m_index(index)
 {
 }
 

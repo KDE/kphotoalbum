@@ -25,6 +25,10 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <klocale.h>
 #include <BackgroundTaskManager/JobInfo.h>
+#include "ExtractOneThumbnailJob.h"
+#include "ReadVideoLengthJob.h"
+
+using namespace BackgroundJobs;
 
 void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
@@ -39,9 +43,15 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( thumbnailName.exists() )
             continue;
 
-        BackgroundTaskManager::JobManager::instance()->addJob(
-                    new BackgroundJobs::CreateVideoThumbnailsJob(info->fileName()),
-                    BackgroundTaskManager::BackgroundVideoPreviewRequest);
+        BackgroundJobs::ReadVideoLengthJob* readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName());
+
+        for (int i=0; i<10;++i) {
+            ExtractOneThumbnailJob* extractJob = new ExtractOneThumbnailJob( info->fileName(), i );
+            extractJob->addDependency(readVideoLengthJob);
+        }
+
+        BackgroundTaskManager::JobManager::instance()->addJob( readVideoLengthJob,
+                                                               BackgroundTaskManager::BackgroundVideoPreviewRequest);
     }
     emit completed();
 }

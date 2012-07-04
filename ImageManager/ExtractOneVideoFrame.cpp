@@ -26,6 +26,8 @@
 #include <KLocale>
 #include <KMessageBox>
 #include <MainWindow/Window.h>
+#include <DB/ImageDB.h>
+
 namespace ImageManager {
 
 #define STR(x) QString::fromUtf8(x)

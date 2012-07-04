@@ -702,3 +702,11 @@ QColor Utilities::contrastColor( const QColor& col )
     else
         return Qt::black;
 }
+
+void Utilities::saveImage( const DB::FileName& fileName, const QImage& image, const char* format )
+{
+    const QFileInfo info(fileName.absolute());
+    QDir().mkpath(info.path());
+    const bool ok = image.save(fileName.absolute(),format);
+    Q_ASSERT(ok);
+}

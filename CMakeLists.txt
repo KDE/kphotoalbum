@@ -295,6 +295,7 @@ set(libBackgroundJobs_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/CreateVideoThumbnailsJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/HandleVideoThumbnailRequestJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ExtractOneThumbnailJob.cpp
 )
 
 add_subdirectory( images )

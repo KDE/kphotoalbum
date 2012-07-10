@@ -46,6 +46,7 @@ private:
     ExtractOneVideoFrame(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();
     void deleteWorkingDirectory();
+    QImage brokenImage() const;
 
     QString m_workingDirectory;
     Utilities::Process* m_process;

@@ -80,6 +80,7 @@ protected slots:
     void setMatchType( Settings::MatchType );
     void limitToSelection();
     void showAllChildren();
+    void updateSelectionCount();
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );

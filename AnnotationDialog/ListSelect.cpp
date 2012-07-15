@@ -46,7 +46,7 @@ using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
 
 AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent )
-    : QWidget( parent ), _category( category )
+    : QWidget( parent ), _category( category ), _baseTitle( )
 {
     QVBoxLayout* layout = new QVBoxLayout( this );
 
@@ -66,6 +66,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     connect( _listView, SIGNAL( contextMenuRequested( Q3ListViewItem*, const QPoint&, int ) ),
              this, SLOT(showContextMenu( Q3ListViewItem*, const QPoint& ) ) );
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
+    connect( _listView, SIGNAL( selectionChanged() ), this, SLOT( updateSelectionCount() ) );
 
     layout->addWidget( _listView );
     _listView->viewport()->installEventFilter( this );
@@ -163,6 +164,7 @@ void AnnotationDialog::ListSelect::slotReturn()
 
         _lineEdit->clear();
     }
+    updateSelectionCount();
 }
 
 QString AnnotationDialog::ListSelect::category() const
@@ -182,6 +184,7 @@ void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const Stri
     }
 
     _lineEdit->clear();
+    updateSelectionCount();
 }
 
 bool AnnotationDialog::ListSelect::isAND() const
@@ -204,10 +207,13 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
     } else {
         _and->hide();
         _or->hide();
-	_showSelectedOnly->show();
+        _showSelectedOnly->show();
     }
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
+
+    // ensure that the selection count indicator matches the current mode:
+    updateSelectionCount();
 }
 
 
@@ -619,6 +625,37 @@ void AnnotationDialog::ListSelect::showAllChildren()
 {
     _showSelectedOnly->setChecked( false );
     showOnlyItemsMatching( QString() );
+}
+
+void AnnotationDialog::ListSelect::updateSelectionCount()
+{
+    if ( _baseTitle.isEmpty()    //-> first time
+            || ! parentWidget()->windowTitle().startsWith( _baseTitle ) //-> title has changed
+       )
+    {
+        // save the original parentWidget title
+        _baseTitle = parentWidget()->windowTitle();
+    }
+    switch( _mode )
+    {
+        case InputSingleImageConfigMode:
+            // "normal" on/off states -> show selected items
+            parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2)" )
+                    .arg( _baseTitle )
+                    .arg( itemsOn().size() ) );
+            break;
+        case InputMultiImageConfigMode:
+            // tri-state selection -> show min-max (selected items vs. partially selected items):
+            parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2-%3)" )
+                    .arg( _baseTitle )
+                    .arg( itemsOn().size() )
+                    .arg( itemsOn().size() + itemsUnchanged().size() ) );
+            break;
+        case SearchMode:
+            // no indicator while searching
+            parentWidget()->setWindowTitle( _baseTitle );
+            break;
+    }
 }
 
 

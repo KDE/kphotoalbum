@@ -17,7 +17,7 @@
 */
 #include "ThumbnailFacade.h"
 #include "ImageManager/ThumbnailCache.h"
-#include "ImageManager/VideoManager.h"
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
 #include "Settings/SettingsData.h"
 #include "ThumbnailToolTip.h"
@@ -168,7 +168,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
     Q_FOREACH( const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-        ImageManager::VideoManager::instance().removeFullScaleFrame(fileName);
+        BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         _model->updateCell(fileName);
     }
 }

@@ -29,15 +29,22 @@ class JobInterface : public JobInfo
 {
     Q_OBJECT
 public:
-    JobInterface();
+    JobInterface(BackgroundTaskManager::Priority);
     virtual ~JobInterface();
     void start();
+    void addDependency(JobInterface* job);
 
 protected:
     virtual void execute() = 0;
 
 signals:
     void completed();
+
+private slots:
+    void dependedJobCompleted();
+
+private:
+    int m_dependencies;
 };
 
 }

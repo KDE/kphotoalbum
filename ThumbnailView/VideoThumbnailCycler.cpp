@@ -58,7 +58,7 @@ void ThumbnailView::VideoThumbnailCycler::updateThumbnail()
 
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
-    QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize());
+    QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     m_model->setOverrideImage(m_fileName, QPixmap::fromImage(img));
 }
 

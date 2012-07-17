@@ -21,7 +21,7 @@
 
 #include <QObject>
 #include "JobInterface.h"
-#include <QQueue>
+#include "PriorityQueue.h"
 
 namespace BackgroundTaskManager
 {
@@ -29,7 +29,7 @@ class JobManager : public QObject
 {
     Q_OBJECT
 public:
-    void addJob(JobInterface*);
+    void addJob(JobInterface* job);
     static JobManager* instance();
     int activeJobCount() const;
     JobInfo* activeJob(int index) const;
@@ -54,7 +54,7 @@ private:
 
     bool m_isRunning;
     QList<JobInterface*> m_active;
-    QQueue<JobInterface*> m_queue;
+    PriorityQueue m_queue;
 };
 
 }

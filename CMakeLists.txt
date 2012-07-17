@@ -182,7 +182,6 @@ set(libImageManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageClientInterface.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp 
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageEvent.cpp
@@ -193,6 +192,7 @@ set(libImageManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailsExtractor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp
 )
 
 set(libDB_SRCS 
@@ -282,6 +282,7 @@ set(libBackgroundTaskManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobModel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInfo.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/CompletedJobInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/PriorityQueue.cpp
 )
 
 kde4_add_ui_files( libBackgroundTaskManager_SRCS
@@ -292,7 +293,8 @@ set(libBackgroundJobs_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoLengthJob.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/CreateVideoThumbnailsJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/HandleVideoThumbnailRequestJob.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ExtractOneThumbnailJob.cpp
 )
 
 add_subdirectory( images )

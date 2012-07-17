@@ -1,5 +1,5 @@
-/* Copyright 2012  Jesper K. Pedersen <blackie@kde.org>
-
+/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+  
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
    published by the Free Software Foundation; either version 2 of
@@ -7,50 +7,28 @@
    accepted by the membership of KDE e.V. (or its successor approved
    by the membership of KDE e.V.), which shall act as a proxy
    defined in Section 14 of version 3 of the license.
-
+   
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
+   
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef VIDEOTHUMBNAILSEXTRACTOR_H
-#define VIDEOTHUMBNAILSEXTRACTOR_H
-
-#include <QObject>
-#include <DB/FileName.h>
-class QProcess;
-class QImage;
-
-namespace ImageManager
+#ifndef BACKGROUNDTASKAMANAGER_PRIORITY_H
+#define BACKGROUNDTASKAMANAGER_PRIORITY_H
+namespace BackgroundTaskManager
 {
-
-class VideoThumbnailsExtractor :public QObject
-{
-Q_OBJECT
-
-public:
-    VideoThumbnailsExtractor( const DB::FileName& fileName, int videoLength, QObject* parent );
-    static DB::FileName frameName(const DB::FileName& videoName, int frameNumber );
-
-private slots:
-    void frameFetched(const QImage& image);
-
-signals:
-    void frameLoaded(int index, const QImage& image );
-    void completed();
-
-private:
-    void requestNextFrame();
-
-    DB::FileName m_fileName;
-    double m_length;
-    int m_frameNumber;
+enum Priority {
+    ActiveThumbnailRequest = 0,
+    BackgroundVideoInfoRequest = 1,
+    BackgroundVideoThumbnailRequest = 2,
+    BackgroundVideoPreviewRequest = 3,
+    SIZE_OF_PRIORITY_QUEUE // Must be after the last one, and the last one MUST be the highest.
 };
 
 }
 
-#endif // VIDEOTHUMBNAILSEXTRACTOR_H
+#endif // BACKGROUNDTASKAMANAGER_PRIORITY_H

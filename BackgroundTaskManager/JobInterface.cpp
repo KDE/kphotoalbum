@@ -17,6 +17,7 @@
 */
 
 #include "JobInterface.h"
+#include "JobManager.h"
 
 /**
   \class BackgroundTaskManager::JobInterface
@@ -27,7 +28,8 @@
 */
 
 
-BackgroundTaskManager::JobInterface::JobInterface()
+BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priority priority)
+    : JobInfo(priority)
 {
     connect( this, SIGNAL(completed()), this, SLOT(stop()));
 }
@@ -40,6 +42,19 @@ void BackgroundTaskManager::JobInterface::start()
 {
     JobInfo::start();
     execute();
+}
+
+void BackgroundTaskManager::JobInterface::addDependency(BackgroundTaskManager::JobInterface *job)
+{
+    m_dependencies++;
+    connect(job,SIGNAL(completed()),this, SLOT(dependedJobCompleted()));
+}
+
+void BackgroundTaskManager::JobInterface::dependedJobCompleted()
+{
+    m_dependencies--;
+    if ( m_dependencies == 0 )
+        BackgroundTaskManager::JobManager::instance()->addJob(this);
 }
 
 #include "JobInterface.moc"

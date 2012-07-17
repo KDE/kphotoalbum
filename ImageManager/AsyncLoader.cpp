@@ -22,12 +22,13 @@
 #include "ImageLoaderThread.h"
 #include "ImageManager/ImageClientInterface.h"
 #include "Utilities/Util.h"
-#include "VideoManager.h"
 
 #include <kurl.h>
 #include <qpixmapcache.h>
 #include "ImageEvent.h"
 #include "CancelEvent.h"
+#include <BackgroundTaskManager/JobManager.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
 ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = 0;
 
@@ -74,7 +75,12 @@ void ImageManager::AsyncLoader::load( ImageRequest* request )
 
 void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
-    VideoManager::instance().request( request );
+    BackgroundTaskManager::Priority priority =
+            (request->priority() > ThumbnailInvisible)
+              ?  BackgroundTaskManager::ActiveThumbnailRequest
+              : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));
 }
 
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
@@ -101,7 +107,10 @@ void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction a
     _loadList.cancelRequests( client, action );
     _lock.unlock();
 
-    VideoManager::instance().stop( client, action );
+    // PENDING(blackie) Reintroduce this
+    // VideoManager::instance().stop( client, action );
+    // Was implemented as _pending.cancelRequests( client, action );
+    // Where _pending is the RequestQueue
 }
 
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
@@ -156,5 +165,3 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         cancelEvent->request()->client()->requestCanceled();
     }
 }
-
-#include "AsyncLoader.moc"

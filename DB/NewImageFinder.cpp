@@ -145,7 +145,8 @@ void NewImageFinder::loadExtraFiles()
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
     Q_FOREACH( const ImageInfoPtr& info, newImages ) {
         if ( info->isVideo() )
-            BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::ReadVideoLengthJob(info->fileName()) );
+            BackgroundTaskManager::JobManager::instance()->addJob(
+                        new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
     }
 
 }

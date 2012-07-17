@@ -67,7 +67,7 @@ void BackgroundTaskManager::JobManager::execute()
 
 void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterface* job )
 {
-    m_queue.enqueue(job);
+    m_queue.enqueue(job, job->priority());
     execute();
 }
 
@@ -97,7 +97,7 @@ int BackgroundTaskManager::JobManager::futureJobCount() const
 
 BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::futureJob(int index) const
 {
-    return m_queue[index];
+    return m_queue.peek(index);
 }
 
 void BackgroundTaskManager::JobManager::jobCompleted()

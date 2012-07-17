@@ -22,19 +22,25 @@
 
 namespace BackgroundTaskManager {
 
-JobInfo::JobInfo()
-    : state(NotStarted), m_elapsed(0)
+JobInfo::JobInfo(BackgroundTaskManager::Priority priority)
+    : state(NotStarted), m_priority(priority), m_elapsed(0)
 {
 }
 
 JobInfo::JobInfo(const JobInfo *other)
 {
+    m_priority = other->m_priority;
     state = other->state;
     m_elapsed = other->m_elapsed;
 }
 
 JobInfo::~JobInfo()
 {
+}
+
+Priority JobInfo::priority() const
+{
+    return m_priority;
 }
 
 void JobInfo::start()

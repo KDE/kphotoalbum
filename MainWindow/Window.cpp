@@ -130,6 +130,8 @@ MainWindow::Window::Window( QWidget* parent )
     _annotationDialog(0),
      _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
 {
+    checkIfMplayerIsInstalled();
+
     SplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
 
@@ -1693,8 +1695,21 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutLengthInfo );
-    BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::SearchForVideosWithoutLengthInfo );
+
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+}
+
+void MainWindow::Window::checkIfMplayerIsInstalled()
+{
+    if ( FeatureDialog::mplayerBinary().isNull() ) {
+        KMessageBox::error( this,
+                i18n("<p>Unable to find mplayer on the system</p>"
+                     "<p>KPhotoAlbum needs mplayer to extract video thumbnails among other things.") );
+        exit(-1);
+    }
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

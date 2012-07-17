@@ -28,8 +28,8 @@
   \brief Read the length of a video file and writes that to the database
 */
 
-BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName)
-    :m_fileName(fileName)
+BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName,BackgroundTaskManager::Priority priority)
+    : JobInterface(priority), m_fileName(fileName)
 {
 }
 

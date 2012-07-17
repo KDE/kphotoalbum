@@ -24,7 +24,6 @@
 #include <QList>
 #include <kapplication.h>
 #include "Exif/Database.h"
-#include <ImageManager/VideoManager.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
 #include <phonon/backendcapabilities.h>
@@ -84,11 +83,6 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
-
-    text += i18n("<h1><a name=\"thumbnails\">Video thumbnails support</a></h1>"
-                 "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos.</p>"
-                 "<p>Unfortunately KDE4 does currently not come with any plug-ins for this, you therefore need manually to install "
-                 "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
@@ -195,8 +189,6 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n("SQL database support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "Video thumbnail support" ), QString::fromLatin1("#thumbnails"),
-                      ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
     features << Data( i18n( "Video preview"), QString::fromLatin1("#videoPreview"), !mplayerBinary().isEmpty());
 

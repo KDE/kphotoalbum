@@ -21,10 +21,13 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <QFile>
-#include "CreateVideoThumbnailsJob.h"
 #include <BackgroundTaskManager/JobManager.h>
 #include <klocale.h>
 #include <BackgroundTaskManager/JobInfo.h>
+#include "ExtractOneThumbnailJob.h"
+#include "ReadVideoLengthJob.h"
+
+using namespace BackgroundJobs;
 
 void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
@@ -39,7 +42,14 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( thumbnailName.exists() )
             continue;
 
-        BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::CreateVideoThumbnailsJob(info->fileName()) );
+        BackgroundJobs::ReadVideoLengthJob* readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
+
+        for (int i=0; i<10;++i) {
+            ExtractOneThumbnailJob* extractJob = new ExtractOneThumbnailJob( info->fileName(), i, BackgroundTaskManager::BackgroundVideoPreviewRequest );
+            extractJob->addDependency(readVideoLengthJob);
+        }
+
+        BackgroundTaskManager::JobManager::instance()->addJob( readVideoLengthJob);
     }
     emit completed();
 }
@@ -52,5 +62,10 @@ QString BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::title() const
 QString BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::details() const
 {
     return QString();
+}
+
+SearchForVideosWithoutVideoThumbnailsJob::SearchForVideosWithoutVideoThumbnailsJob()
+    : JobInterface(BackgroundTaskManager::BackgroundVideoPreviewRequest)
+{
 }
 

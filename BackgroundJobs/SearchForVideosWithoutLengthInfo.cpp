@@ -29,6 +29,11 @@
   \brief Task for searching the database for videos without length information
 */
 
+BackgroundJobs::SearchForVideosWithoutLengthInfo::SearchForVideosWithoutLengthInfo()
+    :BackgroundTaskManager::JobInterface(BackgroundTaskManager::BackgroundVideoInfoRequest)
+{
+}
+
 void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
@@ -38,7 +43,8 @@ void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
             continue;
         int length = info->videoLength();
         if ( length == -1 ) {
-            BackgroundTaskManager::JobManager::instance()->addJob( new BackgroundJobs::ReadVideoLengthJob(info->fileName()) );
+            BackgroundTaskManager::JobManager::instance()->addJob(
+                        new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
         }
     }
     emit completed();

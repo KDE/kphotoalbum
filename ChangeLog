@@ -1,3 +1,8 @@
+2012-07-17  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* New Feature: Video thumbnails are now extracted using the new
+	background thumbnail extractor rather than with MPlayerThumbs.
+
 2012-06-10  Jesper K. Pedersen  <blackie@kde.org>
 
 	* New Feature: Introduced an led in the status bar, which blinks

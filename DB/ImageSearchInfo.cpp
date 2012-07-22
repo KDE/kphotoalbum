@@ -233,8 +233,8 @@ QString ImageSearchInfo::toString() const
                                                 "I do realize that translators may have problem with this, "
                                                 "but I need some how to indicate the category, and users may create their own categories, so this is "
                                                 "the best I can do - Jesper.", "No other %1", it.key() ) );
-            txt.simplified();
-            res += txt;
+
+            res += txt.simplified();
         }
     }
     return res;

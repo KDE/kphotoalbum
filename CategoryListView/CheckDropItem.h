@@ -24,13 +24,13 @@
 class QDropEvent;
 namespace CategoryListView
 {
-class DragableListView;
+class DraggableListView;
 
 class CheckDropItem :public Q3CheckListItem
 {
 public:
-    CheckDropItem( DragableListView* listview, const QString& column1, const QString& column2 );
-    CheckDropItem( DragableListView* listview, Q3ListViewItem* parent, const QString& column1, const QString& column2 );
+    CheckDropItem( DraggableListView* listview, const QString& column1, const QString& column2 );
+    CheckDropItem( DraggableListView* listview, Q3ListViewItem* parent, const QString& column1, const QString& column2 );
     virtual bool acceptDrop( const QMimeSource* mime ) const;
     void setDNDEnabled( bool );
 
@@ -42,7 +42,7 @@ protected:
     virtual void activate();
 
 private:
-    DragableListView* _listView;
+    DraggableListView* _listView;
 };
 
 }

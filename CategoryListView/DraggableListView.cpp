@@ -15,16 +15,16 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "DragableListView.h"
+#include "DraggableListView.h"
 #include "DragObject.h"
 #include "DB/Category.h"
 
-CategoryListView::DragableListView::DragableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name )
+CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name )
     :Q3ListView( parent, name ), _category( category )
 {
 }
 
-Q3DragObject* CategoryListView::DragableListView::dragObject()
+Q3DragObject* CategoryListView::DraggableListView::dragObject()
 {
     CategoryListView::DragItemInfoSet selected;
     for ( Q3ListViewItemIterator itemIt( this ); *itemIt; ++itemIt ) {
@@ -38,14 +38,15 @@ Q3DragObject* CategoryListView::DragableListView::dragObject()
     return new DragObject( selected, this );
 }
 
-DB::CategoryPtr CategoryListView::DragableListView::category() const
+DB::CategoryPtr CategoryListView::DraggableListView::category() const
 {
     return _category;
 }
 
-void CategoryListView::DragableListView::emitItemsChanged()
+void CategoryListView::DraggableListView::emitItemsChanged()
 {
     emit itemsChanged();
 }
 
-#include "DragableListView.moc"
+#include "DraggableListView.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

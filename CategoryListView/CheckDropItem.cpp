@@ -18,7 +18,7 @@
 #include "CheckDropItem.h"
 #include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
-#include "DragableListView.h"
+#include "DraggableListView.h"
 #include "DragItemInfo.h"
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -26,14 +26,14 @@
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
 
-CategoryListView::CheckDropItem::CheckDropItem( DragableListView* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* parent, const QString& column1,
                                                 const QString& column2 )
     : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( parent )
 {
     setText( 1, column2 );
 }
 
-CategoryListView::CheckDropItem::CheckDropItem( DragableListView* listView, Q3ListViewItem* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* listView, Q3ListViewItem* parent, const QString& column1,
                                                 const QString& column2 )
     : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( listView )
 {

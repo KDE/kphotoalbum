@@ -37,7 +37,7 @@
 #include "DB/CategoryItem.h"
 #include "ListViewItemHider.h"
 #include "ShowSelectionOnlyManager.h"
-#include "CategoryListView/DragableListView.h"
+#include "CategoryListView/DraggableListView.h"
 #include "CategoryListView/CheckDropItem.h"
 #include <qradiobutton.h>
 #include <QWidgetAction>
@@ -56,7 +56,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _lineEdit->setObjectName( category->name() );
     layout->addWidget( _lineEdit );
 
-    _listView = new CategoryListView::DragableListView( _category, this );
+    _listView = new CategoryListView::DraggableListView( _category, this );
     _listView->viewport()->setAcceptDrops( true );
     _listView->addColumn( QString::fromLatin1( "items" ) );
     _listView->header()->setStretchEnabled( true );

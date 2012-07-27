@@ -75,7 +75,13 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem
     if ( _anchorAtStart )
         return item->text(0).toLower().startsWith( _text.toLower() );
     else
-        return item->text(0).toLower().contains( _text.toLower() );
+    {
+        QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
+        Q_FOREACH(QString word,  words)
+            if ( word.startsWith( _text.toLower() ) )
+                return true;
+        return false;
+    }
 }
 
 bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )

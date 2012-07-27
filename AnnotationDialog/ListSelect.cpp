@@ -107,6 +107,13 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _showSelectedOnly->setCheckable( true );
     _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
 
+    _matchFromBeginning = new QToolButton;
+    _matchFromBeginning->setIcon( SmallIcon( QString::fromLatin1( "code-context" ) ) );
+    _matchFromBeginning->setCheckable( true );
+    _matchFromBeginning->setChecked( Settings::SettingsData::instance()->matchType() == Settings::MatchFromBeginning );
+    _matchFromBeginning->setToolTip( i18n("Match items from the start only, not from all word boundaries.") );
+
+
     _alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
     _dateSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse );
@@ -114,11 +121,13 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     connect( _alphaTreeSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaTree() ) );
     connect( _alphaFlatSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaFlat() ) );
     connect( _showSelectedOnly, SIGNAL( clicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
+    connect( _matchFromBeginning, SIGNAL( toggled( bool ) ), this, SLOT( toggleMatchFromBeginning() ) );
 
     lay2->addWidget( _alphaTreeSort );
     lay2->addWidget( _alphaFlatSort );
     lay2->addWidget( _dateSort );
     lay2->addWidget( _showSelectedOnly );
+    lay2->addWidget( _matchFromBeginning );
 
     _lineEdit->setListView( _listView );
 
@@ -128,6 +137,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
+    connect( Settings::SettingsData::instance(), SIGNAL( matchTypeChanged( Settings::MatchType ) ),
+             this, SLOT( setMatchType( Settings::MatchType ) ) );
 
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( limitToSelected() ), this, SLOT(limitToSelection() ) );
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
@@ -213,6 +224,11 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
     _alphaTreeSort->setChecked( tp == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( tp == Settings::SortAlphaFlat );
     _dateSort->setChecked( tp == Settings::SortLastUse );
+}
+
+void AnnotationDialog::ListSelect::setMatchType( Settings::MatchType mt )
+{
+    _matchFromBeginning->setChecked( mt == Settings::MatchFromBeginning );
 }
 
 
@@ -527,7 +543,7 @@ void AnnotationDialog::ListSelect::rePopulate()
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 {
-    ListViewTextMatchHider dummy( text, true, _listView );
+    ListViewTextMatchHider dummy( text, _matchFromBeginning->isChecked(), _listView );
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
 }
 
@@ -577,6 +593,17 @@ void AnnotationDialog::ListSelect::toggleSortType()
         data->setViewSortType( Settings::SortAlphaFlat );
     else
         data->setViewSortType( Settings::SortLastUse );
+}
+
+void AnnotationDialog::ListSelect::toggleMatchFromBeginning()
+{
+    Settings::SettingsData* data = Settings::SettingsData::instance();
+    if ( _matchFromBeginning->isChecked() )
+        data->setMatchType( Settings::MatchFromBeginning );
+    else
+        data->setMatchType( Settings::MatchFromWordStart );
+    // update item list:
+    showOnlyItemsMatching( text() );
 }
 
 void AnnotationDialog::ListSelect::limitToSelection()

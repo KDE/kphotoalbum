@@ -9,7 +9,7 @@ my @params;
 # Raw extensions you use. If you use Ufraw you might want to add ufraw
 # as the first extension in the list
 # my @rawExt = ("ufraw", "CR2", "NEF");
-my @rawExt = ("CR2", "NEF");
+my @rawExt = ("CR2", "NEF", "ORF");
 
 # The application you use to develop the RAW files
 # my $extApp = "/usr/bin/ufraw";

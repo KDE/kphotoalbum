@@ -40,7 +40,12 @@ ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
 void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
 {
     m_fileName = fileName;
-    delete m_process;
+    if ( m_process ) {
+        disconnect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
+        m_process->kill();
+        delete m_process;
+        m_process = 0;
+    }
 
     m_process = new Utilities::Process(this);
     m_process->setWorkingDirectory(QDir::tempPath());
@@ -99,4 +104,6 @@ void ImageManager::VideoLengthExtractor::processEnded()
     }
 
     emit lengthFound(length);
+    m_process->deleteLater();
+    m_process = 0;
 }

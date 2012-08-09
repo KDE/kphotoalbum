@@ -44,7 +44,7 @@ void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
 
 void StatusIndicator::flicker()
 {
-    setColor( color() == Qt::green ? Qt::gray : Qt::green );
+    setColor( color() == Qt::gray ? currentColor() : Qt::gray );
 }
 
 void StatusIndicator::startFlicker()
@@ -56,6 +56,11 @@ void StatusIndicator::stopFlicker()
 {
     setColor( Qt::gray );
     m_timer->stop();
+}
+
+QColor StatusIndicator::currentColor() const
+{
+    return JobManager::instance()->isPaused() ? Qt::yellow : Qt::green;
 }
 
 } // namespace BackgroundTaskManager

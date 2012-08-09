@@ -43,6 +43,7 @@ private slots:
     void stopFlicker();
 
 private:
+    QColor currentColor() const;
     QTimer* m_timer;
     JobViewer* m_jobViewer;
 };

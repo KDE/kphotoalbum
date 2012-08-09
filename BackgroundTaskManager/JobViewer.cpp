@@ -20,6 +20,7 @@
 #include "JobViewer.h"
 #include "ui_JobViewer.h"
 #include "JobModel.h"
+#include "JobManager.h"
 
 namespace BackgroundTaskManager {
 
@@ -28,6 +29,7 @@ JobViewer::JobViewer(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(i18n("Background Job Viewer"));
+    connect( ui->pause, SIGNAL(clicked()), this, SLOT(togglePause()));
 }
 
 void JobViewer::setVisible(bool b)
@@ -35,6 +37,7 @@ void JobViewer::setVisible(bool b)
     if (b) {
         m_model = new JobModel(this);
         ui->view->setModel(m_model);
+        updatePauseButton();
     }
     else
         delete m_model;
@@ -42,6 +45,17 @@ void JobViewer::setVisible(bool b)
     ui->view->setColumnWidth(0, 300);
     ui->view->setColumnWidth(1, 300);
     QDialog::setVisible(b);
+}
+
+void JobViewer::togglePause()
+{
+    JobManager::instance()->togglePaused();
+    updatePauseButton();
+}
+
+void JobViewer::updatePauseButton()
+{
+    ui->pause->setText(JobManager::instance()->isPaused() ? i18n("Continue") : i18n("Pause"));
 }
 
 } // namespace BackgroundTaskManager

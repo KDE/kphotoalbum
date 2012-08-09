@@ -34,7 +34,7 @@
 BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::m_instance = 0;
 
 BackgroundTaskManager::JobManager::JobManager() :
-    m_isRunning(false)
+    m_isRunning(false), m_isPaused(false)
 {
 }
 
@@ -51,7 +51,10 @@ void BackgroundTaskManager::JobManager::execute()
         return;
     }
 
-    else if (!m_isRunning) {
+    if ( m_isPaused )
+        return;
+
+    if (!m_isRunning) {
         m_isRunning = true;
         emit started();
     }
@@ -100,6 +103,11 @@ BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::futureJob(int
     return m_queue.peek(index);
 }
 
+bool BackgroundTaskManager::JobManager::isPaused() const
+{
+    return m_isPaused;
+}
+
 void BackgroundTaskManager::JobManager::jobCompleted()
 {
     JobInterface* job = qobject_cast<JobInterface*>(sender());
@@ -107,5 +115,11 @@ void BackgroundTaskManager::JobManager::jobCompleted()
     emit jobEnded(job);
     m_active.removeAll(job);
     job->deleteLater();
+    execute();
+}
+
+void BackgroundTaskManager::JobManager::togglePaused()
+{
+    m_isPaused = !m_isPaused;
     execute();
 }

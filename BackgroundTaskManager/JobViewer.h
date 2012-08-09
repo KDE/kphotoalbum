@@ -33,7 +33,12 @@ public:
     explicit JobViewer(QWidget *parent = 0);
     OVERRIDE void setVisible(bool);
 
+private slots:
+    void togglePause();
+
 private:
+    void updatePauseButton();
+
     Ui::JobViewer* ui;
     JobModel* m_model;
 };

@@ -35,6 +35,8 @@ public:
     JobInfo* activeJob(int index) const;
     int futureJobCount() const;
     JobInfo* futureJob(int index) const;
+    bool isPaused() const;
+    void togglePaused();
 
 signals:
     void started();
@@ -55,6 +57,7 @@ private:
     bool m_isRunning;
     QList<JobInterface*> m_active;
     PriorityQueue m_queue;
+    bool m_isPaused;
 };
 
 }

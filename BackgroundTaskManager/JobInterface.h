@@ -44,6 +44,8 @@ private slots:
     void dependedJobCompleted();
 
 private:
+    int m_jobIndex;
+    static int m_jobCounter;
     int m_dependencies;
 };
 

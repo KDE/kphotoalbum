@@ -21,9 +21,9 @@
 #include <QDebug>
 
 #ifdef DEBUG_JOBMANAGER
-#define Debug qDebug()
+#define Debug qDebug
 #else
-#define Debug if (0) qDebug()
+#define Debug if (0) qDebug
 #endif
 
 /**
@@ -34,10 +34,12 @@
   Emitting the signal is crusial, as the JobManager will otherwise stall.
 */
 
+int BackgroundTaskManager::JobInterface::m_jobCounter = 0;
 
 BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priority priority)
-    : JobInfo(priority)
+    : JobInfo(priority), m_jobIndex(++m_jobCounter), m_dependencies(0)
 {
+    Debug() << "Created Job #" << m_jobIndex;
     connect( this, SIGNAL(completed()), this, SLOT(stop()));
 }
 
@@ -47,7 +49,7 @@ BackgroundTaskManager::JobInterface::~JobInterface()
 
 void BackgroundTaskManager::JobInterface::start()
 {
-    Debug << "Starting Job" << title() << details();
+    Debug("Starting Job (#%d): %s %s", m_jobIndex, qPrintable(title()), qPrintable(details()));
     JobInfo::start();
     execute();
 }

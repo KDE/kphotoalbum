@@ -28,7 +28,7 @@
 
 /**
   \class BackgroundTaskManager::JobInterface
-  \brief Interfaces for jobs to be executed using \ref BackgroundTaskManager::Jobmanager
+  \brief Interfaces for jobs to be executed using \ref BackgroundTaskManager::JobManager
 
   Each job must override \ref execute, and must emit the signal completed.
   Emitting the signal is crusial, as the JobManager will otherwise stall.

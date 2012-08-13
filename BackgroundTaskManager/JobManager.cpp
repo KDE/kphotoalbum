@@ -23,7 +23,7 @@
 
 /**
   \class BackgroundTaskManager::JobManager
-  \breif Engine for running background jobs
+  \brief Engine for running background jobs
 
   This is the engine for running background jobs. Each job is a subclass of
   \ref BackgroundTaskManager::JobInterface. The jobs are added using \ref addJob.

@@ -42,7 +42,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int off
     m_process = new Utilities::Process(this);
     setupWorkingDirectory();
     m_process->setWorkingDirectory(m_workingDirectory);
-    // PENDING HOW ABOUT ERROR HANDLING?
+
     connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
     connect( m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
     connect( this, SIGNAL(result(QImage)), receiver, slot);
@@ -80,6 +80,7 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
             i18n("<p>Error when extracting video thumbnails.<br>Error was: %1</p>" , message ),
             QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
     emit result(QImage());
+    deleteLater();
 }
 
 void ExtractOneVideoFrame::setupWorkingDirectory()

@@ -42,6 +42,7 @@
 #include <MainWindow/Window.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
+#include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <QDebug>
 
 using namespace DB;
@@ -64,6 +65,11 @@ bool NewImageFinder::findImages()
     loadExtraFiles();
 
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
+
+    // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
+    BackgroundTaskManager::JobManager::instance()->addJob(
+                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
     return (!_pendingLoad.isEmpty()); // returns if new images was found.

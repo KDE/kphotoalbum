@@ -45,6 +45,7 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         BackgroundJobs::ReadVideoLengthJob* readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
 
         for (int i=0; i<10;++i) {
+            //WOOOHAHA i should be offset in seconds!
             ExtractOneThumbnailJob* extractJob = new ExtractOneThumbnailJob( info->fileName(), i, BackgroundTaskManager::BackgroundVideoPreviewRequest );
             extractJob->addDependency(readVideoLengthJob);
         }

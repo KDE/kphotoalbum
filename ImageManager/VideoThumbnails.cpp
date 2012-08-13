@@ -20,29 +20,37 @@
 #include "VideoThumbnailsExtractor.h"
 #include "VideoLengthExtractor.h"
 #include <QFile>
+#include <BackgroundJobs/ReadVideoLengthJob.h>
+#include <BackgroundJobs/ExtractOneThumbnailJob.h>
+#include <BackgroundTaskManager/JobManager.h>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
-    QObject(parent), m_extractor(0)
+    QObject(parent)
 {
     m_cache.resize(10);
-    m_lengthExtractor = new VideoLengthExtractor(this);
-    connect( m_lengthExtractor, SIGNAL(lengthFound(int)), this, SLOT(setLength(int)));
 }
 
 void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
+    m_videoFile = fileName;
     if ( loadFramesFromCache(fileName) )
         return;
 
-    delete m_extractor;
-    m_extractor = 0;
-
-    m_videoFile = fileName;
     m_pendingRequest = 0;
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
 
-    m_lengthExtractor->extract(fileName);
+    BackgroundJobs::ReadVideoLengthJob* lengthJob =
+            new BackgroundJobs::ReadVideoLengthJob(fileName, BackgroundTaskManager::ForegroundCycleRequest);
+
+    for (int i=0; i<10;++i) {
+        // WOOOHA i should be offset in seconds.
+        BackgroundJobs::ExtractOneThumbnailJob* extractJob =
+                new BackgroundJobs::ExtractOneThumbnailJob(fileName, i, BackgroundTaskManager::ForegroundCycleRequest);
+        extractJob->addDependency(lengthJob);
+        connect( extractJob, SIGNAL(completed()), this, SLOT(gotFrame()));
+    }
+    BackgroundTaskManager::JobManager::instance()->addJob(lengthJob);
 }
 
 void ImageManager::VideoThumbnails::requestFrame(int fraction)
@@ -53,18 +61,15 @@ void ImageManager::VideoThumbnails::requestFrame(int fraction)
         emit frameLoaded(m_cache[fraction]);
 }
 
-void ImageManager::VideoThumbnails::gotFrame(int index, const QImage &image)
+void ImageManager::VideoThumbnails::gotFrame()
 {
-    m_cache[index]=image;
+    const BackgroundJobs::ExtractOneThumbnailJob* job = qobject_cast<BackgroundJobs::ExtractOneThumbnailJob*>(sender());
+    const int index = job->index();
+    const DB::FileName thumbnailFile = VideoThumbnailsExtractor::frameName(m_videoFile, index);
+    m_cache[index]=QImage(thumbnailFile.absolute());
 
     if ( m_pendingRequest == index )
-        emit frameLoaded(image);
-}
-
-void ImageManager::VideoThumbnails::setLength(int length)
-{
-    m_extractor = new ImageManager::VideoThumbnailsExtractor(m_videoFile, length, this);
-    connect( m_extractor, SIGNAL(frameLoaded(int,QImage)), this, SLOT(gotFrame(int,QImage)));
+        emit frameLoaded(m_cache[index]);
 }
 
 bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& fileName)

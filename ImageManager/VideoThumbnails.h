@@ -44,16 +44,13 @@ signals:
     void frameLoaded( const QImage& );
 
 private slots:
-    void gotFrame(int index, const QImage& image );
-    void setLength(int length);
+    void gotFrame();
 
 private:
     bool loadFramesFromCache(const DB::FileName& fileName);
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;
-    ImageManager::VideoLengthExtractor* m_lengthExtractor;
-    ImageManager::VideoThumbnailsExtractor* m_extractor;
     int m_pendingRequest;
 };
 

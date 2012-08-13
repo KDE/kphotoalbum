@@ -40,6 +40,7 @@ public:
     OVERRIDE void execute();
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
+    int index() const;
 
 private slots:
     void frameLoaded(const QImage& );

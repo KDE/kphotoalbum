@@ -22,10 +22,11 @@
 namespace BackgroundTaskManager
 {
 enum Priority {
-    ActiveThumbnailRequest = 0,
-    BackgroundVideoInfoRequest = 1,
-    BackgroundVideoThumbnailRequest = 2,
-    BackgroundVideoPreviewRequest = 3,
+    ForegroundCycleRequest = 0,
+    ForegroundThumbnailRequest = 1,
+    BackgroundVideoInfoRequest = 2,
+    BackgroundVideoThumbnailRequest = 3,
+    BackgroundVideoPreviewRequest = 4,
     SIZE_OF_PRIORITY_QUEUE // Must be after the last one, and the last one MUST be the highest.
 };
 

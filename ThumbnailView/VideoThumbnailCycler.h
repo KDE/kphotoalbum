@@ -59,6 +59,7 @@ private:
     QTimer* m_timer;
     ImageManager::VideoThumbnails *m_thumbnails;
     ThumbnailModel* m_model;
+    bool m_gotLast;
 };
 
 }

@@ -77,7 +77,7 @@ void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
     BackgroundTaskManager::Priority priority =
             (request->priority() > ThumbnailInvisible)
-              ?  BackgroundTaskManager::ActiveThumbnailRequest
+              ?  BackgroundTaskManager::ForegroundThumbnailRequest
               : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
     BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));

@@ -49,6 +49,11 @@ QString ExtractOneThumbnailJob::details() const
     return QString::fromLatin1("%1 #%2").arg(m_fileName.relative()).arg(m_index);
 }
 
+int ExtractOneThumbnailJob::index() const
+{
+    return m_index;
+}
+
 void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
 {
     const DB::FileName frameName = ImageManager::VideoThumbnailsExtractor::frameName(m_fileName, m_index);

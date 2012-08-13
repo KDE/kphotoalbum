@@ -16,7 +16,8 @@
   The callback is done using the slot provided. The offset is seconds from the beginning of the video.
 
   \ref BackgroundJobs::ExtractOneThumbnailJob is a \ref BackgroundTaskManager::JobInterface "background job" for extracting a single
-  thumbnail. It is given the video file and the offset as parameters. The result is stored in the .videoThumbnails directory.
+  thumbnail. It is given the video file and the offset as parameters (this time in the range 0 to 9).
+  The result is stored in the .videoThumbnails directory.
 
   \ref BackgroundJobs::HandleVideoThumbnailRequestJob is a \ref BackgroundTaskManager::JobInterface "background job" for extracting a thumbnail
   for the thumbnail viewer. It's interface uses \ref ImageManager::ImageRequest "ImageRequest's",

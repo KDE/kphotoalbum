@@ -44,7 +44,6 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
             new BackgroundJobs::ReadVideoLengthJob(fileName, BackgroundTaskManager::ForegroundCycleRequest);
 
     for (int i=0; i<10;++i) {
-        // WOOOHA i should be offset in seconds.
         BackgroundJobs::ExtractOneThumbnailJob* extractJob =
                 new BackgroundJobs::ExtractOneThumbnailJob(fileName, i, BackgroundTaskManager::ForegroundCycleRequest);
         extractJob->addDependency(lengthJob);

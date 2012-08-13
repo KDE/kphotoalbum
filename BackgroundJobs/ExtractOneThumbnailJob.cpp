@@ -30,6 +30,7 @@ namespace BackgroundJobs {
 ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority)
     : JobInterface(priority), m_fileName(fileName), m_index(index)
 {
+    Q_ASSERT( index >= 0 && index <= 9 );
 }
 
 void ExtractOneThumbnailJob::execute()

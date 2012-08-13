@@ -19,7 +19,7 @@
 
 #include "ExtractOneThumbnailJob.h"
 #include <KLocale>
-#include <ImageManager/VideoThumbnailsExtractor.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <QImage>
 #include <Utilities/Util.h>
@@ -56,7 +56,7 @@ int ExtractOneThumbnailJob::index() const
 
 void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
 {
-    const DB::FileName frameName = ImageManager::VideoThumbnailsExtractor::frameName(m_fileName, m_index);
+    const DB::FileName frameName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_fileName, m_index);
     Q_ASSERT(!image.isNull());
     Utilities::saveImage(frameName, image, "JPEG");
     emit completed();

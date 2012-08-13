@@ -17,7 +17,7 @@
 */
 
 #include "SearchForVideosWithoutVideoThumbnailsJob.h"
-#include <ImageManager/VideoThumbnailsExtractor.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <QFile>
@@ -38,7 +38,7 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( !info->isVideo() )
             continue;
 
-        const DB::FileName thumbnailName = ImageManager::VideoThumbnailsExtractor::frameName(info->fileName(),9);
+        const DB::FileName thumbnailName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(info->fileName(),9);
         if ( thumbnailName.exists() )
             continue;
 

@@ -37,6 +37,7 @@ public:
     OVERRIDE QString details() const;
     static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
     static DB::FileName pathForRequest( const DB::FileName& fileName  );
+    static DB::FileName frameName(const DB::FileName& videoName, int frameNumber );
     static void removeFullScaleFrame( const DB::FileName& fileName );
 
 protected:

@@ -21,7 +21,7 @@
 #include <QDebug>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
-#include <ImageManager/VideoThumbnailsExtractor.h>
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <Utilities/Util.h>
 #include <QTimer>
 #include <ImageManager/VideoThumbnails.h>

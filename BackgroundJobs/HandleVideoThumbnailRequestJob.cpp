@@ -73,6 +73,11 @@ DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &
     return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.hexDigest())));
 }
 
+DB::FileName HandleVideoThumbnailRequestJob::frameName(const DB::FileName &videoName, int frameNumber)
+{
+    return DB::FileName::fromRelativePath( pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
+}
+
 void HandleVideoThumbnailRequestJob::removeFullScaleFrame(const DB::FileName &fileName)
 {
     QDir().remove(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute());

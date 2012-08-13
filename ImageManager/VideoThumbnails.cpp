@@ -17,7 +17,7 @@
 */
 
 #include "VideoThumbnails.h"
-#include "VideoThumbnailsExtractor.h"
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include "VideoLengthExtractor.h"
 #include <QFile>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
@@ -65,7 +65,7 @@ void ImageManager::VideoThumbnails::gotFrame()
 {
     const BackgroundJobs::ExtractOneThumbnailJob* job = qobject_cast<BackgroundJobs::ExtractOneThumbnailJob*>(sender());
     const int index = job->index();
-    const DB::FileName thumbnailFile = VideoThumbnailsExtractor::frameName(m_videoFile, index);
+    const DB::FileName thumbnailFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_videoFile, index);
     m_cache[index]=QImage(thumbnailFile.absolute());
 
     if ( m_pendingRequest == index )
@@ -75,7 +75,7 @@ void ImageManager::VideoThumbnails::gotFrame()
 bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& fileName)
 {
     for (int i=0; i <10; ++i) {
-        const DB::FileName thumbnailFile = VideoThumbnailsExtractor::frameName(fileName, i);
+        const DB::FileName thumbnailFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, i);
         if ( !thumbnailFile.exists())
             return false;
 

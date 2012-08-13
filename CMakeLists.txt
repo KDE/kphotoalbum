@@ -189,7 +189,6 @@ set(libImageManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/PreloadRequest.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CancelEvent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoImageRescaleRequest.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailsExtractor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp

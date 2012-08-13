@@ -50,8 +50,6 @@ private:
 
     QString m_workingDirectory;
     Utilities::Process* m_process;
-    QObject* m_receiver;
-    const char* m_slot;
 };
 
 } // namespace ImageManager

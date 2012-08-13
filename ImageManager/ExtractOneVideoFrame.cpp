@@ -38,7 +38,6 @@ void ExtractOneVideoFrame::extract(const DB::FileName &fileName, int offset, QOb
 }
 
 ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int offset, QObject *receiver, const char *slot)
-    :m_receiver(receiver), m_slot(slot)
 {
     m_process = new Utilities::Process(this);
     setupWorkingDirectory();

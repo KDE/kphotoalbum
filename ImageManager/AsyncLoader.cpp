@@ -113,6 +113,12 @@ void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction a
     // Where _pending is the RequestQueue
 }
 
+int ImageManager::AsyncLoader::activeCount() const
+{
+    QMutexLocker dummy(const_cast<QMutex*>(&_lock));
+    return _currentLoading.count();
+}
+
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
     QMutexLocker dummy(&_lock );

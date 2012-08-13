@@ -18,6 +18,8 @@
 
 #include "JobManager.h"
 #include "JobInfo.h"
+#include <ImageManager/AsyncLoader.h>
+#include <QThread>
 
 /**
   \class BackgroundTaskManager::JobManager
@@ -40,7 +42,12 @@ BackgroundTaskManager::JobManager::JobManager() :
 
 int BackgroundTaskManager::JobManager::maxJobCount() const
 {
-    return 3; // This needs to be improved with CPU count while not running more than say 3 IO bound jobs at a time
+    // See comment in ImageManager::AsyncLoader::init()
+    // We will at least have one active background task at the time, as some of them
+    // currently aren't that much for background stuff. The key example of this is generating video thumbnails.
+    const int max = qMin( 3, QThread::idealThreadCount() );
+    int count = qMax(1,max - ImageManager::AsyncLoader::instance()->activeCount());
+    return count;
 }
 
 void BackgroundTaskManager::JobManager::execute()

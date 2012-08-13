@@ -46,6 +46,7 @@ public:
 
     // Stop loading all images requested by the given client.
     void stop( ImageClientInterface*, StopAction action = StopAll );
+    int activeCount() const;
 
 protected:
     virtual void customEvent( QEvent* ev );

@@ -29,6 +29,10 @@ namespace Utilities { class Process; }
 
 namespace ImageManager {
 
+/**
+  \brief Extract a thumbnail given a filename and offset.
+  \see \ref videothumbnails
+*/
 class ExtractOneVideoFrame : public QObject
 {
     Q_OBJECT

@@ -25,6 +25,10 @@
 namespace BackgroundJobs
 {
 
+/**
+  \brief Read the length of a video file and writes that to the database
+  \see \ref videothumbnails
+*/
 class ReadVideoLengthJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT

@@ -28,6 +28,10 @@ namespace ImageManager {
 class VideoThumbnailsExtractor;
 class VideoLengthExtractor;
 
+/**
+  \brief Helper class for extracting videos for thumbnail cycling
+  \see \ref videothumbnails
+*/
 class VideoThumbnails : public QObject
 {
     Q_OBJECT

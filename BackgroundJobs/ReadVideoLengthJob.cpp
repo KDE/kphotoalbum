@@ -23,11 +23,6 @@
 #include <klocale.h>
 #include <BackgroundTaskManager/JobInfo.h>
 
-/**
-  \class BackgroundJobs::ReadVideoLengthJob
-  \brief Read the length of a video file and writes that to the database
-*/
-
 BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName,BackgroundTaskManager::Priority priority)
     : JobInterface(priority), m_fileName(fileName)
 {

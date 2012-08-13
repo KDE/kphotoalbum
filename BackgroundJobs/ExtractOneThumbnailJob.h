@@ -27,6 +27,10 @@ class QImage;
 
 namespace BackgroundJobs {
 
+/**
+  \brief \ref BackgroundTaskManager::JobInterface "background job" for extracting the length of a video file.
+  \see \ref videothumbnails
+*/
 class ExtractOneThumbnailJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT

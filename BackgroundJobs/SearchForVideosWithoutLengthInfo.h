@@ -23,6 +23,10 @@
 
 namespace BackgroundJobs {
 
+/**
+  \brief Search for videos for which the database still has no length information
+  \see \ref videothumbnails
+*/
 class SearchForVideosWithoutLengthInfo : public BackgroundTaskManager::JobInterface
 {
 public:

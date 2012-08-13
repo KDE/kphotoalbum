@@ -5,7 +5,7 @@
    A few related pages that you should read:
    \li \ref coding-standards
    \li \ref phrase-book
-   \li \ref common-tasks
+   \li \ref videothumbnails
 
    KPhotoAlbum is split into a number of modules, each module is a directory of its own on the hard disk and a namespace in the source code.
    The following is a list of modules:

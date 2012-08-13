@@ -30,8 +30,13 @@ namespace DB { class FileName; }
 namespace ImageManager { class VideoThumbnails; }
 
 namespace ThumbnailView {
-    class ThumbnailModel;
 
+class ThumbnailModel;
+
+/**
+  \brief Class which is responsible for cycling the video thumbnails in the thumbnail viewer
+  \see \ref videothumbnails
+*/
 class VideoThumbnailCycler : public QObject
 {
     Q_OBJECT

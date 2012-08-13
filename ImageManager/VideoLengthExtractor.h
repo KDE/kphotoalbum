@@ -27,6 +27,10 @@ namespace Utilities { class Process; }
 
 namespace ImageManager {
 
+/**
+  \brief \todo
+  \see \ref videothumbnails
+*/
 class VideoLengthExtractor : public QObject
 {
     Q_OBJECT

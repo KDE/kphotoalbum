@@ -24,6 +24,10 @@
 namespace BackgroundJobs
 {
 
+/**
+  \brief Search for videos without a thumbnail needed for cycling thumbnails.
+  \see \ref videothumbnails
+*/
 class SearchForVideosWithoutVideoThumbnailsJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT

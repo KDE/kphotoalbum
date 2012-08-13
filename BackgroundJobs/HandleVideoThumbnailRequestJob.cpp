@@ -27,6 +27,7 @@
 #include <ImageManager/ImageClientInterface.h>
 #include <KLocale>
 #include <kcodecs.h>
+#include <Utilities/Util.h>
 
 namespace BackgroundJobs {
 
@@ -63,10 +64,7 @@ void HandleVideoThumbnailRequestJob::frameLoaded(const QImage& image )
 
 void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName& fileName, const QImage &image)
 {
-    QDir dir( Settings::SettingsData::instance()->imageDirectory() );
-    if ( !dir.exists(QString::fromLatin1(".videoThumbnails")))
-        dir.mkdir(QString::fromLatin1(".videoThumbnails"));
-    image.save(pathForRequest(fileName).absolute(), "JPEG");
+    Utilities::saveImage(pathForRequest(fileName), image, "JPEG");
 }
 
 DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &fileName)

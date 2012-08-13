@@ -18,6 +18,13 @@
 
 #include "JobInterface.h"
 #include "JobManager.h"
+#include <QDebug>
+
+#ifdef DEBUG_JOBMANAGER
+#define Debug qDebug()
+#else
+#define Debug if (0) qDebug()
+#endif
 
 /**
   \class BackgroundTaskManager::JobInterface
@@ -40,6 +47,7 @@ BackgroundTaskManager::JobInterface::~JobInterface()
 
 void BackgroundTaskManager::JobInterface::start()
 {
+    Debug << "Starting Job" << title() << details();
     JobInfo::start();
     execute();
 }

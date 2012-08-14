@@ -24,6 +24,8 @@
 #include <QImage>
 #include <Utilities/Util.h>
 #include <DB/ImageDB.h>
+#include <QPainter>
+
 
 namespace BackgroundJobs {
 
@@ -35,7 +37,7 @@ ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int
 
 void ExtractOneThumbnailJob::execute()
 {    
-    if ( m_wasCanceled )
+    if ( m_wasCanceled || frameName().exists() )
         emit completed();
     else {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
@@ -66,10 +68,26 @@ void ExtractOneThumbnailJob::cancel()
 
 void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
 {
-    const DB::FileName frameName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_fileName, m_index);
     Q_ASSERT(!image.isNull());
-    Utilities::saveImage(frameName, image, "JPEG");
+
+#if 0
+    QImage img = image;
+    {
+        QPainter painter(&img);
+        QFont fnt;
+        fnt.setPointSize(24);
+        painter.setFont(fnt);
+        painter.drawText(QPoint(100,100),QString::number(m_index));
+    }
+#endif
+
+    Utilities::saveImage(frameName(), image, "JPEG");
     emit completed();
+}
+
+DB::FileName ExtractOneThumbnailJob::frameName() const
+{
+    return BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_fileName, m_index);
 }
 
 } // namespace BackgroundJobs

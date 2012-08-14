@@ -47,6 +47,8 @@ private slots:
     void frameLoaded(const QImage& );
 
 private:
+    DB::FileName frameName() const;
+
     DB::FileName m_fileName;
     int m_index;
     bool m_wasCanceled;

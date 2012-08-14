@@ -60,20 +60,13 @@ QString JobInfo::elapsed() const
     if (state == NotStarted)
         return i18n("Not Started");
 
-    qint64 time = m_timer.elapsed() / 1000;
+    qint64 time = m_timer.elapsed();
     if ( state == Completed )
-        time = m_elapsed / 1000;
+        time = m_elapsed;
 
-    const int secs = time % 60;
-    const int minutes = time / 60;
+    const int secs = time / 1000;
+    const int msecs = time % 1000;
 
-    if ( minutes > 0 ) {
-        QString secStr = QString::number(secs);
-        if ( secs < 10 )
-            secStr = QString::fromLatin1("0") + secStr;
-        return QString::fromLatin1("%1 min %2 secs").arg(minutes).arg(secStr);
-    }
-    else
-        return QString::fromLatin1("%1 secs").arg(secs);
+    return QString::fromLatin1("%1.%2").arg(secs).arg(msecs,3,10,QLatin1Char('0'));
 }
 }

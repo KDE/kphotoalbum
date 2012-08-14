@@ -28,6 +28,7 @@ ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
     QObject(parent)
 {
     m_cache.resize(10);
+    m_activeRequests.reserve(10);
 }
 
 void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
@@ -36,6 +37,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     if ( loadFramesFromCache(fileName) )
         return;
 
+    cancelPrevioiusJobs();
     m_pendingRequest = 0;
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
@@ -48,6 +50,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
                 new BackgroundJobs::ExtractOneThumbnailJob(fileName, i, BackgroundTaskManager::ForegroundCycleRequest);
         extractJob->addDependency(lengthJob);
         connect( extractJob, SIGNAL(completed()), this, SLOT(gotFrame()));
+        m_activeRequests.append( QPointer<BackgroundJobs::ExtractOneThumbnailJob>(extractJob) );
     }
     BackgroundTaskManager::JobManager::instance()->addJob(lengthJob);
 }
@@ -85,4 +88,13 @@ bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& file
         m_cache[i] = image;
     }
     return true;
+}
+
+void ImageManager::VideoThumbnails::cancelPrevioiusJobs()
+{
+    Q_FOREACH( const QPointer<BackgroundJobs::ExtractOneThumbnailJob>& job, m_activeRequests ) {
+        if (! job.isNull() )
+            job->cancel();
+    }
+    m_activeRequests.clear();
 }

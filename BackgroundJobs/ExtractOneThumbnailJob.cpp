@@ -28,16 +28,20 @@
 namespace BackgroundJobs {
 
 ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority)
-    : JobInterface(priority), m_fileName(fileName), m_index(index)
+    : JobInterface(priority), m_fileName(fileName), m_index(index), m_wasCanceled(false)
 {
     Q_ASSERT( index >= 0 && index <= 9 );
 }
 
 void ExtractOneThumbnailJob::execute()
 {    
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
-    const int length = info->videoLength();
-    ImageManager::ExtractOneVideoFrame::extract(m_fileName, length*m_index/10.0, this, SLOT(frameLoaded(QImage)));
+    if ( m_wasCanceled )
+        emit completed();
+    else {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
+        const int length = info->videoLength();
+        ImageManager::ExtractOneVideoFrame::extract(m_fileName, length*m_index/10.0, this, SLOT(frameLoaded(QImage)));
+    }
 }
 
 QString ExtractOneThumbnailJob::title() const
@@ -53,6 +57,11 @@ QString ExtractOneThumbnailJob::details() const
 int ExtractOneThumbnailJob::index() const
 {
     return m_index;
+}
+
+void ExtractOneThumbnailJob::cancel()
+{
+    m_wasCanceled = true;
 }
 
 void ExtractOneThumbnailJob::frameLoaded(const QImage& image)

@@ -22,6 +22,9 @@
 #include <QObject>
 #include <QImage>
 #include <DB/FileName.h>
+#include <QPointer>
+
+namespace BackgroundJobs { class ExtractOneThumbnailJob; }
 
 namespace ImageManager {
 
@@ -48,10 +51,12 @@ private slots:
 
 private:
     bool loadFramesFromCache(const DB::FileName& fileName);
+    void cancelPrevioiusJobs();
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;
     int m_pendingRequest;
+    QVector< QPointer<BackgroundJobs::ExtractOneThumbnailJob> > m_activeRequests;
 };
 
 }

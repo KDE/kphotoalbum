@@ -41,6 +41,7 @@ public:
     OVERRIDE QString title() const;
     OVERRIDE QString details() const;
     int index() const;
+    void cancel();
 
 private slots:
     void frameLoaded(const QImage& );
@@ -48,6 +49,7 @@ private slots:
 private:
     DB::FileName m_fileName;
     int m_index;
+    bool m_wasCanceled;
 };
 
 } // namespace BackgroundJobs

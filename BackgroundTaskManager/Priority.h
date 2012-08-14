@@ -24,6 +24,7 @@ namespace BackgroundTaskManager
 enum Priority {
     ForegroundCycleRequest = 0,
     ForegroundThumbnailRequest = 1,
+    BackgroundTask = 2, // This is only a marker between foreground and background, do not use as a priority.
     BackgroundVideoInfoRequest = 2,
     BackgroundVideoThumbnailRequest = 3,
     BackgroundVideoPreviewRequest = 4,

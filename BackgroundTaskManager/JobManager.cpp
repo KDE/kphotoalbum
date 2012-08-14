@@ -40,6 +40,11 @@ BackgroundTaskManager::JobManager::JobManager() :
 {
 }
 
+bool BackgroundTaskManager::JobManager::shouldExecute() const
+{
+    return m_queue.hasForegroundTasks() || !m_isPaused;
+}
+
 int BackgroundTaskManager::JobManager::maxJobCount() const
 {
     // See comment in ImageManager::AsyncLoader::init()
@@ -58,7 +63,7 @@ void BackgroundTaskManager::JobManager::execute()
         return;
     }
 
-    if ( m_isPaused )
+    if ( !shouldExecute() )
         return;
 
     if (!m_isRunning) {
@@ -113,6 +118,11 @@ BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::futureJob(int
 bool BackgroundTaskManager::JobManager::isPaused() const
 {
     return m_isPaused;
+}
+
+bool BackgroundTaskManager::JobManager::hasActiveJobs() const
+{
+    return !m_active.isEmpty();
 }
 
 void BackgroundTaskManager::JobManager::jobCompleted()

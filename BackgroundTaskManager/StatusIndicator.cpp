@@ -44,7 +44,11 @@ void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
 
 void StatusIndicator::flicker()
 {
-    setColor( color() == Qt::gray ? currentColor() : Qt::gray );
+    QColor newColor = (color() == Qt::gray ? currentColor() : Qt::gray);
+    if ( JobManager::instance()->isPaused() && ! JobManager::instance()->hasActiveJobs() )
+        newColor = currentColor();
+
+    setColor( newColor );
 }
 
 void StatusIndicator::startFlicker()

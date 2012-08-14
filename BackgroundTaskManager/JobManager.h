@@ -36,6 +36,7 @@ public:
     int futureJobCount() const;
     JobInfo* futureJob(int index) const;
     bool isPaused() const;
+    bool hasActiveJobs() const;
     void togglePaused();
 
 signals:
@@ -51,6 +52,7 @@ private slots:
 private:
     JobManager();
     static JobManager* m_instance;
+    bool shouldExecute() const;
 
     int maxJobCount() const;
 

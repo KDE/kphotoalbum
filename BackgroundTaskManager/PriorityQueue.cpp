@@ -73,4 +73,13 @@ JobInterface *PriorityQueue::peek(int index) const
     return 0;
 }
 
+bool PriorityQueue::hasForegroundTasks() const
+{
+    for (int i = 0; i < BackgroundTask; ++i ) {
+        if (!m_jobs[i].isEmpty())
+            return true;
+    }
+    return false;
+}
+
 } // namespace BackgroundTaskManager

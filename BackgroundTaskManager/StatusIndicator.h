@@ -39,8 +39,7 @@ protected:
 
 private slots:
     void flicker();
-    void startFlicker();
-    void stopFlicker();
+    void maybeStartFlicker();
 
 private:
     QColor currentColor() const;

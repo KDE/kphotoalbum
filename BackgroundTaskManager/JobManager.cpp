@@ -36,7 +36,7 @@
 BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::m_instance = 0;
 
 BackgroundTaskManager::JobManager::JobManager() :
-    m_isRunning(false), m_isPaused(false)
+    m_isPaused(false)
 {
 }
 
@@ -57,19 +57,11 @@ int BackgroundTaskManager::JobManager::maxJobCount() const
 
 void BackgroundTaskManager::JobManager::execute()
 {
-    if ( m_queue.isEmpty() ) {
-        m_isRunning = false;
-        emit ended();
+    if ( m_queue.isEmpty() )
         return;
-    }
 
     if ( !shouldExecute() )
         return;
-
-    if (!m_isRunning) {
-        m_isRunning = true;
-        emit started();
-    }
 
     while ( m_active.count() < maxJobCount() &&  !m_queue.isEmpty() ) {
         JobInterface* job = m_queue.dequeue();

@@ -30,8 +30,7 @@ StatusIndicator::StatusIndicator( QWidget* parent )
 {
     connect( m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
     setCursor(Qt::PointingHandCursor);
-    connect( JobManager::instance(), SIGNAL(started()), this, SLOT(startFlicker()));
-    connect( JobManager::instance(), SIGNAL(ended()), this, SLOT(stopFlicker()));
+    connect( JobManager::instance(), SIGNAL(jobStarted(JobInterface*)), this, SLOT(maybeStartFlicker()));
 }
 
 void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
@@ -44,22 +43,23 @@ void StatusIndicator::mouseReleaseEvent(QMouseEvent*)
 
 void StatusIndicator::flicker()
 {
-    QColor newColor = (color() == Qt::gray ? currentColor() : Qt::gray);
-    if ( JobManager::instance()->isPaused() && ! JobManager::instance()->hasActiveJobs() )
-        newColor = currentColor();
+    QColor newColor;
+
+    if ( JobManager::instance()->isPaused() && !JobManager::instance()->hasActiveJobs() )
+        newColor = QColor(Qt::yellow).lighter();
+    else
+         newColor = (color() == Qt::gray ? currentColor() : Qt::gray);
 
     setColor( newColor );
+
+    if ( !JobManager::instance()->hasActiveJobs() )
+        m_timer->stop();
 }
 
-void StatusIndicator::startFlicker()
+void StatusIndicator::maybeStartFlicker()
 {
-    m_timer->start(500);
-}
-
-void StatusIndicator::stopFlicker()
-{
-    setColor( Qt::gray );
-    m_timer->stop();
+    if ( !m_timer->isActive())
+        m_timer->start(500);
 }
 
 QColor StatusIndicator::currentColor() const

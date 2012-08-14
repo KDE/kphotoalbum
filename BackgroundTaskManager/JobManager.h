@@ -40,8 +40,6 @@ public:
     void togglePaused();
 
 signals:
-    void started();
-    void ended();
     void jobStarted(JobInterface* job);
     void jobEnded(JobInterface* job);
 

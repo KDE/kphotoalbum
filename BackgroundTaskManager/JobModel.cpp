@@ -83,6 +83,8 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
     }
     else if ( role == Qt::DecorationRole && col == TitleCol )
         return statusImage(current->state);
+    else if ( role == Qt::TextAlignmentRole )
+        return index.column() == IDCol ? Qt::AlignRight : Qt::AlignLeft;
 
     return QVariant();
 }

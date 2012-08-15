@@ -42,8 +42,10 @@ void JobViewer::setVisible(bool b)
     else
         delete m_model;
 
-    ui->view->setColumnWidth(0, 300);
+    ui->view->setColumnWidth(0, 50);
     ui->view->setColumnWidth(1, 300);
+    ui->view->setColumnWidth(2, 300);
+    ui->view->setColumnWidth(3, 50);
     QDialog::setVisible(b);
 }
 

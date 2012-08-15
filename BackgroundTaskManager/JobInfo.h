@@ -43,6 +43,7 @@ public:
     State state;
 
     QString elapsed() const;
+    int jobIndex() const;
 
 protected slots:
     void start();
@@ -55,6 +56,8 @@ private:
     BackgroundTaskManager::Priority m_priority;
     QElapsedTimer m_timer;
     uint m_elapsed;
+    int m_jobIndex;
+    static int m_jobCounter;
 };
 
 }

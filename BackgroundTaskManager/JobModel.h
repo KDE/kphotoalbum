@@ -46,7 +46,7 @@ private slots:
     void jobStarted( JobInterface* job);
 
 private:
-    enum Column { TitleCol = 0, DetailsCol = 1, ElapsedCol = 2 };
+    enum Column { IDCol = 0, TitleCol = 1, DetailsCol = 2, ElapsedCol = 3 };
 
     JobInfo* info(int row) const;
     QPixmap statusImage( JobInfo::State state ) const;

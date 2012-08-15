@@ -34,12 +34,10 @@
   Emitting the signal is crusial, as the JobManager will otherwise stall.
 */
 
-int BackgroundTaskManager::JobInterface::m_jobCounter = 0;
-
 BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priority priority)
-    : JobInfo(priority), m_jobIndex(++m_jobCounter), m_dependencies(0)
+    : JobInfo(priority), m_dependencies(0)
 {
-    Debug() << "Created Job #" << m_jobIndex;
+    Debug() << "Created Job #" << jobIndex();
     connect( this, SIGNAL(completed()), this, SLOT(stop()));
 }
 
@@ -49,7 +47,7 @@ BackgroundTaskManager::JobInterface::~JobInterface()
 
 void BackgroundTaskManager::JobInterface::start()
 {
-    Debug("Starting Job (#%d): %s %s", m_jobIndex, qPrintable(title()), qPrintable(details()));
+    Debug("Starting Job (#%d): %s %s", jobIndex(), qPrintable(title()), qPrintable(details()));
     JobInfo::start();
     execute();
 }

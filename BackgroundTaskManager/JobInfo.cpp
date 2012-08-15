@@ -22,8 +22,10 @@
 
 namespace BackgroundTaskManager {
 
+int JobInfo::m_jobCounter = 0;
+
 JobInfo::JobInfo(BackgroundTaskManager::Priority priority)
-    : state(NotStarted), m_priority(priority), m_elapsed(0)
+    : state(NotStarted), m_priority(priority), m_elapsed(0), m_jobIndex(++m_jobCounter)
 {
 }
 
@@ -32,6 +34,7 @@ JobInfo::JobInfo(const JobInfo *other)
     m_priority = other->m_priority;
     state = other->state;
     m_elapsed = other->m_elapsed;
+    m_jobIndex = other->m_jobIndex;
 }
 
 JobInfo::~JobInfo()
@@ -69,4 +72,10 @@ QString JobInfo::elapsed() const
 
     return QString::fromLatin1("%1.%2").arg(secs).arg(msecs,3,10,QLatin1Char('0'));
 }
+
+int JobInfo::jobIndex() const
+{
+    return m_jobIndex;
+}
+
 }

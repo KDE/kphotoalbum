@@ -57,7 +57,7 @@ int JobModel::rowCount(const QModelIndex& index) const
 
 int JobModel::columnCount(const QModelIndex &) const
 {
-    return 3;
+    return 4;
 }
 
 QVariant JobModel::data(const QModelIndex &index, int role) const
@@ -74,6 +74,7 @@ QVariant JobModel::data(const QModelIndex &index, int role) const
 
     if ( role == Qt::DisplayRole ) {
         switch (col) {
+        case IDCol: return current->jobIndex();
         case TitleCol:   return current->title();
         case DetailsCol: return current->details();
         case ElapsedCol: return current->elapsed();
@@ -91,6 +92,7 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     if ( orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
     switch (section) {
+    case IDCol: return i18n("ID");
     case TitleCol:   return i18n("Title");
     case DetailsCol: return i18n("Details");
     case ElapsedCol: return i18n("Elapsed");

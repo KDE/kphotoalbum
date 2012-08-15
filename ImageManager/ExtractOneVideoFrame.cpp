@@ -49,14 +49,14 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int off
 
     QStringList arguments;
     arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
-              << STR("screenshot") << STR("-frames") << STR("1") << STR("-vo") << STR("png:z=9") << fileName.absolute();
+              << STR("screenshot") << STR("-frames") << STR("20") << STR("-vo") << STR("png:z=9") << fileName.absolute();
 
     m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }
 
 void ExtractOneVideoFrame::frameFetched()
 {
-    QImage image(m_workingDirectory + STR("/00000001.png"));
+    QImage image(m_workingDirectory + STR("/00000020.png"));
     if ( image.isNull() )
         image = brokenImage();
     emit result(image);

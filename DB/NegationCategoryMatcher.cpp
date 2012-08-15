@@ -15,27 +15,33 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "NegationCategoryMatcher.h"
+#include "ImageInfo.h"
 
-#ifndef VALUECATEGORYMATCHER_H
-#define VALUECATEGORYMATCHER_H
-
-#include "SimpleCategoryMatcher.h"
-
-namespace DB
+    DB::NegationCategoryMatcher::NegationCategoryMatcher(CategoryMatcher* child)
+: _child(child)
 {
-
-class ValueCategoryMatcher :public SimpleCategoryMatcher
-{
-public:
-    ValueCategoryMatcher( const QString& category, const QString& value );
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-
-    QString _option;
-    StringSet _members;
-};
-
+    Q_ASSERT( _child );
 }
 
-#endif /* VALUECATEGORYMATCHER_H */
+DB::NegationCategoryMatcher::~NegationCategoryMatcher()
+{
+    delete _child;
+}
+void DB::NegationCategoryMatcher::setShouldCreateMatchedSet(bool b)
+{
+    _child->setShouldCreateMatchedSet( b );
+}
 
+bool DB::NegationCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
+{
+    return ! _child->eval( info, alreadyMatched);
+}
+
+void DB::NegationCategoryMatcher::debug( int level ) const
+{
+    qDebug("%sNOT:", qPrintable(spaces(level)) );
+    _child->debug( level + 1 );
+}
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

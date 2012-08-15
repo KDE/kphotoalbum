@@ -205,6 +205,7 @@ set(libDB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfoList.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDB.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/NegationCategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/NewImageFinder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/NoTagCategoryMatcher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/DB/GroupCounter.cpp 

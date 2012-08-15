@@ -24,11 +24,10 @@ void DB::ValueCategoryMatcher::debug(int level) const
     qDebug("%s%s: %s", qPrintable(spaces(level)), qPrintable(_category), qPrintable(_option));
 }
 
-DB::ValueCategoryMatcher::ValueCategoryMatcher( const QString& category, const QString& value, bool sign )
+DB::ValueCategoryMatcher::ValueCategoryMatcher( const QString& category, const QString& value )
 {
     _category = category ;
     _option = value;
-    _sign = sign;
 
     const MemberMap& map = DB::ImageDB::instance()->memberMap();
     const QStringList members = map.members(_category, _option, true);
@@ -43,11 +42,11 @@ bool DB::ValueCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
         alreadyMatched[_category].insert(_option);
 
     if ( info->hasCategoryInfo( _category, _option ) ) {
-        return _sign;
+        return true;
     }
 
     if ( info->hasCategoryInfo( _category, _members ) )
-        return _sign;
-    return !_sign;
+        return true;
+    return false;
 }
 

@@ -16,26 +16,32 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VALUECATEGORYMATCHER_H
-#define VALUECATEGORYMATCHER_H
+#ifndef NOTCATEGORYMATCHER_H
+#define NOTCATEGORYMATCHER_H
 
-#include "SimpleCategoryMatcher.h"
+#include "CategoryMatcher.h"
 
 namespace DB
 {
 
-class ValueCategoryMatcher :public SimpleCategoryMatcher
-{
-public:
-    ValueCategoryMatcher( const QString& category, const QString& value );
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
-
-    QString _option;
-    StringSet _members;
-};
+    /**
+     * NegationCategoryMatcher matches, iff its child matcher does not match.
+     *
+     * This is not a standard ContainerCategoryMatcher, because it always has exactly one child.
+     */
+    class NegationCategoryMatcher :public CategoryMatcher
+    {
+        public:
+            NegationCategoryMatcher( CategoryMatcher *child );
+            virtual ~NegationCategoryMatcher();
+            OVERRIDE bool eval( ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched );
+            OVERRIDE void debug( int level ) const;
+            OVERRIDE void setShouldCreateMatchedSet( bool b );
+        private:
+            CategoryMatcher *_child;
+    };
 
 }
 
-#endif /* VALUECATEGORYMATCHER_H */
-
+#endif /* NOTCATEGORYMATCHER_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,6 +19,7 @@
 #include "ImageSearchInfo.h"
 #include "ValueCategoryMatcher.h"
 #include "ExactCategoryMatcher.h"
+#include "NegationCategoryMatcher.h"
 #include "NoTagCategoryMatcher.h"
 #include "AndCategoryMatcher.h"
 #include "ContainerCategoryMatcher.h"
@@ -309,13 +310,14 @@ void ImageSearchInfo::compile() const
 
             DB::ContainerCategoryMatcher* andMatcher;
             bool exactMatch=false;
+            bool negate = false;
             andMatcher = new DB::AndCategoryMatcher;
 
             for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
                 QString str = *itAnd;
-                bool negate = false;
                 static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
-                if ( regexp.exactMatch( str ) )  {
+                if ( regexp.exactMatch( str ) )
+                { // str is preceeded with NOT
                     negate = true;
                     str = regexp.cap(1);
                 }
@@ -327,15 +329,22 @@ void ImageSearchInfo::compile() const
                     continue;
                 }
                 else
-                    valueMatcher = new DB::ValueCategoryMatcher( category, str, !negate );
+                {
+                    valueMatcher = new DB::ValueCategoryMatcher( category, str );
+                    if ( negate )
+                        valueMatcher = new DB::NegationCategoryMatcher( valueMatcher );
+                }
                 andMatcher->addElement( valueMatcher );
             }
             if ( exactMatch )
             {
+                DB::CategoryMatcher *exactMatcher = 0;
                 // if andMatcher has exactMatch set, but no CategoryMatchers, then
                 // matching "category / None" is what we want:
                 if ( andMatcher->_elements.count() == 0 )
-                    orMatcher->addElement( new DB::NoTagCategoryMatcher( category ) );
+                {
+                    exactMatcher = new DB::NoTagCategoryMatcher( category );
+                }
                 else
                 {
                     ExactCategoryMatcher *noOtherMatcher = new ExactCategoryMatcher( category );
@@ -343,8 +352,11 @@ void ImageSearchInfo::compile() const
                         noOtherMatcher->setMatcher( andMatcher->_elements[0] );
                     else
                         noOtherMatcher->setMatcher( andMatcher );
-                    orMatcher->addElement( noOtherMatcher );
+                    exactMatcher = noOtherMatcher;
                 }
+                if ( negate )
+                    exactMatcher = new DB::NegationCategoryMatcher( exactMatcher );
+                orMatcher->addElement( exactMatcher );
             } 
             else
                 if ( andMatcher->_elements.count() == 1 )
@@ -361,6 +373,14 @@ void ImageSearchInfo::compile() const
 
         if ( matcher )
             _categoryMatchers.append( matcher );
+#ifdef DEBUG_CATEGORYMATCHERS
+        if ( matcher )
+        {
+            qDebug() << "Matching text '" << matchText << "' in category "<< category <<":";
+            matcher->debug(0);
+            qDebug() << ".";
+        }
+#endif
     }
     _compiled = true;
 }

@@ -28,7 +28,6 @@ class SimpleCategoryMatcher :public CategoryMatcher
 {
 public:
     QString _category;
-    bool _sign;
 };
 
 }

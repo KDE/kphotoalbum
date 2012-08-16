@@ -638,19 +638,25 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
     }
     switch( _mode )
     {
-        case InputSingleImageConfigMode:
-            // "normal" on/off states -> show selected items
-            parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2)" )
-                    .arg( _baseTitle )
-                    .arg( itemsOn().size() ) );
-            break;
         case InputMultiImageConfigMode:
-            // tri-state selection -> show min-max (selected items vs. partially selected items):
-            parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2-%3)" )
-                    .arg( _baseTitle )
-                    .arg( itemsOn().size() )
-                    .arg( itemsOn().size() + itemsUnchanged().size() ) );
-            break;
+            if ( itemsUnchanged().size() > 0 )
+            { // if min != max
+                // tri-state selection -> show min-max (selected items vs. partially selected items):
+                parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2-%3)" )
+                        .arg( _baseTitle )
+                        .arg( itemsOn().size() )
+                        .arg( itemsOn().size() + itemsUnchanged().size() ) );
+                break;
+            } // else fall through and only show one number:
+        case InputSingleImageConfigMode:
+            if ( itemsOn().size() > 0 )
+            { // if any tags have been selected
+                // "normal" on/off states -> show selected items
+                parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2)" )
+                        .arg( _baseTitle )
+                        .arg( itemsOn().size() ) );
+                break;
+            } // else fall through and only show category
         case SearchMode:
             // no indicator while searching
             parentWidget()->setWindowTitle( _baseTitle );

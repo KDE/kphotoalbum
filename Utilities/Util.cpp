@@ -330,28 +330,9 @@ QString Utilities::setupDemo()
 
 bool Utilities::copy( const QString& from, const QString& to )
 {
-    QFile in( from );
-    QFile out( to );
-
-    if ( !in.open(QIODevice::ReadOnly) ) {
-        kWarning() << "Couldn't open " << from << " for reading\n";
-        return false;
-    }
-    if ( !out.open(QIODevice::WriteOnly) ) {
-        kWarning() << "Couldn't open " << to << " for writing\n";
-        in.close();
-        return false;
-    }
-
-    char buf[4096];
-    while( !in.atEnd() ) {
-        unsigned long int len = in.read( buf, sizeof(buf));
-        out.write( buf, len );
-    }
-
-    in.close();
-    out.close();
-    return true;
+    if ( QFileInfo(to).exists())
+        QDir().remove(to);
+    return QFile::copy(from,to);
 }
 
 bool Utilities::makeHardLink( const QString& from, const QString& to )

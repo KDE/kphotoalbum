@@ -78,6 +78,7 @@ public:
 public slots:
     void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
+    void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
 
 protected slots:
     void showThumbNails();
@@ -113,7 +114,6 @@ protected slots:
     void slotConfigureKeyBindings();
     void slotSetFileName( const DB::FileName& );
     void updateContextMenuFromSelectionSize(int selectionSize);
-    void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void slotBuildThumbnails();
@@ -151,6 +151,8 @@ protected slots:
     void showVideos();
     void slotStatistics();
     void slotRecreateExifDB();
+    void useNextVideoThumbnail();
+    void usePreviousVideoThumbnail();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -222,6 +224,8 @@ private:
     KIPI::PluginLoader* _pluginLoader;
 #endif
     KAction* _recreateThumbnails;
+    KAction* _useNextVideoThumbnail;
+    KAction* _usePreviousVideoThumbnail;
     TokenEditor* _tokenEditor;
     DateBar::DateBarWidget* _dateBar;
     QFrame* _dateBarLine;

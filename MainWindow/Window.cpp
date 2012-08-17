@@ -120,6 +120,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
+#include "UpdateVideoThumbnail.h"
 
 using namespace DB;
 
@@ -910,6 +911,14 @@ void MainWindow::Window::setupMenuBar()
     _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), _thumbnailView, SLOT( slotRecreateThumbnail() ) );
     _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
+    _useNextVideoThumbnail = actionCollection()->addAction( QString::fromLatin1("useNextVideoThumbnail"), this, SLOT(useNextVideoThumbnail()));
+    _useNextVideoThumbnail->setText(i18n("Use next video thumbnail"));
+    _useNextVideoThumbnail->setShortcut(Qt::CTRL + Qt::Key_Plus);
+
+    _usePreviousVideoThumbnail = actionCollection()->addAction( QString::fromLatin1("usePreviousVideoThumbnail"), this, SLOT(usePreviousVideoThumbnail()));
+    _usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
+    _usePreviousVideoThumbnail->setShortcut(Qt::CTRL + Qt::Key_Minus);
+
     createGUI( QString::fromLatin1( "kphotoalbumui.rc" ) );
 }
 
@@ -1052,6 +1061,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         QMenu menu( this );
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );
+        menu.addSeparator();
         menu.addAction( _createImageStack );
         menu.addAction( _unStackImages );
         menu.addAction( _setStackHead );
@@ -1066,6 +1076,8 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction(_rotLeft);
         menu.addAction(_rotRight);
         menu.addAction(_recreateThumbnails);
+        menu.addAction(_useNextVideoThumbnail);
+        menu.addAction(_usePreviousVideoThumbnail);
         menu.addSeparator();
 
         menu.addAction(_view);
@@ -1675,6 +1687,16 @@ void MainWindow::Window::slotRecreateExifDB()
 #ifdef HAVE_EXIV2
     Exif::Database::instance()->recreate();
 #endif
+}
+
+void MainWindow::Window::useNextVideoThumbnail()
+{
+    UpdateVideoThumbnail::useNext(selected());
+}
+
+void MainWindow::Window::usePreviousVideoThumbnail()
+{
+    UpdateVideoThumbnail::usePrevious(selected());
 }
 
 void MainWindow::Window::createSarchBar()

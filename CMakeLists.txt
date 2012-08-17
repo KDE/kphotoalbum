@@ -173,6 +173,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatisticsDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/BreadcrumbViewer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatusBar.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/UpdateVideoThumbnail.cpp
     )
 
 set(libImageManager_SRCS 

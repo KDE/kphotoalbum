@@ -1,3 +1,9 @@
+2012-08-17  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* New Feature: press Ctrl-plus or Ctrl-minus in the thumbnail
+	viewer to use the next video thumbnail (from the 10 extracted
+	thumbnails)  as the one displayed in the thumbnail viewer
+
 2012-07-17  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* New Feature: Video thumbnails are now extracted using the new

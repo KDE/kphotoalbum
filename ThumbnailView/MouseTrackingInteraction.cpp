@@ -23,7 +23,7 @@
 #include <DB/FileName.h>
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ), m_videoThumbnailCycler( new VideoThumbnailCycler(model()) ),
+    : ThumbnailComponent( factory ),
       _cursorWasAtStackIcon(false)
 {
 }
@@ -33,7 +33,10 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     updateStackingIndication( event );
     handleCursorOverNewIcon();
 
-    m_videoThumbnailCycler->setActive(widget()->mediaIdUnderCursor());
+    if ((event->modifiers() & Qt::AltModifier) != 0)
+        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
+    else
+        VideoThumbnailCycler::instance()->stopCycle();
     return false;
 }
 

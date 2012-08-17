@@ -24,6 +24,7 @@
 #include "MainWindow/DirtyIndicator.h"
 #include "DB/ImageDB.h"
 #include "ThumbnailModel.h"
+#include "VideoThumbnailCycler.h"
 
 ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )
@@ -57,7 +58,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         MainWindow::DirtyIndicator::markDirty();
         return true;
-    } else if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) ) {
+    }
+
+    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) ) {
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
@@ -68,6 +71,11 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
             }
             MainWindow::DirtyIndicator::markDirty();
         }
+        return true;
+    }
+
+    if ( event->key() == Qt::Key_Alt ) {
+        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
         return true;
     }
 
@@ -91,6 +99,9 @@ bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
 
         return false; // Don't propagate the event - I'm not sure why.
     }
+    else if ( event->key() == Qt::Key_Alt )
+        VideoThumbnailCycler::instance()->stopCycle();
+
     return true;
 }
 

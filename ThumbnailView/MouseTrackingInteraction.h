@@ -21,8 +21,6 @@
 #include "ThumbnailComponent.h"
 #include "MouseInteraction.h"
 #include <QMouseEvent>
-#include <QScopedPointer>
-#include "VideoThumbnailCycler.h"
 
 namespace DB { class FileName; }
 
@@ -44,7 +42,6 @@ private:
     void handleCursorOverNewIcon();
 
 private:
-    QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
     bool _cursorWasAtStackIcon;
 };
 

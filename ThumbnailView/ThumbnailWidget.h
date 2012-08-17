@@ -24,6 +24,8 @@
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
 #include "ThumbnailView/enums.h"
+#include <QScopedPointer>
+#include "VideoThumbnailCycler.h"
 
 class QTimer;
 class QDateTime;
@@ -132,6 +134,7 @@ private:
     friend class ThumbnailDND;
     friend class ThumbnailModel;
     KeyboardEventHandler* _keyboardHandler;
+    QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
 };
 
 }

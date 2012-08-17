@@ -42,7 +42,9 @@ class VideoThumbnailCycler : public QObject
     Q_OBJECT
 public:
     explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = 0);
+    static VideoThumbnailCycler* instance();
     void setActive( const DB::FileName& id );
+    void stopCycle();
 
 private slots:
     void updateThumbnail();
@@ -52,8 +54,8 @@ private:
     void resetPreviousThumbail();
     bool isVideo( const DB::FileName& fileName ) const;
     void startCycle();
-    void stopCycle();
 
+    static VideoThumbnailCycler* s_instance;
     DB::FileName m_fileName;
     int m_index;
     QTimer* m_timer;

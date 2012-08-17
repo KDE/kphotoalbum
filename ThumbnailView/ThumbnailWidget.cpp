@@ -62,7 +62,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
      _mouseHandler( &_mouseTrackingHandler ),
      _dndHandler( new ThumbnailDND( factory ) ),
      m_pressOnStackIndicator( false ),
-     _keyboardHandler( new KeyboardEventHandler( factory ) )
+     _keyboardHandler( new KeyboardEventHandler( factory ) ),
+      m_videoThumbnailCycler( new VideoThumbnailCycler(model()) )
 {
     setModel( ThumbnailComponent::model() );
     setResizeMode( QListView::Adjust );

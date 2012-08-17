@@ -28,12 +28,22 @@
 #include "ThumbnailModel.h"
 #include <ThumbnailView/CellGeometry.h>
 
+ThumbnailView::VideoThumbnailCycler* ThumbnailView::VideoThumbnailCycler::s_instance = 0;
+
 ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model), m_gotLast(false)
 {
     m_timer = new QTimer(this);
     connect( m_timer, SIGNAL(timeout()), this, SLOT(updateThumbnail()));
     connect(m_thumbnails, SIGNAL(frameLoaded(QImage)), this, SLOT(gotFrame(QImage)));
+    Q_ASSERT(!s_instance);
+    s_instance = this;
+}
+
+ThumbnailView::VideoThumbnailCycler *ThumbnailView::VideoThumbnailCycler::instance()
+{
+    Q_ASSERT(s_instance);
+    return s_instance;
 }
 
 void ThumbnailView::VideoThumbnailCycler::setActive(const DB::FileName &fileName)
@@ -41,7 +51,6 @@ void ThumbnailView::VideoThumbnailCycler::setActive(const DB::FileName &fileName
     if ( m_fileName == fileName )
         return;
 
-    resetPreviousThumbail();
     stopCycle();
 
     m_fileName = fileName;
@@ -96,9 +105,12 @@ void ThumbnailView::VideoThumbnailCycler::startCycle()
     m_thumbnails->requestFrame(0);
     m_index = 0;
     m_timer->start(500);
+    updateThumbnail(); // We want it to cycle right away.
 }
 
 void ThumbnailView::VideoThumbnailCycler::stopCycle()
 {
+    resetPreviousThumbail();
+    m_fileName = DB::FileName();
     m_timer->stop();
 }

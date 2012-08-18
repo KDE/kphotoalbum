@@ -48,8 +48,6 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
 {
     const DB::FileName baseImageName = BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName);
     QImage baseImage(baseImageName.absolute());
-    if (baseImage.isNull())
-        return;
 
     int newImageIndex = 0;
 

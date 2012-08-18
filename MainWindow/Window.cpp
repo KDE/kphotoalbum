@@ -540,7 +540,7 @@ void MainWindow::Window::slotAutoStackImages()
     delete stacker;
 }
 
-DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode)
+DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode) const
 {
     if ( _thumbnailView->gui() == _stack->visibleWidget() )
         return _thumbnailView->selection(mode);
@@ -1078,6 +1078,8 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction(_recreateThumbnails);
         menu.addAction(_useNextVideoThumbnail);
         menu.addAction(_usePreviousVideoThumbnail);
+        _useNextVideoThumbnail->setEnabled(anyVideosSelected());
+        _usePreviousVideoThumbnail->setEnabled(anyVideosSelected());
         menu.addSeparator();
 
         menu.addAction(_view);
@@ -1732,6 +1734,15 @@ void MainWindow::Window::checkIfMplayerIsInstalled()
                      "<p>KPhotoAlbum needs mplayer to extract video thumbnails among other things.") );
         exit(-1);
     }
+}
+
+bool MainWindow::Window::anyVideosSelected() const
+{
+    Q_FOREACH(const DB::FileName& fileName, selected()) {
+        if ( Utilities::isVideo(fileName))
+            return true;
+    }
+    return false;
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

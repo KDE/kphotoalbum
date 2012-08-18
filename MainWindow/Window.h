@@ -69,7 +69,7 @@ public:
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
-    DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks );
+    DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks ) const;
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
     void setStackHead( const DB::FileName& image );
@@ -175,6 +175,7 @@ protected:
     void createSarchBar();
     void executeStartupActions();
     void checkIfMplayerIsInstalled();
+    bool anyVideosSelected() const;
 
 private:
     static Window* _instance;

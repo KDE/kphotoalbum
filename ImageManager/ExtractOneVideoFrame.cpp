@@ -32,12 +32,12 @@
 namespace ImageManager {
 
 #define STR(x) QString::fromUtf8(x)
-void ExtractOneVideoFrame::extract(const DB::FileName &fileName, int offset, QObject* receiver, const char* slot)
+void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject* receiver, const char* slot)
 {
     new ExtractOneVideoFrame(fileName, offset, receiver, slot);
 }
 
-ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, int offset, QObject *receiver, const char *slot)
+ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)
 {
     m_process = new Utilities::Process(this);
     setupWorkingDirectory();

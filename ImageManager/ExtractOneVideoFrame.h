@@ -37,7 +37,7 @@ class ExtractOneVideoFrame : public QObject
 {
     Q_OBJECT
 public:
-    static void extract(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
+    static void extract(const DB::FileName& filename, double offset, QObject* receiver, const char* slot);
 
 private slots:
     void frameFetched();
@@ -47,7 +47,7 @@ signals:
     void result(const QImage& );
 
 private:
-    ExtractOneVideoFrame(const DB::FileName& filename, int offset, QObject* receiver, const char* slot);
+    ExtractOneVideoFrame(const DB::FileName& filename, double offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();
     void deleteWorkingDirectory();
     QImage brokenImage() const;

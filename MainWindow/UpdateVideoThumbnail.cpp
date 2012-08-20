@@ -49,24 +49,36 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
     const DB::FileName baseImageName = BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName);
     QImage baseImage(baseImageName.absolute());
 
-    int newImageIndex = 0;
-
-    for (int frame = 0; frame < 10; ++frame) {
+    int frame = 0;
+    for (; frame < 10; ++frame) {
         const DB::FileName frameFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, frame);
         QImage frameImage(frameFile.absolute());
         if (frameImage.isNull())
             continue;
         if ( baseImage == frameImage ) {
-            newImageIndex = (frame + 10 + direction) % 10;
             break;
         }
     }
-    const DB::FileName newImageName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, newImageIndex);
+
+    const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
+
     Utilities::copy(newImageName.absolute(),baseImageName.absolute());
 
     QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation );
     ImageManager::ThumbnailCache::instance()->insert(fileName,image);
     MainWindow::Window::theMainWindow()->reloadThumbnails();
+}
+
+DB::FileName UpdateVideoThumbnail::nextExistingImage(const DB::FileName &fileName, int frame, int direction)
+{
+    for (int i = 1; i <10; ++i) {
+        const int nextIndex = (frame + 10 + direction*i) % 10;
+        const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
+        if ( file.exists() )
+            return file;
+    }
+    Q_ASSERT(false && "We should always find at least the current frame");
+    return DB::FileName();
 }
 
 } // namespace MainWindow

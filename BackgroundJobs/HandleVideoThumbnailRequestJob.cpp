@@ -28,6 +28,8 @@
 #include <KLocale>
 #include <kcodecs.h>
 #include <Utilities/Util.h>
+#include <ThumbnailView/CellGeometry.h>
+#include <KIcon>
 
 namespace BackgroundJobs {
 
@@ -55,8 +57,10 @@ void HandleVideoThumbnailRequestJob::execute()
         ImageManager::ExtractOneVideoFrame::extract(m_request->fileSystemFileName(), 0, this, SLOT(frameLoaded(QImage)));
 }
 
-void HandleVideoThumbnailRequestJob::frameLoaded(const QImage& image )
+void HandleVideoThumbnailRequestJob::frameLoaded(QImage image )
 {
+    if ( image.isNull() )
+        image = brokenImage();
     saveFullScaleFrame(m_request->databaseFileName(), image);
     sendResult(image);
     emit completed();
@@ -91,7 +95,12 @@ void HandleVideoThumbnailRequestJob::sendResult(QImage image)
             ImageManager::ThumbnailCache::instance()->insert( m_request->databaseFileName(), image );
         m_request->setLoadedOK( true );
         m_request->client()->pixmapLoaded( m_request->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
-    //}
+        //}
+}
+
+QImage HandleVideoThumbnailRequestJob::brokenImage() const
+{
+    return  KIcon( QString::fromLatin1( "applications-multimedia" ) ).pixmap(ThumbnailView::CellGeometry::preferredIconSize()).toImage();
 }
 
 } // namespace BackgroundJobs

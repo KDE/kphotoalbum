@@ -68,20 +68,20 @@ void ExtractOneThumbnailJob::cancel()
 
 void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
 {
-    Q_ASSERT(!image.isNull());
-
+    if ( !image.isNull() ) {
 #if 0
-    QImage img = image;
-    {
-        QPainter painter(&img);
-        QFont fnt;
-        fnt.setPointSize(24);
-        painter.setFont(fnt);
-        painter.drawText(QPoint(100,100),QString::number(m_index));
-    }
+        QImage img = image;
+        {
+            QPainter painter(&img);
+            QFont fnt;
+            fnt.setPointSize(24);
+            painter.setFont(fnt);
+            painter.drawText(QPoint(100,100),QString::number(m_index));
+        }
 #endif
 
-    Utilities::saveImage(frameName(), image, "JPEG");
+        Utilities::saveImage(frameName(), image, "JPEG");
+    }
     emit completed();
 }
 

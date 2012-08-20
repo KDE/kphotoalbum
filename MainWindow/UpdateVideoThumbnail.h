@@ -32,7 +32,7 @@ public:
 private:
     static void update(const DB::FileNameList&, int direction);
     static void update(const DB::FileName& fileName, int direction);
-
+    static DB::FileName nextExistingImage(const DB::FileName& fileName, int frame, int direction);
 };
 
 } // namespace MainWindow

@@ -44,13 +44,12 @@ private slots:
     void handleError(QProcess::ProcessError);
 
 signals:
-    void result(const QImage& );
+    void result(const QImage&);
 
 private:
     ExtractOneVideoFrame(const DB::FileName& filename, double offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();
     void deleteWorkingDirectory();
-    QImage brokenImage() const;
 
     QString m_workingDirectory;
     Utilities::Process* m_process;

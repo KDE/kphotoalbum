@@ -44,10 +44,11 @@ protected:
     OVERRIDE void execute();
 
 private slots:
-    void frameLoaded(const QImage&);
+    void frameLoaded(QImage);
 
 private:
     void sendResult( QImage image );
+    QImage brokenImage() const;
 
     ImageManager::ImageRequest* m_request;
 };

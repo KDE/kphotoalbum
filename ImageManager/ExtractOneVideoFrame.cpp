@@ -27,7 +27,6 @@
 #include <KMessageBox>
 #include <MainWindow/Window.h>
 #include <DB/ImageDB.h>
-#include <ThumbnailView/CellGeometry.h>
 
 namespace ImageManager {
 
@@ -57,8 +56,6 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
 void ExtractOneVideoFrame::frameFetched()
 {
     QImage image(m_workingDirectory + STR("/00000020.png"));
-    if ( image.isNull() )
-        image = brokenImage();
     emit result(image);
     deleteWorkingDirectory();
     deleteLater();
@@ -98,11 +95,6 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
         dir.remove(file);
 
     dir.rmdir(m_workingDirectory);
-}
-
-QImage ExtractOneVideoFrame::brokenImage() const
-{
-    return  KIcon( QString::fromLatin1( "applications-multimedia" ) ).pixmap(ThumbnailView::CellGeometry::preferredIconSize()).toImage();
 }
 
 } // namespace ImageManager

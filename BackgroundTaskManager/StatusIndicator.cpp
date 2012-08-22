@@ -45,15 +45,16 @@ void StatusIndicator::flicker()
 {
     QColor newColor;
 
-    if ( JobManager::instance()->isPaused() && !JobManager::instance()->hasActiveJobs() )
+    if ( !JobManager::instance()->hasActiveJobs() ) {
+        m_timer->stop();
+        newColor = Qt::gray;
+    }
+    else if ( JobManager::instance()->isPaused() && !JobManager::instance()->hasActiveJobs() )
         newColor = QColor(Qt::yellow).lighter();
     else
          newColor = (color() == Qt::gray ? currentColor() : Qt::gray);
 
     setColor( newColor );
-
-    if ( !JobManager::instance()->hasActiveJobs() )
-        m_timer->stop();
 }
 
 void StatusIndicator::maybeStartFlicker()

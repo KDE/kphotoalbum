@@ -21,6 +21,7 @@
 #define BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
 
 #include <BackgroundTaskManager/JobInterface.h>
+#include <QImage>
 
 namespace ImageManager { class ImageRequest; }
 namespace DB { class FileName; }

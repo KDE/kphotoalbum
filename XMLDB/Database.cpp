@@ -249,7 +249,11 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
         if ( fileMap.contains( name ) )
             return fileMap[ name ];
     }
-    return DB::ImageInfoPtr(new DB::ImageInfo);
+
+    if (fileMap.contains( name ))
+        return DB::ImageInfoPtr(new DB::ImageInfo);
+    else
+        return DB::ImageInfoPtr();
 }
 
 bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const

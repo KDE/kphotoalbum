@@ -169,38 +169,8 @@ void NewImageFinder::setupFileVersionDetection() {
 ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
 {
     MD5 sum = Utilities::MD5Sum( newFileName );
-    if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
-        const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
-        QFileInfo fi( matchedFileName.absolute() );
-
-        if ( !fi.exists() ) {
-            // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = DB::ImageDB::instance()->info( matchedFileName);
-            if ( !info )
-                qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(matchedFileName.relative()));
-            else {
-                info->delaySavingChanges(true);
-                fi = QFileInfo ( matchedFileName.relative() );
-                if ( info->label() == fi.completeBaseName() ) {
-                    fi = QFileInfo( newFileName.absolute() );
-                    info->setLabel( fi.completeBaseName() );
-                }
-
-                DB::ImageDB::instance()->renameImage( info, newFileName );
-
-                // We need to insert the new name into the MD5 map,
-                // as it is a map, the value for the moved file will automatically be deleted.
-
-                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
-
-#ifdef HAVE_EXIV2
-                Exif::Database::instance()->remove( matchedFileName );
-                Exif::Database::instance()->add( newFileName);
-#endif
-                return DB::ImageInfoPtr();
-            }
-        }
-    }
+    if ( handleIfImageHasBeenMoved(newFileName, sum) )
+        return DB::ImageInfoPtr();
 
     // check to see if this is a new version of a previous image
     ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type ));
@@ -290,6 +260,43 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
     }
 
     return info;
+}
+
+bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, const MD5& sum)
+{
+    if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
+        const DB::FileName matchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
+        QFileInfo fi( matchedFileName.absolute() );
+
+        if ( !fi.exists() ) {
+            // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
+            ImageInfoPtr info = DB::ImageDB::instance()->info( matchedFileName);
+            if ( !info )
+                qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(matchedFileName.relative()));
+            else {
+                info->delaySavingChanges(true);
+                fi = QFileInfo ( matchedFileName.relative() );
+                if ( info->label() == fi.completeBaseName() ) {
+                    fi = QFileInfo( newFileName.absolute() );
+                    info->setLabel( fi.completeBaseName() );
+                }
+
+                DB::ImageDB::instance()->renameImage( info, newFileName );
+
+                // We need to insert the new name into the MD5 map,
+                // as it is a map, the value for the moved file will automatically be deleted.
+
+                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
+
+#ifdef HAVE_EXIV2
+                Exif::Database::instance()->remove( matchedFileName );
+                Exif::Database::instance()->add( newFileName);
+#endif
+                return true;
+            }
+        }
+    }
+    return false; // The image wasn't just moved
 }
 
 bool  NewImageFinder::calculateMD5sums(

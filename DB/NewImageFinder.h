@@ -40,6 +40,7 @@ protected:
     void loadExtraFiles();
     ImageInfoPtr loadExtraFile( const DB::FileName& name, DB::MediaType type );
     void markUnTagged( ImageInfoPtr info );
+    bool handleIfImageHasBeenMoved( const DB::FileName& newFileName, const MD5& sum );
 
 private:
     typedef QList< QPair< DB::FileName, DB::MediaType > > LoadList;

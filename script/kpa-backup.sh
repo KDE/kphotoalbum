@@ -80,7 +80,7 @@ do_backup()
 		echo "RC-file ($KPARC) not readable!" >&2
 		exit 1
 	fi
-	# KPA gets the image directory from the configfile entry, even when the sql backend is used!
+	# KPA gets the image directory from the configfile entry
 	INDEXFILE=`get_config_value configfile`
 	KPA_FOLDER=`dirname "$INDEXFILE"`
 	if [ ! -d "$KPA_FOLDER" ]
@@ -96,22 +96,6 @@ do_backup()
 			if [ ! -r "$INDEXFILE" ]
 			then
 				echo "Kphotoalbum XML database file ($INDEXFILE) not readable!" >&2
-				exit 1
-			fi
-			;;
-		sql)
-			DBMS=`get_config_value dbms`
-			if [ "$DBMS" == "QSQLITE" ]
-			then
-				INDEXFILE=`get_config_value database`
-				if [ ! -r "$INDEXFILE" ]
-				then
-					echo "KPhotoalbum SQLite database file ($INDEXFILE) is not readable!" >&2
-					REVOVER_ONLY=true
-				fi
-			else
-				echo "KPhotoalbum uses the SQL backend \`$DBMS'..." >&2
-				echo "This backend variant is not currently supported!" >&2
 				exit 1
 			fi
 			;;

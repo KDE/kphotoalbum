@@ -123,6 +123,12 @@ corner. </para>
       <para>If you have several images with, say the same person, then it
 might be more convenient to select those images, and specify that this
 person is on all images using the <emphasis>Annotate Multiple Items at a Time</emphasis>.</para>
+      <para>If you want to annotate a stack of images you can do that
+      when the stack is collapsed. You just need to select the top image
+      of the stack and annotate multiple images. (If you annotate single
+      image, only the selected image, the stack head in this case, is
+      being annotated.) Of course expanding the stack and selecting all
+      images works as well.</para>
 
     </sect1>
 

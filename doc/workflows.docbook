@@ -8,11 +8,11 @@
   digital imaging.</para>
 
   <sect1 id="raw-workflow">
-  <title>RAW workflow using &kphotoalbum; and Bibble5</title>
+  <title>RAW workflow using &kphotoalbum; and Bibble5/AfterShot Pro</title>
   <para>When shooting RAW images the files from camera must be developed
   to commonly recognized format like JPEG or TIFF. There are a few
   options to choose from when working on Linux. For example RawTherapee
-  and Ufraw are open-source alternatives when Bibble5/AfterShotPro are
+  and Ufraw are open-source alternatives when Bibble5/AfterShot Pro are
   commercial application for this purpose.</para>
 
   <para>A few settings are recommended for a RAW workflow.
@@ -94,10 +94,12 @@
   <para>After a reduced amount of images is left I start tagging them. I
   add the Latin Name of the species and Common Name. Whenever I have
   these two categories completed I consider the image Done and get rid
-  of the Untagged marking. (As the tags are copied over to new version
-  of images only when the new image is found and not when the top of the
-  stack is re-tagged it is good to have as final tagging done as
-  possible before developing JPEGs.)</para>
+  of the Untagged marking. Note that if you still need to do tagging
+  after developing the RAW image (and auto-stacking them) you need to
+  select the top of collapsed stack (or all images on expanded stack)
+  and select <emphasis>Annotate Multiple Items at a Time</emphasis> to
+  get the whole stack annotated instead of only the topmost
+  image.</para>
 
   <para>The best images are sent to external application for developing.
   With wanted images selected, right click on selected thumbnail and
@@ -120,8 +122,10 @@
   descriptions if needed.</para>
 
   <para>Final step is to generate static &HTML; pages and upload to my web
-  server for the enjoyment of friends and colleagues. &HTML; generation is
-  described in <xref linkend="chp-generating-html"/>.</para>
+  server for the enjoyment of friends and colleagues. This I do with the
+  stacks collapsed to only get the developed images to the web page.
+  &HTML; generation is described in <xref
+  linkend="chp-generating-html"/>.</para>
   </sect1>
 
 </chapter>

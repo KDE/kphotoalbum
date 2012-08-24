@@ -47,8 +47,9 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
     connect( this, SIGNAL(result(QImage)), receiver, slot);
 
     QStringList arguments;
-    arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'g',2) << STR("-vf")
+    arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'f',4) << STR("-vf")
               << STR("screenshot") << STR("-frames") << STR("20") << STR("-vo") << STR("png:z=9") << fileName.absolute();
+    //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
     m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
 }

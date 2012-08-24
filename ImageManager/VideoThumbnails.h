@@ -41,7 +41,9 @@ class VideoThumbnails : public QObject
 public:
     explicit VideoThumbnails(QObject *parent = 0);
     void setVideoFile( const DB::FileName& fileName );
-    void requestFrame(int fraction); // 0..9
+
+public slots:
+    void requestNext();
 
 signals:
     void frameLoaded( const QImage& );
@@ -55,8 +57,9 @@ private:
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;
-    int m_pendingRequest;
+    bool m_pendingRequest;
     QVector< QPointer<BackgroundJobs::ExtractOneThumbnailJob> > m_activeRequests;
+    int m_index;
 };
 
 }

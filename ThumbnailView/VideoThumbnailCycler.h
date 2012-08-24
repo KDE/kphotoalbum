@@ -47,7 +47,6 @@ public:
     void stopCycle();
 
 private slots:
-    void updateThumbnail();
     void gotFrame(const QImage& image );
 
 private:
@@ -57,11 +56,9 @@ private:
 
     static VideoThumbnailCycler* s_instance;
     DB::FileName m_fileName;
-    int m_index;
     QTimer* m_timer;
     ImageManager::VideoThumbnails *m_thumbnails;
     ThumbnailModel* m_model;
-    bool m_gotLast;
 };
 
 }

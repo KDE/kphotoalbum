@@ -25,7 +25,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
-    QObject(parent)
+    QObject(parent), m_pendingRequest(false), m_index(0)
 {
     m_cache.resize(10);
     m_activeRequests.reserve(10);
@@ -33,6 +33,7 @@ ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
 
 void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
+    m_index = 0;
     m_videoFile = fileName;
     if ( loadFramesFromCache(fileName) )
         return;
@@ -55,12 +56,17 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     BackgroundTaskManager::JobManager::instance()->addJob(lengthJob);
 }
 
-void ImageManager::VideoThumbnails::requestFrame(int fraction)
+void ImageManager::VideoThumbnails::requestNext()
 {
-    if ( m_cache[fraction].isNull() )
-        m_pendingRequest = fraction;
-    else
-        emit frameLoaded(m_cache[fraction]);
+    for (int i = 0; i <10; ++i) {
+        m_index = (m_index+1) % 10;
+        if ( !m_cache[m_index].isNull()) {
+            emit frameLoaded(m_cache[m_index]);
+            m_pendingRequest = false;
+            return;
+        }
+    }
+    m_pendingRequest = true;
 }
 
 void ImageManager::VideoThumbnails::gotFrame()
@@ -70,8 +76,10 @@ void ImageManager::VideoThumbnails::gotFrame()
     const DB::FileName thumbnailFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_videoFile, index);
     m_cache[index]=QImage(thumbnailFile.absolute());
 
-    if ( m_pendingRequest == index )
+    if ( m_pendingRequest ) {
+        m_index = index;
         emit frameLoaded(m_cache[index]);
+    }
 }
 
 bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& fileName)

@@ -64,6 +64,7 @@ public:
     DB::FileNameList selection( ThumbnailView::SelectionMode mode ) const;
     bool isSelected( const DB::FileName& id ) const;
     void select( const DB::FileNameList& );
+    bool isItemUnderCursorSelected() const;
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );

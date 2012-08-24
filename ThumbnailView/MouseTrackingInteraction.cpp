@@ -33,10 +33,10 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     updateStackingIndication( event );
     handleCursorOverNewIcon();
 
-    if ((event->modifiers() & Qt::AltModifier) != 0)
-        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
-    else
+    if ((event->modifiers() & Qt::ControlModifier) != 0 && widget()->isItemUnderCursorSelected())
         VideoThumbnailCycler::instance()->stopCycle();
+    else
+        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
     return false;
 }
 

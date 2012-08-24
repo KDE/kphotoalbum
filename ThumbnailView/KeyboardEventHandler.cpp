@@ -74,10 +74,8 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         return true;
     }
 
-    if ( event->key() == Qt::Key_Alt ) {
-        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
-        return true;
-    }
+    if (event->key() == Qt::Key_Control && widget()->isItemUnderCursorSelected())
+        VideoThumbnailCycler::instance()->stopCycle();
 
     if ( event->key() == Qt::Key_Return ) {
         emit showSelection();
@@ -99,8 +97,9 @@ bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
 
         return false; // Don't propagate the event - I'm not sure why.
     }
-    else if ( event->key() == Qt::Key_Alt )
-        VideoThumbnailCycler::instance()->stopCycle();
+
+    if (event->key() == Qt::Key_Control)
+        VideoThumbnailCycler::instance()->setActive(widget()->mediaIdUnderCursor());
 
     return true;
 }

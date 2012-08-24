@@ -425,4 +425,9 @@ void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList& items )
         selectionModel()->select(model()->fileNameToIndex(fileName), QItemSelectionModel::Select);
 }
 
+bool ThumbnailView::ThumbnailWidget::isItemUnderCursorSelected() const
+{
+    return widget()->selection(ExpandCollapsedStacks).contains(mediaIdUnderCursor());
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

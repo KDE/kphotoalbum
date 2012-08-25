@@ -224,7 +224,6 @@ private:
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
-    KAction* _recreateThumbnails;
     KAction* _useNextVideoThumbnail;
     KAction* _usePreviousVideoThumbnail;
     TokenEditor* _tokenEditor;

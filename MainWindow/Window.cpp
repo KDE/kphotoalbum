@@ -1073,7 +1073,6 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addSeparator();
         menu.addAction(_rotLeft);
         menu.addAction(_rotRight);
-        menu.addAction(_recreateThumbnails);
         menu.addAction(_useNextVideoThumbnail);
         menu.addAction(_usePreviousVideoThumbnail);
         _useNextVideoThumbnail->setEnabled(anyVideosSelected());
@@ -1230,7 +1229,6 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     _unStackImages->setEnabled(selectionSize >= 1);
     _setStackHead->setEnabled(selectionSize == 1); // FIXME: do we want to check if it's stacked here?
     _sortByDateAndTime->setEnabled(selectionSize > 1);
-    _recreateThumbnails->setEnabled(selectionSize >= 1);
     _rotLeft->setEnabled(selectionSize >= 1);
     _rotRight->setEnabled(selectionSize >= 1);
     _AutoStackImages->setEnabled(selectionSize > 1);

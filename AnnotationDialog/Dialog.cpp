@@ -604,11 +604,37 @@ void AnnotationDialog::Dialog::slotOptions()
     QMenu* menu = _dockWindow->createPopupMenu();
     QAction* saveCurrent = menu->addAction( i18n("Save Current Window Setup") );
     QAction* reset = menu->addAction( i18n( "Reset layout" ) );
+
+    // set MatchType entries
+    menu->addSeparator()->setText(
+            i18nc( "How tags are matched when one types text into the ListSelect-Textbox"
+                , "Match tags...") );
+    QActionGroup* matchTypes = new QActionGroup( menu );
+    QAction* matchFromBeginning = new QAction( i18nc( "Match tags...", "...from the first character."), matchTypes );
+    QAction* matchFromWordStart = new QAction( i18nc( "Match tags...", "...from word boundaries." ), matchTypes );
+    QAction* matchAnywhere = new QAction( i18nc( "Match tags...", "...anywhere."),matchTypes );
+    matchFromBeginning->setCheckable( true );
+    matchFromWordStart->setCheckable( true );
+    matchAnywhere->setCheckable( true );
+    // TODO add StatusTip text?
+    // set current state:
+    matchFromBeginning->setChecked( Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchFromBeginning );
+    matchFromWordStart->setChecked( Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchFromWordStart );
+    matchAnywhere->setChecked( Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchAnywhere );
+    // add MatchType actions to menu:
+    menu->addActions( matchTypes->actions() );
+
     QAction* res = menu->exec( QCursor::pos() );
     if ( res == saveCurrent )
         slotSaveWindowSetup();
     else if ( res == reset )
         slotResetLayout();
+    else if ( res == matchFromBeginning )
+        Settings::SettingsData::instance()->setMatchType( AnnotationDialog::MatchFromBeginning );
+    else if ( res == matchFromWordStart )
+        Settings::SettingsData::instance()->setMatchType( AnnotationDialog::MatchFromWordStart );
+    else if ( res == matchAnywhere )
+        Settings::SettingsData::instance()->setMatchType( AnnotationDialog::MatchAnywhere );
 }
 
 int AnnotationDialog::Dialog::exec()
@@ -1097,3 +1123,5 @@ DB::FileNameSet AnnotationDialog::Dialog::rotatedFiles() const
 }
 
 #include "Dialog.moc"
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

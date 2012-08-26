@@ -70,14 +70,13 @@ public slots:
     void slotSortAlphaTree();
     void slotSortAlphaFlat();
     void toggleSortType();
-    void toggleMatchFromBeginning();
+    void updateListview();
     void rePopulate();
 
 protected slots:
     void itemSelected( Q3ListViewItem* );
     void showContextMenu( Q3ListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
-    void setMatchType( AnnotationDialog::MatchType );
     void limitToSelection();
     void showAllChildren();
     void updateSelectionCount();
@@ -105,7 +104,6 @@ private:
     QToolButton* _alphaFlatSort;
     QToolButton* _dateSort;
     QToolButton* _showSelectedOnly;
-    QToolButton* _matchFromBeginning;
     QString _baseTitle;
 };
 

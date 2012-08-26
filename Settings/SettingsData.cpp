@@ -161,7 +161,7 @@ property_copy( excludeDirectories    , setExcludeDirectories    , QString       
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )
-getValueFunc( MatchType, matchType,  General,(int)MatchFromWordStart )
+getValueFunc( AnnotationDialog::MatchType, matchType,  General,(int)AnnotationDialog::MatchFromWordStart )
 
 void SettingsData::setHistogramSize( const QSize& size )
 {
@@ -180,7 +180,7 @@ void SettingsData::setViewSortType( const ViewSortType tp )
     setValue( "General", "viewSortType", (int)tp );
     emit viewSortTypeChanged( tp );
 }
-void SettingsData::setMatchType( const MatchType mt )
+void SettingsData::setMatchType( const AnnotationDialog::MatchType mt )
 {
     if ( mt == matchType() )
         return;

@@ -20,7 +20,8 @@
 
 namespace AnnotationDialog
 {
-enum UsageMode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
+    enum UsageMode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
+    enum MatchType { MatchFromBeginning, MatchFromWordStart, MatchAnywhere };
 }
 
 #endif /* ENUMS_H */

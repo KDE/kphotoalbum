@@ -23,6 +23,7 @@
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
 #include <config-kpa-exiv2.h>
+#include <AnnotationDialog/enums.h>
 
 #ifdef HAVE_EXIV2
 #   include "Exif/Info.h"
@@ -47,7 +48,6 @@ namespace Settings
 
     enum Position { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     enum ViewSortType { SortLastUse, SortAlphaTree, SortAlphaFlat };
-    enum MatchType { MatchFromBeginning, MatchFromWordStart, MatchAnywhere };
     enum TimeStampTrust { Always, Ask, Never};
     enum StandardViewSize { FullSize, NaturalSize, NaturalSizeIfFits };
     enum ThumbnailAspectRatio { Aspect_1_1, Aspect_4_3, Aspect_3_2, Aspect_16_9, Aspect_3_4, Aspect_2_3, Aspect_9_16 };
@@ -84,7 +84,7 @@ public:
     property_copy( autoSave              , setAutoSave              , int );
     property_copy( backupCount           , setBackupCount           , int );
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );
-    property_copy( matchType             , setMatchType             , MatchType      );
+    property_copy( matchType             , setMatchType             , AnnotationDialog::MatchType      );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
     property_copy( excludeDirectories    , setExcludeDirectories    , QString );
 
@@ -216,7 +216,7 @@ public:
 signals:
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Settings::ViewSortType );
-    void matchTypeChanged( Settings::MatchType );
+    void matchTypeChanged( AnnotationDialog::MatchType );
     void histogramSizeChanged( const QSize& );
 
 private:

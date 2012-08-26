@@ -111,7 +111,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _matchFromBeginning = new QToolButton;
     _matchFromBeginning->setIcon( SmallIcon( QString::fromLatin1( "code-context" ) ) );
     _matchFromBeginning->setCheckable( true );
-    _matchFromBeginning->setChecked( Settings::SettingsData::instance()->matchType() == Settings::MatchFromBeginning );
+    _matchFromBeginning->setChecked( Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchFromBeginning );
     _matchFromBeginning->setToolTip( i18n("Match items from the start only, not from all word boundaries.") );
 
 
@@ -138,8 +138,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
-    connect( Settings::SettingsData::instance(), SIGNAL( matchTypeChanged( Settings::MatchType ) ),
-             this, SLOT( setMatchType( Settings::MatchType ) ) );
+    connect( Settings::SettingsData::instance(), SIGNAL( matchTypeChanged( AnnotationDialog::MatchType ) ),
+             this, SLOT( setMatchType( AnnotationDialog::MatchType ) ) );
 
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( limitToSelected() ), this, SLOT(limitToSelection() ) );
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
@@ -232,9 +232,9 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
     _dateSort->setChecked( tp == Settings::SortLastUse );
 }
 
-void AnnotationDialog::ListSelect::setMatchType( Settings::MatchType mt )
+void AnnotationDialog::ListSelect::setMatchType( AnnotationDialog::MatchType mt )
 {
-    _matchFromBeginning->setChecked( mt == Settings::MatchFromBeginning );
+    _matchFromBeginning->setChecked( mt == AnnotationDialog::MatchFromBeginning );
 }
 
 
@@ -605,9 +605,9 @@ void AnnotationDialog::ListSelect::toggleMatchFromBeginning()
 {
     Settings::SettingsData* data = Settings::SettingsData::instance();
     if ( _matchFromBeginning->isChecked() )
-        data->setMatchType( Settings::MatchFromBeginning );
+        data->setMatchType( AnnotationDialog::MatchFromBeginning );
     else
-        data->setMatchType( Settings::MatchFromWordStart );
+        data->setMatchType( AnnotationDialog::MatchFromWordStart );
     // update item list:
     showOnlyItemsMatching( text() );
 }

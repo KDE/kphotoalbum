@@ -77,7 +77,7 @@ protected slots:
     void itemSelected( Q3ListViewItem* );
     void showContextMenu( Q3ListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
-    void setMatchType( Settings::MatchType );
+    void setMatchType( AnnotationDialog::MatchType );
     void limitToSelection();
     void showAllChildren();
     void updateSelectionCount();

@@ -18,6 +18,7 @@
 #ifndef LISTVIEWITEMHIDER_H
 #define LISTVIEWITEMHIDER_H
 #include <q3listview.h>
+#include "enums.h"
 
 namespace AnnotationDialog {
 
@@ -36,14 +37,14 @@ protected:
 class ListViewTextMatchHider :public ListViewItemHider
 {
 public:
-    ListViewTextMatchHider( const QString& text, bool anchorAtStart, Q3ListView* listView );
+    ListViewTextMatchHider( const QString& text, const MatchType mt, Q3ListView* listView );
 
 protected:
     virtual bool shouldItemBeShown( Q3ListViewItem* );
 
 private:
     QString _text;
-    bool _anchorAtStart;
+    const MatchType _matchType;
 };
 
 class ListViewCheckedHider :public ListViewItemHider

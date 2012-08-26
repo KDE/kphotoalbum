@@ -549,7 +549,7 @@ void AnnotationDialog::ListSelect::rePopulate()
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 {
-    ListViewTextMatchHider dummy( text, _matchFromBeginning->isChecked(), _listView );
+    ListViewTextMatchHider dummy( text, Settings::SettingsData::instance()->matchType(), _listView );
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
 }
 

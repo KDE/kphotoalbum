@@ -64,24 +64,32 @@ bool AnnotationDialog::ListViewItemHider::setItemsVisible( Q3ListViewItem* paren
     return anyChildrenVisible;
 }
 
-AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, bool anchorAtStart, Q3ListView* listView )
-    :_text( text ), _anchorAtStart( anchorAtStart )
+AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, const AnnotationDialog::MatchType mt, Q3ListView* listView )
+    :_text( text ), _matchType( mt )
 {
     setItemsVisible( listView );
 }
 
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem* item )
 {
-    if ( _anchorAtStart )
-        return item->text(0).toLower().startsWith( _text.toLower() );
-    else
+    switch ( _matchType )
     {
-        QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
-        Q_FOREACH(QString word,  words)
-            if ( word.startsWith( _text.toLower() ) )
-                return true;
-        return false;
+        case AnnotationDialog::MatchFromBeginning:
+            return item->text(0).toLower().startsWith( _text.toLower() );
+        case AnnotationDialog::MatchFromWordStart:
+            {
+                QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
+                Q_FOREACH(QString word,  words)
+                    if ( word.startsWith( _text.toLower() ) )
+                        return true;
+                return false;
+            }
+        case AnnotationDialog::MatchAnywhere:
+            return item->text(0).toLower().contains( _text.toLower() );
     }
+    // gcc believes this could be reached
+    Q_ASSERT( false );
+    return false;
 }
 
 bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )
@@ -93,3 +101,5 @@ AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( Q3ListView* listVi
 {
     setItemsVisible( listView );
 }
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

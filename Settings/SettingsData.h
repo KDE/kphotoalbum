@@ -47,7 +47,7 @@ namespace Settings
 
     enum Position { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     enum ViewSortType { SortLastUse, SortAlphaTree, SortAlphaFlat };
-    enum MatchType { MatchFromBeginning, MatchFromWordStart };
+    enum MatchType { MatchFromBeginning, MatchFromWordStart, MatchAnywhere };
     enum TimeStampTrust { Always, Ask, Never};
     enum StandardViewSize { FullSize, NaturalSize, NaturalSizeIfFits };
     enum ThumbnailAspectRatio { Aspect_1_1, Aspect_4_3, Aspect_3_2, Aspect_16_9, Aspect_3_4, Aspect_2_3, Aspect_9_16 };

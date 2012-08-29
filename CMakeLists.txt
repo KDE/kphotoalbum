@@ -56,6 +56,12 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
+include ( GitDescription )
+git_get_description( KPA_VERSION GIT_ARGS --dirty )
+if ( NOT KPA_VERSION )
+	set ( KPA_VERSION "unknown" )
+endif()
+add_definitions ( -DKPA_VERSION='"${KPA_VERSION}"' )
 
 macro_optional_find_package(Nepomuk)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)

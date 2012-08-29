@@ -30,8 +30,12 @@
 #include <klocale.h>
 #include <kdebug.h>
 
+#ifndef KPA_VERSION
+#error "KPA_VERSION not set! Please check your build system!"
+#endif
+
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "GIT",
+    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), KPA_VERSION,
                           ki18n("KDE Photo Album"), KAboutData::License_GPL,
                           KLocalizedString(), KLocalizedString(), "http://www.kphotoalbum.org");
     aboutData.addAuthor( ki18n("Jesper K. Pedersen"), ki18n("Development"), "blackie@kde.org" );

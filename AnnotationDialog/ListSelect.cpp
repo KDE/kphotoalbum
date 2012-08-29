@@ -107,6 +107,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _showSelectedOnly->setIcon( SmallIcon( QString::fromLatin1( "view-filter" ) ) );
     _showSelectedOnly->setCheckable( true );
     _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
+	_showSelectedOnly->setChecked( ShowSelectionOnlyManager::instance().selectionIsLimited() );
 
     _alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
@@ -526,7 +527,7 @@ void AnnotationDialog::ListSelect::rePopulate()
     populate();
     setSelection( on, noChange );
 
-    if(_showSelectedOnly->isChecked())
+    if( ShowSelectionOnlyManager::instance().selectionIsLimited() )
         limitToSelection();
 
     _listView->setContentsPos( x, y );

@@ -28,6 +28,11 @@ AnnotationDialog::ShowSelectionOnlyManager::ShowSelectionOnlyManager()
 {
 }
 
+bool AnnotationDialog::ShowSelectionOnlyManager::selectionIsLimited() const
+{
+   return _limit;
+}
+
 void AnnotationDialog::ShowSelectionOnlyManager::toggle()
 {
     _limit = !_limit;

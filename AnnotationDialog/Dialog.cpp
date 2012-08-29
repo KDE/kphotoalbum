@@ -652,6 +652,21 @@ void AnnotationDialog::Dialog::slotOptions()
     // add MatchType actions to menu:
     menu->addActions( matchTypes->actions() );
 
+    // create toggle-show-selected entry#
+    if ( _setup != SearchMode )
+    {
+        menu->addSeparator();
+        QAction* showSelectedOnly = new QAction(
+                SmallIcon( QString::fromLatin1( "view-filter" ) ),
+                i18n("Show only selected Ctrl+S"),
+                menu );
+        showSelectedOnly->setCheckable( true );
+        showSelectedOnly->setChecked( ShowSelectionOnlyManager::instance().selectionIsLimited() );
+        menu->addAction( showSelectedOnly );
+
+        connect( showSelectedOnly, SIGNAL( triggered() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
+    }
+
     // execute menu & handle response:
     QAction* res = menu->exec( QCursor::pos() );
     if ( res == saveCurrent )

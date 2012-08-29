@@ -28,6 +28,7 @@ class ShowSelectionOnlyManager :public QObject
 
 public:
     static ShowSelectionOnlyManager& instance();
+	bool selectionIsLimited() const;
 
 public slots:
     void toggle();

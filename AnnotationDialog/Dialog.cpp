@@ -601,18 +601,46 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
 
 void AnnotationDialog::Dialog::slotOptions()
 {
-    QMenu* menu = _dockWindow->createPopupMenu();
-    QAction* saveCurrent = menu->addAction( i18n("Save Current Window Setup") );
-    QAction* reset = menu->addAction( i18n( "Reset layout" ) );
+    // create menu entries for dock windows
+    QMenu* menu = new QMenu( this );
+    QMenu* dockMenu =_dockWindow->createPopupMenu();
+    menu->addMenu( dockMenu )
+        ->setText( i18n( "Configure window layout..." ) );
+    QAction* saveCurrent = dockMenu->addAction( i18n("Save Current Window Setup") );
+    QAction* reset = dockMenu->addAction( i18n( "Reset layout" ) );
 
-    // set MatchType entries
-    menu->addSeparator()->setText(
-            i18nc( "How tags are matched when one types text into the ListSelect-Textbox"
-                , "Match tags...") );
+    // create SortType entries
+    menu->addSeparator();
+    QActionGroup* sortTypes = new QActionGroup( menu );
+    QAction* alphaTreeSort = new QAction(
+            SmallIcon( QString::fromLatin1( "view-list-tree" ) ),
+            i18n("Sort Alphabetically (Tree)"),
+            sortTypes );
+    QAction* alphaFlatSort = new QAction(
+            SmallIcon( QString::fromLatin1( "draw-text" ) ),
+            i18n("Sort Alphabetically (Flat)"),
+            sortTypes );
+    QAction* dateSort = new QAction(
+            SmallIcon( QString::fromLatin1( "x-office-calendar" ) ),
+            i18n("Sort by date"),
+            sortTypes );
+    alphaTreeSort->setCheckable( true );
+    alphaFlatSort->setCheckable( true );
+    dateSort->setCheckable( true );
+    alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
+    alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
+    dateSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse );
+    menu->addActions( sortTypes->actions() );
+    connect( dateSort, SIGNAL( triggered() ), _optionList.at(0), SLOT( slotSortDate() ) );
+    connect( alphaTreeSort, SIGNAL( triggered() ), _optionList.at(0), SLOT( slotSortAlphaTree() ) );
+    connect( alphaFlatSort, SIGNAL( triggered() ), _optionList.at(0), SLOT( slotSortAlphaFlat() ) );
+
+    // create MatchType entries
+    menu->addSeparator();
     QActionGroup* matchTypes = new QActionGroup( menu );
-    QAction* matchFromBeginning = new QAction( i18nc( "Match tags...", "...from the first character."), matchTypes );
-    QAction* matchFromWordStart = new QAction( i18nc( "Match tags...", "...from word boundaries." ), matchTypes );
-    QAction* matchAnywhere = new QAction( i18nc( "Match tags...", "...anywhere."),matchTypes );
+    QAction* matchFromBeginning = new QAction( i18n( "Match tags from the first character."), matchTypes );
+    QAction* matchFromWordStart = new QAction( i18n( "Match tags from word boundaries." ), matchTypes );
+    QAction* matchAnywhere = new QAction( i18n( "Match tags anywhere."),matchTypes );
     matchFromBeginning->setCheckable( true );
     matchFromWordStart->setCheckable( true );
     matchAnywhere->setCheckable( true );
@@ -624,6 +652,7 @@ void AnnotationDialog::Dialog::slotOptions()
     // add MatchType actions to menu:
     menu->addActions( matchTypes->actions() );
 
+    // execute menu & handle response:
     QAction* res = menu->exec( QCursor::pos() );
     if ( res == saveCurrent )
         slotSaveWindowSetup();

@@ -30,9 +30,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-#ifndef KPA_VERSION
-#error "KPA_VERSION not set! Please check your build system!"
-#endif
+#include "version.h"
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), KPA_VERSION,

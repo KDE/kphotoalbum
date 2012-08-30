@@ -68,9 +68,9 @@ QString JobInfo::elapsed() const
         time = m_elapsed;
 
     const int secs = time / 1000;
-    const int msecs = time % 1000;
+    const int part = (time % 1000) / 100;
 
-    return QString::fromLatin1("%1.%2").arg(secs).arg(msecs,3,10,QLatin1Char('0'));
+    return QString::fromLatin1("%1.%2").arg(secs).arg(part);
 }
 
 int JobInfo::jobIndex() const

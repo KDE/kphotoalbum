@@ -28,6 +28,7 @@
 #include <ktoolinvocation.h>
 #include <phonon/backendcapabilities.h>
 #include <KStandardDirs>
+#include <QProcess>
 
 using namespace MainWindow;
 
@@ -96,9 +97,12 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     else
         text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeTypes.join(QString::fromLatin1( "<li>" ) ) );
 
-    text += i18n("<h1><a name=\"videoPreview\">Video preview</a></h1>"
+    text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
                  "<p>KPhotoAlbum uses <tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
-                 "videos in the thumbnail viewer.</p>");
+                 "videos in the thumbnail viewer.</p>"
+                 "<p>If at all possible you should install the <b>mplayer2</b> package rather than the <b>mplayer</b> package, as it has important "
+                 "improvements over the mplayer package. mplayer (in contrast to mplayer2) often has problems extracting the length"
+                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.");
 
     edit->setText( text );
 
@@ -162,13 +166,27 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 
 QString FeatureDialog::mplayerBinary()
 {
-    return KStandardDirs::findExe(QString::fromLatin1("mplayer"));
+    const QString mplayer2 = KStandardDirs::findExe(QString::fromLatin1("mplayer2"));
+
+    if ( !mplayer2.isNull() )
+        return mplayer2;
+    else
+        return KStandardDirs::findExe(QString::fromLatin1("mplayer"));
+}
+
+bool FeatureDialog::isMplayer2()
+{
+    QProcess process;
+    process.start( mplayerBinary(), QStringList() << QString::fromLatin1("--version"));
+    process.waitForFinished();
+    const QString output = QString::fromLocal8Bit(process.readAllStandardOutput().data());
+    return output.contains(QString::fromLatin1("MPlayer2"));
 }
 
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport();
+    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport() && !mplayerBinary().isNull() && isMplayer2();
 }
 
 struct Data
@@ -183,22 +201,26 @@ struct Data
 
 QString MainWindow::FeatureDialog::featureString()
 {
-     QList<Data> features;
+    QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
     features << Data( i18n("SQL database support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
-    features << Data( i18n( "Video preview"), QString::fromLatin1("#videoPreview"), !mplayerBinary().isEmpty());
 
     QString result = QString::fromLatin1("<p><table>");
+    const QString red = QString::fromLatin1("<font color=\"red\">%1</font>");
     const QString yes = i18n("Yes");
-    const QString no =  QString::fromLatin1("<font color=\"red\">%1</font>").arg( i18n("No") );
+    const QString no =  red.arg( i18n("No") );
+    const QString formatString = QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" );
      for( QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt ) {
-        result += QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" )
+        result += formatString
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }
+
+     QString thumbnailSupport = mplayerBinary().isNull() ? no : ( isMplayer2() ? yes : red.arg(i18n("Only with mplayer1")));
+    result += formatString.arg(QString::fromLatin1("#videoPreview")).arg(i18n("Video thumbnail support")).arg(thumbnailSupport);
     result += QString::fromLatin1( "</table></p>" );
 
     return result;

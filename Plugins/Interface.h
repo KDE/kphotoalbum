@@ -25,7 +25,6 @@
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
 #include <libkipi/imagecollectionselector.h>
-#include <libkipi/uploadwidget.h>
 #include <kurl.h>
 #include <kdemacros.h>
 

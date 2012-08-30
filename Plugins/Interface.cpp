@@ -31,6 +31,8 @@
 #include "Browser/BrowserWidget.h"
 #include "Plugins/ImageCollectionSelector.h"
 #include <QList>
+#include "UploadWidget.h"
+namespace KIPI { class UploadWidget; }
 
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
@@ -132,11 +134,9 @@ KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidg
     return new ImageCollectionSelector( parent, this );
 }
 
-KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget *)
+KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget* parent)
 {
-    qDebug("Interface::uploadWidget(...) not yet implemented!");
-   //TODO
-    return 0;
+    return new Plugins::UploadWidget(parent);
 }
 
 #include "Interface.moc"

@@ -115,7 +115,9 @@ set(libPlugins_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollectionSelector.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadWidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadImageCollection.cpp
 )
 endif(KIPI_FOUND)
 

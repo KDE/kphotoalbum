@@ -1735,7 +1735,7 @@ void MainWindow::Window::checkIfMplayerIsInstalled()
     if ( !FeatureDialog::isMplayer2() ) {
         KMessageBox::information( this,
                                   i18n("<p>You have mplayer installed on your system, but it is unfortunately not version 2. "
-                                       "mplayer2 is on most systems a seperate package, please install that if at all possible, "
+                                       "mplayer2 is on most systems a separate package, please install that if at all possible, "
                                        "as that version has much better support for extracting thumbnails from videos."),
                                   i18n("mplayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
     }

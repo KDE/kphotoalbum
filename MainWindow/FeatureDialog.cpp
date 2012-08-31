@@ -101,7 +101,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                  "<p>KPhotoAlbum uses <tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
                  "videos in the thumbnail viewer.</p>"
                  "<p>If at all possible you should install the <b>mplayer2</b> package rather than the <b>mplayer</b> package, as it has important "
-                 "improvements over the mplayer package. mplayer (in contrast to mplayer2) often has problems extracting the length"
+                 "improvements over the mplayer package. mplayer (in contrast to mplayer2) often has problems extracting the length "
                  "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.");
 
     edit->setText( text );

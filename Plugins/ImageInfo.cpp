@@ -25,6 +25,7 @@
 #include "MainWindow/DirtyIndicator.h"
 #include <QList>
 #include "DB/CategoryCollection.h"
+#include <QFileInfo>
 
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
@@ -51,19 +52,15 @@ QString Plugins::ImageInfo::description()
 QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
     QMap<QString,QVariant> res;
-    if ( _info ) {
-        Q_FOREACH(const QString& category, _info->availableCategories()) {
-            const DB::StringSet& tags = _info->itemsOfCategory(category);
-            res.insert(category, QVariant(QStringList(tags.toList())));
-        }
-    }
 
     // Flickr plug-in expects the item tags, so we better give them.
     QString text;
-     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     QStringList tags;
      for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
+        if ( categoryName == QString::fromLatin1( "Folder" ) || categoryName == QString::fromLatin1( "Media Type" ) || categoryName == QString::fromLatin1( "Tokens" ) )
+            continue;
         if ( (*categoryIt)->doShow() ) {
             Utilities::StringSet items = _info->itemsOfCategory( categoryName );
             for( Utilities::StringSet::Iterator it = items.begin(); it != items.end(); ++it ) {
@@ -71,8 +68,9 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
             }
         }
     }
-    QString key = QString::fromLatin1( "tags" );
-    res.insert( key, QVariant( tags ) );
+    res.insert(QString::fromLatin1( "keywords" ), tags );
+    res.insert(QString::fromLatin1( "tags" ), tags );
+    res.insert(QString::fromLatin1( "tagspath" ), tags );
     if ( _info ) {
         DB::GpsCoordinates position = _info->geoPosition();
         if (!position.isNull()) {
@@ -84,6 +82,8 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
             }
         }
     }
+
+    res.insert(QString::fromLatin1("name"), QFileInfo(_info->fileName().absolute()).baseName());
 
     return res;
 }

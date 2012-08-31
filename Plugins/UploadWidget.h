@@ -21,6 +21,7 @@
 #define PLUGINS_UPLOADWIDGET_H
 
 #include <libkipi/uploadwidget.h>
+#include <libkipi/imagecollection.h>
 class QFileSystemModel;
 class QModelIndex;
 

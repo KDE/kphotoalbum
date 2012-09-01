@@ -42,6 +42,8 @@ protected slots:
 
 private:
     QCheckBox* _matchingMD5;
+    QCheckBox* _matchingFile;
+    QCheckBox* _origTop;
     QCheckBox* _continuousShooting;
     QRadioButton* _autostackUnstack;
     QRadioButton* _autostackSkip;
@@ -49,6 +51,7 @@ private:
     QSpinBox* _continuousThreshold;
     const DB::FileNameList& _list;
     virtual void matchingMD5( DB::FileNameList &toBeShown );
+    virtual void matchingFile( DB::FileNameList &toBeShown );
     virtual void continuousShooting( DB::FileNameList &toBeShown );
 };
 

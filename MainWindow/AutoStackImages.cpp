@@ -55,6 +55,18 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     _matchingMD5->setChecked( false );
     hlayMd5->addWidget( _matchingMD5 );
 
+    QWidget* containerFile = new QWidget( this );
+    lay1->addWidget( containerFile );
+    QHBoxLayout* hlayFile = new QHBoxLayout( containerFile );
+
+    _matchingFile = new QCheckBox( i18n( "Stack images based on file version detection") );
+    _matchingFile->setChecked( false );
+    hlayFile->addWidget( _matchingFile );
+ 
+    _origTop = new QCheckBox( i18n( "Original to top") );
+    _origTop ->setChecked( false );
+    hlayFile->addWidget( _origTop );
+
     QWidget* containerContinuous = new QWidget( this );
     lay1->addWidget( containerContinuous );
     QHBoxLayout* hlayContinuous = new QHBoxLayout( containerContinuous );
@@ -147,6 +159,87 @@ void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
 }
 
 /*
+ * This function searches for images based on file version detection configuration.
+ * Images that are detected to be versions of same file are stacked together.
+ */
+
+void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
+{
+    QMap< DB::MD5, DB::FileNameList > tostack;
+    DB::FileNameList showIfStacked;
+    QString _modifiedFileCompString;
+    QRegExp _modifiedFileComponent;
+    QStringList _originalFileComponents;
+ 
+    _modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
+    _modifiedFileComponent = QRegExp( _modifiedFileCompString );
+
+    _originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
+    _originalFileComponents = _originalFileComponents.at( 0 ).split( QString::fromLatin1(";") );
+
+    // Stacking all images based on file version detection
+    // First round prepares the stacking
+    Q_FOREACH( const DB::FileName& fileName, _list ) {
+        if ( _modifiedFileCompString.length() >= 0 &&
+            fileName.relative().contains( _modifiedFileComponent ) ) {
+
+            for( QStringList::const_iterator it = _originalFileComponents.constBegin();
+                 it != _originalFileComponents.constEnd(); ++it ) {
+                QString tmp = fileName.relative();
+                tmp.replace( _modifiedFileComponent, ( *it ));
+                DB::FileName originalFileName = DB::FileName::fromRelativePath( tmp );
+
+                if ( originalFileName != fileName && _list.contains( originalFileName ) ) {
+                    DB::MD5 sum = originalFileName.info()->MD5Sum();
+                    if ( tostack[sum].isEmpty() ) {
+                        if ( _origTop->isChecked() ) {
+                            tostack.insert( sum, DB::FileNameList() << originalFileName );
+                            tostack[sum].append( fileName );
+                        } else {
+                            tostack.insert( sum, DB::FileNameList() << fileName );
+                            tostack[sum].append( originalFileName );
+                        }
+                    } else
+                        tostack[sum].append(fileName);
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Then add images to stack (depending on configuration options)
+    for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
+        if ( tostack[it.key()].count() > 1 ) {
+            DB::FileNameList stack;
+            for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
+                if ( !DB::ImageDB::instance()->getStackFor( tostack[it.key()][i]).isEmpty() ) {
+                    if ( _autostackUnstack->isChecked() )
+                        DB::ImageDB::instance()->unstack( DB::FileNameList() << tostack[it.key()][i]);
+                    else if ( _autostackSkip->isChecked() )
+                        continue;
+                }
+
+                showIfStacked.append( tostack[it.key()][i] );
+                stack.append( tostack[it.key()][i]);
+            }
+            if ( stack.size() > 1 ) {
+
+                Q_FOREACH( const DB::FileName& a, showIfStacked ) {
+                    if ( !DB::ImageDB::instance()->getStackFor(a).isEmpty() )
+                        Q_FOREACH( const DB::FileName& b, DB::ImageDB::instance()->getStackFor(a))
+                            toBeShown.append( b );
+                    else
+                        toBeShown.append(a);
+                }
+                DB::ImageDB::instance()->stack(stack);
+            }
+            showIfStacked.clear();
+        }
+    }
+}
+
+
+/*
  * This function searches for images that are shot within specified time frame
  */
 
@@ -209,6 +302,8 @@ void AutoStackImages::accept()
 
     if ( _matchingMD5->isChecked() )
         matchingMD5( toBeShown );
+    if ( _matchingFile->isChecked() )
+        matchingFile( toBeShown );
     if ( _continuousShooting->isChecked() )
         continuousShooting( toBeShown );
 

@@ -23,6 +23,7 @@
 #include <KLed>
 
 class QTimer;
+class QHelpEvent;
 
 namespace BackgroundTaskManager {
 class JobViewer;
@@ -33,6 +34,7 @@ class StatusIndicator : public KLed
 
 public:
     StatusIndicator( QWidget* parent );
+    OVERRIDE bool event(QEvent* event);
 
 protected:
     OVERRIDE void mouseReleaseEvent(QMouseEvent* event);
@@ -43,6 +45,7 @@ private slots:
 
 private:
     QColor currentColor() const;
+    void showToolTip(QHelpEvent* event);
     QTimer* m_timer;
     JobViewer* m_jobViewer;
 };

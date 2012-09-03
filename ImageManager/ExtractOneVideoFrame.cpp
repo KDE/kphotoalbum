@@ -75,7 +75,7 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
     }
 
     KMessageBox::information( MainWindow::Window::theMainWindow(),
-            i18n("<p>Error when extracting video thumbnails.<br>Error was: %1</p>" , message ),
+            i18n("<p>Error when extracting video thumbnails.<br/>Error was: %1</p>" , message ),
             QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
     emit result(QImage());
     deleteLater();

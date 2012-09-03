@@ -84,8 +84,7 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
 void ExtractOneVideoFrame::setupWorkingDirectory()
 {
     const QString tmpPath = STR("%1/KPA-XXXXXX").arg(QDir::tempPath());
-    char* cTmpPath = tmpPath.toUtf8().data();
-    m_workingDirectory = QString::fromUtf8(mkdtemp(cTmpPath));
+    m_workingDirectory = QString::fromUtf8(mkdtemp(tmpPath.toUtf8().data()));
 }
 
 void ExtractOneVideoFrame::deleteWorkingDirectory()

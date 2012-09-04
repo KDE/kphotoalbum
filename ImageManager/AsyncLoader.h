@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef IMAGEMANAGER_H
-#define IMAGEMANAGER_H
+#ifndef IMAGEMANAGER_ASYNCLOADER_H
+#define IMAGEMANAGER_ASYNCLOADER_H
 #include <qwaitcondition.h>
 #include <QList>
 #include <qevent.h>
@@ -69,5 +69,5 @@ private:
 
 }
 
-#endif /* IMAGEMANAGER_H */
+#endif /* IMAGEMANAGER_ASYNCLOADER_H */
 

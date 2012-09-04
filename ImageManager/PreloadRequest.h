@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIDEOREQUEST_H
-#define VIDEOREQUEST_H
+#ifndef IMAGEMANAGER_PRELOADREQUEST_H
+#define IMAGEMANAGER_PRELOADREQUEST_H
 #include "ImageRequest.h"
 
 namespace ImageManager {
@@ -31,4 +31,4 @@ public:
 
 }
 
-#endif // VIDEOREQUEST_H
+#endif // IMAGEMANAGER_PRELOADREQUEST_H

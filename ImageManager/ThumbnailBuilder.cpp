@@ -32,12 +32,12 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
     :QObject( parent ), m_statusBar( statusBar ),  m_isBuilding( false )
 {
-    connect( m_statusBar, SIGNAL( cancelRequest() ), this, SLOT( cancelRequests() ) );
+    connect( m_statusBar, SIGNAL(cancelRequest()), this, SLOT(cancelRequests()));
     m_instance =  this;
 
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
-    connect( m_startBuildTimer, SIGNAL(timeout()), this, SLOT( doThumbnailBuild()));
+    connect( m_startBuildTimer, SIGNAL(timeout()), this, SLOT(doThumbnailBuild()));
 }
 
 void ImageManager::ThumbnailBuilder::cancelRequests()

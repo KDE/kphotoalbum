@@ -25,6 +25,14 @@ h1 { text-align: center }
 	color: black;
 }
 
+#fullVideo {
+	z-index: 80;
+	text-decoration: none;
+	background: none;
+	position: relative;
+	color: black;
+}
+
 #opa {
 	z-index: 60;
 	position: absolute;
@@ -60,6 +68,14 @@ h1 { text-align: center }
 	margin-right: auto;
 }
 
+#fullarea ul {
+	padding-top: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-align: left;
+	list-style: none;
+}
+
 a.thumbA {
 	text-decoration: none;
 	background: none;
@@ -93,6 +109,19 @@ div.keywords {
 	text-align: left;
 }
 
+div.videoInfo {
+	min-height: 2em;
+	text-align: center;
+	background-color: #222;
+	border: 1pt #FFFFD2 solid;
+	color: #999;
+	padding: 0ex;
+	z-index: 200;
+}
+div.videoInfo p {
+	margin: 1ex;
+}
+
 #imagearea {
 	z-index: 40;
 }
@@ -110,6 +139,7 @@ div.keywords {
 }
 
 #slide {
+	z-index: 90;
 	position: absolute;
 	top: .8ex;
 	right: auto;
@@ -127,6 +157,48 @@ div.help {
 	background: none;
 }
 
+div.X {
+	z-index: 100;
+	position: absolute;
+	right: -3.9ex;
+	top: -2.5ex;
+	left: auto;
+}
+
+div.navi {
+	z-index: 95;
+	position: absolute;
+	display: none;
+	top: 1.0ex;
+}
+
+img.arrow-left {
+	padding-right: 1pt;
+}
+
+img.arrow-right {
+	padding-left: 1pt;
+}
+
+#videoFB {
+	display: none;
+}
+
+.dl {
+	z-index: 100;
+	position: absolute;
+	right: -4.0ex;
+	bottom: -2.2ex;
+	left: auto;
+	display: none;
+}
+
+#fullImgD {
+	z-index: 100;
+	margin-top: .5ex;
+	width: 100%;
+}
+
 div.help:hover {
 	font-weight: bold;
 }
@@ -136,6 +208,7 @@ div.help span {
 }
 
 div.help:hover span {
+	z-index: 100;
 	display: block;
 	width: 10em;
 	text-align: left;
@@ -145,14 +218,6 @@ div.help:hover span {
 
 div.slide span {
 	display: none;
-}
-
-div.slide:hover span {
-	display: block;
-	width: 10em;
-	text-align: left;
-	background-color: #202020;
-	padding: 5px;
 }
 
 div.navigator {
@@ -175,6 +240,30 @@ div.navigator a { margin: 2px }
 div.navigator a:link { text-decoration: none; background: none; color: #CCC }
 div.navigator a:visited { text-decoration: none; background: none; color: #999 }
 div.navigator a:hover { background: none; color: white }
+
+div.slideSpeed {
+	z-index: 100;
+	font-weight: normal;
+	text-align: center;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	width: 3em;
+	right: auto;
+	background: #000;
+	border: 2pt #CCC solid;
+	padding: 1pt;
+	display: none;
+}
+body>div.slideSpeed { position: fixed }
+div.slideSpeed {
+ 	font: 100% Arial, Tholoth, Rekha, sans-serif, Helvetica;
+	font-weight: bold;
+}
+
+div.slideSpeed a:link { text-decoration: none; background: none; color: #CCC }
+div.slideSpeed a:visited { text-decoration: none; background: none; color: #CCC }
+div.slideSpeed a:hover { text-decoration: none; background: none; color: #CCC }
 
 div.viewpic {
 	margin: 0;
@@ -233,6 +322,19 @@ table.controlinfo,td.navbar {
 	right: auto;
 	width: 60%;
 }
+
+.home {
+	background-color: #202020;
+	position: absolute;
+	z-index: 50;
+	left: .5em;
+	right: auto;
+	width: 60%;
+}
+div.home a:link { background: none; color: #CCC }
+div.home a:visited { background: none; color: #999 }
+div.home a:hover { background: none; color: white }
+
 .copyright {
 	background-color: #202020;
 	right: .5em;
@@ -241,4 +343,19 @@ table.controlinfo,td.navbar {
 	text-align: right;
 	position: absolute;
 	z-index: 40;
+}
+
+div.copyright span {
+        display: none;
+        background-color: #202020;
+        position: absolute;
+        right: .5em;
+        text-align: right;
+        z-index: 50;
+        top: 0em;
+}
+
+div.copyright:hover span {
+        display: block;
+        padding-top: .5em;
 }

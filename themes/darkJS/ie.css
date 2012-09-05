@@ -1,6 +1,6 @@
 #opa {
 	filter: alpha(opacity = 70);
-	z-index: 0;
+	z-index: 55;
 	height: expression(document.body.clientHeight + "px");
 	width: expression(document.body.clientWidth + "px");
 }
@@ -13,6 +13,7 @@
 
 #loadarea {
 	z-index: 100;
+	padding: 0px;
 }
 
 div.thumb-div {
@@ -21,4 +22,35 @@ div.thumb-div {
 
 .resolutions {
 	left: 0em;
+}
+
+div.thumb-div-selected {
+	padding: 0px;
+}
+
+#fullVideo {
+	display: none;
+	z-index: 80;
+	text-decoration: none;
+	background: none;
+	position: relative;
+	color: black;
+}
+
+#fsImg {
+	padding: 0px;
+	margin: 0px;
+}
+#thumbnails {
+	z-index: 20;
+	padding: 0px;
+	margin: 0px;
+}
+
+div.navi {
+	z-index: 110;
+}
+
+#slide {
+	z-index: 50;
 }

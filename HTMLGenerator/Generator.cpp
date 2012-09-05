@@ -235,14 +235,22 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         else
             last = namePage( width, height, fileName);
 
-    if (!Utilities::isVideo(fileName))
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
-                  .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
-    else
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
-                    .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( QFileInfo(fileName.absolute()).fileName() );
+        if (!Utilities::isVideo(fileName))
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"%4\", \"" ).arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() )
+                        ).arg( nameImage( fileName, maxImageSize() ) ).arg( KMimeType::findByUrl( nameImage(
+                                    fileName, maxImageSize() ) )->name() );
+        else {
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"%1\", \"" )
+                .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) )
+                .arg( QFileInfo(fileName.relative()).fileName() )
+                .arg( KMimeType::findByPath( QFileInfo( fileName.relative() ).fileName(), 0, true)->name() );
+        }
 
         // -------------------------------------------------- Description
+        if ( !info->description().isEmpty() && _setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) )
+            images += QString::fromLatin1( "%1\", \"" ).arg( info->description().replace( QString::fromLatin1( "\n$" ), QString::fromLatin1( "" ) ).replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( " " ) ).replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) ) );
+        else
+            images += QString::fromLatin1( "\", \"" );
         QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);
 
         if ( !description.isEmpty() )
@@ -354,7 +362,20 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     else
     content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
 
-    content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
+    // TODO: Hardcoded non-standard category names is not good practice
+    QString title = QString::fromLatin1("");
+    QString name = QString::fromLatin1( "Common Name" );
+    if ( !info->itemsOfCategory( name ).empty() ) {
+        title += QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(" - ") );
+    } else {
+        name = QString::fromLatin1( "Latin Name" );
+        if ( !info->itemsOfCategory( name ).empty() ) {
+            title += QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(" - ") );
+        } else {
+            title = info->label();
+        }
+    }
+    content.replace( QString::fromLatin1( "**TITLE**" ), title );
 
 
     // Image or video content

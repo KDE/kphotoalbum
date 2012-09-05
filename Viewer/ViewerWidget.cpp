@@ -793,7 +793,8 @@ void Viewer::ViewerWidget::updateInfoBox()
                 selecttext += QString::fromLatin1("{") + _currentInputList +
                     QString::fromLatin1("}");
             }
-        } else if (_currentInput != QString::fromLatin1("") ||
+        } else if ( ( _currentInput != QString::fromLatin1("") &&
+                   _currentCategory != QString::fromLatin1("Tokens") ) ||
                    _currentCategory != QString::fromLatin1("Tokens")) {
             selecttext = i18n("<b>Assigning: </b>") + _currentCategory +
                 QString::fromLatin1("/")  + _currentInput;
@@ -801,6 +802,9 @@ void Viewer::ViewerWidget::updateInfoBox()
                 selecttext += QString::fromLatin1("{") + _currentInputList +
                     QString::fromLatin1("}");
             }
+        } else if ( _currentInput != QString::fromLatin1("") &&
+                   _currentCategory == QString::fromLatin1("Tokens") ) {
+            _currentInput = QString::fromLatin1("");
         }
         if (selecttext != QString::fromLatin1(""))
             text = selecttext + QString::fromLatin1("<br />") + text;

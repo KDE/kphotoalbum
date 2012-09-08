@@ -1,7 +1,15 @@
 // Selectable options BEGIN
+// Konqueror tends to crash with videos. If set to 1 videos are disabled with Konqueror
+var konquerorPlaySafe = 1
+
+// Set to 1 to display alerts when video support is disabled
+var annoyingAlerts = 0
 
 // SlideShow speed in milliseconds
 var speed = 2500
+
+// Default video format for downloads (if browser supports HTML5 video the browser supported format used)
+var videoExt = ".mp4"
 
 // Selectable options END
 
@@ -197,6 +205,41 @@ function detectBrowser()
 		//IE 4 compatible
 		browser = 2
 	}
+
+	if (typeof enableVideo == 'undefined' || !enableVideo) {
+		return
+	}
+
+	if (!generatedVideo && inlineVideo) {
+		videoInfo('Videos displayed using original format, if browser supports')
+		return
+	}
+	if (inlineVideo) {
+		if (!!document.createElement('video').canPlayType) {
+			if (!!document.createElement("video").canPlayType('video/ogg; codecs="theora, vorbis"')) {
+				browserVideo = 1
+				videoFormat = "'video/ogg; codecs=\"theora, vorbis\"'"
+				videoExt = ".ogg"
+			} if (!!document.createElement("video").canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')) {
+				browserVideo = 1
+				videoFormat = "'video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"'"
+				videoExt = ".mp4"
+			}
+			if (navigator.userAgent.indexOf("Konqueror") > -1 || navigator.userAgent.indexOf("rekonq") > -1) {
+				if (konquerorPlaySafe == 1) {
+					konqueror = 0
+					browserVideo = 0
+					videoInfo('Konqueror keeps crashing if video support is enabled - thus videos must be viewed manually<br />')
+					return
+				} else {
+					konqueror = 1
+				}
+			}
+		}
+		videoInfo('')
+	} else {
+		videoInfo('Inline videos are disabled')
+	}
 }
 
 function videoInfo(msg)
@@ -348,7 +391,11 @@ function imageInit()
 		document.write('<video id="fullVideo" class="fullVideo" width="' + videoWidth + '" height="' +
 			videoHeight + '" onloadstart=viewerVideoSize() onended=videoEnd() >' +
 			'<source type=' + videoFormat + ' src="')
-		document.write(gallery[0][2])
+		if (generatedVideo) {
+			document.write(gallery[0][2].replace(/\..*/, videoExt))
+		} else {
+			document.write(gallery[0][2])
+		}
 		document.write('" />"</video>')
 		document.write('<span id="fullVidD" class="fullVidD">' + '<i>' + gallery[image][2] + '</i> &nbsp;' + gallery[0][5] + '</span>')
 			//'<source type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\' src="' + gallery[0][2].replace(/\.*/, "mp4") + '" />"' +
@@ -358,7 +405,11 @@ function imageInit()
 		}
 	}
 	document.write('<div class="dl" id="dl" onclick="event.cancelBubble = true;"><a id="videoDL" href="')
-	document.write(gallery[0][2])
+	if (generatedVideo) {
+		document.write(gallery[0][2].replace(/\..*/, videoExt))
+	} else {
+		document.write(gallery[0][2])
+	}
 	document.write('"><img alt="download" src="download.png" /></a></div>' +
 		'</div></div>')
 
@@ -399,8 +450,13 @@ function showImage(img)
 					document.getElementById("dl").style.display="block"
 					document.getElementById("fullImg").style.display="none"
 					document.getElementById("fullImgD").style.display="none"
-					document.getElementById("videoDL").href = gallery[img][2]
-					document.getElementById("fullVideo").setAttribute("src", gallery[img][2])
+					if (generatedVideo) {
+						document.getElementById("videoDL").href = gallery[img][2].replace(/\..*/, videoExt)
+						document.getElementById("fullVideo").setAttribute("src", gallery[img][2].replace(/\..*/, videoExt))
+					} else {
+						document.getElementById("videoDL").href = gallery[img][2]
+						document.getElementById("fullVideo").setAttribute("src", gallery[img][2])
+					}
 
 					document.getElementById("fullVideo").load()
 					document.getElementById("fullVidD").innerHTML = '<i>' + gallery[img][2] + '</i> &nbsp;' + gallery[img][5]
@@ -473,12 +529,22 @@ function showImageViewer(img)
 			document.getElementById("fullImgD").style.display="none"
 	
 			if (img == -1) {
-				document.getElementById("fullVideo").setAttribute("src", gallery[image][2])
-				document.getElementById("videoDL").href = gallery[image][2]
+				if (generatedVideo) {
+					document.getElementById("fullVideo").setAttribute("src", gallery[image][2].replace(/\..*/, videoExt))
+					document.getElementById("videoDL").href = gallery[image][2].replace(/\..*/, videoExt)
+				} else {
+					document.getElementById("fullVideo").setAttribute("src", gallery[image][2])
+					document.getElementById("videoDL").href = gallery[image][2]
+				}
 				document.getElementById("fullVidD").innerHTML = '<i>' + gallery[image][2] + '</i> &nbsp;' + gallery[image][5]
 			} else {
-				document.getElementById("fullVideo").setAttribute("src", gallery[img][2])
-				document.getElementById("videoDL").href = gallery[img][2]
+				if (generatedVideo) {
+					document.getElementById("fullVideo").setAttribute("src", gallery[img][2].replace(/\..*/, videoExt))
+					document.getElementById("videoDL").href = gallery[img][2].replace(/\..*/, videoExt)
+				} else {
+					document.getElementById("fullVideo").setAttribute("src", gallery[img][2])
+					document.getElementById("videoDL").href = gallery[img][2]
+				}
 				document.getElementById("fullVidD").innerHTML = '<i>' + gallery[image][2] + '</i> &nbsp;' + gallery[image][5]
 			}
 			document.getElementById("fullVideo").load()
@@ -486,7 +552,11 @@ function showImageViewer(img)
 			document.getElementById("fullVideo").play()
 			videoPlaying = 1
 		} else {
-			document.location = gallery[img][2]
+			if (generatedVideo) {
+				document.location = gallery[img][2].replace(/\..*/, videoExt)
+			} else {
+				document.location = gallery[img][2]
+			}
 			return
 		}
 	} else {

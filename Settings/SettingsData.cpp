@@ -367,6 +367,14 @@ property_ref_(
         groupForDatabase( "HTML Settings" ),
         true )
 property_ref_(
+        HTML5Video, setHTML5Video, int,
+        groupForDatabase( "HTML Settings" ),
+        true )
+property_ref_(
+        HTML5VideoGenerate, setHTML5VideoGenerate, int,
+        groupForDatabase( "HTML Settings" ),
+        true ) 
+property_ref_(
         HTMLThumbSize, setHTMLThumbSize, int,
         groupForDatabase( "HTML Settings" ),
         128 )

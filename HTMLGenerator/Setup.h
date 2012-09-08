@@ -80,6 +80,11 @@ public:
     void setInlineMovies( bool inlineMovie );
     bool inlineMovies() const;
 
+    void setHtml5Video( bool html5Video );
+    bool html5Video() const;
+
+    void setHtml5VideoGenerate( bool html5VideoGenerate );
+    bool html5VideoGenerate() const;
 
 private:
     QString _title;
@@ -98,6 +103,8 @@ private:
     QList<ImageSizeCheckBox*> _resolutions;
     DB::FileNameList _images;
     bool _inlineMovies;
+    bool _html5Video;
+    bool _html5VideoGenerate;
 };
 
 }

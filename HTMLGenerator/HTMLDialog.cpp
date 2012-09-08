@@ -102,6 +102,14 @@ void HTMLDialog::createContentPage()
     _inlineMovies->setChecked( Settings::SettingsData::instance()->HTMLInlineMovies() );
     lay1->addWidget( _inlineMovies );
 
+    _html5Video = new QCheckBox( i18n( "Use HTML5 video tag" ), contentPage );
+    _html5Video->setChecked( Settings::SettingsData::instance()->HTML5Video() );
+    lay1->addWidget( _html5Video );
+
+    _html5VideoGenerate = new QCheckBox( i18n( "Generate HTML5 video files (mp4 and ogg)" ), contentPage );
+    _html5VideoGenerate->setChecked( Settings::SettingsData::instance()->HTML5VideoGenerate() );
+    lay1->addWidget( _html5VideoGenerate );
+
     // What to include
     QGroupBox* whatToInclude = new QGroupBox( i18n( "What to Include" ), contentPage );
     lay1->addWidget( whatToInclude );
@@ -241,6 +249,8 @@ void HTMLDialog::createLayoutPage()
     _cbs << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
     lay1->addStretch(1);
+    QGridLayout* lay6 = new QGridLayout;
+    lay1->addLayout( lay6 );
 }
 
 void HTMLDialog::createDestinationPage()
@@ -323,6 +333,8 @@ void HTMLDialog::slotOk()
     Settings::SettingsData::instance()->setHTMLTheme( _themeBox->currentIndex() );
     Settings::SettingsData::instance()->setHTMLKimFile( _generateKimFile->isChecked() );
     Settings::SettingsData::instance()->setHTMLInlineMovies( _inlineMovies->isChecked() );
+    Settings::SettingsData::instance()->setHTML5Video( _html5Video->isChecked() );
+    Settings::SettingsData::instance()->setHTML5VideoGenerate( _html5VideoGenerate->isChecked() );
     Settings::SettingsData::instance()->setHTMLThumbSize( _thumbSize->value() );
     Settings::SettingsData::instance()->setHTMLNumOfCols( _numOfCols->value() );
     Settings::SettingsData::instance()->setHTMLSizes( activeSizes() );
@@ -529,6 +541,8 @@ Setup HTMLGenerator::HTMLDialog::setup() const
 
     setup.setResolutions( activeResolutions() );
     setup.setInlineMovies( _inlineMovies->isChecked() );
+    setup.setHtml5Video( _html5Video->isChecked() );
+    setup.setHtml5VideoGenerate( _html5VideoGenerate->isChecked() );
     return setup;
 }
 

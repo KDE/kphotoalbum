@@ -184,4 +184,26 @@ bool HTMLGenerator::Setup::inlineMovies() const
     return _inlineMovies;
 
 }
+
+void HTMLGenerator::Setup::setHtml5Video( bool doHtml5Video )
+{
+    _html5Video = doHtml5Video;
+}
+
+bool HTMLGenerator::Setup::html5Video() const
+{
+    return _html5Video;
+
+}
+
+void HTMLGenerator::Setup::setHtml5VideoGenerate( bool doHtml5VideoGenerate )
+{
+    _html5VideoGenerate = doHtml5VideoGenerate;
+}
+
+bool HTMLGenerator::Setup::html5VideoGenerate() const
+{
+    return _html5VideoGenerate;
+
+}
 // vi:expandtab:tabstop=4 shiftwidth=4:

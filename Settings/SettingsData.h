@@ -189,6 +189,8 @@ public:
     property_ref( HTMLTheme, setHTMLTheme, int);
     property_ref( HTMLKimFile, setHTMLKimFile, int);
     property_ref( HTMLInlineMovies, setHTMLInlineMovies, int);
+    property_ref( HTML5Video, setHTML5Video, int);
+    property_ref( HTML5VideoGenerate, setHTML5VideoGenerate, int);
     property_ref( HTMLThumbSize, setHTMLThumbSize, int);
     property_ref( HTMLNumOfCols, setHTMLNumOfCols, int);
     property_ref( HTMLSizes, setHTMLSizes, QString);

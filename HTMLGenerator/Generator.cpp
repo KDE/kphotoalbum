@@ -41,6 +41,10 @@
 #include "MainWindow/Window.h"
 #include <KIO/CopyJob>
 
+#include <krun.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     : KProgressDialog( parent ), _hasEnteredLoop( false )
 {
@@ -201,10 +205,10 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     int cols = _setup.numOfCols();
     int minWidth = 0;
     int minHeight = 0;
+    int enableVideo = 0;
     QString first, last, images;
 
-    images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\n" ).arg( width ).arg( height ).arg( _setup.thumbSize() );
-
+    images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\nvar inlineVideo=%4\nvar generatedVideo=%5\n" ).arg( width ).arg( height ).arg( _setup.thumbSize () ).arg( _setup.inlineMovies() ).arg( _setup.html5VideoGenerate() );
     minImageSize(minWidth, minHeight);
     if ( minWidth == 0 && minHeight == 0 )
     { // full size only
@@ -240,10 +244,12 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
                         ).arg( nameImage( fileName, maxImageSize() ) ).arg( KMimeType::findByUrl( nameImage(
                                     fileName, maxImageSize() ) )->name() );
         else {
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"%1\", \"" )
-                .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) )
-                .arg( QFileInfo(fileName.relative()).fileName() )
-                .arg( KMimeType::findByPath( QFileInfo( fileName.relative() ).fileName(), 0, true)->name() );
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\"" ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( fileName.relative() );
+            if ( _setup.html5VideoGenerate() )
+                images += QString::fromLatin1( ", \"%1\", \"" ).arg( QString::fromLatin1( "video/ogg" ) );
+            else
+                images += QString::fromLatin1( ", \"%1\", \"" ).arg( KMimeType::findByPath( fileName.relative(), 0, true)->name() );
+            enableVideo = 1;
         }
 
         // -------------------------------------------------- Description
@@ -292,6 +298,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
 
+    images += QString::fromLatin1( "var enableVideo=%1\n" ).arg( enableVideo ? 1 : 0 );
     content.replace( QString::fromLatin1( "**JSIMAGES**" ), images );
     if (!first.isEmpty())
     content.replace( QString::fromLatin1( "**FIRST**" ), first );
@@ -381,19 +388,15 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     // Image or video content
     if (Utilities::isVideo(currentFile)) {
         QString videoFile = createVideo( currentFile );
+        QString videoBase = videoFile.replace( QRegExp( QString::fromLatin1("\\..*") ), QString::fromLatin1("") );
         if ( _setup.inlineMovies() )
-            content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
-                             QString::fromLatin1( "<object data=\"%1\"><img src=\"%2\"/></object>"
-                                                  "<a href=\"%3\"><img src=\"download.png\"/></a>")
-                             .arg(videoFile).arg( createImage( current, 256 ) ).arg( videoFile ) );
+            if ( _setup.html5Video() )
+                content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ), QString::fromLatin1( "<video controls><source src=\"%4\" type=\"video/mp4\" /><source src=\"%5\" type=\"video/ogg\" /><object data=\"%1\"><img src=\"%2\" alt=\"download\"/></object></video><a href=\"%3\"><img src=\"download.png\" /></a>").arg( QString::fromLatin1("%1.mp4").arg( videoBase ) ).arg( createImage( current, 256 ) ).arg( QString::fromLatin1("%1.mp4").arg( videoBase ) ).arg( QString::fromLatin1("%1.mp4").arg( videoBase ) ).arg( QString::fromLatin1("%1.ogg").arg( videoBase ) ) );
+            else
+                content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ), QString::fromLatin1( "<object data=\"%1\"><img src=\"%2\"/></object>" "<a href=\"%3\"><img src=\"download.png\"/></a>").arg(videoFile).arg( createImage( current, 256 ) ).arg( videoFile ) );
         else
-            content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
-                             QString::fromLatin1( "<a href=\"**NEXTPAGE**\"><img src=\"%2\"/></a>"
-                                                  "<a href=\"%1\"><img src=\"download.png\"/></a>")
-                             .arg(videoFile).arg( createImage( current, 256 ) ) );
-    }
-
-    else
+            content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ), QString::fromLatin1( "<a href=\"**NEXTPAGE**\"><img src=\"%2\"/></a>" "<a href=\"%1\"><img src=\"download.png\"/></a>").arg(videoFile).arg( createImage( current, 256 ) ) );
+    } else
         content.replace( QString::fromLatin1( "**IMAGE_OR_VIDEO**" ),
                          QString::fromLatin1( "<a href=\"**NEXTPAGE**\"><img src=\"%1\" alt=\"%1\"/></a>")
                          .arg(createImage( current, width ) ) );
@@ -543,7 +546,19 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
     QString baseName = nameImage( fileName, maxImageSize() );
     QString destName = _tempDir.name() + QString::fromLatin1("/") + baseName;
     if ( !_copiedVideos.contains( fileName )) {
-        Utilities::copy( fileName.absolute(), destName );
+        if ( _setup.html5VideoGenerate() ) {
+            // TODO: shouldn't we use avconv library directly instead of KRun
+            // TODO: should check that the avconv (ffmpeg takes the same parameters on older systems) and ffmpeg2theora exist
+            // TODO: Figure out avconv parameters to get rid of ffmpeg2theora
+            KRun::runCommand(QString::fromLatin1("avconv -y -i %1  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %2 %3")
+                .arg( fileName.absolute() ).arg( QString::fromLatin1( "320x240" ) )
+                .arg( destName.replace( QRegExp( QString::fromLatin1("\\..*") ), QString::fromLatin1(".mp4") ) ),
+                     MainWindow::Window::theMainWindow() );
+            KRun::runCommand(QString::fromLatin1("ffmpeg2theora -v 7 -o %1 -x %2 %3")
+                .arg( destName.replace( QRegExp( QString::fromLatin1("\\..*") ), QString::fromLatin1(".ogg") ) )
+                .arg( QString::fromLatin1( "320" ) ).arg( fileName.absolute() ), MainWindow::Window::theMainWindow() );
+        } else
+            Utilities::copy( fileName.absolute(), destName );
         _copiedVideos.insert( fileName );
     }
     return baseName;

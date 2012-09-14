@@ -94,11 +94,11 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
         bool b2 =( actualStart <= _date.end() && _date.end() <= actualEnd );
         bool b3 = ( _date.start() <= actualStart && ( actualEnd <= _date.end() || _date.end().isNull() ) );
 
-        ok &= ( ( b1 || b2 || b3 ) );
+        ok = ok && ( ( b1 || b2 || b3 ) );
     } else if ( !_date.end().isNull() ) {
         bool b1 = ( actualStart <= _date.end() && _date.end() <= actualEnd );
         bool b2 = ( actualEnd <= _date.end() );
-        ok &= ( ( b1 || b2 ) );
+        ok = ok && ( ( b1 || b2 ) );
     }
 
     // -------------------------------------------------- Options
@@ -106,35 +106,35 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
     Q_FOREACH(CategoryMatcher* optionMatcher, _categoryMatchers) {
-        ok &= optionMatcher->eval(info, alreadyMatched);
+        ok = ok && optionMatcher->eval(info, alreadyMatched);
     }
 
 
     // -------------------------------------------------- Label
-    ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
+    ok = ok && ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
 
     // -------------------------------------------------- RAW
-    ok &= ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
+    ok = ok && ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
 
     // -------------------------------------------------- Rating
 
-    //ok &= (_rating == -1 ) || ( _rating == info->rating() );
+    //ok = ok && (_rating == -1 ) || ( _rating == info->rating() );
     if (_rating != -1) {
 	switch( ratingSearchMode ) {
 	    case 1:
 		// Image rating at least selected
-		ok &= ( _rating <= info->rating() );
+		ok = ok && ( _rating <= info->rating() );
 		break;
 	    case 2:
 		// Image rating less than selected
-		ok &= ( _rating >= info->rating() );
+		ok = ok && ( _rating >= info->rating() );
 		break;
 	    case 3:
 		// Image rating not equal
-		ok &= ( _rating != info->rating() );
+		ok = ok && ( _rating != info->rating() );
 		break;
 	    default:
-		ok &= (_rating == -1 ) || ( _rating == info->rating() );
+	        ok = ok && ((_rating == -1 ) || ( _rating == info->rating() ));
 		break;
 	}
     }
@@ -142,16 +142,20 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     
     // -------------------------------------------------- Resolution
     if ( _megapixel )
-        ok &= ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
+        ok = ok && ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
 
     // -------------------------------------------------- Text
     QString txt = info->description();
     if ( !_description.isEmpty() ) {
         QStringList list = _description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            ok &= ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
+            ok = ok && ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
         }
     }
+
+    // -------------------------------------------------- File name pattern
+    ok = ok && ( _fnPattern.isEmpty() ||
+	    _fnPattern.indexIn( info->fileName().relative() ) != -1 );
 
     return ok;
 }

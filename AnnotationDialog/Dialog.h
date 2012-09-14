@@ -144,6 +144,8 @@ private:
     KLineEdit* _imageLabel;
     KDateEdit* _startDate;
     KDateEdit* _endDate;
+    QLabel* _imageFilePatternLabel;
+    KLineEdit* _imageFilePattern;
 
     ImagePreviewWidget* _preview;
     KPushButton* _revertBut;

@@ -41,6 +41,9 @@ public:
     ~ImageSearchInfo();
     ImageSearchInfo( const ImageDate& date,
                      const QString& label, const QString& description );
+    ImageSearchInfo( const ImageDate& date,
+                     const QString& label, const QString& description,
+		     const QString& fnPattern );
     ImageSearchInfo( const ImageSearchInfo& other );
 
     ImageDate date() const;
@@ -50,6 +53,7 @@ public:
     void renameCategory( const QString& oldName, const QString& newName );
 
     QString label() const;
+    QRegExp fnPattern() const;
     QString description() const;
 
     bool isNull() const;
@@ -87,6 +91,7 @@ private:
     QMap<QString, QString> _categoryMatchText;
     QString _label;
     QString _description;
+    QRegExp _fnPattern;
     short _rating;
     short _megapixel;
     int ratingSearchMode;

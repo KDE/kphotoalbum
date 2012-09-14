@@ -20,6 +20,7 @@
 #ifndef PLUGINS_UPLOADWIDGET_H
 #define PLUGINS_UPLOADWIDGET_H
 
+#include <libkipi/imagecollection.h>
 #include <libkipi/uploadwidget.h>
 #include <libkipi/imagecollection.h>
 class QFileSystemModel;

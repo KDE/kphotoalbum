@@ -288,6 +288,18 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay9->addWidget( _ratingSearchMode );
 #endif
 
+    // File name search pattern
+    QHBoxLayout* lay10 = new QHBoxLayout;
+    lay2->addLayout( lay10 );
+
+    _imageFilePatternLabel = new QLabel( i18n("File Name Pattern: " ) );
+    lay10->addWidget( _imageFilePatternLabel );
+    _imageFilePattern = new KLineEdit;
+    _imageFilePattern->setObjectName( i18n("File Name Pattern") );
+    lay10->addWidget( _imageFilePattern );
+    shortCutManager.addLabel( _imageFilePatternLabel );
+    _imageFilePatternLabel->setBuddy( _imageFilePattern );
+
     _searchRAW = new QCheckBox( i18n("Search only for RAW files") );
     lay2->addWidget( _searchRAW );
     
@@ -429,6 +441,8 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     _megapixel->setVisible( show );
     _megapixelLabel->setVisible( show );
     _searchRAW->setVisible( show );
+    _imageFilePatternLabel->setVisible( show );
+    _imageFilePattern->setVisible( show );
 #ifdef HAVE_NEPOMUK
     _ratingSearchMode->setVisible( show );
     _ratingSearchLabel->setVisible( show );
@@ -481,6 +495,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
             setUpCategoryListBoxForMultiImageSelection( *it, list );
 
         _imageLabel->setText( QString::fromLatin1("") );
+        _imageFilePattern->setText( QString::fromLatin1("") );
 
         // Checking all the description fields if there is text and whether the descriptions mach
         Q_FOREACH( DB::ImageInfo info, _editList ) {
@@ -530,7 +545,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         const QDateTime start = _startDate->date().isNull() ? QDateTime() : QDateTime(_startDate->date());
         const QDateTime end = _endDate->date().isNull() ? QDateTime() : QDateTime( _endDate->date() );
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( start, end ),
-                                      _imageLabel->text(), _description->toPlainText() );
+					  _imageLabel->text(), _description->toPlainText(),
+					  _imageFilePattern->text());
 
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );

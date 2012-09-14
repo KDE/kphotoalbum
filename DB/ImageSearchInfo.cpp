@@ -42,9 +42,21 @@ ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
 {
 }
 
+ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
+                                  const QString& label, const QString& description,
+				  const QString& fnPattern )
+    : _date( date), _label( label ), _description( description ), _fnPattern( fnPattern ), _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
+{
+}
+
 QString ImageSearchInfo::label() const
 {
     return _label;
+}
+
+QRegExp ImageSearchInfo::fnPattern() const
+{
+    return _fnPattern;
 }
 
 QString ImageSearchInfo::description() const
@@ -284,6 +296,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _categoryMatchText = other._categoryMatchText;
     _label = other._label;
     _description = other._description;
+    _fnPattern = other._fnPattern;
     _isNull = other._isNull;
     _compiled = false;
     _rating = other._rating;

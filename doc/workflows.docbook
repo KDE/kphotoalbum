@@ -133,7 +133,7 @@
   <para>
   Panoramas require a bit different workflow than normal photo editing.
   This is due to the requirement for multiple source files. The tool of
-  choice for panoramas is Autopano Pro but latest version of Digikam
+  choice for panoramas is Autopano Pro but latest version of &digikam;
   should do well and fits zero budget. Following list describes the
   steps required:
   <orderedlist>
@@ -142,7 +142,7 @@
   images by accident, when sorting out the garbage among the photos
   taken. You probably want also to stack the set of source images at
   this point.</para></listitem>
-  <listitem><para>You have at least too simple options for next
+  <listitem><para>You have at least two simple options for next
   step:
   <orderedlist>
   <listitem><para>You can let Autopano Pro find the panoramas
@@ -170,7 +170,7 @@
   and name of the new panorama matches the rules for this, the panorama
   should be on top of the stack. Otherwise sort the images by date, so the
   new panorama ends up at by the source images and stack them manually.
-  (AutopanoPro seems to write the EXIF info of the first image into the
+  (Autopano Pro seems to write the EXIF info of the first image into the
    panorama.)</para></listitem>
   <listitem><para>You can still add tagging at this point to the panorama
   or you might include all the source images also with

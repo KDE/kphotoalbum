@@ -164,7 +164,7 @@
   directory and run
   <menuchoice><guimenu>Maintenance</guimenu><guimenuitem>Rescan for Images
   and Videos</guimenuitem></menuchoice>. This should notice the new
-  panorama and include it in the in the picture gallery.
+  panorama and include it in the picture gallery.
   </para></listitem>
   <listitem><para>If you have set the AutoStacking of new images properly
   and name of the new panorama matches the rules for this, the panorama

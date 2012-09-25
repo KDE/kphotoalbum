@@ -49,8 +49,11 @@ QString BackgroundJobs::ReadVideoLengthJob::details() const
 void BackgroundJobs::ReadVideoLengthJob::lengthFound(int length)
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
-    info->setVideoLength(length);
-    MainWindow::DirtyIndicator::markDirty();
+    // Only mark dirty if it is required
+    if (info->videoLength() != length) {
+        info->setVideoLength(length);
+        MainWindow::DirtyIndicator::markDirty();
+    }
     emit completed();
 }
 

@@ -8,9 +8,10 @@ _wd="`dirname "$0"`/.."
 
 # work from base directory of the repository
 cd $_wd
+_wd="`pwd -P`"
 
 # update version file:
-cmake -P cmake/modules/UpdateVersion.cmake
+cmake -DBASE_DIR="$_wd" -P cmake/modules/UpdateVersion.cmake
 if grep -q '[-]dirty' version.h
 then
 	echo "It seems that you are exporting a source tree with local modifications." >&2

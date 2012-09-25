@@ -56,7 +56,10 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
-include ( UpdateVersion )
+add_custom_target( UpdateVersion ALL
+	COMMAND ${CMAKE_COMMAND} -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
+	COMMENT "Updating version header."
+	)
 
 macro_optional_find_package(Nepomuk)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)

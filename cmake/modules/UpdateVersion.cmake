@@ -1,5 +1,9 @@
+if ( NOT DEFINED BASE_DIR )
+	message ( FATAL_ERROR "UpdateVersion.cmake: BASE_DIR not set. Please supply base working directory!" )
+endif()
+
 # git or tarball?
-if ( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git )
+if ( EXISTS "${BASE_DIR}/.git" )
 	# -> git:
 	include ( "${CMAKE_CURRENT_LIST_DIR}/GitDescription.cmake" )
 
@@ -10,14 +14,14 @@ if ( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git )
 
 	message ( STATUS "Updating version information..." )
 	# write version info to a temporary file
-	configure_file ( "${CMAKE_CURRENT_SOURCE_DIR}/version.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/version.h~" )
+	configure_file ( "${BASE_DIR}/version.h.in" "${BASE_DIR}/version.h~" )
 	# update info iff changed
-	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/version.h~" "${CMAKE_CURRENT_SOURCE_DIR}/version.h" )
+	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${BASE_DIR}/version.h~" "${BASE_DIR}/version.h" )
 	# make sure info doesn't get stale
-	file ( REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/version.h~" )
+	file ( REMOVE "${BASE_DIR}/version.h~" )
 else()
 	# -> tarball
-	if ( NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/version.h" )
+	if ( NOT EXISTS "${BASE_DIR}/version.h" )
 		message ( SEND_ERROR "The generated file 'version.h' does not exist!" )
 		message ( AUTHOR_WARNING "When creating a release tarball, please make sure to run cmake -P ${CMAKE_CURRENT_LIST_FILE}" )
 	endif()

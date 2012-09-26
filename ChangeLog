@@ -1,3 +1,14 @@
+====================== KPhotoalbum 4.3 released  ======================
+
+Other changes done since 4.3
+
+	* Minor bug fixes
+	* Some speed optimization
+	* Pattern based image search
+	* Minor documentation update
+	* KIPI support upgrade
+	* New manual stacking option
+
 2012-08-17  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* New Feature: press Ctrl-plus or Ctrl-minus in the thumbnail

@@ -8,13 +8,15 @@ my @params;
 
 # Raw extensions you use. If you use Ufraw you might want to add ufraw
 # as the first extension in the list
-# my @rawExt = ("ufraw", "CR2", "NEF");
-my @rawExt = ("CR2", "NEF", "ORF");
+# Using same file format list as KPhotoAlbum from
+# http://www.cybercom.net/~dcoffin/dcraw/rawphoto.c
+my @rawExt = (
+	"3fr","arw","bay","bmq","cine","cr2","crw","cs1","dc2","dcr","dng","erf","fff","hdr","ia","jpg","k25","kc2","kdc","mdc","mef","mos","mrw","nef","nrw","orf","pef","pxn","qtk","raf","raw","rdc","rw2","sr2","srf","sti","tif","x3f"
+);
 
 # The application you use to develop the RAW files
 my @raw_converters = ( "/usr/bin/AfterShotPro", "/usr/bin/bibble5",
-	"/usr/bin/ufraw" );
-# my $extApp = "/usr/bin/ufraw";
+	"/usr/bin/ufraw", "/usr/bin/rt", "/usr/bin/darktable" );
 my $extApp = "";
 
 foreach my $app (@raw_converters) {
@@ -23,6 +25,9 @@ foreach my $app (@raw_converters) {
 		last;
 	}
 }
+
+# If you want to use specific converter, just assign it below
+#$extApp = "/usr/bin/ufraw";
 
 if ($extApp =~ m/^$/) {
 	my $errMsg = "Could not find RAW developer. If you have one, " .
@@ -65,6 +70,13 @@ foreach my $argnum (0..$#ARGV) {
 			push @params, "$file.$ext";
 			$found = 1;
 			last;
+		} else {
+			$ext = uc($ext);
+			if (-e "$file.$ext") {
+				push @params, "$file.$ext";
+				$found = 1;
+				last;
+			}
 		}
 	}
 	push @params, "$ARGV[$argnum]" if not $found;

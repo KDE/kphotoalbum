@@ -81,6 +81,10 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
                 res.insert(QString::fromLatin1("positionPrecision"), QVariant(position.precision()));
             }
         }
+
+        res.insert(QLatin1String("date"), _info->date().start());
+        res.insert(QLatin1String("dateto"), _info->date().end());
+        res.insert(QLatin1String("isexactdate"), _info->date().start() == _info->date().end());
     }
 
     res.insert(QString::fromLatin1("name"), QFileInfo(_info->fileName().absolute()).baseName());
@@ -142,6 +146,14 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
             } else {
                 qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
             }
+        }
+
+        if (map.contains(QLatin1String("isexactdate")) && map.contains(QLatin1String("date"))) {
+            _info->setDate(DB::ImageDate(map[QLatin1String("date")].toDateTime()));
+        } else if (map.contains(QLatin1String("date")) && map.contains(QLatin1String("dateto"))) {
+            _info->setDate(DB::ImageDate(map[QLatin1String("date")].toDateTime(), map[QLatin1String("dateto")].toDateTime()));
+        } else if (map.contains(QLatin1String("date"))) {
+            _info->setDate(DB::ImageDate(map[QLatin1String("date")].toDateTime()));
         }
         MainWindow::DirtyIndicator::markDirty();
     }

@@ -46,10 +46,11 @@ bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize
         return true;
 
     KDcrawIface::DcrawInfoContainer metadata;
+    if (!KDcrawIface::KDcraw::rawFileIdentify(metadata, imageFile.absolute()))
+        return false;
 
-    if ( !KDcrawIface::KDcraw::rawFileIdentify( metadata, imageFile.absolute() ) ||
-         ( img->width() < metadata.imageSize.width() * 0.8 ) ||
-         ( img->height() < metadata.imageSize.height() * 0.8 ) ) {
+    if ((img->width() < metadata.imageSize.width() * 0.8) ||
+        (img->height() < metadata.imageSize.height() * 0.8)) {
 
         // let's try to get a better resolution
         KDcrawIface::KDcraw decoder;

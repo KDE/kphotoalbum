@@ -16,39 +16,38 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDecoder.h"
-#include <Q3PtrList>
 #include <DB/FileName.h>
 
-Q3PtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()
+QList<ImageManager::ImageDecoder *> *ImageManager::ImageDecoder::decoders()
 {
-	static Q3PtrList<ImageDecoder> s_decoders;
-	return &s_decoders;
+    static QList<ImageDecoder*> s_decoders;
+    return &s_decoders;
 }
 
 ImageManager::ImageDecoder::ImageDecoder()
 {
-	decoders()->append(this);
+    decoders()->append(this);
 }
 
 ImageManager::ImageDecoder::~ImageDecoder()
 {
-	decoders()->remove(this);
+    decoders()->removeOne(this);
 }
 
 bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-	Q3PtrList<ImageDecoder>* lst = decoders();
-	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
-		if( (*it)->_decode(img,imageFile,fullSize,dim) ) return true;
-	}
-	return false;
+    Q_FOREACH(ImageDecoder *decoder, *decoders()) {
+        if (decoder->_decode(img, imageFile, fullSize, dim))
+            return true;
+    }
+    return false;
 }
 
 bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
 {
-	Q3PtrList<ImageDecoder>* lst = decoders();
-	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
-        if( (*it)->_mightDecode(imageFile) ) return true;
-	}
-	return false;
+    Q_FOREACH(ImageDecoder *decoder, *decoders()) {
+        if (decoder->_mightDecode(imageFile))
+            return true;
+    }
+    return false;
 }

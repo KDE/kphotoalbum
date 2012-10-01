@@ -18,7 +18,8 @@
 #ifndef IMAGEDECODER_H
 #define IMAGEDECODER_H
 
-#include <q3ptrlist.h>
+#include <QList>
+
 class QSize;
 class QImage;
 
@@ -40,7 +41,7 @@ protected:
     virtual bool _mightDecode( const DB::FileName& imageFile ) = 0;
 
 private:
-	static Q3PtrList<ImageDecoder>* decoders();
+    static QList<ImageDecoder*>* decoders();
 };
 }
 

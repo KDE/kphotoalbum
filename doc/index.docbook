@@ -19,9 +19,9 @@
   <!ENTITY plugins SYSTEM "plugins.docbook">
 ]>
 
-<book lang="&language;">
+<book id="kphotoalbum" lang="&language;">
   
-  <bookinfo>
+  <book id="kphotoalbum"info>
     <title>The &kphotoalbum; Handbook</title>
     
     <authorgroup>

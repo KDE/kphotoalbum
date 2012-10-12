@@ -21,7 +21,7 @@
 
 <book id="kphotoalbum" lang="&language;">
   
-  <book id="kphotoalbum"info>
+  <bookinfo>
     <title>The &kphotoalbum; Handbook</title>
     
     <authorgroup>

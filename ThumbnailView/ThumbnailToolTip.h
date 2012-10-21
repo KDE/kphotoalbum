@@ -35,21 +35,22 @@ class ThumbnailToolTip :public QLabel, public ImageManager::ImageClientInterface
 
 public:
     ThumbnailToolTip( ThumbnailWidget* view );
-    void showToolTips( bool force );
     virtual void setActive(bool);
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
-protected:
+private:
     virtual bool eventFilter( QObject*, QEvent* e );
-    bool loadImage( const DB::FileName& fileName );
+    void requestImage( const DB::FileName& fileName );
     void placeWindow();
+    void prepareNewTooltip();
+    void showTip();
 
 private:
     ThumbnailWidget* _view;
     DB::FileName _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
-    QTimer *timer;
+    QTimer *_timer;
 };
 
 }

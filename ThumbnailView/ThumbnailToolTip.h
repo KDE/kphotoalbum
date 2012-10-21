@@ -38,19 +38,20 @@ public:
     virtual void setActive(bool);
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
+private slots:
+    void requestToolTip();
+
 private:
     virtual bool eventFilter( QObject*, QEvent* e );
     void requestImage( const DB::FileName& fileName );
     void placeWindow();
-    void prepareNewTooltip();
-    void showTip();
+    void renderToolTip();
 
 private:
     ThumbnailWidget* _view;
     DB::FileName _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
-    QTimer *_timer;
 };
 
 }

@@ -56,37 +56,33 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
     p.setColor(QPalette::WindowText, Qt::white );
     setPalette(p);
-
-    _timer = new QTimer( this );
-    connect(_timer, SIGNAL(timeout()), this, SLOT(show()));
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
-    if ( o == _view->viewport() && event->type() == QEvent::Leave ) {
-        _timer->stop();
+    if ( o == _view->viewport() && event->type() == QEvent::Leave )
         hide();
+
+    else if ( event->type() == QEvent::MouseMove || event->type() == QEvent::Wheel) {
+        // We need this to be done through a timer, so the thumbnail view gets the wheel even first,
+        // otherwise the fileName reported by mediaIdUnderCursor is wrong.
+        QTimer::singleShot(0,this, SLOT(requestToolTip()));
     }
 
-    else if ( event->type() == QEvent::MouseMove ) {
-        prepareNewTooltip();
-        _timer->start(200);
-    }
     return false;
 }
 
-void ThumbnailView::ThumbnailToolTip::prepareNewTooltip()
+void ThumbnailView::ThumbnailToolTip::requestToolTip()
 {
     const DB::FileName fileName = _view->mediaIdUnderCursor();
-    hide();
-    if ( fileName.isNull() )
+    if ( fileName.isNull() || fileName == _currentFileName)
         return;
     _currentFileName = fileName;
     requestImage( fileName );
 }
 
 
-void ThumbnailView::ThumbnailToolTip::showTip()
+void ThumbnailView::ThumbnailToolTip::renderToolTip()
 {
     const int size = Settings::SettingsData::instance()->previewSize();
     if ( size != 0 ) {
@@ -101,7 +97,7 @@ void ThumbnailView::ThumbnailToolTip::showTip()
 
     resize( sizeHint() );
     _view->setFocus();
-
+    show();
     placeWindow();
 }
 
@@ -109,13 +105,11 @@ void ThumbnailView::ThumbnailToolTip::showTip()
 void ThumbnailView::ThumbnailToolTip::setActive( bool b )
 {
     if ( b ) {
-        prepareNewTooltip();
+        requestToolTip();
         _view->viewport()->installEventFilter( this );
-        _timer->start(200);
     }
     else {
         _view->viewport()->removeEventFilter( this );
-        _timer->stop();
         hide();
     }
 }
@@ -171,7 +165,7 @@ void ThumbnailView::ThumbnailToolTip::requestImage( const DB::FileName& fileName
         ImageManager::AsyncLoader::instance()->load( request );
     }
     else
-        showTip();
+        renderToolTip();
 }
 
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
@@ -183,7 +177,7 @@ void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName
 
     image.save(_tmpFileForThumbnailView, "PNG" );
     if ( fileName == _currentFileName )
-        showTip();
+        renderToolTip();
 }
 
 #include "ThumbnailToolTip.moc"

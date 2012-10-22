@@ -153,6 +153,7 @@ protected slots:
     void slotRecreateExifDB();
     void useNextVideoThumbnail();
     void usePreviousVideoThumbnail();
+    void mergeDuplicates();
 
 protected:
     void configureImages( bool oneAtATime );

@@ -55,32 +55,35 @@ DuplicateMerger::~DuplicateMerger()
 
 void DuplicateMerger::findDuplicates()
 {
-    QMap<DB::MD5, DB::FileNameList> map;
-
     Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images() ) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
-        map[md5].append(fileName);
+        m_matches[md5].append(fileName);
     }
 
-    Q_FOREACH( const DB::MD5& md5, map.keys() ) {
-        const DB::FileNameList values = map[md5];
-        if ( values.count() > 1 ) {
-            QGroupBox* box = new QGroupBox;
-            box->setCheckable(true);
-            box->setTitle(i18n("Merge"));
-            QVBoxLayout* layout = new QVBoxLayout(box);
-            m_topLayout->addWidget(box);
+    Q_FOREACH( const DB::MD5& md5, m_matches.keys() ) {
+        if ( m_matches[md5].count() > 1 ) {
+            addRow(md5);
+        }
+    }
+}
 
-            bool first = true;
-            Q_FOREACH(const DB::FileName& fileName, values) {
-                QRadioButton* button = new QRadioButton(fileName.relative());
-                layout->addWidget(button);
-                if ( first ) {
-                    button->setChecked(true);
-                    first = false;
-                }
-            }
+void DuplicateMerger::addRow(const DB::MD5 &md5)
+{
+    const DB::FileNameList values = m_matches[md5];
+    QGroupBox* box = new QGroupBox;
+    box->setCheckable(true);
+    box->setTitle(i18n("Merge"));
+    QVBoxLayout* layout = new QVBoxLayout(box);
+    m_topLayout->addWidget(box);
+
+    bool first = true;
+    Q_FOREACH(const DB::FileName& fileName, values) {
+        QRadioButton* button = new QRadioButton(fileName.relative());
+        layout->addWidget(button);
+        if ( first ) {
+            button->setChecked(true);
+            first = false;
         }
     }
 }

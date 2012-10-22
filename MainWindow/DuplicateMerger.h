@@ -22,6 +22,10 @@
 
 #include <QWidget>
 #include <KDialog>
+#include "DB/MD5.h"
+#include <QMap>
+#include <DB/FileNameList.h>
+
 class QVBoxLayout;
 
 namespace MainWindow {
@@ -40,6 +44,9 @@ public:
     
 private:
     void findDuplicates();
+    void addRow(const DB::MD5& md5);
+
+    QMap<DB::MD5, DB::FileNameList> m_matches;
 
     Ui::DuplicateMerger *ui;
     QWidget* m_container;

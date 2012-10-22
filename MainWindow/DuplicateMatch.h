@@ -17,42 +17,25 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MAINWINDOW_DUPLICATEMERGER_H
-#define MAINWINDOW_DUPLICATEMERGER_H
+#ifndef MAINWINDOW_DUPLICATEMATCH_H
+#define MAINWINDOW_DUPLICATEMATCH_H
 
+#include "ImageManager/ImageClientInterface.h"
 #include <QWidget>
-#include <KDialog>
-#include "DB/MD5.h"
-#include <QMap>
-#include <DB/FileNameList.h>
-
-class QVBoxLayout;
+#include "DB/FileNameList.h"
 
 namespace MainWindow {
 
-namespace Ui {
-class DuplicateMerger;
-}
-
-class DuplicateMerger : public KDialog
+class DuplicateMatch : public QWidget, ImageManager::ImageClientInterface
 {
-    Q_OBJECT
-    
 public:
-    explicit DuplicateMerger(QWidget *parent = 0);
-    ~DuplicateMerger();
-    
-private:
-    void findDuplicates();
-    void addRow(const DB::MD5& );
-
-    QMap<DB::MD5, DB::FileNameList> m_matches;
-
-    Ui::DuplicateMerger *ui;
-    QWidget* m_container;
-    QVBoxLayout* m_topLayout;
+    DuplicateMatch(const DB::FileNameList& files);
+    virtual void pixmapLoaded( const DB::FileName& fileName,
+                               const QSize& size, const QSize& fullSize,
+                               int angle, const QImage& image,
+                               const bool loadedOK);
 };
 
-
 } // namespace MainWindow
-#endif // MAINWINDOW_DUPLICATEMERGER_H
+
+#endif // MAINWINDOW_DUPLICATEMATCH_H

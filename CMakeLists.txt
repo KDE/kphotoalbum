@@ -177,6 +177,7 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatusBar.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/UpdateVideoThumbnail.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMatch.cpp
     )
 
 kde4_add_ui_files( libMainWindow_SRCS

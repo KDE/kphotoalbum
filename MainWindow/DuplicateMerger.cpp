@@ -25,13 +25,8 @@
 #include "DB/ImageInfo.h"
 #include "DB/MD5.h"
 #include <QScrollArea>
-#include <QButtonGroup>
-#include <QRadioButton>
 #include <QVBoxLayout>
-#include <QGroupBox>
-#include <QLabel>
-#include <QImage>
-
+#include "DuplicateMatch.h"
 namespace MainWindow {
 
 DuplicateMerger::DuplicateMerger(QWidget *parent) :
@@ -72,27 +67,8 @@ void DuplicateMerger::findDuplicates()
 
 void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
-    const DB::FileNameList values = m_matches[md5];
-    QGroupBox* box = new QGroupBox;
-    box->setCheckable(true);
-    box->setTitle(i18n("Merge"));
-    QVBoxLayout* layout = new QVBoxLayout(box);
-    m_topLayout->addWidget(box);
-
-    QPixmap pix = QPixmap::fromImage(QImage(values.first().absolute()).scaled(QSize(300,300),Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    QLabel* image = new QLabel;
-    image->setPixmap(pix);
-    layout->addWidget(image);
-
-    bool first = true;
-    Q_FOREACH(const DB::FileName& fileName, values) {
-        QRadioButton* button = new QRadioButton(fileName.relative());
-        layout->addWidget(button);
-        if ( first ) {
-            button->setChecked(true);
-            first = false;
-        }
-    }
+    DuplicateMatch* match = new DuplicateMatch( m_matches[md5]);
+    m_topLayout->addWidget(match);
 }
 
 } // namespace MainWindow

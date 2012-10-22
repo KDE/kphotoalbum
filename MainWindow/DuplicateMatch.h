@@ -23,6 +23,7 @@
 #include "ImageManager/ImageClientInterface.h"
 #include <QWidget>
 #include "DB/FileNameList.h"
+class QLabel;
 
 namespace MainWindow {
 
@@ -34,6 +35,9 @@ public:
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK);
+
+private:
+    QLabel* m_image;
 };
 
 } // namespace MainWindow

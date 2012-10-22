@@ -24,6 +24,7 @@
 #include <QImage>
 #include <KLocale>
 #include <QRadioButton>
+#include "ImageManager/AsyncLoader.h"
 
 namespace MainWindow {
 
@@ -36,10 +37,8 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     QVBoxLayout* layout = new QVBoxLayout(box);
     topLayout->addWidget(box);
 
-    QPixmap pix = QPixmap::fromImage(QImage(files.first().absolute()).scaled(QSize(300,300),Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    QLabel* image = new QLabel;
-    image->setPixmap(pix);
-    layout->addWidget(image);
+    m_image = new QLabel;
+    layout->addWidget(m_image);
 
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
@@ -50,10 +49,14 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
             first = false;
         }
     }
+
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(files.first(), QSize(300,300), 0, this);
+    ImageManager::AsyncLoader::instance()->load(request);
 }
 
 void DuplicateMatch::pixmapLoaded(const DB::FileName &fileName, const QSize &size, const QSize &fullSize, int angle, const QImage &image, const bool loadedOK)
 {
+    m_image->setPixmap( QPixmap::fromImage(image));
 }
 
 } // namespace MainWindow

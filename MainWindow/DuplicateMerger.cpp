@@ -29,6 +29,8 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <QLabel>
+#include <QImage>
 
 namespace MainWindow {
 
@@ -76,6 +78,11 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
     box->setTitle(i18n("Merge"));
     QVBoxLayout* layout = new QVBoxLayout(box);
     m_topLayout->addWidget(box);
+
+    QPixmap pix = QPixmap::fromImage(QImage(values.first().absolute()).scaled(QSize(300,300),Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QLabel* image = new QLabel;
+    image->setPixmap(pix);
+    layout->addWidget(image);
 
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, values) {

@@ -38,6 +38,8 @@ public:
     ~DuplicateMerger();
     
 private:
+    void findDuplicates();
+
     Ui::DuplicateMerger *ui;
 };
 

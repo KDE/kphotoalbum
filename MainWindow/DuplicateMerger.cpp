@@ -19,6 +19,11 @@
 
 #include "DuplicateMerger.h"
 #include "ui_DuplicateMerger.h"
+#include "DB/ImageDB.h"
+#include "DB/FileName.h"
+#include "DB/FileNameList.h"
+#include "DB/ImageInfo.h"
+#include "DB/MD5.h"
 
 namespace MainWindow {
 
@@ -26,15 +31,39 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     KDialog(parent),
     ui(new Ui::DuplicateMerger)
 {
+    resize(800,600);
+
     QWidget* top = new QWidget;
     ui->setupUi(top);
     setMainWidget(top);
-    ui->text->setText(i18n("Hello Wolrd"));
+
+    findDuplicates();
 }
 
 DuplicateMerger::~DuplicateMerger()
 {
     delete ui;
+}
+
+void DuplicateMerger::findDuplicates()
+{
+    QMap<DB::MD5, DB::FileNameList> map;
+
+    Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images() ) {
+        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+        const DB::MD5 md5 = info->MD5Sum();
+        map[md5].append(fileName);
+    }
+
+    Q_FOREACH( const DB::MD5& md5, map.keys() ) {
+        const DB::FileNameList values = map[md5];
+        if ( values.count() > 1 ) {
+            ui->text->append(i18n("==%1==").arg(md5.toHexString()));
+            Q_FOREACH(const DB::FileName& fileName, values) {
+                ui->text->append( fileName.relative() );
+            }
+        }
+    }
 }
 
 } // namespace MainWindow

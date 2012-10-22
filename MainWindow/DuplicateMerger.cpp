@@ -24,6 +24,11 @@
 #include "DB/FileNameList.h"
 #include "DB/ImageInfo.h"
 #include "DB/MD5.h"
+#include <QScrollArea>
+#include <QButtonGroup>
+#include <QRadioButton>
+#include <QVBoxLayout>
+#include <QGroupBox>
 
 namespace MainWindow {
 
@@ -33,10 +38,13 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
 {
     resize(800,600);
 
-    QWidget* top = new QWidget;
+    QWidget*top = new QWidget;
     ui->setupUi(top);
     setMainWidget(top);
 
+    m_container = new QWidget;
+    m_topLayout = new QVBoxLayout(m_container);
+    ui->scrollArea->setWidget(m_container);
     findDuplicates();
 }
 
@@ -58,9 +66,20 @@ void DuplicateMerger::findDuplicates()
     Q_FOREACH( const DB::MD5& md5, map.keys() ) {
         const DB::FileNameList values = map[md5];
         if ( values.count() > 1 ) {
-            ui->text->append(i18n("==%1==").arg(md5.toHexString()));
+            QGroupBox* box = new QGroupBox;
+            box->setCheckable(true);
+            box->setTitle(i18n("Merge"));
+            QVBoxLayout* layout = new QVBoxLayout(box);
+            m_topLayout->addWidget(box);
+
+            bool first = true;
             Q_FOREACH(const DB::FileName& fileName, values) {
-                ui->text->append( fileName.relative() );
+                QRadioButton* button = new QRadioButton(fileName.relative());
+                layout->addWidget(button);
+                if ( first ) {
+                    button->setChecked(true);
+                    first = false;
+                }
             }
         }
     }

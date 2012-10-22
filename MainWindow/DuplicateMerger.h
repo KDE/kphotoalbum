@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <KDialog>
+class QVBoxLayout;
 
 namespace MainWindow {
 
@@ -41,6 +42,8 @@ private:
     void findDuplicates();
 
     Ui::DuplicateMerger *ui;
+    QWidget* m_container;
+    QVBoxLayout* m_topLayout;
 };
 
 

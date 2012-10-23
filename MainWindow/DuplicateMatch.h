@@ -23,8 +23,11 @@
 #include "ImageManager/ImageClientInterface.h"
 #include <QWidget>
 #include "DB/FileNameList.h"
+#include <QList>
+
 class QLabel;
 class QCheckBox;
+class QRadioButton;
 
 namespace MainWindow {
 
@@ -38,9 +41,13 @@ public:
                                const bool loadedOK);
     void setMerge(bool);
 
+public slots:
+    void execute();
+
 private:
     QLabel* m_image;
     QCheckBox* m_merge;
+    QList<QRadioButton*> m_buttons;
 };
 
 } // namespace MainWindow

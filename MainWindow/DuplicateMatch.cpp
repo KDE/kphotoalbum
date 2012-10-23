@@ -26,6 +26,7 @@
 #include <QRadioButton>
 #include "ImageManager/AsyncLoader.h"
 #include <QCheckBox>
+#include "DB/ImageDB.h"
 namespace MainWindow {
 
 DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
@@ -55,11 +56,13 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
         QRadioButton* button = new QRadioButton(fileName.relative());
+        button->setProperty("data",QVariant::fromValue(fileName));
         optionsLayout->addWidget(button);
         if ( first ) {
             button->setChecked(true);
             first = false;
         }
+        m_buttons.append(button);
     }
     rightSideLayout->addStretch(1);
 
@@ -79,6 +82,27 @@ void DuplicateMatch::pixmapLoaded(const DB::FileName&, const QSize&, const QSize
 void DuplicateMatch::setMerge(bool b)
 {
     m_merge->setChecked(b);
+}
+
+void DuplicateMatch::execute()
+{
+    if (!m_merge->isChecked())
+        return;
+
+    DB::FileName destination;
+    Q_FOREACH( QRadioButton* button, m_buttons ) {
+        if ( button->isChecked() ) {
+            destination = button->property("data").value<DB::FileName>();
+            break;
+        }
+    }
+
+    Q_FOREACH( QRadioButton* button, m_buttons ) {
+        if (button->isChecked())
+            continue;
+        DB::FileName fileName = button->property("data").value<DB::FileName>();
+        DB::ImageDB::instance()->copyData(fileName, destination);
+    }
 }
 
 } // namespace MainWindow

@@ -46,6 +46,7 @@ public:
 private slots:
     void selectAll();
     void selectNone();
+    void go();
 
 private:
     void findDuplicates();

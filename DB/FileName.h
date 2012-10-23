@@ -23,6 +23,7 @@
 #include <QString>
 #include <QSet>
 #include "ImageInfoPtr.h"
+#include <QtCore/qmetatype.h>
 
 namespace DB
 {
@@ -54,6 +55,7 @@ uint qHash( const DB::FileName& fileName );
 typedef QSet<DB::FileName> FileNameSet;
 }
 
+Q_DECLARE_METATYPE(DB::FileName)
 
 
 #endif // FILENAME_H

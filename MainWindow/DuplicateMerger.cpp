@@ -48,6 +48,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     setButtonText(User2, i18n("Select &None"));
     connect(this, SIGNAL(user1Clicked()), this, SLOT(selectAll()));
     connect(this, SIGNAL(user2Clicked()), this, SLOT(selectNone()));
+    connect(this, SIGNAL(okClicked()), this, SLOT(go()));
     findDuplicates();
 }
 
@@ -64,6 +65,13 @@ void DuplicateMerger::selectAll()
 void DuplicateMerger::selectNone()
 {
     selectAll(false);
+}
+
+void DuplicateMerger::go()
+{
+    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+        selector->execute();
+    }
 }
 
 void DuplicateMerger::findDuplicates()

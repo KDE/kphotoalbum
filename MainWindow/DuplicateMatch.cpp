@@ -100,12 +100,15 @@ void DuplicateMatch::execute()
         }
     }
 
+    DB::FileNameList list;
     Q_FOREACH( QRadioButton* button, m_buttons ) {
         if (button->isChecked())
             continue;
         DB::FileName fileName = button->property("data").value<DB::FileName>();
         DB::ImageDB::instance()->copyData(fileName, destination);
+        list.append(fileName);
     }
+    DB::ImageDB::instance()->deleteList(list);
 }
 
 } // namespace MainWindow

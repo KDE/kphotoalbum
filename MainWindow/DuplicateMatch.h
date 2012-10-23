@@ -24,6 +24,7 @@
 #include <QWidget>
 #include "DB/FileNameList.h"
 class QLabel;
+class QCheckBox;
 
 namespace MainWindow {
 
@@ -35,9 +36,11 @@ public:
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK);
+    void setMerge(bool);
 
 private:
     QLabel* m_image;
+    QCheckBox* m_merge;
 };
 
 } // namespace MainWindow

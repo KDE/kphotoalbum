@@ -43,14 +43,14 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     horizontalLayout->addStretch(1);
     rightSideLayout->addStretch(1);
 
-    QCheckBox* merge = new QCheckBox(i18n("Merge these images"));
-    rightSideLayout->addWidget(merge);
-    merge->setChecked(true);
+    m_merge = new QCheckBox(i18n("Merge these images"));
+    rightSideLayout->addWidget(m_merge);
+    m_merge->setChecked(true);
 
     QWidget* options = new QWidget;
     rightSideLayout->addWidget(options);
     QVBoxLayout* optionsLayout = new QVBoxLayout(options);
-    connect( merge, SIGNAL(clicked(bool)),options, SLOT(setEnabled(bool)));
+    connect( m_merge, SIGNAL(toggled(bool)),options, SLOT(setEnabled(bool)));
 
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
@@ -74,6 +74,11 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
 void DuplicateMatch::pixmapLoaded(const DB::FileName&, const QSize&, const QSize&, int, const QImage& image, const bool)
 {
     m_image->setPixmap( QPixmap::fromImage(image));
+}
+
+void DuplicateMatch::setMerge(bool b)
+{
+    m_merge->setChecked(b);
 }
 
 } // namespace MainWindow

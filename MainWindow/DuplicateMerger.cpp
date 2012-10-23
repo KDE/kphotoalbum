@@ -42,12 +42,28 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     m_container = new QWidget;
     m_topLayout = new QVBoxLayout(m_container);
     ui->scrollArea->setWidget(m_container);
+
+    setButtons(Ok|Cancel|User1|User2);
+    setButtonText(User1, i18n("Select &All"));
+    setButtonText(User2, i18n("Select &None"));
+    connect(this, SIGNAL(user1Clicked()), this, SLOT(selectAll()));
+    connect(this, SIGNAL(user2Clicked()), this, SLOT(selectNone()));
     findDuplicates();
 }
 
 DuplicateMerger::~DuplicateMerger()
 {
     delete ui;
+}
+
+void DuplicateMerger::selectAll()
+{
+    selectAll(true);
+}
+
+void DuplicateMerger::selectNone()
+{
+    selectAll(false);
 }
 
 void DuplicateMerger::findDuplicates()
@@ -69,6 +85,14 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
     DuplicateMatch* match = new DuplicateMatch( m_matches[md5]);
     m_topLayout->addWidget(match);
+    m_selectors.append(match);
+}
+
+void DuplicateMerger::selectAll(bool b)
+{
+    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+        selector->setMerge(b);
+    }
 }
 
 } // namespace MainWindow

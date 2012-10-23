@@ -25,36 +25,53 @@
 #include <KLocale>
 #include <QRadioButton>
 #include "ImageManager/AsyncLoader.h"
-
+#include <QCheckBox>
 namespace MainWindow {
 
 DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
 {
     QVBoxLayout* topLayout = new QVBoxLayout(this);
-    QGroupBox* box = new QGroupBox;
-    box->setCheckable(true);
-    box->setTitle(i18n("Merge"));
-    QVBoxLayout* layout = new QVBoxLayout(box);
-    topLayout->addWidget(box);
 
+    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+    topLayout->addLayout(horizontalLayout);
     m_image = new QLabel;
-    layout->addWidget(m_image);
+    horizontalLayout->addWidget(m_image);
+
+    QVBoxLayout* rightSideLayout = new QVBoxLayout;
+    horizontalLayout->addSpacing(20);
+    horizontalLayout->addLayout(rightSideLayout);
+    horizontalLayout->addStretch(1);
+    rightSideLayout->addStretch(1);
+
+    QCheckBox* merge = new QCheckBox(i18n("Merge these images"));
+    rightSideLayout->addWidget(merge);
+    merge->setChecked(true);
+
+    QWidget* options = new QWidget;
+    rightSideLayout->addWidget(options);
+    QVBoxLayout* optionsLayout = new QVBoxLayout(options);
+    connect( merge, SIGNAL(clicked(bool)),options, SLOT(setEnabled(bool)));
 
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
         QRadioButton* button = new QRadioButton(fileName.relative());
-        layout->addWidget(button);
+        optionsLayout->addWidget(button);
         if ( first ) {
             button->setChecked(true);
             first = false;
         }
     }
+    rightSideLayout->addStretch(1);
+
+    QFrame* line = new QFrame;
+    line->setFrameStyle(QFrame::HLine);
+    topLayout->addWidget(line);
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest(files.first(), QSize(300,300), 0, this);
     ImageManager::AsyncLoader::instance()->load(request);
 }
 
-void DuplicateMatch::pixmapLoaded(const DB::FileName &fileName, const QSize &size, const QSize &fullSize, int angle, const QImage &image, const bool loadedOK)
+void DuplicateMatch::pixmapLoaded(const DB::FileName&, const QSize&, const QSize&, int, const QImage& image, const bool)
 {
     m_image->setPixmap( QPixmap::fromImage(image));
 }

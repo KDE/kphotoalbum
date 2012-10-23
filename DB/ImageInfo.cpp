@@ -509,6 +509,11 @@ void ImageInfo::merge(const ImageInfo &other)
     Q_FOREACH( const QString& key, _categoryInfomation.keys()) {
         _categoryInfomation[key].unite(other._categoryInfomation[key]);
     }
+
+    if ( _stackId == 0 && other._stackId != 0 ) {
+        _stackId = other._stackId;
+        _stackOrder = other._stackOrder;
+    }
 }
 
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )

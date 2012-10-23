@@ -22,7 +22,7 @@
 #include "config-kpa-marble.h"
 #ifdef HAVE_MARBLE
   #include <marble/GeoDataCoordinates.h>
-  #include <marble/global.h>
+  #include <marble/MarbleGlobal.h>
 #endif
 
 #ifdef HAVE_MARBLE

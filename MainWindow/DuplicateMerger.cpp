@@ -18,7 +18,6 @@
 */
 
 #include "DuplicateMerger.h"
-#include "ui_DuplicateMerger.h"
 #include "DB/ImageDB.h"
 #include "DB/FileName.h"
 #include "DB/FileNameList.h"
@@ -27,21 +26,22 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include "DuplicateMatch.h"
+#include <QScrollArea>
+#include <KLocale>
 namespace MainWindow {
 
 DuplicateMerger::DuplicateMerger(QWidget *parent) :
-    KDialog(parent),
-    ui(new Ui::DuplicateMerger)
+    KDialog(parent)
 {
     resize(800,600);
 
-    QWidget*top = new QWidget;
-    ui->setupUi(top);
+    QScrollArea* top = new QScrollArea(this);
+    top->setWidgetResizable(true);
     setMainWidget(top);
 
-    m_container = new QWidget;
+    m_container = new QWidget(top);
     m_topLayout = new QVBoxLayout(m_container);
-    ui->scrollArea->setWidget(m_container);
+    top->setWidget(m_container);
 
     setButtons(Ok|Cancel|User1|User2);
     setButtonText(User1, i18n("Select &All"));
@@ -50,11 +50,6 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     connect(this, SIGNAL(user2Clicked()), this, SLOT(selectNone()));
     connect(this, SIGNAL(okClicked()), this, SLOT(go()));
     findDuplicates();
-}
-
-DuplicateMerger::~DuplicateMerger()
-{
-    delete ui;
 }
 
 void DuplicateMerger::selectAll()

@@ -53,6 +53,9 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     QVBoxLayout* optionsLayout = new QVBoxLayout(options);
     connect( m_merge, SIGNAL(toggled(bool)),options, SLOT(setEnabled(bool)));
 
+    QLabel* label = new QLabel(i18n("Select target:"));
+    optionsLayout->addWidget(label);
+
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
         QRadioButton* button = new QRadioButton(fileName.relative());

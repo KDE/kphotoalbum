@@ -30,9 +30,6 @@ class QVBoxLayout;
 
 namespace MainWindow {
 
-namespace Ui {
-class DuplicateMerger;
-}
 class DuplicateMatch;
 
 class DuplicateMerger : public KDialog
@@ -41,7 +38,6 @@ class DuplicateMerger : public KDialog
     
 public:
     explicit DuplicateMerger(QWidget *parent = 0);
-    ~DuplicateMerger();
 
 private slots:
     void selectAll();
@@ -55,7 +51,6 @@ private:
 
     QMap<DB::MD5, DB::FileNameList> m_matches;
 
-    Ui::DuplicateMerger *ui;
     QWidget* m_container;
     QVBoxLayout* m_topLayout;
     QList<DuplicateMatch*> m_selectors;

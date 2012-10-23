@@ -508,7 +508,7 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) 
 
 void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 {
-    qDebug("Copying Data from %s to %s", qPrintable(from.relative()), qPrintable(to.relative()));
+    (*info(to)).merge(*info(from));
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )

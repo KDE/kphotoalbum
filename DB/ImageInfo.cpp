@@ -503,6 +503,14 @@ void DB::ImageInfo::removeExtraData ()
     _geoPosition = GpsCoordinates();
 }
 
+void ImageInfo::merge(const ImageInfo &other)
+{
+    _description.append(other._description);
+    Q_FOREACH( const QString& key, _categoryInfomation.keys()) {
+        _categoryInfomation[key].unite(other._categoryInfomation[key]);
+    }
+}
+
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
     for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {

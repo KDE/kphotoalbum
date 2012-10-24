@@ -30,8 +30,6 @@
 #include "ThumbnailWidget.h"
 #include "Utilities/Util.h"
 
-QTemporaryFile* _tmpFileForThumbnailView = 0;
-
 /**
    \class ThumbnailToolTip
    This class takes care of showing tooltips for the individual items in the thumbnail view.
@@ -41,21 +39,9 @@ QTemporaryFile* _tmpFileForThumbnailView = 0;
 */
 
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
-    : QLabel( view, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel
-              | Qt::WX11BypassWM
-              | Qt::WStyle_Tool ), _view( view ),
+    : Utilities::ToolTip(view), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
-    setAlignment( Qt::AlignLeft | Qt::AlignTop );
-    setLineWidth(1);
-    setMargin(1);
-
-    setWindowOpacity(0.8);
-    setAutoFillBackground(true);
-    QPalette p = palette();
-    p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
-    p.setColor(QPalette::WindowText, Qt::white );
-    setPalette(p);
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
@@ -75,30 +61,7 @@ bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 void ThumbnailView::ThumbnailToolTip::requestToolTip()
 {
     const DB::FileName fileName = _view->mediaIdUnderCursor();
-    if ( fileName.isNull() || fileName == _currentFileName)
-        return;
-    _currentFileName = fileName;
-    requestImage( fileName );
-}
-
-
-void ThumbnailView::ThumbnailToolTip::renderToolTip()
-{
-    const int size = Settings::SettingsData::instance()->previewSize();
-    if ( size != 0 ) {
-        setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
-                 .arg(_tmpFileForThumbnailView->fileName()).
-                 arg(Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), 0 ) ) );
-    }
-    else
-        setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), 0 ) ) );
-
-    setWordWrap( true );
-
-    resize( sizeHint() );
-    _view->setFocus();
-    show();
-    placeWindow();
+    ToolTip::requestToolTip(fileName);
 }
 
 
@@ -153,31 +116,6 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
     }
 
     move( pos );
-}
-
-void ThumbnailView::ThumbnailToolTip::requestImage( const DB::FileName& fileName )
-{
-    int size = Settings::SettingsData::instance()->previewSize();
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
-    if ( size != 0 ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
-        request->setPriority( ImageManager::Viewer );
-        ImageManager::AsyncLoader::instance()->load( request );
-    }
-    else
-        renderToolTip();
-}
-
-void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
-                                                    const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool /*loadedOK*/)
-{
-    delete _tmpFileForThumbnailView;
-    _tmpFileForThumbnailView = new QTemporaryFile(this);
-    _tmpFileForThumbnailView->open();
-
-    image.save(_tmpFileForThumbnailView, "PNG" );
-    if ( fileName == _currentFileName )
-        renderToolTip();
 }
 
 #include "ThumbnailToolTip.moc"

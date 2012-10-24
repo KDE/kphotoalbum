@@ -28,6 +28,8 @@
 #include <QCheckBox>
 #include "DB/ImageDB.h"
 #include "Utilities/DeleteFiles.h"
+#include <QToolButton>
+#include "MergeToolTip.h"
 
 namespace MainWindow {
 
@@ -60,13 +62,21 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
 
     bool first = true;
     Q_FOREACH(const DB::FileName& fileName, files) {
+        QHBoxLayout* lay = new QHBoxLayout;
+        optionsLayout->addLayout(lay);
         QRadioButton* button = new QRadioButton(fileName.relative());
         button->setProperty("data",QVariant::fromValue(fileName));
-        optionsLayout->addWidget(button);
+        lay->addWidget(button);
         if ( first ) {
             button->setChecked(true);
             first = false;
         }
+        QToolButton* details = new QToolButton;
+        details->setText(QString::fromUtf8("?"));
+        details->setCheckable(true);
+        connect( details, SIGNAL(toggled(bool)), this, SLOT(showDetails(bool)));
+        details->setProperty("data",QVariant::fromValue(fileName));
+        lay->addWidget(details);
         m_buttons.append(button);
     }
     rightSideLayout->addStretch(1);
@@ -112,6 +122,22 @@ void DuplicateMatch::execute()
     }
 
     Utilities::DeleteFiles::deleteFiles(list, Utilities::DeleteFromDisk);
+}
+
+void DuplicateMatch::showDetails(bool b)
+{
+
+    DB::FileName fileName = sender()->property("data").value<DB::FileName>();
+    if (b) {
+        MergeToolTip* tip = new MergeToolTip(this);
+        tip->requestToolTip(fileName);
+        tip->show();
+        m_tipMap.insert(sender(),tip);
+    }
+    else {
+        delete m_tipMap[sender()];
+        m_tipMap.remove(sender());
+    }
 }
 
 } // namespace MainWindow

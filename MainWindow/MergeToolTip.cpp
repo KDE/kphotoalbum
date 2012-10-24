@@ -17,45 +17,17 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MAINWINDOW_DUPLICATEMATCH_H
-#define MAINWINDOW_DUPLICATEMATCH_H
-
-#include "ImageManager/ImageClientInterface.h"
-#include <QWidget>
-#include "DB/FileNameList.h"
-#include <QList>
-
-class QLabel;
-class QCheckBox;
-class QRadioButton;
+#include "MergeToolTip.h"
 
 namespace MainWindow {
 
-class MergeToolTip;
-
-class DuplicateMatch : public QWidget, ImageManager::ImageClientInterface
+MergeToolTip::MergeToolTip(QWidget *parent) :
+    Utilities::ToolTip(parent, Qt::WType_TopLevel)
 {
-    Q_OBJECT
+}
 
-public:
-    DuplicateMatch(const DB::FileNameList& files);
-    virtual void pixmapLoaded( const DB::FileName& fileName,
-                               const QSize& size, const QSize& fullSize,
-                               int angle, const QImage& image,
-                               const bool loadedOK);
-    void setMerge(bool);
-    void execute();
-
-private slots:
-    void showDetails(bool);
-
-private:
-    QLabel* m_image;
-    QCheckBox* m_merge;
-    QList<QRadioButton*> m_buttons;
-    QMap<QObject*,MergeToolTip*> m_tipMap;
-};
+void MergeToolTip::placeWindow()
+{
+}
 
 } // namespace MainWindow
-
-#endif // MAINWINDOW_DUPLICATEMATCH_H

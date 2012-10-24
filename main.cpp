@@ -30,8 +30,6 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-extern QTemporaryFile* _tmpFileForThumbnailView;
-
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "GIT",
                           ki18n("KDE Photo Album"), KAboutData::License_GPL,
@@ -84,9 +82,6 @@ int main( int argc, char** argv ) {
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
         int code = app.exec();
-
-        // To avoid filling /tmp up with temporary files from the thumbnail tooltips, we need to destruct this one.
-        delete _tmpFileForThumbnailView;
         return code;
     }
     catch (...) {

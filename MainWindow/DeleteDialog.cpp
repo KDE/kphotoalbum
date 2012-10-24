@@ -21,18 +21,10 @@
 
 #include <QVBoxLayout>
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <qcheckbox.h>
-#include <qfile.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <kio/deletejob.h>
-#include "kio/copyjob.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "Utilities/ShowBusyCursor.h"
-#include "Utilities/Util.h"
-#include "MainWindow/DirtyIndicator.h"
+#include "Utilities/DeleteFiles.h"
 
 using namespace MainWindow;
 
@@ -89,51 +81,12 @@ int DeleteDialog::exec(const DB::FileNameList& list)
 
 void DeleteDialog::deleteImages()
 {
-    Utilities::ShowBusyCursor dummy;
-    DB::FileNameList listToDelete;
-    KUrl::List listKUrlToDelete;
-    KUrl KUrlToDelete;
-
-    Q_FOREACH(const DB::FileName fileName, _list) {
-        if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
-            if ( _deleteFile->isChecked() || _useTrash->isChecked() ){
-                KUrlToDelete.setPath(fileName.absolute());
-                listKUrlToDelete.append(KUrlToDelete);
-                listToDelete.append(fileName);
-                ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-            } else {
-                listToDelete.append(fileName);
-                ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
-            }
-        } else
-            listToDelete.append(fileName);
-    }
-
-    if ( _deleteFile->isChecked() || _useTrash->isChecked() ) {
-        KJob* job;
-        if ( _useTrash->isChecked() )
-            job = KIO::trash( listKUrlToDelete );
-        else
-            job = KIO::del( listKUrlToDelete );
-        connect( job, SIGNAL( result( KJob* ) ), this, SLOT( slotKIOJobCompleted( KJob* ) ) );
-    }
-
-    if(!listToDelete.isEmpty()) {
-        if ( _deleteFile->isChecked() || _useTrash->isChecked() )
-            DB::ImageDB::instance()->deleteList( listToDelete );
-        else
-            DB::ImageDB::instance()->addToBlockList( listToDelete );
-        MainWindow::DirtyIndicator::markDirty();
+    bool anyDeleted = Utilities::DeleteFiles::deleteFiles(_list, _deleteFile->isChecked() ? Utilities::DeleteFromDisk :
+                                                             _useTrash->isChecked() ? Utilities::MoveToTrash : Utilities::BlockFromDatabase );
+    if ( anyDeleted )
         accept();
-    } else {
+    else
         reject();
-    }
-}
-
-void DeleteDialog::slotKIOJobCompleted( KJob* job)
-{
-    if ( job->error() )
-        KMessageBox::error( this, job->errorString(), i18n( "Error Deleting Files" ) );
 }
 
 #include "DeleteDialog.moc"

@@ -27,6 +27,8 @@
 #include "ImageManager/AsyncLoader.h"
 #include <QCheckBox>
 #include "DB/ImageDB.h"
+#include "Utilities/DeleteFiles.h"
+
 namespace MainWindow {
 
 DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
@@ -108,7 +110,8 @@ void DuplicateMatch::execute()
         DB::ImageDB::instance()->copyData(fileName, destination);
         list.append(fileName);
     }
-    DB::ImageDB::instance()->deleteList(list);
+
+    Utilities::DeleteFiles::deleteFiles(list, Utilities::DeleteFromDisk);
 }
 
 } // namespace MainWindow

@@ -40,7 +40,6 @@ public:
 
 protected slots:
     void deleteImages();
-    void slotKIOJobCompleted( KJob* );
 
 private:
     DB::FileNameList _list;

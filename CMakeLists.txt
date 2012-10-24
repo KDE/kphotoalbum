@@ -146,6 +146,7 @@ set(libHTMLGenerator_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/HTMLDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Generator.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp)
+
 set(libUtilities_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
@@ -155,6 +156,7 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Set.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp
     )
 
 set(libMainWindow_SRCS

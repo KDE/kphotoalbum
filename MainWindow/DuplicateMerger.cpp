@@ -45,6 +45,9 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
                        "Select which you want merged, and which of the duplicates should be kept.<br/>"
                        "The tag and description from the deleted images will be transferred to the kept image</p>");
     QLabel* label = new QLabel(txt);
+    QFont fnt = font();
+    fnt.setPixelSize(18);
+    label->setFont(fnt);
     topLayout->addWidget(label);
 
     QScrollArea* scrollArea = new QScrollArea;
@@ -119,7 +122,7 @@ void DuplicateMerger::tellThatNoDupplicatesWasFound()
 {
     QLabel* label = new QLabel(i18n("No duplicats found"));
     QFont fnt = font();
-    fnt.setPointSize(30);
+    fnt.setPixelSize(30);
     label->setFont(fnt);
     m_scrollLayout->addWidget(label);
 

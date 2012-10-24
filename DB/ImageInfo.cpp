@@ -505,7 +505,13 @@ void DB::ImageInfo::removeExtraData ()
 
 void ImageInfo::merge(const ImageInfo &other)
 {
-    _description.append(other._description);
+    if ( !other.description().isEmpty() ) {
+        if ( _description.isEmpty() )
+            _description = other.description();
+        else
+            _description += QString::fromUtf8("\n-----------\n") + other._description;
+    }
+
     Q_FOREACH( const QString& key, _categoryInfomation.keys()) {
         _categoryInfomation[key].unite(other._categoryInfomation[key]);
     }

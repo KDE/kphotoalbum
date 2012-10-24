@@ -89,11 +89,16 @@ void DuplicateMerger::findDuplicates()
         m_matches[md5].append(fileName);
     }
 
+    bool anyFound = false;
     Q_FOREACH( const DB::MD5& md5, m_matches.keys() ) {
         if ( m_matches[md5].count() > 1 ) {
             addRow(md5);
+            anyFound = true;
         }
     }
+
+    if ( !anyFound )
+        tellThatNoDupplicatesWasFound();
 }
 
 void DuplicateMerger::addRow(const DB::MD5 &md5)
@@ -108,6 +113,19 @@ void DuplicateMerger::selectAll(bool b)
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
         selector->setMerge(b);
     }
+}
+
+void DuplicateMerger::tellThatNoDupplicatesWasFound()
+{
+    QLabel* label = new QLabel(i18n("No duplicats found"));
+    QFont fnt = font();
+    fnt.setPointSize(30);
+    label->setFont(fnt);
+    m_scrollLayout->addWidget(label);
+
+    enableButton(User1, false);
+    enableButton(User2, false);
+    enableButton(Cancel, false);
 }
 
 } // namespace MainWindow

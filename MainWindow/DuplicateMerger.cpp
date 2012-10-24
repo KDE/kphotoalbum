@@ -28,6 +28,8 @@
 #include "DuplicateMatch.h"
 #include <QScrollArea>
 #include <KLocale>
+#include <QLabel>
+
 namespace MainWindow {
 
 DuplicateMerger::DuplicateMerger(QWidget *parent) :
@@ -35,13 +37,23 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
 {
     resize(800,600);
 
-    QScrollArea* top = new QScrollArea(this);
-    top->setWidgetResizable(true);
+    QWidget* top = new QWidget(this);
+    QVBoxLayout* topLayout = new QVBoxLayout(top);
     setMainWidget(top);
 
-    m_container = new QWidget(top);
-    m_topLayout = new QVBoxLayout(m_container);
-    top->setWidget(m_container);
+    QString txt = i18n("<p>Below is a list of all images that are duplicate in your database.<br/>"
+                       "Select which you want merged, and which of the duplicates should be kept.<br/>"
+                       "The tag and description from the deleted images will be transferred to the kept image</p>");
+    QLabel* label = new QLabel(txt);
+    topLayout->addWidget(label);
+
+    QScrollArea* scrollArea = new QScrollArea;
+    topLayout->addWidget(scrollArea);
+    scrollArea->setWidgetResizable(true);
+
+    m_container = new QWidget(scrollArea);
+    m_scrollLayout = new QVBoxLayout(m_container);
+    scrollArea->setWidget(m_container);
 
     setButtons(Ok|Cancel|User1|User2);
     setButtonText(User1, i18n("Select &All"));
@@ -87,7 +99,7 @@ void DuplicateMerger::findDuplicates()
 void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
     DuplicateMatch* match = new DuplicateMatch( m_matches[md5]);
-    m_topLayout->addWidget(match);
+    m_scrollLayout->addWidget(match);
     m_selectors.append(match);
 }
 

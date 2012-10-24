@@ -52,7 +52,7 @@ private:
     QMap<DB::MD5, DB::FileNameList> m_matches;
 
     QWidget* m_container;
-    QVBoxLayout* m_topLayout;
+    QVBoxLayout* m_scrollLayout;
     QList<DuplicateMatch*> m_selectors;
 };
 

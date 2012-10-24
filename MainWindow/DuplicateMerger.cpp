@@ -35,6 +35,7 @@ namespace MainWindow {
 DuplicateMerger::DuplicateMerger(QWidget *parent) :
     KDialog(parent)
 {
+    setAttribute(Qt::WA_DeleteOnClose);
     resize(800,600);
 
     QWidget* top = new QWidget(this);

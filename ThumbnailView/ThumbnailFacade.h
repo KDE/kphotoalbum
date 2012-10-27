@@ -53,6 +53,7 @@ public slots:
     void expandAllStacks();
     void updateDisplayModel();
     void changeSingleSelection(const DB::FileName& fileName);
+    void slotRecreateThumbnail();
 
 signals:
     void showImage( const DB::FileName& id );

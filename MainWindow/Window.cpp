@@ -908,6 +908,8 @@ void MainWindow::Window::setupMenuBar()
     _showExifDialog = actionCollection()->addAction( QString::fromLatin1("showExifInfo"), this, SLOT( slotShowExifInfo() ) );
     _showExifDialog->setText( i18n("Show Exif Info") );
 #endif
+    _recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), _thumbnailView, SLOT( slotRecreateThumbnail() ) );
+    _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
     _useNextVideoThumbnail = actionCollection()->addAction( QString::fromLatin1("useNextVideoThumbnail"), this, SLOT(useNextVideoThumbnail()));
     _useNextVideoThumbnail->setText(i18n("Use next video thumbnail"));

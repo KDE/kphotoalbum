@@ -19,7 +19,7 @@
   <!ENTITY plugins SYSTEM "plugins.docbook">
 ]>
 
-<book lang="&language;">
+<book id="kphotoalbum" lang="&language;">
   
   <bookinfo>
     <title>The &kphotoalbum; Handbook</title>

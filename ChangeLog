@@ -1,3 +1,9 @@
+2012-10-21  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* BUGFIX: Tooltips did not update when scrolling using the wheel
+
+	* BUGFIX: Tooltip did not work on videos
+
 ====================== KPhotoalbum 4.3 released  ======================
 
 Other changes done since 4.3

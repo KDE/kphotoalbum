@@ -56,52 +56,48 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     p.setColor(QPalette::Background, QColor(0,0,0,170)); // r,g,b,A
     p.setColor(QPalette::WindowText, Qt::white );
     setPalette(p);
-
-    timer = new QTimer( this );
-    connect(timer, SIGNAL(timeout()), this, SLOT(show()));
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
-    if ( o == _view->viewport() && event->type() == QEvent::Leave ) {
-        timer->stop();
+    if ( o == _view->viewport() && event->type() == QEvent::Leave )
         hide();
+
+    else if ( event->type() == QEvent::MouseMove || event->type() == QEvent::Wheel) {
+        // We need this to be done through a timer, so the thumbnail view gets the wheel even first,
+        // otherwise the fileName reported by mediaIdUnderCursor is wrong.
+        QTimer::singleShot(0,this, SLOT(requestToolTip()));
     }
 
-    else if ( event->type() == QEvent::MouseMove ) {
-        showToolTips( false );
-        timer->start(200);
-    }
     return false;
 }
 
-void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
+void ThumbnailView::ThumbnailToolTip::requestToolTip()
 {
     const DB::FileName fileName = _view->mediaIdUnderCursor();
-    hide();
-    if ( fileName.isNull() )
+    if ( fileName.isNull() || fileName == _currentFileName)
         return;
+    _currentFileName = fileName;
+    requestImage( fileName );
+}
 
-    if ( force || (fileName != _currentFileName) ) {
-        if ( loadImage( fileName ) ) {
-            setText( QString() );
-            int size = Settings::SettingsData::instance()->previewSize();
-            if ( size != 0 ) {
-                setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
-                         .arg(_tmpFileForThumbnailView->fileName()).
-                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
-            }
-            else {
-                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
-            }
-            setWordWrap( true );
-        }
 
-        _currentFileName = fileName;
-        resize( sizeHint() );
-        _view->setFocus();
+void ThumbnailView::ThumbnailToolTip::renderToolTip()
+{
+    const int size = Settings::SettingsData::instance()->previewSize();
+    if ( size != 0 ) {
+        setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
+                 .arg(_tmpFileForThumbnailView->fileName()).
+                 arg(Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), 0 ) ) );
     }
+    else
+        setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), 0 ) ) );
 
+    setWordWrap( true );
+
+    resize( sizeHint() );
+    _view->setFocus();
+    show();
     placeWindow();
 }
 
@@ -109,20 +105,18 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 void ThumbnailView::ThumbnailToolTip::setActive( bool b )
 {
     if ( b ) {
-        showToolTips(true);
+        requestToolTip();
         _view->viewport()->installEventFilter( this );
-        timer->start(200);
     }
     else {
         _view->viewport()->removeEventFilter( this );
-        timer->stop();
         hide();
     }
 }
 
 void ThumbnailView::ThumbnailToolTip::placeWindow()
 {
-// First try to set the position.
+    // First try to set the position.
     QPoint pos = QCursor::pos() + QPoint( 20, 20 );
     if ( _widthInverse )
         pos.setX( pos.x() - 30 - width() );
@@ -161,21 +155,17 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
     move( pos );
 }
 
-
-bool ThumbnailView::ThumbnailToolTip::loadImage( const DB::FileName& fileName )
+void ThumbnailView::ThumbnailToolTip::requestImage( const DB::FileName& fileName )
 {
     int size = Settings::SettingsData::instance()->previewSize();
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
-        if ( fileName != _currentFileName ) {
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
-            // request->setCache();  // TODO: do caching in callback.
-            request->setPriority( ImageManager::Viewer );
-            ImageManager::AsyncLoader::instance()->load( request );
-            return false;
-        }
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
+        request->setPriority( ImageManager::Viewer );
+        ImageManager::AsyncLoader::instance()->load( request );
     }
-    return true;
+    else
+        renderToolTip();
 }
 
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
@@ -187,7 +177,7 @@ void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const DB::FileName& fileName
 
     image.save(_tmpFileForThumbnailView, "PNG" );
     if ( fileName == _currentFileName )
-        showToolTips(true);
+        renderToolTip();
 }
 
 #include "ThumbnailToolTip.moc"

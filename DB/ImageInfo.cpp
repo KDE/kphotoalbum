@@ -505,6 +505,7 @@ void DB::ImageInfo::removeExtraData ()
 
 void ImageInfo::merge(const ImageInfo &other)
 {
+    // Merge description
     if ( !other.description().isEmpty() ) {
         if ( _description.isEmpty() )
             _description = other.description();
@@ -512,12 +513,23 @@ void ImageInfo::merge(const ImageInfo &other)
             _description += QString::fromUtf8("\n-----------\n") + other._description;
     }
 
+    // Clear untagged tag if one of the images was untagged
+    const QString untagedCaterory = Settings::SettingsData::instance()->untaggedCategory();
+    const QString untagedTag = Settings::SettingsData::instance()->untaggedTag();
+    const bool isCompleted = !_categoryInfomation[untagedCaterory].contains(untagedTag) || !other._categoryInfomation[untagedCaterory].contains(untagedTag);
+
+    // Merge tags
     QSet<QString> keys = QSet<QString>::fromList(_categoryInfomation.keys());
     keys.unite(QSet<QString>::fromList(other._categoryInfomation.keys()));
     Q_FOREACH( const QString& key, keys) {
         _categoryInfomation[key].unite(other._categoryInfomation[key]);
     }
 
+    // Clear untagged tag if one of the images was untagged
+    if (isCompleted)
+        _categoryInfomation[untagedCaterory].remove(untagedTag);
+
+    // Stack into the other image's stack if it has one
     if ( _stackId == 0 && other._stackId != 0 ) {
         _stackId = other._stackId;
         _stackOrder = other._stackOrder;

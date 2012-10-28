@@ -74,7 +74,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
             first = false;
         }
         QToolButton* details = new QToolButton;
-        details->setText(QString::fromUtf8("?"));
+        details->setText(i18nc("i for info","i"));
         details->setCheckable(true);
         connect( details, SIGNAL(toggled(bool)), this, SLOT(showDetails(bool)));
         details->setProperty("data",QVariant::fromValue(fileName));

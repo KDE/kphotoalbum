@@ -512,7 +512,9 @@ void ImageInfo::merge(const ImageInfo &other)
             _description += QString::fromUtf8("\n-----------\n") + other._description;
     }
 
-    Q_FOREACH( const QString& key, _categoryInfomation.keys()) {
+    QSet<QString> keys = QSet<QString>::fromList(_categoryInfomation.keys());
+    keys.unite(QSet<QString>::fromList(other._categoryInfomation.keys()));
+    Q_FOREACH( const QString& key, keys) {
         _categoryInfomation[key].unite(other._categoryInfomation[key]);
     }
 

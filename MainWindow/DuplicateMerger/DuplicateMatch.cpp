@@ -30,6 +30,8 @@
 #include "Utilities/DeleteFiles.h"
 #include <QToolButton>
 #include "MergeToolTip.h"
+#include <DB/ImageInfoPtr.h>
+#include <DB/ImageInfo.h>
 
 namespace MainWindow {
 
@@ -85,7 +87,9 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     line->setFrameStyle(QFrame::HLine);
     topLayout->addWidget(line);
 
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(files.first(), QSize(300,300), 0, this);
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(files.first());
+    const int angle = info->angle();
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(files.first(), QSize(300,300), angle, this);
     ImageManager::AsyncLoader::instance()->load(request);
 }
 

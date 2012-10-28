@@ -29,6 +29,7 @@
 #include <QScrollArea>
 #include <KLocale>
 #include <QLabel>
+#include "Utilities/ShowBusyCursor.h"
 
 namespace MainWindow {
 
@@ -87,6 +88,7 @@ void DuplicateMerger::go()
 
 void DuplicateMerger::findDuplicates()
 {
+    Utilities::ShowBusyCursor dummy;
     Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images() ) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();

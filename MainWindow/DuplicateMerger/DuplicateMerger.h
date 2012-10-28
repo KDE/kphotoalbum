@@ -38,6 +38,7 @@ class DuplicateMerger : public KDialog
     
 public:
     explicit DuplicateMerger(QWidget *parent = 0);
+    ~DuplicateMerger();
 
 private slots:
     void selectAll();

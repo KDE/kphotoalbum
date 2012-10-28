@@ -30,6 +30,7 @@
 #include <KLocale>
 #include <QLabel>
 #include "Utilities/ShowBusyCursor.h"
+#include "MergeToolTip.h"
 
 namespace MainWindow {
 
@@ -67,6 +68,11 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     connect(this, SIGNAL(user2Clicked()), this, SLOT(selectNone()));
     connect(this, SIGNAL(okClicked()), this, SLOT(go()));
     findDuplicates();
+}
+
+MainWindow::DuplicateMerger::~DuplicateMerger()
+{
+    MergeToolTip::destroy();
 }
 
 void DuplicateMerger::selectAll()

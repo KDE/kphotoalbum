@@ -27,11 +27,17 @@ namespace MainWindow {
 class MergeToolTip : public Utilities::ToolTip
 {
     Q_OBJECT
+
 public:
-    explicit MergeToolTip(QWidget *parent = 0);
+    static MergeToolTip* instance();
+    static void destroy();
 
 protected:
     OVERRIDE void placeWindow();
+
+private:
+    static MergeToolTip* s_instance;
+    explicit MergeToolTip(QWidget *parent = 0);
 };
 
 } // namespace MainWindow

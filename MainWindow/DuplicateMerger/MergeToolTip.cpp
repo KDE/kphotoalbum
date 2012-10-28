@@ -18,8 +18,24 @@
 */
 
 #include "MergeToolTip.h"
+#include "QRect"
 
 namespace MainWindow {
+
+MergeToolTip* MergeToolTip::s_instance = 0;
+
+MainWindow::MergeToolTip *MainWindow::MergeToolTip::instance()
+{
+    if ( !s_instance )
+        s_instance = new MergeToolTip;
+    return s_instance;
+}
+
+void MergeToolTip::destroy()
+{
+    delete s_instance;
+    s_instance = 0;
+}
 
 MergeToolTip::MergeToolTip(QWidget *parent) :
     Utilities::ToolTip(parent, Qt::WType_TopLevel)

@@ -75,8 +75,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
         }
         QToolButton* details = new QToolButton;
         details->setText(i18nc("i for info","i"));
-        details->setCheckable(true);
-        connect( details, SIGNAL(toggled(bool)), this, SLOT(showDetails(bool)));
+        details->installEventFilter(this);
         details->setProperty("data",QVariant::fromValue(fileName));
         lay->addWidget(details);
         m_buttons.append(button);
@@ -128,20 +127,18 @@ void DuplicateMatch::execute()
     Utilities::DeleteFiles::deleteFiles(list, Utilities::DeleteFromDisk);
 }
 
-void DuplicateMatch::showDetails(bool b)
+bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)
 {
+    if ( event->type() != QEvent::Enter )
+        return false;
 
-    DB::FileName fileName = sender()->property("data").value<DB::FileName>();
-    if (b) {
-        MergeToolTip* tip = new MergeToolTip(this);
-        tip->requestToolTip(fileName);
-        tip->show();
-        m_tipMap.insert(sender(),tip);
-    }
-    else {
-        delete m_tipMap[sender()];
-        m_tipMap.remove(sender());
-    }
+    QToolButton* but;
+    if ( !(but = qobject_cast<QToolButton*>(obj)) )
+        return false;
+
+    const DB::FileName fileName = but->property("data").value<DB::FileName>();
+    MergeToolTip::instance()->requestToolTip(fileName);
+    return false;
 }
 
 } // namespace MainWindow

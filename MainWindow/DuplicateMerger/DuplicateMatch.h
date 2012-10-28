@@ -45,15 +45,12 @@ public:
                                const bool loadedOK);
     void setMerge(bool);
     void execute();
-
-private slots:
-    void showDetails(bool);
+    OVERRIDE bool eventFilter(QObject *, QEvent *);
 
 private:
     QLabel* m_image;
     QCheckBox* m_merge;
     QList<QRadioButton*> m_buttons;
-    QMap<QObject*,MergeToolTip*> m_tipMap;
 };
 
 } // namespace MainWindow

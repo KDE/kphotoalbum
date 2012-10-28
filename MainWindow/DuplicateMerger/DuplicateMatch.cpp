@@ -141,3 +141,5 @@ void DuplicateMatch::showDetails(bool b)
 }
 
 } // namespace MainWindow
+
+#include "DuplicateMatch.moc"

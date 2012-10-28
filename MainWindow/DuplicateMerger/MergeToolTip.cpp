@@ -31,3 +31,5 @@ void MergeToolTip::placeWindow()
 }
 
 } // namespace MainWindow
+
+#include "MergeToolTip.moc"

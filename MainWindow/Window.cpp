@@ -121,7 +121,7 @@
 #include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include "UpdateVideoThumbnail.h"
-#include "DuplicateMerger.h"
+#include "DuplicateMerger/DuplicateMerger.h"
 
 using namespace DB;
 

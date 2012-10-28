@@ -179,9 +179,9 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/BreadcrumbViewer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatusBar.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/UpdateVideoThumbnail.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMatch.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/MergeToolTip.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMerger.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.cpp
     )
 
 set(libImageManager_SRCS 

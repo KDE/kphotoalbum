@@ -133,3 +133,5 @@ void DuplicateMerger::tellThatNoDupplicatesWasFound()
 }
 
 } // namespace MainWindow
+
+#include "DuplicateMerger.moc"

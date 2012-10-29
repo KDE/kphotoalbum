@@ -22,7 +22,12 @@
 #include "config-kpa-marble.h"
 #ifdef HAVE_MARBLE
   #include <marble/GeoDataCoordinates.h>
-  #include <marble/MarbleGlobal.h>
+// This might be the version that renamed global.h to MarbleGlobal.h
+  #if MARBLE_VERSION >= 0x000e00
+    #include <marble/MarbleGlobal.h>
+  #else
+    #include <marble/global.h>
+  #endif
 #endif
 
 #ifdef HAVE_MARBLE

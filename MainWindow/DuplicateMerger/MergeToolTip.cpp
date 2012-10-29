@@ -38,7 +38,7 @@ void MergeToolTip::destroy()
 }
 
 MergeToolTip::MergeToolTip(QWidget *parent) :
-    Utilities::ToolTip(parent, Qt::WType_TopLevel | Qt::WStyle_Tool)
+    Utilities::ToolTip(parent, Qt::WType_TopLevel)
 {
 }
 

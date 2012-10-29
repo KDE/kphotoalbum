@@ -24,6 +24,7 @@
 #include <QWidget>
 #include "DB/FileNameList.h"
 #include <QList>
+#include "Utilities/DeleteFiles.h"
 
 class QLabel;
 class QCheckBox;
@@ -44,7 +45,7 @@ public:
                                int angle, const QImage& image,
                                const bool loadedOK);
     void setMerge(bool);
-    void execute();
+    void execute(Utilities::DeleteMethod);
     OVERRIDE bool eventFilter(QObject *, QEvent *);
 
 private:

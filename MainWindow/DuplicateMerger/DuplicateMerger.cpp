@@ -31,6 +31,8 @@
 #include <QLabel>
 #include "Utilities/ShowBusyCursor.h"
 #include "MergeToolTip.h"
+#include <QRadioButton>
+#include "Utilities/DeleteFiles.h"
 
 namespace MainWindow {
 
@@ -52,6 +54,15 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     fnt.setPixelSize(18);
     label->setFont(fnt);
     topLayout->addWidget(label);
+
+    _trash = new QRadioButton(i18n("Move to &trash"));
+    QRadioButton* deleteFromDisk = new QRadioButton(i18n("&Delete from disk"));
+    _trash->setChecked(true);
+
+    topLayout->addSpacing(10);
+    topLayout->addWidget(_trash);
+    topLayout->addWidget(deleteFromDisk);
+    topLayout->addSpacing(10);
 
     QScrollArea* scrollArea = new QScrollArea;
     topLayout->addWidget(scrollArea);
@@ -88,7 +99,7 @@ void DuplicateMerger::selectNone()
 void DuplicateMerger::go()
 {
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
-        selector->execute();
+        selector->execute(_trash->isChecked() ? Utilities::MoveToTrash : Utilities::DeleteFromDisk );
     }
 }
 

@@ -102,7 +102,7 @@ void DuplicateMatch::setMerge(bool b)
     m_merge->setChecked(b);
 }
 
-void DuplicateMatch::execute()
+void DuplicateMatch::execute(Utilities::DeleteMethod method)
 {
     if (!m_merge->isChecked())
         return;
@@ -124,7 +124,7 @@ void DuplicateMatch::execute()
         list.append(fileName);
     }
 
-    Utilities::DeleteFiles::deleteFiles(list, Utilities::DeleteFromDisk);
+    Utilities::DeleteFiles::deleteFiles(list, method);
 }
 
 bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)

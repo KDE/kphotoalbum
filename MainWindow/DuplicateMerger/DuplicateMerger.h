@@ -27,6 +27,7 @@
 #include <DB/FileNameList.h>
 
 class QVBoxLayout;
+class QRadioButton;
 
 namespace MainWindow {
 
@@ -56,6 +57,7 @@ private:
     QWidget* m_container;
     QVBoxLayout* m_scrollLayout;
     QList<DuplicateMatch*> m_selectors;
+    QRadioButton* _trash;
 };
 
 

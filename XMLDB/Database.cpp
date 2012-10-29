@@ -506,6 +506,11 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) 
         return DB::FileNameList();
 }
 
+void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
+{
+    (*info(to)).merge(*info(from));
+}
+
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )
 {
     QString label = elm.attribute( QString::fromLatin1("label") );

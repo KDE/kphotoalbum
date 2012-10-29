@@ -144,6 +144,7 @@ public: // Methods that must be overridden
      * */
     virtual DB::FileNameList getStackFor(const DB::FileName& referenceId) const = 0;
 
+    virtual void copyData( const DB::FileName& from, const DB::FileName& to) = 0;
 protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;
     void markDirty();

@@ -121,6 +121,7 @@
 #include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include "UpdateVideoThumbnail.h"
+#include "DuplicateMerger/DuplicateMerger.h"
 
 using namespace DB;
 
@@ -814,6 +815,8 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
 #endif //DOES_STILL_NOT_WORK_IN_KPA4
 
+    a = actionCollection()->addAction( QLatin1String("mergeDuplicates"), this, SLOT(mergeDuplicates()));
+    a->setText(i18n("Merge duplicates"));
     a = actionCollection()->addAction( QString::fromLatin1("rebuildMD5s"), this, SLOT( slotRecalcCheckSums() ) );
     a->setText( i18n("Recalculate Checksum") );
 
@@ -1699,6 +1702,12 @@ void MainWindow::Window::useNextVideoThumbnail()
 void MainWindow::Window::usePreviousVideoThumbnail()
 {
     UpdateVideoThumbnail::usePrevious(selected());
+}
+
+void MainWindow::Window::mergeDuplicates()
+{
+    DuplicateMerger* merger = new DuplicateMerger;
+    merger->show();
 }
 
 void MainWindow::Window::createSarchBar()

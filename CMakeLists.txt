@@ -146,6 +146,7 @@ set(libHTMLGenerator_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/HTMLDialog.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Generator.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp)
+
 set(libUtilities_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
@@ -155,6 +156,8 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Set.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp
     )
 
 set(libMainWindow_SRCS
@@ -176,6 +179,9 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/BreadcrumbViewer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/StatusBar.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/UpdateVideoThumbnail.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMerger.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.cpp
     )
 
 set(libImageManager_SRCS 

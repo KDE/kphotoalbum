@@ -54,6 +54,7 @@
       <Action name="findUnavailableImages"/>
       <Action name="findImagesWithInvalidDate"/>
       <Action name="findImagesWithChangedMD5Sum"/>
+      <Action name="mergeDuplicates"/>
       <Separator/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>

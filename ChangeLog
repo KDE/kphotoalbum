@@ -1,3 +1,12 @@
+2012-10-29  Jesper K. Pedersen  <blackie@kdab.com>
+
+	* NEW Feature: Maintenance -> Merge duplicates
+	This will search for images with the same MD5 sum and show a
+	dialog for selecting which of the duplicates to remove.
+	Tag of the duplicates will be merged.
+	If one of the duplicates are marked as fully tagged, the result
+	will also be marked as fully tagged
+
 2012-10-21  Jesper K. Pedersen  <blackie@kdab.com>
 
 	* BUGFIX: Tooltips did not update when scrolling using the wheel

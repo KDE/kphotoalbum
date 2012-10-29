@@ -23,6 +23,7 @@
 #include <QEvent>
 #include "ImageManager/ImageClientInterface.h"
 #include <DB/FileName.h>
+#include "Utilities/ToolTip.h"
 
 namespace DB { class ImageInfo; }
 
@@ -30,26 +31,22 @@ namespace ThumbnailView
 {
 class ThumbnailWidget;
 
-class ThumbnailToolTip :public QLabel, public ImageManager::ImageClientInterface {
+class ThumbnailToolTip :public Utilities::ToolTip {
     Q_OBJECT
 
 public:
     ThumbnailToolTip( ThumbnailWidget* view );
     virtual void setActive(bool);
-    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
 private slots:
     void requestToolTip();
 
 private:
     virtual bool eventFilter( QObject*, QEvent* e );
-    void requestImage( const DB::FileName& fileName );
     void placeWindow();
-    void renderToolTip();
 
 private:
     ThumbnailWidget* _view;
-    DB::FileName _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
 };

@@ -38,12 +38,13 @@ void MergeToolTip::destroy()
 }
 
 MergeToolTip::MergeToolTip(QWidget *parent) :
-    Utilities::ToolTip(parent, Qt::WType_TopLevel)
+    Utilities::ToolTip(parent, Qt::WType_TopLevel | Qt::WStyle_Tool)
 {
 }
 
 void MergeToolTip::placeWindow()
 {
+    raise();
 }
 
 } // namespace MainWindow

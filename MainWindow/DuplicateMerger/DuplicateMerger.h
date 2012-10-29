@@ -28,6 +28,7 @@
 
 class QVBoxLayout;
 class QRadioButton;
+class QLabel;
 
 namespace MainWindow {
 
@@ -45,6 +46,7 @@ private slots:
     void selectAll();
     void selectNone();
     void go();
+    void updateSelectionCount();
 
 private:
     void findDuplicates();
@@ -58,6 +60,7 @@ private:
     QVBoxLayout* m_scrollLayout;
     QList<DuplicateMatch*> m_selectors;
     QRadioButton* _trash;
+    QLabel* m_selectionCount;
 };
 
 

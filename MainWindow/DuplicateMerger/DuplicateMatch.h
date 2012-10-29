@@ -44,9 +44,13 @@ public:
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK);
-    void setMerge(bool);
+    void setSelected(bool);
+    bool selected() const;
     void execute(Utilities::DeleteMethod);
     OVERRIDE bool eventFilter(QObject *, QEvent *);
+
+signals:
+    void selectionChanged();
 
 private:
     QLabel* m_image;

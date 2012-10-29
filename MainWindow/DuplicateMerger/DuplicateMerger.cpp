@@ -72,6 +72,9 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     m_scrollLayout = new QVBoxLayout(m_container);
     scrollArea->setWidget(m_container);
 
+    m_selectionCount = new QLabel;
+    topLayout->addWidget(m_selectionCount);
+
     setButtons(Ok|Cancel|User1|User2);
     setButtonText(User1, i18n("Select &All"));
     setButtonText(User2, i18n("Select &None"));
@@ -103,6 +106,19 @@ void DuplicateMerger::go()
     }
 }
 
+void DuplicateMerger::updateSelectionCount()
+{
+    int total = 0;
+    int selected = 0;
+    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+        ++total;
+        if (selector->selected())
+            ++selected;
+    }
+    m_selectionCount->setText(i18n("%1 of %2 selected", selected, total));
+
+}
+
 void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
@@ -122,11 +138,13 @@ void DuplicateMerger::findDuplicates()
 
     if ( !anyFound )
         tellThatNoDupplicatesWasFound();
+    updateSelectionCount();
 }
 
 void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
     DuplicateMatch* match = new DuplicateMatch( m_matches[md5]);
+    connect( match, SIGNAL(selectionChanged()), this, SLOT(updateSelectionCount()));
     m_scrollLayout->addWidget(match);
     m_selectors.append(match);
 }
@@ -134,7 +152,7 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 void DuplicateMerger::selectAll(bool b)
 {
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
-        selector->setMerge(b);
+        selector->setSelected(b);
     }
 }
 

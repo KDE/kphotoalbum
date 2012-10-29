@@ -53,6 +53,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     m_merge = new QCheckBox(i18n("Merge these images"));
     rightSideLayout->addWidget(m_merge);
     m_merge->setChecked(true);
+    connect( m_merge, SIGNAL(toggled(bool)), this, SIGNAL(selectionChanged()));
 
     QWidget* options = new QWidget;
     rightSideLayout->addWidget(options);
@@ -97,9 +98,14 @@ void DuplicateMatch::pixmapLoaded(const DB::FileName&, const QSize&, const QSize
     m_image->setPixmap( QPixmap::fromImage(image));
 }
 
-void DuplicateMatch::setMerge(bool b)
+void DuplicateMatch::setSelected(bool b)
 {
     m_merge->setChecked(b);
+}
+
+bool DuplicateMatch::selected() const
+{
+    return m_merge->isChecked();
 }
 
 void DuplicateMatch::execute(Utilities::DeleteMethod method)

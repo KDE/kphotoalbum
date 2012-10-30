@@ -158,7 +158,7 @@ void DuplicateMerger::selectAll(bool b)
 
 void DuplicateMerger::tellThatNoDupplicatesWasFound()
 {
-    QLabel* label = new QLabel(i18n("No duplicats found"));
+    QLabel* label = new QLabel(i18n("No duplicates found"));
     QFont fnt = font();
     fnt.setPixelSize(30);
     label->setFont(fnt);

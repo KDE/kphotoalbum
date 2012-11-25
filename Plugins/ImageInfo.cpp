@@ -26,6 +26,7 @@
 #include <QList>
 #include "DB/CategoryCollection.h"
 #include <QFileInfo>
+#include <QDebug>
 
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
@@ -71,18 +72,25 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     QString text;
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     QStringList tags;
+    QStringList tagspath;
+    const QLatin1String sep ("/");
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->isSpecialCategory() )
             continue;
-        if ( (*categoryIt)->doShow() ) {
+        // I don't know why any categories except the above should be excluded
+        //if ( (*categoryIt)->doShow() ) {
             Utilities::StringSet items = _info->itemsOfCategory( categoryName );
             for( Utilities::StringSet::Iterator it = items.begin(); it != items.end(); ++it ) {
                 tags.append( *it );
+                // digikam compatible tag path:
+                // note: this produces a semi-flattened hierarchy.
+                // instead of "Places/France/Paris" this will yield "Places/Paris"
+                tagspath.append( categoryName + sep + (*it) );
             }
-        }
+        //}
     }
-    res.insert(QString::fromLatin1( "tagspath" ), tags );
+    res.insert(QString::fromLatin1( "tagspath" ), tagspath );
     res.insert(QString::fromLatin1( "keywords" ), tags );
     res.insert(QString::fromLatin1( "tags" ), tags ); // for compatibility with older versions. Now called keywords.
 
@@ -169,6 +177,8 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
             _info->setRating( map[QLatin1String("rating")].toInt() );
             map.remove(QLatin1String("rating"));
         }
+        // I don't know whether we should loosen the warning on this one:
+        // after all, a Plugin might update one component of the gps data only...
         if (map.contains(QLatin1String("longitude")) ||
                 map.contains(QLatin1String("latitude")) ||
                 map.contains(QLatin1String("altitude")) ||
@@ -194,6 +204,34 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                 qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
             }
         }
+        if ( map.contains(QLatin1String("tagspath")) )
+        {
+            const QStringList tagspaths = map[QLatin1String("tagspath")].toStringList();
+            const DB::CategoryCollection *categories = DB::ImageDB::instance()->categoryCollection();
+            Q_FOREACH( const QString &path, tagspaths )
+            {
+                QStringList tagpath = path.split( QLatin1String("/"), QString::SkipEmptyParts );
+                // first component is the category,
+                // last component is the tag.
+                // the components in between are currently ignored
+                // Note: maybe taggspaths with only one component or with unknown first component
+                //  should be added to the "keywords"/"Events" category?
+                if ( tagpath.size() < 2 )
+                {
+                    qWarning() << "Ignoring incompatible tag: " << path;
+                    continue;
+                }
+
+                const QString cat = tagpath.takeFirst();
+                if ( categories->categoryForName(cat).isNull() )
+                {
+                    _info->addCategoryInfo( cat, tagpath.takeLast() );
+                } else {
+                    qWarning() << "Unknown category: " << cat;
+                }
+            }
+            map.remove(QLatin1String("tagspath"));
+        }
 
         // remove read-only keywords:
         map.remove(QLatin1String("filesize"));
@@ -201,22 +239,18 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
         map.remove(QLatin1String("keywords"));
         map.remove(QLatin1String("tags"));
 
-        // FIXME: how exactly is this supposed to work?
-        // all this will do is to set the following categories to some (mostly meaningless?) value:
         // colorlabel
         // picklabel
         // creators
         // credit
         // rights
         // source
-        for( QMap<QString,QVariant>::ConstIterator it = map.begin(); it != map.end(); ++it ) {
-            QStringList list = it.value().toStringList();
-            if (isCategoryAttribute(it.key())) {
-                _info->addCategoryInfo( it.key(), list.toSet() );
-            }
-        }
 
         MainWindow::DirtyIndicator::markDirty();
+        if ( ! map.isEmpty() )
+        {
+            qWarning() << "The following attributes are not (yet) supported by the KPhotoAlbum KIPI interface:" << map;
+        }
     }
 }
 
@@ -247,14 +281,11 @@ void Plugins::ImageInfo::delAttributes( const QStringList& attrs)
         // (colorlabel)
         // (picklabel)
         // copyrights
-        // --> mail miika if the "freeform tag set/delete" works with any plugin, currently
         if ( delAttrs.contains(QLatin1String("tags")) ||
-                delAttrs.contains(QLatin1String("keywords")) ||
                 delAttrs.contains(QLatin1String("tagspath")))
         {
             _info->clearAllCategoryInfo();
             delAttrs.removeAll(QLatin1String("tags"));
-            delAttrs.removeAll(QLatin1String("keywords"));
             delAttrs.removeAll(QLatin1String("tagspath"));
         }
         if ( delAttrs.contains(QLatin1String("gpslocation")) )
@@ -263,13 +294,11 @@ void Plugins::ImageInfo::delAttributes( const QStringList& attrs)
             _info->setGeoPosition(DB::GpsCoordinates());
             delAttrs.removeAll(QLatin1String("gpslocation"));
         }
-        // FIXME: how exactly is this supposed to work?
-        for (QStringList::const_iterator it = delAttrs.begin(); it != delAttrs.end(); ++it) {
-            if (isCategoryAttribute(*it)) {
-                _info->setCategoryInfo(*it, Utilities::StringSet());
-            }
-        }
         MainWindow::DirtyIndicator::markDirty();
+        if ( ! delAttrs.isEmpty() )
+        {
+            qWarning() << "The following attributes are not (yet) supported by the KPhotoAlbum KIPI interface:" << delAttrs;
+        }
     }
 }
 

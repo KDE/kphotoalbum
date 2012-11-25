@@ -101,22 +101,19 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 void Plugins::ImageInfo::clearAttributes()
 {
     if( _info ) {
-        _info->clearAllCategoryInfo();
-        // TODO I think it is reasonable to keep the gps position anyway, isn't it?
-        MainWindow::DirtyIndicator::markDirty();
         // official behaviour is to delete all officially supported attributes:
-        //  QStringList attr;
-        //  attr.append("comment");
-        //  attr.append("date");
-        //  attr.append("title");
-        //  attr.append("orientation");
-        //  attr.append("tagspath");
-        //  attr.append("rating");
-        //  attr.append("colorlabel");
-        //  attr.append("picklabel");
-        //  attr.append("gpslocation");
-        //  attr.append("copyrights");
-        // delAttributes(attr);
+        QStringList attr;
+        attr.append( QString::fromLatin1("comment") );
+        attr.append( QString::fromLatin1("date") );
+        attr.append( QString::fromLatin1("title") );
+        attr.append( QString::fromLatin1("orientation") );
+        attr.append( QString::fromLatin1("tagspath") );
+        attr.append( QString::fromLatin1("rating") );
+        attr.append( QString::fromLatin1("colorlabel") );
+        attr.append( QString::fromLatin1("picklabel") );
+        attr.append( QString::fromLatin1("gpslocation") );
+        attr.append( QString::fromLatin1("copyrights") );
+        delAttributes(attr);
     }
 }
 

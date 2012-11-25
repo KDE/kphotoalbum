@@ -73,7 +73,7 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     QStringList tags;
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
-        if ( categoryName == QString::fromLatin1( "Folder" ) || categoryName == QString::fromLatin1( "Media Type" ) || categoryName == QString::fromLatin1( "Tokens" ) )
+        if ( (*categoryIt)->isSpecialCategory() )
             continue;
         if ( (*categoryIt)->doShow() ) {
             Utilities::StringSet items = _info->itemsOfCategory( categoryName );

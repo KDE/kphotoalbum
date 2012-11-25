@@ -20,6 +20,7 @@
 #define MYIMAGEINFO_H
 
 #include <config-kpa-kipi.h>
+#include <libkipi/version.h>
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>
 #include "DB/ImageInfoPtr.h"
@@ -36,34 +37,50 @@ class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
 {
 public:
     ImageInfo( KIPI::Interface* interface, const KUrl& url );
-    virtual QString title();
-    virtual void setTitle( const QString& );
 
-    virtual QString description();
-    virtual void setDescription( const QString& );
+#if KIPI_VERSION < 0x010500
+    // kipi 1.5.0 uses attributes()/addAttributes() instead of these:
+#if KIPI_VERSION >= 0x010300
+    QString   name();
+    void      setName( const QString& );
+#else
+    // "title" means filename
+    QString title();
+    void setTitle( const QString& );
+#endif
 
-    virtual QMap<QString,QVariant> attributes();
-    virtual void clearAttributes();
-    virtual void addAttributes( const QMap<QString,QVariant>& );
-    virtual void delAttributes( const QStringList& );
+    QString description();
+    void setDescription( const QString& );
 
-    virtual int angle();
-    virtual void setAngle( int );
+    int angle();
+    void setAngle( int );
 
-    virtual QDateTime time( KIPI::TimeSpec what );
-    virtual void setTime( const QDateTime& time, KIPI::TimeSpec spec );
-    virtual bool isTimeExact();
+    QDateTime time( KIPI::TimeSpec what );
+    void setTime( const QDateTime& time, KIPI::TimeSpec spec );
+    bool isTimeExact();
+#endif // KIPI_VERSION < 0x010500
 
-    virtual void cloneData( ImageInfoShared* other );
+    QMap<QString,QVariant> attributes();
+    void clearAttributes();
+    void addAttributes( const QMap<QString,QVariant>& );
+    void delAttributes( const QStringList& );
+
+#if KIPI_VERSION >= 0x010200
+    void cloneData( ImageInfoShared* const other);
+#else
+    void cloneData( ImageInfoShared* other);
+#endif // KIPI_VERSION >= 0x010200
+
 
 private:
     DB::ImageInfoPtr _info;
 
-    virtual bool isPositionAttribute(const QString &key);
-    virtual bool isCategoryAttribute(const QString &key);
+    bool isPositionAttribute(const QString &key);
+    bool isCategoryAttribute(const QString &key);
 };
 
 }
 
 #endif /* MYIMAGEINFO_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

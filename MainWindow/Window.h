@@ -41,6 +41,7 @@ class KActionMenu;
 #include <QPointer>
 #include <config-kpa-kipi.h>
 #ifdef HASKIPI
+#  include <libkipi/version.h>
 #  include <libkipi/pluginloader.h>
 #endif
 #include "DB/FileNameList.h"

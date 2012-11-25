@@ -1401,11 +1401,19 @@ void MainWindow::Window::loadPlugins()
 
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" )
-            << QString::fromLatin1( "HelloWorld" );
+        << QString::fromLatin1( "HelloWorld" );
 
+#if KIPI_VERSION >= 0x020000
+    _pluginLoader = new KIPI::PluginLoader();
+    _pluginLoader->setIgnoredPluginsList( ignores );
+    _pluginLoader->setInterface( _pluginInterface );
+    connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );
+    _pluginLoader->loadPlugins();
+#else
     _pluginLoader = new KIPI::PluginLoader( ignores, _pluginInterface );
     connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );
     _pluginLoader->loadPlugins();
+#endif
 
     // Setup signals
     connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotSelectionChanged(int) ) );
@@ -1778,3 +1786,4 @@ void MainWindow::Window::setHistogramVisibilty( bool visible ) const
 }
 
 #include "Window.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

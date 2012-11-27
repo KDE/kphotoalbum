@@ -28,6 +28,57 @@
 #include <QFileInfo>
 #include <QDebug>
 
+#define KEXIV_ORIENTATION_UNSPECIFIED   0
+#define KEXIV_ORIENTATION_NORMAL        1
+#define KEXIV_ORIENTATION_HFLIP         2
+#define KEXIV_ORIENTATION_ROT_180       3
+#define KEXIV_ORIENTATION_VFLIP         4
+#define KEXIV_ORIENTATION_ROT_90_HFLIP  5
+#define KEXIV_ORIENTATION_ROT_90        6
+#define KEXIV_ORIENTATION_ROT_90_VFLIP  7
+#define KEXIV_ORIENTATION_ROT_270       8
+/**
+ * Convert a rotation in degrees to a KExiv2::ImageOrientation value.
+ */
+static int deg2KexivOrientation( int deg)
+{
+    deg = (deg + 360) % 360;;
+    switch (deg)
+    {
+        case 0:
+            return KEXIV_ORIENTATION_NORMAL;
+        case 90:
+            return KEXIV_ORIENTATION_ROT_90;
+        case 180:
+            return KEXIV_ORIENTATION_ROT_180;
+        case 270:
+            return KEXIV_ORIENTATION_ROT_270;
+        default:
+            qWarning() << "Rotation of " << deg << "degrees can't be mapped to KExiv2::ImageOrientation value.";
+            return KEXIV_ORIENTATION_UNSPECIFIED;
+    }
+}
+/**
+ * Convert a KExiv2::ImageOrientation value into a degrees angle.
+ */
+static int kexivOrientation2deg( int orient)
+{
+    switch (orient)
+    {
+        case KEXIV_ORIENTATION_NORMAL:
+            return 0;
+        case KEXIV_ORIENTATION_ROT_90:
+            return 90;
+        case KEXIV_ORIENTATION_ROT_180:
+            return 280;
+        case KEXIV_ORIENTATION_ROT_270:
+            return 270;
+        default:
+            qWarning() << "KExiv2::ImageOrientation value " << orient << " not a pure rotation. Discarding orientation info.";
+            return 0;
+    }
+}
+
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -46,8 +97,8 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     res.insert(QLatin1String("dateto"), _info->date().end());
     res.insert(QLatin1String("isexactdate"), _info->date().start() == _info->date().end());
 
-    res.insert(QString::fromLatin1("orientation"), _info->angle());
-    res.insert(QString::fromLatin1("angle"), _info->angle()); // for compatibility with older versions. Now called orientation.
+    res.insert(QString::fromLatin1("orientation"), deg2KexivOrientation(_info->angle()) );
+    res.insert(QString::fromLatin1("angle"), deg2KexivOrientation(_info->angle()) ); // for compatibility with older versions. Now called orientation.
 
     res.insert(QString::fromLatin1("title"), _info->label());
 
@@ -159,12 +210,12 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
         if ( map.contains(QLatin1String("angle")) )
         {
             qWarning("Kipi-plugin uses deprecated attribute \"angle\".");
-            _info->setAngle( map[QLatin1String("angle")].toInt() );
+            _info->setAngle( kexivOrientation2deg( map[QLatin1String("angle")].toInt() ) );
             map.remove(QLatin1String("angle"));
         }
         if ( map.contains(QLatin1String("orientation")) )
         {
-            _info->setAngle( map[QLatin1String("orientation")].toInt() );
+            _info->setAngle( kexivOrientation2deg( map[QLatin1String("orientation")].toInt() ) );
             map.remove(QLatin1String("orientation"));
         }
         if ( map.contains(QLatin1String("title")) )

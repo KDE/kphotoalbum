@@ -88,7 +88,9 @@ int Plugins::Interface::features() const
         KIPI::ImagesHasTime |
         KIPI::HostSupportsDateRanges |
         KIPI::HostAcceptNewImages |
-        KIPI::ImagesHasTitlesWritable;
+        KIPI::ImagesHasTitlesWritable |
+		KIPI::HostSupportsTags |
+		KIPI::HostSupportsRating;
 }
 
 bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )

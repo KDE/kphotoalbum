@@ -70,7 +70,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "</ul></p>"
 
                   "<p>The plug-in library is called KIPI, and may be downloaded from the "
-                  "<a href=\"http://www.kipi-plugins.org\">KIPI Home page</a></p>" );
+                  "<a href=\"http://userbase.kde.org/KIPI\">KDE Userbase Wiki</a></p>" );
 
     text += i18n( "<h1><a name=\"exiv2\">EXIF support</a></h1>"
                   "<p>Images store information like the date the image was shot, the shooting angle, focal length, and shutter-speed "

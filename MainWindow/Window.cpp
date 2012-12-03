@@ -1407,13 +1407,12 @@ void MainWindow::Window::loadPlugins()
     _pluginLoader = new KIPI::PluginLoader();
     _pluginLoader->setIgnoredPluginsList( ignores );
     _pluginLoader->setInterface( _pluginInterface );
-    connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );
-    _pluginLoader->loadPlugins();
+    _pluginLoader->init();
 #else
     _pluginLoader = new KIPI::PluginLoader( ignores, _pluginInterface );
+#endif
     connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );
     _pluginLoader->loadPlugins();
-#endif
 
     // Setup signals
     connect( _thumbnailView, SIGNAL( selectionChanged(int) ), this, SLOT( slotSelectionChanged(int) ) );

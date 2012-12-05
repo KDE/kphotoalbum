@@ -20,6 +20,7 @@
 #include "DeleteFiles.h"
 #include "MainWindow/Window.h"
 #include <KJob>
+#include <KLocale>
 #include <KMessageBox>
 #include "ShowBusyCursor.h"
 #include "ImageManager/ThumbnailCache.h"

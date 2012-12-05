@@ -24,6 +24,7 @@
 #ifdef HAVE_KDCRAW
 #  include <libkdcraw/kdcraw.h>
 #  include <libkdcraw/rawfiles.h>
+#  include <libkdcraw/version.h>
 #endif
 #include <kdebug.h>
 #include <DB/FileName.h>
@@ -37,7 +38,11 @@ bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize
     Q_UNUSED( dim );
 
 #ifdef HAVE_KDCRAW
+#if KDCRAW_VERSION >= 0x020200
+    if ( !KDcrawIface::KDcraw::loadRawPreview( *img, imageFile.absolute() ) )
+#else
     if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile.absolute() ) )
+#endif
         return false;
 
     // FIXME: The preview data for Canon's image is always returned in its non-rotated form by libkdcraw, ie. KPA should do the rotation.

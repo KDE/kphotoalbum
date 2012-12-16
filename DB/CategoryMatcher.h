@@ -43,6 +43,7 @@ using Utilities::StringSet;
 class CategoryMatcher
 {
 public:
+    CategoryMatcher();
     virtual ~CategoryMatcher() {}
     virtual void debug( int level ) const = 0;
 

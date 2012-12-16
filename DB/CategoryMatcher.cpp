@@ -20,6 +20,11 @@
 
 using namespace DB;
 
+CategoryMatcher::CategoryMatcher()
+	: _shouldPrepareMatchedSet(false)
+{
+}
+
 QString CategoryMatcher::spaces(int level ) const
 {
     return QString::fromLatin1("").rightJustified(level*3 );

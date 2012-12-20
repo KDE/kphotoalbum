@@ -22,6 +22,8 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
+#include "DB/CategoryPtr.h"
+#include "DB/MemberMap.h"
 #include "MainWindow/DirtyIndicator.h"
 #include <QList>
 #include "DB/CategoryCollection.h"
@@ -259,12 +261,11 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
         {
             const QStringList tagspaths = map[QLatin1String("tagspath")].toStringList();
             const DB::CategoryCollection *categories = DB::ImageDB::instance()->categoryCollection();
+            DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
             Q_FOREACH( const QString &path, tagspaths )
             {
+                qDebug() << "Adding tags: " << path;
                 QStringList tagpath = path.split( QLatin1String("/"), QString::SkipEmptyParts );
-                // first component is the category,
-                // last component is the tag.
-                // the components in between are currently ignored
                 // Note: maybe taggspaths with only one component or with unknown first component
                 //  should be added to the "keywords"/"Events" category?
                 if ( tagpath.size() < 2 )
@@ -273,12 +274,46 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                     continue;
                 }
 
-                const QString cat = tagpath.takeFirst();
-                if ( categories->categoryForName(cat).isNull() )
+                // first component is the category,
+                const QString categoryName = tagpath.takeFirst();
+                DB::CategoryPtr cat = categories->categoryForName( categoryName );
+                if ( ! cat.isNull() )
                 {
-                    _info->addCategoryInfo( cat, tagpath.takeLast() );
+                    QString previousTag;
+                    // last component is the tag:
+                    // others define hierarchy:
+                    Q_FOREACH( const QString &currentTag, tagpath )
+                    {
+                        if ( ! cat->items().contains( currentTag ) )
+                        {
+                            qDebug() << "Adding tag " << currentTag << " to category " << categoryName;
+                            // before we can use a tag, we have to add it
+                            cat->addItem( currentTag );
+                        }
+                        if ( ! previousTag.isNull() )
+                        {
+                            if ( ! memberMap.isGroup( categoryName, previousTag ) )
+                            {
+                                // create a group for the parent tag, so we can add a sub-category
+                                memberMap.addGroup(  categoryName, previousTag );
+                            }
+                            if ( memberMap.canAddMemberToGroup( categoryName, previousTag, currentTag ) )
+                            {
+                                // make currentTag a member of the previousTag group
+                                memberMap.addMemberToGroup( categoryName, previousTag, currentTag );
+                            } else {
+                                qWarning() << "Cannot make " << currentTag << " a subcategory of "
+                                    << categoryName << "/" << previousTag << "!";
+                            }
+                        }
+                        previousTag = currentTag;
+                    }
+                    qDebug() << "Adding tag " << previousTag << " in category " << categoryName
+                        << " to image " << _info->label();
+                    // previousTag must be a valid category (see addItem() above...)
+                    _info->addCategoryInfo( categoryName, previousTag );
                 } else {
-                    qWarning() << "Unknown category: " << cat;
+                    qWarning() << "Unknown category: " << categoryName;
                 }
             }
             map.remove(QLatin1String("tagspath"));

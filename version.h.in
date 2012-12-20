@@ -19,7 +19,7 @@
 #ifndef KPA_VERSION_H
 #define KPA_VERSION_H
 
-#cmakedefine KPA_VERSION "@KPA_VERSION@"
+#define KPA_VERSION "@KPA_VERSION@"
 
 #endif /* KPA_VERSION_H */
 

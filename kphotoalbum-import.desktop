@@ -2,7 +2,6 @@
 Name=KPhotoAlbum
 Name[be]=KPhotoAlbum
 Name[bg]=KPhotoAlbum
-Name[bs]=KPhotoAlbum
 Name[ca]=KPhotoAlbum
 Name[ca@valencia]=KPhotoAlbum
 Name[cs]=KPhotoAlbum
@@ -54,7 +53,6 @@ Exec=kphotoalbum --import %u
 GenericName=Photo Album
 GenericName[be]=Фотаальбом
 GenericName[bg]=KPhotoAlbum
-GenericName[bs]=Foto album
 GenericName[ca]=Àlbum de fotos
 GenericName[ca@valencia]=Àlbum de fotos
 GenericName[cs]=Foto album

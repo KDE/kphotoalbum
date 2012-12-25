@@ -31,7 +31,6 @@
  * @author Jesper Pedersen <blackie@kde.org>
  */
 
-#define QT3_SUPPORT
 #include "KDateEdit.h"
 
 #include <qevent.h>
@@ -68,8 +67,8 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     setItemText( 0, QString::fromLatin1( "" ));
     setMinimumSize(sizeHint());
 
-    mDateFrame = new Q3VBox(0,0,Qt::WType_Popup);
-    mDateFrame->setFrameStyle(Q3Frame::PopupPanel | Q3Frame::Raised);
+    mDateFrame = new Q3VBox(0,0,Qt::Popup);
+    mDateFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     mDateFrame->setLineWidth(3);
     mDateFrame->hide();
     mDateFrame->installEventFilter(this);

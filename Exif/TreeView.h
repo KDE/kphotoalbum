@@ -18,24 +18,23 @@
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
 
-#define QT3_SUPPORT
-#include <q3listview.h>
 #include "Utilities/Set.h"
+#include <QTreeWidget>
 
 namespace Exif {
 using Utilities::StringSet;
 
-class TreeView : public Q3ListView {
+class TreeView : public QTreeWidget {
     Q_OBJECT
 
 public:
-    TreeView( const QString& title, QWidget* parent, const char* name = 0 );
+    TreeView( const QString& title, QWidget* parent );
     StringSet selected();
     void setSelectedExif( const StringSet& selected );
     void reload();
 
 protected slots:
-    void toggleChildren( Q3ListViewItem* );
+    void toggleChildren( QTreeWidgetItem* );
 };
 
 }

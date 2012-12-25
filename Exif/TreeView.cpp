@@ -20,35 +20,35 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Exif/Info.h"
+#include <QDebug>
 
 using Utilities::StringSet;
 
-Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
-    :Q3ListView( parent, name )
+Exif::TreeView::TreeView( const QString& title, QWidget* parent)
+    :QTreeWidget(parent)
 {
-    addColumn( title );
+    setHeaderLabel( title );
     reload();
-    connect( this, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( toggleChildren( Q3ListViewItem* ) ) );
+    connect( this, SIGNAL( itemClicked(QTreeWidgetItem*,int) ), this, SLOT( toggleChildren( QTreeWidgetItem* ) ) );
 }
 
-void Exif::TreeView::toggleChildren( Q3ListViewItem* parent )
+void Exif::TreeView::toggleChildren( QTreeWidgetItem* parent )
 {
     if ( !parent )
         return;
 
-    Q3CheckListItem* par = static_cast<Q3CheckListItem*>( parent );
-    bool on = par->isOn();
-    for ( Q3ListViewItem* child = parent->firstChild(); child; child = child->nextSibling() ) {
-        static_cast<Q3CheckListItem*>(child)->setOn( on );
-        toggleChildren( child );
+    bool on = parent->checkState(0) == Qt::Checked;
+    for ( int index = 0; index < parent->childCount(); ++index ) {
+        parent->child(index)->setCheckState(0,on ? Qt::Checked : Qt::Unchecked );
+        toggleChildren(parent->child(index));
     }
 }
 
 StringSet Exif::TreeView::selected()
 {
     StringSet result;
-    for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
-        if ( static_cast<Q3CheckListItem*>( *it )->isOn() )
+    for ( QTreeWidgetItemIterator it( this ); *it; ++it ) {
+        if ( (*it)->checkState(0) == Qt::Checked )
             result.insert( (*it)->text( 1 ) );
     }
     return result;
@@ -56,9 +56,9 @@ StringSet Exif::TreeView::selected()
 
 void Exif::TreeView::setSelectedExif( const StringSet& selected )
 {
-    for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
+    for ( QTreeWidgetItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );
-        static_cast<Q3CheckListItem*>(*it)->setOn( on );
+        (*it)->setCheckState(0,on ? Qt::Checked : Qt::Unchecked );
     }
 }
 
@@ -68,11 +68,11 @@ void Exif::TreeView::reload()
     setRootIsDecorated( true );
     StringSet keys = Exif::Info::instance()->availableKeys();
 
-    QMap<QString, Q3CheckListItem*> tree;
+    QMap<QString, QTreeWidgetItem*> tree;
 
     for( StringSet::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
-        Q3CheckListItem* parent = 0;
+        QTreeWidgetItem* parent = 0;
         QString path;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
             if ( !path.isEmpty() )
@@ -82,17 +82,19 @@ void Exif::TreeView::reload()
                 parent = tree[path];
             else {
                 if ( parent == 0 )
-                    parent = new Q3CheckListItem( this, *subKeyIt, Q3CheckListItem::CheckBox );
+                    parent = new QTreeWidgetItem( this, QStringList(*subKeyIt) );
                 else
-                    parent = new Q3CheckListItem( parent, *subKeyIt, Q3CheckListItem::CheckBox );
+                    parent = new QTreeWidgetItem( parent, QStringList(*subKeyIt) );
                 parent->setText( 1, path ); // This is simply to make the implementation of selected easier.
+                parent->setFlags( Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
+                parent->setCheckState(0,Qt::Unchecked);
                 tree.insert( path, parent );
             }
         }
     }
 
-    if ( Q3ListViewItem* item = firstChild() )
-        item->setOpen( true );
+    if ( QTreeWidgetItem* item = topLevelItem(0) )
+        item->setExpanded( true );
 }
 
 #include "TreeView.moc"

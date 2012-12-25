@@ -17,7 +17,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define QT3_SUPPORT
 #include "MergeToolTip.h"
 #include "QRect"
 
@@ -39,7 +38,7 @@ void MergeToolTip::destroy()
 }
 
 MergeToolTip::MergeToolTip(QWidget *parent) :
-    Utilities::ToolTip(parent, Qt::WType_TopLevel)
+    Utilities::ToolTip(parent, Qt::Window)
 {
 }
 

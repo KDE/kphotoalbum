@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#define QT3_SUPPORT
 #include "ThumbnailToolTip.h"
 
 #include <QDesktopWidget>

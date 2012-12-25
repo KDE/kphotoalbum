@@ -31,6 +31,7 @@
  * @author Jesper Pedersen <blackie@kde.org>
  */
 
+#define QT3_SUPPORT
 #include "KDateEdit.h"
 
 #include <qevent.h>

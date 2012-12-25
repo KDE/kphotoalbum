@@ -17,6 +17,7 @@
 */
 #ifndef LISTVIEWITEMHIDER_H
 #define LISTVIEWITEMHIDER_H
+#define QT3_SUPPORT
 #include <q3listview.h>
 #include "enums.h"
 

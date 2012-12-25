@@ -18,7 +18,7 @@
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
-
+#define QT3_SUPPORT
 #include <QLabel>
 #include "enums.h"
 #include "Settings/SettingsData.h"

@@ -17,7 +17,7 @@
 */
 #ifndef CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
 #define CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
-
+#define QT3_SUPPORT
 #include <q3listview.h>
 #include "DB/CategoryPtr.h"
 

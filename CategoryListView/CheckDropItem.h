@@ -18,6 +18,7 @@
 #ifndef CATEGORYLISTVIEW_CHECKDROPITEM_H
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
+#define QT3_SUPPORT
 #include <q3listview.h>
 #include "DragItemInfo.h"
 

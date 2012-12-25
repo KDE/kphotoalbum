@@ -18,6 +18,7 @@
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
 
+#define QT3_SUPPORT
 #include <q3listview.h>
 #include "Utilities/Set.h"
 

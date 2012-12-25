@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#define QT3_SUPPORT
 #include "ThumbnailToolTip.h"
 
 #include <QDesktopWidget>
@@ -40,9 +39,9 @@
 */
 
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
-    : Utilities::ToolTip(view, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::Window
-                         | Qt::WX11BypassWM
-                         | Qt::WStyle_Tool ), _view( view ),
+    : Utilities::ToolTip(view, Qt::FramelessWindowHint | Qt::Window
+                         | Qt::X11BypassWindowManagerHint
+                         | Qt::Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
 }

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#define QT3_SUPPORT
 #include "ImageDisplay.h"
 #include <qpainter.h>
 #include <QPaintEvent>
@@ -89,7 +88,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
  */
 void Viewer::ImageDisplay::hideCursor() {
     if (_cursorHiding)
-        setCursor( Qt::blankCursor );
+        setCursor( Qt::BlankCursor );
 }
 
 /**

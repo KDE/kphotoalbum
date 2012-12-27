@@ -17,18 +17,17 @@
 */
 #ifndef CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
 #define CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
-#define QT3_SUPPORT
-#include <q3listview.h>
+#include <QTreeWidget>
 #include "DB/CategoryPtr.h"
 
 namespace CategoryListView
 {
-class DraggableListView :public Q3ListView
+class DraggableListView :public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    DraggableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name = 0 );
+    DraggableListView( const DB::CategoryPtr& category, QWidget* parent );
     DB::CategoryPtr category() const;
     void emitItemsChanged();
 
@@ -36,7 +35,9 @@ signals:
     void itemsChanged();
 
 protected:
+#ifdef COMMENTED_OUT_DURING_PORTING
     virtual Q3DragObject* dragObject();
+#endif // COMMENTED_OUT_DURING_PORTING
 
 private:
     const DB::CategoryPtr _category;

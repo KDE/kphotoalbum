@@ -22,6 +22,7 @@
 #include <q3listview.h>
 #include "DragItemInfo.h"
 
+#ifdef COMMENTED_OUT_DURING_PORTING
 class QDropEvent;
 namespace CategoryListView
 {
@@ -50,3 +51,4 @@ private:
 
 #endif /* CATEGORYLISTVIEW_CHECKDROPITEM_H */
 
+#endif // COMMENTED_OUT_DURING_PORTING

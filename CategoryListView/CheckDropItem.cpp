@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#define QT3_SUPPORT
 #include "CheckDropItem.h"
 #include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
@@ -26,6 +27,7 @@
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
 
+#ifdef COMMENTED_OUT_DURING_PORTING
 CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* parent, const QString& column1,
                                                 const QString& column2 )
     : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( parent )
@@ -147,3 +149,4 @@ void CategoryListView::CheckDropItem::activate()
         setState( Off );
 }
 
+#endif // COMMENTED_OUT_DURING_PORTING

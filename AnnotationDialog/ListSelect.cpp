@@ -57,6 +57,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     layout->addWidget( _lineEdit );
 
     _listView = new CategoryListView::DraggableListView( _category, this );
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->viewport()->setAcceptDrops( true );
     _listView->addColumn( QString::fromLatin1( "items" ) );
     _listView->header()->setStretchEnabled( true );
@@ -67,9 +68,12 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
              this, SLOT(showContextMenu( Q3ListViewItem*, const QPoint& ) ) );
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
     connect( _listView, SIGNAL( selectionChanged() ), this, SLOT( updateSelectionCount() ) );
+#endif // COMMENTED_OUT_DURING_PORTING
 
     layout->addWidget( _listView );
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->viewport()->installEventFilter( this );
+#endif // COMMENTED_OUT_DURING_PORTING
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout;
@@ -122,7 +126,9 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addWidget( _dateSort );
     lay2->addWidget( _showSelectedOnly );
 
+#ifdef COMMENTED_OUT_DURING_PORTING
     _lineEdit->setListView( _listView );
+#endif // COMMENTED_OUT_DURING_PORTING
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 
@@ -139,6 +145,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
 void AnnotationDialog::ListSelect::slotReturn()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     if ( isInputMode() )  {
         QString txt = _lineEdit->text().trimmed();
         if ( txt.isEmpty() )
@@ -157,6 +164,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         _lineEdit->clear();
     }
     updateSelectionCount();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 QString AnnotationDialog::ListSelect::category() const
@@ -166,6 +174,7 @@ QString AnnotationDialog::ListSelect::category() const
 
 void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const StringSet& partiallyOn )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         Q3CheckListItem* item = static_cast<Q3CheckListItem*>(*itemIt);
         if ( partiallyOn.contains( item->text(0) ) )
@@ -177,6 +186,7 @@ void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const Stri
 
     _lineEdit->clear();
     updateSelectionCount();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 bool AnnotationDialog::ListSelect::isAND() const
@@ -186,6 +196,7 @@ bool AnnotationDialog::ListSelect::isAND() const
 
 void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     _mode = mode;
     _lineEdit->setMode( mode );
     if ( mode == SearchMode ) {
@@ -206,6 +217,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 
     // ensure that the selection count indicator matches the current mode:
     updateSelectionCount();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 
@@ -231,8 +243,10 @@ QString AnnotationDialog::ListSelect::text() const
 
 void AnnotationDialog::ListSelect::setText( const QString& text )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     _lineEdit->setText( text );
     _listView->clearSelection();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
@@ -461,7 +475,8 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
 
 void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
-     for( QList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
+#ifdef COMMENTED_OUT_DURING_PORTING
+    for( QList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
@@ -474,10 +489,12 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewI
 
         addItems( *subcategoryIt, newItem );
     }
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populate()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->clear();
 
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree )
@@ -486,6 +503,7 @@ void AnnotationDialog::ListSelect::populate()
         populateAlphaFlat();
     else
         populateMRU();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 /**
@@ -496,9 +514,11 @@ void AnnotationDialog::ListSelect::populate()
 */
 bool AnnotationDialog::ListSelect::eventFilter( QObject* object, QEvent* event )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     if ( object == _listView->viewport() && event->type() == QEvent::MouseButtonPress &&
          static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
         return true;
+#endif // COMMENTED_OUT_DURING_PORTING
     return QWidget::eventFilter( object, event );
 }
 
@@ -519,6 +539,7 @@ void AnnotationDialog::ListSelect::slotSortAlphaFlat()
 
 void AnnotationDialog::ListSelect::rePopulate()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     const int x = _listView->contentsX();
     const int y = _listView->contentsY();
 
@@ -531,25 +552,31 @@ void AnnotationDialog::ListSelect::rePopulate()
         limitToSelection();
 
     _listView->setContentsPos( x, y );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     ListViewTextMatchHider dummy( text, Settings::SettingsData::instance()->matchType(), _listView );
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateAlphaTree()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     DB::CategoryItemPtr item = _category->itemsCategories();
 
     _listView->setRootIsDecorated( true );
     addItems( item.data(), 0 );
     _listView->setSorting( 0 );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateAlphaFlat()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     QStringList items = _category->itemsInclCategories();
 
     _listView->setRootIsDecorated( false );
@@ -559,10 +586,12 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
     }
 
     _listView->setSorting( 1 );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateMRU()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     QStringList items = _category->itemsInclCategories();
 
     _listView->setRootIsDecorated( false );
@@ -574,6 +603,7 @@ void AnnotationDialog::ListSelect::populateMRU()
     }
 
     _listView->setSorting( 1 );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::toggleSortType()
@@ -595,11 +625,13 @@ void AnnotationDialog::ListSelect::updateListview()
 
 void AnnotationDialog::ListSelect::limitToSelection()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     if ( !isInputMode() )
         return;
 
     _showSelectedOnly->setChecked( true );
     ListViewCheckedHider dummy( _listView );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()
@@ -648,9 +680,11 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
 
 void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree;
     item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
     item->setTristate( _mode == InputMultiImageConfigMode );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 bool AnnotationDialog::ListSelect::isInputMode() const
@@ -671,10 +705,12 @@ StringSet AnnotationDialog::ListSelect::itemsOff() const
 StringSet AnnotationDialog::ListSelect::itemsOfState( Q3CheckListItem::ToggleState state ) const
 {
     StringSet res;
+#ifdef COMMENTED_OUT_DURING_PORTING
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( static_cast<Q3CheckListItem*>(*itemIt)->state() == state )
             res.insert( (*itemIt)->text(0) );
     }
+#endif // COMMENTED_OUT_DURING_PORTING
     return res;
 }
 
@@ -685,11 +721,13 @@ StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 
 void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     Q3ListViewItem* item = _listView->findItem( itemText, 0 );
     if ( item )
         static_cast<Q3CheckListItem*>(item)->setOn( b );
     else
         Q_ASSERT( false );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 /**
@@ -698,11 +736,13 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
  */
 void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( Q3ListViewItem* item )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     bool on = static_cast<Q3CheckListItem*>(item)->isOn();
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( (*itemIt) != item && (*itemIt)->text(0) == item->text(0) )
             static_cast<Q3CheckListItem*>(*itemIt)->setOn( on );
     }
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 QWidget* AnnotationDialog::ListSelect::lineEdit()

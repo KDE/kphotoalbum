@@ -19,11 +19,12 @@
 #include "DragObject.h"
 #include "DB/Category.h"
 
-CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name )
-    :Q3ListView( parent, name ), _category( category )
+CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& category, QWidget* parent )
+    :QTreeWidget( parent ), _category( category )
 {
 }
 
+#ifdef COMMENTED_OUT_DURING_PORTING
 Q3DragObject* CategoryListView::DraggableListView::dragObject()
 {
     CategoryListView::DragItemInfoSet selected;
@@ -37,6 +38,7 @@ Q3DragObject* CategoryListView::DraggableListView::dragObject()
 
     return new DragObject( selected, this );
 }
+#endif // COMMENTED_OUT_DURING_PORTING
 
 DB::CategoryPtr CategoryListView::DraggableListView::category() const
 {

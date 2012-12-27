@@ -183,9 +183,6 @@ void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const Stri
             (*itemIt)->setCheckState( 0, Qt::PartiallyChecked );
         else
             (*itemIt)->setCheckState( 0, on.contains( (*itemIt)->text(0) ) ? Qt::Checked : Qt::Unchecked );
-#ifdef COMMENTED_OUT_DURING_PORTING
-        _listView->repaintItem(*itemIt);
-#endif // COMMENTED_OUT_DURING_PORTING
     }
 
     _lineEdit->clear();

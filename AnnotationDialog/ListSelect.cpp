@@ -546,6 +546,7 @@ void AnnotationDialog::ListSelect::rePopulate()
 #ifdef COMMENTED_OUT_DURING_PORTING
     const int x = _listView->contentsX();
     const int y = _listView->contentsY();
+#endif // COMMENTED_OUT_DURING_PORTING
 
     const StringSet on = itemsOn();
     const StringSet noChange = itemsUnchanged();
@@ -555,6 +556,7 @@ void AnnotationDialog::ListSelect::rePopulate()
     if( ShowSelectionOnlyManager::instance().selectionIsLimited() )
         limitToSelection();
 
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setContentsPos( x, y );
 #endif // COMMENTED_OUT_DURING_PORTING
 }
@@ -581,6 +583,7 @@ void AnnotationDialog::ListSelect::populateAlphaTree()
 void AnnotationDialog::ListSelect::populateAlphaFlat()
 {
     QStringList items = _category->itemsInclCategories();
+    items.sort();
 
     _listView->setRootIsDecorated( false );
     for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
@@ -589,6 +592,7 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
     }
 
 #ifdef COMMENTED_OUT_DURING_PORTING
+    I Dont think I need this, meaning I wont need the second column at all
     _listView->setSorting( 1 );
 #endif // COMMENTED_OUT_DURING_PORTING
 }
@@ -606,6 +610,7 @@ void AnnotationDialog::ListSelect::populateMRU()
     }
 
 #ifdef COMMENTED_OUT_DURING_PORTING
+    I Dont think I need this, meaning I wont need the second column at all
     _listView->setSorting( 1 );
 #endif // COMMENTED_OUT_DURING_PORTING
 }

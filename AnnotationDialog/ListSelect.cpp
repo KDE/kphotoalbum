@@ -151,7 +151,6 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
 void AnnotationDialog::ListSelect::slotReturn()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     if ( isInputMode() )  {
         QString txt = _lineEdit->text().trimmed();
         if ( txt.isEmpty() )
@@ -160,9 +159,9 @@ void AnnotationDialog::ListSelect::slotReturn()
         _category->addItem( txt);
         rePopulate();
 
-        Q3ListViewItem* item = _listView->findItem( txt, 0 );
-        if ( item )
-            static_cast<Q3CheckListItem*>(item)->setOn( true );
+        QList<QTreeWidgetItem*> items = _listView->findItems( txt, Qt::MatchContains, 0 );
+        if ( !items.isEmpty() )
+            items.at(0)->setCheckState(0, Qt::Checked);
         else
             Q_ASSERT( false );
 
@@ -170,7 +169,6 @@ void AnnotationDialog::ListSelect::slotReturn()
         _lineEdit->clear();
     }
     updateSelectionCount();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 QString AnnotationDialog::ListSelect::category() const
@@ -180,19 +178,18 @@ QString AnnotationDialog::ListSelect::category() const
 
 void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const StringSet& partiallyOn )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        Q3CheckListItem* item = static_cast<Q3CheckListItem*>(*itemIt);
-        if ( partiallyOn.contains( item->text(0) ) )
-            item->setState( Q3CheckListItem::NoChange );
+    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        if ( partiallyOn.contains( (*itemIt)->text(0) ) )
+            (*itemIt)->setCheckState( 0, Qt::PartiallyChecked );
         else
-            item->setOn( on.contains( item->text(0) ) );
+            (*itemIt)->setCheckState( 0, on.contains( (*itemIt)->text(0) ) ? Qt::Checked : Qt::Unchecked );
+#ifdef COMMENTED_OUT_DURING_PORTING
         _listView->repaintItem(*itemIt);
+#endif // COMMENTED_OUT_DURING_PORTING
     }
 
     _lineEdit->clear();
     updateSelectionCount();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 bool AnnotationDialog::ListSelect::isAND() const
@@ -701,29 +698,27 @@ bool AnnotationDialog::ListSelect::isInputMode() const
 
 StringSet AnnotationDialog::ListSelect::itemsOn() const
 {
-    return itemsOfState( Q3CheckListItem::On );
+    return itemsOfState( Qt::Checked );
 }
 
 StringSet AnnotationDialog::ListSelect::itemsOff() const
 {
-    return itemsOfState( Q3CheckListItem::Off );
+    return itemsOfState( Qt::Unchecked );
 }
 
-StringSet AnnotationDialog::ListSelect::itemsOfState( Q3CheckListItem::ToggleState state ) const
+StringSet AnnotationDialog::ListSelect::itemsOfState(Qt::CheckState state ) const
 {
     StringSet res;
-#ifdef COMMENTED_OUT_DURING_PORTING
-    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        if ( static_cast<Q3CheckListItem*>(*itemIt)->state() == state )
+    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        if ( (*itemIt)->checkState(0) == state )
             res.insert( (*itemIt)->text(0) );
     }
-#endif // COMMENTED_OUT_DURING_PORTING
     return res;
 }
 
 StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 {
-    return itemsOfState( Q3CheckListItem::NoChange );
+    return itemsOfState( Qt::PartiallyChecked );
 }
 
 void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )

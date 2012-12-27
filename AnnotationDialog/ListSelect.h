@@ -91,7 +91,7 @@ protected:
     void populateMRU();
     void configureItem( CategoryListView::CheckDropItem* item );
     bool isInputMode() const;
-    StringSet itemsOfState( Q3CheckListItem::ToggleState state ) const;
+    StringSet itemsOfState( Qt::CheckState state ) const;
     void checkItem( const QString itemText, bool );
     void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 

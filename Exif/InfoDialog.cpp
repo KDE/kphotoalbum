@@ -15,7 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#define QT3_SUPPORT
 #include "Exif/InfoDialog.h"
 #include <KComboBox>
 #include <klocale.h>
@@ -37,7 +36,7 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
 {
     setWindowTitle( i18n("EXIF Information") );
     setButtons( Close );
-    setWindowFlags( Qt::WDestructiveClose | windowFlags() );
+    setAttribute( Qt::WA_DeleteOnClose );
 
     QWidget* top = new QWidget;
     setMainWidget( top );

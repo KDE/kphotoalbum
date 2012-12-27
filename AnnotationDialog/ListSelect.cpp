@@ -134,9 +134,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addWidget( _dateSort );
     lay2->addWidget( _showSelectedOnly );
 
-#ifdef COMMENTED_OUT_DURING_PORTING
     _lineEdit->setListView( _listView );
-#endif // COMMENTED_OUT_DURING_PORTING
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 

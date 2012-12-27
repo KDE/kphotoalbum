@@ -15,11 +15,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#define QT3_SUPPORT
 #include "CompletableLineEdit.h"
 #include "ListSelect.h"
 #include <QRegExp>
 #include <QKeyEvent>
+#include <QTreeWidgetItemIterator>
+#include <QTreeWidgetItem>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
     :KLineEdit( parent )
@@ -27,7 +28,7 @@ AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
     _listSelect = parent;
 }
 
-void AnnotationDialog::CompletableLineEdit::setListView( Q3ListView* listView )
+void AnnotationDialog::CompletableLineEdit::setListView( QTreeWidget* listView )
 {
     _listView = listView;
 }
@@ -90,7 +91,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     }
 
     // Find the text in the listView
-    Q3ListViewItem* item = findItemInListView( input );
+    QTreeWidgetItem* item = findItemInListView( input );
     if ( !item && _mode == SearchMode )  {
         // revert
         setText( prevContent );
@@ -111,16 +112,16 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 /**
  * Search for the first item in the appearance order, which matches text.
  */
-Q3ListViewItem* AnnotationDialog::CompletableLineEdit::findItemInListView( const QString& text )
+QTreeWidgetItem *AnnotationDialog::CompletableLineEdit::findItemInListView( const QString& text )
 {
-    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( itemMatchesText( *itemIt, text ) )
             return *itemIt;
     }
     return 0;
 }
 
-bool AnnotationDialog::CompletableLineEdit::itemMatchesText( Q3ListViewItem* item, const QString& text )
+bool AnnotationDialog::CompletableLineEdit::itemMatchesText(QTreeWidgetItem *item, const QString& text )
 {
     return item->text(0).toLower().startsWith( text.toLower() );
 }
@@ -149,7 +150,7 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
     QString input = txt.mid( start, cursorPosition()-start-1 );
 
     if ( !input.isEmpty() ) {
-        Q3ListViewItem* item = findItemInListView( input );
+        QTreeWidgetItem  * item = findItemInListView( input );
         if ( item )
             item->setSelected( true );
     }
@@ -160,24 +161,25 @@ void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
     int itemStart = text().lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
     QString input = text().mid( itemStart );
 
-    Q3ListViewItem* item = _listView->findItem( input, 0 );
-    if ( !item )
+    QList<QTreeWidgetItem*> items = _listView->findItems( input, Qt::MatchContains, 0 );
+    if ( items.isEmpty() )
         return;
+    QTreeWidgetItem* item = items.at(0);
 
     if ( next )
-        item = item->itemBelow();
+        item = _listView->itemBelow(item);
     else
-        item = item->itemAbove();
+        item = _listView->itemAbove(item);
 
     if ( item )
         selectItemAndUpdateLineEdit( item, itemStart, text().left( selectionStart() ) );
 }
 
-void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit( Q3ListViewItem* item,
+void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit( QTreeWidgetItem* item,
                                                                          const int itemStart, const QString& inputText )
 {
     _listView->setCurrentItem( item );
-    _listView->ensureItemVisible( item );
+    _listView->scrollToItem( item );
 
     QString txt = text().left(itemStart) + item->text(0) + text().mid( cursorPosition() );
 

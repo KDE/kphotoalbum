@@ -479,9 +479,8 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
 }
 
 
-void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewItem* parent )
+void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, QTreeWidgetItem* parent )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     for( QList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
@@ -490,12 +489,11 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewI
         else
             newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString() );
 
-        newItem->setOpen( true );
+        newItem->setExpanded(true);
         configureItem( newItem );
 
         addItems( *subcategoryIt, newItem );
     }
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populate()

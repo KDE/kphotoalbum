@@ -25,7 +25,9 @@
 #include <q3listview.h>
 #include "DB/CategoryPtr.h"
 
+// PENDING(blackie) delete this forward declare
 class Q3ListViewItem;
+class QTreeWidgetItem;
 class CategoryItem;
 class QToolButton;
 class QEvent;
@@ -83,7 +85,7 @@ protected slots:
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
-    void addItems( DB::CategoryItem* item, Q3ListViewItem* parent );
+    void addItems( DB::CategoryItem* item, QTreeWidgetItem* parent );
     void populateAlphaTree();
     void populateAlphaFlat();
     void populateMRU();

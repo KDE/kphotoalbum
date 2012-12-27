@@ -18,29 +18,31 @@
 #ifndef CATEGORYLISTVIEW_CHECKDROPITEM_H
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
-#define QT3_SUPPORT
-#include <q3listview.h>
 #include "DragItemInfo.h"
+#include <QTreeWidgetItem>
 
-#ifdef COMMENTED_OUT_DURING_PORTING
 class QDropEvent;
 namespace CategoryListView
 {
 class DraggableListView;
 
-class CheckDropItem :public Q3CheckListItem
+class CheckDropItem :public QTreeWidgetItem
 {
 public:
     CheckDropItem( DraggableListView* listview, const QString& column1, const QString& column2 );
-    CheckDropItem( DraggableListView* listview, Q3ListViewItem* parent, const QString& column1, const QString& column2 );
+    CheckDropItem( DraggableListView* listview, QTreeWidgetItem* parent, const QString& column1, const QString& column2 );
+#ifdef COMMENTED_OUT_DURING_PORTING
     virtual bool acceptDrop( const QMimeSource* mime ) const;
+#endif // COMMENTED_OUT_DURING_PORTING
     void setDNDEnabled( bool );
 
 protected:
     virtual void dropped( QDropEvent* e );
     bool isSelfDrop( const QString& parent, const DragItemInfoSet& children ) const;
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
+#ifdef COMMENTED_OUT_DURING_PORTING
     DragItemInfoSet extractData( const QMimeSource* ) const;
+#endif // COMMENTED_OUT_DURING_PORTING
     virtual void activate();
 
 private:
@@ -50,5 +52,3 @@ private:
 }
 
 #endif /* CATEGORYLISTVIEW_CHECKDROPITEM_H */
-
-#endif // COMMENTED_OUT_DURING_PORTING

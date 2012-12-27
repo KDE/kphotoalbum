@@ -500,7 +500,6 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewI
 
 void AnnotationDialog::ListSelect::populate()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->clear();
 
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree )
@@ -509,7 +508,6 @@ void AnnotationDialog::ListSelect::populate()
         populateAlphaFlat();
     else
         populateMRU();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 /**
@@ -571,18 +569,17 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 
 void AnnotationDialog::ListSelect::populateAlphaTree()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     DB::CategoryItemPtr item = _category->itemsCategories();
 
     _listView->setRootIsDecorated( true );
     addItems( item.data(), 0 );
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setSorting( 0 );
 #endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateAlphaFlat()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     QStringList items = _category->itemsInclCategories();
 
     _listView->setRootIsDecorated( false );
@@ -591,13 +588,13 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
         configureItem( item );
     }
 
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setSorting( 1 );
 #endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateMRU()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     QStringList items = _category->itemsInclCategories();
 
     _listView->setRootIsDecorated( false );
@@ -608,6 +605,7 @@ void AnnotationDialog::ListSelect::populateMRU()
         configureItem( item );
     }
 
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setSorting( 1 );
 #endif // COMMENTED_OUT_DURING_PORTING
 }

@@ -15,7 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#define QT3_SUPPORT
 #include "CheckDropItem.h"
 #include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
@@ -27,21 +26,25 @@
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
 
-#ifdef COMMENTED_OUT_DURING_PORTING
 CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* parent, const QString& column1,
                                                 const QString& column2 )
-    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( parent )
+    : QTreeWidgetItem( parent ), _listView( parent )
 {
+    setCheckState(0, Qt::Unchecked);
+    setText( 0, column1 );
     setText( 1, column2 );
 }
 
-CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* listView, Q3ListViewItem* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* listView, QTreeWidgetItem* parent, const QString& column1,
                                                 const QString& column2 )
-    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( listView )
+    : QTreeWidgetItem( parent ), _listView( listView )
 {
+    setCheckState(0, Qt::Unchecked);
+    setText( 0, column1 );
     setText( 1, column2 );
 }
 
+#ifdef COMMENTED_OUT_DURING_PORTING
 bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) const
 {
     if ( !mime->provides( "x-kphotoalbum/x-category-drag" ) )
@@ -56,7 +59,9 @@ bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) cons
 
     return !isSelfDrop( text(0), extractData( mime ) );
 }
+#endif // COMMENTED_OUT_DURING_PORTING
 
+#ifdef COMMENTED_OUT_DURING_PORTING
 CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeSource* e) const
 {
     DragItemInfoSet items;
@@ -66,9 +71,11 @@ CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( 
 
     return items;
 }
+#endif // COMMENTED_OUT_DURING_PORTING
 
 void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     DragItemInfoSet items = extractData( e );
     const QString newParent = text(0);
     if ( !verifyDropWasIntended( newParent, items ) )
@@ -90,6 +97,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
     //DB::ImageDB::instance()->setMemberMap( memberMap );
 
     _listView->emitItemsChanged();
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, const DragItemInfoSet& children ) const
@@ -131,8 +139,10 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
 
 void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     setDragEnabled( b );
     setDropEnabled( b );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 /**
@@ -143,10 +153,11 @@ void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
  */
 void CategoryListView::CheckDropItem::activate()
 {
+#ifdef COMMENTED_OUT_DURING_PORTING
     if ( state() == Off )
         setState( On );
     else
         setState( Off );
+#endif // COMMENTED_OUT_DURING_PORTING
 }
 
-#endif // COMMENTED_OUT_DURING_PORTING

@@ -69,7 +69,9 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _listView->header()->hide();
 #ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setSelectionMode( Q3ListView::Extended );
-    connect( _listView, SIGNAL( clicked( Q3ListViewItem*  ) ),  this,  SLOT( itemSelected( Q3ListViewItem* ) ) );
+#endif // COMMENTED_OUT_DURING_PORTING
+    connect( _listView, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
+#ifdef COMMENTED_OUT_DURING_PORTING
     connect( _listView, SIGNAL( contextMenuRequested( Q3ListViewItem*, const QPoint&, int ) ),
              this, SLOT(showContextMenu( Q3ListViewItem*, const QPoint& ) ) );
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
@@ -202,7 +204,6 @@ bool AnnotationDialog::ListSelect::isAND() const
 
 void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     _mode = mode;
     _lineEdit->setMode( mode );
     if ( mode == SearchMode ) {
@@ -218,12 +219,13 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _or->hide();
         _showSelectedOnly->show();
     }
+#ifdef COMMENTED_OUT_DURING_PORTING
     for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
+#endif // COMMENTED_OUT_DURING_PORTING
 
     // ensure that the selection count indicator matches the current mode:
     updateSelectionCount();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 
@@ -255,7 +257,7 @@ void AnnotationDialog::ListSelect::setText( const QString& text )
 #endif // COMMENTED_OUT_DURING_PORTING
 }
 
-void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
+void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
 {
     if ( !item ) {
         // click outside any item
@@ -267,7 +269,7 @@ void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
         QString res;
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
         QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
-        if ( static_cast<Q3CheckListItem*>(item)->isOn() )  {
+        if ( item->checkState(0) == Qt::Checked )  {
             int matchPos = _lineEdit->text().indexOf( txt );
             if ( matchPos != -1 )
                 return;
@@ -741,7 +743,7 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
  * An item may be member of a number of categories. Mike may be a member of coworkers and friends.
  * Selecting the item in one subcategory, should select him in all.
  */
-void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( Q3ListViewItem* item )
+void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged(QTreeWidgetItem *item )
 {
 #ifdef COMMENTED_OUT_DURING_PORTING
     bool on = static_cast<Q3CheckListItem*>(item)->isOn();

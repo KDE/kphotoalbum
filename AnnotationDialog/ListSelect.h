@@ -76,7 +76,7 @@ public slots:
     void rePopulate();
 
 protected slots:
-    void itemSelected( Q3ListViewItem* );
+    void itemSelected( QTreeWidgetItem* );
     void showContextMenu( Q3ListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
     void limitToSelection();
@@ -93,7 +93,7 @@ protected:
     bool isInputMode() const;
     StringSet itemsOfState( Q3CheckListItem::ToggleState state ) const;
     void checkItem( const QString itemText, bool );
-    void ensureAllInstancesAreStateChanged( Q3ListViewItem* item );
+    void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 
 private:
     DB::CategoryPtr _category;

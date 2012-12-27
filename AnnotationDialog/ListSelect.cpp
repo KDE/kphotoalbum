@@ -745,13 +745,11 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
  */
 void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged(QTreeWidgetItem *item )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    bool on = static_cast<Q3CheckListItem*>(item)->isOn();
-    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    const bool on = item->checkState(0) == Qt::Checked;
+    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( (*itemIt) != item && (*itemIt)->text(0) == item->text(0) )
-            static_cast<Q3CheckListItem*>(*itemIt)->setOn( on );
+            (*itemIt)->setCheckState(0, on ? Qt::Checked : Qt::Unchecked);
     }
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 QWidget* AnnotationDialog::ListSelect::lineEdit()

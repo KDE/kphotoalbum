@@ -22,6 +22,7 @@
 
 namespace CategoryListView
 {
+// PENDING(blackie) Rename class to DraggableTreeWidget
 class DraggableListView :public QTreeWidget
 {
     Q_OBJECT

@@ -41,6 +41,7 @@
 #include "CategoryListView/CheckDropItem.h"
 #include <qradiobutton.h>
 #include <QWidgetAction>
+#include <QHeaderView>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
@@ -56,12 +57,17 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _lineEdit->setObjectName( category->name() );
     layout->addWidget( _lineEdit );
 
+    // PENDING(blackie) rename instance variable to something better than _listView
     _listView = new CategoryListView::DraggableListView( _category, this );
 #ifdef COMMENTED_OUT_DURING_PORTING
     _listView->viewport()->setAcceptDrops( true );
-    _listView->addColumn( QString::fromLatin1( "items" ) );
+#endif // COMMENTED_OUT_DURING_PORTING
+    _listView->setHeaderLabel( QString::fromLatin1( "items" ) );
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->header()->setStretchEnabled( true );
+#endif // COMMENTED_OUT_DURING_PORTING
     _listView->header()->hide();
+#ifdef COMMENTED_OUT_DURING_PORTING
     _listView->setSelectionMode( Q3ListView::Extended );
     connect( _listView, SIGNAL( clicked( Q3ListViewItem*  ) ),  this,  SLOT( itemSelected( Q3ListViewItem* ) ) );
     connect( _listView, SIGNAL( contextMenuRequested( Q3ListViewItem*, const QPoint&, int ) ),

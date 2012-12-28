@@ -243,10 +243,8 @@ QString AnnotationDialog::ListSelect::text() const
 
 void AnnotationDialog::ListSelect::setText( const QString& text )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     _lineEdit->setText( text );
     _listView->clearSelection();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )

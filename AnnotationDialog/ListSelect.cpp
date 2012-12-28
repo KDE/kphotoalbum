@@ -555,10 +555,8 @@ void AnnotationDialog::ListSelect::rePopulate()
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     ListViewTextMatchHider dummy( text, Settings::SettingsData::instance()->matchType(), _listView );
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::populateAlphaTree()
@@ -626,13 +624,11 @@ void AnnotationDialog::ListSelect::updateListview()
 
 void AnnotationDialog::ListSelect::limitToSelection()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     if ( !isInputMode() )
         return;
 
     _showSelectedOnly->setChecked( true );
     ListViewCheckedHider dummy( _listView );
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()

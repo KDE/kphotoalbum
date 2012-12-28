@@ -537,9 +537,8 @@ void AnnotationDialog::ListSelect::populateAlphaTree()
 
     _listView->setRootIsDecorated( true );
     addItems( item.data(), 0 );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->setSorting( 0 );
-#endif // COMMENTED_OUT_DURING_PORTING
+    _listView->sortByColumn(0, Qt::AscendingOrder);
+    _listView->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::populateAlphaFlat()
@@ -552,11 +551,8 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
         CheckDropItem* item = new CheckDropItem( _listView, *itemIt, *itemIt );
         configureItem( item );
     }
-
-#ifdef COMMENTED_OUT_DURING_PORTING
-    I Dont think I need this, meaning I wont need the second column at all
-    _listView->setSorting( 1 );
-#endif // COMMENTED_OUT_DURING_PORTING
+    _listView->sortByColumn(1, Qt::AscendingOrder);
+    _listView->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::populateMRU()
@@ -570,11 +566,8 @@ void AnnotationDialog::ListSelect::populateMRU()
         CheckDropItem* item = new CheckDropItem( _listView, *itemIt, QString::number( index ) );
         configureItem( item );
     }
-
-#ifdef COMMENTED_OUT_DURING_PORTING
-    I Dont think I need this, meaning I wont need the second column at all
-    _listView->setSorting( 1 );
-#endif // COMMENTED_OUT_DURING_PORTING
+    _listView->sortByColumn(1, Qt::AscendingOrder);
+    _listView->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::toggleSortType()

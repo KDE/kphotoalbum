@@ -688,13 +688,11 @@ StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 
 void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    Q3ListViewItem* item = _listView->findItem( itemText, 0 );
-    if ( item )
-        static_cast<Q3CheckListItem*>(item)->setOn( b );
+    QList<QTreeWidgetItem*> items = _listView->findItems( itemText, Qt::MatchExactly | Qt::MatchRecursive );
+    if ( !items.isEmpty() )
+        items.at(0)->setCheckState(0, b ? Qt::Checked : Qt::Unchecked );
     else
         Q_ASSERT( false );
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 /**

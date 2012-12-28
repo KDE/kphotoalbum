@@ -71,9 +71,10 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _listView->setSelectionMode( Q3ListView::Extended );
 #endif // COMMENTED_OUT_DURING_PORTING
     connect( _listView, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
+    _listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect( _listView, SIGNAL( customContextMenuRequested (QPoint) ),
+             this, SLOT(showContextMenu(QPoint)));
 #ifdef COMMENTED_OUT_DURING_PORTING
-    connect( _listView, SIGNAL( contextMenuRequested( Q3ListViewItem*, const QPoint&, int ) ),
-             this, SLOT(showContextMenu( Q3ListViewItem*, const QPoint& ) ) );
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
     connect( _listView, SIGNAL( selectionChanged() ), this, SLOT( updateSelectionCount() ) );
 #endif // COMMENTED_OUT_DURING_PORTING
@@ -300,10 +301,11 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
 }
 
 
-void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const QPoint& pos )
+void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
 {
     QMenu* menu = new QMenu( this );
 
+    QTreeWidgetItem* item = _listView->itemAt(pos);
     // click on any item
     QString title = i18n("No Item Selected");
     if ( item )
@@ -349,7 +351,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     QAction* newSubcategoryAction = menu->addAction( i18n( "Create Subcategory..." ) );
 
     // -------------------------------------------------- Take item out of category
-    Q3ListViewItem* parent = item ? item->parent() : 0;
+    QTreeWidgetItem* parent = item ? item->parent() : 0;
     QAction* takeAction = 0;
     if ( parent )
         takeAction = menu->addAction( i18n( "Take item out of category %1", parent->text(0) ) );
@@ -377,8 +379,8 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         members->setEnabled( false );
         newSubcategoryAction->setEnabled( false );
     }
-// -------------------------------------------------- exec
-    QAction* which = menu->exec( pos );
+    // -------------------------------------------------- exec
+    QAction* which = menu->exec( _listView->mapToGlobal(pos));
     if ( which == 0 )
         return;
 
@@ -408,7 +410,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
                 _category->renameItem( oldStr, newStr );
-                bool checked = static_cast<Q3CheckListItem*>(item)->isOn();
+                bool checked = item->checkState(0) == Qt::Checked;
                 rePopulate();
                 // rePopuldate doesn't ask the backend if the item should be checked, so we need to do that.
                 checkItem( newStr, checked );

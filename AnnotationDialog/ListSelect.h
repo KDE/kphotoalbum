@@ -77,7 +77,7 @@ public slots:
 
 protected slots:
     void itemSelected( QTreeWidgetItem* );
-    void showContextMenu( Q3ListViewItem*, const QPoint& );
+    void showContextMenu(const QPoint& );
     void setViewSortType( Settings::ViewSortType );
     void limitToSelection();
     void showAllChildren();

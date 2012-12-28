@@ -516,11 +516,6 @@ void AnnotationDialog::ListSelect::slotSortAlphaFlat()
 
 void AnnotationDialog::ListSelect::rePopulate()
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    const int x = _listView->contentsX();
-    const int y = _listView->contentsY();
-#endif // COMMENTED_OUT_DURING_PORTING
-
     const StringSet on = itemsOn();
     const StringSet noChange = itemsUnchanged();
     populate();
@@ -528,10 +523,6 @@ void AnnotationDialog::ListSelect::rePopulate()
 
     if( ShowSelectionOnlyManager::instance().selectionIsLimited() )
         limitToSelection();
-
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->setContentsPos( x, y );
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )

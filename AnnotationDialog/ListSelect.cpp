@@ -80,9 +80,6 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 #endif // COMMENTED_OUT_DURING_PORTING
 
     layout->addWidget( _listView );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->viewport()->installEventFilter( this );
-#endif // COMMENTED_OUT_DURING_PORTING
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout;
@@ -500,22 +497,6 @@ void AnnotationDialog::ListSelect::populate()
         populateAlphaFlat();
     else
         populateMRU();
-}
-
-/**
-   When the user presses the right mouse button on the list view to show the
-   context menu, then the selection state of the list view item under point will also change,
-   which is indeed not his intention. Therefore this event filter will
-   block the mouse press events when they come from a right mouse button.
-*/
-bool AnnotationDialog::ListSelect::eventFilter( QObject* object, QEvent* event )
-{
-#ifdef COMMENTED_OUT_DURING_PORTING
-    if ( object == _listView->viewport() && event->type() == QEvent::MouseButtonPress &&
-         static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
-        return true;
-#endif // COMMENTED_OUT_DURING_PORTING
-    return QWidget::eventFilter( object, event );
 }
 
 void AnnotationDialog::ListSelect::slotSortDate()

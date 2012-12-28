@@ -84,7 +84,6 @@ protected slots:
     void updateSelectionCount();
 
 protected:
-    virtual bool eventFilter( QObject* object, QEvent* event );
     void addItems( DB::CategoryItem* item, QTreeWidgetItem* parent );
     void populateAlphaTree();
     void populateAlphaFlat();

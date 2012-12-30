@@ -58,17 +58,17 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     layout->addWidget( _lineEdit );
 
     // PENDING(blackie) rename instance variable to something better than _listView
-    _listView = new CategoryListView::DragableTreeWidget( _category, this );
-    _listView->setHeaderLabel( QString::fromLatin1( "items" ) );
-    _listView->header()->hide();
-    connect( _listView, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
-    _listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect( _listView, SIGNAL( customContextMenuRequested (QPoint) ),
+    _treeWidget = new CategoryListView::DragableTreeWidget( _category, this );
+    _treeWidget->setHeaderLabel( QString::fromLatin1( "items" ) );
+    _treeWidget->header()->hide();
+    connect( _treeWidget, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
+    _treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect( _treeWidget, SIGNAL( customContextMenuRequested (QPoint) ),
              this, SLOT(showContextMenu(QPoint)));
-    connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
-    connect( _listView, SIGNAL( itemClicked(QTreeWidgetItem*,int)), this, SLOT( updateSelectionCount() ) );
+    connect( _treeWidget, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
+    connect( _treeWidget, SIGNAL( itemClicked(QTreeWidgetItem*,int)), this, SLOT( updateSelectionCount() ) );
 
-    layout->addWidget( _listView );
+    layout->addWidget( _treeWidget );
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout;
@@ -121,7 +121,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addWidget( _dateSort );
     lay2->addWidget( _showSelectedOnly );
 
-    _lineEdit->setListView( _listView );
+    _lineEdit->setListView( _treeWidget );
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 
@@ -146,7 +146,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         _category->addItem( txt);
         rePopulate();
 
-        QList<QTreeWidgetItem*> items = _listView->findItems( txt, Qt::MatchContains, 0 );
+        QList<QTreeWidgetItem*> items = _treeWidget->findItems( txt, Qt::MatchContains, 0 );
         if ( !items.isEmpty() )
             items.at(0)->setCheckState(0, Qt::Checked);
         else
@@ -165,7 +165,7 @@ QString AnnotationDialog::ListSelect::category() const
 
 void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const StringSet& partiallyOn )
 {
-    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    for ( QTreeWidgetItemIterator itemIt( _treeWidget ); *itemIt; ++itemIt ) {
         if ( partiallyOn.contains( (*itemIt)->text(0) ) )
             (*itemIt)->setCheckState( 0, Qt::PartiallyChecked );
         else
@@ -187,7 +187,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
     _lineEdit->setMode( mode );
     if ( mode == SearchMode ) {
         // "0" below is sorting key which ensures that None is always at top.
-        CheckDropItem* item = new CheckDropItem( _listView, DB::ImageDB::NONE(), QString::fromLatin1("0") );
+        CheckDropItem* item = new CheckDropItem( _treeWidget, DB::ImageDB::NONE(), QString::fromLatin1("0") );
         configureItem( item );
         _and->show();
         _or->show();
@@ -198,7 +198,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _or->hide();
         _showSelectedOnly->show();
     }
-    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt )
+    for ( QTreeWidgetItemIterator itemIt( _treeWidget ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
 
     // ensure that the selection count indicator matches the current mode:
@@ -229,7 +229,7 @@ QString AnnotationDialog::ListSelect::text() const
 void AnnotationDialog::ListSelect::setText( const QString& text )
 {
     _lineEdit->setText( text );
-    _listView->clearSelection();
+    _treeWidget->clearSelection();
 }
 
 void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
@@ -289,7 +289,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
 {
     QMenu* menu = new QMenu( this );
 
-    QTreeWidgetItem* item = _listView->itemAt(pos);
+    QTreeWidgetItem* item = _treeWidget->itemAt(pos);
     // click on any item
     QString title = i18n("No Item Selected");
     if ( item )
@@ -364,7 +364,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         newSubcategoryAction->setEnabled( false );
     }
     // -------------------------------------------------- exec
-    QAction* which = menu->exec( _listView->mapToGlobal(pos));
+    QAction* which = menu->exec( _treeWidget->mapToGlobal(pos));
     if ( which == 0 )
         return;
 
@@ -463,9 +463,9 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, QTreeWidget
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
-            newItem = new CheckDropItem( _listView, (*subcategoryIt)->_name, QString() );
+            newItem = new CheckDropItem( _treeWidget, (*subcategoryIt)->_name, QString() );
         else
-            newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString() );
+            newItem = new CheckDropItem( _treeWidget, parent, (*subcategoryIt)->_name, QString() );
 
         newItem->setExpanded(true);
         configureItem( newItem );
@@ -476,7 +476,7 @@ void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, QTreeWidget
 
 void AnnotationDialog::ListSelect::populate()
 {
-    _listView->clear();
+    _treeWidget->clear();
 
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree )
         populateAlphaTree();
@@ -514,7 +514,7 @@ void AnnotationDialog::ListSelect::rePopulate()
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 {
-    ListViewTextMatchHider dummy( text, Settings::SettingsData::instance()->matchType(), _listView );
+    ListViewTextMatchHider dummy( text, Settings::SettingsData::instance()->matchType(), _treeWidget );
     ShowSelectionOnlyManager::instance().unlimitFromSelection();
 }
 
@@ -522,10 +522,10 @@ void AnnotationDialog::ListSelect::populateAlphaTree()
 {
     DB::CategoryItemPtr item = _category->itemsCategories();
 
-    _listView->setRootIsDecorated( true );
+    _treeWidget->setRootIsDecorated( true );
     addItems( item.data(), 0 );
-    _listView->sortByColumn(0, Qt::AscendingOrder);
-    _listView->setSortingEnabled(true);
+    _treeWidget->sortByColumn(0, Qt::AscendingOrder);
+    _treeWidget->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::populateAlphaFlat()
@@ -533,28 +533,28 @@ void AnnotationDialog::ListSelect::populateAlphaFlat()
     QStringList items = _category->itemsInclCategories();
     items.sort();
 
-    _listView->setRootIsDecorated( false );
+    _treeWidget->setRootIsDecorated( false );
     for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
-        CheckDropItem* item = new CheckDropItem( _listView, *itemIt, *itemIt );
+        CheckDropItem* item = new CheckDropItem( _treeWidget, *itemIt, *itemIt );
         configureItem( item );
     }
-    _listView->sortByColumn(1, Qt::AscendingOrder);
-    _listView->setSortingEnabled(true);
+    _treeWidget->sortByColumn(1, Qt::AscendingOrder);
+    _treeWidget->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::populateMRU()
 {
     QStringList items = _category->itemsInclCategories();
 
-    _listView->setRootIsDecorated( false );
+    _treeWidget->setRootIsDecorated( false );
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         ++index;
-        CheckDropItem* item = new CheckDropItem( _listView, *itemIt, QString::number( index ) );
+        CheckDropItem* item = new CheckDropItem( _treeWidget, *itemIt, QString::number( index ) );
         configureItem( item );
     }
-    _listView->sortByColumn(1, Qt::AscendingOrder);
-    _listView->setSortingEnabled(true);
+    _treeWidget->sortByColumn(1, Qt::AscendingOrder);
+    _treeWidget->setSortingEnabled(true);
 }
 
 void AnnotationDialog::ListSelect::toggleSortType()
@@ -580,7 +580,7 @@ void AnnotationDialog::ListSelect::limitToSelection()
         return;
 
     _showSelectedOnly->setChecked( true );
-    ListViewCheckedHider dummy( _listView );
+    ListViewCheckedHider dummy( _treeWidget );
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()
@@ -652,7 +652,7 @@ StringSet AnnotationDialog::ListSelect::itemsOff() const
 StringSet AnnotationDialog::ListSelect::itemsOfState(Qt::CheckState state ) const
 {
     StringSet res;
-    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    for ( QTreeWidgetItemIterator itemIt( _treeWidget ); *itemIt; ++itemIt ) {
         if ( (*itemIt)->checkState(0) == state )
             res.insert( (*itemIt)->text(0) );
     }
@@ -666,7 +666,7 @@ StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 
 void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
 {
-    QList<QTreeWidgetItem*> items = _listView->findItems( itemText, Qt::MatchExactly | Qt::MatchRecursive );
+    QList<QTreeWidgetItem*> items = _treeWidget->findItems( itemText, Qt::MatchExactly | Qt::MatchRecursive );
     if ( !items.isEmpty() )
         items.at(0)->setCheckState(0, b ? Qt::Checked : Qt::Unchecked );
     else
@@ -680,7 +680,7 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
 void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged(QTreeWidgetItem *item )
 {
     const bool on = item->checkState(0) == Qt::Checked;
-    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    for ( QTreeWidgetItemIterator itemIt( _treeWidget ); *itemIt; ++itemIt ) {
         if ( (*itemIt) != item && (*itemIt)->text(0) == item->text(0) )
             (*itemIt)->setCheckState(0, on ? Qt::Checked : Qt::Unchecked);
     }

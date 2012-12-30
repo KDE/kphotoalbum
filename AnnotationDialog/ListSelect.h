@@ -97,7 +97,7 @@ protected:
 private:
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
-    CategoryListView::DragableTreeWidget* _listView;
+    CategoryListView::DragableTreeWidget* _treeWidget;
     QRadioButton* _or;
     QRadioButton* _and;
     UsageMode _mode;

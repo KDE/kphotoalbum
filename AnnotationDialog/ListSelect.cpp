@@ -209,10 +209,8 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _or->hide();
         _showSelectedOnly->show();
     }
-#ifdef COMMENTED_OUT_DURING_PORTING
-    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
+    for ( QTreeWidgetItemIterator itemIt( _listView ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
-#endif // COMMENTED_OUT_DURING_PORTING
 
     // ensure that the selection count indicator matches the current mode:
     updateSelectionCount();

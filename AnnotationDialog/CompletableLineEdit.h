@@ -18,7 +18,6 @@
 #ifndef ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
-#define QT3_SUPPORT
 #include "enums.h"
 #include <KLineEdit>
 class QKeyEvent;

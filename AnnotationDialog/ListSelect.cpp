@@ -30,8 +30,6 @@
 #include <qtoolbutton.h>
 #include <QButtonGroup>
 #include "DB/MemberMap.h"
-#include <q3listview.h>
-#include <q3header.h>
 #include <Utilities/Set.h>
 #include "CompletableLineEdit.h"
 #include "DB/CategoryItem.h"

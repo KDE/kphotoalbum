@@ -18,11 +18,9 @@
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
-#define QT3_SUPPORT
 #include <QLabel>
 #include "enums.h"
 #include "Settings/SettingsData.h"
-#include <q3listview.h>
 #include "DB/CategoryPtr.h"
 
 // PENDING(blackie) delete this forward declare

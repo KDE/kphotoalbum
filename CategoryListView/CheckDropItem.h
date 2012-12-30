@@ -40,7 +40,6 @@ public:
 protected:
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
     DragItemInfoSet extractData( const QMimeData* data ) const;
-    virtual void activate();
 
 private:
     DraggableListView* _listView;

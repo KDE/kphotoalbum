@@ -132,20 +132,3 @@ void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
     else
         setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled );
 }
-
-/**
- * Qt's implementation of QCheckListItem toggle between "on", "unchanged", and "off". I don't like it going to the unchanged state,
- * esp. because in most (perhaps even all) styles, it is really hard to tell the difference between "unchanged" and "on",
- * The user might therefore not really understand that when he toggles from off to unchanged, that the item does not get
- * selected in his database.
- */
-void CategoryListView::CheckDropItem::activate()
-{
-#ifdef COMMENTED_OUT_DURING_PORTING
-    if ( state() == Off )
-        setState( On );
-    else
-        setState( Off );
-#endif // COMMENTED_OUT_DURING_PORTING
-}
-

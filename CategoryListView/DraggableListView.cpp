@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DraggableListView.h"
-#include "DragObject.h"
 #include "DB/Category.h"
 #include "CheckDropItem.h"
 #include <QDragMoveEvent>

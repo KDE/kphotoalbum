@@ -35,7 +35,7 @@ class QRadioButton;
 class QLabel;
 
 namespace DB { class ImageInfo; }
-namespace CategoryListView { class DraggableListView; }
+namespace CategoryListView { class DragableTreeWidget; }
 namespace CategoryListView { class CheckDropItem; }
 
 namespace AnnotationDialog
@@ -97,7 +97,7 @@ protected:
 private:
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
-    CategoryListView::DraggableListView* _listView;
+    CategoryListView::DragableTreeWidget* _listView;
     QRadioButton* _or;
     QRadioButton* _and;
     UsageMode _mode;

@@ -37,7 +37,7 @@
 #include "DB/CategoryItem.h"
 #include "ListViewItemHider.h"
 #include "ShowSelectionOnlyManager.h"
-#include "CategoryListView/DraggableListView.h"
+#include "CategoryListView/DragableTreeWidget.h"
 #include "CategoryListView/CheckDropItem.h"
 #include <qradiobutton.h>
 #include <QWidgetAction>
@@ -58,7 +58,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     layout->addWidget( _lineEdit );
 
     // PENDING(blackie) rename instance variable to something better than _listView
-    _listView = new CategoryListView::DraggableListView( _category, this );
+    _listView = new CategoryListView::DragableTreeWidget( _category, this );
     _listView->setHeaderLabel( QString::fromLatin1( "items" ) );
     _listView->header()->hide();
     connect( _listView, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );

@@ -15,20 +15,19 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
-#define CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H
+#ifndef CATEGORYLISTVIEW_DragableTreeWidget_H
+#define CATEGORYLISTVIEW_DragableTreeWidget_H
 #include <QTreeWidget>
 #include "DB/CategoryPtr.h"
 
 namespace CategoryListView
 {
-// PENDING(blackie) Rename class to DraggableTreeWidget
-class DraggableListView :public QTreeWidget
+class DragableTreeWidget :public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    DraggableListView( const DB::CategoryPtr& category, QWidget* parent );
+    DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent );
     DB::CategoryPtr category() const;
     void emitItemsChanged();
 
@@ -47,4 +46,4 @@ private:
 
 }
 
-#endif /* CATEGORYLISTVIEW_DRAGGABLELISTVIEW_H */
+#endif /* CATEGORYLISTVIEW_DragableTreeWidget_H */

@@ -147,7 +147,7 @@ set(libViewer_SRCS
         )
 
 set(libCategoryListView_SRCS 
-	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DraggableListView.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableTreeWidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/CheckDropItem.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragItemInfo.cpp )
 

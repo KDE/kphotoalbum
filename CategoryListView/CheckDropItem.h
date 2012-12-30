@@ -25,13 +25,13 @@
 class QDropEvent;
 namespace CategoryListView
 {
-class DraggableListView;
+class DragableTreeWidget;
 
 class CheckDropItem :public QTreeWidgetItem
 {
 public:
-    CheckDropItem( DraggableListView* listview, const QString& column1, const QString& column2 );
-    CheckDropItem( DraggableListView* listview, QTreeWidgetItem* parent, const QString& column1, const QString& column2 );
+    CheckDropItem( DragableTreeWidget* listview, const QString& column1, const QString& column2 );
+    CheckDropItem( DragableTreeWidget* listview, QTreeWidgetItem* parent, const QString& column1, const QString& column2 );
     void setDNDEnabled( bool );
     bool dataDropped( const QMimeData* data );
     bool isSelfDrop( const QMimeData* data ) const;
@@ -42,7 +42,7 @@ protected:
     DragItemInfoSet extractData( const QMimeData* data ) const;
 
 private:
-    DraggableListView* _listView;
+    DragableTreeWidget* _listView;
 };
 
 }

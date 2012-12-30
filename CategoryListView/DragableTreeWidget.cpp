@@ -15,12 +15,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "DraggableListView.h"
+#include "DragableTreeWidget.h"
 #include "DB/Category.h"
 #include "CheckDropItem.h"
 #include <QDragMoveEvent>
 
-CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& category, QWidget* parent )
+CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent )
     :QTreeWidget( parent ), _category( category )
 {
     setDragEnabled(true);
@@ -30,17 +30,17 @@ CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& c
     setSelectionMode(ExtendedSelection);
 }
 
-DB::CategoryPtr CategoryListView::DraggableListView::category() const
+DB::CategoryPtr CategoryListView::DragableTreeWidget::category() const
 {
     return _category;
 }
 
-void CategoryListView::DraggableListView::emitItemsChanged()
+void CategoryListView::DragableTreeWidget::emitItemsChanged()
 {
     emit itemsChanged();
 }
 
-QMimeData *CategoryListView::DraggableListView::mimeData(const QList<QTreeWidgetItem *> items) const
+QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
 {
     CategoryListView::DragItemInfoSet selected;
     Q_FOREACH( QTreeWidgetItem* item, items ) {
@@ -58,17 +58,17 @@ QMimeData *CategoryListView::DraggableListView::mimeData(const QList<QTreeWidget
     return mime;
 }
 
-QStringList CategoryListView::DraggableListView::mimeTypes() const
+QStringList CategoryListView::DragableTreeWidget::mimeTypes() const
 {
     return QStringList(QString::fromUtf8("x-kphotoalbum/x-categorydrag"));
 }
 
-bool CategoryListView::DraggableListView::dropMimeData(QTreeWidgetItem *parent, int, const QMimeData *data, Qt::DropAction )
+bool CategoryListView::DragableTreeWidget::dropMimeData(QTreeWidgetItem *parent, int, const QMimeData *data, Qt::DropAction )
 {
     return static_cast<CheckDropItem*>(parent)->dataDropped(data);
 }
 
-void CategoryListView::DraggableListView::dragMoveEvent(QDragMoveEvent *event)
+void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)
 {
     // Call super class in any case as it may scroll, which we want even if we reject
     QTreeWidget::dragMoveEvent(event);
@@ -82,5 +82,5 @@ void CategoryListView::DraggableListView::dragMoveEvent(QDragMoveEvent *event)
 }
 
 
-#include "DraggableListView.moc"
+#include "DragableTreeWidget.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

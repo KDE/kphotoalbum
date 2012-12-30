@@ -134,10 +134,10 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
 
 void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    setDragEnabled( b );
-    setDropEnabled( b );
-#endif // COMMENTED_OUT_DURING_PORTING
+    if ( b )
+        setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled| flags());
+    else
+        setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled );
 }
 
 /**

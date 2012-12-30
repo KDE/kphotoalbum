@@ -642,9 +642,9 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
 
 void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
     bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree;
     item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
+#ifdef COMMENTED_OUT_DURING_PORTING
     item->setTristate( _mode == InputMultiImageConfigMode );
 #endif // COMMENTED_OUT_DURING_PORTING
 }

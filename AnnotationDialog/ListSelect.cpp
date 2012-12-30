@@ -59,17 +59,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     // PENDING(blackie) rename instance variable to something better than _listView
     _listView = new CategoryListView::DraggableListView( _category, this );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->viewport()->setAcceptDrops( true );
-#endif // COMMENTED_OUT_DURING_PORTING
     _listView->setHeaderLabel( QString::fromLatin1( "items" ) );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->header()->setStretchEnabled( true );
-#endif // COMMENTED_OUT_DURING_PORTING
     _listView->header()->hide();
-#ifdef COMMENTED_OUT_DURING_PORTING
-    _listView->setSelectionMode( Q3ListView::Extended );
-#endif // COMMENTED_OUT_DURING_PORTING
     connect( _listView, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
     _listView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect( _listView, SIGNAL( customContextMenuRequested (QPoint) ),

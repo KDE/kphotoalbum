@@ -36,8 +36,6 @@
 #include <qevent.h>
 #include <qlineedit.h>
 #include <qapplication.h>
-#include <q3listbox.h>
-#include <Q3Frame>
 #include <QMouseEvent>
 #include <QKeyEvent>
 

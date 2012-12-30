@@ -21,7 +21,6 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
-#include <Q3Frame>
 
 #include <klocale.h>
 

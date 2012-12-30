@@ -61,25 +61,22 @@ bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) cons
 }
 #endif // COMMENTED_OUT_DURING_PORTING
 
-#ifdef COMMENTED_OUT_DURING_PORTING
-CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeSource* e) const
+CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeData* data) const
 {
     DragItemInfoSet items;
-    const QByteArray data = e->encodedData( "x-kphotoalbum/x-category-drag" );
-    QDataStream stream( data );
+    QByteArray array = data->data(QString::fromUtf8("x-kphotoalbum/x-categorydrag"));
+    QDataStream stream( array );
     stream >> items;
 
     return items;
 }
-#endif // COMMENTED_OUT_DURING_PORTING
 
-void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
+bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
 {
-#ifdef COMMENTED_OUT_DURING_PORTING
-    DragItemInfoSet items = extractData( e );
+    DragItemInfoSet items = extractData( data );
     const QString newParent = text(0);
     if ( !verifyDropWasIntended( newParent, items ) )
-        return;
+        return false;
 
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup( _listView->category()->name(), newParent );
@@ -90,14 +87,16 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
 
         memberMap.addMemberToGroup( _listView->category()->name(), newParent, child );
 
+#ifdef COMMENTED_OUT_DURING_PORTING
         if ( !oldParent.isEmpty() && e->dropAction()!=Qt::CopyAction )
+#endif // COMMENTED_OUT_DURING_PORTING
             memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
     }
 
     //DB::ImageDB::instance()->setMemberMap( memberMap );
 
     _listView->emitItemsChanged();
-#endif // COMMENTED_OUT_DURING_PORTING
+    return true;
 }
 
 bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, const DragItemInfoSet& children ) const

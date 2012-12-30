@@ -74,8 +74,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _listView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect( _listView, SIGNAL( customContextMenuRequested (QPoint) ),
              this, SLOT(showContextMenu(QPoint)));
-#ifdef COMMENTED_OUT_DURING_PORTING
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
+#ifdef COMMENTED_OUT_DURING_PORTING
     connect( _listView, SIGNAL( selectionChanged() ), this, SLOT( updateSelectionCount() ) );
 #endif // COMMENTED_OUT_DURING_PORTING
 

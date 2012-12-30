@@ -32,6 +32,11 @@ public:
     DB::CategoryPtr category() const;
     void emitItemsChanged();
 
+protected:
+    OVERRIDE QMimeData* mimeData( const QList<QTreeWidgetItem*> items ) const;
+    OVERRIDE QStringList mimeTypes() const;
+    OVERRIDE bool dropMimeData ( QTreeWidgetItem* parent, int index, const QMimeData* data, Qt::DropAction action );
+
 signals:
     void itemsChanged();
 

@@ -20,6 +20,7 @@
 
 #include "DragItemInfo.h"
 #include <QTreeWidgetItem>
+#include <QMimeData>
 
 class QDropEvent;
 namespace CategoryListView
@@ -35,14 +36,12 @@ public:
     virtual bool acceptDrop( const QMimeSource* mime ) const;
 #endif // COMMENTED_OUT_DURING_PORTING
     void setDNDEnabled( bool );
+    bool dataDropped( const QMimeData* data );
 
 protected:
-    virtual void dropped( QDropEvent* e );
     bool isSelfDrop( const QString& parent, const DragItemInfoSet& children ) const;
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    DragItemInfoSet extractData( const QMimeSource* ) const;
-#endif // COMMENTED_OUT_DURING_PORTING
+    DragItemInfoSet extractData( const QMimeData* data ) const;
     virtual void activate();
 
 private:

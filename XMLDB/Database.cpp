@@ -642,8 +642,8 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     if ( db == 0 )
         return;
 
-    Q3ValueList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
-    for( Q3ValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+    QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
+    for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         QString str = elm.attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {

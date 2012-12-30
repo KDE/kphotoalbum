@@ -86,11 +86,7 @@ bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
         const QString child = (*itemIt).child();
 
         memberMap.addMemberToGroup( _listView->category()->name(), newParent, child );
-
-#ifdef COMMENTED_OUT_DURING_PORTING
-        if ( !oldParent.isEmpty() && e->dropAction()!=Qt::CopyAction )
-#endif // COMMENTED_OUT_DURING_PORTING
-            memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
+        memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
     }
 
     //DB::ImageDB::instance()->setMemberMap( memberMap );

@@ -18,7 +18,6 @@
 
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
-#define QT3_SUPPORT
 #include "Utilities/Set.h"
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#define QT3_SUPPORT
 #include "Window.h"
 #include "ImageManager/ThumbnailCache.h"
 #include "ThumbnailView/ThumbnailFacade.h"

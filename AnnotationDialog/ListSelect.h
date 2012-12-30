@@ -23,8 +23,6 @@
 #include "Settings/SettingsData.h"
 #include "DB/CategoryPtr.h"
 
-// PENDING(blackie) delete this forward declare
-class Q3ListViewItem;
 class QTreeWidgetItem;
 class CategoryItem;
 class QToolButton;

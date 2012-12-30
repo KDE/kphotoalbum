@@ -66,9 +66,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     connect( _listView, SIGNAL( customContextMenuRequested (QPoint) ),
              this, SLOT(showContextMenu(QPoint)));
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    connect( _listView, SIGNAL( selectionChanged() ), this, SLOT( updateSelectionCount() ) );
-#endif // COMMENTED_OUT_DURING_PORTING
+    connect( _listView, SIGNAL( itemClicked(QTreeWidgetItem*,int)), this, SLOT( updateSelectionCount() ) );
 
     layout->addWidget( _listView );
 

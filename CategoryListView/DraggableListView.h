@@ -41,11 +41,6 @@ protected:
 signals:
     void itemsChanged();
 
-protected:
-#ifdef COMMENTED_OUT_DURING_PORTING
-    virtual Q3DragObject* dragObject();
-#endif // COMMENTED_OUT_DURING_PORTING
-
 private:
     const DB::CategoryPtr _category;
 };

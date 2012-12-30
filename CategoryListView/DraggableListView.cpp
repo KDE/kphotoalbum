@@ -30,22 +30,6 @@ CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& c
     setSelectionMode(ExtendedSelection);
 }
 
-#ifdef COMMENTED_OUT_DURING_PORTING
-Q3DragObject* CategoryListView::DraggableListView::dragObject()
-{
-    CategoryListView::DragItemInfoSet selected;
-    for ( Q3ListViewItemIterator itemIt( this ); *itemIt; ++itemIt ) {
-        if ( (*itemIt)->isSelected() ) {
-            Q3ListViewItem* parent = (*itemIt)->parent();
-            QString parentText = parent ? parent->text(0) : QString();
-            selected.insert( CategoryListView::DragItemInfo( parentText, (*itemIt)->text(0) ) );
-        }
-    }
-
-    return new DragObject( selected, this );
-}
-#endif // COMMENTED_OUT_DURING_PORTING
-
 DB::CategoryPtr CategoryListView::DraggableListView::category() const
 {
     return _category;

@@ -19,6 +19,7 @@
 #include "DragObject.h"
 #include "DB/Category.h"
 #include "CheckDropItem.h"
+#include <QDragMoveEvent>
 
 CategoryListView::DraggableListView::DraggableListView( const DB::CategoryPtr& category, QWidget* parent )
     :QTreeWidget( parent ), _category( category )
@@ -83,6 +84,20 @@ bool CategoryListView::DraggableListView::dropMimeData(QTreeWidgetItem *parent, 
 {
     return static_cast<CheckDropItem*>(parent)->dataDropped(data);
 }
+
+void CategoryListView::DraggableListView::dragMoveEvent(QDragMoveEvent *event)
+{
+    // Call super class in any case as it may scroll, which we want even if we reject
+    QTreeWidget::dragMoveEvent(event);
+
+    if ( event->source() != this )
+        event->ignore();
+
+    QTreeWidgetItem* item = itemAt(event->pos());
+    if ( item && static_cast<CheckDropItem*>(item)->isSelfDrop(event->mimeData()))
+        event->ignore();
+}
+
 
 #include "DraggableListView.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

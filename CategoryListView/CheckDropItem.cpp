@@ -44,23 +44,6 @@ CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* listView, QTr
     setText( 1, column2 );
 }
 
-#ifdef COMMENTED_OUT_DURING_PORTING
-bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) const
-{
-    if ( !mime->provides( "x-kphotoalbum/x-category-drag" ) )
-        return false;
-
-    const QDropEvent* devent = dynamic_cast<const QDropEvent*>(mime);
-    if ( !devent )
-        return false;
-
-    if ( devent->source() != listView() )
-        return false;
-
-    return !isSelfDrop( text(0), extractData( mime ) );
-}
-#endif // COMMENTED_OUT_DURING_PORTING
-
 CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeData* data) const
 {
     DragItemInfoSet items;
@@ -95,12 +78,14 @@ bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
     return true;
 }
 
-bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, const DragItemInfoSet& children ) const
+bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
 {
+    const QString thisCategory = text(0);
+    const DragItemInfoSet children = extractData(data);
     const DB::CategoryItemPtr categoryInfo = _listView->category()->itemsCategories();
 
     for( DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
-        if ( newParent == (*childIt).child() || categoryInfo->isDescendentOf( newParent, (*childIt).child() ) )
+        if ( thisCategory == (*childIt).child() || categoryInfo->isDescendentOf( thisCategory, (*childIt).child() ) )
             return true;
     }
     return false;

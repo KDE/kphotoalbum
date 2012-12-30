@@ -32,14 +32,11 @@ class CheckDropItem :public QTreeWidgetItem
 public:
     CheckDropItem( DraggableListView* listview, const QString& column1, const QString& column2 );
     CheckDropItem( DraggableListView* listview, QTreeWidgetItem* parent, const QString& column1, const QString& column2 );
-#ifdef COMMENTED_OUT_DURING_PORTING
-    virtual bool acceptDrop( const QMimeSource* mime ) const;
-#endif // COMMENTED_OUT_DURING_PORTING
     void setDNDEnabled( bool );
     bool dataDropped( const QMimeData* data );
+    bool isSelfDrop( const QMimeData* data ) const;
 
 protected:
-    bool isSelfDrop( const QString& parent, const DragItemInfoSet& children ) const;
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
     DragItemInfoSet extractData( const QMimeData* data ) const;
     virtual void activate();

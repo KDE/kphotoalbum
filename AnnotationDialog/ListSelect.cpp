@@ -644,9 +644,7 @@ void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropIte
 {
     bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree;
     item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
-#ifdef COMMENTED_OUT_DURING_PORTING
     item->setTristate( _mode == InputMultiImageConfigMode );
-#endif // COMMENTED_OUT_DURING_PORTING
 }
 
 bool AnnotationDialog::ListSelect::isInputMode() const

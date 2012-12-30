@@ -35,6 +35,7 @@ public:
     void setDNDEnabled( bool );
     bool dataDropped( const QMimeData* data );
     bool isSelfDrop( const QMimeData* data ) const;
+    void setTristate(bool b);
 
 protected:
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );

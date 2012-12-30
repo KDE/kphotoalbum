@@ -91,6 +91,14 @@ bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
     return false;
 }
 
+void CategoryListView::CheckDropItem::setTristate(bool b)
+{
+    if (b)
+        setFlags(flags() | Qt::ItemIsTristate );
+    else
+        setFlags(flags() & ~Qt::ItemIsTristate);
+}
+
 bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
 {
     QStringList children;

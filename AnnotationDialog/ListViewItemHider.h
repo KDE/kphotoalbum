@@ -17,9 +17,10 @@
 */
 #ifndef LISTVIEWITEMHIDER_H
 #define LISTVIEWITEMHIDER_H
-#define QT3_SUPPORT
-#include <q3listview.h>
 #include "enums.h"
+class QTreeWidget;
+class QTreeWidgetItem;
+#include <QString>
 
 namespace AnnotationDialog {
 
@@ -29,19 +30,18 @@ protected:
     ListViewItemHider() {}
     virtual ~ListViewItemHider(){}
 
-    void setItemsVisible( Q3ListView* );
-    bool setItemsVisible( Q3ListViewItem* parentItem );
-    virtual bool shouldItemBeShown( Q3ListViewItem* ) = 0;
+    bool setItemsVisible( QTreeWidgetItem* parentItem );
+    virtual bool shouldItemBeShown( QTreeWidgetItem* ) = 0;
 };
 
 
 class ListViewTextMatchHider :public ListViewItemHider
 {
 public:
-    ListViewTextMatchHider( const QString& text, const MatchType mt, Q3ListView* listView );
+    ListViewTextMatchHider( const QString& text, const MatchType mt, QTreeWidget* listView );
 
 protected:
-    virtual bool shouldItemBeShown( Q3ListViewItem* );
+    virtual bool shouldItemBeShown( QTreeWidgetItem* );
 
 private:
     QString _text;
@@ -51,10 +51,10 @@ private:
 class ListViewCheckedHider :public ListViewItemHider
 {
 public:
-    ListViewCheckedHider( Q3ListView* );
+    ListViewCheckedHider( QTreeWidget* );
 
 protected:
-    virtual bool shouldItemBeShown( Q3ListViewItem* );
+    virtual bool shouldItemBeShown( QTreeWidgetItem* );
 };
 
 }

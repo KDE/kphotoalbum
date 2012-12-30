@@ -18,7 +18,7 @@
 #include "CheckDropItem.h"
 #include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
-#include "DraggableListView.h"
+#include "DragableTreeWidget.h"
 #include "DragItemInfo.h"
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -26,51 +26,40 @@
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
 
-CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, const QString& column1,
                                                 const QString& column2 )
-    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( parent )
+    : QTreeWidgetItem( parent ), _listView( parent )
 {
+    setCheckState(0, Qt::Unchecked);
+    setText( 0, column1 );
     setText( 1, column2 );
 }
 
-CategoryListView::CheckDropItem::CheckDropItem( DraggableListView* listView, Q3ListViewItem* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* listView, QTreeWidgetItem* parent, const QString& column1,
                                                 const QString& column2 )
-    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( listView )
+    : QTreeWidgetItem( parent ), _listView( listView )
 {
+    setCheckState(0, Qt::Unchecked);
+    setText( 0, column1 );
     setText( 1, column2 );
 }
 
-bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) const
-{
-    if ( !mime->provides( "x-kphotoalbum/x-category-drag" ) )
-        return false;
-
-    const QDropEvent* devent = dynamic_cast<const QDropEvent*>(mime);
-    if ( !devent )
-        return false;
-
-    if ( devent->source() != listView() )
-        return false;
-
-    return !isSelfDrop( text(0), extractData( mime ) );
-}
-
-CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeSource* e) const
+CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeData* data) const
 {
     DragItemInfoSet items;
-    const QByteArray data = e->encodedData( "x-kphotoalbum/x-category-drag" );
-    QDataStream stream( data );
+    QByteArray array = data->data(QString::fromUtf8("x-kphotoalbum/x-categorydrag"));
+    QDataStream stream( array );
     stream >> items;
 
     return items;
 }
 
-void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
+bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
 {
-    DragItemInfoSet items = extractData( e );
+    DragItemInfoSet items = extractData( data );
     const QString newParent = text(0);
     if ( !verifyDropWasIntended( newParent, items ) )
-        return;
+        return false;
 
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup( _listView->category()->name(), newParent );
@@ -80,25 +69,34 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
         const QString child = (*itemIt).child();
 
         memberMap.addMemberToGroup( _listView->category()->name(), newParent, child );
-
-        if ( !oldParent.isEmpty() && e->dropAction()!=Qt::CopyAction )
-            memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
+        memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
     }
 
     //DB::ImageDB::instance()->setMemberMap( memberMap );
 
     _listView->emitItemsChanged();
+    return true;
 }
 
-bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, const DragItemInfoSet& children ) const
+bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
 {
+    const QString thisCategory = text(0);
+    const DragItemInfoSet children = extractData(data);
     const DB::CategoryItemPtr categoryInfo = _listView->category()->itemsCategories();
 
     for( DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
-        if ( newParent == (*childIt).child() || categoryInfo->isDescendentOf( newParent, (*childIt).child() ) )
+        if ( thisCategory == (*childIt).child() || categoryInfo->isDescendentOf( thisCategory, (*childIt).child() ) )
             return true;
     }
     return false;
+}
+
+void CategoryListView::CheckDropItem::setTristate(bool b)
+{
+    if (b)
+        setFlags(flags() | Qt::ItemIsTristate );
+    else
+        setFlags(flags() & ~Qt::ItemIsTristate);
 }
 
 bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
@@ -129,21 +127,8 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
 
 void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
 {
-    setDragEnabled( b );
-    setDropEnabled( b );
-}
-
-/**
- * Qt's implementation of QCheckListItem toggle between "on", "unchanged", and "off". I don't like it going to the unchanged state,
- * esp. because in most (perhaps even all) styles, it is really hard to tell the difference between "unchanged" and "on",
- * The user might therefore not really understand that when he toggles from off to unchanged, that the item does not get
- * selected in his database.
- */
-void CategoryListView::CheckDropItem::activate()
-{
-    if ( state() == Off )
-        setState( On );
+    if ( b )
+        setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled| flags());
     else
-        setState( Off );
+        setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled );
 }
-

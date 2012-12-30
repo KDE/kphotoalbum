@@ -18,35 +18,33 @@
 #ifndef CATEGORYLISTVIEW_CHECKDROPITEM_H
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
-#define QT3_SUPPORT
-#include <q3listview.h>
 #include "DragItemInfo.h"
+#include <QTreeWidgetItem>
+#include <QMimeData>
 
 class QDropEvent;
 namespace CategoryListView
 {
-class DraggableListView;
+class DragableTreeWidget;
 
-class CheckDropItem :public Q3CheckListItem
+class CheckDropItem :public QTreeWidgetItem
 {
 public:
-    CheckDropItem( DraggableListView* listview, const QString& column1, const QString& column2 );
-    CheckDropItem( DraggableListView* listview, Q3ListViewItem* parent, const QString& column1, const QString& column2 );
-    virtual bool acceptDrop( const QMimeSource* mime ) const;
+    CheckDropItem( DragableTreeWidget* listview, const QString& column1, const QString& column2 );
+    CheckDropItem( DragableTreeWidget* listview, QTreeWidgetItem* parent, const QString& column1, const QString& column2 );
     void setDNDEnabled( bool );
+    bool dataDropped( const QMimeData* data );
+    bool isSelfDrop( const QMimeData* data ) const;
+    void setTristate(bool b);
 
 protected:
-    virtual void dropped( QDropEvent* e );
-    bool isSelfDrop( const QString& parent, const DragItemInfoSet& children ) const;
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
-    DragItemInfoSet extractData( const QMimeSource* ) const;
-    virtual void activate();
+    DragItemInfoSet extractData( const QMimeData* data ) const;
 
 private:
-    DraggableListView* _listView;
+    DragableTreeWidget* _listView;
 };
 
 }
 
 #endif /* CATEGORYLISTVIEW_CHECKDROPITEM_H */
-

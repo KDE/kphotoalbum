@@ -25,7 +25,9 @@
 #include <q3listview.h>
 #include "DB/CategoryPtr.h"
 
+// PENDING(blackie) delete this forward declare
 class Q3ListViewItem;
+class QTreeWidgetItem;
 class CategoryItem;
 class QToolButton;
 class QEvent;
@@ -33,7 +35,7 @@ class QRadioButton;
 class QLabel;
 
 namespace DB { class ImageInfo; }
-namespace CategoryListView { class DraggableListView; }
+namespace CategoryListView { class DragableTreeWidget; }
 namespace CategoryListView { class CheckDropItem; }
 
 namespace AnnotationDialog
@@ -74,29 +76,28 @@ public slots:
     void rePopulate();
 
 protected slots:
-    void itemSelected( Q3ListViewItem* );
-    void showContextMenu( Q3ListViewItem*, const QPoint& );
+    void itemSelected( QTreeWidgetItem* );
+    void showContextMenu(const QPoint& );
     void setViewSortType( Settings::ViewSortType );
     void limitToSelection();
     void showAllChildren();
     void updateSelectionCount();
 
 protected:
-    virtual bool eventFilter( QObject* object, QEvent* event );
-    void addItems( DB::CategoryItem* item, Q3ListViewItem* parent );
+    void addItems( DB::CategoryItem* item, QTreeWidgetItem* parent );
     void populateAlphaTree();
     void populateAlphaFlat();
     void populateMRU();
     void configureItem( CategoryListView::CheckDropItem* item );
     bool isInputMode() const;
-    StringSet itemsOfState( Q3CheckListItem::ToggleState state ) const;
+    StringSet itemsOfState( Qt::CheckState state ) const;
     void checkItem( const QString itemText, bool );
-    void ensureAllInstancesAreStateChanged( Q3ListViewItem* item );
+    void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 
 private:
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
-    CategoryListView::DraggableListView* _listView;
+    CategoryListView::DragableTreeWidget* _treeWidget;
     QRadioButton* _or;
     QRadioButton* _and;
     UsageMode _mode;

@@ -16,6 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ListViewItemHider.h"
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QTreeWidgetItemIterator>
 
 /**
  * \class AnnotationDialog::ListViewItemHider
@@ -38,39 +41,26 @@
  * \brief Helper class for only showing items that are selected.
  */
 
-void AnnotationDialog::ListViewItemHider::setItemsVisible( Q3ListView* listView )
-{
-    // It seems like a bug in Qt, but I need to make all item visible first, otherwise I see wrong items when I have items
-    // two layers deep (A->B->c). It only occours when I widen (types "je", now deletes the "e" to get to "j" ).
-    for ( Q3ListViewItemIterator it( listView ); *it; ++it )
-        (*it)->setVisible( true );
-
-    for ( Q3ListViewItem* item = listView->firstChild(); item; item = item->nextSibling() ) {
-        bool anyChildrenVisible = setItemsVisible( item );
-        bool visible = anyChildrenVisible || shouldItemBeShown( item );
-        item->setVisible( visible );
-    }
-}
-
-bool AnnotationDialog::ListViewItemHider::setItemsVisible( Q3ListViewItem* parentItem )
+bool AnnotationDialog::ListViewItemHider::setItemsVisible( QTreeWidgetItem* parentItem )
 {
     bool anyChildrenVisible = false;
-    for ( Q3ListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {
+    for (int i = 0; i < parentItem->childCount(); ++i ) {
+        QTreeWidgetItem* item = parentItem->child(i);
         bool anySubChildrenVisible = setItemsVisible( item );
         bool itemVisible = anySubChildrenVisible || shouldItemBeShown( item );
-        item->setVisible( itemVisible );
+        item->setHidden( !itemVisible );
         anyChildrenVisible |= itemVisible;
     }
     return anyChildrenVisible;
 }
 
-AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, const AnnotationDialog::MatchType mt, Q3ListView* listView )
+AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString& text, const AnnotationDialog::MatchType mt, QTreeWidget *listView )
     :_text( text ), _matchType( mt )
 {
-    setItemsVisible( listView );
+    setItemsVisible( listView->invisibleRootItem() );
 }
 
-bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem* item )
+bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item )
 {
     switch ( _matchType )
     {
@@ -92,14 +82,14 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem
     return false;
 }
 
-bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )
+bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown(QTreeWidgetItem *item )
 {
-    return static_cast<Q3CheckListItem*>(item)->state() != Q3CheckListItem::Off;
+    return item->checkState(0) != Qt::Unchecked;
 }
 
-AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( Q3ListView* listView )
+AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider(QTreeWidget *listView )
 {
-    setItemsVisible( listView );
+    setItemsVisible( listView->invisibleRootItem() );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

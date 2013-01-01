@@ -44,7 +44,7 @@
 #include "Utilities/ShowBusyCursor.h"
 #include <klocale.h>
 
-#include <q3widgetstack.h>
+#include <QStackedWidget>
 #include "HTMLGenerator/HTMLDialog.h"
 #include "ImageCounter.h"
 #include <qtimer.h>
@@ -148,7 +148,7 @@ MainWindow::Window::Window( QWidget* parent )
     lay->setContentsMargins(2,2,2,2);
     setCentralWidget( top );
 
-    _stack = new Q3WidgetStack( top, "_stack" );
+    _stack = new QStackedWidget( top );
     lay->addWidget( _stack, 1 );
 
     _dateBar = new DateBar::DateBarWidget( top );
@@ -171,7 +171,7 @@ MainWindow::Window::Window( QWidget* parent )
 
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbnailView->gui() );
-    _stack->raiseWidget( _browser );
+    _stack->setCurrentWidget( _browser );
 
     _settingsDialog = 0;
     setupMenuBar();
@@ -543,7 +543,7 @@ void MainWindow::Window::slotAutoStackImages()
 
 DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode) const
 {
-    if ( _thumbnailView->gui() == _stack->visibleWidget() )
+    if ( _thumbnailView->gui() == _stack->currentWidget() )
         return _thumbnailView->selection(mode);
     else
         return DB::FileNameList();
@@ -956,7 +956,7 @@ void MainWindow::Window::slotAutoSave()
 void MainWindow::Window::showThumbNails()
 {
     reloadThumbnails( ThumbnailView::ClearSelection );
-    _stack->raiseWidget( _thumbnailView->gui() );
+    _stack->setCurrentWidget( _thumbnailView->gui() );
     _thumbnailView->gui()->setFocus();
     updateStates( true );
 }
@@ -964,7 +964,7 @@ void MainWindow::Window::showThumbNails()
 void MainWindow::Window::showBrowser()
 {
     _statusBar->clearMessage();
-    _stack->raiseWidget( _browser );
+    _stack->setCurrentWidget( _browser );
     _browser->setFocus();
     updateStates( false );
 }
@@ -1060,7 +1060,7 @@ bool MainWindow::Window::load()
 
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
-    if ( _stack->visibleWidget() == _thumbnailView->gui() ) {
+    if ( _stack->currentWidget() == _thumbnailView->gui() ) {
         QMenu menu( this );
         menu.addAction( _configOneAtATime );
         menu.addAction( _configAllSimultaniously );

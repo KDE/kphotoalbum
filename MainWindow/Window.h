@@ -20,7 +20,7 @@
 #define MAINVIEW_H
 class BreadcrumbViewer;
 class KToggleAction;
-class Q3WidgetStack;
+class QStackedWidget;
 class QTimer;
 class KTipDialog;
 class QLabel;
@@ -185,7 +185,7 @@ private:
     ThumbnailView::ThumbnailFacade* _thumbnailView;
     Settings::SettingsDialog* _settingsDialog;
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
-    Q3WidgetStack* _stack;
+    QStackedWidget* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
     Browser::BrowserWidget* _browser;

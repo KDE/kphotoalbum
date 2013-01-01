@@ -33,7 +33,7 @@
 #include <QPixmap>
 #include <QCloseEvent>
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include "ImageManager/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
 #include <qdir.h>
@@ -155,7 +155,7 @@ MainWindow::Window::Window( QWidget* parent )
     lay->addWidget( _dateBar );
 
     _dateBarLine = new QFrame( top );
-    _dateBarLine->setFrameStyle( QFrame::HLine | Q3Frame::Plain );
+    _dateBarLine->setFrameStyle( QFrame::HLine | QFrame::Plain );
     _dateBarLine->setLineWidth(0); _dateBarLine->setMidLineWidth(0);
 
     QPalette pal = _dateBarLine->palette();

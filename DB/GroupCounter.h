@@ -34,7 +34,7 @@ public:
 
 private:
     Q3Dict<QStringList> _memberToGroup;
-    Q3Dict<uint> _groupCount;
+    QHash<QString,uint> _groupCount;
 
 };
 

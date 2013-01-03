@@ -55,9 +55,8 @@ GroupCounter::GroupCounter( const QString& category )
     QMap<QString,StringSet> groupToMemberMap = map.groupMap(category);
 
     _memberToGroup.resize( 2729 /* A large prime */ );
-    _groupCount.resize( 2729 /* A large prime */ );
+    _groupCount.reserve( 2729 /* A large prime */ );
     _memberToGroup.setAutoDelete( true );
-    _groupCount.setAutoDelete( true );
 
     // Populate the _memberToGroup map
     for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin();
@@ -75,9 +74,7 @@ GroupCounter::GroupCounter( const QString& category )
 
             item->append( group );
         }
-        uint* intPtr = new uint;
-        *intPtr = 0;
-        _groupCount.insert( group, intPtr );
+        _groupCount.insert( group, 0 );
     }
 }
 
@@ -101,14 +98,14 @@ void GroupCounter::count( const StringSet& categories )
             for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {
                 if ( countedGroupDict.find( *groupsIt ) == 0 ) {
                     countedGroupDict.insert( *groupsIt, (void*) 0x1 ); // value not used, must be different from 0.
-                    (*_groupCount[*groupsIt])++;
+                    (_groupCount[*groupsIt])++;
                 }
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( countedGroupDict.find( *categoryIt ) == 0 && _groupCount.find( *categoryIt ) ) {
+        if ( countedGroupDict.find( *categoryIt ) == 0 && _groupCount.contains( *categoryIt ) ) {
              countedGroupDict.insert( *categoryIt, (void*) 0x1 ); // value not used, must be different from 0.
-             (*_groupCount[*categoryIt])++;
+             (_groupCount[*categoryIt])++;
         }
     }
 }
@@ -117,9 +114,9 @@ QMap<QString,uint> GroupCounter::result()
 {
     QMap<QString,uint> res;
 
-    for( Q3DictIterator<uint> it(_groupCount); *it; ++it ) {
-        if ( *(*it) != 0 )
-            res.insert( it.currentKey(), *(*it) );
+    Q_FOREACH( const QString& key, _groupCount.keys()) {
+        if ( _groupCount[key] != 0 )
+            res.insert( key, _groupCount[key] );
     }
     return res;
 }

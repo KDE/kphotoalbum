@@ -19,7 +19,7 @@
 #include "GroupCounter.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
-
+#include "Utilities/Set.h"
 using namespace DB;
 
 
@@ -81,23 +81,22 @@ GroupCounter::GroupCounter( const QString& category )
  */
 void GroupCounter::count( const StringSet& categories )
 {
-    // It takes quite some time to clear the dict with a large prime!
-    static Q3Dict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
+    static StringSet countedGroupDict;
 
     countedGroupDict.clear();
     for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( _memberToGroup.contains(*categoryIt)) {
             const QStringList groups = _memberToGroup[*categoryIt];
             Q_FOREACH( const QString& group, groups ) {
-                if ( countedGroupDict.find( group ) == 0 ) {
-                    countedGroupDict.insert( group, (void*) 0x1 ); // value not used, must be different from 0.
+                if ( !countedGroupDict.contains( group ) ) {
+                    countedGroupDict.insert( group );
                     (_groupCount[group])++;
                 }
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( countedGroupDict.find( *categoryIt ) == 0 && _groupCount.contains( *categoryIt ) ) {
-             countedGroupDict.insert( *categoryIt, (void*) 0x1 ); // value not used, must be different from 0.
+        if ( !countedGroupDict.contains( *categoryIt ) == 0 && _groupCount.contains( *categoryIt ) ) {
+             countedGroupDict.insert( *categoryIt);
              (_groupCount[*categoryIt])++;
         }
     }

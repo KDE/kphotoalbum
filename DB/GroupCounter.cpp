@@ -54,9 +54,8 @@ GroupCounter::GroupCounter( const QString& category )
     const MemberMap map = DB::ImageDB::instance()->memberMap();
     QMap<QString,StringSet> groupToMemberMap = map.groupMap(category);
 
-    _memberToGroup.resize( 2729 /* A large prime */ );
+    _memberToGroup.reserve( 2729 /* A large prime */ );
     _groupCount.reserve( 2729 /* A large prime */ );
-    _memberToGroup.setAutoDelete( true );
 
     // Populate the _memberToGroup map
     for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin();
@@ -66,13 +65,7 @@ GroupCounter::GroupCounter( const QString& category )
         QString group = groupToMemberIt.key();
 
         for( StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
-            QStringList* item = _memberToGroup[*memberIt];
-            if ( !item ) {
-                item = new QStringList;
-                _memberToGroup.insert(*memberIt, item );
-            }
-
-            item->append( group );
+            _memberToGroup[*memberIt].append( group );
         }
         _groupCount.insert( group, 0 );
     }
@@ -93,12 +86,12 @@ void GroupCounter::count( const StringSet& categories )
 
     countedGroupDict.clear();
     for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        QStringList* groups = _memberToGroup[*categoryIt];
-        if ( groups ) {
-            for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {
-                if ( countedGroupDict.find( *groupsIt ) == 0 ) {
-                    countedGroupDict.insert( *groupsIt, (void*) 0x1 ); // value not used, must be different from 0.
-                    (_groupCount[*groupsIt])++;
+        if ( _memberToGroup.contains(*categoryIt)) {
+            const QStringList groups = _memberToGroup[*categoryIt];
+            Q_FOREACH( const QString& group, groups ) {
+                if ( countedGroupDict.find( group ) == 0 ) {
+                    countedGroupDict.insert( group, (void*) 0x1 ); // value not used, must be different from 0.
+                    (_groupCount[group])++;
                 }
             }
         }

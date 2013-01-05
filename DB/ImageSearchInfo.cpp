@@ -451,21 +451,21 @@ QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::query() const
     return result;
 }
 
-Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
+Utilities::StringSet ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 {
-    Q3Dict<void> map;
+    Utilities::StringSet result;
     QString str = categoryMatchText( group );
     if ( str.contains( QString::fromLatin1( "|" ) ) ) {
-        return map;
+        return result;
     }
 
     QStringList list = str.split(QString::fromLatin1( "&" ), QString::SkipEmptyParts);
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString nm = (*it).trimmed();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )
-            map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
+            result.insert(nm);
     }
-    return map;
+    return result;
 }
 
 void ImageSearchInfo::deleteMatchers() const

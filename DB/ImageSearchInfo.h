@@ -20,11 +20,11 @@
 #define IMAGESEARCHINFO_H
 #include "DB/ImageDate.h"
 #include <qmap.h>
-#include <q3dict.h>
 #include <QList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
 #include <config-kpa-exiv2.h>
+#include "Utilities/Set.h"
 
 namespace DB
 {
@@ -73,7 +73,7 @@ public:
 
     void debug();
     void debugMatcher() const;
-    Q3Dict<void> findAlreadyMatched( const QString &group ) const;
+    Utilities::StringSet findAlreadyMatched( const QString &group ) const;
 
 #ifdef HAVE_EXIV2
     void addExifSearchInfo( const Exif::SearchInfo info );

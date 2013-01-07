@@ -26,11 +26,11 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
-#include <Q3VGroupBox>
 #include <QVBoxLayout>
 #include "DB/CategoryCollection.h"
 #include "SettingsData.h"
 #include "MainWindow/Window.h"
+#include <QGroupBox>
 
 Settings::GeneralPage::GeneralPage( QWidget* parent )
     : QWidget( parent )

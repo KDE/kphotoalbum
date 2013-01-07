@@ -24,7 +24,6 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QCheckBox>
-#include <Q3VGroupBox>
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include "MainWindow/DirtyIndicator.h"

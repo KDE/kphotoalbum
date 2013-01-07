@@ -23,55 +23,87 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include <Q3VGroupBox>
 #include <QCheckBox>
 #include <KLineEdit>
+#include <QVBoxLayout>
+#include <QGroupBox>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     : QWidget( parent )
 {
-    QVBoxLayout* lay1 = new QVBoxLayout( this );
+    QVBoxLayout* topLayout = new QVBoxLayout( this );
 
     // General file searching
-    Q3VGroupBox* generalBox = new Q3VGroupBox( i18n("New File Searches"), this );
-    lay1->addWidget( generalBox );
+
+    QGroupBox* generalBox = new QGroupBox( i18n("New File Searches"), this );
+    topLayout->addWidget( generalBox );
+    QVBoxLayout* layout = new QVBoxLayout(generalBox);
 
     // Search for images on startup
     _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
+    layout->addWidget(_searchForImagesOnStart);
+
     _ignoreFileExtension = new QCheckBox( i18n("Ignore file extensions when searching for new images and videos"), generalBox);
+    layout->addWidget(_ignoreFileExtension);
+
     _skipSymlinks = new QCheckBox( i18n("Skip symbolic links when searching for new images"), generalBox );
+    layout->addWidget(_skipSymlinks);
+
     _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
+    layout->addWidget(_skipRawIfOtherMatches);
 
     // Exclude directories from search
     QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
+    layout->addWidget(excludeDirectoriesLabel);
+
     _excludeDirectories = new KLineEdit( generalBox );
+    layout->addWidget(_excludeDirectories);
     excludeDirectoriesLabel->setBuddy( _excludeDirectories );
 
+
     // Original/Modified File Support
-    Q3VGroupBox* modifiedBox = new Q3VGroupBox( i18n("File Version Detection Settings"), this );
-    lay1->addWidget( modifiedBox );
+
+    QGroupBox* modifiedBox = new QGroupBox( i18n("File Version Detection Settings"), this );
+    topLayout->addWidget( modifiedBox );
+    layout = new QVBoxLayout(modifiedBox);
 
     _detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
+    layout->addWidget(_detectModifiedFiles);
 
     QLabel* modifiedFileComponentLabel = new QLabel( i18n("File versions search regexp:" ), modifiedBox );
+    layout->addWidget(modifiedFileComponentLabel);
+
     _modifiedFileComponent = new KLineEdit(modifiedBox);
+    layout->addWidget(_modifiedFileComponent);
 
     QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
+    layout->addWidget(originalFileComponentLabel);
+
     _originalFileComponent = new KLineEdit(modifiedBox);
+    layout->addWidget(_originalFileComponent);
 
     _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
+    layout->addWidget(_moveOriginalContents);
 
     _autoStackNewFiles = new QCheckBox(i18n("Automatically stack new versions of images"), modifiedBox);
+    layout->addWidget(_autoStackNewFiles);
 
     // Copy File Support
-    Q3VGroupBox* copyBox = new Q3VGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
-    lay1->addWidget( copyBox );
+    QGroupBox* copyBox = new QGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
+    topLayout->addWidget( copyBox );
+    layout = new QVBoxLayout(copyBox);
 
     QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
+    layout->addWidget(copyFileComponentLabel);
+
     _copyFileComponent = new KLineEdit(copyBox);
+    layout->addWidget(_copyFileComponent);
 
     QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
+    layout->addWidget(copyFileReplacementComponentLabel);
+
     _copyFileReplacementComponent = new KLineEdit(copyBox);
+    layout->addWidget(_copyFileReplacementComponent);
 
     QString txt;
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
@@ -112,7 +144,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                 "<ul><li>A dot matches a single character (<tt>\\.</tt> matches a dot)</li> "
                 "  <li>You can use the quantifiers <tt>*</tt>,<tt>+</tt>,<tt>?</tt>, or you can "
                 "    match multiple occurrences of an expression by using curly brackets (e.g. "
-                    "<tt>e{0,1}</tt> matches 0 or 1 occurrences of the character \"e\").</li> "
+                "<tt>e{0,1}</tt> matches 0 or 1 occurrences of the character \"e\").</li> "
                 "  <li>You can group parts of the expression using parenthesis.</li> "
                 "</ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>");
     modifiedFileComponentLabel->setWhatsThis( txt );

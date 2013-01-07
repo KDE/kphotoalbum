@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DatabaseBackendPage.h"
-#include <Q3ButtonGroup>
 #include <klocale.h>
 #include "SettingsData.h"
 #include <QSpacerItem>

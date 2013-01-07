@@ -20,7 +20,6 @@
 #include <kfiledialog.h>
 #include <kzip.h>
 #include <qfileinfo.h>
-#include <Q3CString>
 #include "Utilities/Util.h"
 #include <q3progressdialog.h>
 #include <klocale.h>
@@ -227,7 +226,7 @@ Export::Export(
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
+        QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );

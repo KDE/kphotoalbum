@@ -32,7 +32,6 @@
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
-#include <Q3ValueList>
 #ifdef HAVE_EXIV2
 #   include "Exif/Database.h"
 #endif

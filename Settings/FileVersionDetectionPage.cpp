@@ -32,146 +32,151 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     : QWidget( parent )
 {
     QVBoxLayout* topLayout = new QVBoxLayout( this );
+    QString txt;
 
     // General file searching
+    {
+        QGroupBox* generalBox = new QGroupBox( i18n("New File Searches"), this );
+        topLayout->addWidget( generalBox );
+        QVBoxLayout* layout = new QVBoxLayout(generalBox);
 
-    QGroupBox* generalBox = new QGroupBox( i18n("New File Searches"), this );
-    topLayout->addWidget( generalBox );
-    QVBoxLayout* layout = new QVBoxLayout(generalBox);
+        // Search for images on startup
+        _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
+        layout->addWidget(_searchForImagesOnStart);
 
-    // Search for images on startup
-    _searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
-    layout->addWidget(_searchForImagesOnStart);
+        _ignoreFileExtension = new QCheckBox( i18n("Ignore file extensions when searching for new images and videos"), generalBox);
+        layout->addWidget(_ignoreFileExtension);
 
-    _ignoreFileExtension = new QCheckBox( i18n("Ignore file extensions when searching for new images and videos"), generalBox);
-    layout->addWidget(_ignoreFileExtension);
+        _skipSymlinks = new QCheckBox( i18n("Skip symbolic links when searching for new images"), generalBox );
+        layout->addWidget(_skipSymlinks);
 
-    _skipSymlinks = new QCheckBox( i18n("Skip symbolic links when searching for new images"), generalBox );
-    layout->addWidget(_skipSymlinks);
+        _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
+        layout->addWidget(_skipRawIfOtherMatches);
 
-    _skipRawIfOtherMatches = new QCheckBox( i18n("Do not read RAW files if a matching JPEG/TIFF file exists"), generalBox );
-    layout->addWidget(_skipRawIfOtherMatches);
+        // Exclude directories from search
+        QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
+        layout->addWidget(excludeDirectoriesLabel);
 
-    // Exclude directories from search
-    QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
-    layout->addWidget(excludeDirectoriesLabel);
+        _excludeDirectories = new KLineEdit( generalBox );
+        layout->addWidget(_excludeDirectories);
+        excludeDirectoriesLabel->setBuddy( _excludeDirectories );
 
-    _excludeDirectories = new KLineEdit( generalBox );
-    layout->addWidget(_excludeDirectories);
-    excludeDirectoriesLabel->setBuddy( _excludeDirectories );
+        txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
+                    "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
+                    "using <b>Maintenance->Rescan for new images</b></p>");
+        _searchForImagesOnStart->setWhatsThis( txt );
 
+        txt = i18n( "<p>KPhotoAlbum will normally search new images and videos by their file extension. "
+                    "If this option is set, <em>all</em> files neither in the database nor in the block list "
+                    "will be checked by their Mime type, regardless of their extension. This will take "
+                    "significantly longer than finding files by extension!</p>");
+        _ignoreFileExtension->setWhatsThis( txt );
+
+        txt = i18n( "<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
+                    "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
+                    "both the original files and and symbolic links to these files within your image directory.</p>");
+        _skipSymlinks->setWhatsThis( txt );
+
+        txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
+                    "Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
+                    "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
+                    "If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
+        _skipRawIfOtherMatches->setWhatsThis( txt );
+
+        txt = i18n( "<p>Directories defined here (separated by comma <tt>,</tt>) are "
+                    "skipped when searching for new photos. Thumbnail directories of different "
+                    "tools should be configured here. E.g. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>" );
+        excludeDirectoriesLabel->setWhatsThis( txt );
+
+    }
 
     // Original/Modified File Support
+    {
+        QGroupBox* modifiedBox = new QGroupBox( i18n("File Version Detection Settings"), this );
+        topLayout->addWidget( modifiedBox );
+        QVBoxLayout* layout = new QVBoxLayout(modifiedBox);
 
-    QGroupBox* modifiedBox = new QGroupBox( i18n("File Version Detection Settings"), this );
-    topLayout->addWidget( modifiedBox );
-    layout = new QVBoxLayout(modifiedBox);
+        _detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
+        layout->addWidget(_detectModifiedFiles);
 
-    _detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
-    layout->addWidget(_detectModifiedFiles);
+        QLabel* modifiedFileComponentLabel = new QLabel( i18n("File versions search regexp:" ), modifiedBox );
+        layout->addWidget(modifiedFileComponentLabel);
 
-    QLabel* modifiedFileComponentLabel = new QLabel( i18n("File versions search regexp:" ), modifiedBox );
-    layout->addWidget(modifiedFileComponentLabel);
+        _modifiedFileComponent = new KLineEdit(modifiedBox);
+        layout->addWidget(_modifiedFileComponent);
 
-    _modifiedFileComponent = new KLineEdit(modifiedBox);
-    layout->addWidget(_modifiedFileComponent);
+        QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
+        layout->addWidget(originalFileComponentLabel);
 
-    QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
-    layout->addWidget(originalFileComponentLabel);
+        _originalFileComponent = new KLineEdit(modifiedBox);
+        layout->addWidget(_originalFileComponent);
 
-    _originalFileComponent = new KLineEdit(modifiedBox);
-    layout->addWidget(_originalFileComponent);
+        _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
+        layout->addWidget(_moveOriginalContents);
 
-    _moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
-    layout->addWidget(_moveOriginalContents);
+        _autoStackNewFiles = new QCheckBox(i18n("Automatically stack new versions of images"), modifiedBox);
+        layout->addWidget(_autoStackNewFiles);
 
-    _autoStackNewFiles = new QCheckBox(i18n("Automatically stack new versions of images"), modifiedBox);
-    layout->addWidget(_autoStackNewFiles);
+        txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the "
+                    "<i>modified file search regexp</i> it is assumed that an original version of "
+                    "the image may exist.  The regexp pattern will be replaced with the <i>original "
+                    "file replacement text</i> and if that file exists, all associated metadata (category "
+                    "information, ratings, etc) will be copied or moved from the original file to the new one.</p>");
+        _detectModifiedFiles->setWhatsThis( txt );
+
+        txt = i18n( "<p>A perl regular expression that should match a modified file. "
+                    "<ul><li>A dot matches a single character (<tt>\\.</tt> matches a dot)</li> "
+                    "  <li>You can use the quantifiers <tt>*</tt>,<tt>+</tt>,<tt>?</tt>, or you can "
+                    "    match multiple occurrences of an expression by using curly brackets (e.g. "
+                    "<tt>e{0,1}</tt> matches 0 or 1 occurrences of the character \"e\").</li> "
+                    "  <li>You can group parts of the expression using parenthesis.</li> "
+                    "</ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>");
+        modifiedFileComponentLabel->setWhatsThis( txt );
+        _modifiedFileComponent->setWhatsThis( txt );
+
+        txt = i18n( "<p>A string that is used to replace the match from the <i>File versions search regexp</i>. "
+                    "This can be a semicolon (<tt>;</tt>) separated list. Each string is used to replace the match "
+                    "in the new file's name until an original file is found or we run out of options.</p>");
+        originalFileComponentLabel->setWhatsThis( txt );
+        _originalFileComponent->setWhatsThis( txt );
+
+        txt = i18n( "<p>The tagging is moved from the original file to the new file. This way "
+                    "only the latest version of an image is tagged.</p>" );
+        _moveOriginalContents->setWhatsThis( txt );
+
+        txt = i18n( "<p>If this option is set, new versions of an image are automatically stacked "
+                    "and placed to the top of the stack. This way the new image is shown when the "
+                    "stack is in collapsed state - the default state in KPhotoAlbum.</p>" );
+        _autoStackNewFiles->setWhatsThis( txt );
+    }
 
     // Copy File Support
-    QGroupBox* copyBox = new QGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
-    topLayout->addWidget( copyBox );
-    layout = new QVBoxLayout(copyBox);
+    {
+        QGroupBox* copyBox = new QGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
+        topLayout->addWidget( copyBox );
+        QVBoxLayout* layout = new QVBoxLayout(copyBox);
 
-    QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
-    layout->addWidget(copyFileComponentLabel);
+        QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
+        layout->addWidget(copyFileComponentLabel);
 
-    _copyFileComponent = new KLineEdit(copyBox);
-    layout->addWidget(_copyFileComponent);
+        _copyFileComponent = new KLineEdit(copyBox);
+        layout->addWidget(_copyFileComponent);
 
-    QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
-    layout->addWidget(copyFileReplacementComponentLabel);
+        QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
+        layout->addWidget(copyFileReplacementComponentLabel);
 
-    _copyFileReplacementComponent = new KLineEdit(copyBox);
-    layout->addWidget(_copyFileReplacementComponent);
+        _copyFileReplacementComponent = new KLineEdit(copyBox);
+        layout->addWidget(_copyFileReplacementComponent);
 
-    QString txt;
-    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
-                "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
-                "using <b>Maintenance->Rescan for new images</b></p>");
-    _searchForImagesOnStart->setWhatsThis( txt );
+        txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external application. This configuration defines how the new file is named.</p>"
+                   "<p>The regular expression defines the part of the original file name that is replaced with the <i>replacement text</i>. "
+                   "E.g. regexp <i>\"\\.(jpg|png)\"</i> and replacement text <i>\"-mod.\\1\"</i> would copy test.jpg to test-mod.jpg and open the new file in selected application.</p>");
+        copyFileComponentLabel->setWhatsThis( txt );
+        _copyFileComponent->setWhatsThis( txt );
+        copyFileReplacementComponentLabel->setWhatsThis( txt );
+        _copyFileReplacementComponent->setWhatsThis( txt );
+    }
 
-    txt = i18n( "<p>KPhotoAlbum will normally search new images and videos by their file extension. "
-                "If this option is set, <em>all</em> files neither in the database nor in the block list "
-                "will be checked by their Mime type, regardless of their extension. This will take "
-                "significantly longer than finding files by extension!</p>");
-    _ignoreFileExtension->setWhatsThis( txt );
-
-    txt = i18n( "<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
-                "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
-                "both the original files and and symbolic links to these files within your image directory.</p>");
-    _skipSymlinks->setWhatsThis( txt );
-
-    txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
-                "Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
-                "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
-                "If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
-    _skipRawIfOtherMatches->setWhatsThis( txt );
-
-    txt = i18n( "<p>Directories defined here (separated by comma <tt>,</tt>) are "
-                "skipped when searching for new photos. Thumbnail directories of different "
-                "tools should be configured here. E.g. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>" );
-    excludeDirectoriesLabel->setWhatsThis( txt );
-
-    txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the "
-                "<i>modified file search regexp</i> it is assumed that an original version of "
-                "the image may exist.  The regexp pattern will be replaced with the <i>original "
-                "file replacement text</i> and if that file exists, all associated metadata (category "
-                "information, ratings, etc) will be copied or moved from the original file to the new one.</p>");
-    _detectModifiedFiles->setWhatsThis( txt );
-
-    txt = i18n( "<p>A perl regular expression that should match a modified file. "
-                "<ul><li>A dot matches a single character (<tt>\\.</tt> matches a dot)</li> "
-                "  <li>You can use the quantifiers <tt>*</tt>,<tt>+</tt>,<tt>?</tt>, or you can "
-                "    match multiple occurrences of an expression by using curly brackets (e.g. "
-                "<tt>e{0,1}</tt> matches 0 or 1 occurrences of the character \"e\").</li> "
-                "  <li>You can group parts of the expression using parenthesis.</li> "
-                "</ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>");
-    modifiedFileComponentLabel->setWhatsThis( txt );
-    _modifiedFileComponent->setWhatsThis( txt );
-
-    txt = i18n( "<p>A string that is used to replace the match from the <i>File versions search regexp</i>. "
-                "This can be a semicolon (<tt>;</tt>) separated list. Each string is used to replace the match "
-                "in the new file's name until an original file is found or we run out of options.</p>");
-    originalFileComponentLabel->setWhatsThis( txt );
-    _originalFileComponent->setWhatsThis( txt );
-
-    txt = i18n( "<p>The tagging is moved from the original file to the new file. This way "
-                "only the latest version of an image is tagged.</p>" );
-    _moveOriginalContents->setWhatsThis( txt );
-
-    txt = i18n( "<p>If this option is set, new versions of an image are automatically stacked "
-                "and placed to the top of the stack. This way the new image is shown when the "
-                "stack is in collapsed state - the default state in KPhotoAlbum.</p>" );
-    _autoStackNewFiles->setWhatsThis( txt );
-
-    txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external application. This configuration defines how the new file is named.</p>"
-               "<p>The regular expression defines the part of the original file name that is replaced with the <i>replacement text</i>. "
-               "E.g. regexp <i>\"\\.(jpg|png)\"</i> and replacement text <i>\"-mod.\\1\"</i> would copy test.jpg to test-mod.jpg and open the new file in selected application.</p>");
-    copyFileComponentLabel->setWhatsThis( txt );
-    _copyFileComponent->setWhatsThis( txt );
-    copyFileReplacementComponentLabel->setWhatsThis( txt );
-    _copyFileReplacementComponent->setWhatsThis( txt );
 }
 
 void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* opt )

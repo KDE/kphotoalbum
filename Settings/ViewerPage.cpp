@@ -30,10 +30,10 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this );
 
-    _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), this, "_slideShowSetup" );
+    _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), this );
     lay1->addWidget( _slideShowSetup );
 
-    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images and Videos From Thumbnail View" ), this, "_viewImageSetup" );
+    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images and Videos From Thumbnail View" ), this );
     lay1->addWidget( _viewImageSetup );
 
     QGridLayout* glay = new QGridLayout;

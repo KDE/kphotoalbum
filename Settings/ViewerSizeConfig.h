@@ -19,18 +19,18 @@
 #ifndef VIEWERSIZECONFIG_H
 #define VIEWERSIZECONFIG_H
 
-#include <q3vgroupbox.h>
+#include <QGroupBox>
 class QCheckBox;
 class QSpinBox;
 
 namespace Settings
 {
 
-class ViewerSizeConfig :public Q3VGroupBox {
+class ViewerSizeConfig :public QGroupBox {
     Q_OBJECT
 
 public:
-    ViewerSizeConfig( const QString& title, QWidget* parent, const char* name = 0 );
+    ViewerSizeConfig( const QString& title, QWidget* parent );
     void setSize( const QSize& size );
     QSize size();
     void setLaunchFullScreen( bool b );

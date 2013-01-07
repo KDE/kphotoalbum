@@ -23,12 +23,16 @@
 #include <klocale.h>
 #include <qlabel.h>
 
-Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const char* name )
-    :Q3VGroupBox( title, parent, name )
+Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent )
+    :QGroupBox( title, parent )
 {
+    QVBoxLayout* topLayout = new QVBoxLayout(this);
+    setLayout(topLayout);
     _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
+    topLayout->addWidget(_fullScreen);
 
     QWidget* sizeBox = new QWidget( this );
+    topLayout->addWidget(sizeBox);
     QHBoxLayout* lay = new QHBoxLayout( sizeBox );
 
     QLabel* label = new QLabel( i18n("Size:"), sizeBox );
@@ -48,6 +52,7 @@ Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* par
     lay->addWidget( _height );
 
     lay->addStretch( 1 );
+    topLayout->addStretch(1);
 }
 
 void Settings::ViewerSizeConfig::setSize( const QSize& size  )

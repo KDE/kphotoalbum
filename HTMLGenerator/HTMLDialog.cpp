@@ -29,7 +29,7 @@
 #include <kfiledialog.h>
 #include <qpushbutton.h>
 #include "Settings/SettingsData.h"
-#include <q3hgroupbox.h>
+#include <QGroupBox>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kfileitem.h>
@@ -41,6 +41,7 @@
 #include "ImageSizeCheckBox.h"
 #include <KTextEdit>
 #include <QStringMatcher>
+#include <QHBoxLayout>
 using namespace HTMLGenerator;
 
 
@@ -194,17 +195,16 @@ void HTMLDialog::createLayoutPage()
     populateThemesCombo();   
     
     // Image sizes
-    Q3HGroupBox* sizes = new Q3HGroupBox( i18n("Image Sizes"), layoutPage );
+    QGroupBox* sizes = new QGroupBox( i18n("Image Sizes"), layoutPage );
     lay1->addWidget( sizes );
-    QWidget* content = new QWidget( sizes );
-    QGridLayout* lay5 = new QGridLayout( content );
-    ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
-    ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
-    ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, content );
-    ImageSizeCheckBox* size1024 = new ImageSizeCheckBox( 1024, 768, content );
-    ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, content );
-    ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, content );
-    ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), content );
+    QGridLayout* lay5 = new QGridLayout( sizes );
+    ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, sizes );
+    ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, sizes );
+    ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, sizes );
+    ImageSizeCheckBox* size1024 = new ImageSizeCheckBox( 1024, 768, sizes );
+    ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, sizes );
+    ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, sizes );
+    ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), sizes );
 
     {
         int row = 0;

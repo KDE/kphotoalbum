@@ -33,7 +33,6 @@
 #ifndef ANNOTATIONDIALOG_KDATEEDIT_H
 #define ANNOTATIONDIALOG_KDATEEDIT_H
 
-#include <q3vbox.h>
 #include <KComboBox>
 #include <qmap.h>
 #include <QEvent>
@@ -142,7 +141,7 @@ private:
     bool mHandleInvalid;
 
     KDatePicker *mDatePicker;
-    Q3VBox *mDateFrame;
+    QFrame *mDateFrame;
     QDate  defaultValue;
     QDate  value;
     bool   mReadOnly;

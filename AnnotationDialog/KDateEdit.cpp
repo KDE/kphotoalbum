@@ -47,7 +47,7 @@
 #include <kdebug.h>
 
 #include "KDateEdit.moc"
-
+#include <QVBoxLayout>
 
 AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     : KComboBox( parent ),
@@ -65,13 +65,16 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     setItemText( 0, QString::fromLatin1( "" ));
     setMinimumSize(sizeHint());
 
-    mDateFrame = new Q3VBox(0,0,Qt::Popup);
+    mDateFrame = new QFrame;
+    mDateFrame->setWindowFlags(Qt::Popup);
+    QVBoxLayout* layout = new QVBoxLayout(mDateFrame);
     mDateFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     mDateFrame->setLineWidth(3);
     mDateFrame->hide();
     mDateFrame->installEventFilter(this);
 
     mDatePicker = new KDatePicker(value, mDateFrame);
+    layout->addWidget(mDatePicker);
 
     connect(lineEdit(),SIGNAL(editingFinished()),SLOT(lineEnterPressed()));
     connect(this,SIGNAL(textChanged(const QString &)),

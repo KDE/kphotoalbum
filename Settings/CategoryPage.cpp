@@ -29,8 +29,6 @@
 #include <KLineEdit>
 #include <QLabel>
 #include <QGridLayout>
-#include <Q3ListBoxItem>
-#include <Q3ListBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "DB/CategoryCollection.h"
@@ -42,8 +40,8 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     QHBoxLayout* lay2 = new QHBoxLayout;
     lay1->addLayout( lay2 );
 
-    _categories = new Q3ListBox( this );
-    connect( _categories, SIGNAL( clicked( Q3ListBoxItem* ) ), this, SLOT( edit( Q3ListBoxItem* ) ) );
+    _categories = new QListWidget( this );
+    connect( _categories, SIGNAL( itemClicked( QListWidgetItem* ) ), this, SLOT( edit( QListWidgetItem* ) ) );
     lay2->addWidget( _categories );
 
 
@@ -114,7 +112,7 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
 
 }
 
-void Settings::CategoryPage::edit( Q3ListBoxItem* i )
+void Settings::CategoryPage::edit( QListWidgetItem* i )
 {
     if ( i == 0 )
         return;
@@ -162,7 +160,7 @@ void Settings::CategoryPage::slotNewItem()
     _icon->setIcon( QIcon() );
     _thumbnailSizeInCategory->setValue( 64 );
     enableDisable( true );
-    _categories->setSelected( _current, true );
+    _current->setSelected( true );
     _text->setFocus();
 }
 
@@ -173,7 +171,7 @@ void Settings::CategoryPage::slotDeleteCurrent()
         return;
 
     _deleted.append( _current );
-    _categories->takeItem( _current );
+    _categories->takeItem( _categories->row(_current) );
     _current = 0;
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QIcon() );
@@ -202,8 +200,8 @@ void Settings::CategoryPage::saveSettings( Settings::SettingsData* opt, DB::Memb
     }
 
     // Created or Modified items
-    for ( Q3ListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
-        CategoryItem* item = static_cast<CategoryItem*>( i );
+    for (int i =0; i<_categories->count();++i) {
+        CategoryItem* item = static_cast<CategoryItem*>( _categories->item(i) );
         item->submit( memberMap );
     }
 

@@ -20,8 +20,8 @@
 #include "SettingsData.h"
 #include <QLabel>
 #include <QWidget>
-class Q3ListBoxItem;
-class Q3ListBox;
+class QListWidget;
+class QListWidgetItem;
 class KPushButton;
 class QComboBox;
 class QSpinBox;
@@ -50,7 +50,7 @@ signals:
     void currentCategoryNameChanged( const QString& oldName, const QString& newName );
 
 private slots:
-    void edit( Q3ListBoxItem* );
+    void edit( QListWidgetItem* );
     void slotLabelChanged( const QString& );
     void slotIconChanged( const QString& );
     void thumbnailSizeChanged( int );
@@ -59,7 +59,7 @@ private slots:
     void slotDeleteCurrent();
 
 private:
-    Q3ListBox* _categories;
+    QListWidget* _categories;
     QLabel* _labelLabel;
     QLineEdit* _text;
     QLabel* _iconLabel;

@@ -19,9 +19,9 @@
 #define SUBCATEGORIESPAGE_H
 #include <QWidget>
 #include <DB/MemberMap.h>
-class Q3ListBoxItem;
+class QListWidgetItem;
 class QPushButton;
-class Q3ListBox;
+class QListWidget;
 class QComboBox;
 
 namespace Settings
@@ -44,7 +44,7 @@ public slots:
 
 private slots:
     void slotCategoryChanged( const QString& );
-    void slotGroupSelected( Q3ListBoxItem* );
+    void slotGroupSelected( QListWidgetItem* );
     void slotAddGroup();
     void slotDelGroup();
     void slotRenameGroup();
@@ -57,8 +57,8 @@ private:
 
 private:
     QComboBox* _category;
-    Q3ListBox* _groups;
-    Q3ListBox* _members;
+    QListWidget* _groups;
+    QListWidget* _members;
     QPushButton* _rename;
     QPushButton* _del;
     DB::MemberMap _memberMap;

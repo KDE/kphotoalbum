@@ -21,7 +21,7 @@
 #include <DB/ImageDB.h>
 #include <klocale.h>
 #include <QPushButton>
-#include <Q3ListBox>
+#include <QListWidget>
 #include <KComboBox>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -52,7 +52,7 @@ Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
 
     label = new QLabel( i18n( "Super Categories:" ), this );
     lay4->addWidget( label );
-    _groups = new Q3ListBox( this );
+    _groups = new QListWidget( this );
     lay4->addWidget( _groups );
 
     // Members
@@ -61,7 +61,7 @@ Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
 
     label = new QLabel( i18n( "Items of Category:" ), this );
     lay5->addWidget( label );
-    _members = new Q3ListBox( this );
+    _members = new QListWidget( this );
     lay5->addWidget( _members );
 
     // Buttons
@@ -89,12 +89,12 @@ Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
              SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
              &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
-    connect( _groups, SIGNAL( currentChanged( Q3ListBoxItem* ) ), this, SLOT( slotGroupSelected( Q3ListBoxItem* ) ) );
+    connect( _groups, SIGNAL( currentItemChanged(QListWidgetItem*, QListWidgetItem*) ), this, SLOT( slotGroupSelected( QListWidgetItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
     connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
     connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
 
-    _members->setSelectionMode( Q3ListBox::Multi );
+    _members->setSelectionMode( QAbstractItemView::MultiSelection );
 }
 
 /**
@@ -123,7 +123,7 @@ void Settings::SubCategoriesPage::slotCategoryChanged( const QString& name, bool
     QStringList groupList = _memberMap.groups( name );
 
     _groups->blockSignals(true);
-    _groups->insertStringList( groupList );
+    _groups->addItems( groupList );
     _groups->blockSignals(false);
 
     _members->clear();
@@ -136,7 +136,7 @@ void Settings::SubCategoriesPage::slotCategoryChanged( const QString& name, bool
     }
 
     uniq.sort();
-    _members->insertStringList( uniq );
+    _members->addItems( uniq );
 
     _currentGroup.clear();
 
@@ -146,7 +146,7 @@ void Settings::SubCategoriesPage::slotCategoryChanged( const QString& name, bool
     setButtonStates();
 }
 
-void Settings::SubCategoriesPage::slotGroupSelected( Q3ListBoxItem* item )
+void Settings::SubCategoriesPage::slotGroupSelected( QListWidgetItem* item )
 {
     saveOldGroup();
     if ( item )
@@ -162,8 +162,9 @@ void Settings::SubCategoriesPage::slotAddGroup()
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.addGroup(_currentCategory, text);
         slotCategoryChanged( _currentCategory, false );
-        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
-        _groups->setCurrentItem( item ); // also emits currentChanged()
+        QList<QListWidgetItem*> items = _groups->findItems(text, Qt::MatchExactly);
+        Q_ASSERT(items.count() != 0);
+        _groups->setCurrentItem( items[0] ); // also emits currentChanged()
         // selectMembers() is called automatically by slotGroupSelected()
     }
 }
@@ -178,8 +179,9 @@ void Settings::SubCategoriesPage::slotRenameGroup()
         _memberMap.renameGroup( _currentCategory, _currentGroup, text );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( _currentGroup, text );
         slotCategoryChanged( _currentCategory, false );
-        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
-        _groups->setCurrentItem( item );
+        QList<QListWidgetItem*> items = _groups->findItems(text, Qt::MatchExactly);
+        Q_ASSERT(!items.empty());
+        _groups->setCurrentItem( items[0] );
     }
 }
 
@@ -202,7 +204,8 @@ void Settings::SubCategoriesPage::saveOldGroup()
         return;
 
     QStringList list;
-    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+    for ( int i=0; i < _members->count(); ++i ) {
+        QListWidgetItem* item = _members->item(i);
         if ( item->isSelected() )
             list << item->text();
     }
@@ -216,14 +219,15 @@ void Settings::SubCategoriesPage::selectMembers( const QString& group )
 
     QStringList list = _memberMap.members(_currentCategory,group, false );
 
-    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+    for ( int i=0; i < _members->count(); ++i ) {
+        QListWidgetItem* item = _members->item(i);
         if (!_memberMap.canAddMemberToGroup(_currentCategory, group, item->text())) {
-            _members->setSelected(item, false);
-            item->setSelectable(false);
+            item->setSelected(false);
+            item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
         }
         else {
-            item->setSelectable(true);
-            _members->setSelected(item, list.contains(item->text()));
+            item->setFlags(item->flags() | Qt::ItemIsSelectable);
+            item->setSelected(list.contains(item->text()));
         }
     }
 

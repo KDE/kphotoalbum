@@ -24,7 +24,7 @@
 #include <QVBoxLayout>
 #include "Exif/Database.h"
 #include <q3grid.h>
-
+#include <QGridLayout>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <QScrollArea>
@@ -47,23 +47,23 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     // Iso, Exposure, Aperture, FNumber
     QHBoxLayout* hlay = new QHBoxLayout;
     vlay->addLayout( hlay );
-    Q3Grid* grid = new Q3Grid( 4, settings );
-    grid->setSpacing( 6 );
-    hlay->addWidget( grid );
+    QGridLayout* gridLayout = new QGridLayout;
+    gridLayout->setSpacing( 6 );
+    hlay->addLayout( gridLayout );
     hlay->addStretch( 1 );
 
-    makeISO( grid );
-    makeExposureTime( grid );
+    makeISO( gridLayout );
+    makeExposureTime( gridLayout );
 
-    grid = new Q3Grid( 4, settings );
-    grid->setSpacing( 6 );
-    hlay->addWidget( grid );
+    gridLayout = new QGridLayout;
+    gridLayout->setSpacing( 6 );
+    hlay->addLayout( gridLayout );
     hlay->addStretch( 1 );
-    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid );
-    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid );
+    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), gridLayout, 0 );
+    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), gridLayout, 1 );
 
     // Focal length
-    grid = new Q3Grid( 4, settings );
+    Q3Grid* grid = new Q3Grid( 4, settings );
     grid->setSpacing( 6 );
     hlay->addWidget( grid );
     hlay->addStretch( 1 );
@@ -110,7 +110,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     vlay->addStretch( 1 );
 }
 
-void Exif::SearchDialog::makeISO( Q3Grid* parent )
+void Exif::SearchDialog::makeISO( QGridLayout* layout )
 {
     Exif::RangeWidget::ValueList list;
     list << Exif::RangeWidget::Value( 100, QString::fromLatin1("100") )
@@ -124,10 +124,10 @@ void Exif::SearchDialog::makeISO( Q3Grid* parent )
          << Exif::RangeWidget::Value( 25600, QString::fromLatin1("25600") )
          << Exif::RangeWidget::Value( 51200, QString::fromLatin1("51200") );
 
-    _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, parent );
+    _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, layout, 0 );
 }
 
-void Exif::SearchDialog::makeExposureTime( Q3Grid* parent )
+void Exif::SearchDialog::makeExposureTime( QGridLayout* layout )
 {
     QString secs = i18nc( "Example 1.6 secs (as in seconds)", "secs." );
     Exif::RangeWidget::ValueList list;
@@ -185,10 +185,10 @@ void Exif::SearchDialog::makeExposureTime( Q3Grid* parent )
         << Exif::RangeWidget::Value( 25, QString::fromLatin1( "25 %1").arg(secs ) )
         << Exif::RangeWidget::Value( 30, QString::fromLatin1( "30 %1").arg(secs ) );
 
-    _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ), list, parent );
+    _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ), list, layout, 1 );
 }
 
-RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, const QString& key, Q3Grid* parent )
+RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, const QString& key, QGridLayout* layout, int row )
 {
     Exif::RangeWidget::ValueList list;
     list
@@ -223,7 +223,7 @@ RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, con
         << Exif::RangeWidget::Value( 40, QString::fromLatin1( "40" ) )
         << Exif::RangeWidget::Value( 45, QString::fromLatin1( "45" ) );
 
-    return new RangeWidget( text, key, list, parent );
+    return new RangeWidget( text, key, list, layout, row );
 }
 
 #define addSetting(settings,text,num)         \

@@ -21,7 +21,7 @@
 #include <qobject.h>
 #include <QList>
 #include "Exif/SearchInfo.h"
-class Q3Grid;
+class QGridLayout;
 class QComboBox;
 
 namespace Exif{
@@ -41,7 +41,7 @@ public:
 
     typedef QList<Value> ValueList ;
 
-    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, Q3Grid* parent);
+    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGridLayout* layout, int row);
     Exif::SearchInfo::Range range() const;
 
 protected slots:

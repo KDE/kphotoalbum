@@ -24,6 +24,7 @@
 #include <KPageDialog>
 
 class QSpinBox;
+class QGridLayout;
 
 namespace Exif
 {
@@ -36,15 +37,15 @@ public:
     Exif::SearchInfo info();
 
 protected:
-    void makeISO( Q3Grid* parent );
+    void makeISO( QGridLayout* layout );
     QWidget* makeExposureProgram( QWidget* parent );
     QWidget* makeOrientation( QWidget* parent );
     QWidget* makeMeteringMode( QWidget* parent );
     QWidget* makeContrast( QWidget* parent );
     QWidget* makeSharpness( QWidget* parent );
     QWidget* makeSaturation( QWidget* parent );
-    void makeExposureTime( Q3Grid* parent );
-    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, Q3Grid* parent );
+    void makeExposureTime( QGridLayout* layout );
+    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGridLayout* layout, int row );
     QWidget* makeCamera();
     QStringList availableCameras();
 

@@ -23,7 +23,6 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "Exif/Database.h"
-#include <q3grid.h>
 #include <QGridLayout>
 #include <qlabel.h>
 #include <qspinbox.h>
@@ -63,16 +62,24 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), gridLayout, 1 );
 
     // Focal length
-    Q3Grid* grid = new Q3Grid( 4, settings );
-    grid->setSpacing( 6 );
-    hlay->addWidget( grid );
+    QHBoxLayout* focalLayout = new QHBoxLayout;
+    focalLayout->setSpacing( 6 );
+    hlay->addLayout( focalLayout );
     hlay->addStretch( 1 );
-    new QLabel( i18n( "Focal Length" ), grid );
-    _fromFocalLength = new QSpinBox( grid );
+
+    QLabel* label = new QLabel( i18n( "Focal Length" ) );
+    focalLayout->addWidget(label);
+
+    _fromFocalLength = new QSpinBox;
+    focalLayout->addWidget(_fromFocalLength);
     _fromFocalLength->setRange( 0, 10000 );
     _fromFocalLength->setSingleStep( 10 );
-    new QLabel( i18n("to"), grid );
-    _toFocalLength = new QSpinBox( grid );
+
+    label = new QLabel( i18n("to"));
+    focalLayout->addWidget(label);
+
+    _toFocalLength = new QSpinBox;
+    focalLayout->addWidget(_toFocalLength);
     _toFocalLength->setRange( 0, 10000 );
     _toFocalLength->setSingleStep( 10 );
 

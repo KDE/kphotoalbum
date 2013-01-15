@@ -53,6 +53,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
 
     makeISO( gridLayout );
     makeExposureTime( gridLayout );
+    hlay->addSpacing(30);
 
     gridLayout = new QGridLayout;
     gridLayout->setSpacing( 6 );
@@ -60,6 +61,8 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     hlay->addStretch( 1 );
     _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), gridLayout, 0 );
     _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), gridLayout, 1 );
+
+    hlay->addSpacing(30);
 
     // Focal length
     QHBoxLayout* focalLayout = new QHBoxLayout;

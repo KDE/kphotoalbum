@@ -18,7 +18,7 @@
 #include "SearchDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
-#include <q3vgroupbox.h>
+#include <QGroupBox>
 #include <qcheckbox.h>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -226,69 +226,88 @@ RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, con
     return new RangeWidget( text, key, list, parent );
 }
 
+#define addSetting(settings,text,num)         \
+    {                                         \
+        QCheckBox* cb = new QCheckBox( i18n( text ), box ); \
+        settings.append( Setting<int>( cb, num ) );         \
+        layout->addWidget(cb);                              \
+    }
+
 QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Exposure Program" ), parent );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Not defined" ), box ), 0 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Manual" ), box ), 1 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Normal program" ), box ), 2 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Aperture priority" ), box ), 3 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Shutter priority" ), box ), 4 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Creative program (biased toward depth of field)" ), box ), 5 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Action program (biased toward fast shutter speed)" ), box ), 6 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Portrait mode (for closeup photos with the background out of focus)" ), box ), 7 ) );
-    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Landscape mode (for landscape photos with the background in focus)" ), box ), 8 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Exposure Program" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _exposureProgram, "Not defined", 0 );
+    addSetting( _exposureProgram, "Manual", 1 );
+    addSetting( _exposureProgram, "Normal program", 2 );
+    addSetting( _exposureProgram, "Aperture priority", 3 );
+    addSetting( _exposureProgram, "Shutter priority", 4 );
+    addSetting( _exposureProgram, "Creative program (biased toward depth of field)", 5 );
+    addSetting( _exposureProgram, "Action program (biased toward fast shutter speed)", 6 );
+    addSetting( _exposureProgram, "Portrait mode (for closeup photos with the background out of focus)", 7 );
+    addSetting( _exposureProgram, "Landscape mode (for landscape photos with the background in focus)", 8 );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeOrientation( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Orientation" ), parent );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Not rotated" ), box ), 0) );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated counterclockwise" ), box ), 6 ) );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated clockwise" ), box ), 8 ) );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated 180 degrees" ), box ), 3 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Orientation" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _orientation, "Not rotated", 0);
+    addSetting( _orientation, "Rotated counterclockwise", 6 );
+    addSetting( _orientation, "Rotated clockwise", 8 );
+    addSetting( _orientation, "Rotated 180 degrees", 3 );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeMeteringMode( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Metering Mode" ), parent );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Unknown" ), box ), 0 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Average" ), box ), 1 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "CenterWeightedAverage" ), box ), 2 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Spot" ), box ), 3 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "MultiSpot" ), box ), 4 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Pattern" ), box ), 5 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Partial" ), box ), 6 ) );
-    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Other" ), box ), 255 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Metering Mode" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _meteringMode, "Unknown", 0 );
+    addSetting( _meteringMode, "Average", 1 );
+    addSetting( _meteringMode, "CenterWeightedAverage", 2 );
+    addSetting( _meteringMode, "Spot", 3 );
+    addSetting( _meteringMode, "MultiSpot", 4 );
+    addSetting( _meteringMode, "Pattern", 5 );
+    addSetting( _meteringMode, "Partial", 6 );
+    addSetting( _meteringMode, "Other", 255 );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeContrast( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Contrast" ), parent );
-    _contrast.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _contrast.append(Setting<int>( new QCheckBox( i18n( "Soft"), box ), 1 ) );
-    _contrast.append(Setting<int>( new QCheckBox( i18n( "Hard"), box ), 2 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Contrast" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _contrast, "Normal", 0 );
+    addSetting( _contrast, "Soft", 1 );
+    addSetting( _contrast, "Hard", 2 );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeSharpness( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Sharpness" ), parent );
-    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Soft"), box ), 1 ) );
-    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Hard"), box ), 2 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Sharpness" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _sharpness, "Normal", 0 );
+    addSetting( _sharpness, "Soft", 1 );
+    addSetting( _sharpness, "Hard", 2 );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeSaturation( QWidget* parent )
 {
-    Q3VGroupBox* box = new Q3VGroupBox( i18n( "Saturation" ), parent );
-    _saturation.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _saturation.append(Setting<int>( new QCheckBox( i18n( "Low"), box ), 1 ) );
-    _saturation.append(Setting<int>( new QCheckBox( i18n( "High"), box ), 2 ) );
+    QGroupBox* box = new QGroupBox( i18n( "Saturation" ), parent );
+    QVBoxLayout* layout = new QVBoxLayout(box);
+
+    addSetting( _saturation, "Normal", 0 );
+    addSetting( _saturation, "Low", 1 );
+    addSetting( _saturation, "High", 2 );
     return box;
 }
 

@@ -88,7 +88,7 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
     hlay->addWidget( m_iptcCharset );
 
     connect( m_grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
-    connect( m_iptcCharset, SIGNAL( activated( const QString& ) ), m_grid, SLOT( slotCharsetChange( const QString& ) ) );
+    connect( m_iptcCharset, SIGNAL( activated( const QString& ) ), m_grid, SLOT( setupUI( const QString& ) ) );
     setImage(fileName);
     updateSearchString( QString() );
 }
@@ -120,12 +120,6 @@ void Exif::InfoDialog::setImage(const DB::FileName& fileName )
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), fileName.info()->angle(), this );
     request->setPriority( ImageManager::Viewer );
     ImageManager::AsyncLoader::instance()->load( request );
-}
-
-void Exif::Grid::setFileName(const DB::FileName &fileName)
-{
-    m_fileName = fileName;
-    slotCharsetChange( Settings::SettingsData::instance()->iptcCharset() );
 }
 
 void Exif::InfoDialog::enterEvent(QEvent *)

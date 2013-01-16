@@ -3,6 +3,9 @@
 #include <QResizeEvent>
 #include <QPainter>
 #include <QTimer>
+#include <QGridLayout>
+#include <QLabel>
+#include <Settings/SettingsData.h>
 
 Exif::Grid::Grid( QWidget* parent )
     :QScrollArea( parent )
@@ -11,8 +14,20 @@ Exif::Grid::Grid( QWidget* parent )
     //setHScrollBarMode( AlwaysOff );
 }
 
-void Exif::Grid::slotCharsetChange( const QString& charset )
+void Exif::Grid::setupUI( const QString& charset )
 {
+    delete this->widget();
+    QWidget* widget = new QWidget;
+    QGridLayout* layout = new QGridLayout(widget);
+
+
+    for ( int i=0; i < 1000; ++i ) {
+        QLabel* label = new QLabel(QString::number(i));
+        layout->addWidget(label, i/3, i% 3);
+    }
+    setWidget(widget);
+    widget->show();
+
     m_texts.clear();
     m_headers.clear();
 
@@ -173,4 +188,10 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         updateContents();
     }
 #endif
+}
+
+void Exif::Grid::setFileName(const DB::FileName &fileName)
+{
+    m_fileName = fileName;
+    setupUI( Settings::SettingsData::instance()->iptcCharset() );
 }

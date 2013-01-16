@@ -34,7 +34,7 @@ private:
 
 private slots:
     void updateGrid();
-    void slotCharsetChange( const QString& charset );
+    void setupUI( const QString& charset );
 
 private:
     QMap<int, QPair<QString,QStringList> > m_texts;

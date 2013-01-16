@@ -11,6 +11,7 @@ Exif::Grid::Grid( QWidget* parent )
     :QScrollArea( parent )
 {
     setFocusPolicy( Qt::WheelFocus );
+    setWidgetResizable(true);
     //setHScrollBarMode( AlwaysOff );
 }
 
@@ -19,22 +20,39 @@ void Exif::Grid::setupUI( const QString& charset )
     delete this->widget();
     QWidget* widget = new QWidget;
     QGridLayout* layout = new QGridLayout(widget);
-
-
-    for ( int i=0; i < 1000; ++i ) {
-        QLabel* label = new QLabel(QString::number(i));
-        layout->addWidget(label, i/3, i% 3);
-    }
-    setWidget(widget);
-    widget->show();
-
-    m_texts.clear();
-    m_headers.clear();
+    int row = 0;
 
     QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
     calculateMaxKeyWidth( map );
-
     StringSet groups = exifGroups( map );
+    Q_FOREACH( const QString& group, groups ) {
+        QLabel* label = new QLabel(group);
+        layout->addWidget(label,row++,0,1,4, Qt::AlignHCenter);
+
+        int col = -1;
+        // Items of group
+        const QMap<QString,QStringList> items = itemsForGroup( group, map );
+        QStringList sorted = items.keys();
+        sorted.sort();
+        Q_FOREACH( const QString& key, sorted ) {
+            QLabel* keyLabel = new QLabel( exifNameNoGroup( key ) );
+            QLabel* valueLabel = new QLabel(items[key].join( QLatin1String(", ")));
+            valueLabel->setMaximumWidth(200);
+            col = (col +1) % 4;
+            if ( col == 0 )
+                ++row;
+            layout->addWidget(keyLabel, row, col);
+            layout->addWidget(valueLabel,row,++col);
+        }
+        ++row;
+    }
+
+    setWidget(widget);
+    widget->show();
+#if 0
+    m_texts.clear();
+    m_headers.clear();
+
     int index = 0;
     for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
         if ( index %2 ) // We need to start next header in column 0
@@ -58,7 +76,6 @@ void Exif::Grid::setupUI( const QString& charset )
         }
     }
 
-#if 0
     setNumRows( index / 2 + index % 2 );
     setNumCols( 2 );
     setCellWidth( 200 );

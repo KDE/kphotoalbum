@@ -1,7 +1,7 @@
 #ifndef EXIF_GRID_H
 #define EXIF_GRID_H
 
-#include <Q3GridView>
+#include <QScrollArea>
 #include <DB/FileName.h>
 #include <Utilities/Set.h>
 #include <QMap>
@@ -10,19 +10,19 @@ using Utilities::StringSet;
 
 namespace Exif {
 
-class Grid :public Q3GridView
+class Grid :public QScrollArea
 {
     Q_OBJECT
 
 public:
-    explicit Grid( QWidget* parent, const char* name = 0 );
+    explicit Grid( QWidget* parent );
     void setFileName( const DB::FileName& fileName );
 
 signals:
     QString searchStringChanged( const QString& text );
 
 private:
-    OVERRIDE void paintCell ( QPainter * p, int row, int col );
+    void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void resizeEvent( QResizeEvent* );
     OVERRIDE void keyPressEvent( QKeyEvent* );
 

@@ -4,11 +4,11 @@
 #include <QPainter>
 #include <QTimer>
 
-Exif::Grid::Grid( QWidget* parent, const char* name )
-    :Q3GridView( parent, name )
+Exif::Grid::Grid( QWidget* parent )
+    :QScrollArea( parent )
 {
     setFocusPolicy( Qt::WheelFocus );
-    setHScrollBarMode( AlwaysOff );
+    //setHScrollBarMode( AlwaysOff );
 }
 
 void Exif::Grid::slotCharsetChange( const QString& charset )
@@ -43,10 +43,12 @@ void Exif::Grid::slotCharsetChange( const QString& charset )
         }
     }
 
+#if 0
     setNumRows( index / 2 + index % 2 );
     setNumCols( 2 );
     setCellWidth( 200 );
     setCellHeight( QFontMetrics( font() ).height() );
+#endif
 
     // without this, grid is only partially drawn
     QResizeEvent re( size(), size() );
@@ -55,6 +57,7 @@ void Exif::Grid::slotCharsetChange( const QString& charset )
 
 void Exif::Grid::paintCell( QPainter * p, int row, int col )
 {
+#if 0
     int index = row * 2 + col;
     QColor background;
     bool isHeader = m_headers.contains( 2* (index / 2) );
@@ -80,6 +83,7 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
         rect.setX( m_maxKeyWidth + 10 );
         p->drawText( rect, Qt::AlignLeft, m_texts[index].second.join( QString::fromAscii(", ") ) );
     }
+#endif
 }
 
 
@@ -121,7 +125,9 @@ void Exif::Grid::resizeEvent( QResizeEvent* )
 
 void Exif::Grid::updateGrid()
 {
+#if 0
     setCellWidth( clipper()->width() / 2 );
+#endif
 }
 
 void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo )
@@ -137,6 +143,7 @@ void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInf
 
 void Exif::Grid::keyPressEvent( QKeyEvent* e )
 {
+#if 0
     switch ( e->key() ) {
     case Qt::Key_Down:
         scrollBy( 0, cellHeight() );
@@ -165,4 +172,5 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         emit searchStringChanged( m_search );
         updateContents();
     }
+#endif
 }

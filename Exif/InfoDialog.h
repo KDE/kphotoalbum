@@ -18,7 +18,6 @@
 #ifndef EXIFDIALOG_H
 #define EXIFDIALOG_H
 #include <KDialog>
-#include <q3gridview.h>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClientInterface.h"
 #include <DB/FileName.h>
@@ -31,7 +30,6 @@ namespace DB { class Id; }
 
 namespace Exif
 {
-using Utilities::StringSet;
 class Grid;
 
 class InfoDialog : public KDialog, public ImageManager::ImageClientInterface {
@@ -56,40 +54,6 @@ private:
     KComboBox* m_iptcCharset;
     Grid* m_grid;
     QLabel* m_fileNameLabel;
-};
-
-class Grid :public Q3GridView
-{
-    Q_OBJECT
-
-public:
-    explicit Grid( QWidget* parent, const char* name = 0 );
-    void setFileName( const DB::FileName& fileName );
-
-signals:
-    QString searchStringChanged( const QString& text );
-
-private:
-    OVERRIDE void paintCell ( QPainter * p, int row, int col );
-    OVERRIDE void resizeEvent( QResizeEvent* );
-    OVERRIDE void keyPressEvent( QKeyEvent* );
-
-    StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
-    QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );
-    QString groupName( const QString& exifName );
-    QString exifNameNoGroup( const QString& fullName );
-    void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
-
-private slots:
-    void updateGrid();
-    void slotCharsetChange( const QString& charset );
-
-private:
-    QMap<int, QPair<QString,QStringList> > m_texts;
-    QSet<int> m_headers;
-    int m_maxKeyWidth;
-    QString m_search;
-    DB::FileName m_fileName;
 };
 
 }

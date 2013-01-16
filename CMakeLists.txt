@@ -288,8 +288,9 @@ set(libexif_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/Info.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/RangeWidget.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
-
+        ${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp
+)
 set(libBackgroundTaskManager_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInterface.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobManager.cpp

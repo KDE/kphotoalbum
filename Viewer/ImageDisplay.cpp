@@ -146,7 +146,6 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
     enableCursorHiding();
     showCursor();
 
-    delete _cache[_curIndex];
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
@@ -171,12 +170,12 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         ++_curIndex;
     }
 
-    ViewPreloadInfo* found = _cache[_curIndex];
-    if ( found && found->angle == info->angle() ) {
-        _loadedImage = found->img;
-        updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), found->img.size() );
+    if ( _cache.contains(_curIndex) && _cache[_curIndex].angle == info->angle()) {
+        const ViewPreloadInfo& found = _cache[_curIndex];
+        _loadedImage = found.img;
+        updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), found.img.size() );
         cropAndScale();
-        info->setSize( found->size );
+        info->setSize( found.size );
         emit imageReady();
     }
     else {
@@ -192,7 +191,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
 {
     ImageManager::AsyncLoader::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
-    _cache.fill(0); // Clear the cache
+    _cache.clear();
     if ( _info ) {
         cropAndScale();
         if ( event->size().width() > 1.5*this->_loadedImage.size().width() || event->size().height() > 1.5*this->_loadedImage.size().height() )
@@ -226,7 +225,6 @@ QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int ph
 
 void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
-    delete _cache[_curIndex];
     _cache.remove( _curIndex );
     normalize( p1, p2 );
 
@@ -548,7 +546,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
         if ( imgSize != size() )
             return; // Might be an old preload version, or a loaded version that never made it in time
 
-        ViewPreloadInfo* info = new ViewPreloadInfo( img, fullSize, angle );
+        ViewPreloadInfo info( img, fullSize, angle );
         _cache.insert( indexOf(fileName), info );
         updatePreload();
     }
@@ -559,13 +557,13 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
 void Viewer::ImageDisplay::setImageList( const DB::FileNameList& list )
 {
     _imageList = list;
-    qDeleteAll(_cache);
-    _cache.fill( 0, list.count() );
+    _cache.clear();
 }
 
 void Viewer::ImageDisplay::updatePreload()
 {
     const int cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
+    int count = _cache.count();
     bool cacheFull = (_cache.count() > cacheSize);
 
     int incr = ( _forward ? 1 : -1 );
@@ -581,7 +579,7 @@ void Viewer::ImageDisplay::updatePreload()
             return;
         }
 
-        if ( _cache[i] ) {
+        if ( _cache.contains(i) ) {
             nextOnesInCache++;
             if ( nextOnesInCache >= ceil(cacheSize/2.0) && cacheFull ) {
                 // Ok enough images in cache
@@ -598,8 +596,7 @@ void Viewer::ImageDisplay::updatePreload()
                 for ( int j = ( _forward ? 0 : _imageList.count() -1 );
                       j != _curIndex;
                       j += ( _forward ? 1 : -1 ) ) {
-                    if ( _cache[j] ) {
-                        delete _cache[j];
+                    if ( _cache.contains(j) ) {
                         _cache.remove(j);
                         return;
                     }
@@ -609,7 +606,7 @@ void Viewer::ImageDisplay::updatePreload()
                 for ( int j = ( _forward ? _imageList.count() -1 : 0 );
                       j != _curIndex;
                       j += ( _forward ? -1 : 1 ) ) {
-                    if ( _cache[j] ) {
+                    if ( _cache.contains(j) ) {
                         _cache.remove(j);
                         return;
                     }

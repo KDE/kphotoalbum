@@ -43,6 +43,7 @@ class ViewerWidget;
 
 struct ViewPreloadInfo
 {
+    ViewPreloadInfo()  {}
     ViewPreloadInfo( const QImage& img, const QSize& size, int angle )
         : img(img), size(size), angle(angle) {}
     QImage img;
@@ -123,7 +124,7 @@ private:
     QPoint _zStart;
     QPoint _zEnd;
 
-    QVector<ViewPreloadInfo*> _cache;
+    QMap<int,ViewPreloadInfo> _cache;
     DB::FileNameList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _reloadImageInProgress;

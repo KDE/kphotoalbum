@@ -36,6 +36,7 @@ private:
 private slots:
     void updateGrid();
     void setupUI( const QString& charset );
+    void updateWidgetSize();
 
 private:
     QMap<int, QPair<QString,QStringList> > m_texts;

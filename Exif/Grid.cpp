@@ -77,42 +77,12 @@ void Exif::Grid::setupUI( const QString& charset )
 
     setWidget(widget);
     widget->show();
-#if 0
-    m_texts.clear();
-    m_headers.clear();
+    QTimer::singleShot(0, this, SLOT(updateWidgetSize()));
+}
 
-    int index = 0;
-    for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
-        if ( index %2 ) // We need to start next header in column 0
-            ++index;
-
-        // Header for group.
-        QStringList list = (*groupIt).split(QString::fromLatin1( "." ));
-        m_texts[index] = qMakePair( list[0], QStringList() );
-        list.pop_front();
-        m_texts[index+1] = qMakePair( QString::fromLatin1( "." ) + list.join( QString::fromLatin1( "." ) ), QStringList() );
-        m_headers.insert( index );
-        index += 2;
-
-        // Items of group
-        QMap<QString,QStringList> items = itemsForGroup( *groupIt, map );
-        QStringList sorted = items.keys();
-        sorted.sort();
-        for( QStringList::Iterator exifIt = sorted.begin(); exifIt != sorted.end(); ++exifIt ) {
-            m_texts[index] = qMakePair ( exifNameNoGroup( *exifIt ), items[*exifIt] );
-            ++index;
-        }
-    }
-
-    setNumRows( index / 2 + index % 2 );
-    setNumCols( 2 );
-    setCellWidth( 200 );
-    setCellHeight( QFontMetrics( font() ).height() );
-
-    // without this, grid is only partially drawn
-    QResizeEvent re( size(), size() );
-    resizeEvent( &re );
-#endif
+void Exif::Grid::updateWidgetSize()
+{
+    widget()->resize(viewport()->width(), widget()->height());
 }
 
 void Exif::Grid::paintCell( QPainter * p, int row, int col )

@@ -6,6 +6,8 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <Settings/SettingsData.h>
+#include <QDebug>
+#include <QColor>
 
 Exif::Grid::Grid( QWidget* parent )
     :QScrollArea( parent )
@@ -15,11 +17,21 @@ Exif::Grid::Grid( QWidget* parent )
     //setHScrollBarMode( AlwaysOff );
 }
 
+class Background :public QWidget {
+protected:
+    OVERRIDE void paintEvent(QPaintEvent* event) {
+        QPainter painter(this);
+        painter.fillRect( event->rect(), QColor(Qt::white));
+    }
+};
+
 void Exif::Grid::setupUI( const QString& charset )
 {
     delete this->widget();
-    QWidget* widget = new QWidget;
+    Background* widget = new Background;
+
     QGridLayout* layout = new QGridLayout(widget);
+    layout->setSpacing(0);
     int row = 0;
 
     QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
@@ -27,7 +39,14 @@ void Exif::Grid::setupUI( const QString& charset )
     StringSet groups = exifGroups( map );
     Q_FOREACH( const QString& group, groups ) {
         QLabel* label = new QLabel(group);
-        layout->addWidget(label,row++,0,1,4, Qt::AlignHCenter);
+
+        QPalette pal;
+        pal.setBrush(QPalette::Background, Qt::lightGray);
+        label->setPalette(pal);
+        label->setAutoFillBackground(true);
+        label->setAlignment(Qt::AlignCenter);
+
+        layout->addWidget(label,row++,0,1,4);
 
         int col = -1;
         // Items of group
@@ -43,6 +62,14 @@ void Exif::Grid::setupUI( const QString& charset )
                 ++row;
             layout->addWidget(keyLabel, row, col);
             layout->addWidget(valueLabel,row,++col);
+
+            QPalette pal;
+            const int index = row * 2 + col;
+            pal.setBrush(QPalette::Background, (index % 4 == 0 || index % 4 == 3)? Qt::white : QColor(226, 235, 250));
+            keyLabel->setPalette(pal);
+            valueLabel->setPalette(pal);
+            keyLabel->setAutoFillBackground(true);
+            valueLabel->setAutoFillBackground(true);
         }
         ++row;
     }
@@ -80,11 +107,11 @@ void Exif::Grid::setupUI( const QString& charset )
     setNumCols( 2 );
     setCellWidth( 200 );
     setCellHeight( QFontMetrics( font() ).height() );
-#endif
 
     // without this, grid is only partially drawn
     QResizeEvent re( size(), size() );
     resizeEvent( &re );
+#endif
 }
 
 void Exif::Grid::paintCell( QPainter * p, int row, int col )

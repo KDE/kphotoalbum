@@ -32,6 +32,7 @@ private:
     QString groupName( const QString& exifName );
     QString exifNameNoGroup( const QString& fullName );
     void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
+    void scroll(int dy);
 
 private slots:
     void updateGrid();

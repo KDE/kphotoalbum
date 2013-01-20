@@ -8,6 +8,7 @@
 #include <Settings/SettingsData.h>
 #include <QDebug>
 #include <QColor>
+#include <QScrollBar>
 
 Exif::Grid::Grid( QWidget* parent )
     :QScrollArea( parent )
@@ -171,38 +172,41 @@ void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInf
     }
 }
 
+void Exif::Grid::scroll(int dy)
+{
+    verticalScrollBar()->setValue(verticalScrollBar()->value()+dy);
+}
+
 void Exif::Grid::keyPressEvent( QKeyEvent* e )
 {
-#if 0
     switch ( e->key() ) {
     case Qt::Key_Down:
-        scrollBy( 0, cellHeight() );
+        scroll( 20 );
         return;
     case Qt::Key_Up:
-        scrollBy( 0, -cellHeight() );
+        scroll( -20 );
         return;
     case Qt::Key_PageDown:
-        scrollBy( 0, (clipper()->height() - cellHeight() ));
+        scroll( viewport()->height() - 20);
         return;
     case Qt::Key_PageUp:
-        scrollBy( 0, -(clipper()->height() - cellHeight()) );
+        scroll(-(viewport()->height()- 20));
         return;
     case Qt::Key_Backspace:
         m_search.remove( m_search.length()-1, 1 );
         emit searchStringChanged( m_search );
-        updateContents();
+        //updateContents();
         return;
     case Qt::Key_Escape:
-        Q3GridView::keyPressEvent( e ); // Propagate to close dialog.
+        QScrollArea::keyPressEvent( e ); // Propagate to close dialog.
         return;
     }
 
     if ( !e->text().isEmpty() ) {
         m_search += e->text();
         emit searchStringChanged( m_search );
-        updateContents();
+        //updateContents();
     }
-#endif
 }
 
 bool Exif::Grid::eventFilter(QObject* object, QEvent* event)

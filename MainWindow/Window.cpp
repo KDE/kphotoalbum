@@ -109,7 +109,6 @@
 #include <KToggleAction>
 #include <KActionMenu>
 #include <KHBox>
-#include <K3URLDrag>
 #include <qclipboard.h>
 #include <stdexcept>
 #include <KInputDialog>

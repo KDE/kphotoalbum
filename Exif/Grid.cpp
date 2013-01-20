@@ -14,7 +14,9 @@ Exif::Grid::Grid( QWidget* parent )
 {
     setFocusPolicy( Qt::WheelFocus );
     setWidgetResizable(true);
-    //setHScrollBarMode( AlwaysOff );
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    viewport()->installEventFilter(this);
+    setMinimumSize(800,400);
 }
 
 class Background :public QWidget {
@@ -56,7 +58,6 @@ void Exif::Grid::setupUI( const QString& charset )
         Q_FOREACH( const QString& key, sorted ) {
             QLabel* keyLabel = new QLabel( exifNameNoGroup( key ) );
             QLabel* valueLabel = new QLabel(items[key].join( QLatin1String(", ")));
-            valueLabel->setMaximumWidth(200);
             col = (col +1) % 4;
             if ( col == 0 )
                 ++row;
@@ -232,6 +233,15 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         updateContents();
     }
 #endif
+}
+
+bool Exif::Grid::eventFilter(QObject* object, QEvent* event)
+{
+    if ( object == viewport() && event->type() == QEvent::Resize) {
+        QResizeEvent* re = static_cast<QResizeEvent*>(event);
+        widget()->resize(re->size().width(), widget()->height());
+    }
+    return false;
 }
 
 void Exif::Grid::setFileName(const DB::FileName &fileName)

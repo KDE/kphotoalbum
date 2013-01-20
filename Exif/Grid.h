@@ -25,6 +25,7 @@ private:
     void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void resizeEvent( QResizeEvent* );
     OVERRIDE void keyPressEvent( QKeyEvent* );
+    OVERRIDE bool eventFilter(QObject*, QEvent*);
 
     StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
     QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );

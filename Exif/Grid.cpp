@@ -31,6 +31,7 @@ protected:
 void Exif::Grid::setupUI( const QString& charset )
 {
     delete this->widget();
+    m_labels.clear();
     Background* widget = new Background;
 
     QGridLayout* layout = new QGridLayout(widget);
@@ -72,6 +73,7 @@ void Exif::Grid::setupUI( const QString& charset )
             valueLabel->setPalette(pal);
             keyLabel->setAutoFillBackground(true);
             valueLabel->setAutoFillBackground(true);
+            m_labels.append( qMakePair(keyLabel,valueLabel));
         }
         ++row;
     }
@@ -83,40 +85,8 @@ void Exif::Grid::setupUI( const QString& charset )
 
 void Exif::Grid::updateWidgetSize()
 {
-    widget()->resize(viewport()->width(), widget()->height());
+    widget()->setFixedSize(viewport()->width(), widget()->height());
 }
-
-void Exif::Grid::paintCell( QPainter * p, int row, int col )
-{
-#if 0
-    int index = row * 2 + col;
-    QColor background;
-    bool isHeader = m_headers.contains( 2* (index / 2) );
-    if ( isHeader )
-        background = Qt::lightGray;
-    else
-        background = (index % 4 == 0 || index % 4 == 3) ? Qt::white : QColor(226, 235, 250);
-
-    p->fillRect( cellRect(), background );
-
-    if ( isHeader ) {
-        p->drawText( cellRect(), ((index % 2) ? Qt::AlignLeft : Qt::AlignRight ), m_texts[index].first );
-    }
-    else {
-        QString text = m_texts[index].first;
-        bool match = ( !m_search.isEmpty() && text.contains( m_search, Qt::CaseInsensitive ) );
-        QFont f(p->font());
-        f.setWeight( match ? QFont::Bold : QFont::Normal );
-        p->setFont( f );
-        p->setPen( match ? Qt::red : Qt::black );
-        p->drawText( cellRect(), Qt::AlignLeft, text);
-        QRect rect = cellRect();
-        rect.setX( m_maxKeyWidth + 10 );
-        p->drawText( rect, Qt::AlignLeft, m_texts[index].second.join( QString::fromAscii(", ") ) );
-    }
-#endif
-}
-
 
 StringSet Exif::Grid::exifGroups( const QMap<QString,QStringList>& exifInfo )
 {
@@ -177,6 +147,22 @@ void Exif::Grid::scroll(int dy)
     verticalScrollBar()->setValue(verticalScrollBar()->value()+dy);
 }
 
+void Exif::Grid::updateSearch()
+{
+    QPair<QLabel*,QLabel*> tuple;
+    Q_FOREACH( tuple, m_labels ) {
+        const bool matches = tuple.first->text().contains( m_search, Qt::CaseInsensitive ) && m_search.length() != 0;
+        QPalette pal = tuple.first->palette();
+        pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);
+        tuple.first->setPalette(pal);
+        tuple.second->setPalette(pal);
+        QFont fnt = tuple.first->font();
+        fnt.setBold(matches);
+        tuple.first->setFont(fnt);
+        tuple.second->setFont(fnt);
+    }
+}
+
 void Exif::Grid::keyPressEvent( QKeyEvent* e )
 {
     switch ( e->key() ) {
@@ -195,7 +181,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
     case Qt::Key_Backspace:
         m_search.remove( m_search.length()-1, 1 );
         emit searchStringChanged( m_search );
-        //updateContents();
+        updateSearch();
         return;
     case Qt::Key_Escape:
         QScrollArea::keyPressEvent( e ); // Propagate to close dialog.
@@ -205,7 +191,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
     if ( !e->text().isEmpty() ) {
         m_search += e->text();
         emit searchStringChanged( m_search );
-        //updateContents();
+        updateSearch();
     }
 }
 
@@ -213,7 +199,7 @@ bool Exif::Grid::eventFilter(QObject* object, QEvent* event)
 {
     if ( object == viewport() && event->type() == QEvent::Resize) {
         QResizeEvent* re = static_cast<QResizeEvent*>(event);
-        widget()->resize(re->size().width(), widget()->height());
+        widget()->setFixedSize(re->size().width(), widget()->height());
     }
     return false;
 }

@@ -6,6 +6,8 @@
 #include <Utilities/Set.h>
 #include <QMap>
 
+class QLabel;
+
 using Utilities::StringSet;
 
 namespace Exif {
@@ -22,7 +24,6 @@ signals:
     QString searchStringChanged( const QString& text );
 
 private:
-    void paintCell ( QPainter * p, int row, int col );
     OVERRIDE void resizeEvent( QResizeEvent* );
     OVERRIDE void keyPressEvent( QKeyEvent* );
     OVERRIDE bool eventFilter(QObject*, QEvent*);
@@ -33,6 +34,7 @@ private:
     QString exifNameNoGroup( const QString& fullName );
     void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
     void scroll(int dy);
+    void updateSearch();
 
 private slots:
     void updateGrid();
@@ -40,6 +42,7 @@ private slots:
     void updateWidgetSize();
 
 private:
+    QList< QPair<QLabel*,QLabel*> > m_labels;
     QMap<int, QPair<QString,QStringList> > m_texts;
     QSet<int> m_headers;
     int m_maxKeyWidth;

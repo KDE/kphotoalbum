@@ -362,7 +362,7 @@ kde4_add_library(Utilities STATIC ${libUtilities_SRCS})
 target_link_libraries(kphotoalbum Utilities)
 
 # External components
-target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer ${KDE4_PHONON_LIBS})
+target_link_libraries(kphotoalbum ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer ${KDE4_PHONON_LIBS})
 
 if(KIPI_FOUND)
   target_link_libraries(kphotoalbum ${KIPI_LIBRARIES})

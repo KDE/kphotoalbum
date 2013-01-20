@@ -33,6 +33,7 @@ private:
     QString exifNameNoGroup( const QString& fullName );
     void scroll(int dy);
     void updateSearch();
+    QLabel* headerLabel(const QString& title);
 
 private slots:
     void setupUI( const QString& charset );

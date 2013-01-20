@@ -38,18 +38,11 @@ void Exif::Grid::setupUI( const QString& charset )
     layout->setSpacing(0);
     int row = 0;
 
-    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
-    StringSet groups = exifGroups( map );
+    const QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
+    const StringSet groups = exifGroups( map );
+
     Q_FOREACH( const QString& group, groups ) {
-        QLabel* label = new QLabel(group);
-
-        QPalette pal;
-        pal.setBrush(QPalette::Background, Qt::lightGray);
-        label->setPalette(pal);
-        label->setAutoFillBackground(true);
-        label->setAlignment(Qt::AlignCenter);
-
-        layout->addWidget(label,row++,0,1,4);
+        layout->addWidget(headerLabel(group),row++,0,1,4);
 
         int col = -1;
         // Items of group
@@ -80,6 +73,19 @@ void Exif::Grid::setupUI( const QString& charset )
     setWidget(widget);
     widget->show();
     QTimer::singleShot(0, this, SLOT(updateWidgetSize()));
+}
+
+QLabel *Exif::Grid::headerLabel(const QString &title)
+{
+    QLabel* label = new QLabel(title);
+
+    QPalette pal;
+    pal.setBrush(QPalette::Background, Qt::lightGray);
+    label->setPalette(pal);
+    label->setAutoFillBackground(true);
+    label->setAlignment(Qt::AlignCenter);
+
+    return label;
 }
 
 void Exif::Grid::updateWidgetSize()

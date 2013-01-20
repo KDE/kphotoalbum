@@ -34,6 +34,7 @@ private:
     void scroll(int dy);
     void updateSearch();
     QLabel* headerLabel(const QString& title);
+    QPair<QLabel*,QLabel*> infoLabelPair(const QString& title, const QString& value, const QColor& color);
 
 private slots:
     void setupUI( const QString& charset );

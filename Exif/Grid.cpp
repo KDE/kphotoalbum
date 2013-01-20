@@ -50,22 +50,15 @@ void Exif::Grid::setupUI( const QString& charset )
         QStringList sorted = items.keys();
         sorted.sort();
         Q_FOREACH( const QString& key, sorted ) {
-            QLabel* keyLabel = new QLabel( exifNameNoGroup( key ) );
-            QLabel* valueLabel = new QLabel(items[key].join( QLatin1String(", ")));
+            const int index = row * 2 + col;
+            const QColor color  = (index % 4 == 0 || index % 4 == 3)? Qt::white : QColor(226, 235, 250);
+            QPair<QLabel*, QLabel*> pair = infoLabelPair( exifNameNoGroup( key ), items[key].join( QLatin1String(", ")), color );
+
             col = (col +1) % 4;
             if ( col == 0 )
                 ++row;
-            layout->addWidget(keyLabel, row, col);
-            layout->addWidget(valueLabel,row,++col);
-
-            QPalette pal;
-            const int index = row * 2 + col;
-            pal.setBrush(QPalette::Background, (index % 4 == 0 || index % 4 == 3)? Qt::white : QColor(226, 235, 250));
-            keyLabel->setPalette(pal);
-            valueLabel->setPalette(pal);
-            keyLabel->setAutoFillBackground(true);
-            valueLabel->setAutoFillBackground(true);
-            m_labels.append( qMakePair(keyLabel,valueLabel));
+            layout->addWidget(pair.first, row, col);
+            layout->addWidget(pair.second,row,++col);
         }
         ++row;
     }
@@ -86,6 +79,21 @@ QLabel *Exif::Grid::headerLabel(const QString &title)
     label->setAlignment(Qt::AlignCenter);
 
     return label;
+}
+
+QPair<QLabel *, QLabel *> Exif::Grid::infoLabelPair(const QString &title, const QString &value, const QColor &color)
+{
+    QLabel* keyLabel = new QLabel( title );
+    QLabel* valueLabel = new QLabel( value );
+
+    QPalette pal;
+    pal.setBrush(QPalette::Background, color);
+    keyLabel->setPalette(pal);
+    valueLabel->setPalette(pal);
+    keyLabel->setAutoFillBackground(true);
+    valueLabel->setAutoFillBackground(true);
+    m_labels.append( qMakePair(keyLabel,valueLabel));
+    return qMakePair(keyLabel,valueLabel);
 }
 
 void Exif::Grid::updateWidgetSize()

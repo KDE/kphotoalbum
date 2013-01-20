@@ -39,7 +39,6 @@ void Exif::Grid::setupUI( const QString& charset )
     int row = 0;
 
     QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
-    calculateMaxKeyWidth( map );
     StringSet groups = exifGroups( map );
     Q_FOREACH( const QString& group, groups ) {
         QLabel* label = new QLabel(group);
@@ -117,29 +116,6 @@ QString Exif::Grid::groupName( const QString& exifName )
 QString Exif::Grid::exifNameNoGroup( const QString& fullName )
 {
     return fullName.split(QString::fromLatin1(".")).last();
-}
-
-void Exif::Grid::resizeEvent( QResizeEvent* )
-{
-    QTimer::singleShot( 0, this, SLOT( updateGrid() ) );
-}
-
-void Exif::Grid::updateGrid()
-{
-#if 0
-    setCellWidth( clipper()->width() / 2 );
-#endif
-}
-
-void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo )
-{
-    QFont f = font();
-    f.setWeight( QFont::Bold );
-    QFontMetrics metrics( f );
-    m_maxKeyWidth = 0;
-    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
-        m_maxKeyWidth = qMax( m_maxKeyWidth, metrics.width( exifNameNoGroup( it.key() ) ) );
-    }
 }
 
 void Exif::Grid::scroll(int dy)

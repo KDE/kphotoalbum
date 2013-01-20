@@ -24,7 +24,7 @@
 #include <QPaintEvent>
 #include "ImageManager/ImageClientInterface.h"
 #include <qimage.h>
-#include <q3ptrvector.h>
+#include <QVector>
 #include "DB/ImageInfoPtr.h"
 #include "AbstractDisplay.h"
 #include "Settings/SettingsData.h"
@@ -123,7 +123,7 @@ private:
     QPoint _zStart;
     QPoint _zEnd;
 
-    Q3PtrVector<ViewPreloadInfo> _cache;
+    QVector<ViewPreloadInfo*> _cache;
     DB::FileNameList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _reloadImageInProgress;

@@ -73,7 +73,6 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     _cursorHiding(true)
 {
     _viewHandler = new ViewHandler( this );
-    _cache.setAutoDelete( true );
 
     setMouseTracking( true );
     _cursorTimer = new QTimer( this );
@@ -147,6 +146,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
     enableCursorHiding();
     showCursor();
 
+    delete _cache[_curIndex];
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
@@ -226,6 +226,7 @@ QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int ph
 
 void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
+    delete _cache[_curIndex];
     _cache.remove( _curIndex );
     normalize( p1, p2 );
 
@@ -548,9 +549,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
             return; // Might be an old preload version, or a loaded version that never made it in time
 
         ViewPreloadInfo* info = new ViewPreloadInfo( img, fullSize, angle );
-        bool ok = _cache.insert( indexOf(fileName), info );
-        if ( !ok )
-            delete info;
+        _cache.insert( indexOf(fileName), info );
         updatePreload();
     }
     unbusy();
@@ -560,12 +559,13 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
 void Viewer::ImageDisplay::setImageList( const DB::FileNameList& list )
 {
     _imageList = list;
+    qDeleteAll(_cache);
     _cache.fill( 0, list.count() );
 }
 
 void Viewer::ImageDisplay::updatePreload()
 {
-    uint cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
+    const int cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
     bool cacheFull = (_cache.count() > cacheSize);
 
     int incr = ( _forward ? 1 : -1 );
@@ -599,6 +599,7 @@ void Viewer::ImageDisplay::updatePreload()
                       j != _curIndex;
                       j += ( _forward ? 1 : -1 ) ) {
                     if ( _cache[j] ) {
+                        delete _cache[j];
                         _cache.remove(j);
                         return;
                     }

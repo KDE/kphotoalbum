@@ -107,8 +107,8 @@ Homepage</ulink>.</para>
           url="http://userbase.kde.org/KPhotoAlbum_FAQ">http://userbase.kde.org/KPhotoAlbum_FAQ</ulink></para>
   </chapter>
 
-  <chapter id="credits-and-licenses">
-    <title>Credits and Licenses</title>
+  <chapter id="credits-and-license">
+    <title>Credits and License</title>
     <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
     &underFDL;
     &underGPL;

@@ -27,6 +27,8 @@
 #include "NumberedBackup.h"
 #include "Utilities/List.h"
 #include "XMLCategory.h"
+#include <QXmlStreamWriter>
+#include "ElementWriter.h"
 
 using Utilities::StringSet;
 
@@ -37,126 +39,90 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     // prepare XML document for saving:
     _db->_categoryCollection.initIdMap();
-    QDomDocument doc;
-
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement top;
-    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
-        top = doc.createElement( QString::fromLatin1("KimDaBa") );
-    }
-    else {
-        top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
-        top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "3" ) );
-        top.setAttribute( QString::fromLatin1( "compressed" ), Settings::SettingsData::instance()->useCompressedIndexXML() );
-    }
-    doc.appendChild( top );
-
-    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
-        add21CompatXML( top );
-
-    saveCategories( doc, top );
-    saveImages( doc, top );
-    saveBlockList( doc, top );
-    saveMemberGroups( doc, top );
-
-    // save XML document to temporary file:
-    QFile out( fileName + QString::fromAscii(".tmp") );
-
-    if ( !out.open( QIODevice::WriteOnly ) ) {
+    QFile out(fileName + QString::fromAscii(".tmp"));
+    if ( !out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         KMessageBox::sorry( messageParent(),
-                i18n("<p>Could not save the image database to XML.</p>"
-                    "File %1 could not be opened because of the following error: %2"
-                    , out.fileName(), out.errorString() )
-                );
+                            i18n("<p>Could not save the image database to XML.</p>"
+                                 "File %1 could not be opened because of the following error: %2"
+                                 , out.fileName(), out.errorString() )
+                            );
         return;
     }
-    else {
-        QByteArray s = doc.toByteArray().append( '\n' );
-        if ( ! ( out.write( s.data(), s.size()-1 ) == s.size()-1  && out.flush() ) )
-        {
-            KMessageBox::sorry( messageParent(),
-                    i18n("<p>Could not save the image database to XML.</p>"
-                        "<p>File %1 could not be written because of the following error: %2</p>"
-                        "<p>Your XML file still contains the previous version of the image database! "
-                        "To avoid losing your modifications to the image database, try to fix "
-                        "the mentioned error and then <b>save the file again.</b></p>"
-                        , out.fileName(), out.errorString() )
-                    );
-            // clean up (damaged) temporary file:
-            out.remove();
-        } else {
-            out.close();
-            // State: index.xml has previous DB version, index.xml.tmp has the current version.
+    QXmlStreamWriter writer(&out);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
 
-            // original file can be safely deleted
-            if ( ( ! QFile::remove( fileName ) ) && QFile::exists( fileName ) )
-            {
-                KMessageBox::sorry( messageParent(),
-                        i18n("<p>Failed to remove old version of image database.</p>"
-                            "<p>Please try again or replace the file %1 with file %2 manually!</p>",
-                            fileName, out.fileName() )
-                        );
-                return;
-            }
-            // State: index.xml doesn't exist, index.xml.tmp has the current version.
-            if ( ! out.rename( fileName ) )
-            {
-                KMessageBox::sorry( messageParent(),
-                        i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                            "<p>Please try again or rename file %1 to %2 manually!</p>",
-                            out.fileName(), fileName )
-                           );
-                // State: index.xml.tmp has the current version.
-                return;
-            }
-            // State: index.xml has the current version.
-           }
+    {
+        ElementWriter dummy(writer, QString::fromLatin1("KPhotoAlbum"));
+        writer.writeAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "3" ) );
+        writer.writeAttribute( QString::fromLatin1( "compressed" ), QString::number(Settings::SettingsData::instance()->useCompressedIndexXML()) );
+
+        saveCategories( writer );
+        saveImages( writer );
+        saveBlockList( writer );
+        saveMemberGroups( writer );
     }
+
+    // State: index.xml has previous DB version, index.xml.tmp has the current version.
+
+    // original file can be safely deleted
+    if ( ( ! QFile::remove( fileName ) ) && QFile::exists( fileName ) )
+    {
+        KMessageBox::sorry( messageParent(),
+                            i18n("<p>Failed to remove old version of image database.</p>"
+                                 "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                                 fileName, out.fileName() )
+                            );
+        return;
+    }
+    // State: index.xml doesn't exist, index.xml.tmp has the current version.
+    if ( ! out.rename( fileName ) )
+    {
+        KMessageBox::sorry( messageParent(),
+                            i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                                 "<p>Please try again or rename file %1 to %2 manually!</p>",
+                                 out.fileName(), fileName )
+                            );
+        // State: index.xml.tmp has the current version.
+        return;
+    }
+    // State: index.xml has the current version.
 }
 
-void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
+void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
 {
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-    QDomElement options;
-    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
-        options = doc.createElement( QString::fromLatin1("options") );
-    else
-        options = doc.createElement( QString::fromLatin1("Categories") );
-    top.appendChild( options );
+    {
+        ElementWriter dummy(writer, QString::fromLatin1("Categories") );
 
 
-    Q_FOREACH(const QString &name, categories) {
-        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
+        Q_FOREACH(const QString &name, categories) {
+            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
+            ElementWriter dummy(writer, QString::fromLatin1("Category") );
+            writer.writeAttribute( QString::fromLatin1("name"), escape( name ) );
 
-        QDomElement opt;
-        if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
-            opt = doc.createElement( QString::fromLatin1("option") );
-        else
-            opt = doc.createElement( QString::fromLatin1("Category") );
-        opt.setAttribute( QString::fromLatin1("name"), escape( name ) );
+            writer.writeAttribute( QString::fromLatin1( "icon" ), category->iconName() );
+            writer.writeAttribute( QString::fromLatin1( "show" ), QString::number(category->doShow()) );
+            writer.writeAttribute( QString::fromLatin1( "viewtype" ), QString::number(category->viewType()));
+            writer.writeAttribute( QString::fromLatin1( "thumbnailsize" ), QString::number(category->thumbnailSize()));
 
-        opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
-        opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
-        opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
-        opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
+            if ( shouldSaveCategory( name ) ) {
+                QStringList list =
+                        Utilities::mergeListsUniqly(category->items(),
+                                                    _db->_members.groups(name));
 
-        if ( shouldSaveCategory( name ) ) {
-            QStringList list =
-                Utilities::mergeListsUniqly(category->items(),
-                                            _db->_members.groups(name));
-
-            Q_FOREACH(const QString &categoryName, list) {
-                QDomElement val = doc.createElement( QString::fromLatin1("value") );
-                val.setAttribute( QString::fromLatin1("value"), categoryName );
-                val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( categoryName ) );
-                opt.appendChild( val );
+                Q_FOREACH(const QString &categoryName, list) {
+                    ElementWriter dummy( writer, QString::fromLatin1("value") );
+                    writer.writeAttribute( QString::fromLatin1("value"), categoryName );
+                    writer.writeAttribute( QString::fromLatin1( "id" ),
+                                           QString::number(static_cast<XMLCategory*>( category.data() )->idForName( categoryName ) ));
+                }
             }
         }
-        options.appendChild( opt );
     }
 }
 
-void XMLDB::FileWriter::saveImages( QDomDocument doc, QDomElement top )
+void XMLDB::FileWriter::saveImages( QXmlStreamWriter& writer )
 {
     DB::ImageInfoList list = _db->_images;
 
@@ -165,35 +131,30 @@ void XMLDB::FileWriter::saveImages( QDomDocument doc, QDomElement top )
         list.append(infoPtr);
     }
 
-    QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
-    top.appendChild( images );
+    {
+        ElementWriter dummy(writer, QString::fromLatin1( "images" ) );
 
-    Q_FOREACH(const DB::ImageInfoPtr &infoPtr, list) {
-        images.appendChild( save( doc, infoPtr ) );
+        Q_FOREACH(const DB::ImageInfoPtr &infoPtr, list) {
+            save( writer, infoPtr );
+        }
     }
 }
 
-void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
+void XMLDB::FileWriter::saveBlockList( QXmlStreamWriter& writer )
 {
-    QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
-    bool any=false;
+    ElementWriter dummy( writer, QString::fromLatin1( "blocklist" ) );
     Q_FOREACH(const DB::FileName &block, _db->_blockList) {
-        any=true;
-        QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
-        elm.setAttribute( QString::fromLatin1( "file" ), block.relative() );
-        blockList.appendChild( elm );
+        ElementWriter dummy( writer,  QString::fromLatin1( "block" ) );
+        writer.writeAttribute( QString::fromLatin1( "file" ), block.relative() );
     }
-
-    if (any)
-        top.appendChild( blockList );
 }
 
-void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
+void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
 {
     if ( _db->_members.isEmpty() )
         return;
 
-    QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
+    ElementWriter dummy( writer, QString::fromLatin1( "member-groups" ) );
     for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= _db->_members.memberMap().constBegin();
          memberMapIt != _db->_members.memberMap().constEnd(); ++memberMapIt )
     {
@@ -204,33 +165,28 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
         QMap<QString,StringSet> groupMap = memberMapIt.value();
         for( QMap<QString,StringSet>::ConstIterator groupMapIt= groupMap.constBegin(); groupMapIt != groupMap.constEnd(); ++groupMapIt ) {
             StringSet members = groupMapIt.value();
-            if ( Settings::SettingsData::instance()->useCompressedIndexXML() &&
-                 !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
-                QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
-                elm.setAttribute( QString::fromLatin1( "category" ), categoryName );
-                elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
+            if ( Settings::SettingsData::instance()->useCompressedIndexXML() ) {
+                ElementWriter dummy( writer, QString::fromLatin1( "member" ) );
+                writer.writeAttribute( QString::fromLatin1( "category" ), categoryName );
+                writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
                 Q_FOREACH(const QString& member, members) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( memberMapIt.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
-                elm.setAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
-                memberNode.appendChild( elm );
+                writer.writeAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
             }
             else {
                 Q_FOREACH(const QString& member, members) {
-                    QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
-                    memberNode.appendChild( elm );
-                    elm.setAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
-                    elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
-                    elm.setAttribute( QString::fromLatin1( "member" ), member );
+                    ElementWriter dummy( writer,  QString::fromLatin1( "member" ) );
+                    writer.writeAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
+                    writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
+                    writer.writeAttribute( QString::fromLatin1( "member" ), member );
                 }
             }
         }
     }
-
-    top.appendChild( memberNode );
 }
 
 // This function will save an empty config element and a valid configWindowSetup element in the XML file.
@@ -249,99 +205,79 @@ void XMLDB::FileWriter::add21CompatXML( QDomElement& top )
     top.appendChild( tmpDoc.documentElement() );
 }
 
-QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& info )
+void XMLDB::FileWriter::save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {
-    QDomElement elm = doc.createElement( QString::fromLatin1("image") );
-    elm.setAttribute( QString::fromLatin1("file"),  info->fileName().relative() );
-    elm.setAttribute( QString::fromLatin1("label"),  info->label() );
+    ElementWriter dummy( writer, QString::fromLatin1("image") );
+    writer.writeAttribute( QString::fromLatin1("file"),  info->fileName().relative() );
+    writer.writeAttribute( QString::fromLatin1("label"),  info->label() );
     if ( !info->description().isEmpty() )
-        elm.setAttribute( QString::fromLatin1("description"), info->description() );
+        writer.writeAttribute( QString::fromLatin1("description"), info->description() );
 
     DB::ImageDate date = info->date();
     QDateTime start = date.start();
     QDateTime end = date.end();
 
-    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
-        elm.setAttribute( QString::fromLatin1("yearFrom"), start.date().year() );
-        elm.setAttribute( QString::fromLatin1("monthFrom"),  start.date().month() );
-        elm.setAttribute( QString::fromLatin1("dayFrom"),  start.date().day() );
-        elm.setAttribute( QString::fromLatin1("hourFrom"), start.time().hour() );
-        elm.setAttribute( QString::fromLatin1("minuteFrom"), start.time().minute() );
-        elm.setAttribute( QString::fromLatin1("secondFrom"), start.time().second() );
+    writer.writeAttribute( QString::fromLatin1( "startDate" ), start.toString(Qt::ISODate) );
+    writer.writeAttribute( QString::fromLatin1( "endDate" ), end.toString(Qt::ISODate) );
 
-        elm.setAttribute( QString::fromLatin1("yearTo"), end.date().year() );
-        elm.setAttribute( QString::fromLatin1("monthTo"),  end.date().month() );
-        elm.setAttribute( QString::fromLatin1("dayTo"),  end.date().day() );
-    }
-    else {
-        elm.setAttribute( QString::fromLatin1( "startDate" ), start.toString(Qt::ISODate) );
-        elm.setAttribute( QString::fromLatin1( "endDate" ), end.toString(Qt::ISODate) );
-    }
-
-    elm.setAttribute( QString::fromLatin1("angle"),  info->angle() );
-    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
-    elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
-    elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
+    writer.writeAttribute( QString::fromLatin1("angle"),  QString::number(info->angle()));
+    writer.writeAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
+    writer.writeAttribute( QString::fromLatin1( "width" ), QString::number(info->size().width()));
+    writer.writeAttribute( QString::fromLatin1( "height" ), QString::number(info->size().height()));
 
     if ( info->rating() != -1 ) {
-        elm.setAttribute( QString::fromLatin1("rating"), info->rating() );
+        writer.writeAttribute( QString::fromLatin1("rating"), QString::number(info->rating()));
     }
 
     if ( info->stackId() ) {
-        elm.setAttribute( QString::fromLatin1("stackId"), info->stackId() );
-        elm.setAttribute( QString::fromLatin1("stackOrder"), info->stackOrder() );
+        writer.writeAttribute( QString::fromLatin1("stackId"), QString::number(info->stackId()));
+        writer.writeAttribute( QString::fromLatin1("stackOrder"), QString::number(info->stackOrder()));
     }
 
     const DB::GpsCoordinates& geoPos = info->geoPosition();
     if ( !geoPos.isNull() ) {
-        elm.setAttribute( QLatin1String("gpsPrec"), geoPos.precision() );
-        elm.setAttribute( QLatin1String("gpsLon"), geoPos.longitude() );
-        elm.setAttribute( QLatin1String("gpsLat"), geoPos.latitude() );
-        elm.setAttribute( QLatin1String("gpsAlt"), geoPos.altitude() );
+        writer.writeAttribute( QLatin1String("gpsPrec"), QString::number(geoPos.precision()));
+        writer.writeAttribute( QLatin1String("gpsLon"), QString::number(geoPos.longitude()));
+        writer.writeAttribute( QLatin1String("gpsLat"), QString::number(geoPos.latitude()));
+        writer.writeAttribute( QLatin1String("gpsAlt"), QString::number(geoPos.altitude()));
     }
 
     if ( info->isVideo() )
-        elm.setAttribute( QLatin1String("videoLength"), info->videoLength() );
+        writer.writeAttribute( QLatin1String("videoLength"), QString::number(info->videoLength()));
 
-    if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
-        writeCategoriesCompressed( elm, info );
+    if ( Settings::SettingsData::instance()->useCompressedIndexXML() )
+        writeCategoriesCompressed( writer, info );
     else
-        writeCategories( doc, elm, info );
-
-    return elm;
+        writeCategories( writer, info );
 }
 
-void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, const DB::ImageInfoPtr& info )
+void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {
-    QDomElement elm = doc.createElement( QString::fromLatin1("options") );
+    ElementWriter topElm(writer, QString::fromLatin1("options"), false );
 
-    bool anyAtAll = false;
     QStringList grps = info->availableCategories();
     Q_FOREACH(const QString &name, grps) {
         if ( !shouldSaveCategory( name ) )
             continue;
 
-        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        opt.setAttribute( QString::fromLatin1("name"),  escape( name ) );
+        ElementWriter categoryElm(writer, QString::fromLatin1("option"), false );
 
         StringSet items = info->itemsOfCategory(name);
-        bool any = false;
-        Q_FOREACH(const QString& itemValue, items) {
-            QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), itemValue );
-            opt.appendChild( val );
-            any = true;
-            anyAtAll = true;
+        if ( !items.isEmpty() ) {
+            topElm.writeStartElement();
+            categoryElm.writeStartElement();
+            writer.writeAttribute( QString::fromLatin1("name"),  escape( name ) );
         }
-        if ( any )
-            elm.appendChild( opt );
-    }
 
-    if ( anyAtAll )
-        top.appendChild( elm );
+        Q_FOREACH(const QString& itemValue, items) {
+            ElementWriter dummy( writer, QString::fromLatin1("value") );
+            writer.writeAttribute( QString::fromLatin1("value"), itemValue );
+        }
+
+    }
 }
 
-void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info )
+void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {
     QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH(const DB::CategoryPtr &category, categoryList) {
@@ -357,7 +293,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
                 int id = static_cast<const XMLCategory*>(category.data())->idForName(itemValue);
                 idList.append( QString::number( id ) );
             }
-            elm.setAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
+            writer.writeAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
         }
     }
 }

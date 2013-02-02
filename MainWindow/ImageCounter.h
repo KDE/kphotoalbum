@@ -31,6 +31,7 @@ public:
 
 public slots:
     void setMatchCount( uint matches );
+    void setSelectionCount( uint selected );
     void setTotal( uint );
     void showBrowserMatches(uint matches );
 };

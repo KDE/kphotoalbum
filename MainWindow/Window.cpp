@@ -965,6 +965,7 @@ void MainWindow::Window::showBrowser()
     _statusBar->clearMessage();
     _stack->setCurrentWidget( _browser );
     _browser->setFocus();
+    updateContextMenuFromSelectionSize( 0 );
     updateStates( false );
 }
 
@@ -1238,6 +1239,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     _rotLeft->setEnabled(selectionSize >= 1);
     _rotRight->setEnabled(selectionSize >= 1);
     _AutoStackImages->setEnabled(selectionSize > 1);
+    _statusBar->_selected->setSelectionCount( selectionSize );
 }
 
 void MainWindow::Window::rotateSelected( int angle )

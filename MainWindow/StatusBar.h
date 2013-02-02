@@ -35,6 +35,7 @@ public:
     StatusBar();
     DirtyIndicator* _dirtyIndicator;
     ImageCounter* _partial;
+    ImageCounter* _selected;
     BreadcrumbViewer* _pathIndicator;
 
     void setLocked( bool locked );

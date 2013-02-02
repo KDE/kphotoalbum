@@ -779,7 +779,7 @@ void MainWindow::Window::setupMenuBar()
     _sortByDateAndTime->setText( i18n("Sort Selected by Date && Time") );
 
     _limitToMarked = actionCollection()->addAction( QString::fromLatin1("limitToMarked"), this, SLOT( slotLimitToSelected() ) );
-    _limitToMarked->setText( i18n("Limit View to Marked") );
+    _limitToMarked->setText( i18n("Limit View to Selection") );
 
     _jumpToContext = actionCollection()->addAction( QString::fromLatin1("jumpToContext"), this, SLOT( slotJumpToContext() ) );
     _jumpToContext->setText( i18n("Jump to Context") );

@@ -300,13 +300,21 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
 
 bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
+    // Profiling indicated that this function was a hotspot, so this cache improved saving speed with 25%
+    static QMap<QString,bool> cache;
+    if ( cache.contains(categoryName))
+        return cache[categoryName];
+
     // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
     if ( !_db->_categoryCollection.categoryForName( categoryName ) ) {
         qWarning("Invalid category name: %s", qPrintable(categoryName));
+        cache.insert(categoryName,false);
         return false;
     }
 
-    return dynamic_cast<XMLCategory*>( _db->_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
+    const bool shouldSave =  dynamic_cast<XMLCategory*>( _db->_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
+    cache.insert(categoryName,shouldSave);
+    return shouldSave;
 }
 
 QString XMLDB::FileWriter::escape( const QString& str )

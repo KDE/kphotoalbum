@@ -301,7 +301,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
 bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
     // Profiling indicated that this function was a hotspot, so this cache improved saving speed with 25%
-    static QMap<QString,bool> cache;
+    static QHash<QString,bool> cache;
     if ( cache.contains(categoryName))
         return cache[categoryName];
 

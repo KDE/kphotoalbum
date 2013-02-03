@@ -324,7 +324,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
 {
     QString tmp( str );
     // Regex to match characters that are not allowed to start XML attribute names
-    QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
+    static const QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
     int pos = 0;
 
     // Encoding special characters if compressed XML is selected

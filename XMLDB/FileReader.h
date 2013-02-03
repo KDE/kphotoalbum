@@ -49,7 +49,6 @@ protected:
 
     void checkIfImagesAreSorted();
     void checkIfAllImagesHasSizeAttributes();
-    void checkAndWarnAboutVersionConflict();
 
     // The parent widget information dialogs are displayed in.
     QWidget *messageParent();

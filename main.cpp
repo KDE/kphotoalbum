@@ -66,7 +66,6 @@ int main( int argc, char** argv ) {
     options.add("c ", ki18n("Config file"));
     options.add("demo", ki18n( "Starts KPhotoAlbum with a prebuilt set of demo images" ));
     options.add("import ", ki18n( "Import file" ));
-    options.add("export-in-2.1-format", ki18n( "This will make an attempt at saving in a format understandable by KimDaBa 2.1" ));
     KCmdLineArgs::addCmdLineOptions( options );
 
     KApplication app;

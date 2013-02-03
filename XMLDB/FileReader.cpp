@@ -51,7 +51,6 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
-    checkAndWarnAboutVersionConflict();
 }
 
 
@@ -303,18 +302,6 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 }
 
-void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
-{
-    if ( _fileVersion == 1 ) {
-        KMessageBox::information( messageParent(),
-                                  i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
-                                        "KPhotoAlbum read the old format without problems, but to be able to convert back to "
-                                        "KimDaBa 2.1 format, you need to run the current KPhotoAlbum using the flag "
-                                        "<b>export-in-2.1-format</b>, and then save.</p>"),
-                                  i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
-    }
-}
-
 DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
@@ -400,7 +387,7 @@ QString XMLDB::FileReader::unescape( const QString& str )
     int pos = 0;
     
     // Unencoding special characters if compressed XML is selected
-    if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+    if ( Settings::SettingsData::instance()->useCompressedIndexXML() ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 ) + rx.cap( 2 );
             QString after = QString::fromLatin1( QByteArray::fromHex( rx.cap( 2 ).toLocal8Bit() ) );

@@ -54,6 +54,7 @@ function ( git_get_description DESCVAR )
 	endif()
 
 	execute_process ( COMMAND "${GIT_EXECUTABLE}" describe ${_GGD_GIT_ARGS}
+		WORKING_DIRECTORY "${BASE_DIR}"
 		RESULT_VARIABLE _gitresult
 		OUTPUT_VARIABLE _gitdesc
 		ERROR_VARIABLE  _giterror

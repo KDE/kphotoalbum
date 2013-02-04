@@ -39,6 +39,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
     _showInfoBox = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-infobox") );
     _showInfoBox->setText( i18n("Show Info Box") );
     _showInfoBox->setShortcut( Qt::CTRL+Qt::Key_I );
+    _showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
     connect( _showInfoBox, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     addAction( _showInfoBox );
 

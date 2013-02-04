@@ -12,7 +12,7 @@ if ( EXISTS "${BASE_DIR}/.git" )
 		set ( KPA_VERSION "unknown" )
 	endif()
 
-	message ( STATUS "Updating version information..." )
+	message ( STATUS "Updating version information to ${KPA_VERSION}..." )
 	# write version info to a temporary file
 	configure_file ( "${BASE_DIR}/version.h.in" "${BASE_DIR}/version.h~" )
 	# update info iff changed

@@ -31,6 +31,7 @@
 #include "MainWindow/Window.h"
 #include "Utilities/Util.h"
 #include "XMLCategory.h"
+#include <QHash>
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -136,9 +137,9 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
             // option is for KimDaBa 2.1 compatibility
             Q_ASSERT( elmOption.tagName().toLower() == QString::fromLatin1("category") ||
                       elmOption.tagName() == QString::fromLatin1("option").toLower() );
-            QString name = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
+            const QString categoryName = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
 
-            if ( !name.isNull() )  {
+            if ( !categoryName.isNull() )  {
                 // Read Category info
                 QString icon= elmOption.attribute( QString::fromLatin1("icon") );
                 DB::Category::ViewType type =
@@ -147,9 +148,9 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
                                                         QString::fromLatin1( "1" ) ).toInt();
                 int thumbnailSize = elmOption.attribute( QString::fromLatin1( "thumbnailsize" ), QString::fromLatin1( "32" ) ).toInt();
 
-                DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( name );
+                DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
                 Q_ASSERT ( !cat );
-                cat = new XMLCategory( name, icon, type, thumbnailSize, show );
+                cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show );
                 _db->_categoryCollection.addCategory( cat );
 
                 // Read values
@@ -381,6 +382,10 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
 
 QString XMLDB::FileReader::unescape( const QString& str )
 {
+    static QHash<QString,QString> cache;
+    if ( cache.contains(str) )
+        return cache[str];
+
     QString tmp( str );
     // Matches encoded characters in attribute names
     QRegExp rx( QString::fromLatin1( "(_.)([0-9A-F]{2})" ) );
@@ -396,6 +401,8 @@ QString XMLDB::FileReader::unescape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
+
+    cache.insert(str,tmp);
     return tmp;
 }
 

@@ -59,3 +59,4 @@ private:
 }
 
 #endif // WELCOMEDIALOG_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

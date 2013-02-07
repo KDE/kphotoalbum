@@ -47,3 +47,4 @@ private:
 } // namespace Plugins
 
 #endif // PLUGINS_UPLOADWIDGET_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

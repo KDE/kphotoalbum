@@ -70,3 +70,4 @@ bool Browser::CategoryPage::isViewChangeable() const
     return true;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

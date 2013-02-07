@@ -81,3 +81,4 @@ private:
 
 #endif /* THUMBNAILFACADE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

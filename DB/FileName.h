@@ -59,3 +59,4 @@ Q_DECLARE_METATYPE(DB::FileName)
 
 
 #endif // FILENAME_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

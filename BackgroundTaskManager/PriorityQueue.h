@@ -47,3 +47,4 @@ private:
 } // namespace BackgroundTaskManager
 
 #endif // BACKGROUNDTASKMANAGER_PRIORITYQUEUE_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -227,3 +227,4 @@ void Viewer::VideoDisplay::setVideoWidgetSize()
 }
 
 #include "VideoDisplay.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

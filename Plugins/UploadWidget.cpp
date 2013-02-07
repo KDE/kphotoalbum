@@ -57,3 +57,4 @@ void UploadWidget::newIndexSelected(const QModelIndex& index )
 
 
 } // namespace Plugins
+// vi:expandtab:tabstop=4 shiftwidth=4:

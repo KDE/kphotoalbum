@@ -56,3 +56,4 @@ void Settings::PluginsPage::loadSettings( Settings::SettingsData* opt )
 {
     _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -48,3 +48,4 @@ private:
 } // namespace Utilities
 
 #endif // UTILITIES_TOOLTIP_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

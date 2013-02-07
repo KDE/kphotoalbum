@@ -333,3 +333,4 @@ void Exif::Database::recreate()
     }
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

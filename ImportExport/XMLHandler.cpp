@@ -120,3 +120,4 @@ void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement ro
     if ( anyAtAll )
         root.appendChild( elm );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

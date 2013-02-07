@@ -277,3 +277,4 @@ void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
 }
 
 #include "InfoBox.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -232,3 +232,4 @@ QStringList MainWindow::FeatureDialog::supportedVideoMimeTypes()
 }
 
 #include "FeatureDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

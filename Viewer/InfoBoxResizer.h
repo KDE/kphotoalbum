@@ -45,3 +45,4 @@ private:
 
 #endif /* INFOBOXRESIZER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

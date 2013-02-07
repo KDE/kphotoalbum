@@ -41,3 +41,4 @@ const int ImageEventID = 1001;
 
 }
 #endif // IMAGEEVENT_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

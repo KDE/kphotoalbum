@@ -91,3 +91,4 @@ DB::FileName ExtractOneThumbnailJob::frameName() const
 }
 
 } // namespace BackgroundJobs
+// vi:expandtab:tabstop=4 shiftwidth=4:

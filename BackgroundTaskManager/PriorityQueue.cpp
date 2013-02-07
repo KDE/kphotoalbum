@@ -83,3 +83,4 @@ bool PriorityQueue::hasForegroundTasks() const
 }
 
 } // namespace BackgroundTaskManager
+// vi:expandtab:tabstop=4 shiftwidth=4:

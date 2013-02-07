@@ -56,3 +56,4 @@ private:
 
 #endif /* THUMBNAILTOOLTIP_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

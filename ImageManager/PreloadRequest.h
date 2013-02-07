@@ -32,3 +32,4 @@ public:
 }
 
 #endif // IMAGEMANAGER_PRELOADREQUEST_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -51,3 +51,4 @@ bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
     }
     return false;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

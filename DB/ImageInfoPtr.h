@@ -27,3 +27,4 @@ namespace DB
 
 #endif /* IMAGEINFOPTR_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

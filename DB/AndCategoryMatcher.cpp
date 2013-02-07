@@ -33,3 +33,4 @@ void DB::AndCategoryMatcher::debug( int level ) const
     ContainerCategoryMatcher::debug( level + 1 );
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

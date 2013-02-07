@@ -120,3 +120,4 @@ QByteArray ImportExport::KimFileReader::loadImage( const QString& fileName )
     QByteArray data = file->data();
     return data;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

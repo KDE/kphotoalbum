@@ -309,3 +309,4 @@ QString HourViewHandler::unitText() const
 }
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

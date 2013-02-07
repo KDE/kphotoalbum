@@ -37,3 +37,4 @@
   This could happen if the user had found the images on disk, but quit the application before it got a chance to extract
   the said informatioin.
 */
+// vi:expandtab:tabstop=4 shiftwidth=4:

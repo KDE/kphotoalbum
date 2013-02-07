@@ -41,3 +41,4 @@ public:
 }
 
 #endif // FILENAMELIST_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -99,3 +99,4 @@ void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv
     query->bindValue( counter++, 1.0 * data[_tag].toRational().first / data[_tag].toRational().second);
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

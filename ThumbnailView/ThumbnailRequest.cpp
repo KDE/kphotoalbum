@@ -28,3 +28,4 @@ bool ThumbnailView::ThumbnailRequest::stillNeeded() const
 {
     return _thumbnailModel->thumbnailStillNeeded( m_row );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

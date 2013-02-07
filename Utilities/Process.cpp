@@ -55,3 +55,4 @@ void Utilities::Process::readStandardOutput()
     QTextStream stream(this);
     m_stdout.append(stream.readAll());
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -210,3 +210,4 @@ void ImagePreviewWidget::setImage( const QString& fileName )
     _copyPreviousBut->setEnabled( false );
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

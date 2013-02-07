@@ -113,3 +113,4 @@ inline int toInt(const DB::RawId rawId)
 #endif
 
 #endif // DB_RAWID_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

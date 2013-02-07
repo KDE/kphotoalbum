@@ -69,3 +69,4 @@ QString Browser::FlatCategoryModel::indexToName(const QModelIndex& index ) const
 {
     return _items[index.row()];
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

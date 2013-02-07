@@ -226,3 +226,4 @@ void Settings::GeneralPage::showHistogramChanged( int state ) const
 {
     MainWindow::Window::theMainWindow()->setHistogramVisibilty( state == Qt::Checked );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

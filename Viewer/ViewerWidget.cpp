@@ -1410,3 +1410,4 @@ void Viewer::ViewerWidget::invalidateThumbnail() const
 }
 
 #include "ViewerWidget.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

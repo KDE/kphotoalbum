@@ -106,3 +106,4 @@ const QMap<QString, QString>& ImportExport::CategoryMatchSetting::XMLtoDB() cons
     return m_XMLtoDB;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -54,3 +54,4 @@ void Viewer::TextDisplay::setText( const QString text )
 }
 
 #include "TextDisplay.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

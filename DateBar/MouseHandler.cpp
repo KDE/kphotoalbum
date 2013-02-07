@@ -224,3 +224,4 @@ bool DateBar::SelectionHandler::hasSelection() const
 
 
 #include "MouseHandler.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

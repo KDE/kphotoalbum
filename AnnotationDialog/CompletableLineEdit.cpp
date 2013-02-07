@@ -193,3 +193,4 @@ void AnnotationDialog::CompletableLineEdit::mergePreviousImageSelection()
 }
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

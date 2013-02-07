@@ -58,3 +58,4 @@ private:
 } // namespace ImageManager
 
 #endif // IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

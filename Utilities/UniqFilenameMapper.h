@@ -69,3 +69,4 @@ private:
 };
 }
 #endif /* UTILITIES_UNIQ_FILENAME_MAPPER_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

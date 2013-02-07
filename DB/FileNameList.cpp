@@ -51,3 +51,4 @@ DB::FileNameList DB::FileNameList::reversed() const
     }
     return res;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

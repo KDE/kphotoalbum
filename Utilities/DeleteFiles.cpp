@@ -93,3 +93,4 @@ bool DeleteFiles::_deleteFiles(const DB::FileNameList &files, DeleteMethod metho
 
 
 } // namespace Utilities
+// vi:expandtab:tabstop=4 shiftwidth=4:

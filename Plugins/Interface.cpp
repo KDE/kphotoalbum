@@ -143,3 +143,4 @@ KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget* parent)
 
 #include "Interface.moc"
 #endif // KIPI
+// vi:expandtab:tabstop=4 shiftwidth=4:

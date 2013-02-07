@@ -111,3 +111,4 @@ ImportExport::Import::~Import()
     delete m_tmp;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

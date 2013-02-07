@@ -107,3 +107,4 @@ void ImageManager::VideoLengthExtractor::processEnded()
     m_process->deleteLater();
     m_process = 0;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

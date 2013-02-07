@@ -794,3 +794,4 @@ void DateBar::DateBarWidget::wheelEvent( QWheelEvent * e )
 }
 
 #include "DateBarWidget.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

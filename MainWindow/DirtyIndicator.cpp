@@ -77,3 +77,4 @@ bool MainWindow::DirtyIndicator::isAutoSaveDirty() const
 
 
 #include "DirtyIndicator.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

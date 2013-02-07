@@ -48,3 +48,4 @@ private:
 
 #endif /* TOKENEDITOR_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

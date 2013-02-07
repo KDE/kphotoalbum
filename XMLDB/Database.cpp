@@ -656,3 +656,4 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     }
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

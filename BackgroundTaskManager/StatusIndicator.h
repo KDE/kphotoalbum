@@ -53,3 +53,4 @@ private:
 } // namespace BackgroundTaskManager
 
 #endif // BACKGROUNDTASKS_STATUSINDICATOR_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

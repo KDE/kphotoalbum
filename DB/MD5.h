@@ -120,3 +120,4 @@ namespace DB
 }
 
 #endif /* DB_MD5_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

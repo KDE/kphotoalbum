@@ -61,3 +61,4 @@ void ThumbnailView::SelectionMaintainer::disable()
 {
     m_enabled = false;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

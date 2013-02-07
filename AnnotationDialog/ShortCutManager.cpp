@@ -77,3 +77,4 @@ void AnnotationDialog::ShortCutManager::addTaken( const QString& text )
     if ( index != -1 )
         m_taken.insert( text[index+1].toLower() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

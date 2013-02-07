@@ -49,3 +49,4 @@ private:
 
 #endif /* VIEWER_TEXTDISPLAY_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

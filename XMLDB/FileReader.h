@@ -63,3 +63,4 @@ private:
 
 #endif /* XMLDB_FILEREADER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

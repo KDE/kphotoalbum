@@ -67,3 +67,4 @@ private:
 } // namespace Exif
 
 #endif // EXIF_GRID_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

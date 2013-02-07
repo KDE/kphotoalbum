@@ -106,3 +106,4 @@ void ImageManager::VideoThumbnails::cancelPrevioiusJobs()
     }
     m_activeRequests.clear();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

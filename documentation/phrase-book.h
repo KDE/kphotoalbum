@@ -24,3 +24,4 @@
    <h2>Tagging</h2>
    Consider the suggestion from bug <a href="https://bugs.kde.org/show_bug.cgi?id=145530">#145530</a>
 */
+// vi:expandtab:tabstop=4 shiftwidth=4:

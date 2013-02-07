@@ -24,3 +24,4 @@ Viewer::AbstractDisplay::AbstractDisplay( QWidget* parent )
 }
 
 #include "AbstractDisplay.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

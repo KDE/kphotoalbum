@@ -55,3 +55,4 @@ void Plugins::ImageCollectionSelector::showEvent(QShowEvent *event) {
 }
 
 #endif // HASKIPI
+// vi:expandtab:tabstop=4 shiftwidth=4:

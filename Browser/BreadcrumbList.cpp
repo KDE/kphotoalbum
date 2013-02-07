@@ -43,3 +43,4 @@ QString Browser::BreadcrumbList::toString() const
 
     return list.join( QString::fromLatin1(" > ") );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

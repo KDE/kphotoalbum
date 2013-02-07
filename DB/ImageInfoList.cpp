@@ -133,3 +133,4 @@ DB::FileNameList ImageInfoList::files() const
         res.append(info->fileName());
     return res;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

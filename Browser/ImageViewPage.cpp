@@ -60,3 +60,4 @@ Browser::Breadcrumb Browser::ImageViewPage::breadcrumb() const
 {
     return Breadcrumb::view();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

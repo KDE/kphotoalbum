@@ -29,3 +29,4 @@ bool ImageManager::PreloadRequest::stillNeeded() const
 {
     return !ThumbnailCache::instance()->contains( databaseFileName() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -79,3 +79,4 @@ bool operator<( const QPoint&, const QPoint& );
 
 #endif /* UTIL_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -141,3 +141,4 @@ void ThumbnailView::CellGeometry::calculateCellTextGeometry()
 }
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

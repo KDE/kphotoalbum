@@ -224,3 +224,4 @@ void Settings::CategoryPage::loadSettings( Settings::SettingsData* opt )
 
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -132,3 +132,4 @@ void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
     else
         setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

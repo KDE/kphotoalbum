@@ -34,3 +34,4 @@ namespace XMLDB {
 
 #endif /* NUMBEREDBACKUP_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

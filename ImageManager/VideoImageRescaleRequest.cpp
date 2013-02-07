@@ -34,3 +34,4 @@ DB::FileName ImageManager::VideoImageRescaleRequest::fileSystemFileName() const
     return m_path;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

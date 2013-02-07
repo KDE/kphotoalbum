@@ -4,3 +4,4 @@
 
   For a description of the themes, please refer to \ref html-themes
 **/
+// vi:expandtab:tabstop=4 shiftwidth=4:

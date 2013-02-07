@@ -14,3 +14,4 @@
  * <li> \ref VideoShooter - Utility class helping with taking a screenshot of a video frame
  * </ul>
  */
+// vi:expandtab:tabstop=4 shiftwidth=4:

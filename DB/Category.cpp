@@ -220,3 +220,4 @@ QString DB::Category::fileForCategoryImage( const QString& category, QString mem
 
 
 #include "Category.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

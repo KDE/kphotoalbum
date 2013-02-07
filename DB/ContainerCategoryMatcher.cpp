@@ -43,3 +43,4 @@ void DB::ContainerCategoryMatcher::setShouldCreateMatchedSet(bool b)
         matcher->setShouldCreateMatchedSet( b );
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

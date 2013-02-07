@@ -47,3 +47,4 @@
   ShortCutManager, which takes care of this.
 
 **/
+// vi:expandtab:tabstop=4 shiftwidth=4:

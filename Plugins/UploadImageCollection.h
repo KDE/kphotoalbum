@@ -38,3 +38,4 @@ private:
 } // namespace Plugins
 
 #endif // PLUGINS_UPLOADIMAGECOLLECTION_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -89,3 +89,4 @@ int main( int argc, char** argv ) {
         qFatal("Unknown exception caught");
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

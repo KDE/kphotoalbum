@@ -40,3 +40,4 @@ private:
 
 #endif /* MEDIACOUNT_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

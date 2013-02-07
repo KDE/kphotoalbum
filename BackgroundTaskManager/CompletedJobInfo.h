@@ -38,3 +38,4 @@ private:
 } // namespace BackgroundTaskManager
 
 #endif // BACKGROUNDTASKS_COMPLETEDJOBINFO_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

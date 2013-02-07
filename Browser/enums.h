@@ -29,3 +29,4 @@ const int ValueRole = Qt::UserRole + 2;
 
 #endif /* BROWSER_ENUMS_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

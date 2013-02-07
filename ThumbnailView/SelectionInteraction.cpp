@@ -81,3 +81,4 @@ bool ThumbnailView::SelectionInteraction::isDragging() const
 }
 
 #include "SelectionInteraction.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

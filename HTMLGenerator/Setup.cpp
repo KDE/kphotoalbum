@@ -184,3 +184,4 @@ bool HTMLGenerator::Setup::inlineMovies() const
     return _inlineMovies;
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

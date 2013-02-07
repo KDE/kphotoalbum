@@ -72,3 +72,4 @@ MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
 }
 
 #include "MiniViewer.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

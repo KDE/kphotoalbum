@@ -166,3 +166,4 @@ void XMLDB::XMLCategory::setShouldSave( bool b)
 }
 
 #include "XMLCategory.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

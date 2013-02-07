@@ -78,3 +78,4 @@ private:
 
 #endif /* IMPORTHANDLER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

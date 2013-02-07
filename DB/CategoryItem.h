@@ -48,3 +48,4 @@ typedef KSharedPtr<CategoryItem> CategoryItemPtr;
 
 #endif /* DB_CATEGORYITEMS_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -96,3 +96,4 @@ void MainWindow::RunDialog::show()
     KDialog::show();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

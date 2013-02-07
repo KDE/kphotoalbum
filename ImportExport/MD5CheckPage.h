@@ -60,3 +60,4 @@ private:
 
 #endif /* MD5CHECKPAGE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

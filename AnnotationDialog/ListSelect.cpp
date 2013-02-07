@@ -690,3 +690,4 @@ QWidget* AnnotationDialog::ListSelect::lineEdit()
 }
 
 #include "ListSelect.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

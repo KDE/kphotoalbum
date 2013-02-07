@@ -40,3 +40,4 @@
    \li you have an instance variable of the given class (MyClass _class).
 
 */
+// vi:expandtab:tabstop=4 shiftwidth=4:

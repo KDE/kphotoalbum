@@ -533,3 +533,4 @@ Setup HTMLGenerator::HTMLDialog::setup() const
 }
 
 #include "HTMLDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -163,3 +163,4 @@ void Settings::SettingsDialog::showBackendPage()
     setCurrentPage(_backendPage);
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

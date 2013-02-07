@@ -88,3 +88,4 @@ void Viewer::VideoShooter::doShoot()
 
     qApp->restoreOverrideCursor();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

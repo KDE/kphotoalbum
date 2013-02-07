@@ -73,3 +73,4 @@ bool DB::CategoryItem::hasChild( const QString& child )
 
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

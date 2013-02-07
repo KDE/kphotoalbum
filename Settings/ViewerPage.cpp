@@ -110,3 +110,4 @@ void Settings::ViewerPage::saveSettings( Settings::SettingsData* opt )
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -238,3 +238,4 @@ Exif::Metadata Exif::Info::metadata( const DB::FileName& fileName )
     return Exif::Metadata();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

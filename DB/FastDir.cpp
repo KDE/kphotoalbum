@@ -36,3 +36,4 @@ QStringList DB::FastDir::entryList() const
     return answer;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

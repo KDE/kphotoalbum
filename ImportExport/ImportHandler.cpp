@@ -315,3 +315,4 @@ void ImportExport::ImportHandler::updateCategories( DB::ImageInfoPtr XMLInfo, DB
     }
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

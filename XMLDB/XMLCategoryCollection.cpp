@@ -95,3 +95,4 @@ void XMLDB::XMLCategoryCollection::initIdMap()
 }
 
 #include "XMLCategoryCollection.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

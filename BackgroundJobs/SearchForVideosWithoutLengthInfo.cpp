@@ -59,3 +59,4 @@ QString BackgroundJobs::SearchForVideosWithoutLengthInfo::details() const
 {
     return QString();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

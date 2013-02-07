@@ -695,3 +695,4 @@ QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> ca
     return description;
 }
 #include "Generator.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

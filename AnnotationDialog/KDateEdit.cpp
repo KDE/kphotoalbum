@@ -358,3 +358,4 @@ void AnnotationDialog::KDateEdit::slotTextChanged(const QString &)
 {
     mTextChanged = true;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -40,3 +40,4 @@ private:
 }
 
 #endif // VIDEOIMAGERESCALEREQUEST_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

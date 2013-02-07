@@ -46,3 +46,4 @@ private:
 } // namespace Utilities
 
 #endif // UTILITIES_DELETEFILES_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,3 +19,4 @@
   All settings on the configuration pages are stored in SettingsData, which
   is the interface the rest of the application uses.
 **/
+// vi:expandtab:tabstop=4 shiftwidth=4:

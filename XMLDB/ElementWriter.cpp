@@ -41,3 +41,4 @@ ElementWriter::~ElementWriter()
     if ( m_haveWrittenStartTag)
         m_writer.writeEndElement();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -67,3 +67,4 @@ bool Browser::Breadcrumb::isView() const
 {
     return _isView;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

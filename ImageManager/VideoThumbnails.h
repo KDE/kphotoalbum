@@ -64,3 +64,4 @@ private:
 
 }
 #endif // IMAGEMANAGER_VIDEOTHUMBNAILS_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

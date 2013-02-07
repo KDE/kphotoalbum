@@ -71,3 +71,4 @@
   from \ref AbstractCategoryModel, which has some common code for the two.
 
 **/
+// vi:expandtab:tabstop=4 shiftwidth=4:

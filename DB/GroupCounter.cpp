@@ -112,3 +112,4 @@ QMap<QString,uint> GroupCounter::result()
     }
     return res;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

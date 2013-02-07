@@ -48,3 +48,4 @@ protected slots:
 
 #endif /* IMAGEROW_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -37,3 +37,4 @@
    \li \ref BackgroundTaskManager
    \li \ref BackgroundJobs - Jobs for the BackgroundTaskManager
  */
+// vi:expandtab:tabstop=4 shiftwidth=4:

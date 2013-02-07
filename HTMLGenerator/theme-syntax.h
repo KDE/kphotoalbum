@@ -123,3 +123,4 @@
    HTMLGenerator dialog. E.g. keywords and image description.
 
 **/
+// vi:expandtab:tabstop=4 shiftwidth=4:

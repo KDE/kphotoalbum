@@ -277,3 +277,4 @@ DB::MemberMap* Settings::SubCategoriesPage::memberMap()
     return &_memberMap;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

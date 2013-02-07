@@ -155,3 +155,4 @@ KUrl Plugins::ImageCollection::uploadRoot()
 }
 
 #endif // KIPI
+// vi:expandtab:tabstop=4 shiftwidth=4:

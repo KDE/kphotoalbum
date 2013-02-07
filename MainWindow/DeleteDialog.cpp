@@ -90,3 +90,4 @@ void DeleteDialog::deleteImages()
 }
 
 #include "DeleteDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

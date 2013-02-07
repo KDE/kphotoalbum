@@ -40,3 +40,4 @@ public:
 
 #endif /* BREADCRUMBLIST_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

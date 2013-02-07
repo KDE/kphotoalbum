@@ -193,3 +193,4 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
  */
 
 #include "ImageDB.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

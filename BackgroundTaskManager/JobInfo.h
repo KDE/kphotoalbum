@@ -62,3 +62,4 @@ private:
 
 }
 #endif // JOBINFO_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -88,3 +88,4 @@ void Viewer::SpeedDisplay::setAlphaChannel(int alpha)
 }
 
 #include "SpeedDisplay.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

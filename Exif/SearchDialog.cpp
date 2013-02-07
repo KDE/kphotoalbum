@@ -390,3 +390,4 @@ void Exif::SearchDialog::toFocalLengthChanged( int val )
 
 
 #include "SearchDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

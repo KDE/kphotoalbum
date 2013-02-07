@@ -98,3 +98,4 @@ void Exif::TreeView::reload()
 }
 
 #include "TreeView.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

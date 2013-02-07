@@ -132,3 +132,4 @@ void BackgroundTaskManager::JobManager::togglePaused()
     m_isPaused = !m_isPaused;
     execute();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

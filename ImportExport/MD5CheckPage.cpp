@@ -194,3 +194,4 @@ QMap<QString, ImportExport::ImportSettings::ImportAction> ImportExport::MD5Check
     return res;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

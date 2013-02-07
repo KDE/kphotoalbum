@@ -293,3 +293,4 @@ Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
 
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

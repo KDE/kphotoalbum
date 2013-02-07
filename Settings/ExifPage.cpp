@@ -75,3 +75,4 @@ void Settings::ExifPage::loadSettings( Settings::SettingsData* opt )
     _exifForDialog->setSelectedExif( Settings::SettingsData::instance()->exifForDialog() );
     _iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toAscii() ) ) );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

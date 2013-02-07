@@ -286,3 +286,4 @@ void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect
 }
 
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

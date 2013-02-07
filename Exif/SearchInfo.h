@@ -70,3 +70,4 @@ private:
 
 #endif /* EXIFSEARCHINFO_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -725,3 +725,4 @@ void Viewer::ImageDisplay::hideEvent(QHideEvent *)
 }
 
 #include "ImageDisplay.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

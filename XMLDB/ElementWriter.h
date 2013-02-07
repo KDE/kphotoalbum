@@ -36,3 +36,4 @@ private:
 };
 
 #endif // ELEMENTWRITER_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

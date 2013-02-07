@@ -205,3 +205,4 @@ QImage AnnotationDialog::ImagePreview::rotateAndScale(QImage img, int width, int
 
 
 #include "ImagePreview.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

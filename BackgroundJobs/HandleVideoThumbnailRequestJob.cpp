@@ -104,3 +104,4 @@ QImage HandleVideoThumbnailRequestJob::brokenImage() const
 }
 
 } // namespace BackgroundJobs
+// vi:expandtab:tabstop=4 shiftwidth=4:

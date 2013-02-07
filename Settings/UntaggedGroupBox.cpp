@@ -108,3 +108,4 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
         opt->setUntaggedTag( _tag->currentText() );
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

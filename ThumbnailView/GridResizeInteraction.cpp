@@ -100,3 +100,4 @@ void ThumbnailView::GridResizeInteraction::enterGridResizingMode()
     widget()->verticalScrollBar()->setValue(0);
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

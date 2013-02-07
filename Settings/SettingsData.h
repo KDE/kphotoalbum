@@ -237,3 +237,4 @@ private:
 
 
 #endif /* SETTINGS_SETTINGS_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

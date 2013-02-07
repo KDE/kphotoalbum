@@ -94,3 +94,4 @@ void ThumbnailView::VideoThumbnailCycler::stopCycle()
     m_fileName = DB::FileName();
     m_timer->stop();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

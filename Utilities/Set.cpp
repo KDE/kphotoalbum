@@ -24,3 +24,4 @@ bool Utilities::overlap( const StringSet& set1, const StringSet& set2 )
     return !tmp.isEmpty();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

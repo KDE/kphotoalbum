@@ -213,3 +213,4 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
     highlightTotalRow( totalRow );
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

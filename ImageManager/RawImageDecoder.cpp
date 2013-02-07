@@ -244,3 +244,4 @@ bool RAWImageDecoder::_skipThisFile( const DB::FileNameSet& loadedFiles, const D
 }
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

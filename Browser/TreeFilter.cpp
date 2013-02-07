@@ -61,3 +61,4 @@ void TreeFilter::resetCache()
 {
     _matchedMap.clear();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -38,3 +38,4 @@ void Utilities::ShowBusyCursor::stop()
         _active=false;
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

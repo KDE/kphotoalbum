@@ -83,3 +83,4 @@ Utilities::closure(const QMap<T, QSet<T> >& map)
 
 INSTANTIATE_PAIRSTOMAP(QString);
 INSTANTIATE_CLOSURE(QString);
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -66,3 +66,4 @@ void CategoryListView::DragItemInfo::setChild( const QString& str )
 {
     _child = str;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

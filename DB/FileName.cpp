@@ -96,3 +96,4 @@ uint DB::qHash( const DB::FileName& fileName )
 {
     return qHash(fileName.relative());
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -75,3 +75,4 @@ bool Utilities::BooleanGuard::canContinue()
 {
     return _iLocedIt;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

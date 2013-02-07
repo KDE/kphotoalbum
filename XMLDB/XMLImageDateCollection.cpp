@@ -127,3 +127,4 @@ XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList& list)
     buildIndex();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -142,3 +142,4 @@ QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientatio
     return QVariant();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -209,3 +209,4 @@ void Settings::FileVersionDetectionPage::saveSettings( Settings::SettingsData* o
     opt->setCopyFileComponent( _copyFileComponent->text() );
     opt->setCopyFileReplacementComponent( _copyFileReplacementComponent->text() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

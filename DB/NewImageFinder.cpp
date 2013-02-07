@@ -363,3 +363,4 @@ void DB::NewImageFinder::markUnTagged( ImageInfoPtr info )
                            Settings::SettingsData::instance()->untaggedTag() );
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

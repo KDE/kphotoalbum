@@ -60,3 +60,4 @@ bool Viewer::InfoBoxResizer::isActive() const
 {
     return _active;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

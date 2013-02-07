@@ -136,3 +136,4 @@ QString Browser::TreeCategoryModel::indexToName(const QModelIndex& index ) const
     return data->name;
 
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

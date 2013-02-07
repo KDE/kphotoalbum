@@ -46,3 +46,4 @@ protected:
 
 #endif /* VIEWER_DISPLAY_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

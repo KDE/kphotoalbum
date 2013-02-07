@@ -32,3 +32,4 @@ ImageManager::ImageRequest * ImageManager::CancelEvent::request() const
 {
     return m_request;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -42,3 +42,4 @@ public:
 }
 
 #endif // SEARCHFORVIDEOSWITHOUTVIDEOTHUMBNAILSJOB_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

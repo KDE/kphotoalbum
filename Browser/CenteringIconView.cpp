@@ -121,3 +121,4 @@ int Browser::CenteringIconView::availableHeight() const
     return height()-10;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

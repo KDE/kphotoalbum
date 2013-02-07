@@ -48,3 +48,4 @@ private:
 
 #endif /* ANNOTATIONDIALOG_SHOWSELECTIONONLYMANAGER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

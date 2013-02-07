@@ -98,3 +98,4 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
 }
 
 } // namespace ImageManager
+// vi:expandtab:tabstop=4 shiftwidth=4:

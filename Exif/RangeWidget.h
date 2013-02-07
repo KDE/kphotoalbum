@@ -61,3 +61,4 @@ private:
 
 #endif /* RANGEWIDGET_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

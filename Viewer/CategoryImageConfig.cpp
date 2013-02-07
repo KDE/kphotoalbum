@@ -185,3 +185,4 @@ void CategoryImageConfig::show()
 }
 
 #include "CategoryImageConfig.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

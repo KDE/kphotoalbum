@@ -117,3 +117,4 @@ namespace XMLDB {
 
 #endif /* XMLDB_DATABSE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

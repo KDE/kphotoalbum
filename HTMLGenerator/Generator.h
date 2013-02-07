@@ -93,3 +93,4 @@ private:
 
 #endif /* HTMLGENERATOR_GENERATOR_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

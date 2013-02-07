@@ -152,3 +152,4 @@ QSize ImageManager::ImageRequest::size() const
     return QSize( _width, _height );
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

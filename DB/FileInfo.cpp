@@ -159,3 +159,4 @@ int DB::FileInfo::orientationToAngle( int orientation )
     return 0;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

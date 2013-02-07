@@ -219,3 +219,4 @@ void ImageManager::ThumbnailCache::removeThumbnail( const DB::FileName& fileName
     m_map.remove( fileName );
     save();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

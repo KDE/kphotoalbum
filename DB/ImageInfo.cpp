@@ -596,3 +596,4 @@ bool DB::ImageInfo::updateDateInformation( int mode ) const
     return Settings::SettingsData::instance()->trustTimeStamps();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -216,3 +216,4 @@ void Exif::Grid::setFileName(const DB::FileName &fileName)
     m_fileName = fileName;
     setupUI( Settings::SettingsData::instance()->iptcCharset() );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

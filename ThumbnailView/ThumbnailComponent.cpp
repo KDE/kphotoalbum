@@ -53,3 +53,4 @@ const ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget(
     return _factory->widget();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

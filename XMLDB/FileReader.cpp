@@ -405,3 +405,4 @@ QWidget *XMLDB::FileReader::messageParent()
     return MainWindow::Window::theMainWindow();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

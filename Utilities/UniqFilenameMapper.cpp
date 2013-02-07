@@ -65,3 +65,4 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
     _uniqFiles.insert(uniqFile);
     return uniqFile;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

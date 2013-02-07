@@ -51,3 +51,4 @@ DB::FileNameSet DB::MD5Map::diff( const MD5Map& other ) const
 
     return res;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

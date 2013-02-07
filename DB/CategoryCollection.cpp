@@ -46,3 +46,4 @@ QString CategoryCollection::nameForText( const QString& text )
 }
 
 #include "CategoryCollection.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -65,3 +65,4 @@ private:
 
 #endif /* STATUSBAR_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -68,3 +68,4 @@ private:
 
 #endif /* BROWSERPAGE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

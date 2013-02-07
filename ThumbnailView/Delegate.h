@@ -49,3 +49,4 @@ private:
 
 #endif /* DELEGATE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

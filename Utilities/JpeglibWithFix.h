@@ -49,3 +49,4 @@ extern "C" {
 #undef HAVE_STDLIB_H_WAS_DEFINED
 
 #endif /* UTILITIES_JPEGLIBWITHFIX_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

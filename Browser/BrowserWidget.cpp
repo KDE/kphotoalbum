@@ -458,3 +458,4 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
 
 #include "BrowserWidget.moc"
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

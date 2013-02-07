@@ -135,3 +135,4 @@ void MainWindow::StatusBar::showStatusBar()
 {
     setProgressBarVisible( true );
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

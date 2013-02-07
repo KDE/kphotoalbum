@@ -128,3 +128,4 @@ void Exif::InfoDialog::enterEvent(QEvent *)
 }
 
 #include "InfoDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

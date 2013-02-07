@@ -406,3 +406,4 @@ void ImportExport::ImportDialog::possiblyAddMD5CheckPage()
 }
 
 #include "ImportDialog.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

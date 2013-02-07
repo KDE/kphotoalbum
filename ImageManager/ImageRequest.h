@@ -105,3 +105,4 @@ inline uint qHash(const ImageRequest& ir)
 }
 
 #endif /* IMAGEREQUEST_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

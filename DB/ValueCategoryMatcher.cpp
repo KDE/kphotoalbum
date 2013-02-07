@@ -50,3 +50,4 @@ bool DB::ValueCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
     return false;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

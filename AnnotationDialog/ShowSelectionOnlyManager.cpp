@@ -51,3 +51,4 @@ void AnnotationDialog::ShowSelectionOnlyManager::unlimitFromSelection()
 }
 
 #include "ShowSelectionOnlyManager.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

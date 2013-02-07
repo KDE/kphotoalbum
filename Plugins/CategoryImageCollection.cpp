@@ -44,3 +44,4 @@ KUrl::List Plugins::CategoryImageCollection::images()
     return stringListToUrlList( list );
 }
 #endif // KIPI
+// vi:expandtab:tabstop=4 shiftwidth=4:

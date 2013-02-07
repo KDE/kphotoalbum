@@ -46,3 +46,4 @@ enum StopAction { StopAll, StopOnlyNonPriorityLoads };
 
 
 #endif // IMAGEMANAGER_ENUMS_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

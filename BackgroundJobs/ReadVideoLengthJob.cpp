@@ -62,3 +62,4 @@ void BackgroundJobs::ReadVideoLengthJob::unableToDetermindLength()
     // PENDING(blackie) Should we mark these as trouble, so we don't try them over and over again?
     emit completed();
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

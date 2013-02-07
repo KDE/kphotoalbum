@@ -57,3 +57,4 @@ private:
 } // namespace BackgroundJobs
 
 #endif // BACKGROUNDJOBS_EXTRACTONETHUMBNAILJOB_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

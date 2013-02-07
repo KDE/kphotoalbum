@@ -173,3 +173,4 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
     }
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

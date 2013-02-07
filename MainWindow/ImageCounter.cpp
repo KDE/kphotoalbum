@@ -51,3 +51,4 @@ void MainWindow::ImageCounter::showBrowserMatches(uint matches )
 }
 
 #include "ImageCounter.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

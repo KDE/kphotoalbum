@@ -47,3 +47,4 @@ private:
 }
 
 #endif /* CATEGORYLISTVIEW_DragableTreeWidget_H */
+// vi:expandtab:tabstop=4 shiftwidth=4:

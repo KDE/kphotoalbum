@@ -51,3 +51,4 @@ private:
 
 #endif /* MD5MAP_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -82,3 +82,4 @@ DB::FileName UpdateVideoThumbnail::nextExistingImage(const DB::FileName &fileNam
 }
 
 } // namespace MainWindow
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -79,3 +79,4 @@ private:
 
 #endif /* VIEWER_VIDEODISPLAY_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

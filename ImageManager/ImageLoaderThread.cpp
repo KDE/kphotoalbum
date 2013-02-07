@@ -143,3 +143,4 @@ bool ImageManager::ImageLoaderThread::shouldImageBeScale( const QImage& img, Ima
 
     return true;
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

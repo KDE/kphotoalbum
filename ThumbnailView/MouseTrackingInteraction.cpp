@@ -64,3 +64,4 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
         lastFileNameUderCursor = fileName;
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

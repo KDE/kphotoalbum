@@ -129,3 +129,4 @@ INSTANTIATE_TOVARIANTLIST(QList<int>);
 INSTANTIATE_TOVARIANTLIST(QList<DB::RawId>);
 #endif
 INSTANTIATE_TOVARIANTLIST(QStringList);
+// vi:expandtab:tabstop=4 shiftwidth=4:

@@ -35,3 +35,4 @@ void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
     _shouldPrepareMatchedSet = b;
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

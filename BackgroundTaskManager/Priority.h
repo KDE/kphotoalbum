@@ -34,3 +34,4 @@ enum Priority {
 }
 
 #endif // BACKGROUNDTASKAMANAGER_PRIORITY_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

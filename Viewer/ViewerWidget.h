@@ -243,3 +243,4 @@ private:
 
 #endif /* VIEWER_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

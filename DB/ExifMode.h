@@ -36,3 +36,4 @@ Q_DECLARE_FLAGS(ExifMode, EXIFMODE_FLAG)
 
 #endif /* EXIFMODE_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

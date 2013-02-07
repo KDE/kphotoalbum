@@ -45,3 +45,4 @@ private:
 
 #endif /* SPLASHSCREEN_H */
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

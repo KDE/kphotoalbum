@@ -77,3 +77,4 @@ bool Settings::ViewerSizeConfig::launchFullScreen() const
 }
 
 #include "ViewerSizeConfig.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

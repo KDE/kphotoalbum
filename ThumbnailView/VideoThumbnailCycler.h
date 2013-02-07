@@ -63,3 +63,4 @@ private:
 
 }
 #endif // VIDEOTHUMBNAILCYCLER_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

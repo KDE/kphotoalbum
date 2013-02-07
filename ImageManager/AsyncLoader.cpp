@@ -171,3 +171,4 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         cancelEvent->request()->client()->requestCanceled();
     }
 }
+// vi:expandtab:tabstop=4 shiftwidth=4:

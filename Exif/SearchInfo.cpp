@@ -166,3 +166,4 @@ QString Exif::SearchInfo::buildCameraSearchQuery() const
         return QString();
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

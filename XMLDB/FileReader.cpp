@@ -91,14 +91,14 @@ QDomElement* blockList, QDomElement* memberGroups )
 
 void XMLDB::FileReader::createSpecialCategories()
 {
-    DB::CategoryPtr folderCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
-    if( folderCat.isNull() ) {
-        folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
+    _folderCategory = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    if( _folderCategory.isNull() ) {
+        _folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
                                      DB::Category::TreeView, 32, false );
-        _db->_categoryCollection.addCategory( folderCat );
+        _db->_categoryCollection.addCategory( _folderCategory );
     }
-    folderCat->setSpecialCategory( true );
-    dynamic_cast<XMLCategory*>( folderCat.data() )->setShouldSave( false );
+    _folderCategory->setSpecialCategory( true );
+    dynamic_cast<XMLCategory*>( _folderCategory.data() )->setShouldSave( false );
 
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
@@ -307,7 +307,7 @@ DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElem
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
-    info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
+    info->createFolderCategoryItem( _folderCategory, _db->_members );
     return info;
 }
 

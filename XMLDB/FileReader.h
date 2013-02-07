@@ -57,6 +57,9 @@ private:
     Database* const _db;
     int _fileVersion;
     DB::StackID _nextStackId;
+
+    // During profilation I found that it was rather expensive to look this up over and over again (once for each image)
+    DB::CategoryPtr _folderCategory;
 };
 
 }

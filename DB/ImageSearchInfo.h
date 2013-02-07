@@ -43,7 +43,7 @@ public:
                      const QString& label, const QString& description );
     ImageSearchInfo( const ImageDate& date,
                      const QString& label, const QString& description,
-		     const QString& fnPattern );
+             const QString& fnPattern );
     ImageSearchInfo( const ImageSearchInfo& other );
 
     ImageDate date() const;

@@ -104,7 +104,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _showSelectedOnly->setIcon( SmallIcon( QString::fromLatin1( "view-filter" ) ) );
     _showSelectedOnly->setCheckable( true );
     _showSelectedOnly->setToolTip( i18n("Show only selected Ctrl+S") );
-	_showSelectedOnly->setChecked( ShowSelectionOnlyManager::instance().selectionIsLimited() );
+    _showSelectedOnly->setChecked( ShowSelectionOnlyManager::instance().selectionIsLimited() );
 
     _alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
@@ -212,7 +212,7 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
     QString text = _lineEdit->text();
     rePopulate();
     _lineEdit->setText( text );
-    setMode( _mode );	// generate the ***NONE*** entry if in search mode
+    setMode( _mode ); // generate the ***NONE*** entry if in search mode
 
     _alphaTreeSort->setChecked( tp == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( tp == Settings::SortAlphaFlat );
@@ -252,11 +252,11 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
             QString end =  _lineEdit->text().mid(index);
 
             res = start;
-	    if ( !start.isEmpty() && !start.contains( regEnd ) )
-		res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
+        if ( !start.isEmpty() && !start.contains( regEnd ) )
+        res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
             res += txt;
-	    if ( !end.isEmpty() && !end.contains( regStart ) )
-		res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
+        if ( !end.isEmpty() && !end.contains( regStart ) )
+        res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
             res += end;
         }
         else {

@@ -68,10 +68,10 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
     standardSizeLabel->setBuddy( _viewerStandardSize );
 
     txt = i18n("<p>Set the standard size for images to be displayed in the viewer.</p> "
-	       "<p><b>Full Viewer Size</b> indicates that the image will be stretched or shrunk to fill the viewer window.</p> "
-	       "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
-	       "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
-	       "otherwise it will be shrunk to fit the viewer.</p>");
+           "<p><b>Full Viewer Size</b> indicates that the image will be stretched or shrunk to fill the viewer window.</p> "
+           "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
+           "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
+           "otherwise it will be shrunk to fit the viewer.</p>");
     _viewerStandardSize->setWhatsThis( txt);
 
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), this );
@@ -82,7 +82,7 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
     glay->addWidget( scalingLabel, 3, 0 );
     glay->addWidget( _smoothScale, 3, 1 );
     txt = i18n("<p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
-		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
+               "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
     scalingLabel->setWhatsThis( txt );
     _smoothScale->setWhatsThis( txt );
 }

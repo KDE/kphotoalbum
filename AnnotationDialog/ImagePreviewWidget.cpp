@@ -166,7 +166,7 @@ void ImagePreviewWidget::slotDeleteImage()
 
     int ret = dialog.exec( deleteList );
     if ( ret == QDialog::Rejected ) //Delete Dialog rejected, do nothing
-	  return;
+      return;
 
   emit imageDeleted( _imageList->at( _current ) );
 

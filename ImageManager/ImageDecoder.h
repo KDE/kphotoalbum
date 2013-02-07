@@ -33,10 +33,10 @@ public:
     static bool decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1 );
     static bool mightDecode( const DB::FileName& imageFile );
 
-	virtual ~ImageDecoder();
+    virtual ~ImageDecoder();
 
 protected:
-	ImageDecoder();
+    ImageDecoder();
     virtual bool _decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1 ) = 0;
     virtual bool _mightDecode( const DB::FileName& imageFile ) = 0;
 

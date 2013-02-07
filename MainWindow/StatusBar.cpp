@@ -72,8 +72,8 @@ void MainWindow::StatusBar::setupGUI()
     _partial = new ImageCounter( this );
     addPermanentWidget( _partial, 0 );
 
-	_selected = new ImageCounter( this );
-	addPermanentWidget( _selected, 0);
+    _selected = new ImageCounter( this );
+    addPermanentWidget( _selected, 0);
 
     ImageCounter* total = new ImageCounter( this );
     addPermanentWidget( total, 0 );

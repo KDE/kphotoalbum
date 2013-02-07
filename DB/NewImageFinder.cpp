@@ -94,18 +94,18 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
-	if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
+    if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
                 excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
                 dec._skipThisFile(loadedFiles, file) ||
                 (*it) == QString::fromLatin1("CategoryImages") )
-	    continue;
+        continue;
 
         QFileInfo fi( file.absolute() );
 
-	    if ( !fi.isReadable() )
-	        continue;
-	    if ( skipSymlinks && fi.isSymLink() )
-	        continue;
+        if ( !fi.isReadable() )
+            continue;
+        if ( skipSymlinks && fi.isSymLink() )
+            continue;
 
         if ( fi.isFile() ) {
             if ( ! DB::ImageDB::instance()->isBlocking( file ) ) {
@@ -308,7 +308,7 @@ bool  NewImageFinder::calculateMD5sums(
     QProgressDialog dialog;
     dialog.setLabelText(
         i18np("<p><b>Calculating checksum for %1 file</b></p>","<p><b>Calculating checksums for %1 files</b></p>", list.size())
-		+ i18n("<p>By storing a checksum for each image "
+        + i18n("<p>By storing a checksum for each image "
              "KPhotoAlbum is capable of finding images "
              "even when you have moved them on the disk.</p>"));
     dialog.setMaximum(list.size());

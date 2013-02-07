@@ -226,7 +226,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
 
     int row = currentIndex().row();
     if (row == -1)
-	return;
+    return;
 
     DB::FileName fileName = model()->imageAt( row );
     if ( fileName.isNull() )

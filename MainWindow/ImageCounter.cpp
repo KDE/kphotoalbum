@@ -34,10 +34,10 @@ void MainWindow::ImageCounter::setMatchCount( uint matches )
 
 void MainWindow::ImageCounter::setSelectionCount( uint selected )
 {
-	if ( selected > 0 )
-		setText( i18n( "(%1 selected)", selected ) );
-	else
-		setText( QString() );
+    if ( selected > 0 )
+        setText( i18n( "(%1 selected)", selected ) );
+    else
+        setText( QString() );
 }
 
 void MainWindow::ImageCounter::setTotal( uint c )

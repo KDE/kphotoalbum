@@ -169,9 +169,9 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     rx.setCaseSensitivity( Qt::CaseInsensitive );
     position = rx.indexIn( content );
     if ( ( position += rx.matchedLength () ) < 0 )
-	content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
     else
-	content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
+    content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _setup.description() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _setup.title() );
@@ -233,7 +233,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     if (!Utilities::isVideo(fileName))
             images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
                   .arg( nameImage( fileName, width ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
-	else
+    else
             images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"" )
                     .arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( QFileInfo(fileName.absolute()).fileName() );
 
@@ -268,22 +268,22 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     
     // Adding TD elements to match the selected column amount for valid HTML
     if ( count % cols != 0 ) {
-	for ( int i = count; i % cols != 0; ++i ) {
-	    col = doc.createElement( QString::fromLatin1( "td" ) );
-	    col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
-	    QDomText sp =  doc.createTextNode( QString::fromLatin1( " " ) );
-	    col.appendChild( sp );
-	    row.appendChild( col );
-	}
+    for ( int i = count; i % cols != 0; ++i ) {
+        col = doc.createElement( QString::fromLatin1( "td" ) );
+        col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
+        QDomText sp =  doc.createTextNode( QString::fromLatin1( " " ) );
+        col.appendChild( sp );
+        row.appendChild( col );
+    }
     }
 
     content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
 
     content.replace( QString::fromLatin1( "**JSIMAGES**" ), images );
     if (!first.isEmpty())
-	content.replace( QString::fromLatin1( "**FIRST**" ), first );
+    content.replace( QString::fromLatin1( "**FIRST**" ), first );
     if (!last.isEmpty())
-	content.replace( QString::fromLatin1( "**LAST**" ), last );
+    content.replace( QString::fromLatin1( "**LAST**" ), last );
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
@@ -345,9 +345,9 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     rx.setCaseSensitivity( Qt::CaseInsensitive );
     position = rx.indexIn( content );
     if ( ( position += rx.matchedLength () ) < 0 )
-	content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
     else
-	content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
+    content.insert( position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) );
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
 
@@ -648,13 +648,13 @@ void HTMLGenerator::Generator::minImageSize(int& width, int& height)
     width = height = 0;
     for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
          sizeIt != _setup.activeResolutions().end(); ++sizeIt ) {
-	if ((width == 0) && ((*sizeIt)->width() > 0)) {
-	    width = (*sizeIt)->width();
-	    height = (*sizeIt)->height();
-	} else if ((*sizeIt)->width() > 0) {
+    if ((width == 0) && ((*sizeIt)->width() > 0)) {
+        width = (*sizeIt)->width();
+        height = (*sizeIt)->height();
+    } else if ((*sizeIt)->width() > 0) {
             width = qMin( width, (*sizeIt)->width() );
-	    height = qMin( height, (*sizeIt)->height());
-	}
+        height = qMin( height, (*sizeIt)->height());
+    }
     }
 }
 
@@ -675,7 +675,7 @@ QString HTMLGenerator::Generator::populateDescription( QList<DB::CategoryPtr> ca
      QString description;
 
     if (_setup.includeCategory(QString::fromLatin1("**DATE**")))
-	description += QString::fromLatin1 ( "<li> <b>%1</b> %2</li>" ).arg ( i18n("Date") ).arg ( info->date().toString() );
+    description += QString::fromLatin1 ( "<li> <b>%1</b> %2</li>" ).arg ( i18n("Date") ).arg ( info->date().toString() );
 
      for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )

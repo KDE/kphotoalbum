@@ -129,8 +129,8 @@ void HTMLDialog::createContentPage()
             QCheckBox* cb = new QCheckBox( (*it)->text(), whatToInclude );
             lay3->addWidget( cb, row, col%2 );
             _whatToIncludeMap.insert( (*it)->name(), cb );
-	    pattern->setPattern((*it)->name());
-	    cb->setChecked( pattern->indexIn (selectionsTmp)  >= 0 ? 1 : 0 );
+        pattern->setPattern((*it)->name());
+        cb->setChecked( pattern->indexIn (selectionsTmp)  >= 0 ? 1 : 0 );
             if ( ++col % 2 == 0 )
                 ++row;
         }
@@ -221,22 +221,22 @@ void HTMLDialog::createLayoutPage()
 
     QString tmp;
     if ((tmp = Settings::SettingsData::instance()->HTMLSizes()) != QString::fromLatin1("")) {
-	QStringMatcher* pattern = new QStringMatcher(QString::fromLatin1("320"));
-	size320->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
-	pattern->setPattern(QString::fromLatin1("640"));
-	size640->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
-	pattern->setPattern(QString::fromLatin1("800"));
-	size800->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0 );
-	pattern->setPattern(QString::fromLatin1("1024"));
-	size1024->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
-	pattern->setPattern(QString::fromLatin1("1280"));
-	size1280->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
-	pattern->setPattern(QString::fromLatin1("1600"));
-	size1600->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
-	pattern->setPattern(QString::fromLatin1("-1"));
-	sizeOrig->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+    QStringMatcher* pattern = new QStringMatcher(QString::fromLatin1("320"));
+    size320->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
+    pattern->setPattern(QString::fromLatin1("640"));
+    size640->setChecked( pattern->indexIn (tmp) >= 0 ? 1 : 0);
+    pattern->setPattern(QString::fromLatin1("800"));
+    size800->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0 );
+    pattern->setPattern(QString::fromLatin1("1024"));
+    size1024->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+    pattern->setPattern(QString::fromLatin1("1280"));
+    size1280->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+    pattern->setPattern(QString::fromLatin1("1600"));
+    size1600->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
+    pattern->setPattern(QString::fromLatin1("-1"));
+    sizeOrig->setChecked( pattern->indexIn (tmp)  >= 0 ? 1 : 0);
     } else
-	size800->setChecked( 1 );
+    size800->setChecked( 1 );
 
     _cbs << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
@@ -415,10 +415,10 @@ QString HTMLDialog::activeSizes() const
     QString res;
     for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() ) {
-	    if (res.length() > 0)
-		res.append(QString::fromLatin1(","));
+        if (res.length() > 0)
+        res.append(QString::fromLatin1(","));
             res.append(QString::number((*sizeIt)->width()));
-	}
+    }
     }
     return res;
 }
@@ -430,12 +430,12 @@ QString HTMLDialog::includeSelections() const
 
     for( QMap<QString,QCheckBox*>::ConstIterator it = _whatToIncludeMap.begin();
          it != _whatToIncludeMap.end(); ++it ) {
-	QString name = it.key();
+    QString name = it.key();
         if ( _setup.includeCategory(name) ) {
-	    if (sel.length() > 0)
-		sel.append(QString::fromLatin1(","));
+        if (sel.length() > 0)
+        sel.append(QString::fromLatin1(","));
             sel.append(name);
-	}
+    }
     }
     return sel;
 }
@@ -468,8 +468,8 @@ void HTMLDialog::populateThemesCombo()
             _themes.insert( i, themePath );
             
             if (themeDefault == QString::fromLatin1("true")) {
-		theme = i;
-		defaultthemes++;
+        theme = i;
+        defaultthemes++;
             }
             i++;
         }

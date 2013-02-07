@@ -17,18 +17,18 @@ QStringList DB::FastDir::entryList() const
     dirent *file;
     dir = opendir( QFile::encodeName(_path) );
     if ( !dir )
-	return answer; // cannot read the directory
+    return answer; // cannot read the directory
 
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     union dirent_buf {
-	struct KDE_struct_dirent mt_file;
-	char b[sizeof(struct dirent) + MAXNAMLEN + 1];
+    struct KDE_struct_dirent mt_file;
+    char b[sizeof(struct dirent) + MAXNAMLEN + 1];
     } *u = new union dirent_buf;
     while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
 #else
     while ( (file = KDE_readdir(dir)) )
 #endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
-	answer.append(QFile::decodeName(file->d_name));
+    answer.append(QFile::decodeName(file->d_name));
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     delete u;
 #endif

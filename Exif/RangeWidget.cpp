@@ -25,20 +25,20 @@ Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, c
 {
     int col = 0;
 
-	// widget layout: <title text> <from_value> "to" <to_value>
-	// register title text:
+    // widget layout: <title text> <from_value> "to" <to_value>
+    // register title text:
     QLabel* label = new QLabel( text );
     layout->addWidget( label, row, col++);
 
-	// register from-field:
+    // register from-field:
     _from = new KComboBox;
     layout->addWidget(_from, row, col++);
 
-	// register filler between from- and to-field:
+    // register filler between from- and to-field:
     label = new QLabel( QString::fromLatin1( "to" ) );
     layout->addWidget(label, row, col++);
 
-	// register to-field:
+    // register to-field:
     _to = new KComboBox;
     layout->addWidget(_to, row, col++);
 

@@ -580,8 +580,8 @@ void Viewer::ViewerWidget::showPrevN(int n)
 
     if ( _current > 0  )  {
         _current -= n;
-	if (_current < 0)
-	  _current = 0;
+    if (_current < 0)
+      _current = 0;
         _forward = false;
         load();
     }

@@ -21,7 +21,7 @@
 using namespace DB;
 
 CategoryMatcher::CategoryMatcher()
-	: _shouldPrepareMatchedSet(false)
+    : _shouldPrepareMatchedSet(false)
 {
 }
 

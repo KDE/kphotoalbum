@@ -278,7 +278,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _rating->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
     lay9->addWidget( _rating, 0, Qt::AlignCenter );
     connect( _rating, SIGNAL( ratingChanged( unsigned int ) ), this, SLOT( slotRatingChanged( unsigned int ) ) );
-    
+
     _ratingSearchLabel = new QLabel( i18n("Rating search mode:") );
     lay9->addWidget( _ratingSearchLabel );
 
@@ -302,7 +302,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 
     _searchRAW = new QCheckBox( i18n("Search only for RAW files") );
     lay2->addWidget( _searchRAW );
-    
+
     lay9->addStretch( 1 );
     lay2->addStretch(1);
 
@@ -545,8 +545,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         const QDateTime start = _startDate->date().isNull() ? QDateTime() : QDateTime(_startDate->date());
         const QDateTime end = _endDate->date().isNull() ? QDateTime() : QDateTime( _endDate->date() );
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( start, end ),
-					  _imageLabel->text(), _description->toPlainText(),
-					  _imageFilePattern->text());
+                      _imageLabel->text(), _description->toPlainText(),
+                      _imageFilePattern->text());
 
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );
@@ -560,12 +560,12 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _ratingChanged = false;
         _oldSearch.setSearchMode( _ratingSearchMode->currentIndex() );
 #endif
-	_oldSearch.setMegaPixel( _megapixel->value() );
-	_oldSearch.setSearchRAW( _searchRAW->isChecked() );
+    _oldSearch.setMegaPixel( _megapixel->value() );
+    _oldSearch.setSearchRAW( _searchRAW->isChecked() );
         return _oldSearch;
     }
     else
-	return DB::ImageSearchInfo();
+    return DB::ImageSearchInfo();
 }
 
 void AnnotationDialog::Dialog::setup()
@@ -715,19 +715,19 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
 
     QFile file( QString::fromLatin1( "%1/layout.dat" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
     if ( !file.open( QIODevice::WriteOnly ) ) {
-		KMessageBox::sorry( this, 
-				i18n("<p>Could not save the window layout.</p>"
-					"File %1 could not be opened because of the following error: %2"
-					, file.fileName(), file.errorString() ) 
-				);
-	} else if ( ! ( file.write( data ) && file.flush() ) )
-	{
-		KMessageBox::sorry( this, 
-				i18n("<p>Could not save the window layout.</p>"
-					"File %1 could not be written because of the following error: %2"
-					, file.fileName(), file.errorString() ) 
-				);
-	}
+        KMessageBox::sorry( this,
+                i18n("<p>Could not save the window layout.</p>"
+                    "File %1 could not be opened because of the following error: %2"
+                    , file.fileName(), file.errorString() )
+                );
+    } else if ( ! ( file.write( data ) && file.flush() ) )
+    {
+        KMessageBox::sorry( this,
+                i18n("<p>Could not save the window layout.</p>"
+                    "File %1 could not be written because of the following error: %2"
+                    , file.fileName(), file.errorString() )
+                );
+    }
     file.close();
 }
 
@@ -848,7 +848,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     // CTRL+Del is a common key combination when editing text
     // TODO: The word right of cursor should be deleted as expected also in date and category fields
     if ( _setup == SearchMode )
-	return;
+    return;
 
     if( _setup == InputMultiImageConfigMode )  //TODO: probably delete here should mean remove from selection
       return;
@@ -1112,7 +1112,7 @@ void AnnotationDialog::Dialog::saveAndClose()
         }
     }
     else if ( _setup == InputMultiImageConfigMode ) {
-	for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
+    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             (*it)->slotReturn();
         }
 

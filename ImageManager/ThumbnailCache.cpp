@@ -47,15 +47,15 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
 {
     QFile file( fileNameForIndex(m_currentFile) );
     if ( ! file.open(QIODevice::ReadWrite ) )
-	{
-		qWarning("Failed to open thumbnail file for inserting");
-		return;
-	}
+    {
+        qWarning("Failed to open thumbnail file for inserting");
+        return;
+    }
     if ( ! file.seek( m_currentOffset ) )
-	{
-		qWarning("Failed to seek in thumbnail file");
-		return;
-	}
+    {
+        qWarning("Failed to seek in thumbnail file");
+        return;
+    }
 
     QByteArray data;
     QBuffer buffer( &data );
@@ -67,10 +67,10 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
 
     const int size = data.size();
     if ( ! ( file.write( data.data(), size ) == size && file.flush() ) )
-	{
-		qWarning("Failed to write image data to thumbnail file");
-		return;
-	}
+    {
+        qWarning("Failed to write image data to thumbnail file");
+        return;
+    }
     file.close();
 
     m_map.insert( name, CacheFileInfo( m_currentFile, m_currentOffset, size ) );
@@ -99,17 +99,17 @@ QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
 
     QFile file( fileNameForIndex( info.fileIndex ) );
     if ( !file.open( QIODevice::ReadOnly ) )
-	{
-		qWarning("Failed to open thumbnail file");
-		return QPixmap();
-	}
+    {
+        qWarning("Failed to open thumbnail file");
+        return QPixmap();
+    }
 
     const char* data = (const char*) file.map( info.offset, info.size );
-	if ( !data || QFile::NoError != file.error() )
-	{
-		qWarning("Failed to map thumbnail file");
-		return QPixmap();
-	}
+    if ( !data || QFile::NoError != file.error() )
+    {
+        qWarning("Failed to map thumbnail file");
+        return QPixmap();
+    }
     QByteArray array( data, info.size );
     QBuffer buffer( &array );
     buffer.open( QIODevice::ReadOnly );

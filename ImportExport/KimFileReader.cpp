@@ -34,7 +34,7 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( 0, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
         delete _zip;
-	_zip = 0;
+    _zip = 0;
         return false;
     }
 
@@ -42,8 +42,8 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
     if ( _dir == 0 ) {
         KMessageBox::error( 0, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
         delete _zip;
-	_zip = 0;
-	return false;
+    _zip = 0;
+    return false;
     }
 
 

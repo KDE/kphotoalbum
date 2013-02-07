@@ -101,7 +101,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             setSelection( selStart, prevContent.length() ); // Reset previous selection.
     }
 
-    if ( item )	{
+    if ( item ) {
         selectItemAndUpdateLineEdit( item, itemStart, input );
         _listSelect->showOnlyItemsMatching( input );
     }

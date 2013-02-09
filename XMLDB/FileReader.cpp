@@ -44,9 +44,9 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     _db->_members.setLoading( true );
     loadCategories( reader );
-    /*
-    loadImages( images );
-    loadBlockList( blockList );
+
+    loadImages( reader );
+    /*loadBlockList( blockList );
     loadMemberGroups( memberGroups );
     _db->_members.setLoading( false );
 
@@ -165,16 +165,11 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     createSpecialCategories();
 }
 
-void XMLDB::FileReader::loadImages( const QDomElement& images )
+void XMLDB::FileReader::loadImages( ReaderPtr reader )
 {
-    for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
-
-        const QString fileNameStr = elm.attribute( QString::fromLatin1("file") );
+    reader->readNextStartElement("images");
+    while (reader->readNextStartOrStopElement("image","images")) {
+        const QString fileNameStr = reader->attribute("file");
         if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
             return;
@@ -182,7 +177,7 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
 
         const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
 
-        DB::ImageInfoPtr info = load( dbFileName, elm );
+        DB::ImageInfoPtr info = load( dbFileName, reader );
         _db->_images.append(info);
         _db->_md5map.insert( info->MD5Sum(), dbFileName );
     }
@@ -292,9 +287,9 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 }
 
-DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPtr reader )
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
+    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, _db );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
     info->createFolderCategoryItem( _folderCategory, _db->_members );
     return info;

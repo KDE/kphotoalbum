@@ -112,8 +112,13 @@ bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
         QDomElement elm = node.toElement();
 
         const DB::FileName fileName = DB::FileName::fromRelativePath(elm.attribute(QString::fromLatin1( "file" )));
+#if 0
         DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm );
         _images.append( info );
+#else
+        qFatal("OHHHH MY GOD, I FORGOT TO REWORK THE IMPORT CODE!");
+#endif
+
     }
 
     return true;

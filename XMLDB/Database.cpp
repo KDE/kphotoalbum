@@ -298,16 +298,16 @@ DB::FileNameList XMLDB::Database::images()
 }
 
 DB::FileNameList XMLDB::Database::search(
-    const DB::ImageSearchInfo& info,
-    bool requireOnDisk) const
+        const DB::ImageSearchInfo& info,
+        bool requireOnDisk) const
 {
     return searchPrivate( info, requireOnDisk, true );
 }
 
 DB::FileNameList XMLDB::Database::searchPrivate(
-    const DB::ImageSearchInfo& info,
-    bool requireOnDisk,
-    bool onlyItemsMatchingRange) const
+        const DB::ImageSearchInfo& info,
+        bool requireOnDisk,
+        bool onlyItemsMatchingRange) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
@@ -338,13 +338,13 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return KSharedPtr<DB::ImageDateCollection>(
-        new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false)));
+                new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false)));
 }
 
 void XMLDB::Database::reorder(
-    const DB::FileName& item,
-    const DB::FileNameList& selection,
-    bool after)
+        const DB::FileName& item,
+        const DB::FileNameList& selection,
+        bool after)
 {
     Q_ASSERT(!item.isNull());
     DB::ImageInfoList list = takeImagesFromSelection(selection);
@@ -388,9 +388,9 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
 }
 
 void XMLDB::Database::insertList(
-    const DB::FileName& fileName,
-    const DB::ImageInfoList& list,
-    bool after)
+        const DB::FileName& fileName,
+        const DB::ImageInfoList& list,
+        bool after)
 {
     DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
@@ -434,8 +434,8 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
 
     DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : _nextStackId++;
     for ( QList<DB::ImageInfoPtr>::iterator it = images.begin();
-            it != images.end();
-            ++it, ++stackOrder ) {
+          it != images.end();
+          ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
         _stackMap[stackId].append((*it)->fileName());
@@ -510,23 +510,23 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
     (*info(to)).merge(*info(from));
 }
 
-DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db )
+DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, ReaderPtr reader, Database* db )
 {
-    QString label = elm.attribute( QString::fromLatin1("label") );
+    QString label = reader->attribute("label");
     QString description;
-    if ( elm.hasAttribute( QString::fromLatin1( "description" ) ) )
-         description = elm.attribute( QString::fromLatin1("description") );
+    if ( reader->hasAttribute("description") )
+        description = reader->attribute("description");
 
     DB::ImageDate date;
-    if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
+    if ( reader->hasAttribute("startDate") ) {
         QDateTime start;
         QDateTime end;
 
-        QString str = elm.attribute( QString::fromLatin1( "startDate" ) );
+        QString str = reader->attribute(  "startDate"  );
         if ( !str.isEmpty() )
             start = QDateTime::fromString( str, Qt::ISODate );
 
-        str = elm.attribute( QString::fromLatin1( "endDate" ) );
+        str = reader->attribute(  "endDate"  );
         if ( !str.isEmpty() )
             end = QDateTime::fromString( str, Qt::ISODate );
         date = DB::ImageDate( start, end );
@@ -534,109 +534,85 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     else {
         int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
 
-        yearFrom = elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt();
-        monthFrom = elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt();
-        dayFrom = elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt();
-        hourFrom = elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt();
-        minuteFrom = elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt();
-        secondFrom = elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt();
+        yearFrom = reader->attribute( "yearFrom", QString::number( yearFrom) ).toInt();
+        monthFrom = reader->attribute( "monthFrom", QString::number(monthFrom) ).toInt();
+        dayFrom = reader->attribute( "dayFrom", QString::number(dayFrom) ).toInt();
+        hourFrom = reader->attribute( "hourFrom", QString::number(hourFrom) ).toInt();
+        minuteFrom = reader->attribute( "minuteFrom", QString::number(minuteFrom) ).toInt();
+        secondFrom = reader->attribute( "secondFrom", QString::number(secondFrom) ).toInt();
 
-        yearTo = elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt();
-        monthTo = elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt();
-        dayTo = elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt();
+        yearTo = reader->attribute( "yearTo", QString::number(yearTo) ).toInt();
+        monthTo = reader->attribute( "monthTo", QString::number(monthTo) ).toInt();
+        dayTo = reader->attribute( "dayTo", QString::number(dayTo) ).toInt();
         date = DB::ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
     }
 
-    int angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
-    DB::MD5 md5sum(elm.attribute( QString::fromLatin1( "md5sum" ) ));
+    int angle = reader->attribute( "angle", QString::fromLatin1("0") ).toInt();
+    DB::MD5 md5sum(reader->attribute(  "md5sum"  ));
 
-    _anyImageWithEmptySize |= !elm.hasAttribute( QString::fromLatin1( "width" ) );
+    _anyImageWithEmptySize |= !reader->hasAttribute("width");
 
-    int w = elm.attribute( QString::fromLatin1( "width" ), QString::fromLatin1( "-1" ) ).toInt();
-    int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
+    int w = reader->attribute(  "width" , QString::fromLatin1( "-1" ) ).toInt();
+    int h = reader->attribute(  "height" , QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
-    short rating = elm.attribute( QString::fromLatin1("rating"), QString::fromLatin1("-1") ).toShort();
-    DB::StackID stackId = elm.attribute( QString::fromLatin1("stackId"), QString::fromLatin1("0") ).toULong();
-    unsigned int stackOrder = elm.attribute( QString::fromLatin1("stackOrder"), QString::fromLatin1("0") ).toULong();
+    short rating = reader->attribute( "rating", QString::fromLatin1("-1") ).toShort();
+    DB::StackID stackId = reader->attribute( "stackId", QString::fromLatin1("0") ).toULong();
+    unsigned int stackOrder = reader->attribute( "stackOrder", QString::fromLatin1("0") ).toULong();
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date,
-            angle, md5sum, size, mediaType, rating, stackId, stackOrder );
+                                             angle, md5sum, size, mediaType, rating, stackId, stackOrder );
 
-    int gpsPrecision = elm.attribute(
-        QLatin1String("gpsPrec"),
-        QString::number(DB::GpsCoordinates::PrecisionDataForNull)).toInt();
+    int gpsPrecision = reader->attribute(
+                "gpsPrec",
+                QString::number(DB::GpsCoordinates::PrecisionDataForNull)).toInt();
     if ( gpsPrecision != DB::GpsCoordinates::PrecisionDataForNull )
         info->setGeoPosition(
-            DB::GpsCoordinates(
-                elm.attribute( QLatin1String("gpsLon") ).toDouble(),
-                elm.attribute( QLatin1String("gpsLat") ).toDouble(),
-                elm.attribute( QLatin1String("gpsAlt") ).toDouble(),
-                gpsPrecision));
+                    DB::GpsCoordinates(
+                        reader->attribute( "gpsLon" ).toDouble(),
+                        reader->attribute( "gpsLat" ).toDouble(),
+                        reader->attribute( "gpsAlt" ).toDouble(),
+                        gpsPrecision));
 
-    if ( elm.hasAttribute(QLatin1String("videoLength")))
-        info->setVideoLength(elm.attribute(QLatin1String("videoLength")).toInt());
+    if ( reader->hasAttribute("videoLength"))
+        info->setVideoLength(reader->attribute("videoLength").toInt());
 
     DB::ImageInfoPtr result(info);
-    for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
-        if ( child.isElement() ) {
-            QDomElement childElm = child.toElement();
-            if ( childElm.tagName() == QString::fromLatin1( "categories" ) || childElm.tagName() == QString::fromLatin1( "options" ) ) {
-                // options is for KimDaBa 2.1 compatibility
-                readOptions( result, childElm );
-            }
-            else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
-                // Ignore - KPhotoAlbum 3.0 and older version had drawings, that is not supported anymore
-            }
-            else {
-                KMessageBox::error( 0, i18n("<p>Unknown tag %1, while reading configuration file.</p>"
-                                            "<p>Expected one of: Options, Drawings</p>", childElm.tagName() ) );
-            }
-        }
+    while( reader->readNextStartOrStopElement("options","image")) {
+        readOptions( result, reader );
     }
 
-    possibleLoadCompressedCategories( elm, result, db );
+    possibleLoadCompressedCategories( reader, result, db );
 
     info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
-                     info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
+                           info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
 
     return result;
 }
 
-void XMLDB::Database::readOptions( DB::ImageInfoPtr info, QDomElement elm )
+void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
 {
-    // options is for KimDaBa 2.1 compatibility
-    Q_ASSERT( elm.tagName() == QString::fromLatin1( "categories" ) || elm.tagName() == QString::fromLatin1( "options" ) );
+    while (reader->readNextStartOrStopElement("option","options")) {
+        QString name = FileReader::unescape( reader->attribute("name") );
 
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
-
-        if ( nodeOption.isElement() )  {
-            QDomElement elmOption = nodeOption.toElement();
-            // option is for KimDaBa 2.1 compatibility
-            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("category") || elmOption.tagName() == QString::fromLatin1("option") );
-            QString name = FileReader::unescape( elmOption.attribute( QString::fromLatin1("name") ) );
-
-            if ( !name.isNull() )  {
-                // Read values
-                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
-                      nodeValue = nodeValue.nextSibling() ) {
-                    if ( nodeValue.isElement() ) {
-                        QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
-                        QString value = elmValue.attribute( QString::fromLatin1("value") );
-                        if ( !value.isNull() )  {
-                            info->addCategoryInfo( name, value );
-                        }
-                    }
+        if ( !name.isNull() )  {
+            // Read values
+            while (reader->readNextStartOrStopElement("value","option")) {
+                QString value = reader->attribute("value");
+                if ( !value.isNull() )  {
+                    info->addCategoryInfo( name, value );
                 }
+                reader->readEndElement("value");
             }
         }
     }
 }
 
-void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, DB::ImageInfoPtr info, Database* db )
+
+
+void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::ImageInfoPtr info, Database* db )
 {
     if ( db == 0 )
         return;
@@ -644,7 +620,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
-        QString str = elm.attribute( FileWriter::escape( categoryName ) );
+        QString str = reader->attribute( FileWriter::escape( categoryName ).toUtf8() );
         if ( !str.isEmpty() ) {
             QStringList list = str.split(QString::fromLatin1( "," ), QString::SkipEmptyParts );
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {

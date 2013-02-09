@@ -48,7 +48,7 @@ bool XmlReader::readNextStartOrStopElement(const char *expectedStart, const char
     }
     else {
         if ( elementName != QString::fromUtf8(expectedEnd))
-            reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expectedEnd)).arg(elementName));
+            reportError(i18n("Expected to read /%1, but read /%2").arg(QString::fromUtf8(expectedEnd)).arg(elementName));
     }
     return (type == StartElement);
 }

@@ -45,10 +45,10 @@ protected:
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                       QDomElement* blockList, QDomElement* memberGroups );
     void loadCategories( ReaderPtr reader );
-    void loadImages( const QDomElement& images );
+    void loadImages( ReaderPtr reader );
     void loadBlockList( const QDomElement& blockList );
     void loadMemberGroups( const QDomElement& memberGroups );
-    DB::ImageInfoPtr load( const DB::FileName& filename, QDomElement elm );
+    DB::ImageInfoPtr load( const DB::FileName& filename, ReaderPtr reader );
     ReaderPtr readConfigFile( const QString& configFile );
 
     void createSpecialCategories();

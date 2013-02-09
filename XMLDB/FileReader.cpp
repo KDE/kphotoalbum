@@ -32,19 +32,19 @@
 #include "Utilities/Util.h"
 #include "XMLCategory.h"
 #include <QHash>
+#include <QXmlStreamReader>
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
-    QDomElement top = readConfigFile( configFile );
-    _fileVersion = top.attribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) ).toInt();
+    QTime time; time.start();
+    ReaderPtr reader = readConfigFile( configFile );
 
-    QDomElement categories;
-    QDomElement images;
-    QDomElement blockList;
-    QDomElement memberGroups;
-    readTopNodeInConfigDocument( configFile, top, &categories, &images, &blockList, &memberGroups );
+    reader->readNextStartElement("KPhotoAlbum");
+    _fileVersion = reader->attribute( "version", QString::fromLatin1( "1" ) ).toInt();
+
     _db->_members.setLoading( true );
-    loadCategories( categories );
+    loadCategories( reader );
+    /*
     loadImages( images );
     loadBlockList( blockList );
     loadMemberGroups( memberGroups );
@@ -52,6 +52,9 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
+    */
+    qDebug("Elapsed: %d", time.elapsed());
+    exit(-1);
 }
 
 
@@ -125,10 +128,9 @@ void XMLDB::FileReader::createSpecialCategories()
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }
 
-void XMLDB::FileReader::loadCategories( const QDomElement& elm )
+void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 {
-// options is for KimDaBa 2.1 compatibility
-    Q_ASSERT( elm.tagName().toLower() == QString::fromLatin1( "categories" ) || elm.tagName().toLower() == QString::fromLatin1( "options" ) );
+    reader->readNextStartElement("categories");
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
@@ -311,9 +313,9 @@ DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElem
     return info;
 }
 
-QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
+XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
 {
-    QDomDocument doc;
+    ReaderPtr reader = ReaderPtr(new XmlReader);
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
@@ -339,7 +341,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-            doc.setContent( str );
+            reader->addData(str);
         }
     }
     else {
@@ -348,6 +350,8 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             exit(-1);
         }
 
+        reader->addData(file.readAll());
+#if 0
         QString errMsg;
         int errLine;
         int errCol;
@@ -361,9 +365,11 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
                 exit(-1);
             }
         }
+#endif
     }
 
     // Now read the content of the file.
+#if 0
     QDomElement top = doc.documentElement();
     if ( top.isNull() ) {
         KMessageBox::error( messageParent(), i18n("Error in file %1: No elements found", configFile ) );
@@ -375,9 +381,10 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         KMessageBox::error( messageParent(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'", configFile , top.tagName() ) );
         exit(-1);
     }
+#endif
 
     file.close();
-    return top;
+    return reader;
 }
 
 QString XMLDB::FileReader::unescape( const QString& str )

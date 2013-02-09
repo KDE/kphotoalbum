@@ -21,10 +21,16 @@
 #include <qdom.h>
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
+#include <QSharedPointer>
+#include "XmlReader.h"
+
+
+class QXmlStreamReader;
 
 namespace XMLDB
 {
 class Database;
+typedef QSharedPointer<XmlReader> ReaderPtr;
 
 class FileReader
 {
@@ -38,12 +44,12 @@ public:
 protected:
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                       QDomElement* blockList, QDomElement* memberGroups );
-    void loadCategories( const QDomElement& elm );
+    void loadCategories( ReaderPtr reader );
     void loadImages( const QDomElement& images );
     void loadBlockList( const QDomElement& blockList );
     void loadMemberGroups( const QDomElement& memberGroups );
     DB::ImageInfoPtr load( const DB::FileName& filename, QDomElement elm );
-    QDomElement readConfigFile( const QString& configFile );
+    ReaderPtr readConfigFile( const QString& configFile );
 
     void createSpecialCategories();
 

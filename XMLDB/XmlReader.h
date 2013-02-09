@@ -12,6 +12,13 @@ public:
 
     QString attribute( const char* name, const QString& defaultValue = QString() );
     QString readNextStartElement( const char* expected = 0);
+    bool readNextStartOrStopElement( const char* expectedStart, const char* expectedEnd);
+    void readEndElement(const char* expected );
+    bool hasAttribute(const char* name);
+private:
+    void reportError(const QString&);
+    QString tokenToString(TokenType);
+    TokenType readNextInternal();
 };
 
 }

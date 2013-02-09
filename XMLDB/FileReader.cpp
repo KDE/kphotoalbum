@@ -59,7 +59,7 @@ void XMLDB::FileReader::read( const QString& configFile )
 
 
 void XMLDB::FileReader::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-QDomElement* blockList, QDomElement* memberGroups )
+                                                     QDomElement* blockList, QDomElement* memberGroups )
 {
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -97,7 +97,7 @@ void XMLDB::FileReader::createSpecialCategories()
     _folderCategory = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
     if( _folderCategory.isNull() ) {
         _folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
-                                     DB::Category::TreeView, 32, false );
+                                           DB::Category::TreeView, 32, false );
         _db->_categoryCollection.addCategory( _folderCategory );
     }
     _folderCategory->setSpecialCategory( true );
@@ -130,48 +130,35 @@ void XMLDB::FileReader::createSpecialCategories()
 
 void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 {
-    reader->readNextStartElement("categories");
+    reader->readNextStartElement("Categories");
 
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
+    while ( reader->readNextStartOrStopElement("Category", "Categories")) {
+        const QString categoryName = unescape( reader->attribute("name") );
+        if ( !categoryName.isNull() )  {
+            // Read Category info
+            QString icon= reader->attribute("icon");
+            DB::Category::ViewType type =
+                    (DB::Category::ViewType) reader->attribute( "viewtype", QString::fromLatin1( "0" ) ).toInt();
+            bool show = (bool) reader->attribute( "show", QString::fromLatin1( "1" ) ).toInt();
+            int thumbnailSize = reader->attribute( "thumbnailsize", QString::fromLatin1( "32" ) ).toInt();
 
-        if ( nodeOption.isElement() )  {
-            QDomElement elmOption = nodeOption.toElement();
-            // option is for KimDaBa 2.1 compatibility
-            Q_ASSERT( elmOption.tagName().toLower() == QString::fromLatin1("category") ||
-                      elmOption.tagName() == QString::fromLatin1("option").toLower() );
-            const QString categoryName = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
+            DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
+            Q_ASSERT ( !cat );
+            cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show );
+            _db->_categoryCollection.addCategory( cat );
 
-            if ( !categoryName.isNull() )  {
-                // Read Category info
-                QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                DB::Category::ViewType type =
-                    (DB::Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
-                bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
-                                                        QString::fromLatin1( "1" ) ).toInt();
-                int thumbnailSize = elmOption.attribute( QString::fromLatin1( "thumbnailsize" ), QString::fromLatin1( "32" ) ).toInt();
-
-                DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
-                Q_ASSERT ( !cat );
-                cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show );
-                _db->_categoryCollection.addCategory( cat );
-
-                // Read values
-                QStringList items;
-                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
-                      nodeValue = nodeValue.nextSibling() ) {
-                    if ( nodeValue.isElement() ) {
-                        QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
-                        QString value = elmValue.attribute( QString::fromLatin1("value") );
-                        if ( elmValue.hasAttribute( QString::fromLatin1( "id" ) ) ) {
-                            int id = elmValue.attribute( QString::fromLatin1( "id" ) ).toInt();
-                            static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
-                        }
-                        items.append( value );
-                    }
+            // Read values
+            QStringList items;
+            while( reader->readNextStartOrStopElement("value", "Category")) {
+                QString value = reader->attribute("value");
+                if ( reader->hasAttribute("id") ) {
+                    int id = reader->attribute("id").toInt();
+                    static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                 }
-                cat->setItems( items );
+                items.append( value );
+                reader->readEndElement("value");
             }
+            cat->setItems( items );
         }
     }
 
@@ -260,7 +247,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( messageParent(),
-#ifdef HAVE_EXIV2
+                          #ifdef HAVE_EXIV2
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
@@ -271,14 +258,14 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "<p>Finally, once all images have their dates set, you can execute "
                                        "<b>Images->Sort Selected by Date & Time</b> to sort them in the database. "
                                        "Note that you should expand all stacks for sorting.</p>"),
-#else
+                          #else
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>You also do not have EXIF support available, which means that you cannot read "
                                        "image dates from JPEG metadata. It is strongly recommended to recompile KPhotoAlbum "
                                        "with the <code>exiv2</code> library. After you have done so, you will be asked what "
                                        "to do to correct all the missing information.</p>"),
-#endif
+                          #endif
                                   i18n("Images/Videos Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }

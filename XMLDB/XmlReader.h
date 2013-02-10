@@ -11,9 +11,9 @@ public:
     explicit XmlReader();
 
     QString attribute( const char* name, const QString& defaultValue = QString() );
-    QString readNextStartElement( const char* expected = 0);
-    bool readNextStartOrStopElement( const char* expectedStart, const char* expectedEnd);
-    void readEndElement(const char* expected );
+    QString readNextStartElement( const char* expected );
+    bool readNextStartOrStopElement( const char* expectedStart);
+    void readEndElement();
     bool hasAttribute(const char* name);
 private:
     void reportError(const QString&);

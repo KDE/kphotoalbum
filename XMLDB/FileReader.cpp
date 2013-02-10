@@ -131,7 +131,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 {
     reader->readNextStartElement("Categories");
 
-    while ( reader->readNextStartOrStopElement("Category", "Categories")) {
+    while ( reader->readNextStartOrStopElement("Category")) {
         const QString categoryName = unescape( reader->attribute("name") );
         if ( !categoryName.isNull() )  {
             // Read Category info
@@ -148,14 +148,14 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
             // Read values
             QStringList items;
-            while( reader->readNextStartOrStopElement("value", "Category")) {
+            while( reader->readNextStartOrStopElement("value")) {
                 QString value = reader->attribute("value");
                 if ( reader->hasAttribute("id") ) {
                     int id = reader->attribute("id").toInt();
                     static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                 }
                 items.append( value );
-                reader->readEndElement("value");
+                reader->readEndElement();
             }
             cat->setItems( items );
         }
@@ -167,7 +167,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 void XMLDB::FileReader::loadImages( ReaderPtr reader )
 {
     reader->readNextStartElement("images");
-    while (reader->readNextStartOrStopElement("image","images")) {
+    while (reader->readNextStartOrStopElement("image")) {
         const QString fileNameStr = reader->attribute("file");
         if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
@@ -186,18 +186,18 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
 void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
 {
     reader->readNextStartElement("blocklist");
-    while ( reader->readNextStartOrStopElement("block","blocklist")) {
+    while ( reader->readNextStartOrStopElement("block")) {
         QString fileName = reader->attribute("file");
         if ( !fileName.isEmpty() )
             _db->_blockList << DB::FileName::fromRelativePath(fileName);
-        reader->readEndElement("block");
+        reader->readEndElement();
     }
 }
 
 void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
 {
     reader->readNextStartElement("member-groups");
-    while( reader->readNextStartOrStopElement("member","member-groups")) {
+    while( reader->readNextStartOrStopElement("member")) {
         QString category = reader->attribute("category");
 
         QString group = reader->attribute("group-name");
@@ -215,7 +215,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                 _db->_members.addMemberToGroup( category, group, member );
             }
         }
-        reader->readEndElement("member");
+        reader->readEndElement();
     }
 }
 

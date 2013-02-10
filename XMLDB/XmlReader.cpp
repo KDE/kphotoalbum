@@ -32,7 +32,7 @@ QString XmlReader::readNextStartElement( const char* expected )
     return elementName;
 }
 
-bool XmlReader::readNextStartOrStopElement(const char *expectedStart, const char* expectedEnd)
+bool XmlReader::readNextStartOrStopElement(const char *expectedStart)
 {
     TokenType type = readNextInternal();
 
@@ -47,22 +47,14 @@ bool XmlReader::readNextStartOrStopElement(const char *expectedStart, const char
         if ( elementName != QString::fromUtf8(expectedStart))
             reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expectedStart)).arg(elementName));
     }
-    else {
-        if ( elementName != QString::fromUtf8(expectedEnd))
-            reportError(i18n("Expected to read /%1, but read /%2").arg(QString::fromUtf8(expectedEnd)).arg(elementName));
-    }
     return (type == StartElement);
 }
 
-void XmlReader::readEndElement(const char *expected)
+void XmlReader::readEndElement()
 {
     TokenType type = readNextInternal();
     if ( type != EndElement )
-        reportError(i18n("Expected to read an end element (named %1) but read an %2").arg(QString::fromUtf8(expected)).arg(tokenToString(type)));
-
-    const QString elementName = name().toString();
-    if ( elementName != QString::fromUtf8(expected))
-        reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expected)).arg(elementName));
+        reportError(i18n("Expected to read an end element but read an %2").arg(tokenToString(type)));
 }
 
 bool XmlReader::hasAttribute(const char *name)

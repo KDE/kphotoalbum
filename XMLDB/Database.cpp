@@ -580,11 +580,12 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
         info->setVideoLength(reader->attribute("videoLength").toInt());
 
     DB::ImageInfoPtr result(info);
+
+    possibleLoadCompressedCategories( reader, result, db );
+
     while( reader->readNextStartOrStopElement("options","image")) {
         readOptions( result, reader );
     }
-
-    possibleLoadCompressedCategories( reader, result, db );
 
     info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
                            info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );

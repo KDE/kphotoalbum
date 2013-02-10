@@ -46,8 +46,8 @@ protected:
                                       QDomElement* blockList, QDomElement* memberGroups );
     void loadCategories( ReaderPtr reader );
     void loadImages( ReaderPtr reader );
-    void loadBlockList( const QDomElement& blockList );
-    void loadMemberGroups( const QDomElement& memberGroups );
+    void loadBlockList( ReaderPtr reader );
+    void loadMemberGroups( ReaderPtr reader );
     DB::ImageInfoPtr load( const DB::FileName& filename, ReaderPtr reader );
     ReaderPtr readConfigFile( const QString& configFile );
 

@@ -9,7 +9,8 @@ XmlReader::XmlReader()
 
 QString XmlReader::attribute( const char* name, const QString& defaultValue )
 {
-    const QString attributeName = QString::fromLatin1(name);
+    const QString attributeName = QString::fromUtf8(name);
+
     if ( attributes().hasAttribute(attributeName ))
         return attributes().value(attributeName).toString();
     else

@@ -46,15 +46,14 @@ void XMLDB::FileReader::read( const QString& configFile )
     loadCategories( reader );
 
     loadImages( reader );
-    /*loadBlockList( blockList );
-    loadMemberGroups( memberGroups );
+    loadBlockList( reader );
+    loadMemberGroups( reader );
     _db->_members.setLoading( false );
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
-    */
+
     qDebug("Elapsed: %d", time.elapsed());
-    exit(-1);
 }
 
 
@@ -184,46 +183,39 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
 
 }
 
-void XMLDB::FileReader::loadBlockList( const QDomElement& blockList )
+void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
 {
-    for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
-
-        QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
+    reader->readNextStartElement("blocklist");
+    while ( reader->readNextStartOrStopElement("block","blocklist")) {
+        QString fileName = reader->attribute("file");
         if ( !fileName.isEmpty() )
             _db->_blockList << DB::FileName::fromRelativePath(fileName);
+        reader->readEndElement("block");
     }
 }
 
-void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
+void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
 {
-    for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString category = elm.attribute( QString::fromLatin1( "category" ) );
-            if ( category.isNull() )
-                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
+    reader->readNextStartElement("member-groups");
+    while( reader->readNextStartOrStopElement("member","member-groups")) {
+        QString category = reader->attribute("category");
 
-            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
-            if ( elm.hasAttribute( QString::fromLatin1( "member" ) ) ) {
-                QString member = elm.attribute( QString::fromLatin1( "member" ) );
+        QString group = reader->attribute("group-name");
+        if ( reader->hasAttribute("member") ) {
+            QString member = reader->attribute("member");
+            _db->_members.addMemberToGroup( category, group, member );
+        }
+        else {
+            QStringList members = reader->attribute("members").split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
+            for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
+                XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
+                QString member = cat->nameForId( (*membersIt).toInt() );
+                Q_ASSERT( !member.isNull() );
                 _db->_members.addMemberToGroup( category, group, member );
             }
-            else {
-                QStringList members = elm.attribute( QString::fromLatin1( "members" ) ).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
-                for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
-                    DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
-                    XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
-                    QString member = cat->nameForId( (*membersIt).toInt() );
-                    Q_ASSERT( !member.isNull() );
-                    _db->_members.addMemberToGroup( category, group, member );
-                }
-            }
         }
+        reader->readEndElement("member");
     }
 }
 

@@ -97,7 +97,7 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
         if ( type == Comment )
             continue;
         else if (type == Characters ) {
-            if (text().toString().simplified().isEmpty())
+            if (isWhitespace())
             continue;
         }
         else

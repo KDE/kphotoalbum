@@ -322,9 +322,13 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 
 QString XMLDB::FileWriter::escape( const QString& str )
 {
+    static QHash<QString,QString> cache;
+    if ( cache.contains(str) )
+        return cache[str];
+
     QString tmp( str );
     // Regex to match characters that are not allowed to start XML attribute names
-    static const QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
+    const QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
     int pos = 0;
 
     // Encoding special characters if compressed XML is selected
@@ -338,6 +342,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
+    cache.insert(str,tmp);
     return tmp;
 }
 

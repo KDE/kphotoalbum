@@ -17,7 +17,7 @@ QString XmlReader::attribute( const char* name, const QString& defaultValue )
         return defaultValue;
 }
 
-QString XmlReader::readNextStartElement( const char* expected )
+void XmlReader::readNextStartElement( const char* expected )
 {
     const bool ok = QXmlStreamReader::readNextStartElement();
     if ( !ok )
@@ -28,8 +28,6 @@ QString XmlReader::readNextStartElement( const char* expected )
         if ( elementName != QString::fromUtf8(expected))
             reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expected)).arg(elementName));
     }
-
-    return elementName;
 }
 
 bool XmlReader::readNextStartOrStopElement(const char *expectedStart)

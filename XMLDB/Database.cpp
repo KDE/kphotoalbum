@@ -231,15 +231,18 @@ void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& ne
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 {
-    static QMap<QString, DB::ImageInfoPtr > fileMap;
+    typedef QHash<QString, DB::ImageInfoPtr > Cache;
+    static Cache fileMap;
 
     if ( fileName.isNull() )
         return DB::ImageInfoPtr();
 
     const QString name = fileName.absolute();
 
-    if ( fileMap.contains( name ) )
-        return fileMap[ name ];
+    Cache::iterator lookup = fileMap.find(name);
+
+    if ( lookup != fileMap.end() )
+        return *lookup;
     else {
         fileMap.clear();
         for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {

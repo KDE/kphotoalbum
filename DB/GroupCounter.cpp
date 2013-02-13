@@ -106,9 +106,9 @@ QMap<QString,uint> GroupCounter::result()
 {
     QMap<QString,uint> res;
 
-    Q_FOREACH( const QString& key, _groupCount.keys()) {
-        if ( _groupCount[key] != 0 )
-            res.insert( key, _groupCount[key] );
+    for( QHash<QString,uint>::const_iterator it = _groupCount.constBegin(); it != _groupCount.constEnd(); ++it) {
+        if ( it.value() != 0 )
+            res.insert( it.key(), it.value() );
     }
     return res;
 }

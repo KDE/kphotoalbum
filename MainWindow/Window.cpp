@@ -476,7 +476,7 @@ void MainWindow::Window::slotDeleteSelected()
 void MainWindow::Window::slotCopySelectedURLs()
 {
     KUrl::List urls; int urlcount = 0;
-    Q_FOREACH(const DB::FileName fileName, selected()) {
+    Q_FOREACH(const DB::FileName &fileName, selected()) {
         urls.append( fileName.absolute() );
         urlcount++;
     }

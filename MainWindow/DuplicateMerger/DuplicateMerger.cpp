@@ -129,9 +129,9 @@ void DuplicateMerger::findDuplicates()
     }
 
     bool anyFound = false;
-    Q_FOREACH( const DB::MD5& md5, m_matches.keys() ) {
-        if ( m_matches[md5].count() > 1 ) {
-            addRow(md5);
+    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin(); it != m_matches.constEnd(); ++it) {
+        if ( it.value().count() > 1 ) {
+            addRow(it.key());
             anyFound = true;
         }
     }

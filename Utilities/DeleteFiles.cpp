@@ -54,7 +54,7 @@ bool DeleteFiles::_deleteFiles(const DB::FileNameList &files, DeleteMethod metho
     KUrl::List listKUrlToDelete;
     KUrl KUrlToDelete;
 
-    Q_FOREACH(const DB::FileName fileName, files) {
+    Q_FOREACH(const DB::FileName &fileName, files) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {

@@ -325,7 +325,7 @@ DB::FileNameList XMLDB::Database::searchPrivate(
 void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& fileNameList)
 {
     DB::ImageInfoList infoList;
-    Q_FOREACH( const DB::FileName fileName, fileNameList )
+    Q_FOREACH( const DB::FileName &fileName, fileNameList )
         infoList.append(fileName.info());
     _images.sortAndMergeBackIn(infoList);
 }

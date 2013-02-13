@@ -150,3 +150,4 @@ bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)
 } // namespace MainWindow
 
 #include "DuplicateMatch.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

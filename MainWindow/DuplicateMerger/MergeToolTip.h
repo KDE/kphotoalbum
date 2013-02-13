@@ -43,3 +43,4 @@ private:
 } // namespace MainWindow
 
 #endif // MAINWINDOW_MERGETOOLTIP_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

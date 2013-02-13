@@ -66,3 +66,4 @@ private:
 
 } // namespace MainWindow
 #endif // MAINWINDOW_DUPLICATEMERGER_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

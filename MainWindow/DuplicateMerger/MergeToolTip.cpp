@@ -50,3 +50,4 @@ void MergeToolTip::placeWindow()
 } // namespace MainWindow
 
 #include "MergeToolTip.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

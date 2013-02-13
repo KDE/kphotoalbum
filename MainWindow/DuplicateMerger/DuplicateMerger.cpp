@@ -172,3 +172,4 @@ void DuplicateMerger::tellThatNoDupplicatesWasFound()
 } // namespace MainWindow
 
 #include "DuplicateMerger.moc"
+// vi:expandtab:tabstop=4 shiftwidth=4:

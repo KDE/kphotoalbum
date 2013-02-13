@@ -538,7 +538,8 @@ QString dereferenceSymLinks( const QString& fileName )
 
 QString Utilities::stripEndingForwardSlash( const QString& fileName )
 {
-    if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )
+    static QString slash = QString::fromLatin1("/");
+    if ( fileName.endsWith( slash ) )
         return fileName.left( fileName.length()-1);
     else
         return fileName;

@@ -62,7 +62,8 @@ void ImageDB::connectSlots()
 
 QString ImageDB::NONE()
 {
-    return QString::fromLatin1("**NONE**");
+    static QString none = QString::fromLatin1("**NONE**");
+    return none;
 }
 
 DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const

@@ -7,29 +7,27 @@ XmlReader::XmlReader()
 {
 }
 
-QString XmlReader::attribute( const char* name, const QString& defaultValue )
+QString XmlReader::attribute( const QString& name, const QString& defaultValue )
 {
-    QStringRef ref = attributes().value(QString::fromUtf8(name));
+    QStringRef ref = attributes().value(name);
     if ( ref.isNull() )
         return defaultValue;
     else
         return ref.toString();
 }
 
-void XmlReader::readNextStartElement( const char* expected )
+void XmlReader::readNextStartElement( const QString& expected )
 {
     const bool ok = QXmlStreamReader::readNextStartElement();
     if ( !ok )
         reportError(i18n("Error reading next element"));
 
     const QString elementName = name().toString();
-    if ( expected ) {
-        if ( elementName != QString::fromUtf8(expected))
-            reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expected)).arg(elementName));
-    }
+    if ( elementName != expected)
+        reportError(i18n("Expected to read %1, but read %2").arg(expected).arg(elementName));
 }
 
-bool XmlReader::readNextStartOrStopElement(const char *expectedStart)
+bool XmlReader::readNextStartOrStopElement(const QString& expectedStart)
 {
     TokenType type = readNextInternal();
 
@@ -41,8 +39,8 @@ bool XmlReader::readNextStartOrStopElement(const char *expectedStart)
 
     const QString elementName = name().toString();
     if ( type == StartElement ) {
-        if ( elementName != QString::fromUtf8(expectedStart))
-            reportError(i18n("Expected to read %1, but read %2").arg(QString::fromUtf8(expectedStart)).arg(elementName));
+        if ( elementName != expectedStart)
+            reportError(i18n("Expected to read %1, but read %2").arg(expectedStart).arg(elementName));
     }
     return (type == StartElement);
 }
@@ -54,9 +52,9 @@ void XmlReader::readEndElement()
         reportError(i18n("Expected to read an end element but read an %2").arg(tokenToString(type)));
 }
 
-bool XmlReader::hasAttribute(const char *name)
+bool XmlReader::hasAttribute(const QString &name)
 {
-    return attributes().hasAttribute(QString::fromUtf8(name));
+    return attributes().hasAttribute(name);
 }
 
 void XmlReader::reportError(const QString & text)
@@ -95,7 +93,7 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
             continue;
         else if (type == Characters ) {
             if (isWhitespace())
-            continue;
+                continue;
         }
         else
             return type;

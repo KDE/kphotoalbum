@@ -10,11 +10,11 @@ class XmlReader : public QXmlStreamReader
 public:
     explicit XmlReader();
 
-    QString attribute( const char* name, const QString& defaultValue = QString() );
-    void readNextStartElement( const char* expected );
-    bool readNextStartOrStopElement( const char* expectedStart);
+    QString attribute(const QString &name, const QString& defaultValue = QString() );
+    void readNextStartElement(const QString &expected );
+    bool readNextStartOrStopElement(const QString &expectedStart);
     void readEndElement();
-    bool hasAttribute(const char* name);
+    bool hasAttribute(const QString& name);
 private:
     void reportError(const QString&);
     QString tokenToString(TokenType);

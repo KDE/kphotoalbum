@@ -36,11 +36,13 @@
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
+    static QString _version_ = QString::fromUtf8("version");
+
     QTime time; time.start();
     ReaderPtr reader = readConfigFile( configFile );
 
-    reader->readNextStartElement("KPhotoAlbum");
-    _fileVersion = reader->attribute( "version", QString::fromLatin1( "1" ) ).toInt();
+    reader->readNextStartElement(QString::fromUtf8("KPhotoAlbum"));
+    _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
 
     _db->_members.setLoading( true );
     loadCategories( reader );
@@ -129,17 +131,28 @@ void XMLDB::FileReader::createSpecialCategories()
 
 void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 {
-    reader->readNextStartElement("Categories");
+    static QString _name_ = QString::fromUtf8("name");
+    static QString _icon_ = QString::fromUtf8("icon");
+    static QString _viewtype_ = QString::fromUtf8("viewtype");
+    static QString _show_ = QString::fromUtf8("show");
+    static QString _thumbnailsize_ = QString::fromUtf8("thumbnailsize");
+    static QString _value_ = QString::fromUtf8("value");
+    static QString _id_ = QString::fromUtf8("id");
+    static QString _Categories_ = QString::fromUtf8("Categories");
+    static QString _Category_ = QString::fromUtf8("Category");
 
-    while ( reader->readNextStartOrStopElement("Category")) {
-        const QString categoryName = unescape( reader->attribute("name") );
+
+    reader->readNextStartElement(_Categories_);
+
+    while ( reader->readNextStartOrStopElement(_Category_)) {
+        const QString categoryName = unescape( reader->attribute(_name_) );
         if ( !categoryName.isNull() )  {
             // Read Category info
-            QString icon= reader->attribute("icon");
+            QString icon= reader->attribute(_icon_);
             DB::Category::ViewType type =
-                    (DB::Category::ViewType) reader->attribute( "viewtype", QString::fromLatin1( "0" ) ).toInt();
-            bool show = (bool) reader->attribute( "show", QString::fromLatin1( "1" ) ).toInt();
-            int thumbnailSize = reader->attribute( "thumbnailsize", QString::fromLatin1( "32" ) ).toInt();
+                    (DB::Category::ViewType) reader->attribute( _viewtype_, QString::fromLatin1( "0" ) ).toInt();
+            bool show = (bool) reader->attribute( _show_, QString::fromLatin1( "1" ) ).toInt();
+            int thumbnailSize = reader->attribute( _thumbnailsize_, QString::fromLatin1( "32" ) ).toInt();
 
             DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );
@@ -148,10 +161,10 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
             // Read values
             QStringList items;
-            while( reader->readNextStartOrStopElement("value")) {
-                QString value = reader->attribute("value");
-                if ( reader->hasAttribute("id") ) {
-                    int id = reader->attribute("id").toInt();
+            while( reader->readNextStartOrStopElement(_value_)) {
+                QString value = reader->attribute(_value_);
+                if ( reader->hasAttribute(_id_) ) {
+                    int id = reader->attribute(_id_).toInt();
                     static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                 }
                 items.append( value );
@@ -166,9 +179,13 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
 void XMLDB::FileReader::loadImages( ReaderPtr reader )
 {
-    reader->readNextStartElement("images");
-    while (reader->readNextStartOrStopElement("image")) {
-        const QString fileNameStr = reader->attribute("file");
+    static QString _file_ = QString::fromUtf8("file");
+    static QString _images_ = QString::fromUtf8("images");
+    static QString _image_ = QString::fromUtf8("image");
+
+    reader->readNextStartElement(_images_);
+    while (reader->readNextStartOrStopElement(_image_)) {
+        const QString fileNameStr = reader->attribute(_file_);
         if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
             return;
@@ -185,9 +202,13 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
 
 void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
 {
-    reader->readNextStartElement("blocklist");
-    while ( reader->readNextStartOrStopElement("block")) {
-        QString fileName = reader->attribute("file");
+    static QString _file_ = QString::fromUtf8("file");
+    static QString _blocklist_ = QString::fromUtf8("blocklist");
+    static QString _block_ = QString::fromUtf8("block");
+
+    reader->readNextStartElement(_blocklist_);
+    while ( reader->readNextStartOrStopElement(_block_)) {
+        QString fileName = reader->attribute(_file_);
         if ( !fileName.isEmpty() )
             _db->_blockList << DB::FileName::fromRelativePath(fileName);
         reader->readEndElement();
@@ -196,17 +217,23 @@ void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
 
 void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
 {
-    reader->readNextStartElement("member-groups");
-    while( reader->readNextStartOrStopElement("member")) {
-        QString category = reader->attribute("category");
+    static QString _category_ = QString::fromUtf8("category");
+    static QString _groupName_ = QString::fromUtf8("group-name");
+    static QString _member_ = QString::fromUtf8("member");
+    static QString _members_ = QString::fromUtf8("members");
+    static QString _memberGroups_ = QString::fromUtf8("member-groups");
 
-        QString group = reader->attribute("group-name");
-        if ( reader->hasAttribute("member") ) {
-            QString member = reader->attribute("member");
+    reader->readNextStartElement(_memberGroups_);
+    while( reader->readNextStartOrStopElement(_member_)) {
+        QString category = reader->attribute(_category_);
+
+        QString group = reader->attribute(_groupName_);
+        if ( reader->hasAttribute(_member_) ) {
+            QString member = reader->attribute(_member_);
             _db->_members.addMemberToGroup( category, group, member );
         }
         else {
-            QStringList members = reader->attribute("members").split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
+            QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
             for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                 DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
                 XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
@@ -371,7 +398,7 @@ QString XMLDB::FileReader::unescape( const QString& str )
     // Matches encoded characters in attribute names
     QRegExp rx( QString::fromLatin1( "(_.)([0-9A-F]{2})" ) );
     int pos = 0;
-    
+
     // Unencoding special characters if compressed XML is selected
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {

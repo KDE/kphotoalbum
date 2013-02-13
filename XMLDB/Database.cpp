@@ -515,21 +515,53 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, ReaderPtr reader, Database* db )
 {
-    QString label = reader->attribute("label");
+    static QString _label_ = QString::fromUtf8("label");
+    static QString _description_ = QString::fromUtf8("description");
+    static QString _startDate_ = QString::fromUtf8("startDate");
+    static QString _endDate_ = QString::fromUtf8("endDate");
+    static QString _yearFrom_ = QString::fromUtf8("yearFrom");
+    static QString _monthFrom_ = QString::fromUtf8("monthFrom");
+    static QString _dayFrom_ = QString::fromUtf8("dayFrom");
+    static QString _hourFrom_ = QString::fromUtf8("hourFrom");
+    static QString _minuteFrom_ = QString::fromUtf8("minuteFrom");
+    static QString _secondFrom_ = QString::fromUtf8("secondFrom");
+    static QString _yearTo_ = QString::fromUtf8("yearTo");
+    static QString _monthTo_ = QString::fromUtf8("monthTo");
+    static QString _dayTo_ = QString::fromUtf8("dayTo");
+    static QString _angle_ = QString::fromUtf8("angle");
+    static QString _md5sum_ = QString::fromUtf8("md5sum");
+    static QString _width_ = QString::fromUtf8("width");
+    static QString _height_ = QString::fromUtf8("height");
+    static QString _rating_ = QString::fromUtf8("rating");
+    static QString _stackId_ = QString::fromUtf8("stackId");
+    static QString _stackOrder_ = QString::fromUtf8("stackOrder");
+    static QString _gpsPrec_ = QString::fromUtf8("gpsPrec");
+    static QString _gpsLon_ = QString::fromUtf8("gpsLon");
+    static QString _gpsLat_ = QString::fromUtf8("gpsLat");
+    static QString _gpsAlt_ = QString::fromUtf8("gpsAlt");
+    static QString _videoLength_ = QString::fromUtf8("videoLength");
+    static QString _options_ = QString::fromUtf8("options");
+    static QString _0_ = QString::fromUtf8("0");
+    static QString _minus1_ = QString::fromUtf8("-1");
+    static QString _MediaType_ = QString::fromUtf8("Media Type");
+    static QString _Image_ = QString::fromUtf8("Image");
+    static QString _Video_ = QString::fromUtf8("Video");
+
+    QString label = reader->attribute(_label_);
     QString description;
-    if ( reader->hasAttribute("description") )
-        description = reader->attribute("description");
+    if ( reader->hasAttribute(_description_) )
+        description = reader->attribute(_description_);
 
     DB::ImageDate date;
-    if ( reader->hasAttribute("startDate") ) {
+    if ( reader->hasAttribute(_startDate_) ) {
         QDateTime start;
         QDateTime end;
 
-        QString str = reader->attribute(  "startDate"  );
+        QString str = reader->attribute(  _startDate_  );
         if ( !str.isEmpty() )
             start = QDateTime::fromString( str, Qt::ISODate );
 
-        str = reader->attribute(  "endDate"  );
+        str = reader->attribute(  _endDate_  );
         if ( !str.isEmpty() )
             end = QDateTime::fromString( str, Qt::ISODate );
         date = DB::ImageDate( start, end );
@@ -537,74 +569,79 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     else {
         int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
 
-        yearFrom = reader->attribute( "yearFrom", QString::number( yearFrom) ).toInt();
-        monthFrom = reader->attribute( "monthFrom", QString::number(monthFrom) ).toInt();
-        dayFrom = reader->attribute( "dayFrom", QString::number(dayFrom) ).toInt();
-        hourFrom = reader->attribute( "hourFrom", QString::number(hourFrom) ).toInt();
-        minuteFrom = reader->attribute( "minuteFrom", QString::number(minuteFrom) ).toInt();
-        secondFrom = reader->attribute( "secondFrom", QString::number(secondFrom) ).toInt();
+        yearFrom = reader->attribute( _yearFrom_, _0_ ).toInt();
+        monthFrom = reader->attribute( _monthFrom_, _0_ ).toInt();
+        dayFrom = reader->attribute( _dayFrom_, _0_ ).toInt();
+        hourFrom = reader->attribute( _hourFrom_, _minus1_ ).toInt();
+        minuteFrom = reader->attribute( _minuteFrom_, _minus1_ ).toInt();
+        secondFrom = reader->attribute( _secondFrom_, _minus1_ ).toInt();
 
-        yearTo = reader->attribute( "yearTo", QString::number(yearTo) ).toInt();
-        monthTo = reader->attribute( "monthTo", QString::number(monthTo) ).toInt();
-        dayTo = reader->attribute( "dayTo", QString::number(dayTo) ).toInt();
+        yearTo = reader->attribute( _yearTo_, _0_ ).toInt();
+        monthTo = reader->attribute( _monthTo_, _0_ ).toInt();
+        dayTo = reader->attribute( _dayTo_, _0_ ).toInt();
         date = DB::ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
     }
 
-    int angle = reader->attribute( "angle", QString::fromLatin1("0") ).toInt();
-    DB::MD5 md5sum(reader->attribute(  "md5sum"  ));
+    int angle = reader->attribute( _angle_, _0_).toInt();
+    DB::MD5 md5sum(reader->attribute(  _md5sum_  ));
 
-    _anyImageWithEmptySize |= !reader->hasAttribute("width");
+    _anyImageWithEmptySize |= !reader->hasAttribute(_width_);
 
-    int w = reader->attribute(  "width" , QString::fromLatin1( "-1" ) ).toInt();
-    int h = reader->attribute(  "height" , QString::fromLatin1( "-1" ) ).toInt();
+    int w = reader->attribute(  _width_ , _minus1_ ).toInt();
+    int h = reader->attribute(  _height_ , _minus1_ ).toInt();
     QSize size = QSize( w,h );
 
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
-    short rating = reader->attribute( "rating", QString::fromLatin1("-1") ).toShort();
-    DB::StackID stackId = reader->attribute( "stackId", QString::fromLatin1("0") ).toULong();
-    unsigned int stackOrder = reader->attribute( "stackOrder", QString::fromLatin1("0") ).toULong();
+    short rating = reader->attribute( _rating_, _minus1_ ).toShort();
+    DB::StackID stackId = reader->attribute( _stackId_, _0_ ).toULong();
+    unsigned int stackOrder = reader->attribute( _stackOrder_, _0_ ).toULong();
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date,
                                              angle, md5sum, size, mediaType, rating, stackId, stackOrder );
 
+    static QString _defaultPrecision_ = QString::number(DB::GpsCoordinates::PrecisionDataForNull);
     int gpsPrecision = reader->attribute(
-                "gpsPrec",
-                QString::number(DB::GpsCoordinates::PrecisionDataForNull)).toInt();
+                _gpsPrec_,
+                _defaultPrecision_).toInt();
     if ( gpsPrecision != DB::GpsCoordinates::PrecisionDataForNull )
         info->setGeoPosition(
                     DB::GpsCoordinates(
-                        reader->attribute( "gpsLon" ).toDouble(),
-                        reader->attribute( "gpsLat" ).toDouble(),
-                        reader->attribute( "gpsAlt" ).toDouble(),
+                        reader->attribute( _gpsLon_ ).toDouble(),
+                        reader->attribute( _gpsLat_ ).toDouble(),
+                        reader->attribute( _gpsAlt_ ).toDouble(),
                         gpsPrecision));
 
-    if ( reader->hasAttribute("videoLength"))
-        info->setVideoLength(reader->attribute("videoLength").toInt());
+    if ( reader->hasAttribute(_videoLength_))
+        info->setVideoLength(reader->attribute(_videoLength_).toInt());
 
     DB::ImageInfoPtr result(info);
 
     possibleLoadCompressedCategories( reader, result, db );
 
-    while( reader->readNextStartOrStopElement("options")) {
+    while( reader->readNextStartOrStopElement(_options_)) {
         readOptions( result, reader );
     }
 
-    info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
-                           info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
+    info->addCategoryInfo( _MediaType_,
+                           info->mediaType() == DB::Image ? _Image_ : _Video_ );
 
     return result;
 }
 
 void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
 {
-    while (reader->readNextStartOrStopElement("option")) {
-        QString name = FileReader::unescape( reader->attribute("name") );
+    static QString _name_ = QString::fromUtf8("name");
+    static QString _value_ = QString::fromUtf8("value");
+    static QString _option_ = QString::fromUtf8("option");
+
+    while (reader->readNextStartOrStopElement(_option_)) {
+        QString name = FileReader::unescape( reader->attribute(_name_) );
 
         if ( !name.isNull() )  {
             // Read values
-            while (reader->readNextStartOrStopElement("value")) {
-                QString value = reader->attribute("value");
+            while (reader->readNextStartOrStopElement(_value_)) {
+                QString value = reader->attribute(_value_);
                 if ( !value.isNull() )  {
                     info->addCategoryInfo( name, value );
                 }
@@ -624,7 +661,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
     QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
-        QString str = reader->attribute( FileWriter::escape( categoryName ).toUtf8() );
+        QString str = reader->attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {
             QStringList list = str.split(QString::fromLatin1( "," ), QString::SkipEmptyParts );
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {

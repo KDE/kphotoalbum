@@ -9,12 +9,11 @@ XmlReader::XmlReader()
 
 QString XmlReader::attribute( const char* name, const QString& defaultValue )
 {
-    const QString attributeName = QString::fromUtf8(name);
-
-    if ( attributes().hasAttribute(attributeName ))
-        return attributes().value(attributeName).toString();
-    else
+    QStringRef ref = attributes().value(QString::fromUtf8(name));
+    if ( ref.isNull() )
         return defaultValue;
+    else
+        return ref.toString();
 }
 
 void XmlReader::readNextStartElement( const char* expected )

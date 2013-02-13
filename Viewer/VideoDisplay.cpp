@@ -209,7 +209,9 @@ void Viewer::VideoDisplay::setVideoWidgetSize()
     QSize videoSize;
     if ( _zoomType == FullZoom ) {
         videoSize = QSize( size().width(), size().height() - _slider->height() );
-        _zoomFactor = videoSize.width() / _videoWidget->sizeHint().width();
+	if (_videoWidget->sizeHint().width() > 0) {
+	  _zoomFactor = videoSize.width() / _videoWidget->sizeHint().width();
+	}
     }
     else {
         videoSize = _videoWidget->sizeHint();

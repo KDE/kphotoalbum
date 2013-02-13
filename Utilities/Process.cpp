@@ -17,6 +17,14 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// OS/X defines stdout and stderr as macros, which interfere with our code here:
+#if defined(stdout)
+#undef stdout
+#endif
+#if defined(stderr)
+#undef stderr
+#endif
+
 #include "Process.h"
 #include <KDebug>
 

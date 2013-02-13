@@ -33,7 +33,7 @@ Browser::Breadcrumb Browser::Breadcrumb::empty()
 
 Browser::Breadcrumb Browser::Breadcrumb::home()
 {
-    return Breadcrumb( i18n("All"), true );
+    return Breadcrumb( i18nc("As in 'all pictures'.","All"), true );
 }
 
 QString Browser::Breadcrumb::text() const

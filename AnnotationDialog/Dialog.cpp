@@ -148,7 +148,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     lay1->addWidget( cancelBut );
 
     // It is unfortunately not possible to ask KAcceleratorManager not to setup the OK and cancel keys.
-    shortCutManager.addTaken( i18n("&Search") );
+    shortCutManager.addTaken( i18nc("@action:button","&Search") );
     shortCutManager.addTaken( _okBut->text() );
     shortCutManager.addTaken( _continueLaterBut->text());
     shortCutManager.addTaken( cancelBut->text() );
@@ -577,11 +577,11 @@ void AnnotationDialog::Dialog::setup()
     }
 
     if ( _setup == SearchMode )  {
-        _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
+        _okBut->setGuiItem( KGuiItem(i18nc("@action:button","&Search"), QString::fromLatin1("find")) );
         _continueLaterBut->hide();
         _revertBut->hide();
         _clearBut->show();
-        setWindowTitle( i18n("Search") );
+        setWindowTitle( i18nc("@title:window title of the 'find images' window","Search") );
         loadInfo( _oldSearch );
     }
     else {

@@ -140,7 +140,7 @@ QVariant Browser::OverviewPage::exivInfo( int role ) const
 QVariant Browser::OverviewPage::searchInfo( int role ) const
 {
     if ( role == Qt::DisplayRole )
-        return i18n("Search");
+        return i18nc("@action Search button in the browser view.","Search");
     else if ( role == Qt::DecorationRole )
         return KIcon( QString::fromLatin1( "system-search" ) ).pixmap(THUMBNAILSIZE);
     return QVariant();
@@ -256,7 +256,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
         return 0;
     }
 
-    return new OverviewPage( Breadcrumb( i18n("search") ), info, browser() );
+    return new OverviewPage( Breadcrumb( i18nc("Breadcrumb denoting that we 'browsed' to a search result.","search") ), info, browser() );
 
 }
 

@@ -112,12 +112,12 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         // Do not add -1 x -1 text
         if (imageSize.width() >= 0 && imageSize.height() >= 0) {
             const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
-            QString info = i18nc("width x height","%1x%2")
-                .arg(QString::number(imageSize.width()))
-                .arg(QString::number(imageSize.height()));
+            QString info = i18nc("width x height","%1x%2"
+                ,QString::number(imageSize.width())
+                ,QString::number(imageSize.height()));
             if (megapix > 0.05) {
-                info += i18nc("short for: x megapixels"," (%1MP)")
-                    .arg(QString::number(megapix, 'f', 1));
+                info += i18nc("short for: x megapixels"," (%1MP)"
+                    ,QString::number(megapix, 'f', 1));
             }
             AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
         }

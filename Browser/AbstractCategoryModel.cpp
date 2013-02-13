@@ -43,14 +43,14 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
 {
     if ( name == DB::ImageDB::NONE() ) {
         if ( _info.categoryMatchText(_category->name()).length() == 0 )
-            return i18n( "None" );
+            return i18nc("As in No persons, no locations etc.", "None" );
         else
-            return i18n( "No other" );
+            return i18nc("As in no other persons, or no other locations. ", "No other" );
     }
     else if ( name == QString::fromLatin1( "Video" ) )
-        return i18n("Video");
+        return i18nc("Denotes the media type (video,image)","Video");
     else if ( name == QString::fromLatin1( "Image" ) )
-        return i18n("Image");
+        return i18nc("Denotes the media type (video,image)","Image");
 
     else {
         if ( _category->name() == QString::fromLatin1( "Folder" ) ) {
@@ -97,8 +97,8 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     if ( role == Qt::DisplayRole ) {
         switch( column ) {
         case 0: return text(name);
-        case 1: return i18np("1 image", "%1 images", _images[name]);
-        case 2: return i18np("1 video", "%1 videos", _videos[name]);
+        case 1: return i18ncp("@item:intable number of images with a specific tag.","1 image", "%1 images", _images[name]);
+        case 2: return i18ncp("@item:intable number of videos with a specific tag.","1 video", "%1 videos", _videos[name]);
         }
     }
 

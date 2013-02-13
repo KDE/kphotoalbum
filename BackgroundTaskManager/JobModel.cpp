@@ -94,11 +94,11 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
     if ( orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
     switch (section) {
-    case IDCol: return i18n("ID");
-    case TitleCol:   return i18n("Title");
-    case DetailsCol: return i18n("Details");
-    case ElapsedCol: return i18n("Elapsed");
-    default: return QVariant();
+        case IDCol: return i18nc("@title:column Background job id","ID");
+        case TitleCol:   return i18nc("@title:column Background job title","Title");
+        case DetailsCol: return i18nc("@title:column Additional information on background job","Details");
+        case ElapsedCol: return i18nc("@title:column Elapsed time","Elapsed");
+        default: return QVariant();
     }
 }
 

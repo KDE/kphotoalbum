@@ -341,7 +341,7 @@ QStringList DB::ImageDate::monthNames()
         }
 
         res << i18n("jan") << i18n("feb") << i18n("mar") << i18n("apr") << i18n("may") << i18n("jun")
-            << i18n("jul") << i18n("aug") << i18n("sep") << i18n("oct") << i18n("nov") << i18n("dec");
+            << i18n("jul") << i18n("aug") << i18n("sep") << i18n("oct") << i18n("nov") << i18n("dec");//krazy:exclude=i18ncheckarg (should be evident from the context)
         res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
             << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
             << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec");

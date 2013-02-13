@@ -249,7 +249,7 @@ QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageIn
 {
     const int length = imageInfo->videoLength();
     if ( length < 0 )
-        return i18n("video");
+        return i18nc("No video length could be determined, so we just display 'video' instead of the video length.","video");
 
     const int hours = length/60/60;
     const int minutes = (length/60)%60;

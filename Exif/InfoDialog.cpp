@@ -96,7 +96,7 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
 void Exif::InfoDialog::updateSearchString( const QString& txt )
 {
     if( txt.isEmpty() )
-        m_searchLabel->setText( i18n("<No Search>") );
+        m_searchLabel->setText( i18n("&lt;No Search&gt;") ); //FIXME make this an i18nc
     else
         m_searchLabel->setText( txt );
 }

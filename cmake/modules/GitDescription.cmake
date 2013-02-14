@@ -10,7 +10,7 @@
 # Additional arguments to "git described" can be specified after the keyword
 # GIT_ARGS.
 #
-# Example invokation:
+# Example invocation:
 #  GIT_GET_DESCRIPTION ( PROJECT_VERSION GIT_ARGS --dirty )
 #  message ( STATUS "Project is at revision ${PROJECT_VERSION}." )
 #

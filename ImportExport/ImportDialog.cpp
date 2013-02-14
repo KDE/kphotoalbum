@@ -150,7 +150,7 @@ void ImportDialog::createIntroduction()
 
     QLabel* intro = new QLabel( txt, this );
     intro->setWordWrap(true);
-    addPage( intro, i18n("Introduction") );
+    addPage( intro, i18nc("@title:tab introduction page","Introduction") );
 }
 
 void ImportDialog::createImagesPage()

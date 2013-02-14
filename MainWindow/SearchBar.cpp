@@ -29,7 +29,7 @@
 MainWindow::SearchBar::SearchBar( KMainWindow* parent )
     : KToolBar( parent )
 {
-    QLabel* label = new QLabel( i18n("Search:") + QString::fromLatin1(" ") );
+    QLabel* label = new QLabel( i18nc("@label:textbox label on the search bar","Search:") + QString::fromLatin1(" ") );
     addWidget( label );
 
     _edit = new KLineEdit( this );

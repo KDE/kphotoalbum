@@ -43,7 +43,7 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
     QString txt = i18n("<h1>Description</h1>"
                        "<table>"
                        "<tr><td># of Items</td><td>This is the number of different items in the category</td></tr>"
-                       "<tr><td>Tags Total</td><td>This is a count of how many tags was made,<br/>i.e. a simple counting though all the images</tr></tr>"
+                       "<tr><td>Tags Total</td><td>This is a count of how many tags was made,<br/>i.e. a simple counting though all the images</td></tr>"
                        "<tr><td>Tags Per Picture</td><td>This tells you how many tags are on each picture on average</td></tr>"
                        "</table><br/><br/>"
                        "Don't get too attached to this dialog, it has the problem that it counts categories AND subcategories,<br/>"
@@ -126,7 +126,7 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
     m_tag->setSizeAdjustPolicy(KComboBox::AdjustToContents);
     m_boxLayout->addWidget( m_tag, row, 1 );
 
-    m_category->addItem( i18n("None") );
+    m_category->addItem( i18nc("@item:inlistbox meaning 'no category'","None") );
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
@@ -164,7 +164,7 @@ void MainWindow::StatisticsDialog::populate()
     m_treeWidget->clear();
 
     const int imageCount = DB::ImageDB::instance()->totalCount();
-    QTreeWidgetItem* top = new QTreeWidgetItem( m_treeWidget, QStringList() << i18n("All") << QString::number(imageCount) );
+    QTreeWidgetItem* top = new QTreeWidgetItem( m_treeWidget, QStringList() << i18nc("As in 'all images'","All") << QString::number(imageCount) );
     top->setTextAlignment( 1, Qt::AlignRight );
     populateSubTree( DB::ImageSearchInfo(), imageCount, top );
 

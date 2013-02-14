@@ -78,7 +78,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     _fromFocalLength->setRange( 0, 10000 );
     _fromFocalLength->setSingleStep( 10 );
 
-    label = new QLabel( i18n("to"));
+    label = new QLabel( i18nc("As in 'A range from x to y'","to"));
     focalLayout->addWidget(label);
 
     _toFocalLength = new QSpinBox;

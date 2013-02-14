@@ -52,7 +52,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
     connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
 
     if (MainWindow::FeatureDialog::mplayerBinary().isEmpty()) {
-        kWarning() << "mplayer not found. Unable to extract length of video file";
+        kWarning() << "MPlayer not found. Unable to extract length of video file";
         emit unableToDetermineLength();
         return;
     }
@@ -72,7 +72,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
     list = list.filter(STR("ID_LENGTH="));
     if ( list.count() == 0 ) {
-        kWarning() << "Unable to find ID_LENGTH in output from mplayer for file " << m_fileName.absolute() << "\n"
+        kWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
                    << "Output was:\n"
                    << m_process->stdout();
         emit unableToDetermineLength();

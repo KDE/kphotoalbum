@@ -47,7 +47,9 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     // Thrust time stamps
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), box );
     _trustTimeStamps = new KComboBox( box );
-    _trustTimeStamps->addItems( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
+    _trustTimeStamps->addItems( QStringList() << i18nc("As in 'always trust image dates'","Always")
+            << i18nc("As in 'ask whether to trust image dates'","Ask")
+            << i18nc("As in 'never trust image dates'","Never") );
     timeStampLabel->setBuddy( _trustTimeStamps );
     lay->addWidget( timeStampLabel, row, 0 );
     lay->addWidget( _trustTimeStamps, row, 1, 1, 3 );

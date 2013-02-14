@@ -91,11 +91,11 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 
     // Auto Show Thumbnail view
     ++row;
-    QLabel* autoShowLabel = new QLabel( i18n("Auto display limit: "), this );
+    QLabel* autoShowLabel = new QLabel( i18n("Threshold for automatic thumbnail view: "), this );
     _autoShowThumbnailView = new QSpinBox;
     _autoShowThumbnailView->setRange( 0, 10000 );
     _autoShowThumbnailView->setSingleStep( 10 );
-    _autoShowThumbnailView->setSpecialValueText( i18n("Never") );
+    _autoShowThumbnailView->setSpecialValueText( i18nc("Describing: 'ThumbnailView will not be automatically shown'","Disabled") );
     lay->addWidget( autoShowLabel, row, 0 );
     lay->addWidget( _autoShowThumbnailView, row, 1 );
 

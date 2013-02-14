@@ -16,9 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "Plugins/ImageCollection.h"
 #include <config-kpa-kipi.h>
 #ifdef HASKIPI
-#include "Plugins/ImageCollection.h"
 #include "MainWindow/Window.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
@@ -41,22 +41,20 @@ QString Plugins::ImageCollection::name()
     case CurrentSelection:
         res = MainWindow::Window::theMainWindow()->currentContext().toString();
         if (res.isEmpty()) {
-            res = i18n("unknown (Selection)");
+            res = i18nc("As in 'an unknown set of images, created from the selection'.","Unknown (Selection)");
         }
         else {
-            res += i18n(" (Selection)");
+            res += i18nc("As in 'A selection of [a generated context description]'"," (Selection)");
         }
         break;
     case SubClass:
         qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
-        res = i18n("unknown");
+        res = i18nc("A set of images with no description.","Unknown");
         break;
-    default:
-        res = i18n("unknown");
     }
     if (res.isEmpty()) {
         // at least html export plugin needs a none-empty name:
-        res = i18n("none");
+        res = i18nc("The 'name' of an unnamed image collection.","None");
     }
     return res;
 }

@@ -694,7 +694,7 @@ void MainWindow::Window::setupMenuBar()
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
 
     _deleteSelected = actionCollection()->addAction(QString::fromLatin1("deleteSelected"));
-    _deleteSelected->setText( i18n( "Delete Selected" ) );
+    _deleteSelected->setText( i18nc("Delete selected images", "Delete Selected" ) );
     _deleteSelected->setIcon( KIcon( QString::fromLatin1("edit-delete") ) );
     _deleteSelected->setShortcut( Qt::Key_Delete );
     connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
@@ -1119,7 +1119,7 @@ void MainWindow::Window::lockToDefaultScope()
                                                 i18n( "<p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
-                                                      "<p>In other words, anyone with access to the index.xml file can easily "
+                                                      "<p><b>In other words, anyone with access to the index.xml file can easily "
                                                       "circumvent this password.</b></p>"),
                                                 i18n("Password Protection"),
                                                 KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
@@ -1216,13 +1216,13 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 void MainWindow::Window::slotSetFileName( const DB::FileName& fileName )
 {
-    ImageInfoPtr infos;
+    ImageInfoPtr info;
 
     if ( fileName.isNull() )
         _statusBar->clearMessage();
     else {
-        infos = fileName.info();
-        if (infos != ImageInfoPtr(NULL) )
+        info = fileName.info();
+        if (info != ImageInfoPtr(NULL) )
             _statusBar->showMessage( fileName.absolute(), 4000 );
     }
 }
@@ -1747,18 +1747,18 @@ void MainWindow::Window::checkIfMplayerIsInstalled()
 {
     if ( FeatureDialog::mplayerBinary().isNull() ) {
         KMessageBox::error( this,
-                i18n("<p>Unable to find mplayer on the system</p>"
-                     "<p>KPhotoAlbum needs mplayer to extract video thumbnails among other things. "
-                     "Please install the mplayer2 package</p>") );
+                i18n("<p>Unable to find MPlayer on the system</p>"
+                     "<p>KPhotoAlbum needs MPlayer to extract video thumbnails among other things. "
+                     "Please install the MPlayer2 package</p>") );
         exit(-1);
     }
 
     if ( !FeatureDialog::isMplayer2() ) {
         KMessageBox::information( this,
-                                  i18n("<p>You have mplayer installed on your system, but it is unfortunately not version 2. "
-                                       "mplayer2 is on most systems a separate package, please install that if at all possible, "
-                                       "as that version has much better support for extracting thumbnails from videos."),
-                                  i18n("mplayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
+                                  i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
+                                       "MPlayer2 is on most systems a separate package, please install that if at all possible, "
+                                       "as that version has much better support for extracting thumbnails from videos.</p>"),
+                                  i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
     }
 }
 

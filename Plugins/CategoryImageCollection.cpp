@@ -31,7 +31,7 @@ Plugins::CategoryImageCollection::CategoryImageCollection( const DB::ImageSearch
 QString Plugins::CategoryImageCollection::name()
 {
     if ( _value == QString::fromLatin1( "**NONE**" ) )
-        return i18n( "None" );
+        return i18nc("The 'name' of an unnamed image collection.", "None" );
     else
         return _value;
 }

@@ -66,9 +66,9 @@ void MainWindow::RunDialog::slotMarkGo( )
 {
     QString cmdString = _cmd->text();
     // xgettext: no-c-format
-    QRegExp replaceall = QRegExp(i18n("%all"));
+    QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'","%all"));
     // xgettext: no-c-format
-    QRegExp replaceeach = QRegExp(i18n("%each"));
+    QRegExp replaceeach = QRegExp(i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ","%each"));
 
     // Replace the %all argument first
     QStringList fileList;

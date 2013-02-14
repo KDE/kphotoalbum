@@ -95,14 +95,14 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     if ( mimeTypes.isEmpty() )
         text += i18n( "<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there were missing codecs</p>");
     else
-        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</ul></p>", mimeTypes.join(QString::fromLatin1( "<li>" ) ) );
+        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</li></ul></p>", mimeTypes.join(QString::fromLatin1( "</li><li>" ) ) );
 
     text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
-                 "<p>KPhotoAlbum uses <tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
+                 "<p>KPhotoAlbum uses <tt>MPlayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
                  "videos in the thumbnail viewer.</p>"
-                 "<p>If at all possible you should install the <b>mplayer2</b> package rather than the <b>mplayer</b> package, as it has important "
-                 "improvements over the mplayer package. mplayer (in contrast to mplayer2) often has problems extracting the length "
-                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.");
+                 "<p>If at all possible you should install the <b>MPlayer2</b> package rather than the <b>MPlayer</b> package, as it has important "
+                 "improvements over the MPlayer package. MPlayer (in contrast to MPlayer2) often has problems extracting the length "
+                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.</p>");
 
     edit->setText( text );
 
@@ -121,7 +121,7 @@ void HelpBrowser::setSource( const QUrl& url )
 
     if ( name.startsWith( QString::fromLatin1( "#" ) ) ) {
         // Must be QTextBrowser rather than KTextBrowser, as KTextBrowser opens the URL in an external browser, rather than jumping to the target.
-        QTextBrowser::setSource( name );
+        QTextBrowser::setSource( name ); //krazy:exclude=qclasses
     }
     else
         KToolInvocation::invokeBrowser( name );
@@ -211,15 +211,15 @@ QString MainWindow::FeatureDialog::featureString()
 
     QString result = QString::fromLatin1("<p><table>");
     const QString red = QString::fromLatin1("<font color=\"red\">%1</font>");
-    const QString yes = i18n("Yes");
-    const QString no =  red.arg( i18n("No") );
+    const QString yes = i18nc("Feature available","Yes");
+    const QString no =  red.arg( i18nc("Feature not available","No") );
     const QString formatString = QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" );
      for( QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt ) {
         result += formatString
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }
 
-     QString thumbnailSupport = mplayerBinary().isNull() ? no : ( isMplayer2() ? yes : red.arg(i18n("Only with mplayer1")));
+     QString thumbnailSupport = mplayerBinary().isNull() ? no : ( isMplayer2() ? yes : red.arg(i18n("Only with MPlayer1")));
     result += formatString.arg(QString::fromLatin1("#videoPreview")).arg(i18n("Video thumbnail support")).arg(thumbnailSupport);
     result += QString::fromLatin1( "</table></p>" );
 

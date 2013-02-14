@@ -41,13 +41,13 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
 
 void Viewer::SpeedDisplay::display( int i )
 {
-    setText( i18nc("@info OSD for slideshow, num of seconds per image","<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>",  i/1000.0 ) );
+    setText( i18nc("OSD for slideshow, num of seconds per image","<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>",  i/1000.0 ) );
     go();
 }
 
 void Viewer::SpeedDisplay::start( )
 {
-    setText( i18nc("@info OSD for slideshow","<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"));
+    setText( i18nc("OSD for slideshow","<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"));
     go();
 }
 
@@ -67,7 +67,7 @@ void Viewer::SpeedDisplay::go()
 
 void Viewer::SpeedDisplay::end()
 {
-    setText( i18nc("@info OSD for slideshow","<p><center><font size=\"+4\">Ending Slideshow</font></center></p>") );
+    setText( i18nc("OSD for slideshow","<p><center><font size=\"+4\">Ending Slideshow</font></center></p>") );
     go();
 }
 

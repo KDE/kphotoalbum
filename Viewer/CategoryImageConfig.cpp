@@ -39,9 +39,9 @@ CategoryImageConfig* CategoryImageConfig::_instance = 0;
 CategoryImageConfig::CategoryImageConfig()
     : _image( QImage() )
 {
-    setWindowTitle( i18n("Configure Category Image") );
+    setWindowTitle( i18nc("@title:window","Configure Category Image") );
     setButtons( User1 | Close );
-    setButtonText( User1, i18n("Set") );
+    setButtonText( User1, i18nc("@action:button As in 'Set the category image'","Set") );
 
     QWidget* top = new QWidget;
     setMainWidget( top );
@@ -51,14 +51,14 @@ CategoryImageConfig::CategoryImageConfig()
     lay1->addLayout( lay2 );
 
     // Group
-    QLabel* label = new QLabel( i18n("Group:" ), top );
+    QLabel* label = new QLabel( i18nc("@label:listbox As in 'select the tag category'","Category:" ), top );
     lay2->addWidget( label, 0, 0 );
     _group = new KComboBox( top );
     lay2->addWidget( _group, 0, 1 );
     connect( _group, SIGNAL( activated( int ) ), this, SLOT( groupChanged() ) );
 
     // Member
-    label = new QLabel( i18n( "Member:" ), top );
+    label = new QLabel( i18nc("@label:listbox As in 'select a tag'", "Tag:" ), top );
     lay2->addWidget( label, 1, 0 );
     _member = new KComboBox( top );
     lay2->addWidget( _member, 1, 1 );
@@ -67,7 +67,7 @@ CategoryImageConfig::CategoryImageConfig()
     // Current Value
     QGridLayout* lay3 = new QGridLayout;
     lay1->addLayout( lay3 );
-    label = new QLabel( i18n("Current image:"), top );
+    label = new QLabel( i18nc("@label The current category image","Current image:"), top );
     lay3->addWidget( label, 0, 0 );
 
     _current = new QLabel( top );
@@ -75,7 +75,7 @@ CategoryImageConfig::CategoryImageConfig()
     lay3->addWidget( _current, 0, 1 );
 
     // New Value
-    _imageLabel = new QLabel( i18n( "New image:"), top );
+    _imageLabel = new QLabel( i18nc("@label Preview of the new category imape", "New image:"), top );
     lay3->addWidget( _imageLabel, 1, 0 );
 
     _imageLabel = new QLabel( top );

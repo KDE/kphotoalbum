@@ -19,7 +19,6 @@
 #include <kiconloader.h>
 #include <QPixmap>
 #include <QLabel>
-#include <QDebug>
 
 static MainWindow::DirtyIndicator* _instance = 0;
 bool MainWindow::DirtyIndicator::_autoSaveDirty = false;
@@ -44,12 +43,10 @@ void MainWindow::DirtyIndicator::markDirty()
     } else {
         _saveDirty = true;
         _autoSaveDirty = true;
-        qDebug() << "Database marked dirty.";
     }
 }
 
 void MainWindow::DirtyIndicator::markDirtySlot() {
-    qDebug() << "Database marked dirty.";
     _saveDirty = true;
     _autoSaveDirty = true;
     setPixmap( _dirtyPix );
@@ -58,13 +55,11 @@ void MainWindow::DirtyIndicator::markDirtySlot() {
 
 void MainWindow::DirtyIndicator::autoSaved()
 {
-    qDebug() << "Database autosaved.";
     _autoSaveDirty= false;
 }
 
 void MainWindow::DirtyIndicator::saved()
 {
-    qDebug() << "Database saved.";
     _autoSaveDirty = false;
     _saveDirty = false;
     setPixmap( QPixmap() );

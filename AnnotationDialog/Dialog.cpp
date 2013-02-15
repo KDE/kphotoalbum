@@ -63,7 +63,6 @@
 #include "Utilities/Util.h"
 #include "Viewer/ViewerWidget.h"
 #include "enums.h"
-#include <QDebug>
 
 using Utilities::StringSet;
 
@@ -943,7 +942,6 @@ void AnnotationDialog::Dialog::setupFocus()
     QWidget* first = 0;
     for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev ) {
-            qDebug() << "tabbing " << prev->objectName() << " -> " << (*orderedIt)->objectName();
             setTabOrder( prev, *orderedIt );
         } else {
             first = *orderedIt;
@@ -952,7 +950,6 @@ void AnnotationDialog::Dialog::setupFocus()
     }
 
     if ( first ) {
-        qDebug() << "tabbing " << prev->objectName() << " -> " << first->objectName();
         setTabOrder( prev, first );
     }
 

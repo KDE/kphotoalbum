@@ -12,6 +12,11 @@
    the macro OVERRIDE. This macro expands to nothing, so it is purely for
    bringing to peoples attention that this is actually overriding a method.
    \li KPhotoAlbum is warning free zone. Please keep it that way. No warnings during compilations are accepted.
+   \li Keep debugging messages out of production code. If you really have to
+   push debug statements to git master, add the commit id to the respective
+   bit report so it can be reverted once the bug is resolved. If there is no
+   fitting bug report (e.g. for new code), disable the debug statements by
+   default.
 
    <h2>Include files and forward declarations</h2>
    To speed up compilation and make things easier to understand, you should

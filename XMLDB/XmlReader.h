@@ -2,6 +2,7 @@
 #define XMLREADER_H
 
 #include <QXmlStreamReader>
+#include <QSharedPointer>
 
 namespace XMLDB {
 
@@ -20,6 +21,8 @@ private:
     QString tokenToString(TokenType);
     TokenType readNextInternal();
 };
+
+typedef QSharedPointer<XmlReader> ReaderPtr;
 
 }
 

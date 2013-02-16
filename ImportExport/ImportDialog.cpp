@@ -52,7 +52,7 @@ ImportDialog::ImportDialog( QWidget* parent )
 {
 }
 
-bool ImportDialog::exec( KimFileReader* kimFileReader, const QString& fileName, const KUrl& kimFileURL )
+bool ImportDialog::exec( KimFileReader* kimFileReader, const KUrl& kimFileURL )
 {
     _kimFileReader = kimFileReader;
 
@@ -62,7 +62,7 @@ bool ImportDialog::exec( KimFileReader* kimFileReader, const QString& fileName, 
     if ( indexXML.isNull() )
         return false;
 
-    bool ok = readFile( indexXML, fileName );
+    bool ok = readFile(indexXML);
     if ( !ok )
         return false;
 
@@ -71,28 +71,15 @@ bool ImportDialog::exec( KimFileReader* kimFileReader, const QString& fileName, 
     return KAssistantDialog::exec() ;
 }
 
-bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
+bool ImportDialog::readFile(const QByteArray& data)
 {
-    QDomDocument doc;
-    QString errMsg;
-    int errLine;
-    int errCol;
+    XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader);
+    reader->addData(data);
 
-    if ( !doc.setContent( data, false, &errMsg, &errLine, &errCol )) {
-        KMessageBox::error( this, i18n( "Error in file %1 on line %2 col %3: %4" ,fileName,errLine,errCol,errMsg) );
-        return false;
-    }
-
-    QDomElement top = doc.documentElement();
-    if ( top.tagName().toLower() != QString::fromLatin1( "kimdaba-export" ) &&
-        top.tagName().toLower() != QString::fromLatin1( "kphotoalbum-export" ) ) {
-        KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2",
-                            fileName ,top.tagName() ) );
-        return false;
-    }
+    reader->readNextStartElement(QString::fromUtf8("KimDaBa-export"));
 
     // Read source
-    QString source = top.attribute( QString::fromLatin1( "location" ) ).toLower();
+    QString source = reader->attribute( QString::fromUtf8( "location" ) ).toLower();
     if ( source != QString::fromLatin1( "inline" ) && source != QString::fromLatin1( "external" ) ) {
         KMessageBox::error( this, i18n("<p>XML file did not specify the source of the images, "
                                        "this is a strong indication that the file is corrupted</p>" ) );
@@ -102,24 +89,14 @@ bool ImportDialog::readFile( const QByteArray& data, const QString& fileName )
     _externalSource = ( source == QString::fromLatin1( "external" ) );
 
     // Read base url
-    _baseUrl = top.attribute( QString::fromLatin1( "baseurl" ) );
+    _baseUrl = reader->attribute( QString::fromLatin1( "baseurl" ) );
 
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( !node.isElement() || ! (node.toElement().tagName().toLower() == QString::fromLatin1( "image" ) ) ) {
-            KMessageBox::error( this, i18n("Unknown element while reading %1, expected image.", fileName ) );
-            return false;
-        }
-        QDomElement elm = node.toElement();
-
-        const DB::FileName fileName = DB::FileName::fromRelativePath(elm.attribute(QString::fromLatin1( "file" )));
-#if 0
-        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm );
+    while ( reader->readNextStartOrStopElement(QString::fromUtf8("image"))) {
+        const DB::FileName fileName = DB::FileName::fromRelativePath(reader->attribute(QString::fromUtf8( "file" )));
+        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader );
         _images.append( info );
-#else
-        qFatal("OHHHH MY GOD, I FORGOT TO REWORK THE IMPORT CODE!");
-#endif
-
     }
+    reader->readEndElement();
 
     return true;
 }

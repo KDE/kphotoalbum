@@ -30,7 +30,6 @@ class QXmlStreamReader;
 namespace XMLDB
 {
 class Database;
-typedef QSharedPointer<XmlReader> ReaderPtr;
 
 class FileReader
 {

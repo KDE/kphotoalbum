@@ -513,6 +513,20 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
     (*info(to)).merge(*info(from));
 }
 
+
+// During profiling of loading, I found that a significant amount of time was spent in QDateTime::fromString.
+// Reviewing the code, I fount that it did a lot of extra checks we don't need (like checking if the string have
+// timezone information (which they won't in KPA), this function is a replacement that is faster than the original.
+QDateTime dateTimeFromString(const QString& str) {
+    static QChar T = QChar::fromLatin1('T');
+
+    if ( str[10] == T)
+        return QDateTime(QDate::fromString(str.left(10), Qt::ISODate),QTime::fromString(str.mid(11),Qt::ISODate));
+
+    else
+        return QDateTime::fromString(str,Qt::ISODate);
+}
+
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, ReaderPtr reader, Database* db )
 {
     static QString _label_ = QString::fromUtf8("label");
@@ -559,11 +573,11 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
 
         QString str = reader->attribute(  _startDate_  );
         if ( !str.isEmpty() )
-            start = QDateTime::fromString( str, Qt::ISODate );
+            start = dateTimeFromString( str );
 
         str = reader->attribute(  _endDate_  );
         if ( !str.isEmpty() )
-            end = QDateTime::fromString( str, Qt::ISODate );
+            end = dateTimeFromString(str);
         date = DB::ImageDate( start, end );
     }
     else {

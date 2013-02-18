@@ -65,6 +65,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         saveBlockList( writer );
         saveMemberGroups( writer );
     }
+    writer.writeEndDocument();
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 

@@ -63,7 +63,7 @@ the images.</p>
 
 <tip category="KPhotoAlbum">
 <html>
-<p>It's possible to associate images with categories. That way when browsing, say people, you
+<p>It is possible to associate images with categories. That way when browsing, say people, you
 may get a small icon for each person with e.g. the person's face.</p>
 <p>To specify an icon for a person, load the person in the viewer, zoom to
 the part which you want to make into an icon, and choose
@@ -83,7 +83,7 @@ people, places, etc. for the images) by pressing Ctrl+Enter.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>To hear more about latest changes in KPhotoAlbum and to get help in using and developing KPhotoAlbum, you're welcome to join the KPhotoAlbum mailing list at <a href="http://mail.kdab.com/mailman/listinfo/kphotoalbum">http://mail.kdab.com/mailman/listinfo/kphotoalbum</a>.</p>
+<p>To hear more about latest changes in KPhotoAlbum and to get help in using and developing KPhotoAlbum, you are welcome to join the KPhotoAlbum mailing list at <a href="http://mail.kdab.com/mailman/listinfo/kphotoalbum">http://mail.kdab.com/mailman/listinfo/kphotoalbum</a>.</p>
 </html>
 </tip>
 

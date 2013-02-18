@@ -50,7 +50,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "whoever made the package about this defect, eventually including the information from the section below.</p>"
 
                   "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
-                  "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
+                  "It really is not that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
                   "<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
                   "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/index.php?page=compile\">"

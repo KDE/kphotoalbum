@@ -46,10 +46,10 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
                        "<tr><td>Tags Total</td><td>This is a count of how many tags was made,<br/>i.e. a simple counting though all the images</td></tr>"
                        "<tr><td>Tags Per Picture</td><td>This tells you how many tags are on each picture on average</td></tr>"
                        "</table><br/><br/>"
-                       "Don't get too attached to this dialog, it has the problem that it counts categories AND subcategories,<br/>"
+                       "Do not get too attached to this dialog, it has the problem that it counts categories AND subcategories,<br/>"
                        "so if an image has been taken in Las Vegas, Nevada, USA, then 3 tags are counted for that image,<br/>"
                        "while it should only be one.<br/>"
-                       "I'm not really sure if it is worth fixing that bug (as it is pretty hard to fix),<br/>"
+                       "I am not really sure if it is worth fixing that bug (as it is pretty hard to fix),<br/>"
                        "so maybe the dialog will simply go away again");
 
     QLabel* label = new QLabel(txt);

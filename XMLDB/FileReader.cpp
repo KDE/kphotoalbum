@@ -33,16 +33,19 @@
 #include "XMLCategory.h"
 #include <QHash>
 #include <QXmlStreamReader>
+#include "CompressFileInfo.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
     static QString _version_ = QString::fromUtf8("version");
+    static QString _compressed_ = QString::fromUtf8("compressed");
 
     QTime time; time.start();
     ReaderPtr reader = readConfigFile( configFile );
 
     reader->readNextStartElement(QString::fromUtf8("KPhotoAlbum"));
     _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
+    setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );
 
     _db->_members.setLoading( true );
     loadCategories( reader );
@@ -400,7 +403,7 @@ QString XMLDB::FileReader::unescape( const QString& str )
     int pos = 0;
 
     // Unencoding special characters if compressed XML is selected
-    if ( Settings::SettingsData::instance()->useCompressedIndexXML() ) {
+    if ( useCompressedFileFormat() ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 ) + rx.cap( 2 );
             QString after = QString::fromLatin1( QByteArray::fromHex( rx.cap( 2 ).toLocal8Bit() ) );

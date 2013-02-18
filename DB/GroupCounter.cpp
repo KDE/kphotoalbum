@@ -95,7 +95,7 @@ void GroupCounter::count( const StringSet& categories )
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( !countedGroupDict.contains( *categoryIt ) == 0 && _groupCount.contains( *categoryIt ) ) {
+        if ( !countedGroupDict.contains( *categoryIt ) && _groupCount.contains( *categoryIt ) ) {
              countedGroupDict.insert( *categoryIt);
              (_groupCount[*categoryIt])++;
         }

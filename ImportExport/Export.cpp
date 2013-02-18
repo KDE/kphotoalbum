@@ -81,11 +81,11 @@ ExportConfig::ExportConfig()
 
     QVBoxLayout* boxLay = new QVBoxLayout( grp );
     _include = new QRadioButton( i18n("Include in .kim file"), grp );
-    _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
+    _manually = new QRadioButton( i18n("Don't copy files, only generate .kim file"), grp );
     _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
     _link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
     _symlink = new QRadioButton( i18n("Symbolic link next to .kim file"), grp );
-    _manually->setChecked( true );
+    _auto->setChecked( true );
 
     boxLay->addWidget( _include );
     boxLay->addWidget( _manually );
@@ -99,7 +99,7 @@ ExportConfig::ExportConfig()
 
     // Generate thumbnails
     _generateThumbnails = new QCheckBox( i18n("Generate thumbnails"), top );
-    _generateThumbnails->setChecked(true);
+    _generateThumbnails->setChecked( false );
     lay1->addWidget( _generateThumbnails );
 
     // Enforece max size

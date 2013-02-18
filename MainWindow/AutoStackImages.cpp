@@ -60,7 +60,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     QHBoxLayout* hlayFile = new QHBoxLayout( containerFile );
 
     _matchingFile = new QCheckBox( i18n( "Stack images based on file version detection") );
-    _matchingFile->setChecked( false );
+    _matchingFile->setChecked( true );
     hlayFile->addWidget( _matchingFile );
  
     _origTop = new QCheckBox( i18n( "Original to top") );
@@ -76,7 +76,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     //within this time:" and use the spin method setSuffix() to set the "seconds".
     //Also: Would minutes not be a more sane time unit here? (schwarzer)
     _continuousShooting = new QCheckBox( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. So images that are shot in one burst are automatically stacked together. (This sentence is before the x.)", "Stack images that are shot within" ) );
-    _continuousShooting->setChecked( true );
+    _continuousShooting->setChecked( false );
     hlayContinuous->addWidget( _continuousShooting );
 
     _continuousThreshold = new QSpinBox;

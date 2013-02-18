@@ -16,15 +16,21 @@ QString XmlReader::attribute( const QString& name, const QString& defaultValue )
         return ref.toString();
 }
 
-void XmlReader::readNextStartElement( const QString& expected )
+bool XmlReader::readNextStartElement(const QString& expected , StartElementRequirement requirement)
 {
     const bool ok = QXmlStreamReader::readNextStartElement();
-    if ( !ok )
-        reportError(i18n("Error reading next element"));
+    if ( !ok ) {
+        if ( error() != NoError || requirement == MustFindStartElement )
+            reportError(i18n("Error reading next element"));
+        else
+            return false;
+    }
 
     const QString elementName = name().toString();
     if ( elementName != expected)
         reportError(i18n("Expected to read %1, but read %2").arg(expected).arg(elementName));
+
+    return true;
 }
 
 bool XmlReader::readNextStartOrStopElement(const QString& expectedStart)

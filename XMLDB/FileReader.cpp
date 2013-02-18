@@ -43,7 +43,7 @@ void XMLDB::FileReader::read( const QString& configFile )
     QTime time; time.start();
     ReaderPtr reader = readConfigFile( configFile );
 
-    reader->readNextStartElement(QString::fromUtf8("KPhotoAlbum"));
+    reader->readNextStartElement(QString::fromUtf8("KPhotoAlbum"), XmlReader::MustFindStartElement);
     _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
     setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );
 
@@ -145,7 +145,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString _Category_ = QString::fromUtf8("Category");
 
 
-    reader->readNextStartElement(_Categories_);
+    reader->readNextStartElement(_Categories_, XmlReader::MustFindStartElement);
 
     while ( reader->readNextStartOrStopElement(_Category_)) {
         const QString categoryName = unescape( reader->attribute(_name_) );
@@ -186,7 +186,7 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
     static QString _images_ = QString::fromUtf8("images");
     static QString _image_ = QString::fromUtf8("image");
 
-    reader->readNextStartElement(_images_);
+    reader->readNextStartElement(_images_, XmlReader::MustFindStartElement);
     while (reader->readNextStartOrStopElement(_image_)) {
         const QString fileNameStr = reader->attribute(_file_);
         if ( fileNameStr.isNull() ) {
@@ -209,7 +209,7 @@ void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
     static QString _blocklist_ = QString::fromUtf8("blocklist");
     static QString _block_ = QString::fromUtf8("block");
 
-    reader->readNextStartElement(_blocklist_);
+    reader->readNextStartElement(_blocklist_, XmlReader::MustFindStartElement);
     while ( reader->readNextStartOrStopElement(_block_)) {
         QString fileName = reader->attribute(_file_);
         if ( !fileName.isEmpty() )
@@ -226,8 +226,8 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
     static QString _members_ = QString::fromUtf8("members");
     static QString _memberGroups_ = QString::fromUtf8("member-groups");
 
-    reader->readNextStartElement(_memberGroups_);
-    while( reader->readNextStartOrStopElement(_member_)) {
+    bool foundMemberGroupsElement = reader->readNextStartElement(_memberGroups_, XmlReader::StartElementIsOptional );
+    while( foundMemberGroupsElement && reader->readNextStartOrStopElement(_member_)) {
         QString category = reader->attribute(_category_);
 
         QString group = reader->attribute(_groupName_);

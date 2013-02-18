@@ -76,7 +76,7 @@ bool ImportDialog::readFile(const QByteArray& data)
     XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader);
     reader->addData(data);
 
-    reader->readNextStartElement(QString::fromUtf8("KimDaBa-export"));
+    reader->readNextStartElement(QString::fromUtf8("KimDaBa-export"), XMLDB::XmlReader::MustFindStartElement);
 
     // Read source
     QString source = reader->attribute( QString::fromUtf8( "location" ) ).toLower();

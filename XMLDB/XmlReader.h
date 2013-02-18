@@ -9,10 +9,11 @@ namespace XMLDB {
 class XmlReader : public QXmlStreamReader
 {
 public:
+    enum StartElementRequirement {MustFindStartElement, StartElementIsOptional};
     explicit XmlReader();
 
     QString attribute(const QString &name, const QString& defaultValue = QString() );
-    void readNextStartElement(const QString &expected );
+    bool readNextStartElement(const QString &expected, StartElementRequirement );
     bool readNextStartOrStopElement(const QString &expectedStart);
     void readEndElement();
     bool hasAttribute(const QString& name);

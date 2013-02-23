@@ -7,7 +7,8 @@
 
    \li Indentation is 4 spaces
    \li Instance variables are prefixed either with an underscore or
-   m_. Please stick to one of the two for a given class.
+   m_. Please stick to one of the two for a given class and use the m_ variant
+   for new classes.
    \li Methods that are overridden from a superclass should be marked with
    the macro OVERRIDE. This macro expands to nothing, so it is purely for
    bringing to peoples attention that this is actually overriding a method.
@@ -16,7 +17,19 @@
    push debug statements to git master, add the commit id to the respective
    bit report so it can be reverted once the bug is resolved. If there is no
    fitting bug report (e.g. for new code), disable the debug statements by
-   default.
+   default.<br/>
+   You can use this recipe for adding debug statements to your code:<br>
+   \code
+   #ifdef DEBUG_FOO
+   #define Debug qDebug
+   #else
+   #define Debug if (0) qDebug
+   #endif
+   ...
+   Debug() << "This will only be printed out if DEBUG_FOO is defined.";
+   \endcode
+   You can then enable the code by adding DEBUG_FOO to the CMAKE_CXX_FLAGS
+   variable in your cmake cache.
 
    <h2>Include files and forward declarations</h2>
    To speed up compilation and make things easier to understand, you should

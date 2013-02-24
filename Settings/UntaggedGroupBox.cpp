@@ -38,7 +38,7 @@ Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
 
     _category = new QComboBox;
     grid->addWidget( _category, row, 1 );
-    connect( _category, SIGNAL( currentIndexChanged( int ) ), this, SLOT( populateTagsCombo() ) );
+    connect( _category, SIGNAL(currentIndexChanged(int)), this, SLOT(populateTagsCombo()) );
 
     label = new QLabel( i18n("Tag:") );
     grid->addWidget( label, ++row, 0 );

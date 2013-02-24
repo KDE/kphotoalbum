@@ -87,8 +87,8 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
     hlay->addWidget( iptcLabel );
     hlay->addWidget( m_iptcCharset );
 
-    connect( m_grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
-    connect( m_iptcCharset, SIGNAL( activated( const QString& ) ), m_grid, SLOT( setupUI( const QString& ) ) );
+    connect( m_grid, SIGNAL(searchStringChanged(QString)), this, SLOT(updateSearchString(QString)) );
+    connect( m_iptcCharset, SIGNAL(activated(QString)), m_grid, SLOT(setupUI(QString)) );
     setImage(fileName);
     updateSearchString( QString() );
 }

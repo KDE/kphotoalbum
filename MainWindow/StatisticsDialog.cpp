@@ -135,8 +135,8 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
         m_category->addItem( category->text(), category->name() );
     }
 
-    connect( m_category, SIGNAL( activated(int) ), this, SLOT( categoryChanged(int) ) );
-    connect( m_tag, SIGNAL( activated(int) ), this, SLOT( populate() ) );
+    connect( m_category, SIGNAL(activated(int)), this, SLOT(categoryChanged(int)) );
+    connect( m_tag, SIGNAL(activated(int)), this, SLOT(populate()) );
     m_tagLabel->setEnabled(false);
     m_tag->setEnabled(false);
 

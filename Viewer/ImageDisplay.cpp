@@ -77,7 +77,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     setMouseTracking( true );
     _cursorTimer = new QTimer( this );
     _cursorTimer->setSingleShot(true);
-    connect( _cursorTimer, SIGNAL( timeout() ), this, SLOT( hideCursor() ) );
+    connect( _cursorTimer, SIGNAL(timeout()), this, SLOT(hideCursor()) );
     showCursor();
 
 }

@@ -191,7 +191,7 @@ void HTMLDialog::createLayoutPage()
     _themeInfo = new QLabel( i18n("Theme Description"), layoutPage );
     _themeInfo->setWordWrap(true);
     lay2->addWidget( _themeInfo, 3, 1 );
-    connect(_themeBox, SIGNAL(currentIndexChanged( int )), this, SLOT(displayThemeDescription( int )));  // update theme description whenever ComboBox changes
+    connect(_themeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(displayThemeDescription(int)));  // update theme description whenever ComboBox changes
     populateThemesCombo();   
     
     // Image sizes
@@ -271,7 +271,7 @@ void HTMLDialog::createDestinationPage()
     lay3->addWidget( but );
     but->setFixedWidth( 25 );
 
-    connect( but, SIGNAL( clicked() ), this, SLOT( selectDir() ) );
+    connect( but, SIGNAL(clicked()), this, SLOT(selectDir()) );
     _baseDir->setText( Settings::SettingsData::instance()->HTMLBaseDir() );
 
     // Base URL

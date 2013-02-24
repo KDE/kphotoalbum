@@ -34,56 +34,56 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
 {
     setTearOffEnabled(true);
     setTitle( i18n("Show") );
-    connect( this, SIGNAL( aboutToShow() ), this, SLOT( updateState() ) );
+    connect( this, SIGNAL(aboutToShow()), this, SLOT(updateState()) );
 
     _showInfoBox = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-infobox") );
     _showInfoBox->setText( i18n("Show Info Box") );
     _showInfoBox->setShortcut( Qt::CTRL+Qt::Key_I );
     _showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
-    connect( _showInfoBox, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
+    connect( _showInfoBox, SIGNAL(toggled(bool)), this, SLOT(toggleShowInfoBox(bool)) );
     addAction( _showInfoBox );
 
     _showLabel = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-label") );
     _showLabel->setText( i18n("Show Label") );
     _showLabel->setShortcut( 0 );
-    connect( _showLabel, SIGNAL( toggled(bool) ), this, SLOT( toggleShowLabel( bool ) ) );
+    connect( _showLabel, SIGNAL(toggled(bool)), this, SLOT(toggleShowLabel(bool)) );
     addAction( _showLabel );
 
     _showDescription = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-description") );
     _showDescription->setText( i18n("Show Description") );
     _showDescription->setShortcut( 0 );
-    connect( _showDescription, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDescription( bool ) ) );
+    connect( _showDescription, SIGNAL(toggled(bool)), this, SLOT(toggleShowDescription(bool)) );
     addAction( _showDescription );
 
     _showDate = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-date") );
     _showDate->setText( i18n("Show Date") );
-    connect( _showDate, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDate( bool ) ) );
+    connect( _showDate, SIGNAL(toggled(bool)), this, SLOT(toggleShowDate(bool)) );
     addAction( _showDate );
 
     _showTime = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-time") );
     _showTime->setText( i18n("Show Time") );
-    connect( _showTime, SIGNAL( toggled(bool) ), this, SLOT( toggleShowTime( bool ) ) );
+    connect( _showTime, SIGNAL(toggled(bool)), this, SLOT(toggleShowTime(bool)) );
     addAction( _showTime );
     _showTime->setVisible( _showDate->isChecked() );
 
     _showFileName = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-filename") );
     _showFileName->setText( i18n("Show Filename") );
-    connect( _showFileName, SIGNAL( toggled(bool) ), this, SLOT( toggleShowFilename( bool ) ) );
+    connect( _showFileName, SIGNAL(toggled(bool)), this, SLOT(toggleShowFilename(bool)) );
     addAction( _showFileName );
 
     _showExif = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-exif") );
     _showExif->setText( i18n("Show EXIF") );
-    connect( _showExif, SIGNAL( toggled(bool) ), this, SLOT( toggleShowEXIF( bool ) ) );
+    connect( _showExif, SIGNAL(toggled(bool)), this, SLOT(toggleShowEXIF(bool)) );
     addAction( _showExif );
 
     _showImageSize = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-imagesize") );
     _showImageSize->setText( i18n("Show Image Size") );
-    connect( _showImageSize, SIGNAL( toggled(bool) ), this, SLOT( toggleShowImageSize( bool ) ) );
+    connect( _showImageSize, SIGNAL(toggled(bool)), this, SLOT(toggleShowImageSize(bool)) );
     addAction( _showImageSize );
 
     _showRating = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-rating") );
     _showRating->setText( i18n("Show Rating") );
-    connect( _showRating, SIGNAL( toggled(bool) ), this, SLOT( toggleShowRating( bool ) ) );
+    connect( _showRating, SIGNAL(toggled(bool)), this, SLOT(toggleShowRating(bool)) );
     addAction( _showRating );
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -93,7 +93,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
         taction->setText( (*it)->text() );
         taction->setData( (*it)->name() );
         addAction( taction );
-        connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowCategory( bool ) ) );
+        connect( taction, SIGNAL(toggled(bool)), this, SLOT(toggleShowCategory(bool)) );
     }
 }
 

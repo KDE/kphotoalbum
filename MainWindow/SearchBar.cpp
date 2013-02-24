@@ -37,8 +37,8 @@ MainWindow::SearchBar::SearchBar( KMainWindow* parent )
     label->setBuddy( _edit );
 
     addWidget( _edit );
-    connect( _edit, SIGNAL( textChanged( const QString& ) ), this, SIGNAL( textChanged( const QString& ) ) );
-    connect( _edit, SIGNAL( returnPressed() ), this, SIGNAL( returnPressed() ) );
+    connect( _edit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)) );
+    connect( _edit, SIGNAL(returnPressed()), this, SIGNAL(returnPressed()) );
 
     _edit->installEventFilter( this );
 }

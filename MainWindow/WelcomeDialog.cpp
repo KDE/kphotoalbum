@@ -76,9 +76,9 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
     QPushButton* checkFeatures = new QPushButton( i18n("Check My Feature Set") );
     lay3->addWidget( checkFeatures );
 
-    connect( loadDemo, SIGNAL( clicked() ), this, SLOT( slotLoadDemo() ) );
-    connect( createSetup, SIGNAL( clicked() ), this, SLOT( createSetup() ) );
-    connect( checkFeatures, SIGNAL( clicked() ), this, SLOT( checkFeatures() ) );
+    connect( loadDemo, SIGNAL(clicked()), this, SLOT(slotLoadDemo()) );
+    connect( createSetup, SIGNAL(clicked()), this, SLOT(createSetup()) );
+    connect( checkFeatures, SIGNAL(clicked()), this, SLOT(checkFeatures()) );
 }
 
 
@@ -134,7 +134,7 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
     button->setMaximumWidth( 30 );
     lay2->addWidget( button );
-    connect( button, SIGNAL( clicked() ), this, SLOT( slotBrowseForDirecory() ) );
+    connect( button, SIGNAL(clicked()), this, SLOT(slotBrowseForDirecory()) );
 }
 
 void FileDialog::slotBrowseForDirecory()

@@ -91,8 +91,8 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     _fromFocalLength->setSuffix( suffix );
     _toFocalLength->setSuffix( suffix );
 
-    connect( _fromFocalLength, SIGNAL( valueChanged( int ) ), this, SLOT( fromFocalLengthChanged( int ) ) );
-    connect( _toFocalLength, SIGNAL( valueChanged( int ) ), this, SLOT( toFocalLengthChanged( int ) ) );
+    connect( _fromFocalLength, SIGNAL(valueChanged(int)), this, SLOT(fromFocalLengthChanged(int)) );
+    connect( _toFocalLength, SIGNAL(valueChanged(int)), this, SLOT(toFocalLengthChanged(int)) );
 
     // exposure program and Metring mode
     hlay = new QHBoxLayout;

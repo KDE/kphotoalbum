@@ -29,7 +29,7 @@ Exif::TreeView::TreeView( const QString& title, QWidget* parent)
 {
     setHeaderLabel( title );
     reload();
-    connect( this, SIGNAL( itemClicked(QTreeWidgetItem*,int) ), this, SLOT( toggleChildren( QTreeWidgetItem* ) ) );
+    connect( this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(toggleChildren(QTreeWidgetItem*)) );
 }
 
 void Exif::TreeView::toggleChildren( QTreeWidgetItem* parent )

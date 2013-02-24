@@ -37,7 +37,7 @@ namespace KIPI { class UploadWidget; }
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
 {
-    connect( Browser::BrowserWidget::instance(), SIGNAL( pathChanged( const Browser::BreadcrumbList& ) ), this, SLOT( pathChanged( const Browser::BreadcrumbList& ) ) );
+    connect( Browser::BrowserWidget::instance(), SIGNAL(pathChanged(Browser::BreadcrumbList)), this, SLOT(pathChanged(Browser::BreadcrumbList)) );
 }
 
 KIPI::ImageCollection Plugins::Interface::currentAlbum()

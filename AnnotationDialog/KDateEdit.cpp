@@ -77,8 +77,8 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     layout->addWidget(mDatePicker);
 
     connect(lineEdit(),SIGNAL(editingFinished()),SLOT(lineEnterPressed()));
-    connect(this,SIGNAL(textChanged(const QString &)),
-            SLOT(slotTextChanged(const QString &)));
+    connect(this,SIGNAL(textChanged(QString)),
+            SLOT(slotTextChanged(QString)));
 
     connect(mDatePicker,SIGNAL(dateEntered(QDate)),SLOT(dateEntered(QDate)));
     connect(mDatePicker,SIGNAL(dateSelected(QDate)),SLOT(dateSelected(QDate)));

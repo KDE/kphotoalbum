@@ -76,9 +76,9 @@ void Viewer::VideoDisplay::setup()
     _videoWidget->show();
 
 
-    connect( _mediaObject, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
-    connect( _mediaObject, SIGNAL( stateChanged( Phonon::State, Phonon::State ) ),
-             this, SLOT( phononStateChanged(Phonon::State, Phonon::State) ) );
+    connect( _mediaObject, SIGNAL(finished()), this, SIGNAL(stopped()) );
+    connect( _mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+             this, SLOT(phononStateChanged(Phonon::State,Phonon::State)) );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )

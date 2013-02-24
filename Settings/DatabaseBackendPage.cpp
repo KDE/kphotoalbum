@@ -35,7 +35,7 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     // Compressed index.xml
     _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
     topLayout->addWidget(_compressedIndexXML);
-    connect( _compressedIndexXML, SIGNAL( clicked(bool) ), this, SLOT ( markDirty() ) );
+    connect( _compressedIndexXML, SIGNAL(clicked(bool)), this, SLOT (markDirty()) );
 
     _compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
     topLayout->addWidget(_compressBackup);

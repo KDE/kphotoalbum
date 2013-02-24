@@ -48,15 +48,15 @@ XMLDB::Database::Database( const QString& configFile ):
     reader.read( configFile );
     _nextStackId = reader.nextStackId();
 
-    connect( categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
-             this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
-    connect( categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
-             this, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
+    connect( categoryCollection(), SIGNAL(itemRemoved(DB::Category*,QString)),
+             this, SLOT(deleteItem(DB::Category*,QString)) );
+    connect( categoryCollection(), SIGNAL(itemRenamed(DB::Category*,QString,QString)),
+             this, SLOT(renameItem(DB::Category*,QString,QString)) );
 
-    connect( categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
-             &_members, SLOT( deleteItem( DB::Category*, const QString& ) ) );
-    connect( categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
-             &_members, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
+    connect( categoryCollection(), SIGNAL(itemRemoved(DB::Category*,QString)),
+             &_members, SLOT(deleteItem(DB::Category*,QString)) );
+    connect( categoryCollection(), SIGNAL(itemRenamed(DB::Category*,QString,QString)),
+             &_members, SLOT(renameItem(DB::Category*,QString,QString)) );
 }
 
 uint XMLDB::Database::totalCount() const

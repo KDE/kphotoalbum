@@ -59,12 +59,12 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _treeWidget = new CategoryListView::DragableTreeWidget( _category, this );
     _treeWidget->setHeaderLabel( QString::fromLatin1( "items" ) );
     _treeWidget->header()->hide();
-    connect( _treeWidget, SIGNAL( itemClicked( QTreeWidgetItem*,int  ) ),  this,  SLOT( itemSelected( QTreeWidgetItem* ) ) );
+    connect( _treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),  this,  SLOT(itemSelected(QTreeWidgetItem*)) );
     _treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect( _treeWidget, SIGNAL( customContextMenuRequested (QPoint) ),
+    connect( _treeWidget, SIGNAL(customContextMenuRequested(QPoint)),
              this, SLOT(showContextMenu(QPoint)));
-    connect( _treeWidget, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
-    connect( _treeWidget, SIGNAL( itemClicked(QTreeWidgetItem*,int)), this, SLOT( updateSelectionCount() ) );
+    connect( _treeWidget, SIGNAL(itemsChanged()), this, SLOT(rePopulate()) );
+    connect( _treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateSelectionCount()) );
 
     layout->addWidget( _treeWidget );
 
@@ -109,10 +109,10 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _alphaTreeSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree );
     _alphaFlatSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat );
     _dateSort->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse );
-    connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
-    connect( _alphaTreeSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaTree() ) );
-    connect( _alphaFlatSort, SIGNAL( clicked() ), this, SLOT( slotSortAlphaFlat() ) );
-    connect( _showSelectedOnly, SIGNAL( clicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
+    connect( _dateSort, SIGNAL(clicked()), this, SLOT(slotSortDate()) );
+    connect( _alphaTreeSort, SIGNAL(clicked()), this, SLOT(slotSortAlphaTree()) );
+    connect( _alphaFlatSort, SIGNAL(clicked()), this, SLOT(slotSortAlphaFlat()) );
+    connect( _showSelectedOnly, SIGNAL(clicked()), &ShowSelectionOnlyManager::instance(), SLOT(toggle()) );
 
     lay2->addWidget( _alphaTreeSort );
     lay2->addWidget( _alphaFlatSort );
@@ -121,17 +121,17 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     _lineEdit->setListView( _treeWidget );
 
-    connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
+    connect( _lineEdit, SIGNAL(returnPressed()),  this,  SLOT(slotReturn()) );
 
     populate();
 
-    connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
-             this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
-    connect( Settings::SettingsData::instance(), SIGNAL( matchTypeChanged( AnnotationDialog::MatchType ) ),
-             this, SLOT( updateListview( ) ) );
+    connect( Settings::SettingsData::instance(), SIGNAL(viewSortTypeChanged(Settings::ViewSortType)),
+             this, SLOT(setViewSortType(Settings::ViewSortType)) );
+    connect( Settings::SettingsData::instance(), SIGNAL(matchTypeChanged(AnnotationDialog::MatchType)),
+             this, SLOT(updateListview()) );
 
-    connect( &ShowSelectionOnlyManager::instance(), SIGNAL( limitToSelected() ), this, SLOT(limitToSelection() ) );
-    connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
+    connect( &ShowSelectionOnlyManager::instance(), SIGNAL(limitToSelected()), this, SLOT(limitToSelection()) );
+    connect( &ShowSelectionOnlyManager::instance(), SIGNAL(broaden()), this, SLOT(showAllChildren()) );
 }
 
 void AnnotationDialog::ListSelect::slotReturn()

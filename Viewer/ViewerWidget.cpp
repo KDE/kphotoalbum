@@ -102,10 +102,10 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
 
     createVideoViewer();
 
-    connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
-    connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
-    connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
-             this, SLOT( setCaptionWithDetail(const QString&) ) );
+    connect( _imageDisplay, SIGNAL(possibleChange()), this, SLOT(updateCategoryConfig()) );
+    connect( _imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
+    connect( _imageDisplay, SIGNAL(setCaptionInfo(QString)),
+             this, SLOT(setCaptionWithDetail(QString)) );
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
@@ -117,7 +117,7 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     _slideShowTimer = new QTimer( this );
     _slideShowTimer->setSingleShot( true );
     _slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
-    connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNextFromTimer() ) );
+    connect( _slideShowTimer, SIGNAL(timeout()), this, SLOT(slotSlideShowNextFromTimer()) );
     _speedDisplay = new SpeedDisplay( this );
     _speedDisplay->hide();
 
@@ -142,24 +142,24 @@ void Viewer::ViewerWidget::setupContextMenu()
     createCategoryImageMenu();
     createFilterMenu();
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT( editImage() ) );
+    KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()) );
     action->setText( i18nc("@action:inmenu","Annotate...") );
     action->setShortcut( Qt::CTRL+Qt::Key_1 );
     _popup->addAction( action );
 
-    _setStackHead = _actions->addAction( QString::fromLatin1("viewer-set-stack-head"), this, SLOT( slotSetStackHead() ) );
+    _setStackHead = _actions->addAction( QString::fromLatin1("viewer-set-stack-head"), this, SLOT(slotSetStackHead()) );
     _setStackHead->setText( i18nc("@action:inmenu","Set as First Image in Stack") );
     _setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
     _popup->addAction( _setStackHead );
 
 #ifdef HAVE_EXIV2
-    _showExifViewer = _actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT( showExifViewer() ) );
+    _showExifViewer = _actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()) );
     _showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
     _popup->addAction( _showExifViewer );
 #endif
 
     if ( _type == ViewerWindow ) {
-        action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT( close() ) );
+        action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT(close()) );
         action->setText( i18nc("@action:inmenu","Close") );
         action->setShortcut( Qt::Key_Escape );
     }
@@ -176,7 +176,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 void Viewer::ViewerWidget::createShowContextMenu()
 {
     VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, _actions );
-    connect( menu, SIGNAL( visibleOptionsChanged() ), this, SLOT( updateInfoBox()  ) );
+    connect( menu, SIGNAL(visibleOptionsChanged()), this, SLOT(updateInfoBox()) );
     _popup->addMenu( menu );
 }
 
@@ -187,31 +187,31 @@ void Viewer::ViewerWidget::createWallPaperMenu()
     _wallpaperMenu = new QMenu( _popup );
     _wallpaperMenu->setTitle( i18nc("@title:inmenu","Set as Wallpaper") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT( slotSetWallpaperC() ) );
+    KAction* action = _actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
     action->setText( i18nc("@action:inmenu","Centered") );
     _wallpaperMenu->addAction(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-tiled"), this, SLOT( slotSetWallpaperT() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-tiled"), this, SLOT(slotSetWallpaperT()) );
     action->setText( i18nc("@action:inmenu","Tiled") );
     _wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-center-tiled"), this, SLOT( slotSetWallpaperCT() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-center-tiled"), this, SLOT(slotSetWallpaperCT()) );
     action->setText( i18nc("@action:inmenu","Center Tiled") );
     _wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-centered-maxspect"), this, SLOT( slotSetWallpaperCM() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-centered-maxspect"), this, SLOT(slotSetWallpaperCM()) );
     action->setText( i18nc("@action:inmenu","Centered Maxpect") );
     _wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-tiled-maxpect"), this, SLOT( slotSetWallpaperTM() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-tiled-maxpect"), this, SLOT(slotSetWallpaperTM()) );
     action->setText( i18nc("@action:inmenu","Tiled Maxpect") );
     _wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-scaled"), this, SLOT( slotSetWallpaperS() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-scaled"), this, SLOT(slotSetWallpaperS()) );
     action->setText( i18nc("@action:inmenu","Scaled") );
     _wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-centered-auto-fit"), this, SLOT( slotSetWallpaperCAF() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-centered-auto-fit"), this, SLOT(slotSetWallpaperCAF()) );
     action->setText( i18nc("@action:inmenu","Centered Auto Fit") );
     _wallpaperMenu->addAction( action );
 
@@ -248,7 +248,7 @@ void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
     _externalPopup = new MainWindow::ExternalPopup( _popup );
     _popup->addMenu( _externalPopup );
-    connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
+    connect( _externalPopup, SIGNAL(aboutToShow()), this, SLOT(populateExternalPopup()) );
 }
 
 void Viewer::ViewerWidget::createRotateMenu()
@@ -256,17 +256,17 @@ void Viewer::ViewerWidget::createRotateMenu()
     _rotateMenu = new QMenu( _popup );
     _rotateMenu->setTitle( i18nc("@title:inmenu","Rotate") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT( rotate90() ) );
+    KAction* action = _actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()) );
     action->setText( i18nc("@action:inmenu","Rotate clockwise") );
     action->setShortcut( Qt::Key_9 );
     _rotateMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-rotate180"), this, SLOT( rotate180() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-rotate180"), this, SLOT(rotate180()) );
     action->setText( i18nc("@action:inmenu","Flip Over") );
     action->setShortcut( Qt::Key_8 );
     _rotateMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT( rotate270() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT(rotate270()) );
     action->setText( i18nc("@action:inmenu","Rotate counterclockwise") );
     action->setShortcut( Qt::Key_7 );
     _rotateMenu->addAction( action );
@@ -279,19 +279,19 @@ void Viewer::ViewerWidget::createSkipMenu()
     QMenu *popup = new QMenu( _popup );
     popup->setTitle( i18nc("@title:inmenu As in 'skip 2 images'","Skip") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT( showFirst() ) );
+    KAction* action = _actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT(showFirst()) );
     action->setText( i18nc("@action:inmenu Go to first image","First") );
     action->setShortcut( Qt::Key_Home );
     popup->addAction( action );
     _backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-end"), this, SLOT( showLast() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-end"), this, SLOT(showLast()) );
     action->setText( i18nc("@action:inmenu Go to last image","Last") );
     action->setShortcut( Qt::Key_End );
     popup->addAction( action );
     _forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT( showNext() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT(showNext()) );
     action->setText( i18nc("@action:inmenu","Show Next") );
     action->setShortcut( Qt::Key_PageDown );
     // bah, they don't use references
@@ -301,54 +301,54 @@ void Viewer::ViewerWidget::createSkipMenu()
     popup->addAction( action );
     _forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-10"), this, SLOT( showNext10() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-next-10"), this, SLOT(showNext10()) );
     action->setText( i18nc("@action:inmenu","Skip 10 Forward") );
     action->setShortcut( Qt::CTRL+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-100"), this, SLOT( showNext100() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-next-100"), this, SLOT(showNext100()) );
     action->setText( i18nc("@action:inmenu","Skip 100 Forward") );
     action->setShortcut( Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-1000"), this, SLOT( showNext1000() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-next-1000"), this, SLOT(showNext1000()) );
     action->setText( i18nc("@action:inmenu","Skip 1000 Forward") );
     action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
     _forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT( showPrev() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
     action->setText( i18nc("@action:inmenu","Show Previous") );
     action->setShortcut( Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-10"), this, SLOT( showPrev10() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-prev-10"), this, SLOT(showPrev10()) );
     action->setText( i18nc("@action:inmenu","Skip 10 Backward") );
     action->setShortcut( Qt::CTRL+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-100"), this, SLOT( showPrev100() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-prev-100"), this, SLOT(showPrev100()) );
     action->setText( i18nc("@action:inmenu","Skip 100 Backward") );
     action->setShortcut( Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-1000"), this, SLOT( showPrev1000() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-prev-1000"), this, SLOT(showPrev1000()) );
     action->setText( i18nc("@action:inmenu","Skip 1000 Backward") );
     action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
     _backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT( deleteCurrent() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT(deleteCurrent()) );
     action->setText( i18nc("@action:inmenu","Delete Image") );
     action->setShortcut( Qt::CTRL + Qt::Key_Delete );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT( removeCurrent() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT(removeCurrent()) );
     action->setText( i18nc("@action:inmenu","Remove Image from Display List") );
     action->setShortcut( Qt::Key_Delete );
     popup->addAction( action );
@@ -362,27 +362,27 @@ void Viewer::ViewerWidget::createZoomMenu()
     popup->setTitle( i18nc("@action:inmenu","Zoom") );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT( zoomIn() ) );
+    KAction* action = _actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()) );
     action->setText( i18nc("@action:inmenu","Zoom In") );
     action->setShortcut( Qt::Key_Plus );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-out"), this, SLOT( zoomOut() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-zoom-out"), this, SLOT(zoomOut()) );
     action->setText( i18nc("@action:inmenu","Zoom Out") );
     action->setShortcut( Qt::Key_Minus );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-full"), this, SLOT( zoomFull() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-zoom-full"), this, SLOT(zoomFull()) );
     action->setText( i18nc("@action:inmenu","Full View") );
     action->setShortcut( Qt::Key_Period );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-pixel"), this, SLOT( zoomPixelForPixel() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-zoom-pixel"), this, SLOT(zoomPixelForPixel()) );
     action->setText( i18nc("@action:inmenu","Pixel for Pixel View") );
     action->setShortcut( Qt::Key_Equal );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT( toggleFullScreen() ) );
+    action = _actions->addAction( QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT(toggleFullScreen()) );
     action->setText( i18nc("@action:inmenu","Toggle Full Screen") );
     action->setShortcut( Qt::Key_Return );
     popup->addAction( action );
@@ -396,17 +396,17 @@ void Viewer::ViewerWidget::createSlideShowMenu()
     QMenu *popup = new QMenu( _popup );
     popup->setTitle( i18nc("@title:inmenu","Slideshow") );
 
-    _startStopSlideShow = _actions->addAction( QString::fromLatin1("viewer-start-stop-slideshow"), this, SLOT( slotStartStopSlideShow() ) );
+    _startStopSlideShow = _actions->addAction( QString::fromLatin1("viewer-start-stop-slideshow"), this, SLOT(slotStartStopSlideShow()) );
     _startStopSlideShow->setText( i18nc("@action:inmenu","Run Slideshow") );
     _startStopSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
     popup->addAction( _startStopSlideShow );
 
-    _slideShowRunFaster = _actions->addAction( QString::fromLatin1("viewer-run-faster"), this, SLOT( slotSlideShowFaster() ) );
+    _slideShowRunFaster = _actions->addAction( QString::fromLatin1("viewer-run-faster"), this, SLOT(slotSlideShowFaster()) );
     _slideShowRunFaster->setText( i18nc("@action:inmenu","Run Faster") );
     _slideShowRunFaster->setShortcut( Qt::CTRL + Qt::Key_Plus ); // if you change this, please update the info in Viewer::SpeedDisplay
     popup->addAction( _slideShowRunFaster );
 
-    _slideShowRunSlower = _actions->addAction( QString::fromLatin1("viewer-run-slower"), this, SLOT( slotSlideShowSlower() ) );
+    _slideShowRunSlower = _actions->addAction( QString::fromLatin1("viewer-run-slower"), this, SLOT(slotSlideShowSlower()) );
     _slideShowRunSlower->setText( i18nc("@action:inmenu","Run Slower") );
     _slideShowRunSlower->setShortcut( Qt::CTRL+Qt::Key_Minus ); // if you change this, please update the info in Viewer::SpeedDisplay
     popup->addAction( _slideShowRunSlower );
@@ -1312,13 +1312,13 @@ void Viewer::ViewerWidget::createVideoMenu()
     _popup->addAction( sep );
     _videoActions.append( sep );
 
-    _stop = _actions->addAction( QString::fromLatin1("viewer-video-stop"), _videoDisplay, SLOT( stop() ) );
+    _stop = _actions->addAction( QString::fromLatin1("viewer-video-stop"), _videoDisplay, SLOT(stop()) );
     _stop->setText( i18nc("@action:inmenu Stop video playback","Stop") );
     _popup->addAction( _stop );
     _videoActions.append(_stop);
 
 
-    _playPause = _actions->addAction( QString::fromLatin1("viewer-video-pause"), _videoDisplay, SLOT( playPause() ) );
+    _playPause = _actions->addAction( QString::fromLatin1("viewer-video-pause"), _videoDisplay, SLOT(playPause()) );
     // text set in contextMenuEvent()
     _playPause->setShortcut( Qt::Key_P );
     _popup->addAction( _playPause );
@@ -1330,7 +1330,7 @@ void Viewer::ViewerWidget::createVideoMenu()
     _popup->addAction(_makeThumbnailImage);
     _videoActions.append(_makeThumbnailImage);
 
-    KAction* restart = _actions->addAction( QString::fromLatin1("viewer-video-restart"), _videoDisplay, SLOT( restart() ) );
+    KAction* restart = _actions->addAction( QString::fromLatin1("viewer-video-restart"), _videoDisplay, SLOT(restart()) );
     restart->setText( i18nc("@action:inmenu Restart video playback.","Restart") );
     _popup->addAction( restart );
     _videoActions.append( restart );
@@ -1340,7 +1340,7 @@ void Viewer::ViewerWidget::createCategoryImageMenu()
 {
     _categoryImagePopup = new MainWindow::CategoryImagePopup( _popup );
     _popup->addMenu( _categoryImagePopup );
-    connect( _categoryImagePopup, SIGNAL( aboutToShow() ), this, SLOT( populateCategoryImagePopup() ) );
+    connect( _categoryImagePopup, SIGNAL(aboutToShow()), this, SLOT(populateCategoryImagePopup()) );
 }
 
 void Viewer::ViewerWidget::createFilterMenu()
@@ -1348,26 +1348,26 @@ void Viewer::ViewerWidget::createFilterMenu()
     _filterMenu = new QMenu( _popup );
     _filterMenu->setTitle( i18nc("@title:inmenu","Filters") );
 
-    _filterNone = _actions->addAction( QString::fromLatin1("filter-empty"), this, SLOT( filterNone() ) );
+    _filterNone = _actions->addAction( QString::fromLatin1("filter-empty"), this, SLOT(filterNone()) );
     _filterNone->setText( i18nc("@action:inmenu","Remove All Filters") );
     _filterMenu->addAction( _filterNone );
 
-    _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT( filterBW() ) );
+    _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT(filterBW()) );
     _filterBW->setText( i18nc("@action:inmenu","Apply Grayscale Filter") );
     _filterBW->setCheckable( true );
     _filterMenu->addAction( _filterBW );
 
-    _filterContrastStretch = _actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT( filterContrastStretch() ) );
+    _filterContrastStretch = _actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT(filterContrastStretch()) );
     _filterContrastStretch->setText( i18nc("@action:inmenu","Apply Contrast Stretching Filter") );
     _filterContrastStretch->setCheckable( true );
     _filterMenu->addAction( _filterContrastStretch );
 
-    _filterHistogramEqualization = _actions->addAction( QString::fromLatin1("filter-he"), this, SLOT( filterHistogramEqualization() ) );
+    _filterHistogramEqualization = _actions->addAction( QString::fromLatin1("filter-he"), this, SLOT(filterHistogramEqualization()) );
     _filterHistogramEqualization->setText( i18nc("@action:inmenu","Apply Histogram Equalization Filter") );
     _filterHistogramEqualization->setCheckable( true );
     _filterMenu->addAction( _filterHistogramEqualization );
 
-    _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT( filterMono() ) );
+    _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT(filterMono()) );
     _filterMono->setText( i18nc("@action:inmenu","Apply Monochrome Filter") );
     _filterMono->setCheckable( true );
     _filterMenu->addAction( _filterMono );
@@ -1382,7 +1382,7 @@ void Viewer::ViewerWidget::test()
     QTimeLine* timeline = new QTimeLine;
     timeline->setStartFrame( _infoBox->y() );
     timeline->setEndFrame( height() );
-    connect( timeline, SIGNAL( frameChanged(int) ), this, SLOT( moveInfoBox(int) ) );
+    connect( timeline, SIGNAL(frameChanged(int)), this, SLOT(moveInfoBox(int)) );
     timeline->start();
 #endif // TESTING
 }
@@ -1396,7 +1396,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 {
     _videoDisplay = new VideoDisplay( this );
     addWidget( _videoDisplay );
-    connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+    connect( _videoDisplay, SIGNAL(stopped()), this, SLOT(videoStopped()) );
 }
 
 void Viewer::ViewerWidget::stopPlayback()

@@ -45,7 +45,7 @@ void AnnotationDialog::ShortCutManager::setupShortCuts()
             if ( !m_taken.contains(ch) ) {
                 m_taken.insert( ch );
                 dock->setWindowTitle( title.left(index) + QString::fromLatin1("&") + title.mid(index) );
-                new QShortcut( QString::fromLatin1( "Alt+")+ch , widget, SLOT( setFocus() ) );
+                new QShortcut( QString::fromLatin1( "Alt+")+ch , widget, SLOT(setFocus()) );
                 break;
             }
         }

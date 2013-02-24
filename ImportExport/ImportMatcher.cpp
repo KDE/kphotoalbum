@@ -78,7 +78,7 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
 
     myItems.sort();
     _combobox->addItems( myItems );
-    QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
+    QObject::connect( _checkbox, SIGNAL(toggled(bool)), _combobox, SLOT(setEnabled(bool)) );
     grid->addWidget( _combobox, row, 1 );
 
     if ( myItems.contains( kimFileItem ) ) {

@@ -54,7 +54,7 @@ Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, c
     slotUpdateTo( 0 );
     _to->setCurrentIndex( _to->count()-1);// set range to be min->max
 
-    connect( _from, SIGNAL( activated( int ) ), this, SLOT( slotUpdateTo( int ) ) );
+    connect( _from, SIGNAL(activated(int)), this, SLOT(slotUpdateTo(int)) );
 }
 
 void Exif::RangeWidget::slotUpdateTo( int fromIndex )

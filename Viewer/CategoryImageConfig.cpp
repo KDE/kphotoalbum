@@ -55,14 +55,14 @@ CategoryImageConfig::CategoryImageConfig()
     lay2->addWidget( label, 0, 0 );
     _group = new KComboBox( top );
     lay2->addWidget( _group, 0, 1 );
-    connect( _group, SIGNAL( activated( int ) ), this, SLOT( groupChanged() ) );
+    connect( _group, SIGNAL(activated(int)), this, SLOT(groupChanged()) );
 
     // Member
     label = new QLabel( i18nc("@label:listbox As in 'select a tag'", "Tag:" ), top );
     lay2->addWidget( label, 1, 0 );
     _member = new KComboBox( top );
     lay2->addWidget( _member, 1, 1 );
-    connect( _member, SIGNAL( activated( int ) ), this, SLOT( memberChanged() ) );
+    connect( _member, SIGNAL(activated(int)), this, SLOT(memberChanged()) );
 
     // Current Value
     QGridLayout* lay3 = new QGridLayout;
@@ -82,7 +82,7 @@ CategoryImageConfig::CategoryImageConfig()
     _imageLabel->setFixedSize( 128, 128 );
     lay3->addWidget( _imageLabel, 1, 1 );
 
-    connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
+    connect( this, SIGNAL(user1Clicked()), this, SLOT(slotSet()) );
 }
 
 void CategoryImageConfig::groupChanged()

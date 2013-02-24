@@ -51,7 +51,7 @@ DateBar::MouseHandler::MouseHandler( DateBarWidget* dateBar )
     :QObject( dateBar ), _dateBar( dateBar )
 {
     _autoScrollTimer = new QTimer( this );
-    connect( _autoScrollTimer, SIGNAL( timeout() ), this, SLOT( autoScroll() ) );
+    connect( _autoScrollTimer, SIGNAL(timeout()), this, SLOT(autoScroll()) );
 }
 
 void DateBar::MouseHandler::autoScroll()

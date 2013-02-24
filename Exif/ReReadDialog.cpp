@@ -65,9 +65,9 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     _fileList->setSelectionMode( QAbstractItemView::NoSelection );
     boxLayout->addWidget( _fileList );
 
-    connect( this, SIGNAL( okClicked() ), this, SLOT( readInfo() ) );
-    connect( _date, SIGNAL( toggled( bool ) ), _force_date, SLOT( setEnabled( bool ) ) );
-    connect( _date, SIGNAL( toggled( bool ) ), this, SLOT( warnAboutDates( bool ) ) );
+    connect( this, SIGNAL(okClicked()), this, SLOT(readInfo()) );
+    connect( _date, SIGNAL(toggled(bool)), _force_date, SLOT(setEnabled(bool)) );
+    connect( _date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)) );
 }
 
 int Exif::ReReadDialog::exec( const DB::FileNameList& list )

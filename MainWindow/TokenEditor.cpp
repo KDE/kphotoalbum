@@ -65,8 +65,8 @@ TokenEditor::TokenEditor( QWidget* parent )
     hlay->addWidget( selectAll );
     hlay->addWidget( selectNone );
 
-    connect( selectAll, SIGNAL( clicked() ), this, SLOT( selectAll() ) );
-    connect( selectNone, SIGNAL( clicked() ), this, SLOT( selectNone() ) );
+    connect( selectAll, SIGNAL(clicked()), this, SLOT(selectAll()) );
+    connect( selectNone, SIGNAL(clicked()), this, SLOT(selectNone()) );
 }
 
 void TokenEditor::show()

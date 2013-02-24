@@ -53,7 +53,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     _deleteFromDb = new QRadioButton;
     lay1->addWidget( _deleteFromDb );
 
-     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
+     connect( this, SIGNAL(user1Clicked()), this, SLOT(deleteImages()) );
 }
 
 int DeleteDialog::exec(const DB::FileNameList& list)

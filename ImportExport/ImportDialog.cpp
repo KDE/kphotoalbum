@@ -125,8 +125,8 @@ void ImportDialog::setupPages()
     createImagesPage();
     createDestination();
     createCategoryPages();
-    connect( this, SIGNAL( currentPageChanged( KPageWidgetItem*, KPageWidgetItem* ) ), this, SLOT( updateNextButtonState() ) );
-    connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
+    connect( this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(updateNextButtonState()) );
+    connect( this, SIGNAL(helpClicked()), this, SLOT(slotHelp()) );
 }
 
 void ImportDialog::createIntroduction()
@@ -171,8 +171,8 @@ void ImportDialog::createImagesPage()
     QPushButton* selectNone = new QPushButton( i18n("Deselect All"), container );
     lay2->addWidget( selectNone );
     lay2->addStretch( 1 );
-    connect( selectAll, SIGNAL( clicked() ), this, SLOT( slotSelectAll() ) );
-    connect( selectNone, SIGNAL( clicked() ), this, SLOT( slotSelectNone() ) );
+    connect( selectAll, SIGNAL(clicked()), this, SLOT(slotSelectAll()) );
+    connect( selectNone, SIGNAL(clicked()), this, SLOT(slotSelectNone()) );
 
     QGridLayout* lay3 = new QGridLayout;
     lay1->addLayout( lay3 );
@@ -191,7 +191,7 @@ void ImportDialog::createImagesPage()
             but->setIcon( pixmap );
             but->setIconSize( pixmap.size() );
             lay3->addWidget( but, row, 1 );
-            connect( but, SIGNAL( clicked() ), ir, SLOT( showImage() ) );
+            connect( but, SIGNAL(clicked()), ir, SLOT(showImage()) );
         }
         else {
             QLabel* label = new QLabel( info->label() );
@@ -227,8 +227,8 @@ void ImportDialog::createDestination()
 
 
     _destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
-    connect( but, SIGNAL( clicked() ), this, SLOT( slotEditDestination() ) );
-    connect( _destinationEdit, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateNextButtonState() ) );
+    connect( but, SIGNAL(clicked()), this, SLOT(slotEditDestination()) );
+    connect( _destinationEdit, SIGNAL(textChanged(QString)), this, SLOT(updateNextButtonState()) );
     _destinationPage = addPage( top, i18n("Destination of Images" ) );
 }
 

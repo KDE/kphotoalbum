@@ -54,7 +54,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     _cmd->setWhatsThis(txt);
     label->setWhatsThis(txt);
 
-    connect( this, SIGNAL( okClicked() ), this, SLOT( slotMarkGo() ) );
+    connect( this, SIGNAL(okClicked()), this, SLOT(slotMarkGo()) );
 }
 
 void MainWindow::RunDialog::setImageList( const DB::FileNameList& fileList )

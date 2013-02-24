@@ -31,7 +31,7 @@ void BreadcrumbViewer::linkClicked( const QString& link )
 
 BreadcrumbViewer::BreadcrumbViewer()
 {
-    connect( this, SIGNAL( linkActivated( QString ) ), this, SLOT( linkClicked( QString ) ) );
+    connect( this, SIGNAL(linkActivated(QString)), this, SLOT(linkClicked(QString)) );
 }
 
 /**

@@ -33,7 +33,7 @@ ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
       _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
-    connect( DB::ImageDB::instance(), SIGNAL( imagesDeleted( const DB::FileNameList& ) ), this, SLOT( imagesDeletedFromDB( const DB::FileNameList& ) ) );
+    connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
 }
 
 static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {

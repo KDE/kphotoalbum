@@ -76,7 +76,7 @@ bool DeleteFiles::_deleteFiles(const DB::FileNameList &files, DeleteMethod metho
             job = KIO::trash( listKUrlToDelete );
         else
             job = KIO::del( listKUrlToDelete );
-        connect( job, SIGNAL( result( KJob* ) ), this, SLOT( slotKIOJobCompleted( KJob* ) ) );
+        connect( job, SIGNAL(result(KJob*)), this, SLOT(slotKIOJobCompleted(KJob*)) );
     }
 
     if(!listToDelete.isEmpty()) {

@@ -83,16 +83,16 @@ Settings::SubCategoriesPage::SubCategoriesPage( QWidget* parent )
     // Setup the actions
     _memberMap = DB::ImageDB::instance()->memberMap();
     connect( DB::ImageDB::instance()->categoryCollection(),
-             SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
-             &_memberMap, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+             SIGNAL(itemRemoved(DB::Category*,QString)),
+             &_memberMap, SLOT(deleteItem(DB::Category*,QString)) );
     connect( DB::ImageDB::instance()->categoryCollection(),
-             SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
-             &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
-    connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
-    connect( _groups, SIGNAL( currentItemChanged(QListWidgetItem*, QListWidgetItem*) ), this, SLOT( slotGroupSelected( QListWidgetItem* ) ) );
-    connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
-    connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
-    connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
+             SIGNAL(itemRenamed(DB::Category*,QString,QString)),
+             &_memberMap, SLOT(renameItem(DB::Category*,QString,QString)) );
+    connect( _category, SIGNAL(activated(QString)), this, SLOT(slotCategoryChanged(QString)) );
+    connect( _groups, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(slotGroupSelected(QListWidgetItem*)) );
+    connect( _rename, SIGNAL(clicked()), this, SLOT(slotRenameGroup()) );
+    connect( add, SIGNAL(clicked()), this, SLOT(slotAddGroup()) );
+    connect( _del, SIGNAL(clicked()), this, SLOT(slotDelGroup()) );
 
     _members->setSelectionMode( QAbstractItemView::MultiSelection );
 }

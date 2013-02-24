@@ -57,26 +57,26 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     _rightArrow = new QToolButton( this );
     _rightArrow->setArrowType( Qt::RightArrow );
     _rightArrow->setAutoRepeat( true );
-    connect( _rightArrow, SIGNAL( clicked() ), this, SLOT( scrollRight() ) );
+    connect( _rightArrow, SIGNAL(clicked()), this, SLOT(scrollRight()) );
 
     _leftArrow = new QToolButton( this );
     _leftArrow->setArrowType( Qt::LeftArrow );
     _leftArrow->setAutoRepeat( true );
-    connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
+    connect( _leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()) );
 
     _zoomIn = new QToolButton( this );
     _zoomIn->setIcon( KIcon( QString::fromLatin1( "zoom-in" ) ) );
-    connect( _zoomIn, SIGNAL( clicked() ), this, SLOT( zoomIn() ) );
-    connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT( setEnabled( bool ) ) );
+    connect( _zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()) );
+    connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT(setEnabled(bool)) );
 
     _zoomOut = new QToolButton( this );
     _zoomOut->setIcon(  KIcon( QString::fromLatin1( "zoom-out" ) ) );
-    connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
-    connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
+    connect( _zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()) );
+    connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT(setEnabled(bool)) );
 
     _cancelSelection = new QToolButton( this );
     _cancelSelection->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
-    connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
+    connect( _cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
     _cancelSelection->setEnabled( false );
     _cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
 
@@ -512,13 +512,13 @@ void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
         action->setCheckable( true );
         _contextMenu->addAction(action);
         action->setChecked( _includeFuzzyCounts );
-        connect( action, SIGNAL( toggled( bool ) ), this, SLOT( setIncludeFuzzyCounts( bool ) ) );
+        connect( action, SIGNAL(toggled(bool)), this, SLOT(setIncludeFuzzyCounts(bool)) );
 
         action = new QAction( i18n("Show Resolution Indicator"), this );
         action->setCheckable( true );
         _contextMenu->addAction(action);
         action->setChecked( _showResolutionIndicator );
-        connect( action, SIGNAL( toggled( bool ) ), this, SLOT( setShowResolutionIndicator( bool ) ) );
+        connect( action, SIGNAL(toggled(bool)), this, SLOT(setShowResolutionIndicator(bool)) );
     }
 
     _contextMenu->exec( event->globalPos());

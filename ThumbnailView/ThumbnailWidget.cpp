@@ -75,23 +75,23 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     viewport()->setMouseTracking( true );
     setMouseTracking( true );
 
-    connect( selectionModel(), SIGNAL( currentChanged( QModelIndex, QModelIndex) ), this, SLOT( scheduleDateChangeSignal() ) );
+    connect( selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(scheduleDateChangeSignal()) );
     viewport()->setAcceptDrops( true );
 
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &_mouseTrackingHandler, SIGNAL( fileIdUnderCursorChanged( DB::FileName ) ), this, SIGNAL( fileIdUnderCursorChanged( DB::FileName ) ) );
-    connect( _keyboardHandler, SIGNAL( showSelection() ), this, SIGNAL( showSelection() ) );
+    connect( &_mouseTrackingHandler, SIGNAL(fileIdUnderCursorChanged(DB::FileName)), this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
+    connect( _keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
 
     updatePalette();
     setItemDelegate( new Delegate(factory) );
 
-    connect( selectionModel(), SIGNAL( selectionChanged( QItemSelection, QItemSelection ) ), this, SLOT( emitSelectionChangedSignal() ) );
+    connect( selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(emitSelectionChangedSignal()) );
 
     setDragEnabled(false); // We run our own dragging, so disable QListView's version.
 
-    connect( verticalScrollBar(), SIGNAL( valueChanged(int) ), model(), SLOT( updateVisibleRowInfo() ) );
+    connect( verticalScrollBar(), SIGNAL(valueChanged(int)), model(), SLOT(updateVisibleRowInfo()) );
     setupDateChangeTimer();
 }
 
@@ -357,7 +357,7 @@ void ThumbnailView::ThumbnailWidget::setupDateChangeTimer()
 {
     m_dateChangedTimer = new QTimer;
     m_dateChangedTimer->setSingleShot(true);
-    connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT( emitDateChange() ) );
+    connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT(emitDateChange()) );
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )

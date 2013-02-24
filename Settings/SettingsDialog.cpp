@@ -92,11 +92,11 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
 
-    connect( _categoryPage, SIGNAL( currentCategoryNameChanged( QString, QString ) ),
-             _subCategoriesPage, SLOT( categoryRenamed( QString, QString ) ) );
-    connect( this, SIGNAL( currentPageChanged(KPageWidgetItem*, KPageWidgetItem*) ), _subCategoriesPage, SLOT( slotPageChange() ) );
-    connect( this, SIGNAL( applyClicked() ), this, SLOT( slotMyOK() ) );
-    connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
+    connect( _categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
+             _subCategoriesPage, SLOT(categoryRenamed(QString,QString)) );
+    connect( this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), _subCategoriesPage, SLOT(slotPageChange()) );
+    connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
+    connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
 }
 
 void Settings::SettingsDialog::show()

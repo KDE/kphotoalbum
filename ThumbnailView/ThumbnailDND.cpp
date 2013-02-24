@@ -79,7 +79,7 @@ void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
 
 void ThumbnailView::ThumbnailDND::contentsDropEvent( QDropEvent* )
 {
-    QTimer::singleShot( 0, this, SLOT( realDropEvent() ) );
+    QTimer::singleShot( 0, this, SLOT(realDropEvent()) );
 }
 
 /**

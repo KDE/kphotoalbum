@@ -92,7 +92,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     _showHistogram = new QCheckBox( i18n("Show histogram:"), box);
     lay->addWidget( _showHistogram, row, 0 );
-    connect( _showHistogram, SIGNAL( stateChanged(int) ), this, SLOT( showHistogramChanged(int) ) );
+    connect( _showHistogram, SIGNAL(stateChanged(int)), this, SLOT(showHistogramChanged(int)) );
 
     row++;
     label = new QLabel( i18n("Size of histogram columns in date bar:"), box );

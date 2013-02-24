@@ -57,7 +57,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::Fi
     }
 
     // Add the Category Editor menu item
-    QAction* action = addAction( QString::fromLatin1("viewer-show-category-editor"), this, SLOT( makeCategoryImage()) );
+    QAction* action = addAction( QString::fromLatin1("viewer-show-category-editor"), this, SLOT(makeCategoryImage()) );
     action->setText( i18n("Show Category Editor") );
 }
 
@@ -81,7 +81,7 @@ MainWindow::CategoryImagePopup::CategoryImagePopup( QWidget* parent )
     :QMenu( parent )
 {
     setTitle( i18n("Make Category Image") );
-    connect( this, SIGNAL( triggered( QAction* ) ), this, SLOT( slotExecuteService( QAction* ) ) );
+    connect( this, SIGNAL(triggered(QAction*)), this, SLOT(slotExecuteService(QAction*)) );
 }
 
 #include "CategoryImagePopup.moc"

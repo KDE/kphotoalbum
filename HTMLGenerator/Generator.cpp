@@ -73,7 +73,7 @@ void HTMLGenerator::Generator::generate()
     _total = _waitCounter = calculateSteps();
     setMaximum( _total );
     setValue( 0 );
-    connect( this, SIGNAL( canceled() ), this, SLOT( slotCancelGenerate() ) );
+    connect( this, SIGNAL(canceled()), this, SLOT(slotCancelGenerate()) );
 
     _filenameMapper.reset();
 
@@ -148,7 +148,7 @@ void HTMLGenerator::Generator::generate()
     // Copy files over to destination.
     QString outputDir = _setup.baseDir() + QString::fromLatin1( "/" ) + _setup.outputDir();
     KIO::CopyJob* job = KIO::move( KUrl( _tempDir.name() ), KUrl(outputDir) );
-    connect( job, SIGNAL( result( KJob* ) ), this, SLOT( showBrowser() ) );
+    connect( job, SIGNAL(result(KJob*)), this, SLOT(showBrowser()) );
 
     _eventLoop->exec();
     return;

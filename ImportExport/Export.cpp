@@ -115,7 +115,7 @@ ExportConfig::ExportConfig()
     hlay->addWidget( _maxSize );
     _maxSize->setValue( 800 );
 
-    connect( _enforeMaxSize, SIGNAL( toggled( bool ) ), _maxSize, SLOT( setEnabled( bool ) ) );
+    connect( _enforeMaxSize, SIGNAL(toggled(bool)), _maxSize, SLOT(setEnabled(bool)) );
     _maxSize->setEnabled( false );
 
     QString txt = i18n( "<p>If your images are stored in a non-compressed file format then you may check this; "

@@ -28,13 +28,13 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
     :QLabel( parent )
 {
     _timeLine = new QTimeLine( 1000, this);
-    connect( _timeLine, SIGNAL(frameChanged(int) ), this, SLOT( setAlphaChannel(int) ) );
+    connect( _timeLine, SIGNAL(frameChanged(int)), this, SLOT(setAlphaChannel(int)) );
     _timeLine->setFrameRange( 0, 170 );
     _timeLine->setDirection( QTimeLine::Backward );
 
     _timer = new QTimer( this );
     _timer->setSingleShot(true);
-    connect( _timer, SIGNAL( timeout() ), _timeLine, SLOT( start() ) );
+    connect( _timer, SIGNAL(timeout()), _timeLine, SLOT(start()) );
 
     setAutoFillBackground(true);
 }

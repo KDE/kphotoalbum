@@ -51,8 +51,8 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
     createWidgets();
 
-    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
-    connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
+    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryCollectionChanged()), this, SLOT(reload()) );
+    connect( this, SIGNAL(viewChanged()), this, SLOT(resetIconViewSearch()) );
 
     _filterProxy = new TreeFilter(this);
     _filterProxy->setFilterKeyColumn(0);
@@ -60,7 +60,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     _filterProxy->setSortRole( ValueRole );
 
     addAction( new OverviewPage( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
-    QTimer::singleShot( 0, this, SLOT( emitSignals() ) );
+    QTimer::singleShot( 0, this, SLOT(emitSignals()) );
 }
 
 void Browser::BrowserWidget::forward()
@@ -388,7 +388,7 @@ void Browser::BrowserWidget::createWidgets()
     _listView->installEventFilter( this );
     _listView->viewport()->installEventFilter( this );
 
-    connect( _treeView, SIGNAL( expanded( QModelIndex ) ), SLOT( adjustTreeViewColumnSize() ) );
+    connect( _treeView, SIGNAL(expanded(QModelIndex)), SLOT(adjustTreeViewColumnSize()) );
 
     _curView = 0;
 }

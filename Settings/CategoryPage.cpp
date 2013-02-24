@@ -41,7 +41,7 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     lay1->addLayout( lay2 );
 
     _categories = new QListWidget( this );
-    connect( _categories, SIGNAL( itemClicked( QListWidgetItem* ) ), this, SLOT( edit( QListWidgetItem* ) ) );
+    connect( _categories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(edit(QListWidgetItem*)) );
     lay2->addWidget( _categories );
 
 
@@ -52,8 +52,8 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     lay3->addWidget( _labelLabel, 0, 0 );
 
     _text = new KLineEdit( this );
-    connect( _text, SIGNAL( textChanged( const QString& ) ),
-             this, SLOT( slotLabelChanged( const QString& ) ) );
+    connect( _text, SIGNAL(textChanged(QString)),
+             this, SLOT(slotLabelChanged(QString)) );
 
     lay3->addWidget( _text, 0, 1 );
 
@@ -66,7 +66,7 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     lay3->addWidget( _icon, 1, 1 );
     _icon->setIconSize(32);
     _icon->setIcon( QString::fromLatin1( "personsIcon" ) );
-    connect( _icon, SIGNAL( iconChanged( QString ) ), this, SLOT( slotIconChanged( QString ) ) );
+    connect( _icon, SIGNAL(iconChanged(QString)), this, SLOT(slotIconChanged(QString)) );
 
 
     // Thumbnail size
@@ -77,7 +77,7 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     _thumbnailSizeInCategory->setRange( 32, 512 );
     _thumbnailSizeInCategory->setSingleStep( 32 );
     lay3->addWidget( _thumbnailSizeInCategory, 2, 1 );
-    connect( _thumbnailSizeInCategory, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailSizeChanged( int ) ) );
+    connect( _thumbnailSizeInCategory, SIGNAL(valueChanged(int)), this, SLOT(thumbnailSizeChanged(int)) );
 
 
     // Preferred View
@@ -89,16 +89,16 @@ Settings::CategoryPage::CategoryPage( QWidget* parent )
     QStringList list;
     list << i18n("List View") << i18n("List View with Custom Thumbnails") << i18n("Icon View") << i18n("Icon View with Custom Thumbnails");
     _preferredView->addItems( list );
-    connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
+    connect( _preferredView, SIGNAL(activated(int)), this, SLOT(slotPreferredViewChanged(int)) );
 
     QHBoxLayout* lay4 = new QHBoxLayout;
     lay1->addLayout( lay4 );
 
     KPushButton* newItem = new KPushButton( i18n("New"), this );
-    connect( newItem, SIGNAL( clicked() ), this, SLOT( slotNewItem() ) );
+    connect( newItem, SIGNAL(clicked()), this, SLOT(slotNewItem()) );
 
     _delItem = new KPushButton( i18n("Delete"), this );
-    connect( _delItem, SIGNAL( clicked() ), this, SLOT( slotDeleteCurrent() ) );
+    connect( _delItem, SIGNAL(clicked()), this, SLOT(slotDeleteCurrent()) );
 
     lay4->addStretch(1);
     lay4->addWidget( newItem );

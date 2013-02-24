@@ -33,9 +33,9 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& na
 void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
 {
     _categories.append( category );
-    connect( category.data(), SIGNAL( changed() ), this, SIGNAL( categoryCollectionChanged() ) );
-    connect( category.data(), SIGNAL( itemRemoved( const QString& ) ), this, SLOT( itemRemoved( const QString& ) ) );
-    connect( category.data(), SIGNAL( itemRenamed( const QString&, const QString& ) ), this, SLOT( itemRenamed( const QString&, const QString& ) ) );
+    connect( category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()) );
+    connect( category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)) );
+    connect( category.data(), SIGNAL(itemRenamed(QString,QString)), this, SLOT(itemRenamed(QString,QString)) );
     emit categoryCollectionChanged();
 }
 

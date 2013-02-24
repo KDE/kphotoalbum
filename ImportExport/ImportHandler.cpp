@@ -85,7 +85,7 @@ void ImportExport::ImportHandler::copyFromExternal()
     _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * _pendingCopies.count(), MainWindow::Window::theMainWindow() );
     _progress->setValue( 0 );
     _progress->show();
-    connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
+    connect( _progress, SIGNAL(canceled()), this, SLOT(stopCopyingImages()) );
     copyNextFromExternal();
 
 }
@@ -118,7 +118,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
             KUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );
             _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
-            connect( _job, SIGNAL( result( KJob* ) ), this, SLOT( aCopyJobCompleted( KJob* ) ) );
+            connect( _job, SIGNAL(result(KJob*)), this, SLOT(aCopyJobCompleted(KJob*)) );
             succeeded = true;
             break;
         } else
@@ -166,7 +166,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
 void ImportExport::ImportHandler::updateDB()
 {
-    disconnect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
+    disconnect( _progress, SIGNAL(canceled()), this, SLOT(stopCopyingImages()) );
     _progress->setLabelText( i18n("Updating Database") );
 
     // Run though all images

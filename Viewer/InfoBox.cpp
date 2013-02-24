@@ -55,9 +55,9 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     _jumpToContext = new QToolButton( this );
     _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
     _jumpToContext->setFixedSize( 16, 16 );
-    connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
-    connect( this, SIGNAL( highlighted(const QString&) ),
-             SLOT( linkHovered(const QString&) ));
+    connect( _jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()) );
+    connect( this, SIGNAL(highlighted(QString)),
+             SLOT(linkHovered(QString)));
     _jumpToContext->setCursor( Qt::ArrowCursor );
 
 #ifdef HAVE_NEPOMUK
@@ -271,7 +271,7 @@ void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_menu ) {
         _menu = new VisibleOptionsMenu( _viewer, new KActionCollection((QObject*)0) );
-        connect( _menu, SIGNAL( visibleOptionsChanged() ), _viewer, SLOT( updateInfoBox() ) );
+        connect( _menu, SIGNAL(visibleOptionsChanged()), _viewer, SLOT(updateInfoBox()) );
     }
     _menu->exec(event->globalPos());
 }

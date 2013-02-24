@@ -56,8 +56,8 @@ void ImageDB::deleteInstance()
 
 void ImageDB::connectSlots()
 {
-    connect( Settings::SettingsData::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
-    connect( &_instance->memberMap(), SIGNAL( dirty() ), _instance, SLOT( markDirty() ));
+    connect( Settings::SettingsData::instance(), SIGNAL(locked(bool,bool)), _instance, SLOT(lockDB(bool,bool)) );
+    connect( &_instance->memberMap(), SIGNAL(dirty()), _instance, SLOT(markDirty()));
 }
 
 QString ImageDB::NONE()

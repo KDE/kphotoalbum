@@ -159,7 +159,7 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
     :QMenu( parent )
 {
     setTitle( i18n("Invoke External Program") );
-    connect( this, SIGNAL( triggered( QAction* ) ), this, SLOT( slotExecuteService( QAction* ) ) );
+    connect( this, SIGNAL(triggered(QAction*)), this, SLOT(slotExecuteService(QAction*)) );
 }
 
 QString MainWindow::ExternalPopup::mimeType( const DB::FileName& file )

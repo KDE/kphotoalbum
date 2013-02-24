@@ -76,12 +76,12 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
 
     hlay->addStretch(1);
 
-    connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
-    connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
-    connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
-    connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
-    connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
-    connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
+    connect( _copyPreviousBut, SIGNAL(clicked()), this, SLOT(slotCopyPrevious()) );
+    connect( _delBut, SIGNAL(clicked()), this, SLOT(slotDeleteImage()) );
+    connect( _nextBut, SIGNAL(clicked()), this, SLOT(slotNext()) );
+    connect( _prevBut, SIGNAL(clicked()), this, SLOT(slotPrev()) );
+    connect( _rotateLeft, SIGNAL(clicked()), this, SLOT(rotateLeft()) );
+    connect( _rotateRight, SIGNAL(clicked()), this, SLOT(rotateRight()) );
 
     _current = -1;
 }

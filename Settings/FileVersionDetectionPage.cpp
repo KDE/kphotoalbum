@@ -74,7 +74,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
         txt = i18n( "<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
                     "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
-                    "both the original files and and symbolic links to these files within your image directory.</p>");
+                    "both the original files and symbolic links to these files within your image directory.</p>");
         _skipSymlinks->setWhatsThis( txt );
 
         txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "

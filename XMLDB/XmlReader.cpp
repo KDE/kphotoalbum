@@ -16,25 +16,13 @@ QString XmlReader::attribute( const QString& name, const QString& defaultValue )
         return ref.toString();
 }
 
-bool XmlReader::readNextStartElement(const QString& expected , StartElementRequirement requirement)
+ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
 {
-    const bool ok = QXmlStreamReader::readNextStartElement();
-    if ( !ok ) {
-        if ( error() != NoError || requirement == MustFindStartElement )
-            reportError(i18n("Error reading next element"));
-        else
-            return false;
+    if (m_peek.isValid) {
+        m_peek.isValid = false;
+        return m_peek;
     }
 
-    const QString elementName = name().toString();
-    if ( elementName != expected)
-        reportError(i18n("Expected to read %1, but read %2").arg(expected).arg(elementName));
-
-    return true;
-}
-
-bool XmlReader::readNextStartOrStopElement(const QString& expectedStart)
-{
     TokenType type = readNextInternal();
 
     if ( hasError() )
@@ -45,10 +33,11 @@ bool XmlReader::readNextStartOrStopElement(const QString& expectedStart)
 
     const QString elementName = name().toString();
     if ( type == StartElement ) {
-        if ( elementName != expectedStart)
+        if ( !expectedStart.isNull() && elementName != expectedStart)
             reportError(i18n("Expected to read %1, but read %2").arg(expectedStart).arg(elementName));
     }
-    return (type == StartElement);
+
+    return ElementInfo(type == StartElement, elementName);
 }
 
 void XmlReader::readEndElement()
@@ -61,6 +50,19 @@ void XmlReader::readEndElement()
 bool XmlReader::hasAttribute(const QString &name)
 {
     return attributes().hasAttribute(name);
+}
+
+ElementInfo XmlReader::peekNext()
+{
+    if (m_peek.isValid)
+        return m_peek;
+    m_peek = readNextStartOrStopElement(QString());
+    return m_peek;
+}
+
+void XmlReader::complainStartElementExpected(const QString &name)
+{
+    reportError(i18n("Expected to read start element '%1'").arg(name));
 }
 
 void XmlReader::reportError(const QString & text)
@@ -95,7 +97,7 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
 {
     forever {
         TokenType type = readNext();
-        if ( type == Comment )
+        if (type == Comment || type == StartDocument)
             continue;
         else if (type == Characters ) {
             if (isWhitespace())

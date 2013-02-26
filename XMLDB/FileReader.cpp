@@ -43,7 +43,10 @@ void XMLDB::FileReader::read( const QString& configFile )
     QTime time; time.start();
     ReaderPtr reader = readConfigFile( configFile );
 
-    reader->readNextStartElement(QString::fromUtf8("KPhotoAlbum"), XmlReader::MustFindStartElement);
+    ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KPhotoAlbum"));
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
+
     _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
     setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );
 
@@ -145,9 +148,11 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString _Category_ = QString::fromUtf8("Category");
 
 
-    reader->readNextStartElement(_Categories_, XmlReader::MustFindStartElement);
+    ElementInfo info = reader->readNextStartOrStopElement(_Categories_);
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(_Categories_);
 
-    while ( reader->readNextStartOrStopElement(_Category_)) {
+    while ( reader->readNextStartOrStopElement(_Category_).isStartToken) {
         const QString categoryName = unescape( reader->attribute(_name_) );
         if ( !categoryName.isNull() )  {
             // Read Category info
@@ -164,7 +169,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
             // Read values
             QStringList items;
-            while( reader->readNextStartOrStopElement(_value_)) {
+            while( reader->readNextStartOrStopElement(_value_).isStartToken) {
                 QString value = reader->attribute(_value_);
                 if ( reader->hasAttribute(_id_) ) {
                     int id = reader->attribute(_id_).toInt();
@@ -186,8 +191,11 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
     static QString _images_ = QString::fromUtf8("images");
     static QString _image_ = QString::fromUtf8("image");
 
-    reader->readNextStartElement(_images_, XmlReader::MustFindStartElement);
-    while (reader->readNextStartOrStopElement(_image_)) {
+    ElementInfo info = reader->readNextStartOrStopElement(_images_);
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(_images_);
+
+    while (reader->readNextStartOrStopElement(_image_).isStartToken) {
         const QString fileNameStr = reader->attribute(_file_);
         if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
@@ -209,12 +217,15 @@ void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
     static QString _blocklist_ = QString::fromUtf8("blocklist");
     static QString _block_ = QString::fromUtf8("block");
 
-    reader->readNextStartElement(_blocklist_, XmlReader::MustFindStartElement);
-    while ( reader->readNextStartOrStopElement(_block_)) {
-        QString fileName = reader->attribute(_file_);
-        if ( !fileName.isEmpty() )
-            _db->_blockList << DB::FileName::fromRelativePath(fileName);
-        reader->readEndElement();
+    ElementInfo info = reader->peekNext();
+    if ( info.isStartToken && info.tokenName == _blocklist_ ) {
+        reader->readNextStartOrStopElement(_blocklist_);
+        while (reader->readNextStartOrStopElement(_block_).isStartToken) {
+            QString fileName = reader->attribute(_file_);
+            if ( !fileName.isEmpty() )
+                _db->_blockList << DB::FileName::fromRelativePath(fileName);
+            reader->readEndElement();
+        }
     }
 }
 
@@ -226,29 +237,31 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
     static QString _members_ = QString::fromUtf8("members");
     static QString _memberGroups_ = QString::fromUtf8("member-groups");
 
-    bool foundMemberGroupsElement = reader->readNextStartElement(_memberGroups_, XmlReader::StartElementIsOptional );
-    while( foundMemberGroupsElement && reader->readNextStartOrStopElement(_member_)) {
-        QString category = reader->attribute(_category_);
+    ElementInfo info = reader->peekNext();
+    if ( info.isStartToken && info.tokenName == _memberGroups_) {
+        reader->readNextStartOrStopElement(_memberGroups_);
+        while(reader->readNextStartOrStopElement(_member_).isStartToken) {
+            QString category = reader->attribute(_category_);
 
-        QString group = reader->attribute(_groupName_);
-        if ( reader->hasAttribute(_member_) ) {
-            QString member = reader->attribute(_member_);
-            _db->_members.addMemberToGroup( category, group, member );
-        }
-        else {
-            QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
-            for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
-                DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
-                XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
-                QString member = cat->nameForId( (*membersIt).toInt() );
-                Q_ASSERT( !member.isNull() );
+            QString group = reader->attribute(_groupName_);
+            if ( reader->hasAttribute(_member_) ) {
+                QString member = reader->attribute(_member_);
                 _db->_members.addMemberToGroup( category, group, member );
             }
+            else {
+                QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
+                for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                    DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
+                    XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
+                    QString member = cat->nameForId( (*membersIt).toInt() );
+                    Q_ASSERT( !member.isNull() );
+                    _db->_members.addMemberToGroup( category, group, member );
+                }
+            }
+            reader->readEndElement();
         }
-        reader->readEndElement();
     }
 }
-
 void XMLDB::FileReader::checkIfImagesAreSorted()
 {
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )

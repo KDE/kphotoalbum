@@ -76,7 +76,9 @@ bool ImportDialog::readFile(const QByteArray& data)
     XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader);
     reader->addData(data);
 
-    reader->readNextStartElement(QString::fromUtf8("KimDaBa-export"), XMLDB::XmlReader::MustFindStartElement);
+    XMLDB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));
+    if ( !info.isStartToken )
+        reader->complainStartElementExpected(QString::fromUtf8("KimDaBa-export"));
 
     // Read source
     QString source = reader->attribute( QString::fromUtf8( "location" ) ).toLower();
@@ -91,7 +93,7 @@ bool ImportDialog::readFile(const QByteArray& data)
     // Read base url
     _baseUrl = reader->attribute( QString::fromLatin1( "baseurl" ) );
 
-    while ( reader->readNextStartOrStopElement(QString::fromUtf8("image"))) {
+    while ( reader->readNextStartOrStopElement(QString::fromUtf8("image")).isStartToken) {
         const DB::FileName fileName = DB::FileName::fromRelativePath(reader->attribute(QString::fromUtf8( "file" )));
         DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader );
         _images.append( info );

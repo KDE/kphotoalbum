@@ -6,21 +6,34 @@
 
 namespace XMLDB {
 
+struct ElementInfo {
+    ElementInfo(bool isStartToken, const QString& tokenName )
+        : isValid(true), isStartToken(isStartToken),tokenName(tokenName) {}
+    ElementInfo() : isValid(false) {}
+
+    bool isValid;
+    bool isStartToken;
+    QString tokenName;
+};
+
 class XmlReader : public QXmlStreamReader
 {
 public:
-    enum StartElementRequirement {MustFindStartElement, StartElementIsOptional};
     explicit XmlReader();
 
     QString attribute(const QString &name, const QString& defaultValue = QString() );
-    bool readNextStartElement(const QString &expected, StartElementRequirement );
-    bool readNextStartOrStopElement(const QString &expectedStart);
+    ElementInfo readNextStartOrStopElement(const QString &expectedStart);
     void readEndElement();
     bool hasAttribute(const QString& name);
+    ElementInfo peekNext();
+    void complainStartElementExpected(const QString& name);
+
 private:
     void reportError(const QString&);
     QString tokenToString(TokenType);
     TokenType readNextInternal();
+
+    ElementInfo m_peek;
 };
 
 typedef QSharedPointer<XmlReader> ReaderPtr;

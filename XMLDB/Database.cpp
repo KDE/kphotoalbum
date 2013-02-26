@@ -633,7 +633,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
 
     possibleLoadCompressedCategories( reader, result, db );
 
-    while( reader->readNextStartOrStopElement(_options_)) {
+    while( reader->readNextStartOrStopElement(_options_).isStartToken) {
         readOptions( result, reader );
     }
 
@@ -649,12 +649,12 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
     static QString _value_ = QString::fromUtf8("value");
     static QString _option_ = QString::fromUtf8("option");
 
-    while (reader->readNextStartOrStopElement(_option_)) {
+    while (reader->readNextStartOrStopElement(_option_).isStartToken) {
         QString name = FileReader::unescape( reader->attribute(_name_) );
 
         if ( !name.isNull() )  {
             // Read values
-            while (reader->readNextStartOrStopElement(_value_)) {
+            while (reader->readNextStartOrStopElement(_value_).isStartToken) {
                 QString value = reader->attribute(_value_);
                 if ( !value.isNull() )  {
                     info->addCategoryInfo( name, value );

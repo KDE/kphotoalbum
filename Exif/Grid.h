@@ -37,8 +37,8 @@ public:
     explicit Grid( QWidget* parent );
     void setFileName( const DB::FileName& fileName );
 
-signals:
-    QString searchStringChanged( const QString& text );
+public slots:
+    void updateSearchString( const QString& );
 
 private:
     OVERRIDE void keyPressEvent( QKeyEvent* );
@@ -49,7 +49,6 @@ private:
     QString groupName( const QString& exifName );
     QString exifNameNoGroup( const QString& fullName );
     void scroll(int dy);
-    void updateSearch();
     QLabel* headerLabel(const QString& title);
     QPair<QLabel*,QLabel*> infoLabelPair(const QString& title, const QString& value, const QColor& color);
 
@@ -60,7 +59,6 @@ private slots:
 private:
     QList< QPair<QLabel*,QLabel*> > m_labels;
     int m_maxKeyWidth;
-    QString m_search;
     DB::FileName m_fileName;
 };
 

@@ -23,6 +23,7 @@
 #include <DB/FileName.h>
 class KComboBox;
 class QLabel;
+class QLineEdit;
 class QKeyEvent;
 class QResizeEvent;
 
@@ -45,11 +46,8 @@ public:
     // ImageManager::ImageClient interface.
     OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
 
-protected slots:
-    void updateSearchString( const QString& );
-
 private:
-    QLabel* m_searchLabel;
+    QLineEdit* m_searchBox;
     QLabel* m_pix;
     KComboBox* m_iptcCharset;
     Grid* m_grid;

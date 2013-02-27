@@ -154,11 +154,11 @@ void Exif::Grid::scroll(int dy)
     verticalScrollBar()->setValue(verticalScrollBar()->value()+dy);
 }
 
-void Exif::Grid::updateSearch()
+void Exif::Grid::updateSearchString(const QString &search)
 {
     QPair<QLabel*,QLabel*> tuple;
     Q_FOREACH( tuple, m_labels ) {
-        const bool matches = tuple.first->text().contains( m_search, Qt::CaseInsensitive ) && m_search.length() != 0;
+        const bool matches = tuple.first->text().contains( search, Qt::CaseInsensitive ) && search.length() != 0;
         QPalette pal = tuple.first->palette();
         pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);
         tuple.first->setPalette(pal);
@@ -185,20 +185,9 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
     case Qt::Key_PageUp:
         scroll(-(viewport()->height()- 20));
         return;
-    case Qt::Key_Backspace:
-        m_search.remove( m_search.length()-1, 1 );
-        emit searchStringChanged( m_search );
-        updateSearch();
-        return;
     case Qt::Key_Escape:
         QScrollArea::keyPressEvent( e ); // Propagate to close dialog.
         return;
-    }
-
-    if ( !e->text().isEmpty() ) {
-        m_search += e->text();
-        emit searchStringChanged( m_search );
-        updateSearch();
     }
 }
 

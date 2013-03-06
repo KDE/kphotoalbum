@@ -196,6 +196,8 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
         _or->hide();
         _showSelectedOnly->show();
     }
+    for ( QTreeWidgetItemIterator itemIt( _treeWidget ); *itemIt; ++itemIt )
+        configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
 
     // ensure that the selection count indicator matches the current mode:
     updateSelectionCount();
@@ -627,7 +629,6 @@ void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropIte
 {
     bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree;
     item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
-    item->setTristate( _mode == InputMultiImageConfigMode );
 }
 
 bool AnnotationDialog::ListSelect::isInputMode() const

@@ -40,7 +40,6 @@ void XMLDB::FileReader::read( const QString& configFile )
     static QString _version_ = QString::fromUtf8("version");
     static QString _compressed_ = QString::fromUtf8("compressed");
 
-    QTime time; time.start();
     ReaderPtr reader = readConfigFile( configFile );
 
     ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KPhotoAlbum"));
@@ -60,8 +59,6 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
-
-    qDebug("Elapsed: %d", time.elapsed());
 }
 
 

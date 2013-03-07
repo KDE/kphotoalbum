@@ -97,6 +97,8 @@ set(libxmldb_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/ElementWriter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XmlReader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/CompressFileInfo.cpp
 )
 
 set(libThumbnailView_SRCS 

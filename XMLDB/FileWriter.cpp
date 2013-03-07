@@ -28,14 +28,13 @@
 #include "XMLCategory.h"
 #include <QXmlStreamWriter>
 #include "ElementWriter.h"
+#include "CompressFileInfo.h"
 
 using Utilities::StringSet;
 
-static bool useCompressedBackup;
-
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {
-    useCompressedBackup = Settings::SettingsData::instance()->useCompressedIndexXML();
+    setUseCompressedFileFormat( Settings::SettingsData::instance()->useCompressedIndexXML() );
 
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
@@ -58,7 +57,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     {
         ElementWriter dummy(writer, QString::fromLatin1("KPhotoAlbum"));
         writer.writeAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "3" ) );
-        writer.writeAttribute( QString::fromLatin1( "compressed" ), QString::number(useCompressedBackup));
+        writer.writeAttribute( QString::fromLatin1( "compressed" ), QString::number(useCompressedFileFormat()));
 
         saveCategories( writer );
         saveImages( writer );
@@ -169,7 +168,7 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
         QMap<QString,StringSet> groupMap = memberMapIt.value();
         for( QMap<QString,StringSet>::ConstIterator groupMapIt= groupMap.constBegin(); groupMapIt != groupMap.constEnd(); ++groupMapIt ) {
             StringSet members = groupMapIt.value();
-            if ( useCompressedBackup ) {
+            if ( useCompressedFileFormat() ) {
                 ElementWriter dummy( writer, QString::fromLatin1( "member" ) );
                 writer.writeAttribute( QString::fromLatin1( "category" ), categoryName );
                 writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
@@ -249,7 +248,7 @@ void XMLDB::FileWriter::save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& 
     if ( info->isVideo() )
         writer.writeAttribute( QLatin1String("videoLength"), QString::number(info->videoLength()));
 
-    if ( useCompressedBackup )
+    if ( useCompressedFileFormat() )
         writeCategoriesCompressed( writer, info );
     else
         writeCategories( writer, info );
@@ -323,13 +322,17 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 
 QString XMLDB::FileWriter::escape( const QString& str )
 {
+    static QHash<QString,QString> cache;
+    if ( cache.contains(str) )
+        return cache[str];
+
     QString tmp( str );
     // Regex to match characters that are not allowed to start XML attribute names
-    static const QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
+    const QRegExp rx( QString::fromLatin1( "([^a-zA-Z0-9:_])" ) );
     int pos = 0;
 
     // Encoding special characters if compressed XML is selected
-    if ( useCompressedBackup ) {
+    if ( useCompressedFileFormat() ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 );
             QString after;
@@ -339,6 +342,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
+    cache.insert(str,tmp);
     return tmp;
 }
 

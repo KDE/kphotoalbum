@@ -47,14 +47,14 @@ class ImportDialog :public KAssistantDialog {
 
 public:
     ImportDialog( QWidget* parent );
-    bool exec( KimFileReader* kimFileReader, const QString& fileName, const KUrl& kimFilePath );
+    bool exec( KimFileReader* kimFileReader, const KUrl& kimFilePath );
     ImportSettings settings();
 
 protected:
     friend class ImageRow;
 
     void setupPages();
-    bool readFile( const QByteArray& data, const QString& fileName );
+    bool readFile(const QByteArray& data);
     void createIntroduction();
     void createImagesPage();
     void createDestination();

@@ -21,6 +21,11 @@
 #include <qdom.h>
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
+#include <QSharedPointer>
+#include "XmlReader.h"
+
+
+class QXmlStreamReader;
 
 namespace XMLDB
 {
@@ -38,12 +43,12 @@ public:
 protected:
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                       QDomElement* blockList, QDomElement* memberGroups );
-    void loadCategories( const QDomElement& elm );
-    void loadImages( const QDomElement& images );
-    void loadBlockList( const QDomElement& blockList );
-    void loadMemberGroups( const QDomElement& memberGroups );
-    DB::ImageInfoPtr load( const DB::FileName& filename, QDomElement elm );
-    QDomElement readConfigFile( const QString& configFile );
+    void loadCategories( ReaderPtr reader );
+    void loadImages( ReaderPtr reader );
+    void loadBlockList( ReaderPtr reader );
+    void loadMemberGroups( ReaderPtr reader );
+    DB::ImageInfoPtr load( const DB::FileName& filename, ReaderPtr reader );
+    ReaderPtr readConfigFile( const QString& configFile );
 
     void createSpecialCategories();
 
@@ -57,6 +62,9 @@ private:
     Database* const _db;
     int _fileVersion;
     DB::StackID _nextStackId;
+
+    // During profilation I found that it was rather expensive to look this up over and over again (once for each image)
+    DB::CategoryPtr _folderCategory;
 };
 
 }

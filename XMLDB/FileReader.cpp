@@ -31,22 +31,30 @@
 #include "MainWindow/Window.h"
 #include "Utilities/Util.h"
 #include "XMLCategory.h"
+#include <QHash>
+#include <QXmlStreamReader>
+#include "CompressFileInfo.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
-    QDomElement top = readConfigFile( configFile );
-    _fileVersion = top.attribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) ).toInt();
+    static QString _version_ = QString::fromUtf8("version");
+    static QString _compressed_ = QString::fromUtf8("compressed");
 
-    QDomElement categories;
-    QDomElement images;
-    QDomElement blockList;
-    QDomElement memberGroups;
-    readTopNodeInConfigDocument( configFile, top, &categories, &images, &blockList, &memberGroups );
+    ReaderPtr reader = readConfigFile( configFile );
+
+    ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KPhotoAlbum"));
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
+
+    _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
+    setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );
+
     _db->_members.setLoading( true );
-    loadCategories( categories );
-    loadImages( images );
-    loadBlockList( blockList );
-    loadMemberGroups( memberGroups );
+    loadCategories( reader );
+
+    loadImages( reader );
+    loadBlockList( reader );
+    loadMemberGroups( reader );
     _db->_members.setLoading( false );
 
     checkIfImagesAreSorted();
@@ -55,7 +63,7 @@ void XMLDB::FileReader::read( const QString& configFile )
 
 
 void XMLDB::FileReader::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-QDomElement* blockList, QDomElement* memberGroups )
+                                                     QDomElement* blockList, QDomElement* memberGroups )
 {
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -90,14 +98,14 @@ QDomElement* blockList, QDomElement* memberGroups )
 
 void XMLDB::FileReader::createSpecialCategories()
 {
-    DB::CategoryPtr folderCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
-    if( folderCat.isNull() ) {
-        folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
-                                     DB::Category::TreeView, 32, false );
-        _db->_categoryCollection.addCategory( folderCat );
+    _folderCategory = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    if( _folderCategory.isNull() ) {
+        _folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
+                                           DB::Category::TreeView, 32, false );
+        _db->_categoryCollection.addCategory( _folderCategory );
     }
-    folderCat->setSpecialCategory( true );
-    dynamic_cast<XMLCategory*>( folderCat.data() )->setShouldSave( false );
+    _folderCategory->setSpecialCategory( true );
+    dynamic_cast<XMLCategory*>( _folderCategory.data() )->setShouldSave( false );
 
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
@@ -124,67 +132,68 @@ void XMLDB::FileReader::createSpecialCategories()
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }
 
-void XMLDB::FileReader::loadCategories( const QDomElement& elm )
+void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 {
-// options is for KimDaBa 2.1 compatibility
-    Q_ASSERT( elm.tagName().toLower() == QString::fromLatin1( "categories" ) || elm.tagName().toLower() == QString::fromLatin1( "options" ) );
+    static QString _name_ = QString::fromUtf8("name");
+    static QString _icon_ = QString::fromUtf8("icon");
+    static QString _viewtype_ = QString::fromUtf8("viewtype");
+    static QString _show_ = QString::fromUtf8("show");
+    static QString _thumbnailsize_ = QString::fromUtf8("thumbnailsize");
+    static QString _value_ = QString::fromUtf8("value");
+    static QString _id_ = QString::fromUtf8("id");
+    static QString _Categories_ = QString::fromUtf8("Categories");
+    static QString _Category_ = QString::fromUtf8("Category");
 
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
-        if ( nodeOption.isElement() )  {
-            QDomElement elmOption = nodeOption.toElement();
-            // option is for KimDaBa 2.1 compatibility
-            Q_ASSERT( elmOption.tagName().toLower() == QString::fromLatin1("category") ||
-                      elmOption.tagName() == QString::fromLatin1("option").toLower() );
-            QString name = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
+    ElementInfo info = reader->readNextStartOrStopElement(_Categories_);
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(_Categories_);
 
-            if ( !name.isNull() )  {
-                // Read Category info
-                QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                DB::Category::ViewType type =
-                    (DB::Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
-                bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
-                                                        QString::fromLatin1( "1" ) ).toInt();
-                int thumbnailSize = elmOption.attribute( QString::fromLatin1( "thumbnailsize" ), QString::fromLatin1( "32" ) ).toInt();
+    while ( reader->readNextStartOrStopElement(_Category_).isStartToken) {
+        const QString categoryName = unescape( reader->attribute(_name_) );
+        if ( !categoryName.isNull() )  {
+            // Read Category info
+            QString icon= reader->attribute(_icon_);
+            DB::Category::ViewType type =
+                    (DB::Category::ViewType) reader->attribute( _viewtype_, QString::fromLatin1( "0" ) ).toInt();
+            bool show = (bool) reader->attribute( _show_, QString::fromLatin1( "1" ) ).toInt();
+            int thumbnailSize = reader->attribute( _thumbnailsize_, QString::fromLatin1( "32" ) ).toInt();
 
-                DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( name );
-                Q_ASSERT ( !cat );
-                cat = new XMLCategory( name, icon, type, thumbnailSize, show );
-                _db->_categoryCollection.addCategory( cat );
+            DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
+            Q_ASSERT ( !cat );
+            cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show );
+            _db->_categoryCollection.addCategory( cat );
 
-                // Read values
-                QStringList items;
-                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
-                      nodeValue = nodeValue.nextSibling() ) {
-                    if ( nodeValue.isElement() ) {
-                        QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
-                        QString value = elmValue.attribute( QString::fromLatin1("value") );
-                        if ( elmValue.hasAttribute( QString::fromLatin1( "id" ) ) ) {
-                            int id = elmValue.attribute( QString::fromLatin1( "id" ) ).toInt();
-                            static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
-                        }
-                        items.append( value );
-                    }
+            // Read values
+            QStringList items;
+            while( reader->readNextStartOrStopElement(_value_).isStartToken) {
+                QString value = reader->attribute(_value_);
+                if ( reader->hasAttribute(_id_) ) {
+                    int id = reader->attribute(_id_).toInt();
+                    static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                 }
-                cat->setItems( items );
+                items.append( value );
+                reader->readEndElement();
             }
+            cat->setItems( items );
         }
     }
 
     createSpecialCategories();
 }
 
-void XMLDB::FileReader::loadImages( const QDomElement& images )
+void XMLDB::FileReader::loadImages( ReaderPtr reader )
 {
-    for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
+    static QString _file_ = QString::fromUtf8("file");
+    static QString _images_ = QString::fromUtf8("images");
+    static QString _image_ = QString::fromUtf8("image");
 
-        const QString fileNameStr = elm.attribute( QString::fromLatin1("file") );
+    ElementInfo info = reader->readNextStartOrStopElement(_images_);
+    if (!info.isStartToken)
+        reader->complainStartElementExpected(_images_);
+
+    while (reader->readNextStartOrStopElement(_image_).isStartToken) {
+        const QString fileNameStr = reader->attribute(_file_);
         if ( fileNameStr.isNull() ) {
             qWarning( "Element did not contain a file attribute" );
             return;
@@ -192,44 +201,52 @@ void XMLDB::FileReader::loadImages( const QDomElement& images )
 
         const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
 
-        DB::ImageInfoPtr info = load( dbFileName, elm );
+        DB::ImageInfoPtr info = load( dbFileName, reader );
         _db->_images.append(info);
         _db->_md5map.insert( info->MD5Sum(), dbFileName );
     }
 
 }
 
-void XMLDB::FileReader::loadBlockList( const QDomElement& blockList )
+void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
 {
-    for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
+    static QString _file_ = QString::fromUtf8("file");
+    static QString _blocklist_ = QString::fromUtf8("blocklist");
+    static QString _block_ = QString::fromUtf8("block");
 
-        QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
-        if ( !fileName.isEmpty() )
-            _db->_blockList << DB::FileName::fromRelativePath(fileName);
+    ElementInfo info = reader->peekNext();
+    if ( info.isStartToken && info.tokenName == _blocklist_ ) {
+        reader->readNextStartOrStopElement(_blocklist_);
+        while (reader->readNextStartOrStopElement(_block_).isStartToken) {
+            QString fileName = reader->attribute(_file_);
+            if ( !fileName.isEmpty() )
+                _db->_blockList << DB::FileName::fromRelativePath(fileName);
+            reader->readEndElement();
+        }
     }
 }
 
-void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
+void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
 {
-    for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString category = elm.attribute( QString::fromLatin1( "category" ) );
-            if ( category.isNull() )
-                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
+    static QString _category_ = QString::fromUtf8("category");
+    static QString _groupName_ = QString::fromUtf8("group-name");
+    static QString _member_ = QString::fromUtf8("member");
+    static QString _members_ = QString::fromUtf8("members");
+    static QString _memberGroups_ = QString::fromUtf8("member-groups");
 
-            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
-            if ( elm.hasAttribute( QString::fromLatin1( "member" ) ) ) {
-                QString member = elm.attribute( QString::fromLatin1( "member" ) );
+    ElementInfo info = reader->peekNext();
+    if ( info.isStartToken && info.tokenName == _memberGroups_) {
+        reader->readNextStartOrStopElement(_memberGroups_);
+        while(reader->readNextStartOrStopElement(_member_).isStartToken) {
+            QString category = reader->attribute(_category_);
+
+            QString group = reader->attribute(_groupName_);
+            if ( reader->hasAttribute(_member_) ) {
+                QString member = reader->attribute(_member_);
                 _db->_members.addMemberToGroup( category, group, member );
             }
             else {
-                QStringList members = elm.attribute( QString::fromLatin1( "members" ) ).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
+                QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
@@ -238,10 +255,10 @@ void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
                     _db->_members.addMemberToGroup( category, group, member );
                 }
             }
+            reader->readEndElement();
         }
     }
 }
-
 void XMLDB::FileReader::checkIfImagesAreSorted()
 {
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
@@ -257,7 +274,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( messageParent(),
-#ifdef HAVE_EXIV2
+                          #ifdef HAVE_EXIV2
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
@@ -268,14 +285,14 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "<p>Finally, once all images have their dates set, you can execute "
                                        "<b>Images->Sort Selected by Date & Time</b> to sort them in the database. "
                                        "Note that you should expand all stacks for sorting.</p>"),
-#else
+                          #else
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>You also do not have EXIF support available, which means that you cannot read "
                                        "image dates from JPEG metadata. It is strongly recommended to recompile KPhotoAlbum "
                                        "with the <code>exiv2</code> library. After you have done so, you will be asked what "
                                        "to do to correct all the missing information.</p>"),
-#endif
+                          #endif
                                   i18n("Images/Videos Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
@@ -302,17 +319,17 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 }
 
-DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPtr reader )
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
+    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, _db );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
-    info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
+    info->createFolderCategoryItem( _folderCategory, _db->_members );
     return info;
 }
 
-QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
+XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
 {
-    QDomDocument doc;
+    ReaderPtr reader = ReaderPtr(new XmlReader);
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
@@ -338,7 +355,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-            doc.setContent( str );
+            reader->addData(str);
         }
     }
     else {
@@ -347,6 +364,8 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             exit(-1);
         }
 
+        reader->addData(file.readAll());
+#if 0
         QString errMsg;
         int errLine;
         int errCol;
@@ -360,9 +379,11 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
                 exit(-1);
             }
         }
+#endif
     }
 
     // Now read the content of the file.
+#if 0
     QDomElement top = doc.documentElement();
     if ( top.isNull() ) {
         KMessageBox::error( messageParent(), i18n("Error in file %1: No elements found", configFile ) );
@@ -374,20 +395,25 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         KMessageBox::error( messageParent(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'", configFile , top.tagName() ) );
         exit(-1);
     }
+#endif
 
     file.close();
-    return top;
+    return reader;
 }
 
 QString XMLDB::FileReader::unescape( const QString& str )
 {
+    static QHash<QString,QString> cache;
+    if ( cache.contains(str) )
+        return cache[str];
+
     QString tmp( str );
     // Matches encoded characters in attribute names
     QRegExp rx( QString::fromLatin1( "(_.)([0-9A-F]{2})" ) );
     int pos = 0;
-    
+
     // Unencoding special characters if compressed XML is selected
-    if ( Settings::SettingsData::instance()->useCompressedIndexXML() ) {
+    if ( useCompressedFileFormat() ) {
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 ) + rx.cap( 2 );
             QString after = QString::fromLatin1( QByteArray::fromHex( rx.cap( 2 ).toLocal8Bit() ) );
@@ -396,6 +422,8 @@ QString XMLDB::FileReader::unescape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
+
+    cache.insert(str,tmp);
     return tmp;
 }
 

@@ -29,6 +29,7 @@
 #include "DB/MD5Map.h"
 #include <qdom.h>
 #include <DB/FileNameList.h>
+#include "FileReader.h"
 
 namespace DB
 {
@@ -67,8 +68,8 @@ namespace XMLDB {
             const DB::FileNameList& cutList,
             bool after);
 
-        static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, const QDomElement& elm, Database* db = 0 );
-        static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
+        static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, ReaderPtr, Database* db = 0 );
+        static void possibleLoadCompressedCategories( ReaderPtr reader , DB::ImageInfoPtr info, Database* db );
         OVERRIDE bool stack(const DB::FileNameList& items);
         OVERRIDE void unstack(const DB::FileNameList& images);
         OVERRIDE DB::FileNameList getStackFor(const DB::FileName& referenceId) const;
@@ -83,7 +84,7 @@ namespace XMLDB {
 
         DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList& list);
         void insertList( const DB::FileName& id, const DB::ImageInfoList& list, bool after );
-        static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
+        static void readOptions( DB::ImageInfoPtr info, ReaderPtr reader );
 
 
     protected slots:

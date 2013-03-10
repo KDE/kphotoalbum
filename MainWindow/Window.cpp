@@ -497,11 +497,18 @@ void MainWindow::Window::slotPasteInformation()
     // if ( urls.count() != 1 ) return;
     // const QString string = urls.first().path();
 
-    const QString string = mimeData->text();
+    QString string = mimeData->text();
     // fail silent if more than one image is in clipboard.
     if (string.count(QString::fromLatin1("\n")) != 0) return;
-
-    const DB::FileName fileName = DB::FileName::fromRelativePath(string);
+    
+    const QString urlHead = QLatin1String("file://");
+    if (string.startsWith(urlHead)) {
+      string = string.right(string.size()-urlHead.size());
+    }
+    
+    const DB::FileName fileName = DB::FileName::fromAbsolutePath(string);
+    // fail silent if there is no file.
+    if (fileName.isNull()) return;
 
     MD5 originalSum = Utilities::MD5Sum( fileName );
     ImageInfoPtr originalInfo;
@@ -510,9 +517,13 @@ void MainWindow::Window::slotPasteInformation()
     } else {
         originalInfo = fileName.info();
     }
+    // fail silent if there is no info for the file.
+    if (!originalInfo) return;
+    
     Q_FOREACH(const DB::FileName& newFile, selected()) {
         newFile.info()->copyExtraData(*originalInfo, false);
     }
+    DirtyIndicator::markDirty();
 }
 
 void MainWindow::Window::slotReReadExifInfo()

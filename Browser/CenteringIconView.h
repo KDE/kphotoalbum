@@ -39,11 +39,11 @@ public:
 
     CenteringIconView( QWidget* parent );
     void setViewMode( ViewMode );
-    OVERRIDE void setModel( QAbstractItemModel* );
-    OVERRIDE void showEvent( QShowEvent* );
+    void setModel( QAbstractItemModel* ) OVERRIDE;
+    void showEvent( QShowEvent* ) OVERRIDE;
 
 protected:
-    OVERRIDE void resizeEvent( QResizeEvent* );
+    void resizeEvent( QResizeEvent* ) OVERRIDE;
 
 private:
     void setupMargins();

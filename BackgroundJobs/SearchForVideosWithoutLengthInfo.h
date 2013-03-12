@@ -31,9 +31,9 @@ class SearchForVideosWithoutLengthInfo : public BackgroundTaskManager::JobInterf
 {
 public:
     SearchForVideosWithoutLengthInfo();
-    OVERRIDE void execute();
-    OVERRIDE QString title() const;
-    OVERRIDE QString details() const;
+    void execute() OVERRIDE;
+    QString title() const OVERRIDE;
+    QString details() const OVERRIDE;
 };
 
 }

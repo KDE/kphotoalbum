@@ -27,8 +27,8 @@ namespace DB
 class AndCategoryMatcher :public ContainerCategoryMatcher
 {
 public:
-    OVERRIDE bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched);
-    OVERRIDE void debug( int level ) const;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) OVERRIDE;
+    void debug( int level ) const OVERRIDE;
 };
 
 }

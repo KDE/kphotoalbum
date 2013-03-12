@@ -65,9 +65,9 @@ signals:
     void expandAllStacksEnabled(bool enabled);
 
 private:
-    OVERRIDE ThumbnailModel* model();
-    OVERRIDE CellGeometry* cellGeometry();
-    OVERRIDE ThumbnailWidget* widget();
+    ThumbnailModel* model() OVERRIDE;
+    CellGeometry* cellGeometry() OVERRIDE;
+    ThumbnailWidget* widget() OVERRIDE;
 
 private:
     static ThumbnailFacade* _instance;

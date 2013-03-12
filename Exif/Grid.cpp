@@ -39,10 +39,10 @@ Exif::Grid::Grid( QWidget* parent )
 
 class Background :public QWidget {
 protected:
-    OVERRIDE void paintEvent(QPaintEvent* event) {
+    void paintEvent(QPaintEvent* event) OVERRIDE {
         QPainter painter(this);
         painter.fillRect( event->rect(), QColor(Qt::white));
-    }
+    };
 };
 
 void Exif::Grid::setupUI( const QString& charset )

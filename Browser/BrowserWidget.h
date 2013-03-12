@@ -89,7 +89,7 @@ signals:
     void imageCount(uint);
 
 protected:
-    OVERRIDE bool eventFilter( QObject*, QEvent* );
+    bool eventFilter( QObject*, QEvent* ) OVERRIDE;
 
 private slots:
     void resetIconViewSearch();

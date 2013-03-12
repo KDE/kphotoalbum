@@ -49,11 +49,11 @@ protected slots:
     void linkHovered(const QString&);
 
 protected:
-    OVERRIDE void mouseMoveEvent( QMouseEvent* );
-    OVERRIDE void mousePressEvent( QMouseEvent* );
-    OVERRIDE void mouseReleaseEvent( QMouseEvent* );
-    OVERRIDE void resizeEvent( QResizeEvent* );
-    OVERRIDE void contextMenuEvent( QContextMenuEvent* event );
+    void mouseMoveEvent( QMouseEvent* ) OVERRIDE;
+    void mousePressEvent( QMouseEvent* ) OVERRIDE;
+    void mouseReleaseEvent( QMouseEvent* ) OVERRIDE;
+    void resizeEvent( QResizeEvent* ) OVERRIDE;
+    void contextMenuEvent( QContextMenuEvent* event ) OVERRIDE;
     void updateCursor( const QPoint& pos );
     bool atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position windowPos ) const;
     void showBrowser();

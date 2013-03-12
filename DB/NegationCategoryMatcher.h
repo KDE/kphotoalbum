@@ -34,9 +34,9 @@ namespace DB
         public:
             NegationCategoryMatcher( CategoryMatcher *child );
             virtual ~NegationCategoryMatcher();
-            OVERRIDE bool eval( ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched );
-            OVERRIDE void debug( int level ) const;
-            OVERRIDE void setShouldCreateMatchedSet( bool b );
+            bool eval( ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched ) OVERRIDE;
+            void debug( int level ) const OVERRIDE;
+            void setShouldCreateMatchedSet( bool b ) OVERRIDE;
         private:
             CategoryMatcher *_child;
     };

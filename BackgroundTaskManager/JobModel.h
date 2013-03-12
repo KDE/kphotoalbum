@@ -33,10 +33,10 @@ class JobModel : public QAbstractTableModel
 public:
     explicit JobModel(QObject *parent = 0);
     ~JobModel();
-    OVERRIDE int rowCount(const QModelIndex&) const;
-    OVERRIDE int columnCount(const QModelIndex&) const;
-    OVERRIDE QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    OVERRIDE QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    int rowCount(const QModelIndex&) const OVERRIDE;
+    int columnCount(const QModelIndex&) const OVERRIDE;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const OVERRIDE;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const OVERRIDE;
 
 public slots:
     void reset();

@@ -40,11 +40,11 @@ public:
     InfoDialog( const DB::FileName& fileName, QWidget* parent );
     void setImage( const DB::FileName& fileName );
 
-    OVERRIDE QSize sizeHint() const;
-    OVERRIDE void enterEvent( QEvent* );
+    QSize sizeHint() const OVERRIDE;
+    void enterEvent( QEvent* ) OVERRIDE;
 
     // ImageManager::ImageClient interface.
-    OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) OVERRIDE;
 
 private:
     QLineEdit* m_searchBox;

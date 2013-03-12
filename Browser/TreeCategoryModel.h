@@ -49,12 +49,12 @@ public:
     TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );
     ~TreeCategoryModel();
 
-    OVERRIDE int rowCount( const QModelIndex& ) const;
-    OVERRIDE int columnCount( const QModelIndex& ) const;
-    OVERRIDE QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    OVERRIDE QModelIndex parent ( const QModelIndex & index ) const;
+    int rowCount( const QModelIndex& ) const OVERRIDE;
+    int columnCount( const QModelIndex& ) const OVERRIDE;
+    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const OVERRIDE;
+    QModelIndex parent ( const QModelIndex & index ) const OVERRIDE;
 
-    OVERRIDE QString indexToName(const QModelIndex& ) const;
+    QString indexToName(const QModelIndex& ) const OVERRIDE;
 
 private:
     bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );

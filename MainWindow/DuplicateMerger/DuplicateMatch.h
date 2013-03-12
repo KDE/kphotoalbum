@@ -47,7 +47,7 @@ public:
     void setSelected(bool);
     bool selected() const;
     void execute(Utilities::DeleteMethod);
-    OVERRIDE bool eventFilter(QObject *, QEvent *);
+    bool eventFilter(QObject *, QEvent *) OVERRIDE;
 
 signals:
     void selectionChanged();

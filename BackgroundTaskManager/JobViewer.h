@@ -31,7 +31,7 @@ class JobViewer : public QDialog
     Q_OBJECT
 public:
     explicit JobViewer(QWidget *parent = 0);
-    OVERRIDE void setVisible(bool);
+    void setVisible(bool) OVERRIDE;
 
 private slots:
     void togglePause();

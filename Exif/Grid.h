@@ -41,8 +41,8 @@ public slots:
     void updateSearchString( const QString& );
 
 private:
-    OVERRIDE void keyPressEvent( QKeyEvent* );
-    OVERRIDE bool eventFilter(QObject*, QEvent*);
+    void keyPressEvent( QKeyEvent* ) OVERRIDE;
+    bool eventFilter(QObject*, QEvent*) OVERRIDE;
 
     StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
     QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );

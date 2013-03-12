@@ -35,7 +35,7 @@ class StatisticsDialog :public KDialog
 
 public:
     StatisticsDialog( QWidget* parent );
-    OVERRIDE QSize sizeHint() const;
+    QSize sizeHint() const OVERRIDE;
     void show();
 
 private:

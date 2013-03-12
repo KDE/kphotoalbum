@@ -27,9 +27,9 @@ class UploadImageCollection : public KIPI::ImageCollectionShared
 {
 public:
     UploadImageCollection(const QString& path);
-    OVERRIDE KUrl::List images();
-    OVERRIDE QString name();
-    OVERRIDE KUrl uploadPath();
+    KUrl::List images() OVERRIDE;
+    QString name() OVERRIDE;
+    KUrl uploadPath() OVERRIDE;
 
 private:
     QString m_path;

@@ -27,8 +27,8 @@ class CompletedJobInfo : public JobInfo
 {
 public:
     CompletedJobInfo(JobInfo* other);
-    OVERRIDE QString title() const;
-    OVERRIDE QString details() const;
+    QString title() const OVERRIDE;
+    QString details() const OVERRIDE;
 
 private:
     QString m_title;

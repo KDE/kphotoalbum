@@ -37,9 +37,9 @@ class ExtractOneThumbnailJob : public BackgroundTaskManager::JobInterface
 
 public:
     ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority);
-    OVERRIDE void execute();
-    OVERRIDE QString title() const;
-    OVERRIDE QString details() const;
+    void execute() OVERRIDE;
+    QString title() const OVERRIDE;
+    QString details() const OVERRIDE;
     int index() const;
     void cancel();
 

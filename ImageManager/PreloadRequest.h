@@ -26,7 +26,7 @@ class PreloadRequest : public ImageRequest
 {
 public:
     explicit PreloadRequest( const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client);
-    OVERRIDE bool stillNeeded() const;
+    bool stillNeeded() const OVERRIDE;
 };
 
 }

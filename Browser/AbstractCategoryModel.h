@@ -35,9 +35,9 @@ namespace Browser
 class AbstractCategoryModel :public QAbstractItemModel
 {
 public:
-    OVERRIDE Qt::ItemFlags flags ( const QModelIndex& index ) const;
-    OVERRIDE QVariant data( const QModelIndex & index, int role) const;
-    OVERRIDE QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags ( const QModelIndex& index ) const OVERRIDE;
+    QVariant data( const QModelIndex & index, int role) const OVERRIDE;
+    QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const OVERRIDE;
 
 protected:
     AbstractCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );

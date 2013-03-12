@@ -32,10 +32,10 @@ public:
     void emitItemsChanged();
 
 protected:
-    OVERRIDE QMimeData* mimeData( const QList<QTreeWidgetItem*> items ) const;
-    OVERRIDE QStringList mimeTypes() const;
-    OVERRIDE bool dropMimeData ( QTreeWidgetItem* parent, int index, const QMimeData* data, Qt::DropAction action );
-    OVERRIDE void dragMoveEvent(QDragMoveEvent* event);
+    QMimeData* mimeData( const QList<QTreeWidgetItem*> items ) const OVERRIDE;
+    QStringList mimeTypes() const OVERRIDE;
+    bool dropMimeData ( QTreeWidgetItem* parent, int index, const QMimeData* data, Qt::DropAction action ) OVERRIDE;
+    void dragMoveEvent(QDragMoveEvent* event) OVERRIDE;
 
 signals:
     void itemsChanged();

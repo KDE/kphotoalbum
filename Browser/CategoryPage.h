@@ -39,10 +39,10 @@ class CategoryPage :public BrowserPage
 {
 public:
     CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    OVERRIDE void activate();
-    OVERRIDE BrowserPage* activateChild( const QModelIndex& );
-    OVERRIDE DB::Category::ViewType viewType() const;
-    OVERRIDE bool isViewChangeable() const;
+    void activate() OVERRIDE;
+    BrowserPage* activateChild( const QModelIndex& ) OVERRIDE;
+    DB::Category::ViewType viewType() const OVERRIDE;
+    bool isViewChangeable() const OVERRIDE;
 
     DB::CategoryPtr category() const;
 

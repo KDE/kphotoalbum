@@ -32,7 +32,7 @@ ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
 
 }
 
-OVERRIDE void ThumbnailView::Delegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
     paintCellBackground( painter, option.rect );
     if ( widget()->isGridResizing())

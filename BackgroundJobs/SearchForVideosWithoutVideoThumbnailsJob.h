@@ -34,9 +34,9 @@ class SearchForVideosWithoutVideoThumbnailsJob : public BackgroundTaskManager::J
 
 public:
     SearchForVideosWithoutVideoThumbnailsJob();
-    OVERRIDE void execute();
-    OVERRIDE QString title() const;
-    OVERRIDE QString details() const;
+    void execute() OVERRIDE;
+    QString title() const OVERRIDE;
+    QString details() const OVERRIDE;
 };
 
 }

@@ -43,8 +43,8 @@ public:
     void buildAll(ThumbnailBuildStart when );
     void buildMissing();
 
-    OVERRIDE void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
-    OVERRIDE void requestCanceled();
+    void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) OVERRIDE;
+    void requestCanceled() OVERRIDE;
 
 public slots:
     void cancelRequests( );

@@ -68,7 +68,7 @@ public:
     KActionCollection* actions();
 
 public slots:
-    OVERRIDE bool close(bool alsoDelete = false );
+    bool close(bool alsoDelete = false );
     void updateInfoBox();
     void test();
     void moveInfoBox( int );
@@ -78,10 +78,10 @@ signals:
     void soughtTo( const DB::FileName& id );
 
 protected:
-    OVERRIDE void contextMenuEvent ( QContextMenuEvent * e );
-    OVERRIDE void resizeEvent( QResizeEvent* );
-    OVERRIDE void keyPressEvent( QKeyEvent* );
-    OVERRIDE void wheelEvent( QWheelEvent* event );
+    void contextMenuEvent ( QContextMenuEvent * e ) OVERRIDE;
+    void resizeEvent( QResizeEvent* ) OVERRIDE;
+    void keyPressEvent( QKeyEvent* ) OVERRIDE;
+    void wheelEvent( QWheelEvent* event ) OVERRIDE;
 
     void moveInfoBox();
     void setAsWallpaper(int mode);

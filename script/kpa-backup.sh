@@ -23,6 +23,7 @@ print_help()
 	echo "Usage: $0 -b|--backup [-d|--directory BACKUP_LOCATION]" >&2
 	echo "       $0 -r|--restore [-d|--directory BACKUP_LOCATION]" >&2
 	echo "       $0 -l|--list [-d|--directory BACKUP_LOCATION]" >&2
+	echo "       $0 -i|--info [-d|--directory BACKUP_LOCATION]" >&2
 	echo "       $0 -p|--purge [--keep NUM]" >&2
 	echo "" >&2
 	echo "Create or restore a backup of your essential KPhotoalbum files." >&2
@@ -156,6 +157,28 @@ do_restore()
 	done
 }
 
+show_info()
+# show_info BACKUP_DIR [ANNOTATION]
+# shows if a given backup location has changes to the current state
+# if ANNOTATON is given, is is written next to the backup time
+{
+	backup_dir="$1"
+	backup_name=`basename "$1"`
+	annotation="$2"
+	echo -n " -$backup_name" | sed 's/\(....\)\(..\)\(..\)-\(..\)\(..\)\(..\)/\0 [\1-\2-\3 \4:\5:\6]/'
+	if [ -n "$annotation" ]
+	then
+		echo -n " $annotation"
+	fi
+	echo
+	for f in "$backup_dir"/*.tgz
+	do
+		echo -n "  |-"
+		untar_if_changed -p -s "$f"
+	done
+	echo
+}
+
 do_list()
 {
 	local LATEST=`readlink "$BACKUP_LOCATION/latest"`
@@ -166,21 +189,21 @@ do_list()
 		if [ -d "$d" ]
 		then
 			[ -L "$d" ] && continue
-			backup_name=`basename "$d"`
-			echo -n " -$backup_name" | sed 's/\(....\)\(..\)\(..\)-\(..\)\(..\)\(..\)/\0 [\1-\2-\3 \4:\5:\6]/'
-			if [ "$backup_name" = "$LATEST" ]
+			if [ "`basename "$d"`" = "$LATEST" ]
 			then
-				echo -n " (*latest*)"
+				show_info "$d" "(*latest*)"
+			else
+				show_info "$d"
 			fi
-			echo
-			for f in "$d"/*.tgz
-			do
-				echo -n "  |-"
-				untar_if_changed -p -s "$f"
-			done
-			echo
 		fi
 	done
+}
+
+do_info()
+{
+	local LATEST=`readlink "$BACKUP_LOCATION/latest"`
+	echo "$BACKUP_LOCATION:"
+	show_info "$LATEST"
 }
 
 do_purge()
@@ -209,7 +232,7 @@ do_purge()
 # Parse commandline:
 ###
 
-TEMP=`getopt -o hbrlpnd: --long help,backup,restore,list,purge,no-act,directory:,keep: \
+TEMP=`getopt -o hbrlipnd: --long help,backup,restore,list,info,purge,no-act,directory:,keep: \
      -n 'kpa-backup' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -222,7 +245,8 @@ while true ; do
 		-h|--help) print_help ; exit ;;
 		-b|--backup) ACTION=do_backup ; shift ;;
 		-r|--restore) ACTION=do_restore ; shift ;; 
-		-l|--list) ACTION=do_list ; shift ;; 
+		-l|--list) ACTION=do_list ; shift ;;
+		-i|--info) ACTION=do_info ; shift ;;
 		-p|--purge) ACTION=do_purge ; shift ;;
 		-n|--no-act) NO_ACT=1 ; shift ;;
 		-d|--directory) BACKUP_LOCATION="$2" ; shift 2 ;;

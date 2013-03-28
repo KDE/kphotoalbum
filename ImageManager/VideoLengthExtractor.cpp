@@ -90,7 +90,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
     const QString cap = regexp.cap(1);
 
-    const int length = cap.toDouble(&ok);
+    const double length = cap.toDouble(&ok);
     if ( !ok ) {
         kWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName.absolute());
         emit unableToDetermineLength();

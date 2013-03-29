@@ -24,6 +24,8 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 #                -DDEBUG_JOBMANAGER
                )
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") 
+
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                    )

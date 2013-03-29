@@ -107,6 +107,4 @@ ImageManager::RequestQueue::RequestQueue()
         _queues.append( QQueue<ImageRequest*>() );
 }
 
-
-#include "RequestQueue.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

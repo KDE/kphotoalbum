@@ -45,10 +45,10 @@ class ThumbnailWidget;
 class GridResizeInteraction : public MouseInteraction, private ThumbnailComponent {
 public:
     GridResizeInteraction( ThumbnailFactory* factory );
-    bool mousePressEvent( QMouseEvent* ) OVERRIDE;
-    bool mouseMoveEvent( QMouseEvent* ) OVERRIDE;
-    bool mouseReleaseEvent( QMouseEvent* ) OVERRIDE;
-    bool isResizingGrid() OVERRIDE;
+    bool mousePressEvent( QMouseEvent* ) override;
+    bool mouseMoveEvent( QMouseEvent* ) override;
+    bool mouseReleaseEvent( QMouseEvent* ) override;
+    bool isResizingGrid() override;
     void enterGridResizingMode();
     void leaveGridResizingMode();
 

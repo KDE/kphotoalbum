@@ -78,10 +78,10 @@ signals:
     void soughtTo( const DB::FileName& id );
 
 protected:
-    void contextMenuEvent ( QContextMenuEvent * e ) OVERRIDE;
-    void resizeEvent( QResizeEvent* ) OVERRIDE;
-    void keyPressEvent( QKeyEvent* ) OVERRIDE;
-    void wheelEvent( QWheelEvent* event ) OVERRIDE;
+    void contextMenuEvent ( QContextMenuEvent * e ) override;
+    void resizeEvent( QResizeEvent* ) override;
+    void keyPressEvent( QKeyEvent* ) override;
+    void wheelEvent( QWheelEvent* event ) override;
 
     void moveInfoBox();
     void setAsWallpaper(int mode);

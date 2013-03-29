@@ -17,8 +17,6 @@ set(INSTALL_TARGETS_DEFAULT_ARGS RUNTIME DESTINATION "${BIN_INSTALL_DIR}"
 ADD_DEFINITIONS(${QT_DEFINITIONS} 
                 ${KDE4_DEFINITIONS}
                 ${KDE4_ENABLE_EXCEPTIONS}
-                -DOVERRIDE=
-                -DKDAB_NYI=qWarning
                 -DQT_NO_CAST_FROM_ASCII
                 -DQT_NO_CAST_TO_ASCII
 #                -DDEBUG_JOBMANAGER

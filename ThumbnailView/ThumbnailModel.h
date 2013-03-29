@@ -39,8 +39,8 @@ public:
     ThumbnailModel( ThumbnailFactory* factory );
 
     // -------------------------------------------------- QAbstractListModel
-    int rowCount(const QModelIndex&) const OVERRIDE;
-    QVariant data(const QModelIndex&, int) const OVERRIDE;
+    int rowCount(const QModelIndex&) const override;
+    QVariant data(const QModelIndex&, int) const override;
     void reset();
     QString thumbnailText( const QModelIndex& index ) const;
     void updateCell( int row );
@@ -48,7 +48,7 @@ public:
     void updateCell( const DB::FileName& id );
 
     // -------------------------------------------------- ImageClient API
-    void pixmapLoaded( const DB::FileName&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK) OVERRIDE;
+    void pixmapLoaded( const DB::FileName&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK) override;
     bool thumbnailStillNeeded( int row ) const;
 
 

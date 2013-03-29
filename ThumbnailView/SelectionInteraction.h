@@ -34,8 +34,8 @@ class SelectionInteraction : public QObject, public MouseInteraction, private Th
 
 public:
     SelectionInteraction( ThumbnailFactory* factory );
-    bool mousePressEvent( QMouseEvent* ) OVERRIDE;
-    bool mouseMoveEvent( QMouseEvent* ) OVERRIDE;
+    bool mousePressEvent( QMouseEvent* ) override;
+    bool mouseMoveEvent( QMouseEvent* ) override;
     bool isDragging() const;
 
 protected:

@@ -60,7 +60,7 @@ public:
 
     // Misc
     int cellWidth() const;
-    void showEvent( QShowEvent* ) OVERRIDE;
+    void showEvent( QShowEvent* ) override;
     DB::FileNameList selection( ThumbnailView::SelectionMode mode ) const;
     bool isSelected( const DB::FileName& id ) const;
     void select( const DB::FileNameList& );
@@ -78,19 +78,19 @@ signals:
 
 protected:
     // event handlers
-    void keyPressEvent( QKeyEvent* ) OVERRIDE;
-    void keyReleaseEvent( QKeyEvent* ) OVERRIDE;
-    void mousePressEvent( QMouseEvent* ) OVERRIDE;
-    void mouseMoveEvent( QMouseEvent* ) OVERRIDE;
-    void mouseReleaseEvent( QMouseEvent* ) OVERRIDE;
-    void mouseDoubleClickEvent ( QMouseEvent* ) OVERRIDE;
-    void wheelEvent( QWheelEvent* ) OVERRIDE;
+    void keyPressEvent( QKeyEvent* ) override;
+    void keyReleaseEvent( QKeyEvent* ) override;
+    void mousePressEvent( QMouseEvent* ) override;
+    void mouseMoveEvent( QMouseEvent* ) override;
+    void mouseReleaseEvent( QMouseEvent* ) override;
+    void mouseDoubleClickEvent ( QMouseEvent* ) override;
+    void wheelEvent( QWheelEvent* ) override;
 
     // Drag and drop
-    void dragEnterEvent ( QDragEnterEvent * event ) OVERRIDE;
-    void dragMoveEvent ( QDragMoveEvent * ) OVERRIDE;
-    void dragLeaveEvent ( QDragLeaveEvent * ) OVERRIDE;
-    void dropEvent ( QDropEvent * ) OVERRIDE;
+    void dragEnterEvent ( QDragEnterEvent * event ) override;
+    void dragMoveEvent ( QDragMoveEvent * ) override;
+    void dragLeaveEvent ( QDragLeaveEvent * ) override;
+    void dropEvent ( QDropEvent * ) override;
 
 private slots:
     void emitDateChange();

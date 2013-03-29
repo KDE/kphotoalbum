@@ -29,8 +29,8 @@ class ContainerCategoryMatcher :public CategoryMatcher
 public:
     void addElement( CategoryMatcher* );
     ~ContainerCategoryMatcher();
-    void debug( int level ) const OVERRIDE;
-    void setShouldCreateMatchedSet(bool) OVERRIDE;
+    void debug( int level ) const override;
+    void setShouldCreateMatchedSet(bool) override;
 
     QList<CategoryMatcher*> _elements;
 };

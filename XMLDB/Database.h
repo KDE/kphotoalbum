@@ -42,38 +42,38 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        uint totalCount() const OVERRIDE;
+        uint totalCount() const override;
         DB::FileNameList search(
             const DB::ImageSearchInfo&,
-            bool requireOnDisk=false) const OVERRIDE;
-        void renameCategory( const QString& oldName, const QString newName ) OVERRIDE;
+            bool requireOnDisk=false) const override;
+        void renameCategory( const QString& oldName, const QString newName ) override;
 
-        QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) OVERRIDE;
-        DB::FileNameList images() OVERRIDE;
-        void addImages( const DB::ImageInfoList& images ) OVERRIDE;
-        void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName ) OVERRIDE;
+        QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) override;
+        DB::FileNameList images() override;
+        void addImages( const DB::ImageInfoList& images ) override;
+        void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName ) override;
 
-        void addToBlockList(const DB::FileNameList& list) OVERRIDE;
-        bool isBlocking( const DB::FileName& fileName ) OVERRIDE;
-        void deleteList(const DB::FileNameList& list) OVERRIDE;
-        DB::ImageInfoPtr info( const DB::FileName& fileName ) const OVERRIDE;
-        DB::MemberMap& memberMap() OVERRIDE;
-        void save( const QString& fileName, bool isAutoSave ) OVERRIDE;
-        DB::MD5Map* md5Map() OVERRIDE;
-        void sortAndMergeBackIn(const DB::FileNameList& idList) OVERRIDE;
-        DB::CategoryCollection* categoryCollection() OVERRIDE;
-        KSharedPtr<DB::ImageDateCollection> rangeCollection() OVERRIDE;
+        void addToBlockList(const DB::FileNameList& list) override;
+        bool isBlocking( const DB::FileName& fileName ) override;
+        void deleteList(const DB::FileNameList& list) override;
+        DB::ImageInfoPtr info( const DB::FileName& fileName ) const override;
+        DB::MemberMap& memberMap() override;
+        void save( const QString& fileName, bool isAutoSave ) override;
+        DB::MD5Map* md5Map() override;
+        void sortAndMergeBackIn(const DB::FileNameList& idList) override;
+        DB::CategoryCollection* categoryCollection() override;
+        KSharedPtr<DB::ImageDateCollection> rangeCollection() override;
         void reorder(
             const DB::FileName& item,
             const DB::FileNameList& cutList,
-            bool after) OVERRIDE;
+            bool after) override;
 
         static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, ReaderPtr, Database* db = 0 );
         static void possibleLoadCompressedCategories( ReaderPtr reader , DB::ImageInfoPtr info, Database* db );
-        bool stack(const DB::FileNameList& items) OVERRIDE;
-        void unstack(const DB::FileNameList& images) OVERRIDE;
-        DB::FileNameList getStackFor(const DB::FileName& referenceId) const OVERRIDE;
-        void copyData( const DB::FileName& from, const DB::FileName& to) OVERRIDE;
+        bool stack(const DB::FileNameList& items) override;
+        void unstack(const DB::FileNameList& images) override;
+        DB::FileNameList getStackFor(const DB::FileName& referenceId) const override;
+        void copyData( const DB::FileName& from, const DB::FileName& to) override;
 
     protected:
         DB::FileNameList searchPrivate(

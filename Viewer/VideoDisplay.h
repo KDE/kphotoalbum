@@ -61,7 +61,7 @@ private slots:
 
 protected:
     void resize( double factor );
-    void resizeEvent( QResizeEvent* ) OVERRIDE;
+    void resizeEvent( QResizeEvent* ) override;
     void setup();
     void setVideoWidgetSize();
 

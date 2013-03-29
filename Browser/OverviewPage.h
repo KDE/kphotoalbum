@@ -45,14 +45,14 @@ class OverviewPage :public QAbstractListModel, public BrowserPage
 {
 public:
     OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, Browser::BrowserWidget* );
-    int rowCount ( const QModelIndex& parent = QModelIndex() ) const OVERRIDE;
-    QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const OVERRIDE;
-    void activate() OVERRIDE;
-    BrowserPage* activateChild( const QModelIndex& ) OVERRIDE;
-    Qt::ItemFlags flags ( const QModelIndex & index ) const OVERRIDE;
-    bool isSearchable() const OVERRIDE;
-    Breadcrumb breadcrumb() const OVERRIDE;
-    bool showDuringMovement() const OVERRIDE;
+    int rowCount ( const QModelIndex& parent = QModelIndex() ) const override;
+    QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const override;
+    void activate() override;
+    BrowserPage* activateChild( const QModelIndex& ) override;
+    Qt::ItemFlags flags ( const QModelIndex & index ) const override;
+    bool isSearchable() const override;
+    Breadcrumb breadcrumb() const override;
+    bool showDuringMovement() const override;
 
 
 private:

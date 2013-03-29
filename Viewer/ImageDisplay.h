@@ -90,7 +90,7 @@ protected:
     virtual void mouseReleaseEvent( QMouseEvent* event );
     virtual void resizeEvent( QResizeEvent* event );
     virtual void paintEvent( QPaintEvent* event );
-    void hideEvent(QHideEvent* ) OVERRIDE;
+    void hideEvent(QHideEvent* ) override;
     QPoint mapPos( QPoint );
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
     void xformPainter( QPainter* );

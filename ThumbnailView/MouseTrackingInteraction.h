@@ -32,7 +32,7 @@ class MouseTrackingInteraction : public QObject, public MouseInteraction, privat
 
 public:
     MouseTrackingInteraction( ThumbnailFactory* factory );
-    bool mouseMoveEvent( QMouseEvent* ) OVERRIDE;
+    bool mouseMoveEvent( QMouseEvent* ) override;
 
 signals:
     void fileIdUnderCursorChanged( const DB::FileName& id );

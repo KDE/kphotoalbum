@@ -34,13 +34,13 @@ class FlatCategoryModel :public AbstractCategoryModel
 {
 public:
     FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );
-    int rowCount( const QModelIndex& index ) const OVERRIDE;
+    int rowCount( const QModelIndex& index ) const override;
 
-    int columnCount( const QModelIndex& ) const OVERRIDE;
-    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const OVERRIDE;
-    QModelIndex parent ( const QModelIndex & index ) const OVERRIDE;
+    int columnCount( const QModelIndex& ) const override;
+    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const override;
+    QModelIndex parent ( const QModelIndex & index ) const override;
 
-    QString indexToName(const QModelIndex& ) const OVERRIDE;
+    QString indexToName(const QModelIndex& ) const override;
 
 private:
     QStringList _items;

@@ -33,7 +33,7 @@ public:
     static void destroy();
 
 protected:
-    void placeWindow() OVERRIDE;
+    void placeWindow() override;
 
 private:
     static MergeToolTip* s_instance;

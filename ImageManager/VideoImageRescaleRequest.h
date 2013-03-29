@@ -30,7 +30,7 @@ class VideoImageRescaleRequest : public ImageRequest
 public:
     VideoImageRescaleRequest( ImageRequest* originalRequest, const DB::FileName& path );
     ~VideoImageRescaleRequest();
-    DB::FileName fileSystemFileName() const OVERRIDE;
+    DB::FileName fileSystemFileName() const override;
 
 private:
     ImageRequest* m_originalRequest;

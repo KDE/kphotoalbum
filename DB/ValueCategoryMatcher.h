@@ -28,8 +28,8 @@ class ValueCategoryMatcher :public SimpleCategoryMatcher
 {
 public:
     ValueCategoryMatcher( const QString& category, const QString& value );
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) OVERRIDE;
-    void debug( int level ) const OVERRIDE;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
+    void debug( int level ) const override;
 
     QString _option;
     StringSet _members;

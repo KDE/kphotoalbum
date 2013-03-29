@@ -39,7 +39,7 @@ Exif::Grid::Grid( QWidget* parent )
 
 class Background :public QWidget {
 protected:
-    void paintEvent(QPaintEvent* event) OVERRIDE {
+    void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
         painter.fillRect( event->rect(), QColor(Qt::white));
     };

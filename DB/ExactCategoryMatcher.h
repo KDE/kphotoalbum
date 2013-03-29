@@ -45,10 +45,10 @@ public:
     ExactCategoryMatcher( const QString category );
     virtual ~ExactCategoryMatcher();
     void setMatcher( CategoryMatcher * subMatcher );
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) OVERRIDE;
-    void debug( int level ) const OVERRIDE;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
+    void debug( int level ) const override;
     /// shouldCreateMatchedSet is _always_ set for the sub-matcher of ExactCategoryMatcher.
-    void setShouldCreateMatchedSet(bool) OVERRIDE;
+    void setShouldCreateMatchedSet(bool) override;
 
 private:
     const QString _category;

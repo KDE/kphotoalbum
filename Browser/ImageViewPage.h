@@ -34,11 +34,11 @@ class ImageViewPage :public BrowserPage
 public:
     ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     ImageViewPage( const DB::FileName& context, BrowserWidget* browser );
-    void activate() OVERRIDE;
-    Viewer viewer() OVERRIDE;
-    bool isSearchable() const OVERRIDE;
-    bool showDuringMovement() const OVERRIDE;
-    Breadcrumb breadcrumb() const OVERRIDE;
+    void activate() override;
+    Viewer viewer() override;
+    bool isSearchable() const override;
+    bool showDuringMovement() const override;
+    Breadcrumb breadcrumb() const override;
 
 
 private:

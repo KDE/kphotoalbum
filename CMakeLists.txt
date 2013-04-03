@@ -22,7 +22,18 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 #                -DDEBUG_JOBMANAGER
                )
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") 
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-std=c++11" _HAS_CXX11_FLAG)
+if (NOT _HAS_CXX11_FLAG)
+    check_cxx_compiler_flag("-std=c++0x" _HAS_CXX0X_FLAG)
+endif()
+
+if (_HAS_CXX11_FLAG)
+    set(CXX11_COMPILER_FLAGS "-std=c++11")
+elseif (_HAS_CXX0X_FLAG)
+    set(CXX11_COMPILER_FLAGS "-std=c++0x")
+endif()
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
 
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}

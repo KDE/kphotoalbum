@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 2.6.2 FATAL_ERROR )
+cmake_minimum_required( VERSION 2.8.3 FATAL_ERROR )
 project(kphotoalbum)
 
 # provide drop-down menu for build-type in cmake-gui:
@@ -22,17 +22,7 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 #                -DDEBUG_JOBMANAGER
                )
 
-include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag("-std=c++11" _HAS_CXX11_FLAG)
-if (NOT _HAS_CXX11_FLAG)
-    check_cxx_compiler_flag("-std=c++0x" _HAS_CXX0X_FLAG)
-endif()
-
-if (_HAS_CXX11_FLAG)
-    set(CXX11_COMPILER_FLAGS "-std=c++11")
-elseif (_HAS_CXX0X_FLAG)
-    set(CXX11_COMPILER_FLAGS "-std=c++0x")
-endif()
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/CheckCXX11Features.cmake)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
 
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}

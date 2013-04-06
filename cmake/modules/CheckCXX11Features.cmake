@@ -21,6 +21,7 @@
 #  HAS_CXX11_STATIC_ASSERT      - static_assert()
 #  HAS_CXX11_VARIADIC_TEMPLATES - variadic templates
 
+# This file was copied from git://anongit.kde.org/scratch/dakon/cmake-cxx11
 #=============================================================================
 # Copyright 2011,2012 Rolf Eike Beer <eike@sf-mail.de>
 # Copyright 2012 Andreas Weis

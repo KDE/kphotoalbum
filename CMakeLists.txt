@@ -1,10 +1,17 @@
 cmake_minimum_required( VERSION 2.8.3 FATAL_ERROR )
 project(kphotoalbum)
 
+if(POLICY CMP0017)
+    # Prefer files from the CMake module directory when including from there:
+    CMAKE_POLICY(SET CMP0017 NEW)
+endif()
+
 # provide drop-down menu for build-type in cmake-gui:
 if( NOT ${CMAKE_VERSION} VERSION_LESS "2.8.0" )
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
 endif()
+
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 find_package(KDE4 REQUIRED)
 include( KDE4Defaults)
@@ -22,7 +29,7 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 #                -DDEBUG_JOBMANAGER
                )
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/CheckCXX11Features.cmake)
+include(CheckCXX11Features)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
 if(NOT HAS_CXX11_CLASS_OVERRIDE)
     add_definitions(-Doverride=)
@@ -53,10 +60,6 @@ endif(KDCRAW_FOUND)
 
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
-
-# because macro_optional_find_package(Marble) dies and screams when there's no
-# FindMarble.cmake
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 macro_optional_find_package(Marble)
 macro_bool_to_01(MARBLE_FOUND HAVE_MARBLE)

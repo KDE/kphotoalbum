@@ -51,6 +51,11 @@ endif ()
 
 cmake_minimum_required(VERSION 2.8.3)
 
+if(POLICY CMP0017)
+    # Prefer files from the CMake module directory when including from there:
+    CMAKE_POLICY(SET CMP0017 NEW)
+endif()
+
 #
 ### Check for needed compiler flags
 #

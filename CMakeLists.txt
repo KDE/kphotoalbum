@@ -24,6 +24,9 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/CheckCXX11Features.cmake)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
+if(NOT HAS_CXX11_CLASS_OVERRIDE)
+    add_definitions(-Doverride=)
+endif()
 
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}

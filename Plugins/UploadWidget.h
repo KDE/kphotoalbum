@@ -22,7 +22,6 @@
 
 #include <libkipi/imagecollection.h>
 #include <libkipi/uploadwidget.h>
-#include <libkipi/imagecollection.h>
 class QFileSystemModel;
 class QModelIndex;
 

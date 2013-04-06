@@ -26,7 +26,6 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include "DuplicateMatch.h"
-#include <QScrollArea>
 #include <KLocale>
 #include <QLabel>
 #include "Utilities/ShowBusyCursor.h"

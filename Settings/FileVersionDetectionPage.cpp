@@ -25,7 +25,6 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <KLineEdit>
-#include <QVBoxLayout>
 #include <QGroupBox>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )

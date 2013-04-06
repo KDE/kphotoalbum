@@ -30,7 +30,6 @@
 #include <kapplication.h>
 #include <qdir.h>
 #include <kstandarddirs.h>
-#include <stdlib.h>
 #include <qregexp.h>
 #include <kimageio.h>
 #include <kcmdlineargs.h>

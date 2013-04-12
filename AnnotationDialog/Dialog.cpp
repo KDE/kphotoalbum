@@ -229,30 +229,33 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     shortCutManager.addLabel(label );
     label->setBuddy( _startDate);
 
-    label = new QLabel( QString::fromLatin1( "-" ) );
-    lay4->addWidget( label );
+    _endDateLabel = new QLabel( QString::fromLatin1( "-" ) );
+    lay4->addWidget( _endDateLabel );
 
     _endDate = new ::AnnotationDialog::KDateEdit( false );
     lay4->addWidget( _endDate, 1 );
-    lay4->addStretch(1);
 
     // Time
-    QHBoxLayout* lay7 = new QHBoxLayout;
-    lay2->addLayout( lay7 );
-
     _timeLabel = new QLabel( i18n("Time: ") );
-    lay7->addWidget( _timeLabel );
+    lay4->addWidget( _timeLabel );
 
     _time= new QTimeEdit;
-    lay7->addWidget( _time );
-    lay7->addStretch(1);
-    _time->hide();
+    lay4->addWidget( _time );
 
-    _addTime= new KPushButton(i18n("Add Time Info..."));
-    lay7->addWidget( _addTime );
-    lay7->addStretch(1);
-    _addTime->hide();
-    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
+    _isFuzzyDate = new QCheckBox( i18n("Use Fuzzy Date") );
+    QString info = i18nc("@info",
+                "<para>In KPhotoAlbum, images can either have an exact date and time"
+                ", or a <emphasis>fuzzy</emphasis> date which happened any time during"
+                " a specified time interval. Images produced by digital cameras"
+                " do normally have an exact date.</para>"
+                "<para>If you don't know exactly when a photo was taken"
+                " (e.g. if the photo comes from an analog camera), then you should set"
+                " <interface>Use Fuzzy Date</interface>.</para>");
+    _isFuzzyDate->setToolTip( info );
+    _isFuzzyDate->setWhatsThis( info );
+    lay4->addWidget( _isFuzzyDate );
+    lay4->addStretch(1);
+    connect(_isFuzzyDate,SIGNAL(stateChanged(int)),this,SLOT(slotSetFuzzyDate()));
 
     QHBoxLayout* lay8 = new QHBoxLayout;
     lay2->addLayout( lay8 );
@@ -369,14 +372,12 @@ void AnnotationDialog::Dialog::load()
 
     if( info.date().hasValidTime() ) {
         _time->show();
-        _timeLabel->show();
-        _addTime->hide();
         _time->setTime( info.date().start().time());
+        _isFuzzyDate->setChecked(false);
     }
     else {
         _time->hide();
-        _timeLabel->hide();
-        _addTime->show();
+        _isFuzzyDate->setChecked(true);
     }
 
     if ( info.date().start().date() == info.date().end().date() )
@@ -418,7 +419,7 @@ void AnnotationDialog::Dialog::writeToInfo()
                                      QDateTime( _startDate->date(), QTime( 23,59,59) ) ) );
     }
     else
-        info.setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+        info.setDate( DB::ImageDate( QDateTime( _startDate->date(), _time->time() ) ) );
 
 
     info.setLabel( _imageLabel->text() );
@@ -442,6 +443,9 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     _searchRAW->setVisible( show );
     _imageFilePatternLabel->setVisible( show );
     _imageFilePattern->setVisible( show );
+    _isFuzzyDate->setChecked( show );
+    _isFuzzyDate->setVisible( !show );
+    slotSetFuzzyDate();
 #ifdef HAVE_NEPOMUK
     _ratingSearchMode->setVisible( show );
     _ratingSearchLabel->setVisible( show );
@@ -484,7 +488,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
-        _addTime->show();
 #ifdef HAVE_NEPOMUK
         _rating->setRating( 0 );
         _ratingChanged = false;
@@ -836,10 +839,20 @@ void AnnotationDialog::Dialog::rotate( int angle )
     }
 }
 
-void AnnotationDialog::Dialog::slotAddTimeInfo()
+void AnnotationDialog::Dialog::slotSetFuzzyDate()
 {
-    _addTime->hide();
-    _time->show();
+    if ( _isFuzzyDate->isChecked() )
+    {
+        _time->hide();
+        _timeLabel->hide();
+        _endDate->show();
+        _endDateLabel->show();
+    } else {
+        _time->show();
+        _timeLabel->show();
+        _endDate->hide();
+        _endDateLabel->hide();
+    }
 }
 
 void AnnotationDialog::Dialog::slotDeleteImage()

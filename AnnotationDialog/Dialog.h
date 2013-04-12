@@ -90,7 +90,7 @@ protected slots:
     void slotRenameOption( DB::Category* , const QString& , const QString&  );
     virtual void reject();
     void rotate( int angle );
-    void slotAddTimeInfo();
+    void slotSetFuzzyDate();
     void slotDeleteImage();
     void slotResetLayout();
     void slotStartDateChanged( const DB::ImageDate& );
@@ -144,6 +144,7 @@ private:
     KLineEdit* _imageLabel;
     KDateEdit* _startDate;
     KDateEdit* _endDate;
+    QLabel* _endDateLabel;
     QLabel* _imageFilePatternLabel;
     KLineEdit* _imageFilePattern;
 
@@ -155,7 +156,7 @@ private:
     KTextEdit* _description;
     QTimeEdit* _time;
     QLabel* _timeLabel;
-    KPushButton* _addTime;
+    QCheckBox* _isFuzzyDate;
 #ifdef HAVE_NEPOMUK
     KRatingWidget* _rating;
     KComboBox* _ratingSearchMode;

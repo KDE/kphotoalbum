@@ -47,7 +47,7 @@ const int arrowLength = 20;
 DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
      _currentUnit(0), _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
-     _showResolutionIndicator( true )
+     _showResolutionIndicator( true ), _doAutomaticRangeAdjustment( true )
 {
     setMouseTracking( true );
     setFocusPolicy( Qt::StrongFocus );
@@ -236,6 +236,33 @@ void DateBar::DateBarWidget::setDate( const QDateTime& date )
 void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
 {
     _dates = dates;
+    if ( _doAutomaticRangeAdjustment && ! _dates.isNull() )
+    {
+        QDateTime start = _dates->lowerLimit();
+        QDateTime end = _dates->upperLimit();
+        if ( end.isNull() )
+            end = QDateTime::currentDateTime();
+        if ( start.isNull() )
+            start = end.addYears(-10);
+
+        _currentDate =  start;
+        _currentUnit = 0;
+        // select suitable timeframe:
+        setViewType( HourView );
+        _currentHandler->init(start);
+        while ( _tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
+        {
+            ViewType tp = (ViewType) (_tp-1);
+            setViewType( tp );
+            _currentHandler->init(start);
+        }
+        // center range in datebar:
+        int units = unitForDate( end );
+        if ( units != -1 )
+        {
+            _currentUnit = (numberOfUnits() - units )/2;
+        }
+    }
     redraw();
 }
 
@@ -612,6 +639,11 @@ void DateBar::DateBarWidget::setShowResolutionIndicator( bool b )
 {
     _showResolutionIndicator = b;
     redraw();
+}
+
+void DateBar::DateBarWidget::setAutomaticRangeAdjustment( bool b )
+{
+    _doAutomaticRangeAdjustment = b;
 }
 
 void DateBar::DateBarWidget::updateArrowState()

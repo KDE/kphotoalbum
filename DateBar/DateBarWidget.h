@@ -63,6 +63,7 @@ public slots:
     void setHistogramBarSize( const QSize& size );
     void setIncludeFuzzyCounts( bool );
     void setShowResolutionIndicator( bool );
+    void setAutomaticRangeAdjustment( bool );
 
 signals:
     void canZoomIn( bool );
@@ -154,6 +155,7 @@ private:
     bool _includeFuzzyCounts;
     QMenu* _contextMenu;
     bool _showResolutionIndicator;
+    bool _doAutomaticRangeAdjustment;
 };
 
 }

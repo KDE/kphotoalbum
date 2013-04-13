@@ -206,7 +206,12 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     images += QString::fromLatin1( "var gallery=new Array()\nvar width=%1\nvar height=%2\nvar tsize=%3\n" ).arg( width ).arg( height ).arg( _setup.thumbSize() );
 
     minImageSize(minWidth, minHeight);
-    images += QString::fromLatin1( "var minPage=\"index-%1x%2.html\"\n" ).arg( minWidth ).arg( minHeight );
+    if ( minWidth == 0 && minHeight == 0 )
+    { // full size only
+        images += QString::fromLatin1( "var minPage=\"index-fullsize.html\"\n" );
+    } else {
+        images += QString::fromLatin1( "var minPage=\"index-%1x%2.html\"\n" ).arg( minWidth ).arg( minHeight );
+    }
 
     QDomElement row;
     Q_FOREACH(const DB::FileName& fileName, _setup.imageList()) {

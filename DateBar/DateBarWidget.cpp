@@ -428,10 +428,11 @@ void DateBar::DateBarWidget::zoom( int factor )
 
 void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 {
-    if ( (event->button() & Qt::LeftButton) == 0 ||  event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left() )
+    if ( (event->button() & ( Qt::MidButton | Qt::LeftButton)) == 0 ||  event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left() )
         return;
 
-    if ( event->modifiers() & Qt::ControlModifier ) {
+    if ( (event->button() & Qt::MidButton)
+            || event->modifiers() & Qt::ControlModifier ) {
         _currentMouseHandler = _barDragHandler;
     }
     else {
@@ -466,7 +467,7 @@ void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 
     showStatusBarTip( event->pos() );
 
-    if ( (event->buttons() & Qt::LeftButton) == 0 )
+    if ( (event->buttons() & ( Qt::MidButton | Qt::LeftButton)) == 0 )
         return;
 
     _currentMouseHandler->endAutoScroll();

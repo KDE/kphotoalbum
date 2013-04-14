@@ -120,6 +120,7 @@ protected slots:
     void clearSelection();
 
 private:
+    void setViewHandlerForType( ViewType tp );
     QPixmap _buffer;
     friend class DateBarTip;
 

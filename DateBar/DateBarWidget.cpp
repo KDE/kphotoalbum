@@ -205,6 +205,13 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
 
 void DateBar::DateBarWidget::setViewType( ViewType tp )
 {
+    setViewHandlerForType(tp);
+    redraw();
+    _tp = tp;
+}
+
+void DateBar::DateBarWidget::setViewHandlerForType( ViewType tp )
+{
     switch ( tp ) {
     case DecadeView: _currentHandler = &_decadeViewHandler; break;
     case YearView: _currentHandler = &_yearViewHandler; break;
@@ -213,8 +220,6 @@ void DateBar::DateBarWidget::setViewType( ViewType tp )
     case DayView: _currentHandler = &_dayViewHandler; break;
     case HourView: _currentHandler = &_hourViewHandler; break;
     }
-    redraw();
-    _tp = tp;
 }
 
 void DateBar::DateBarWidget::setDate( const QDateTime& date )
@@ -250,8 +255,8 @@ void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageD
         _currentHandler->init(start);
         while ( _tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
         {
-            ViewType tp = (ViewType) (_tp-1);
-            setViewType( tp );
+            _tp = (ViewType) (_tp-1);
+            setViewHandlerForType( _tp );
             _currentHandler->init(start);
         }
         // center range in datebar:

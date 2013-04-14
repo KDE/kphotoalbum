@@ -104,7 +104,10 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
 QDateTime XMLImageDateCollection::lowerLimit() const
 {
     if (!_startIndex.empty()) {
-        return _startIndex.constBegin().key();
+        // skip null dates:
+        Q_FOREACH(const QDateTime &t , _startIndex.keys() )
+            if ( t.isValid() )
+                return t;
     }
     return QDateTime( QDate( 1900, 1, 1 ) );
 }

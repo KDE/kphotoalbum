@@ -236,14 +236,12 @@ void DateBar::DateBarWidget::setDate( const QDateTime& date )
 void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
 {
     _dates = dates;
-    if ( _doAutomaticRangeAdjustment && ! _dates.isNull() )
+    if ( _doAutomaticRangeAdjustment && ! _dates.isNull() && ! _dates->lowerLimit().isNull())
     {
         QDateTime start = _dates->lowerLimit();
         QDateTime end = _dates->upperLimit();
         if ( end.isNull() )
             end = QDateTime::currentDateTime();
-        if ( start.isNull() )
-            start = end.addYears(-10);
 
         _currentDate =  start;
         _currentUnit = 0;

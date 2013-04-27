@@ -86,12 +86,16 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     _barDragHandler = new BarDragHandler( this );
     _selectionHandler = new SelectionHandler( this );
 
-    setWhatsThis( i18nc( "@info:whatsthis", "<title>The date bar</title>"
-            "<para>The date bar gives you an overview of the approximate number of images taken in a given time frame.</para>"
-            "<para>Time units are shown on the <emphasis>time line</emphasis>. Above it, a histogram indicates the number of images for that time range."
-            " You can scroll the time line either by using the arrow keys or the scroll wheel, or by dragging it using the middle mouse button.</para>"
-            "<para>You can <emphasis>restrict</emphasis> the current view to a given time frame by clicking below the time line and marking the time frame.</para>"
-            "<para>Clicking above the time line sets the <emphasis>focus</emphasis> for the thumbnail view, i.e. jumps to the first thumbnail of the time unit in focus.</para>") );
+    setWhatsThis( i18nc( "@info", "<title>The date bar</title>"
+            "<para>The date bar gives you an overview of the approximate number of images taken in a given time frame."
+            "Time units are shown on the <emphasis>timeline</emphasis>. Above it, a histogram indicates the number of images for that time range.</para>"
+            "<para>You can interact with the date bar in several ways:<list>"
+            "<item>Zoom in or out by using the +/- buttons or Ctrl + scrollwheel.</item>"
+            "<item>Scroll the timeline either by using the arrow buttons or the scroll wheel, or by dragging it using the middle mouse button.</item>"
+            "<item>Restrict the current view to a given time frame by clicking below the timeline and marking the time frame.</item>"
+            "<item>Clicking on the timeline sets the <emphasis>focus</emphasis> for the thumbnail view, i.e. jumps to the first thumbnail of the time unit in focus.</item>"
+            "</list></para>") );
+    setToolTip( whatsThis() );
 }
 
 QSize DateBar::DateBarWidget::sizeHint() const

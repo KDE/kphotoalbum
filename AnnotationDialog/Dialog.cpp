@@ -243,16 +243,15 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay4->addWidget( _time );
 
     _isFuzzyDate = new QCheckBox( i18n("Use Fuzzy Date") );
-    QString info = i18nc("@info",
+    _isFuzzyDate->setWhatsThis( i18nc("@info",
                 "<para>In KPhotoAlbum, images can either have an exact date and time"
                 ", or a <emphasis>fuzzy</emphasis> date which happened any time during"
                 " a specified time interval. Images produced by digital cameras"
                 " do normally have an exact date.</para>"
                 "<para>If you don't know exactly when a photo was taken"
                 " (e.g. if the photo comes from an analog camera), then you should set"
-                " <interface>Use Fuzzy Date</interface>.</para>");
-    _isFuzzyDate->setToolTip( info );
-    _isFuzzyDate->setWhatsThis( info );
+                " <interface>Use Fuzzy Date</interface>.</para>") );
+    _isFuzzyDate->setToolTip( _isFuzzyDate->whatsThis() );
     lay4->addWidget( _isFuzzyDate );
     lay4->addStretch(1);
     connect(_isFuzzyDate,SIGNAL(stateChanged(int)),this,SLOT(slotSetFuzzyDate()));

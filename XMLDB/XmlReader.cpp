@@ -46,12 +46,12 @@ ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
         reportError(i18n("Error reading next element"));
 
     if ( type != StartElement && type != EndElement )
-        reportError(i18n("Expected to read a start or stop element, but read %1").arg(tokenToString(type)));
+        reportError(i18n("Expected to read a start or stop element, but read %1",tokenToString(type)));
 
     const QString elementName = name().toString();
     if ( type == StartElement ) {
         if ( !expectedStart.isNull() && elementName != expectedStart)
-            reportError(i18n("Expected to read %1, but read %2").arg(expectedStart).arg(elementName));
+            reportError(i18n("Expected to read %1, but read %2",expectedStart,elementName));
     }
 
     return ElementInfo(type == StartElement, elementName);
@@ -61,7 +61,7 @@ void XmlReader::readEndElement()
 {
     TokenType type = readNextInternal();
     if ( type != EndElement )
-        reportError(i18n("Expected to read an end element but read an %2").arg(tokenToString(type)));
+        reportError(i18n("Expected to read an end element but read %1",tokenToString(type)));
 }
 
 bool XmlReader::hasAttribute(const QString &name)
@@ -79,12 +79,12 @@ ElementInfo XmlReader::peekNext()
 
 void XmlReader::complainStartElementExpected(const QString &name)
 {
-    reportError(i18n("Expected to read start element '%1'").arg(name));
+    reportError(i18n("Expected to read start element '%1'",name));
 }
 
 void XmlReader::reportError(const QString & text)
 {
-    QString message = i18n("On line %1, column %2:\n%3").arg(lineNumber()).arg(columnNumber()).arg(text);
+    QString message = i18n("On line %1, column %2:\n%3",lineNumber(),columnNumber(),text);
     if ( hasError() )
         message += QString::fromUtf8("\n") + errorString();
 

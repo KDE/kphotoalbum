@@ -34,6 +34,7 @@
 #include <QHash>
 #include <QXmlStreamReader>
 #include "CompressFileInfo.h"
+#include <QDebug>
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -249,6 +250,12 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                 QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
+                    if (catPtr.isNull())
+                    { // category was not declared in "Categories"
+                        qWarning() << "File corruption in index.xml. Inserting missing category: " << category;
+                        catPtr = new XMLCategory(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
+                        _db->_categoryCollection.addCategory( catPtr );
+                    }
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
                     QString member = cat->nameForId( (*membersIt).toInt() );
                     Q_ASSERT( !member.isNull() );

@@ -102,7 +102,7 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
         Q_FOREACH(const QString &name, categories) {
             DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
             ElementWriter dummy(writer, QString::fromLatin1("Category") );
-            writer.writeAttribute( QString::fromLatin1("name"), escape( name ) );
+            writer.writeAttribute( QString::fromLatin1("name"),  name );
 
             writer.writeAttribute( QString::fromLatin1( "icon" ), category->iconName() );
             writer.writeAttribute( QString::fromLatin1( "show" ), QString::number(category->doShow()) );
@@ -269,7 +269,7 @@ void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::Ima
         if ( !items.isEmpty() ) {
             topElm.writeStartElement();
             categoryElm.writeStartElement();
-            writer.writeAttribute( QString::fromLatin1("name"),  escape( name ) );
+            writer.writeAttribute( QString::fromLatin1("name"),   name );
         }
 
         Q_FOREACH(const QString& itemValue, items) {
@@ -320,6 +320,10 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
     return shouldSave;
 }
 
+/**
+ * Escape problematic characters in a string that forms an XML attribute name.
+ * N.B.: Attribute values do not need to be escaped!
+ */
 QString XMLDB::FileWriter::escape( const QString& str )
 {
     static QHash<QString,QString> cache;

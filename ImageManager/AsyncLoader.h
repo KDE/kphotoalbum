@@ -26,6 +26,7 @@
 #include "RequestQueue.h"
 #include "enums.h"
 
+class KIcon;
 namespace ImageManager
 {
 
@@ -65,6 +66,7 @@ private:
     QWaitCondition _sleepers;
     QMutex _lock;
     QSet<ImageRequest*> _currentLoading;
+    KIcon *_brokenFileIcon;
 };
 
 }

@@ -484,13 +484,15 @@ QString HTMLGenerator::Generator::nameImage( const DB::FileName& fileName, int s
 {
     QString name = _filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
-    if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
+    if ( size == maxImageSize() && !Utilities::isVideo( fileName ) ) {
         if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
                 name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
             return name;
         else
             return base + QString::fromAscii(".jpg");
-    else
+    } else if ( size == maxImageSize() && Utilities::isVideo( fileName ) ) {
+        return name;
+    } else
         return QString::fromLatin1( "%1-%2.jpg" ).arg( base ).arg( size );
 }
 
@@ -517,7 +519,7 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
     setValue( _total - _waitCounter );
     qApp->processEvents();
 
-    QString baseName = QFileInfo(fileName.absolute()).fileName();
+    QString baseName = nameImage( fileName, maxImageSize() );
     QString destName = _tempDir.name() + QString::fromLatin1("/") + baseName;
     if ( !_copiedVideos.contains( fileName )) {
         Utilities::copy( fileName.absolute(), destName );

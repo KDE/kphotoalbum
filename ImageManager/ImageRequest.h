@@ -19,7 +19,6 @@
 #define IMAGEREQUEST_H
 #include <qstring.h>
 #include <qsize.h>
-#include <qmutex.h>
 #include <QHash>
 #include "enums.h"
 #include <DB/FileName.h>

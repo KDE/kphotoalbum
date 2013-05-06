@@ -18,7 +18,6 @@
 #include "ThumbnailCache.h"
 #include <QBuffer>
 #include <QTemporaryFile>
-#include <QMutexLocker>
 #include <QDir>
 #include <Settings/SettingsData.h>
 #include <QTimer>

@@ -42,7 +42,7 @@ public:
     static AsyncLoader* instance();
 
     // Request to load an image. The Manager takes over the ownership of
-    // the request.
+    // the request (and may delete it anytime).
     void load( ImageRequest* request );
 
     // Stop loading all images requested by the given client.
@@ -64,7 +64,8 @@ private:
 
     RequestQueue _loadList;
     QWaitCondition _sleepers;
-    QMutex _lock;
+    // _lock protects _loadList and _currentLoading
+    mutable QMutex _lock;
     QSet<ImageRequest*> _currentLoading;
     KIcon *_brokenFileIcon;
 };

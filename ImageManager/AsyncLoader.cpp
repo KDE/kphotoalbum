@@ -86,6 +86,7 @@ void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
             (request->priority() > ThumbnailInvisible)
               ?  BackgroundTaskManager::ForegroundThumbnailRequest
               : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
+
     BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));
 }
@@ -103,6 +104,7 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
+    // if request is "fresh" (not yet pending):
     if (_loadList.addRequest( request ))
         _sleepers.wakeOne();
 }
@@ -110,9 +112,8 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
 void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction action )
 {
     // remove from pending map.
-    _lock.lock();
+    QMutexLocker requestLocker( &_lock );
     _loadList.cancelRequests( client, action );
-    _lock.unlock();
 
     // PENDING(blackie) Reintroduce this
     // VideoManager::instance().stop( client, action );
@@ -122,13 +123,13 @@ void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction a
 
 int ImageManager::AsyncLoader::activeCount() const
 {
-    QMutexLocker dummy(const_cast<QMutex*>(&_lock));
+    QMutexLocker dummy( &_lock );
     return _currentLoading.count();
 }
 
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
-    QMutexLocker dummy(&_lock );
+    QMutexLocker dummy( &_lock );
     ImageRequest* request = 0;
     while ( !( request = _loadList.popNext() ) )
         _sleepers.wait( &_lock );
@@ -148,11 +149,11 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
 
         ImageRequest* request = iev->loadInfo();
 
-        _lock.lock();
+        QMutexLocker requestLocker( &_lock );
         const bool requestStillNeeded = _loadList.isRequestStillValid( request );
         _loadList.removeRequest(request);
         _currentLoading.remove( request );
-        _lock.unlock();
+        requestLocker.unlock();
 
         QImage image = iev->image();
         if ( !request->loadedOK() ) {

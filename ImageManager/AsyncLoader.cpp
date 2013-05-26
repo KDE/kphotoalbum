@@ -68,6 +68,9 @@ void ImageManager::AsyncLoader::init()
 
 void ImageManager::AsyncLoader::load( ImageRequest* request )
 {
+    // silently ignore images not (currently) on disk:
+    if ( ! request->fileSystemFileName().exists() )
+        return;
     if ( Utilities::isVideo( request->fileSystemFileName() ) )
         loadVideo( request );
     else

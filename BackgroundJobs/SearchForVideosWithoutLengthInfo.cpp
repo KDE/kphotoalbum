@@ -41,6 +41,9 @@ void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
         const DB::ImageInfoPtr info = image.info();
         if ( !info->isVideo() )
             continue;
+        // silently ignore videos not (currently) on disk:
+        if ( ! info->fileName().exists() )
+            continue;
         int length = info->videoLength();
         if ( length == -1 ) {
             BackgroundTaskManager::JobManager::instance()->addJob(

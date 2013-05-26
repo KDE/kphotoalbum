@@ -38,6 +38,10 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if ( !info->isVideo() )
             continue;
 
+        // silently ignore videos not (currently) on disk:
+        if ( ! info->fileName().exists() )
+            continue;
+
         const DB::FileName thumbnailName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(info->fileName(),9);
         if ( thumbnailName.exists() )
             continue;

@@ -23,6 +23,7 @@
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/ExtractOneThumbnailJob.h>
 #include <BackgroundTaskManager/JobManager.h>
+#include <MainWindow/FeatureDialog.h>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent) :
     QObject(parent), m_pendingRequest(false), m_index(0)
@@ -36,6 +37,10 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     m_index = 0;
     m_videoFile = fileName;
     if ( loadFramesFromCache(fileName) )
+        return;
+
+    // no video thumbnails without mplayer:
+    if (MainWindow::FeatureDialog::mplayerBinary().isEmpty())
         return;
 
     cancelPreviousJobs();

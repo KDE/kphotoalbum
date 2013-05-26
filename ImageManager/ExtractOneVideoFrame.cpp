@@ -33,7 +33,8 @@ namespace ImageManager {
 #define STR(x) QString::fromUtf8(x)
 void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject* receiver, const char* slot)
 {
-    new ExtractOneVideoFrame(fileName, offset, receiver, slot);
+    if ( ! MainWindow::FeatureDialog::mplayerBinary().isEmpty())
+        new ExtractOneVideoFrame(fileName, offset, receiver, slot);
 }
 
 ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)

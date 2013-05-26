@@ -47,15 +47,14 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
         m_process = 0;
     }
 
-    m_process = new Utilities::Process(this);
-    m_process->setWorkingDirectory(QDir::tempPath());
-    connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
-
     if (MainWindow::FeatureDialog::mplayerBinary().isEmpty()) {
-        kWarning() << "MPlayer not found. Unable to extract length of video file";
         emit unableToDetermineLength();
         return;
     }
+
+    m_process = new Utilities::Process(this);
+    m_process->setWorkingDirectory(QDir::tempPath());
+    connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
 
     QStringList arguments;
     arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null")

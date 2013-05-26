@@ -20,6 +20,7 @@
 #include "HandleVideoThumbnailRequestJob.h"
 #include <ImageManager/ImageRequest.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
+#include <MainWindow/FeatureDialog.h>
 #include <QImage>
 #include <QDir>
 #include <Settings/SettingsData.h>

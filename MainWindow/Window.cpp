@@ -1747,29 +1747,35 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( _statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    BackgroundTaskManager::JobManager::instance()->addJob(
+
+    if ( ! FeatureDialog::mplayerBinary().isNull() ) {
+        BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::SearchForVideosWithoutLengthInfo );
 
-    BackgroundTaskManager::JobManager::instance()->addJob(
+        BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+    }
 }
 
 void MainWindow::Window::checkIfMplayerIsInstalled()
 {
     if ( FeatureDialog::mplayerBinary().isNull() ) {
-        KMessageBox::error( this,
-                i18n("<p>Unable to find MPlayer on the system</p>"
-                     "<p>KPhotoAlbum needs MPlayer to extract video thumbnails among other things. "
-                     "Please install the MPlayer2 package</p>") );
-        exit(-1);
-    }
-
-    if ( !FeatureDialog::isMplayer2() ) {
         KMessageBox::information( this,
-                                  i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
-                                       "MPlayer2 is on most systems a separate package, please install that if at all possible, "
-                                       "as that version has much better support for extracting thumbnails from videos.</p>"),
-                                  i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
+                i18n("<p>Unable to find MPlayer on the system.</p>"
+                     "<p>Without MPlayer, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
+                     "Please install the MPlayer2 package</p>"),
+                i18n("Video thumbnails are not available"), QString::fromLatin1("mplayerNotInstalled"));
+    } else {
+        KMessageBox::enableMessage( QString::fromLatin1("mplayerNotInstalled") );
+
+        if ( !FeatureDialog::isMplayer2() ) {
+            KMessageBox::information( this,
+                    i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
+                        "MPlayer2 is on most systems a separate package, please install that if at all possible, "
+                        "as that version has much better support for extracting thumbnails from videos.</p>"),
+                    i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
+        } else
+            KMessageBox::enableMessage( QString::fromLatin1("mplayerVersionTooOld") );
     }
 }
 

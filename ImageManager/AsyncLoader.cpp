@@ -22,6 +22,7 @@
 #include "ImageLoaderThread.h"
 #include "ImageManager/ImageClientInterface.h"
 #include "Utilities/Util.h"
+#include <MainWindow/FeatureDialog.h>
 
 #include <kurl.h>
 #include <qpixmapcache.h>
@@ -57,6 +58,8 @@ void ImageManager::AsyncLoader::init()
     // as that'd mean that a dual-core box would only have one core decoding images, which would be
     // suboptimal.
     // In case of only one core in the computer, use one core for thumbnail generation
+    // TODO(isilmendil): It seems that many people have their images on NFS-mounts.
+    //                   Should we somehow detect this and allocate less threads there?
     const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount() ) );
 
     for ( int i = 0; i < cores; ++i) {
@@ -79,6 +82,9 @@ void ImageManager::AsyncLoader::load( ImageRequest* request )
 
 void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
+    if ( MainWindow::FeatureDialog::mplayerBinary().isNull() )
+        return;
+
     BackgroundTaskManager::Priority priority =
             (request->priority() > ThumbnailInvisible)
               ?  BackgroundTaskManager::ForegroundThumbnailRequest

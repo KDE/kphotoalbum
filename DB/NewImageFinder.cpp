@@ -40,6 +40,7 @@
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include <MainWindow/Window.h>
+#include <MainWindow/FeatureDialog.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
@@ -67,8 +68,10 @@ bool NewImageFinder::findImages()
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
-    BackgroundTaskManager::JobManager::instance()->addJob(
+    if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {
+        BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+    }
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
@@ -149,10 +152,12 @@ void NewImageFinder::loadExtraFiles()
     DB::ImageDB::instance()->addImages( newImages );
 
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
-    Q_FOREACH( const ImageInfoPtr& info, newImages ) {
-        if ( info->isVideo() )
-            BackgroundTaskManager::JobManager::instance()->addJob(
+    if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {
+        Q_FOREACH( const ImageInfoPtr& info, newImages ) {
+            if ( info->isVideo() )
+                BackgroundTaskManager::JobManager::instance()->addJob(
                         new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+        }
     }
 
 }

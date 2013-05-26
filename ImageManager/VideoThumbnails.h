@@ -53,7 +53,7 @@ private slots:
 
 private:
     bool loadFramesFromCache(const DB::FileName& fileName);
-    void cancelPrevioiusJobs();
+    void cancelPreviousJobs();
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;

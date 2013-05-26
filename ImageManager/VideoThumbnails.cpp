@@ -38,7 +38,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     if ( loadFramesFromCache(fileName) )
         return;
 
-    cancelPrevioiusJobs();
+    cancelPreviousJobs();
     m_pendingRequest = 0;
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
@@ -98,7 +98,7 @@ bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& file
     return true;
 }
 
-void ImageManager::VideoThumbnails::cancelPrevioiusJobs()
+void ImageManager::VideoThumbnails::cancelPreviousJobs()
 {
     Q_FOREACH( const QPointer<BackgroundJobs::ExtractOneThumbnailJob>& job, m_activeRequests ) {
         if (! job.isNull() )

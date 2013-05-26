@@ -33,7 +33,7 @@ void BackgroundJobs::ReadVideoLengthJob::execute()
     ImageManager::VideoLengthExtractor* extractor = new ImageManager::VideoLengthExtractor(this);
     extractor->extract(m_fileName);
     connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
-    connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermindLength()));
+    connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermineLength()));
 }
 
 QString BackgroundJobs::ReadVideoLengthJob::title() const
@@ -57,7 +57,7 @@ void BackgroundJobs::ReadVideoLengthJob::lengthFound(int length)
     emit completed();
 }
 
-void BackgroundJobs::ReadVideoLengthJob::unableToDetermindLength()
+void BackgroundJobs::ReadVideoLengthJob::unableToDetermineLength()
 {
     // PENDING(blackie) Should we mark these as trouble, so we don't try them over and over again?
     emit completed();

@@ -41,7 +41,7 @@ public:
 
 private slots:
     void lengthFound(int);
-    void unableToDetermindLength();
+    void unableToDetermineLength();
 
 private:
     DB::FileName m_fileName;

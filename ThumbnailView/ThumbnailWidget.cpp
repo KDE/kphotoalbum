@@ -19,7 +19,6 @@
 #include <QScrollBar>
 #include <QTimer>
 #include "Delegate.h"
-#include "ImageManager/ThumbnailCache.h"
 #include "ThumbnailDND.h"
 #include "KeyboardEventHandler.h"
 #include "ThumbnailFactory.h"

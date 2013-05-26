@@ -26,7 +26,6 @@
 #include "RequestQueue.h"
 #include "enums.h"
 
-class KIcon;
 namespace ImageManager
 {
 
@@ -67,7 +66,7 @@ private:
     // _lock protects _loadList and _currentLoading
     mutable QMutex _lock;
     QSet<ImageRequest*> _currentLoading;
-    KIcon *_brokenFileIcon;
+    QImage m_brokenImage;
 };
 
 }

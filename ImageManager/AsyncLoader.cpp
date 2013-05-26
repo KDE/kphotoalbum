@@ -48,12 +48,6 @@ ImageManager::AsyncLoader* ImageManager::AsyncLoader::instance()
 // corrected before the thread starts.
 void ImageManager::AsyncLoader::init()
 {
-    _brokenFileIcon = new KIcon( QString::fromLatin1( "file-broken" ) );
-    if ( _brokenFileIcon->isNull() )
-    {
-        delete _brokenFileIcon;
-        _brokenFileIcon = new KIcon( QString::fromLatin1( "image-x-generic" ) );
-    }
 
     // Use up to three cores for thumbnail generation. No more than three as that
     // likely will make it less efficient due to three cores hitting the harddisk at the same time.
@@ -157,9 +151,15 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
 
         QImage image = iev->image();
         if ( !request->loadedOK() ) {
-            // PENDING(blackie) This stinks! It looks bad, but I don't have more energy to fix it.
-            QPixmap pix = _brokenFileIcon->pixmap( _brokenFileIcon->actualSize( QSize( request->width(), request->height() ) ) );
-            image = pix.toImage();
+            if ( m_brokenImage.size() != request->size() ) {
+                KIcon brokenFileIcon( QLatin1String("file-broken") );
+                if ( brokenFileIcon.isNull() ) {
+                    brokenFileIcon = KIcon( QLatin1String("image-x-generic") );
+                }
+                m_brokenImage = brokenFileIcon.pixmap( request->size() ).toImage();
+            }
+
+            image = m_brokenImage;
         }
 
         if ( request->isThumbnailRequest() )

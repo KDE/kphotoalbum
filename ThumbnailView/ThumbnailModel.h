@@ -144,6 +144,9 @@ private: // Instance variables.
 
     DB::FileName m_overrideFileName;
     QPixmap m_overrideImage;
+    // placeholder pixmaps to be displayed before thumbnails are loaded:
+    QPixmap m_ImagePlaceholder;
+    QPixmap m_VideoPlaceholder;
 };
 
 }

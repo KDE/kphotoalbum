@@ -40,6 +40,7 @@
 #include "Setup.h"
 #include "MainWindow/Window.h"
 #include <KIO/CopyJob>
+#include <kstandarddirs.h>
 
 #include <krun.h>
 #include <sys/types.h>
@@ -51,6 +52,9 @@ HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     setLabelText( i18n("Generating images for HTML page ") );
     _setup = setup;
     _eventLoop = new QEventLoop;
+    _avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    if ( _avconv.isNull() )
+        _avconv = KStandardDirs::findExe( QString::fromLatin1( "ffmpeg" ) );
 }
 
 HTMLGenerator::Generator::~Generator()
@@ -244,7 +248,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
                         ).arg( nameImage( fileName, maxImageSize() ) ).arg( KMimeType::findByUrl( nameImage(
                                     fileName, maxImageSize() ) )->name() );
         else {
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\"" ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( fileName.relative() );
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\"" ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, _setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
             if ( _setup.html5VideoGenerate() )
                 images += QString::fromLatin1( ", \"%1\", \"" ).arg( QString::fromLatin1( "video/ogg" ) );
             else
@@ -550,7 +554,9 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
             // TODO: shouldn't we use avconv library directly instead of KRun
             // TODO: should check that the avconv (ffmpeg takes the same parameters on older systems) and ffmpeg2theora exist
             // TODO: Figure out avconv parameters to get rid of ffmpeg2theora
-            KRun::runCommand(QString::fromLatin1("avconv -y -i %1  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %2 %3")
+//    QString avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+            KRun::runCommand(QString::fromLatin1("%1 -y -i %2  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %3 %4")
+                .arg( _avconv )
                 .arg( fileName.absolute() ).arg( QString::fromLatin1( "320x240" ) )
                 .arg( destName.replace( QRegExp( QString::fromLatin1("\\..*") ), QString::fromLatin1(".mp4") ) ),
                      MainWindow::Window::theMainWindow() );

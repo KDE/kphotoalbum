@@ -85,6 +85,7 @@ private:
     DB::FileNameSet _copiedVideos;
     bool _hasEnteredLoop;
     QPointer<QEventLoop> _eventLoop;
+    QString _avconv;
 };
 
 }

@@ -106,9 +106,21 @@ void HTMLDialog::createContentPage()
     _html5Video->setChecked( Settings::SettingsData::instance()->HTML5Video() );
     lay1->addWidget( _html5Video );
 
+    QString avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    const QString ffmpeg2theora = KStandardDirs::findExe(QString::fromLatin1("ffmpeg2theora"));
+ 
+    KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    if ( avconv.isNull() )
+        avconv = KStandardDirs::findExe( QString::fromLatin1( "ffmpeg" ) );
+
+    QString txt = i18n( "<p>This selection will generate video files suitable for displaying on web. "
+                "avconv and ffmpeg2theora are required for video file generation.</p>" );
     _html5VideoGenerate = new QCheckBox( i18n( "Generate HTML5 video files (mp4 and ogg)" ), contentPage );
     _html5VideoGenerate->setChecked( Settings::SettingsData::instance()->HTML5VideoGenerate() );
     lay1->addWidget( _html5VideoGenerate );
+    _html5VideoGenerate->setWhatsThis( txt );
+    if ( avconv.isNull() || ffmpeg2theora.isNull() )
+        _html5VideoGenerate->setEnabled( false );
 
     // What to include
     QGroupBox* whatToInclude = new QGroupBox( i18n( "What to Include" ), contentPage );

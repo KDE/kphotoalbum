@@ -84,7 +84,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     connect( _keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
 
     updatePalette();
-    setItemDelegate( new Delegate(factory) );
+    setItemDelegate( new Delegate(factory, this) );
 
     connect( selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(emitSelectionChangedSignal()) );
 
@@ -354,7 +354,7 @@ void ThumbnailView::ThumbnailWidget::scheduleDateChangeSignal()
  */
 void ThumbnailView::ThumbnailWidget::setupDateChangeTimer()
 {
-    m_dateChangedTimer = new QTimer;
+    m_dateChangedTimer = new QTimer(this);
     m_dateChangedTimer->setSingleShot(true);
     connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT(emitDateChange()) );
 }

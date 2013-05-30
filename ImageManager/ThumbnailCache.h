@@ -30,6 +30,7 @@ class ThumbnailCache :public QObject
 
 public:
     static ThumbnailCache* instance();
+    static void deleteInstance();
     ThumbnailCache();
     void insert( const DB::FileName& name, const QImage& image );
     QPixmap lookup( const DB::FileName& name ) const;

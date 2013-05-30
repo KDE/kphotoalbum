@@ -217,6 +217,7 @@ MainWindow::Window::Window( QWidget* parent )
 MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
+    ImageManager::ThumbnailCache::deleteInstance();
 #ifdef HAVE_EXIV2
     Exif::Database::deleteInstance();
 #endif

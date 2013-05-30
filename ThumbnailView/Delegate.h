@@ -27,7 +27,7 @@ namespace ThumbnailView
 class Delegate :public QStyledItemDelegate, private ThumbnailComponent
 {
 public:
-    explicit Delegate( ThumbnailFactory* factory );
+    explicit Delegate( ThumbnailFactory* factory, QObject* parent );
     void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
     QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
 

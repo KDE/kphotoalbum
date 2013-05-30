@@ -26,10 +26,9 @@
 #include <QPainter>
 #include "ThumbnailModel.h"
 #include <KLocale>
-ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory )
-    :ThumbnailComponent( factory )
+ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory , QObject *parent)
+    :QStyledItemDelegate(parent), ThumbnailComponent( factory )
 {
-
 }
 
 void ThumbnailView::Delegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const

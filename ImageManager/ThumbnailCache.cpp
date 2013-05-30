@@ -203,6 +203,12 @@ ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::instance()
     return m_instance;
 }
 
+void ImageManager::ThumbnailCache::deleteInstance()
+{
+    delete m_instance;
+    m_instance = 0;
+}
+
 void ImageManager::ThumbnailCache::flush()
 {
     for ( int i = 0; i <= m_currentFile; ++i )

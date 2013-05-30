@@ -83,6 +83,7 @@ int main( int argc, char** argv ) {
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
         int code = app.exec();
+        delete view;
         return code;
     }
     catch (...) {

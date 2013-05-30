@@ -167,7 +167,7 @@ private:
     QLabel* _megapixelLabel;
     QCheckBox* _searchRAW;
     QString conflictText;
-    QString firstDescription;
+    QString _firstDescription;
 
     KActionCollection* _actions;
 

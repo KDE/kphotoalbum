@@ -481,8 +481,6 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         load();
     }
     else {
-        uint descrCount = 0;
-        uint matchCount = 0;
         _preview->configure( &_editList, false );
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
@@ -497,26 +495,17 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
         _imageLabel->setText( QString::fromLatin1("") );
         _imageFilePattern->setText( QString::fromLatin1("") );
+        _firstDescription = _editList[0].description();
 
-        // Checking all the description fields if there is text and whether the descriptions mach
-        Q_FOREACH( DB::ImageInfo info, _editList ) {
-            descrCount++;
-            if ( !info.description().isEmpty() ) {
-                if ( firstDescription.isEmpty() ) {
-                    firstDescription = info.description();
-                    matchCount++;
-                } else if ( !firstDescription.compare( info.description() ) ) {
-                    matchCount++;
-                }
-            }
-        }
-        if ( !firstDescription.isEmpty() ) {
-            if ( descrCount == matchCount )
-                _description->setPlainText( firstDescription );
-            else
-                _description->setPlainText( conflictText );
-        } else
-            _description->setPlainText( QString::fromLatin1( "" ) );
+        const bool allTextEqual =
+                std::all_of(_editList.begin(), _editList.end(),
+                            [=] (const DB::ImageInfo& item) -> bool {
+                                   return item.description() == _firstDescription;
+                });
+
+        if ( !allTextEqual )
+            _firstDescription = conflictText;
+        _description->setPlainText( _firstDescription );
     }
 
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
@@ -735,7 +724,6 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
 void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 {
     e->ignore();
-    firstDescription.clear();
     reject();
 }
 
@@ -821,7 +809,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         }
 
         changed |= ( !_imageLabel->text().isEmpty() );
-        changed |= ( !_description->toPlainText().isEmpty() && _description->toPlainText().compare( conflictText ) && _description->toPlainText().compare( firstDescription ));
+        changed |= ( _description->toPlainText() != _firstDescription );
         changed |= _ratingChanged;
     }
     return changed;
@@ -1156,7 +1144,6 @@ void AnnotationDialog::Dialog::saveAndClose()
 #endif
 
             info->delaySavingChanges(false);
-            firstDescription.clear();
         }
 #ifdef HAVE_NEPOMUK
         _ratingChanged = false;

@@ -603,6 +603,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     }
 
     _imageLabel->setText( info.label() );
+    _description->setText(info.description());
 }
 
 void AnnotationDialog::Dialog::slotOptions()

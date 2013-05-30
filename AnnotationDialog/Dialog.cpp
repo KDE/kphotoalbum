@@ -814,9 +814,10 @@ bool AnnotationDialog::Dialog::hasChanges()
         changed |= ( !_endDate->date().isNull() );
 
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
-            QPair<StringSet, StringSet> origSelection = selectionForMultiSelect( *it, _origList );
-            changed |= origSelection.first != (*it)->itemsOn();
-            changed |= origSelection.second != (*it)->itemsUnchanged();
+            StringSet on, partialOn;
+            std::tie(on, partialOn) = selectionForMultiSelect( *it, _origList );
+            changed |= (on != (*it)->itemsOn());
+            changed |= (partialOn != (*it)->itemsUnchanged());
         }
 
         changed |= ( !_imageLabel->text().isEmpty() );
@@ -1068,11 +1069,12 @@ KActionCollection* AnnotationDialog::Dialog::actions()
 
 void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListSelect* listSel, const DB::ImageInfoList& images )
 {
-    QPair<StringSet,StringSet> selection = selectionForMultiSelect( listSel, images );
-    listSel->setSelection( selection.first, selection.second );
+    StringSet on, partialOn;
+    std::tie(on,partialOn)  = selectionForMultiSelect( listSel, images );
+    listSel->setSelection( on, partialOn );
 }
 
-QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( ListSelect* listSel, const DB::ImageInfoList& images )
+std::tuple<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( ListSelect* listSel, const DB::ImageInfoList& images )
 {
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories().toSet();
@@ -1086,8 +1088,9 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
     }
 
     const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
+    const StringSet itemsPartiallyOn = itemsOnSomeImages - itemsOnAllImages;
 
-    return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
+    return std::make_tuple( itemsOnAllImages,  itemsPartiallyOn );
 }
 
 void AnnotationDialog::Dialog::slotRatingChanged( unsigned int )

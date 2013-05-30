@@ -121,7 +121,7 @@ protected:
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
-    QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
+    std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
     void saveAndClose();
     void ShowHideSearch( bool show );
 

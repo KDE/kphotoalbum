@@ -19,6 +19,9 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
+#include "Utilities/AlgorithmHelper.h"
+
+using namespace Utilities;
 
 /**
  * \class AnnotationDialog::ListViewItemHider
@@ -69,10 +72,7 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
         case AnnotationDialog::MatchFromWordStart:
             {
                 QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
-                Q_FOREACH(const QString &word,  words)
-                    if ( word.startsWith( _text.toLower() ) )
-                        return true;
-                return false;
+                return any_of(words,  [this] (const QString& word) { return word.startsWith( _text.toLower()); } );
             }
         case AnnotationDialog::MatchAnywhere:
             return item->text(0).toLower().contains( _text.toLower() );

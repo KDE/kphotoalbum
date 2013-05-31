@@ -18,7 +18,9 @@
 */
 
 #include "PriorityQueue.h"
+#include "Utilities/AlgorithmHelper.h"
 
+using namespace Utilities;
 namespace BackgroundTaskManager {
 
 PriorityQueue::PriorityQueue()
@@ -26,21 +28,15 @@ PriorityQueue::PriorityQueue()
     m_jobs.resize(SIZE_OF_PRIORITY_QUEUE);
 }
 
+
 bool PriorityQueue::isEmpty() const
 {
-    Q_FOREACH( const QueueType& queue, m_jobs) {
-        if ( !queue.isEmpty() )
-            return false;
-    }
-    return true;
+    return all_of( m_jobs, std::mem_fn(&QueueType::isEmpty) );
 }
 
 int PriorityQueue::count() const
 {
-    int total = 0;
-    Q_FOREACH( const QueueType& queue, m_jobs)
-        total += queue.count();
-    return total;
+    return sum( m_jobs, std::mem_fn(&QueueType::length ) );
 }
 
 void PriorityQueue::enqueue(JobInterface *job, Priority priority)

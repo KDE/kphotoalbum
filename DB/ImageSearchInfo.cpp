@@ -470,9 +470,7 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched( const QString &group )
 
 void ImageSearchInfo::deleteMatchers() const
 {
-    Q_FOREACH(CategoryMatcher* matcher, _categoryMatchers) {
-        delete matcher;
-    }
+    qDeleteAll(_categoryMatchers);
     _categoryMatchers.clear();
 }
 

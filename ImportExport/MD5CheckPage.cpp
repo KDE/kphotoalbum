@@ -28,7 +28,7 @@
 ImportExport::ClashInfo::ClashInfo( const QStringList& categories )
     : label(false), description(false), orientation(false), date(false)
 {
-    Q_FOREACH( const QString& category, categories )
+    for ( const QString& category : categories )
         this->categories[category] = false;
 }
 
@@ -89,7 +89,7 @@ int ImportExport::MD5CheckPage::countOfMD5Matches( const ImportSettings& setting
 {
     int count = 0;
     DB::ImageInfoList list = settings.selectedImages();
-    Q_FOREACH( DB::ImageInfoPtr info, list ) {
+    for ( DB::ImageInfoPtr info : list ) {
         if ( DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum()) )
             ++count;
     }

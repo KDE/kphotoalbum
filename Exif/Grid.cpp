@@ -58,7 +58,7 @@ void Exif::Grid::setupUI( const QString& charset )
     const QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
     const StringSet groups = exifGroups( map );
 
-    Q_FOREACH( const QString& group, groups ) {
+    for ( const QString& group : groups ) {
         layout->addWidget(headerLabel(group),row++,0,1,4);
 
         int col = -1;
@@ -66,7 +66,7 @@ void Exif::Grid::setupUI( const QString& charset )
         const QMap<QString,QStringList> items = itemsForGroup( group, map );
         QStringList sorted = items.keys();
         sorted.sort();
-        Q_FOREACH( const QString& key, sorted ) {
+        for ( const QString& key : sorted ) {
             const int index = row * 2 + col;
             const QColor color  = (index % 4 == 0 || index % 4 == 3)? Qt::white : QColor(226, 235, 250);
             QPair<QLabel*, QLabel*> pair = infoLabelPair( exifNameNoGroup( key ), items[key].join( QLatin1String(", ")), color );
@@ -156,8 +156,7 @@ void Exif::Grid::scroll(int dy)
 
 void Exif::Grid::updateSearchString(const QString &search)
 {
-    QPair<QLabel*,QLabel*> tuple;
-    Q_FOREACH( tuple, m_labels ) {
+    for ( QPair<QLabel*,QLabel*> tuple : m_labels ) {
         const bool matches = tuple.first->text().contains( search, Qt::CaseInsensitive ) && search.length() != 0;
         QPalette pal = tuple.first->palette();
         pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);

@@ -293,7 +293,7 @@ void ImportExport::ImportHandler::updateCategories( DB::ImageInfoPtr XMLInfo, DB
     // Run though the categories
     const QList<CategoryMatchSetting> matches = m_settings.categoryMatchSetting();
 
-    Q_FOREACH( const CategoryMatchSetting& match, matches ) {
+    for ( const CategoryMatchSetting& match : matches ) {
         QString XMLCategoryName = match.XMLCategoryName();
         QString DBCategoryName = match.DBCategoryName();
         ImportSettings::ImportAction action = m_settings.importAction(DBCategoryName);
@@ -305,7 +305,7 @@ void ImportExport::ImportHandler::updateCategories( DB::ImageInfoPtr XMLInfo, DB
             DBInfo->setCategoryInfo( DBCategoryName, Utilities::StringSet() );
 
         if ( action == ImportSettings::Merge || action == ImportSettings::Replace || forceReplace ) {
-            Q_FOREACH( const QString& item, items ) {
+            for ( const QString& item : items ) {
                 if (match.XMLtoDB().contains( item ) ) {
                     DBInfo->addCategoryInfo( DBCategoryName, match.XMLtoDB()[item] );
                     DBCategoryPtr->addItem( match.XMLtoDB()[item] );

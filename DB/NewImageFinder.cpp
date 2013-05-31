@@ -56,7 +56,7 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images()) {
+    for ( const DB::FileName& fileName : DB::ImageDB::instance()->images()) {
         loadedFiles.insert(fileName);
     }
 
@@ -250,7 +250,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         if ( ( oldStack = DB::ImageDB::instance()->getStackFor( olderfile)).isEmpty() ) {
             tostack.append(olderfile);
         } else {
-            Q_FOREACH( const DB::FileName& tmp, oldStack ) {
+            for ( const DB::FileName& tmp : oldStack ) {
                 tostack.append( tmp );
             }
         }
@@ -322,7 +322,7 @@ bool  NewImageFinder::calculateMD5sums(
     DB::FileNameList cantRead;
     bool dirty = false;
 
-    Q_FOREACH(const FileName& fileName, list) {
+    for (const FileName& fileName : list) {
         if ( count % 10 == 0 ) {
             dialog.setValue( count ); // ensure to call setProgress(0)
             qApp->processEvents( QEventLoop::AllEvents );

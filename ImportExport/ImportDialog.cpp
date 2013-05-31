@@ -374,7 +374,7 @@ ImportSettings ImportExport::ImportDialog::settings()
         settings.setImportActions( _md5CheckPage->settings() );
     }
 
-    Q_FOREACH( ImportMatcher* match, _matchers )
+    for ( ImportMatcher* match : _matchers )
         settings.addCategoryMatchSetting( match->settings() );
 
     return settings;

@@ -75,7 +75,7 @@ void ImageManager::ThumbnailBuilder::buildMissing()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
     DB::FileNameList needed;
-    Q_FOREACH( const DB::FileName& fileName, images ) {
+    for ( const DB::FileName& fileName : images ) {
         if ( ! ImageManager::ThumbnailCache::instance()->contains( fileName ) )
             needed.append( fileName );
     }
@@ -99,7 +99,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_isBuilding = true;
     int numberOfThumbnailsToBuild = 0;
 
-    Q_FOREACH(const DB::FileName& fileName, m_thumbnailsToBuild ) {
+    for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
         DB::ImageInfoPtr info = fileName.info();
         if ( info->isNull())
             continue;

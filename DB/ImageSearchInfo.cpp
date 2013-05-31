@@ -482,7 +482,7 @@ QList<SimpleCategoryMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatche
     SimpleCategoryMatcher* simpleMatcher;
 
     if ( ( andMatcher = dynamic_cast<AndCategoryMatcher*>( matcher ) ) ) {
-        Q_FOREACH(CategoryMatcher* child, andMatcher->_elements) {
+        for (CategoryMatcher* child : andMatcher->_elements) {
             SimpleCategoryMatcher* simpleMatcher = dynamic_cast<SimpleCategoryMatcher*>( child );
             Q_ASSERT( simpleMatcher );
             result.append( simpleMatcher );
@@ -506,7 +506,7 @@ QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::convertMatcher( CategoryM
     OrCategoryMatcher* orMacther;
 
     if ( ( orMacther = dynamic_cast<OrCategoryMatcher*>( item ) ) ) {
-        Q_FOREACH(CategoryMatcher* child, orMacther->_elements) {
+        for (CategoryMatcher* child : orMacther->_elements) {
             result.append( extractAndMatcher( child ) );
         }
     }

@@ -105,7 +105,7 @@ bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName& file
 
 void ImageManager::VideoThumbnails::cancelPreviousJobs()
 {
-    Q_FOREACH( const QPointer<BackgroundJobs::ExtractOneThumbnailJob>& job, m_activeRequests ) {
+    for ( const QPointer<BackgroundJobs::ExtractOneThumbnailJob>& job : m_activeRequests ) {
         if (! job.isNull() )
             job->cancel();
     }

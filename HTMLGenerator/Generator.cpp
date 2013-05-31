@@ -101,7 +101,7 @@ void HTMLGenerator::Generator::generate()
     }
 
     // Now generate the thumbnail images
-    Q_FOREACH(const DB::FileName& fileName, _setup.imageList()) {
+    for (const DB::FileName& fileName : _setup.imageList()) {
         if ( wasCanceled() )
             return;
 
@@ -214,7 +214,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     }
 
     QDomElement row;
-    Q_FOREACH(const DB::FileName& fileName, _setup.imageList()) {
+    for (const DB::FileName& fileName : _setup.imageList()) {
         const DB::ImageInfoPtr info = fileName.info();
         if ( wasCanceled() )
             return false;

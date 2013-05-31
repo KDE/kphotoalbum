@@ -247,7 +247,7 @@ void Export::generateThumbnails(const DB::FileNameList& list)
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.size(); // Used to break the event loop.
-    Q_FOREACH(const DB::FileName& fileName, list) {
+    for (const DB::FileName& fileName : list) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), fileName.info()->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
@@ -268,7 +268,7 @@ void Export::copyImages(const DB::FileNameList& list)
     _progressDialog->setLabelText( i18n("Copying image files") );
 
     _filesRemaining = 0;
-    Q_FOREACH(const DB::FileName& fileName, list) {
+    for (const DB::FileName& fileName : list) {
         QString file = fileName.absolute();
         QString zippedName = _filenameMapper.uniqNameFor(fileName);
 

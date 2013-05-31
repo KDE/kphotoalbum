@@ -309,7 +309,7 @@ void Exif::Database::recreate()
     dialog.setMaximum(allImages.size());
     int i = 0;
     bool success = true;
-    Q_FOREACH(const DB::FileName& fileName, allImages) {
+    for (const DB::FileName& fileName : allImages) {
         const DB::ImageInfoPtr info = fileName.info();
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {

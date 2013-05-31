@@ -36,7 +36,7 @@ ImageManager::ImageDecoder::~ImageDecoder()
 
 bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    Q_FOREACH(ImageDecoder *decoder, *decoders()) {
+    for (ImageDecoder *decoder : *decoders()) {
         if (decoder->_decode(img, imageFile, fullSize, dim))
             return true;
     }
@@ -45,7 +45,7 @@ bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFi
 
 bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
 {
-    Q_FOREACH(ImageDecoder *decoder, *decoders()) {
+    for (ImageDecoder *decoder : *decoders()) {
         if (decoder->_mightDecode(imageFile))
             return true;
     }

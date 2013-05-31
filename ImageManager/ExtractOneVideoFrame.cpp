@@ -92,7 +92,7 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
 {
     QDir dir(m_workingDirectory);
     QStringList files = dir.entryList(QDir::Files);
-    Q_FOREACH( const QString& file, files )
+    for ( const QString& file : files )
         dir.remove(file);
 
     dir.rmdir(m_workingDirectory);

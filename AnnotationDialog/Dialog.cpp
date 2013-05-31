@@ -730,7 +730,7 @@ void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 
 void AnnotationDialog::Dialog::hideTornOfWindows()
 {
-    Q_FOREACH( QDockWidget* dock, _dockWidgets ) {
+    for( QDockWidget* dock : _dockWidgets ) {
         if ( dock->isFloating() )
             dock->hide();
     }
@@ -738,7 +738,7 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
 
 void AnnotationDialog::Dialog::showTornOfWindows()
 {
-    Q_FOREACH (QDockWidget* dock, _dockWidgets ) {
+    for (QDockWidget* dock: _dockWidgets ) {
         if ( dock->isFloating() )
             dock->show();
     }
@@ -913,7 +913,7 @@ void AnnotationDialog::Dialog::setupFocus()
     QList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.
-    Q_FOREACH( QObject* obj, list ) {
+    for ( QObject* obj : list ) {
         QWidget* current = static_cast<QWidget*>( obj );
         if ( !current->property("WantsFocus").isValid() || !current->isVisible() )
             continue;

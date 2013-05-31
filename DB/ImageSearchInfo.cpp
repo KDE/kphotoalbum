@@ -117,7 +117,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // alreadyMatched map is used to make it possible to search for
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
-    Q_FOREACH(CategoryMatcher* optionMatcher, _categoryMatchers) {
+    for (CategoryMatcher* optionMatcher : _categoryMatchers) {
         ok = ok && optionMatcher->eval(info, alreadyMatched);
     }
 
@@ -413,7 +413,7 @@ void ImageSearchInfo::debugMatcher() const
         compile();
 
     qDebug("And:");
-    Q_FOREACH(CategoryMatcher* optionMatcher, _categoryMatchers) {
+    for (CategoryMatcher* optionMatcher : _categoryMatchers) {
         optionMatcher->debug(1);
     }
 }
@@ -439,8 +439,8 @@ QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::query() const
         QList<QList<SimpleCategoryMatcher*> > oldResult = result;
         result.clear();
 
-        Q_FOREACH(QList<SimpleCategoryMatcher*> resultIt, oldResult) {
-            Q_FOREACH(QList<SimpleCategoryMatcher*> currentIt, current) {
+        for (QList<SimpleCategoryMatcher*> resultIt : oldResult) {
+            for (QList<SimpleCategoryMatcher*> currentIt : current) {
                 QList<SimpleCategoryMatcher*> tmp;
                 tmp += resultIt;
                 tmp += currentIt;

@@ -43,7 +43,7 @@ void CategoryListView::DragableTreeWidget::emitItemsChanged()
 QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
 {
     CategoryListView::DragItemInfoSet selected;
-    Q_FOREACH( QTreeWidgetItem* item, items ) {
+    for( QTreeWidgetItem* item: items ) {
         QTreeWidgetItem* parent = item->parent();
         QString parentText = parent ? parent->text(0) : QString();
         selected.insert( CategoryListView::DragItemInfo( parentText, item->text(0) ) );

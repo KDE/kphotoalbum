@@ -28,7 +28,7 @@ QStringList DB::FileNameList::toStringList(DB::PathType type) const
 {
     QStringList res;
 
-    Q_FOREACH( const DB::FileName& fileName, *this) {
+    for (const DB::FileName& fileName : *this) {
         if ( type == DB::RelativeToImageRoot )
             res.append( fileName.relative() );
         else
@@ -46,7 +46,7 @@ DB::FileNameList &DB::FileNameList::operator <<(const DB::FileName & fileName)
 DB::FileNameList DB::FileNameList::reversed() const
 {
     FileNameList res;
-    Q_FOREACH(const FileName& fileName, *this) {
+    for (const FileName& fileName : *this) {
         res.prepend(fileName);
     }
     return res;

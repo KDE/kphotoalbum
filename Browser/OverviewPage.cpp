@@ -39,7 +39,7 @@ Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::Ima
     : BrowserPage( info, browser), _breadcrumb( breadcrumb )
 {
     int row = 0;
-    Q_FOREACH( const DB::CategoryPtr& category, categories() ) {
+    for (const DB::CategoryPtr& category : categories() ) {
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
         QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
         DB::MediaCount count( images.count(), videos.count() );

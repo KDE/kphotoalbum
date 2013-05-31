@@ -87,7 +87,7 @@ void GroupCounter::count( const StringSet& categories )
     for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( _memberToGroup.contains(*categoryIt)) {
             const QStringList groups = _memberToGroup[*categoryIt];
-            Q_FOREACH( const QString& group, groups ) {
+            for ( const QString& group : groups ) {
                 if ( !countedGroupDict.contains( group ) ) {
                     countedGroupDict.insert( group );
                     (_groupCount[group])++;

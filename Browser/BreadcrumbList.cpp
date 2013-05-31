@@ -38,7 +38,7 @@ Browser::BreadcrumbList Browser::BreadcrumbList::latest() const
 QString Browser::BreadcrumbList::toString() const
 {
     QStringList list;
-    Q_FOREACH( const Breadcrumb& item, latest() )
+    for (const Breadcrumb& item : latest() )
         list.append( item.text() );
 
     return list.join( QString::fromLatin1(" > ") );

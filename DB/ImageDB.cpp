@@ -131,7 +131,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
     uint images = 0;
     uint videos = 0;
-    Q_FOREACH(const DB::FileName& fileName, search(searchInfo)) {
+    for (const DB::FileName& fileName : search(searchInfo)) {
         if ( info(fileName)->mediaType() == Image )
             ++images;
         else
@@ -170,7 +170,7 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
 {
     DB::FileName candidate;
     QDateTime candidateDateStart;
-    Q_FOREACH(const DB::FileName& fileName, images) {
+    for (const DB::FileName& fileName : images) {
         ImageInfoPtr iInfo = info(fileName);
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);

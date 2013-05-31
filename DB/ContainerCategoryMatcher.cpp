@@ -39,7 +39,7 @@ void DB::ContainerCategoryMatcher::debug( int level ) const
 void DB::ContainerCategoryMatcher::setShouldCreateMatchedSet(bool b)
 {
     _shouldPrepareMatchedSet = b;
-    Q_FOREACH( DB::CategoryMatcher* matcher,_elements )
+    for( DB::CategoryMatcher* matcher : _elements )
         matcher->setShouldCreateMatchedSet( b );
 }
 

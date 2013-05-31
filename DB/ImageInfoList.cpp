@@ -129,7 +129,7 @@ void ImageInfoList::remove( const ImageInfoPtr& info )
 DB::FileNameList ImageInfoList::files() const
 {
     DB::FileNameList res;
-    Q_FOREACH( const ImageInfoPtr& info, *this)
+    for ( const ImageInfoPtr& info : *this)
         res.append(info->fileName());
     return res;
 }

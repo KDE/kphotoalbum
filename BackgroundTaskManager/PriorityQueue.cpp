@@ -46,9 +46,7 @@ void PriorityQueue::enqueue(JobInterface *job, Priority priority)
 
 JobInterface *PriorityQueue::dequeue()
 {
-    // Q_FOREACH doens't work here as it returns a copy of the iterated elements
-    for( QVector<QueueType>::Iterator it = m_jobs.begin(); it != m_jobs.end(); ++it ) {
-        QueueType& queue = *it;
+    for( QueueType& queue : m_jobs ) {
         if ( !queue.isEmpty() )
             return queue.dequeue();
     }
@@ -59,7 +57,7 @@ JobInterface *PriorityQueue::dequeue()
 JobInterface *PriorityQueue::peek(int index) const
 {
     int offset = 0;
-    Q_FOREACH( const QueueType& queue, m_jobs) {
+    for ( const QueueType& queue : m_jobs) {
         if ( index-offset < queue.count() )
             return queue[index-offset];
         else

@@ -522,7 +522,7 @@ void ImageInfo::merge(const ImageInfo &other)
     // Merge tags
     QSet<QString> keys = QSet<QString>::fromList(_categoryInfomation.keys());
     keys.unite(QSet<QString>::fromList(other._categoryInfomation.keys()));
-    Q_FOREACH( const QString& key, keys) {
+    for( const QString& key : keys) {
         _categoryInfomation[key].unite(other._categoryInfomation[key]);
     }
 

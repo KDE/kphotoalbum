@@ -52,7 +52,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
 
     m_merge = new QCheckBox(i18n("Merge these images"));
     rightSideLayout->addWidget(m_merge);
-    m_merge->setChecked(true);
+    m_merge->setChecked(false);
     connect( m_merge, SIGNAL(toggled(bool)), this, SIGNAL(selectionChanged()));
 
     QWidget* options = new QWidget;

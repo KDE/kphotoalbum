@@ -258,7 +258,8 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                     }
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
                     QString member = cat->nameForId( (*membersIt).toInt() );
-                    Q_ASSERT( !member.isNull() );
+                    if (member.isNull())
+                        continue;
                     _db->_members.addMemberToGroup( category, group, member );
                 }
             }

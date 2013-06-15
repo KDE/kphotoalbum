@@ -121,16 +121,22 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
         }
     }
 
-    DB::FileNameList list;
+    DB::FileNameList deleteList, dupList;
     Q_FOREACH( QRadioButton* button, m_buttons ) {
         if (button->isChecked())
             continue;
         DB::FileName fileName = button->property("data").value<DB::FileName>();
         DB::ImageDB::instance()->copyData(fileName, destination);
-        list.append(fileName);
+        // can we safely delete the file?
+        if ( fileName != destination )
+            deleteList.append(fileName);
+        else
+            dupList.append(fileName);
     }
 
-    Utilities::DeleteFiles::deleteFiles(list, method);
+    Utilities::DeleteFiles::deleteFiles(deleteList, method);
+    // remove duplicate DB-entries without removing or blocking the file:
+    DB::ImageDB::instance()->deleteList(dupList);
 }
 
 bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)

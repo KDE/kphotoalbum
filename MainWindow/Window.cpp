@@ -1517,9 +1517,12 @@ void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         DB::FileName fileName = DB::FileName::fromAbsolutePath((*it).path());
         if ( !fileName.isNull()) {
-            // Pluigins may report images outsite of the photodatabase
+            // Plugins may report images outsite of the photodatabase
             // This seems to be the case with the border image plugin, which reports the destination image
             ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
+            // update MD5sum:
+            MD5 md5sum = Utilities::MD5Sum( fileName );
+            fileName.info()->setMD5Sum( md5sum );
         }
     }
     _statusBar->_dirtyIndicator->markDirty();

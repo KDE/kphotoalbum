@@ -509,7 +509,7 @@ void ImageInfo::merge(const ImageInfo &other)
     if ( !other.description().isEmpty() ) {
         if ( _description.isEmpty() )
             _description = other.description();
-        else
+        else if (_description != other.description())
             _description += QString::fromUtf8("\n-----------\n") + other._description;
     }
 

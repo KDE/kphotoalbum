@@ -60,6 +60,7 @@ private:
     QVBoxLayout* m_scrollLayout;
     QList<DuplicateMatch*> m_selectors;
     QRadioButton* _trash;
+    QRadioButton *_deleteFromDisk;
     QLabel* m_selectionCount;
 };
 

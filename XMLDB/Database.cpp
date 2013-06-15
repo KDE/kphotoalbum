@@ -156,6 +156,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
     }
     emit totalChanged( _images.count() );
     emit imagesDeleted(list);
+    emit dirty();
 }
 
 void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )

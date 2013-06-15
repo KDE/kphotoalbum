@@ -529,10 +529,19 @@ void ImageInfo::merge(const ImageInfo &other)
     if (isCompleted)
         _categoryInfomation[untaggedCategory].remove(untaggedTag);
 
-    // Stack into the other image's stack if it has one
-    if ( _stackId == 0 && other._stackId != 0 ) {
-        _stackId = other._stackId;
-        _stackOrder = other._stackOrder;
+    // merge stacks:
+    if (isStacked() || other.isStacked())
+    {
+        DB::FileNameList stackImages;
+        if (!isStacked())
+            stackImages.append(fileName());
+        else
+            stackImages.append(DB::ImageDB::instance()->getStackFor(fileName()));
+        stackImages.append(DB::ImageDB::instance()->getStackFor(other.fileName()));
+
+        DB::ImageDB::instance()->unstack(stackImages);
+        if (!DB::ImageDB::instance()->stack(stackImages))
+            qWarning("Could not merge stacks!");
     }
 }
 

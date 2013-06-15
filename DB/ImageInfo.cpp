@@ -514,9 +514,9 @@ void ImageInfo::merge(const ImageInfo &other)
     }
 
     // Clear untagged tag if one of the images was untagged
-    const QString untagedCaterory = Settings::SettingsData::instance()->untaggedCategory();
-    const QString untagedTag = Settings::SettingsData::instance()->untaggedTag();
-    const bool isCompleted = !_categoryInfomation[untagedCaterory].contains(untagedTag) || !other._categoryInfomation[untagedCaterory].contains(untagedTag);
+    const QString untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
+    const QString untaggedTag = Settings::SettingsData::instance()->untaggedTag();
+    const bool isCompleted = !_categoryInfomation[untaggedCategory].contains(untaggedTag) || !other._categoryInfomation[untaggedCategory].contains(untaggedTag);
 
     // Merge tags
     QSet<QString> keys = QSet<QString>::fromList(_categoryInfomation.keys());
@@ -527,7 +527,7 @@ void ImageInfo::merge(const ImageInfo &other)
 
     // Clear untagged tag if one of the images was untagged
     if (isCompleted)
-        _categoryInfomation[untagedCaterory].remove(untagedTag);
+        _categoryInfomation[untaggedCategory].remove(untaggedTag);
 
     // Stack into the other image's stack if it has one
     if ( _stackId == 0 && other._stackId != 0 ) {

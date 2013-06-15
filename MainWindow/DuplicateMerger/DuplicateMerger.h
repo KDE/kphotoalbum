@@ -52,7 +52,7 @@ private:
     void findDuplicates();
     void addRow(const DB::MD5& );
     void selectAll(bool b);
-    void tellThatNoDupplicatesWasFound();
+    void tellThatNoDuplicatesWereFound();
 
     QMap<DB::MD5, DB::FileNameList> m_matches;
 

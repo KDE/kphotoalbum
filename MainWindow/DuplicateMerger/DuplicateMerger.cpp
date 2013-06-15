@@ -136,7 +136,7 @@ void DuplicateMerger::findDuplicates()
     }
 
     if ( !anyFound )
-        tellThatNoDupplicatesWasFound();
+        tellThatNoDuplicatesWereFound();
     updateSelectionCount();
 }
 
@@ -155,7 +155,7 @@ void DuplicateMerger::selectAll(bool b)
     }
 }
 
-void DuplicateMerger::tellThatNoDupplicatesWasFound()
+void DuplicateMerger::tellThatNoDuplicatesWereFound()
 {
     QLabel* label = new QLabel(i18n("No duplicates found"));
     QFont fnt = font();

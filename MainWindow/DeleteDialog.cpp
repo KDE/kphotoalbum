@@ -60,6 +60,14 @@ int DeleteDialog::exec(const DB::FileNameList& list)
 {
     if (!list.size()) return 0;
 
+    bool someFileExists = false;
+    Q_FOREACH(const DB::FileName& file, list) {
+        if ( file.exists() ) {
+            someFileExists = true;
+            break;
+        }
+    }
+
     const QString msg1 = i18np( "Removing 1 item", "Removing %1 items", list.size() );
     const QString msg2 = i18np( "Selected item will be removed from the database.<br/>What do you want to do with the file on disk?",
                                 "Selected %1 items will be removed from the database.<br/>What do you want to do with the files on disk?",
@@ -71,10 +79,14 @@ int DeleteDialog::exec(const DB::FileNameList& list)
     _deleteFile->setText( i18np( "Delete file from disk", "Delete %1 files from disk", list.size() ) );
     _deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove %1 items from database", list.size() ) );
 
-
     _label->setText( txt );
-    _useTrash->setChecked( true );
     _list = list;
+
+    // disable trash/delete options if files don't exist
+    _useTrash->setChecked( someFileExists );
+    _useTrash->setEnabled( someFileExists );
+    _deleteFile->setEnabled( someFileExists );
+    _deleteFromDb->setChecked( !someFileExists );
 
     return KDialog::exec();
 }

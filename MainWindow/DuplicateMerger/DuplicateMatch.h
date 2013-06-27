@@ -43,7 +43,7 @@ public:
     virtual void pixmapLoaded( const DB::FileName& fileName,
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
-                               const bool loadedOK);
+                               const bool loadedOK) override;
     void setSelected(bool);
     bool selected() const;
     void execute(Utilities::DeleteMethod);

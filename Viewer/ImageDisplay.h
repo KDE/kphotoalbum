@@ -57,7 +57,7 @@ public:
     ImageDisplay( QWidget* parent );
     bool setImage( DB::ImageInfoPtr info, bool forward );
     QImage currentViewAsThumbnail() const;
-    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;
     void setImageList( const DB::FileNameList& list );
 
     void filterNone();

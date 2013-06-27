@@ -71,7 +71,7 @@ public:
 
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size,
                                const QSize& fullSize, int angle, const QImage&,
-                               const bool loadedOK);
+                               const bool loadedOK) override;
     int maxImageSize();
     void minImageSize( int& width, int& height);
 

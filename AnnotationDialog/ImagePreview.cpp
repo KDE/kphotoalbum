@@ -18,7 +18,6 @@
 
 #include "ImagePreview.h"
 #include "ImageManager/AsyncLoader.h"
-#include "ImageManager/ImageLoaderThread.h"
 #include "Utilities/Util.h"
 
 using namespace AnnotationDialog;

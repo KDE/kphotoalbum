@@ -17,7 +17,6 @@
 */
 
 #include "DeleteDialog.h"
-#include "ImageManager/ThumbnailCache.h"
 
 #include <QVBoxLayout>
 #include <klocale.h>

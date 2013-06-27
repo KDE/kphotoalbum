@@ -35,7 +35,6 @@
 #  include "Exif/Database.h"
 #endif
 
-#include "ImageManager/AsyncLoader.h"
 #include "ImageManager/RawImageDecoder.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"

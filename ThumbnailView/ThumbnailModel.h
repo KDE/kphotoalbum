@@ -18,7 +18,7 @@
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
 #include "ImageManager/ImageClientInterface.h"
-#include "ImageManager/ImageRequest.h"
+#include "ImageManager/enums.h"
 #include <QAbstractListModel>
 #include "ThumbnailComponent.h"
 #include "ThumbnailView/enums.h"

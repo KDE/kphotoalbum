@@ -25,7 +25,6 @@
 
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include "ImageManager/AsyncLoader.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"
 #include "Utilities/Util.h"

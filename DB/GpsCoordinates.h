@@ -68,7 +68,7 @@ public:
     {
     }
 
-    GpsCoordinates(
+    explicit GpsCoordinates(
         double longitude,
         double latitude,
         double altitude,
@@ -84,7 +84,7 @@ public:
     }
 
 #ifdef HAVE_MARBLE
-    GpsCoordinates(const GeoDataCoordinates& position)
+    explicit GpsCoordinates(const GeoDataCoordinates& position)
         throw()
         : _longitude(0.0)
         , _latitude(0.0)

@@ -41,7 +41,7 @@ class CategoryPage :public QWidget
 {
     Q_OBJECT
 public:
-    CategoryPage( QWidget* parent );
+    explicit CategoryPage( QWidget* parent );
     void enableDisable( bool );
     void saveSettings( Settings::SettingsData* opt, DB::MemberMap* memberMap );
     void loadSettings( Settings::SettingsData* opt );

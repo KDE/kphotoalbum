@@ -44,7 +44,7 @@ class ThumbnailWidget;
 
 class GridResizeInteraction : public MouseInteraction, private ThumbnailComponent {
 public:
-    GridResizeInteraction( ThumbnailFactory* factory );
+    explicit GridResizeInteraction( ThumbnailFactory* factory );
     bool mousePressEvent( QMouseEvent* ) override;
     bool mouseMoveEvent( QMouseEvent* ) override;
     bool mouseReleaseEvent( QMouseEvent* ) override;

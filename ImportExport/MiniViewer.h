@@ -46,7 +46,7 @@ protected slots:
     void slotClose();
 
 private:
-    MiniViewer( QWidget* parent = 0 );
+    explicit MiniViewer( QWidget* parent = 0 );
     static MiniViewer* _instance;
     QLabel* _pixmap;
 };

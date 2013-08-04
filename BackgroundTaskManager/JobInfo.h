@@ -31,8 +31,8 @@ class JobInfo :public QObject
     Q_OBJECT
 
 public:
-    JobInfo(BackgroundTaskManager::Priority priority);
-    JobInfo( const JobInfo* other );
+    explicit JobInfo(BackgroundTaskManager::Priority priority);
+    explicit JobInfo( const JobInfo* other );
     virtual ~JobInfo();
 
     virtual QString title() const = 0;

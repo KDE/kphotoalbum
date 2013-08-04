@@ -31,7 +31,7 @@ class MouseTrackingInteraction : public QObject, public MouseInteraction, privat
     Q_OBJECT
 
 public:
-    MouseTrackingInteraction( ThumbnailFactory* factory );
+    explicit MouseTrackingInteraction( ThumbnailFactory* factory );
     bool mouseMoveEvent( QMouseEvent* ) override;
 
 signals:

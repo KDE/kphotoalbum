@@ -23,7 +23,7 @@ namespace DB
 class FastDir
 {
 public:
-    FastDir(const QString &path);
+    explicit FastDir(const QString &path);
     QStringList entryList() const;
 private:
     const QString _path;

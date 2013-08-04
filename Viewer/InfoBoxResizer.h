@@ -26,7 +26,7 @@ namespace Viewer {
 class InfoBoxResizer
 {
 public:
-    InfoBoxResizer( Viewer::InfoBox* infoBox );
+    explicit InfoBoxResizer( Viewer::InfoBox* infoBox );
     void setup( bool left, bool right, bool top, bool bottom );
     void setPos( QPoint pos );
     void deactivate();

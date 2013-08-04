@@ -31,7 +31,7 @@ class RunDialog :public KDialog {
     Q_OBJECT
 
       public:
-        RunDialog( QWidget* parent );
+        explicit RunDialog( QWidget* parent );
         void setImageList( const DB::FileNameList& fileList );
         void show();
 

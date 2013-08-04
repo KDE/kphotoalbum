@@ -29,7 +29,7 @@ namespace AnnotationDialog
 class ImagePreview :public QLabel, public ImageManager::ImageClientInterface {
     Q_OBJECT
 public:
-    ImagePreview( QWidget* parent );
+    explicit ImagePreview( QWidget* parent );
     virtual QSize sizeHint() const;
     void rotate(int angle);
     void setImage( const DB::ImageInfo& info );

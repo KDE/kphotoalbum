@@ -29,7 +29,7 @@ class DatabaseBackendPage :public QWidget
 {
     Q_OBJECT
 public:
-    DatabaseBackendPage( QWidget* parent );
+    explicit DatabaseBackendPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
 

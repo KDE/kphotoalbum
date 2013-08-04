@@ -36,7 +36,7 @@ class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClien
     Q_OBJECT
 
 public:
-    ThumbnailModel( ThumbnailFactory* factory );
+    explicit ThumbnailModel( ThumbnailFactory* factory );
 
     // -------------------------------------------------- QAbstractListModel
     int rowCount(const QModelIndex&) const override;

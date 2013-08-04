@@ -31,7 +31,7 @@ class GeneralPage :public QWidget
 {
     Q_OBJECT
 public:
-    GeneralPage( QWidget* parent );
+    explicit GeneralPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
     void setUseRawThumbnailSize( const QSize& size );

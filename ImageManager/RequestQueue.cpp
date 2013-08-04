@@ -24,14 +24,15 @@
 
 bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    if ( _uniquePending.contains( request ) ) {
+    const ImageRequestReference ref(request);
+    if ( _uniquePending.contains( ref ) ) {
         // We have this very same request already in the queue. Ignore this one.
         delete request;
         return false;
     }
 
     _queues[ request->priority() ].enqueue( request );
-    _uniquePending.insert( request );
+    _uniquePending.insert( ref );
 
     if ( request->client() )
         _activeRequests.insert( request );
@@ -53,7 +54,8 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 CancelEvent* event = new CancelEvent( request );
                 QApplication::postEvent( AsyncLoader::instance(),  event );
             } else {
-                _uniquePending.remove( request );
+                const ImageRequestReference ref(request);
+                _uniquePending.remove( ref );
                 return request;
             }
         }
@@ -81,7 +83,8 @@ void ImageManager::RequestQueue::cancelRequests( ImageClientInterface* client, S
             ImageRequest* request = *it;
             if ( request->client() == client && ( action == StopAll || request->priority() < ThumbnailVisible ) ) {
                 it = qit->erase( it );
-                _uniquePending.remove( request );
+                const ImageRequestReference ref(request);
+                _uniquePending.remove( ref );
                 delete request;
             } else {
                 ++it;
@@ -97,8 +100,9 @@ bool ImageManager::RequestQueue::isRequestStillValid( ImageRequest* request )
 
 void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 {
+    const ImageRequestReference ref(request);
     _activeRequests.remove( request );
-    _uniquePending.remove( request );
+    _uniquePending.remove( ref );
 }
 
 ImageManager::RequestQueue::RequestQueue()

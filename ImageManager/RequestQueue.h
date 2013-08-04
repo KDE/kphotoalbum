@@ -60,7 +60,7 @@ private:
         ImageRequestReference() : _ptr(0) {}
         ImageRequestReference(const ImageRequestReference& other)
             : _ptr(other._ptr) {}
-        ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}
+        explicit ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}
 
         bool operator<(const ImageRequestReference &other) const {
             return *_ptr < *other._ptr;

@@ -29,7 +29,7 @@ class SettingsData;
 class ExifPage :public QWidget
 {
 public:
-    ExifPage( QWidget* parent );
+    explicit ExifPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
 

@@ -32,7 +32,7 @@ class SpeedDisplay :public QLabel {
     Q_OBJECT
 
 public:
-    SpeedDisplay( QWidget* parent );
+    explicit SpeedDisplay( QWidget* parent );
     void display( int );
     void start();
     void end();

@@ -39,7 +39,7 @@ class DuplicateMatch : public QWidget, ImageManager::ImageClientInterface
     Q_OBJECT
 
 public:
-    DuplicateMatch(const DB::FileNameList& files);
+    explicit DuplicateMatch(const DB::FileNameList& files);
     virtual void pixmapLoaded( const DB::FileName& fileName,
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,

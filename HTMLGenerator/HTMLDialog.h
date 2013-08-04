@@ -38,7 +38,7 @@ class HTMLDialog :public KPageDialog {
     Q_OBJECT
 
 public:
-    HTMLDialog( QWidget* parent );
+    explicit HTMLDialog( QWidget* parent );
     int exec(const DB::FileNameList& list);
 
 protected slots:

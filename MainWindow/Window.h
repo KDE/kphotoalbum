@@ -66,7 +66,7 @@ class Window :public KXmlGuiWindow
     Q_OBJECT
 
 public:
-    Window( QWidget* parent );
+    explicit Window( QWidget* parent );
     ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();

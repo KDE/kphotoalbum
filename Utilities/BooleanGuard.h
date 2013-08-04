@@ -24,7 +24,7 @@ namespace Utilities
 class BooleanGuard
 {
 public:
-    BooleanGuard( bool& guard );
+    explicit BooleanGuard( bool& guard );
     ~BooleanGuard();
     bool canContinue();
 

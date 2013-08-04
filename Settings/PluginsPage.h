@@ -29,7 +29,7 @@ class SettingsData;
 class PluginsPage :public QWidget
 {
 public:
-    PluginsPage( QWidget* parent );
+    explicit PluginsPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
 

@@ -32,7 +32,7 @@ class UploadWidget : public KIPI::UploadWidget
     Q_OBJECT
 
 public:
-    UploadWidget(QWidget* parent);
+    explicit UploadWidget(QWidget* parent);
     KIPI::ImageCollection selectedImageCollection() const;
 
 private slots:

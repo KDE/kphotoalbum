@@ -35,7 +35,7 @@ class DeleteDialog :public KDialog {
     Q_OBJECT
 
 public:
-    DeleteDialog( QWidget* parent );
+    explicit DeleteDialog( QWidget* parent );
     int exec(const DB::FileNameList& list);
 
 protected slots:

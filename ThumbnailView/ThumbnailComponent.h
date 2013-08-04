@@ -31,7 +31,7 @@ class ThumbnailModel;
 class ThumbnailComponent
 {
 public:
-    ThumbnailComponent( ThumbnailFactory* factory );
+    explicit ThumbnailComponent( ThumbnailFactory* factory );
 
     ThumbnailModel* model();
     const ThumbnailModel* model() const;

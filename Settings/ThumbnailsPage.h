@@ -30,7 +30,7 @@ class SettingsData;
 class ThumbnailsPage :public QWidget
 {
 public:
-    ThumbnailsPage( QWidget* parent );
+    explicit ThumbnailsPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
     bool thumbnailSizeChanged( Settings::SettingsData* opt ) const;

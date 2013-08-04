@@ -29,7 +29,7 @@ class AbstractDisplay :public QWidget
     Q_OBJECT
 
 public:
-    AbstractDisplay( QWidget* parent );
+    explicit AbstractDisplay( QWidget* parent );
     virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
 
 public slots:

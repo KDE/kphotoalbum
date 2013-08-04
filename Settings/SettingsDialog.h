@@ -41,7 +41,7 @@ class SettingsDialog :public KPageDialog {
     Q_OBJECT
 
 public:
-    SettingsDialog( QWidget* parent );
+    explicit SettingsDialog( QWidget* parent );
     virtual void show();
 
 public slots:

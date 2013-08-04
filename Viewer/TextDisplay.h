@@ -30,7 +30,7 @@ namespace Viewer
 class TextDisplay :public Viewer::AbstractDisplay {
 Q_OBJECT
 public:
-    TextDisplay( QWidget* parent );
+    explicit TextDisplay( QWidget* parent );
     bool setImage( DB::ImageInfoPtr info, bool forward );
     void setText( const QString text );
 

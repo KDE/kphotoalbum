@@ -32,7 +32,7 @@ class KDE_EXPORT ImageCollection :public KIPI::ImageCollectionShared
 public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };
 
-    ImageCollection( Type tp );
+    explicit ImageCollection( Type tp );
     virtual QString name();
     virtual QString comment();
     virtual KUrl::List images();

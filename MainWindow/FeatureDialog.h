@@ -27,7 +27,7 @@ class FeatureDialog : public KDialog {
     Q_OBJECT
 
 public:
-    FeatureDialog( QWidget* parent );
+    explicit FeatureDialog( QWidget* parent );
     static bool hasAllFeaturesAvailable();
     static QString featureString();
     static QStringList supportedVideoMimeTypes();

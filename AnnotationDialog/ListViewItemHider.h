@@ -51,7 +51,7 @@ private:
 class ListViewCheckedHider :public ListViewItemHider
 {
 public:
-    ListViewCheckedHider( QTreeWidget* );
+    explicit ListViewCheckedHider( QTreeWidget* );
 
 protected:
     virtual bool shouldItemBeShown( QTreeWidgetItem* );

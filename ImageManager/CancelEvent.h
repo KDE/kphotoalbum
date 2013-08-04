@@ -30,7 +30,7 @@ const int CANCELEVENTID = 1002;
 class CancelEvent : public QEvent
 {
 public:
-    CancelEvent( ImageRequest* request );
+    explicit CancelEvent( ImageRequest* request );
     ~CancelEvent();
     ImageRequest* request() const;
 

@@ -32,7 +32,7 @@ class ThumbnailDND :public QObject, private ThumbnailComponent
     Q_OBJECT
 
 public:
-    ThumbnailDND( ThumbnailFactory* factory );
+    explicit ThumbnailDND( ThumbnailFactory* factory );
     void contentsDragMoveEvent( QDragMoveEvent* event );
     void contentsDragLeaveEvent( QDragLeaveEvent* );
     void contentsDropEvent( QDropEvent* );

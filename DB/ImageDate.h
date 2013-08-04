@@ -31,8 +31,8 @@ public:
     ImageDate();
     ImageDate( const QDateTime& start, const QDateTime& end );
     ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom );
-    ImageDate( const QDate& );
-    ImageDate( const QDateTime& );
+    explicit ImageDate( const QDate& );
+    explicit ImageDate( const QDateTime& );
     ImageDate( const QDate& start, QDate end, const QTime& time );
 
     QDateTime start() const;

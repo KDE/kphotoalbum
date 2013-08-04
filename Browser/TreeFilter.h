@@ -33,7 +33,7 @@
 class TreeFilter :public QSortFilterProxyModel
 {
 public:
-    TreeFilter( QObject* parent = 0 );
+    explicit TreeFilter( QObject* parent = 0 );
     void resetCache();
 
 protected:

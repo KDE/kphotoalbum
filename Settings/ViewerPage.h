@@ -30,7 +30,7 @@ class ViewerSizeConfig;
 class ViewerPage :public QWidget
 {
 public:
-    ViewerPage( QWidget* parent );
+    explicit ViewerPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
 

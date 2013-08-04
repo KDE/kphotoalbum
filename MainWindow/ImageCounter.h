@@ -27,7 +27,7 @@ class ImageCounter :public QLabel {
     Q_OBJECT
 
 public:
-    ImageCounter( QWidget* parent );
+    explicit ImageCounter( QWidget* parent );
 
 public slots:
     void setMatchCount( uint matches );

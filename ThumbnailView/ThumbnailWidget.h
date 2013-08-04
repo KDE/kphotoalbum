@@ -46,7 +46,7 @@ class ThumbnailWidget : public QListView, private ThumbnailComponent {
     Q_OBJECT
 
 public:
-    ThumbnailWidget( ThumbnailFactory* factory );
+    explicit ThumbnailWidget( ThumbnailFactory* factory );
 
     void reload( SelectionUpdateMethod method );
     DB::FileName mediaIdUnderCursor() const;

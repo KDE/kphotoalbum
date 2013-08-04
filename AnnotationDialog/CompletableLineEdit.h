@@ -31,7 +31,7 @@ class ListSelect;
 class CompletableLineEdit :public KLineEdit {
 
 public:
-    CompletableLineEdit( ListSelect* parent );
+    explicit CompletableLineEdit( ListSelect* parent );
     void setListView( QTreeWidget* );
     void setMode( UsageMode mode );
 

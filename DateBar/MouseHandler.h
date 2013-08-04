@@ -32,7 +32,7 @@ class DateBarWidget;
     {
         Q_OBJECT
     public:
-        MouseHandler( DateBarWidget* dateBar );
+        explicit MouseHandler( DateBarWidget* dateBar );
         virtual void mousePressEvent( int x ) = 0;
         virtual void mouseMoveEvent( int x ) = 0;
         virtual void mouseReleaseEvent() {};
@@ -54,7 +54,7 @@ class DateBarWidget;
     class KDE_EXPORT FocusItemDragHandler : public MouseHandler
     {
     public:
-        FocusItemDragHandler( DateBarWidget* dateBar );
+        explicit FocusItemDragHandler( DateBarWidget* dateBar );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
     };
@@ -64,7 +64,7 @@ class DateBarWidget;
     class KDE_EXPORT BarDragHandler : public MouseHandler
     {
     public:
-        BarDragHandler( DateBarWidget* );
+        explicit BarDragHandler( DateBarWidget* );
         void mousePressEvent( int x );
         void mouseMoveEvent(  int x );
     private:
@@ -76,7 +76,7 @@ class DateBarWidget;
     class KDE_EXPORT SelectionHandler : public MouseHandler
     {
     public:
-        SelectionHandler( DateBarWidget* );
+        explicit SelectionHandler( DateBarWidget* );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
         virtual void mouseReleaseEvent();

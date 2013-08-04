@@ -30,7 +30,7 @@ class InvalidDateFinder :public KDialog {
     Q_OBJECT
 
 public:
-    InvalidDateFinder( QWidget* parent );
+    explicit InvalidDateFinder( QWidget* parent );
 
 protected slots:
     virtual void accept();

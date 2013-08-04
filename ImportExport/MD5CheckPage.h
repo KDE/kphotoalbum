@@ -30,7 +30,7 @@ namespace ImportExport
 class ClashInfo
 {
 public:
-    ClashInfo(const QStringList& categories);
+    explicit ClashInfo(const QStringList& categories);
     bool anyClashes();
     bool label;
     bool description;
@@ -42,7 +42,7 @@ public:
 class MD5CheckPage :public QWidget
 {
 public:
-    MD5CheckPage(const ImportSettings& settings);
+    explicit MD5CheckPage(const ImportSettings& settings);
     static bool pageNeeded( const ImportSettings& settings);
     QMap<QString, ImportSettings::ImportAction> settings();
 

@@ -32,7 +32,7 @@ namespace DB
     class NegationCategoryMatcher :public CategoryMatcher
     {
         public:
-            NegationCategoryMatcher( CategoryMatcher *child );
+            explicit NegationCategoryMatcher( CategoryMatcher *child );
             virtual ~NegationCategoryMatcher();
             bool eval( ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched ) override;
             void debug( int level ) const override;

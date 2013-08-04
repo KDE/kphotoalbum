@@ -29,7 +29,7 @@ class TokenEditor :public KDialog {
     Q_OBJECT
 
 public:
-    TokenEditor( QWidget* parent );
+    explicit TokenEditor( QWidget* parent );
     virtual void show();
 
 protected slots:

@@ -39,7 +39,7 @@ public:
 class StringExifElement :public DatabaseElement
 {
 public:
-    StringExifElement( const char* tag );
+    explicit StringExifElement( const char* tag );
     QString createString();
     QString queryString();
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
@@ -51,7 +51,7 @@ private:
 class IntExifElement :public DatabaseElement
 {
 public:
-    IntExifElement( const char* tag );
+    explicit IntExifElement( const char* tag );
     QString createString();
     QString queryString();
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
@@ -64,7 +64,7 @@ private:
 class RationalExifElement :public DatabaseElement
 {
 public:
-    RationalExifElement( const char* tag );
+    explicit RationalExifElement( const char* tag );
     virtual QString createString();
     virtual QString queryString();
     virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );

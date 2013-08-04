@@ -28,7 +28,7 @@ class UntaggedGroupBox :public QGroupBox
 {
     Q_OBJECT
 public:
-    UntaggedGroupBox( QWidget* parent );
+    explicit UntaggedGroupBox( QWidget* parent );
     void loadSettings( Settings::SettingsData* opt );
     void saveSettings( Settings::SettingsData* opt );
 

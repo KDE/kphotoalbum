@@ -26,7 +26,7 @@ namespace DB { class FileNameList; }
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
-    XMLImageDateCollection(const DB::FileNameList&);
+    explicit XMLImageDateCollection(const DB::FileNameList&);
 
 public:
     virtual DB::ImageCount count( const DB::ImageDate& range );

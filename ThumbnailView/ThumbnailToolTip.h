@@ -35,7 +35,7 @@ class ThumbnailToolTip :public Utilities::ToolTip {
     Q_OBJECT
 
 public:
-    ThumbnailToolTip( ThumbnailWidget* view );
+    explicit ThumbnailToolTip( ThumbnailWidget* view );
     virtual void setActive(bool);
 
 private slots:

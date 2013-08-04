@@ -32,7 +32,7 @@ class SubCategoriesPage :public QWidget
     Q_OBJECT
 
 public:
-    SubCategoriesPage( QWidget* parent );
+    explicit SubCategoriesPage( QWidget* parent );
     void saveSettings();
     void loadSettings();
     DB::MemberMap* memberMap();

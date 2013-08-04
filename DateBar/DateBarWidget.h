@@ -47,7 +47,7 @@ class DateBarWidget :public QWidget {
     Q_OBJECT
 
 public:
-    DateBarWidget( QWidget* parent );
+    explicit DateBarWidget( QWidget* parent );
     enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView };
     bool includeFuzzyCounts() const;
 

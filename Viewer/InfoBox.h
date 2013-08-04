@@ -39,7 +39,7 @@ class InfoBox :public KTextBrowser {
     Q_OBJECT
 
 public:
-    InfoBox( ViewerWidget* parent );
+    explicit InfoBox( ViewerWidget* parent );
     void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
     virtual void setSource( const QUrl& which );
     void setSize();

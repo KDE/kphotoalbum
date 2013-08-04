@@ -29,7 +29,7 @@ class KeyboardEventHandler :public QObject, public ThumbnailComponent
     Q_OBJECT
 
 public:
-    KeyboardEventHandler( ThumbnailFactory* factory );
+    explicit KeyboardEventHandler( ThumbnailFactory* factory );
     bool keyPressEvent( QKeyEvent* event );
     bool keyReleaseEvent( QKeyEvent* );
 

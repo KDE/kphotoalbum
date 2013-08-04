@@ -36,7 +36,7 @@ public:
     {
     public:
         Range() {}
-        Range( const QString& key );
+        explicit Range( const QString& key );
         bool isLowerMin, isLowerMax, isUpperMin, isUpperMax;
         double min, max;
         QString key;

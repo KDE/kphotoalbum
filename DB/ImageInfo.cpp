@@ -335,7 +335,8 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 
     // Date
     if ( updateDateInformation(mode) ) {
-        setDate( exifInfo.dateTime() );
+        const ImageDate newDate ( exifInfo.dateTime() );
+        setDate( newDate );
     }
 
     // Orientation

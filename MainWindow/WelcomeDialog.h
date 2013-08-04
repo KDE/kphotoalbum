@@ -31,7 +31,7 @@ class WelcomeDialog : public QDialog
     Q_OBJECT
 
 public:
-    WelcomeDialog( QWidget* parent = 0 );
+    explicit WelcomeDialog( QWidget* parent = 0 );
     QString configFileName() const;
 
 protected slots:
@@ -48,7 +48,7 @@ class FileDialog : public KDialog
 {
     Q_OBJECT
 public:
-    FileDialog( QWidget* parent );
+    explicit FileDialog( QWidget* parent );
     QString getFileName();
 protected slots:
     void slotBrowseForDirecory();

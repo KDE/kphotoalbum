@@ -33,7 +33,7 @@ class StatusIndicator : public KLed
     Q_OBJECT
 
 public:
-    StatusIndicator( QWidget* parent );
+    explicit StatusIndicator( QWidget* parent );
     bool event(QEvent* event) override;
 
 protected:

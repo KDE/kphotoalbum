@@ -54,7 +54,7 @@ struct ViewPreloadInfo
 class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageClientInterface {
 Q_OBJECT
 public:
-    ImageDisplay( QWidget* parent );
+    explicit ImageDisplay( QWidget* parent );
     bool setImage( DB::ImageInfoPtr info, bool forward );
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;

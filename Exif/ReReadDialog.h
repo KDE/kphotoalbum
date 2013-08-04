@@ -31,7 +31,7 @@ class ReReadDialog :public KDialog {
     Q_OBJECT
 
 public:
-    ReReadDialog( QWidget* parent );
+    explicit ReReadDialog( QWidget* parent );
     int exec( const DB::FileNameList& );
 
 protected slots:

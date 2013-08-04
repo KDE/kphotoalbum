@@ -36,7 +36,7 @@ class CellGeometry :public ThumbnailComponent
 {
 public:
     void flushCache();
-    CellGeometry( ThumbnailFactory* factory );
+    explicit CellGeometry( ThumbnailFactory* factory );
     QSize cellSize() const;
     static QSize preferredIconSize();
     QRect iconGeometry( const QPixmap& pixmap ) const;

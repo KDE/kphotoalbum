@@ -29,7 +29,7 @@ class SearchBar :public KToolBar {
     Q_OBJECT
 
 public:
-    SearchBar( KMainWindow* parent );
+    explicit SearchBar( KMainWindow* parent );
 
 protected:
     virtual bool eventFilter( QObject* watched, QEvent* e );

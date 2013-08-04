@@ -41,7 +41,7 @@ class ExternalPopup :public QMenu {
     Q_OBJECT
 
 public:
-    ExternalPopup( QWidget* parent );
+    explicit ExternalPopup( QWidget* parent );
     void populate( DB::ImageInfoPtr current, const DB::FileNameList& list );
 
 protected slots:

@@ -46,7 +46,7 @@ class ImportDialog :public KAssistantDialog {
     Q_OBJECT
 
 public:
-    ImportDialog( QWidget* parent );
+    explicit ImportDialog( QWidget* parent );
     bool exec( KimFileReader* kimFileReader, const KUrl& kimFilePath );
     ImportSettings settings();
 

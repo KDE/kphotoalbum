@@ -49,7 +49,7 @@ namespace Utilities
 class ShowBusyCursor {
 
 public:
-    ShowBusyCursor(Qt::CursorShape shape = Qt::WaitCursor );
+    explicit ShowBusyCursor(Qt::CursorShape shape = Qt::WaitCursor );
     ~ShowBusyCursor();
     void stop();
 private:

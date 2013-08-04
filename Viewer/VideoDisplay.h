@@ -36,7 +36,7 @@ class VideoDisplay :public Viewer::AbstractDisplay
     Q_OBJECT
 
 public:
-    VideoDisplay( QWidget* parent );
+    explicit VideoDisplay( QWidget* parent );
     ~VideoDisplay();
     virtual bool setImage( DB::ImageInfoPtr info, bool forward );
     bool isPaused() const;

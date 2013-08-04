@@ -31,7 +31,7 @@ class CategoryImagePopup :public QMenu {
     Q_OBJECT
 
 public:
-    CategoryImagePopup( QWidget* parent );
+    explicit CategoryImagePopup( QWidget* parent );
     void populate( const QImage& image, const DB::FileName& imageName );
 
 protected slots:

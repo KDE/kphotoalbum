@@ -33,7 +33,7 @@ class SearchDialog : public KPageDialog {
     Q_OBJECT
 
 public:
-    SearchDialog( QWidget* parent );
+    explicit SearchDialog( QWidget* parent );
     Exif::SearchInfo info();
 
 protected:

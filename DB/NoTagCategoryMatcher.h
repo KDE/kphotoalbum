@@ -30,7 +30,7 @@ namespace DB
 class NoTagCategoryMatcher :public CategoryMatcher
 {
 public:
-    NoTagCategoryMatcher(const QString& category);
+    explicit NoTagCategoryMatcher(const QString& category);
     virtual ~NoTagCategoryMatcher();
     bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
     void debug( int level ) const override;

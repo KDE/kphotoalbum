@@ -631,6 +631,7 @@ bool Utilities::isVideo( const DB::FileName& fileName )
         videoExtensions.insert( QString::fromLatin1( "mts" ) );
         videoExtensions.insert( QString::fromLatin1( "ogg" ) );
         videoExtensions.insert( QString::fromLatin1( "ogv" ) );
+        videoExtensions.insert( QString::fromLatin1( "m2ts" ) );
     }
 
     QFileInfo fi( fileName.relative() );

@@ -17,6 +17,7 @@
 */
 #include "ThumbnailCache.h"
 #include <QBuffer>
+#include <QCache>
 #include <QTemporaryFile>
 #include <QDir>
 #include <Settings/SettingsData.h>
@@ -27,12 +28,52 @@
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
 const int FILEVERSION=4;
+// We map some thumbnail files into memory and manage them in a least-recently-used fashion
+const size_t LRU_SIZE=2;
+
+namespace ImageManager {
+/**
+ * The ThumbnailMapping wraps the memory-mapped data of a QFile.
+ * Upon initialization with a file name, the corresponding file is opened
+ * and its contents mapped into memory (as a QByteArray).
+ *
+ * Deleting the ThumbnailMapping unmaps the memory and closes the file.
+ */
+class ThumbnailMapping
+{
+public:
+    ThumbnailMapping(const QString &filename)
+        : file(filename),map(0)
+    {
+        if ( !file.open( QIODevice::ReadOnly ) )
+            qWarning("Failed to open thumbnail file");
+
+        uchar * data = file.map( 0, file.size() );
+        if ( !data || QFile::NoError != file.error() )
+        {
+            qWarning("Failed to map thumbnail file");
+        }
+        else
+        {
+            map = QByteArray::fromRawData( reinterpret_cast<const char*>(data), file.size() );
+        }
+    }
+    bool isValid()
+    {
+        return !map.isEmpty();
+    }
+    // we need to keep the file around to keep the data mapped:
+    QFile file;
+    QByteArray map;
+};
+}
 
 ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = 0;
 
 ImageManager::ThumbnailCache::ThumbnailCache()
     : m_currentFile(0), m_currentOffset(0), m_unsaved(0)
 {
+    m_memcache = new QCache<int,ThumbnailMapping>(LRU_SIZE);
     const QString dir = thumbnailPath(QString());
     if ( !QFile::exists(dir) )
         QDir().mkpath(dir);
@@ -40,6 +81,11 @@ ImageManager::ThumbnailCache::ThumbnailCache()
     load();
     m_timer = new QTimer;
     connect( m_timer, SIGNAL(timeout()), this, SLOT(save()));
+}
+
+ImageManager::ThumbnailCache::~ThumbnailCache()
+{
+    delete m_memcache;
 }
 
 void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
@@ -56,6 +102,8 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         return;
     }
 
+    // purge in-memory cache for the current file:
+    m_memcache->remove( m_currentFile );
     QByteArray data;
     QBuffer buffer( &data );
     bool OK = buffer.open( QIODevice::WriteOnly );
@@ -96,20 +144,18 @@ QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
 
     CacheFileInfo info = m_map[name];
 
-    QFile file( fileNameForIndex( info.fileIndex ) );
-    if ( !file.open( QIODevice::ReadOnly ) )
+    ThumbnailMapping *t = m_memcache->object(info.fileIndex);
+    if (!t || !t->isValid())
     {
-        qWarning("Failed to open thumbnail file");
-        return QPixmap();
+        t = new ThumbnailMapping( fileNameForIndex( info.fileIndex ) );
+        if (!t->isValid())
+        {
+            qWarning("Failed to map thumbnail file");
+            return QPixmap();
+        }
+        m_memcache->insert(info.fileIndex,t);
     }
-
-    const char* data = (const char*) file.map( info.offset, info.size );
-    if ( !data || QFile::NoError != file.error() )
-    {
-        qWarning("Failed to map thumbnail file");
-        return QPixmap();
-    }
-    QByteArray array( data, info.size );
+    QByteArray array( t->map.mid(info.offset , info.size ) );
     QBuffer buffer( &array );
     buffer.open( QIODevice::ReadOnly );
     QImage image;
@@ -216,6 +262,7 @@ void ImageManager::ThumbnailCache::flush()
     m_currentFile = 0;
     m_currentOffset = 0;
     m_map.clear();
+    m_memcache->clear();
     save();
 }
 

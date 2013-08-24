@@ -83,7 +83,8 @@ int main( int argc, char** argv ) {
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
         int code = app.exec();
-        delete view;
+        // ZaJ: deinitialization crashes KPA in some cases. Disable until someone does a proper fix:
+        //delete view;
         return code;
     }
     catch (...) {

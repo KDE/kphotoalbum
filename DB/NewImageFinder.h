@@ -32,7 +32,7 @@ class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums(const DB::FileNameList& list, DB::MD5Map* map, bool* wasCanceled=0);
+    bool calculateMD5sums(const DB::FileNameList& list, DB::MD5Map* map, bool* wasCanceled=nullptr);
 
 protected:
     void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );

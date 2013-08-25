@@ -27,7 +27,7 @@
 #include "ThumbnailModel.h"
 #include <ThumbnailView/CellGeometry.h>
 
-ThumbnailView::VideoThumbnailCycler* ThumbnailView::VideoThumbnailCycler::s_instance = 0;
+ThumbnailView::VideoThumbnailCycler* ThumbnailView::VideoThumbnailCycler::s_instance = nullptr;
 
 ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)

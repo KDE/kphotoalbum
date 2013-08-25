@@ -23,7 +23,7 @@
 #include "Utilities/Util.h"
 
 ImportExport::KimFileReader::KimFileReader()
-    :_zip(0)
+    :_zip(nullptr)
 {
 }
 
@@ -32,17 +32,17 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
     m_fileName = fileName;
     _zip = new KZip( fileName );
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
-        KMessageBox::error( 0, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
+        KMessageBox::error( nullptr, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
         delete _zip;
-    _zip = 0;
+    _zip = nullptr;
         return false;
     }
 
     _dir = _zip->directory();
-    if ( _dir == 0 ) {
-        KMessageBox::error( 0, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
+    if ( _dir == nullptr ) {
+        KMessageBox::error( nullptr, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
         delete _zip;
-    _zip = 0;
+    _zip = nullptr;
     return false;
     }
 
@@ -53,8 +53,8 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
 QByteArray ImportExport::KimFileReader::indexXML()
 {
     const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
-    if ( indexxml == 0 || ! indexxml->isFile() ) {
-        KMessageBox::error( 0, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." , m_fileName ) );
+    if ( indexxml == nullptr || ! indexxml->isFile() ) {
+        KMessageBox::error( nullptr, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." , m_fileName ) );
         return QByteArray();
     }
 
@@ -74,7 +74,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail( QString fileName )
         return QPixmap();
 
     if ( !thumbnails->isDirectory() ) {
-        KMessageBox::error( 0, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken.") );
+        KMessageBox::error( nullptr, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken.") );
         return QPixmap();
     }
 
@@ -83,8 +83,8 @@ QPixmap ImportExport::KimFileReader::loadThumbnail( QString fileName )
     const QString ext = Utilities::isVideo( DB::FileName::fromRelativePath(fileName) ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).completeSuffix();
     fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripEndingForwardSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
-    if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( 0, i18n("No thumbnail existed in export file for %1", fileName ) );
+    if ( fileEntry == nullptr || !fileEntry->isFile() ) {
+        KMessageBox::error( nullptr, i18n("No thumbnail existed in export file for %1", fileName ) );
         return QPixmap();
     }
 
@@ -99,20 +99,20 @@ QByteArray ImportExport::KimFileReader::loadImage( const QString& fileName )
 {
     const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
     if ( !images ) {
-        KMessageBox::error( 0, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
+        KMessageBox::error( nullptr, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
         return QByteArray();
     }
 
     if ( !images->isDirectory() ) {
-        KMessageBox::error( 0, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
+        KMessageBox::error( nullptr, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
         return QByteArray();
     }
 
     const KArchiveDirectory* imagesDir = static_cast<const KArchiveDirectory*>( images );
 
     const KArchiveEntry* fileEntry = imagesDir->entry( fileName );
-    if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( 0, i18n("No image existed in export file for %1", fileName ) );
+    if ( fileEntry == nullptr || !fileEntry->isFile() ) {
+        KMessageBox::error( nullptr, i18n("No image existed in export file for %1", fileName ) );
         return QByteArray();
     }
 

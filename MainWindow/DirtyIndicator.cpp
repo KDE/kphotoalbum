@@ -20,7 +20,7 @@
 #include <QPixmap>
 #include <QLabel>
 
-static MainWindow::DirtyIndicator* _instance = 0;
+static MainWindow::DirtyIndicator* _instance = nullptr;
 bool MainWindow::DirtyIndicator::_autoSaveDirty = false;
 bool MainWindow::DirtyIndicator::_saveDirty = false;
 

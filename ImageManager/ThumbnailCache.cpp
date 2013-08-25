@@ -43,7 +43,7 @@ class ThumbnailMapping
 {
 public:
     ThumbnailMapping(const QString &filename)
-        : file(filename),map(0)
+        : file(filename),map(nullptr)
     {
         if ( !file.open( QIODevice::ReadOnly ) )
             qWarning("Failed to open thumbnail file");
@@ -68,7 +68,7 @@ public:
 };
 }
 
-ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = 0;
+ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = nullptr;
 
 ImageManager::ThumbnailCache::ThumbnailCache()
     : m_currentFile(0), m_currentOffset(0), m_unsaved(0)
@@ -252,7 +252,7 @@ ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::instance()
 void ImageManager::ThumbnailCache::deleteInstance()
 {
     delete m_instance;
-    m_instance = 0;
+    m_instance = nullptr;
 }
 
 void ImageManager::ThumbnailCache::flush()

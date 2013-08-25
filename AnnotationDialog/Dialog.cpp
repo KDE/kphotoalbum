@@ -940,8 +940,8 @@ void AnnotationDialog::Dialog::setupFocus()
 
 
     // now setup tab order.
-    QWidget* prev = 0;
-    QWidget* first = 0;
+    QWidget* prev = nullptr;
+    QWidget* first = nullptr;
     for( QList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev ) {
             setTabOrder( prev, *orderedIt );
@@ -994,7 +994,7 @@ void AnnotationDialog::Dialog::setupActions()
 {
     _actions = new KActionCollection( this );
 
-    KAction* action = 0;
+    KAction* action = nullptr;
     action = _actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), _optionList.at(0), SLOT(slotSortAlphaTree()) );
     action->setText( i18n("Sort Alphabetically (Tree)") );
     action->setShortcut(Qt::CTRL+Qt::Key_F4);

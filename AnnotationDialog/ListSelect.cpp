@@ -312,7 +312,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     QMenu* members = new QMenu( i18n( "Super Categories" ) );
     menu->addMenu( members );
-    QAction* newCategoryAction = 0;
+    QAction* newCategoryAction = nullptr;
     if ( item ) {
         QStringList grps = memberMap.groups( _category->name() );
 
@@ -333,8 +333,8 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     QAction* newSubcategoryAction = menu->addAction( i18n( "Create Subcategory..." ) );
 
     // -------------------------------------------------- Take item out of category
-    QTreeWidgetItem* parent = item ? item->parent() : 0;
-    QAction* takeAction = 0;
+    QTreeWidgetItem* parent = item ? item->parent() : nullptr;
+    QAction* takeAction = nullptr;
     if ( parent )
         takeAction = menu->addAction( i18n( "Take item out of category %1", parent->text(0) ) );
 
@@ -363,7 +363,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     }
     // -------------------------------------------------- exec
     QAction* which = menu->exec( _treeWidget->mapToGlobal(pos));
-    if ( which == 0 )
+    if ( which == nullptr )
         return;
 
     else if ( which == deleteAction ) {
@@ -458,9 +458,9 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
 void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, QTreeWidgetItem* parent )
 {
     for( QList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.constBegin(); subcategoryIt != item->_subcategories.constEnd(); ++subcategoryIt ) {
-        CheckDropItem* newItem = 0;
+        CheckDropItem* newItem = nullptr;
 
-        if ( parent == 0 )
+        if ( parent == nullptr )
             newItem = new CheckDropItem( _treeWidget, (*subcategoryIt)->_name, QString() );
         else
             newItem = new CheckDropItem( _treeWidget, parent, (*subcategoryIt)->_name, QString() );

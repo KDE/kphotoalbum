@@ -33,7 +33,7 @@
   indicate that that is a possibility.
 */
 
-BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::m_instance = 0;
+BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::m_instance = nullptr;
 
 BackgroundTaskManager::JobManager::JobManager() :
     m_isPaused(false)
@@ -94,7 +94,7 @@ BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::activeJob(int
 {
     if ( index < m_active.count())
         return m_active[index];
-    return 0;
+    return nullptr;
 }
 
 int BackgroundTaskManager::JobManager::futureJobCount() const

@@ -31,11 +31,11 @@
 
 using namespace DB;
 
-ImageDB* ImageDB::_instance = 0;
+ImageDB* ImageDB::_instance = nullptr;
 
 ImageDB* DB::ImageDB::instance()
 {
-    if ( _instance == 0 )
+    if ( _instance == nullptr )
         exit(0); // Either we are closing down or ImageDB::instance was called before ImageDB::setup
     return _instance;
 }
@@ -51,7 +51,7 @@ void ImageDB::setupXMLDB( const QString& configFile )
 void ImageDB::deleteInstance()
 {
     delete _instance;
-    _instance = 0;
+    _instance = nullptr;
 }
 
 void ImageDB::connectSlots()

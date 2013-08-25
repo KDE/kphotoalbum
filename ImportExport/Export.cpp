@@ -195,7 +195,7 @@ Export::Export(
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
     if ( ! _zip->open( QIODevice::WriteOnly ) ) {
-        KMessageBox::error( 0, i18n("Error creating zip file") );
+        KMessageBox::error( nullptr, i18n("Error creating zip file") );
         *ok = false;
         return;
     }
@@ -331,7 +331,7 @@ void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, 
         QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( 0, i18n("Error writing file %1", file ) );
+            KMessageBox::error( nullptr, i18n("Error writing file %1", file ) );
             *_ok = false;
         }
         out.write( data, data.size() );
@@ -370,7 +370,7 @@ void Export::showUsageDialog()
               "This will make your web server tell konqueror that it is a KPhotoAlbum file when clicking on the link, "
               "otherwise the web server will just tell konqueror that it is a plain text file.</p>" );
 
-    KMessageBox::information( 0, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );
+    KMessageBox::information( nullptr, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );
 }
 
 

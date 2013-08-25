@@ -23,7 +23,7 @@
 struct Data
 {
     Data( const QString& name )
-        : name( name ), parent(0) {}
+        : name( name ), parent(nullptr) {}
     ~Data() {
         qDeleteAll( children );
     }

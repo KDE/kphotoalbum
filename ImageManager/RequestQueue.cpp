@@ -61,7 +61,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
         }
     } while ( it != _queues.begin() );
 
-    return NULL;
+    return nullptr;
 }
 
 void ImageManager::RequestQueue::cancelRequests( ImageClientInterface* client, StopAction action )

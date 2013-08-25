@@ -31,7 +31,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
-ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = 0;
+ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = nullptr;
 
 // -- Manager --
 
@@ -133,7 +133,7 @@ int ImageManager::AsyncLoader::activeCount() const
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
     QMutexLocker dummy( &_lock );
-    ImageRequest* request = 0;
+    ImageRequest* request = nullptr;
     while ( !( request = _loadList.popNext() ) )
         _sleepers.wait( &_lock );
     _currentLoading.insert( request );

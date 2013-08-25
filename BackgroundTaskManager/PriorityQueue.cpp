@@ -51,7 +51,7 @@ JobInterface *PriorityQueue::dequeue()
             return queue.dequeue();
     }
     Q_ASSERT( false && "Queue was empty");
-    return 0;
+    return nullptr;
 }
 
 JobInterface *PriorityQueue::peek(int index) const
@@ -64,7 +64,7 @@ JobInterface *PriorityQueue::peek(int index) const
             offset += queue.count();
     }
     Q_ASSERT( false && "index beyond queue");
-    return 0;
+    return nullptr;
 }
 
 bool PriorityQueue::hasForegroundTasks() const

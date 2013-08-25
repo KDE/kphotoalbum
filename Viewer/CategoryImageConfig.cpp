@@ -34,7 +34,7 @@
 
 using Utilities::StringSet;
 
-CategoryImageConfig* CategoryImageConfig::_instance = 0;
+CategoryImageConfig* CategoryImageConfig::_instance = nullptr;
 
 CategoryImageConfig::CategoryImageConfig()
     : _image( QImage() )

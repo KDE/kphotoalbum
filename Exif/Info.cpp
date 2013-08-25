@@ -29,7 +29,7 @@
 
 using namespace Exif;
 
-Info* Info::_instance = 0;
+Info* Info::_instance = nullptr;
 
 QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
 {

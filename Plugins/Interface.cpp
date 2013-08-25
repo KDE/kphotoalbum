@@ -50,7 +50,7 @@ KIPI::ImageCollection Plugins::Interface::currentSelection()
     if (!MainWindow::Window::theMainWindow()->selected().isEmpty())
         return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentSelection ) );
     else
-        return KIPI::ImageCollection(0);
+        return KIPI::ImageCollection(nullptr);
 }
 
 QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()

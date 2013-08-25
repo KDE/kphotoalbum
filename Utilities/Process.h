@@ -29,7 +29,7 @@ class Process : public QProcess
 {
     Q_OBJECT
 public:
-    explicit Process(QObject *parent = 0);
+    explicit Process(QObject *parent = nullptr);
     QString stdout() const;
     QString stderr() const;
     

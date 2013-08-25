@@ -30,7 +30,7 @@ class JobViewer : public QDialog
 {
     Q_OBJECT
 public:
-    explicit JobViewer(QWidget *parent = 0);
+    explicit JobViewer(QWidget *parent = nullptr);
     void setVisible(bool) override;
 
 private slots:

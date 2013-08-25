@@ -51,7 +51,7 @@ void Import::imageImport( const KUrl& url )
 }
 
 ImportExport::Import::Import()
-    :m_tmp(0)
+    :m_tmp(nullptr)
 {
 }
 

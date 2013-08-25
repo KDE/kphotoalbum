@@ -41,7 +41,7 @@ class VideoThumbnailCycler : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = 0);
+    explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = nullptr);
     static VideoThumbnailCycler* instance();
     void setActive( const DB::FileName& id );
     void stopCycle();

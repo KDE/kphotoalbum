@@ -36,7 +36,7 @@
   This class takes care of that, namely waiting for the context menu to disapear, hide the infobox, stop the video, and then shoot the snapshot
  */
 
-Viewer::VideoShooter* Viewer::VideoShooter::m_instance = 0;
+Viewer::VideoShooter* Viewer::VideoShooter::m_instance = nullptr;
 
 Viewer::VideoShooter::VideoShooter()
 {

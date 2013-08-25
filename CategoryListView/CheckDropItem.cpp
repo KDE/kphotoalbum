@@ -119,7 +119,7 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
               "<p>Was it really your intention to make \"%2\" sub categories of \"%3\"?</p>",
               children.size(), children.join( QString::fromLatin1( ", " ) ), parent );
 
-    const int answer = KMessageBox::warningContinueCancel( 0, msg, i18n("Move Items"), KStandardGuiItem::cont(),
+    const int answer = KMessageBox::warningContinueCancel( nullptr, msg, i18n("Move Items"), KStandardGuiItem::cont(),
                                                            KStandardGuiItem::cancel(),
                                                            QString::fromLatin1( "DoYouReallyWantToMessWithMemberGroups" ) );
     return answer == KMessageBox::Continue;

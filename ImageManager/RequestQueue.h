@@ -39,7 +39,7 @@ public:
     // @return 'true', if this is not a request already pending.
     bool addRequest( ImageRequest* request );
 
-    // Return the next needed ImageRequest from the queue or NULL if there
+    // Return the next needed ImageRequest from the queue or nullptr if there
     // is none. The ownership is returned back to the caller so it has to
     // delete it.
     ImageRequest* popNext();
@@ -57,7 +57,7 @@ private:
     // This allows to store ImageRequests with value-semantic in a Set.
     class ImageRequestReference {
     public:
-        ImageRequestReference() : _ptr(0) {}
+        ImageRequestReference() : _ptr(nullptr) {}
         ImageRequestReference(const ImageRequestReference& other)
             : _ptr(other._ptr) {}
         explicit ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}

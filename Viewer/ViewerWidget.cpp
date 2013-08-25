@@ -68,7 +68,7 @@
 #  include "Exif/InfoDialog.h"
 #endif
 
-Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = 0;
+Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = nullptr;
 
 Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 {
@@ -78,7 +78,7 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,QString> > *macroStore )
-    :QStackedWidget( 0 ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore),  _myInputMacros(0)
+    :QStackedWidget( nullptr ), _current(0), _popup(nullptr), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore),  _myInputMacros(nullptr)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
@@ -825,7 +825,7 @@ Viewer::ViewerWidget::~ViewerWidget()
     inhibitScreenSaver(false);
 
     if ( _latest == this )
-        _latest = 0;
+        _latest = nullptr;
 
     if ( _myInputMacros )
         delete _myInputMacros;

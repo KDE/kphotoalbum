@@ -19,7 +19,7 @@
 #include "ImageInfo.h"
 
 DB::ExactCategoryMatcher::ExactCategoryMatcher( const QString category)
-    : _category(category), _matcher(0)
+    : _category(category), _matcher(nullptr)
 {
 }
 
@@ -28,7 +28,7 @@ DB::ExactCategoryMatcher::~ExactCategoryMatcher()
     if ( _matcher )
     {
         delete _matcher;
-        _matcher = 0;
+        _matcher = nullptr;
     }
 }
 

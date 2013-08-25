@@ -29,7 +29,7 @@
 namespace BackgroundTaskManager {
 
 StatusIndicator::StatusIndicator( QWidget* parent )
-    : KLed( Qt::green, parent ), m_timer( new QTimer(this) ), m_jobViewer(0)
+    : KLed( Qt::green, parent ), m_timer( new QTimer(this) ), m_jobViewer(nullptr)
 {
     connect( m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
     setCursor(Qt::PointingHandCursor);

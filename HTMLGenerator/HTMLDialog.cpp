@@ -309,7 +309,7 @@ void HTMLDialog::slotOk()
         return;
 
     if( activeResolutions().count() < 1 ) {
-        KMessageBox::error( 0, i18n( "You must select at least one resolution." ) );
+        KMessageBox::error( nullptr, i18n( "You must select at least one resolution." ) );
         return;
     }
 

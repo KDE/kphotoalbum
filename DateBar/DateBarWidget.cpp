@@ -45,8 +45,8 @@ const int arrowLength = 20;
  */
 
 DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
-    :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
-     _currentUnit(0), _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
+    :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(nullptr),
+     _currentUnit(0), _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(nullptr),
      _showResolutionIndicator( true ), _doAutomaticRangeAdjustment( true )
 {
     setMouseTracking( true );
@@ -465,17 +465,17 @@ void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 
 void DateBar::DateBarWidget::mouseReleaseEvent( QMouseEvent* )
 {
-    if ( _currentMouseHandler == 0 )
+    if ( _currentMouseHandler == nullptr )
         return;
 
     _currentMouseHandler->endAutoScroll();
     _currentMouseHandler->mouseReleaseEvent();
-    _currentMouseHandler = 0;
+    _currentMouseHandler = nullptr;
 }
 
 void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _currentMouseHandler == 0)
+    if ( _currentMouseHandler == nullptr)
         return;
 
     showStatusBarTip( event->pos() );

@@ -40,7 +40,7 @@ class KDE_EXPORT Interface :public KIPI::Interface
     Q_OBJECT
 
 public:
-    explicit Interface( QObject *parent, const char *name=0);
+    explicit Interface( QObject *parent, const char *name=nullptr);
     virtual KIPI::ImageCollection currentAlbum();
     virtual KIPI::ImageCollection currentSelection();
     virtual QList<KIPI::ImageCollection> allAlbums();

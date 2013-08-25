@@ -41,13 +41,13 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
         QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::SettingsData::instance()->imageDirectory() ).arg(fileNameWithExt);
         KZip zip( fileAndDir );
         if ( ! zip.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( 0, i18n("Error creating zip file %1",fileAndDir) );
+            KMessageBox::error( nullptr, i18n("Error creating zip file %1",fileAndDir) );
             return;
         }
 
         if ( !zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ), fileName ) )
         {
-            KMessageBox::error( 0, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir) );
+            KMessageBox::error( nullptr, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir) );
         }
         zip.close();
     }

@@ -80,7 +80,7 @@ void InvalidDateFinder::accept()
     // Now search for the images.
     const DB::FileNameList list = DB::ImageDB::instance()->images();
     DB::FileNameList toBeShown;
-    KProgressDialog dialog( 0, i18n("Reading file properties"),
+    KProgressDialog dialog( nullptr, i18n("Reading file properties"),
                             i18n("Reading File Properties") );
     dialog.progressBar()->setMaximum(list.size());
     dialog.progressBar()->setValue(0);

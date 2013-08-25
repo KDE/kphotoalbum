@@ -21,7 +21,7 @@
 
 using namespace DB;
 
-MemberMap::MemberMap() :QObject(0), _dirty( true ), _loading( false )
+MemberMap::MemberMap() :QObject(nullptr), _dirty( true ), _loading( false )
 {
 }
 
@@ -166,7 +166,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
 }
 
 MemberMap::MemberMap( const MemberMap& other )
-    : QObject( 0 ), _members( other.memberMap() ), _dirty( true ), _loading( false )
+    : QObject( nullptr ), _members( other.memberMap() ), _dirty( true ), _loading( false )
 {
 }
 
@@ -242,7 +242,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
         QMap<QString, StringSet>::const_iterator
             closureOfItem = categoryClosure.constFind(item);
-        const StringSet* closureOfItemPtr(0);
+        const StringSet* closureOfItemPtr(nullptr);
         if (closureOfItem != categoryClosure.constEnd()) {
             closureOfItemPtr = &(*closureOfItem);
             categoryClosure[group] += *closureOfItem;

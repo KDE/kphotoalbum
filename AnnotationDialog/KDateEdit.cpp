@@ -312,7 +312,7 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
         if (e->type() == QEvent::Wheel) {
             // Up and down arrow keys step the date
             QWheelEvent* we = dynamic_cast<QWheelEvent*>(e);
-            Q_ASSERT( we != NULL );
+            Q_ASSERT( we != nullptr );
 
             int step = 0;
             step = we->delta() > 0 ? 1 : -1;

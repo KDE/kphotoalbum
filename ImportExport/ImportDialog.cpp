@@ -48,7 +48,7 @@ using namespace ImportExport;
 
 
 ImportDialog::ImportDialog( QWidget* parent )
-    :KAssistantDialog( parent ), _hasFilled( false ), _md5CheckPage(0)
+    :KAssistantDialog( parent ), _hasFilled( false ), _md5CheckPage(nullptr)
 {
 }
 
@@ -269,7 +269,7 @@ void ImportDialog::createCategoryPages()
         _dummy = addPage( dummy, QString() );
     }
     else {
-        _categoryMatcherPage = 0;
+        _categoryMatcherPage = nullptr;
         possiblyAddMD5CheckPage();
     }
 }
@@ -312,7 +312,7 @@ void ImportDialog::next()
         _categoryMatcher->setEnabled( false );
         removePage(_dummy);
 
-        ImportMatcher* matcher = 0;
+        ImportMatcher* matcher = nullptr;
         for( QList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
              it != _categoryMatcher->_matchers.end();
              ++it )

@@ -39,7 +39,7 @@
 using namespace ImportExport;
 
 ImportExport::ImportHandler::ImportHandler()
-    : m_fileMapper(NULL), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
+    : m_fileMapper(nullptr), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
     , m_eventLoop( new QEventLoop )
 
 {

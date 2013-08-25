@@ -72,7 +72,7 @@ void Exif::TreeView::reload()
 
     for( StringSet::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
-        QTreeWidgetItem* parent = 0;
+        QTreeWidgetItem* parent = nullptr;
         QString path;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
             if ( !path.isEmpty() )
@@ -81,7 +81,7 @@ void Exif::TreeView::reload()
             if ( tree.contains( path ) )
                 parent = tree[path];
             else {
-                if ( parent == 0 )
+                if ( parent == nullptr )
                     parent = new QTreeWidgetItem( this, QStringList(*subKeyIt) );
                 else
                     parent = new QTreeWidgetItem( parent, QStringList(*subKeyIt) );

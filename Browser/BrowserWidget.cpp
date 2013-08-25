@@ -39,7 +39,7 @@
 #include <QStackedWidget>
 #include "DB/CategoryCollection.h"
 
-Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
+Browser::BrowserWidget* Browser::BrowserWidget::_instance = nullptr;
 bool Browser::BrowserWidget::_isResizing = false;
 
 
@@ -390,7 +390,7 @@ void Browser::BrowserWidget::createWidgets()
 
     connect( _treeView, SIGNAL(expanded(QModelIndex)), SLOT(adjustTreeViewColumnSize()) );
 
-    _curView = 0;
+    _curView = nullptr;
 }
 
 bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)

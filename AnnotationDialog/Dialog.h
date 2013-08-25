@@ -74,7 +74,7 @@ public:
     explicit Dialog( QWidget* parent );
     ~Dialog();
     int configure( DB::ImageInfoList list,  bool oneAtATime );
-    DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
+    DB::ImageSearchInfo search( DB::ImageSearchInfo* search = nullptr );
     DB::FileNameSet rotatedFiles() const;
     KActionCollection* actions();
 

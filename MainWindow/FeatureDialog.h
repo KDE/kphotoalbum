@@ -44,7 +44,7 @@ protected:
 class HelpBrowser :public KTextBrowser
 {
 public:
-    explicit HelpBrowser( QWidget* parent, const char* name = 0 );
+    explicit HelpBrowser( QWidget* parent, const char* name = nullptr );
     virtual void setSource( const QUrl& name );
 };
 

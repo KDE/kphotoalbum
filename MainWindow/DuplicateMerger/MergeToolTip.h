@@ -37,7 +37,7 @@ protected:
 
 private:
     static MergeToolTip* s_instance;
-    explicit MergeToolTip(QWidget *parent = 0);
+    explicit MergeToolTip(QWidget *parent = nullptr);
 };
 
 } // namespace MainWindow

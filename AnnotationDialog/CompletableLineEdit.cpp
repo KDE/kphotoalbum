@@ -123,7 +123,7 @@ QTreeWidgetItem *AnnotationDialog::CompletableLineEdit::findItemInListView( cons
         if ( itemMatchesText( *itemIt, text ) )
             return *itemIt;
     }
-    return 0;
+    return nullptr;
 }
 
 bool AnnotationDialog::CompletableLineEdit::itemMatchesText(QTreeWidgetItem *item, const QString& text )

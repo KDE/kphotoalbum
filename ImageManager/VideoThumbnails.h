@@ -39,7 +39,7 @@ class VideoThumbnails : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoThumbnails(QObject *parent = 0);
+    explicit VideoThumbnails(QObject *parent = nullptr);
     void setVideoFile( const DB::FileName& fileName );
 
 public slots:

@@ -195,14 +195,14 @@ void DB::Category::setCategoryImage( const QString& category, QString member, co
     if ( !fi.exists() ) {
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1'.", dir ), i18n("Unable to Create Directory") );
+            KMessageBox::error( nullptr, i18n("Unable to create directory '%1'.", dir ), i18n("Unable to Create Directory") );
             return;
         }
     }
     QString fileName = fileForCategoryImage( category, member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
-        KMessageBox::error( 0, i18n("Error when saving image '%1'.",fileName), i18n("Error Saving Image") );
+        KMessageBox::error( nullptr, i18n("Error when saving image '%1'.",fileName), i18n("Error Saving Image") );
         return;
     }
 

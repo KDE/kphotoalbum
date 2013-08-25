@@ -27,7 +27,7 @@
 #include <QTimer>
 #include <DB/ImageInfoPtr.h>
 
-ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = 0;
+ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = nullptr;
 
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
     :QObject( parent ), m_statusBar( statusBar ),  m_isBuilding( false )

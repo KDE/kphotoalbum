@@ -34,12 +34,12 @@ Browser::BrowserWidget* Browser::BrowserPage::browser() const
 
 /**
  * Return a page for the item at the given model index. In case the
- * activation doesn't result in a new page, simply return 0 (This is for
+ * activation doesn't result in a new page, simply return nullptr (This is for
  * example the case if a search is executed, but canceled).
  */
 Browser::BrowserPage* Browser::BrowserPage::activateChild( const QModelIndex &)
 {
-    return 0;
+    return nullptr;
 }
 
 Browser::Viewer Browser::BrowserPage::viewer()

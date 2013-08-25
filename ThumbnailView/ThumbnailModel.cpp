@@ -395,7 +395,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::FileName& fileName ) co
         return m_overrideImage;
 
     const DB::ImageInfoPtr imageInfo = fileName.info();
-    if (imageInfo == DB::ImageInfoPtr(NULL) )
+    if (imageInfo == DB::ImageInfoPtr(nullptr) )
         return QPixmap();
 
     if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )

@@ -355,7 +355,7 @@ void ImageSearchInfo::compile() const
             }
             if ( exactMatch )
             {
-                DB::CategoryMatcher *exactMatcher = 0;
+                DB::CategoryMatcher *exactMatcher = nullptr;
                 // if andMatcher has exactMatch set, but no CategoryMatchers, then
                 // matching "category / None" is what we want:
                 if ( andMatcher->_elements.count() == 0 )
@@ -381,7 +381,7 @@ void ImageSearchInfo::compile() const
                 else if ( andMatcher->_elements.count() > 1 )
                     orMatcher->addElement( andMatcher );
         }
-        CategoryMatcher* matcher = 0;
+        CategoryMatcher* matcher = nullptr;
         if ( orMatcher->_elements.count() == 1 )
             matcher = orMatcher->_elements[0];
         else if ( orMatcher->_elements.count() > 1 )

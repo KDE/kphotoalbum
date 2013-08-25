@@ -52,7 +52,7 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     setPalette( pal );
     setAutoFillBackground( true );
 
-    _mediaObject = 0;
+    _mediaObject = nullptr;
 }
 
 void Viewer::VideoDisplay::setup()
@@ -197,7 +197,7 @@ void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::St
 {
     setVideoWidgetSize();
     if ( newState == Phonon::ErrorState ) {
-        QMessageBox::critical(0, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
+        QMessageBox::critical(nullptr, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
     }
 }
 

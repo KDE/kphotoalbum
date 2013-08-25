@@ -39,7 +39,7 @@ class DuplicateMerger : public KDialog
     Q_OBJECT
     
 public:
-    explicit DuplicateMerger(QWidget *parent = 0);
+    explicit DuplicateMerger(QWidget *parent = nullptr);
     ~DuplicateMerger();
 
 private slots:

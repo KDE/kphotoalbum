@@ -107,7 +107,7 @@ using namespace Settings;
 const WindowType Settings::MainWindow       = "MainWindow";
 const WindowType Settings::AnnotationDialog = "AnnotationDialog";
 
-SettingsData* SettingsData::_instance = 0;
+SettingsData* SettingsData::_instance = nullptr;
 
 SettingsData* SettingsData::instance()
 {
@@ -204,7 +204,7 @@ bool SettingsData::trustTimeStamps()
                                "As a backup, KPhotoAlbum may use the timestamp of the image - this may, "
                                "however, not be valid in case the image is scanned in. "
                                "So the question is, should KPhotoAlbum trust the time stamp on your images?" );
-            int answer = KMessageBox::questionYesNo( 0, txt, i18n("Trust Time Stamps?") );
+            int answer = KMessageBox::questionYesNo( nullptr, txt, i18n("Trust Time Stamps?") );
             QApplication::restoreOverrideCursor();
             if ( answer == KMessageBox::Yes )
                 _trustTimeStamps = true;

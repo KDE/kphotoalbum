@@ -260,7 +260,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
 
-        info = NULL;  // we already added it, so don't process again
+        info = nullptr;  // we already added it, so don't process again
     }
 
     return info;
@@ -355,7 +355,7 @@ bool  NewImageFinder::calculateMD5sums(
         *wasCanceled = false;
 
     if ( !cantRead.empty() )
-        KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead.toStringList(DB::RelativeToImageRoot) );
+        KMessageBox::informationList( nullptr, i18n("Following files could not be read:"), cantRead.toStringList(DB::RelativeToImageRoot) );
 
     return dirty;
 }

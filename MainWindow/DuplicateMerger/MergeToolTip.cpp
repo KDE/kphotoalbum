@@ -22,7 +22,7 @@
 
 namespace MainWindow {
 
-MergeToolTip* MergeToolTip::s_instance = 0;
+MergeToolTip* MergeToolTip::s_instance = nullptr;
 
 MainWindow::MergeToolTip *MainWindow::MergeToolTip::instance()
 {
@@ -34,7 +34,7 @@ MainWindow::MergeToolTip *MainWindow::MergeToolTip::instance()
 void MergeToolTip::destroy()
 {
     delete s_instance;
-    s_instance = 0;
+    s_instance = nullptr;
 }
 
 MergeToolTip::MergeToolTip(QWidget *parent) :

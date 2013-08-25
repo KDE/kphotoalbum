@@ -26,7 +26,7 @@
 #include <qregexp.h>
 #include <kdebug.h>
 
-MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = 0;
+MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
     :KSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
@@ -41,7 +41,7 @@ MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
 
 void MainWindow::SplashScreen::done()
 {
-    _instance = 0;
+    _instance = nullptr;
     (void) close();
     deleteLater();
 }

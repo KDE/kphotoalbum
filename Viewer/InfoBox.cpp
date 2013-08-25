@@ -38,7 +38,7 @@
 using namespace Settings;
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
-    :KTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this ), _menu(0)
+    :KTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this ), _menu(nullptr)
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
@@ -61,7 +61,7 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     _jumpToContext->setCursor( Qt::ArrowCursor );
 
 #ifdef HAVE_NEPOMUK
-    KRatingWidget* rating = new KRatingWidget( 0 );
+    KRatingWidget* rating = new KRatingWidget( nullptr );
 
     // Unfortunately, the KRatingWidget now thinks that it has some absurdly big
     // dimensions. This call will persuade it to stay reasonably small.
@@ -270,7 +270,7 @@ void Viewer::InfoBox::hackLinkColorForQt44()
 void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_menu ) {
-        _menu = new VisibleOptionsMenu( _viewer, new KActionCollection((QObject*)0) );
+        _menu = new VisibleOptionsMenu( _viewer, new KActionCollection((QObject*)nullptr) );
         connect( _menu, SIGNAL(visibleOptionsChanged()), _viewer, SLOT(updateInfoBox()) );
     }
     _menu->exec(event->globalPos());

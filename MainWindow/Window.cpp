@@ -124,12 +124,12 @@
 
 using namespace DB;
 
-MainWindow::Window* MainWindow::Window::_instance = 0;
+MainWindow::Window* MainWindow::Window::_instance = nullptr;
 
 MainWindow::Window::Window( QWidget* parent )
     :KXmlGuiWindow( parent ),
-    _annotationDialog(0),
-     _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
+    _annotationDialog(nullptr),
+     _deleteDialog( nullptr ), _htmlDialog(nullptr), _tokenEditor( nullptr )
 {
     checkIfMplayerIsInstalled();
 
@@ -172,7 +172,7 @@ MainWindow::Window::Window( QWidget* parent )
     _stack->addWidget( _thumbnailView->gui() );
     _stack->setCurrentWidget( _browser );
 
-    _settingsDialog = 0;
+    _settingsDialog = nullptr;
     setupMenuBar();
 
     createSarchBar();
@@ -451,7 +451,7 @@ void MainWindow::Window::createAnnotationDialog()
     if ( !_annotationDialog.isNull() )
         return;
 
-    _annotationDialog = new AnnotationDialog::Dialog( 0 );
+    _annotationDialog = new AnnotationDialog::Dialog( nullptr );
 }
 
 void MainWindow::Window::slotSave()
@@ -531,7 +531,7 @@ void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HAVE_EXIV2
     DB::FileNameList files = selectedOnDisk();
-    static Exif::ReReadDialog* dialog = 0;
+    static Exif::ReReadDialog* dialog = nullptr;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
     if ( dialog->exec( files ) == QDialog::Accepted )
@@ -986,7 +986,7 @@ void MainWindow::Window::slotOptionGroupChanged()
 {
     // FIXME: What if annotation dialog is open? (if that's possible)
     delete _annotationDialog;
-    _annotationDialog = 0;
+    _annotationDialog = nullptr;
     DirtyIndicator::markDirty();
 }
 
@@ -1234,7 +1234,7 @@ void MainWindow::Window::slotSetFileName( const DB::FileName& fileName )
         _statusBar->clearMessage();
     else {
         info = fileName.info();
-        if (info != ImageInfoPtr(NULL) )
+        if (info != ImageInfoPtr(nullptr) )
             _statusBar->showMessage( fileName.absolute(), 4000 );
     }
 }

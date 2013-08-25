@@ -34,7 +34,7 @@
 
 const int THUMBNAILSIZE = 70;
 
-AnnotationDialog::Dialog* Browser::OverviewPage::_config = 0;
+AnnotationDialog::Dialog* Browser::OverviewPage::_config = nullptr;
 Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser), _breadcrumb( breadcrumb )
 {
@@ -181,7 +181,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateChild( const QModelIndex& i
     else if ( isImageIndex( row ) )
         return new ImageViewPage( BrowserPage::searchInfo(), browser()  );
 
-    return 0;
+    return nullptr;
 }
 
 void Browser::OverviewPage::activate()
@@ -212,11 +212,11 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 
         if ( dialog->exec() == QDialog::Rejected ) {
             delete dialog;
-            return 0;
+            return nullptr;
         }
         // Dialog can be deleted by its parent in event loop while in exec()
         if ( dialog.isNull() )
-            return 0;
+            return nullptr;
     }
 
 
@@ -230,12 +230,12 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 
     if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
         KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );
-        return 0;
+        return nullptr;
     }
 
     return new OverviewPage( Breadcrumb( i18n("EXIF Search")), info, browser() );
 #else
-    return 0;
+    return nullptr;
 #endif // HAVE_EXIV2
 }
 
@@ -249,11 +249,11 @@ Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
     DB::ImageSearchInfo info = _config->search( &tmpInfo ); // PENDING(blackie) why take the address?
 
     if ( info.isNull() )
-        return 0;
+        return nullptr;
 
     if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
         KMessageBox::information( browser(), i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );
-        return 0;
+        return nullptr;
     }
 
     return new OverviewPage( Breadcrumb( i18nc("Breadcrumb denoting that we 'browsed' to a search result.","search") ), info, browser() );
@@ -287,7 +287,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
                                        "<li>Now choose the <b>Categories</b> icon</li>"
                                        "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
                                   i18n("Feature has not been configured") );
-        return 0;
+        return nullptr;
     }
 }
 

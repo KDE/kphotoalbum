@@ -25,10 +25,10 @@
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
 
-ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = 0;
+ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
     :_cellGeometry( new CellGeometry(this) ),
-     _model( 0 ),_widget( 0 ), _toolTip( 0 )
+     _model( nullptr ),_widget( nullptr ), _toolTip( nullptr )
 {
     // To avoid one of the components references one of the other before it has been initialized, we first construct them all with null.
     _cellGeometry = new CellGeometry(this);

@@ -670,7 +670,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
 
 void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::ImageInfoPtr info, Database* db )
 {
-    if ( db == 0 )
+    if ( db == nullptr )
         return;
 
     QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();

@@ -33,7 +33,7 @@
 #endif
 
 ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
-    QObject(parent), m_process(0)
+    QObject(parent), m_process(nullptr)
 {
 }
 
@@ -44,7 +44,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
         disconnect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
         m_process->kill();
         delete m_process;
-        m_process = 0;
+        m_process = nullptr;
     }
 
     if (MainWindow::FeatureDialog::mplayerBinary().isEmpty()) {
@@ -104,6 +104,6 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
     emit lengthFound(length);
     m_process->deleteLater();
-    m_process = 0;
+    m_process = nullptr;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

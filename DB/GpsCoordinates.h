@@ -63,7 +63,7 @@ public:
         throw()
         : _longitude(0.0)
         , _latitude(0.0)
-        , _altitude(0)
+        , _altitude(0.0)
         , _precision(PrecisionDataForNull)
     {
     }

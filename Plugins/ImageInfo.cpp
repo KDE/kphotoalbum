@@ -249,13 +249,13 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                 }
                 DB::GpsCoordinates coord(map[QLatin1String("longitude")].toDouble(), map[QLatin1String("latitude")].toDouble(), altitude, precision);
                 _info->setGeoPosition(coord);
-                map.remove(QLatin1String("longitude"));
-                map.remove(QLatin1String("latitude"));
-                map.remove(QLatin1String("altitude"));
-                map.remove(QLatin1String("positionPrecision"));
             } else {
                 qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
             }
+            map.remove(QLatin1String("longitude"));
+            map.remove(QLatin1String("latitude"));
+            map.remove(QLatin1String("altitude"));
+            map.remove(QLatin1String("positionPrecision"));
         }
         if ( map.contains(QLatin1String("tagspath")) )
         {

@@ -48,7 +48,7 @@ QString Plugins::ImageCollection::name()
         }
         break;
     case SubClass:
-        qDebug("Subclass of ImageCollection should overwrite ImageCollection::name()");
+        qWarning("Subclass of ImageCollection should overwrite ImageCollection::name()");
         res = i18nc("A set of images with no description.","Unknown");
         break;
     }

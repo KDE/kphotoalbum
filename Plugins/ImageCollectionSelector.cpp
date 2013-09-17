@@ -28,7 +28,6 @@ Plugins::ImageCollectionSelector::ImageCollectionSelector( QWidget *parent, Inte
 
 QList<KIPI::ImageCollection> Plugins::ImageCollectionSelector::selectedImageCollections() const
 {
-    qDebug("selectedImageCollections");
     if ( _interface ) {
         KIPI::ImageCollection collection = _interface->currentSelection();
         if (!collection.isValid()) {

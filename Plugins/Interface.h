@@ -41,20 +41,20 @@ class KDE_EXPORT Interface :public KIPI::Interface
 
 public:
     explicit Interface( QObject *parent, const char *name=nullptr);
-    virtual KIPI::ImageCollection currentAlbum();
-    virtual KIPI::ImageCollection currentSelection();
-    virtual QList<KIPI::ImageCollection> allAlbums();
-    virtual KIPI::ImageInfo info( const KUrl& );
-    virtual bool addImage( const KUrl&, QString& errmsg );
-    virtual void delImage( const KUrl& );
-    virtual void refreshImages( const KUrl::List& urls );
-    virtual int features() const;
-    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
-    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
+    override virtual KIPI::ImageCollection currentAlbum();
+    override virtual KIPI::ImageCollection currentSelection();
+    override virtual QList<KIPI::ImageCollection> allAlbums();
+    override virtual KIPI::ImageInfo info( const KUrl& );
+    override virtual bool addImage( const KUrl&, QString& errmsg );
+    override virtual void delImage( const KUrl& );
+    override virtual void refreshImages( const KUrl::List& urls );
+    override virtual int features() const;
+    override virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
+    override virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
 
 public slots:
-    void slotSelectionChanged( bool );
-    void pathChanged( const Browser::BreadcrumbList& path );
+    override void slotSelectionChanged( bool );
+    override void pathChanged( const Browser::BreadcrumbList& path );
 
 signals:
     void imagesChanged( const KUrl::List& );

@@ -26,7 +26,7 @@
 namespace KIO { class FileCopyJob; }
 class KJob;
 namespace Utilities { class UniqFilenameMapper; }
-class QProgressDialog;
+class KProgressDialog;
 
 namespace ImportExport {
 class KimFileReader;
@@ -65,7 +65,7 @@ private:
     Utilities::UniqFilenameMapper* m_fileMapper;
     bool m_finishedPressed;
     DB::ImageInfoList _pendingCopies;
-    QProgressDialog* _progress;
+    KProgressDialog* _progress;
     int _totalCopied;
     KIO::FileCopyJob* _job;
     bool _reportUnreadableFiles;

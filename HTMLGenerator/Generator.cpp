@@ -42,7 +42,7 @@
 #include <KIO/CopyJob>
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
-    : QProgressDialog( parent ), _hasEnteredLoop( false )
+    : KProgressDialog( parent ), _hasEnteredLoop( false )
 {
     setLabelText( i18n("Generating images for HTML page ") );
     _setup = setup;
@@ -71,9 +71,9 @@ void HTMLGenerator::Generator::generate()
 
     // prepare the progress dialog
     _total = _waitCounter = calculateSteps();
-    setMaximum( _total );
-    setValue( 0 );
-    connect( this, SIGNAL(canceled()), this, SLOT(slotCancelGenerate()) );
+    progressBar()->setMaximum( _total );
+    progressBar()->setValue( 0 );
+    connect( this, SIGNAL(cancelClicked()), this, SLOT(slotCancelGenerate()) );
 
     _filenameMapper.reset();
 
@@ -102,13 +102,13 @@ void HTMLGenerator::Generator::generate()
 
     // Now generate the thumbnail images
     for (const DB::FileName& fileName : _setup.imageList()) {
-        if ( wasCanceled() )
+        if ( wasCancelled() )
             return;
 
         createImage(fileName, _setup.thumbSize());
     }
 
-    if ( wasCanceled() )
+    if ( wasCancelled() )
         return;
 
     if ( _waitCounter > 0 ) {
@@ -116,7 +116,7 @@ void HTMLGenerator::Generator::generate()
         _eventLoop->exec();
     }
 
-    if ( wasCanceled() )
+    if ( wasCancelled() )
         return;
 
     bool ok = linkIndexFile();
@@ -216,7 +216,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     QDomElement row;
     for (const DB::FileName& fileName : _setup.imageList()) {
         const DB::ImageInfoPtr info = fileName.info();
-        if ( wasCanceled() )
+        if ( wasCancelled() )
             return false;
 
         if ( count % cols == 0 ) {
@@ -317,7 +317,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
-    if ( wasCanceled() )
+    if ( wasCancelled() )
         return false;
 
     // -------------------------------------------------- write to file
@@ -516,7 +516,7 @@ QString HTMLGenerator::Generator::createImage( const DB::FileName& fileName, int
 
 QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
 {
-    setValue( _total - _waitCounter );
+    progressBar()->setValue( _total - _waitCounter );
     qApp->processEvents();
 
     QString baseName = nameImage( fileName, maxImageSize() );
@@ -592,7 +592,7 @@ void HTMLGenerator::Generator::slotCancelGenerate()
 void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize,
                                              const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
 {
-    setValue( _total - _waitCounter );
+    progressBar()->setValue( _total - _waitCounter );
 
     _waitCounter--;
 

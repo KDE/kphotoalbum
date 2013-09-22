@@ -121,7 +121,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     _lineEdit->setListView( _treeWidget );
 
-    connect( _lineEdit, SIGNAL(returnPressed()),  this,  SLOT(slotReturn()) );
+    connect( _lineEdit, SIGNAL(returnPressed(QString)),  this,  SLOT(slotReturn()) );
 
     populate();
 

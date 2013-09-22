@@ -17,6 +17,7 @@
 */
 #include "Exif/InfoDialog.h"
 #include <KComboBox>
+#include <klineedit.h>
 #include <klocale.h>
 #include "Exif/Info.h"
 #include <qlayout.h>
@@ -66,7 +67,7 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
 
     QLabel* searchLabel = new QLabel( i18n( "EXIF Label Search: "), top );
     hlay->addWidget( searchLabel );
-    m_searchBox = new QLineEdit( top );
+    m_searchBox = new KLineEdit( top );
     hlay->addWidget( m_searchBox );
     hlay->addStretch( 1 );
 

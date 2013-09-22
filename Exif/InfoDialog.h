@@ -22,8 +22,8 @@
 #include "ImageManager/ImageClientInterface.h"
 #include <DB/FileName.h>
 class KComboBox;
+class KLineEdit;
 class QLabel;
-class QLineEdit;
 class QKeyEvent;
 class QResizeEvent;
 
@@ -47,7 +47,7 @@ public:
     void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;
 
 private:
-    QLineEdit* m_searchBox;
+    KLineEdit* m_searchBox;
     QLabel* m_pix;
     KComboBox* m_iptcCharset;
     Grid* m_grid;

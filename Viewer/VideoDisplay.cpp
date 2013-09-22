@@ -87,7 +87,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         setup();
 
     _info = info;
-    _mediaObject->setCurrentSource( QUrl::fromLocalFile( info->fileName().absolute() ) );
+    _mediaObject->setCurrentSource( KUrl::fromLocalFile( info->fileName().absolute() ) );
     _mediaObject->play();
 
     return true;
@@ -197,7 +197,7 @@ void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::St
 {
     setVideoWidgetSize();
     if ( newState == Phonon::ErrorState ) {
-        QMessageBox::critical(nullptr, i18n("Error playing media"), _mediaObject->errorString(), QMessageBox::Close);
+        KMessageBox::error( nullptr, _mediaObject->errorString(), i18n("Error playing media") );
     }
 }
 

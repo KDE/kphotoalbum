@@ -16,8 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef XMLDB_DATABSE_H
-#define XMLDB_DATABSE_H
+#ifndef XMLDB_DATABASE_H
+#define XMLDB_DATABASE_H
+
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include <qstringlist.h>
@@ -116,6 +117,6 @@ namespace XMLDB {
     };
 }
 
-#endif /* XMLDB_DATABSE_H */
+#endif /* XMLDB_DATABASE_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

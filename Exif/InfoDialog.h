@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef EXIFDIALOG_H
-#define EXIFDIALOG_H
+#ifndef INFODIALOG_H
+#define INFODIALOG_H
 #include <KDialog>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClientInterface.h"
@@ -56,6 +56,6 @@ private:
 
 }
 
-#endif /* EXIFDIALOG_H */
+#endif /* INFODIALOG_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

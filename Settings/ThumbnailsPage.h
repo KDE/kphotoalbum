@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef THUMBNAILPAGE_H
-#define THUMBNAILPAGE_H
+#ifndef THUMBNAILSPAGE_H
+#define THUMBNAILSPAGE_H
 #include <QWidget>
 
 class KColorButton;
@@ -52,6 +52,6 @@ private:
 }
 
 
-#endif /* THUMBNAILPAGE_H */
+#endif /* THUMBNAILSPAGE_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>JobViewer</class>
- <widget class="QDialog" name="JobViewer">
+ <widget class="QWidget" name="JobViewer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -58,22 +58,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>JobViewer</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>574</x>
-     <y>417</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>601</x>
-     <y>377</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

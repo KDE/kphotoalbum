@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef XMLIMAGEDATERANGECOLLECTION_H
-#define XMLIMAGEDATERANGECOLLECTION_H
+#ifndef XMLIMAGEDATECOLLECTION_H
+#define XMLIMAGEDATECOLLECTION_H
 
 #include <QMap>
 #include "DB/ImageDateCollection.h"
@@ -61,6 +61,6 @@ private:
 };
 
 
-#endif /* XMLIMAGEDATERANGECOLLECTION_H */
+#endif /* XMLIMAGEDATECOLLECTION_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef EXIF_H
-#define EXIF_H
+#ifndef EXIF_INFO_H
+#define EXIF_INFO_H
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Utilities/Set.h"
@@ -58,6 +58,6 @@ private:
 
 }
 
-#endif /* EXIF_H */
+#endif /* EXIF_INFO_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

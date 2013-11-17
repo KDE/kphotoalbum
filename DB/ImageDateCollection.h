@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef IMAGEDATERANGECOLLECTION_H
-#define IMAGEDATERANGECOLLECTION_H
+#ifndef IMAGEDATECOLLECTION_H
+#define IMAGEDATECOLLECTION_H
 #include "DB/ImageDate.h"
 #include <qmap.h>
 #include <ksharedptr.h>
@@ -49,6 +49,6 @@ public:
 
 }
 
-#endif /* IMAGEDATERANGECOLLECTION_H */
+#endif /* IMAGEDATECOLLECTION_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

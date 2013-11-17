@@ -25,11 +25,14 @@
 namespace BackgroundTaskManager {
 
 JobViewer::JobViewer(QWidget *parent) :
-    QDialog(parent), ui( new Ui::JobViewer), m_model(0)
+    KDialog(parent), ui( new Ui::JobViewer ), m_model( nullptr )
 {
-    ui->setupUi(this);
+    // disable default buttons (Ok, Cancel):
+    setButtons( None );
+    ui->setupUi( mainWidget() );
     setWindowTitle(i18n("Background Job Viewer"));
     connect( ui->pause, SIGNAL(clicked()), this, SLOT(togglePause()));
+    connect( ui->pushButton, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 void JobViewer::setVisible(bool b)
@@ -39,14 +42,17 @@ void JobViewer::setVisible(bool b)
         ui->view->setModel(m_model);
         updatePauseButton();
     }
-    else
+    else {
         delete m_model;
+        m_model = nullptr;
+    }
+
 
     ui->view->setColumnWidth(0, 50);
     ui->view->setColumnWidth(1, 300);
     ui->view->setColumnWidth(2, 300);
     ui->view->setColumnWidth(3, 50);
-    QDialog::setVisible(b);
+    KDialog::setVisible(b);
 }
 
 void JobViewer::togglePause()

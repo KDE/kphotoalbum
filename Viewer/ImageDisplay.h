@@ -16,8 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DISPLAYAREA_H
-#define DISPLAYAREA_H
+#ifndef IMAGEDISPLAY_H
+#define IMAGEDISPLAY_H
+
 #include <qpixmap.h>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -140,6 +141,6 @@ private:
 }
 
 
-#endif /* DISPLAYAREA_H */
+#endif /* IMAGEDISPLAY_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef MAINVIEW_H
-#define MAINVIEW_H
+#ifndef MAINWINDOW_WINDOW_H
+#define MAINWINDOW_WINDOW_H
 class BreadcrumbViewer;
 class KToggleAction;
 class QStackedWidget;
@@ -239,6 +239,6 @@ private:
 
 }
 
-#endif /* MAINVIEW_H */
+#endif /* MAINWINDOW_WINDOW_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

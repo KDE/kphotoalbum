@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef FILEDETECTION_H
-#define FILEDETECTION_H
+#ifndef FILEVERSIONDETECTIONPAGE_H
+#define FILEVERSIONDETECTIONPAGE_H
 #include <QWidget>
 
 class KComboBox;
@@ -54,6 +54,6 @@ private:
 }
 
 
-#endif /* FILEDETECTION_H */
+#endif /* FILEVERSIONDETECTIONPAGE_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

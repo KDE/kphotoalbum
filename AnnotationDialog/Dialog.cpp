@@ -72,7 +72,7 @@ using Utilities::StringSet;
  */
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
-    : QDialog( parent ),
+    : KDialog( parent ),
     _ratingChanged( false ),
     conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
 {
@@ -80,8 +80,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     ShortCutManager shortCutManager;
 
     // The widget stack
-    _stack = new QStackedWidget(this);
-    QVBoxLayout* layout = new QVBoxLayout( this );
+    _stack = new QStackedWidget( mainWidget() );
+    QVBoxLayout* layout = new QVBoxLayout( mainWidget() );
     layout->addWidget( _stack );
 
     // The Viewer
@@ -108,8 +108,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     shortCutManager.addDock( dock, _description );
 
     // -------------------------------------------------- Categrories
-     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         ListSelect* sel = createListSel( *categoryIt );
         QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
         shortCutManager.addDock( dock, sel->lineEdit() );
@@ -118,6 +118,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     }
 
     // -------------------------------------------------- The buttons.
+    // don't use default buttons (Ok, Cancel):
+    setButtons( None );
     QHBoxLayout* lay1 = new QHBoxLayout;
     layout->addLayout( lay1 );
 
@@ -695,7 +697,7 @@ int AnnotationDialog::Dialog::exec()
     this->setFocus(); // Set temporary focus before show() is called so that extra cursor is not shown on any "random" input widget
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
-    const int ret = QDialog::exec();
+    const int ret = KDialog::exec();
     hideTornOfWindows();
     return ret;
 }

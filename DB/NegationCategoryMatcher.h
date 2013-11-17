@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef NOTCATEGORYMATCHER_H
-#define NOTCATEGORYMATCHER_H
+#ifndef NEGATIONCATEGORYMATCHER_H
+#define NEGATIONCATEGORYMATCHER_H
 
 #include "CategoryMatcher.h"
 
@@ -25,7 +25,7 @@ namespace DB
 {
 
     /**
-     * NegationCategoryMatcher matches, iff its child matcher does not match.
+     * NegationCategoryMatcher matches, if (and only if) its child matcher does not match.
      *
      * This is not a standard ContainerCategoryMatcher, because it always has exactly one child.
      */
@@ -43,5 +43,6 @@ namespace DB
 
 }
 
-#endif /* NOTCATEGORYMATCHER_H */
+#endif // NEGATIONCATEGORYMATCHER_H
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

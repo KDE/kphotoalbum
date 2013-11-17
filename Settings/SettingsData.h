@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef SETTINGS_SETTINGS_H
-#   define SETTINGS_SETTINGS_H
+#ifndef SETTINGS_SETTINGSDATA_H
+#define SETTINGS_SETTINGSDATA_H
 
 #include <QPixmap>
 #include "DB/ImageSearchInfo.h"
@@ -236,5 +236,5 @@ private:
 #undef property_ref
 
 
-#endif /* SETTINGS_SETTINGS_H */
+#endif /* SETTINGS_SETTINGSDATA_H */
 // vi:expandtab:tabstop=4 shiftwidth=4:

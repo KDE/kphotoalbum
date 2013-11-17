@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef XMLDB_FILESAVER_H
-#define XMLDB_FILESAVER_H
+#ifndef XMLDB_FILEWRITER_H
+#define XMLDB_FILEWRITER_H
 
 #include <qstring.h>
 #include <qdom.h>
@@ -57,6 +57,6 @@ private:
 }
 
 
-#endif /* XMLDB_FILESAVER_H */
+#endif /* XMLDB_FILEWRITER_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

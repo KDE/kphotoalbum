@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIEWER_DISPLAY_H
-#define VIEWER_DISPLAY_H
+#ifndef ABSTRACTDISPLAY_H
+#define ABSTRACTDISPLAY_H
 
 #include <qwidget.h>
 #include <DB/ImageInfoPtr.h>
@@ -44,6 +44,6 @@ protected:
 
 }
 
-#endif /* VIEWER_DISPLAY_H */
+#endif /* ABSTRACTDISPLAY_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

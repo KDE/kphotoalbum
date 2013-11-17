@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef IMAGECONFIG_H
-#define IMAGECONFIG_H
+#ifndef ANNOTATIONDIALOG_DIALOG_H
+#define ANNOTATIONDIALOG_DIALOG_H
+
 #include "Utilities/Set.h"
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
-#include <qdialog.h>
 #include <QList>
 #include <QSpinBox>
 #include "DB/ImageInfoList.h"
@@ -30,6 +30,7 @@
 #include "config-kpa-nepomuk.h"
 #include "ImagePreviewWidget.h"
 #include <QCheckBox>
+#include <kdialog.h>
 
 class QStackedWidget;
 class KActionCollection;
@@ -68,7 +69,7 @@ class ImagePreview;
 class KDateEdit;
 class ShortCutManager;
 
-class Dialog :public QDialog {
+class Dialog :public KDialog {
     Q_OBJECT
 public:
     explicit Dialog( QWidget* parent );
@@ -180,6 +181,6 @@ private:
 
 }
 
-#endif /* IMAGECONFIG_H */
+#endif /* ANNOTATIONDIALOG_DIALOG_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

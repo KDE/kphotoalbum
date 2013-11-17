@@ -16,6 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifndef IMPORTEXPORT_IMPORT_H
+#define IMPORTEXPORT_IMPORT_H
+
 #include <kurl.h>
 class KJob;
 namespace KIO {class Job; }
@@ -50,4 +53,7 @@ private:
 };
 
 }
+
+#endif // IMPORTEXPORT_IMPORT_H
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

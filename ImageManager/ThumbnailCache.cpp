@@ -197,6 +197,10 @@ void ImageManager::ThumbnailCache::save() const
     if ( !file.copy( realFileName ) )
         qWarning("Failed to copy the temporary file %s to %s", qPrintable( file.fileName() ), qPrintable( realFileName ) );
 
+    QFile realFile( realFileName );
+    realFile.open( QIODevice::ReadOnly );
+    realFile.setPermissions( QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther );
+    realFile.close();
 }
 
 void ImageManager::ThumbnailCache::load()

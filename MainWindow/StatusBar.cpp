@@ -26,6 +26,7 @@
 #include <QLabel>
 #include "DirtyIndicator.h"
 #include <KHBox>
+#include <KVBox>
 #include <kiconloader.h>
 #include <KIcon>
 #include <BackgroundTaskManager/StatusIndicator.h>
@@ -52,7 +53,9 @@ void MainWindow::StatusBar::setupGUI()
     _dirtyIndicator = new DirtyIndicator( indicators );
     connect( DB::ImageDB::instance(), SIGNAL(dirty()), _dirtyIndicator, SLOT(markDirtySlot()) );
 
-    new BackgroundTaskManager::StatusIndicator(indicators);
+    KVBox* statusIndicatorBox = new KVBox(indicators);
+    new BackgroundTaskManager::StatusIndicator(statusIndicatorBox);
+    statusIndicatorBox->setContentsMargins(0,7,0,0);
 
     m_progressBar = new QProgressBar( this );
     m_progressBar->setMinimumWidth( 400 );

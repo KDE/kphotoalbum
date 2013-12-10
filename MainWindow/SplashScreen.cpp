@@ -63,11 +63,7 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     // Version String
     QString txt;
     QString version = KGlobal::mainComponent().aboutData()->version();
-
-    if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
-        txt = i18n( "Version %1" , version );
-    else
-        txt = i18n( "Version: %1" , version );
+    txt = i18n( "%1" , version );
     painter->drawText( r, Qt::AlignRight | Qt::AlignTop, txt );
 
     // Message

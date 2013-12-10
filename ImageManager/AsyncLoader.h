@@ -42,7 +42,7 @@ public:
 
     // Request to load an image. The Manager takes over the ownership of
     // the request (and may delete it anytime).
-    void load( ImageRequest* request );
+    bool load( ImageRequest* request );
 
     // Stop loading all images requested by the given client.
     void stop( ImageClientInterface*, StopAction action = StopAll );

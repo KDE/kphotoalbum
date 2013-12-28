@@ -43,9 +43,9 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     layout->addWidget(_cmd);
     _cmd->setMinimumWidth(400);
     // xgettext: no-c-format
-    txt = i18n("<p>Enter the command you want to run on your image file(s).  "
+    txt = i18n("<p>Enter the command you want to run on your image file(s). "
                "KPhotoAlbum will run your command and replace any '%all' tokens "
-               "with a list of your files.  For example, if you entered:</p>"
+               "with a list of your files. For example, if you entered:</p>"
                "<ul><li>cp %all /tmp</li></ul>"
                "<p>Then the files you selected would be copied to the /tmp "
                "directory</p>"

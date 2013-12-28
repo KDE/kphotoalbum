@@ -76,9 +76,9 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                     "both the original files and symbolic links to these files within your image directory.</p>");
         _skipSymlinks->setWhatsThis( txt );
 
-        txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
-                    "Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
-                    "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
+        txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images. "
+                    "Some cameras store both a RAW image and a matching JPEG or TIFF image. "
+                    "This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable. "
                     "If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
         _skipRawIfOtherMatches->setWhatsThis( txt );
 
@@ -118,7 +118,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
         txt = i18n( "<p>When KPhotoAlbum searches for new files and finds a file that matches the "
                     "<i>modified file search regexp</i> it is assumed that an original version of "
-                    "the image may exist.  The regexp pattern will be replaced with the <i>original "
+                    "the image may exist. The regexp pattern will be replaced with the <i>original "
                     "file replacement text</i> and if that file exists, all associated metadata (category "
                     "information, ratings, etc) will be copied or moved from the original file to the new one.</p>");
         _detectModifiedFiles->setWhatsThis( txt );

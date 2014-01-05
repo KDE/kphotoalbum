@@ -28,7 +28,7 @@ MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
     :QLabel( parent )
 {
     _dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
-    setFixedWidth( _dirtyPix.width() );
+    setFixedWidth( _dirtyPix.width() + 10);
     _instance = this;
 
     // Might have been marked dirty even before the indicator had been created, by the database searching during loading.

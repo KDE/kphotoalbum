@@ -69,15 +69,20 @@ void ImageManager::AsyncLoader::init()
     }
 }
 
-void ImageManager::AsyncLoader::load( ImageRequest* request )
+bool ImageManager::AsyncLoader::load( ImageRequest* request )
 {
     // silently ignore images not (currently) on disk:
     if ( ! request->fileSystemFileName().exists() )
-        return;
-    if ( Utilities::isVideo( request->fileSystemFileName() ) )
+        return false;
+
+    if ( Utilities::isVideo( request->fileSystemFileName() ) ) {
+    	if ( MainWindow::FeatureDialog::mplayerBinary().isNull() )
+    	    return false;
         loadVideo( request );
-    else
+    } else {
         loadImage( request );
+    }
+    return true;
 }
 
 void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)

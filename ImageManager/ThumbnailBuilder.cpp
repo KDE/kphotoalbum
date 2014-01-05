@@ -104,16 +104,19 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
         if ( info->isNull())
             continue;
 
-        ++numberOfThumbnailsToBuild;
         ImageManager::ImageRequest* request
             = new ImageManager::PreloadRequest( fileName,
                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
                                               this );
         request->setIsThumbnailRequest(true);
         request->setPriority( ImageManager::BuildThumbnails );
-        ImageManager::AsyncLoader::instance()->load( request );
+        if (ImageManager::AsyncLoader::instance()->load( request ))
+            ++numberOfThumbnailsToBuild;
     }
-    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( numberOfThumbnailsToBuild - 1, 1 ) );
+    if (numberOfThumbnailsToBuild == 0)
+        m_statusBar->setProgressBarVisible(false);
+    else
+        m_statusBar->startProgress( i18n("Building thumbnails"), qMax( numberOfThumbnailsToBuild - 1, 1 ) );
     m_count = 0;
 }
 

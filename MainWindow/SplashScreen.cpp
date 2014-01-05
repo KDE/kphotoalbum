@@ -58,19 +58,16 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     QFont font = painter->font();
     font.setPointSize( 10 );
     painter->setFont( font );
+    QRect r = QRect( QPoint(20, 265), QSize( 360, 25 ));
 
     // Version String
     QString txt;
     QString version = KGlobal::mainComponent().aboutData()->version();
-
-    if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
-        txt = i18n( "Version %1" , version );
-    else
-        txt = i18n( "Version: %1" , version );
-    painter->drawText( QRect( QPoint(230, 265), QSize( 150, 25 )), Qt::AlignRight | Qt::AlignTop, txt );
+    txt = i18n( "%1" , version );
+    painter->drawText( r, Qt::AlignRight | Qt::AlignTop, txt );
 
     // Message
-    painter->drawText( QRect( QPoint(20, 265), QSize( 300, 25 )), Qt::AlignLeft | Qt::AlignTop, _message );
+    painter->drawText( r, Qt::AlignLeft | Qt::AlignTop, _message );
     painter->restore();
 }
 

@@ -60,7 +60,6 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
              SLOT(linkHovered(QString)));
     _jumpToContext->setCursor( Qt::ArrowCursor );
 
-#ifdef HAVE_NEPOMUK
     KRatingWidget* rating = new KRatingWidget( nullptr );
 
     // Unfortunately, the KRatingWidget now thinks that it has some absurdly big
@@ -76,17 +75,14 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
         _ratingPixmap.append( pixmap ) ;
     }
     delete rating;
-#endif
 }
 
 QVariant Viewer::InfoBox::loadResource( int type, const QUrl& name )
 {
-#ifdef HAVE_NEPOMUK
     if ( name.scheme() == QString::fromLatin1( "KRatingWidget" ) ) {
         short int rating = name.host().toShort();
         return _ratingPixmap[ rating ];
     }
-#endif
     return KTextBrowser::loadResource( type, name );
 }
 

@@ -64,7 +64,6 @@ extern "C" {
 #include <KMimeType>
 #include <QImageReader>
 #include <kcodecs.h>
-#include "config-kpa-nepomuk.h"
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -121,7 +120,6 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
     }
 
-#ifdef HAVE_NEPOMUK
     if ( Settings::SettingsData::instance()->showRating() ) {
         if ( info->rating() != -1 ) {
             if ( ! result.isEmpty() )
@@ -130,9 +128,8 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                     ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) );
         }
     }
-#endif
 
-     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
      for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         const QString categoryName = (*categoryIt)->name();

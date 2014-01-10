@@ -45,9 +45,7 @@
 #include <qlabel.h>
 #include <qpoint.h>
 
-#ifdef HAVE_NEPOMUK
-#   include <nepomuk/kratingwidget.h>
-#endif
+#include <kratingwidget.h>
 
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
@@ -274,7 +272,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     QHBoxLayout* lay9 = new QHBoxLayout;
     lay2->addLayout( lay9 );
 
-#ifdef HAVE_NEPOMUK
     label = new QLabel( i18n("Rating:") );
     lay9->addWidget( label );
     _rating = new KRatingWidget;
@@ -289,7 +286,6 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     _ratingSearchMode->addItems( QStringList() << i18n("==") << i18n("&gt;=") << i18n("&lt;=") << i18n("!=") );
     _ratingSearchLabel->setBuddy( _ratingSearchMode );
     lay9->addWidget( _ratingSearchMode );
-#endif
 
     // File name search pattern
     QHBoxLayout* lay10 = new QHBoxLayout;
@@ -389,11 +385,9 @@ void AnnotationDialog::Dialog::load()
     _imageLabel->setText( info.label() );
     _description->setPlainText( info.description() );
 
-#ifdef HAVE_NEPOMUK
     if ( _setup == InputSingleImageConfigMode )
         _rating->setRating( qMax( static_cast<short int>(0), info.rating() ) );
     _ratingChanged = false;
-#endif
 
     for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
@@ -429,12 +423,10 @@ void AnnotationDialog::Dialog::writeToInfo()
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
 
-#ifdef HAVE_NEPOMUK
     if ( _ratingChanged ) {
         info.setRating( _rating->rating() );
         _ratingChanged = false;
     }
-#endif
 }
 
 void AnnotationDialog::Dialog::ShowHideSearch( bool show )
@@ -447,10 +439,8 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     _isFuzzyDate->setChecked( show );
     _isFuzzyDate->setVisible( !show );
     slotSetFuzzyDate();
-#ifdef HAVE_NEPOMUK
     _ratingSearchMode->setVisible( show );
     _ratingSearchLabel->setVisible( show );
-#endif
 }
 
 
@@ -487,10 +477,8 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
-#ifdef HAVE_NEPOMUK
         _rating->setRating( 0 );
         _ratingChanged = false;
-#endif
 
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
@@ -527,10 +515,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 
     _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
 
-#ifdef HAVE_NEPOMUK
-        _ratingChanged = false ;
-#endif
-
+    _ratingChanged = false ;
     showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
@@ -543,7 +528,6 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
             _oldSearch.setCategoryMatchText( (*it)->category(), (*it)->text() );
         }
-#ifdef HAVE_NEPOMUK
         //FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
         //then change back to 0 .
         if( _ratingChanged)
@@ -551,9 +535,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 
         _ratingChanged = false;
         _oldSearch.setSearchMode( _ratingSearchMode->currentIndex() );
-#endif
-    _oldSearch.setMegaPixel( _megapixel->value() );
-    _oldSearch.setSearchRAW( _searchRAW->isChecked() );
+        _oldSearch.setMegaPixel( _megapixel->value() );
+        _oldSearch.setSearchRAW( _searchRAW->isChecked() );
         return _oldSearch;
     }
     else
@@ -1139,18 +1122,14 @@ void AnnotationDialog::Dialog::saveAndClose()
                 info->setDescription( _description->toPlainText() );
             }
 
-#ifdef HAVE_NEPOMUK
             if( _ratingChanged)
             {
               info->setRating( _rating->rating() );
             }
-#endif
 
             info->delaySavingChanges(false);
         }
-#ifdef HAVE_NEPOMUK
         _ratingChanged = false;
-#endif
     }
     _accept = QDialog::Accepted;
 

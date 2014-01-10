@@ -22,10 +22,7 @@
 #include <QMouseEvent>
 #include "ViewerWidget.h"
 #include <KTextBrowser>
-#include "config-kpa-nepomuk.h"
-#ifdef HAVE_NEPOMUK
-#   include <nepomuk/kratingwidget.h>
-#endif
+#include <kratingwidget.h>
 #include "Settings/SettingsData.h"
 
 class QMenu;
@@ -68,9 +65,7 @@ private:
     bool _hoveringOverLink;
     InfoBoxResizer _infoBoxResizer;
     VisibleOptionsMenu* _menu;
-#ifdef HAVE_NEPOMUK
     QList<QPixmap> _ratingPixmap;
-#endif
 };
 
 }

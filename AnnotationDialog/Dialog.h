@@ -27,7 +27,6 @@
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
-#include "config-kpa-nepomuk.h"
 #include "ImagePreviewWidget.h"
 #include <QCheckBox>
 #include <kdialog.h>
@@ -48,9 +47,7 @@ class KPushButton;
 class KLineEdit;
 class KPushButton;
 
-#ifdef HAVE_NEPOMUK
 class KRatingWidget;
-#endif
 
 namespace Viewer
 {
@@ -158,11 +155,9 @@ private:
     QTimeEdit* _time;
     QLabel* _timeLabel;
     QCheckBox* _isFuzzyDate;
-#ifdef HAVE_NEPOMUK
     KRatingWidget* _rating;
     KComboBox* _ratingSearchMode;
     QLabel* _ratingSearchLabel;
-#endif
     bool _ratingChanged;
     QSpinBox* _megapixel;
     QLabel* _megapixelLabel;

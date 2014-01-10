@@ -75,9 +75,6 @@ add_custom_target( UpdateVersion ALL
 	COMMENT "Updating version header."
 	)
 
-macro_optional_find_package(Nepomuk)
-macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
-
 # For config-kpa-*.h
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -394,12 +391,6 @@ if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES} )
 endif(MARBLE_FOUND)
 
-if(NEPOMUK_FOUND)
-    target_link_libraries(kphotoalbum ${NEPOMUK_LIBRARIES} )
-    ADD_DEFINITIONS(${NEPOMUK_DEFINITIONS})
-    INCLUDE_DIRECTORIES(${NEPOMUK_INCLUDE_DIR})
-endif(NEPOMUK_FOUND)
-
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
@@ -415,4 +406,3 @@ configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
-configure_file(config-kpa-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-nepomuk.h)

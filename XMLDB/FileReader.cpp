@@ -291,8 +291,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "in either their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</b> "
                                        "to reread the information.</p>"
                                        "<p>Finally, once all images have their dates set, you can execute "
-                                       "<b>Images->Sort Selected by Date & Time</b> to sort them in the database. "
-                                       "Note that you should expand all stacks for sorting.</p>"),
+                                       "<b>Maintenance->Sort All by Date & Time</b> to sort them in the database. </p>"),
                           #else
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"

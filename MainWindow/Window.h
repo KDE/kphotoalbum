@@ -100,6 +100,7 @@ protected slots:
     void slotView( bool reuse = true, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
     void slotSortByDateAndTime();
+    void slotSortAllByDateAndTime();
     void slotLimitToSelected();
     void slotExportToHTML();
     void slotAutoSave();
@@ -206,6 +207,7 @@ private:
     KAction* _rotLeft;
     KAction* _rotRight;
     KAction* _sortByDateAndTime;
+    KAction* _sortAllByDateAndTime;
     KAction* _AutoStackImages;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;

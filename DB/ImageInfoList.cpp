@@ -16,7 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageInfoList.h"
-#include <qmap.h>
+#include <qvector.h>
+#include <qalgorithms.h>
 #include <qdatetime.h>
 #include "ImageInfo.h"
 #include <kmessagebox.h>
@@ -25,19 +26,43 @@
 #include <DB/FileNameList.h>
 using namespace DB;
 
+class SortableImageInfo
+{
+public:
+    SortableImageInfo(const QDateTime& datetime, const QString& string, const ImageInfoPtr &info)
+        : _dt(datetime), _st(string), _in(info) {}
+    SortableImageInfo(const SortableImageInfo& in)
+        : _dt(in._dt), _st(in._st), _in(in._in) {}
+    SortableImageInfo() {}
+    ~SortableImageInfo() {}
+    const QDateTime& DateTime(void) const { return _dt; }
+    const QString& String(void) const { return _st; }
+    const ImageInfoPtr& ImageInfo(void) const { return _in; }
+    bool operator== (const SortableImageInfo& other) const { return _dt == other._dt && _st == other._st; }
+    bool operator!= (const SortableImageInfo& other) const { return _dt != other._dt || _st != other._st; }
+    bool operator> (const SortableImageInfo& other) const { if (_dt != other._dt) { return _dt > other._dt; } else { return _st > other._st; }}
+    bool operator< (const SortableImageInfo& other) const { if (_dt != other._dt) { return _dt < other._dt; } else { return _st < other._st; }}
+    bool operator>= (const SortableImageInfo& other) const { return *this == other || *this > other; }
+    bool operator<= (const SortableImageInfo& other) const { return *this == other || *this < other; }
+
+private:
+    QDateTime _dt;
+    QString _st;
+    ImageInfoPtr _in;
+};
+
 ImageInfoList ImageInfoList::sort() const
 {
-    QMap<QDateTime, QList<ImageInfoPtr> > map;
+    QVector<SortableImageInfo> vec;
     for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        map[(*it)->date().start()].append( *it );
+        vec.append(SortableImageInfo((*it)->date().start(),(*it)->fileName().absolute(), *it));
     }
 
+    qSort(vec);
+    
     ImageInfoList res;
-     for( QMap<QDateTime, QList<ImageInfoPtr> >::ConstIterator mapIt = map.constBegin(); mapIt != map.constEnd(); ++mapIt ) {
-         QList<ImageInfoPtr> list = mapIt.value();
-         for( QList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
-            res.append( *listIt );
-        }
+    for( QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt ) {
+         res.append(mapIt->ImageInfo());
     }
     return res;
 }

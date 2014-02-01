@@ -638,6 +638,14 @@ void MainWindow::Window::slotSortByDateAndTime()
     DirtyIndicator::markDirty();
 }
 
+void MainWindow::Window::slotSortAllByDateAndTime()
+{
+    DB::ImageDB::instance()->sortAndMergeBackIn(DB::ImageDB::instance()->images());
+    if ( _thumbnailView->gui() == _stack->currentWidget() )
+	showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
+    DirtyIndicator::markDirty();
+}
+
 
 QString MainWindow::Window::welcome()
 {
@@ -845,6 +853,10 @@ void MainWindow::Window::setupMenuBar()
     recreateExif->setEnabled(false);
     rereadExif->setEnabled(false);
 #endif
+
+    _sortAllByDateAndTime = actionCollection()->addAction( QString::fromLatin1("sortAllImages"), this, SLOT(slotSortAllByDateAndTime()) );
+    _sortAllByDateAndTime->setText( i18n("Sort All by Date && Time") );
+    _sortAllByDateAndTime->setEnabled(true);
 
     _AutoStackImages = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT (slotAutoStackImages()) );
     _AutoStackImages->setText( i18n("Automatically Stack Selected Images...") );

@@ -60,6 +60,7 @@
       <Action name="rescan"/>
       <Action name="recreateExifDB" />
       <Action name="reReadExifInfo" />
+      <Action name="sortAllImages" />
       <Action name="autoStack" />
       <Separator/>
       <Action name="removeAllThumbs"/>

@@ -2,6 +2,8 @@
 
 #include <QMap>
 
+using namespace RemoteControl;
+
 RemoteCommand::RemoteCommand(const QString& id)
     :m_id(id)
 {

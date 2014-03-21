@@ -4,6 +4,8 @@
 #include <QQuickPaintedItem>
 #include <QImage>
 
+namespace RemoteControl {
+
 class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -24,4 +26,5 @@ private:
     QImage m_image;
 };
 
+}
 #endif // REMOTEIMAGE_H

@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
     QQuickView viewer;
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
-    qmlRegisterType<RemoteImage>("SlideViewer", 1, 0, "RemoteImage");
-    viewer.engine()->rootContext()->setContextProperty("_remoteInterface", &RemoteInterface::instance());
+    qmlRegisterType<RemoteControl::RemoteImage>("SlideViewer", 1, 0, "RemoteImage");
+    viewer.engine()->rootContext()->setContextProperty("_remoteInterface", &RemoteControl::RemoteInterface::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);

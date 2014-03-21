@@ -3,6 +3,8 @@
 #include <QUdpSocket>
 #include <QTcpSocket>
 
+using namespace RemoteControl;
+
 Server::Server(QObject *parent) :
     RemoteConnection(parent)
 {

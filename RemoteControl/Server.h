@@ -5,6 +5,8 @@
 class QUdpSocket;
 class QTcpSocket;
 
+namespace RemoteControl
+{
 class Server : public RemoteConnection
 {
     Q_OBJECT
@@ -27,5 +29,7 @@ private:
     QTcpSocket* m_tcpSocket = nullptr;
     bool m_isConnected = false;
 };
+
+}
 
 #endif // SERVER_H

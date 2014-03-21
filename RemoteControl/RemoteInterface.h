@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QHostAddress>
 
+
+namespace RemoteControl
+{
 class Server;
 class RemoteCommand;
 class NextSlideCommand;
@@ -26,4 +29,5 @@ private:
     Server* m_connection;
 };
 
+}
 #endif // REMOTEINTERFACE_H

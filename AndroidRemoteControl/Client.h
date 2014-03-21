@@ -5,6 +5,8 @@
 #include <QTcpServer>
 #include <QTimer>
 
+namespace RemoteControl {
+
 class Client : public RemoteConnection
 {
     Q_OBJECT
@@ -30,4 +32,5 @@ private:
 
 };
 
+}
 #endif // CLIENT_H

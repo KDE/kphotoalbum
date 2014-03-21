@@ -6,6 +6,9 @@
 
 class QUdpSocket;
 class QTcpSocket;
+
+namespace RemoteControl
+{
 class RemoteCommand;
 
 class RemoteConnection : public QObject
@@ -32,5 +35,7 @@ private:
     ReadingState m_state = WaitingForLength;
     qint32 m_length;
 };
+
+}
 
 #endif // REMOTECONNECTION_H

@@ -9,6 +9,8 @@
 #include <QBuffer>
 #include <QPainter>
 
+using namespace RemoteControl;
+
 RemoteInterface& RemoteInterface::instance()
 {
     static RemoteInterface instance;

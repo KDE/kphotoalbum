@@ -2,6 +2,8 @@
 #include "RemoteInterface.h"
 #include <QPainter>
 
+using namespace RemoteControl;
+
 RemoteImage::RemoteImage(QQuickItem *parent) :
     QQuickPaintedItem(parent)
 {

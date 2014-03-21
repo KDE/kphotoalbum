@@ -8,6 +8,8 @@
 #include <QBuffer>
 #include <QDataStream>
 
+using namespace RemoteControl;
+
 RemoteInterface::RemoteInterface()
 {
     m_connection = new Client;

@@ -72,7 +72,7 @@ int main( int argc, char** argv ) {
     KApplication app;
 
     new MainWindow::SplashScreen();
-    (void) RemoteInterface::instance();
+    (void) RemoteControl::RemoteInterface::instance();
 
     // FIXME: There is no point in using try here, because exceptions
     // and Qt event loop don't mix. Rather exceptions should be

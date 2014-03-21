@@ -4,6 +4,8 @@
 #include <QBuffer>
 #include <QTcpSocket>
 
+using namespace RemoteControl;
+
 RemoteConnection::RemoteConnection(QObject *parent) :
     QObject(parent)
 {

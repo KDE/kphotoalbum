@@ -5,6 +5,9 @@
 #include <QDataStream>
 #include <QImage>
 
+namespace RemoteControl
+{
+
 class RemoteCommand
 {
 public:
@@ -41,6 +44,6 @@ public:
     QImage image;
 };
 
-
+}
 
 #endif // REMOTECOMMAND_H

@@ -2,9 +2,11 @@
 #define REMOTEINTERFACE_H
 
 #include <QObject>
+class QTcpSocket;
+
+namespace RemoteControl {
 
 class RemoteConnection;
-class QTcpSocket;
 class RemoteCommand;
 
 class RemoteInterface : public QObject
@@ -31,5 +33,7 @@ private:
 
     RemoteConnection* m_connection = nullptr;
 };
+
+}
 
 #endif // REMOTEINTERFACE_H

@@ -34,7 +34,7 @@ void Client::acceptConnection()
 void Client::sendBroadcastPackage()
 {
     QUdpSocket socket;
-    QByteArray data = "SlideViewer";
+    QByteArray data = "KPhotoAlbum";
     socket.writeDatagram(data, QHostAddress::Broadcast, UDPPORT);
 }
 

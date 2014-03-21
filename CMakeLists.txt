@@ -325,6 +325,13 @@ set(libBackgroundJobs_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ExtractOneThumbnailJob.cpp
 )
 
+set(libRemoteControl_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
+)
+
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
@@ -363,6 +370,7 @@ set(kphotoalbum_SRCS
   ${libBrowser_SRCS} 
   ${libBackgroundTaskManager_SRCS}
   ${libBackgroundJobs_SRCS}
+  ${libRemoteControl_SRCS}
 )
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})

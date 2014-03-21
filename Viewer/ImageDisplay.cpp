@@ -31,6 +31,7 @@
 #include <math.h>
 #include "DB/ImageDB.h"
 #include <qtimer.h>
+#include "RemoteControl/RemoteInterface.h"
 
 /**
    Area displaying the actual image in the viewer.
@@ -79,7 +80,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     _cursorTimer->setSingleShot(true);
     connect( _cursorTimer, SIGNAL(timeout()), this, SLOT(hideCursor()) );
     showCursor();
-
+    connect( this, SIGNAL(imageReady()), this, SLOT(sendImageToRemoteDevice()));
 }
 
 /**
@@ -112,6 +113,11 @@ void Viewer::ImageDisplay::disableCursorHiding() {
  */
 void Viewer::ImageDisplay::enableCursorHiding() {
     _cursorHiding = true;
+}
+
+void Viewer::ImageDisplay::sendImageToRemoteDevice()
+{
+    RemoteInterface::instance().sendImage(_loadedImage);
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )

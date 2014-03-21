@@ -36,7 +36,7 @@ NextSlideCommand::NextSlideCommand()
 
 QString NextSlideCommand::id()
 {
-    return QStringLiteral("Next Slide");
+    return QString::fromUtf8("Next Slide");
 }
 
 
@@ -47,7 +47,7 @@ PreviousSlideCommand::PreviousSlideCommand()
 
 QString PreviousSlideCommand::id()
 {
-    return QStringLiteral("Previous Slide");
+    return QString::fromUtf8("Previous Slide");
 }
 
 
@@ -58,7 +58,7 @@ ImageUpdateCommand::ImageUpdateCommand()
 
 QString ImageUpdateCommand::id()
 {
-    return QStringLiteral("Image Update");
+    return QString::fromUtf8("Image Update");
 }
 
 void ImageUpdateCommand::encodeData(QDataStream& buffer) const

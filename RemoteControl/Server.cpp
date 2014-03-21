@@ -15,10 +15,11 @@ bool Server::isConnected() const
 
 void Server::listen()
 {
+    qDebug("OK listening!");
     if (!m_socket) {
         m_socket = new QUdpSocket(this);
         bool ok = m_socket->bind(UDPPORT); // PENDING Do we want to bind in a special way (see second argument to bind)
-        connect(m_socket, &QUdpSocket::readyRead, this, &Server::readIncommingUDP);
+        connect(m_socket, SIGNAL(readyRead()), this, SLOT(readIncommingUDP()));
     }
 }
 
@@ -34,8 +35,8 @@ void Server::readIncommingUDP()
 
     QHostAddress address;
     m_socket->readDatagram(data,12, &address);
-    if (qstrcmp(data,"SlideViewer") != 0) {
-        // Hmmm not from a SlideViewer client
+    if (qstrcmp(data,"KPhotoAlbum") != 0) {
+        // Hmmm not from a KPhotoAlbum client
     }
 
     connectToTcpServer(address);
@@ -44,8 +45,8 @@ void Server::readIncommingUDP()
 void Server::connectToTcpServer(const QHostAddress& address)
 {
     m_tcpSocket = new QTcpSocket;
-    connect(m_tcpSocket, &QTcpSocket::connected, this, &Server::connected);
-    connect(m_tcpSocket, &QTcpSocket::readyRead, this, &Server::dataReceived);
+    connect(m_tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
+    connect(m_tcpSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
     m_tcpSocket->connectToHost(address, TCPPORT);
 }
 

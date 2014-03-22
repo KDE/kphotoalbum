@@ -13,7 +13,8 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, m_image.scaled(QSize(width(), height()), Qt::KeepAspectRatio));
+    painter->drawImage(0,0, m_image);
+    //painter->drawImage(0,0, m_image.scaled(QSize(width(), height()), Qt::KeepAspectRatio));
 }
 
 bool RemoteImage::isConnected() const
@@ -25,4 +26,5 @@ void RemoteImage::setImage(const QImage& image)
 {
     m_image = image;
     update();
+    setSize(image.size());
 }

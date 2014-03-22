@@ -1,5 +1,5 @@
 import QtQuick 2.2
-import SlideViewer 1.0
+import KPhotoAlbum 1.0
 
 Item {
     id: root
@@ -8,10 +8,6 @@ Item {
     RemoteImage {
         id: remoteImage
         visible: connected
-        x: 0
-        y: 0
-        width: 1024
-        height: 768
     }
 
     Text {

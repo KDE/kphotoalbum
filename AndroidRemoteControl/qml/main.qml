@@ -2,12 +2,16 @@ import QtQuick 2.2
 import SlideViewer 1.0
 
 Item {
+    id: root
     focus: true
 
     RemoteImage {
         id: remoteImage
-        anchors.fill: parent
         visible: connected
+        x: 0
+        y: 0
+        width: 1024
+        height: 768
     }
 
     Text {
@@ -20,5 +24,13 @@ Item {
     Keys.onPressed: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
+    }
+
+    PinchArea {
+        pinch.target: remoteImage
+        anchors.fill: parent
+        pinch.minimumScale: 0.1
+        pinch.maximumScale: 10
+        pinch.dragAxis: Pinch.XandYAxis
     }
 }

@@ -2,7 +2,6 @@
 #include "RemoteCommand.h"
 
 #include <QBuffer>
-#include <QElapsedTimer>
 #include <QTcpSocket>
 
 using namespace RemoteControl;
@@ -14,9 +13,6 @@ RemoteConnection::RemoteConnection(QObject *parent) :
 
 void RemoteConnection::sendCommand(const RemoteCommand& command)
 {
-    QElapsedTimer timer;
-    timer.start();
-
     if (!isConnected())
         return;
 
@@ -40,7 +36,6 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
     // Send the data.
     socket()->write(buffer.data());
-    qDebug() << "1" << timer.elapsed();
 }
 
 void RemoteConnection::dataReceived()

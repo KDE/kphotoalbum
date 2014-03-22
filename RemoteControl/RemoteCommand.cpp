@@ -22,7 +22,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
         QList<RemoteCommand*> commands;
         commands << new NextSlideCommand
                  << new PreviousSlideCommand
-                 << new ImageUpdateCommand;
+                 << new ImageUpdateCommand
+                 << new ImageCountUpdateCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -54,8 +55,8 @@ QString PreviousSlideCommand::id()
 }
 
 
-ImageUpdateCommand::ImageUpdateCommand()
-    :RemoteCommand(id())
+ImageUpdateCommand::ImageUpdateCommand(int index, const QImage& image)
+    :RemoteCommand(id()), index(index), image(image)
 {
 }
 
@@ -66,10 +67,37 @@ QString ImageUpdateCommand::id()
 
 void ImageUpdateCommand::encodeData(QBuffer& buffer) const
 {
+    QDataStream stream(&buffer);
+    stream << index;
     image.save(&buffer,"JPEG");
 }
 
 void ImageUpdateCommand::decodeData(QBuffer& buffer)
 {
+    QDataStream stream(&buffer);
+    stream >> index;
     image.load(&buffer, "JPEG");
+}
+
+
+ImageCountUpdateCommand::ImageCountUpdateCommand()
+    :RemoteCommand(id())
+{
+}
+
+QString ImageCountUpdateCommand::id()
+{
+    return QString::fromUtf8("Image Count Update");
+}
+
+void ImageCountUpdateCommand::encodeData(QBuffer& buffer) const
+{
+    QDataStream stream(&buffer);
+    stream << count;
+}
+
+void ImageCountUpdateCommand::decodeData(QBuffer& buffer)
+{
+    QDataStream stream(&buffer);
+    stream >> count;
 }

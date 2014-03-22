@@ -117,7 +117,7 @@ void Viewer::ImageDisplay::enableCursorHiding() {
 
 void Viewer::ImageDisplay::sendImageToRemoteDevice()
 {
-    RemoteControl::RemoteInterface::instance().sendImage(_loadedImage);
+    RemoteControl::RemoteInterface::instance().sendImage(_curIndex, _loadedImage);
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )

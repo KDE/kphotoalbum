@@ -38,12 +38,23 @@ public:
 
 class ImageUpdateCommand :public RemoteCommand {
 public:
-    ImageUpdateCommand();
+    ImageUpdateCommand(int index = -1, const QImage& image = QImage());
     static QString id();
     void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer&) override;
+    void decodeData(QBuffer& buffer) override;
+    int index;
     QImage image;
 };
+
+class ImageCountUpdateCommand :public RemoteCommand {
+public:
+    ImageCountUpdateCommand();
+    static QString id();
+    void encodeData(QBuffer& buffer) const override;
+    void decodeData(QBuffer& buffer) override;
+    int count;
+};
+
 
 }
 

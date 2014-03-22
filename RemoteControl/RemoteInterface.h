@@ -15,8 +15,9 @@ class RemoteInterface : public QObject
 {
     Q_OBJECT
 public:
-    void sendImage(const QImage& image);
+    void sendImage(int index, const QImage& image);
     static RemoteInterface& instance();
+    void sendImageCount(int count);
 
 private slots:
     void sendPage();

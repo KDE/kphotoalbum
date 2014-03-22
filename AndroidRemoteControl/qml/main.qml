@@ -5,13 +5,27 @@ Item {
     id: root
     focus: true
 
-    RemoteImage {
-        id: remoteImage
-        visible: connected
-    }
+    ListView {
+        anchors.fill: parent
+        model: _remoteInterface.imageCount
+        snapMode: ListView.SnapToItem
+        orientation: ListView.Horizontal
+        onModelChanged: console.log(model)
+        visible: _remoteInterface.connected
 
+        delegate: RemoteImage {
+            index: model.index
+            PinchArea {
+                pinch.target: parent
+                anchors.fill: parent
+                pinch.minimumScale: 0.1
+                pinch.maximumScale: 10
+                pinch.dragAxis: Pinch.XandYAxis
+            }
+        }
+    }
     Text {
-        visible: !remoteImage.connected
+        visible: !_remoteInterface.connected
         text: "Not Connceted"
         anchors.centerIn: parent
         font.pixelSize: 50
@@ -20,13 +34,5 @@ Item {
     Keys.onPressed: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
-    }
-
-    PinchArea {
-        pinch.target: remoteImage
-        anchors.fill: parent
-        pinch.minimumScale: 0.1
-        pinch.maximumScale: 10
-        pinch.dragAxis: Pinch.XandYAxis
     }
 }

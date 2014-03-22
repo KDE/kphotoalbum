@@ -25,11 +25,9 @@ RemoteInterface::RemoteInterface(QObject *parent) :
     connect(m_connection, SIGNAL(gotConnection()), this, SLOT(sendInitialData()));
 }
 
-void RemoteInterface::sendImage(const QImage& image)
+void RemoteInterface::sendImage(int index, const QImage& image)
 {
-    ImageUpdateCommand imageCommand;
-    imageCommand.image = image;
-    m_connection->sendCommand(imageCommand);
+    m_connection->sendCommand(ImageUpdateCommand(index, image));
 }
 
 void RemoteInterface::sendPage()
@@ -40,7 +38,14 @@ void RemoteInterface::sendPage()
 //    QPainter p(&res);
 //    p.drawImage(0,0,image);
 //    p.end();
-//    sendImage(res);
+    //    sendImage(res);
+}
+
+void RemoteInterface::sendImageCount(int count)
+{
+    ImageCountUpdateCommand command;
+    command.count = count;
+    m_connection->sendCommand(command);
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

@@ -7,24 +7,32 @@ using namespace RemoteControl;
 RemoteImage::RemoteImage(QQuickItem *parent) :
     QQuickPaintedItem(parent)
 {
-    connect(&RemoteInterface::instance(), &RemoteInterface::newImage, this, &RemoteImage::setImage);
-    connect(&RemoteInterface::instance(), &RemoteInterface::connectionChanged, this, &RemoteImage::connectionChanged);
+    connect(&RemoteInterface::instance(), &RemoteInterface::imageUpdated, this, &RemoteImage::updateImage);
 }
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, m_image);
-    //painter->drawImage(0,0, m_image.scaled(QSize(width(), height()), Qt::KeepAspectRatio));
+    painter->drawImage(0,0, RemoteInterface::instance().image(m_index));
 }
 
-bool RemoteImage::isConnected() const
+int RemoteImage::index() const
 {
-    return RemoteInterface::instance().isConnected();
+    return m_index;
 }
 
-void RemoteImage::setImage(const QImage& image)
+void RemoteImage::setIndex(int index)
 {
-    m_image = image;
-    update();
-    setSize(image.size());
+    if (m_index != index) {
+        m_index = index;
+        emit indexChanged();
+        setSize(RemoteInterface::instance().image(index).size());
+    }
+}
+
+void RemoteImage::updateImage(int index)
+{
+    if (index == m_index) {
+        setSize(RemoteInterface::instance().image(index).size());
+        update();
+    }
 }

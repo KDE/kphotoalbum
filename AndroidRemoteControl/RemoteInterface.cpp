@@ -28,6 +28,17 @@ bool RemoteInterface::isConnected() const
     return m_connection->isConnected();
 }
 
+QImage RemoteInterface::image(int index) const
+{
+    if (m_imageMap.contains(index))
+        return m_imageMap[index];
+    else {
+        QImage image(1024,768, QImage::Format_RGB32);
+        image.fill(Qt::blue);
+        return image;
+    }
+}
+
 void RemoteInterface::previousSlide()
 {
     m_connection->sendCommand(PreviousSlideCommand());
@@ -41,7 +52,23 @@ void RemoteInterface::nextSlide()
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
     if (command.id() == ImageUpdateCommand::id())
-        emit newImage(static_cast<const ImageUpdateCommand&>(command).image);
+        updateImage(static_cast<const ImageUpdateCommand&>(command));
+    else if (command.id() == ImageCountUpdateCommand::id())
+        updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
     else
         qFatal("Unhandled command");
+}
+
+void RemoteInterface::updateImage(const ImageUpdateCommand& command)
+{
+    m_imageMap[command.index] = command.image;
+    emit imageUpdated(command.index);
+}
+
+void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
+{
+    m_imageMap.clear();
+    m_imageCount = command.count;
+    emit imageCountChanged();
+
 }

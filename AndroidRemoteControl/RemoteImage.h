@@ -9,21 +9,24 @@ namespace RemoteControl {
 class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
+    Q_PROPERTY(int index READ index WRITE setIndex NOTIFY indexChanged)
 
 public:
     explicit RemoteImage(QQuickItem *parent = 0);
     void paint(QPainter *painter) override;
-    bool isConnected() const;
+    int index() const;
+
+public slots:
+    void setIndex(int index);
 
 signals:
-    void connectionChanged();
+    void indexChanged();
 
 private slots:
-    void setImage(const QImage&);
+    void updateImage(int index);
 
 private:
-    QImage m_image;
+    int m_index;
 };
 
 }

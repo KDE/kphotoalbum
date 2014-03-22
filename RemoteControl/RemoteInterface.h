@@ -11,7 +11,6 @@ class Server;
 class RemoteCommand;
 class NextSlideCommand;
 class PreviousSlideCommand;
-
 class RemoteInterface : public QObject
 {
     Q_OBJECT

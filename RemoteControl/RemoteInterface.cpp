@@ -45,7 +45,6 @@ void RemoteInterface::sendPage()
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    qDebug("Got remote command!");
 //    if (command.id() == NextSlideCommand::id())
 //        SlideDeckController::instance()->incrementPage(1);
 //    else if (command.id() == PreviousSlideCommand::id())
@@ -54,6 +53,5 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::sendInitialData()
 {
-    qDebug("GOT CONNECTION");
     sendPage();
 }

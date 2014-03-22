@@ -2,6 +2,7 @@
 #include "RemoteCommand.h"
 
 #include <QBuffer>
+#include <QElapsedTimer>
 #include <QTcpSocket>
 
 using namespace RemoteControl;
@@ -13,6 +14,9 @@ RemoteConnection::RemoteConnection(QObject *parent) :
 
 void RemoteConnection::sendCommand(const RemoteCommand& command)
 {
+    QElapsedTimer timer;
+    timer.start();
+
     if (!isConnected())
         return;
 
@@ -28,7 +32,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
     // Steam the id and the data
     stream << command.id();
-    command.encodeData(stream);
+    command.encodeData(buffer);
 
     // Wind back and stream the length
     stream.device()->seek(0);
@@ -36,6 +40,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
     // Send the data.
     socket()->write(buffer.data());
+    qDebug() << "1" << timer.elapsed();
 }
 
 void RemoteConnection::dataReceived()
@@ -66,7 +71,7 @@ void RemoteConnection::dataReceived()
         stream >> id;
 
         RemoteCommand& command = RemoteCommand::command(id);
-        command.decodeData(stream);
+        command.decodeData(buffer);
 
         emit gotCommand(command);
     }

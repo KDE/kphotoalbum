@@ -9,9 +9,9 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QCoreApplication::setOrganizationName("KDAB");
-    QCoreApplication::setOrganizationDomain("kdab.com");
-    QCoreApplication::setApplicationName("RemoteControl");
+    QCoreApplication::setOrganizationName("KDE");
+    QCoreApplication::setOrganizationDomain("kde.org");
+    QCoreApplication::setApplicationName("KPhotoAlbum");
 
     QQuickView viewer;
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));

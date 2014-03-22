@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDataStream>
 #include <QImage>
+#include <QBuffer>
 
 namespace RemoteControl
 {
@@ -13,8 +14,8 @@ class RemoteCommand
 public:
     RemoteCommand(const QString& id);
     virtual ~RemoteCommand() = default;
-    virtual void encodeData(QDataStream&) const {};
-    virtual void decodeData(QDataStream&) {};
+    virtual void encodeData(QBuffer&) const {};
+    virtual void decodeData(QBuffer&) {};
     QString id() const;
 
     static RemoteCommand& command(const QString& id);
@@ -39,8 +40,8 @@ class ImageUpdateCommand :public RemoteCommand {
 public:
     ImageUpdateCommand();
     static QString id();
-    void encodeData(QDataStream& buffer) const override;
-    void decodeData(QDataStream&) override;
+    void encodeData(QBuffer& buffer) const override;
+    void decodeData(QBuffer&) override;
     QImage image;
 };
 

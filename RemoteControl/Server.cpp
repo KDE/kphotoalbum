@@ -17,7 +17,6 @@ bool Server::isConnected() const
 
 void Server::listen()
 {
-    qDebug("OK listening!");
     if (!m_socket) {
         m_socket = new QUdpSocket(this);
         bool ok = m_socket->bind(UDPPORT); // PENDING Do we want to bind in a special way (see second argument to bind)

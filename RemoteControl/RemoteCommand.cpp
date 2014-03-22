@@ -1,5 +1,6 @@
 #include "RemoteCommand.h"
 
+#include <QBuffer>
 #include <QMap>
 
 using namespace RemoteControl;
@@ -63,12 +64,12 @@ QString ImageUpdateCommand::id()
     return QString::fromUtf8("Image Update");
 }
 
-void ImageUpdateCommand::encodeData(QDataStream& buffer) const
+void ImageUpdateCommand::encodeData(QBuffer& buffer) const
 {
-    buffer << image;
+    image.save(&buffer,"JPEG");
 }
 
-void ImageUpdateCommand::decodeData(QDataStream& buffer)
+void ImageUpdateCommand::decodeData(QBuffer& buffer)
 {
-    buffer >> image;
+    image.load(&buffer, "JPEG");
 }

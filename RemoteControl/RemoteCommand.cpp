@@ -116,19 +116,21 @@ QString CategoryListCommand::id()
 void CategoryListCommand::encodeData(QBuffer& buffer) const
 {
     QDataStream stream(&buffer);
-    QStringList list;
-    for (const Category& category : categories) {
-        list.append(category.text);
-    }
-    stream << list;
+    stream << categories.count();
+    for (const Category& category : categories)
+        stream << category.name << category.text << category.icon;
 }
 
 void CategoryListCommand::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
-    QStringList list;
-    stream >> list;
-    for (QString str : list) {
-        categories.append( {str, str, QImage()});
+    int count;
+    stream >> count;
+    for (int i=0; i<count; ++i) {
+        QString name;
+        QString text;
+        QImage icon;
+        stream >> name >> text >> icon;
+        categories.append( {name, text, icon});
     }
 }

@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     RemoteConnection.cpp \
     RemoteImage.cpp \
     RemoteCommand.cpp \
-    Client.cpp
+    Client.cpp \
+    CategoryModel.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -20,4 +21,5 @@ HEADERS += \
     RemoteConnection.h \
     RemoteImage.h \
     RemoteCommand.h \
-    Client.h
+    Client.h \
+    CategoryModel.h

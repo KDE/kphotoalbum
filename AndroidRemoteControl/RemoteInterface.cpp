@@ -11,10 +11,12 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
+    : m_categories(new CategoryModel(this))
 {
     m_connection = new Client;
     connect(m_connection, &Client::gotCommand, this, &RemoteInterface::handleCommand);
     connect(m_connection, SIGNAL(connectionChanged()),this, SIGNAL(connectionChanged()));
+    qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
 }
 
 RemoteInterface& RemoteInterface::instance()
@@ -77,7 +79,5 @@ void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 {
-    for(const Category& category : command.categories)
-        m_categories.append(category.text);
-    emit categoriesChanged();
+    m_categories->setCategories(command.categories);
 }

@@ -1,6 +1,7 @@
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
 
+#include "CategoryModel.h"
 #include "RemoteCommand.h"
 
 #include <QObject>
@@ -19,7 +20,7 @@ class RemoteInterface : public QObject
     Q_OBJECT
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
     Q_PROPERTY(int imageCount MEMBER m_imageCount NOTIFY imageCountChanged)
-    Q_PROPERTY(QStringList categories MEMBER m_categories NOTIFY categoriesChanged)
+    Q_PROPERTY(RemoteControl::CategoryModel* categories MEMBER m_categories NOTIFY categoriesChanged)
 
 public:
     static RemoteInterface& instance();
@@ -48,7 +49,7 @@ private:
     RemoteConnection* m_connection = nullptr;
     int m_imageCount = 0;
     QMap<int,QImage> m_imageMap;
-    QStringList m_categories;
+    CategoryModel* m_categories;
 };
 
 }

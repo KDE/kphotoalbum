@@ -103,8 +103,8 @@ void ImageCountUpdateCommand::decodeData(QBuffer& buffer)
     stream >> count;
 }
 
-CategoryListCommand::CategoryListCommand(const QStringList& categories)
-    : RemoteCommand(id()), categories(categories)
+CategoryListCommand::CategoryListCommand()
+    : RemoteCommand(id())
 {
 }
 
@@ -116,11 +116,19 @@ QString CategoryListCommand::id()
 void CategoryListCommand::encodeData(QBuffer& buffer) const
 {
     QDataStream stream(&buffer);
-    stream << categories;
+    QStringList list;
+    for (const Category& category : categories) {
+        list.append(category.text);
+    }
+    stream << list;
 }
 
 void CategoryListCommand::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
-    stream >> categories;
+    QStringList list;
+    stream >> list;
+    for (QString str : list) {
+        categories.append( {str, str, QImage()});
+    }
 }

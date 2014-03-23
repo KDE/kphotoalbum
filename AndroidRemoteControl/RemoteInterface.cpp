@@ -77,6 +77,7 @@ void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 {
-    m_categories = command.categories;
+    for(const Category& category : command.categories)
+        m_categories.append(category.text);
     emit categoriesChanged();
 }

@@ -10,6 +10,8 @@
 #include <QPainter>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
+#include "DB/CategoryPtr.h"
+#include "DB/Category.h"
 
 using namespace RemoteControl;
 
@@ -42,6 +44,7 @@ void RemoteInterface::sendImageCount(int count)
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
+    Q_UNUSED(command);
 //    if (command.id() == NextSlideCommand::id())
 //        SlideDeckController::instance()->incrementPage(1);
 //    else if (command.id() == PreviousSlideCommand::id())
@@ -50,5 +53,9 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::sendInitialData()
 {
-    m_connection->sendCommand(CategoryListCommand(DB::ImageDB::instance()->categoryCollection()->categoryNames()));
+    CategoryListCommand command;
+    for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
+        command.categories.append({category->name(), category->text(), category->icon().toImage()});
+    }
+    m_connection->sendCommand(command);
 }

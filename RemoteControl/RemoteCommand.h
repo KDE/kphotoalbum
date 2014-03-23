@@ -56,13 +56,19 @@ public:
     int count;
 };
 
+struct Category {
+    QString name;
+    QString text;
+    QImage icon;
+};
+
 class CategoryListCommand :public RemoteCommand {
 public:
-    CategoryListCommand(const QStringList& categories = {});
+    CategoryListCommand();
     static QString id();
     void encodeData(QBuffer& buffer) const override;
     void decodeData(QBuffer& buffer) override;
-    QStringList categories;
+    QList<Category> categories;
 };
 
 }

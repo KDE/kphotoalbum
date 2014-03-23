@@ -2,46 +2,37 @@ import QtQuick 2.0
 import KPhotoAlbum 1.0
 
 Item {
-    GridView {
-        Rectangle {
-            anchors.fill: parent
-            color: "#DDDDDD"
-            z: -1
+//    Rectangle {
+//        anchors.fill: grid
+//        color: "#DDDDDD"
+//    }
+
+    Grid {
+        id: grid
+        anchors.centerIn: parent
+        width: 200*3
+        height: 150*3
+        columns: 3
+
+        Icon {
+            text: "home"
+            icon: _remoteInterface.home
+            onClicked: console.log("HOME")
         }
 
-        anchors.centerIn: parent
-        width: 450
-        height: 400
-
-        cellWidth: 150
-        cellHeight: 200
-
-        model: _remoteInterface.categories
-
-//        Item {
-//            width: parent.cellWidth
-//            height: parent.cellHeight
-//            Column {
-//                anchors.centerIn: parent
-//                MyImage { image: _remoteInterface.home }
-//                Text { text: "home" }
-//            }
-//        }
-
-        delegate: Item {
-            width: GridView.view.cellWidth
-            height: GridView.view.cellHeight
-
-            Column {
-                anchors.centerIn: parent
-                MyImage { image: model.icon }
-                Text { text: model.text }
-            }
-            MouseArea {
-                anchors.fill: parent
+        Repeater {
+            model: _remoteInterface.categories
+            delegate: Icon {
+                text: model.text
+                icon: model.icon
                 onClicked: console.log(model.name)
             }
+        }
 
+        Icon {
+            text: "Show Thumbnails"
+            icon: _remoteInterface.kphotoalbum
+            onClicked: console.log("Show Thumbnails")
         }
     }
 }

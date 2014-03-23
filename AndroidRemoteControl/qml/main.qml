@@ -13,6 +13,7 @@ Item {
         font.pixelSize: 50
     }
 
+    focus: true
     Keys.onPressed: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()

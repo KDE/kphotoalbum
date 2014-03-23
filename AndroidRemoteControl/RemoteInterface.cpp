@@ -80,4 +80,6 @@ void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 {
     m_categories->setCategories(command.categories);
+    m_homeImage = command.home;
+    emit homeImageChanged();
 }

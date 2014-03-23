@@ -119,6 +119,7 @@ void CategoryListCommand::encodeData(QBuffer& buffer) const
     stream << categories.count();
     for (const Category& category : categories)
         stream << category.name << category.text << category.icon;
+    stream << home << kphotoalbum;
 }
 
 void CategoryListCommand::decodeData(QBuffer& buffer)
@@ -133,4 +134,5 @@ void CategoryListCommand::decodeData(QBuffer& buffer)
         stream >> name >> text >> icon;
         categories.append( {name, text, icon});
     }
+    stream >> home >> kphotoalbum;
 }

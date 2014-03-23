@@ -5,6 +5,7 @@
 
 #include "RemoteInterface.h"
 #include "RemoteImage.h"
+#include "MyImage.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     qmlRegisterType<RemoteControl::RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
+    qmlRegisterType<RemoteControl::MyImage>("KPhotoAlbum", 1, 0, "MyImage");
     viewer.engine()->rootContext()->setContextProperty("_remoteInterface", &RemoteControl::RemoteInterface::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));

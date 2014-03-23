@@ -69,6 +69,8 @@ public:
     void encodeData(QBuffer& buffer) const override;
     void decodeData(QBuffer& buffer) override;
     QList<Category> categories;
+    QImage home;
+    QImage kphotoalbum;
 };
 
 }

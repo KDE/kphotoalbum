@@ -8,6 +8,7 @@
 #include <QImage>
 #include <QBuffer>
 #include <QPainter>
+#include <kiconloader.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "DB/CategoryPtr.h"
@@ -53,9 +54,17 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::sendInitialData()
 {
+    const int THUMBNAILSIZE = 70;
     CategoryListCommand command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
-        command.categories.append({category->name(), category->text(), category->icon().toImage()});
+        command.categories.append({category->name(), category->text(), category->icon(THUMBNAILSIZE).toImage()});
     }
+
+    QPixmap homeIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("go-home"), KIconLoader::Desktop, THUMBNAILSIZE);
+    command.home = homeIcon.toImage();
+
+    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, THUMBNAILSIZE);
+    command.kphotoalbum = kphotoalbumIcon.toImage();
+
     m_connection->sendCommand(command);
 }

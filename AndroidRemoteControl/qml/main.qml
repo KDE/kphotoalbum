@@ -1,8 +1,24 @@
 import QtQuick 2.2
 import KPhotoAlbum 1.0
 
-CategoryPage {}
-//Item {
+Item {
+    CategoryPage {
+        anchors.fill: parent
+        visible: _remoteInterface.connected
+    }
+    Text {
+        visible: !_remoteInterface.connected
+        text: "Not Connceted"
+        anchors.centerIn: parent
+        font.pixelSize: 50
+    }
+
+    Keys.onPressed: {
+        if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
+            Qt.quit()
+    }
+}
+    //Item {
 //    id: root
 //    focus: true
 
@@ -24,16 +40,5 @@ CategoryPage {}
 //                pinch.dragAxis: Pinch.XandYAxis
 //            }
 //        }
-//    }
-//    Text {
-//        visible: !_remoteInterface.connected
-//        text: "Not Connceted"
-//        anchors.centerIn: parent
-//        font.pixelSize: 50
-//    }
-
-//    Keys.onPressed: {
-//        if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
-//            Qt.quit()
 //    }
 //}

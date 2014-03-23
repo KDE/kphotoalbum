@@ -21,6 +21,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
     Q_PROPERTY(int imageCount MEMBER m_imageCount NOTIFY imageCountChanged)
     Q_PROPERTY(RemoteControl::CategoryModel* categories MEMBER m_categories NOTIFY categoriesChanged)
+    Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
 
 public:
     static RemoteInterface& instance();
@@ -36,6 +37,7 @@ signals:
     void imageUpdated(int index);
     void imageCountChanged();
     void categoriesChanged();
+    void homeImageChanged();
 
 private slots:
     void handleCommand(const RemoteCommand&);
@@ -50,6 +52,7 @@ private:
     int m_imageCount = 0;
     QMap<int,QImage> m_imageMap;
     CategoryModel* m_categories;
+    QImage m_homeImage;
 };
 
 }

@@ -2,7 +2,7 @@ import QtQuick 2.2
 import KPhotoAlbum 1.0
 
 Item {
-    CategoryPage {
+    OverviewPage {
         anchors.fill: parent
         visible: _remoteInterface.connected
     }

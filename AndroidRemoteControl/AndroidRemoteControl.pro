@@ -12,8 +12,8 @@ SOURCES += main.cpp \
 
 OTHER_FILES += \
     qml/main.qml \
-    qml/CategoryPage.qml \
-    qml/Icon.qml
+    qml/Icon.qml \
+    qml/OverviewPage.qml
 
 RESOURCES += \
     resources.qrc

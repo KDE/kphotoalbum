@@ -8,6 +8,8 @@
 #include <QImage>
 #include <QBuffer>
 #include <QPainter>
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 
 using namespace RemoteControl;
 
@@ -30,16 +32,6 @@ void RemoteInterface::sendImage(int index, const QImage& image)
     m_connection->sendCommand(ImageUpdateCommand(index, image));
 }
 
-void RemoteInterface::sendPage()
-{
-//    // PENDING(blackie) This crashes if the window is not visible
-//    QImage image = View::instance()->grabWindow();
-//    QImage res(1024,768,image.format());
-//    QPainter p(&res);
-//    p.drawImage(0,0,image);
-//    p.end();
-    //    sendImage(res);
-}
 
 void RemoteInterface::sendImageCount(int count)
 {
@@ -58,5 +50,5 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::sendInitialData()
 {
-    sendPage();
+    m_connection->sendCommand(CategoryListCommand(DB::ImageDB::instance()->categoryCollection()->categoryNames()));
 }

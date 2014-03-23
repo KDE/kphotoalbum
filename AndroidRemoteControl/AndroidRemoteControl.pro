@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     Client.cpp
 
 OTHER_FILES += \
-    qml/main.qml
+    qml/main.qml \
+    qml/CategoryPage.qml
 
 RESOURCES += \
     resources.qrc

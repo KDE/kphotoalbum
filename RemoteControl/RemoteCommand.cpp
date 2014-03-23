@@ -23,7 +23,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
         commands << new NextSlideCommand
                  << new PreviousSlideCommand
                  << new ImageUpdateCommand
-                 << new ImageCountUpdateCommand;
+                 << new ImageCountUpdateCommand
+                 << new CategoryListCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -100,4 +101,26 @@ void ImageCountUpdateCommand::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
     stream >> count;
+}
+
+CategoryListCommand::CategoryListCommand(const QStringList& categories)
+    : RemoteCommand(id()), categories(categories)
+{
+}
+
+QString CategoryListCommand::id()
+{
+    return QString::fromUtf8("Category List");
+}
+
+void CategoryListCommand::encodeData(QBuffer& buffer) const
+{
+    QDataStream stream(&buffer);
+    stream << categories;
+}
+
+void CategoryListCommand::decodeData(QBuffer& buffer)
+{
+    QDataStream stream(&buffer);
+    stream >> categories;
 }

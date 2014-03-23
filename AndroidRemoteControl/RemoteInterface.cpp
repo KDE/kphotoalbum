@@ -55,6 +55,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateImage(static_cast<const ImageUpdateCommand&>(command));
     else if (command.id() == ImageCountUpdateCommand::id())
         updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
+    else if (command.id() == CategoryListCommand::id())
+        updateCategoryList(static_cast<const CategoryListCommand&>(command));
     else
         qFatal("Unhandled command");
 }
@@ -71,4 +73,10 @@ void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
     m_imageCount = command.count;
     emit imageCountChanged();
 
+}
+
+void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
+{
+    m_categories = command.categories;
+    emit categoriesChanged();
 }

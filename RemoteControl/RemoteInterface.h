@@ -20,7 +20,6 @@ public:
     void sendImageCount(int count);
 
 private slots:
-    void sendPage();
     void handleCommand(const RemoteCommand&);
     void sendInitialData();
 

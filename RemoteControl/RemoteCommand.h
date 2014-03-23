@@ -5,6 +5,7 @@
 #include <QDataStream>
 #include <QImage>
 #include <QBuffer>
+#include <QStringList>
 
 namespace RemoteControl
 {
@@ -55,6 +56,14 @@ public:
     int count;
 };
 
+class CategoryListCommand :public RemoteCommand {
+public:
+    CategoryListCommand(const QStringList& categories = {});
+    static QString id();
+    void encodeData(QBuffer& buffer) const override;
+    void decodeData(QBuffer& buffer) override;
+    QStringList categories;
+};
 
 }
 

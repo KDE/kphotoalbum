@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QMap>
 #include <QImage>
+#include <QStringList>
 
 class QTcpSocket;
 
@@ -18,6 +19,7 @@ class RemoteInterface : public QObject
     Q_OBJECT
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
     Q_PROPERTY(int imageCount MEMBER m_imageCount NOTIFY imageCountChanged)
+    Q_PROPERTY(QStringList categories MEMBER m_categories NOTIFY categoriesChanged)
 
 public:
     static RemoteInterface& instance();
@@ -32,11 +34,13 @@ signals:
     void connectionChanged();
     void imageUpdated(int index);
     void imageCountChanged();
+    void categoriesChanged();
 
 private slots:
     void handleCommand(const RemoteCommand&);
     void updateImage(const ImageUpdateCommand&);
     void updateImageCount(const ImageCountUpdateCommand&);
+    void updateCategoryList(const CategoryListCommand&);
 
 private:
     RemoteInterface();
@@ -44,6 +48,7 @@ private:
     RemoteConnection* m_connection = nullptr;
     int m_imageCount = 0;
     QMap<int,QImage> m_imageMap;
+    QStringList m_categories;
 };
 
 }

@@ -22,7 +22,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
         QList<RemoteCommand*> commands;
         commands << new ImageUpdateCommand
                  << new ImageCountUpdateCommand
-                 << new CategoryListCommand;
+                 << new CategoryListCommand
+                 << new RequestCategoryInfo;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -102,6 +103,7 @@ void CategoryListCommand::decodeData(QBuffer& buffer)
     QDataStream stream(&buffer);
     int count;
     stream >> count;
+    categories.clear();
     for (int i=0; i<count; ++i) {
         QString name;
         QString text;
@@ -110,4 +112,27 @@ void CategoryListCommand::decodeData(QBuffer& buffer)
         categories.append( {name, text, icon});
     }
     stream >> home >> kphotoalbum;
+}
+
+
+RequestCategoryInfo::RequestCategoryInfo(RequestType type, const SearchInfo& searchInfo)
+    :RemoteCommand(id()), type(type), searchInfo(searchInfo)
+{
+}
+
+QString RequestCategoryInfo::id()
+{
+    return QString::fromUtf8("Request Category Info");
+}
+
+void RequestCategoryInfo::encodeData(QBuffer& buffer) const
+{
+    QDataStream stream(&buffer);
+    stream << searchInfo;
+}
+
+void RequestCategoryInfo::decodeData(QBuffer& buffer)
+{
+    QDataStream stream(&buffer);
+    stream >> searchInfo;
 }

@@ -31,6 +31,7 @@ void Client::acceptConnection()
     connect(m_socket, &QTcpSocket::disconnected, this, &Client::disconnect);
     connect(m_socket, &QTcpSocket::readyRead, this, &Client::dataReceived);
     emit connectionChanged();
+    emit gotConnected();
 }
 
 void Client::sendBroadcastPackage()

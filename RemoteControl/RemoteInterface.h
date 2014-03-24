@@ -1,6 +1,8 @@
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
 
+#include "RemoteCommand.h"
+
 #include <QObject>
 #include <QHostAddress>
 
@@ -8,9 +10,7 @@
 namespace RemoteControl
 {
 class Server;
-class RemoteCommand;
-class NextSlideCommand;
-class PreviousSlideCommand;
+
 class RemoteInterface : public QObject
 {
     Q_OBJECT
@@ -21,7 +21,8 @@ public:
 
 private slots:
     void handleCommand(const RemoteCommand&);
-    void sendInitialData();
+    void sendCategoryNames(const RequestCategoryInfo& searchInfo);
+    void sendCategoryValues(const RequestCategoryInfo& searchInfo);
 
 private:
     explicit RemoteInterface(QObject *parent = 0);

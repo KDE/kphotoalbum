@@ -16,6 +16,7 @@ public:
 
 signals:
     void connectionChanged();
+    void gotConnected();
 
 protected:
     QTcpSocket* socket() override;

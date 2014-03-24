@@ -1,6 +1,8 @@
 #ifndef REMOTECOMMAND_H
 #define REMOTECOMMAND_H
 
+#include "SearchInfo.h"
+
 #include <QString>
 #include <QDataStream>
 #include <QImage>
@@ -25,7 +27,8 @@ private:
     QString m_id;
 };
 
-class ImageUpdateCommand :public RemoteCommand {
+class ImageUpdateCommand :public RemoteCommand
+{
 public:
     ImageUpdateCommand(int index = -1, const QImage& image = QImage());
     static QString id();
@@ -35,7 +38,8 @@ public:
     QImage image;
 };
 
-class ImageCountUpdateCommand :public RemoteCommand {
+class ImageCountUpdateCommand :public RemoteCommand
+{
 public:
     ImageCountUpdateCommand();
     static QString id();
@@ -50,7 +54,8 @@ struct Category {
     QImage icon;
 };
 
-class CategoryListCommand :public RemoteCommand {
+class CategoryListCommand :public RemoteCommand
+{
 public:
     CategoryListCommand();
     static QString id();
@@ -61,6 +66,17 @@ public:
     QImage kphotoalbum;
 };
 
-}
+class RequestCategoryInfo :public RemoteCommand
+{
+public:
+    enum RequestType { RequestCategoryName, RequestCategoryValues };
+    RequestCategoryInfo(RequestType type = {}, const SearchInfo& searchInfo = {});
+    static QString id();
+    void encodeData(QBuffer& buffer) const override;
+    void decodeData(QBuffer& buffer) override;
+    RequestType type;
+    SearchInfo searchInfo;
+};
 
+}
 #endif // REMOTECOMMAND_H

@@ -3,6 +3,7 @@
 
 #include "CategoryModel.h"
 #include "RemoteCommand.h"
+#include "SearchInfo.h"
 
 #include <QObject>
 #include <QMap>
@@ -13,7 +14,7 @@ class QTcpSocket;
 
 namespace RemoteControl {
 
-class RemoteConnection;
+class Client;
 
 class RemoteInterface : public QObject
 {
@@ -32,6 +33,7 @@ public:
 public slots:
     void goHome();
     void selectCategory(const QString& category);
+    void selectCategoryValue(const QString& value);
     void showThumbnails();
 
 signals:
@@ -43,6 +45,7 @@ signals:
     void kphotoalbumImageChange();
 
 private slots:
+    void requestInitialData();
     void handleCommand(const RemoteCommand&);
     void updateImage(const ImageUpdateCommand&);
     void updateImageCount(const ImageCountUpdateCommand&);
@@ -51,12 +54,13 @@ private slots:
 private:
     RemoteInterface();
 
-    RemoteConnection* m_connection = nullptr;
+    Client* m_connection = nullptr;
     int m_imageCount = 0;
     QMap<int,QImage> m_imageMap;
     CategoryModel* m_categories;
     QImage m_homeImage;
     QImage m_kphotoalbumImage;
+    SearchInfo m_search;
 };
 
 }

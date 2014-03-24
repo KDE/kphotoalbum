@@ -27,7 +27,6 @@ RemoteInterface::RemoteInterface(QObject *parent) :
 {
     m_connection->listen();
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
-    connect(m_connection, SIGNAL(gotConnection()), this, SLOT(sendInitialData()));
 }
 
 void RemoteInterface::sendImage(int index, const QImage& image)
@@ -45,10 +44,16 @@ void RemoteInterface::sendImageCount(int count)
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    Q_UNUSED(command);
+    if (command.id() == RequestCategoryInfo::id()) {
+        const RequestCategoryInfo& requestCommand = static_cast<const RequestCategoryInfo&>(command);
+        if (requestCommand.type == RequestCategoryInfo::RequestCategoryName)
+            sendCategoryNames(requestCommand);
+        else
+            sendCategoryValues(requestCommand);
+    }
 }
 
-void RemoteInterface::sendInitialData()
+void RemoteInterface::sendCategoryNames(const RequestCategoryInfo& searchInfo)
 {
     const int THUMBNAILSIZE = 70;
     CategoryListCommand command;
@@ -63,4 +68,9 @@ void RemoteInterface::sendInitialData()
     command.kphotoalbum = kphotoalbumIcon.toImage();
 
     m_connection->sendCommand(command);
+}
+
+void RemoteInterface::sendCategoryValues(const RequestCategoryInfo& searchInfo)
+{
+
 }

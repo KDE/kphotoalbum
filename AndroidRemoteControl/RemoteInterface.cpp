@@ -15,7 +15,8 @@ RemoteInterface::RemoteInterface()
 {
     m_connection = new Client;
     connect(m_connection, &Client::gotCommand, this, &RemoteInterface::handleCommand);
-    connect(m_connection, SIGNAL(connectionChanged()),this, SIGNAL(connectionChanged()));
+    connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
+    connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
 }
 
@@ -43,17 +44,28 @@ QImage RemoteInterface::image(int index) const
 
 void RemoteInterface::goHome()
 {
-    qDebug("Go home");
+    m_search.clear();
 }
 
 void RemoteInterface::selectCategory(const QString& category)
 {
-    qDebug("Select Category %s", qPrintable(category));
+    m_search.addCategory(category);
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryName, m_search));
+}
+
+void RemoteInterface::selectCategoryValue(const QString& value)
+{
+    m_search.addValue(value);
 }
 
 void RemoteInterface::showThumbnails()
 {
     qDebug("Show Thumbnails");
+}
+
+void RemoteInterface::requestInitialData()
+{
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryName, SearchInfo()));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

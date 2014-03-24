@@ -46,10 +46,6 @@ void RemoteInterface::sendImageCount(int count)
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
     Q_UNUSED(command);
-//    if (command.id() == NextSlideCommand::id())
-//        SlideDeckController::instance()->incrementPage(1);
-//    else if (command.id() == PreviousSlideCommand::id())
-//        SlideDeckController::instance()->incrementPage(-1);
 }
 
 void RemoteInterface::sendInitialData()

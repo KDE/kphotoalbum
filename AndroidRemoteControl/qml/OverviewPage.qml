@@ -17,7 +17,7 @@ Item {
         Icon {
             text: "home"
             icon: _remoteInterface.home
-            onClicked: console.log("HOME")
+            onClicked: _remoteInterface.goHome()
         }
 
         Repeater {
@@ -25,14 +25,14 @@ Item {
             delegate: Icon {
                 text: model.text
                 icon: model.icon
-                onClicked: console.log(model.name)
+                onClicked: _remoteInterface.selectCategory(model.name)
             }
         }
 
         Icon {
             text: "Show Thumbnails"
             icon: _remoteInterface.kphotoalbum
-            onClicked: console.log("Show Thumbnails")
+            onClicked: _remoteInterface.showThumbnails()
         }
     }
 }

@@ -30,8 +30,9 @@ public:
     QImage image(int index) const;
 
 public slots:
-    void previousSlide();
-    void nextSlide();
+    void goHome();
+    void selectCategory(const QString& category);
+    void showThumbnails();
 
 signals:
     void connectionChanged();

@@ -25,18 +25,6 @@ private:
     QString m_id;
 };
 
-class NextSlideCommand :public RemoteCommand {
-public:
-    NextSlideCommand();
-    static QString id();
-};
-
-class PreviousSlideCommand :public RemoteCommand {
-public:
-    PreviousSlideCommand();
-    static QString id();
-};
-
 class ImageUpdateCommand :public RemoteCommand {
 public:
     ImageUpdateCommand(int index = -1, const QImage& image = QImage());

@@ -41,14 +41,19 @@ QImage RemoteInterface::image(int index) const
     }
 }
 
-void RemoteInterface::previousSlide()
+void RemoteInterface::goHome()
 {
-    m_connection->sendCommand(PreviousSlideCommand());
+    qDebug("Go home");
 }
 
-void RemoteInterface::nextSlide()
+void RemoteInterface::selectCategory(const QString& category)
 {
-    m_connection->sendCommand(NextSlideCommand());
+    qDebug("Select Category %s", qPrintable(category));
+}
+
+void RemoteInterface::showThumbnails()
+{
+    qDebug("Show Thumbnails");
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

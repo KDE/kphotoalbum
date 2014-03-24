@@ -20,9 +20,7 @@ RemoteCommand& RemoteCommand::command(const QString& id)
     static QMap<QString, RemoteCommand*> map;
     if (map.isEmpty()) {
         QList<RemoteCommand*> commands;
-        commands << new NextSlideCommand
-                 << new PreviousSlideCommand
-                 << new ImageUpdateCommand
+        commands << new ImageUpdateCommand
                  << new ImageCountUpdateCommand
                  << new CategoryListCommand;
 
@@ -32,29 +30,6 @@ RemoteCommand& RemoteCommand::command(const QString& id)
 
     return *map[id];
 }
-
-
-NextSlideCommand::NextSlideCommand()
-    :RemoteCommand(id())
-{
-}
-
-QString NextSlideCommand::id()
-{
-    return QString::fromUtf8("Next Slide");
-}
-
-
-PreviousSlideCommand::PreviousSlideCommand()
-    :RemoteCommand(id())
-{
-}
-
-QString PreviousSlideCommand::id()
-{
-    return QString::fromUtf8("Previous Slide");
-}
-
 
 ImageUpdateCommand::ImageUpdateCommand(int index, const QImage& image)
     :RemoteCommand(id()), index(index), image(image)

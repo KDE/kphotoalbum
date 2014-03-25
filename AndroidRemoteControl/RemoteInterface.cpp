@@ -50,12 +50,13 @@ void RemoteInterface::goHome()
 void RemoteInterface::selectCategory(const QString& category)
 {
     m_search.addCategory(category);
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryName, m_search));
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryValues, m_search));
 }
 
 void RemoteInterface::selectCategoryValue(const QString& value)
 {
     m_search.addValue(value);
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, m_search));
 }
 
 void RemoteInterface::showThumbnails()
@@ -65,7 +66,7 @@ void RemoteInterface::showThumbnails()
 
 void RemoteInterface::requestInitialData()
 {
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryName, SearchInfo()));
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, SearchInfo()));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
@@ -76,6 +77,9 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
     else if (command.id() == CategoryListCommand::id())
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
+    else if (command.id() == SearchResult::id()) {
+        gotSearchResult(static_cast<const SearchResult&>(command));
+    }
     else
         qFatal("Unhandled command");
 }
@@ -102,4 +106,9 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 
     m_kphotoalbumImage = command.kphotoalbum;
     emit kphotoalbumImageChange();
+}
+
+void RemoteInterface::gotSearchResult(const SearchResult& result)
+{
+    qDebug() << result.relativeFileNameList;
 }

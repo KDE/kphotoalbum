@@ -23,7 +23,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
         commands << new ImageUpdateCommand
                  << new ImageCountUpdateCommand
                  << new CategoryListCommand
-                 << new RequestCategoryInfo;
+                 << new RequestCategoryInfo
+                 << new SearchResult;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -94,7 +95,7 @@ void CategoryListCommand::encodeData(QBuffer& buffer) const
     QDataStream stream(&buffer);
     stream << categories.count();
     for (const Category& category : categories)
-        stream << category.name << category.text << category.icon;
+        stream << category.name << category.text << category.icon << category.enabled;
     stream << home << kphotoalbum;
 }
 
@@ -108,8 +109,9 @@ void CategoryListCommand::decodeData(QBuffer& buffer)
         QString name;
         QString text;
         QImage icon;
-        stream >> name >> text >> icon;
-        categories.append( {name, text, icon});
+        bool enabled;
+        stream >> name >> text >> icon >> enabled;
+        categories.append( {name, text, icon, enabled});
     }
     stream >> home >> kphotoalbum;
 }
@@ -128,11 +130,34 @@ QString RequestCategoryInfo::id()
 void RequestCategoryInfo::encodeData(QBuffer& buffer) const
 {
     QDataStream stream(&buffer);
-    stream << searchInfo;
+    stream << (int) type << searchInfo;
 }
 
 void RequestCategoryInfo::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
-    stream >> searchInfo;
+    stream >> (int&) type >> searchInfo;
+}
+
+
+SearchResult::SearchResult(const QStringList& relativeFileNameList)
+    :RemoteCommand(id()), relativeFileNameList(relativeFileNameList)
+{
+}
+
+QString SearchResult::id()
+{
+    return QString::fromUtf8("Search Result");
+}
+
+void SearchResult::encodeData(QBuffer& buffer) const
+{
+    QDataStream stream(&buffer);
+    stream << relativeFileNameList;
+}
+
+void SearchResult::decodeData(QBuffer& buffer)
+{
+    QDataStream stream(&buffer);
+    stream >> relativeFileNameList;
 }

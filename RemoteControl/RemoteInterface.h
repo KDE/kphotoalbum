@@ -2,7 +2,7 @@
 #define REMOTEINTERFACE_H
 
 #include "RemoteCommand.h"
-
+#include "DB/ImageSearchInfo.h"
 #include <QObject>
 #include <QHostAddress>
 
@@ -22,10 +22,11 @@ public:
 private slots:
     void handleCommand(const RemoteCommand&);
     void sendCategoryNames(const RequestCategoryInfo& searchInfo);
-    void sendCategoryValues(const RequestCategoryInfo& searchInfo);
+    void sendCategoryValues(const RequestCategoryInfo& search);
 
 private:
     explicit RemoteInterface(QObject *parent = 0);
+    DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;
 };
 

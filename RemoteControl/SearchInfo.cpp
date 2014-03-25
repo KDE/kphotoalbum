@@ -26,6 +26,11 @@ void SearchInfo::clear()
     m_values.clear();
 }
 
+QString SearchInfo::currentCategory() const
+{
+    return m_categories.top();
+}
+
 QDataStream&operator<<(QDataStream& stream, const SearchInfo& searchInfo)
 {
     stream << searchInfo.m_categories << searchInfo.m_values;
@@ -36,6 +41,14 @@ QDataStream&operator>>(QDataStream& stream, SearchInfo& searchInfo)
 {
     stream >> searchInfo.m_categories >> searchInfo.m_values;
     return stream;
+}
+
+QList<std::tuple<QString, QString> > RemoteControl::SearchInfo::values() const
+{
+    QList<std::tuple<QString, QString> > result;
+    for (int i=0; i < m_values.count(); ++i)
+        result.append(std::make_tuple(m_categories[i], m_values[i]));
+    return result;
 }
 
 } // namespace RemoteControl

@@ -52,6 +52,7 @@ struct Category {
     QString name;
     QString text;
     QImage icon;
+    bool enabled;
 };
 
 class CategoryListCommand :public RemoteCommand
@@ -69,13 +70,23 @@ public:
 class RequestCategoryInfo :public RemoteCommand
 {
 public:
-    enum RequestType { RequestCategoryName, RequestCategoryValues };
+    enum RequestType { RequestCategoryNames, RequestCategoryValues };
     RequestCategoryInfo(RequestType type = {}, const SearchInfo& searchInfo = {});
     static QString id();
     void encodeData(QBuffer& buffer) const override;
     void decodeData(QBuffer& buffer) override;
     RequestType type;
     SearchInfo searchInfo;
+};
+
+class SearchResult :public RemoteCommand
+{
+public:
+    SearchResult(const QStringList& relativeFileNameList = {});
+    static QString id();
+    void encodeData(QBuffer& buffer) const override;
+    void decodeData(QBuffer& buffer) override;
+    QStringList relativeFileNameList;
 };
 
 }

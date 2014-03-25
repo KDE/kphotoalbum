@@ -14,7 +14,7 @@ class CategoryModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum { NameRole, TextRole, IconRole };
+    enum { NameRole, TextRole, IconRole, EnabledRole };
     explicit CategoryModel(QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;

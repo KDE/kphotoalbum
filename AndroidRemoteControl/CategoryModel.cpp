@@ -22,6 +22,8 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
         return item.text;
     else if (role == IconRole)
         return item.icon;
+    else if (role == EnabledRole)
+        return item.enabled;
     return {};
 }
 
@@ -31,6 +33,7 @@ QHash<int, QByteArray> RemoteControl::CategoryModel::roleNames() const
     result.insert(NameRole, "name");
     result.insert(TextRole, "text");
     result.insert(IconRole, "icon");
+    result.insert(EnabledRole, "enabled");
     return result;
 }
 

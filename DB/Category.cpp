@@ -32,9 +32,9 @@
 
 using Utilities::StringSet;
 
-QPixmap DB::Category::icon( int size ) const
+QPixmap DB::Category::icon( int size, KIconLoader::States state ) const
 {
-    QPixmap pixmap = KIconLoader::global()->loadIcon( iconName(), KIconLoader::Desktop, size, KIconLoader::DefaultState, QStringList(), 0L, true);
+    QPixmap pixmap = KIconLoader::global()->loadIcon( iconName(), KIconLoader::Desktop, size, state, QStringList(), 0L, true);
     DB::Category* This = const_cast<DB::Category*>(this);
     if ( pixmap.isNull() ) {
         This->blockSignals(true);

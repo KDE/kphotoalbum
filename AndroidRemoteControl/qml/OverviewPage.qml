@@ -23,9 +23,10 @@ Item {
         Repeater {
             model: _remoteInterface.categories
             delegate: Icon {
+                //enabled: model.enabled
                 text: model.text
                 icon: model.icon
-                onClicked: _remoteInterface.selectCategory(model.name)
+                onClicked: { console.log("SELECT"); _remoteInterface.selectCategory(model.name)}
             }
         }
 

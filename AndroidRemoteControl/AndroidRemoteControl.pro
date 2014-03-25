@@ -9,12 +9,14 @@ SOURCES += main.cpp \
     Client.cpp \
     CategoryModel.cpp \
     MyImage.cpp \
-    SearchInfo.cpp
+    SearchInfo.cpp \
+    CategoryItemsModel.cpp
 
 OTHER_FILES += \
     qml/main.qml \
     qml/Icon.qml \
-    qml/OverviewPage.qml
+    qml/OverviewPage.qml \
+    qml/CategoryItemsPage.qml
 
 RESOURCES += \
     resources.qrc
@@ -27,4 +29,5 @@ HEADERS += \
     Client.h \
     CategoryModel.h \
     MyImage.h \
-    SearchInfo.h
+    SearchInfo.h \
+    CategoryItemsModel.h

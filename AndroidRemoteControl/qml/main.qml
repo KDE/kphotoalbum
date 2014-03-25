@@ -4,10 +4,16 @@ import KPhotoAlbum 1.0
 Item {
     OverviewPage {
         anchors.fill: parent
-        visible: _remoteInterface.connected
+        visible: _remoteInterface.currentPage == "Overview"
     }
+
+    CategoryItemsPage {
+        anchors.fill: parent
+        visible: _remoteInterface.currentPage == "CategoryItems"
+    }
+
     Text {
-        visible: !_remoteInterface.connected
+        visible: _remoteInterface.currentPage == "Unconnected"
         text: "Not Connceted"
         anchors.centerIn: parent
         font.pixelSize: 50

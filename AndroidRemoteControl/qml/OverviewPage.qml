@@ -26,7 +26,7 @@ Item {
                 //enabled: model.enabled
                 text: model.text
                 icon: model.icon
-                onClicked: { console.log("SELECT"); _remoteInterface.selectCategory(model.name)}
+                onClicked: _remoteInterface.selectCategory(model.name)
             }
         }
 

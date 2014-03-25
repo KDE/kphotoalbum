@@ -14,6 +14,7 @@
 #include "DB/CategoryPtr.h"
 #include "DB/Category.h"
 #include "DB/ImageSearchInfo.h"
+#include "Browser/FlatCategoryModel.h"
 
 #include <tuple>
 #include <algorithm>
@@ -98,9 +99,14 @@ void RemoteInterface::sendCategoryNames(const RequestCategoryInfo& search)
 void RemoteInterface::sendCategoryValues(const RequestCategoryInfo& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
-    // Only handle images for now.
-    QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, search.searchInfo.currentCategory(), DB::Image );
-    m_connection->sendCommand(SearchResult(images.keys()));
+    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
+                                     dbSearchInfo);
+
+    CategoryItemListCommand result;
+    for (int i=0; i<model.rowCount(QModelIndex());++i)
+        result.addItem(model.data(model.index(i,0), Qt::DisplayRole).value<QString>(),
+                       model.data(model.index(i,0), Qt::DecorationRole).value<QImage>());
+    m_connection->sendCommand(result);
 }
 
 // Needed when actually searching for files.

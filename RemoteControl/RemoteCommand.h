@@ -8,6 +8,7 @@
 #include <QImage>
 #include <QBuffer>
 #include <QStringList>
+#include <QPair>
 
 namespace RemoteControl
 {
@@ -23,6 +24,9 @@ public:
 
     static RemoteCommand& command(const QString& id);
 
+protected:
+    void encodeImage(QBuffer& buffer, const QImage& image) const;
+    QImage decodeImage(QBuffer& buffer) const;
 private:
     QString m_id;
 };
@@ -79,14 +83,21 @@ public:
     SearchInfo searchInfo;
 };
 
-class SearchResult :public RemoteCommand
+struct CategoryItem {
+    QString text;
+    QImage icon;
+};
+
+using CategoryItemsList = QList<CategoryItem>;
+class CategoryItemListCommand :public RemoteCommand
 {
 public:
-    SearchResult(const QStringList& relativeFileNameList = {});
+    CategoryItemListCommand();
     static QString id();
     void encodeData(QBuffer& buffer) const override;
     void decodeData(QBuffer& buffer) override;
-    QStringList relativeFileNameList;
+    void addItem(const QString& text, const QImage& icon);
+    CategoryItemsList items;
 };
 
 }

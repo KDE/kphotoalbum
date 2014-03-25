@@ -11,13 +11,22 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
-    : m_categories(new CategoryModel(this))
+    : m_categories(new CategoryModel(this)), m_categoryItems(new CategoryItemsModel(this))
 {
     m_connection = new Client;
     connect(m_connection, &Client::gotCommand, this, &RemoteInterface::handleCommand);
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
+    qRegisterMetaType<RemoteControl::CategoryItemsModel*>("RemoteControl::CategoryItemsModel*");
+}
+
+void RemoteInterface::setCurrentPage(const QString& page)
+{
+    if (m_currentPage != page) {
+        m_currentPage = page;
+        emit currentPageChanged();
+    }
 }
 
 RemoteInterface& RemoteInterface::instance()
@@ -51,12 +60,14 @@ void RemoteInterface::selectCategory(const QString& category)
 {
     m_search.addCategory(category);
     m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryValues, m_search));
+    setCurrentPage(QStringLiteral("CategoryItems"));
 }
 
 void RemoteInterface::selectCategoryValue(const QString& value)
 {
     m_search.addValue(value);
     m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, m_search));
+    setCurrentPage(QStringLiteral("Overview"));
 }
 
 void RemoteInterface::showThumbnails()
@@ -67,6 +78,7 @@ void RemoteInterface::showThumbnails()
 void RemoteInterface::requestInitialData()
 {
     m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, SearchInfo()));
+    setCurrentPage(QStringLiteral("Overview"));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
@@ -77,8 +89,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
     else if (command.id() == CategoryListCommand::id())
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
-    else if (command.id() == SearchResult::id()) {
-        gotSearchResult(static_cast<const SearchResult&>(command));
+    else if (command.id() == CategoryItemListCommand::id()) {
+        gotSearchResult(static_cast<const CategoryItemListCommand&>(command));
     }
     else
         qFatal("Unhandled command");
@@ -108,7 +120,7 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
     emit kphotoalbumImageChange();
 }
 
-void RemoteInterface::gotSearchResult(const SearchResult& result)
+void RemoteInterface::gotSearchResult(const CategoryItemListCommand& result)
 {
-    qDebug() << result.relativeFileNameList;
+    m_categoryItems->setItems(result.items);
 }

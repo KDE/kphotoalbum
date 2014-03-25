@@ -24,13 +24,25 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new ImageCountUpdateCommand
                  << new CategoryListCommand
                  << new RequestCategoryInfo
-                 << new SearchResult;
+                 << new CategoryItemListCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
     }
 
     return *map[id];
+}
+
+void RemoteCommand::encodeImage(QBuffer& buffer, const QImage& image) const
+{
+    image.save(&buffer,"JPEG");
+}
+
+QImage RemoteCommand::decodeImage(QBuffer& buffer) const
+{
+    QImage result;
+    result.load(&buffer, "JPEG");
+    return result;
 }
 
 ImageUpdateCommand::ImageUpdateCommand(int index, const QImage& image)
@@ -47,14 +59,14 @@ void ImageUpdateCommand::encodeData(QBuffer& buffer) const
 {
     QDataStream stream(&buffer);
     stream << index;
-    image.save(&buffer,"JPEG");
+    encodeImage(buffer,image);
 }
 
 void ImageUpdateCommand::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
     stream >> index;
-    image.load(&buffer, "JPEG");
+    image = decodeImage(buffer);
 }
 
 
@@ -140,24 +152,42 @@ void RequestCategoryInfo::decodeData(QBuffer& buffer)
 }
 
 
-SearchResult::SearchResult(const QStringList& relativeFileNameList)
-    :RemoteCommand(id()), relativeFileNameList(relativeFileNameList)
+CategoryItemListCommand::CategoryItemListCommand()
+    :RemoteCommand(id())
 {
 }
 
-QString SearchResult::id()
+QString CategoryItemListCommand::id()
 {
     return QString::fromUtf8("Search Result");
 }
 
-void SearchResult::encodeData(QBuffer& buffer) const
+void CategoryItemListCommand::encodeData(QBuffer& buffer) const
 {
     QDataStream stream(&buffer);
-    stream << relativeFileNameList;
+    stream << items.count();
+    for (const CategoryItem& item : items) {
+        stream << item.text;
+        encodeImage(buffer,item.icon);
+    }
 }
 
-void SearchResult::decodeData(QBuffer& buffer)
+void CategoryItemListCommand::decodeData(QBuffer& buffer)
 {
     QDataStream stream(&buffer);
-    stream >> relativeFileNameList;
+    items.clear();
+    int count;
+    QString text;
+    QImage icon;
+    stream >> count;
+    for (int i=0; i<count; ++i) {
+        stream >> text;
+        icon = decodeImage(buffer);
+        items.append({text, icon});
+    }
+}
+
+void CategoryItemListCommand::addItem(const QString& text, const QImage& icon)
+{
+    items.append({text,icon});
 }

@@ -1,6 +1,5 @@
 #include "RemoteCommand.h"
 
-#include <QBuffer>
 #include <QMap>
 
 using namespace RemoteControl;
@@ -33,15 +32,15 @@ RemoteCommand& RemoteCommand::command(const QString& id)
     return *map[id];
 }
 
-void RemoteCommand::encodeImage(QBuffer& buffer, const QImage& image) const
+void RemoteCommand::encodeImage(QDataStream& stream, const QImage& image) const
 {
-    image.save(&buffer,"JPEG");
+    image.save(stream.device(),"JPEG");
 }
 
-QImage RemoteCommand::decodeImage(QBuffer& buffer) const
+QImage RemoteCommand::decodeImage(QDataStream& stream) const
 {
     QImage result;
-    result.load(&buffer, "JPEG");
+    result.load(stream.device(), "JPEG");
     return result;
 }
 
@@ -55,18 +54,16 @@ QString ImageUpdateCommand::id()
     return QString::fromUtf8("Image Update");
 }
 
-void ImageUpdateCommand::encodeData(QBuffer& buffer) const
+void ImageUpdateCommand::encodeData(QDataStream& stream) const
 {
-    QDataStream stream(&buffer);
     stream << index;
-    encodeImage(buffer,image);
+    encodeImage(stream,image);
 }
 
-void ImageUpdateCommand::decodeData(QBuffer& buffer)
+void ImageUpdateCommand::decodeData(QDataStream& stream)
 {
-    QDataStream stream(&buffer);
     stream >> index;
-    image = decodeImage(buffer);
+    image = decodeImage(stream);
 }
 
 
@@ -80,15 +77,13 @@ QString ImageCountUpdateCommand::id()
     return QString::fromUtf8("Image Count Update");
 }
 
-void ImageCountUpdateCommand::encodeData(QBuffer& buffer) const
+void ImageCountUpdateCommand::encodeData(QDataStream& stream) const
 {
-    QDataStream stream(&buffer);
     stream << count;
 }
 
-void ImageCountUpdateCommand::decodeData(QBuffer& buffer)
+void ImageCountUpdateCommand::decodeData(QDataStream& stream)
 {
-    QDataStream stream(&buffer);
     stream >> count;
 }
 
@@ -102,18 +97,16 @@ QString CategoryListCommand::id()
     return QString::fromUtf8("Category List");
 }
 
-void CategoryListCommand::encodeData(QBuffer& buffer) const
+void CategoryListCommand::encodeData(QDataStream& stream) const
 {
-    QDataStream stream(&buffer);
     stream << categories.count();
     for (const Category& category : categories)
         stream << category.name << category.text << category.icon << category.enabled;
     stream << home << kphotoalbum;
 }
 
-void CategoryListCommand::decodeData(QBuffer& buffer)
+void CategoryListCommand::decodeData(QDataStream& stream)
 {
-    QDataStream stream(&buffer);
     int count;
     stream >> count;
     categories.clear();
@@ -139,15 +132,13 @@ QString RequestCategoryInfo::id()
     return QString::fromUtf8("Request Category Info");
 }
 
-void RequestCategoryInfo::encodeData(QBuffer& buffer) const
+void RequestCategoryInfo::encodeData(QDataStream& stream) const
 {
-    QDataStream stream(&buffer);
     stream << (int) type << searchInfo;
 }
 
-void RequestCategoryInfo::decodeData(QBuffer& buffer)
+void RequestCategoryInfo::decodeData(QDataStream& stream)
 {
-    QDataStream stream(&buffer);
     stream >> (int&) type >> searchInfo;
 }
 
@@ -162,19 +153,17 @@ QString CategoryItemListCommand::id()
     return QString::fromUtf8("Search Result");
 }
 
-void CategoryItemListCommand::encodeData(QBuffer& buffer) const
+void CategoryItemListCommand::encodeData(QDataStream& stream) const
 {
-    QDataStream stream(&buffer);
     stream << items.count();
     for (const CategoryItem& item : items) {
         stream << item.text;
-        encodeImage(buffer,item.icon);
+        encodeImage(stream,item.icon);
     }
 }
 
-void CategoryItemListCommand::decodeData(QBuffer& buffer)
+void CategoryItemListCommand::decodeData(QDataStream& stream)
 {
-    QDataStream stream(&buffer);
     items.clear();
     int count;
     QString text;
@@ -182,7 +171,7 @@ void CategoryItemListCommand::decodeData(QBuffer& buffer)
     stream >> count;
     for (int i=0; i<count; ++i) {
         stream >> text;
-        icon = decodeImage(buffer);
+        icon = decodeImage(stream);
         items.append({text, icon});
     }
 }

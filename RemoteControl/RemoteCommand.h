@@ -18,15 +18,15 @@ class RemoteCommand
 public:
     RemoteCommand(const QString& id);
     virtual ~RemoteCommand() = default;
-    virtual void encodeData(QBuffer&) const {};
-    virtual void decodeData(QBuffer&) {};
+    virtual void encodeData(QDataStream&) const {};
+    virtual void decodeData(QDataStream&) {};
     QString id() const;
 
     static RemoteCommand& command(const QString& id);
 
 protected:
-    void encodeImage(QBuffer& buffer, const QImage& image) const;
-    QImage decodeImage(QBuffer& buffer) const;
+    void encodeImage(QDataStream& stream, const QImage& image) const;
+    QImage decodeImage(QDataStream& buffer) const;
 private:
     QString m_id;
 };
@@ -36,8 +36,8 @@ class ImageUpdateCommand :public RemoteCommand
 public:
     ImageUpdateCommand(int index = -1, const QImage& image = QImage());
     static QString id();
-    void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer& buffer) override;
+    void encodeData(QDataStream& stream) const override;
+    void decodeData(QDataStream& stream) override;
     int index;
     QImage image;
 };
@@ -47,8 +47,8 @@ class ImageCountUpdateCommand :public RemoteCommand
 public:
     ImageCountUpdateCommand();
     static QString id();
-    void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer& buffer) override;
+    void encodeData(QDataStream& stream) const override;
+    void decodeData(QDataStream& stream) override;
     int count;
 };
 
@@ -64,8 +64,8 @@ class CategoryListCommand :public RemoteCommand
 public:
     CategoryListCommand();
     static QString id();
-    void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer& buffer) override;
+    void encodeData(QDataStream& stream) const override;
+    void decodeData(QDataStream& stream) override;
     QList<Category> categories;
     QImage home;
     QImage kphotoalbum;
@@ -77,8 +77,8 @@ public:
     enum RequestType { RequestCategoryNames, RequestCategoryValues };
     RequestCategoryInfo(RequestType type = {}, const SearchInfo& searchInfo = {});
     static QString id();
-    void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer& buffer) override;
+    void encodeData(QDataStream& stream) const override;
+    void decodeData(QDataStream& stream) override;
     RequestType type;
     SearchInfo searchInfo;
 };
@@ -94,8 +94,8 @@ class CategoryItemListCommand :public RemoteCommand
 public:
     CategoryItemListCommand();
     static QString id();
-    void encodeData(QBuffer& buffer) const override;
-    void decodeData(QBuffer& buffer) override;
+    void encodeData(QDataStream& stream) const override;
+    void decodeData(QDataStream& stream) override;
     void addItem(const QString& text, const QImage& icon);
     CategoryItemsList items;
 };

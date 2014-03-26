@@ -56,7 +56,7 @@ private slots:
     void updateImage(const ImageUpdateCommand&);
     void updateImageCount(const ImageCountUpdateCommand&);
     void updateCategoryList(const CategoryListCommand&);
-    void gotSearchResult(const CategoryItemListCommand&);
+    void gotCategoryItems(const CategoryItemListCommand&);
 private:
     RemoteInterface();
     void setCurrentPage(const QString& page);

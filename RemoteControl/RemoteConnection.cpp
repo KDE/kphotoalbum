@@ -28,7 +28,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
     // Steam the id and the data
     stream << command.id();
-    command.encodeData(stream);
+    command.encode(stream);
 
     // Wind back and stream the length
     stream.device()->seek(0);
@@ -66,7 +66,7 @@ void RemoteConnection::dataReceived()
         stream >> id;
 
         RemoteCommand& command = RemoteCommand::command(id);
-        command.decodeData(stream);
+        command.decode(stream);
 
         emit gotCommand(command);
     }

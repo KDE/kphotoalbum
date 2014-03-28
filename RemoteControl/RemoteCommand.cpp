@@ -54,13 +54,13 @@ QString ImageUpdateCommand::id()
     return QString::fromUtf8("Image Update");
 }
 
-void ImageUpdateCommand::encodeData(QDataStream& stream) const
+void ImageUpdateCommand::encode(QDataStream& stream) const
 {
     stream << index;
     encodeImage(stream,image);
 }
 
-void ImageUpdateCommand::decodeData(QDataStream& stream)
+void ImageUpdateCommand::decode(QDataStream& stream)
 {
     stream >> index;
     image = decodeImage(stream);
@@ -77,12 +77,12 @@ QString ImageCountUpdateCommand::id()
     return QString::fromUtf8("Image Count Update");
 }
 
-void ImageCountUpdateCommand::encodeData(QDataStream& stream) const
+void ImageCountUpdateCommand::encode(QDataStream& stream) const
 {
     stream << count;
 }
 
-void ImageCountUpdateCommand::decodeData(QDataStream& stream)
+void ImageCountUpdateCommand::decode(QDataStream& stream)
 {
     stream >> count;
 }
@@ -97,7 +97,7 @@ QString CategoryListCommand::id()
     return QString::fromUtf8("Category List");
 }
 
-void CategoryListCommand::encodeData(QDataStream& stream) const
+void CategoryListCommand::encode(QDataStream& stream) const
 {
     stream << categories.count();
     for (const Category& category : categories)
@@ -105,7 +105,7 @@ void CategoryListCommand::encodeData(QDataStream& stream) const
     stream << home << kphotoalbum;
 }
 
-void CategoryListCommand::decodeData(QDataStream& stream)
+void CategoryListCommand::decode(QDataStream& stream)
 {
     int count;
     stream >> count;
@@ -132,12 +132,12 @@ QString RequestCategoryInfo::id()
     return QString::fromUtf8("Request Category Info");
 }
 
-void RequestCategoryInfo::encodeData(QDataStream& stream) const
+void RequestCategoryInfo::encode(QDataStream& stream) const
 {
     stream << (int) type << searchInfo;
 }
 
-void RequestCategoryInfo::decodeData(QDataStream& stream)
+void RequestCategoryInfo::decode(QDataStream& stream)
 {
     stream >> (int&) type >> searchInfo;
 }
@@ -153,7 +153,7 @@ QString CategoryItemListCommand::id()
     return QString::fromUtf8("Search Result");
 }
 
-void CategoryItemListCommand::encodeData(QDataStream& stream) const
+void CategoryItemListCommand::encode(QDataStream& stream) const
 {
     stream << items.count();
     for (const CategoryItem& item : items) {
@@ -162,7 +162,7 @@ void CategoryItemListCommand::encodeData(QDataStream& stream) const
     }
 }
 
-void CategoryItemListCommand::decodeData(QDataStream& stream)
+void CategoryItemListCommand::decode(QDataStream& stream)
 {
     items.clear();
     int count;

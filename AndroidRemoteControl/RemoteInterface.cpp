@@ -14,7 +14,7 @@ RemoteInterface::RemoteInterface()
     : m_categories(new CategoryModel(this)), m_categoryItems(new CategoryItemsModel(this))
 {
     m_connection = new Client;
-    connect(m_connection, &Client::gotCommand, this, &RemoteInterface::handleCommand);
+    connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");

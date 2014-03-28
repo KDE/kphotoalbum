@@ -42,33 +42,35 @@ void RemoteConnection::dataReceived()
 {
     QDataStream stream(socket());
 
-    if (m_state == WaitingForLength) {
-        if (socket()->bytesAvailable() < (qint64) sizeof(qint32))
-            return;
+    while (socket()->bytesAvailable()) {
+        if (m_state == WaitingForLength) {
+            if (socket()->bytesAvailable() < (qint64) sizeof(qint32))
+                return;
 
-        stream >> m_length;
-        m_length -= sizeof(qint32);
-        m_state = WaitingForData;
-    }
+            stream >> m_length;
+            m_length -= sizeof(qint32);
+            m_state = WaitingForData;
+        }
 
-    if (m_state == WaitingForData) {
-        if (socket()->bytesAvailable() < m_length)
-            return;
+        if (m_state == WaitingForData) {
+            if (socket()->bytesAvailable() < m_length)
+                return;
 
-        m_state = WaitingForLength;
-        QByteArray data = socket()->read(m_length);
-        Q_ASSERT(data.length() == m_length);
+            m_state = WaitingForLength;
+            QByteArray data = socket()->read(m_length);
+            Q_ASSERT(data.length() == m_length);
 
-        QBuffer buffer(&data);
-        buffer.open(QIODevice::ReadOnly);
-        QDataStream stream(&buffer);
-        QString id;
-        stream >> id;
+            QBuffer buffer(&data);
+            buffer.open(QIODevice::ReadOnly);
+            QDataStream stream(&buffer);
+            QString id;
+            stream >> id;
 
-        RemoteCommand& command = RemoteCommand::command(id);
-        command.decode(stream);
+            RemoteCommand& command = RemoteCommand::command(id);
+            command.decode(stream);
 
-        emit gotCommand(command);
+            emit gotCommand(command);
+        }
     }
 }
 

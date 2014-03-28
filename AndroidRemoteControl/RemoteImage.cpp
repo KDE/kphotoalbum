@@ -12,27 +12,27 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, RemoteInterface::instance().image(m_index));
+    painter->drawImage(0,0, RemoteInterface::instance().image(m_fileName));
 }
 
-int RemoteImage::index() const
+QString RemoteImage::fileName() const
 {
-    return m_index;
+    return m_fileName;
 }
 
-void RemoteImage::setIndex(int index)
+void RemoteImage::setFileName(const QString& fileName)
 {
-    if (m_index != index) {
-        m_index = index;
-        emit indexChanged();
-        setSize(RemoteInterface::instance().image(index).size());
+    if (m_fileName != fileName) {
+        m_fileName = fileName;
+        emit fileNameChanged();
+        setSize(RemoteInterface::instance().image(fileName).size());
     }
 }
 
-void RemoteImage::updateImage(int index)
+void RemoteImage::updateImage(const QString& fileName)
 {
-    if (index == m_index) {
-        setSize(RemoteInterface::instance().image(index).size());
+    if (fileName == m_fileName) {
+        setSize(RemoteInterface::instance().image(fileName).size());
         update();
     }
 }

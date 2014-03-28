@@ -27,12 +27,13 @@ class RemoteInterface : public QObject
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
     Q_PROPERTY(QString currentPage MEMBER m_currentPage NOTIFY currentPageChanged) //PENDING(blackie) convert into an enum
+    Q_PROPERTY(QStringList thumbnails MEMBER m_thumbnails NOTIFY thumbnailsChanged)
 
 
 public:
     static RemoteInterface& instance();
     bool isConnected() const;
-    QImage image(int index) const;
+    QImage image(const QString& fileName) const;
 
 public slots:
     void goHome();
@@ -42,13 +43,14 @@ public slots:
 
 signals:
     void connectionChanged();
-    void imageUpdated(int index);
+    void imageUpdated(const QString& fileName);
     void imageCountChanged();
     void categoriesChanged();
     void homeImageChanged();
     void kphotoalbumImageChange();    
     void categoryItemChanged();
     void currentPageChanged();
+    void thumbnailsChanged();
 
 private slots:
     void requestInitialData();
@@ -65,7 +67,7 @@ private:
 
     Client* m_connection = nullptr;
     int m_imageCount = 0;
-    QMap<int,QImage> m_imageMap;
+    QMap<QString,QImage> m_imageMap;
     CategoryModel* m_categories;
     CategoryItemsModel* m_categoryItems;
     QImage m_homeImage;
@@ -73,6 +75,7 @@ private:
     SearchInfo m_search;
     RemoteControl::CategoryItemsModel* m_categotyItems;
     QString m_currentPage = QStringLiteral("Unconnected");
+    QStringList m_thumbnails;
 };
 
 }

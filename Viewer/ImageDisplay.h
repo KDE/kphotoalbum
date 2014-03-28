@@ -78,7 +78,6 @@ protected slots:
     void showCursor();
     void disableCursorHiding();
     void enableCursorHiding();
-    void sendImageToRemoteDevice();
 
 signals:
     void possibleChange();

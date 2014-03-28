@@ -9,24 +9,24 @@ namespace RemoteControl {
 class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY(int index READ index WRITE setIndex NOTIFY indexChanged)
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
 
 public:
     explicit RemoteImage(QQuickItem *parent = 0);
     void paint(QPainter *painter) override;
-    int index() const;
+    QString fileName() const;
 
 public slots:
-    void setIndex(int index);
+    void setFileName(const QString& fileName);
 
 signals:
-    void indexChanged();
+    void fileNameChanged();
 
 private slots:
-    void updateImage(int index);
+    void updateImage(const QString& fileName);
 
 private:
-    int m_index;
+    QString m_fileName;
 };
 
 }

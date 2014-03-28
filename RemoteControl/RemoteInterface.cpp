@@ -19,6 +19,8 @@
 #include <tuple>
 #include <algorithm>
 
+#include "ImageManager/AsyncLoader.h"
+
 using namespace RemoteControl;
 
 RemoteInterface& RemoteInterface::instance()
@@ -46,17 +48,21 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
     return dbSearchInfo;
 }
 
-void RemoteInterface::sendImage(int index, const QImage& image)
-{
-    m_connection->sendCommand(ImageUpdateCommand(index, image));
-}
-
-
+// PENDING(blackie) DIE!
 void RemoteInterface::sendImageCount(int count)
 {
     ImageCountUpdateCommand command;
     command.count = count;
     m_connection->sendCommand(command);
+}
+
+void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& image, const bool loadedOK)
+{
+    Q_UNUSED(size);
+    Q_UNUSED(fullSize);
+    Q_UNUSED(angle);
+    Q_UNUSED(loadedOK);
+    m_connection->sendCommand(ImageUpdateCommand(fileName.relative(), image));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
@@ -70,6 +76,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         else
             sendImageSearchResult(requestCommand.searchInfo);
     }
+    else if (command.id() == ThumbnailRequest::id())
+        requestThumbnail(static_cast<const ThumbnailRequest&>(command).fileName);
 }
 
 
@@ -118,5 +126,12 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
     std::transform(files.begin(), files.end(), std::back_inserter(relativeFileNames),
                    [](const DB::FileName& fileName) { return fileName.relative(); });
     m_connection->sendCommand(ImageSearchResult(relativeFileNames));
+}
+
+void RemoteInterface::requestThumbnail(const QString& relativeFileName)
+{
+    // PENDING(blackie) Hardcoded image size
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(DB::FileName::fromRelativePath(relativeFileName), QSize(200,200), 0, this);
+    ImageManager::AsyncLoader::instance()->load(request);
 }
 

@@ -4,5 +4,6 @@
         <file>qml/OverviewPage.qml</file>
         <file>qml/Icon.qml</file>
         <file>qml/CategoryItemsPage.qml</file>
+        <file>qml/ThumbnailsPage.qml</file>
     </qresource>
 </RCC>

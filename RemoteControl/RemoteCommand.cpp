@@ -24,7 +24,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new CategoryListCommand
                  << new RequestCategoryInfo
                  << new CategoryItemListCommand
-                 << new ImageSearchResult;
+                 << new ImageSearchResult
+                 << new ThumbnailRequest;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -46,8 +47,8 @@ QImage RemoteCommand::decodeImage(QDataStream& stream) const
     return result;
 }
 
-ImageUpdateCommand::ImageUpdateCommand(int index, const QImage& image)
-    :RemoteCommand(id()), index(index), image(image)
+ImageUpdateCommand::ImageUpdateCommand(const QString& fileName, const QImage& image)
+    :RemoteCommand(id()), fileName(fileName), image(image)
 {
 }
 
@@ -58,13 +59,13 @@ QString ImageUpdateCommand::id()
 
 void ImageUpdateCommand::encode(QDataStream& stream) const
 {
-    stream << index;
+    stream << fileName;
     encodeImage(stream,image);
 }
 
 void ImageUpdateCommand::decode(QDataStream& stream)
 {
-    stream >> index;
+    stream >> fileName;
     image = decodeImage(stream);
 }
 
@@ -202,4 +203,25 @@ void ImageSearchResult::encode(QDataStream& stream) const
 void ImageSearchResult::decode(QDataStream& stream)
 {
     stream >> relativeFileNames;
+}
+
+
+ThumbnailRequest::ThumbnailRequest(const QString& fileName)
+    :RemoteCommand(id()), fileName(fileName)
+{
+}
+
+QString ThumbnailRequest::id()
+{
+    return QString::fromUtf8("ThumbnailRequest");
+}
+
+void ThumbnailRequest::encode(QDataStream& stream) const
+{
+    stream << fileName;
+}
+
+void ThumbnailRequest::decode(QDataStream& stream)
+{
+    stream >> fileName;
 }

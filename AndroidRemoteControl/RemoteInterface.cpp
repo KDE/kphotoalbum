@@ -40,12 +40,13 @@ bool RemoteInterface::isConnected() const
     return m_connection->isConnected();
 }
 
-QImage RemoteInterface::image(int index) const
+QImage RemoteInterface::image(const QString& fileName) const
 {
-    if (m_imageMap.contains(index))
-        return m_imageMap[index];
+    if (m_imageMap.contains(fileName))
+        return m_imageMap[fileName];
     else {
-        QImage image(1024,768, QImage::Format_RGB32);
+        m_connection->sendCommand(ThumbnailRequest(fileName));
+        QImage image(200, 200, QImage::Format_RGB32);
         image.fill(Qt::blue);
         return image;
     }
@@ -75,6 +76,8 @@ void RemoteInterface::selectCategoryValue(const QString& value)
 void RemoteInterface::showThumbnails()
 {
     m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::ImageSearch, m_search));
+    m_thumbnails = {};
+    setCurrentPage(QString::fromUtf8("Thumbnails"));
 }
 
 void RemoteInterface::requestInitialData()
@@ -101,8 +104,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
-    m_imageMap[command.index] = command.image;
-    emit imageUpdated(command.index);
+    m_imageMap[command.fileName] = command.image;
+    emit imageUpdated(command.fileName);
 }
 
 void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
@@ -130,5 +133,8 @@ void RemoteInterface::gotCategoryItems(const CategoryItemListCommand& result)
 
 void RemoteInterface::gotImageSearchResult(const ImageSearchResult& result)
 {
-    qDebug() << result.relativeFileNames;
+    if (m_thumbnails != result.relativeFileNames) {
+        m_thumbnails = result.relativeFileNames;
+        emit thumbnailsChanged();
+    }
 }

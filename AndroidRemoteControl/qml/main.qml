@@ -12,6 +12,11 @@ Item {
         visible: _remoteInterface.currentPage == "CategoryItems"
     }
 
+    ThumbnailsPage {
+        anchors.fill: parent
+        visible: _remoteInterface.currentPage == "Thumbnails"
+    }
+
     Text {
         visible: _remoteInterface.currentPage == "Unconnected"
         text: "Not Connceted"

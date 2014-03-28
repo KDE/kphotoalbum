@@ -80,7 +80,6 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     _cursorTimer->setSingleShot(true);
     connect( _cursorTimer, SIGNAL(timeout()), this, SLOT(hideCursor()) );
     showCursor();
-    connect( this, SIGNAL(imageReady()), this, SLOT(sendImageToRemoteDevice()));
 }
 
 /**
@@ -113,11 +112,6 @@ void Viewer::ImageDisplay::disableCursorHiding() {
  */
 void Viewer::ImageDisplay::enableCursorHiding() {
     _cursorHiding = true;
-}
-
-void Viewer::ImageDisplay::sendImageToRemoteDevice()
-{
-    RemoteControl::RemoteInterface::instance().sendImage(_curIndex, _loadedImage);
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )

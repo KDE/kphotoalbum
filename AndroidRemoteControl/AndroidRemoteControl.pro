@@ -16,7 +16,8 @@ OTHER_FILES += \
     qml/main.qml \
     qml/Icon.qml \
     qml/OverviewPage.qml \
-    qml/CategoryItemsPage.qml
+    qml/CategoryItemsPage.qml \
+    qml/ThumbnailsPage.qml
 
 RESOURCES += \
     resources.qrc

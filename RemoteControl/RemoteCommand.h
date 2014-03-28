@@ -35,11 +35,11 @@ private:
 class ImageUpdateCommand :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(int index = -1, const QImage& image = QImage());
+    ImageUpdateCommand(const QString& fileName = {}, const QImage& image = QImage());
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    int index;
+    QString fileName;
     QImage image;
 };
 
@@ -72,6 +72,7 @@ public:
     QImage kphotoalbum;
 };
 
+// PENDING(blackie) rename class.
 class RequestCategoryInfo :public RemoteCommand
 {
 public:
@@ -109,6 +110,16 @@ public:
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     QStringList relativeFileNames;
+};
+
+class ThumbnailRequest :public RemoteCommand
+{
+public:
+    ThumbnailRequest(const QString& fileName = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+    QString fileName;
 };
 
 }

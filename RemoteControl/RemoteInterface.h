@@ -23,6 +23,7 @@ private slots:
     void handleCommand(const RemoteCommand&);
     void sendCategoryNames(const RequestCategoryInfo& searchInfo);
     void sendCategoryValues(const RequestCategoryInfo& search);
+    void sendImageSearchResult(const SearchInfo& search);
 
 private:
     explicit RemoteInterface(QObject *parent = 0);

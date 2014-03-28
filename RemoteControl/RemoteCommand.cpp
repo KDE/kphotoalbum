@@ -23,12 +23,14 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new ImageCountUpdateCommand
                  << new CategoryListCommand
                  << new RequestCategoryInfo
-                 << new CategoryItemListCommand;
+                 << new CategoryItemListCommand
+                 << new ImageSearchResult;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
     }
 
+    Q_ASSERT(map.contains(id));
     return *map[id];
 }
 
@@ -179,4 +181,25 @@ void CategoryItemListCommand::decode(QDataStream& stream)
 void CategoryItemListCommand::addItem(const QString& text, const QImage& icon)
 {
     items.append({text,icon});
+}
+
+
+ImageSearchResult::ImageSearchResult(const QStringList& relativeFileNames)
+    :RemoteCommand(id()), relativeFileNames(relativeFileNames)
+{
+}
+
+QString ImageSearchResult::id()
+{
+    return QString::fromUtf8("Image Search Result");
+}
+
+void ImageSearchResult::encode(QDataStream& stream) const
+{
+    stream << relativeFileNames;
+}
+
+void ImageSearchResult::decode(QDataStream& stream)
+{
+    stream >> relativeFileNames;
 }

@@ -27,6 +27,7 @@ public:
 protected:
     void encodeImage(QDataStream& stream, const QImage& image) const;
     QImage decodeImage(QDataStream& buffer) const;
+
 private:
     QString m_id;
 };
@@ -74,7 +75,7 @@ public:
 class RequestCategoryInfo :public RemoteCommand
 {
 public:
-    enum RequestType { RequestCategoryNames, RequestCategoryValues };
+    enum RequestType { RequestCategoryNames, RequestCategoryValues, ImageSearch };
     RequestCategoryInfo(RequestType type = {}, const SearchInfo& searchInfo = {});
     static QString id();
     void encode(QDataStream& stream) const override;
@@ -98,6 +99,16 @@ public:
     void decode(QDataStream& stream) override;
     void addItem(const QString& text, const QImage& icon);
     CategoryItemsList items;
+};
+
+class ImageSearchResult :public RemoteCommand
+{
+public:
+    ImageSearchResult(const QStringList& relativeFileNames = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+    QStringList relativeFileNames;
 };
 
 }

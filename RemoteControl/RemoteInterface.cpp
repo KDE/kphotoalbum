@@ -65,8 +65,10 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         const RequestCategoryInfo& requestCommand = static_cast<const RequestCategoryInfo&>(command);
         if (requestCommand.type == RequestCategoryInfo::RequestCategoryNames)
             sendCategoryNames(requestCommand);
-        else
+        else if (requestCommand.type == RequestCategoryInfo::RequestCategoryValues)
             sendCategoryValues(requestCommand);
+        else
+            sendImageSearchResult(requestCommand.searchInfo);
     }
 }
 
@@ -109,8 +111,12 @@ void RemoteInterface::sendCategoryValues(const RequestCategoryInfo& search)
     m_connection->sendCommand(result);
 }
 
-// Needed when actually searching for files.
-//const DB::FileNameList files = DB::ImageDB::instance()->search(dbSearchInfo, true /* Require on disk */);
+void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
+{
+    const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */);
+    QStringList relativeFileNames;
+    std::transform(files.begin(), files.end(), std::back_inserter(relativeFileNames),
+                   [](const DB::FileName& fileName) { return fileName.relative(); });
+    m_connection->sendCommand(ImageSearchResult(relativeFileNames));
+}
 
-//QStringList relativeFileNames;
-//std::transform(files.begin(), files.end(), std::back_inserter(relativeFileNames), [](const DB::FileName& fileName) { return fileName.relative(); });

@@ -74,7 +74,7 @@ void RemoteInterface::selectCategoryValue(const QString& value)
 
 void RemoteInterface::showThumbnails()
 {
-    qDebug("Show Thumbnails");
+    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::ImageSearch, m_search));
 }
 
 void RemoteInterface::requestInitialData()
@@ -91,9 +91,10 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
     else if (command.id() == CategoryListCommand::id())
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
-    else if (command.id() == CategoryItemListCommand::id()) {
+    else if (command.id() == CategoryItemListCommand::id())
         gotCategoryItems(static_cast<const CategoryItemListCommand&>(command));
-    }
+    else if (command.id() == ImageSearchResult::id())
+        gotImageSearchResult(static_cast<const ImageSearchResult&>(command));
     else
         qFatal("Unhandled command");
 }
@@ -125,4 +126,9 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 void RemoteInterface::gotCategoryItems(const CategoryItemListCommand& result)
 {
     m_categoryItems->setItems(result.items);
+}
+
+void RemoteInterface::gotImageSearchResult(const ImageSearchResult& result)
+{
+    qDebug() << result.relativeFileNames;
 }

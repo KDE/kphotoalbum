@@ -1,6 +1,7 @@
 #include "RemoteInterface.h"
 #include "Client.h"
 #include "RemoteCommand.h"
+#include "ImageStore.h"
 
 #include <QTcpSocket>
 #include <qimage.h>
@@ -40,17 +41,9 @@ bool RemoteInterface::isConnected() const
     return m_connection->isConnected();
 }
 
-QImage RemoteInterface::image(const QString& fileName) const
+void RemoteInterface::sendCommand(const RemoteCommand& command)
 {
-    if (m_imageMap.contains(fileName))
-        return m_imageMap[fileName];
-    else {
-        m_connection->sendCommand(ThumbnailRequest(fileName));
-        return {};
-//        QImage image(200, 200, QImage::Format_RGB32);
-//        image.fill(Qt::blue);
-//        return image;
-    }
+    m_connection->sendCommand(command);
 }
 
 void RemoteInterface::goHome()
@@ -105,13 +98,13 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
-    m_imageMap[command.fileName] = command.image;
-    emit imageUpdated(command.fileName);
+    ImageStore::instance().updateImage(command.fileName, command.image);
 }
 
 void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
 {
-    m_imageMap.clear();
+    Q_ASSERT(false && "Unused code");
+    //m_imageMap.clear();
     m_imageCount = command.count;
     emit imageCountChanged();
 

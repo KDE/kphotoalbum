@@ -15,10 +15,10 @@ class Settings : public QObject
 public:
     static Settings& instance();
     double thumbnailScale() const;
-    void setThumbnailScale(double arg);
+    void setThumbnailScale(double scale);
 
 signals:
-    void thumbnailScaleChanged();
+    void thumbnailScaleChanged(double scale);
 
 private:
     explicit Settings() = default;

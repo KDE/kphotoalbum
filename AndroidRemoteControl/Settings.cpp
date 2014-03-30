@@ -20,7 +20,7 @@ void Settings::setThumbnailScale(double scale)
 {
     if (scale != thumbnailScale()) {
         QSettings().setValue(QStringLiteral("thumbnailScale"), scale);
-        emit thumbnailScaleChanged();
+        emit thumbnailScaleChanged(scale);
     }
 }
 

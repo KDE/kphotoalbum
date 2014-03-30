@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     MyImage.cpp \
     SearchInfo.cpp \
     CategoryItemsModel.cpp \
-    Settings.cpp
+    Settings.cpp \
+    ImageStore.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -33,4 +34,5 @@ HEADERS += \
     MyImage.h \
     SearchInfo.h \
     CategoryItemsModel.h \
-    Settings.h
+    Settings.h \
+    ImageStore.h

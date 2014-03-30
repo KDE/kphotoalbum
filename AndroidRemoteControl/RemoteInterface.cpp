@@ -46,9 +46,10 @@ QImage RemoteInterface::image(const QString& fileName) const
         return m_imageMap[fileName];
     else {
         m_connection->sendCommand(ThumbnailRequest(fileName));
-        QImage image(200, 200, QImage::Format_RGB32);
-        image.fill(Qt::blue);
-        return image;
+        return {};
+//        QImage image(200, 200, QImage::Format_RGB32);
+//        image.fill(Qt::blue);
+//        return image;
     }
 }
 

@@ -6,6 +6,7 @@
 #include "RemoteInterface.h"
 #include "RemoteImage.h"
 #include "MyImage.h"
+#include "Settings.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<RemoteControl::RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
     qmlRegisterType<RemoteControl::MyImage>("KPhotoAlbum", 1, 0, "MyImage");
     viewer.engine()->rootContext()->setContextProperty("_remoteInterface", &RemoteControl::RemoteInterface::instance());
+    viewer.engine()->rootContext()->setContextProperty(QStringLiteral("_settings"), &RemoteControl::Settings::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);

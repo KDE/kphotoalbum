@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     CategoryModel.cpp \
     MyImage.cpp \
     SearchInfo.cpp \
-    CategoryItemsModel.cpp
+    CategoryItemsModel.cpp \
+    Settings.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -31,4 +32,5 @@ HEADERS += \
     CategoryModel.h \
     MyImage.h \
     SearchInfo.h \
-    CategoryItemsModel.h
+    CategoryItemsModel.h \
+    Settings.h

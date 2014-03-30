@@ -5,13 +5,16 @@ PinchArea {
     pinch.minimumScale: 0.1
     pinch.maximumScale: 10
     onPinchUpdated: grid.scale = pinch.scale
-    onPinchFinished: _settings.thumbnailScale = scale
+    onPinchFinished: {
+        _settings.thumbnailSize = pinch.scale * _settings.thumbnailSize
+        grid.scale = 1
+    }
     GridView {
         id: grid
         anchors.fill: parent
         model: _remoteInterface.thumbnails
-        cellWidth: 210
-        cellHeight: 210
+        cellWidth: _settings.thumbnailSize + 10
+        cellHeight: _settings.thumbnailSize + 10
         delegate: RemoteImage { fileName: modelData }
     }
 }

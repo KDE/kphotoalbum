@@ -8,17 +8,17 @@ namespace RemoteControl {
 class Settings : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(double thumbnailScale READ thumbnailScale WRITE setThumbnailScale NOTIFY thumbnailScaleChanged)
+    Q_PROPERTY(double thumbnailSize READ thumbnailSize WRITE setThumbnailSize NOTIFY thumbnailSizeChanged)
 
     double m_thumbnailScale;
 
 public:
     static Settings& instance();
-    double thumbnailScale() const;
-    void setThumbnailScale(double scale);
+    int thumbnailSize() const;
+    void setThumbnailSize(int size);
 
 signals:
-    void thumbnailScaleChanged(double scale);
+    void thumbnailSizeChanged();
 
 private:
     explicit Settings() = default;

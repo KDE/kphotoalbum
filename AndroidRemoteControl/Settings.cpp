@@ -1,7 +1,7 @@
 #include "Settings.h"
 
 #include <QSettings>
-
+#include <QDebug>
 namespace RemoteControl {
 
 
@@ -11,16 +11,16 @@ Settings& Settings::instance()
     return settings;
 }
 
-double Settings::thumbnailScale() const
+int Settings::thumbnailSize() const
 {
-    return QSettings().value(QStringLiteral("thumbnailScale"), 1.0).value<double>();
+    return QSettings().value(QStringLiteral("thumbnailSize"), 200).value<int>();
 }
 
-void Settings::setThumbnailScale(double scale)
+void Settings::setThumbnailSize(int size)
 {
-    if (scale != thumbnailScale()) {
-        QSettings().setValue(QStringLiteral("thumbnailScale"), scale);
-        emit thumbnailScaleChanged(scale);
+    if (size != thumbnailSize()) {
+        QSettings().setValue(QStringLiteral("thumbnailSize"), size);
+        emit thumbnailSizeChanged();
     }
 }
 

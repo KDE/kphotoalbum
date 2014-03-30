@@ -19,8 +19,11 @@ public:
 signals:
     void imageUpdated(const QString& fileName);
 
+private slots:
+    void reset();
+
 private:
-    explicit ImageStore() = default;
+    explicit ImageStore();
 
     QMap<QString,QImage> m_imageMap;
 };

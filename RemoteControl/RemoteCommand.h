@@ -115,11 +115,13 @@ public:
 class ThumbnailRequest :public RemoteCommand
 {
 public:
-    ThumbnailRequest(const QString& fileName = {});
+    ThumbnailRequest(const QString& fileName = {}, int width = 0, int height = 0);
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     QString fileName;
+    int width;
+    int height;
 };
 
 }

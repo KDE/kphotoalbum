@@ -12,6 +12,7 @@ PinchArea {
     GridView {
         id: grid
         anchors.fill: parent
+        transformOrigin: Qt.TopLeftCorner
         model: _remoteInterface.thumbnails
         cellWidth: _settings.thumbnailSize + 10
         cellHeight: _settings.thumbnailSize + 10

@@ -206,8 +206,8 @@ void ImageSearchResult::decode(QDataStream& stream)
 }
 
 
-ThumbnailRequest::ThumbnailRequest(const QString& fileName)
-    :RemoteCommand(id()), fileName(fileName)
+ThumbnailRequest::ThumbnailRequest(const QString& fileName, int width, int height)
+    :RemoteCommand(id()), fileName(fileName), width(width), height(height)
 {
 }
 
@@ -218,10 +218,10 @@ QString ThumbnailRequest::id()
 
 void ThumbnailRequest::encode(QDataStream& stream) const
 {
-    stream << fileName;
+    stream << fileName << width << height;
 }
 
 void ThumbnailRequest::decode(QDataStream& stream)
 {
-    stream >> fileName;
+    stream >> fileName >> width >> height;
 }

@@ -25,12 +25,11 @@ void ImageStore::updateImage(const QString& fileName, const QImage& image)
 QImage RemoteControl::ImageStore::image(const QString& fileName) const
 {
     if (m_imageMap.contains(fileName))
-        return m_imageMap[fileName].scaled(Settings::instance().thumbnailSize(),
-                                           Settings::instance().thumbnailSize(),
-                                           Qt::KeepAspectRatio);
+        return m_imageMap[fileName];
     else {
-        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName));
-        QImage image(200,200, QImage::Format_RGB32);
+        const int size = Settings::instance().thumbnailSize();
+        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, size));
+        QImage image(size, size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;
     }

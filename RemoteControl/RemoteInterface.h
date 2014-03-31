@@ -31,7 +31,7 @@ private:
     void sendCategoryNames(const RequestCategoryInfo& searchInfo);
     void sendCategoryValues(const RequestCategoryInfo& search);
     void sendImageSearchResult(const SearchInfo& search);
-    void requestThumbnail(const QString& relativeFileName);
+    void requestThumbnail(const ThumbnailRequest& command);
 
     explicit RemoteInterface(QObject *parent = 0);
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;

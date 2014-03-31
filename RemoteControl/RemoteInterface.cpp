@@ -15,6 +15,7 @@
 #include "DB/Category.h"
 #include "DB/ImageSearchInfo.h"
 #include "Browser/FlatCategoryModel.h"
+#include "DB/ImageInfoPtr.h"
 
 #include <tuple>
 #include <algorithm>
@@ -77,7 +78,7 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
             sendImageSearchResult(requestCommand.searchInfo);
     }
     else if (command.id() == ThumbnailRequest::id())
-        requestThumbnail(static_cast<const ThumbnailRequest&>(command).fileName);
+        requestThumbnail(static_cast<const ThumbnailRequest&>(command));
 }
 
 
@@ -128,10 +129,16 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
     m_connection->sendCommand(ImageSearchResult(relativeFileNames));
 }
 
-void RemoteInterface::requestThumbnail(const QString& relativeFileName)
+void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 {
-    // PENDING(blackie) Hardcoded image size
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(DB::FileName::fromRelativePath(relativeFileName), QSize(200,200), 0, this);
+    const DB::FileName fileName = DB::FileName::fromRelativePath(command.fileName);
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    const int width = command.width;
+    const int height = command.height;
+    const int angle = info->angle();
+
+    ImageManager::ImageRequest* request
+            = new ImageManager::ImageRequest(fileName, QSize(width,height), angle, this);
     ImageManager::AsyncLoader::instance()->load(request);
 }
 

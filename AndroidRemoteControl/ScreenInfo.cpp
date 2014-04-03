@@ -56,7 +56,6 @@ void ScreenInfo::setOverviewIconSize(int size)
 
 void ScreenInfo::setOverviewScreenWidth(int width)
 {
-    qDebug("Width changdd %d", width);
     if (m_overviewScreenWidth != width) {
         m_overviewScreenWidth = width;
         updateLayout();
@@ -72,10 +71,11 @@ void ScreenInfo::updateLayout()
     m_overviewIconSize = pixelForSizeInMM(20,20).width();
     m_overviewSpacing = m_overviewIconSize/2;
 
-    const int possibleCols = floor(2 * m_overviewScreenWidth / m_overviewIconSize -1) / 3.0;
+    const int possibleCols = floor(2.0 * m_overviewScreenWidth / m_overviewIconSize +1) / 3.0;
+    qDebug("%d %d => %d", m_overviewScreenWidth, m_overviewIconSize, possibleCols);
     const int preferredCols = ceil(sqrt(m_categoryCount+2));
 
-    m_overviewColumnCount = qMin(possibleCols, preferredCols);
+    m_overviewColumnCount = possibleCols;
 
     emit overviewIconSizeChanged();
     emit overviewSpacingChanged();

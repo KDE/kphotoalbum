@@ -7,6 +7,9 @@
 #include "RemoteImage.h"
 #include "MyImage.h"
 #include "Settings.h"
+#include "ScreenInfo.h"
+
+using namespace RemoteControl;
 
 int main(int argc, char *argv[])
 {
@@ -16,12 +19,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("KPhotoAlbum");
 
     QQuickView viewer;
+    ScreenInfo::instance().setScreen(viewer.screen());
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
-    qmlRegisterType<RemoteControl::RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
-    qmlRegisterType<RemoteControl::MyImage>("KPhotoAlbum", 1, 0, "MyImage");
-    viewer.engine()->rootContext()->setContextProperty("_remoteInterface", &RemoteControl::RemoteInterface::instance());
-    viewer.engine()->rootContext()->setContextProperty(QStringLiteral("_settings"), &RemoteControl::Settings::instance());
+    qmlRegisterType<RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
+    qmlRegisterType<MyImage>("KPhotoAlbum", 1, 0, "MyImage");
+    QQmlContext* rootContext = viewer.engine()->rootContext();
+    rootContext->setContextProperty(QStringLiteral("_remoteInterface"), &RemoteInterface::instance());
+    rootContext->setContextProperty(QStringLiteral("_settings"), &Settings::instance());
+    rootContext->setContextProperty(QStringLiteral("_screenInfo"), &ScreenInfo::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);
@@ -29,6 +35,7 @@ int main(int argc, char *argv[])
     viewer.resize(1024,768);
     viewer.show();
 
+    qDebug() << ScreenInfo::instance().pixelForSizeInMM(100,100);
 
     return app.exec();
 }

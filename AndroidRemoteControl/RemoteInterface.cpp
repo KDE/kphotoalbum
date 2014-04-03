@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QBuffer>
 #include <QDataStream>
+#include <ScreenInfo.h>
 
 using namespace RemoteControl;
 
@@ -112,11 +113,14 @@ void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 {
+    ScreenInfo::instance().setCategoryCount(command.categories.count());
+
     m_categories->setCategories(command.categories);
-    m_homeImage = command.home;
+    int size = ScreenInfo::instance().overviewIconSize();
+    m_homeImage = command.home.scaled(size,size);
     emit homeImageChanged();
 
-    m_kphotoalbumImage = command.kphotoalbum;
+    m_kphotoalbumImage = command.kphotoalbum.scaled(size,size);
     emit kphotoalbumImageChange();
 }
 

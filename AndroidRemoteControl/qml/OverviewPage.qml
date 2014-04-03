@@ -1,22 +1,30 @@
 import QtQuick 2.0
 import KPhotoAlbum 1.0
 
-Item {
-//    Rectangle {
-//        anchors.fill: grid
-//        color: "#DDDDDD"
-//    }
+Flickable {
+    id: root
+
+    contentWidth: grid.width
+    contentHeight: grid.height
+    flickableDirection: Flickable.VerticalFlick
+
+    Binding {
+        target: _screenInfo
+        property: "overviewScreenWidth"
+        value: root.width
+    }
 
     Grid {
         id: grid
-        anchors.centerIn: parent
-        width: 200*3
-        height: 150*3
-        columns: 3
+        x: Math.max(0, (root.width - width) /2)
+        y: Math.max(0, (root.height - height)/2)
+        columns: _screenInfo.overviewColumnCount
+        spacing: _screenInfo.overviewSpacing
 
         Icon {
             text: "home"
             icon: _remoteInterface.home
+            width: _screenInfo.overviewIconSize
             onClicked: _remoteInterface.goHome()
         }
 
@@ -26,13 +34,15 @@ Item {
                 //enabled: model.enabled
                 text: model.text
                 icon: model.icon
+                width: _screenInfo.overviewIconSize
                 onClicked: _remoteInterface.selectCategory(model.name)
             }
         }
 
         Icon {
-            text: "Show Thumbnails"
+            text: "View"
             icon: _remoteInterface.kphotoalbum
+            width: _screenInfo.overviewIconSize
             onClicked: _remoteInterface.showThumbnails()
         }
     }

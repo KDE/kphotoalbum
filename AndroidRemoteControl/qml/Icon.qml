@@ -7,11 +7,11 @@ Item {
     property variant icon
     signal clicked()
 
-    width: 200
-    height: 150
+    height: column.height
 
     Column {
-        anchors.centerIn: parent
+        id: column
+        anchors {left: parent.left; right: parent.right}
         spacing: 10
         MyImage {
             image: root.icon

@@ -37,6 +37,7 @@ public:
 
 public slots:
     void goHome();
+    void goBack();
     void selectCategory(const QString& category);
     void selectCategoryValue(const QString& value);
     void showThumbnails();

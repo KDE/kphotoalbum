@@ -53,6 +53,12 @@ void RemoteInterface::goHome()
     requestInitialData();
 }
 
+void RemoteInterface::goBack()
+{
+    // PENDING(blackie) Need to implement a stack of actions
+    goHome();
+}
+
 void RemoteInterface::selectCategory(const QString& category)
 {
     m_search.addCategory(category);

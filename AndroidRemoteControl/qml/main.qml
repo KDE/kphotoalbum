@@ -25,9 +25,13 @@ Item {
     }
 
     focus: true
-    Keys.onPressed: {
+    Keys.onReleased: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
+        if ( event.key == Qt.Key_Back) {
+            _remoteInterface.goBack()
+            event.accepted = true
+        }
     }
 }
     //Item {

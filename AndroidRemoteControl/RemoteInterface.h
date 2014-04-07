@@ -52,6 +52,7 @@ signals:
     void categoryItemChanged();
     void currentPageChanged();
     void thumbnailsChanged();
+    void jumpToImage(int index);
 
 private slots:
     void requestInitialData();

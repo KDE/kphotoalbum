@@ -7,8 +7,9 @@ ListView {
     snapMode: ListView.SnapToItem
     orientation: ListView.Horizontal
     flickDeceleration: 200000
+    highlightMoveDuration: 0
     highlightRangeMode: ListView.StrictlyEnforceRange
-    interactive: currentItem.scale <= 1 // Only swipe when zoomed out
+    interactive: currentItem && currentItem.scale <= 1 // Only swipe when zoomed out
 
     delegate: RemoteImage {
         width: root.width
@@ -18,9 +19,14 @@ ListView {
         PinchArea {
             pinch.target: parent
             anchors.fill: parent
-            pinch.minimumScale: 0.1
+            pinch.minimumScale: 1
             pinch.maximumScale: 10
             pinch.dragAxis: Pinch.XandYAxis
         }
+    }
+
+    Connections {
+        target: _remoteInterface
+        onJumpToImage: root.currentIndex = index
     }
 }

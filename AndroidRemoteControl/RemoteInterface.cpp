@@ -84,6 +84,7 @@ void RemoteInterface::showThumbnails()
 void RemoteInterface::showImage(const QString& fileName)
 {
     setCurrentPage(QStringLiteral("ImageViewer"));
+    emit jumpToImage(m_thumbnails.indexOf(fileName));
 }
 
 void RemoteInterface::requestInitialData()

@@ -33,7 +33,6 @@ void RemoteImage::setFileName(const QString& fileName)
         emit fileNameChanged();
         if (m_isThumbnail) {
             const int size = Settings::instance().thumbnailSize();
-            qDebug("Setting size!");
             setSize(QSize(size,size));
         }
     }

@@ -81,6 +81,11 @@ void RemoteInterface::showThumbnails()
     setCurrentPage(QString::fromUtf8("Thumbnails"));
 }
 
+void RemoteInterface::showImage(const QString& fileName)
+{
+    setCurrentPage(QStringLiteral("ImageViewer"));
+}
+
 void RemoteInterface::requestInitialData()
 {
     m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, SearchInfo()));

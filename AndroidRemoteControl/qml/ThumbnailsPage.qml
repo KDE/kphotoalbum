@@ -16,6 +16,13 @@ PinchArea {
         model: _remoteInterface.thumbnails
         cellWidth: _settings.thumbnailSize + 10
         cellHeight: _settings.thumbnailSize + 10
-        delegate: RemoteImage { fileName: modelData }
+        delegate:
+            RemoteImage {
+                fileName: modelData
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: _remoteInterface.showImage(fileName)
+                }
+            }
     }
 }

@@ -41,6 +41,7 @@ public slots:
     void selectCategory(const QString& category);
     void selectCategoryValue(const QString& value);
     void showThumbnails();
+    void showImage(const QString& fileName);
 
 signals:
     void connectionChanged();

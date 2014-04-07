@@ -35,7 +35,5 @@ int main(int argc, char *argv[])
     viewer.resize(1024,768);
     viewer.show();
 
-    qDebug() << ScreenInfo::instance().pixelForSizeInMM(100,100);
-
     return app.exec();
 }

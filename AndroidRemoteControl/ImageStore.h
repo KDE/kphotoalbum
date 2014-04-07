@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QImage>
 #include <QMap>
+#include "Types.h"
 
 namespace RemoteControl {
 
@@ -13,11 +14,11 @@ class ImageStore : public QObject
 public:
     static ImageStore& instance();
     void updateImage(const QString& fileName, const QImage& image);
-    QImage image(const QString& fileName) const;
+    QImage image(const QString& fileName, const QSize& size, ViewType type) const;
 
 
 signals:
-    void imageUpdated(const QString& fileName);
+    void imageUpdated(const QString& fileName, ViewType type);
 
 private slots:
     void reset();
@@ -25,7 +26,7 @@ private slots:
 private:
     explicit ImageStore();
 
-    QMap<QString,QImage> m_imageMap;
+    QMap<QPair<QString,ViewType>,QImage> m_imageMap;
 };
 
 } // namespace RemoteControl

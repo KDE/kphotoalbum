@@ -19,7 +19,8 @@ Item {
         }
         Text {
             text: root.text
-            anchors.horizontalCenter: parent.horizontalCenter
+            clip: true
+            anchors { left: parent.left; right: parent.right }
         }
     }
     MouseArea {

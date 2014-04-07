@@ -18,6 +18,9 @@ public:
 
     void setItems(const CategoryItemsList& items);
 
+private slots:
+    void reset();
+
 private:
     CategoryItemsList m_items;
 };

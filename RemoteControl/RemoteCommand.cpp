@@ -47,8 +47,8 @@ QImage RemoteCommand::decodeImage(QDataStream& stream) const
     return result;
 }
 
-ImageUpdateCommand::ImageUpdateCommand(const QString& fileName, const QImage& image)
-    :RemoteCommand(id()), fileName(fileName), image(image)
+ImageUpdateCommand::ImageUpdateCommand(const QString& fileName, const QImage& image, ViewType type)
+    :RemoteCommand(id()), fileName(fileName), image(image), type(type)
 {
 }
 
@@ -61,12 +61,14 @@ void ImageUpdateCommand::encode(QDataStream& stream) const
 {
     stream << fileName;
     encodeImage(stream,image);
+    stream << (int) type;
 }
 
 void ImageUpdateCommand::decode(QDataStream& stream)
 {
     stream >> fileName;
     image = decodeImage(stream);
+    stream >> (int&) type;
 }
 
 
@@ -206,8 +208,8 @@ void ImageSearchResult::decode(QDataStream& stream)
 }
 
 
-ThumbnailRequest::ThumbnailRequest(const QString& fileName, int width, int height)
-    :RemoteCommand(id()), fileName(fileName), width(width), height(height)
+ThumbnailRequest::ThumbnailRequest(const QString& fileName, const QSize& size, ViewType type)
+    :RemoteCommand(id()), fileName(fileName), size(size), type(type)
 {
 }
 
@@ -218,10 +220,10 @@ QString ThumbnailRequest::id()
 
 void ThumbnailRequest::encode(QDataStream& stream) const
 {
-    stream << fileName << width << height;
+    stream << fileName << size << (int) type;
 }
 
 void ThumbnailRequest::decode(QDataStream& stream)
 {
-    stream >> fileName >> width >> height;
+    stream >> fileName >> size >> (int&) type;
 }

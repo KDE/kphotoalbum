@@ -9,6 +9,7 @@
 #include <QBuffer>
 #include <QStringList>
 #include <QPair>
+#include "Types.h"
 
 namespace RemoteControl
 {
@@ -35,12 +36,13 @@ private:
 class ImageUpdateCommand :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(const QString& fileName = {}, const QImage& image = QImage());
+    ImageUpdateCommand(const QString& fileName = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     QString fileName;
     QImage image;
+    ViewType type;
 };
 
 class ImageCountUpdateCommand :public RemoteCommand
@@ -115,13 +117,13 @@ public:
 class ThumbnailRequest :public RemoteCommand
 {
 public:
-    ThumbnailRequest(const QString& fileName = {}, int width = 0, int height = 0);
+    ThumbnailRequest(const QString& fileName = {}, const QSize& size = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     QString fileName;
-    int width;
-    int height;
+    QSize size;
+    ViewType type;
 };
 
 }

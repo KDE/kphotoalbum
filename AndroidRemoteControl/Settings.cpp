@@ -24,4 +24,18 @@ void Settings::setThumbnailSize(int size)
     }
 }
 
+int Settings::categoryItemSize() const
+{
+    return QSettings().value(QStringLiteral("categoryItemSize"), 300).value<int>();
+}
+
+void Settings::setCategoryItemSize(int size)
+{
+    if (size != categoryItemSize()) {
+        QSettings().setValue(QStringLiteral("categoryItemSize"), size);
+
+        emit categoryItemSizeChanged();
+    }
+}
+
 } // namespace RemoteControl

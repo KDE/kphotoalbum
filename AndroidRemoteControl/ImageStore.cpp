@@ -18,18 +18,20 @@ ImageStore::ImageStore()
 
 void ImageStore::updateImage(const QString& fileName, const QImage& image)
 {
-    m_imageMap[fileName] = image;
-    emit imageUpdated(fileName);
+    // PENDING(blackie) Information about image type should come from the remote site!
+    ViewType type = ((image.size().width() == Settings::instance().thumbnailSize() ||
+                     image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnail : ViewType::ImageView);
+    m_imageMap[qMakePair(fileName,type)] = image;
+    emit imageUpdated(fileName,type);
 }
 
-QImage RemoteControl::ImageStore::image(const QString& fileName) const
+QImage RemoteControl::ImageStore::image(const QString& fileName, const QSize& size, ViewType type) const
 {
-    if (m_imageMap.contains(fileName))
-        return m_imageMap[fileName];
+    if (m_imageMap.contains(qMakePair(fileName,type)))
+        return m_imageMap[qMakePair(fileName,type)];
     else {
-        const int size = Settings::instance().thumbnailSize();
-        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, size));
-        QImage image(size, size, QImage::Format_RGB32);
+        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, type));
+        QImage image(size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;
     }
@@ -37,10 +39,10 @@ QImage RemoteControl::ImageStore::image(const QString& fileName) const
 
 void RemoteControl::ImageStore::reset()
 {
-    const QStringList fileNames = m_imageMap.keys();
+    QList<QPair<QString,ViewType>> keys = m_imageMap.keys();
     m_imageMap.clear();
-    for (const QString& fileName : fileNames) {
-        emit imageUpdated(fileName); // While clear the image and request it a new
+    for (const auto& key : keys) {
+        emit imageUpdated(key.first, key.second); // Clear the image and request it anew
     }
 }
 

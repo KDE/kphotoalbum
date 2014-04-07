@@ -133,12 +133,11 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 {
     const DB::FileName fileName = DB::FileName::fromRelativePath(command.fileName);
     const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    const int width = command.width;
-    const int height = command.height;
     const int angle = info->angle();
 
     ImageManager::ImageRequest* request
-            = new ImageManager::ImageRequest(fileName, QSize(width,height), angle, this);
+            = new ImageManager::ImageRequest(fileName, command.size, angle, this);
+    // PENDING(blackie) I need a way to store information about command.viewType!
     ImageManager::AsyncLoader::instance()->load(request);
 }
 

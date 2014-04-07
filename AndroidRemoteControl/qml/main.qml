@@ -17,6 +17,11 @@ Item {
         visible: _remoteInterface.currentPage == "Thumbnails"
     }
 
+    ImageViewer {
+        anchors.fill: parent
+        visible: _remoteInterface.currentPage == "ImageViewer"
+    }
+
     Text {
         visible: _remoteInterface.currentPage == "Unconnected"
         text: "Not Connceted"
@@ -34,27 +39,3 @@ Item {
         }
     }
 }
-    //Item {
-//    id: root
-//    focus: true
-
-//    ListView {
-//        anchors.fill: parent
-//        model: _remoteInterface.imageCount
-//        snapMode: ListView.SnapToItem
-//        orientation: ListView.Horizontal
-//        onModelChanged: console.log(model)
-//        visible: _remoteInterface.connected
-
-//        delegate: RemoteImage {
-//            index: model.index
-//            PinchArea {
-//                pinch.target: parent
-//                anchors.fill: parent
-//                pinch.minimumScale: 0.1
-//                pinch.maximumScale: 10
-//                pinch.dragAxis: Pinch.XandYAxis
-//            }
-//        }
-//    }
-//}

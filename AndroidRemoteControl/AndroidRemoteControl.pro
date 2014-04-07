@@ -20,7 +20,8 @@ OTHER_FILES += \
     qml/Icon.qml \
     qml/OverviewPage.qml \
     qml/CategoryItemsPage.qml \
-    qml/ThumbnailsPage.qml
+    qml/ThumbnailsPage.qml \
+    qml/ImageViewer.qml
 
 RESOURCES += \
     resources.qrc
@@ -37,4 +38,5 @@ HEADERS += \
     CategoryItemsModel.h \
     Settings.h \
     ImageStore.h \
-    ScreenInfo.h
+    ScreenInfo.h \
+    Types.h

@@ -9,6 +9,7 @@
 namespace RemoteControl
 {
 
+using RoleMap = QHash<int, QByteArray>;
 class CategoryModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
     explicit CategoryModel(QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
-    QHash<int, QByteArray> roleNames() const override;
+    RoleMap roleNames() const override;
     void setCategories(const QList<Category>&);
 
 private:

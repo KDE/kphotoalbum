@@ -25,12 +25,9 @@ QVariant CategoryItemsModel::data(const QModelIndex& index, int role) const
     return {};
 }
 
-QHash<int, QByteArray> CategoryItemsModel::roleNames() const
+RoleMap CategoryItemsModel::roleNames() const
 {
-    QHash<int, QByteArray> result;
-    result.insert(TextRole, "text");
-    result.insert(IconRole, "icon");
-    return result;
+    return { {TextRole, "text"}, {IconRole, "icon"} };
 }
 
 void CategoryItemsModel::setItems(const CategoryItemsList& items)

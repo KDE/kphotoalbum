@@ -29,14 +29,9 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
     return {};
 }
 
-QHash<int, QByteArray> RemoteControl::CategoryModel::roleNames() const
+RoleMap RemoteControl::CategoryModel::roleNames() const
 {
-    QHash<int, QByteArray> result;
-    result.insert(NameRole, "name");
-    result.insert(TextRole, "text");
-    result.insert(IconRole, "icon");
-    result.insert(EnabledRole, "enabled");
-    return result;
+    return { {NameRole, "name"}, {TextRole, "text"}, {IconRole, "icon"}, {EnabledRole, "enabled"} };
 }
 
 void CategoryModel::setCategories(const QList<Category>& categories)

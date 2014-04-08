@@ -1,7 +1,6 @@
 #include "Settings.h"
 
 #include <QSettings>
-#include <QDebug>
 namespace RemoteControl {
 
 

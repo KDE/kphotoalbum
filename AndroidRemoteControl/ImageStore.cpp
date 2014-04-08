@@ -1,7 +1,6 @@
 #include "ImageStore.h"
 #include "RemoteInterface.h"
 #include "Settings.h"
-#include <QDebug>
 
 namespace RemoteControl {
 

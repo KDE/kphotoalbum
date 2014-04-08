@@ -72,7 +72,7 @@ void ScreenInfo::updateLayout()
     m_overviewSpacing = m_overviewIconSize/2;
 
     const int possibleCols = floor(2.0 * m_overviewScreenWidth / m_overviewIconSize +1) / 3.0;
-    qDebug("%d %d => %d", m_overviewScreenWidth, m_overviewIconSize, possibleCols);
+    // qDebug("%d %d => %d", m_overviewScreenWidth, m_overviewIconSize, possibleCols);
     const int preferredCols = ceil(sqrt(m_categoryCount+2));
 
     m_overviewColumnCount = possibleCols;
@@ -81,7 +81,7 @@ void ScreenInfo::updateLayout()
     emit overviewSpacingChanged();
     emit overviewColumnCountChanged();
 
-    qDebug("Columns %d", m_overviewColumnCount);
+    // qDebug("Columns %d", m_overviewColumnCount);
 }
 
 } // namespace RemoteControl

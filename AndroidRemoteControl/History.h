@@ -3,22 +3,24 @@
 
 #include <QStack>
 #include "Action.h"
+#include <memory>
+#include <stack>
 
 namespace RemoteControl {
 
 class History
 {
 public:
-    void push(Action*);
+    void push(std::unique_ptr<Action>&&);
     void goForward();
     void goBackward();
     bool canGoBack() const;
     bool canGoForward() const;
 
 private:
-    QStack<Action*> m_backward;
-    QStack<Action*> m_forward;
-    Action* m_current = nullptr;
+    std::stack<std::unique_ptr<Action>> m_backward;
+    std::stack<std::unique_ptr<Action>> m_forward;
+    std::unique_ptr<Action> m_current = nullptr;
 };
 
 } // namespace RemoteControl

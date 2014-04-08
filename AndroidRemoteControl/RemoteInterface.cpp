@@ -11,7 +11,7 @@
 #include <ScreenInfo.h>
 #include "Action.h"
 #include <QCoreApplication>
-
+#include <memory>
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
@@ -71,23 +71,23 @@ void RemoteInterface::goForward()
 void RemoteInterface::selectCategory(const QString& category)
 {
     m_search.addCategory(category);
-    m_history.push(new ShowCategoryValueAction(m_search));
+    m_history.push(std::unique_ptr<Action>(new ShowCategoryValueAction(m_search)));
 }
 
 void RemoteInterface::selectCategoryValue(const QString& value)
 {
     m_search.addValue(value);
-    m_history.push(new ShowOverviewAction(m_search));
+    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction(m_search)));
 }
 
 void RemoteInterface::showThumbnails()
 {
-    m_history.push(new ShowThumbnailsAction(m_search));
+    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(m_search)));
 }
 
 void RemoteInterface::showImage(const QString& fileName)
 {
-    m_history.push(new ShowImagesAction(fileName, m_search));
+    m_history.push(std::unique_ptr<Action>(new ShowImagesAction(fileName, m_search)));
 }
 
 void RemoteInterface::setCurrentView(const QString& image)
@@ -97,7 +97,7 @@ void RemoteInterface::setCurrentView(const QString& image)
 
 void RemoteInterface::requestInitialData()
 {
-    m_history.push(new ShowOverviewAction({}));
+    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction({})));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

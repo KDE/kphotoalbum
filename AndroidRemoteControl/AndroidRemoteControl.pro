@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     CategoryItemsModel.cpp \
     Settings.cpp \
     ImageStore.cpp \
-    ScreenInfo.cpp
+    ScreenInfo.cpp \
+    Action.cpp \
+    History.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -39,4 +41,6 @@ HEADERS += \
     Settings.h \
     ImageStore.h \
     ScreenInfo.h \
-    Types.h
+    Types.h \
+    Action.h \
+    History.h

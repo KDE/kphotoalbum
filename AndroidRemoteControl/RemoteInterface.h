@@ -10,6 +10,7 @@
 #include <QMap>
 #include <QImage>
 #include <QStringList>
+#include "History.h"
 
 class QTcpSocket;
 
@@ -38,6 +39,7 @@ public:
 public slots:
     void goHome();
     void goBack();
+    void goForward();
     void selectCategory(const QString& category);
     void selectCategoryValue(const QString& value);
     void showThumbnails();
@@ -54,6 +56,9 @@ signals:
     void thumbnailsChanged();
     void jumpToImage(int index);
 
+public:
+    void setCurrentView(const QString& image);
+
 private slots:
     void requestInitialData();
     void handleCommand(const RemoteCommand&);
@@ -65,6 +70,7 @@ private slots:
 
 private:
     RemoteInterface();
+    friend class Action;
     void setCurrentPage(const QString& page);
 
     Client* m_connection = nullptr;
@@ -77,6 +83,7 @@ private:
     RemoteControl::CategoryItemsModel* m_categotyItems;
     QString m_currentPage = QStringLiteral("Unconnected");
     QStringList m_thumbnails;
+    History m_history;
 };
 
 }

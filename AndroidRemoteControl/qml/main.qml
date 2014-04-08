@@ -33,9 +33,11 @@ Item {
     Keys.onReleased: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
-        if ( event.key == Qt.Key_Back) {
+        if (event.key == Qt.Key_Back || event.key == Qt.Key_Left) {
             _remoteInterface.goBack()
             event.accepted = true
         }
+        if (event.key == Qt.Key_Right)
+            _remoteInterface.goForward()
     }
 }

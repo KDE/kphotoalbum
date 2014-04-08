@@ -9,6 +9,8 @@
 #include <QBuffer>
 #include <QDataStream>
 #include <ScreenInfo.h>
+#include "Action.h"
+#include <QCoreApplication>
 
 using namespace RemoteControl;
 
@@ -49,48 +51,53 @@ void RemoteInterface::sendCommand(const RemoteCommand& command)
 
 void RemoteInterface::goHome()
 {
-    m_search.clear();
     requestInitialData();
 }
 
 void RemoteInterface::goBack()
 {
-    // PENDING(blackie) Need to implement a stack of actions
-    goHome();
+    if(m_history.canGoBack())
+        m_history.goBackward();
+    else
+        qApp->quit();
+}
+
+void RemoteInterface::goForward()
+{
+    if (m_history.canGoForward())
+        m_history.goForward();
 }
 
 void RemoteInterface::selectCategory(const QString& category)
 {
     m_search.addCategory(category);
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryValues, m_search));
-    m_categoryItems->setItems({});
-    setCurrentPage(QStringLiteral("CategoryItems"));
+    m_history.push(new ShowCategoryValueAction(m_search));
 }
 
 void RemoteInterface::selectCategoryValue(const QString& value)
 {
     m_search.addValue(value);
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, m_search));
-    setCurrentPage(QStringLiteral("Overview"));
+    m_history.push(new ShowOverviewAction(m_search));
 }
 
 void RemoteInterface::showThumbnails()
 {
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::ImageSearch, m_search));
-    m_thumbnails = {};
-    setCurrentPage(QString::fromUtf8("Thumbnails"));
+    m_history.push(new ShowThumbnailsAction(m_search));
 }
 
 void RemoteInterface::showImage(const QString& fileName)
 {
-    setCurrentPage(QStringLiteral("ImageViewer"));
-    emit jumpToImage(m_thumbnails.indexOf(fileName));
+    m_history.push(new ShowImagesAction(fileName, m_search));
+}
+
+void RemoteInterface::setCurrentView(const QString& image)
+{
+    emit jumpToImage(m_thumbnails.indexOf(image));
 }
 
 void RemoteInterface::requestInitialData()
 {
-    m_connection->sendCommand(RequestCategoryInfo(RequestCategoryInfo::RequestCategoryNames, SearchInfo()));
-    setCurrentPage(QStringLiteral("Overview"));
+    m_history.push(new ShowOverviewAction({}));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

@@ -121,7 +121,6 @@
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include "UpdateVideoThumbnail.h"
 #include "DuplicateMerger/DuplicateMerger.h"
-#include "RemoteControl/RemoteInterface.h"
 
 using namespace DB;
 
@@ -1648,7 +1647,6 @@ void MainWindow::Window::showThumbNails(const DB::FileNameList& items)
 {
     _thumbnailView->setImageList(items);
     _statusBar->_partial->setMatchCount(items.size());
-    RemoteControl::RemoteInterface::instance().sendImageCount(items.size());
     showThumbNails();
 }
 

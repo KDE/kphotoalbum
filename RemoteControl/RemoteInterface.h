@@ -17,7 +17,6 @@ class RemoteInterface : public QObject, ImageManager::ImageClientInterface
     Q_OBJECT
 public:
     static RemoteInterface& instance();
-    void sendImageCount(int count);
     void pixmapLoaded( const DB::FileName& fileName,
                        const QSize& size, const QSize& fullSize,
                        int angle, const QImage& image,

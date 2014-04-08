@@ -49,14 +49,6 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
     return dbSearchInfo;
 }
 
-// PENDING(blackie) DIE!
-void RemoteInterface::sendImageCount(int count)
-{
-    ImageCountUpdateCommand command;
-    command.count = count;
-    m_connection->sendCommand(command);
-}
-
 void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& image, const bool loadedOK)
 {
     Q_UNUSED(size);

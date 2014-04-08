@@ -22,7 +22,7 @@ RemoteCommand& RemoteCommand::command(const QString& id)
         commands << new ImageUpdateCommand
                  << new ImageCountUpdateCommand
                  << new CategoryListCommand
-                 << new RequestCategoryInfo
+                 << new SearchCommand
                  << new CategoryItemListCommand
                  << new ImageSearchResult
                  << new ThumbnailRequest;
@@ -127,22 +127,22 @@ void CategoryListCommand::decode(QDataStream& stream)
 }
 
 
-RequestCategoryInfo::RequestCategoryInfo(RequestType type, const SearchInfo& searchInfo)
+SearchCommand::SearchCommand(RequestType type, const SearchInfo& searchInfo)
     :RemoteCommand(id()), type(type), searchInfo(searchInfo)
 {
 }
 
-QString RequestCategoryInfo::id()
+QString SearchCommand::id()
 {
-    return QString::fromUtf8("Request Category Info");
+    return QString::fromUtf8("SearchCommand");
 }
 
-void RequestCategoryInfo::encode(QDataStream& stream) const
+void SearchCommand::encode(QDataStream& stream) const
 {
     stream << (int) type << searchInfo;
 }
 
-void RequestCategoryInfo::decode(QDataStream& stream)
+void SearchCommand::decode(QDataStream& stream)
 {
     stream >> (int&) type >> searchInfo;
 }

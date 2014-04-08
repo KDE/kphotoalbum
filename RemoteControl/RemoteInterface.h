@@ -27,12 +27,13 @@ private slots:
     void handleCommand(const RemoteCommand&);
 
 private:
-    void sendCategoryNames(const RequestCategoryInfo& searchInfo);
-    void sendCategoryValues(const RequestCategoryInfo& search);
+    explicit RemoteInterface(QObject *parent = 0);
+
+    void sendCategoryNames(const SearchCommand& searchInfo);
+    void sendCategoryValues(const SearchCommand& search);
     void sendImageSearchResult(const SearchInfo& search);
     void requestThumbnail(const ThumbnailRequest& command);
 
-    explicit RemoteInterface(QObject *parent = 0);
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;
 };

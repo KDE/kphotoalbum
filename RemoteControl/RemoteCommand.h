@@ -75,11 +75,11 @@ public:
 };
 
 // PENDING(blackie) rename class.
-class RequestCategoryInfo :public RemoteCommand
+class SearchCommand :public RemoteCommand
 {
 public:
     enum RequestType { RequestCategoryNames, RequestCategoryValues, ImageSearch };
-    RequestCategoryInfo(RequestType type = {}, const SearchInfo& searchInfo = {});
+    SearchCommand(RequestType type = {}, const SearchInfo& searchInfo = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;

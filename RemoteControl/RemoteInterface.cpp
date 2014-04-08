@@ -60,21 +60,21 @@ void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& si
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    if (command.id() == RequestCategoryInfo::id()) {
-        const RequestCategoryInfo& requestCommand = static_cast<const RequestCategoryInfo&>(command);
-        if (requestCommand.type == RequestCategoryInfo::RequestCategoryNames)
-            sendCategoryNames(requestCommand);
-        else if (requestCommand.type == RequestCategoryInfo::RequestCategoryValues)
-            sendCategoryValues(requestCommand);
+    if (command.id() == SearchCommand::id()) {
+        const SearchCommand& searchCommand = static_cast<const SearchCommand&>(command);
+        if (searchCommand.type == SearchCommand::RequestCategoryNames)
+            sendCategoryNames(searchCommand);
+        else if (searchCommand.type == SearchCommand::RequestCategoryValues)
+            sendCategoryValues(searchCommand);
         else
-            sendImageSearchResult(requestCommand.searchInfo);
+            sendImageSearchResult(searchCommand.searchInfo);
     }
     else if (command.id() == ThumbnailRequest::id())
         requestThumbnail(static_cast<const ThumbnailRequest&>(command));
 }
 
 
-void RemoteInterface::sendCategoryNames(const RequestCategoryInfo& search)
+void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 {
     const int THUMBNAILSIZE = 70;
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
@@ -99,7 +99,7 @@ void RemoteInterface::sendCategoryNames(const RequestCategoryInfo& search)
     m_connection->sendCommand(command);
 }
 
-void RemoteInterface::sendCategoryValues(const RequestCategoryInfo& search)
+void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
     Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),

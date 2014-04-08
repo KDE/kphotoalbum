@@ -104,8 +104,6 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
     if (command.id() == ImageUpdateCommand::id())
         updateImage(static_cast<const ImageUpdateCommand&>(command));
-    else if (command.id() == ImageCountUpdateCommand::id())
-        updateImageCount(static_cast<const ImageCountUpdateCommand&>(command));
     else if (command.id() == CategoryListCommand::id())
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
     else if (command.id() == CategoryItemListCommand::id())
@@ -119,15 +117,6 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
     ImageStore::instance().updateImage(command.fileName, command.image);
-}
-
-void RemoteInterface::updateImageCount(const ImageCountUpdateCommand& command)
-{
-    Q_ASSERT(false && "Unused code");
-    //m_imageMap.clear();
-    m_imageCount = command.count;
-    emit imageCountChanged();
-
 }
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)

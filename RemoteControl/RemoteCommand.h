@@ -45,16 +45,6 @@ public:
     ViewType type;
 };
 
-class ImageCountUpdateCommand :public RemoteCommand
-{
-public:
-    ImageCountUpdateCommand();
-    static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-    int count;
-};
-
 struct Category {
     QString name;
     QString text;
@@ -74,7 +64,6 @@ public:
     QImage kphotoalbum;
 };
 
-// PENDING(blackie) rename class.
 class SearchCommand :public RemoteCommand
 {
 public:

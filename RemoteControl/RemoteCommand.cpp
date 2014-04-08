@@ -20,7 +20,6 @@ RemoteCommand& RemoteCommand::command(const QString& id)
     if (map.isEmpty()) {
         QList<RemoteCommand*> commands;
         commands << new ImageUpdateCommand
-                 << new ImageCountUpdateCommand
                  << new CategoryListCommand
                  << new SearchCommand
                  << new CategoryItemListCommand
@@ -71,26 +70,6 @@ void ImageUpdateCommand::decode(QDataStream& stream)
     stream >> (int&) type;
 }
 
-
-ImageCountUpdateCommand::ImageCountUpdateCommand()
-    :RemoteCommand(id())
-{
-}
-
-QString ImageCountUpdateCommand::id()
-{
-    return QString::fromUtf8("Image Count Update");
-}
-
-void ImageCountUpdateCommand::encode(QDataStream& stream) const
-{
-    stream << count;
-}
-
-void ImageCountUpdateCommand::decode(QDataStream& stream)
-{
-    stream >> count;
-}
 
 CategoryListCommand::CategoryListCommand()
     : RemoteCommand(id())

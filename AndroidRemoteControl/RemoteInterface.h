@@ -22,7 +22,6 @@ class RemoteInterface : public QObject
 {
     Q_OBJECT
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
-    Q_PROPERTY(int imageCount MEMBER m_imageCount NOTIFY imageCountChanged) // PENDING(blackie) unused!
     Q_PROPERTY(RemoteControl::CategoryModel* categories MEMBER m_categories NOTIFY categoriesChanged)
     Q_PROPERTY(RemoteControl::CategoryItemsModel* categoryItemsModel MEMBER m_categoryItems NOTIFY categoryItemChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
@@ -47,7 +46,6 @@ public slots:
 
 signals:
     void connectionChanged();
-    void imageCountChanged();
     void categoriesChanged();
     void homeImageChanged();
     void kphotoalbumImageChange();    
@@ -63,7 +61,6 @@ private slots:
     void requestInitialData();
     void handleCommand(const RemoteCommand&);
     void updateImage(const ImageUpdateCommand&);
-    void updateImageCount(const ImageCountUpdateCommand&); //PENDING(blackie) outdated
     void updateCategoryList(const CategoryListCommand&);
     void gotCategoryItems(const CategoryItemListCommand&);
     void gotImageSearchResult(const ImageSearchResult&);
@@ -74,7 +71,6 @@ private:
     void setCurrentPage(const QString& page);
 
     Client* m_connection = nullptr;
-    int m_imageCount = 0;
     CategoryModel* m_categories;
     CategoryItemsModel* m_categoryItems;
     QImage m_homeImage;

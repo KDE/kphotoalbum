@@ -6,9 +6,9 @@ ListView {
     model: _remoteInterface.thumbnails
     snapMode: ListView.SnapToItem
     orientation: ListView.Horizontal
-    flickDeceleration: 200000
-    highlightMoveDuration: 0
-    highlightRangeMode: ListView.StrictlyEnforceRange
+    flickDeceleration: 20000
+    highlightMoveDuration: 200
+    //highlightRangeMode: ListView.StrictlyEnforceRange
     interactive: currentItem && currentItem.scale <= 1 // Only swipe when zoomed out
 
     delegate: RemoteImage {
@@ -23,10 +23,24 @@ ListView {
             pinch.maximumScale: 10
             pinch.dragAxis: Pinch.XandYAxis
         }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if ( mouse.x < root.width/2 )
+                    root.decrementCurrentIndex()
+                else
+                    root.incrementCurrentIndex()
+            }
+        }
     }
 
     Connections {
         target: _remoteInterface
-        onJumpToImage: root.currentIndex = index
+        onJumpToImage: {
+            var tmp = root.highlightMoveDuration;
+            root.highlightMoveDuration = 0
+            root.currentIndex = index
+            root.highlightMoveDuration = tmp
+        }
     }
 }

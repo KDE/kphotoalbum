@@ -2,6 +2,8 @@
 #include "RemoteInterface.h"
 #include "Settings.h"
 
+#include <QTimer>
+
 namespace RemoteControl {
 
 ImageStore&ImageStore::instance()
@@ -13,6 +15,19 @@ ImageStore&ImageStore::instance()
 ImageStore::ImageStore()
 {
     connect(&Settings::instance(), &Settings::thumbnailSizeChanged, this, &ImageStore::reset);
+}
+
+void ImageStore::requestImage(const QString& fileName, const QSize& size, ViewType type) const
+{
+    // This code is executed from paint, which is on the QML thread, we therefore need to get it on the GUI thread
+    // where out TCPSocket is located.
+    QTimer* timer = new QTimer;
+    timer->setSingleShot(true);
+    connect(timer, &QTimer::timeout, this, [fileName,size,type,timer] () {
+        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, type));
+        timer->deleteLater();
+    });
+    timer->start(0);
 }
 
 void ImageStore::updateImage(const QString& fileName, const QImage& image)
@@ -29,7 +44,7 @@ QImage RemoteControl::ImageStore::image(const QString& fileName, const QSize& si
     if (m_imageMap.contains(qMakePair(fileName,type)))
         return m_imageMap[qMakePair(fileName,type)];
     else {
-        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, type));
+        requestImage(fileName,size,type);
         QImage image(size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;

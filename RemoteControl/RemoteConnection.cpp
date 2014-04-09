@@ -3,6 +3,8 @@
 
 #include <QBuffer>
 #include <QTcpSocket>
+#include <QApplication>
+#include <QThread>
 
 using namespace RemoteControl;
 
@@ -13,6 +15,8 @@ RemoteConnection::RemoteConnection(QObject *parent) :
 
 void RemoteConnection::sendCommand(const RemoteCommand& command)
 {
+    Q_ASSERT(QThread::currentThread() == qApp->thread());
+
     if (!isConnected())
         return;
 

@@ -25,6 +25,7 @@ private slots:
 
 private:
     explicit ImageStore();
+    void requestImage(const QString& fileName, const QSize& size, ViewType type) const;
 
     QMap<QPair<QString,ViewType>,QImage> m_imageMap;
 };

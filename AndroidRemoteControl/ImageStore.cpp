@@ -24,17 +24,21 @@ void ImageStore::requestImage(const QString& fileName, const QSize& size, ViewTy
     QTimer* timer = new QTimer;
     timer->setSingleShot(true);
     connect(timer, &QTimer::timeout, this, [fileName,size,type,timer] () {
-        RemoteInterface::instance().sendCommand(ThumbnailRequest(fileName, size, type));
+        ThumbnailRequest request(fileName, size, type);
+        request.category = RemoteInterface::instance().currentCategory();
+        RemoteInterface::instance().sendCommand(request);
         timer->deleteLater();
     });
     timer->start(0);
 }
 
-void ImageStore::updateImage(const QString& fileName, const QImage& image)
+void ImageStore::updateImage(const QString& fileName, const QImage& image, ViewType type)
 {
-    // PENDING(blackie) Information about image type should come from the remote site!
-    ViewType type = ((image.size().width() == Settings::instance().thumbnailSize() ||
-                     image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnails : ViewType::Images);
+    if (type != ViewType::CategoryItems) {
+        // PENDING(blackie) Information about image type should come from the remote site!
+        type = ((image.size().width() == Settings::instance().thumbnailSize() ||
+                 image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnails : ViewType::Images);
+    }
     m_imageMap[qMakePair(fileName,type)] = image;
     emit imageUpdated(fileName,type);
 }
@@ -45,8 +49,7 @@ QImage RemoteControl::ImageStore::image(const QString& fileName, const QSize& si
     if (m_imageMap.contains(qMakePair(fileName,type)))
         return m_imageMap[qMakePair(fileName,type)];
     else {
-        if (type != ViewType::CategoryItems) // FIXME: of course not!
-            requestImage(fileName,size,type);
+        requestImage(fileName,size,type);
         QImage image(size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;

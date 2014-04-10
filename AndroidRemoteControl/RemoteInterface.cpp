@@ -48,6 +48,11 @@ void RemoteInterface::sendCommand(const RemoteCommand& command)
     m_connection->sendCommand(command);
 }
 
+QString RemoteInterface::currentCategory() const
+{
+    return m_search.currentCategory();
+}
+
 void RemoteInterface::goHome()
 {
     requestInitialData();
@@ -113,7 +118,7 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
-    ImageStore::instance().updateImage(command.fileName, command.image);
+    ImageStore::instance().updateImage(command.fileName, command.image, command.type);
 }
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)

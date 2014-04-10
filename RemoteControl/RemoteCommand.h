@@ -89,6 +89,7 @@ public:
 class ThumbnailRequest :public RemoteCommand
 {
 public:
+    // FIXME: Multiple constructors?
     ThumbnailRequest(const QString& fileName = {}, const QSize& size = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
@@ -96,6 +97,7 @@ public:
     QString fileName;
     QSize size;
     ViewType type;
+    QString category;
 };
 
 }

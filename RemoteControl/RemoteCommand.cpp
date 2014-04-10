@@ -159,10 +159,10 @@ QString ThumbnailRequest::id()
 
 void ThumbnailRequest::encode(QDataStream& stream) const
 {
-    stream << fileName << size << (int) type;
+    stream << fileName << category << size << (int) type;
 }
 
 void ThumbnailRequest::decode(QDataStream& stream)
 {
-    stream >> fileName >> size >> (int&) type;
+    stream >> fileName >> category >> size >> (int&) type;
 }

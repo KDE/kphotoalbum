@@ -13,7 +13,7 @@ class ImageStore : public QObject
     Q_OBJECT
 public:
     static ImageStore& instance();
-    void updateImage(const QString& fileName, const QImage& image);
+    void updateImage(const QString& fileName, const QImage& image, ViewType type);
     QImage image(const QString& fileName, const QSize& size, ViewType type) const;
 
 

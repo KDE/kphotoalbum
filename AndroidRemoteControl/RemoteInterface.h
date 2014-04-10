@@ -33,6 +33,7 @@ public:
     static RemoteInterface& instance();
     bool isConnected() const;
     void sendCommand(const RemoteCommand& command);
+    QString currentCategory() const;
 
 public slots:
     void goHome();

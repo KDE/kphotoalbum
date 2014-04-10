@@ -55,7 +55,7 @@ void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& si
     Q_UNUSED(fullSize);
     Q_UNUSED(angle);
     Q_UNUSED(loadedOK);
-    m_connection->sendCommand(ImageUpdateCommand(fileName.relative(), image));
+    m_connection->sendCommand(ImageUpdateCommand(fileName.relative(), image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
@@ -102,11 +102,15 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
-    const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory());
-    QStringList items = category->itemsInclCategories();
-    items.sort();
+//    const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory());
+//    QStringList items = category->itemsInclCategories();
+//    items.sort();
 
-    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, items));
+    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
+                                     dbSearchInfo);
+
+
+    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, model._items));
 
     //    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
 //                                     dbSearchInfo);
@@ -129,13 +133,21 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 {
-    const DB::FileName fileName = DB::FileName::fromRelativePath(command.fileName);
-    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    const int angle = info->angle();
+    if (command.type == ViewType::CategoryItems) {
+        const QString categoryName = command.category;
+        const QString itemName = command.fileName; // FIXME: Should not be named fileName
+        const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
+        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
+        m_connection->sendCommand(ImageUpdateCommand(itemName, image,ViewType::CategoryItems));
+    }
+    else {
+        const DB::FileName fileName = DB::FileName::fromRelativePath(command.fileName);
+        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+        const int angle = info->angle();
 
-    ImageManager::ImageRequest* request
-            = new ImageManager::ImageRequest(fileName, command.size, angle, this);
-    // PENDING(blackie) I need a way to store information about command.viewType!
-    ImageManager::AsyncLoader::instance()->load(request);
+        ImageManager::ImageRequest* request
+                = new ImageManager::ImageRequest(fileName, command.size, angle, this);
+        // PENDING(blackie) I need a way to store information about command.viewType!
+        ImageManager::AsyncLoader::instance()->load(request);
+    }
 }
-

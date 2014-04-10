@@ -166,8 +166,8 @@ void CategoryItemListCommand::addItem(const QString& text, const QImage& icon)
 }
 
 
-SearchResultCommand::SearchResultCommand(const QStringList& relativeFileNames)
-    :RemoteCommand(id()), relativeFileNames(relativeFileNames)
+SearchResultCommand::SearchResultCommand(SearchType type, const QStringList& relativeFileNames)
+    :RemoteCommand(id()), type(type), relativeFileNames(relativeFileNames)
 {
 }
 
@@ -178,12 +178,12 @@ QString SearchResultCommand::id()
 
 void SearchResultCommand::encode(QDataStream& stream) const
 {
-    stream << relativeFileNames;
+    stream << (int) type << relativeFileNames;
 }
 
 void SearchResultCommand::decode(QDataStream& stream)
 {
-    stream >> relativeFileNames;
+    stream >> (int&) type >> relativeFileNames;
 }
 
 

@@ -11,8 +11,7 @@ class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
-    //Q_PROPERTY(ViewType type MEMBER m_type NOTIFY typeChanged)
-    Q_PROPERTY(bool isThumbnail MEMBER m_isThumbnail NOTIFY isThumbnailChanged) // PENDING(blackie) remove!
+    Q_PROPERTY(int type MEMBER m_type NOTIFY typeChanged) // Should be ViewType
 
     //Q_ENUMS(ViewType);
 public:
@@ -27,16 +26,14 @@ public slots:
 
 signals:
     void fileNameChanged();
-    //void typeChanged();
-    void isThumbnailChanged();
+    void typeChanged();
 
 private slots:
     void updateImage(const QString& fileName, ViewType type);
 
 private:
     QString m_fileName;
-    //ViewType m_type = ViewType::Thumbnail;
-    bool m_isThumbnail = true;
+    int m_type;
 };
 
 }

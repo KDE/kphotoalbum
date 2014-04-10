@@ -75,23 +75,6 @@ public:
     SearchInfo searchInfo;
 };
 
-struct CategoryItem {
-    QString text;
-    QImage icon;
-};
-
-using CategoryItemsList = QList<CategoryItem>;
-class CategoryItemListCommand :public RemoteCommand
-{
-public:
-    CategoryItemListCommand();
-    static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-    void addItem(const QString& text, const QImage& icon);
-    CategoryItemsList items;
-};
-
 class SearchResultCommand :public RemoteCommand
 {
 public:

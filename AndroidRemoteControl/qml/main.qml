@@ -7,14 +7,27 @@ Item {
         visible: _remoteInterface.currentPage == "Overview"
     }
 
-    CategoryItemsPage {
-        anchors.fill: parent
+//    CategoryItemsPage {
+//        anchors.fill: parent
+//        visible: _remoteInterface.currentPage == "CategoryItems"
+//    }
+
+    ThumbnailsPage {
         visible: _remoteInterface.currentPage == "CategoryItems"
+        anchors.fill: parent
+        model: _remoteInterface.categoryItems
+        type: 0 // FIXME: ViewType::CategoryItems
+        showLabels: true
+        onClicked: _remoteInterface.selectCategoryValue(value)
     }
 
     ThumbnailsPage {
-        anchors.fill: parent
         visible: _remoteInterface.currentPage == "Thumbnails"
+        anchors.fill: parent
+        model: _remoteInterface.thumbnails
+        type: 1 // FIXME ViewType::Thumbnails
+        showLabels: false
+        onClicked: _remoteInterface.showImage(value)
     }
 
     ImageViewer {

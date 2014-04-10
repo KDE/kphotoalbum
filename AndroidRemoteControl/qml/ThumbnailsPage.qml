@@ -2,6 +2,12 @@ import QtQuick 2.0
 import KPhotoAlbum 1.0
 
 PinchArea {
+    id: root
+    property alias model : grid.model
+    property int type // FIXME should be an enum!
+    property bool showLabels : false
+    signal clicked(string value)
+
     pinch.minimumScale: 0.1
     pinch.maximumScale: 10
     onPinchUpdated: grid.scale = pinch.scale
@@ -13,16 +19,24 @@ PinchArea {
         id: grid
         anchors.fill: parent
         transformOrigin: Qt.TopLeftCorner
-        model: _remoteInterface.thumbnails
         cellWidth: _settings.thumbnailSize + 10
-        cellHeight: _settings.thumbnailSize + 10
+        cellHeight: _settings.thumbnailSize + 10 + (root.showLabels ? 30 : 0)
         delegate:
+            Column {
             RemoteImage {
                 fileName: modelData
+                type: root.type
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: _remoteInterface.showImage(fileName)
+                    onClicked: root.clicked(parent.fileName)
                 }
             }
+            Text {
+                visible: root.showLabels
+                anchors { left: parent.left; right: parent.right }
+                text: modelData
+                elide: Text.ElideLeft
+            }
+        }
     }
 }

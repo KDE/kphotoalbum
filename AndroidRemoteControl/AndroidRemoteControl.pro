@@ -10,7 +10,6 @@ SOURCES += main.cpp \
     CategoryModel.cpp \
     MyImage.cpp \
     SearchInfo.cpp \
-    CategoryItemsModel.cpp \
     Settings.cpp \
     ImageStore.cpp \
     ScreenInfo.cpp \
@@ -37,7 +36,6 @@ HEADERS += \
     CategoryModel.h \
     MyImage.h \
     SearchInfo.h \
-    CategoryItemsModel.h \
     Settings.h \
     ImageStore.h \
     ScreenInfo.h \

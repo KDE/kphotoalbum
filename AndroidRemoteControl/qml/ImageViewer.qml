@@ -15,7 +15,7 @@ ListView {
         width: root.width
         height: root.height
         fileName: modelData
-        isThumbnail: false
+        type: 2 // FIXME ViewType::Images
         PinchArea {
             pinch.target: parent
             anchors.fill: parent

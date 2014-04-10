@@ -34,17 +34,19 @@ void ImageStore::updateImage(const QString& fileName, const QImage& image)
 {
     // PENDING(blackie) Information about image type should come from the remote site!
     ViewType type = ((image.size().width() == Settings::instance().thumbnailSize() ||
-                     image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnail : ViewType::ImageView);
+                     image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnails : ViewType::Images);
     m_imageMap[qMakePair(fileName,type)] = image;
     emit imageUpdated(fileName,type);
 }
 
 QImage RemoteControl::ImageStore::image(const QString& fileName, const QSize& size, ViewType type) const
 {
+    qDebug("Request: %s type:%d has it:%d", qPrintable(fileName), type, m_imageMap.contains(qMakePair(fileName,type)));
     if (m_imageMap.contains(qMakePair(fileName,type)))
         return m_imageMap[qMakePair(fileName,type)];
     else {
-        requestImage(fileName,size,type);
+        if (type != ViewType::CategoryItems) // FIXME: of course not!
+            requestImage(fileName,size,type);
         QImage image(size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;

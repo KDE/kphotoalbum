@@ -4,7 +4,6 @@
 #include "CategoryModel.h"
 #include "RemoteCommand.h"
 #include "SearchInfo.h"
-#include "CategoryItemsModel.h"
 
 #include <QObject>
 #include <QMap>
@@ -23,7 +22,7 @@ class RemoteInterface : public QObject
     Q_OBJECT
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
     Q_PROPERTY(RemoteControl::CategoryModel* categories MEMBER m_categories NOTIFY categoriesChanged)
-    Q_PROPERTY(RemoteControl::CategoryItemsModel* categoryItemsModel MEMBER m_categoryItems NOTIFY categoryItemChanged)
+    Q_PROPERTY(QStringList categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
     Q_PROPERTY(QString currentPage MEMBER m_currentPage NOTIFY currentPageChanged) //PENDING(blackie) convert into an enum
@@ -49,7 +48,7 @@ signals:
     void categoriesChanged();
     void homeImageChanged();
     void kphotoalbumImageChange();    
-    void categoryItemChanged();
+    void categoryItemsChanged();
     void currentPageChanged();
     void thumbnailsChanged();
     void jumpToImage(int index);
@@ -62,7 +61,6 @@ private slots:
     void handleCommand(const RemoteCommand&);
     void updateImage(const ImageUpdateCommand&);
     void updateCategoryList(const CategoryListCommand&);
-    void gotCategoryItems(const CategoryItemListCommand&);
     void gotSearchResult(const SearchResultCommand&);
 
 private:
@@ -72,11 +70,11 @@ private:
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;
-    CategoryItemsModel* m_categoryItems;
+    // CategoryItemsModel* m_categoryItems; DIE
     QImage m_homeImage;
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
-    RemoteControl::CategoryItemsModel* m_categotyItems;
+    QStringList m_categoryItems;
     QString m_currentPage = QStringLiteral("Unconnected");
     QStringList m_thumbnails;
     History m_history;

@@ -15,14 +15,13 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
-    : m_categories(new CategoryModel(this)), m_categoryItems(new CategoryItemsModel(this))
+    : m_categories(new CategoryModel(this))
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
-    qRegisterMetaType<RemoteControl::CategoryItemsModel*>("RemoteControl::CategoryItemsModel*");
 }
 
 void RemoteInterface::setCurrentPage(const QString& page)
@@ -106,8 +105,6 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateImage(static_cast<const ImageUpdateCommand&>(command));
     else if (command.id() == CategoryListCommand::id())
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
-    else if (command.id() == CategoryItemListCommand::id())
-        gotCategoryItems(static_cast<const CategoryItemListCommand&>(command));
     else if (command.id() == SearchResultCommand::id())
         gotSearchResult(static_cast<const SearchResultCommand&>(command));
     else
@@ -132,15 +129,18 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
     emit kphotoalbumImageChange();
 }
 
-void RemoteInterface::gotCategoryItems(const CategoryItemListCommand& result)
-{
-    m_categoryItems->setItems(result.items);
-}
-
 void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
 {
-    if (m_thumbnails != result.values) {
-        m_thumbnails = result.values;
-        emit thumbnailsChanged();
+    if (result.type == SearchType::Images) {
+        if (m_thumbnails != result.values) {
+            m_thumbnails = result.values;
+            emit thumbnailsChanged();
+        }
+    }
+    else if (result.type == SearchType::CategoryItems) {
+        if (m_categoryItems != result.values) {
+            m_categoryItems = result.values;
+            emit categoryItemsChanged();
+        }
     }
 }

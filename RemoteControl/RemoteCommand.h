@@ -92,10 +92,10 @@ public:
     CategoryItemsList items;
 };
 
-class ImageSearchResult :public RemoteCommand
+class SearchResultCommand :public RemoteCommand
 {
 public:
-    ImageSearchResult(const QStringList& relativeFileNames = {});
+    SearchResultCommand(const QStringList& relativeFileNames = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;

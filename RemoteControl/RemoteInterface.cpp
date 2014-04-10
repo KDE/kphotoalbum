@@ -118,7 +118,7 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
     QStringList relativeFileNames;
     std::transform(files.begin(), files.end(), std::back_inserter(relativeFileNames),
                    [](const DB::FileName& fileName) { return fileName.relative(); });
-    m_connection->sendCommand(ImageSearchResult(relativeFileNames));
+    m_connection->sendCommand(SearchResultCommand(relativeFileNames));
 }
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)

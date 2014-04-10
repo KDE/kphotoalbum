@@ -63,7 +63,7 @@ private slots:
     void updateImage(const ImageUpdateCommand&);
     void updateCategoryList(const CategoryListCommand&);
     void gotCategoryItems(const CategoryItemListCommand&);
-    void gotImageSearchResult(const ImageSearchResult&);
+    void gotSearchResult(const SearchResultCommand&);
 
 private:
     RemoteInterface();

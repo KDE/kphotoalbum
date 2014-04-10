@@ -108,8 +108,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
     else if (command.id() == CategoryItemListCommand::id())
         gotCategoryItems(static_cast<const CategoryItemListCommand&>(command));
-    else if (command.id() == ImageSearchResult::id())
-        gotImageSearchResult(static_cast<const ImageSearchResult&>(command));
+    else if (command.id() == SearchResultCommand::id())
+        gotSearchResult(static_cast<const SearchResultCommand&>(command));
     else
         qFatal("Unhandled command");
 }
@@ -137,7 +137,7 @@ void RemoteInterface::gotCategoryItems(const CategoryItemListCommand& result)
     m_categoryItems->setItems(result.items);
 }
 
-void RemoteInterface::gotImageSearchResult(const ImageSearchResult& result)
+void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
 {
     if (m_thumbnails != result.relativeFileNames) {
         m_thumbnails = result.relativeFileNames;

@@ -23,7 +23,7 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new CategoryListCommand
                  << new SearchCommand
                  << new CategoryItemListCommand
-                 << new ImageSearchResult
+                 << new SearchResultCommand
                  << new ThumbnailRequest;
 
         for (RemoteCommand* command : commands )
@@ -166,22 +166,22 @@ void CategoryItemListCommand::addItem(const QString& text, const QImage& icon)
 }
 
 
-ImageSearchResult::ImageSearchResult(const QStringList& relativeFileNames)
+SearchResultCommand::SearchResultCommand(const QStringList& relativeFileNames)
     :RemoteCommand(id()), relativeFileNames(relativeFileNames)
 {
 }
 
-QString ImageSearchResult::id()
+QString SearchResultCommand::id()
 {
     return QString::fromUtf8("Image Search Result");
 }
 
-void ImageSearchResult::encode(QDataStream& stream) const
+void SearchResultCommand::encode(QDataStream& stream) const
 {
     stream << relativeFileNames;
 }
 
-void ImageSearchResult::decode(QDataStream& stream)
+void SearchResultCommand::decode(QDataStream& stream)
 {
     stream >> relativeFileNames;
 }

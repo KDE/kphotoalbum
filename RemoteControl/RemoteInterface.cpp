@@ -102,14 +102,20 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
-    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
-                                     dbSearchInfo);
+    const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory());
+    QStringList items = category->itemsInclCategories();
+    items.sort();
 
-    CategoryItemListCommand result;
-    for (int i=0; i<model.rowCount(QModelIndex());++i)
-        result.addItem(model.data(model.index(i,0), Qt::DisplayRole).value<QString>(),
-                       model.data(model.index(i,0), Qt::DecorationRole).value<QImage>());
-    m_connection->sendCommand(result);
+    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, items));
+
+    //    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
+//                                     dbSearchInfo);
+
+//    CategoryItemListCommand result;
+//    for (int i=0; i<model.rowCount(QModelIndex());++i)
+//        result.addItem(model.data(model.index(i,0), Qt::DisplayRole).value<QString>(),
+//                       model.data(model.index(i,0), Qt::DecorationRole).value<QImage>());
+//    m_connection->sendCommand(result);
 }
 
 void RemoteInterface::sendImageSearchResult(const SearchInfo& search)

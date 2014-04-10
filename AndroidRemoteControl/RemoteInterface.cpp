@@ -139,8 +139,8 @@ void RemoteInterface::gotCategoryItems(const CategoryItemListCommand& result)
 
 void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
 {
-    if (m_thumbnails != result.relativeFileNames) {
-        m_thumbnails = result.relativeFileNames;
+    if (m_thumbnails != result.values) {
+        m_thumbnails = result.values;
         emit thumbnailsChanged();
     }
 }

@@ -95,12 +95,12 @@ public:
 class SearchResultCommand :public RemoteCommand
 {
 public:
-    SearchResultCommand(SearchType type = {}, const QStringList& relativeFileNames = {});
+    SearchResultCommand(SearchType type = {}, const QStringList& values = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     SearchType type;
-    QStringList relativeFileNames;
+    QStringList values;
 };
 
 class ThumbnailRequest :public RemoteCommand

@@ -62,9 +62,9 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
     if (command.id() == SearchCommand::id()) {
         const SearchCommand& searchCommand = static_cast<const SearchCommand&>(command);
-        if (searchCommand.type == SearchCommand::RequestCategoryNames)
+        if (searchCommand.type == SearchType::Categories)
             sendCategoryNames(searchCommand);
-        else if (searchCommand.type == SearchCommand::RequestCategoryValues)
+        else if (searchCommand.type == SearchType::CategoryItems)
             sendCategoryValues(searchCommand);
         else
             sendImageSearchResult(searchCommand.searchInfo);

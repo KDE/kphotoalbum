@@ -5,6 +5,7 @@ namespace RemoteControl
 {
 
 enum class ViewType { Thumbnail, ImageView };
+enum class SearchType { Categories, CategoryItems, Images };
 
 }
 

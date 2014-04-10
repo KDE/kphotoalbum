@@ -106,7 +106,7 @@ void CategoryListCommand::decode(QDataStream& stream)
 }
 
 
-SearchCommand::SearchCommand(RequestType type, const SearchInfo& searchInfo)
+SearchCommand::SearchCommand(SearchType type, const SearchInfo& searchInfo)
     :RemoteCommand(id()), type(type), searchInfo(searchInfo)
 {
 }

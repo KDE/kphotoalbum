@@ -45,7 +45,7 @@ ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
 
 void ShowOverviewAction::execute()
 {
-    sendCommand(SearchCommand(SearchCommand::RequestCategoryNames, m_searchInfo));
+    sendCommand(SearchCommand(SearchType::Categories, m_searchInfo));
     setCurrentPage(QStringLiteral("Overview"));
 }
 
@@ -56,7 +56,7 @@ ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo)
 
 void ShowCategoryValueAction::execute()
 {
-    sendCommand(SearchCommand(SearchCommand::RequestCategoryValues, m_searchInfo));
+    sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
     setCurrentPage(QStringLiteral("CategoryItems"));
 }
@@ -68,7 +68,7 @@ ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
 
 void ShowThumbnailsAction::execute()
 {
-    sendCommand(SearchCommand(SearchCommand::ImageSearch, m_searchInfo));
+    sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
     clearThumbnailsModel();
     setCurrentPage(QString::fromUtf8("Thumbnails"));
 }

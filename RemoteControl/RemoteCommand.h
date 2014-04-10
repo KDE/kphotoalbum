@@ -67,12 +67,11 @@ public:
 class SearchCommand :public RemoteCommand
 {
 public:
-    enum RequestType { RequestCategoryNames, RequestCategoryValues, ImageSearch };
-    SearchCommand(RequestType type = {}, const SearchInfo& searchInfo = {});
+    SearchCommand(SearchType type = {}, const SearchInfo& searchInfo = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    RequestType type;
+    SearchType type;
     SearchInfo searchInfo;
 };
 

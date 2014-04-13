@@ -5,8 +5,10 @@
 #include <QImage>
 #include <QMap>
 #include "Types.h"
+#include <QMutex>
 
 namespace RemoteControl {
+class RemoteImage;
 
 class ImageStore : public QObject
 {
@@ -14,20 +16,21 @@ class ImageStore : public QObject
 public:
     static ImageStore& instance();
     void updateImage(const QString& fileName, const QImage& image, ViewType type);
-    QImage image(const QString& fileName, const QSize& size, ViewType type) const;
-
-
-signals:
-    void imageUpdated(const QString& fileName, ViewType type);
+    QImage image(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type);
 
 private slots:
     void reset();
+    void clientDeleted();
 
 private:
     explicit ImageStore();
-    void requestImage(const QString& fileName, const QSize& size, ViewType type) const;
+    void requestImage(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type);
 
-    QMap<QPair<QString,ViewType>,QImage> m_imageMap;
+    using RequestType = QPair<QString,ViewType>;
+    QMap<RequestType,QImage> m_imageMap;
+    QMap<RequestType,RemoteImage*> m_requestMap;
+    QMap<RemoteImage*,RequestType> m_reverseRequestMap;
+    QMutex m_mutex;
 };
 
 } // namespace RemoteControl

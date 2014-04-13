@@ -8,12 +8,11 @@ using namespace RemoteControl;
 RemoteImage::RemoteImage(QQuickItem *parent) :
     QQuickPaintedItem(parent)
 {
-    connect(&ImageStore::instance(), &ImageStore::imageUpdated, this, &RemoteImage::updateImage);
 }
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, ImageStore::instance().image(m_fileName, size(), (ViewType) m_type)); // FIXME: Nuke the cast
+    painter->drawImage(0,0, ImageStore::instance().image(this, m_fileName, size(), (ViewType) m_type)); // FIXME: Nuke the cast
 }
 
 QString RemoteImage::fileName() const
@@ -38,8 +37,3 @@ void RemoteImage::setFileName(const QString& fileName)
     }
 }
 
-void RemoteImage::updateImage(const QString& fileName, ViewType type)
-{
-    if (fileName == m_fileName && (int) type == m_type) // FIXME no cast
-        update();
-}

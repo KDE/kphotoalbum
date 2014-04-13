@@ -8,6 +8,7 @@
 #include "MyImage.h"
 #include "Settings.h"
 #include "ScreenInfo.h"
+#include "ImageStore.h"
 
 using namespace RemoteControl;
 
@@ -34,6 +35,9 @@ int main(int argc, char *argv[])
 
     viewer.resize(1024,768);
     viewer.show();
+
+    // Create the store on the GUI thread
+    (void) ImageStore::instance();
 
     return app.exec();
 }

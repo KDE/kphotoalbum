@@ -28,9 +28,6 @@ signals:
     void fileNameChanged();
     void typeChanged();
 
-private slots:
-    void updateImage(const QString& fileName, ViewType type);
-
 private:
     QString m_fileName;
     int m_type;

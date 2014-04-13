@@ -11,7 +11,7 @@ namespace RemoteControl {
 class History
 {
 public:
-    void push(std::unique_ptr<Action>&&);
+    void push(std::unique_ptr<Action>);
     void goForward();
     void goBackward();
     bool canGoBack() const;

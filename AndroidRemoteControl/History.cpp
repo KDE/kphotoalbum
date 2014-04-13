@@ -2,7 +2,7 @@
 
 namespace RemoteControl {
 
-void History::push(std::unique_ptr<Action>&& action)
+void History::push(std::unique_ptr<Action> action)
 {
     m_backward.push(std::move(m_current));
     m_forward = {};

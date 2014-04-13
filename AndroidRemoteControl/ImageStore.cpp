@@ -93,7 +93,9 @@ void ImageStore::clientDeleted()
         RequestType key = m_reverseRequestMap[remoteImage];
         m_reverseRequestMap.remove(remoteImage);
         m_requestMap.remove(key);
-        qDebug("Dieing: %p %s", remoteImage, qPrintable(key.first));
+
+        // FIXME: I'm sending cancel's for images that might already have got their answer
+        RemoteInterface::instance().sendCommand(CancelRequestCommand(key.first, key.second));
     }
 }
 

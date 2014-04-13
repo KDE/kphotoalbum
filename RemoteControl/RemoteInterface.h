@@ -12,7 +12,7 @@ namespace RemoteControl
 {
 class Server;
 
-class RemoteInterface : public QObject, ImageManager::ImageClientInterface
+class RemoteInterface : public QObject, public ImageManager::ImageClientInterface
 {
     Q_OBJECT
 public:
@@ -21,6 +21,7 @@ public:
                        const QSize& size, const QSize& fullSize,
                        int angle, const QImage& image,
                        const bool loadedOK) override;
+    bool requestStillNeeded(const DB::FileName& fileName);
 
 
 private slots:
@@ -33,9 +34,11 @@ private:
     void sendCategoryValues(const SearchCommand& search);
     void sendImageSearchResult(const SearchInfo& search);
     void requestThumbnail(const ThumbnailRequest& command);
+    void cancelRequest(const CancelRequestCommand& command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;
+    QSet<DB::FileName> m_activeReuqest;
 };
 
 }

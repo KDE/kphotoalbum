@@ -23,7 +23,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new CategoryListCommand
                  << new SearchCommand
                  << new SearchResultCommand
-                 << new ThumbnailRequest;
+                 << new ThumbnailRequest
+                 << new CancelRequestCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -165,4 +166,25 @@ void ThumbnailRequest::encode(QDataStream& stream) const
 void ThumbnailRequest::decode(QDataStream& stream)
 {
     stream >> fileName >> category >> size >> (int&) type;
+}
+
+
+RemoteControl::CancelRequestCommand::CancelRequestCommand(const QString& fileName, ViewType type)
+    :RemoteCommand(id()), fileName(fileName), type(type)
+{
+}
+
+QString CancelRequestCommand::id()
+{
+    return QString::fromUtf8("CancelRequest");
+}
+
+void CancelRequestCommand::encode(QDataStream& stream) const
+{
+    stream << fileName << (int) type;
+}
+
+void CancelRequestCommand::decode(QDataStream& stream)
+{
+    stream >> fileName >> (int&) type;
 }

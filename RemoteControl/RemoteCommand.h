@@ -100,5 +100,15 @@ public:
     QString category;
 };
 
+class CancelRequestCommand :public RemoteCommand
+{
+public:
+    CancelRequestCommand(const QString& fileName = {}, ViewType type = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+    QString fileName;
+    ViewType type;
+};
 }
 #endif // REMOTECOMMAND_H

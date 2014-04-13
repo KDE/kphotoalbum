@@ -331,6 +331,7 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
 )
 
 add_subdirectory( images )

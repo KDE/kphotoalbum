@@ -16,6 +16,7 @@
 #include "DB/ImageSearchInfo.h"
 #include "Browser/FlatCategoryModel.h"
 #include "DB/ImageInfoPtr.h"
+#include "RemoteImageRequest.h"
 
 #include <tuple>
 #include <algorithm>
@@ -58,6 +59,11 @@ void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& si
     m_connection->sendCommand(ImageUpdateCommand(fileName.relative(), image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
 }
 
+bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
+{
+    return m_activeReuqest.contains(fileName);
+}
+
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
     if (command.id() == SearchCommand::id()) {
@@ -71,6 +77,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
     }
     else if (command.id() == ThumbnailRequest::id())
         requestThumbnail(static_cast<const ThumbnailRequest&>(command));
+    else if (command.id() == CancelRequestCommand::id())
+        cancelRequest(static_cast<const CancelRequestCommand&>(command));
 }
 
 
@@ -145,9 +153,15 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const int angle = info->angle();
 
-        ImageManager::ImageRequest* request
-                = new ImageManager::ImageRequest(fileName, command.size, angle, this);
+        m_activeReuqest.insert(fileName);
+        RemoteImageRequest* request
+                = new RemoteImageRequest(fileName, command.size, angle, this);
         // PENDING(blackie) I need a way to store information about command.viewType!
         ImageManager::AsyncLoader::instance()->load(request);
     }
+}
+
+void RemoteInterface::cancelRequest(const CancelRequestCommand& command)
+{
+    m_activeReuqest.remove(DB::FileName::fromRelativePath(command.fileName));
 }

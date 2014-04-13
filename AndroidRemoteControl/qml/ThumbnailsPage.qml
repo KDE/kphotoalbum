@@ -39,4 +39,7 @@ PinchArea {
             }
         }
     }
+    ScrollBar {
+        flickable: grid
+    }
 }

@@ -6,5 +6,6 @@
         <file>qml/CategoryItemsPage.qml</file>
         <file>qml/ThumbnailsPage.qml</file>
         <file>qml/ImageViewer.qml</file>
+        <file>qml/ScrollBar.qml</file>
     </qresource>
 </RCC>

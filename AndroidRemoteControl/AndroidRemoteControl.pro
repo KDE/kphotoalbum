@@ -22,7 +22,8 @@ OTHER_FILES += \
     qml/OverviewPage.qml \
     qml/CategoryItemsPage.qml \
     qml/ThumbnailsPage.qml \
-    qml/ImageViewer.qml
+    qml/ImageViewer.qml \
+    qml/ScrollBar.qml
 
 RESOURCES += \
     resources.qrc

@@ -1,1 +1,1 @@
-install( FILES download.png slideshow.gif slideshow2.gif  imagepage.html  kphotoalbum.theme  mainpage.html  navigation.js  display.js  style.css ie.css  DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum/themes/darkJS )
+install( FILES download.png slideshow.gif slideshow2.gif arrow-left.png arrow-left2.png arrow-right.png arrow-right2.png close.png imagepage.html  kphotoalbum.theme  mainpage.html  navigation.js  display.js  style.css ie.css  DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum/themes/darkJS )

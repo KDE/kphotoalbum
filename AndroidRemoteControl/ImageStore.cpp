@@ -25,6 +25,8 @@ void ImageStore::requestImage(const QString& fileName, const QSize& size, ViewTy
     timer->setSingleShot(true);
     connect(timer, &QTimer::timeout, this, [fileName,size,type,timer] () {
         ThumbnailRequest request(fileName, size, type);
+
+        // The category is used when asking for category item images
         request.category = RemoteInterface::instance().currentCategory();
         RemoteInterface::instance().sendCommand(request);
         timer->deleteLater();

@@ -28,6 +28,8 @@ void SearchInfo::clear()
 
 QString SearchInfo::currentCategory() const
 {
+    if (m_categories.isEmpty())
+        return {};
     return m_categories.top();
 }
 

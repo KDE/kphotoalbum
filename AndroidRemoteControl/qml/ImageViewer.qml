@@ -22,14 +22,16 @@ ListView {
             pinch.minimumScale: 1
             pinch.maximumScale: 10
             pinch.dragAxis: Pinch.XandYAxis
-        }
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if ( mouse.x < root.width/2 )
-                    root.decrementCurrentIndex()
-                else
-                    root.incrementCurrentIndex()
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if ( mouse.x < root.width/2 )
+                        root.decrementCurrentIndex()
+                    else
+                        root.incrementCurrentIndex()
+                }
+
             }
         }
     }

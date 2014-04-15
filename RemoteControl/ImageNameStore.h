@@ -10,12 +10,13 @@ class ImageNameStore
 {
 public:
     ImageNameStore();
-    DB::FileName operator[](int id) const;
-    int operator[](const DB::FileName& fileName) const;
+    DB::FileName operator[](int id);
+    int operator[](const DB::FileName& fileName);
 
 private:
     QHash<int,DB::FileName> m_idToNameMap;
     QHash<DB::FileName,int> m_nameToIdMap;
+    int m_lastId = 0;
 };
 
 } // namespace RemoteControl

@@ -6,7 +6,7 @@ PinchArea {
     property alias model : grid.model
     property int type // FIXME should be an enum!
     property bool showLabels : false
-    signal clicked(int value)
+    signal clicked(int imageId, string label)
 
     pinch.minimumScale: 0.1
     pinch.maximumScale: 10
@@ -29,7 +29,7 @@ PinchArea {
                 type: root.type
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: root.clicked(parent.imageId)
+                    onClicked: root.clicked(parent.imageId,parent.label)
                 }
             }
             Text {

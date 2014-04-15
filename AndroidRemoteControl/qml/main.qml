@@ -18,7 +18,7 @@ Item {
         model: _remoteInterface.categoryItems
         type: 0 // FIXME: ViewType::CategoryItems
         showLabels: true
-        onClicked: _remoteInterface.selectCategoryValue(value)
+        onClicked: _remoteInterface.selectCategoryValue(label)
     }
 
     ThumbnailsPage {
@@ -27,7 +27,7 @@ Item {
         model: _remoteInterface.thumbnailModel
         type: 1 // FIXME ViewType::Thumbnails
         showLabels: false
-        onClicked: _remoteInterface.showImage(value)
+        onClicked: _remoteInterface.showImage(imageId)
     }
 
     ImageViewer {

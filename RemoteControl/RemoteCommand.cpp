@@ -49,8 +49,8 @@ QImage RemoteCommand::decodeImage(QDataStream& stream) const
     return result;
 }
 
-ImageUpdateCommand::ImageUpdateCommand(int imageId, const QImage& image, ViewType type)
-    :RemoteCommand(id()), imageId(imageId), image(image), type(type)
+ImageUpdateCommand::ImageUpdateCommand(int imageId, const QString& label, const QImage& image, ViewType type)
+    :RemoteCommand(id()), imageId(imageId), label(label), image(image), type(type)
 {
 }
 
@@ -61,14 +61,14 @@ QString ImageUpdateCommand::id()
 
 void ImageUpdateCommand::encode(QDataStream& stream) const
 {
-    stream << imageId;
+    stream << imageId << label;
     encodeImage(stream,image);
     stream << (int) type;
 }
 
 void ImageUpdateCommand::decode(QDataStream& stream)
 {
-    stream >> imageId;
+    stream >> imageId >> label;
     image = decodeImage(stream);
     stream >> (int&) type;
 }

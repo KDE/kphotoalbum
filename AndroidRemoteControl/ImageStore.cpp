@@ -43,7 +43,7 @@ void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& siz
     timer->start(0);
 }
 
-void ImageStore::updateImage(int imageId, const QImage& image, ViewType type)
+void ImageStore::updateImage(int imageId, const QImage& image, const QString& label, ViewType type)
 {
     if (type != ViewType::CategoryItems) {
         // PENDING(blackie) Information about image type should come from the remote site!
@@ -55,6 +55,7 @@ void ImageStore::updateImage(int imageId, const QImage& image, ViewType type)
     if (m_requestMap.contains(key)) {
         m_imageMap[key] = image;
         m_requestMap[key]->update();
+        m_requestMap[key]->setLabel(label);
     }
 }
 

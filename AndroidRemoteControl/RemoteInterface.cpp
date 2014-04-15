@@ -15,7 +15,7 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
-    : m_categories(new CategoryModel(this)), m_thumbnailModel(new ThumbnailModel(this))
+    : m_categories(new CategoryModel(this)), m_categoryItems(new ThumbnailModel(this)), m_thumbnailModel(new ThumbnailModel(this))
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
@@ -121,7 +121,7 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
-    ImageStore::instance().updateImage(command.imageId, command.image, command.type);
+    ImageStore::instance().updateImage(command.imageId, command.image, command.label, command.type);
 }
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
@@ -143,9 +143,6 @@ void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
         m_thumbnailModel->setImages(result.result);
     }
     else if (result.type == SearchType::CategoryItems) {
-//        if (m_categoryItems != result.values) {
-//            m_categoryItems = result.values;
-//            emit categoryItemsChanged();
-//        }
+        m_categoryItems->setImages(result.result);
     }
 }

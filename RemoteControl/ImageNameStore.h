@@ -3,6 +3,7 @@
 
 #include "DB/FileName.h"
 #include <QHash>
+#include <QPair>
 
 namespace RemoteControl {
 
@@ -12,10 +13,14 @@ public:
     ImageNameStore();
     DB::FileName operator[](int id);
     int operator[](const DB::FileName& fileName);
+    int idForCategory(const QString& category, const QString& item);
+    QPair<QString,QString> categoryForId(int id);
 
 private:
     QHash<int,DB::FileName> m_idToNameMap;
     QHash<DB::FileName,int> m_nameToIdMap;
+    QHash<QPair<QString,QString>,int> m_categoryToIdMap;
+    QHash<int,QPair<QString,QString>> m_idToCategoryMap;
     int m_lastId = 0;
 };
 

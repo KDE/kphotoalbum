@@ -15,7 +15,7 @@ class ImageStore : public QObject
     Q_OBJECT
 public:
     static ImageStore& instance();
-    void updateImage(int imageId, const QImage& image, ViewType type);
+    void updateImage(int imageId, const QImage& image, const QString& label, ViewType type);
     QImage image(RemoteImage* client, int imageId, const QSize& size, ViewType type);
 
 private slots:

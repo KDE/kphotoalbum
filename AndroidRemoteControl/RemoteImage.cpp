@@ -25,6 +25,15 @@ QSize RemoteImage::size() const
     return QSize(width(),height());
 }
 
+void RemoteImage::setLabel(const QString& label)
+{
+    if (label != m_label) {
+        m_label = label;
+        emit labelChanged();
+    }
+}
+
+
 void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {

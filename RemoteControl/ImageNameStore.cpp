@@ -26,7 +26,26 @@ int ImageNameStore::operator[](const DB::FileName& fileName)
         m_idToNameMap.insert(m_lastId, fileName);
         return m_lastId;
     }
-        return *iterator;
+    return *iterator;
+}
+
+int ImageNameStore::idForCategory(const QString& category, const QString& item)
+{
+    auto key = qMakePair(category,item);
+    auto it = m_categoryToIdMap.find(key);
+    if (it == m_categoryToIdMap.end()) {
+        m_lastId++;
+        m_categoryToIdMap.insert(key,m_lastId);
+        m_idToCategoryMap.insert(m_lastId,key);
+        return m_lastId;
+    }
+    else
+        return *it;
+}
+
+QPair<QString, QString> ImageNameStore::categoryForId(int id)
+{
+    return m_idToCategoryMap[id];
 }
 
 } // namespace RemoteControl

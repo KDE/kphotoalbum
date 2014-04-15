@@ -23,7 +23,7 @@ class RemoteInterface : public QObject
     Q_OBJECT
     Q_PROPERTY( bool connected READ isConnected NOTIFY connectionChanged )
     Q_PROPERTY(RemoteControl::CategoryModel* categories MEMBER m_categories NOTIFY categoriesChanged)
-    Q_PROPERTY(QStringList categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
+    Q_PROPERTY(ThumbnailModel* categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
     Q_PROPERTY(QString currentPage MEMBER m_currentPage NOTIFY currentPageChanged) //PENDING(blackie) convert into an enum
@@ -76,7 +76,7 @@ private:
     QImage m_homeImage;
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
-    QStringList m_categoryItems;
+    ThumbnailModel* m_categoryItems;
     QString m_currentPage = QStringLiteral("Unconnected");
     ThumbnailModel* m_thumbnailModel;
     History m_history;

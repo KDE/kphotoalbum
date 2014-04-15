@@ -36,11 +36,12 @@ private:
 class ImageUpdateCommand :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(int imageId = {}, const QImage& image = QImage(), ViewType type = {});
+    ImageUpdateCommand(int imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     int imageId;
+    QString label;
     QImage image;
     ViewType type;
 };

@@ -24,6 +24,7 @@ PinchArea {
         delegate:
             Column {
             RemoteImage {
+                id: remoteImage
                 imageId: model.imageId
                 type: root.type
                 MouseArea {
@@ -34,7 +35,7 @@ PinchArea {
             Text {
                 visible: root.showLabels
                 anchors { left: parent.left; right: parent.right }
-                text: modelData
+                text: remoteImage.label
                 elide: Text.ElideLeft
             }
         }

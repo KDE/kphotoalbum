@@ -56,7 +56,7 @@ void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& si
     Q_UNUSED(fullSize);
     Q_UNUSED(angle);
     Q_UNUSED(loadedOK);
-    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[fileName], image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
+    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[fileName], QString(), image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
 }
 
 bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
@@ -109,13 +109,19 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 
 void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
-//    const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
+    const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
+    const QString category = search.searchInfo.currentCategory();
 
-//    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
-//                                     dbSearchInfo);
+    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
+                                     dbSearchInfo);
 
+    QList<int> result;
+    std::transform( model._items.begin(), model._items.end(), std::back_inserter(result),
+                    [this,category] (const QString itemName) {
+        return m_imageNameStore.idForCategory(category,itemName);
+    });
 
-//    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, model._items));
+    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, result));
 }
 
 void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
@@ -135,11 +141,13 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 {
     if (command.type == ViewType::CategoryItems) {
-//        const QString categoryName = command.category;
-//        const QString itemName = command.fileName; // FIXME: Should not be named fileName
-//        const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
-//        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
-//        m_connection->sendCommand(ImageUpdateCommand(itemName, image,ViewType::CategoryItems));
+        auto tuple = m_imageNameStore.categoryForId(command.imageId);
+        QString categoryName = tuple.first;
+        QString itemName = tuple.second;
+
+        const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
+        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
+        m_connection->sendCommand(ImageUpdateCommand(command.imageId, itemName, image,ViewType::CategoryItems));
     }
     else {
         const DB::FileName fileName = m_imageNameStore[command.imageId];

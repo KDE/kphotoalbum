@@ -27,7 +27,7 @@ void Action::sendCommand(const RemoteCommand& command)
 
 void Action::clearCategoryModel()
 {
-    RemoteInterface::instance().m_categoryItems.clear();
+    RemoteInterface::instance().m_categoryItems->setImages({});
 }
 
 void Action::clearThumbnailsModel()

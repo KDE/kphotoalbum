@@ -4,6 +4,7 @@
 #include "CategoryModel.h"
 #include "RemoteCommand.h"
 #include "SearchInfo.h"
+#include "ThumbnailModel.h"
 
 #include <QObject>
 #include <QMap>
@@ -26,7 +27,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
     Q_PROPERTY(QString currentPage MEMBER m_currentPage NOTIFY currentPageChanged) //PENDING(blackie) convert into an enum
-    Q_PROPERTY(QStringList thumbnails MEMBER m_thumbnails NOTIFY thumbnailsChanged)
+    Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
 
 
 public:
@@ -42,7 +43,7 @@ public slots:
     void selectCategory(const QString& category);
     void selectCategoryValue(const QString& value);
     void showThumbnails();
-    void showImage(const QString& fileName);
+    void showImage(int imageId);
 
 signals:
     void connectionChanged();
@@ -51,11 +52,11 @@ signals:
     void kphotoalbumImageChange();    
     void categoryItemsChanged();
     void currentPageChanged();
-    void thumbnailsChanged();
+    void thumbnailModelChanged();
     void jumpToImage(int index);
 
 public:
-    void setCurrentView(const QString& image);
+    void setCurrentView(int imageIf);
 
 private slots:
     void requestInitialData();
@@ -77,7 +78,7 @@ private:
     SearchInfo m_search;
     QStringList m_categoryItems;
     QString m_currentPage = QStringLiteral("Unconnected");
-    QStringList m_thumbnails;
+    ThumbnailModel* m_thumbnailModel;
     History m_history;
 };
 

@@ -15,13 +15,14 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
-    : m_categories(new CategoryModel(this))
+    : m_categories(new CategoryModel(this)), m_thumbnailModel(new ThumbnailModel(this))
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
+    qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
 }
 
 void RemoteInterface::setCurrentPage(const QString& page)
@@ -89,14 +90,14 @@ void RemoteInterface::showThumbnails()
     m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(m_search)));
 }
 
-void RemoteInterface::showImage(const QString& fileName)
+void RemoteInterface::showImage(int imageId)
 {
-    m_history.push(std::unique_ptr<Action>(new ShowImagesAction(fileName, m_search)));
+    m_history.push(std::unique_ptr<Action>(new ShowImagesAction(imageId, m_search)));
 }
 
-void RemoteInterface::setCurrentView(const QString& image)
+void RemoteInterface::setCurrentView(int imageId)
 {
-    emit jumpToImage(m_thumbnails.indexOf(image));
+    emit jumpToImage(m_thumbnailModel->indexOf(imageId));
 }
 
 void RemoteInterface::requestInitialData()
@@ -120,7 +121,7 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 {
-    ImageStore::instance().updateImage(command.fileName, command.image, command.type);
+    ImageStore::instance().updateImage(command.imageId, command.image, command.type);
 }
 
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
@@ -139,15 +140,12 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
 {
     if (result.type == SearchType::Images) {
-        if (m_thumbnails != result.values) {
-            m_thumbnails = result.values;
-            emit thumbnailsChanged();
-        }
+        m_thumbnailModel->setImages(result.result);
     }
     else if (result.type == SearchType::CategoryItems) {
-        if (m_categoryItems != result.values) {
-            m_categoryItems = result.values;
-            emit categoryItemsChanged();
-        }
+//        if (m_categoryItems != result.values) {
+//            m_categoryItems = result.values;
+//            emit categoryItemsChanged();
+//        }
     }
 }

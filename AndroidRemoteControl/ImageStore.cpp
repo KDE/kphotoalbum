@@ -20,20 +20,20 @@ ImageStore::ImageStore()
     connect(&Settings::instance(), &Settings::thumbnailSizeChanged, this, &ImageStore::reset);
 }
 
-void ImageStore::requestImage(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type)
+void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& size, ViewType type)
 {
     // This code is executed from paint, which is on the QML thread, we therefore need to get it on the GUI thread
     // where out TCPSocket is located.
     QTimer* timer = new QTimer;
     timer->setSingleShot(true);
-    connect(timer, &QTimer::timeout, this, [fileName,size,type,timer,client, this] () {
-        ThumbnailRequest request(fileName, size, type);
+    connect(timer, &QTimer::timeout, this, [imageId,size,type,timer,client, this] () {
+        ThumbnailRequest request(imageId, size, type);
 
         // The category is used when asking for category item images
         request.category = RemoteInterface::instance().currentCategory();
         RemoteInterface::instance().sendCommand(request);
 
-        RequestType key = qMakePair(fileName,type);
+        RequestType key = qMakePair(imageId,type);
         m_requestMap.insert(key, client);
         m_reverseRequestMap.insert(client, key);
 
@@ -43,7 +43,7 @@ void ImageStore::requestImage(RemoteImage* client, const QString& fileName, cons
     timer->start(0);
 }
 
-void ImageStore::updateImage(const QString& fileName, const QImage& image, ViewType type)
+void ImageStore::updateImage(int imageId, const QImage& image, ViewType type)
 {
     if (type != ViewType::CategoryItems) {
         // PENDING(blackie) Information about image type should come from the remote site!
@@ -51,22 +51,22 @@ void ImageStore::updateImage(const QString& fileName, const QImage& image, ViewT
                  image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnails : ViewType::Images);
     }
     QMutexLocker locker(&m_mutex);
-    RequestType key = qMakePair(fileName,type);
+    RequestType key = qMakePair(imageId,type);
     if (m_requestMap.contains(key)) {
         m_imageMap[key] = image;
         m_requestMap[key]->update();
     }
 }
 
-QImage RemoteControl::ImageStore::image(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type)
+QImage RemoteControl::ImageStore::image(RemoteImage* client, int imageId, const QSize& size, ViewType type)
 {
     // This method is call from the painting thread.
     QMutexLocker locker(&m_mutex);
 
-    if (m_imageMap.contains(qMakePair(fileName,type)))
-        return m_imageMap[qMakePair(fileName,type)];
+    if (m_imageMap.contains(qMakePair(imageId,type)))
+        return m_imageMap[qMakePair(imageId,type)];
     else {
-        requestImage(client, fileName,size,type);
+        requestImage(client, imageId,size,type);
         QImage image(size, QImage::Format_RGB32);
         image.fill(Qt::white);
         return image;

@@ -15,8 +15,8 @@ class ImageStore : public QObject
     Q_OBJECT
 public:
     static ImageStore& instance();
-    void updateImage(const QString& fileName, const QImage& image, ViewType type);
-    QImage image(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type);
+    void updateImage(int imageId, const QImage& image, ViewType type);
+    QImage image(RemoteImage* client, int imageId, const QSize& size, ViewType type);
 
 private slots:
     void reset();
@@ -24,9 +24,9 @@ private slots:
 
 private:
     explicit ImageStore();
-    void requestImage(RemoteImage* client, const QString& fileName, const QSize& size, ViewType type);
+    void requestImage(RemoteImage* client, int imageId, const QSize& size, ViewType type);
 
-    using RequestType = QPair<QString,ViewType>;
+    using RequestType = QPair<int,ViewType>;
     QMap<RequestType,QImage> m_imageMap;
     QMap<RequestType,RemoteImage*> m_requestMap;
     QMap<RemoteImage*,RequestType> m_reverseRequestMap;

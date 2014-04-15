@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     ImageStore.cpp \
     ScreenInfo.cpp \
     Action.cpp \
-    History.cpp
+    History.cpp \
+    ThumbnailModel.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -42,4 +43,5 @@ HEADERS += \
     ScreenInfo.h \
     Types.h \
     Action.h \
-    History.h
+    History.h \
+    ThumbnailModel.h

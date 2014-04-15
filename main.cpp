@@ -72,7 +72,6 @@ int main( int argc, char** argv ) {
     KApplication app;
 
     new MainWindow::SplashScreen();
-    (void) RemoteControl::RemoteInterface::instance();
 
     // FIXME: There is no point in using try here, because exceptions
     // and Qt event loop don't mix. Rather exceptions should be
@@ -82,6 +81,8 @@ int main( int argc, char** argv ) {
 
         // qApp->setMainWidget( view );
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
+
+        (void) RemoteControl::RemoteInterface::instance();
 
         int code = app.exec();
         delete view;

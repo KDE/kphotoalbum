@@ -52,11 +52,11 @@ protected:
 class ShowImagesAction :public Action
 {
 public:
-    ShowImagesAction(const QString& fileName, const SearchInfo& searchInfo);
+    ShowImagesAction(int imageId, const SearchInfo& searchInfo);
 protected:
     void execute() override;
 private:
-    const QString m_fileName;
+    const int m_imageId;
 };
 
 } // namespace RemoteControl

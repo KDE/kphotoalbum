@@ -24,7 +24,7 @@ Item {
     ThumbnailsPage {
         visible: _remoteInterface.currentPage == "Thumbnails"
         anchors.fill: parent
-        model: _remoteInterface.thumbnails
+        model: _remoteInterface.thumbnailModel
         type: 1 // FIXME ViewType::Thumbnails
         showLabels: false
         onClicked: _remoteInterface.showImage(value)

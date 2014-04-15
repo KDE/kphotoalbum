@@ -10,7 +10,7 @@ namespace RemoteControl {
 class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
+    Q_PROPERTY(int imageId READ imageId WRITE setImageId NOTIFY imageIdChanged)
     Q_PROPERTY(int type MEMBER m_type NOTIFY typeChanged) // Should be ViewType
 
     //Q_ENUMS(ViewType);
@@ -18,18 +18,18 @@ public:
 
     explicit RemoteImage(QQuickItem *parent = 0);
     void paint(QPainter *painter) override;
-    QString fileName() const;
+    int imageId() const;
     QSize size() const;
 
 public slots:
-    void setFileName(const QString& fileName);
+    void setImageId(int imageId);
 
 signals:
-    void fileNameChanged();
+    void imageIdChanged();
     void typeChanged();
 
 private:
-    QString m_fileName;
+    int m_imageId;
     int m_type;
 };
 

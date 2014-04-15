@@ -56,7 +56,7 @@ void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& si
     Q_UNUSED(fullSize);
     Q_UNUSED(angle);
     Q_UNUSED(loadedOK);
-    m_connection->sendCommand(ImageUpdateCommand(fileName.relative(), image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
+    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[fileName], image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
 }
 
 bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
@@ -109,49 +109,40 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 
 void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
-    const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
-//    const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory());
-//    QStringList items = category->itemsInclCategories();
-//    items.sort();
+//    const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
 
-    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
-                                     dbSearchInfo);
-
-
-    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, model._items));
-
-    //    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
+//    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
 //                                     dbSearchInfo);
 
-//    CategoryItemListCommand result;
-//    for (int i=0; i<model.rowCount(QModelIndex());++i)
-//        result.addItem(model.data(model.index(i,0), Qt::DisplayRole).value<QString>(),
-//                       model.data(model.index(i,0), Qt::DecorationRole).value<QImage>());
-//    m_connection->sendCommand(result);
+
+//    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, model._items));
 }
 
 void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
 {
     const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */);
-    QStringList relativeFileNames;
-    std::transform(files.begin(), files.end(), std::back_inserter(relativeFileNames),
-                   [](const DB::FileName& fileName) { return fileName.relative(); });
+    QList<int> result;
+    std::transform(files.begin(), files.end(), std::back_inserter(result),
+                   [this](const DB::FileName& fileName) {
+        return m_imageNameStore[fileName];
+    });
+
     m_connection->sendCommand(TimeCommand());
-    m_connection->sendCommand(SearchResultCommand(SearchType::Images, relativeFileNames));
+    m_connection->sendCommand(SearchResultCommand(SearchType::Images, result));
     m_connection->sendCommand(TimeCommand());
 }
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 {
     if (command.type == ViewType::CategoryItems) {
-        const QString categoryName = command.category;
-        const QString itemName = command.fileName; // FIXME: Should not be named fileName
-        const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
-        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
-        m_connection->sendCommand(ImageUpdateCommand(itemName, image,ViewType::CategoryItems));
+//        const QString categoryName = command.category;
+//        const QString itemName = command.fileName; // FIXME: Should not be named fileName
+//        const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
+//        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
+//        m_connection->sendCommand(ImageUpdateCommand(itemName, image,ViewType::CategoryItems));
     }
     else {
-        const DB::FileName fileName = DB::FileName::fromRelativePath(command.fileName);
+        const DB::FileName fileName = m_imageNameStore[command.imageId];
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const int angle = info->angle();
 
@@ -165,5 +156,5 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 
 void RemoteInterface::cancelRequest(const CancelRequestCommand& command)
 {
-    m_activeReuqest.remove(DB::FileName::fromRelativePath(command.fileName));
+    m_activeReuqest.remove(m_imageNameStore[command.imageId]);
 }

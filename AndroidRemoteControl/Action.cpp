@@ -32,7 +32,7 @@ void Action::clearCategoryModel()
 
 void Action::clearThumbnailsModel()
 {
-    RemoteInterface::instance().m_thumbnails = {};
+    RemoteInterface::instance().m_thumbnailModel->setImages({});
 }
 
 
@@ -73,15 +73,15 @@ void ShowThumbnailsAction::execute()
     setCurrentPage(QString::fromUtf8("Thumbnails"));
 }
 
-ShowImagesAction::ShowImagesAction(const QString& fileName, const SearchInfo& searchInfo)
-    :Action(searchInfo), m_fileName(fileName)
+ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo& searchInfo)
+    :Action(searchInfo), m_imageId(imageId)
 {
 }
 
 void ShowImagesAction::execute()
 {
     setCurrentPage(QStringLiteral("ImageViewer"));
-    RemoteInterface::instance().setCurrentView(m_fileName);
+    RemoteInterface::instance().setCurrentView(m_imageId);
 }
 
 

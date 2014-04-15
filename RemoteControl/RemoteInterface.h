@@ -1,6 +1,7 @@
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
 
+#include "ImageNameStore.h"
 #include "RemoteCommand.h"
 #include "DB/ImageSearchInfo.h"
 #include <QObject>
@@ -39,6 +40,7 @@ private:
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;
     QSet<DB::FileName> m_activeReuqest;
+    ImageNameStore m_imageNameStore;
 };
 
 }

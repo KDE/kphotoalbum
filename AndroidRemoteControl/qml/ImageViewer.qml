@@ -3,7 +3,7 @@ import KPhotoAlbum 1.0
 
 ListView {
     id: root
-    model: _remoteInterface.thumbnails
+    model: _remoteInterface.thumbnailModel
     snapMode: ListView.SnapToItem
     orientation: ListView.Horizontal
     flickDeceleration: 20000
@@ -14,7 +14,7 @@ ListView {
     delegate: RemoteImage {
         width: root.width
         height: root.height
-        fileName: modelData
+        imageId: model.imageId
         type: 2 // FIXME ViewType::Images
         PinchArea {
             pinch.target: parent

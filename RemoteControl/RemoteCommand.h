@@ -36,11 +36,11 @@ private:
 class ImageUpdateCommand :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(const QString& fileName = {}, const QImage& image = QImage(), ViewType type = {});
+    ImageUpdateCommand(int imageId = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    QString fileName;
+    int imageId;
     QImage image;
     ViewType type;
 };
@@ -78,23 +78,23 @@ public:
 class SearchResultCommand :public RemoteCommand
 {
 public:
-    SearchResultCommand(SearchType type = {}, const QStringList& values = {});
+    SearchResultCommand(SearchType type = {}, const QList<int>& result = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     SearchType type;
-    QStringList values;
+    QList<int> result;
 };
 
 class ThumbnailRequest :public RemoteCommand
 {
 public:
     // FIXME: Multiple constructors?
-    ThumbnailRequest(const QString& fileName = {}, const QSize& size = {}, ViewType type = {});
+    ThumbnailRequest(int imageId = {}, const QSize& size = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    QString fileName;
+    int imageId;
     QSize size;
     ViewType type;
     QString category;
@@ -103,11 +103,11 @@ public:
 class CancelRequestCommand :public RemoteCommand
 {
 public:
-    CancelRequestCommand(const QString& fileName = {}, ViewType type = {});
+    CancelRequestCommand(int imageId = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    QString fileName;
+    int imageId;
     ViewType type;
 };
 

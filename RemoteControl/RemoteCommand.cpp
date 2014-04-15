@@ -49,8 +49,8 @@ QImage RemoteCommand::decodeImage(QDataStream& stream) const
     return result;
 }
 
-ImageUpdateCommand::ImageUpdateCommand(const QString& fileName, const QImage& image, ViewType type)
-    :RemoteCommand(id()), fileName(fileName), image(image), type(type)
+ImageUpdateCommand::ImageUpdateCommand(int imageId, const QImage& image, ViewType type)
+    :RemoteCommand(id()), imageId(imageId), image(image), type(type)
 {
 }
 
@@ -61,14 +61,14 @@ QString ImageUpdateCommand::id()
 
 void ImageUpdateCommand::encode(QDataStream& stream) const
 {
-    stream << fileName;
+    stream << imageId;
     encodeImage(stream,image);
     stream << (int) type;
 }
 
 void ImageUpdateCommand::decode(QDataStream& stream)
 {
-    stream >> fileName;
+    stream >> imageId;
     image = decodeImage(stream);
     stream >> (int&) type;
 }
@@ -130,8 +130,8 @@ void SearchCommand::decode(QDataStream& stream)
 }
 
 
-SearchResultCommand::SearchResultCommand(SearchType type, const QStringList& relativeFileNames)
-    :RemoteCommand(id()), type(type), values(relativeFileNames)
+SearchResultCommand::SearchResultCommand(SearchType type, const QList<int>& result)
+    :RemoteCommand(id()), type(type), result(result)
 {
 }
 
@@ -142,17 +142,17 @@ QString SearchResultCommand::id()
 
 void SearchResultCommand::encode(QDataStream& stream) const
 {
-    stream << (int) type << values;
+    stream << (int) type << result;
 }
 
 void SearchResultCommand::decode(QDataStream& stream)
 {
-    stream >> (int&) type >> values;
+    stream >> (int&) type >> result;
 }
 
 
-ThumbnailRequest::ThumbnailRequest(const QString& fileName, const QSize& size, ViewType type)
-    :RemoteCommand(id()), fileName(fileName), size(size), type(type)
+ThumbnailRequest::ThumbnailRequest(int imageId, const QSize& size, ViewType type)
+    :RemoteCommand(id()), imageId(imageId), size(size), type(type)
 {
 }
 
@@ -163,17 +163,17 @@ QString ThumbnailRequest::id()
 
 void ThumbnailRequest::encode(QDataStream& stream) const
 {
-    stream << fileName << category << size << (int) type;
+    stream << imageId << category << size << (int) type;
 }
 
 void ThumbnailRequest::decode(QDataStream& stream)
 {
-    stream >> fileName >> category >> size >> (int&) type;
+    stream >> imageId >> category >> size >> (int&) type;
 }
 
 
-RemoteControl::CancelRequestCommand::CancelRequestCommand(const QString& fileName, ViewType type)
-    :RemoteCommand(id()), fileName(fileName), type(type)
+RemoteControl::CancelRequestCommand::CancelRequestCommand(int imageId, ViewType type)
+    :RemoteCommand(id()), imageId(imageId), type(type)
 {
 }
 
@@ -184,12 +184,12 @@ QString CancelRequestCommand::id()
 
 void CancelRequestCommand::encode(QDataStream& stream) const
 {
-    stream << fileName << (int) type;
+    stream << imageId << (int) type;
 }
 
 void CancelRequestCommand::decode(QDataStream& stream)
 {
-    stream >> fileName >> (int&) type;
+    stream >> imageId >> (int&) type;
 }
 
 

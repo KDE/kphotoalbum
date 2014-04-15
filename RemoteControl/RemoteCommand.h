@@ -110,5 +110,14 @@ public:
     QString fileName;
     ViewType type;
 };
+
+class TimeCommand :public RemoteCommand
+{
+public:
+    TimeCommand();
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+};
 }
 #endif // REMOTECOMMAND_H

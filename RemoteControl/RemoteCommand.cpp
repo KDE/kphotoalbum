@@ -1,6 +1,8 @@
 #include "RemoteCommand.h"
 
+#include <QElapsedTimer>
 #include <QMap>
+#include <QDebug>
 
 using namespace RemoteControl;
 
@@ -24,7 +26,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new SearchCommand
                  << new SearchResultCommand
                  << new ThumbnailRequest
-                 << new CancelRequestCommand;
+                 << new CancelRequestCommand
+                 << new TimeCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -187,4 +190,32 @@ void CancelRequestCommand::encode(QDataStream& stream) const
 void CancelRequestCommand::decode(QDataStream& stream)
 {
     stream >> fileName >> (int&) type;
+}
+
+
+TimeCommand::TimeCommand()
+    :RemoteCommand(id())
+{
+}
+
+QString TimeCommand::id()
+{
+    return QString::fromUtf8("TimeDump");
+}
+
+static void printElapsed()
+{
+    static QElapsedTimer timer;
+    qDebug() << "Time since last dump: " << timer.elapsed();
+    timer.restart();
+}
+
+void TimeCommand::encode(QDataStream&) const
+{
+    printElapsed();
+}
+
+void TimeCommand::decode(QDataStream&)
+{
+    printElapsed();
 }

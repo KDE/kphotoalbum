@@ -112,6 +112,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         updateCategoryList(static_cast<const CategoryListCommand&>(command));
     else if (command.id() == SearchResultCommand::id())
         gotSearchResult(static_cast<const SearchResultCommand&>(command));
+    else if (command.id() == TimeCommand::id())
+        ;
     else
         qFatal("Unhandled command");
 }

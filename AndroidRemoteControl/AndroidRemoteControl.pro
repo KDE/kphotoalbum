@@ -1,5 +1,6 @@
 QT += qml quick network widgets
 CONFIG += c++11
+TARGET=KPhotoAlbum
 
 SOURCES += main.cpp \
     RemoteInterface.cpp \
@@ -24,7 +25,8 @@ OTHER_FILES += \
     qml/CategoryItemsPage.qml \
     qml/ThumbnailsPage.qml \
     qml/ImageViewer.qml \
-    qml/ScrollBar.qml
+    qml/ScrollBar.qml \
+    android/AndroidManifest.xml
 
 RESOURCES += \
     resources.qrc
@@ -45,3 +47,5 @@ HEADERS += \
     Action.h \
     History.h \
     ThumbnailModel.h
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

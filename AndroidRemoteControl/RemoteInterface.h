@@ -72,7 +72,6 @@ private:
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;
-    // CategoryItemsModel* m_categoryItems; DIE
     QImage m_homeImage;
     QImage m_kphotoalbumImage;
     SearchInfo m_search;

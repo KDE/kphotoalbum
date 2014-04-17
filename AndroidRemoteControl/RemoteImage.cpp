@@ -38,6 +38,7 @@ void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {
         m_imageId = imageId;
+        setLabel(ImageStore::instance().label(m_imageId));
         emit imageIdChanged();
         if (m_type == (int) ViewType::Thumbnails || m_type == (int) ViewType::CategoryItems) { // FIXME, should be two different sizes
             const int size = Settings::instance().thumbnailSize();

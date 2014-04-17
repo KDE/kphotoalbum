@@ -55,6 +55,7 @@ void ImageStore::updateImage(int imageId, const QImage& image, const QString& la
     if (m_requestMap.contains(key)) {
         m_imageMap[key] = image;
         m_requestMap[key]->update();
+        m_labelMap[imageId] = label;
         m_requestMap[key]->setLabel(label);
     }
 }
@@ -72,6 +73,11 @@ QImage RemoteControl::ImageStore::image(RemoteImage* client, int imageId, const 
         image.fill(Qt::white);
         return image;
     }
+}
+
+QString ImageStore::label(int imageId) const
+{
+    return m_labelMap[imageId];
 }
 
 void RemoteControl::ImageStore::reset()

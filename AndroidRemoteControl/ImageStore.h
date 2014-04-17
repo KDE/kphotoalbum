@@ -17,6 +17,7 @@ public:
     static ImageStore& instance();
     void updateImage(int imageId, const QImage& image, const QString& label, ViewType type);
     QImage image(RemoteImage* client, int imageId, const QSize& size, ViewType type);
+    QString label(int imageId) const;
 
 private slots:
     void reset();
@@ -28,6 +29,7 @@ private:
 
     using RequestType = QPair<int,ViewType>;
     QMap<RequestType,QImage> m_imageMap;
+    QMap<int,QString> m_labelMap;
     QMap<RequestType,RemoteImage*> m_requestMap;
     QMap<RemoteImage*,RequestType> m_reverseRequestMap;
     QMutex m_mutex;

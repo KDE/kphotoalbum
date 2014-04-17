@@ -133,9 +133,7 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
         return m_imageNameStore[fileName];
     });
 
-    m_connection->sendCommand(TimeCommand());
     m_connection->sendCommand(SearchResultCommand(SearchType::Images, result));
-    m_connection->sendCommand(TimeCommand());
 }
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)

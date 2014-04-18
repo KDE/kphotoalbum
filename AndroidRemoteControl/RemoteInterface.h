@@ -26,9 +26,8 @@ class RemoteInterface : public QObject
     Q_PROPERTY(ThumbnailModel* categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
-    Q_PROPERTY(QString currentPage MEMBER m_currentPage NOTIFY currentPageChanged) //PENDING(blackie) convert into an enum
+    Q_PROPERTY(RemoteControl::Types::Page currentPage MEMBER m_currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
-
 
 public:
     static RemoteInterface& instance();
@@ -68,7 +67,7 @@ private slots:
 private:
     RemoteInterface();
     friend class Action;
-    void setCurrentPage(const QString& page);
+    void setCurrentPage(Types::Page page);
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;
@@ -76,7 +75,7 @@ private:
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
     ThumbnailModel* m_categoryItems;
-    QString m_currentPage = QStringLiteral("Unconnected");
+    RemoteControl::Types::Page m_currentPage = RemoteControl::Types::Page::Unconnected;
     ThumbnailModel* m_thumbnailModel;
     History m_history;
 };

@@ -4,16 +4,17 @@ import KPhotoAlbum 1.0
 Item {
     OverviewPage {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == "Overview"
+        visible: _remoteInterface.currentPage == Page.Overview
     }
 
+    // FIXME: REMOVE class
 //    CategoryItemsPage {
 //        anchors.fill: parent
 //        visible: _remoteInterface.currentPage == "CategoryItems"
 //    }
 
     ThumbnailsPage {
-        visible: _remoteInterface.currentPage == "CategoryItems"
+        visible: _remoteInterface.currentPage == Page.CategoryItems
         anchors.fill: parent
         model: _remoteInterface.categoryItems
         type: 0 // FIXME: ViewType::CategoryItems
@@ -22,7 +23,7 @@ Item {
     }
 
     ThumbnailsPage {
-        visible: _remoteInterface.currentPage == "Thumbnails"
+        visible: _remoteInterface.currentPage == Page.Thumbnails
         anchors.fill: parent
         model: _remoteInterface.thumbnailModel
         type: 1 // FIXME ViewType::Thumbnails
@@ -32,11 +33,11 @@ Item {
 
     ImageViewer {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == "ImageViewer"
+        visible: _remoteInterface.currentPage == Page.ImageViewer
     }
 
     Text {
-        visible: _remoteInterface.currentPage == "Unconnected"
+        visible: _remoteInterface.currentPage == Page.Unconnected
         text: "Not Connceted"
         anchors.centerIn: parent
         font.pixelSize: 50

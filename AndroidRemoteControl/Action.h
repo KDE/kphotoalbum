@@ -3,6 +3,7 @@
 
 #include <QString>
 #include "RemoteCommand.h"
+#include "Types.h"
 
 namespace RemoteControl {
 
@@ -14,7 +15,7 @@ public:
 
 protected:
     virtual void execute() = 0;
-    void setCurrentPage(const QString& page);
+    void setCurrentPage(Types::Page page);
     void sendCommand(const RemoteCommand& command);
     void clearCategoryModel();
     void clearThumbnailsModel();

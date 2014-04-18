@@ -38,7 +38,9 @@ Item {
 
     Text {
         visible: _remoteInterface.currentPage == Enums.UnconnectedPage
-        text: "Not Connceted"
+        width: parent.width*6/7
+        wrapMode: Text.WordWrap
+        text: "Not Connceted\nMake sure you have a running KPhotoAlbum on the same network."
         anchors.centerIn: parent
         font.pixelSize: 50
     }

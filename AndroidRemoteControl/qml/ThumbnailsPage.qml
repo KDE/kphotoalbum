@@ -4,7 +4,7 @@ import KPhotoAlbum 1.0
 PinchArea {
     id: root
     property alias model : grid.model
-    property int type // FIXME should be an enum!
+    property int type
     property bool showLabels : false
     signal clicked(int imageId, string label)
 

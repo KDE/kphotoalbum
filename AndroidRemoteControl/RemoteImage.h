@@ -11,7 +11,7 @@ class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(int imageId READ imageId WRITE setImageId NOTIFY imageIdChanged)
-    Q_PROPERTY(int type MEMBER m_type NOTIFY typeChanged) // Should be ViewType
+    Q_PROPERTY(RemoteControl::Types::ViewType type MEMBER m_type NOTIFY typeChanged)
     Q_PROPERTY(QString label MEMBER m_label NOTIFY labelChanged)
 
     //Q_ENUMS(ViewType);
@@ -32,7 +32,7 @@ signals:
 
 private:
     int m_imageId;
-    int m_type;
+    ViewType m_type;
     QString m_label;
 };
 

@@ -4,7 +4,7 @@ import KPhotoAlbum 1.0
 Item {
     OverviewPage {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == Page.Overview
+        visible: _remoteInterface.currentPage == Enums.OverviewPage
     }
 
     // FIXME: REMOVE class
@@ -14,30 +14,30 @@ Item {
 //    }
 
     ThumbnailsPage {
-        visible: _remoteInterface.currentPage == Page.CategoryItems
+        visible: _remoteInterface.currentPage == Enums.CategoryItemsPage
         anchors.fill: parent
         model: _remoteInterface.categoryItems
-        type: 0 // FIXME: ViewType::CategoryItems
+        type: Enums.CategoryItems
         showLabels: true
         onClicked: _remoteInterface.selectCategoryValue(label)
     }
 
     ThumbnailsPage {
-        visible: _remoteInterface.currentPage == Page.Thumbnails
+        visible: _remoteInterface.currentPage == Enums.ThumbnailsPage
         anchors.fill: parent
         model: _remoteInterface.thumbnailModel
-        type: 1 // FIXME ViewType::Thumbnails
+        type: Enums.Thumbnails
         showLabels: false
         onClicked: _remoteInterface.showImage(imageId)
     }
 
     ImageViewer {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == Page.ImageViewer
+        visible: _remoteInterface.currentPage == Enums.ImageViewerPage
     }
 
     Text {
-        visible: _remoteInterface.currentPage == Page.Unconnected
+        visible: _remoteInterface.currentPage == Enums.UnconnectedPage
         text: "Not Connceted"
         anchors.centerIn: parent
         font.pixelSize: 50

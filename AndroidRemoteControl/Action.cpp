@@ -46,7 +46,7 @@ ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
 void ShowOverviewAction::execute()
 {
     sendCommand(SearchCommand(SearchType::Categories, m_searchInfo));
-    setCurrentPage(Page::Overview);
+    setCurrentPage(Page::OverviewPage);
 }
 
 ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo)
@@ -58,7 +58,7 @@ void ShowCategoryValueAction::execute()
 {
     sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
-    setCurrentPage(Page::CategoryItems);
+    setCurrentPage(Page::CategoryItemsPage);
 }
 
 ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
@@ -70,7 +70,7 @@ void ShowThumbnailsAction::execute()
 {
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
     clearThumbnailsModel();
-    setCurrentPage(Page::Thumbnails);
+    setCurrentPage(Page::ThumbnailsPage);
 }
 
 ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo& searchInfo)
@@ -80,7 +80,7 @@ ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo& searchInfo)
 
 void ShowImagesAction::execute()
 {
-    setCurrentPage(Page::ImageViewer);
+    setCurrentPage(Page::ImageViewerPage);
     RemoteInterface::instance().setCurrentView(m_imageId);
 }
 

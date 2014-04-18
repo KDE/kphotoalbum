@@ -15,7 +15,7 @@ ListView {
         width: root.width
         height: root.height
         imageId: model.imageId
-        type: 2 // FIXME ViewType::Images
+        type: Enums.Images
         PinchArea {
             pinch.target: parent
             anchors.fill: parent

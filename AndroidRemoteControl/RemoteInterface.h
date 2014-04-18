@@ -75,7 +75,7 @@ private:
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
     ThumbnailModel* m_categoryItems;
-    RemoteControl::Page m_currentPage = RemoteControl::Page::Unconnected;
+    RemoteControl::Page m_currentPage = RemoteControl::Page::UnconnectedPage;
     ThumbnailModel* m_thumbnailModel;
     History m_history;
 };

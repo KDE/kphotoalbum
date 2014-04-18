@@ -163,12 +163,12 @@ QString ThumbnailRequest::id()
 
 void ThumbnailRequest::encode(QDataStream& stream) const
 {
-    stream << imageId << category << size << (int) type;
+    stream << imageId << size << (int) type;
 }
 
 void ThumbnailRequest::decode(QDataStream& stream)
 {
-    stream >> imageId >> category >> size >> (int&) type;
+    stream >> imageId >> size >> (int&) type;
 }
 
 

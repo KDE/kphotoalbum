@@ -29,8 +29,6 @@ void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& siz
     connect(timer, &QTimer::timeout, this, [imageId,size,type,timer,client, this] () {
         ThumbnailRequest request(imageId, size, type);
 
-        // The category is used when asking for category item images
-        request.category = RemoteInterface::instance().currentCategory();
         RemoteInterface::instance().sendCommand(request);
 
         RequestType key = qMakePair(imageId,type);

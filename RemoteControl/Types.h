@@ -21,6 +21,7 @@ using ViewType = Types::ViewType;
 
 enum class SearchType { Categories, CategoryItems, Images };
 
+using ImageId = int;
 }
 
 #endif // TYPES_H

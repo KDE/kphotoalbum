@@ -21,7 +21,7 @@ ImageStore::ImageStore()
     connect(&Settings::instance(), &Settings::categoryItemSizeChanged, this, &ImageStore::reset);
 }
 
-void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& size, ViewType type)
+void ImageStore::requestImage(RemoteImage* client, ImageId imageId, const QSize& size, ViewType type)
 {
     // This code is executed from paint, which is on the QML thread, we therefore need to get it on the GUI thread
     // where out TCPSocket is located.
@@ -42,7 +42,7 @@ void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& siz
     timer->start(0);
 }
 
-void ImageStore::updateImage(int imageId, const QImage& image, const QString& label, ViewType type)
+void ImageStore::updateImage(ImageId imageId, const QImage& image, const QString& label, ViewType type)
 {
     QMutexLocker locker(&m_mutex);
     RequestType key = qMakePair(imageId,type);
@@ -54,7 +54,7 @@ void ImageStore::updateImage(int imageId, const QImage& image, const QString& la
     }
 }
 
-QImage RemoteControl::ImageStore::image(RemoteImage* client, int imageId, const QSize& size, ViewType type)
+QImage RemoteControl::ImageStore::image(RemoteImage* client, RemoteControl::ImageId imageId, const QSize& size, ViewType type)
 {
     // This method is call from the painting thread.
     QMutexLocker locker(&m_mutex);

@@ -47,10 +47,16 @@ void ImageStore::updateImage(ImageId imageId, const QImage& image, const QString
     QMutexLocker locker(&m_mutex);
     RequestType key = qMakePair(imageId,type);
     if (m_requestMap.contains(key)) {
+        RemoteImage* client = m_requestMap[key];
+
         m_imageMap[key] = image;
-        m_requestMap[key]->update();
+        client->update();
+
         m_labelMap[imageId] = label;
         m_requestMap[key]->setLabel(label);
+
+        m_requestMap.remove(key);
+        m_reverseRequestMap.remove(client);
     }
 }
 
@@ -92,8 +98,7 @@ void ImageStore::clientDeleted()
         m_reverseRequestMap.remove(remoteImage);
         m_requestMap.remove(key);
 
-        // FIXME: I'm sending cancel's for images that might already have got their answer
-        if (key.second == ViewType::Images)
+        if (key.second == ViewType::Thumbnails)
             RemoteInterface::instance().sendCommand(CancelRequestCommand(key.first, key.second));
     }
 }

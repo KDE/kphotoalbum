@@ -12,7 +12,7 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, ImageStore::instance().image(this, m_imageId, size(), (ViewType) m_type)); // FIXME: Nuke the cast
+    painter->drawImage(0,0, ImageStore::instance().image(this, m_imageId, size(), m_type));
 }
 
 int RemoteImage::imageId() const

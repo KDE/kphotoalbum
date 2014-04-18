@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QList>
 
-#include "RemoteCommand.h" // FIXME, we should not need to get Category from here
+#include "RemoteCommand.h"
 
 namespace RemoteControl
 {

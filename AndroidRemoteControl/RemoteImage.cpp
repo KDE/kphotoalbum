@@ -12,7 +12,8 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage(0,0, ImageStore::instance().image(this, m_imageId, size(), m_type));
+    const QImage image = ImageStore::instance().image(this, m_imageId, size(), m_type);
+    painter->drawImage((width() - image.width()) / 2, height() - image.height(), image);
 }
 
 int RemoteImage::imageId() const
@@ -33,17 +34,12 @@ void RemoteImage::setLabel(const QString& label)
     }
 }
 
-
 void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {
         m_imageId = imageId;
         setLabel(ImageStore::instance().label(m_imageId));
         emit imageIdChanged();
-        if (m_type == ViewType::Thumbnails || m_type == ViewType::CategoryItems) { // FIXME, should be two different sizes
-            const int size = Settings::instance().thumbnailSize();
-            setSize(QSize(size,size));
-        }
     }
 }
 

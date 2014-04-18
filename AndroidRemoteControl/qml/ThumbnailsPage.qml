@@ -12,21 +12,31 @@ PinchArea {
     pinch.maximumScale: 10
     onPinchUpdated: grid.scale = pinch.scale
     onPinchFinished: {
-        _settings.thumbnailSize = pinch.scale * _settings.thumbnailSize
+        if ( type == Enums.CategoryItems )
+            _settings.categoryItemSize = pinch.scale * _settings.categoryItemSize
+        else
+            _settings.thumbnailSize = pinch.scale * _settings.thumbnailSize
         grid.scale = 1
     }
+
     GridView {
         id: grid
         anchors.fill: parent
         transformOrigin: Qt.TopLeftCorner
-        cellWidth: _settings.thumbnailSize + 10
-        cellHeight: _settings.thumbnailSize + 10 + (root.showLabels ? 30 : 0)
+
+        cellWidth: imageWidth() + padding()
+        cellHeight: imageWidth() + padding() + (root.showLabels ? 30 : 0)
         delegate:
             Column {
+
             RemoteImage {
+                x: padding()/2
                 id: remoteImage
                 imageId: model.imageId
                 type: root.type
+
+                width: imageWidth()
+                height: width
                 MouseArea {
                     anchors.fill: parent
                     onClicked: root.clicked(parent.imageId,parent.label)
@@ -34,13 +44,21 @@ PinchArea {
             }
             Text {
                 visible: root.showLabels
-                anchors { left: parent.left; right: parent.right }
+                anchors { left: parent.left; right: parent.right; margins: padding()/2 }
                 text: remoteImage.label
-                elide: Text.ElideLeft
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignTop
             }
         }
     }
     ScrollBar {
         flickable: grid
+    }
+
+    function imageWidth() {
+        return type == Enums.CategoryItems ? _settings.categoryItemSize : _settings.thumbnailSize;
+    }
+    function padding() {
+        return imageWidth()/8
     }
 }

@@ -22,7 +22,6 @@ OTHER_FILES += \
     qml/main.qml \
     qml/Icon.qml \
     qml/OverviewPage.qml \
-    qml/CategoryItemsPage.qml \
     qml/ThumbnailsPage.qml \
     qml/ImageViewer.qml \
     qml/ScrollBar.qml \

@@ -7,12 +7,6 @@ Item {
         visible: _remoteInterface.currentPage == Enums.OverviewPage
     }
 
-    // FIXME: REMOVE class
-//    CategoryItemsPage {
-//        anchors.fill: parent
-//        visible: _remoteInterface.currentPage == "CategoryItems"
-//    }
-
     ThumbnailsPage {
         visible: _remoteInterface.currentPage == Enums.CategoryItemsPage
         anchors.fill: parent

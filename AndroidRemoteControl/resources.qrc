@@ -3,7 +3,6 @@
         <file>qml/main.qml</file>
         <file>qml/OverviewPage.qml</file>
         <file>qml/Icon.qml</file>
-        <file>qml/CategoryItemsPage.qml</file>
         <file>qml/ThumbnailsPage.qml</file>
         <file>qml/ImageViewer.qml</file>
         <file>qml/ScrollBar.qml</file>

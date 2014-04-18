@@ -32,7 +32,7 @@ class ToolTip : public QLabel, public ImageManager::ImageClientInterface
     Q_OBJECT
 public:
     explicit ToolTip(QWidget *parent = 0, Qt::WindowFlags f=0);
-    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     void requestToolTip( const DB::FileName& fileName );
 
 protected:

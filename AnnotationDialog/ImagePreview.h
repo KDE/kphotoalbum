@@ -36,7 +36,7 @@ public:
     void setImage( const QString& fileName );
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
-    void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
 
 protected:
     virtual void resizeEvent( QResizeEvent* );
@@ -68,7 +68,7 @@ protected:
     public:
         void preloadImage( const DB::FileName& fileName, int width, int height, int angle);
         void cancelPreload();
-        virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK);
+        void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     };
     PreviewLoader _preloader;
 

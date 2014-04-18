@@ -515,15 +515,20 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
     return false;
 }
 
-void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
-                                         const QImage& img, const bool loadedOK)
+void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
+    const DB::FileName fileName = request->databaseFileName();
+    const QSize imgSize = request->size();
+    const QSize fullSize = request->fullSize();
+    const int angle = request->angle();
+    const bool loadedOK = request->loadedOK();
+
     if ( loadedOK && fileName == _info->fileName() ) {
         if ( fullSize.isValid() && !_info->size().isValid() )
             _info->setSize( fullSize );
 
         if ( !_reloadImageInProgress )
-            updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );
+            updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), image.size() );
         else {
             // See documentation for zoomPixelForPixel for details.
             // We just loaded a likel much larger image, so the zoom points
@@ -537,7 +542,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
             _reloadImageInProgress = false;
         }
 
-        _loadedImage = img;
+        _loadedImage = image;
         cropAndScale();
         emit imageReady();
     }
@@ -545,7 +550,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const DB::FileName& fileName, const QSi
         if ( imgSize != size() )
             return; // Might be an old preload version, or a loaded version that never made it in time
 
-        ViewPreloadInfo info( img, fullSize, angle );
+        ViewPreloadInfo info( image, fullSize, angle );
         _cache.insert( indexOf(fileName), info );
         updatePreload();
     }

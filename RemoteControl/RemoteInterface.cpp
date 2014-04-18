@@ -50,11 +50,7 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
     return dbSearchInfo;
 }
 
-void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& image, const bool loadedOK)
-{
-}
-
-void RemoteInterface::pixmapLoaded2(ImageManager::ImageRequest* request, const QImage& image)
+void RemoteInterface::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
     m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[request->databaseFileName()], QString(),
                               image, static_cast<RemoteImageRequest*>(request)->type()));

@@ -589,9 +589,12 @@ void HTMLGenerator::Generator::slotCancelGenerate()
         _eventLoop->exit();
 }
 
-void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize,
-                                             const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
+void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
+    const DB::FileName fileName = request->databaseFileName();
+    const QSize imgSize = request->size();
+    const bool loadedOK = request->loadedOK();
+
     setValue( _total - _waitCounter );
 
     _waitCounter--;

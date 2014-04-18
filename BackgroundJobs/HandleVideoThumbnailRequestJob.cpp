@@ -94,8 +94,8 @@ void HandleVideoThumbnailRequestJob::sendResult(QImage image)
         image = image.scaled( QSize(m_request->width(), m_request->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
         if ( m_request->isThumbnailRequest() )
             ImageManager::ThumbnailCache::instance()->insert( m_request->databaseFileName(), image );
-        m_request->setLoadedOK( true );
-        m_request->client()->pixmapLoaded( m_request->databaseFileName(), image.size(), QSize(-1,-1), 0, image, !image.isNull());
+        m_request->setLoadedOK(!image.isNull());
+        m_request->client()->pixmapLoaded( m_request, image);
         //}
 }
 

@@ -15,7 +15,7 @@ public:
 
 protected:
     virtual void execute() = 0;
-    void setCurrentPage(Types::Page page);
+    void setCurrentPage(Page page);
     void sendCommand(const RemoteCommand& command);
     void clearCategoryModel();
     void clearThumbnailsModel();

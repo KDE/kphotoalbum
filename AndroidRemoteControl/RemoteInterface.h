@@ -67,7 +67,7 @@ private slots:
 private:
     RemoteInterface();
     friend class Action;
-    void setCurrentPage(Types::Page page);
+    void setCurrentPage(Page page);
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;
@@ -75,7 +75,7 @@ private:
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
     ThumbnailModel* m_categoryItems;
-    RemoteControl::Types::Page m_currentPage = RemoteControl::Types::Page::Unconnected;
+    RemoteControl::Page m_currentPage = RemoteControl::Page::Unconnected;
     ThumbnailModel* m_thumbnailModel;
     History m_history;
 };

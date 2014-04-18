@@ -15,6 +15,8 @@ public:
 };
 
 enum class ViewType { CategoryItems, Thumbnails, Images };
+using Page = Types::Page;
+
 enum class SearchType { Categories, CategoryItems, Images };
 
 }

@@ -25,7 +25,7 @@ RemoteInterface::RemoteInterface()
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
 }
 
-void RemoteInterface::setCurrentPage(Types::Page page)
+void RemoteInterface::setCurrentPage(Page page)
 {
     if (m_currentPage != page) {
         m_currentPage = page;

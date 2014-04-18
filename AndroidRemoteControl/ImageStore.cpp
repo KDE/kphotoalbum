@@ -80,9 +80,6 @@ void RemoteControl::ImageStore::reset()
     m_imageMap.clear();
     m_reverseRequestMap.clear();
     m_requestMap.clear();
-    for (const auto& remoteImage : keys) {
-        remoteImage->update(); // Clear the image and request it anew
-    }
 }
 
 void ImageStore::clientDeleted()

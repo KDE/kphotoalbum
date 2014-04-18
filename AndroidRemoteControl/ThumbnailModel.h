@@ -20,11 +20,6 @@ public:
 
 private:
     QList<int> m_images;
-
-signals:
-
-public slots:
-
 };
 
 } // namespace RemoteControl

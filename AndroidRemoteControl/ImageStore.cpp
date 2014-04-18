@@ -18,6 +18,7 @@ ImageStore&ImageStore::instance()
 ImageStore::ImageStore()
 {
     connect(&Settings::instance(), &Settings::thumbnailSizeChanged, this, &ImageStore::reset);
+    connect(&Settings::instance(), &Settings::categoryItemSizeChanged, this, &ImageStore::reset);
 }
 
 void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& size, ViewType type)

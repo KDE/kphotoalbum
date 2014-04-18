@@ -43,11 +43,6 @@ void ImageStore::requestImage(RemoteImage* client, int imageId, const QSize& siz
 
 void ImageStore::updateImage(int imageId, const QImage& image, const QString& label, ViewType type)
 {
-    if (type != ViewType::CategoryItems) {
-        // PENDING(blackie) Information about image type should come from the remote site!
-        type = ((image.size().width() == Settings::instance().thumbnailSize() ||
-                 image.size().height() == Settings::instance().thumbnailSize()) ? ViewType::Thumbnails : ViewType::Images);
-    }
     QMutexLocker locker(&m_mutex);
     RequestType key = qMakePair(imageId,type);
     if (m_requestMap.contains(key)) {

@@ -52,11 +52,12 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
 
 void RemoteInterface::pixmapLoaded(const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& image, const bool loadedOK)
 {
-    Q_UNUSED(size);
-    Q_UNUSED(fullSize);
-    Q_UNUSED(angle);
-    Q_UNUSED(loadedOK);
-    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[fileName], QString(), image, ViewType::Images)); // FIXME, could be ViewType::Thumbails too!
+}
+
+void RemoteInterface::pixmapLoaded2(ImageManager::ImageRequest* request, const QImage& image)
+{
+    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[request->databaseFileName()], QString(),
+                              image, static_cast<RemoteImageRequest*>(request)->type()));
 }
 
 bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
@@ -154,7 +155,7 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 
         m_activeReuqest.insert(fileName);
         RemoteImageRequest* request
-                = new RemoteImageRequest(fileName, command.size, angle, this);
+                = new RemoteImageRequest(fileName, command.size, angle, command.type, this);
         // PENDING(blackie) I need a way to store information about command.viewType!
         ImageManager::AsyncLoader::instance()->load(request);
     }

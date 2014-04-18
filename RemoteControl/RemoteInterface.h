@@ -22,6 +22,7 @@ public:
                        const QSize& size, const QSize& fullSize,
                        int angle, const QImage& image,
                        const bool loadedOK) override;
+    void pixmapLoaded2(ImageManager::ImageRequest* request, const QImage& image);
     bool requestStillNeeded(const DB::FileName& fileName);
 
 

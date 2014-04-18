@@ -179,6 +179,7 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
             request->client()->pixmapLoaded( request->databaseFileName(), request->size(),
                                              request->fullSize(), request->angle(),
                                              image, request->loadedOK());
+            request->client()->pixmapLoaded2(request, image);
         }
         delete request;
     }

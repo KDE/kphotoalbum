@@ -26,6 +26,7 @@ namespace DB { class FileName; }
 
 namespace ImageManager
 {
+    class ImageRequest;
 
 /**
  * An ImageClient is part of the ImageRequest and is called back when
@@ -42,6 +43,7 @@ public:
                                const QSize& size, const QSize& fullSize,
                                int angle, const QImage& image,
                                const bool loadedOK) = 0;
+    virtual void pixmapLoaded2(ImageRequest* request, const QImage& image) {};
     virtual void requestCanceled() {}
 };
 

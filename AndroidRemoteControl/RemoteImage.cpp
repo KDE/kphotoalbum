@@ -12,8 +12,7 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    const QImage image = ImageStore::instance().image(this, m_imageId, size(), m_type);
-    painter->drawImage((width() - image.width()) / 2, height() - image.height(), image);
+    painter->drawImage((width() - m_image.width()) / 2, height() - m_image.height(), m_image);
 }
 
 int RemoteImage::imageId() const
@@ -34,12 +33,23 @@ void RemoteImage::setLabel(const QString& label)
     }
 }
 
+void RemoteImage::setImage(const QImage& image)
+{
+    m_image = image;
+    update();
+}
+
 void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {
         m_imageId = imageId;
-        setLabel(ImageStore::instance().label(m_imageId));
         emit imageIdChanged();
     }
+}
+
+void RemoteImage::componentComplete()
+{
+    ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+    QQuickPaintedItem::componentComplete();
 }
 

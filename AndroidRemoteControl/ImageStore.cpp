@@ -9,7 +9,7 @@
 
 namespace RemoteControl {
 
-ImageStore&ImageStore::instance()
+ImageStore& ImageStore::instance()
 {
     static ImageStore instance;
     return instance;
@@ -23,11 +23,17 @@ ImageStore::ImageStore()
 
 void ImageStore::requestImage(RemoteImage* client, ImageId imageId, const QSize& size, ViewType type)
 {
+    // This method is call from the painting thread.
+    QMutexLocker locker(&m_mutex);
+
     // This code is executed from paint, which is on the QML thread, we therefore need to get it on the GUI thread
     // where out TCPSocket is located.
     QTimer* timer = new QTimer;
     timer->setSingleShot(true);
-    connect(timer, &QTimer::timeout, this, [imageId,size,type,timer,client, this] () {
+
+    // There seems to be a path throught QML where the client is deleted right after this request is send,
+    // therefore, have client as the third parameter to the connect below, as that will prevent the request in that setup.
+    connect(timer, &QTimer::timeout, client, [imageId,size,type,timer,client, this] () {
         ThumbnailRequest request(imageId, size, type);
 
         RemoteInterface::instance().sendCommand(request);
@@ -49,41 +55,17 @@ void ImageStore::updateImage(ImageId imageId, const QImage& image, const QString
     if (m_requestMap.contains(key)) {
         RemoteImage* client = m_requestMap[key];
 
-        m_imageMap[key] = image;
-        client->update();
-
-        m_labelMap[imageId] = label;
-        m_requestMap[key]->setLabel(label);
+        client->setImage(image);
+        client->setLabel(label);
 
         m_requestMap.remove(key);
         m_reverseRequestMap.remove(client);
     }
 }
 
-QImage RemoteControl::ImageStore::image(RemoteImage* client, RemoteControl::ImageId imageId, const QSize& size, ViewType type)
-{
-    // This method is call from the painting thread.
-    QMutexLocker locker(&m_mutex);
-
-    if (m_imageMap.contains(qMakePair(imageId,type)))
-        return m_imageMap[qMakePair(imageId,type)];
-    else {
-        requestImage(client, imageId,size,type);
-        QImage image(size, QImage::Format_RGB32);
-        image.fill(Qt::white);
-        return image;
-    }
-}
-
-QString ImageStore::label(int imageId) const
-{
-    return m_labelMap[imageId];
-}
-
 void RemoteControl::ImageStore::reset()
 {
     QList<RemoteImage*> keys = m_reverseRequestMap.keys();
-    m_imageMap.clear();
     m_reverseRequestMap.clear();
     m_requestMap.clear();
 }

@@ -21,9 +21,13 @@ public:
     int imageId() const;
     QSize size() const;
     void setLabel(const QString& label);
+    void setImage(const QImage& image);
 
 public slots:
     void setImageId(int imageId);
+
+protected:
+    void componentComplete();
 
 signals:
     void imageIdChanged();
@@ -34,6 +38,7 @@ private:
     int m_imageId;
     ViewType m_type;
     QString m_label;
+    QImage m_image;
 };
 
 }

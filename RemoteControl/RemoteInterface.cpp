@@ -129,8 +129,16 @@ void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
 {
     const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */);
+    DB::FileNameList stacksRemoved;
     QList<int> result;
-    std::transform(files.begin(), files.end(), std::back_inserter(result),
+
+    std::remove_copy_if(files.begin(), files.end(), std::back_inserter(stacksRemoved),
+                        [] (const DB::FileName& file) {
+        // Only include unstacked images, and the top of stacked images.
+        return DB::ImageDB::instance()->info(file)->stackOrder() > 1;
+    });
+
+    std::transform(stacksRemoved.begin(), stacksRemoved.end(), std::back_inserter(result),
                    [this](const DB::FileName& fileName) {
         return m_imageNameStore[fileName];
     });
@@ -157,7 +165,7 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
         m_activeReuqest.insert(fileName);
         RemoteImageRequest* request
                 = new RemoteImageRequest(fileName, command.size, angle, command.type, this);
-        // PENDING(blackie) I need a way to store information about command.viewType!
+
         ImageManager::AsyncLoader::instance()->load(request);
     }
 }

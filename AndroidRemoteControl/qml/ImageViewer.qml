@@ -16,7 +16,6 @@ ListView {
         anchors.centerIn: parent
         imageId: currentItem ? currentItem.imageId : -1
     }
-    onCurrentItemChanged: details.hide()
 
     delegate: RemoteImage {
         width: root.width

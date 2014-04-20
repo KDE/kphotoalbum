@@ -7,6 +7,11 @@ Rectangle {
     color: "#AA000000"
     visible: false
 
+    onImageIdChanged: {
+        if (visible)
+            _remoteInterface.requestDetails(imageId)
+    }
+
     MouseArea {
         anchors.fill: parent
         // Just eat all events, so a click outside a link doesn't go to next page
@@ -26,10 +31,10 @@ Rectangle {
         Repeater {
             model: _imageDetails.categories
             Text {
-                text: "<b>" + modelData + "</b>: " + items(modelData)
+                text: "<b>" + modelData + "</b>: " + items(modelData) + _imageDetails.dummy
                 color: "white"
                 linkColor: "white"
-                onLinkActivated: _remoteInterface.activateSearch(link)
+                onLinkActivated: { hide(); _remoteInterface.activateSearch(link) }
             }
         }
         Text {
@@ -67,6 +72,13 @@ Rectangle {
         }
     }
 
+    Behavior on width {
+        NumberAnimation {duration: 100 }
+    }
+    Behavior on height {
+        NumberAnimation {duration: 100 }
+    }
+
     function items(category) {
         var result
         var list = _imageDetails.itemsOfCategory(category)
@@ -82,12 +94,11 @@ Rectangle {
     }
 
     function show() {
-        visible = true
         _remoteInterface.requestDetails(imageId)
+        visible = true
     }
 
     function hide() {
         visible = false
-        _imageDetails.clear()
     }
 }

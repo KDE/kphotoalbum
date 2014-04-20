@@ -24,6 +24,7 @@ void ImageDetails::clear()
     m_date.clear();
     m_description.clear();
     m_categories.clear();
+    emit updated();
 }
 
 void ImageDetails::setData(const ImageDetailsCommand& data)

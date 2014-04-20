@@ -19,6 +19,7 @@
 #include "RemoteImageRequest.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
+#include "DB/Category.h"
 
 #include <tuple>
 #include <algorithm>
@@ -175,8 +176,10 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     result.date = info->date().toString();
     result.description = info->description();
     result.categories.clear();
-    for (const QString& category : info->availableCategories())
-        result.categories[category] = info->itemsOfCategory(category).toList();
+    for (const QString& category : info->availableCategories()) {
+        if (!DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->isSpecialCategory())
+            result.categories[category] = info->itemsOfCategory(category).toList();
+    }
 
     m_connection->sendCommand(result);
 }

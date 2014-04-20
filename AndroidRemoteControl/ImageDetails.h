@@ -12,15 +12,19 @@ class ImageDetails : public QObject
     Q_PROPERTY(QString date MEMBER m_date NOTIFY updated)
     Q_PROPERTY(QString description MEMBER m_description NOTIFY updated)
     Q_PROPERTY(QStringList categories READ categories NOTIFY updated)
+
+    // This is just a dummy property to ensure that categories are updated too when changed.
+    Q_PROPERTY(QString dummy READ dummy NOTIFY updated)
+
 public:
     static ImageDetails& instance();
-
     QStringList categories() const;
 
 public slots:
     void clear();
     void setData(const ImageDetailsCommand& data);
     QStringList itemsOfCategory(const QString category);
+    QString dummy() const { return {}; }
 
 signals:
     void updated();

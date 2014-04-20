@@ -8,6 +8,7 @@ using namespace RemoteControl;
 RemoteImage::RemoteImage(QQuickItem *parent) :
     QQuickPaintedItem(parent)
 {
+    connect(this, &RemoteImage::widthChanged, this, &RemoteImage::requestImage);
 }
 
 void RemoteImage::paint(QPainter* painter)
@@ -49,7 +50,16 @@ void RemoteImage::setImageId(int imageId)
 
 void RemoteImage::componentComplete()
 {
-    ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
     QQuickPaintedItem::componentComplete();
+    requestImage();
+}
+
+void RemoteImage::requestImage()
+{
+    if (!isComponentComplete())
+        return;
+    m_image = {};
+    ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+    update();
 }
 

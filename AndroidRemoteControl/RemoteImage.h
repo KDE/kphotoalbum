@@ -29,6 +29,9 @@ public slots:
 protected:
     void componentComplete();
 
+private slots:
+    void requestImage();
+
 signals:
     void imageIdChanged();
     void typeChanged();

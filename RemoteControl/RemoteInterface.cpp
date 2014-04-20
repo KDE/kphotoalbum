@@ -17,6 +17,8 @@
 #include "Browser/FlatCategoryModel.h"
 #include "DB/ImageInfoPtr.h"
 #include "RemoteImageRequest.h"
+#include "DB/ImageInfoPtr.h"
+#include "DB/ImageInfo.h"
 
 #include <tuple>
 #include <algorithm>
@@ -76,6 +78,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         requestThumbnail(static_cast<const ThumbnailRequest&>(command));
     else if (command.id() == CancelRequestCommand::id())
         cancelRequest(static_cast<const CancelRequestCommand&>(command));
+    else if (command.id() == RequestDetails::id())
+        sendImageDetails(static_cast<const RequestDetails&>(command));
 }
 
 
@@ -160,4 +164,19 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 void RemoteInterface::cancelRequest(const CancelRequestCommand& command)
 {
     m_activeReuqest.remove(m_imageNameStore[command.imageId]);
+}
+
+void RemoteInterface::sendImageDetails(const RequestDetails& command)
+{
+    const DB::FileName fileName = m_imageNameStore[command.imageId];
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    ImageDetailsCommand result;
+    result.fileName = fileName.relative();
+    result.date = info->date().toString();
+    result.description = info->description();
+    result.categories.clear();
+    for (const QString& category : info->availableCategories())
+        result.categories[category] = info->itemsOfCategory(category).toList();
+
+    m_connection->sendCommand(result);
 }

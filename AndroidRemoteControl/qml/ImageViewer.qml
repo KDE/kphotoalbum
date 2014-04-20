@@ -8,8 +8,15 @@ ListView {
     orientation: ListView.Horizontal
     flickDeceleration: 20000
     highlightMoveDuration: 200
-    //highlightRangeMode: ListView.StrictlyEnforceRange
+    highlightRangeMode: ListView.StrictlyEnforceRange
     interactive: currentItem && currentItem.scale <= 1 // Only swipe when zoomed out
+
+    ImageDetails {
+        id: details
+        anchors.centerIn: parent
+        imageId: currentItem ? currentItem.imageId : -1
+    }
+    onCurrentItemChanged: details.hide()
 
     delegate: RemoteImage {
         width: root.width
@@ -31,6 +38,7 @@ ListView {
                     else
                         root.incrementCurrentIndex()
                 }
+                onPressAndHold: details.show()
 
             }
         }

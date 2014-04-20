@@ -9,6 +9,7 @@
 #include "Settings.h"
 #include "ScreenInfo.h"
 #include "ImageStore.h"
+#include "ImageDetails.h"
 
 using namespace RemoteControl;
 
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty(QStringLiteral("_remoteInterface"), &RemoteInterface::instance());
     rootContext->setContextProperty(QStringLiteral("_settings"), &Settings::instance());
     rootContext->setContextProperty(QStringLiteral("_screenInfo"), &ScreenInfo::instance());
+    rootContext->setContextProperty(QStringLiteral("_imageDetails"), &ImageDetails::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);

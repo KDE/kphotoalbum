@@ -11,6 +11,7 @@
 #include <QImage>
 #include <QStringList>
 #include "History.h"
+#include "Types.h"
 
 class QTcpSocket;
 
@@ -43,6 +44,8 @@ public slots:
     void selectCategoryValue(const QString& value);
     void showThumbnails();
     void showImage(int imageId);
+    void requestDetails(int imageId);
+    void activateSearch(const QString& search);
 
 signals:
     void connectionChanged();

@@ -10,6 +10,7 @@
 #include <QStringList>
 #include <QPair>
 #include "Types.h"
+#include <QMap>
 
 namespace RemoteControl
 {
@@ -36,11 +37,11 @@ private:
 class ImageUpdateCommand :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(int imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
+    ImageUpdateCommand(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    int imageId;
+    ImageId imageId;
     QString label;
     QImage image;
     ViewType type;
@@ -90,11 +91,11 @@ public:
 class ThumbnailRequest :public RemoteCommand
 {
 public:
-    ThumbnailRequest(int imageId = {}, const QSize& size = {}, ViewType type = {});
+    ThumbnailRequest(ImageId imageId = {}, const QSize& size = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    int imageId;
+    ImageId imageId;
     QSize size;
     ViewType type;
 };
@@ -102,11 +103,11 @@ public:
 class CancelRequestCommand :public RemoteCommand
 {
 public:
-    CancelRequestCommand(int imageId = {}, ViewType type = {});
+    CancelRequestCommand(ImageId imageId = {}, ViewType type = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
-    int imageId;
+    ImageId imageId;
     ViewType type;
 };
 
@@ -118,5 +119,31 @@ public:
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
 };
+
+class RequestDetails :public RemoteCommand
+{
+public:
+    RequestDetails(ImageId imageId = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    ImageId imageId;
+};
+
+class ImageDetailsCommand :public RemoteCommand
+{
+public:
+    ImageDetailsCommand();
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    QString fileName;
+    QString date;
+    QString description;
+    QMap<QString,QStringList> categories;
+};
+
 }
 #endif // REMOTECOMMAND_H

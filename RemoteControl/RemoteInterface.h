@@ -33,6 +33,7 @@ private:
     void sendImageSearchResult(const SearchInfo& search);
     void requestThumbnail(const ThumbnailRequest& command);
     void cancelRequest(const CancelRequestCommand& command);
+    void sendImageDetails(const RequestDetails& command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;

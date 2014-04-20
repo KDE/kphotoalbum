@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     ScreenInfo.cpp \
     Action.cpp \
     History.cpp \
-    ThumbnailModel.cpp
+    ThumbnailModel.cpp \
+    ImageDetails.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -25,7 +26,8 @@ OTHER_FILES += \
     qml/ThumbnailsPage.qml \
     qml/ImageViewer.qml \
     qml/ScrollBar.qml \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    qml/ImageDetails.qml
 
 RESOURCES += \
     resources.qrc
@@ -45,6 +47,7 @@ HEADERS += \
     Types.h \
     Action.h \
     History.h \
-    ThumbnailModel.h
+    ThumbnailModel.h \
+    ImageDetails.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

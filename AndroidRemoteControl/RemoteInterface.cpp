@@ -12,6 +12,8 @@
 #include "Action.h"
 #include <QCoreApplication>
 #include <memory>
+#include "ImageDetails.h"
+
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
@@ -95,6 +97,22 @@ void RemoteInterface::showImage(int imageId)
     m_history.push(std::unique_ptr<Action>(new ShowImagesAction(imageId, m_search)));
 }
 
+void RemoteInterface::requestDetails(int imageId)
+{
+    m_connection->sendCommand(RequestDetails(imageId));
+}
+
+void RemoteInterface::activateSearch(const QString& search)
+{
+    QStringList list = search.split(";;;");
+    QString category = list[0];
+    QString item = list[1];
+    SearchInfo result;
+    result.addCategory(category);
+    result.addValue(item);
+    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(result)));
+}
+
 void RemoteInterface::setCurrentView(int imageId)
 {
     emit jumpToImage(m_thumbnailModel->indexOf(imageId));
@@ -114,7 +132,9 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
     else if (command.id() == SearchResultCommand::id())
         gotSearchResult(static_cast<const SearchResultCommand&>(command));
     else if (command.id() == TimeCommand::id())
-        ;
+        ; // Used for debugging, it will print time stamp when decoded
+    else if (command.id() == ImageDetailsCommand::id())
+        ImageDetails::instance().setData(static_cast<const ImageDetailsCommand&>(command));
     else
         qFatal("Unhandled command");
 }

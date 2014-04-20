@@ -27,7 +27,9 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new SearchResultCommand
                  << new ThumbnailRequest
                  << new CancelRequestCommand
-                 << new TimeCommand;
+                 << new TimeCommand
+                 << new RequestDetails
+                 << new ImageDetailsCommand;
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -49,7 +51,7 @@ QImage RemoteCommand::decodeImage(QDataStream& stream) const
     return result;
 }
 
-ImageUpdateCommand::ImageUpdateCommand(int imageId, const QString& label, const QImage& image, ViewType type)
+ImageUpdateCommand::ImageUpdateCommand(ImageId imageId, const QString& label, const QImage& image, ViewType type)
     :RemoteCommand(id()), imageId(imageId), label(label), image(image), type(type)
 {
 }
@@ -151,7 +153,7 @@ void SearchResultCommand::decode(QDataStream& stream)
 }
 
 
-ThumbnailRequest::ThumbnailRequest(int imageId, const QSize& size, ViewType type)
+ThumbnailRequest::ThumbnailRequest(ImageId imageId, const QSize& size, ViewType type)
     :RemoteCommand(id()), imageId(imageId), size(size), type(type)
 {
 }
@@ -172,7 +174,7 @@ void ThumbnailRequest::decode(QDataStream& stream)
 }
 
 
-RemoteControl::CancelRequestCommand::CancelRequestCommand(int imageId, ViewType type)
+RemoteControl::CancelRequestCommand::CancelRequestCommand(ImageId imageId, ViewType type)
     :RemoteCommand(id()), imageId(imageId), type(type)
 {
 }
@@ -218,4 +220,46 @@ void TimeCommand::encode(QDataStream&) const
 void TimeCommand::decode(QDataStream&)
 {
     printElapsed();
+}
+
+
+RequestDetails::RequestDetails(ImageId imageId)
+    :RemoteCommand(id()), imageId(imageId)
+{
+}
+
+QString RequestDetails::id()
+{
+    return QString::fromUtf8("RequestDetails");
+}
+
+void RequestDetails::encode(QDataStream& stream) const
+{
+    stream << imageId;
+}
+
+void RequestDetails::decode(QDataStream& stream)
+{
+    stream >> imageId;
+}
+
+
+ImageDetailsCommand::ImageDetailsCommand()
+    :RemoteCommand(id())
+{
+}
+
+QString ImageDetailsCommand::id()
+{
+    return QString::fromUtf8("ImageDetailsCommand");
+}
+
+void ImageDetailsCommand::encode(QDataStream& stream) const
+{
+    stream << fileName << date << description << categories;
+}
+
+void ImageDetailsCommand::decode(QDataStream& stream)
+{
+    stream >> fileName >> date >> description >> categories;
 }

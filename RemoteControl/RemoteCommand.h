@@ -15,6 +15,8 @@
 namespace RemoteControl
 {
 
+const int VERSION = 1;
+
 class RemoteCommand
 {
 public:

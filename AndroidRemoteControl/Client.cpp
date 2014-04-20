@@ -2,6 +2,7 @@
 
 #include <QTcpSocket>
 #include <QUdpSocket>
+#include "RemoteCommand.h"
 
 using namespace RemoteControl;
 
@@ -37,7 +38,7 @@ void Client::acceptConnection()
 void Client::sendBroadcastPackage()
 {
     QUdpSocket socket;
-    QByteArray data = "KPhotoAlbum";
+    QByteArray data = QStringLiteral("KPhotoAlbum %1").arg(RemoteControl::VERSION).toUtf8();
     socket.writeDatagram(data, QHostAddress::Broadcast, UDPPORT);
 }
 

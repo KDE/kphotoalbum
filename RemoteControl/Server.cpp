@@ -2,6 +2,9 @@
 
 #include <QUdpSocket>
 #include <QTcpSocket>
+#include <QMessageBox>
+#include "RemoteCommand.h"
+#include <KLocale>
 
 using namespace RemoteControl;
 
@@ -32,12 +35,24 @@ QTcpSocket*Server::socket()
 void Server::readIncommingUDP()
 {
     Q_ASSERT(m_socket->hasPendingDatagrams());
-    char data[12];
+    char data[1000];
 
     QHostAddress address;
-    m_socket->readDatagram(data,12, &address);
-    if (qstrcmp(data,"KPhotoAlbum") != 0) {
-        // Hmmm not from a KPhotoAlbum client
+    qint64 len = m_socket->readDatagram(data,1000, &address);
+    QString string = QString::fromUtf8(data).left(len);
+    QStringList list = string.split(QChar::fromAscii(' '));
+    if (list[0] != QString::fromUtf8("KPhotoAlbum")) {
+        return;
+    }
+    if (list[1] != QString::number(RemoteControl::VERSION)) {
+        QMessageBox::critical(0, i18n("Invalid Version"),
+                              i18n("Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
+                                   "Desktop protocol version: %1\n"
+                                   "Remote Control protocol version: %2\n"
+                                   "SHUTTING DOWN LISTENING FOR REMOTE CONNECTIONS!")
+                              .arg(RemoteControl::VERSION).arg(list[1]));
+        deleteLater();
+        return;
     }
 
     connectToTcpServer(address);

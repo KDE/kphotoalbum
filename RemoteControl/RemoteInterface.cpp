@@ -118,18 +118,23 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 void RemoteInterface::sendCategoryValues(const SearchCommand& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
-    const QString category = search.searchInfo.currentCategory();
+    const QString categoryName = search.searchInfo.currentCategory();
 
-    Browser::FlatCategoryModel model(DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory()),
-                                     dbSearchInfo);
+    const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(search.searchInfo.currentCategory());
 
-    QList<int> result;
-    std::transform( model._items.begin(), model._items.end(), std::back_inserter(result),
-                    [this,category] (const QString itemName) {
-        return m_imageNameStore.idForCategory(category,itemName);
-    });
+    Browser::FlatCategoryModel model(category, dbSearchInfo);
 
-    m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, result));
+    if (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView) {
+        QList<int> result;
+        std::transform( model._items.begin(), model._items.end(), std::back_inserter(result),
+                        [this,categoryName] (const QString itemName) {
+            return m_imageNameStore.idForCategory(categoryName,itemName);
+        });
+        m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, result));
+    }
+    else {
+        m_connection->sendCommand(CategoryItems(model._items));
+    }
 }
 
 void RemoteInterface::sendImageSearchResult(const SearchInfo& search)

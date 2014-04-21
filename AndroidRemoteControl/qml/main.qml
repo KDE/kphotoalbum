@@ -19,7 +19,7 @@ Item {
     CategoryListView {
         visible: _remoteInterface.currentPage == Enums.CategoryListPage
         anchors.fill: parent
-        model: visible ? _remoteInterface.categoryItems : undefined
+        model: visible ? _remoteInterface.listCategoryValues : undefined
         onClicked: _remoteInterface.selectCategoryValue(label)
     }
 

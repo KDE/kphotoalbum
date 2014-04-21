@@ -148,5 +148,15 @@ public:
     QMap<QString,QStringList> categories;
 };
 
+class CategoryItems :public RemoteCommand
+{
+public:
+    CategoryItems(const QStringList items = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    QStringList items;
+};
 }
 #endif // REMOTECOMMAND_H

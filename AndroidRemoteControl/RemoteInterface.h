@@ -29,6 +29,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
     Q_PROPERTY(RemoteControl::Types::Page currentPage MEMBER m_currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
+    Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
 
 public:
     static RemoteInterface& instance();
@@ -56,6 +57,7 @@ signals:
     void currentPageChanged();
     void thumbnailModelChanged();
     void jumpToImage(int index);
+    void listCategoryValuesChanged();
 
 public:
     void setCurrentView(int imageIf);
@@ -71,6 +73,7 @@ private:
     RemoteInterface();
     friend class Action;
     void setCurrentPage(Page page);
+    void setListCategoryValues(const QStringList values);
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;
@@ -81,6 +84,7 @@ private:
     RemoteControl::Page m_currentPage = RemoteControl::Page::UnconnectedPage;
     ThumbnailModel* m_thumbnailModel;
     History m_history;
+    QStringList m_listCategoryValues;
 };
 
 }

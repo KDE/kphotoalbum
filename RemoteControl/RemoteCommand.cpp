@@ -29,7 +29,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new CancelRequestCommand
                  << new TimeCommand
                  << new RequestDetails
-                 << new ImageDetailsCommand;
+                 << new ImageDetailsCommand
+                 << new CategoryItems;
                 // Remember to bounce the protocol version number
 
         for (RemoteCommand* command : commands )
@@ -264,4 +265,26 @@ void ImageDetailsCommand::encode(QDataStream& stream) const
 void ImageDetailsCommand::decode(QDataStream& stream)
 {
     stream >> fileName >> date >> description >> categories;
+}
+
+
+
+CategoryItems::CategoryItems(const QStringList items)
+    :RemoteCommand(id()), items(items)
+{
+}
+
+QString CategoryItems::id()
+{
+    return QString::fromUtf8("CategoryItems");
+}
+
+void CategoryItems::encode(QDataStream& stream) const
+{
+    stream << items;
+}
+
+void CategoryItems::decode(QDataStream& stream)
+{
+    stream >> items;
 }

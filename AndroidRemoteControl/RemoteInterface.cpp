@@ -35,6 +35,14 @@ void RemoteInterface::setCurrentPage(Page page)
     }
 }
 
+void RemoteInterface::setListCategoryValues(const QStringList values)
+{
+    if (m_listCategoryValues != values) {
+        m_listCategoryValues = values;
+        emit listCategoryValuesChanged();
+    }
+}
+
 RemoteInterface& RemoteInterface::instance()
 {
     static RemoteInterface interface;
@@ -135,6 +143,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         ; // Used for debugging, it will print time stamp when decoded
     else if (command.id() == ImageDetailsCommand::id())
         ImageDetails::instance().setData(static_cast<const ImageDetailsCommand&>(command));
+    else if (command.id() == CategoryItems::id())
+        setListCategoryValues(static_cast<const CategoryItems&>(command).items);
     else
         qFatal("Unhandled command");
 }

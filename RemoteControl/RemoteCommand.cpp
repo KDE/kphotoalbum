@@ -30,6 +30,7 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new TimeCommand
                  << new RequestDetails
                  << new ImageDetailsCommand;
+                // Remember to bounce the protocol version number
 
         for (RemoteCommand* command : commands )
              map.insert(command->id(), command);
@@ -90,7 +91,7 @@ void CategoryListCommand::encode(QDataStream& stream) const
 {
     stream << categories.count();
     for (const Category& category : categories)
-        stream << category.name << category.text << category.icon << category.enabled;
+        stream << category.name << category.text << category.icon << category.enabled << (int) category.viewType;
     stream << home << kphotoalbum;
 }
 
@@ -104,8 +105,9 @@ void CategoryListCommand::decode(QDataStream& stream)
         QString text;
         QImage icon;
         bool enabled;
-        stream >> name >> text >> icon >> enabled;
-        categories.append( {name, text, icon, enabled});
+        CategoryViewType viewType;
+        stream >> name >> text >> icon >> enabled >> (int&) viewType;
+        categories.append({name, text, icon, enabled, viewType});
     }
     stream >> home >> kphotoalbum;
 }

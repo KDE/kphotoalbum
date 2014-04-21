@@ -10,9 +10,16 @@ Item {
     ThumbnailsPage {
         visible: _remoteInterface.currentPage == Enums.CategoryItemsPage
         anchors.fill: parent
-        model: _remoteInterface.categoryItems
+        model: visible ? _remoteInterface.categoryItems : undefined
         type: Enums.CategoryItems
         showLabels: true
+        onClicked: _remoteInterface.selectCategoryValue(label)
+    }
+
+    CategoryListView {
+        visible: _remoteInterface.currentPage == Enums.CategoryListPage
+        anchors.fill: parent
+        model: visible ? _remoteInterface.categoryItems : undefined
         onClicked: _remoteInterface.selectCategoryValue(label)
     }
 

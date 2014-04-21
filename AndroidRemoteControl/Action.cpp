@@ -49,8 +49,8 @@ void ShowOverviewAction::execute()
     setCurrentPage(Page::OverviewPage);
 }
 
-ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo)
-    :Action(searchInfo)
+ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo, CategoryViewType type)
+    :Action(searchInfo), m_type(type)
 {
 }
 
@@ -58,7 +58,10 @@ void ShowCategoryValueAction::execute()
 {
     sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
-    setCurrentPage(Page::CategoryItemsPage);
+    if (m_type == CategoryViewType::CategoryIconView)
+        setCurrentPage(Page::CategoryItemsPage);
+    else
+        setCurrentPage(Page::CategoryListPage);
 }
 
 ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)

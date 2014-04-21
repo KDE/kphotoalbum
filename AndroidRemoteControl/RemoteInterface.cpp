@@ -75,10 +75,10 @@ void RemoteInterface::goForward()
         m_history.goForward();
 }
 
-void RemoteInterface::selectCategory(const QString& category)
+void RemoteInterface::selectCategory(const QString& category, int type)
 {
     m_search.addCategory(category);
-    m_history.push(std::unique_ptr<Action>(new ShowCategoryValueAction(m_search)));
+    m_history.push(std::unique_ptr<Action>(new ShowCategoryValueAction(m_search, static_cast<CategoryViewType>(type))));
 }
 
 void RemoteInterface::selectCategoryValue(const QString& value)

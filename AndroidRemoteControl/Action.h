@@ -34,9 +34,11 @@ protected:
 class ShowCategoryValueAction :public Action
 {
 public:
-    ShowCategoryValueAction(const SearchInfo& searchInfo);
+    ShowCategoryValueAction(const SearchInfo& searchInfo, CategoryViewType type);
 protected:
     void execute() override;
+private:
+    CategoryViewType m_type;
 };
 
 

@@ -15,7 +15,7 @@
 namespace RemoteControl
 {
 
-const int VERSION = 1;
+const int VERSION = 2;
 
 class RemoteCommand
 {
@@ -54,6 +54,7 @@ struct Category {
     QString text;
     QImage icon;
     bool enabled;
+    CategoryViewType viewType;
 };
 
 class CategoryListCommand :public RemoteCommand

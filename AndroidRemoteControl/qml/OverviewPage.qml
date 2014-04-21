@@ -35,7 +35,7 @@ Flickable {
                 text: model.text
                 icon: model.icon
                 width: _screenInfo.overviewIconSize
-                onClicked: _remoteInterface.selectCategory(model.name)
+                onClicked: _remoteInterface.selectCategory(model.name, model.type)
             }
         }
 

@@ -26,12 +26,14 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
     }
     else if (role == EnabledRole)
         return item.enabled;
+    else if (role == TypeRole)
+        return item.viewType;
     return {};
 }
 
 RoleMap RemoteControl::CategoryModel::roleNames() const
 {
-    return { {NameRole, "name"}, {TextRole, "text"}, {IconRole, "icon"}, {EnabledRole, "enabled"} };
+    return { {NameRole, "name"}, {TextRole, "text"}, {IconRole, "icon"}, {EnabledRole, "enabled"}, {TypeRole, "type"} };
 }
 
 void CategoryModel::setCategories(const QList<Category>& categories)

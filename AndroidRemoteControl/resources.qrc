@@ -7,5 +7,6 @@
         <file>qml/ImageViewer.qml</file>
         <file>qml/ScrollBar.qml</file>
         <file>qml/ImageDetails.qml</file>
+        <file>qml/CategoryListView.qml</file>
     </qresource>
 </RCC>

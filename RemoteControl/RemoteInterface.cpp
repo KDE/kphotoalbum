@@ -20,6 +20,7 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
+#include "Types.h"
 
 #include <tuple>
 #include <algorithm>
@@ -92,11 +93,16 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
     CategoryListCommand command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
+
+        // FIXME: exclude videos
         QMap<QString, uint> videos = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Video );
         const bool enabled = (images.count() + videos.count() > 1);
+        CategoryViewType type =
+                (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
+                ? Types::CategoryIconView : Types::CategoryListView;
 
         const QImage icon = category->icon(THUMBNAILSIZE, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
-        command.categories.append({category->name(), category->text(), icon, enabled});
+        command.categories.append({category->name(), category->text(), icon, enabled, type});
     }
 
     // PENDING(blackie) This ought to go into a separate request, no need to send this every time.

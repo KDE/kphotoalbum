@@ -10,14 +10,17 @@ class Types {
     Q_GADGET
 
 public:
-    enum Page {UnconnectedPage, OverviewPage, CategoryItemsPage, ThumbnailsPage, ImageViewerPage};
+    enum Page {UnconnectedPage, OverviewPage, CategoryItemsPage, CategoryListPage, ThumbnailsPage, ImageViewerPage};
     enum class ViewType { CategoryItems, Thumbnails, Images };
+    enum CategoryViewType { CategoryListView, CategoryIconView };
     Q_ENUMS(Page)
     Q_ENUMS(ViewType)
+    Q_ENUMS(CategoryViewType)
 };
 
 using Page = Types::Page;
 using ViewType = Types::ViewType;
+using CategoryViewType = Types::CategoryViewType;
 
 enum class SearchType { Categories, CategoryItems, Images };
 

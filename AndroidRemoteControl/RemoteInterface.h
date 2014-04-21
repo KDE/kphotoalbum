@@ -40,7 +40,7 @@ public slots:
     void goHome();
     void goBack();
     void goForward();
-    void selectCategory(const QString& category);
+    void selectCategory(const QString& category, int /*CategoryViewType*/ type);
     void selectCategoryValue(const QString& value);
     void showThumbnails();
     void showImage(int imageId);

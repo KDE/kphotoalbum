@@ -52,7 +52,7 @@ void XMLDB::FileReader::read( const QString& configFile )
     if ( _fileVersion > _currentFileVersion_ )
     {
         KMessageBox::information( messageParent(),
-                i18n("<p>The database file indicates a file format version of %1."
+                i18n("<p>The database file indicates a file format version of %1. "
                     "This version of KPhotoAlbum uses the database file format version %2.</p>"
                     "<p>It is possible that some information will be lost during import,"
                     " or that the database can not be read at all.</p>"
@@ -62,7 +62,7 @@ void XMLDB::FileReader::read( const QString& configFile )
     } else if ( _fileVersion < _currentFileVersion_ )
     {
         KMessageBox::information( messageParent(),
-                i18n("<p>The database file indicates a file format version of %1."
+                i18n("<p>The database file indicates a file format version of %1. "
                     "This version of KPhotoAlbum uses the database file format version %2.</p>"
                     "<p>If you save the database using this version of KPhotoAlbum, "
                     "you won't be able to open it with older versions of KPhotoAlbum.</p>"

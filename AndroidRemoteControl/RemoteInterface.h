@@ -68,12 +68,14 @@ private slots:
     void updateImage(const ImageUpdateCommand&);
     void updateCategoryList(const CategoryListCommand&);
     void gotSearchResult(const SearchResultCommand&);
+    void requestHomePageImages();
 
 private:
     RemoteInterface();
     friend class Action;
     void setCurrentPage(Page page);
-    void setListCategoryValues(const QStringList values);
+    void setListCategoryValues(const QStringList& values);
+    void setHomePageImages(const HomePageData& command);
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;

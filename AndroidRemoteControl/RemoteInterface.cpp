@@ -23,6 +23,7 @@ RemoteInterface::RemoteInterface()
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
+    connect(&ScreenInfo::instance(), &ScreenInfo::overviewIconSizeChanged, this, &RemoteInterface::requestHomePageImages);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
 }
@@ -35,12 +36,26 @@ void RemoteInterface::setCurrentPage(Page page)
     }
 }
 
-void RemoteInterface::setListCategoryValues(const QStringList values)
+void RemoteInterface::setListCategoryValues(const QStringList& values)
 {
     if (m_listCategoryValues != values) {
         m_listCategoryValues = values;
         emit listCategoryValuesChanged();
     }
+}
+
+void RemoteInterface::requestHomePageImages()
+{
+    m_connection->sendCommand(RequestHomePageImages(ScreenInfo::instance().overviewIconSize()));
+}
+
+void RemoteInterface::setHomePageImages(const HomePageData& command)
+{
+    m_homeImage = command.homeIcon;
+    emit homeImageChanged();
+
+    m_kphotoalbumImage = command.kphotoalbumIcon;
+    emit kphotoalbumImageChange();
 }
 
 RemoteInterface& RemoteInterface::instance()
@@ -145,6 +160,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         ImageDetails::instance().setData(static_cast<const ImageDetailsCommand&>(command));
     else if (command.id() == CategoryItems::id())
         setListCategoryValues(static_cast<const CategoryItems&>(command).items);
+    else if (command.id() == HomePageData::id())
+        setHomePageImages(static_cast<const HomePageData&>(command));
     else
         qFatal("Unhandled command");
 }
@@ -157,14 +174,7 @@ void RemoteInterface::updateImage(const ImageUpdateCommand& command)
 void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 {
     ScreenInfo::instance().setCategoryCount(command.categories.count());
-
     m_categories->setCategories(command.categories);
-    int size = ScreenInfo::instance().overviewIconSize();
-    m_homeImage = command.home.scaled(size,size);
-    emit homeImageChanged();
-
-    m_kphotoalbumImage = command.kphotoalbum.scaled(size,size);
-    emit kphotoalbumImageChange();
 }
 
 void RemoteInterface::gotSearchResult(const SearchResultCommand& result)

@@ -34,6 +34,7 @@ private:
     void requestThumbnail(const ThumbnailRequest& command);
     void cancelRequest(const CancelRequestCommand& command);
     void sendImageDetails(const RequestDetails& command);
+    void sendHomePageImages(const RequestHomePageImages& command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;

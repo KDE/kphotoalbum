@@ -15,7 +15,7 @@
 namespace RemoteControl
 {
 
-const int VERSION = 2;
+const int VERSION = 3;
 
 class RemoteCommand
 {
@@ -30,7 +30,7 @@ public:
 
 protected:
     void encodeImage(QDataStream& stream, const QImage& image) const;
-    QImage decodeImage(QDataStream& buffer) const;
+    QImage decodeImage(QDataStream& stream) const;
 
 private:
     QString m_id;
@@ -65,8 +65,6 @@ public:
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     QList<Category> categories;
-    QImage home;
-    QImage kphotoalbum;
 };
 
 class SearchCommand :public RemoteCommand
@@ -158,5 +156,29 @@ public:
 
     QStringList items;
 };
+
+class RequestHomePageImages :public RemoteCommand
+{
+public:
+    RequestHomePageImages(int size = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    int size;
+};
+
+class HomePageData :public RemoteCommand
+{
+public:
+    HomePageData(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    QImage homeIcon;
+    QImage kphotoalbumIcon;
+};
+
 }
 #endif // REMOTECOMMAND_H

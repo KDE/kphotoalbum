@@ -30,7 +30,9 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new TimeCommand
                  << new RequestDetails
                  << new ImageDetailsCommand
-                 << new CategoryItems;
+                 << new CategoryItems
+                 << new RequestHomePageImages
+                 << new HomePageData;
                 // Remember to bounce the protocol version number
 
         for (RemoteCommand* command : commands )
@@ -90,10 +92,10 @@ QString CategoryListCommand::id()
 
 void CategoryListCommand::encode(QDataStream& stream) const
 {
+    // If I use encodeImage here for category.icon, then I will not get a transparent background
     stream << categories.count();
     for (const Category& category : categories)
         stream << category.name << category.text << category.icon << category.enabled << (int) category.viewType;
-    stream << home << kphotoalbum;
 }
 
 void CategoryListCommand::decode(QDataStream& stream)
@@ -110,7 +112,6 @@ void CategoryListCommand::decode(QDataStream& stream)
         stream >> name >> text >> icon >> enabled >> (int&) viewType;
         categories.append({name, text, icon, enabled, viewType});
     }
-    stream >> home >> kphotoalbum;
 }
 
 
@@ -287,4 +288,47 @@ void CategoryItems::encode(QDataStream& stream) const
 void CategoryItems::decode(QDataStream& stream)
 {
     stream >> items;
+}
+
+
+RequestHomePageImages::RequestHomePageImages(int size)
+    :RemoteCommand(id()), size(size)
+{
+}
+
+QString RequestHomePageImages::id()
+{
+    return QString::fromUtf8("RequestHomePageImage");
+}
+
+void RequestHomePageImages::encode(QDataStream& stream) const
+{
+    stream << size;
+}
+
+void RequestHomePageImages::decode(QDataStream& stream)
+{
+    stream >> size;
+}
+
+
+HomePageData::HomePageData(const QImage& homeIcon, const QImage& kphotoalbumIcon)
+    :RemoteCommand(id()), homeIcon(homeIcon), kphotoalbumIcon(kphotoalbumIcon)
+{
+}
+
+QString HomePageData::id()
+{
+    return QString::fromUtf8("HomePageData");
+}
+
+void HomePageData::encode(QDataStream& stream) const
+{
+    // If I use encodeImage here, then I will not get a transparent background
+    stream << homeIcon << kphotoalbumIcon;
+}
+
+void HomePageData::decode(QDataStream& stream)
+{
+    stream >> homeIcon >> kphotoalbumIcon;
 }

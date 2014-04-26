@@ -82,6 +82,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         cancelRequest(static_cast<const CancelRequestCommand&>(command));
     else if (command.id() == RequestDetails::id())
         sendImageDetails(static_cast<const RequestDetails&>(command));
+    else if (command.id() == RequestHomePageImages::id())
+        sendHomePageImages(static_cast<const RequestHomePageImages&>(command));
 }
 
 
@@ -104,14 +106,6 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
         const QImage icon = category->icon(THUMBNAILSIZE, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
         command.categories.append({category->name(), category->text(), icon, enabled, type});
     }
-
-    // PENDING(blackie) This ought to go into a separate request, no need to send this every time.
-    QPixmap homeIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("go-home"), KIconLoader::Desktop, THUMBNAILSIZE);
-    command.home = homeIcon.toImage();
-
-    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, THUMBNAILSIZE);
-    command.kphotoalbum = kphotoalbumIcon.toImage();
-
     m_connection->sendCommand(command);
 }
 
@@ -201,4 +195,14 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     }
 
     m_connection->sendCommand(result);
+}
+
+void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
+{
+    const int size = command.size;
+
+    QPixmap homeIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("go-home"), KIconLoader::Desktop, size);
+    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
+
+    m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage()));
 }

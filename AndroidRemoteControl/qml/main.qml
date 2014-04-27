@@ -32,6 +32,32 @@ Item {
         onClicked: _remoteInterface.showImage(imageId)
     }
 
+    ThumbnailsPage {
+        id: discoveryPage
+        visible: _remoteInterface.currentPage == Enums.DiscoverPage
+        anchors.fill: parent
+        model: _remoteInterface.discoveryModel
+        type: Enums.Thumbnails
+        showLabels: false
+        onClicked: {
+            if (imageId == -1000 /* DISCOVERYID*/)
+                model.resetImages()
+            else
+                _remoteInterface.showDiscoveredImage(imageId)
+        }
+
+        Binding {
+            target: _remoteInterface.discoveryModel
+            property: "count"
+            value: discoveryPage.itemsPerPage-1
+            when: discoveryPage.visible
+        }
+        onVisibleChanged: {
+            if(visible)
+                _remoteInterface.discoveryModel.resetImages()
+        }
+     }
+
     ImageViewer {
         anchors.fill: parent
         visible: _remoteInterface.currentPage == Enums.ImageViewerPage

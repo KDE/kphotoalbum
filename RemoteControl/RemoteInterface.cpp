@@ -203,6 +203,7 @@ void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
 
     QPixmap homeIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("go-home"), KIconLoader::Desktop, size);
     QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
+    QPixmap discoverIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
 
-    m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage()));
+    m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
 }

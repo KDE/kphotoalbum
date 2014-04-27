@@ -40,6 +40,13 @@ Flickable {
         }
 
         Icon {
+            text: "Discover"
+            icon: _remoteInterface.discover
+            width: _screenInfo.overviewIconSize
+            onClicked: _remoteInterface.doDiscover()
+        }
+
+        Icon {
             text: "View"
             icon: _remoteInterface.kphotoalbum
             width: _screenInfo.overviewIconSize

@@ -171,13 +171,14 @@ public:
 class HomePageData :public RemoteCommand
 {
 public:
-    HomePageData(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {});
+    HomePageData(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
 
     QImage homeIcon;
     QImage kphotoalbumIcon;
+    QImage discoverIcon;
 };
 
 }

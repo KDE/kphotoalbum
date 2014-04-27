@@ -14,7 +14,7 @@ class RemoteImage : public QQuickPaintedItem
     Q_PROPERTY(RemoteControl::Types::ViewType type MEMBER m_type NOTIFY typeChanged)
     Q_PROPERTY(QString label MEMBER m_label NOTIFY labelChanged)
 
-    //Q_ENUMS(ViewType);
+
 public:
     explicit RemoteImage(QQuickItem *parent = 0);
     void paint(QPainter *painter) override;

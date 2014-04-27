@@ -13,6 +13,7 @@ class RemoteImage;
 class ImageStore : public QObject
 {
     Q_OBJECT
+
 public:
     static ImageStore& instance();
     void updateImage(ImageId imageId, const QImage& requestImage, const QString& label, ViewType type);

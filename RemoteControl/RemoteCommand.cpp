@@ -312,8 +312,8 @@ void RequestHomePageImages::decode(QDataStream& stream)
 }
 
 
-HomePageData::HomePageData(const QImage& homeIcon, const QImage& kphotoalbumIcon)
-    :RemoteCommand(id()), homeIcon(homeIcon), kphotoalbumIcon(kphotoalbumIcon)
+HomePageData::HomePageData(const QImage& homeIcon, const QImage& kphotoalbumIcon, const QImage& discoverIcon)
+    :RemoteCommand(id()), homeIcon(homeIcon), kphotoalbumIcon(kphotoalbumIcon), discoverIcon(discoverIcon)
 {
 }
 
@@ -325,10 +325,10 @@ QString HomePageData::id()
 void HomePageData::encode(QDataStream& stream) const
 {
     // If I use encodeImage here, then I will not get a transparent background
-    stream << homeIcon << kphotoalbumIcon;
+    stream << homeIcon << kphotoalbumIcon << discoverIcon;
 }
 
 void HomePageData::decode(QDataStream& stream)
 {
-    stream >> homeIcon >> kphotoalbumIcon;
+    stream >> homeIcon >> kphotoalbumIcon >> discoverIcon;
 }

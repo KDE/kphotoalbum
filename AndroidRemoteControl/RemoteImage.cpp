@@ -1,6 +1,7 @@
 #include "RemoteImage.h"
 #include "ImageStore.h"
 #include <QPainter>
+#include "RemoteInterface.h"
 #include "Settings.h"
 
 using namespace RemoteControl;
@@ -56,6 +57,12 @@ void RemoteImage::componentComplete()
 
 void RemoteImage::requestImage()
 {
+    if (m_imageId == DISCOVERYID) {
+        m_image = RemoteInterface::instance().discoveryImage();
+        update();
+        return;
+    }
+
     if (!isComponentComplete())
         return;
     m_image = {};

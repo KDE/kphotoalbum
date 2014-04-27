@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     Action.cpp \
     History.cpp \
     ThumbnailModel.cpp \
-    ImageDetails.cpp
+    ImageDetails.cpp \
+    DiscoveryModel.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -49,6 +50,7 @@ HEADERS += \
     Action.h \
     History.h \
     ThumbnailModel.h \
-    ImageDetails.h
+    ImageDetails.h \
+    DiscoveryModel.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

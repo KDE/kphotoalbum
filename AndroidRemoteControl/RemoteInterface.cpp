@@ -17,7 +17,8 @@
 using namespace RemoteControl;
 
 RemoteInterface::RemoteInterface()
-    : m_categories(new CategoryModel(this)), m_categoryItems(new ThumbnailModel(this)), m_thumbnailModel(new ThumbnailModel(this))
+    : m_categories(new CategoryModel(this)), m_categoryItems(new ThumbnailModel(this)), m_thumbnailModel(new ThumbnailModel(this)),
+      m_discoveryModel(new DiscoveryModel(this))
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
@@ -26,6 +27,7 @@ RemoteInterface::RemoteInterface()
     connect(&ScreenInfo::instance(), &ScreenInfo::overviewIconSizeChanged, this, &RemoteInterface::requestHomePageImages);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
+    qRegisterMetaType<RemoteControl::DiscoveryModel*>("DiscoveryModel*");
 }
 
 void RemoteInterface::setCurrentPage(Page page)
@@ -56,6 +58,9 @@ void RemoteInterface::setHomePageImages(const HomePageData& command)
 
     m_kphotoalbumImage = command.kphotoalbumIcon;
     emit kphotoalbumImageChange();
+
+    m_discoveryImage = command.discoverIcon;
+    emit discoverImageChanged();
 }
 
 RemoteInterface& RemoteInterface::instance()
@@ -77,6 +82,11 @@ void RemoteInterface::sendCommand(const RemoteCommand& command)
 QString RemoteInterface::currentCategory() const
 {
     return m_search.currentCategory();
+}
+
+QImage RemoteInterface::discoveryImage() const
+{
+    return m_discoveryImage;
 }
 
 void RemoteInterface::goHome()
@@ -120,6 +130,11 @@ void RemoteInterface::showImage(int imageId)
     m_history.push(std::unique_ptr<Action>(new ShowImagesAction(imageId, m_search)));
 }
 
+void RemoteInterface::showDiscoveredImage(int imageId)
+{
+    m_history.push(std::unique_ptr<Action>(new ShowDiscoveredImage(imageId)));
+}
+
 void RemoteInterface::requestDetails(int imageId)
 {
     m_connection->sendCommand(RequestDetails(imageId));
@@ -134,6 +149,11 @@ void RemoteInterface::activateSearch(const QString& search)
     result.addCategory(category);
     result.addValue(item);
     m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(result)));
+}
+
+void RemoteInterface::doDiscover()
+{
+    m_history.push(std::unique_ptr<Action>(new DiscoverAction()));
 }
 
 void RemoteInterface::setCurrentView(int imageId)

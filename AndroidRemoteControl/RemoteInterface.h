@@ -5,6 +5,7 @@
 #include "RemoteCommand.h"
 #include "SearchInfo.h"
 #include "ThumbnailModel.h"
+#include "DiscoveryModel.h"
 
 #include <QObject>
 #include <QMap>
@@ -27,15 +28,18 @@ class RemoteInterface : public QObject
     Q_PROPERTY(ThumbnailModel* categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
+    Q_PROPERTY(QImage discover MEMBER m_discoveryImage NOTIFY discoverImageChanged)
     Q_PROPERTY(RemoteControl::Types::Page currentPage MEMBER m_currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
     Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
+    Q_PROPERTY(DiscoveryModel* discoveryModel MEMBER m_discoveryModel NOTIFY discoveryModelChanged)
 
 public:
     static RemoteInterface& instance();
     bool isConnected() const;
     void sendCommand(const RemoteCommand& command);
     QString currentCategory() const;
+    QImage discoveryImage() const;
 
 public slots:
     void goHome();
@@ -45,8 +49,10 @@ public slots:
     void selectCategoryValue(const QString& value);
     void showThumbnails();
     void showImage(int imageId);
+    void showDiscoveredImage(int imageId);
     void requestDetails(int imageId);
     void activateSearch(const QString& search);
+    void doDiscover();
 
 signals:
     void connectionChanged();
@@ -59,8 +65,11 @@ signals:
     void jumpToImage(int index);
     void listCategoryValuesChanged();
 
+    void discoverImageChanged();
+    void discoveryModelChanged();
+
 public:
-    void setCurrentView(int imageIf);
+    void setCurrentView(int imageId);
 
 private slots:
     void requestInitialData();
@@ -73,6 +82,7 @@ private slots:
 private:
     RemoteInterface();
     friend class Action;
+    friend class ShowDiscoveredImage; // FIXME: REMOVE
     void setCurrentPage(Page page);
     void setListCategoryValues(const QStringList& values);
     void setHomePageImages(const HomePageData& command);
@@ -87,6 +97,8 @@ private:
     ThumbnailModel* m_thumbnailModel;
     History m_history;
     QStringList m_listCategoryValues;
+    QImage m_discoveryImage;
+    DiscoveryModel* m_discoveryModel;
 };
 
 }

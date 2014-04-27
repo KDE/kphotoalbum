@@ -6,6 +6,7 @@ PinchArea {
     property alias model : grid.model
     property int type
     property bool showLabels : false
+    readonly property int itemsPerPage : Math.floor(root.width/grid.cellWidth) * Math.floor(root.height/grid.cellHeight)
     signal clicked(int imageId, string label)
 
     pinch.minimumScale: 0.1
@@ -26,6 +27,7 @@ PinchArea {
 
         cellWidth: imageWidth() + padding()
         cellHeight: imageWidth() + padding() + (root.showLabels ? 30 : 0)
+
         delegate:
             Column {
 

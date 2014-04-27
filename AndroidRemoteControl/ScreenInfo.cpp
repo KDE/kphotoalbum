@@ -33,6 +33,8 @@ void ScreenInfo::setScreen(QScreen* screen)
     m_screen = screen;
     QSize size = pixelForSizeInMM(100,100);
     m_dotsPerMM = (size.width() + size.height()) / 2 / 100;
+
+    m_overviewIconSize = pixelForSizeInMM(20,20).width();
 }
 
 QSize ScreenInfo::pixelForSizeInMM(int width, int height)
@@ -86,7 +88,6 @@ void ScreenInfo::updateLayout()
     if (m_categoryCount == 0 || m_overviewScreenWidth == 0)
         return;
 
-    m_overviewIconSize = pixelForSizeInMM(20,20).width();
     m_overviewSpacing = m_overviewIconSize/2;
 
     const int possibleCols = floor(2.0 * m_overviewScreenWidth / m_overviewIconSize +1) / 3.0;

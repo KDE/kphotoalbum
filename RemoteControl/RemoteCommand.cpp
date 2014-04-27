@@ -133,8 +133,8 @@ void CategoryListCommand::decode(QDataStream& stream)
 }
 
 
-SearchCommand::SearchCommand(SearchType type, const SearchInfo& searchInfo)
-    :RemoteCommand(id()), type(type), searchInfo(searchInfo)
+SearchCommand::SearchCommand(SearchType type, const SearchInfo& searchInfo, int size)
+    :RemoteCommand(id()), type(type), searchInfo(searchInfo), size(size)
 {
 }
 
@@ -145,12 +145,12 @@ QString SearchCommand::id()
 
 void SearchCommand::encode(QDataStream& stream) const
 {
-    stream << (int) type << searchInfo;
+    stream << (int) type << searchInfo << size;
 }
 
 void SearchCommand::decode(QDataStream& stream)
 {
-    stream >> (int&) type >> searchInfo;
+    stream >> (int&) type >> searchInfo >> size;
 }
 
 

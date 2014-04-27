@@ -88,12 +88,13 @@ public:
 class SearchCommand :public RemoteCommand
 {
 public:
-    SearchCommand(SearchType type = {}, const SearchInfo& searchInfo = {});
+    SearchCommand(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
     SearchType type;
     SearchInfo searchInfo;
+    int size; // Only used for SearchType::Categories
 };
 
 class SearchResultCommand :public RemoteCommand

@@ -107,7 +107,6 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
 
 void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 {
-    const int THUMBNAILSIZE = 70;
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
 
     CategoryListCommand command;
@@ -121,7 +120,7 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
                 (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
                 ? Types::CategoryIconView : Types::CategoryListView;
 
-        const QImage icon = category->icon(THUMBNAILSIZE, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
+        const QImage icon = category->icon(search.size, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
         command.categories.append({category->name(), category->text(), icon, enabled, type});
     }
     m_connection->sendCommand(command);

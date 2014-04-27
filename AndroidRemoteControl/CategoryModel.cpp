@@ -38,10 +38,8 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
         return item.name;
     else if (role == TextRole)
         return item.text;
-    else if (role == IconRole) {
-        int size = ScreenInfo::instance().overviewIconSize();
-        return item.icon.scaled(size,size,Qt::KeepAspectRatio);
-    }
+    else if (role == IconRole)
+        return item.icon;
     else if (role == EnabledRole)
         return item.enabled;
     else if (role == TypeRole)

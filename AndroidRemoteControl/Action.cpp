@@ -18,6 +18,8 @@
 
 #include "Action.h"
 #include "RemoteInterface.h"
+#include "ScreenInfo.h"
+
 
 namespace RemoteControl {
 
@@ -58,7 +60,8 @@ ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
 
 void ShowOverviewAction::execute()
 {
-    sendCommand(SearchCommand(SearchType::Categories, m_searchInfo));
+    int size = ScreenInfo::instance().overviewIconSize();
+    sendCommand(SearchCommand(SearchType::Categories, m_searchInfo, size));
     setCurrentPage(Page::OverviewPage);
 }
 

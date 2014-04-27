@@ -1,0 +1,8 @@
+* Overview page needs better layouting, including being possible to scale by the user
+See ScreenInfo.cpp
+
+* When resizing the thumbnail view, it should scale to the nearest full cell size to use the space optimal
+
+* The History should not include every thing
+
+*

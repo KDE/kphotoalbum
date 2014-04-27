@@ -32,7 +32,11 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 
 void RemoteImage::paint(QPainter* painter)
 {
-    painter->drawImage((width() - m_image.width()) / 2, height() - m_image.height(), m_image);
+    const int x = (width() - m_image.width()) / 2;
+    int y = height() - m_image.height();
+    if (m_type == ViewType::Images)
+        y /= 2;
+    painter->drawImage(x, y, m_image);
 }
 
 int RemoteImage::imageId() const

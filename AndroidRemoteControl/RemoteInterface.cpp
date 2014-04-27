@@ -89,6 +89,16 @@ QImage RemoteInterface::discoveryImage() const
     return m_discoveryImage;
 }
 
+void RemoteInterface::setActiveThumbnailModel(RemoteInterface::ModelType type)
+{
+    ThumbnailModel* newModel = (type == ModelType::Thumbnail ? m_thumbnailModel : m_discoveryModel);
+    if (newModel != m_activeThumbnailModel) {
+        m_activeThumbnailModel = newModel;
+        activeThumbnailModelChanged();
+    }
+    m_activeThumbnailModel->setImages({});
+}
+
 void RemoteInterface::goHome()
 {
     requestInitialData();
@@ -158,7 +168,7 @@ void RemoteInterface::doDiscover()
 
 void RemoteInterface::setCurrentView(int imageId)
 {
-    emit jumpToImage(m_thumbnailModel->indexOf(imageId));
+    emit jumpToImage(m_activeThumbnailModel->indexOf(imageId));
 }
 
 void RemoteInterface::requestInitialData()

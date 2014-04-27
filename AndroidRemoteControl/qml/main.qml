@@ -43,7 +43,7 @@ Item {
             if (imageId == -1000 /* DISCOVERYID*/)
                 model.resetImages()
             else
-                _remoteInterface.showDiscoveredImage(imageId)
+                _remoteInterface.showImage(imageId)
         }
 
         Binding {

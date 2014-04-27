@@ -14,12 +14,10 @@ public:
     void run();
 
 protected:
-    enum class ModelType {Thumbnail,Discovery};
     virtual void execute() = 0;
     void setCurrentPage(Page page);
     void sendCommand(const RemoteCommand& command);
     void clearCategoryModel();
-    void setActiveModel(ModelType type);
     SearchInfo m_searchInfo;
 };
 

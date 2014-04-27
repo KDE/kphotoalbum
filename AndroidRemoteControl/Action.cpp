@@ -31,15 +31,6 @@ void Action::clearCategoryModel()
 }
 
 
-void Action::setActiveModel(Action::ModelType type)
-{
-    RemoteInterface& interface = RemoteInterface::instance();
-    interface.m_activeThumbnailModel =
-            (type == ModelType::Thumbnail ? interface.m_thumbnailModel : interface.m_discoveryModel);
-    interface.m_activeThumbnailModel->setImages({});
-}
-
-
 
 
 ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
@@ -76,7 +67,7 @@ ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
 void ShowThumbnailsAction::execute()
 {
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
-    setActiveModel(ModelType::Thumbnail);
+    RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
 }
 
@@ -99,7 +90,7 @@ DiscoverAction::DiscoverAction(const SearchInfo& searchInfo)
 void DiscoverAction::execute()
 {
     setCurrentPage(Page::DiscoverPage);
-    setActiveModel(ModelType::Discovery);
+    RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Discovery);
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
 }
 

@@ -3,7 +3,7 @@ import KPhotoAlbum 1.0
 
 ListView {
     id: root
-    model: _remoteInterface.thumbnailModel
+    model: _remoteInterface.activeThumbnailModel
     snapMode: ListView.SnapToItem
     orientation: ListView.Horizontal
     flickDeceleration: 20000

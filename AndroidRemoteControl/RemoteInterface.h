@@ -33,6 +33,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
     Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
     Q_PROPERTY(DiscoveryModel* discoveryModel MEMBER m_discoveryModel NOTIFY discoveryModelChanged)
+    Q_PROPERTY(ThumbnailModel* activeThumbnailModel MEMBER m_activeThumbnailModel NOTIFY activeThumbnailModelChanged)
 
 public:
     static RemoteInterface& instance();
@@ -40,6 +41,9 @@ public:
     void sendCommand(const RemoteCommand& command);
     QString currentCategory() const;
     QImage discoveryImage() const;
+
+    enum class ModelType {Thumbnail,Discovery};
+    void setActiveThumbnailModel(ModelType);
 
 public slots:
     void goHome();
@@ -67,6 +71,8 @@ signals:
 
     void discoverImageChanged();
     void discoveryModelChanged();
+
+    void activeThumbnailModelChanged();
 
 public:
     void setCurrentView(int imageId);

@@ -28,7 +28,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY(ThumbnailModel* categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
     Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
     Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
-    Q_PROPERTY(QImage discover MEMBER m_discoveryImage NOTIFY discoverImageChanged)
+    Q_PROPERTY(QImage discoveryImage MEMBER m_discoveryImage NOTIFY discoveryImageChanged)
     Q_PROPERTY(RemoteControl::Types::Page currentPage MEMBER m_currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(ThumbnailModel* thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
     Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
@@ -53,10 +53,9 @@ public slots:
     void selectCategoryValue(const QString& value);
     void showThumbnails();
     void showImage(int imageId);
-    void showDiscoveredImage(int imageId);
     void requestDetails(int imageId);
     void activateSearch(const QString& search);
-    void doDiscover();
+    void doDiscovery();
 
 signals:
     void connectionChanged();
@@ -69,7 +68,7 @@ signals:
     void jumpToImage(int index);
     void listCategoryValuesChanged();
 
-    void discoverImageChanged();
+    void discoveryImageChanged();
     void discoveryModelChanged();
 
     void activeThumbnailModelChanged();
@@ -88,7 +87,6 @@ private slots:
 private:
     RemoteInterface();
     friend class Action;
-    friend class ShowDiscoveredImage; // FIXME: REMOVE
     void setCurrentPage(Page page);
     void setListCategoryValues(const QStringList& values);
     void setHomePageImages(const HomePageData& command);

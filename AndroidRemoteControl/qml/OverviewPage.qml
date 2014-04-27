@@ -41,9 +41,9 @@ Flickable {
 
         Icon {
             text: "Discover"
-            icon: _remoteInterface.discover
+            icon: _remoteInterface.discoveryImage
             width: _screenInfo.overviewIconSize
-            onClicked: _remoteInterface.doDiscover()
+            onClicked: _remoteInterface.doDiscovery()
         }
 
         Icon {

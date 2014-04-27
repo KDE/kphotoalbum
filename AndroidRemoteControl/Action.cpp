@@ -94,13 +94,4 @@ void DiscoverAction::execute()
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
 }
 
-void ShowDiscoveredImage::execute()
-{
-    setCurrentPage(Page::ImageViewerPage);
-    // FIXME: We should do this from action to limit friendship
-    // besides, I wonderif messing with m_thumbnailModel is the right thing
-    RemoteInterface::instance().m_thumbnailModel->setImages({m_imageId});
-}
-
-
 } // namespace RemoteControl

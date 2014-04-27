@@ -60,7 +60,7 @@ void RemoteInterface::setHomePageImages(const HomePageData& command)
     emit kphotoalbumImageChange();
 
     m_discoveryImage = command.discoverIcon;
-    emit discoverImageChanged();
+    emit discoveryImageChanged();
 }
 
 RemoteInterface& RemoteInterface::instance()
@@ -140,11 +140,6 @@ void RemoteInterface::showImage(int imageId)
     m_history.push(std::unique_ptr<Action>(new ShowImagesAction(imageId, m_search)));
 }
 
-void RemoteInterface::showDiscoveredImage(int imageId)
-{
-    m_history.push(std::unique_ptr<Action>(new ShowDiscoveredImage(imageId)));
-}
-
 void RemoteInterface::requestDetails(int imageId)
 {
     m_connection->sendCommand(RequestDetails(imageId));
@@ -161,7 +156,7 @@ void RemoteInterface::activateSearch(const QString& search)
     m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(result)));
 }
 
-void RemoteInterface::doDiscover()
+void RemoteInterface::doDiscovery()
 {
     m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search)));
 }

@@ -69,18 +69,6 @@ protected:
     void execute() override;
 };
 
-class ShowDiscoveredImage :public Action
-{
-public:
-    ShowDiscoveredImage(ImageId imageId) : Action({}), m_imageId(imageId) {}
-
-protected:
-    void execute() override;
-
-private:
-    ImageId m_imageId;
-};
-
 } // namespace RemoteControl
 
 #endif // REMOTECONTROL_ACTION_H

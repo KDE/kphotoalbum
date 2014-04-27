@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import KPhotoAlbum 1.0
+import QtQuick.Controls 1.1
 
 PinchArea {
     id: root
@@ -42,6 +43,7 @@ PinchArea {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: root.clicked(parent.imageId,parent.label)
+                    onPressAndHold: menu.popup()
                 }
             }
             Text {
@@ -55,6 +57,19 @@ PinchArea {
     }
     ScrollBar {
         flickable: grid
+    }
+
+    Menu {
+        id: menu
+        title: "Context Menu"
+        MenuItem {
+            text: "Narrow"
+            onTriggered: _remoteInterface.showOverviewPage()
+        }
+        MenuItem {
+            text: "Go Home"
+            onTriggered: _remoteInterface.goHome()
+        }
     }
 
     function imageWidth() {

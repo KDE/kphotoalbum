@@ -127,7 +127,7 @@ void RemoteInterface::selectCategory(const QString& category, int type)
 void RemoteInterface::selectCategoryValue(const QString& value)
 {
     m_search.addValue(value);
-    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction(m_search)));
+    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(m_search)));
 }
 
 void RemoteInterface::showThumbnails()
@@ -159,6 +159,11 @@ void RemoteInterface::activateSearch(const QString& search)
 void RemoteInterface::doDiscovery()
 {
     m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search)));
+}
+
+void RemoteInterface::showOverviewPage()
+{
+    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction(m_search)));
 }
 
 void RemoteInterface::setCurrentView(int imageId)

@@ -56,6 +56,7 @@ public slots:
     void requestDetails(int imageId);
     void activateSearch(const QString& search);
     void doDiscovery();
+    void showOverviewPage();
 
 signals:
     void connectionChanged();

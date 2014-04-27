@@ -75,16 +75,14 @@ void RemoteImage::componentComplete()
 
 void RemoteImage::requestImage()
 {
-    if (m_imageId == DISCOVERYID) {
-        m_image = RemoteInterface::instance().discoveryImage();
-        update();
-        return;
-    }
-
     if (!isComponentComplete())
         return;
-    m_image = {};
-    ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+    if (m_imageId == DISCOVERYID)
+        m_image = RemoteInterface::instance().discoveryImage().scaled(size(), Qt::KeepAspectRatio);
+    else {
+        m_image = {};
+        ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+    }
     update();
 }
 

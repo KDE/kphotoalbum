@@ -99,6 +99,7 @@ private:
     QStringList m_listCategoryValues;
     QImage m_discoveryImage;
     DiscoveryModel* m_discoveryModel;
+    ThumbnailModel* m_activeThumbnailModel = nullptr;
 };
 
 }

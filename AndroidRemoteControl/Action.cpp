@@ -30,9 +30,13 @@ void Action::clearCategoryModel()
     RemoteInterface::instance().m_categoryItems->setImages({});
 }
 
-void Action::clearThumbnailsModel()
+
+void Action::setActiveModel(Action::ModelType type)
 {
-    RemoteInterface::instance().m_thumbnailModel->setImages({});
+    RemoteInterface& interface = RemoteInterface::instance();
+    interface.m_activeThumbnailModel =
+            (type == ModelType::Thumbnail ? interface.m_thumbnailModel : interface.m_discoveryModel);
+    interface.m_activeThumbnailModel->setImages({});
 }
 
 
@@ -72,7 +76,7 @@ ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
 void ShowThumbnailsAction::execute()
 {
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
-    clearThumbnailsModel();
+    setActiveModel(ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
 }
 
@@ -87,9 +91,16 @@ void ShowImagesAction::execute()
     RemoteInterface::instance().setCurrentView(m_imageId);
 }
 
+DiscoverAction::DiscoverAction(const SearchInfo& searchInfo)
+ : Action(searchInfo)
+{
+}
+
 void DiscoverAction::execute()
 {
     setCurrentPage(Page::DiscoverPage);
+    setActiveModel(ModelType::Discovery);
+    sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
 }
 
 void ShowDiscoveredImage::execute()

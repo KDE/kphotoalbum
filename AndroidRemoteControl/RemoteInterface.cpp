@@ -153,7 +153,7 @@ void RemoteInterface::activateSearch(const QString& search)
 
 void RemoteInterface::doDiscover()
 {
-    m_history.push(std::unique_ptr<Action>(new DiscoverAction()));
+    m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search)));
 }
 
 void RemoteInterface::setCurrentView(int imageId)
@@ -200,7 +200,7 @@ void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
 void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
 {
     if (result.type == SearchType::Images) {
-        m_thumbnailModel->setImages(result.result);
+        m_activeThumbnailModel->setImages(result.result);
     }
     else if (result.type == SearchType::CategoryItems) {
         m_categoryItems->setImages(result.result);

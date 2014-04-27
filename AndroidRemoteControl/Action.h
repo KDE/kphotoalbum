@@ -14,12 +14,12 @@ public:
     void run();
 
 protected:
+    enum class ModelType {Thumbnail,Discovery};
     virtual void execute() = 0;
     void setCurrentPage(Page page);
     void sendCommand(const RemoteCommand& command);
     void clearCategoryModel();
-    void clearThumbnailsModel();
-
+    void setActiveModel(ModelType type);
     SearchInfo m_searchInfo;
 };
 
@@ -65,7 +65,7 @@ private:
 class DiscoverAction :public Action
 {
 public:
-    DiscoverAction() : Action({}) {}
+    DiscoverAction(const SearchInfo& searchInfo);
 
 protected:
     void execute() override;

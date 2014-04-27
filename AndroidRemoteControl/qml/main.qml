@@ -52,10 +52,6 @@ Item {
             value: discoveryPage.itemsPerPage-1
             when: discoveryPage.visible
         }
-        onVisibleChanged: {
-            if(visible)
-                _remoteInterface.discoveryModel.resetImages()
-        }
      }
 
     ImageViewer {

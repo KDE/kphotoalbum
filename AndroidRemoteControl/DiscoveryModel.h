@@ -13,6 +13,7 @@ class DiscoveryModel : public ThumbnailModel
 public:
     DiscoveryModel(QObject* parent);
     int count() const;
+    void setImages(const QList<int>&images) override;
 
 public slots:
     void setCount(int arg);
@@ -22,7 +23,8 @@ signals:
     void countChanged();
 
 private:
-    int m_count;
+    int m_count = 0;
+    QList<int> m_allImages;
 };
 
 } // namespace RemoteControl

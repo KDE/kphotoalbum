@@ -15,10 +15,10 @@ public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     RoleMap roleNames() const override;
-    void setImages(const QList<int>&image);
+    virtual void setImages(const QList<int>&image);
     int indexOf(int imageId);
 
-private:
+protected:
     QList<int> m_images;
 };
 

@@ -17,6 +17,7 @@ public:
 private slots:
     void on();
     void off();
+    void wait();
     void waitingAnimation();
 
 private:

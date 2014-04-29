@@ -23,7 +23,7 @@ ConnectionIndicator::ConnectionIndicator(QWidget* parent) :
                     "The android client can be downloaded from google play."));
 
     connect(&RemoteInterface::instance(), SIGNAL(connected()), this, SLOT(on()));
-    connect(&RemoteInterface::instance(), SIGNAL(disConnected()), this, SLOT(off()));
+    connect(&RemoteInterface::instance(), SIGNAL(disConnected()), this, SLOT(wait()));
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(waitingAnimation()));
@@ -34,9 +34,8 @@ ConnectionIndicator::ConnectionIndicator(QWidget* parent) :
 void ConnectionIndicator::mouseReleaseEvent(QMouseEvent*)
 {
     if (m_state == Off) {
-        m_timer->start(300);
-        m_state = Connecting;
         RemoteInterface::instance().listen();
+        wait();
     }
     else {
         RemoteInterface::instance().stopListening();
@@ -87,8 +86,7 @@ void ConnectionIndicator::contextMenuEvent(QContextMenuEvent*)
 
     if (code == QDialog::Accepted) {
         RemoteInterface::instance().connectTo(QHostAddress(edit.text()));
-        m_timer->start(300);
-        m_state = Connecting;
+        wait();
         Settings::SettingsData::instance()->setRecentAndroidAddress(edit.text());
     }
 }
@@ -104,6 +102,12 @@ void ConnectionIndicator::off()
 {
     m_state = Off;
     setPixmap(KIcon(QString::fromUtf8("network-disconnect")).pixmap(32,32));
+}
+
+void ConnectionIndicator::wait()
+{
+    m_timer->start(300);
+    m_state = Connecting;
 }
 
 void ConnectionIndicator::waitingAnimation()

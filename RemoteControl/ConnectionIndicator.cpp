@@ -8,6 +8,8 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QHostAddress>
+#include "Settings/SettingsData.h"
+#include <QValidator>
 
 namespace RemoteControl {
 
@@ -44,12 +46,37 @@ void ConnectionIndicator::mouseReleaseEvent(QMouseEvent*)
     }
 }
 
+class IPValidator :public QValidator
+{
+protected:
+    virtual State validate ( QString& input, int& ) const {
+        for ( int pos = 0; pos<15;pos+=4 ) {
+            bool ok1;
+            int i = input.mid(pos,1).toInt(&ok1);
+            bool ok2;
+            int j = input.mid(pos+1,1).toInt(&ok2);
+            bool ok3;
+            int k = input.mid(pos+2,1).toInt(&ok3);
+
+            if ( ( ok1 && i > 2 ) ||
+                 ( ok1 && ok2 && i == 2 && j > 5 ) ||
+                 (ok1 && ok2 && ok3 && i*100+j*10+k > 255 ) )
+                return Invalid;
+        }
+        return Acceptable;
+    }
+};
+
+
 void ConnectionIndicator::contextMenuEvent(QContextMenuEvent*)
 {
     QDialog dialog;
     QLabel label(i18n("Android device address: "), &dialog);
     QLineEdit edit(&dialog);
-    edit.setText(QString::fromUtf8("192.168.42.129"));
+    edit.setInputMask(QString::fromUtf8("000.000.000.000;_"));
+    edit.setText(Settings::SettingsData::instance()->recentAndroidAddress());
+    IPValidator validator;
+    edit.setValidator(&validator);
 
     QHBoxLayout layout(&dialog);
     layout.addWidget(&label);
@@ -62,6 +89,7 @@ void ConnectionIndicator::contextMenuEvent(QContextMenuEvent*)
         RemoteInterface::instance().connectTo(QHostAddress(edit.text()));
         m_timer->start(300);
         m_state = Connecting;
+        Settings::SettingsData::instance()->setRecentAndroidAddress(edit.text());
     }
 }
 

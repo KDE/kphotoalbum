@@ -52,6 +52,7 @@ class RemoteInterface : public QObject
     Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
     Q_PROPERTY(DiscoveryModel* discoveryModel MEMBER m_discoveryModel NOTIFY discoveryModelChanged)
     Q_PROPERTY(ThumbnailModel* activeThumbnailModel MEMBER m_activeThumbnailModel NOTIFY activeThumbnailModelChanged)
+    Q_PROPERTY(QString networkAddress READ networkAddress NOTIFY networkAddressChanged)
 
 public:
     static RemoteInterface& instance();
@@ -91,9 +92,11 @@ signals:
     void discoveryModelChanged();
 
     void activeThumbnailModelChanged();
+    void networkAddressChanged();
 
 public:
     void setCurrentView(int imageId);
+    QString networkAddress() const;
 
 private slots:
     void requestInitialData();

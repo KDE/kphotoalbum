@@ -29,8 +29,10 @@
 #include <ScreenInfo.h>
 #include "Action.h"
 #include <QCoreApplication>
+#include <QHostInfo>
 #include <memory>
 #include "ImageDetails.h"
+#include <QNetworkInterface>
 
 using namespace RemoteControl;
 
@@ -187,6 +189,17 @@ void RemoteInterface::showOverviewPage()
 void RemoteInterface::setCurrentView(int imageId)
 {
     emit jumpToImage(m_activeThumbnailModel->indexOf(imageId));
+}
+
+QString RemoteInterface::networkAddress() const
+{
+    QStringList result;
+    for (const QHostAddress& address : QNetworkInterface::allAddresses()) {
+        if (address.isLoopback() || address.toIPv4Address() == 0)
+            continue;
+        result.append(address.toString());
+    }
+    return result.join(QStringLiteral(", "));
 }
 
 void RemoteInterface::requestInitialData()

@@ -33,7 +33,6 @@ public:
     bool isConnected() const override;
 
 signals:
-    void connectionChanged();
     void gotConnected();
     void disconnected();
 

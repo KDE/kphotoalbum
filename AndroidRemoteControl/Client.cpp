@@ -38,7 +38,7 @@ bool Client::isConnected() const
     return m_socket != nullptr;
 }
 
-QTcpSocket*Client::socket()
+QTcpSocket* Client::socket()
 {
     return m_socket;
 }
@@ -49,7 +49,6 @@ void Client::acceptConnection()
     m_socket = m_server.nextPendingConnection();
     connect(m_socket, &QTcpSocket::disconnected, this, &Client::disconnect);
     connect(m_socket, &QTcpSocket::readyRead, this, &Client::dataReceived);
-    emit connectionChanged();
     emit gotConnected();
 }
 
@@ -65,6 +64,5 @@ void Client::disconnect()
     m_timer.start(500);
     m_socket->deleteLater();
     m_socket = nullptr;
-    emit connectionChanged();
     emit disconnected();
 }

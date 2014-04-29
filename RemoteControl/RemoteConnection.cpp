@@ -62,11 +62,15 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
 void RemoteConnection::dataReceived()
 {
-    QDataStream stream(socket());
+    QTcpSocket* socket = this->socket();
+    if (!socket)
+        return;
 
-    while (socket()->bytesAvailable()) {
+    QDataStream stream(socket);
+
+    while (socket->bytesAvailable()) {
         if (m_state == WaitingForLength) {
-            if (socket()->bytesAvailable() < (qint64) sizeof(qint32))
+            if (socket->bytesAvailable() < (qint64) sizeof(qint32))
                 return;
 
             stream >> m_length;
@@ -75,11 +79,11 @@ void RemoteConnection::dataReceived()
         }
 
         if (m_state == WaitingForData) {
-            if (socket()->bytesAvailable() < m_length)
+            if (socket->bytesAvailable() < m_length)
                 return;
 
             m_state = WaitingForLength;
-            QByteArray data = socket()->read(m_length);
+            QByteArray data = socket->read(m_length);
             Q_ASSERT(data.length() == m_length);
 
             QBuffer buffer(&data);

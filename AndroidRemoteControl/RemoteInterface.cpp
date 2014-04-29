@@ -42,9 +42,10 @@ RemoteInterface::RemoteInterface()
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
-    connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
+    connect(m_connection, &Client::gotConnected,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     connect(m_connection, &Client::disconnected, this, &RemoteInterface::gotDisconnected);
+    connect(m_connection, &Client::disconnected, this, &RemoteInterface::connectionChanged);
     connect(&ScreenInfo::instance(), &ScreenInfo::overviewIconSizeChanged, this, &RemoteInterface::requestHomePageImages);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");

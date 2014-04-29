@@ -26,6 +26,7 @@
 #include <QHostAddress>
 #include "ImageManager/ImageClientInterface.h"
 
+class QHostAddress;
 
 namespace RemoteControl
 {
@@ -38,10 +39,16 @@ public:
     static RemoteInterface& instance();
     void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image);
     bool requestStillNeeded(const DB::FileName& fileName);
-
+    void listen();
+    void stopListening();
+    void connectTo(const QHostAddress& address);
 
 private slots:
     void handleCommand(const RemoteCommand&);
+
+signals:
+    void connected();
+    void disConnected();
 
 private:
     explicit RemoteInterface(QObject *parent = 0);

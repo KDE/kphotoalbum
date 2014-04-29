@@ -56,8 +56,9 @@ RemoteInterface& RemoteInterface::instance()
 RemoteInterface::RemoteInterface(QObject *parent) :
     QObject(parent), m_connection(new Server(this))
 {
-    m_connection->listen();
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
+    connect(m_connection, SIGNAL(connected()), this, SIGNAL(connected()));
+    connect(m_connection, SIGNAL(disConnected()), this, SIGNAL(disConnected()));
 }
 
 DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
@@ -81,6 +82,21 @@ void RemoteInterface::pixmapLoaded(ImageManager::ImageRequest* request, const QI
 bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
 {
     return m_activeReuqest.contains(fileName);
+}
+
+void RemoteInterface::listen()
+{
+    m_connection->listen();
+}
+
+void RemoteInterface::stopListening()
+{
+    m_connection->stopListening();
+}
+
+void RemoteInterface::connectTo(const QHostAddress& address)
+{
+    m_connection->connectToTcpServer(address);
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)

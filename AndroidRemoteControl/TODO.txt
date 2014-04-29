@@ -5,4 +5,10 @@ See ScreenInfo.cpp
 
 * The History should not include every thing
 
-*
+* Add indicator that there is a connection to the desktop app
+
+* Add a favorits category that can be added to from the app
+
+* Add a tool button for toggling listening for the android app
+
+* Consider adding breadcrums

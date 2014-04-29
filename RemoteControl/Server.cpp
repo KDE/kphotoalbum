@@ -45,6 +45,14 @@ void Server::listen()
     }
 }
 
+void Server::stopListening()
+{
+    delete m_socket;
+    m_socket = nullptr;
+    delete m_tcpSocket;
+    m_tcpSocket = nullptr;
+}
+
 QTcpSocket*Server::socket()
 {
     return m_tcpSocket;
@@ -79,13 +87,20 @@ void Server::readIncommingUDP()
 void Server::connectToTcpServer(const QHostAddress& address)
 {
     m_tcpSocket = new QTcpSocket;
-    connect(m_tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
+    connect(m_tcpSocket, SIGNAL(connected()), this, SLOT(gotConnected()));
     connect(m_tcpSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
     m_tcpSocket->connectToHost(address, TCPPORT);
+    connect(m_tcpSocket, SIGNAL(disconnected()), this, SLOT(lostConnection()));
 }
 
-void Server::connected()
+void Server::gotConnected()
 {
     m_isConnected = true;
-    emit gotConnection();
+    emit connected();
+}
+
+void Server::lostConnection()
+{
+    m_isConnected = false;
+    emit disConnected();
 }

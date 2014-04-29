@@ -32,15 +32,18 @@ public:
     explicit Server(QObject *parent = 0);
     bool isConnected() const override;
     void listen();
+    void stopListening();
     QTcpSocket* socket() override;
+    void connectToTcpServer(const QHostAddress& address);
 
 signals:
-    void gotConnection();
+    void connected();
+    void disConnected();
 
 private slots:
     void readIncommingUDP();
-    void connectToTcpServer(const QHostAddress& address);
-    void connected();
+    void gotConnected();
+    void lostConnection();
 
 private:
     QUdpSocket* m_socket = nullptr;

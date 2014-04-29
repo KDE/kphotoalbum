@@ -333,6 +333,7 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
 )
 
 add_subdirectory( images )

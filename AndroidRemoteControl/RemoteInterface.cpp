@@ -44,6 +44,7 @@ RemoteInterface::RemoteInterface()
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, &Client::connectionChanged,this, &RemoteInterface::connectionChanged);
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
+    connect(m_connection, &Client::disconnected, this, &RemoteInterface::gotDisconnected);
     connect(&ScreenInfo::instance(), &ScreenInfo::overviewIconSizeChanged, this, &RemoteInterface::requestHomePageImages);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
@@ -69,6 +70,11 @@ void RemoteInterface::setListCategoryValues(const QStringList& values)
 void RemoteInterface::requestHomePageImages()
 {
     m_connection->sendCommand(RequestHomePageImages(ScreenInfo::instance().overviewIconSize()));
+}
+
+void RemoteInterface::gotDisconnected()
+{
+    setCurrentPage(Page::UnconnectedPage);
 }
 
 void RemoteInterface::setHomePageImages(const HomePageData& command)

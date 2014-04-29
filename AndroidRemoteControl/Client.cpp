@@ -66,4 +66,5 @@ void Client::disconnect()
     m_socket->deleteLater();
     m_socket = nullptr;
     emit connectionChanged();
+    emit disconnected();
 }

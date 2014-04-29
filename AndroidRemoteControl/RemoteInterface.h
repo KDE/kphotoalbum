@@ -105,7 +105,7 @@ private slots:
     void updateCategoryList(const CategoryListCommand&);
     void gotSearchResult(const SearchResultCommand&);
     void requestHomePageImages();
-
+    void gotDisconnected();
 private:
     RemoteInterface();
     friend class Action;

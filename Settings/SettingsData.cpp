@@ -159,6 +159,7 @@ property_copy( backupCount           , setBackupCount           , int           
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
 property_copy( excludeDirectories    , setExcludeDirectories    , QString       , General, QString::fromLatin1("xml,ThumbNails,.thumbs") )
 property_copy( recentAndroidAddress  , setRecentAndroidAddress  , QString       , General, QString()                  )
+property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, true);
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )

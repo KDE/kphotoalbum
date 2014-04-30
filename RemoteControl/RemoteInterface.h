@@ -49,6 +49,7 @@ private slots:
 signals:
     void connected();
     void disConnected();
+    void listening();
 
 private:
     explicit RemoteInterface(QObject *parent = 0);

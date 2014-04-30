@@ -24,6 +24,7 @@ ConnectionIndicator::ConnectionIndicator(QWidget* parent) :
 
     connect(&RemoteInterface::instance(), SIGNAL(connected()), this, SLOT(on()));
     connect(&RemoteInterface::instance(), SIGNAL(disConnected()), this, SLOT(wait()));
+    connect(&RemoteInterface::instance(), SIGNAL(listening()), this, SLOT(wait()));
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(waitingAnimation()));

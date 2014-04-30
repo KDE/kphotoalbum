@@ -87,6 +87,7 @@ bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
 void RemoteInterface::listen()
 {
     m_connection->listen();
+    emit listening();
 }
 
 void RemoteInterface::stopListening()

@@ -52,6 +52,7 @@ private:
     QSpinBox* _barHeight;
     QCheckBox* _showSplashScreen;
     QComboBox* _albumCategory;
+    QCheckBox* _listenForAndroidDevicesOnStartup;
 };
 }
 

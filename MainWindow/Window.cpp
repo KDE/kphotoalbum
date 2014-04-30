@@ -121,6 +121,7 @@
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include "UpdateVideoThumbnail.h"
 #include "DuplicateMerger/DuplicateMerger.h"
+#include "RemoteControl/RemoteInterface.h"
 
 using namespace DB;
 
@@ -259,6 +260,9 @@ void MainWindow::Window::delayedInit()
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
 #endif
+
+    if (Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+        RemoteControl::RemoteInterface::instance().listen();
 }
 
 

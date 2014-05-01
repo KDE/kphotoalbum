@@ -8,5 +8,6 @@
         <file>qml/ScrollBar.qml</file>
         <file>qml/ImageDetails.qml</file>
         <file>qml/CategoryListView.qml</file>
+        <file>qml/Zoomable.qml</file>
     </qresource>
 </RCC>

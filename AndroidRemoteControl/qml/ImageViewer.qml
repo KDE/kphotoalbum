@@ -27,39 +27,78 @@ ListView {
     flickDeceleration: 20000
     highlightMoveDuration: 200
     highlightRangeMode: ListView.StrictlyEnforceRange
-    interactive: currentItem && currentItem.scale <= 1 // Only swipe when zoomed out
+    interactive: currentItem && currentItem.isZoomedOut
 
-    ImageDetails {
-        id: details
-        anchors.centerIn: parent
-        imageId: currentItem ? currentItem.imageId : -1
-    }
+//    ImageDetails {
+//        id: details
+//        anchors.centerIn: parent
+//        imageId: currentItem ? currentItem.imageId : -1
+//    }
 
-    delegate: RemoteImage {
+    delegate: Zoomable {
         width: root.width
         height: root.height
-        imageId: model.imageId
-        type: Enums.Images
-        PinchArea {
-            pinch.target: parent
-            anchors.fill: parent
-            pinch.minimumScale: 1
-            pinch.maximumScale: 10
-            pinch.dragAxis: Pinch.XandYAxis
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if ( mouse.x < root.width/2 )
-                        root.decrementCurrentIndex()
-                    else
-                        root.incrementCurrentIndex()
-                }
-                onPressAndHold: details.show()
-
-            }
+        fitOnScreen: true
+        //property alias imageId : remoteImage.imageId
+        sourceComponent: RemoteImage {
+            id: remoteImage
+            imageId: model.imageId
+            type: Enums.Images
         }
     }
+
+//        Flickable {
+//        width: root.width
+//        height: root.height
+//        contentWidth: root.width
+//        contentHeight: root.height
+//        onContentWidthChanged: console.log("ContentsWidth: "  + contentWidth)
+
+//        id: flick
+//        property alias imageId : remoteImage.imageId
+//        RemoteImage {
+//            id: remoteImage
+//            width: root.width
+//            height: root.height
+//            imageId: model.imageId
+//            type: Enums.Images
+//            PinchArea {
+//                width: Math.max(flick.contentWidth, flick.width)
+//                height: Math.max(flick.contentHeight, flick.height)
+
+//                property real initialWidth
+//                property real initialHeight
+//                onInitialWidthChanged: console.log("initialWithd: " + initialWidth)
+
+//                //pinch.target: parent
+////                anchors.fill: parent
+//                pinch.minimumScale: 1
+//                pinch.maximumScale: 10
+//                pinch.dragAxis: Pinch.XandYAxis
+
+//                onPinchStarted: {
+//                    initialWidth = flick.contentWidth
+//                    initialHeight = flick.contentHeight
+//                }
+
+//                onPinchUpdated: {
+//                    flick.contentX += pinch.previousCenter.x - pinch.center.x
+//                    flick.contentY += pinch.previousCenter.y - pinch.center.y
+//                    flick.resizeContent(initialWidth * pinch.scale, initialHeight * pinch.scale, pinch.center)
+//                }
+//                MouseArea {
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        if ( mouse.x < root.width/2 )
+//                            root.decrementCurrentIndex()
+//                        else
+//                            root.incrementCurrentIndex()
+//                    }
+//                    onPressAndHold: details.show()
+//                }
+//            }
+//        }
+//    }
 
     Connections {
         target: _remoteInterface

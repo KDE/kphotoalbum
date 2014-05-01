@@ -202,8 +202,12 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
         const int angle = info->angle();
 
         m_activeReuqest.insert(fileName);
+
+        QSize size = command.size;
+        if (command.type == ViewType::Images )
+            size = info->size();
         RemoteImageRequest* request
-                = new RemoteImageRequest(fileName, command.size, angle, command.type, this);
+                = new RemoteImageRequest(fileName, size, angle, command.type, this);
 
         ImageManager::AsyncLoader::instance()->load(request);
     }

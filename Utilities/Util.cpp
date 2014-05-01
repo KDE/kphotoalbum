@@ -686,7 +686,7 @@ void Utilities::saveImage( const DB::FileName& fileName, const QImage& image, co
 {
     const QFileInfo info(fileName.absolute());
     QDir().mkpath(info.path());
-    const bool ok = image.save(fileName.absolute(),format);
+     const bool ok = image.save(fileName.absolute(),format);
     Q_ASSERT(ok); Q_UNUSED(ok);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

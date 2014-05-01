@@ -40,10 +40,20 @@ ListView {
         height: root.height
         fitOnScreen: true
         //property alias imageId : remoteImage.imageId
-        sourceComponent: RemoteImage {
-            id: remoteImage
-            imageId: model.imageId
-            type: Enums.Images
+        sourceComponent: Item {
+            id: delegateRoot
+            property QtObject sourceSize : QtObject {
+                readonly property int width: remoteImage.width
+                readonly property int height: remoteImage.height
+            }
+
+            RemoteImage {
+                id: remoteImage
+                scale: delegateRoot.width / width
+                transformOrigin: Item.TopLeft
+                imageId: model.imageId
+                type: Enums.Images
+            }
         }
     }
 

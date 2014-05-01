@@ -34,7 +34,7 @@ RemoteImage::RemoteImage(QQuickItem *parent) :
 void RemoteImage::paint(QPainter* painter)
 {
     qDebug("Painting %d x %d image is %d x %d", (int)width(),(int)height(),m_image.width(), m_image.height());
-    painter->drawImage(0,0, m_image.scaled(size()));
+    painter->drawImage(0,0, m_image);
     //    if (m_type == ViewType::Images)
 //        qDebug("Oainting: width=%d imageWidth:%d", (int) width(), m_image.width());
 //    const int x = (width() - m_image.width()) / 2;
@@ -66,6 +66,8 @@ void RemoteImage::setImage(const QImage& image)
 {
     m_sourceSize->setSize(image.size());
     m_image = image;
+    setWidth(image.width());
+    setHeight(image.height());
     update();
 }
 

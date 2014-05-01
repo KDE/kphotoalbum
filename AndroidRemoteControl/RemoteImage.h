@@ -25,31 +25,12 @@
 
 namespace RemoteControl {
 
-class Size :public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(int width MEMBER m_width NOTIFY widthChanged)
-    Q_PROPERTY(int height MEMBER m_height NOTIFY heightChanged)
-
-public:
-    void setSize(const QSize& size);
-
-signals:
-    void widthChanged();
-    void heightChanged();
-
-private:
-    int m_width = 2000;
-    int m_height = 2000;
-};
-
 class RemoteImage : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(int imageId READ imageId WRITE setImageId NOTIFY imageIdChanged)
     Q_PROPERTY(RemoteControl::Types::ViewType type MEMBER m_type NOTIFY typeChanged)
     Q_PROPERTY(QString label MEMBER m_label NOTIFY labelChanged)
-    Q_PROPERTY(RemoteControl::Size* sourceSize MEMBER m_sourceSize NOTIFY sourceSizeChanged)
 
 public:
     explicit RemoteImage(QQuickItem *parent = 0);
@@ -79,11 +60,8 @@ private:
     ViewType m_type;
     QString m_label;
     QImage m_image;
-    Size* m_sourceSize;
 };
 
 }
-
-Q_DECLARE_METATYPE(RemoteControl::Size*);
 
 #endif // REMOTEIMAGE_H

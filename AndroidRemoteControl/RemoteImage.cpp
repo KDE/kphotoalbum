@@ -25,23 +25,13 @@
 using namespace RemoteControl;
 
 RemoteImage::RemoteImage(QQuickItem *parent) :
-    QQuickPaintedItem(parent), m_sourceSize(new Size)
+    QQuickPaintedItem(parent)
 {
-    //connect(this, &RemoteImage::widthChanged, this, &RemoteImage::requestImage);
-    qRegisterMetaType<RemoteControl::Size*>("RemoteControl::Size*");
 }
 
 void RemoteImage::paint(QPainter* painter)
 {
-    qDebug("Painting %d x %d image is %d x %d", (int)width(),(int)height(),m_image.width(), m_image.height());
     painter->drawImage(0,0, m_image);
-    //    if (m_type == ViewType::Images)
-//        qDebug("Oainting: width=%d imageWidth:%d", (int) width(), m_image.width());
-//    const int x = (width() - m_image.width()) / 2;
-//    int y = height() - m_image.height();
-//    if (m_type == ViewType::Images)
-//        y /= 2;
-//    painter->drawImage(x, y, m_image);
 }
 
 int RemoteImage::imageId() const
@@ -64,7 +54,6 @@ void RemoteImage::setLabel(const QString& label)
 
 void RemoteImage::setImage(const QImage& image)
 {
-    m_sourceSize->setSize(image.size());
     m_image = image;
     setWidth(image.width());
     setHeight(image.height());
@@ -93,25 +82,7 @@ void RemoteImage::requestImage()
         m_image = RemoteInterface::instance().discoveryImage().scaled(size(), Qt::KeepAspectRatio);
     else {
         m_image = {};
-        if (m_type == ViewType::Images)
-            ImageStore::instance().requestImage(this, m_imageId, QSize(), m_type);
-        else
-            ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+        ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
     }
     update();
-}
-
-
-
-
-
-void Size::setSize(const QSize &size)
-{
-qDebug() << size;
-    if (size != QSize(m_width,m_height)) {
-        m_width = size.width();
-        m_height = size.height();
-        emit widthChanged();
-        emit heightChanged();
-    }
 }

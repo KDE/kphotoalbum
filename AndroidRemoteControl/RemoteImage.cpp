@@ -72,12 +72,17 @@ void RemoteImage::componentComplete()
 {
     QQuickPaintedItem::componentComplete();
     requestImage();
+    if (m_type != ViewType::Images)
+        connect(this, &RemoteImage::widthChanged, this, &RemoteImage::requestImage, Qt::QueuedConnection);
 }
 
 void RemoteImage::requestImage()
 {
     if (!isComponentComplete())
         return;
+    if (m_image.size() == size() && m_type != ViewType::Images)
+        return;
+
     if (m_imageId == DISCOVERYID)
         m_image = RemoteInterface::instance().discoveryImage().scaled(size(), Qt::KeepAspectRatio);
     else {

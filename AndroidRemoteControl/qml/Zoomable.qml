@@ -6,10 +6,11 @@ Item {
     // Should the image be fitted on the screen intially (so all of the image can be seen), or should we use all the screen space instead?
     property bool fitOnScreen: false
     property alias sourceComponent : target.sourceComponent
+    property bool isZoomedOut: flick.contentWidth <= initialWidth() && flick.contentHeight <= initialHeight()
 
     readonly property bool inPortraitMode: width < height
     onInPortraitModeChanged: returnToFullScreen()
-    property bool isZoomedOut: flick.contentWidth <= initialWidth() && flick.contentHeight <= initialHeight()
+
     Flickable {
         id: flick
         anchors.fill: parent
@@ -20,6 +21,7 @@ Item {
         contentHeight: initialHeight()
         leftMargin: -initialX()
         topMargin: -initialY()
+        interactive: !isZoomedOut
 
         Loader {
             id: target
@@ -30,12 +32,12 @@ Item {
                 width: Math.max(flick.contentWidth, flick.width)
                 height: Math.max(flick.contentHeight, flick.height)
 
-                property real initialWidth
-                property real initialHeight
+                property real initialZoomWidth
+                property real initialZoomHeight
 
                 onPinchStarted: {
-                    initialWidth = flick.contentWidth
-                    initialHeight = flick.contentHeight
+                    initialZoomWidth = flick.contentWidth
+                    initialZoomHeight = flick.contentHeight
 
                     // We need to disable the Flickable, otherwise it will move the item as soon as the first finger is released.
                     flick.interactive = false
@@ -44,16 +46,25 @@ Item {
                 onPinchUpdated: {
                     flick.contentX += pinch.previousCenter.x - pinch.center.x
                     flick.contentY += pinch.previousCenter.y - pinch.center.y
-                    flick.resizeContent(initialWidth * pinch.scale, initialHeight * pinch.scale, pinch.center)
+                    var width = initialZoomWidth * pinch.scale
+                    var height = initialZoomHeight * pinch.scale
+                    if (width < initialWidth())
+                        width = initialWidth()
+                    if (height < initialHeight())
+                        height = initialHeight()
+                    flick.resizeContent(width, height, pinch.center)
                 }
 
                 onPinchFinished: {
-                    flick.interactive = true
+                    flick.interactive = Qt.binding(function() { return !isZoomedOut })
+                    flick.returnToBounds()
                 }
+
 
                 MouseArea {
                     anchors.fill: parent
                     onDoubleClicked: returnToFullScreen()
+                    propagateComposedEvents: true
                 }
             }
         }

@@ -57,20 +57,26 @@ ListView {
             }
         }
     }
+
     MouseArea {
+        z: -1
+        anchors.fill: parent
+        onPressAndHold: details.show()
+    }
+
+    MouseArea {
+        z: -1
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left }
-        width: parent.width/10
+        width: parent.width/5
         onClicked: root.decrementCurrentIndex()
     }
 
     MouseArea {
+        z: -1
         anchors { top: parent.top; bottom: parent.bottom; right: parent.right }
-        width: parent.width/10
+        width: parent.width/5
         onClicked: root.incrementCurrentIndex()
     }
-
-    // FIXME: We need to add a menu key instead.
-    //    onPressAndHold: details.show()
 
     Connections {
         target: _remoteInterface

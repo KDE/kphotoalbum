@@ -25,8 +25,9 @@ Item {
     property alias sourceComponent : target.sourceComponent
     property bool isZoomedOut: flick.contentWidth <= initialWidth() && flick.contentHeight <= initialHeight()
 
+    signal zoomStarted()
+
     readonly property bool inPortraitMode: width < height
-    onInPortraitModeChanged: returnToFullScreen()
 
     Flickable {
         id: flick
@@ -56,13 +57,18 @@ Item {
                     initialZoomWidth = flick.contentWidth
                     initialZoomHeight = flick.contentHeight
 
+                    flick.contentWidth = Qt.binding(function() {return flick.contentItem.width})
+                    flick.contentHeight = Qt.binding(function() {return flick.contentItem.height})
+
                     // We need to disable the Flickable, otherwise it will move the item as soon as the first finger is released.
                     flick.interactive = false
+                    root.zoomStarted()
                 }
 
                 onPinchUpdated: {
                     flick.contentX += pinch.previousCenter.x - pinch.center.x
                     flick.contentY += pinch.previousCenter.y - pinch.center.y
+
                     var width = initialZoomWidth * pinch.scale
                     var height = initialZoomHeight * pinch.scale
                     if (width < initialWidth())

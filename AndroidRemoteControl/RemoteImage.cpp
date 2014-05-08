@@ -20,6 +20,7 @@
 #include "ImageStore.h"
 #include <QPainter>
 #include "RemoteInterface.h"
+#include "ScreenInfo.h"
 #include "Settings.h"
 
 using namespace RemoteControl;
@@ -41,7 +42,10 @@ int RemoteImage::imageId() const
 
 QSize RemoteImage::size() const
 {
-    return QSize(width(),height());
+    if (m_type == ViewType::Images)
+        return ScreenInfo::instance().viewSize();
+    else
+        return QSize(width(),height());
 }
 
 void RemoteImage::setLabel(const QString& label)
@@ -65,6 +69,14 @@ void RemoteImage::setImageId(int imageId)
     if (m_imageId != imageId) {
         m_imageId = imageId;
         emit imageIdChanged();
+    }
+}
+
+void RemoteImage::loadFullSize()
+{
+    if (!m_hasFullSizedImage) {
+        ImageStore::instance().requestImage(this, m_imageId, QSize(), m_type);
+        m_hasFullSizedImage = true;
     }
 }
 

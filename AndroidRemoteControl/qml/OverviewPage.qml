@@ -26,12 +26,6 @@ Flickable {
     contentHeight: grid.height
     flickableDirection: Flickable.VerticalFlick
 
-    Binding {
-        target: _screenInfo
-        property: "overviewScreenWidth"
-        value: root.width
-    }
-
     Grid {
         id: grid
         x: Math.max(0, (root.width - width) /2)

@@ -36,6 +36,7 @@ ListView {
     }
 
     delegate: Zoomable {
+        id: zoomable
         clip: true
         width: root.width
         height: root.height
@@ -54,6 +55,11 @@ ListView {
                 transformOrigin: Item.TopLeft
                 imageId: model.imageId
                 type: Enums.Images
+
+                Connections {
+                    target: zoomable
+                    onZoomStarted: remoteImage.loadFullSize()
+                }
             }
         }
     }

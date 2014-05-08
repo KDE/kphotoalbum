@@ -204,8 +204,10 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
         m_activeReuqest.insert(fileName);
 
         QSize size = command.size;
-        if (command.type == ViewType::Images )
+        if (size.isNull()) {
+            // Request for full screen image.
             size = info->size();
+        }
         RemoteImageRequest* request
                 = new RemoteImageRequest(fileName, size, angle, command.type, this);
 

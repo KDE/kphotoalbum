@@ -56,14 +56,19 @@ QSize ScreenInfo::screenSize() const
     return m_screen->geometry().size();
 }
 
+QSize ScreenInfo::viewSize() const
+{
+    return QSize(m_viewWidth, m_viewHeight);
+}
+
 int ScreenInfo::overviewIconSize() const
 {
     return m_overviewIconSize;
 }
 
-int ScreenInfo::overviewScreenWidth() const
+int ScreenInfo::viewWidth() const
 {
-    return m_overviewScreenWidth;
+    return m_viewWidth;
 }
 
 void ScreenInfo::setOverviewIconSize(int size)
@@ -74,23 +79,23 @@ void ScreenInfo::setOverviewIconSize(int size)
     }
 }
 
-void ScreenInfo::setOverviewScreenWidth(int width)
+void ScreenInfo::setViewWidth(int width)
 {
-    if (m_overviewScreenWidth != width) {
-        m_overviewScreenWidth = width;
+    if (m_viewWidth != width) {
+        m_viewWidth = width;
         updateLayout();
-        emit overviewScreenWidthChanged();
+        emit viewWidthChanged();
     }
 }
 
 void ScreenInfo::updateLayout()
 {
-    if (m_categoryCount == 0 || m_overviewScreenWidth == 0)
+    if (m_categoryCount == 0 || m_viewWidth == 0)
         return;
 
     m_overviewSpacing = m_overviewIconSize/2;
 
-    const int possibleCols = floor(2.0 * m_overviewScreenWidth / m_overviewIconSize +1) / 3.0;
+    const int possibleCols = floor(2.0 * m_viewWidth / m_overviewIconSize +1) / 3.0;
     // qDebug("%d %d => %d", m_overviewScreenWidth, m_overviewIconSize, possibleCols);
     const int preferredCols = ceil(sqrt(m_categoryCount+2));
 

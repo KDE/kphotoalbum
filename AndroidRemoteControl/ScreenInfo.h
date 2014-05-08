@@ -32,7 +32,9 @@ class ScreenInfo :public QObject
     Q_PROPERTY(int overviewIconSize READ overviewIconSize WRITE setOverviewIconSize NOTIFY overviewIconSizeChanged)
     Q_PROPERTY(int overviewColumnCount MEMBER m_overviewColumnCount NOTIFY overviewColumnCountChanged)
     Q_PROPERTY(int overviewSpacing MEMBER m_overviewSpacing NOTIFY overviewSpacingChanged)
-    Q_PROPERTY(int overviewScreenWidth READ overviewScreenWidth WRITE setOverviewScreenWidth NOTIFY overviewScreenWidthChanged)
+    Q_PROPERTY(int viewWidth READ viewWidth WRITE setViewWidth NOTIFY viewWidthChanged)
+    Q_PROPERTY(int viewWidth MEMBER m_viewWidth NOTIFY viewWidthChanged)
+    Q_PROPERTY(int viewHeight MEMBER m_viewHeight NOTIFY viewHeightChanged)
 
 public:
     static ScreenInfo& instance();
@@ -40,13 +42,14 @@ public:
     QSize pixelForSizeInMM(int width, int height);
     void setCategoryCount(int count);
     QSize screenSize() const;
+    QSize viewSize() const;
 
     int overviewIconSize() const;
-    int overviewScreenWidth() const;
+    int viewWidth() const;
 
 public slots:
     void setOverviewIconSize(int size);
-    void setOverviewScreenWidth(int width);
+    void setViewWidth(int width);
 
 private:
     void updateLayout();
@@ -54,7 +57,8 @@ signals:
     void overviewIconSizeChanged();    
     void overviewColumnCountChanged();
     void overviewSpacingChanged();
-    void overviewScreenWidthChanged();
+    void viewWidthChanged();
+    void viewHeightChanged();
 
 private:
     ScreenInfo() = default;
@@ -64,7 +68,8 @@ private:
     int m_overviewIconSize = 0;
     int m_overviewColumnCount = 0;
     int m_overviewSpacing = 0;
-    int m_overviewScreenWidth = 0;
+    int m_viewWidth = 0;
+    int m_viewHeight;
 };
 
 } // namespace RemoteControl

@@ -42,6 +42,7 @@ public:
 
 public slots:
     void setImageId(int imageId);
+    void loadFullSize();
 
 protected:
     void componentComplete();
@@ -60,6 +61,7 @@ private:
     ViewType m_type;
     QString m_label;
     QImage m_image;
+    bool m_hasFullSizedImage = false;
 };
 
 }

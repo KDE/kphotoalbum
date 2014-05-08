@@ -86,6 +86,18 @@ Item {
         font.pixelSize: 50
     }
 
+    Binding {
+        target: _screenInfo
+        property: "viewWidth"
+        value: width
+    }
+
+    Binding {
+        target: _screenInfo
+        property: "viewHeight"
+        value: height
+    }
+
     focus: true
     Keys.onReleased: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )

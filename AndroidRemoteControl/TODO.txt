@@ -7,6 +7,12 @@ See ScreenInfo.cpp
 
 * Add a favorits category that can be added to from the app
 
-* Add a tool button for toggling listening for the android app
-
 * Consider adding breadcrums
+
+* Discover view are reloaded when going back.
+
+* Sometimes swipe stops between two images.
+
+* video support
+
+* support tokens

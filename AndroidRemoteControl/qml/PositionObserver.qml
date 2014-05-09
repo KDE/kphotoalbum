@@ -19,17 +19,17 @@
 import QtQuick 2.0
 
 Item {
-    property GridView view
-    property int index: -1
+    property var view
+    property int index: 0
 
     Connections {
         target: view
-        onCountChanged: {
-            if (index != -1) {
-                view.positionViewAtIndex(index, GridView.Beginning)
-                index = -1
-            }
-        }
+        onCountChanged: scrollToStoredOffset()
+        onVisibleChanged: scrollToStoredOffset()
+    }
+
+    function scrollToStoredOffset() {
+        view.positionViewAtIndex(index, GridView.Beginning)
     }
 
     function getIndex() {

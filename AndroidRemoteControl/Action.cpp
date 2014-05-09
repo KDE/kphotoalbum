@@ -77,16 +77,21 @@ void ShowCategoryValueAction::execute()
     sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
     if (m_type == CategoryViewType::CategoryIconView) {
-        setCurrentPage(Page::CategoryItemsPage);
         PositionObserver::setCategoryIconViewOffset(m_index);
+        setCurrentPage(Page::CategoryItemsPage);
     }
-    else
+    else {
+        PositionObserver::setCategoryListViewOffset(m_index);
         setCurrentPage(Page::CategoryListPage);
+    }
 }
 
 void ShowCategoryValueAction::save()
 {
-    m_index = PositionObserver::categoryIconViewOffset();
+    if (m_type == CategoryViewType::CategoryIconView)
+        m_index = PositionObserver::categoryIconViewOffset();
+    else
+        m_index = PositionObserver::categoryListViewOffset();
 }
 
 ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)

@@ -52,6 +52,16 @@ int PositionObserver::thumbnailOffset()
     return getOffset("thumbnailsPage");
 }
 
+void PositionObserver::setCategoryListViewOffset(int index)
+{
+    setOffset("listViewPageObserver", index);
+}
+
+int PositionObserver::categoryListViewOffset()
+{
+    return getOffset("listViewPageObserver");
+}
+
 void RemoteControl::PositionObserver::setThumbnailOffset(int index)
 {
     setOffset("thumbnailsPage", index);

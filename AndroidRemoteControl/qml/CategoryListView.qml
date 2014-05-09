@@ -35,4 +35,9 @@ ListView {
     ScrollBar {
         flickable: root
     }
+
+    PositionObserver {
+        objectName: "listViewPageObserver"
+        view: parent
+    }
 }

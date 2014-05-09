@@ -15,6 +15,9 @@ public:
 
     static void setCategoryIconViewOffset(int index);
     static int categoryIconViewOffset();
+
+    static void setCategoryListViewOffset(int index);
+    static int categoryListViewOffset();
 };
 
 } // namespace RemoteControl

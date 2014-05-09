@@ -28,10 +28,9 @@
 #include "ScreenInfo.h"
 #include "ImageStore.h"
 #include "ImageDetails.h"
+#include "PositionObserver.h"
 
 using namespace RemoteControl;
-
-QQuickView* view = nullptr;
 
 int main(int argc, char *argv[])
 {
@@ -41,7 +40,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("KPhotoAlbum");
 
     QQuickView viewer;
-    view = &viewer;
+    PositionObserver::setView(&viewer);
+
     ScreenInfo::instance().setScreen(viewer.screen());
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 

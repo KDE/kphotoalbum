@@ -19,10 +19,7 @@
 #include "Action.h"
 #include "RemoteInterface.h"
 #include "ScreenInfo.h"
-#include <QQuickView>
-#include <QQmlEngine>
-#include <QQmlContext>
-#include <QQuickItem>
+#include "PositionObserver.h"
 
 extern QQuickView* view;
 
@@ -95,16 +92,13 @@ void ShowThumbnailsAction::execute()
     sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
-    QQuickItem* item = view->rootObject()->findChild<QQuickItem*>("thumbnailsPage");
-    item->setProperty("index", m_index);
+
+    PositionObserver::setThumbnailOffset(m_index);
 }
 
 void ShowThumbnailsAction::save()
 {
-    QQuickItem* item = view->rootObject()->findChild<QQuickItem*>("thumbnailsPage");
-    QVariant value;
-    QMetaObject::invokeMethod(item, "getIndex", Qt::DirectConnection, Q_RETURN_ARG(QVariant, value));
-    m_index = value.value<int>();
+    m_index = PositionObserver::thumbnailOffset();
 }
 
 ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo& searchInfo)

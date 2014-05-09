@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     History.cpp \
     ThumbnailModel.cpp \
     ImageDetails.cpp \
-    DiscoveryModel.cpp
+    DiscoveryModel.cpp \
+    PositionObserver.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -52,6 +53,7 @@ HEADERS += \
     History.h \
     ThumbnailModel.h \
     ImageDetails.h \
-    DiscoveryModel.h
+    DiscoveryModel.h \
+    PositionObserver.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

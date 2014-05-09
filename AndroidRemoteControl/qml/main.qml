@@ -48,6 +48,11 @@ Item {
         type: Enums.Thumbnails
         showLabels: false
         onClicked: _remoteInterface.showImage(imageId)
+
+        PositionObserver {
+            objectName: "thumbnailsPage"
+            view: parent.grid
+        }
     }
 
     ThumbnailsPage {

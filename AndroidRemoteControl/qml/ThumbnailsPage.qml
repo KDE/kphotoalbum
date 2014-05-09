@@ -25,6 +25,7 @@ PinchArea {
     property alias model : grid.model
     property int type
     property bool showLabels : false
+    property Flickable grid : grid
     readonly property int itemsPerPage : Math.floor(root.width/grid.cellWidth) * Math.floor(root.height/grid.cellHeight)
     signal clicked(int imageId, string label)
 

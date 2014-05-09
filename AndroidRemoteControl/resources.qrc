@@ -9,5 +9,6 @@
         <file>qml/ImageDetails.qml</file>
         <file>qml/CategoryListView.qml</file>
         <file>qml/Zoomable.qml</file>
+        <file>qml/PositionObserver.qml</file>
     </qresource>
 </RCC>

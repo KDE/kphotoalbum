@@ -30,6 +30,7 @@ class Action
 public:
     Action(const SearchInfo& searchInfo);
     void run();
+    virtual void save() {};
 
 protected:
     virtual void execute() = 0;
@@ -65,6 +66,9 @@ public:
     ShowThumbnailsAction(const SearchInfo& searchInfo);
 protected:
     void execute() override;
+    void save() override;
+private:
+    int m_index = 0;
 };
 
 

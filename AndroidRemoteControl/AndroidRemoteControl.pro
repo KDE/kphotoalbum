@@ -29,7 +29,8 @@ OTHER_FILES += \
     qml/ScrollBar.qml \
     android/AndroidManifest.xml \
     qml/ImageDetails.qml \
-    qml/CategoryListView.qml
+    qml/CategoryListView.qml \
+    qml/PositionObserver.qml
 
 RESOURCES += \
     resources.qrc

@@ -32,6 +32,8 @@ void History::push(std::unique_ptr<Action> action)
 
 void History::goForward()
 {
+    if (m_current)
+        m_current->save();
     m_backward.push(std::move(m_current));
     m_current = std::move(m_forward.top());
     m_forward.pop();
@@ -40,6 +42,8 @@ void History::goForward()
 
 void History::goBackward()
 {
+    if (m_current)
+        m_current->save();
     m_forward.push(std::move(m_current));
     m_current = std::move(m_backward.top());
     m_backward.pop();

@@ -54,8 +54,11 @@ public:
     ShowCategoryValueAction(const SearchInfo& searchInfo, CategoryViewType type);
 protected:
     void execute() override;
+    void save() override;
+
 private:
     CategoryViewType m_type;
+    int m_index = 0;
 };
 
 

@@ -26,6 +26,7 @@ Item {
     }
 
     ThumbnailsPage {
+        name: "categoryPage"
         visible: _remoteInterface.currentPage == Enums.CategoryItemsPage
         anchors.fill: parent
         model: visible ? _remoteInterface.categoryItems : undefined
@@ -42,17 +43,13 @@ Item {
     }
 
     ThumbnailsPage {
+        name: "thumbnailsPage"
         visible: _remoteInterface.currentPage == Enums.ThumbnailsPage
         anchors.fill: parent
         model: _remoteInterface.thumbnailModel
         type: Enums.Thumbnails
         showLabels: false
         onClicked: _remoteInterface.showImage(imageId)
-
-        PositionObserver {
-            objectName: "thumbnailsPage"
-            view: parent.grid
-        }
     }
 
     ThumbnailsPage {

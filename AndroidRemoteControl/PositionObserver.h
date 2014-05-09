@@ -9,8 +9,12 @@ class PositionObserver
 {
 public:
     static void setView(QQuickView* view);
+
     static void setThumbnailOffset(int index);
     static int thumbnailOffset();
+
+    static void setCategoryIconViewOffset(int index);
+    static int categoryIconViewOffset();
 };
 
 } // namespace RemoteControl

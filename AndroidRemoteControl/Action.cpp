@@ -76,10 +76,17 @@ void ShowCategoryValueAction::execute()
 {
     sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
-    if (m_type == CategoryViewType::CategoryIconView)
+    if (m_type == CategoryViewType::CategoryIconView) {
         setCurrentPage(Page::CategoryItemsPage);
+        PositionObserver::setCategoryIconViewOffset(m_index);
+    }
     else
         setCurrentPage(Page::CategoryListPage);
+}
+
+void ShowCategoryValueAction::save()
+{
+    m_index = PositionObserver::categoryIconViewOffset();
 }
 
 ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)

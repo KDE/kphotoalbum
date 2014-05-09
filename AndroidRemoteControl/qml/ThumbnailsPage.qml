@@ -25,7 +25,7 @@ PinchArea {
     property alias model : grid.model
     property int type
     property bool showLabels : false
-    property Flickable grid : grid
+    property alias name : observer.objectName
     readonly property int itemsPerPage : Math.floor(root.width/grid.cellWidth) * Math.floor(root.height/grid.cellHeight)
     signal clicked(int imageId, string label)
 
@@ -89,6 +89,11 @@ PinchArea {
             text: "Go Home"
             onTriggered: _remoteInterface.goHome()
         }
+    }
+
+    PositionObserver {
+        id: observer
+        view: grid
     }
 
     function imageWidth() {

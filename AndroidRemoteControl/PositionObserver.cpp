@@ -19,16 +19,42 @@ void PositionObserver::setView(QQuickView *view)
     m_view = view;
 }
 
+void setOffset(const QString& view, int index)
+{
+    QQuickItem* item = findItem(view);
+    Q_ASSERT(item);
+    item->setProperty("index", index);
+}
+
+int getOffset(const QString& view)
+{
+    QQuickItem* item = findItem(view);
+    Q_ASSERT(item);
+
+    QVariant value;
+    QMetaObject::invokeMethod(item, "getIndex", Qt::DirectConnection, Q_RETURN_ARG(QVariant, value));
+
+    return value.value<int>();
+}
+
+void PositionObserver::setCategoryIconViewOffset(int index)
+{
+    setOffset("categoryPage", index);
+}
+
+int PositionObserver::categoryIconViewOffset()
+{
+    return getOffset("categoryPage");
+}
+
 int PositionObserver::thumbnailOffset()
 {
-    QVariant value;
-    QMetaObject::invokeMethod(findItem("thumbnailsPage"), "getIndex", Qt::DirectConnection, Q_RETURN_ARG(QVariant, value));
-    return value.value<int>();
+    return getOffset("thumbnailsPage");
 }
 
 void RemoteControl::PositionObserver::setThumbnailOffset(int index)
 {
-    findItem("thumbnailsPage")->setProperty("index", index);
+    setOffset("thumbnailsPage", index);
 }
 
 } // namespace RemoteControl

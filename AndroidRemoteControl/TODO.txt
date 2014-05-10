@@ -13,6 +13,6 @@ See ScreenInfo.cpp
 
 * video support
 
-* support tokens
+* support search (actually just with a scrubber I think)
 
-* support search
+* Cross for image details are too small

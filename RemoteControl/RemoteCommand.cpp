@@ -51,7 +51,7 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new CategoryItems
                  << new RequestHomePageImages
                  << new HomePageData
-                 << new SetTokenCommand;
+                 << new ToggleTokenCommand;
                 // Remember to bounce the protocol version number
 
         for (RemoteCommand* command : commands )
@@ -353,22 +353,22 @@ void HomePageData::decode(QDataStream& stream)
 }
 
 
-SetTokenCommand::SetTokenCommand(ImageId imageId, const QString &token)
-    :RemoteCommand(id()), imageId(imageId), token(token)
+ToggleTokenCommand::ToggleTokenCommand(ImageId imageId, const QString &token, State state)
+    :RemoteCommand(id()), imageId(imageId), token(token), state(state)
 {
 }
 
-QString SetTokenCommand::id()
+QString ToggleTokenCommand::id()
 {
     return QString::fromUtf8("SetTokenCommand");
 }
 
-void SetTokenCommand::encode(QDataStream &stream) const
+void ToggleTokenCommand::encode(QDataStream &stream) const
 {
-    stream << imageId << token;
+    stream << imageId << token << (int) state;
 }
 
-void SetTokenCommand::decode(QDataStream &stream)
+void ToggleTokenCommand::decode(QDataStream &stream)
 {
-    stream >> imageId >> token;
+    stream >> imageId >> token >> (int&) state;
 }

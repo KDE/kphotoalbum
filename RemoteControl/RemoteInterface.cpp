@@ -120,8 +120,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         sendImageDetails(static_cast<const RequestDetails&>(command));
     else if (command.id() == RequestHomePageImages::id())
         sendHomePageImages(static_cast<const RequestHomePageImages&>(command));
-    else if (command.id() == SetTokenCommand::id())
-        setToken(static_cast<const SetTokenCommand&>(command));
+    else if (command.id() == ToggleTokenCommand::id())
+        setToken(static_cast<const ToggleTokenCommand&>(command));
 }
 
 
@@ -233,7 +233,6 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     result.description = info->description();
     result.categories.clear();
     for (const QString& category : info->availableCategories()) {
-        if (!DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->isSpecialCategory())
             result.categories[category] = info->itemsOfCategory(category).toList();
     }
 
@@ -251,10 +250,13 @@ void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
     m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
 }
 
-void RemoteInterface::setToken(const SetTokenCommand& command)
+void RemoteInterface::setToken(const ToggleTokenCommand& command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    info->addCategoryInfo(QString::fromUtf8("Tokens"), command.token);
+    if (command.state == ToggleTokenCommand::On)
+        info->addCategoryInfo(QString::fromUtf8("Tokens"), command.token);
+    else
+        info->removeCategoryInfo(QString::fromUtf8("Tokens"), command.token);
     MainWindow::DirtyIndicator::markDirty();
 }

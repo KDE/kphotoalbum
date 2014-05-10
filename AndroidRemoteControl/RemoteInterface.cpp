@@ -195,7 +195,12 @@ void RemoteInterface::showOverviewPage()
 
 void RemoteInterface::setToken(int imageId, const QString &token)
 {
-    sendCommand(SetTokenCommand(imageId, token));
+    sendCommand(ToggleTokenCommand(imageId, token, ToggleTokenCommand::On));
+}
+
+void RemoteInterface::removeToken(int imageId, const QString &token)
+{
+    sendCommand(ToggleTokenCommand(imageId, token, ToggleTokenCommand::Off));
 }
 
 void RemoteInterface::setCurrentView(int imageId)
@@ -214,6 +219,11 @@ QString RemoteInterface::networkAddress() const
     return result.join(QStringLiteral(", "));
 }
 
+QStringList RemoteInterface::tokens() const
+{
+    return ImageDetails::instance().itemsOfCategory(QStringLiteral("Tokens"));
+}
+
 void RemoteInterface::requestInitialData()
 {
     m_history.push(std::unique_ptr<Action>(new ShowOverviewAction({})));
@@ -229,8 +239,10 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         gotSearchResult(static_cast<const SearchResultCommand&>(command));
     else if (command.id() == TimeCommand::id())
         ; // Used for debugging, it will print time stamp when decoded
-    else if (command.id() == ImageDetailsCommand::id())
+    else if (command.id() == ImageDetailsCommand::id()) {
         ImageDetails::instance().setData(static_cast<const ImageDetailsCommand&>(command));
+        emit tokensChanged();
+    }
     else if (command.id() == CategoryItems::id())
         setListCategoryValues(static_cast<const CategoryItems&>(command).items);
     else if (command.id() == HomePageData::id())

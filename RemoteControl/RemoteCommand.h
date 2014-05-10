@@ -200,16 +200,18 @@ public:
     QImage discoverIcon;
 };
 
-class SetTokenCommand :public RemoteCommand
+class ToggleTokenCommand :public RemoteCommand
 {
 public:
-    SetTokenCommand(ImageId imageId = {}, const QString& token = {});
+    enum State {On, Off};
+    ToggleTokenCommand(ImageId imageId = {}, const QString& token = {}, State state = {});
     static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
 
     ImageId imageId;
     QString token;
+    State state;
 };
 
 }

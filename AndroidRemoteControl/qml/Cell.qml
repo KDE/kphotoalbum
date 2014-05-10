@@ -3,16 +3,27 @@ import QtQuick 2.0
 Rectangle {
     id: root
     property alias text : text.text
+    property bool isSelected: false
+
+    signal selected()
+    signal deselected()
     signal clicked()
-    color: "#AA000000"
+
+    color: isSelected ? "#DD000000" : "#DD888888"
     border { color: "black"; width: 2}
     Text {
         id: text
         anchors.centerIn: parent
-        color: "white"
+        color: isSelected ? "white" : "black"
     }
     MouseArea {
         anchors.fill: parent
-        onClicked: root.clicked()
+        onClicked: {
+            if (isSelected)
+                /*emit*/ root.deselected()
+            else
+                /*emit*/ root.selected()
+            /*emit*/ root.clicked()
+        }
     }
 }

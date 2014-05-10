@@ -4,9 +4,23 @@ Item {
     id: root
 
     signal letterSelected(string letter)
+    signal letterDeselected(string letter)
+    property var selected
 
-    width: grid.width
-    height: grid.height
+    width: childrenRect.width
+    height: childrenRect.height
+    opacity: visible ? 1 : 0
+    Behavior on opacity { NumberAnimation { duration: 200 } }
+
+    Cell {
+        anchors {
+            left: grid.left
+            right: grid.right
+            bottom: grid.top
+        }
+        height: cellSize()
+        text: "Select Token"
+    }
 
     Grid {
         id: grid
@@ -18,8 +32,13 @@ Item {
                 width: cellSize()
                 height: cellSize()
                 text: modelData
-                onClicked: {
+                isSelected: hasKey(root.selected, modelData)
+                onSelected: {
                     letterSelected(modelData)
+                    root.visible = false
+                }
+                onDeselected: {
+                    letterDeselected(modelData)
                     root.visible = false
                 }
             }
@@ -37,5 +56,14 @@ Item {
 
     function cellSize() {
         return Math.min(_screenInfo.viewWidth, _screenInfo.viewHeight) / 10
+    }
+
+    function hasKey(array, key) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === key) {
+                return true;
+            }
+        }
+        return false;
     }
 }

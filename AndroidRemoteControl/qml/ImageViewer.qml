@@ -101,10 +101,19 @@ ListView {
         }
     }
 
+    MouseArea {
+        enabled: keyboard.visible
+        anchors.fill: parent
+        onClicked: keyboard.visible = false
+    }
+
     Keyboard {
         id: keyboard
         anchors.centerIn: parent
         visible: false
+        onVisibleChanged: _remoteInterface.requestDetails(root.currentItem.imageId)
         onLetterSelected: _remoteInterface.setToken(root.currentItem.imageId, letter)
+        onLetterDeselected: _remoteInterface.removeToken(root.currentItem.imageId, letter)
+        selected: _remoteInterface.tokens
     }
 }

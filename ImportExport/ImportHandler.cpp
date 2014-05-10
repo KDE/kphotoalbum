@@ -115,7 +115,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         if ( i == 1 )
             src = src2;
 
-        src.setFileName( fileName.absolute() );
+        src.setFileName( fileName.relative() );
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );

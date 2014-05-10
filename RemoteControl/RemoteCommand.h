@@ -33,7 +33,7 @@
 namespace RemoteControl
 {
 
-const int VERSION = 3;
+const int VERSION = 4;
 
 class RemoteCommand
 {
@@ -198,6 +198,18 @@ public:
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
+};
+
+class SetTokenCommand :public RemoteCommand
+{
+public:
+    SetTokenCommand(ImageId imageId = {}, const QString& token = {});
+    static QString id();
+    void encode(QDataStream& stream) const override;
+    void decode(QDataStream& stream) override;
+
+    ImageId imageId;
+    QString token;
 };
 
 }

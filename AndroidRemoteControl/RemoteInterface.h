@@ -76,6 +76,7 @@ public slots:
     void activateSearch(const QString& search);
     void doDiscovery();
     void showOverviewPage();
+    void setToken(int imageId, const QString& token);
 
 signals:
     void connectionChanged();

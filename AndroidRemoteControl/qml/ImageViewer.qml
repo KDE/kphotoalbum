@@ -84,6 +84,13 @@ ListView {
         onClicked: root.incrementCurrentIndex()
     }
 
+    MouseArea {
+        z: -1
+        anchors { top: parent.top; left: parent.left; right: parent.right }
+        height: parent.height/5
+        onClicked: keyboard.visible = true
+    }
+
     Connections {
         target: _remoteInterface
         onJumpToImage: {
@@ -92,5 +99,12 @@ ListView {
             root.currentIndex = index
             root.highlightMoveDuration = tmp
         }
+    }
+
+    Keyboard {
+        id: keyboard
+        anchors.centerIn: parent
+        visible: false
+        onLetterSelected: _remoteInterface.setToken(root.currentItem.imageId, letter)
     }
 }

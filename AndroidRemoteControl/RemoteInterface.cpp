@@ -193,6 +193,11 @@ void RemoteInterface::showOverviewPage()
     m_history.push(std::unique_ptr<Action>(new ShowOverviewAction(m_search)));
 }
 
+void RemoteInterface::setToken(int imageId, const QString &token)
+{
+    sendCommand(SetTokenCommand(imageId, token));
+}
+
 void RemoteInterface::setCurrentView(int imageId)
 {
     emit jumpToImage(m_activeThumbnailModel->indexOf(imageId));

@@ -50,7 +50,8 @@ RemoteCommand& RemoteCommand::command(const QString& id)
                  << new ImageDetailsCommand
                  << new CategoryItems
                  << new RequestHomePageImages
-                 << new HomePageData;
+                 << new HomePageData
+                 << new SetTokenCommand;
                 // Remember to bounce the protocol version number
 
         for (RemoteCommand* command : commands )
@@ -349,4 +350,25 @@ void HomePageData::encode(QDataStream& stream) const
 void HomePageData::decode(QDataStream& stream)
 {
     stream >> homeIcon >> kphotoalbumIcon >> discoverIcon;
+}
+
+
+SetTokenCommand::SetTokenCommand(ImageId imageId, const QString &token)
+    :RemoteCommand(id()), imageId(imageId), token(token)
+{
+}
+
+QString SetTokenCommand::id()
+{
+    return QString::fromUtf8("SetTokenCommand");
+}
+
+void SetTokenCommand::encode(QDataStream &stream) const
+{
+    stream << imageId << token;
+}
+
+void SetTokenCommand::decode(QDataStream &stream)
+{
+    stream >> imageId >> token;
 }

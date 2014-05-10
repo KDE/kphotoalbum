@@ -44,6 +44,7 @@
 #include <algorithm>
 
 #include "ImageManager/AsyncLoader.h"
+#include "MainWindow/DirtyIndicator.h"
 
 using namespace RemoteControl;
 
@@ -119,6 +120,8 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         sendImageDetails(static_cast<const RequestDetails&>(command));
     else if (command.id() == RequestHomePageImages::id())
         sendHomePageImages(static_cast<const RequestHomePageImages&>(command));
+    else if (command.id() == SetTokenCommand::id())
+        setToken(static_cast<const SetTokenCommand&>(command));
 }
 
 
@@ -246,4 +249,12 @@ void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
     QPixmap discoverIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
 
     m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
+}
+
+void RemoteInterface::setToken(const SetTokenCommand& command)
+{
+    const DB::FileName fileName = m_imageNameStore[command.imageId];
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    info->addCategoryInfo(QString::fromUtf8("Tokens"), command.token);
+    MainWindow::DirtyIndicator::markDirty();
 }

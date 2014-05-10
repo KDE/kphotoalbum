@@ -9,10 +9,10 @@ See ScreenInfo.cpp
 
 * Consider adding breadcrums
 
-* Discover view are reloaded when going back.
-
 * Sometimes swipe stops between two images.
 
 * video support
 
 * support tokens
+
+* support search

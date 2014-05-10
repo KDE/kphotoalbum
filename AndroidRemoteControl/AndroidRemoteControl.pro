@@ -31,7 +31,9 @@ OTHER_FILES += \
     android/AndroidManifest.xml \
     qml/ImageDetails.qml \
     qml/CategoryListView.qml \
-    qml/PositionObserver.qml
+    qml/PositionObserver.qml \
+    qml/Keyboard.qml \
+    qml/Cell.qml
 
 RESOURCES += \
     resources.qrc

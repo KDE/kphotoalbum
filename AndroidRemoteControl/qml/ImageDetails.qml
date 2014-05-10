@@ -85,7 +85,9 @@ Rectangle {
         }
 
         MouseArea {
-            anchors.fill: parent
+            x: -50; y: -50
+            width: parent.width+100
+            height: parent.height+100
             onClicked: hide()
         }
     }

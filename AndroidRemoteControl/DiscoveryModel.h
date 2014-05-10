@@ -23,6 +23,8 @@
 
 namespace RemoteControl {
 
+class DiscoverAction;
+
 class DiscoveryModel : public ThumbnailModel
 {
     Q_OBJECT
@@ -32,6 +34,8 @@ public:
     DiscoveryModel(QObject* parent);
     int count() const;
     void setImages(const QList<int>&images) override;
+    void setCurrentSelection(const QList<int>& selection, const QList<int>& allImages);
+    void setCurrentAction(DiscoverAction* action);
 
 public slots:
     void setCount(int arg);
@@ -42,6 +46,7 @@ signals:
 
 private:
     int m_count = 0;
+    DiscoverAction* m_action = nullptr;
     QList<int> m_allImages;
 };
 

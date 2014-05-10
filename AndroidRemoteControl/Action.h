@@ -20,6 +20,7 @@
 #define REMOTECONTROL_ACTION_H
 
 #include <QString>
+#include "DiscoveryModel.h"
 #include "RemoteCommand.h"
 #include "Types.h"
 
@@ -88,10 +89,14 @@ private:
 class DiscoverAction :public Action
 {
 public:
-    DiscoverAction(const SearchInfo& searchInfo);
+    DiscoverAction(const SearchInfo& searchInfo, DiscoveryModel* model);
+    void setCurrentSelection(const QList<int>& selection, const QList<int>& allImages);
 
 protected:
     void execute() override;
+    QList<int> m_currentSelection;
+    QList<int> m_allImages;
+    DiscoveryModel* m_model;
 };
 
 } // namespace RemoteControl

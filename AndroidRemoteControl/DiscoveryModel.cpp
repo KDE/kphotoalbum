@@ -18,6 +18,7 @@
 
 #include "DiscoveryModel.h"
 #include "Types.h"
+#include "Action.h"
 
 namespace RemoteControl {
 
@@ -35,6 +36,17 @@ void DiscoveryModel::setImages(const QList<int>& images)
 {
     m_allImages = images;
     resetImages();
+}
+
+void DiscoveryModel::setCurrentSelection(const QList<int> &selection, const QList<int> &allImages)
+{
+    ThumbnailModel::setImages(selection);
+    m_allImages = allImages;
+}
+
+void DiscoveryModel::setCurrentAction(DiscoverAction *action)
+{
+    m_action = action;
 }
 
 void DiscoveryModel::setCount(int count)
@@ -56,7 +68,7 @@ void DiscoveryModel::resetImages()
     result = result.mid(0,m_count);
     result.push_front(DISCOVERYID);
     ThumbnailModel::setImages(result);
-
+    m_action->setCurrentSelection(result, m_allImages);
 }
 
 } // namespace RemoteControl

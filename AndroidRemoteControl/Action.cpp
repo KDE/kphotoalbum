@@ -124,16 +124,27 @@ void ShowImagesAction::execute()
     RemoteInterface::instance().setCurrentView(m_imageId);
 }
 
-DiscoverAction::DiscoverAction(const SearchInfo& searchInfo)
- : Action(searchInfo)
+DiscoverAction::DiscoverAction(const SearchInfo& searchInfo, DiscoveryModel* model)
+ : Action(searchInfo), m_model(model)
 {
+}
+
+void DiscoverAction::setCurrentSelection(const QList<int>& selection, const QList<int> &allImages)
+{
+    m_currentSelection = selection;
+    m_allImages = allImages;
 }
 
 void DiscoverAction::execute()
 {
+    if (m_currentSelection.isEmpty())
+        sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
+    else
+        m_model->setCurrentSelection(m_currentSelection, m_allImages);
+
+    m_model->setCurrentAction(this);
     setCurrentPage(Page::DiscoverPage);
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Discovery);
-    sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
 }
 
 } // namespace RemoteControl

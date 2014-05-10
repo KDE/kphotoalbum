@@ -185,7 +185,7 @@ void RemoteInterface::activateSearch(const QString& search)
 
 void RemoteInterface::doDiscovery()
 {
-    m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search)));
+    m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search, m_discoveryModel)));
 }
 
 void RemoteInterface::showOverviewPage()

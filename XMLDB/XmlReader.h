@@ -41,7 +41,15 @@ public:
 
     QString attribute(const QString &name, const QString& defaultValue = QString() );
     ElementInfo readNextStartOrStopElement(const QString &expectedStart);
-    void readEndElement();
+    /**
+     * Read the next element and ensure that it's an EndElement.
+     * If the XmlReader has already read the EndElement (e.g. by calling readNextStartOrStopElement()),
+     * but you want to use this method to ensure consistent error messages, you can
+     * set the parameter readNextElement to false.
+     *
+     * @param readNextElement if set to false, don't read the next element.
+     */
+    void readEndElement(bool readNextElement = true);
     bool hasAttribute(const QString& name);
     ElementInfo peekNext();
     void complainStartElementExpected(const QString& name);
@@ -59,3 +67,4 @@ typedef QSharedPointer<XmlReader> ReaderPtr;
 }
 
 #endif // XMLREADER_H
+// vi:expandtab:tabstop=4 shiftwidth=4:

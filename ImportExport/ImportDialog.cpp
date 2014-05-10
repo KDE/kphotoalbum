@@ -98,7 +98,8 @@ bool ImportDialog::readFile(const QByteArray& data)
         DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader );
         _images.append( info );
     }
-    reader->readEndElement();
+    // the while loop already read the end element, so we tell readEndElement to not read the next token:
+    reader->readEndElement(false);
 
     return true;
 }

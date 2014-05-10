@@ -46,7 +46,7 @@ ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
         reportError(i18n("Error reading next element"));
 
     if ( type != StartElement && type != EndElement )
-        reportError(i18n("Expected to read a start or stop element, but read %1",tokenToString(type)));
+        reportError(i18n("Expected to read a start or stop element, but read %1",tokenString()));
 
     const QString elementName = name().toString();
     if ( type == StartElement ) {
@@ -57,11 +57,12 @@ ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
     return ElementInfo(type == StartElement, elementName);
 }
 
-void XmlReader::readEndElement()
+void XmlReader::readEndElement(bool readNextElement)
 {
-    TokenType type = readNextInternal();
-    if ( type != EndElement )
-        reportError(i18n("Expected to read an end element but read %1",tokenToString(type)));
+    if ( readNextElement )
+        readNextInternal();
+    if ( tokenType() != EndElement )
+        reportError(i18n("Expected to read an end element but read %1",tokenString()));
 }
 
 bool XmlReader::hasAttribute(const QString &name)
@@ -91,25 +92,6 @@ void XmlReader::reportError(const QString & text)
     qFatal("%s", qPrintable(message));
 }
 
-QString XmlReader::tokenToString(QXmlStreamReader::TokenType type)
-{
-    switch ( type ) {
-    case NoToken: return QString::fromUtf8("NoToken");
-    case Invalid: return QString::fromUtf8("Invalid");
-    case StartDocument: return QString::fromUtf8("StartDocument");
-    case EndDocument: return QString::fromUtf8("EndDocument");
-    case StartElement: return QString::fromUtf8("StartElement");
-    case EndElement: return QString::fromUtf8("EndElement");
-    case Characters: return QString::fromUtf8("Characters");
-    case Comment: return QString::fromUtf8("Comment");
-    case DTD: return QString::fromUtf8("DTD");
-    case EntityReference: return QString::fromUtf8("EntityReference");
-    case ProcessingInstruction: return QString::fromUtf8("ProcessingInstruction");
-
-    }
-    return QString();
-}
-
 QXmlStreamReader::TokenType XmlReader::readNextInternal()
 {
     forever {
@@ -127,3 +109,4 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
 
 }
 
+// vi:expandtab:tabstop=4 shiftwidth=4:

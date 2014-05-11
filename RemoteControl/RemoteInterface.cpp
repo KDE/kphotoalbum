@@ -131,11 +131,12 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
 
     CategoryListCommand command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
+        if (category->name() == QString::fromLatin1("Media Type"))
+            continue;
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
 
-        // FIXME: exclude videos
         QMap<QString, uint> videos = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Video );
-        const bool enabled = (images.count() + videos.count() > 1);
+        const bool enabled = (images.count() /*+ videos.count()*/ > 1);
         CategoryViewType type =
                 (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
                 ? Types::CategoryIconView : Types::CategoryListView;

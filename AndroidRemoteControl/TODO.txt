@@ -2,8 +2,6 @@
 
 * Don't show videos
 
-* Don't show video/Image category
-
 * Review the thumbnail page for spacing
 
 * Why does it take so long to get the first thumbnails when clicking on view images.

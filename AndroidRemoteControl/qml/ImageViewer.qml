@@ -120,4 +120,9 @@ ListView {
         onLetterDeselected: _remoteInterface.removeToken(root.currentItem.imageId, letter)
         selected: _remoteInterface.tokens
     }
+
+    onCurrentIndexChanged: {
+        if (keyboard.visible)
+            _remoteInterface.requestDetails(root.currentItem.imageId)
+    }
 }

@@ -1,5 +1,3 @@
-* Tokens need to update when I swipe to new image.
-
 *Problem with large images
 
 * Don't show videos

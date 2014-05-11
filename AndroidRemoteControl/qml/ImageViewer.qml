@@ -66,8 +66,9 @@ ListView {
 
     MouseArea {
         z: -1
-        anchors.fill: parent
-        onPressAndHold: details.show()
+        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+        height: parent.height/5
+        onClicked: details.show()
     }
 
     MouseArea {
@@ -102,9 +103,12 @@ ListView {
     }
 
     MouseArea {
-        enabled: keyboard.visible
+        enabled: keyboard.visible || details.visible
         anchors.fill: parent
-        onClicked: keyboard.visible = false
+        onClicked: {
+            keyboard.visible = false
+            details.hide()
+        }
     }
 
     Keyboard {

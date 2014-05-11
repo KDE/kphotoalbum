@@ -1,5 +1,4 @@
-* Overview page needs better layouting, including being possible to scale by the user
-See ScreenInfo.cpp
+* Tokens need to update when I swipe to new image.
 
 *Problem with large images
 
@@ -13,7 +12,10 @@ See ScreenInfo.cpp
 
 * Don't show front page before we have categories over
 
-* Click at button to see details
+
+
+
+
 
 
 * How am I shutting down when observing an invalid version?

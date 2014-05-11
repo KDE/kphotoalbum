@@ -29,12 +29,6 @@ ListView {
     highlightRangeMode: ListView.StrictlyEnforceRange
     interactive: currentItem && currentItem.isZoomedOut
 
-    ImageDetails {
-        id: details
-        anchors.centerIn: parent
-        imageId: currentItem ? currentItem.imageId : -1
-    }
-
     delegate: Zoomable {
         id: zoomable
         clip: true
@@ -119,6 +113,12 @@ ListView {
         onLetterSelected: _remoteInterface.setToken(root.currentItem.imageId, letter)
         onLetterDeselected: _remoteInterface.removeToken(root.currentItem.imageId, letter)
         selected: _remoteInterface.tokens
+    }
+
+    ImageDetails {
+        id: details
+        anchors.centerIn: parent
+        imageId: currentItem ? currentItem.imageId : -1
     }
 
     onCurrentIndexChanged: {

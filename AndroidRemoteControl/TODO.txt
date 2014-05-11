@@ -2,8 +2,6 @@
 
 * Review the thumbnail page for spacing
 
-* Why does it take so long to get the first thumbnails when clicking on view images.
-
 * Don't show front page before we have categories over
 
 

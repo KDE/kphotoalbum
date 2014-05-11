@@ -1,7 +1,5 @@
 *Problem with large images
 
-* Don't show videos
-
 * Review the thumbnail page for spacing
 
 * Why does it take so long to get the first thumbnails when clicking on view images.

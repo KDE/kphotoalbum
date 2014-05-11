@@ -178,7 +178,9 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
     std::remove_copy_if(files.begin(), files.end(), std::back_inserter(stacksRemoved),
                         [] (const DB::FileName& file) {
         // Only include unstacked images, and the top of stacked images.
-        return DB::ImageDB::instance()->info(file)->stackOrder() > 1;
+        // And also exclude videos
+        return DB::ImageDB::instance()->info(file)->stackOrder() > 1 ||
+                DB::ImageDB::instance()->info(file)->isVideo();
     });
 
     std::transform(stacksRemoved.begin(), stacksRemoved.end(), std::back_inserter(result),

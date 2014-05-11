@@ -137,6 +137,8 @@ void DiscoverAction::setCurrentSelection(const QList<int>& selection, const QLis
 
 void DiscoverAction::execute()
 {
+    RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Discovery);
+
     if (m_currentSelection.isEmpty())
         sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
     else
@@ -144,7 +146,6 @@ void DiscoverAction::execute()
 
     m_model->setCurrentAction(this);
     setCurrentPage(Page::DiscoverPage);
-    RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Discovery);
 }
 
 } // namespace RemoteControl

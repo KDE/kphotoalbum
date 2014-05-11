@@ -25,6 +25,9 @@ Rectangle {
     color: "#AA000000"
     visible: false
 
+    opacity: visible ? 1 : 0
+    Behavior on opacity { NumberAnimation { duration: 200 } }
+
     onImageIdChanged: {
         if (visible)
             _remoteInterface.requestDetails(imageId)

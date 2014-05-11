@@ -43,7 +43,7 @@ Flickable {
         Repeater {
             model: _remoteInterface.categories
             delegate: Icon {
-                //enabled: model.enabled
+                enabled: model.enabled
                 text: model.text
                 icon: model.icon
                 width: _screenInfo.overviewIconSize

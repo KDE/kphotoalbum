@@ -88,6 +88,25 @@ void ScreenInfo::setViewWidth(int width)
     }
 }
 
+int ScreenInfo::possibleCols(double iconWidthInCm)
+{
+    // We need 1/4 * iw on each side
+    // Add to that n * iw for the icons themselves
+    // and finally (n-1)/2 * iw for spaces between icons
+    // That means solve the formula
+    // viewWidth = 2*1/4*iw + n* iw + (n-1)/2 * iw
+
+    const int iconWidthInPx = pixelForSizeInMM(iconWidthInCm, iconWidthInCm).width();
+    return floor(2.0 * m_viewWidth / iconWidthInPx) / 3.0;
+}
+
+int ScreenInfo::iconHeight(double iconWidthInCm)
+{
+    const int iconHeight = pixelForSizeInMM(iconWidthInCm, iconWidthInCm).height();
+    const int innerSpacing = 10; // Value from Icon.qml
+    return iconHeight + innerSpacing + m_textHeight;
+}
+
 void ScreenInfo::updateLayout()
 {
     if (m_categoryCount == 0 || m_viewWidth == 0)
@@ -95,17 +114,23 @@ void ScreenInfo::updateLayout()
 
     m_overviewSpacing = m_overviewIconSize/2;
 
-    const int possibleCols = floor(2.0 * m_viewWidth / m_overviewIconSize +1) / 3.0;
-    // qDebug("%d %d => %d", m_overviewScreenWidth, m_overviewIconSize, possibleCols);
-    const int preferredCols = ceil(sqrt(m_categoryCount+2));
+    const int fixedIconCount = 3; // Home, Discover, View
+    const int iconCount = m_categoryCount + fixedIconCount;
+    const int preferredCols = ceil(sqrt(iconCount));
 
-    m_overviewColumnCount = possibleCols;
+    int columns;
+    for (columns = qMin(possibleCols(20), preferredCols); columns < possibleCols(20); ++columns ) {
+        const int rows = ceil(1.0 * iconCount / columns);
+        const int height = (rows + 2*0.25 + (rows-1)/2) * iconHeight(20);
+        if (height < m_viewHeight)
+            break;
+    }
+
+    m_overviewColumnCount = columns;
 
     emit overviewIconSizeChanged();
     emit overviewSpacingChanged();
     emit overviewColumnCountChanged();
-
-    // qDebug("Columns %d", m_overviewColumnCount);
 }
 
 } // namespace RemoteControl

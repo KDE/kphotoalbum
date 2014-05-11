@@ -35,6 +35,7 @@ class ScreenInfo :public QObject
     Q_PROPERTY(int viewWidth READ viewWidth WRITE setViewWidth NOTIFY viewWidthChanged)
     Q_PROPERTY(int viewWidth MEMBER m_viewWidth NOTIFY viewWidthChanged)
     Q_PROPERTY(int viewHeight MEMBER m_viewHeight NOTIFY viewHeightChanged)
+    Q_PROPERTY(int textHeight MEMBER m_textHeight NOTIFY textHeightChanged)
 
 public:
     static ScreenInfo& instance();
@@ -53,12 +54,17 @@ public slots:
 
 private:
     void updateLayout();
+    int possibleCols(double iconWidthInCm);
+    int iconHeight(double iconWidthInCm);
+
 signals:
     void overviewIconSizeChanged();    
     void overviewColumnCountChanged();
     void overviewSpacingChanged();
     void viewWidthChanged();
     void viewHeightChanged();
+
+    void textHeightChanged(int arg);
 
 private:
     ScreenInfo() = default;
@@ -70,6 +76,7 @@ private:
     int m_overviewSpacing = 0;
     int m_viewWidth = 0;
     int m_viewHeight;
+    int m_textHeight;
 };
 
 } // namespace RemoteControl

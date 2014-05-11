@@ -100,6 +100,19 @@ Item {
         value: height
     }
 
+    // Dummy elemenent so I can know the default text element hight
+    Text {
+        id: dummy
+        visible: false
+        text: "Hi"
+        Binding {
+            target: _screenInfo
+            property: "textHeight"
+            value: dummy.height
+        }
+    }
+
+
     focus: true
     Keys.onReleased: {
         if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )

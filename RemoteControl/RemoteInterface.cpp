@@ -233,7 +233,7 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     result.description = info->description();
     result.categories.clear();
     for (const QString& category : info->availableCategories()) {
-            result.categories[category] = info->itemsOfCategory(category).toList();
+        result.categories[category] = info->itemsOfCategory(category).toList();
     }
 
     m_connection->sendCommand(result);

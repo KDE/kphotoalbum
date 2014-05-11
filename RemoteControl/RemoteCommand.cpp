@@ -21,6 +21,7 @@
 #include <QElapsedTimer>
 #include <QMap>
 #include <QDebug>
+#include <QPainter>
 
 using namespace RemoteControl;
 
@@ -67,6 +68,16 @@ void RemoteCommand::encodeImage(QDataStream& stream, const QImage& image) const
     image.save(stream.device(),"JPEG");
 }
 
+void RemoteCommand::encodeImageWithTransparentPixels(QDataStream &stream, const QImage &image) const
+{
+    QImage result(image.width(), image.height(), QImage::Format_RGB32);
+    result.fill(Qt::white);
+    QPainter p(&result);
+    p.drawImage(0,0, image);
+    p.end();
+    encodeImage(stream, result);
+}
+
 QImage RemoteCommand::decodeImage(QDataStream& stream) const
 {
     QImage result;
@@ -111,10 +122,11 @@ QString CategoryListCommand::id()
 
 void CategoryListCommand::encode(QDataStream& stream) const
 {
-    // If I use encodeImage here for category.icon, then I will not get a transparent background
     stream << categories.count();
-    for (const Category& category : categories)
-        stream << category.name << category.text << category.icon << category.enabled << (int) category.viewType;
+    for (const Category& category : categories) {
+        stream << category.name << category.text << category.enabled << (int) category.viewType;
+        encodeImageWithTransparentPixels(stream, category.icon);
+    }
 }
 
 void CategoryListCommand::decode(QDataStream& stream)
@@ -128,7 +140,8 @@ void CategoryListCommand::decode(QDataStream& stream)
         QImage icon;
         bool enabled;
         CategoryViewType viewType;
-        stream >> name >> text >> icon >> enabled >> (int&) viewType;
+        stream >> name >> text >> enabled >> (int&) viewType;
+        icon = decodeImage(stream);
         categories.append({name, text, icon, enabled, viewType});
     }
 }
@@ -343,13 +356,16 @@ QString HomePageData::id()
 
 void HomePageData::encode(QDataStream& stream) const
 {
-    // If I use encodeImage here, then I will not get a transparent background
-    stream << homeIcon << kphotoalbumIcon << discoverIcon;
+    encodeImageWithTransparentPixels(stream, homeIcon);
+    encodeImageWithTransparentPixels(stream, kphotoalbumIcon);
+    encodeImageWithTransparentPixels(stream, discoverIcon);
 }
 
 void HomePageData::decode(QDataStream& stream)
 {
-    stream >> homeIcon >> kphotoalbumIcon >> discoverIcon;
+    homeIcon = decodeImage(stream);
+    kphotoalbumIcon = decodeImage(stream);
+    discoverIcon = decodeImage(stream);
 }
 
 

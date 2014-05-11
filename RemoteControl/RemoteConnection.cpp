@@ -23,6 +23,13 @@
 #include <QTcpSocket>
 #include <QApplication>
 #include <QThread>
+#include <QTime>
+
+#if 0
+#  define protocolDebug qDebug
+#else
+#  define protocolDebug if (false) qDebug
+#endif
 
 using namespace RemoteControl;
 
@@ -33,6 +40,8 @@ RemoteConnection::RemoteConnection(QObject *parent) :
 
 void RemoteConnection::sendCommand(const RemoteCommand& command)
 {
+    protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
+                    << ": Sending " << qPrintable(command.id());
     Q_ASSERT(QThread::currentThread() == qApp->thread());
 
     if (!isConnected())
@@ -58,6 +67,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
     // Send the data.
     socket()->write(buffer.data());
+    socket()->flush();
 }
 
 void RemoteConnection::dataReceived()
@@ -94,6 +104,8 @@ void RemoteConnection::dataReceived()
 
             RemoteCommand& command = RemoteCommand::command(id);
             command.decode(stream);
+            protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
+                               << ": Received " << qPrintable(id);
 
             emit gotCommand(command);
         }

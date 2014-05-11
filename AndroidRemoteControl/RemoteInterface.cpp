@@ -46,7 +46,6 @@ RemoteInterface::RemoteInterface()
     connect(m_connection, &Client::gotConnected, this, &RemoteInterface::requestInitialData);
     connect(m_connection, &Client::disconnected, this, &RemoteInterface::gotDisconnected);
     connect(m_connection, &Client::disconnected, this, &RemoteInterface::connectionChanged);
-    connect(&ScreenInfo::instance(), &ScreenInfo::overviewIconSizeChanged, this, &RemoteInterface::requestHomePageImages);
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
     qRegisterMetaType<RemoteControl::DiscoveryModel*>("DiscoveryModel*");
@@ -203,6 +202,12 @@ void RemoteInterface::removeToken(int imageId, const QString &token)
     sendCommand(ToggleTokenCommand(imageId, token, ToggleTokenCommand::Off));
 }
 
+void RemoteInterface::rerequestOverviewPageData()
+{
+    requestHomePageImages();
+    m_history.rerunTopItem();
+}
+
 void RemoteInterface::setCurrentView(int imageId)
 {
     emit jumpToImage(m_activeThumbnailModel->indexOf(imageId));
@@ -226,6 +231,7 @@ QStringList RemoteInterface::tokens() const
 
 void RemoteInterface::requestInitialData()
 {
+    requestHomePageImages();
     m_history.push(std::unique_ptr<Action>(new ShowOverviewAction({})));
 }
 

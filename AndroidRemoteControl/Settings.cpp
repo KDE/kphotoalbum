@@ -17,7 +17,6 @@
 */
 
 #include "Settings.h"
-
 #include <QSettings>
 namespace RemoteControl {
 
@@ -46,12 +45,24 @@ int Settings::categoryItemSize() const
     return QSettings().value(QStringLiteral("categoryItemSize"), 300).value<int>();
 }
 
+double Settings::overviewIconSize() const
+{
+    return QSettings().value(QStringLiteral("overviewIconSize"), 20).value<double>();
+}
+
 void Settings::setCategoryItemSize(int size)
 {
     if (size != categoryItemSize()) {
         QSettings().setValue(QStringLiteral("categoryItemSize"), size);
-
         emit categoryItemSizeChanged();
+    }
+}
+
+void Settings::setOverviewIconSize(double size)
+{
+    if (overviewIconSize() != size) {
+        QSettings().setValue(QStringLiteral("overviewIconSize"), size);
+        emit overviewIconSizeChanged();
     }
 }
 

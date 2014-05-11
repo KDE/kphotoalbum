@@ -36,11 +36,22 @@ QImage MyImage::image() const
     return m_image;
 }
 
+int MyImage::imageWidth() const
+{
+    return m_image.width();
+}
+
+int MyImage::imageHeight() const
+{
+    return m_image.height();
+}
+
 void MyImage::setImage(const QImage& image)
 {
     if (m_image != image) {
         m_image = image;
-        setSize(image.size());
         emit imageChanged();
+        emit imageWidthChanged();
+        emit imageHeightChanged();
     }
 }

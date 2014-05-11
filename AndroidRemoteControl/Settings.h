@@ -28,6 +28,7 @@ class Settings : public QObject
     Q_OBJECT
     Q_PROPERTY(int thumbnailSize READ thumbnailSize WRITE setThumbnailSize NOTIFY thumbnailSizeChanged)
     Q_PROPERTY(int categoryItemSize READ categoryItemSize WRITE setCategoryItemSize NOTIFY categoryItemSizeChanged)
+    Q_PROPERTY(double overviewIconSize READ overviewIconSize WRITE setOverviewIconSize NOTIFY overviewIconSizeChanged)
 
     double m_thumbnailScale;
 
@@ -36,13 +37,16 @@ public:
     int thumbnailSize() const;
     void setThumbnailSize(int size);
     int categoryItemSize() const;
+    double overviewIconSize() const;
 
 public slots:
     void setCategoryItemSize(int size);
+    void setOverviewIconSize(double size);
 
 signals:
     void thumbnailSizeChanged();
     void categoryItemSizeChanged();
+    void overviewIconSizeChanged();
 
 private:
     explicit Settings() = default;

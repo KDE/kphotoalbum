@@ -79,6 +79,7 @@ public slots:
     void showOverviewPage();
     void setToken(int imageId, const QString& token);
     void removeToken(int imageId, const QString& token);
+    void rerequestOverviewPageData();
 
 signals:
     void connectionChanged();

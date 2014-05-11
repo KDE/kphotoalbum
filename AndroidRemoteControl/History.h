@@ -34,6 +34,7 @@ public:
     void goBackward();
     bool canGoBack() const;
     bool canGoForward() const;
+    void rerunTopItem();
 
 private:
     std::stack<std::unique_ptr<Action>> m_backward;

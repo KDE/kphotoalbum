@@ -29,10 +29,9 @@ class ScreenInfo :public QObject
 {
     Q_OBJECT
     Q_PROPERTY(double dotsPerMM MEMBER m_dotsPerMM CONSTANT)
-    Q_PROPERTY(int overviewIconSize READ overviewIconSize WRITE setOverviewIconSize NOTIFY overviewIconSizeChanged)
+    Q_PROPERTY(int overviewIconSize READ overviewIconSize NOTIFY overviewIconSizeChanged)
     Q_PROPERTY(int overviewColumnCount MEMBER m_overviewColumnCount NOTIFY overviewColumnCountChanged)
-    Q_PROPERTY(int overviewSpacing MEMBER m_overviewSpacing NOTIFY overviewSpacingChanged)
-    Q_PROPERTY(int viewWidth READ viewWidth WRITE setViewWidth NOTIFY viewWidthChanged)
+    Q_PROPERTY(int overviewSpacing READ overviewSpacing NOTIFY overviewSpacingChanged)
     Q_PROPERTY(int viewWidth MEMBER m_viewWidth NOTIFY viewWidthChanged)
     Q_PROPERTY(int viewHeight MEMBER m_viewHeight NOTIFY viewHeightChanged)
     Q_PROPERTY(int textHeight MEMBER m_textHeight NOTIFY textHeightChanged)
@@ -40,22 +39,13 @@ class ScreenInfo :public QObject
 public:
     static ScreenInfo& instance();
     void setScreen(QScreen*);
-    QSize pixelForSizeInMM(int width, int height);
+    QSize pixelForSizeInMM(int size) const;
     void setCategoryCount(int count);
     QSize screenSize() const;
     QSize viewSize() const;
 
     int overviewIconSize() const;
-    int viewWidth() const;
-
-public slots:
-    void setOverviewIconSize(int size);
-    void setViewWidth(int width);
-
-private:
-    void updateLayout();
-    int possibleCols(double iconWidthInCm);
-    int iconHeight(double iconWidthInCm);
+    int overviewSpacing() const;
 
 signals:
     void overviewIconSizeChanged();    
@@ -63,17 +53,20 @@ signals:
     void overviewSpacingChanged();
     void viewWidthChanged();
     void viewHeightChanged();
+    void textHeightChanged();
 
-    void textHeightChanged(int arg);
+private slots:
+    void updateLayout();
 
 private:
-    ScreenInfo() = default;
+    ScreenInfo();
+    int possibleColumns();
+    int iconHeight();
+
     QScreen* m_screen;
     double m_dotsPerMM;
     int m_categoryCount = 0;
-    int m_overviewIconSize = 0;
     int m_overviewColumnCount = 0;
-    int m_overviewSpacing = 0;
     int m_viewWidth = 0;
     int m_viewHeight;
     int m_textHeight;

@@ -19,50 +19,79 @@
 import QtQuick 2.0
 import KPhotoAlbum 1.0
 
-Flickable {
+PinchArea {
     id: root
+    anchors.fill: parent
+    pinch.minimumScale: 0.1
+    pinch.maximumScale: 10
 
-    contentWidth: grid.width
-    contentHeight: grid.height
-    flickableDirection: Flickable.VerticalFlick
+    onPinchStarted: {
+        initialSize = _settings.overviewIconSize
+    }
 
-    Grid {
-        id: grid
-        x: Math.max(0, (root.width - width) /2)
-        y: Math.max(0, (root.height - height)/2)
-        columns: _screenInfo.overviewColumnCount
-        spacing: _screenInfo.overviewSpacing
+    onPinchUpdated: {
+        iconScale =  1 + (pinch.scale-1)*0.25
+        _settings.overviewIconSize = initialSize * iconScale
+    }
 
-        Icon {
-            text: "home"
-            icon: _remoteInterface.home
-            width: _screenInfo.overviewIconSize
-            onClicked: _remoteInterface.goHome()
-        }
+    onPinchFinished: {
+        iconScale = 1
+        _remoteInterface.rerequestOverviewPageData()
+    }
 
-        Repeater {
-            model: _remoteInterface.categories
-            delegate: Icon {
-                enabled: model.enabled
-                text: model.text
-                icon: model.icon
+    property double iconScale : 1
+    property double initialSize
+
+    Flickable {
+        id: flickable
+        anchors.fill: parent
+        contentWidth: grid.width
+        contentHeight: grid.height
+        flickableDirection: Flickable.VerticalFlick
+
+        Grid {
+            id: grid
+            x: Math.max(0, (flickable.width - width) /2)
+            y: Math.max(0, (flickable.height - height)/2)
+            columns: _screenInfo.overviewColumnCount
+            spacing: _screenInfo.overviewSpacing
+
+            Icon {
+                text: "home"
+                icon: _remoteInterface.home
                 width: _screenInfo.overviewIconSize
-                onClicked: _remoteInterface.selectCategory(model.name, model.type)
+                iconScale: root.iconScale
+                onClicked: _remoteInterface.goHome()
             }
-        }
 
-        Icon {
-            text: "Discover"
-            icon: _remoteInterface.discoveryImage
-            width: _screenInfo.overviewIconSize
-            onClicked: _remoteInterface.doDiscovery()
-        }
+            Repeater {
+                model: _remoteInterface.categories
+                delegate: Icon {
+                    enabled: model.enabled
+                    text: model.text
+                    icon: model.icon
+                    width: _screenInfo.overviewIconSize
+                    iconScale: root.iconScale
+                    onClicked: _remoteInterface.selectCategory(model.name, model.type)
+                }
+            }
 
-        Icon {
-            text: "View"
-            icon: _remoteInterface.kphotoalbum
-            width: _screenInfo.overviewIconSize
-            onClicked: _remoteInterface.showThumbnails()
+            Icon {
+                text: "Discover"
+                icon: _remoteInterface.discoveryImage
+                width: _screenInfo.overviewIconSize
+                iconScale: root.iconScale
+                onClicked: _remoteInterface.doDiscovery()
+            }
+
+            Icon {
+                text: "View"
+                icon: _remoteInterface.kphotoalbum
+                width: _screenInfo.overviewIconSize
+                iconScale: root.iconScale
+                onClicked: _remoteInterface.showThumbnails()
+            }
         }
     }
 }
+

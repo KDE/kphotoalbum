@@ -48,6 +48,7 @@ public:
 
 protected:
     void encodeImage(QDataStream& stream, const QImage& image) const;
+    void encodeImageWithTransparentPixels(QDataStream& stream, const QImage& image) const;
     QImage decodeImage(QDataStream& stream) const;
 
 private:

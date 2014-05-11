@@ -23,6 +23,7 @@ Item {
     id: root
     property string text
     property variant icon
+    property double iconScale
     signal clicked()
 
     height: column.height
@@ -33,12 +34,17 @@ Item {
         spacing: 10 // Value used in ScreenInfo::iconHeight, so update there too if chaning the value.
         MyImage {
             image: root.icon
+            scale: iconScale
+            width: imageWidth * scale
+            height: imageHeight * scale
+            transformOrigin: Item.TopLeft
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
             text: root.text
             clip: true
             anchors { left: parent.left; right: parent.right }
+            horizontalAlignment: Text.AlignHCenter
         }
     }
     MouseArea {

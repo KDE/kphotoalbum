@@ -60,4 +60,9 @@ bool History::canGoForward() const
     return !m_forward.empty();
 }
 
+void History::rerunTopItem()
+{
+    m_current->run();
+}
+
 } // namespace RemoteControl

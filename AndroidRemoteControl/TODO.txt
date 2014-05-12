@@ -1,5 +1,3 @@
-*Problem with large images
-
 * Review the thumbnail page for spacing
 
 * Don't show front page before we have categories over
@@ -8,7 +6,7 @@
 
 
 
-
+*Problem with large images
 
 * How am I shutting down when observing an invalid version?
 

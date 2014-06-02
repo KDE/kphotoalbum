@@ -85,7 +85,10 @@ int main( int argc, char** argv ) {
         (void) RemoteControl::RemoteInterface::instance();
 
         int code = app.exec();
-        delete view;
+        // I've heard multiple people complain about a crash in this line.
+        // unfortunately valgrind doesn't tell me why that should be, and I haven't seen it myself.
+        // Anyway, the line is really only needed when searching for memory leaks.
+        // delete view;
         return code;
     }
     catch (...) {

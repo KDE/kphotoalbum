@@ -48,7 +48,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     _thumbnailsPage = new Settings::ThumbnailsPage( this );
     _categoryPage = new Settings::CategoryPage(this);
     _subCategoriesPage = new Settings::SubCategoriesPage( this );
-    _viewerPage = new ViewerPage(this);
+    _viewerPage = new Settings::ViewerPage(this);
 
 #ifdef HASKIPI
     _pluginsPage = new Settings::PluginsPage(this);

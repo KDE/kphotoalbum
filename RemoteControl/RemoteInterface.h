@@ -50,6 +50,7 @@ signals:
     void connected();
     void disConnected();
     void listening();
+    void stoppedListening();
 
 private:
     explicit RemoteInterface(QObject *parent = 0);

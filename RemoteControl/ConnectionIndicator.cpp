@@ -43,6 +43,7 @@ ConnectionIndicator::ConnectionIndicator(QWidget* parent) :
     connect(&RemoteInterface::instance(), SIGNAL(connected()), this, SLOT(on()));
     connect(&RemoteInterface::instance(), SIGNAL(disConnected()), this, SLOT(wait()));
     connect(&RemoteInterface::instance(), SIGNAL(listening()), this, SLOT(wait()));
+    connect(&RemoteInterface::instance(), SIGNAL(stoppedListening()), this, SLOT(off()));
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(waitingAnimation()));
@@ -119,6 +120,7 @@ void ConnectionIndicator::on()
 
 void ConnectionIndicator::off()
 {
+    m_timer->stop();
     m_state = Off;
     setPixmap(KIcon(QString::fromUtf8("network-disconnect")).pixmap(32,32));
 }

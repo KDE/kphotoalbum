@@ -39,6 +39,7 @@ public:
 signals:
     void connected();
     void disConnected();
+    void stoppedListening();
 
 private slots:
     void readIncommingUDP();

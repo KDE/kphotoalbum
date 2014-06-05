@@ -2,12 +2,6 @@
 
 * Don't show front page before we have categories over
 
-*Problem with large images
-
-* How am I shutting down when observing an invalid version?
-
-* Show invalid version on android app
-
 * Consider adding breadcrums
 
 * When resizing the thumbnail view, it should scale to the nearest full cell size to use the space optimal

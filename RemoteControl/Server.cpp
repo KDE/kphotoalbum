@@ -56,6 +56,7 @@ void Server::stopListening()
     m_socket = nullptr;
     delete m_tcpSocket;
     m_tcpSocket = nullptr;
+    emit stoppedListening();
 }
 
 QTcpSocket*Server::socket()
@@ -79,10 +80,9 @@ void Server::readIncommingUDP()
         QMessageBox::critical(0, i18n("Invalid Version"),
                               i18n("Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
                                    "Desktop protocol version: %1\n"
-                                   "Remote Control protocol version: %2\n"
-                                   "SHUTTING DOWN LISTENING FOR REMOTE CONNECTIONS!")
+                                   "Remote Control protocol version: %2")
                               .arg(RemoteControl::VERSION).arg(list[1]));
-        deleteLater();
+        stopListening();
         return;
     }
 

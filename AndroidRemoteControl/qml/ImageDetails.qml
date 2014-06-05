@@ -19,6 +19,7 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: root
     property int imageId
     width: visible ? column.width + 40 : 0
     height: visible ? column.height + 40 : 0
@@ -44,7 +45,7 @@ Rectangle {
         x: 20
         y: 20
         spacing: 15
-
+        visible: !hideAnimation.running
         Text {
             text: "<b>Date</b>: " + _imageDetails.date
             color: "white"
@@ -123,7 +124,24 @@ Rectangle {
         visible = true
     }
 
+    SequentialAnimation {
+        id: hideAnimation
+        PropertyAnimation {
+            target: root
+            properties: "width, height, opacity"
+            to: 0
+            duration: 200
+        }
+
+        // I need to remove the visibility otherwise it will still steal all the event.
+        PropertyAction {
+            target: root
+            property: "visible"
+            value: false
+        }
+    }
+
     function hide() {
-        visible = false
+        hideAnimation.restart()
     }
 }

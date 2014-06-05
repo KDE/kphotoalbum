@@ -16,6 +16,4 @@
 
 * support search (actually just with a scrubber I think)
 
-* Long lines makes the info box overrun
-
 * Changing orientation of the device to portrait also advances to next picture

@@ -76,6 +76,7 @@ Item {
                 }
 
                 Text {
+                    visible: _imageDetails.description != ""
                     width: Math.min(_screenInfo.viewWidth-200, implicitWidth)
                     textFormat: Text.RichText
                     text: "<b>Description</b>: " + _imageDetails.description.replace("\n","<br/>")

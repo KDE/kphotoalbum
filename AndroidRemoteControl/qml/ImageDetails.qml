@@ -20,8 +20,8 @@ import QtQuick 2.0
 
 Rectangle {
     property int imageId
-    width: column.width + 40
-    height: column.height + 40
+    width: visible ? column.width + 40 : 0
+    height: visible ? column.height + 40 : 0
     color: "#AA000000"
     visible: false
 

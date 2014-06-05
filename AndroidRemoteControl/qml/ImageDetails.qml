@@ -18,61 +18,97 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: root
     property int imageId
-    width: visible ? column.width + 40 : 0
-    height: visible ? column.height + 40 : 0
-    color: "#AA000000"
-    visible: false
-
-    opacity: visible ? 1 : 0
-    Behavior on opacity { NumberAnimation { duration: 200 } }
-
     onImageIdChanged: {
         if (visible)
             _remoteInterface.requestDetails(imageId)
     }
 
-    MouseArea {
+    visible: false
+    opacity: visible ? 1 : 0
+    Behavior on opacity { NumberAnimation { duration: 200 } }
+
+    width: rect.width
+    height: Math.min(_screenInfo.viewHeight, rect.height)
+    anchors.centerIn: parent
+
+    Flickable {
+        contentWidth: rect.width
+        contentHeight: rect.height
         anchors.fill: parent
-        // Just eat all events, so a click outside a link doesn't go to next page
-    }
 
-    Column {
-        id: column
+        Rectangle {
+            id: rect
+            width: visible ? column.width + 40 : 0
+            height: visible ? column.height + 40 : 0
+            color: "#AA000000"
 
-        x: 20
-        y: 20
-        spacing: 15
-        visible: !hideAnimation.running
-        Text {
-            text: "<b>Date</b>: " + _imageDetails.date
-            color: "white"
-        }
-        Repeater {
-            model: _imageDetails.categories
-            Text {
-                text: "<b>" + modelData + "</b>: " + items(modelData) + _imageDetails.dummy
-                color: "white"
-                linkColor: "white"
-                onLinkActivated: { hide(); _remoteInterface.activateSearch(link) }
+            MouseArea {
+                anchors.fill: parent
+                // Just eat all events, so a click outside a link doesn't go to next page
+            }
+
+            Column {
+                id: column
+
+                x: 20
+                y: 20
+                spacing: 15
+                visible: !hideAnimation.running
+                Text {
+                    text: "<b>Date</b>: " + _imageDetails.date
+                    color: "white"
+                }
+                Repeater {
+                    model: _imageDetails.categories
+                    Text {
+                        text: "<b>" + modelData + "</b>: " + items(modelData) + _imageDetails.dummy
+                        color: "white"
+                        linkColor: "white"
+                        onLinkActivated: { hide(); _remoteInterface.activateSearch(link) }
+                    }
+                }
+                Text {
+                    text: "<b>File name</b>: " + _imageDetails.fileName
+                    color: "white"
+                }
+
+                Text {
+                    width: Math.min(_screenInfo.viewWidth-200, implicitWidth)
+                    textFormat: Text.RichText
+                    text: "<b>Description</b>: " + _imageDetails.description.replace("\n","<br/>")
+                    color: "white"
+                    wrapMode: Text.Wrap
+                }
+            }
+
+            Behavior on width {
+                NumberAnimation {duration: 100 }
+            }
+            Behavior on height {
+                NumberAnimation {duration: 100 }
+            }
+
+            SequentialAnimation {
+                id: hideAnimation
+                PropertyAnimation {
+                    target: root
+                    properties: "width, height, opacity"
+                    to: 0
+                    duration: 200
+                }
+
+                // I need to remove the visibility otherwise it will still steal all the event.
+                PropertyAction {
+                    target: root
+                    property: "visible"
+                    value: false
+                }
             }
         }
-        Text {
-            text: "<b>File name</b>: " + _imageDetails.fileName
-            color: "white"
-        }
-
-        Text {
-            width: Math.min(_screenInfo.viewWidth-200, implicitWidth)
-            textFormat: Text.RichText
-            text: "<b>Description</b>: " + _imageDetails.description.replace("\n","<br/>")
-            color: "white"
-            wrapMode: Text.Wrap
-        }
     }
-
     Canvas {
         id:canvas
         anchors { right: parent.right; top: parent.top }
@@ -98,13 +134,6 @@ Rectangle {
         }
     }
 
-    Behavior on width {
-        NumberAnimation {duration: 100 }
-    }
-    Behavior on height {
-        NumberAnimation {duration: 100 }
-    }
-
     function items(category) {
         var result
         var list = _imageDetails.itemsOfCategory(category)
@@ -119,29 +148,12 @@ Rectangle {
         return result
     }
 
+    function hide() {
+        hideAnimation.restart()
+    }
+
     function show() {
         _remoteInterface.requestDetails(imageId)
         visible = true
-    }
-
-    SequentialAnimation {
-        id: hideAnimation
-        PropertyAnimation {
-            target: root
-            properties: "width, height, opacity"
-            to: 0
-            duration: 200
-        }
-
-        // I need to remove the visibility otherwise it will still steal all the event.
-        PropertyAction {
-            target: root
-            property: "visible"
-            value: false
-        }
-    }
-
-    function hide() {
-        hideAnimation.restart()
     }
 }

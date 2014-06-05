@@ -56,7 +56,7 @@ Item {
                 x: 20
                 y: 20
                 spacing: 15
-                visible: !hideAnimation.running
+
                 Text {
                     text: "<b>Date</b>: " + _imageDetails.date
                     color: "white"
@@ -95,7 +95,7 @@ Item {
                 id: hideAnimation
                 PropertyAnimation {
                     target: root
-                    properties: "width, height, opacity"
+                    properties: "opacity"
                     to: 0
                     duration: 200
                 }

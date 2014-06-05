@@ -64,6 +64,8 @@ Rectangle {
         }
 
         Text {
+            width: Math.min(_screenInfo.viewWidth-200, implicitWidth)
+            textFormat: Text.RichText
             text: "<b>Description</b>: " + _imageDetails.description.replace("\n","<br/>")
             color: "white"
             wrapMode: Text.Wrap

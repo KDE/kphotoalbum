@@ -40,7 +40,12 @@ void Server::listen()
 {
     if (!m_socket) {
         m_socket = new QUdpSocket(this);
-        bool ok = m_socket->bind(UDPPORT); // PENDING Do we want to bind in a special way (see second argument to bind)
+        bool ok = m_socket->bind(UDPPORT);
+        if (!ok) {
+            QMessageBox::critical(0, i18n("Unable to bind to socket"),
+                                  i18n("Unable to listen for remote Android connections. "
+                                       "This is likely because you have another KPhotoAlbum application running."));
+        }
         connect(m_socket, SIGNAL(readyRead()), this, SLOT(readIncommingUDP()));
     }
 }

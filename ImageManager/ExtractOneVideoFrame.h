@@ -50,9 +50,12 @@ private:
     ExtractOneVideoFrame(const DB::FileName& filename, double offset, QObject* receiver, const char* slot);
     void setupWorkingDirectory();
     void deleteWorkingDirectory();
+    void markShortVideo(const DB::FileName& fileName);
 
     QString m_workingDirectory;
     Utilities::Process* m_process;
+    DB::FileName m_fileName;
+    static QString m_tokenForShortVideos;
 };
 
 } // namespace ImageManager

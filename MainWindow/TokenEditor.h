@@ -31,14 +31,13 @@ class TokenEditor :public KDialog {
 public:
     explicit TokenEditor( QWidget* parent );
     virtual void show();
+    static QStringList tokensInUse();
 
 protected slots:
     void selectAll();
     void selectNone();
     virtual void accept();
 
-protected:
-    QStringList tokensInUse();
 
 private:
      QList<QCheckBox*> _cbs;

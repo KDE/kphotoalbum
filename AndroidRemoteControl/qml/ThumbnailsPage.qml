@@ -48,30 +48,32 @@ PinchArea {
         cellWidth: imageWidth() + padding()
         cellHeight: imageWidth() + padding() + (root.showLabels ? 30 : 0)
 
-        delegate:
+        delegate: Item {
             Column {
+                x: (padding() + grid.cellWidth - width)/2
+                y: grid.cellHeight - height
 
-            RemoteImage {
-                x: padding()/2
-                id: remoteImage
-                imageId: model.imageId
-                type: root.type
+                RemoteImage {
+                    id: remoteImage
+                    imageId: model.imageId
+                    type: root.type
 
-                width: imageWidth()
-                height: width
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: root.clicked(parent.imageId,parent.label)
-                    onPressAndHold: menu.popup()
+                    width: imageWidth()
+                    height: width
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: root.clicked(parent.imageId,parent.label)
+                        onPressAndHold: menu.popup()
+                    }
                 }
-            }
-            Text {
-                visible: root.showLabels
-                color: _settings.textColor
-                anchors { left: parent.left; right: parent.right; margins: padding()/2 }
-                text: remoteImage.label
-                elide: Text.ElideRight
-                verticalAlignment: Text.AlignTop
+                Text {
+                    visible: root.showLabels
+                    color: _settings.textColor
+                    anchors { left: parent.left; right: parent.right; margins: padding()/2 }
+                    text: remoteImage.label
+                    elide: Text.ElideRight
+                    verticalAlignment: Text.AlignTop
+                }
             }
         }
     }

@@ -103,6 +103,6 @@ PinchArea {
         return type == Enums.CategoryItems ? _settings.categoryItemSize : _settings.thumbnailSize;
     }
     function padding() {
-        return imageWidth()/8
+        return 20 // imageWidth()/8 - rhk would like us to try not to scale the space.
     }
 }

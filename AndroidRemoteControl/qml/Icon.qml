@@ -42,6 +42,7 @@ Item {
         }
         Text {
             text: root.text
+            color: _settings.textColor
             clip: true
             anchors { left: parent.left; right: parent.right }
             horizontalAlignment: Text.AlignHCenter

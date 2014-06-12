@@ -20,6 +20,7 @@
 #define REMOTECONTROL_SETTINGS_H
 
 #include <QObject>
+#include <QColor>
 
 namespace RemoteControl {
 
@@ -29,6 +30,8 @@ class Settings : public QObject
     Q_PROPERTY(int thumbnailSize READ thumbnailSize WRITE setThumbnailSize NOTIFY thumbnailSizeChanged)
     Q_PROPERTY(int categoryItemSize READ categoryItemSize WRITE setCategoryItemSize NOTIFY categoryItemSizeChanged)
     Q_PROPERTY(double overviewIconSize READ overviewIconSize WRITE setOverviewIconSize NOTIFY overviewIconSizeChanged)
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QColor textColor READ textColor NOTIFY foregroundColorChanged)
 
     double m_thumbnailScale;
 
@@ -39,6 +42,10 @@ public:
     int categoryItemSize() const;
     double overviewIconSize() const;
 
+    QColor backgroundColor() const;
+
+    QColor textColor() const;
+
 public slots:
     void setCategoryItemSize(int size);
     void setOverviewIconSize(double size);
@@ -47,6 +54,8 @@ signals:
     void thumbnailSizeChanged();
     void categoryItemSizeChanged();
     void overviewIconSizeChanged();
+    void backgroundColorChanged();
+    void foregroundColorChanged();
 
 private:
     explicit Settings() = default;

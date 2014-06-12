@@ -26,6 +26,7 @@ ListView {
         font.pointSize: 30
         anchors {left: parent.left; right: parent.right}
         text: (modelData == "**NONE**") ? "None" : modelData
+        color: _settings.textColor
         MouseArea {
             anchors.fill: parent
             onClicked: root.clicked(modelData)

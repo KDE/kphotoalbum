@@ -19,7 +19,9 @@
 import QtQuick 2.2
 import KPhotoAlbum 1.0
 
-Item {
+Rectangle {
+    color: _settings.backgroundColor
+
     OverviewPage {
         anchors.fill: parent
         visible: _remoteInterface.currentPage == Enums.OverviewPage
@@ -83,6 +85,8 @@ Item {
         visible: _remoteInterface.currentPage == Enums.UnconnectedPage
         width: parent.width*6/7
         wrapMode: Text.WordWrap
+        color: _settings.textColor
+
         text: "Not Connected\nMake sure you have a running KPhotoAlbum on the same network.\nMy address: " + _remoteInterface.networkAddress
         anchors.centerIn: parent
         font.pixelSize: 50

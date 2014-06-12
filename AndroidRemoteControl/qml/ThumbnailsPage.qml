@@ -67,6 +67,7 @@ PinchArea {
             }
             Text {
                 visible: root.showLabels
+                color: _settings.textColor
                 anchors { left: parent.left; right: parent.right; margins: padding()/2 }
                 text: remoteImage.label
                 elide: Text.ElideRight

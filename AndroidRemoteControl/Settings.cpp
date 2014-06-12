@@ -50,6 +50,16 @@ double Settings::overviewIconSize() const
     return QSettings().value(QStringLiteral("overviewIconSize"), 20).value<double>();
 }
 
+QColor Settings::backgroundColor() const
+{
+    return Qt::black;
+}
+
+QColor Settings::textColor() const
+{
+    return Qt::white;
+}
+
 void Settings::setCategoryItemSize(int size)
 {
     if (size != categoryItemSize()) {

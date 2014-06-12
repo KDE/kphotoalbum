@@ -71,7 +71,7 @@ void RemoteCommand::encodeImage(QDataStream& stream, const QImage& image) const
 void RemoteCommand::encodeImageWithTransparentPixels(QDataStream &stream, const QImage &image) const
 {
     QImage result(image.width(), image.height(), QImage::Format_RGB32);
-    result.fill(Qt::white);
+    result.fill(Qt::black);
     QPainter p(&result);
     p.drawImage(0,0, image);
     p.end();

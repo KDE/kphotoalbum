@@ -31,6 +31,7 @@ using RoleMap = QHash<int, QByteArray>;
 class CategoryModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(bool hasData READ hasData NOTIFY hasDataChanged)
 
 public:
     enum { NameRole, TextRole, IconRole, EnabledRole, TypeRole };
@@ -39,6 +40,10 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     RoleMap roleNames() const override;
     void setCategories(const QList<Category>&);
+    bool hasData() const;
+
+signals:
+    void hasDataChanged();
 
 private:
     QList<Category> m_categories;

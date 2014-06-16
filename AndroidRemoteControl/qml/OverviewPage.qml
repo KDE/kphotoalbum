@@ -93,5 +93,12 @@ PinchArea {
             }
         }
     }
+    Rectangle {
+        anchors.fill: parent
+        color: _settings.backgroundColor
+        opacity: _remoteInterface.categories.hasData ? 0 : 1
+        visible: opacity != 0
+        Behavior on opacity { NumberAnimation { duration: 300 } }
+    }
 }
 

@@ -57,4 +57,10 @@ void CategoryModel::setCategories(const QList<Category>& categories)
     beginResetModel();
     m_categories = categories;
     endResetModel();
+    emit hasDataChanged();
+}
+
+bool CategoryModel::hasData() const
+{
+    return rowCount(QModelIndex()) != 0;
 }

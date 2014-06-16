@@ -80,6 +80,7 @@ public slots:
     void setToken(int imageId, const QString& token);
     void removeToken(int imageId, const QString& token);
     void rerequestOverviewPageData();
+    void pushAwayFromStartupState();
 
 signals:
     void connectionChanged();
@@ -126,7 +127,7 @@ private:
     QImage m_kphotoalbumImage;
     SearchInfo m_search;
     ThumbnailModel* m_categoryItems;
-    RemoteControl::Page m_currentPage = RemoteControl::Page::UnconnectedPage;
+    RemoteControl::Page m_currentPage = RemoteControl::Page::Startup;
     ThumbnailModel* m_thumbnailModel;
     History m_history;
     QStringList m_listCategoryValues;

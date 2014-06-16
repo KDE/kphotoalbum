@@ -49,6 +49,8 @@ RemoteInterface::RemoteInterface()
     qRegisterMetaType<RemoteControl::CategoryModel*>("RemoteControl::CategoryModel*");
     qRegisterMetaType<RemoteControl::ThumbnailModel*>("ThumbnailModel*");
     qRegisterMetaType<RemoteControl::DiscoveryModel*>("DiscoveryModel*");
+
+    QTimer::singleShot(1000, this, SLOT(pushAwayFromStartupState()));
 }
 
 void RemoteInterface::setCurrentPage(Page page)
@@ -206,6 +208,13 @@ void RemoteInterface::rerequestOverviewPageData()
 {
     requestHomePageImages();
     m_history.rerunTopItem();
+}
+
+void RemoteInterface::pushAwayFromStartupState()
+{
+    // Avoid that the "not connected page" show for a few milliseconds while the connection is being set up.
+    if (!isConnected() && m_currentPage == Types::Startup)
+        setCurrentPage(Types::UnconnectedPage);
 }
 
 void RemoteInterface::setCurrentView(int imageId)

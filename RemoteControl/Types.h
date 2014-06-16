@@ -28,7 +28,7 @@ class Types {
     Q_GADGET
 
 public:
-    enum Page {UnconnectedPage, OverviewPage, CategoryItemsPage, CategoryListPage, ThumbnailsPage, ImageViewerPage, DiscoverPage};
+    enum Page {Startup, UnconnectedPage, OverviewPage, CategoryItemsPage, CategoryListPage, ThumbnailsPage, ImageViewerPage, DiscoverPage};
     enum class ViewType { CategoryItems, Thumbnails, Images };
     enum CategoryViewType { CategoryListView, CategoryIconView };
     Q_ENUMS(Page)

@@ -322,6 +322,9 @@ void Viewer::ViewerWidget::createSkipMenu()
     action = _actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
     action->setText( i18nc("@action:inmenu","Show Previous") );
     action->setShortcut( Qt::Key_PageUp );
+    KShortcut viewerPrevShortcut = action->shortcut();
+    viewerPrevShortcut.setAlternate(Qt::Key_Backspace);
+    action->setShortcut(viewerPrevShortcut);
     popup->addAction( action );
     _backwardActions.append(action);
 

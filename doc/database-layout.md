@@ -37,22 +37,22 @@ Exif information is stored in an sqlite database called `exif-info.db` in the im
 index.xml
 ---------
 
-Below is the DOM-Tree of the index.xml file. Attributes are within parenthesis, comments in square
-brackets.
+Below is a visualization of the DOM-Tree of the index.xml file. Attributes are
+within parenthesis, comments in square brackets.
 
 - - - - - - - -
 	KPhotoAlbum
-	| (version=3,compressed)
+	| (version=3,compressed=1)
 	|
 	+-Categories
-	| +-Category (name)
+	| +-Category (name,icon,show,viewtype,thumbnailsize)
 	|   +-value (value, id)
 	|
 	+-images
 	| +-image
 	|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
 	|   (stackId, stackOrder, rating) [optional]
-	|   (#CategoryName1# ... #CategoryNameN#) [optional, refers to Categories.Category.name]
+	|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 	|
 	+-blocklist
 	| +-block (file)
@@ -60,3 +60,23 @@ brackets.
 	+-member-groups
 	  +-member (category,group-name,members)
 - - - - - - - -
+	KPhotoAlbum
+	| (version=3,compressed=0)
+	|
+	+-Categories
+	| +-Category (name,icon,show,viewtype,thumbnailsize)
+	|   +-value (value, id)
+	|
+	+-images
+	| +-image
+	|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+	|   (stackId, stackOrder, rating) [optional]
+	|   +-options
+   |     +-option(name=#Categories.Category.name#)
+   |       +-value(value=#Categories.Category.value.value#)
+	|
+	+-blocklist
+	| +-block (file)
+	|
+	+-member-groups
+	  +-member (category,group-name,member)

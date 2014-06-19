@@ -440,6 +440,7 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _md5sum = other._md5sum;
     _null = other._null;
     _size = other._size;
+    _type = other._type;
     _dirty = other._dirty;
     _rating = other._rating;
     _stackId = other._stackId;

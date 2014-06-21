@@ -19,6 +19,7 @@
 
 #include "PriorityQueue.h"
 #include "Utilities/AlgorithmHelper.h"
+#include <functional>
 
 using namespace Utilities;
 namespace BackgroundTaskManager {

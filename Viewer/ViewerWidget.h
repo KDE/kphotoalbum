@@ -74,6 +74,7 @@ public slots:
     void moveInfoBox( int );
     void stopPlayback();
     void remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio);
+    void copyTo();
 
 signals:
     void soughtTo( const DB::FileName& id );
@@ -208,6 +209,8 @@ private:
     KAction* _showExifViewer;
     QPointer<Exif::InfoDialog> _exifViewer;
 #endif
+
+    KAction* _copyTo;
 
     InfoBox* _infoBox;
     QImage _currentImage;

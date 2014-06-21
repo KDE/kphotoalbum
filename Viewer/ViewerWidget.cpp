@@ -65,6 +65,9 @@
 #include "VideoShooter.h"
 #include "TaggedArea.h"
 #include "MainWindow/DirtyIndicator.h"
+#include <KFileDialog>
+#include <KPushButton>
+#include <kio/copyjob.h>
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -162,6 +165,11 @@ void Viewer::ViewerWidget::setupContextMenu()
     _showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
     _popup->addAction( _showExifViewer );
 #endif
+
+    _copyTo = _actions->addAction( QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()) );
+    _copyTo->setText( i18nc("@action:inmenu","Copy image to...") );
+    _copyTo->setShortcut( Qt::Key_F7 );
+    _popup->addAction( _copyTo );
 
     if ( _type == ViewerWindow ) {
         action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT(close()) );
@@ -1527,6 +1535,24 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
 
         area->setGeometry(screenGeometry);
     }
+}
+
+void Viewer::ViewerWidget::copyTo()
+{
+    KUrl src = KUrl::fromPath(currentInfo()->fileName().absolute());
+
+    // "kfiledialog:///copyTo" -> use last directory that was used in this dialog
+    KFileDialog dialog( KUrl("kfiledialog:///copyTo"), QString() /* empty filter */, this );
+    dialog.setCaption( i18nc("@title:window", "Copy image to...") );
+    dialog.okButton()->setText( i18nc("@action:button", "Copy") );
+    dialog.setSelection(src.fileName());
+    dialog.setMode(KFile::File | KFile::Directory);
+
+    if (! dialog.exec()) {
+        return;
+    }
+
+    KIO::copy(src, dialog.selectedUrl());
 }
 
 #include "ViewerWidget.moc"

@@ -95,6 +95,7 @@ protected slots:
     void slotCopyPrevious();
     void slotRatingChanged( unsigned int );
     void togglePreview();
+    void descriptionPageUpDownPressed(QKeyEvent *event);
 
 protected:
     QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );

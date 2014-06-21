@@ -272,6 +272,7 @@ set(libAnnotationDialog_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListViewItemHider.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShowSelectionOnlyManager.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShortCutManager.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
 )
 
 set(libBrowser_SRCS 

@@ -62,6 +62,9 @@
 #include "Viewer/ViewerWidget.h"
 #include "enums.h"
 
+#include "DescriptionEdit.h"
+#include <QDebug>
+
 using Utilities::StringSet;
 
 /**
@@ -96,7 +99,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     createDock( i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget() );
 
-    _description = new KTextEdit;
+    _description = new DescriptionEdit(this);
     _description->setProperty( "WantsFocus", true );
     _description->setObjectName( i18n("Description") );
     _description->setCheckSpellingEnabled( true );
@@ -104,6 +107,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     QDockWidget* dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );
+
+    connect( _description, SIGNAL(pageUpDownPressed(QKeyEvent*)), this, SLOT(descriptionPageUpDownPressed(QKeyEvent*)) );
 
     // -------------------------------------------------- Categrories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -1160,6 +1165,15 @@ void AnnotationDialog::Dialog::togglePreview()
 DB::FileNameSet AnnotationDialog::Dialog::rotatedFiles() const
 {
     return _rotatedFiles;
+}
+
+void AnnotationDialog::Dialog::descriptionPageUpDownPressed(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_PageUp) {
+        _actions->action(QString::fromLatin1("annotationdialog-prev-image"))->trigger();
+    } else if (event->key() == Qt::Key_PageDown) {
+        _actions->action(QString::fromLatin1("annotationdialog-next-image"))->trigger();
+    }
 }
 
 #include "Dialog.moc"

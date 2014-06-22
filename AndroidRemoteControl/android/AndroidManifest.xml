@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
-<manifest android:versionName="0.0.4" xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="org.kde.kphotoalbum" android:versionCode="5">
-    <application android:label="KPhotoAlbum" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:icon="@drawable/icon" android:hardwareAccelerated="true">
-        <activity android:screenOrientation="unspecified" android:label="@string/app_name" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation">
+<manifest android:versionCode="6" package="org.kde.kphotoalbum" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.0.6" android:installLocation="auto">
+    <application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:icon="@drawable/icon" android:hardwareAccelerated="true" android:label="KPhotoAlbum">
+        <activity android:screenOrientation="unspecified" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -32,7 +32,7 @@
         </activity>
     </application>
     <uses-sdk android:targetSdkVersion="14" android:minSdkVersion="9"/>
-    <supports-screens android:smallScreens="true" android:largeScreens="true" android:anyDensity="true" android:normalScreens="true"/>
+    <supports-screens android:normalScreens="true" android:smallScreens="true" android:largeScreens="true" android:anyDensity="true"/>
     <!-- %%INSERT_PERMISSIONS -->
     <!-- %%INSERT_FEATURES -->
     <uses-permission android:name="android.permission.INTERNET"/>

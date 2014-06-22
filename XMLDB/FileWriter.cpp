@@ -56,7 +56,17 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     {
         ElementWriter dummy(writer, QString::fromLatin1("KPhotoAlbum"));
-        writer.writeAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "3" ) );
+        bool usePositionableTags = false;
+        for ( DB::CategoryPtr category : DB::ImageDB::instance()->categoryCollection()->categories() )
+        {
+            if ( category->positionable() )
+            {
+                usePositionableTags = true;
+                break;
+            }
+        }
+        writer.writeAttribute( QString::fromLatin1( "version" ),
+                usePositionableTags ? QString::fromLatin1( "4" ) : QString::fromLatin1( "3" ) );
         writer.writeAttribute( QString::fromLatin1( "compressed" ), QString::number(useCompressedFileFormat()));
 
         saveCategories( writer );

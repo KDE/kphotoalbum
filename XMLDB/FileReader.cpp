@@ -40,7 +40,8 @@ void XMLDB::FileReader::read( const QString& configFile )
 {
     static QString _version_ = QString::fromUtf8("version");
     static QString _compressed_ = QString::fromUtf8("compressed");
-    static int _currentFileVersion_ = 3;
+    static const int _currentFileVersion_ = 4;
+    static const int _minFileVersion_ = 3;
 
     ReaderPtr reader = readConfigFile( configFile );
 
@@ -59,7 +60,7 @@ void XMLDB::FileReader::read( const QString& configFile )
                     ,_fileVersion,_currentFileVersion_),
                 i18n("index.xml version mismatch"),
                 QString::fromLatin1( "checkDatabaseFileVersion" ) );
-    } else if ( _fileVersion < _currentFileVersion_ )
+    } else if ( _fileVersion < _minFileVersion_ )
     {
         KMessageBox::information( messageParent(),
                 i18n("<p>The database file indicates a file format version of %1. "

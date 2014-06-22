@@ -25,9 +25,11 @@
 #include "DB/CategoryCollection.h"
 
 Settings::CategoryItem::CategoryItem( const QString& category, const QString& text, const QString& icon,
-                                      DB::Category::ViewType type, int thumbnailSize, QListWidget* parent )
+                                      DB::Category::ViewType type, int thumbnailSize, QListWidget* parent,
+                                      bool positionable )
     :QListWidgetItem( text, parent ),
      _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
+     _positionable( positionable ), _positionableOrig( positionable ),
      _category( category ), _text( text ), _icon( icon ), _type( type ), _typeOrig( type ),
      _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )
 {
@@ -51,6 +53,9 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
         if ( _text != _textOrig )
             renameCategory( memberMap );
 
+        if ( _positionable != _positionableOrig )
+            category->setPositionable( _positionable );
+
         if ( _icon != _iconOrig )
             category->setIconName( _icon );
 
@@ -66,6 +71,7 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
     _typeOrig = _typeOrig;
     _thumbnailSizeOrig = _thumbnailSize;
     _textOrig = _text;
+    _positionableOrig = _positionable;
 }
 
 void Settings::CategoryItem::removeFromDatabase()
@@ -79,6 +85,16 @@ void Settings::CategoryItem::removeFromDatabase()
 QString Settings::CategoryItem::text() const
 {
     return _text;
+}
+
+bool Settings::CategoryItem::positionable() const
+{
+    return _positionable;
+}
+
+void Settings::CategoryItem::setPositionable(bool positionable)
+{
+    _positionable = positionable;
 }
 
 QString Settings::CategoryItem::icon() const

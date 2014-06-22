@@ -27,10 +27,13 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show );
+        XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable=false );
 
         virtual QString name() const;
         virtual void setName( const QString& name );
+
+        virtual void setPositionable( bool );
+        virtual bool positionable() const;
 
         virtual QString iconName() const;
         virtual void setIconName( const QString& name );
@@ -67,6 +70,7 @@ namespace XMLDB {
         bool _show;
         ViewType _type;
         int _thumbnailSize;
+        bool _positionable;
 
         bool _isSpecial;
         QStringList _items;

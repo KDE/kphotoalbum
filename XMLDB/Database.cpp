@@ -649,6 +649,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
     static QString _name_ = QString::fromUtf8("name");
     static QString _value_ = QString::fromUtf8("value");
     static QString _option_ = QString::fromUtf8("option");
+    static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
         QString name = FileReader::unescape( reader->attribute(_name_) );
@@ -657,8 +658,22 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
             // Read values
             while (reader->readNextStartOrStopElement(_value_).isStartToken) {
                 QString value = reader->attribute(_value_);
-                if ( !value.isNull() )  {
-                    info->addCategoryInfo( name, value );
+
+                if (reader->hasAttribute(_area_)) {
+                    QStringList areaData = reader->attribute(_area_).split(QString::fromUtf8(" "));
+                    int x = areaData[0].toInt();
+                    int y = areaData[1].toInt();
+                    int w = areaData[2].toInt();
+                    int h = areaData[3].toInt();
+                    QRect area = QRect(QPoint(x, y), QPoint(x + w, y + h));
+
+                    if (! value.isNull())  {
+                        info->addCategoryInfo(name, value, area);
+                    }
+                } else {
+                    if (! value.isNull())  {
+                        info->addCategoryInfo(name, value);
+                    }
                 }
                 reader->readEndElement();
             }

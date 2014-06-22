@@ -163,6 +163,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString _viewtype_ = QString::fromUtf8("viewtype");
     static QString _show_ = QString::fromUtf8("show");
     static QString _thumbnailsize_ = QString::fromUtf8("thumbnailsize");
+    static QString _positionable_ = QString::fromUtf8("positionable");
     static QString _value_ = QString::fromUtf8("value");
     static QString _id_ = QString::fromUtf8("id");
     static QString _Categories_ = QString::fromUtf8("Categories");
@@ -177,15 +178,16 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
         const QString categoryName = unescape( reader->attribute(_name_) );
         if ( !categoryName.isNull() )  {
             // Read Category info
-            QString icon= reader->attribute(_icon_);
+            QString icon = reader->attribute(_icon_);
             DB::Category::ViewType type =
                     (DB::Category::ViewType) reader->attribute( _viewtype_, QString::fromLatin1( "0" ) ).toInt();
-            bool show = (bool) reader->attribute( _show_, QString::fromLatin1( "1" ) ).toInt();
             int thumbnailSize = reader->attribute( _thumbnailsize_, QString::fromLatin1( "32" ) ).toInt();
+            bool show = (bool) reader->attribute( _show_, QString::fromLatin1( "1" ) ).toInt();
+            bool positionable = (bool) reader->attribute( _positionable_, QString::fromLatin1( "0" ) ).toInt();
 
             DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );
-            cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show );
+            cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show, positionable );
             _db->_categoryCollection.addCategory( cat );
 
             // Read values

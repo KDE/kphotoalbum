@@ -83,9 +83,9 @@ QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 }
 
 void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon,
-                                                DB::Category::ViewType type, int thumbnailSize, bool show )
+                                                DB::Category::ViewType type, int thumbnailSize, bool show, bool positionable )
 {
-    addCategory( DB::CategoryPtr( new XMLCategory( text, icon, type, thumbnailSize, show ) ) );
+    addCategory( DB::CategoryPtr( new XMLCategory( text, icon, type, thumbnailSize, show, positionable ) ) );
 }
 
 void XMLDB::XMLCategoryCollection::initIdMap()

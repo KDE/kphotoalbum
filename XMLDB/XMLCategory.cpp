@@ -21,8 +21,8 @@
 #include "Utilities/List.h"
 #include <kdebug.h>
 
-XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show )
-    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false), _shouldSave( true )
+XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable )
+    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _positionable ( positionable ), _isSpecial(false), _shouldSave( true )
 {
 }
 
@@ -34,6 +34,20 @@ QString XMLDB::XMLCategory::name() const
 void XMLDB::XMLCategory::setName( const QString& name )
 {
     _name = name;
+}
+
+void XMLDB::XMLCategory::setPositionable( bool positionable )
+{
+    if ( positionable != _positionable )
+    {
+        _positionable = positionable;
+        emit changed();
+    }
+}
+
+bool XMLDB::XMLCategory::positionable() const
+{
+    return _positionable;
 }
 
 QString XMLDB::XMLCategory::iconName() const

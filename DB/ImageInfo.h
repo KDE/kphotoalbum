@@ -29,6 +29,7 @@
 #include "ExifMode.h"
 #include "DB/CategoryPtr.h"
 #include <QSize>
+#include <QRect>
 #include "FileName.h"
 
 namespace Plugins
@@ -45,6 +46,10 @@ namespace DB
 enum PathType {
     RelativeToImageRoot,
     AbsolutePath
+};
+enum RotationMode {
+    RotateImageInfoAndAreas,
+    RotateImageInfoOnly
 };
 
 using Utilities::StringSet;
@@ -89,7 +94,7 @@ public:
     ImageDate& date();
     void readExif(const DB::FileName& fullPath, DB::ExifMode mode);
 
-    void rotate( int degrees );
+    void rotate( int degrees, RotationMode mode=RotateImageInfoAndAreas );
     int angle() const;
     void setAngle( int angle );
 
@@ -110,10 +115,26 @@ public:
 
     void setCategoryInfo( const QString& key,  const StringSet& value );
     void addCategoryInfo( const QString& category, const StringSet& values );
-    void addCategoryInfo( const QString& category, const QString& value );
+    /**
+     * Enable a tag within a category for this image.
+     * Optionally, the tag's position can be given (for positionable categories).
+     * @param category the category name
+     * @param value the tag name
+     * @param area the image region that the tag applies to.
+     */
+    void addCategoryInfo(const QString& category, const QString& value, const QRect& area = QRect());
     void clearAllCategoryInfo();
     void removeCategoryInfo( const QString& category, const StringSet& values );
     void removeCategoryInfo( const QString& category, const QString& value );
+    /**
+     * Set the tagged areas for the image.
+     * It is assumed that the positioned tags have already been set to the ImageInfo
+     * using one of the functions <code>setCategoryInfo</code> or <code>addCategoryInfo</code>.
+     *
+     * @param category the category name.
+     * @param positionedTags a mapping of tag names to image areas.
+     */
+    void setPositionedTags(const QString& category, const QMap<QString, QRect> &positionedTags);
 
     bool hasCategoryInfo( const QString& key,  const QString& value ) const;
     bool hasCategoryInfo( const QString& key,  const StringSet& values ) const;
@@ -155,6 +176,14 @@ public:
      */
     void merge(const ImageInfo& other);
 
+    QMap<QString, QMap<QString, QRect>> taggedAreas() const;
+    /**
+     * Return the area associated with a tag.
+     * @param category the category name
+     * @param tag the tag name
+     * @return the associated area, or <code>QRect()</code> if no association exists.
+     */
+    QRect areaForTag(QString category, QString tag) const;
 protected:
     /** Save changes to database.
      *
@@ -178,6 +207,7 @@ private:
     QString _description;
     ImageDate _date;
     QMap<QString, StringSet> _categoryInfomation;
+    QMap<QString, QMap<QString, QRect>> _taggedAreas;
     int _angle;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;

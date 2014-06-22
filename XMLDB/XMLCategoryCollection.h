@@ -36,7 +36,7 @@ namespace XMLDB {
         virtual void rename( const QString& oldName, const QString& newName );
         virtual QList<DB::CategoryPtr> categories() const;
         virtual void addCategory( const QString& text, const QString& icon, DB::Category::ViewType type,
-                                  int thumbnailSize, bool show );
+                                  int thumbnailSize, bool show, bool positionable=false );
 
         void initIdMap();
 

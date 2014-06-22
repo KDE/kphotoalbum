@@ -21,6 +21,7 @@
 #include <qstring.h>
 #include <qdom.h>
 #include "DB/ImageInfoPtr.h"
+#include <QRect>
 
 class QWidget;
 class QXmlStreamWriter;
@@ -52,6 +53,7 @@ private:
     QWidget *messageParent();
 
     Database* const _db;
+    QString areaToString(QRect area) const;
 };
 
 }

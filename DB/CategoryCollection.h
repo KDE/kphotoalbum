@@ -42,7 +42,7 @@ public:
     virtual void rename( const QString& oldName, const QString& newName ) = 0;
     virtual QList<CategoryPtr> categories() const = 0;
     virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
-                              int thumbnailSize, bool show ) = 0;
+                              int thumbnailSize, bool show, bool positionable=false ) = 0;
 
     QString nameForText( const QString& text );
 

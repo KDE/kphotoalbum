@@ -103,11 +103,11 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
             DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
             ElementWriter dummy(writer, QString::fromLatin1("Category") );
             writer.writeAttribute( QString::fromLatin1("name"),  name );
-
             writer.writeAttribute( QString::fromLatin1( "icon" ), category->iconName() );
             writer.writeAttribute( QString::fromLatin1( "show" ), QString::number(category->doShow()) );
             writer.writeAttribute( QString::fromLatin1( "viewtype" ), QString::number(category->viewType()));
             writer.writeAttribute( QString::fromLatin1( "thumbnailsize" ), QString::number(category->thumbnailSize()));
+            writer.writeAttribute( QString::fromLatin1( "positionable" ), QString::number(category->positionable()) );
 
             if ( shouldSaveCategory( name ) ) {
                 QStringList list =
@@ -254,6 +254,16 @@ void XMLDB::FileWriter::save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& 
         writeCategories( writer, info );
 }
 
+QString XMLDB::FileWriter::areaToString(QRect area) const
+{
+    QStringList areaString;
+    areaString.append( QString::number(area.x()) );
+    areaString.append( QString::number(area.y()) );
+    areaString.append( QString::number(area.width()) );
+    areaString.append( QString::number(area.height()) );
+    return areaString.join( QString::fromLatin1(" ") );
+}
+
 void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {
     ElementWriter topElm(writer, QString::fromLatin1("options"), false );
@@ -275,13 +285,19 @@ void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::Ima
         Q_FOREACH(const QString& itemValue, items) {
             ElementWriter dummy( writer, QString::fromLatin1("value") );
             writer.writeAttribute( QString::fromLatin1("value"), itemValue );
-        }
 
+            QRect area = info->areaForTag(name, itemValue);
+            if ( ! area.isNull() ) {
+                writer.writeAttribute(QString::fromLatin1("area"), areaToString(area));
+            }
+        }
     }
 }
 
 void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {
+    QMap<QString, QList<QPair<QString, QRect>>> positionedTags;
+
     QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH(const DB::CategoryPtr &category, categoryList) {
         QString categoryName = category->name();
@@ -292,11 +308,46 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
         StringSet items = info->itemsOfCategory(categoryName);
         if ( !items.empty() ) {
             QStringList idList;
+
             Q_FOREACH(const QString &itemValue, items) {
-                int id = static_cast<const XMLCategory*>(category.data())->idForName(itemValue);
-                idList.append( QString::number( id ) );
+                QRect area = info->areaForTag(categoryName, itemValue);
+
+                if ( area.isValid() ) {
+                    // Positioned tags can't be stored in the "fast" format
+                    // so we have to handle them separately
+                    positionedTags[categoryName] << QPair<QString, QRect>(itemValue, area);
+                } else {
+                    int id = static_cast<const XMLCategory*>(category.data())->idForName(itemValue);
+                    idList.append( QString::number( id ) );
+                }
             }
-            writer.writeAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
+
+            // Possibly all ids of a category have area information, so only
+            // write the category attribute if there are actually ids to write
+            if ( !idList.isEmpty() )
+                writer.writeAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
+        }
+    }
+
+    // Add a "readable" sub-element for the positioned tags
+    // FIXME: can this be merged with the code in writeCategories()?
+    if ( ! positionedTags.isEmpty() ) {
+        ElementWriter topElm( writer, QString::fromLatin1("options"), false );
+        topElm.writeStartElement();
+
+        QMapIterator<QString, QList<QPair<QString, QRect>>> categoryWithAreas(positionedTags);
+        while (categoryWithAreas.hasNext()) {
+            categoryWithAreas.next();
+
+            ElementWriter categoryElm( writer, QString::fromLatin1("option"), false );
+            categoryElm.writeStartElement();
+            writer.writeAttribute( QString::fromLatin1("name"), categoryWithAreas.key() );
+
+            for ( const auto& positionedTag : categoryWithAreas.value() ) {
+                ElementWriter dummy( writer, QString::fromLatin1("value") );
+                writer.writeAttribute( QString::fromLatin1("value"), positionedTag.first );
+                writer.writeAttribute( QString::fromLatin1("area"), areaToString(positionedTag.second) );
+            }
         }
     }
 }

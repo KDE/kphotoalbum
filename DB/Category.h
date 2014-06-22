@@ -47,6 +47,9 @@ public:
     virtual QString text() const;
     static QMap<QString,QString> standardCategories();
 
+    virtual void setPositionable(bool) = 0;
+    virtual bool positionable() const = 0;
+
     virtual QString iconName() const = 0;
     virtual void setIconName( const QString& name ) = 0;
     virtual QPixmap icon( int size = 22, KIconLoader::States state = KIconLoader::DefaultState ) const;

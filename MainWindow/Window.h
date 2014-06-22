@@ -179,6 +179,7 @@ protected:
     void executeStartupActions();
     void checkIfMplayerIsInstalled();
     bool anyVideosSelected() const;
+    void announceAndroidVersion();
 
 private:
     static Window* _instance;

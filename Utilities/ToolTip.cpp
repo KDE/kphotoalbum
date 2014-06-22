@@ -55,9 +55,10 @@ void ToolTip::requestImage( const DB::FileName& fileName )
         renderToolTip();
 }
 
-void ToolTip::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/,
-                            const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool /*loadedOK*/)
+void ToolTip::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
+    const DB::FileName fileName = request->databaseFileName();
+
     delete _tmpFileForThumbnailView;
     _tmpFileForThumbnailView = new QTemporaryFile(this);
     _tmpFileForThumbnailView->open();

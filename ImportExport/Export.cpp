@@ -310,9 +310,10 @@ void Export::copyImages(const DB::FileNameList& list)
     }
 }
 
-void Export::pixmapLoaded( const DB::FileName& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
+void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
-    if ( !loadedOK )
+    const DB::FileName fileName = request->databaseFileName();
+    if ( !request->loadedOK() )
         return;
 
     const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();

@@ -87,6 +87,8 @@ public:
     property_copy( matchType             , setMatchType             , AnnotationDialog::MatchType      );
     property_copy( tTimeStamps           , setTTimeStamps           , TimeStampTrust );
     property_copy( excludeDirectories    , setExcludeDirectories    , QString );
+    property_copy( recentAndroidAddress  , setRecentAndroidAddress  , QString );
+    property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool);
 
     ////////////////////////////////
     //// File Version Detection ////

@@ -173,7 +173,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
     QRegExp rx( QString::fromLatin1( "^(<!DOCTYPE[^>]*>)" ) );
     int position;
- 
+
     rx.setCaseSensitivity( Qt::CaseInsensitive );
     position = rx.indexIn( content );
     if ( ( position += rx.matchedLength () ) < 0 )
@@ -288,7 +288,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         href.appendChild( img );
         ++count;
     }
-    
+
     // Adding TD elements to match the selected column amount for valid HTML
     if ( count % cols != 0 ) {
     for ( int i = count; i % cols != 0; ++i ) {
@@ -365,7 +365,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
     QRegExp rx( QString::fromLatin1( "^(<!DOCTYPE[^>]*>)" ) );
     int position;
- 
+
     rx.setCaseSensitivity( Qt::CaseInsensitive );
     position = rx.indexIn( content );
     if ( ( position += rx.matchedLength () ) < 0 )
@@ -631,9 +631,12 @@ void HTMLGenerator::Generator::slotCancelGenerate()
         _eventLoop->exit();
 }
 
-void HTMLGenerator::Generator::pixmapLoaded( const DB::FileName& fileName, const QSize& imgSize,
-                                             const QSize& /*fullSize*/, int /*angle*/, const QImage& image, const bool loadedOK)
+void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
+    const DB::FileName fileName = request->databaseFileName();
+    const QSize imgSize = request->size();
+    const bool loadedOK = request->loadedOK();
+
     progressBar()->setValue( _total - _waitCounter );
 
     _waitCounter--;

@@ -52,7 +52,7 @@ public:
     static void showUsageDialog();
 
     // ImageManager::ImageClient callback.
-    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
 
 protected:
     void generateThumbnails(const DB::FileNameList& list);

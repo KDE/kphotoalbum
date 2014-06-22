@@ -20,3 +20,6 @@ tags
 *.orig
 *~
 CMakeLists.txt.user
+AndroidRemoteControl/AndroidRemoteControl.pro.user
+build-*
+version.h

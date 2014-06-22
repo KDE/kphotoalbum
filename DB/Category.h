@@ -22,6 +22,7 @@
 #include <qstring.h>
 #include <qobject.h>
 #include <ksharedptr.h>
+#include "kiconloader.h"
 
 class QImage;
 class QPixmap;
@@ -48,7 +49,7 @@ public:
 
     virtual QString iconName() const = 0;
     virtual void setIconName( const QString& name ) = 0;
-    virtual QPixmap icon( int size = 22 ) const;
+    virtual QPixmap icon( int size = 22, KIconLoader::States state = KIconLoader::DefaultState ) const;
 
     virtual void setViewType( ViewType type ) = 0;
     virtual ViewType viewType() const = 0;

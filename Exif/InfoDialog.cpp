@@ -92,10 +92,10 @@ QSize Exif::InfoDialog::sizeHint() const
     return QSize( 800, 400 );
 }
 
-void Exif::InfoDialog::pixmapLoaded( const DB::FileName& , const QSize& , const QSize& , int , const QImage& img, const bool loadedOK)
+void Exif::InfoDialog::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
-    if ( loadedOK )
-      m_pix->setPixmap( QPixmap::fromImage(img) );
+    if ( request->loadedOK() )
+        m_pix->setPixmap( QPixmap::fromImage(image) );
 }
 
 void Exif::InfoDialog::setImage(const DB::FileName& fileName )

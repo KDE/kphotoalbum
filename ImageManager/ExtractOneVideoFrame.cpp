@@ -27,8 +27,13 @@
 #include <KMessageBox>
 #include <MainWindow/Window.h>
 #include <DB/ImageDB.h>
+#include "MainWindow/TokenEditor.h"
+#include "Utilities/Set.h"
+#include <KMessageBox>
+#include "MainWindow/DirtyIndicator.h"
 
 namespace ImageManager {
+QString ExtractOneVideoFrame::m_tokenForShortVideos;
 
 #define STR(x) QString::fromUtf8(x)
 void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject* receiver, const char* slot)
@@ -39,6 +44,7 @@ void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, 
 
 ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)
 {
+    m_fileName = fileName;
     m_process = new Utilities::Process(this);
     setupWorkingDirectory();
     m_process->setWorkingDirectory(m_workingDirectory);
@@ -57,7 +63,17 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
 
 void ExtractOneVideoFrame::frameFetched()
 {
-    QImage image(m_workingDirectory + STR("/00000020.png"));
+    if (!QFile::exists(m_workingDirectory + STR("/00000020.png")))
+        markShortVideo(m_fileName);
+
+    QString name;
+    for (int i = 20; i>0; --i) {
+        name = m_workingDirectory +STR("/000000%1.png").arg(i,2, 10, QChar::fromLatin1('0'));
+        if (QFile::exists(name))
+            break;
+    }
+
+    QImage image(name);
     emit result(image);
     deleteWorkingDirectory();
     deleteLater();
@@ -96,6 +112,36 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
         dir.remove(file);
 
     dir.rmdir(m_workingDirectory);
+}
+
+void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
+{
+    if (m_tokenForShortVideos.isNull()) {
+        Utilities::StringSet usedTokens = MainWindow::TokenEditor::tokensInUse().toSet();
+        for ( int ch = 'A'; ch <= 'Z'; ++ch ) {
+            QString token = QChar::fromLatin1( (char) ch );
+            if (!usedTokens.contains(token)) {
+                m_tokenForShortVideos = token;
+                break;
+            }
+        }
+
+        if (m_tokenForShortVideos.isNull()) {
+            // Hmmm, no free token. OK lets just skip setting tokens.
+            return;
+        }
+        KMessageBox::information(MainWindow::Window::theMainWindow(),
+                                 i18n("Some ultra short videos was found during thumbnail extraction. "
+                                      "This is likely an error so for your convenience, the token '%1' "
+                                      "has been set on those videos.\n\n"
+                                      "(You might need to wait till the video extraction led in your status bar has stopped blinking, "
+                                      "to see all ultra short videos)")
+                                 .arg(m_tokenForShortVideos));
+    }
+
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    info->addCategoryInfo(QString::fromUtf8("Tokens"), m_tokenForShortVideos);
+    MainWindow::DirtyIndicator::markDirty();
 }
 
 } // namespace ImageManager

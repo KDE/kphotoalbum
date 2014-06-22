@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/OverviewPage.qml</file>
+        <file>qml/Icon.qml</file>
+        <file>qml/ThumbnailsPage.qml</file>
+        <file>qml/ImageViewer.qml</file>
+        <file>qml/ScrollBar.qml</file>
+        <file>qml/ImageDetails.qml</file>
+        <file>qml/CategoryListView.qml</file>
+        <file>qml/Zoomable.qml</file>
+        <file>qml/PositionObserver.qml</file>
+        <file>qml/Keyboard.qml</file>
+        <file>qml/Cell.qml</file>
+    </qresource>
+</RCC>

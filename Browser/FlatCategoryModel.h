@@ -22,6 +22,7 @@
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 
+namespace RemoteControl { class RemoteInterface; }
 namespace Browser
 {
 
@@ -43,6 +44,7 @@ public:
     QString indexToName(const QModelIndex& ) const override;
 
 private:
+    friend class RemoteControl::RemoteInterface;
     QStringList _items;
 };
 

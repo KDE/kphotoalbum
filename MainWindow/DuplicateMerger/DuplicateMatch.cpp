@@ -93,9 +93,9 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     ImageManager::AsyncLoader::instance()->load(request);
 }
 
-void DuplicateMatch::pixmapLoaded(const DB::FileName&, const QSize&, const QSize&, int, const QImage& image, const bool)
+void DuplicateMatch::pixmapLoaded(ImageManager::ImageRequest* /*request*/, const QImage& image)
 {
-    m_image->setPixmap( QPixmap::fromImage(image));
+    m_image->setPixmap(QPixmap::fromImage(image));
 }
 
 void DuplicateMatch::setSelected(bool b)

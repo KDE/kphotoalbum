@@ -287,8 +287,11 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::FileName& fileNa
     ImageManager::AsyncLoader::instance()->load( request );
 }
 
-void ThumbnailView::ThumbnailModel::pixmapLoaded( const DB::FileName& fileName, const QSize& , const QSize& fullSize, int, const QImage& , const bool )
+void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& /*image*/)
 {
+    const DB::FileName fileName = request->databaseFileName();
+    const QSize fullSize = request->fullSize();
+
     // As a result of the image being loaded, we emit the dataChanged signal, which in turn asks the delegate to paint the cell
     // The delegate now fetches the newly loaded image from the cache.
 

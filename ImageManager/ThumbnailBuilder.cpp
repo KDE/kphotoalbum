@@ -48,10 +48,11 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
     m_startBuildTimer->stop();
 }
 
-void ImageManager::ThumbnailBuilder::pixmapLoaded( const DB::FileName& fileName, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK)
+void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& /*image*/)
 {
-    Q_UNUSED(size)
-    Q_UNUSED(loadedOK)
+    const DB::FileName fileName = request->databaseFileName();
+    const QSize fullSize = request->fullSize();
+
     if ( fullSize.width() != -1 ) {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
         info->setSize( fullSize );

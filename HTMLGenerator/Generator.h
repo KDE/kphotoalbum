@@ -69,9 +69,7 @@ public:
     void getThemeInfo( QString* baseDir, QString* name, QString* author );
 
 
-    virtual void pixmapLoaded( const DB::FileName& fileName, const QSize& size,
-                               const QSize& fullSize, int angle, const QImage&,
-                               const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     int maxImageSize();
     void minImageSize( int& width, int& height);
 

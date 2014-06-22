@@ -131,6 +131,9 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
        _albumCategory->addItem( (*it)->text() );
     }
 
+    _listenForAndroidDevicesOnStartup = new QCheckBox(i18n("Listen for Android devices on startup"));
+    lay->addWidget(_listenForAndroidDevicesOnStartup);
+
     lay1->addStretch( 1 );
 
     // Whats This
@@ -176,6 +179,13 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
     _showSplashScreen->setWhatsThis( txt );
+
+    txt = i18n("<p>KPhotoAlbum is capable of showing your images on android devices. KPhotoAlbum will automatically pair with the app from "
+               "android. This, however, requires that KPhotoAlbum on your desktop is listening for multicast messages. "
+               "Checking this checkbox will make KPhotoAlbum do so automatically on start up. "
+               "Alternatively, you can click the connection icon in the status bar to start listening.");
+    _listenForAndroidDevicesOnStartup->setWhatsThis(txt);
+
 }
 
 void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
@@ -189,6 +199,7 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     _barHeight->setValue( opt->histogramSize().height() );
     _showHistogram->setChecked( opt->showHistogram() );
     _showSplashScreen->setChecked( opt->showSplashScreen() );
+    _listenForAndroidDevicesOnStartup->setChecked(opt->listenForAndroidDevicesOnStartup());
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
@@ -205,6 +216,7 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
     opt->setShowHistogram( _showHistogram->isChecked() );
     opt->setShowSplashScreen( _showSplashScreen->isChecked() );
+    opt->setListenForAndroidDevicesOnStartup(_listenForAndroidDevicesOnStartup->isChecked());
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
         name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];

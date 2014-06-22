@@ -121,6 +121,7 @@
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include "UpdateVideoThumbnail.h"
 #include "DuplicateMerger/DuplicateMerger.h"
+#include "RemoteControl/RemoteInterface.h"
 
 using namespace DB;
 
@@ -259,6 +260,11 @@ void MainWindow::Window::delayedInit()
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
 #endif
+
+    if (Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+        RemoteControl::RemoteInterface::instance().listen();
+
+    announceAndroidVersion();
 }
 
 
@@ -1802,6 +1808,20 @@ bool MainWindow::Window::anyVideosSelected() const
             return true;
     }
     return false;
+}
+
+void MainWindow::Window::announceAndroidVersion()
+{
+    // Don't bother people with this information when they are starting KPA the first time
+    if (DB::ImageDB::instance()->totalCount() < 100)
+        return;
+
+    const QString doNotShowKey = QString::fromLatin1( "announce_android_version_key" );
+    const QString txt = i18n("<p>Did you know that there is an Android client for KPhotoAlbum?<br/>"
+                             "With the Andorid client you can view your images from your desktop.</p>"
+                             "<p><a href=\"https://www.youtube.com/results?search_query=kphotoalbum+on+android\">See youtube video</a> or "
+                             "<a href=\"https://play.google.com/store/apps/details?id=org.kde.kphotoalbum\">install from google play</a></p>" );
+    KMessageBox::information( this, txt, QString(), doNotShowKey, KMessageBox::AllowLink );
 }
 
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const

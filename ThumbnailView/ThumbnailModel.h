@@ -48,7 +48,7 @@ public:
     void updateCell( const DB::FileName& id );
 
     // -------------------------------------------------- ImageClient API
-    void pixmapLoaded( const DB::FileName&, const QSize& size, const QSize& fullSize, int, const QImage&, const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     bool thumbnailStillNeeded( int row ) const;
 
 

@@ -29,6 +29,7 @@
 #include "MainWindow/SplashScreen.h"
 #include <klocale.h>
 #include <kdebug.h>
+#include "RemoteControl/RemoteInterface.h"
 
 #include "version.h"
 
@@ -72,7 +73,6 @@ int main( int argc, char** argv ) {
 
     new MainWindow::SplashScreen();
 
-
     // FIXME: There is no point in using try here, because exceptions
     // and Qt event loop don't mix. Rather exceptions should be
     // caught earlier and not passed through Qt code.
@@ -82,9 +82,13 @@ int main( int argc, char** argv ) {
         // qApp->setMainWidget( view );
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
+        (void) RemoteControl::RemoteInterface::instance();
+
         int code = app.exec();
-        // ZaJ: deinitialization crashes KPA in some cases. Disable until someone does a proper fix:
-        //delete view;
+        // I've heard multiple people complain about a crash in this line.
+        // unfortunately valgrind doesn't tell me why that should be, and I haven't seen it myself.
+        // Anyway, the line is really only needed when searching for memory leaks.
+        // delete view;
         return code;
     }
     catch (...) {

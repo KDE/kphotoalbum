@@ -40,10 +40,7 @@ class DuplicateMatch : public QWidget, ImageManager::ImageClientInterface
 
 public:
     explicit DuplicateMatch(const DB::FileNameList& files);
-    virtual void pixmapLoaded( const DB::FileName& fileName,
-                               const QSize& size, const QSize& fullSize,
-                               int angle, const QImage& image,
-                               const bool loadedOK) override;
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     void setSelected(bool);
     bool selected() const;
     void execute(Utilities::DeleteMethod);

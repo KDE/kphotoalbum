@@ -29,7 +29,8 @@
 #include <KVBox>
 #include <kiconloader.h>
 #include <KIcon>
-#include <BackgroundTaskManager/StatusIndicator.h>
+#include "BackgroundTaskManager/StatusIndicator.h"
+#include "RemoteControl/ConnectionIndicator.h"
 
 MainWindow::StatusBar::StatusBar()
     : KStatusBar()
@@ -50,8 +51,11 @@ void MainWindow::StatusBar::setupGUI()
     setContentsMargins(7,2,7,2);
 
     KHBox* indicators = new KHBox( this );
+    indicators->setSpacing(10);
     _dirtyIndicator = new DirtyIndicator( indicators );
     connect( DB::ImageDB::instance(), SIGNAL(dirty()), _dirtyIndicator, SLOT(markDirtySlot()) );
+
+    new RemoteControl::ConnectionIndicator(indicators);
 
     KVBox* statusIndicatorBox = new KVBox(indicators);
     new BackgroundTaskManager::StatusIndicator(statusIndicatorBox);

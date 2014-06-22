@@ -1,3 +1,40 @@
+* New Feature: Added an Android client, which can display images from
+  a running KPhotoAlbum on the desktop
+
+* Bugfix: find thumbnail even for short videos
+  (Thanks to Christoph Moseler for identifying the problem, and sending an initial patch)
+
+* Enhancement: Implemented the Page-Up and Page-Down keypresses to select
+  the previous and next image in the annotation dialog
+
+* Bugfix: Fix image import for kim files with external images.
+
+* Bugfix: Fix crash when reading .kim files.
+
+* Enhancement: Updated HTML darkJS theme
+
+* New Feature: Maintainance->sort all by date and time
+  (With this command, you don't have to worry about stacks, locked images, or similar)
+
+* Bugfix: Prevent thumbnail progress bar from showing idefinitely when no MPlayer is installed.
+
+* Enhancement: Make thumbnail cache readable by all users.
+  (This makes sharing a kphotoalbum database actually possible.)
+
+* Enhancement: Implement caching for thumbnail files.
+
+* Enhancement: Recalculate md5sum when image is changed by kipi-plugin.
+
+* Bugfix: Mark database dirty when images are deleted.
+
+* Enhancement: Run without video thumbnail/length support when mplayer is missing.
+
+* Bugfix: Don't try creating thumbnails for images not on disk.
+
+* Enhancement: Use cached QImage instead of invoking KIcon::pixmap on broken files
+
+* Enhancement: Add --info to script/kpa-backup.sh.
+
 ====================== KPhotoalbum 4.4 released  ======================
 
 Other changes done since 4.3

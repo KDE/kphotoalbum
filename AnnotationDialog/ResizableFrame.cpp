@@ -26,7 +26,7 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent) :
         "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
     ));
 
-    _removeAct = new QAction(i18n("Remove area"), this);
+    _removeAct = new QAction( i18nc("area of an image; rectangle that is overlayed upon the image", "Remove area"), this);
     connect( _removeAct, SIGNAL(triggered()), this, SLOT(remove()) );
 
     _lastTagAct = new QAction(this);
@@ -271,11 +271,10 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
 
     // Let's see if we already have an associated tag
     if (! _tagData.first.isEmpty()) {
-        _removeTagAct->setText(i18n("Remove tag") + QString::fromLatin1(" ") +
-                               _tagData.second +
-                               QString::fromLatin1(" (") +
-                               _dialog->localizedCategory(_tagData.first) +
-                               QString::fromLatin1(")"));
+        _removeTagAct->setText(
+                i18nc( "As in: remove tag %1 in category %2 [from this marked area of the image]"
+                     , "Remove tag %1 (%2)"
+                     , _tagData.second, _tagData.first ) );
         menu->addAction(_removeTagAct);
     } else {
         // Handle the last selected positionable tag
@@ -284,12 +283,10 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
 
         if (! lastSelectedPositionableTag.first.isEmpty()) {
             _lastTagAct->setText(
-                i18n("Associate with") + QString::fromLatin1(" ") +
-                lastSelectedPositionableTag.second +
-                QString::fromLatin1(" (") +
-                _dialog->localizedCategory(lastSelectedPositionableTag.first) +
-                QString::fromLatin1(")")
-            );
+                    i18nc( "As in: associate [this marked area of the image] with tag %1 in category %2"
+                         , "Associate with %1 (%2)"
+                         , lastSelectedPositionableTag.second, _dialog->localizedCategory(lastSelectedPositionableTag.first)
+                        ) );
 
             QStringList data;
             data << lastSelectedPositionableTag.first << lastSelectedPositionableTag.second;
@@ -308,7 +305,9 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
         // If we still have other candidates: add a respective sub-menu
         if (positionableTagCandidates.length() > 0) {
             // Create a new menu for all other tags
-            QMenu *submenu = menu->addMenu(i18n("Associate with"));
+            QMenu *submenu = menu->addMenu(
+                    i18nc( "As in: associate [this marked area of the image] with one of the following choices/menu items", "Associate with")
+                    );
 
             for (const QPair<QString, QString> &tag : positionableTagCandidates) {
                 QAction *action = new QAction(

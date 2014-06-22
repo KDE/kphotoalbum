@@ -23,6 +23,7 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "MainWindow/DeleteDialog.h"
+#include <QDebug>
 using namespace AnnotationDialog;
 
 ImagePreviewWidget::ImagePreviewWidget() : QWidget()
@@ -30,6 +31,7 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     QVBoxLayout* layout = new QVBoxLayout( this );
     _preview = new ImagePreview( this );
     layout->addWidget( _preview, 1 );
+    connect( this, SIGNAL(areaVisibilityChanged(bool)), _preview, SLOT(setAreaCreationEnabled(bool)) );
 
     QHBoxLayout* hlay = new QHBoxLayout;
     layout->addLayout( hlay );
@@ -67,6 +69,14 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     _copyPreviousBut->setFixedWidth( 40 );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
 
+    _toggleAreasBut = new KPushButton(this);
+    hlay->addWidget(_toggleAreasBut);
+    _toggleAreasBut->setIcon(KIcon(QString::fromLatin1("document-preview")));
+    _toggleAreasBut->setFixedWidth(40);
+    _toggleAreasBut->setToolTip(i18n("Hide or show areas on the image"));
+    _toggleAreasBut->setCheckable(1);
+    _toggleAreasBut->setChecked(1);
+
     hlay->addStretch( 1 );
     _delBut = new KPushButton( this );
     _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
@@ -82,6 +92,7 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     connect( _prevBut, SIGNAL(clicked()), this, SLOT(slotPrev()) );
     connect( _rotateLeft, SIGNAL(clicked()), this, SLOT(rotateLeft()) );
     connect( _rotateRight, SIGNAL(clicked()), this, SLOT(rotateRight()) );
+    connect( _toggleAreasBut, SIGNAL(clicked(bool)), this, SLOT(slotShowAreas(bool)) );
 
     _current = -1;
 }
@@ -210,4 +221,30 @@ void ImagePreviewWidget::setImage( const QString& fileName )
     _copyPreviousBut->setEnabled( false );
 
 }
+
+ImagePreview *ImagePreviewWidget::preview() const
+{
+    return _preview;
+}
+
+void ImagePreviewWidget::slotShowAreas(bool show)
+{
+    // slot can be triggered by something else than the button:
+    _toggleAreasBut->setChecked(show);
+
+    emit areaVisibilityChanged(show);
+}
+
+bool ImagePreviewWidget::showAreas() const
+{
+    return _toggleAreasBut->isChecked();
+}
+
+void ImagePreviewWidget::canCreateAreas(bool state)
+{
+    _toggleAreasBut->setChecked(state);
+    _toggleAreasBut->setEnabled(state);
+    _preview->setAreaCreationEnabled(state);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

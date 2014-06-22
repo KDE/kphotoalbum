@@ -39,6 +39,9 @@ public:
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
     const QString& lastImage();
+    ImagePreview *preview() const;
+    bool showAreas() const;
+    void canCreateAreas(bool state);
 
 public slots:
     void slotNext();
@@ -47,6 +50,7 @@ public slots:
     void slotDeleteImage();
     void rotateLeft();
     void rotateRight();
+    void slotShowAreas(bool show);
 
 signals:
     void imageDeleted( const DB::ImageInfo& deletedImage );
@@ -54,6 +58,7 @@ signals:
     void imageChanged( const DB::ImageInfo& newImage );
     void indexChanged( int newIndex );
     void copyPrevClicked();
+    void areaVisibilityChanged(bool visible);
 
 private:
     ImagePreview* _preview;
@@ -63,6 +68,7 @@ private:
     KPushButton* _rotateRight;
     KPushButton* _delBut;
     KPushButton* _copyPreviousBut;
+    KPushButton *_toggleAreasBut;
     QList<DB::ImageInfo>* _imageList;
     int _current;
     bool _singleEdit;

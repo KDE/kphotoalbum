@@ -73,9 +73,11 @@ public slots:
     void test();
     void moveInfoBox( int );
     void stopPlayback();
+    void remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 signals:
     void soughtTo( const DB::FileName& id );
+    void imageRotated(const DB::FileName& id);
 
 protected:
     void contextMenuEvent ( QContextMenuEvent * e ) override;
@@ -237,6 +239,9 @@ private:
     QString _lastCategory;
     QMap<Qt::Key, QPair<QString,QString> >* _inputMacros;
     QMap<Qt::Key, QPair<QString,QString> >* _myInputMacros;
+
+    void addTaggedAreas();
+    QMap<QString, QString> _categoryL10n;
 };
 
 }

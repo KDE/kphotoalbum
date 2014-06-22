@@ -84,6 +84,7 @@ signals:
     void possibleChange();
     void imageReady();
     void setCaptionInfo(const QString& info);
+    void viewGeometryChanged(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );

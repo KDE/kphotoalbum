@@ -61,6 +61,7 @@
 #include "Utilities/Util.h"
 #include "Viewer/ViewerWidget.h"
 #include "enums.h"
+#include "ResizableFrame.h"
 
 #include "DescriptionEdit.h"
 #include <QDebug>
@@ -110,14 +111,34 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     connect( _description, SIGNAL(pageUpDownPressed(QKeyEvent*)), this, SLOT(descriptionPageUpDownPressed(QKeyEvent*)) );
 
-    // -------------------------------------------------- Categrories
+    // -------------------------------------------------- Categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+
     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         ListSelect* sel = createListSel( *categoryIt );
+
+        // Create a QMap of all ListSelect instances, so that we can easily
+        // check if a specific (positioned) tag is (still) selected later
+        _listSelectList[(*categoryIt)->name()] = sel;
+
         QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
         shortCutManager.addDock( dock, sel->lineEdit() );
+
         if ( (*categoryIt)->isSpecialCategory() )
             dock->hide();
+
+        // Pass the positionable selection to the object
+        sel->setPositionable( (*categoryIt)->positionable() );
+
+        if ( sel->positionable() ) {
+            connect( sel, SIGNAL(positionableTagSelected(QString,QString)), this, SLOT(positionableTagSelected(QString,QString)) );
+            connect( sel, SIGNAL(positionableTagDeselected(QString,QString)), this, SLOT(positionableTagDeselected(QString,QString)) );
+            connect( sel, SIGNAL(positionableTagRenamed(QString,QString,QString)), this, SLOT(positionableTagRenamed(QString,QString,QString)) );
+        }
+
+        // The category could have a localized name. Perhaps, this could be
+        // also handy for something else, so let's do this for all categories
+        _categoryL10n[(*categoryIt)->name()] = (*categoryIt)->text();
     }
 
     // -------------------------------------------------- The buttons.
@@ -168,6 +189,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     connect( _preview, SIGNAL(indexChanged(int)), this, SLOT(slotIndexChanged(int)) );
     connect( _preview, SIGNAL(imageDeleted(DB::ImageInfo)), this, SLOT(slotDeleteImage()) );
     connect( _preview, SIGNAL(copyPrevClicked()), this, SLOT(slotCopyPrevious()) );
+    connect( _preview, SIGNAL(areaVisibilityChanged(bool)), this, SLOT(slotShowAreas(bool)) );
+    connect( _preview->preview(), SIGNAL(areaCreated(ResizableFrame*)), this, SLOT(slotNewArea(ResizableFrame*)) );
 
     // Disable so no button accept return (which would break with the line edits)
     _revertBut->setAutoDefault( false );
@@ -362,13 +385,50 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     // FIXME: it would be better to compute the "previous image" in a better way, but let's stick with this for now...
     DB::ImageInfo& old_info = _editList[ _current - 1 ];
 
+    _positionableTagCandidates.clear();
+    _lastSelectedPositionableTag.first = QString();
+    _lastSelectedPositionableTag.second = QString();
+    QList<ResizableFrame *> allAreas = _preview->preview()->findChildren<ResizableFrame *>();
+
     for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setSelection( old_info.itemsOfCategory( (*it)->category() ) );
+
+        // Also set all positionable tag candidates
+
+        if ( (*it)->positionable() ) {
+            QString category = (*it)->category();
+            QSet<QString> selectedTags = old_info.itemsOfCategory( category );
+
+            for ( const auto tag : selectedTags ) {
+                QRect area = _editList[_current].areaForTag(category, tag);
+                if (area.isNull()) {
+                    // no associated area yet
+                    addTagToCandidateList(category, tag);
+                }
+            }
+
+            // Check all areas for a linked tag in this category that is probably not selected anymore
+            for(ResizableFrame *area : allAreas) {
+                QPair<QString, QString> tagData = area->tagData();
+
+                if (tagData.first == category) {
+                    if (! selectedTags.contains(tagData.second)) {
+                        // The linked tag is not selected anymore, so remove it
+                        area->removeTagData();
+                    }
+                }
+            }
+        }
     }
 }
 
 void AnnotationDialog::Dialog::load()
 {
+    // Remove all areas
+    tidyAreas();
+    // Empty the positionable tag candidate list
+    _positionableTagCandidates.clear();
+
     DB::ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
 
@@ -394,13 +454,61 @@ void AnnotationDialog::Dialog::load()
         _rating->setRating( qMax( static_cast<short int>(0), info.rating() ) );
     _ratingChanged = false;
 
+    // A category areas have been linked against could have been deleted
+    // or un-marked as positionable in the meantime, so ...
+    QMap<QString, bool> categoryIsPositionable;
+
     for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
         (*it)->rePopulate();
+
+        // Get all selected positionable tags and add them to the candidate list
+        if ((*it)->positionable()) {
+            QSet<QString> selectedTags = (*it)->itemsOn();
+            QSet<QString>::iterator tagName;
+
+            for (tagName = selectedTags.begin(); tagName != selectedTags.end(); ++tagName) {
+                addTagToCandidateList( (*it)->category(), *tagName );
+            }
+        }
+
+        // ... create a list of all categories and their positionability ...
+        categoryIsPositionable[(*it)->category()] = (*it)->positionable();
+    }
+
+    // Create all tagged areas
+
+    QMap<QString, QMap<QString, QRect>> taggedAreas = info.taggedAreas();
+    QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
+
+    while (areasInCategory.hasNext()) {
+        areasInCategory.next();
+        QString category = areasInCategory.key();
+
+        // ... and check if the respective category is actually there yet and still positionable
+        // (operator[] will insert an empty item if the category has been deleted
+        // and is thus missing in the QMap, but the respective key won't be true)
+        if (categoryIsPositionable[category]) {
+            QMapIterator<QString, QRect> areaData(areasInCategory.value());
+            while (areaData.hasNext()) {
+                areaData.next();
+                QString tag = areaData.key();
+
+                // Be sure that the corresponding tag is still checked. The category could have
+                // been un-marked as positionable in the meantime and the tag could have been
+                // deselected, without triggering positionableTagDeselected and the area thus
+                // still remaining. If the category is then re-marked as positionable, the area would
+                // show up without the tag being selected.
+                if(_listSelectList[category]->tagIsChecked(tag)) {
+                    _preview->preview()->createTaggedArea(category, tag, areaData.value(), _preview->showAreas());
+                }
+            }
+        }
     }
 
     if ( _setup == InputSingleImageConfigMode )
         setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
+    _preview->canCreateAreas( _setup == InputSingleImageConfigMode && ! info.isVideo() );
 }
 
 void AnnotationDialog::Dialog::writeToInfo()
@@ -421,11 +529,27 @@ void AnnotationDialog::Dialog::writeToInfo()
     else
         info.setDate( DB::ImageDate( QDateTime( _startDate->date(), _time->time() ) ) );
 
+    // Generate a list of all tagged areas
+
+    QMap<QString, QMap<QString, QRect>> taggedAreas;
+    QPair<QString, QString> tagData;
+
+    foreach (ResizableFrame *area, _preview->preview()->findChildren<ResizableFrame *>()) {
+        tagData = area->tagData();
+
+        if ( !tagData.first.isEmpty() ) {
+            taggedAreas[tagData.first][tagData.second] = area->actualCoordinates();
+        }
+    }
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->toPlainText() );
-    for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it ) {
+
+    for (QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
+        if ((*it)->positionable()) {
+            info.setPositionedTags((*it)->category(), taggedAreas[(*it)->category()]);
+        }
     }
 
     if ( _ratingChanged ) {
@@ -479,6 +603,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     }
     else {
         _preview->configure( &_editList, false );
+        _preview->canCreateAreas( false );
         _startDate->setDate( QDate() );
         _endDate->setDate( QDate() );
         _time->hide();
@@ -488,8 +613,8 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
 
-        _imageLabel->setText( QString::fromLatin1("") );
-        _imageFilePattern->setText( QString::fromLatin1("") );
+        _imageLabel->setText(QString());
+        _imageFilePattern->setText(QString());
         _firstDescription = _editList[0].description();
 
         const bool allTextEqual =
@@ -774,6 +899,7 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
+    tidyAreas();
     _accept = QDialog::Rejected;
     QDialog::reject();
 }
@@ -813,8 +939,8 @@ void AnnotationDialog::Dialog::rotate( int angle )
     }
     else {
         DB::ImageInfo& info = _editList[ _current ];
-        info.rotate(angle);
-        _rotatedFiles.insert( info.fileName() );
+        info.rotate( angle, DB::RotateImageInfoOnly );
+        emit imageRotated( info.fileName() );
     }
 }
 
@@ -1084,6 +1210,8 @@ void AnnotationDialog::Dialog::continueLater()
 
 void AnnotationDialog::Dialog::saveAndClose()
 {
+    tidyAreas();
+
     _fullScreenPreview->stopPlayback();
 
     if (_origList.isEmpty()) {
@@ -1162,9 +1290,121 @@ void AnnotationDialog::Dialog::togglePreview()
     }
 }
 
-DB::FileNameSet AnnotationDialog::Dialog::rotatedFiles() const
+void AnnotationDialog::Dialog::tidyAreas()
 {
-    return _rotatedFiles;
+    // Remove all areas marked on the preview image
+    foreach (ResizableFrame *area, _preview->preview()->findChildren<ResizableFrame *>()) {
+        area->deleteLater();
+    }
+}
+
+void AnnotationDialog::Dialog::slotNewArea(ResizableFrame *area)
+{
+    area->setDialog(this);
+}
+
+void AnnotationDialog::Dialog::positionableTagSelected(QString category, QString tag)
+{
+    // Set the selected tag as the last selected positionable tag
+    _lastSelectedPositionableTag.first = category;
+    _lastSelectedPositionableTag.second = tag;
+
+    // Add the tag to the positionable tag candidate list
+    addTagToCandidateList(category, tag);
+}
+
+void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QString tag)
+{
+    // Remove the tag from the candidate list
+    removeTagFromCandidateList(category, tag);
+
+    // Search for areas linked against the tag on this image
+    if (_setup == InputSingleImageConfigMode) {
+        QPair<QString, QString> deselectedTag = QPair<QString, QString>(category, tag);
+
+        QList<ResizableFrame *> allAreas = _preview->preview()->findChildren<ResizableFrame *>();
+        foreach (ResizableFrame *area, allAreas) {
+            if (area->tagData() == deselectedTag) {
+                area->removeTagData();
+                // Only one area can be associated with the tag, so we can return here
+                return;
+            }
+        }
+    }
+    // Removal of tagged areas in InputMultiImageConfigMode is done in DB::ImageInfo::removeCategoryInfo
+}
+
+void AnnotationDialog::Dialog::addTagToCandidateList(QString category, QString tag)
+{
+    _positionableTagCandidates << QPair<QString, QString>(category, tag);
+}
+
+void AnnotationDialog::Dialog::removeTagFromCandidateList(QString category, QString tag)
+{
+    // Is the deselected tag the last selected positionable tag?
+    if (_lastSelectedPositionableTag.first == category and _lastSelectedPositionableTag.second == tag) {
+        _lastSelectedPositionableTag = QPair<QString, QString>();
+    }
+
+    // Remove the tag from the candidate list
+    _positionableTagCandidates.removeAt(
+        _positionableTagCandidates.indexOf(
+            QPair<QString, QString>(category, tag)
+        )
+    );
+}
+
+QPair<QString, QString> AnnotationDialog::Dialog::lastSelectedPositionableTag() const
+{
+    return _lastSelectedPositionableTag;
+}
+
+QList<QPair<QString, QString>> AnnotationDialog::Dialog::positionableTagCandidates() const
+{
+    return _positionableTagCandidates;
+}
+
+void AnnotationDialog::Dialog::slotShowAreas(bool showAreas)
+{
+    QList<ResizableFrame *> allAreas = _preview->preview()->findChildren<ResizableFrame *>();
+    foreach (ResizableFrame *area, allAreas) {
+        area->setVisible(showAreas);
+    }
+}
+
+void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString oldTag, QString newTag)
+{
+    // Is the renamed tag the last selected positionable tag?
+    if (_lastSelectedPositionableTag.first == category and _lastSelectedPositionableTag.second == oldTag) {
+        _lastSelectedPositionableTag.second = newTag;
+    }
+
+    // Check the candidate list for the tag
+    QPair<QString, QString> oldTagData = QPair<QString, QString>(category, oldTag);
+    if (_positionableTagCandidates.contains(oldTagData)) {
+        // The tag is in the list, so update it
+        _positionableTagCandidates.removeAt(_positionableTagCandidates.indexOf(oldTagData));
+        _positionableTagCandidates << QPair<QString, QString>(category, newTag);
+    }
+
+    // Check if an area on the current image contains the changed tag
+    QList<ResizableFrame *> allAreas = _preview->preview()->findChildren<ResizableFrame *>();
+    foreach (ResizableFrame *area, allAreas) {
+        if (area->tagData() == oldTagData) {
+            area->setTagData(category, newTag);
+            // Only one area can contain the tag, so we can break here.
+            break;
+        }
+    }
+}
+
+QString AnnotationDialog::Dialog::localizedCategory(QString category) const
+{
+    if (_categoryL10n.contains(category)) {
+        return _categoryL10n[category];
+    } else {
+        return category;
+    }
 }
 
 void AnnotationDialog::Dialog::descriptionPageUpDownPressed(QKeyEvent *event)

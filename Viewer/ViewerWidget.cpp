@@ -63,6 +63,8 @@
 #include <KStandardDirs>
 #include "MainWindow/DeleteDialog.h"
 #include "VideoShooter.h"
+#include "TaggedArea.h"
+#include "MainWindow/DirtyIndicator.h"
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -106,6 +108,7 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     connect( _imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
     connect( _imageDisplay, SIGNAL(setCaptionInfo(QString)),
              this, SLOT(setCaptionWithDetail(QString)) );
+    connect( _imageDisplay, SIGNAL(viewGeometryChanged(QSize, QRect, double)), this, SLOT(remapAreas(QSize, QRect, double)) );
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
@@ -124,6 +127,8 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     setFocusPolicy( Qt::StrongFocus );
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
+
+    _categoryL10n = DB::Category::standardCategories();
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -267,6 +272,7 @@ void Viewer::ViewerWidget::createRotateMenu()
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT(rotate270()) );
+    //                                                            ^ this is a typo, isn't it?!
     action->setText( i18nc("@action:inmenu","Rotate counterclockwise") );
     action->setShortcut( Qt::Key_7 );
     _rotateMenu->addAction( action );
@@ -491,6 +497,9 @@ void Viewer::ViewerWidget::load()
 
     if ( _display == _textDisplay )
         updateInfoBox();
+
+    // Add all tagged areas
+    addTaggedAreas();
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
@@ -615,6 +624,8 @@ void Viewer::ViewerWidget::rotate90()
     currentInfo()->rotate( 90 );
     load();
     invalidateThumbnail();
+    MainWindow::DirtyIndicator::markDirty();
+    emit imageRotated(_list[ _current]);
 }
 
 void Viewer::ViewerWidget::rotate180()
@@ -622,6 +633,8 @@ void Viewer::ViewerWidget::rotate180()
     currentInfo()->rotate( 180 );
     load();
     invalidateThumbnail();
+    MainWindow::DirtyIndicator::markDirty();
+    emit imageRotated(_list[ _current]);
 }
 
 void Viewer::ViewerWidget::rotate270()
@@ -629,6 +642,8 @@ void Viewer::ViewerWidget::rotate270()
     currentInfo()->rotate( 270 );
     load();
     invalidateThumbnail();
+    MainWindow::DirtyIndicator::markDirty();
+    emit imageRotated(_list[ _current]);
 }
 
 void Viewer::ViewerWidget::showFirst()
@@ -1410,6 +1425,108 @@ void Viewer::ViewerWidget::stopPlayback()
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
     ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName() );
+}
+
+void Viewer::ViewerWidget::addTaggedAreas()
+{
+    // Clean all areas we probably already have
+    foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
+        area->deleteLater();
+    }
+
+    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
+    QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
+    QString category;
+    QString localizedCategory;
+    QString tag;
+
+    while (areasInCategory.hasNext()) {
+        areasInCategory.next();
+        category = areasInCategory.key();
+
+        if (_categoryL10n.contains(category)) {
+            localizedCategory = _categoryL10n[category];
+        } else {
+            localizedCategory = category;
+        }
+
+        QMapIterator<QString, QRect> areaData(areasInCategory.value());
+        while (areaData.hasNext()) {
+            areaData.next();
+            tag = areaData.key();
+
+            // Add a new frame for the area
+            TaggedArea *newArea = new TaggedArea(this);
+            newArea->setTagInfo(category, localizedCategory, tag);
+            newArea->setActualGeometry(areaData.value());
+            newArea->show();
+
+            connect( _infoBox, SIGNAL(tagHovered(QPair<QString, QString>)), newArea, SLOT(checkShowArea(QPair<QString, QString>)) );
+            connect( _infoBox, SIGNAL(noTagHovered()), newArea, SLOT(hideArea()) );
+        }
+    }
+
+    // Be sure to display the areas, as viewGeometryChanged is not always emitted on load
+
+    QSize imageSize = currentInfo()->size();
+    QSize windowSize = this->size();
+
+    // On load, the image is never zoomed, so it's a bit easier ;-)
+    double scaleWidth = double(imageSize.width()) / windowSize.width();
+    double scaleHeight = double(imageSize.height()) / windowSize.height();
+    int offsetTop = 0;
+    int offsetLeft = 0;
+    if (scaleWidth > scaleHeight) {
+        offsetTop = (windowSize.height() - imageSize.height() / scaleWidth);
+    } else {
+        offsetLeft = (windowSize.width() - imageSize.width() / scaleHeight);
+    }
+
+    remapAreas(
+        QSize(windowSize.width() - offsetLeft, windowSize.height() - offsetTop),
+        QRect(QPoint(0, 0), QPoint(imageSize.width(), imageSize.height())),
+        1
+    );
+}
+
+void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio)
+{
+    QSize currentWindowSize = this->size();
+    int outerOffsetLeft = (currentWindowSize.width() - viewSize.width()) / 2;
+    int outerOffsetTop = (currentWindowSize.height() - viewSize.height()) / 2;
+
+    if (sizeRatio != 1) {
+        zoomWindow = QRect(
+            QPoint(
+                double(zoomWindow.left()) * sizeRatio,
+                double(zoomWindow.top()) * sizeRatio
+            ),
+            QPoint(
+                double(zoomWindow.left() + zoomWindow.width()) * sizeRatio,
+                double(zoomWindow.top() + zoomWindow.height()) * sizeRatio
+            )
+        );
+    }
+
+    double scaleHeight = double(viewSize.height()) / zoomWindow.height();
+    double scaleWidth = double(viewSize.width()) / zoomWindow.width();
+
+    int innerOffsetLeft = -zoomWindow.left() * scaleWidth;
+    int innerOffsetTop = -zoomWindow.top() * scaleHeight;
+
+    foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
+        QRect actualGeometry = area->actualGeometry();
+        QRect screenGeometry;
+
+        screenGeometry.setWidth(actualGeometry.width() * scaleWidth);
+        screenGeometry.setHeight(actualGeometry.height() * scaleHeight);
+        screenGeometry.moveTo(
+            actualGeometry.left() * scaleWidth + outerOffsetLeft + innerOffsetLeft,
+            actualGeometry.top() * scaleHeight + outerOffsetTop + innerOffsetTop
+        );
+
+        area->setGeometry(screenGeometry);
+    }
 }
 
 #include "ViewerWidget.moc"

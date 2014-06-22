@@ -293,8 +293,9 @@ bool MainWindow::Window::slotExit()
     if ( _statusBar->_dirtyIndicator->isSaveDirty() ) {
         int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
                                                    i18n("Save Changes?") );
-        if ( ret == KMessageBox::Cancel )
+        if (ret == KMessageBox::Cancel) {
             return false;
+        }
         if ( ret == KMessageBox::Yes ) {
             slotSave();
         }
@@ -438,8 +439,6 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
         return;
 
     reloadThumbnails(  ThumbnailView::MaintainSelection );
-    Q_FOREACH( const DB::FileName& fileName, _annotationDialog->rotatedFiles() )
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 }
 
 
@@ -458,6 +457,7 @@ void MainWindow::Window::createAnnotationDialog()
         return;
 
     _annotationDialog = new AnnotationDialog::Dialog( nullptr );
+    connect( _annotationDialog, SIGNAL(imageRotated(DB::FileName)), this, SLOT(slotImageRotated(DB::FileName)) );
 }
 
 void MainWindow::Window::slotSave()
@@ -507,12 +507,12 @@ void MainWindow::Window::slotPasteInformation()
     QString string = mimeData->text();
     // fail silent if more than one image is in clipboard.
     if (string.count(QString::fromLatin1("\n")) != 0) return;
-    
+
     const QString urlHead = QLatin1String("file://");
     if (string.startsWith(urlHead)) {
       string = string.right(string.size()-urlHead.size());
     }
-    
+
     const DB::FileName fileName = DB::FileName::fromAbsolutePath(string);
     // fail silent if there is no file.
     if (fileName.isNull()) return;
@@ -526,7 +526,7 @@ void MainWindow::Window::slotPasteInformation()
     }
     // fail silent if there is no info for the file.
     if (!originalInfo) return;
-    
+
     Q_FOREACH(const DB::FileName& newFile, selected()) {
         newFile.info()->copyExtraData(*originalInfo, false);
     }
@@ -631,6 +631,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList& inputMediaList, bo
         viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
                                           &_viewerInputMacros);
     connect( viewer, SIGNAL(soughtTo(DB::FileName)), _thumbnailView, SLOT(changeSingleSelection(DB::FileName)) );
+    connect( viewer, SIGNAL(imageRotated(DB::FileName)), this, SLOT(slotImageRotated(DB::FileName)) );
 
     viewer->show( slideShow );
     viewer->load( mediaList, seek < 0 ? 0 : seek );
@@ -1836,6 +1837,13 @@ void MainWindow::Window::setHistogramVisibilty( bool visible ) const
         _dateBar->hide();
         _dateBarLine->hide();
     }
+}
+
+void MainWindow::Window::slotImageRotated(const DB::FileName& fileName)
+{
+    // An image has been rotated by the annotation dialog or the viewer.
+    // We have to reload the respective thumbnail to get it in the right angle
+    ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
 }
 
 #include "Window.moc"

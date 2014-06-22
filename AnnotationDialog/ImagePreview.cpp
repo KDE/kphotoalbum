@@ -16,14 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QRubberBand>
 #include "ImagePreview.h"
 #include "ImageManager/AsyncLoader.h"
 #include "Utilities/Util.h"
+#include "ResizableFrame.h"
 
 using namespace AnnotationDialog;
 
 ImagePreview::ImagePreview( QWidget* parent )
-    : QLabel( parent )
+    : QLabel( parent ), _selectionRect(0), _areaCreationEnabled( false )
 {
     setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
@@ -43,13 +45,19 @@ QSize ImagePreview::sizeHint() const
 
 void ImagePreview::rotate(int angle)
 {
-    if ( !_info.isNull() )
-        _info.rotate( angle );
-    else
-        _angle += angle;
-    _preloader.cancelPreload();
-    _lastImage.reset();
-    reload();
+    if (! _info.isNull()) {
+        _currentImage.setAngle( _info.angle() );
+        _info.rotate( angle, DB::RotateImageInfoOnly );
+    } else {
+        // Can this really happen?
+         _angle += angle;
+    }
+
+     _preloader.cancelPreload();
+     _lastImage.reset();
+     reload();
+
+    rotateAreas(angle);
 }
 
 void ImagePreview::setImage( const DB::ImageInfo& info )
@@ -67,16 +75,17 @@ void ImagePreview::setImage( const QString& fileName )
     _fileName = fileName;
     _info = DB::ImageInfo();
     _angle = 0;
+    // Set the current angle that will be passed to _lastImage
+    _currentImage.setAngle( _info.angle() );
     reload();
 }
 
 void ImagePreview::reload()
 {
     if ( !_info.isNull() ) {
-        QImage img;
-        if (_preloader.has(_info.fileName()))
+        if (_preloader.has(_info.fileName(), _info.angle()))
             setCurrentImage(_preloader.getImage());
-        else if (_lastImage.has(_info.fileName()))
+        else if (_lastImage.has(_info.fileName(), _info.angle()))
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where _lastImage is changed...)
             setCurrentImage(QImage(_lastImage.getImage()));
@@ -101,14 +110,62 @@ int ImagePreview::angle() const
     return _angle;
 }
 
+QSize ImagePreview::getActualImageSize()
+{
+    QSize actualSize;
+
+    // Let's see where we get the actual size from
+    // Perhaps, we "just" have it.
+    QPair<int, QSize> rotatedSize = QPair<int, QSize>(_info.angle(), _info.size());
+    if (! rotatedSize.second.isValid()) {
+        // Let's see if pixmapLoaded has it
+        rotatedSize = _imageSizes[_info.fileName().absolute()];
+    }
+    if (! rotatedSize.second.isValid()) {
+        // _preloader must have it
+        rotatedSize = _preloader.imageSize(_info.fileName().absolute());
+    }
+
+    // Take the angle of the found size into account
+    if (rotatedSize.first == _info.angle()) {
+        actualSize = rotatedSize.second;
+    } else {
+        actualSize = QSize(rotatedSize.second.height(), rotatedSize.second.width());
+    }
+
+    return actualSize;
+}
+
 void ImagePreview::setCurrentImage(const QImage &image)
 {
-    //cache the current image as the last image before changing it
+    // Cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
-    _currentImage.set(_info.fileName(), image);
-    setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
-    if (!_anticipated._fileName.isNull())
-        _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
+
+    _currentImage.set(_info.fileName(), image, _info.angle());
+    setPixmap(QPixmap::fromImage(image));
+
+     if (!_anticipated._fileName.isNull())
+         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
+
+    // Calculate a scale factor from the original image's size and it's current preview
+    QSize actualSize = getActualImageSize();
+    QSize previewSize = _currentImage.getImage().size();
+
+    _scaleWidth = double(actualSize.width()) / double(previewSize.width());
+    _scaleHeight = double(actualSize.height()) / double(previewSize.height());
+
+    // Calculate the min and max coordinates inside the preview widget
+    int previewWidth = _currentImage.getImage().size().width();
+    int previewHeight = _currentImage.getImage().size().height();
+    int widgetWidth = this->frameGeometry().width();
+    int widgetHeight = this->frameGeometry().height();
+    _minX = (widgetWidth - previewWidth) / 2;
+    _maxX = _minX + previewWidth - 1;
+    _minY = (widgetHeight - previewHeight) / 2;
+    _maxY = _minY + previewHeight - 1;
+
+    // Put all areas to their respective position on the preview
+    remapAreas();
 }
 
 void ImagePreview::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
@@ -117,6 +174,7 @@ void ImagePreview::pixmapLoaded(ImageManager::ImageRequest* request, const QImag
     const bool loadedOK = request->loadedOK();
 
     if ( loadedOK && !_info.isNull() ) {
+        _imageSizes[fileName.absolute()] = QPair<int, QSize>(request->angle(), request->size());
         if (_info.fileName() == fileName)
             setCurrentImage(image);
     }
@@ -141,9 +199,9 @@ void ImagePreview::PreloadInfo::set(const DB::FileName& fileName, int angle)
 }
 
 
-bool ImagePreview::PreviewImage::has(const DB::FileName &fileName) const
-{
-    return fileName==_fileName && !_image.isNull();
+bool ImagePreview::PreviewImage::has(const DB::FileName &fileName, int angle) const
+ {
+    return fileName==_fileName && !_image.isNull() && angle==_angle;
 }
 
 QImage &ImagePreview::PreviewImage::getImage()
@@ -151,16 +209,23 @@ QImage &ImagePreview::PreviewImage::getImage()
     return _image;
 }
 
-void ImagePreview::PreviewImage::set(const DB::FileName &fileName, const QImage &image)
-{
-    _fileName=fileName;
-    _image=image;
+void ImagePreview::PreviewImage::set(const DB::FileName &fileName, const QImage &image, int angle)
+ {
+    _fileName = fileName;
+    _image = image;
+    _angle = angle;
 }
 
 void ImagePreview::PreviewImage::set(const PreviewImage &other)
 {
-    _fileName=other._fileName;
-    _image=other._image;
+    _fileName = other._fileName;
+    _image = other._image;
+    _angle = other._angle;
+}
+
+void ImagePreview::PreviewImage::setAngle( int angle )
+{
+    _angle = angle;
 }
 
 void ImagePreview::PreviewImage::reset()
@@ -172,9 +237,23 @@ void ImagePreview::PreviewImage::reset()
 void ImagePreview::PreviewLoader::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
     if ( request->loadedOK() )
-        set(request->databaseFileName(), image);
+    {
+        const DB::FileName fileName = request->databaseFileName();
+        set( fileName, image, request->angle() );
+        if (! _imageSizes.contains(fileName.absolute()) )
+        {
+            // We can't pass this to the ImagePreview class by a signal,
+            // as ImagePreview::PreviewLoader is a nested class.
+            // So we have to have our own list here :-|
+            _imageSizes[fileName.absolute()] = QPair<int, QSize>( request->angle(), request->size() );
+        }
+    }
 }
 
+QPair<int, QSize> ImagePreview::PreviewLoader::imageSize(QString absolutePath)
+{
+    return _imageSizes[absolutePath];
+}
 
 void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int width, int height, int angle)
 {
@@ -203,6 +282,184 @@ QImage AnnotationDialog::ImagePreview::rotateAndScale(QImage img, int width, int
     return img;
 }
 
+void ImagePreview::mousePressEvent(QMouseEvent *event)
+{
+    if (! _areaCreationEnabled) {
+        return;
+    }
+
+    if (event->button() & Qt::LeftButton) {
+        if (! _selectionRect) {
+            _selectionRect = new QRubberBand(QRubberBand::Rectangle, this);
+        }
+
+        _areaStart = event->pos();
+        if (_areaStart.x() < _minX or _areaStart.x() > _maxX or
+            _areaStart.y() < _minY or _areaStart.y() > _maxY) {
+            // Dragging started outside of the preview image
+            return;
+        }
+
+        _selectionRect->setGeometry(QRect(_areaStart, QSize()));
+        _selectionRect->show();
+    }
+}
+
+void ImagePreview::mouseMoveEvent(QMouseEvent *event)
+{
+    if (! _areaCreationEnabled) {
+        return;
+    }
+
+    if (_selectionRect && _selectionRect->isVisible()) {
+        _currentPos = event->pos();
+
+        // Restrict the coordinates to the preview images's size
+        if (_currentPos.x() < _minX) {
+            _currentPos.setX(_minX);
+        }
+        if (_currentPos.y() < _minY) {
+            _currentPos.setY(_minY);
+        }
+        if (_currentPos.x() > _maxX) {
+            _currentPos.setX(_maxX);
+        }
+        if (_currentPos.y() > _maxY) {
+            _currentPos.setY(_maxY);
+        }
+
+        _selectionRect->setGeometry(QRect( _areaStart, _currentPos ).normalized());
+    }
+}
+
+void ImagePreview::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (! _areaCreationEnabled) {
+        return;
+    }
+
+    if (event->button() & Qt::LeftButton and _selectionRect->isVisible()) {
+        _areaEnd = event->pos();
+        processNewArea();
+        _selectionRect->hide();
+    }
+}
+
+QRect ImagePreview::areaPreviewToActual(QRect area) const
+{
+    return QRect(QPoint(int(double(area.left() - _minX) * _scaleWidth),
+                        int(double(area.top() - _minY) * _scaleHeight)),
+                 QPoint(int(double(area.right() - _minX) * _scaleWidth),
+                        int(double(area.bottom() - _minY) * _scaleHeight)));
+}
+
+QRect ImagePreview::areaActualToPreview(QRect area) const
+{
+    return QRect(QPoint(int(double(area.left() / _scaleWidth)) + _minX,
+                        int(double(area.top() / _scaleHeight)) + _minY),
+                 QPoint(int(double(area.right() / _scaleWidth)) + _minX,
+                        int(double(area.bottom() / _scaleHeight)) + _minY));
+}
+
+void ImagePreview::createNewArea(QRect geometry, QRect actualGeometry)
+{
+    // Create a ResizableFrame (cleaned up in Dialog::tidyAreas())
+    ResizableFrame *newArea = new ResizableFrame(this);
+    emit areaCreated(newArea);
+
+    newArea->setGeometry(geometry);
+    // Be sure not to create an invisible area
+    newArea->checkGeometry();
+    // In case the geometry has been changed by checkGeometry()
+    actualGeometry = areaPreviewToActual(newArea->geometry());
+    // Store the coordinates on the real image (not on the preview)
+    newArea->setActualCoordinates(actualGeometry);
+
+    newArea->show();
+    newArea->checkShowContextMenu();
+}
+
+void ImagePreview::processNewArea()
+{
+    if (_areaStart == _areaEnd) {
+        // It was just a click, no area has been dragged
+        return;
+    }
+
+    QRect newAreaPreview = QRect(_areaStart, _currentPos).normalized();
+    createNewArea(newAreaPreview, areaPreviewToActual(newAreaPreview));
+}
+
+void ImagePreview::remapAreas()
+{
+    QList<ResizableFrame *> allAreas = this->findChildren<ResizableFrame *>();
+
+    if (allAreas.isEmpty()) {
+        return;
+    }
+
+    foreach (ResizableFrame *area, allAreas) {
+        area->setGeometry(areaActualToPreview(area->actualCoordinates()));
+    }
+}
+
+QRect ImagePreview::rotateArea(QRect originalAreaGeometry, int angle)
+{
+    // This is the current state of the image. We need the state before, so ...
+    QSize unrotatedOriginalImageSize = getActualImageSize();
+    // ... un-rotate it
+    unrotatedOriginalImageSize.transpose();
+
+    QRect rotatedAreaGeometry;
+    rotatedAreaGeometry.setWidth(originalAreaGeometry.height());
+    rotatedAreaGeometry.setHeight(originalAreaGeometry.width());
+
+    if (angle == 90) {
+        rotatedAreaGeometry.moveTo(
+            unrotatedOriginalImageSize.height() - (originalAreaGeometry.height() + originalAreaGeometry.y()),
+            originalAreaGeometry.x()
+        );
+    } else {
+        rotatedAreaGeometry.moveTo(
+            originalAreaGeometry.y(),
+            unrotatedOriginalImageSize.width() - (originalAreaGeometry.width() + originalAreaGeometry.x())
+        );
+    }
+
+    return rotatedAreaGeometry;
+}
+
+void ImagePreview::rotateAreas(int angle)
+{
+    // Map all areas to their respective coordinates on the rotated actual image
+    QList<ResizableFrame *> allAreas = this->findChildren<ResizableFrame *>();
+    foreach (ResizableFrame *area, allAreas) {
+        area->setActualCoordinates(rotateArea(area->actualCoordinates(), angle));
+    }
+}
+
+QRect ImagePreview::minMaxAreaPreview() const
+{
+    return QRect(_minX, _minY, _maxX, _maxY);
+}
+
+void ImagePreview::createTaggedArea(QString category, QString tag, QRect geometry, bool showArea)
+{
+    // Create a ResizableFrame (cleaned up in Dialog::tidyAreas())
+    ResizableFrame *newArea = new ResizableFrame(this);
+
+    emit areaCreated(newArea);
+
+    newArea->setGeometry(areaActualToPreview(geometry));
+    newArea->setActualCoordinates(geometry);
+    newArea->setTagData(category, tag);
+    newArea->setVisible(showArea);
+}
+
+void ImagePreview::setAreaCreationEnabled(bool state)
+{
+    _areaCreationEnabled = state;
+}
 
 #include "ImagePreview.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

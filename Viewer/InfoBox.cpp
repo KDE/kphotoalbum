@@ -164,6 +164,12 @@ void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
 
 void Viewer::InfoBox::linkHovered( const QString& linkName )
 {
+    if (linkName == QString()) {
+        emit noTagHovered();
+    } else {
+        emit tagHovered(_linkMap[linkName.toInt()]);
+    }
+
     _hoveringOverLink = !linkName.isNull();
 }
 

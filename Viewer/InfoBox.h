@@ -45,6 +45,10 @@ protected slots:
     void jumpToContext();
     void linkHovered(const QString&);
 
+signals:
+    void tagHovered(QPair<QString, QString> tagData);
+    void noTagHovered();
+
 protected:
     void mouseMoveEvent( QMouseEvent* ) override;
     void mousePressEvent( QMouseEvent* ) override;

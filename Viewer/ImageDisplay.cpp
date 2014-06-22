@@ -31,6 +31,7 @@
 #include <math.h>
 #include "DB/ImageDB.h"
 #include <qtimer.h>
+#include <QDebug>
 
 /**
    Area displaying the actual image in the viewer.
@@ -220,8 +221,6 @@ QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int ph
     return QPoint(ox,oy);
 }
 
-
-
 void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
     _cache.remove( _curIndex );
@@ -325,6 +324,8 @@ void Viewer::ImageDisplay::cropAndScale()
         _croppedAndScaledImg = _croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     update();
+
+    emit viewGeometryChanged(_croppedAndScaledImg.size(), QRect(_zStart, _zEnd), sizeRatio(_loadedImage.size(), _info->size()));
 }
 
 void Viewer::ImageDisplay::filterNone()

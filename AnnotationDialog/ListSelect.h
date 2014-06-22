@@ -22,6 +22,7 @@
 #include "enums.h"
 #include "Settings/SettingsData.h"
 #include "DB/CategoryPtr.h"
+#include <QList>
 
 class QTreeWidgetItem;
 class CategoryItem;
@@ -59,8 +60,10 @@ public:
     void populate();
 
     void showOnlyItemsMatching( const QString& text );
-    QWidget* lineEdit();
-
+    QWidget* lineEdit() const;
+    void setPositionable(bool positionableState);
+    bool positionable() const;
+    bool tagIsChecked(QString tag) const;
 
 public slots:
     void slotReturn();
@@ -70,6 +73,14 @@ public slots:
     void toggleSortType();
     void updateListview();
     void rePopulate();
+
+signals:
+    /**
+     * This signal is emitted whenever a positionable tag is (de)selected.
+     */
+    void positionableTagSelected(const QString category, const QString tag);
+    void positionableTagDeselected(const QString category, const QString tag);
+    void positionableTagRenamed(const QString category, const QString oldTag, const QString newTag);
 
 protected slots:
     void itemSelected( QTreeWidgetItem* );
@@ -102,6 +113,7 @@ private:
     QToolButton* _dateSort;
     QToolButton* _showSelectedOnly;
     QString _baseTitle;
+    bool _positionable;
 };
 
 }

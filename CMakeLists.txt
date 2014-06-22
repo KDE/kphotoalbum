@@ -153,7 +153,8 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBoxResizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VisibleOptionsMenu.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoShooter.cpp
-        )
+        ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TaggedArea.cpp
+)
 
 set(libCategoryListView_SRCS 
 	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableTreeWidget.cpp
@@ -272,7 +273,8 @@ set(libAnnotationDialog_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListViewItemHider.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShowSelectionOnlyManager.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShortCutManager.cpp 
-    ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ResizableFrame.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
 )
 
 set(libBrowser_SRCS 

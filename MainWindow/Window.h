@@ -80,6 +80,7 @@ public slots:
     void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
+    void slotImageRotated(const DB::FileName& fileName);
 
 protected slots:
     void showThumbNails();

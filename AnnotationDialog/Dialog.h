@@ -65,6 +65,7 @@ namespace AnnotationDialog
 class ImagePreview;
 class KDateEdit;
 class ShortCutManager;
+class ResizableFrame;
 
 class Dialog :public KDialog {
     Q_OBJECT
@@ -73,8 +74,12 @@ public:
     ~Dialog();
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = nullptr );
-    DB::FileNameSet rotatedFiles() const;
     KActionCollection* actions();
+    QPair<QString, QString> lastSelectedPositionableTag() const;
+    QList<QPair<QString, QString>> positionableTagCandidates() const;
+    void addTagToCandidateList(QString category, QString tag);
+    void removeTagFromCandidateList(QString category, QString tag);
+    QString localizedCategory(QString category) const;
 
 protected slots:
     void slotRevert();
@@ -93,9 +98,17 @@ protected slots:
     void slotResetLayout();
     void slotStartDateChanged( const DB::ImageDate& );
     void slotCopyPrevious();
+    void slotShowAreas(bool showAreas);
     void slotRatingChanged( unsigned int );
     void togglePreview();
     void descriptionPageUpDownPressed(QKeyEvent *event);
+    void slotNewArea(ResizableFrame *area);
+    void positionableTagSelected(QString category, QString tag);
+    void positionableTagDeselected(QString category, QString tag);
+    void positionableTagRenamed(QString category, QString oldTag, QString newTag);
+
+signals:
+    void imageRotated(const DB::FileName& id);
 
 protected:
     QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
@@ -136,7 +149,6 @@ private:
     QSplitter* _splitter;
     int _accept;
     QList<QDockWidget*> _dockWidgets;
-    DB::FileNameSet _rotatedFiles;
 
     // Widgets
     QMainWindow* _dockWindow;
@@ -173,6 +185,11 @@ private:
      * Used in slotResetLayout().
      */
     QByteArray _dockWindowCleanState;
+    void tidyAreas();
+    QPair<QString, QString> _lastSelectedPositionableTag;
+    QList<QPair<QString, QString>> _positionableTagCandidates;
+    QMap<QString, ListSelect*> _listSelectList;
+    QMap<QString, QString> _categoryL10n;
 };
 
 }

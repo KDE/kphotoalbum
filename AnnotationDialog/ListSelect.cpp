@@ -40,6 +40,8 @@
 #include <qradiobutton.h>
 #include <QWidgetAction>
 #include <QHeaderView>
+#include "Dialog.h"
+#include <QDebug>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
@@ -145,11 +147,17 @@ void AnnotationDialog::ListSelect::slotReturn()
         rePopulate();
 
         QList<QTreeWidgetItem*> items = _treeWidget->findItems( txt, Qt::MatchContains, 0 );
-        if ( !items.isEmpty() )
-            items.at(0)->setCheckState(0, Qt::Checked);
-        else
-            Q_ASSERT( false );
 
+        if (!items.isEmpty()) {
+            items.at(0)->setCheckState(0, Qt::Checked);
+
+            if (_positionable) {
+                emit positionableTagSelected(_category->name(), items.at(0)->text(0));
+            }
+        }
+        else {
+            Q_ASSERT(false);
+        }
 
         _lineEdit->clear();
     }
@@ -275,13 +283,21 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
         }
         _lineEdit->setText( res );
     }
+
     else {
+        if (_positionable) {
+            if (item->checkState(0) == Qt::Checked) {
+                emit positionableTagSelected(_category->name(), item->text(0));
+            } else {
+                emit positionableTagDeselected(_category->name(), item->text(0));
+            }
+        }
+
         _lineEdit->clear();
         showAllChildren();
         ensureAllInstancesAreStateChanged( item );
     }
 }
-
 
 void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
 {
@@ -374,6 +390,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                                                        i18n("Really Delete %1?",item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
+            if (item->checkState(0) == Qt::Checked) {
+                // An area could be linked against this. We can use positionableTagDeselected
+                // here, as the procedure is the same as if the tag had been deselected.
+                emit positionableTagDeselected(_category->name(), item->text(0));
+            }
+
             _category->removeItem( item->text(0) );
             rePopulate();
         }
@@ -401,6 +423,11 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 QString oldFile = _category->fileForCategoryImage( category(), oldStr );
                 QString newFile = _category->fileForCategoryImage( category(), newStr );
                 KIO::move( KUrl(oldFile), KUrl(newFile) );
+
+                if (_positionable) {
+                    // Also take care of areas that could be linked against this
+                    emit positionableTagRenamed(_category->name(), oldStr, newStr);
+                }
             }
         }
     }
@@ -683,9 +710,30 @@ void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged(QTreeWidget
     }
 }
 
-QWidget* AnnotationDialog::ListSelect::lineEdit()
+QWidget* AnnotationDialog::ListSelect::lineEdit() const
 {
     return _lineEdit;
+}
+
+void AnnotationDialog::ListSelect::setPositionable(bool positionableState)
+{
+    _positionable = positionableState;
+}
+
+bool AnnotationDialog::ListSelect::positionable() const
+{
+    return _positionable;
+}
+
+bool AnnotationDialog::ListSelect::tagIsChecked(QString tag) const
+{
+    QList<QTreeWidgetItem*> matchingTags = _treeWidget->findItems(tag, Qt::MatchContains, 0);
+
+    if(matchingTags.isEmpty()) {
+        return false;
+    }
+
+    return (bool) matchingTags.first()->checkState(0);
 }
 
 #include "ListSelect.moc"

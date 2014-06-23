@@ -42,6 +42,7 @@ public:
     QRect areaPreviewToActual(QRect area) const;
     QRect minMaxAreaPreview() const;
     void createTaggedArea(QString category, QString tag, QRect geometry, bool showArea);
+    QSize getActualImageSize();
 
 public slots:
     void setAreaCreationEnabled(bool state);
@@ -112,7 +113,6 @@ private:
     QRect rotateArea(QRect originalAreaGeometry, int angle);
     bool _areaCreationEnabled;
     QMap<QString, QPair<int, QSize>> _imageSizes;
-    QSize getActualImageSize();
 };
 
 }

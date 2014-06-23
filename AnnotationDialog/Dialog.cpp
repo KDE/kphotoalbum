@@ -518,6 +518,13 @@ void AnnotationDialog::Dialog::writeToInfo()
     }
 
     DB::ImageInfo& info = _editList[ _current ];
+
+    if (! info.size().isValid()) {
+        // The actual image size has been fetched by ImagePreview, so we can add it to
+        // the database silenty, so that it's saved if the database will be saved.
+        info.setSize(_preview->preview()->getActualImageSize());
+    }
+
     if ( _time->isHidden() ) {
         if ( _endDate->date().isValid() )
             info.setDate( DB::ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),

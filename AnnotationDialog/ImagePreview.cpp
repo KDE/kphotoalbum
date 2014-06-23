@@ -114,24 +114,11 @@ int ImagePreview::angle() const
 
 QSize ImagePreview::getActualImageSize()
 {
-    QSize actualSize;
-
-    if (_info.size().isValid()) {
-        // We already have the image's size
-        actualSize = _info.size();
-    } else {
+    if (! _info.size().isValid()) {
         // We have to fetch the size from the image
-        actualSize = QImageReader(_info.fileName().absolute()).size();
-        // Also put it into _info
-        _info.setSize(actualSize);
+        _info.setSize(QImageReader(_info.fileName().absolute()).size());
     }
-
-    // Take the viewing angle of the image into account
-    if (_info.angle() == 90 or _info.angle() == 270) {
-        actualSize.transpose();
-    }
-
-    return actualSize;
+    return _info.size();
 }
 
 void ImagePreview::setCurrentImage(const QImage &image)
@@ -148,7 +135,6 @@ void ImagePreview::setCurrentImage(const QImage &image)
     // Calculate a scale factor from the original image's size and it's current preview
     QSize actualSize = getActualImageSize();
     QSize previewSize = _currentImage.getImage().size();
-
     _scaleWidth = double(actualSize.width()) / double(previewSize.width());
     _scaleHeight = double(actualSize.height()) / double(previewSize.height());
 

@@ -25,7 +25,7 @@
 #include <Utilities/Util.h>
 #include <DB/ImageDB.h>
 #include <QPainter>
-
+#include <QFile>
 
 namespace BackgroundJobs {
 
@@ -79,8 +79,13 @@ void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
             painter.drawText(QPoint(100,100),QString::number(m_index));
         }
 #endif
-
         Utilities::saveImage(frameName(), image, "JPEG");
+    }
+    else {
+        // Create empty file to avoid that we recheck at next start up.
+        QFile file(frameName().absolute());
+        file.open(QFile::WriteOnly);
+        file.close();
     }
     emit completed();
 }

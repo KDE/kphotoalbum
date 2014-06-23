@@ -6,12 +6,7 @@
 Viewer::TaggedArea::TaggedArea(QWidget *parent) : QFrame(parent)
 {
     setFrameShape(QFrame::Box);
-    setStyleSheet(QString::fromLatin1(
-        // TODO: This is only set during development. The area should not have a border.
-        "Viewer--TaggedArea { color: rgb(255,255,0); }"
-        //"Viewer--TaggedArea { border: none; }"
-        "Viewer--TaggedArea:hover { border: 1px solid rgb(0,255,0); }"
-    ));
+    resetViewStyle();
 }
 
 Viewer::TaggedArea::~TaggedArea()
@@ -34,20 +29,18 @@ QRect Viewer::TaggedArea::actualGeometry() const
     return _actualGeometry;
 }
 
-void Viewer::TaggedArea::hideArea()
+void Viewer::TaggedArea::resetViewStyle()
 {
     setStyleSheet(QString::fromLatin1(
-        // TODO: This is only set during development. The area should not have a border.
-        "Viewer--TaggedArea { color: rgb(255,255,0); }"
-        //"Viewer--TaggedArea { border: none; }"
-        "Viewer--TaggedArea:hover { border: 1px solid rgb(0,255,0); }"
+        "Viewer--TaggedArea { border: none; background-color: none; }"
+        "Viewer--TaggedArea:hover { border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30); }"
     ));
 }
 
 void Viewer::TaggedArea::checkShowArea(QPair<QString, QString> tagData)
 {
     if (tagData == _tagInfo) {
-        setStyleSheet(QString::fromLatin1("Viewer--TaggedArea { border: 1px solid rgb(0,255,0); }"));
+        setStyleSheet(QString::fromLatin1("Viewer--TaggedArea { border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30); }"));
     }
 }
 

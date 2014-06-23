@@ -18,7 +18,7 @@ public:
 
 public slots:
     void checkShowArea(QPair<QString, QString> tagData);
-    void hideArea();
+    void resetViewStyle();
 
 private:
     QPair<QString, QString> _tagInfo;

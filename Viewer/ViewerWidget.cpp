@@ -1462,7 +1462,7 @@ void Viewer::ViewerWidget::addTaggedAreas()
             newArea->show();
 
             connect( _infoBox, SIGNAL(tagHovered(QPair<QString, QString>)), newArea, SLOT(checkShowArea(QPair<QString, QString>)) );
-            connect( _infoBox, SIGNAL(noTagHovered()), newArea, SLOT(hideArea()) );
+            connect( _infoBox, SIGNAL(noTagHovered()), newArea, SLOT(resetViewStyle()) );
         }
     }
 

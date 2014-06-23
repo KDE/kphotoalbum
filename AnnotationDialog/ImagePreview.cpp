@@ -21,6 +21,8 @@
 #include "ImageManager/AsyncLoader.h"
 #include "Utilities/Util.h"
 #include "ResizableFrame.h"
+#include <QImageReader>
+#include <QDebug>
 
 using namespace AnnotationDialog;
 
@@ -114,23 +116,19 @@ QSize ImagePreview::getActualImageSize()
 {
     QSize actualSize;
 
-    // Let's see where we get the actual size from
-    // Perhaps, we "just" have it.
-    QPair<int, QSize> rotatedSize = QPair<int, QSize>(_info.angle(), _info.size());
-    if (! rotatedSize.second.isValid()) {
-        // Let's see if pixmapLoaded has it
-        rotatedSize = _imageSizes[_info.fileName().absolute()];
-    }
-    if (! rotatedSize.second.isValid()) {
-        // _preloader must have it
-        rotatedSize = _preloader.imageSize(_info.fileName().absolute());
+    if (_info.size().isValid()) {
+        // We already have the image's size
+        actualSize = _info.size();
+    } else {
+        // We have to fetch the size from the image
+        actualSize = QImageReader(_info.fileName().absolute()).size();
+        // Also put it into _info
+        _info.setSize(actualSize);
     }
 
-    // Take the angle of the found size into account
-    if (rotatedSize.first == _info.angle()) {
-        actualSize = rotatedSize.second;
-    } else {
-        actualSize = QSize(rotatedSize.second.height(), rotatedSize.second.width());
+    // Take the viewing angle of the image into account
+    if (_info.angle() == 90 or _info.angle() == 270) {
+        actualSize.transpose();
     }
 
     return actualSize;
@@ -174,7 +172,6 @@ void ImagePreview::pixmapLoaded(ImageManager::ImageRequest* request, const QImag
     const bool loadedOK = request->loadedOK();
 
     if ( loadedOK && !_info.isNull() ) {
-        _imageSizes[fileName.absolute()] = QPair<int, QSize>(request->angle(), request->size());
         if (_info.fileName() == fileName)
             setCurrentImage(image);
     }
@@ -240,19 +237,7 @@ void ImagePreview::PreviewLoader::pixmapLoaded(ImageManager::ImageRequest* reque
     {
         const DB::FileName fileName = request->databaseFileName();
         set( fileName, image, request->angle() );
-        if (! _imageSizes.contains(fileName.absolute()) )
-        {
-            // We can't pass this to the ImagePreview class by a signal,
-            // as ImagePreview::PreviewLoader is a nested class.
-            // So we have to have our own list here :-|
-            _imageSizes[fileName.absolute()] = QPair<int, QSize>( request->angle(), request->size() );
-        }
     }
-}
-
-QPair<int, QSize> ImagePreview::PreviewLoader::imageSize(QString absolutePath)
-{
-    return _imageSizes[absolutePath];
 }
 
 void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int width, int height, int angle)

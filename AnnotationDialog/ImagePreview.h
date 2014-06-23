@@ -89,9 +89,6 @@ protected:
         void preloadImage( const DB::FileName& fileName, int width, int height, int angle);
         void cancelPreload();
         void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
-        QPair<int, QSize> imageSize(QString absolutePath);
-    private:
-        QMap<QString, QPair<int, QSize>> _imageSizes;
     };
     PreviewLoader _preloader;
 

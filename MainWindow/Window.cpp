@@ -261,7 +261,7 @@ void MainWindow::Window::delayedInit()
     }
 #endif
 
-    if (Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+    if ( args->isSet( "listen-network" ) &&  Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
 
     announceAndroidVersion();

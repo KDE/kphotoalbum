@@ -68,6 +68,7 @@ int main( int argc, char** argv ) {
     options.add("c ", ki18n("Config file"));
     options.add("demo", ki18n( "Starts KPhotoAlbum with a prebuilt set of demo images" ));
     options.add("import ", ki18n( "Import file" ));
+    options.add("nolisten-network", ki18n( "Don't start listening for android devices on startup." ));
     KCmdLineArgs::addCmdLineOptions( options );
 
     KApplication app;

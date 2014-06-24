@@ -136,6 +136,27 @@ SettingsData::SettingsData( const QString& imageDirectory )
     _imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
     _smoothScale = value( "Viewer", "smoothScale", true );
+
+    // Split the list of EXIF comments that should be stripped automatically to a list
+
+    QStringList commentsToStrip = value("General", "commentsToStrip", QString::fromLatin1("")).split(QString::fromLatin1("\",\""));
+    QString firstLastComment;
+    firstLastComment = commentsToStrip.at(0);
+    firstLastComment.remove(0, 1);
+    commentsToStrip.replace(0, firstLastComment);
+    firstLastComment = commentsToStrip.at(commentsToStrip.size() - 1);
+    firstLastComment.remove(firstLastComment.size() - 1, 1);
+    commentsToStrip.replace(commentsToStrip.size() - 1, firstLastComment);
+
+    QString unEscapedComment;
+    for (int i = 0; i < commentsToStrip.size(); ++i) {
+        unEscapedComment = commentsToStrip.at(i);
+        unEscapedComment.replace(QString::fromLatin1("&quot;"), QString::fromLatin1("\""));
+        unEscapedComment.replace(QString::fromLatin1("&amp;"), QString::fromLatin1("&"));
+        commentsToStrip.replace(i, unEscapedComment);
+    }
+
+    _EXIFCommentsToStrip = commentsToStrip;
 }
 
 /////////////////
@@ -144,6 +165,8 @@ SettingsData::SettingsData( const QString& imageDirectory )
 
 property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          , General, true                       )
 property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       )
+property_copy( stripEXIFComments     , setStripEXIFComments     , bool          , General, false                      )
+property_copy( commentsToStrip       , setCommentsToStrip       , QString       , General, QString::fromLatin1("")    )
 property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       )
 property_copy( ignoreFileExtension   , setIgnoreFileExtension   , bool          , General, false                      )
 property_copy( skipSymlinks,           setSkipSymlinks          , bool          , General, false                      )
@@ -375,7 +398,7 @@ property_ref_(
 property_ref_(
         HTML5VideoGenerate, setHTML5VideoGenerate, int,
         groupForDatabase( "HTML Settings" ),
-        true ) 
+        true )
 property_ref_(
         HTMLThumbSize, setHTMLThumbSize, int,
         groupForDatabase( "HTML Settings" ),
@@ -499,4 +522,15 @@ double Settings::SettingsData::getThumbnailAspectRatio() const
     }
     return ratio;
 }
+
+QStringList Settings::SettingsData::EXIFCommentsToStrip()
+{
+    return _EXIFCommentsToStrip;
+}
+
+void Settings::SettingsData::setEXIFCommentsToStrip(QStringList EXIFCommentsToStrip)
+{
+    _EXIFCommentsToStrip = EXIFCommentsToStrip;
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

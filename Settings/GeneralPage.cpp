@@ -31,6 +31,7 @@
 #include "SettingsData.h"
 #include "MainWindow/Window.h"
 #include <QGroupBox>
+#include <QTextEdit>
 
 Settings::GeneralPage::GeneralPage( QWidget* parent )
     : QWidget( parent )
@@ -59,9 +60,21 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
     lay->addWidget( _useEXIFRotate, row, 0, 1, 4 );
 
+    // Use EXIF description
     row++;
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
     lay->addWidget( _useEXIFComments, row, 0, 1, 4 );
+    connect( _useEXIFComments, SIGNAL(stateChanged(int)), this, SLOT(useEXIFCommentsChanged(int)) );
+
+    _stripEXIFComments = new QCheckBox(i18n("Strip out camera generated default descriptions"), box);
+    connect( _stripEXIFComments, SIGNAL(stateChanged(int)), this, SLOT(stripEXIFCommentsChanged(int)) );
+    lay->addWidget(_stripEXIFComments, row, 1, 1, 4);
+
+    row++;
+    _commentsToStrip = new QTextEdit();
+    _commentsToStrip->setMaximumHeight(60);
+    _commentsToStrip->setEnabled(false);
+    lay->addWidget(_commentsToStrip, row, 1, 1, 4);
 
     // Use embedded thumbnail
     row++;
@@ -186,6 +199,12 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
                "Alternatively, you can click the connection icon in the status bar to start listening.");
     _listenForAndroidDevicesOnStartup->setWhatsThis(txt);
 
+    txt = i18n("<p>Some cameras automatically store generic comments in each image. "
+               "These comments can be ignored automatically.</p>"
+               "<p>Enter the comments that you want to ignore in the input field, one per line. "
+               "Be sure to add the exact comment, including all whitespace.</p>");
+    _stripEXIFComments->setWhatsThis(txt);
+    _commentsToStrip->setWhatsThis(txt);
 }
 
 void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
@@ -193,6 +212,21 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     _trustTimeStamps->setCurrentIndex( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
+
+    _stripEXIFComments->setChecked( opt->stripEXIFComments() );
+    _stripEXIFComments->setEnabled( opt->useEXIFComments() );
+
+    QStringList commentsToStrip = opt->EXIFCommentsToStrip();
+    QString commentsToStripStr;
+    for (int i = 0; i < commentsToStrip.size(); ++i) {
+        if (commentsToStripStr.size() > 0) {
+            commentsToStripStr += QString::fromLatin1("\n");
+        }
+        commentsToStripStr += commentsToStrip.at(i);
+    }
+    _commentsToStrip->setPlainText(commentsToStripStr);
+    _commentsToStrip->setEnabled( opt->stripEXIFComments() );
+
     _useRawThumbnail->setChecked( opt->useRawThumbnail() );
     setUseRawThumbnailSize(QSize(opt->useRawThumbnailSize().width(), opt->useRawThumbnailSize().height()));
     _barWidth->setValue( opt->histogramSize().width() );
@@ -212,6 +246,27 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentIndex() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
+
+    opt->setStripEXIFComments(_stripEXIFComments->isChecked());
+
+    QStringList commentsToStrip = _commentsToStrip->toPlainText().split(QString::fromLatin1("\n"));
+    // Put the processable list to opt
+    opt->setEXIFCommentsToStrip(commentsToStrip);
+
+    QString commentsToStripStr;
+    QString escapedComment;
+    for (int i = 0; i < commentsToStrip.size(); ++i) {
+        if (commentsToStripStr.size() > 0) {
+            commentsToStripStr += QString::fromLatin1(",");
+        }
+        escapedComment = commentsToStrip.at(i);
+        escapedComment.replace(QString::fromLatin1("&"), QString::fromLatin1("&amp;"));
+        escapedComment.replace(QString::fromLatin1("\""), QString::fromLatin1("&quot;"));
+        commentsToStripStr += QString::fromLatin1("\"") + escapedComment + QString::fromLatin1("\"");
+    }
+    // Put the storable list to opt
+    opt->setCommentsToStrip(commentsToStripStr);
+
     opt->setUseRawThumbnail( _useRawThumbnail->isChecked() );
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
     opt->setShowHistogram( _showHistogram->isChecked() );
@@ -240,4 +295,16 @@ void Settings::GeneralPage::showHistogramChanged( int state ) const
 {
     MainWindow::Window::theMainWindow()->setHistogramVisibilty( state == Qt::Checked );
 }
+
+void Settings::GeneralPage::useEXIFCommentsChanged(int state)
+{
+    _stripEXIFComments->setEnabled(state);
+    _commentsToStrip->setEnabled(state && _stripEXIFComments->isChecked() );
+}
+
+void Settings::GeneralPage::stripEXIFCommentsChanged(int state)
+{
+    _commentsToStrip->setEnabled(state);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

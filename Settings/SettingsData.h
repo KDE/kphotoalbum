@@ -71,6 +71,8 @@ public:
     property_ref ( histogramSize         , setHistogramSize         , QSize );
     property_copy( useEXIFRotate         , setUseEXIFRotate         , bool );
     property_copy( useEXIFComments       , setUseEXIFComments       , bool );
+    property_copy( stripEXIFComments     , setStripEXIFComments     , bool );
+    property_copy( commentsToStrip       , setCommentsToStrip       , QString);
     property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool );
     property_copy( ignoreFileExtension   , setIgnoreFileExtension   , bool );
     property_copy( skipSymlinks          , setSkipSymlinks          , bool );
@@ -217,6 +219,9 @@ public:
 
     double getThumbnailAspectRatio() const;
 
+    QStringList EXIFCommentsToStrip();
+    void setEXIFCommentsToStrip(QStringList EXIFCommentsToStrip);
+
 signals:
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Settings::ViewSortType );
@@ -232,6 +237,8 @@ private:
     static SettingsData* _instance;
 
     friend class DB::CategoryCollection;
+
+    QStringList _EXIFCommentsToStrip;
 };
 } // end of namespace
 

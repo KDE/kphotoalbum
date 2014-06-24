@@ -99,7 +99,7 @@ void ImageInfo::setDescription( const QString& desc )
 {
     if (desc != _description)
         _dirty = true;
-    _description = desc;
+    _description = desc.trimmed();
     saveChangesIfNotDelayed();
 }
 
@@ -416,7 +416,23 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 
     // Description
     if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() ) {
-        setDescription( exifInfo.description() );
+        bool doSetDescription = true;
+        QString desc = exifInfo.description();
+
+        if ( Settings::SettingsData::instance()->stripEXIFComments() ) {
+            for( const auto& ignoredComment :  Settings::SettingsData::instance()->EXIFCommentsToStrip() )
+            {
+                if ( desc == ignoredComment )
+                {
+                    doSetDescription = false;
+                    break;
+                }
+            }
+        }
+
+        if (doSetDescription) {
+            setDescription(desc);
+        }
     }
 
     delaySavingChanges(false);

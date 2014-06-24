@@ -23,6 +23,7 @@ class QComboBox;
 class QSpinBox;
 class QCheckBox;
 class KComboBox;
+class QTextEdit;
 namespace Settings
 {
 class SettingsData;
@@ -39,11 +40,15 @@ public:
 
 private slots:
     void showHistogramChanged( int state ) const;
+    void useEXIFCommentsChanged(int state);
+    void stripEXIFCommentsChanged(int state);
 
 private:
     KComboBox* _trustTimeStamps;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
+    QTextEdit* _commentsToStrip;
+    QCheckBox* _stripEXIFComments;
     QCheckBox* _useRawThumbnail;
     QSpinBox* _useRawThumbnailWidth;
     QSpinBox* _useRawThumbnailHeight;

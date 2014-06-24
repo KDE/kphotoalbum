@@ -132,7 +132,7 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
         }
         KMessageBox::information(MainWindow::Window::theMainWindow(),
                                  i18n("Unable to extract video thumbnails from some files. "
-                                      "Either the file is damaged in some way, or the video is ultra short."
+                                      "Either the file is damaged in some way, or the video is ultra short. "
                                       "For your convenience, the token '%1' "
                                       "has been set on those videos.\n\n"
                                       "(You might need to wait till the video extraction led in your status bar has stopped blinking, "

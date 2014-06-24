@@ -40,7 +40,8 @@ index.xml
 Below is a visualization of the DOM-Tree of the index.xml file. Attributes are
 within parenthesis, comments in square brackets.
 
-- - - - - - - -
+### Version 3 ###
+
 	KPhotoAlbum
 	| (version=3,compressed=1)
 	|
@@ -74,6 +75,53 @@ within parenthesis, comments in square brackets.
 	|   +-options
    |     +-option(name=#Categories.Category.name#)
    |       +-value(value=#Categories.Category.value.value#)
+	|
+	+-blocklist
+	| +-block (file)
+	|
+	+-member-groups
+	  +-member (category,group-name,member)
+
+
+### Version 4 ###
+
+	KPhotoAlbum
+	| (version=4,compressed=1)
+	|
+	+-Categories
+	| +-Category (name,icon,show,viewtype,thumbnailsize)
+	|   +-value (value, id)
+	|
+	+-images
+	| +-image
+	|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+	|   (stackId, stackOrder, rating) [optional]
+	|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+	|   +-options
+   |     +-option(name=#Categories.Category.name#)
+   |       +-value(value=#Categories.Category.value.value#, area="x y w h")
+	|
+	+-blocklist
+	| +-block (file)
+	|
+	+-member-groups
+	  +-member (category,group-name,members)
+
+- - - - - - - -
+	KPhotoAlbum
+	| (version=4,compressed=0)
+	|
+	+-Categories
+	| +-Category (name,icon,show,viewtype,thumbnailsize)
+	|   +-value (value, id)
+	|
+	+-images
+	| +-image
+	|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+	|   (stackId, stackOrder, rating) [optional]
+	|   +-options
+   |     +-option(name=#Categories.Category.name#)
+   |       +-value(value=#Categories.Category.value.value#, area="x y w h")
 	|
 	+-blocklist
 	| +-block (file)

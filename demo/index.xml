@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="3" compressed="0" >
+<KPhotoAlbum version="4" compressed="0" >
  <Categories>
   <Category viewtype="0" icon="dialog-password" thumbnailsize="32" name="Keywords" show="1" >
    <value value="scanned in" id="1" />
@@ -20,7 +20,7 @@
    <value value="Denmark" id="9" />
    <value value="USA" id="10" />
   </Category>
-  <Category viewtype="3" icon="system-users" thumbnailsize="128" name="People" show="1" >
+  <Category viewtype="3" icon="system-users" thumbnailsize="128" name="People" show="1" positionable="1" >
    <value value="Pets" id="1" />
    <value value="Jesper" id="2" />
    <value value="Jim" id="3" />

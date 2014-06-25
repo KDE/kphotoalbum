@@ -72,6 +72,8 @@ void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOp
     // Paint transparent pixels over the widget for selection.
     if ( widget()->selectionModel()->isSelected( index ) )
         painter->fillRect( option.rect, QColor(58,98,134, 127) );
+    else if ( widget()->selectionModel()->currentIndex() == index )
+        painter->fillRect( option.rect, QColor(58,98,134, 127) );
 }
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pixmapRect, const QModelIndex &index) const

@@ -253,19 +253,15 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     // Put the processable list to opt
     opt->setEXIFCommentsToStrip(commentsToStrip);
 
-    QString commentsToStripStr;
-    QString escapedComment;
-    for (int i = 0; i < commentsToStrip.size(); ++i) {
-        if (commentsToStripStr.size() > 0) {
-            commentsToStripStr += QString::fromLatin1(",");
-        }
-        escapedComment = commentsToStrip.at(i);
-        escapedComment.replace(QString::fromLatin1("&"), QString::fromLatin1("&amp;"));
-        escapedComment.replace(QString::fromLatin1("\""), QString::fromLatin1("&quot;"));
-        commentsToStripStr += QString::fromLatin1("\"") + escapedComment + QString::fromLatin1("\"");
+    QString commentsToStripString;
+    for ( QString comment : commentsToStrip )
+    {
+        // separate comments with "-,-" and escape existing commas by doubling
+        if ( !comment.isEmpty() )
+            commentsToStripString += comment.replace( QString::fromLatin1(","), QString::fromLatin1(",,") ) + QString::fromLatin1("-,-");
     }
     // Put the storable list to opt
-    opt->setCommentsToStrip(commentsToStripStr);
+    opt->setCommentsToStrip(commentsToStripString);
 
     opt->setUseRawThumbnail( _useRawThumbnail->isChecked() );
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));

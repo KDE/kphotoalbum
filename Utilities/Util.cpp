@@ -597,9 +597,9 @@ bool operator<( const QPoint& p1, const QPoint& p2)
     return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
 }
 
-bool Utilities::isVideo( const DB::FileName& fileName )
+const QSet<QString>& Utilities::supportedVideoExtensions()
 {
-    static StringSet videoExtensions;
+    static QSet<QString> videoExtensions;
     if ( videoExtensions.empty() ) {
         videoExtensions.insert( QString::fromLatin1( "3gp" ) );
         videoExtensions.insert( QString::fromLatin1( "avi" ) );
@@ -630,10 +630,13 @@ bool Utilities::isVideo( const DB::FileName& fileName )
         videoExtensions.insert( QString::fromLatin1( "ogv" ) );
         videoExtensions.insert( QString::fromLatin1( "m2ts" ) );
     }
-
+    return videoExtensions;
+}
+bool Utilities::isVideo( const DB::FileName& fileName )
+{
     QFileInfo fi( fileName.relative() );
     QString ext = fi.suffix().toLower();
-    return videoExtensions.contains( ext );
+    return supportedVideoExtensions().contains( ext );
 }
 
 bool Utilities::isRAW( const DB::FileName& fileName )

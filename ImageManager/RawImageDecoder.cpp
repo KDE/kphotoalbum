@@ -215,6 +215,13 @@ bool RAWImageDecoder::isRAW( const DB::FileName& imageFile )
     return _fileEndsWithExtensions(imageFile, _rawExtensions);
 }
 
+QStringList RAWImageDecoder::rawExtensions()
+{
+    QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;
+    _initializeExtensionLists( _rawExtensions, _standardExtensions, _ignoredExtensions );
+    return _rawExtensions;
+}
+
 bool RAWImageDecoder::_skipThisFile( const DB::FileNameSet& loadedFiles, const DB::FileName& imageFile ) const
 {
     QStringList _rawExtensions, _standardExtensions, _ignoredExtensions;

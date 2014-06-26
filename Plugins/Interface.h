@@ -22,6 +22,7 @@
 #include <config-kpa-kipi.h>
 #include <libkipi/interface.h>
 #include <QList>
+#include <QVariant>
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
 #include <libkipi/imagecollectionselector.h>
@@ -49,6 +50,7 @@ public:
     override virtual void delImage( const KUrl& );
     override virtual void refreshImages( const KUrl::List& urls );
     override virtual int features() const;
+    override virtual QVariant hostSetting( const QString& settingName );
     override virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
     override virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
 

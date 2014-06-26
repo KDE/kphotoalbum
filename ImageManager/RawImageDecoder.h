@@ -32,6 +32,7 @@ public:
     virtual bool _mightDecode( const DB::FileName& imageFile );
     virtual bool _skipThisFile( const DB::FileNameSet& loadedFiles, const DB::FileName& imageFile ) const;
     static bool isRAW( const DB::FileName& imageFile );
+    static QStringList rawExtensions();
 
 private:
     bool _fileExistsWithExtensions( const DB::FileName& fileName, const QStringList& extensionList ) const;

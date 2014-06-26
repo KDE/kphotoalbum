@@ -20,18 +20,21 @@
 
 #ifdef HASKIPI
 #include "Plugins/Interface.h"
+#include <QList>
+#include <klocale.h>
+#include <kimageio.h>
 #include <libkipi/imagecollection.h>
-#include "Plugins/ImageCollection.h"
-#include "Plugins/ImageInfo.h"
-#include "DB/ImageDB.h"
+#include "Browser/BrowserWidget.h"
+#include "ImageManager/RawImageDecoder.h"
 #include "MainWindow/Window.h"
 #include "Plugins/CategoryImageCollection.h"
-#include <klocale.h>
-#include "DB/ImageInfo.h"
-#include "Browser/BrowserWidget.h"
+#include "Plugins/ImageCollection.h"
 #include "Plugins/ImageCollectionSelector.h"
-#include <QList>
+#include "Plugins/ImageInfo.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
 #include "UploadWidget.h"
+#include "Utilities/Util.h"
 namespace KIPI { class UploadWidget; }
 
 Plugins::Interface::Interface( QObject *parent, const char *name )
@@ -91,6 +94,46 @@ int Plugins::Interface::features() const
         KIPI::ImagesHasTitlesWritable |
         KIPI::HostSupportsTags |
         KIPI::HostSupportsRating;
+}
+
+QVariant Plugins::Interface::hostSetting( const QString& settingName )
+{
+    if (settingName == QString::fromUtf8("WriteMetadataUpdateFiletimeStamp"))
+        return false;
+    if (settingName == QString::fromUtf8("WriteMetadataToRAW"))
+        return false;
+
+    if (settingName == QString::fromUtf8("UseXMPSidecar4Reading"))
+        return false;
+    if (settingName == QString::fromUtf8("MetadataWritingMode"))
+        return 0; /* WRITETOIMAGEONLY */
+
+    bool fileExt = settingName == QString::fromUtf8("FileExtensions");
+    bool imageExt = fileExt || settingName == QString::fromUtf8("ImagesExtensions");
+    bool rawExt   = fileExt || settingName == QString::fromUtf8("RawExtensions");
+    bool videoExt = fileExt || settingName == QString::fromUtf8("VideoExtensions");
+    if ( imageExt || rawExt || videoExt )
+    {
+        QStringList fileTypes;
+        if ( imageExt )
+            // Return a list of images file extensions supported by KDE.
+            // This works as long as Settings::SettingsData::instance()->ignoreFileExtension() is not true
+            fileTypes += KImageIO::mimeTypes( KImageIO::Reading );
+
+        if ( rawExt )
+            fileTypes += ImageManager::RAWImageDecoder::rawExtensions();
+
+        if ( videoExt )
+            fileTypes += Utilities::supportedVideoExtensions().toList();
+
+        QString fileFilter = fileTypes.join(QString::fromUtf8(" "));
+        return QString( fileFilter.toLower() + QString::fromUtf8(" ") + fileFilter.toUpper() );
+    }
+
+    if ( settingName == QString::fromUtf8("AudioExtensions") )
+        return QString();
+
+    return QVariant();
 }
 
 bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )

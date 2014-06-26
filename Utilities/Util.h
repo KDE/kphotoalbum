@@ -20,6 +20,7 @@
 #define UTIL_H
 #include <qdom.h>
 #include <qmap.h>
+#include <qset.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
@@ -46,6 +47,7 @@ bool runningDemo();
 void deleteDemo();
 QString setupDemo();
 bool canReadImage( const DB::FileName& fileName );
+const QSet<QString>& supportedVideoExtensions();
 bool isVideo( const DB::FileName& fileName );
 bool isRAW( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);

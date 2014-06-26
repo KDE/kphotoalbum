@@ -1,6 +1,22 @@
 * New Feature: Added an Android client, which can display images from
   a running KPhotoAlbum on the desktop
 
+* New Feature: Tags can now be associated with an area of the image.
+
+* Enhancement: Backspace now shows the previous image in the Viewer
+
+* Enhancement: Implement file copy dialog in the Viewer.
+
+* Enhancement: Added option to ignore specific EXIF comments.
+  (Some digital cameras set a non-configurable EXIF comment in each image.
+  With this option you can specify which comments should be ignored.)
+
+* Bugfix (#254641): The current image is now highlighted when selecting images
+  using the keyboard.
+
+* Enhancement: On first start, the image folder defined in KDE settings is
+  used.
+
 * Bugfix: find thumbnail even for short videos
   (Thanks to Christoph Moseler for identifying the problem, and sending an initial patch)
 
@@ -16,7 +32,7 @@
 * New Feature: Maintainance->sort all by date and time
   (With this command, you don't have to worry about stacks, locked images, or similar)
 
-* Bugfix: Prevent thumbnail progress bar from showing idefinitely when no MPlayer is installed.
+* Bugfix: Prevent thumbnail progress bar from showing indefinitely when no MPlayer is installed.
 
 * Enhancement: Make thumbnail cache readable by all users.
   (This makes sharing a kphotoalbum database actually possible.)

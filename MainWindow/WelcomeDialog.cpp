@@ -33,6 +33,7 @@
 #include "kshell.h"
 #include <kapplication.h>
 #include <kglobal.h>
+#include <kglobalsettings.h>
 
 using namespace MainWindow;
 
@@ -128,7 +129,7 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     lay2->addWidget( label );
 
     _lineEdit = new KLineEdit( top );
-    _lineEdit->setText( QString::fromLatin1( "~/Images" ) );
+    _lineEdit->setText( KGlobalSettings::picturesPath() );
     lay2->addWidget( _lineEdit );
 
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );

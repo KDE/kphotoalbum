@@ -70,9 +70,10 @@ void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOp
     paintStackedIndicator(painter, pixmapRect, index);
 
     // Paint transparent pixels over the widget for selection.
-    if ( widget()->selectionModel()->isSelected( index ) )
+    const QItemSelectionModel *selectionModel = widget()->selectionModel();
+    if ( selectionModel->isSelected( index ) )
         painter->fillRect( option.rect, QColor(58,98,134, 127) );
-    else if ( widget()->selectionModel()->currentIndex() == index )
+    else if ( selectionModel->hasSelection() && selectionModel->currentIndex() == index )
         painter->fillRect( option.rect, QColor(58,98,134, 127) );
 }
 

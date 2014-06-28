@@ -190,6 +190,8 @@ private:
     QList<QPair<QString, QString>> _positionableTagCandidates;
     QMap<QString, ListSelect*> _listSelectList;
     QMap<QString, QString> _categoryL10n;
+
+    bool _positionableCategories;
 };
 
 }

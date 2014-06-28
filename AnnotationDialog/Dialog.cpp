@@ -114,6 +114,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     // -------------------------------------------------- Categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
 
+    // Let's first assume we don't have positionable categories
+    _positionableCategories = false;
+
     for( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         ListSelect* sel = createListSel( *categoryIt );
 
@@ -134,6 +137,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
             connect( sel, SIGNAL(positionableTagSelected(QString,QString)), this, SLOT(positionableTagSelected(QString,QString)) );
             connect( sel, SIGNAL(positionableTagDeselected(QString,QString)), this, SLOT(positionableTagDeselected(QString,QString)) );
             connect( sel, SIGNAL(positionableTagRenamed(QString,QString,QString)), this, SLOT(positionableTagRenamed(QString,QString,QString)) );
+
+            // We have at least one positionable category
+            _positionableCategories = true;
         }
 
         // The category could have a localized name. Perhaps, this could be
@@ -508,7 +514,7 @@ void AnnotationDialog::Dialog::load()
 
     if ( _setup == InputSingleImageConfigMode )
         setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
-    _preview->canCreateAreas( _setup == InputSingleImageConfigMode && ! info.isVideo() );
+    _preview->canCreateAreas( _setup == InputSingleImageConfigMode && ! info.isVideo() && _positionableCategories );
 }
 
 void AnnotationDialog::Dialog::writeToInfo()

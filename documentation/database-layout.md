@@ -43,106 +43,105 @@ within parenthesis, comments in square brackets.
 ### Version 3 ###
 
 ```
-    KPhotoAlbum
-    | (version=3,compressed=1)
-    |
-    +-Categories
-    | +-Category (name,icon,show,viewtype,thumbnailsize)
-    |   +-value (value, id)
-    |
-    +-images
-    | +-image
-    |   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-    |   (stackId, stackOrder, rating) [optional]
-    |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
-    |
-    +-blocklist
-    | +-block (file)
-    |
-    +-member-groups
-      +-member (category,group-name,members)
+KPhotoAlbum
+| (version=3,compressed=1)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value (value, id)
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
 ```
 
 ```
-    KPhotoAlbum
-    | (version=3,compressed=0)
-    |
-    +-Categories
-    | +-Category (name,icon,show,viewtype,thumbnailsize)
-    |   +-value (value, id)
-    |
-    +-images
-    | +-image
-    |   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-    |   (stackId, stackOrder, rating) [optional]
-    |   +-options
-    |     +-option(name=#Categories.Category.name#)
-    |       +-value(value=#Categories.Category.value.value#)
-    |
-    +-blocklist
-    | +-block (file)
-    |
-    +-member-groups
-      +-member (category,group-name,member)
+KPhotoAlbum
+| (version=3,compressed=0)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value (value, id)
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#)
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
 ```
 
 
 ### Version 4 ###
 
-Differences to version 3:
- - Tags can be positionable, i.e. the ```images.image.options.option.value```
-   elements may have an additional attribute *area*.
- - In the compressed format, ```images.image``` tags may have sub-elements
-   ```options.option.value```. This format is used only for category values when an area
-   attribute is present.
-
 
 ```
-    KPhotoAlbum
-    | (version=4,compressed=1)
-    |
-    +-Categories
-    | +-Category (name,icon,show,viewtype,thumbnailsize)
-    |   +-value (value, id)
-    |
-    +-images
-    | +-image
-    |   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-    |   (stackId, stackOrder, rating) [optional]
-    |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
-    |   +-options
-    |     +-option(name=#Categories.Category.name#)
-    |       +-value(value=#Categories.Category.value.value#, area="x y w h")
-    |
-    +-blocklist
-    | +-block (file)
-    |
-    +-member-groups
-      +-member (category,group-name,members)
+KPhotoAlbum
+| (version=4,compressed=1)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value (value, id)
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
 ```
 
 ```
-    KPhotoAlbum
-    | (version=4,compressed=0)
-    |
-    +-Categories
-    | +-Category (name,icon,show,viewtype,thumbnailsize)
-    |   +-value (value, id)
-    |
-    +-images
-    | +-image
-    |   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-    |   (stackId, stackOrder, rating) [optional]
-    |   +-options
-    |     +-option(name=#Categories.Category.name#)
-    |       +-value(value=#Categories.Category.value.value#, area="x y w h")
-    |
-    +-blocklist
-    | +-block (file)
-    |
-    +-member-groups
-      +-member (category,group-name,member)
+KPhotoAlbum
+| (version=4,compressed=0)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value (value, id)
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
 ```
+
+#### Differences to version 3 ####
+ * Tags can be positionable, i.e. the ```images.image.options.option.value```
+   elements may have an additional attribute ```area```.
+ * In the compressed format, ```images.image``` tags may have sub-elements ```options.option.value```.
+   This format is used only for category values when an area attribute is present.
 
 
 ### Attribute values explained ###

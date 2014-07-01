@@ -1819,7 +1819,7 @@ void MainWindow::Window::announceAndroidVersion()
 
     const QString doNotShowKey = QString::fromLatin1( "announce_android_version_key" );
     const QString txt = i18n("<p>Did you know that there is an Android client for KPhotoAlbum?<br/>"
-                             "With the Andorid client you can view your images from your desktop.</p>"
+                             "With the Android client you can view your images from your desktop.</p>"
                              "<p><a href=\"https://www.youtube.com/results?search_query=kphotoalbum+on+android\">See youtube video</a> or "
                              "<a href=\"https://play.google.com/store/apps/details?id=org.kde.kphotoalbum\">install from google play</a></p>" );
     KMessageBox::information( this, txt, QString(), doNotShowKey, KMessageBox::AllowLink );

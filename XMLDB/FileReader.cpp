@@ -382,9 +382,6 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
             QTextStream stream( &file );
             stream.setCodec( QTextCodec::codecForName("UTF-8") );
             QString str = stream.readAll();
-            str = str.replace( QString::fromLatin1( "People" ), i18n( "People" ) );
-            str = str.replace( QString::fromLatin1( "Places" ), i18n( "Places" ) );
-            str = str.replace( QString::fromLatin1( "Events" ), i18n( "Events" ) );
             str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );

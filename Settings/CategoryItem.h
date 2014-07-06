@@ -36,13 +36,13 @@ public:
     void submit( DB::MemberMap* memberMap );
     void removeFromDatabase();
 
-    QString text() const;
+    override QString text() const;
     bool positionable() const;
-    QString icon() const;
+    override QString icon() const;
     int thumbnailSize() const;
     DB::Category::ViewType viewType() const;
 
-    void setIcon( const QString& icon );
+    override void setIcon( const QString& icon );
     void setThumbnailSize( int size );
     void setViewType( DB::Category::ViewType type );
 
@@ -50,10 +50,10 @@ protected:
     void renameCategory(DB::MemberMap* memberMap);
 
 private:
-    QString _categoryOrig, _textOrig, _iconOrig;
+    QString _categoryOrig, _iconOrig;
     bool _positionable;
     bool _positionableOrig;
-    QString _category, _text, _icon;
+    QString _category, _icon;
     DB::Category::ViewType _type, _typeOrig;
     int _thumbnailSize, _thumbnailSizeOrig;
 };

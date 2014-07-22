@@ -66,6 +66,7 @@
 #include <KShortcutsDialog>
 #include <kdebug.h>
 #include "ExternalPopup.h"
+#include "CopyPopup.h"
 #include <kstandardaction.h>
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
@@ -1119,6 +1120,8 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction(_view);
         menu.addAction(_viewInNewWindow);
 
+        // "Invoke external program"
+
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = _thumbnailView->mediaIdUnderCursor().info();
 
@@ -1127,9 +1130,17 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         if (info.isNull() && selected().isEmpty())
             action->setEnabled( false );
 
+        // "Copy image(s) to ..."
+        CopyPopup *copyMenu = new CopyPopup(&menu, info, selected());
+        QAction *copyAction = menu.addMenu(copyMenu);
+        if (info.isNull() and selected().isEmpty()) {
+            copyAction->setEnabled(false);
+        }
+
         menu.exec( QCursor::pos() );
 
         delete externalCommands;
+        delete copyMenu;
     }
     e->setAccepted(true);
 }

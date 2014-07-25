@@ -31,8 +31,8 @@ MainWindow::CopyPopup::CopyPopup(
     setTitle(i18n("Copy image(s) to..."));
     connect(this, SIGNAL(triggered(QAction*)), this, SLOT(slotCopy(QAction*)));
 
-    _list = imageList;
-    _currentInfo = current;
+    m_list = imageList;
+    m_currentInfo = current;
 
     QAction *action;
     action = addAction(i18n("Copy currently selected image to..."));
@@ -40,7 +40,7 @@ MainWindow::CopyPopup::CopyPopup(
 
     action = addAction(i18n("Copy all selected images to..."));
     action->setData(QString::fromLatin1("all"));
-    if (_list.size() == 1) {
+    if (m_list.size() == 1) {
         action->setEnabled(false);
     }
 }
@@ -56,9 +56,9 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     KUrl::List src;
 
     if (mode == QString::fromLatin1("current")) {
-        src << KUrl::fromPath(_currentInfo->fileName().absolute());
+        src << KUrl::fromPath(m_currentInfo->fileName().absolute());
     } else {
-        QStringList srcList = _list.toStringList(DB::AbsolutePath);
+        QStringList srcList = m_list.toStringList(DB::AbsolutePath);
         for (int i = 0; i < srcList.size(); ++i) {
             src << KUrl::fromPath(srcList.at(i));
         }

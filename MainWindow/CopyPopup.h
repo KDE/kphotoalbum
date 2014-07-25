@@ -45,8 +45,8 @@ private slots:
     void slotCopy(QAction *action);
 
 private:
-    DB::FileNameList _list;
-    DB::ImageInfoPtr _currentInfo;
+    DB::FileNameList m_list;
+    DB::ImageInfoPtr m_currentInfo;
 };
 
 }

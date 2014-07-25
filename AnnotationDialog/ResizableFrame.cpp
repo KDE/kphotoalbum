@@ -43,15 +43,15 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent) :
         "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
     ));
 
-    _removeAct = new QAction( i18nc("area of an image; rectangle that is overlayed upon the image", "Remove area"), this);
-    connect( _removeAct, SIGNAL(triggered()), this, SLOT(remove()) );
+    m_removeAct = new QAction( i18nc("area of an image; rectangle that is overlayed upon the image", "Remove area"), this);
+    connect(m_removeAct, SIGNAL(triggered()), this, SLOT(remove()));
 
-    _lastTagAct = new QAction(this);
+    m_lastTagAct = new QAction(this);
     // Can this also be done without the associateLastSelectedTag() helper function?
-    connect( _lastTagAct, SIGNAL(triggered()), this, SLOT(associateLastSelectedTag()) );
+    connect(m_lastTagAct, SIGNAL(triggered()), this, SLOT(associateLastSelectedTag()));
 
-    _removeTagAct = new QAction(this);
-    connect( _removeTagAct, SIGNAL(triggered()), this, SLOT(removeTag()) );
+    m_removeTagAct = new QAction(this);
+    connect(m_removeTagAct, SIGNAL(triggered()), this, SLOT(removeTag()));
 }
 
 AnnotationDialog::ResizableFrame::~ResizableFrame()
@@ -60,12 +60,12 @@ AnnotationDialog::ResizableFrame::~ResizableFrame()
 
 void AnnotationDialog::ResizableFrame::setActualCoordinates(QRect actualCoordinates)
 {
-    _actualCoordinates = actualCoordinates;
+    m_actualCoordinates = actualCoordinates;
 }
 
 QRect AnnotationDialog::ResizableFrame::actualCoordinates() const
 {
-    return _actualCoordinates;
+    return m_actualCoordinates;
 }
 
 void AnnotationDialog::ResizableFrame::getMinMaxCoordinates()
@@ -73,18 +73,18 @@ void AnnotationDialog::ResizableFrame::getMinMaxCoordinates()
     // Get the maximal area to drag or resize the frame
     ImagePreview *parent = dynamic_cast<ImagePreview *>(parentWidget());
     if (parent) {
-        _minMaxCoordinates = parent->minMaxAreaPreview();
+        m_minMaxCoordinates = parent->minMaxAreaPreview();
         // Add one pixel (width of the frame)
-        _minMaxCoordinates.setWidth(_minMaxCoordinates.width() + 1);
-        _minMaxCoordinates.setHeight(_minMaxCoordinates.height() + 1);
+        m_minMaxCoordinates.setWidth(m_minMaxCoordinates.width() + 1);
+        m_minMaxCoordinates.setHeight(m_minMaxCoordinates.height() + 1);
     }
 }
 
 void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        _dragStartPosition = event->pos();
-        _dragStartGeometry = geometry();
+        m_dragStartPosition = event->pos();
+        m_dragStartGeometry = geometry();
 
         // Just in case this will be a drag/resize and not just a click
         getMinMaxCoordinates();
@@ -135,91 +135,91 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
     h = height();
 
     if (moveAction & MOVE) {
-        x = _dragStartGeometry.left() - (_dragStartPosition.x() - event->x());
-        y = _dragStartGeometry.top() - (_dragStartPosition.y() - event->y());
+        x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - event->x());
+        y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - event->y());
         w = width();
 
         // Be sure not to move out of the preview
-        if (x < _minMaxCoordinates.left()) {
-            x = _minMaxCoordinates.left();
+        if (x < m_minMaxCoordinates.left()) {
+            x = m_minMaxCoordinates.left();
         }
-        if (y < _minMaxCoordinates.top()) {
-            y = _minMaxCoordinates.top();
+        if (y < m_minMaxCoordinates.top()) {
+            y = m_minMaxCoordinates.top();
         }
-        if (x + w > _minMaxCoordinates.width()) {
-            x = _minMaxCoordinates.width() - w;
+        if (x + w > m_minMaxCoordinates.width()) {
+            x = m_minMaxCoordinates.width() - w;
         }
-        if (y + h > _minMaxCoordinates.height()) {
-            y = _minMaxCoordinates.height() - h;
+        if (y + h > m_minMaxCoordinates.height()) {
+            y = m_minMaxCoordinates.height() - h;
         }
     } else {
         // initialize with the "missing" values when only one direction is manipulated:
-        x = _dragStartGeometry.left();
-        y = _dragStartGeometry.top();
-        w = _dragStartGeometry.width();
+        x = m_dragStartGeometry.left();
+        y = m_dragStartGeometry.top();
+        w = m_dragStartGeometry.width();
 
         if (moveAction & SCALE_TOP) {
-            y = _dragStartGeometry.top() - (_dragStartPosition.y() - event->y());
+            y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - event->y());
 
             if (y >= geometry().y() + geometry().height()) {
                 h = 0;
-                y = _dragStartGeometry.top() + _dragStartGeometry.height();
+                y = m_dragStartGeometry.top() + m_dragStartGeometry.height();
                 moveAction ^= SCALE_BOTTOM | SCALE_TOP;
             }
 
-            if(y < _minMaxCoordinates.top()) {
-                y = _minMaxCoordinates.top();
-                h = _dragStartGeometry.top() + _dragStartGeometry.height() - _minMaxCoordinates.y();
+            if(y < m_minMaxCoordinates.top()) {
+                y = m_minMaxCoordinates.top();
+                h = m_dragStartGeometry.top() + m_dragStartGeometry.height() - m_minMaxCoordinates.y();
             } else {
-                h = height() + (_dragStartPosition.y() - event->y());
+                h = height() + (m_dragStartPosition.y() - event->y());
             }
         } else if (moveAction & SCALE_BOTTOM) {
-            y = _dragStartGeometry.top();
+            y = m_dragStartGeometry.top();
             h = event->y();
 
             if (h <= 0) {
                 h = 0;
-                _dragStartPosition.setY(0);
+                m_dragStartPosition.setY(0);
                 moveAction ^= SCALE_BOTTOM | SCALE_TOP;
             }
 
-            if (y + h > _minMaxCoordinates.height()) {
-                h = _minMaxCoordinates.height() - y;
+            if (y + h > m_minMaxCoordinates.height()) {
+                h = m_minMaxCoordinates.height() - y;
             }
         }
 
         if (moveAction & SCALE_RIGHT) {
-            x = _dragStartGeometry.left();
+            x = m_dragStartGeometry.left();
             w = event->x();
 
             if (w <= 0) {
                 w = 0;
-                _dragStartPosition.setX(0);
+                m_dragStartPosition.setX(0);
                 moveAction ^= SCALE_RIGHT | SCALE_LEFT;
             }
 
-            if (x + w > _minMaxCoordinates.width()) {
-                w = _minMaxCoordinates.width() - x;
+            if (x + w > m_minMaxCoordinates.width()) {
+                w = m_minMaxCoordinates.width() - x;
             }
         } else if (moveAction & SCALE_LEFT) {
-            x = _dragStartGeometry.left() - (_dragStartPosition.x() - event->x());
+            x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - event->x());
 
             if (x >= geometry().left() + geometry().width()) {
                 w = 0;
-                x = _dragStartGeometry.left() + _dragStartGeometry.width();
+                x = m_dragStartGeometry.left() + m_dragStartGeometry.width();
                 moveAction ^= SCALE_RIGHT | SCALE_LEFT;
             }
 
-            if (x < _minMaxCoordinates.left()) {
-                x = _minMaxCoordinates.left();
-                w = _dragStartGeometry.x() + _dragStartGeometry.width() - _minMaxCoordinates.x();
+            if (x < m_minMaxCoordinates.left()) {
+                x = m_minMaxCoordinates.left();
+                w = m_dragStartGeometry.x() + m_dragStartGeometry.width() - m_minMaxCoordinates.x();
             } else {
-                w = _dragStartGeometry.width() + (_dragStartPosition.x() - event->x());
+                w = m_dragStartGeometry.width() + (m_dragStartPosition.x() - event->x());
             }
         }
     }
     setGeometry(x, y, w, h);
-    _dragStartGeometry = geometry();
+    m_dragStartGeometry = geometry();
 }
 
 void AnnotationDialog::ResizableFrame::checkGeometry()
@@ -249,17 +249,17 @@ void AnnotationDialog::ResizableFrame::checkGeometry()
     }
 
     // Probably, the above tweaking moved the area out of the preview area
-    if (x < _minMaxCoordinates.left()) {
-        x = _minMaxCoordinates.left();
+    if (x < m_minMaxCoordinates.left()) {
+        x = m_minMaxCoordinates.left();
     }
-    if (y < _minMaxCoordinates.top()) {
-        y = _minMaxCoordinates.top();
+    if (y < m_minMaxCoordinates.top()) {
+        y = m_minMaxCoordinates.top();
     }
-    if (x + w > _minMaxCoordinates.width()) {
-        x = _minMaxCoordinates.width() - w;
+    if (x + w > m_minMaxCoordinates.width()) {
+        x = m_minMaxCoordinates.width() - w;
     }
-    if (y + h > _minMaxCoordinates.height()) {
-        y = _minMaxCoordinates.height() - h;
+    if (y + h > m_minMaxCoordinates.height()) {
+        y = m_minMaxCoordinates.height() - h;
     }
 
     // If anything has been changed, set the updated geometry
@@ -287,34 +287,34 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
     QMenu *menu = new QMenu(this);
 
     // Let's see if we already have an associated tag
-    if (! _tagData.first.isEmpty()) {
-        _removeTagAct->setText(
+    if (! m_tagData.first.isEmpty()) {
+        m_removeTagAct->setText(
                 i18nc( "As in: remove tag %1 in category %2 [from this marked area of the image]"
                      , "Remove tag %1 (%2)"
-                     , _tagData.second, _tagData.first ) );
-        menu->addAction(_removeTagAct);
+                     , m_tagData.second, m_tagData.first ) );
+        menu->addAction(m_removeTagAct);
     } else {
         // Handle the last selected positionable tag
 
-        QPair<QString, QString> lastSelectedPositionableTag = _dialog->lastSelectedPositionableTag();
+        QPair<QString, QString> lastSelectedPositionableTag = m_dialog->lastSelectedPositionableTag();
 
         if (! lastSelectedPositionableTag.first.isEmpty()) {
-            _lastTagAct->setText(
+            m_lastTagAct->setText(
                     i18nc( "As in: associate [this marked area of the image] with tag %1 in category %2"
                          , "Associate with %1 (%2)"
-                         , lastSelectedPositionableTag.second, _dialog->localizedCategory(lastSelectedPositionableTag.first)
+                         , lastSelectedPositionableTag.second, m_dialog->localizedCategory(lastSelectedPositionableTag.first)
                         ) );
 
             QStringList data;
             data << lastSelectedPositionableTag.first << lastSelectedPositionableTag.second;
-            _lastTagAct->setData(data);
+            m_lastTagAct->setData(data);
 
-            menu->addAction(_lastTagAct);
+            menu->addAction(m_lastTagAct);
         }
 
         // Handle all positionable tag candidates
 
-        QList<QPair<QString, QString>> positionableTagCandidates = _dialog->positionableTagCandidates();
+        QList<QPair<QString, QString>> positionableTagCandidates = m_dialog->positionableTagCandidates();
 
         // If we have a last selected positionable tag: remove it
         positionableTagCandidates.removeAt(positionableTagCandidates.indexOf(lastSelectedPositionableTag));
@@ -329,7 +329,7 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
             for (const QPair<QString, QString> &tag : positionableTagCandidates) {
                 QAction *action = new QAction(
                     tag.second + QString::fromLatin1(" (") +
-                    _dialog->localizedCategory(tag.first) +
+                    m_dialog->localizedCategory(tag.first) +
                     QString::fromLatin1(")"), this
                 );
 
@@ -344,7 +344,7 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
     }
 
     // Append the "Remove area" action
-    menu->addAction(_removeAct);
+    menu->addAction(m_removeAct);
     menu->exec(event->globalPos());
 
     // Clean up the menu
@@ -353,7 +353,7 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
 
 void AnnotationDialog::ResizableFrame::associateLastSelectedTag()
 {
-    associateTag(_lastTagAct);
+    associateTag(m_lastTagAct);
 }
 
 void AnnotationDialog::ResizableFrame::associateTag(QAction *action)
@@ -364,11 +364,11 @@ void AnnotationDialog::ResizableFrame::associateTag(QAction *action)
 void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag)
 {
     // Add the data to this area
-    _tagData.first = category;
-    _tagData.second = tag;
+    m_tagData.first = category;
+    m_tagData.second = tag;
     setToolTip(
-        _tagData.second + QString::fromLatin1(" (") +
-        _dialog->localizedCategory(_tagData.first) +
+        m_tagData.second + QString::fromLatin1(" (") +
+        m_dialog->localizedCategory(m_tagData.first) +
         QString::fromLatin1(")")
     );
 
@@ -376,13 +376,13 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag)
     setStyleSheet(QString::fromLatin1("AnnotationDialog--ResizableFrame { color: rgb(0,255,0); }"));
 
     // Remove the associated tag from the tag candidate list
-    _dialog->removeTagFromCandidateList(_tagData.first, _tagData.second);
+    m_dialog->removeTagFromCandidateList(m_tagData.first, m_tagData.second);
 }
 
 void AnnotationDialog::ResizableFrame::removeTag()
 {
     // Add the tag to the positionable candidate list again
-    _dialog->addTagToCandidateList(_tagData.first, _tagData.second);
+    m_dialog->addTagToCandidateList(m_tagData.first, m_tagData.second);
     // Delete the tag data from this area
     removeTagData();
 }
@@ -390,8 +390,8 @@ void AnnotationDialog::ResizableFrame::removeTag()
 void AnnotationDialog::ResizableFrame::removeTagData()
 {
     // Delete the data
-    _tagData.first.clear();
-    _tagData.second.clear();
+    m_tagData.first.clear();
+    m_tagData.second.clear();
     setToolTip(QString());
 
     // Set the color to "un-associated"
@@ -400,7 +400,7 @@ void AnnotationDialog::ResizableFrame::removeTagData()
 
 void AnnotationDialog::ResizableFrame::remove()
 {
-    if (! _tagData.first.isEmpty()) {
+    if (! m_tagData.first.isEmpty()) {
         // Re-add the associated tag to the candidate list
         removeTag();
     }
@@ -412,7 +412,7 @@ void AnnotationDialog::ResizableFrame::remove()
 void AnnotationDialog::ResizableFrame::checkShowContextMenu()
 {
     // Don't show the context menu when we don't have a last selected positionable tag
-    if (_dialog->lastSelectedPositionableTag().first.isEmpty()) {
+    if (m_dialog->lastSelectedPositionableTag().first.isEmpty()) {
         return;
     }
 
@@ -425,12 +425,12 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
 
 void AnnotationDialog::ResizableFrame::setDialog(Dialog *dialog)
 {
-    _dialog = dialog;
+    m_dialog = dialog;
 }
 
 QPair<QString, QString> AnnotationDialog::ResizableFrame::tagData() const
 {
-    return _tagData;
+    return m_tagData;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

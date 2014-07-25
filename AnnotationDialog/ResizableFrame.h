@@ -59,16 +59,16 @@ private slots:
     void removeTag();
 
 private:
-    QPoint _dragStartPosition;
-    QRect _dragStartGeometry;
-    QRect _minMaxCoordinates;
-    QRect _actualCoordinates;
+    QPoint m_dragStartPosition;
+    QRect m_dragStartGeometry;
+    QRect m_minMaxCoordinates;
+    QRect m_actualCoordinates;
     void getMinMaxCoordinates();
-    QAction *_lastTagAct;
-    QAction *_removeAct;
-    QAction *_removeTagAct;
-    Dialog *_dialog;
-    QPair<QString, QString> _tagData;
+    QAction *m_lastTagAct;
+    QAction *m_removeAct;
+    QAction *m_removeTagAct;
+    Dialog *m_dialog;
+    QPair<QString, QString> m_tagData;
 };
 
 }

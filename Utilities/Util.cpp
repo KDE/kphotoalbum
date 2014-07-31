@@ -137,24 +137,25 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             const StringSet items = info->itemsOfCategory( categoryName );
             if (!items.empty()) {
                 QString title = QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
-                QString info;
+                QString infoText;
                 bool first = true;
                 for( StringSet::const_iterator it2 = items.constBegin(); it2 != items.constEnd(); ++it2 ) {
                     QString item = *it2;
                     if ( first )
                         first = false;
                     else
-                        info += QString::fromLatin1( ", " );
+                        infoText += QString::fromLatin1( ", " );
 
                     if ( linkMap ) {
                         ++link;
                         (*linkMap)[link] = QPair<QString,QString>( categoryName, item );
-                        info += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
+                        infoText += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
+                        infoText += formatAge(*categoryIt, item, info);
                     }
                     else
-                        info += item;
+                        infoText += item;
                 }
-                AddNonEmptyInfo(title, info, &result);
+                AddNonEmptyInfo(title, infoText, &result);
             }
         }
     }
@@ -208,6 +209,91 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 #endif
 
     return result;
+}
+
+using DateSpec = QPair<int, char>;
+DateSpec dateDiff(const QDate& birthDate, const QDate& imageDate)
+{
+    const int bday = birthDate.day();
+    const int iday = imageDate.day();
+    const int bmonth = birthDate.month();
+    const int imonth = imageDate.month();
+    const int byear = birthDate.year();
+    const int iyear = imageDate.year();
+
+    // Image before birth
+    const int diff = birthDate.daysTo(imageDate);
+    if (diff < 0)
+        return qMakePair(0, 'I');
+
+    if (diff < 31)
+        return qMakePair(diff, 'D');
+
+    int months = (iyear-byear)*12;
+    months += (imonth-bmonth);
+    months += (iday >= bday) ? 0 : -1;
+
+    if ( months < 24)
+        return qMakePair(months, 'M');
+    else
+        return qMakePair(months/12, 'Y');
+}
+
+QString formatDate(const DateSpec& date)
+{
+    if (date.second == 'I')
+        return {};
+    else if (date.second == 'D')
+        return i18np("1 day", "%1 days", date.first);
+    else if (date.second == 'M')
+        return i18np("1 month", "%1 month", date.first);
+    else
+        return i18np("1 year", "%1 years", date.first);
+}
+
+void test() {
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,7,11))) == QString::fromLatin1("0 days"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,10))) == QString::fromLatin1("30 days"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,11))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,12))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,9,10))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,9,11))) == QString::fromLatin1("2 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,10))) == QString::fromLatin1("10 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,11))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,12))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,10))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,11))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,12))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,12,11))) == QString::fromLatin1("17 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1973,7,11))) == QString::fromLatin1("2 years"));
+}
+
+QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
+{
+    // test(); // I wish I could get my act together to set up a test suite.
+    const QDate birthDate = category->birthDate(item);
+    const QDate start = info->date().start().date();
+    const QDate end = info->date().end().date();
+
+    if (birthDate.isNull() || start.isNull())
+        return {};
+
+    if ( start == end)
+        return QString::fromUtf8(" (%1)").arg(formatDate(dateDiff(birthDate, start)));
+    else {
+        DateSpec lower = dateDiff(birthDate,start);
+        DateSpec upper = dateDiff(birthDate,end);
+        if (lower == upper)
+            return QString::fromUtf8(" (%1)").arg(formatDate(lower));
+        else if (lower.second == 'I')
+            return QString::fromUtf8(" (&lt; %1)").arg(formatDate(upper));
+        else {
+            if (lower.second == upper.second)
+                return QString::fromUtf8(" (%1-%2)").arg(lower.first).arg(formatDate(upper));
+            else
+                return QString::fromUtf8(" (%1-%2)").arg(formatDate(lower)).arg(formatDate(upper));
+        }
+    }
 }
 
 void Utilities::checkForBackupFile( const QString& fileName, const QString& message )

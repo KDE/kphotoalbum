@@ -63,6 +63,8 @@ namespace XMLDB {
 
         bool shouldSave();
         void setShouldSave( bool b);
+        void setBirthDate(const QString& item, const QDate& birthDate) override;
+        QDate birthDate(const QString& item) const override;
 
     private:
         QString _name;
@@ -76,6 +78,7 @@ namespace XMLDB {
         QStringList _items;
         QMap<QString,int> _idMap;
         QMap<int,QString> _nameMap;
+        QMap<QString,QDate> _birthDates;
 
         bool _shouldSave;
     };

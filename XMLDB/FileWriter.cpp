@@ -129,6 +129,9 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
                     writer.writeAttribute( QString::fromLatin1("value"), categoryName );
                     writer.writeAttribute( QString::fromLatin1( "id" ),
                                            QString::number(static_cast<XMLCategory*>( category.data() )->idForName( categoryName ) ));
+                    QDate birthDate = category->birthDate(categoryName);
+                    if (!birthDate.isNull())
+                        writer.writeAttribute( QString::fromUtf8("birthDate"), birthDate.toString(Qt::ISODate) );
                 }
             }
         }

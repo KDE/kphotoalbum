@@ -167,6 +167,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString _positionable_ = QString::fromUtf8("positionable");
     static QString _value_ = QString::fromUtf8("value");
     static QString _id_ = QString::fromUtf8("id");
+    static QString _birthDate_ = QString::fromUtf8("birthDate");
     static QString _Categories_ = QString::fromUtf8("Categories");
     static QString _Category_ = QString::fromUtf8("Category");
 
@@ -199,6 +200,8 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                     int id = reader->attribute(_id_).toInt();
                     static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                 }
+                if (reader->hasAttribute(_birthDate_))
+                    cat->setBirthDate(value,QDate::fromString(reader->attribute(_birthDate_), Qt::ISODate));
                 items.append( value );
                 reader->readEndElement();
             }

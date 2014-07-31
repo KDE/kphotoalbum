@@ -1,3 +1,6 @@
+* New Feature: Specify the birth date for people (or any other category item for that matter) in Maintanence->Edit Birth Dates,
+  and see their age when viewing images.
+
 ====================== KPhotoalbum 4.5 released  ======================
 
 * New Feature: Added an Android client, which can display images from

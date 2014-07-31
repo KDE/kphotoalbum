@@ -23,6 +23,7 @@
 #include <qobject.h>
 #include <ksharedptr.h>
 #include "kiconloader.h"
+#include <QDate>
 
 class QImage;
 class QPixmap;
@@ -78,7 +79,8 @@ public:
     QPixmap categoryImage( const QString& category, QString, int width, int height ) const;
     void setCategoryImage( const QString& category, QString, const QImage& image );
     QString fileForCategoryImage ( const QString& category, QString member ) const;
-
+    virtual void setBirthDate(const QString& item, const QDate& birthDate) = 0;
+    virtual QDate birthDate(const QString& item) const = 0;
 
 private:
     QString defaultIconName() const;

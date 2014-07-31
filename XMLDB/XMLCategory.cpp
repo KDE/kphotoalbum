@@ -179,5 +179,15 @@ void XMLDB::XMLCategory::setShouldSave( bool b)
     _shouldSave = b;
 }
 
+void XMLDB::XMLCategory::setBirthDate(const QString &item, const QDate &birthDate)
+{
+    _birthDates.insert(item,birthDate);
+}
+
+QDate XMLDB::XMLCategory::birthDate(const QString &item) const
+{
+    return _birthDates[item];
+}
+
 #include "XMLCategory.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

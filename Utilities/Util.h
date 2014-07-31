@@ -37,6 +37,7 @@ namespace DB
 namespace Utilities
 {
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
+QString formatAge(DB::CategoryPtr category,const QString& item, DB::ImageInfoPtr info);
 void checkForBackupFile( const QString& fileName, const QString& message = QString() );
 bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );

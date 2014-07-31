@@ -43,11 +43,11 @@ struct Data
 Settings::SettingsDialog::SettingsDialog( QWidget* parent)
      :KPageDialog( parent )
 {
-    _generalPage = new Settings::GeneralPage( this );
+    _generalPage = new Settings::GeneralPage(this);
     _fileVersionDetectionPage = new Settings::FileVersionDetectionPage(this);
-    _thumbnailsPage = new Settings::ThumbnailsPage( this );
+    _thumbnailsPage = new Settings::ThumbnailsPage(this);
     _categoryPage = new Settings::CategoryPage(this);
-    _subCategoriesPage = new Settings::SubCategoriesPage( this );
+    _subCategoriesPage = new Settings::SubCategoriesPage(this);
     _viewerPage = new Settings::ViewerPage(this);
 
 #ifdef HASKIPI

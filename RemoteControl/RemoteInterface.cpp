@@ -39,6 +39,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
 #include "Types.h"
+#include "Utilities/Util.h"
 
 #include <tuple>
 #include <algorithm>
@@ -236,8 +237,14 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     result.date = info->date().toString();
     result.description = info->description();
     result.categories.clear();
-    for (const QString& category : info->availableCategories()) {
-        result.categories[category] = info->itemsOfCategory(category).toList();
+    for (const QString& categoryName : info->availableCategories()) {
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
+        CategoryItemDetailsList list;
+        for ( const QString& item : info->itemsOfCategory(categoryName) ) {
+            const QString age = Utilities::formatAge(category, item, info);
+            list.append(CategoryItemDetails(item, age));
+        }
+        result.categories[categoryName] = list;
     }
 
     m_connection->sendCommand(result);

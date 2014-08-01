@@ -141,6 +141,9 @@ Item {
         for (var i=0; i<list.length; ++i ) {
             var url=category + ";;;"+ list[i]
             var link = "<a href=\"" + url + "\">" + list[i] + "</a>"
+            var age = _imageDetails.age(category, list[i])
+            if (age)
+                link += age
             if (result)
                 result = result + ", " + link
             else

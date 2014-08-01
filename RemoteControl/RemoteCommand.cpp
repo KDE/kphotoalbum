@@ -290,6 +290,18 @@ QString ImageDetailsCommand::id()
     return QString::fromUtf8("ImageDetailsCommand");
 }
 
+QDataStream& operator<<(QDataStream& stream, const CategoryItemDetails& item)
+{
+    stream << item.name << item.age;
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, CategoryItemDetails& item)
+{
+    stream >> item.name >> item.age;
+    return stream;
+}
+
 void ImageDetailsCommand::encode(QDataStream& stream) const
 {
     stream << fileName << date << description << categories;

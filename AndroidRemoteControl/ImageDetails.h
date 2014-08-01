@@ -41,8 +41,9 @@ public:
 public slots:
     void clear();
     void setData(const ImageDetailsCommand& data);
-    QStringList itemsOfCategory(const QString category);
+    QStringList itemsOfCategory(const QString& category);
     QString dummy() const { return {}; }
+    QString age(const QString &category, const QString& item);
 
 signals:
     void updated();
@@ -52,7 +53,7 @@ private:
     QString m_fileName;
     QString m_date;
     QString m_description;
-    QMap<QString,QStringList> m_categories;
+    QMap<QString,CategoryItemDetailsList> m_categories;
 };
 
 } // namespace RemoteControl

@@ -33,7 +33,7 @@
 namespace RemoteControl
 {
 
-const int VERSION = 4;
+const int VERSION = 5;
 
 class RemoteCommand
 {
@@ -152,6 +152,15 @@ public:
     ImageId imageId;
 };
 
+struct CategoryItemDetails {
+    CategoryItemDetails(const QString& name = {}, const QString& age = {})
+        : name(name), age(age) {}
+    QString name;
+    QString age;
+};
+
+using CategoryItemDetailsList = QList<CategoryItemDetails>;
+
 class ImageDetailsCommand :public RemoteCommand
 {
 public:
@@ -163,7 +172,7 @@ public:
     QString fileName;
     QString date;
     QString description;
-    QMap<QString,QStringList> categories;
+    QMap<QString,CategoryItemDetailsList> categories;
 };
 
 class CategoryItems :public RemoteCommand

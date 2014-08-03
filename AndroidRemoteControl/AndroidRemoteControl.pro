@@ -56,6 +56,7 @@ HEADERS += \
     ThumbnailModel.h \
     ImageDetails.h \
     DiscoveryModel.h \
-    PositionObserver.h
+    PositionObserver.h \
+    Serializer.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

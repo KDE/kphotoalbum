@@ -102,12 +102,12 @@ void RemoteConnection::dataReceived()
             QString id;
             stream >> id;
 
-            RemoteCommand& command = RemoteCommand::command(id);
-            command.decode(stream);
+            std::unique_ptr<RemoteCommand> command = RemoteCommand::create(id);
+            command->decode(stream);
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
                                << ": Received " << qPrintable(id);
 
-            emit gotCommand(command);
+            emit gotCommand(*command);
         }
     }
 }

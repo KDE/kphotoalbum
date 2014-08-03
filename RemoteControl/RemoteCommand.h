@@ -29,29 +29,29 @@
 #include <QPair>
 #include "Types.h"
 #include <QMap>
+#include <memory>
+#include <QPainter>
 
 namespace RemoteControl
 {
+const int VERSION = 6;
 
-const int VERSION = 5;
+class SerializerInterface;
 
 class RemoteCommand
 {
 public:
     RemoteCommand(const QString& id);
-    virtual ~RemoteCommand() = default;
-    virtual void encode(QDataStream&) const = 0;
-    virtual void decode(QDataStream&) = 0;
+    virtual ~RemoteCommand();
+    virtual void encode(QDataStream&) const;
+    virtual void decode(QDataStream&);
     QString id() const;
 
-    static RemoteCommand& command(const QString& id);
-
-protected:
-    void encodeImage(QDataStream& stream, const QImage& image) const;
-    void encodeImageWithTransparentPixels(QDataStream& stream, const QImage& image) const;
-    QImage decodeImage(QDataStream& stream) const;
+    void addSerializer(SerializerInterface* serializer);
+    static std::unique_ptr<RemoteCommand> create(const QString& id);
 
 private:
+    QList<SerializerInterface*> m_serializers;
     QString m_id;
 };
 
@@ -60,8 +60,6 @@ class ImageUpdateCommand :public RemoteCommand
 public:
     ImageUpdateCommand(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     ImageId imageId;
     QString label;
     QImage image;
@@ -81,8 +79,6 @@ class CategoryListCommand :public RemoteCommand
 public:
     CategoryListCommand();
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     QList<Category> categories;
 };
 
@@ -91,8 +87,6 @@ class SearchCommand :public RemoteCommand
 public:
     SearchCommand(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     SearchType type;
     SearchInfo searchInfo;
     int size; // Only used for SearchType::Categories
@@ -103,8 +97,6 @@ class SearchResultCommand :public RemoteCommand
 public:
     SearchResultCommand(SearchType type = {}, const QList<int>& result = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     SearchType type;
     QList<int> result;
 };
@@ -114,8 +106,6 @@ class ThumbnailRequest :public RemoteCommand
 public:
     ThumbnailRequest(ImageId imageId = {}, const QSize& size = {}, ViewType type = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     ImageId imageId;
     QSize size;
     ViewType type;
@@ -126,8 +116,6 @@ class CancelRequestCommand :public RemoteCommand
 public:
     CancelRequestCommand(ImageId imageId = {}, ViewType type = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
     ImageId imageId;
     ViewType type;
 };
@@ -146,9 +134,6 @@ class RequestDetails :public RemoteCommand
 public:
     RequestDetails(ImageId imageId = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     ImageId imageId;
 };
 
@@ -166,9 +151,6 @@ class ImageDetailsCommand :public RemoteCommand
 public:
     ImageDetailsCommand();
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     QString fileName;
     QString date;
     QString description;
@@ -178,11 +160,8 @@ public:
 class CategoryItems :public RemoteCommand
 {
 public:
-    CategoryItems(const QStringList items = {});
+    CategoryItems(const QStringList& items = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     QStringList items;
 };
 
@@ -191,9 +170,6 @@ class RequestHomePageImages :public RemoteCommand
 public:
     RequestHomePageImages(int size = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     int size;
 };
 
@@ -202,9 +178,6 @@ class HomePageData :public RemoteCommand
 public:
     HomePageData(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
@@ -216,9 +189,6 @@ public:
     enum State {On, Off};
     ToggleTokenCommand(ImageId imageId = {}, const QString& token = {}, State state = {});
     static QString id();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
-
     ImageId imageId;
     QString token;
     State state;

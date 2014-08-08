@@ -34,33 +34,48 @@
 
 namespace RemoteControl
 {
-const int VERSION = 6;
-
 class SerializerInterface;
+
+const int VERSION = 7;
+
+enum class CommandType {
+    ThumbnailResult,
+    CategoryListResult,
+    SearchRequest,
+    SearchResult,
+    ThumbnailRequest,
+    ThumbnailCancelRequest,
+    TimeCommand,
+    ImageDetailsRequest,
+    ImageDetailsResult,
+    CategoryItemsResult,
+    StaticImageRequest,
+    StaticImageResult,
+    ToggleTokenRequest
+};
+
 
 class RemoteCommand
 {
 public:
-    RemoteCommand(const QString& id);
+    RemoteCommand(CommandType type);
     virtual ~RemoteCommand();
     virtual void encode(QDataStream&) const;
     virtual void decode(QDataStream&);
-    QString id() const;
+    CommandType commandType() const;
 
     void addSerializer(SerializerInterface* serializer);
-    static std::unique_ptr<RemoteCommand> create(const QString& id);
+    static std::unique_ptr<RemoteCommand> create(CommandType commandType);
 
 private:
     QList<SerializerInterface*> m_serializers;
-    QString m_id;
+    CommandType m_type;
 };
 
-// ThumbnailResult
 class ThumbnailResult :public RemoteCommand
 {
 public:
     ThumbnailResult(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
-    static QString id();
     ImageId imageId;
     QString label;
     QImage image;
@@ -75,32 +90,26 @@ struct Category {
     CategoryViewType viewType;
 };
 
-// CategoryListResult
 class CategoryListResult :public RemoteCommand
 {
 public:
     CategoryListResult();
-    static QString id();
     QList<Category> categories;
 };
 
-// SearchRequest
 class SearchRequest :public RemoteCommand
 {
 public:
     SearchRequest(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
-    static QString id();
     SearchType type;
     SearchInfo searchInfo;
     int size; // Only used for SearchType::Categories
 };
 
-// SearchResult
 class SearchResult :public RemoteCommand
 {
 public:
     SearchResult(SearchType type = {}, const QList<int>& result = {});
-    static QString id();
     SearchType type;
     QList<int> result;
 };
@@ -109,18 +118,15 @@ class ThumbnailRequest :public RemoteCommand
 {
 public:
     ThumbnailRequest(ImageId imageId = {}, const QSize& size = {}, ViewType type = {});
-    static QString id();
     ImageId imageId;
     QSize size;
     ViewType type;
 };
 
-// ThumbnailCancelRequest
 class ThumbnailCancelRequest :public RemoteCommand
 {
 public:
     ThumbnailCancelRequest(ImageId imageId = {}, ViewType type = {});
-    static QString id();
     ImageId imageId;
     ViewType type;
 };
@@ -129,17 +135,14 @@ class TimeCommand :public RemoteCommand
 {
 public:
     TimeCommand();
-    static QString id();
     void encode(QDataStream& stream) const override;
     void decode(QDataStream& stream) override;
 };
 
-// ImageDetailsRequest
 class ImageDetailsRequest :public RemoteCommand
 {
 public:
     ImageDetailsRequest(ImageId imageId = {});
-    static QString id();
     ImageId imageId;
 };
 
@@ -152,12 +155,10 @@ struct CategoryItemDetails {
 
 using CategoryItemDetailsList = QList<CategoryItemDetails>;
 
-// ImageDetailsResult
 class ImageDetailsResult :public RemoteCommand
 {
 public:
     ImageDetailsResult();
-    static QString id();
     QString fileName;
     QString date;
     QString description;
@@ -168,37 +169,30 @@ class CategoryItemsResult :public RemoteCommand
 {
 public:
     CategoryItemsResult(const QStringList& items = {});
-    static QString id();
     QStringList items;
 };
 
-// StaticImageRequest
 class StaticImageRequest :public RemoteCommand
 {
 public:
     StaticImageRequest(int size = {});
-    static QString id();
     int size;
 };
 
-// StaticImageResult
 class StaticImageResult :public RemoteCommand
 {
 public:
     StaticImageResult(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
-    static QString id();
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
 };
 
-// ToggleTokenRequest
 class ToggleTokenRequest :public RemoteCommand
 {
 public:
     enum State {On, Off};
     ToggleTokenRequest(ImageId imageId = {}, const QString& token = {}, State state = {});
-    static QString id();
     ImageId imageId;
     QString token;
     State state;

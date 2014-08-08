@@ -246,21 +246,21 @@ void RemoteInterface::requestInitialData()
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    if (command.id() == ThumbnailResult::id())
+    if (command.commandType() == CommandType::ThumbnailResult)
         updateImage(static_cast<const ThumbnailResult&>(command));
-    else if (command.id() == CategoryListResult::id())
+    else if (command.commandType() == CommandType::CategoryListResult)
         updateCategoryList(static_cast<const CategoryListResult&>(command));
-    else if (command.id() == SearchResult::id())
+    else if (command.commandType() == CommandType::SearchResult)
         gotSearchResult(static_cast<const SearchResult&>(command));
-    else if (command.id() == TimeCommand::id())
+    else if (command.commandType() == CommandType::TimeCommand)
         ; // Used for debugging, it will print time stamp when decoded
-    else if (command.id() == ImageDetailsResult::id()) {
+    else if (command.commandType() == CommandType::ImageDetailsResult) {
         ImageDetails::instance().setData(static_cast<const ImageDetailsResult&>(command));
         emit tokensChanged();
     }
-    else if (command.id() == CategoryItemsResult::id())
+    else if (command.commandType() == CommandType::CategoryItemsResult)
         setListCategoryValues(static_cast<const CategoryItemsResult&>(command).items);
-    else if (command.id() == StaticImageResult::id())
+    else if (command.commandType() == CommandType::StaticImageResult)
         setHomePageImages(static_cast<const StaticImageResult&>(command));
     else
         qFatal("Unhandled command");

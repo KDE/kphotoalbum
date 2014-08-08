@@ -41,7 +41,7 @@ RemoteConnection::RemoteConnection(QObject *parent) :
 void RemoteConnection::sendCommand(const RemoteCommand& command)
 {
     protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                    << ": Sending " << qPrintable(command.id());
+                    << ": Sending " << QString::number((int) command.commandType());
     Q_ASSERT(QThread::currentThread() == qApp->thread());
 
     if (!isConnected())
@@ -58,7 +58,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
     stream << (qint32) 0;
 
     // Steam the id and the data
-    stream << command.id();
+    stream << (qint32) command.commandType();
     command.encode(stream);
 
     // Wind back and stream the length
@@ -99,10 +99,10 @@ void RemoteConnection::dataReceived()
             QBuffer buffer(&data);
             buffer.open(QIODevice::ReadOnly);
             QDataStream stream(&buffer);
-            QString id;
+            qint32 id;
             stream >> id;
 
-            std::unique_ptr<RemoteCommand> command = RemoteCommand::create(id);
+            std::unique_ptr<RemoteCommand> command = RemoteCommand::create(static_cast<CommandType>(id));
             command->decode(stream);
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
                                << ": Received " << qPrintable(id);

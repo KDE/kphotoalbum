@@ -105,7 +105,7 @@ void RemoteInterface::connectTo(const QHostAddress& address)
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    if (command.id() == SearchRequest::id()) {
+    if (command.commandType() == CommandType::SearchRequest) {
         const SearchRequest& searchCommand = static_cast<const SearchRequest&>(command);
         if (searchCommand.type == SearchType::Categories)
             sendCategoryNames(searchCommand);
@@ -114,15 +114,15 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
         else
             sendImageSearchResult(searchCommand.searchInfo);
     }
-    else if (command.id() == ThumbnailRequest::id())
+    else if (command.commandType() == CommandType::ThumbnailRequest)
         requestThumbnail(static_cast<const ThumbnailRequest&>(command));
-    else if (command.id() == ThumbnailCancelRequest::id())
+    else if (command.commandType() == CommandType::ThumbnailCancelRequest)
         cancelRequest(static_cast<const ThumbnailCancelRequest&>(command));
-    else if (command.id() == ImageDetailsRequest::id())
+    else if (command.commandType() == CommandType::ImageDetailsRequest)
         sendImageDetails(static_cast<const ImageDetailsRequest&>(command));
-    else if (command.id() == StaticImageRequest::id())
+    else if (command.commandType() == CommandType::StaticImageRequest)
         sendHomePageImages(static_cast<const StaticImageRequest&>(command));
-    else if (command.id() == ToggleTokenRequest::id())
+    else if (command.commandType() == CommandType::ToggleTokenRequest)
         setToken(static_cast<const ToggleTokenRequest&>(command));
 }
 

@@ -99,7 +99,7 @@ void ImageStore::clientDeleted()
         m_requestMap.remove(key);
 
         if (key.second == ViewType::Thumbnails)
-            RemoteInterface::instance().sendCommand(CancelRequestCommand(key.first, key.second));
+            RemoteInterface::instance().sendCommand(ThumbnailCancelRequest(key.first, key.second));
     }
 }
 

@@ -43,7 +43,7 @@ QDataStream &operator>>(QDataStream &stream, TYPE& type)\
 
 ENUMSTREAM(ViewType)
 ENUMSTREAM(SearchType)
-ENUMSTREAM(ToggleTokenCommand::State)
+ENUMSTREAM(ToggleTokenRequest::State)
 
 RemoteCommand::RemoteCommand(const QString& id)
     :m_id(id)
@@ -86,25 +86,25 @@ std::unique_ptr<RemoteCommand> RemoteCommand::create(const QString& id)
 {
     static QMap<QString, CommandFacory> factories;
     if (factories.isEmpty()) {
-        ADDFACTORY(ImageUpdateCommand);
-        ADDFACTORY(CategoryListCommand);
-        ADDFACTORY(SearchCommand);
-        ADDFACTORY(SearchResultCommand);
+        ADDFACTORY(ThumbnailResult);
+        ADDFACTORY(CategoryListResult);
+        ADDFACTORY(SearchRequest);
+        ADDFACTORY(SearchResult);
         ADDFACTORY(ThumbnailRequest);
-        ADDFACTORY(CancelRequestCommand);
+        ADDFACTORY(ThumbnailCancelRequest);
         ADDFACTORY(TimeCommand);
-        ADDFACTORY(RequestDetails);
-        ADDFACTORY(ImageDetailsCommand);
-        ADDFACTORY(CategoryItems);
-        ADDFACTORY(RequestHomePageImages);
-        ADDFACTORY(HomePageData);
-        ADDFACTORY(ToggleTokenCommand);
+        ADDFACTORY(ImageDetailsRequest);
+        ADDFACTORY(ImageDetailsResult);
+        ADDFACTORY(CategoryItemsResult);
+        ADDFACTORY(StaticImageRequest);
+        ADDFACTORY(StaticImageResult);
+        ADDFACTORY(ToggleTokenRequest);
     }
     Q_ASSERT(factories.contains(id));
     return factories[id]();
 }
 
-ImageUpdateCommand::ImageUpdateCommand(ImageId _imageId, const QString& _label, const QImage& _image, ViewType _type)
+ThumbnailResult::ThumbnailResult(ImageId _imageId, const QString& _label, const QImage& _image, ViewType _type)
     :RemoteCommand(id()), imageId(_imageId), label(_label), image(_image), type(_type)
 {
     addSerializer(new Serializer<ImageId>(imageId));
@@ -113,7 +113,7 @@ ImageUpdateCommand::ImageUpdateCommand(ImageId _imageId, const QString& _label, 
     addSerializer(new Serializer<ViewType>(type));
 }
 
-QString ImageUpdateCommand::id()
+QString ThumbnailResult::id()
 {
     return QString::fromUtf8("Image Update");
 }
@@ -132,19 +132,19 @@ QDataStream& operator>>(QDataStream& stream, Category& category)
     return stream;
 }
 
-CategoryListCommand::CategoryListCommand()
+CategoryListResult::CategoryListResult()
     : RemoteCommand(id())
 {
     addSerializer(new Serializer<QList<Category>>(categories));
 }
 
-QString CategoryListCommand::id()
+QString CategoryListResult::id()
 {
     return QString::fromUtf8("Category List");
 }
 
 
-SearchCommand::SearchCommand(SearchType _type, const SearchInfo& _searchInfo, int _size)
+SearchRequest::SearchRequest(SearchType _type, const SearchInfo& _searchInfo, int _size)
     :RemoteCommand(id()), type(_type), searchInfo(_searchInfo), size(_size)
 {
     addSerializer(new Serializer<SearchType>(type));
@@ -152,19 +152,19 @@ SearchCommand::SearchCommand(SearchType _type, const SearchInfo& _searchInfo, in
     addSerializer(new Serializer<int>(size));
 }
 
-QString SearchCommand::id()
+QString SearchRequest::id()
 {
     return QString::fromUtf8("SearchCommand");
 }
 
-SearchResultCommand::SearchResultCommand(SearchType _type, const QList<int>& _result)
+SearchResult::SearchResult(SearchType _type, const QList<int>& _result)
     :RemoteCommand(id()), type(_type), result(_result)
 {
     addSerializer(new Serializer<SearchType>(type));
     addSerializer(new Serializer<QList<int>>(result));
 }
 
-QString SearchResultCommand::id()
+QString SearchResult::id()
 {
     return QString::fromUtf8("Image Search Result");
 }
@@ -182,14 +182,14 @@ QString ThumbnailRequest::id()
     return QString::fromUtf8("ThumbnailRequest");
 }
 
-RemoteControl::CancelRequestCommand::CancelRequestCommand(ImageId _imageId, ViewType _type)
+RemoteControl::ThumbnailCancelRequest::ThumbnailCancelRequest(ImageId _imageId, ViewType _type)
     :RemoteCommand(id()), imageId(_imageId), type(_type)
 {
     addSerializer(new Serializer<ImageId>(imageId));
     addSerializer(new Serializer<ViewType>(type));
 }
 
-QString CancelRequestCommand::id()
+QString ThumbnailCancelRequest::id()
 {
     return QString::fromUtf8("CancelRequest");
 }
@@ -222,18 +222,18 @@ void TimeCommand::decode(QDataStream&)
 }
 
 
-RequestDetails::RequestDetails(ImageId _imageId)
+ImageDetailsRequest::ImageDetailsRequest(ImageId _imageId)
     :RemoteCommand(id()), imageId(_imageId)
 {
     addSerializer(new Serializer<ImageId>(imageId));
 }
 
-QString RequestDetails::id()
+QString ImageDetailsRequest::id()
 {
     return QString::fromUtf8("RequestDetails");
 }
 
-ImageDetailsCommand::ImageDetailsCommand()
+ImageDetailsResult::ImageDetailsResult()
     :RemoteCommand(id())
 {
     addSerializer(new Serializer<QString>(fileName));
@@ -242,7 +242,7 @@ ImageDetailsCommand::ImageDetailsCommand()
     addSerializer(new Serializer<QMap<QString,CategoryItemDetailsList>>(categories));
 }
 
-QString ImageDetailsCommand::id()
+QString ImageDetailsResult::id()
 {
     return QString::fromUtf8("ImageDetailsCommand");
 }
@@ -259,30 +259,30 @@ QDataStream& operator>>(QDataStream& stream, CategoryItemDetails& item)
     return stream;
 }
 
-CategoryItems::CategoryItems(const QStringList& _items)
+CategoryItemsResult::CategoryItemsResult(const QStringList& _items)
     :RemoteCommand(id()), items(_items)
 {
     addSerializer(new Serializer<QStringList>(items));
 }
 
-QString CategoryItems::id()
+QString CategoryItemsResult::id()
 {
     return QString::fromUtf8("CategoryItems");
 }
 
 
-RequestHomePageImages::RequestHomePageImages(int _size)
+StaticImageRequest::StaticImageRequest(int _size)
     :RemoteCommand(id()), size(_size)
 {
     addSerializer(new Serializer<int>(size));
 }
 
-QString RequestHomePageImages::id()
+QString StaticImageRequest::id()
 {
     return QString::fromUtf8("RequestHomePageImage");
 }
 
-HomePageData::HomePageData(const QImage& _homeIcon, const QImage& _kphotoalbumIcon, const QImage& _discoverIcon)
+StaticImageResult::StaticImageResult(const QImage& _homeIcon, const QImage& _kphotoalbumIcon, const QImage& _discoverIcon)
     :RemoteCommand(id()), homeIcon(_homeIcon), kphotoalbumIcon(_kphotoalbumIcon), discoverIcon(_discoverIcon)
 {
     addSerializer(new Serializer<QImage>(homeIcon, BackgroundType::Transparent));
@@ -290,12 +290,12 @@ HomePageData::HomePageData(const QImage& _homeIcon, const QImage& _kphotoalbumIc
     addSerializer(new Serializer<QImage>(discoverIcon, BackgroundType::Transparent));
 }
 
-QString HomePageData::id()
+QString StaticImageResult::id()
 {
     return QString::fromUtf8("HomePageData");
 }
 
-ToggleTokenCommand::ToggleTokenCommand(ImageId _imageId, const QString& _token, State _state)
+ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString& _token, State _state)
     :RemoteCommand(id()), imageId(_imageId), token(_token), state(_state)
 {
     addSerializer(new Serializer<ImageId>(imageId));
@@ -303,7 +303,7 @@ ToggleTokenCommand::ToggleTokenCommand(ImageId _imageId, const QString& _token, 
     addSerializer(new Serializer<State>(state));
 }
 
-QString ToggleTokenCommand::id()
+QString ToggleTokenRequest::id()
 {
     return QString::fromUtf8("SetTokenCommand");
 }

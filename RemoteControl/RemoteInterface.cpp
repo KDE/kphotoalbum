@@ -78,7 +78,7 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
 
 void RemoteInterface::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
 {
-    m_connection->sendCommand(ImageUpdateCommand(m_imageNameStore[request->databaseFileName()], QString(),
+    m_connection->sendCommand(ThumbnailResult(m_imageNameStore[request->databaseFileName()], QString(),
                               image, static_cast<RemoteImageRequest*>(request)->type()));
 }
 
@@ -105,8 +105,8 @@ void RemoteInterface::connectTo(const QHostAddress& address)
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    if (command.id() == SearchCommand::id()) {
-        const SearchCommand& searchCommand = static_cast<const SearchCommand&>(command);
+    if (command.id() == SearchRequest::id()) {
+        const SearchRequest& searchCommand = static_cast<const SearchRequest&>(command);
         if (searchCommand.type == SearchType::Categories)
             sendCategoryNames(searchCommand);
         else if (searchCommand.type == SearchType::CategoryItems)
@@ -116,22 +116,22 @@ void RemoteInterface::handleCommand(const RemoteCommand& command)
     }
     else if (command.id() == ThumbnailRequest::id())
         requestThumbnail(static_cast<const ThumbnailRequest&>(command));
-    else if (command.id() == CancelRequestCommand::id())
-        cancelRequest(static_cast<const CancelRequestCommand&>(command));
-    else if (command.id() == RequestDetails::id())
-        sendImageDetails(static_cast<const RequestDetails&>(command));
-    else if (command.id() == RequestHomePageImages::id())
-        sendHomePageImages(static_cast<const RequestHomePageImages&>(command));
-    else if (command.id() == ToggleTokenCommand::id())
-        setToken(static_cast<const ToggleTokenCommand&>(command));
+    else if (command.id() == ThumbnailCancelRequest::id())
+        cancelRequest(static_cast<const ThumbnailCancelRequest&>(command));
+    else if (command.id() == ImageDetailsRequest::id())
+        sendImageDetails(static_cast<const ImageDetailsRequest&>(command));
+    else if (command.id() == StaticImageRequest::id())
+        sendHomePageImages(static_cast<const StaticImageRequest&>(command));
+    else if (command.id() == ToggleTokenRequest::id())
+        setToken(static_cast<const ToggleTokenRequest&>(command));
 }
 
 
-void RemoteInterface::sendCategoryNames(const SearchCommand& search)
+void RemoteInterface::sendCategoryNames(const SearchRequest& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
 
-    CategoryListCommand command;
+    CategoryListResult command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         if (category->name() == QString::fromLatin1("Media Type"))
             continue;
@@ -149,7 +149,7 @@ void RemoteInterface::sendCategoryNames(const SearchCommand& search)
     m_connection->sendCommand(command);
 }
 
-void RemoteInterface::sendCategoryValues(const SearchCommand& search)
+void RemoteInterface::sendCategoryValues(const SearchRequest& search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
     const QString categoryName = search.searchInfo.currentCategory();
@@ -164,10 +164,10 @@ void RemoteInterface::sendCategoryValues(const SearchCommand& search)
                         [this,categoryName] (const QString itemName) {
             return m_imageNameStore.idForCategory(categoryName,itemName);
         });
-        m_connection->sendCommand(SearchResultCommand(SearchType::CategoryItems, result));
+        m_connection->sendCommand(SearchResult(SearchType::CategoryItems, result));
     }
     else {
-        m_connection->sendCommand(CategoryItems(model._items));
+        m_connection->sendCommand(CategoryItemsResult(model._items));
     }
 }
 
@@ -190,7 +190,7 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
         return m_imageNameStore[fileName];
     });
 
-    m_connection->sendCommand(SearchResultCommand(SearchType::Images, result));
+    m_connection->sendCommand(SearchResult(SearchType::Images, result));
 }
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
@@ -202,7 +202,7 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
 
         const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
         QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
-        m_connection->sendCommand(ImageUpdateCommand(command.imageId, itemName, image,ViewType::CategoryItems));
+        m_connection->sendCommand(ThumbnailResult(command.imageId, itemName, image,ViewType::CategoryItems));
     }
     else {
         const DB::FileName fileName = m_imageNameStore[command.imageId];
@@ -223,16 +223,16 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
     }
 }
 
-void RemoteInterface::cancelRequest(const CancelRequestCommand& command)
+void RemoteInterface::cancelRequest(const ThumbnailCancelRequest& command)
 {
     m_activeReuqest.remove(m_imageNameStore[command.imageId]);
 }
 
-void RemoteInterface::sendImageDetails(const RequestDetails& command)
+void RemoteInterface::sendImageDetails(const ImageDetailsRequest& command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    ImageDetailsCommand result;
+    ImageDetailsResult result;
     result.fileName = fileName.relative();
     result.date = info->date().toString();
     result.description = info->description();
@@ -250,7 +250,7 @@ void RemoteInterface::sendImageDetails(const RequestDetails& command)
     m_connection->sendCommand(result);
 }
 
-void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
+void RemoteInterface::sendHomePageImages(const StaticImageRequest& command)
 {
     const int size = command.size;
 
@@ -258,14 +258,14 @@ void RemoteInterface::sendHomePageImages(const RequestHomePageImages& command)
     QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
     QPixmap discoverIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
 
-    m_connection->sendCommand(HomePageData(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
+    m_connection->sendCommand(StaticImageResult(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
 }
 
-void RemoteInterface::setToken(const ToggleTokenCommand& command)
+void RemoteInterface::setToken(const ToggleTokenRequest& command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    if (command.state == ToggleTokenCommand::On)
+    if (command.state == ToggleTokenRequest::On)
         info->addCategoryInfo(QString::fromUtf8("Tokens"), command.token);
     else
         info->removeCategoryInfo(QString::fromUtf8("Tokens"), command.token);

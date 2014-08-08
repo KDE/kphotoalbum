@@ -49,7 +49,7 @@ void ImageDetails::clear()
     emit updated();
 }
 
-void ImageDetails::setData(const ImageDetailsCommand& data)
+void ImageDetails::setData(const ImageDetailsResult& data)
 {
     m_fileName = data.fileName;
     m_date = data.date;

@@ -71,7 +71,7 @@ void RemoteInterface::setListCategoryValues(const QStringList& values)
 
 void RemoteInterface::requestHomePageImages()
 {
-    m_connection->sendCommand(RequestHomePageImages(ScreenInfo::instance().overviewIconSize()));
+    m_connection->sendCommand(StaticImageRequest(ScreenInfo::instance().overviewIconSize()));
 }
 
 void RemoteInterface::gotDisconnected()
@@ -79,7 +79,7 @@ void RemoteInterface::gotDisconnected()
     setCurrentPage(Page::UnconnectedPage);
 }
 
-void RemoteInterface::setHomePageImages(const HomePageData& command)
+void RemoteInterface::setHomePageImages(const StaticImageResult& command)
 {
     m_homeImage = command.homeIcon;
     emit homeImageChanged();
@@ -170,7 +170,7 @@ void RemoteInterface::showImage(int imageId)
 
 void RemoteInterface::requestDetails(int imageId)
 {
-    m_connection->sendCommand(RequestDetails(imageId));
+    m_connection->sendCommand(ImageDetailsRequest(imageId));
 }
 
 void RemoteInterface::activateSearch(const QString& search)
@@ -196,12 +196,12 @@ void RemoteInterface::showOverviewPage()
 
 void RemoteInterface::setToken(int imageId, const QString &token)
 {
-    sendCommand(ToggleTokenCommand(imageId, token, ToggleTokenCommand::On));
+    sendCommand(ToggleTokenRequest(imageId, token, ToggleTokenRequest::On));
 }
 
 void RemoteInterface::removeToken(int imageId, const QString &token)
 {
-    sendCommand(ToggleTokenCommand(imageId, token, ToggleTokenCommand::Off));
+    sendCommand(ToggleTokenRequest(imageId, token, ToggleTokenRequest::Off));
 }
 
 void RemoteInterface::rerequestOverviewPageData()
@@ -246,38 +246,38 @@ void RemoteInterface::requestInitialData()
 
 void RemoteInterface::handleCommand(const RemoteCommand& command)
 {
-    if (command.id() == ImageUpdateCommand::id())
-        updateImage(static_cast<const ImageUpdateCommand&>(command));
-    else if (command.id() == CategoryListCommand::id())
-        updateCategoryList(static_cast<const CategoryListCommand&>(command));
-    else if (command.id() == SearchResultCommand::id())
-        gotSearchResult(static_cast<const SearchResultCommand&>(command));
+    if (command.id() == ThumbnailResult::id())
+        updateImage(static_cast<const ThumbnailResult&>(command));
+    else if (command.id() == CategoryListResult::id())
+        updateCategoryList(static_cast<const CategoryListResult&>(command));
+    else if (command.id() == SearchResult::id())
+        gotSearchResult(static_cast<const SearchResult&>(command));
     else if (command.id() == TimeCommand::id())
         ; // Used for debugging, it will print time stamp when decoded
-    else if (command.id() == ImageDetailsCommand::id()) {
-        ImageDetails::instance().setData(static_cast<const ImageDetailsCommand&>(command));
+    else if (command.id() == ImageDetailsResult::id()) {
+        ImageDetails::instance().setData(static_cast<const ImageDetailsResult&>(command));
         emit tokensChanged();
     }
-    else if (command.id() == CategoryItems::id())
-        setListCategoryValues(static_cast<const CategoryItems&>(command).items);
-    else if (command.id() == HomePageData::id())
-        setHomePageImages(static_cast<const HomePageData&>(command));
+    else if (command.id() == CategoryItemsResult::id())
+        setListCategoryValues(static_cast<const CategoryItemsResult&>(command).items);
+    else if (command.id() == StaticImageResult::id())
+        setHomePageImages(static_cast<const StaticImageResult&>(command));
     else
         qFatal("Unhandled command");
 }
 
-void RemoteInterface::updateImage(const ImageUpdateCommand& command)
+void RemoteInterface::updateImage(const ThumbnailResult& command)
 {
     ImageStore::instance().updateImage(command.imageId, command.image, command.label, command.type);
 }
 
-void RemoteInterface::updateCategoryList(const CategoryListCommand& command)
+void RemoteInterface::updateCategoryList(const CategoryListResult& command)
 {
     ScreenInfo::instance().setCategoryCount(command.categories.count());
     m_categories->setCategories(command.categories);
 }
 
-void RemoteInterface::gotSearchResult(const SearchResultCommand& result)
+void RemoteInterface::gotSearchResult(const SearchResult& result)
 {
     if (result.type == SearchType::Images) {
         m_activeThumbnailModel->setImages(result.result);

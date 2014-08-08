@@ -40,7 +40,7 @@ public:
 
 public slots:
     void clear();
-    void setData(const ImageDetailsCommand& data);
+    void setData(const ImageDetailsResult& data);
     QStringList itemsOfCategory(const QString& category);
     QString dummy() const { return {}; }
     QString age(const QString &category, const QString& item);

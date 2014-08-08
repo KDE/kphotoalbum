@@ -63,7 +63,7 @@ ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
 void ShowOverviewAction::execute()
 {
     int size = ScreenInfo::instance().overviewIconSize();
-    sendCommand(SearchCommand(SearchType::Categories, m_searchInfo, size));
+    sendCommand(SearchRequest(SearchType::Categories, m_searchInfo, size));
     setCurrentPage(Page::OverviewPage);
 }
 
@@ -74,7 +74,7 @@ ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo, C
 
 void ShowCategoryValueAction::execute()
 {
-    sendCommand(SearchCommand(SearchType::CategoryItems, m_searchInfo));
+    sendCommand(SearchRequest(SearchType::CategoryItems, m_searchInfo));
     clearCategoryModel();
     if (m_type == CategoryViewType::CategoryIconView) {
         PositionObserver::setCategoryIconViewOffset(m_index);
@@ -101,7 +101,7 @@ ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
 
 void ShowThumbnailsAction::execute()
 {
-    sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
+    sendCommand(SearchRequest(SearchType::Images, m_searchInfo));
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
 
@@ -140,7 +140,7 @@ void DiscoverAction::execute()
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Discovery);
 
     if (m_currentSelection.isEmpty())
-        sendCommand(SearchCommand(SearchType::Images, m_searchInfo));
+        sendCommand(SearchRequest(SearchType::Images, m_searchInfo));
     else
         m_model->setCurrentSelection(m_currentSelection, m_allImages);
 

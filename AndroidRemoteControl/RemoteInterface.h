@@ -109,9 +109,9 @@ public:
 private slots:
     void requestInitialData();
     void handleCommand(const RemoteCommand&);
-    void updateImage(const ImageUpdateCommand&);
-    void updateCategoryList(const CategoryListCommand&);
-    void gotSearchResult(const SearchResultCommand&);
+    void updateImage(const ThumbnailResult&);
+    void updateCategoryList(const CategoryListResult&);
+    void gotSearchResult(const SearchResult&);
     void requestHomePageImages();
     void gotDisconnected();
 private:
@@ -119,7 +119,7 @@ private:
     friend class Action;
     void setCurrentPage(Page page);
     void setListCategoryValues(const QStringList& values);
-    void setHomePageImages(const HomePageData& command);
+    void setHomePageImages(const StaticImageResult& command);
 
     Client* m_connection = nullptr;
     CategoryModel* m_categories;

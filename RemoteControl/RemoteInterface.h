@@ -55,14 +55,14 @@ signals:
 private:
     explicit RemoteInterface(QObject *parent = 0);
 
-    void sendCategoryNames(const SearchCommand& searchInfo);
-    void sendCategoryValues(const SearchCommand& search);
+    void sendCategoryNames(const SearchRequest& searchInfo);
+    void sendCategoryValues(const SearchRequest& search);
     void sendImageSearchResult(const SearchInfo& search);
     void requestThumbnail(const ThumbnailRequest& command);
-    void cancelRequest(const CancelRequestCommand& command);
-    void sendImageDetails(const RequestDetails& command);
-    void sendHomePageImages(const RequestHomePageImages& command);
-    void setToken(const ToggleTokenCommand& command);
+    void cancelRequest(const ThumbnailCancelRequest& command);
+    void sendImageDetails(const ImageDetailsRequest& command);
+    void sendHomePageImages(const StaticImageRequest& command);
+    void setToken(const ToggleTokenRequest& command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo&) const;
     Server* m_connection;

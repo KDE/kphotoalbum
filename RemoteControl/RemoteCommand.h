@@ -55,10 +55,11 @@ private:
     QString m_id;
 };
 
-class ImageUpdateCommand :public RemoteCommand
+// ThumbnailResult
+class ThumbnailResult :public RemoteCommand
 {
 public:
-    ImageUpdateCommand(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
+    ThumbnailResult(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
     static QString id();
     ImageId imageId;
     QString label;
@@ -74,28 +75,31 @@ struct Category {
     CategoryViewType viewType;
 };
 
-class CategoryListCommand :public RemoteCommand
+// CategoryListResult
+class CategoryListResult :public RemoteCommand
 {
 public:
-    CategoryListCommand();
+    CategoryListResult();
     static QString id();
     QList<Category> categories;
 };
 
-class SearchCommand :public RemoteCommand
+// SearchRequest
+class SearchRequest :public RemoteCommand
 {
 public:
-    SearchCommand(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
+    SearchRequest(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
     static QString id();
     SearchType type;
     SearchInfo searchInfo;
     int size; // Only used for SearchType::Categories
 };
 
-class SearchResultCommand :public RemoteCommand
+// SearchResult
+class SearchResult :public RemoteCommand
 {
 public:
-    SearchResultCommand(SearchType type = {}, const QList<int>& result = {});
+    SearchResult(SearchType type = {}, const QList<int>& result = {});
     static QString id();
     SearchType type;
     QList<int> result;
@@ -111,10 +115,11 @@ public:
     ViewType type;
 };
 
-class CancelRequestCommand :public RemoteCommand
+// ThumbnailCancelRequest
+class ThumbnailCancelRequest :public RemoteCommand
 {
 public:
-    CancelRequestCommand(ImageId imageId = {}, ViewType type = {});
+    ThumbnailCancelRequest(ImageId imageId = {}, ViewType type = {});
     static QString id();
     ImageId imageId;
     ViewType type;
@@ -129,10 +134,11 @@ public:
     void decode(QDataStream& stream) override;
 };
 
-class RequestDetails :public RemoteCommand
+// ImageDetailsRequest
+class ImageDetailsRequest :public RemoteCommand
 {
 public:
-    RequestDetails(ImageId imageId = {});
+    ImageDetailsRequest(ImageId imageId = {});
     static QString id();
     ImageId imageId;
 };
@@ -146,10 +152,11 @@ struct CategoryItemDetails {
 
 using CategoryItemDetailsList = QList<CategoryItemDetails>;
 
-class ImageDetailsCommand :public RemoteCommand
+// ImageDetailsResult
+class ImageDetailsResult :public RemoteCommand
 {
 public:
-    ImageDetailsCommand();
+    ImageDetailsResult();
     static QString id();
     QString fileName;
     QString date;
@@ -157,37 +164,40 @@ public:
     QMap<QString,CategoryItemDetailsList> categories;
 };
 
-class CategoryItems :public RemoteCommand
+class CategoryItemsResult :public RemoteCommand
 {
 public:
-    CategoryItems(const QStringList& items = {});
+    CategoryItemsResult(const QStringList& items = {});
     static QString id();
     QStringList items;
 };
 
-class RequestHomePageImages :public RemoteCommand
+// StaticImageRequest
+class StaticImageRequest :public RemoteCommand
 {
 public:
-    RequestHomePageImages(int size = {});
+    StaticImageRequest(int size = {});
     static QString id();
     int size;
 };
 
-class HomePageData :public RemoteCommand
+// StaticImageResult
+class StaticImageResult :public RemoteCommand
 {
 public:
-    HomePageData(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
+    StaticImageResult(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
     static QString id();
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
 };
 
-class ToggleTokenCommand :public RemoteCommand
+// ToggleTokenRequest
+class ToggleTokenRequest :public RemoteCommand
 {
 public:
     enum State {On, Off};
-    ToggleTokenCommand(ImageId imageId = {}, const QString& token = {}, State state = {});
+    ToggleTokenRequest(ImageId imageId = {}, const QString& token = {}, State state = {});
     static QString id();
     ImageId imageId;
     QString token;

@@ -31,11 +31,9 @@ Settings::CategoryItem::CategoryItem( const QString& category, const QString& te
     :QListWidgetItem( text, parent ),
      _categoryOrig( category ), _iconOrig( icon ),
      _positionable( positionable ), _positionableOrig( positionable ),
-     _category( category ), _icon( icon ), _type( type ), _typeOrig( type ),
+     _category( category ), _text(text), _icon( icon ), _type( type ), _typeOrig( type ),
      _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )
 {
-    _text = text;
-
     _cToLocale = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->standardCategories();
     QMap<QString, QString>::iterator i;
     for (i = _cToLocale.begin(); i != _cToLocale.end(); ++i) {

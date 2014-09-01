@@ -53,10 +53,9 @@ private:
     QString _categoryOrig, _iconOrig;
     bool _positionable;
     bool _positionableOrig;
-    QString _category, _icon;
+    QString _category, _text, _icon;
     DB::Category::ViewType _type, _typeOrig;
     int _thumbnailSize, _thumbnailSizeOrig;
-    QString _text;
     QMap<QString, QString> _cToLocale;
     QMap<QString, QString> _localeToC;
 };

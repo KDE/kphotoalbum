@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,53 +15,71 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef SETTINGS_CATEGORYITEM_H
 #define SETTINGS_CATEGORYITEM_H
 
+// Qt includes
 #include <QListWidgetItem>
-#include <DB/Category.h>
-namespace DB { class MemberMap; }
+
+// Local includes
+#include "DB/Category.h"
+
+namespace DB {
+
+// Local classes
+class MemberMap;
+
+}
 
 namespace Settings
 {
-class CategoryItem :public QListWidgetItem
+
+class CategoryItem : public QListWidgetItem
 {
 public:
-    CategoryItem( const QString& category, const QString& text, const QString& icon,
-                  DB::Category::ViewType type, int thumbnailSize, QListWidget* parent,
-                  bool positionable = false );
-
-    void setLabel( const QString& label );
-    void setPositionable( bool positionable );
-    void submit( DB::MemberMap* memberMap );
+    CategoryItem(
+        const QString &category,
+        const QString &text,
+        const QString &icon,
+        DB::Category::ViewType type,
+        int thumbnailSize,
+        QListWidget *parent,
+        bool positionable = false
+    );
+    void setLabel(const QString &label);
+    void setPositionable(bool positionable);
+    void submit(DB::MemberMap *memberMap);
     void removeFromDatabase();
-
     override QString text() const;
     bool positionable() const;
     override QString icon() const;
     int thumbnailSize() const;
     DB::Category::ViewType viewType() const;
-
-    override void setIcon( const QString& icon );
-    void setThumbnailSize( int size );
-    void setViewType( DB::Category::ViewType type );
+    override void setIcon(const QString &icon);
+    void setThumbnailSize(int size);
+    void setViewType(DB::Category::ViewType type);
 
 protected:
-    void renameCategory(DB::MemberMap* memberMap);
+    void renameCategory(DB::MemberMap *memberMap);
 
 private:
-    QString m_categoryOrig, m_iconOrig;
+    QString m_categoryOrig;
+    QString m_iconOrig;
     bool m_positionable;
     bool m_positionableOrig;
-    QString m_category, m_text, m_icon;
-    DB::Category::ViewType m_type, m_typeOrig;
-    int m_thumbnailSize, m_thumbnailSizeOrig;
+    QString m_category;
+    QString m_text;
+    QString m_icon;
+    DB::Category::ViewType m_type;
+    DB::Category::ViewType m_typeOrig;
+    int m_thumbnailSize;
+    int m_thumbnailSizeOrig;
     QMap<QString, QString> m_cToLocale;
     QMap<QString, QString> m_localeToC;
 };
 
 }
-
 
 #endif /* SETTINGS_CATEGORYITEM_H */
 

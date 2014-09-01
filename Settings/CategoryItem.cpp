@@ -23,6 +23,7 @@
 #include <kmessagebox.h>
 #include "MainWindow/Window.h"
 #include "DB/CategoryCollection.h"
+#include <QDebug>
 
 Settings::CategoryItem::CategoryItem( const QString& category, const QString& text, const QString& icon,
                                       DB::Category::ViewType type, int thumbnailSize, QListWidget* parent,
@@ -33,6 +34,16 @@ Settings::CategoryItem::CategoryItem( const QString& category, const QString& te
      _category( category ), _icon( icon ), _type( type ), _typeOrig( type ),
      _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )
 {
+    _text = text;
+
+    _cToLocale = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->standardCategories();
+    QMap<QString, QString>::iterator i;
+    for (i = _cToLocale.begin(); i != _cToLocale.end(); ++i) {
+        // "Persons" and "Locations" just exist for compatibility with older versions of KPA
+        if (i.key() != QString::fromUtf8("Persons") and i.key() != QString::fromUtf8("Locations")) {
+            _localeToC[i.value()] = i.key();
+        }
+    }
 }
 
 void Settings::CategoryItem::setLabel( const QString& label )
@@ -46,11 +57,18 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
     if ( _categoryOrig.isNull() ) {
         // New Item
         DB::ImageDB::instance()->categoryCollection()->addCategory( _category, _icon, _type, _thumbnailSize, true );
-    }
-    else {
+    } else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _categoryOrig );
-        if ( _category != _categoryOrig )
-            renameCategory( memberMap );
+
+        if (_category != _categoryOrig) {
+            if (_localeToC.keys().contains(_category)) {
+                if (_localeToC[_category] != _categoryOrig) {
+                    renameCategory(memberMap);
+                }
+            } else {
+                renameCategory(memberMap);
+            }
+        }
 
         if ( _positionable != _positionableOrig )
             category->setPositionable( _positionable );
@@ -82,7 +100,7 @@ void Settings::CategoryItem::removeFromDatabase()
 
 QString Settings::CategoryItem::text() const
 {
-    return _category;
+    return _text;
 }
 
 bool Settings::CategoryItem::positionable() const
@@ -136,22 +154,27 @@ void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
     if ( KMessageBox::warningContinueCancel( ::MainWindow::Window::theMainWindow(), txt ) == KMessageBox::Cancel )
         return;
 
+    QString categoryName = _category;
+    if (_localeToC.keys().contains(categoryName)) {
+        categoryName = _localeToC[categoryName];
+    }
+
     QDir dir( QString::fromLatin1("%1/CategoryImages" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
     const QStringList files = dir.entryList( QStringList() << QString::fromLatin1("%1*" ).arg( _categoryOrig ) );
     for( QStringList::ConstIterator fileNameIt = files.begin(); fileNameIt != files.end(); ++fileNameIt ) {
-        QString newName = _category + (*fileNameIt).mid( _categoryOrig.length() );
+        QString newName = categoryName + (*fileNameIt).mid( _categoryOrig.length() );
         dir.rename( *fileNameIt, newName );
     }
 
     Settings::SettingsData* settings = Settings::SettingsData::instance();
     DB::ImageSearchInfo info = settings->currentLock();
     const bool exclude = settings->lockExcludes();
-    info.renameCategory( _categoryOrig, _category );
+    info.renameCategory( _categoryOrig, categoryName );
     settings->setCurrentLock( info, exclude );
 
-    DB::ImageDB::instance()->categoryCollection()->rename(  _categoryOrig, _category );
-    memberMap->renameCategory(  _categoryOrig, _category );
-    _categoryOrig = _category;
+    DB::ImageDB::instance()->categoryCollection()->rename(  _categoryOrig, categoryName );
+    memberMap->renameCategory(  _categoryOrig, categoryName );
+    _categoryOrig = categoryName;
 }
 
 

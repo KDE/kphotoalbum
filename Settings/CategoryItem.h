@@ -50,14 +50,14 @@ protected:
     void renameCategory(DB::MemberMap* memberMap);
 
 private:
-    QString _categoryOrig, _iconOrig;
-    bool _positionable;
-    bool _positionableOrig;
-    QString _category, _text, _icon;
-    DB::Category::ViewType _type, _typeOrig;
-    int _thumbnailSize, _thumbnailSizeOrig;
-    QMap<QString, QString> _cToLocale;
-    QMap<QString, QString> _localeToC;
+    QString m_categoryOrig, m_iconOrig;
+    bool m_positionable;
+    bool m_positionableOrig;
+    QString m_category, m_text, m_icon;
+    DB::Category::ViewType m_type, m_typeOrig;
+    int m_thumbnailSize, m_thumbnailSizeOrig;
+    QMap<QString, QString> m_cToLocale;
+    QMap<QString, QString> m_localeToC;
 };
 
 }

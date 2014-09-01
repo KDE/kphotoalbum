@@ -29,17 +29,17 @@ Settings::CategoryItem::CategoryItem( const QString& category, const QString& te
                                       DB::Category::ViewType type, int thumbnailSize, QListWidget* parent,
                                       bool positionable )
     :QListWidgetItem( text, parent ),
-     _categoryOrig( category ), _iconOrig( icon ),
-     _positionable( positionable ), _positionableOrig( positionable ),
-     _category( category ), _text(text), _icon( icon ), _type( type ), _typeOrig( type ),
-     _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )
+     m_categoryOrig( category ), m_iconOrig( icon ),
+     m_positionable( positionable ), m_positionableOrig( positionable ),
+     m_category( category ), m_text(text), m_icon( icon ), m_type( type ), m_typeOrig( type ),
+     m_thumbnailSize( thumbnailSize ), m_thumbnailSizeOrig( thumbnailSize )
 {
-    _cToLocale = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->standardCategories();
+    m_cToLocale = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->standardCategories();
     QMap<QString, QString>::iterator i;
-    for (i = _cToLocale.begin(); i != _cToLocale.end(); ++i) {
+    for (i = m_cToLocale.begin(); i != m_cToLocale.end(); ++i) {
         // "Persons" and "Locations" just exist for compatibility with older versions of KPA
         if (i.key() != QString::fromUtf8("Persons") and i.key() != QString::fromUtf8("Locations")) {
-            _localeToC[i.value()] = i.key();
+            m_localeToC[i.value()] = i.key();
         }
     }
 }
@@ -47,20 +47,20 @@ Settings::CategoryItem::CategoryItem( const QString& category, const QString& te
 void Settings::CategoryItem::setLabel( const QString& label )
 {
     setText( label );
-    _category = label;
+    m_category = label;
 }
 
 void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
 {
-    if ( _categoryOrig.isNull() ) {
+    if ( m_categoryOrig.isNull() ) {
         // New Item
-        DB::ImageDB::instance()->categoryCollection()->addCategory( _category, _icon, _type, _thumbnailSize, true );
+        DB::ImageDB::instance()->categoryCollection()->addCategory( m_category, m_icon, m_type, m_thumbnailSize, true );
     } else {
-        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _categoryOrig );
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( m_categoryOrig );
 
-        if (_category != _categoryOrig) {
-            if (_localeToC.keys().contains(_category)) {
-                if (_localeToC[_category] != _categoryOrig) {
+        if (m_category != m_categoryOrig) {
+            if (m_localeToC.keys().contains(m_category)) {
+                if (m_localeToC[m_category] != m_categoryOrig) {
                     renameCategory(memberMap);
                 }
             } else {
@@ -68,77 +68,77 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
             }
         }
 
-        if ( _positionable != _positionableOrig )
-            category->setPositionable( _positionable );
+        if ( m_positionable != m_positionableOrig )
+            category->setPositionable( m_positionable );
 
-        if ( _icon != _iconOrig )
-            category->setIconName( _icon );
+        if ( m_icon != m_iconOrig )
+            category->setIconName( m_icon );
 
-        if ( _type != _typeOrig )
-            category->setViewType( _type );
+        if ( m_type != m_typeOrig )
+            category->setViewType( m_type );
 
-        if ( _thumbnailSize != _thumbnailSizeOrig )
-            category->setThumbnailSize( _thumbnailSize );
+        if ( m_thumbnailSize != m_thumbnailSizeOrig )
+            category->setThumbnailSize( m_thumbnailSize );
     }
 
-    _categoryOrig = _category;
-    _iconOrig = _icon;
-    _typeOrig = _typeOrig;
-    _thumbnailSizeOrig = _thumbnailSize;
-    _positionableOrig = _positionable;
+    m_categoryOrig = m_category;
+    m_iconOrig = m_icon;
+    m_typeOrig = m_typeOrig;
+    m_thumbnailSizeOrig = m_thumbnailSize;
+    m_positionableOrig = m_positionable;
 }
 
 void Settings::CategoryItem::removeFromDatabase()
 {
-    if ( !_categoryOrig.isNull() ) {
+    if ( !m_categoryOrig.isNull() ) {
         // the database knows about the item.
-        DB::ImageDB::instance()->categoryCollection()->removeCategory( _categoryOrig );
+        DB::ImageDB::instance()->categoryCollection()->removeCategory( m_categoryOrig );
     }
 }
 
 QString Settings::CategoryItem::text() const
 {
-    return _text;
+    return m_text;
 }
 
 bool Settings::CategoryItem::positionable() const
 {
-    return _positionable;
+    return m_positionable;
 }
 
 void Settings::CategoryItem::setPositionable(bool positionable)
 {
-    _positionable = positionable;
+    m_positionable = positionable;
 }
 
 QString Settings::CategoryItem::icon() const
 {
-    return _icon;
+    return m_icon;
 }
 
 int Settings::CategoryItem::thumbnailSize() const
 {
-    return _thumbnailSize;
+    return m_thumbnailSize;
 }
 
 DB::Category::ViewType Settings::CategoryItem::viewType() const
 {
-    return _type;
+    return m_type;
 }
 
 void Settings::CategoryItem::setIcon( const QString& icon )
 {
-    _icon = icon;
+    m_icon = icon;
 }
 
 void Settings::CategoryItem::setThumbnailSize( int size )
 {
-    _thumbnailSize = size;
+    m_thumbnailSize = size;
 }
 
 void Settings::CategoryItem::setViewType( DB::Category::ViewType type )
 {
-    _type = type;
+    m_type = type;
 }
 
 void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
@@ -152,27 +152,27 @@ void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
     if ( KMessageBox::warningContinueCancel( ::MainWindow::Window::theMainWindow(), txt ) == KMessageBox::Cancel )
         return;
 
-    QString categoryName = _category;
-    if (_localeToC.keys().contains(categoryName)) {
-        categoryName = _localeToC[categoryName];
+    QString categoryName = m_category;
+    if (m_localeToC.keys().contains(categoryName)) {
+        categoryName = m_localeToC[categoryName];
     }
 
     QDir dir( QString::fromLatin1("%1/CategoryImages" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
-    const QStringList files = dir.entryList( QStringList() << QString::fromLatin1("%1*" ).arg( _categoryOrig ) );
+    const QStringList files = dir.entryList( QStringList() << QString::fromLatin1("%1*" ).arg( m_categoryOrig ) );
     for( QStringList::ConstIterator fileNameIt = files.begin(); fileNameIt != files.end(); ++fileNameIt ) {
-        QString newName = categoryName + (*fileNameIt).mid( _categoryOrig.length() );
+        QString newName = categoryName + (*fileNameIt).mid( m_categoryOrig.length() );
         dir.rename( *fileNameIt, newName );
     }
 
     Settings::SettingsData* settings = Settings::SettingsData::instance();
     DB::ImageSearchInfo info = settings->currentLock();
     const bool exclude = settings->lockExcludes();
-    info.renameCategory( _categoryOrig, categoryName );
+    info.renameCategory( m_categoryOrig, categoryName );
     settings->setCurrentLock( info, exclude );
 
-    DB::ImageDB::instance()->categoryCollection()->rename(  _categoryOrig, categoryName );
-    memberMap->renameCategory(  _categoryOrig, categoryName );
-    _categoryOrig = categoryName;
+    DB::ImageDB::instance()->categoryCollection()->rename(  m_categoryOrig, categoryName );
+    memberMap->renameCategory(  m_categoryOrig, categoryName );
+    m_categoryOrig = categoryName;
 }
 
 

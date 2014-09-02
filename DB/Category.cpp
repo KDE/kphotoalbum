@@ -151,6 +151,27 @@ QMap<QString,QString> DB::Category::standardCategories()
     return map;
 }
 
+QMap<QString,QString> DB::Category::localizedCategoriesToC()
+{
+    static QMap<QString,QString> cToLocale;
+    if (cToLocale.isEmpty()) {
+        cToLocale = standardCategories();
+    }
+
+    static QMap<QString,QString> localeToC;
+    if (localeToC.isEmpty()) {
+        QMap<QString, QString>::iterator i;
+        for (i = cToLocale.begin(); i != cToLocale.end(); ++i) {
+            // "Persons" and "Locations" just exist for compatibility with older versions of KPA
+            if (i.key() != QString::fromLatin1("Persons") and i.key() != QString::fromLatin1("Locations")) {
+                localeToC[i.value()] = i.key();
+            }
+        }
+    }
+
+    return localeToC;
+}
+
 QString DB::Category::defaultIconName() const
 {
     const QString nm = name().toLower();

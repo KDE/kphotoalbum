@@ -163,7 +163,7 @@ void Settings::SettingsDialog::slotMyOK()
     if ( _thumbnailsPage->thumbnailSizeChanged(opt) )
         emit thumbnailSizeChanged();
 
-
+    _categoryPage->resetInterface();
     _generalPage->saveSettings( opt );
     _fileVersionDetectionPage->saveSettings( opt );
     _thumbnailsPage->saveSettings(opt);

@@ -18,6 +18,7 @@
 
 // Qt includes
 #include <QDir>
+#include <QDebug>
 
 // KDE includes
 #include <KLocale>
@@ -52,14 +53,10 @@ Settings::CategoryItem::CategoryItem(
     m_thumbnailSize(thumbnailSize),
     m_thumbnailSizeOrig(thumbnailSize)
 {
-    m_cToLocale = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->standardCategories();
-    QMap<QString, QString>::iterator i;
-    for (i = m_cToLocale.begin(); i != m_cToLocale.end(); ++i) {
-        // "Persons" and "Locations" just exist for compatibility with older versions of KPA
-        if (i.key() != QString::fromUtf8("Persons") and i.key() != QString::fromUtf8("Locations")) {
-            m_localeToC[i.value()] = i.key();
-        }
-    }
+    setFlags(flags() | Qt::ItemIsEditable);
+
+    m_cToLocale = DB::Category::standardCategories();
+    m_localeToC = DB::Category::localizedCategoriesToC();
 }
 
 void Settings::CategoryItem::setLabel(const QString &label)

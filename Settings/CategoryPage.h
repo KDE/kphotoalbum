@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,83 +15,108 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
-#include "SettingsData.h"
+
+// Qt includes
 #include <QLabel>
 #include <QWidget>
+#include <QAbstractItemDelegate>
 
-#include <config-kpa-kface.h>
+// Local includes
+#include "SettingsData.h"
+#include "config-kpa-kface.h"
 #ifdef HAVE_KFACE
 #include "FaceManagement/Recognizer.h"
 #endif
 
+// Qt classes
 class QListWidget;
 class QListWidgetItem;
-class KPushButton;
 class QComboBox;
 class QSpinBox;
-class KIconButton;
-class QLineEdit;
 class QCheckBox;
+class QPushButton;
 
-namespace DB { class MemberMap; }
+// KDE classes
+class KIconButton;
+
+namespace DB {
+
+// Local classes
+class MemberMap;
+
+}
 
 namespace Settings
 {
+
+// Local classes
 class CategoryItem;
 class SettingsDialog;
 class UntaggedGroupBox;
 class SettingsData;
 
-class CategoryPage :public QWidget
+class CategoryPage : public QWidget
 {
     Q_OBJECT
+
 public:
-    explicit CategoryPage( QWidget* parent );
-    void enableDisable( bool );
-    void saveSettings( Settings::SettingsData* opt, DB::MemberMap* memberMap );
-    void loadSettings( Settings::SettingsData* opt );
+    explicit CategoryPage(QWidget* parent);
+    void enableDisable(bool);
+    void saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap);
+    void loadSettings(Settings::SettingsData* opt);
+    void resetInterface();
 
 signals:
-    void currentCategoryNameChanged( const QString& oldName, const QString& newName );
-
-protected slots:
-    void addToRenamedList(QString oldName, QString newName);
+    void currentCategoryNameChanged(const QString& oldName, const QString& newName);
 
 private slots:
-    void edit( QListWidgetItem* );
-    void slotLabelChanged( const QString& );
-    void positionableChanged( bool );
-    void slotIconChanged( const QString& );
-    void thumbnailSizeChanged( int );
-    void slotPreferredViewChanged( int );
-    void slotNewItem();
-    void slotDeleteCurrent();
-
-private:
-    QListWidget* _categories;
-    QLabel* _labelLabel;
-    QLineEdit* _text;
-    QLabel* _positionableLabel;
-    QCheckBox* _positionable;
-    QLabel* _iconLabel;
-    KIconButton* _icon;
-    QLabel* _thumbnailSizeInCategoryLabel;
-    QSpinBox* _thumbnailSizeInCategory;
-    QLabel* _preferredViewLabel;
-    QComboBox* _preferredView;
-    KPushButton* _delItem;
-    Settings::CategoryItem* _current;
-    QList<CategoryItem*> _deleted;
-    UntaggedGroupBox* _untaggedBox;
+    void editCategory(QListWidgetItem*);
+    void positionableChanged(bool);
+    void iconChanged(const QString& icon);
+    void thumbnailSizeChanged(int);
+    void preferredViewChanged(int);
+    void newCategory();
+    void deleteCurrentCategory();
+    void renameCurrentCategory();
+    void categoryNameChanged(QListWidgetItem* item);
+    void categoryDoubleClicked(QListWidgetItem*);
+    void listWidgetEditEnd(QWidget*, QAbstractItemDelegate::EndEditHint);
 #ifdef HAVE_KFACE
-    FaceManagement::Recognizer *_recognizer;
-    QList<CategoryItem *> _unMarkedAsPositionable;
-    QList<QPair<QString, QString>> _renamedCategories;
+    void renameRecognitionCategory(QString oldName, QString newName);
 #endif
-    QString nonLocalizedCategoryName(QString category);
 
+private: // Variables
+    QListWidget* m_categoriesListWidget;
+    QLabel* m_categoryLabel;
+    QLabel* m_renameLabel;
+    QLabel* m_positionableLabel;
+    QCheckBox* m_positionable;
+    QLabel* m_iconLabel;
+    KIconButton* m_icon;
+    QLabel* m_thumbnailSizeInCategoryLabel;
+    QSpinBox* m_thumbnailSizeInCategory;
+    QLabel* m_preferredViewLabel;
+    QComboBox* m_preferredView;
+    QPushButton* m_delItem;
+    QPushButton* m_renameItem;
+    Settings::CategoryItem* m_currentCategory;
+    QList<CategoryItem*> m_deletedCategories;
+    UntaggedGroupBox* m_untaggedBox;
+    QMap<QString, QString> m_standardCategories;
+    QMap<QString, QString> m_localizedCategoriesToC;
+    QString m_categoryNameBeforeEdit;
+    bool m_editorOpen;
+#ifdef HAVE_KFACE
+    FaceManagement::Recognizer* m_recognizer;
+    QList<CategoryItem*> m_unMarkedAsPositionable;
+#endif
+
+private: // Functions
+    void resetCategory(QListWidgetItem* item);
+    QString nonLocalizedCategoryName(QString category);
 };
 
 }

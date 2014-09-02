@@ -47,6 +47,7 @@ public:
 
     virtual QString text() const;
     static QMap<QString,QString> standardCategories();
+    static QMap<QString,QString> localizedCategoriesToC();
 
     virtual void setPositionable(bool) = 0;
     virtual bool positionable() const = 0;

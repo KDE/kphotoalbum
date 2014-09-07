@@ -17,6 +17,7 @@
 */
 #include "XmlReader.h"
 #include <KLocale>
+#include <KMessageBox>
 
 namespace XMLDB {
 
@@ -89,7 +90,8 @@ void XmlReader::reportError(const QString & text)
     if ( hasError() )
         message += QString::fromUtf8("\n") + errorString();
 
-    qFatal("%s", qPrintable(message));
+    KMessageBox::error(nullptr, message, i18n( "Error while reading database" ));
+    exit(-1);
 }
 
 QXmlStreamReader::TokenType XmlReader::readNextInternal()

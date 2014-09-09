@@ -86,11 +86,13 @@ void XmlReader::complainStartElementExpected(const QString &name)
 
 void XmlReader::reportError(const QString & text)
 {
-    QString message = i18n("On line %1, column %2:\n%3",lineNumber(),columnNumber(),text);
+    QString message = i18n(
+            "<p>An error was encountered on line %1, column %2:<nl/>"
+            "<message>%3</message></p>",lineNumber(),columnNumber(),text);
     if ( hasError() )
-        message += QString::fromUtf8("\n") + errorString();
+        message += i18n("<p>Additional error information:<nl/><message>%1</message></p>",errorString());
 
-    KMessageBox::error(nullptr, message, i18n( "Error while reading database" ));
+    KMessageBox::error(nullptr, message, i18n( "Error while reading database file" ));
     exit(-1);
 }
 

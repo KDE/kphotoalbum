@@ -20,7 +20,7 @@
 #define TREECATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
 namespace DB { class CategoryItem; }
-class Data;
+struct Data;
 
 namespace Browser
 {

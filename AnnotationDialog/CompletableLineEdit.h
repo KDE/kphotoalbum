@@ -49,7 +49,6 @@ private:
     QTreeWidget* _listView;
     UsageMode _mode;
     ListSelect* _listSelect;
-    bool _showingSelectionOnly;
 };
 
 }

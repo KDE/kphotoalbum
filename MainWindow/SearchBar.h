@@ -45,7 +45,6 @@ signals:
 
 private:
     KLineEdit* _edit;
-    QWidget* _browser;
 };
 
 }

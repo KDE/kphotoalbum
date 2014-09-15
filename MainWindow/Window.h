@@ -190,10 +190,8 @@ private:
     Settings::SettingsDialog* _settingsDialog;
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
     QStackedWidget* _stack;
-    QWidget* _welcome;
     QTimer* _autoSaveTimer;
     Browser::BrowserWidget* _browser;
-    KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
     KAction* _lock;
     KAction* _unlock;
@@ -216,7 +214,6 @@ private:
     KActionMenu* _viewMenu;
     KToggleAction* _smallListView;
     KToggleAction* _largeListView;
-    KToggleAction* _smallIconView;
     KToggleAction* _largeIconView;
     KAction* _generateHtml;
     KAction* _copy;

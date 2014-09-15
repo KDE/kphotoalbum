@@ -148,7 +148,6 @@ private:
     UsageMode _setup;
     QList< ListSelect* > _optionList;
     DB::ImageSearchInfo _oldSearch;
-    QSplitter* _splitter;
     int _accept;
     QList<QDockWidget*> _dockWidgets;
 

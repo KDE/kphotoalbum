@@ -40,12 +40,10 @@ private:
     QSpinBox* _thumbnailSize;
     KComboBox* _thumbnailAspectRatio;
     QSpinBox* _thumbnailSpace;
-    QCheckBox* _thumbnailDarkBackground;
     QCheckBox* _thumbnailDisplayGrid;
     QCheckBox* _displayLabels;
     QCheckBox* _displayCategories;
     QSpinBox* _autoShowThumbnailView;
-    QLabel* _thumbnailMegabyteInfo;
     KColorButton* _backgroundColor;
 };
 

@@ -56,8 +56,6 @@ private:
     // PENDING(blackie) this instance variable is unused!
     DB::FileNameSet _originalSelectionBeforeDragStart;
     bool _dragInProgress;
-    bool _dragSelectionInProgress;
-    ThumbnailFactory* _JUMP;
 };
 
 }

@@ -31,8 +31,7 @@
 #include <DB/FileNameList.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ),
-      _dragInProgress( false ), _dragSelectionInProgress( false )
+    : ThumbnailComponent( factory ), _dragInProgress( false )
 {
 }
 

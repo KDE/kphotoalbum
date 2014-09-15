@@ -64,6 +64,8 @@
 #include "ResizableFrame.h"
 
 #include "DescriptionEdit.h"
+#include "config-kpa-kface.h"
+
 #include <QDebug>
 
 using Utilities::StringSet;
@@ -137,6 +139,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
             connect( sel, SIGNAL(positionableTagSelected(QString,QString)), this, SLOT(positionableTagSelected(QString,QString)) );
             connect( sel, SIGNAL(positionableTagDeselected(QString,QString)), this, SLOT(positionableTagDeselected(QString,QString)) );
             connect( sel, SIGNAL(positionableTagRenamed(QString,QString,QString)), this, SLOT(positionableTagRenamed(QString,QString,QString)) );
+
+            connect(_preview->preview(), SIGNAL(proposedTagSelected(QString,QString)), sel, SLOT(ensureTagIsSelected(QString,QString)));
 
             // We have at least one positionable category
             _positionableCategories = true;
@@ -432,8 +436,14 @@ void AnnotationDialog::Dialog::load()
 {
     // Remove all areas
     tidyAreas();
-    // Empty the positionable tag candidate list
+
+    // No areas have been changed
+    _areaChanges = false;
+
+    // Empty the positionable tag candidate list and the last selected positionable tag
     _positionableTagCandidates.clear();
+    _lastSelectedPositionableTag = QPair<QString, QString>();
+
 
     DB::ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
@@ -902,7 +912,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 void AnnotationDialog::Dialog::reject()
 {
     _fullScreenPreview->stopPlayback();
-    if ( hasChanges() ) {
+    if (hasChanges() or _areaChanges) {
         int code =  KMessageBox::questionYesNo( this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>") );
         if ( code == KMessageBox::No )
             return;
@@ -1279,8 +1289,9 @@ void AnnotationDialog::Dialog::saveAndClose()
     }
     _accept = QDialog::Accepted;
 
-    if ( anyChanges )
+    if (anyChanges or _areaChanges) {
         MainWindow::DirtyIndicator::markDirty();
+    }
 
     QDialog::accept();
 }
@@ -1339,6 +1350,7 @@ void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QStri
         foreach (ResizableFrame *area, allAreas) {
             if (area->tagData() == deselectedTag) {
                 area->removeTagData();
+                _areaChanges = true;
                 // Only one area can be associated with the tag, so we can return here
                 return;
             }
@@ -1400,14 +1412,18 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
         _positionableTagCandidates << QPair<QString, QString>(category, newTag);
     }
 
-    // Check if an area on the current image contains the changed tag
+    // Check if an area on the current image contains the changed or proposed tag
     QList<ResizableFrame *> allAreas = _preview->preview()->findChildren<ResizableFrame *>();
     foreach (ResizableFrame *area, allAreas) {
+#ifdef HAVE_KFACE
+        if (area->proposedTagData() == oldTagData) {
+            area->setProposedTagData(QPair<QString, QString>(category, newTag));
+        }
+#endif
         if (area->tagData() == oldTagData) {
             area->setTagData(category, newTag);
-            // Only one area can contain the tag, so we can break here.
-            break;
         }
+
     }
 }
 
@@ -1427,6 +1443,24 @@ void AnnotationDialog::Dialog::descriptionPageUpDownPressed(QKeyEvent *event)
     } else if (event->key() == Qt::Key_PageDown) {
         _actions->action(QString::fromLatin1("annotationdialog-next-image"))->trigger();
     }
+}
+
+void AnnotationDialog::Dialog::checkProposedTagData(
+    QPair<QString, QString> tagData,
+    ResizableFrame *areaToExclude) const
+{
+    foreach (ResizableFrame *area, _preview->preview()->findChildren<ResizableFrame *>()) {
+        if (area != areaToExclude
+            and area->proposedTagData() == tagData
+            and area->tagData().first.isEmpty()) {
+            area->removeProposedTagData();
+        }
+    }
+}
+
+void AnnotationDialog::Dialog::areaChanged()
+{
+    _areaChanges = true;
 }
 
 #include "Dialog.moc"

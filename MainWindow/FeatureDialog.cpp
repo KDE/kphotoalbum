@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <config-kpa-kipi.h>
 #include <config-kpa-exiv2.h>
+#include <config-kpa-kface.h>
 #include <klocale.h>
 #include <qlayout.h>
 #include <QList>
@@ -84,6 +85,11 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
+
+    // TODO jzarl: write something sensible here as before the next release
+    text += i18n("<h1><a name=\"kface\">Face detection and recognition support</a></h1>"
+                 "<p>KPhotoAlbum relies on libkface for face detection and recognition. "
+                 "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
@@ -164,6 +170,15 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 #endif
 }
 
+bool MainWindow::FeatureDialog::hasKfaceSupport()
+{
+#ifdef HAVE_KFACE
+    return true;
+#else
+    return false;
+#endif
+}
+
 QString FeatureDialog::mplayerBinary()
 {
     const QString mplayer2 = KStandardDirs::findExe(QString::fromLatin1("mplayer2"));
@@ -207,6 +222,7 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n("SQL database support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
+    features << Data( i18n( "Face detection and recognition support" ), QString::fromLatin1("#kface"),  hasKfaceSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 
     QString result = QString::fromLatin1("<p><table>");

@@ -216,6 +216,9 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap *memberMap)
     DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, categoryName);
     memberMap->renameCategory(m_categoryOrig, categoryName);
 
+    // Also tell the face management page to update the recognition database
+    emit newCategoryNameSaved(m_categoryOrig, m_category);
+
     m_categoryOrig = categoryName;
 }
 

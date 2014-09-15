@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,20 +15,52 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef ENUMS_H
-#define ENUMS_H
 
-namespace AnnotationDialog
+#ifndef DETECTOR_H
+#define DETECTOR_H
+
+#include <config-kpa-kface.h>
+#include <QObject>
+#include <QList>
+#include <QRect>
+#include <QVariant>
+
+class QImage;
+namespace Settings
 {
-    enum UsageMode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
-    enum MatchType { MatchFromBeginning, MatchFromWordStart, MatchAnywhere };
-    // @short Distinguishes between user-induced changes to ResizableFrame and automatic ones.
-    //
-    // Manual changes are any ones that are in some way conscious by the user (e.g. setting the tag data).
-    // Automatic changes suppress some signals (e.g. when setting a transient value).
-    enum ChangeOrigin { ManualChange, AutomatedChange };
+    class SettingsData;
+}
+namespace KFaceIface
+{
+    class FaceDetector;
 }
 
-#endif /* ENUMS_H */
+
+namespace FaceManagement
+{
+
+class Detector : public QObject
+{
+
+Q_OBJECT
+
+public:
+    static FaceManagement::Detector* instance();
+    Detector();
+    ~Detector();
+    QList<QRect> detectFaces(QImage &image);
+
+private:
+    static FaceManagement::Detector* m_instance;
+    void updateSettings();
+    Settings::SettingsData* m_settingsData;
+    QVariantMap m_params;
+    KFaceIface::FaceDetector* m_faceDetector;
+
+};
+
+}
+
+#endif /* DETECTOR_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

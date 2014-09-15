@@ -23,6 +23,10 @@
 #include "Settings/SettingsData.h"
 #include "DB/CategoryPtr.h"
 #include <QList>
+#include <config-kpa-kface.h>
+#ifdef HAVE_KFACE
+#include "FaceManagement/Recognizer.h"
+#endif
 
 class QTreeWidgetItem;
 class CategoryItem;
@@ -73,6 +77,7 @@ public slots:
     void toggleSortType();
     void updateListview();
     void rePopulate();
+    void ensureTagIsSelected(QString category, QString tag);
 
 signals:
     /**
@@ -114,6 +119,10 @@ private:
     QToolButton* _showSelectedOnly;
     QString _baseTitle;
     bool _positionable;
+#ifdef HAVE_KFACE
+    FaceManagement::Recognizer *_recognizer;
+#endif
+
 };
 
 }

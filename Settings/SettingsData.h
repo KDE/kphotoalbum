@@ -24,6 +24,7 @@
 #include "DB/Category.h"
 #include <config-kpa-exiv2.h>
 #include <AnnotationDialog/enums.h>
+#include <config-kpa-kface.h>
 
 #ifdef HAVE_EXIV2
 #   include "Exif/Info.h"
@@ -165,6 +166,15 @@ public:
     property_ref( exifForViewer, setExifForViewer, StringSet );
     property_ref( exifForDialog, setExifForDialog, StringSet );
     property_ref( iptcCharset  , setIptcCharset  , QString   );
+#endif
+
+    /////////////////////////
+    //// Face Management ////
+    /////////////////////////
+
+#ifdef HAVE_KFACE
+    property_copy(faceDetectionAccuracy   , setFaceDetectionAccuracy   , int);
+    property_copy(faceDetectionSensitivity, setFaceDetectionSensitivity, int);
 #endif
 
     /////////////////////

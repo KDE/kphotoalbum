@@ -35,8 +35,10 @@ class MemberMap;
 namespace Settings
 {
 
-class CategoryItem : public QListWidgetItem
+class CategoryItem : public QObject, public QListWidgetItem
 {
+    Q_OBJECT
+
 public:
     CategoryItem(
         const QString &category,
@@ -59,6 +61,9 @@ public:
     override void setIcon(const QString &icon);
     void setThumbnailSize(int size);
     void setViewType(DB::Category::ViewType type);
+
+signals:
+    void newCategoryNameSaved(QString oldName, QString newName);
 
 protected:
     void renameCategory(DB::MemberMap *memberMap);

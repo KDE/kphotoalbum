@@ -340,6 +340,15 @@ property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool , E
 property_copy( updateOrientation        , setUpdateOrientation        , bool , ExifImport, false );
 property_copy( updateDescription        , setUpdateDescription        , bool , ExifImport, false );
 
+/////////////////////////
+//// Face Management ////
+/////////////////////////
+
+#ifdef HAVE_KFACE
+property_copy(faceDetectionAccuracy   , setFaceDetectionAccuracy   , int, FaceManagement, 80);
+property_copy(faceDetectionSensitivity, setFaceDetectionSensitivity, int, FaceManagement, 80);
+#endif
+
 ///////////////////////
 //// Miscellaneous ////
 ///////////////////////

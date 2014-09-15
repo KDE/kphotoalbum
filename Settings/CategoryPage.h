@@ -20,6 +20,12 @@
 #include "SettingsData.h"
 #include <QLabel>
 #include <QWidget>
+
+#include <config-kpa-kface.h>
+#ifdef HAVE_KFACE
+#include "FaceManagement/Recognizer.h"
+#endif
+
 class QListWidget;
 class QListWidgetItem;
 class KPushButton;
@@ -50,6 +56,9 @@ public:
 signals:
     void currentCategoryNameChanged( const QString& oldName, const QString& newName );
 
+protected slots:
+    void addToRenamedList(QString oldName, QString newName);
+
 private slots:
     void edit( QListWidgetItem* );
     void slotLabelChanged( const QString& );
@@ -76,6 +85,13 @@ private:
     Settings::CategoryItem* _current;
     QList<CategoryItem*> _deleted;
     UntaggedGroupBox* _untaggedBox;
+#ifdef HAVE_KFACE
+    FaceManagement::Recognizer *_recognizer;
+    QList<CategoryItem *> _unMarkedAsPositionable;
+    QList<QPair<QString, QString>> _renamedCategories;
+#endif
+    QString nonLocalizedCategoryName(QString category);
+
 };
 
 }

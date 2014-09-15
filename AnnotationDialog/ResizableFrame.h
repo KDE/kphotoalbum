@@ -25,6 +25,8 @@
 #include "Dialog.h"
 #include <QTreeWidgetItem>
 #include "ListSelect.h"
+#include "enums.h"
+#include "config-kpa-kface.h"
 
 class QMouseEvent;
 
@@ -44,7 +46,18 @@ public:
     void setDialog(Dialog *dialog);
     QPair<QString, QString> tagData() const;
     void removeTagData();
-    void setTagData(QString category, QString tag);
+    void setTagData(QString category, QString tag, ChangeOrigin changeOrigin = ManualChange);
+    void setProposedTagData(QPair<QString, QString> tagData);
+    QPair<QString, QString> proposedTagData() const;
+    void removeProposedTagData();
+    /**
+     * If the face has been detected by the face detector, this method is called.
+     * In this case, the marking is considered "good enough" for the recognition
+     * database to be trained on this face.
+     *
+     * When a user manually marks a person, this should not be called.
+     */
+    void markAsFace();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -57,6 +70,9 @@ private slots:
     void associateTag(QAction *action);
     void remove();
     void removeTag();
+    void acceptTag();
+    void updateRecognitionDatabase();
+    void recognize();
 
 private:
     QPoint m_dragStartPosition;
@@ -67,11 +83,23 @@ private:
     QAction *m_lastTagAct;
     QAction *m_removeAct;
     QAction *m_removeTagAct;
+    QAction *m_acceptTagAct;
+    QAction *m_updateRecognitionDatabaseAct;
+    QAction *m_recognizeAct;
     Dialog *m_dialog;
     QPair<QString, QString> m_tagData;
+    QPair<QString, QString> m_proposedTagData;
+    ImagePreview *m_preview;
+#ifdef HAVE_KFACE
+    ImagePreviewWidget *m_previewWidget;
+    bool m_changed;
+    bool m_trained;
+    bool m_detectedFace;
+#endif
 };
 
 }
 
 #endif // RESIZABLEFRAME_H
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

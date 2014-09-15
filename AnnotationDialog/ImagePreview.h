@@ -19,8 +19,12 @@
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
 #include <QLabel>
+#include "config-kpa-kface.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClientInterface.h"
+#include "FaceManagement/Detector.h"
+#include "FaceManagement/Recognizer.h"
+
 class QResizeEvent;
 class QRubberBand;
 
@@ -43,12 +47,17 @@ public:
     QRect minMaxAreaPreview() const;
     void createTaggedArea(QString category, QString tag, QRect geometry, bool showArea);
     QSize getActualImageSize();
+    void acceptProposedTag(QPair<QString, QString> tagData, ResizableFrame *area);
+    void trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData);
+    void recognizeArea(ResizableFrame *area);
 
 public slots:
     void setAreaCreationEnabled(bool state);
+    void detectFaces();
 
 signals:
     void areaCreated(ResizableFrame *area);
+    void proposedTagSelected(QString category, QString tag);
 
 protected:
     virtual void resizeEvent( QResizeEvent* );
@@ -73,16 +82,16 @@ protected:
         void setAngle( int angle );
         void reset();
     protected:
-        DB::FileName _fileName;
-        QImage _image;
-        int _angle;
+        DB::FileName m_fileName;
+        QImage m_image;
+        int m_angle;
     };
 
     struct PreloadInfo {
         PreloadInfo();
         void set(const DB::FileName& fileName, int angle);
-        DB::FileName _fileName;
-        int _angle;
+        DB::FileName m_fileName;
+        int m_angle;
     };
 
     class PreviewLoader : public ImageManager::ImageClientInterface, public PreviewImage  {
@@ -91,28 +100,34 @@ protected:
         void cancelPreload();
         void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     };
-    PreviewLoader _preloader;
+    PreviewLoader m_preloader;
 
 private:
-    DB::ImageInfo _info;
-    QString _fileName;
-    PreviewImage _currentImage, _lastImage;
-    PreloadInfo _anticipated;
-    int _angle;
-    int _minX;
-    int _maxX;
-    int _minY;
-    int _maxY;
-    QPoint _areaStart;
-    QPoint _areaEnd;
-    QPoint _currentPos;
-    QRubberBand *_selectionRect;
-    double _scaleWidth;
-    double _scaleHeight;
+    DB::ImageInfo m_info;
+    QString m_fileName;
+    PreviewImage m_currentImage, m_lastImage;
+    PreloadInfo m_anticipated;
+    int m_angle;
+    int m_minX;
+    int m_maxX;
+    int m_minY;
+    int m_maxY;
+    QPoint m_areaStart;
+    QPoint m_areaEnd;
+    QPoint m_currentPos;
+    QRubberBand *m_selectionRect;
+    double m_scaleWidth;
+    double m_scaleHeight;
     void createNewArea(QRect geometry, QRect actualGeometry);
     QRect rotateArea(QRect originalAreaGeometry, int angle);
-    bool _areaCreationEnabled;
-    QMap<QString, QPair<int, QSize>> _imageSizes;
+    bool m_areaCreationEnabled;
+    QMap<QString, QPair<int, QSize>> m_imageSizes;
+    FaceManagement::Recognizer *m_recognizer;
+    FaceManagement::Detector *m_detector;
+    QImage m_fullSizeImage;
+    void fetchFullSizeImage();
+    bool fuzzyAreaExists(QList<QRect> &existingAreas, QRect area);
+    float distance(QPoint point1, QPoint point2);
 };
 
 }

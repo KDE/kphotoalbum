@@ -36,6 +36,7 @@ class FileVersionDetectionPage;
 class PluginsPage;
 class ExifPage;
 class DatabaseBackendPage;
+class FaceManagementPage;
 
 class SettingsDialog :public KPageDialog {
     Q_OBJECT
@@ -64,6 +65,7 @@ private:
     Settings::PluginsPage* _pluginsPage;
     Settings::ExifPage* _exifPage;
     Settings::DatabaseBackendPage* _databaseBackendPage;
+    Settings::FaceManagementPage *_faceManagementPage;
     KPageWidgetItem* _backendPage;
 };
 

@@ -80,6 +80,8 @@ public:
     void addTagToCandidateList(QString category, QString tag);
     void removeTagFromCandidateList(QString category, QString tag);
     QString localizedCategory(QString category) const;
+    void checkProposedTagData(QPair<QString, QString> tagData, ResizableFrame *areaToExclude) const;
+    void areaChanged();
 
 protected slots:
     void slotRevert();
@@ -192,6 +194,7 @@ private:
     QMap<QString, QString> _categoryL10n;
 
     bool _positionableCategories;
+    bool _areaChanges;
 };
 
 }

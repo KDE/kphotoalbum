@@ -16,6 +16,10 @@ SET(CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
 )
 
+# in case we are installing to a non-standard path, expect that other libs are installed there as well:
+LIST(INSERT CMAKE_PREFIX_PATH 0 "${CMAKE_INSTALL_PREFIX}")
+LIST(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_INSTALL_PREFIX}/share/apps/cmake/modules")
+
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 
@@ -83,6 +87,22 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
+# Kface ships with a FindKface.cmake module, which has no versioning support (and thus can't be used).
+# work is done to add a proper KfaceConfig.cmake into kface, which would be the best solution.
+# in the meantime, package-config can sometimes be used on systems that support it.
+find_package(Kface 3.3.0 CONFIG)
+set(KFACE_FOUND ${Kface_FOUND})
+if(KFACE_FOUND)
+    # use imported target:
+    set(KFACE_LIBRARIES kface)
+else()
+    pkg_check_modules(KFACE libkface>=3.3.0)
+    if(KFACE_FOUND)
+        INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
+    endif()
+endif()
+macro_bool_to_01(KFACE_FOUND HAVE_KFACE)
+
 add_custom_target(
     UpdateVersion ALL
     COMMAND ${CMAKE_COMMAND} -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
@@ -111,6 +131,7 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
 )
 
 set(libxmldb_SRCS
@@ -364,6 +385,11 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
 )
 
+set(libFaceManagement_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
+)
+
 add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
@@ -403,6 +429,7 @@ set(kphotoalbum_SRCS
     ${libBackgroundTaskManager_SRCS}
     ${libBackgroundJobs_SRCS}
     ${libRemoteControl_SRCS}
+    ${libFaceManagement_SRCS}
 )
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
@@ -431,6 +458,10 @@ if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES})
 endif(MARBLE_FOUND)
 
+if(KFACE_FOUND)
+	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
+endif()
+
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
@@ -444,3 +475,4 @@ configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
+configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kface.h)

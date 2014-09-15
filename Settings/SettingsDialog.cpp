@@ -33,6 +33,10 @@
 #include "Utilities/ShowBusyCursor.h"
 
 #include "config-kpa-kipi.h"
+
+#include <config-kpa-kface.h>
+#include "FaceManagementPage.h"
+
 struct Data
 {
     QString title;
@@ -58,6 +62,10 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     _exifPage = new Settings::ExifPage(this);
 #endif
 
+#ifdef HAVE_KFACE
+    _faceManagementPage = new Settings::FaceManagementPage(this);
+#endif
+
     _databaseBackendPage = new Settings::DatabaseBackendPage(this);
 
 
@@ -76,6 +84,9 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         { i18n("EXIF/IPTC Information" ), "document-properties", _exifPage },
 #endif
         { i18n("Database backend"), "system-file-manager", _databaseBackendPage },
+#ifdef HAVE_KFACE
+        { i18n("Face management" ), "edit-find-user", _faceManagementPage },
+#endif
         { QString(), "", 0 }
     };
 
@@ -92,9 +103,20 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
 
-    connect( _categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
-             _subCategoriesPage, SLOT(categoryRenamed(QString,QString)) );
-    connect( this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), _subCategoriesPage, SLOT(slotPageChange()) );
+    connect(
+        _categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
+        _subCategoriesPage, SLOT(categoryRenamed(QString,QString))
+    );
+    connect(
+        this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+        _subCategoriesPage, SLOT(slotPageChange())
+    );
+#ifdef HAVE_KFACE
+    connect(
+        this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+        _faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*))
+    );
+#endif
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
 }
@@ -120,6 +142,9 @@ void Settings::SettingsDialog::show()
     _exifPage->loadSettings( opt );
 #endif
 
+#ifdef HAVE_KFACE
+    _faceManagementPage->loadSettings(opt);
+#endif
 
     _categoryPage->enableDisable( false );
 
@@ -150,6 +175,11 @@ void Settings::SettingsDialog::slotMyOK()
 
 #ifdef HAVE_EXIV2
     _exifPage->saveSettings(opt);
+#endif
+
+#ifdef HAVE_KFACE
+    _faceManagementPage->saveSettings(opt);
+    _faceManagementPage->clearDatabaseEntries();
 #endif
 
     _databaseBackendPage->saveSettings(opt);

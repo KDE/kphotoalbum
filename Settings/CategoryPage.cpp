@@ -34,6 +34,8 @@
 #include "DB/CategoryCollection.h"
 #include <QCheckBox>
 
+#include <QDebug>
+
 Settings::CategoryPage::CategoryPage( QWidget* parent )
     : QWidget( parent )
 {
@@ -170,6 +172,9 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
         }
 
         _current->setPositionable( positionable );
+#ifdef HAVE_KFACE
+        _unMarkedAsPositionable.append(_current);
+#endif
     }
 }
 
@@ -239,10 +244,38 @@ void Settings::CategoryPage::enableDisable( bool b )
 
 void Settings::CategoryPage::saveSettings( Settings::SettingsData* opt, DB::MemberMap* memberMap )
 {
+#ifdef HAVE_KFACE
+    _recognizer = FaceManagement::Recognizer::instance();
+#endif
+
     // Delete items
     for( QList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
+#ifdef HAVE_KFACE
+        _recognizer->deleteCategory(nonLocalizedCategoryName((*it)->text()));
+#endif
         (*it)->removeFromDatabase();
     }
+
+#ifdef HAVE_KFACE
+    _deleted = QList<CategoryItem *>();
+
+    // Categories un-marked as positionable
+    for (QList<CategoryItem*>::Iterator it = _unMarkedAsPositionable.begin();
+         it != _unMarkedAsPositionable.end(); ++it) {
+        // For the recognition database, this is the same as if the category had been deleted
+        _recognizer->deleteCategory(nonLocalizedCategoryName((*it)->text()));
+    }
+    _unMarkedAsPositionable = QList<CategoryItem *>();
+
+    // Renamed categories
+    for (int i = 0; i < _renamedCategories.count(); ++i) {
+        _recognizer->updateCategoryName(
+            _renamedCategories.at(i).first,
+            _renamedCategories.at(i).second
+        );
+    }
+    _renamedCategories = QList<QPair<QString, QString>>();
+#endif
 
     // Created or Modified items
     for (int i =0; i<_categories->count();++i) {
@@ -259,14 +292,42 @@ void Settings::CategoryPage::loadSettings( Settings::SettingsData* opt )
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
+#ifdef HAVE_KFACE
+            Settings::CategoryItem *item = new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories, (*it)->positionable() );
+            if ((*it)->positionable()) {
+                connect(item, SIGNAL(newCategoryNameSaved(QString,QString)),
+                        this, SLOT(addToRenamedList(QString,QString)));
+            }
+#else
             new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories, (*it)->positionable() );
+#endif
         }
     }
 
     _untaggedBox->loadSettings( opt );
 }
 
+void Settings::CategoryPage::addToRenamedList(QString oldName, QString newName)
+{
+#ifdef HAVE_KFACE
+    _renamedCategories << QPair<QString, QString>(oldName, newName);
+#else
+    Q_UNUSED(oldName);
+    Q_UNUSED(newName);
+#endif
+}
 
-
+QString Settings::CategoryPage::nonLocalizedCategoryName(QString category)
+{
+    QString nonLocalizedCategoryName = category;
+    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if (nonLocalizedCategoryName == (*it)->text()) {
+            nonLocalizedCategoryName = (*it)->name();
+            break;
+        }
+    }
+    return nonLocalizedCategoryName;
+}
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

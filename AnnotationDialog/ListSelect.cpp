@@ -17,6 +17,7 @@
 */
 
 #include "ListSelect.h"
+#include "config-kpa-kface.h"
 #include <qlayout.h>
 #include <QLabel>
 #include <QMenu>
@@ -390,11 +391,19 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                                                        i18n("Really Delete %1?",item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            if (item->checkState(0) == Qt::Checked) {
+            if (item->checkState(0) == Qt::Checked and _positionable) {
                 // An area could be linked against this. We can use positionableTagDeselected
                 // here, as the procedure is the same as if the tag had been deselected.
                 emit positionableTagDeselected(_category->name(), item->text(0));
             }
+
+#ifdef HAVE_KFACE
+            // Also delete this tag from the recognition database (if it's there)
+            if (_positionable) {
+                _recognizer = FaceManagement::Recognizer::instance();
+                _recognizer->deleteTag(_category->name(), item->text(0));
+            }
+#endif
 
             _category->removeItem( item->text(0) );
             rePopulate();
@@ -425,6 +434,11 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 KIO::move( KUrl(oldFile), KUrl(newFile) );
 
                 if (_positionable) {
+#ifdef HAVE_KFACE
+                    // Handle the identity name that we probably have in the recognition database
+                    _recognizer = FaceManagement::Recognizer::instance();
+                    _recognizer->changeIdentityName(_category->name(), oldStr, newStr);
+#endif
                     // Also take care of areas that could be linked against this
                     emit positionableTagRenamed(_category->name(), oldStr, newStr);
                 }
@@ -727,13 +741,37 @@ bool AnnotationDialog::ListSelect::positionable() const
 
 bool AnnotationDialog::ListSelect::tagIsChecked(QString tag) const
 {
-    QList<QTreeWidgetItem*> matchingTags = _treeWidget->findItems(tag, Qt::MatchContains, 0);
+    QList<QTreeWidgetItem *> matchingTags = _treeWidget->findItems(tag, Qt::MatchExactly, 0);
 
     if(matchingTags.isEmpty()) {
         return false;
     }
 
     return (bool) matchingTags.first()->checkState(0);
+}
+
+void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)
+{
+    if (category != _lineEdit->objectName()) {
+        // The selected tag's category does not belong to this ListSelect
+        return;
+    }
+
+    // Be sure that tag is actually checked
+    QList<QTreeWidgetItem *> matchingTags = _treeWidget->findItems(tag, Qt::MatchExactly, 0);
+
+    // If we have the requested category, but not this tag, add it.
+    // This should only happen if the recognition database is copied from another database
+    // or has been changed outside of KPA. But this _can_ happen and simply adding a
+    // missing tag does not hurt ;-)
+    if(matchingTags.isEmpty()) {
+        _category->addItem(tag);
+        rePopulate();
+        // Now, we find it
+        matchingTags = _treeWidget->findItems(tag, Qt::MatchExactly, 0);
+    }
+
+    matchingTags.first()->setCheckState(0, Qt::Checked);
 }
 
 #include "ListSelect.moc"

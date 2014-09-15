@@ -39,6 +39,7 @@ protected:
     static bool hasSQLDBSupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
+    static bool hasKfaceSupport();
 };
 
 class HelpBrowser :public KTextBrowser

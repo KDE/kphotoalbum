@@ -16,14 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImagePreviewWidget.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "MainWindow/DeleteDialog.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <klocale.h>
 #include <QWidget>
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "MainWindow/DeleteDialog.h"
 #include <QDebug>
+#include <QApplication>
+#include <QCheckBox>
+
 using namespace AnnotationDialog;
 
 ImagePreviewWidget::ImagePreviewWidget() : QWidget()
@@ -77,6 +80,16 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     _toggleAreasBut->setCheckable(1);
     _toggleAreasBut->setChecked(1);
 
+#ifdef HAVE_KFACE
+    _facedetectBut = new KPushButton(this);
+    hlay->addWidget(_facedetectBut);
+    _facedetectBut->setIcon(KIcon(QString::fromLatin1("edit-find-user")));
+    _facedetectBut->setFixedWidth(40);
+    _facedetectBut->setCheckable(1);
+    _facedetectBut->setChecked(0);
+    _facedetectBut->setToolTip(i18n("Search for faces on the current image"));
+#endif
+
     hlay->addStretch( 1 );
     _delBut = new KPushButton( this );
     _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
@@ -93,10 +106,32 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     connect( _rotateLeft, SIGNAL(clicked()), this, SLOT(rotateLeft()) );
     connect( _rotateRight, SIGNAL(clicked()), this, SLOT(rotateRight()) );
     connect( _toggleAreasBut, SIGNAL(clicked(bool)), this, SLOT(slotShowAreas(bool)) );
+#ifdef HAVE_KFACE
+    connect(_facedetectBut, SIGNAL(clicked()), _preview, SLOT(detectFaces()));
+
+    _autoTrainDatabase = new QCheckBox(i18n("Train face recognition database automatically"), this);
+    _autoTrainDatabase->setWhatsThis(i18n(
+        "If a tag for an area found by the face detector is set manually, the face recognition "
+        "database will be trained automatically with that tag."
+    ));
+    _autoTrainDatabase->setChecked(Qt::Checked);
+    layout->addWidget(_autoTrainDatabase, 0, Qt::AlignCenter);
+#endif
 
     _current = -1;
 }
-int ImagePreviewWidget::angle() const { return _preview->angle(); }
+
+#ifdef HAVE_KFACE
+bool ImagePreviewWidget::automatedTraining()
+{
+    return _autoTrainDatabase->isChecked();
+}
+#endif
+
+int ImagePreviewWidget::angle() const
+{
+    return _preview->angle();
+}
 
 void ImagePreviewWidget::anticipate(DB::ImageInfo &info1) { _preview->anticipate( info1 ); }
 
@@ -244,7 +279,26 @@ void ImagePreviewWidget::canCreateAreas(bool state)
 {
     _toggleAreasBut->setChecked(state);
     _toggleAreasBut->setEnabled(state);
+#ifdef HAVE_KFACE
+    _facedetectBut->setEnabled(state);
+#endif
     _preview->setAreaCreationEnabled(state);
+}
+
+void ImagePreviewWidget::setFacedetectButEnabled(bool state)
+{
+    if (state == false) {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
+    } else {
+        QApplication::restoreOverrideCursor();
+    }
+
+    _facedetectBut->setChecked(! state);
+    _facedetectBut->setEnabled(state);
+
+    // Better disable the whole widget so that the user can't
+    // change or delete the image during face detection.
+    this->setEnabled(state);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

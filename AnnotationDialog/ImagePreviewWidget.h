@@ -23,6 +23,9 @@
 #include "DB/ImageInfo.h"
 #include "ImagePreview.h"
 #include <KPushButton>
+#include "config-kpa-kface.h"
+
+class QCheckBox;
 
 namespace AnnotationDialog
 {
@@ -42,6 +45,10 @@ public:
     ImagePreview *preview() const;
     bool showAreas() const;
     void canCreateAreas(bool state);
+    void setFacedetectButEnabled(bool state);
+#ifdef HAVE_KFACE
+    bool automatedTraining();
+#endif
 
 public slots:
     void slotNext();
@@ -68,10 +75,14 @@ private:
     KPushButton* _rotateRight;
     KPushButton* _delBut;
     KPushButton* _copyPreviousBut;
+    KPushButton *_facedetectBut;
     KPushButton *_toggleAreasBut;
     QList<DB::ImageInfo>* _imageList;
     int _current;
     bool _singleEdit;
+#ifdef HAVE_KFACE
+    QCheckBox *_autoTrainDatabase;
+#endif
 };
 
 }

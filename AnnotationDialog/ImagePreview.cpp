@@ -610,6 +610,9 @@ void ImagePreview::trainRecognitionDatabase(QRect geometry, QPair<QString, QStri
 void ImagePreview::recognizeArea(ResizableFrame *area)
 {
 #ifdef HAVE_KFACE
+    // Be sure to actually have a recognizer instance
+    m_recognizer = FaceManagement::Recognizer::instance();
+
     // Be sure to have the full size image
     fetchFullSizeImage();
 

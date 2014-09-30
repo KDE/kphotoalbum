@@ -16,9 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
+// Local includes
+#include "Settings/SettingsData.h"
 #include "Recognizer.h"
 #include "config-kpa-kface.h"
-#include "Settings/SettingsData.h"
 
 using namespace KFaceIface;
 
@@ -48,8 +49,7 @@ FaceManagement::Recognizer::~Recognizer()
 QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage &image)
 {
 #ifdef HAVE_KFACE
-    if ( !m_recognitionDatabase.isNull() && !m_recognitionDatabase.allIdentities().isEmpty())
-    {
+    if (! m_recognitionDatabase.isNull() && ! m_recognitionDatabase.allIdentities().isEmpty()) {
         Identity identity = m_recognitionDatabase.recognizeFace(image);
         if (! identity.isNull()) {
             return parseIdentity(identity);
@@ -61,14 +61,17 @@ QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage &
     return QPair<QString, QString>();
 }
 
-void FaceManagement::Recognizer::trainRecognitionDatabase(QPair<QString, QString> &tagData, const QImage &image)
+void FaceManagement::Recognizer::trainRecognitionDatabase(QPair<QString, QString> &tagData,
+                                                          const QImage &image)
 {
 #ifdef HAVE_KFACE
     // Assemble an ID string for this tag
     QString fullNameString = identityString(tagData);
 
     // Check if we have an identity for this tag
-    Identity identity = m_recognitionDatabase.findIdentity(QString::fromLatin1("fullName"), fullNameString);
+    Identity identity = m_recognitionDatabase.findIdentity(
+        QString::fromLatin1("fullName"), fullNameString
+    );
     if (identity.isNull()) {
         // Add a new identity for this tag
         QMap<QString, QString> attributes;
@@ -84,14 +87,17 @@ void FaceManagement::Recognizer::trainRecognitionDatabase(QPair<QString, QString
 #endif
 }
 
-void FaceManagement::Recognizer::changeIdentityName(QString category, QString oldTagName, QString newTagName)
+void FaceManagement::Recognizer::changeIdentityName(QString category,
+                                                    QString oldTagName, QString newTagName)
 {
 #ifdef HAVE_KFACE
     // Assemble the old ID string for this tag
     QString fullNameString = identityString(category, oldTagName);
 
     // Check if we have an identity for this tag
-    Identity identity = m_recognitionDatabase.findIdentity(QString::fromLatin1("fullName"), fullNameString);
+    Identity identity = m_recognitionDatabase.findIdentity(
+        QString::fromLatin1("fullName"), fullNameString
+    );
     if (identity.isNull()) {
         // We don't have this tag in the recognition database, so nothing has to be done
         return;
@@ -234,7 +240,9 @@ void FaceManagement::Recognizer::deleteCategory(QString category)
 #ifdef HAVE_KFACE
 QPair<QString, QString> FaceManagement::Recognizer::parseIdentity(Identity identity)
 {
-    QStringList tagParts = identity.attributesMap()[QString::fromLatin1("fullName")].split(QString::fromLatin1("-/-"));
+    QStringList tagParts = identity.attributesMap()[QString::fromLatin1("fullName")].split(
+        QString::fromLatin1("-/-")
+    );
     for (QString &part : tagParts) {
         part.replace(QString::fromLatin1("//"), QString::fromLatin1("/"));
     }
@@ -243,7 +251,9 @@ QPair<QString, QString> FaceManagement::Recognizer::parseIdentity(Identity ident
 
 QString FaceManagement::Recognizer::identityString(QPair<QString, QString> tagData) const
 {
-    QString fullNameString = tagData.first.replace(QString::fromLatin1("/"), QString::fromLatin1("//"));
+    QString fullNameString = tagData.first.replace(
+        QString::fromLatin1("/"), QString::fromLatin1("//")
+    );
     fullNameString += QString::fromLatin1("-/-");
     fullNameString += tagData.second.replace(QString::fromLatin1("/"), QString::fromLatin1("//"));
     return fullNameString;

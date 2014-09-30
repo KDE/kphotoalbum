@@ -19,22 +19,26 @@
 #ifndef DETECTOR_H
 #define DETECTOR_H
 
-#include <config-kpa-kface.h>
+// Qt includes
 #include <QObject>
 #include <QList>
 #include <QRect>
 #include <QVariant>
 
+// Local includes
+#include "config-kpa-kface.h"
+
 class QImage;
+
 namespace Settings
 {
     class SettingsData;
 }
+
 namespace KFaceIface
 {
     class FaceDetector;
 }
-
 
 namespace FaceManagement
 {
@@ -45,17 +49,19 @@ class Detector : public QObject
 Q_OBJECT
 
 public:
-    static FaceManagement::Detector* instance();
+    static FaceManagement::Detector * instance();
     Detector();
     ~Detector();
     QList<QRect> detectFaces(QImage &image);
 
-private:
-    static FaceManagement::Detector* m_instance;
-    void updateSettings();
-    Settings::SettingsData* m_settingsData;
+private: /* variables */
+    static FaceManagement::Detector *m_instance;
+    Settings::SettingsData *m_settingsData;
     QVariantMap m_params;
-    KFaceIface::FaceDetector* m_faceDetector;
+    KFaceIface::FaceDetector *m_faceDetector;
+
+private: /* functions */
+    void updateSettings();
 
 };
 

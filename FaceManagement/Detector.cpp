@@ -16,9 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
+// Local includes
 #include "Detector.h"
-
 #include "config-kpa-kface.h"
+
 #ifdef HAVE_KFACE
 #include "Settings/SettingsData.h"
 #include <libkface/facedetector.h>
@@ -59,7 +60,8 @@ void FaceManagement::Detector::updateSettings()
 {
 #ifdef HAVE_KFACE
     m_params[QString::fromLatin1("accuracy")] = m_settingsData->faceDetectionAccuracy();
-    m_params[QString::fromLatin1("specificity")] = float(m_settingsData->faceDetectionSensitivity()) / 100;
+    m_params[QString::fromLatin1("specificity")] =
+        float(m_settingsData->faceDetectionSensitivity()) / 100;
     m_faceDetector->setParameters(m_params);
 #endif
 }

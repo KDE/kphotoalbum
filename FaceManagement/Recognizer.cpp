@@ -103,7 +103,7 @@ void FaceManagement::Recognizer::changeIdentityName(QString category, QString ol
     attributes[QString::fromLatin1("fullName")] = fullNameString;
 
     // Update the recognition database
-    m_recognitionDatabase.setIdentityAttributes(identity.id, attributes);
+    m_recognitionDatabase.setIdentityAttributes(identity.id(), attributes);
 #else
     Q_UNUSED(category);
     Q_UNUSED(oldTagName);
@@ -196,7 +196,7 @@ void FaceManagement::Recognizer::updateCategoryName(QString oldName, QString new
             attributes[QString::fromLatin1("fullName")] = fullNameString;
 
             // Update the recognition database
-            m_recognitionDatabase.setIdentityAttributes(allIdentities.at(i).id, attributes);
+            m_recognitionDatabase.setIdentityAttributes(allIdentities.at(i).id(), attributes);
         }
     }
 #else
@@ -234,7 +234,7 @@ void FaceManagement::Recognizer::deleteCategory(QString category)
 #ifdef HAVE_KFACE
 QPair<QString, QString> FaceManagement::Recognizer::parseIdentity(Identity identity)
 {
-    QStringList tagParts = identity.attributes[QString::fromLatin1("fullName")].split(QString::fromLatin1("-/-"));
+    QStringList tagParts = identity.attributesMap()[QString::fromLatin1("fullName")].split(QString::fromLatin1("-/-"));
     for (QString &part : tagParts) {
         part.replace(QString::fromLatin1("//"), QString::fromLatin1("/"));
     }

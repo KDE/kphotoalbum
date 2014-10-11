@@ -96,6 +96,7 @@ if(KFACE_FOUND)
     # use imported target:
     set(KFACE_LIBRARIES kface)
 else()
+    unset(KFACE_FOUND)
     pkg_check_modules(KFACE libkface>=3.4.0)
     if(KFACE_FOUND)
         INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})

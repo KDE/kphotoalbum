@@ -26,6 +26,7 @@
 #include "FaceManagement/Recognizer.h"
 
 // Qt classes
+class QPushButton;
 class QSlider;
 class QTreeWidget;
 

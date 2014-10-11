@@ -87,14 +87,14 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
-# Kface ships with a FindKface.cmake module, which has no versioning support (and thus can't be used).
-# work is done to add a proper KfaceConfig.cmake into kface, which would be the best solution.
-# in the meantime, package-config can sometimes be used on systems that support it.
+# newer Kface versions ship a cmake module, but older don't, so:
+# - try to look for it using the cmake module
+# - if not found, try to look for it using pkg-config
 find_package(Kface 3.4.0 CONFIG)
 set(KFACE_FOUND ${Kface_FOUND})
 if(KFACE_FOUND)
-    # use imported target:
-    set(KFACE_LIBRARIES kface)
+    set(KFACE_LIBRARIES ${Kface_LIBRARIES})
+    INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
 else()
     unset(KFACE_FOUND)
     pkg_check_modules(KFACE libkface>=3.4.0)

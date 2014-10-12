@@ -90,14 +90,14 @@ endif(MARBLE_FOUND)
 # newer Kface versions ship a cmake module, but older don't, so:
 # - try to look for it using the cmake module
 # - if not found, try to look for it using pkg-config
-find_package(Kface 3.4.0 CONFIG)
+find_package(Kface 3.5.0 CONFIG)
 set(KFACE_FOUND ${Kface_FOUND})
 if(KFACE_FOUND)
     set(KFACE_LIBRARIES ${Kface_LIBRARIES})
     INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
 else()
     unset(KFACE_FOUND)
-    pkg_check_modules(KFACE libkface>=3.4.0)
+    pkg_check_modules(KFACE libkface>=3.5.0)
     if(KFACE_FOUND)
         INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
     endif()

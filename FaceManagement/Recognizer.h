@@ -25,25 +25,20 @@
 #include <QMap>
 #include <QImage>
 
-// Local includes
-#include "config-kpa-kface.h"
+// libkface includes
+#include <libkface/recognitiondatabase.h>
 
 namespace KFaceIface
 {
     class Identity;
 }
 
-#ifdef HAVE_KFACE
-#include <libkface/recognitiondatabase.h>
-#endif
-
 namespace FaceManagement
 {
 
 class Recognizer : public QObject
 {
-
-Q_OBJECT
+    Q_OBJECT
 
 public:
     static FaceManagement::Recognizer * instance();
@@ -61,16 +56,13 @@ public:
 
 private: /* variables */
     static FaceManagement::Recognizer *m_instance;
-#ifdef HAVE_KFACE
     KFaceIface::RecognitionDatabase m_recognitionDatabase;
-#endif
 
 private: /* functions */
     void deleteIdentities(QList<KFaceIface::Identity> &identitiesToDelete);
     QPair<QString, QString> parseIdentity(KFaceIface::Identity identity);
     QString identityString(QPair<QString, QString> tagData) const;
     QString identityString(QString category, QString tag) const;
-
 };
 
 }

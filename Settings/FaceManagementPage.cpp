@@ -32,9 +32,12 @@
 #include <KPageWidgetItem>
 
 // Local includes
-#include "FaceManagement/Recognizer.h"
 #include "SettingsData.h"
 #include "FaceManagementPage.h"
+
+#ifdef HAVE_KFACE
+#include "FaceManagement/Recognizer.h"
+#endif
 
 Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(parent)
 {
@@ -121,7 +124,6 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
 
     connect(m_databaseEntries, SIGNAL(itemSelectionChanged()), this, SLOT(checkSelection()));
 
-#ifdef HAVE_KFACE
     // The "Delete selected" button
     m_deleteSelectedButton = new QPushButton(i18n("Delete selected"));
     m_deleteSelectedButton->setEnabled(false);
@@ -132,7 +134,6 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
     QPushButton *eraseButton = new QPushButton(i18n("Erase database"));
     recognitionLayout->addWidget(eraseButton, 2, 1);
     connect(eraseButton, SIGNAL(clicked()), this, SLOT(slotEraseDatabase()));
-#endif
 
     QLabel *cautionLabel = new QLabel(i18n(
             "<b>Caution:</b> Changes to category names or category deletions are not "

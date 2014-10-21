@@ -167,7 +167,6 @@ set(libThumbnailView_SRCS
 )
 
 set(libPlugins_SRCS)
-
 if(KIPI_FOUND)
     set(libPlugins_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp
@@ -338,7 +337,6 @@ set(libBrowser_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/CenteringIconView.cpp
 )
 
-
 set(libexif_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Database.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/InfoDialog.cpp
@@ -386,10 +384,13 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
 )
 
-set(libFaceManagement_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
-)
+set(libFaceManagement_SRCS)
+if(KFACE_FOUND)
+    set(libFaceManagement_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
+    )
+endif(KFACE_FOUND)
 
 add_subdirectory(images)
 add_subdirectory(icons)

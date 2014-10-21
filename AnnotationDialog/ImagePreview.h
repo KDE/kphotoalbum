@@ -22,8 +22,11 @@
 #include "config-kpa-kface.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClientInterface.h"
+
+#ifdef HAVE_KFACE
 #include "FaceManagement/Detector.h"
 #include "FaceManagement/Recognizer.h"
+#endif
 
 class QResizeEvent;
 class QRubberBand;
@@ -122,8 +125,10 @@ private:
     QRect rotateArea(QRect originalAreaGeometry, int angle);
     bool m_areaCreationEnabled;
     QMap<QString, QPair<int, QSize>> m_imageSizes;
+#ifdef HAVE_KFACE
     FaceManagement::Recognizer *m_recognizer;
     FaceManagement::Detector *m_detector;
+#endif
     QImage m_fullSizeImage;
     void fetchFullSizeImage();
     bool fuzzyAreaExists(QList<QRect> &existingAreas, QRect area);

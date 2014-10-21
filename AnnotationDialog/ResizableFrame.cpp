@@ -456,6 +456,8 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
             m_trained = true;
         }
     }
+#else
+    Q_UNUSED(changeOrigin)
 #endif
 
     // Tell the dialog an area has been changed

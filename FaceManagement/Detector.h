@@ -25,9 +25,7 @@
 #include <QRect>
 #include <QVariant>
 
-// Local includes
-#include "config-kpa-kface.h"
-
+// Qt classes
 class QImage;
 
 namespace Settings
@@ -45,8 +43,7 @@ namespace FaceManagement
 
 class Detector : public QObject
 {
-
-Q_OBJECT
+    Q_OBJECT
 
 public:
     static FaceManagement::Detector * instance();
@@ -62,7 +59,6 @@ private: /* variables */
 
 private: /* functions */
     void updateSettings();
-
 };
 
 }

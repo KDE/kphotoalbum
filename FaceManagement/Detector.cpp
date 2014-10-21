@@ -16,14 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
+// libkface includes
+#include <libkface/facedetector.h>
+
 // Local includes
 #include "Detector.h"
-#include "config-kpa-kface.h"
-
-#ifdef HAVE_KFACE
 #include "Settings/SettingsData.h"
-#include <libkface/facedetector.h>
-#endif
 
 using namespace KFaceIface;
 
@@ -42,33 +40,26 @@ FaceManagement::Detector * FaceManagement::Detector::instance()
 
 FaceManagement::Detector::Detector()
 {
-#ifdef HAVE_KFACE
     m_faceDetector = new FaceDetector();
     m_settingsData = Settings::SettingsData::instance();
     updateSettings();
-#endif
 }
 
 FaceManagement::Detector::~Detector()
 {
-#ifdef HAVE_KFACE
     delete m_faceDetector;
-#endif
 }
 
 void FaceManagement::Detector::updateSettings()
 {
-#ifdef HAVE_KFACE
     m_params[QString::fromLatin1("accuracy")] = m_settingsData->faceDetectionAccuracy();
     m_params[QString::fromLatin1("specificity")] =
         float(m_settingsData->faceDetectionSensitivity()) / 100;
     m_faceDetector->setParameters(m_params);
-#endif
 }
 
 QList<QRect> FaceManagement::Detector::detectFaces(QImage &image)
 {
-#ifdef HAVE_KFACE
     QSize imageSize = image.size();
     QList<QRectF> faces = m_faceDetector->detectFaces(image);
     QList<QRect> mappedFaces;
@@ -78,10 +69,6 @@ QList<QRect> FaceManagement::Detector::detectFaces(QImage &image)
     }
 
     return mappedFaces;
-#else
-    Q_UNUSED(image);
-    return QList<QRect>();
-#endif
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -665,7 +665,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
                     int y = areaData[1].toInt();
                     int w = areaData[2].toInt();
                     int h = areaData[3].toInt();
-                    QRect area = QRect(QPoint(x, y), QPoint(x + w, y + h));
+                    QRect area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
 
                     if (! value.isNull())  {
                         info->addCategoryInfo(name, value, area);

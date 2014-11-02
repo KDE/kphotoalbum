@@ -234,7 +234,7 @@ void MainWindow::Window::delayedInit()
     if ( Settings::SettingsData::instance()->searchForImagesOnStart() ) {
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
-        QTimer::singleShot( 0, DB::ImageDB::instance(), SLOT(slotRescan()) );
+        DB::ImageDB::instance()->slotRescan();
     }
 
     if ( !Settings::SettingsData::instance()->delayLoadingPlugins() ) {

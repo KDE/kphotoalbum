@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,6 +30,25 @@
 #include "ElementWriter.h"
 #include "CompressFileInfo.h"
 
+//
+//
+//
+//  +++++++++++++++++++++++++++++++ REMEBER ++++++++++++++++++++++++++++++++
+//
+//
+//
+//
+// Update XMLDB::Database::fileVersion every time you update the file format!
+//
+//
+//
+//
+//
+//
+//
+//
+// (sorry for the noice, but it is really important :-)
+
 using Utilities::StringSet;
 
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
@@ -56,17 +75,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     {
         ElementWriter dummy(writer, QString::fromLatin1("KPhotoAlbum"));
-        bool usePositionableTags = false;
-        for ( DB::CategoryPtr category : DB::ImageDB::instance()->categoryCollection()->categories() )
-        {
-            if ( category->positionable() )
-            {
-                usePositionableTags = true;
-                break;
-            }
-        }
-        writer.writeAttribute( QString::fromLatin1( "version" ),
-                usePositionableTags ? QString::fromLatin1( "4" ) : QString::fromLatin1( "3" ) );
+        writer.writeAttribute( QString::fromLatin1( "version" ), QString::number(Database::fileVersion()));
         writer.writeAttribute( QString::fromLatin1( "compressed" ), QString::number(useCompressedFileFormat()));
 
         saveCategories( writer );

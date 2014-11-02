@@ -40,8 +40,6 @@ void XMLDB::FileReader::read( const QString& configFile )
 {
     static QString _version_ = QString::fromUtf8("version");
     static QString _compressed_ = QString::fromUtf8("compressed");
-    static const int _currentFileVersion_ = 4;
-    static const int _minFileVersion_ = 3;
 
     ReaderPtr reader = readConfigFile( configFile );
 
@@ -50,26 +48,17 @@ void XMLDB::FileReader::read( const QString& configFile )
         reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
 
     _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
-    if ( _fileVersion > _currentFileVersion_ )
-    {
-        KMessageBox::information( messageParent(),
-                i18n("<p>The database file indicates a file format version of %1. "
-                    "This version of KPhotoAlbum uses the database file format version %2.</p>"
-                    "<p>It is possible that some information will be lost during import,"
-                    " or that the database can not be read at all.</p>"
-                    ,_fileVersion,_currentFileVersion_),
-                i18n("index.xml version mismatch"),
-                QString::fromLatin1( "checkDatabaseFileVersion" ) );
-    } else if ( _fileVersion < _minFileVersion_ )
-    {
-        KMessageBox::information( messageParent(),
-                i18n("<p>The database file indicates a file format version of %1. "
-                    "This version of KPhotoAlbum uses the database file format version %2.</p>"
-                    "<p>If you save the database using this version of KPhotoAlbum, "
-                    "you won't be able to open it with older versions of KPhotoAlbum.</p>"
-                    ,_fileVersion,_currentFileVersion_),
-                i18n("index.xml version mismatch"),
-                QString::fromLatin1( "checkDatabaseFileVersion" ) );
+
+    if ( _fileVersion > Database::fileVersion() ) {
+        int ret = KMessageBox::warningContinueCancel( messageParent(),
+                                                      i18n("<p>The databse file (index.xml) is from a newer version of KPhotoAlbum!</p>"
+                                                           "<p>Chances are you will be able to read this file, but when writing it back, "
+                                                           "information saved in the newer version will be lost</p>"),
+                                                      i18n("index.xml version mismatch"),
+                                                      KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
+                                                      QString::fromLatin1( "checkDatabaseFileVersion" ) );
+        if (ret == KStandardGuiItem::Cancel)
+            exit(-1);
     }
 
     setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );

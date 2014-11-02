@@ -76,6 +76,7 @@ namespace XMLDB {
         DB::FileNameList getStackFor(const DB::FileName& referenceId) const override;
         void copyData( const DB::FileName& from, const DB::FileName& to) override;
 
+        static int fileVersion();
     protected:
         DB::FileNameList searchPrivate(
             const DB::ImageSearchInfo&,

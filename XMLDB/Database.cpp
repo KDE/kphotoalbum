@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -512,6 +512,12 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) 
 void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 {
     (*info(to)).merge(*info(from));
+}
+
+int XMLDB::Database::fileVersion()
+{
+    // File format version, bump it up every time the format for the file changes.
+    return 5;
 }
 
 

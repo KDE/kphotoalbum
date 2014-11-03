@@ -51,7 +51,7 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     if ( _fileVersion > Database::fileVersion() ) {
         int ret = KMessageBox::warningContinueCancel( messageParent(),
-                                                      i18n("<p>The databse file (index.xml) is from a newer version of KPhotoAlbum!</p>"
+                                                      i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
                                                            "<p>Chances are you will be able to read this file, but when writing it back, "
                                                            "information saved in the newer version will be lost</p>"),
                                                       i18n("index.xml version mismatch"),

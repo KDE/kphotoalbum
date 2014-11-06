@@ -18,14 +18,24 @@
 // Initially shamelessly stolen from http://qt-project.org/forums/viewthread/24104
 // Big thanks to Mr. kripton :-)
 
-#include "ResizableFrame.h"
-#include "ImagePreview.h"
+// Qt includes
 #include <QMouseEvent>
 #include <QMenu>
-#include <klocale.h>
 #include <QApplication>
 #include <QList>
 #include <QDebug>
+
+// KDE includes
+#include <KLocale>
+
+// Local includes
+#include "ResizableFrame.h"
+#include "ImagePreview.h"
+
+#ifdef HAVE_KFACE
+#include <QTimer>
+#include "ProposedFaceDialog.h"
+#endif
 
 static const int SCALE_TOP    = 0b00000001;
 static const int SCALE_BOTTOM = 0b00000010;
@@ -59,6 +69,8 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
     m_trained = false;
     // Until we are told otherwise, assume this area was drawn manually by the user.
     m_detectedFace = false;
+    // When we're constructing, there's no proposed face dialog.
+    m_proposedFaceDialog = 0;
 #endif
 
 
@@ -480,10 +492,8 @@ void AnnotationDialog::ResizableFrame::removeTagData()
 
     // Set the color to "un-associated" or "proposed"
     if (m_proposedTagData.first.isEmpty()) {
-        setToolTip(QString());
         setStyleSheet(STYLE_UNASSOCIATED);
     } else {
-        setToolTip(i18n("Is this %1?", m_proposedTagData.second));
         setStyleSheet(STYLE_PROPOSED);
     }
 
@@ -535,32 +545,7 @@ QPair<QString, QString> AnnotationDialog::ResizableFrame::tagData() const
 void AnnotationDialog::ResizableFrame::setProposedTagData(QPair<QString, QString> tagData)
 {
     m_proposedTagData = tagData;
-    setToolTip(i18n("Is this %1?", tagData.second));
     setStyleSheet(STYLE_PROPOSED);
-}
-
-void AnnotationDialog::ResizableFrame::acceptTag()
-{
-    // Be sure that the proposed tag is selected and update this area's tag information
-    m_preview->acceptProposedTag(m_proposedTagData, this);
-
-    // Tell the dialog an area has been changed
-    m_dialog->areaChanged();
-}
-
-void AnnotationDialog::ResizableFrame::updateRecognitionDatabase()
-{
-#ifdef HAVE_KFACE
-    m_preview->trainRecognitionDatabase(m_actualCoordinates, m_tagData);
-    m_trained = true;
-#endif
-}
-
-void AnnotationDialog::ResizableFrame::recognize()
-{
-#ifdef HAVE_KFACE
-    m_preview->recognizeArea(this);
-#endif
 }
 
 QPair<QString, QString> AnnotationDialog::ResizableFrame::proposedTagData() const
@@ -575,11 +560,59 @@ void AnnotationDialog::ResizableFrame::removeProposedTagData()
     setToolTip(QString());
 }
 
+#ifdef HAVE_KFACE
+void AnnotationDialog::ResizableFrame::acceptTag()
+{
+    // Be sure that the proposed tag is selected and update this area's tag information
+    m_preview->acceptProposedTag(m_proposedTagData, this);
+
+    // Tell the dialog an area has been changed
+    m_dialog->areaChanged();
+}
+
+void AnnotationDialog::ResizableFrame::updateRecognitionDatabase()
+{
+    m_preview->trainRecognitionDatabase(m_actualCoordinates, m_tagData);
+    m_trained = true;
+}
+
+void AnnotationDialog::ResizableFrame::recognize()
+{
+    m_preview->recognizeArea(this);
+}
+
 void AnnotationDialog::ResizableFrame::markAsFace()
 {
-#ifdef HAVE_KFACE
     m_detectedFace = true;
-#endif
 }
+
+void AnnotationDialog::ResizableFrame::enterEvent(QEvent *)
+{
+    if (! m_proposedTagData.first.isEmpty()
+        && m_tagData.first.isEmpty()
+        && m_proposedFaceDialog == 0) {
+
+        m_proposedFaceDialog = new ProposedFaceDialog(this);
+    }
+}
+
+void AnnotationDialog::ResizableFrame::leaveEvent(QEvent *)
+{
+    QTimer::singleShot(0, m_proposedFaceDialog, SLOT(checkUnderMouse()));
+}
+
+void AnnotationDialog::ResizableFrame::checkUnderMouse()
+{
+    if (! underMouse()) {
+        m_proposedFaceDialog->deleteLater();
+        m_proposedFaceDialog = 0;
+    }
+}
+
+void AnnotationDialog::ResizableFrame::proposedFaceDialogRemoved()
+{
+    m_proposedFaceDialog = 0;
+}
+#endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

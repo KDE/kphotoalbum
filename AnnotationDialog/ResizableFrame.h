@@ -21,16 +21,23 @@
 #ifndef RESIZABLEFRAME_H
 #define RESIZABLEFRAME_H
 
+// Qt includes
 #include <QFrame>
-#include "Dialog.h"
 #include <QTreeWidgetItem>
-#include "ListSelect.h"
+
+// Local includes
 #include "enums.h"
+#include "Dialog.h"
+#include "ListSelect.h"
 #include "config-kpa-kface.h"
 
 class QMouseEvent;
 
 namespace AnnotationDialog {
+
+#ifdef HAVE_KFACE
+class ProposedFaceDialog;
+#endif
 
 class ResizableFrame : public QFrame
 {
@@ -50,6 +57,7 @@ public:
     void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
+#ifdef HAVE_KFACE
     /**
      * If the face has been detected by the face detector, this method is called.
      * In this case, the marking is considered "good enough" for the recognition
@@ -58,21 +66,34 @@ public:
      * When a user manually marks a person, this should not be called.
      */
     void markAsFace();
+    void proposedFaceDialogRemoved();
+
+public slots:
+    void acceptTag();
+#endif
 
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void contextMenuEvent(QContextMenuEvent *event);
+#ifdef HAVE_KFACE
+    void enterEvent(QEvent *);
+    void leaveEvent(QEvent *);
+
+protected slots:
+    void checkUnderMouse();
+#endif
 
 private slots:
     void associateLastSelectedTag();
     void associateTag(QAction *action);
     void remove();
     void removeTag();
-    void acceptTag();
+#ifdef HAVE_KFACE
     void updateRecognitionDatabase();
     void recognize();
+#endif
 
 private:
     QPoint m_dragStartPosition;
@@ -95,6 +116,7 @@ private:
     bool m_changed;
     bool m_trained;
     bool m_detectedFace;
+    ProposedFaceDialog *m_proposedFaceDialog;
 #endif
 };
 

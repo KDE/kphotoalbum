@@ -73,29 +73,26 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
     m_proposedFaceDialog = 0;
 #endif
 
-
     setFrameShape(QFrame::Box);
     setMouseTracking(true);
     setStyleSheet(STYLE_UNASSOCIATED);
 
-    m_removeAct = new QAction( i18nc("area of an image; rectangle that is overlayed upon the image", "Remove area"), this);
+    m_removeAct = new QAction(
+        i18nc("area of an image; rectangle that is overlayed upon the image",
+              "Remove area"), this
+    );
     connect(m_removeAct, SIGNAL(triggered()), this, SLOT(remove()));
-
-    m_lastTagAct = new QAction(this);
-    // Can this also be done without the associateLastSelectedTag() helper function?
-    connect(m_lastTagAct, SIGNAL(triggered()), this, SLOT(associateLastSelectedTag()));
 
     m_removeTagAct = new QAction(this);
     connect(m_removeTagAct, SIGNAL(triggered()), this, SLOT(removeTag()));
 
-    m_acceptTagAct = new QAction(this);
-    connect(m_acceptTagAct, SIGNAL(triggered()), this, SLOT(acceptTag()));
-
+#ifdef HAVE_KFACE
     m_updateRecognitionDatabaseAct = new QAction(this);
     connect(m_updateRecognitionDatabaseAct, SIGNAL(triggered()), this, SLOT(updateRecognitionDatabase()));
 
     m_recognizeAct = new QAction(i18n("Try to recognize this face"), this);
     connect(m_recognizeAct, SIGNAL(triggered()), this, SLOT(recognize()));
+#endif
 }
 
 AnnotationDialog::ResizableFrame::~ResizableFrame()
@@ -326,85 +323,66 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
     // Let's see if we already have an associated tag
     if (! m_tagData.first.isEmpty()) {
         m_removeTagAct->setText(
-                i18nc( "As in: remove tag %1 in category %2 [from this marked area of the image]"
-                     , "Remove tag %1 (%2)"
-                     , m_tagData.second, m_tagData.first ) );
+            i18nc("As in: remove tag %1 in category %2 [from this marked area of the image]",
+                  "Remove tag %1 (%2)",
+                  m_tagData.second,
+                  localizedCategory(m_tagData.first))
+        );
         menu->addAction(m_removeTagAct);
+
     } else {
-        // Get the last selected positionable tag
+        // Handle the last selected positionable tag (if we have one)
         QPair<QString, QString> lastSelectedPositionableTag = m_dialog->lastSelectedPositionableTag();
-
-        // Handle the last selected positionable tag
         if (! lastSelectedPositionableTag.first.isEmpty()) {
-            m_lastTagAct->setText(
-                    i18nc( "As in: associate [this marked area of the image] with tag %1 in category %2"
-                         , "Associate with %1 (%2)"
-                         , lastSelectedPositionableTag.second, m_dialog->localizedCategory(lastSelectedPositionableTag.first)
-                        ) );
-
-            QStringList data;
-            data << lastSelectedPositionableTag.first << lastSelectedPositionableTag.second;
-            m_lastTagAct->setData(data);
-
-            menu->addAction(m_lastTagAct);
-        }
-
-        // Let's see if we have a proposed tag
-        if (! m_proposedTagData.first.isEmpty() and m_proposedTagData != lastSelectedPositionableTag) {
-            m_acceptTagAct->setText(
-                i18nc("As in: associate [this marked area of the image] with tag %1 in category %2",
-                      "Associate with %1 (%2)",
-                      m_proposedTagData.second, m_dialog->localizedCategory(m_proposedTagData.first))
+            QAction *associateLastSelectedTagAction = createAssociateTagAction(
+                lastSelectedPositionableTag,
+                i18n("Associate with")
             );
-            menu->addAction(m_acceptTagAct);
-        }
-
-        // If we have nothing, offer a recognition database lookup
-        if (m_tagData.first.isEmpty() and  m_proposedTagData.first.isEmpty()) {
-            menu->addAction(m_recognizeAct);
+            connect(associateLastSelectedTagAction, SIGNAL(triggered()), this, SLOT(associateTag()));
+            menu->addAction(associateLastSelectedTagAction);
         }
 
         // Handle all positionable tag candidates
 
         QList<QPair<QString, QString>> positionableTagCandidates = m_dialog->positionableTagCandidates();
-
         // If we have a last selected positionable tag: remove it
         positionableTagCandidates.removeAt(positionableTagCandidates.indexOf(lastSelectedPositionableTag));
 
-        // If we still have other candidates: add a respective sub-menu
+        // If we still have candidates:
         if (positionableTagCandidates.length() > 0) {
-            // Create a new menu for all other tags
-            QMenu *submenu = menu->addMenu(
-                    i18nc( "As in: associate [this marked area of the image] with one of the following choices/menu items", "Associate with")
-                    );
+            if (positionableTagCandidates.length() == 1
+                && lastSelectedPositionableTag.first.isEmpty()) {
 
-            for (const QPair<QString, QString> &tag : positionableTagCandidates) {
-                if (tag == m_proposedTagData) {
-                    continue;
-                }
-
-                QAction *action = new QAction(
-                    tag.second + QString::fromLatin1(" (") +
-                    m_dialog->localizedCategory(tag.first) +
-                    QString::fromLatin1(")"), this
+                // Add a single action
+                QAction *associateOnlyCandidateAction = createAssociateTagAction(positionableTagCandidates[0]);
+                connect(associateOnlyCandidateAction, SIGNAL(triggered()), this, SLOT(associateTag()));
+                menu->addAction(associateOnlyCandidateAction);
+            } else {
+                // Create a new menu for all other tags
+                QMenu *submenu = menu->addMenu(
+                    i18nc("As in: associate [this marked area of the image] with one of the "
+                          "following choices/menu items",
+                          "Associate with")
                 );
 
-                QStringList data;
-                data << tag.first << tag.second;
-                action->setData(data);
+                for (const QPair<QString, QString> &tag : positionableTagCandidates) {
+                    submenu->addAction(createAssociateTagAction(tag));
+                }
 
-                submenu->addAction(action);
+                connect(submenu, SIGNAL(triggered(QAction*)), this, SLOT(associateTag(QAction*)));
             }
-            connect( submenu, SIGNAL(triggered(QAction*)), this, SLOT(associateTag(QAction*)) );
         }
     }
 
-    // Append the "Remove area" action
-    menu->addAction(m_removeAct);
+    menu->addSeparator();
 
 #ifdef HAVE_KFACE
-    if (! m_tagData.first.isEmpty() and m_changed and ! m_trained) {
-        menu->addSeparator();
+    if (m_tagData.first.isEmpty() &&  m_proposedTagData.first.isEmpty()) {
+        // If we have nothing, offer a recognition database lookup
+        menu->addAction(m_recognizeAct);
+    }
+
+    if (! m_tagData.first.isEmpty() && m_changed && ! m_trained) {
         // Append a "Update recognition database with this face" action
         m_updateRecognitionDatabaseAct->setText(
             i18n("Train the recognition database with the face of %1", m_tagData.second)
@@ -413,15 +391,42 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
     }
 #endif
 
+    // Append the "Remove area" action
+    menu->addAction(m_removeAct);
+
     menu->exec(event->globalPos());
 
     // Clean up the menu
     delete menu;
 }
 
-void AnnotationDialog::ResizableFrame::associateLastSelectedTag()
+QAction * AnnotationDialog::ResizableFrame::createAssociateTagAction(
+    const QPair<QString, QString> &tag,
+    QString prefix
+)
 {
-    associateTag(m_lastTagAct);
+    if (! prefix.isEmpty()) {
+        prefix = QString::fromUtf8("%1 ").arg(prefix);
+    }
+
+    QAction *action = new QAction(
+        QString::fromUtf8("%1%2 (%3)").arg(prefix,
+                                           tag.second,
+                                           localizedCategory(tag.first)),
+        this
+    );
+
+    QStringList data;
+    data << tag.first << tag.second;
+    action->setData(data);
+
+    return action;
+}
+
+void AnnotationDialog::ResizableFrame::associateTag()
+{
+    QAction *action = dynamic_cast<QAction *>(sender());
+    setTagData(action->data().toStringList()[0], action->data().toStringList()[1]);
 }
 
 void AnnotationDialog::ResizableFrame::associateTag(QAction *action)
@@ -438,7 +443,7 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     // Update the tool tip
     setToolTip(
         tag + QString::fromLatin1(" (") +
-        m_dialog->localizedCategory(category) +
+        localizedCategory(category) +
         QString::fromLatin1(")")
     );
 
@@ -489,6 +494,7 @@ void AnnotationDialog::ResizableFrame::removeTagData()
     // Delete the data
     m_tagData.first.clear();
     m_tagData.second.clear();
+    setToolTip(QString());
 
     // Set the color to "un-associated" or "proposed"
     if (m_proposedTagData.first.isEmpty()) {
@@ -558,6 +564,11 @@ void AnnotationDialog::ResizableFrame::removeProposedTagData()
     m_proposedTagData = QPair<QString, QString>();
     setStyleSheet(STYLE_UNASSOCIATED);
     setToolTip(QString());
+}
+
+QString AnnotationDialog::ResizableFrame::localizedCategory(QString category)
+{
+    return m_dialog->localizedCategory(category);
 }
 
 #ifdef HAVE_KFACE

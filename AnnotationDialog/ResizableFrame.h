@@ -57,6 +57,7 @@ public:
     void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
+    QString localizedCategory(QString category);
 #ifdef HAVE_KFACE
     /**
      * If the face has been detected by the face detector, this method is called.
@@ -86,7 +87,7 @@ protected slots:
 #endif
 
 private slots:
-    void associateLastSelectedTag();
+    void associateTag();
     void associateTag(QAction *action);
     void remove();
     void removeTag();
@@ -95,23 +96,24 @@ private slots:
     void recognize();
 #endif
 
-private:
+private: // Functions
+    void getMinMaxCoordinates();
+    QAction* createAssociateTagAction(const QPair<QString, QString> &tag, QString prefix = QString());
+
+private: // Variables
     QPoint m_dragStartPosition;
     QRect m_dragStartGeometry;
     QRect m_minMaxCoordinates;
     QRect m_actualCoordinates;
-    void getMinMaxCoordinates();
-    QAction *m_lastTagAct;
     QAction *m_removeAct;
     QAction *m_removeTagAct;
-    QAction *m_acceptTagAct;
-    QAction *m_updateRecognitionDatabaseAct;
-    QAction *m_recognizeAct;
     Dialog *m_dialog;
     QPair<QString, QString> m_tagData;
     QPair<QString, QString> m_proposedTagData;
     ImagePreview *m_preview;
 #ifdef HAVE_KFACE
+    QAction *m_updateRecognitionDatabaseAct;
+    QAction *m_recognizeAct;
     ImagePreviewWidget *m_previewWidget;
     bool m_changed;
     bool m_trained;

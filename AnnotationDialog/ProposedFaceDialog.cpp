@@ -51,7 +51,7 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDia
 
     QLabel *label = new QLabel(i18n("Is this %1 (%2)?",
                                     m_area->proposedTagData().second,
-                                    m_area->proposedTagData().first));
+                                    m_area->localizedCategory(m_area->proposedTagData().first)));
     layout->addWidget(label);
 
     QToolButton *declineButton = new QToolButton;
@@ -70,6 +70,8 @@ AnnotationDialog::ProposedFaceDialog::~ProposedFaceDialog()
 {
 }
 
+#ifdef HAVE_KFACE
+
 void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *)
 {
     QColor backgroundColor = Qt::white;
@@ -78,7 +80,6 @@ void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *)
     painter.fillRect(rect(), backgroundColor);
 }
 
-#ifdef HAVE_KFACE
 void AnnotationDialog::ProposedFaceDialog::leaveEvent(QEvent *)
 {
     QTimer::singleShot(0, m_area, SLOT(checkUnderMouse()));
@@ -108,6 +109,7 @@ void AnnotationDialog::ProposedFaceDialog::declineTag()
     m_area->removeProposedTagData();
     removeMe();
 }
+
 #endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

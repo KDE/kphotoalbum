@@ -365,7 +365,10 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent* event
                 && lastSelectedPositionableTag.first.isEmpty()) {
 
                 // Add a single action
-                QAction* associateOnlyCandidateAction = createAssociateTagAction(positionableTagCandidates[0]);
+                QAction* associateOnlyCandidateAction = createAssociateTagAction(
+                    positionableTagCandidates[0],
+                    i18n("Associate with")
+                );
                 connect(associateOnlyCandidateAction, SIGNAL(triggered()), this, SLOT(associateTag()));
                 menu->addAction(associateOnlyCandidateAction);
             } else {

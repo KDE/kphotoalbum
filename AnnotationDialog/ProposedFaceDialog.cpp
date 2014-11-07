@@ -24,6 +24,7 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QCursor>
+#include <QPainter>
 
 // KDE includes
 #include <KLocale>
@@ -36,6 +37,7 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDia
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setMouseTracking(true);
+    setAttribute(Qt::WA_TranslucentBackground);
 
     m_area = dynamic_cast<ResizableFrame *>(parent);
 
@@ -43,6 +45,7 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDia
 
     QToolButton *acceptButton = new QToolButton;
     acceptButton->setIcon(KIcon(QString::fromUtf8("dialog-ok-apply")));
+    acceptButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(acceptTag()));
     layout->addWidget(acceptButton);
 
@@ -53,6 +56,7 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDia
 
     QToolButton *declineButton = new QToolButton;
     declineButton->setIcon(KIcon(QString::fromUtf8("application-exit")));
+    declineButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
     connect(declineButton, SIGNAL(clicked()), this, SLOT(declineTag()));
     layout->addWidget(declineButton);
 
@@ -64,6 +68,14 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDia
 
 AnnotationDialog::ProposedFaceDialog::~ProposedFaceDialog()
 {
+}
+
+void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *)
+{
+    QColor backgroundColor = Qt::white;
+    backgroundColor.setAlpha(160);
+    QPainter painter(this);
+    painter.fillRect(rect(), backgroundColor);
 }
 
 #ifdef HAVE_KFACE

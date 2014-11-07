@@ -47,6 +47,7 @@ public slots:
 
 protected:
     void leaveEvent(QEvent *);
+    void paintEvent(QPaintEvent *);
 
 private slots:
     void acceptTag();

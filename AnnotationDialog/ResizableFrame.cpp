@@ -260,6 +260,12 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent* event)
     }
     setGeometry(x, y, w, h);
     m_dragStartGeometry = geometry();
+
+    if (! m_tagData.first.isEmpty()) {
+        // If we change an area with an associated tag:
+        // tell the Dialog we made a change that should be saved (set the dirty marker)
+        m_dialog->areaChanged();
+    }
 }
 
 void AnnotationDialog::ResizableFrame::checkGeometry()

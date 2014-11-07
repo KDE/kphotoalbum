@@ -33,28 +33,28 @@
 // Local includes
 #include "ProposedFaceDialog.h"
 
-AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget *parent) : QDialog(parent)
+AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDialog(parent)
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setMouseTracking(true);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    m_area = dynamic_cast<ResizableFrame *>(parent);
+    m_area = dynamic_cast<ResizableFrame*>(parent);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QHBoxLayout* layout = new QHBoxLayout(this);
 
-    QToolButton *acceptButton = new QToolButton;
+    QToolButton* acceptButton = new QToolButton;
     acceptButton->setIcon(KIcon(QString::fromUtf8("dialog-ok-apply")));
     acceptButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(acceptTag()));
     layout->addWidget(acceptButton);
 
-    QLabel *label = new QLabel(i18n("Is this %1 (%2)?",
-                                    m_area->proposedTagData().second,
-                                    m_area->localizedCategory(m_area->proposedTagData().first)));
-    layout->addWidget(label);
+    QLabel* isThisLabel = new QLabel(i18n("Is this %1 (%2)?",
+                                          m_area->proposedTagData().second,
+                                          m_area->localizedCategory(m_area->proposedTagData().first)));
+    layout->addWidget(isThisLabel);
 
-    QToolButton *declineButton = new QToolButton;
+    QToolButton* declineButton = new QToolButton;
     declineButton->setIcon(KIcon(QString::fromUtf8("application-exit")));
     declineButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
     connect(declineButton, SIGNAL(clicked()), this, SLOT(declineTag()));
@@ -72,7 +72,7 @@ AnnotationDialog::ProposedFaceDialog::~ProposedFaceDialog()
 
 #ifdef HAVE_KFACE
 
-void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *)
+void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent*)
 {
     QColor backgroundColor = Qt::white;
     backgroundColor.setAlpha(160);
@@ -80,7 +80,7 @@ void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *)
     painter.fillRect(rect(), backgroundColor);
 }
 
-void AnnotationDialog::ProposedFaceDialog::leaveEvent(QEvent *)
+void AnnotationDialog::ProposedFaceDialog::leaveEvent(QEvent*)
 {
     QTimer::singleShot(0, m_area, SLOT(checkUnderMouse()));
 }

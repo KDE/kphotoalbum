@@ -15,8 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-// Initially shamelessly stolen from http://qt-project.org/forums/viewthread/24104
-// Big thanks to Mr. kripton :-)
 
 #ifndef PROPOSEDFACEDIALOG_H
 #define PROPOSEDFACEDIALOG_H
@@ -38,7 +36,7 @@ class ProposedFaceDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProposedFaceDialog(QWidget *parent = 0);
+    explicit ProposedFaceDialog(QWidget* parent = 0);
     ~ProposedFaceDialog();
 
 #ifdef HAVE_KFACE
@@ -46,8 +44,8 @@ public slots:
     void checkUnderMouse();
 
 protected:
-    void leaveEvent(QEvent *);
-    void paintEvent(QPaintEvent *);
+    void leaveEvent(QEvent*);
+    void paintEvent(QPaintEvent*);
 
 private slots:
     void acceptTag();
@@ -58,7 +56,7 @@ private: // Functions
 #endif
 
 private: // Variables
-    ResizableFrame *m_area;
+    ResizableFrame* m_area;
 };
 
 }

@@ -15,7 +15,9 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-// Initially shamelessly stolen from http://qt-project.org/forums/viewthread/24104
+
+// The basic resizable QFrame has been shamelessly stolen from
+// http://qt-project.org/forums/viewthread/24104
 // Big thanks to Mr. kripton :-)
 
 // Qt includes
@@ -43,26 +45,26 @@ static const int SCALE_RIGHT  = 0b00000100;
 static const int SCALE_LEFT   = 0b00001000;
 static const int MOVE         = 0b10000000;
 
-static const QString STYLE_UNASSOCIATED = QString::fromLatin1(
+static const QString STYLE_UNASSOCIATED = QString::fromUtf8(
     "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
     "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
 );
-static const QString STYLE_PROPOSED = QString::fromLatin1(
+static const QString STYLE_PROPOSED = QString::fromUtf8(
     "AnnotationDialog--ResizableFrame { color: rgb(255,255,0); }"
     "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
 );
-static const QString STYLE_ASSOCIATED = QString::fromLatin1(
+static const QString STYLE_ASSOCIATED = QString::fromUtf8(
     "AnnotationDialog--ResizableFrame { color: rgb(0,255,0); }"
     "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
 );
 
-AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
-    : QFrame(parent)
+AnnotationDialog::ResizableFrame::ResizableFrame(QWidget* parent) : QFrame(parent)
 {
-    // We need a pointer to the image preview and preview widget later
-    m_preview = dynamic_cast<ImagePreview *>(parent);
+    m_preview = dynamic_cast<ImagePreview*>(parent);
+
 #ifdef HAVE_KFACE
     m_previewWidget = dynamic_cast<ImagePreviewWidget *>(m_preview->parentWidget());
+
     // The area has not been changed yet
     m_changed = false;
     // The area has not be used to train the recognition database yet
@@ -118,7 +120,7 @@ void AnnotationDialog::ResizableFrame::getMinMaxCoordinates()
     m_minMaxCoordinates.setHeight(m_minMaxCoordinates.height() + 1);
 }
 
-void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent *event)
+void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton) {
         m_dragStartPosition = event->pos();
@@ -129,7 +131,7 @@ void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
+void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent* event)
 {
     static int moveAction = 0;
     if (! (event->buttons() & Qt::LeftButton)) {
@@ -301,13 +303,16 @@ void AnnotationDialog::ResizableFrame::checkGeometry()
     }
 
     // If anything has been changed, set the updated geometry
-    if (geometry().x() != x or geometry().y() != y or
-        geometry().width() != w or geometry().height() != h) {
+    if (geometry().x() != x
+        || geometry().y() != y
+        || geometry().width() != w
+        || geometry().height() != h) {
+
         setGeometry(x, y, w, h);
     }
 }
 
-void AnnotationDialog::ResizableFrame::mouseReleaseEvent(QMouseEvent *event)
+void AnnotationDialog::ResizableFrame::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton) {
         checkGeometry();
@@ -315,10 +320,10 @@ void AnnotationDialog::ResizableFrame::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event)
+void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent* event)
 {
     // Create the context menu
-    QMenu *menu = new QMenu(this);
+    QMenu* menu = new QMenu(this);
 
     // Let's see if we already have an associated tag
     if (! m_tagData.first.isEmpty()) {
@@ -334,7 +339,7 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
         // Handle the last selected positionable tag (if we have one)
         QPair<QString, QString> lastSelectedPositionableTag = m_dialog->lastSelectedPositionableTag();
         if (! lastSelectedPositionableTag.first.isEmpty()) {
-            QAction *associateLastSelectedTagAction = createAssociateTagAction(
+            QAction* associateLastSelectedTagAction = createAssociateTagAction(
                 lastSelectedPositionableTag,
                 i18n("Associate with")
             );
@@ -354,18 +359,18 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
                 && lastSelectedPositionableTag.first.isEmpty()) {
 
                 // Add a single action
-                QAction *associateOnlyCandidateAction = createAssociateTagAction(positionableTagCandidates[0]);
+                QAction* associateOnlyCandidateAction = createAssociateTagAction(positionableTagCandidates[0]);
                 connect(associateOnlyCandidateAction, SIGNAL(triggered()), this, SLOT(associateTag()));
                 menu->addAction(associateOnlyCandidateAction);
             } else {
                 // Create a new menu for all other tags
-                QMenu *submenu = menu->addMenu(
+                QMenu* submenu = menu->addMenu(
                     i18nc("As in: associate [this marked area of the image] with one of the "
                           "following choices/menu items",
                           "Associate with")
                 );
 
-                for (const QPair<QString, QString> &tag : positionableTagCandidates) {
+                for (const QPair<QString, QString>& tag : positionableTagCandidates) {
                     submenu->addAction(createAssociateTagAction(tag));
                 }
 
@@ -394,14 +399,15 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *event
     // Append the "Remove area" action
     menu->addAction(m_removeAct);
 
+    // Show the menu
     menu->exec(event->globalPos());
 
     // Clean up the menu
     delete menu;
 }
 
-QAction * AnnotationDialog::ResizableFrame::createAssociateTagAction(
-    const QPair<QString, QString> &tag,
+QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
+    const QPair<QString, QString>& tag,
     QString prefix
 )
 {
@@ -409,7 +415,7 @@ QAction * AnnotationDialog::ResizableFrame::createAssociateTagAction(
         prefix = QString::fromUtf8("%1 ").arg(prefix);
     }
 
-    QAction *action = new QAction(
+    QAction* action = new QAction(
         QString::fromUtf8("%1%2 (%3)").arg(prefix,
                                            tag.second,
                                            localizedCategory(tag.first)),
@@ -425,11 +431,11 @@ QAction * AnnotationDialog::ResizableFrame::createAssociateTagAction(
 
 void AnnotationDialog::ResizableFrame::associateTag()
 {
-    QAction *action = dynamic_cast<QAction *>(sender());
+    QAction* action = dynamic_cast<QAction*>(sender());
     setTagData(action->data().toStringList()[0], action->data().toStringList()[1]);
 }
 
-void AnnotationDialog::ResizableFrame::associateTag(QAction *action)
+void AnnotationDialog::ResizableFrame::associateTag(QAction* action)
 {
     setTagData(action->data().toStringList()[0], action->data().toStringList()[1]);
 }
@@ -442,9 +448,9 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
 
     // Update the tool tip
     setToolTip(
-        tag + QString::fromLatin1(" (") +
+        tag + QString::fromUtf8(" (") +
         localizedCategory(category) +
-        QString::fromLatin1(")")
+        QString::fromUtf8(")")
     );
 
     // Set the color to "associated"
@@ -532,13 +538,13 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
     }
 
     // Show the context menu at the lower right corner of the newly created area
-    QContextMenuEvent *event = new QContextMenuEvent(
+    QContextMenuEvent* event = new QContextMenuEvent(
         QContextMenuEvent::Mouse, QPoint(0, 0), QCursor::pos(), Qt::NoModifier
     );
     QApplication::postEvent(this, event);
 }
 
-void AnnotationDialog::ResizableFrame::setDialog(Dialog *dialog)
+void AnnotationDialog::ResizableFrame::setDialog(Dialog* dialog)
 {
     m_dialog = dialog;
 }
@@ -597,7 +603,7 @@ void AnnotationDialog::ResizableFrame::markAsFace()
     m_detectedFace = true;
 }
 
-void AnnotationDialog::ResizableFrame::enterEvent(QEvent *)
+void AnnotationDialog::ResizableFrame::enterEvent(QEvent*)
 {
     if (! m_proposedTagData.first.isEmpty()
         && m_tagData.first.isEmpty()
@@ -607,7 +613,7 @@ void AnnotationDialog::ResizableFrame::enterEvent(QEvent *)
     }
 }
 
-void AnnotationDialog::ResizableFrame::leaveEvent(QEvent *)
+void AnnotationDialog::ResizableFrame::leaveEvent(QEvent*)
 {
     QTimer::singleShot(0, m_proposedFaceDialog, SLOT(checkUnderMouse()));
 }

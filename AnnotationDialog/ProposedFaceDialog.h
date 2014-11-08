@@ -24,7 +24,6 @@
 
 // Local includes
 #include "ResizableFrame.h"
-#include "config-kpa-kface.h"
 
 // Qt classes
 class QEvent;
@@ -39,7 +38,6 @@ public:
     explicit ProposedFaceDialog(QWidget* parent = 0);
     ~ProposedFaceDialog();
 
-#ifdef HAVE_KFACE
 public slots:
     void checkUnderMouse();
 
@@ -53,7 +51,6 @@ private slots:
 
 private: // Functions
     void removeMe();
-#endif
 
 private: // Variables
     ResizableFrame* m_area;

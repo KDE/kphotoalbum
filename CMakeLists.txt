@@ -319,7 +319,6 @@ set(libAnnotationDialog_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShortCutManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ResizableFrame.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ProposedFaceDialog.cpp
 )
 
 set(libBrowser_SRCS
@@ -390,6 +389,7 @@ if(KFACE_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ProposedFaceDialog.cpp
     )
 endif(KFACE_FOUND)
 

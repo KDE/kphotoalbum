@@ -70,8 +70,6 @@ AnnotationDialog::ProposedFaceDialog::~ProposedFaceDialog()
 {
 }
 
-#ifdef HAVE_KFACE
-
 void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent*)
 {
     QColor backgroundColor = Qt::white;
@@ -109,7 +107,5 @@ void AnnotationDialog::ProposedFaceDialog::declineTag()
     m_area->removeProposedTagData();
     removeMe();
 }
-
-#endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

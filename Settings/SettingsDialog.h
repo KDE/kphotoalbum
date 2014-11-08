@@ -18,7 +18,12 @@
 
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
+
+// KDE includes
 #include <KPageDialog>
+
+// Local includes
+#include "config-kpa-kface.h"
 
 namespace KIPI { class ConfigWidget; }
 namespace Exif { class TreeView; }
@@ -36,7 +41,9 @@ class FileVersionDetectionPage;
 class PluginsPage;
 class ExifPage;
 class DatabaseBackendPage;
+#ifdef HAVE_KFACE
 class FaceManagementPage;
+#endif
 
 class SettingsDialog :public KPageDialog {
     Q_OBJECT
@@ -65,7 +72,9 @@ private:
     Settings::PluginsPage* _pluginsPage;
     Settings::ExifPage* _exifPage;
     Settings::DatabaseBackendPage* _databaseBackendPage;
+#ifdef HAVE_KFACE
     Settings::FaceManagementPage *_faceManagementPage;
+#endif
     KPageWidgetItem* _backendPage;
 };
 

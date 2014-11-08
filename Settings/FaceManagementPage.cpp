@@ -34,10 +34,7 @@
 // Local includes
 #include "SettingsData.h"
 #include "FaceManagementPage.h"
-
-#ifdef HAVE_KFACE
 #include "FaceManagement/Recognizer.h"
-#endif
 
 Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(parent)
 {
@@ -165,27 +162,18 @@ void Settings::FaceManagementPage::checkSelection()
 
 void Settings::FaceManagementPage::loadSettings(Settings::SettingsData* opt)
 {
-#ifdef HAVE_KFACE
     m_speedSlider->setSliderPosition(opt->faceDetectionAccuracy());
     m_sensitivitySlider->setSliderPosition(opt->faceDetectionSensitivity());
-#else
-    Q_UNUSED(opt);
-#endif
 }
 
 void Settings::FaceManagementPage::saveSettings(Settings::SettingsData* opt)
 {
-#ifdef HAVE_KFACE
     opt->setFaceDetectionAccuracy(m_speedSlider->value());
     opt->setFaceDetectionSensitivity(m_sensitivitySlider->value());
-#else
-    Q_UNUSED(opt);
-#endif
 }
 
 void Settings::FaceManagementPage::loadDatabase()
 {
-#ifdef HAVE_KFACE
     m_databaseEntries->clear();
     m_recognizer = FaceManagement::Recognizer::instance();
 
@@ -210,12 +198,10 @@ void Settings::FaceManagementPage::loadDatabase()
     }
 
     m_databaseEntries->setEnabled(true);
-#endif
 }
 
 void Settings::FaceManagementPage::slotDeleteSelected()
 {
-#ifdef HAVE_KFACE
     int answer = KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected tags?"));
     if (answer == KMessageBox::No) {
         return;
@@ -237,12 +223,10 @@ void Settings::FaceManagementPage::slotDeleteSelected()
     } else {
         clearDatabaseEntries();
     }
-#endif
 }
 
 void Settings::FaceManagementPage::slotEraseDatabase()
 {
-#ifdef HAVE_KFACE
     int answer = KMessageBox::questionYesNo(this, i18n("Do you really want to erase the database?"));
     if (answer == KMessageBox::No) {
         return;
@@ -252,7 +236,6 @@ void Settings::FaceManagementPage::slotEraseDatabase()
     m_recognizer->eraseDatabase();
 
     clearDatabaseEntries();
-#endif
 }
 
 void Settings::FaceManagementPage::slotPageChange(KPageWidgetItem *page)

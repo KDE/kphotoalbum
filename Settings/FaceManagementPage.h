@@ -23,10 +23,7 @@
 #include <QWidget>
 
 // Local includes
-#include "config-kpa-kface.h"
-#ifdef HAVE_KFACE
 #include "FaceManagement/Recognizer.h"
-#endif
 
 // Qt classes
 class QPushButton;
@@ -36,11 +33,9 @@ class QTreeWidget;
 // KDE classes
 class KPageWidgetItem;
 
-#ifdef HAVE_KFACE
 namespace KFaceIface {
     class Identity;
 };
-#endif
 
 namespace Settings
 {
@@ -70,18 +65,14 @@ private slots:
 private: /* functions */
     void loadDatabase();
     void setSelection(bool state);
-#ifdef HAVE_KFACE
     void deleteIdentities(QList<KFaceIface::Identity> identitiesToDelete);
-#endif
 
 private: /* variables */
     QSlider *m_speedSlider;
     QSlider *m_sensitivitySlider;
     QTreeWidget *m_databaseEntries;
     QPushButton *m_deleteSelectedButton;
-#ifdef HAVE_KFACE
     FaceManagement::Recognizer *m_recognizer;
-#endif
 };
 
 }

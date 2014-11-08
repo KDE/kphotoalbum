@@ -132,7 +132,6 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
 )
 
 set(libxmldb_SRCS
@@ -389,6 +388,7 @@ if(KFACE_FOUND)
     set(libFaceManagement_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
     )
 endif(KFACE_FOUND)
 

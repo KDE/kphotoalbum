@@ -35,7 +35,9 @@
 #include "config-kpa-kipi.h"
 
 #include <config-kpa-kface.h>
+#ifdef HAVE_KFACE
 #include "FaceManagementPage.h"
+#endif
 
 struct Data
 {

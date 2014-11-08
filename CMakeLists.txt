@@ -101,7 +101,7 @@ else()
     if(KFACE_FOUND)
         INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
     endif()
-endif()
+endif(KFACE_FOUND)
 macro_bool_to_01(KFACE_FOUND HAVE_KFACE)
 
 add_custom_target(
@@ -462,7 +462,7 @@ endif(MARBLE_FOUND)
 
 if(KFACE_FOUND)
 	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
-endif()
+endif(KFACE_FOUND)
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 

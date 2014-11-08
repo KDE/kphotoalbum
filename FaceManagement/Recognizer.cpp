@@ -22,9 +22,9 @@
 
 using namespace KFaceIface;
 
-FaceManagement::Recognizer *FaceManagement::Recognizer::m_instance = nullptr;
+FaceManagement::Recognizer* FaceManagement::Recognizer::m_instance = nullptr;
 
-FaceManagement::Recognizer * FaceManagement::Recognizer::instance()
+FaceManagement::Recognizer* FaceManagement::Recognizer::instance()
 {
     if (! m_instance) {
         m_instance = new FaceManagement::Recognizer();
@@ -43,7 +43,7 @@ FaceManagement::Recognizer::~Recognizer()
 {
 }
 
-QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage &image)
+QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage& image)
 {
     if (! m_recognitionDatabase.isNull() && ! m_recognitionDatabase.allIdentities().isEmpty()) {
         Identity identity = m_recognitionDatabase.recognizeFace(image);
@@ -55,7 +55,7 @@ QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage &
 }
 
 void FaceManagement::Recognizer::trainRecognitionDatabase(
-    QPair<QString, QString> &tagData, const QImage &image
+    QPair<QString, QString> &tagData, const QImage& image
 )
 {
     // Assemble an ID string for this tag
@@ -63,17 +63,17 @@ void FaceManagement::Recognizer::trainRecognitionDatabase(
 
     // Check if we have an identity for this tag
     Identity identity = m_recognitionDatabase.findIdentity(
-        QString::fromLatin1("fullName"), fullNameString
+        QString::fromUtf8("fullName"), fullNameString
     );
     if (identity.isNull()) {
         // Add a new identity for this tag
         QMap<QString, QString> attributes;
-        attributes[QString::fromLatin1("fullName")] = fullNameString;
+        attributes[QString::fromUtf8("fullName")] = fullNameString;
         identity = m_recognitionDatabase.addIdentity(attributes);
     }
 
     // Train the database
-    m_recognitionDatabase.train(identity, image, QString::fromLatin1("KPhotoAlbum"));
+    m_recognitionDatabase.train(identity, image, QString::fromUtf8("KPhotoAlbum"));
 }
 
 void FaceManagement::Recognizer::changeIdentityName(
@@ -85,7 +85,7 @@ void FaceManagement::Recognizer::changeIdentityName(
 
     // Check if we have an identity for this tag
     Identity identity = m_recognitionDatabase.findIdentity(
-        QString::fromLatin1("fullName"), fullNameString
+        QString::fromUtf8("fullName"), fullNameString
     );
     if (identity.isNull()) {
         // We don't have this tag in the recognition database, so nothing has to be done
@@ -95,7 +95,7 @@ void FaceManagement::Recognizer::changeIdentityName(
     // Assemble the new ID string for this tag
     fullNameString = identityString(category, newTagName);
     QMap<QString, QString> attributes;
-    attributes[QString::fromLatin1("fullName")] = fullNameString;
+    attributes[QString::fromUtf8("fullName")] = fullNameString;
 
     // Update the recognition database
     m_recognitionDatabase.setIdentityAttributes(identity.id(), attributes);
@@ -124,12 +124,12 @@ void FaceManagement::Recognizer::deleteTag(QString category, QString tag)
     deleteTags(tagsToDelete);
 }
 
-void FaceManagement::Recognizer::deleteTags(QList<QPair<QString, QString>> &tagsToDelete)
+void FaceManagement::Recognizer::deleteTags(QList<QPair<QString, QString>>& tagsToDelete)
 {
     QList<Identity> identitiesToDelete;
     for (int i = 0; i < tagsToDelete.size(); ++i) {
         identitiesToDelete << m_recognitionDatabase.findIdentity(
-            QString::fromLatin1("fullName"),
+            QString::fromUtf8("fullName"),
             identityString(tagsToDelete.at(i))
         );
     }
@@ -137,7 +137,7 @@ void FaceManagement::Recognizer::deleteTags(QList<QPair<QString, QString>> &tags
     deleteIdentities(identitiesToDelete);
 }
 
-void FaceManagement::Recognizer::deleteIdentities(QList<Identity> &identitiesToDelete)
+void FaceManagement::Recognizer::deleteIdentities(QList<Identity>& identitiesToDelete)
 {
     for (int i = 0; i < identitiesToDelete.size(); ++i) {
         m_recognitionDatabase.deleteIdentity(identitiesToDelete.at(i));
@@ -167,7 +167,7 @@ void FaceManagement::Recognizer::updateCategoryName(QString oldName, QString new
             // Assemble an updated "attributes" map
             fullNameString = identityString(newName, parsedIdentity.second);
             QMap<QString, QString> attributes;
-            attributes[QString::fromLatin1("fullName")] = fullNameString;
+            attributes[QString::fromUtf8("fullName")] = fullNameString;
 
             // Update the recognition database
             m_recognitionDatabase.setIdentityAttributes(allIdentities.at(i).id(), attributes);
@@ -199,11 +199,11 @@ void FaceManagement::Recognizer::deleteCategory(QString category)
 
 QPair<QString, QString> FaceManagement::Recognizer::parseIdentity(Identity identity)
 {
-    QStringList tagParts = identity.attributesMap()[QString::fromLatin1("fullName")].split(
-        QString::fromLatin1("-/-")
+    QStringList tagParts = identity.attributesMap()[QString::fromUtf8("fullName")].split(
+        QString::fromUtf8("-/-")
     );
-    for (QString &part : tagParts) {
-        part.replace(QString::fromLatin1("//"), QString::fromLatin1("/"));
+    for (QString& part : tagParts) {
+        part.replace(QString::fromUtf8("//"), QString::fromUtf8("/"));
     }
     return QPair<QString, QString>(tagParts[0], tagParts[1]);
 }
@@ -211,18 +211,18 @@ QPair<QString, QString> FaceManagement::Recognizer::parseIdentity(Identity ident
 QString FaceManagement::Recognizer::identityString(QPair<QString, QString> tagData) const
 {
     QString fullNameString = tagData.first.replace(
-        QString::fromLatin1("/"), QString::fromLatin1("//")
+        QString::fromUtf8("/"), QString::fromUtf8("//")
     );
-    fullNameString += QString::fromLatin1("-/-");
-    fullNameString += tagData.second.replace(QString::fromLatin1("/"), QString::fromLatin1("//"));
+    fullNameString += QString::fromUtf8("-/-");
+    fullNameString += tagData.second.replace(QString::fromUtf8("/"), QString::fromUtf8("//"));
     return fullNameString;
 }
 
 QString FaceManagement::Recognizer::identityString(QString category, QString tag) const
 {
-    QString fullNameString = category.replace(QString::fromLatin1("/"), QString::fromLatin1("//"));
-    fullNameString += QString::fromLatin1("-/-");
-    fullNameString += tag.replace(QString::fromLatin1("/"), QString::fromLatin1("//"));
+    QString fullNameString = category.replace(QString::fromUtf8("/"), QString::fromUtf8("//"));
+    fullNameString += QString::fromUtf8("-/-");
+    fullNameString += tag.replace(QString::fromUtf8("/"), QString::fromUtf8("//"));
     return fullNameString;
 }
 

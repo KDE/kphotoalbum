@@ -34,7 +34,10 @@ class QTreeWidget;
 class KPageWidgetItem;
 
 namespace KFaceIface {
-    class Identity;
+
+// KFaceIface classes
+class Identity;
+
 };
 
 namespace Settings
@@ -48,35 +51,35 @@ class FaceManagementPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit FaceManagementPage(QWidget *parent);
+    explicit FaceManagementPage(QWidget* parent);
     ~FaceManagementPage();
     void clearDatabaseEntries();
-    void loadSettings(Settings::SettingsData *);
-    void saveSettings(Settings::SettingsData *);
+    void loadSettings(Settings::SettingsData*);
+    void saveSettings(Settings::SettingsData*);
 
 public slots:
-    void slotPageChange(KPageWidgetItem *page);
+    void slotPageChange(KPageWidgetItem* page);
 
 private slots:
     void slotEraseDatabase();
     void slotDeleteSelected();
     void checkSelection();
 
-private: /* functions */
+private: // Functions
     void loadDatabase();
     void setSelection(bool state);
     void deleteIdentities(QList<KFaceIface::Identity> identitiesToDelete);
 
-private: /* variables */
-    QSlider *m_speedSlider;
-    QSlider *m_sensitivitySlider;
-    QTreeWidget *m_databaseEntries;
-    QPushButton *m_deleteSelectedButton;
-    FaceManagement::Recognizer *m_recognizer;
+private: // Variables
+    QSlider* m_speedSlider;
+    QSlider* m_sensitivitySlider;
+    QTreeWidget* m_databaseEntries;
+    QPushButton* m_deleteSelectedButton;
+    FaceManagement::Recognizer* m_recognizer;
 };
 
 }
 
-#endif /* FACEMANAGEMENTPAGE_H */
+#endif // FACEMANAGEMENTPAGE_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

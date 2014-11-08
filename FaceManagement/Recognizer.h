@@ -30,7 +30,10 @@
 
 namespace KFaceIface
 {
-    class Identity;
+
+// KFaceIface classes
+class Identity;
+
 }
 
 namespace FaceManagement
@@ -41,25 +44,25 @@ class Recognizer : public QObject
     Q_OBJECT
 
 public:
-    static FaceManagement::Recognizer * instance();
+    static FaceManagement::Recognizer* instance();
     Recognizer();
     ~Recognizer();
-    QPair<QString, QString> recognizeFace(const QImage &image);
-    void trainRecognitionDatabase(QPair<QString, QString> &tagData, const QImage &image);
+    QPair<QString, QString> recognizeFace(const QImage& image);
+    void trainRecognitionDatabase(QPair<QString, QString>& tagData, const QImage& image);
     void changeIdentityName(QString category, QString oldTagName, QString newTagName);
     QMap<QString, QStringList> allParsedIdentities();
     void deleteTag(QString category, QString tag);
-    void deleteTags(QList<QPair<QString, QString>> &tagsToDelete);
+    void deleteTags(QList<QPair<QString, QString>>& tagsToDelete);
     void eraseDatabase();
     void updateCategoryName(QString oldName, QString newName);
     void deleteCategory(QString category);
 
-private: /* variables */
-    static FaceManagement::Recognizer *m_instance;
+private: // Variables
+    static FaceManagement::Recognizer* m_instance;
     KFaceIface::RecognitionDatabase m_recognitionDatabase;
 
-private: /* functions */
-    void deleteIdentities(QList<KFaceIface::Identity> &identitiesToDelete);
+private: // Functions
+    void deleteIdentities(QList<KFaceIface::Identity>& identitiesToDelete);
     QPair<QString, QString> parseIdentity(KFaceIface::Identity identity);
     QString identityString(QPair<QString, QString> tagData) const;
     QString identityString(QString category, QString tag) const;
@@ -67,6 +70,6 @@ private: /* functions */
 
 }
 
-#endif /* RECOGNIZER_H */
+#endif // RECOGNIZER_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

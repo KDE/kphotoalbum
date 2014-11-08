@@ -25,9 +25,9 @@
 
 using namespace KFaceIface;
 
-FaceManagement::Detector *FaceManagement::Detector::m_instance = nullptr;
+FaceManagement::Detector* FaceManagement::Detector::m_instance = nullptr;
 
-FaceManagement::Detector * FaceManagement::Detector::instance()
+FaceManagement::Detector* FaceManagement::Detector::instance()
 {
     if (! m_instance) {
         m_instance = new FaceManagement::Detector();
@@ -52,13 +52,12 @@ FaceManagement::Detector::~Detector()
 
 void FaceManagement::Detector::updateSettings()
 {
-    m_params[QString::fromLatin1("accuracy")] = m_settingsData->faceDetectionAccuracy();
-    m_params[QString::fromLatin1("specificity")] =
-        float(m_settingsData->faceDetectionSensitivity()) / 100;
+    m_params[QString::fromUtf8("accuracy")] = m_settingsData->faceDetectionAccuracy();
+    m_params[QString::fromUtf8("specificity")] = float(m_settingsData->faceDetectionSensitivity()) / 100;
     m_faceDetector->setParameters(m_params);
 }
 
-QList<QRect> FaceManagement::Detector::detectFaces(QImage &image)
+QList<QRect> FaceManagement::Detector::detectFaces(QImage& image)
 {
     QSize imageSize = image.size();
     QList<QRectF> faces = m_faceDetector->detectFaces(image);

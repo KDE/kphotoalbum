@@ -36,28 +36,28 @@
 #include "FaceManagementPage.h"
 #include "FaceManagement/Recognizer.h"
 
-Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(parent)
+Settings::FaceManagementPage::FaceManagementPage(QWidget* parent) : QWidget(parent)
 {
     // The main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
     ////////////////////////////////
     // The detection settings box //
     ////////////////////////////////
 
-    QGroupBox *detectionBox = new QGroupBox(i18n("Face detection"), this);
+    QGroupBox* detectionBox = new QGroupBox(i18n("Face detection"), this);
     mainLayout->addWidget(detectionBox);
 
     // The detection settings layout
-    QGridLayout *detectionLayout = new QGridLayout(detectionBox);
+    QGridLayout* detectionLayout = new QGridLayout(detectionBox);
 
     // Speed
 
-    QLabel *speedLabel = new QLabel(i18n("Accuracy"), this);
+    QLabel* speedLabel = new QLabel(i18n("Accuracy"), this);
     speedLabel->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
     detectionLayout->addWidget(speedLabel, 0, 1);
 
-    QLabel *fastLabel = new QLabel(i18n("fast"), this);
+    QLabel* fastLabel = new QLabel(i18n("fast"), this);
     fastLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
     detectionLayout->addWidget(fastLabel, 1, 0);
 
@@ -67,16 +67,16 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
     m_speedSlider->setTickPosition(QSlider::TicksBothSides);
     detectionLayout->addWidget(m_speedSlider, 1, 1);
 
-    QLabel *accurateLabel = new QLabel(i18n("accurate"), this);
+    QLabel* accurateLabel = new QLabel(i18n("accurate"), this);
     detectionLayout->addWidget(accurateLabel, 1, 2);
 
     // Sensitivity
 
-    QLabel *sensitivityLabel = new QLabel(i18n("Sensitivity"), this);
+    QLabel* sensitivityLabel = new QLabel(i18n("Sensitivity"), this);
     sensitivityLabel->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
     detectionLayout->addWidget(sensitivityLabel, 2, 1);
 
-    QLabel *falsePositivesLabel = new QLabel(i18n("more false positives"), this);
+    QLabel* falsePositivesLabel = new QLabel(i18n("more false positives"), this);
     falsePositivesLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
     detectionLayout->addWidget(falsePositivesLabel, 3, 0);
 
@@ -86,7 +86,7 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
     m_sensitivitySlider->setTickPosition(QSlider::TicksBothSides);
     detectionLayout->addWidget(m_sensitivitySlider, 3, 1);
 
-    QLabel *missedFacesLabel = new QLabel(i18n("more missed faces"), this);
+    QLabel* missedFacesLabel = new QLabel(i18n("more missed faces"), this);
     detectionLayout->addWidget(missedFacesLabel, 3, 2);
 
     // Make the detection settings box as small as possible
@@ -98,11 +98,11 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
     // The recognition database box //
     //////////////////////////////////
 
-    QGroupBox *recognitionBox = new QGroupBox(i18n("Face recognition"), this);
+    QGroupBox* recognitionBox = new QGroupBox(i18n("Face recognition"), this);
     mainLayout->addWidget(recognitionBox);
 
     // The detection settings layout
-    QGridLayout *recognitionLayout = new QGridLayout(recognitionBox);
+    QGridLayout* recognitionLayout = new QGridLayout(recognitionBox);
 
     // List of all database entries
     m_databaseEntries = new QTreeWidget();
@@ -128,11 +128,11 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget *parent) : QWidget(pare
     connect(m_deleteSelectedButton, SIGNAL(clicked()), this, SLOT(slotDeleteSelected()));
 
     // The "Erase database" button
-    QPushButton *eraseButton = new QPushButton(i18n("Erase database"));
+    QPushButton* eraseButton = new QPushButton(i18n("Erase database"));
     recognitionLayout->addWidget(eraseButton, 2, 1);
     connect(eraseButton, SIGNAL(clicked()), this, SLOT(slotEraseDatabase()));
 
-    QLabel *cautionLabel = new QLabel(i18n(
+    QLabel* cautionLabel = new QLabel(i18n(
             "<b>Caution:</b> Changes to category names or category deletions are not "
             "adopted by the recognition database until the changes are saved!"), this);
     mainLayout->addWidget(cautionLabel);
@@ -182,12 +182,12 @@ void Settings::FaceManagementPage::loadDatabase()
     while (tagList.hasNext()) {
         tagList.next();
 
-        QTreeWidgetItem *category = new QTreeWidgetItem();
+        QTreeWidgetItem* category = new QTreeWidgetItem();
         category->setText(0, tagList.key());
         category->setFlags(Qt::ItemIsEnabled);
 
         for (int i = 0; i < tagList.value().size(); ++i) {
-            QTreeWidgetItem *tag = new QTreeWidgetItem();
+            QTreeWidgetItem* tag = new QTreeWidgetItem();
             tag->setText(0, tagList.value().at(i));
             tag->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
             category->addChild(tag);
@@ -208,7 +208,7 @@ void Settings::FaceManagementPage::slotDeleteSelected()
     }
 
     QList<QPair<QString, QString>> tagsToDelete;
-    QList<QTreeWidgetItem *> selectedItems = m_databaseEntries->selectedItems();
+    QList<QTreeWidgetItem*> selectedItems = m_databaseEntries->selectedItems();
     for (int i = 0; i < selectedItems.size(); ++i) {
         tagsToDelete << QPair<QString, QString>(
             selectedItems.at(i)->parent()->text(0),
@@ -238,7 +238,7 @@ void Settings::FaceManagementPage::slotEraseDatabase()
     clearDatabaseEntries();
 }
 
-void Settings::FaceManagementPage::slotPageChange(KPageWidgetItem *page)
+void Settings::FaceManagementPage::slotPageChange(KPageWidgetItem* page)
 {
     if (page->widget() == this) {
         loadDatabase();

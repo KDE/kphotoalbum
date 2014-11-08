@@ -30,12 +30,18 @@ class QImage;
 
 namespace Settings
 {
-    class SettingsData;
+
+// Local classes
+class SettingsData;
+
 }
 
 namespace KFaceIface
 {
-    class FaceDetector;
+
+// KFaceIface classes
+class FaceDetector;
+
 }
 
 namespace FaceManagement
@@ -46,23 +52,23 @@ class Detector : public QObject
     Q_OBJECT
 
 public:
-    static FaceManagement::Detector * instance();
+    static FaceManagement::Detector* instance();
     Detector();
     ~Detector();
-    QList<QRect> detectFaces(QImage &image);
+    QList<QRect> detectFaces(QImage& image);
 
-private: /* variables */
+private: // Variables
     static FaceManagement::Detector *m_instance;
     Settings::SettingsData *m_settingsData;
     QVariantMap m_params;
     KFaceIface::FaceDetector *m_faceDetector;
 
-private: /* functions */
+private: // Functions
     void updateSettings();
 };
 
 }
 
-#endif /* DETECTOR_H */
+#endif // DETECTOR_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

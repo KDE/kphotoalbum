@@ -43,9 +43,15 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDia
 
     QHBoxLayout* layout = new QHBoxLayout(this);
 
+    QString buttonStyle = QString::fromUtf8(
+            "QToolButton { margin: 0px; padding: 4px; border-radius: 6px; background-color: rgba( 255, 255, 255, 200); }"
+            "QToolButton:pressed { background-color: rgba( 255, 255, 255, 100); }"
+            "QToolButton:hover { border: 1px solid #ccc; }"
+            );
+
     QToolButton* acceptButton = new QToolButton;
     acceptButton->setIcon(KIcon(QString::fromUtf8("dialog-ok-apply")));
-    acceptButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
+    acceptButton->setStyleSheet( buttonStyle );
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(acceptTag()));
     layout->addWidget(acceptButton);
 
@@ -55,8 +61,8 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDia
     layout->addWidget(isThisLabel);
 
     QToolButton* declineButton = new QToolButton;
-    declineButton->setIcon(KIcon(QString::fromUtf8("application-exit")));
-    declineButton->setStyleSheet(QString::fromUtf8("QToolButton { border-style: none; }"));
+    declineButton->setIcon(KIcon(QString::fromUtf8("dialog-close")));
+    declineButton->setStyleSheet( buttonStyle );
     connect(declineButton, SIGNAL(clicked()), this, SLOT(declineTag()));
     layout->addWidget(declineButton);
 

@@ -420,17 +420,17 @@ QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
     QString prefix
 )
 {
+    QString actionText;
     if (! prefix.isEmpty()) {
-        prefix = QString::fromUtf8("%1 ").arg(prefix);
+        actionText = i18nc("%1 is a prefix like 'Associate with', "
+                           "%2 is the tag name and %3 is the tag's category",
+                           "%1 %2 (%3)").arg(prefix, tag.second, localizedCategory(tag.first));
+    } else {
+        actionText = i18nc("%1 is the tag name and %2 is the tag's category",
+                           "%1 (%2)").arg(tag.second, localizedCategory(tag.first));
     }
 
-    QAction* action = new QAction(
-        QString::fromUtf8("%1%2 (%3)").arg(prefix,
-                                           tag.second,
-                                           localizedCategory(tag.first)),
-        this
-    );
-
+    QAction* action = new QAction(actionText, this);
     QStringList data;
     data << tag.first << tag.second;
     action->setData(data);

@@ -54,9 +54,6 @@ Settings::CategoryItem::CategoryItem(
     m_thumbnailSizeOrig(thumbnailSize)
 {
     setFlags(flags() | Qt::ItemIsEditable);
-
-    m_cToLocale = DB::Category::standardCategories();
-    m_localeToC = DB::Category::localizedCategoriesToC();
 }
 
 void Settings::CategoryItem::setLabel(const QString &label)
@@ -75,14 +72,8 @@ void Settings::CategoryItem::submit(DB::MemberMap *memberMap)
     } else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_categoryOrig);
 
-        if (m_category != m_categoryOrig) {
-            if (m_localeToC.keys().contains(m_category)) {
-                if (m_localeToC[m_category] != m_categoryOrig) {
-                    renameCategory(memberMap);
-                }
-            } else {
-                renameCategory(memberMap);
-            }
+        if (DB::Category::unLocalizedCategoryName(m_category) != m_categoryOrig) {
+            renameCategory(memberMap);
         }
 
         if (m_positionable != m_positionableOrig) {
@@ -179,10 +170,7 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap *memberMap)
         return;
     }
 
-    QString categoryName = m_category;
-    if (m_localeToC.keys().contains(categoryName)) {
-        categoryName = m_localeToC[categoryName];
-    }
+    QString categoryName = DB::Category::unLocalizedCategoryName(m_category);
 
     QDir dir(
         QString::fromLatin1("%1/CategoryImages").arg(

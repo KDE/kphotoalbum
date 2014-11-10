@@ -80,8 +80,6 @@ private:
     DB::Category::ViewType m_typeOrig;
     int m_thumbnailSize;
     int m_thumbnailSizeOrig;
-    QMap<QString, QString> m_cToLocale;
-    QMap<QString, QString> m_localeToC;
 };
 
 }

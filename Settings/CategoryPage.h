@@ -105,8 +105,6 @@ private: // Variables
     Settings::CategoryItem* m_currentCategory;
     QList<CategoryItem*> m_deletedCategories;
     UntaggedGroupBox* m_untaggedBox;
-    QMap<QString, QString> m_standardCategories;
-    QMap<QString, QString> m_localizedCategoriesToC;
     QString m_categoryNameBeforeEdit;
     bool m_editorOpen;
 #ifdef HAVE_KFACE

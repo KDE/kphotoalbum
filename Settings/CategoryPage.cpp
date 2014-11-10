@@ -159,8 +159,6 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     mainLayout->addWidget(m_untaggedBox);
 
     m_currentCategory = 0;
-    m_standardCategories = DB::Category::standardCategories();
-    m_localizedCategoriesToC = DB::Category::localizedCategoriesToC();
 
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = false;
@@ -249,12 +247,9 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
             continue;
         }
 
-        QString cCategory = newCategoryName;
-        if (m_localizedCategoriesToC.contains(newCategoryName)) {
-            cCategory = m_localizedCategoriesToC[newCategoryName];
-        }
+        if (newCategoryName == cat->text()
+            || DB::Category::unLocalizedCategoryName(newCategoryName) == cat->text()) {
 
-        if (newCategoryName == cat->text() || cCategory == cat->text()) {
             resetCategory(item);
             KMessageBox::sorry(this,
                                i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
@@ -268,14 +263,14 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     }
 
     // Let's see if we are about to rename a localized category to it's C locale version
-    if (m_localizedCategoriesToC.contains(m_currentCategory->text())) {
+    if (DB::Category::localizedCategoriesToC().contains(m_currentCategory->text())) {
         // This is needed for "Persons" and "Locations"
         QString alternativeCategoryName;
-        if (m_standardCategories.contains(newCategoryName)) {
-            alternativeCategoryName = m_standardCategories[newCategoryName];
+        if (DB::Category::standardCategories().contains(newCategoryName)) {
+            alternativeCategoryName = DB::Category::unLocalizedCategoryName(newCategoryName);
         }
 
-        if (newCategoryName == m_localizedCategoriesToC[m_currentCategory->text()]
+        if (newCategoryName == DB::Category::localizedCategoriesToC()[m_currentCategory->text()]
             || m_currentCategory->text() == alternativeCategoryName) {
 
             resetCategory(item);
@@ -291,17 +286,17 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     }
 
     // Check if the entered name has a C locale version
-    if (m_standardCategories.contains(newCategoryName)) {
+    if (DB::Category::standardCategories().contains(newCategoryName)) {
 
         // Let's see if we rename the category to the C locale version of another existing one
-        if (m_categoriesListWidget->findItems(m_standardCategories[newCategoryName], Qt::MatchExactly).size() > 0) {
+        if (m_categoriesListWidget->findItems(DB::Category::standardCategories()[newCategoryName], Qt::MatchExactly).size() > 0) {
             resetCategory(item);
             KMessageBox::sorry(this,
                                i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
                                     "<p>\"%2\" is a standard category which comes with a localized "
                                     "name. The localized name for \"%2\" is \"%3\" and this "
                                     "category already exists.</p>",
-                                    m_currentCategory->text(), newCategoryName, m_standardCategories[newCategoryName]),
+                                    m_currentCategory->text(), newCategoryName, DB::Category::standardCategories()[newCategoryName]),
                                i18n("Invalid category name"));
             return;
         }
@@ -311,9 +306,9 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
                                  i18n("<p>\"%1\" is a standard category which comes with a "
                                       "localized name. The localized name for \"%1\" is \"%2\", "
                                       "this name will be used instead.</p>",
-                                      newCategoryName, m_standardCategories[newCategoryName]),
+                                      newCategoryName, DB::Category::standardCategories()[newCategoryName]),
                                  i18n("Localized category name entered"));
-        newCategoryName = m_standardCategories[newCategoryName];
+        newCategoryName = DB::Category::standardCategories()[newCategoryName];
     }
 
     m_categoriesListWidget->blockSignals(true);

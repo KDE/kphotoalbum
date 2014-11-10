@@ -240,28 +240,6 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
         return;
     }
 
-    // Let's see if we have any pending name changes that would cause collisions.
-    for (int i = 0; i < m_categoriesListWidget->count(); i++) {
-        Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
-        if (cat == m_currentCategory) {
-            continue;
-        }
-
-        if (newCategoryName == cat->text()
-            || DB::Category::unLocalizedCategoryName(newCategoryName) == cat->text()) {
-
-            resetCategory(item);
-            KMessageBox::sorry(this,
-                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
-                                    "<p>There's a pending rename action on the category \"%2\". "
-                                    "Please save this change first before renaming \"%1\" to \"%2\""
-                                    "</p>",
-                                    m_currentCategory->text(), newCategoryName),
-                               i18n("Unsaved pending renaming action"));
-            return;
-        }
-    }
-
     // Let's see if we are about to rename a localized category to it's C locale version
     if (DB::Category::localizedCategoriesToC().contains(m_currentCategory->text())) {
         // This is needed for "Persons" and "Locations"
@@ -309,6 +287,27 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
                                       newCategoryName, DB::Category::standardCategories()[newCategoryName]),
                                  i18n("Localized category name entered"));
         newCategoryName = DB::Category::standardCategories()[newCategoryName];
+    }
+
+    // Let's see if we have any pending name changes that would cause collisions.
+    for (int i = 0; i < m_categoriesListWidget->count(); i++) {
+        Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
+        if (cat == m_currentCategory) {
+            continue;
+        }
+
+        if (newCategoryName == cat->text()
+            || DB::Category::unLocalizedCategoryName(newCategoryName) == cat->text()) {
+
+            resetCategory(item);
+            KMessageBox::sorry(this,
+                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
+                                    "<p>There's a pending rename action on the category \"%2\". "
+                                    "Please save this change first.</p>",
+                                    m_currentCategory->text(), newCategoryName),
+                               i18n("Unsaved pending renaming action"));
+            return;
+        }
     }
 
     m_categoriesListWidget->blockSignals(true);

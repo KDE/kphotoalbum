@@ -29,6 +29,7 @@
 #include <QPixmap>
 #include <KIcon>
 #include <Utilities/Util.h>
+#include <QDebug>
 
 using Utilities::StringSet;
 
@@ -153,13 +154,9 @@ QMap<QString,QString> DB::Category::standardCategories()
 
 QMap<QString,QString> DB::Category::localizedCategoriesToC()
 {
-    static QMap<QString,QString> cToLocale;
-    if (cToLocale.isEmpty()) {
-        cToLocale = standardCategories();
-    }
-
     static QMap<QString,QString> localeToC;
     if (localeToC.isEmpty()) {
+        QMap<QString,QString> cToLocale = standardCategories();
         QMap<QString, QString>::iterator i;
         for (i = cToLocale.begin(); i != cToLocale.end(); ++i) {
             // "Persons" and "Locations" just exist for compatibility with older versions of KPA
@@ -170,6 +167,24 @@ QMap<QString,QString> DB::Category::localizedCategoriesToC()
     }
 
     return localeToC;
+}
+
+QString DB::Category::localizedCategoryName(QString category)
+{
+    if (standardCategories().contains(category)) {
+        return standardCategories()[category];
+    } else {
+        return category;
+    }
+}
+
+QString DB::Category::unLocalizedCategoryName(QString category)
+{
+    if (localizedCategoriesToC().contains(category)) {
+        return localizedCategoriesToC()[category];
+    } else {
+        return category;
+    }
 }
 
 QString DB::Category::defaultIconName() const

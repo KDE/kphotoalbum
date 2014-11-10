@@ -31,16 +31,13 @@
 #include "MainWindow/Window.h"
 #include "CategoryItem.h"
 
-Settings::CategoryItem::CategoryItem(
-    const QString &category,
-    const QString &text,
-    const QString &icon,
-    DB::Category::ViewType type,
-    int thumbnailSize,
-    QListWidget *parent,
-    bool positionable
-) :
-    QListWidgetItem(text, parent),
+Settings::CategoryItem::CategoryItem(const QString &category,
+                                     const QString &text,
+                                     const QString &icon,
+                                     DB::Category::ViewType type,
+                                     int thumbnailSize,
+                                     QListWidget *parent,
+                                     bool positionable) : QListWidgetItem(text, parent),
     m_categoryOrig(category),
     m_iconOrig(icon),
     m_positionable(positionable),
@@ -56,19 +53,21 @@ Settings::CategoryItem::CategoryItem(
     setFlags(flags() | Qt::ItemIsEditable);
 }
 
-void Settings::CategoryItem::setLabel(const QString &label)
+void Settings::CategoryItem::setLabel(const QString& label)
 {
     setText(label);
     m_category = label;
 }
 
-void Settings::CategoryItem::submit(DB::MemberMap *memberMap)
+void Settings::CategoryItem::submit(DB::MemberMap* memberMap)
 {
     if (m_categoryOrig.isNull()) {
         // New Item
-        DB::ImageDB::instance()->categoryCollection()->addCategory(
-            m_category, m_icon, m_type, m_thumbnailSize, true
-        );
+        DB::ImageDB::instance()->categoryCollection()->addCategory(m_category,
+                                                                   m_icon,
+                                                                   m_type,
+                                                                   m_thumbnailSize,
+                                                                   true);
     } else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_categoryOrig);
 
@@ -138,7 +137,7 @@ DB::Category::ViewType Settings::CategoryItem::viewType() const
     return m_type;
 }
 
-void Settings::CategoryItem::setIcon(const QString &icon)
+void Settings::CategoryItem::setIcon(const QString& icon)
 {
     m_icon = icon;
 }
@@ -153,45 +152,37 @@ void Settings::CategoryItem::setViewType(DB::Category::ViewType type)
     m_type = type;
 }
 
-void Settings::CategoryItem::renameCategory(DB::MemberMap *memberMap)
+void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
 {
-    QString txt = i18n(
-        "<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after renaming "
-        "categories; otherwise all the filenames of the category thumbnails will be wrong, and "
-        "thus lost.</p>"
-        "<p>So either press Cancel now (and it will not be renamed), or press Continue, and as "
-        "your next step save the database.</p>"
-    );
+    if (KMessageBox::warningContinueCancel(
+        ::MainWindow::Window::theMainWindow(),
+        i18n("<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
+             "renaming categories; otherwise all the filenames of the category thumbnails will be "
+             "wrong, and thus lost.</p>"
+             "<p>So either press Cancel now (and it will not be renamed), or press Continue, and "
+             "as your next step save the database.</p>")
+        ) == KMessageBox::Cancel) {
 
-    if (
-        KMessageBox::warningContinueCancel(::MainWindow::Window::theMainWindow(), txt)
-        == KMessageBox::Cancel
-    ) {
         return;
     }
 
     QString categoryName = DB::Category::unLocalizedCategoryName(m_category);
 
-    QDir dir(
-        QString::fromLatin1("%1/CategoryImages").arg(
-            Settings::SettingsData::instance()->imageDirectory()
-        )
-    );
+    QDir dir(QString::fromLatin1("%1/CategoryImages").arg(
+            Settings::SettingsData::instance()->imageDirectory()));
 
-    const QStringList files = dir.entryList(
-        QStringList() << QString::fromLatin1("%1*").arg(m_categoryOrig)
-    );
+    const QStringList files = dir.entryList(QStringList()
+                                            << QString::fromLatin1("%1*").arg(m_categoryOrig));
 
-    for (
-        QStringList::ConstIterator fileNameIt = files.begin();
-        fileNameIt != files.end();
-        ++fileNameIt
-    ) {
+    for (QStringList::ConstIterator fileNameIt = files.begin();
+         fileNameIt != files.end();
+         ++fileNameIt) {
+
         QString newName = categoryName + (*fileNameIt).mid(m_categoryOrig.length());
         dir.rename(*fileNameIt, newName);
     }
 
-    Settings::SettingsData *settings = Settings::SettingsData::instance();
+    Settings::SettingsData* settings = Settings::SettingsData::instance();
     DB::ImageSearchInfo info = settings->currentLock();
     const bool exclude = settings->lockExcludes();
 
@@ -201,8 +192,10 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap *memberMap)
     DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, categoryName);
     memberMap->renameCategory(m_categoryOrig, categoryName);
 
+#ifdef HAVE_KFACE
     // Also tell the face management page to update the recognition database
     emit newCategoryNameSaved(m_categoryOrig, m_category);
+#endif
 
     m_categoryOrig = categoryName;
 }

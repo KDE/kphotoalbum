@@ -24,6 +24,7 @@
 
 // Local includes
 #include "DB/Category.h"
+#include "config-kpa-kface.h"
 
 namespace DB {
 
@@ -41,34 +42,36 @@ class CategoryItem : public QObject, public QListWidgetItem
 
 public:
     CategoryItem(
-        const QString &category,
-        const QString &text,
-        const QString &icon,
+        const QString& category,
+        const QString& text,
+        const QString& icon,
         DB::Category::ViewType type,
         int thumbnailSize,
-        QListWidget *parent,
+        QListWidget* parent,
         bool positionable = false
     );
-    void setLabel(const QString &label);
+    void setLabel(const QString& label);
     void setPositionable(bool positionable);
-    void submit(DB::MemberMap *memberMap);
+    void submit(DB::MemberMap* memberMap);
     void removeFromDatabase();
-    override QString text() const;
     bool positionable() const;
-    override QString icon() const;
     int thumbnailSize() const;
     DB::Category::ViewType viewType() const;
-    override void setIcon(const QString &icon);
     void setThumbnailSize(int size);
     void setViewType(DB::Category::ViewType type);
+    override QString text() const;
+    override QString icon() const;
+    override void setIcon(const QString& icon);
 
+#ifdef HAVE_KFACE
 signals:
     void newCategoryNameSaved(QString oldName, QString newName);
+#endif
 
 protected:
-    void renameCategory(DB::MemberMap *memberMap);
+    void renameCategory(DB::MemberMap* memberMap);
 
-private:
+private: // Variables
     QString m_categoryOrig;
     QString m_iconOrig;
     bool m_positionable;
@@ -84,6 +87,6 @@ private:
 
 }
 
-#endif /* SETTINGS_CATEGORYITEM_H */
+#endif // SETTINGS_CATEGORYITEM_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -106,6 +106,10 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
     if ( !category.isEmpty() ) {
         opt->setUntaggedCategory( category );
         opt->setUntaggedTag( _tag->currentText() );
+    } else {
+        opt->setUntaggedCategory(QString());
+        opt->setUntaggedTag(QString());
     }
 }
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

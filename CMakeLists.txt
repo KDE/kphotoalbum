@@ -91,18 +91,11 @@ endif(MARBLE_FOUND)
 # - try to look for it using the cmake module
 # - if not found, try to look for it using pkg-config
 find_package(Kface 3.5.0 CONFIG)
-set(KFACE_FOUND ${Kface_FOUND})
-if(KFACE_FOUND)
-    set(KFACE_LIBRARIES ${Kface_LIBRARIES})
-    INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
-else()
-    unset(KFACE_FOUND)
-    pkg_check_modules(KFACE libkface>=3.5.0)
-    if(KFACE_FOUND)
-        INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
-    endif()
-endif(KFACE_FOUND)
-macro_bool_to_01(KFACE_FOUND HAVE_KFACE)
+macro_bool_to_01(Kface_FOUND HAVE_KFACE)
+if(Kface_FOUND)
+	message(STATUS "Found KFace version ${Kface_VERSION}")
+	INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
+endif(Kface_FOUND)
 
 add_custom_target(
     UpdateVersion ALL
@@ -384,14 +377,14 @@ set(libRemoteControl_SRCS
 )
 
 set(libFaceManagement_SRCS)
-if(KFACE_FOUND)
+if(Kface_FOUND)
     set(libFaceManagement_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ProposedFaceDialog.cpp
     )
-endif(KFACE_FOUND)
+endif(Kface_FOUND)
 
 add_subdirectory(images)
 add_subdirectory(icons)
@@ -461,9 +454,9 @@ if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES})
 endif(MARBLE_FOUND)
 
-if(KFACE_FOUND)
+if(Kface_FOUND)
 	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
-endif(KFACE_FOUND)
+endif(Kface_FOUND)
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 

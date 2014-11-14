@@ -87,14 +87,13 @@ if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
-# newer Kface versions ship a cmake module, but older don't, so:
-# - try to look for it using the cmake module
-# - if not found, try to look for it using pkg-config
+# Kface 3.5.0 ships with a usable kface-config.cmake
+# and face detection/recognition support in KPA depends on KFace >= 3.5.0, anyway.
 find_package(Kface 3.5.0 CONFIG)
 macro_bool_to_01(Kface_FOUND HAVE_KFACE)
 if(Kface_FOUND)
-	message(STATUS "Found KFace version ${Kface_VERSION}")
-	INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
+    message(STATUS "Found KFace version ${Kface_VERSION}")
+    INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
 endif(Kface_FOUND)
 
 add_custom_target(

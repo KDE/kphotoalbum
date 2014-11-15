@@ -89,11 +89,15 @@ endif(MARBLE_FOUND)
 
 # Kface 3.5.0 ships with a usable kface-config.cmake
 # and face detection/recognition support in KPA depends on KFace >= 3.5.0, anyway.
-find_package(Kface 3.5.0 CONFIG)
+find_package(Kface 3.5.0 QUIET CONFIG)
 macro_bool_to_01(Kface_FOUND HAVE_KFACE)
 if(Kface_FOUND)
-    message(STATUS "Found KFace version ${Kface_VERSION}")
+    message(STATUS "Found KFace version ${Kface_VERSION} (optional)")
+    message(STATUS "  Face detection and recognition features will be built.")
     INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
+else()
+    message(STATUS "Did not find KFace >= 3.5.0 (optional)")
+    message(STATUS "  Face detection and recognition features won't be built.")
 endif(Kface_FOUND)
 
 add_custom_target(

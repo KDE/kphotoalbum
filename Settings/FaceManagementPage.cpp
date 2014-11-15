@@ -137,8 +137,6 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget* parent) : QWidget(pare
             "adopted by the recognition database until the changes are saved!"), this);
     mainLayout->addWidget(cautionLabel);
     cautionLabel->setSizePolicy(detectionPolicy);
-
-    m_standardCategories = DB::Category::standardCategories();
 }
 
 Settings::FaceManagementPage::~FaceManagementPage()
@@ -186,7 +184,7 @@ void Settings::FaceManagementPage::loadDatabase()
         tagList.next();
 
         QTreeWidgetItem* category = new QTreeWidgetItem();
-        category->setText(0, localizedCategoryName(tagList.key()));
+        category->setText(0, DB::Category::localizedCategoryName(tagList.key()));
         category->setFlags(Qt::ItemIsEnabled);
 
         for (int i = 0; i < tagList.value().size(); ++i) {
@@ -201,15 +199,6 @@ void Settings::FaceManagementPage::loadDatabase()
     }
 
     m_databaseEntries->setEnabled(true);
-}
-
-QString Settings::FaceManagementPage::localizedCategoryName(QString category)
-{
-    if (m_standardCategories.contains(category)) {
-        return m_standardCategories[category];
-    } else {
-        return category;
-    }
 }
 
 void Settings::FaceManagementPage::slotDeleteSelected()

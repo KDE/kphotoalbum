@@ -69,7 +69,6 @@ private: // Functions
     void loadDatabase();
     void setSelection(bool state);
     void deleteIdentities(QList<KFaceIface::Identity> identitiesToDelete);
-    QString localizedCategoryName(QString category);
 
 private: // Variables
     QSlider* m_speedSlider;
@@ -77,7 +76,6 @@ private: // Variables
     QTreeWidget* m_databaseEntries;
     QPushButton* m_deleteSelectedButton;
     FaceManagement::Recognizer* m_recognizer;
-    QMap<QString, QString> m_standardCategories;
 };
 
 }

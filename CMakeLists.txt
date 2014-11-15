@@ -93,7 +93,7 @@ find_package(Kface 3.5.0 CONFIG)
 macro_bool_to_01(Kface_FOUND HAVE_KFACE)
 if(Kface_FOUND)
     message(STATUS "Found KFace version ${Kface_VERSION}")
-    INCLUDE_DIRECTORIES(${KFACE_INCLUDE_DIR})
+    INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
 endif(Kface_FOUND)
 
 add_custom_target(

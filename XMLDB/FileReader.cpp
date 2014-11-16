@@ -280,11 +280,19 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                         continue;
                     _db->_members.addMemberToGroup( category, group, member );
                 }
+
+                if(members.size() == 0) {
+                    // Groups are stored even if they are empty, so we also have to read them.
+                    // With no members, the above for loop will not be executed.
+                    _db->_members.addGroup(category, group);
+                }
             }
+
             reader->readEndElement();
         }
     }
 }
+
 void XMLDB::FileReader::checkIfImagesAreSorted()
 {
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )

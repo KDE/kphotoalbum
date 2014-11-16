@@ -47,7 +47,7 @@
 //
 //
 //
-// (sorry for the noice, but it is really important :-)
+// (sorry for the noise, but it is really important :-)
 
 using Utilities::StringSet;
 
@@ -129,16 +129,25 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
             writer.writeAttribute( QString::fromLatin1( "positionable" ), QString::number(category->positionable()) );
 
             if ( shouldSaveCategory( name ) ) {
+                /*
+                FIXME (l3u):
+                Correct me if I'm wrong, but we don't need this, as the tags used as groups are
+                added to the respective category anyway when they're created, so there's no need to
+                re-add them here. Apart from this, adding an empty group (one without members) does
+                add an empty tag ("") doing so.
+                */
+                /*
                 QStringList list =
                         Utilities::mergeListsUniqly(category->items(),
                                                     _db->_members.groups(name));
+                */
 
-                Q_FOREACH(const QString &categoryName, list) {
+                Q_FOREACH(const QString &tagName, category->items()) {
                     ElementWriter dummy( writer, QString::fromLatin1("value") );
-                    writer.writeAttribute( QString::fromLatin1("value"), categoryName );
+                    writer.writeAttribute( QString::fromLatin1("value"), tagName );
                     writer.writeAttribute( QString::fromLatin1( "id" ),
-                                           QString::number(static_cast<XMLCategory*>( category.data() )->idForName( categoryName ) ));
-                    QDate birthDate = category->birthDate(categoryName);
+                                           QString::number(static_cast<XMLCategory*>( category.data() )->idForName( tagName ) ));
+                    QDate birthDate = category->birthDate(tagName);
                     if (!birthDate.isNull())
                         writer.writeAttribute( QString::fromUtf8("birthDate"), birthDate.toString(Qt::ISODate) );
                 }
@@ -184,11 +193,25 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
          memberMapIt != _db->_members.memberMap().constEnd(); ++memberMapIt )
     {
         const QString categoryName = memberMapIt.key();
+
+        // FIXME (l3u): This can happen when an empty sub-category (group) is present.
+        //              Would be fine to fix the reason why this happens in the first place.
+        if (categoryName == QString()) {
+            continue;
+        }
+
         if ( !shouldSaveCategory( categoryName ) )
             continue;
 
         QMap<QString,StringSet> groupMap = memberMapIt.value();
         for( QMap<QString,StringSet>::ConstIterator groupMapIt= groupMap.constBegin(); groupMapIt != groupMap.constEnd(); ++groupMapIt ) {
+
+            // FIXME (l3u): This can happen when an empty sub-category (group) is present.
+            //              Would be fine to fix the reason why this happens in the first place.
+            if (groupMapIt.key() == QString()) {
+                continue;
+            }
+
             StringSet members = groupMapIt.value();
             if ( useCompressedFileFormat() ) {
                 ElementWriter dummy( writer, QString::fromLatin1( "member" ) );
@@ -208,6 +231,14 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                     writer.writeAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
                     writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                     writer.writeAttribute( QString::fromLatin1( "member" ), member );
+                }
+
+                // Add an entry even if the group is empty
+                // (this is not necessary for the compressed format)
+                if (members.size() == 0) {
+                    ElementWriter dummy(writer, QString::fromLatin1("member"));
+                    writer.writeAttribute(QString::fromLatin1("category"), memberMapIt.key());
+                    writer.writeAttribute(QString::fromLatin1("group-name"), groupMapIt.key());
                 }
             }
         }

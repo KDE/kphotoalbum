@@ -333,11 +333,8 @@ void Settings::SubCategoriesPage::slotAddGroup()
     // Let's see if we already have this group
     if (m_memberMap.groups(m_currentCategory).contains(newSubCategory)) {
         KMessageBox::sorry(this,
-                           i18n("The new group \"%1\" can't be added: this group already exists "
-                                "in category \"%2\"",
-                                newSubCategory,
-                                m_currentCategory),
-                           i18n("New Group"));
+                           i18n("The group \"%1\" already exists.", newSubCategory),
+                           i18n("Can't Add Group"));
         return;
     }
 

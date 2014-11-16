@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,60 +15,85 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef SUBCATEGORIESPAGE_H
 #define SUBCATEGORIESPAGE_H
+
+// Qt includes
 #include <QWidget>
-#include <DB/MemberMap.h>
-class QListWidgetItem;
-class QPushButton;
+
+// Local includes
+#include "DB/MemberMap.h"
+#include "DB/ImageDB.h"
+
+// Qt classes
 class QListWidget;
-class QComboBox;
+class QTreeWidget;
+class QTreeWidgetItem;
+class QLabel;
+class QListWidgetItem;
 
 namespace Settings
 {
 
-class SubCategoriesPage :public QWidget
+class SubCategoriesPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SubCategoriesPage( QWidget* parent );
+    explicit SubCategoriesPage(QWidget* parent);
     void saveSettings();
     void loadSettings();
     DB::MemberMap* memberMap();
+    QString getCategory(QTreeWidgetItem* currentItem);
+    void processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem);
 
 public slots:
+    void categoryRenamed(const QString& oldName, const QString& newName);
     void slotPageChange();
-    void categoryRenamed( const QString& oldName, const QString& newName );
-
 
 private slots:
-    void slotCategoryChanged( const QString& );
-    void slotGroupSelected( QListWidgetItem* );
     void slotAddGroup();
-    void slotDelGroup();
+    void slotDeleteGroup();
     void slotRenameGroup();
+    void showTreeContextMenu(QPoint point);
+    void showMembersContextMenu(QPoint point);
+    void slotGroupSelected(QTreeWidgetItem* item);
+    void checkItemSelection(QListWidgetItem*);
+    void slotRenameMember();
+    void slotDeleteMember();
 
-private:
-    void slotCategoryChanged( const QString&, bool saveGroups );
+private: // Functions
+    void categoryChanged(const QString& name);
     void saveOldGroup();
-    void selectMembers( const QString& );
-    void setButtonStates();
+    void selectMembers(const QString& group);
+    void renameAllSubCategories(QTreeWidgetItem* categoryItem, QString oldName, QString newName);
+    void updateCategoryTree();
+    void addSubCategories(QTreeWidgetItem* superCategory,
+                          QMap<QString, QStringList>& membersForGroup,
+                          QStringList& allGroups);
+    void addNewSubItem(QString& name, QTreeWidgetItem* parentItem);
+    QTreeWidgetItem* findCategoryItem(QString category);
 
-private:
-    QComboBox* _category;
-    QListWidget* _groups;
-    QListWidget* _members;
-    QPushButton* _rename;
-    QPushButton* _del;
-    DB::MemberMap _memberMap;
-    QString _currentCategory;
-    QString _currentGroup;
+private: // Variables
+    DB::MemberMap m_memberMap;
+    QListWidget* m_membersListWidget;
+    QTreeWidget* m_categoryTreeWidget;
+    QString m_currentCategory;
+    QString m_currentGroup;
+    QString m_currentSubCategory;
+    QString m_currentSuperCategory;
+    QString m_selectGroupToAddTags;
+    QAction* m_newGroupAction;
+    QAction* m_renameAction;
+    QAction* m_deleteAction;
+    QAction* m_deleteMemberAction;
+    QAction* m_renameMemberAction;
+    QLabel* m_tagsInGroupLabel;
 };
 
 }
 
-
-#endif /* SUBCATEGORIESPAGE_H */
+#endif // SUBCATEGORIESPAGE_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

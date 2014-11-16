@@ -128,6 +128,7 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryTree.cpp
 )
 
 set(libxmldb_SRCS

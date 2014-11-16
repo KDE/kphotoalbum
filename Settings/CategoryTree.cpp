@@ -50,44 +50,39 @@ void Settings::CategoryTree::mousePressEvent(QMouseEvent* event)
     QTreeWidget::mousePressEvent(event);
 }
 
-bool Settings::CategoryTree::checkTarget(QTreeWidgetItem* target)
-{
-    if (target == nullptr) {
-        return false;
-    }
-
-    if (target->parent() == nullptr) {
-        if (DB::Category::unLocalizedCategoryName(target->text(0)) != m_draggedItemCategory) {
-            return false;
-        }
-    } else {
-        if (m_subCategoriesPage->getCategory(m_draggedItem) != m_draggedItemCategory) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 void Settings::CategoryTree::dragMoveEvent(QDragMoveEvent* event)
 {
     QTreeWidgetItem* target = itemAt(event->pos());
-    if (checkTarget(target)) {
-        event->setDropAction(Qt::MoveAction);
-        QTreeWidget::dragMoveEvent(event);
-    } else {
+
+    if (target == nullptr) {
+        // We don't have a target, so we don't allow a drop.
         event->setDropAction(Qt::IgnoreAction);
+    } else if (target->parent() == nullptr) {
+        // The target is a category. It has to be the same one as dragged group's category,
+        if (DB::Category::unLocalizedCategoryName(target->text(0)) != m_draggedItemCategory) {
+            event->setDropAction(Qt::IgnoreAction);
+        } else {
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+        }
+    } else {
+        // The target is another group. It has to be in the same category as the dragged group.
+        QTreeWidgetItem* parent = target->parent();;
+        while (parent->parent() != nullptr) {
+            parent = parent->parent();
+        }
+        if (DB::Category::unLocalizedCategoryName(parent->text(0)) != m_draggedItemCategory) {
+            event->setDropAction(Qt::IgnoreAction);
+        } else {
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+        }
     }
 }
 
 void Settings::CategoryTree::dropEvent(QDropEvent* event)
 {
-    QTreeWidgetItem* target = itemAt(event->pos());
-    if (! checkTarget(target)) {
-        return;
-    }
-
-    m_subCategoriesPage->processDrop(m_draggedItem, target);
+    m_subCategoriesPage->processDrop(m_draggedItem, itemAt(event->pos()));
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

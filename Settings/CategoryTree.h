@@ -41,7 +41,6 @@ private: // Functions
     void mousePressEvent(QMouseEvent* event);
     void dragMoveEvent(QDragMoveEvent* event);
     void dropEvent(QDropEvent* event);
-    bool checkTarget(QTreeWidgetItem* target);
 
 private: // Variables
     SubCategoriesPage* m_subCategoriesPage;

@@ -43,7 +43,7 @@ Settings::SubCategoriesPage::SubCategoriesPage(QWidget* parent) : QWidget(parent
     QGridLayout* layout = new QGridLayout(this);
 
     // The category and group tree
-    layout->addWidget(new QLabel(i18n("Categories and category groups:")), 0, 0);
+    layout->addWidget(new QLabel(i18n("Categories and groups:")), 0, 0);
     m_categoryTreeWidget = new CategoryTree(this);
     m_categoryTreeWidget->header()->hide();
     m_categoryTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -67,7 +67,7 @@ Settings::SubCategoriesPage::SubCategoriesPage(QWidget* parent) : QWidget(parent
             this, SLOT(showMembersContextMenu(QPoint)));
 
     // Context menu actions
-    m_newGroupAction = new QAction(i18n("Add Super Category..."), this);
+    m_newGroupAction = new QAction(i18n("Add group ..."), this);
     connect(m_newGroupAction, SIGNAL(triggered()), this, SLOT(slotAddGroup()));
     m_renameAction = new QAction(this);
     connect(m_renameAction, SIGNAL(triggered()), this, SLOT(slotRenameGroup()));

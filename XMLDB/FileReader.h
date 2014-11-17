@@ -57,6 +57,8 @@ protected:
 
     /**
      * Returns the category name, but converts outdated standard category names.
+     * Standard categories stored with their localized name (a flaw of older KPA versions)
+     * are corrected as well.
      */
     QString sanitizedCategoryName( const QString& category) const;
 

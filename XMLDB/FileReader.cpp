@@ -459,14 +459,18 @@ QString XMLDB::FileReader::unescape( const QString& str )
 
 QString XMLDB::FileReader::sanitizedCategoryName(const QString& category) const
 {
-    // convert outdated standard category names:
-    if ( category== QString::fromUtf8("Locations") )
-        return QString::fromUtf8("Places");
-    if ( category== QString::fromUtf8("Persons") )
-        return QString::fromUtf8("People");
-    if ( category== QString::fromUtf8("Keywords") )
-        return QString::fromUtf8("Events");
-    return category;
+    // Silently correct some changes/bugs regarding category names
+    if (category == QString::fromUtf8("Persons")) {
+        // "Persons" is now "People", cf. DB::Category::standardCategories()
+        return  QString::fromUtf8("People");
+    } else if (category == QString::fromUtf8("Locations")) {
+        // "Locations" is now "Places", cf. DB::Category::standardCategories()
+         return QString::fromUtf8("Places");
+    } else {
+        // Be sure to use the C locale category name for standard categories.
+        // Older versions of KPA did store the localized category names.
+        return DB::Category::unLocalizedCategoryName(category);
+    }
 }
 
 // TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.

@@ -166,7 +166,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
         reader->complainStartElementExpected(_Categories_);
 
     while ( reader->readNextStartOrStopElement(_Category_).isStartToken) {
-        const QString categoryName = unescape( reader->attribute(_name_) );
+        const QString categoryName = sanitizedCategoryName(unescape( reader->attribute(_name_) ));
         if ( !categoryName.isNull() )  {
             // Read Category info
             QString icon = reader->attribute(_icon_);
@@ -257,7 +257,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
     if ( info.isStartToken && info.tokenName == _memberGroups_) {
         reader->readNextStartOrStopElement(_memberGroups_);
         while(reader->readNextStartOrStopElement(_member_).isStartToken) {
-            QString category = reader->attribute(_category_);
+            QString category = sanitizedCategoryName(reader->attribute(_category_));
 
             QString group = reader->attribute(_groupName_);
             if ( reader->hasAttribute(_member_) ) {
@@ -455,6 +455,18 @@ QString XMLDB::FileReader::unescape( const QString& str )
 
     cache.insert(str,tmp);
     return tmp;
+}
+
+QString XMLDB::FileReader::sanitizedCategoryName(const QString& category) const
+{
+    // convert outdated standard category names:
+    if ( category== QString::fromUtf8("Locations") )
+        return QString::fromUtf8("Places");
+    if ( category== QString::fromUtf8("Persons") )
+        return QString::fromUtf8("People");
+    if ( category== QString::fromUtf8("Keywords") )
+        return QString::fromUtf8("Events");
+    return category;
 }
 
 // TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.

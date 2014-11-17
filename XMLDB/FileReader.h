@@ -55,6 +55,11 @@ protected:
     void checkIfImagesAreSorted();
     void checkIfAllImagesHasSizeAttributes();
 
+    /**
+     * Returns the category name, but converts outdated standard category names.
+     */
+    QString sanitizedCategoryName( const QString& category) const;
+
     // The parent widget information dialogs are displayed in.
     QWidget *messageParent();
 

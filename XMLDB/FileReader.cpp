@@ -459,12 +459,18 @@ QString XMLDB::FileReader::unescape( const QString& str )
 
 QString XMLDB::FileReader::sanitizedCategoryName(const QString& category) const
 {
+    // this fix only applies to older databases (<= version 5);
+    // newer databases allow these categories, but without the "special meaning":
+    if (_fileVersion > 5)
+        return category;
+
     // Silently correct some changes/bugs regarding category names
+    // for a list of currently used category names, cf. DB::Category::standardCategories()
     if (category == QString::fromUtf8("Persons")) {
-        // "Persons" is now "People", cf. DB::Category::standardCategories()
+        // "Persons" is now "People"
         return  QString::fromUtf8("People");
     } else if (category == QString::fromUtf8("Locations")) {
-        // "Locations" is now "Places", cf. DB::Category::standardCategories()
+        // "Locations" is now "Places"
          return QString::fromUtf8("Places");
     } else {
         // Be sure to use the C locale category name for standard categories.

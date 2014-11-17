@@ -143,10 +143,7 @@ QMap<QString,QString> DB::Category::standardCategories()
         map.insert( QString::fromLatin1( "Folder" ),  i18n("Folder") );
         map.insert( QString::fromLatin1( "Tokens" ),  i18n("Tokens") );
         map.insert( QString::fromLatin1( "Media Type" ),  i18n("Media Type") );
-
-        // Needed for compatibility with index.xml files from older versions of KPA.
-        map.insert( QString::fromLatin1( "Persons" ), i18n("People") );
-        map.insert( QString::fromLatin1( "Locations" ), i18n("Places") );
+        // superseded by "Events", but not quite the same concept:
         map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
     }
     return map;
@@ -159,10 +156,7 @@ QMap<QString,QString> DB::Category::localizedCategoriesToC()
         QMap<QString,QString> cToLocale = standardCategories();
         QMap<QString, QString>::iterator i;
         for (i = cToLocale.begin(); i != cToLocale.end(); ++i) {
-            // "Persons" and "Locations" just exist for compatibility with older versions of KPA
-            if (i.key() != QString::fromLatin1("Persons") and i.key() != QString::fromLatin1("Locations")) {
-                localeToC[i.value()] = i.key();
-            }
+            localeToC[i.value()] = i.key();
         }
     }
 

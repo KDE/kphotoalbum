@@ -242,16 +242,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
 
     // Let's see if we are about to rename a localized category to it's C locale version
     if (DB::Category::localizedCategoriesToC().contains(m_currentCategory->text())) {
-        // FIXME: since the old-style categories are automatically replaced now, "this is needed" doesn't apply anymore...
-        // This is needed for "Persons" and "Locations"
-        QString alternativeCategoryName;
-        if (DB::Category::standardCategories().contains(newCategoryName)) {
-            alternativeCategoryName = DB::Category::unLocalizedCategoryName(newCategoryName);
-        }
-
-        if (newCategoryName == DB::Category::localizedCategoriesToC()[m_currentCategory->text()]
-            || m_currentCategory->text() == alternativeCategoryName) {
-
+        if (newCategoryName == DB::Category::localizedCategoriesToC()[m_currentCategory->text()]) {
             resetCategory(item);
             KMessageBox::sorry(this,
                                i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"

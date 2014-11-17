@@ -121,14 +121,14 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryPage.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SubCategoriesPage.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/TagGroupsPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/GeneralPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FileVersionDetectionPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ThumbnailsPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryTree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoriesGroupsWidget.cpp
 )
 
 set(libxmldb_SRCS

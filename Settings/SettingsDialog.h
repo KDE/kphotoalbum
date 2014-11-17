@@ -33,7 +33,7 @@ namespace Settings
 class ViewerSizeConfig;
 class CategoryItem;
 class CategoryPage;
-class SubCategoriesPage;
+class TagGroupsPage;
 class GeneralPage;
 class ThumbnailsPage;
 class ViewerPage;
@@ -67,7 +67,7 @@ private:
     Settings::FileVersionDetectionPage* _fileVersionDetectionPage;
     Settings::ThumbnailsPage* _thumbnailsPage;
     Settings::CategoryPage* _categoryPage;
-    Settings::SubCategoriesPage* _subCategoriesPage;
+    Settings::TagGroupsPage* _tagGroupsPage;
     Settings::ViewerPage* _viewerPage;
     Settings::PluginsPage* _pluginsPage;
     Settings::ExifPage* _exifPage;

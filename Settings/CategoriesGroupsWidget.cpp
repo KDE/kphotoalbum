@@ -21,27 +21,28 @@
 #include <QDebug>
 
 // Local includes
-#include "CategoryTree.h"
 #include "DB/Category.h"
+#include "CategoriesGroupsWidget.h"
+#include "TagGroupsPage.h"
 
-Settings::CategoryTree::CategoryTree(QWidget* parent) : QTreeWidget(parent)
+Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget* parent) : QTreeWidget(parent)
 {
     setDragEnabled(true);
     setAcceptDrops(true);
-    m_subCategoriesPage = dynamic_cast<SubCategoriesPage*>(parentWidget());
+    m_tagGroupsPage = dynamic_cast<TagGroupsPage*>(parentWidget());
 }
 
-Settings::CategoryTree::~CategoryTree()
+Settings::CategoriesGroupsWidget::~CategoriesGroupsWidget()
 {
 }
 
-void Settings::CategoryTree::mousePressEvent(QMouseEvent* event)
+void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent* event)
 {
     m_draggedItem = itemAt(event->pos());
 
     if (m_draggedItem != nullptr) {
         if (m_draggedItem->parent() != nullptr) {
-            m_draggedItemCategory = m_subCategoriesPage->getCategory(m_draggedItem);
+            m_draggedItemCategory = m_tagGroupsPage->getCategory(m_draggedItem);
         }
     } else {
         m_draggedItemCategory = QString();
@@ -50,7 +51,7 @@ void Settings::CategoryTree::mousePressEvent(QMouseEvent* event)
     QTreeWidget::mousePressEvent(event);
 }
 
-void Settings::CategoryTree::dragMoveEvent(QDragMoveEvent* event)
+void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
 {
     QTreeWidgetItem* target = itemAt(event->pos());
 
@@ -80,9 +81,9 @@ void Settings::CategoryTree::dragMoveEvent(QDragMoveEvent* event)
     }
 }
 
-void Settings::CategoryTree::dropEvent(QDropEvent* event)
+void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent* event)
 {
-    m_subCategoriesPage->processDrop(m_draggedItem, itemAt(event->pos()));
+    m_tagGroupsPage->processDrop(m_draggedItem, itemAt(event->pos()));
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

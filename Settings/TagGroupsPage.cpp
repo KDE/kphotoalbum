@@ -36,16 +36,16 @@
 
 // Local includes
 #include "DB/CategoryCollection.h"
-#include "SubCategoriesPage.h"
-#include "CategoryTree.h"
+#include "TagGroupsPage.h"
+#include "CategoriesGroupsWidget.h"
 
-Settings::SubCategoriesPage::SubCategoriesPage(QWidget* parent) : QWidget(parent)
+Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
 {
     QGridLayout* layout = new QGridLayout(this);
 
     // The category and group tree
     layout->addWidget(new QLabel(i18n("Categories and groups:")), 0, 0);
-    m_categoryTreeWidget = new CategoryTree(this);
+    m_categoryTreeWidget = new CategoriesGroupsWidget(this);
     m_categoryTreeWidget->header()->hide();
     m_categoryTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     layout->addWidget(m_categoryTreeWidget, 1, 0);
@@ -90,7 +90,7 @@ Settings::SubCategoriesPage::SubCategoriesPage(QWidget* parent) : QWidget(parent
             &m_memberMap, SLOT(renameItem(DB::Category*,QString,QString)));
 }
 
-void Settings::SubCategoriesPage::updateCategoryTree()
+void Settings::TagGroupsPage::updateCategoryTree()
 {
     // Store all expanded items so that they can be expanded after reload
     QList<QPair<QString, QString>> expandedItems = QList<QPair<QString, QString>>();
@@ -171,7 +171,7 @@ void Settings::SubCategoriesPage::updateCategoryTree()
     }
 }
 
-void Settings::SubCategoriesPage::addSubCategories(QTreeWidgetItem* superCategory,
+void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem* superCategory,
                                                    QMap<QString, QStringList>& membersForGroup,
                                                    QStringList& allGroups)
 {
@@ -211,7 +211,7 @@ void Settings::SubCategoriesPage::addSubCategories(QTreeWidgetItem* superCategor
     }
 }
 
-QString Settings::SubCategoriesPage::getCategory(QTreeWidgetItem* currentItem)
+QString Settings::TagGroupsPage::getCategory(QTreeWidgetItem* currentItem)
 {
     while (currentItem->parent() != nullptr) {
         currentItem = currentItem->parent();
@@ -220,7 +220,7 @@ QString Settings::SubCategoriesPage::getCategory(QTreeWidgetItem* currentItem)
     return DB::Category::unLocalizedCategoryName(currentItem->text(0));
 }
 
-void Settings::SubCategoriesPage::showTreeContextMenu(QPoint point)
+void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
 {
     QTreeWidgetItem* currentItem = m_categoryTreeWidget->currentItem();
     if (currentItem == nullptr) {
@@ -255,7 +255,7 @@ void Settings::SubCategoriesPage::showTreeContextMenu(QPoint point)
     delete menu;
 }
 
-void Settings::SubCategoriesPage::categoryChanged(const QString& name)
+void Settings::TagGroupsPage::categoryChanged(const QString& name)
 {
     if (name == QString()) {
         return;
@@ -288,7 +288,7 @@ void Settings::SubCategoriesPage::categoryChanged(const QString& name)
     m_membersListWidget->blockSignals(false);
 }
 
-void Settings::SubCategoriesPage::slotGroupSelected(QTreeWidgetItem* item)
+void Settings::TagGroupsPage::slotGroupSelected(QTreeWidgetItem* item)
 {
     // When something else than a "real" category has been selected before,
     // we have to save it's members.
@@ -320,7 +320,7 @@ void Settings::SubCategoriesPage::slotGroupSelected(QTreeWidgetItem* item)
                                      DB::Category::localizedCategoryName(m_currentCategory)));
 }
 
-void Settings::SubCategoriesPage::slotAddGroup()
+void Settings::TagGroupsPage::slotAddGroup()
 {
     bool ok;
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
@@ -376,7 +376,7 @@ void Settings::SubCategoriesPage::slotAddGroup()
     }
 }
 
-void Settings::SubCategoriesPage::addNewSubItem(QString& name, QTreeWidgetItem* parentItem)
+void Settings::TagGroupsPage::addNewSubItem(QString& name, QTreeWidgetItem* parentItem)
 {
     QTreeWidgetItem* newItem = new QTreeWidgetItem;
     newItem->setText(0, name);
@@ -387,7 +387,7 @@ void Settings::SubCategoriesPage::addNewSubItem(QString& name, QTreeWidgetItem* 
     }
 }
 
-QTreeWidgetItem* Settings::SubCategoriesPage::findCategoryItem(QString category)
+QTreeWidgetItem* Settings::TagGroupsPage::findCategoryItem(QString category)
 {
     QTreeWidgetItem* categoryItem = nullptr;
     for (int i = 0; i < m_categoryTreeWidget->topLevelItemCount(); ++i) {
@@ -400,13 +400,13 @@ QTreeWidgetItem* Settings::SubCategoriesPage::findCategoryItem(QString category)
     return categoryItem;
 }
 
-void Settings::SubCategoriesPage::checkItemSelection(QListWidgetItem*)
+void Settings::TagGroupsPage::checkItemSelection(QListWidgetItem*)
 {
     saveOldGroup();
     updateCategoryTree();
 }
 
-void Settings::SubCategoriesPage::slotRenameGroup()
+void Settings::TagGroupsPage::slotRenameGroup()
 {
     bool ok;
     QString newSubCategoryName = KInputDialog::getText(i18n("Rename Group"),
@@ -450,7 +450,7 @@ void Settings::SubCategoriesPage::slotRenameGroup()
     slotGroupSelected(selectedGroup);
 }
 
-void Settings::SubCategoriesPage::renameAllSubCategories(QTreeWidgetItem* categoryItem,
+void Settings::TagGroupsPage::renameAllSubCategories(QTreeWidgetItem* categoryItem,
                                                          QString oldName,
                                                          QString newName)
 {
@@ -465,7 +465,7 @@ void Settings::SubCategoriesPage::renameAllSubCategories(QTreeWidgetItem* catego
     }
 }
 
-void Settings::SubCategoriesPage::slotDeleteGroup()
+void Settings::TagGroupsPage::slotDeleteGroup()
 {
     QTreeWidgetItem* currentItem = m_categoryTreeWidget->currentItem();
     QString message;
@@ -499,7 +499,7 @@ void Settings::SubCategoriesPage::slotDeleteGroup()
     slotPageChange();
 }
 
-void Settings::SubCategoriesPage::saveOldGroup()
+void Settings::TagGroupsPage::saveOldGroup()
 {
     QStringList list;
     for (int i = 0; i < m_membersListWidget->count(); ++i) {
@@ -512,7 +512,7 @@ void Settings::SubCategoriesPage::saveOldGroup()
     m_memberMap.setMembers(m_currentCategory, m_currentGroup, list);
 }
 
-void Settings::SubCategoriesPage::selectMembers(const QString& group)
+void Settings::TagGroupsPage::selectMembers(const QString& group)
 {
     m_membersListWidget->blockSignals(true);
     m_membersListWidget->setEnabled(false);
@@ -538,7 +538,7 @@ void Settings::SubCategoriesPage::selectMembers(const QString& group)
     m_membersListWidget->blockSignals(false);
 }
 
-void Settings::SubCategoriesPage::slotPageChange()
+void Settings::TagGroupsPage::slotPageChange()
 {
     m_tagsInGroupLabel->setText(m_selectGroupToAddTags);
     m_membersListWidget->setEnabled(false);
@@ -547,32 +547,32 @@ void Settings::SubCategoriesPage::slotPageChange()
     updateCategoryTree();
 }
 
-void Settings::SubCategoriesPage::saveSettings()
+void Settings::TagGroupsPage::saveSettings()
 {
     saveOldGroup();
     slotPageChange();
     DB::ImageDB::instance()->memberMap() = m_memberMap;
 }
 
-void Settings::SubCategoriesPage::loadSettings()
+void Settings::TagGroupsPage::loadSettings()
 {
     categoryChanged(m_currentCategory);
     updateCategoryTree();
 }
 
-void Settings::SubCategoriesPage::categoryRenamed(const QString& oldName, const QString& newName)
+void Settings::TagGroupsPage::categoryRenamed(const QString& oldName, const QString& newName)
 {
     if (m_currentCategory == oldName) {
         m_currentCategory = newName;
     }
 }
 
-DB::MemberMap* Settings::SubCategoriesPage::memberMap()
+DB::MemberMap* Settings::TagGroupsPage::memberMap()
 {
     return &m_memberMap;
 }
 
-void Settings::SubCategoriesPage::processDrop(QTreeWidgetItem* draggedItem,
+void Settings::TagGroupsPage::processDrop(QTreeWidgetItem* draggedItem,
                                               QTreeWidgetItem* targetItem)
 {
     if (targetItem->parent() != nullptr) {
@@ -603,7 +603,7 @@ void Settings::SubCategoriesPage::processDrop(QTreeWidgetItem* draggedItem,
     }
 }
 
-void Settings::SubCategoriesPage::showMembersContextMenu(QPoint point)
+void Settings::TagGroupsPage::showMembersContextMenu(QPoint point)
 {
     if (m_membersListWidget->currentItem() == nullptr) {
         return;
@@ -620,7 +620,7 @@ void Settings::SubCategoriesPage::showMembersContextMenu(QPoint point)
     delete menu;
 }
 
-void Settings::SubCategoriesPage::slotRenameMember()
+void Settings::TagGroupsPage::slotRenameMember()
 {
     bool ok;
     QString newTagName = KInputDialog::getText(i18n("New Tag Name"),
@@ -643,7 +643,7 @@ void Settings::SubCategoriesPage::slotRenameMember()
     m_membersListWidget->sortItems();
 }
 
-void Settings::SubCategoriesPage::slotDeleteMember()
+void Settings::TagGroupsPage::slotDeleteMember()
 {
     QString memberToDelete = m_membersListWidget->currentItem()->text();
 

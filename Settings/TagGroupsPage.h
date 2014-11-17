@@ -36,12 +36,15 @@ class QListWidgetItem;
 namespace Settings
 {
 
-class SubCategoriesPage : public QWidget
+// Local classes
+class CategoriesGroupsWidget;
+
+class TagGroupsPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SubCategoriesPage(QWidget* parent);
+    explicit TagGroupsPage(QWidget* parent);
     void saveSettings();
     void loadSettings();
     DB::MemberMap* memberMap();
@@ -78,7 +81,7 @@ private: // Functions
 private: // Variables
     DB::MemberMap m_memberMap;
     QListWidget* m_membersListWidget;
-    QTreeWidget* m_categoryTreeWidget;
+    CategoriesGroupsWidget* m_categoryTreeWidget;
     QString m_currentCategory;
     QString m_currentGroup;
     QString m_currentSubCategory;

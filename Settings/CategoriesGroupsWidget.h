@@ -23,19 +23,19 @@
 #include <QTreeWidget>
 #include <QMimeData>
 
-// Local includes
-#include "SubCategoriesPage.h"
-
 namespace Settings
 {
 
-class CategoryTree : public QTreeWidget
+// Local classes
+class TagGroupsPage;
+
+class CategoriesGroupsWidget : public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    CategoryTree(QWidget* parent = 0);
-    ~CategoryTree();
+    CategoriesGroupsWidget(QWidget* parent = 0);
+    ~CategoriesGroupsWidget();
 
 private: // Functions
     void mousePressEvent(QMouseEvent* event);
@@ -43,7 +43,7 @@ private: // Functions
     void dropEvent(QDropEvent* event);
 
 private: // Variables
-    SubCategoriesPage* m_subCategoriesPage;
+    TagGroupsPage* m_tagGroupsPage;
     QTreeWidgetItem* m_draggedItem;
     QString m_draggedItemCategory;
 };

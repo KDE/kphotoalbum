@@ -24,7 +24,7 @@
 #include "FileVersionDetectionPage.h"
 #include "ThumbnailsPage.h"
 #include "GeneralPage.h"
-#include "SubCategoriesPage.h"
+#include "TagGroupsPage.h"
 #include "CategoryPage.h"
 #include "SettingsDialog.moc"
 
@@ -34,7 +34,7 @@
 
 #include "config-kpa-kipi.h"
 
-#include <config-kpa-kface.h>
+#include "config-kpa-kface.h"
 #ifdef HAVE_KFACE
 #include "FaceManagementPage.h"
 #endif
@@ -53,7 +53,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     _fileVersionDetectionPage = new Settings::FileVersionDetectionPage(this);
     _thumbnailsPage = new Settings::ThumbnailsPage(this);
     _categoryPage = new Settings::CategoryPage(this);
-    _subCategoriesPage = new Settings::SubCategoriesPage(this);
+    _tagGroupsPage = new Settings::TagGroupsPage(this);
     _viewerPage = new Settings::ViewerPage(this);
 
 #ifdef HASKIPI
@@ -76,7 +76,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         { i18n("File Searching & Versions"), "system-search", _fileVersionDetectionPage },
         { i18n("Thumbnail View" ), "view-list-icons", _thumbnailsPage },
         { i18n("Categories"), "user-identity", _categoryPage },
-        { i18n("Subcategories" ), "edit-copy", _subCategoriesPage },
+        { i18n("Tag Groups" ), "edit-copy", _tagGroupsPage },
         { i18n("Viewer" ), "document-preview", _viewerPage },
 #ifdef HASKIPI
         { i18n("Plugins" ), "preferences-plugin", _pluginsPage },
@@ -105,19 +105,13 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
 
-    connect(
-        _categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
-        _subCategoriesPage, SLOT(categoryRenamed(QString,QString))
-    );
-    connect(
-        this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-        _subCategoriesPage, SLOT(slotPageChange())
-    );
+    connect(_categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
+            _tagGroupsPage, SLOT(categoryRenamed(QString,QString)));
+    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+            _tagGroupsPage, SLOT(slotPageChange()));
 #ifdef HAVE_KFACE
-    connect(
-        this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-        _faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*))
-    );
+    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+            _faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*)));
 #endif
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
@@ -130,7 +124,7 @@ void Settings::SettingsDialog::show()
     _generalPage->loadSettings( opt );
     _fileVersionDetectionPage->loadSettings( opt );
     _thumbnailsPage->loadSettings(opt);
-    _subCategoriesPage->loadSettings();
+    _tagGroupsPage->loadSettings();
     _databaseBackendPage->loadSettings(opt);
     _viewerPage->loadSettings(opt);
 
@@ -167,8 +161,8 @@ void Settings::SettingsDialog::slotMyOK()
     _generalPage->saveSettings( opt );
     _fileVersionDetectionPage->saveSettings( opt );
     _thumbnailsPage->saveSettings(opt);
-    _categoryPage->saveSettings( opt, _subCategoriesPage->memberMap() );
-    _subCategoriesPage->saveSettings();
+    _categoryPage->saveSettings( opt, _tagGroupsPage->memberMap() );
+    _tagGroupsPage->saveSettings();
     _viewerPage->saveSettings( opt );
 
 #ifdef HASKIPI

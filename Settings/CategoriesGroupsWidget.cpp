@@ -41,9 +41,9 @@ Settings::CategoriesGroupsWidget::~CategoriesGroupsWidget()
 void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent* event)
 {
     m_draggedItem = itemAt(event->pos());
-    m_backgroundNoTarget = m_draggedItem->background(0);
 
     if (m_draggedItem != nullptr) {
+        m_backgroundNoTarget = m_draggedItem->background(0);
         if (m_draggedItem->parent() != nullptr) {
             m_draggedItemCategory = m_tagGroupsPage->getCategory(m_draggedItem);
         }

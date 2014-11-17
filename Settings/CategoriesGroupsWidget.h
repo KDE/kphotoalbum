@@ -41,11 +41,14 @@ private: // Functions
     void mousePressEvent(QMouseEvent* event);
     void dragMoveEvent(QDragMoveEvent* event);
     void dropEvent(QDropEvent* event);
+    void updateHighlight(QTreeWidgetItem* target);
 
 private: // Variables
     TagGroupsPage* m_tagGroupsPage;
     QTreeWidgetItem* m_draggedItem;
     QString m_draggedItemCategory;
+    QTreeWidgetItem* m_oldTarget;
+    QBrush m_backgroundNoTarget;
 };
 
 }

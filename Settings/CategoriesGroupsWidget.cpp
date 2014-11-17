@@ -29,7 +29,9 @@ Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget* parent) : QTre
 {
     setDragEnabled(true);
     setAcceptDrops(true);
+
     m_tagGroupsPage = dynamic_cast<TagGroupsPage*>(parentWidget());
+    m_oldTarget = nullptr;
 }
 
 Settings::CategoriesGroupsWidget::~CategoriesGroupsWidget()
@@ -63,6 +65,7 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
         if (DB::Category::unLocalizedCategoryName(target->text(0)) != m_draggedItemCategory) {
             event->setDropAction(Qt::IgnoreAction);
         } else {
+            updateHighlight(target);
             event->setDropAction(Qt::MoveAction);
             event->accept();
         }
@@ -75,15 +78,35 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
         if (DB::Category::unLocalizedCategoryName(parent->text(0)) != m_draggedItemCategory) {
             event->setDropAction(Qt::IgnoreAction);
         } else {
+            updateHighlight(target);
             event->setDropAction(Qt::MoveAction);
             event->accept();
         }
     }
 }
 
+void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem* target)
+{
+    if (m_oldTarget == target) {
+        return;
+    }
+
+    if (m_oldTarget != nullptr) {
+        m_oldTarget->setBackground(0, m_backgroundNoTarget);
+    }
+
+    m_backgroundNoTarget = target->background(0);
+    target->setBackground(0, *(new QBrush(Qt::lightGray)));
+
+    m_oldTarget = target;
+}
+
 void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent* event)
 {
-    m_tagGroupsPage->processDrop(m_draggedItem, itemAt(event->pos()));
+    QTreeWidgetItem* target = itemAt(event->pos());
+    if (m_draggedItem != target) {
+        m_tagGroupsPage->processDrop(m_draggedItem, target);
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

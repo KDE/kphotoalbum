@@ -32,6 +32,7 @@
 #include <KMessageBox>
 #include <KInputDialog>
 #include <KLocale>
+#include <KStringListValidator>
 
 // Local includes
 #include "DB/CategoryCollection.h"
@@ -322,24 +323,41 @@ void Settings::SubCategoriesPage::slotGroupSelected(QTreeWidgetItem* item)
 void Settings::SubCategoriesPage::slotAddGroup()
 {
     bool ok;
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
+    QStringList groups = m_memberMap.groups(m_currentCategory);
+    QStringList tags;
+    for (QString tag : category->items())
+    {
+        if ( !groups.contains(tag) )
+            tags << tag;
+    }
+
+    // reject existing group names:
+    KStringListValidator validator(groups);
     QString newSubCategory = KInputDialog::getText(i18n("New Group"),
                                                    i18n("Group name:"),
-                                                   QString(),
-                                                   &ok);
+                                                   QString() /*value*/,
+                                                   &ok,
+                                                   this /*parent*/,
+                                                   &validator,
+                                                   QString() /*mask*/,
+                                                   QString() /*WhatsThis*/,
+                                                   tags /*completion*/
+                                                   );
     if (! ok) {
         return;
     }
 
     // Let's see if we already have this group
-    if (m_memberMap.groups(m_currentCategory).contains(newSubCategory)) {
+    if (groups.contains(newSubCategory)) {
         KMessageBox::sorry(this,
                            i18n("The group \"%1\" already exists.", newSubCategory),
-                           i18n("Can't Add Group"));
+                           i18n("Cannot add group"));
         return;
     }
 
     // Add the group as a new tag to the respective category
-    DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->addItem(newSubCategory);
+    category->addItem(newSubCategory);
 
     // Add the group
     m_memberMap.addGroup(m_currentCategory, newSubCategory);

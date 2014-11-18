@@ -668,8 +668,9 @@ void Settings::TagGroupsPage::slotDeleteMember()
 {
     QString memberToDelete = m_membersListWidget->currentItem()->text();
 
-    // Let's see if it's a group or a normal tag
     if (m_memberMap.groups(m_currentCategory).contains(memberToDelete)) {
+        // The item to delete is a group
+
         // Find the tag in the tree view and select it ...
         QTreeWidgetItemIterator it(m_categoryTreeWidget);
         while (*it) {
@@ -683,7 +684,9 @@ void Settings::TagGroupsPage::slotDeleteMember()
         }
         // ... then delete it like it had been requested by the TreeWidget's context menu
         slotDeleteGroup();
+
     } else {
+        // The item to delete is a normal tag
         int res = KMessageBox::warningContinueCancel(this,
             i18n("<p>Do you really want to delete \"%1\"?<br/>"
                  "Deleting the item will remove any information "
@@ -692,16 +695,13 @@ void Settings::TagGroupsPage::slotDeleteMember()
             i18n("Really Delete %1?", memberToDelete),
             KGuiItem(i18n("&Delete"), QString::fromUtf8("editdelete"))
         );
-        if (res == KMessageBox::Continue) {
-            QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-            for(QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-                if ((*it)->text() == m_currentCategory) {
-                    (*it)->removeItem(memberToDelete);
-                    break;
-                }
-            }
-            slotPageChange();
+        if (res != KMessageBox::Continue) {
+            return;
         }
+
+        // Delete the tag as if it had been deleted from the annotation dialog.
+        DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->removeItem(memberToDelete);
+        slotPageChange();
     }
 }
 

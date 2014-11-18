@@ -35,6 +35,7 @@
 #include <KStringListValidator>
 
 // Local includes
+#include "MainWindow/DirtyIndicator.h"
 #include "DB/CategoryCollection.h"
 #include "TagGroupsPage.h"
 #include "CategoriesGroupsWidget.h"
@@ -88,6 +89,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     connect(DB::ImageDB::instance()->categoryCollection(),
             SIGNAL(itemRenamed(DB::Category*,QString,QString)),
             &m_memberMap, SLOT(renameItem(DB::Category*,QString,QString)));
+
+    m_dataChanged = false;
 }
 
 void Settings::TagGroupsPage::updateCategoryTree()
@@ -172,8 +175,8 @@ void Settings::TagGroupsPage::updateCategoryTree()
 }
 
 void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem* superCategory,
-                                                   QMap<QString, QStringList>& membersForGroup,
-                                                   QStringList& allGroups)
+                                               QMap<QString, QStringList>& membersForGroup,
+                                               QStringList& allGroups)
 {
     // Process all group members
     QMap<QString, QStringList>::iterator memIt1;
@@ -374,6 +377,8 @@ void Settings::TagGroupsPage::slotAddGroup()
         m_memberMap.addMemberToGroup(m_currentCategory, parentItem->text(0), newSubCategory);
         slotGroupSelected(parentItem);
     }
+
+    m_dataChanged = true;
 }
 
 void Settings::TagGroupsPage::addNewSubItem(QString& name, QTreeWidgetItem* parentItem)
@@ -402,6 +407,7 @@ QTreeWidgetItem* Settings::TagGroupsPage::findCategoryItem(QString category)
 
 void Settings::TagGroupsPage::checkItemSelection(QListWidgetItem*)
 {
+    m_dataChanged = true;
     saveOldGroup();
     updateCategoryTree();
 }
@@ -448,11 +454,13 @@ void Settings::TagGroupsPage::slotRenameGroup()
     // Update the displayed items
     categoryChanged(m_currentCategory);
     slotGroupSelected(selectedGroup);
+
+    m_dataChanged = true;
 }
 
 void Settings::TagGroupsPage::renameAllSubCategories(QTreeWidgetItem* categoryItem,
-                                                         QString oldName,
-                                                         QString newName)
+                                                     QString oldName,
+                                                     QString newName)
 {
     // Probably, it item itself has to be renamed
     if (categoryItem->text(0) == oldName) {
@@ -497,6 +505,8 @@ void Settings::TagGroupsPage::slotDeleteGroup()
     DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->removeItem(m_currentSubCategory);
 
     slotPageChange();
+
+    m_dataChanged = true;
 }
 
 void Settings::TagGroupsPage::saveOldGroup()
@@ -552,6 +562,18 @@ void Settings::TagGroupsPage::saveSettings()
     saveOldGroup();
     slotPageChange();
     DB::ImageDB::instance()->memberMap() = m_memberMap;
+
+    if (m_dataChanged) {
+        m_dataChanged = false;
+        MainWindow::DirtyIndicator::markDirty();
+    }
+}
+
+void Settings::TagGroupsPage::discardChanges()
+{
+    m_memberMap = DB::ImageDB::instance()->memberMap();
+    slotPageChange();
+    m_dataChanged = false;
 }
 
 void Settings::TagGroupsPage::loadSettings()
@@ -572,8 +594,7 @@ DB::MemberMap* Settings::TagGroupsPage::memberMap()
     return &m_memberMap;
 }
 
-void Settings::TagGroupsPage::processDrop(QTreeWidgetItem* draggedItem,
-                                              QTreeWidgetItem* targetItem)
+void Settings::TagGroupsPage::processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem)
 {
     if (targetItem->parent() != nullptr) {
         // Dropped on a group

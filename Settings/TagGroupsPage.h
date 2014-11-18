@@ -50,6 +50,7 @@ public:
     DB::MemberMap* memberMap();
     QString getCategory(QTreeWidgetItem* currentItem);
     void processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem);
+    void discardChanges();
 
 public slots:
     void categoryRenamed(const QString& oldName, const QString& newName);
@@ -93,6 +94,7 @@ private: // Variables
     QAction* m_deleteMemberAction;
     QAction* m_renameMemberAction;
     QLabel* m_tagsInGroupLabel;
+    bool m_dataChanged;
 };
 
 }

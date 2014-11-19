@@ -39,6 +39,14 @@ namespace Settings
 // Local classes
 class CategoriesGroupsWidget;
 
+enum CategoryEdit {
+    Category,
+    Add,
+    Remove,
+    Rename,
+    NewName
+};
+
 class TagGroupsPage : public QWidget
 {
     Q_OBJECT
@@ -95,6 +103,7 @@ private: // Variables
     QAction* m_renameMemberAction;
     QLabel* m_tagsInGroupLabel;
     bool m_dataChanged;
+    QList<QMap<CategoryEdit, QString>> m_categoryChanges;
 };
 
 }

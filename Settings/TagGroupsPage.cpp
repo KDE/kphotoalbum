@@ -329,10 +329,10 @@ void Settings::TagGroupsPage::slotAddGroup()
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
     QStringList groups = m_memberMap.groups(m_currentCategory);
     QStringList tags;
-    for (QString tag : category->items())
-    {
-        if ( !groups.contains(tag) )
+    for (QString tag : category->items()) {
+        if (! groups.contains(tag)) {
             tags << tag;
+        }
     }
 
     // reject existing group names:
@@ -361,6 +361,10 @@ void Settings::TagGroupsPage::slotAddGroup()
 
     // Add the group as a new tag to the respective category
     category->addItem(newSubCategory);
+    QMap<CategoryEdit, QString> categoryChange;
+    categoryChange[CategoryEdit::Category] = m_currentCategory;
+    categoryChange[CategoryEdit::Add] = newSubCategory;
+    m_categoryChanges.append(categoryChange);
 
     // Add the group
     m_memberMap.addGroup(m_currentCategory, newSubCategory);
@@ -435,7 +439,7 @@ void Settings::TagGroupsPage::slotRenameGroup()
         return;
     }
 
-    QTreeWidgetItem *selectedGroup = m_categoryTreeWidget->currentItem();
+    QTreeWidgetItem* selectedGroup = m_categoryTreeWidget->currentItem();
 
     saveOldGroup();
 
@@ -444,6 +448,11 @@ void Settings::TagGroupsPage::slotRenameGroup()
 
     // Update the tag in the respective category
     DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->renameItem(m_currentSubCategory, newSubCategoryName);
+    QMap<CategoryEdit, QString> categoryChange;
+    categoryChange[CategoryEdit::Category] = m_currentCategory;
+    categoryChange[CategoryEdit::Rename] = m_currentSubCategory;
+    categoryChange[CategoryEdit::NewName] = newSubCategoryName;
+    m_categoryChanges.append(categoryChange);
 
     // Search for all possible sub-category items in this category that have to be renamed
     QTreeWidgetItem* categoryItem = findCategoryItem(m_currentCategory);
@@ -503,6 +512,10 @@ void Settings::TagGroupsPage::slotDeleteGroup()
 
     // Delete the tag
     DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->removeItem(m_currentSubCategory);
+    QMap<CategoryEdit, QString> categoryChange;
+    categoryChange[CategoryEdit::Category] = m_currentCategory;
+    categoryChange[CategoryEdit::Remove] = m_currentSubCategory;
+    m_categoryChanges.append(categoryChange);
 
     slotPageChange();
 
@@ -562,6 +575,7 @@ void Settings::TagGroupsPage::saveSettings()
     saveOldGroup();
     slotPageChange();
     DB::ImageDB::instance()->memberMap() = m_memberMap;
+    m_categoryChanges.clear();
 
     if (m_dataChanged) {
         m_dataChanged = false;
@@ -574,6 +588,25 @@ void Settings::TagGroupsPage::discardChanges()
     m_memberMap = DB::ImageDB::instance()->memberMap();
     slotPageChange();
     m_dataChanged = false;
+
+    // Revert all changes to the "real" category objects
+    for (int i = m_categoryChanges.size() - 1; i >= 0; i--) {
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_categoryChanges.at(i)[CategoryEdit::Category]);
+
+        if (m_categoryChanges.at(i).contains(CategoryEdit::Add)) {
+            // Remove added tags
+            category->removeItem(m_categoryChanges.at(i)[CategoryEdit::Add]);
+        } else if (m_categoryChanges.at(i).contains(CategoryEdit::Remove)) {
+            // Add removed tags
+            category->addItem(m_categoryChanges.at(i)[CategoryEdit::Add]);
+        } else if (m_categoryChanges.at(i).contains(CategoryEdit::Rename)) {
+            // Re-rename tags to their old name
+            category->renameItem(m_categoryChanges.at(i)[CategoryEdit::NewName],
+                                 m_categoryChanges.at(i)[Rename]);
+        }
+    }
+
+    m_categoryChanges.clear();
 }
 
 void Settings::TagGroupsPage::loadSettings()
@@ -584,6 +617,7 @@ void Settings::TagGroupsPage::loadSettings()
 
 void Settings::TagGroupsPage::categoryRenamed(const QString& oldName, const QString& newName)
 {
+    // FIXME: this is probably broken, don't forget to investigate it!
     if (m_currentCategory == oldName) {
         m_currentCategory = newName;
     }
@@ -656,6 +690,11 @@ void Settings::TagGroupsPage::slotRenameMember()
     DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory)->renameItem(
         m_membersListWidget->currentItem()->text(), newTagName
     );
+    QMap<CategoryEdit, QString> categoryChange;
+    categoryChange[CategoryEdit::Category] = m_currentCategory;
+    categoryChange[CategoryEdit::Rename] = m_membersListWidget->currentItem()->text();
+    categoryChange[CategoryEdit::NewName] = newTagName;
+    m_categoryChanges.append(categoryChange);
 
     // Update the displayed tag name
     m_membersListWidget->currentItem()->setText(newTagName);

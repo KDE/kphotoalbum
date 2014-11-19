@@ -19,10 +19,12 @@
 #include <kiconloader.h>
 #include <QPixmap>
 #include <QLabel>
+#include <QDebug>
 
 static MainWindow::DirtyIndicator* _instance = nullptr;
 bool MainWindow::DirtyIndicator::_autoSaveDirty = false;
 bool MainWindow::DirtyIndicator::_saveDirty = false;
+bool MainWindow::DirtyIndicator::_suppressMarkDirty = false;
 
 MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
     :QLabel( parent )
@@ -36,8 +38,17 @@ MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
         markDirty();
 }
 
+void MainWindow::DirtyIndicator::suppressMarkDirty(bool state)
+{
+    MainWindow::DirtyIndicator::_suppressMarkDirty = state;
+}
+
 void MainWindow::DirtyIndicator::markDirty()
 {
+    if (MainWindow::DirtyIndicator::_suppressMarkDirty) {
+        return;
+    }
+
     if ( _instance ) {
         _instance->markDirtySlot();
     } else {
@@ -47,6 +58,10 @@ void MainWindow::DirtyIndicator::markDirty()
 }
 
 void MainWindow::DirtyIndicator::markDirtySlot() {
+    if (MainWindow::DirtyIndicator::_suppressMarkDirty) {
+        return;
+    }
+
     _saveDirty = true;
     _autoSaveDirty = true;
     setPixmap( _dirtyPix );

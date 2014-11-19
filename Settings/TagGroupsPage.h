@@ -86,6 +86,7 @@ private: // Functions
                           QStringList& allGroups);
     void addNewSubItem(QString& name, QTreeWidgetItem* parentItem);
     QTreeWidgetItem* findCategoryItem(QString category);
+    DB::CategoryPtr getCategoryObject(QString category) const;
 
 private: // Variables
     DB::MemberMap m_memberMap;

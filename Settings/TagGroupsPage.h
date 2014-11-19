@@ -105,6 +105,7 @@ private: // Variables
     QLabel* m_tagsInGroupLabel;
     bool m_dataChanged;
     QList<QMap<CategoryEdit, QString>> m_categoryChanges;
+    QLabel* m_pendingRenameLabel;
 };
 
 }

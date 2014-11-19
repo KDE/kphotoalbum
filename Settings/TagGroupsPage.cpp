@@ -68,6 +68,12 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     connect(m_membersListWidget, SIGNAL(customContextMenuRequested(QPoint)),
             this, SLOT(showMembersContextMenu(QPoint)));
 
+    // The "pending rename actions" label
+    m_pendingRenameLabel = new QLabel(i18n("<i>There are pending changes of category names. Please "
+                                           "save the changes before working on tag groups."));
+    m_pendingRenameLabel->hide();
+    layout->addWidget(m_pendingRenameLabel, 2, 0, 1, 2);
+
     // Context menu actions
     m_newGroupAction = new QAction(i18n("Add group ..."), this);
     connect(m_newGroupAction, SIGNAL(triggered()), this, SLOT(slotAddGroup()));
@@ -590,6 +596,10 @@ void Settings::TagGroupsPage::saveSettings()
         m_dataChanged = false;
         MainWindow::DirtyIndicator::markDirty();
     }
+
+    m_categoryTreeWidget->setEnabled(true);
+    m_membersListWidget->setEnabled(true);
+    m_pendingRenameLabel->hide();
 }
 
 void Settings::TagGroupsPage::discardChanges()
@@ -618,6 +628,10 @@ void Settings::TagGroupsPage::discardChanges()
     MainWindow::DirtyIndicator::suppressMarkDirty(false);
 
     m_categoryChanges.clear();
+
+    m_categoryTreeWidget->setEnabled(true);
+    m_membersListWidget->setEnabled(true);
+    m_pendingRenameLabel->hide();
 }
 
 void Settings::TagGroupsPage::loadSettings()
@@ -626,12 +640,11 @@ void Settings::TagGroupsPage::loadSettings()
     updateCategoryTree();
 }
 
-void Settings::TagGroupsPage::categoryRenamed(const QString& oldName, const QString& newName)
+void Settings::TagGroupsPage::categoryRenamed(const QString&, const QString&)
 {
-    // FIXME: this is probably broken, don't forget to investigate it!
-    if (m_currentCategory == oldName) {
-        m_currentCategory = newName;
-    }
+    m_categoryTreeWidget->setEnabled(false);
+    m_membersListWidget->setEnabled(false);
+    m_pendingRenameLabel->show();
 }
 
 DB::MemberMap* Settings::TagGroupsPage::memberMap()

@@ -271,14 +271,17 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
             return;
         }
 
-        // The C locale name can be used, but we set the localized version.
-        KMessageBox::information(this,
-                                 i18n("<p>\"%1\" is a standard category which comes with a "
-                                      "localized name. The localized name for \"%1\" is \"%2\", "
-                                      "this name will be used instead.</p>",
-                                      newCategoryName, DB::Category::standardCategories()[newCategoryName]),
-                                 i18n("Localized category name entered"));
-        newCategoryName = DB::Category::standardCategories()[newCategoryName];
+        if (newCategoryName != DB::Category::standardCategories()[newCategoryName])
+        {
+            // The C locale name can be used, but we set the localized version.
+            KMessageBox::information(this,
+                    i18n("<p>\"%1\" is a standard category which comes with a "
+                        "localized name. The localized name for \"%1\" is \"%2\", "
+                        "this name will be used instead.</p>",
+                        newCategoryName, DB::Category::standardCategories()[newCategoryName]),
+                    i18n("Localized category name entered"));
+            newCategoryName = DB::Category::standardCategories()[newCategoryName];
+        }
     }
 
     // Let's see if we have any pending name changes that would cause collisions.

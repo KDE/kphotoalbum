@@ -97,6 +97,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     m_renameLabel = new QLabel;
     m_renameLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     rightSideLayout->addWidget(m_renameLabel);
+    connect( parent, SIGNAL(cancelClicked()), m_renameLabel, SLOT(clear()));
 
     // Some space looks better here :-)
     QLabel* spacer = new QLabel;
@@ -188,6 +189,7 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
         m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>").arg(m_categoryNameBeforeEdit));
         m_renameLabel->show();
     } else {
+        m_renameLabel->clear();
         m_renameLabel->hide();
     }
 

@@ -45,7 +45,7 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     QGridLayout* layout = new QGridLayout(this);
 
     // The category and group tree
-    layout->addWidget(new QLabel(i18n("Categories and groups:")), 0, 0);
+    layout->addWidget(new QLabel(i18nc("@label","Categories and groups:")), 0, 0);
     m_categoryTreeWidget = new CategoriesGroupsWidget(this);
     m_categoryTreeWidget->header()->hide();
     m_categoryTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -56,7 +56,7 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
             this, SLOT(slotGroupSelected(QTreeWidgetItem*)));
 
     // The member list
-    m_selectGroupToAddTags = i18n("<i>Select a group on the left side to add tags to it</i>");
+    m_selectGroupToAddTags = i18nc("@label/rich","<emphasis>Select a group on the left side to add tags to it</emphasis>");
     m_tagsInGroupLabel = new QLabel(m_selectGroupToAddTags);
     layout->addWidget(m_tagsInGroupLabel, 0, 1);
     m_membersListWidget = new QListWidget;
@@ -69,15 +69,15 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
             this, SLOT(showMembersContextMenu(QPoint)));
 
     // The "pending rename actions" label
-    m_pendingRenameLabel = new QLabel(i18n("<i>There are pending changes of category names. Please "
-                                           "save the changes before working on tag groups."));
+    m_pendingRenameLabel = new QLabel(i18nc("@label/rich","<emphasis>There are pending changes of category names.<nl> "
+                "Please save the changes before working on tag groups.</emphasis>"));
     m_pendingRenameLabel->hide();
     layout->addWidget(m_pendingRenameLabel, 2, 0, 1, 2);
 
     connect( parent, SIGNAL(cancelClicked()), this, SLOT(discardChanges()));
 
     // Context menu actions
-    m_newGroupAction = new QAction(i18n("Add group ..."), this);
+    m_newGroupAction = new QAction(i18nc("@action:inmenu","Add group ..."), this);
     connect(m_newGroupAction, SIGNAL(triggered()), this, SLOT(slotAddGroup()));
     m_renameAction = new QAction(this);
     connect(m_renameAction, SIGNAL(triggered()), this, SLOT(slotRenameGroup()));
@@ -256,9 +256,9 @@ void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
     // "Real" top-level categories have to processed on the category page.
     if (m_currentSuperCategory != QString()) {
         menu->addSeparator();
-        m_renameAction->setText(i18n("Rename \"%1\"", m_currentSubCategory));
+        m_renameAction->setText(i18nc("@action:inmenu","Rename group \"%1\"", m_currentSubCategory));
         menu->addAction(m_renameAction);
-        m_deleteAction->setText(i18n("Delete \"%1\"", m_currentSubCategory));
+        m_deleteAction->setText(i18nc("@action:inmenu","Delete group \"%1\"", m_currentSubCategory));
         menu->addAction(m_deleteAction);
     }
 
@@ -326,7 +326,7 @@ void Settings::TagGroupsPage::slotGroupSelected(QTreeWidgetItem* item)
 
     m_currentGroup = item->text(0);
     selectMembers(m_currentGroup);
-    m_tagsInGroupLabel->setText(i18n("Tags in group \"%1\" of category \"%2\"",
+    m_tagsInGroupLabel->setText(i18nc("@label","Tags in group \"%1\" of category \"%2\"",
                                      m_currentGroup,
                                      DB::Category::localizedCategoryName(m_currentCategory)));
 }
@@ -345,8 +345,8 @@ void Settings::TagGroupsPage::slotAddGroup()
 
     // reject existing group names:
     KStringListValidator validator(groups);
-    QString newSubCategory = KInputDialog::getText(i18n("New Group"),
-                                                   i18n("Group name:"),
+    QString newSubCategory = KInputDialog::getText(i18nc("@title:window","New Group"),
+                                                   i18nc("@label:textbox","Group name:"),
                                                    QString() /*value*/,
                                                    &ok,
                                                    this /*parent*/,
@@ -362,8 +362,8 @@ void Settings::TagGroupsPage::slotAddGroup()
     // Let's see if we already have this group
     if (groups.contains(newSubCategory)) {
         KMessageBox::sorry(this,
-                           i18n("The group \"%1\" already exists.", newSubCategory),
-                           i18n("Cannot add group"));
+                           i18nc("@info","<p>The group \"%1\" already exists.</p>", newSubCategory),
+                           i18nc("@title:window","Cannot add group"));
         return;
     }
 
@@ -430,8 +430,8 @@ void Settings::TagGroupsPage::checkItemSelection(QListWidgetItem*)
 void Settings::TagGroupsPage::slotRenameGroup()
 {
     bool ok;
-    QString newSubCategoryName = KInputDialog::getText(i18n("Rename Group"),
-                                                       i18n("New group name:"),
+    QString newSubCategoryName = KInputDialog::getText(i18nc("@title:window","Rename Group"),
+                                                       i18nc("@label:textbox","New group name:"),
                                                        m_currentSubCategory,
                                                        &ok);
 
@@ -441,12 +441,12 @@ void Settings::TagGroupsPage::slotRenameGroup()
 
     if (m_memberMap.groups(m_currentCategory).contains(newSubCategoryName)) {
         KMessageBox::sorry(this,
-                            i18n("Can't rename group \"%1\" to \"%2\": this group already exists "
-                                 "in category \"%2\"",
+                            i18nc("@info","<para>Cannot rename group \"%1\" to \"%2\": "
+                                "\"%2\" already exists in category \"%3\"</para>",
                                  m_currentSubCategory,
                                  newSubCategoryName,
                                  m_currentCategory),
-                            i18n("Rename Group"));
+                            i18nc("@title:window","Rename Group"));
         return;
     }
 
@@ -503,18 +503,18 @@ void Settings::TagGroupsPage::slotDeleteGroup()
     QString title;
 
     if (currentItem->childCount() > 0) {
-        message = i18n("Really delete group \"%1\"? Sub-categories of this group will be "
-                       "moved to the super category of \"%1\" (\"%2\"). "
-                       "All other memberships of the sub-categories will stay intact.",
-                       m_currentSubCategory,
-                       m_currentSuperCategory);
+        message = i18nc("@info","<para>Really delete group \"%1\"?</para>"
+                "<para>Sub-categories of this group will be moved to the super category of \"%1\" (\"%2\").<nl/> "
+                "All other memberships of the sub-categories will stay intact.</para>",
+                m_currentSubCategory,
+                m_currentSuperCategory);
     } else {
-        message = i18n("Really delete group \"%1\"?", m_currentSubCategory);
+        message = i18nc("@info","<para>Really delete group \"%1\"?</para>", m_currentSubCategory);
     }
 
     int res = KMessageBox::warningContinueCancel(this,
                                                  message,
-                                                 i18n("Delete Group"),
+                                                 i18nc("@title:window","Delete Group"),
                                                  KGuiItem(i18n("&Delete"),
                                                  QString::fromUtf8("editdelete")));
     if (res == KMessageBox::Cancel) {
@@ -692,9 +692,9 @@ void Settings::TagGroupsPage::showMembersContextMenu(QPoint point)
 
     QMenu* menu = new QMenu;
 
-    m_renameMemberAction->setText(i18n("Rename \"%1\"", m_membersListWidget->currentItem()->text()));
+    m_renameMemberAction->setText(i18nc("@action:inmenu","Rename \"%1\"", m_membersListWidget->currentItem()->text()));
     menu->addAction(m_renameMemberAction);
-    m_deleteMemberAction->setText(i18n("Delete \"%1\"", m_membersListWidget->currentItem()->text()));
+    m_deleteMemberAction->setText(i18nc("@action:inmenu","Delete \"%1\"", m_membersListWidget->currentItem()->text()));
     menu->addAction(m_deleteMemberAction);
 
     menu->exec(m_membersListWidget->mapToGlobal(point));
@@ -704,8 +704,8 @@ void Settings::TagGroupsPage::showMembersContextMenu(QPoint point)
 void Settings::TagGroupsPage::slotRenameMember()
 {
     bool ok;
-    QString newTagName = KInputDialog::getText(i18n("New Tag Name"),
-                                               i18n("Tag name:"),
+    QString newTagName = KInputDialog::getText(i18nc("@title:window","New Tag Name"),
+                                               i18nc("@label:textbox","Tag name:"),
                                                m_membersListWidget->currentItem()->text(),
                                                &ok);
     if (! ok || newTagName == m_membersListWidget->currentItem()->text()) {
@@ -753,11 +753,11 @@ void Settings::TagGroupsPage::slotDeleteMember()
     } else {
         // The item to delete is a normal tag
         int res = KMessageBox::warningContinueCancel(this,
-            i18n("<p>Do you really want to delete \"%1\"?<br/>"
-                 "Deleting the item will remove any information "
-                 "about it from any image containing the item.</p>",
+            i18nc("@info","<para>Do you really want to delete \"%1\"?</para>"
+                 "<para>Deleting the item will remove any information "
+                 "about it from any image containing the item.</para>",
                  memberToDelete),
-            i18n("Really Delete %1?", memberToDelete),
+            i18nc("@title:window","Really delete %1?", memberToDelete),
             KGuiItem(i18n("&Delete"), QString::fromUtf8("editdelete"))
         );
         if (res != KMessageBox::Continue) {

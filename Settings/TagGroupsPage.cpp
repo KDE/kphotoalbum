@@ -361,6 +361,7 @@ void Settings::TagGroupsPage::slotAddGroup()
 
     // Let's see if we already have this group
     if (groups.contains(newSubCategory)) {
+        // (with the validator working correctly, we should not get to this point)
         KMessageBox::sorry(this,
                            i18nc("@info","<p>The group \"%1\" already exists.</p>", newSubCategory),
                            i18nc("@title:window","Cannot add group"));
@@ -430,16 +431,34 @@ void Settings::TagGroupsPage::checkItemSelection(QListWidgetItem*)
 void Settings::TagGroupsPage::slotRenameGroup()
 {
     bool ok;
+    DB::CategoryPtr category = getCategoryObject(m_currentCategory);
+    QStringList groups = m_memberMap.groups(m_currentCategory);
+    QStringList tags;
+    for (QString tag : category->items()) {
+        if (! groups.contains(tag)) {
+            tags << tag;
+        }
+    }
+
+    // reject existing group names:
+    KStringListValidator validator(groups);
     QString newSubCategoryName = KInputDialog::getText(i18nc("@title:window","Rename Group"),
-                                                       i18nc("@label:textbox","New group name:"),
-                                                       m_currentSubCategory,
-                                                       &ok);
+            i18nc("@label:textbox","New group name:"),
+            m_currentSubCategory,
+            &ok,
+            this /*parent*/,
+            &validator,
+            QString() /*mask*/,
+            QString() /*WhatsThis*/,
+            tags /*completion*/
+            );
 
     if (! ok || m_currentSubCategory == newSubCategoryName) {
         return;
     }
 
     if (m_memberMap.groups(m_currentCategory).contains(newSubCategoryName)) {
+        // (with the validator working correctly, we should not get to this point)
         KMessageBox::sorry(this,
                             i18nc("@info","<para>Cannot rename group \"%1\" to \"%2\": "
                                 "\"%2\" already exists in category \"%3\"</para>",
@@ -459,7 +478,7 @@ void Settings::TagGroupsPage::slotRenameGroup()
 
     // Update the tag in the respective category
     MainWindow::DirtyIndicator::suppressMarkDirty(true);
-    getCategoryObject(m_currentCategory)->renameItem(m_currentSubCategory, newSubCategoryName);
+    category->renameItem(m_currentSubCategory, newSubCategoryName);
     MainWindow::DirtyIndicator::suppressMarkDirty(false);
     QMap<CategoryEdit, QString> categoryChange;
     categoryChange[CategoryEdit::Category] = m_currentCategory;

@@ -61,7 +61,6 @@ signals:
 
 protected slots:
     void slotMyOK();
-    void slotMyCancel();
 
 private:
     Settings::GeneralPage* _generalPage;

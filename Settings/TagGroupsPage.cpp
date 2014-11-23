@@ -74,6 +74,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_pendingRenameLabel->hide();
     layout->addWidget(m_pendingRenameLabel, 2, 0, 1, 2);
 
+    connect( parent, SIGNAL(cancelClicked()), this, SLOT(discardChanges()));
+
     // Context menu actions
     m_newGroupAction = new QAction(i18n("Add group ..."), this);
     connect(m_newGroupAction, SIGNAL(triggered()), this, SLOT(slotAddGroup()));

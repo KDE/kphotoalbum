@@ -58,11 +58,11 @@ public:
     DB::MemberMap* memberMap();
     QString getCategory(QTreeWidgetItem* currentItem);
     void processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem);
-    void discardChanges();
 
 public slots:
     void categoryRenamed(const QString& oldName, const QString& newName);
     void slotPageChange();
+    void discardChanges();
 
 private slots:
     void slotAddGroup();

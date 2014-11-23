@@ -116,7 +116,6 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 #endif
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
-    connect(this, SIGNAL(cancelClicked()), this, SLOT(slotMyCancel()));
 }
 
 void Settings::SettingsDialog::show()
@@ -189,11 +188,6 @@ void Settings::SettingsDialog::slotMyOK()
 void Settings::SettingsDialog::showBackendPage()
 {
     setCurrentPage(_backendPage);
-}
-
-void Settings::SettingsDialog::slotMyCancel()
-{
-    _tagGroupsPage->discardChanges();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

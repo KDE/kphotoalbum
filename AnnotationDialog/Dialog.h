@@ -193,7 +193,7 @@ private:
     QMap<QString, QString> _categoryL10n;
 
     bool _positionableCategories;
-    bool _areaChanges;
+    bool _areasChanged;
 };
 
 }

@@ -438,7 +438,7 @@ void AnnotationDialog::Dialog::load()
     tidyAreas();
 
     // No areas have been changed
-    _areaChanges = false;
+    _areasChanged = false;
 
     // Empty the positionable tag candidate list and the last selected positionable tag
     _positionableTagCandidates.clear();
@@ -632,6 +632,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _time->hide();
         _rating->setRating( 0 );
         _ratingChanged = false;
+        _areasChanged = false;
 
         for( QList<ListSelect*>::Iterator it = _optionList.begin(); it != _optionList.end(); ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
@@ -912,7 +913,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 void AnnotationDialog::Dialog::reject()
 {
     _fullScreenPreview->stopPlayback();
-    if (hasChanges() or _areaChanges) {
+    if (hasChanges()) {
         int code =  KMessageBox::questionYesNo( this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>") );
         if ( code == KMessageBox::No )
             return;
@@ -935,6 +936,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         for ( int i = 0; i < _editList.count(); ++i )  {
             changed |= (*(_origList[i]) != _editList[i]);
         }
+        changed |= _areasChanged;
     }
 
     else if ( _setup == InputMultiImageConfigMode ) {
@@ -1289,7 +1291,7 @@ void AnnotationDialog::Dialog::saveAndClose()
     }
     _accept = QDialog::Accepted;
 
-    if (anyChanges or _areaChanges) {
+    if (anyChanges) {
         MainWindow::DirtyIndicator::markDirty();
     }
 
@@ -1350,7 +1352,7 @@ void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QStri
         foreach (ResizableFrame *area, allAreas) {
             if (area->tagData() == deselectedTag) {
                 area->removeTagData();
-                _areaChanges = true;
+                _areasChanged = true;
                 // Only one area can be associated with the tag, so we can return here
                 return;
             }
@@ -1460,7 +1462,7 @@ void AnnotationDialog::Dialog::checkProposedTagData(
 
 void AnnotationDialog::Dialog::areaChanged()
 {
-    _areaChanges = true;
+    _areasChanged = true;
 }
 
 #include "Dialog.moc"

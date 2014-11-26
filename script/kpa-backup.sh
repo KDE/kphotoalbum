@@ -4,6 +4,7 @@
 KPARC=$HOME/.kde/share/config/kphotoalbumrc
 KPAUIRC=$HOME/.kde/share/apps/kphotoalbum/kphotoalbumui.rc
 BACKUP_LOCATION=~/kpa-backup
+BACKUP_ID=latest
 ACTION=
 ADD_FILES_RELATIVE="exif-info.db layout.dat"
 KEEP_NUM=5
@@ -18,22 +19,38 @@ get_config_value()
 	sed -n 's/#.*// ; s/'$1'=\(.*\)/\1/p' "$KPARC"
 }
 
+resolve_link()
+# Use readlink to resolve the given filename.
+# If the file is no symlink, just return the filename.
+{
+	if [ -L "$1" ]
+	then
+		readlink "$1"
+	else
+		echo "$1"
+	fi
+}
+
 print_help()
 {
-	echo "Usage: $0 -b|--backup [-d|--directory BACKUP_LOCATION]" >&2
-	echo "       $0 -r|--restore [-d|--directory BACKUP_LOCATION]" >&2
-	echo "       $0 -l|--list [-d|--directory BACKUP_LOCATION]" >&2
-	echo "       $0 -i|--info [-d|--directory BACKUP_LOCATION]" >&2
+	echo "Usage: $0 -b|--backup OPTIONS..." >&2
+	echo "       $0 -r|--restore OPTIONS..." >&2
+	echo "       $0 -l|--list OPTIONS..." >&2
+	echo "       $0 -i|--info OPTIONS..." >&2
 	echo "       $0 -p|--purge [--keep NUM]" >&2
 	echo "" >&2
 	echo "Create or restore a backup of your essential KPhotoalbum files." >&2
 	echo "Note: your actual image-files are not backed up!" >&2
 	echo "" >&2
+	echo "Options:" >&2
 	echo "-d|--directory BACKUP_LOCATION   Use the specified path as backup location" >&2
 	echo "                                 [default: $BACKUP_LOCATION]" >&2
+	echo "--id BACKUP_ID                   Use given backup instead of latest.">&2
+	echo "-n|--no-act                      Do not take any action." >&2
+	echo "" >&2
+	echo "Purge options:" >&2
 	echo "--keep NUM                       Keep the latest NUM backups" >&2
 	echo "                                 [default: $KEEP_NUM]" >&2
-	echo "-n|--no-act                      Do not take any action." >&2
 	echo "" >&2
 }
 
@@ -150,7 +167,7 @@ do_backup()
 do_restore()
 {
 	echo "Restoring essential files..."
-	for f in "$BACKUP_LOCATION/latest"/*.tgz
+	for f in "$BACKUP_LOCATION/$BACKUP_ID"/*.tgz
 	do
 		# untar_if_changed honors NO_ACT:
 		untar_if_changed "$f"
@@ -181,7 +198,7 @@ show_info()
 
 do_list()
 {
-	local LATEST=`readlink "$BACKUP_LOCATION/latest"`
+	local LATEST=`resolve_link "$BACKUP_LOCATION/latest"`
 	LATEST=`basename "$LATEST"`
 	echo "$BACKUP_LOCATION:"
 	for d in "$BACKUP_LOCATION"/*
@@ -201,7 +218,7 @@ do_list()
 
 do_info()
 {
-	local LATEST=`readlink "$BACKUP_LOCATION/latest"`
+	local LATEST=`resolve_link "$BACKUP_LOCATION/$BACKUP_ID"`
 	echo "$BACKUP_LOCATION:"
 	show_info "$LATEST"
 }
@@ -232,7 +249,7 @@ do_purge()
 # Parse commandline:
 ###
 
-TEMP=`getopt -o hbrlipnd: --long help,backup,restore,list,info,purge,no-act,directory:,keep: \
+TEMP=`getopt -o hbrlipnd: --long help,backup,restore,list,info,purge,no-act,directory:,keep:,id: \
      -n 'kpa-backup' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -251,6 +268,7 @@ while true ; do
 		-n|--no-act) NO_ACT=1 ; shift ;;
 		-d|--directory) BACKUP_LOCATION="$2" ; shift 2 ;;
 		--keep) KEEP_NUM="$2" ; shift 2 ;;
+		--id) BACKUP_ID="$2" ; shift 2 ;;
 		--) shift ; break ;;
 		*) echo "Internal error!" ; exit 1 ;;
 	esac

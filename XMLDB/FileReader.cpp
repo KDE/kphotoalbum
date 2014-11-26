@@ -25,6 +25,7 @@
 #include <kstandarddirs.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <QMap>
 
 #include "DB/MD5Map.h"
 #include "Database.h"
@@ -354,7 +355,7 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPtr reader )
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, _db );
+    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, _db, &m_newToOldName );
     _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
     info->createFolderCategoryItem( _folderCategory, _db->_members );
     return info;
@@ -457,25 +458,34 @@ QString XMLDB::FileReader::unescape( const QString& str )
     return tmp;
 }
 
-QString XMLDB::FileReader::sanitizedCategoryName(const QString& category) const
+QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
 {
     // this fix only applies to older databases (<= version 5);
     // newer databases allow these categories, but without the "special meaning":
     if (_fileVersion > 5)
         return category;
 
+    QString mapped;
     // Silently correct some changes/bugs regarding category names
     // for a list of currently used category names, cf. DB::Category::standardCategories()
     if (category == QString::fromUtf8("Persons")) {
         // "Persons" is now "People"
-        return  QString::fromUtf8("People");
+        mapped = QString::fromUtf8("People");
     } else if (category == QString::fromUtf8("Locations")) {
         // "Locations" is now "Places"
-         return QString::fromUtf8("Places");
+        mapped = QString::fromUtf8("Places");
     } else {
         // Be sure to use the C locale category name for standard categories.
         // Older versions of KPA did store the localized category names.
-        return DB::Category::unLocalizedCategoryName(category);
+        mapped = DB::Category::unLocalizedCategoryName(category);
+    }
+    if ( mapped.isEmpty() )
+    {
+        // no mapping -> return original value:
+        return category;
+    } else {
+        m_newToOldName[mapped] = category;
+        return mapped;
     }
 }
 

@@ -69,8 +69,8 @@ namespace XMLDB {
             const DB::FileNameList& cutList,
             bool after) override;
 
-        static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, ReaderPtr, Database* db = nullptr );
-        static void possibleLoadCompressedCategories( ReaderPtr reader , DB::ImageInfoPtr info, Database* db );
+        static DB::ImageInfoPtr createImageInfo( const DB::FileName& fileName, ReaderPtr, Database* db = nullptr, const QMap<QString,QString> *newToOldCategory = nullptr );
+        static void possibleLoadCompressedCategories( ReaderPtr reader , DB::ImageInfoPtr info, Database* db, const QMap<QString,QString> *newToOldCategory = nullptr );
         bool stack(const DB::FileNameList& items) override;
         void unstack(const DB::FileNameList& images) override;
         DB::FileNameList getStackFor(const DB::FileName& referenceId) const override;

@@ -534,7 +534,7 @@ QDateTime dateTimeFromString(const QString& str) {
         return QDateTime::fromString(str,Qt::ISODate);
 }
 
-DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, ReaderPtr reader, Database* db )
+DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName, ReaderPtr reader, Database* db, const QMap<QString,QString> *newToOldCategory )
 {
     static QString _label_ = QString::fromUtf8("label");
     static QString _description_ = QString::fromUtf8("description");
@@ -638,7 +638,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
 
     DB::ImageInfoPtr result(info);
 
-    possibleLoadCompressedCategories( reader, result, db );
+    possibleLoadCompressedCategories( reader, result, db, newToOldCategory );
 
     while( reader->readNextStartOrStopElement(_options_).isStartToken) {
         readOptions( result, reader );
@@ -689,7 +689,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
 
 
 
-void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::ImageInfoPtr info, Database* db )
+void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::ImageInfoPtr info, Database* db, const QMap<QString,QString> *newToOldCategory )
 {
     if ( db == nullptr )
         return;
@@ -697,7 +697,15 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
     QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
-        QString str = reader->attribute( FileWriter::escape( categoryName ) );
+        QString oldCategoryName;
+        if ( newToOldCategory )
+        {
+            // translate to old categoryName, defaulting to the original name if not found:
+            oldCategoryName = newToOldCategory->value( categoryName, categoryName );
+        } else {
+            oldCategoryName = categoryName;
+        }
+        QString str = reader->attribute( FileWriter::escape( oldCategoryName ) );
         if ( !str.isEmpty() ) {
             QStringList list = str.split(QString::fromLatin1( "," ), QString::SkipEmptyParts );
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {

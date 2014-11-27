@@ -36,6 +36,7 @@
 #   include "Exif/Database.h"
 #endif
 #include <DB/FileName.h>
+#include <QDebug>
 
 using Utilities::StringSet;
 
@@ -641,7 +642,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     possibleLoadCompressedCategories( reader, result, db, newToOldCategory );
 
     while( reader->readNextStartOrStopElement(_options_).isStartToken) {
-        readOptions( result, reader );
+        readOptions( result, reader, newToOldCategory );
     }
 
     info->addCategoryInfo( _MediaType_,
@@ -650,7 +651,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     return result;
 }
 
-void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
+void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader, const QMap<QString,QString> *newToOldCategory )
 {
     static QString _name_ = QString::fromUtf8("name");
     static QString _value_ = QString::fromUtf8("value");
@@ -659,6 +660,10 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader )
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
         QString name = FileReader::unescape( reader->attribute(_name_) );
+        // If the silent update to db version 6 has been done, use the updated category names.
+        if (newToOldCategory) {
+            name = newToOldCategory->key(name);
+        }
 
         if ( !name.isNull() )  {
             // Read values

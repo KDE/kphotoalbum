@@ -86,7 +86,7 @@ namespace XMLDB {
 
         DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList& list);
         void insertList( const DB::FileName& id, const DB::ImageInfoList& list, bool after );
-        static void readOptions( DB::ImageInfoPtr info, ReaderPtr reader );
+        static void readOptions( DB::ImageInfoPtr info, ReaderPtr reader, const QMap<QString,QString> *newToOldCategory = nullptr );
 
 
     protected slots:

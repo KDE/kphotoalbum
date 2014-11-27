@@ -462,8 +462,9 @@ QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
 {
     // this fix only applies to older databases (<= version 5);
     // newer databases allow these categories, but without the "special meaning":
-    if (_fileVersion > 5)
+    if (_fileVersion > 5) {
         return category;
+    }
 
     QString mapped;
     // Silently correct some changes/bugs regarding category names
@@ -479,14 +480,9 @@ QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
         // Older versions of KPA did store the localized category names.
         mapped = DB::Category::unLocalizedCategoryName(category);
     }
-    if ( mapped.isEmpty() )
-    {
-        // no mapping -> return original value:
-        return category;
-    } else {
-        m_newToOldName[mapped] = category;
-        return mapped;
-    }
+
+    m_newToOldName[mapped] = category;
+    return mapped;
 }
 
 // TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.

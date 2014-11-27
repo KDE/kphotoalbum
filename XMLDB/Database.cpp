@@ -662,7 +662,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, ReaderPtr reader, cons
         QString name = FileReader::unescape( reader->attribute(_name_) );
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
-            name = newToOldCategory->key(name);
+            name = newToOldCategory->key(name,name);
         }
 
         if ( !name.isNull() )  {

@@ -502,9 +502,35 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
     area->setTagData(tagData.first, tagData.second);
 }
 
+bool ImagePreview::fuzzyAreaExists(QList<QRect> &existingAreas, QRect area)
+{
+    float maximumDeviation;
+    for (int i = 0; i < existingAreas.size(); ++i) {
+        // maximumDeviation is 15% of the mean value of the width and height of each area
+        maximumDeviation = float(existingAreas.at(i).width() + existingAreas.at(i).height()) * 0.075;
+        if (
+            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation and
+            distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation and
+            distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation and
+            distance(existingAreas.at(i).bottomRight(), area.bottomRight()) < maximumDeviation
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+float ImagePreview::distance(QPoint point1, QPoint point2)
+{
+    QPoint difference = point1 - point2;
+    return sqrt(pow(difference.x(), 2) + pow(difference.y(), 2));
+}
+
+#ifdef HAVE_KFACE
+
 void ImagePreview::detectFaces()
 {
-#ifdef HAVE_KFACE
     m_detector = FaceManagement::Detector::instance();
     m_recognizer = FaceManagement::Recognizer::instance();
 
@@ -560,37 +586,10 @@ void ImagePreview::detectFaces()
     }
 
     parent->setFacedetectButEnabled(true);
-#endif
-}
-
-bool ImagePreview::fuzzyAreaExists(QList<QRect> &existingAreas, QRect area)
-{
-    float maximumDeviation;
-    for (int i = 0; i < existingAreas.size(); ++i) {
-        // maximumDeviation is 15% of the mean value of the width and height of each area
-        maximumDeviation = float(existingAreas.at(i).width() + existingAreas.at(i).height()) * 0.075;
-        if (
-            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation and
-            distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation and
-            distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation and
-            distance(existingAreas.at(i).bottomRight(), area.bottomRight()) < maximumDeviation
-        ) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-float ImagePreview::distance(QPoint point1, QPoint point2)
-{
-    QPoint difference = point1 - point2;
-    return sqrt(pow(difference.x(), 2) + pow(difference.y(), 2));
 }
 
 void ImagePreview::trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData)
 {
-#ifdef HAVE_KFACE
     ImagePreviewWidget *parent = dynamic_cast<ImagePreviewWidget *>(parentWidget());
     parent->setFacedetectButEnabled(false);
 
@@ -601,15 +600,10 @@ void ImagePreview::trainRecognitionDatabase(QRect geometry, QPair<QString, QStri
     m_recognizer->trainRecognitionDatabase(tagData, m_fullSizeImage.copy(geometry));
 
     parent->setFacedetectButEnabled(true);
-#else
-    Q_UNUSED(geometry);
-    Q_UNUSED(tagData);
-#endif
 }
 
 void ImagePreview::recognizeArea(ResizableFrame *area)
 {
-#ifdef HAVE_KFACE
     // Be sure to actually have a recognizer instance
     m_recognizer = FaceManagement::Recognizer::instance();
 
@@ -629,10 +623,9 @@ void ImagePreview::recognizeArea(ResizableFrame *area)
         // Set the proposed data
         area->setProposedTagData(proposedTagData);
     }
-#else
-    Q_UNUSED(area);
-#endif
 }
+
+#endif // HAVE_KFACE
 
 #include "ImagePreview.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

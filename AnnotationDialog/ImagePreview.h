@@ -51,12 +51,16 @@ public:
     void createTaggedArea(QString category, QString tag, QRect geometry, bool showArea);
     QSize getActualImageSize();
     void acceptProposedTag(QPair<QString, QString> tagData, ResizableFrame *area);
+#ifdef HAVE_KFACE
     void trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData);
     void recognizeArea(ResizableFrame *area);
+#endif
 
 public slots:
     void setAreaCreationEnabled(bool state);
+#ifdef HAVE_KFACE
     void detectFaces();
+#endif
 
 signals:
     void areaCreated(ResizableFrame *area);

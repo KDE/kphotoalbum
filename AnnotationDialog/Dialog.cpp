@@ -710,6 +710,7 @@ void AnnotationDialog::Dialog::setup()
         _continueLaterBut->hide();
         _revertBut->hide();
         _clearBut->show();
+        _preview->setSearchMode(true);
         setWindowTitle( i18nc("@title:window title of the 'find images' window","Search") );
         loadInfo( _oldSearch );
     }
@@ -719,6 +720,7 @@ void AnnotationDialog::Dialog::setup()
         _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
         _clearBut->hide();
         _revertBut->show();
+        _preview->setSearchMode(false);
         setWindowTitle( i18n("Annotations") );
     }
 

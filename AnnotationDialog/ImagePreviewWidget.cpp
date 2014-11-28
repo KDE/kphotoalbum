@@ -36,44 +36,47 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     layout->addWidget( _preview, 1 );
     connect( this, SIGNAL(areaVisibilityChanged(bool)), _preview, SLOT(setAreaCreationEnabled(bool)) );
 
-    QHBoxLayout* hlay = new QHBoxLayout;
-    layout->addLayout( hlay );
-    hlay->addStretch(1);
+    _controlWidget = new QWidget;
+    layout->addWidget(_controlWidget);
+    QVBoxLayout* controlLayout = new QVBoxLayout(_controlWidget);
+    QHBoxLayout* controlButtonsLayout = new QHBoxLayout;
+    controlLayout->addLayout(controlButtonsLayout);
+    controlButtonsLayout->addStretch(1);
 
     _prevBut = new KPushButton( this );
     _prevBut->setIcon( KIcon( QString::fromLatin1( "arrow-left" ) ) );
     _prevBut->setFixedWidth( 40 );
-    hlay->addWidget( _prevBut );
+    controlButtonsLayout->addWidget( _prevBut );
     _prevBut->setToolTip( i18n("Annotate previous image") );
 
     _nextBut = new KPushButton( this );
     _nextBut->setIcon( KIcon( QString::fromLatin1( "arrow-right" ) ) );
     _nextBut->setFixedWidth( 40 );
-    hlay->addWidget( _nextBut );
+    controlButtonsLayout->addWidget( _nextBut );
     _nextBut->setToolTip( i18n("Annotate next image") );
 
-    hlay->addStretch(1);
+    controlButtonsLayout->addStretch(1);
 
     _rotateLeft = new KPushButton( this );
-    hlay->addWidget( _rotateLeft );
+    controlButtonsLayout->addWidget( _rotateLeft );
     _rotateLeft->setIcon( KIcon( QString::fromLatin1( "object-rotate-left" ) ) );
     _rotateLeft->setFixedWidth( 40 );
     _rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
 
     _rotateRight = new KPushButton( this );
-    hlay->addWidget( _rotateRight );
+    controlButtonsLayout->addWidget( _rotateRight );
     _rotateRight->setIcon( KIcon( QString::fromLatin1( "object-rotate-right" ) ) );
     _rotateRight->setFixedWidth( 40 );
     _rotateRight->setToolTip( i18n("Rotate clockwise") );
 
     _copyPreviousBut = new KPushButton( this );
-    hlay->addWidget( _copyPreviousBut );
+    controlButtonsLayout->addWidget( _copyPreviousBut );
     _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
     _copyPreviousBut->setFixedWidth( 40 );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
 
     _toggleAreasBut = new KPushButton(this);
-    hlay->addWidget(_toggleAreasBut);
+    controlButtonsLayout->addWidget(_toggleAreasBut);
     _toggleAreasBut->setIcon(KIcon(QString::fromLatin1("document-preview")));
     _toggleAreasBut->setFixedWidth(40);
     _toggleAreasBut->setToolTip(i18n("Hide or show areas on the image"));
@@ -82,7 +85,7 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
 
 #ifdef HAVE_KFACE
     _facedetectBut = new KPushButton(this);
-    hlay->addWidget(_facedetectBut);
+    controlButtonsLayout->addWidget(_facedetectBut);
     _facedetectBut->setIcon(KIcon(QString::fromLatin1("edit-find-user")));
     _facedetectBut->setFixedWidth(40);
     _facedetectBut->setCheckable(1);
@@ -90,14 +93,14 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     _facedetectBut->setToolTip(i18n("Search for faces on the current image"));
 #endif
 
-    hlay->addStretch( 1 );
+    controlButtonsLayout->addStretch(1);
     _delBut = new KPushButton( this );
     _delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
-    hlay->addWidget( _delBut );
+    controlButtonsLayout->addWidget( _delBut );
     _delBut->setToolTip( i18n("Delete image") );
     _delBut->setAutoDefault( false );
 
-    hlay->addStretch(1);
+    controlButtonsLayout->addStretch(1);
 
     connect( _copyPreviousBut, SIGNAL(clicked()), this, SLOT(slotCopyPrevious()) );
     connect( _delBut, SIGNAL(clicked()), this, SLOT(slotDeleteImage()) );
@@ -115,7 +118,7 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
         "database will be trained automatically with that tag."
     ));
     _autoTrainDatabase->setChecked(Qt::Checked);
-    layout->addWidget(_autoTrainDatabase, 0, Qt::AlignCenter);
+    controlLayout->addWidget(_autoTrainDatabase, 0, Qt::AlignCenter);
 #endif
 
     _current = -1;
@@ -146,6 +149,9 @@ void ImagePreviewWidget::configure( QList<DB::ImageInfo>* imageList, bool single
   _copyPreviousBut->setEnabled( _singleEdit );
   _rotateLeft->setEnabled( _singleEdit );
   _rotateRight->setEnabled( _singleEdit );
+#ifdef HAVE_KFACE
+  _autoTrainDatabase->setEnabled(_singleEdit);
+#endif
 }
 
 void ImagePreviewWidget::slotPrev()
@@ -299,6 +305,11 @@ void ImagePreviewWidget::setFacedetectButEnabled(bool state)
     // Better disable the whole widget so that the user can't
     // change or delete the image during face detection.
     this->setEnabled(state);
+}
+
+void ImagePreviewWidget::setSearchMode(bool state)
+{
+    _controlWidget->setVisible(! state);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

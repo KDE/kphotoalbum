@@ -49,6 +49,7 @@ public:
 #ifdef HAVE_KFACE
     bool automatedTraining();
 #endif
+    void setSearchMode(bool state);
 
 public slots:
     void slotNext();
@@ -83,6 +84,7 @@ private:
 #ifdef HAVE_KFACE
     QCheckBox *_autoTrainDatabase;
 #endif
+    QWidget* _controlWidget;
 };
 
 }

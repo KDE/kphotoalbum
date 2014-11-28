@@ -251,24 +251,27 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item )
         QString res;
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
         QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
-        if ( item->checkState(0) == Qt::Checked )  {
-            int matchPos = _lineEdit->text().indexOf( txt );
-            if ( matchPos != -1 )
+
+        if (item->checkState(0) == Qt::Checked) {
+            int matchPos = _lineEdit->text().indexOf(txt);
+            if (matchPos != -1) {
                 return;
+            }
 
             int index = _lineEdit->cursorPosition();
             QString start = _lineEdit->text().left(index);
-            QString end =  _lineEdit->text().mid(index);
+            QString end = _lineEdit->text().mid(index);
 
             res = start;
-        if ( !start.isEmpty() && !start.contains( regEnd ) )
-        res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
+            if (! start.isEmpty() && ! start.contains(regEnd)) {
+                res += isAND() ? QString::fromLatin1(" & ") : QString::fromLatin1(" | ") ;
+            }
             res += txt;
-        if ( !end.isEmpty() && !end.contains( regStart ) )
-        res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
+            if (! end.isEmpty() && ! end.contains(regStart)) {
+                res += isAND() ? QString::fromLatin1(" & ") : QString::fromLatin1(" | ") ;
+            }
             res += end;
-        }
-        else {
+        } else {
             int index = _lineEdit->text().indexOf( txt );
             if ( index == -1 )
                 return;

@@ -21,6 +21,7 @@
 #include <QKeyEvent>
 #include <QTreeWidgetItemIterator>
 #include <QTreeWidgetItem>
+#include <QDebug>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
     :KLineEdit( parent )
@@ -91,7 +92,12 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     QString input = text();
     if ( _mode == SearchMode )  {
         input = input.left( cursorPosition() );
-        itemStart = input.lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
+        itemStart = input.lastIndexOf(QRegExp(QString::fromLatin1("[!&|]"))) + 1;
+
+        if (itemStart > 0) {
+            itemStart++;
+        }
+
         input = input.mid( itemStart );
     }
 
@@ -143,21 +149,40 @@ bool AnnotationDialog::CompletableLineEdit::isSpecialKey( QKeyEvent* ev )
 void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent* ev )
 {
     int cursorPos = cursorPosition();
+    QString txt;
+    int additionalLength;
 
-    QString txt = text().left(cursorPos) + ev->text() + text().mid( cursorPos );
-    setText( txt );
-    if(!isSpecialKey(ev) ) cursorPos--; //Special handling for ENTER to position the cursor correctly
-    setCursorPosition( cursorPos + ev->text().length() );
+    if (! isSpecialKey(ev)) {
+        txt = text().left(cursorPos) + ev->text() + text().mid(cursorPos);
+        additionalLength = 0;
+    } else {
+        txt = text() + QString::fromUtf8(" %1 ").arg(ev->text());
+        cursorPos += 2;
+        additionalLength = 2;
+    }
+    setText(txt);
+
+    if (! isSpecialKey(ev)) {
+        //Special handling for ENTER to position the cursor correctly
+        setText(text().left(text().size() - 1));
+        cursorPos--;
+    }
+
+    setCursorPosition( cursorPos + ev->text().length() + additionalLength);
     deselect();
 
     // Select the item in the listView - not perfect but acceptable for now.
-    int start = txt.lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() -2 ) +1;
-    QString input = txt.mid( start, cursorPosition()-start-1 );
+    int start = txt.lastIndexOf(QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() - 2) + 1;
+    if (start > 0) {
+        start++;
+    }
+    QString input = txt.mid(start, cursorPosition() - start);
 
-    if ( !input.isEmpty() ) {
-        QTreeWidgetItem  * item = findItemInListView( input );
-        if ( item )
-            item->setSelected( true );
+    if (! input.isEmpty()) {
+        QTreeWidgetItem* item = findItemInListView(input);
+        if (item) {
+            item->setCheckState(0, Qt::Checked);
+        }
     }
 }
 

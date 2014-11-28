@@ -1,0 +1,19 @@
+Description
+===========
+
+Originally, KPhotoAlbum shipped with the standard categories "Keywords",
+"Locations", and "Persons".  These were at some point replaced with the
+standard categories "Events", "Places", and "People".
+
+While "Keywords" and "Events" are not a one-to-one match and can therefore not
+be renamed automatically, "Locations" and "Persons" were automatically
+translated, with extra bookkeeping to make sure newer code worked well with the
+old standard names.
+
+To make matters more complex, some versions of KPhotoAlbum stored the localized
+names of the standard categories into the database.
+
+Beginning with database format version 6, the old names (except "Keywords") are
+automatically translated on startup and then stored by their new names.  After
+the one-time rename operation, the old names loose their "special" meaning and
+are handled just like every other user-created category.

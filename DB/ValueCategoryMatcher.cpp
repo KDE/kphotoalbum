@@ -18,6 +18,7 @@
 #include "ValueCategoryMatcher.h"
 #include "ImageDB.h"
 #include "MemberMap.h"
+#include <QDebug>
 
 void DB::ValueCategoryMatcher::debug(int level) const
 {
@@ -26,8 +27,12 @@ void DB::ValueCategoryMatcher::debug(int level) const
 
 DB::ValueCategoryMatcher::ValueCategoryMatcher( const QString& category, const QString& value )
 {
+    // Unescape doubled "&"s and restore the original value
+    QString unEscapedValue = value;
+    unEscapedValue.replace(QString::fromUtf8("&&"), QString::fromUtf8("&"));
+
     _category = category ;
-    _option = value;
+    _option = unEscapedValue;
 
     const MemberMap& map = DB::ImageDB::instance()->memberMap();
     const QStringList members = map.members(_category, _option, true);

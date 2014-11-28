@@ -187,11 +187,15 @@ void ImageSearchInfo::setCategoryMatchText( const QString& name, const QString& 
 
 void ImageSearchInfo::addAnd( const QString& category, const QString& value )
 {
+    // Escape literal "&"s in value by doubling it
+    QString escapedValue = value;
+    escapedValue.replace(QString::fromUtf8("&"), QString::fromUtf8("&&"));
+
     QString val = categoryMatchText( category );
     if ( !val.isEmpty() )
-        val += QString::fromLatin1( " & " ) + value;
+        val += QString::fromLatin1( " & " ) + escapedValue;
     else
-        val = value;
+        val = escapedValue;
 
     setCategoryMatchText( category, val );
     _isNull = false;
@@ -323,7 +327,8 @@ void ImageSearchInfo::compile() const
         DB::ContainerCategoryMatcher* orMatcher = new DB::OrCategoryMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-            QStringList andParts = (*itOr).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
+            // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
+            QStringList andParts = (*itOr).split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
 
             DB::ContainerCategoryMatcher* andMatcher;
             bool exactMatch=false;

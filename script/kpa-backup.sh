@@ -1,8 +1,9 @@
 #!/bin/bash
 # Author: Johannes Zarl <isilmendil@gmx.at>
+LOCALPREFIX=`kde4-config --localprefix`
 # default locations:
-KPARC=$HOME/.kde/share/config/kphotoalbumrc
-KPAUIRC=$HOME/.kde/share/apps/kphotoalbum/kphotoalbumui.rc
+KPARC=$LOCALPREFIX/share/config/kphotoalbumrc
+KPAUIRC=$LOCALPREFIX/share/apps/kphotoalbum/kphotoalbumui.rc
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=

@@ -17,6 +17,8 @@
 */
 
 #include "Dialog.h"
+#include <algorithm>
+#include <tuple>
 #include <QStackedWidget>
 #include <KAction>
 #include <KActionCollection>

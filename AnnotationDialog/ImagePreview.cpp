@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <math.h>
 #include <QRubberBand>
 #include "ImagePreview.h"
 #include "ImageManager/AsyncLoader.h"

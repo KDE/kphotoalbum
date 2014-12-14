@@ -576,6 +576,7 @@ void MainWindow::Window::slotViewNewWindow()
 /*
  * Returns a list of files that are both selected and on disk. If there are no
  * selected files, returns all files form current context that are on disk.
+ * Note: On some setups (NFS), this can be a very time-consuming method!
  * */
 DB::FileNameList MainWindow::Window::selectedOnDisk()
 {
@@ -1665,7 +1666,7 @@ void MainWindow::Window::slotJumpToContext()
 void MainWindow::Window::setDateRange( const DB::ImageDate& range )
 {
     DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
-    _statusBar->_partial->showBrowserMatches( this->selectedOnDisk().size() );
+    _statusBar->_partial->showBrowserMatches( this->selected().size() );
     _browser->reload();
     reloadThumbnails( ThumbnailView::MaintainSelection );
 }

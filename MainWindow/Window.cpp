@@ -560,12 +560,17 @@ void MainWindow::Window::slotAutoStackImages()
     delete stacker;
 }
 
+/**
+ * In thumbnail mode, return a list of files that are selected.
+ * Otherwise, return all images in the current scope/context.
+ */
 DB::FileNameList MainWindow::Window::selected( ThumbnailView::SelectionMode mode) const
 {
     if ( _thumbnailView->gui() == _stack->currentWidget() )
         return _thumbnailView->selection(mode);
     else
-        return DB::FileNameList();
+        // return all images in the current scope (parameter false: include images not on disk)
+        return DB::ImageDB::instance()->currentScope(false);
 }
 
 void MainWindow::Window::slotViewNewWindow()
@@ -581,8 +586,6 @@ void MainWindow::Window::slotViewNewWindow()
 DB::FileNameList MainWindow::Window::selectedOnDisk()
 {
     const DB::FileNameList list = selected(ThumbnailView::NoExpandCollapsedStacks);
-    if (list.isEmpty())
-        return DB::ImageDB::instance()->currentScope(true);
 
     DB::FileNameList listOnDisk;
     Q_FOREACH(const DB::FileName& fileName, list) {

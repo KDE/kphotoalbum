@@ -30,6 +30,7 @@
 #include "ImagePreviewWidget.h"
 #include <QCheckBox>
 #include <kdialog.h>
+#include "config-kpa-kgeomap.h"
 
 class QStackedWidget;
 class KActionCollection;
@@ -46,8 +47,12 @@ class QSplitter;
 class KPushButton;
 class KLineEdit;
 class KPushButton;
-
+class QProgressBar;
 class KRatingWidget;
+
+#ifdef HAVE_KGEOMAP
+class QPushButton;
+#endif
 
 namespace Viewer
 {
@@ -59,6 +64,10 @@ namespace DB
     class ImageInfo;
 }
 
+namespace Map
+{
+    class MapView;
+}
 
 namespace AnnotationDialog
 {
@@ -108,6 +117,11 @@ protected slots:
     void positionableTagSelected(QString category, QString tag);
     void positionableTagDeselected(QString category, QString tag);
     void positionableTagRenamed(QString category, QString oldTag, QString newTag);
+#ifdef HAVE_KGEOMAP
+    void setCancelMapLoading();
+    void annotationMapVisibilityChanged(bool visible);
+    void populateMap();
+#endif
 
 signals:
     void imageRotated(const DB::FileName& id);
@@ -194,6 +208,18 @@ private:
 
     bool _positionableCategories;
     bool _areasChanged;
+    // helper variable that is set whenever KDialog::exec() is beind called:
+    bool _executing;
+
+#ifdef HAVE_KGEOMAP
+    QWidget *_annotationMapContainer;
+    Map::MapView *_annotationMap;
+    void updateMapForCurrentImage();
+    QProgressBar *_mapLoadingProgress;
+    QPushButton *_cancelMapLoadingButton;
+    void mapLoadingFinished(bool mapHasImages, bool allImagesHaveCoordinates);
+    bool _cancelMapLoading;
+#endif
 };
 
 }

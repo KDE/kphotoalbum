@@ -68,6 +68,13 @@
 #include "DescriptionEdit.h"
 #include "config-kpa-kface.h"
 
+#ifdef HAVE_KGEOMAP
+#include "Map/MapView.h"
+#include <QProgressBar>
+#include <QPushButton>
+#include <QTimer>
+#endif
+
 #include <QDebug>
 
 using Utilities::StringSet;
@@ -78,9 +85,10 @@ using Utilities::StringSet;
  */
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
-    : KDialog( parent ),
-    _ratingChanged( false ),
-    conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
+    : KDialog( parent )
+    , _ratingChanged( false )
+    , conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
+    , _executing( false )
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
@@ -114,6 +122,39 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     shortCutManager.addDock( dock, _description );
 
     connect( _description, SIGNAL(pageUpDownPressed(QKeyEvent*)), this, SLOT(descriptionPageUpDownPressed(QKeyEvent*)) );
+
+#ifdef HAVE_KGEOMAP
+    // -------------------------------------------------- Map representation
+
+    _annotationMapContainer = new QWidget(this);
+    QVBoxLayout *annotationMapContainerLayout = new QVBoxLayout(_annotationMapContainer);
+
+    _annotationMap = new Map::MapView(this);
+    annotationMapContainerLayout->addWidget(_annotationMap);
+
+    QHBoxLayout *mapLoadingProgressLayout = new QHBoxLayout();
+    annotationMapContainerLayout->addLayout(mapLoadingProgressLayout);
+
+    _mapLoadingProgress = new QProgressBar(this);
+    mapLoadingProgressLayout->addWidget(_mapLoadingProgress);
+    _mapLoadingProgress->hide();
+
+    _cancelMapLoadingButton = new QPushButton(i18n("Cancel"));
+    mapLoadingProgressLayout->addWidget(_cancelMapLoadingButton);
+    _cancelMapLoadingButton->hide();
+    connect(_cancelMapLoadingButton, SIGNAL(clicked()), this, SLOT(setCancelMapLoading()));
+    connect(this, SIGNAL(finished(int)), _cancelMapLoadingButton, SLOT(click()));
+
+    _annotationMapContainer->setObjectName(i18n("Map"));
+    QDockWidget *map = createDock(
+        i18n("Map"),
+        QString::fromLatin1("map"),
+        Qt::LeftDockWidgetArea,
+        _annotationMapContainer
+    );
+    shortCutManager.addDock(map, _annotationMapContainer);
+    connect(map, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
+#endif
 
     // -------------------------------------------------- Categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -524,9 +565,15 @@ void AnnotationDialog::Dialog::load()
         }
     }
 
-    if ( _setup == InputSingleImageConfigMode )
-        setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
-    _preview->canCreateAreas( _setup == InputSingleImageConfigMode && ! info.isVideo() && _positionableCategories );
+    if (_setup == InputSingleImageConfigMode) {
+        setWindowTitle(i18n("KPhotoAlbum Annotations (%1/%2)", _current + 1, _origList.count()));
+        _preview->canCreateAreas(
+            _setup == InputSingleImageConfigMode && ! info.isVideo() && _positionableCategories
+        );
+#ifdef HAVE_KGEOMAP
+        updateMapForCurrentImage();
+#endif
+    }
 }
 
 void AnnotationDialog::Dialog::writeToInfo()
@@ -612,6 +659,9 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     else
         _setup = InputMultiImageConfigMode;
 
+#ifdef HAVE_KGEOMAP
+    _annotationMap->clear();
+#endif
     _origList = list;
     _editList.clear();
 
@@ -663,6 +713,9 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 {
     ShowHideSearch(true);
 
+#ifdef HAVE_KGEOMAP
+    _annotationMap->clear();
+#endif
     _setup = SearchMode;
     if ( search )
         _oldSearch = *search;
@@ -838,7 +891,15 @@ int AnnotationDialog::Dialog::exec()
     this->setFocus(); // Set temporary focus before show() is called so that extra cursor is not shown on any "random" input widget
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
+
+#ifdef HAVE_KGEOMAP
+    // for time-consuming stuff that would otherwise block us here:
+    QTimer::singleShot(0, this, SLOT(populateMap()));
+#endif
+
+    _executing = true;
     const int ret = KDialog::exec();
+    _executing = false;
     hideTornOfWindows();
     return ret;
 }
@@ -1468,6 +1529,94 @@ void AnnotationDialog::Dialog::areaChanged()
 {
     _areasChanged = true;
 }
+
+#ifdef HAVE_KGEOMAP
+void AnnotationDialog::Dialog::updateMapForCurrentImage()
+{
+    if (_setup != InputSingleImageConfigMode) {
+        return;
+    }
+
+    if (_editList[_current].coordinates().hasCoordinates()) {
+        _annotationMap->setCenter(_editList[_current]);
+        _annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+    } else {
+        _annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+    }
+}
+
+void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
+{
+    // This populates the map if it's added when the dialog is already open
+    if ( visible ) {
+        populateMap();
+    }
+}
+
+void AnnotationDialog::Dialog::populateMap()
+{
+    if ( !_executing ) {
+        return;
+    }
+
+    _annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
+    _cancelMapLoading = false;
+    _mapLoadingProgress->setMaximum(_editList.count());
+    _mapLoadingProgress->show();
+    _cancelMapLoadingButton->show();
+
+    int processedImages = 0;
+    int imagesWithCoordinates = 0;
+
+    foreach (DB::ImageInfo info, _editList) {
+        processedImages++;
+        _mapLoadingProgress->setValue(processedImages);
+        // keep things responsive by processing events manually:
+        QApplication::processEvents();
+
+        if (info.coordinates().hasCoordinates()) {
+            _annotationMap->addImage(info);
+            imagesWithCoordinates++;
+        }
+
+        // _cancelMapLoading is set to true by clicking the "Cancel" button
+        if (_cancelMapLoading) {
+            _annotationMap->clear();
+            break;
+        }
+    }
+
+    mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);
+}
+
+void AnnotationDialog::Dialog::setCancelMapLoading()
+{
+    _cancelMapLoading = true;
+}
+
+void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allImagesHaveCoordinates)
+{
+    _mapLoadingProgress->hide();
+    _cancelMapLoadingButton->hide();
+
+    if (_setup == InputSingleImageConfigMode) {
+        _annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+    } else {
+        if (mapHasImages) {
+            if (! allImagesHaveCoordinates) {
+                _annotationMap->displayStatus(Map::MapView::MapStatus::SomeImagesHaveNoCoordinates);
+            } else {
+                _annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+            }
+        } else {
+            _annotationMap->displayStatus(Map::MapView::MapStatus::NoImagesHaveNoCoordinates);
+        }
+    }
+
+    _annotationMap->zoomToMarkers();
+    updateMapForCurrentImage();
+}
+#endif
 
 #include "Dialog.moc"
 

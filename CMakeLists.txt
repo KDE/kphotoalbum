@@ -100,6 +100,17 @@ else()
     message(STATUS "  Face detection and recognition features won't be built.")
 endif(Kface_FOUND)
 
+find_package(KGeoMap QUIET)
+macro_bool_to_01(KGEOMAP_FOUND HAVE_KGEOMAP)
+if(KGEOMAP_FOUND)
+    message(STATUS "Found KGeoMap ${KGEOMAP_VERSION} (optional)")
+    message(STATUS "  Geographic map features will be built.")
+    INCLUDE_DIRECTORIES(${KGEOMAP_INCLUDE_DIR})
+else()
+    message(STATUS "Did not find KGeoMap (optional)")
+    message(STATUS "  Geographic map features won't be built.")
+endif(KGEOMAP_FOUND)
+
 add_custom_target(
     UpdateVersion ALL
     COMMAND ${CMAKE_COMMAND} -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
@@ -390,6 +401,14 @@ if(Kface_FOUND)
     )
 endif(Kface_FOUND)
 
+set(libMap_SRCS)
+if(KGEOMAP_FOUND)
+    set(libMap_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
+    )
+endif(KGEOMAP_FOUND)
+
 add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
@@ -430,6 +449,7 @@ set(kphotoalbum_SRCS
     ${libBackgroundJobs_SRCS}
     ${libRemoteControl_SRCS}
     ${libFaceManagement_SRCS}
+    ${libMap_SRCS}
 )
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
@@ -462,6 +482,10 @@ if(Kface_FOUND)
 	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
 endif(Kface_FOUND)
 
+if(KGEOMAP_FOUND)
+    target_link_libraries(kphotoalbum ${KGEOMAP_LIBRARIES} )
+endif()
+
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
@@ -476,3 +500,4 @@ configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-e
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kface.h)
+configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)

@@ -29,6 +29,8 @@
 #include "Exif/Database.h"
 #include <kdebug.h>
 #include <Utilities/Set.h>
+#include <QFile>
+#include <QDebug>
 
 using namespace DB;
 
@@ -718,5 +720,122 @@ QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
     // QMap::value returns a default constructed value if the key is not found:
     return _taggedAreas.value(category).value(tag);
 }
+
+#ifdef HAVE_KGEOMAP
+KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
+{
+    if (_coordinatesFetched) {
+        return _coordinates;
+    }
+
+    const int EXIF_GPS_LATREF  = 0x0001;
+    const int EXIF_GPS_LAT     = 0x0002;
+    const int EXIF_GPS_LONGREF = 0x0003;
+    const int EXIF_GPS_LONG    = 0x0004;
+    const int EXIF_GPS_ALTREF  = 0x0005;
+    const int EXIF_GPS_ALT     = 0x0006;
+
+    const QString S = QString::fromUtf8("S");
+    const QString W = QString::fromUtf8("W");
+
+    KGeoMap::GeoCoordinates coords;
+
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(
+            QFile::encodeName(fileName().absolute()).data()
+        );
+        image->readMetadata();
+
+        Exiv2::ExifData exifData = image->exifData();
+        if (exifData.empty()) {
+            _coordinatesFetched = true;
+            return coords;
+        }
+
+        double lat = -1.0;
+        double lon = -1.0;
+        double alt = 0.0;
+
+        // lat/lon/alt reference determines sign of float:
+        double latr = 1.0;
+        double lonr = 1.0;
+        double altr = 1.0;
+
+        // gather data:
+        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != exifData.end(); ++i) {
+            if (i->groupName() == "GPSInfo") {
+                switch (i->tag()) {
+                case EXIF_GPS_LATREF:
+                    if (QString::fromUtf8(i->toString().c_str()) == S) {
+                        latr = -1.0;
+                    }
+                    break;
+                case EXIF_GPS_LAT:
+                    lat = calculateCoordinate(i);
+                    break;
+                case EXIF_GPS_LONGREF:
+                    if (QString::fromUtf8(i->toString().c_str()) == W) {
+                        lonr = -1.0;
+                    }
+                    break;
+                case EXIF_GPS_LONG:
+                    lon = calculateCoordinate(i);
+                    break;
+                case EXIF_GPS_ALTREF:
+                    if (i->toLong() == 1) {
+                        altr = -1.0;
+                    }
+                    break;
+                case EXIF_GPS_ALT:
+                    alt = i->toFloat();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        // If calculateCoordinate returns -1.0, there's something wrong
+        // with the metadata and we don't have a valid coordinate pair
+        if (lat != -1.0 and lon != -1.0) {
+            coords.setLatLon(latr * lat, lonr * lon);
+            if (alt != 0.0d) {
+                coords.setAlt(altr * alt);
+            }
+        }
+    } catch (Exiv2::AnyError &e) {
+        qWarning() << e.what();
+    }
+
+    _coordinatesFetched = true;
+    _coordinates = coords;
+    return coords;
+}
+
+double DB::ImageInfo::calculateCoordinate(Exiv2::ExifData::const_iterator &data) const
+{
+    if (data->count() != 3) {
+        // Something is wrong, the coordinate has to have three parts
+        // Return -1.0 here to indicate the error (the coordinate will normally be positive)
+        return -1.0;
+    }
+
+    double num;
+    double den;
+    QList<double> coordinateParts;
+
+    for (int i = 0; i < 3; ++i) {
+        num = data->toRational(i).first;
+        den = data->toRational(i).second;
+        if (den == 0) {
+            coordinateParts << 0.0;
+        } else {
+            coordinateParts << num / den;
+        }
+    }
+
+    return coordinateParts[0] + (coordinateParts[1] / 60.0) + (coordinateParts[2] / 3600.0);
+}
+#endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

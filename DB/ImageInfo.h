@@ -32,6 +32,12 @@
 #include <QRect>
 #include "FileName.h"
 
+#include "config-kpa-kgeomap.h"
+#ifdef HAVE_KGEOMAP
+#include <libkgeomap/geocoordinates.h>
+#include <exiv2/image.hpp>
+#endif
+
 namespace Plugins
 {
      class ImageInfo;
@@ -184,6 +190,10 @@ public:
      * @return the associated area, or <code>QRect()</code> if no association exists.
      */
     QRect areaForTag(QString category, QString tag) const;
+#ifdef HAVE_KGEOMAP
+    KGeoMap::GeoCoordinates coordinates() const;
+#endif
+
 protected:
     /** Save changes to database.
      *
@@ -228,6 +238,13 @@ private:
     bool _dirty;
 
     bool _delaySaving;
+
+#ifdef HAVE_KGEOMAP
+    // _coordinates are cached; therefore we allow to update them even if the object is const:
+    mutable KGeoMap::GeoCoordinates _coordinates;
+    mutable bool _coordinatesFetched = false;
+    double calculateCoordinate(Exiv2::ExifData::const_iterator &data) const;
+#endif
 };
 
 }

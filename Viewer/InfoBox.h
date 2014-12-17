@@ -63,13 +63,13 @@ protected:
     virtual QVariant loadResource( int type, const QUrl& name );
 
 private:
-    QMap<int, QPair<QString,QString> > _linkMap;
-    ViewerWidget* _viewer;
-    QToolButton* _jumpToContext;
-    bool _hoveringOverLink;
-    InfoBoxResizer _infoBoxResizer;
-    VisibleOptionsMenu* _menu;
-    QList<QPixmap> _ratingPixmap;
+    QMap<int, QPair<QString,QString> > m_linkMap;
+    ViewerWidget* m_viewer;
+    QToolButton* m_jumpToContext;
+    bool m_hoveringOverLink;
+    InfoBoxResizer m_infoBoxResizer;
+    VisibleOptionsMenu* m_menu;
+    QList<QPixmap> m_ratingPixmap;
 };
 
 }

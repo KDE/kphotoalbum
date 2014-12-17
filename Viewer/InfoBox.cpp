@@ -38,7 +38,7 @@
 using namespace Settings;
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
-    :KTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false ), _infoBoxResizer( this ), _menu(nullptr)
+    :KTextBrowser( viewer ), m_viewer( viewer ), m_hoveringOverLink( false ), m_infoBoxResizer( this ), m_menu(nullptr)
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
@@ -52,13 +52,13 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     p.setColor(QPalette::Link, QColor(Qt::blue).light() );
     setPalette(p);
 
-    _jumpToContext = new QToolButton( this );
-    _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
-    _jumpToContext->setFixedSize( 16, 16 );
-    connect( _jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()) );
+    m_jumpToContext = new QToolButton( this );
+    m_jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
+    m_jumpToContext->setFixedSize( 16, 16 );
+    connect( m_jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()) );
     connect( this, SIGNAL(highlighted(QString)),
              SLOT(linkHovered(QString)));
-    _jumpToContext->setCursor( Qt::ArrowCursor );
+    m_jumpToContext->setCursor( Qt::ArrowCursor );
 
     KRatingWidget* rating = new KRatingWidget( nullptr );
 
@@ -72,7 +72,7 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
         // There's no real transparency in grabWidget() :(
         QPixmap pixmap = QPixmap::grabWidget( rating );
         pixmap.setMask( pixmap.createHeuristicMask() );
-        _ratingPixmap.append( pixmap ) ;
+        m_ratingPixmap.append( pixmap ) ;
     }
     delete rating;
 }
@@ -81,7 +81,7 @@ QVariant Viewer::InfoBox::loadResource( int type, const QUrl& name )
 {
     if ( name.scheme() == QString::fromLatin1( "KRatingWidget" ) ) {
         short int rating = name.host().toShort();
-        return _ratingPixmap[ rating ];
+        return m_ratingPixmap[ rating ];
     }
     return KTextBrowser::loadResource( type, name );
 }
@@ -89,7 +89,7 @@ QVariant Viewer::InfoBox::loadResource( int type, const QUrl& name )
 void Viewer::InfoBox::setSource( const QUrl& which )
 {
     int index = which.path().toInt();
-    QPair<QString,QString> p = _linkMap[index];
+    QPair<QString,QString> p = m_linkMap[index];
     QString category = p.first;
     QString value = p.second;
     Browser::BrowserWidget::instance()->load( category, value );
@@ -98,7 +98,7 @@ void Viewer::InfoBox::setSource( const QUrl& which )
 
 void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap )
 {
-    _linkMap = linkMap;
+    m_linkMap = linkMap;
     setText( text );
 
     hackLinkColorForQt44();
@@ -120,7 +120,7 @@ void Viewer::InfoBox::setSize()
     const int realWidth =
         static_cast<int>(document()->idealWidth()) +
         (showVerticalBar ? verticalScrollBar()->width() + frameWidth() : 0) +
-        _jumpToContext->width() + 10;
+        m_jumpToContext->width() + 10;
 
     resize( realWidth, qMin( (int)document()->size().height(), maxHeight ) );
 #else
@@ -138,22 +138,22 @@ void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
 
 void Viewer::InfoBox::mouseReleaseEvent( QMouseEvent* e )
 {
-    if ( _infoBoxResizer.isActive() ) {
+    if ( m_infoBoxResizer.isActive() ) {
         Settings::SettingsData::instance()->setInfoBoxWidth( width() );
         Settings::SettingsData::instance()->setInfoBoxHeight( height() );
     }
 
-    _infoBoxResizer.deactivate();
+    m_infoBoxResizer.deactivate();
     KTextBrowser::mouseReleaseEvent(e);
 }
 
 void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
 {
     if ( e->buttons() & Qt::LeftButton ) {
-        if ( _infoBoxResizer.isActive() )
-            _infoBoxResizer.setPos( e->pos() );
+        if ( m_infoBoxResizer.isActive() )
+            m_infoBoxResizer.setPos( e->pos() );
         else
-            _viewer->infoBoxMove();
+            m_viewer->infoBoxMove();
         // Do not tell KTextBrowser about the mouse movement, as this will just start a selection.
     }
     else {
@@ -167,24 +167,24 @@ void Viewer::InfoBox::linkHovered( const QString& linkName )
     if (linkName == QString()) {
         emit noTagHovered();
     } else {
-        emit tagHovered(_linkMap[linkName.toInt()]);
+        emit tagHovered(m_linkMap[linkName.toInt()]);
     }
 
-    _hoveringOverLink = !linkName.isNull();
+    m_hoveringOverLink = !linkName.isNull();
 }
 
 void Viewer::InfoBox::jumpToContext()
 {
-    Browser::BrowserWidget::instance()->addImageView( _viewer->currentInfo()->fileName() );
+    Browser::BrowserWidget::instance()->addImageView( m_viewer->currentInfo()->fileName() );
     showBrowser();
 }
 
 void Viewer::InfoBox::showBrowser()
 {
     QDesktopWidget* desktop = qApp->desktop();
-    if ( desktop->screenNumber( Browser::BrowserWidget::instance() ) == desktop->screenNumber( _viewer ) ) {
-        if (_viewer->showingFullScreen() )
-            _viewer->setShowFullScreen( false );
+    if ( desktop->screenNumber( Browser::BrowserWidget::instance() ) == desktop->screenNumber( m_viewer ) ) {
+        if (m_viewer->showingFullScreen() )
+            m_viewer->setShowFullScreen( false );
         MainWindow::Window::theMainWindow()->raise();
     }
 
@@ -207,7 +207,7 @@ void Viewer::InfoBox::updateCursor( const QPoint& pos )
     Settings::Position windowPos = Settings::SettingsData::instance()->infoBoxPosition();
 
     Qt::CursorShape shape = Qt::SizeAllCursor;
-    if ( _hoveringOverLink ) shape = Qt::PointingHandCursor;
+    if ( m_hoveringOverLink ) shape = Qt::PointingHandCursor;
     else if ( atBlackoutPos( left, right, top, bottom, windowPos ) )
         shape = Qt::SizeAllCursor;
     else if ( ( left && top ) || ( right && bottom ) ) shape = Qt::SizeFDiagCursor;
@@ -241,13 +241,13 @@ void Viewer::InfoBox::possiblyStartResize( const QPoint& pos )
     bool bottom = pos.y() > height()-border;
 
     if ( left || right || top || bottom )
-        _infoBoxResizer.setup(left,right,top,bottom);
+        m_infoBoxResizer.setup(left,right,top,bottom);
 }
 
 void Viewer::InfoBox::resizeEvent( QResizeEvent* )
 {
-    QPoint pos = viewport()->rect().adjusted(0,2,-_jumpToContext->width()-2,0).topRight();
-    _jumpToContext->move( pos );
+    QPoint pos = viewport()->rect().adjusted(0,2,-m_jumpToContext->width()-2,0).topRight();
+    m_jumpToContext->move( pos );
 }
 
 void Viewer::InfoBox::hackLinkColorForQt44()
@@ -271,11 +271,11 @@ void Viewer::InfoBox::hackLinkColorForQt44()
 
 void Viewer::InfoBox::contextMenuEvent( QContextMenuEvent* event )
 {
-    if ( !_menu ) {
-        _menu = new VisibleOptionsMenu( _viewer, new KActionCollection((QObject*)nullptr) );
-        connect( _menu, SIGNAL(visibleOptionsChanged()), _viewer, SLOT(updateInfoBox()) );
+    if ( !m_menu ) {
+        m_menu = new VisibleOptionsMenu( m_viewer, new KActionCollection((QObject*)nullptr) );
+        connect( m_menu, SIGNAL(visibleOptionsChanged()), m_viewer, SLOT(updateInfoBox()) );
     }
-    _menu->exec(event->globalPos());
+    m_menu->exec(event->globalPos());
 }
 
 #include "InfoBox.moc"

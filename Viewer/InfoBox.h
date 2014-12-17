@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,52 +18,70 @@
 
 #ifndef INFOBOX_H
 #define INFOBOX_H
-#include "InfoBoxResizer.h"
-#include <QMouseEvent>
-#include "ViewerWidget.h"
-#include <KTextBrowser>
-#include <kratingwidget.h>
-#include "Settings/SettingsData.h"
 
+// Qt includes
+#include <QMouseEvent>
+#include <QPointer>
+
+// KDE includes
+#include <KTextBrowser>
+#include <KRatingWidget>
+
+// Local includes
+#include "Settings/SettingsData.h"
+#include "InfoBoxResizer.h"
+#include "ViewerWidget.h"
+
+// Qt classes
 class QMenu;
 class QToolButton;
 
+namespace Map
+{
+
+// Local classes
+class MapView;
+
+}
+
 namespace Viewer
 {
+
+// Local classes
 class VisibleOptionsMenu;
 
-class InfoBox :public KTextBrowser {
+class InfoBox : public KTextBrowser {
     Q_OBJECT
 
 public:
-    explicit InfoBox( ViewerWidget* parent );
-    void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
-    virtual void setSource( const QUrl& which );
+    explicit InfoBox(ViewerWidget* parent);
+    virtual void setSource(const QUrl& source);
+    void setInfo(const QString& text, const QMap<int, QPair<QString,QString>>& linkMap);
     void setSize();
+
+protected:
+    virtual QVariant loadResource(int type, const QUrl& name);
+    void mouseMoveEvent(QMouseEvent*) override;
+    void mousePressEvent(QMouseEvent*) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
+    void contextMenuEvent(QContextMenuEvent* event) override;
+    void updateCursor(const QPoint& pos);
+    bool atBlackoutPos(bool left, bool right, bool top, bool bottom, Settings::Position windowPos) const;
+    void showBrowser();
+    void possiblyStartResize(const QPoint& pos);
+    void hackLinkColorForQt44();
 
 protected slots:
     void jumpToContext();
-    void linkHovered(const QString&);
+    void linkHovered(const QString& linkName);
 
 signals:
     void tagHovered(QPair<QString, QString> tagData);
     void noTagHovered();
 
-protected:
-    void mouseMoveEvent( QMouseEvent* ) override;
-    void mousePressEvent( QMouseEvent* ) override;
-    void mouseReleaseEvent( QMouseEvent* ) override;
-    void resizeEvent( QResizeEvent* ) override;
-    void contextMenuEvent( QContextMenuEvent* event ) override;
-    void updateCursor( const QPoint& pos );
-    bool atBlackoutPos( bool left, bool right, bool top, bool bottom, Settings::Position windowPos ) const;
-    void showBrowser();
-    void possiblyStartResize(const QPoint& pos);
-    void hackLinkColorForQt44();
-    virtual QVariant loadResource( int type, const QUrl& name );
-
-private:
-    QMap<int, QPair<QString,QString> > m_linkMap;
+private: // Variables
+    QMap<int, QPair<QString,QString>> m_linkMap;
     ViewerWidget* m_viewer;
     QToolButton* m_jumpToContext;
     bool m_hoveringOverLink;
@@ -74,7 +92,6 @@ private:
 
 }
 
-
-#endif /* INFOBOX_H */
+#endif // INFOBOX_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

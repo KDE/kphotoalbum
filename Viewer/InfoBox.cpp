@@ -41,13 +41,20 @@
 #include "InfoBox.h"
 #include "VisibleOptionsMenu.h"
 
+#ifdef HAVE_KGEOMAP
+#include <QDialog>
+#include <QVBoxLayout>
+#include "Map/MapView.h"
+#endif
+
 using namespace Settings;
 
 Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer),
     m_viewer(viewer),
     m_hoveringOverLink(false),
     m_infoBoxResizer(this),
-    m_menu(nullptr)
+    m_menu(nullptr),
+    m_map(nullptr)
 {
     setFrameStyle(Box | Plain);
     setLineWidth(1);
@@ -66,6 +73,19 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer),
     connect(m_jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()));
     connect(this, SIGNAL(highlighted(QString)), SLOT(linkHovered(QString)));
     m_jumpToContext->setCursor(Qt::ArrowCursor);
+
+#ifdef HAVE_KGEOMAP
+    m_showOnMap = new QToolButton(this);
+    m_showOnMap->setIcon(KIcon(QString::fromUtf8("edit-web-search")));
+    m_showOnMap->setFixedSize(16, 16);
+    m_showOnMap->setCursor(Qt::ArrowCursor);
+    m_showOnMap->setToolTip(i18n("Show the geographic position of this image on a map"));
+    connect(m_showOnMap, SIGNAL(clicked()), this, SLOT(launchMapView()));
+    m_showOnMap->hide();
+
+    connect(m_viewer, SIGNAL(soughtTo(DB::FileName)),
+            this, SLOT(updateMapForCurrentImage(DB::FileName)));
+#endif
 
     KRatingWidget* rating = new KRatingWidget( nullptr );
 
@@ -110,6 +130,14 @@ void Viewer::InfoBox::setInfo(const QString& text, const QMap<int, QPair<QString
     setText(text);
 
     hackLinkColorForQt44();
+
+#ifdef HAVE_KGEOMAP
+    if (m_viewer->currentInfo()->coordinates().hasCoordinates()) {
+        m_showOnMap->show();
+    } else {
+        m_showOnMap->hide();
+    }
+#endif
 
     setSize();
 }
@@ -256,6 +284,10 @@ void Viewer::InfoBox::resizeEvent(QResizeEvent*)
 {
     QPoint pos = viewport()->rect().adjusted(0, 2, -m_jumpToContext->width() - 2, 0).topRight();
     m_jumpToContext->move(pos);
+#ifdef HAVE_KGEOMAP
+    pos.setY(pos.y() + 20);
+    m_showOnMap->move(pos);
+#endif
 }
 
 void Viewer::InfoBox::hackLinkColorForQt44()
@@ -284,6 +316,37 @@ void Viewer::InfoBox::contextMenuEvent(QContextMenuEvent* event)
     }
     m_menu->exec(event->globalPos());
 }
+
+#ifdef HAVE_KGEOMAP
+void Viewer::InfoBox::launchMapView()
+{
+    if (! m_map) {
+        m_map = new Map::MapView(m_viewer, Map::MapView::MapViewWindow);
+    }
+
+    m_map->addImage(m_viewer->currentInfo());
+    m_map->setShowThumbnails(false);
+    m_map->zoomToMarkers();
+    m_map->show();
+    m_map->raise();
+}
+
+void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
+{
+    if (! m_map) {
+        return;
+    }
+
+    if (m_viewer->currentInfo()->coordinates().hasCoordinates()) {
+        m_map->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+        m_map->clear();
+        m_map->addImage(m_viewer->currentInfo());
+        m_map->setCenter(m_viewer->currentInfo());
+    } else {
+        m_map->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+    }
+}
+#endif
 
 #include "InfoBox.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

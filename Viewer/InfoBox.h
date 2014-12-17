@@ -31,6 +31,7 @@
 #include "Settings/SettingsData.h"
 #include "InfoBoxResizer.h"
 #include "ViewerWidget.h"
+#include "config-kpa-kgeomap.h"
 
 // Qt classes
 class QMenu;
@@ -75,6 +76,10 @@ protected:
 protected slots:
     void jumpToContext();
     void linkHovered(const QString& linkName);
+#ifdef HAVE_KGEOMAP
+    void launchMapView();
+    void updateMapForCurrentImage(DB::FileName);
+#endif
 
 signals:
     void tagHovered(QPair<QString, QString> tagData);
@@ -88,6 +93,10 @@ private: // Variables
     InfoBoxResizer m_infoBoxResizer;
     VisibleOptionsMenu* m_menu;
     QList<QPixmap> m_ratingPixmap;
+#ifdef HAVE_KGEOMAP
+    QToolButton* m_showOnMap;
+    QPointer<Map::MapView> m_map;
+#endif
 };
 
 }

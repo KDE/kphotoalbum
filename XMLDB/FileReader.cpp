@@ -36,6 +36,8 @@
 #include <QXmlStreamReader>
 #include "CompressFileInfo.h"
 #include <QDebug>
+#include <QDir>
+#include "MainWindow/DirtyIndicator.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -200,6 +202,48 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     }
 
     createSpecialCategories();
+
+    // Update the CategoryImages directory if there has been a category name cleanup
+    if (m_newToOldName.count() > 0) {
+
+        int ret = KMessageBox::warningYesNo(
+            messageParent(),
+            i18n("<p>This version of KPhotoAlbum will fix some issues with old category names by "
+                 "renaming them. As a consequence, existing tag and category thumbnails have to be "
+                 "moved accordingly.</p>"
+                 "<p>If you select \"Yes\", please be sure to save the database as your next "
+                 "step. If you select \"No\", you won't see the thumbnails for the respective "
+                 "categories now. If you do so, please don't save the database. Otherwise, "
+                 "the thumbnails will be lost!</p>"
+                 "<p>Should the existing category and tag thumbnails be updated now?</p>"),
+            i18n("index.xml Update")
+        );
+
+        if (ret == KStandardGuiItem::Yes) {
+            QDir dir(QString::fromUtf8("%1/CategoryImages").arg(Settings::SettingsData::instance()->imageDirectory()));
+            QStringList matchingFiles;
+            QString newFileName;
+            QStringList::ConstIterator matchingFilesIt;
+            QMapIterator<QString, QString> oldToNew(m_newToOldName);
+
+            while (oldToNew.hasNext()) {
+                oldToNew.next();
+                if (oldToNew.key() == oldToNew.value()) {
+                    continue;
+                }
+
+                matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(oldToNew.value()));
+                for (QString oldFileName : matchingFiles) {
+                    dir.rename(oldFileName, oldToNew.key() + oldFileName.mid(oldToNew.value().length()));
+                }
+            }
+
+            MainWindow::DirtyIndicator::markDirty();
+            QMessageBox::information(messageParent(),
+                                     i18n("index.xml Update"),
+                                     i18n("Don't forget to save your database now!"));
+        }
+    }
 }
 
 void XMLDB::FileReader::loadImages( ReaderPtr reader )

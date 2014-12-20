@@ -221,9 +221,6 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
         if (ret == KStandardGuiItem::Yes) {
             QDir dir(QString::fromUtf8("%1/CategoryImages").arg(Settings::SettingsData::instance()->imageDirectory()));
-            QStringList matchingFiles;
-            QString newFileName;
-            QStringList::ConstIterator matchingFilesIt;
             QMapIterator<QString, QString> oldToNew(m_newToOldName);
 
             while (oldToNew.hasNext()) {
@@ -232,8 +229,8 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                     continue;
                 }
 
-                matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(oldToNew.value()));
-                for (QString oldFileName : matchingFiles) {
+                QStringList matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(oldToNew.value()));
+                for (const QString &oldFileName : matchingFiles) {
                     dir.rename(oldFileName, oldToNew.key() + oldFileName.mid(oldToNew.value().length()));
                 }
             }

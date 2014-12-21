@@ -42,6 +42,7 @@ Below is a visualization of the DOM-Tree of the index.xml file. Attributes are
 within parenthesis, comments in square brackets.
 
 ### Version 3 ###
+Used in KPA v4.4 (and in KPA v4.5, if positionable tags are not used).
 
 ```
 KPhotoAlbum
@@ -89,7 +90,7 @@ KPhotoAlbum
 
 
 ### Version 4 ###
-
+Used in KPA v4.5.
 
 ```
 KPhotoAlbum
@@ -145,6 +146,74 @@ KPhotoAlbum
    This format is used only for category values when an area attribute is present.
 
 
+### Version 5 ###
+
+
+```
+KPhotoAlbum
+| (version=5,compressed=1)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
+```
+
+```
+KPhotoAlbum
+| (version=5,compressed=0)
+|
++-Categories
+| +-Category (name,icon,show,viewtype,thumbnailsize)
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
+|   (stackId, stackOrder, rating) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
+```
+
+#### Differences to version 4 ####
+ * ```Categories.Category.value``` has an optional attribute ```birthDate```
+
+
+### Version 6 ###
+
+Same structure as version 5.
+
+#### Differences to version 5 ####
+ * The legacy categories Keywords, Persons and Locations are not handled special any more.
+   Upon upgrade from an older version, "Persons" is renamed to "People", and "Locations"
+   is renamed to "Places".
+
+
 ### Attribute values explained ###
 
 
@@ -170,6 +239,9 @@ KPhotoAlbum
             Numerical tag id, unique within each Category.
           * ```value```
             Tag name.
+          * ```birthDate```
+            Birthdate of a person (but allowed on all categories).
+            Is used to display the age of a person on an image.
  * images
     - image
       + ```angle```

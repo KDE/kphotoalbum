@@ -240,7 +240,7 @@ Same structure as version 5.
           * ```value```
             Tag name.
           * ```birthDate```
-            Birthdate of a person (but allowed on all categories).
+            Birthdate (```yyyy-mm-dd```) of a person (but allowed on all categories).
             Is used to display the age of a person on an image.
  * images
     - image

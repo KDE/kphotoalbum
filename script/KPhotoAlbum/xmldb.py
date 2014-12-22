@@ -2,6 +2,7 @@
 Module for accessing KPhotoAlbum index.xml.
 """
 # Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+# Copyright (C) 2014 Johannes Zarl <johannes@zarl.at>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,11 +31,13 @@ from datatypes import *
 # 	Categories
 # 		Category
 # 			value
+# 			        birthDate
 # 	images
 #		image
 #			options
 #				option
 #					value
+#					area
 #			drawings
 #				Circle
 #				Rectangle
@@ -64,8 +67,8 @@ class XMLDatabase(DatabaseReader):
 		if rootElem.tagName != u'KPhotoAlbum':
 			raise InvalidFile('File should be in '
 					  'KPhotoAlbum index.xml format.')
-		if not rootElem.getAttribute('version') in ['2', '3']:
-			raise UnsupportedFormat('Only versions 2 and 3 are supported')
+		if not rootElem.getAttribute('version') in ['2', '3', '4', '5', '6' ]:
+			raise UnsupportedFormat('Only versions 2 - 6 are supported')
 		self.isCompressed = False
 		if rootElem.getAttribute('compressed') == '1':
 			self.isCompressed = True
@@ -150,7 +153,13 @@ class CategoryIterator(object):
 		for valElem in ctgNode.getElementsByTagName('value'):
 			name = valElem.getAttribute('value')
 			idNum = int(valElem.getAttribute('id'))
-			ctg.addItem(name, idNum)
+			if valElem.hasAttribute('birthDate'):
+				bd = datetime.strptime(
+					valElem.getAttribute('birthDate')
+					, '%Y-%m-%d' ).date()
+				ctg.addItem(name, idNum, bd)
+			    else:
+				ctg.addItem(name, idNum)
 		return ctg
 
 
@@ -204,7 +213,11 @@ class MediaItemIterator(object):
 					continue
 				for ov in opt.getElementsByTagName('value'):
 					item = ov.getAttribute('value')
-					img.addTag(Tag(category, item))
+					if ov.hasAttribute('area'):
+						area = ov.getAttribute('area')
+						img.addTag(Tag(category, item, area))
+					else:
+						img.addTag(Tag(category, item))
 
 		# Parse compressed category items
 		for category in self.categories:
@@ -216,8 +229,11 @@ class MediaItemIterator(object):
 					n = int(s)
 				except:
 					continue
-				item = category.items[n]
-				img.addTag(Tag(category.name, item))
+				if n in category.items:
+					item = category.items[n]
+					img.addTag(Tag(category.name, item))
+				else:
+					print 'Warning: {0} has no id {1}'.format(category.name, n)
 		# Parse drawings
 		for drws in imgElem.getElementsByTagName('drawings'):
 			for shape in ['Circle', 'Line', 'Rectangle']:

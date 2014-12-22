@@ -1,4 +1,5 @@
 # Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+# Copyright (C) 2014 Johannes Zarl <johannes@zarl.at>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,19 +22,24 @@ class Category(object):
 	"""
 	def __init__(self, name, icon, visible,
 		     viewtype, thumbsize,
-		     items=None):
+		     items=None, birthdates=None):
 		self.name = name
 		self.icon = icon
 		self.visible = visible
 		self.viewtype = viewtype
 		self.thumbsize = thumbsize
 		self.items = items
+		self.birthdates = birthdates
 		if self.items is None:
 			self.items = {}
+		if self.birthdates is None or self.items is None:
+			self.birthdates = {}
 
-	def addItem(self, name, id):
+	def addItem(self, name, id, birthdate=None):
 		assert not self.items.has_key(id)
 		self.items[id] = name
+		if birthdate is not None:
+			self.birthdates[id] = birthdate
 
 	def __repr__(self):
 		s = (self.__class__.__name__ + '(' +
@@ -44,6 +50,8 @@ class Category(object):
 		     repr(self.thumbsize))
 		if len(self.items) > 0:
 			s += ', ' + repr(self.items)
+		if len(self.birthdates) > 0:
+			s += ', ' + repr(self.dates)
 		s += ')'
 		return s
 
@@ -101,15 +109,18 @@ class MediaItem(object):
 
 
 class Tag(object):
-	def __init__(self, category, name):
+	def __init__(self, category, name, area=None):
 		self.category = category
 		self.name = name
+		self.area = area
 
 	def __eq__(self, other):
 		return (self.category == other.category and
-			self.name == other.name)
+			self.name == other.name and
+			self.area == other.area )
 
 	def __hash__(self):
+                # TODO: should the area be considered for the hash value?
 		return (((hash(self.category) & ((1 << 15) - 1)) << 16) |
 			(hash(self.name) & ((1 << 16) - 1)))
 
@@ -118,13 +129,17 @@ class Tag(object):
 			return self.category
 		elif i == 1:
 			return self.name
+		elif i == 2:
+			return self.area
 		else:
-			raise IndexError('index should be 0 or 1')
+			raise IndexError('index should be 0, 1 or 2')
 
 	def __repr__(self):
 		return (self.__class__.__name__ + '(' +
 			repr(self.category) + ', ' +
-			repr(self.name) + ')')
+			repr(self.name) +
+			( ', ' + repr(self.area) ) if ( self.area is not None ) else '' +
+			')' )
 
 
 class Drawing(object):

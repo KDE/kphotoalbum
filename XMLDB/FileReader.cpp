@@ -26,6 +26,7 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <QMap>
+#include <KConfigGroup>
 
 #include "DB/MD5Map.h"
 #include "Database.h"
@@ -220,22 +221,43 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
         );
 
         if (ret == KStandardGuiItem::Yes) {
-            QDir dir(QString::fromUtf8("%1/CategoryImages").arg(Settings::SettingsData::instance()->imageDirectory()));
+            Settings::SettingsData* settings = Settings::SettingsData::instance();
+            MainWindow::DirtyIndicator::markDirty();
+
+            QDir dir(QString::fromUtf8("%1/CategoryImages").arg(settings->imageDirectory()));
             QMapIterator<QString, QString> oldToNew(m_newToOldName);
 
             while (oldToNew.hasNext()) {
                 oldToNew.next();
-                if (oldToNew.key() == oldToNew.value()) {
+                const QString &oldName = oldToNew.key();
+                const QString &newName = oldToNew.value();
+
+                if (oldName == newName) {
                     continue;
                 }
 
-                QStringList matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(oldToNew.value()));
+                // rename CategoryImages
+                QStringList matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(newName));
                 for (const QString &oldFileName : matchingFiles) {
-                    dir.rename(oldFileName, oldToNew.key() + oldFileName.mid(oldToNew.value().length()));
+                    dir.rename(oldFileName, oldName + oldFileName.mid(newName.length()));
                 }
             }
 
-            MainWindow::DirtyIndicator::markDirty();
+            // update category names for privacy-lock settings
+            KConfigGroup privacyConfig = KGlobal::config()->group( settings->groupForDatabase( "Privacy Settings" ));
+            QStringList categories = privacyConfig.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
+            for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+                QString oldName = *it;
+                *it = m_newToOldName.key(oldName,oldName );
+                QString lockEntry = privacyConfig.readEntry<QString>(oldName, QString());
+                if (! lockEntry.isEmpty() )
+                {
+                    privacyConfig.writeEntry<QString>(*it, lockEntry);
+                    privacyConfig.deleteEntry(oldName);
+                }
+            }
+            privacyConfig.writeEntry<QStringList>( QString::fromLatin1("categories"), categories );
+
             QMessageBox::information(messageParent(),
                                      i18n("index.xml Update"),
                                      i18n("Don't forget to save your database now!"));

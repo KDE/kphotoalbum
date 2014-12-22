@@ -182,6 +182,7 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
         dir.rename(*fileNameIt, newName);
     }
 
+    // update category names for privacy-lock settings:
     Settings::SettingsData* settings = Settings::SettingsData::instance();
     DB::ImageSearchInfo info = settings->currentLock();
     const bool exclude = settings->lockExcludes();

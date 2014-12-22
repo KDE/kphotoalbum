@@ -246,13 +246,13 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             // update category names for privacy-lock settings
             KConfigGroup privacyConfig = KGlobal::config()->group( settings->groupForDatabase( "Privacy Settings" ));
             QStringList categories = privacyConfig.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
-            for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-                QString oldName = *it;
-                *it = m_newToOldName.key(oldName,oldName );
+            for( QString &category : categories ) {
+                QString oldName = category;
+                category = m_newToOldName.key(oldName,oldName );
                 QString lockEntry = privacyConfig.readEntry<QString>(oldName, QString());
                 if (! lockEntry.isEmpty() )
                 {
-                    privacyConfig.writeEntry<QString>(*it, lockEntry);
+                    privacyConfig.writeEntry<QString>(category, lockEntry);
                     privacyConfig.deleteEntry(oldName);
                 }
             }

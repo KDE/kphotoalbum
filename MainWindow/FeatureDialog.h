@@ -36,10 +36,10 @@ public:
 
 protected:
     static bool hasKIPISupport();
-    static bool hasSQLDBSupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
     static bool hasKfaceSupport();
+    static bool hasGeoMapSupport();
 };
 
 class HelpBrowser :public KTextBrowser

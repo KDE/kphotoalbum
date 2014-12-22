@@ -20,6 +20,7 @@
 #include <config-kpa-kipi.h>
 #include <config-kpa-exiv2.h>
 #include <config-kpa-kface.h>
+#include <config-kpa-kgeomap.h>
 #include <klocale.h>
 #include <qlayout.h>
 #include <QList>
@@ -52,7 +53,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
                   "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
                   "It really is not that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
-                  "<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
+                  "<a href=\"http://mail.kdab.com//mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
                   "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/index.php?page=compile\">"
                   "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
@@ -77,11 +78,11 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "<p>Images store information like the date the image was shot, the shooting angle, focal length, and shutter-speed "
                   "in what is known as EXIF information.</p>"
 
-                  "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
+                  "<p>KPhotoAlbum uses the <a href=\"http://www.exiv2.org/\">EXIV2 library</a> "
                   "to read EXIF information from images</p>" );
 
 
-    text += i18n( "<h1><a name=\"database\">SQL database support</a></h1>"
+    text += i18n( "<h1><a name=\"database\">SQLite database support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
@@ -89,6 +90,10 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     // TODO jzarl: write something sensible here as before the next release
     text += i18n("<h1><a name=\"kface\">Face detection and recognition support</a></h1>"
                  "<p>KPhotoAlbum relies on libkface for face detection and recognition. "
+                 "</p>");
+
+    text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
+                 "<p>If libkgeomap is available, KPhotoAlbum can show images with GPS information on a map."
                  "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
@@ -142,16 +147,6 @@ bool MainWindow::FeatureDialog::hasKIPISupport()
 #endif
 }
 
-bool MainWindow::FeatureDialog::hasSQLDBSupport()
-{
-#ifdef QT_NO_SQL
-    return false;
-#else
-    return true;
-#endif
-
-}
-
 bool MainWindow::FeatureDialog::hasEXIV2Support()
 {
 #ifdef HAVE_EXIV2
@@ -173,6 +168,15 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 bool MainWindow::FeatureDialog::hasKfaceSupport()
 {
 #ifdef HAVE_KFACE
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool MainWindow::FeatureDialog::hasGeoMapSupport()
+{
+#ifdef HAVE_KGEOMAP
     return true;
 #else
     return false;
@@ -201,7 +205,7 @@ bool FeatureDialog::isMplayer2()
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport() && !mplayerBinary().isNull() && isMplayer2();
+    return hasKIPISupport() && hasEXIV2Support() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && !mplayerBinary().isNull() && isMplayer2();
 }
 
 struct Data
@@ -219,10 +223,9 @@ QString MainWindow::FeatureDialog::featureString()
     QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
-    features << Data( i18n("SQL database support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
-    features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"),
-                      hasEXIV2Support() && hasEXIV2DBSupport() );
+    features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"), hasEXIV2DBSupport() );
     features << Data( i18n( "Face detection and recognition support" ), QString::fromLatin1("#kface"),  hasKfaceSupport() );
+    features << Data( i18n( "Map view for geotagged images." ), QString::fromLatin1("#geomap"),  hasGeoMapSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 
     QString result = QString::fromLatin1("<p><table>");

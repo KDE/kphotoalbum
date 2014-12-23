@@ -7,9 +7,7 @@ if(POLICY CMP0017)
 endif()
 
 # provide drop-down menu for build-type in cmake-gui:
-if(NOT ${CMAKE_VERSION} VERSION_LESS "2.8.0")
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
-endif()
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
 
 SET(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}

@@ -101,14 +101,14 @@ then
 	exit 2
 fi
 
-if [ "$NO_ACT" -eq 1 ]
+if [ -n "$NO_ACT" ]
 then
 	act() {
 		echo "NOT executing: $*"
 	}
 else
 	act() {
-		if [ "$VERBOSE" -eq 1 ]
+		if [ -n "$VERBOSE" ]
 		then
 			echo "Executing: $*"
 		fi

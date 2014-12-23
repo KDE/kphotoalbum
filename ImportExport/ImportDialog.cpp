@@ -223,8 +223,12 @@ void  ImportDialog::slotEditDestination()
     if ( !file.isNull() ) {
         if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) ) {
             KMessageBox::error( this, i18n("The directory must be a subdirectory of %1", Settings::SettingsData::instance()->imageDirectory() ) );
-        }
-        else {
+        } else if ( QFileInfo(file).absoluteFilePath().startsWith(
+                    QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath() + QString::fromLatin1("CategoryImages"))
+                )
+        {
+            KMessageBox::error( this, i18n("This directory is reserved for category images." ) );
+        } else {
             _destinationEdit->setText( file );
             updateNextButtonState();
         }

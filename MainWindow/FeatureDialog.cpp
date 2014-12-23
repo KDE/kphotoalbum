@@ -53,7 +53,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
                   "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
                   "It really is not that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
-                  "<a href=\"http://mail.kdab.com//mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
+                  "<a href=\"http://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
                   "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/index.php?page=compile\">"
                   "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "

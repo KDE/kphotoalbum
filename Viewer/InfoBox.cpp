@@ -49,12 +49,14 @@
 
 using namespace Settings;
 
-Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer),
-    m_viewer(viewer),
-    m_hoveringOverLink(false),
-    m_infoBoxResizer(this),
-    m_menu(nullptr),
-    m_map(nullptr)
+Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer)
+    ,m_viewer(viewer)
+    ,m_hoveringOverLink(false)
+    ,m_infoBoxResizer(this)
+    ,m_menu(nullptr)
+#ifdef HAVE_KGEOMAP
+    ,m_map(nullptr)
+#endif
 {
     setFrameStyle(Box | Plain);
     setLineWidth(1);

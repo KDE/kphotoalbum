@@ -34,6 +34,9 @@ DB::ImageInfoList ImportExport::ImportSettings::selectedImages() const
 void ImportExport::ImportSettings::setDestination( const QString& destination )
 {
     m_destination = destination;
+    // makes appending easier:
+    if ( ! m_destination.endsWith(QChar::fromLatin1('/')) )
+        m_destination.append( QChar::fromLatin1('/') );
 }
 
 QString ImportExport::ImportSettings::destination() const

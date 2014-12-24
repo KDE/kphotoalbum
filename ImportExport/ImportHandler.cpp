@@ -16,18 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImportHandler.h"
-#include "Utilities/Util.h"
 
-#include "KimFileReader.h"
-#include "ImportSettings.h"
 #include <QApplication>
 #include <QFile>
 #include <QProgressDialog>
 #include <klocale.h>
 #include <kio/netaccess.h>
 #include <kio/jobuidelegate.h>
-#include "MainWindow/Window.h"
 #include <kmessagebox.h>
+#include <kprogressdialog.h>
+#include <QDebug>
+
+#include "Utilities/Util.h"
+#include "KimFileReader.h"
+#include "ImportSettings.h"
+#include "MainWindow/Window.h"
 #include "DB/ImageDB.h"
 #include "Browser/BrowserWidget.h"
 #include "DB/MD5Map.h"
@@ -35,7 +38,12 @@
 #include "DB/CategoryCollection.h"
 #include "Utilities/UniqFilenameMapper.h"
 #include "kio/job.h"
-#include <kprogressdialog.h>
+
+#ifdef DEBUG_KIM_IMPORT
+# define Debug qDebug
+#else
+# define Debug if (0) qDebug
+#endif
 
 using namespace ImportExport;
 
@@ -59,6 +67,7 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
     delete m_fileMapper;
     m_fileMapper = new Utilities::UniqFilenameMapper(m_settings.destination());
     bool ok;
+    // copy images
     if ( m_settings.externalSource() ) {
         copyFromExternal();
 
@@ -171,16 +180,33 @@ void ImportExport::ImportHandler::updateDB()
 {
     disconnect( _progress, SIGNAL(cancelClicked()), this, SLOT(stopCopyingImages()) );
     _progress->setLabelText( i18n("Updating Database") );
+    int len = Settings::SettingsData::instance()->imageDirectory().length();
+    // image directory is always a prefix of destination
+    if ( len == m_settings.destination().length() )
+        len = 0;
+    else
+        Debug()
+            << "Re-rooting of ImageInfos from " << Settings::SettingsData::instance()->imageDirectory()
+            << " to " << m_settings.destination();
 
     // Run though all images
     DB::ImageInfoList images = m_settings.selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
+        if ( len != 0) {
+            // exchange prefix:
+            QString name = m_settings.destination() + info->fileName().absolute().mid(len);
+            Debug() << info->fileName().absolute() << " -> " << name;
+            info->setFileName( DB::FileName::fromAbsolutePath(name) );
+        }
 
-        if ( isImageAlreadyInDB( info ) )
+        if ( isImageAlreadyInDB( info ) ) {
+            Debug() << "Updating ImageInfo for " << info->fileName().absolute();
             updateInfo( matchingInfoFromDB( info ), info );
-        else
+        } else {
+            Debug() << "Adding ImageInfo for " << info->fileName().absolute();
             addNewRecord( info );
+        }
 
         _progress->progressBar()->setValue( ++_totalCopied );
         if ( _progress->wasCancelled() )
@@ -249,6 +275,9 @@ DB::ImageInfoPtr ImportExport::ImportHandler::matchingInfoFromDB( const DB::Imag
     return DB::ImageDB::instance()->info(name);
 }
 
+/**
+ * Merge the ImageInfo data from the kim file into the existing ImageInfo.
+ */
 void ImportExport::ImportHandler::updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo )
 {
     if ( dbInfo->label() != newInfo->label() && m_settings.importAction(QString::fromLatin1("*Label*")) == ImportSettings::Replace )
@@ -276,7 +305,7 @@ void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
 {
     const DB::FileName importName = info->fileName();
 
-    DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, DB::Image, false ));
+    DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, info->mediaType(), false /*don't read exif */));
     updateInfo->setLabel( info->label() );
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );

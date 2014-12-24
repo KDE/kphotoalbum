@@ -99,7 +99,7 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
             }
         }
         if ( ! match.isEmpty() ) {
-            // there was a single substring matach
+            // there was a single substring match
             _combobox->setCurrentIndex( myItems.indexOf(match) );
         }
         else {

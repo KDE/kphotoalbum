@@ -307,13 +307,15 @@ void ImagePreviewWidget::updateTexts()
     } else {
         // positionable tags disabled
         _toggleAreasBut->setToolTip(i18nc("@info:tooltip",
-                    "If you enable <emphasis>positionable tags</emphasis> under <interface>Settings|Configure KPhotoAlbum...|Categories</interface>, "
-                    "you can associate specific image areas with tags."
-                    ));
+            "If you enable <emphasis>positionable tags</emphasis> for at least one category in "
+            "<interface>Settings|Configure KPhotoAlbum...|Categories</interface>, you can "
+            "associate specific image areas with tags."
+        ));
 #ifdef HAVE_KFACE
         QString faceDetectionPlaceholderText { i18nc("@info",
-                "To use face detection, enable <emphasis>positionable tags</emphasis> "
-                "under <interface>Settings|Configure KPhotoAlbum...|Categories</interface>.") };
+            "To use face detection, enable <emphasis>positionable tags</emphasis> for at least one "
+            "category in <interface>Settings|Configure KPhotoAlbum...|Categories</interface>."
+        ) };
         _facedetectBut->setToolTip( faceDetectionPlaceholderText );
         _autoTrainDatabase->setWhatsThis( faceDetectionPlaceholderText );
 #endif

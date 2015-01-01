@@ -74,6 +74,7 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
     _copyPreviousBut->setFixedWidth( 40 );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
+    _copyPreviousBut->setWhatsThis( i18nc( "@info:whatsthis", "<para>Set the same tags on this image than on the previous one. The image date, label, rating, and description are left unchanged.</para>" ));
 
     _toggleAreasBut = new KPushButton(this);
     controlButtonsLayout->addWidget(_toggleAreasBut);

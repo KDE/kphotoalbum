@@ -117,6 +117,12 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     _description->setObjectName( i18n("Description") );
     _description->setCheckSpellingEnabled( true );
     _description->setTabChangesFocus( true ); // this allows tabbing to the next item in the tab order.
+    _description->setWhatsThis( i18nc( "@info:whatsthis",
+                "<para>A descriptive text of the image.</para>"
+                "<para>If <emphasis>Use EXIF description</emphasis> is enabled under "
+                "<interface>Settings|Configure KPhotoAlbum...|General</interface>, a description "
+                "embedded in the image EXIF information is imported to this field if available.</para>"
+                ));
 
     QDockWidget* dock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, _description );
     shortCutManager.addDock( dock, _description );
@@ -154,6 +160,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     );
     shortCutManager.addDock(map, _annotationMapContainer);
     connect(map, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
+    map->setWhatsThis( i18nc( "@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the EXIF information." ));
 #endif
 
     // -------------------------------------------------- Categories

@@ -69,6 +69,10 @@ signals:
     void areaVisibilityChanged(bool visible);
 
 private:
+    /**
+     * Update labels and tooltip texts when canCreateAreas() changes.
+     */
+    void updateTexts();
     ImagePreview* _preview;
     KPushButton* _prevBut;
     KPushButton* _nextBut;

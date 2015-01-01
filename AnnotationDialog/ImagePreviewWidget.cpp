@@ -79,18 +79,18 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     controlButtonsLayout->addWidget(_toggleAreasBut);
     _toggleAreasBut->setIcon(KIcon(QString::fromLatin1("document-preview")));
     _toggleAreasBut->setFixedWidth(40);
-    _toggleAreasBut->setToolTip(i18n("Hide or show areas on the image"));
-    _toggleAreasBut->setCheckable(1);
-    _toggleAreasBut->setChecked(1);
+    _toggleAreasBut->setCheckable(true);
+    _toggleAreasBut->setChecked(true);
+    // tooltip text is set in updateTexts()
 
 #ifdef HAVE_KFACE
     _facedetectBut = new KPushButton(this);
     controlButtonsLayout->addWidget(_facedetectBut);
     _facedetectBut->setIcon(KIcon(QString::fromLatin1("edit-find-user")));
     _facedetectBut->setFixedWidth(40);
-    _facedetectBut->setCheckable(1);
-    _facedetectBut->setChecked(0);
-    _facedetectBut->setToolTip(i18n("Search for faces on the current image"));
+    _facedetectBut->setCheckable(true);
+    _facedetectBut->setChecked(false);
+    // tooltip text is set in updateTexts()
 #endif
 
     controlButtonsLayout->addStretch(1);
@@ -113,15 +113,13 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     connect(_facedetectBut, SIGNAL(clicked()), _preview, SLOT(detectFaces()));
 
     _autoTrainDatabase = new QCheckBox(i18n("Train face recognition database automatically"), this);
-    _autoTrainDatabase->setWhatsThis(i18n(
-        "If a tag for an area found by the face detector is set manually, the face recognition "
-        "database will be trained automatically with that tag."
-    ));
+    // whatsThis text is set in updateTexts()
     _autoTrainDatabase->setChecked(Qt::Checked);
     controlLayout->addWidget(_autoTrainDatabase, 0, Qt::AlignCenter);
 #endif
 
     _current = -1;
+    updateTexts();
 }
 
 #ifdef HAVE_KFACE
@@ -287,8 +285,39 @@ void ImagePreviewWidget::canCreateAreas(bool state)
     _toggleAreasBut->setEnabled(state);
 #ifdef HAVE_KFACE
     _facedetectBut->setEnabled(state);
+    _autoTrainDatabase->setEnabled(state);
 #endif
     _preview->setAreaCreationEnabled(state);
+    updateTexts();
+}
+
+void ImagePreviewWidget::updateTexts()
+{
+    if (_toggleAreasBut->isEnabled())
+    {
+        // positionable tags enabled
+        _toggleAreasBut->setToolTip(i18nc("@info:tooltip", "Hide or show areas on the image"));
+#ifdef HAVE_KFACE
+        _facedetectBut->setToolTip(i18nc("@info:tooltip", "Search for faces on the current image"));
+        _autoTrainDatabase->setWhatsThis(i18nc("@info:whatsthis",
+            "If a tag for an area found by the face detector is set manually, the face recognition "
+            "database will be trained automatically with that tag."
+        ));
+#endif
+    } else {
+        // positionable tags disabled
+        _toggleAreasBut->setToolTip(i18nc("@info:tooltip",
+                    "If you enable <emphasis>positionable tags</emphasis> under <interface>Settings|Configure KPhotoAlbum...|Categories</interface>, "
+                    "you can associate specific image areas with tags."
+                    ));
+#ifdef HAVE_KFACE
+        QString faceDetectionPlaceholderText { i18nc("@info",
+                "To use face detection, enable <emphasis>positionable tags</emphasis> "
+                "under <interface>Settings|Configure KPhotoAlbum...|Categories</interface>.") };
+        _facedetectBut->setToolTip( faceDetectionPlaceholderText );
+        _autoTrainDatabase->setWhatsThis( faceDetectionPlaceholderText );
+#endif
+    }
 }
 
 void ImagePreviewWidget::setFacedetectButEnabled(bool state)

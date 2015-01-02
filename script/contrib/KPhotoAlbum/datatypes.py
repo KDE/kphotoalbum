@@ -138,29 +138,6 @@ class Tag(object):
                + repr(self.name)
                + (', ' + repr(self.area) ) if ( self.area is not None ) else '' + ')')
 
-class Drawing(object):
-    def __init__(self, shape, point0, point1):
-        assert shape in ['circle', 'line', 'rectangle']
-        self.shape = shape
-        self.point0 = point0
-        self.point1 = point1
-
-    def __eq__(self, other):
-        return (self.shape == other.shape and
-                self.point0 == other.point0 and
-                self.point1 == other.point1)
-
-    def __hash__(self):
-        return (((ord(self.shape[0]) & 7) << 28) |
-                ((hash(self.point0) & ((1 << 14) - 1)) << 14) |
-                (hash(self.point1) & ((1 << 14) - 1)))
-
-    def __repr__(self):
-        return (self.__class__.__name__ + '(' +
-                repr(self.shape) + ', ' +
-                repr(self.point0) + ', ' +
-                repr(self.point1) + ')')
-
 class MemberGroup(Tag):
     def __init__(self, category, name, members=None):
         super(MemberGroup, self).__init__(category, name)

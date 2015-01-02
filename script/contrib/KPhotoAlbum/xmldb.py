@@ -26,7 +26,7 @@ from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
 from KPhotoAlbum.db import DatabaseReader
-from KPhotoAlbum.datatypes import Category, MediaItem, Tag, Drawing, BlockItem
+from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem
 
 # Structure of KPhotoAlbum index.xml:
 #

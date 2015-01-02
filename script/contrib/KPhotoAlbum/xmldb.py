@@ -41,10 +41,6 @@ from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem, MemberGro
 #                option
 #                    value
 #                    area
-#            drawings
-#                Circle
-#                Rectangle
-#                Line
 #    member-groups
 #        member
 #    blocklist
@@ -70,41 +66,41 @@ class XMLDatabase(DatabaseReader):
         except:
             raise InvalidFile(sys.exc_info()[1])
 
-        rootElem = self.dom.documentElement
+        rootElement = self.dom.documentElement
 
-        if rootElem.tagName != 'KPhotoAlbum':
+        if rootElement.tagName != 'KPhotoAlbum':
             raise InvalidFile('File should be in KPhotoAlbum index.xml format.')
 
-        if not rootElem.getAttribute('version') in ['2', '3', '4', '5', '6' ]:
+        if not rootElement.getAttribute('version') in ['2', '3', '4', '5', '6' ]:
             raise UnsupportedFormat('Only versions 2 to 6 are supported')
 
         self.isCompressed = False
 
-        if rootElem.getAttribute('compressed') == '1':
+        if rootElement.getAttribute('compressed') == '1':
             self.isCompressed = True
 
-        self.ctgs = rootElem.getElementsByTagName('Categories')
-        self.imgs = rootElem.getElementsByTagName('images')
-        self.mgs = rootElem.getElementsByTagName('member-groups')
-        self.blks = rootElem.getElementsByTagName('blocklist')
+        self.categoryData = rootElement.getElementsByTagName('Categories')
+        self.imageData = rootElement.getElementsByTagName('images')
+        self.memberGroupsData = rootElement.getElementsByTagName('member-groups')
+        self.blocklistData = rootElement.getElementsByTagName('blocklist')
 
     def getCategories(self):
-        return CategoryIterator(self.ctgs)
+        return CategoryIterator(self.categoryData)
 
     def getMediaItems(self):
         if self.isCompressed:
-            return MediaItemIterator(self.imgs, self.categories)
+            return MediaItemIterator(self.imageData, self.categories)
         else:
-            return MediaItemIterator(self.imgs)
+            return MediaItemIterator(self.imageData)
 
     def getMemberGroups(self):
         if self.isCompressed:
-            return MemberGroupIterator(self.mgs, self.categories)
+            return MemberGroupIterator(self.memberGroupsData, self.categories)
         else:
-            return MemberGroupIterator(self.mgs)
+            return MemberGroupIterator(self.memberGroupsData)
 
     def getBlockItems(self):
-        return BlockItemIterator(self.blks)
+        return BlockItemIterator(self.blocklistData)
 
     categories = property(getCategories)
     mediaItems = property(getMediaItems)
@@ -115,8 +111,8 @@ class Error(Exception):
     """
     General error.
     """
-    def __init__(self, msg):
-        Exception.__init__(self, msg)
+    def __init__(self, message):
+        Exception.__init__(self, message)
 
 class InvalidFile(Error):
     """
@@ -130,99 +126,108 @@ class UnsupportedFormat(InvalidFile):
 
 kpaTimeFormatStr = '%Y-%m-%dT%H:%M:%S'
 
-def stringToDatetime(s):
-    if s == '':
+def stringToDatetime(dateString):
+    if not dateString:
         return None
-    return datetime.fromtimestamp(mktime(strptime(s, kpaTimeFormatStr)))
+    return datetime.fromtimestamp(mktime(strptime(dateString, kpaTimeFormatStr)))
 
-def datetimeToString(ts):
-    return ts.strftime(kpaTimeFormatStr)
+def datetimeToString(date):
+    return date.strftime(kpaTimeFormatStr)
 
-class CategoryIterator(object):
+class CategoryIterator():
     """
     Iterates categories in given DOM element.
     """
-    def __init__(self, categoriesElems):
-        self.categoriesElems = categoriesElems
+    def __init__(self, categoryData):
+        self.categoryData = categoryData
 
     def __iter__(self):
-        for ctgs in self.categoriesElems:
-            for c in ctgs.getElementsByTagName('Category'):
-                yield self.__getCategory(c)
+        for categories in self.categoryData:
+            for category in categories.getElementsByTagName('Category'):
+                yield self.__getCategory(category)
 
-    def __getCategory(self, ctgNode):
-        a = [ctgNode.getAttribute(x)
-             for x in ['name', 'icon', 'show',
-                   'viewtype', 'thumbnailsize']]
+    def __getCategory(self, categoryNode):
+        a = [categoryNode.getAttribute(i)
+             for i in ['name', 'icon', 'show', 'viewtype', 'thumbnailsize']]
         a[2] = bool(int(a[2])) # show
         a[3] = int(a[3]) # viewtype
         a[4] = int(a[4]) # thumbsize
-        ctg = Category(*a)
-        for valElem in ctgNode.getElementsByTagName('value'):
+        category = Category(*a)
+
+        for valElem in categoryNode.getElementsByTagName('value'):
             name = valElem.getAttribute('value')
             idNum = int(valElem.getAttribute('id'))
+
             if valElem.hasAttribute('birthDate'):
-                bd = datetime.strptime(
-                    valElem.getAttribute('birthDate')
-                    , '%Y-%m-%d' ).date()
-                ctg.addItem(name, idNum, bd)
+                category.addItem(
+                    name,
+                    idNum,
+                    datetime.strptime(valElem.getAttribute('birthDate'), '%Y-%m-%d').date()
+                )
             else:
-                ctg.addItem(name, idNum)
-        return ctg
+                category.addItem(name, idNum)
+
+        return category
 
 class MediaItemIterator(object):
     """
     Iterates media items in given DOM element.
     """
 
-    def __init__(self, imagesElems, categories=None):
+    def __init__(self, imageData, categories = None):
         """
         Initialize with list of images elements.
 
         If categories is None, will not parse compressed
         format.
         """
-        self.imagesElems = imagesElems
+        self.imageData = imageData
         self.categories = categories
+
         if self.categories is None:
             self.categories = []
 
     def __iter__(self):
-        for imgs in self.imagesElems:
+        for imgs in self.imageData:
             for i in imgs.getElementsByTagName('image'):
                 yield self.__getMediaItem(i)
 
     def __getMediaItem(self, imgElem):
-        a = [imgElem.getAttribute(x)
-             for x in ['file', 'md5sum', 'mediatype',
-                   'label', 'description',
-                   'startDate', 'endDate',
-                   'width', 'height', 'angle']]
+        a = [imgElem.getAttribute(i) for i in [
+                 'file', 'md5sum', 'mediatype', 'label', 'description', 'startDate', 'endDate',
+                 'width', 'height', 'angle'
+            ]]
+
         if a[2] == '': # mediatype
             a[2] = 'image'
         elif a[2] == 'movie':
             a[2] = 'video'
+
         a[5] = stringToDatetime(a[5]) # startDate
         a[6] = stringToDatetime(a[6]) # endDate
         a[7] = int(a[7]) # width
+
         if a[7] == -1:
             a[7] = None
+
         a[8] = int(a[8]) # height
         if a[8] == -1:
             a[8] = None
+
         a[9] = int(a[9]) # angle
+
         img = MediaItem(*a)
 
         # Parse uncompressed category items
-        for opts in imgElem.getElementsByTagName('options'):
-            for opt in opts.getElementsByTagName('option'):
-                category = opt.getAttribute('name')
+        for options in imgElem.getElementsByTagName('options'):
+            for option in options.getElementsByTagName('option'):
+                category = option.getAttribute('name')
                 if category == 'Folder':
                     continue
-                for ov in opt.getElementsByTagName('value'):
-                    item = ov.getAttribute('value')
-                    if ov.hasAttribute('area'):
-                        area = ov.getAttribute('area')
+                for optionValue in option.getElementsByTagName('value'):
+                    item = optionValue.getAttribute('value')
+                    if optionValue.hasAttribute('area'):
+                        area = optionValue.getAttribute('area')
                         img.addTag(Tag(category, item, area))
                     else:
                         img.addTag(Tag(category, item))
@@ -231,28 +236,21 @@ class MediaItemIterator(object):
         for category in self.categories:
             if category.name == 'Folder':
                 continue
+
             idList = imgElem.getAttribute(category.name)
+
             for s in idList.split(','):
                 try:
                     n = int(s)
                 except:
                     continue
+
                 if n in category.items:
                     item = category.items[n]
                     img.addTag(Tag(category.name, item))
                 else:
                     print('Warning: {0} has no id {1}'.format(category.name, n))
-        # Parse drawings
-        for drws in imgElem.getElementsByTagName('drawings'):
-            for shape in ['Circle', 'Line', 'Rectangle']:
-                for s in drws.getElementsByTagName(shape):
-                    x1 = int(s.getAttribute('_startPos.x'))
-                    y1 = int(s.getAttribute('_startPos.y'))
-                    x2 = int(s.getAttribute('_lastPos.x'))
-                    y2 = int(s.getAttribute('_lastPos.y'))
-                    img.addDrawing(Drawing(shape.lower(),
-                                   (x1, y1),
-                                   (x2, y2)))
+
         return img
 
 class MemberGroupIterator(object):
@@ -260,85 +258,94 @@ class MemberGroupIterator(object):
     Iterates member groups in given DOM element.
     """
 
-    def __init__(self, memberGroupsElems, categories=None):
+    def __init__(self, memberGroupsElements, categories = None):
         """
         Initialize with a list of member-groups elements.
 
         If categories is None, will not parse compressed
         format.
         """
-        self.memberGroupsElems = memberGroupsElems
-        self.categories = {}
-        if not categories is None:
-            for c in categories:
-                self.categories[c.name] = c.items
 
-    def __memberIter(self):
-        for mgs in self.memberGroupsElems:
-            for m in mgs.getElementsByTagName('member'):
-                yield m
+        self.memberGroupsElements = memberGroupsElements
+        self.categories = {}
+
+        if not categories is None:
+            for category in categories:
+                self.categories[category.name] = category.items
+
+    def __memberIterator(self):
+        for memberGroups in self.memberGroupsElements:
+            for memberGroup in memberGroups.getElementsByTagName('member'):
+                yield memberGroup
 
     def __compressedIter(self):
-        for m in self.__memberIter():
-            mg = MemberGroup(*self.__getLabel(m))
-            items = self.categories[mg.category]
+        for m in self.__memberIterator():
+            memberGroup = MemberGroup(*self.__getLabel(m))
+            items = self.categories[memberGroup.category]
             for s in m.getAttribute('members').split(','):
                 try:
                     n = int(s)
                 except:
                     continue
-                mg.addMember(items[n])
-            yield mg
+                memberGroup.addMember(items[n])
+            yield memberGroup
 
     def __normalIter(self):
         collected = []
+
         while True:
-            memberIter = self.__memberIter()
+            memberIterator = self.__memberIterator()
+
             try:
                 while True:
-                    x = next(memberIter)
-                    label = self.__getLabel(x)
+                    i = next(memberIterator)
+                    label = self.__getLabel(i)
                     if not label in collected:
                         break
+
             except StopIteration:
                 return
-            mg = MemberGroup(*label)
-            mg.addMember(x.getAttribute('member'))
-            for x in memberIter:
-                if self.__getLabel(x) == label:
-                    mg.addMember(x.getAttribute('member'))
+
+            memberGroup = MemberGroup(*label)
+            memberGroup.addMember(i.getAttribute('member'))
+
+            for i in memberIterator:
+                if self.__getLabel(i) == label:
+                    memberGroup.addMember(i.getAttribute('member'))
             collected += [label]
-            yield mg
+            yield memberGroup
 
     def __iter__(self):
-        mi = self.__memberIter()
+        memberIterator = self.__memberIterator()
+
         try:
-            m = next(mi)
+            m = next(memberIterator)
         except StopIteration:
            return iter([])
+
         if m.hasAttribute('members'):
             return self.__compressedIter()
         else:
             return self.__normalIter()
 
-    def __getLabel(self, elem):
-        return (elem.getAttribute('category'),
-            elem.getAttribute('group-name'))
+    def __getLabel(self, element):
+        return (element.getAttribute('category'),
+            element.getAttribute('group-name'))
 
 class BlockItemIterator(object):
     """
     Iterates block items in given DOM element.
     """
 
-    def __init__(self, blocklistElems):
-        self.blocklistElems = blocklistElems
+    def __init__(self, blocklistElements):
+        self.blocklistElements = blocklistElements
 
     def __iter__(self):
-        for blklst in self.blocklistElems:
-            for b in blklst.getElementsByTagName('block'):
+        for blocklist in self.blocklistElements:
+            for b in blocklist.getElementsByTagName('block'):
                 yield self.__getBlockItem(b)
 
-    def __getBlockItem(self, blkNode):
-        return BlockItem(blkNode.getAttribute('file'))
+    def __getBlockItem(self, blockNode):
+        return BlockItem(blockNode.getAttribute('file'))
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

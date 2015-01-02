@@ -87,7 +87,7 @@ untar_if_changed()
 		then
 			echo "  changed: $dstfile"
 		else
-			tar -Pwxvz -f "$tarfile" 
+			tar -Pwxvz -f "$tarfile"
 		fi
 	fi
 }
@@ -262,7 +262,7 @@ while true ; do
 	case "$1" in
 		-h|--help) print_help ; exit ;;
 		-b|--backup) ACTION=do_backup ; shift ;;
-		-r|--restore) ACTION=do_restore ; shift ;; 
+		-r|--restore) ACTION=do_restore ; shift ;;
 		-l|--list) ACTION=do_list ; shift ;;
 		-i|--info) ACTION=do_info ; shift ;;
 		-p|--purge) ACTION=do_purge ; shift ;;

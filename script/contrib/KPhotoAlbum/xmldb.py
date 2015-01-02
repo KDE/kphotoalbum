@@ -26,7 +26,7 @@ from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
 from KPhotoAlbum.db import DatabaseReader
-from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem
+from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem, MemberGroup
 
 # Structure of KPhotoAlbum index.xml:
 #
@@ -315,7 +315,7 @@ class MemberGroupIterator(object):
         try:
             m = next(mi)
         except StopIteration:
-           return
+           return iter([])
         if m.hasAttribute('members'):
             return self.__compressedIter()
         else:

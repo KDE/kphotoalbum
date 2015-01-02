@@ -29,8 +29,8 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::Fi
 {
     clear();
 
-    _image = image;
-    _imageInfo = DB::ImageDB::instance()->info( imageName );
+    m_image = image;
+    m_imageInfo = DB::ImageDB::instance()->info( imageName );
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -42,7 +42,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::Fi
             categoryMenu->setTitle( (*categoryIt)->text() );
 
             // add category members
-            Utilities::StringSet members = _imageInfo->itemsOfCategory( categoryName );
+            Utilities::StringSet members = m_imageInfo->itemsOfCategory( categoryName );
             for ( Utilities::StringSet::const_iterator memberIt = members.begin();
                     memberIt != members.end(); ++memberIt ) {
                 QAction* action = categoryMenu->addAction( *memberIt );
@@ -68,12 +68,12 @@ void MainWindow::CategoryImagePopup::slotExecuteService( QAction* action )
     if (categoryName.isNull())
         return;
     DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
-        setCategoryImage(categoryName, memberName, _image);
+        setCategoryImage(categoryName, memberName, m_image);
 }
 
 void MainWindow::CategoryImagePopup::makeCategoryImage()
 {
-    CategoryImageConfig::instance()->setCurrentImage( _image, _imageInfo );
+    CategoryImageConfig::instance()->setCurrentImage( m_image, m_imageInfo );
     CategoryImageConfig::instance()->show();
 }
 

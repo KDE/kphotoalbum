@@ -57,7 +57,7 @@ private:
     QElapsedTimer m_timer;
     uint m_elapsed;
     int m_jobIndex;
-    static int m_jobCounter;
+    static int s_jobCounter;
 };
 
 }

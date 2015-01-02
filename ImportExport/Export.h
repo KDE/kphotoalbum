@@ -59,19 +59,19 @@ protected:
     void copyImages(const DB::FileNameList& list);
 
 private:
-    bool* _ok;
-    int _filesRemaining;
-    int _steps;
-    QProgressDialog* _progressDialog;
-    KZip* _zip;
-    int _maxSize;
-    QString _subdir;
-    bool _loopEntered;
-    ImageFileLocation _location;
-    Utilities::UniqFilenameMapper _filenameMapper;
-    bool _copyingFiles;
-    QString _destdir;
-    const QPointer <QEventLoop> _eventLoop;
+    bool* m_ok;
+    int m_filesRemaining;
+    int m_steps;
+    QProgressDialog* m_progressDialog;
+    KZip* m_zip;
+    int m_maxSize;
+    QString m_subdir;
+    bool m_loopEntered;
+    ImageFileLocation m_location;
+    Utilities::UniqFilenameMapper m_filenameMapper;
+    bool m_copyingFiles;
+    QString m_destdir;
+    const QPointer <QEventLoop> m_eventLoop;
 };
 
 class ExportConfig :public KDialog {
@@ -79,19 +79,19 @@ class ExportConfig :public KDialog {
 
 public:
     ExportConfig();
-    QCheckBox* _compress;
-    QCheckBox* _generateThumbnails;
-    QCheckBox* _enforeMaxSize;
-    QSpinBox* _maxSize;
+    QCheckBox* mp_compress;
+    QCheckBox* mp_generateThumbnails;
+    QCheckBox* mp_enforeMaxSize;
+    QSpinBox* mp_maxSize;
 
     ImageFileLocation imageFileLocation() const;
 
 private:
-    QRadioButton* _include;
-    QRadioButton* _manually;
-    QRadioButton* _link;
-    QRadioButton* _symlink;
-    QRadioButton* _auto;
+    QRadioButton* m_include;
+    QRadioButton* m_manually;
+    QRadioButton* m_link;
+    QRadioButton* m_symlink;
+    QRadioButton* m_auto;
 };
 
 }

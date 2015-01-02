@@ -57,22 +57,22 @@ private:
     // This allows to store ImageRequests with value-semantic in a Set.
     class ImageRequestReference {
     public:
-        ImageRequestReference() : _ptr(nullptr) {}
+        ImageRequestReference() : m_ptr(nullptr) {}
         ImageRequestReference(const ImageRequestReference& other)
-            : _ptr(other._ptr) {}
-        explicit ImageRequestReference(const ImageRequest* ptr) : _ptr(ptr) {}
+            : m_ptr(other.m_ptr) {}
+        explicit ImageRequestReference(const ImageRequest* ptr) : m_ptr(ptr) {}
 
         bool operator<(const ImageRequestReference &other) const {
-            return *_ptr < *other._ptr;
+            return *m_ptr < *other.m_ptr;
         }
         bool operator==(const ImageRequestReference &other) const {
-            return *_ptr == *other._ptr;
+            return *m_ptr == *other.m_ptr;
         }
         operator const ImageRequest&() const {
-            return *_ptr;
+            return *m_ptr;
         }
     private:
-        const ImageRequest* _ptr;
+        const ImageRequest* m_ptr;
     };
 
     typedef QList<QQueue<ImageRequest*> > QueueType;
@@ -80,7 +80,7 @@ private:
     /** @short Priotized list of queues (= 1 priority queue) of image requests
      * that are waiting for processing
      */
-    QueueType _queues;
+    QueueType m_queues;
 
     /**
      * Set of unique requests currently pending; used to discard the exact
@@ -89,10 +89,10 @@ private:
      * handled in different places in kpa but sometimes in a snakeoil
      * way (it compares pointers instead of the content -> clean up that).
      */
-    QSet<ImageRequestReference> _uniquePending;
+    QSet<ImageRequestReference> m_uniquePending;
 
     // All active requests that have a client
-    QSet<ImageRequest*> _activeRequests;
+    QSet<ImageRequest*> m_activeRequests;
 };
 
 }

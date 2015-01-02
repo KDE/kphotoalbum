@@ -36,8 +36,8 @@ ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailFactory* f
 
 bool ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 {
-    _resizing = true;
-    _mousePressPos = event->pos();
+    m_resizing = true;
+    m_mousePressPos = event->pos();
     enterGridResizingMode();
     return true;
 }
@@ -45,8 +45,8 @@ bool ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 
 bool ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
-    QPoint dist = event->pos() - _mousePressPos;
-    setCellSize( qMax( 32, _origWidth + dist.x()/5 ) );
+    QPoint dist = event->pos() - m_mousePressPos;
+    setCellSize( qMax( 32, m_origWidth + dist.x()/5 ) );
     return true;
 }
 
@@ -54,7 +54,7 @@ bool ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 bool ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     leaveGridResizingMode();
-    _resizing = false;
+    m_resizing = false;
     return true;
 }
 
@@ -68,7 +68,7 @@ void ThumbnailView::GridResizeInteraction::setCellSize(int size)
 
 bool ThumbnailView::GridResizeInteraction::isResizingGrid()
 {
-    return _resizing;
+    return m_resizing;
 }
 
 
@@ -89,12 +89,12 @@ void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
         ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartDelayed );
     }
     else
-        setCellSize( _origWidth );
+        setCellSize( m_origWidth );
 }
 
 void ThumbnailView::GridResizeInteraction::enterGridResizingMode()
 {
-    _origWidth = widget()->cellWidth();
+    m_origWidth = widget()->cellWidth();
     ImageManager::ThumbnailBuilder::instance()->cancelRequests();
     m_currentRow = widget()->currentIndex().row();
     widget()->verticalScrollBar()->setValue(0);

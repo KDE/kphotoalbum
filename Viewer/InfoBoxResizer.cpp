@@ -20,44 +20,44 @@
 #include "InfoBox.h"
 
 Viewer::InfoBoxResizer::InfoBoxResizer( Viewer::InfoBox* infoBox )
-    :_infoBox( infoBox )
+    :m_infoBox( infoBox )
 {
 }
 
 void Viewer::InfoBoxResizer::setPos(  QPoint pos )
 {
-    QRect rect = _infoBox->geometry();
-    pos = _infoBox->mapToParent( pos );
+    QRect rect = m_infoBox->geometry();
+    pos = m_infoBox->mapToParent( pos );
 
-    if ( _left )
+    if ( m_left )
         rect.setLeft( pos.x() );
-    if (_right)
+    if (m_right)
         rect.setRight(pos.x());
-    if ( _top )
+    if ( m_top )
         rect.setTop( pos.y() );
-    if ( _bottom )
+    if ( m_bottom )
         rect.setBottom( pos.y() );
 
     if ( rect.width() > 100 && rect.height() > 50 )
-        _infoBox->setGeometry( rect );
+        m_infoBox->setGeometry( rect );
 }
 
 void Viewer::InfoBoxResizer::setup( bool left, bool right, bool top, bool bottom )
 {
-    _left = left;
-    _right = right;
-    _top = top;
-    _bottom = bottom;
-    _active = true;
+    m_left = left;
+    m_right = right;
+    m_top = top;
+    m_bottom = bottom;
+    m_active = true;
 }
 
 void Viewer::InfoBoxResizer::deactivate()
 {
-    _active = false;
+    m_active = false;
 }
 
 bool Viewer::InfoBoxResizer::isActive() const
 {
-    return _active;
+    return m_active;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

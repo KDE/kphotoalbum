@@ -33,7 +33,7 @@ FileInfo FileInfo::read( const DB::FileName& fileName, DB::ExifMode mode )
 }
 
 DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
-    : _angle(0)
+    : m_angle(0)
 {
 #ifdef HAVE_EXIV2
     parseEXIV2( fileName );
@@ -43,13 +43,13 @@ DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
 
 
     if ( updateDataFromFileTimeStamp(fileName,mode))
-        _date = QFileInfo( fileName.absolute() ).lastModified();
+        m_date = QFileInfo( fileName.absolute() ).lastModified();
 }
 
 bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB::ExifMode mode)
 {
     // If the date is valid from EXIF reading, then we should not use the time stamp from the file.
-    if ( _date.isValid() )
+    if ( m_date.isValid() )
         return false;
 
     // If we are not setting date, then we should of course not set the date
@@ -75,11 +75,11 @@ void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
     Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
 
     // Date
-    _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
-    if ( !_date.isValid() ) {
-        _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
-        if ( !_date.isValid() )
-            _date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
+    m_date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
+    if ( !m_date.isValid() ) {
+        m_date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
+        if ( !m_date.isValid() )
+            m_date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
     }
 
     // Angle
@@ -89,13 +89,13 @@ void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
         int orientation = 0;
         if (datum.count() > 0)
             orientation =  datum.toLong();
-        _angle = orientationToAngle( orientation );
+        m_angle = orientationToAngle( orientation );
     }
 
     // Description
     if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
         const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
-        _description = QString::fromLocal8Bit( datum.toString().c_str() );
+        m_description = QString::fromLocal8Bit( datum.toString().c_str() );
     }
 }
 
@@ -126,23 +126,23 @@ void DB::FileInfo::parseKFileMetaInfo( const DB::FileName& fileName )
     if ( metainfo.keys().contains( QString::fromLatin1( "CreationDate" ) ) ) {
         QDate date = metainfo.item( QString::fromLatin1( "CreationDate" )).value().toDate();
         if ( date.isValid() ) {
-            _date.setDate( date );
+            m_date.setDate( date );
 
             if ( metainfo.keys().contains( QString::fromLatin1( "CreationTime" ) ) ) {
                 QTime time = metainfo.item(QString::fromLatin1( "CreationTime" )).value().toTime();
                 if ( time.isValid() )
-                    _date.setTime( time );
+                    m_date.setTime( time );
             }
         }
     }
 
     // Angle
     if ( metainfo.keys().contains( QString::fromLatin1( "Orientation" ) ) )
-        _angle = orientationToAngle( metainfo.item( QString::fromLatin1( "Orientation" ) ).value().toInt() );
+        m_angle = orientationToAngle( metainfo.item( QString::fromLatin1( "Orientation" ) ).value().toInt() );
 
     // Description
     if ( metainfo.keys().contains( QString::fromLatin1( "Comment" ) ) )
-        _description = metainfo.item( QString::fromLatin1( "Comment" ) ).value().toString();
+        m_description = metainfo.item( QString::fromLatin1( "Comment" ) ).value().toString();
 }
 
 int DB::FileInfo::orientationToAngle( int orientation )

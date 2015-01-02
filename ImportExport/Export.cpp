@@ -48,8 +48,8 @@ void Export::imageExport(const DB::FileNameList& list)
         return;
 
     int maxSize = -1;
-    if ( config._enforeMaxSize->isChecked() )
-        maxSize = config._maxSize->value();
+    if ( config.mp_enforeMaxSize->isChecked() )
+        maxSize = config.mp_maxSize->value();
 
     // Ask for zip file name
     QString zipFile = KFileDialog::getSaveFileName( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
@@ -57,8 +57,8 @@ void Export::imageExport(const DB::FileNameList& list)
         return;
 
     bool ok;
-    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(),
-                              QString::fromLatin1( "" ), config._generateThumbnails->isChecked(), &ok);
+    Export* exp = new Export( list, zipFile, config.mp_compress->isChecked(), maxSize, config.imageFileLocation(),
+                              QString::fromLatin1( "" ), config.mp_generateThumbnails->isChecked(), &ok);
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
     if ( ok )
@@ -80,59 +80,59 @@ ExportConfig::ExportConfig()
     lay1->addWidget( grp );
 
     QVBoxLayout* boxLay = new QVBoxLayout( grp );
-    _include = new QRadioButton( i18n("Include in .kim file"), grp );
-    _manually = new QRadioButton( i18n("Do not copy files, only generate .kim file"), grp );
-    _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
-    _link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
-    _symlink = new QRadioButton( i18n("Symbolic link next to .kim file"), grp );
-    _auto->setChecked( true );
+    m_include = new QRadioButton( i18n("Include in .kim file"), grp );
+    m_manually = new QRadioButton( i18n("Do not copy files, only generate .kim file"), grp );
+    m_auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
+    m_link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
+    m_symlink = new QRadioButton( i18n("Symbolic link next to .kim file"), grp );
+    m_auto->setChecked( true );
 
-    boxLay->addWidget( _include );
-    boxLay->addWidget( _manually );
-    boxLay->addWidget( _auto );
-    boxLay->addWidget( _link );
-    boxLay->addWidget( _symlink );
+    boxLay->addWidget( m_include );
+    boxLay->addWidget( m_manually );
+    boxLay->addWidget( m_auto );
+    boxLay->addWidget( m_link );
+    boxLay->addWidget( m_symlink );
 
     // Compress
-    _compress = new QCheckBox( i18n("Compress export file"), top );
-    lay1->addWidget( _compress );
+    mp_compress = new QCheckBox( i18n("Compress export file"), top );
+    lay1->addWidget( mp_compress );
 
     // Generate thumbnails
-    _generateThumbnails = new QCheckBox( i18n("Generate thumbnails"), top );
-    _generateThumbnails->setChecked( false );
-    lay1->addWidget( _generateThumbnails );
+    mp_generateThumbnails = new QCheckBox( i18n("Generate thumbnails"), top );
+    mp_generateThumbnails->setChecked( false );
+    lay1->addWidget( mp_generateThumbnails );
 
     // Enforece max size
     QHBoxLayout* hlay = new QHBoxLayout;
     lay1->addLayout( hlay );
 
-    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ) );
-    hlay->addWidget( _enforeMaxSize );
+    mp_enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ) );
+    hlay->addWidget( mp_enforeMaxSize );
 
-    _maxSize = new QSpinBox;
-    _maxSize->setRange( 100,4000 );
+    mp_maxSize = new QSpinBox;
+    mp_maxSize->setRange( 100,4000 );
 
-    hlay->addWidget( _maxSize );
-    _maxSize->setValue( 800 );
+    hlay->addWidget( mp_maxSize );
+    mp_maxSize->setValue( 800 );
 
-    connect( _enforeMaxSize, SIGNAL(toggled(bool)), _maxSize, SLOT(setEnabled(bool)) );
-    _maxSize->setEnabled( false );
+    connect( mp_enforeMaxSize, SIGNAL(toggled(bool)), mp_maxSize, SLOT(setEnabled(bool)) );
+    mp_maxSize->setEnabled( false );
 
     QString txt = i18n( "<p>If your images are stored in a non-compressed file format then you may check this; "
                         "otherwise, this just wastes time during import and export operations.</p>"
                         "<p>In other words, do not check this if your images are stored in jpg, png or gif; but do check this "
                         "if your images are stored in tiff.</p>" );
-    _compress->setWhatsThis( txt );
+    mp_compress->setWhatsThis( txt );
 
     txt = i18n( "<p>Generate thumbnail images</p>" );
-    _generateThumbnails->setWhatsThis( txt );
+    mp_generateThumbnails->setWhatsThis( txt );
 
     txt = i18n( "<p>With this option you may limit the maximum dimensions (width and height) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
                 "worse if someone wants to see the exported images with larger dimensions.</p>" );
 
-    _enforeMaxSize->setWhatsThis( txt );
-    _maxSize->setWhatsThis( txt );
+    mp_enforeMaxSize->setWhatsThis( txt );
+    mp_maxSize->setWhatsThis( txt );
 
     txt = i18n("<p>When exporting images, bear in mind that there are two things the "
                "person importing these images again will need:<br/>"
@@ -149,23 +149,23 @@ ExportConfig::ExportConfig()
                "other, so the user can access the images s/he wants.</p>");
 
     grp->setWhatsThis( txt );
-    _include->setWhatsThis( txt );
-    _manually->setWhatsThis( txt );
-    _link->setWhatsThis( txt );
-    _symlink->setWhatsThis( txt );
-    _auto->setWhatsThis( txt );
+    m_include->setWhatsThis( txt );
+    m_manually->setWhatsThis( txt );
+    m_link->setWhatsThis( txt );
+    m_symlink->setWhatsThis( txt );
+    m_auto->setWhatsThis( txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const
 {
-    if ( _include->isChecked() )
+    if ( m_include->isChecked() )
         return Inline;
-    else if ( _manually->isChecked() )
+    else if ( m_manually->isChecked() )
         return ManualCopy;
-    else if ( _link->isChecked() )
+    else if ( m_link->isChecked() )
         return Link;
-    else if ( _symlink->isChecked() )
+    else if ( m_symlink->isChecked() )
         return Symlink;
     else
         return AutoCopy;
@@ -173,7 +173,7 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 
 Export::~Export()
 {
-    delete _eventLoop;
+    delete m_eventLoop;
 }
 
 Export::Export(
@@ -185,16 +185,16 @@ Export::Export(
     const QString& baseUrl,
     bool doGenerateThumbnails,
     bool *ok)
-    : _ok( ok )
-    , _maxSize( maxSize )
-    , _location( location )
-    , _eventLoop( new QEventLoop )
+    : m_ok( ok )
+    , m_maxSize( maxSize )
+    , m_location( location )
+    , m_eventLoop( new QEventLoop )
 {
     *ok = true;
-    _destdir = QFileInfo( zipFile ).path();
-    _zip = new KZip( zipFile );
-    _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
-    if ( ! _zip->open( QIODevice::WriteOnly ) ) {
+    m_destdir = QFileInfo( zipFile ).path();
+    m_zip = new KZip( zipFile );
+    m_zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
+    if ( ! m_zip->open( QIODevice::WriteOnly ) ) {
         KMessageBox::error( nullptr, i18n("Error creating zip file") );
         *ok = false;
         return;
@@ -207,91 +207,91 @@ Export::Export(
     if (doGenerateThumbnails)
       total += list.size();
 
-    _steps = 0;
-    _progressDialog = new QProgressDialog;
-    _progressDialog->setCancelButtonText(i18n("&Cancel"));
-    _progressDialog->setMaximum(total);
+    m_steps = 0;
+    m_progressDialog = new QProgressDialog;
+    m_progressDialog->setCancelButtonText(i18n("&Cancel"));
+    m_progressDialog->setMaximum(total);
 
-    _progressDialog->setValue(0);
-    _progressDialog->show();
+    m_progressDialog->setValue(0);
+    m_progressDialog->show();
 
     // Copy image files and generate thumbnails
     if ( location != ManualCopy ) {
-        _copyingFiles = true;
+        m_copyingFiles = true;
         copyImages( list );
     }
 
-    if ( _ok && doGenerateThumbnails ) {
-        _copyingFiles = false;
+    if ( m_ok && doGenerateThumbnails ) {
+        m_copyingFiles = false;
         generateThumbnails( list );
     }
 
-    if ( _ok ) {
+    if ( m_ok ) {
         // Create the index.xml file
-        _progressDialog->setLabelText(i18n("Creating index file"));
-        QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, _location, &_filenameMapper );
+        m_progressDialog->setLabelText(i18n("Creating index file"));
+        QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, m_location, &m_filenameMapper );
         time_t t;
         time(&t);
-        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
+        m_zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
 
-       _steps++;
-       _progressDialog->setValue( _steps );
-        _zip->close();
+       m_steps++;
+       m_progressDialog->setValue( m_steps );
+        m_zip->close();
     }
 }
 
 
 void Export::generateThumbnails(const DB::FileNameList& list)
 {
-    _progressDialog->setLabelText( i18n("Creating thumbnails") );
-    _loopEntered = false;
-    _subdir = QString::fromLatin1( "Thumbnails/" );
-    _filesRemaining = list.size(); // Used to break the event loop.
+    m_progressDialog->setLabelText( i18n("Creating thumbnails") );
+    m_loopEntered = false;
+    m_subdir = QString::fromLatin1( "Thumbnails/" );
+    m_filesRemaining = list.size(); // Used to break the event loop.
     for (const DB::FileName& fileName : list) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), fileName.info()->angle(), this );
         request->setPriority( ImageManager::BatchTask );
         ImageManager::AsyncLoader::instance()->load( request );
     }
-    if ( _filesRemaining > 0 ) {
-        _loopEntered = true;
-        _eventLoop->exec();
+    if ( m_filesRemaining > 0 ) {
+        m_loopEntered = true;
+        m_eventLoop->exec();
     }
 }
 
 void Export::copyImages(const DB::FileNameList& list)
 {
-    Q_ASSERT( _location != ManualCopy );
+    Q_ASSERT( m_location != ManualCopy );
 
-    _loopEntered = false;
-    _subdir = QString::fromLatin1( "Images/" );
+    m_loopEntered = false;
+    m_subdir = QString::fromLatin1( "Images/" );
 
-    _progressDialog->setLabelText( i18n("Copying image files") );
+    m_progressDialog->setLabelText( i18n("Copying image files") );
 
-    _filesRemaining = 0;
+    m_filesRemaining = 0;
     for (const DB::FileName& fileName : list) {
         QString file = fileName.absolute();
-        QString zippedName = _filenameMapper.uniqNameFor(fileName);
+        QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
-        if ( _maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
+        if ( m_maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
-            if ( _location == Inline )
-                _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
-            else if ( _location == AutoCopy )
-                Utilities::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
-            else if ( _location == Link )
-                Utilities::makeHardLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
-            else if ( _location == Symlink )
-                Utilities::makeSymbolicLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+            if ( m_location == Inline )
+                m_zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
+            else if ( m_location == AutoCopy )
+                Utilities::copy( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
+            else if ( m_location == Link )
+                Utilities::makeHardLink( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
+            else if ( m_location == Symlink )
+                Utilities::makeSymbolicLink( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
 
-            _steps++;
-            _progressDialog->setValue( _steps );
+            m_steps++;
+            m_progressDialog->setValue( m_steps );
         }
         else {
-            _filesRemaining++;
+            m_filesRemaining++;
             ImageManager::ImageRequest* request =
-                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( _maxSize, _maxSize ), 0, this );
+                new ImageManager::ImageRequest( DB::FileName::fromAbsolutePath(file), QSize( m_maxSize, m_maxSize ), 0, this );
             request->setPriority( ImageManager::BatchTask );
             ImageManager::AsyncLoader::instance()->load( request );
         }
@@ -299,14 +299,14 @@ void Export::copyImages(const DB::FileNameList& list)
         // Test if the cancel button was pressed.
         qApp->processEvents( QEventLoop::AllEvents );
 
-        if ( _progressDialog->wasCanceled() ) {
-            *_ok = false;
+        if ( m_progressDialog->wasCanceled() ) {
+            *m_ok = false;
             return;
         }
     }
-    if ( _filesRemaining > 0 ) {
-        _loopEntered = true;
-        _eventLoop->exec();
+    if ( m_filesRemaining > 0 ) {
+        m_loopEntered = true;
+        m_eventLoop->exec();
     }
 }
 
@@ -316,24 +316,24 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
     if ( !request->loadedOK() )
         return;
 
-    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( _filenameMapper.uniqNameFor(fileName) ).completeSuffix();
+    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
-    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(_subdir))
-        .arg(QFileInfo( _filenameMapper.uniqNameFor(fileName) ).baseName()).arg( ext );
+    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(m_subdir))
+        .arg(QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).baseName()).arg( ext );
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
     image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1() );
 
-    if ( _location == Inline || !_copyingFiles )
-        _zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
+    if ( m_location == Inline || !m_copyingFiles )
+        m_zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
     else {
-        QString file = _destdir + QString::fromLatin1( "/" ) + _filenameMapper.uniqNameFor(fileName);
+        QString file = m_destdir + QString::fromLatin1( "/" ) + m_filenameMapper.uniqNameFor(fileName);
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( nullptr, i18n("Error writing file %1", file ) );
-            *_ok = false;
+            *m_ok = false;
         }
         out.write( data, data.size() );
         out.close();
@@ -341,22 +341,22 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
 
     qApp->processEvents( QEventLoop::AllEvents );
 
-    bool canceled = (!_ok ||  _progressDialog->wasCanceled());
+    bool canceled = (!m_ok ||  m_progressDialog->wasCanceled());
 
     if ( canceled ) {
-        *_ok = false;
-        _eventLoop->exit();
+        *m_ok = false;
+        m_eventLoop->exit();
         ImageManager::AsyncLoader::instance()->stop( this );
         return;
     }
 
-    _steps++;
-    _filesRemaining--;
-    _progressDialog->setValue( _steps );
+    m_steps++;
+    m_filesRemaining--;
+    m_progressDialog->setValue( m_steps );
 
 
-        if ( _filesRemaining == 0 && _loopEntered )
-            _eventLoop->exit();
+        if ( m_filesRemaining == 0 && m_loopEntered )
+            m_eventLoop->exit();
 }
 
 void Export::showUsageDialog()

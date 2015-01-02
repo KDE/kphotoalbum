@@ -34,10 +34,10 @@
 
 using Utilities::StringSet;
 
-CategoryImageConfig* CategoryImageConfig::_instance = nullptr;
+CategoryImageConfig* CategoryImageConfig::s_instance = nullptr;
 
 CategoryImageConfig::CategoryImageConfig()
-    : _image( QImage() )
+    : m_image( QImage() )
 {
     setWindowTitle( i18nc("@title:window","Configure Category Image") );
     setButtons( User1 | Close );
@@ -53,16 +53,16 @@ CategoryImageConfig::CategoryImageConfig()
     // Group
     QLabel* label = new QLabel( i18nc("@label:listbox As in 'select the tag category'","Category:" ), top );
     lay2->addWidget( label, 0, 0 );
-    _group = new KComboBox( top );
-    lay2->addWidget( _group, 0, 1 );
-    connect( _group, SIGNAL(activated(int)), this, SLOT(groupChanged()) );
+    m_group = new KComboBox( top );
+    lay2->addWidget( m_group, 0, 1 );
+    connect( m_group, SIGNAL(activated(int)), this, SLOT(groupChanged()) );
 
     // Member
     label = new QLabel( i18nc("@label:listbox As in 'select a tag'", "Tag:" ), top );
     lay2->addWidget( label, 1, 0 );
-    _member = new KComboBox( top );
-    lay2->addWidget( _member, 1, 1 );
-    connect( _member, SIGNAL(activated(int)), this, SLOT(memberChanged()) );
+    m_member = new KComboBox( top );
+    lay2->addWidget( m_member, 1, 1 );
+    connect( m_member, SIGNAL(activated(int)), this, SLOT(memberChanged()) );
 
     // Current Value
     QGridLayout* lay3 = new QGridLayout;
@@ -70,17 +70,17 @@ CategoryImageConfig::CategoryImageConfig()
     label = new QLabel( i18nc("@label The current category image","Current image:"), top );
     lay3->addWidget( label, 0, 0 );
 
-    _current = new QLabel( top );
-    _current->setFixedSize( 128, 128 );
-    lay3->addWidget( _current, 0, 1 );
+    m_current = new QLabel( top );
+    m_current->setFixedSize( 128, 128 );
+    lay3->addWidget( m_current, 0, 1 );
 
     // New Value
-    _imageLabel = new QLabel( i18nc("@label Preview of the new category imape", "New image:"), top );
-    lay3->addWidget( _imageLabel, 1, 0 );
+    m_imageLabel = new QLabel( i18nc("@label Preview of the new category imape", "New image:"), top );
+    lay3->addWidget( m_imageLabel, 1, 0 );
 
-    _imageLabel = new QLabel( top );
-    _imageLabel->setFixedSize( 128, 128 );
-    lay3->addWidget( _imageLabel, 1, 1 );
+    m_imageLabel = new QLabel( top );
+    m_imageLabel->setFixedSize( 128, 128 );
+    lay3->addWidget( m_imageLabel, 1, 1 );
 
     connect( this, SIGNAL(user1Clicked()), this, SLOT(slotSet()) );
 }
@@ -91,9 +91,9 @@ void CategoryImageConfig::groupChanged()
     if (categoryName.isNull())
         return;
 
-    QString currentText = _member->currentText();
-    _member->clear();
-    StringSet directMembers = _info->itemsOfCategory(categoryName);
+    QString currentText = m_member->currentText();
+    m_member->clear();
+    StringSet directMembers = m_info->itemsOfCategory(categoryName);
 
     StringSet set = directMembers;
     QMap<QString,StringSet> map =
@@ -106,10 +106,10 @@ void CategoryImageConfig::groupChanged()
     QStringList list = set.toList();
 
     list.sort();
-    _member->addItems( list );
+    m_member->addItems( list );
     int index = list.indexOf( currentText );
     if ( index != -1 )
-        _member->setCurrentIndex( index );
+        m_member->setCurrentIndex( index );
 
     memberChanged();
 }
@@ -121,8 +121,8 @@ void CategoryImageConfig::memberChanged()
         return;
     QPixmap pix =
         DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
-        categoryImage(categoryName, _member->currentText(), 128, 128);
-    _current->setPixmap( pix );
+        categoryImage(categoryName, m_member->currentText(), 128, 128);
+    m_current->setPixmap( pix );
 }
 
 void CategoryImageConfig::slotSet()
@@ -131,45 +131,45 @@ void CategoryImageConfig::slotSet()
     if (categoryName.isNull())
         return;
     DB::ImageDB::instance()->categoryCollection()->categoryForName( categoryName )->
-        setCategoryImage(categoryName, _member->currentText(), _image);
+        setCategoryImage(categoryName, m_member->currentText(), m_image);
     memberChanged();
 }
 
 QString CategoryImageConfig::currentGroup()
 {
-    int index = _group->currentIndex();
+    int index = m_group->currentIndex();
     if (index == -1)
         return QString();
-    return _categoryNames[index];
+    return m_categoryNames[index];
 }
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
 {
-    _image = image;
-    _imageLabel->setPixmap( QPixmap::fromImage(image) );
-    _info = info;
+    m_image = image;
+    m_imageLabel->setPixmap( QPixmap::fromImage(image) );
+    m_info = info;
     groupChanged();
 }
 
 CategoryImageConfig* CategoryImageConfig::instance()
 {
-    if ( !_instance )
-        _instance = new CategoryImageConfig();
-    return _instance;
+    if ( !s_instance )
+        s_instance = new CategoryImageConfig();
+    return s_instance;
 }
 
 void CategoryImageConfig::show()
 {
-    QString currentCategory = _group->currentText();
-    _group->clear();
-    _categoryNames.clear();
+    QString currentCategory = m_group->currentText();
+    m_group->clear();
+    m_categoryNames.clear();
      QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
      for ( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
-            _group->addItem( (*categoryIt)->text() );
-            _categoryNames.push_back((*categoryIt)->name());
+            m_group->addItem( (*categoryIt)->text() );
+            m_categoryNames.push_back((*categoryIt)->name());
             if ( (*categoryIt)->text() == currentCategory )
                 currentIndex = index;
             ++index;
@@ -177,7 +177,7 @@ void CategoryImageConfig::show()
     }
 
     if ( currentIndex != -1 )
-        _group->setCurrentIndex( currentIndex );
+        m_group->setCurrentIndex( currentIndex );
     groupChanged();
 
 

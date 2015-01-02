@@ -55,24 +55,24 @@
 **/
 
 Utilities::BooleanGuard::BooleanGuard( bool& guard )
-    : _guard( guard )
+    : m_guard( guard )
 {
-    if ( _guard == false ) {
-        _iLocedIt =true;
-        _guard = true;
+    if ( m_guard == false ) {
+        m_iLockedIt =true;
+        m_guard = true;
     }
     else
-        _iLocedIt = false;
+        m_iLockedIt = false;
 }
 
 Utilities::BooleanGuard::~BooleanGuard()
 {
-    if ( _iLocedIt )
-        _guard = false;
+    if ( m_iLockedIt )
+        m_guard = false;
 }
 
 bool Utilities::BooleanGuard::canContinue()
 {
-    return _iLocedIt;
+    return m_iLockedIt;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

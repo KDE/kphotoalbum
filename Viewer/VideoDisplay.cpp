@@ -45,50 +45,50 @@
 #include <phonon/mediaobject.h>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
-    :Viewer::AbstractDisplay( parent ), _zoomType( FullZoom ), _zoomFactor(1)
+    :Viewer::AbstractDisplay( parent ), m_zoomType( FullZoom ), m_zoomFactor(1)
 {
     QPalette pal = palette();
     pal.setColor( QPalette::Window, Qt::black );
     setPalette( pal );
     setAutoFillBackground( true );
 
-    _mediaObject = nullptr;
+    m_mediaObject = nullptr;
 }
 
 void Viewer::VideoDisplay::setup()
 {
-    _mediaObject = new Phonon::MediaObject(this);
+    m_mediaObject = new Phonon::MediaObject(this);
     Phonon::AudioOutput* audioDevice =
         new Phonon::AudioOutput( Phonon::VideoCategory, this );
-    Phonon::createPath( _mediaObject, audioDevice );
+    Phonon::createPath( m_mediaObject, audioDevice );
 
-    _videoWidget = new Phonon::VideoWidget(this);
-    Phonon::createPath( _mediaObject, _videoWidget );
+    m_videoWidget = new Phonon::VideoWidget(this);
+    Phonon::createPath( m_mediaObject, m_videoWidget );
 
-    _slider = new Phonon::SeekSlider(this);
-    _slider->setMediaObject( _mediaObject );
-    _slider->show();
-    _mediaObject->setTickInterval(100);
+    m_slider = new Phonon::SeekSlider(this);
+    m_slider->setMediaObject( m_mediaObject );
+    m_slider->show();
+    m_mediaObject->setTickInterval(100);
 
-    _videoWidget->setFocus();
-    _videoWidget->resize(1024,768 );
-    _videoWidget->move(0,0);
-    _videoWidget->show();
+    m_videoWidget->setFocus();
+    m_videoWidget->resize(1024,768 );
+    m_videoWidget->move(0,0);
+    m_videoWidget->show();
 
 
-    connect( _mediaObject, SIGNAL(finished()), this, SIGNAL(stopped()) );
-    connect( _mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+    connect( m_mediaObject, SIGNAL(finished()), this, SIGNAL(stopped()) );
+    connect( m_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
              this, SLOT(phononStateChanged(Phonon::State,Phonon::State)) );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
-    if ( !_mediaObject )
+    if ( !m_mediaObject )
         setup();
 
-    _info = info;
-    _mediaObject->setCurrentSource( KUrl::fromLocalFile( info->fileName().absolute() ) );
-    _mediaObject->play();
+    m_info = info;
+    m_mediaObject->setCurrentSource( KUrl::fromLocalFile( info->fileName().absolute() ) );
+    m_mediaObject->play();
 
     return true;
 }
@@ -105,21 +105,21 @@ void Viewer::VideoDisplay::zoomOut()
 
 void Viewer::VideoDisplay::zoomFull()
 {
-    _zoomType = FullZoom;
+    m_zoomType = FullZoom;
     setVideoWidgetSize();
 }
 
 void Viewer::VideoDisplay::zoomPixelForPixel()
 {
-    _zoomType = PixelForPixelZoom;
-    _zoomFactor = 1;
+    m_zoomType = PixelForPixelZoom;
+    m_zoomFactor = 1;
     setVideoWidgetSize();
 }
 
 void Viewer::VideoDisplay::resize( double factor )
 {
-    _zoomType = FixedZoom;
-    _zoomFactor *= factor;
+    m_zoomType = FixedZoom;
+    m_zoomFactor *= factor;
     setVideoWidgetSize();
 }
 
@@ -132,100 +132,100 @@ void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
 
 Viewer::VideoDisplay::~VideoDisplay()
 {
-    if ( _mediaObject )
-        _mediaObject->stop();
+    if ( m_mediaObject )
+        m_mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::stop()
 {
-    if ( _mediaObject )
-        _mediaObject->stop();
+    if ( m_mediaObject )
+        m_mediaObject->stop();
 }
 
 void Viewer::VideoDisplay::playPause()
 {
-    if ( !_mediaObject )
+    if ( !m_mediaObject )
         return;
 
-    if ( _mediaObject->state() != Phonon::PlayingState )
-        _mediaObject->play();
+    if ( m_mediaObject->state() != Phonon::PlayingState )
+        m_mediaObject->play();
     else
-        _mediaObject->pause();
+        m_mediaObject->pause();
 }
 
 QImage Viewer::VideoDisplay::screenShoot()
 {
-    return QPixmap::grabWindow( _videoWidget->winId()).toImage();
+    return QPixmap::grabWindow( m_videoWidget->winId()).toImage();
 }
 
 void Viewer::VideoDisplay::restart()
 {
-    if ( !_mediaObject )
+    if ( !m_mediaObject )
         return;
 
-    _mediaObject->seek(0);
-    _mediaObject->play();
+    m_mediaObject->seek(0);
+    m_mediaObject->play();
 }
 
 void Viewer::VideoDisplay::seek()
 {
-    if (!_mediaObject )
+    if (!m_mediaObject )
         return;
 
     QAction* action = static_cast<QAction*>(sender());
     int value = action->data().value<int>();
-    _mediaObject->seek( _mediaObject->currentTime() + value );
+    m_mediaObject->seek( m_mediaObject->currentTime() + value );
 }
 
 bool Viewer::VideoDisplay::isPaused() const
 {
-    if (!_mediaObject )
+    if (!m_mediaObject )
         return false;
 
-    return _mediaObject->state() == Phonon::PausedState;
+    return m_mediaObject->state() == Phonon::PausedState;
 }
 
 bool Viewer::VideoDisplay::isPlaying() const
 {
-    if (!_mediaObject )
+    if (!m_mediaObject )
         return false;
 
-    return _mediaObject->state() == Phonon::PlayingState;
+    return m_mediaObject->state() == Phonon::PlayingState;
 }
 
 void Viewer::VideoDisplay::phononStateChanged(Phonon::State newState, Phonon::State /*oldState*/)
 {
     setVideoWidgetSize();
     if ( newState == Phonon::ErrorState ) {
-        KMessageBox::error( nullptr, _mediaObject->errorString(), i18n("Error playing media") );
+        KMessageBox::error( nullptr, m_mediaObject->errorString(), i18n("Error playing media") );
     }
 }
 
 void Viewer::VideoDisplay::setVideoWidgetSize()
 {
-    if ( !_mediaObject )
+    if ( !m_mediaObject )
         return;
 
     QSize videoSize;
-    if ( _zoomType == FullZoom ) {
-        videoSize = QSize( size().width(), size().height() - _slider->height() );
-	if (_videoWidget->sizeHint().width() > 0) {
-	  _zoomFactor = videoSize.width() / _videoWidget->sizeHint().width();
+    if ( m_zoomType == FullZoom ) {
+        videoSize = QSize( size().width(), size().height() - m_slider->height() );
+	if (m_videoWidget->sizeHint().width() > 0) {
+	  m_zoomFactor = videoSize.width() / m_videoWidget->sizeHint().width();
 	}
     }
     else {
-        videoSize = _videoWidget->sizeHint();
-        if ( _zoomType == FixedZoom )
-            videoSize *= _zoomFactor;
+        videoSize = m_videoWidget->sizeHint();
+        if ( m_zoomType == FixedZoom )
+            videoSize *= m_zoomFactor;
     }
 
-    _videoWidget->resize( videoSize );
+    m_videoWidget->resize( videoSize );
 
-    QPoint pos = QPoint( width()/2, (height()-_slider->sizeHint().height())/2 )-QPoint(videoSize.width()/2, videoSize.height()/2);
-    _videoWidget->move(pos);
+    QPoint pos = QPoint( width()/2, (height()-m_slider->sizeHint().height())/2 )-QPoint(videoSize.width()/2, videoSize.height()/2);
+    m_videoWidget->move(pos);
 
-    _slider->move( 0, height() - _slider->sizeHint().height() );
-    _slider->resize( width(), _slider->sizeHint().height() );
+    m_slider->move( 0, height() - m_slider->sizeHint().height() );
+    m_slider->resize( width(), m_slider->sizeHint().height() );
 }
 
 #include "VideoDisplay.moc"

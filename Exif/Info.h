@@ -52,8 +52,8 @@ protected:
     DB::FileName exifInfoFile( const DB::FileName& fileName );
 
 private:
-    static Info* _instance;
-    StringSet _keys;
+    static Info* s_instance;
+    StringSet m_keys;
 };
 
 }

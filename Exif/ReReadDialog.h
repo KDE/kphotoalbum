@@ -39,13 +39,13 @@ protected slots:
     void warnAboutDates( bool );
 
 private:
-    DB::FileNameList _list;
-    QCheckBox* _exifDB;
-    QCheckBox* _date;
-    QCheckBox* _orientation;
-    QCheckBox* _description;
-    QCheckBox* _force_date;
-    QListWidget* _fileList;
+    DB::FileNameList m_list;
+    QCheckBox* m_exifDB;
+    QCheckBox* m_date;
+    QCheckBox* m_orientation;
+    QCheckBox* m_description;
+    QCheckBox* m_force_date;
+    QListWidget* m_fileList;
 };
 
 }

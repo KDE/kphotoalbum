@@ -37,8 +37,8 @@ private slots:
     void populateTagsCombo();
 
 private:
-    QComboBox* _category;
-    QComboBox* _tag;
+    QComboBox* m_category;
+    QComboBox* m_tag;
 };
 
 }

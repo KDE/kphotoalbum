@@ -24,25 +24,25 @@ Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, 
     : AbstractCategoryModel( category, info )
 {
     if ( hasNoneEntry() )
-        _items.append( DB::ImageDB::NONE() );
+        m_items.append( DB::ImageDB::NONE() );
 
-    QStringList items = _category->itemsInclCategories();
+    QStringList items = m_category->itemsInclCategories();
     items.sort();
 
     for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         const QString name = *itemIt;
-        const int imageCount = _images.contains(name) ? _images[name] : 0;
-        const int videoCount = _videos.contains(name) ? _videos[name] : 0;
+        const int imageCount = m_images.contains(name) ? m_images[name] : 0;
+        const int videoCount = m_videos.contains(name) ? m_videos[name] : 0;
 
         if ( imageCount + videoCount > 0 )
-            _items.append( name );
+            m_items.append( name );
     }
 }
 
 int Browser::FlatCategoryModel::rowCount( const QModelIndex& index ) const
 {
     if ( !index.isValid() )
-        return _items.count();
+        return m_items.count();
     else
         return 0;
 }
@@ -67,6 +67,6 @@ QModelIndex Browser::FlatCategoryModel::parent( const QModelIndex&  ) const
 
 QString Browser::FlatCategoryModel::indexToName(const QModelIndex& index ) const
 {
-    return _items[index.row()];
+    return m_items[index.row()];
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

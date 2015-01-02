@@ -27,14 +27,14 @@
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
     :QLabel( parent )
 {
-    _timeLine = new QTimeLine( 1000, this);
-    connect( _timeLine, SIGNAL(frameChanged(int)), this, SLOT(setAlphaChannel(int)) );
-    _timeLine->setFrameRange( 0, 170 );
-    _timeLine->setDirection( QTimeLine::Backward );
+    m_timeLine = new QTimeLine( 1000, this);
+    connect( m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(setAlphaChannel(int)) );
+    m_timeLine->setFrameRange( 0, 170 );
+    m_timeLine->setDirection( QTimeLine::Backward );
 
-    _timer = new QTimer( this );
-    _timer->setSingleShot(true);
-    connect( _timer, SIGNAL(timeout()), _timeLine, SLOT(start()) );
+    m_timer = new QTimer( this );
+    m_timer->setSingleShot(true);
+    connect( m_timer, SIGNAL(timeout()), m_timeLine, SLOT(start()) );
 
     setAutoFillBackground(true);
 }
@@ -58,8 +58,8 @@ void Viewer::SpeedDisplay::go()
     move( ( p->width() - width() )/2, ( p->height() - height() )/2 );
 
     setAlphaChannel( 170, 255 );
-    _timer->start( 1000 );
-    _timeLine->stop();
+    m_timer->start( 1000 );
+    m_timeLine->stop();
 
     show();
     raise();

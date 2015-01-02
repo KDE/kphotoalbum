@@ -41,7 +41,7 @@ namespace XMLDB {
         void initIdMap();
 
     private:
-        QList<DB::CategoryPtr> _categories;
+        QList<DB::CategoryPtr> m_categories;
     };
 }
 

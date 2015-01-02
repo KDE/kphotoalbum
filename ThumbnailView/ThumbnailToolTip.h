@@ -46,9 +46,9 @@ private:
     void placeWindow();
 
 private:
-    ThumbnailWidget* _view;
-    bool _widthInverse;
-    bool _heightInverse;
+    ThumbnailWidget* m_view;
+    bool m_widthInverse;
+    bool m_heightInverse;
 };
 
 }

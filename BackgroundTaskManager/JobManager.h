@@ -49,7 +49,7 @@ private slots:
 
 private:
     JobManager();
-    static JobManager* m_instance;
+    static JobManager* s_instance;
     bool shouldExecute() const;
 
     int maxJobCount() const;

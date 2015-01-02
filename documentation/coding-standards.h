@@ -6,9 +6,8 @@
    for new people, and easier to maintain for everyone.
 
    \li Indentation is 4 spaces
-   \li Instance variables are prefixed either with an underscore or
-   m_. Please stick to one of the two for a given class and use the m_ variant
-   for new classes.
+   \li Instance variables are prefixed either with m_.
+   \li Static instance variables are prefixed either with s_.
    \li Methods that are overridden from a superclass should be marked as such
    using the C++11 override keyword.
    \li KPhotoAlbum is warning free zone. Please keep it that way. No warnings during compilations are accepted.

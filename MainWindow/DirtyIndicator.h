@@ -48,11 +48,11 @@ private:
     bool isSaveDirty() const;
     bool isAutoSaveDirty() const;
 
-    QPixmap _dirtyPix;
-    static bool _autoSaveDirty;
-    static bool _saveDirty;
+    QPixmap m_dirtyPix;
+    static bool s_autoSaveDirty;
+    static bool s_saveDirty;
 
-    static bool _suppressMarkDirty;
+    static bool s_suppressMarkDirty;
 };
 
 }

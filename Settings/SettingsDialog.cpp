@@ -50,45 +50,45 @@ struct Data
 Settings::SettingsDialog::SettingsDialog( QWidget* parent)
      :KPageDialog( parent )
 {
-    _generalPage = new Settings::GeneralPage(this);
-    _fileVersionDetectionPage = new Settings::FileVersionDetectionPage(this);
-    _thumbnailsPage = new Settings::ThumbnailsPage(this);
-    _categoryPage = new Settings::CategoryPage(this);
-    _tagGroupsPage = new Settings::TagGroupsPage(this);
-    _viewerPage = new Settings::ViewerPage(this);
+    m_generalPage = new Settings::GeneralPage(this);
+    m_fileVersionDetectionPage = new Settings::FileVersionDetectionPage(this);
+    m_thumbnailsPage = new Settings::ThumbnailsPage(this);
+    m_categoryPage = new Settings::CategoryPage(this);
+    m_tagGroupsPage = new Settings::TagGroupsPage(this);
+    m_viewerPage = new Settings::ViewerPage(this);
 
 #ifdef HASKIPI
-    _pluginsPage = new Settings::PluginsPage(this);
+    m_pluginsPage = new Settings::PluginsPage(this);
 #endif
 
 #ifdef HAVE_EXIV2
-    _exifPage = new Settings::ExifPage(this);
+    m_exifPage = new Settings::ExifPage(this);
 #endif
 
 #ifdef HAVE_KFACE
-    _faceManagementPage = new Settings::FaceManagementPage(this);
+    m_faceManagementPage = new Settings::FaceManagementPage(this);
 #endif
 
-    _databaseBackendPage = new Settings::DatabaseBackendPage(this);
+    m_databaseBackendPage = new Settings::DatabaseBackendPage(this);
 
 
     Data data[] = {
-        { i18n("General"), "kphotoalbum", _generalPage },
-        { i18n("File Searching & Versions"), "system-search", _fileVersionDetectionPage },
-        { i18n("Thumbnail View" ), "view-list-icons", _thumbnailsPage },
-        { i18n("Categories"), "user-identity", _categoryPage },
-        { i18n("Tag Groups" ), "edit-copy", _tagGroupsPage },
-        { i18n("Viewer" ), "document-preview", _viewerPage },
+        { i18n("General"), "kphotoalbum", m_generalPage },
+        { i18n("File Searching & Versions"), "system-search", m_fileVersionDetectionPage },
+        { i18n("Thumbnail View" ), "view-list-icons", m_thumbnailsPage },
+        { i18n("Categories"), "user-identity", m_categoryPage },
+        { i18n("Tag Groups" ), "edit-copy", m_tagGroupsPage },
+        { i18n("Viewer" ), "document-preview", m_viewerPage },
 #ifdef HASKIPI
-        { i18n("Plugins" ), "preferences-plugin", _pluginsPage },
+        { i18n("Plugins" ), "preferences-plugin", m_pluginsPage },
 #endif
 
 #ifdef HAVE_EXIV2
-        { i18n("EXIF/IPTC Information" ), "document-properties", _exifPage },
+        { i18n("EXIF/IPTC Information" ), "document-properties", m_exifPage },
 #endif
-        { i18n("Database backend"), "system-file-manager", _databaseBackendPage },
+        { i18n("Database backend"), "system-file-manager", m_databaseBackendPage },
 #ifdef HAVE_KFACE
-        { i18n("Face management" ), "edit-find-user", _faceManagementPage },
+        { i18n("Face management" ), "edit-find-user", m_faceManagementPage },
 #endif
         { QString(), "", 0 }
     };
@@ -106,13 +106,13 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
 
-    connect(_categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
-            _tagGroupsPage, SLOT(categoryRenamed(QString,QString)));
+    connect(m_categoryPage, SIGNAL(currentCategoryNameChanged(QString,QString)),
+            m_tagGroupsPage, SLOT(categoryRenamed(QString,QString)));
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            _tagGroupsPage, SLOT(slotPageChange()));
+            m_tagGroupsPage, SLOT(slotPageChange()));
 #ifdef HAVE_KFACE
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            _faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*)));
+            m_faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*)));
 #endif
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
@@ -122,28 +122,28 @@ void Settings::SettingsDialog::show()
 {
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
-    _generalPage->loadSettings( opt );
-    _fileVersionDetectionPage->loadSettings( opt );
-    _thumbnailsPage->loadSettings(opt);
-    _tagGroupsPage->loadSettings();
-    _databaseBackendPage->loadSettings(opt);
-    _viewerPage->loadSettings(opt);
+    m_generalPage->loadSettings( opt );
+    m_fileVersionDetectionPage->loadSettings( opt );
+    m_thumbnailsPage->loadSettings(opt);
+    m_tagGroupsPage->loadSettings();
+    m_databaseBackendPage->loadSettings(opt);
+    m_viewerPage->loadSettings(opt);
 
 #ifdef HASKIPI
-    _pluginsPage->loadSettings(opt);
+    m_pluginsPage->loadSettings(opt);
 #endif
 
-    _categoryPage->loadSettings(opt);
+    m_categoryPage->loadSettings(opt);
 
 #ifdef HAVE_EXIV2
-    _exifPage->loadSettings( opt );
+    m_exifPage->loadSettings( opt );
 #endif
 
 #ifdef HAVE_KFACE
-    _faceManagementPage->loadSettings(opt);
+    m_faceManagementPage->loadSettings(opt);
 #endif
 
-    _categoryPage->enableDisable( false );
+    m_categoryPage->enableDisable( false );
 
     KDialog::show();
 }
@@ -155,31 +155,31 @@ void Settings::SettingsDialog::slotMyOK()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     // Must be before I save to the backend.
-    if ( _thumbnailsPage->thumbnailSizeChanged(opt) )
+    if ( m_thumbnailsPage->thumbnailSizeChanged(opt) )
         emit thumbnailSizeChanged();
 
-    _categoryPage->resetInterface();
-    _generalPage->saveSettings( opt );
-    _fileVersionDetectionPage->saveSettings( opt );
-    _thumbnailsPage->saveSettings(opt);
-    _categoryPage->saveSettings( opt, _tagGroupsPage->memberMap() );
-    _tagGroupsPage->saveSettings();
-    _viewerPage->saveSettings( opt );
+    m_categoryPage->resetInterface();
+    m_generalPage->saveSettings( opt );
+    m_fileVersionDetectionPage->saveSettings( opt );
+    m_thumbnailsPage->saveSettings(opt);
+    m_categoryPage->saveSettings( opt, m_tagGroupsPage->memberMap() );
+    m_tagGroupsPage->saveSettings();
+    m_viewerPage->saveSettings( opt );
 
 #ifdef HASKIPI
-    _pluginsPage->saveSettings( opt );
+    m_pluginsPage->saveSettings( opt );
 #endif
 
 #ifdef HAVE_EXIV2
-    _exifPage->saveSettings(opt);
+    m_exifPage->saveSettings(opt);
 #endif
 
 #ifdef HAVE_KFACE
-    _faceManagementPage->saveSettings(opt);
-    _faceManagementPage->clearDatabaseEntries();
+    m_faceManagementPage->saveSettings(opt);
+    m_faceManagementPage->clearDatabaseEntries();
 #endif
 
-    _databaseBackendPage->saveSettings(opt);
+    m_databaseBackendPage->saveSettings(opt);
 
     emit changed();
     KGlobal::config()->sync();
@@ -187,7 +187,7 @@ void Settings::SettingsDialog::slotMyOK()
 
 void Settings::SettingsDialog::showBackendPage()
 {
-    setCurrentPage(_backendPage);
+    setCurrentPage(m_backendPage);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

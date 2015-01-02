@@ -30,9 +30,9 @@ void Browser::ImageViewPage::activate()
 {
     MainWindow::Window::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( searchInfo()));
 
-    if ( !_context.isNull() ) {
+    if ( !m_context.isNull() ) {
         // PENDING(blackie) this is the only place that uses the ThumbnailFacade as a singleton. Rewrite to make it communicate with it otherwise.
-        ThumbnailView::ThumbnailFacade::instance()->setCurrentItem(_context);
+        ThumbnailView::ThumbnailFacade::instance()->setCurrentItem(m_context);
     }
 }
 
@@ -47,7 +47,7 @@ bool Browser::ImageViewPage::isSearchable() const
 }
 
 Browser::ImageViewPage::ImageViewPage( const DB::FileName& context, BrowserWidget* browser )
-    : BrowserPage(DB::ImageSearchInfo(), browser), _context( context )
+    : BrowserPage(DB::ImageSearchInfo(), browser), m_context( context )
 {
 }
 

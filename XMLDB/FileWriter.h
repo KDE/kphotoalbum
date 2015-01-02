@@ -33,7 +33,7 @@ class Database;
 class FileWriter
 {
 public:
-    explicit FileWriter( Database* db ) :_db(db) {}
+    explicit FileWriter( Database* db ) :m_db(db) {}
     void save( const QString& fileName, bool isAutoSave );
     static QString escape( const QString& );
 
@@ -52,7 +52,7 @@ private:
     // The parent widget information dialogs are displayed in.
     QWidget *messageParent();
 
-    Database* const _db;
+    Database* const m_db;
     QString areaToString(QRect area) const;
 };
 

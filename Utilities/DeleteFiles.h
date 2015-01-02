@@ -38,7 +38,7 @@ private slots:
 
 private:
     static DeleteFiles* s_instance;
-    bool _deleteFiles( const DB::FileNameList& files, DeleteMethod method );
+    bool deleteFilesPrivate( const DB::FileNameList& files, DeleteMethod method );
 };
 
 

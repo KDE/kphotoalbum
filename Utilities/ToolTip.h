@@ -41,8 +41,8 @@ protected:
 private:
     void renderToolTip();
     void requestImage( const DB::FileName& fileName );
-    DB::FileName _currentFileName;
-    QTemporaryFile* _tmpFileForThumbnailView;
+    DB::FileName m_currentFileName;
+    QTemporaryFile* m_tmpFileForThumbnailView;
 };
 
 } // namespace Utilities

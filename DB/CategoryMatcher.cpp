@@ -21,7 +21,7 @@
 using namespace DB;
 
 CategoryMatcher::CategoryMatcher()
-    : _shouldPrepareMatchedSet(false)
+    : m_shouldPrepareMatchedSet(false)
 {
 }
 
@@ -32,7 +32,7 @@ QString CategoryMatcher::spaces(int level ) const
 
 void DB::CategoryMatcher::setShouldCreateMatchedSet(bool b)
 {
-    _shouldPrepareMatchedSet = b;
+    m_shouldPrepareMatchedSet = b;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

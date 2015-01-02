@@ -37,7 +37,7 @@ bool DeleteFiles::deleteFiles( const DB::FileNameList& files, DeleteMethod metho
 {
     if (!s_instance)
         s_instance = new DeleteFiles;
-    return s_instance->_deleteFiles(files,method);
+    return s_instance->deleteFilesPrivate(files,method);
 }
 
 void DeleteFiles::slotKIOJobCompleted(KJob* job)
@@ -46,7 +46,7 @@ void DeleteFiles::slotKIOJobCompleted(KJob* job)
         KMessageBox::error( MainWindow::Window::theMainWindow(), job->errorString(), i18n( "Error Deleting Files" ) );
 }
 
-bool DeleteFiles::_deleteFiles(const DB::FileNameList &files, DeleteMethod method)
+bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod method)
 {
     Utilities::ShowBusyCursor dummy;
 

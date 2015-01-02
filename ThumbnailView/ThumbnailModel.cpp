@@ -32,7 +32,7 @@
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
-      _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+      m_sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
     m_ImagePlaceholder = KIcon( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
@@ -58,7 +58,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    Q_FOREACH(const DB::FileName& fileName, _imageList) {
+    Q_FOREACH(const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
         if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
@@ -78,9 +78,9 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      * we got from the original, but the stacks shown with all images together
      * in the right sequence or collapsed showing only the top image.
      */
-    _displayList = DB::FileNameList();
+    m_displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    Q_FOREACH( const DB::FileName& fileName, _imageList) {
+    Q_FOREACH( const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
         if ( !imageInfo.isNull() && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
@@ -89,27 +89,27 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
             StackMap::iterator found = stackContents.find(stackid);
             Q_ASSERT(found != stackContents.end());
             const StackList& orderedStack = *found;
-            if (_expandedStacks.contains(stackid)) {
+            if (m_expandedStacks.contains(stackid)) {
                 Q_FOREACH( const DB::FileName& fileName, orderedStack) {
-                    _displayList.append(fileName);
+                    m_displayList.append(fileName);
                 }
             } else {
-                _displayList.append(orderedStack.at(0));
+                m_displayList.append(orderedStack.at(0));
             }
             alreadyShownStacks.insert(stackid);
         }
         else {
-            _displayList.append(fileName);
+            m_displayList.append(fileName);
         }
     }
 
-    if ( _sortDirection != OldestFirst )
-        _displayList = _displayList.reversed();
+    if ( m_sortDirection != OldestFirst )
+        m_displayList = m_displayList.reversed();
 
     updateIndexCache();
 
-    emit collapseAllStacksEnabled( _expandedStacks.size() > 0);
-    emit expandAllStacksEnabled( _allStacks.size() != model()->_expandedStacks.size() );
+    emit collapseAllStacksEnabled( m_expandedStacks.size() > 0);
+    emit expandAllStacksEnabled( m_allStacks.size() != model()->m_expandedStacks.size() );
     reset();
 }
 
@@ -118,10 +118,10 @@ void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName& fil
     DB::ImageInfoPtr imageInfo = fileName.info();
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
-        if (_expandedStacks.contains(stackid))
-            _expandedStacks.remove(stackid);
+        if (m_expandedStacks.contains(stackid))
+            m_expandedStacks.remove(stackid);
         else
-            _expandedStacks.insert(stackid);
+            m_expandedStacks.insert(stackid);
         updateDisplayModel();
         model()->reset();
     }
@@ -129,37 +129,37 @@ void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName& fil
 
 void ThumbnailView::ThumbnailModel::collapseAllStacks()
 {
-    _expandedStacks.clear();
+    m_expandedStacks.clear();
     updateDisplayModel();
 }
 
 void ThumbnailView::ThumbnailModel::expandAllStacks()
 {
-    _expandedStacks = _allStacks;
+    m_expandedStacks = m_allStacks;
     updateDisplayModel();
 }
 
 
 void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList& items)
 {
-    _imageList = items;
-    _allStacks.clear();
+    m_imageList = items;
+    m_allStacks.clear();
     Q_FOREACH( const DB::FileName& fileName, items) {
         DB::ImageInfoPtr info = fileName.info();
         if ( info && info->isStacked() )
-            _allStacks << info->stackId();
+            m_allStacks << info->stackId();
     }
     updateDisplayModel();
     preloadThumbnails();
 }
 
-// TODO(hzeller) figure out if this should return the _imageList or _displayList.
+// TODO(hzeller) figure out if this should return the m_imageList or m_displayList.
 DB::FileNameList ThumbnailView::ThumbnailModel::imageList(Order order) const
 {
-    if ( order == SortedOrder &&  _sortDirection == NewestFirst )
-        return _displayList.reversed();
+    if ( order == SortedOrder &&  m_sortDirection == NewestFirst )
+        return m_displayList.reversed();
     else
-        return _displayList;
+        return m_displayList;
 }
 
 void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::FileNameList& list )
@@ -167,8 +167,8 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::FileNameList&
     SelectionMaintainer dummy(widget(),model());
 
     Q_FOREACH( const DB::FileName& fileName, list ) {
-        _displayList.removeAll(fileName);
-        _imageList.removeAll(fileName);
+        m_displayList.removeAll(fileName);
+        m_imageList.removeAll(fileName);
     }
     updateDisplayModel();
 }
@@ -177,18 +177,18 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB( const DB::FileNameList&
 int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName) const
 {
     Q_ASSERT( !fileName.isNull() );
-    if ( !_fileNameToIndex.contains(fileName))
+    if ( !m_fileNameToIndex.contains(fileName))
         return -1;
     else
-        return _fileNameToIndex[fileName];
+        return m_fileNameToIndex[fileName];
 }
 
 void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
-    _fileNameToIndex.clear();
+    m_fileNameToIndex.clear();
     int index = 0;
-    Q_FOREACH( const DB::FileName& fileName, _displayList) {
-        _fileNameToIndex[fileName] = index;
+    Q_FOREACH( const DB::FileName& fileName, m_displayList) {
+        m_fileNameToIndex[fileName] = index;
         ++index;
     }
 
@@ -196,44 +196,44 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 
 DB::FileName ThumbnailView::ThumbnailModel::rightDropItem() const
 {
-    return _rightDrop;
+    return m_rightDrop;
 }
 
 void ThumbnailView::ThumbnailModel::setRightDropItem( const DB::FileName& item )
 {
-    _rightDrop = item;
+    m_rightDrop = item;
 }
 
 DB::FileName ThumbnailView::ThumbnailModel::leftDropItem() const
 {
-    return _leftDrop;
+    return m_leftDrop;
 }
 
 void ThumbnailView::ThumbnailModel::setLeftDropItem( const DB::FileName& item )
 {
-    _leftDrop = item;
+    m_leftDrop = item;
 }
 
 void ThumbnailView::ThumbnailModel::setSortDirection( SortDirection direction )
 {
-    if ( direction == _sortDirection )
+    if ( direction == m_sortDirection )
         return;
 
     Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
-    _displayList = _displayList.reversed();
+    m_displayList = m_displayList.reversed();
     updateIndexCache();
 
-    _sortDirection = direction;
+    m_sortDirection = direction;
 }
 
 bool ThumbnailView::ThumbnailModel::isItemInExpandedStack( const DB::StackID& id ) const
 {
-    return _expandedStacks.contains(id);
+    return m_expandedStacks.contains(id);
 }
 
 int ThumbnailView::ThumbnailModel::imageCount() const
 {
-    return _displayList.size();
+    return m_displayList.size();
 }
 
 void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName& fileName, const QPixmap &pixmap)
@@ -250,7 +250,7 @@ void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName& fileNam
 DB::FileName ThumbnailView::ThumbnailModel::imageAt( int index ) const
 {
     Q_ASSERT( index >= 0 && index < imageCount() );
-    return _displayList.at(index);
+    return m_displayList.at(index);
 }
 
 int ThumbnailView::ThumbnailModel::rowCount(const QModelIndex&) const
@@ -260,11 +260,11 @@ int ThumbnailView::ThumbnailModel::rowCount(const QModelIndex&) const
 
 QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role ) const
 {
-    if ( !index.isValid() || index.row() >= _displayList.size())
+    if ( !index.isValid() || index.row() >= m_displayList.size())
         return QVariant();
 
     if ( role == Qt::DecorationRole ) {
-        const DB::FileName fileName = _displayList.at(index.row());
+        const DB::FileName fileName = m_displayList.at(index.row());
         return pixmap( fileName );
     }
 
@@ -282,7 +282,7 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::FileName& fileNa
     const QSize cellSize = cellGeometryInfo()->preferredIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
-        = new ThumbnailRequest( _displayList.indexOf(fileName), fileName, cellSize, angle, this );
+        = new ThumbnailRequest( m_displayList.indexOf(fileName), fileName, cellSize, angle, this );
     request->setPriority( priority );
     ImageManager::AsyncLoader::instance()->load( request );
 }
@@ -312,7 +312,7 @@ void ThumbnailView::ThumbnailModel::reset()
 
 int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName)
 {
-    return _displayList.indexOf(fileName);
+    return m_displayList.indexOf(fileName);
 }
 
 
@@ -413,15 +413,15 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::FileName& fileName ) co
 
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded( int row ) const
 {
-    return ( row >= _firstVisibleRow && row <= _lastVisibleRow );
+    return ( row >= m_firstVisibleRow && row <= m_lastVisibleRow );
 }
 
 void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
 {
-    _firstVisibleRow = widget()->indexAt( QPoint(0,0) ).row();
+    m_firstVisibleRow = widget()->indexAt( QPoint(0,0) ).row();
     const int columns = widget()->width() / cellGeometryInfo()->cellSize().width();
     const int rows = widget()->height() / cellGeometryInfo()->cellSize().height();
-    _lastVisibleRow = qMin(_firstVisibleRow + columns*(rows+1), rowCount(QModelIndex()));
+    m_lastVisibleRow = qMin(m_firstVisibleRow + columns*(rows+1), rowCount(QModelIndex()));
 
     // the cellGeometry has changed -> update placeholders
     m_ImagePlaceholder = KIcon( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
@@ -432,7 +432,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
     // and maybe also move the caching stuff into the ImageManager
-    Q_FOREACH( const DB::FileName& fileName, _displayList) {
+    Q_FOREACH( const DB::FileName& fileName, m_displayList) {
         if ( fileName.isNull() )
             continue;
 

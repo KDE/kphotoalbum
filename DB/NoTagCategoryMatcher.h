@@ -36,7 +36,7 @@ public:
     void debug( int level ) const override;
 
 private:
-    const QString _category;
+    const QString m_category;
 };
 
 }

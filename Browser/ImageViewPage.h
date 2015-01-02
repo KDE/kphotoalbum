@@ -42,7 +42,7 @@ public:
 
 
 private:
-    DB::FileName _context;
+    DB::FileName m_context;
 };
 
 }

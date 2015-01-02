@@ -45,7 +45,7 @@ public:
 
 private:
     friend class RemoteControl::RemoteInterface;
-    QStringList _items;
+    QStringList m_items;
 };
 
 }

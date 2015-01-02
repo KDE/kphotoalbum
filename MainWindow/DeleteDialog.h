@@ -42,11 +42,11 @@ protected slots:
     void deleteImages();
 
 private:
-    DB::FileNameList _list;
-    QLabel* _label;
-    QRadioButton* _deleteFile;
-    QRadioButton* _useTrash;
-    QRadioButton* _deleteFromDb;
+    DB::FileNameList m_list;
+    QLabel* m_label;
+    QRadioButton* m_deleteFile;
+    QRadioButton* m_useTrash;
+    QRadioButton* m_deleteFromDb;
 
 };
 

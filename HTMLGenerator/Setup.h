@@ -87,24 +87,24 @@ public:
     bool html5VideoGenerate() const;
 
 private:
-    QString _title;
-    QString _baseDir;
-    QString _baseURL;
-    QString _destURL;
-    QString _outputDir;
-    int _thumbSize;
-    QString _copyright;
-    bool _date;
-    QString _description;
-    int _numOfCols;
-    bool _generateKimFile;
-    QString _theme;
-    QMap<QString,bool> _includeCategory;
-    QList<ImageSizeCheckBox*> _resolutions;
-    DB::FileNameList _images;
-    bool _inlineMovies;
-    bool _html5Video;
-    bool _html5VideoGenerate;
+    QString m_title;
+    QString m_baseDir;
+    QString m_baseURL;
+    QString m_destURL;
+    QString m_outputDir;
+    int m_thumbSize;
+    QString m_copyright;
+    bool m_date;
+    QString m_description;
+    int m_numOfCols;
+    bool m_generateKimFile;
+    QString m_theme;
+    QMap<QString,bool> m_includeCategory;
+    QList<ImageSizeCheckBox*> m_resolutions;
+    DB::FileNameList m_images;
+    bool m_inlineMovies;
+    bool m_html5Video;
+    bool m_html5VideoGenerate;
 };
 
 }

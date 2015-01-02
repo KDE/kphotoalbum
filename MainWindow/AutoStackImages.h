@@ -41,15 +41,15 @@ protected slots:
     virtual void accept();
 
 private:
-    QCheckBox* _matchingMD5;
-    QCheckBox* _matchingFile;
-    QCheckBox* _origTop;
-    QCheckBox* _continuousShooting;
-    QRadioButton* _autostackUnstack;
-    QRadioButton* _autostackSkip;
-    QRadioButton* _autostackDefault;
-    QSpinBox* _continuousThreshold;
-    const DB::FileNameList& _list;
+    QCheckBox* m_matchingMD5;
+    QCheckBox* m_matchingFile;
+    QCheckBox* m_origTop;
+    QCheckBox* m_continuousShooting;
+    QRadioButton* m_autostackUnstack;
+    QRadioButton* m_autostackSkip;
+    QRadioButton* m_autostackDefault;
+    QSpinBox* m_continuousThreshold;
+    const DB::FileNameList& m_list;
     virtual void matchingMD5( DB::FileNameList &toBeShown );
     virtual void matchingFile( DB::FileNameList &toBeShown );
     virtual void continuousShooting( DB::FileNameList &toBeShown );

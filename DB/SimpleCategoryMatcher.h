@@ -27,7 +27,7 @@ namespace DB
 class SimpleCategoryMatcher :public CategoryMatcher
 {
 public:
-    QString _category;
+    QString m_category;
 };
 
 }

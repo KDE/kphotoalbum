@@ -36,9 +36,9 @@ protected slots:
     virtual void accept();
 
 private:
-    QRadioButton* _dateNotTime;
-    QRadioButton* _missingDate;
-    QRadioButton* _partialDate;
+    QRadioButton* m_dateNotTime;
+    QRadioButton* m_missingDate;
+    QRadioButton* m_partialDate;
 };
 
 }

@@ -107,20 +107,20 @@ protected:
     void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 
 private:
-    DB::CategoryPtr _category;
-    CompletableLineEdit* _lineEdit;
-    CategoryListView::DragableTreeWidget* _treeWidget;
-    QRadioButton* _or;
-    QRadioButton* _and;
-    UsageMode _mode;
-    QToolButton* _alphaTreeSort;
-    QToolButton* _alphaFlatSort;
-    QToolButton* _dateSort;
-    QToolButton* _showSelectedOnly;
-    QString _baseTitle;
-    bool _positionable;
+    DB::CategoryPtr m_category;
+    CompletableLineEdit* m_lineEdit;
+    CategoryListView::DragableTreeWidget* m_treeWidget;
+    QRadioButton* m_or;
+    QRadioButton* m_and;
+    UsageMode m_mode;
+    QToolButton* m_alphaTreeSort;
+    QToolButton* m_alphaFlatSort;
+    QToolButton* m_dateSort;
+    QToolButton* m_showSelectedOnly;
+    QString m_baseTitle;
+    bool m_positionable;
 #ifdef HAVE_KFACE
-    FaceManagement::Recognizer *_recognizer;
+    FaceManagement::Recognizer *m_recognizer;
 #endif
 
 };

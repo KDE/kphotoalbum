@@ -76,21 +76,21 @@ signals:
     void failedToCopy( QStringList files );
 
 private:
-    DB::ImageInfoList _images;
-    KLineEdit* _destinationEdit;
-    KPageWidgetItem* _destinationPage;
-    KPageWidgetItem* _categoryMatcherPage;
-    KPageWidgetItem* _dummy;
-    ImportMatcher* _categoryMatcher;
-    ImportMatchers _matchers;
-    QList< ImageRow* > _imagesSelect;
-    KTemporaryFile* _tmp;
-    bool _externalSource;
-    KUrl _kimFile;
-    bool _hasFilled;
-    QString _baseUrl;
-    KimFileReader* _kimFileReader;
-    MD5CheckPage* _md5CheckPage;
+    DB::ImageInfoList m_images;
+    KLineEdit* m_destinationEdit;
+    KPageWidgetItem* m_destinationPage;
+    KPageWidgetItem* m_categoryMatcherPage;
+    KPageWidgetItem* m_dummy;
+    ImportMatcher* m_categoryMatcher;
+    ImportMatchers m_matchers;
+    QList< ImageRow* > m_imagesSelect;
+    KTemporaryFile* m_tmp;
+    bool m_externalSource;
+    KUrl m_kimFile;
+    bool m_hasFilled;
+    QString m_baseUrl;
+    KimFileReader* m_kimFileReader;
+    MD5CheckPage* m_md5CheckPage;
 };
 
 }

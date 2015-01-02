@@ -50,8 +50,8 @@ protected:
     virtual void showEvent(QShowEvent *event);
 
 private:
-    Interface *_interface;
-    bool firstTimeVisible;
+    Interface *m_interface;
+    bool m_firstTimeVisible;
 };
 
 }

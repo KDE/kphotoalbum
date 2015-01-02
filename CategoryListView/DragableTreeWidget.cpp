@@ -21,7 +21,7 @@
 #include <QDragMoveEvent>
 
 CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent )
-    :QTreeWidget( parent ), _category( category )
+    :QTreeWidget( parent ), m_category( category )
 {
     setDragEnabled(true);
     setDragDropMode(DragDrop);
@@ -32,7 +32,7 @@ CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr&
 
 DB::CategoryPtr CategoryListView::DragableTreeWidget::category() const
 {
-    return _category;
+    return m_category;
 }
 
 void CategoryListView::DragableTreeWidget::emitItemsChanged()

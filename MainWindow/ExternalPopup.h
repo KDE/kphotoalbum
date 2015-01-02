@@ -53,9 +53,9 @@ protected:
     OfferType appInfos( const DB::FileNameList& files );
 
 private:
-    DB::FileNameList _list;
-    DB::ImageInfoPtr _currentInfo;
-    QMap<QString,StringSet> _appToMimeTypeMap;
+    DB::FileNameList m_list;
+    DB::ImageInfoPtr m_currentInfo;
+    QMap<QString,StringSet> m_appToMimeTypeMap;
 };
 
 }

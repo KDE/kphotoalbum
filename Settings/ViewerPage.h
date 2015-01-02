@@ -35,12 +35,12 @@ public:
     void saveSettings( Settings::SettingsData* );
 
 private:
-    Settings::ViewerSizeConfig* _slideShowSetup;
-    Settings::ViewerSizeConfig* _viewImageSetup;
-    QComboBox* _smoothScale;
-    QSpinBox* _slideShowInterval;
-    QSpinBox* _cacheSize;
-    KComboBox* _viewerStandardSize;
+    Settings::ViewerSizeConfig* m_slideShowSetup;
+    Settings::ViewerSizeConfig* m_viewImageSetup;
+    QComboBox* m_smoothScale;
+    QSpinBox* m_slideShowInterval;
+    QSpinBox* m_cacheSize;
+    KComboBox* m_viewerStandardSize;
 };
 
 

@@ -44,11 +44,11 @@ protected:
 
 private:
     typedef QList< QPair< DB::FileName, DB::MediaType > > LoadList;
-    LoadList _pendingLoad;
+    LoadList m_pendingLoad;
 
-    QString _modifiedFileCompString;
-    QRegExp _modifiedFileComponent;
-    QStringList _originalFileComponents;
+    QString m_modifiedFileCompString;
+    QRegExp m_modifiedFileComponent;
+    QStringList m_originalFileComponents;
 };
 }
 

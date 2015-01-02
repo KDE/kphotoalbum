@@ -68,7 +68,7 @@ public:
 };
 }
 
-ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::m_instance = nullptr;
+ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::s_instance = nullptr;
 
 ImageManager::ThumbnailCache::ThumbnailCache()
     : m_currentFile(0), m_currentOffset(0), m_unsaved(0)
@@ -248,15 +248,15 @@ QString ImageManager::ThumbnailCache::thumbnailPath(const QString& file) const
 
 ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::instance()
 {
-    if (!m_instance)
-        m_instance = new ThumbnailCache;
-    return m_instance;
+    if (!s_instance)
+        s_instance = new ThumbnailCache;
+    return s_instance;
 }
 
 void ImageManager::ThumbnailCache::deleteInstance()
 {
-    delete m_instance;
-    m_instance = nullptr;
+    delete s_instance;
+    s_instance = nullptr;
 }
 
 void ImageManager::ThumbnailCache::flush()

@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 DB::FastDir::FastDir(const QString &path)
-  : _path(path)
+  : m_path(path)
 {
 }
 
@@ -15,7 +15,7 @@ QStringList DB::FastDir::entryList() const
     QStringList answer;
     DIR *dir;
     dirent *file;
-    dir = opendir( QFile::encodeName(_path) );
+    dir = opendir( QFile::encodeName(m_path) );
     if ( !dir )
     return answer; // cannot read the directory
 

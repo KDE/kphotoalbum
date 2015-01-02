@@ -38,7 +38,7 @@ namespace DB
             void debug( int level ) const override;
             void setShouldCreateMatchedSet( bool b ) override;
         private:
-            CategoryMatcher *_child;
+            CategoryMatcher *m_child;
     };
 
 }

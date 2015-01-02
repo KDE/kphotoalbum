@@ -43,7 +43,7 @@ public:
     const ThumbnailWidget* widget() const;
 
 private:
-    ThumbnailFactory* _factory;
+    ThumbnailFactory* m_factory;
 };
 
 }

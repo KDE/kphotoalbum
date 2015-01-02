@@ -22,171 +22,171 @@
 #include <kdebug.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable )
-    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _positionable ( positionable ), _isSpecial(false), _shouldSave( true )
+    : m_name( name ), m_icon( icon ), m_show( show ), m_type( type ), m_thumbnailSize( thumbnailSize ), m_positionable ( positionable ), m_isSpecial(false), m_shouldSave( true )
 {
 }
 
 QString XMLDB::XMLCategory::name() const
 {
-    return _name;
+    return m_name;
 }
 
 void XMLDB::XMLCategory::setName( const QString& name )
 {
-    _name = name;
+    m_name = name;
 }
 
 void XMLDB::XMLCategory::setPositionable( bool positionable )
 {
-    if ( positionable != _positionable )
+    if ( positionable != m_positionable )
     {
-        _positionable = positionable;
+        m_positionable = positionable;
         emit changed();
     }
 }
 
 bool XMLDB::XMLCategory::positionable() const
 {
-    return _positionable;
+    return m_positionable;
 }
 
 QString XMLDB::XMLCategory::iconName() const
 {
-    return _icon;
+    return m_icon;
 }
 
 void XMLDB::XMLCategory::setIconName( const QString& name )
 {
-    _icon = name;
+    m_icon = name;
     emit changed();
 }
 
 void XMLDB::XMLCategory::setViewType( ViewType type )
 {
-    _type = type;
+    m_type = type;
     emit changed();
 }
 
 XMLDB::XMLCategory::ViewType XMLDB::XMLCategory::viewType() const
 {
-    return _type;
+    return m_type;
 }
 
 void XMLDB::XMLCategory::setDoShow( bool b )
 {
-    _show = b;
+    m_show = b;
     emit changed();
 }
 
 bool XMLDB::XMLCategory::doShow() const
 {
-    return _show;
+    return m_show;
 }
 
 void XMLDB::XMLCategory::setSpecialCategory( bool b )
 {
-    _isSpecial = b;
+    m_isSpecial = b;
 }
 
 bool XMLDB::XMLCategory::isSpecialCategory() const
 {
-    return _isSpecial;
+    return m_isSpecial;
 }
 
 void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )
 {
-    _items = Utilities::mergeListsUniqly(items, _items);
+    m_items = Utilities::mergeListsUniqly(items, m_items);
 }
 
 void XMLDB::XMLCategory::setItems( const QStringList& items )
 {
-    _items = items;
+    m_items = items;
 }
 
 void XMLDB::XMLCategory::removeItem( const QString& item )
 {
-    _items.removeAll( item );
+    m_items.removeAll( item );
     emit itemRemoved( item );
 }
 
 void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& newValue )
 {
-    _items.removeAll( oldValue );
+    m_items.removeAll( oldValue );
     addItem( newValue );
     emit itemRenamed( oldValue, newValue );
 }
 
 void XMLDB::XMLCategory::addItem( const QString& item )
 {
-    if (_items.contains( item ) )
-        _items.removeAll( item );
-    _items.prepend( item );
+    if (m_items.contains( item ) )
+        m_items.removeAll( item );
+    m_items.prepend( item );
 }
 
 QStringList XMLDB::XMLCategory::items() const
 {
-    return _items;
+    return m_items;
 }
 
 int XMLDB::XMLCategory::idForName( const QString& name ) const
 {
-    return _idMap[name];
+    return m_idMap[name];
 }
 
 void XMLDB::XMLCategory::initIdMap()
 {
     int i = 0;
-    _idMap.clear();
-    for( QStringList::Iterator it = _items.begin(); it != _items.end(); ++it ) {
-        _idMap.insert( *it, ++i );
+    m_idMap.clear();
+    for( QStringList::Iterator it = m_items.begin(); it != m_items.end(); ++it ) {
+        m_idMap.insert( *it, ++i );
     }
 
-    QStringList groups = DB::ImageDB::instance()->memberMap().groups(_name);
+    QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
     for( QStringList::ConstIterator groupIt = groups.constBegin(); groupIt != groups.constEnd(); ++groupIt ) {
-        if ( !_idMap.contains( *groupIt ) )
-            _idMap.insert( *groupIt, ++i );
+        if ( !m_idMap.contains( *groupIt ) )
+            m_idMap.insert( *groupIt, ++i );
     }
 }
 
 void XMLDB::XMLCategory::setIdMapping( const QString& name, int id )
 {
-    _nameMap.insert( id, name );
+    m_nameMap.insert( id, name );
 }
 
 QString XMLDB::XMLCategory::nameForId( int id ) const
 {
-    return _nameMap[id];
+    return m_nameMap[id];
 }
 
 void XMLDB::XMLCategory::setThumbnailSize( int size )
 {
-    _thumbnailSize = size;
+    m_thumbnailSize = size;
     emit changed();
 }
 
 int XMLDB::XMLCategory::thumbnailSize() const
 {
-    return _thumbnailSize;
+    return m_thumbnailSize;
 }
 
 bool XMLDB::XMLCategory::shouldSave()
 {
-    return _shouldSave;
+    return m_shouldSave;
 }
 
 void XMLDB::XMLCategory::setShouldSave( bool b)
 {
-    _shouldSave = b;
+    m_shouldSave = b;
 }
 
 void XMLDB::XMLCategory::setBirthDate(const QString &item, const QDate &birthDate)
 {
-    _birthDates.insert(item,birthDate);
+    m_birthDates.insert(item,birthDate);
 }
 
 QDate XMLDB::XMLCategory::birthDate(const QString &item) const
 {
-    return _birthDates[item];
+    return m_birthDates[item];
 }
 
 #include "XMLCategory.moc"

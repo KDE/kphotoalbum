@@ -34,21 +34,21 @@
 
 using namespace DB;
 
-ImageInfo::ImageInfo() :_null( true ), _rating(-1), _stackId(0), _stackOrder(0),
-    _geoPosition(), _videoLength(-1),
-    _locked( false ), _dirty( false ), _delaySaving( false )
+ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0),
+    m_geoPosition(), m_videoLength(-1),
+    m_locked( false ), m_dirty( false ), m_delaySaving( false )
 {
 }
 
 ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo )
-    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ),
-      _rating(-1), _stackId(0), _stackOrder(0),
-      _geoPosition(), _videoLength(-1),
-      _locked(false), _delaySaving( true )
+    :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type ),
+      m_rating(-1), m_stackId(0), m_stackOrder(0),
+      m_geoPosition(), m_videoLength(-1),
+      m_locked(false), m_delaySaving( true )
 {
     QFileInfo fi( fileName.absolute() );
-    _label = fi.completeBaseName();
-    _angle = 0;
+    m_label = fi.completeBaseName();
+    m_angle = 0;
 
     setFileName(fileName);
 
@@ -56,8 +56,8 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     if ( readExifInfo )
         readExif(fileName, EXIFMODE_INIT);
 
-    _dirty = false;
-    _delaySaving = false;
+    m_dirty = false;
+    m_delaySaving = false;
 }
 
 /** Change delaying of saving changes.
@@ -79,76 +79,76 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
  */
 void ImageInfo::delaySavingChanges(bool b)
 {
-    _delaySaving = b;
+    m_delaySaving = b;
     if (!b)
         saveChanges();
 }
 
 void ImageInfo::setLabel( const QString& desc )
 {
-    if (desc != _label)
-        _dirty = true;
-    _label = desc;
+    if (desc != m_label)
+        m_dirty = true;
+    m_label = desc;
     saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::label() const
 {
-    return _label;
+    return m_label;
 }
 
 void ImageInfo::setDescription( const QString& desc )
 {
-    if (desc != _description)
-        _dirty = true;
-    _description = desc.trimmed();
+    if (desc != m_description)
+        m_dirty = true;
+    m_description = desc.trimmed();
     saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::description() const
 {
-    return _description;
+    return m_description;
 }
 
 
 void ImageInfo::setCategoryInfo( const QString& key, const StringSet& value )
 {
     // Don't check if really changed, because it's too slow.
-    _dirty = true;
-    _categoryInfomation[key] = value;
+    m_dirty = true;
+    m_categoryInfomation[key] = value;
     saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) const
 {
-    return _categoryInfomation[key].contains(value);
+    return m_categoryInfomation[key].contains(value);
 }
 
 bool DB::ImageInfo::hasCategoryInfo( const QString& key, const StringSet& values ) const
 {
-    return Utilities::overlap( _categoryInfomation[key], values );
+    return Utilities::overlap( m_categoryInfomation[key], values );
 }
 
 
 
 StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 {
-    return _categoryInfomation[key];
+    return m_categoryInfomation[key];
 }
 
 void ImageInfo::renameItem( const QString& category, const QString& oldValue, const QString& newValue )
 {
-    if (_taggedAreas.contains(category)) {
-        if (_taggedAreas[category].contains(oldValue)) {
-            _taggedAreas[category][newValue] = _taggedAreas[category][oldValue];
-            _taggedAreas[category].remove(oldValue);
+    if (m_taggedAreas.contains(category)) {
+        if (m_taggedAreas[category].contains(oldValue)) {
+            m_taggedAreas[category][newValue] = m_taggedAreas[category][oldValue];
+            m_taggedAreas[category].remove(oldValue);
         }
     }
 
-    StringSet& set = _categoryInfomation[category];
+    StringSet& set = m_categoryInfomation[category];
     StringSet::iterator it = set.find( oldValue );
     if ( it != set.end() ) {
-        _dirty = true;
+        m_dirty = true;
         set.erase( it );
         set.insert( newValue );
         saveChangesIfNotDelayed();
@@ -157,16 +157,16 @@ void ImageInfo::renameItem( const QString& category, const QString& oldValue, co
 
 DB::FileName ImageInfo::fileName() const
 {
-    return _fileName;
+    return m_fileName;
 }
 
 void ImageInfo::setFileName( const DB::FileName& fileName )
 {
-    if (fileName != _fileName)
-        _dirty = true;
-    _fileName = fileName;
+    if (fileName != m_fileName)
+        m_dirty = true;
+    m_fileName = fileName;
 
-    _imageOnDisk = Unchecked;
+    m_imageOnDisk = Unchecked;
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
         categoryForName(QString::fromLatin1("Folder"));
     if (folderCategory) {
@@ -186,17 +186,17 @@ void ImageInfo::rotate( int degrees, RotationMode mode )
     if ( degrees == 0 )
         return;
 
-    _dirty = true;
-    _angle = ( _angle + degrees ) % 360;
+    m_dirty = true;
+    m_angle = ( m_angle + degrees ) % 360;
 
     if (degrees == 90 or degrees == 270) {
-        _size.transpose();
+        m_size.transpose();
     }
 
     // the AnnotationDialog manages this by itself and sets RotateImageInfoOnly:
     if ( mode == RotateImageInfoAndAreas )
     {
-        for ( auto& areasOfCategory : _taggedAreas )
+        for ( auto& areasOfCategory : m_taggedAreas )
         {
             for ( auto& area : areasOfCategory )
             {
@@ -208,26 +208,26 @@ void ImageInfo::rotate( int degrees, RotationMode mode )
                 switch (degrees) {
                     case 90:
                         rotatedArea.setCoords(
-                                _size.width() - area.bottom(),
+                                m_size.width() - area.bottom(),
                                 area.left(),
-                                _size.width() - area.top(),
+                                m_size.width() - area.top(),
                                 area.right()
                                 );
                         break;
                     case 180:
                         rotatedArea.setCoords(
-                                _size.width() - area.right(),
-                                _size.height() - area.bottom(),
-                                _size.width() - area.left(),
-                                _size.height() - area.top()
+                                m_size.width() - area.right(),
+                                m_size.height() - area.bottom(),
+                                m_size.width() - area.left(),
+                                m_size.height() - area.top()
                                 );
                         break;
                     case 270:
                         rotatedArea.setCoords(
                                 area.top(),
-                                _size.height() - area.right(),
+                                m_size.height() - area.right(),
                                 area.bottom(),
-                                _size.height() - area.left()
+                                m_size.height() - area.left()
                                 );
                         break;
                     default:
@@ -247,20 +247,20 @@ void ImageInfo::rotate( int degrees, RotationMode mode )
 
 int ImageInfo::angle() const
 {
-    return _angle;
+    return m_angle;
 }
 
 void ImageInfo::setAngle( int angle )
 {
-    if (angle != _angle)
-        _dirty = true;
-    _angle = angle;
+    if (angle != m_angle)
+        m_dirty = true;
+    m_angle = angle;
     saveChangesIfNotDelayed();
 }
 
 short ImageInfo::rating() const
 {
-    return _rating;
+    return m_rating;
 }
 
 void ImageInfo::setRating( short rating )
@@ -271,81 +271,81 @@ void ImageInfo::setRating( short rating )
         rating = 10;
     if ( rating < -1 )
         rating = -1;
-    if ( _rating != rating )
-        _dirty = true;
+    if ( m_rating != rating )
+        m_dirty = true;
 
-    _rating = rating;
+    m_rating = rating;
     saveChangesIfNotDelayed();
 }
 
 DB::StackID ImageInfo::stackId() const
 {
-    return _stackId;
+    return m_stackId;
 }
 
 void ImageInfo::setStackId( const DB::StackID stackId )
 {
-    if ( stackId != _stackId )
-        _dirty = true;
-    _stackId = stackId;
+    if ( stackId != m_stackId )
+        m_dirty = true;
+    m_stackId = stackId;
     saveChangesIfNotDelayed();
 }
 
 unsigned int ImageInfo::stackOrder() const
 {
-    return _stackOrder;
+    return m_stackOrder;
 }
 
 void ImageInfo::setStackOrder( const unsigned int stackOrder )
 {
-    if ( stackOrder != _stackOrder )
-        _dirty = true;
-    _stackOrder = stackOrder;
+    if ( stackOrder != m_stackOrder )
+        m_dirty = true;
+    m_stackOrder = stackOrder;
     saveChangesIfNotDelayed();
 }
 
 const GpsCoordinates& ImageInfo::geoPosition() const
 {
-    return _geoPosition;
+    return m_geoPosition;
 }
 
 void ImageInfo::setGeoPosition( const GpsCoordinates& geoPosition )
 {
-    if ( geoPosition != _geoPosition )
-        _dirty = true;
-    _geoPosition = geoPosition;
+    if ( geoPosition != m_geoPosition )
+        m_dirty = true;
+    m_geoPosition = geoPosition;
     saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setVideoLength(int length)
 {
-    if ( _videoLength != length )
-        _dirty = true;
-    _videoLength = length;
+    if ( m_videoLength != length )
+        m_dirty = true;
+    m_videoLength = length;
     saveChangesIfNotDelayed();
 }
 
 int ImageInfo::videoLength() const
 {
-    return _videoLength;
+    return m_videoLength;
 }
 
 void ImageInfo::setDate( const ImageDate& date )
 {
-    if (date != _date)
-        _dirty = true;
-    _date = date;
+    if (date != m_date)
+        m_dirty = true;
+    m_date = date;
     saveChangesIfNotDelayed();
 }
 
 ImageDate& ImageInfo::date()
 {
-    return _date;
+    return m_date;
 }
 
 ImageDate ImageInfo::date() const
 {
-    return _date;
+    return m_date;
 }
 
 bool ImageInfo::operator!=( const ImageInfo& other ) const
@@ -356,53 +356,53 @@ bool ImageInfo::operator!=( const ImageInfo& other ) const
 bool ImageInfo::operator==( const ImageInfo& other ) const
 {
     bool changed =
-        ( _fileName != other._fileName ||
-          _label != other._label ||
-          ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
-          _date != other._date ||
-          _angle != other._angle ||
-          _geoPosition != other._geoPosition ||
-          _rating != other._rating ||
-          ( _stackId != other._stackId ||
-            ! ( ( _stackId == 0 ) ? true :
-            ( _stackOrder == other._stackOrder ) ) )
+        ( m_fileName != other.m_fileName ||
+          m_label != other.m_label ||
+          ( !m_description.isEmpty() && !other.m_description.isEmpty() && m_description != other.m_description ) || // one might be isNull.
+          m_date != other.m_date ||
+          m_angle != other.m_angle ||
+          m_geoPosition != other.m_geoPosition ||
+          m_rating != other.m_rating ||
+          ( m_stackId != other.m_stackId ||
+            ! ( ( m_stackId == 0 ) ? true :
+            ( m_stackOrder == other.m_stackOrder ) ) )
            );
     if ( !changed ) {
         QStringList keys = DB::ImageDB::instance()->categoryCollection()->categoryNames();
         for( QStringList::ConstIterator it = keys.constBegin(); it != keys.constEnd(); ++it )
-            changed |= _categoryInfomation[*it] != other._categoryInfomation[*it];
+            changed |= m_categoryInfomation[*it] != other.m_categoryInfomation[*it];
     }
     return !changed;
 }
 
 void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
-    _dirty = true;
+    m_dirty = true;
 
-    _categoryInfomation[newName] = _categoryInfomation[oldName];
-    _categoryInfomation.remove(oldName);
+    m_categoryInfomation[newName] = m_categoryInfomation[oldName];
+    m_categoryInfomation.remove(oldName);
 
-    _taggedAreas[newName] = _taggedAreas[oldName];
-    _taggedAreas.remove(oldName);
+    m_taggedAreas[newName] = m_taggedAreas[oldName];
+    m_taggedAreas.remove(oldName);
 
     saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setLocked( bool locked )
 {
-    _locked = locked;
+    m_locked = locked;
 }
 
 bool ImageInfo::isLocked() const
 {
-    return _locked;
+    return m_locked;
 }
 
 void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 {
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
 
-    bool oldDelaySaving = _delaySaving;
+    bool oldDelaySaving = m_delaySaving;
     delaySavingChanges(true);
 
     // Date
@@ -438,7 +438,7 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
     }
 
     delaySavingChanges(false);
-    _delaySaving = oldDelaySaving;
+    m_delaySaving = oldDelaySaving;
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
@@ -452,19 +452,19 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 
 QStringList ImageInfo::availableCategories() const
 {
-    return _categoryInfomation.keys();
+    return m_categoryInfomation.keys();
 }
 
 QSize ImageInfo::size() const
 {
-    return _size;
+    return m_size;
 }
 
 void ImageInfo::setSize( const QSize& size )
 {
-    if (size != _size)
-        _dirty = true;
-    _size = size;
+    if (size != m_size)
+        m_dirty = true;
+    m_size = size;
     saveChangesIfNotDelayed();
 }
 
@@ -486,30 +486,30 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
                       unsigned int stackOrder,
                       const GpsCoordinates& geoPosition )
 {
-    _delaySaving = true;
-    _fileName = fileName;
-    _label =label;
-    _description =description;
-    _date = date;
-    _angle =angle;
-    _md5sum =md5sum;
-    _size = size;
-    _imageOnDisk = Unchecked;
-    _locked = false;
-    _null = false;
-    _type = type;
-    _dirty = true;
+    m_delaySaving = true;
+    m_fileName = fileName;
+    m_label =label;
+    m_description =description;
+    m_date = date;
+    m_angle =angle;
+    m_md5sum =md5sum;
+    m_size = size;
+    m_imageOnDisk = Unchecked;
+    m_locked = false;
+    m_null = false;
+    m_type = type;
+    m_dirty = true;
     delaySavingChanges(false);
 
     if ( rating > 10 )
         rating = 10;
     if ( rating < -1 )
         rating = -1;
-    _rating = rating;
-    _geoPosition = geoPosition;
-    _stackId = stackId;
-    _stackOrder = stackOrder;
-    _videoLength= -1;
+    m_rating = rating;
+    m_geoPosition = geoPosition;
+    m_stackId = stackId;
+    m_stackOrder = stackOrder;
+    m_videoLength= -1;
 }
 
 // TODO: we should get rid of this operator. It seems only be necessary
@@ -518,24 +518,24 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
 // storing strategies.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
-    _fileName = other._fileName;
-    _label = other._label;
-    _description = other._description;
-    _date = other._date;
-    _categoryInfomation = other._categoryInfomation;
-    _taggedAreas = other._taggedAreas;
-    _angle = other._angle;
-    _imageOnDisk = other._imageOnDisk;
-    _md5sum = other._md5sum;
-    _null = other._null;
-    _size = other._size;
-    _type = other._type;
-    _dirty = other._dirty;
-    _rating = other._rating;
-    _stackId = other._stackId;
-    _stackOrder = other._stackOrder;
-    _geoPosition = other._geoPosition;
-    _videoLength = other._videoLength;
+    m_fileName = other.m_fileName;
+    m_label = other.m_label;
+    m_description = other.m_description;
+    m_date = other.m_date;
+    m_categoryInfomation = other.m_categoryInfomation;
+    m_taggedAreas = other.m_taggedAreas;
+    m_angle = other.m_angle;
+    m_imageOnDisk = other.m_imageOnDisk;
+    m_md5sum = other.m_md5sum;
+    m_null = other.m_null;
+    m_size = other.m_size;
+    m_type = other.m_type;
+    m_dirty = other.m_dirty;
+    m_rating = other.m_rating;
+    m_stackId = other.m_stackId;
+    m_stackOrder = other.m_stackOrder;
+    m_geoPosition = other.m_geoPosition;
+    m_videoLength = other.m_videoLength;
     delaySavingChanges(false);
 
     return *this;
@@ -543,17 +543,17 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 
 MediaType DB::ImageInfo::mediaType() const
 {
-    return _type;
+    return m_type;
 }
 
 bool ImageInfo::isVideo() const
 {
-    return _type == Video;
+    return m_type == Video;
 }
 
 void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
-    QString folderName = Utilities::relativeFolderName( _fileName.relative() );
+    QString folderName = Utilities::relativeFolderName( m_fileName.relative() );
     if ( folderName.isEmpty() )
         return;
 
@@ -570,55 +570,55 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
         }
     }
 
-    _categoryInfomation.insert( folderCategory->name() , StringSet() << folderName );
+    m_categoryInfomation.insert( folderCategory->name() , StringSet() << folderName );
     folderCategory->addItem( folderName );
 }
 
 void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from, bool copyAngle)
 {
-    _categoryInfomation = from._categoryInfomation;
-    _description = from._description;
+    m_categoryInfomation = from.m_categoryInfomation;
+    m_description = from.m_description;
     // Hmm...  what should the date be?  orig or modified?
     // _date = from._date;
     if (copyAngle)
-        _angle = from._angle;
-    _rating = from._rating;
-    _geoPosition = from._geoPosition;
+        m_angle = from.m_angle;
+    m_rating = from.m_rating;
+    m_geoPosition = from.m_geoPosition;
 }
 
 void DB::ImageInfo::removeExtraData ()
 {
-    _categoryInfomation.clear();
-    _description.clear();
-    _rating = -1;
-    _geoPosition = GpsCoordinates();
+    m_categoryInfomation.clear();
+    m_description.clear();
+    m_rating = -1;
+    m_geoPosition = GpsCoordinates();
 }
 
 void ImageInfo::merge(const ImageInfo &other)
 {
     // Merge description
     if ( !other.description().isEmpty() ) {
-        if ( _description.isEmpty() )
-            _description = other.description();
-        else if (_description != other.description())
-            _description += QString::fromUtf8("\n-----------\n") + other._description;
+        if ( m_description.isEmpty() )
+            m_description = other.description();
+        else if (m_description != other.description())
+            m_description += QString::fromUtf8("\n-----------\n") + other.m_description;
     }
 
     // Clear untagged tag if one of the images was untagged
     const QString untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
     const QString untaggedTag = Settings::SettingsData::instance()->untaggedTag();
-    const bool isCompleted = !_categoryInfomation[untaggedCategory].contains(untaggedTag) || !other._categoryInfomation[untaggedCategory].contains(untaggedTag);
+    const bool isCompleted = !m_categoryInfomation[untaggedCategory].contains(untaggedTag) || !other.m_categoryInfomation[untaggedCategory].contains(untaggedTag);
 
     // Merge tags
-    QSet<QString> keys = QSet<QString>::fromList(_categoryInfomation.keys());
-    keys.unite(QSet<QString>::fromList(other._categoryInfomation.keys()));
+    QSet<QString> keys = QSet<QString>::fromList(m_categoryInfomation.keys());
+    keys.unite(QSet<QString>::fromList(other.m_categoryInfomation.keys()));
     for( const QString& key : keys) {
-        _categoryInfomation[key].unite(other._categoryInfomation[key]);
+        m_categoryInfomation[key].unite(other.m_categoryInfomation[key]);
     }
 
     // Clear untagged tag if one of the images was untagged
     if (isCompleted)
-        _categoryInfomation[untaggedCategory].remove(untaggedTag);
+        m_categoryInfomation[untaggedCategory].remove(untaggedTag);
 
     // merge stacks:
     if (isStacked() || other.isStacked())
@@ -639,9 +639,9 @@ void ImageInfo::merge(const ImageInfo &other)
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
     for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {
-        if (! _categoryInfomation[category].contains( *valueIt ) ) {
-            _dirty = true;
-            _categoryInfomation[category].insert( *valueIt );
+        if (! m_categoryInfomation[category].contains( *valueIt ) ) {
+            m_dirty = true;
+            m_categoryInfomation[category].insert( *valueIt );
         }
     }
     saveChangesIfNotDelayed();
@@ -649,17 +649,17 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& v
 
 void DB::ImageInfo::clearAllCategoryInfo()
 {
-    _categoryInfomation.clear();
-    _taggedAreas.clear();
+    m_categoryInfomation.clear();
+    m_taggedAreas.clear();
 }
 
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet& values )
 {
     for ( StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt ) {
-        if ( _categoryInfomation[category].contains( *valueIt ) ) {
-            _dirty = true;
-            _categoryInfomation[category].remove(*valueIt);
-            _taggedAreas[category].remove(*valueIt);
+        if ( m_categoryInfomation[category].contains( *valueIt ) ) {
+            m_dirty = true;
+            m_categoryInfomation[category].remove(*valueIt);
+            m_taggedAreas[category].remove(*valueIt);
         }
     }
     saveChangesIfNotDelayed();
@@ -667,12 +667,12 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet
 
 void DB::ImageInfo::addCategoryInfo( const QString& category, const QString& value, const QRect& area )
 {
-    if (! _categoryInfomation[category].contains( value ) ) {
-        _dirty = true;
-        _categoryInfomation[category].insert( value );
+    if (! m_categoryInfomation[category].contains( value ) ) {
+        m_dirty = true;
+        m_categoryInfomation[category].insert( value );
 
         if (area.isValid()) {
-            _taggedAreas[category][value] = area;
+            m_taggedAreas[category][value] = area;
         }
     }
     saveChangesIfNotDelayed();
@@ -680,18 +680,18 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const QString& val
 
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& value )
 {
-    if ( _categoryInfomation[category].contains( value ) ) {
-        _dirty = true;
-        _categoryInfomation[category].remove( value );
-        _taggedAreas[category].remove( value );
+    if ( m_categoryInfomation[category].contains( value ) ) {
+        m_dirty = true;
+        m_categoryInfomation[category].remove( value );
+        m_taggedAreas[category].remove( value );
     }
     saveChangesIfNotDelayed();
 }
 
 void DB::ImageInfo::setPositionedTags(const QString& category, const QMap<QString, QRect> &positionedTags)
 {
-    _dirty = true;
-    _taggedAreas[category] = positionedTags;
+    m_dirty = true;
+    m_taggedAreas[category] = positionedTags;
     saveChangesIfNotDelayed();
 }
 
@@ -712,20 +712,20 @@ bool DB::ImageInfo::updateDateInformation( int mode ) const
 
 QMap<QString, QMap<QString, QRect>> DB::ImageInfo::taggedAreas() const
 {
-    return _taggedAreas;
+    return m_taggedAreas;
 }
 
 QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
 {
     // QMap::value returns a default constructed value if the key is not found:
-    return _taggedAreas.value(category).value(tag);
+    return m_taggedAreas.value(category).value(tag);
 }
 
 #ifdef HAVE_KGEOMAP
 KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 {
-    if (_coordinatesFetched) {
-        return _coordinates;
+    if (m_coordinatesFetched) {
+        return m_coordinates;
     }
 
     const int EXIF_GPS_LATREF  = 0x0001;
@@ -748,7 +748,7 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 
         Exiv2::ExifData exifData = image->exifData();
         if (exifData.empty()) {
-            _coordinatesFetched = true;
+            m_coordinatesFetched = true;
             return coords;
         }
 
@@ -807,8 +807,8 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
         qWarning() << e.what();
     }
 
-    _coordinatesFetched = true;
-    _coordinates = coords;
+    m_coordinatesFetched = true;
+    m_coordinates = coords;
     return coords;
 }
 

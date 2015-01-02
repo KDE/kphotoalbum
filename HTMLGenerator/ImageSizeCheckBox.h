@@ -27,23 +27,23 @@ class ImageSizeCheckBox :public QCheckBox {
 public:
     ImageSizeCheckBox( int width, int height, QWidget* parent )
         :QCheckBox( QString::fromLatin1("%1x%2").arg(width).arg(height), parent ),
-         _width( width ), _height( height )
+         m_width( width ), m_height( height )
         {
         }
 
     ImageSizeCheckBox( const QString& text, QWidget* parent )
-        :QCheckBox( text, parent ), _width( -1 ), _height( -1 )
+        :QCheckBox( text, parent ), m_width( -1 ), m_height( -1 )
         {
         }
 
     int width() const {
-        return _width;
+        return m_width;
     }
     int height() const {
-        return _height;
+        return m_height;
     }
     QString text( bool withOutSpaces ) const {
-        return text( _width, _height, withOutSpaces );
+        return text( m_width, m_height, withOutSpaces );
     }
     static QString text( int width, int height, bool withOutSpaces ) {
         if ( width == -1 )
@@ -58,13 +58,13 @@ public:
 
     bool operator<( const ImageSizeCheckBox& other ) const
     {
-        return _width < other.width();
+        return m_width < other.width();
     }
 
 
 private:
-    int _width;
-    int _height;
+    int m_width;
+    int m_height;
 };
 
 }

@@ -32,17 +32,17 @@ Viewer::TaggedArea::~TaggedArea()
 void Viewer::TaggedArea::setTagInfo(QString category, QString localizedCategory, QString tag)
 {
     setToolTip(tag + QString::fromLatin1(" (") + localizedCategory + QString::fromLatin1(")"));
-    _tagInfo = QPair<QString, QString>(category, tag);
+    m_tagInfo = QPair<QString, QString>(category, tag);
 }
 
 void Viewer::TaggedArea::setActualGeometry(QRect geometry)
 {
-    _actualGeometry = geometry;
+    m_actualGeometry = geometry;
 }
 
 QRect Viewer::TaggedArea::actualGeometry() const
 {
-    return _actualGeometry;
+    return m_actualGeometry;
 }
 
 void Viewer::TaggedArea::resetViewStyle()
@@ -55,7 +55,7 @@ void Viewer::TaggedArea::resetViewStyle()
 
 void Viewer::TaggedArea::checkShowArea(QPair<QString, QString> tagData)
 {
-    if (tagData == _tagInfo) {
+    if (tagData == m_tagInfo) {
         setStyleSheet(QString::fromLatin1("Viewer--TaggedArea { border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30); }"));
     }
 }

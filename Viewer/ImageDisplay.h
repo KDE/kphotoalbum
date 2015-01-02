@@ -117,26 +117,26 @@ protected:
     double sizeRatio( const QSize& baseSize, const QSize& newSize ) const;
 
 private:
-    QImage _loadedImage;
-    QImage _croppedAndScaledImg;
+    QImage m_loadedImage;
+    QImage m_croppedAndScaledImg;
 
-    ViewHandler* _viewHandler;
+    ViewHandler* m_viewHandler;
 
     // zoom points in the coordinate system of the image.
-    QPoint _zStart;
-    QPoint _zEnd;
+    QPoint m_zStart;
+    QPoint m_zEnd;
 
-    QMap<int,ViewPreloadInfo> _cache;
-    DB::FileNameList _imageList;
-    QMap<QString, DB::ImageInfoPtr> _loadMap;
-    bool _reloadImageInProgress;
-    int _forward;
-    int _curIndex;
-    bool _busy;
-    ViewerWidget *_viewer;
+    QMap<int,ViewPreloadInfo> m_cache;
+    DB::FileNameList m_imageList;
+    QMap<QString, DB::ImageInfoPtr> m_loadMap;
+    bool m_reloadImageInProgress;
+    int m_forward;
+    int m_curIndex;
+    bool m_busy;
+    ViewerWidget* m_viewer;
 
-    QTimer* _cursorTimer;
-    bool _cursorHiding;
+    QTimer* m_cursorTimer;
+    bool m_cursorHiding;
 };
 
 }

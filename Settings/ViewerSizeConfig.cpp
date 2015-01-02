@@ -28,8 +28,8 @@ Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* par
 {
     QVBoxLayout* topLayout = new QVBoxLayout(this);
     setLayout(topLayout);
-    _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
-    topLayout->addWidget(_fullScreen);
+    m_fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
+    topLayout->addWidget(m_fullScreen);
 
     QWidget* sizeBox = new QWidget( this );
     topLayout->addWidget(sizeBox);
@@ -38,18 +38,18 @@ Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* par
     QLabel* label = new QLabel( i18n("Size:"), sizeBox );
     lay->addWidget( label );
 
-    _width = new QSpinBox;
-    _width->setRange( 100, 5000 );
-    _width->setSingleStep( 50 );
-    lay->addWidget( _width );
+    m_width = new QSpinBox;
+    m_width->setRange( 100, 5000 );
+    m_width->setSingleStep( 50 );
+    lay->addWidget( m_width );
 
     label = new QLabel( QString::fromLatin1("x"), sizeBox );
     lay->addWidget( label );
 
-    _height = new QSpinBox;
-    _height->setRange( 100, 5000 );
-    _height->setSingleStep( 50 );
-    lay->addWidget( _height );
+    m_height = new QSpinBox;
+    m_height->setRange( 100, 5000 );
+    m_height->setSingleStep( 50 );
+    lay->addWidget( m_height );
 
     lay->addStretch( 1 );
     topLayout->addStretch(1);
@@ -57,23 +57,23 @@ Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* par
 
 void Settings::ViewerSizeConfig::setSize( const QSize& size  )
 {
-    _width->setValue( size.width() );
-    _height->setValue( size.height() );
+    m_width->setValue( size.width() );
+    m_height->setValue( size.height() );
 }
 
 QSize Settings::ViewerSizeConfig::size()
 {
-    return QSize( _width->value(), _height->value() );
+    return QSize( m_width->value(), m_height->value() );
 }
 
 void Settings::ViewerSizeConfig::setLaunchFullScreen( bool b )
 {
-    _fullScreen->setChecked( b );
+    m_fullScreen->setChecked( b );
 }
 
 bool Settings::ViewerSizeConfig::launchFullScreen() const
 {
-    return _fullScreen->isChecked();
+    return m_fullScreen->isChecked();
 }
 
 #include "ViewerSizeConfig.moc"

@@ -20,7 +20,7 @@
 #include "qdebug.h"
 
 DB::NoTagCategoryMatcher::NoTagCategoryMatcher( const QString& category)
-    : _category(category)
+    : m_category(category)
 {
 }
 
@@ -31,12 +31,12 @@ DB::NoTagCategoryMatcher::~NoTagCategoryMatcher()
 bool DB::NoTagCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
     Q_UNUSED( alreadyMatched );
-    return info->itemsOfCategory(_category).isEmpty();
+    return info->itemsOfCategory(m_category).isEmpty();
 }
 
 void DB::NoTagCategoryMatcher::debug( int level ) const
 {
-    qDebug() << qPrintable(spaces(level)) << "No Tags for category " << _category ;
+    qDebug() << qPrintable(spaces(level)) << "No Tags for category " << m_category ;
 }
 
 

@@ -20,13 +20,13 @@
 
 void BreadcrumbViewer::setBreadcrumbs( const Browser::BreadcrumbList& list )
 {
-    _activeCrumbs = list.latest();
+    m_activeCrumbs = list.latest();
     updateText();
 }
 
 void BreadcrumbViewer::linkClicked( const QString& link )
 {
-    emit widenToBreadcrumb( _activeCrumbs[ link.toInt() ] );
+    emit widenToBreadcrumb( m_activeCrumbs[ link.toInt() ] );
 }
 
 BreadcrumbViewer::BreadcrumbViewer()
@@ -43,10 +43,10 @@ void BreadcrumbViewer::updateText()
 {
     QStringList htmlList;
 
-    for ( int i = 0; i < _activeCrumbs.count()-1; ++i )
-        htmlList.append( QString::fromLatin1("<a href=\"%1\">%2</a>").arg(i).arg(_activeCrumbs[i].text()) );
-    if ( !_activeCrumbs[_activeCrumbs.count()-1].isView() )
-        htmlList.append(_activeCrumbs[_activeCrumbs.count()-1].text());
+    for ( int i = 0; i < m_activeCrumbs.count()-1; ++i )
+        htmlList.append( QString::fromLatin1("<a href=\"%1\">%2</a>").arg(i).arg(m_activeCrumbs[i].text()) );
+    if ( !m_activeCrumbs[m_activeCrumbs.count()-1].isView() )
+        htmlList.append(m_activeCrumbs[m_activeCrumbs.count()-1].text());
 
     QTextDocument doc;
     doc.setDefaultFont( font() );

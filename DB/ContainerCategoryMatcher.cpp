@@ -19,18 +19,18 @@
 
 void DB::ContainerCategoryMatcher::addElement( CategoryMatcher* element )
 {
-    _elements.append( element );
+    mp_elements.append( element );
 }
 
 DB::ContainerCategoryMatcher::~ContainerCategoryMatcher()
 {
-    for( int i = 0; i < _elements.count(); ++i )
-        delete _elements[i];
+    for( int i = 0; i < mp_elements.count(); ++i )
+        delete mp_elements[i];
 }
 
 void DB::ContainerCategoryMatcher::debug( int level ) const
 {
-     for( QList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+     for( QList<CategoryMatcher*>::ConstIterator it = mp_elements.begin(); it != mp_elements.end(); ++it ) {
         (*it)->debug( level );
     }
 }
@@ -38,8 +38,8 @@ void DB::ContainerCategoryMatcher::debug( int level ) const
 
 void DB::ContainerCategoryMatcher::setShouldCreateMatchedSet(bool b)
 {
-    _shouldPrepareMatchedSet = b;
-    for( DB::CategoryMatcher* matcher : _elements )
+    m_shouldPrepareMatchedSet = b;
+    for( DB::CategoryMatcher* matcher : mp_elements )
         matcher->setShouldCreateMatchedSet( b );
 }
 

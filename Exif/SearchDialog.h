@@ -54,19 +54,19 @@ protected slots:
     void toFocalLengthChanged( int );
 
 private:
-    Exif::RangeWidget* _iso;
-    Exif::RangeWidget* _exposureTime;
-    Exif::RangeWidget* _apertureValue;
-    Exif::RangeWidget* _fNumber;
-    Settings<int> _exposureProgram;
-    Settings<int> _orientation;
-    Settings<int> _meteringMode;
-    Settings<int> _contrast;
-    Settings<int> _sharpness;
-    Settings<int> _saturation;
-    Settings<Database::Camera> _cameras;
-    QSpinBox* _fromFocalLength;
-    QSpinBox* _toFocalLength;
+    Exif::RangeWidget* m_iso;
+    Exif::RangeWidget* m_exposureTime;
+    Exif::RangeWidget* m_apertureValue;
+    Exif::RangeWidget* m_fNumber;
+    Settings<int> m_exposureProgram;
+    Settings<int> m_orientation;
+    Settings<int> m_meteringMode;
+    Settings<int> m_contrast;
+    Settings<int> m_sharpness;
+    Settings<int> m_saturation;
+    Settings<Database::Camera> m_cameras;
+    QSpinBox* m_fromFocalLength;
+    QSpinBox* m_toFocalLength;
 };
 
 }

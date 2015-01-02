@@ -31,33 +31,33 @@
 
 using namespace DB;
 
-ImageDB* ImageDB::_instance = nullptr;
+ImageDB* ImageDB::s_instance = nullptr;
 
 ImageDB* DB::ImageDB::instance()
 {
-    if ( _instance == nullptr )
+    if ( s_instance == nullptr )
         exit(0); // Either we are closing down or ImageDB::instance was called before ImageDB::setup
-    return _instance;
+    return s_instance;
 }
 
 void ImageDB::setupXMLDB( const QString& configFile )
 {
-    if (_instance)
+    if (s_instance)
         qFatal("ImageDB::setupXMLDB: Setup must be called only once.");
-    _instance = new XMLDB::Database( configFile );
+    s_instance = new XMLDB::Database( configFile );
     connectSlots();
 }
 
 void ImageDB::deleteInstance()
 {
-    delete _instance;
-    _instance = nullptr;
+    delete s_instance;
+    s_instance = nullptr;
 }
 
 void ImageDB::connectSlots()
 {
-    connect( Settings::SettingsData::instance(), SIGNAL(locked(bool,bool)), _instance, SLOT(lockDB(bool,bool)) );
-    connect( &_instance->memberMap(), SIGNAL(dirty()), _instance, SLOT(markDirty()));
+    connect( Settings::SettingsData::instance(), SIGNAL(locked(bool,bool)), s_instance, SLOT(lockDB(bool,bool)) );
+    connect( &s_instance->memberMap(), SIGNAL(dirty()), s_instance, SLOT(markDirty()));
 }
 
 QString ImageDB::NONE()
@@ -78,13 +78,13 @@ void ImageDB::markDirty()
 
 void ImageDB::setDateRange( const ImageDate& range, bool includeFuzzyCounts )
 {
-    _selectionRange = range;
-    _includeFuzzyCounts = includeFuzzyCounts;
+    m_selectionRange = range;
+    m_includeFuzzyCounts = includeFuzzyCounts;
 }
 
 void ImageDB::clearDateRange()
 {
-    _selectionRange = ImageDate();
+    m_selectionRange = ImageDate();
 }
 
 void ImageDB::slotRescan()

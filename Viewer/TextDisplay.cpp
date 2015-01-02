@@ -32,13 +32,13 @@ Viewer::TextDisplay::TextDisplay( QWidget* parent )
     :AbstractDisplay( parent )
 {
     QVBoxLayout *lay = new QVBoxLayout( this );
-    _text = new QLabel( this );
-    lay->addWidget( _text );
-    _text->setAlignment( Qt::AlignCenter );
+    m_text = new QLabel( this );
+    lay->addWidget( m_text );
+    m_text->setAlignment( Qt::AlignCenter );
 
-    QPalette pal = _text->palette();
+    QPalette pal = m_text->palette();
     pal.setColor( QPalette::Background, Qt::white );
-    _text->setPalette( pal );
+    m_text->setPalette( pal );
 }
 
 bool Viewer::TextDisplay::setImage( DB::ImageInfoPtr info, bool forward )
@@ -50,7 +50,7 @@ bool Viewer::TextDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 
 void Viewer::TextDisplay::setText( const QString text )
 {
-    _text->setText( text );
+    m_text->setText( text );
 }
 
 #include "TextDisplay.moc"

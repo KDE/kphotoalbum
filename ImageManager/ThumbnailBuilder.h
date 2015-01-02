@@ -53,7 +53,7 @@ public slots:
 
 private:
     friend class MainWindow::Window;
-    static ThumbnailBuilder* m_instance;
+    static ThumbnailBuilder* s_instance;
     ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent );
     MainWindow::StatusBar* m_statusBar;
     int m_count;

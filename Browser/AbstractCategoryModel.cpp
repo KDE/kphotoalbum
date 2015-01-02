@@ -26,23 +26,23 @@
 #include "enums.h"
 
 Browser::AbstractCategoryModel::AbstractCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
-    : _category( category ), _info( info )
+    : m_category( category ), m_info( info )
 {
-    _images = DB::ImageDB::instance()->classify( info, _category->name(), DB::Image );
-    _videos = DB::ImageDB::instance()->classify( info, _category->name(), DB::Video );
+    m_images = DB::ImageDB::instance()->classify( info, m_category->name(), DB::Image );
+    m_videos = DB::ImageDB::instance()->classify( info, m_category->name(), DB::Video );
 }
 
 bool Browser::AbstractCategoryModel::hasNoneEntry() const
 {
-    int imageCount = _images[DB::ImageDB::NONE()];
-    int videoCount = _videos[DB::ImageDB::NONE()];
+    int imageCount = m_images[DB::ImageDB::NONE()];
+    int videoCount = m_videos[DB::ImageDB::NONE()];
     return (imageCount + videoCount != 0);
 }
 
 QString Browser::AbstractCategoryModel::text( const QString& name ) const
 {
     if ( name == DB::ImageDB::NONE() ) {
-        if ( _info.categoryMatchText(_category->name()).length() == 0 )
+        if ( m_info.categoryMatchText(m_category->name()).length() == 0 )
             return i18nc("As in No persons, no locations etc.", "None" );
         else
             return i18nc("As in no other persons, or no other locations. ", "No other" );
@@ -53,7 +53,7 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
         return i18nc("Denotes the media type (video,image)","Image");
 
     else {
-        if ( _category->name() == QString::fromLatin1( "Folder" ) ) {
+        if ( m_category->name() == QString::fromLatin1( "Folder" ) ) {
             QRegExp rx( QString::fromLatin1( "(.*/)(.*)$") );
             QString value = name;
             value.replace( rx, QString::fromLatin1("\\2") );
@@ -66,24 +66,24 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
 
 QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
 {
-    const int size = _category->thumbnailSize();
+    const int size = m_category->thumbnailSize();
     if ( BrowserWidget::isResizing() ) {
         QPixmap res( size, size * Settings::SettingsData::instance()->getThumbnailAspectRatio() );
         res.fill( Qt::white );
         return res;
     }
 
-    if ( _category->viewType() == DB::Category::TreeView || _category->viewType() == DB::Category::IconView ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), name ) )
+    if ( m_category->viewType() == DB::Category::TreeView || m_category->viewType() == DB::Category::IconView ) {
+        if ( DB::ImageDB::instance()->memberMap().isGroup( m_category->name(), name ) )
             return KIcon( QString::fromLatin1( "folder-image" ) ).pixmap(22);
         else {
-            return _category->icon();
+            return m_category->icon();
         }
     }
     else {
         // The category images are screenshot from the size of the viewer (Which might very well be considered a bug)
         // This is the reason for asking for the thumbnail height being 3/4 of its width.
-        return _category->categoryImage( _category->name(), name, size, size * Settings::SettingsData::instance()->getThumbnailAspectRatio() );
+        return m_category->categoryImage( m_category->name(), name, size, size * Settings::SettingsData::instance()->getThumbnailAspectRatio() );
     }
 }
 
@@ -97,8 +97,8 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     if ( role == Qt::DisplayRole ) {
         switch( column ) {
         case 0: return text(name);
-        case 1: return i18ncp("@item:intable number of images with a specific tag.","1 image", "%1 images", _images[name]);
-        case 2: return i18ncp("@item:intable number of videos with a specific tag.","1 video", "%1 videos", _videos[name]);
+        case 1: return i18ncp("@item:intable number of images with a specific tag.","1 image", "%1 images", m_images[name]);
+        case 2: return i18ncp("@item:intable number of videos with a specific tag.","1 video", "%1 videos", m_videos[name]);
         }
     }
 
@@ -115,8 +115,8 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     else if ( role == ValueRole ) {
         switch ( column ) {
         case 0: return name; // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.
-        case 1: return _images[name];
-        case 2: return _videos[name];
+        case 1: return m_images[name];
+        case 2: return m_videos[name];
         }
     }
 
@@ -134,7 +134,7 @@ QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientatio
         return QVariant();
 
     switch ( section ) {
-    case 0: return _category->text();
+    case 0: return m_category->text();
     case 1: return i18n("Images");
     case 2: return i18n("Videos");
     }

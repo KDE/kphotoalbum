@@ -39,21 +39,21 @@ Settings::PluginsPage::PluginsPage( QWidget* parent )
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), this );
     lay1->addWidget( label );
 
-    _pluginConfig = KIPI::PluginLoader::instance()->configWidget( this );
-    lay1->addWidget( _pluginConfig );
+    m_pluginConfig = KIPI::PluginLoader::instance()->configWidget( this );
+    lay1->addWidget( m_pluginConfig );
 
-    _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plugins until the plugin menu is opened"), this );
-    lay1->addWidget( _delayLoadingPlugins );
+    m_delayLoadingPlugins = new QCheckBox( i18n("Delay loading plugins until the plugin menu is opened"), this );
+    lay1->addWidget( m_delayLoadingPlugins );
 }
 
 void Settings::PluginsPage::saveSettings( Settings::SettingsData* opt )
 {
-    _pluginConfig->apply();
-    opt->setDelayLoadingPlugins( _delayLoadingPlugins->isChecked() );
+    m_pluginConfig->apply();
+    opt->setDelayLoadingPlugins( m_delayLoadingPlugins->isChecked() );
 }
 
 void Settings::PluginsPage::loadSettings( Settings::SettingsData* opt )
 {
-    _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
+    m_delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

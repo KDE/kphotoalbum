@@ -24,7 +24,7 @@
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ),
-      _cursorWasAtStackIcon(false)
+      m_cursorWasAtStackIcon(false)
 {
 }
 
@@ -43,12 +43,12 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
 void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEvent* event )
 {
     bool interestingArea = widget()->isMouseOverStackIndicator( event->pos() );
-    if ( interestingArea && ! _cursorWasAtStackIcon ) {
+    if ( interestingArea && ! m_cursorWasAtStackIcon ) {
         widget()->setCursor( Qt::PointingHandCursor );
-        _cursorWasAtStackIcon = true;
-    } else if ( ! interestingArea && _cursorWasAtStackIcon ) {
+        m_cursorWasAtStackIcon = true;
+    } else if ( ! interestingArea && m_cursorWasAtStackIcon ) {
         widget()->unsetCursor();
-        _cursorWasAtStackIcon = false;
+        m_cursorWasAtStackIcon = false;
     }
 
 }

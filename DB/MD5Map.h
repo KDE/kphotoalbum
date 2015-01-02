@@ -43,7 +43,7 @@ public:
     virtual DB::FileNameSet diff( const MD5Map& other ) const;
 
 private:
-    QMap<MD5, DB::FileName> _map;
+    QMap<MD5, DB::FileName> m_map;
 };
 
 }

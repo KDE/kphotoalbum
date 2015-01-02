@@ -36,8 +36,8 @@ protected:
     void drawContents ( QPainter * painter );
 
 private:
-    static SplashScreen* _instance;
-    QString _message;
+    static SplashScreen* s_instance;
+    QString m_message;
 };
 
 }

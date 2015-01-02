@@ -40,7 +40,7 @@ protected slots:
 
 
 private:
-     QList<QCheckBox*> _cbs;
+     QList<QCheckBox*> m_checkBoxes;
 };
 
 }

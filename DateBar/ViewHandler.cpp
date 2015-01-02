@@ -37,7 +37,7 @@ using namespace DateBar;
  */
 void ViewHandler::init( const QDateTime& startDate )
 {
-    _startDate = startDate;
+    m_startDate = startDate;
 }
 
 /**
@@ -119,7 +119,7 @@ QString DecadeViewHandler::text( int unit )
 
 QDateTime DecadeViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addMonths( 12*unit );
 }
 
@@ -152,7 +152,7 @@ QString YearViewHandler::text( int unit )
 
 QDateTime YearViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addMonths( unit );
 }
 
@@ -192,7 +192,7 @@ QString MonthViewHandler::text( int unit )
 
 QDateTime MonthViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addDays( 7*unit );
 }
 
@@ -220,7 +220,7 @@ QString WeekViewHandler::text( int unit )
 
 QDateTime WeekViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addDays( unit );
 }
 
@@ -263,7 +263,7 @@ QString DayViewHandler::text( int unit )
 
 QDateTime DayViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addSecs( 2*60*60*unit );
 }
 
@@ -299,7 +299,7 @@ QString HourViewHandler::text( int unit )
 
 QDateTime HourViewHandler::date(int unit, QDateTime reference )
 {
-    if ( reference.isNull() ) reference = _startDate;
+    if ( reference.isNull() ) reference = m_startDate;
     return reference.addSecs( 60 * 10 * unit );
 }
 

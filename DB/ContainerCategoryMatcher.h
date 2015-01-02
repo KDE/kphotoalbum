@@ -32,7 +32,7 @@ public:
     void debug( int level ) const override;
     void setShouldCreateMatchedSet(bool) override;
 
-    QList<CategoryMatcher*> _elements;
+    QList<CategoryMatcher*> mp_elements;
 };
 
 }

@@ -48,25 +48,25 @@
  * \brief Handler used during range selection in the date bar (mouse button on lower part of the bar)
  */
 DateBar::MouseHandler::MouseHandler( DateBarWidget* dateBar )
-    :QObject( dateBar ), _dateBar( dateBar )
+    :QObject( dateBar ), m_dateBar( dateBar )
 {
-    _autoScrollTimer = new QTimer( this );
-    connect( _autoScrollTimer, SIGNAL(timeout()), this, SLOT(autoScroll()) );
+    m_autoScrollTimer = new QTimer( this );
+    connect( m_autoScrollTimer, SIGNAL(timeout()), this, SLOT(autoScroll()) );
 }
 
 void DateBar::MouseHandler::autoScroll()
 {
-    mouseMoveEvent( _dateBar->mapFromGlobal( QCursor::pos() ).x() );
+    mouseMoveEvent( m_dateBar->mapFromGlobal( QCursor::pos() ).x() );
 }
 
 void DateBar::MouseHandler::startAutoScroll()
 {
-    _autoScrollTimer->start( 100 );
+    m_autoScrollTimer->start( 100 );
 }
 
 void DateBar::MouseHandler::endAutoScroll()
 {
-    _autoScrollTimer->stop();
+    m_autoScrollTimer->stop();
 }
 
 DateBar::SelectionHandler::SelectionHandler( DateBarWidget* dateBar )
@@ -76,20 +76,20 @@ DateBar::SelectionHandler::SelectionHandler( DateBarWidget* dateBar )
 
 void DateBar::SelectionHandler::mousePressEvent( int x )
 {
-    int unit = _dateBar->unitAtPos( x );
-    _start = _dateBar->dateForUnit( unit );
-    _end = _dateBar->dateForUnit( unit + 1 );
+    int unit = m_dateBar->unitAtPos( x );
+    m_start = m_dateBar->dateForUnit( unit );
+    m_end = m_dateBar->dateForUnit( unit + 1 );
 }
 
 void DateBar::SelectionHandler::mouseMoveEvent( int x )
 {
-    int unit = _dateBar->unitAtPos( x );
-    QDateTime date = _dateBar->dateForUnit( unit );
-    if ( _start < date )
-        _end = _dateBar->dateForUnit( unit + 1 );
+    int unit = m_dateBar->unitAtPos( x );
+    QDateTime date = m_dateBar->dateForUnit( unit );
+    if ( m_start < date )
+        m_end = m_dateBar->dateForUnit( unit + 1 );
     else
-        _end = date;
-    _dateBar->redraw();
+        m_end = date;
+    m_dateBar->redraw();
 }
 
 
@@ -102,41 +102,41 @@ DateBar::FocusItemDragHandler::FocusItemDragHandler( DateBarWidget* dateBar )
 
 void DateBar::FocusItemDragHandler::mousePressEvent( int x )
 {
-    _dateBar->_currentUnit = _dateBar->unitAtPos( x );
-    _dateBar->_currentDate = _dateBar->dateForUnit( _dateBar->_currentUnit );
-    if ( _dateBar->hasSelection() && ! _dateBar->currentSelection().includes( _dateBar->_currentDate ) )
-        _dateBar->clearSelection();
+    m_dateBar->m_currentUnit = m_dateBar->unitAtPos( x );
+    m_dateBar->m_currentDate = m_dateBar->dateForUnit( m_dateBar->m_currentUnit );
+    if ( m_dateBar->hasSelection() && ! m_dateBar->currentSelection().includes( m_dateBar->m_currentDate ) )
+        m_dateBar->clearSelection();
 }
 
 void DateBar::FocusItemDragHandler::mouseMoveEvent( int x )
 {
-    int oldUnit = _dateBar->_currentUnit;
-    int newUnit = ( x - _dateBar->barAreaGeometry().left() )/_dateBar->_barWidth;
+    int oldUnit = m_dateBar->m_currentUnit;
+    int newUnit = ( x - m_dateBar->barAreaGeometry().left() )/m_dateBar->m_barWidth;
 
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end
     // better scroll a bit over than not all the way.
     if ( (newUnit > oldUnit &&
-          _dateBar->dateForUnit( oldUnit ) > _dateBar->_dates->upperLimit() ) ||
+          m_dateBar->dateForUnit( oldUnit ) > m_dateBar->m_dates->upperLimit() ) ||
          ( newUnit < oldUnit &&
-           _dateBar->dateForUnit( oldUnit ) < _dateBar->_dates->lowerLimit() ) )
+           m_dateBar->dateForUnit( oldUnit ) < m_dateBar->m_dates->lowerLimit() ) )
         return;
-    _dateBar->_currentUnit = newUnit;
+    m_dateBar->m_currentUnit = newUnit;
 
     static double rest = 0;
-    if ( _dateBar->_currentUnit < 0 || _dateBar->_currentUnit > _dateBar->numberOfUnits() ) {
+    if ( m_dateBar->m_currentUnit < 0 || m_dateBar->m_currentUnit > m_dateBar->numberOfUnits() ) {
         // Slow down scrolling outside date bar.
-        double newUnit = oldUnit + ( _dateBar->_currentUnit - oldUnit ) / 4.0 + rest;
-        _dateBar->_currentUnit = (int) floor( newUnit );
-        rest = newUnit - _dateBar->_currentUnit;
+        double newUnit = oldUnit + ( m_dateBar->m_currentUnit - oldUnit ) / 4.0 + rest;
+        m_dateBar->m_currentUnit = (int) floor( newUnit );
+        rest = newUnit - m_dateBar->m_currentUnit;
         startAutoScroll();
     }
 
-    _dateBar->_currentDate = _dateBar->dateForUnit( _dateBar->_currentUnit );
-    _dateBar->_currentUnit = qMax( _dateBar->_currentUnit, 0 );
-    _dateBar->_currentUnit = qMin( _dateBar->_currentUnit, _dateBar->numberOfUnits() );
-    _dateBar->redraw();
-    _dateBar->emitDateSelected();
+    m_dateBar->m_currentDate = m_dateBar->dateForUnit( m_dateBar->m_currentUnit );
+    m_dateBar->m_currentUnit = qMax( m_dateBar->m_currentUnit, 0 );
+    m_dateBar->m_currentUnit = qMin( m_dateBar->m_currentUnit, m_dateBar->numberOfUnits() );
+    m_dateBar->redraw();
+    m_dateBar->emitDateSelected();
 }
 
 
@@ -150,66 +150,66 @@ DateBar::BarDragHandler::BarDragHandler( DateBarWidget* dateBar )
 
 void DateBar::BarDragHandler::mousePressEvent( int x )
 {
-    _movementOffset = _dateBar->_currentUnit * _dateBar->_barWidth - ( x - _dateBar->barAreaGeometry().left() );
+    m_movementOffset = m_dateBar->m_currentUnit * m_dateBar->m_barWidth - ( x - m_dateBar->barAreaGeometry().left() );
 
 }
 
 void DateBar::BarDragHandler::mouseMoveEvent( int x )
 {
-    int oldUnit = _dateBar->_currentUnit;
-    int newUnit = ( x + _movementOffset - _dateBar->barAreaGeometry().left() )/_dateBar->_barWidth;
+    int oldUnit = m_dateBar->m_currentUnit;
+    int newUnit = ( x + m_movementOffset - m_dateBar->barAreaGeometry().left() )/m_dateBar->m_barWidth;
 
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end
     // better scroll a bit over than not all the way.
     if ( (newUnit > oldUnit &&
-            _dateBar->dateForUnit( 0 ) < _dateBar->_dates->lowerLimit() ) ||
+            m_dateBar->dateForUnit( 0 ) < m_dateBar->m_dates->lowerLimit() ) ||
            ( newUnit < oldUnit &&
-             _dateBar->dateForUnit( _dateBar->numberOfUnits() ) > _dateBar->_dates->upperLimit() ) )
+             m_dateBar->dateForUnit( m_dateBar->numberOfUnits() ) > m_dateBar->m_dates->upperLimit() ) )
         return;
 
-    _dateBar->_currentUnit = newUnit;
+    m_dateBar->m_currentUnit = newUnit;
 
-    if ( _dateBar->_currentUnit < 0 ) {
-        _dateBar->_currentDate = _dateBar->dateForUnit( - _dateBar->_currentUnit );
-        _dateBar->_currentUnit = 0;
-        _movementOffset = _dateBar->barAreaGeometry().left() - x;
+    if ( m_dateBar->m_currentUnit < 0 ) {
+        m_dateBar->m_currentDate = m_dateBar->dateForUnit( - m_dateBar->m_currentUnit );
+        m_dateBar->m_currentUnit = 0;
+        m_movementOffset = m_dateBar->barAreaGeometry().left() - x;
     }
-    else if ( _dateBar->_currentUnit > _dateBar->numberOfUnits() ) {
-        int diff = _dateBar->numberOfUnits() - _dateBar->_currentUnit;
-        _dateBar->_currentDate = _dateBar->dateForUnit( _dateBar->numberOfUnits()+diff );
-        _dateBar->_currentUnit = _dateBar->numberOfUnits();
-        _movementOffset = (_dateBar->numberOfUnits()*_dateBar->_barWidth ) - x + _dateBar->_barWidth/ 2  ;
+    else if ( m_dateBar->m_currentUnit > m_dateBar->numberOfUnits() ) {
+        int diff = m_dateBar->numberOfUnits() - m_dateBar->m_currentUnit;
+        m_dateBar->m_currentDate = m_dateBar->dateForUnit( m_dateBar->numberOfUnits()+diff );
+        m_dateBar->m_currentUnit = m_dateBar->numberOfUnits();
+        m_movementOffset = (m_dateBar->numberOfUnits()*m_dateBar->m_barWidth ) - x + m_dateBar->m_barWidth/ 2  ;
     }
-    _dateBar->redraw();
-    _dateBar->emitDateSelected();
+    m_dateBar->redraw();
+    m_dateBar->emitDateSelected();
 }
 
 QDateTime DateBar::SelectionHandler::min() const
 {
-    if ( _start < _end )
-        return _start;
+    if ( m_start < m_end )
+        return m_start;
     else
-        return _end;
+        return m_end;
 }
 
 QDateTime DateBar::SelectionHandler::max() const
 {
-    if ( _start >= _end )
-        return _dateBar->dateForUnit( 1,_start );
+    if ( m_start >= m_end )
+        return m_dateBar->dateForUnit( 1,m_start );
     else
-        return _end;
+        return m_end;
 }
 
 void DateBar::SelectionHandler::clearSelection()
 {
-    _start = QDateTime();
-    _end = QDateTime();
+    m_start = QDateTime();
+    m_end = QDateTime();
 }
 
 void DateBar::SelectionHandler::mouseReleaseEvent()
 {
-    _dateBar->emitRangeSelection( dateRange() );
+    m_dateBar->emitRangeSelection( dateRange() );
 }
 
 DB::ImageDate DateBar::SelectionHandler::dateRange() const

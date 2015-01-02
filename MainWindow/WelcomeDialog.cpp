@@ -85,21 +85,21 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
 
 void WelcomeDialog::slotLoadDemo()
 {
-    _configFile = Utilities::setupDemo();
+    m_configFile = Utilities::setupDemo();
     accept();
 }
 
 void WelcomeDialog::createSetup()
 {
     FileDialog dialog( this );
-    _configFile = dialog.getFileName();
-    if ( !_configFile.isNull() )
+    m_configFile = dialog.getFileName();
+    if ( !m_configFile.isNull() )
         accept();
 }
 
 QString WelcomeDialog::configFileName() const
 {
-    return _configFile;
+    return m_configFile;
 }
 
 FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
@@ -128,9 +128,9 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     label = new QLabel( i18n("Image/Video root directory: "), top );
     lay2->addWidget( label );
 
-    _lineEdit = new KLineEdit( top );
-    _lineEdit->setText( KGlobalSettings::picturesPath() );
-    lay2->addWidget( _lineEdit );
+    m_lineEdit = new KLineEdit( top );
+    m_lineEdit->setText( KGlobalSettings::picturesPath() );
+    lay2->addWidget( m_lineEdit );
 
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
     button->setMaximumWidth( 30 );
@@ -140,9 +140,9 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
 
 void FileDialog::slotBrowseForDirecory()
 {
-    QString dir = KFileDialog::getExistingDirectory( _lineEdit->text(), this );
+    QString dir = KFileDialog::getExistingDirectory( m_lineEdit->text(), this );
     if ( ! dir.isNull() )
-        _lineEdit->setText( dir );
+        m_lineEdit->setText( dir );
 }
 
 QString FileDialog::getFileName()
@@ -153,7 +153,7 @@ QString FileDialog::getFileName()
         if ( exec() == Rejected )
             return QString();
 
-        dir =  KShell::tildeExpand( _lineEdit->text() );
+        dir =  KShell::tildeExpand( m_lineEdit->text() );
         if ( !QFileInfo( dir ).exists() ) {
             int create = KMessageBox::questionYesNo( this, i18n("Directory does not exist, create it?") );
             if ( create == KMessageBox::Yes ) {

@@ -43,13 +43,13 @@ private:
     void buildIndex();
 
     // Cache for past successful range lookups.
-    QMap<DB::ImageDate, DB::ImageCount> _cache;
+    QMap<DB::ImageDate, DB::ImageCount> m_cache;
 
     // Elements ordered by start time.
     //
     // Start index is sorted by start time of the ImageDate, mapping
     // to the actual ImageDate; this is a multimap.
-    StartIndexMap _startIndex;
+    StartIndexMap m_startIndex;
 
     // Pointers to start index ordered by end time.
     //
@@ -57,7 +57,7 @@ private:
     // iterator points to the lowest element in startIndex whose end-time
     // is greater or equal to the key-time. Thus is points to the start
     // where its worth looking.
-    EndIndexMap _endIndex;
+    EndIndexMap m_endIndex;
 };
 
 

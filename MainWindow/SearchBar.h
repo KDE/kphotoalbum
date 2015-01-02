@@ -44,7 +44,7 @@ signals:
     void keyPressed( QKeyEvent* );
 
 private:
-    KLineEdit* _edit;
+    KLineEdit* m_edit;
 };
 
 }

@@ -31,14 +31,14 @@
  */
 void Exif::SearchInfo::addSearchKey( const QString& key, const IntList& values )
 {
-    _intKeys.append( qMakePair( key, values ) );
+    m_intKeys.append( qMakePair( key, values ) );
 }
 
 
 QStringList Exif::SearchInfo::buildIntKeyQuery() const
 {
     QStringList andArgs;
-    for( IntKeyList::ConstIterator intIt = _intKeys.begin(); intIt != _intKeys.end(); ++intIt ) {
+    for( IntKeyList::ConstIterator intIt = m_intKeys.begin(); intIt != m_intKeys.end(); ++intIt ) {
         QStringList orArgs;
         QString key = (*intIt).first;
         IntList values =(*intIt).second;
@@ -55,7 +55,7 @@ QStringList Exif::SearchInfo::buildIntKeyQuery() const
 
 void Exif::SearchInfo::addRangeKey( const Range& range )
 {
-    _rangeKeys.append( range);
+    m_rangeKeys.append( range);
 }
 
 Exif::SearchInfo::Range::Range( const QString& key )
@@ -82,7 +82,7 @@ QString Exif::SearchInfo::buildQuery() const
 QStringList Exif::SearchInfo::buildRangeQuery() const
 {
     QStringList result;
-    for( QList<Range>::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
+    for( QList<Range>::ConstIterator it = m_rangeKeys.begin(); it != m_rangeKeys.end(); ++it ) {
         QString str = sqlForOneRangeItem( *it );
         if ( !str.isEmpty() )
             result.append( str );
@@ -126,7 +126,7 @@ QString Exif::SearchInfo::sqlForOneRangeItem( const Range& range ) const
 void Exif::SearchInfo::search() const
 {
     QString queryStr = buildQuery();
-    _emptyQuery = queryStr.isEmpty();
+    m_emptyQuery = queryStr.isEmpty();
 
     // ensure to do SQL queries as little as possible.
     static QString lastQuery;
@@ -134,29 +134,29 @@ void Exif::SearchInfo::search() const
         return;
     lastQuery = queryStr;
 
-    _matches.clear();
-    if ( _emptyQuery )
+    m_matches.clear();
+    if ( m_emptyQuery )
         return;
-    _matches = Exif::Database::instance()->filesMatchingQuery( queryStr );
+    m_matches = Exif::Database::instance()->filesMatchingQuery( queryStr );
 }
 
 bool Exif::SearchInfo::matches( const DB::FileName& fileName ) const
 {
-    if ( _emptyQuery )
+    if ( m_emptyQuery )
         return true;
 
-    return _matches.contains( fileName );
+    return m_matches.contains( fileName );
 }
 
 void Exif::SearchInfo::addCamera( const CameraList& list )
 {
-    _cameras = list;
+    m_cameras = list;
 }
 
 QString Exif::SearchInfo::buildCameraSearchQuery() const
 {
     QStringList subResults;
-    for( CameraList::ConstIterator cameraIt = _cameras.begin(); cameraIt != _cameras.end(); ++cameraIt ) {
+    for( CameraList::ConstIterator cameraIt = m_cameras.begin(); cameraIt != m_cameras.end(); ++cameraIt ) {
         subResults.append( QString::fromLatin1( "(Exif_Image_Make='%1' and Exif_Image_Model='%2')" )
                            .arg( (*cameraIt).first).arg( (*cameraIt).second ) );
     }

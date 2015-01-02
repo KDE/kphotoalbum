@@ -49,14 +49,14 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent )
     QVBoxLayout* grpLay = new QVBoxLayout( grp );
     lay1->addWidget( grp );
 
-    _dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp") );
-    _missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ) );
-    _partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)") );
-    _dateNotTime->setChecked( true );
+    m_dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp") );
+    m_missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ) );
+    m_partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)") );
+    m_dateNotTime->setChecked( true );
 
-    grpLay->addWidget( _dateNotTime );
-    grpLay->addWidget( _missingDate );
-    grpLay->addWidget( _partialDate );
+    grpLay->addWidget( m_dateNotTime );
+    grpLay->addWidget( m_missingDate );
+    grpLay->addWidget( m_partialDate );
 }
 
 void InvalidDateFinder::accept()
@@ -96,7 +96,7 @@ void InvalidDateFinder::accept()
 
         DB::ImageDate date = fileName.info()->date();
         bool show = false;
-        if ( _dateNotTime->isChecked() ) {
+        if ( m_dateNotTime->isChecked() ) {
             DB::FileInfo fi = DB::FileInfo::read( fileName, DB::EXIFMODE_DATE );
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
@@ -107,10 +107,10 @@ void InvalidDateFinder::accept()
                               .arg(fi.dateTime().toString()) );
             }
         }
-        else if ( _missingDate->isChecked() ) {
+        else if ( m_missingDate->isChecked() ) {
             show = !date.start().isValid();
         }
-        else if ( _partialDate->isChecked() ) {
+        else if ( m_partialDate->isChecked() ) {
             show = ( date.start() != date.end() );
         }
 
@@ -118,7 +118,7 @@ void InvalidDateFinder::accept()
             toBeShown.append(fileName);
     }
 
-    if ( _dateNotTime->isChecked() ) {
+    if ( m_dateNotTime->isChecked() ) {
         info->resize( 800, 600 );
         edit->setReadOnly( true );
         QFont f = edit->font();

@@ -41,15 +41,15 @@ private:
     /**
      * The position the mouse was pressed down, in view port coordinates
      */
-    QPoint _mousePressPos;
+    QPoint m_mousePressPos;
 
     /**
      * This variable contains the size of a cell prior to the beginning of
      * resizing the grid.
      */
-    int _origWidth;
+    int m_origWidth;
 
-    bool _resizing;
+    bool m_resizing;
     int m_currentRow;
 };
 

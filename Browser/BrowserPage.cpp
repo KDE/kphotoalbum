@@ -19,7 +19,7 @@
 #include "BrowserPage.h"
 
 Browser::BrowserPage::BrowserPage( const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : _info(info), _browser(browser)
+    : m_info(info), m_browser(browser)
 {
 }
 
@@ -29,7 +29,7 @@ Browser::BrowserPage::BrowserPage( const DB::ImageSearchInfo& info, BrowserWidge
  */
 Browser::BrowserWidget* Browser::BrowserPage::browser() const
 {
-    return _browser;
+    return m_browser;
 }
 
 /**
@@ -79,7 +79,7 @@ DB::Category::ViewType Browser::BrowserPage::viewType() const
  */
 DB::ImageSearchInfo Browser::BrowserPage::searchInfo() const
 {
-    return _info;
+    return m_info;
 }
 
 /**

@@ -49,16 +49,16 @@ private slots:
     void toggleShowRating( bool );
 
 private:
-    KToggleAction* _showInfoBox;
-    KToggleAction* _showLabel;
-    KToggleAction* _showDescription;
-    KToggleAction* _showDate;
-    KToggleAction* _showTime;
-    KToggleAction* _showFileName;
-    KToggleAction* _showExif;
-    KToggleAction* _showImageSize;
-    KToggleAction* _showRating;
-    QList<KToggleAction*> _actionList;
+    KToggleAction* m_showInfoBox;
+    KToggleAction* m_showLabel;
+    KToggleAction* m_showDescription;
+    KToggleAction* m_showDate;
+    KToggleAction* m_showTime;
+    KToggleAction* m_showFileName;
+    KToggleAction* m_showExif;
+    KToggleAction* m_showImageSize;
+    KToggleAction* m_showRating;
+    QList<KToggleAction*> m_actionList;
 };
 
 }

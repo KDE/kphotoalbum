@@ -20,7 +20,7 @@
 
 bool DB::AndCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
-     for( QList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+     for( QList<CategoryMatcher*>::Iterator it = mp_elements.begin(); it != mp_elements.end(); ++it ) {
         if (!(*it)->eval(info, alreadyMatched))
             return false;
     }

@@ -30,7 +30,7 @@ public:
     virtual bool stillNeeded() const;
 
 private:
-    const ThumbnailModel* const _thumbnailModel;
+    const ThumbnailModel* const m_thumbnailModel;
     int m_row;
 };
 

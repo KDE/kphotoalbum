@@ -59,8 +59,8 @@ public:
     BrowserWidget* browser() const;
 
 private:
-    DB::ImageSearchInfo _info;
-    BrowserWidget* _browser;
+    DB::ImageSearchInfo m_info;
+    BrowserWidget* m_browser;
 };
 
 }

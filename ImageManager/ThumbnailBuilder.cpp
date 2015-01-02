@@ -27,13 +27,13 @@
 #include <QTimer>
 #include <DB/ImageInfoPtr.h>
 
-ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::m_instance = nullptr;
+ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
     :QObject( parent ), m_statusBar( statusBar ),  m_isBuilding( false )
 {
     connect( m_statusBar, SIGNAL(cancelRequest()), this, SLOT(cancelRequests()));
-    m_instance =  this;
+    s_instance =  this;
 
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
@@ -68,8 +68,8 @@ void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 {
-    Q_ASSERT( m_instance );
-    return m_instance;
+    Q_ASSERT( s_instance );
+    return s_instance;
 }
 
 void ImageManager::ThumbnailBuilder::buildMissing()

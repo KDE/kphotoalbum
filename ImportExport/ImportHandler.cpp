@@ -48,7 +48,7 @@
 using namespace ImportExport;
 
 ImportExport::ImportHandler::ImportHandler()
-    : m_fileMapper(nullptr), m_finishedPressed(false), _progress(0), _reportUnreadableFiles( true )
+    : m_fileMapper(nullptr), m_finishedPressed(false), m_progress(0), m_reportUnreadableFiles( true )
     , m_eventLoop( new QEventLoop )
 
 {
@@ -72,7 +72,7 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
         copyFromExternal();
 
         // If none of the images were to be copied, then we flushed the loop before we got started, in that case, don't start the loop.
-        if ( _pendingCopies.count() > 0 )
+        if ( m_pendingCopies.count() > 0 )
             ok = m_eventLoop->exec();
         else
             ok = false;
@@ -82,29 +82,29 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
         if ( ok )
             updateDB();
     }
-    if ( _progress )
-        delete _progress;
+    if ( m_progress )
+        delete m_progress;
 
     return ok;
 }
 
 void ImportExport::ImportHandler::copyFromExternal()
 {
-    _pendingCopies = m_settings.selectedImages();
-    _totalCopied = 0;
-    _progress = new KProgressDialog( MainWindow::Window::theMainWindow(), i18n("Copying Images") );
-    _progress->progressBar()->setMinimum( 0 );
-    _progress->progressBar()->setMaximum( 2 * _pendingCopies.count() );
-    _progress->show();
-    connect( _progress, SIGNAL(cancelClicked()), this, SLOT(stopCopyingImages()) );
+    m_pendingCopies = m_settings.selectedImages();
+    m_totalCopied = 0;
+    m_progress = new KProgressDialog( MainWindow::Window::theMainWindow(), i18n("Copying Images") );
+    m_progress->progressBar()->setMinimum( 0 );
+    m_progress->progressBar()->setMaximum( 2 * m_pendingCopies.count() );
+    m_progress->show();
+    connect( m_progress, SIGNAL(cancelClicked()), this, SLOT(stopCopyingImages()) );
     copyNextFromExternal();
 
 }
 
 void ImportExport::ImportHandler::copyNextFromExternal()
 {
-    DB::ImageInfoPtr info = _pendingCopies[0];
-    _pendingCopies.pop_front();
+    DB::ImageInfoPtr info = m_pendingCopies[0];
+    m_pendingCopies.pop_front();
 
     if ( isImageAlreadyInDB( info ) ) {
         aCopyJobCompleted(0);
@@ -128,8 +128,8 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );
-            _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
-            connect( _job, SIGNAL(result(KJob*)), this, SLOT(aCopyJobCompleted(KJob*)) );
+            m_job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
+            connect( m_job, SIGNAL(result(KJob*)), this, SLOT(aCopyJobCompleted(KJob*)) );
             succeeded = true;
             break;
         } else
@@ -144,11 +144,11 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 {
     DB::ImageInfoList images = m_settings.selectedImages();
 
-    _totalCopied = 0;
-    _progress = new KProgressDialog( MainWindow::Window::theMainWindow(), i18n("Copying Images") );
-    _progress->progressBar()->setMinimum( 0 );
-    _progress->progressBar()->setMaximum( 2 * _pendingCopies.count() );
-    _progress->show();
+    m_totalCopied = 0;
+    m_progress = new KProgressDialog( MainWindow::Window::theMainWindow(), i18n("Copying Images") );
+    m_progress->progressBar()->setMinimum( 0 );
+    m_progress->progressBar()->setMaximum( 2 * m_pendingCopies.count() );
+    m_progress->show();
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         if ( !isImageAlreadyInDB( *it ) ) {
@@ -168,8 +168,8 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
         }
 
         qApp->processEvents();
-        _progress->progressBar()->setValue( ++_totalCopied );
-        if ( _progress->wasCancelled() ) {
+        m_progress->progressBar()->setValue( ++m_totalCopied );
+        if ( m_progress->wasCancelled() ) {
             return false;
         }
     }
@@ -178,8 +178,8 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
 void ImportExport::ImportHandler::updateDB()
 {
-    disconnect( _progress, SIGNAL(cancelClicked()), this, SLOT(stopCopyingImages()) );
-    _progress->setLabelText( i18n("Updating Database") );
+    disconnect( m_progress, SIGNAL(cancelClicked()), this, SLOT(stopCopyingImages()) );
+    m_progress->setLabelText( i18n("Updating Database") );
     int len = Settings::SettingsData::instance()->imageDirectory().length();
     // image directory is always a prefix of destination
     if ( len == m_settings.destination().length() )
@@ -208,8 +208,8 @@ void ImportExport::ImportHandler::updateDB()
             addNewRecord( info );
         }
 
-        _progress->progressBar()->setValue( ++_totalCopied );
-        if ( _progress->wasCancelled() )
+        m_progress->progressBar()->setValue( ++m_totalCopied );
+        if ( m_progress->wasCancelled() )
             break;
     }
 
@@ -218,13 +218,13 @@ void ImportExport::ImportHandler::updateDB()
 
 void ImportExport::ImportHandler::stopCopyingImages()
 {
-    _job->kill();
+    m_job->kill();
 }
 
 void ImportExport::ImportHandler::aCopyFailed( QStringList files )
 {
-    int result = _reportUnreadableFiles ?
-                 KMessageBox::warningYesNoCancelList( _progress,
+    int result = m_reportUnreadableFiles ?
+                 KMessageBox::warningYesNoCancelList( m_progress,
                                                       i18n("Cannot copy from any of the following locations:"),
                                                       files, QString(), KStandardGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
 
@@ -234,11 +234,11 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
         // just throw away any changes to the DB, but some new image files
         // might be in the image directory...
         m_eventLoop->exit(false);
-        _pendingCopies.pop_front();
+        m_pendingCopies.pop_front();
         break;
 
     case KMessageBox::No:
-        _reportUnreadableFiles = false;
+        m_reportUnreadableFiles = false;
         // fall through
     default:
         aCopyJobCompleted( 0 );
@@ -251,15 +251,15 @@ void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
         job->uiDelegate()->showErrorMessage();
         m_eventLoop->exit(false);
     }
-    else if ( _pendingCopies.count() == 0 ) {
+    else if ( m_pendingCopies.count() == 0 ) {
         updateDB();
         m_eventLoop->exit(true);
     }
-    else if ( _progress->wasCancelled() ) {
+    else if ( m_progress->wasCancelled() ) {
         m_eventLoop->exit(false);
     }
     else {
-        _progress->progressBar()->setValue( ++_totalCopied );
+        m_progress->progressBar()->setValue( ++m_totalCopied );
         copyNextFromExternal();
     }
 }

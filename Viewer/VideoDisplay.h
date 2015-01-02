@@ -68,11 +68,11 @@ protected:
     enum ZoomType { FullZoom, PixelForPixelZoom, FixedZoom };
 
 private:
-    Phonon::MediaObject* _mediaObject;
-    Phonon::VideoWidget* _videoWidget;
-    Phonon::SeekSlider* _slider;
-    ZoomType _zoomType;
-    double _zoomFactor;
+    Phonon::MediaObject* m_mediaObject;
+    Phonon::VideoWidget* m_videoWidget;
+    Phonon::SeekSlider* m_slider;
+    ZoomType m_zoomType;
+    double m_zoomFactor;
 };
 
 }

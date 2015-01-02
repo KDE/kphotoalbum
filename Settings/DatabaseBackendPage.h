@@ -37,10 +37,10 @@ private slots:
     void markDirty();
 
 private:
-    QSpinBox* _autosave;
-    QSpinBox* _backupCount;
-    QCheckBox* _compressBackup;
-    QCheckBox* _compressedIndexXML;
+    QSpinBox* m_autosave;
+    QSpinBox* m_backupCount;
+    QCheckBox* m_compressBackup;
+    QCheckBox* m_compressedIndexXML;
 };
 
 }

@@ -46,16 +46,16 @@ private:
      * This variable contains the position the mouse was pressed down.
      * The point is in contents coordinates.
      */
-    QPoint _mousePressPos;
+    QPoint m_mousePressPos;
 
     /**
      * Did the mouse interaction start with the mouse on top of an icon.
      */
-    bool _isMouseDragOperation;
+    bool m_isMouseDragOperation;
 
     // PENDING(blackie) this instance variable is unused!
-    DB::FileNameSet _originalSelectionBeforeDragStart;
-    bool _dragInProgress;
+    DB::FileNameSet m_originalSelectionBeforeDragStart;
+    bool m_dragInProgress;
 };
 
 }

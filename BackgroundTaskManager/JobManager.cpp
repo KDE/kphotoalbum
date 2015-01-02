@@ -33,7 +33,7 @@
   indicate that that is a possibility.
 */
 
-BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::m_instance = nullptr;
+BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::s_instance = nullptr;
 
 BackgroundTaskManager::JobManager::JobManager() :
     m_isPaused(false)
@@ -80,9 +80,9 @@ void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterfa
 
 BackgroundTaskManager::JobManager *BackgroundTaskManager::JobManager::instance()
 {
-    if ( !m_instance )
-        m_instance = new JobManager;
-    return m_instance;
+    if ( !s_instance )
+        s_instance = new JobManager;
+    return s_instance;
 }
 
 int BackgroundTaskManager::JobManager::activeJobCount() const

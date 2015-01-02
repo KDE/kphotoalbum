@@ -27,12 +27,12 @@
 
 using namespace ImportExport;
 
-MiniViewer* MiniViewer::_instance = nullptr;
+MiniViewer* MiniViewer::s_instance = nullptr;
 
 void MiniViewer::show( QImage img, DB::ImageInfoPtr info, QWidget* parent )
 {
-    if ( !_instance )
-        _instance = new MiniViewer( parent );
+    if ( !s_instance )
+        s_instance = new MiniViewer( parent );
 
     if ( info->angle() != 0 ) {
         QMatrix matrix;
@@ -42,9 +42,9 @@ void MiniViewer::show( QImage img, DB::ImageInfoPtr info, QWidget* parent )
     if ( img.width() > 800 || img.height() > 600 )
         img = img.scaled( 800, 600, Qt::KeepAspectRatio );
 
-    _instance->_pixmap->setPixmap( QPixmap::fromImage(img) );
-    _instance->QDialog::show();
-    _instance->raise();
+    s_instance->m_pixmap->setPixmap( QPixmap::fromImage(img) );
+    s_instance->QDialog::show();
+    s_instance->raise();
 }
 
 void MiniViewer::closeEvent( QCloseEvent* )
@@ -54,15 +54,15 @@ void MiniViewer::closeEvent( QCloseEvent* )
 
 void MiniViewer::slotClose()
 {
-    _instance = nullptr;
+    s_instance = nullptr;
     deleteLater();
 }
 
 MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
 {
     QVBoxLayout* vlay = new QVBoxLayout( this );
-    _pixmap = new QLabel( this );
-    vlay->addWidget( _pixmap );
+    m_pixmap = new QLabel( this );
+    vlay->addWidget( m_pixmap );
     QHBoxLayout* hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
     hlay->addStretch(1);

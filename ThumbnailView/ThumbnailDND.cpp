@@ -31,7 +31,7 @@ ThumbnailView::ThumbnailDND::ThumbnailDND( ThumbnailFactory* factory )
 
 void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
 {
-    if ( event->provides( "text/uri-list" ) && widget()->_selectionInteraction.isDragging() )
+    if ( event->provides( "text/uri-list" ) && widget()->m_selectionInteraction.isDragging() )
         event->accept();
     else {
         event->ignore();
@@ -131,7 +131,7 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )
 {
-    if ( event->provides( "text/uri-list" ) && widget()->_selectionInteraction.isDragging() )
+    if ( event->provides( "text/uri-list" ) && widget()->m_selectionInteraction.isDragging() )
         event->accept();
     else
         event->ignore();

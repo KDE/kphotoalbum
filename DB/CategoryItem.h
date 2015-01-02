@@ -27,7 +27,7 @@ namespace DB
 class CategoryItem :public KShared
 {
 public:
-    explicit CategoryItem( const QString& name, bool isTop = false ) : _name( name ), _isTop( isTop ) {}
+    explicit CategoryItem( const QString& name, bool isTop = false ) : mp_name( name ), mp_isTop( isTop ) {}
     ~CategoryItem();
     CategoryItem* clone() const;
     bool isDescendentOf( const QString& child, const QString& parent ) const;
@@ -37,9 +37,9 @@ protected:
     bool hasChild( const QString& child );
 
 public:
-    QString _name;
-    QList< CategoryItem* > _subcategories;
-    bool _isTop;
+    QString mp_name;
+    QList< CategoryItem* > mp_subcategories;
+    bool mp_isTop;
 };
 
 typedef KSharedPtr<CategoryItem> CategoryItemPtr;

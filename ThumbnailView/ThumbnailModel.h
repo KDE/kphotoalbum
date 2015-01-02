@@ -101,46 +101,46 @@ private slots:
 
 private: // Instance variables.
     /**
-     * The list of images shown. The difference between _imageList and
-     * _displayList is that _imageList contains all the images given to us,
-     * while _displayList only includes those that currently should be
+     * The list of images shown. The difference between m_imageList and
+     * m_displayList is that m_imageList contains all the images given to us,
+     * while m_displayList only includes those that currently should be
      * shown, ie. it exclude images from stacks that are collapsed and thus
      * not visible.
      */
-    DB::FileNameList _displayList;
+    DB::FileNameList m_displayList;
 
-    /** The input list for images. See documentation for _displayList */
-    DB::FileNameList _imageList;
+    /** The input list for images. See documentation for m_displayList */
+    DB::FileNameList m_imageList;
 
     /**
      * File which should have drop indication point drawn on its left side
      */
-    DB::FileName _leftDrop;
+    DB::FileName m_leftDrop;
 
     /**
      * File which should have drop indication point drawn on its right side
      */
-    DB::FileName _rightDrop;
+    DB::FileName m_rightDrop;
 
-    SortDirection _sortDirection;
+    SortDirection m_sortDirection;
 
     /**
      * All the stacks that should be shown expanded
      */
-    QSet<DB::StackID> _expandedStacks;
+    QSet<DB::StackID> m_expandedStacks;
 
     /** @short Store stack IDs for all images in current list
      *
      * Used by expandAllStacks. */
-    QSet<DB::StackID> _allStacks;
+    QSet<DB::StackID> m_allStacks;
 
     /**
-     * A map mapping from Id to its index in _displayList.
+     * A map mapping from Id to its index in m_displayList.
      */
-    QMap<DB::FileName,int> _fileNameToIndex;
+    QMap<DB::FileName,int> m_fileNameToIndex;
 
-    int _firstVisibleRow;
-    int _lastVisibleRow;
+    int m_firstVisibleRow;
+    int m_lastVisibleRow;
 
     DB::FileName m_overrideFileName;
     QPixmap m_overrideImage;

@@ -31,21 +31,21 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
-ImageManager::AsyncLoader* ImageManager::AsyncLoader::_instance = nullptr;
+ImageManager::AsyncLoader* ImageManager::AsyncLoader::s_instance = nullptr;
 
 // -- Manager --
 
 ImageManager::AsyncLoader* ImageManager::AsyncLoader::instance()
 {
-    if ( !_instance )  {
-        _instance = new AsyncLoader;
-        _instance->init();
+    if ( !s_instance )  {
+        s_instance = new AsyncLoader;
+        s_instance->init();
     }
 
-    return _instance;
+    return s_instance;
 }
 
-// We need this as a separate method as the _instance variable will otherwise not be initialized
+// We need this as a separate method as the s_instance variable will otherwise not be initialized
 // corrected before the thread starts.
 void ImageManager::AsyncLoader::init()
 {
@@ -101,9 +101,9 @@ void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
 {
-    QMutexLocker dummy( &_lock );
-    QSet<ImageRequest*>::const_iterator req = _currentLoading.find( request );
-    if ( req != _currentLoading.end() && _loadList.isRequestStillValid( request ) ) {
+    QMutexLocker dummy( &m_lock );
+    QSet<ImageRequest*>::const_iterator req = m_currentLoading.find( request );
+    if ( req != m_currentLoading.end() && m_loadList.isRequestStillValid( request ) ) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).
         Q_ASSERT ( *req != request);
@@ -113,35 +113,35 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
     }
 
     // if request is "fresh" (not yet pending):
-    if (_loadList.addRequest( request ))
-        _sleepers.wakeOne();
+    if (m_loadList.addRequest( request ))
+        m_sleepers.wakeOne();
 }
 
 void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction action )
 {
     // remove from pending map.
-    QMutexLocker requestLocker( &_lock );
-    _loadList.cancelRequests( client, action );
+    QMutexLocker requestLocker( &m_lock );
+    m_loadList.cancelRequests( client, action );
 
     // PENDING(blackie) Reintroduce this
     // VideoManager::instance().stop( client, action );
-    // Was implemented as _pending.cancelRequests( client, action );
-    // Where _pending is the RequestQueue
+    // Was implemented as m_pending.cancelRequests( client, action );
+    // Where m_pending is the RequestQueue
 }
 
 int ImageManager::AsyncLoader::activeCount() const
 {
-    QMutexLocker dummy( &_lock );
-    return _currentLoading.count();
+    QMutexLocker dummy( &m_lock );
+    return m_currentLoading.count();
 }
 
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
-    QMutexLocker dummy( &_lock );
+    QMutexLocker dummy( &m_lock );
     ImageRequest* request = nullptr;
-    while ( !( request = _loadList.popNext() ) )
-        _sleepers.wait( &_lock );
-    _currentLoading.insert( request );
+    while ( !( request = m_loadList.popNext() ) )
+        m_sleepers.wait( &m_lock );
+    m_currentLoading.insert( request );
 
     return request;
 }
@@ -157,10 +157,10 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
 
         ImageRequest* request = iev->loadInfo();
 
-        QMutexLocker requestLocker( &_lock );
-        const bool requestStillNeeded = _loadList.isRequestStillValid( request );
-        _loadList.removeRequest(request);
-        _currentLoading.remove( request );
+        QMutexLocker requestLocker( &m_lock );
+        const bool requestStillNeeded = m_loadList.isRequestStillValid( request );
+        m_loadList.removeRequest(request);
+        m_currentLoading.remove( request );
         requestLocker.unlock();
 
         QImage image = iev->image();

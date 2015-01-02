@@ -38,11 +38,11 @@ public:
     void hideEvent();
 
 private:
-    bool _scale, _pan;
-    QPoint _start, _untranslatedStart, _last;
-    double _errorX, _errorY;
-    QRubberBand* _rubberBand;
-    ImageDisplay* _display;
+    bool m_scale, m_pan;
+    QPoint m_start, m_untranslatedStart, m_last;
+    double m_errorX, m_errorY;
+    QRubberBand* m_rubberBand;
+    ImageDisplay* m_display;
 };
 
 }

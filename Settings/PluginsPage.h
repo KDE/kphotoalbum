@@ -34,8 +34,8 @@ public:
     void saveSettings( Settings::SettingsData* );
 
 private:
-    KIPI::ConfigWidget* _pluginConfig;
-    QCheckBox* _delayLoadingPlugins;
+    KIPI::ConfigWidget* m_pluginConfig;
+    QCheckBox* m_delayLoadingPlugins;
 };
 
 }

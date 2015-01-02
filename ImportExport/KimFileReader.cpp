@@ -23,26 +23,26 @@
 #include "Utilities/Util.h"
 
 ImportExport::KimFileReader::KimFileReader()
-    :_zip(nullptr)
+    :m_zip(nullptr)
 {
 }
 
 bool ImportExport::KimFileReader::open( const QString& fileName )
 {
     m_fileName = fileName;
-    _zip = new KZip( fileName );
-    if ( !_zip->open( QIODevice::ReadOnly ) ) {
+    m_zip = new KZip( fileName );
+    if ( !m_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( nullptr, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
-        delete _zip;
-    _zip = nullptr;
+        delete m_zip;
+    m_zip = nullptr;
         return false;
     }
 
-    _dir = _zip->directory();
-    if ( _dir == nullptr ) {
+    m_dir = m_zip->directory();
+    if ( m_dir == nullptr ) {
         KMessageBox::error( nullptr, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
-        delete _zip;
-    _zip = nullptr;
+        delete m_zip;
+    m_zip = nullptr;
     return false;
     }
 
@@ -52,7 +52,7 @@ bool ImportExport::KimFileReader::open( const QString& fileName )
 
 QByteArray ImportExport::KimFileReader::indexXML()
 {
-    const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
+    const KArchiveEntry* indexxml = m_dir->entry( QString::fromLatin1( "index.xml" ) );
     if ( indexxml == nullptr || ! indexxml->isFile() ) {
         KMessageBox::error( nullptr, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." , m_fileName ) );
         return QByteArray();
@@ -64,12 +64,12 @@ QByteArray ImportExport::KimFileReader::indexXML()
 
 ImportExport::KimFileReader::~KimFileReader()
 {
-    delete _zip;
+    delete m_zip;
 }
 
 QPixmap ImportExport::KimFileReader::loadThumbnail( QString fileName )
 {
-    const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
+    const KArchiveEntry* thumbnails = m_dir->entry( QString::fromLatin1( "Thumbnails" ) );
     if( !thumbnails )
         return QPixmap();
 
@@ -97,7 +97,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail( QString fileName )
 
 QByteArray ImportExport::KimFileReader::loadImage( const QString& fileName )
 {
-    const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
+    const KArchiveEntry* images = m_dir->entry( QString::fromLatin1( "Images" ) );
     if ( !images ) {
         KMessageBox::error( nullptr, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
         return QByteArray();

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "KeyboardEventHandler.h"
-#include "GridResizeInteraction.h"
 #include "CellGeometry.h"
 #include "enums.h"
 #include "DB/CategoryCollection.h"
@@ -91,9 +90,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
 */
 bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
 {
-    if ( widget()->_wheelResizing && event->key() == Qt::Key_Control ) {
-        widget()->_gridResizeInteraction.leaveGridResizingMode();
-        widget()->_wheelResizing = false;
+    if ( widget()->m_wheelResizing && event->key() == Qt::Key_Control ) {
+        widget()->m_gridResizeInteraction.leaveGridResizingMode();
+        widget()->m_wheelResizing = false;
 
         return false; // Don't propagate the event - I'm not sure why.
     }

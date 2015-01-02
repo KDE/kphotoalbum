@@ -40,7 +40,7 @@ protected slots:
     void checkFeatures();
 
 private:
-    QString _configFile;
+    QString m_configFile;
 };
 
 
@@ -53,7 +53,7 @@ public:
 protected slots:
     void slotBrowseForDirecory();
 private:
-    QLineEdit* _lineEdit;
+    QLineEdit* m_lineEdit;
 };
 
 }

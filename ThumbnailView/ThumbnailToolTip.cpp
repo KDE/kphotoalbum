@@ -40,14 +40,14 @@
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     : Utilities::ToolTip(view, Qt::FramelessWindowHint | Qt::Window
                          | Qt::X11BypassWindowManagerHint
-                         | Qt::Tool ), _view( view ),
-      _widthInverse( false ), _heightInverse( false )
+                         | Qt::Tool ), m_view( view ),
+      m_widthInverse( false ), m_heightInverse( false )
 {
 }
 
 bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
-    if ( o == _view->viewport() && event->type() == QEvent::Leave )
+    if ( o == m_view->viewport() && event->type() == QEvent::Leave )
         hide();
 
     else if ( event->type() == QEvent::MouseMove || event->type() == QEvent::Wheel) {
@@ -61,7 +61,7 @@ bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 
 void ThumbnailView::ThumbnailToolTip::requestToolTip()
 {
-    const DB::FileName fileName = _view->mediaIdUnderCursor();
+    const DB::FileName fileName = m_view->mediaIdUnderCursor();
     ToolTip::requestToolTip(fileName);
 }
 
@@ -70,10 +70,10 @@ void ThumbnailView::ThumbnailToolTip::setActive( bool b )
 {
     if ( b ) {
         requestToolTip();
-        _view->viewport()->installEventFilter( this );
+        m_view->viewport()->installEventFilter( this );
     }
     else {
-        _view->viewport()->removeEventFilter( this );
+        m_view->viewport()->removeEventFilter( this );
         hide();
     }
 }
@@ -82,37 +82,37 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 {
     // First try to set the position.
     QPoint pos = QCursor::pos() + QPoint( 20, 20 );
-    if ( _widthInverse )
+    if ( m_widthInverse )
         pos.setX( pos.x() - 30 - width() );
-    if ( _heightInverse )
+    if ( m_heightInverse )
         pos.setY( pos.y() - 30 - height() );
 
     QRect geom = qApp->desktop()->screenGeometry( QCursor::pos() );
 
     // Now test whether the window moved outside the screen
-    if ( _widthInverse ) {
+    if ( m_widthInverse ) {
         if ( pos.x() <  geom.x() ) {
             pos.setX( QCursor::pos().x() + 20 );
-            _widthInverse = false;
+            m_widthInverse = false;
         }
     }
     else {
         if ( pos.x() + width() > geom.right() ) {
             pos.setX( QCursor::pos().x() - width() );
-            _widthInverse = true;
+            m_widthInverse = true;
         }
     }
 
-    if ( _heightInverse ) {
+    if ( m_heightInverse ) {
         if ( pos.y() < geom.y()  ) {
             pos.setY( QCursor::pos().y() + 10 );
-            _heightInverse = false;
+            m_heightInverse = false;
         }
     }
     else {
         if ( pos.y() + height() > geom.bottom() ) {
             pos.setY( QCursor::pos().y() - 10 - height() );
-            _heightInverse = true;
+            m_heightInverse = true;
         }
     }
 

@@ -58,28 +58,28 @@ protected:
     void createDestinationPage();
 
 private:
-    KLineEdit* _title;
-    KLineEdit* _baseDir;
-    KLineEdit* _baseURL;
-    KLineEdit* _destURL;
-    KLineEdit* _outputDir;
-    KLineEdit* _copyright;
-    QCheckBox* _date;
-    QSpinBox* _thumbSize;
-    QTextEdit* _description;
-    QSpinBox* _numOfCols;
-    QCheckBox* _generateKimFile;
-    QCheckBox* _inlineMovies;
-    QCheckBox* _html5Video;
-    QCheckBox* _html5VideoGenerate;
-    QMap<int,QString> _themes;
-    KComboBox* _themeBox;
-    QLabel* _themeInfo;
-    QStringList _themeAuthors;
-    QStringList _themeDescriptions;
-    QMap< QString, QCheckBox* > _whatToIncludeMap;
-    QList<ImageSizeCheckBox*> _cbs;
-    DB::FileNameList _list;
+    KLineEdit* m_title;
+    KLineEdit* m_baseDir;
+    KLineEdit* m_baseURL;
+    KLineEdit* m_destURL;
+    KLineEdit* m_outputDir;
+    KLineEdit* m_copyright;
+    QCheckBox* m_date;
+    QSpinBox* m_thumbSize;
+    QTextEdit* m_description;
+    QSpinBox* m_numOfCols;
+    QCheckBox* m_generateKimFile;
+    QCheckBox* m_inlineMovies;
+    QCheckBox* m_html5Video;
+    QCheckBox* m_html5VideoGenerate;
+    QMap<int,QString> m_themes;
+    KComboBox* m_themeBox;
+    QLabel* m_themeInfo;
+    QStringList m_themeAuthors;
+    QStringList m_themeDescriptions;
+    QMap< QString, QCheckBox* > m_whatToIncludeMap;
+    QList<ImageSizeCheckBox*> m_sizeCheckBoxes;
+    DB::FileNameList m_list;
 };
 
 }

@@ -50,11 +50,11 @@ public:
     bool operator!=( const Breadcrumb& other ) const;
 
 private:
-    int _index;
-    bool _isBeginning;
-    bool _isView;
-    QString _text;
-    static int _count;
+    int m_index;
+    bool m_isBeginning;
+    bool m_isView;
+    QString m_text;
+    static int s_count;
 };
 
 }

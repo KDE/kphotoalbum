@@ -67,20 +67,20 @@ namespace XMLDB {
         QDate birthDate(const QString& item) const override;
 
     private:
-        QString _name;
-        QString _icon;
-        bool _show;
-        ViewType _type;
-        int _thumbnailSize;
-        bool _positionable;
+        QString m_name;
+        QString m_icon;
+        bool m_show;
+        ViewType m_type;
+        int m_thumbnailSize;
+        bool m_positionable;
 
-        bool _isSpecial;
-        QStringList _items;
-        QMap<QString,int> _idMap;
-        QMap<int,QString> _nameMap;
-        QMap<QString,QDate> _birthDates;
+        bool m_isSpecial;
+        QStringList m_items;
+        QMap<QString,int> m_idMap;
+        QMap<int,QString> m_nameMap;
+        QMap<QString,QDate> m_birthDates;
 
-        bool _shouldSave;
+        bool m_shouldSave;
     };
 }
 

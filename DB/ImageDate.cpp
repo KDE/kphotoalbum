@@ -24,21 +24,21 @@ using namespace DB;
 
 ImageDate::ImageDate( const QDate& date )
 {
-    _start = QDateTime( date, QTime(0,0,0) );
-    _end = QDateTime( date, QTime(0,0,0) );
+    m_start = QDateTime( date, QTime(0,0,0) );
+    m_end = QDateTime( date, QTime(0,0,0) );
 }
 
 ImageDate::ImageDate( const QDateTime& date)
 {
-    _start = date;
-    _end = date;
+    m_start = date;
+    m_end = date;
 }
 
 
 bool ImageDate::operator<=( const ImageDate& other ) const
 {
     // This operator is used by QMap when checking for equal elements, thus we need the second part too.
-    return _start < other._start || (_start == other._start && _end <= other._end);
+    return m_start < other.m_start || (m_start == other.m_start && m_end <= other.m_end);
 }
 
 ImageDate::ImageDate()
@@ -47,7 +47,7 @@ ImageDate::ImageDate()
 
 bool ImageDate::isNull() const
 {
-    return _start.isNull();
+    return m_start.isNull();
 }
 
 static bool isFirstSecOfMonth( const QDateTime& date )
@@ -72,70 +72,70 @@ static bool isLastSecOfDay( const QDateTime& time )
 
 QString ImageDate::toString( bool withTime ) const
 {
-    if ( _start.isNull() )
+    if ( m_start.isNull() )
         return QString();
 
-    if ( _start == _end ) {
-        if ( withTime && !isFirstSecOfDay(_start))
-            return _start.toString( QString::fromLatin1( "d. MMM yyyy hh:mm:ss" ) );
+    if ( m_start == m_end ) {
+        if ( withTime && !isFirstSecOfDay(m_start))
+            return m_start.toString( QString::fromLatin1( "d. MMM yyyy hh:mm:ss" ) );
         else
-            return _start.toString( QString::fromLatin1( "d. MMM yyyy" ) );
+            return m_start.toString( QString::fromLatin1( "d. MMM yyyy" ) );
     }
 
     // start is different from end.
-    if ( isFirstSecOfMonth(_start) && isLastSecOfMonth(_end) ) {
-        if ( _start.date().month() == 1 && _end.date().month() == 12 ) {
-            if ( _start.date().year() == _end.date().year() ) {
+    if ( isFirstSecOfMonth(m_start) && isLastSecOfMonth(m_end) ) {
+        if ( m_start.date().month() == 1 && m_end.date().month() == 12 ) {
+            if ( m_start.date().year() == m_end.date().year() ) {
                 // 2005
-                return QString::number( _start.date().year() );
+                return QString::number( m_start.date().year() );
             }
             else {
                 // 2005-2006
-                return QString::fromLatin1("%1 - %2").arg( _start.date().year() ).arg( _end.date().year() );
+                return QString::fromLatin1("%1 - %2").arg( m_start.date().year() ).arg( m_end.date().year() );
             }
         }
         else {
             // a whole month, but not a whole year.
-            if ( _start.date().year() == _end.date().year() &&_start.date().month() == _end.date().month() ) {
+            if ( m_start.date().year() == m_end.date().year() &&m_start.date().month() == m_end.date().month() ) {
                 // jan 2005
-                return QString::fromLatin1( "%1 %2" ).arg( QDate::shortMonthName(_start.date().month()) ).arg(_start.date().year() );
+                return QString::fromLatin1( "%1 %2" ).arg( QDate::shortMonthName(m_start.date().month()) ).arg(m_start.date().year() );
             }
             else {
                 // jan 2005 - feb 2006
-                return QString::fromLatin1( "%1 %2 - %3 %4" ).arg( QDate::shortMonthName(_start.date().month()) ).arg(_start.date().year() )
-                    .arg( QDate::shortMonthName( _end.date().month() ) ).arg( _end.date().year() );
+                return QString::fromLatin1( "%1 %2 - %3 %4" ).arg( QDate::shortMonthName(m_start.date().month()) ).arg(m_start.date().year() )
+                    .arg( QDate::shortMonthName( m_end.date().month() ) ).arg( m_end.date().year() );
             }
         }
     }
 
-    if ( isFirstSecOfDay( _start ) && isLastSecOfDay( _end ) ) {
-        if (_start.date() == _end.date() ) {
+    if ( isFirstSecOfDay( m_start ) && isLastSecOfDay( m_end ) ) {
+        if (m_start.date() == m_end.date() ) {
             // A whole day
-            return _start.toString( QString::fromLatin1( "d. MMM yyyy" ) );
+            return m_start.toString( QString::fromLatin1( "d. MMM yyyy" ) );
         }
         else {
             // A day range
             return QString::fromLatin1("%1 - %2" )
-                .arg(_start.toString( QString::fromLatin1( "d. MMM yyyy" ) ) )
-                .arg(_end.toString( QString::fromLatin1( "d. MMM yyyy" ) ) );
+                .arg(m_start.toString( QString::fromLatin1( "d. MMM yyyy" ) ) )
+                .arg(m_end.toString( QString::fromLatin1( "d. MMM yyyy" ) ) );
         }
     }
 
 
     // Range smaller than one day.
-    if ( withTime && ( !isFirstSecOfDay( _start ) || !isLastSecOfDay( _end ) ))
+    if ( withTime && ( !isFirstSecOfDay( m_start ) || !isLastSecOfDay( m_end ) ))
         return QString::fromLatin1("%1 - %2" )
-            .arg(_start.toString( QString::fromLatin1( "d. MMM yyyy hh:mm" ) ) )
-            .arg(_end.toString( QString::fromLatin1( "d. MMM yyyy hh:mm" ) ) );
+            .arg(m_start.toString( QString::fromLatin1( "d. MMM yyyy hh:mm" ) ) )
+            .arg(m_end.toString( QString::fromLatin1( "d. MMM yyyy hh:mm" ) ) );
     else
         return QString::fromLatin1("%1 - %2" )
-            .arg(_start.toString( QString::fromLatin1( "d. MMM yyyy" ) ) )
-            .arg(_end.toString( QString::fromLatin1( "d. MMM yyyy" ) ) );
+            .arg(m_start.toString( QString::fromLatin1( "d. MMM yyyy" ) ) )
+            .arg(m_end.toString( QString::fromLatin1( "d. MMM yyyy" ) ) );
 }
 
 bool ImageDate::operator==( const ImageDate& other ) const
 {
-    return _start == other._start && _end == other._end;
+    return m_start == other.m_start && m_end == other.m_end;
 }
 
 bool ImageDate::operator!=( const ImageDate& other ) const
@@ -159,12 +159,12 @@ QString ImageDate::formatRegexp()
 
 QDateTime ImageDate::start() const
 {
-    return _start;
+    return m_start;
 }
 
 QDateTime ImageDate::end() const
 {
-    return _end;
+    return m_end;
 }
 
 bool ImageDate::operator<( const ImageDate& other ) const
@@ -175,8 +175,8 @@ bool ImageDate::operator<( const ImageDate& other ) const
 
 ImageDate::ImageDate( const QDateTime& start, const QDateTime& end )
 {
-    _start = start;
-    _end = end;
+    m_start = start;
+    m_end = end;
 }
 
 static QDate addMonth( int year, int month )
@@ -193,47 +193,47 @@ static QDate addMonth( int year, int month )
 ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom )
 {
     if ( yearFrom <= 0 ) {
-        _start = QDateTime();
-        _end = QDateTime();
+        m_start = QDateTime();
+        m_end = QDateTime();
         return;
     }
 
     if ( monthFrom <= 0 ) {
-        _start = QDateTime( QDate( yearFrom, 1, 1 ) );
-        _end = QDateTime( QDate( yearFrom+1, 1, 1 ) ).addSecs(-1);
+        m_start = QDateTime( QDate( yearFrom, 1, 1 ) );
+        m_end = QDateTime( QDate( yearFrom+1, 1, 1 ) ).addSecs(-1);
     }
     else if ( dayFrom <= 0 ) {
-        _start = QDateTime( QDate( yearFrom, monthFrom, 1 ) );
-        _end = QDateTime( addMonth( yearFrom, monthFrom ) ).addSecs(-1);
+        m_start = QDateTime( QDate( yearFrom, monthFrom, 1 ) );
+        m_end = QDateTime( addMonth( yearFrom, monthFrom ) ).addSecs(-1);
     }
     else if ( hourFrom < 0 ) {
-        _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ) );
-        _end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ).addDays(1) ).addSecs(-1);
+        m_start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ) );
+        m_end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ).addDays(1) ).addSecs(-1);
     }
     else if ( minuteFrom < 0 ) {
-        _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, 0, 0 ) );
-        _end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, 23, 59 ) );
+        m_start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, 0, 0 ) );
+        m_end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, 23, 59 ) );
     }
     else if ( secondFrom < 0 ) {
-        _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, 0 ) );
-        _end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, 59 ) );
+        m_start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, 0 ) );
+        m_end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, 59 ) );
     }
     else {
-        _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, secondFrom ) );
-        _end =   _start;
+        m_start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, secondFrom ) );
+        m_end =   m_start;
     }
 
     if ( yearTo > 0 ) {
-        _end = QDateTime( QDate( yearTo +1 , 1, 1 ) ).addSecs( -1 );
+        m_end = QDateTime( QDate( yearTo +1 , 1, 1 ) ).addSecs( -1 );
 
         if ( monthTo > 0 ) {
-            _end = QDateTime( addMonth( yearTo, monthTo ) ).addSecs( -1 );
+            m_end = QDateTime( addMonth( yearTo, monthTo ) ).addSecs( -1 );
 
             if ( dayTo > 0 ) {
                 if ( dayFrom == dayTo && monthFrom == monthTo && yearFrom == yearTo )
-                    _end = _start;
+                    m_end = m_start;
                 else
-                    _end = QDateTime( QDate( yearTo, monthTo, dayTo ).addDays(1) ).addSecs(-1);
+                    m_end = QDateTime( QDate( yearTo, monthTo, dayTo ).addDays(1) ).addSecs(-1);
             }
         }
     }
@@ -295,7 +295,7 @@ QDate ImageDate::parseDate( const QString& date, bool startDate )
 
 bool ImageDate::hasValidTime() const
 {
-    return _start == _end;
+    return m_start == m_end;
 }
 
 ImageDate::ImageDate( const QDate& start, QDate end, const QTime& time )
@@ -304,12 +304,12 @@ ImageDate::ImageDate( const QDate& start, QDate end, const QTime& time )
         end = start;
 
     if ( start == end && time.isValid() ) {
-        _start = QDateTime( start, time );
-        _end = _start;
+        m_start = QDateTime( start, time );
+        m_end = m_start;
     }
     else {
-        _start = QDateTime( start, QTime( 0,0,0 ) );
-        _end = QDateTime( end, QTime( 23, 59, 59 ) );
+        m_start = QDateTime( start, QTime( 0,0,0 ) );
+        m_end = QDateTime( end, QTime( 23, 59, 59 ) );
     }
 }
 

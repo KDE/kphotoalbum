@@ -58,24 +58,24 @@ bool AnnotationDialog::ListViewItemHider::setItemsVisible( QTreeWidgetItem* pare
 }
 
 AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString& text, const AnnotationDialog::MatchType mt, QTreeWidget *listView )
-    :_text( text ), _matchType( mt )
+    :m_text( text ), m_matchType( mt )
 {
     setItemsVisible( listView->invisibleRootItem() );
 }
 
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item )
 {
-    switch ( _matchType )
+    switch ( m_matchType )
     {
         case AnnotationDialog::MatchFromBeginning:
-            return item->text(0).toLower().startsWith( _text.toLower() );
+            return item->text(0).toLower().startsWith( m_text.toLower() );
         case AnnotationDialog::MatchFromWordStart:
             {
                 QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
-                return any_of(words,  [this] (const QString& word) { return word.startsWith( _text.toLower()); } );
+                return any_of(words,  [this] (const QString& word) { return word.startsWith( m_text.toLower()); } );
             }
         case AnnotationDialog::MatchAnywhere:
-            return item->text(0).toLower().contains( _text.toLower() );
+            return item->text(0).toLower().contains( m_text.toLower() );
     }
     // gcc believes this could be reached
     Q_ASSERT( false );

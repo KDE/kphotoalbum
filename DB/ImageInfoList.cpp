@@ -30,25 +30,25 @@ class SortableImageInfo
 {
 public:
     SortableImageInfo(const QDateTime& datetime, const QString& string, const ImageInfoPtr &info)
-        : _dt(datetime), _st(string), _in(info) {}
+        : m_dt(datetime), m_st(string), m_in(info) {}
     SortableImageInfo(const SortableImageInfo& in)
-        : _dt(in._dt), _st(in._st), _in(in._in) {}
+        : m_dt(in.m_dt), m_st(in.m_st), m_in(in.m_in) {}
     SortableImageInfo() {}
     ~SortableImageInfo() {}
-    const QDateTime& DateTime(void) const { return _dt; }
-    const QString& String(void) const { return _st; }
-    const ImageInfoPtr& ImageInfo(void) const { return _in; }
-    bool operator== (const SortableImageInfo& other) const { return _dt == other._dt && _st == other._st; }
-    bool operator!= (const SortableImageInfo& other) const { return _dt != other._dt || _st != other._st; }
-    bool operator> (const SortableImageInfo& other) const { if (_dt != other._dt) { return _dt > other._dt; } else { return _st > other._st; }}
-    bool operator< (const SortableImageInfo& other) const { if (_dt != other._dt) { return _dt < other._dt; } else { return _st < other._st; }}
+    const QDateTime& DateTime(void) const { return m_dt; }
+    const QString& String(void) const { return m_st; }
+    const ImageInfoPtr& ImageInfo(void) const { return m_in; }
+    bool operator== (const SortableImageInfo& other) const { return m_dt == other.m_dt && m_st == other.m_st; }
+    bool operator!= (const SortableImageInfo& other) const { return m_dt != other.m_dt || m_st != other.m_st; }
+    bool operator> (const SortableImageInfo& other) const { if (m_dt != other.m_dt) { return m_dt > other.m_dt; } else { return m_st > other.m_st; }}
+    bool operator< (const SortableImageInfo& other) const { if (m_dt != other.m_dt) { return m_dt < other.m_dt; } else { return m_st < other.m_st; }}
     bool operator>= (const SortableImageInfo& other) const { return *this == other || *this > other; }
     bool operator<= (const SortableImageInfo& other) const { return *this == other || *this < other; }
 
 private:
-    QDateTime _dt;
-    QString _st;
-    ImageInfoPtr _in;
+    QDateTime m_dt;
+    QString m_st;
+    ImageInfoPtr m_in;
 };
 
 ImageInfoList ImageInfoList::sort() const

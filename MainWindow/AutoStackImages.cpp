@@ -38,7 +38,7 @@
 using namespace MainWindow;
 
 AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list )
-    :KDialog( parent ), _list( list )
+    :KDialog( parent ), m_list( list )
 {
     setWindowTitle( i18n("Automatically Stack Images" ) );
     setButtons( Cancel | Ok );
@@ -51,21 +51,21 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     lay1->addWidget( containerMd5 );
     QHBoxLayout* hlayMd5 = new QHBoxLayout( containerMd5 );
 
-    _matchingMD5 = new QCheckBox( i18n( "Stack images with identical MD5 sum") );
-    _matchingMD5->setChecked( false );
-    hlayMd5->addWidget( _matchingMD5 );
+    m_matchingMD5 = new QCheckBox( i18n( "Stack images with identical MD5 sum") );
+    m_matchingMD5->setChecked( false );
+    hlayMd5->addWidget( m_matchingMD5 );
 
     QWidget* containerFile = new QWidget( this );
     lay1->addWidget( containerFile );
     QHBoxLayout* hlayFile = new QHBoxLayout( containerFile );
 
-    _matchingFile = new QCheckBox( i18n( "Stack images based on file version detection") );
-    _matchingFile->setChecked( true );
-    hlayFile->addWidget( _matchingFile );
+    m_matchingFile = new QCheckBox( i18n( "Stack images based on file version detection") );
+    m_matchingFile->setChecked( true );
+    hlayFile->addWidget( m_matchingFile );
  
-    _origTop = new QCheckBox( i18n( "Original to top") );
-    _origTop ->setChecked( false );
-    hlayFile->addWidget( _origTop );
+    m_origTop = new QCheckBox( i18n( "Original to top") );
+    m_origTop ->setChecked( false );
+    hlayFile->addWidget( m_origTop );
 
     QWidget* containerContinuous = new QWidget( this );
     lay1->addWidget( containerContinuous );
@@ -75,15 +75,15 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     //to use a single sentence here like "Stack images that are (were?) shot
     //within this time:" and use the spin method setSuffix() to set the "seconds".
     //Also: Would minutes not be a more sane time unit here? (schwarzer)
-    _continuousShooting = new QCheckBox( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. So images that are shot in one burst are automatically stacked together. (This sentence is before the x.)", "Stack images that are shot within" ) );
-    _continuousShooting->setChecked( false );
-    hlayContinuous->addWidget( _continuousShooting );
+    m_continuousShooting = new QCheckBox( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. So images that are shot in one burst are automatically stacked together. (This sentence is before the x.)", "Stack images that are shot within" ) );
+    m_continuousShooting->setChecked( false );
+    hlayContinuous->addWidget( m_continuousShooting );
 
-    _continuousThreshold = new QSpinBox;
-    _continuousThreshold->setRange( 1, 999 );
-    _continuousThreshold->setSingleStep( 1 );
-    _continuousThreshold->setValue( 2 );
-    hlayContinuous->addWidget( _continuousThreshold );
+    m_continuousThreshold = new QSpinBox;
+    m_continuousThreshold->setRange( 1, 999 );
+    m_continuousThreshold->setSingleStep( 1 );
+    m_continuousThreshold->setValue( 2 );
+    hlayContinuous->addWidget( m_continuousThreshold );
 
     QLabel* sec = new QLabel( i18nc( "The whole sentence should read: *Stack images that are shot within x seconds of each other*. (This being the text after x.)", "seconds" ), containerContinuous );
     hlayContinuous->addWidget( sec );
@@ -92,17 +92,17 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     QVBoxLayout* grpLayOptions = new QVBoxLayout( grpOptions );
     lay1->addWidget( grpOptions );
 
-    _autostackDefault = new QRadioButton( i18n( "Include matching image to appropriate stack (if one exists)") );
-    _autostackDefault->setChecked( true );
-    grpLayOptions->addWidget( _autostackDefault );
+    m_autostackDefault = new QRadioButton( i18n( "Include matching image to appropriate stack (if one exists)") );
+    m_autostackDefault->setChecked( true );
+    grpLayOptions->addWidget( m_autostackDefault );
 
-    _autostackUnstack = new QRadioButton( i18n( "Unstack images from their current stack and create new one for the matches") );
-    _autostackUnstack->setChecked( false );
-    grpLayOptions->addWidget( _autostackUnstack );
+    m_autostackUnstack = new QRadioButton( i18n( "Unstack images from their current stack and create new one for the matches") );
+    m_autostackUnstack->setChecked( false );
+    grpLayOptions->addWidget( m_autostackUnstack );
 
-    _autostackSkip = new QRadioButton( i18n( "Skip images that are already in a stack") );
-    _autostackSkip->setChecked( false );
-    grpLayOptions->addWidget( _autostackSkip );
+    m_autostackSkip = new QRadioButton( i18n( "Skip images that are already in a stack") );
+    m_autostackSkip->setChecked( false );
+    grpLayOptions->addWidget( m_autostackSkip );
 }
 
 /*
@@ -117,7 +117,7 @@ void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
-    Q_FOREACH(const DB::FileName& fileName, _list) {
+    Q_FOREACH(const DB::FileName& fileName, m_list) {
         DB::MD5 sum = fileName.info()->MD5Sum();
         if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
             if (tostack[sum].isEmpty())
@@ -133,9 +133,9 @@ void AutoStackImages::matchingMD5( DB::FileNameList& toBeShown )
             DB::FileNameList stack;
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
                 if ( !DB::ImageDB::instance()->getStackFor( tostack[it.key()][i]).isEmpty() ) {
-                    if ( _autostackUnstack->isChecked() )
+                    if ( m_autostackUnstack->isChecked() )
                         DB::ImageDB::instance()->unstack( DB::FileNameList() << tostack[it.key()][i]);
-                    else if ( _autostackSkip->isChecked() )
+                    else if ( m_autostackSkip->isChecked() )
                         continue;
                 }
 
@@ -167,32 +167,32 @@ void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
 {
     QMap< DB::MD5, DB::FileNameList > tostack;
     DB::FileNameList showIfStacked;
-    QString _modifiedFileCompString;
-    QRegExp _modifiedFileComponent;
-    QStringList _originalFileComponents;
+    QString modifiedFileCompString;
+    QRegExp modifiedFileComponent;
+    QStringList originalFileComponents;
  
-    _modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
-    _modifiedFileComponent = QRegExp( _modifiedFileCompString );
+    modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
+    modifiedFileComponent = QRegExp( modifiedFileCompString );
 
-    _originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
-    _originalFileComponents = _originalFileComponents.at( 0 ).split( QString::fromLatin1(";") );
+    originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
+    originalFileComponents = originalFileComponents.at( 0 ).split( QString::fromLatin1(";") );
 
     // Stacking all images based on file version detection
     // First round prepares the stacking
-    Q_FOREACH( const DB::FileName& fileName, _list ) {
-        if ( _modifiedFileCompString.length() >= 0 &&
-            fileName.relative().contains( _modifiedFileComponent ) ) {
+    Q_FOREACH( const DB::FileName& fileName, m_list ) {
+        if ( modifiedFileCompString.length() >= 0 &&
+            fileName.relative().contains( modifiedFileComponent ) ) {
 
-            for( QStringList::const_iterator it = _originalFileComponents.constBegin();
-                 it != _originalFileComponents.constEnd(); ++it ) {
+            for( QStringList::const_iterator it = originalFileComponents.constBegin();
+                 it != originalFileComponents.constEnd(); ++it ) {
                 QString tmp = fileName.relative();
-                tmp.replace( _modifiedFileComponent, ( *it ));
+                tmp.replace( modifiedFileComponent, ( *it ));
                 DB::FileName originalFileName = DB::FileName::fromRelativePath( tmp );
 
-                if ( originalFileName != fileName && _list.contains( originalFileName ) ) {
+                if ( originalFileName != fileName && m_list.contains( originalFileName ) ) {
                     DB::MD5 sum = originalFileName.info()->MD5Sum();
                     if ( tostack[sum].isEmpty() ) {
-                        if ( _origTop->isChecked() ) {
+                        if ( m_origTop->isChecked() ) {
                             tostack.insert( sum, DB::FileNameList() << originalFileName );
                             tostack[sum].append( fileName );
                         } else {
@@ -213,9 +213,9 @@ void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
             DB::FileNameList stack;
             for ( int i = 0; i < tostack[it.key()].count(); ++i ) {
                 if ( !DB::ImageDB::instance()->getStackFor( tostack[it.key()][i]).isEmpty() ) {
-                    if ( _autostackUnstack->isChecked() )
+                    if ( m_autostackUnstack->isChecked() )
                         DB::ImageDB::instance()->unstack( DB::FileNameList() << tostack[it.key()][i]);
-                    else if ( _autostackSkip->isChecked() )
+                    else if ( m_autostackSkip->isChecked() )
                         continue;
                 }
 
@@ -246,25 +246,25 @@ void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
 void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
 {
     DB::ImageInfoPtr prev;
-    Q_FOREACH(const DB::FileName& fileName, _list) {
+    Q_FOREACH(const DB::FileName& fileName, m_list) {
         DB::ImageInfoPtr info = fileName.info();
         // Skipping images that do not have exact time stamp
         if ( info->date().start() != info->date().end() )
             continue;
-        if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < _continuousThreshold->value() ) ) {
+        if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < m_continuousThreshold->value() ) ) {
             DB::FileNameList stack;
 
             if ( !DB::ImageDB::instance()->getStackFor( prev->fileName() ).isEmpty() ) {
-                if ( _autostackUnstack->isChecked() )
+                if ( m_autostackUnstack->isChecked() )
                     DB::ImageDB::instance()->unstack( DB::FileNameList() << prev->fileName());
-                else if ( _autostackSkip->isChecked() )
+                else if ( m_autostackSkip->isChecked() )
                     continue;
             }
 
             if ( !DB::ImageDB::instance()->getStackFor(fileName).isEmpty() ) {
-                if ( _autostackUnstack->isChecked() )
+                if ( m_autostackUnstack->isChecked() )
                     DB::ImageDB::instance()->unstack( DB::FileNameList() << fileName);
-                else if ( _autostackSkip->isChecked() )
+                else if ( m_autostackSkip->isChecked() )
                     continue;
             }
 
@@ -300,11 +300,11 @@ void AutoStackImages::accept()
     Utilities::ShowBusyCursor dummy;
     DB::FileNameList toBeShown;
 
-    if ( _matchingMD5->isChecked() )
+    if ( m_matchingMD5->isChecked() )
         matchingMD5( toBeShown );
-    if ( _matchingFile->isChecked() )
+    if ( m_matchingFile->isChecked() )
         matchingFile( toBeShown );
-    if ( _continuousShooting->isChecked() )
+    if ( m_continuousShooting->isChecked() )
         continuousShooting( toBeShown );
 
     MainWindow::Window::theMainWindow()->showThumbNails(toBeShown);

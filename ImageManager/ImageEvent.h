@@ -33,8 +33,8 @@ public:
     QImage image();
 
 private:
-    ImageRequest* _request;
-    QImage _image;
+    ImageRequest* m_request;
+    QImage m_image;
 };
 
 const int ImageEventID = 1001;

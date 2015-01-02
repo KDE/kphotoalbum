@@ -70,12 +70,12 @@ private:
     ThumbnailWidget* widget() override;
 
 private:
-    static ThumbnailFacade* _instance;
-    CellGeometry* _cellGeometry;
-    ThumbnailModel* _model;
-    ThumbnailWidget* _widget;
-    ThumbnailPainter* _painter;
-    ThumbnailToolTip* _toolTip;
+    static ThumbnailFacade* s_instance;
+    CellGeometry* m_cellGeometry;
+    ThumbnailModel* m_model;
+    ThumbnailWidget* m_widget;
+    ThumbnailPainter* m_painter;
+    ThumbnailToolTip* m_toolTip;
 };
 }
 

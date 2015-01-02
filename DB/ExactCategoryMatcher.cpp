@@ -19,25 +19,25 @@
 #include "ImageInfo.h"
 
 DB::ExactCategoryMatcher::ExactCategoryMatcher( const QString category)
-    : _category(category), _matcher(nullptr)
+    : m_category(category), m_matcher(nullptr)
 {
 }
 
 DB::ExactCategoryMatcher::~ExactCategoryMatcher()
 {
-    if ( _matcher )
+    if ( m_matcher )
     {
-        delete _matcher;
-        _matcher = nullptr;
+        delete m_matcher;
+        m_matcher = nullptr;
     }
 }
 
 void DB::ExactCategoryMatcher::setMatcher( CategoryMatcher* subMatcher )
 {
-    _matcher = subMatcher;
-    if ( _matcher )
+    m_matcher = subMatcher;
+    if ( m_matcher )
         // always collect matched tags of _matcher:
-        _matcher->setShouldCreateMatchedSet( true );
+        m_matcher->setShouldCreateMatchedSet( true );
 }
 
 bool DB::ExactCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
@@ -45,18 +45,18 @@ bool DB::ExactCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
     // it makes no sense to put one ExactCategoryMatcher into another, so we ignore alreadyMatched.
     Q_UNUSED( alreadyMatched );
 
-    if ( ! _matcher )
+    if ( ! m_matcher )
         return false;
 
     QMap<QString, StringSet> matchedTags;
 
     // first, do a regular match and collect all matched Tags.
-    if (!_matcher->eval(info, matchedTags))
+    if (!m_matcher->eval(info, matchedTags))
         return false;
 
     // if the match succeeded, check if it is exact:
-    for (const QString& item: info->itemsOfCategory(_category))
-        if ( !matchedTags[_category].contains(item) )
+    for (const QString& item: info->itemsOfCategory(m_category))
+        if ( !matchedTags[m_category].contains(item) )
             return false; // tag was not contained in matcher
     return true;
 }
@@ -64,7 +64,7 @@ bool DB::ExactCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
 void DB::ExactCategoryMatcher::debug( int level ) const
 {
     qDebug("%sEXACT:", qPrintable(spaces(level)) );
-    _matcher->debug( level + 1 );
+    m_matcher->debug( level + 1 );
 }
 
 void DB::ExactCategoryMatcher::setShouldCreateMatchedSet(bool)

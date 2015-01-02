@@ -168,83 +168,84 @@ protected slots:
     void setCaptionWithDetail( const QString& detail );
 
 private:
-    static ViewerWidget* _latest;
+    static ViewerWidget* s_latest;
     friend class VideoShooter;
 
-    QList<KAction*> _forwardActions;
-    QList<KAction*> _backwardActions;
+    QList<KAction*> m_forwardActions;
+    QList<KAction*> m_backwardActions;
 
-    KAction* _startStopSlideShow;
-    KAction* _slideShowRunFaster;
-    KAction* _slideShowRunSlower;
-    KAction* _setStackHead;
-    KAction* _filterNone;
-    KAction* _filterSelected;
-    KAction* _filterBW;
-    KAction* _filterContrastStretch;
-    KAction* _filterHistogramEqualization;
-    KAction* _filterMono;
+    KAction* m_startStopSlideShow;
+    KAction* m_slideShowRunFaster;
+    KAction* m_slideShowRunSlower;
+    KAction* m_setStackHead;
+    KAction* m_filterNone;
+    KAction* m_filterSelected;
+    KAction* m_filterBW;
+    KAction* m_filterContrastStretch;
+    KAction* m_filterHistogramEqualization;
+    KAction* m_filterMono;
 
-    AbstractDisplay* _display;
-    ImageDisplay* _imageDisplay;
-    VideoDisplay* _videoDisplay;
-    TextDisplay* _textDisplay;
+    AbstractDisplay* m_display;
+    ImageDisplay* m_imageDisplay;
+    VideoDisplay* m_videoDisplay;
+    TextDisplay* m_textDisplay;
 
     int m_screenSaverCookie;
-    DB::FileNameList _list;
-    DB::FileNameList _removed;
-    int _current;
-    QRect _textRect;
-    QMenu* _popup;
-    QMenu* _rotateMenu;
-    QMenu* _wallpaperMenu;
-    QMenu* _filterMenu;
-    MainWindow::ExternalPopup* _externalPopup;
-    MainWindow::CategoryImagePopup* _categoryImagePopup;
-    int _width, _height;
-    QPixmap _pixmap;
+    DB::FileNameList m_list;
+    DB::FileNameList m_removed;
+    int m_current;
+    QRect m_textRect;
+    QMenu* m_popup;
+    QMenu* m_rotateMenu;
+    QMenu* m_wallpaperMenu;
+    QMenu* m_filterMenu;
+    MainWindow::ExternalPopup* m_externalPopup;
+    MainWindow::CategoryImagePopup* m_categoryImagePopup;
+    int m_width;
+    int m_height;
+    QPixmap m_pixmap;
 
-    KAction* _delete;
+    KAction* m_delete;
 #ifdef HAVE_EXIV2
-    KAction* _showExifViewer;
-    QPointer<Exif::InfoDialog> _exifViewer;
+    KAction* m_showExifViewer;
+    QPointer<Exif::InfoDialog> m_exifViewer;
 #endif
 
-    KAction* _copyTo;
+    KAction* m_copyTo;
 
-    InfoBox* _infoBox;
-    QImage _currentImage;
+    InfoBox* m_infoBox;
+    QImage m_currentImage;
 
-    bool _showingFullScreen;
+    bool m_showingFullScreen;
 
-    int _slideShowPause;
-    SpeedDisplay* _speedDisplay;
-    KActionCollection* _actions;
-    bool _forward;
-    QTimer* _slideShowTimer;
-    bool _isRunningSlideShow;
+    int m_slideShowPause;
+    SpeedDisplay* m_speedDisplay;
+    KActionCollection* m_actions;
+    bool m_forward;
+    QTimer* m_slideShowTimer;
+    bool m_isRunningSlideShow;
 
-    QList<QAction*> _videoActions;
-    KAction* _stop;
-    KAction* _playPause;
-    KAction* _makeThumbnailImage;
-    bool _videoPlayerStoppedManually;
-    UsageType _type;
+    QList<QAction*> m_videoActions;
+    KAction* m_stop;
+    KAction* m_playPause;
+    KAction* m_makeThumbnailImage;
+    bool m_videoPlayerStoppedManually;
+    UsageType m_type;
 
     enum InputMode { InACategory, AlwaysStartWithCategory };
 
-    InputMode _currentInputMode;
-    QString _currentInput;
-    QString _currentCategory;
-    QString _currentInputList;
+    InputMode m_currentInputMode;
+    QString m_currentInput;
+    QString m_currentCategory;
+    QString m_currentInputList;
 
-    QString _lastFound;
-    QString _lastCategory;
-    QMap<Qt::Key, QPair<QString,QString> >* _inputMacros;
-    QMap<Qt::Key, QPair<QString,QString> >* _myInputMacros;
+    QString m_lastFound;
+    QString m_lastCategory;
+    QMap<Qt::Key, QPair<QString,QString> >* m_inputMacros;
+    QMap<Qt::Key, QPair<QString,QString> >* m_myInputMacros;
 
     void addTaggedAreas();
-    QMap<QString, QString> _categoryL10n;
+    QMap<QString, QString> m_categoryL10n;
 };
 
 }

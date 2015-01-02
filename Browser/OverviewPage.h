@@ -75,9 +75,9 @@ private:
     BrowserPage* activateUntaggedImagesAction();
 
 private:
-    QMap<int,DB::MediaCount> _count;
-    static AnnotationDialog::Dialog* _config;
-    Breadcrumb _breadcrumb;
+    QMap<int,DB::MediaCount> m_count;
+    static AnnotationDialog::Dialog* s_config;
+    Breadcrumb m_breadcrumb;
 };
 
 }

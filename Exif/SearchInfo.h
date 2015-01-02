@@ -58,11 +58,11 @@ protected:
 
 private:
     typedef QList< QPair<QString, IntList> > IntKeyList;
-    IntKeyList _intKeys;
-    QList<Range> _rangeKeys;
-    CameraList _cameras;
-    mutable DB::FileNameSet _matches;
-    mutable bool _emptyQuery;
+    IntKeyList m_intKeys;
+    QList<Range> m_rangeKeys;
+    CameraList m_cameras;
+    mutable DB::FileNameSet m_matches;
+    mutable bool m_emptyQuery;
 };
 
 }

@@ -39,25 +39,25 @@
 #include <QStackedWidget>
 #include "DB/CategoryCollection.h"
 
-Browser::BrowserWidget* Browser::BrowserWidget::_instance = nullptr;
-bool Browser::BrowserWidget::_isResizing = false;
+Browser::BrowserWidget* Browser::BrowserWidget::s_instance = nullptr;
+bool Browser::BrowserWidget::s_isResizing = false;
 
 
 Browser::BrowserWidget::BrowserWidget( QWidget* parent )
-    :QWidget( parent ), _current(-1)
+    :QWidget( parent ), m_current(-1)
 {
-    Q_ASSERT( !_instance );
-    _instance = this;
+    Q_ASSERT( !s_instance );
+    s_instance = this;
 
     createWidgets();
 
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryCollectionChanged()), this, SLOT(reload()) );
     connect( this, SIGNAL(viewChanged()), this, SLOT(resetIconViewSearch()) );
 
-    _filterProxy = new TreeFilter(this);
-    _filterProxy->setFilterKeyColumn(0);
-    _filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
-    _filterProxy->setSortRole( ValueRole );
+    m_filterProxy = new TreeFilter(this);
+    m_filterProxy->setFilterKeyColumn(0);
+    m_filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
+    m_filterProxy->setSortRole( ValueRole );
 
     addAction( new OverviewPage( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     QTimer::singleShot( 0, this, SLOT(emitSignals()) );
@@ -65,11 +65,11 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
 void Browser::BrowserWidget::forward()
 {
-    int cur = _current;
-    while ( cur < _list.count()-1 ) {
+    int cur = m_current;
+    while ( cur < m_list.count()-1 ) {
         cur++;
-        if ( _list[cur]->showDuringMovement() ) {
-            _current = cur;
+        if ( m_list[cur]->showDuringMovement() ) {
+            m_current = cur;
             break;
         }
     }
@@ -78,8 +78,8 @@ void Browser::BrowserWidget::forward()
 
 void Browser::BrowserWidget::back()
 {
-    while ( _current > 0 ) {
-        _current--;
+    while ( m_current > 0 ) {
+        m_current--;
         if ( currentAction()->showDuringMovement() )
             break;
     }
@@ -107,21 +107,21 @@ void Browser::BrowserWidget::addImageView( const DB::FileName& context )
 
 void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
 {
-    while ( (int) _list.count() > _current+1 ) {
-        BrowserPage* m = _list.back();
-        _list.pop_back();
+    while ( (int) m_list.count() > m_current+1 ) {
+        BrowserPage* m = m_list.back();
+        m_list.pop_back();
         delete m;
     }
 
-    _list.append(action);
-    _current++;
+    m_list.append(action);
+    m_current++;
     go();
 }
 
 void Browser::BrowserWidget::emitSignals()
 {
-    emit canGoBack( _current > 0 );
-    emit canGoForward( _current < (int)_list.count()-1 );
+    emit canGoBack( m_current > 0 );
+    emit canGoForward( m_current < (int)m_list.count()-1 );
     if ( currentAction()->viewer() == ShowBrowser )
         emit showingOverview();
 
@@ -154,8 +154,8 @@ void Browser::BrowserWidget::reload()
 
 Browser::BrowserWidget* Browser::BrowserWidget::instance()
 {
-    Q_ASSERT( _instance );
-    return _instance;
+    Q_ASSERT( s_instance );
+    return s_instance;
 }
 
 void Browser::BrowserWidget::load( const QString& category, const QString& value )
@@ -204,7 +204,7 @@ void Browser::BrowserWidget::slotLargeIconView()
 
 void Browser::BrowserWidget::changeViewTypeForCurrentView( DB::Category::ViewType type )
 {
-    Q_ASSERT( _list.size() > 0 );
+    Q_ASSERT( m_list.size() > 0 );
 
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory() );
     Q_ASSERT( category.data() );
@@ -216,7 +216,7 @@ void Browser::BrowserWidget::changeViewTypeForCurrentView( DB::Category::ViewTyp
 
 void Browser::BrowserWidget::setFocus()
 {
-    _curView->setFocus();
+    m_curView->setFocus();
 }
 
 QString Browser::BrowserWidget::currentCategory() const
@@ -229,40 +229,40 @@ QString Browser::BrowserWidget::currentCategory() const
 
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
 {
-    _filterProxy->resetCache();
-    _filterProxy->setFilterFixedString( str );
+    m_filterProxy->resetCache();
+    m_filterProxy->setFilterFixedString( str );
     setBranchOpen(QModelIndex(), true);
     adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()
 {
-    _filterProxy->resetCache();
-    _filterProxy->setFilterRegExp( QString() );
+    m_filterProxy->resetCache();
+    m_filterProxy->setFilterRegExp( QString() );
     adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::slotInvokeSeleted()
 {
-    if ( !_curView->currentIndex().isValid() ) {
-        if ( _filterProxy->rowCount( QModelIndex() ) == 0 ) {
+    if ( !m_curView->currentIndex().isValid() ) {
+        if ( m_filterProxy->rowCount( QModelIndex() ) == 0 ) {
             // Absolutely nothing to see here :-)
             return;
         }
         else {
             // Use the first item
-            itemClicked( _filterProxy->index( 0,0,QModelIndex() ) );
+            itemClicked( m_filterProxy->index( 0,0,QModelIndex() ) );
         }
     }
     else
-        itemClicked( _curView->currentIndex() );
+        itemClicked( m_curView->currentIndex() );
 }
 
 
 void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 {
     Utilities::ShowBusyCursor busy;
-    BrowserPage* action = currentAction()->activateChild( _filterProxy->mapToSource( index ) );
+    BrowserPage* action = currentAction()->activateChild( m_filterProxy->mapToSource( index ) );
     if ( action )
         addAction( action );
 }
@@ -270,61 +270,61 @@ void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 
 Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 {
-    return _list[_current];
+    return m_list[m_current];
 }
 
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 {
-    _filterProxy->setSourceModel( model );
+    m_filterProxy->setSourceModel( model );
 }
 
 void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
-    if ( _curView ) {
-        _curView->setModel(0);
-        disconnect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+    if ( m_curView ) {
+        m_curView->setModel(0);
+        disconnect( m_curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     }
 
     if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
-        _curView = _treeView;
+        m_curView = m_treeView;
     }
     else {
-        _curView =_listView;
-        _filterProxy->invalidate();
-        _filterProxy->sort( 0, Qt::AscendingOrder );
+        m_curView =m_listView;
+        m_filterProxy->invalidate();
+        m_filterProxy->sort( 0, Qt::AscendingOrder );
 
-        _listView->setViewMode(dynamic_cast<OverviewPage*>(currentAction()) == 0 ?
+        m_listView->setViewMode(dynamic_cast<OverviewPage*>(currentAction()) == 0 ?
                                CenteringIconView::NormalIconView : CenteringIconView::CenterView );
     }
 
     if ( CategoryPage* action = dynamic_cast<CategoryPage*>( currentAction() ) ) {
         const int size = action->category()->thumbnailSize();
-        _curView->setIconSize( QSize(size,size) );
-//        _curView->setGridSize( QSize( size+10, size+10 ) );
+        m_curView->setIconSize( QSize(size,size) );
+//        m_curView->setGridSize( QSize( size+10, size+10 ) );
     }
 
 
     // Hook up the new view
-    _curView->setModel( _filterProxy );
-    connect( _curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+    m_curView->setModel( m_filterProxy );
+    connect( m_curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
 
 
-    _stack->setCurrentWidget( _curView );
+    m_stack->setCurrentWidget( m_curView );
     adjustTreeViewColumnSize();
 }
 
 void Browser::BrowserWidget::setBranchOpen( const QModelIndex& parent, bool open )
 {
-    if ( _curView != _treeView )
+    if ( m_curView != m_treeView )
         return;
 
-    const int count = _filterProxy->rowCount(parent);
+    const int count = m_filterProxy->rowCount(parent);
     if ( count > 5 )
         open = false;
 
-    _treeView->setExpanded( parent, open );
+    m_treeView->setExpanded( parent, open );
     for ( int row = 0; row < count; ++row )
-        setBranchOpen( _filterProxy->index( row, 0 ,parent ), open );
+        setBranchOpen( m_filterProxy->index( row, 0 ,parent ), open );
 }
 
 
@@ -332,8 +332,8 @@ Browser::BreadcrumbList Browser::BrowserWidget::createPath() const
 {
     BreadcrumbList result;
 
-    for ( int i = 0; i <= _current; ++i )
-        result.append(_list[i]->breadcrumb() );
+    for ( int i = 0; i <= m_current; ++i )
+        result.append(m_list[i]->breadcrumb() );
 
     return result;
 }
@@ -341,56 +341,56 @@ Browser::BreadcrumbList Browser::BrowserWidget::createPath() const
 void Browser::BrowserWidget::widenToBreadcrumb( const Browser::Breadcrumb& breadcrumb )
 {
     while ( currentAction()->breadcrumb() != breadcrumb )
-        _current--;
+        m_current--;
     go();
 }
 
 void Browser::BrowserWidget::adjustTreeViewColumnSize()
 {
-    _treeView->header()->resizeSections(QHeaderView::ResizeToContents);
+    m_treeView->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 
 void Browser::BrowserWidget::createWidgets()
 {
-    _stack = new QStackedWidget;
+    m_stack = new QStackedWidget;
     QHBoxLayout* layout = new QHBoxLayout( this );
     layout->setContentsMargins(0,0,0,0);
-    layout->addWidget( _stack );
+    layout->addWidget( m_stack );
 
-    _listView = new CenteringIconView ( _stack );
-    _listView->setIconSize( QSize(100,75) );
-    _listView->setSelectionMode( QListView::SingleSelection );
-    _listView->setSpacing(10);
-    _listView->setUniformItemSizes(true);
-    _listView->setResizeMode( QListView::Adjust );
-    _stack->addWidget( _listView );
+    m_listView = new CenteringIconView ( m_stack );
+    m_listView->setIconSize( QSize(100,75) );
+    m_listView->setSelectionMode( QListView::SingleSelection );
+    m_listView->setSpacing(10);
+    m_listView->setUniformItemSizes(true);
+    m_listView->setResizeMode( QListView::Adjust );
+    m_stack->addWidget( m_listView );
 
 
-    _treeView = new QTreeView( _stack );
+    m_treeView = new QTreeView( m_stack );
 
-    QPalette pal = _treeView->palette();
+    QPalette pal = m_treeView->palette();
     pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Background ) );
-    _treeView->setPalette( pal );
+    m_treeView->setPalette( pal );
 
-    _treeView->header()->setStretchLastSection(false);
-    _treeView->header()->setSortIndicatorShown(true);
-    _treeView->setSortingEnabled(true);
-    _treeView->sortByColumn( 0, Qt::AscendingOrder );
-    _stack->addWidget( _treeView );
+    m_treeView->header()->setStretchLastSection(false);
+    m_treeView->header()->setSortIndicatorShown(true);
+    m_treeView->setSortingEnabled(true);
+    m_treeView->sortByColumn( 0, Qt::AscendingOrder );
+    m_stack->addWidget( m_treeView );
 
     // Do not give focus to the widgets when they are scrolled with the wheel.
-    _listView->setFocusPolicy( Qt::StrongFocus );
-    _treeView->setFocusPolicy( Qt::StrongFocus );
+    m_listView->setFocusPolicy( Qt::StrongFocus );
+    m_treeView->setFocusPolicy( Qt::StrongFocus );
 
-    _treeView->installEventFilter( this );
-    _treeView->viewport()->installEventFilter( this );
-    _listView->installEventFilter( this );
-    _listView->viewport()->installEventFilter( this );
+    m_treeView->installEventFilter( this );
+    m_treeView->viewport()->installEventFilter( this );
+    m_listView->installEventFilter( this );
+    m_listView->viewport()->installEventFilter( this );
 
-    connect( _treeView, SIGNAL(expanded(QModelIndex)), SLOT(adjustTreeViewColumnSize()) );
+    connect( m_treeView, SIGNAL(expanded(QModelIndex)), SLOT(adjustTreeViewColumnSize()) );
 
-    _curView = nullptr;
+    m_curView = nullptr;
 }
 
 bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
@@ -398,8 +398,8 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
     if ( event->type() == QEvent::KeyPress ) {
         QKeyEvent* ke = static_cast<QKeyEvent*>( event );
         if ( ke->key() == Qt::Key_Return ) {
-            if ( _curView == obj )
-                itemClicked( _curView->currentIndex() );
+            if ( m_curView == obj )
+                itemClicked( m_curView->currentIndex() );
         }
     }
 
@@ -418,7 +418,7 @@ bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
 
 void Browser::BrowserWidget::scrollKeyPressed( QKeyEvent* event )
 {
-    QApplication::sendEvent(_curView, event );
+    QApplication::sendEvent(m_curView, event );
 }
 
 void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
@@ -435,23 +435,23 @@ void Browser::BrowserWidget::handleResizeEvent( QMouseEvent* event )
         return;
 
     if ( event->type() ==  QEvent::MouseButtonPress ) {
-        _resizePressPos = event->pos();
+        m_resizePressPos = event->pos();
         offset = category->thumbnailSize();
-        _isResizing = true;
+        s_isResizing = true;
     }
 
     else if ( event->type() == QEvent::MouseMove  ) {
-        int distance = (event->pos() - _resizePressPos).x() + (event->pos() - _resizePressPos).y() / 3;
+        int distance = (event->pos() - m_resizePressPos).x() + (event->pos() - m_resizePressPos).y() / 3;
         int size = distance + offset;
         size = qMax( qMin( 512, size ), 32 );
         action->category()->setThumbnailSize( size );
 
-        _curView->setIconSize( QSize(size,size) );
-        _filterProxy->invalidate();
+        m_curView->setIconSize( QSize(size,size) );
+        m_filterProxy->invalidate();
         adjustTreeViewColumnSize();
     }
     else if ( event->type() == QEvent::MouseButtonRelease  ) {
-        _isResizing = false;
+        s_isResizing = false;
         update();
     }
 }

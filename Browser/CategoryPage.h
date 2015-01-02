@@ -47,8 +47,8 @@ public:
     DB::CategoryPtr category() const;
 
 private:
-    const DB::CategoryPtr _category;
-    QAbstractItemModel* _model;
+    const DB::CategoryPtr m_category;
+    QAbstractItemModel* m_model;
 };
 
 }

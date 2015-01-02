@@ -27,27 +27,27 @@
 #include "ImageViewPage.h"
 
 Browser::CategoryPage::CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserPage( info, browser ), _category( category ), _model( nullptr )
+    : BrowserPage( info, browser ), m_category( category ), m_model( nullptr )
 {
 }
 
 void Browser::CategoryPage::activate()
 {
-    delete _model;
-    if ( _category->viewType() == DB::Category::TreeView || _category->viewType() == DB::Category::ThumbedTreeView )
-        _model = new TreeCategoryModel( _category, searchInfo() );
+    delete m_model;
+    if ( m_category->viewType() == DB::Category::TreeView || m_category->viewType() == DB::Category::ThumbedTreeView )
+        m_model = new TreeCategoryModel( m_category, searchInfo() );
     else
-        _model = new FlatCategoryModel( _category, searchInfo() );
+        m_model = new FlatCategoryModel( m_category, searchInfo() );
 
-    browser()->setModel( _model );
+    browser()->setModel( m_model );
 }
 
 Browser::BrowserPage* Browser::CategoryPage::activateChild( const QModelIndex& index )
 {
-    const QString name = _model->data( index, ItemNameRole ).value<QString>();
+    const QString name = m_model->data( index, ItemNameRole ).value<QString>();
     DB::ImageSearchInfo info = searchInfo();
 
-    info.addAnd( _category->name(), name );
+    info.addAnd( m_category->name(), name );
     if (static_cast<uint>(DB::ImageDB::instance()->search(info).size()) <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
         browser()->addAction( new Browser::OverviewPage( Breadcrumb(name), info, browser() ) );
         return new ImageViewPage( info, browser() );
@@ -57,12 +57,12 @@ Browser::BrowserPage* Browser::CategoryPage::activateChild( const QModelIndex& i
 
 DB::CategoryPtr Browser::CategoryPage::category() const
 {
-    return _category;
+    return m_category;
 }
 
 DB::Category::ViewType Browser::CategoryPage::viewType() const
 {
-    return _category->viewType();
+    return m_category->viewType();
 }
 
 bool Browser::CategoryPage::isViewChangeable() const

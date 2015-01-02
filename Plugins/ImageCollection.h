@@ -46,7 +46,7 @@ protected:
     KUrl commonRoot();
 
 private:
-    Type _tp;
+    Type m_type;
 };
 
 }

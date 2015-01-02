@@ -38,53 +38,53 @@ using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _date( date), _label( label ), _description( description ), _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
+    : m_date( date), m_label( label ), m_description( description ), m_rating( -1 ), m_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false )
 {
 }
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description,
                   const QString& fnPattern )
-    : _date( date), _label( label ), _description( description ), _fnPattern( fnPattern ), _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( false ), _compiled( false )
+    : m_date( date), m_label( label ), m_description( description ), m_fnPattern( fnPattern ), m_rating( -1 ), m_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false )
 {
 }
 
 QString ImageSearchInfo::label() const
 {
-    return _label;
+    return m_label;
 }
 
 QRegExp ImageSearchInfo::fnPattern() const
 {
-    return _fnPattern;
+    return m_fnPattern;
 }
 
 QString ImageSearchInfo::description() const
 {
-    return _description;
+    return m_description;
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _rating( -1 ), _megapixel( 0 ), ratingSearchMode( 0 ), _searchRAW( false ), _isNull( true ), _compiled( false )
+    : m_rating( -1 ), m_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_compiled( false )
 {
 }
 
 bool ImageSearchInfo::isNull() const
 {
-    return _isNull;
+    return m_isNull;
 }
 
 bool ImageSearchInfo::match( ImageInfoPtr info ) const
 {
-    if ( _isNull )
+    if ( m_isNull )
         return true;
 
-    if ( !_compiled )
+    if ( !m_compiled )
         compile();
 
     bool ok = true;
 #ifdef HAVE_EXIV2
-    ok = _exifSearchInfo.matches( info->fileName() );
+    ok = m_exifSearchInfo.matches( info->fileName() );
 #endif
 
     QDateTime actualStart = info->date().start();
@@ -95,21 +95,21 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
         actualEnd = tmp;
     }
 
-    if ( !_date.start().isNull() ) {
+    if ( !m_date.start().isNull() ) {
         // Date
         // the search date matches the actual date if:
         // actual.start <= search.start <= actuel.end or
         // actual.start <= search.end <=actuel.end or
         // search.start <= actual.start and actual.end <= search.end
 
-        bool b1 =( actualStart <= _date.start() && _date.start() <= actualEnd );
-        bool b2 =( actualStart <= _date.end() && _date.end() <= actualEnd );
-        bool b3 = ( _date.start() <= actualStart && ( actualEnd <= _date.end() || _date.end().isNull() ) );
+        bool b1 =( actualStart <= m_date.start() && m_date.start() <= actualEnd );
+        bool b2 =( actualStart <= m_date.end() && m_date.end() <= actualEnd );
+        bool b3 = ( m_date.start() <= actualStart && ( actualEnd <= m_date.end() || m_date.end().isNull() ) );
 
         ok = ok && ( ( b1 || b2 || b3 ) );
-    } else if ( !_date.end().isNull() ) {
-        bool b1 = ( actualStart <= _date.end() && _date.end() <= actualEnd );
-        bool b2 = ( actualEnd <= _date.end() );
+    } else if ( !m_date.end().isNull() ) {
+        bool b1 = ( actualStart <= m_date.end() && m_date.end() <= actualEnd );
+        bool b2 = ( actualEnd <= m_date.end() );
         ok = ok && ( ( b1 || b2 ) );
     }
 
@@ -117,57 +117,57 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // alreadyMatched map is used to make it possible to search for
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
-    for (CategoryMatcher* optionMatcher : _categoryMatchers) {
+    for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
         ok = ok && optionMatcher->eval(info, alreadyMatched);
     }
 
 
     // -------------------------------------------------- Label
-    ok = ok && ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
+    ok = ok && ( m_label.isEmpty() || info->label().indexOf(m_label) != -1 );
 
     // -------------------------------------------------- RAW
-    ok = ok && ( _searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
+    ok = ok && ( m_searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
 
     // -------------------------------------------------- Rating
 
     //ok = ok && (_rating == -1 ) || ( _rating == info->rating() );
-    if (_rating != -1) {
-    switch( ratingSearchMode ) {
+    if (m_rating != -1) {
+    switch( m_ratingSearchMode ) {
         case 1:
         // Image rating at least selected
-        ok = ok && ( _rating <= info->rating() );
+        ok = ok && ( m_rating <= info->rating() );
         break;
         case 2:
         // Image rating less than selected
-        ok = ok && ( _rating >= info->rating() );
+        ok = ok && ( m_rating >= info->rating() );
         break;
         case 3:
         // Image rating not equal
-        ok = ok && ( _rating != info->rating() );
+        ok = ok && ( m_rating != info->rating() );
         break;
         default:
-            ok = ok && ((_rating == -1 ) || ( _rating == info->rating() ));
+            ok = ok && ((m_rating == -1 ) || ( m_rating == info->rating() ));
         break;
     }
     }
 
 
     // -------------------------------------------------- Resolution
-    if ( _megapixel )
-        ok = ok && ( _megapixel * 1000000 <= info->size().width() * info->size().height() );
+    if ( m_megapixel )
+        ok = ok && ( m_megapixel * 1000000 <= info->size().width() * info->size().height() );
 
     // -------------------------------------------------- Text
     QString txt = info->description();
-    if ( !_description.isEmpty() ) {
-        QStringList list = _description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
+    if ( !m_description.isEmpty() ) {
+        QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
             ok = ok && ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
         }
     }
 
     // -------------------------------------------------- File name pattern
-    ok = ok && ( _fnPattern.isEmpty() ||
-        _fnPattern.indexIn( info->fileName().relative() ) != -1 );
+    ok = ok && ( m_fnPattern.isEmpty() ||
+        m_fnPattern.indexIn( info->fileName().relative() ) != -1 );
 
     return ok;
 }
@@ -175,14 +175,14 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
 QString ImageSearchInfo::categoryMatchText( const QString& name ) const
 {
-    return _categoryMatchText[name];
+    return m_categoryMatchText[name];
 }
 
 void ImageSearchInfo::setCategoryMatchText( const QString& name, const QString& value )
 {
-    _categoryMatchText[name] = value;
-    _isNull = false;
-    _compiled = false;
+    m_categoryMatchText[name] = value;
+    m_isNull = false;
+    m_compiled = false;
 }
 
 void ImageSearchInfo::addAnd( const QString& category, const QString& value )
@@ -198,30 +198,30 @@ void ImageSearchInfo::addAnd( const QString& category, const QString& value )
         val = escapedValue;
 
     setCategoryMatchText( category, val );
-    _isNull = false;
-    _compiled = false;
+    m_isNull = false;
+    m_compiled = false;
 }
 
 void ImageSearchInfo::setRating( short rating )
 {
-  _rating = rating;
-  _isNull = false;
-  _compiled = false;
+  m_rating = rating;
+  m_isNull = false;
+  m_compiled = false;
 }
 
 void ImageSearchInfo::setMegaPixel( short megapixel )
 {
-  _megapixel = megapixel;
+  m_megapixel = megapixel;
 }
 
 void ImageSearchInfo::setSearchMode(int index)
 {
-  ratingSearchMode = index;
+  m_ratingSearchMode = index;
 }
 
 void ImageSearchInfo::setSearchRAW( bool searchRAW )
 {
-  _searchRAW = searchRAW;
+  m_searchRAW = searchRAW;
 }
 
 
@@ -229,7 +229,7 @@ QString ImageSearchInfo::toString() const
 {
     QString res;
     bool first = true;
-    for( QMap<QString,QString>::ConstIterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it= m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
         if ( ! it.value().isEmpty() ) {
             if ( first )
                 first = false;
@@ -263,7 +263,7 @@ QString ImageSearchInfo::toString() const
 
 void ImageSearchInfo::debug()
 {
-    for( QMap<QString,QString>::Iterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
+    for( QMap<QString,QString>::Iterator it= m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
         kDebug() << it.key() << ", " << it.value();
     }
 }
@@ -272,10 +272,10 @@ void ImageSearchInfo::debug()
 void ImageSearchInfo::saveLock() const
 {
     KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings"));
-    config.writeEntry( QString::fromLatin1("label"), _label );
-    config.writeEntry( QString::fromLatin1("description"), _description );
-    config.writeEntry( QString::fromLatin1("categories"), _categoryMatchText.keys() );
-    for( QMap<QString,QString>::ConstIterator it= _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
+    config.writeEntry( QString::fromLatin1("label"), m_label );
+    config.writeEntry( QString::fromLatin1("description"), m_description );
+    config.writeEntry( QString::fromLatin1("categories"), m_categoryMatchText.keys() );
+    for( QMap<QString,QString>::ConstIterator it= m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
         config.writeEntry( it.key(), it.value() );
     }
     config.sync();
@@ -285,8 +285,8 @@ ImageSearchInfo ImageSearchInfo::loadLock()
 {
     KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings" ));
     ImageSearchInfo info;
-    info._label = config.readEntry( "label" );
-    info._description = config.readEntry( "description" );
+    info.m_label = config.readEntry( "label" );
+    info.m_description = config.readEntry( "description" );
     QStringList categories = config.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
     for( QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
         info.setCategoryMatchText( *it, config.readEntry<QString>( *it, QString() ) );
@@ -296,30 +296,30 @@ ImageSearchInfo ImageSearchInfo::loadLock()
 
 ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
 {
-    _date = other._date;
-    _categoryMatchText = other._categoryMatchText;
-    _label = other._label;
-    _description = other._description;
-    _fnPattern = other._fnPattern;
-    _isNull = other._isNull;
-    _compiled = false;
-    _rating = other._rating;
-    ratingSearchMode = other.ratingSearchMode;
-    _megapixel = other._megapixel;
-    _searchRAW = other._searchRAW;
+    m_date = other.m_date;
+    m_categoryMatchText = other.m_categoryMatchText;
+    m_label = other.m_label;
+    m_description = other.m_description;
+    m_fnPattern = other.m_fnPattern;
+    m_isNull = other.m_isNull;
+    m_compiled = false;
+    m_rating = other.m_rating;
+    m_ratingSearchMode = other.m_ratingSearchMode;
+    m_megapixel = other.m_megapixel;
+    m_searchRAW = other.m_searchRAW;
 #ifdef HAVE_EXIV2
-    _exifSearchInfo = other._exifSearchInfo;
+    m_exifSearchInfo = other.m_exifSearchInfo;
 #endif
 }
 
 void ImageSearchInfo::compile() const
 {
 #ifdef HAVE_EXIV2
-    _exifSearchInfo.search();
+    m_exifSearchInfo.search();
 #endif
     deleteMatchers();
 
-    for( QMap<QString,QString>::ConstIterator it = _categoryMatchText.begin(); it != _categoryMatchText.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it = m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
         QString category = it.key();
         QString matchText = it.value();
 
@@ -363,15 +363,15 @@ void ImageSearchInfo::compile() const
                 DB::CategoryMatcher *exactMatcher = nullptr;
                 // if andMatcher has exactMatch set, but no CategoryMatchers, then
                 // matching "category / None" is what we want:
-                if ( andMatcher->_elements.count() == 0 )
+                if ( andMatcher->mp_elements.count() == 0 )
                 {
                     exactMatcher = new DB::NoTagCategoryMatcher( category );
                 }
                 else
                 {
                     ExactCategoryMatcher *noOtherMatcher = new ExactCategoryMatcher( category );
-                    if ( andMatcher->_elements.count() == 1 )
-                        noOtherMatcher->setMatcher( andMatcher->_elements[0] );
+                    if ( andMatcher->mp_elements.count() == 1 )
+                        noOtherMatcher->setMatcher( andMatcher->mp_elements[0] );
                     else
                         noOtherMatcher->setMatcher( andMatcher );
                     exactMatcher = noOtherMatcher;
@@ -381,20 +381,20 @@ void ImageSearchInfo::compile() const
                 orMatcher->addElement( exactMatcher );
             }
             else
-                if ( andMatcher->_elements.count() == 1 )
-                    orMatcher->addElement( andMatcher->_elements[0] );
-                else if ( andMatcher->_elements.count() > 1 )
+                if ( andMatcher->mp_elements.count() == 1 )
+                    orMatcher->addElement( andMatcher->mp_elements[0] );
+                else if ( andMatcher->mp_elements.count() > 1 )
                     orMatcher->addElement( andMatcher );
         }
         CategoryMatcher* matcher = nullptr;
-        if ( orMatcher->_elements.count() == 1 )
-            matcher = orMatcher->_elements[0];
-        else if ( orMatcher->_elements.count() > 1 )
+        if ( orMatcher->mp_elements.count() == 1 )
+            matcher = orMatcher->mp_elements[0];
+        else if ( orMatcher->mp_elements.count() > 1 )
             matcher = orMatcher;
 
 
         if ( matcher )
-            _categoryMatchers.append( matcher );
+            m_categoryMatchers.append( matcher );
 #ifdef DEBUG_CATEGORYMATCHERS
         if ( matcher )
         {
@@ -404,7 +404,7 @@ void ImageSearchInfo::compile() const
         }
 #endif
     }
-    _compiled = true;
+    m_compiled = true;
 }
 
 ImageSearchInfo::~ImageSearchInfo()
@@ -414,32 +414,32 @@ ImageSearchInfo::~ImageSearchInfo()
 
 void ImageSearchInfo::debugMatcher() const
 {
-    if ( !_compiled )
+    if ( !m_compiled )
         compile();
 
     qDebug("And:");
-    for (CategoryMatcher* optionMatcher : _categoryMatchers) {
+    for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
         optionMatcher->debug(1);
     }
 }
 
 QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::query() const
 {
-    if ( !_compiled )
+    if ( !m_compiled )
         compile();
 
     // Combine _optionMachers to one list of lists in Disjunctive
     // Normal Form and return it.
 
-    QList<CategoryMatcher*>::Iterator it  = _categoryMatchers.begin();
+    QList<CategoryMatcher*>::Iterator it  = m_categoryMatchers.begin();
     QList<QList<SimpleCategoryMatcher*> > result;
-    if ( it == _categoryMatchers.end() )
+    if ( it == m_categoryMatchers.end() )
         return result;
 
     result = convertMatcher( *it );
     ++it;
 
-    for( ; it != _categoryMatchers.end(); ++it ) {
+    for( ; it != m_categoryMatchers.end(); ++it ) {
         QList<QList<SimpleCategoryMatcher*> > current = convertMatcher( *it );
         QList<QList<SimpleCategoryMatcher*> > oldResult = result;
         result.clear();
@@ -475,8 +475,8 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched( const QString &group )
 
 void ImageSearchInfo::deleteMatchers() const
 {
-    qDeleteAll(_categoryMatchers);
-    _categoryMatchers.clear();
+    qDeleteAll(m_categoryMatchers);
+    m_categoryMatchers.clear();
 }
 
 QList<SimpleCategoryMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
@@ -487,7 +487,7 @@ QList<SimpleCategoryMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatche
     SimpleCategoryMatcher* simpleMatcher;
 
     if ( ( andMatcher = dynamic_cast<AndCategoryMatcher*>( matcher ) ) ) {
-        for (CategoryMatcher* child : andMatcher->_elements) {
+        for (CategoryMatcher* child : andMatcher->mp_elements) {
             SimpleCategoryMatcher* simpleMatcher = dynamic_cast<SimpleCategoryMatcher*>( child );
             Q_ASSERT( simpleMatcher );
             result.append( simpleMatcher );
@@ -511,7 +511,7 @@ QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::convertMatcher( CategoryM
     OrCategoryMatcher* orMacther;
 
     if ( ( orMacther = dynamic_cast<OrCategoryMatcher*>( item ) ) ) {
-        for (CategoryMatcher* child : orMacther->_elements) {
+        for (CategoryMatcher* child : orMacther->mp_elements) {
             result.append( extractAndMatcher( child ) );
         }
     }
@@ -522,21 +522,21 @@ QList<QList<SimpleCategoryMatcher*> > ImageSearchInfo::convertMatcher( CategoryM
 
 ImageDate ImageSearchInfo::date() const
 {
-    return _date;
+    return m_date;
 }
 
 #ifdef HAVE_EXIV2
 void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
 {
-    _exifSearchInfo = info;
-    _isNull = false;
+    m_exifSearchInfo = info;
+    m_isNull = false;
 }
 #endif
 
 void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString& newName )
 {
-    _categoryMatchText[newName] = _categoryMatchText[oldName];
-    _categoryMatchText.remove( oldName );
-    _compiled = false;
+    m_categoryMatchText[newName] = m_categoryMatchText[oldName];
+    m_categoryMatchText.remove( oldName );
+    m_compiled = false;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

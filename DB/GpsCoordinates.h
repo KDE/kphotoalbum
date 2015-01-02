@@ -61,10 +61,10 @@ public:
 
     GpsCoordinates()
         throw()
-        : _longitude(0.0)
-        , _latitude(0.0)
-        , _altitude(0.0)
-        , _precision(PrecisionDataForNull)
+        : m_longitude(0.0)
+        , m_latitude(0.0)
+        , m_altitude(0.0)
+        , m_precision(PrecisionDataForNull)
     {
     }
 
@@ -74,33 +74,33 @@ public:
         double altitude,
         int precision=NoPrecisionData)
         throw()
-        : _longitude(longitude)
-        , _latitude(latitude)
-        , _altitude(altitude)
-        , _precision(precision)
+        : m_longitude(longitude)
+        , m_latitude(latitude)
+        , m_altitude(altitude)
+        , m_precision(precision)
     {
-        Q_ASSERT(_precision >= 0 || _precision == NoPrecisionData);
+        Q_ASSERT(m_precision >= 0 || m_precision == NoPrecisionData);
         Q_ASSERT(!this->isNull());
     }
 
 #ifdef HAVE_MARBLE
     explicit GpsCoordinates(const GeoDataCoordinates& position)
         throw()
-        : _longitude(0.0)
-        , _latitude(0.0)
-        , _altitude(position.altitude())
-        , _precision(NoPrecisionData)
+        : m_longitude(0.0)
+        , m_latitude(0.0)
+        , m_altitude(position.altitude())
+        , m_precision(NoPrecisionData)
     {
         // Get the coordinates from the given position to our member
         // variables
 #if MARBLE_VERSION >= 0x000700
-        qreal tmp_longitude = (qreal)_longitude;
-        qreal tmp_latitude = (qreal)_latitude;
+        qreal tmp_longitude = (qreal)m_longitude;
+        qreal tmp_latitude = (qreal)m_latitude;
         position.geoCoordinates(tmp_longitude, tmp_latitude, GeoDataCoordinates::Degree);
-        _longitude = tmp_longitude;
-        _latitude = tmp_latitude;
+        m_longitude = tmp_longitude;
+        m_latitude = tmp_latitude;
 #else
-        position.geoCoordinates(_longitude, _latitude, GeoDataCoordinates::Degree);
+        position.geoCoordinates(m_longitude, m_latitude, GeoDataCoordinates::Degree);
 #endif
 
         Q_ASSERT(!this->isNull());
@@ -129,36 +129,36 @@ public:
 
     bool isNull() const throw()
     {
-        return _precision == PrecisionDataForNull;
+        return m_precision == PrecisionDataForNull;
     }
 
     double longitude() const throw()
     {
-        return _longitude;
+        return m_longitude;
     }
 
     double latitude() const throw()
     {
-        return _latitude;
+        return m_latitude;
     }
 
     double altitude() const throw()
     {
-        return _altitude;
+        return m_altitude;
     }
 
     double precision() const throw()
     {
-        return _precision;
+        return m_precision;
     }
 
 #ifdef HAVE_MARBLE
     GeoDataCoordinates toGeoDataCoordinates() const throw()
     {
         return GeoDataCoordinates(
-            _longitude,
-            _latitude,
-            _altitude,
+            m_longitude,
+            m_latitude,
+            m_altitude,
             GeoDataCoordinates::Degree);
     }
 #endif
@@ -166,19 +166,19 @@ public:
 private:
     /** Longitude in degrees.
      */
-    double _longitude;
+    double m_longitude;
 
     /** Latitude in degrees.
      */
-    double _latitude;
+    double m_latitude;
 
     /** Altitude in meters.
      */
-    double _altitude;
+    double m_altitude;
 
     /** Precision in meters.
      */
-    int _precision;
+    int m_precision;
 };
 
 }

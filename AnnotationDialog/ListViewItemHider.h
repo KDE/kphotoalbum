@@ -44,8 +44,8 @@ protected:
     virtual bool shouldItemBeShown( QTreeWidgetItem* );
 
 private:
-    QString _text;
-    const MatchType _matchType;
+    QString m_text;
+    const MatchType m_matchType;
 };
 
 class ListViewCheckedHider :public ListViewItemHider

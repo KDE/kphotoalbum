@@ -22,14 +22,14 @@
 
 void XMLImageDateCollection::add( const DB::ImageDate& date )
 {
-    _startIndex.insertMulti(date.start(), date);
+    m_startIndex.insertMulti(date.start(), date);
 }
 
 void XMLImageDateCollection::buildIndex() {
-    StartIndexMap::ConstIterator startSearch = _startIndex.constBegin();
+    StartIndexMap::ConstIterator startSearch = m_startIndex.constBegin();
     QDateTime biggestEnd = QDateTime( QDate( 1900, 1, 1 ) );
-    for (StartIndexMap::ConstIterator it = _startIndex.constBegin();
-         it != _startIndex.constEnd();
+    for (StartIndexMap::ConstIterator it = m_startIndex.constBegin();
+         it != m_startIndex.constEnd();
          ++it) {
         // We want a monotonic mapping end-date -> smallest-in-start-index.
         // Since we go through the start index sorted, lowest first, we just
@@ -40,7 +40,7 @@ void XMLImageDateCollection::buildIndex() {
             biggestEnd = it.value().end();
             startSearch = it;
         }
-        _endIndex.insert(it.value().end(), startSearch);
+        m_endIndex.insert(it.value().end(), startSearch);
     }
 }
 
@@ -52,20 +52,20 @@ void XMLImageDateCollection::buildIndex() {
    Henner Zeller rewrote it to its current state. The main idea now is to
    have all dates sorted so that it is possible to only look at the
    requested range. Since it is not points in time, we can't have just a
-   simple sorted list. So we have two sorted maps, the _startIndex and
-   _endIndex. _startIndex is sorted by the start time of all ImageDates
+   simple sorted list. So we have two sorted maps, the m_startIndex and
+   m_endIndex. m_startIndex is sorted by the start time of all ImageDates
    (which are in fact ranges)
 
    If we would just look for Images that start _after_ the query-range, we
    would miscount, because there might be Image ranges starting before the
    query time but whose end time reaches into the query range this is what
-   the _endIndex is for: it is sortd by end-date; here we look for
+   the m_endIndex is for: it is sortd by end-date; here we look for
    everything that is >= our query start. its value() part is basically a
-   pointer to the position in the _startIndex where we actually have to
+   pointer to the position in the m_startIndex where we actually have to
    start looking.
 
    The rest is simple: we determine the interesting start in
-   _startIndex using the _endIndex and iterate through it until the
+   m_startIndex using the m_endIndex and iterate through it until the
    elements in that sorted list have a start time that is larger than the
    query-end-range .. there will no more elements coming.
 
@@ -74,18 +74,18 @@ void XMLImageDateCollection::buildIndex() {
 **/
 DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
 {
-    if ( _cache.contains( range ) )
-        return _cache[range];
+    if ( m_cache.contains( range ) )
+        return m_cache[range];
 
     int exact = 0, rangeMatch = 0;
 
     // We start searching in ranges that overlap our start search range, i.e.
     // where the end-date is higher than our search start.
-    EndIndexMap::Iterator endSearch = _endIndex.lowerBound(range.start());
+    EndIndexMap::Iterator endSearch = m_endIndex.lowerBound(range.start());
 
-    if (endSearch != _endIndex.end()) {
+    if (endSearch != m_endIndex.end()) {
         for ( StartIndexMap::ConstIterator it = endSearch.value();
-              it != _startIndex.constEnd() && it.key() < range.end();
+              it != m_startIndex.constEnd() && it.key() < range.end();
               ++it) {
             DB::ImageDate::MatchType tp = it.value().isIncludedIn( range );
             switch (tp) {
@@ -97,15 +97,15 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
     }
 
     DB::ImageCount res( exact, rangeMatch );
-    _cache.insert( range, res );  // TODO(hzeller) this might go now
+    m_cache.insert( range, res );  // TODO(hzeller) this might go now
     return res;
 }
 
 QDateTime XMLImageDateCollection::lowerLimit() const
 {
-    if (!_startIndex.empty()) {
+    if (!m_startIndex.empty()) {
         // skip null dates:
-        Q_FOREACH(const QDateTime &t , _startIndex.keys() )
+        Q_FOREACH(const QDateTime &t , m_startIndex.keys() )
             if ( t.isValid() )
                 return t;
     }
@@ -114,8 +114,8 @@ QDateTime XMLImageDateCollection::lowerLimit() const
 
 QDateTime XMLImageDateCollection::upperLimit() const
 {
-    if (!_endIndex.empty()) {
-        EndIndexMap::ConstIterator highest = _endIndex.constEnd();
+    if (!m_endIndex.empty()) {
+        EndIndexMap::ConstIterator highest = m_endIndex.constEnd();
         --highest;
         return highest.key();
     }

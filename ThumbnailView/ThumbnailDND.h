@@ -42,7 +42,7 @@ private slots:
     void realDropEvent();
 
 private:
-        void removeDropIndications();
+    void removeDropIndications();
 
 };
 }

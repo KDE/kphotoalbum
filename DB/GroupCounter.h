@@ -33,8 +33,8 @@ public:
     QMap<QString,uint> result();
 
 private:
-    QHash<QString,QStringList> _memberToGroup;
-    QHash<QString,uint> _groupCount;
+    QHash<QString,QStringList> m_memberToGroup;
+    QHash<QString,uint> m_groupCount;
 
 };
 

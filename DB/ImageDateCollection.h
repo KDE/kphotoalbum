@@ -28,13 +28,13 @@ class ImageCount
 {
 public:
     ImageCount( int exact, int rangeMatch )
-        : _exact( exact ), _rangeMatch( rangeMatch )
+        : mp_exact( exact ), mp_rangeMatch( rangeMatch )
         {
         }
     ImageCount() {}
 
-    int _exact;
-    int _rangeMatch;
+    int mp_exact;
+    int mp_rangeMatch;
 };
 
 

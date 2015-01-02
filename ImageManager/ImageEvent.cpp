@@ -19,22 +19,22 @@
 #include "ImageEvent.h"
 
 ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
-    : QEvent( static_cast<QEvent::Type>(ImageEventID) ), _request( request ),  _image( image )
+    : QEvent( static_cast<QEvent::Type>(ImageEventID) ), m_request( request ),  m_image( image )
 {
     // PENDING(blackie): Investigate if this is still needed with Qt4.
     // We would like to use QDeepCopy, but that results in multiple
     // individual instances on the GUI thread, which is kind of real bad
     // when  the image is like 40Mb large.
-    _image.detach();
+    m_image.detach();
 }
 
 ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
 {
-    return _request;
+    return m_request;
 }
 
 QImage ImageManager::ImageEvent::image()
 {
-    return _image;
+    return m_image;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

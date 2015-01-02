@@ -24,19 +24,19 @@ AnnotationDialog::ShowSelectionOnlyManager& AnnotationDialog::ShowSelectionOnlyM
 }
 
 AnnotationDialog::ShowSelectionOnlyManager::ShowSelectionOnlyManager()
-    :_limit(false)
+    :m_limit(false)
 {
 }
 
 bool AnnotationDialog::ShowSelectionOnlyManager::selectionIsLimited() const
 {
-   return _limit;
+   return m_limit;
 }
 
 void AnnotationDialog::ShowSelectionOnlyManager::toggle()
 {
-    _limit = !_limit;
-    if ( _limit )
+    m_limit = !m_limit;
+    if ( m_limit )
         emit limitToSelected();
     else
         emit broaden();
@@ -44,8 +44,8 @@ void AnnotationDialog::ShowSelectionOnlyManager::toggle()
 
 void AnnotationDialog::ShowSelectionOnlyManager::unlimitFromSelection()
 {
-    if ( _limit ) {
-        _limit = false;
+    if ( m_limit ) {
+        m_limit = false;
         emit broaden();
     }
 }

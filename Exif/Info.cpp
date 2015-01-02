@@ -29,7 +29,7 @@
 
 using namespace Exif;
 
-Info* Info::_instance = nullptr;
+Info* Info::s_instance = nullptr;
 
 QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
 {
@@ -40,7 +40,7 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
 
         for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != data.exif.end(); ++i) {
             QString key = QString::fromLocal8Bit(i->key().c_str());
-            _keys.insert( key );
+            m_keys.insert( key );
 
             if ( wantedKeys.contains( key ) ) {
                 QString text = key;
@@ -56,7 +56,7 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
 
         for (Exiv2::IptcData::const_iterator i = data.iptc.begin(); i != data.iptc.end(); ++i) {
             QString key = QString::fromLatin1(i->key().c_str());
-            _keys.insert( key );
+            m_keys.insert( key );
 
             if ( wantedKeys.contains( key ) ) {
                 QString text = key;
@@ -78,14 +78,14 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
 
 Info* Info::instance()
 {
-    if ( !_instance )
-        _instance = new Info;
-    return _instance;
+    if ( !s_instance )
+        s_instance = new Info;
+    return s_instance;
 }
 
 StringSet Info::availableKeys()
 {
-    return _keys;
+    return m_keys;
 }
 
 QMap<QString, QStringList> Info::infoForViewer( const DB::FileName& fileName, const QString& charset )
@@ -181,7 +181,7 @@ StringSet Info::standardKeys()
 
 Info::Info()
 {
-    _keys = standardKeys();
+    m_keys = standardKeys();
 }
 
 void Exif::Info::writeInfoToFile( const DB::FileName& srcName, const QString& destName )

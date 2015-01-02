@@ -65,7 +65,7 @@ public:
     QString toString() const;
  
     void setMegaPixel( short megapixel );
-    void setSearchRAW( bool _searchRAW );
+    void setSearchRAW( bool m_searchRAW );
     void setSearchMode( int index );
 
     void saveLock() const;
@@ -87,21 +87,21 @@ protected:
     QList<QList<SimpleCategoryMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:
-    ImageDate _date;
-    QMap<QString, QString> _categoryMatchText;
-    QString _label;
-    QString _description;
-    QRegExp _fnPattern;
-    short _rating;
-    short _megapixel;
-    int ratingSearchMode;
-    bool _searchRAW;
-    bool _isNull;
-    mutable bool _compiled;
-    mutable QList<CategoryMatcher*> _categoryMatchers;
+    ImageDate m_date;
+    QMap<QString, QString> m_categoryMatchText;
+    QString m_label;
+    QString m_description;
+    QRegExp m_fnPattern;
+    short m_rating;
+    short m_megapixel;
+    int m_ratingSearchMode;
+    bool m_searchRAW;
+    bool m_isNull;
+    mutable bool m_compiled;
+    mutable QList<CategoryMatcher*> m_categoryMatchers;
 
 #ifdef HAVE_EXIV2
-    Exif::SearchInfo _exifSearchInfo;
+    Exif::SearchInfo m_exifSearchInfo;
 #endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };

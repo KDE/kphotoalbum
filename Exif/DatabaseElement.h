@@ -45,7 +45,7 @@ public:
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
 
 private:
-    const char* _tag;
+    const char* m_tag;
 };
 
 class IntExifElement :public DatabaseElement
@@ -57,7 +57,7 @@ public:
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
 
 private:
-    const char* _tag;
+    const char* m_tag;
 };
 
 
@@ -70,7 +70,7 @@ public:
     virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
 
 private:
-    const char* _tag;
+    const char* m_tag;
 };
 
 

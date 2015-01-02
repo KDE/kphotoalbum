@@ -42,7 +42,7 @@ protected:
     DragItemInfoSet extractData( const QMimeData* data ) const;
 
 private:
-    DragableTreeWidget* _listView;
+    DragableTreeWidget* m_listView;
 };
 
 }

@@ -27,7 +27,7 @@ const int CELLWIDTH = 200;
 const int CELLHEIGHT = 150;
 
 Browser::CenteringIconView::CenteringIconView( QWidget* parent )
-    : QListView( parent ), _viewMode( NormalIconView )
+    : QListView( parent ), m_viewMode( NormalIconView )
 {
     QPalette pal = palette();
     pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Base ) );
@@ -41,7 +41,7 @@ Browser::CenteringIconView::CenteringIconView( QWidget* parent )
 
 void Browser::CenteringIconView::setViewMode( ViewMode viewMode )
 {
-    _viewMode = viewMode;
+    m_viewMode = viewMode;
     if ( viewMode == CenterView ) {
         setGridSize( QSize(200,150) );
         setupMargins();
@@ -54,7 +54,7 @@ void Browser::CenteringIconView::setViewMode( ViewMode viewMode )
 
 void Browser::CenteringIconView::setupMargins()
 {
-    if ( _viewMode == NormalIconView || !model() || !viewport())
+    if ( m_viewMode == NormalIconView || !model() || !viewport())
         return;
 
     // In this code I'll call resize, which calls resizeEvent, which calls

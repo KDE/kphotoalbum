@@ -60,7 +60,7 @@ public:
     virtual void addMemberToGroup( const QString& category, const QString& group, const QString& item );
     virtual void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
 
-    virtual const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return _members; }
+    virtual const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return m_members; }
 
     virtual bool hasPath( const QString& category, const QString& from, const QString& to ) const;
 
@@ -79,14 +79,14 @@ signals:
 private:
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
-    QMap<QString, QMap<QString,StringSet> > _members;
+    QMap<QString, QMap<QString,StringSet> > m_members;
 
     // These are the data structures used to develop closures, they are only
     // needed to speed up the program *SIGNIFICANTLY* ;-)
-    mutable bool _dirty;
-    mutable QMap<QString, QMap<QString,StringSet> > _closureMembers;
+    mutable bool m_dirty;
+    mutable QMap<QString, QMap<QString,StringSet> > m_closureMembers;
 
-    bool _loading;
+    bool m_loading;
 };
 
 }

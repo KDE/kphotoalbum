@@ -25,43 +25,43 @@
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
 
-ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::_instance = nullptr;
+ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
-    :_cellGeometry( new CellGeometry(this) ),
-     _model( nullptr ),_widget( nullptr ), _toolTip( nullptr )
+    :m_cellGeometry( new CellGeometry(this) ),
+     m_model( nullptr ),m_widget( nullptr ), m_toolTip( nullptr )
 {
     // To avoid one of the components references one of the other before it has been initialized, we first construct them all with null.
-    _cellGeometry = new CellGeometry(this);
-    _model = new ThumbnailModel(this);
-    _widget = new ThumbnailWidget(this);
-    _toolTip = new ThumbnailToolTip( _widget );
+    m_cellGeometry = new CellGeometry(this);
+    m_model = new ThumbnailModel(this);
+    m_widget = new ThumbnailWidget(this);
+    m_toolTip = new ThumbnailToolTip( m_widget );
 
-    connect( _widget, SIGNAL(showImage(DB::FileName)),
+    connect( m_widget, SIGNAL(showImage(DB::FileName)),
              this, SIGNAL(showImage(DB::FileName)) );
-    connect( _widget, SIGNAL(showSelection()),
+    connect( m_widget, SIGNAL(showSelection()),
              this, SIGNAL(showSelection()) );
-    connect( _widget, SIGNAL(fileIdUnderCursorChanged(DB::FileName)),
+    connect( m_widget, SIGNAL(fileIdUnderCursorChanged(DB::FileName)),
              this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
-    connect( _widget, SIGNAL(currentDateChanged(QDateTime)),
+    connect( m_widget, SIGNAL(currentDateChanged(QDateTime)),
              this, SIGNAL(currentDateChanged(QDateTime)) );
-    connect( _widget, SIGNAL(selectionCountChanged(int)),
+    connect( m_widget, SIGNAL(selectionCountChanged(int)),
              this, SIGNAL(selectionChanged(int)) );
-    connect( _model, SIGNAL(collapseAllStacksEnabled(bool)),
+    connect( m_model, SIGNAL(collapseAllStacksEnabled(bool)),
              this, SIGNAL(collapseAllStacksEnabled(bool)) );
-    connect( _model, SIGNAL(expandAllStacksEnabled(bool)),
+    connect( m_model, SIGNAL(expandAllStacksEnabled(bool)),
              this, SIGNAL(expandAllStacksEnabled(bool)) );
 
-    _instance = this;
+    s_instance = this;
 }
 
 QWidget* ThumbnailView::ThumbnailFacade::gui()
 {
-    return _widget;
+    return m_widget;
 }
 
 void ThumbnailView::ThumbnailFacade::gotoDate( const DB::ImageDate& date, bool b)
 {
-    _widget->gotoDate( date, b );
+    m_widget->gotoDate( date, b );
 }
 
 void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::FileName& fileName )
@@ -71,97 +71,97 @@ void ThumbnailView::ThumbnailFacade::setCurrentItem( const DB::FileName& fileNam
 
 void ThumbnailView::ThumbnailFacade::reload( SelectionUpdateMethod method )
 {
-    _widget->reload( method );
+    m_widget->reload( method );
 }
 
 DB::FileNameList ThumbnailView::ThumbnailFacade::selection( ThumbnailView::SelectionMode mode ) const
 {
-    return _widget->selection(mode);
+    return m_widget->selection(mode);
 }
 
 DB::FileNameList ThumbnailView::ThumbnailFacade::imageList(Order order) const
 {
-    return _model->imageList(order);
+    return m_model->imageList(order);
 }
 
 DB::FileName ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 {
-    return _widget->mediaIdUnderCursor();
+    return m_widget->mediaIdUnderCursor();
 }
 
 DB::FileName ThumbnailView::ThumbnailFacade::currentItem() const
 {
-    return _model->imageAt(_widget->currentIndex().row());
+    return m_model->imageAt(m_widget->currentIndex().row());
 }
 
 void ThumbnailView::ThumbnailFacade::setImageList(const DB::FileNameList& list)
 {
-    _model->setImageList(list);
+    m_model->setImageList(list);
 }
 
 void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
 {
-    _model->setSortDirection( direction );
+    m_model->setSortDirection( direction );
 }
 
 void ThumbnailView::ThumbnailFacade::selectAll()
 {
-    _widget->selectAll();
+    m_widget->selectAll();
 }
 
 void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
 {
-    _toolTip->setActive( on );
+    m_toolTip->setActive( on );
 }
 
 void ThumbnailView::ThumbnailFacade::toggleStackExpansion(const DB::FileName& fileName)
 {
-    _model->toggleStackExpansion(fileName);
+    m_model->toggleStackExpansion(fileName);
 }
 
 void ThumbnailView::ThumbnailFacade::collapseAllStacks()
 {
-    _model->collapseAllStacks();
+    m_model->collapseAllStacks();
 }
 
 void ThumbnailView::ThumbnailFacade::expandAllStacks()
 {
-    _model->expandAllStacks();
+    m_model->expandAllStacks();
 }
 
 void ThumbnailView::ThumbnailFacade::updateDisplayModel()
 {
-    _model->updateDisplayModel();
+    m_model->updateDisplayModel();
 }
 
 void ThumbnailView::ThumbnailFacade::changeSingleSelection(const DB::FileName& fileName)
 {
-    _widget->changeSingleSelection(fileName);
+    m_widget->changeSingleSelection(fileName);
 }
 
 ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailFacade::model()
 {
-    Q_ASSERT( _model );
-    return _model;
+    Q_ASSERT( m_model );
+    return m_model;
 }
 
 
 ThumbnailView::CellGeometry* ThumbnailView::ThumbnailFacade::cellGeometry()
 {
-    Q_ASSERT( _cellGeometry );
-    return _cellGeometry;
+    Q_ASSERT( m_cellGeometry );
+    return m_cellGeometry;
 }
 
 ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailFacade::widget()
 {
-    Q_ASSERT( _widget );
-    return _widget;
+    Q_ASSERT( m_widget );
+    return m_widget;
 }
 
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::instance()
 {
-    Q_ASSERT( _instance );
-    return _instance;
+    Q_ASSERT( s_instance );
+    return s_instance;
 }
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
@@ -169,7 +169,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
     Q_FOREACH( const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
         BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
-        _model->updateCell(fileName);
+        m_model->updateCell(fileName);
     }
 }
 

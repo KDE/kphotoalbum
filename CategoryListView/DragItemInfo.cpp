@@ -18,23 +18,23 @@
 #include "DragItemInfo.h"
 
 CategoryListView::DragItemInfo::DragItemInfo( const QString& parent, const QString& child )
-    : _parent( parent ), _child( child )
+    : m_parent( parent ), m_child( child )
 {
 }
 
 QString CategoryListView::DragItemInfo::parent() const
 {
-    return _parent;
+    return m_parent;
 }
 
 QString CategoryListView::DragItemInfo::child() const
 {
-    return _child;
+    return m_child;
 }
 
 bool CategoryListView::DragItemInfo::operator<( const DragItemInfo& other ) const
 {
-    return _parent < other._parent || (_parent == other._parent && _child < other._child );
+    return m_parent < other.m_parent || (m_parent == other.m_parent && m_child < other.m_child );
 }
 
 CategoryListView::DragItemInfo::DragItemInfo()
@@ -59,11 +59,11 @@ QDataStream& CategoryListView::operator>>( QDataStream& stream, DragItemInfo& in
 
 void CategoryListView::DragItemInfo::setParent( const QString& str )
 {
-    _parent = str;
+    m_parent = str;
 }
 
 void CategoryListView::DragItemInfo::setChild( const QString& str )
 {
-    _child = str;
+    m_child = str;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

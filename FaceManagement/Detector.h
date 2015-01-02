@@ -58,7 +58,7 @@ public:
     QList<QRect> detectFaces(QImage& image);
 
 private: // Variables
-    static FaceManagement::Detector *m_instance;
+    static FaceManagement::Detector *s_instance;
     Settings::SettingsData *m_settingsData;
     QVariantMap m_params;
     KFaceIface::FaceDetector *m_faceDetector;

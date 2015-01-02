@@ -58,7 +58,7 @@ public:
     void deleteCategory(QString category);
 
 private: // Variables
-    static FaceManagement::Recognizer* m_instance;
+    static FaceManagement::Recognizer* s_instance;
     KFaceIface::RecognitionDatabase m_recognitionDatabase;
 
 private: // Functions

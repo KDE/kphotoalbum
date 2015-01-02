@@ -121,42 +121,42 @@ protected slots:
 
 private:
     void setViewHandlerForType( ViewType tp );
-    QPixmap _buffer;
+    QPixmap m_buffer;
     friend class DateBarTip;
 
-    KSharedPtr<DB::ImageDateCollection> _dates;
-    DecadeViewHandler _decadeViewHandler;
-    YearViewHandler _yearViewHandler;
-    MonthViewHandler _monthViewHandler;
-    WeekViewHandler _weekViewHandler;
-    DayViewHandler _dayViewHandler;
-    HourViewHandler _hourViewHandler;
-    ViewHandler* _currentHandler;
-    ViewType _tp;
+    KSharedPtr<DB::ImageDateCollection> m_dates;
+    DecadeViewHandler m_decadeViewHandler;
+    YearViewHandler m_yearViewHandler;
+    MonthViewHandler m_monthViewHandler;
+    WeekViewHandler m_weekViewHandler;
+    DayViewHandler m_dayViewHandler;
+    HourViewHandler m_hourViewHandler;
+    ViewHandler* m_currentHandler;
+    ViewType m_tp;
 
-    MouseHandler* _currentMouseHandler;
-    FocusItemDragHandler* _focusItemDragHandler;
-    BarDragHandler* _barDragHandler;
-    SelectionHandler* _selectionHandler;
+    MouseHandler* m_currentMouseHandler;
+    FocusItemDragHandler* m_focusItemDragHandler;
+    BarDragHandler* m_barDragHandler;
+    SelectionHandler* m_selectionHandler;
     friend class Handler;
     friend class FocusItemDragHandler;
     friend class BarDragHandler;
     friend class SelectionHandler;
 
-    QToolButton* _rightArrow;
-    QToolButton* _leftArrow;
-    QToolButton* _zoomIn;
-    QToolButton* _zoomOut;
-    QToolButton* _cancelSelection;
+    QToolButton* m_rightArrow;
+    QToolButton* m_leftArrow;
+    QToolButton* m_zoomIn;
+    QToolButton* m_zoomOut;
+    QToolButton* m_cancelSelection;
 
-    int _currentUnit;
-    QDateTime _currentDate;
-    int _barWidth;
-    int _barHeight;
-    bool _includeFuzzyCounts;
-    QMenu* _contextMenu;
-    bool _showResolutionIndicator;
-    bool _doAutomaticRangeAdjustment;
+    int m_currentUnit;
+    QDateTime m_currentDate;
+    int m_barWidth;
+    int m_barHeight;
+    bool m_includeFuzzyCounts;
+    QMenu* m_contextMenu;
+    bool m_showResolutionIndicator;
+    bool m_doAutomaticRangeAdjustment;
 };
 
 }

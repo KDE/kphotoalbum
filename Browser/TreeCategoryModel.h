@@ -61,7 +61,7 @@ private:
     Data* indexToData( const QModelIndex& index ) const;
 
 private:
-    Data* _data;
+    Data* m_data;
 };
 
 }

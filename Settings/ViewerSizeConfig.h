@@ -37,9 +37,9 @@ public:
     bool launchFullScreen() const;
 
 private:
-    QCheckBox* _fullScreen;
-    QSpinBox* _width;
-    QSpinBox* _height;
+    QCheckBox* m_fullScreen;
+    QSpinBox* m_width;
+    QSpinBox* m_height;
 };
 
 }

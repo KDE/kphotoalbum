@@ -53,7 +53,7 @@ public:
 protected:
     QString spaces(int level ) const;
 
-    bool _shouldPrepareMatchedSet;
+    bool m_shouldPrepareMatchedSet;
 };
 
 }

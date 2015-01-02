@@ -43,8 +43,8 @@ private slots:
     void setAlphaChannel(int background, int label);
 
 private:
-    QTimer* _timer;
-    QTimeLine* _timeLine;
+    QTimer* m_timer;
+    QTimeLine* m_timeLine;
 };
 
 }

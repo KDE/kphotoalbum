@@ -62,10 +62,10 @@ private:
 
     bool fileClashes(const QString& file);
 
-    const QString _targetDirectory;
+    const QString m_targetDirectory;
     typedef QMap<DB::FileName, QString> FileNameMap;
-    FileNameMap _origToUniq;
-    QSet<QString> _uniqFiles;
+    FileNameMap m_origToUniq;
+    QSet<QString> m_uniqFiles;
 };
 }
 #endif /* UTILITIES_UNIQ_FILENAME_MAPPER_H */

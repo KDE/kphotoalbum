@@ -82,18 +82,18 @@ public:
     bool isThumbnailRequest() const;
 
 private:
-    bool _null;
-    DB::FileName _fileName;
+    bool m_null;
+    DB::FileName m_fileName;
 
-    int _width;
-    int _height;
-    ImageClientInterface* _client;
-    int _angle;
-    QSize _fullSize;
-    Priority _priority;
-    bool _loadedOK;
-    bool _dontUpScale;
-    bool _isThumbnailRequest;
+    int m_width;
+    int m_height;
+    ImageClientInterface* m_client;
+    int m_angle;
+    QSize m_fullSize;
+    Priority m_priority;
+    bool m_loadedOK;
+    bool m_dontUpScale;
+    bool m_isThumbnailRequest;
 };
 
 inline uint qHash(const ImageRequest& ir)

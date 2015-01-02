@@ -52,8 +52,8 @@ void MainWindow::StatusBar::setupGUI()
 
     KHBox* indicators = new KHBox( this );
     indicators->setSpacing(10);
-    _dirtyIndicator = new DirtyIndicator( indicators );
-    connect( DB::ImageDB::instance(), SIGNAL(dirty()), _dirtyIndicator, SLOT(markDirtySlot()) );
+    mp_dirtyIndicator = new DirtyIndicator( indicators );
+    connect( DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()) );
 
     new RemoteControl::ConnectionIndicator(indicators);
 
@@ -72,23 +72,23 @@ void MainWindow::StatusBar::setupGUI()
     connect( m_cancel, SIGNAL(clicked()), this, SIGNAL(cancelRequest()) );
     connect( m_cancel, SIGNAL(clicked()), this, SLOT(hideStatusBar()) );
 
-    _lockedIndicator = new QLabel( indicators );
+    m_lockedIndicator = new QLabel( indicators );
 
     addPermanentWidget( indicators, 0 );
 
-    _partial = new ImageCounter( this );
-    addPermanentWidget( _partial, 0 );
+    mp_partial = new ImageCounter( this );
+    addPermanentWidget( mp_partial, 0 );
 
-    _selected = new ImageCounter( this );
-    addPermanentWidget( _selected, 0);
+    mp_selected = new ImageCounter( this );
+    addPermanentWidget( mp_selected, 0);
 
     ImageCounter* total = new ImageCounter( this );
     addPermanentWidget( total, 0 );
     total->setTotal( DB::ImageDB::instance()->totalCount() );
     connect( DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), total, SLOT(setTotal(uint)) );
 
-    _pathIndicator = new BreadcrumbViewer;
-    addWidget( _pathIndicator, 1 );
+    mp_pathIndicator = new BreadcrumbViewer;
+    addWidget( mp_pathIndicator, 1 );
 
     setProgressBarVisible( false );
 }
@@ -96,12 +96,12 @@ void MainWindow::StatusBar::setupGUI()
 void MainWindow::StatusBar::setLocked( bool locked )
 {
     static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "object-locked" ) ) );
-    _lockedIndicator->setFixedWidth( lockedPix->width() );
+    m_lockedIndicator->setFixedWidth( lockedPix->width() );
 
     if ( locked )
-        _lockedIndicator->setPixmap( *lockedPix );
+        m_lockedIndicator->setPixmap( *lockedPix );
     else
-        _lockedIndicator->setPixmap( QPixmap() );
+        m_lockedIndicator->setPixmap( QPixmap() );
 
 }
 

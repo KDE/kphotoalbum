@@ -36,18 +36,18 @@ public:
     void saveSettings( Settings::SettingsData* );
 
 private:
-    QCheckBox* _searchForImagesOnStart;
-    QCheckBox* _ignoreFileExtension;
-    QCheckBox* _skipSymlinks;
-    QCheckBox* _skipRawIfOtherMatches;
-    QLineEdit* _excludeDirectories; // Directories to exclude
-    QCheckBox* _detectModifiedFiles;
-    QLineEdit* _modifiedFileComponent;
-    QLineEdit* _originalFileComponent;
-    QCheckBox* _moveOriginalContents;
-    QCheckBox* _autoStackNewFiles;
-    QLineEdit* _copyFileComponent;
-    QLineEdit* _copyFileReplacementComponent;
+    QCheckBox* m_searchForImagesOnStart;
+    QCheckBox* m_ignoreFileExtension;
+    QCheckBox* m_skipSymlinks;
+    QCheckBox* m_skipRawIfOtherMatches;
+    QLineEdit* m_excludeDirectories; // Directories to exclude
+    QCheckBox* m_detectModifiedFiles;
+    QLineEdit* m_modifiedFileComponent;
+    QLineEdit* m_originalFileComponent;
+    QCheckBox* m_moveOriginalContents;
+    QCheckBox* m_autoStackNewFiles;
+    QLineEdit* m_copyFileComponent;
+    QLineEdit* m_copyFileReplacementComponent;
 };
 
 

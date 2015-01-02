@@ -35,9 +35,9 @@ class CategoryMatchSetting;
 class CategoryMatch  {
 public:
     CategoryMatch( bool allowNew, const QString& categort, QStringList items, QWidget* parent, QGridLayout* grid, int row );
-    QCheckBox* _checkbox;
-    QComboBox* _combobox;
-    QString _text;
+    QCheckBox* m_checkbox;
+    QComboBox* m_combobox;
+    QString m_text;
 };
 
 
@@ -55,9 +55,9 @@ public:
                    bool allowNew, QWidget* parent );
     CategoryMatchSetting settings();
 
-    QString _otherCategory;
-    QString _myCategory;
-    QList<CategoryMatch*> _matchers;
+    QString m_otherCategory;
+    QString m_myCategory;
+    QList<CategoryMatch*> m_matchers;
 };
 
 typedef QList<ImportMatcher*> ImportMatchers;

@@ -74,16 +74,16 @@ public:
     void minImageSize( int& width, int& height);
 
 private:
-    Setup _setup;
-    int _waitCounter;
-    int _total;
-    KTempDir _tempDir;
-    Utilities::UniqFilenameMapper _filenameMapper;
-    QSet< QPair<DB::FileName,int> > _generatedFiles;
-    DB::FileNameSet _copiedVideos;
-    bool _hasEnteredLoop;
-    QPointer<QEventLoop> _eventLoop;
-    QString _avconv;
+    Setup m_setup;
+    int m_waitCounter;
+    int m_total;
+    KTempDir m_tempDir;
+    Utilities::UniqFilenameMapper m_filenameMapper;
+    QSet< QPair<DB::FileName,int> > m_generatedFiles;
+    DB::FileNameSet m_copiedVideos;
+    bool m_hasEnteredLoop;
+    QPointer<QEventLoop> m_eventLoop;
+    QString m_avconv;
 };
 
 }

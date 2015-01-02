@@ -30,7 +30,7 @@ bool TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
     bool openAllChildren = false;
 
     // If parent is open then child should be included.
-    if ( _matchedMap[parent] ) {
+    if ( m_matchedMap[parent] ) {
         match = true;
         openAllChildren = true;
      }
@@ -53,12 +53,12 @@ bool TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
     }
 
 
-    _matchedMap[sourceModel()->index( row, 0, parent )] = openAllChildren;
+    m_matchedMap[sourceModel()->index( row, 0, parent )] = openAllChildren;
     return match;
 }
 
 void TreeFilter::resetCache()
 {
-    _matchedMap.clear();
+    m_matchedMap.clear();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

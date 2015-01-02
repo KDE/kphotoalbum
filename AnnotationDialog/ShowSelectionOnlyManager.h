@@ -40,7 +40,7 @@ signals:
 
 private:
     ShowSelectionOnlyManager();
-    bool _limit;
+    bool m_limit;
 
 };
 

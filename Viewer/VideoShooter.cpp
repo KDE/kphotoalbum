@@ -36,7 +36,7 @@
   This class takes care of that, namely waiting for the context menu to disapear, hide the infobox, stop the video, and then shoot the snapshot
  */
 
-Viewer::VideoShooter* Viewer::VideoShooter::m_instance = nullptr;
+Viewer::VideoShooter* Viewer::VideoShooter::s_instance = nullptr;
 
 Viewer::VideoShooter::VideoShooter()
 {
@@ -44,10 +44,10 @@ Viewer::VideoShooter::VideoShooter()
 
 void Viewer::VideoShooter::go(const DB::ImageInfoPtr& info, Viewer::ViewerWidget *viewer)
 {
-    if ( !m_instance)
-        m_instance = new VideoShooter;
+    if ( !s_instance)
+        s_instance = new VideoShooter;
 
-    m_instance->start(info, viewer);
+    s_instance->start(info, viewer);
 }
 
 void Viewer::VideoShooter::start(const DB::ImageInfoPtr& info, ViewerWidget* viewer)
@@ -57,14 +57,14 @@ void Viewer::VideoShooter::start(const DB::ImageInfoPtr& info, ViewerWidget* vie
     m_viewer = viewer;
 
     // Hide the info box
-    m_infoboxVisible = m_viewer->_infoBox->isVisible();
+    m_infoboxVisible = m_viewer->m_infoBox->isVisible();
     if ( m_infoboxVisible )
-        m_viewer->_infoBox->hide();
+        m_viewer->m_infoBox->hide();
 
     // Stop playback
-    m_wasPlaying = !m_viewer->_videoDisplay->isPaused();
+    m_wasPlaying = !m_viewer->m_videoDisplay->isPaused();
     if ( m_wasPlaying )
-        m_viewer->_videoDisplay->playPause();
+        m_viewer->m_videoDisplay->playPause();
 
     // Wait a bit for the context menu to disapear
     QTimer::singleShot(200, this, SLOT(doShoot()));
@@ -73,18 +73,18 @@ void Viewer::VideoShooter::start(const DB::ImageInfoPtr& info, ViewerWidget* vie
 void Viewer::VideoShooter::doShoot()
 {
     // Make the screenshot and save it
-    const QImage image = m_viewer->_videoDisplay->screenShoot();
+    const QImage image = m_viewer->m_videoDisplay->screenShoot();
     const DB::FileName fileName = m_info->fileName();
     ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
     BackgroundJobs::HandleVideoThumbnailRequestJob::saveFullScaleFrame(fileName, image);
 
     // Show the infobox again
     if ( m_infoboxVisible )
-        m_viewer->_infoBox->show();
+        m_viewer->m_infoBox->show();
 
     // Restart the video
     if ( m_wasPlaying )
-        m_viewer->_videoDisplay->playPause();
+        m_viewer->m_videoDisplay->playPause();
 
     qApp->restoreOverrideCursor();
 }

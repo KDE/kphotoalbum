@@ -33,12 +33,12 @@ public:
     bool isActive() const;
 
 private:
-    InfoBox* _infoBox;
-    bool _left;
-    bool _right;
-    bool _top;
-    bool _bottom;
-    bool _active;
+    InfoBox* m_infoBox;
+    bool m_left;
+    bool m_right;
+    bool m_top;
+    bool m_bottom;
+    bool m_active;
 };
 
 }

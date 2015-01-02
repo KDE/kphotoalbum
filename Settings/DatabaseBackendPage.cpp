@@ -33,23 +33,23 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     QVBoxLayout* topLayout = new QVBoxLayout(this);
 
     // Compressed index.xml
-    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
-    topLayout->addWidget(_compressedIndexXML);
-    connect( _compressedIndexXML, SIGNAL(clicked(bool)), this, SLOT (markDirty()) );
+    m_compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
+    topLayout->addWidget(m_compressedIndexXML);
+    connect( m_compressedIndexXML, SIGNAL(clicked(bool)), this, SLOT (markDirty()) );
 
-    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
-    topLayout->addWidget(_compressBackup);
+    m_compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
+    topLayout->addWidget(m_compressBackup);
 
     // Auto save
     QLabel* label = new QLabel( i18n("Auto save every:"), this );
-    _autosave = new QSpinBox;
-    _autosave->setRange( 1, 120 );
-    _autosave->setSuffix( i18n( "min." ) );
+    m_autosave = new QSpinBox;
+    m_autosave->setRange( 1, 120 );
+    m_autosave->setSuffix( i18n( "min." ) );
 
     QHBoxLayout* lay = new QHBoxLayout;
     topLayout->addLayout(lay);
     lay->addWidget( label );
-    lay->addWidget( _autosave );
+    lay->addWidget( m_autosave );
     lay->addStretch( 1 );
 
     // Backup
@@ -58,10 +58,10 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), this );
     lay->addWidget( backupLabel );
 
-    _backupCount = new QSpinBox;
-    _backupCount->setRange( -1, 100 );
-    _backupCount->setSpecialValueText( i18n( "Infinite" ) );
-    lay->addWidget( _backupCount );
+    m_backupCount = new QSpinBox;
+    m_backupCount->setRange( -1, 100 );
+    m_backupCount->setSpecialValueText( i18n( "Infinite" ) );
+    lay->addWidget( m_backupCount );
     lay->addStretch( 1 );
 
     topLayout->addStretch(1);
@@ -74,29 +74,29 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
                "<p>The index.xml file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
                "the backup files to preserve disk space.</p>" );
     backupLabel->setWhatsThis( txt );
-    _backupCount->setWhatsThis( txt );
-    _compressBackup->setWhatsThis( txt );
+    m_backupCount->setWhatsThis( txt );
+    m_compressBackup->setWhatsThis( txt );
 
     txt = i18n( "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
-    _compressedIndexXML->setWhatsThis( txt );
+    m_compressedIndexXML->setWhatsThis( txt );
 }
 
 void Settings::DatabaseBackendPage::loadSettings( Settings::SettingsData* opt )
 {
-    _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
-    _autosave->setValue( opt->autoSave() );
-    _backupCount->setValue( opt->backupCount() );
-    _compressBackup->setChecked( opt->compressBackup() );
+    m_compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
+    m_autosave->setValue( opt->autoSave() );
+    m_backupCount->setValue( opt->backupCount() );
+    m_compressBackup->setChecked( opt->compressBackup() );
 }
 
 void Settings::DatabaseBackendPage::saveSettings( Settings::SettingsData* opt )
 {
-    opt->setBackupCount( _backupCount->value() );
-    opt->setCompressBackup( _compressBackup->isChecked() );
-    opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
-    opt->setAutoSave( _autosave->value() );
+    opt->setBackupCount( m_backupCount->value() );
+    opt->setCompressBackup( m_compressBackup->isChecked() );
+    opt->setUseCompressedIndexXML( m_compressedIndexXML->isChecked() );
+    opt->setAutoSave( m_autosave->value() );
 }
 
 void Settings::DatabaseBackendPage::markDirty()

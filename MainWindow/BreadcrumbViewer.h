@@ -44,7 +44,7 @@ private:
     void updateText();
 
 private:
-    Browser::BreadcrumbList _activeCrumbs;
+    Browser::BreadcrumbList m_activeCrumbs;
 };
 
 #endif /* BREADCRUMBVIEWER_H */

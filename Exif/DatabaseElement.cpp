@@ -27,14 +27,14 @@ static QString replaceDotWithUnderscore( const char* cstr )
 }
 
 Exif::StringExifElement::StringExifElement( const char* tag )
-    : _tag( tag )
+    : m_tag( tag )
 {
 }
 
 
 QString Exif::StringExifElement::createString()
 {
-    return QString::fromLatin1( "%1 string" ).arg( replaceDotWithUnderscore( _tag ) );
+    return QString::fromLatin1( "%1 string" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
 
@@ -46,19 +46,19 @@ QString Exif::StringExifElement::queryString()
 
 void Exif::StringExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
 {
-    query->bindValue( counter++, QLatin1String(data[_tag].toString().c_str() ) );
+    query->bindValue( counter++, QLatin1String(data[m_tag].toString().c_str() ) );
 }
 
 
 Exif::IntExifElement::IntExifElement( const char* tag )
- : _tag( tag )
+ : m_tag( tag )
 {
 }
 
 
 QString Exif::IntExifElement::createString()
 {
-    return QString::fromLatin1( "%1 int" ).arg( replaceDotWithUnderscore( _tag ) );
+    return QString::fromLatin1( "%1 int" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
 
@@ -70,22 +70,22 @@ QString Exif::IntExifElement::queryString()
 
 void Exif::IntExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
 {
-    if (data[_tag].count() > 0)
-        query->bindValue( counter++, (int) data[_tag].toLong() );
+    if (data[m_tag].count() > 0)
+        query->bindValue( counter++, (int) data[m_tag].toLong() );
     else
         query->bindValue( counter++, (int) 0 );
 }
 
 
 Exif::RationalExifElement::RationalExifElement( const char* tag )
- : _tag( tag )
+ : m_tag( tag )
 {
 }
 
 
 QString Exif::RationalExifElement::createString()
 {
-    return QString::fromLatin1( "%1 float" ).arg( replaceDotWithUnderscore( _tag ) );
+    return QString::fromLatin1( "%1 float" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
 QString Exif::RationalExifElement::queryString()
@@ -96,7 +96,7 @@ QString Exif::RationalExifElement::queryString()
 
 void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
 {
-    query->bindValue( counter++, 1.0 * data[_tag].toRational().first / data[_tag].toRational().second);
+    query->bindValue( counter++, 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

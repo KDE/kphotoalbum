@@ -23,17 +23,17 @@ namespace DB
 class MediaCount
 {
 public:
-    MediaCount() : _null(true), _images(0), _videos(0)  {}
-    MediaCount( uint images, uint videos ) : _null(false), _images( images ), _videos( videos ) {}
-    bool isNull() const { return _null; }
-    uint images() const { return _images; }
-    uint videos() const { return _videos; }
-    uint total() const { return _images + _videos; }
+    MediaCount() : m_null(true), m_images(0), m_videos(0)  {}
+    MediaCount( uint images, uint videos ) : m_null(false), m_images( images ), m_videos( videos ) {}
+    bool isNull() const { return m_null; }
+    uint images() const { return m_images; }
+    uint videos() const { return m_videos; }
+    uint total() const { return m_images + m_videos; }
 
 private:
-    bool _null;
-    uint _images;
-    uint _videos;
+    bool m_null;
+    uint m_images;
+    uint m_videos;
 };
 
 }

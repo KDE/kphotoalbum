@@ -29,7 +29,7 @@ using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent )
     : KDialog(parent)
-    , _list()
+    , m_list()
 {
     setWindowTitle( i18n("Removing items") );
     setButtons( Cancel|User1 );
@@ -40,17 +40,17 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     setMainWidget( top );
 
 
-    _label = new QLabel;
-    lay1->addWidget( _label );
+    m_label = new QLabel;
+    lay1->addWidget( m_label );
 
-    _useTrash = new QRadioButton;
-    lay1->addWidget( _useTrash );
+    m_useTrash = new QRadioButton;
+    lay1->addWidget( m_useTrash );
 
-    _deleteFile = new QRadioButton;
-    lay1->addWidget( _deleteFile );
+    m_deleteFile = new QRadioButton;
+    lay1->addWidget( m_deleteFile );
 
-    _deleteFromDb = new QRadioButton;
-    lay1->addWidget( _deleteFromDb );
+    m_deleteFromDb = new QRadioButton;
+    lay1->addWidget( m_deleteFromDb );
 
      connect( this, SIGNAL(user1Clicked()), this, SLOT(deleteImages()) );
 }
@@ -74,26 +74,26 @@ int DeleteDialog::exec(const DB::FileNameList& list)
 
     const QString txt = QString::fromLatin1( "<p><b><center><font size=\"+3\">%1</font><br/>%2</center></b></p>" ).arg(msg1).arg(msg2);
 
-    _useTrash->setText( i18np("Move file to Trash", "Move %1 files to Trash", list.size() ) );
-    _deleteFile->setText( i18np( "Delete file from disk", "Delete %1 files from disk", list.size() ) );
-    _deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove %1 items from database", list.size() ) );
+    m_useTrash->setText( i18np("Move file to Trash", "Move %1 files to Trash", list.size() ) );
+    m_deleteFile->setText( i18np( "Delete file from disk", "Delete %1 files from disk", list.size() ) );
+    m_deleteFromDb->setText( i18np( "Only remove the item from database", "Only remove %1 items from database", list.size() ) );
 
-    _label->setText( txt );
-    _list = list;
+    m_label->setText( txt );
+    m_list = list;
 
     // disable trash/delete options if files don't exist
-    _useTrash->setChecked( someFileExists );
-    _useTrash->setEnabled( someFileExists );
-    _deleteFile->setEnabled( someFileExists );
-    _deleteFromDb->setChecked( !someFileExists );
+    m_useTrash->setChecked( someFileExists );
+    m_useTrash->setEnabled( someFileExists );
+    m_deleteFile->setEnabled( someFileExists );
+    m_deleteFromDb->setChecked( !someFileExists );
 
     return KDialog::exec();
 }
 
 void DeleteDialog::deleteImages()
 {
-    bool anyDeleted = Utilities::DeleteFiles::deleteFiles(_list, _deleteFile->isChecked() ? Utilities::DeleteFromDisk :
-                                                             _useTrash->isChecked() ? Utilities::MoveToTrash : Utilities::BlockFromDatabase );
+    bool anyDeleted = Utilities::DeleteFiles::deleteFiles(m_list, m_deleteFile->isChecked() ? Utilities::DeleteFromDisk :
+                                                             m_useTrash->isChecked() ? Utilities::MoveToTrash : Utilities::BlockFromDatabase );
     if ( anyDeleted )
         accept();
     else

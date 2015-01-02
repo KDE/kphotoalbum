@@ -51,8 +51,8 @@ public:
     void setShouldCreateMatchedSet(bool) override;
 
 private:
-    const QString _category;
-    CategoryMatcher *_matcher;
+    const QString m_category;
+    CategoryMatcher *m_matcher;
 };
 
 }

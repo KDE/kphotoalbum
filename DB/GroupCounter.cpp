@@ -41,7 +41,7 @@ using namespace DB;
  *      California |-> [Santa Clara, Los Angeles] }
  * \endcode
  *
- * The inverse map (stored in _memberToGroup in the code ) will then look
+ * The inverse map (stored in m_memberToGroup in the code ) will then look
  * like this:
  * \code
  *  { Chicago |-> [USA],
@@ -54,10 +54,10 @@ GroupCounter::GroupCounter( const QString& category )
     const MemberMap map = DB::ImageDB::instance()->memberMap();
     QMap<QString,StringSet> groupToMemberMap = map.groupMap(category);
 
-    _memberToGroup.reserve( 2729 /* A large prime */ );
-    _groupCount.reserve( 2729 /* A large prime */ );
+    m_memberToGroup.reserve( 2729 /* A large prime */ );
+    m_groupCount.reserve( 2729 /* A large prime */ );
 
-    // Populate the _memberToGroup map
+    // Populate the m_memberToGroup map
     for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin();
          groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt ) {
 
@@ -65,17 +65,17 @@ GroupCounter::GroupCounter( const QString& category )
         QString group = groupToMemberIt.key();
 
         for( StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
-            _memberToGroup[*memberIt].append( group );
+            m_memberToGroup[*memberIt].append( group );
         }
-        _groupCount.insert( group, 0 );
+        m_groupCount.insert( group, 0 );
     }
 }
 
 /**
  * categories is the selected categories for one image, members may be Las Vegas, Chicago, and Los Angeles if the
  * category in question is Places.
- * This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
- * Las Vegas might increase the _groupCount[Nevada] by one.
+ * This function then increases m_groupCount with 1 for each of the groups the relavant items belongs to
+ * Las Vegas might increase the m_groupCount[Nevada] by one.
  * The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
  * used for.
  */
@@ -85,19 +85,19 @@ void GroupCounter::count( const StringSet& categories )
 
     countedGroupDict.clear();
     for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        if ( _memberToGroup.contains(*categoryIt)) {
-            const QStringList groups = _memberToGroup[*categoryIt];
+        if ( m_memberToGroup.contains(*categoryIt)) {
+            const QStringList groups = m_memberToGroup[*categoryIt];
             for ( const QString& group : groups ) {
                 if ( !countedGroupDict.contains( group ) ) {
                     countedGroupDict.insert( group );
-                    (_groupCount[group])++;
+                    (m_groupCount[group])++;
                 }
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( !countedGroupDict.contains( *categoryIt ) && _groupCount.contains( *categoryIt ) ) {
+        if ( !countedGroupDict.contains( *categoryIt ) && m_groupCount.contains( *categoryIt ) ) {
              countedGroupDict.insert( *categoryIt);
-             (_groupCount[*categoryIt])++;
+             (m_groupCount[*categoryIt])++;
         }
     }
 }
@@ -106,7 +106,7 @@ QMap<QString,uint> GroupCounter::result()
 {
     QMap<QString,uint> res;
 
-    for( QHash<QString,uint>::const_iterator it = _groupCount.constBegin(); it != _groupCount.constEnd(); ++it) {
+    for( QHash<QString,uint>::const_iterator it = m_groupCount.constBegin(); it != m_groupCount.constEnd(); ++it) {
         if ( it.value() != 0 )
             res.insert( it.key(), it.value() );
     }

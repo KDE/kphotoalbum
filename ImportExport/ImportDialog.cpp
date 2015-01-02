@@ -48,17 +48,17 @@ using namespace ImportExport;
 
 
 ImportDialog::ImportDialog( QWidget* parent )
-    :KAssistantDialog( parent ), _hasFilled( false ), _md5CheckPage(nullptr)
+    :KAssistantDialog( parent ), m_hasFilled( false ), m_md5CheckPage(nullptr)
 {
 }
 
 bool ImportDialog::exec( KimFileReader* kimFileReader, const KUrl& kimFileURL )
 {
-    _kimFileReader = kimFileReader;
+    m_kimFileReader = kimFileReader;
 
-    _kimFile = kimFileURL;
+    m_kimFile = kimFileURL;
 
-    QByteArray indexXML = _kimFileReader->indexXML();
+    QByteArray indexXML = m_kimFileReader->indexXML();
     if ( indexXML.isNull() )
         return false;
 
@@ -88,15 +88,15 @@ bool ImportDialog::readFile(const QByteArray& data)
         return false;
     }
 
-    _externalSource = ( source == QString::fromLatin1( "external" ) );
+    m_externalSource = ( source == QString::fromLatin1( "external" ) );
 
     // Read base url
-    _baseUrl = reader->attribute( QString::fromLatin1( "baseurl" ) );
+    m_baseUrl = reader->attribute( QString::fromLatin1( "baseurl" ) );
 
     while ( reader->readNextStartOrStopElement(QString::fromUtf8("image")).isStartToken) {
         const DB::FileName fileName = DB::FileName::fromRelativePath(reader->attribute(QString::fromUtf8( "file" )));
         DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader );
-        _images.append( info );
+        m_images.append( info );
     }
     // the while loop already read the end element, so we tell readEndElement to not read the next token:
     reader->readEndElement(false);
@@ -165,12 +165,12 @@ void ImportDialog::createImagesPage()
     lay3->setColumnStretch( 2, 1 );
 
     int row = 0;
-    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
+    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it, ++row ) {
         DB::ImageInfoPtr info = *it;
-        ImageRow* ir = new ImageRow( info, this, _kimFileReader, container );
+        ImageRow* ir = new ImageRow( info, this, m_kimFileReader, container );
         lay3->addWidget( ir->m_checkbox, row, 0 );
 
-        QPixmap pixmap = _kimFileReader->loadThumbnail( info->fileName().relative() );
+        QPixmap pixmap = m_kimFileReader->loadThumbnail( info->fileName().relative() );
          if ( !pixmap.isNull() ) {
             QPushButton* but = new QPushButton( container );
             but->setIcon( pixmap );
@@ -185,7 +185,7 @@ void ImportDialog::createImagesPage()
 
         QLabel* label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(info->description()) );
         lay3->addWidget( label, row, 2 );
-        _imagesSelect.append( ir );
+        m_imagesSelect.append( ir );
     }
 
     addPage( top, i18n("Select Which Images to Import") );
@@ -203,23 +203,23 @@ void ImportDialog::createDestination()
     QLabel* label = new QLabel( i18n( "Destination of images: " ), top );
     lay->addWidget( label );
 
-    _destinationEdit = new KLineEdit( top );
-    lay->addWidget( _destinationEdit, 1 );
+    m_destinationEdit = new KLineEdit( top );
+    lay->addWidget( m_destinationEdit, 1 );
 
     KPushButton* but = new KPushButton( QString::fromLatin1("..." ), top );
     but->setFixedWidth( 30 );
     lay->addWidget( but );
 
 
-    _destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
+    m_destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
     connect( but, SIGNAL(clicked()), this, SLOT(slotEditDestination()) );
-    connect( _destinationEdit, SIGNAL(textChanged(QString)), this, SLOT(updateNextButtonState()) );
-    _destinationPage = addPage( top, i18n("Destination of Images" ) );
+    connect( m_destinationEdit, SIGNAL(textChanged(QString)), this, SLOT(updateNextButtonState()) );
+    m_destinationPage = addPage( top, i18n("Destination of Images" ) );
 }
 
 void  ImportDialog::slotEditDestination()
 {
-    QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
+    QString file = KFileDialog::getExistingDirectory( m_destinationEdit->text(), this );
     if ( !file.isNull() ) {
         if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) ) {
             KMessageBox::error( this, i18n("The directory must be a subdirectory of %1", Settings::SettingsData::instance()->imageDirectory() ) );
@@ -229,7 +229,7 @@ void  ImportDialog::slotEditDestination()
         {
             KMessageBox::error( this, i18n("This directory is reserved for category images." ) );
         } else {
-            _destinationEdit->setText( file );
+            m_destinationEdit->setText( file );
             updateNextButtonState();
         }
     }
@@ -238,8 +238,8 @@ void  ImportDialog::slotEditDestination()
 void ImportDialog::updateNextButtonState()
 {
     bool enabled = true;
-    if ( currentPage() == _destinationPage ) {
-        QString dest = _destinationEdit->text();
+    if ( currentPage() == m_destinationPage ) {
+        QString dest = m_destinationEdit->text();
         if ( QFileInfo( dest ).isFile() )
             enabled = false;
         else if ( ! QFileInfo(dest).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) )
@@ -266,15 +266,15 @@ void ImportDialog::createCategoryPages()
     }
 
     if ( !categories.isEmpty() ) {
-        _categoryMatcher = new ImportMatcher( QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
+        m_categoryMatcher = new ImportMatcher( QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
                                               false, this );
-        _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
+        m_categoryMatcherPage = addPage( m_categoryMatcher, i18n("Match Categories") );
 
         QWidget* dummy = new QWidget;
-        _dummy = addPage( dummy, QString() );
+        m_dummy = addPage( dummy, QString() );
     }
     else {
-        _categoryMatcherPage = nullptr;
+        m_categoryMatcherPage = nullptr;
         possiblyAddMD5CheckPage();
     }
 }
@@ -297,8 +297,8 @@ ImportMatcher* ImportDialog::createCategoryPage( const QString& myCategory, cons
 
 void ImportDialog::next()
 {
-    if ( currentPage() == _destinationPage ) {
-        QString dir = _destinationEdit->text();
+    if ( currentPage() == m_destinationPage ) {
+        QString dir = m_destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
             int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exist. Should it be created?", dir ) );
             if ( answer == KMessageBox::Yes ) {
@@ -312,20 +312,20 @@ void ImportDialog::next()
                 return;
         }
     }
-    if ( !_hasFilled && currentPage() == _categoryMatcherPage ) {
-        _hasFilled = true;
-        _categoryMatcher->setEnabled( false );
-        removePage(_dummy);
+    if ( !m_hasFilled && currentPage() == m_categoryMatcherPage ) {
+        m_hasFilled = true;
+        m_categoryMatcher->setEnabled( false );
+        removePage(m_dummy);
 
         ImportMatcher* matcher = nullptr;
-        for( QList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
-             it != _categoryMatcher->_matchers.end();
+        for( QList<CategoryMatch*>::Iterator it = m_categoryMatcher->m_matchers.begin();
+             it != m_categoryMatcher->m_matchers.end();
              ++it )
         {
             CategoryMatch* match = *it;
-            if ( match->_checkbox->isChecked() ) {
-                matcher = createCategoryPage( match->_combobox->currentText(), match->_text );
-                _matchers.append( matcher );
+            if ( match->m_checkbox->isChecked() ) {
+                matcher = createCategoryPage( match->m_combobox->currentText(), match->m_text );
+                m_matchers.append( matcher );
             }
         }
         possiblyAddMD5CheckPage();
@@ -346,7 +346,7 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage( bool on )
 {
-    for( QList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( QList<ImageRow*>::Iterator it = m_imagesSelect.begin(); it != m_imagesSelect.end(); ++it ) {
         (*it)->m_checkbox->setChecked( on );
     }
 }
@@ -354,7 +354,7 @@ void ImportDialog::selectImage( bool on )
 DB::ImageInfoList ImportDialog::selectedImages() const
 {
     DB::ImageInfoList res;
-    for( QList<ImageRow*>::ConstIterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( QList<ImageRow*>::ConstIterator it = m_imagesSelect.begin(); it != m_imagesSelect.end(); ++it ) {
         if ( (*it)->m_checkbox->isChecked() )
             res.append( (*it)->m_info );
     }
@@ -370,16 +370,16 @@ ImportSettings ImportExport::ImportDialog::settings()
 {
     ImportSettings settings;
     settings.setSelectedImages( selectedImages() );
-    settings.setDestination( _destinationEdit->text() );
-    settings.setExternalSource( _externalSource );
-    settings.setKimFile( _kimFile );
-    settings.setBaseURL( _baseUrl );
+    settings.setDestination( m_destinationEdit->text() );
+    settings.setExternalSource( m_externalSource );
+    settings.setKimFile( m_kimFile );
+    settings.setBaseURL( m_baseUrl );
 
-    if ( _md5CheckPage ) {
-        settings.setImportActions( _md5CheckPage->settings() );
+    if ( m_md5CheckPage ) {
+        settings.setImportActions( m_md5CheckPage->settings() );
     }
 
-    for ( ImportMatcher* match : _matchers )
+    for ( ImportMatcher* match : m_matchers )
         settings.addCategoryMatchSetting( match->settings() );
 
     return settings;
@@ -389,8 +389,8 @@ ImportSettings ImportExport::ImportDialog::settings()
 void ImportExport::ImportDialog::possiblyAddMD5CheckPage()
 {
     if ( MD5CheckPage::pageNeeded( settings() ) ) {
-        _md5CheckPage = new MD5CheckPage( settings() );
-        addPage(_md5CheckPage, i18n("How to resolve clashes") );
+        m_md5CheckPage = new MD5CheckPage( settings() );
+        addPage(m_md5CheckPage, i18n("How to resolve clashes") );
     }
 }
 

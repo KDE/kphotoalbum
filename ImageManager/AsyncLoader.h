@@ -59,13 +59,13 @@ private:
 
     ImageRequest* next();
 
-    static AsyncLoader* _instance;
+    static AsyncLoader* s_instance;
 
-    RequestQueue _loadList;
-    QWaitCondition _sleepers;
-    // _lock protects _loadList and _currentLoading
-    mutable QMutex _lock;
-    QSet<ImageRequest*> _currentLoading;
+    RequestQueue m_loadList;
+    QWaitCondition m_sleepers;
+    // m_lock protects m_loadList and m_currentLoading
+    mutable QMutex m_lock;
+    QSet<ImageRequest*> m_currentLoading;
     QImage m_brokenImage;
 };
 

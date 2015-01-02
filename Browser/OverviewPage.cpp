@@ -34,16 +34,16 @@
 
 const int THUMBNAILSIZE = 70;
 
-AnnotationDialog::Dialog* Browser::OverviewPage::_config = nullptr;
+AnnotationDialog::Dialog* Browser::OverviewPage::s_config = nullptr;
 Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserPage( info, browser), _breadcrumb( breadcrumb )
+    : BrowserPage( info, browser), m_breadcrumb( breadcrumb )
 {
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
         QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
         DB::MediaCount count( images.count(), videos.count() );
-        _count[row] = count;
+        m_count[row] = count;
         ++row;
     }
 }
@@ -191,7 +191,7 @@ void Browser::OverviewPage::activate()
 
 Qt::ItemFlags Browser::OverviewPage::flags( const QModelIndex & index ) const
 {
-    if ( isCategoryIndex(index.row() ) && _count[index.row()].total() <= 1 )
+    if ( isCategoryIndex(index.row() ) && m_count[index.row()].total() <= 1 )
         return QAbstractListModel::flags(index) & ~Qt::ItemIsEnabled;
     else
         return QAbstractListModel::flags(index);
@@ -241,12 +241,12 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 
 Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
 {
-    if ( !_config )
-        _config = new AnnotationDialog::Dialog( browser() );
+    if ( !s_config )
+        s_config = new AnnotationDialog::Dialog( browser() );
 
     Utilities::ShowBusyCursor undoTheBusyWhileShowingTheDialog( Qt::ArrowCursor );
     DB::ImageSearchInfo tmpInfo = BrowserPage::searchInfo();
-    DB::ImageSearchInfo info = _config->search( &tmpInfo ); // PENDING(blackie) why take the address?
+    DB::ImageSearchInfo info = s_config->search( &tmpInfo ); // PENDING(blackie) why take the address?
 
     if ( info.isNull() )
         return nullptr;
@@ -262,7 +262,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()
 
 Browser::Breadcrumb Browser::OverviewPage::breadcrumb() const
 {
-    return _breadcrumb;
+    return m_breadcrumb;
 }
 
 bool Browser::OverviewPage::showDuringMovement() const

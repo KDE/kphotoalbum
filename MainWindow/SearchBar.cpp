@@ -32,15 +32,15 @@ MainWindow::SearchBar::SearchBar( KMainWindow* parent )
     QLabel* label = new QLabel( i18nc("@label:textbox label on the search bar","Search:") + QString::fromLatin1(" ") );
     addWidget( label );
 
-    _edit = new KLineEdit( this );
-    _edit->setClearButtonShown(true);
-    label->setBuddy( _edit );
+    m_edit = new KLineEdit( this );
+    m_edit->setClearButtonShown(true);
+    label->setBuddy( m_edit );
 
-    addWidget( _edit );
-    connect( _edit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)) );
-    connect( _edit, SIGNAL(returnPressed()), this, SIGNAL(returnPressed()) );
+    addWidget( m_edit );
+    connect( m_edit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)) );
+    connect( m_edit, SIGNAL(returnPressed()), this, SIGNAL(returnPressed()) );
 
-    _edit->installEventFilter( this );
+    m_edit->installEventFilter( this );
 }
 
 bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
@@ -74,7 +74,7 @@ bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
 
 void MainWindow::SearchBar::reset()
 {
-    _edit->clear();
+    m_edit->clear();
 }
 
 /**
@@ -84,8 +84,8 @@ void MainWindow::SearchBar::reset()
  */
 void MainWindow::SearchBar::setLineEditEnabled(bool b)
 {
-    _edit->setEnabled(b);
-    _edit->setFocus();
+    m_edit->setEnabled(b);
+    m_edit->setFocus();
 }
 
 #include "SearchBar.moc"

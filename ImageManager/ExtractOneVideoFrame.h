@@ -55,7 +55,7 @@ private:
     QString m_workingDirectory;
     Utilities::Process* m_process;
     DB::FileName m_fileName;
-    static QString m_tokenForShortVideos;
+    static QString s_tokenForShortVideos;
 };
 
 } // namespace ImageManager

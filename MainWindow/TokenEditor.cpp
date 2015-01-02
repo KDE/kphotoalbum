@@ -53,7 +53,7 @@ TokenEditor::TokenEditor( QWidget* parent )
         QChar token = QChar::fromLatin1( (char) ch );
         QCheckBox* box = new QCheckBox( token );
         grid->addWidget( box, index/5, index % 5 );
-        _cbs.append( box );
+        m_checkBoxes.append( box );
     }
 
     QHBoxLayout* hlay = new QHBoxLayout;
@@ -73,7 +73,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         (*it)->setChecked( false );
         QString txt = (*it)->text().remove( QString::fromLatin1("&") );
         (*it)->setEnabled( tokens.contains( txt ) );
@@ -83,14 +83,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         (*it)->setChecked( true );
     }
 }
 
 void TokenEditor::selectNone()
 {
-     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         (*it)->setChecked( false );
     }
 }
@@ -115,7 +115,7 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::accept()
 {
-     for( QList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+     for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );

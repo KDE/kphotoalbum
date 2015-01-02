@@ -20,37 +20,37 @@
 ImageManager::ImageRequest::ImageRequest( const DB::FileName& fileName,
                                           const QSize& size, int angle,
                                           ImageManager::ImageClientInterface* client )
-    : _null( false ),
-      _fileName( fileName ),
-      _width( size.width() ),
-      _height( size.height() ),
-      _client( client ),
-      _angle( angle ),
-      _priority( ThumbnailVisible ),
-      _loadedOK( false ),
-      _dontUpScale( false ),
-      _isThumbnailRequest(false)
+    : m_null( false ),
+      m_fileName( fileName ),
+      m_width( size.width() ),
+      m_height( size.height() ),
+      m_client( client ),
+      m_angle( angle ),
+      m_priority( ThumbnailVisible ),
+      m_loadedOK( false ),
+      m_dontUpScale( false ),
+      m_isThumbnailRequest(false)
 {
 }
 
 bool ImageManager::ImageRequest::loadedOK() const
 {
-    return _loadedOK;
+    return m_loadedOK;
 }
 
 bool ImageManager::ImageRequest::isNull() const
 {
-    return _null;
+    return m_null;
 }
 
 int ImageManager::ImageRequest::width() const
 {
-    return _width;
+    return m_width;
 }
 
 int ImageManager::ImageRequest::height() const
 {
-    return _height;
+    return m_height;
 }
 
 bool ImageManager::ImageRequest::operator<( const ImageRequest& other ) const
@@ -60,56 +60,56 @@ bool ImageManager::ImageRequest::operator<( const ImageRequest& other ) const
 
     if (  fileA != fileB )
         return fileA < fileB;
-    else if ( _width != other._width )
-        return _width < other._width;
-    else if ( _height != other._height )
-        return _height < other._height;
+    else if ( m_width != other.m_width )
+        return m_width < other.m_width;
+    else if ( m_height != other.m_height )
+        return m_height < other.m_height;
     else
-        return _angle < other._angle;
+        return m_angle < other.m_angle;
 }
 
 bool ImageManager::ImageRequest::operator==( const ImageRequest& other ) const
 {
     // Compare all atributes but the pixmap.
-    return ( _null == other._null && databaseFileName() == other.databaseFileName() &&
-             _width == other._width && _height == other._height &&
-             _angle == other._angle && _client == other._client &&
-             _priority == other._priority );
+    return ( m_null == other.m_null && databaseFileName() == other.databaseFileName() &&
+             m_width == other.m_width && m_height == other.m_height &&
+             m_angle == other.m_angle && m_client == other.m_client &&
+             m_priority == other.m_priority );
 }
 
 ImageManager::ImageClientInterface* ImageManager::ImageRequest::client() const
 {
-    return _client;
+    return m_client;
 }
 
 int ImageManager::ImageRequest::angle() const
 {
-    return _angle;
+    return m_angle;
 }
 
 QSize ImageManager::ImageRequest::fullSize() const
 {
-    return _fullSize;
+    return m_fullSize;
 }
 
 void ImageManager::ImageRequest::setFullSize( const QSize& size )
 {
-    _fullSize = size;
+    m_fullSize = size;
 }
 
 void ImageManager::ImageRequest::setLoadedOK( bool ok )
 {
-    _loadedOK = ok;
+    m_loadedOK = ok;
 }
 
 ImageManager::Priority ImageManager::ImageRequest::priority() const
 {
-    return _priority;
+    return m_priority;
 }
 
 void ImageManager::ImageRequest::setPriority( const Priority prio )
 {
-    _priority = prio;
+    m_priority = prio;
 }
 
 bool ImageManager::ImageRequest::stillNeeded() const
@@ -119,37 +119,37 @@ bool ImageManager::ImageRequest::stillNeeded() const
 
 bool ImageManager::ImageRequest::doUpScale() const
 {
-    return !_dontUpScale;
+    return !m_dontUpScale;
 }
 
 void ImageManager::ImageRequest::setUpScale( bool b )
 {
-    _dontUpScale = !b;
+    m_dontUpScale = !b;
 }
 
 void ImageManager::ImageRequest::setIsThumbnailRequest( bool b )
 {
-    _isThumbnailRequest = b;
+    m_isThumbnailRequest = b;
 }
 
 bool ImageManager::ImageRequest::isThumbnailRequest() const
 {
-    return _isThumbnailRequest;
+    return m_isThumbnailRequest;
 }
 
 DB::FileName ImageManager::ImageRequest::databaseFileName() const
 {
-    return _fileName;
+    return m_fileName;
 }
 
 DB::FileName ImageManager::ImageRequest::fileSystemFileName() const
 {
-    return _fileName;
+    return m_fileName;
 }
 
 QSize ImageManager::ImageRequest::size() const
 {
-    return QSize( _width, _height );
+    return QSize( m_width, m_height );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

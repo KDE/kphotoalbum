@@ -60,7 +60,7 @@ public:
     QString currentCategory() const;
     void addAction( Browser::BrowserPage* );
     void setModel( QAbstractItemModel* );
-    static bool isResizing() { return _isResizing; }
+    static bool isResizing() { return s_isResizing; }
 
 public slots:
     void back();
@@ -107,17 +107,17 @@ private:
     void handleResizeEvent( QMouseEvent* );
 
 private:
-    static BrowserWidget* _instance;
-    QList<BrowserPage*> _list;
-    int _current;
-    QStackedWidget* _stack;
-    CenteringIconView* _listView;
-    QTreeView* _treeView;
-    QAbstractItemView* _curView;
-    TreeFilter* _filterProxy;
-    Browser::BreadcrumbList _breadcrumbs;
-    QPoint _resizePressPos;
-    static bool _isResizing;
+    static BrowserWidget* s_instance;
+    QList<BrowserPage*> m_list;
+    int m_current;
+    QStackedWidget* m_stack;
+    CenteringIconView* m_listView;
+    QTreeView* m_treeView;
+    QAbstractItemView* m_curView;
+    TreeFilter* m_filterProxy;
+    Browser::BreadcrumbList m_breadcrumbs;
+    QPoint m_resizePressPos;
+    static bool s_isResizing;
 };
 
 }

@@ -39,8 +39,8 @@
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {
-    _list = imageList;
-    _currentInfo = current;
+    m_list = imageList;
+    m_currentInfo = current;
     clear();
     QAction *action;
 
@@ -49,8 +49,8 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::Fi
         if ( which == 0 && !current )
             continue;
 
-        const bool multiple = (_list.count() > 1);
-        const bool enabled = (which != 1 && _currentInfo ) || (which == 1 && multiple);
+        const bool multiple = (m_list.count() > 1);
+        const bool enabled = (which != 1 && m_currentInfo ) || (which == 1 && multiple);
 
         // Submenu
         QMenu *submenu = addMenu( list[which] );
@@ -91,7 +91,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::Fi
 void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
     QString name = action->objectName();
-    const StringSet apps =_appToMimeTypeMap[name];
+    const StringSet apps =m_appToMimeTypeMap[name];
 
     // get the list of arguments
     KUrl::List lst;
@@ -100,12 +100,12 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     {
     return;  //user clicked the title entry. (i.e: "All Selected Items")
     } else if ( action->data() == 1 ) {
-        for( DB::FileNameList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
-            if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
+        for( DB::FileNameList::Iterator it = m_list.begin(); it != m_list.end(); ++it ) {
+            if ( m_appToMimeTypeMap[name].contains( mimeType(*it) ) )
                 lst.append( KUrl((*it).absolute()) );
         }
     } else if (action->data() == 2) {
-        QString origFile = _currentInfo->fileName().absolute();
+        QString origFile = m_currentInfo->fileName().absolute();
         QString newFile = origFile;
 
         QString origRegexpString =
@@ -125,7 +125,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
 
     } else {
-        lst.append( KUrl(_currentInfo->fileName().absolute()));
+        lst.append( KUrl(m_currentInfo->fileName().absolute()));
     }
 
 
@@ -135,7 +135,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     if (name == i18n("Your Command Line")) {
 
         static RunDialog* dialog = new RunDialog(MainWindow::Window::theMainWindow());
-        dialog->setImageList(_list);
+        dialog->setImageList(m_list);
         dialog->show();
 
         return;
@@ -191,7 +191,7 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList
         KService::List offers = KMimeTypeTrader::self()->query( *mimeTypeIt, QLatin1String( "Application" ));
         for(KService::List::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
             res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->icon() ) );
-            _appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
+            m_appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
         }
     }
     return res;

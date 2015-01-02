@@ -31,8 +31,8 @@ public:
     bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
     void debug( int level ) const override;
 
-    QString _option;
-    StringSet _members;
+    QString m_option;
+    StringSet m_members;
 };
 
 }

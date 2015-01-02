@@ -54,14 +54,14 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) :
     label->setFont(fnt);
     topLayout->addWidget(label);
 
-    _trash = new QRadioButton(i18n("Move to &trash"));
-    _deleteFromDisk = new QRadioButton(i18n("&Delete from disk"));
+    m_trash = new QRadioButton(i18n("Move to &trash"));
+    m_deleteFromDisk = new QRadioButton(i18n("&Delete from disk"));
     QRadioButton* blockFromDB = new QRadioButton(i18n("&Block from database"));
-    _trash->setChecked(true);
+    m_trash->setChecked(true);
 
     topLayout->addSpacing(10);
-    topLayout->addWidget(_trash);
-    topLayout->addWidget(_deleteFromDisk);
+    topLayout->addWidget(m_trash);
+    topLayout->addWidget(m_deleteFromDisk);
     topLayout->addWidget(blockFromDB);
     topLayout->addSpacing(10);
 
@@ -103,9 +103,9 @@ void DuplicateMerger::selectNone()
 void DuplicateMerger::go()
 {
     Utilities::DeleteMethod method = Utilities::BlockFromDatabase;
-    if (_trash->isChecked())
+    if (m_trash->isChecked())
         method = Utilities::MoveToTrash;
-    else if (_deleteFromDisk->isChecked())
+    else if (m_deleteFromDisk->isChecked())
         method = Utilities::DeleteFromDisk;
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
         selector->execute(method);

@@ -23,7 +23,7 @@
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {
-    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         if ( (*it)->name() == name || (*it)->text() == name )
             return *it;
     }
@@ -32,7 +32,7 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& na
 
 void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
 {
-    _categories.append( category );
+    m_categories.append( category );
     connect( category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()) );
     connect( category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)) );
     connect( category.data(), SIGNAL(itemRenamed(QString,QString)), this, SLOT(itemRenamed(QString,QString)) );
@@ -42,7 +42,7 @@ void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
 QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 {
     QStringList res;
-    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         res.append( (*it)->name() );
     }
     return res;
@@ -51,7 +51,7 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
 {
     QStringList res;
-    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         res.append( (*it)->text() );
     }
     return res;
@@ -59,9 +59,9 @@ QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
 
 void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
 {
-    for( QList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::Iterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
-            _categories.erase(it);
+            m_categories.erase(it);
             emit categoryCollectionChanged();
             return;
         }
@@ -79,7 +79,7 @@ void XMLDB::XMLCategoryCollection::rename( const QString& oldName, const QString
 
 QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 {
-    return _categories;
+    return m_categories;
 }
 
 void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon,
@@ -90,7 +90,7 @@ void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QStri
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    for( QList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
+    for( QList<DB::CategoryPtr>::Iterator it = m_categories.begin(); it != m_categories.end(); ++it )
         static_cast<XMLCategory*>((*it).data())->initIdMap();
 }
 

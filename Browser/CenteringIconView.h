@@ -53,7 +53,7 @@ private:
 
 
 private:
-    ViewMode _viewMode;
+    ViewMode m_viewMode;
 };
 
 }

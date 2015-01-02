@@ -53,15 +53,15 @@ using Utilities::StringSet;
 ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     :QListView(),
      ThumbnailComponent( factory ),
-     _isSettingDate(false),
-     _gridResizeInteraction( factory ),
-     _wheelResizing( false ),
-     _selectionInteraction( factory ),
-     _mouseTrackingHandler( factory ),
-     _mouseHandler( &_mouseTrackingHandler ),
-     _dndHandler( new ThumbnailDND( factory ) ),
+     m_isSettingDate(false),
+     m_gridResizeInteraction( factory ),
+     m_wheelResizing( false ),
+     m_selectionInteraction( factory ),
+     m_mouseTrackingHandler( factory ),
+     m_mouseHandler( &m_mouseTrackingHandler ),
+     m_dndHandler( new ThumbnailDND( factory ) ),
      m_pressOnStackIndicator( false ),
-     _keyboardHandler( new KeyboardEventHandler( factory ) ),
+     m_keyboardHandler( new KeyboardEventHandler( factory ) ),
       m_videoThumbnailCycler( new VideoThumbnailCycler(model()) )
 {
     setModel( ThumbnailComponent::model() );
@@ -80,8 +80,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &_mouseTrackingHandler, SIGNAL(fileIdUnderCursorChanged(DB::FileName)), this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
-    connect( _keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
+    connect( &m_mouseTrackingHandler, SIGNAL(fileIdUnderCursorChanged(DB::FileName)), this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
+    connect( m_keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
 
     updatePalette();
     setItemDelegate( new Delegate(factory, this) );
@@ -96,18 +96,18 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
 
 bool ThumbnailView::ThumbnailWidget::isGridResizing() const
 {
-    return _mouseHandler->isResizingGrid() || _wheelResizing;
+    return m_mouseHandler->isResizingGrid() || m_wheelResizing;
 }
 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( !_keyboardHandler->keyPressEvent( event ) )
+    if ( !m_keyboardHandler->keyPressEvent( event ) )
         QListView::keyPressEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 {
-    const bool propagate = _keyboardHandler->keyReleaseEvent( event );
+    const bool propagate = m_keyboardHandler->keyReleaseEvent( event );
     if ( propagate )
         QListView::keyReleaseEvent(event);
 }
@@ -148,15 +148,15 @@ void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
     }
 
     if ( isMouseResizeGesture( event ) )
-        _mouseHandler = &_gridResizeInteraction;
+        m_mouseHandler = &m_gridResizeInteraction;
     else
-        _mouseHandler = &_selectionInteraction;
+        m_mouseHandler = &m_selectionInteraction;
 
-    if ( !_mouseHandler->mousePressEvent( event ) )
+    if ( !m_mouseHandler->mousePressEvent( event ) )
         QListView::mousePressEvent( event );
 
     if (event->button() & Qt::RightButton) //get out of selection mode if this is a right click
-      _mouseHandler = &_mouseTrackingHandler;
+      m_mouseHandler = &m_mouseTrackingHandler;
 
 }
 
@@ -165,7 +165,7 @@ void ThumbnailView::ThumbnailWidget::mouseMoveEvent( QMouseEvent* event )
     if ( m_pressOnStackIndicator )
         return;
 
-    if ( !_mouseHandler->mouseMoveEvent( event ) )
+    if ( !m_mouseHandler->mouseMoveEvent( event ) )
         QListView::mouseMoveEvent( event );
 }
 
@@ -176,10 +176,10 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
         return;
     }
 
-    if ( !_mouseHandler->mouseReleaseEvent( event ) )
+    if ( !m_mouseHandler->mouseReleaseEvent( event ) )
         QListView::mouseReleaseEvent( event );
 
-    _mouseHandler = &_mouseTrackingHandler;
+    m_mouseHandler = &m_mouseTrackingHandler;
 }
 
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
@@ -198,10 +198,10 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 {
     if ( event->modifiers() & Qt::ControlModifier ) {
         event->setAccepted(true);
-        if ( !_wheelResizing)
-            _gridResizeInteraction.enterGridResizingMode();
+        if ( !m_wheelResizing)
+            m_gridResizeInteraction.enterGridResizingMode();
 
-        _wheelResizing = true;
+        m_wheelResizing = true;
 
         const int delta = -event->delta() / 20;
         Settings::SettingsData::instance()->setThumbSize( qMax( 32, Settings::SettingsData::instance()->thumbSize() + delta ) );
@@ -220,7 +220,7 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 
 void ThumbnailView::ThumbnailWidget::emitDateChange()
 {
-    if ( _isSettingDate )
+    if ( m_isSettingDate )
         return;
 
     int row = currentIndex().row();
@@ -246,13 +246,13 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
  */
 void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
-    _isSettingDate = true;
+    m_isSettingDate = true;
     DB::FileName candidate = DB::ImageDB::instance()
                              ->findFirstItemInRange(model()->imageList(ViewOrder), date, includeRanges);
     if ( !candidate.isNull() )
         setCurrentItem( candidate );
 
-    _isSettingDate = false;
+    m_isSettingDate = false;
 }
 
 
@@ -287,23 +287,23 @@ QModelIndex ThumbnailView::ThumbnailWidget::indexUnderCursor() const
 
 void ThumbnailView::ThumbnailWidget::dragMoveEvent( QDragMoveEvent* event )
 {
-    _dndHandler->contentsDragMoveEvent(event);
+    m_dndHandler->contentsDragMoveEvent(event);
 }
 
 void ThumbnailView::ThumbnailWidget::dragLeaveEvent( QDragLeaveEvent* event )
 {
-    _dndHandler->contentsDragLeaveEvent( event );
+    m_dndHandler->contentsDragLeaveEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::dropEvent( QDropEvent* event )
 {
-    _dndHandler->contentsDropEvent( event );
+    m_dndHandler->contentsDropEvent( event );
 }
 
 
 void ThumbnailView::ThumbnailWidget::dragEnterEvent( QDragEnterEvent * event )
 {
-    _dndHandler->contentsDragEnterEvent( event );
+    m_dndHandler->contentsDragEnterEvent( event );
 }
 
 void ThumbnailView::ThumbnailWidget::setCurrentItem( const DB::FileName& fileName )

@@ -33,7 +33,7 @@
 #include "MainWindow/DirtyIndicator.h"
 
 namespace ImageManager {
-QString ExtractOneVideoFrame::m_tokenForShortVideos;
+QString ExtractOneVideoFrame::s_tokenForShortVideos;
 
 #define STR(x) QString::fromUtf8(x)
 void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject* receiver, const char* slot)
@@ -116,17 +116,17 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
 
 void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
 {
-    if (m_tokenForShortVideos.isNull()) {
+    if (s_tokenForShortVideos.isNull()) {
         Utilities::StringSet usedTokens = MainWindow::TokenEditor::tokensInUse().toSet();
         for ( int ch = 'A'; ch <= 'Z'; ++ch ) {
             QString token = QChar::fromLatin1( (char) ch );
             if (!usedTokens.contains(token)) {
-                m_tokenForShortVideos = token;
+                s_tokenForShortVideos = token;
                 break;
             }
         }
 
-        if (m_tokenForShortVideos.isNull()) {
+        if (s_tokenForShortVideos.isNull()) {
             // Hmmm, no free token. OK lets just skip setting tokens.
             return;
         }
@@ -137,11 +137,11 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
                                       "has been set on those videos.\n\n"
                                       "(You might need to wait till the video extraction led in your status bar has stopped blinking, "
                                       "to see all affected videos.)")
-                                 .arg(m_tokenForShortVideos));
+                                 .arg(s_tokenForShortVideos));
     }
 
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    info->addCategoryInfo(QString::fromUtf8("Tokens"), m_tokenForShortVideos);
+    info->addCategoryInfo(QString::fromUtf8("Tokens"), s_tokenForShortVideos);
     MainWindow::DirtyIndicator::markDirty();
 }
 

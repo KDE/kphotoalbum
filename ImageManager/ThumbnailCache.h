@@ -52,7 +52,7 @@ private:
     QString fileNameForIndex( int index ) const;
     QString thumbnailPath( const QString& fileName ) const;
 
-    static ThumbnailCache* m_instance;
+    static ThumbnailCache* s_instance;
     QMap<DB::FileName, CacheFileInfo> m_map;
     int m_currentFile;
     int m_currentOffset;

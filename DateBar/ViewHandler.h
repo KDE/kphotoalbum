@@ -36,7 +36,7 @@ public:
     virtual QString unitText() const = 0;
 
 protected:
-    QDateTime _startDate;
+    QDateTime m_startDate;
 };
 
 

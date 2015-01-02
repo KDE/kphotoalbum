@@ -29,38 +29,38 @@
  */
 
 Viewer::ViewHandler::ViewHandler( Viewer::ImageDisplay* display )
-    :QObject( display ), _scale( false ), _pan( false ), _rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) ), _display(display)
+    :QObject( display ), m_scale( false ), m_pan( false ), m_rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) ), m_display(display)
 {
 
 }
 
 bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
 {
-    _pan = false;
-    _scale = false;
+    m_pan = false;
+    m_scale = false;
 
     if ( (e->button() & Qt::LeftButton ) ) {
         if ( (e->modifiers() & Qt::ControlModifier ) ) {
-            _pan = true;
+            m_pan = true;
         } else {
-            _scale = true;
+            m_scale = true;
         }
     }
     else if ( e->button() & Qt::MidButton ) {
-        _pan = true;
+        m_pan = true;
     }
 
-    if (_pan) {
+    if (m_pan) {
          // panning
-        _last = unTranslatedPos;
+        m_last = unTranslatedPos;
         qApp->setOverrideCursor( Qt::SizeAllCursor );
-        _errorX = 0;
-        _errorY = 0;
+        m_errorX = 0;
+        m_errorY = 0;
         return true;
-    } else if (_scale) {
+    } else if (m_scale) {
         // scaling
-        _start = e->pos();
-        _untranslatedStart = unTranslatedPos;
+        m_start = e->pos();
+        m_untranslatedStart = unTranslatedPos;
         qApp->setOverrideCursor( Qt::CrossCursor );
         return true;
     } else {
@@ -71,24 +71,24 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
 bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent*,
                                           const QPoint& unTranslatedPos, double scaleFactor )
 {
-    if ( _scale ) {
-        _rubberBand->setGeometry( QRect( _untranslatedStart, unTranslatedPos ).normalized() );
-        _rubberBand->show();
+    if ( m_scale ) {
+        m_rubberBand->setGeometry( QRect( m_untranslatedStart, unTranslatedPos ).normalized() );
+        m_rubberBand->show();
         return true;
     }
-    else if ( _pan ) {
+    else if ( m_pan ) {
         // This code need to be taking the error into account, consider this situation:
         // The user moves the mouse very slowly, only 1 pixel at a time, scale factor is 3
         // Then translated delta would be 1/3 which every time would be
         // rounded down to 0, and the panning would never move any pixels.
-        double deltaX = _errorX + (_last.x() - unTranslatedPos.x())/scaleFactor;
-        double deltaY = _errorY + (_last.y() - unTranslatedPos.y())/scaleFactor;
+        double deltaX = m_errorX + (m_last.x() - unTranslatedPos.x())/scaleFactor;
+        double deltaY = m_errorY + (m_last.y() - unTranslatedPos.y())/scaleFactor;
         QPoint deltaPoint = QPoint( (int) deltaX, (int) deltaY );
-        _errorX = deltaX - ((double) ((int) deltaX ) );
-        _errorY = deltaY - ((double) ((int) deltaY) );
+        m_errorX = deltaX - ((double) ((int) deltaX ) );
+        m_errorY = deltaY - ((double) ((int) deltaY) );
 
-        _display->pan( deltaPoint );
-        _last = unTranslatedPos;
+        m_display->pan( deltaPoint );
+        m_last = unTranslatedPos;
         return true;
     }
     else
@@ -97,19 +97,19 @@ bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent*,
 
 bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
-    if ( _scale ) {
+    if ( m_scale ) {
         qApp->restoreOverrideCursor();
-        _rubberBand->hide();
-        _scale = false;
-        if ( (e->pos()-_start).manhattanLength() > 1 ) {
-            _display->zoom( _start, e->pos() );
+        m_rubberBand->hide();
+        m_scale = false;
+        if ( (e->pos()-m_start).manhattanLength() > 1 ) {
+            m_display->zoom( m_start, e->pos() );
             return true;
         } else
             return false;
     }
-    else if ( _pan ) {
+    else if ( m_pan ) {
         qApp->restoreOverrideCursor();
-        _pan = false;
+        m_pan = false;
         return true;
     }
     else
@@ -120,10 +120,10 @@ void Viewer::ViewHandler::hideEvent()
 {
   // In case the escape key is pressed while viewing or scaling, then we need to restore the override cursor
   // (As in that case we will not see a key release event)
-  if ( _pan || _scale) {
+  if ( m_pan || m_scale) {
     qApp->restoreOverrideCursor();
-    _pan = false;
-    _scale = false;
+    m_pan = false;
+    m_scale = false;
   }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -26,7 +26,7 @@ public:
     explicit FastDir(const QString &path);
     QStringList entryList() const;
 private:
-    const QString _path;
+    const QString m_path;
 };
 
 }

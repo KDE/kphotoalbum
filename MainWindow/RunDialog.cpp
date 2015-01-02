@@ -39,9 +39,9 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     QLabel* label = new QLabel(txt);
     layout->addWidget(label);
 
-    _cmd = new KLineEdit();
-    layout->addWidget(_cmd);
-    _cmd->setMinimumWidth(400);
+    m_cmd = new KLineEdit();
+    layout->addWidget(m_cmd);
+    m_cmd->setMinimumWidth(400);
     // xgettext: no-c-format
     txt = i18n("<p>Enter the command you want to run on your image file(s). "
                "KPhotoAlbum will run your command and replace any '%all' tokens "
@@ -51,7 +51,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
                "directory</p>"
                "<p>You can also use %each to have a command be run once per "
                "file.</p>");
-    _cmd->setWhatsThis(txt);
+    m_cmd->setWhatsThis(txt);
     label->setWhatsThis(txt);
 
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMarkGo()) );
@@ -59,12 +59,12 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
 
 void MainWindow::RunDialog::setImageList( const DB::FileNameList& fileList )
 {
-    _fileList = fileList;
+    m_fileList = fileList;
 }
 
 void MainWindow::RunDialog::slotMarkGo( )
 {
-    QString cmdString = _cmd->text();
+    QString cmdString = m_cmd->text();
     // xgettext: no-c-format
     QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'","%all"));
     // xgettext: no-c-format
@@ -72,7 +72,7 @@ void MainWindow::RunDialog::slotMarkGo( )
 
     // Replace the %all argument first
     QStringList fileList;
-    Q_FOREACH( const DB::FileName& fileName, _fileList )
+    Q_FOREACH( const DB::FileName& fileName, m_fileList )
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -80,7 +80,7 @@ void MainWindow::RunDialog::slotMarkGo( )
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for( DB::FileNameList::Iterator it = _fileList.begin(); it != _fileList.end(); ++it ) {
+        for( DB::FileNameList::Iterator it = m_fileList.begin(); it != m_fileList.end(); ++it ) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, (*it).absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());

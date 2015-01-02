@@ -29,8 +29,8 @@ public:
     bool canContinue();
 
 private:
-    bool& _guard;
-    bool _iLocedIt;
+    bool& m_guard;
+    bool m_iLockedIt;
 };
 
 

@@ -33,9 +33,9 @@ public:
     virtual QString name();
     virtual KUrl::List images();
 private:
-    DB::ImageSearchInfo _context;
-    const QString _category;
-    const QString _value;
+    DB::ImageSearchInfo m_context;
+    const QString m_category;
+    const QString m_value;
 };
 
 }

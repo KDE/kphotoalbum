@@ -59,7 +59,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         NumberedBackup().makeNumberedBackup();
 
     // prepare XML document for saving:
-    _db->_categoryCollection.initIdMap();
+    m_db->m_categoryCollection.initIdMap();
     QFile out(fileName + QString::fromAscii(".tmp"));
     if ( !out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         KMessageBox::sorry( messageParent(),
@@ -139,7 +139,7 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
                 /*
                 QStringList list =
                         Utilities::mergeListsUniqly(category->items(),
-                                                    _db->_members.groups(name));
+                                                    m_db->_members.groups(name));
                 */
 
                 Q_FOREACH(const QString &tagName, category->items()) {
@@ -158,10 +158,10 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
 
 void XMLDB::FileWriter::saveImages( QXmlStreamWriter& writer )
 {
-    DB::ImageInfoList list = _db->_images;
+    DB::ImageInfoList list = m_db->m_images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
-    Q_FOREACH(const DB::ImageInfoPtr &infoPtr, _db->_clipboard) {
+    Q_FOREACH(const DB::ImageInfoPtr &infoPtr, m_db->m_clipboard) {
         list.append(infoPtr);
     }
 
@@ -177,7 +177,7 @@ void XMLDB::FileWriter::saveImages( QXmlStreamWriter& writer )
 void XMLDB::FileWriter::saveBlockList( QXmlStreamWriter& writer )
 {
     ElementWriter dummy( writer, QString::fromLatin1( "blocklist" ) );
-    Q_FOREACH(const DB::FileName &block, _db->_blockList) {
+    Q_FOREACH(const DB::FileName &block, m_db->m_blockList) {
         ElementWriter dummy( writer,  QString::fromLatin1( "block" ) );
         writer.writeAttribute( QString::fromLatin1( "file" ), block.relative() );
     }
@@ -185,12 +185,12 @@ void XMLDB::FileWriter::saveBlockList( QXmlStreamWriter& writer )
 
 void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
 {
-    if ( _db->_members.isEmpty() )
+    if ( m_db->m_members.isEmpty() )
         return;
 
     ElementWriter dummy( writer, QString::fromLatin1( "member-groups" ) );
-    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= _db->_members.memberMap().constBegin();
-         memberMapIt != _db->_members.memberMap().constEnd(); ++memberMapIt )
+    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= m_db->m_members.memberMap().constBegin();
+         memberMapIt != m_db->m_members.memberMap().constEnd(); ++memberMapIt )
     {
         const QString categoryName = memberMapIt.key();
 
@@ -219,7 +219,7 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                 writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
                 Q_FOREACH(const QString& member, members) {
-                    DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( memberMapIt.key() );
+                    DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( memberMapIt.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
@@ -413,13 +413,13 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
         return cache[categoryName];
 
     // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
-    if ( !_db->_categoryCollection.categoryForName( categoryName ) ) {
+    if ( !m_db->m_categoryCollection.categoryForName( categoryName ) ) {
         qWarning("Invalid category name: %s", qPrintable(categoryName));
         cache.insert(categoryName,false);
         return false;
     }
 
-    const bool shouldSave =  dynamic_cast<XMLCategory*>( _db->_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
+    const bool shouldSave =  dynamic_cast<XMLCategory*>( m_db->m_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
     cache.insert(categoryName,shouldSave);
     return shouldSave;
 }

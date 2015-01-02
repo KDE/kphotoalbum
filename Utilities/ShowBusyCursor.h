@@ -53,7 +53,7 @@ public:
     ~ShowBusyCursor();
     void stop();
 private:
-    bool _active;
+    bool m_active;
 };
 
 }

@@ -100,6 +100,8 @@ endif(Kface_FOUND)
 
 if(EXIV2_FOUND)
     find_package(KGeoMap QUIET)
+else()
+	message(STATUS "Not searching KGeoMap because of missing dependency Exiv2...")
 endif()
 macro_bool_to_01(KGEOMAP_FOUND HAVE_KGEOMAP)
 if(KGEOMAP_FOUND)

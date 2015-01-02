@@ -39,7 +39,7 @@ public slots:
     virtual void zoomPixelForPixel() = 0;
 
 protected:
-    DB::ImageInfoPtr _info;
+    DB::ImageInfoPtr m_info;
 };
 
 }

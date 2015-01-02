@@ -19,10 +19,10 @@
 #include "Breadcrumb.h"
 #include <klocale.h>
 
-int Browser::Breadcrumb::_count = 0;
+int Browser::Breadcrumb::s_count = 0;
 
 Browser::Breadcrumb::Breadcrumb(const QString& text, bool isBeginning )
-    : _index( ++_count ),_isBeginning( isBeginning), _isView(false), _text( text )
+    : m_index( ++s_count ),m_isBeginning( isBeginning), m_isView(false), m_text( text )
 {
 }
 
@@ -38,17 +38,17 @@ Browser::Breadcrumb Browser::Breadcrumb::home()
 
 QString Browser::Breadcrumb::text() const
 {
-    return _text;
+    return m_text;
 }
 
 bool Browser::Breadcrumb::isBeginning() const
 {
-    return _isBeginning;
+    return m_isBeginning;
 }
 
 bool Browser::Breadcrumb::operator==( const Breadcrumb& other ) const
 {
-    return other._index == _index;
+    return other.m_index == m_index;
 }
 
 bool Browser::Breadcrumb::operator!=( const Breadcrumb& other ) const
@@ -59,12 +59,12 @@ bool Browser::Breadcrumb::operator!=( const Breadcrumb& other ) const
 Browser::Breadcrumb Browser::Breadcrumb::view()
 {
     Breadcrumb res( QString(), false );
-    res._isView = true;
+    res.m_isView = true;
     return res;
 }
 
 bool Browser::Breadcrumb::isView() const
 {
-    return _isView;
+    return m_isView;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

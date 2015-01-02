@@ -29,7 +29,7 @@ using namespace ImportExport;
 ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,
                               const QStringList& otherItems, const QStringList& myItems,
                               bool allowNew, QWidget* parent )
-    : QScrollArea( parent ), _otherCategory( otherCategory ), _myCategory( myCategory )
+    : QScrollArea( parent ), m_otherCategory( otherCategory ), m_myCategory( myCategory )
 {
     setWidgetResizable(true);
     QWidget* top = new QWidget( viewport() );
@@ -62,27 +62,27 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
     int row = 1;
     for( QStringList::ConstIterator it = otherItems.begin(); it != otherItems.end(); ++it ) {
         CategoryMatch* match = new CategoryMatch( allowNew, *it, myItems, grid, gridLay, row++ );
-        _matchers.append( match );
+        m_matchers.append( match );
     }
 }
 
 CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QStringList myItems, QWidget* parent, QGridLayout* grid, int row )
 {
-    _checkbox = new QCheckBox( kimFileItem, parent );
-    _text = kimFileItem; // We can't just use QCheckBox::text() as Qt adds accelerators.
-    _checkbox->setChecked( true );
-    grid->addWidget( _checkbox, row, 0 );
+    m_checkbox = new QCheckBox( kimFileItem, parent );
+    m_text = kimFileItem; // We can't just use QCheckBox::text() as Qt adds accelerators.
+    m_checkbox->setChecked( true );
+    grid->addWidget( m_checkbox, row, 0 );
 
-    _combobox = new QComboBox;
-    _combobox->setEditable( allowNew );
+    m_combobox = new QComboBox;
+    m_combobox->setEditable( allowNew );
 
     myItems.sort();
-    _combobox->addItems( myItems );
-    QObject::connect( _checkbox, SIGNAL(toggled(bool)), _combobox, SLOT(setEnabled(bool)) );
-    grid->addWidget( _combobox, row, 1 );
+    m_combobox->addItems( myItems );
+    QObject::connect( m_checkbox, SIGNAL(toggled(bool)), m_combobox, SLOT(setEnabled(bool)) );
+    grid->addWidget( m_combobox, row, 1 );
 
     if ( myItems.contains( kimFileItem ) ) {
-        _combobox->setCurrentIndex( myItems.indexOf(kimFileItem) );
+        m_combobox->setCurrentIndex( myItems.indexOf(kimFileItem) );
     }
     else {
         // This item was not in my database
@@ -100,29 +100,29 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& kimFileItem, QString
         }
         if ( ! match.isEmpty() ) {
             // there was a single substring match
-            _combobox->setCurrentIndex( myItems.indexOf(match) );
+            m_combobox->setCurrentIndex( myItems.indexOf(match) );
         }
         else {
             // Either none or multiple items matches
             if ( allowNew ) {
-                _combobox->addItem(kimFileItem);
-                _combobox->setCurrentIndex( _combobox->count()-1 );
+                m_combobox->addItem(kimFileItem);
+                m_combobox->setCurrentIndex( m_combobox->count()-1 );
             }
             else
-                _checkbox->setChecked( false );
+                m_checkbox->setChecked( false );
         }
-        QPalette pal = _checkbox->palette();
+        QPalette pal = m_checkbox->palette();
         pal.setColor( QPalette::ButtonText, Qt::red );
-        _checkbox->setPalette( pal );
+        m_checkbox->setPalette( pal );
     }
 }
 
 ImportExport::CategoryMatchSetting ImportExport::ImportMatcher::settings()
 {
-    CategoryMatchSetting res( _myCategory, _otherCategory );
-    for ( CategoryMatch* match : _matchers ) {
-        if ( match->_checkbox->isChecked() )
-            res.add( match->_combobox->currentText(),match->_text );
+    CategoryMatchSetting res( m_myCategory, m_otherCategory );
+    for ( CategoryMatch* match : m_matchers ) {
+        if ( match->m_checkbox->isChecked() )
+            res.add( match->m_combobox->currentText(),match->m_text );
     }
     return res;
 }

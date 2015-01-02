@@ -93,7 +93,7 @@ DB::CategoryItem* createItem( const QString& categoryName, const QString& itemNa
                 child = createItem( categoryName, *memberIt, handledItems, categoryItems, potentialToplevelItems );
 
             potentialToplevelItems.remove( *memberIt );
-            result->_subcategories.append( child );
+            result->mp_subcategories.append( child );
         }
     }
 
@@ -120,14 +120,14 @@ DB::CategoryItemPtr DB::Category::itemsCategories() const
 
     CategoryItem* result = new CategoryItem( QString::fromLatin1("top"), true );
     for( QMap<QString,DB::CategoryItem*>::ConstIterator toplevelIt = potentialToplevelItems.constBegin(); toplevelIt != potentialToplevelItems.constEnd(); ++toplevelIt ) {
-        result->_subcategories.append( *toplevelIt );
+        result->mp_subcategories.append( *toplevelIt );
     }
 
     // Add items not found yet.
     QStringList elms = items();
     for( QStringList::ConstIterator elmIt = elms.constBegin(); elmIt != elms.constEnd(); ++elmIt ) {
         if ( !categoryItems.contains( *elmIt ) )
-            result->_subcategories.append( new DB::CategoryItem( *elmIt ) );
+            result->mp_subcategories.append( new DB::CategoryItem( *elmIt ) );
     }
 
     return CategoryItemPtr( result );

@@ -26,29 +26,29 @@
 #include <qregexp.h>
 #include <kdebug.h>
 
-MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = nullptr;
+MainWindow::SplashScreen* MainWindow::SplashScreen::s_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
     :KSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
 {
-    _instance = this;
+    s_instance = this;
 }
 
 MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
 {
-    return _instance;
+    return s_instance;
 }
 
 void MainWindow::SplashScreen::done()
 {
-    _instance = nullptr;
+    s_instance = nullptr;
     (void) close();
     deleteLater();
 }
 
 void MainWindow::SplashScreen::message( const QString& message )
 {
-    _message = message;
+    m_message = message;
     repaint();
 }
 
@@ -67,7 +67,7 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     painter->drawText( r, Qt::AlignRight | Qt::AlignTop, txt );
 
     // Message
-    painter->drawText( r, Qt::AlignLeft | Qt::AlignTop, _message );
+    painter->drawText( r, Qt::AlignLeft | Qt::AlignTop, m_message );
     painter->restore();
 }
 

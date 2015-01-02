@@ -73,22 +73,22 @@ private:
      * Update labels and tooltip texts when canCreateAreas() changes.
      */
     void updateTexts();
-    ImagePreview* _preview;
-    KPushButton* _prevBut;
-    KPushButton* _nextBut;
-    KPushButton* _rotateLeft;
-    KPushButton* _rotateRight;
-    KPushButton* _delBut;
-    KPushButton* _copyPreviousBut;
-    KPushButton *_facedetectBut;
-    KPushButton *_toggleAreasBut;
-    QList<DB::ImageInfo>* _imageList;
-    int _current;
-    bool _singleEdit;
+    ImagePreview* m_preview;
+    KPushButton* m_prevBut;
+    KPushButton* m_nextBut;
+    KPushButton* m_rotateLeft;
+    KPushButton* m_rotateRight;
+    KPushButton* m_delBut;
+    KPushButton* m_copyPreviousBut;
+    KPushButton *m_facedetectBut;
+    KPushButton *m_toggleAreasBut;
+    QList<DB::ImageInfo>* m_imageList;
+    int m_current;
+    bool m_singleEdit;
 #ifdef HAVE_KFACE
-    QCheckBox *_autoTrainDatabase;
+    QCheckBox *m_autoTrainDatabase;
 #endif
-    QWidget* _controlWidget;
+    QWidget* m_controlWidget;
 };
 
 }

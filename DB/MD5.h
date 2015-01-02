@@ -28,39 +28,39 @@ namespace DB
     {
     public:
         MD5():
-            _isNull(true),
-            _v0(0),
-            _v1(0),
-            _v2(0),
-            _v3(0)
+            m_isNull(true),
+            m_v0(0),
+            m_v1(0),
+            m_v2(0),
+            m_v3(0)
         {
         }
 
         explicit MD5(const QString& md5str):
-            _isNull(md5str.isEmpty()),
-            _v0(md5str.mid(0, 8).toULong(0, 16)),
-            _v1(md5str.mid(8, 8).toULong(0, 16)),
-            _v2(md5str.mid(16, 8).toULong(0, 16)),
-            _v3(md5str.mid(24, 8).toULong(0, 16))
+            m_isNull(md5str.isEmpty()),
+            m_v0(md5str.mid(0, 8).toULong(0, 16)),
+            m_v1(md5str.mid(8, 8).toULong(0, 16)),
+            m_v2(md5str.mid(16, 8).toULong(0, 16)),
+            m_v3(md5str.mid(24, 8).toULong(0, 16))
         {
         }
 
         bool isNull() const
         {
-            return _isNull;
+            return m_isNull;
         }
 
         MD5& operator=(const QString& md5str)
         {
             if (md5str.isEmpty()) {
-                _isNull = true;
+                m_isNull = true;
             }
             else {
-                _isNull = false;
-                _v0 = md5str.mid(0, 8).toULong(0, 16);
-                _v1 = md5str.mid(8, 8).toULong(0, 16);
-                _v2 = md5str.mid(16, 8).toULong(0, 16);
-                _v3 = md5str.mid(24, 8).toULong(0, 16);
+                m_isNull = false;
+                m_v0 = md5str.mid(0, 8).toULong(0, 16);
+                m_v1 = md5str.mid(8, 8).toULong(0, 16);
+                m_v2 = md5str.mid(16, 8).toULong(0, 16);
+                m_v3 = md5str.mid(24, 8).toULong(0, 16);
             }
             return *this;
         }
@@ -72,10 +72,10 @@ namespace DB
         {
             QString res;
             if (!isNull()) {
-                res += QString::number(_v0, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(_v1, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(_v2, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(_v3, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(m_v0, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(m_v1, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(m_v2, 16).rightJustified(8, QChar::fromLatin1('0'));
+                res += QString::number(m_v3, 16).rightJustified(8, QChar::fromLatin1('0'));
             }
             return res;
         }
@@ -85,10 +85,10 @@ namespace DB
             if (isNull() || other.isNull())
                 return isNull() == other.isNull();
 
-            return (_v0 == other._v0 &&
-                    _v1 == other._v1 &&
-                    _v2 == other._v2 &&
-                    _v3 == other._v3);
+            return (m_v0 == other.m_v0 &&
+                    m_v1 == other.m_v1 &&
+                    m_v2 == other.m_v2 &&
+                    m_v3 == other.m_v3);
         }
 
         bool operator!=(const MD5& other) const
@@ -101,21 +101,21 @@ namespace DB
             if (isNull() || other.isNull())
                 return isNull() && !other.isNull();
 
-            return (_v0 < other._v0 ||
-                    (_v0 == other._v0 &&
-                     (_v1 < other._v1 ||
-                      (_v1 == other._v1 &&
-                       (_v2 < other._v2 ||
-                        (_v2 == other._v2 &&
-                         _v3 < other._v3))))));
+            return (m_v0 < other.m_v0 ||
+                    (m_v0 == other.m_v0 &&
+                     (m_v1 < other.m_v1 ||
+                      (m_v1 == other.m_v1 &&
+                       (m_v2 < other.m_v2 ||
+                        (m_v2 == other.m_v2 &&
+                         m_v3 < other.m_v3))))));
         }
 
     private:
-        bool _isNull;
-        ulong _v0;
-        ulong _v1;
-        ulong _v2;
-        ulong _v3;
+        bool m_isNull;
+        ulong m_v0;
+        ulong m_v1;
+        ulong m_v2;
+        ulong m_v3;
     };
 }
 

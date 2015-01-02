@@ -19,7 +19,7 @@
 #include <Settings/SettingsData.h>
 #include <DB/ImageInfo.h>
 Viewer::AbstractDisplay::AbstractDisplay( QWidget* parent )
-    :QWidget( parent ), _info( nullptr )
+    :QWidget( parent ), m_info( nullptr )
 {
 }
 

@@ -35,9 +35,9 @@ ImageRow::ImageRow( DB::ImageInfoPtr info, ImportDialog* import, KimFileReader* 
 
 void ImageRow::showImage()
 {
-    if ( m_import->_externalSource ) {
-        KUrl src1 = m_import->_kimFile;
-        KUrl src2 = m_import->_baseUrl + QString::fromLatin1( "/" );
+    if ( m_import->m_externalSource ) {
+        KUrl src1 = m_import->m_kimFile;
+        KUrl src2 = m_import->m_baseUrl + QString::fromLatin1( "/" );
         for ( int i = 0; i < 2; ++i ) {
             // First try next to the .kim file, then the external URL
             KUrl src = src1;

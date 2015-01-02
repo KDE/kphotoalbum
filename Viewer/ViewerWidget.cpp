@@ -73,71 +73,71 @@
 #  include "Exif/InfoDialog.h"
 #endif
 
-Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = nullptr;
+Viewer::ViewerWidget* Viewer::ViewerWidget::s_latest = nullptr;
 
 Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 {
-    return _latest;
+    return s_latest;
 }
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,QString> > *macroStore )
-    :QStackedWidget( nullptr ), _current(0), _popup(nullptr), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false ), _videoPlayerStoppedManually(false), _type(type), _currentCategory(QString::fromLatin1("Tokens")), _inputMacros(macroStore),  _myInputMacros(nullptr)
+    :QStackedWidget( nullptr ), m_current(0), m_popup(nullptr), m_showingFullScreen( false ), m_forward( true ), m_isRunningSlideShow( false ), m_videoPlayerStoppedManually(false), m_type(type), m_currentCategory(QString::fromLatin1("Tokens")), m_inputMacros(macroStore),  m_myInputMacros(nullptr)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
         setAttribute( Qt::WA_DeleteOnClose );
-        _latest = this;
+        s_latest = this;
     }
 
-    if (! _inputMacros) {
-        _myInputMacros = _inputMacros =
+    if (! m_inputMacros) {
+        m_myInputMacros = m_inputMacros =
             new QMap<Qt::Key, QPair<QString,QString> >;
     }
 
     m_screenSaverCookie = -1;
-    _currentInputMode = InACategory;
+    m_currentInputMode = InACategory;
 
-    _display = _imageDisplay = new ImageDisplay( this );
-    addWidget( _imageDisplay );
+    m_display = m_imageDisplay = new ImageDisplay( this );
+    addWidget( m_imageDisplay );
 
-    _textDisplay = new TextDisplay( this );
-    addWidget( _textDisplay );
+    m_textDisplay = new TextDisplay( this );
+    addWidget( m_textDisplay );
 
     createVideoViewer();
 
-    connect( _imageDisplay, SIGNAL(possibleChange()), this, SLOT(updateCategoryConfig()) );
-    connect( _imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
-    connect( _imageDisplay, SIGNAL(setCaptionInfo(QString)),
+    connect( m_imageDisplay, SIGNAL(possibleChange()), this, SLOT(updateCategoryConfig()) );
+    connect( m_imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
+    connect( m_imageDisplay, SIGNAL(setCaptionInfo(QString)),
              this, SLOT(setCaptionWithDetail(QString)) );
-    connect( _imageDisplay, SIGNAL(viewGeometryChanged(QSize, QRect, double)), this, SLOT(remapAreas(QSize, QRect, double)) );
+    connect( m_imageDisplay, SIGNAL(viewGeometryChanged(QSize, QRect, double)), this, SLOT(remapAreas(QSize, QRect, double)) );
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
-    _infoBox = new InfoBox( this );
-    _infoBox->hide();
+    m_infoBox = new InfoBox( this );
+    m_infoBox->hide();
 
     setupContextMenu();
 
-    _slideShowTimer = new QTimer( this );
-    _slideShowTimer->setSingleShot( true );
-    _slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
-    connect( _slideShowTimer, SIGNAL(timeout()), this, SLOT(slotSlideShowNextFromTimer()) );
-    _speedDisplay = new SpeedDisplay( this );
-    _speedDisplay->hide();
+    m_slideShowTimer = new QTimer( this );
+    m_slideShowTimer->setSingleShot( true );
+    m_slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
+    connect( m_slideShowTimer, SIGNAL(timeout()), this, SLOT(slotSlideShowNextFromTimer()) );
+    m_speedDisplay = new SpeedDisplay( this );
+    m_speedDisplay->hide();
 
     setFocusPolicy( Qt::StrongFocus );
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
 
-    _categoryL10n = DB::Category::standardCategories();
+    m_categoryL10n = DB::Category::standardCategories();
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
 {
-    _popup = new QMenu( this );
-    _actions = new KActionCollection( this );
+    m_popup = new QMenu( this );
+    m_actions = new KActionCollection( this );
 
     createSlideShowMenu();
     createZoomMenu();
@@ -150,37 +150,37 @@ void Viewer::ViewerWidget::setupContextMenu()
     createCategoryImageMenu();
     createFilterMenu();
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()) );
+    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()) );
     action->setText( i18nc("@action:inmenu","Annotate...") );
     action->setShortcut( Qt::CTRL+Qt::Key_1 );
-    _popup->addAction( action );
+    m_popup->addAction( action );
 
-    _setStackHead = _actions->addAction( QString::fromLatin1("viewer-set-stack-head"), this, SLOT(slotSetStackHead()) );
-    _setStackHead->setText( i18nc("@action:inmenu","Set as First Image in Stack") );
-    _setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
-    _popup->addAction( _setStackHead );
+    m_setStackHead = m_actions->addAction( QString::fromLatin1("viewer-set-stack-head"), this, SLOT(slotSetStackHead()) );
+    m_setStackHead->setText( i18nc("@action:inmenu","Set as First Image in Stack") );
+    m_setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
+    m_popup->addAction( m_setStackHead );
 
 #ifdef HAVE_EXIV2
-    _showExifViewer = _actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()) );
-    _showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
-    _popup->addAction( _showExifViewer );
+    m_showExifViewer = m_actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()) );
+    m_showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
+    m_popup->addAction( m_showExifViewer );
 #endif
 
-    _copyTo = _actions->addAction( QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()) );
-    _copyTo->setText( i18nc("@action:inmenu","Copy image to...") );
-    _copyTo->setShortcut( Qt::Key_F7 );
-    _popup->addAction( _copyTo );
+    m_copyTo = m_actions->addAction( QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()) );
+    m_copyTo->setText( i18nc("@action:inmenu","Copy image to...") );
+    m_copyTo->setShortcut( Qt::Key_F7 );
+    m_popup->addAction( m_copyTo );
 
-    if ( _type == ViewerWindow ) {
-        action = _actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT(close()) );
+    if ( m_type == ViewerWindow ) {
+        action = m_actions->addAction( QString::fromLatin1("viewer-close"), this, SLOT(close()) );
         action->setText( i18nc("@action:inmenu","Close") );
         action->setShortcut( Qt::Key_Escape );
     }
 
-    _popup->addAction( action );
-    _actions->readSettings();
+    m_popup->addAction( action );
+    m_actions->readSettings();
 
-    Q_FOREACH( QAction* action, _actions->actions() ) {
+    Q_FOREACH( QAction* action, m_actions->actions() ) {
       action->setShortcutContext(Qt::WindowShortcut);
       addAction(action);
     }
@@ -188,47 +188,47 @@ void Viewer::ViewerWidget::setupContextMenu()
 
 void Viewer::ViewerWidget::createShowContextMenu()
 {
-    VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, _actions );
+    VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, m_actions );
     connect( menu, SIGNAL(visibleOptionsChanged()), this, SLOT(updateInfoBox()) );
-    _popup->addMenu( menu );
+    m_popup->addMenu( menu );
 }
 
 void Viewer::ViewerWidget::createWallPaperMenu()
 {
     // Setting wallpaper has still not yet been ported to KPA4
 #ifndef DOES_STILL_NOT_WORK_IN_KPA4
-    _wallpaperMenu = new QMenu( _popup );
-    _wallpaperMenu->setTitle( i18nc("@title:inmenu","Set as Wallpaper") );
+    m_wallpaperMenu = new QMenu( m_popup );
+    m_wallpaperMenu->setTitle( i18nc("@title:inmenu","Set as Wallpaper") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
+    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
     action->setText( i18nc("@action:inmenu","Centered") );
-    _wallpaperMenu->addAction(action);
+    m_wallpaperMenu->addAction(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-tiled"), this, SLOT(slotSetWallpaperT()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-tiled"), this, SLOT(slotSetWallpaperT()) );
     action->setText( i18nc("@action:inmenu","Tiled") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-center-tiled"), this, SLOT(slotSetWallpaperCT()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-center-tiled"), this, SLOT(slotSetWallpaperCT()) );
     action->setText( i18nc("@action:inmenu","Center Tiled") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-centered-maxspect"), this, SLOT(slotSetWallpaperCM()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-centered-maxspect"), this, SLOT(slotSetWallpaperCM()) );
     action->setText( i18nc("@action:inmenu","Centered Maxpect") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-tiled-maxpect"), this, SLOT(slotSetWallpaperTM()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-tiled-maxpect"), this, SLOT(slotSetWallpaperTM()) );
     action->setText( i18nc("@action:inmenu","Tiled Maxpect") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-scaled"), this, SLOT(slotSetWallpaperS()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-scaled"), this, SLOT(slotSetWallpaperS()) );
     action->setText( i18nc("@action:inmenu","Scaled") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-centered-auto-fit"), this, SLOT(slotSetWallpaperCAF()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-centered-auto-fit"), this, SLOT(slotSetWallpaperCAF()) );
     action->setText( i18nc("@action:inmenu","Centered Auto Fit") );
-    _wallpaperMenu->addAction( action );
+    m_wallpaperMenu->addAction( action );
 
-    _popup->addMenu( _wallpaperMenu );
+    m_popup->addMenu( m_wallpaperMenu );
 #endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
 
@@ -259,53 +259,53 @@ void Viewer::ViewerWidget::inhibitScreenSaver( bool inhibit ) {
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
-    _externalPopup = new MainWindow::ExternalPopup( _popup );
-    _popup->addMenu( _externalPopup );
-    connect( _externalPopup, SIGNAL(aboutToShow()), this, SLOT(populateExternalPopup()) );
+    m_externalPopup = new MainWindow::ExternalPopup( m_popup );
+    m_popup->addMenu( m_externalPopup );
+    connect( m_externalPopup, SIGNAL(aboutToShow()), this, SLOT(populateExternalPopup()) );
 }
 
 void Viewer::ViewerWidget::createRotateMenu()
 {
-    _rotateMenu = new QMenu( _popup );
-    _rotateMenu->setTitle( i18nc("@title:inmenu","Rotate") );
+    m_rotateMenu = new QMenu( m_popup );
+    m_rotateMenu->setTitle( i18nc("@title:inmenu","Rotate") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()) );
+    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()) );
     action->setText( i18nc("@action:inmenu","Rotate clockwise") );
     action->setShortcut( Qt::Key_9 );
-    _rotateMenu->addAction( action );
+    m_rotateMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-rotate180"), this, SLOT(rotate180()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-rotate180"), this, SLOT(rotate180()) );
     action->setText( i18nc("@action:inmenu","Flip Over") );
     action->setShortcut( Qt::Key_8 );
-    _rotateMenu->addAction( action );
+    m_rotateMenu->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT(rotate270()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-rotare270"), this, SLOT(rotate270()) );
     //                                                            ^ this is a typo, isn't it?!
     action->setText( i18nc("@action:inmenu","Rotate counterclockwise") );
     action->setShortcut( Qt::Key_7 );
-    _rotateMenu->addAction( action );
+    m_rotateMenu->addAction( action );
 
-    _popup->addMenu( _rotateMenu );
+    m_popup->addMenu( m_rotateMenu );
 }
 
 void Viewer::ViewerWidget::createSkipMenu()
 {
-    QMenu *popup = new QMenu( _popup );
+    QMenu *popup = new QMenu( m_popup );
     popup->setTitle( i18nc("@title:inmenu As in 'skip 2 images'","Skip") );
 
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT(showFirst()) );
+    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT(showFirst()) );
     action->setText( i18nc("@action:inmenu Go to first image","First") );
     action->setShortcut( Qt::Key_Home );
     popup->addAction( action );
-    _backwardActions.append(action);
+    m_backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-end"), this, SLOT(showLast()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-end"), this, SLOT(showLast()) );
     action->setText( i18nc("@action:inmenu Go to last image","Last") );
     action->setShortcut( Qt::Key_End );
     popup->addAction( action );
-    _forwardActions.append(action);
+    m_forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT(showNext()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT(showNext()) );
     action->setText( i18nc("@action:inmenu","Show Next") );
     action->setShortcut( Qt::Key_PageDown );
     // bah, they don't use references
@@ -313,136 +313,136 @@ void Viewer::ViewerWidget::createSkipMenu()
     viewerNextShortcut.setAlternate( Qt::Key_Space );
     action->setShortcut( viewerNextShortcut );
     popup->addAction( action );
-    _forwardActions.append(action);
+    m_forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-10"), this, SLOT(showNext10()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-next-10"), this, SLOT(showNext10()) );
     action->setText( i18nc("@action:inmenu","Skip 10 Forward") );
     action->setShortcut( Qt::CTRL+Qt::Key_PageDown );
     popup->addAction( action );
-    _forwardActions.append(action);
+    m_forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-100"), this, SLOT(showNext100()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-next-100"), this, SLOT(showNext100()) );
     action->setText( i18nc("@action:inmenu","Skip 100 Forward") );
     action->setShortcut( Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
-    _forwardActions.append(action);
+    m_forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-next-1000"), this, SLOT(showNext1000()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-next-1000"), this, SLOT(showNext1000()) );
     action->setText( i18nc("@action:inmenu","Skip 1000 Forward") );
     action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown );
     popup->addAction( action );
-    _forwardActions.append(action);
+    m_forwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
     action->setText( i18nc("@action:inmenu","Show Previous") );
     action->setShortcut( Qt::Key_PageUp );
     KShortcut viewerPrevShortcut = action->shortcut();
     viewerPrevShortcut.setAlternate(Qt::Key_Backspace);
     action->setShortcut(viewerPrevShortcut);
     popup->addAction( action );
-    _backwardActions.append(action);
+    m_backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-10"), this, SLOT(showPrev10()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-prev-10"), this, SLOT(showPrev10()) );
     action->setText( i18nc("@action:inmenu","Skip 10 Backward") );
     action->setShortcut( Qt::CTRL+Qt::Key_PageUp );
     popup->addAction( action );
-    _backwardActions.append(action);
+    m_backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-100"), this, SLOT(showPrev100()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-prev-100"), this, SLOT(showPrev100()) );
     action->setText( i18nc("@action:inmenu","Skip 100 Backward") );
     action->setShortcut( Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
-    _backwardActions.append(action);
+    m_backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-prev-1000"), this, SLOT(showPrev1000()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-prev-1000"), this, SLOT(showPrev1000()) );
     action->setText( i18nc("@action:inmenu","Skip 1000 Backward") );
     action->setShortcut( Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp );
     popup->addAction( action );
-    _backwardActions.append(action);
+    m_backwardActions.append(action);
 
-    action = _actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT(deleteCurrent()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-delete-current"), this, SLOT(deleteCurrent()) );
     action->setText( i18nc("@action:inmenu","Delete Image") );
     action->setShortcut( Qt::CTRL + Qt::Key_Delete );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT(removeCurrent()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-remove-current"), this, SLOT(removeCurrent()) );
     action->setText( i18nc("@action:inmenu","Remove Image from Display List") );
     action->setShortcut( Qt::Key_Delete );
     popup->addAction( action );
 
-    _popup->addMenu( popup );
+    m_popup->addMenu( popup );
 }
 
 void Viewer::ViewerWidget::createZoomMenu()
 {
-    QMenu *popup = new QMenu( _popup );
+    QMenu *popup = new QMenu( m_popup );
     popup->setTitle( i18nc("@action:inmenu","Zoom") );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = _actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()) );
+    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()) );
     action->setText( i18nc("@action:inmenu","Zoom In") );
     action->setShortcut( Qt::Key_Plus );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-out"), this, SLOT(zoomOut()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-zoom-out"), this, SLOT(zoomOut()) );
     action->setText( i18nc("@action:inmenu","Zoom Out") );
     action->setShortcut( Qt::Key_Minus );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-full"), this, SLOT(zoomFull()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-zoom-full"), this, SLOT(zoomFull()) );
     action->setText( i18nc("@action:inmenu","Full View") );
     action->setShortcut( Qt::Key_Period );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-zoom-pixel"), this, SLOT(zoomPixelForPixel()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-zoom-pixel"), this, SLOT(zoomPixelForPixel()) );
     action->setText( i18nc("@action:inmenu","Pixel for Pixel View") );
     action->setShortcut( Qt::Key_Equal );
     popup->addAction( action );
 
-    action = _actions->addAction( QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT(toggleFullScreen()) );
+    action = m_actions->addAction( QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT(toggleFullScreen()) );
     action->setText( i18nc("@action:inmenu","Toggle Full Screen") );
     action->setShortcut( Qt::Key_Return );
     popup->addAction( action );
 
-    _popup->addMenu( popup );
+    m_popup->addMenu( popup );
 }
 
 
 void Viewer::ViewerWidget::createSlideShowMenu()
 {
-    QMenu *popup = new QMenu( _popup );
+    QMenu *popup = new QMenu( m_popup );
     popup->setTitle( i18nc("@title:inmenu","Slideshow") );
 
-    _startStopSlideShow = _actions->addAction( QString::fromLatin1("viewer-start-stop-slideshow"), this, SLOT(slotStartStopSlideShow()) );
-    _startStopSlideShow->setText( i18nc("@action:inmenu","Run Slideshow") );
-    _startStopSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
-    popup->addAction( _startStopSlideShow );
+    m_startStopSlideShow = m_actions->addAction( QString::fromLatin1("viewer-start-stop-slideshow"), this, SLOT(slotStartStopSlideShow()) );
+    m_startStopSlideShow->setText( i18nc("@action:inmenu","Run Slideshow") );
+    m_startStopSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
+    popup->addAction( m_startStopSlideShow );
 
-    _slideShowRunFaster = _actions->addAction( QString::fromLatin1("viewer-run-faster"), this, SLOT(slotSlideShowFaster()) );
-    _slideShowRunFaster->setText( i18nc("@action:inmenu","Run Faster") );
-    _slideShowRunFaster->setShortcut( Qt::CTRL + Qt::Key_Plus ); // if you change this, please update the info in Viewer::SpeedDisplay
-    popup->addAction( _slideShowRunFaster );
+    m_slideShowRunFaster = m_actions->addAction( QString::fromLatin1("viewer-run-faster"), this, SLOT(slotSlideShowFaster()) );
+    m_slideShowRunFaster->setText( i18nc("@action:inmenu","Run Faster") );
+    m_slideShowRunFaster->setShortcut( Qt::CTRL + Qt::Key_Plus ); // if you change this, please update the info in Viewer::SpeedDisplay
+    popup->addAction( m_slideShowRunFaster );
 
-    _slideShowRunSlower = _actions->addAction( QString::fromLatin1("viewer-run-slower"), this, SLOT(slotSlideShowSlower()) );
-    _slideShowRunSlower->setText( i18nc("@action:inmenu","Run Slower") );
-    _slideShowRunSlower->setShortcut( Qt::CTRL+Qt::Key_Minus ); // if you change this, please update the info in Viewer::SpeedDisplay
-    popup->addAction( _slideShowRunSlower );
+    m_slideShowRunSlower = m_actions->addAction( QString::fromLatin1("viewer-run-slower"), this, SLOT(slotSlideShowSlower()) );
+    m_slideShowRunSlower->setText( i18nc("@action:inmenu","Run Slower") );
+    m_slideShowRunSlower->setShortcut( Qt::CTRL+Qt::Key_Minus ); // if you change this, please update the info in Viewer::SpeedDisplay
+    popup->addAction( m_slideShowRunSlower );
 
-    _popup->addMenu( popup );
+    m_popup->addMenu( popup );
 }
 
 
 void Viewer::ViewerWidget::load( const DB::FileNameList& list, int index )
 {
-    _list = list;
-    _imageDisplay->setImageList( list );
-    _current = index;
+    m_list = list;
+    m_imageDisplay->setImageList( list );
+    m_current = index;
     load();
 
     bool on = ( list.count() > 1 );
-    _startStopSlideShow->setEnabled(on);
-    _slideShowRunFaster->setEnabled(on);
-    _slideShowRunSlower->setEnabled(on);
+    m_startStopSlideShow->setEnabled(on);
+    m_slideShowRunFaster->setEnabled(on);
+    m_slideShowRunSlower->setEnabled(on);
 }
 
 void Viewer::ViewerWidget::load()
@@ -452,36 +452,36 @@ void Viewer::ViewerWidget::load()
 
     if ( isReadable ) {
         if ( isVideo ) {
-            _display = _videoDisplay;
+            m_display = m_videoDisplay;
         }
         else
-            _display = _imageDisplay;
+            m_display = m_imageDisplay;
     } else {
-        _display = _textDisplay;
-        _textDisplay->setText( i18n("File not available") );
+        m_display = m_textDisplay;
+        m_textDisplay->setText( i18n("File not available") );
         updateInfoBox();
     }
 
-    setCurrentWidget( _display );
-    _infoBox->raise();
+    setCurrentWidget( m_display );
+    m_infoBox->raise();
 
-    _rotateMenu->setEnabled( !isVideo );
-    _wallpaperMenu->setEnabled( !isVideo );
-    _categoryImagePopup->setEnabled( !isVideo );
-    _filterMenu->setEnabled( !isVideo );
+    m_rotateMenu->setEnabled( !isVideo );
+    m_wallpaperMenu->setEnabled( !isVideo );
+    m_categoryImagePopup->setEnabled( !isVideo );
+    m_filterMenu->setEnabled( !isVideo );
 #ifdef HAVE_EXIV2
-    _showExifViewer->setEnabled( !isVideo );
-    if ( _exifViewer )
-        _exifViewer->setImage( currentInfo()->fileName() );
+    m_showExifViewer->setEnabled( !isVideo );
+    if ( m_exifViewer )
+        m_exifViewer->setImage( currentInfo()->fileName() );
 #endif
 
-    Q_FOREACH( QAction* videoAction, _videoActions ) {
+    Q_FOREACH( QAction* videoAction, m_videoActions ) {
         videoAction->setVisible( isVideo );
     }
 
-    emit soughtTo( _list[ _current ]);
+    emit soughtTo( m_list[ m_current ]);
 
-    bool ok = _display->setImage( currentInfo(), _forward );
+    bool ok = m_display->setImage( currentInfo(), m_forward );
     if ( !ok ) {
         close( false );
         return;
@@ -490,20 +490,20 @@ void Viewer::ViewerWidget::load()
     setCaptionWithDetail( QString() );
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for( QList<KAction*>::const_iterator it = _forwardActions.constBegin(); it != _forwardActions.constEnd(); ++it )
-        (*it)->setEnabled( _current +1 < (int) _list.count() );
-    for( QList<KAction*>::const_iterator it = _backwardActions.constBegin(); it != _backwardActions.constEnd(); ++it )
-        (*it)->setEnabled( _current > 0 );
+    for( QList<KAction*>::const_iterator it = m_forwardActions.constBegin(); it != m_forwardActions.constEnd(); ++it )
+        (*it)->setEnabled( m_current +1 < (int) m_list.count() );
+    for( QList<KAction*>::const_iterator it = m_backwardActions.constBegin(); it != m_backwardActions.constEnd(); ++it )
+        (*it)->setEnabled( m_current > 0 );
 
-    _setStackHead->setEnabled( currentInfo()->isStacked() );
+    m_setStackHead->setEnabled( currentInfo()->isStacked() );
 
     if ( isVideo )
         updateCategoryConfig();
 
-    if ( _isRunningSlideShow )
-        _slideShowTimer->start( _slideShowPause );
+    if ( m_isRunningSlideShow )
+        m_slideShowTimer->start( m_slideShowPause );
 
-    if ( _display == _textDisplay )
+    if ( m_display == m_textDisplay )
         updateInfoBox();
 
     // Add all tagged areas
@@ -518,32 +518,32 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
-    if ( _videoDisplay ) {
-        if ( _videoDisplay->isPaused() )
-            _playPause->setText(i18nc("@action:inmenu Start video playback","Play"));
+    if ( m_videoDisplay ) {
+        if ( m_videoDisplay->isPaused() )
+            m_playPause->setText(i18nc("@action:inmenu Start video playback","Play"));
         else
-            _playPause->setText(i18nc("@action:inmenu Pause video playback","Pause"));
+            m_playPause->setText(i18nc("@action:inmenu Pause video playback","Pause"));
 
-        _stop->setEnabled( _videoDisplay->isPlaying() );
+        m_stop->setEnabled( m_videoDisplay->isPlaying() );
     }
 
-    _popup->exec( e->globalPos() );
+    m_popup->exec( e->globalPos() );
     e->setAccepted(true);
 }
 
 void Viewer::ViewerWidget::showNextN(int n)
 {
     filterNone();
-    if ( _display == _videoDisplay ) {
-        _videoPlayerStoppedManually = true;
-        _videoDisplay->stop();
+    if ( m_display == m_videoDisplay ) {
+        m_videoPlayerStoppedManually = true;
+        m_videoDisplay->stop();
     }
 
-    if ( _current + n < (int) _list.count() )  {
-        _current += n;
-        if (_current >= (int) _list.count())
-            _current = (int) _list.count() - 1;
-        _forward = true;
+    if ( m_current + n < (int) m_list.count() )  {
+        m_current += n;
+        if (m_current >= (int) m_list.count())
+            m_current = (int) m_list.count() - 1;
+        m_forward = true;
         load();
     }
 }
@@ -565,14 +565,14 @@ void Viewer::ViewerWidget::deleteCurrent()
 
 void Viewer::ViewerWidget::removeOrDeleteCurrent( RemoveAction action )
 {
-    const DB::FileName fileName = _list[_current];
+    const DB::FileName fileName = m_list[m_current];
 
     if ( action == RemoveImageFromDatabase )
-        _removed.append(fileName);
-    _list.removeAll(fileName);
-    if ( _list.isEmpty() )
+        m_removed.append(fileName);
+    m_list.removeAll(fileName);
+    if ( m_list.isEmpty() )
         close();
-    if ( _current == _list.count() )
+    if ( m_current == m_list.count() )
         showPrev();
     else
         showNextN(0);
@@ -595,14 +595,14 @@ void Viewer::ViewerWidget::showNext1000()
 
 void Viewer::ViewerWidget::showPrevN(int n)
 {
-    if ( _display == _videoDisplay )
-        _videoDisplay->stop();
+    if ( m_display == m_videoDisplay )
+        m_videoDisplay->stop();
 
-    if ( _current > 0  )  {
-        _current -= n;
-    if (_current < 0)
-      _current = 0;
-        _forward = false;
+    if ( m_current > 0  )  {
+        m_current -= n;
+    if (m_current < 0)
+      m_current = 0;
+        m_forward = false;
         load();
     }
 }
@@ -633,7 +633,7 @@ void Viewer::ViewerWidget::rotate90()
     load();
     invalidateThumbnail();
     MainWindow::DirtyIndicator::markDirty();
-    emit imageRotated(_list[ _current]);
+    emit imageRotated(m_list[ m_current]);
 }
 
 void Viewer::ViewerWidget::rotate180()
@@ -642,7 +642,7 @@ void Viewer::ViewerWidget::rotate180()
     load();
     invalidateThumbnail();
     MainWindow::DirtyIndicator::markDirty();
-    emit imageRotated(_list[ _current]);
+    emit imageRotated(m_list[ m_current]);
 }
 
 void Viewer::ViewerWidget::rotate270()
@@ -651,17 +651,17 @@ void Viewer::ViewerWidget::rotate270()
     load();
     invalidateThumbnail();
     MainWindow::DirtyIndicator::markDirty();
-    emit imageRotated(_list[ _current]);
+    emit imageRotated(m_list[ m_current]);
 }
 
 void Viewer::ViewerWidget::showFirst()
 {
-    showPrevN(_list.count());
+    showPrevN(m_list.count());
 }
 
 void Viewer::ViewerWidget::showLast()
 {
-    showNextN(_list.count());
+    showNextN(m_list.count());
 }
 
 void Viewer::ViewerWidget::slotSetWallpaperC()
@@ -710,13 +710,13 @@ void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
 
 bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
-    if ( !_removed.isEmpty() ) {
+    if ( !m_removed.isEmpty() ) {
         MainWindow::DeleteDialog dialog( this );
-        dialog.exec( _removed );
+        dialog.exec( m_removed );
     }
 
-    _slideShowTimer->stop();
-    _isRunningSlideShow = false;
+    m_slideShowTimer->stop();
+    m_isRunningSlideShow = false;
     return QWidget::close();
     if ( alsoDelete )
         deleteLater();
@@ -724,7 +724,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
+    return DB::ImageDB::instance()->info(m_list[ m_current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::ViewerWidget::infoBoxMove()
@@ -732,10 +732,10 @@ void Viewer::ViewerWidget::infoBoxMove()
     QPoint p = mapFromGlobal( QCursor::pos() );
     Settings::Position oldPos = Settings::SettingsData::instance()->infoBoxPosition();
     Settings::Position pos = oldPos;
-    int x = _display->mapFromParent( p ).x();
-    int y = _display->mapFromParent( p ).y();
-    int w = _display->width();
-    int h = _display->height();
+    int x = m_display->mapFromParent( p ).x();
+    int y = m_display->mapFromParent( p ).y();
+    int w = m_display->width();
+    int h = m_display->height();
 
     if ( x < w/3 )  {
         if ( y < h/3  )
@@ -767,16 +767,16 @@ void Viewer::ViewerWidget::infoBoxMove()
 
 void Viewer::ViewerWidget::moveInfoBox()
 {
-    _infoBox->setSize();
+    m_infoBox->setSize();
     Settings::Position pos = Settings::SettingsData::instance()->infoBoxPosition();
 
-    int lx = _display->pos().x();
-    int ly = _display->pos().y();
-    int lw = _display->width();
-    int lh = _display->height();
+    int lx = m_display->pos().x();
+    int ly = m_display->pos().y();
+    int lw = m_display->width();
+    int lh = m_display->height();
 
-    int bw = _infoBox->width();
-    int bh = _infoBox->height();
+    int bw = m_infoBox->width();
+    int bh = m_infoBox->height();
 
     int bx, by;
     // x-coordinate
@@ -796,7 +796,7 @@ void Viewer::ViewerWidget::moveInfoBox()
     else
         by = ly+lh/2-bh/2;
 
-    _infoBox->move(bx,by);
+    m_infoBox->move(bx,by);
 }
 
 void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
@@ -807,40 +807,40 @@ void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
 
 void Viewer::ViewerWidget::updateInfoBox()
 {
-    if ( currentInfo() || _currentInput != QString::fromLatin1("") ||
-         (_currentCategory != QString::fromLatin1("") &&
-          _currentCategory != QString::fromLatin1("Tokens"))) {
+    if ( currentInfo() || m_currentInput != QString::fromLatin1("") ||
+         (m_currentCategory != QString::fromLatin1("") &&
+          m_currentCategory != QString::fromLatin1("Tokens"))) {
         QMap<int, QPair<QString,QString> > map;
         QString text = Utilities::createInfoText( currentInfo(), &map );
         QString selecttext = QString::fromLatin1("");
-        if (_currentCategory == QString::fromLatin1("")) {
-            selecttext = i18nc("Basically 'enter a category name'","<b>Setting Category: </b>") + _currentInput;
-            if (_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + _currentInputList +
+        if (m_currentCategory == QString::fromLatin1("")) {
+            selecttext = i18nc("Basically 'enter a category name'","<b>Setting Category: </b>") + m_currentInput;
+            if (m_currentInputList.length() > 0) {
+                selecttext += QString::fromLatin1("{") + m_currentInputList +
                     QString::fromLatin1("}");
             }
-        } else if ( ( _currentInput != QString::fromLatin1("") &&
-                   _currentCategory != QString::fromLatin1("Tokens") ) ||
-                   _currentCategory != QString::fromLatin1("Tokens")) {
-            selecttext = i18nc("Basically 'enter a tag name'","<b>Assigning: </b>") + _currentCategory +
-                QString::fromLatin1("/")  + _currentInput;
-            if (_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + _currentInputList +
+        } else if ( ( m_currentInput != QString::fromLatin1("") &&
+                   m_currentCategory != QString::fromLatin1("Tokens") ) ||
+                   m_currentCategory != QString::fromLatin1("Tokens")) {
+            selecttext = i18nc("Basically 'enter a tag name'","<b>Assigning: </b>") + m_currentCategory +
+                QString::fromLatin1("/")  + m_currentInput;
+            if (m_currentInputList.length() > 0) {
+                selecttext += QString::fromLatin1("{") + m_currentInputList +
                     QString::fromLatin1("}");
             }
-        } else if ( _currentInput != QString::fromLatin1("") &&
-                   _currentCategory == QString::fromLatin1("Tokens") ) {
-            _currentInput = QString::fromLatin1("");
+        } else if ( m_currentInput != QString::fromLatin1("") &&
+                   m_currentCategory == QString::fromLatin1("Tokens") ) {
+            m_currentInput = QString::fromLatin1("");
         }
         if (selecttext != QString::fromLatin1(""))
             text = selecttext + QString::fromLatin1("<br />") + text;
-        if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && ( _type != InlineViewer ) ) {
-            _infoBox->setInfo( text, map );
-            _infoBox->show();
+        if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && ( m_type != InlineViewer ) ) {
+            m_infoBox->setInfo( text, map );
+            m_infoBox->show();
 
         }
         else
-            _infoBox->hide();
+            m_infoBox->hide();
 
         moveInfoBox();
     }
@@ -850,36 +850,36 @@ Viewer::ViewerWidget::~ViewerWidget()
 {
     inhibitScreenSaver(false);
 
-    if ( _latest == this )
-        _latest = nullptr;
+    if ( s_latest == this )
+        s_latest = nullptr;
 
-    if ( _myInputMacros )
-        delete _myInputMacros;
+    if ( m_myInputMacros )
+        delete m_myInputMacros;
 }
 
 
 void Viewer::ViewerWidget::toggleFullScreen()
 {
-    setShowFullScreen( !_showingFullScreen );
+    setShowFullScreen( !m_showingFullScreen );
 }
 
 void Viewer::ViewerWidget::slotStartStopSlideShow()
 {
-    bool wasRunningSlideShow = _isRunningSlideShow;
-    _isRunningSlideShow = !_isRunningSlideShow && _list.count() != 1;
+    bool wasRunningSlideShow = m_isRunningSlideShow;
+    m_isRunningSlideShow = !m_isRunningSlideShow && m_list.count() != 1;
 
     if ( wasRunningSlideShow ) {
-        _startStopSlideShow->setText( i18nc("@action:inmenu","Run Slideshow") );
-        _slideShowTimer->stop();
-        if ( _list.count() != 1 )
-            _speedDisplay->end();
+        m_startStopSlideShow->setText( i18nc("@action:inmenu","Run Slideshow") );
+        m_slideShowTimer->stop();
+        if ( m_list.count() != 1 )
+            m_speedDisplay->end();
         inhibitScreenSaver(false);
     }
     else {
-        _startStopSlideShow->setText( i18nc("@action:inmenu","Stop Slideshow") );
+        m_startStopSlideShow->setText( i18nc("@action:inmenu","Stop Slideshow") );
         if ( currentInfo()->mediaType() != DB::Video )
-            _slideShowTimer->start( _slideShowPause );
-        _speedDisplay->start();
+            m_slideShowTimer->start( m_slideShowPause );
+        m_speedDisplay->start();
         inhibitScreenSaver(true);
     }
 }
@@ -889,23 +889,23 @@ void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
     // Load the next images.
     QTime timer;
     timer.start();
-    if ( _display == _imageDisplay )
+    if ( m_display == m_imageDisplay )
         slotSlideShowNext();
 
     // ensure that there is a few milliseconds pause, so that an end slideshow keypress
     // can get through immediately, we don't want it to queue up behind a bunch of timer events,
     // which loaded a number of new images before the slideshow stops
-    int ms = qMax( 200, _slideShowPause - timer.elapsed() );
-    _slideShowTimer->start( ms );
+    int ms = qMax( 200, m_slideShowPause - timer.elapsed() );
+    m_slideShowTimer->start( ms );
 }
 
 void Viewer::ViewerWidget::slotSlideShowNext()
 {
-    _forward = true;
-    if ( _current +1 < (int) _list.count() )
-        _current++;
+    m_forward = true;
+    if ( m_current +1 < (int) m_list.count() )
+        m_current++;
     else
-        _current = 0;
+        m_current = 0;
 
     load();
 }
@@ -922,14 +922,14 @@ void Viewer::ViewerWidget::slotSlideShowSlower()
 
 void Viewer::ViewerWidget::changeSlideShowInterval( int delta )
 {
-    if ( _list.count() == 1 )
+    if ( m_list.count() == 1 )
         return;
 
-    _slideShowPause += delta;
-    _slideShowPause = qMax( _slideShowPause, 500 );
-    _speedDisplay->display( _slideShowPause );
-    if (_slideShowTimer->isActive() )
-        _slideShowTimer->start( _slideShowPause );
+    m_slideShowPause += delta;
+    m_slideShowPause = qMax( m_slideShowPause, 500 );
+    m_speedDisplay->display( m_slideShowPause );
+    if (m_slideShowTimer->isActive() )
+        m_slideShowTimer->start( m_slideShowPause );
 }
 
 
@@ -942,12 +942,12 @@ void Viewer::ViewerWidget::editImage()
 
 void Viewer::ViewerWidget::filterNone()
 {
-    if ( _display == _imageDisplay ) {
-        _imageDisplay->filterNone();
-        _filterMono->setChecked( false );
-        _filterBW->setChecked( false );
-        _filterContrastStretch->setChecked( false );
-        _filterHistogramEqualization->setChecked( false );
+    if ( m_display == m_imageDisplay ) {
+        m_imageDisplay->filterNone();
+        m_filterMono->setChecked( false );
+        m_filterBW->setChecked( false );
+        m_filterContrastStretch->setChecked( false );
+        m_filterHistogramEqualization->setChecked( false );
     }
 }
 
@@ -955,24 +955,24 @@ void Viewer::ViewerWidget::filterSelected()
 {
     // The filters that drop bit depth below 32 should be the last ones
     // so that filters requiring more bit depth are processed first
-    if ( _display == _imageDisplay ) {
-        _imageDisplay->filterNone();
-        if (_filterBW->isChecked())
-            _imageDisplay->filterBW();
-        if (_filterContrastStretch->isChecked())
-            _imageDisplay->filterContrastStretch();
-        if (_filterHistogramEqualization->isChecked())
-            _imageDisplay->filterHistogramEqualization();
-        if (_filterMono->isChecked())
-            _imageDisplay->filterMono();
+    if ( m_display == m_imageDisplay ) {
+        m_imageDisplay->filterNone();
+        if (m_filterBW->isChecked())
+            m_imageDisplay->filterBW();
+        if (m_filterContrastStretch->isChecked())
+            m_imageDisplay->filterContrastStretch();
+        if (m_filterHistogramEqualization->isChecked())
+            m_imageDisplay->filterHistogramEqualization();
+        if (m_filterMono->isChecked())
+            m_imageDisplay->filterMono();
     }
 }
 
 void Viewer::ViewerWidget::filterBW()
 {
-    if ( _display == _imageDisplay ) {
-        if ( _filterBW->isChecked() )
-            _filterBW->setChecked( _imageDisplay->filterBW());
+    if ( m_display == m_imageDisplay ) {
+        if ( m_filterBW->isChecked() )
+            m_filterBW->setChecked( m_imageDisplay->filterBW());
         else
             filterSelected();
     }
@@ -980,9 +980,9 @@ void Viewer::ViewerWidget::filterBW()
 
 void Viewer::ViewerWidget::filterContrastStretch()
 {
-    if ( _display == _imageDisplay ) {
-        if (_filterContrastStretch->isChecked())
-            _filterContrastStretch->setChecked( _imageDisplay->filterContrastStretch() );
+    if ( m_display == m_imageDisplay ) {
+        if (m_filterContrastStretch->isChecked())
+            m_filterContrastStretch->setChecked( m_imageDisplay->filterContrastStretch() );
         else
             filterSelected();
     }
@@ -990,9 +990,9 @@ void Viewer::ViewerWidget::filterContrastStretch()
 
 void Viewer::ViewerWidget::filterHistogramEqualization()
 {
-    if ( _display == _imageDisplay ) {
-        if ( _filterHistogramEqualization->isChecked() )
-            _filterHistogramEqualization->setChecked( _imageDisplay->filterHistogramEqualization() );
+    if ( m_display == m_imageDisplay ) {
+        if ( m_filterHistogramEqualization->isChecked() )
+            m_filterHistogramEqualization->setChecked( m_imageDisplay->filterHistogramEqualization() );
         else
             filterSelected();
     }
@@ -1000,9 +1000,9 @@ void Viewer::ViewerWidget::filterHistogramEqualization()
 
 void Viewer::ViewerWidget::filterMono()
 {
-    if ( _display == _imageDisplay ) {
-        if ( _filterMono->isChecked() )
-            _filterMono->setChecked( _imageDisplay->filterMono() );
+    if ( m_display == m_imageDisplay ) {
+        if ( m_filterMono->isChecked() )
+            m_filterMono->setChecked( m_imageDisplay->filterMono() );
         else
             filterSelected();
     }
@@ -1010,12 +1010,12 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead(_list[ _current ]);
+    MainWindow::Window::theMainWindow()->setStackHead(m_list[ m_current ]);
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const
 {
-    return _showingFullScreen;
+    return m_showingFullScreen;
 }
 
 void Viewer::ViewerWidget::setShowFullScreen( bool on )
@@ -1035,7 +1035,7 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         setWindowState( windowState() & ~Qt::WindowFullScreen ); // reset
         resize( Settings::SettingsData::instance()->viewerSize() );
     }
-    _showingFullScreen = on;
+    m_showingFullScreen = on;
 }
 
 void Viewer::ViewerWidget::updateCategoryConfig()
@@ -1043,18 +1043,18 @@ void Viewer::ViewerWidget::updateCategoryConfig()
     if ( !CategoryImageConfig::instance()->isVisible() )
         return;
 
-    CategoryImageConfig::instance()->setCurrentImage( _imageDisplay->currentViewAsThumbnail(), currentInfo() );
+    CategoryImageConfig::instance()->setCurrentImage( m_imageDisplay->currentViewAsThumbnail(), currentInfo() );
 }
 
 
 void Viewer::ViewerWidget::populateExternalPopup()
 {
-    _externalPopup->populate( currentInfo(), _list );
+    m_externalPopup->populate( currentInfo(), m_list );
 }
 
 void Viewer::ViewerWidget::populateCategoryImagePopup()
 {
-    _categoryImagePopup->populate( _imageDisplay->currentViewAsThumbnail(), _list[_current] );
+    m_categoryImagePopup->populate( m_imageDisplay->currentViewAsThumbnail(), m_list[m_current] );
 }
 
 void Viewer::ViewerWidget::show( bool slideShow )
@@ -1076,7 +1076,7 @@ void Viewer::ViewerWidget::show( bool slideShow )
         resize( size );
 
     QWidget::show();
-    if ( slideShow != _isRunningSlideShow) {
+    if ( slideShow != m_isRunningSlideShow) {
         // The info dialog will show up at the wrong place if we call this function directly
         // don't ask me why -  4 Sep. 2004 15:13 -- Jesper K. Pedersen
         QTimer::singleShot(0, this, SLOT(slotStartStopSlideShow()) );
@@ -1085,24 +1085,24 @@ void Viewer::ViewerWidget::show( bool slideShow )
 
 KActionCollection* Viewer::ViewerWidget::actions()
 {
-    return _actions;
+    return m_actions;
 }
 
 int Viewer::ViewerWidget::find_tag_in_list(const QStringList &list,
                                            QString &namefound)
 {
     int found = 0;
-    _currentInputList = QString::fromLatin1("");
+    m_currentInputList = QString::fromLatin1("");
     for( QStringList::ConstIterator listIter = list.constBegin();
          listIter != list.constEnd(); ++listIter ) {
-        if (listIter->startsWith(_currentInput, Qt::CaseInsensitive)) {
+        if (listIter->startsWith(m_currentInput, Qt::CaseInsensitive)) {
             found++;
-            if (_currentInputList.length() > 0)
-                _currentInputList =
-                    _currentInputList + QString::fromLatin1(",");
-            _currentInputList =_currentInputList +
-                listIter->right(listIter->length() - _currentInput.length());
-            if (found > 1 && _currentInputList.length() > 20) {
+            if (m_currentInputList.length() > 0)
+                m_currentInputList =
+                    m_currentInputList + QString::fromLatin1(",");
+            m_currentInputList =m_currentInputList +
+                listIter->right(listIter->length() - m_currentInput.length());
+            if (found > 1 && m_currentInputList.length() > 20) {
                 // already found more than we want to display
                 // bail here for now
                 // XXX: non-ideal?  display more?  certainly config 20
@@ -1120,28 +1120,28 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
     if (event->key() == Qt::Key_Backspace) {
         // remove stuff from the current input string
-        _currentInput.remove( _currentInput.length()-1, 1 );
+        m_currentInput.remove( m_currentInput.length()-1, 1 );
         updateInfoBox();
         MainWindow::DirtyIndicator::markDirty();
-        _currentInputList = QString::fromLatin1("");
+        m_currentInputList = QString::fromLatin1("");
 //     } else if (event->modifier & (Qt::AltModifier | Qt::MetaModifier) &&
 //                event->key() == Qt::Key_Enter) {
         return; // we've handled it
     } else if (event->key() == Qt::Key_Comma) {
         // force set the "new" token
-        if (_currentCategory != QString::fromLatin1("")) {
-            if (_currentInput.left(1) == QString::fromLatin1("\"") ||
+        if (m_currentCategory != QString::fromLatin1("")) {
+            if (m_currentInput.left(1) == QString::fromLatin1("\"") ||
                 // allow a starting ' or " to signal a brand new category
                 // this bypasses the auto-selection of matching characters
-                _currentInput.left(1) == QString::fromLatin1("\'")) {
-                _currentInput = _currentInput.right(_currentInput.length()-1);
+                m_currentInput.left(1) == QString::fromLatin1("\'")) {
+                m_currentInput = m_currentInput.right(m_currentInput.length()-1);
             }
-            currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( _currentCategory ), _currentInput );
+            currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ), m_currentInput );
             DB::CategoryPtr category =
-                DB::ImageDB::instance()->categoryCollection()->categoryForName(_currentCategory);
-            category->addItem(_currentInput);
+                DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
+            category->addItem(m_currentInput);
         }
-        _currentInput = QString::fromLatin1("");
+        m_currentInput = QString::fromLatin1("");
         updateInfoBox();
         MainWindow::DirtyIndicator::markDirty();
         return; // we've handled it
@@ -1161,58 +1161,58 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
         // start searching for a new category name
         if (incomingKey == QString::fromLatin1("/")) {
-            if (_currentInput == QString::fromLatin1("") &&
-                _currentCategory == QString::fromLatin1("")) {
-                if (_currentInputMode == InACategory) {
-                    _currentInputMode = AlwaysStartWithCategory;
+            if (m_currentInput == QString::fromLatin1("") &&
+                m_currentCategory == QString::fromLatin1("")) {
+                if (m_currentInputMode == InACategory) {
+                    m_currentInputMode = AlwaysStartWithCategory;
                 } else {
-                    _currentInputMode = InACategory;
+                    m_currentInputMode = InACategory;
                 }
             } else {
                 // reset the category to search through
-                _currentInput = QString::fromLatin1("");
-                _currentCategory = QString::fromLatin1("");
+                m_currentInput = QString::fromLatin1("");
+                m_currentCategory = QString::fromLatin1("");
             }
 
         // use an assigned key or map to a given key for future reference
-        } else if (_currentInput == QString::fromLatin1("") &&
+        } else if (m_currentInput == QString::fromLatin1("") &&
                    // can map to function keys
                    event->key() >= Qt::Key_F1 &&
                    event->key() <= Qt::Key_F35) {
 
             // we have a request to assign a macro key or use one
             Qt::Key key = (Qt::Key) event->key();
-            if (_inputMacros->contains(key)) {
+            if (m_inputMacros->contains(key)) {
                 // Use the requested toggle
                 if ( event->modifiers() == Qt::ShiftModifier ) {
-                    if ( currentInfo()->hasCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second ) ) {
-                        currentInfo()->removeCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
+                    if ( currentInfo()->hasCategoryInfo( (*m_inputMacros)[key].first, (*m_inputMacros)[key].second ) ) {
+                        currentInfo()->removeCategoryInfo( (*m_inputMacros)[key].first, (*m_inputMacros)[key].second );
                     }
                 } else {
-                    currentInfo()->addCategoryInfo( (*_inputMacros)[key].first, (*_inputMacros)[key].second );
+                    currentInfo()->addCategoryInfo( (*m_inputMacros)[key].first, (*m_inputMacros)[key].second );
                 }
             } else {
-                (*_inputMacros)[key] = qMakePair(_lastCategory, _lastFound);
+                (*m_inputMacros)[key] = qMakePair(m_lastCategory, m_lastFound);
             }
             updateInfoBox();
             MainWindow::DirtyIndicator::markDirty();
             // handled it
             return;
-        } else if (_currentCategory == QString::fromLatin1("")) {
+        } else if (m_currentCategory == QString::fromLatin1("")) {
             // still searching for a category to lock to
-            _currentInput += incomingKey;
+            m_currentInput += incomingKey;
             QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryTexts();
             if (find_tag_in_list(categorynames, namefound) == 1) {
                 // yay, we have exactly one!
-                _currentCategory = namefound;
-                _currentInput = QString::fromLatin1("");
-                _currentInputList = QString::fromLatin1("");
+                m_currentCategory = namefound;
+                m_currentInput = QString::fromLatin1("");
+                m_currentInputList = QString::fromLatin1("");
             }
         } else {
-            _currentInput += incomingKey;
+            m_currentInput += incomingKey;
 
             DB::CategoryPtr category =
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( DB::ImageDB::instance()->categoryCollection()->nameForText( _currentCategory ) );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ) );
             QStringList items = category->items();
             if (find_tag_in_list(items, namefound) == 1) {
                 // yay, we have exactly one!
@@ -1221,12 +1221,12 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
                 else
                     currentInfo()->addCategoryInfo( category->name(), namefound );
 
-                _lastFound = namefound;
-                _lastCategory = _currentCategory;
-                _currentInput = QString::fromLatin1("");
-                _currentInputList = QString::fromLatin1("");
-                if (_currentInputMode == AlwaysStartWithCategory)
-                    _currentCategory = QString::fromLatin1("");
+                m_lastFound = namefound;
+                m_lastCategory = m_currentCategory;
+                m_currentInput = QString::fromLatin1("");
+                m_currentInputList = QString::fromLatin1("");
+                if (m_currentInputMode == AlwaysStartWithCategory)
+                    m_currentCategory = QString::fromLatin1("");
             }
         }
 
@@ -1239,9 +1239,9 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
 void Viewer::ViewerWidget::videoStopped()
 {
-    if ( !_videoPlayerStoppedManually && _isRunningSlideShow )
+    if ( !m_videoPlayerStoppedManually && m_isRunningSlideShow )
         slotSlideShowNext();
-    _videoPlayerStoppedManually=false;
+    m_videoPlayerStoppedManually=false;
 }
 
 
@@ -1257,30 +1257,30 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 void Viewer::ViewerWidget::showExifViewer()
 {
 #ifdef HAVE_EXIV2
-    _exifViewer = new Exif::InfoDialog( currentInfo()->fileName(), this );
-    _exifViewer->show();
+    m_exifViewer = new Exif::InfoDialog( currentInfo()->fileName(), this );
+    m_exifViewer->show();
 #endif
 
 }
 
 void Viewer::ViewerWidget::zoomIn()
 {
-    _display->zoomIn();
+    m_display->zoomIn();
 }
 
 void Viewer::ViewerWidget::zoomOut()
 {
-    _display->zoomOut();
+    m_display->zoomOut();
 }
 
 void Viewer::ViewerWidget::zoomFull()
 {
-    _display->zoomFull();
+    m_display->zoomFull();
 }
 
 void Viewer::ViewerWidget::zoomPixelForPixel()
 {
-    _display->zoomPixelForPixel();
+    m_display->zoomPixelForPixel();
 }
 
 void Viewer::ViewerWidget::makeThumbnailImage()
@@ -1302,9 +1302,9 @@ struct SeekInfo
 
 void Viewer::ViewerWidget::createVideoMenu()
 {
-    QMenu* menu = new QMenu(_popup);
+    QMenu* menu = new QMenu(m_popup);
     menu->setTitle(i18nc("@title:inmenu","Seek"));
-    _videoActions.append( _popup->addMenu( menu ) );
+    m_videoActions.append( m_popup->addMenu( menu ) );
 
     QList<SeekInfo> list;
     list << SeekInfo( i18nc("@action:inmenu","10 minutes backward"), "seek-10-minute", -600000, QKeySequence(QString::fromLatin1("Ctrl+Left")))
@@ -1326,79 +1326,79 @@ void Viewer::ViewerWidget::createVideoMenu()
             menu->addAction(sep);
         }
 
-        KAction* seek = _actions->addAction( QString::fromLatin1(info.name), _videoDisplay, SLOT(seek()));
+        KAction* seek = m_actions->addAction( QString::fromLatin1(info.name), m_videoDisplay, SLOT(seek()));
         seek->setText(info.title);
         seek->setData(info.value);
         seek->setShortcut( info.key );
         menu->addAction(seek);
     }
 
-    QAction* sep = new QAction(_popup);
+    QAction* sep = new QAction(m_popup);
     sep->setSeparator(true);
-    _popup->addAction( sep );
-    _videoActions.append( sep );
+    m_popup->addAction( sep );
+    m_videoActions.append( sep );
 
-    _stop = _actions->addAction( QString::fromLatin1("viewer-video-stop"), _videoDisplay, SLOT(stop()) );
-    _stop->setText( i18nc("@action:inmenu Stop video playback","Stop") );
-    _popup->addAction( _stop );
-    _videoActions.append(_stop);
+    m_stop = m_actions->addAction( QString::fromLatin1("viewer-video-stop"), m_videoDisplay, SLOT(stop()) );
+    m_stop->setText( i18nc("@action:inmenu Stop video playback","Stop") );
+    m_popup->addAction( m_stop );
+    m_videoActions.append(m_stop);
 
 
-    _playPause = _actions->addAction( QString::fromLatin1("viewer-video-pause"), _videoDisplay, SLOT(playPause()) );
+    m_playPause = m_actions->addAction( QString::fromLatin1("viewer-video-pause"), m_videoDisplay, SLOT(playPause()) );
     // text set in contextMenuEvent()
-    _playPause->setShortcut( Qt::Key_P );
-    _popup->addAction( _playPause );
-    _videoActions.append( _playPause );
+    m_playPause->setShortcut( Qt::Key_P );
+    m_popup->addAction( m_playPause );
+    m_videoActions.append( m_playPause );
 
-    _makeThumbnailImage = _actions->addAction( QString::fromLatin1("make-thumbnail-image"), this, SLOT(makeThumbnailImage()));
-    _makeThumbnailImage->setShortcut(Qt::ControlModifier + Qt::Key_S);
-    _makeThumbnailImage->setText( i18nc("@action:inmenu","Use current frame in thumbnail view") );
-    _popup->addAction(_makeThumbnailImage);
-    _videoActions.append(_makeThumbnailImage);
+    m_makeThumbnailImage = m_actions->addAction( QString::fromLatin1("make-thumbnail-image"), this, SLOT(makeThumbnailImage()));
+    m_makeThumbnailImage->setShortcut(Qt::ControlModifier + Qt::Key_S);
+    m_makeThumbnailImage->setText( i18nc("@action:inmenu","Use current frame in thumbnail view") );
+    m_popup->addAction(m_makeThumbnailImage);
+    m_videoActions.append(m_makeThumbnailImage);
 
-    KAction* restart = _actions->addAction( QString::fromLatin1("viewer-video-restart"), _videoDisplay, SLOT(restart()) );
+    KAction* restart = m_actions->addAction( QString::fromLatin1("viewer-video-restart"), m_videoDisplay, SLOT(restart()) );
     restart->setText( i18nc("@action:inmenu Restart video playback.","Restart") );
-    _popup->addAction( restart );
-    _videoActions.append( restart );
+    m_popup->addAction( restart );
+    m_videoActions.append( restart );
 }
 
 void Viewer::ViewerWidget::createCategoryImageMenu()
 {
-    _categoryImagePopup = new MainWindow::CategoryImagePopup( _popup );
-    _popup->addMenu( _categoryImagePopup );
-    connect( _categoryImagePopup, SIGNAL(aboutToShow()), this, SLOT(populateCategoryImagePopup()) );
+    m_categoryImagePopup = new MainWindow::CategoryImagePopup( m_popup );
+    m_popup->addMenu( m_categoryImagePopup );
+    connect( m_categoryImagePopup, SIGNAL(aboutToShow()), this, SLOT(populateCategoryImagePopup()) );
 }
 
 void Viewer::ViewerWidget::createFilterMenu()
 {
-    _filterMenu = new QMenu( _popup );
-    _filterMenu->setTitle( i18nc("@title:inmenu","Filters") );
+    m_filterMenu = new QMenu( m_popup );
+    m_filterMenu->setTitle( i18nc("@title:inmenu","Filters") );
 
-    _filterNone = _actions->addAction( QString::fromLatin1("filter-empty"), this, SLOT(filterNone()) );
-    _filterNone->setText( i18nc("@action:inmenu","Remove All Filters") );
-    _filterMenu->addAction( _filterNone );
+    m_filterNone = m_actions->addAction( QString::fromLatin1("filter-empty"), this, SLOT(filterNone()) );
+    m_filterNone->setText( i18nc("@action:inmenu","Remove All Filters") );
+    m_filterMenu->addAction( m_filterNone );
 
-    _filterBW = _actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT(filterBW()) );
-    _filterBW->setText( i18nc("@action:inmenu","Apply Grayscale Filter") );
-    _filterBW->setCheckable( true );
-    _filterMenu->addAction( _filterBW );
+    m_filterBW = m_actions->addAction( QString::fromLatin1("filter-bw"), this, SLOT(filterBW()) );
+    m_filterBW->setText( i18nc("@action:inmenu","Apply Grayscale Filter") );
+    m_filterBW->setCheckable( true );
+    m_filterMenu->addAction( m_filterBW );
 
-    _filterContrastStretch = _actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT(filterContrastStretch()) );
-    _filterContrastStretch->setText( i18nc("@action:inmenu","Apply Contrast Stretching Filter") );
-    _filterContrastStretch->setCheckable( true );
-    _filterMenu->addAction( _filterContrastStretch );
+    m_filterContrastStretch = m_actions->addAction( QString::fromLatin1("filter-cs"), this, SLOT(filterContrastStretch()) );
+    m_filterContrastStretch->setText( i18nc("@action:inmenu","Apply Contrast Stretching Filter") );
+    m_filterContrastStretch->setCheckable( true );
+    m_filterMenu->addAction( m_filterContrastStretch );
 
-    _filterHistogramEqualization = _actions->addAction( QString::fromLatin1("filter-he"), this, SLOT(filterHistogramEqualization()) );
-    _filterHistogramEqualization->setText( i18nc("@action:inmenu","Apply Histogram Equalization Filter") );
-    _filterHistogramEqualization->setCheckable( true );
-    _filterMenu->addAction( _filterHistogramEqualization );
+    m_filterHistogramEqualization = m_actions->addAction( QString::fromLatin1("filter-he"), this, SLOT(filterHistogramEqualization()) );
+    m_filterHistogramEqualization->setText( i18nc("@action:inmenu","Apply Histogram Equalization Filter") );
+    m_filterHistogramEqualization->setCheckable( true );
+    m_filterMenu->addAction( m_filterHistogramEqualization );
 
-    _filterMono = _actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT(filterMono()) );
-    _filterMono->setText( i18nc("@action:inmenu","Apply Monochrome Filter") );
-    _filterMono->setCheckable( true );
-    _filterMenu->addAction( _filterMono );
+    m_filterMono = m_actions->addAction( QString::fromLatin1("filter-mono"), this, SLOT(filterMono()) );
+    m_filterMono->setText( i18nc("@action:inmenu","Apply Monochrome Filter") );
+    m_filterMono->setCheckable( true );
+    m_filterMenu->addAction( m_filterMono );
 
-    _popup->addMenu( _filterMenu );
+    m_popup->addMenu( m_filterMenu );
 }
 
 
@@ -1415,19 +1415,19 @@ void Viewer::ViewerWidget::test()
 
 void Viewer::ViewerWidget::moveInfoBox( int y)
 {
-    _infoBox->move( _infoBox->x(), y );
+    m_infoBox->move( m_infoBox->x(), y );
 }
 
 void Viewer::ViewerWidget::createVideoViewer()
 {
-    _videoDisplay = new VideoDisplay( this );
-    addWidget( _videoDisplay );
-    connect( _videoDisplay, SIGNAL(stopped()), this, SLOT(videoStopped()) );
+    m_videoDisplay = new VideoDisplay( this );
+    addWidget( m_videoDisplay );
+    connect( m_videoDisplay, SIGNAL(stopped()), this, SLOT(videoStopped()) );
 }
 
 void Viewer::ViewerWidget::stopPlayback()
 {
-    _videoDisplay->stop();
+    m_videoDisplay->stop();
 }
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
@@ -1452,8 +1452,8 @@ void Viewer::ViewerWidget::addTaggedAreas()
         areasInCategory.next();
         category = areasInCategory.key();
 
-        if (_categoryL10n.contains(category)) {
-            localizedCategory = _categoryL10n[category];
+        if (m_categoryL10n.contains(category)) {
+            localizedCategory = m_categoryL10n[category];
         } else {
             localizedCategory = category;
         }
@@ -1469,8 +1469,8 @@ void Viewer::ViewerWidget::addTaggedAreas()
             newArea->setActualGeometry(areaData.value());
             newArea->show();
 
-            connect( _infoBox, SIGNAL(tagHovered(QPair<QString, QString>)), newArea, SLOT(checkShowArea(QPair<QString, QString>)) );
-            connect( _infoBox, SIGNAL(noTagHovered()), newArea, SLOT(resetViewStyle()) );
+            connect( m_infoBox, SIGNAL(tagHovered(QPair<QString, QString>)), newArea, SLOT(checkShowArea(QPair<QString, QString>)) );
+            connect( m_infoBox, SIGNAL(noTagHovered()), newArea, SLOT(resetViewStyle()) );
         }
     }
 

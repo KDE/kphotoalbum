@@ -117,15 +117,15 @@ private:
      * Therefore we need this variable to disable the emission of the date
      * change while setting the date.
      */
-    bool _isSettingDate;
+    bool m_isSettingDate;
 
 
-    GridResizeInteraction _gridResizeInteraction;
-    bool _wheelResizing;
-    SelectionInteraction _selectionInteraction;
-    MouseTrackingInteraction _mouseTrackingHandler;
-    MouseInteraction* _mouseHandler;
-    ThumbnailDND* _dndHandler;
+    GridResizeInteraction m_gridResizeInteraction;
+    bool m_wheelResizing;
+    SelectionInteraction m_selectionInteraction;
+    MouseTrackingInteraction m_mouseTrackingHandler;
+    MouseInteraction* m_mouseHandler;
+    ThumbnailDND* m_dndHandler;
     bool m_pressOnStackIndicator;
 
     QTimer* m_dateChangedTimer;
@@ -134,7 +134,7 @@ private:
     friend class KeyboardEventHandler;
     friend class ThumbnailDND;
     friend class ThumbnailModel;
-    KeyboardEventHandler* _keyboardHandler;
+    KeyboardEventHandler* m_keyboardHandler;
     QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
 };
 

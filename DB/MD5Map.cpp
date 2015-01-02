@@ -22,29 +22,29 @@ using namespace DB;
 
 void MD5Map::insert( const MD5& md5sum, const DB::FileName& fileName )
 {
-    _map.insert( md5sum, fileName );
+    m_map.insert( md5sum, fileName );
 }
 
 DB::FileName MD5Map::lookup( const MD5& md5sum ) const
 {
-    return _map[md5sum];
+    return m_map[md5sum];
 }
 
 bool MD5Map::contains( const MD5& md5sum ) const
 {
-    return _map.contains( md5sum );
+    return m_map.contains( md5sum );
 }
 
 void MD5Map::clear()
 {
-    _map.clear();
+    m_map.clear();
 }
 
 DB::FileNameSet DB::MD5Map::diff( const MD5Map& other ) const
 {
     DB::FileNameSet res;
 
-    for( QMap<MD5, DB::FileName>::ConstIterator it = _map.begin(); it != _map.end(); ++it ) {
+    for( QMap<MD5, DB::FileName>::ConstIterator it = m_map.begin(); it != m_map.end(); ++it ) {
         if ( other.lookup( it.key() ) != it.value() )
             res.insert( it.value() );
     }

@@ -37,7 +37,7 @@ private slots:
     void doShoot();
 
 private:
-    static VideoShooter* m_instance;
+    static VideoShooter* s_instance;
     explicit VideoShooter();
     ViewerWidget* m_viewer;
     bool m_infoboxVisible;

@@ -58,7 +58,7 @@ protected:
     static QString formatRegexp();
 
 private:
-    QDateTime _start, _end;
+    QDateTime m_start, m_end;
 };
 
 }

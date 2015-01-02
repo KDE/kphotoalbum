@@ -28,7 +28,7 @@
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, const QString& column1,
                                                 const QString& column2 )
-    : QTreeWidgetItem( parent ), _listView( parent )
+    : QTreeWidgetItem( parent ), m_listView( parent )
 {
     setCheckState(0, Qt::Unchecked);
     setText( 0, column1 );
@@ -37,7 +37,7 @@ CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, cons
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* listView, QTreeWidgetItem* parent, const QString& column1,
                                                 const QString& column2 )
-    : QTreeWidgetItem( parent ), _listView( listView )
+    : QTreeWidgetItem( parent ), m_listView( listView )
 {
     setCheckState(0, Qt::Unchecked);
     setText( 0, column1 );
@@ -62,19 +62,19 @@ bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
         return false;
 
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
-    memberMap.addGroup( _listView->category()->name(), newParent );
+    memberMap.addGroup( m_listView->category()->name(), newParent );
 
     for( DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         const QString oldParent = (*itemIt).parent();
         const QString child = (*itemIt).child();
 
-        memberMap.addMemberToGroup( _listView->category()->name(), newParent, child );
-        memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
+        memberMap.addMemberToGroup( m_listView->category()->name(), newParent, child );
+        memberMap.removeMemberFromGroup( m_listView->category()->name(), oldParent, child );
     }
 
     //DB::ImageDB::instance()->setMemberMap( memberMap );
 
-    _listView->emitItemsChanged();
+    m_listView->emitItemsChanged();
     return true;
 }
 
@@ -82,7 +82,7 @@ bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
 {
     const QString thisCategory = text(0);
     const DragItemInfoSet children = extractData(data);
-    const DB::CategoryItemPtr categoryInfo = _listView->category()->itemsCategories();
+    const DB::CategoryItemPtr categoryInfo = m_listView->category()->itemsCategories();
 
     for( DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
         if ( thisCategory == (*childIt).child() || categoryInfo->isDescendentOf( thisCategory, (*childIt).child() ) )

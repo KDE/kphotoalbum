@@ -22,72 +22,72 @@
 #include <QDebug>
 
 static MainWindow::DirtyIndicator* _instance = nullptr;
-bool MainWindow::DirtyIndicator::_autoSaveDirty = false;
-bool MainWindow::DirtyIndicator::_saveDirty = false;
-bool MainWindow::DirtyIndicator::_suppressMarkDirty = false;
+bool MainWindow::DirtyIndicator::s_autoSaveDirty = false;
+bool MainWindow::DirtyIndicator::s_saveDirty = false;
+bool MainWindow::DirtyIndicator::s_suppressMarkDirty = false;
 
 MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
     :QLabel( parent )
 {
-    _dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
-    setFixedWidth( _dirtyPix.width() + 10);
+    m_dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
+    setFixedWidth( m_dirtyPix.width() + 10);
     _instance = this;
 
     // Might have been marked dirty even before the indicator had been created, by the database searching during loading.
-    if ( _saveDirty )
+    if ( s_saveDirty )
         markDirty();
 }
 
 void MainWindow::DirtyIndicator::suppressMarkDirty(bool state)
 {
-    MainWindow::DirtyIndicator::_suppressMarkDirty = state;
+    MainWindow::DirtyIndicator::s_suppressMarkDirty = state;
 }
 
 void MainWindow::DirtyIndicator::markDirty()
 {
-    if (MainWindow::DirtyIndicator::_suppressMarkDirty) {
+    if (MainWindow::DirtyIndicator::s_suppressMarkDirty) {
         return;
     }
 
     if ( _instance ) {
         _instance->markDirtySlot();
     } else {
-        _saveDirty = true;
-        _autoSaveDirty = true;
+        s_saveDirty = true;
+        s_autoSaveDirty = true;
     }
 }
 
 void MainWindow::DirtyIndicator::markDirtySlot() {
-    if (MainWindow::DirtyIndicator::_suppressMarkDirty) {
+    if (MainWindow::DirtyIndicator::s_suppressMarkDirty) {
         return;
     }
 
-    _saveDirty = true;
-    _autoSaveDirty = true;
-    setPixmap( _dirtyPix );
+    s_saveDirty = true;
+    s_autoSaveDirty = true;
+    setPixmap( m_dirtyPix );
     emit dirty();
 }
 
 void MainWindow::DirtyIndicator::autoSaved()
 {
-    _autoSaveDirty= false;
+    s_autoSaveDirty= false;
 }
 
 void MainWindow::DirtyIndicator::saved()
 {
-    _autoSaveDirty = false;
-    _saveDirty = false;
+    s_autoSaveDirty = false;
+    s_saveDirty = false;
     setPixmap( QPixmap() );
 }
 
 bool MainWindow::DirtyIndicator::isSaveDirty() const
 {
-    return _saveDirty;
+    return s_saveDirty;
 }
 
 bool MainWindow::DirtyIndicator::isAutoSaveDirty() const
 {
-    return _autoSaveDirty;
+    return s_autoSaveDirty;
 }
 
 

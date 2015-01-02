@@ -25,24 +25,24 @@
 bool ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
     const ImageRequestReference ref(request);
-    if ( _uniquePending.contains( ref ) ) {
+    if ( m_uniquePending.contains( ref ) ) {
         // We have this very same request already in the queue. Ignore this one.
         delete request;
         return false;
     }
 
-    _queues[ request->priority() ].enqueue( request );
-    _uniquePending.insert( ref );
+    m_queues[ request->priority() ].enqueue( request );
+    m_uniquePending.insert( ref );
 
     if ( request->client() )
-        _activeRequests.insert( request );
+        m_activeRequests.insert( request );
 
     return true;
 }
 
 ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 {
-    QueueType::iterator it = _queues.end(); // _queues is initialized to non-zero size
+    QueueType::iterator it = m_queues.end(); // m_queues is initialized to non-zero size
     do {
         --it;
         while ( ! it->empty() ) {
@@ -55,11 +55,11 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 QApplication::postEvent( AsyncLoader::instance(),  event );
             } else {
                 const ImageRequestReference ref(request);
-                _uniquePending.remove( ref );
+                m_uniquePending.remove( ref );
                 return request;
             }
         }
-    } while ( it != _queues.begin() );
+    } while ( it != m_queues.begin() );
 
     return nullptr;
 }
@@ -67,24 +67,24 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 void ImageManager::RequestQueue::cancelRequests( ImageClientInterface* client, StopAction action )
 {
     // remove from active map
-    for( QSet<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {
+    for( QSet<ImageRequest*>::const_iterator it = m_activeRequests.begin(); it != m_activeRequests.end(); ) {
         ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
         if ( client == request->client() && ( action == StopAll || ( request->priority() < ThumbnailVisible ) ) ) {
-            _activeRequests.remove( request );
+            m_activeRequests.remove( request );
             // active requests are not deleted - they might already have been
             // popNext()ed and are being processed. They will be deleted
             // in Manger::customEvent().
         }
     }
 
-    for ( QueueType::iterator qit = _queues.begin(); qit != _queues.end(); ++qit ) {
+    for ( QueueType::iterator qit = m_queues.begin(); qit != m_queues.end(); ++qit ) {
         for ( QQueue<ImageRequest*>::iterator it = qit->begin(); it != qit->end(); /* no increment here */) {
             ImageRequest* request = *it;
             if ( request->client() == client && ( action == StopAll || request->priority() < ThumbnailVisible ) ) {
                 it = qit->erase( it );
                 const ImageRequestReference ref(request);
-                _uniquePending.remove( ref );
+                m_uniquePending.remove( ref );
                 delete request;
             } else {
                 ++it;
@@ -95,20 +95,20 @@ void ImageManager::RequestQueue::cancelRequests( ImageClientInterface* client, S
 
 bool ImageManager::RequestQueue::isRequestStillValid( ImageRequest* request )
 {
-    return _activeRequests.contains( request );
+    return m_activeRequests.contains( request );
 }
 
 void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 {
     const ImageRequestReference ref(request);
-    _activeRequests.remove( request );
-    _uniquePending.remove( ref );
+    m_activeRequests.remove( request );
+    m_uniquePending.remove( ref );
 }
 
 ImageManager::RequestQueue::RequestQueue()
 {
     for ( int i = 0; i < LastPriority; ++i )
-        _queues.append( QQueue<ImageRequest*>() );
+        m_queues.append( QQueue<ImageRequest*>() );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

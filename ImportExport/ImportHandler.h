@@ -64,11 +64,11 @@ private:
 private:
     Utilities::UniqFilenameMapper* m_fileMapper;
     bool m_finishedPressed;
-    DB::ImageInfoList _pendingCopies;
-    KProgressDialog* _progress;
-    int _totalCopied;
-    KIO::FileCopyJob* _job;
-    bool _reportUnreadableFiles;
+    DB::ImageInfoList m_pendingCopies;
+    KProgressDialog* m_progress;
+    int m_totalCopied;
+    KIO::FileCopyJob* m_job;
+    bool m_reportUnreadableFiles;
     QPointer<QEventLoop> m_eventLoop;
     ImportSettings m_settings;
     KimFileReader* m_kimFileReader;

@@ -63,19 +63,19 @@ protected slots:
     void slotMyOK();
 
 private:
-    Settings::GeneralPage* _generalPage;
-    Settings::FileVersionDetectionPage* _fileVersionDetectionPage;
-    Settings::ThumbnailsPage* _thumbnailsPage;
-    Settings::CategoryPage* _categoryPage;
-    Settings::TagGroupsPage* _tagGroupsPage;
-    Settings::ViewerPage* _viewerPage;
-    Settings::PluginsPage* _pluginsPage;
-    Settings::ExifPage* _exifPage;
-    Settings::DatabaseBackendPage* _databaseBackendPage;
+    Settings::GeneralPage* m_generalPage;
+    Settings::FileVersionDetectionPage* m_fileVersionDetectionPage;
+    Settings::ThumbnailsPage* m_thumbnailsPage;
+    Settings::CategoryPage* m_categoryPage;
+    Settings::TagGroupsPage* m_tagGroupsPage;
+    Settings::ViewerPage* m_viewerPage;
+    Settings::PluginsPage* m_pluginsPage;
+    Settings::ExifPage* m_exifPage;
+    Settings::DatabaseBackendPage* m_databaseBackendPage;
 #ifdef HAVE_KFACE
-    Settings::FaceManagementPage *_faceManagementPage;
+    Settings::FaceManagementPage *m_faceManagementPage;
 #endif
-    KPageWidgetItem* _backendPage;
+    KPageWidgetItem* m_backendPage;
 };
 
 }

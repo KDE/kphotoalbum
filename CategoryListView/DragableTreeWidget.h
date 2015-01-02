@@ -41,7 +41,7 @@ signals:
     void itemsChanged();
 
 private:
-    const DB::CategoryPtr _category;
+    const DB::CategoryPtr m_category;
 };
 
 }

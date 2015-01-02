@@ -27,14 +27,14 @@
 #include "DB/ImageInfo.h"
 
 Plugins::ImageCollection::ImageCollection( Type tp )
-    : _tp( tp )
+    : m_type( tp )
 {
 }
 
 QString Plugins::ImageCollection::name()
 {
     QString res;
-    switch ( _tp ) {
+    switch ( m_type ) {
     case CurrentAlbum:
         res = MainWindow::Window::theMainWindow()->currentContext().toString();
         break;
@@ -66,7 +66,7 @@ QString Plugins::ImageCollection::comment()
 
 KUrl::List Plugins::ImageCollection::images()
 {
-    switch ( _tp ) {
+    switch ( m_type ) {
     case CurrentAlbum:
         return stringListToUrlList( DB::ImageDB::instance()->currentScope( false ).toStringList(DB::AbsolutePath));
 

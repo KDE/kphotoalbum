@@ -25,30 +25,30 @@ Utilities::UniqFilenameMapper::UniqFilenameMapper() {
 }
 
 Utilities::UniqFilenameMapper::UniqFilenameMapper(const QString &target)
-    : _targetDirectory(target) {
+    : m_targetDirectory(target) {
     /* nop */
 }
 
 
 void Utilities::UniqFilenameMapper::reset() {
-    _uniqFiles.clear();
-    _origToUniq.clear();
+    m_uniqFiles.clear();
+    m_origToUniq.clear();
 }
 
 bool Utilities::UniqFilenameMapper::fileClashes(const QString &file) {
-    return _uniqFiles.contains(file)
-        || (!_targetDirectory.isNull() && QFileInfo(file).exists());
+    return m_uniqFiles.contains(file)
+        || (!m_targetDirectory.isNull() && QFileInfo(file).exists());
 }
 
 QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename) {
-    if (_origToUniq.contains(filename))
-        return _origToUniq[filename];
+    if (m_origToUniq.contains(filename))
+        return m_origToUniq[filename];
 
     const QString extension = QFileInfo(filename.absolute()).completeSuffix();
     QString base = QFileInfo(filename.absolute()).baseName();
-    if (!_targetDirectory.isNull()) {
+    if (!m_targetDirectory.isNull()) {
         base = QString::fromAscii("%1/%2")
-            .arg(_targetDirectory).arg(base);
+            .arg(m_targetDirectory).arg(base);
     }
 
     QString uniqFile;
@@ -61,8 +61,8 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
     }
     while (fileClashes(uniqFile));
 
-    _origToUniq.insert(filename, uniqFile);
-    _uniqFiles.insert(uniqFile);
+    m_origToUniq.insert(filename, uniqFile);
+    m_uniqFiles.insert(uniqFile);
     return uniqFile;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

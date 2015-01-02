@@ -38,10 +38,10 @@ public slots:
     void resetViewStyle();
 
 private:
-    QPair<QString, QString> _tagInfo;
-    QRect _actualGeometry;
-    QString _styleDefault;
-    QString _styleHighlighted;
+    QPair<QString, QString> m_tagInfo;
+    QRect m_actualGeometry;
+    QString m_styleDefault;
+    QString m_styleHighlighted;
 };
 
 }

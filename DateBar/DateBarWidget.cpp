@@ -45,46 +45,46 @@ const int arrowLength = 20;
  */
 
 DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
-    :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(nullptr),
-     _currentUnit(0), _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(nullptr),
-     _showResolutionIndicator( true ), _doAutomaticRangeAdjustment( true )
+    :QWidget( parent ), m_currentHandler( &m_yearViewHandler ),m_tp(YearView), m_currentMouseHandler(nullptr),
+     m_currentUnit(0), m_currentDate( QDateTime::currentDateTime() ),m_includeFuzzyCounts( true ), m_contextMenu(nullptr),
+     m_showResolutionIndicator( true ), m_doAutomaticRangeAdjustment( true )
 {
     setMouseTracking( true );
     setFocusPolicy( Qt::StrongFocus );
 
-    _barWidth = Settings::SettingsData::instance()->histogramSize().width();
-    _barHeight = Settings::SettingsData::instance()->histogramSize().height();
-    _rightArrow = new QToolButton( this );
-    _rightArrow->setArrowType( Qt::RightArrow );
-    _rightArrow->setAutoRepeat( true );
-    connect( _rightArrow, SIGNAL(clicked()), this, SLOT(scrollRight()) );
+    m_barWidth = Settings::SettingsData::instance()->histogramSize().width();
+    m_barHeight = Settings::SettingsData::instance()->histogramSize().height();
+    m_rightArrow = new QToolButton( this );
+    m_rightArrow->setArrowType( Qt::RightArrow );
+    m_rightArrow->setAutoRepeat( true );
+    connect( m_rightArrow, SIGNAL(clicked()), this, SLOT(scrollRight()) );
 
-    _leftArrow = new QToolButton( this );
-    _leftArrow->setArrowType( Qt::LeftArrow );
-    _leftArrow->setAutoRepeat( true );
-    connect( _leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()) );
+    m_leftArrow = new QToolButton( this );
+    m_leftArrow->setArrowType( Qt::LeftArrow );
+    m_leftArrow->setAutoRepeat( true );
+    connect( m_leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()) );
 
-    _zoomIn = new QToolButton( this );
-    _zoomIn->setIcon( KIcon( QString::fromLatin1( "zoom-in" ) ) );
-    connect( _zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()) );
-    connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT(setEnabled(bool)) );
+    m_zoomIn = new QToolButton( this );
+    m_zoomIn->setIcon( KIcon( QString::fromLatin1( "zoom-in" ) ) );
+    connect( m_zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()) );
+    connect( this, SIGNAL(canZoomIn(bool)), m_zoomIn, SLOT(setEnabled(bool)) );
 
-    _zoomOut = new QToolButton( this );
-    _zoomOut->setIcon(  KIcon( QString::fromLatin1( "zoom-out" ) ) );
-    connect( _zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()) );
-    connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT(setEnabled(bool)) );
+    m_zoomOut = new QToolButton( this );
+    m_zoomOut->setIcon(  KIcon( QString::fromLatin1( "zoom-out" ) ) );
+    connect( m_zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()) );
+    connect( this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)) );
 
-    _cancelSelection = new QToolButton( this );
-    _cancelSelection->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
-    connect( _cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
-    _cancelSelection->setEnabled( false );
-    _cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
+    m_cancelSelection = new QToolButton( this );
+    m_cancelSelection->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
+    connect( m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
+    m_cancelSelection->setEnabled( false );
+    m_cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
 
     placeAndSizeButtons();
 
-    _focusItemDragHandler = new FocusItemDragHandler( this );
-    _barDragHandler = new BarDragHandler( this );
-    _selectionHandler = new SelectionHandler( this );
+    m_focusItemDragHandler = new FocusItemDragHandler( this );
+    m_barDragHandler = new BarDragHandler( this );
+    m_selectionHandler = new SelectionHandler( this );
 
     setWhatsThis( i18nc( "@info", "<title>The date bar</title>"
             "<para>The date bar gives you an overview of the approximate number of images taken in a given time frame."
@@ -101,29 +101,29 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
 QSize DateBar::DateBarWidget::sizeHint() const
 {
     int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
-                       _barHeight+ buttonWidth + 2* borderArroundWidget + 7 );
+                       m_barHeight+ buttonWidth + 2* borderArroundWidget + 7 );
     return QSize( 800, height );
 }
 
 QSize DateBar::DateBarWidget::minimumSizeHint() const
 {
      int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
-                        _barHeight + buttonWidth + 2* borderArroundWidget + 7 );
+                        m_barHeight + buttonWidth + 2* borderArroundWidget + 7 );
      return QSize( 200, height );
 }
 
 void DateBar::DateBarWidget::paintEvent( QPaintEvent* /*event*/ )
 {
     QPainter painter( this );
-    painter.drawPixmap( 0,0, _buffer );
+    painter.drawPixmap( 0,0, m_buffer );
 }
 
 void DateBar::DateBarWidget::redraw()
 {
-    if ( _buffer.isNull() )
+    if ( m_buffer.isNull() )
         return;
 
-    QPainter p( &_buffer );
+    QPainter p( &m_buffer );
     p.setRenderHint( QPainter::Antialiasing );
     p.setFont( font() );
 
@@ -133,7 +133,7 @@ void DateBar::DateBarWidget::redraw()
     p.setBrush( palette().brush( QPalette::Background ) );
     p.drawRect( rect() );
 
-    if (_dates.isNull() )
+    if (m_dates.isNull() )
         return;
 
     // Draw the area with histograms
@@ -144,7 +144,7 @@ void DateBar::DateBarWidget::redraw()
     p.drawRect( barArea );
     p.restore();
 
-    _currentHandler->init( dateForUnit( -_currentUnit, _currentDate ) );
+    m_currentHandler->init( dateForUnit( -m_currentUnit, m_currentDate ) );
 
     int right;
     drawResolutionIndicator( p, &right );
@@ -162,8 +162,8 @@ void DateBar::DateBarWidget::redraw()
 void DateBar::DateBarWidget::resizeEvent( QResizeEvent* event )
 {
     placeAndSizeButtons();
-    _buffer = QPixmap( event->size() );
-    _currentUnit = numberOfUnits()/2;
+    m_buffer = QPixmap( event->size() );
+    m_currentUnit = numberOfUnits()/2;
     redraw();
 }
 
@@ -183,26 +183,26 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
     clip.setRight( clip.right() -2 );
     p.setClipRect( clip );
 
-    for ( int x = rect.x(); x < rect.right(); x+=_barWidth, unit += 1 ) {
+    for ( int x = rect.x(); x < rect.right(); x+=m_barWidth, unit += 1 ) {
         // draw selection indication
         p.save();
         p.setPen( Qt::NoPen );
         p.setBrush( palette().brush( QPalette::Highlight ) );
         QDateTime date = dateForUnit( unit );
         if ( isUnitSelected( unit ) )
-            p.drawRect( QRect( x, rect.top(), _barWidth, rect.height() ) );
+            p.drawRect( QRect( x, rect.top(), m_barWidth, rect.height() ) );
         p.restore();
 
         // draw tickmarks
         int h = rect.height();
-        if ( _currentHandler->isMajorUnit( unit ) ) {
-            QString text = _currentHandler->text( unit );
+        if ( m_currentHandler->isMajorUnit( unit ) ) {
+            QString text = m_currentHandler->text( unit );
             int w = fm.width( text );
             p.setFont( f );
             if ( textRect.right() >  x + w/2 && textRect.left() < x - w/2)
                 p.drawText( x - w/2, textRect.top(), w, fontHeight, Qt::TextSingleLine, text );
         }
-        else if ( _currentHandler->isMidUnit( unit ) )
+        else if ( m_currentHandler->isMidUnit( unit ) )
             h = (int) ( 2.0/3*rect.height());
         else
             h = (int) ( 1.0/3*rect.height());
@@ -217,63 +217,63 @@ void DateBar::DateBarWidget::setViewType( ViewType tp )
 {
     setViewHandlerForType(tp);
     redraw();
-    _tp = tp;
+    m_tp = tp;
 }
 
 void DateBar::DateBarWidget::setViewHandlerForType( ViewType tp )
 {
     switch ( tp ) {
-    case DecadeView: _currentHandler = &_decadeViewHandler; break;
-    case YearView: _currentHandler = &_yearViewHandler; break;
-    case MonthView: _currentHandler = &_monthViewHandler; break;
-    case WeekView: _currentHandler = &_weekViewHandler; break;
-    case DayView: _currentHandler = &_dayViewHandler; break;
-    case HourView: _currentHandler = &_hourViewHandler; break;
+    case DecadeView: m_currentHandler = &m_decadeViewHandler; break;
+    case YearView: m_currentHandler = &m_yearViewHandler; break;
+    case MonthView: m_currentHandler = &m_monthViewHandler; break;
+    case WeekView: m_currentHandler = &m_weekViewHandler; break;
+    case DayView: m_currentHandler = &m_dayViewHandler; break;
+    case HourView: m_currentHandler = &m_hourViewHandler; break;
     }
 }
 
 void DateBar::DateBarWidget::setDate( const QDateTime& date )
 {
-    _currentDate = date;
+    m_currentDate = date;
     if ( hasSelection() ) {
-        if ( currentSelection().start() > _currentDate )
-            _currentDate = currentSelection().start();
-        if ( currentSelection().end() < _currentDate )
-            _currentDate = currentSelection().end();
+        if ( currentSelection().start() > m_currentDate )
+            m_currentDate = currentSelection().start();
+        if ( currentSelection().end() < m_currentDate )
+            m_currentDate = currentSelection().end();
     }
 
-    if ( unitForDate( _currentDate ) != -1 )
-        _currentUnit = unitForDate( _currentDate );
+    if ( unitForDate( m_currentDate ) != -1 )
+        m_currentUnit = unitForDate( m_currentDate );
 
     redraw();
 }
 
 void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
 {
-    _dates = dates;
-    if ( _doAutomaticRangeAdjustment && ! _dates.isNull() && ! _dates->lowerLimit().isNull())
+    m_dates = dates;
+    if ( m_doAutomaticRangeAdjustment && ! m_dates.isNull() && ! m_dates->lowerLimit().isNull())
     {
-        QDateTime start = _dates->lowerLimit();
-        QDateTime end = _dates->upperLimit();
+        QDateTime start = m_dates->lowerLimit();
+        QDateTime end = m_dates->upperLimit();
         if ( end.isNull() )
             end = QDateTime::currentDateTime();
 
-        _currentDate =  start;
-        _currentUnit = 0;
+        m_currentDate =  start;
+        m_currentUnit = 0;
         // select suitable timeframe:
         setViewType( HourView );
-        _currentHandler->init(start);
-        while ( _tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
+        m_currentHandler->init(start);
+        while ( m_tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
         {
-            _tp = (ViewType) (_tp-1);
-            setViewHandlerForType( _tp );
-            _currentHandler->init(start);
+            m_tp = (ViewType) (m_tp-1);
+            setViewHandlerForType( m_tp );
+            m_currentHandler->init(start);
         }
         // center range in datebar:
         int units = unitForDate( end );
         if ( units != -1 )
         {
-            _currentUnit = (numberOfUnits() - units )/2;
+            m_currentUnit = (numberOfUnits() - units )/2;
         }
     }
     redraw();
@@ -290,11 +290,11 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
 
     int unit = 0;
     int max = 0;
-    for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        DB::ImageCount count = _dates->count( rangeForUnit(unit) );
-        int cnt = count._exact;
-        if ( _includeFuzzyCounts )
-            cnt += count._rangeMatch;
+    for ( int x = rect.x(); x + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
+        DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
+        int cnt = count.mp_exact;
+        if ( m_includeFuzzyCounts )
+            cnt += count.mp_rangeMatch;
         max = qMax( max, cnt  );
     }
 
@@ -312,31 +312,31 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     }
 
     unit = 0;
-    for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        DB::ImageCount count = _dates->count( rangeForUnit(unit) );
+    for ( int x = rect.x(); x  + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
+        DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
         int exact = 0;
         if ( max != 0 )
-            exact = (int) ((double) (rect.height()-2) * count._exact / max );
+            exact = (int) ((double) (rect.height()-2) * count.mp_exact / max );
         int range = 0;
-        if ( _includeFuzzyCounts && max != 0 )
-            range = (int) ((double) (rect.height()-2) * count._rangeMatch / max );
+        if ( m_includeFuzzyCounts && max != 0 )
+            range = (int) ((double) (rect.height()-2) * count.mp_rangeMatch / max );
 
         Qt::BrushStyle style = Qt::SolidPattern;
         if ( !isUnitSelected( unit ) && hasSelection() )
             style= Qt::Dense5Pattern;
 
         p.setBrush( QBrush( Qt::yellow, style ) );
-        p.drawRect( x+1, rect.bottom()-range, _barWidth-2, range );
+        p.drawRect( x+1, rect.bottom()-range, m_barWidth-2, range );
         p.setBrush( QBrush( Qt::green, style ) );
-        p.drawRect( x+1, rect.bottom()-range-exact, _barWidth-2, exact );
+        p.drawRect( x+1, rect.bottom()-range-exact, m_barWidth-2, exact );
 
         // Draw the numbers, if they fit.
         if (fontFound) {
-            int tot = count._exact;
-            if ( _includeFuzzyCounts )
-                tot += count._rangeMatch;
+            int tot = count.mp_exact;
+            if ( m_includeFuzzyCounts )
+                tot += count.mp_rangeMatch;
             p.save();
-            p.translate( x+_barWidth-3, rect.bottom()-2 );
+            p.translate( x+m_barWidth-3, rect.bottom()-2 );
             p.rotate( -90 );
             int w = QFontMetrics(f).width( QString::number( tot ) );
             if ( w < exact+range-2 ) {
@@ -362,7 +362,7 @@ void DateBar::DateBarWidget::scrollRight()
 
 void DateBar::DateBarWidget::scroll( int units )
 {
-    _currentDate = dateForUnit( units, _currentDate );
+    m_currentDate = dateForUnit( units, m_currentDate );
     redraw();
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
@@ -371,9 +371,9 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
 {
     QRect rect = barAreaGeometry();
     p.save();
-    int x = rect.left() + _currentUnit*_barWidth;
+    int x = rect.left() + m_currentUnit*m_barWidth;
     QRect inner( QPoint(x-1, borderAboveHistogram),
-                 QPoint( x + _barWidth, borderAboveHistogram + _barHeight - 1 ) );
+                 QPoint( x + m_barWidth, borderAboveHistogram + m_barHeight - 1 ) );
 
     p.setPen( QPen( palette().color( QPalette::Dark ), 1 ) );
 
@@ -419,21 +419,21 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
 
 void DateBar::DateBarWidget::zoomIn()
 {
-    if ( _tp == HourView )
+    if ( m_tp == HourView )
         return;
     zoom(+1);
 }
 
 void DateBar::DateBarWidget::zoomOut()
 {
-    if ( _tp == DecadeView )
+    if ( m_tp == DecadeView )
         return;
     zoom(-1);
 }
 
 void DateBar::DateBarWidget::zoom( int factor )
 {
-    ViewType tp = (ViewType) (_tp+factor);
+    ViewType tp = (ViewType) (m_tp+factor);
     setViewType( tp );
     emit canZoomIn( tp != HourView );
     emit canZoomOut( tp != DecadeView );
@@ -446,18 +446,18 @@ void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 
     if ( (event->button() & Qt::MidButton)
             || event->modifiers() & Qt::ControlModifier ) {
-        _currentMouseHandler = _barDragHandler;
+        m_currentMouseHandler = m_barDragHandler;
     }
     else {
         bool onBar = event->y() > barAreaGeometry().bottom();
         if ( onBar )
-            _currentMouseHandler = _selectionHandler;
+            m_currentMouseHandler = m_selectionHandler;
         else {
-            _currentMouseHandler= _focusItemDragHandler;
+            m_currentMouseHandler= m_focusItemDragHandler;
         }
     }
-    _currentMouseHandler->mousePressEvent( event->x() );
-    _cancelSelection->setEnabled( hasSelection() );
+    m_currentMouseHandler->mousePressEvent( event->x() );
+    m_cancelSelection->setEnabled( hasSelection() );
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
     showStatusBarTip( event->pos() );
     redraw();
@@ -465,17 +465,17 @@ void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 
 void DateBar::DateBarWidget::mouseReleaseEvent( QMouseEvent* )
 {
-    if ( _currentMouseHandler == nullptr )
+    if ( m_currentMouseHandler == nullptr )
         return;
 
-    _currentMouseHandler->endAutoScroll();
-    _currentMouseHandler->mouseReleaseEvent();
-    _currentMouseHandler = nullptr;
+    m_currentMouseHandler->endAutoScroll();
+    m_currentMouseHandler->mouseReleaseEvent();
+    m_currentMouseHandler = nullptr;
 }
 
 void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _currentMouseHandler == nullptr)
+    if ( m_currentMouseHandler == nullptr)
         return;
 
     showStatusBarTip( event->pos() );
@@ -483,8 +483,8 @@ void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
     if ( (event->buttons() & ( Qt::MidButton | Qt::LeftButton)) == 0 )
         return;
 
-    _currentMouseHandler->endAutoScroll();
-    _currentMouseHandler->mouseMoveEvent( event->pos().x() );
+    m_currentMouseHandler->endAutoScroll();
+    m_currentMouseHandler->mouseMoveEvent( event->pos().x() );
 }
 
 QRect DateBar::DateBarWidget::barAreaGeometry() const
@@ -492,20 +492,20 @@ QRect DateBar::DateBarWidget::barAreaGeometry() const
     QRect barArea;
     barArea.setTopLeft( QPoint( borderArroundWidget, borderAboveHistogram ) );
     barArea.setRight( width() - borderArroundWidget - 2 * buttonWidth - 2*3 ); // 2 pixels between button and bar + 1 pixel as the pen is one pixel
-    barArea.setHeight( _barHeight );
+    barArea.setHeight( m_barHeight );
     return barArea;
 }
 
 int DateBar::DateBarWidget::numberOfUnits() const
 {
-    return barAreaGeometry().width() / _barWidth -1 ;
+    return barAreaGeometry().width() / m_barWidth -1 ;
 }
 
 void DateBar::DateBarWidget::setHistogramBarSize( const QSize& size )
 {
-    _barWidth = size.width();
-    _barHeight = size.height();
-    _currentUnit = numberOfUnits()/2;
+    m_barWidth = size.width();
+    m_barHeight = size.height();
+    m_currentUnit = numberOfUnits()/2;
     Q_ASSERT( parentWidget() );
     updateGeometry();
     Q_ASSERT( parentWidget() );
@@ -515,17 +515,17 @@ void DateBar::DateBarWidget::setHistogramBarSize( const QSize& size )
 
 void DateBar::DateBarWidget::setIncludeFuzzyCounts( bool b )
 {
-    _includeFuzzyCounts = b;
+    m_includeFuzzyCounts = b;
     redraw();
     if ( hasSelection() )
-        emitRangeSelection( _selectionHandler->dateRange() );
+        emitRangeSelection( m_selectionHandler->dateRange() );
 
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
 DB::ImageDate DateBar::DateBarWidget::rangeAt( const QPoint& p )
 {
-    int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
+    int unit = (p.x() - barAreaGeometry().x())/ m_barWidth;
     return rangeForUnit( unit );
 }
 
@@ -542,27 +542,27 @@ DB::ImageDate DateBar::DateBarWidget::rangeForUnit( int unit )
 
 bool DateBar::DateBarWidget::includeFuzzyCounts() const
 {
-    return _includeFuzzyCounts;
+    return m_includeFuzzyCounts;
 }
 
 void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
 {
-    if ( !_contextMenu ) {
-        _contextMenu = new QMenu( this );
+    if ( !m_contextMenu ) {
+        m_contextMenu = new QMenu( this );
         QAction* action = new QAction( i18n("Show Ranges"), this );
         action->setCheckable( true );
-        _contextMenu->addAction(action);
-        action->setChecked( _includeFuzzyCounts );
+        m_contextMenu->addAction(action);
+        action->setChecked( m_includeFuzzyCounts );
         connect( action, SIGNAL(toggled(bool)), this, SLOT(setIncludeFuzzyCounts(bool)) );
 
         action = new QAction( i18n("Show Resolution Indicator"), this );
         action->setCheckable( true );
-        _contextMenu->addAction(action);
-        action->setChecked( _showResolutionIndicator );
+        m_contextMenu->addAction(action);
+        action->setChecked( m_showResolutionIndicator );
         connect( action, SIGNAL(toggled(bool)), this, SLOT(setShowResolutionIndicator(bool)) );
     }
 
-    _contextMenu->exec( event->globalPos());
+    m_contextMenu->exec( event->globalPos());
     event->setAccepted(true);
 }
 
@@ -580,19 +580,19 @@ void DateBar::DateBarWidget::drawResolutionIndicator( QPainter& p, int* leftEdge
     QRect rect = dateAreaGeometry();
 
     // For real small bars, we do not want to show the resolution.
-    if ( rect.width() < 400 || !_showResolutionIndicator ) {
+    if ( rect.width() < 400 || !m_showResolutionIndicator ) {
         *leftEdge = rect.right();
         return;
     }
 
-    QString text = _currentHandler->unitText();
+    QString text = m_currentHandler->unitText();
     int textWidth = QFontMetrics( font() ).width( text );
     int height = QFontMetrics( font() ).height();
 
     int endUnitPos = rect.right() - textWidth - arrowLength - 3;
     // Round to nearest unit mark
-    endUnitPos = ( (endUnitPos-rect.left()) / _barWidth) * _barWidth + rect.left();
-    int startUnitPos = endUnitPos - _barWidth;
+    endUnitPos = ( (endUnitPos-rect.left()) / m_barWidth) * m_barWidth + rect.left();
+    int startUnitPos = endUnitPos - m_barWidth;
     int midLine = rect.top() + height / 2;
 
     p.save();
@@ -651,40 +651,40 @@ void DateBar::DateBarWidget::drawArrow( QPainter& p, const QPoint& start, const 
 
 void DateBar::DateBarWidget::setShowResolutionIndicator( bool b )
 {
-    _showResolutionIndicator = b;
+    m_showResolutionIndicator = b;
     redraw();
 }
 
 void DateBar::DateBarWidget::setAutomaticRangeAdjustment( bool b )
 {
-    _doAutomaticRangeAdjustment = b;
+    m_doAutomaticRangeAdjustment = b;
 }
 
 void DateBar::DateBarWidget::updateArrowState()
 {
-    _leftArrow->setEnabled( _dates->lowerLimit() <= dateForUnit( 0 ) );
-    _rightArrow->setEnabled( _dates->upperLimit() > dateForUnit( numberOfUnits() ) );
+    m_leftArrow->setEnabled( m_dates->lowerLimit() <= dateForUnit( 0 ) );
+    m_rightArrow->setEnabled( m_dates->upperLimit() > dateForUnit( numberOfUnits() ) );
 }
 
 DB::ImageDate DateBar::DateBarWidget::currentDateRange() const
 {
-    return DB::ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) );
+    return DB::ImageDate( dateForUnit( m_currentUnit ), dateForUnit( m_currentUnit+1 ) );
 }
 
 void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 {
     DB::ImageDate range = rangeAt( pos );
-    DB::ImageCount count = _dates->count( range );
+    DB::ImageCount count = m_dates->count( range );
 
     QString cnt;
-    if ( count._rangeMatch != 0 && includeFuzzyCounts())
+    if ( count.mp_rangeMatch != 0 && includeFuzzyCounts())
         cnt = i18ncp("@info:status images that fall in the given date range"
-               ,"1 exact", "%1 exact", count._exact)
+               ,"1 exact", "%1 exact", count.mp_exact)
                 + i18ncp("@info:status additional images captured in a date range that overlaps with the given date range,"
-                        ," + 1 range", " + %1 ranges", count._rangeMatch)
-                + i18ncp("@info:status total image count"," = 1 total", " = %1 total",  count._exact + count._rangeMatch );
+                        ," + 1 range", " + %1 ranges", count.mp_rangeMatch)
+                + i18ncp("@info:status total image count"," = 1 total", " = %1 total",  count.mp_exact + count.mp_rangeMatch );
     else
-        cnt = i18ncp("@info:status image count","%1 image/video","%1 images/videos", count._exact );
+        cnt = i18ncp("@info:status image count","%1 image/video","%1 images/videos", count.mp_exact );
 
     QString res = i18nc("@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos').","%1 | %2", range.toString(), cnt);
 
@@ -696,36 +696,36 @@ void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 
 void DateBar::DateBarWidget::placeAndSizeButtons()
 {
-    _zoomIn->setFixedSize( buttonWidth, buttonWidth );
-    _zoomOut->setFixedSize( buttonWidth, buttonWidth );
-    _rightArrow->setFixedSize( QSize( buttonWidth, _barHeight ) );
-    _leftArrow->setFixedSize( QSize( buttonWidth, _barHeight ) );
+    m_zoomIn->setFixedSize( buttonWidth, buttonWidth );
+    m_zoomOut->setFixedSize( buttonWidth, buttonWidth );
+    m_rightArrow->setFixedSize( QSize( buttonWidth, m_barHeight ) );
+    m_leftArrow->setFixedSize( QSize( buttonWidth, m_barHeight ) );
 
-    _rightArrow->move( size().width() - _rightArrow->width() - borderArroundWidget, borderAboveHistogram );
-    _leftArrow->move( _rightArrow->pos().x() - _leftArrow->width() -2 , borderAboveHistogram );
+    m_rightArrow->move( size().width() - m_rightArrow->width() - borderArroundWidget, borderAboveHistogram );
+    m_leftArrow->move( m_rightArrow->pos().x() - m_leftArrow->width() -2 , borderAboveHistogram );
 
-    int x = _leftArrow->pos().x();
+    int x = m_leftArrow->pos().x();
     int y = height() - buttonWidth;
-    _zoomOut->move( x, y );
+    m_zoomOut->move( x, y );
 
-    x = _rightArrow->pos().x();
-    _zoomIn->move(x, y );
+    x = m_rightArrow->pos().x();
+    m_zoomIn->move(x, y );
 
 
-    _cancelSelection->setFixedSize( buttonWidth, buttonWidth );
-    _cancelSelection->move( 0, y );
+    m_cancelSelection->setFixedSize( buttonWidth, buttonWidth );
+    m_cancelSelection->move( 0, y );
 }
 
 void DateBar::DateBarWidget::keyPressEvent( QKeyEvent* event )
 {
     int offset = 0;
     if ( event->key() == Qt::Key_Plus ) {
-        if ( _tp != HourView )
+        if ( m_tp != HourView )
             zoom(1);
         return;
     }
     if ( event->key() == Qt::Key_Minus ) {
-        if ( _tp != DecadeView )
+        if ( m_tp != DecadeView )
             zoom( -1 );
         return;
     }
@@ -741,17 +741,17 @@ void DateBar::DateBarWidget::keyPressEvent( QKeyEvent* event )
     else
         return;
 
-    QDateTime newDate =dateForUnit( offset, _currentDate );
-    if ( (offset < 0 && newDate >= _dates->lowerLimit()) ||
-         ( offset > 0 && newDate <= _dates->upperLimit() ) ) {
-        _currentDate = newDate;
-        _currentUnit += offset;
-        if ( _currentUnit < 0 )
-            _currentUnit = 0;
-        if ( _currentUnit > numberOfUnits() )
-            _currentUnit = numberOfUnits();
+    QDateTime newDate =dateForUnit( offset, m_currentDate );
+    if ( (offset < 0 && newDate >= m_dates->lowerLimit()) ||
+         ( offset > 0 && newDate <= m_dates->upperLimit() ) ) {
+        m_currentDate = newDate;
+        m_currentUnit += offset;
+        if ( m_currentUnit < 0 )
+            m_currentUnit = 0;
+        if ( m_currentUnit > numberOfUnits() )
+            m_currentUnit = numberOfUnits();
 
-        if ( ! currentSelection().includes( _currentDate ) )
+        if ( ! currentSelection().includes( m_currentDate ) )
             clearSelection();
     }
     redraw();
@@ -771,40 +771,40 @@ void DateBar::DateBarWidget::focusOutEvent( QFocusEvent* )
 
 int DateBar::DateBarWidget::unitAtPos( int x ) const
 {
-    return ( x  - barAreaGeometry().left() )/_barWidth;
+    return ( x  - barAreaGeometry().left() )/m_barWidth;
 }
 
 QDateTime DateBar::DateBarWidget::dateForUnit( int unit, const QDateTime& offset ) const
 {
-    return _currentHandler->date( unit, offset );
+    return m_currentHandler->date( unit, offset );
 }
 
 bool DateBar::DateBarWidget::isUnitSelected( int unit ) const
 {
-    QDateTime minDate = _selectionHandler->min();
-    QDateTime maxDate = _selectionHandler->max();
+    QDateTime minDate = m_selectionHandler->min();
+    QDateTime maxDate = m_selectionHandler->max();
     QDateTime date = dateForUnit( unit );
     return ( minDate <= date && date < maxDate && !minDate.isNull() );
 }
 
 bool DateBar::DateBarWidget::hasSelection() const
 {
-    return !_selectionHandler->min().isNull();
+    return !m_selectionHandler->min().isNull();
 }
 
 DB::ImageDate DateBar::DateBarWidget::currentSelection() const
 {
-    return DB::ImageDate(_selectionHandler->min(), _selectionHandler->max() );
+    return DB::ImageDate(m_selectionHandler->min(), m_selectionHandler->max() );
 }
 
 void DateBar::DateBarWidget::clearSelection()
 {
-    if ( _selectionHandler->hasSelection() ) {
-        _selectionHandler->clearSelection();
+    if ( m_selectionHandler->hasSelection() ) {
+        m_selectionHandler->clearSelection();
         emit dateRangeCleared();
         redraw();
     }
-    _cancelSelection->setEnabled( false );
+    m_cancelSelection->setEnabled( false );
 }
 
 void DateBar::DateBarWidget::emitRangeSelection( const DB::ImageDate&  range )
@@ -815,7 +815,7 @@ void DateBar::DateBarWidget::emitRangeSelection( const DB::ImageDate&  range )
 int DateBar::DateBarWidget::unitForDate( const QDateTime& date ) const
 {
     for ( int unit = 0; unit < numberOfUnits(); ++unit ) {
-        if ( _currentHandler->date( unit ) <= date && date < _currentHandler->date( unit +1 ) )
+        if ( m_currentHandler->date( unit ) <= date && date < m_currentHandler->date( unit +1 ) )
             return unit;
     }
     return -1;

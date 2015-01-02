@@ -39,51 +39,51 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
-    _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
-    lay1->addWidget( _exifDB );
+    m_exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
+    lay1->addWidget( m_exifDB );
     if ( !Exif::Database::instance()->isUsable() ) {
-        _exifDB->hide();
+        m_exifDB->hide();
     }
 
-    _date = new QCheckBox( i18n( "Update image date" ), top );
-    lay1->addWidget( _date );
+    m_date = new QCheckBox( i18n( "Update image date" ), top );
+    lay1->addWidget( m_date );
 
-    _force_date = new QCheckBox( i18n( "Use modification date if EXIF not found" ), top );
-    lay1->addWidget( _force_date );
+    m_force_date = new QCheckBox( i18n( "Use modification date if EXIF not found" ), top );
+    lay1->addWidget( m_force_date );
 
-    _orientation = new QCheckBox( i18n( "Update image orientation from EXIF information" ), top );
-    lay1->addWidget( _orientation );
+    m_orientation = new QCheckBox( i18n( "Update image orientation from EXIF information" ), top );
+    lay1->addWidget( m_orientation );
 
-    _description = new QCheckBox( i18n( "Update image description from EXIF information" ), top );
-    lay1->addWidget( _description );
+    m_description = new QCheckBox( i18n( "Update image description from EXIF information" ), top );
+    lay1->addWidget( m_description );
 
     QGroupBox* box = new QGroupBox( i18n("Affected Files") );
     lay1->addWidget( box );
 
     QHBoxLayout* boxLayout = new QHBoxLayout( box );
-    _fileList = new QListWidget;
-    _fileList->setSelectionMode( QAbstractItemView::NoSelection );
-    boxLayout->addWidget( _fileList );
+    m_fileList = new QListWidget;
+    m_fileList->setSelectionMode( QAbstractItemView::NoSelection );
+    boxLayout->addWidget( m_fileList );
 
     connect( this, SIGNAL(okClicked()), this, SLOT(readInfo()) );
-    connect( _date, SIGNAL(toggled(bool)), _force_date, SLOT(setEnabled(bool)) );
-    connect( _date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)) );
+    connect( m_date, SIGNAL(toggled(bool)), m_force_date, SLOT(setEnabled(bool)) );
+    connect( m_date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)) );
 }
 
 int Exif::ReReadDialog::exec( const DB::FileNameList& list )
 {
     Settings::SettingsData *opt = Settings::SettingsData::instance();
 
-    _exifDB->setChecked( opt->updateExifData() );
-    _date->setChecked( opt->updateImageDate() );
-    _force_date->setChecked( opt->useModDateIfNoExif() );
-    _force_date->setEnabled( opt->updateImageDate() );
-    _orientation->setChecked( opt->updateOrientation() );
-    _description->setChecked( opt->updateDescription() );
+    m_exifDB->setChecked( opt->updateExifData() );
+    m_date->setChecked( opt->updateImageDate() );
+    m_force_date->setChecked( opt->useModDateIfNoExif() );
+    m_force_date->setEnabled( opt->updateImageDate() );
+    m_orientation->setChecked( opt->updateOrientation() );
+    m_description->setChecked( opt->updateDescription() );
 
-    _list = list;
-    _fileList->clear();
-    _fileList->addItems( list.toStringList(DB::RelativeToImageRoot) );
+    m_list = list;
+    m_fileList->clear();
+    m_fileList->addItems( list.toStringList(DB::RelativeToImageRoot) );
 
     return KDialog::exec();
 }
@@ -92,30 +92,30 @@ void Exif::ReReadDialog::readInfo()
 {
     Settings::SettingsData *opt = Settings::SettingsData::instance();
 
-    opt->setUpdateExifData( _exifDB->isChecked() );
-    opt->setUpdateImageDate( _date->isChecked() );
-    opt->setUseModDateIfNoExif( _force_date->isChecked() );
-    opt->setUpdateOrientation( _orientation->isChecked() );
-    opt->setUpdateDescription( _description->isChecked() );
+    opt->setUpdateExifData( m_exifDB->isChecked() );
+    opt->setUpdateImageDate( m_date->isChecked() );
+    opt->setUseModDateIfNoExif( m_force_date->isChecked() );
+    opt->setUpdateOrientation( m_orientation->isChecked() );
+    opt->setUpdateDescription( m_description->isChecked() );
 
     KGlobal::config()->sync();
 
     DB::ExifMode mode = DB::EXIFMODE_FORCE;
 
-    if ( _exifDB->isChecked() )
+    if ( m_exifDB->isChecked() )
         mode |= DB::EXIFMODE_DATABASE_UPDATE;
 
-    if ( _date->isChecked() )
+    if ( m_date->isChecked() )
             mode |= DB::EXIFMODE_DATE;
-    if ( _force_date->isChecked() )
+    if ( m_force_date->isChecked() )
              mode |= DB::EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE;
-    if ( _orientation->isChecked() )
+    if ( m_orientation->isChecked() )
             mode |= DB::EXIFMODE_ORIENTATION;
-    if ( _description->isChecked() )
+    if ( m_description->isChecked() )
             mode |= DB::EXIFMODE_DESCRIPTION;
 
     accept();
-    DB::ImageDB::instance()->slotReread(_list, mode);
+    DB::ImageDB::instance()->slotReread(m_list, mode);
 }
 
 void Exif::ReReadDialog::warnAboutDates( bool b )
@@ -128,7 +128,7 @@ void Exif::ReReadDialog::warnAboutDates( bool b )
                                                     "manually using the image configuration dialog.</p>" ),
                                          i18n( "Override image dates" ) );
     if ( ret == KMessageBox::Cancel )
-        _date->setChecked( false );
+        m_date->setChecked( false );
 }
 
 #include "ReReadDialog.moc"

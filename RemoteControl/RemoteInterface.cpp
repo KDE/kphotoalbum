@@ -160,14 +160,14 @@ void RemoteInterface::sendCategoryValues(const SearchRequest& search)
 
     if (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView) {
         QList<int> result;
-        std::transform( model._items.begin(), model._items.end(), std::back_inserter(result),
+        std::transform( model.m_items.begin(), model.m_items.end(), std::back_inserter(result),
                         [this,categoryName] (const QString itemName) {
             return m_imageNameStore.idForCategory(categoryName,itemName);
         });
         m_connection->sendCommand(SearchResult(SearchType::CategoryItems, result));
     }
     else {
-        m_connection->sendCommand(CategoryItemsResult(model._items));
+        m_connection->sendCommand(CategoryItemsResult(model.m_items));
     }
 }
 

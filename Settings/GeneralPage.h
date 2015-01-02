@@ -44,20 +44,20 @@ private slots:
     void stripEXIFCommentsChanged(int state);
 
 private:
-    KComboBox* _trustTimeStamps;
-    QCheckBox* _useEXIFRotate;
-    QCheckBox* _useEXIFComments;
-    QTextEdit* _commentsToStrip;
-    QCheckBox* _stripEXIFComments;
-    QCheckBox* _useRawThumbnail;
-    QSpinBox* _useRawThumbnailWidth;
-    QSpinBox* _useRawThumbnailHeight;
-    QCheckBox* _showHistogram;
-    QSpinBox* _barWidth;
-    QSpinBox* _barHeight;
-    QCheckBox* _showSplashScreen;
-    QComboBox* _albumCategory;
-    QCheckBox* _listenForAndroidDevicesOnStartup;
+    KComboBox* m_trustTimeStamps;
+    QCheckBox* m_useEXIFRotate;
+    QCheckBox* m_useEXIFComments;
+    QTextEdit* m_commentsToStrip;
+    QCheckBox* m_stripEXIFComments;
+    QCheckBox* m_useRawThumbnail;
+    QSpinBox* m_useRawThumbnailWidth;
+    QSpinBox* m_useRawThumbnailHeight;
+    QCheckBox* m_showHistogram;
+    QSpinBox* m_barWidth;
+    QSpinBox* m_barHeight;
+    QCheckBox* m_showSplashScreen;
+    QComboBox* m_albumCategory;
+    QCheckBox* m_listenForAndroidDevicesOnStartup;
 };
 }
 

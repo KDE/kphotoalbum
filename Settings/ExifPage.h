@@ -34,9 +34,9 @@ public:
     void saveSettings( Settings::SettingsData* );
 
 private:
-    Exif::TreeView* _exifForViewer;
-    Exif::TreeView* _exifForDialog;
-    QComboBox* _iptcCharset;
+    Exif::TreeView* m_exifForViewer;
+    Exif::TreeView* m_exifForDialog;
+    QComboBox* m_iptcCharset;
 };
 
 }

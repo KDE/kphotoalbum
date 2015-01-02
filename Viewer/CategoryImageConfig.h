@@ -49,15 +49,15 @@ protected:
     QString currentGroup();
 
 private:
-    static CategoryImageConfig* _instance;
+    static CategoryImageConfig* s_instance;
     CategoryImageConfig();
-    QComboBox* _group;
-    QStringList _categoryNames;
-    QComboBox* _member;
-    QLabel* _current;
-    QImage _image;
-    QLabel* _imageLabel;
-    DB::ImageInfoPtr _info;
+    QComboBox* m_group;
+    QStringList m_categoryNames;
+    QComboBox* m_member;
+    QLabel* m_current;
+    QImage m_image;
+    QLabel* m_imageLabel;
+    DB::ImageInfoPtr m_info;
 };
 
 

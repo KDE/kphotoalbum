@@ -21,7 +21,7 @@
 
 using namespace DB;
 
-MemberMap::MemberMap() :QObject(nullptr), _dirty( true ), _loading( false )
+MemberMap::MemberMap() :QObject(nullptr), m_dirty( true ), m_loading( false )
 {
 }
 
@@ -30,14 +30,14 @@ MemberMap::MemberMap() :QObject(nullptr), _dirty( true ), _loading( false )
 */
 QStringList MemberMap::groups( const QString& category ) const
 {
-    return QStringList( _members[ category ].keys() );
+    return QStringList( m_members[ category ].keys() );
 }
 
 void MemberMap::deleteGroup( const QString& category, const QString& name )
 {
-    _members[category].remove(name);
-    _dirty = true;
-    if ( !_loading )
+    m_members[category].remove(name);
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
 }
 
@@ -47,12 +47,12 @@ void MemberMap::deleteGroup( const QString& category, const QString& name )
 QStringList MemberMap::members( const QString& category, const QString& memberGroup, bool closure ) const
 {
     if ( closure ) {
-        if ( _dirty )
+        if ( m_dirty )
             calculate();
-        return _closureMembers[category][memberGroup].toList();
+        return m_closureMembers[category][memberGroup].toList();
     }
     else
-        return _members[category][memberGroup].toList();
+        return m_members[category][memberGroup].toList();
 }
 
 void MemberMap::setMembers( const QString& category, const QString& memberGroup, const QStringList& members )
@@ -63,15 +63,15 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
         if (!canAddMemberToGroup(category, memberGroup, *i))
             allowedMembers.remove(*i);
 
-    _members[category][memberGroup] = allowedMembers;
-    _dirty = true;
-    if ( !_loading )
+    m_members[category][memberGroup] = allowedMembers;
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
 }
 
 bool MemberMap::isEmpty() const
 {
-    return _members.empty();
+    return m_members.empty();
 }
 
 /**
@@ -79,7 +79,7 @@ bool MemberMap::isEmpty() const
 */
 bool MemberMap::isGroup( const QString& category, const QString& item ) const
 {
-    return _members[category].find(item) != _members[category].end();
+    return m_members[category].find(item) != m_members[category].end();
 }
 
 
@@ -89,10 +89,10 @@ bool MemberMap::isGroup( const QString& category, const QString& item ) const
 */
 QMap<QString,StringSet> MemberMap::groupMap( const QString& category ) const
 {
-    if ( _dirty )
+    if ( m_dirty )
         calculate();
 
-    return _closureMembers[category];
+    return m_closureMembers[category];
 }
 
 /**
@@ -104,7 +104,7 @@ QMap<QString,StringSet> MemberMap::groupMap( const QString& category ) const
 QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, const QString& category, const QString& group ) const
 {
     resultSoFar[group] = StringSet(); // Prevent against cykles.
-    StringSet members = _members[category][group];
+    StringSet members = m_members[category][group];
     StringSet result = members;
     for( StringSet::const_iterator it = members.begin(); it != members.end(); ++it ) {
         if ( resultSoFar.contains( *it ) ) {
@@ -125,10 +125,10 @@ QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, c
 */
 void MemberMap::calculate() const
 {
-    _closureMembers.clear();
+    m_closureMembers.clear();
     // run through all categories
-    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator categoryIt= _members.begin();
-         categoryIt != _members.end(); ++categoryIt ) {
+    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator categoryIt= m_members.begin();
+         categoryIt != m_members.end(); ++categoryIt ) {
 
         QString category = categoryIt.key();
         QMap<QString, StringSet> groupMap = categoryIt.value();
@@ -136,25 +136,25 @@ void MemberMap::calculate() const
         // Run through each of the groups for the given categories
         for( QMap<QString,StringSet>::Iterator groupIt= groupMap.begin(); groupIt != groupMap.end(); ++groupIt ) {
             QString group = groupIt.key();
-            if ( _closureMembers[category].find( group ) == _closureMembers[category].end() ) {
-                (void) calculateClosure( _closureMembers[category], category, group );
+            if ( m_closureMembers[category].find( group ) == m_closureMembers[category].end() ) {
+                (void) calculateClosure( m_closureMembers[category], category, group );
             }
         }
     }
-    _dirty = false;
+    m_dirty = false;
 }
 
 void MemberMap::renameGroup( const QString& category, const QString& oldName, const QString& newName )
 {
 // Don't allow overwriting to avoid creating cycles
-    if (_members[category].contains(newName))
+    if (m_members[category].contains(newName))
         return;
 
-    _dirty = true;
-    if ( !_loading )
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
-    QMap<QString, StringSet>& groupMap = _members[category];
-    groupMap.insert(newName,_members[category][oldName] );
+    QMap<QString, StringSet>& groupMap = m_members[category];
+    groupMap.insert(newName,m_members[category][oldName] );
     groupMap.remove( oldName );
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& set = it.value();
@@ -166,21 +166,21 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
 }
 
 MemberMap::MemberMap( const MemberMap& other )
-    : QObject( nullptr ), _members( other.memberMap() ), _dirty( true ), _loading( false )
+    : QObject( nullptr ), m_members( other.memberMap() ), m_dirty( true ), m_loading( false )
 {
 }
 
 void MemberMap::deleteItem( DB::Category* category, const QString& name)
 {
-    _dirty = true;
-    if ( !_loading )
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
-    QMap<QString, StringSet>& groupMap = _members[category->name()];
+    QMap<QString, StringSet>& groupMap = m_members[category->name()];
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
         items.remove( name );
     }
-    _members[category->name()].remove(name);
+    m_members[category->name()].remove(name);
 }
 
 void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
@@ -188,10 +188,10 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
     if (oldName == newName)
         return;
 
-    _dirty = true;
-    if ( !_loading )
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
-    QMap<QString, StringSet>& groupMap = _members[category->name()];
+    QMap<QString, StringSet>& groupMap = m_members[category->name()];
     for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.value();
         if (items.contains( oldName ) ) {
@@ -209,8 +209,8 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
 MemberMap& MemberMap::operator=( const MemberMap& other )
 {
     if ( this != &other ) {
-        _members = other.memberMap();
-        _dirty = true;
+        m_members = other.memberMap();
+        m_dirty = true;
     }
     return *this;
 }
@@ -220,7 +220,7 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
     // Only test for cycles after database is already loaded
-    if (!_loading && !canAddMemberToGroup(category, group, item))
+    if (!m_loading && !canAddMemberToGroup(category, group, item))
         return;
 
     if ( item.isEmpty() ) {
@@ -229,14 +229,14 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
     }
 
 
-    _members[category][group].insert( item );
+    m_members[category][group].insert( item );
 
-    if (_loading) {
-        _dirty = true;
-    } else if (!_dirty) {
+    if (m_loading) {
+        m_dirty = true;
+    } else if (!m_dirty) {
         // Update _closureMembers to avoid marking it dirty
 
-        QMap<QString, StringSet>& categoryClosure = _closureMembers[category];
+        QMap<QString, StringSet>& categoryClosure = m_closureMembers[category];
 
         categoryClosure[group].insert(item);
 
@@ -257,24 +257,24 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
             }
     }
 
-    if ( !_loading )
+    if ( !m_loading )
         emit dirty();
 }
 
 void MemberMap::removeMemberFromGroup( const QString& category, const QString& group, const QString& item )
 {
-    Q_ASSERT( _members.contains(category) );
-    if ( _members[category].contains( group ) )
-        _members[category][group].remove( item );
-    _dirty = true;
-    if ( !_loading )
+    Q_ASSERT( m_members.contains(category) );
+    if ( m_members[category].contains( group ) )
+        m_members[category][group].remove( item );
+    m_dirty = true;
+    if ( !m_loading )
         emit dirty();
 }
 
 void MemberMap::addGroup( const QString& category, const QString& group )
 {
-    if ( ! _members[category].contains( group ) ) {
-        _members[category].insert( group, StringSet() );
+    if ( ! m_members[category].contains( group ) ) {
+        m_members[category].insert( group, StringSet() );
     }
 }
 
@@ -282,16 +282,16 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
 {
     if (oldName == newName)
         return;
-    _members[newName] = _members[oldName];
-    _members.remove(oldName);
-    _closureMembers[newName] = _closureMembers[oldName];
-    _closureMembers.remove(oldName);
+    m_members[newName] = m_members[oldName];
+    m_members.remove(oldName);
+    m_closureMembers[newName] = m_closureMembers[oldName];
+    m_closureMembers.remove(oldName);
 }
 
 QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) const
 {
     QMap<QString,StringSet> res;
-    const QMap<QString,StringSet>& map =  _members[category];
+    const QMap<QString,StringSet>& map =  m_members[category];
 
     for( QMap<QString,StringSet>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
         QString group = mapIt.key();
@@ -307,23 +307,23 @@ bool DB::MemberMap::hasPath( const QString& category, const QString& from, const
 {
     if (from == to)
         return true;
-    else if (!_members[category].contains(from))
+    else if (!m_members[category].contains(from))
         // Try to avoid calculate(), which is quite time consuming.
         return false;
     else {
         // return members(category, from, true).contains(to);
-        if ( _dirty )
+        if ( m_dirty )
             calculate();
-        return _closureMembers[category][from].contains(to);
+        return m_closureMembers[category][from].contains(to);
     }
 }
 
 void DB::MemberMap::setLoading( bool b )
 {
-    if (_loading && !b) {
+    if (m_loading && !b) {
         // TODO: Remove possible loaded cycles.
     }
-    _loading = b;
+    m_loading = b;
 }
 
 #include "MemberMap.moc"

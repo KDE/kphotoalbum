@@ -33,10 +33,10 @@ class StatusBar :public KStatusBar
     Q_OBJECT
 public:
     StatusBar();
-    DirtyIndicator* _dirtyIndicator;
-    ImageCounter* _partial;
-    ImageCounter* _selected;
-    BreadcrumbViewer* _pathIndicator;
+    DirtyIndicator* mp_dirtyIndicator;
+    ImageCounter* mp_partial;
+    ImageCounter* mp_selected;
+    BreadcrumbViewer* mp_pathIndicator;
 
     void setLocked( bool locked );
     void startProgress( const QString& text, int total );
@@ -54,7 +54,7 @@ private:
     void setupGUI();
     void setPendingShow();
 
-    QLabel* _lockedIndicator;
+    QLabel* m_lockedIndicator;
     QProgressBar* m_progressBar;
     QToolButton* m_cancel;
     QTimer* m_pendingShowTimer;

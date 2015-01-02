@@ -60,7 +60,7 @@ bool NewImageFinder::findImages()
         loadedFiles.insert(fileName);
     }
 
-    _pendingLoad.clear();
+    m_pendingLoad.clear();
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
     loadExtraFiles();
 
@@ -74,7 +74,7 @@ bool NewImageFinder::findImages()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    return (!_pendingLoad.isEmpty()); // returns if new images was found.
+    return (!m_pendingLoad.isEmpty()); // returns if new images was found.
 }
 
 
@@ -112,9 +112,9 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
         if ( fi.isFile() ) {
             if ( ! DB::ImageDB::instance()->isBlocking( file ) ) {
                 if ( Utilities::canReadImage(file) )
-                    _pendingLoad.append( qMakePair( file, DB::Image ) );
+                    m_pendingLoad.append( qMakePair( file, DB::Image ) );
                 else if ( Utilities::isVideo( file ) )
-                    _pendingLoad.append( qMakePair( file, DB::Video ) );
+                    m_pendingLoad.append( qMakePair( file, DB::Video ) );
             }
         } else if ( fi.isDir() )  {
             searchForNewFiles( loadedFiles, file.absolute() );
@@ -129,14 +129,14 @@ void NewImageFinder::loadExtraFiles()
     dialog.setLabelText( i18n("<p><b>Loading information from new files</b></p>"
                               "<p>Depending on the number of images, this may take some time.<br/>"
                               "However, there is only a delay when new images are found.</p>") );
-    dialog.setMaximum( _pendingLoad.count() );
+    dialog.setMaximum( m_pendingLoad.count() );
     dialog.setMinimumDuration( 1000 );
 
     setupFileVersionDetection();
 
     int count = 0;
     ImageInfoList newImages;
-    for( LoadList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
+    for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count ) {
         dialog.setValue( count ); // ensure to call setProgress(0)
         qApp->processEvents( QEventLoop::AllEvents );
 
@@ -163,11 +163,11 @@ void NewImageFinder::loadExtraFiles()
 
 void NewImageFinder::setupFileVersionDetection() {
     // should be cached because loading once per image is expensive
-    _modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
-    _modifiedFileComponent = QRegExp(_modifiedFileCompString);
+    m_modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
+    m_modifiedFileComponent = QRegExp(m_modifiedFileCompString);
 
-    _originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
-    _originalFileComponents = _originalFileComponents.at(0).split(QString::fromLatin1(";"));
+    m_originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
+    m_originalFileComponents = m_originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
 ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
@@ -183,13 +183,13 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
     if (Settings::SettingsData::instance()->detectModifiedFiles()) {
         // requires at least *something* in the modifiedFileComponent
-        if (_modifiedFileCompString.length() >= 0 &&
-            newFileName.relative().contains(_modifiedFileComponent)) {
+        if (m_modifiedFileCompString.length() >= 0 &&
+            newFileName.relative().contains(m_modifiedFileComponent)) {
 
-            for( QStringList::const_iterator it = _originalFileComponents.constBegin();
-                 it != _originalFileComponents.constEnd(); ++it ) {
+            for( QStringList::const_iterator it = m_originalFileComponents.constBegin();
+                 it != m_originalFileComponents.constEnd(); ++it ) {
                 QString tmp = newFileName.relative();
-                tmp.replace(_modifiedFileComponent, (*it));
+                tmp.replace(m_modifiedFileComponent, (*it));
                 originalFileName = DB::FileName::fromRelativePath(tmp);
 
                 MD5 originalSum = Utilities::MD5Sum( originalFileName );

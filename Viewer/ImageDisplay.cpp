@@ -70,15 +70,15 @@
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
-    :AbstractDisplay( parent ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ),
-    _cursorHiding(true)
+    :AbstractDisplay( parent ), m_reloadImageInProgress( false ), m_forward(true), m_curIndex(0),m_busy( false ),
+    m_cursorHiding(true)
 {
-    _viewHandler = new ViewHandler( this );
+    m_viewHandler = new ViewHandler( this );
 
     setMouseTracking( true );
-    _cursorTimer = new QTimer( this );
-    _cursorTimer->setSingleShot(true);
-    connect( _cursorTimer, SIGNAL(timeout()), this, SLOT(hideCursor()) );
+    m_cursorTimer = new QTimer( this );
+    m_cursorTimer->setSingleShot(true);
+    connect( m_cursorTimer, SIGNAL(timeout()), this, SLOT(hideCursor()) );
     showCursor();
 }
 
@@ -86,7 +86,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
  * If mouse cursor hiding is enabled, hide the cursor right now
  */
 void Viewer::ImageDisplay::hideCursor() {
-    if (_cursorHiding)
+    if (m_cursorHiding)
         setCursor( Qt::BlankCursor );
 }
 
@@ -94,9 +94,9 @@ void Viewer::ImageDisplay::hideCursor() {
  * If mouse cursor hiding is enabled, show normal cursor and start a timer that will hide it later
  */
 void Viewer::ImageDisplay::showCursor() {
-    if (_cursorHiding) {
+    if (m_cursorHiding) {
         unsetCursor();
-        _cursorTimer->start( 1500 );
+        m_cursorTimer->start( 1500 );
     }
 }
 
@@ -104,14 +104,14 @@ void Viewer::ImageDisplay::showCursor() {
  * Prevent hideCursor() and showCursor() from altering cursor state
  */
 void Viewer::ImageDisplay::disableCursorHiding() {
-    _cursorHiding = false;
+    m_cursorHiding = false;
 }
 
 /**
  * Enable automatic mouse cursor hiding
  */
 void Viewer::ImageDisplay::enableCursorHiding() {
-    _cursorHiding = true;
+    m_cursorHiding = true;
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
@@ -120,8 +120,8 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
     disableCursorHiding();
 
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
-    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _viewHandler->mousePressEvent( &e, event->pos(), ratio );
+    double ratio = sizeRatio( QSize(m_zEnd.x()-m_zStart.x(), m_zEnd.y()-m_zStart.y()), size() );
+    bool block = m_viewHandler->mousePressEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -133,8 +133,8 @@ void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
     showCursor();
 
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
-    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _viewHandler->mouseMoveEvent( &e, event->pos(), ratio );
+    double ratio = sizeRatio( QSize(m_zEnd.x()-m_zStart.x(), m_zEnd.y()-m_zStart.y()), size() );
+    bool block = m_viewHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mouseMoveEvent( event );
     update();
@@ -146,10 +146,10 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
     enableCursorHiding();
     showCursor();
 
-    _cache.remove( _curIndex );
+    m_cache.remove( m_curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
-    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _viewHandler->mouseReleaseEvent( &e, event->pos(), ratio );
+    double ratio = sizeRatio( QSize(m_zEnd.x()-m_zStart.x(), m_zEnd.y()-m_zStart.y()), size() );
+    bool block = m_viewHandler->mouseReleaseEvent( &e, event->pos(), ratio );
     if ( !block ) {
         QWidget::mouseReleaseEvent( event );
     }
@@ -159,20 +159,20 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 
 bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 {
-    _info = info;
-    _loadedImage = QImage();
+    m_info = info;
+    m_loadedImage = QImage();
 
     // Find the index of the current image
-    _curIndex = 0;
-    for( DB::FileNameList::Iterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+    m_curIndex = 0;
+    for( DB::FileNameList::Iterator it = m_imageList.begin(); it != m_imageList.end(); ++it ) {
         if ( *it == info->fileName() )
             break;
-        ++_curIndex;
+        ++m_curIndex;
     }
 
-    if ( _cache.contains(_curIndex) && _cache[_curIndex].angle == info->angle()) {
-        const ViewPreloadInfo& found = _cache[_curIndex];
-        _loadedImage = found.img;
+    if ( m_cache.contains(m_curIndex) && m_cache[m_curIndex].angle == info->angle()) {
+        const ViewPreloadInfo& found = m_cache[m_curIndex];
+        m_loadedImage = found.img;
         updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), found.img.size() );
         cropAndScale();
         info->setSize( found.size );
@@ -182,7 +182,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         requestImage( info, true );
         busy();
     }
-    _forward = forward;
+    m_forward = forward;
     updatePreload();
 
     return true;
@@ -191,10 +191,10 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
 {
     ImageManager::AsyncLoader::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
-    _cache.clear();
-    if ( _info ) {
+    m_cache.clear();
+    if ( m_info ) {
         cropAndScale();
-        if ( event->size().width() > 1.5*this->_loadedImage.size().width() || event->size().height() > 1.5*this->_loadedImage.size().height() )
+        if ( event->size().width() > 1.5*this->m_loadedImage.size().width() || event->size().height() > 1.5*this->m_loadedImage.size().height() )
             potentialyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();
@@ -202,12 +202,12 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
 
 void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
 {
-    int x = ( width() - _croppedAndScaledImg.width() ) / 2;
-    int y = ( height() - _croppedAndScaledImg.height() ) / 2;
+    int x = ( width() - m_croppedAndScaledImg.width() ) / 2;
+    int y = ( height() - m_croppedAndScaledImg.height() ) / 2;
 
     QPainter painter( this );
     painter.fillRect( 0,0, width(), height(), Qt::black );
-    painter.drawImage( x,y, _croppedAndScaledImg );
+    painter.drawImage( x,y, m_croppedAndScaledImg );
 }
 
 QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
@@ -223,7 +223,7 @@ QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int ph
 
 void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
-    _cache.remove( _curIndex );
+    m_cache.remove( m_curIndex );
     normalize( p1, p2 );
 
     double ratio;
@@ -235,18 +235,18 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
     p2.setX( p2.x()+off.x() );
     p2.setY( p2.y()+off.y() );
 
-    _zStart = p1;
-    _zEnd = p2;
+    m_zStart = p1;
+    m_zEnd = p2;
     potentialyLoadFullSize();
     cropAndScale();
 }
 
 QPoint Viewer::ImageDisplay::mapPos( QPoint p )
 {
-    QPoint off = offset( qAbs( _zEnd.x()-_zStart.x() ), qAbs( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
+    QPoint off = offset( qAbs( m_zEnd.x()-m_zStart.x() ), qAbs( m_zEnd.y()-m_zStart.y() ), width(), height(), 0 );
     p -= off;
-    int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ (width()-2*off.x())));
-    int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ (height()-2*off.y())));
+    int x = (int) (m_zStart.x() + (m_zEnd.x()-m_zStart.x())*((double)p.x()/ (width()-2*off.x())));
+    int y = (int) (m_zStart.y() + (m_zEnd.y()-m_zStart.y())*((double)p.y()/ (height()-2*off.y())));
 
     return QPoint( x, y );
 
@@ -254,38 +254,38 @@ QPoint Viewer::ImageDisplay::mapPos( QPoint p )
 
 void Viewer::ImageDisplay::xformPainter( QPainter* p )
 {
-    QPoint off = offset( qAbs( _zEnd.x()-_zStart.x() ), qAbs( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
-    double s = (width()-2*off.x())/qAbs( (double)_zEnd.x()-_zStart.x());
+    QPoint off = offset( qAbs( m_zEnd.x()-m_zStart.x() ), qAbs( m_zEnd.y()-m_zStart.y() ), width(), height(), 0 );
+    double s = (width()-2*off.x())/qAbs( (double)m_zEnd.x()-m_zStart.x());
     p->scale( s, s );
-    p->translate( -_zStart.x(), -_zStart.y() );
+    p->translate( -m_zStart.x(), -m_zStart.y() );
 }
 
 void Viewer::ImageDisplay::zoomIn()
 {
-    QPoint size = (_zEnd-_zStart);
-    QPoint p1 = _zStart + size*(0.2/2);
-    QPoint p2 = _zEnd - size*(0.2/2);
+    QPoint size = (m_zEnd-m_zStart);
+    QPoint p1 = m_zStart + size*(0.2/2);
+    QPoint p2 = m_zEnd - size*(0.2/2);
     zoom(p1, p2);
 }
 
 void Viewer::ImageDisplay::zoomOut()
 {
-    QPoint size = (_zEnd-_zStart);
+    QPoint size = (m_zEnd-m_zStart);
 
     //Bug 150971, Qt tries to render bigger and bigger images (10000x10000), hence running out of memory.
     if ( ( size.x() * size.y() > 25*1024*1024 ) )
         return;
 
-    QPoint p1 = _zStart - size*(0.25/2);
-    QPoint p2 = _zEnd + size*(0.25/2);
+    QPoint p1 = m_zStart - size*(0.25/2);
+    QPoint p2 = m_zEnd + size*(0.25/2);
     zoom(p1,p2);
 }
 
 void Viewer::ImageDisplay::zoomFull()
 {
-    _zStart = QPoint(0,0);
-    _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
-    zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
+    m_zStart = QPoint(0,0);
+    m_zEnd = QPoint( m_loadedImage.width(), m_loadedImage.height() );
+    zoom( QPoint(0,0), QPoint( m_loadedImage.width(), m_loadedImage.height() ) );
 }
 
 
@@ -301,31 +301,31 @@ void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 
 void Viewer::ImageDisplay::pan( const QPoint& point )
 {
-    _zStart += point;
-    _zEnd += point;
+    m_zStart += point;
+    m_zEnd += point;
     cropAndScale();
 }
 
 void Viewer::ImageDisplay::cropAndScale()
 {
-    if ( _loadedImage.isNull() ) {
+    if ( m_loadedImage.isNull() ) {
         return;
     }
 
-    if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
-        _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
+    if ( m_zStart != QPoint(0,0) || m_zEnd != QPoint( m_loadedImage.width(), m_loadedImage.height() ) ) {
+        m_croppedAndScaledImg = m_loadedImage.copy( m_zStart.x(), m_zStart.y(), m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y() );
     }
     else
-        _croppedAndScaledImg = _loadedImage;
+        m_croppedAndScaledImg = m_loadedImage;
 
     updateZoomCaption();
 
-    if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
-        _croppedAndScaledImg = _croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    if ( !m_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
+        m_croppedAndScaledImg = m_croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     update();
 
-    emit viewGeometryChanged(_croppedAndScaledImg.size(), QRect(_zStart, _zEnd), sizeRatio(_loadedImage.size(), _info->size()));
+    emit viewGeometryChanged(m_croppedAndScaledImg.size(), QRect(m_zStart, m_zEnd), sizeRatio(m_loadedImage.size(), m_info->size()));
 }
 
 void Viewer::ImageDisplay::filterNone()
@@ -336,7 +336,7 @@ void Viewer::ImageDisplay::filterNone()
 
 bool Viewer::ImageDisplay::filterMono()
 {
-    _croppedAndScaledImg = _croppedAndScaledImg.convertToFormat(_croppedAndScaledImg.Format_Mono);
+    m_croppedAndScaledImg = m_croppedAndScaledImg.convertToFormat(m_croppedAndScaledImg.Format_Mono);
     update();
     return true;
 }
@@ -344,17 +344,17 @@ bool Viewer::ImageDisplay::filterMono()
 // I can't believe there isn't a standard conversion for this??? -- WH
 bool Viewer::ImageDisplay::filterBW()
 {
-    if (_croppedAndScaledImg.depth() < 32) {
+    if (m_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
         return false;
     }
 
-    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
-        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
-            int pixel = _croppedAndScaledImg.pixel(x, y);
+    for (int y = 0; y < m_croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < m_croppedAndScaledImg.width(); ++x) {
+            int pixel = m_croppedAndScaledImg.pixel(x, y);
             int gray = qGray(pixel);
             int alpha = qAlpha(pixel);
-            _croppedAndScaledImg.setPixel(x, y, qRgba(gray, gray, gray, alpha));
+            m_croppedAndScaledImg.setPixel(x, y, qRgba(gray, gray, gray, alpha));
         }
     }
     update();
@@ -368,15 +368,15 @@ bool Viewer::ImageDisplay::filterContrastStretch()
     redMin = greenMin = blueMin = 255;
     redMax = greenMax = blueMax = 0;
 
-    if (_croppedAndScaledImg.depth() < 32) {
+    if (m_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
         return false;
     }
 
     // Look for minimum and maximum intensities within each color channel
-    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
-        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
-            int pixel = _croppedAndScaledImg.pixel(x, y);
+    for (int y = 0; y < m_croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < m_croppedAndScaledImg.width(); ++x) {
+            int pixel = m_croppedAndScaledImg.pixel(x, y);
             int red = qRed(pixel);
             int green = qGreen(pixel);
             int blue = qBlue(pixel);
@@ -397,9 +397,9 @@ bool Viewer::ImageDisplay::filterContrastStretch()
     blueFactor = ((float)(255) / (float) (blueMax - blueMin));
 
     // Perform the contrast stretching
-    for (int y = 0; y < _croppedAndScaledImg.height(); ++y) {
-        for (int x = 0; x < _croppedAndScaledImg.width(); ++x) {
-            int pixel = _croppedAndScaledImg.pixel(x, y);
+    for (int y = 0; y < m_croppedAndScaledImg.height(); ++y) {
+        for (int x = 0; x < m_croppedAndScaledImg.width(); ++x) {
+            int pixel = m_croppedAndScaledImg.pixel(x, y);
             int red = qRed(pixel);
             int green = qGreen(pixel);
             int blue = qBlue(pixel);
@@ -414,7 +414,7 @@ bool Viewer::ImageDisplay::filterContrastStretch()
             blue = (blue - blueMin) * blueFactor;
             blue = blue < 255 ? blue : 255;
             blue = blue > 0 ? blue : 0;
-            _croppedAndScaledImg.setPixel(x, y, qRgba(red, green, blue, alpha));
+            m_croppedAndScaledImg.setPixel(x, y, qRgba(red, green, blue, alpha));
         }
     }
     update();
@@ -429,7 +429,7 @@ bool Viewer::ImageDisplay::filterHistogramEqualization()
     float B_histogram[256];
     float d;
 
-    if (_croppedAndScaledImg.depth() < 32) {
+    if (m_croppedAndScaledImg.depth() < 32) {
         KMessageBox::error( this, i18n("Insufficient color depth for this filter"));
         return false;
     }
@@ -437,14 +437,14 @@ bool Viewer::ImageDisplay::filterHistogramEqualization()
     memset(G_histogram, 0, sizeof(G_histogram));
     memset(B_histogram, 0, sizeof(B_histogram));
 
-    width = _croppedAndScaledImg.width();
-    height = _croppedAndScaledImg.height();
+    width = m_croppedAndScaledImg.width();
+    height = m_croppedAndScaledImg.height();
     d = 1.0 / width / height;
 
     // Populate histogram for each color channel
     for (int y = 0; y < height; ++y) {
         for (int x = 1; x < width; ++x) {
-            int pixel = _croppedAndScaledImg.pixel(x, y);
+            int pixel = m_croppedAndScaledImg.pixel(x, y);
 
             R_histogram[qRed(pixel)] += d;
             G_histogram[qGreen(pixel)] += d;
@@ -470,9 +470,9 @@ bool Viewer::ImageDisplay::filterHistogramEqualization()
     // Equalize the image
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            int pixel = _croppedAndScaledImg.pixel(x, y);
+            int pixel = m_croppedAndScaledImg.pixel(x, y);
 
-            _croppedAndScaledImg.setPixel(
+            m_croppedAndScaledImg.setPixel(
                 x, y, qRgba(R_histogram[qRed(pixel)],
                 G_histogram[qGreen(pixel)], B_histogram[qBlue(pixel)],
                 qAlpha(pixel))
@@ -484,11 +484,11 @@ bool Viewer::ImageDisplay::filterHistogramEqualization()
 }
 
 void Viewer::ImageDisplay::updateZoomCaption() {
-    const QSize imgSize = _loadedImage.size();
+    const QSize imgSize = m_loadedImage.size();
     // similar to sizeRatio(), but we take the _highest_ factor.
-    double ratio = ((double)imgSize.width())/(_zEnd.x()-_zStart.x());
-    if ( ratio * (_zEnd.y()-_zStart.y()) < imgSize.height() ) {
-        ratio = ((double)imgSize.height())/(_zEnd.y()-_zStart.y());
+    double ratio = ((double)imgSize.width())/(m_zEnd.x()-m_zStart.x());
+    if ( ratio * (m_zEnd.y()-m_zStart.y()) < imgSize.height() ) {
+        ratio = ((double)imgSize.height())/(m_zEnd.y()-m_zStart.y());
     }
 
     emit setCaptionInfo((ratio > 1.05)
@@ -498,10 +498,10 @@ void Viewer::ImageDisplay::updateZoomCaption() {
 
 QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
 {
-    if ( _croppedAndScaledImg.isNull() )
+    if ( m_croppedAndScaledImg.isNull() )
         return QImage();
     else
-        return _croppedAndScaledImg.scaled( 512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation );
+        return m_croppedAndScaledImg.scaled( 512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation );
 }
 
 
@@ -524,26 +524,26 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
     const int angle = request->angle();
     const bool loadedOK = request->loadedOK();
 
-    if ( loadedOK && fileName == _info->fileName() ) {
-        if ( fullSize.isValid() && !_info->size().isValid() )
-            _info->setSize( fullSize );
+    if ( loadedOK && fileName == m_info->fileName() ) {
+        if ( fullSize.isValid() && !m_info->size().isValid() )
+            m_info->setSize( fullSize );
 
-        if ( !_reloadImageInProgress )
+        if ( !m_reloadImageInProgress )
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), image.size() );
         else {
             // See documentation for zoomPixelForPixel for details.
             // We just loaded a likel much larger image, so the zoom points
             // need to be scaled. Notice _loadedImage is the size of the
             // old image.
-            double ratio = sizeRatio( _loadedImage.size(), _info->size() );
+            double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
 
-            _zStart *= ratio;
-            _zEnd *= ratio;
+            m_zStart *= ratio;
+            m_zEnd *= ratio;
 
-            _reloadImageInProgress = false;
+            m_reloadImageInProgress = false;
         }
 
-        _loadedImage = image;
+        m_loadedImage = image;
         cropAndScale();
         emit imageReady();
     }
@@ -552,7 +552,7 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
             return; // Might be an old preload version, or a loaded version that never made it in time
 
         ViewPreloadInfo info( image, fullSize, angle );
-        _cache.insert( indexOf(fileName), info );
+        m_cache.insert( indexOf(fileName), info );
         updatePreload();
     }
     unbusy();
@@ -561,29 +561,29 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
 
 void Viewer::ImageDisplay::setImageList( const DB::FileNameList& list )
 {
-    _imageList = list;
-    _cache.clear();
+    m_imageList = list;
+    m_cache.clear();
 }
 
 void Viewer::ImageDisplay::updatePreload()
 {
     const int cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
-    bool cacheFull = (_cache.count() > cacheSize);
+    bool cacheFull = (m_cache.count() > cacheSize);
 
-    int incr = ( _forward ? 1 : -1 );
+    int incr = ( m_forward ? 1 : -1 );
     int nextOnesInCache = 0;
     // Iterate from the current image in the direction of the viewing
-    for ( int i = _curIndex+incr; cacheSize ; i += incr ) {
-        if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
+    for ( int i = m_curIndex+incr; cacheSize ; i += incr ) {
+        if ( m_forward ? ( i >= (int) m_imageList.count() ) : (i < 0) )
             break;
 
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_imageList[i]);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_imageList[i]);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;
         }
 
-        if ( _cache.contains(i) ) {
+        if ( m_cache.contains(i) ) {
             nextOnesInCache++;
             if ( nextOnesInCache >= ceil(cacheSize/2.0) && cacheFull ) {
                 // Ok enough images in cache
@@ -597,21 +597,21 @@ void Viewer::ImageDisplay::updatePreload()
                 // The cache was full, we need to delete an item from the cache.
 
                 // First try to find an item from the direction we came from
-                for ( int j = ( _forward ? 0 : _imageList.count() -1 );
-                      j != _curIndex;
-                      j += ( _forward ? 1 : -1 ) ) {
-                    if ( _cache.contains(j) ) {
-                        _cache.remove(j);
+                for ( int j = ( m_forward ? 0 : m_imageList.count() -1 );
+                      j != m_curIndex;
+                      j += ( m_forward ? 1 : -1 ) ) {
+                    if ( m_cache.contains(j) ) {
+                        m_cache.remove(j);
                         return;
                     }
                 }
 
                 // OK We found no item in the direction we came from (think of home/end keys)
-                for ( int j = ( _forward ? _imageList.count() -1 : 0 );
-                      j != _curIndex;
-                      j += ( _forward ? -1 : 1 ) ) {
-                    if ( _cache.contains(j) ) {
-                        _cache.remove(j);
+                for ( int j = ( m_forward ? m_imageList.count() -1 : 0 );
+                      j != m_curIndex;
+                      j += ( m_forward ? -1 : 1 ) ) {
+                    if ( m_cache.contains(j) ) {
+                        m_cache.remove(j);
                         return;
                     }
                 }
@@ -628,7 +628,7 @@ void Viewer::ImageDisplay::updatePreload()
 int Viewer::ImageDisplay::indexOf( const DB::FileName& fileName )
 {
     int i = 0;
-    for( DB::FileNameList::ConstIterator it = _imageList.constBegin(); it != _imageList.constEnd(); ++it ) {
+    for( DB::FileNameList::ConstIterator it = m_imageList.constBegin(); it != m_imageList.constEnd(); ++it ) {
         if ( *it == fileName )
             break;
         ++i;
@@ -638,16 +638,16 @@ int Viewer::ImageDisplay::indexOf( const DB::FileName& fileName )
 
 void Viewer::ImageDisplay::busy()
 {
-    if ( !_busy )
+    if ( !m_busy )
         qApp->setOverrideCursor( Qt::WaitCursor );
-    _busy = true;
+    m_busy = true;
 }
 
 void Viewer::ImageDisplay::unbusy()
 {
-    if ( _busy )
+    if ( m_busy )
         qApp->restoreOverrideCursor();
-    _busy = false;
+    m_busy = false;
 }
 
 void Viewer::ImageDisplay::zoomPixelForPixel()
@@ -660,14 +660,14 @@ void Viewer::ImageDisplay::zoomPixelForPixel()
     // real image loaded now. (We need to ask for them, for the real image,
     // otherwise we would just zoom to the pixel level of the view size
     // image)
-    updateZoomPoints( Settings::NaturalSize, _info->size() );
+    updateZoomPoints( Settings::NaturalSize, m_info->size() );
 
     // The points now, however might not match the current visible image -
     // as this image might be be only view size large. We therefore need
     // to scale the coordinates.
-    double ratio = sizeRatio( _loadedImage.size(), _info->size() );
-    _zStart /= ratio;
-    _zEnd /= ratio;
+    double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
+    m_zStart /= ratio;
+    m_zEnd /= ratio;
     cropAndScale();
     potentialyLoadFullSize();
 }
@@ -678,23 +678,23 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
     const int ih = imgSize.height();
 
     if ( isImageZoomed( type,  imgSize ) ) {
-        _zStart=QPoint( 0, 0 );
-        _zEnd=QPoint(  iw, ih );
+        m_zStart=QPoint( 0, 0 );
+        m_zEnd=QPoint(  iw, ih );
     }
     else {
-        _zStart = QPoint( - ( width()-iw ) / 2, -(height()-ih)/2);
-        _zEnd = QPoint( iw + (width()-iw)/2, ih+(height()-ih)/2);
+        m_zStart = QPoint( - ( width()-iw ) / 2, -(height()-ih)/2);
+        m_zEnd = QPoint( iw + (width()-iw)/2, ih+(height()-ih)/2);
     }
 }
 
 void Viewer::ImageDisplay::potentialyLoadFullSize()
 {
-    if ( _info->size() != _loadedImage.size() ) {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
+    if ( m_info->size() != m_loadedImage.size() ) {
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info->fileName(), QSize(-1,-1), m_info->angle(), this );
         request->setPriority( ImageManager::Viewer );
         ImageManager::AsyncLoader::instance()->load( request );
         busy();
-        _reloadImageInProgress = true;
+        m_reloadImageInProgress = true;
     }
 }
 
@@ -726,7 +726,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool prio
 
 void Viewer::ImageDisplay::hideEvent(QHideEvent *)
 {
-  _viewHandler->hideEvent();
+  m_viewHandler->hideEvent();
 }
 
 #include "ImageDisplay.moc"

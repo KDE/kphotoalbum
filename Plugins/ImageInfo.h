@@ -73,7 +73,7 @@ public:
 
 
 private:
-    DB::ImageInfoPtr _info;
+    DB::ImageInfoPtr m_info;
 
     bool isPositionAttribute(const QString &key);
     bool isCategoryAttribute(const QString &key);

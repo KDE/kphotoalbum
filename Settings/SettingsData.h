@@ -241,14 +241,14 @@ signals:
 private:
     SettingsData( const QString& imageDirectory  );
 
-    bool _trustTimeStamps;
-    bool _hasAskedAboutTimeStamps;
-    QString _imageDirectory;
-    static SettingsData* _instance;
+    bool m_trustTimeStamps;
+    bool m_hasAskedAboutTimeStamps;
+    QString m_imageDirectory;
+    static SettingsData* s_instance;
 
     friend class DB::CategoryCollection;
 
-    QStringList _EXIFCommentsToStrip;
+    QStringList m_EXIFCommentsToStrip;
 };
 } // end of namespace
 

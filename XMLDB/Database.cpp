@@ -40,14 +40,14 @@
 
 using Utilities::StringSet;
 
-bool XMLDB::Database::_anyImageWithEmptySize = false;
+bool XMLDB::Database::s_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
-    _fileName(configFile)
+    m_fileName(configFile)
 {
     Utilities::checkForBackupFile( configFile );
     FileReader reader( this );
     reader.read( configFile );
-    _nextStackId = reader.nextStackId();
+    m_nextStackId = reader.nextStackId();
 
     connect( categoryCollection(), SIGNAL(itemRemoved(DB::Category*,QString)),
              this, SLOT(deleteItem(DB::Category*,QString)) );
@@ -55,14 +55,14 @@ XMLDB::Database::Database( const QString& configFile ):
              this, SLOT(renameItem(DB::Category*,QString,QString)) );
 
     connect( categoryCollection(), SIGNAL(itemRemoved(DB::Category*,QString)),
-             &_members, SLOT(deleteItem(DB::Category*,QString)) );
+             &m_members, SLOT(deleteItem(DB::Category*,QString)) );
     connect( categoryCollection(), SIGNAL(itemRenamed(DB::Category*,QString,QString)),
-             &_members, SLOT(renameItem(DB::Category*,QString,QString)) );
+             &m_members, SLOT(renameItem(DB::Category*,QString,QString)) );
 }
 
 uint XMLDB::Database::totalCount() const
 {
-    return _images.count();
+    return m_images.count();
 }
 
 /**
@@ -85,7 +85,7 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
         noMatchInfo.setCategoryMatchText( category, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
-    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
         bool match = ( (*it)->mediaType() & typemask ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
@@ -115,14 +115,14 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
 
 void XMLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); ++it ) {
         (*it)->renameCategory( oldName, newName );
     }
 }
 
 void XMLDB::Database::addToBlockList(const DB::FileNameList& list)
 {
-    _blockList.append(list);
+    m_blockList.append(list);
     deleteList( list );
 }
 
@@ -130,8 +130,8 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
 {
     Q_FOREACH(const DB::FileName& fileName, list) {
         DB::ImageInfoPtr inf = fileName.info();
-        StackMap::iterator found = _stackMap.find(inf->stackId());
-        if ( inf->isStacked() && found != _stackMap.end() ) {
+        StackMap::iterator found = m_stackMap.find(inf->stackId());
+        if ( inf->isStacked() && found != m_stackMap.end() ) {
             const DB::FileNameList origCache = found.value();
             DB::FileNameList newCache;
             Q_FOREACH(const DB::FileName& cacheName, origCache) {
@@ -145,31 +145,31 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
                     cacheInf->setStackId(0);
                     cacheInf->setStackOrder(0);
                 }
-                _stackMap.remove( inf->stackId() );
+                m_stackMap.remove( inf->stackId() );
             } else {
-                _stackMap.insert(inf->stackId(), newCache);
+                m_stackMap.insert(inf->stackId(), newCache);
             }
         }
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName() );
 #endif
-        _images.remove( inf );
+        m_images.remove( inf );
     }
-    emit totalChanged( _images.count() );
+    emit totalChanged( m_images.count() );
     emit imagesDeleted(list);
     emit dirty();
 }
 
 void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); ++it ) {
         (*it)->renameItem( category->name(), oldName, newName );
     }
 }
 
 void XMLDB::Database::deleteItem( DB::Category* category, const QString& value )
 {
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); ++it ) {
         (*it)->removeCategoryInfo( category->name(), value );
     }
 }
@@ -177,7 +177,7 @@ void XMLDB::Database::deleteItem( DB::Category* category, const QString& value )
 void XMLDB::Database::lockDB( bool lock, bool exclude  )
 {
     DB::ImageSearchInfo info = Settings::SettingsData::instance()->currentLock();
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); ++it ) {
         if ( lock ) {
             bool match = info.match( *it );
             if ( !exclude )
@@ -194,25 +194,25 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 {
     // FIXME: merge stack information
     DB::ImageInfoList newImages = images.sort();
-    if ( _images.count() == 0 ) {
+    if ( m_images.count() == 0 ) {
         // case 1: The existing imagelist is empty.
-        _images = newImages;
+        m_images = newImages;
     }
     else if ( newImages.count() == 0 ) {
         // case 2: No images to merge in - that's easy ;-)
         return;
     }
-    else if ( newImages.first()->date().start() > _images.last()->date().start() ) {
+    else if ( newImages.first()->date().start() > m_images.last()->date().start() ) {
         // case 2: The new list is later than the existsing
-        _images.appendList(newImages);
+        m_images.appendList(newImages);
     }
-    else if ( _images.isSorted() ) {
+    else if ( m_images.isSorted() ) {
         // case 3: The lists overlaps, and the existsing list is sorted
-        _images.mergeIn( newImages );
+        m_images.mergeIn( newImages );
     }
     else{
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        _images.appendList( newImages );
+        m_images.appendList( newImages );
     }
 
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
@@ -221,7 +221,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
                                info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
     }
 
-    emit totalChanged( _images.count() );
+    emit totalChanged( m_images.count() );
     emit dirty();
 }
 
@@ -247,7 +247,7 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
         return *lookup;
     else {
         fileMap.clear();
-        for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+        for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
             fileMap.insert( (*it)->fileName().absolute(), *it );
         }
         if ( fileMap.contains( name ) )
@@ -262,11 +262,11 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 
 bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
 {
-    if (_selectionRange.start().isNull() )
+    if (m_selectionRange.start().isNull() )
         return true;
 
-    DB::ImageDate::MatchType tp = info->date().isIncludedIn( _selectionRange );
-    if ( _includeFuzzyCounts )
+    DB::ImageDate::MatchType tp = info->date().isIncludedIn( m_selectionRange );
+    if ( m_includeFuzzyCounts )
         return ( tp == DB::ImageDate::ExactMatch || tp == DB::ImageDate::RangeMatch );
     else
         return ( tp == DB::ImageDate::ExactMatch );
@@ -275,7 +275,7 @@ bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
 
 DB::MemberMap& XMLDB::Database::memberMap()
 {
-    return _members;
+    return m_members;
 }
 
 
@@ -288,18 +288,18 @@ void XMLDB::Database::save( const QString& fileName, bool isAutoSave )
 
 DB::MD5Map* XMLDB::Database::md5Map()
 {
-    return &_md5map;
+    return &m_md5map;
 }
 
 bool XMLDB::Database::isBlocking( const DB::FileName& fileName )
 {
-    return _blockList.contains( fileName );
+    return m_blockList.contains( fileName );
 }
 
 
 DB::FileNameList XMLDB::Database::images()
 {
-    return _images.files();
+    return m_images.files();
 }
 
 DB::FileNameList XMLDB::Database::search(
@@ -317,7 +317,7 @@ DB::FileNameList XMLDB::Database::searchPrivate(
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
     DB::FileNameList result;
-    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName() );
 
@@ -332,12 +332,12 @@ void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList& fileNameList)
     DB::ImageInfoList infoList;
     Q_FOREACH( const DB::FileName &fileName, fileNameList )
         infoList.append(fileName.info());
-    _images.sortAndMergeBackIn(infoList);
+    m_images.sortAndMergeBackIn(infoList);
 }
 
 DB::CategoryCollection* XMLDB::Database::categoryCollection()
 {
-    return &_categoryCollection;
+    return &m_categoryCollection;
 }
 
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
@@ -367,7 +367,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
         return result;
 
     // iterate over all images (expensive!!) TODO: improve?
-    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); /**/ ) {
+    for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); /**/ ) {
         const DB::FileName imagefile = (*it)->fileName();
         DB::FileNameList::ConstIterator si = selection.begin();
         // for each image, iterate over selection, break on match
@@ -382,7 +382,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
             ++it;
         } else {
             result << *it;
-            it = _images.erase(it);
+            it = m_images.erase(it);
         }
         // if all images from selection are in result (size of lists is equal) break.
         if (result.size() == selection.size())
@@ -397,8 +397,8 @@ void XMLDB::Database::insertList(
         const DB::ImageInfoList& list,
         bool after)
 {
-    DB::ImageInfoListIterator imageIt = _images.begin();
-    for( ; imageIt != _images.end(); ++imageIt ) {
+    DB::ImageInfoListIterator imageIt = m_images.begin();
+    for( ; imageIt != m_images.end(); ++imageIt ) {
         if ( (*imageIt)->fileName() == fileName ) {
             break;
         }
@@ -408,7 +408,7 @@ void XMLDB::Database::insertList(
         imageIt++;
     for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
         // the call to insert() destroys the given iterator so use the new one after the call
-        imageIt = _images.insert( imageIt, *it );
+        imageIt = m_images.insert( imageIt, *it );
         // increment always to retain order of selected images
         imageIt++;
     }
@@ -437,13 +437,13 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
     if ( stacks.size() > 1 )
         return false; // images already in different stacks -> can't stack
 
-    DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : _nextStackId++;
+    DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : m_nextStackId++;
     for ( QList<DB::ImageInfoPtr>::iterator it = images.begin();
           it != images.end();
           ++it, ++stackOrder ) {
         (*it)->setStackOrder( stackOrder );
         (*it)->setStackId( stackId );
-        _stackMap[stackId].append((*it)->fileName());
+        m_stackMap[stackId].append((*it)->fileName());
         ++changed;
     }
 
@@ -463,7 +463,7 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
                 DB::ImageInfoPtr imgInfo = stackFileName.info();
                 Q_ASSERT( imgInfo );
                 if ( imgInfo->isStacked() ) {
-                    _stackMap.remove( imgInfo->stackId() );
+                    m_stackMap.remove( imgInfo->stackId() );
                     imgInfo->setStackId( 0 );
                     imgInfo->setStackOrder( 0 );
                 }
@@ -472,7 +472,7 @@ void XMLDB::Database::unstack(const DB::FileNameList& items)
             DB::ImageInfoPtr imgInfo = fileName.info();
             Q_ASSERT( imgInfo );
             if ( imgInfo->isStacked() ) {
-                _stackMap[imgInfo->stackId()].removeAll(fileName);
+                m_stackMap[imgInfo->stackId()].removeAll(fileName);
                 imgInfo->setStackId( 0 );
                 imgInfo->setStackOrder( 0 );
             }
@@ -490,21 +490,21 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName& referenceImg) 
     if ( !imageInfo || ! imageInfo->isStacked() )
         return DB::FileNameList();
 
-    StackMap::iterator found = _stackMap.find(imageInfo->stackId());
-    if ( found != _stackMap.end() )
+    StackMap::iterator found = m_stackMap.find(imageInfo->stackId());
+    if ( found != m_stackMap.end() )
         return found.value();
 
     // it wasn't in the cache -> rebuild it
-    _stackMap.clear();
-    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+    m_stackMap.clear();
+    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
         if ( (*it)->isStacked() ) {
             DB::StackID stackid = (*it)->stackId();
-            _stackMap[stackid].append((*it)->fileName());
+            m_stackMap[stackid].append((*it)->fileName());
         }
     }
 
-    found = _stackMap.find(imageInfo->stackId());
-    if ( found != _stackMap.end() )
+    found = m_stackMap.find(imageInfo->stackId());
+    if ( found != m_stackMap.end() )
         return found.value();
     else
         return DB::FileNameList();
@@ -607,7 +607,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     int angle = reader->attribute( _angle_, _0_).toInt();
     DB::MD5 md5sum(reader->attribute(  _md5sum_  ));
 
-    _anyImageWithEmptySize |= !reader->hasAttribute(_width_);
+    s_anyImageWithEmptySize |= !reader->hasAttribute(_width_);
 
     int w = reader->attribute(  _width_ , _minus1_ ).toInt();
     int h = reader->attribute(  _height_ , _minus1_ ).toInt();
@@ -699,7 +699,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
     if ( db == nullptr )
         return;
 
-    QList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
+    QList<DB::CategoryPtr> categoryList = db->m_categoryCollection.categories();
     for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         QString oldCategoryName;

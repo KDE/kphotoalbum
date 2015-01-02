@@ -64,13 +64,13 @@ protected:
     void insert( const DB::FileName& filename, Exiv2::ExifData );
 
 private:
-    bool _isOpen;
-    bool _doUTF8Conversion;
+    bool m_isOpen;
+    bool m_doUTF8Conversion;
     Database();
     ~Database();
     void init();
-    static Database* _instance;
-    QSqlDatabase _db;
+    static Database* s_instance;
+    QSqlDatabase m_db;
 };
 
 }

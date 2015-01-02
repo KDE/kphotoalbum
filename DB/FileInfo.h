@@ -36,9 +36,9 @@ class FileInfo
 {
 public:
     static FileInfo read( const DB::FileName& fileName, DB::ExifMode mode );
-    QDateTime dateTime() { return _date; }
-    int angle() { return _angle; };
-    QString description() {return _description; }
+    QDateTime dateTime() { return m_date; }
+    int angle() { return m_angle; };
+    QString description() {return m_description; }
 
 protected:
 #ifdef HAVE_EXIV2
@@ -52,9 +52,9 @@ protected:
 private:
     FileInfo( const DB::FileName& fileName, DB::ExifMode mode );
     bool updateDataFromFileTimeStamp( const DB::FileName& fileName, DB::ExifMode mode);
-    QDateTime _date;
-    int _angle;
-    QString _description;
+    QDateTime m_date;
+    int m_angle;
+    QString m_description;
 };
 
 }

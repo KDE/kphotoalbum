@@ -22,10 +22,10 @@
 
 namespace BackgroundTaskManager {
 
-int JobInfo::m_jobCounter = 0;
+int JobInfo::s_jobCounter = 0;
 
 JobInfo::JobInfo(BackgroundTaskManager::Priority priority)
-    : state(NotStarted), m_priority(priority), m_elapsed(0), m_jobIndex(++m_jobCounter)
+    : state(NotStarted), m_priority(priority), m_elapsed(0), m_jobIndex(++s_jobCounter)
 {
 }
 

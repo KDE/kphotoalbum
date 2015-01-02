@@ -37,8 +37,8 @@ public:
 
 private:
     QString m_fileName;
-    KZip* _zip;
-    const KArchiveDirectory* _dir;
+    KZip* m_zip;
+    const KArchiveDirectory* m_dir;
 };
 
 }

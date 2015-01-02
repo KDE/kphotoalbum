@@ -31,24 +31,24 @@
 #include <DB/FileNameList.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ), _dragInProgress( false )
+    : ThumbnailComponent( factory ), m_dragInProgress( false )
 {
 }
 
 
 bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
-    _mousePressPos = event->pos();
+    m_mousePressPos = event->pos();
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
-    _isMouseDragOperation = widget()->isSelected(fileName) && !event->modifiers();
-    return _isMouseDragOperation;
+    m_isMouseDragOperation = widget()->isSelected(fileName) && !event->modifiers();
+    return m_isMouseDragOperation;
 }
 
 
 bool ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _isMouseDragOperation ) {
-        if ( (_mousePressPos - event->pos()).manhattanLength() > QApplication::startDragDistance() )
+    if ( m_isMouseDragOperation ) {
+        if ( (m_mousePressPos - event->pos()).manhattanLength() > QApplication::startDragDistance() )
             startDrag();
         return true;
     }
@@ -58,7 +58,7 @@ bool ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 
 void ThumbnailView::SelectionInteraction::startDrag()
 {
-    _dragInProgress = true;
+    m_dragInProgress = true;
     KUrl::List urls;
     Q_FOREACH(const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
         urls.append( fileName.absolute() );
@@ -70,13 +70,13 @@ void ThumbnailView::SelectionInteraction::startDrag()
 
     drag->exec(Qt::ActionMask);
 
-    widget()->_mouseHandler = &(widget()->_mouseTrackingHandler);
-    _dragInProgress = false;
+    widget()->m_mouseHandler = &(widget()->m_mouseTrackingHandler);
+    m_dragInProgress = false;
 }
 
 bool ThumbnailView::SelectionInteraction::isDragging() const
 {
-    return _dragInProgress;
+    return m_dragInProgress;
 }
 
 #include "SelectionInteraction.moc"

@@ -22,14 +22,14 @@
 
 using namespace KFaceIface;
 
-FaceManagement::Recognizer* FaceManagement::Recognizer::m_instance = nullptr;
+FaceManagement::Recognizer* FaceManagement::Recognizer::s_instance = nullptr;
 
 FaceManagement::Recognizer* FaceManagement::Recognizer::instance()
 {
-    if (! m_instance) {
-        m_instance = new FaceManagement::Recognizer();
+    if (! s_instance) {
+        s_instance = new FaceManagement::Recognizer();
     }
-    return m_instance;
+    return s_instance;
 }
 
 FaceManagement::Recognizer::Recognizer()

@@ -43,10 +43,10 @@ class DateBarWidget;
         void autoScroll();
 
     protected:
-        DateBarWidget* _dateBar;
+        DateBarWidget* m_dateBar;
 
     private:
-        QTimer* _autoScrollTimer;
+        QTimer* m_autoScrollTimer;
     };
 
 
@@ -68,7 +68,7 @@ class DateBarWidget;
         void mousePressEvent( int x );
         void mouseMoveEvent(  int x );
     private:
-        int _movementOffset;
+        int m_movementOffset;
     };
 
 
@@ -86,8 +86,8 @@ class DateBarWidget;
         void clearSelection();
         bool hasSelection() const;
     private:
-        QDateTime _start;
-        QDateTime _end;
+        QDateTime m_start;
+        QDateTime m_end;
     };
 }
 

@@ -42,7 +42,7 @@ private:
     void handleCursorOverNewIcon();
 
 private:
-    bool _cursorWasAtStackIcon;
+    bool m_cursorWasAtStackIcon;
 };
 
 }

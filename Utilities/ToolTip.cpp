@@ -28,7 +28,7 @@
 namespace Utilities {
 
 ToolTip::ToolTip(QWidget *parent, Qt::WindowFlags f) :
-    QLabel(parent, f), _tmpFileForThumbnailView(nullptr)
+    QLabel(parent, f), m_tmpFileForThumbnailView(nullptr)
 {
     setAlignment( Qt::AlignLeft | Qt::AlignTop );
     setLineWidth(1);
@@ -59,20 +59,20 @@ void ToolTip::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& im
 {
     const DB::FileName fileName = request->databaseFileName();
 
-    delete _tmpFileForThumbnailView;
-    _tmpFileForThumbnailView = new QTemporaryFile(this);
-    _tmpFileForThumbnailView->open();
+    delete m_tmpFileForThumbnailView;
+    m_tmpFileForThumbnailView = new QTemporaryFile(this);
+    m_tmpFileForThumbnailView->open();
 
-    image.save(_tmpFileForThumbnailView, "PNG" );
-    if ( fileName == _currentFileName )
+    image.save(m_tmpFileForThumbnailView, "PNG" );
+    if ( fileName == m_currentFileName )
         renderToolTip();
 }
 
 void ToolTip::requestToolTip(const DB::FileName &fileName)
 {
-    if ( fileName.isNull() || fileName == _currentFileName)
+    if ( fileName.isNull() || fileName == m_currentFileName)
         return;
-    _currentFileName = fileName;
+    m_currentFileName = fileName;
     requestImage( fileName );
 }
 
@@ -82,16 +82,16 @@ void ToolTip::renderToolTip()
     const int size = Settings::SettingsData::instance()->previewSize();
     if ( size != 0 ) {
         setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
-                 .arg(_tmpFileForThumbnailView->fileName()).
-                 arg(Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), nullptr ) ) );
+                 .arg(m_tmpFileForThumbnailView->fileName()).
+                 arg(Utilities::createInfoText( DB::ImageDB::instance()->info( m_currentFileName ), nullptr ) ) );
     }
     else
-        setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( _currentFileName ), nullptr ) ) );
+        setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( m_currentFileName ), nullptr ) ) );
 
     setWordWrap( true );
 
     resize( sizeHint() );
-//    _view->setFocus();
+//    m_view->setFocus();
     show();
     placeWindow();
 }

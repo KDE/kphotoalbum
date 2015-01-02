@@ -51,10 +51,10 @@ protected:
     QString tagToLabel( const QString& tag );
 
 private:
-    QString _searchTag;
-    QComboBox* _from;
-    QComboBox* _to;
-    ValueList _list;
+    QString m_searchTag;
+    QComboBox* m_from;
+    QComboBox* m_to;
+    ValueList m_list;
 };
 
 }

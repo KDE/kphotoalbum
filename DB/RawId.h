@@ -42,41 +42,41 @@ class RawId
 
 public:
     RawId()
-        : _value(nullValue)
+        : m_value(nullValue)
     {
     }
 
     explicit RawId(int value)
-        : _value(value)
+        : m_value(value)
     {
-        Q_ASSERT(_value != nullValue);
-        Q_ASSERT(_value > 0);
+        Q_ASSERT(m_value != nullValue);
+        Q_ASSERT(m_value > 0);
     }
 
     bool operator==(const RawId other) const
     {
-        return _value == other._value;
+        return m_value == other.m_value;
     }
 
     bool operator!=(const RawId other) const
     {
-        return _value != other._value;
+        return m_value != other.m_value;
     }
 
     bool operator<(const RawId other) const
     {
-        return _value < other._value;
+        return m_value < other.m_value;
     }
 
     operator QVariant() const
     {
-        return QVariant(_value);
+        return QVariant(m_value);
     }
 
 private:
     static const int nullValue = -1;
 
-    int _value;
+    int m_value;
 };
 
 } // end of namespace DB
@@ -84,12 +84,12 @@ private:
 inline int toInt(const DB::RawId rawId)
 {
     Q_ASSERT(rawId != DB::RawId());
-    return rawId._value;
+    return rawId.m_value;
 }
 
 inline unsigned int qHash(const DB::RawId rawId)
 {
-    return rawId._value;
+    return rawId.m_value;
 }
 
 inline QDebug operator<<(QDebug d, const DB::RawId rawId)

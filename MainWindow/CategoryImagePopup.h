@@ -39,8 +39,8 @@ protected slots:
     void makeCategoryImage();
 
 private:
-    QImage _image;
-    DB::ImageInfoPtr _imageInfo;
+    QImage m_image;
+    DB::ImageInfoPtr m_imageInfo;
 };
 
 }

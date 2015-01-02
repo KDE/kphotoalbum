@@ -25,17 +25,17 @@
 
 using namespace KFaceIface;
 
-FaceManagement::Detector* FaceManagement::Detector::m_instance = nullptr;
+FaceManagement::Detector* FaceManagement::Detector::s_instance = nullptr;
 
 FaceManagement::Detector* FaceManagement::Detector::instance()
 {
-    if (! m_instance) {
-        m_instance = new FaceManagement::Detector();
+    if (! s_instance) {
+        s_instance = new FaceManagement::Detector();
     }
 
-    m_instance->updateSettings();
+    s_instance->updateSettings();
 
-    return m_instance;
+    return s_instance;
 }
 
 FaceManagement::Detector::Detector()

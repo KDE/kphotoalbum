@@ -47,10 +47,10 @@ protected:
     QPixmap icon( const QString& name ) const;
     virtual QString indexToName(const QModelIndex& ) const = 0;
 
-    DB::CategoryPtr _category;
-    DB::ImageSearchInfo _info;
-    QMap<QString, uint> _images;
-    QMap<QString, uint> _videos;
+    DB::CategoryPtr m_category;
+    DB::ImageSearchInfo m_info;
+    QMap<QString, uint> m_images;
+    QMap<QString, uint> m_videos;
 
 };
 

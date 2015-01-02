@@ -51,9 +51,9 @@ void XMLDB::FileReader::read( const QString& configFile )
     if (!info.isStartToken)
         reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
 
-    _fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
+    m_fileVersion = reader->attribute( _version_, QString::fromLatin1( "1" ) ).toInt();
 
-    if ( _fileVersion > Database::fileVersion() ) {
+    if ( m_fileVersion > Database::fileVersion() ) {
         int ret = KMessageBox::warningContinueCancel( messageParent(),
                                                       i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
                                                            "<p>Chances are you will be able to read this file, but when writing it back, "
@@ -67,13 +67,13 @@ void XMLDB::FileReader::read( const QString& configFile )
 
     setUseCompressedFileFormat( reader->attribute(_compressed_).toInt() );
 
-    _db->_members.setLoading( true );
+    m_db->m_members.setLoading( true );
     loadCategories( reader );
 
     loadImages( reader );
     loadBlockList( reader );
     loadMemberGroups( reader );
-    _db->_members.setLoading( false );
+    m_db->m_members.setLoading( false );
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
@@ -116,20 +116,20 @@ void XMLDB::FileReader::readTopNodeInConfigDocument( const QString& configFile, 
 
 void XMLDB::FileReader::createSpecialCategories()
 {
-    _folderCategory = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
-    if( _folderCategory.isNull() ) {
-        _folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
+    m_folderCategory = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    if( m_folderCategory.isNull() ) {
+        m_folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
                                            DB::Category::TreeView, 32, false );
-        _db->_categoryCollection.addCategory( _folderCategory );
+        m_db->m_categoryCollection.addCategory( m_folderCategory );
     }
-    _folderCategory->setSpecialCategory( true );
-    dynamic_cast<XMLCategory*>( _folderCategory.data() )->setShouldSave( false );
+    m_folderCategory->setSpecialCategory( true );
+    dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
-    DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
+    DB::CategoryPtr tokenCat = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("flag-blue"),
                                     DB::Category::TreeView, 32, true );
-        _db->_categoryCollection.addCategory( tokenCat );
+        m_db->m_categoryCollection.addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
 
@@ -138,11 +138,11 @@ void XMLDB::FileReader::createSpecialCategories()
     for ( char ch = 'A'; ch < 'Z'; ++ch )
         tokenCat->addItem( QString::fromLatin1("%1").arg( QChar::fromLatin1( ch) ) );
 
-    DB::CategoryPtr mediaCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Media Type" ) );
+    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Media Type" ) );
     if ( !mediaCat ) {
         mediaCat = new XMLCategory( QString::fromLatin1("Media Type"), QString::fromLatin1("video"),
                                     DB::Category::TreeView, 32, false );
-        _db->_categoryCollection.addCategory( mediaCat );
+        m_db->m_categoryCollection.addCategory( mediaCat );
     }
     mediaCat->addItem( QString::fromLatin1( "Image" ) );
     mediaCat->addItem( QString::fromLatin1( "Video" ) );
@@ -180,10 +180,10 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             bool show = (bool) reader->attribute( _show_, QString::fromLatin1( "1" ) ).toInt();
             bool positionable = (bool) reader->attribute( _positionable_, QString::fromLatin1( "0" ) ).toInt();
 
-            DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( categoryName );
+            DB::CategoryPtr cat = m_db->m_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );
             cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show, positionable );
-            _db->_categoryCollection.addCategory( cat );
+            m_db->m_categoryCollection.addCategory( cat );
 
             // Read values
             QStringList items;
@@ -285,8 +285,8 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
         const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
 
         DB::ImageInfoPtr info = load( dbFileName, reader );
-        _db->_images.append(info);
-        _db->_md5map.insert( info->MD5Sum(), dbFileName );
+        m_db->m_images.append(info);
+        m_db->m_md5map.insert( info->MD5Sum(), dbFileName );
     }
 
 }
@@ -303,7 +303,7 @@ void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
         while (reader->readNextStartOrStopElement(_block_).isStartToken) {
             QString fileName = reader->attribute(_file_);
             if ( !fileName.isEmpty() )
-                _db->_blockList << DB::FileName::fromRelativePath(fileName);
+                m_db->m_blockList << DB::FileName::fromRelativePath(fileName);
             reader->readEndElement();
         }
     }
@@ -326,29 +326,29 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
             QString group = reader->attribute(_groupName_);
             if ( reader->hasAttribute(_member_) ) {
                 QString member = reader->attribute(_member_);
-                _db->_members.addMemberToGroup( category, group, member );
+                m_db->m_members.addMemberToGroup( category, group, member );
             }
             else {
                 QStringList members = reader->attribute(_members_).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
-                    DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
+                    DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( category );
                     if (catPtr.isNull())
                     { // category was not declared in "Categories"
                         qWarning() << "File corruption in index.xml. Inserting missing category: " << category;
                         catPtr = new XMLCategory(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
-                        _db->_categoryCollection.addCategory( catPtr );
+                        m_db->m_categoryCollection.addCategory( catPtr );
                     }
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
                     QString member = cat->nameForId( (*membersIt).toInt() );
                     if (member.isNull())
                         continue;
-                    _db->_members.addMemberToGroup( category, group, member );
+                    m_db->m_members.addMemberToGroup( category, group, member );
                 }
 
                 if(members.size() == 0) {
                     // Groups are stored even if they are empty, so we also have to read them.
                     // With no members, the above for loop will not be executed.
-                    _db->_members.addGroup(category, group);
+                    m_db->m_members.addGroup(category, group);
                 }
             }
 
@@ -364,7 +364,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     QDateTime last( QDate( 1900, 1, 1 ) );
     bool wrongOrder = false;
-    for( DB::ImageInfoListIterator it = _db->_images.begin(); !wrongOrder && it != _db->_images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = m_db->m_images.begin(); !wrongOrder && it != m_db->m_images.end(); ++it ) {
         if ( last > (*it)->date().start() && (*it)->date().start().isValid() )
             wrongOrder = true;
         last = (*it)->date().start();
@@ -403,7 +403,7 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
         return;
 
-    if ( _db->_anyImageWithEmptySize ) {
+    if ( m_db->s_anyImageWithEmptySize ) {
         KMessageBox::information( messageParent(),
                                   i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
                                        "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintenance</b> menu, "
@@ -418,9 +418,9 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPtr reader )
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, _db, &m_newToOldName );
-    _nextStackId = qMax( _nextStackId, info->stackId() + 1 );
-    info->createFolderCategoryItem( _folderCategory, _db->_members );
+    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, m_db, &m_newToOldName );
+    m_nextStackId = qMax( m_nextStackId, info->stackId() + 1 );
+    info->createFolderCategoryItem( m_folderCategory, m_db->m_members );
     return info;
 }
 
@@ -525,7 +525,7 @@ QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
 {
     // this fix only applies to older databases (<= version 5);
     // newer databases allow these categories, but without the "special meaning":
-    if (_fileVersion > 5) {
+    if (m_fileVersion > 5) {
         return category;
     }
 

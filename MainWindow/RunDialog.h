@@ -39,10 +39,9 @@ class RunDialog :public KDialog {
         void slotMarkGo( );
 
       private:
-        bool* _ok;
-        KLineEdit* _cmd;
-        DB::FileNameList _fileList;
-        //QRadioButton* _include;
+        bool* m_ok;
+        KLineEdit* m_cmd;
+        DB::FileNameList m_fileList;
 };
 }
 

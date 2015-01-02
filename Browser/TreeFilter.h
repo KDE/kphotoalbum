@@ -39,7 +39,7 @@ public:
 protected:
     virtual bool filterAcceptsRow ( int source_row, const QModelIndex & source_parent ) const;
 
-    mutable QMap<QModelIndex,bool> _matchedMap;
+    mutable QMap<QModelIndex,bool> m_matchedMap;
 };
 
 

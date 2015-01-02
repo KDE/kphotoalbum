@@ -19,38 +19,38 @@
 #include "ThumbnailFactory.h"
 
 ThumbnailView::ThumbnailComponent::ThumbnailComponent( ThumbnailFactory* factory )
-    :_factory( factory )
+    :m_factory( factory )
 {
 }
 
 ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailComponent::model()
 {
-    return _factory->model();
+    return m_factory->model();
 }
 
 ThumbnailView::CellGeometry* ThumbnailView::ThumbnailComponent::cellGeometryInfo()
 {
-    return _factory->cellGeometry();
+    return m_factory->cellGeometry();
 }
 
 ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget()
 {
-    return _factory->widget();
+    return m_factory->widget();
 }
 
 const ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailComponent::model() const
 {
-    return _factory->model();
+    return m_factory->model();
 }
 
 const ThumbnailView::CellGeometry* ThumbnailView::ThumbnailComponent::cellGeometryInfo() const
 {
-    return _factory->cellGeometry();
+    return m_factory->cellGeometry();
 }
 
 const ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget() const
 {
-    return _factory->widget();
+    return m_factory->widget();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

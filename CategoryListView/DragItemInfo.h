@@ -36,8 +36,8 @@ public:
     bool operator<( const DragItemInfo& other ) const;
 
 private:
-    QString _parent;
-    QString _child;
+    QString m_parent;
+    QString m_child;
 };
 
 inline bool operator==(const DragItemInfo& v1, const DragItemInfo& v2)

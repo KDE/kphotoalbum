@@ -42,12 +42,12 @@ struct Data
 Browser::TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
     : AbstractCategoryModel( category, info )
 {
-    _data = new Data( QString() );
-    createData(  _category->itemsCategories().data(), 0 );
+    m_data = new Data( QString() );
+    createData(  m_category->itemsCategories().data(), 0 );
     if ( hasNoneEntry() ) {
         Data* data = new Data( DB::ImageDB::NONE() );
-        data->parent = _data;
-        _data->children.prepend( data );
+        data->parent = m_data;
+        m_data->children.prepend( data );
     }
 }
 
@@ -77,11 +77,11 @@ QModelIndex Browser::TreeCategoryModel::index( int row, int column, const QModel
 QModelIndex Browser::TreeCategoryModel::parent( const QModelIndex & index ) const
 {
     Data* me = indexToData( index );
-    if ( me == _data )
+    if ( me == m_data )
         return QModelIndex();
 
     Data* parent = me->parent;
-    if ( parent == _data )
+    if ( parent == m_data )
         return QModelIndex();
 
     Data* grandParent = parent->parent;
@@ -91,20 +91,20 @@ QModelIndex Browser::TreeCategoryModel::parent( const QModelIndex & index ) cons
 
 Browser::TreeCategoryModel::~TreeCategoryModel()
 {
-    delete _data;
+    delete m_data;
 }
 
 bool Browser::TreeCategoryModel::createData( DB::CategoryItem* parentCategoryItem, Data* parent )
 {
-    const QString name = parentCategoryItem->_name;
-    const int imageCount = _images.contains(name) ? _images[name] : 0;
-    const int videoCount = _videos.contains(name) ? _videos[name] : 0;
+    const QString name = parentCategoryItem->mp_name;
+    const int imageCount = m_images.contains(name) ? m_images[name] : 0;
+    const int videoCount = m_videos.contains(name) ? m_videos[name] : 0;
 
     Data* myData = new Data( name );
     bool anyItems = imageCount != 0 || videoCount != 0;
 
-    for( QList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.constBegin();
-         subCategoryIt != parentCategoryItem->_subcategories.constEnd(); ++subCategoryIt ) {
+    for( QList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->mp_subcategories.constBegin();
+         subCategoryIt != parentCategoryItem->mp_subcategories.constEnd(); ++subCategoryIt ) {
         anyItems = createData( *subCategoryIt, myData ) || anyItems;
     }
 
@@ -115,7 +115,7 @@ bool Browser::TreeCategoryModel::createData( DB::CategoryItem* parentCategoryIte
             delete myData;
     }
     else {
-        _data = myData;
+        m_data = myData;
     }
 
     return anyItems;
@@ -125,7 +125,7 @@ bool Browser::TreeCategoryModel::createData( DB::CategoryItem* parentCategoryIte
 Data* Browser::TreeCategoryModel::indexToData( const QModelIndex& index ) const
 {
     if ( !index.isValid() )
-        return _data;
+        return m_data;
     else
         return static_cast<Data*>( index.internalPointer() );
 }

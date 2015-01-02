@@ -51,11 +51,11 @@ namespace
     class AutoDeletedArray
     {
     public:
-        AutoDeletedArray(uint size): _ptr(new T[size]) {}
-        operator T*() const { return _ptr; }
-        ~AutoDeletedArray() { delete[] _ptr; }
+        AutoDeletedArray(uint size): m_ptr(new T[size]) {}
+        operator T*() const { return m_ptr; }
+        ~AutoDeletedArray() { delete[] m_ptr; }
     private:
-        T* _ptr;
+        T* m_ptr;
     };
 }
 

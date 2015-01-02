@@ -19,191 +19,191 @@
 #include <QList>
 
 HTMLGenerator::Setup::Setup()
-    : _images()
+    : m_images()
 {
     /* nop */
 }
 
 void HTMLGenerator::Setup::setTitle( const QString& title )
 {
-    _title = title;
+    m_title = title;
 }
 
 QString HTMLGenerator::Setup::title() const
 {
-    return _title;
+    return m_title;
 }
 
 void HTMLGenerator::Setup::setBaseDir( const QString& baseDir )
 {
-    _baseDir = baseDir;
+    m_baseDir = baseDir;
 }
 
 QString HTMLGenerator::Setup::baseDir() const
 {
-    return _baseDir;
+    return m_baseDir;
 }
 
 void HTMLGenerator::Setup::setBaseURL( const QString& baseURL )
 {
-    _baseURL = baseURL;
+    m_baseURL = baseURL;
 }
 
 QString HTMLGenerator::Setup::baseURL() const
 {
-    return _baseURL;
+    return m_baseURL;
 }
 
 void HTMLGenerator::Setup::setDestURL( const QString& destURL )
 {
-    _destURL = destURL;
+    m_destURL = destURL;
 }
 
 QString HTMLGenerator::Setup::destURL() const
 {
-    return _destURL;
+    return m_destURL;
 }
 
 void HTMLGenerator::Setup::setOutputDir( const QString& outputDir )
 {
-    _outputDir = outputDir;
+    m_outputDir = outputDir;
 }
 
 QString HTMLGenerator::Setup::outputDir() const
 {
-    return _outputDir;
+    return m_outputDir;
 }
 
 void HTMLGenerator::Setup::setThumbSize( int thumbSize )
 {
-    _thumbSize = thumbSize;
+    m_thumbSize = thumbSize;
 }
 
 int HTMLGenerator::Setup::thumbSize() const
 {
-    return _thumbSize;
+    return m_thumbSize;
 }
 
 void HTMLGenerator::Setup::setCopyright( const QString& copyright )
 {
-    _copyright = copyright;
+    m_copyright = copyright;
 }
 
 QString HTMLGenerator::Setup::copyright() const
 {
-    return _copyright;
+    return m_copyright;
 }
 
 void HTMLGenerator::Setup::setDate( const bool date )
 {
-    _date = date;
+    m_date = date;
 }
 
 bool HTMLGenerator::Setup::date() const
 {
-    return _date;
+    return m_date;
 }
 
 void HTMLGenerator::Setup::setDescription( const QString& description )
 {
-    _description = description;
+    m_description = description;
 }
 
 QString HTMLGenerator::Setup::description() const
 {
-    return _description;
+    return m_description;
 }
 
 void HTMLGenerator::Setup::setNumOfCols( const int numOfCols )
 {
-    _numOfCols = numOfCols;
+    m_numOfCols = numOfCols;
 }
 
 int HTMLGenerator::Setup::numOfCols() const
 {
-    return _numOfCols;
+    return m_numOfCols;
 }
 
 void HTMLGenerator::Setup::setGenerateKimFile( const bool generateKimFile )
 {
-    _generateKimFile = generateKimFile;
+    m_generateKimFile = generateKimFile;
 }
 
 bool HTMLGenerator::Setup::generateKimFile() const
 {
-    return _generateKimFile;
+    return m_generateKimFile;
 }
 
 void HTMLGenerator::Setup::setThemePath( const QString& theme )
 {
-    _theme = theme;
+    m_theme = theme;
 }
 
 QString HTMLGenerator::Setup::themePath() const
 {
-    return _theme;
+    return m_theme;
 }
 
 void HTMLGenerator::Setup::setIncludeCategory( const QString& category, bool include )
 {
-    _includeCategory[category] = include;
+    m_includeCategory[category] = include;
 }
 
 bool HTMLGenerator::Setup::includeCategory( const QString& category ) const
 {
-    return _includeCategory[category];
+    return m_includeCategory[category];
 }
 
  void HTMLGenerator::Setup::setResolutions( const QList<ImageSizeCheckBox*>& sizes )
 {
-    _resolutions = sizes;
+    m_resolutions = sizes;
 }
 
  const QList<HTMLGenerator::ImageSizeCheckBox*>& HTMLGenerator::Setup::activeResolutions() const
 {
-    return _resolutions;
+    return m_resolutions;
 }
 
 void HTMLGenerator::Setup::setImageList(const DB::FileNameList& files)
 {
-    _images = files;
+    m_images = files;
 }
 
 DB::FileNameList HTMLGenerator::Setup::imageList() const
 {
-    return _images;
+    return m_images;
 }
 
 void HTMLGenerator::Setup::setInlineMovies( bool doInline )
 {
-    _inlineMovies = doInline;
+    m_inlineMovies = doInline;
 }
 
 bool HTMLGenerator::Setup::inlineMovies() const
 {
-    return _inlineMovies;
+    return m_inlineMovies;
 
 }
 
 void HTMLGenerator::Setup::setHtml5Video( bool doHtml5Video )
 {
-    _html5Video = doHtml5Video;
+    m_html5Video = doHtml5Video;
 }
 
 bool HTMLGenerator::Setup::html5Video() const
 {
-    return _html5Video;
+    return m_html5Video;
 
 }
 
 void HTMLGenerator::Setup::setHtml5VideoGenerate( bool doHtml5VideoGenerate )
 {
-    _html5VideoGenerate = doHtml5VideoGenerate;
+    m_html5VideoGenerate = doHtml5VideoGenerate;
 }
 
 bool HTMLGenerator::Setup::html5VideoGenerate() const
 {
-    return _html5VideoGenerate;
+    return m_html5VideoGenerate;
 
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

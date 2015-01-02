@@ -20,9 +20,8 @@ class Category(object):
     """
     Stores category information.
     """
-    def __init__(self, name, icon, visible,
-             viewtype, thumbsize,
-             items=None, birthdates=None):
+
+    def __init__(self, name, icon, visible, viewtype, thumbsize, items = None, birthdates = None):
         self.name = name
         self.icon = icon
         self.visible = visible
@@ -30,13 +29,15 @@ class Category(object):
         self.thumbsize = thumbsize
         self.items = items
         self.birthdates = birthdates
+
         if self.items is None:
             self.items = {}
+
         if self.birthdates is None or self.items is None:
             self.birthdates = {}
 
     def addItem(self, name, id, birthdate=None):
-        assert not self.items.has_key(id)
+        assert not id in self.items
         self.items[id] = name
         if birthdate is not None:
             self.birthdates[id] = birthdate
@@ -55,16 +56,13 @@ class Category(object):
         s += ')'
         return s
 
-
 class MediaItem(object):
     """
     Stores media item information.
     """
-    def __init__(self, filename, md5sum, mediatype,
-             label, description,
-             startTime, endTime,
-             width, height, angle,
-             tags=None, drawings=None):
+
+    def __init__(self, filename, md5sum, mediatype, label, description, startTime, endTime, width,
+                 height, angle, tags = None, drawings = None):
         self.filename = filename
         self.md5sum = md5sum
         self.mediatype = mediatype
@@ -77,6 +75,7 @@ class MediaItem(object):
         self.angle = angle
         self.tags = tags
         self.drawings = drawings
+
         if self.tags is None:
             self.tags = set()
         if self.drawings is None:
@@ -107,7 +106,6 @@ class MediaItem(object):
         s += ')'
         return s
 
-
 class Tag(object):
     def __init__(self, category, name, area=None):
         self.category = category
@@ -120,9 +118,9 @@ class Tag(object):
             self.area == other.area )
 
     def __hash__(self):
-                # TODO: should the area be considered for the hash value?
-        return (((hash(self.category) & ((1 << 15) - 1)) << 16) |
-            (hash(self.name) & ((1 << 16) - 1)))
+        # TODO: should the area be considered for the hash value?
+        return(((hash(self.category) & ((1 << 15) - 1)) << 16)
+               | (hash(self.name) & ((1 << 16) - 1)))
 
     def __getitem__(self, i):
         if i == 0:
@@ -135,12 +133,10 @@ class Tag(object):
             raise IndexError('index should be 0, 1 or 2')
 
     def __repr__(self):
-        return (self.__class__.__name__ + '(' +
-            repr(self.category) + ', ' +
-            repr(self.name) +
-            ( ', ' + repr(self.area) ) if ( self.area is not None ) else '' +
-            ')' )
-
+        return(self.__class__.__name__ + '('
+               + repr(self.category) + ', '
+               + repr(self.name)
+               + (', ' + repr(self.area) ) if ( self.area is not None ) else '' + ')')
 
 class Drawing(object):
     def __init__(self, shape, point0, point1):
@@ -154,21 +150,20 @@ class Drawing(object):
                 self.point0 == other.point0 and
                 self.point1 == other.point1)
 
-        def __hash__(self):
-            return (((ord(self.shape[0]) & 7) << 28) |
-                    ((hash(self.point0) & ((1 << 14) - 1)) << 14) |
-                    (hash(self.point1) & ((1 << 14) - 1)))
+    def __hash__(self):
+        return (((ord(self.shape[0]) & 7) << 28) |
+                ((hash(self.point0) & ((1 << 14) - 1)) << 14) |
+                (hash(self.point1) & ((1 << 14) - 1)))
 
-            def __repr__(self):
-                return (self.__class__.__name__ + '(' +
-                        repr(self.shape) + ', ' +
-                        repr(self.point0) + ', ' +
-                        repr(self.point1) + ')')
+    def __repr__(self):
+        return (self.__class__.__name__ + '(' +
+                repr(self.shape) + ', ' +
+                repr(self.point0) + ', ' +
+                repr(self.point1) + ')')
 
-
-                class MemberGroup(Tag):
-                    def __init__(self, category, name, members=None):
-                        super(MemberGroup, self).__init__(category, name)
+class MemberGroup(Tag):
+    def __init__(self, category, name, members=None):
+        super(MemberGroup, self).__init__(category, name)
         self.members = members
         if self.members is None:
             self.members = []

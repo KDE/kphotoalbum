@@ -1,8 +1,6 @@
-"""
-Module for accessing KPhotoAlbum index.xml.
-"""
 # Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
 # Copyright (C) 2014 Johannes Zarl <johannes@zarl.at>
+# Copyright (C) 2015 Tobias Leupold <tobias.leupold@web.de>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +17,16 @@ Module for accessing KPhotoAlbum index.xml.
 # Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
 # MA 02110-1301 USA.
 
+"""
+Module for accessing KPhotoAlbum index.xml.
+"""
+
+import sys
 from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
-from db import DatabaseReader
-from datatypes import *
+from KPhotoAlbum.db import DatabaseReader
+from KPhotoAlbum.datatypes import Category, MediaItem, Tag, Drawing, BlockItem
 
 # Structure of KPhotoAlbum index.xml:
 #
@@ -51,6 +54,7 @@ class XMLDatabase(DatabaseReader):
     """
     Class for reading KPhotoAlbum index.xml.
     """
+
     def __init__(self, filename):
         """
         Initialize self with given XML file.
@@ -58,20 +62,27 @@ class XMLDatabase(DatabaseReader):
         Pre:
          - ``filename`` is a KPhotoAlbum XML database (index.xml)
         """
-        super(XMLDatabase, self).__init__()
+
+        super().__init__()
+
         try:
             self.dom = minidom.parse(filename)
-        except Exception, (e):
-            raise InvalidFile('Parsing XML failed: ' + str(e))
+        except:
+            raise InvalidFile(sys.exc_info()[1])
+
         rootElem = self.dom.documentElement
-        if rootElem.tagName != u'KPhotoAlbum':
-            raise InvalidFile('File should be in '
-                      'KPhotoAlbum index.xml format.')
+
+        if rootElem.tagName != 'KPhotoAlbum':
+            raise InvalidFile('File should be in KPhotoAlbum index.xml format.')
+
         if not rootElem.getAttribute('version') in ['2', '3', '4', '5', '6' ]:
-            raise UnsupportedFormat('Only versions 2 - 6 are supported')
+            raise UnsupportedFormat('Only versions 2 to 6 are supported')
+
         self.isCompressed = False
+
         if rootElem.getAttribute('compressed') == '1':
             self.isCompressed = True
+
         self.ctgs = rootElem.getElementsByTagName('Categories')
         self.imgs = rootElem.getElementsByTagName('images')
         self.mgs = rootElem.getElementsByTagName('member-groups')
@@ -100,7 +111,6 @@ class XMLDatabase(DatabaseReader):
     memberGroups = property(getMemberGroups)
     blockItems = property(getBlockItems)
 
-
 class Error(Exception):
     """
     General error.
@@ -118,7 +128,6 @@ class UnsupportedFormat(InvalidFile):
     File format is not supported.
     """
 
-
 kpaTimeFormatStr = '%Y-%m-%dT%H:%M:%S'
 
 def stringToDatetime(s):
@@ -128,7 +137,6 @@ def stringToDatetime(s):
 
 def datetimeToString(ts):
     return ts.strftime(kpaTimeFormatStr)
-
 
 class CategoryIterator(object):
     """
@@ -162,11 +170,11 @@ class CategoryIterator(object):
                 ctg.addItem(name, idNum)
         return ctg
 
-
 class MediaItemIterator(object):
     """
     Iterates media items in given DOM element.
     """
+
     def __init__(self, imagesElems, categories=None):
         """
         Initialize with list of images elements.
@@ -233,7 +241,7 @@ class MediaItemIterator(object):
                     item = category.items[n]
                     img.addTag(Tag(category.name, item))
                 else:
-                    print 'Warning: {0} has no id {1}'.format(category.name, n)
+                    print('Warning: {0} has no id {1}'.format(category.name, n))
         # Parse drawings
         for drws in imgElem.getElementsByTagName('drawings'):
             for shape in ['Circle', 'Line', 'Rectangle']:
@@ -247,11 +255,11 @@ class MediaItemIterator(object):
                                    (x2, y2)))
         return img
 
-
 class MemberGroupIterator(object):
     """
     Iterates member groups in given DOM element.
     """
+
     def __init__(self, memberGroupsElems, categories=None):
         """
         Initialize with a list of member-groups elements.
@@ -288,7 +296,7 @@ class MemberGroupIterator(object):
             memberIter = self.__memberIter()
             try:
                 while True:
-                    x = memberIter.next()
+                    x = next(memberIter)
                     label = self.__getLabel(x)
                     if not label in collected:
                         break
@@ -305,9 +313,9 @@ class MemberGroupIterator(object):
     def __iter__(self):
         mi = self.__memberIter()
         try:
-            m = mi.next()
+            m = next(mi)
         except StopIteration:
-            return
+           return
         if m.hasAttribute('members'):
             return self.__compressedIter()
         else:
@@ -317,11 +325,11 @@ class MemberGroupIterator(object):
         return (elem.getAttribute('category'),
             elem.getAttribute('group-name'))
 
-
 class BlockItemIterator(object):
     """
     Iterates block items in given DOM element.
     """
+
     def __init__(self, blocklistElems):
         self.blocklistElems = blocklistElems
 
@@ -332,4 +340,5 @@ class BlockItemIterator(object):
 
     def __getBlockItem(self, blkNode):
         return BlockItem(blkNode.getAttribute('file'))
+
 # vi:expandtab:tabstop=4 shiftwidth=4:

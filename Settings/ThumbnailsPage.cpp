@@ -22,6 +22,7 @@
 #include <QCheckBox>
 #include <KComboBox>
 #include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QLabel>
 #include <QGridLayout>
 
@@ -49,6 +50,15 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     m_thumbnailSize->setSingleStep( 16 );
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( m_thumbnailSize, row, 1 );
+
+    // Thumbnail stretch factor
+    ++row;
+    QLabel* thumbnailStretchLabel = new QLabel( i18n("Thumbnail stretch factor:" ) );
+    m_thumbnailStretch= new QDoubleSpinBox;
+    m_thumbnailStretch->setRange( 1.0, 4.0 );
+    m_thumbnailStretch->setSingleStep( 0.2 );
+    lay->addWidget( thumbnailStretchLabel, row, 0 );
+    lay->addWidget( m_thumbnailStretch, row, 1 );
 
     // Thumbnail aspect ratio
     ++row;
@@ -113,9 +123,13 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     m_previewSize->setWhatsThis( txt );
 
 
-    txt = i18n( "<p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p>" );
+    txt = i18n( "<p>Thumbnail image size. Changing the thumbnail size here triggers a rebuild of the thumbnail database.</p>" );
     thumbnailSizeLabel->setWhatsThis( txt );
     m_thumbnailSize->setWhatsThis( txt );
+
+    txt = i18n( "<p>Maximum thumbnail image stretch factor. You can scale the thumbnail view up to this factor beyond the actual thumbnail size.</p>" );
+    thumbnailStretchLabel->setWhatsThis( txt );
+    m_thumbnailStretch->setWhatsThis( txt );
 
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
     m_thumbnailAspectRatio->setWhatsThis( txt );
@@ -150,6 +164,7 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
 {
     m_previewSize->setValue( opt->previewSize() );
     m_thumbnailSize->setValue( opt->thumbSize() );
+    m_thumbnailStretch->setValue( opt->thumbnailStretchFactor() );
     m_backgroundColor->setColor( QColor( opt->backgroundColor() ) );
     m_thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     m_thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );
@@ -163,6 +178,7 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
 {
     opt->setPreviewSize( m_previewSize->value() );
     opt->setThumbSize( m_thumbnailSize->value() );
+    opt->setThumbnailStretchFactor( m_thumbnailStretch->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) m_thumbnailAspectRatio->currentIndex() );
     opt->setBackgroundColor( m_backgroundColor->color().name() );
     opt->setThumbnailDisplayGrid( m_thumbnailDisplayGrid->isChecked() );

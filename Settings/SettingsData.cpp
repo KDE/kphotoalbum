@@ -251,9 +251,11 @@ property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool       
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
+property_copy( thumbnailStretchFactor  , setThumbnailStretchFactor , double              , Thumbnails, 1.5        )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
+// database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
 getValueFunc_( int, thumbSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
 
 void SettingsData::setThumbSize( int value )
@@ -264,6 +266,7 @@ void SettingsData::setThumbSize( int value )
 
 int SettingsData::actualThumbSize() const                       \
 {
+    // this is database specific since it's a derived value of thumbSize
     int retval = value( groupForDatabase("Thumbnails"), "actualThumbSize", 0 );
     // if no value has been set, use thumbSize
     if ( retval == 0 )

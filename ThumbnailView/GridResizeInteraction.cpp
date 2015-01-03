@@ -60,8 +60,16 @@ bool ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 
 void ThumbnailView::GridResizeInteraction::setCellSize(int size)
 {
-    // prevent scaling greater than base size:
-    size = qMin( Settings::SettingsData::instance()->thumbSize(), size);
+    const int baseSize = Settings::SettingsData::instance()->thumbSize();
+
+    // snap to base size:
+    if ( qAbs( size - baseSize ) < 10 )
+        size = baseSize;
+
+    // prevent scaling greater than base size * stretch factor:
+    const int maxSize = baseSize * Settings::SettingsData::instance()->thumbnailStretchFactor();
+    size = qMin( size, maxSize );
+
     Settings::SettingsData::instance()->setActualThumbSize( size );
     model()->reset();
     cellGeometryInfo()->calculateCellSize();

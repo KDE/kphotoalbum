@@ -1,5 +1,32 @@
+* Bugfix(#322514): Allow resizing of thumbnail grid without rebuilding the
+  thumbnail cache.
+
+* Bugfix(#334393): Handle image path correctly when importing from a .kim
+  file.
+
+* New Feature: Display images on a map (available in the annotation dialog and
+  in the image viewer)
+
+* Change: Rename old category names in the database.
+  "Persons" becomes "People", "Locations" becomes "Places".
+
+* Change: new database file version is 6.
+
+* Enhancement: better performance on NFS (#340127).
+
+* Bugfix(#340963): better handling of the '&' character in folder names.
+
+* Enhancement: Improved category and tag groups (subcategories) pages in the settings dialog.
+
+* New Feature: Face detection and recognition using libkface.
+
+* Bugfix(#338870): Display a dialog if index.xml has a syntax error.
+
 * New Feature: Specify the birth date for people (or any other category item for that matter) in Maintanence->Edit Birth Dates,
   and see their age when viewing images.
+
+* New Feature: Add a context menu option to copy images from the thumbnail
+  view.
 
 ====================== KPhotoalbum 4.5 released  ======================
 

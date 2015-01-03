@@ -262,6 +262,21 @@ void SettingsData::setThumbSize( int value )
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
 }
 
+int SettingsData::actualThumbSize() const                       \
+{
+    int retval = value( groupForDatabase("Thumbnails"), "actualThumbSize", 0 );
+    // if no value has been set, use thumbSize
+    if ( retval == 0 )
+        retval = thumbSize();
+    return retval;
+}
+
+void SettingsData::setActualThumbSize( int value )
+{
+    QPixmapCache::clear();
+    setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
+}
+
 
 ////////////////
 //// Viewer ////

@@ -279,7 +279,8 @@ void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::FileName& fileNa
     DB::ImageInfoPtr imageInfo = fileName.info();
     if ( imageInfo.isNull() )
         return;
-    const QSize cellSize = cellGeometryInfo()->preferredIconSize();
+    // request the thumbnail in the size that is set in the settings, not in the current grid size:
+    const QSize cellSize = cellGeometryInfo()->baseIconSize();
     const int angle = imageInfo->angle();
     ThumbnailRequest* request
         = new ThumbnailRequest( m_displayList.indexOf(fileName), fileName, cellSize, angle, this );
@@ -401,8 +402,10 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::FileName& fileName ) co
     if (imageInfo == DB::ImageInfoPtr(nullptr) )
         return QPixmap();
 
-    if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) )
-        return ImageManager::ThumbnailCache::instance()->lookup( fileName );
+    if ( ImageManager::ThumbnailCache::instance()->contains( fileName ) ) {
+        // the cached thumbnail needs to be scaled to the actual thumbnail size:
+        return ImageManager::ThumbnailCache::instance()->lookup( fileName ).scaled( cellGeometryInfo()->preferredIconSize(), Qt::KeepAspectRatio );
+    }
 
     const_cast<ThumbnailView::ThumbnailModel*>(this)->requestThumbnail( fileName, ImageManager::ThumbnailVisible );
     if ( imageInfo->isVideo() )

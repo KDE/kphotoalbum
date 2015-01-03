@@ -39,6 +39,7 @@ public:
     explicit CellGeometry( ThumbnailFactory* factory );
     QSize cellSize() const;
     static QSize preferredIconSize();
+    static QSize baseIconSize();
     QRect iconGeometry( const QPixmap& pixmap ) const;
     int textHeight() const;
     QRect cellTextGeometry() const;

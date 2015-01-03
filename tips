@@ -151,6 +151,44 @@ values in the <interface>File Searching & Versions</interface> tab.</p>
 </html>
 </tip>
 
+<tip category="KPhotoAlbum">
+<html>
+<p>KPhotoAlbum can display the age of people on an image.</p>
+<p>
+To enable this, enter the birthdate of a person under <interface>Maintanence|Edit Birth Dates</interface>.
+The age of the person will then be shown in the info box of the viewer window.
+</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
+<p>KPhotoAlbum can detect and recognise faces on images.</p>
+<p>
+To use this functionality, use the <interface>Search for faces on the current image</interface>
+button below the image preview in the annotation dialog.
+</p>
+<note>To see if face recognition support is enabled, open the feature dialog
+(<interface>Help|KPhotoAlbum feature status</interface>), and check the item
+<resource>Face detection and recognition support</resource>.
+</note>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
+<p>You can associate tags to an area of an image (e.g. to connect a name to a face).</p>
+<p>
+To do so, make sure that the checkbox <interface>Positionable Tags</interface> under
+<interface>Settings|Configure KPhotoAlbum...|Categories</interface> is enabled for the
+given category.
+</p>
+<p>
+When this is done, you can drag the mouse on the image preview of the annotation dialog to
+mark an area. Open the context menu (right mouse button) on the area to associate it with a tag.
+</p>
+</html>
+</tip>
 
 <tip category="KPhotoAlbum">
 <html>

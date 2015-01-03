@@ -260,8 +260,8 @@ getValueFunc_( int, thumbSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
 
 void SettingsData::setThumbSize( int value )
 {
-    QPixmapCache::clear();
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
+    setActualThumbSize( value );
 }
 
 int SettingsData::actualThumbSize() const                       \

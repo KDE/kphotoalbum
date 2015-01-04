@@ -40,13 +40,13 @@ class ThumbnailBuilder :public QObject, public ImageManager::ImageClientInterfac
 
 public:
     static ThumbnailBuilder* instance();
-    void buildAll(ThumbnailBuildStart when );
-    void buildMissing();
 
     void pixmapLoaded(ImageRequest* request, const QImage& image) override;
     void requestCanceled() override;
 
 public slots:
+    void buildAll(ThumbnailBuildStart when=ImageManager::StartDelayed );
+    void buildMissing();
     void cancelRequests( );
     void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );
     void doThumbnailBuild();

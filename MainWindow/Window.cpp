@@ -317,7 +317,7 @@ void MainWindow::Window::slotOptions()
         m_settingsDialog = new Settings::SettingsDialog( this );
         connect( m_settingsDialog, SIGNAL(changed()), this, SLOT(reloadThumbnails()) );
         connect( m_settingsDialog, SIGNAL(changed()), this, SLOT(startAutoSaveTimer()) );
-        connect( m_settingsDialog, SIGNAL(thumbnailSizeChanged()), ImageManager::ThumbnailCache::instance(), SLOT(flush()) );
+        connect( m_settingsDialog, SIGNAL(thumbnailSizeChanged()), ImageManager::ThumbnailBuilder::instance(), SLOT(buildAll()) );
     }
     m_settingsDialog->show();
 }

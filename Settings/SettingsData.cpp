@@ -277,6 +277,11 @@ int SettingsData::actualThumbSize() const                       \
 void SettingsData::setActualThumbSize( int value )
 {
     QPixmapCache::clear();
+
+    // prevent scaling greater than base size * stretch factor:
+    const int maxSize = thumbSize() * thumbnailStretchFactor();
+    value = qMin( value, maxSize );
+
     setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
 }
 

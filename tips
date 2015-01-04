@@ -100,7 +100,7 @@ people, places, etc. for the images) by pressing Ctrl+Enter.
 <html>
 <p>You may reorder images by dragging and dropping one image onto
 another.</p>
-</p>If you drop it on the left edge, it will end up in front of
+<p>If you drop it on the left edge, it will end up in front of
 the other, if you drop it on the right edge it will be inserted behind.</p>
 <p align="right">-- Tip contributed by Eivind Kjorstad</p>
 </html>
@@ -155,7 +155,7 @@ values in the <interface>File Searching & Versions</interface> tab.</p>
 <html>
 <p>KPhotoAlbum can display the age of people on an image.</p>
 <p>
-To enable this, enter the birthdate of a person under <interface>Maintanence|Edit Birth Dates</interface>.
+To enable this, enter the birthdate of a person under <interface>Maintenance|Edit Birth Dates</interface>.
 The age of the person will then be shown in the info box of the viewer window.
 </p>
 </html>
@@ -163,7 +163,7 @@ The age of the person will then be shown in the info box of the viewer window.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>KPhotoAlbum can detect and recognise faces on images.</p>
+<p>KPhotoAlbum can detect and recognize faces on images.</p>
 <p>
 To use this functionality, use the <interface>Search for faces on the current image</interface>
 button below the image preview in the annotation dialog.

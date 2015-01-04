@@ -243,12 +243,27 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                 }
             }
 
+            // update category names for the Categories config
+            KConfigGroup generalConfig = KGlobal::config()->group( QString::fromLatin1("General") );
+            // Categories.untaggedCategory
+            const QString untaggedCategory = QString::fromLatin1("untaggedCategory");
+            QString untaggedCategoryValue = generalConfig.readEntry<QString>( untaggedCategory, QString());
+            if ( !untaggedCategoryValue.isEmpty())
+                generalConfig.writeEntry<QString>(untaggedCategory, sanitizedCategoryName(untaggedCategoryValue));
+            // Categories.albumCategory
+            const QString albumCategory = QString::fromLatin1("albumCategory");
+            QString albumCategoryValue = generalConfig.readEntry<QString>( albumCategory, QString());
+            if ( !albumCategoryValue.isEmpty())
+                generalConfig.writeEntry<QString>(albumCategory, sanitizedCategoryName(albumCategoryValue));
+
             // update category names for privacy-lock settings
             KConfigGroup privacyConfig = KGlobal::config()->group( settings->groupForDatabase( "Privacy Settings" ));
-            QStringList categories = privacyConfig.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
-            for( QString &category : categories ) {
+            QStringList oldCategories = privacyConfig.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
+            QStringList categories;
+            for( QString &category : oldCategories ) {
                 QString oldName = category;
-                category = m_newToOldName.key(oldName,oldName );
+                category = sanitizedCategoryName(oldName );
+                categories << category;
                 QString lockEntry = privacyConfig.readEntry<QString>(oldName, QString());
                 if (! lockEntry.isEmpty() )
                 {

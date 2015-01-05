@@ -59,9 +59,9 @@ public:
     DB::Category::ViewType viewType() const;
     void setThumbnailSize(int size);
     void setViewType(DB::Category::ViewType type);
-    override QString text() const;
-    override QString icon() const;
-    override void setIcon(const QString& icon);
+    QString text() const;
+    QString icon() const;
+    void setIcon(const QString& icon);
 
 #ifdef HAVE_KFACE
 signals:

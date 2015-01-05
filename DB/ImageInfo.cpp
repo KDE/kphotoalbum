@@ -799,7 +799,7 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
         // with the metadata and we don't have a valid coordinate pair
         if (lat != -1.0 and lon != -1.0) {
             coords.setLatLon(latr * lat, lonr * lon);
-            if (alt != 0.0d) {
+            if (alt != 0.0f) {
                 coords.setAlt(altr * alt);
             }
         }

@@ -280,7 +280,11 @@ void SettingsData::setActualThumbSize( int value )
     // prevent scaling greater than base size
     value = qMin( value, thumbSize() );
 
-    setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
+    if ( value != actualThumbSize())
+    {
+        setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
+        emit actualThumbSizeChanged(value);
+    }
 }
 
 

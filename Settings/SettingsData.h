@@ -238,6 +238,7 @@ signals:
     void viewSortTypeChanged( Settings::ViewSortType );
     void matchTypeChanged( AnnotationDialog::MatchType );
     void histogramSizeChanged( const QSize& );
+    void actualThumbSizeChanged( int );
 
 private:
     SettingsData( const QString& imageDirectory  );

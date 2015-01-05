@@ -158,6 +158,7 @@ protected slots:
     void usePreviousVideoThumbnail();
     void mergeDuplicates();
     void editBirthDates();
+    void slotThumbnailSizeChanged();
 
 protected:
     void configureImages( bool oneAtATime );

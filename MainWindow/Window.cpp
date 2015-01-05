@@ -194,6 +194,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( m_dateBar, SIGNAL(dateSelected(DB::ImageDate,bool)), m_thumbnailView, SLOT(gotoDate(DB::ImageDate,bool)) );
     connect( m_dateBar, SIGNAL(toolTipInfo(QString)), this, SLOT(showDateBarTip(QString)) );
     connect( Settings::SettingsData::instance(), SIGNAL(histogramSizeChanged(QSize)), m_dateBar, SLOT(setHistogramBarSize(QSize)) );
+    connect( Settings::SettingsData::instance(), SIGNAL(actualThumbSizeChanged(int)), this, SLOT(slotThumbnailSizeChanged()) );
 
     connect( m_dateBar, SIGNAL(dateRangeChange(DB::ImageDate)), this, SLOT(setDateRange(DB::ImageDate)) );
     connect( m_dateBar, SIGNAL(dateRangeCleared()), this, SLOT(clearDateRange()) );
@@ -1764,6 +1765,13 @@ void MainWindow::Window::editBirthDates()
 {
     MainWindow::BirthDatesDialog dialog;
     dialog.exec();
+}
+void MainWindow::Window::slotThumbnailSizeChanged()
+{
+    QString thumbnailSizeMsg = i18nc( "@info:status",
+                                      "Thumbnail width: %1px (storage size: %2px)");
+    m_statusBar->showMessage( thumbnailSizeMsg.arg( Settings::SettingsData::instance()->actualThumbSize())
+                              .arg(Settings::SettingsData::instance()->thumbSize()), 4000);
 }
 
 void MainWindow::Window::createSarchBar()

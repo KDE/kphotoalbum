@@ -512,7 +512,8 @@ QRect SettingsData::windowGeometry( WindowType win ) const
 
 bool Settings::SettingsData::hasUntaggedCategoryFeatureConfigured() const
 {
-    return DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( untaggedCategory() );
+    return DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( untaggedCategory() )
+            &&  DB::ImageDB::instance()->categoryCollection()->categoryForName( untaggedCategory())->items().contains( untaggedTag() );
 }
 
 double Settings::SettingsData::getThumbnailAspectRatio() const

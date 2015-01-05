@@ -1089,6 +1089,18 @@ bool MainWindow::Window::load()
     }
     DB::ImageDB::setupXMLDB( configFile );
 
+    // some sanity checks:
+    if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+         && ! (Settings::SettingsData::instance()->untaggedCategory().isEmpty()
+             && Settings::SettingsData::instance()->untaggedTag().isEmpty() ) )
+    {
+        KMessageBox::error( this, i18n(
+                                "<p>You have configured a tag for untagged images, but either the tag itself "
+                                "or its category does not exist in the database.</p>"
+                                "<p>Please review your untagged tag setting under "
+                                "<interface>Settings|Configure KPhotoAlbum...|Categories</interface></p>"));
+    }
+
     return true;
 }
 

@@ -155,7 +155,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
             // We add an empty member placeholder if the group currently has no members.
             // Otherwise, it won't be added.
             if (! membersForGroup.contains(group)) {
-                membersForGroup[group] == QStringList();
+                membersForGroup[group] = QStringList();
             }
         }
 

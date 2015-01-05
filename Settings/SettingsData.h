@@ -123,7 +123,6 @@ public:
     property_copy( thumbnailSpace          , setThumbnailSpace         , int );
     property_copy( thumbSize               , setThumbSize              , int );
     property_copy( actualThumbSize         , setActualThumbSize        , int );
-    property_copy( thumbnailStretchFactor  , setThumbnailStretchFactor , double );
     property_copy( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio );
 
     ////////////////

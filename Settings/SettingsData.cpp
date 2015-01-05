@@ -251,7 +251,6 @@ property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool       
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
-property_copy( thumbnailStretchFactor  , setThumbnailStretchFactor , double              , Thumbnails, 1.5        )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
@@ -278,9 +277,8 @@ void SettingsData::setActualThumbSize( int value )
 {
     QPixmapCache::clear();
 
-    // prevent scaling greater than base size * stretch factor:
-    const int maxSize = thumbSize() * thumbnailStretchFactor();
-    value = qMin( value, maxSize );
+    // prevent scaling greater than base size
+    value = qMin( value, thumbSize() );
 
     setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
 }

@@ -39,7 +39,6 @@ public:
 private:
     QSpinBox* m_previewSize;
     QSpinBox* m_thumbnailSize;
-    QDoubleSpinBox* m_thumbnailStretch;
     KComboBox* m_thumbnailAspectRatio;
     QSpinBox* m_thumbnailSpace;
     QCheckBox* m_thumbnailDisplayGrid;

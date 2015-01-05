@@ -44,14 +44,6 @@ SET(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}"
 )
 
-if(NOT HAS_CXX11_CLASS_OVERRIDE)
-    add_definitions(-Doverride=)
-endif()
-
-if(NOT HAS_CXX11_NULLPTR)
-    add_definitions(-Dnullptr=0)
-endif()
-
 INCLUDE_DIRECTORIES(
     ${KDE4_INCLUDES}
     ${QT_INCLUDES}

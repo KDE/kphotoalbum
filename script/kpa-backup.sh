@@ -7,7 +7,7 @@ KPAUIRC=$LOCALPREFIX/share/apps/kphotoalbum/kphotoalbumui.rc
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=
-ADD_FILES_RELATIVE="exif-info.db layout.dat"
+ADD_FILES_RELATIVE="exif-info.db layout.dat recognition.db"
 KEEP_NUM=5
 NO_ACT=
 

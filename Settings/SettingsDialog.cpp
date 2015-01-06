@@ -154,10 +154,6 @@ void Settings::SettingsDialog::slotMyOK()
     Utilities::ShowBusyCursor dummy;
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
-    // Must be before I save to the backend.
-    if ( m_thumbnailsPage->thumbnailSizeChanged(opt) )
-        emit thumbnailSizeChanged();
-
     m_categoryPage->resetInterface();
     m_generalPage->saveSettings( opt );
     m_fileVersionDetectionPage->saveSettings( opt );

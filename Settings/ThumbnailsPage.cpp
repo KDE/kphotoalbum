@@ -173,10 +173,5 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
     opt->setAutoShowThumbnailView( m_autoShowThumbnailView->value() );
 }
 
-bool Settings::ThumbnailsPage::thumbnailSizeChanged( Settings::SettingsData* opt ) const
-{
-    return m_thumbnailSize->value() != opt->thumbSize();
-}
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

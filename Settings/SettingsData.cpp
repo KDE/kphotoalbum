@@ -259,6 +259,8 @@ getValueFunc_( int, thumbSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
 
 void SettingsData::setThumbSize( int value )
 {
+    if ( value != thumbSize() )
+         emit thumbnailSizeChanged(value);
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
     setActualThumbSize( value );
 }
@@ -283,7 +285,7 @@ void SettingsData::setActualThumbSize( int value )
     if ( value != actualThumbSize())
     {
         setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
-        emit actualThumbSizeChanged(value);
+        emit actualThumbnailSizeChanged(value);
     }
 }
 

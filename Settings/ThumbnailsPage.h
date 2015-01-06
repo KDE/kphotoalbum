@@ -34,7 +34,6 @@ public:
     explicit ThumbnailsPage( QWidget* parent );
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
-    bool thumbnailSizeChanged( Settings::SettingsData* opt ) const;
 
 private:
     QSpinBox* m_previewSize;

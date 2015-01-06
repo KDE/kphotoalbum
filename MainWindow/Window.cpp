@@ -194,7 +194,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( m_dateBar, SIGNAL(dateSelected(DB::ImageDate,bool)), m_thumbnailView, SLOT(gotoDate(DB::ImageDate,bool)) );
     connect( m_dateBar, SIGNAL(toolTipInfo(QString)), this, SLOT(showDateBarTip(QString)) );
     connect( Settings::SettingsData::instance(), SIGNAL(histogramSizeChanged(QSize)), m_dateBar, SLOT(setHistogramBarSize(QSize)) );
-    connect( Settings::SettingsData::instance(), SIGNAL(actualThumbSizeChanged(int)), this, SLOT(slotThumbnailSizeChanged()) );
+    connect( Settings::SettingsData::instance(), SIGNAL(actualThumbnailSizeChanged(int)), this, SLOT(slotThumbnailSizeChanged()) );
 
     connect( m_dateBar, SIGNAL(dateRangeChange(DB::ImageDate)), this, SLOT(setDateRange(DB::ImageDate)) );
     connect( m_dateBar, SIGNAL(dateRangeCleared()), this, SLOT(clearDateRange()) );
@@ -318,7 +318,6 @@ void MainWindow::Window::slotOptions()
         m_settingsDialog = new Settings::SettingsDialog( this );
         connect( m_settingsDialog, SIGNAL(changed()), this, SLOT(reloadThumbnails()) );
         connect( m_settingsDialog, SIGNAL(changed()), this, SLOT(startAutoSaveTimer()) );
-        connect( m_settingsDialog, SIGNAL(thumbnailSizeChanged()), ImageManager::ThumbnailBuilder::instance(), SLOT(buildAll()) );
     }
     m_settingsDialog->show();
 }
@@ -1804,6 +1803,7 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( m_statusBar, this );
     ImageManager::ThumbnailBuilder::instance()->buildMissing();
+    connect( Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), ImageManager::ThumbnailBuilder::instance(), SLOT(buildAll()) );
 
     if ( ! FeatureDialog::mplayerBinary().isNull() ) {
         BackgroundTaskManager::JobManager::instance()->addJob(

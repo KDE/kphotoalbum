@@ -238,7 +238,8 @@ signals:
     void viewSortTypeChanged( Settings::ViewSortType );
     void matchTypeChanged( AnnotationDialog::MatchType );
     void histogramSizeChanged( const QSize& );
-    void actualThumbSizeChanged( int );
+    void thumbnailSizeChanged( int );
+    void actualThumbnailSizeChanged( int );
 
 private:
     SettingsData( const QString& imageDirectory  );

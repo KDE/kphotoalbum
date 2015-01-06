@@ -29,8 +29,8 @@
 ThumbnailView::GridResizeSlider::GridResizeSlider( ThumbnailFactory* factory )
     : QSlider( Qt::Horizontal ), ThumbnailComponent( factory )
 {
-    setRange( 32, Settings::SettingsData::instance()->thumbSize());
-    setValue(Settings::SettingsData::instance()->actualThumbSize());
+    setRange( 32, Settings::SettingsData::instance()->thumbnailSize());
+    setValue(Settings::SettingsData::instance()->actualThumbnailSize());
 
     connect(Settings::SettingsData::instance(), SIGNAL(actualThumbnailSizeChanged(int)), this , SLOT(setValue(int)));
     connect(Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(setMaximum(int)));
@@ -47,7 +47,7 @@ void ThumbnailView::GridResizeSlider::enterGridResizingMode()
 void ThumbnailView::GridResizeSlider::setCellSize(int size)
 {
     blockSignals(true);
-    Settings::SettingsData::instance()->setActualThumbSize( size );
+    Settings::SettingsData::instance()->setActualThumbnailSize( size );
     blockSignals(false);
 
     model()->reset();

@@ -255,34 +255,34 @@ property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAs
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
 // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
-getValueFunc_( int, thumbSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
+getValueFunc_( int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
 
-void SettingsData::setThumbSize( int value )
+void SettingsData::setThumbnailSize( int value )
 {
-    if ( value != thumbSize() )
+    if ( value != thumbnailSize() )
          emit thumbnailSizeChanged(value);
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
-    setActualThumbSize( value );
+    setActualThumbnailSize( value );
 }
 
-int SettingsData::actualThumbSize() const                       \
+int SettingsData::actualThumbnailSize() const                       \
 {
-    // this is database specific since it's a derived value of thumbSize
+    // this is database specific since it's a derived value of thumbnailSize
     int retval = value( groupForDatabase("Thumbnails"), "actualThumbSize", 0 );
-    // if no value has been set, use thumbSize
+    // if no value has been set, use thumbnailSize
     if ( retval == 0 )
-        retval = thumbSize();
+        retval = thumbnailSize();
     return retval;
 }
 
-void SettingsData::setActualThumbSize( int value )
+void SettingsData::setActualThumbnailSize( int value )
 {
     QPixmapCache::clear();
 
     // prevent scaling greater than base size
-    value = qMin( value, thumbSize() );
+    value = qMin( value, thumbnailSize() );
 
-    if ( value != actualThumbSize())
+    if ( value != actualThumbnailSize())
     {
         setValue( groupForDatabase("Thumbnails"), "actualThumbSize", value );
         emit actualThumbnailSizeChanged(value);

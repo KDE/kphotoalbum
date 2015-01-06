@@ -121,8 +121,8 @@ public:
 
     // Border space around thumbnails.
     property_copy( thumbnailSpace          , setThumbnailSpace         , int );
-    property_copy( thumbSize               , setThumbSize              , int );
-    property_copy( actualThumbSize         , setActualThumbSize        , int );
+    property_copy( thumbnailSize           , setThumbnailSize          , int );
+    property_copy( actualThumbnailSize     , setActualThumbnailSize    , int );
     property_copy( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio );
 
     ////////////////

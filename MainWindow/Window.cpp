@@ -987,6 +987,7 @@ void MainWindow::Window::slotAutoSave()
 
 void MainWindow::Window::showThumbNails()
 {
+    m_statusBar->showThumbnailSlider();
     reloadThumbnails( ThumbnailView::ClearSelection );
     m_stack->setCurrentWidget( m_thumbnailView->gui() );
     m_thumbnailView->gui()->setFocus();
@@ -996,6 +997,7 @@ void MainWindow::Window::showThumbNails()
 void MainWindow::Window::showBrowser()
 {
     m_statusBar->clearMessage();
+    m_statusBar->hideThumbnailSlider();
     m_stack->setCurrentWidget( m_browser );
     m_browser->setFocus();
     updateContextMenuFromSelectionSize( 0 );

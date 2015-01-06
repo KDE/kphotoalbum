@@ -23,6 +23,7 @@ class QToolButton;
 class QTimer;
 class QProgressBar;
 class QLabel;
+class QSlider;
 
 namespace MainWindow {
 class ImageCounter;
@@ -43,6 +44,9 @@ public:
     void setProgress( int progress );
     void setProgressBarVisible( bool );
 
+    void showThumbnailSlider();
+    void hideThumbnailSlider();
+
 signals:
     void cancelRequest();
 
@@ -58,6 +62,7 @@ private:
     QProgressBar* m_progressBar;
     QToolButton* m_cancel;
     QTimer* m_pendingShowTimer;
+    QSlider* m_thumbnailSizeSlider;
 };
 
 }

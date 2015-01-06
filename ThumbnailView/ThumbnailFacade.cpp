@@ -24,6 +24,7 @@
 #include "ThumbnailModel.h"
 #include "CellGeometry.h"
 #include "ThumbnailWidget.h"
+#include "GridResizeSlider.h"
 
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
@@ -102,6 +103,11 @@ void ThumbnailView::ThumbnailFacade::setImageList(const DB::FileNameList& list)
 void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
 {
     m_model->setSortDirection( direction );
+}
+
+QSlider* ThumbnailView::ThumbnailFacade::createResizeSlider()
+{
+    return new GridResizeSlider( this );
 }
 
 void ThumbnailView::ThumbnailFacade::selectAll()

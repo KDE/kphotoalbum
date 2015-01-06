@@ -20,6 +20,7 @@
 #include <QToolButton>
 #include <QTimer>
 #include <QProgressBar>
+#include <QSlider>
 #include "DB/ImageDB.h"
 #include "ImageCounter.h"
 #include "Settings/SettingsData.h"
@@ -31,6 +32,7 @@
 #include <KIcon>
 #include "BackgroundTaskManager/StatusIndicator.h"
 #include "RemoteControl/ConnectionIndicator.h"
+#include "ThumbnailView/ThumbnailFacade.h"
 
 MainWindow::StatusBar::StatusBar()
     : KStatusBar()
@@ -91,6 +93,13 @@ void MainWindow::StatusBar::setupGUI()
     addWidget( mp_pathIndicator, 1 );
 
     setProgressBarVisible( false );
+
+    m_thumbnailSizeSlider = ThumbnailView::ThumbnailFacade::instance()->createResizeSlider();
+    addPermanentWidget( m_thumbnailSizeSlider, 0 );
+    // prevent stretching:
+    m_thumbnailSizeSlider->setMaximumSize( m_thumbnailSizeSlider->size());
+    m_thumbnailSizeSlider->setMinimumSize( m_thumbnailSizeSlider->size());
+    m_thumbnailSizeSlider->hide();
 }
 
 void MainWindow::StatusBar::setLocked( bool locked )
@@ -132,6 +141,16 @@ void MainWindow::StatusBar::setProgressBarVisible( bool show )
     m_cancel->setVisible(show);
 }
 
+void MainWindow::StatusBar::showThumbnailSlider()
+{
+    m_thumbnailSizeSlider->setVisible( true );
+}
+
+void MainWindow::StatusBar::hideThumbnailSlider()
+{
+    m_thumbnailSizeSlider->setVisible( false );
+}
+
 void MainWindow::StatusBar::hideStatusBar()
 {
     setProgressBarVisible( false );
@@ -142,4 +161,5 @@ void MainWindow::StatusBar::showStatusBar()
 {
     setProgressBarVisible( true );
 }
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

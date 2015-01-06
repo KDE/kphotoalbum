@@ -20,6 +20,7 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 #include <DB/FileNameList.h>
+#include <QSlider>
 
 namespace ThumbnailView
 {
@@ -43,6 +44,11 @@ public:
     DB::FileName currentItem() const;
     void setImageList(const DB::FileNameList& list);
     void setSortDirection( SortDirection );
+    /**
+     * @brief createResizeSlider returns a QSlider that can be used to resize the thumbnail grid.
+     * @return a (horizontal) QSlider
+     */
+    QSlider* createResizeSlider();
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );

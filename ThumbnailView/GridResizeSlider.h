@@ -21,6 +21,8 @@
 #include <QSlider>
 #include <QPersistentModelIndex>
 
+class QTimer;
+
 namespace ThumbnailView
 {
 class ThumbnailWidget;
@@ -38,11 +40,25 @@ class GridResizeSlider : public QSlider, private ThumbnailComponent {
     Q_OBJECT
 public:
     explicit GridResizeSlider( ThumbnailFactory* factory );
+    ~GridResizeSlider();
+
+signals:
+    void isResizing( bool );
+
+protected:
+    void mousePressEvent( QMouseEvent* ) override;
+    void mouseReleaseEvent( QMouseEvent* ) override;
+    void wheelEvent( QWheelEvent* ) override;
 
 private slots:
     void enterGridResizingMode();
+    void leaveGridResizingMode();
     void setCellSize(int size);
     void setMaximum(int size);
+
+private:
+    bool m_resizing;
+    QTimer *m_timer;
 };
 
 }

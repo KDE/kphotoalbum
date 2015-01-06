@@ -96,7 +96,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
 
 bool ThumbnailView::ThumbnailWidget::isGridResizing() const
 {
-    return m_mouseHandler->isResizingGrid() || m_wheelResizing;
+    return m_mouseHandler->isResizingGrid() || m_wheelResizing || m_externallyResizing;
 }
 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
@@ -256,6 +256,10 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
     m_isSettingDate = false;
 }
 
+void ThumbnailView::ThumbnailWidget::setExternallyResizing( bool state )
+{
+    m_externallyResizing = state;
+}
 
 void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
 {

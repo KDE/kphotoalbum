@@ -68,6 +68,12 @@ public:
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
+    /**
+     * @brief setExternallyResizing
+     * Used by the GridResizeSlider to indicate that the grid is being resized.
+     * @param state true, if the grid is being resized by an external widget, false if not
+     */
+    void setExternallyResizing( bool state );
 
 signals:
     void showImage( const DB::FileName& id );
@@ -122,6 +128,7 @@ private:
 
     GridResizeInteraction m_gridResizeInteraction;
     bool m_wheelResizing;
+    bool m_externallyResizing;
     SelectionInteraction m_selectionInteraction;
     MouseTrackingInteraction m_mouseTrackingHandler;
     MouseInteraction* m_mouseHandler;

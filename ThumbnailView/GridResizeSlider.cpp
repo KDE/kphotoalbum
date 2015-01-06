@@ -29,14 +29,16 @@
 ThumbnailView::GridResizeSlider::GridResizeSlider( ThumbnailFactory* factory )
     : QSlider( Qt::Horizontal ), ThumbnailComponent( factory )
 {
-    setRange( 32, Settings::SettingsData::instance()->thumbnailSize());
-    setValue(Settings::SettingsData::instance()->actualThumbnailSize());
+    Settings::SettingsData *settings = Settings::SettingsData::instance();
+    setMinimum( settings->minimumThumbnailSize() );
+    setMaximum( settings->thumbnailSize() );
+    setValue( settings->actualThumbnailSize() );
 
-    connect(Settings::SettingsData::instance(), SIGNAL(actualThumbnailSizeChanged(int)), this , SLOT(setValue(int)));
-    connect(Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(setMaximum(int)));
+    connect( settings, SIGNAL(actualThumbnailSizeChanged(int)), this , SLOT(setValue(int)) );
+    connect( settings, SIGNAL(thumbnailSizeChanged(int)), this, SLOT(setMaximum(int)) );
 
-    connect(this, SIGNAL(sliderPressed()), this, SLOT(enterGridResizingMode()));
-    connect(this, SIGNAL(valueChanged(int)), this, SLOT(setCellSize(int)));
+    connect( this, SIGNAL(sliderPressed()), this, SLOT(enterGridResizingMode()) );
+    connect( this, SIGNAL(valueChanged(int)), this, SLOT(setCellSize(int)) );
 }
 
 void ThumbnailView::GridResizeSlider::enterGridResizingMode()

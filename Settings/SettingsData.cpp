@@ -251,6 +251,9 @@ property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool       
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
 property_copy( thumbnailSpace          , setThumbnailSpace         , int                 , Thumbnails, 4          )
+// not available via GUI, but should be consistent (and maybe confgurable for powerusers):
+property_copy( minimumThumbnailSize    , setMinimumThumbnailSize   , int                 , Thumbnails, 32         )
+property_copy( maximumThumbnailSize    , setMaximumThumbnailSize   , int                 , Thumbnails, 4096       )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 
@@ -259,9 +262,15 @@ getValueFunc_( int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 
 
 void SettingsData::setThumbnailSize( int value )
 {
+    // enforce limits:
+    value = qBound( minimumThumbnailSize(), value, maximumThumbnailSize());
+
     if ( value != thumbnailSize() )
          emit thumbnailSizeChanged(value);
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
+
+    // FIXME(ZaJ): should we move this into the UI?
+    //             After all, this is mainly to provide immediate visual feedback when the storage size is changed.
     setActualThumbnailSize( value );
 }
 
@@ -279,8 +288,8 @@ void SettingsData::setActualThumbnailSize( int value )
 {
     QPixmapCache::clear();
 
-    // prevent scaling greater than base size
-    value = qMin( value, thumbnailSize() );
+    // enforce limits:
+    value = qBound( minimumThumbnailSize(), value, thumbnailSize());
 
     if ( value != actualThumbnailSize())
     {

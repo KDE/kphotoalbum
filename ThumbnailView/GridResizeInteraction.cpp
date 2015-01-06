@@ -45,8 +45,10 @@ bool ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 
 bool ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
+    // no need to query this more than once (can't be changed in the GUI):
+    static int _minimum_ = Settings::SettingsData::instance()->minimumThumbnailSize();
     QPoint dist = event->pos() - m_mousePressPos;
-    setCellSize( qMax( 32, m_origWidth + dist.x()/5 ) );
+    setCellSize( qMax( _minimum_, m_origWidth + dist.x()/5 ) );
     return true;
 }
 

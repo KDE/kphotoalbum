@@ -46,7 +46,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     ++row;
     QLabel* thumbnailSizeLabel = new QLabel( i18n("Thumbnail image size:" ) );
     m_thumbnailSize = new QSpinBox;
-    m_thumbnailSize->setRange( 32, 4096 );
+    // range set from settings on load
     m_thumbnailSize->setSingleStep( 16 );
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( m_thumbnailSize, row, 1 );
@@ -151,6 +151,8 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
 {
     m_previewSize->setValue( opt->previewSize() );
     m_thumbnailSize->setValue( opt->thumbnailSize() );
+    m_thumbnailSize->setMinimum( opt->minimumThumbnailSize() );
+    m_thumbnailSize->setMaximum( opt->maximumThumbnailSize() );
     m_backgroundColor->setColor( QColor( opt->backgroundColor() ) );
     m_thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     m_thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );

@@ -1780,7 +1780,8 @@ void MainWindow::Window::editBirthDates()
 void MainWindow::Window::slotThumbnailSizeChanged()
 {
     QString thumbnailSizeMsg = i18nc( "@info:status",
-                                      "Thumbnail width: %1px (storage size: %2px)");
+				      //xgettext:no-c-format
+				      "Thumbnail width: %1px (storage size: %2px)");
     m_statusBar->showMessage( thumbnailSizeMsg.arg( Settings::SettingsData::instance()->actualThumbSize())
                               .arg(Settings::SettingsData::instance()->thumbSize()), 4000);
 }

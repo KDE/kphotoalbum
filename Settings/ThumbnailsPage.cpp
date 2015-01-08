@@ -166,6 +166,8 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
 {
     opt->setPreviewSize( m_previewSize->value() );
     opt->setThumbnailSize( m_thumbnailSize->value() );
+    // ensure that the user actually sees the thumbnail size change:
+    opt->setActualThumbnailSize( m_thumbnailSize->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) m_thumbnailAspectRatio->currentIndex() );
     opt->setBackgroundColor( m_backgroundColor->color().name() );
     opt->setThumbnailDisplayGrid( m_thumbnailDisplayGrid->isChecked() );

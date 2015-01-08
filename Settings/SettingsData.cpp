@@ -268,10 +268,6 @@ void SettingsData::setThumbnailSize( int value )
     if ( value != thumbnailSize() )
          emit thumbnailSizeChanged(value);
     setValue( groupForDatabase("Thumbnails"), "thumbSize", value );
-
-    // FIXME(ZaJ): should we move this into the UI?
-    //             After all, this is mainly to provide immediate visual feedback when the storage size is changed.
-    setActualThumbnailSize( value );
 }
 
 int SettingsData::actualThumbnailSize() const                       \

@@ -9,6 +9,7 @@ BACKUP_ID=latest
 ACTION=
 ADD_FILES_RELATIVE="exif-info.db layout.dat recognition.db"
 KEEP_NUM=5
+TERSE=
 NO_ACT=
 
 SQLITE=sqlite3
@@ -38,9 +39,9 @@ print_help()
 {
 	echo "Usage: $0 -b|--backup OPTIONS..." >&2
 	echo "       $0 -r|--restore OPTIONS..." >&2
-	echo "       $0 -l|--list OPTIONS..." >&2
+	echo "       $0 -l|--list [--terse] OPTIONS..." >&2
 	echo "       $0 -i|--info OPTIONS..." >&2
-	echo "       $0 -p|--purge [--keep NUM]" >&2
+	echo "       $0 -p|--purge [--keep NUM] OPTIONS..." >&2
 	echo "" >&2
 	echo "Create or restore a backup of your essential KPhotoalbum files." >&2
 	echo "Note: your actual image-files are not backed up!" >&2
@@ -51,9 +52,26 @@ print_help()
 	echo "--id BACKUP_ID                   Use given backup instead of latest.">&2
 	echo "-n|--no-act                      Do not take any action." >&2
 	echo "" >&2
+	echo "List options:" >&2
+	echo "--terse                          Only show backup ids, no change information." >&2
+	echo "" >&2
 	echo "Purge options:" >&2
-	echo "--keep NUM                       Keep the latest NUM backups" >&2
+	echo "--keep NUM                       Keep the latest NUM backups." >&2
 	echo "                                 [default: $KEEP_NUM]" >&2
+	echo "" >&2
+	echo "Actions:" >&2
+	echo "-b|--backup" >&2
+	echo "                                 Create a new backup." >&2
+	echo "-r|--restore" >&2
+	echo "                                 Restore the latest backup (or the one given by --id)." >&2
+	echo "-l|--list" >&2
+	echo "                                 List all backups, in the same format as --info." >&2
+	echo "                                 If --terse is given: show a list of all backup ids." >&2
+	echo "-i|--info" >&2
+	echo "                                 Show which files in the latest backup (or the one specified by --id)" >&2
+	echo "                                 have changed compared to the current state." >&2
+	echo "-p|--purge" >&2
+	echo "                                 Delete all but the latest $KEEP_NUM backups." >&2
 	echo "" >&2
 }
 
@@ -330,6 +348,8 @@ do_list()
 {
 	local LATEST=`resolve_link "$BACKUP_LOCATION/latest"`
 	LATEST=`basename "$LATEST"`
+	local action=show_info
+	[ -n "$TERSE" ] && action=basename
 	echo "$BACKUP_LOCATION:"
 	for d in "$BACKUP_LOCATION"/*
 	do
@@ -338,9 +358,9 @@ do_list()
 			[ -L "$d" ] && continue
 			if [ "`basename "$d"`" = "$LATEST" ]
 			then
-				show_info "$d" "(*latest*)"
+				$action "$d" "(*latest*)"
 			else
-				show_info "$d"
+				$action "$d"
 			fi
 		fi
 	done
@@ -379,7 +399,7 @@ do_purge()
 # Parse commandline:
 ###
 
-TEMP=`getopt -o hbrlipnd: --long help,backup,restore,list,info,purge,no-act,directory:,keep:,id: \
+TEMP=`getopt -o hbrlipnd: --long help,backup,restore,list,info,purge,no-act,directory:,keep:,id:,terse \
      -n 'kpa-backup' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -399,6 +419,7 @@ while true ; do
 		-d|--directory) BACKUP_LOCATION="$2" ; shift 2 ;;
 		--keep) KEEP_NUM="$2" ; shift 2 ;;
 		--id) BACKUP_ID="$2" ; shift 2 ;;
+		--terse) TERSE=1 ; shift ;;
 		--) shift ; break ;;
 		*) echo "Internal error!" ; exit 1 ;;
 	esac

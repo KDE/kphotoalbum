@@ -11,6 +11,8 @@ ADD_FILES_RELATIVE="exif-info.db layout.dat recognition.db"
 KEEP_NUM=5
 NO_ACT=
 
+SQLITE=sqlite3
+
 ###
 # Helper functions:
 ###
@@ -55,13 +57,140 @@ print_help()
 	echo "" >&2
 }
 
+sqlite_diff()
+# sqlite_diff SRC DST QUERYTEXT
+# visual comparison for exif-info.db
+# Either SRC or DST may be "-" to denote input from stdin.
+# QUERYTEXT should be a descriptive query for the db, but even it does
+# not have to include every aspect of the data.
+# After the data-diff on the query, a diff on the whole file will determine
+# the status of sqlite_diff.
+{
+	local src="$1"
+	local dst="$2"
+	local query="$3"
+	# catch "exif_diff - -":
+	if [ "$src" = "$dst" ]
+	then
+		echo "Identical files!" >&2
+		return 0
+	fi
+
+	if ! "$SQLITE" -version >/dev/null
+	then
+		echo "Warning: sqlite not found." >&2
+	else
+		local tmp=`mktemp`
+		local srctmp=`mktemp`
+		local dsttmp=`mktemp`
+		if [ "$src" = "-" ]
+		then
+			src="$tmp"
+			cat > "$tmp"
+		fi
+		if [ "$dst" = "-" ]
+		then
+			dst="$tmp"
+			cat > "$tmp"
+		fi
+
+		"$SQLITE" "$src" "$query" > "$srctmp"
+		"$SQLITE" "$dst" "$query" > "$dsttmp"
+
+		diff -u --label "$1" --label "$2" "$srctmp" "$dsttmp"
+
+		# cleanup
+		rm "$tmp" "$srctmp" "$dsttmp"
+	fi
+	# ensure the correct return value:
+	diff -q -s "$1" "$2"
+}
+
+exif_diff()
+# exif_diff SRC DST
+{
+	sqlite_diff "$1" "$2" "select * from exif"
+}
+
+kface_diff()
+# kface_diff SRC DST
+{
+	sqlite_diff "$1" "$2" 'select * from IdentityAttributes'
+}
+
+visual_diff()
+# visual_diff [-q] SRC DST
+# Do a diff of two files (or STDIN and a file).
+# An appropriate diff format is used, based on the given file.
+# If -q is given, no output is given.
+# The exit value is just like from GNU diff.
+{
+	local quiet
+	local src
+	local dst
+	local filename
+	for param
+	do
+		case "$param" in
+			-q) #quiet,question
+				quiet=1
+				;;
+			*)
+				if [ -z "$src" ]
+				then
+					src="$param"
+				else if [ -z "$dst" ]
+					then
+						dst="$param"
+					else
+						echo "visual_diff: incorrect number of parameters!" >&2
+						exit 1
+					fi
+				fi
+				# we need a valid filename to determine which specialized diff we should use
+				# usually, one parameter is "-", so we take the param that's a real filename
+				[ -f "$param" ] && filename="$param"
+				;;
+		esac
+	done
+
+	if [ -n "$quiet" ]
+	then
+		# just do the quickest thing:
+		diff -q "$src" "$dst" >/dev/null
+	else
+		filename=`basename "$filename"`
+		case "$filename" in
+			exif-info.db)
+				exif_diff "$src" "$dst"
+				;;
+			index.xml)
+				diff -u -F '^    <.*' "$src" "$dst"
+				;;
+			kphotoalbumui.rc)
+				diff -u -F '^\ *<\(Menu\|ToolBar\).*' "$src" "$dst"
+				;;
+			kphotoalbumrc)
+				diff -u -F '^\[.*\]' "$src" "$dst"
+				;;
+			recognition.db)
+				kface_diff "$src" "$dst"
+				;;
+			*)
+				# data; nothing to see:
+				diff -q "$src" "$dst" >/dev/null
+				;;
+		esac
+	fi
+}
+
 untar_if_changed()
 # untar the given single-file-tarball if the destination file has changed
 # use first parameter -p to print when the file has changed, but not untar it.
 {
 	local printonly=false
 	[ -n "$NO_ACT" ] && printonly=true
-	local diffredir="/dev/stdout"
+	local quiet
 	local tarfile
 	for param
 	do
@@ -69,8 +198,8 @@ untar_if_changed()
 			-p)
 				printonly=true
 				;;
-			-s) #silent
-				diffredir="/dev/null"
+			-q) #quiet
+				quiet=-q
 				;;
 			*)
 				tarfile="$param"
@@ -79,7 +208,7 @@ untar_if_changed()
 	done
 	[ -f "$tarfile" ] || return 1
 	local dstfile=`tar -Ptz -f "$tarfile"`
-	if tar -PxzO -f "$tarfile" | diff -u - "$dstfile" >$diffredir
+	if tar -PxzO -f "$tarfile" | visual_diff $quiet - "$dstfile"
 	then
 		echo "unchanged: $dstfile"
 	else
@@ -192,7 +321,7 @@ show_info()
 	for f in "$backup_dir"/*.tgz
 	do
 		echo -n "  |-"
-		untar_if_changed -p -s "$f"
+		untar_if_changed -p -q "$f"
 	done
 	echo
 }

@@ -1,9 +1,9 @@
 #!/bin/bash
 # Author: Johannes Zarl <isilmendil@gmx.at>
-LOCALPREFIX=`kde4-config --localprefix`
+KDE_LOCALPREFIX="${KDE_LOCALPREFIX:-`kde4-config --localprefix`}"
 # default locations:
-KPARC=$LOCALPREFIX/share/config/kphotoalbumrc
-KPAUIRC=$LOCALPREFIX/share/apps/kphotoalbum/kphotoalbumui.rc
+KPARC="${KPARC:-$KDE_LOCALPREFIX/share/config/kphotoalbumrc}"
+KPAUIRC="${KPAUIRC:-$KDE_LOCALPREFIX/share/apps/kphotoalbum/kphotoalbumui.rc}"
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=
@@ -43,7 +43,7 @@ print_help()
 	echo "       $0 -i|--info OPTIONS..." >&2
 	echo "       $0 -p|--purge [--keep NUM] OPTIONS..." >&2
 	echo "" >&2
-	echo "Create or restore a backup of your essential KPhotoalbum files." >&2
+	echo "Create or restore a backup of your essential KPhotoAlbum files." >&2
 	echo "Note: your actual image-files are not backed up!" >&2
 	echo "" >&2
 	echo "Options:" >&2
@@ -241,7 +241,6 @@ untar_if_changed()
 
 do_backup()
 {
-	local BACKEND=
 	local INDEXFILE=
 	local KPA_FOLDER=
 	###
@@ -255,29 +254,22 @@ do_backup()
 	fi
 	# KPA gets the image directory from the configfile entry
 	INDEXFILE=`get_config_value configfile`
+	if [ -z "$INDEXFILE" ]
+	then
+		echo "The RC-file ($KPARC) does not define an entry for index.xml!" >&2
+		exit 1
+	fi
+	if [ -f "$INDEXFILE" ]
+	then
+		echo "KPhotoAlbum index file does not exist!" >&2
+		exit 1
+	fi
 	KPA_FOLDER=`dirname "$INDEXFILE"`
 	if [ ! -d "$KPA_FOLDER" ]
 	then
-		echo "Kphotoalbum image directory ($KPA_FOLDER) does not exist!" >&2
+		echo "KPhotoAlbum image directory ($KPA_FOLDER) does not exist!" >&2
 		exit 1
 	fi
-
-	BACKEND=`get_config_value backend`
-	case "$BACKEND" in
-		xml)
-			echo "KPhotoalbum uses XML backend..."
-			if [ ! -r "$INDEXFILE" ]
-			then
-				echo "Kphotoalbum XML database file ($INDEXFILE) not readable!" >&2
-				exit 1
-			fi
-			;;
-		*)
-			echo "KPhotoalbum uses backend \`$BACKEND'..." >&2
-			echo "This backend is not currently supported!" >&2
-			exit 1
-			;;
-	esac
 
 	if [ ! -d "$BACKUP_LOCATION" ]
 	then

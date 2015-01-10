@@ -29,15 +29,22 @@ from KPhotoAlbum.datatypes import Tag
 
 def main():
     # Parse command line parameters
-    if len(sys.argv) != 4:
-        print('Usage: {} <XML file> <category name> <item name>'.format(sys.argv[0]),
-            file = sys.stderr)
+    if len(sys.argv) < 3:
+        print(('Usage: {} <category name> <item name> [index.xml path]\n'
+               '       If no index.xml path is given, the path from the rc file will be used.\n\n'
+               'Currently, the use of localized category names for the standard categories\n'
+               '"People", "Places", "Events", "Folder", "Tokens" and "Media Type" is not supported.'
+              ).format(sys.argv[0]),
+              file = sys.stderr)
         return 1
 
     print('Parsing the XML file ... ', end = '', file = sys.stderr)
 
     try:
-        db = xmldb.XMLDatabase(sys.argv[1])
+        if len(sys.argv) == 3:
+            db = xmldb.XMLDatabase()
+        else:
+            db = xmldb.XMLDatabase(sys.argv[3])
     except:
         print('failed', file = sys.stderr)
         print(sys.exc_info()[1], file = sys.stderr)
@@ -46,7 +53,7 @@ def main():
     print('done.', file = sys.stderr)
 
     for item in db.mediaItems:
-        if Tag(sys.argv[2], sys.argv[3]) in item.tags:
+        if Tag(sys.argv[1], sys.argv[2]) in item.tags:
             print(item.filename)
 
 if __name__ == '__main__':

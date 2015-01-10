@@ -25,6 +25,8 @@ import sys
 from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
+from subprocess import check_output
+
 from KPhotoAlbum.db import DatabaseReader
 from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem, MemberGroup
 
@@ -51,15 +53,35 @@ class XMLDatabase(DatabaseReader):
     Class for reading KPhotoAlbum index.xml.
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename = None):
         """
         Initialize self with given XML file.
 
         Pre:
-         - ``filename`` is a KPhotoAlbum XML database (index.xml)
+         - ``filename`` is a KPhotoAlbum XML database (index.xml). If no filename is given, the
+                        index.xml from the configuration is used.
         """
 
         super().__init__()
+
+        # If no filename has been given, fetch it from the rc file.
+
+        if filename == None:
+            try:
+                filename = check_output(['kde4-config', '--localprefix']).decode('utf-8').strip()
+                filename = filename + 'share/config/kphotoalbumrc'
+            except:
+                raise ConfigError('Could not fetch local KDE configuration prefix.')
+
+            try:
+                # We have to use a rather hackish grep approach here, as kphotoalbumrc does not
+                # follow "the rules" of a clean ini file and thus can't be parsed by configparser.
+                filename = check_output(['grep', 'configfile=', filename]).decode('utf-8').strip()
+                filename = filename.split('=')[1]
+            except:
+                raise ConfigError('Could not fetch the index.xml path from kphotoalbumrc.')
+
+        # Parse the XML data.
 
         try:
             self.dom = minidom.parse(filename)
@@ -113,6 +135,11 @@ class Error(Exception):
     """
     def __init__(self, message):
         Exception.__init__(self, message)
+
+class ConfigError(Error):
+    """
+    Could not read the configuration.
+    """
 
 class InvalidFile(Error):
     """

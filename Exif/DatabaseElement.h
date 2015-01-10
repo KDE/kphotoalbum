@@ -31,18 +31,18 @@ class DatabaseElement
 {
 public:
     virtual ~DatabaseElement() {}
-    virtual QString createString() = 0; // Exif_Photo_FNumber_denominator int, Exif_Photo_FNumber_nominator int
-    virtual QString queryString() = 0; // ?, ?
-    virtual void bindValues( QSqlQuery*, int& counter, Exiv2::ExifData& data ) = 0; // bind values
+    virtual QString createString() const = 0; // Exif_Photo_FNumber_denominator int, Exif_Photo_FNumber_nominator int
+    virtual QString queryString() const = 0; // ?, ?
+    virtual void bindValues( QSqlQuery*, int& counter, Exiv2::ExifData& data ) const = 0; // bind values
 };
 
 class StringExifElement :public DatabaseElement
 {
 public:
     explicit StringExifElement( const char* tag );
-    QString createString();
-    QString queryString();
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
+    QString createString() const override;
+    QString queryString() const override;
+    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -52,9 +52,9 @@ class IntExifElement :public DatabaseElement
 {
 public:
     explicit IntExifElement( const char* tag );
-    QString createString();
-    QString queryString();
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
+    QString createString() const override;
+    QString queryString() const override;
+    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -65,9 +65,9 @@ class RationalExifElement :public DatabaseElement
 {
 public:
     explicit RationalExifElement( const char* tag );
-    virtual QString createString();
-    virtual QString queryString();
-    virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data );
+    QString createString() const override;
+    QString queryString() const override;
+    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;

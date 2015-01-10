@@ -32,19 +32,19 @@ Exif::StringExifElement::StringExifElement( const char* tag )
 }
 
 
-QString Exif::StringExifElement::createString()
+QString Exif::StringExifElement::createString() const
 {
     return QString::fromLatin1( "%1 string" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
 
-QString Exif::StringExifElement::queryString()
+QString Exif::StringExifElement::queryString() const
 {
     return QString::fromLatin1( "?" );
 }
 
 
-void Exif::StringExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
+void Exif::StringExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     query->bindValue( counter++, QLatin1String(data[m_tag].toString().c_str() ) );
 }
@@ -56,19 +56,19 @@ Exif::IntExifElement::IntExifElement( const char* tag )
 }
 
 
-QString Exif::IntExifElement::createString()
+QString Exif::IntExifElement::createString() const
 {
     return QString::fromLatin1( "%1 int" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
 
-QString Exif::IntExifElement::queryString()
+QString Exif::IntExifElement::queryString() const
 {
     return QString::fromLatin1( "?" );
 }
 
 
-void Exif::IntExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
+void Exif::IntExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     if (data[m_tag].count() > 0)
         query->bindValue( counter++, (int) data[m_tag].toLong() );
@@ -83,18 +83,18 @@ Exif::RationalExifElement::RationalExifElement( const char* tag )
 }
 
 
-QString Exif::RationalExifElement::createString()
+QString Exif::RationalExifElement::createString() const
 {
     return QString::fromLatin1( "%1 float" ).arg( replaceDotWithUnderscore( m_tag ) );
 }
 
-QString Exif::RationalExifElement::queryString()
+QString Exif::RationalExifElement::queryString() const
 {
     return QString::fromLatin1( "?" );
 }
 
 
-void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
+void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     query->bindValue( counter++, 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second);
 }

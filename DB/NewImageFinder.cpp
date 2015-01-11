@@ -65,15 +65,16 @@ bool NewImageFinder::findImages()
     loadExtraFiles();
 
     if ( !Settings::SettingsData::instance()->incrementalThumbnails() ) {
-         ImageManager::ThumbnailBuilder::instance()->buildMissing();
+        // Build all missing thumbnails
+        ImageManager::ThumbnailBuilder::instance()->buildMissing();
     } else {
+        // Only build thumbnails for the newly found images
         if (! m_pendingLoad.isEmpty()) {
             DB::FileNameList thumbnailsToBuild;
 
             QListIterator<QPair<DB::FileName, DB::MediaType>> newFiles(m_pendingLoad);
             while (newFiles.hasNext()) {
                 QPair<DB::FileName, DB::MediaType> newFile = newFiles.next();
-                //ThumbnailBuilder::scheduleThumbnailBuild
                 thumbnailsToBuild << newFile.first;
             }
 

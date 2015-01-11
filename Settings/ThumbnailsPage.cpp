@@ -164,9 +164,9 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
 {
     m_previewSize->setValue( opt->previewSize() );
-    m_thumbnailSize->setValue( opt->thumbnailSize() );
     m_thumbnailSize->setMinimum( opt->minimumThumbnailSize() );
     m_thumbnailSize->setMaximum( opt->maximumThumbnailSize() );
+    m_thumbnailSize->setValue( opt->thumbnailSize() );
     m_backgroundColor->setColor( QColor( opt->backgroundColor() ) );
     m_thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
     m_thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );

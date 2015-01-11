@@ -18,9 +18,6 @@ if ( EXISTS "${BASE_DIR}/.git" )
 	if ( NOT KPA_VERSION )
 		set ( KPA_VERSION "unknown" )
 	endif()
-	if (NOT(CMAKE_BUILD_TYPE STREQUAL "Release"))
-		set ( KPA_VERSION "${KPA_VERSION}-${CMAKE_BUILD_TYPE}" )
-	endif()
 
 	message ( STATUS "Updating version information to ${KPA_VERSION}..." )
 	# write version info to a temporary file

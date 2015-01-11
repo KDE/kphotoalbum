@@ -88,7 +88,6 @@ public:
     QList<QPair<QString, QString>> positionableTagCandidates() const;
     void addTagToCandidateList(QString category, QString tag);
     void removeTagFromCandidateList(QString category, QString tag);
-    QString localizedCategory(QString category) const;
     void checkProposedTagData(QPair<QString, QString> tagData, ResizableFrame *areaToExclude) const;
     void areaChanged();
 
@@ -204,7 +203,6 @@ private:
     QPair<QString, QString> m_lastSelectedPositionableTag;
     QList<QPair<QString, QString>> m_positionableTagCandidates;
     QMap<QString, ListSelect*> m_listSelectList;
-    QMap<QString, QString> m_categoryL10n;
 
     bool m_positionableCategories;
     bool m_areasChanged;

@@ -193,10 +193,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
             // We have at least one positionable category
             m_positionableCategories = true;
         }
-
-        // The category could have a localized name. Perhaps, this could be
-        // also handy for something else, so let's do this for all categories
-        m_categoryL10n[(*categoryIt)->name()] = (*categoryIt)->text();
     }
 
     // -------------------------------------------------- The buttons.
@@ -1489,15 +1485,6 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
             area->setTagData(category, newTag);
         }
 
-    }
-}
-
-QString AnnotationDialog::Dialog::localizedCategory(QString category) const
-{
-    if (m_categoryL10n.contains(category)) {
-        return m_categoryL10n[category];
-    } else {
-        return category;
     }
 }
 

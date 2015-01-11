@@ -57,7 +57,7 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDia
 
     QLabel* isThisLabel = new QLabel(i18n("Is this %1 (%2)?",
                                           m_area->proposedTagData().second,
-                                          m_area->localizedCategory(m_area->proposedTagData().first)));
+                                          DB::Category::localizedCategoryName(m_area->proposedTagData().first)));
     layout->addWidget(isThisLabel);
 
     QToolButton* declineButton = new QToolButton;

@@ -337,7 +337,7 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent* event
             i18nc("As in: remove tag %1 in category %2 [from this marked area of the image]",
                   "Remove tag %1 (%2)",
                   m_tagData.second,
-                  localizedCategory(m_tagData.first))
+                  DB::Category::localizedCategoryName(m_tagData.first))
         );
         menu->addAction(m_removeTagAct);
 
@@ -424,10 +424,13 @@ QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
     if (! prefix.isEmpty()) {
         actionText = i18nc("%1 is a prefix like 'Associate with', "
                            "%2 is the tag name and %3 is the tag's category",
-                           "%1 %2 (%3)").arg(prefix, tag.second, localizedCategory(tag.first));
+                           "%1 %2 (%3)").arg(prefix,
+                                             tag.second,
+                                             DB::Category::localizedCategoryName(tag.first));
     } else {
         actionText = i18nc("%1 is the tag name and %2 is the tag's category",
-                           "%1 (%2)").arg(tag.second, localizedCategory(tag.first));
+                           "%1 (%2)").arg(tag.second,
+                                          DB::Category::localizedCategoryName(tag.first));
     }
 
     QAction* action = new QAction(actionText, this);
@@ -456,11 +459,9 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     m_tagData = selectedData;
 
     // Update the tool tip
-    setToolTip(
-        tag + QString::fromUtf8(" (") +
-        localizedCategory(category) +
-        QString::fromUtf8(")")
-    );
+    setToolTip(tag + QString::fromUtf8(" (") +
+               DB::Category::localizedCategoryName(category) +
+               QString::fromUtf8(")"));
 
     // Set the color to "associated"
     setStyleSheet(STYLE_ASSOCIATED);
@@ -579,11 +580,6 @@ void AnnotationDialog::ResizableFrame::removeProposedTagData()
     m_proposedTagData = QPair<QString, QString>();
     setStyleSheet(STYLE_UNASSOCIATED);
     setToolTip(QString());
-}
-
-QString AnnotationDialog::ResizableFrame::localizedCategory(QString category)
-{
-    return m_dialog->localizedCategory(category);
 }
 
 #ifdef HAVE_KFACE

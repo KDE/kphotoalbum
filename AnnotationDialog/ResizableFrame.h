@@ -59,7 +59,6 @@ public:
     void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
-    QString localizedCategory(QString category);
 #ifdef HAVE_KFACE
     /**
      * If the face has been detected by the face detector, this method is called.

@@ -77,7 +77,7 @@ class XMLDatabase(DatabaseReader):
                 # We have to use a rather hackish grep approach here, as kphotoalbumrc does not
                 # follow "the rules" of a clean ini file and thus can't be parsed by configparser.
                 filename = check_output(['grep', 'configfile=', filename]).decode('utf-8').strip()
-                filename = filename.split('=')[1]
+                filename = filename.split('=', 1)[1]
             except:
                 raise ConfigError('Could not fetch the index.xml path from kphotoalbumrc.')
 

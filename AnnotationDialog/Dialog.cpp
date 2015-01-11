@@ -88,7 +88,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     : KDialog( parent )
     , m_ratingChanged( false )
     , m_conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
-    , m_executing( false )
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
@@ -149,7 +148,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     mapLoadingProgressLayout->addWidget(m_cancelMapLoadingButton);
     m_cancelMapLoadingButton->hide();
     connect(m_cancelMapLoadingButton, SIGNAL(clicked()), this, SLOT(setCancelMapLoading()));
-    connect(this, SIGNAL(finished(int)), m_cancelMapLoadingButton, SLOT(click()));
 
     m_annotationMapContainer->setObjectName(i18n("Map"));
     QDockWidget *map = createDock(
@@ -899,14 +897,7 @@ int AnnotationDialog::Dialog::exec()
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
 
-#ifdef HAVE_KGEOMAP
-    // for time-consuming stuff that would otherwise block us here:
-    QTimer::singleShot(0, this, SLOT(populateMap()));
-#endif
-
-    m_executing = true;
     const int ret = KDialog::exec();
-    m_executing = false;
     hideTornOfWindows();
     return ret;
 }
@@ -1556,16 +1547,17 @@ void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
 {
     // This populates the map if it's added when the dialog is already open
     if ( visible ) {
-        populateMap();
+        // when the map dockwidget is already visible on show(), the call to
+        // annotationMapVisibilityChanged  is executed in the GUI thread.
+        // This ensures that populateMap() doesn't block the GUI in this case:
+        QTimer::singleShot(0, this, SLOT(populateMap()));
+    } else {
+        m_cancelMapLoading = true;
     }
 }
 
 void AnnotationDialog::Dialog::populateMap()
 {
-    if ( !m_executing ) {
-        return;
-    }
-
     m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
     m_cancelMapLoading = false;
     m_mapLoadingProgress->setMaximum(m_editList.count());

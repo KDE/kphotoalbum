@@ -208,8 +208,6 @@ private:
 
     bool m_positionableCategories;
     bool m_areasChanged;
-    // helper variable that is set whenever KDialog::exec() is beind called:
-    bool m_executing;
 
 #ifdef HAVE_KGEOMAP
     QWidget *m_annotationMapContainer;

@@ -44,7 +44,7 @@ static const Database::ElementList GpsElements()
     static Database::ElementList elms;
 
     if ( elms.count() == 0 ) {
-        elms.append( new IntExifElement( "GPSInfo 	Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
+        elms.append( new IntExifElement( "Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
         elms.append( new RationalExifElement( "Exif.GPSInfo.GPSAltitude" ) );
         elms.append( new IntExifElement( "Exif.GPSInfo.GPSAltitudeRef" ) ); // actually a byte value
         elms.append( new StringExifElement( "Exif.GPSInfo.GPSMeasureMode" ) );

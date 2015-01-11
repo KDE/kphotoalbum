@@ -64,8 +64,24 @@ bool NewImageFinder::findImages()
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
     loadExtraFiles();
 
-    if ( !Settings::SettingsData::instance()->incrementalThumbnails() )
+    if ( !Settings::SettingsData::instance()->incrementalThumbnails() ) {
          ImageManager::ThumbnailBuilder::instance()->buildMissing();
+    } else {
+        if (! m_pendingLoad.isEmpty()) {
+            DB::FileNameList thumbnailsToBuild;
+
+            QListIterator<QPair<DB::FileName, DB::MediaType>> newFiles(m_pendingLoad);
+            while (newFiles.hasNext()) {
+                QPair<DB::FileName, DB::MediaType> newFile = newFiles.next();
+                //ThumbnailBuilder::scheduleThumbnailBuild
+                thumbnailsToBuild << newFile.first;
+            }
+
+            ImageManager::ThumbnailBuilder::instance()->scheduleThumbnailBuild(
+                thumbnailsToBuild, ImageManager::ThumbnailBuildStart::StartNow
+            );
+        }
+    }
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
     if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {

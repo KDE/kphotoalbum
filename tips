@@ -15,7 +15,7 @@ different KPhotoAlbum features.</p>
 <html>
 <p>It is possible to create new categories - that are alternatives
 to <resource>People</resource>, <resource>Places</resource>, and <resource>Events</resource> - in the annotation
-dialog. 
+dialog.
 To add new categories or remove existing ones, go to the <interface>Settings|Configure KPhotoAlbum...</interface> dialog, and choose
 <interface>Categories</interface> in the side bar.</p>
 </html>
@@ -109,9 +109,9 @@ the other, if you drop it on the right edge it will be inserted behind.</p>
 <tip category="KPhotoAlbum">
 <html>
 <p>
-On the thumbnail view, you can resize the grid to your needs just by clicking 
-the middle mouse button and dragging around. On most systems you can emulate 
-the middle mouse button by left and right clicking at the same time. 
+On the thumbnail view, you can resize the grid to your needs just by clicking
+the middle mouse button and dragging around. On most systems you can emulate
+the middle mouse button by left and right clicking at the same time.
 </p>
 <p align="right">-- Tip contributed by Rafael Beccar</p>
 </html>
@@ -140,7 +140,7 @@ Stack</interface> from menu.</p>
 <p>When searching for new images, KPhotoAlbum can automatically put new versions
 of images into stacks by looking at their filenames. To configure this feature,
 choose <interface>Settings|Configure KPhotoalbum...</interface> and set appropriate
-values in the <interface>File Searching & Versions</interface> tab.</p>
+values in the <interface>File Searching &amp; Versions</interface> tab.</p>
 <p>
 <ul>
 <li>Enable the checkbox <interface>Try to detect multiple versions of files</interface></li>

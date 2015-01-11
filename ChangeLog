@@ -1,3 +1,9 @@
+* Enhancement: Allow incremental building of thumbnail cache.
+
+* UI: Add slider for resizing the thumbnail grid.
+
+* Enhancement: Show a message if the untagged tag feature is misconfigured.
+
 * Bugfix(#322514): Allow resizing of thumbnail grid without rebuilding the
   thumbnail cache.
 

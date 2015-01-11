@@ -31,6 +31,7 @@ typedef QList<Rational> RationalList;
 
 namespace Exif
 {
+class DatabaseElement;
 
 // ============================================================================
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
@@ -41,6 +42,7 @@ namespace Exif
 class Database {
 
 public:
+    typedef QList<DatabaseElement*> ElementList;
     typedef QPair<QString, QString> Camera;
     typedef QList<Camera> CameraList;
 
@@ -53,7 +55,8 @@ public:
     bool isUsable() const;
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
-    DB::FileNameSet filesMatchingQuery( const QString& query );
+    void readFields( const DB::FileName& fileName, ElementList &fields) const;
+    DB::FileNameSet filesMatchingQuery( const QString& query ) const;
     CameraList cameras() const;
     void recreate();
 

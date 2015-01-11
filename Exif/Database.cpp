@@ -39,11 +39,9 @@
 
 using namespace Exif;
 
-typedef QList<DatabaseElement*> DatabaseElementList;
-
-static const DatabaseElementList GpsElements()
+static const Database::ElementList GpsElements()
 {
-    static DatabaseElementList elms;
+    static Database::ElementList elms;
 
     if ( elms.count() == 0 ) {
         elms.append( new IntExifElement( "GPSInfo 	Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
@@ -61,9 +59,9 @@ static const DatabaseElementList GpsElements()
 
     return elms;
 }
-static const DatabaseElementList elements()
+static const Database::ElementList elements()
 {
-    static DatabaseElementList elms;
+    static Database::ElementList elms;
 
     if ( elms.count() == 0 ) {
         elms.append( new RationalExifElement( "Exif.Photo.FocalLength" ) );
@@ -149,8 +147,8 @@ void Exif::Database::populateDatabase()
 {
     createMetadataTable();
     QStringList attributes;
-    DatabaseElementList elms = elements();
-    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    Database::ElementList elms = elements();
+    for( Database::ElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         attributes.append( (*tagIt)->createString() );
     }
 
@@ -229,16 +227,18 @@ void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data 
         return;
 
     QStringList formalList;
-    DatabaseElementList elms = elements();
-    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
-        formalList.append( (*tagIt)->queryString() );
+    Database::ElementList elms = elements();
+    for( const DatabaseElement *e : elms )
+    {
+        formalList.append( e->queryString() );
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), m_db );
     query.bindValue(  0, filename.absolute() );
     int i = 1;
-    for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
-        (*tagIt)->bindValues( &query, i, data );
+    for( const DatabaseElement *e : elms )
+    {
+        e->bindValues( &query, i, data );
     }
 
     if ( !query.exec() )
@@ -287,7 +287,35 @@ QString Exif::Database::exifDBFile()
     return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
-DB::FileNameSet Exif::Database::filesMatchingQuery( const QString& queryStr )
+void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fields) const
+{
+    if ( !isUsable() )
+        return;
+
+    QStringList fieldList;
+    for( const DatabaseElement *e : fields )
+    {
+        fieldList.append( e->columnName() );
+    }
+
+    QSqlQuery query( m_db );
+    query.prepare( QString::fromLatin1( "select %1 from exif where filename = %2")
+                   .arg( fieldList.join( QString::fromLatin1(", ")))
+                   .arg( fileName.absolute() ));
+
+    if ( !query.exec() ) {
+        showError( query );
+    } else {
+        // write back results
+        QList<QVariant> resultList = query.boundValues().values();
+        for( DatabaseElement *e : fields )
+        {
+            e->setValue( resultList.takeFirst() );
+        }
+    }
+}
+
+DB::FileNameSet Exif::Database::filesMatchingQuery( const QString& queryStr ) const
 {
     if ( !isUsable() )
         return DB::FileNameSet();

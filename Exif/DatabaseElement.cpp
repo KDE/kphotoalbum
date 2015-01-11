@@ -26,11 +26,29 @@ static QString replaceDotWithUnderscore( const char* cstr )
     return str.replace( QString::fromLatin1( "." ), QString::fromLatin1( "_" ) );
 }
 
+Exif::DatabaseElement::DatabaseElement()
+    : m_value()
+{
+}
+
+QVariant Exif::DatabaseElement::value() const
+{
+    return m_value;
+}
+void Exif::DatabaseElement::setValue( QVariant val )
+{
+    m_value = val;
+}
+
 Exif::StringExifElement::StringExifElement( const char* tag )
     : m_tag( tag )
 {
 }
 
+QString Exif::StringExifElement::columnName() const
+{
+    return replaceDotWithUnderscore( m_tag );
+}
 
 QString Exif::StringExifElement::createString() const
 {
@@ -49,12 +67,21 @@ void Exif::StringExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2:
     query->bindValue( counter++, QLatin1String(data[m_tag].toString().c_str() ) );
 }
 
+void Exif::StringExifElement::bindValues(QSqlQuery* query , int& counter)
+{
+    query->bindValue( counter++, 0, QSql::Out );
+}
+
 
 Exif::IntExifElement::IntExifElement( const char* tag )
- : m_tag( tag )
+    : m_tag( tag )
 {
 }
 
+QString Exif::IntExifElement::columnName() const
+{
+    return replaceDotWithUnderscore( m_tag );
+}
 
 QString Exif::IntExifElement::createString() const
 {
@@ -76,12 +103,21 @@ void Exif::IntExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::Ex
         query->bindValue( counter++, (int) 0 );
 }
 
+void Exif::IntExifElement::bindValues(QSqlQuery* query , int& counter)
+{
+    query->bindValue( counter++, 0, QSql::Out );
+}
+
 
 Exif::RationalExifElement::RationalExifElement( const char* tag )
- : m_tag( tag )
+    : m_tag( tag )
 {
 }
 
+QString Exif::RationalExifElement::columnName() const
+{
+    return replaceDotWithUnderscore( m_tag );
+}
 
 QString Exif::RationalExifElement::createString() const
 {
@@ -97,6 +133,11 @@ QString Exif::RationalExifElement::queryString() const
 void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     query->bindValue( counter++, 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second);
+}
+
+void Exif::RationalExifElement::bindValues(QSqlQuery* query , int& counter)
+{
+    query->bindValue( counter++, 0, QSql::Out );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

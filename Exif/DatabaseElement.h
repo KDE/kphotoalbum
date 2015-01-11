@@ -19,6 +19,7 @@
 #define DATABASEELEMENT_H
 
 #include <qstring.h>
+#include <qvariant.h>
 namespace Exiv2
 {
     class ExifData;
@@ -31,18 +32,53 @@ class DatabaseElement
 {
 public:
     virtual ~DatabaseElement() {}
-    virtual QString createString() const = 0; // Exif_Photo_FNumber_denominator int, Exif_Photo_FNumber_nominator int
-    virtual QString queryString() const = 0; // ?, ?
-    virtual void bindValues( QSqlQuery*, int& counter, Exiv2::ExifData& data ) const = 0; // bind values
+    virtual QString columnName() const = 0;
+    /**
+     * @brief createString
+     * Create a string containing the field name and field data type.
+     * E.g.: "Exif_Photo_FNumber_denominator int", "Exif_Photo_FNumber_nominator int"
+     * @return a string suitable for usage in a create table query
+     */
+    virtual QString createString() const = 0;
+    /**
+     * @brief queryString
+     * @return a placeholder string ("?") for the column.
+     */
+    virtual QString queryString() const = 0;
+    /**
+     * @brief bindValues bind the ExifData value to the query.
+     * @param query the query that the value is bound to.
+     * @param the index of the parameter (will be auto-incremented).
+     * @param data
+     */
+    virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const = 0;
+    /**
+     * @brief bindValues bind a QSql::Out value to the query.
+     *
+     * @param query the query that the value is bound to.
+     */
+    virtual void bindValues( QSqlQuery* query, int& counter) = 0;
+    /**
+     * @brief value the bound value of the query bound with bindValues(QSqlQuery*)
+     * @return The bound value, or an empty QVariant if no bindValues was never called.
+     */
+    QVariant value() const;
+    void setValue( QVariant val );
+protected:
+    DatabaseElement();
+private:
+    QVariant m_value;
 };
 
 class StringExifElement :public DatabaseElement
 {
 public:
     explicit StringExifElement( const char* tag );
+    virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
+    virtual void bindValues( QSqlQuery* query, int& counter) override;
 
 private:
     const char* m_tag;
@@ -52,9 +88,11 @@ class IntExifElement :public DatabaseElement
 {
 public:
     explicit IntExifElement( const char* tag );
+    virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
+    virtual void bindValues( QSqlQuery* query, int& counter) override;
 
 private:
     const char* m_tag;
@@ -65,9 +103,11 @@ class RationalExifElement :public DatabaseElement
 {
 public:
     explicit RationalExifElement( const char* tag );
+    virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
     void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
+    virtual void bindValues( QSqlQuery* query, int& counter) override;
 
 private:
     const char* m_tag;

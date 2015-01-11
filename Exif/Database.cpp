@@ -41,7 +41,27 @@ using namespace Exif;
 
 typedef QList<DatabaseElement*> DatabaseElementList;
 
-static DatabaseElementList elements()
+static const DatabaseElementList GpsElements()
+{
+    static DatabaseElementList elms;
+
+    if ( elms.count() == 0 ) {
+        elms.append( new IntExifElement( "GPSInfo 	Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSAltitude" ) );
+        elms.append( new IntExifElement( "Exif.GPSInfo.GPSAltitudeRef" ) ); // actually a byte value
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSMeasureMode" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSDOP" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSImgDirection" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLatitude" ) );
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLatitudeRef" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLongitude" ) );
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLongitudeRef" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSTimeStamp" ) );
+    }
+
+    return elms;
+}
+static const DatabaseElementList elements()
 {
     static DatabaseElementList elms;
 
@@ -64,6 +84,7 @@ static DatabaseElementList elements()
 
         elms.append( new StringExifElement( "Exif.Image.Make" ) );
         elms.append( new StringExifElement( "Exif.Image.Model" ) );
+        elms.append( GpsElements() );
     }
 
     return elms;
@@ -126,6 +147,7 @@ bool Exif::Database::isOpen() const
 
 void Exif::Database::populateDatabase()
 {
+    createMetadataTable();
     QStringList attributes;
     DatabaseElementList elms = elements();
     for( DatabaseElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
@@ -134,6 +156,38 @@ void Exif::Database::populateDatabase()
 
     QSqlQuery query( QString::fromLatin1( "create table if not exists exif (filename string PRIMARY KEY, %1 )")
                      .arg( attributes.join( QString::fromLatin1(", ") ) ), m_db );
+    if ( !query.exec())
+        showError( query );
+}
+
+void Exif::Database::updateDatabase()
+{
+    // previous to KPA 4.6, there was no metadata table:
+    if ( !m_db.tables().contains( QString::fromLatin1("settings")) )
+    {
+        // on the next update, we can just query the DB Version
+        createMetadataTable();
+
+        // add GPS data
+        QSqlQuery query( m_db );
+        for( const DatabaseElement *e : GpsElements())
+        {
+            query.prepare( QString::fromLatin1( "alter table exif add column %1")
+                           .arg( e->createString()) );
+            if ( !query.exec())
+                showError( query );
+        }
+    }
+}
+
+void Exif::Database::createMetadataTable()
+{
+    QSqlQuery query(m_db);
+    query.prepare( QString::fromLatin1( "create table if not exists settings (keyword TEXT PRIMARY KEY, value TEXT) without rowid") );
+    if ( !query.exec())
+        showError( query );
+
+    query.prepare( QString::fromLatin1( "insert into settings (keyword, value) values('DBVersion','%1')").arg( Database::DBVersion()));
     if ( !query.exec())
         showError( query );
 }
@@ -217,6 +271,12 @@ bool Exif::Database::isAvailable()
 #endif
 }
 
+int Exif::Database::DBVersion()
+{
+    // schema version; bump it up whenever the database schema changes
+    return 2;
+}
+
 bool Exif::Database::isUsable() const
 {
     return (isAvailable() && isOpen());
@@ -287,6 +347,8 @@ void Exif::Database::init()
 
     if ( !dbExists )
         populateDatabase();
+    else
+        updateDatabase();
 }
 
 void Exif::Database::recreate()

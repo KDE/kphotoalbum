@@ -47,6 +47,7 @@ public:
     static Database* instance();
     static void deleteInstance();
     static bool isAvailable();
+    static int DBVersion();
 
     bool isOpen() const;
     bool isUsable() const;
@@ -60,6 +61,8 @@ protected:
     static QString exifDBFile();
     void openDatabase();
     void populateDatabase();
+    void updateDatabase();
+    void createMetadataTable();
     static QString connectionName();
     void insert( const DB::FileName& filename, Exiv2::ExifData );
 

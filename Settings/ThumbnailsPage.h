@@ -45,6 +45,7 @@ private:
     QCheckBox* m_displayCategories;
     QSpinBox* m_autoShowThumbnailView;
     KColorButton* m_backgroundColor;
+    QCheckBox* m_incrementalThumbnails;
 };
 
 }

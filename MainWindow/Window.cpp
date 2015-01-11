@@ -1723,6 +1723,13 @@ void MainWindow::Window::slotBuildThumbnails()
     ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartNow );
 }
 
+void MainWindow::Window::slotBuildThumbnailsIfWanted()
+{
+    ImageManager::ThumbnailCache::instance()->flush();
+    if ( ! Settings::SettingsData::instance()->incrementalThumbnails())
+         ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartDelayed );
+}
+
 void MainWindow::Window::slotOrderIncr()
 {
     m_thumbnailView->setSortDirection( ThumbnailView::OldestFirst );
@@ -1805,8 +1812,9 @@ void MainWindow::Window::createSarchBar()
 void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( m_statusBar, this );
-    ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    connect( Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), ImageManager::ThumbnailBuilder::instance(), SLOT(buildAll()) );
+    if ( ! Settings::SettingsData::instance()->incrementalThumbnails())
+         ImageManager::ThumbnailBuilder::instance()->buildMissing();
+    connect( Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(slotBuildThumbnailsIfWanted()) );
 
     if ( ! FeatureDialog::mplayerBinary().isNull() ) {
         BackgroundTaskManager::JobManager::instance()->addJob(

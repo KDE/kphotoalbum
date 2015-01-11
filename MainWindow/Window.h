@@ -120,6 +120,7 @@ protected slots:
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void slotBuildThumbnails();
+    void slotBuildThumbnailsIfWanted();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();
     void slotConfigureToolbars();

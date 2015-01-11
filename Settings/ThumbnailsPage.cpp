@@ -51,6 +51,11 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( m_thumbnailSize, row, 1 );
 
+    // incremental Thumbnail building
+    ++row;
+    m_incrementalThumbnails = new QCheckBox( i18n("Build thumbnails on demand" ) );
+    lay->addWidget( m_incrementalThumbnails, row, 0, 1, 2);
+
     // Thumbnail aspect ratio
     ++row;
     QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio") );
@@ -118,6 +123,15 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
     thumbnailSizeLabel->setWhatsThis( txt );
     m_thumbnailSize->setWhatsThis( txt );
 
+    txt = i18n( "<p>If this is set, thumbnails are built on demand. As you browse your image database, "
+                "only those thumbnails that are needed are actually built. "
+                "This means that when you change the thumbnail size, KPhotoAlbum will remain responsive "
+                "even if you have lots of images.</p>"
+                "<p>If this is not set, KPhotoAlbum will always build the thumbnails for all images as soon as possible. "
+                "This means that when new images are found, KPhotoAlbum will immediately build thumbnails "
+                "for them and you won't have a delay later while browsing.</p>");
+    m_incrementalThumbnails->setWhatsThis( txt );
+
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
     m_thumbnailAspectRatio->setWhatsThis( txt );
 
@@ -160,6 +174,7 @@ void Settings::ThumbnailsPage::loadSettings( Settings::SettingsData* opt )
     m_displayLabels->setChecked( opt->displayLabels() );
     m_displayCategories->setChecked( opt->displayCategories() );
     m_autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
+    m_incrementalThumbnails->setChecked( opt->incrementalThumbnails() );
 }
 
 void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
@@ -175,6 +190,7 @@ void Settings::ThumbnailsPage::saveSettings( Settings::SettingsData* opt )
     opt->setDisplayLabels( m_displayLabels->isChecked() );
     opt->setDisplayCategories( m_displayCategories->isChecked() );
     opt->setAutoShowThumbnailView( m_autoShowThumbnailView->value() );
+    opt->setIncrementalThumbnails( m_incrementalThumbnails->isChecked() );
 }
 
 

@@ -64,7 +64,8 @@ bool NewImageFinder::findImages()
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
     loadExtraFiles();
 
-    ImageManager::ThumbnailBuilder::instance()->buildMissing();
+    if ( !Settings::SettingsData::instance()->incrementalThumbnails() )
+         ImageManager::ThumbnailBuilder::instance()->buildMissing();
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
     if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {

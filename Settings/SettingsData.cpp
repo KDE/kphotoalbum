@@ -256,6 +256,7 @@ property_copy( minimumThumbnailSize    , setMinimumThumbnailSize   , int        
 property_copy( maximumThumbnailSize    , setMaximumThumbnailSize   , int                 , Thumbnails, 4096       )
 property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
+property_copy( incrementalThumbnails   , setIncrementalThumbnails  , bool                , Thumbnails, false      )
 
 // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
 getValueFunc_( int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 150)

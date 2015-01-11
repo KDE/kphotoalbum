@@ -259,7 +259,7 @@ do_backup()
 		echo "The RC-file ($KPARC) does not define an entry for index.xml!" >&2
 		exit 1
 	fi
-	if [ -f "$INDEXFILE" ]
+	if [ ! -f "$INDEXFILE" ]
 	then
 		echo "KPhotoAlbum index file does not exist!" >&2
 		exit 1

@@ -215,6 +215,7 @@ private:
     QPushButton *m_cancelMapLoadingButton;
     void mapLoadingFinished(bool mapHasImages, bool allImagesHaveCoordinates);
     bool m_cancelMapLoading;
+    bool m_mapIsPopulated;
 #endif
 };
 

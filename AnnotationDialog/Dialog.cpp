@@ -661,6 +661,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         m_setup = InputMultiImageConfigMode;
 
 #ifdef HAVE_KGEOMAP
+    m_mapIsPopulated = false;
     m_annotationMap->clear();
 #endif
     m_origList = list;
@@ -715,6 +716,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     ShowHideSearch(true);
 
 #ifdef HAVE_KGEOMAP
+    m_mapIsPopulated = false;
     m_annotationMap->clear();
 #endif
     m_setup = SearchMode;
@@ -1545,6 +1547,10 @@ void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
 
 void AnnotationDialog::Dialog::populateMap()
 {
+    // populateMap is called every time the map widget gets visible
+    if (m_mapIsPopulated) {
+        return;
+    }
     m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
     m_cancelMapLoading = false;
     m_mapLoadingProgress->setMaximum(m_editList.count());
@@ -1572,6 +1578,8 @@ void AnnotationDialog::Dialog::populateMap()
         }
     }
 
+    // at this point either we canceled loading or the map is populated:
+    m_mapIsPopulated = ! m_cancelMapLoading;
     mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);
 }
 

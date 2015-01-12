@@ -19,6 +19,7 @@
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
 #include <QVariant>
+#include <QDebug>
 
 static QString replaceDotWithUnderscore( const char* cstr )
 {
@@ -132,7 +133,36 @@ QString Exif::RationalExifElement::queryString() const
 
 void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
-    query->bindValue( counter++, 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second);
+    double value;
+    switch ( data[m_tag].count() )
+    {
+    case 0: // empty
+        value = -1.0;
+    case 1: // "normal" rational
+        value = 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second;
+        break;
+    case 3: // GPS lat/lon data:
+    {
+        value = 0.0;
+        double divisor = 1.0;
+        // hour / minute / second:
+        for (int i=0 ; i < 4 ; i++ )
+        {
+            double nom = data[m_tag].toRational(i).first;
+            double denom = data[m_tag].toRational(i).second;
+            if ( denom == 0 )
+                value += 0;
+            else
+                value += (nom / denom)/ divisor;
+            divisor *= 60.0;
+        }
+    }
+        break;
+    default:
+        qWarning() << "Exif rational data with " << data[m_tag].count() << " components is not handled, yet!";
+        value = -1.0;
+    }
+    query->bindValue( counter++, value);
 }
 
 void Exif::RationalExifElement::bindValues(QSqlQuery* query , int& counter)

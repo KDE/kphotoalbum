@@ -27,6 +27,7 @@
 #include "DB/MemberMap.h"
 #include <config-kpa-exiv2.h>
 #include "Exif/Database.h"
+#include "Exif/DatabaseElement.h"
 #include <kdebug.h>
 #include <Utilities/Set.h>
 #include <QFile>
@@ -728,114 +729,72 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
         return m_coordinates;
     }
 
-    const int EXIF_GPS_LATREF  = 0x0001;
-    const int EXIF_GPS_LAT     = 0x0002;
-    const int EXIF_GPS_LONGREF = 0x0003;
-    const int EXIF_GPS_LONG    = 0x0004;
-    const int EXIF_GPS_ALTREF  = 0x0005;
-    const int EXIF_GPS_ALT     = 0x0006;
+    static const int EXIF_GPS_LATREF  = 0x0001;
+    static const int EXIF_GPS_LAT     = 0x0002;
+    static const int EXIF_GPS_LONGREF = 0x0003;
+    static const int EXIF_GPS_LONG    = 0x0004;
+    static const int EXIF_GPS_ALTREF  = 0x0005;
+    static const int EXIF_GPS_ALT     = 0x0006;
 
-    const QString S = QString::fromUtf8("S");
-    const QString W = QString::fromUtf8("W");
+    static const QString S = QString::fromUtf8("S");
+    static const QString W = QString::fromUtf8("W");
 
     KGeoMap::GeoCoordinates coords;
 
-    try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(
-            QFile::encodeName(fileName().absolute()).data()
-        );
-        image->readMetadata();
+    static QList<Exif::DatabaseElement*> fields;
+    if (fields.isEmpty())
+    {
+        // the order here matters! we use the the named int constants afterwards to refer to them:
+        fields.append( new Exif::IntExifElement( "Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
+        fields.append( new Exif::StringExifElement( "Exif.GPSInfo.GPSLatitudeRef" ) );
+        fields.append( new Exif::RationalExifElement( "Exif.GPSInfo.GPSLatitude" ) );
+        fields.append( new Exif::StringExifElement( "Exif.GPSInfo.GPSLongitudeRef" ) );
+        fields.append( new Exif::RationalExifElement( "Exif.GPSInfo.GPSLongitude" ) );
+        fields.append( new Exif::IntExifElement( "Exif.GPSInfo.GPSAltitudeRef" ) ); // actually a byte value
+        fields.append( new Exif::RationalExifElement( "Exif.GPSInfo.GPSAltitude" ) );
+    }
 
-        Exiv2::ExifData exifData = image->exifData();
-        if (exifData.empty()) {
-            m_coordinatesFetched = true;
-            return coords;
+    // read field values from database:
+    Exif::Database::instance()->readFields( m_fileName, fields );
+
+    // if the Database query result doesn't contain exif GPS info (-> upgraded exifdb from DBVersion < 2), it is null
+    // if the result is int 0, then there's no exif information in the image
+    // otherwise we can proceed to parse the information
+    if ( fields[0]->value().isNull() )
+    {
+        // update exif DB and repeat the search:
+        Exif::Database::instance()->remove( fileName() );
+        Exif::Database::instance()->add( fileName() );
+
+        Exif::Database::instance()->readFields( m_fileName, fields );
+    }
+    if ( fields[0]->value().toInt() == 0 )
+    {
+        // no coordinates
+        m_coordinatesFetched = true;
+        return m_coordinates;
+    }
+
+    // lat/lon/alt reference determines sign of float:
+    double latr = (fields[EXIF_GPS_LATREF]->value().toString() == S ) ? -1.0 : 1.0;
+    double lat = fields[EXIF_GPS_LAT]->value().toFloat();
+    double lonr = (fields[EXIF_GPS_LONGREF]->value().toString() == W ) ? -1.0 : 1.0;
+    double lon = fields[EXIF_GPS_LONG]->value().toFloat();
+    double altr = (fields[EXIF_GPS_ALTREF]->value().toInt() == 1 ) ? -1.0 : 1.0;
+    double alt = fields[EXIF_GPS_ALT]->value().toFloat();
+
+    if (lat != -1.0 && lon != -1.0) {
+        coords.setLatLon(latr * lat, lonr * lon);
+        if (alt != 0.0f) {
+            coords.setAlt(altr * alt);
         }
-
-        double lat = -1.0;
-        double lon = -1.0;
-        double alt = 0.0;
-
-        // lat/lon/alt reference determines sign of float:
-        double latr = 1.0;
-        double lonr = 1.0;
-        double altr = 1.0;
-
-        // gather data:
-        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != exifData.end(); ++i) {
-            if (i->groupName() == "GPSInfo") {
-                switch (i->tag()) {
-                case EXIF_GPS_LATREF:
-                    if (QString::fromUtf8(i->toString().c_str()) == S) {
-                        latr = -1.0;
-                    }
-                    break;
-                case EXIF_GPS_LAT:
-                    lat = calculateCoordinate(i);
-                    break;
-                case EXIF_GPS_LONGREF:
-                    if (QString::fromUtf8(i->toString().c_str()) == W) {
-                        lonr = -1.0;
-                    }
-                    break;
-                case EXIF_GPS_LONG:
-                    lon = calculateCoordinate(i);
-                    break;
-                case EXIF_GPS_ALTREF:
-                    if (i->toLong() == 1) {
-                        altr = -1.0;
-                    }
-                    break;
-                case EXIF_GPS_ALT:
-                    alt = i->toFloat();
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-
-        // If calculateCoordinate returns -1.0, there's something wrong
-        // with the metadata and we don't have a valid coordinate pair
-        if (lat != -1.0 and lon != -1.0) {
-            coords.setLatLon(latr * lat, lonr * lon);
-            if (alt != 0.0f) {
-                coords.setAlt(altr * alt);
-            }
-        }
-    } catch (Exiv2::AnyError &e) {
-        qWarning() << e.what();
+        m_coordinates = coords;
     }
 
     m_coordinatesFetched = true;
-    m_coordinates = coords;
-    return coords;
+    return m_coordinates;
 }
 
-double DB::ImageInfo::calculateCoordinate(Exiv2::ExifData::const_iterator &data) const
-{
-    if (data->count() != 3) {
-        // Something is wrong, the coordinate has to have three parts
-        // Return -1.0 here to indicate the error (the coordinate will normally be positive)
-        return -1.0;
-    }
-
-    double num;
-    double den;
-    QList<double> coordinateParts;
-
-    for (int i = 0; i < 3; ++i) {
-        num = data->toRational(i).first;
-        den = data->toRational(i).second;
-        if (den == 0) {
-            coordinateParts << 0.0;
-        } else {
-            coordinateParts << num / den;
-        }
-    }
-
-    return coordinateParts[0] + (coordinateParts[1] / 60.0) + (coordinateParts[2] / 3600.0);
-}
 #endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

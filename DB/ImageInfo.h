@@ -113,6 +113,7 @@ public:
     unsigned int stackOrder() const;
     void setStackOrder( const unsigned int stackOrder );
 
+    // FIXME: merge this with the new coordinates() method
     const GpsCoordinates& geoPosition() const;
     void setGeoPosition(const GpsCoordinates& geoPosition);
 

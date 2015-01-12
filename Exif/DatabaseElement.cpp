@@ -134,12 +134,13 @@ QString Exif::RationalExifElement::queryString() const
 void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     double value;
-    switch ( data[m_tag].count() )
+    Exiv2::Exifdatum &tagDatum = data[m_tag];
+    switch ( tagDatum.count() )
     {
     case 0: // empty
         value = -1.0;
     case 1: // "normal" rational
-        value = 1.0 * data[m_tag].toRational().first / data[m_tag].toRational().second;
+        value = 1.0 * tagDatum.toRational().first / tagDatum.toRational().second;
         break;
     case 3: // GPS lat/lon data:
     {
@@ -148,8 +149,8 @@ void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv
         // hour / minute / second:
         for (int i=0 ; i < 4 ; i++ )
         {
-            double nom = data[m_tag].toRational(i).first;
-            double denom = data[m_tag].toRational(i).second;
+            double nom = tagDatum.toRational(i).first;
+            double denom = tagDatum.toRational(i).second;
             if ( denom == 0 )
                 value += 0;
             else
@@ -163,7 +164,7 @@ void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv
         // whitepoints -> 2 components
         // YCbCrCoefficients -> 3 components (Coefficients for transformation from RGB to YCbCr image data. )
         // chromaticities -> 6 components
-        qWarning() << "Exif rational data with " << data[m_tag].count() << " components is not handled, yet!";
+        qWarning() << "Exif rational data with " << tagDatum.count() << " components is not handled, yet!";
         value = -1.0;
     }
     query->bindValue( counter++, value);

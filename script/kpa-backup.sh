@@ -97,6 +97,7 @@ sqlite_diff()
 	if ! "$SQLITE" -version >/dev/null
 	then
 		echo "Warning: sqlite not found." >&2
+		diff -q -s "$1" "$2"
 	else
 		local tmp=`mktemp`
 		local srctmp=`mktemp`
@@ -116,12 +117,12 @@ sqlite_diff()
 		"$SQLITE" "$dst" "$query" > "$dsttmp"
 
 		diff -u --label "$1" --label "$2" "$srctmp" "$dsttmp"
+		local retval=$?
 
 		# cleanup
 		rm "$tmp" "$srctmp" "$dsttmp"
+		return $retval
 	fi
-	# ensure the correct return value:
-	diff -q -s "$1" "$2"
 }
 
 exif_diff()

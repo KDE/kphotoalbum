@@ -306,14 +306,17 @@ void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fiel
                    .arg( fieldList.join( QString::fromLatin1(", "))) );
     query.bindValue( 0, fileName.absolute() );
 
-    if ( !query.exec() || !query.next() ) {
+    if ( !query.exec() ) {
         showError( query );
     } else {
-        // write back results
-        int i=0;
-        for( DatabaseElement *e : fields )
+        if ( query.next() )
         {
-            e->setValue( query.value(i++) );
+            // file in exif db -> write back results
+            int i=0;
+            for( DatabaseElement *e : fields )
+            {
+                e->setValue( query.value(i++) );
+            }
         }
     }
 }

@@ -299,18 +299,19 @@ void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fiel
     }
 
     QSqlQuery query( m_db );
-    query.prepare( QString::fromLatin1( "select %1 from exif where filename = %2")
-                   .arg( fieldList.join( QString::fromLatin1(", ")))
-                   .arg( fileName.absolute() ));
+    query.setForwardOnly( true );
+    query.prepare( QString::fromLatin1( "select %1 from exif where filename=?")
+                   .arg( fieldList.join( QString::fromLatin1(", "))) );
+    query.bindValue( 0, fileName.absolute() );
 
-    if ( !query.exec() ) {
+    if ( !query.exec() || !query.next() ) {
         showError( query );
     } else {
         // write back results
-        QList<QVariant> resultList = query.boundValues().values();
+        int i=0;
         for( DatabaseElement *e : fields )
         {
-            e->setValue( resultList.takeFirst() );
+            e->setValue( query.value(i++) );
         }
     }
 }

@@ -299,7 +299,9 @@ void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fiel
     }
 
     QSqlQuery query( m_db );
+    // the query returns a single value, so we don't need the overhead for random access:
     query.setForwardOnly( true );
+
     query.prepare( QString::fromLatin1( "select %1 from exif where filename=?")
                    .arg( fieldList.join( QString::fromLatin1(", "))) );
     query.bindValue( 0, fileName.absolute() );

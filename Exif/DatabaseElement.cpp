@@ -159,6 +159,10 @@ void Exif::RationalExifElement::bindValues( QSqlQuery* query, int& counter, Exiv
     }
         break;
     default:
+        // FIXME: there are at least the following other rational types:
+        // whitepoints -> 2 components
+        // YCbCrCoefficients -> 3 components (Coefficients for transformation from RGB to YCbCr image data. )
+        // chromaticities -> 6 components
         qWarning() << "Exif rational data with " << data[m_tag].count() << " components is not handled, yet!";
         value = -1.0;
     }

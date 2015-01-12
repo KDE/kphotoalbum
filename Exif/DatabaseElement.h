@@ -99,6 +99,14 @@ private:
 };
 
 
+/**
+ * @brief The RationalExifElement class
+ * This has support for the exif rational type.
+ *
+ * Currently, only simple (one component) rationals and
+ * the 3-component rationals used for GPS data (hour-minute-second)
+ * are supported.
+ */
 class RationalExifElement :public DatabaseElement
 {
 public:

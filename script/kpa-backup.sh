@@ -186,7 +186,7 @@ visual_diff()
 				diff -u -F '^    <.*' "$src" "$dst"
 				;;
 			kphotoalbumui.rc)
-				diff -u -F '^\ *<\(Menu\|ToolBar\).*' "$src" "$dst"
+				diff -u --ignore-space-change -F '^\ *<\(Menu\|ToolBar\).*' "$src" "$dst"
 				;;
 			kphotoalbumrc)
 				diff -u -F '^\[.*\]' "$src" "$dst"

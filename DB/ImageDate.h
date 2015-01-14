@@ -46,6 +46,7 @@ public:
 
     bool isValid() const { return !isNull(); }
     bool isNull() const;
+    bool isFuzzy() const;
     QString toString( bool withTime = true ) const;
     bool hasValidTime() const;
 

@@ -50,6 +50,11 @@ bool ImageDate::isNull() const
     return m_start.isNull();
 }
 
+bool ImageDate::isFuzzy() const
+{
+    return m_start != m_end;
+}
+
 static bool isFirstSecOfMonth( const QDateTime& date )
 {
     return date.date().day() == 1 && date.time().hour() == 0 && date.time().minute() == 0;

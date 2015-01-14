@@ -25,6 +25,7 @@
 #include <kimageio.h>
 #include <libkipi/imagecollection.h>
 #include "Browser/BrowserWidget.h"
+#include "Browser/TreeCategoryModel.h"
 #include "ImageManager/RawImageDecoder.h"
 #include "MainWindow/Window.h"
 #include "Plugins/CategoryImageCollection.h"
@@ -33,6 +34,7 @@
 #include "Plugins/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
+#include "DB/CategoryCollection.h"
 #include "UploadWidget.h"
 #include "Utilities/Util.h"
 namespace KIPI { class UploadWidget; }
@@ -94,6 +96,15 @@ int Plugins::Interface::features() const
         KIPI::ImagesHasTitlesWritable |
         KIPI::HostSupportsTags |
         KIPI::HostSupportsRating;
+}
+
+QAbstractItemModel * Plugins::Interface::getTagTree() const
+{
+    // this seems only really be used by the geolocation plugin:
+    DB::ImageSearchInfo matchAll;
+    return new Browser::TreeCategoryModel( DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromUtf8( "Places" ) )
+                                           , matchAll
+                                           );
 }
 
 QVariant Plugins::Interface::hostSetting( const QString& settingName )

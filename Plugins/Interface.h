@@ -50,6 +50,7 @@ public:
     virtual void delImage( const KUrl& ) override;
     virtual void refreshImages( const KUrl::List& urls ) override;
     virtual int features() const override;
+    virtual QAbstractItemModel * getTagTree() const override;
     virtual QVariant hostSetting( const QString& settingName ) override;
     virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
     virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;

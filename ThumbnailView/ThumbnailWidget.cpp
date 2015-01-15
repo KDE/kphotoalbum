@@ -56,6 +56,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
      m_isSettingDate(false),
      m_gridResizeInteraction( factory ),
      m_wheelResizing( false ),
+     m_externallyResizing( false ),
      m_selectionInteraction( factory ),
      m_mouseTrackingHandler( factory ),
      m_mouseHandler( &m_mouseTrackingHandler ),

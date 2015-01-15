@@ -158,7 +158,7 @@ public:
     static bool imageOnDisk( const DB::FileName& fileName );
 
     const MD5& MD5Sum() const { return m_md5sum; }
-    void setMD5Sum( const MD5& sum ) { if (sum != m_md5sum) m_dirty = true; m_md5sum = sum; saveChangesIfNotDelayed(); }
+    void setMD5Sum( const MD5& sum );
 
     void setLocked( bool );
     bool isLocked() const;
@@ -244,7 +244,6 @@ private:
     // m_coordinates are cached; therefore we allow to update them even if the object is const:
     mutable KGeoMap::GeoCoordinates m_coordinates;
     mutable bool m_coordinatesFetched = false;
-    double calculateCoordinate(Exiv2::ExifData::const_iterator &data) const;
 #endif
 };
 

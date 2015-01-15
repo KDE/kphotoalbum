@@ -389,6 +389,37 @@ void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
     saveChangesIfNotDelayed();
 }
 
+void ImageInfo::setMD5Sum( const MD5& sum )
+{
+    if (sum != m_md5sum)
+    {
+        // if we make a QObject derived class out of imageinfo, we might invalidate thumbnails from here
+
+        // file changed -> reload/invalidate metadata:
+        ExifMode mode = EXIFMODE_ORIENTATION | EXIFMODE_DATABASE_UPDATE;
+        // fuzzy dates are usually set for a reason
+        if (!m_date.isFuzzy())
+            mode |= EXIFMODE_DATE;
+        // FIXME (ZaJ): the "right" thing to do would be to update the description
+        //              - if it is currently empty (done.)
+        //              - if it has been set from the exif info and not been changed (TODO)
+        if (m_description.isEmpty())
+            mode |= EXIFMODE_DESCRIPTION;
+
+        readExif( fileName(), mode);
+
+        // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want
+        //              to make sure I fully understand everything first...
+        //              this could also be done as signal md5Changed(old,new)
+
+        // image size is invalidated by the thumbnail builder, if needed
+
+        m_dirty = true;
+    }
+    m_md5sum = sum;
+    saveChangesIfNotDelayed();
+}
+
 void ImageInfo::setLocked( bool locked )
 {
     m_locked = locked;
@@ -446,6 +477,10 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( fullPath );
         Exif::Database::instance()->add( fullPath );
+#ifdef HAVE_KGEOMAP
+        // make sure these are re-fetched:
+        m_coordinatesFetched = false;
+#endif
 #endif
     }
 }

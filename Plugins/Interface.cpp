@@ -23,10 +23,12 @@
 #include <QList>
 #include <klocale.h>
 #include <kimageio.h>
+#include <KIO/PreviewJob>
 #include <libkipi/imagecollection.h>
 #include "Browser/BrowserWidget.h"
 #include "Browser/TreeCategoryModel.h"
 #include "ImageManager/RawImageDecoder.h"
+#include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/Window.h"
 #include "Plugins/CategoryImageCollection.h"
 #include "Plugins/ImageCollection.h"
@@ -95,6 +97,7 @@ int Plugins::Interface::features() const
         KIPI::HostAcceptNewImages |
         KIPI::ImagesHasTitlesWritable |
         KIPI::HostSupportsTags |
+        KIPI::HostSupportsThumbnails |
         KIPI::HostSupportsRating;
 }
 
@@ -193,6 +196,46 @@ KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidg
 KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget* parent)
 {
     return new Plugins::UploadWidget(parent);
+}
+
+void Plugins::Interface::thumbnail(const KUrl &url, int size)
+{
+    DB::FileName file = DB::FileName::fromAbsolutePath( url.path() );
+    if (size <= Settings::SettingsData::instance()->thumbnailSize()
+            && ImageManager::ThumbnailCache::instance()->contains(file))
+    {
+        // look up in the cache
+        QPixmap thumb = ImageManager::ThumbnailCache::instance()->lookup( file );
+        emit gotThumbnail( url, thumb);
+    } else {
+        // for bigger thumbnails, fall back to previewJob:
+        KFileItem f = KFileItem(KFileItem::Unknown, KFileItem::Unknown, url, true);
+        KFileItemList fl;
+        fl.append(f);
+        KIO::PreviewJob *job = KIO::filePreview( fl, QSize(size,size));
+
+        connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)),
+                this, SLOT(gotKDEPreview(KFileItem,QPixmap)));
+
+        connect(job, SIGNAL(failed(KFileItem)),
+                this, SLOT(failedKDEPreview(KFileItem)));
+    }
+}
+
+void Plugins::Interface::thumbnails(const KUrl::List &list, int size)
+{
+    for (const KUrl url : list)
+       thumbnail( url, size );
+}
+
+void Plugins::Interface::gotKDEPreview(const KFileItem& item, const QPixmap& pix)
+{
+    emit gotThumbnail(item.url(), pix);
+}
+
+void Plugins::Interface::failedKDEPreview(const KFileItem& item)
+{
+    emit gotThumbnail(item.url(), QPixmap());
 }
 
 #include "Interface.moc"

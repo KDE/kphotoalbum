@@ -29,6 +29,9 @@
 #include <kurl.h>
 #include <kdemacros.h>
 
+class QPixmap;
+class KFileItem;
+
 namespace Browser {
 class BreadcrumbList;
 }
@@ -55,9 +58,16 @@ public:
     virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
     virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
 
+    virtual void thumbnail(const KUrl &url, int size) override;
+    virtual void thumbnails(const KUrl::List &list, int size) override;
+
 public slots:
     void slotSelectionChanged( bool );
     void pathChanged( const Browser::BreadcrumbList& path );
+
+private slots:
+    void gotKDEPreview(const KFileItem& item, const QPixmap& pix);
+    void failedKDEPreview(const KFileItem& item);
 
 signals:
     void imagesChanged( const KUrl::List& );

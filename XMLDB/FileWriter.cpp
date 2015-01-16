@@ -290,14 +290,6 @@ void XMLDB::FileWriter::save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& 
         writer.writeAttribute( QString::fromLatin1("stackOrder"), QString::number(info->stackOrder()));
     }
 
-    const DB::GpsCoordinates& geoPos = info->geoPosition();
-    if ( !geoPos.isNull() ) {
-        writer.writeAttribute( QLatin1String("gpsPrec"), QString::number(geoPos.precision()));
-        writer.writeAttribute( QLatin1String("gpsLon"), QString::number(geoPos.longitude()));
-        writer.writeAttribute( QLatin1String("gpsLat"), QString::number(geoPos.latitude()));
-        writer.writeAttribute( QLatin1String("gpsAlt"), QString::number(geoPos.altitude()));
-    }
-
     if ( info->isVideo() )
         writer.writeAttribute( QLatin1String("videoLength"), QString::number(info->videoLength()));
 

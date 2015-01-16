@@ -622,18 +622,6 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date,
                                              angle, md5sum, size, mediaType, rating, stackId, stackOrder );
 
-    static QString _defaultPrecision_ = QString::number(DB::GpsCoordinates::PrecisionDataForNull);
-    int gpsPrecision = reader->attribute(
-                _gpsPrec_,
-                _defaultPrecision_).toInt();
-    if ( gpsPrecision != DB::GpsCoordinates::PrecisionDataForNull )
-        info->setGeoPosition(
-                    DB::GpsCoordinates(
-                        reader->attribute( _gpsLon_ ).toDouble(),
-                        reader->attribute( _gpsLat_ ).toDouble(),
-                        reader->attribute( _gpsAlt_ ).toDouble(),
-                        gpsPrecision));
-
     if ( reader->hasAttribute(_videoLength_))
         info->setVideoLength(reader->attribute(_videoLength_).toInt());
 

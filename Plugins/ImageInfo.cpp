@@ -116,16 +116,15 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     //res.insert(QString::fromLatin1("colorlabel"), xxx );
     //res.insert(QString::fromLatin1("picklabel"), xxx );
 
-    DB::GpsCoordinates position = m_info->geoPosition();
-    if (!position.isNull()) {
-        res.insert(QString::fromLatin1("longitude"), QVariant(position.longitude()));
-        res.insert(QString::fromLatin1("latitude"), QVariant(position.latitude()));
-        res.insert(QString::fromLatin1("altitude"), QVariant(position.altitude()));
-        if (position.precision() != DB::GpsCoordinates::NoPrecisionData) {
-            // XXX: attribute not mentioned in libkipi/imageinfo.h -> is this supported?
-            res.insert(QString::fromLatin1("positionPrecision"), QVariant(position.precision()));
-        }
+#if HAVE_KGEOMAP
+    KGeoMap::GeoCoordinates position = m_info->coordinates();
+    if (position.hasCoordinates()) {
+        res.insert(QString::fromLatin1("longitude"), QVariant(position.lon()));
+        res.insert(QString::fromLatin1("latitude"), QVariant(position.lat()));
+        if (position.hasAltitude())
+           res.insert(QString::fromLatin1("altitude"), QVariant(position.alt()));
     }
+#endif
 
     // Flickr plug-in expects the item tags, so we better give them.
     QString text;
@@ -236,33 +235,6 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
             m_info->setRating( map[QLatin1String("rating")].toInt() );
             map.remove(QLatin1String("rating"));
         }
-        // I don't know whether we should loosen the warning on this one:
-        // after all, a Plugin might update one component of the gps data only...
-        if (map.contains(QLatin1String("longitude")) ||
-                map.contains(QLatin1String("latitude")) ||
-                map.contains(QLatin1String("altitude")) ||
-                map.contains(QLatin1String("positionPrecision"))) {
-            if (map.contains(QLatin1String("longitude")) && map.contains(QLatin1String("latitude"))) {
-                double altitude = 0;
-                QVariant var = map[QLatin1String("altitude")];
-                if (!var.isNull()) {
-                    altitude = var.toDouble();
-                }
-                int precision = DB::GpsCoordinates::NoPrecisionData;
-                var = map[QLatin1String("positionPrecision")];
-                if (!var.isNull()) {
-                    precision = var.toInt();
-                }
-                DB::GpsCoordinates coord(map[QLatin1String("longitude")].toDouble(), map[QLatin1String("latitude")].toDouble(), altitude, precision);
-                m_info->setGeoPosition(coord);
-            } else {
-                qWarning("Geo coordinates incomplete. Need at least 'longitude' and 'latitude', optionally 'altitude' and 'positionPrecision'");
-            }
-            map.remove(QLatin1String("longitude"));
-            map.remove(QLatin1String("latitude"));
-            map.remove(QLatin1String("altitude"));
-            map.remove(QLatin1String("positionPrecision"));
-        }
         if ( map.contains(QLatin1String("tagspath")) )
         {
             const QStringList tagspaths = map[QLatin1String("tagspath")].toStringList();
@@ -330,6 +302,9 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
         map.remove(QLatin1String("isexactdate"));
         map.remove(QLatin1String("keywords"));
         map.remove(QLatin1String("tags"));
+        map.remove(QLatin1String("altitude"));
+        map.remove(QLatin1String("longitude"));
+        map.remove(QLatin1String("latitude"));
 
         // colorlabel
         // picklabel
@@ -373,18 +348,13 @@ void Plugins::ImageInfo::delAttributes( const QStringList& attrs)
         // (colorlabel)
         // (picklabel)
         // copyrights
+        // not supported: gpslocation
         if ( delAttrs.contains(QLatin1String("tags")) ||
                 delAttrs.contains(QLatin1String("tagspath")))
         {
             m_info->clearAllCategoryInfo();
             delAttrs.removeAll(QLatin1String("tags"));
             delAttrs.removeAll(QLatin1String("tagspath"));
-        }
-        if ( delAttrs.contains(QLatin1String("gpslocation")) )
-        {
-            //clear position:
-            m_info->setGeoPosition(DB::GpsCoordinates());
-            delAttrs.removeAll(QLatin1String("gpslocation"));
         }
         MainWindow::DirtyIndicator::markDirty();
         if ( ! delAttrs.isEmpty() )

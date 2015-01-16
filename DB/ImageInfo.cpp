@@ -35,17 +35,17 @@
 
 using namespace DB;
 
-ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0),
-    m_geoPosition(), m_videoLength(-1),
-    m_locked( false ), m_dirty( false ), m_delaySaving( false )
+ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0)
+    , m_videoLength(-1)
+    , m_locked( false ), m_dirty( false ), m_delaySaving( false )
 {
 }
 
 ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo )
-    :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type ),
-      m_rating(-1), m_stackId(0), m_stackOrder(0),
-      m_geoPosition(), m_videoLength(-1),
-      m_locked(false), m_delaySaving( true )
+    :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type )
+      , m_rating(-1), m_stackId(0), m_stackOrder(0)
+      , m_videoLength(-1)
+      , m_locked(false), m_delaySaving( true )
 {
     QFileInfo fi( fileName.absolute() );
     m_label = fi.completeBaseName();
@@ -305,19 +305,6 @@ void ImageInfo::setStackOrder( const unsigned int stackOrder )
     saveChangesIfNotDelayed();
 }
 
-const GpsCoordinates& ImageInfo::geoPosition() const
-{
-    return m_geoPosition;
-}
-
-void ImageInfo::setGeoPosition( const GpsCoordinates& geoPosition )
-{
-    if ( geoPosition != m_geoPosition )
-        m_dirty = true;
-    m_geoPosition = geoPosition;
-    saveChangesIfNotDelayed();
-}
-
 void ImageInfo::setVideoLength(int length)
 {
     if ( m_videoLength != length )
@@ -362,7 +349,6 @@ bool ImageInfo::operator==( const ImageInfo& other ) const
           ( !m_description.isEmpty() && !other.m_description.isEmpty() && m_description != other.m_description ) || // one might be isNull.
           m_date != other.m_date ||
           m_angle != other.m_angle ||
-          m_geoPosition != other.m_geoPosition ||
           m_rating != other.m_rating ||
           ( m_stackId != other.m_stackId ||
             ! ( ( m_stackId == 0 ) ? true :
@@ -519,8 +505,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
                       MediaType type,
                       short rating,
                       unsigned int stackId,
-                      unsigned int stackOrder,
-                      const GpsCoordinates& geoPosition )
+                      unsigned int stackOrder )
 {
     m_delaySaving = true;
     m_fileName = fileName;
@@ -542,7 +527,6 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
     if ( rating < -1 )
         rating = -1;
     m_rating = rating;
-    m_geoPosition = geoPosition;
     m_stackId = stackId;
     m_stackOrder = stackOrder;
     m_videoLength= -1;
@@ -570,7 +554,6 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     m_rating = other.m_rating;
     m_stackId = other.m_stackId;
     m_stackOrder = other.m_stackOrder;
-    m_geoPosition = other.m_geoPosition;
     m_videoLength = other.m_videoLength;
     delaySavingChanges(false);
 
@@ -619,7 +602,6 @@ void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from, bool copyAngle)
     if (copyAngle)
         m_angle = from.m_angle;
     m_rating = from.m_rating;
-    m_geoPosition = from.m_geoPosition;
 }
 
 void DB::ImageInfo::removeExtraData ()
@@ -627,7 +609,6 @@ void DB::ImageInfo::removeExtraData ()
     m_categoryInfomation.clear();
     m_description.clear();
     m_rating = -1;
-    m_geoPosition = GpsCoordinates();
 }
 
 void ImageInfo::merge(const ImageInfo &other)

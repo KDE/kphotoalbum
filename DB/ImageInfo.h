@@ -22,7 +22,6 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qmap.h>
-#include "GpsCoordinates.h"
 #include "ImageDate.h"
 #include "Utilities/Set.h"
 #include "MD5.h"
@@ -80,8 +79,7 @@ public:
                MediaType type,
                short rating = -1,
                StackID stackId = 0,
-               unsigned int stackOrder = 0,
-               const GpsCoordinates& geoPosition=GpsCoordinates() );
+               unsigned int stackOrder = 0 );
     virtual ~ImageInfo() { saveChanges(); }
 
     // TODO: this should have a method to access the ID.
@@ -112,10 +110,6 @@ public:
 
     unsigned int stackOrder() const;
     void setStackOrder( const unsigned int stackOrder );
-
-    // FIXME: merge this with the new coordinates() method
-    const GpsCoordinates& geoPosition() const;
-    void setGeoPosition(const GpsCoordinates& geoPosition);
 
     void setVideoLength(int seconds);
     int videoLength() const;
@@ -229,7 +223,6 @@ private:
     short m_rating;
     StackID m_stackId;
     unsigned int m_stackOrder;
-    GpsCoordinates m_geoPosition;
     int m_videoLength;
 
     // Cache information

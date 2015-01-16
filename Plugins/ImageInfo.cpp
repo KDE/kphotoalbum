@@ -338,13 +338,17 @@ void Plugins::ImageInfo::delAttributes( const QStringList& attrs)
             delAttrs.removeAll(QLatin1String("orientation"));
             delAttrs.removeAll(QLatin1String("angle"));
         }
+        if ( delAttrs.contains(QLatin1String("rating")))
+        {
+            m_info->setRating( -1 );
+            delAttrs.removeAll(QLatin1String("rating"));
+        }
         if ( delAttrs.contains(QLatin1String("title")))
         {
             m_info->setLabel( QString() );
             delAttrs.removeAll(QLatin1String("title"));
         }
         // TODO:
-        // rating
         // (colorlabel)
         // (picklabel)
         // copyrights

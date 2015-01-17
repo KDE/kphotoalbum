@@ -463,10 +463,6 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 #ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( fullPath );
         Exif::Database::instance()->add( fullPath );
-#ifdef HAVE_KGEOMAP
-        // make sure these are re-fetched:
-        m_coordinatesFetched = false;
-#endif
 #endif
     }
 }
@@ -741,21 +737,16 @@ QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
 #ifdef HAVE_KGEOMAP
 KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 {
-    if (m_coordinatesFetched) {
-        return m_coordinates;
-    }
-
-    static const int EXIF_GPS_LATREF  = 0x0001;
-    static const int EXIF_GPS_LAT     = 0x0002;
-    static const int EXIF_GPS_LONGREF = 0x0003;
-    static const int EXIF_GPS_LONG    = 0x0004;
-    static const int EXIF_GPS_ALTREF  = 0x0005;
-    static const int EXIF_GPS_ALT     = 0x0006;
+    static const int EXIF_GPS_VERSIONID = 0;
+    static const int EXIF_GPS_LATREF    = 1;
+    static const int EXIF_GPS_LAT       = 2;
+    static const int EXIF_GPS_LONGREF   = 3;
+    static const int EXIF_GPS_LONG      = 4;
+    static const int EXIF_GPS_ALTREF    = 5;
+    static const int EXIF_GPS_ALT       = 6;
 
     static const QString S = QString::fromUtf8("S");
     static const QString W = QString::fromUtf8("W");
-
-    KGeoMap::GeoCoordinates coords;
 
     static QList<Exif::DatabaseElement*> fields;
     if (fields.isEmpty())
@@ -774,41 +765,39 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
     Exif::Database::instance()->readFields( m_fileName, fields );
 
     // if the Database query result doesn't contain exif GPS info (-> upgraded exifdb from DBVersion < 2), it is null
-    // if the result is int 0, then there's no exif information in the image
+    // if the result is int 0, then there's no exif gps information in the image
     // otherwise we can proceed to parse the information
-    if ( fields[0]->value().isNull() )
+    if ( fields[EXIF_GPS_VERSIONID]->value().isNull() )
     {
         // update exif DB and repeat the search:
         Exif::Database::instance()->remove( fileName() );
         Exif::Database::instance()->add( fileName() );
 
         Exif::Database::instance()->readFields( m_fileName, fields );
+        Q_ASSERT( !fields[EXIF_GPS_VERSIONID]->value().isNull() );
     }
-    if ( fields[0]->value().toInt() == 0 )
+
+    KGeoMap::GeoCoordinates coords;
+
+    // GPSVersionID set?
+    if ( fields[EXIF_GPS_VERSIONID]->value().toInt() != 0 )
     {
-        // no coordinates
-        m_coordinatesFetched = true;
-        return m_coordinates;
-    }
+        // lat/lon/alt reference determines sign of float:
+        double latr = (fields[EXIF_GPS_LATREF]->value().toString() == S ) ? -1.0 : 1.0;
+        double lat = fields[EXIF_GPS_LAT]->value().toFloat();
+        double lonr = (fields[EXIF_GPS_LONGREF]->value().toString() == W ) ? -1.0 : 1.0;
+        double lon = fields[EXIF_GPS_LONG]->value().toFloat();
+        double altr = (fields[EXIF_GPS_ALTREF]->value().toInt() == 1 ) ? -1.0 : 1.0;
+        double alt = fields[EXIF_GPS_ALT]->value().toFloat();
 
-    // lat/lon/alt reference determines sign of float:
-    double latr = (fields[EXIF_GPS_LATREF]->value().toString() == S ) ? -1.0 : 1.0;
-    double lat = fields[EXIF_GPS_LAT]->value().toFloat();
-    double lonr = (fields[EXIF_GPS_LONGREF]->value().toString() == W ) ? -1.0 : 1.0;
-    double lon = fields[EXIF_GPS_LONG]->value().toFloat();
-    double altr = (fields[EXIF_GPS_ALTREF]->value().toInt() == 1 ) ? -1.0 : 1.0;
-    double alt = fields[EXIF_GPS_ALT]->value().toFloat();
-
-    if (lat != -1.0 && lon != -1.0) {
-        coords.setLatLon(latr * lat, lonr * lon);
-        if (alt != 0.0f) {
-            coords.setAlt(altr * alt);
+        if (lat != -1.0 && lon != -1.0) {
+            coords.setLatLon(latr * lat, lonr * lon);
+            if (alt != 0.0f) {
+                coords.setAlt(altr * alt);
+            }
         }
-        m_coordinates = coords;
     }
-
-    m_coordinatesFetched = true;
-    return m_coordinates;
+    return coords;
 }
 
 #endif

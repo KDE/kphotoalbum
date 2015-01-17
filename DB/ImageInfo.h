@@ -34,7 +34,6 @@
 #include "config-kpa-kgeomap.h"
 #ifdef HAVE_KGEOMAP
 #include <libkgeomap/geocoordinates.h>
-#include <exiv2/image.hpp>
 #endif
 
 namespace Plugins
@@ -232,12 +231,6 @@ private:
     bool m_dirty;
 
     bool m_delaySaving;
-
-#ifdef HAVE_KGEOMAP
-    // m_coordinates are cached; therefore we allow to update them even if the object is const:
-    mutable KGeoMap::GeoCoordinates m_coordinates;
-    mutable bool m_coordinatesFetched = false;
-#endif
 };
 
 }

@@ -116,7 +116,10 @@ sqlite_diff()
 		"$SQLITE" "$src" "$query" > "$srctmp"
 		"$SQLITE" "$dst" "$query" > "$dsttmp"
 
+		# display unified diff of query result:
 		diff -u --label "$1" --label "$2" "$srctmp" "$dsttmp"
+		# diff the actual file:
+		diff -q --label "$1" --label "$2" "$src" "$dst"
 		local retval=$?
 
 		# cleanup

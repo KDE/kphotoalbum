@@ -42,6 +42,10 @@ public:
     explicit GridResizeSlider( ThumbnailFactory* factory );
     ~GridResizeSlider();
 
+public slots:
+    void increaseThumbnailSize();
+    void decreaseThumbnailSize();
+
 signals:
     void isResizing( bool );
 
@@ -59,6 +63,7 @@ private slots:
 private:
     bool m_resizing;
     QTimer *m_timer;
+    void setStoredThumbnailSize(int size);
 };
 
 }

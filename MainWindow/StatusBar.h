@@ -53,6 +53,7 @@ signals:
 private slots:
     void hideStatusBar();
     void showStatusBar();
+    void checkSliderValue(int);
 
 private:
     void setupGUI();
@@ -63,6 +64,8 @@ private:
     QToolButton* m_cancel;
     QTimer* m_pendingShowTimer;
     QSlider* m_thumbnailSizeSlider;
+    QToolButton* m_thumbnailsSmaller;
+    QToolButton* m_thumbnailsBigger;
 };
 
 }

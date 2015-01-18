@@ -130,6 +130,28 @@ void ThumbnailView::GridResizeSlider::setMaximum(int size)
     QSlider::setMaximum(size);
 }
 
+void ThumbnailView::GridResizeSlider::increaseThumbnailSize()
+{
+    //qDebug() << Settings::SettingsData::instance()->actualThumbnailSize()
+    //         << Settings::SettingsData::instance()->thumbnailSpace();
+
+    setStoredThumbnailSize(maximum() + 10);
+}
+
+void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
+{
+    setStoredThumbnailSize(maximum() - 10);
+}
+
+void ThumbnailView::GridResizeSlider::setStoredThumbnailSize(int size)
+{
+    enterGridResizingMode();
+    Settings::SettingsData::instance()->setThumbnailSize(size);
+    setMaximum(size);
+    setValue(size);
+    leaveGridResizingMode();
+}
+
 #include "GridResizeSlider.moc"
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

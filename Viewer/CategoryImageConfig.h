@@ -32,6 +32,8 @@ namespace DB
     class ImageInfo;
 }
 
+namespace Viewer
+{
 class CategoryImageConfig :public KDialog {
     Q_OBJECT
 
@@ -59,7 +61,7 @@ private:
     QLabel* m_imageLabel;
     DB::ImageInfoPtr m_info;
 };
-
+}
 
 #endif /* CATEGORYIMAGECONFIG_H */
 

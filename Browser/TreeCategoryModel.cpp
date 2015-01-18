@@ -20,7 +20,7 @@
 #include <DB/ImageDB.h>
 #include <DB/CategoryItem.h>
 #include "DB/Category.h"
-struct Data
+struct Browser::TreeCategoryModel::Data
 {
     Data( const QString& name )
         : name( name ), parent(nullptr) {}
@@ -122,17 +122,17 @@ bool Browser::TreeCategoryModel::createData( DB::CategoryItem* parentCategoryIte
 
 }
 
-Data* Browser::TreeCategoryModel::indexToData( const QModelIndex& index ) const
+Browser::TreeCategoryModel::Data* Browser::TreeCategoryModel::indexToData( const QModelIndex& index ) const
 {
     if ( !index.isValid() )
         return m_data;
     else
-        return static_cast<Data*>( index.internalPointer() );
+        return static_cast<Browser::TreeCategoryModel::Data*>( index.internalPointer() );
 }
 
 QString Browser::TreeCategoryModel::indexToName(const QModelIndex& index ) const
 {
-    const Data* data = indexToData( index );
+    const Browser::TreeCategoryModel::Data* data = indexToData( index );
     return data->name;
 
 }

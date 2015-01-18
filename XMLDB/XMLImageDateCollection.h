@@ -23,6 +23,8 @@
 
 namespace DB { class FileNameList; }
 
+namespace XMLDB
+{
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
@@ -59,7 +61,7 @@ private:
     // where its worth looking.
     EndIndexMap m_endIndex;
 };
-
+}
 
 #endif /* XMLIMAGEDATECOLLECTION_H */
 

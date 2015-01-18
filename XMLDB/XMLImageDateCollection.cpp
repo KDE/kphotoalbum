@@ -20,12 +20,12 @@
 #include "DB/ImageDB.h"
 #include "DB/FileNameList.h"
 
-void XMLImageDateCollection::add( const DB::ImageDate& date )
+void XMLDB::XMLImageDateCollection::add( const DB::ImageDate& date )
 {
     m_startIndex.insertMulti(date.start(), date);
 }
 
-void XMLImageDateCollection::buildIndex() {
+void XMLDB::XMLImageDateCollection::buildIndex() {
     StartIndexMap::ConstIterator startSearch = m_startIndex.constBegin();
     QDateTime biggestEnd = QDateTime( QDate( 1900, 1, 1 ) );
     for (StartIndexMap::ConstIterator it = m_startIndex.constBegin();
@@ -72,7 +72,7 @@ void XMLImageDateCollection::buildIndex() {
    The above uses the fact that a QMap::constIterator iterates the map in
    sorted order.
 **/
-DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
+DB::ImageCount XMLDB::XMLImageDateCollection::count( const DB::ImageDate& range )
 {
     if ( m_cache.contains( range ) )
         return m_cache[range];
@@ -101,7 +101,7 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
     return res;
 }
 
-QDateTime XMLImageDateCollection::lowerLimit() const
+QDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
 {
     if (!m_startIndex.empty()) {
         // skip null dates:
@@ -116,7 +116,7 @@ QDateTime XMLImageDateCollection::lowerLimit() const
     return QDateTime( QDate( 1900, 1, 1 ) );
 }
 
-QDateTime XMLImageDateCollection::upperLimit() const
+QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
 {
     if (!m_endIndex.empty()) {
         EndIndexMap::ConstIterator highest = m_endIndex.constEnd();
@@ -126,7 +126,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
     return QDateTime( QDate( 2100, 1, 1 ) );
 }
 
-XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList& list)
+XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList& list)
 {
     Q_FOREACH(const DB::FileName& fileName, list) {
         add(fileName.info()->date());

@@ -20,7 +20,6 @@
 #define TREECATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
 namespace DB { class CategoryItem; }
-struct Data;
 
 namespace Browser
 {
@@ -57,6 +56,7 @@ public:
     QString indexToName(const QModelIndex& ) const override;
 
 private:
+    struct Data;
     bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );
     Data* indexToData( const QModelIndex& index ) const;
 

@@ -73,8 +73,8 @@ void MainWindow::CategoryImagePopup::slotExecuteService( QAction* action )
 
 void MainWindow::CategoryImagePopup::makeCategoryImage()
 {
-    CategoryImageConfig::instance()->setCurrentImage( m_image, m_imageInfo );
-    CategoryImageConfig::instance()->show();
+    Viewer::CategoryImageConfig::instance()->setCurrentImage( m_image, m_imageInfo );
+    Viewer::CategoryImageConfig::instance()->show();
 }
 
 MainWindow::CategoryImagePopup::CategoryImagePopup( QWidget* parent )

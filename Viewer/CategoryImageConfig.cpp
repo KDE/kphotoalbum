@@ -34,9 +34,9 @@
 
 using Utilities::StringSet;
 
-CategoryImageConfig* CategoryImageConfig::s_instance = nullptr;
+Viewer::CategoryImageConfig* Viewer::CategoryImageConfig::s_instance = nullptr;
 
-CategoryImageConfig::CategoryImageConfig()
+Viewer::CategoryImageConfig::CategoryImageConfig()
     : m_image( QImage() )
 {
     setWindowTitle( i18nc("@title:window","Configure Category Image") );
@@ -85,7 +85,7 @@ CategoryImageConfig::CategoryImageConfig()
     connect( this, SIGNAL(user1Clicked()), this, SLOT(slotSet()) );
 }
 
-void CategoryImageConfig::groupChanged()
+void Viewer::CategoryImageConfig::groupChanged()
 {
     QString categoryName = currentGroup();
     if (categoryName.isNull())
@@ -114,7 +114,7 @@ void CategoryImageConfig::groupChanged()
     memberChanged();
 }
 
-void CategoryImageConfig::memberChanged()
+void Viewer::CategoryImageConfig::memberChanged()
 {
     QString categoryName = currentGroup();
     if (categoryName.isNull())
@@ -125,7 +125,7 @@ void CategoryImageConfig::memberChanged()
     m_current->setPixmap( pix );
 }
 
-void CategoryImageConfig::slotSet()
+void Viewer::CategoryImageConfig::slotSet()
 {
     QString categoryName = currentGroup();
     if (categoryName.isNull())
@@ -135,7 +135,7 @@ void CategoryImageConfig::slotSet()
     memberChanged();
 }
 
-QString CategoryImageConfig::currentGroup()
+QString Viewer::CategoryImageConfig::currentGroup()
 {
     int index = m_group->currentIndex();
     if (index == -1)
@@ -143,7 +143,7 @@ QString CategoryImageConfig::currentGroup()
     return m_categoryNames[index];
 }
 
-void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
+void Viewer::CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
 {
     m_image = image;
     m_imageLabel->setPixmap( QPixmap::fromImage(image) );
@@ -151,14 +151,14 @@ void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageI
     groupChanged();
 }
 
-CategoryImageConfig* CategoryImageConfig::instance()
+Viewer::CategoryImageConfig* Viewer::CategoryImageConfig::instance()
 {
     if ( !s_instance )
         s_instance = new CategoryImageConfig();
     return s_instance;
 }
 
-void CategoryImageConfig::show()
+void Viewer::CategoryImageConfig::show()
 {
     QString currentCategory = m_group->currentText();
     m_group->clear();

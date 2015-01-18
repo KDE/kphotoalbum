@@ -18,13 +18,13 @@
 
 #include "TreeFilter.h"
 
-TreeFilter::TreeFilter( QObject* parent)
+Browser::TreeFilter::TreeFilter( QObject* parent)
     : QSortFilterProxyModel(parent)
 {
 
 }
 
-bool TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
+bool Browser::TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
 {
     bool match = false;
     bool openAllChildren = false;
@@ -57,7 +57,7 @@ bool TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
     return match;
 }
 
-void TreeFilter::resetCache()
+void Browser::TreeFilter::resetCache()
 {
     m_matchedMap.clear();
 }

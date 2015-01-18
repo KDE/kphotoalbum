@@ -22,6 +22,8 @@
 class QXmlStreamWriter;
 #include <QString>
 
+namespace XMLDB
+{
 class ElementWriter
 {
 public:
@@ -34,6 +36,7 @@ private:
     QString m_elementName;
     bool m_haveWrittenStartTag;
 };
+}
 
 #endif // ELEMENTWRITER_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

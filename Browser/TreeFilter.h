@@ -20,6 +20,8 @@
 #define TREEFILTER_H
 #include <QSortFilterProxyModel>
 
+namespace Browser
+{
 /**
  * \brief Filter proxy that keeps parent branches if child branches matches
  *
@@ -41,7 +43,7 @@ protected:
 
     mutable QMap<QModelIndex,bool> m_matchedMap;
 };
-
+}
 
 #endif /* TREEFILTER_H */
 

@@ -18,6 +18,8 @@
 #ifndef CACHEFILEINFO_H
 #define CACHEFILEINFO_H
 
+namespace ImageManager
+{
 struct CacheFileInfo
 {
     CacheFileInfo() {}
@@ -28,6 +30,7 @@ struct CacheFileInfo
     int offset;
     int size;
 };
+}
 
 #endif /* CACHEFILEINFO_H */
 

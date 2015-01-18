@@ -19,14 +19,14 @@
 #include "ElementWriter.h"
 #include <QXmlStreamWriter>
 
-ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce)
+XMLDB::ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce)
     :m_writer(writer), m_elementName(elementName), m_haveWrittenStartTag(writeAtOnce)
 {
     if (writeAtOnce)
         m_writer.writeStartElement(m_elementName);
 }
 
-void ElementWriter::writeStartElement()
+void XMLDB::ElementWriter::writeStartElement()
 {
     if ( m_haveWrittenStartTag )
         return;
@@ -36,7 +36,7 @@ void ElementWriter::writeStartElement()
 }
 
 
-ElementWriter::~ElementWriter()
+XMLDB::ElementWriter::~ElementWriter()
 {
     if ( m_haveWrittenStartTag)
         m_writer.writeEndElement();

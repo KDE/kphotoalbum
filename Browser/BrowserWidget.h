@@ -24,7 +24,6 @@
 #include "Settings/SettingsData.h"
 
 class CenteringIconView;
-class TreeFilter;
 class QSortFilterProxyModel;
 class QTreeView;
 class QListView;
@@ -38,6 +37,7 @@ namespace DB
 
 namespace Browser
 {
+class TreeFilter;
 class BrowserPage;
 
 /**

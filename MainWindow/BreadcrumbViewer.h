@@ -20,6 +20,8 @@
 #include <QLabel>
 #include <Browser/BreadcrumbList.h>
 
+namespace MainWindow
+{
 class BreadcrumbViewer :public QLabel
 {
     Q_OBJECT
@@ -46,6 +48,7 @@ private:
 private:
     Browser::BreadcrumbList m_activeCrumbs;
 };
+}
 
 #endif /* BREADCRUMBVIEWER_H */
 

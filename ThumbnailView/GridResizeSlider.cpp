@@ -161,17 +161,18 @@ void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDiffer
         }
     }
 
-    // this matches the code in ThumbnailView::CellGeometry::calculateCellSize():
-    int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize();
-    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace() + 5;
+    // + 6 because 5 pixels are added in ThumbnailView::CellGeometry::iconGeometry
+    // and one additional pixel is needed for the grid. So we need to add/remove 6 pixels.
+    int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize() + 6;
+    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace();
     int viewportWidth = widget()->viewport()->width();
-    int perRow = viewportWidth / (thumbnailSize + 2 * thumbnailSpace);
+    int perRow = viewportWidth / (thumbnailSize + thumbnailSpace);
 
     if (perRow + perRowDifference <= 0) {
         return;
     }
 
-    int newWidth = viewportWidth / (perRow + perRowDifference) - 2 * thumbnailSpace;
+    int newWidth = (viewportWidth / (perRow + perRowDifference) - thumbnailSpace) - 6;
 
     if (newWidth < Settings::SettingsData::instance()->minimumThumbnailSize()) {
         return;

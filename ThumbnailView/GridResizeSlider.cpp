@@ -142,31 +142,27 @@ void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
 
 void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDifference)
 {
+    // this matches the code in ThumbnailView::CellGeometry::calculateCellSize():
     int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize();
-    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace() + 1;
-    int vieportWidth = widget()->viewport()->width();
-    int perRow = vieportWidth / (thumbnailSize + 2 * thumbnailSpace);
+    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace() + 5;
+    int viewportWidth = widget()->viewport()->width();
+    int perRow = viewportWidth / (thumbnailSize + 2 * thumbnailSpace);
 
-    if (perRow + perRowDifference == 0) {
+    if (perRow + perRowDifference <= 0) {
         return;
     }
 
-    int newWidth = vieportWidth / (perRow + perRowDifference) - 2 * thumbnailSpace;
+    int newWidth = viewportWidth / (perRow + perRowDifference) - 2 * thumbnailSpace;
 
     if (newWidth < Settings::SettingsData::instance()->minimumThumbnailSize()) {
         return;
     }
 
-    setStoredThumbnailSize(newWidth);
-}
-
-void ThumbnailView::GridResizeSlider::setStoredThumbnailSize(int size)
-{
-    enterGridResizingMode();
-    Settings::SettingsData::instance()->setThumbnailSize(size);
-    setMaximum(size);
-    setValue(size);
-    leaveGridResizingMode();
+    Settings::SettingsData::instance()->setThumbnailSize(newWidth);
+    Settings::SettingsData::instance()->setActualThumbnailSize(newWidth);
+    model()->reset();
+    cellGeometryInfo()->flushCache();
+    model()->updateVisibleRowInfo();
 }
 
 #include "GridResizeSlider.moc"

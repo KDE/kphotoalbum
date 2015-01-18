@@ -79,7 +79,7 @@ endif(MARBLE_FOUND)
 
 # Kface 3.5.0 ships with a usable kface-config.cmake
 # and face detection/recognition support in KPA depends on KFace >= 3.5.0, anyway.
-find_package(Kface 3.5.0 QUIET CONFIG)
+macro_optional_find_package(Kface 3.5.0 QUIET CONFIG)
 macro_bool_to_01(Kface_FOUND HAVE_KFACE)
 if(Kface_FOUND)
     message(STATUS "Found KFace version ${Kface_VERSION} (optional)")
@@ -91,7 +91,7 @@ else()
 endif(Kface_FOUND)
 
 if(EXIV2_FOUND)
-    find_package(KGeoMap QUIET)
+    macro_optional_find_package(KGeoMap QUIET)
 else()
 	message(STATUS "Not searching KGeoMap because of missing dependency Exiv2...")
 endif()

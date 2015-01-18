@@ -16,10 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa-kipi.h>
-
-#ifdef HASKIPI
-#include "Plugins/Interface.h"
+#include "Interface.h"
 #include <QList>
 #include <klocale.h>
 #include <kimageio.h>
@@ -239,5 +236,4 @@ void Plugins::Interface::failedKDEPreview(const KFileItem& item)
 }
 
 #include "Interface.moc"
-#endif // KIPI
 // vi:expandtab:tabstop=4 shiftwidth=4:

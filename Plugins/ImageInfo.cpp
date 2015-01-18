@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa-kipi.h>
-#ifdef HASKIPI
-#include "Plugins/ImageInfo.h"
+#include "ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
@@ -489,5 +487,4 @@ bool Plugins::ImageInfo::isCategoryAttribute(const QString &key)
     return (key != QString::fromLatin1("tags") && !isPositionAttribute(key));
 }
 
-#endif // KIPI
 // vi:expandtab:tabstop=4 shiftwidth=4:

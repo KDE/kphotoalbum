@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "InfoBox.h"
+
 // Qt includes
 #include <QApplication>
 #include <QToolButton>
@@ -38,7 +40,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "MainWindow/Window.h"
-#include "InfoBox.h"
 #include "VisibleOptionsMenu.h"
 
 #ifdef HAVE_KGEOMAP
@@ -197,7 +198,7 @@ void Viewer::InfoBox::mouseMoveEvent(QMouseEvent* event)
 
 void Viewer::InfoBox::linkHovered(const QString& linkName)
 {
-    if (linkName == QString()) {
+    if (linkName.isEmpty()) {
         emit noTagHovered();
     } else {
         emit tagHovered(m_linkMap[linkName.toInt()]);

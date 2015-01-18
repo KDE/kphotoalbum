@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "MapView.h"
+
 // Qt includes
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -30,7 +32,6 @@
 #include <KMessageBox>
 
 // Local includes
-#include "MapView.h"
 #include "MapMarkerModelHelper.h"
 
 Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)

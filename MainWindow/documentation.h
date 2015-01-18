@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace MainWindow
   \brief The main window plus a number of dialogs.

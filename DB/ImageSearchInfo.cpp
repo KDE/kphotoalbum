@@ -339,7 +339,7 @@ void ImageSearchInfo::compile() const
                 QString str = *itAnd;
                 static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
                 if ( regexp.exactMatch( str ) )
-                { // str is preceeded with NOT
+                { // str is preceded with NOT
                     negate = true;
                     str = regexp.cap(1);
                 }

@@ -17,8 +17,8 @@
 */
 
 // Local includes
-#include "Settings/SettingsData.h"
 #include "Recognizer.h"
+#include "Settings/SettingsData.h"
 
 using namespace KFaceIface;
 

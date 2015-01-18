@@ -105,9 +105,13 @@ QDateTime XMLImageDateCollection::lowerLimit() const
 {
     if (!m_startIndex.empty()) {
         // skip null dates:
-        Q_FOREACH(const QDateTime &t , m_startIndex.keys() )
-            if ( t.isValid() )
-                return t;
+        for ( StartIndexMap::ConstIterator it = m_startIndex.constBegin()
+              ; it != m_startIndex.constEnd()
+              ; ++it )
+        {
+            if (it.key().isValid())
+                return it.key();
+        }
     }
     return QDateTime( QDate( 1900, 1, 1 ) );
 }

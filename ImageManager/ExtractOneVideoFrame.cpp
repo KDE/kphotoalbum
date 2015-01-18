@@ -29,7 +29,6 @@
 #include <DB/ImageDB.h>
 #include "MainWindow/TokenEditor.h"
 #include "Utilities/Set.h"
-#include <KMessageBox>
 #include "MainWindow/DirtyIndicator.h"
 
 namespace ImageManager {

@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "FaceManagementPage.h"
+
 // Qt includes
 #include <QVBoxLayout>
 #include <QGroupBox>
@@ -33,7 +35,6 @@
 
 // Local includes
 #include "SettingsData.h"
-#include "FaceManagementPage.h"
 #include "FaceManagement/Recognizer.h"
 
 Settings::FaceManagementPage::FaceManagementPage(QWidget* parent) : QWidget(parent)

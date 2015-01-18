@@ -17,35 +17,35 @@
 */
 
 #include "RemoteInterface.h"
-#include "Server.h"
-#include "RemoteCommand.h"
-
-#include <QDebug>
-#include <QDataStream>
-#include <QTcpSocket>
-#include <QImage>
-#include <QBuffer>
-#include <QPainter>
-#include <kiconloader.h>
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/CategoryPtr.h"
-#include "DB/Category.h"
-#include "DB/ImageSearchInfo.h"
-#include "Browser/FlatCategoryModel.h"
-#include "DB/ImageInfoPtr.h"
-#include "RemoteImageRequest.h"
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageInfo.h"
-#include "DB/Category.h"
-#include "Types.h"
-#include "Utilities/Util.h"
 
 #include <tuple>
 #include <algorithm>
 
+#include <QBuffer>
+#include <QDataStream>
+#include <QDebug>
+#include <QImage>
+#include <QPainter>
+#include <QTcpSocket>
+
+#include <kiconloader.h>
+
+#include "Browser/FlatCategoryModel.h"
+#include "DB/Category.h"
+#include "DB/CategoryCollection.h"
+#include "DB/CategoryPtr.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "DB/ImageInfoPtr.h"
+#include "DB/ImageSearchInfo.h"
 #include "ImageManager/AsyncLoader.h"
 #include "MainWindow/DirtyIndicator.h"
+#include "Utilities/Util.h"
+
+#include "RemoteCommand.h"
+#include "RemoteImageRequest.h"
+#include "Server.h"
+#include "Types.h"
 
 using namespace RemoteControl;
 

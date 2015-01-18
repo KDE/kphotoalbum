@@ -16,13 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "CategoriesGroupsWidget.h"
+
 // Qt includes
 #include <QDropEvent>
 #include <QDebug>
 
 // Local includes
 #include "DB/Category.h"
-#include "CategoriesGroupsWidget.h"
 #include "TagGroupsPage.h"
 
 Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget* parent) : QTreeWidget(parent)

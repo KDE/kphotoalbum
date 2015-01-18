@@ -15,8 +15,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef SETTINGS_BIRTHDAYPAGE_H
-#define SETTINGS_BIRTHDAYPAGE_H
+#ifndef SETTINGS_BIRTHDATESDIALOG_H
+#define SETTINGS_BIRTHDATESDIALOG_H
 
 #include <QDialog>
 class QComboBox;
@@ -54,4 +54,4 @@ private:
 
 } // namespace Settings
 
-#endif // SETTINGS_BIRTHDAYPAGE_H
+#endif // SETTINGS_BIRTHDATESDIALOG_H

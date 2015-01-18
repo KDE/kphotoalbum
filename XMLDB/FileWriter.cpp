@@ -33,7 +33,7 @@
 //
 //
 //
-//  +++++++++++++++++++++++++++++++ REMEBER ++++++++++++++++++++++++++++++++
+//  +++++++++++++++++++++++++++++++ REMEMBER ++++++++++++++++++++++++++++++++
 //
 //
 //
@@ -196,7 +196,7 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
 
         // FIXME (l3u): This can happen when an empty sub-category (group) is present.
         //              Would be fine to fix the reason why this happens in the first place.
-        if (categoryName == QString()) {
+        if (categoryName.isEmpty()) {
             continue;
         }
 
@@ -208,7 +208,7 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
 
             // FIXME (l3u): This can happen when an empty sub-category (group) is present.
             //              Would be fine to fix the reason why this happens in the first place.
-            if (groupMapIt.key() == QString()) {
+            if (groupMapIt.key().isEmpty()) {
                 continue;
             }
 

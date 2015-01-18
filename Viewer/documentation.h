@@ -1,3 +1,4 @@
+//krazy:skip
 /**
  * \namespace Viewer
  * \brief Viewer used for displaying images and videos

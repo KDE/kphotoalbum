@@ -16,11 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "Detector.h"
+
 // libkface includes
 #include <libkface/facedetector.h>
 
 // Local includes
-#include "Detector.h"
 #include "Settings/SettingsData.h"
 
 using namespace KFaceIface;

@@ -93,7 +93,7 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pix
     const QRect backgroundRect =  textRect.adjusted(-margin,-margin, margin, margin);
 
     if ( backgroundRect.width() > pixmapRect.width()/2  ) {
-        // Dont show the time if the box would fill more than half the thumbnail
+        // Don't show the time if the box would fill more than half the thumbnail
         return;
     }
 

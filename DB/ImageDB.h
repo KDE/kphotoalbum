@@ -34,8 +34,6 @@ class Category;
 class MD5Map;
 class MemberMap;
 class ImageDateCollection;
-class IdList;
-class Id;
 class ImageSearchInfo;
 class FileName;
 

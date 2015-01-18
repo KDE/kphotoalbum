@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Plugins/ImageCollection.h"
-#include <config-kpa-kipi.h>
-#ifdef HASKIPI
+#include "ImageCollection.h"
 #include "MainWindow/Window.h"
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
@@ -152,5 +150,4 @@ KUrl Plugins::ImageCollection::uploadRoot()
     return url;
 }
 
-#endif // KIPI
 // vi:expandtab:tabstop=4 shiftwidth=4:

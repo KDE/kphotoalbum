@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace DB
   \brief The core database classes.

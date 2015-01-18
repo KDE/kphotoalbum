@@ -16,19 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <math.h>
-#include <QRubberBand>
 #include "ImagePreview.h"
+
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <math.h>
+#include <QDebug>
+#include <QImageReader>
+#include <QRubberBand>
+
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #include "ImageManager/AsyncLoader.h"
 #include "Utilities/Util.h"
-#include "ResizableFrame.h"
-#include <QImageReader>
-#include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
-#include <kmessagebox.h>
-#include <klocale.h>
 
-#include <QDebug>
+#include "ResizableFrame.h"
 
 using namespace AnnotationDialog;
 

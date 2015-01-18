@@ -166,7 +166,8 @@ void ImageManager::AsyncLoader::customEvent( QEvent* ev )
         QImage image = iev->image();
         if ( !request->loadedOK() ) {
             if ( m_brokenImage.size() != request->size() ) {
-                KIcon brokenFileIcon( QLatin1String("file-broken") );
+                // we can ignore the krazy warning here because we have a valid fallback
+                KIcon brokenFileIcon( QLatin1String("file-broken") ); // krazy:exclude=iconnames
                 if ( brokenFileIcon.isNull() ) {
                     brokenFileIcon = KIcon( QLatin1String("image-x-generic") );
                 }

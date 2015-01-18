@@ -20,23 +20,23 @@
 // http://qt-project.org/forums/viewthread/24104
 // Big thanks to Mr. kripton :-)
 
+#include "ResizableFrame.h"
+
 // Qt includes
 #include <QMouseEvent>
 #include <QMenu>
 #include <QApplication>
 #include <QList>
 #include <QDebug>
+#include <QTimer>
 
 // KDE includes
 #include <KLocale>
 
 // Local includes
-#include "ResizableFrame.h"
 #include "ImagePreview.h"
-
 #ifdef HAVE_KFACE
-#include <QTimer>
-#include "ProposedFaceDialog.h"
+#  include "ProposedFaceDialog.h"
 #endif
 
 static const int SCALE_TOP    = 0b00000001;

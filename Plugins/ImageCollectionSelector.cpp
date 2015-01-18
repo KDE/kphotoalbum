@@ -15,9 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <config-kpa-kipi.h>
-#ifdef HASKIPI
-#include "Plugins/ImageCollectionSelector.h"
+#include "ImageCollectionSelector.h"
 
 Plugins::ImageCollectionSelector::ImageCollectionSelector( QWidget *parent, Interface *interface )
     : KIPI::ImageCollectionSelector( parent )
@@ -53,5 +51,4 @@ void Plugins::ImageCollectionSelector::showEvent(QShowEvent *event) {
     }
 }
 
-#endif // HASKIPI
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -81,8 +81,6 @@ public:
                unsigned int stackOrder = 0 );
     virtual ~ImageInfo() { saveChanges(); }
 
-    // TODO: this should have a method to access the ID.
-
     FileName fileName() const;
     void setFileName( const DB::FileName& relativeFileName );
 

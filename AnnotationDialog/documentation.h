@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace AnnotationDialog
   \brief The dialog used for tagging images

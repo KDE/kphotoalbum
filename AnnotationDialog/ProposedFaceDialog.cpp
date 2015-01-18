@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "ProposedFaceDialog.h"
+
 // Qt includes
 #include <QHBoxLayout>
 #include <QLabel>
@@ -30,8 +32,6 @@
 #include <KLocale>
 #include <KIconLoader>
 
-// Local includes
-#include "ProposedFaceDialog.h"
 
 AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDialog(parent)
 {

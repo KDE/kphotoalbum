@@ -32,6 +32,7 @@ class FileVersionDetectionPage :public QWidget
 {
 public:
     explicit FileVersionDetectionPage( QWidget* parent );
+    ~FileVersionDetectionPage();
     void loadSettings( Settings::SettingsData* );
     void saveSettings( Settings::SettingsData* );
 

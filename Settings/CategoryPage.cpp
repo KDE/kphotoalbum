@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "CategoryPage.h"
+
 // Qt includes
 #include <QSpinBox>
 #include <QLabel>
@@ -35,7 +37,6 @@
 // Local includes
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
-#include "CategoryPage.h"
 #include "UntaggedGroupBox.h"
 #include "SettingsDialog.h"
 #include "CategoryItem.h"
@@ -210,7 +211,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     // Now let's check if the new name is valid :-)
 
     // If it's empty, we're done here. The new name can't be empty.
-    if (newCategoryName == QString()) {
+    if (newCategoryName.isEmpty()) {
         resetCategory(item);
         return;
     }

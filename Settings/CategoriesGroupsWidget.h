@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef CATEGORYTREE_H
-#define CATEGORYTREE_H
+#ifndef CATEGORIESGROUPSWIDGET_H
+#define CATEGORIESGROUPSWIDGET_H
 
 // Qt includes
 #include <QTreeWidget>
@@ -34,7 +34,7 @@ class CategoriesGroupsWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    CategoriesGroupsWidget(QWidget* parent = 0);
+    explicit CategoriesGroupsWidget(QWidget* parent = 0);
     ~CategoriesGroupsWidget();
 
 private: // Functions
@@ -53,6 +53,6 @@ private: // Variables
 
 }
 
-#endif // CATEGORYTREE_H
+#endif // CATEGORIESGROUPSWIDGET_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

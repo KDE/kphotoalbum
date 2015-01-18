@@ -1,3 +1,4 @@
+//krazy:skip
 /**
    \mainpage
    Welcome to the KPhotoAlbum source code documentation, which is generated with doxygen. To generate your own copy, simply run <tt>doxygen</tt> in the kphotoalbum source directory.

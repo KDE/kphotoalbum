@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace Plugins
   \brief 

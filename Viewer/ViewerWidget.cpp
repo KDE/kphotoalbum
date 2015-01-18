@@ -19,59 +19,60 @@
 #include "ViewerWidget.h"
 #include <config-kpa-exiv2.h>
 
-#include <kdeversion.h>
+#include <qapplication.h>
 #include <QContextMenuEvent>
-#include <QtDBus>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDesktopWidget>
+#include <qeventloop.h>
+#include <qfileinfo.h>
+#include <qglobal.h>
 #include <QKeyEvent>
 #include <QList>
 #include <QResizeEvent>
-#include <QWheelEvent>
-#include <kiconloader.h>
-#include <kaction.h>
-#include <klocale.h>
-#include "Utilities/Util.h"
-#include <qtimer.h>
-#include <kwindowsystem.h>
-#include "SpeedDisplay.h"
-#include "MainWindow/Window.h"
-#include "CategoryImageConfig.h"
-#include "MainWindow/ExternalPopup.h"
-#include "MainWindow/CategoryImagePopup.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "InfoBox.h"
-#include "VideoDisplay.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "ImageManager/ThumbnailCache.h"
-#include <KMessageBox>
-#include "VisibleOptionsMenu.h"
-#include <qglobal.h>
+#include <QStackedWidget>
 #include <QTimeLine>
 #include <QTimer>
-#include "ImageDisplay.h"
-#include <qapplication.h>
-#include <qeventloop.h>
-#include <qfileinfo.h>
-#include "TextDisplay.h"
-#include <kdebug.h>
-#include <KActionCollection>
-#include <KStandardAction>
-#include <QStackedWidget>
-#include <QDesktopWidget>
 #include <QVBoxLayout>
-#include <KProcess>
-#include <KStandardDirs>
-#include "MainWindow/DeleteDialog.h"
-#include "VideoShooter.h"
-#include "TaggedArea.h"
-#include "MainWindow/DirtyIndicator.h"
-#include <KFileDialog>
-#include <KPushButton>
-#include <kio/copyjob.h>
+#include <QWheelEvent>
 
+#include <KActionCollection>
+#include <kaction.h>
+#include <kdebug.h>
+#include <kdeversion.h>
+#include <KFileDialog>
+#include <kiconloader.h>
+#include <kio/copyjob.h>
+#include <klocale.h>
+#include <KMessageBox>
+#include <KProcess>
+#include <KPushButton>
+#include <KStandardAction>
+#include <KStandardDirs>
+#include <kwindowsystem.h>
+
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
 #endif
+#include "ImageManager/ThumbnailCache.h"
+#include "MainWindow/CategoryImagePopup.h"
+#include "MainWindow/DeleteDialog.h"
+#include "MainWindow/DirtyIndicator.h"
+#include "MainWindow/ExternalPopup.h"
+#include "MainWindow/Window.h"
+#include "Utilities/Util.h"
+
+#include "CategoryImageConfig.h"
+#include "ImageDisplay.h"
+#include "InfoBox.h"
+#include "SpeedDisplay.h"
+#include "TaggedArea.h"
+#include "TextDisplay.h"
+#include "VideoDisplay.h"
+#include "VideoShooter.h"
+#include "VisibleOptionsMenu.h"
 
 Viewer::ViewerWidget* Viewer::ViewerWidget::s_latest = nullptr;
 
@@ -109,9 +110,8 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
 
     connect( m_imageDisplay, SIGNAL(possibleChange()), this, SLOT(updateCategoryConfig()) );
     connect( m_imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
-    connect( m_imageDisplay, SIGNAL(setCaptionInfo(QString)),
-             this, SLOT(setCaptionWithDetail(QString)) );
-    connect( m_imageDisplay, SIGNAL(viewGeometryChanged(QSize, QRect, double)), this, SLOT(remapAreas(QSize, QRect, double)) );
+    connect( m_imageDisplay, SIGNAL(setCaptionInfo(QString)), this, SLOT(setCaptionWithDetail(QString)) );
+    connect( m_imageDisplay, SIGNAL(viewGeometryChanged(QSize,QRect,double)), this, SLOT(remapAreas(QSize,QRect,double)) );
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay

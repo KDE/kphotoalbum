@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
    */
 
+#include "MapMarkerModelHelper.h"
+
 // Qt includes
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -24,7 +26,6 @@
 
 // Local includes
 #include <ImageManager/ThumbnailCache.h>
-#include "MapMarkerModelHelper.h"
 
 #ifdef DEBUG_MAP
 #  define Debug qDebug

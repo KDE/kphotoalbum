@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "CategoryItem.h"
+
 // Qt includes
 #include <QDir>
 #include <QDebug>
@@ -29,7 +31,6 @@
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include "MainWindow/Window.h"
-#include "CategoryItem.h"
 
 Settings::CategoryItem::CategoryItem(const QString &category,
                                      const QString &text,

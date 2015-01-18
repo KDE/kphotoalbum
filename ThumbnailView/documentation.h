@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace ThumbnailView
   \brief  The classes in this namespace makes up the thumbnail window

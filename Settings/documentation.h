@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace Settings
   \brief Classes for storing and configuring the settings of KPhotoAlbum

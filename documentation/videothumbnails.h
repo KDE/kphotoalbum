@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \page videothumbnails Video thumbnail related classes
 

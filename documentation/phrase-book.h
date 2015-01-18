@@ -1,3 +1,4 @@
+//krazy:skip
 /**
    \page phrase-book Phrase book
 

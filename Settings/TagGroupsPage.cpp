@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "TagGroupsPage.h"
+
 // Qt includes
 #include <QListWidget>
 #include <QLabel>
@@ -37,7 +39,6 @@
 // Local includes
 #include "MainWindow/DirtyIndicator.h"
 #include "DB/CategoryCollection.h"
-#include "TagGroupsPage.h"
 #include "CategoriesGroupsWidget.h"
 
 Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
@@ -141,14 +142,14 @@ void Settings::TagGroupsPage::updateCategoryTree()
         // Build a map with all members for each group
         QMap<QString, QStringList> membersForGroup;
         QStringList allGroups = m_memberMap.groups((*it)->name());
-        foreach (const QString group, allGroups) {
+        foreach (const QString &group, allGroups) {
             // FIXME: Why does the member map return an empty category?!
-            if (group == QString()) {
+            if (group.isEmpty()) {
                 continue;
             }
 
             QStringList allMembers = m_memberMap.members((*it)->name(), group, false);
-            foreach (const QString member, allMembers) {
+            foreach (const QString &member, allMembers) {
                 membersForGroup[group] << member;
             }
 
@@ -208,7 +209,7 @@ void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem* superCategory,
 
             // Search the member list for other groups
             QMap<QString, QStringList> subGroups;
-            foreach (const QString groupName, allGroups) {
+            foreach (const QString &groupName, allGroups) {
                 if (membersForGroup[memIt1.key()].contains(groupName)) {
                     subGroups[groupName] = membersForGroup[groupName];
                 }
@@ -242,7 +243,7 @@ void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
 
     if (currentItem->parent() == nullptr) {
         // It's a top-level, "real" category
-        m_currentSuperCategory = QString();
+        m_currentSuperCategory.clear();
     } else {
         // It's a normal sub-category that belongs to another one
         m_currentSuperCategory = currentItem->parent()->text(0);
@@ -254,7 +255,7 @@ void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
     menu->addAction(m_newGroupAction);
 
     // "Real" top-level categories have to processed on the category page.
-    if (m_currentSuperCategory != QString()) {
+    if (!m_currentSuperCategory.isEmpty()) {
         menu->addSeparator();
         m_renameAction->setText(i18nc("@action:inmenu","Rename group \"%1\"", m_currentSubCategory));
         menu->addAction(m_renameAction);
@@ -268,7 +269,7 @@ void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
 
 void Settings::TagGroupsPage::categoryChanged(const QString& name)
 {
-    if (name == QString()) {
+    if (name.isEmpty()) {
         return;
     }
 
@@ -279,7 +280,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString& name)
     list += m_memberMap.groups(name);
     QStringList alreadyAdded;
     for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-        if ((*it) == QString()) {
+        if ((*it).isEmpty()) {
             // This can happen if we add group that currently has no members.
             continue;
         }
@@ -303,14 +304,14 @@ void Settings::TagGroupsPage::slotGroupSelected(QTreeWidgetItem* item)
 {
     // When something else than a "real" category has been selected before,
     // we have to save it's members.
-    if (m_currentGroup != QString()) {
+    if (!m_currentGroup.isEmpty()) {
         saveOldGroup();
     }
 
     if (item->parent() == nullptr) {
         // A "real" category has been selected, not a group
-        m_currentCategory = QString();
-        m_currentGroup = QString();
+        m_currentCategory.clear();
+        m_currentGroup.clear();
         m_membersListWidget->setEnabled(false);
         categoryChanged(item->text(0));
         m_tagsInGroupLabel->setText(m_selectGroupToAddTags);
@@ -389,7 +390,7 @@ void Settings::TagGroupsPage::slotAddGroup()
     addNewSubItem(newSubCategory, parentItem);
 
     // Check if we also have to update some other group (in case this is not a top-level group)
-    if (m_currentSuperCategory != QString()) {
+    if (!m_currentSuperCategory.isEmpty()) {
         m_memberMap.addMemberToGroup(m_currentCategory, parentItem->text(0), newSubCategory);
         slotGroupSelected(parentItem);
     }
@@ -602,7 +603,7 @@ void Settings::TagGroupsPage::slotPageChange()
     m_tagsInGroupLabel->setText(m_selectGroupToAddTags);
     m_membersListWidget->setEnabled(false);
     m_membersListWidget->clear();
-    m_currentCategory = QString();
+    m_currentCategory.clear();
     updateCategoryTree();
 }
 

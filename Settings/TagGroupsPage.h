@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef SUBCATEGORIESPAGE_H
-#define SUBCATEGORIESPAGE_H
+#ifndef TAGGROUPSPAGE_H
+#define TAGGROUPSPAGE_H
 
 // Qt includes
 #include <QWidget>
@@ -110,6 +110,6 @@ private: // Variables
 
 }
 
-#endif // SUBCATEGORIESPAGE_H
+#endif // TAGGROUPSPAGE_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

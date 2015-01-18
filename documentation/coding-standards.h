@@ -1,3 +1,4 @@
+//krazy:skip
 /**
    \page coding-standards Coding Standards
 

@@ -1,3 +1,4 @@
+//krazy:skip
 /**
   \namespace HTMLGenerator
   \brief Tool to generate static web pages

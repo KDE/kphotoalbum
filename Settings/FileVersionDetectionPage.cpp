@@ -178,6 +178,22 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
 }
 
+Settings::FileVersionDetectionPage::~FileVersionDetectionPage()
+{
+    delete m_searchForImagesOnStart;
+    delete m_ignoreFileExtension;
+    delete m_skipSymlinks;
+    delete m_skipRawIfOtherMatches;
+    delete m_excludeDirectories;
+    delete m_detectModifiedFiles;
+    delete m_modifiedFileComponent;
+    delete m_originalFileComponent;
+    delete m_moveOriginalContents;
+    delete m_autoStackNewFiles;
+    delete m_copyFileComponent;
+    delete m_copyFileReplacementComponent;
+}
+
 void Settings::FileVersionDetectionPage::loadSettings( Settings::SettingsData* opt )
 {
     m_searchForImagesOnStart->setChecked( opt->searchForImagesOnStart() );

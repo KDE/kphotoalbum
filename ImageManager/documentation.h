@@ -1,3 +1,4 @@
+//krazy:skip
 /* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or

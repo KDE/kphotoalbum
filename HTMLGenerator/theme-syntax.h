@@ -1,3 +1,4 @@
+//krazy:skip
 /**
    \page html-themes HTML themes
 

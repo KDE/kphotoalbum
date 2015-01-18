@@ -1093,7 +1093,8 @@ bool MainWindow::Window::load()
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
          && ! (Settings::SettingsData::instance()->untaggedCategory().isEmpty()
-             && Settings::SettingsData::instance()->untaggedTag().isEmpty() ) )
+             && Settings::SettingsData::instance()->untaggedTag().isEmpty() )
+         && ! Utilities::runningDemo() )
     {
         KMessageBox::error( this, i18n(
                                 "<p>You have configured a tag for untagged images, but either the tag itself "

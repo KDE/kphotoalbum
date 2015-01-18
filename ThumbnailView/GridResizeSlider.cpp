@@ -21,12 +21,14 @@
 #include <QTimer>
 #include <KSharedConfig>
 #include <QDebug>
+#include <KMessageBox>
 
 #include "CellGeometry.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
 #include "ImageManager/ThumbnailBuilder.h"
+#include "MainWindow/Window.h"
 
 #ifdef DEBUG_ResizeSlider
 #define Debug qDebug
@@ -142,6 +144,23 @@ void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
 
 void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDifference)
 {
+    if (! Settings::SettingsData::instance()->incrementalThumbnails()) {
+        int code = KMessageBox::questionYesNo(
+            MainWindow::Window::theMainWindow(),
+            i18n("Really resize the stored thumbnail size? It will result in all thumbnails being "
+                "regenerated!"),
+            i18n("Really resize the thumbnails?"),
+            KStandardGuiItem::yes(), KStandardGuiItem::no(),
+            QLatin1String("resizeGrid")
+        );
+
+        if (code == KMessageBox::Yes) {
+            KGlobal::config()->sync();
+        } else {
+            return;
+        }
+    }
+
     // this matches the code in ThumbnailView::CellGeometry::calculateCellSize():
     int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize();
     int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace() + 5;

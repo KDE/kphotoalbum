@@ -132,15 +132,32 @@ void ThumbnailView::GridResizeSlider::setMaximum(int size)
 
 void ThumbnailView::GridResizeSlider::increaseThumbnailSize()
 {
-    //qDebug() << Settings::SettingsData::instance()->actualThumbnailSize()
-    //         << Settings::SettingsData::instance()->thumbnailSpace();
-
-    setStoredThumbnailSize(maximum() + 10);
+    calculateNewThumbnailSize(-1);
 }
 
 void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
 {
-    setStoredThumbnailSize(maximum() - 10);
+    calculateNewThumbnailSize(1);
+}
+
+void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDifference)
+{
+    int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize();
+    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace() + 1;
+    int vieportWidth = widget()->viewport()->width();
+    int perRow = vieportWidth / (thumbnailSize + 2 * thumbnailSpace);
+
+    if (perRow + perRowDifference == 0) {
+        return;
+    }
+
+    int newWidth = vieportWidth / (perRow + perRowDifference) - 2 * thumbnailSpace;
+
+    if (newWidth < Settings::SettingsData::instance()->minimumThumbnailSize()) {
+        return;
+    }
+
+    setStoredThumbnailSize(newWidth);
 }
 
 void ThumbnailView::GridResizeSlider::setStoredThumbnailSize(int size)

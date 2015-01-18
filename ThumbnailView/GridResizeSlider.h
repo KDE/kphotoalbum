@@ -63,6 +63,7 @@ private slots:
 private:
     bool m_resizing;
     QTimer *m_timer;
+    void calculateNewThumbnailSize(int perRowDifference);
     void setStoredThumbnailSize(int size);
 };
 

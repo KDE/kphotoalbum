@@ -87,13 +87,14 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
-    // TODO jzarl: write something sensible here as before the next release
     text += i18n("<h1><a name=\"kface\">Face detection and recognition support</a></h1>"
-                 "<p>KPhotoAlbum relies on libkface for face detection and recognition. "
+                 "<p>If KPhotoAlbum has been built with support for libkface, "
+                 "face detection and recognition features are enabled in the annotation dialog."
                  "</p>");
 
     text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
-                 "<p>If libkgeomap is available, KPhotoAlbum can show images with GPS information on a map."
+                 "<p>If KPhotoAlbum has been built with support for libkgeomap, "
+                 "KPhotoAlbum can show images with GPS information on a map."
                  "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"

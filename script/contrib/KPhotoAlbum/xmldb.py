@@ -26,6 +26,7 @@ from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
 from subprocess import check_output
+from locale import getpreferredencoding
 
 from KPhotoAlbum.db import DatabaseReader
 from KPhotoAlbum.datatypes import Category, MediaItem, Tag, BlockItem, MemberGroup
@@ -67,8 +68,9 @@ class XMLDatabase(DatabaseReader):
         # If no filename has been given, fetch it from the rc file.
 
         if filename == None:
+            encoding = getpreferredencoding()
             try:
-                filename = check_output(['kde4-config', '--localprefix']).decode('utf-8').strip()
+                filename = check_output(['kde4-config', '--localprefix']).decode(encoding).strip()
                 filename = filename + 'share/config/kphotoalbumrc'
             except:
                 raise ConfigError('Could not fetch local KDE configuration prefix.')
@@ -76,7 +78,7 @@ class XMLDatabase(DatabaseReader):
             try:
                 # We have to use a rather hackish grep approach here, as kphotoalbumrc does not
                 # follow "the rules" of a clean ini file and thus can't be parsed by configparser.
-                filename = check_output(['grep', 'configfile=', filename]).decode('utf-8').strip()
+                filename = check_output(['grep', 'configfile=', filename]).decode(encoding).strip()
                 filename = filename.split('=', 1)[1]
             except:
                 raise ConfigError('Could not fetch the index.xml path from kphotoalbumrc.')

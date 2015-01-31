@@ -1,3 +1,5 @@
+====================== KPhotoalbum 4.6 released  ======================
+
 * Enhancement: Allow incremental building of thumbnail cache.
 
 * UI: Add slider for resizing the thumbnail grid.

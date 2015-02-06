@@ -740,8 +740,8 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
     static const int EXIF_GPS_VERSIONID = 0;
     static const int EXIF_GPS_LATREF    = 1;
     static const int EXIF_GPS_LAT       = 2;
-    static const int EXIF_GPS_LONGREF   = 3;
-    static const int EXIF_GPS_LONG      = 4;
+    static const int EXIF_GPS_LONREF    = 3;
+    static const int EXIF_GPS_LON       = 4;
     static const int EXIF_GPS_ALTREF    = 5;
     static const int EXIF_GPS_ALT       = 6;
 
@@ -779,14 +779,16 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 
     KGeoMap::GeoCoordinates coords;
 
-    // GPSVersionID set?
-    if ( fields[EXIF_GPS_VERSIONID]->value().toInt() != 0 )
+    // gps info set?
+    // don't use the versionid field here, because some cameras use 0 as its value
+    if ( fields[EXIF_GPS_LAT]->value().toInt() != -1.0
+         && fields[EXIF_GPS_LON]->value().toInt() != -1.0 )
     {
         // lat/lon/alt reference determines sign of float:
         double latr = (fields[EXIF_GPS_LATREF]->value().toString() == S ) ? -1.0 : 1.0;
         double lat = fields[EXIF_GPS_LAT]->value().toFloat();
-        double lonr = (fields[EXIF_GPS_LONGREF]->value().toString() == W ) ? -1.0 : 1.0;
-        double lon = fields[EXIF_GPS_LONG]->value().toFloat();
+        double lonr = (fields[EXIF_GPS_LONREF]->value().toString() == W ) ? -1.0 : 1.0;
+        double lon = fields[EXIF_GPS_LON]->value().toFloat();
         double altr = (fields[EXIF_GPS_ALTREF]->value().toInt() == 1 ) ? -1.0 : 1.0;
         double alt = fields[EXIF_GPS_ALT]->value().toFloat();
 

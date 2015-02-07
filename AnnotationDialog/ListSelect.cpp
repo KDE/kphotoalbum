@@ -744,7 +744,7 @@ bool AnnotationDialog::ListSelect::positionable() const
 
 bool AnnotationDialog::ListSelect::tagIsChecked(QString tag) const
 {
-    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly, 0);
+    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly | Qt::MatchRecursive, 0);
 
     if(matchingTags.isEmpty()) {
         return false;
@@ -761,7 +761,7 @@ void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString
     }
 
     // Be sure that tag is actually checked
-    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly, 0);
+    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly | Qt::MatchRecursive, 0);
 
     // If we have the requested category, but not this tag, add it.
     // This should only happen if the recognition database is copied from another database
@@ -771,7 +771,7 @@ void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString
         m_category->addItem(tag);
         rePopulate();
         // Now, we find it
-        matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly, 0);
+        matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly | Qt::MatchRecursive, 0);
     }
 
     matchingTags.first()->setCheckState(0, Qt::Checked);

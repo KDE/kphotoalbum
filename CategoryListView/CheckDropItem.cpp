@@ -56,6 +56,12 @@ CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( 
 
 bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
 {
+    // This can happen when an item is dropped between two other items and not
+    // onto an item, which leads to a crash when text(0) is called later on.
+    if (this == nullptr) {
+        return false;
+    }
+
     DragItemInfoSet items = extractData( data );
     const QString newParent = text(0);
     if ( !verifyDropWasIntended( newParent, items ) )

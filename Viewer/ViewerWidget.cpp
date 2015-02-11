@@ -401,7 +401,7 @@ void Viewer::ViewerWidget::createZoomMenu()
 
     action = m_actions->addAction( QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT(toggleFullScreen()) );
     action->setText( i18nc("@action:inmenu","Toggle Full Screen") );
-    action->setShortcut( Qt::Key_Return );
+    action->setShortcuts(QList<QKeySequence>() << Qt::Key_F11 << Qt::Key_Return);
     popup->addAction( action );
 
     m_popup->addMenu( popup );

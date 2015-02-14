@@ -212,6 +212,13 @@ Same structure as version 5.
  * The legacy categories Keywords, Persons and Locations are not handled special any more.
    Upon upgrade from an older version, "Persons" is renamed to "People", and "Locations"
    is renamed to "Places".
+ * Older versions of KPhotoAlbum stored the standard categories (People, Places, Events, Folder,
+   Tokens, Media Type and Keywords; those have a translation) as their respective localized
+   versions. This lead to several problems if a non-English locale was used and has been fixed in
+   v4.6. Along with this update, it was also necessary to move all thumbnails in the CategoryImages
+   directory refering to the old names and fix the respective category names in kphotoalbumrc.
+ * The GPS related image tags (gpsAlt, gpsLat, gpsLon and gpsPrec) have been removed and are now
+   superseded by storing GPS data in the EXIF database.
 
 
 ### Attribute values explained ###

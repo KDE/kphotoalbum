@@ -75,6 +75,8 @@ public:
     QString currentBrowseCategory() const;
     void setStackHead( const DB::FileName& image );
     void setHistogramVisibilty( bool visible ) const;
+    void v6UpdateDone();
+    void v6UpdateSkipped();
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);
@@ -239,6 +241,9 @@ private:
     bool m_hasLoadedPlugins;
     QMap<Qt::Key, QPair<QString,QString> > m_viewerInputMacros;
     MainWindow::StatusBar* m_statusBar;
+
+    bool m_v6UpdateDone = false;
+    bool m_v6UpdateSkipped = false;
 };
 
 }

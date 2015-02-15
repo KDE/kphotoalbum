@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -19,6 +19,7 @@
 #include "DB/Category.h"
 #include "CheckDropItem.h"
 #include <QDragMoveEvent>
+#include <QDebug>
 
 CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent )
     :QTreeWidget( parent ), m_category( category )
@@ -65,7 +66,14 @@ QStringList CategoryListView::DragableTreeWidget::mimeTypes() const
 
 bool CategoryListView::DragableTreeWidget::dropMimeData(QTreeWidgetItem *parent, int, const QMimeData *data, Qt::DropAction )
 {
-    return static_cast<CheckDropItem*>(parent)->dataDropped(data);
+    CheckDropItem* targetItem = static_cast<CheckDropItem*>(parent);
+    if (targetItem == nullptr) {
+        // This can happen when an item is dropped between two other items and not
+        // onto an item, which leads to a crash when calling dataDropped(data).
+        return false;
+    } else {
+        return targetItem->dataDropped(data);
+    }
 }
 
 void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)

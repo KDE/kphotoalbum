@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,6 +25,7 @@
 #include <QDropEvent>
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
+#include <QDebug>
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, const QString& column1,
                                                 const QString& column2 )
@@ -56,12 +57,6 @@ CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( 
 
 bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
 {
-    // This can happen when an item is dropped between two other items and not
-    // onto an item, which leads to a crash when text(0) is called later on.
-    if (this == nullptr) {
-        return false;
-    }
-
     DragItemInfoSet items = extractData( data );
     const QString newParent = text(0);
     if ( !verifyDropWasIntended( newParent, items ) )

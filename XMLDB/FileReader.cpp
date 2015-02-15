@@ -15,30 +15,34 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "FileReader.h"
 
-#include <kcmdlineargs.h>
-#include <QTextCodec>
-#include <QTextStream>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <QMap>
-#include <KConfigGroup>
-
-#include "DB/MD5Map.h"
-#include "Database.h"
-#include "MainWindow/Window.h"
-#include "Utilities/Util.h"
-#include "XMLCategory.h"
-#include <QHash>
-#include <QXmlStreamReader>
-#include "CompressFileInfo.h"
+// Qt includes
 #include <QDebug>
 #include <QDir>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QMap>
+#include <QHash>
+#include <QXmlStreamReader>
+#include <QFile>
+#include <QRegExp>
+
+// KDE includes
+#include <KConfigGroup>
+#include <KCmdLineArgs>
+#include <KLocale>
+#include <KMessageBox>
+#include <KStandardDirs>
+
+// Local includes
+#include "DB/MD5Map.h"
+#include "Utilities/Util.h"
 #include "MainWindow/DirtyIndicator.h"
+#include "MainWindow/Window.h"
+#include "Database.h"
+#include "XMLCategory.h"
+#include "CompressFileInfo.h"
+#include "FileReader.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {

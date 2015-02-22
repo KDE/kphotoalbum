@@ -24,6 +24,7 @@
 #include <QGridLayout>
 #include <DB/ImageDB.h>
 #include "DB/CategoryCollection.h"
+#include <QMessageBox>
 
 Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
     : QGroupBox( i18n("Untagged Images"), parent )
@@ -102,11 +103,28 @@ void Settings::UntaggedGroupBox::loadSettings( Settings::SettingsData* opt )
 
 void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
 {
-    const QString category = m_category->itemData(m_category->currentIndex() ).value<QString>();;
-    if ( !category.isEmpty() ) {
-        opt->setUntaggedCategory( category );
-        opt->setUntaggedTag( m_tag->currentText() );
+    const QString category = m_category->itemData(m_category->currentIndex() ).value<QString>();
+    QString untaggedTag = m_tag->currentText().simplified();
+
+    if (! category.isEmpty()) {
+        // Add a new tag if the entered one is not in the DB yet
+        DB::CategoryPtr categoryPointer = DB::ImageDB::instance()->categoryCollection()->categoryForName(category);
+        if (! categoryPointer->items().contains(untaggedTag)) {
+            categoryPointer->addItem(untaggedTag);
+            QMessageBox::information(this,
+                i18n("New tag added"),
+                i18n("<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "
+                     "for untagged images now.</p>"
+                     "<p>Please save now, so that this tag will be stored in the database. "
+                     "Otherwise, it will be lost, and you will get an error about this tag being "
+                     "not present on the next start.</p>",
+                     untaggedTag, DB::Category::localizedCategoryName(category)));
+        }
+
+        opt->setUntaggedCategory(category);
+        opt->setUntaggedTag(untaggedTag);
     } else {
+        // If no untagged images tag is selected, remove the setting by using an empty string
         opt->setUntaggedCategory(QString());
         opt->setUntaggedTag(QString());
     }

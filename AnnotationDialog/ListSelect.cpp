@@ -532,6 +532,20 @@ void AnnotationDialog::ListSelect::populate()
         populateAlphaFlat();
     else
         populateMRU();
+
+    // Don't show the "untagged images" tag if this feature is used
+    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+        if (Settings::SettingsData::instance()->untaggedCategory() == category()) {
+            QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(
+                Settings::SettingsData::instance()->untaggedTag(),
+                Qt::MatchExactly | Qt::MatchRecursive, 0
+            );
+            // Be sure not to crash here in case the config points to a non-existant tag
+            if (matchingTags.at(0) != nullptr) {
+                matchingTags.at(0)->setHidden(true);
+            }
+        }
+    }
 }
 
 void AnnotationDialog::ListSelect::slotSortDate()

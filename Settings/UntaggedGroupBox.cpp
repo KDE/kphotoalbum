@@ -29,7 +29,10 @@
 Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
     : QGroupBox( i18n("Untagged Images"), parent )
 {
-
+    setWhatsThis(i18n("If a tag is selected here, it will be added to new (untagged) images "
+                      "automatically, so that they can be easily found. It will be removed as "
+                      "soon as the image is annotated. This tag won't show up in the annotation "
+                      "dialog and can't be used for \"normal\" tagging."));
 
     QGridLayout* grid = new QGridLayout(this);
     int row = -1;

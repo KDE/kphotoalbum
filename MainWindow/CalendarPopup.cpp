@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <KLocale>
+#include <KGlobal>
 
 namespace MainWindow {
 
@@ -32,6 +33,17 @@ CalendarPopup::CalendarPopup(QWidget *parent) :
     QVBoxLayout* vlay = new QVBoxLayout(this);
 
     m_calendar = new QCalendarWidget;
+
+    switch (KGlobal::locale()->weekStartDay()) {
+    case 1: m_calendar->setFirstDayOfWeek(Qt::Monday); break;
+    case 2: m_calendar->setFirstDayOfWeek(Qt::Tuesday); break;
+    case 3: m_calendar->setFirstDayOfWeek(Qt::Wednesday); break;
+    case 4: m_calendar->setFirstDayOfWeek(Qt::Thursday); break;
+    case 5: m_calendar->setFirstDayOfWeek(Qt::Friday); break;
+    case 6: m_calendar->setFirstDayOfWeek(Qt::Saturday); break;
+    case 7: m_calendar->setFirstDayOfWeek(Qt::Sunday); break;
+    }
+
     vlay->addWidget(m_calendar);
 
     QPushButton* button = new QPushButton(i18n("unset"));

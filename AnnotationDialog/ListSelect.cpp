@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -533,19 +533,30 @@ void AnnotationDialog::ListSelect::populate()
     else
         populateMRU();
 
-    // Don't show the "untagged images" tag if this feature is used
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
-        if (Settings::SettingsData::instance()->untaggedCategory() == category()) {
-            QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(
-                Settings::SettingsData::instance()->untaggedTag(),
-                Qt::MatchExactly | Qt::MatchRecursive, 0
-            );
-            // Be sure not to crash here in case the config points to a non-existant tag
-            if (matchingTags.at(0) != nullptr) {
-                matchingTags.at(0)->setHidden(true);
-            }
-        }
+    hideUntaggedImagesTag();
+}
+
+void AnnotationDialog::ListSelect::hideUntaggedImagesTag()
+{
+    if (! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+        return;
     }
+
+    if (Settings::SettingsData::instance()->untaggedCategory() != category()) {
+        return;
+    }
+
+    QList<QTreeWidgetItem*> matchingTags = m_treeWidget->findItems(
+        Settings::SettingsData::instance()->untaggedTag(),
+        Qt::MatchExactly | Qt::MatchRecursive, 0
+    );
+
+    // Be sure not to crash here in case the config points to a non-existant tag
+    if (matchingTags.at(0) == nullptr) {
+        return;
+    }
+
+    matchingTags.at(0)->setHidden(true);
 }
 
 void AnnotationDialog::ListSelect::slotSortDate()
@@ -649,6 +660,7 @@ void AnnotationDialog::ListSelect::showAllChildren()
 {
     m_showSelectedOnly->setChecked( false );
     showOnlyItemsMatching( QString() );
+    hideUntaggedImagesTag();
 }
 
 void AnnotationDialog::ListSelect::updateSelectionCount()

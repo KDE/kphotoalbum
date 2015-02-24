@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -41,6 +41,7 @@ namespace CategoryListView { class CheckDropItem; }
 
 namespace AnnotationDialog
 {
+
 using Utilities::StringSet;
 
 class CompletableLineEdit;
@@ -106,7 +107,10 @@ protected:
     void checkItem( const QString itemText, bool );
     void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 
-private:
+private: // Functions
+    void hideUntaggedImagesTag();
+
+private: // Variables
     DB::CategoryPtr m_category;
     CompletableLineEdit* m_lineEdit;
     CategoryListView::DragableTreeWidget* m_treeWidget;
@@ -120,9 +124,8 @@ private:
     QString m_baseTitle;
     bool m_positionable;
 #ifdef HAVE_KFACE
-    FaceManagement::Recognizer *m_recognizer;
+    FaceManagement::Recognizer* m_recognizer;
 #endif
-
 };
 
 }

@@ -154,7 +154,12 @@ void NewImageFinder::loadExtraFiles()
         qApp->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
+        {
+            // clear the list of pending images, so that findImages() doesn't
+            // try to build thumbnails for images w/o DB entry:
+            m_pendingLoad.clear();
             return;
+        }
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
         if ( info ) {
             markUnTagged(info);

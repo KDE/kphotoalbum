@@ -306,17 +306,31 @@ void ImagePreviewWidget::updateTexts()
         ));
 #endif
     } else {
-        // positionable tags disabled
-        m_toggleAreasBut->setToolTip(i18nc("@info:tooltip",
-            "If you enable <emphasis>positionable tags</emphasis> for at least one category in "
-            "<interface>Settings|Configure KPhotoAlbum...|Categories</interface>, you can "
-            "associate specific image areas with tags."
-        ));
+        if (m_singleEdit) {
+            // positionable tags disabled
+            m_toggleAreasBut->setToolTip(i18nc("@info:tooltip",
+                "If you enable <emphasis>positionable tags</emphasis> for at least one category in "
+                "<interface>Settings|Configure KPhotoAlbum...|Categories</interface>, you can "
+                "associate specific image areas with tags."
+            ));
+        } else {
+            m_toggleAreasBut->setToolTip(i18nc("@info:tooltip",
+                "Areas on an image can only be shown in single-image annotation mode."
+            ));
+        }
 #ifdef HAVE_KFACE
-        QString faceDetectionPlaceholderText { i18nc("@info",
-            "To use face detection, enable <emphasis>positionable tags</emphasis> for at least one "
-            "category in <interface>Settings|Configure KPhotoAlbum...|Categories</interface>."
-        ) };
+        QString faceDetectionPlaceholderText;
+        if (m_singleEdit) {
+            faceDetectionPlaceholderText = i18nc("@info",
+                "To use face detection, enable <emphasis>positionable tags</emphasis> for at least "
+                "one category in <interface>Settings|Configure KPhotoAlbum..."
+                "|Categories</interface>."
+            );
+        } else {
+            faceDetectionPlaceholderText = i18nc("@info",
+                "Face detection is only available in single-image annotation mode."
+            );
+        }
         m_facedetectBut->setToolTip( faceDetectionPlaceholderText );
         m_autoTrainDatabase->setWhatsThis( faceDetectionPlaceholderText );
 #endif

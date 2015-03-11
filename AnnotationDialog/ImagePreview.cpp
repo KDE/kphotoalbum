@@ -593,7 +593,19 @@ void ImagePreview::detectFaces()
 
 void ImagePreview::trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData)
 {
-    ImagePreviewWidget *parent = dynamic_cast<ImagePreviewWidget *>(parentWidget());
+    // FIXME Remove this message if we ever get rid of this problem ...
+    KMessageBox::information(0,
+        i18n("<p>Face recognition is in a quite early development state. There are still many "
+             "tweaks to do.</p>"
+             "<p>Sometimes, libkface needs quite a long time to train the database (even some "
+             "minutes). KPhotoAlbum will be unresponsive in the meantime, but it won't crash; "
+             "please be a bit patient if this happens.</p>"
+             "<p>However, normally, the training will happen in a few seconds.</p>"),
+        i18n("Face database training"),
+        QString::fromUtf8("warnFaceTraining")
+    );
+
+    ImagePreviewWidget* parent = dynamic_cast<ImagePreviewWidget*>(parentWidget());
     parent->setFacedetectButEnabled(false);
 
     // Be sure to have the full size image

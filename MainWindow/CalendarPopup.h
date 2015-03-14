@@ -46,7 +46,6 @@ protected slots:
 
 private: // Functions
     void resetDate();
-    void showEvent(QShowEvent* event);
 
 private: // variables
     QCalendarWidget* m_calendar;

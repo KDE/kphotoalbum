@@ -73,15 +73,11 @@ CalendarPopup::CalendarPopup(QWidget* parent) : QWidget(parent)
     connect(unsetButton, SIGNAL(clicked()), this, SIGNAL(dateSelected()));
 }
 
-void CalendarPopup::showEvent(QShowEvent* event)
-{
-    QWidget::showEvent(event);
-    m_dateInput->setFocus();
-}
-
 void CalendarPopup::setSelectedDate(const QDate& date)
 {
     m_calendar->setSelectedDate(date);
+    m_dateInput->setText(date.toString(m_dateFormat));
+    m_dateInput->setFocus();
 }
 
 void CalendarPopup::parseDate(QString date)

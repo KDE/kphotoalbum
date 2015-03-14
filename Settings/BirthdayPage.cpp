@@ -54,7 +54,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     QHBoxLayout* itemsHeaderLayout = new QHBoxLayout;
     itemsLayout->addLayout(itemsHeaderLayout);
 
-    QLabel* categoryText = new QLabel(i18n("Current Category"));
+    QLabel* categoryText = new QLabel(i18n("Category:"));
     itemsHeaderLayout->addWidget(categoryText);
 
     m_categoryBox = new QComboBox;

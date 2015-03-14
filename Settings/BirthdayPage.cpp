@@ -76,6 +76,9 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 
     calendarLayout->addStretch();
 
+    m_birthdayOfLabel = new QLabel;
+    calendarLayout->addWidget(m_birthdayOfLabel);
+
     m_dateInput = new QLineEdit;
     calendarLayout->addWidget(m_dateInput);
     connect(m_dateInput, SIGNAL(textEdited(QString)), this, SLOT(parseDate(QString)));
@@ -223,6 +226,8 @@ void Settings::BirthdayPage::editDate(int row, int)
     m_dataView->item(row, 0)->setFont(m_boldFont);
     m_dataView->item(row, 1)->setFont(m_boldFont);
 
+    m_birthdayOfLabel->setText(i18n("Birthday of %1:", m_dataView->item(row, 0)->text()));
+
     QString dateString = m_dataView->item(row, 1)->text();
     if (dateString != m_noDateString) {
         m_dateInput->setText(dateString);
@@ -272,6 +277,7 @@ void Settings::BirthdayPage::disableCalendar()
     m_dateInput->setEnabled(false);
     m_calendar->setEnabled(false);
     m_unsetButton->setEnabled(false);
+    m_birthdayOfLabel->setText(i18n("<i>Select an item on the left to edit the birthday</i>"));
 }
 
 void Settings::BirthdayPage::discardChanges()

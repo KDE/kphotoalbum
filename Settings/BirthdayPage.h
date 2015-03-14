@@ -74,6 +74,7 @@ private: // Variables
     QPushButton* m_unsetButton;
     QString m_noDateString;
     QMap<QString, QMap<QString, QDate>> m_changedData;
+    QLabel* m_birthdayOfLabel;
 };
 
 }

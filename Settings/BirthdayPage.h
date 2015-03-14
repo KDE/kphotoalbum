@@ -52,6 +52,7 @@ private slots:
     void parseDate(QString date);
     void checkDate();
     void setDate(const QDate& date);
+    void removeDate();
 
 public:
     BirthdayPage(QWidget* parent);

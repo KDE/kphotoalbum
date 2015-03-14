@@ -100,6 +100,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 
     m_unsetButton = new QPushButton(i18n("unset"));
     calendarLayout->addWidget(m_unsetButton);
+    connect(m_unsetButton, SIGNAL(clicked()), this, SLOT(removeDate()));
 
     calendarLayout->addStretch();
 
@@ -270,6 +271,8 @@ void Settings::BirthdayPage::setDate(const QDate& date)
     m_changedData[currentCategory][currentItem] = date;
 
     m_dataView->item(m_dataView->currentRow(), 1)->setText(textForDate(date));
+
+    m_unsetButton->setEnabled(true);
 }
 
 void Settings::BirthdayPage::disableCalendar()
@@ -304,4 +307,11 @@ void Settings::BirthdayPage::saveSettings()
         MainWindow::DirtyIndicator::markDirty();
         m_changedData.clear();
     }
+}
+
+void Settings::BirthdayPage::removeDate()
+{
+    m_dateInput->setText(QString());
+    m_calendar->setSelectedDate(QDate::currentDate());
+    setDate(QDate());
 }

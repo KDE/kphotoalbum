@@ -23,8 +23,8 @@
 #include <QLineEdit>
 
 // KDE includes
-#include <KLocale>
 #include <KGlobal>
+#include <KLocale>
 
 // Local includes
 #include "CalendarPopup.h"
@@ -43,20 +43,10 @@ CalendarPopup::CalendarPopup(QWidget* parent) : QWidget(parent)
     connect(m_dateInput, SIGNAL(textEdited(QString)), this, SLOT(parseDate(QString)));
     connect(m_dateInput, SIGNAL(editingFinished()), this, SLOT(checkDate()));
 
-    // Try to assemble a parsing mask from the local short date format
-    m_dateFormat = KGlobal::locale()->dateFormatShort();
-    m_dateFormat.replace(QString::fromUtf8("%e"), QString::fromUtf8("d"));
-    m_dateFormat.replace(QString::fromUtf8("%d"), QString::fromUtf8("dd"));
-    m_dateFormat.replace(QString::fromUtf8("%n"), QString::fromUtf8("M"));
-    m_dateFormat.replace(QString::fromUtf8("%m"), QString::fromUtf8("MM"));
-    m_dateFormat.replace(QString::fromUtf8("%b"), QString::fromUtf8("MMM"));
-    m_dateFormat.replace(QString::fromUtf8("%B"), QString::fromUtf8("MMMM"));
-    m_dateFormat.replace(QString::fromUtf8("%y"), QString::fromUtf8("yy"));
-    m_dateFormat.replace(QString::fromUtf8("%Y"), QString::fromUtf8("yyyy"));
-
     // Add the calendar widget and set the user's chosen first day of the week
+    m_locale = KGlobal::locale();
     m_calendar = new QCalendarWidget;
-    switch (KGlobal::locale()->weekStartDay()) {
+    switch (m_locale->weekStartDay()) {
     case 1: m_calendar->setFirstDayOfWeek(Qt::Monday); break;
     case 2: m_calendar->setFirstDayOfWeek(Qt::Tuesday); break;
     case 3: m_calendar->setFirstDayOfWeek(Qt::Wednesday); break;
@@ -76,13 +66,13 @@ CalendarPopup::CalendarPopup(QWidget* parent) : QWidget(parent)
 void CalendarPopup::setSelectedDate(const QDate& date)
 {
     m_calendar->setSelectedDate(date);
-    m_dateInput->setText(date.toString(m_dateFormat));
+    m_dateInput->setText(m_locale->formatDate(date, KLocale::ShortDate));
     m_dateInput->setFocus();
 }
 
 void CalendarPopup::parseDate(QString date)
 {
-    QDate parsedDate = QDate::fromString(date, m_dateFormat);
+    QDate parsedDate = m_locale->readDate(date);
     if (parsedDate != QDate()) {
         m_calendar->setSelectedDate(parsedDate);
         m_dateInput->setStyleSheet(QString());
@@ -93,7 +83,7 @@ void CalendarPopup::parseDate(QString date)
 
 void CalendarPopup::checkDate()
 {
-    QDate parsedDate = QDate::fromString(m_dateInput->text(), m_dateFormat);
+    QDate parsedDate = m_locale->readDate(m_dateInput->text());
     if (parsedDate != QDate()) {
         emit dateSelected(parsedDate);
     }

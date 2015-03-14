@@ -27,6 +27,9 @@
 class QCalendarWidget;
 class QLineEdit;
 
+// KDE Classes
+class KLocale;
+
 namespace MainWindow {
 
 class CalendarPopup : public QWidget
@@ -49,8 +52,8 @@ private: // Functions
 
 private: // variables
     QCalendarWidget* m_calendar;
-    QString m_dateFormat;
     QLineEdit* m_dateInput;
+    KLocale* m_locale;
 };
 
 } // namespace Settings

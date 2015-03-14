@@ -44,6 +44,7 @@ class DatabaseBackendPage;
 #ifdef HAVE_KFACE
 class FaceManagementPage;
 #endif
+class BirthdayPage;
 
 class SettingsDialog :public KPageDialog {
     Q_OBJECT
@@ -75,7 +76,10 @@ private:
 #ifdef HAVE_KFACE
     Settings::FaceManagementPage *m_faceManagementPage;
 #endif
+    Settings::BirthdayPage* m_birthdayPage;
     KPageWidgetItem* m_backendPage;
+
+    void keyPressEvent(QKeyEvent*);
 };
 
 }

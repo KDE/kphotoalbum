@@ -40,6 +40,8 @@
 #include "FaceManagementPage.h"
 #endif
 
+#include "BirthdayPage.h"
+
 struct Data
 {
     QString title;
@@ -69,6 +71,8 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     m_faceManagementPage = new Settings::FaceManagementPage(this);
 #endif
 
+    m_birthdayPage = new Settings::BirthdayPage(this);
+
     m_databaseBackendPage = new Settings::DatabaseBackendPage(this);
 
 
@@ -77,6 +81,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         { i18n("File Searching & Versions"), "system-search", m_fileVersionDetectionPage },
         { i18n("Thumbnail View" ), "view-list-icons", m_thumbnailsPage },
         { i18n("Categories"), "user-identity", m_categoryPage },
+        { i18n("Birthdays"), "office-calendar", m_birthdayPage },
         { i18n("Tag Groups" ), "edit-copy", m_tagGroupsPage },
         { i18n("Viewer" ), "document-preview", m_viewerPage },
 #ifdef HASKIPI
@@ -114,6 +119,10 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
             m_faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*)));
 #endif
+    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+            m_birthdayPage, SLOT(pageChange(KPageWidgetItem*)));
+    connect(this, SIGNAL(cancelClicked()), m_birthdayPage, SLOT(discardChanges()));
+
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
 }
@@ -145,6 +154,8 @@ void Settings::SettingsDialog::show()
 
     m_categoryPage->enableDisable( false );
 
+    m_birthdayPage->reload();
+
     KDialog::show();
 }
 
@@ -158,8 +169,11 @@ void Settings::SettingsDialog::slotMyOK()
     m_generalPage->saveSettings( opt );
     m_fileVersionDetectionPage->saveSettings( opt );
     m_thumbnailsPage->saveSettings(opt);
-    m_categoryPage->saveSettings( opt, m_tagGroupsPage->memberMap() );
+
+    m_birthdayPage->saveSettings();
     m_tagGroupsPage->saveSettings();
+    m_categoryPage->saveSettings( opt, m_tagGroupsPage->memberMap() );
+
     m_viewerPage->saveSettings( opt );
 
 #ifdef HASKIPI
@@ -184,6 +198,11 @@ void Settings::SettingsDialog::slotMyOK()
 void Settings::SettingsDialog::showBackendPage()
 {
     setCurrentPage(m_backendPage);
+}
+
+void Settings::SettingsDialog::keyPressEvent(QKeyEvent*)
+{
+    // This prevents the dialog to be closed if the ENTER key is pressed anywhere
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

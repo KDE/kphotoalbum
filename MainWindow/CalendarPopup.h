@@ -15,30 +15,43 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef SETTINGS_CALENDARPOPUP_H
 #define SETTINGS_CALENDARPOPUP_H
 
+// Qt includes
 #include <QWidget>
 #include <QDate>
 
+// Qt classes
 class QCalendarWidget;
+class QLineEdit;
 
 namespace MainWindow {
 
 class CalendarPopup : public QWidget
 {
     Q_OBJECT
+
 public:
-    explicit CalendarPopup(QWidget *parent = 0);
-    void setSelectedDate(const QDate&);
+    explicit CalendarPopup(QWidget* parent = 0);
+    void setSelectedDate(const QDate& date);
 
 signals:
     void dateSelected(const QDate& date = QDate());
 
-private:
-    void resetDate();
+protected slots:
+    void parseDate(QString date);
+    void checkDate();
 
+private: // Functions
+    void resetDate();
+    void showEvent(QShowEvent* event);
+
+private: // variables
     QCalendarWidget* m_calendar;
+    QString m_dateFormat;
+    QLineEdit* m_dateInput;
 };
 
 } // namespace Settings

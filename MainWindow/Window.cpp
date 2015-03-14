@@ -101,7 +101,6 @@
 #  include "Exif/Database.h"
 #endif
 
-#include "BirthDatesDialog.h"
 #include "FeatureDialog.h"
 
 #include <krun.h>
@@ -897,9 +896,6 @@ void MainWindow::Window::setupMenuBar()
 
     m_AutoStackImages = actionCollection()->addAction( QString::fromLatin1( "autoStack" ), this, SLOT (slotAutoStackImages()) );
     m_AutoStackImages->setText( i18n("Automatically Stack Selected Images...") );
-
-    KAction* editBirthDates = actionCollection()->addAction( QString::fromUtf8("editBirthDates"), this, SLOT(editBirthDates()));
-    editBirthDates->setText(i18n("Edit Birth Dates..."));
 
     a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT(slotBuildThumbnails()) );
     a->setText( i18n("Build Thumbnails") );
@@ -1811,11 +1807,6 @@ void MainWindow::Window::mergeDuplicates()
     merger->show();
 }
 
-void MainWindow::Window::editBirthDates()
-{
-    MainWindow::BirthDatesDialog dialog;
-    dialog.exec();
-}
 void MainWindow::Window::slotThumbnailSizeChanged()
 {
     QString thumbnailSizeMsg = i18nc( "@info:status",

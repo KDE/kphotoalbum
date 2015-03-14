@@ -160,7 +160,6 @@ protected slots:
     void useNextVideoThumbnail();
     void usePreviousVideoThumbnail();
     void mergeDuplicates();
-    void editBirthDates();
     void slotThumbnailSizeChanged();
 
 protected:

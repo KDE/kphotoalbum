@@ -29,6 +29,7 @@ class QTableWidget;
 class QFont;
 class QCalendarWidget;
 class QPushButton;
+class QTableWidgetItem;
 
 // KDE classes
 class KPageWidgetItem;
@@ -66,7 +67,7 @@ private: // Variables
     QLineEdit* m_filter;
     QComboBox* m_categoryBox;
     QTableWidget* m_dataView;
-    int m_lastRow = -1;
+    QTableWidgetItem* m_lastItem = nullptr;
     QFont m_font;
     QFont m_boldFont;
     QLineEdit* m_dateInput;

@@ -68,6 +68,9 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
 
     m_dataView = new QTableWidget;
+    m_dataView->setColumnCount(2);
+    m_dataView->verticalHeader()->hide();
+    m_dataView->setShowGrid(false);
     itemsLayout->addWidget(m_dataView);
     connect(m_dataView, SIGNAL(cellActivated(int,int)), this, SLOT(editDate(int,int)));
 
@@ -117,6 +120,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 void Settings::BirthdayPage::pageChange(KPageWidgetItem* page)
 {
     if (page->widget() == this) {
+        m_lastItem = nullptr;
         reload();
     }
 }
@@ -159,19 +163,17 @@ void Settings::BirthdayPage::resetCategory()
 
 void Settings::BirthdayPage::changeCategory(int index)
 {
+    m_lastItem = nullptr;
     m_dataView->clear();
-    m_dataView->setColumnCount(2);
     m_dataView->setHorizontalHeaderLabels(QStringList() << i18n("Name") << i18n("Birthday"));
-    m_dataView->verticalHeader()->hide();
-    m_dataView->setShowGrid(false);
 
-    int row = 0;
     const QString categoryName = m_categoryBox->itemData(index).value<QString>();
     const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
     QStringList items = category->items();
     items.sort();
 
     m_dataView->setRowCount(items.count());
+    int row = 0;
 
     for (const QString& text : items) {
         if (! m_filter->text().isEmpty()
@@ -202,6 +204,8 @@ void Settings::BirthdayPage::changeCategory(int index)
         row++;
     }
 
+    m_dataView->resizeColumnsToContents();
+
     disableCalendar();
 }
 
@@ -220,9 +224,9 @@ void Settings::BirthdayPage::editDate(int row, int)
     m_calendar->setEnabled(true);
     m_unsetButton->setEnabled(m_dataView->item(row, 1)->text() != m_noDateString);
 
-    if (m_lastRow != -1) {
-        m_dataView->item(m_lastRow, 0)->setFont(m_font);
-        m_dataView->item(m_lastRow, 1)->setFont(m_font);
+    if (m_lastItem != nullptr) {
+        m_lastItem->setFont(m_font);
+        m_dataView->item(m_lastItem->row(), 1)->setFont(m_font);
     }
 
     m_dataView->item(row, 0)->setFont(m_boldFont);
@@ -239,7 +243,7 @@ void Settings::BirthdayPage::editDate(int row, int)
         m_calendar->setSelectedDate(QDate::currentDate());
     }
 
-    m_lastRow = row;
+    m_lastItem = m_dataView->item(row, 0);
 }
 
 void Settings::BirthdayPage::parseDate(QString date)

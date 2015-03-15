@@ -40,6 +40,7 @@
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
 #include "MainWindow/DirtyIndicator.h"
+#include "DateTableWidgetItem.h"
 
 Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 {
@@ -165,12 +166,12 @@ void Settings::BirthdayPage::changeCategory(int index)
 {
     m_lastItem = nullptr;
     m_dataView->clear();
+    m_dataView->setSortingEnabled(false);
     m_dataView->setHorizontalHeaderLabels(QStringList() << i18n("Name") << i18n("Birthday"));
 
     const QString categoryName = m_categoryBox->itemData(index).value<QString>();
     const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
     QStringList items = category->items();
-    items.sort();
 
     m_dataView->setRowCount(items.count());
     int row = 0;
@@ -196,7 +197,7 @@ void Settings::BirthdayPage::changeCategory(int index)
             dateForItem = category->birthDate(text);
         }
 
-        QTableWidgetItem* dateItem = new QTableWidgetItem(textForDate(dateForItem));
+        DateTableWidgetItem* dateItem = new DateTableWidgetItem(textForDate(dateForItem));
         dateItem->setData(Qt::UserRole, dateForItem);
         dateItem->setFlags(dateItem->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
         m_dataView->setItem(row, 1, dateItem);
@@ -204,6 +205,8 @@ void Settings::BirthdayPage::changeCategory(int index)
         row++;
     }
 
+    m_dataView->setSortingEnabled(true);
+    m_dataView->sortItems(0);
     m_dataView->resizeColumnsToContents();
 
     disableCalendar();

@@ -135,6 +135,7 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoriesGroupsWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/BirthdayPage.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DateTableWidgetItem.cpp
 )
 
 set(libxmldb_SRCS

@@ -195,6 +195,7 @@ void Settings::BirthdayPage::changeCategory(int index)
         }
 
         QTableWidgetItem* dateItem = new QTableWidgetItem(textForDate(dateForItem));
+        dateItem->setData(Qt::UserRole, dateForItem);
         dateItem->setFlags(dateItem->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
         m_dataView->setItem(row, 1, dateItem);
 
@@ -232,7 +233,7 @@ void Settings::BirthdayPage::editDate(int row, int)
     QString dateString = m_dataView->item(row, 1)->text();
     if (dateString != m_noDateString) {
         m_dateInput->setText(dateString);
-        m_calendar->setSelectedDate(m_locale->readDate(dateString));
+        m_calendar->setSelectedDate(m_dataView->item(row, 1)->data(Qt::UserRole).toDate());
     } else {
         m_dateInput->setText(QString());
         m_calendar->setSelectedDate(QDate::currentDate());
@@ -271,6 +272,7 @@ void Settings::BirthdayPage::setDate(const QDate& date)
     m_changedData[currentCategory][currentItem] = date;
 
     m_dataView->item(m_dataView->currentRow(), 1)->setText(textForDate(date));
+    m_dataView->item(m_dataView->currentRow(), 1)->setData(Qt::UserRole, date);
 
     m_unsetButton->setEnabled(true);
 }

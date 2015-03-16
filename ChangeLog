@@ -1,5 +1,13 @@
-* UI: Moved the birth date dialig to the settings and added more functionaliy (typing the date
+* UI: Moved the birth date dialog to the settings and added more functionaliy (typing the date
   directly, sorting by tag name or date).
+
+* Bugfix (#344462): Don't build thumbs when new image finder is canceled.
+
+* Bugfix (#344419): When a new tag is added, select this very newly added tag, not the first tag
+  that contains the new tag's name (which can as well be another one).
+
+* Bugfix (#343822): Prevent KPA from crashing when a tag is dropped between two other tags and not
+  onto one.
 
 ====================== KPhotoalbum 4.6 released  ======================
 

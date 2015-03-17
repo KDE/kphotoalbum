@@ -206,7 +206,6 @@ void Settings::BirthdayPage::changeCategory(int index)
 
     m_dataView->setSortingEnabled(true);
     m_dataView->sortItems(0);
-    m_dataView->resizeColumnsToContents();
 
     disableCalendar();
 }
@@ -242,6 +241,7 @@ void Settings::BirthdayPage::editDate(int row, int)
         m_calendar->setSelectedDate(m_dataView->item(row, 1)->data(Qt::UserRole).toDate());
     } else {
         m_dateInput->setText(QString());
+        m_dateInput->setPlaceholderText( i18n("Enter a date..."));
         m_calendar->setSelectedDate(QDate::currentDate());
     }
 

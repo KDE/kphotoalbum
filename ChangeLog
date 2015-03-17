@@ -6,8 +6,14 @@
 * Bugfix (#344419): When a new tag is added, select this very newly added tag, not the first tag
   that contains the new tag's name (which can as well be another one).
 
+* Improvement: better wording for DB upgrade messages.
+
 * Bugfix (#343822): Prevent KPA from crashing when a tag is dropped between two other tags and not
   onto one.
+
+* Bugfix (#342510): Fix crash with face recognition with some tag hierarchies.
+
+* Fix evaluation of GPS data for some cameras.
 
 ====================== KPhotoalbum 4.6 released  ======================
 

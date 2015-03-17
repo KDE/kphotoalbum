@@ -177,6 +177,7 @@ void Settings::FaceManagementPage::saveSettings(Settings::SettingsData* opt)
 void Settings::FaceManagementPage::loadDatabase()
 {
     m_databaseEntries->clear();
+    m_databaseEntries->setSortingEnabled(false);
     m_recognizer = FaceManagement::Recognizer::instance();
 
     QMap<QString, QStringList> parsedIdentities = m_recognizer->allParsedIdentities();
@@ -200,6 +201,8 @@ void Settings::FaceManagementPage::loadDatabase()
     }
 
     m_databaseEntries->setEnabled(true);
+    m_databaseEntries->setSortingEnabled(true);
+    m_databaseEntries->sortItems(0, Qt::AscendingOrder);
 }
 
 void Settings::FaceManagementPage::slotDeleteSelected()

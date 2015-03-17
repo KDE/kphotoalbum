@@ -144,8 +144,7 @@ void Settings::BirthdayPage::reload()
             continue;
         }
         m_categoryBox->addItem(category->text(), category->name());
-        if (category->name() == QString::fromUtf8("Persons")
-            || category->name() == QString::fromUtf8("People")) {
+        if (category->name() == QString::fromUtf8("People")) {
             defaultIndex = index;
         }
         ++index;

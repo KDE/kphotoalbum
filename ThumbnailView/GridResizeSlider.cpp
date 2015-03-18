@@ -15,20 +15,25 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "GridResizeSlider.h"
 
+// Qt includes
 #include <QScrollBar>
 #include <QTimer>
-#include <KSharedConfig>
 #include <QDebug>
-#include <KMessageBox>
 
+// KDE includes
+#include <KSharedConfig>
+#include <KMessageBox>
+#include <KLocale>
+
+// Local includes
+#include "MainWindow/Window.h"
+#include "Settings/SettingsData.h"
+#include "GridResizeSlider.h"
 #include "CellGeometry.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
-#include "Settings/SettingsData.h"
 #include "ImageManager/ThumbnailBuilder.h"
-#include "MainWindow/Window.h"
 
 #ifdef DEBUG_ResizeSlider
 #define Debug qDebug

@@ -33,6 +33,7 @@ class QTableWidgetItem;
 
 // KDE classes
 class KPageWidgetItem;
+class KLocale;
 
 namespace Settings
 {

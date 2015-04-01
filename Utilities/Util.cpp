@@ -246,7 +246,7 @@ QString formatDate(const DateSpec& date)
     else if (date.second == 'D')
         return i18np("1 day", "%1 days", date.first);
     else if (date.second == 'M')
-        return i18np("1 month", "%1 month", date.first);
+        return i18np("1 month", "%1 months", date.first);
     else
         return i18np("1 year", "%1 years", date.first);
 }
@@ -321,7 +321,7 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
                         "if numbered backup files exist and can be used to restore index.xml.</p>", message ) );
         exit(-1);
     }
- 
+
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
         if ( in.open( QIODevice::ReadOnly ) ) {

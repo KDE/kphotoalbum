@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -107,8 +107,9 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget* parent) : QWidget(pare
 
     // List of all database entries
     m_databaseEntries = new QTreeWidget;
-    m_databaseEntries->setColumnCount(1);
-    m_databaseEntries->setHeaderLabels(QStringList(i18n("Database entry")));
+    m_databaseEntries->setColumnCount(2);
+    m_databaseEntries->setHeaderLabels(QStringList() << i18n("Database entry")
+                                                     << i18n("Trained faces"));
     m_databaseEntries->setSortingEnabled(true);
     m_databaseEntries->setSelectionMode(QAbstractItemView::ExtendedSelection);
     clearDatabaseEntries();
@@ -192,6 +193,8 @@ void Settings::FaceManagementPage::loadDatabase()
         for (int i = 0; i < tagList.value().size(); ++i) {
             QTreeWidgetItem* tag = new QTreeWidgetItem;
             tag->setText(0, tagList.value().at(i));
+            tag->setText(1, QString::number(m_recognizer->getHistogramCount(tagList.key(),
+                                                                            tagList.value().at(i))));
             tag->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
             category->addChild(tag);
         }

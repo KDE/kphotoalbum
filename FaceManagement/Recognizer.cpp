@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,10 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
+// Qt includes
+#include <QDebug>
+#include <QSqlQuery>
 
 // Local includes
 #include "Recognizer.h"
@@ -34,13 +38,17 @@ FaceManagement::Recognizer* FaceManagement::Recognizer::instance()
 
 FaceManagement::Recognizer::Recognizer()
 {
-    m_recognitionDatabase = RecognitionDatabase::addDatabase(
-        Settings::SettingsData::instance()->imageDirectory()
-    );
+    QString imageDirectory = Settings::SettingsData::instance()->imageDirectory();
+    m_recognitionDatabase = RecognitionDatabase::addDatabase(imageDirectory);
+    m_recognitiondb = QSqlDatabase::addDatabase(QString::fromUtf8("QSQLITE"),
+                                                QString::fromUtf8("recognition"));
+    m_recognitiondb.setDatabaseName(imageDirectory + QString::fromUtf8("recognition.db"));
+    m_recognitiondb.open();
 }
 
 FaceManagement::Recognizer::~Recognizer()
 {
+    m_recognitiondb.close();
 }
 
 QPair<QString, QString> FaceManagement::Recognizer::recognizeFace(const QImage& image)
@@ -224,6 +232,26 @@ QString FaceManagement::Recognizer::identityString(QString category, QString tag
     fullNameString += QString::fromUtf8("-/-");
     fullNameString += tag.replace(QString::fromUtf8("/"), QString::fromUtf8("//"));
     return fullNameString;
+}
+
+int FaceManagement::Recognizer::getHistogramCount(const QString category, const QString tag) const
+{
+    int id = m_recognitionDatabase.findIdentity(
+        QString::fromUtf8("fullName"),
+        identityString(QPair<QString, QString>(category, tag))
+    ).id();
+    QSqlQuery query(m_recognitiondb);
+    query.prepare(QString::fromUtf8("SELECT COUNT(identity) "
+                                    "FROM OpenCVLBPHistograms "
+                                    "WHERE identity = :id"));
+    query.bindValue(QString::fromUtf8(":id"), id);
+    query.exec();
+
+    if (query.next()) {
+        return query.value(0).toInt();
+    } else {
+        return 0;
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

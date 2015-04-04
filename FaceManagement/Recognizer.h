@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -24,6 +24,7 @@
 #include <QPair>
 #include <QMap>
 #include <QImage>
+#include <QSqlDatabase>
 
 // libkface includes
 #include <libkface/recognitiondatabase.h>
@@ -56,6 +57,7 @@ public:
     void eraseDatabase();
     void updateCategoryName(QString oldName, QString newName);
     void deleteCategory(QString category);
+    int getHistogramCount(const QString category, const QString tag) const;
 
 private: // Variables
     static FaceManagement::Recognizer* s_instance;
@@ -66,6 +68,7 @@ private: // Functions
     QPair<QString, QString> parseIdentity(KFaceIface::Identity identity);
     QString identityString(QPair<QString, QString> tagData) const;
     QString identityString(QString category, QString tag) const;
+    QSqlDatabase m_recognitiondb;
 };
 
 }

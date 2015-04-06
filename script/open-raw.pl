@@ -15,7 +15,8 @@ my @rawExt = (
 );
 
 # The application you use to develop the RAW files
-my @raw_converters = ( "/usr/bin/AfterShotPro", "/usr/bin/bibble5",
+my @raw_converters = ( "/usr/bin/AfterShot2",
+	"/usr/bin/AfterShotPro", "/usr/bin/bibble5",
 	"/usr/bin/ufraw", "/usr/bin/rt", "/usr/bin/darktable" );
 my $extApp = "";
 

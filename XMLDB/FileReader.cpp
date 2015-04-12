@@ -224,10 +224,13 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             messageParent(),
             i18n("<p>This version of KPhotoAlbum would normally fix some issues with category "
                  "names. Some changes inside the database (<kbd>index.xml</kbd> file) and the "
-                 "configuration are necessary to do this.</p>"
+                 "configuration are necessary to do this. Additionally, some (internal) files "
+                 "inside your collection directory have to be moved.</p>"
                  "<p>You don't have write access to your collection (<kbd>%1</kbd>), so this "
                  "update can't be done now. Please check your permissions and re-run "
-                 "KPhotoAlbum.</p>",
+                 "KPhotoAlbum.</p>"
+                 "<p><b>Probably, some features may be mising or broken until the update can be "
+                 "done!</b></p>",
                  settings->imageDirectory())
         );
         MainWindow::Window::theMainWindow()->v6UpdateSkipped();

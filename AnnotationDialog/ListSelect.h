@@ -108,6 +108,7 @@ protected:
     void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
 
 private: // Functions
+    bool searchForUntaggedImagesTagNeeded();
     void hideUntaggedImagesTag();
 
 private: // Variables

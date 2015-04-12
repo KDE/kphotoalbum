@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,11 +15,17 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "ListViewItemHider.h"
+
+// Qt includes
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
+#include <QDebug>
+
+// Local includes
+#include "ListViewItemHider.h"
 #include "Utilities/AlgorithmHelper.h"
+#include "ListSelect.h"
 
 using namespace Utilities;
 
@@ -65,6 +71,16 @@ AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString& 
 
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item )
 {
+    // Be sure not to display the "untagged image" tag if configured
+    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+        if (Settings::SettingsData::instance()->untaggedCategory()
+            == dynamic_cast<ListSelect*>(item->treeWidget()->parent())->category()) {
+            if (item->text(0) == Settings::SettingsData::instance()->untaggedTag()) {
+                return false;
+            }
+        }
+    }
+
     switch ( m_matchType )
     {
         case AnnotationDialog::MatchFromBeginning:

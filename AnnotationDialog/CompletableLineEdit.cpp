@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -123,12 +123,19 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 /**
  * Search for the first item in the appearance order, which matches text.
  */
-QTreeWidgetItem *AnnotationDialog::CompletableLineEdit::findItemInListView( const QString& text )
+QTreeWidgetItem* AnnotationDialog::CompletableLineEdit::findItemInListView(const QString& text)
 {
-    for ( QTreeWidgetItemIterator itemIt( m_listView ); *itemIt; ++itemIt ) {
-        if ( itemMatchesText( *itemIt, text ) )
+    for (QTreeWidgetItemIterator itemIt(m_listView); *itemIt; ++itemIt) {
+        // Hide the "untagged image" tag from the auto-completion
+        if ((*itemIt)->isHidden()) {
+            continue;
+        }
+
+        if (itemMatchesText(*itemIt, text)) {
             return *itemIt;
+        }
     }
+
     return nullptr;
 }
 
@@ -205,8 +212,9 @@ void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
         selectItemAndUpdateLineEdit( item, itemStart, text().left( selectionStart() ) );
 }
 
-void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit( QTreeWidgetItem* item,
-                                                                         const int itemStart, const QString& inputText )
+void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit(QTreeWidgetItem* item,
+                                                                        const int itemStart,
+                                                                        const QString& inputText)
 {
     m_listView->setCurrentItem( item );
     m_listView->scrollToItem( item );

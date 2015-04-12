@@ -141,8 +141,9 @@ void AnnotationDialog::ListSelect::slotReturn()
 {
     if (isInputMode()) {
         QString enteredText = m_lineEdit->text().trimmed();
-        if (enteredText.isEmpty())
+        if (enteredText.isEmpty()) {
             return;
+        }
 
         if (searchForUntaggedImagesTagNeeded()) {
             if (enteredText == Settings::SettingsData::instance()->untaggedTag()) {
@@ -156,17 +157,14 @@ void AnnotationDialog::ListSelect::slotReturn()
                 m_lineEdit->setText(QString());
                 return;
             }
-        } else {
-            m_category->addItem(enteredText);
         }
 
+        m_category->addItem(enteredText);
         rePopulate();
 
         QList<QTreeWidgetItem*> items = m_treeWidget->findItems(enteredText, Qt::MatchExactly, 0);
-
-        if (!items.isEmpty()) {
+        if (! items.isEmpty()) {
             items.at(0)->setCheckState(0, Qt::Checked);
-
             if (m_positionable) {
                 emit positionableTagSelected(m_category->name(), items.at(0)->text(0));
             }

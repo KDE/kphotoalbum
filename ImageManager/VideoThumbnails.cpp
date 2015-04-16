@@ -44,7 +44,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
         return;
 
     cancelPreviousJobs();
-    m_pendingRequest = nullptr;
+    m_pendingRequest = false;
     for ( int i= 0; i < 10; ++i )
         m_cache[i] = QImage();
 

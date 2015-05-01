@@ -214,91 +214,137 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
         return;
     }
 
-    int ret = KMessageBox::warningContinueCancel(
-        messageParent(),
-        i18n("<p>This version of KPhotoAlbum will fix some issues with category names. This is "
-             "a database internal update which won't affect the displayed category names or any "
-             "tag data. Anyway, some files (category and tag thumbnails) have to be moved and the "
-             "configuration file has to be fixed. If you want to know what exactly happens, read "
-             "\"Differences to version 5\" in <kbd>documentation/database-layout.md</kbd>.</p>"
-             "<p><b>Press \"Continue\" to run the update. This is what you normally want to do "
-             "now.</b></p>"
-             "<p>\"Cancel\" will skip the update. Only choose this if you don't want to or can't "
-             "change any data now. You will be asked for the update on the next start again.</p>"),
-        i18n("Database Update")
-    );
+    Settings::SettingsData* settings = Settings::SettingsData::instance();
 
-    if (ret == KStandardGuiItem::Cancel) {
-        QMessageBox::warning(
+    // Just in case the collection is not writable. Although I don't think this actually happens
+    // "in the wild" ;-)
+    QFileInfo imageDirectoryInfo(settings->imageDirectory());
+    if (! imageDirectoryInfo.isWritable()) {
+        KMessageBox::sorry(
             messageParent(),
-            i18n("Database Update"),
-            i18n("<p><b>You skipped the database update!</b></p>"
-                 "<p>Probably, you will miss some features in the running session (missing "
-                 "category and tag thumbnails, broken \"untagged images\" feature, broken face "
-                 "recognition). <b>Don't save your database or this will become permanent!</b></p>"
-                 "<p>To run the update later, close KPhotoAlbum without saving the database and "
-                 "don't use face recognition. You will be asked again for the update on the next "
-                 "start.</p>")
+            i18n("<p>This version of KPhotoAlbum would normally fix some issues with category "
+                 "names. Some changes inside the database (<kbd>index.xml</kbd> file) and the "
+                 "configuration are necessary to do this. Additionally, some (internal) files "
+                 "inside your collection directory have to be moved.</p>"
+                 "<p>You don't have write access to your collection (<kbd>%1</kbd>), so this "
+                 "update can't be done now. Please check your permissions and re-run "
+                 "KPhotoAlbum.</p>"
+                 "<p><b>Probably, some features may be mising or broken until the update can be "
+                 "done!</b></p>",
+                 settings->imageDirectory())
         );
         MainWindow::Window::theMainWindow()->v6UpdateSkipped();
         return;
     }
 
+    // Create a backup of the original index.xml, the CategoryImages directory, and the original
+    // settings.
+
+    // Find a save directory name for our backup
+    QString backupDir = settings->imageDirectory() + QString::fromUtf8("v6updateBackup");
+    if (QDir(backupDir).exists()) {
+        QString newBackupDir = backupDir + QString::fromUtf8(".");
+        int backupDirAppendix = 0;
+        while (QDir(backupDir + QString::number(backupDirAppendix)).exists()) {
+            backupDirAppendix++;
+        }
+        backupDir = backupDir + QString::fromUtf8(".") + QString::number(backupDirAppendix);
+    }
+
+    QDir().mkdir(backupDir);
+
+    // Create a backup of index.xml
+    QFile::copy(settings->imageDirectory() + QString::fromUtf8("index.xml"),
+                backupDir + QString::fromUtf8("/index.xml"));
+
+    // Create a backup of kphotoalbumrc
+    QFile::copy(KStandardDirs::locateLocal("config", KGlobal::config()->name()),
+                backupDir + QString::fromUtf8("/") + KGlobal::config()->name());
+
+    // Create a backup of CategoryImages
+    QDir().mkdir(backupDir + QString::fromUtf8("/CategoryImages"));
+    QString categoryImagesPath = settings->imageDirectory() + QString::fromUtf8("/CategoryImages");
+    QString categoryImagesBackupPath = backupDir + QString::fromUtf8("/CategoryImages/");
+    QDir categoryImagesDirectory(categoryImagesPath);
+    QStringList files = categoryImagesDirectory.entryList(QDir::Files | QDir::NoDotAndDotDot);
+    for (QString fileName : files) {
+        QFile::copy(categoryImagesPath + QString::fromUtf8("/") + fileName,
+                    categoryImagesBackupPath + fileName);
+    }
+
+    // Here we have a backup of everything we will change.
+
     // Update the CategoryImages directory
-
-    Settings::SettingsData* settings = Settings::SettingsData::instance();
-    MainWindow::DirtyIndicator::markDirty();
-
-    QDir dir(QString::fromUtf8("%1/CategoryImages").arg(settings->imageDirectory()));
     QMapIterator<QString, QString> oldToNew(m_newToOldName);
-
     while (oldToNew.hasNext()) {
         oldToNew.next();
-        const QString &oldName = oldToNew.key();
-        const QString &newName = oldToNew.value();
+        const QString& oldName = oldToNew.key();
+        const QString& newName = oldToNew.value();
 
         if (oldName == newName) {
             continue;
         }
 
-        // rename CategoryImages
-        QStringList matchingFiles = dir.entryList(QStringList() << QString::fromUtf8("%1*").arg(newName));
-        for (const QString &oldFileName : matchingFiles) {
-            dir.rename(oldFileName, oldName + oldFileName.mid(newName.length()));
+        // Rename CategoryImages
+        QStringList matchingFiles = categoryImagesDirectory.entryList(QStringList()
+                                    << QString::fromUtf8("%1*").arg(newName));
+        for (const QString& oldFileName : matchingFiles) {
+            categoryImagesDirectory.rename(oldFileName,
+                                           oldName + oldFileName.mid(newName.length()));
         }
     }
 
-    // update category names for the Categories config
-    KConfigGroup generalConfig = KGlobal::config()->group( QString::fromLatin1("General") );
-    // Categories.untaggedCategory
-    const QString untaggedCategory = QString::fromLatin1("untaggedCategory");
-    QString untaggedCategoryValue = generalConfig.readEntry<QString>( untaggedCategory, QString());
-    if ( !untaggedCategoryValue.isEmpty())
-        generalConfig.writeEntry<QString>(untaggedCategory, sanitizedCategoryName(untaggedCategoryValue));
-    // Categories.albumCategory
-    const QString albumCategory = QString::fromLatin1("albumCategory");
-    QString albumCategoryValue = generalConfig.readEntry<QString>( albumCategory, QString());
-    if ( !albumCategoryValue.isEmpty())
-        generalConfig.writeEntry<QString>(albumCategory, sanitizedCategoryName(albumCategoryValue));
+    // Update category names for the Categories config
 
-    // update category names for privacy-lock settings
-    KConfigGroup privacyConfig = KGlobal::config()->group( settings->groupForDatabase( "Privacy Settings" ));
-    QStringList oldCategories = privacyConfig.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
+    KConfigGroup generalConfig = KGlobal::config()->group( QString::fromLatin1("General") );
+
+    // Categories.untaggedCategory
+    const QString untaggedCategory = QString::fromUtf8("untaggedCategory");
+    QString untaggedCategoryValue = generalConfig.readEntry<QString>(untaggedCategory, QString());
+    if (! untaggedCategoryValue.isEmpty()) {
+        generalConfig.writeEntry<QString>(untaggedCategory,
+                                          sanitizedCategoryName(untaggedCategoryValue));
+    }
+
+    // Categories.albumCategory
+    const QString albumCategory = QString::fromUtf8("albumCategory");
+    QString albumCategoryValue = generalConfig.readEntry<QString>(albumCategory, QString());
+    if (! albumCategoryValue.isEmpty()) {
+        generalConfig.writeEntry<QString>(albumCategory,
+                                          sanitizedCategoryName(albumCategoryValue));
+    }
+
+    // Update category names for privacy-lock settings
+    KConfigGroup privacyConfig = KGlobal::config()->group(settings->groupForDatabase("Privacy Settings"));
+    QStringList oldCategories = privacyConfig.readEntry<QStringList>(QString::fromUtf8("categories"),
+                                                                     QStringList());
     QStringList categories;
-    for( QString &category : oldCategories ) {
+    for (QString& category : oldCategories) {
         QString oldName = category;
-        category = sanitizedCategoryName(oldName );
+        category = sanitizedCategoryName(oldName);
         categories << category;
         QString lockEntry = privacyConfig.readEntry<QString>(oldName, QString());
-        if (! lockEntry.isEmpty() )
-        {
+        if (! lockEntry.isEmpty()) {
             privacyConfig.writeEntry<QString>(category, lockEntry);
             privacyConfig.deleteEntry(oldName);
         }
     }
-    privacyConfig.writeEntry<QStringList>( QString::fromLatin1("categories"), categories );
+    privacyConfig.writeEntry<QStringList>(QString::fromUtf8("categories"), categories);
 
+    // We're done with the update, so save the database to make it permanent
     MainWindow::Window::theMainWindow()->v6UpdateDone();
+
+    KMessageBox::information(
+        messageParent(),
+        i18n("<p>This version of KPhotoAlbum fixes some issues with category names. This is a "
+             "database internal update which won't affect the displayed category names or any tag "
+             "data. Anyway, some files (category and tag thumbnails) have been moved and the "
+             "configuration file and the database (<kbd>index.xml</kbd>) has been fixed. If you "
+             "want to know what exactly happened, read \"Differences to version 5\" in "
+             "<kbd>documentation/database-layout.md</kbd>.</p>"
+             "<p>A backup of all (probably) changed files has been created in <kbd>%1</kbd>.</p>",
+             backupDir)
+    );
 }
 
 void XMLDB::FileReader::loadImages( ReaderPtr reader )

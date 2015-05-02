@@ -49,7 +49,7 @@ void ImageStore::requestImage(RemoteImage* client, ImageId imageId, const QSize&
     QTimer* timer = new QTimer;
     timer->setSingleShot(true);
 
-    // There seems to be a path throught QML where the client is deleted right after this request is send,
+    // There seems to be a path through QML where the client is deleted right after this request is send,
     // therefore, have client as the third parameter to the connect below, as that will prevent the request in that setup.
     connect(timer, &QTimer::timeout, client, [imageId,size,type,timer,client, this] () {
         ThumbnailRequest request(imageId, size, type);

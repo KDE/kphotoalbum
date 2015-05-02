@@ -31,7 +31,7 @@ Item {
     Column {
         id: column
         anchors {left: parent.left; right: parent.right}
-        spacing: 10 // Value used in ScreenInfo::iconHeight, so update there too if chaning the value.
+        spacing: 10 // Value used in ScreenInfo::iconHeight, so update there too if changing the value.
         MyImage {
             image: root.icon
             scale: iconScale

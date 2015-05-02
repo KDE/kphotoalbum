@@ -572,7 +572,7 @@ void AnnotationDialog::ListSelect::hideUntaggedImagesTag()
         Qt::MatchExactly | Qt::MatchRecursive, 0
     );
 
-    // Be sure not to crash here in case the config points to a non-existant tag
+    // Be sure not to crash here in case the config points to a non-existent tag
     if (matchingTags.at(0) == nullptr) {
         return;
     }

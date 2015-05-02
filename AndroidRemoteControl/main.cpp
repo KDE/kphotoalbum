@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
     qmlRegisterType<MyImage>("KPhotoAlbum", 1, 0, "MyImage");
-    qmlRegisterUncreatableType<Types>("KPhotoAlbum", 1, 0, "Enums","Dont create instances of this class");
+    qmlRegisterUncreatableType<Types>("KPhotoAlbum", 1, 0, "Enums","Don't create instances of this class");
 
     QQmlContext* rootContext = viewer.engine()->rootContext();
     rootContext->setContextProperty(QStringLiteral("_remoteInterface"), &RemoteInterface::instance());

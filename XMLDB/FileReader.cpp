@@ -229,7 +229,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                  "<p>You don't have write access to your collection (<kbd>%1</kbd>), so this "
                  "update can't be done now. Please check your permissions and re-run "
                  "KPhotoAlbum.</p>"
-                 "<p><b>Probably, some features may be mising or broken until the update can be "
+                 "<p><b>Probably, some features may be missing or broken until the update can be "
                  "done!</b></p>",
                  settings->imageDirectory())
         );

@@ -751,7 +751,7 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
     static QList<Exif::DatabaseElement*> fields;
     if (fields.isEmpty())
     {
-        // the order here matters! we use the the named int constants afterwards to refer to them:
+        // the order here matters! we use the named int constants afterwards to refer to them:
         fields.append( new Exif::IntExifElement( "Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
         fields.append( new Exif::StringExifElement( "Exif.GPSInfo.GPSLatitudeRef" ) );
         fields.append( new Exif::RationalExifElement( "Exif.GPSInfo.GPSLatitude" ) );

@@ -1,3 +1,19 @@
+====================== KPhotoalbum 4.6.2 released  ======================
+
+* Bugfix: Fixed several compilation issues for various distributions and/or gcc versions.
+
+* Bugfix: Fix month plural when formatting age.
+
+* UI: Show the number of trained faces on the Face management settings page.
+
+* Enhancement: Add AfterShot2 to open-raw.pl.
+
+* Change: Do the dbv6 update without asking the user. But create a backup of all (probably) changed
+  files before. Hopefully, this will be more (end-)user friendly and everybody gets a backup for
+  free :-)
+
+* Bugfix: Hide the "untagged image" tag also when typing in parts of it's name.
+
 ====================== KPhotoalbum 4.6.1 released  ======================
 
 * UI: Moved the birth date dialog to the settings and added more functionality (typing the date

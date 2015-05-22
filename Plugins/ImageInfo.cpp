@@ -93,6 +93,12 @@ Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
 
 QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
+    if (m_info == nullptr) {
+        // This can happen if we're trying to access an image that
+        // has been deleted on-disc, but not yet the database
+        return QMap<QString,QVariant>();
+    }
+
     Q_ASSERT( m_info );
     QMap<QString,QVariant> res;
 

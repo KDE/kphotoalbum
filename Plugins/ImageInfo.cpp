@@ -120,7 +120,7 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
     //res.insert(QString::fromLatin1("colorlabel"), xxx );
     //res.insert(QString::fromLatin1("picklabel"), xxx );
 
-#if HAVE_KGEOMAP
+#ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates position = m_info->coordinates();
     if (position.hasCoordinates()) {
         res.insert(QString::fromLatin1("longitude"), QVariant(position.lon()));

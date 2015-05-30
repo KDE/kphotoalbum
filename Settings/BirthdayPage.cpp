@@ -102,7 +102,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     calendarLayout->addWidget(m_calendar);
     connect(m_calendar, SIGNAL(clicked(QDate)), this, SLOT(setDate(QDate)));
 
-    m_unsetButton = new QPushButton(i18n("unset"));
+    m_unsetButton = new QPushButton(i18n("Remove birthday"));
     calendarLayout->addWidget(m_unsetButton);
     connect(m_unsetButton, SIGNAL(clicked()), this, SLOT(removeDate()));
 

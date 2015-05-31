@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -171,7 +171,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
 
 #ifdef HAVE_KGEOMAP
-// Search for GPS Position
+    // Search for GPS Position
     if (ok && m_usingRegionSelection) {
         ok = ok && info->coordinates().hasCoordinates();
         if (ok) {
@@ -179,9 +179,9 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
             float infoLon = info->coordinates().lon();
             ok = ok
                  && m_regionSelectionMinLat <= infoLat
-                 && infoLat <= m_regionSelectionMaxLat
+                 && infoLat                 <= m_regionSelectionMaxLat
                  && m_regionSelectionMinLon <= infoLon
-                 && infoLon <= m_regionSelectionMaxLon;
+                 && infoLon                 <= m_regionSelectionMaxLon;
         }
     }
 #endif

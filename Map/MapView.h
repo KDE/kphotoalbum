@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -99,7 +99,7 @@ public:
      */
     void displayStatus(MapStatus status);
 
-    KGeoMap::KGeoMapWidget* mapWidget();
+    KGeoMap::KGeoMapWidget* mapWidget() const;
 
 public slots:
     /**
@@ -119,7 +119,7 @@ private: // Variables
     MapMarkerModelHelper* m_modelHelper;
     QLabel* m_statusLabel;
     QPushButton* m_setLastCenterButton;
-    QPushButton* m_DeleteSearchRegionButton;
+    QPushButton* m_deleteSearchRegionButton;
     KGeoMap::GeoCoordinates m_lastCenter;
 };
 

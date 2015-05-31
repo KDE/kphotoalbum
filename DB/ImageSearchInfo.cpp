@@ -169,6 +169,23 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     ok = ok && ( m_fnPattern.isEmpty() ||
         m_fnPattern.indexIn( info->fileName().relative() ) != -1 );
 
+
+#ifdef HAVE_KGEOMAP
+// Search for GPS Position
+    if (ok && m_usingRegionSelection) {
+        ok = ok && info->coordinates().hasCoordinates();
+        if (ok) {
+            float infoLat = info->coordinates().lat();
+            float infoLon = info->coordinates().lon();
+            ok = ok
+                 && m_regionSelectionMinLat <= infoLat
+                 && infoLat <= m_regionSelectionMaxLat
+                 && m_regionSelectionMinLon <= infoLon
+                 && infoLon <= m_regionSelectionMaxLon;
+        }
+    }
+#endif
+
     return ok;
 }
 
@@ -310,6 +327,10 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
 #ifdef HAVE_EXIV2
     m_exifSearchInfo = other.m_exifSearchInfo;
 #endif
+#ifdef HAVE_KGEOMAP
+    m_regionSelection = other.m_regionSelection;
+#endif
+
 }
 
 void ImageSearchInfo::compile() const
@@ -317,6 +338,19 @@ void ImageSearchInfo::compile() const
 #ifdef HAVE_EXIV2
     m_exifSearchInfo.search();
 #endif
+#ifdef HAVE_KGEOMAP
+    // Prepare Search for GPS Position
+    m_usingRegionSelection = m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates();
+    if (m_usingRegionSelection) {
+        using std::min;
+        using std::max;
+        m_regionSelectionMinLat = min(m_regionSelection.first.lat(), m_regionSelection.second.lat());
+        m_regionSelectionMaxLat = max(m_regionSelection.first.lat(), m_regionSelection.second.lat());
+        m_regionSelectionMinLon = min(m_regionSelection.first.lon(), m_regionSelection.second.lon());
+        m_regionSelectionMaxLon = max(m_regionSelection.first.lon(), m_regionSelection.second.lon());
+    }
+#endif
+
     deleteMatchers();
 
     for( QMap<QString,QString>::ConstIterator it = m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
@@ -539,4 +573,18 @@ void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString&
     m_categoryMatchText.remove( oldName );
     m_compiled = false;
 }
+
+#ifdef HAVE_KGEOMAP
+KGeoMap::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
+{
+    return m_regionSelection;
+}
+
+void ImageSearchInfo::setRegionSelection(const KGeoMap::GeoCoordinates::Pair& actRegionSelection)
+{
+    m_regionSelection = actRegionSelection;
+    m_compiled = false;
+}
+#endif
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

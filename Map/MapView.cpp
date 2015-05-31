@@ -69,6 +69,12 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, SIGNAL(clicked()), this, SLOT(setLastCenter()));
 
+    m_DeleteSearchRegionButton = new QPushButton;
+    m_DeleteSearchRegionButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("edit-delete"))));
+    m_DeleteSearchRegionButton->setToolTip(i18n("Remove Search Region"));
+    m_mapWidget->addWidgetToControlWidget(m_DeleteSearchRegionButton);
+    connect(m_DeleteSearchRegionButton, SIGNAL(clicked()), this, SLOT(deleteSearchRegion()));
+
     // We first try set the default backend "marble" or the first one available ...
     const QString defaultBackend = QString::fromUtf8("marble");
     auto backends = m_mapWidget->availableBackends();
@@ -148,9 +154,16 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Loading coordinates from the images ...</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
+        m_DeleteSearchRegionButton->hide();
+        m_mapWidget->clearRegionSelection();
         m_setLastCenterButton->setEnabled(false);
     } else if (status == MapStatus::ImageHasCoordinates) {
         m_statusLabel->hide();
+        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_DeleteSearchRegionButton->hide();
+        m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
     } else if (status == MapStatus::ImageHasNoCoordinates) {
@@ -162,6 +175,21 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Some of the selected images do not contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
+        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_DeleteSearchRegionButton->hide();
+        m_mapWidget->clearRegionSelection();
+        m_mapWidget->show();
+        m_setLastCenterButton->setEnabled(true);
+    } else if (status == MapStatus::SearchCoordinates) {
+        m_statusLabel->setText(i18n("<i>Search geographic "
+                                    "coordinates.</i>"));
+        m_statusLabel->show();
+        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan|KGeoMap::MouseModeRegionSelection);
+        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan|KGeoMap::MouseModeRegionSelection);
+        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_DeleteSearchRegionButton->show();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
     } else if (status == MapStatus::NoImagesHaveNoCoordinates) {
@@ -169,6 +197,7 @@ void Map::MapView::displayStatus(MapStatus status)
                                     "coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
+        m_DeleteSearchRegionButton->hide();
         m_setLastCenterButton->setEnabled(false);
     }
 }
@@ -176,6 +205,16 @@ void Map::MapView::displayStatus(MapStatus status)
 void Map::MapView::setLastCenter()
 {
     m_mapWidget->setCenter(m_lastCenter);
+}
+
+void Map::MapView::deleteSearchRegion()
+{
+    m_mapWidget->clearRegionSelection();
+}
+
+KGeoMap::KGeoMapWidget* Map::MapView::mapWidget()
+{
+    return m_mapWidget;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

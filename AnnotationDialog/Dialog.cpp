@@ -749,6 +749,10 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         m_oldSearch.setSearchMode( m_ratingSearchMode->currentIndex() );
         m_oldSearch.setMegaPixel( m_megapixel->value() );
         m_oldSearch.setSearchRAW( m_searchRAW->isChecked() );
+#ifdef HAVE_KGEOMAP
+        const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->mapWidget()->getRegionSelection();
+        m_oldSearch.setRegionSelection(regionSelection);
+#endif
         return m_oldSearch;
     }
     else
@@ -1596,19 +1600,25 @@ void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allIma
     if (m_setup == InputSingleImageConfigMode) {
         m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
     } else {
-        if (mapHasImages) {
-            if (! allImagesHaveCoordinates) {
-                m_annotationMap->displayStatus(Map::MapView::MapStatus::SomeImagesHaveNoCoordinates);
-            } else {
-                m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
-            }
+        if (m_setup == SearchMode) {
+            m_annotationMap->displayStatus(Map::MapView::MapStatus::SearchCoordinates);
         } else {
-            m_annotationMap->displayStatus(Map::MapView::MapStatus::NoImagesHaveNoCoordinates);
+            if (mapHasImages) {
+                if (! allImagesHaveCoordinates) {
+                    m_annotationMap->displayStatus(Map::MapView::MapStatus::SomeImagesHaveNoCoordinates);
+                } else {
+                    m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+                }
+            } else {
+                m_annotationMap->displayStatus(Map::MapView::MapStatus::NoImagesHaveNoCoordinates);
+            }
         }
     }
 
-    m_annotationMap->zoomToMarkers();
-    updateMapForCurrentImage();
+    if (m_setup != SearchMode) {
+        m_annotationMap->zoomToMarkers();
+        updateMapForCurrentImage();
+    }
 }
 #endif
 

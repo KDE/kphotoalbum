@@ -65,7 +65,8 @@ public:
         ImageHasCoordinates,
         ImageHasNoCoordinates,
         NoImagesHaveNoCoordinates,
-        SomeImagesHaveNoCoordinates
+        SomeImagesHaveNoCoordinates,
+        SearchCoordinates
     };
 
     explicit MapView( QWidget* parent = 0, UsageType type = InlineMapView);
@@ -98,6 +99,8 @@ public:
      */
     void displayStatus(MapStatus status);
 
+    KGeoMap::KGeoMapWidget* mapWidget();
+
 public slots:
     /**
      * Centers the map on the coordinates of the given image.
@@ -108,6 +111,7 @@ public slots:
 private slots:
     void saveSettings();
     void setLastCenter();
+    void deleteSearchRegion();
 
 private: // Variables
     KGeoMap::KGeoMapWidget* m_mapWidget;
@@ -115,6 +119,7 @@ private: // Variables
     MapMarkerModelHelper* m_modelHelper;
     QLabel* m_statusLabel;
     QPushButton* m_setLastCenterButton;
+    QPushButton* m_DeleteSearchRegionButton;
     KGeoMap::GeoCoordinates m_lastCenter;
 };
 

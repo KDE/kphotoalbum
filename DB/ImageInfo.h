@@ -221,6 +221,10 @@ private:
     StackID m_stackId;
     unsigned int m_stackOrder;
     int m_videoLength;
+#ifdef HAVE_KGEOMAP
+    mutable KGeoMap::GeoCoordinates m_coordinates;
+    mutable bool m_coordsIsSet = false;
+#endif
 
     // Cache information
     bool m_locked;

@@ -25,6 +25,8 @@
 #include "Exif/SearchInfo.h"
 #include <config-kpa-exiv2.h>
 #include "Utilities/Set.h"
+#include "config-kpa-kgeomap.h"
+#include <libkgeomap/geocoordinates.h>
 
 namespace DB
 {
@@ -79,6 +81,11 @@ public:
     void addExifSearchInfo( const Exif::SearchInfo info );
 #endif
 
+#ifdef HAVE_KGEOMAP
+    KGeoMap::GeoCoordinates::Pair regionSelection() const;
+    void setRegionSelection(const KGeoMap::GeoCoordinates::Pair& actRegionSelection);
+#endif
+
 protected:
     void compile() const;
     void deleteMatchers() const;
@@ -102,6 +109,15 @@ private:
 
 #ifdef HAVE_EXIV2
     Exif::SearchInfo m_exifSearchInfo;
+#endif
+
+#ifdef HAVE_KGEOMAP
+    KGeoMap::GeoCoordinates::Pair m_regionSelection;
+    mutable bool m_usingRegionSelection = false;
+    mutable float m_regionSelectionMinLat;
+    mutable float m_regionSelectionMaxLat;
+    mutable float m_regionSelectionMinLon;
+    mutable float m_regionSelectionMaxLon;
 #endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };

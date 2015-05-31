@@ -464,6 +464,10 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
         Exif::Database::instance()->remove( fullPath );
         Exif::Database::instance()->add( fullPath );
 #endif
+#ifdef HAVE_KGEOMAP
+        // GPS coords might have changed...
+        m_coordsIsSet = false;
+#endif
     }
 }
 
@@ -737,6 +741,10 @@ QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
 #ifdef HAVE_KGEOMAP
 KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 {
+    if (m_coordsIsSet) {
+        return m_coordinates;
+    }
+
     static const int EXIF_GPS_VERSIONID = 0;
     static const int EXIF_GPS_LATREF    = 1;
     static const int EXIF_GPS_LAT       = 2;
@@ -799,7 +807,10 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
             }
         }
     }
-    return coords;
+
+    m_coordinates = coords;
+    m_coordsIsSet = true;
+    return m_coordinates;
 }
 
 #endif

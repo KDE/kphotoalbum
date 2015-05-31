@@ -160,7 +160,7 @@ void Map::MapView::displayStatus(MapStatus status)
     } else if (status == MapStatus::ImageHasCoordinates) {
         m_statusLabel->hide();
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setVisibleMouseModes(0);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();
@@ -176,7 +176,7 @@ void Map::MapView::displayStatus(MapStatus status)
                                     "coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan);
+        m_mapWidget->setVisibleMouseModes(0);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();

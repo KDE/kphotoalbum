@@ -22,6 +22,7 @@
 #include "DB/Category.h"
 
 #include <QDebug>
+#include <QMimeData>
 
 struct Browser::TreeCategoryModel::Data
 {
@@ -166,6 +167,43 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex &index) const
     } else {
         return defaultFlags | Qt::ItemIsDragEnabled;
     }
+}
+
+QStringList Browser::TreeCategoryModel::mimeTypes() const
+{
+    return QStringList() << QString::fromUtf8("application/vnd.text.list");
+}
+
+QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList &indexes) const
+{
+    QMimeData* mimeData = new QMimeData();
+    QByteArray encodedData;
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+    stream << indexToName(indexes[0]);
+    mimeData->setData(QString::fromUtf8("application/vnd.text.list"), encodedData);
+    return mimeData;
+}
+
+bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data,
+    Qt::DropAction action, int, int, const QModelIndex &parent)
+{
+    if (action == Qt::IgnoreAction) {
+        return true;
+    }
+
+    if (! data->hasFormat(QString::fromUtf8("application/vnd.text.list"))) {
+        return false;
+    }
+
+    QByteArray encodedData = data->data(QString::fromUtf8("application/vnd.text.list"));
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    QStringList newItems;
+    QString tagName;
+    stream >> tagName;
+
+    qDebug() << "Dropped" << tagName << "on" << indexToName(parent) << "- now do something ;-)";
+
+    return true;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

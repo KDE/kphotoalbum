@@ -19,6 +19,9 @@
 #ifndef TREECATEGORYMODEL_H
 #define TREECATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
+
+class QMimeData;
+
 namespace DB { class CategoryItem; }
 
 namespace Browser
@@ -57,6 +60,10 @@ public:
 
     Qt::DropActions supportedDropActions() const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
+    QStringList mimeTypes() const;
+    QMimeData* mimeData(const QModelIndexList &indexes) const;
+    bool dropMimeData(const QMimeData* data, Qt::DropAction action,
+                      int row, int column, const QModelIndex &parent);
 
 private:
     struct Data;

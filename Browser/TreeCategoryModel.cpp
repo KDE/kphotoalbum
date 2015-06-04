@@ -55,9 +55,9 @@ Browser::TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, 
     }
 
     m_allowDragAndDrop = true;
-    if (category->name() == QString::fromUtf8("Folder")
-        || category->name() == QString::fromUtf8("Tokens")
-        || category->name() == QString::fromUtf8("Media Type")) {
+    if (m_category->name() == QString::fromUtf8("Folder")
+        || m_category->name() == QString::fromUtf8("Tokens")
+        || m_category->name() == QString::fromUtf8("Media Type")) {
 
         m_allowDragAndDrop = false;
     }
@@ -171,16 +171,13 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex &index) const
 
 QStringList Browser::TreeCategoryModel::mimeTypes() const
 {
-    return QStringList() << QString::fromUtf8("application/vnd.text.list");
+    return QStringList() << QString::fromUtf8("text/plain");
 }
 
 QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList &indexes) const
 {
     QMimeData* mimeData = new QMimeData();
-    QByteArray encodedData;
-    QDataStream stream(&encodedData, QIODevice::WriteOnly);
-    stream << indexToName(indexes[0]);
-    mimeData->setData(QString::fromUtf8("application/vnd.text.list"), encodedData);
+    mimeData->setText(indexToName(indexes[0]));
     return mimeData;
 }
 
@@ -191,17 +188,8 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data,
         return true;
     }
 
-    if (! data->hasFormat(QString::fromUtf8("application/vnd.text.list"))) {
-        return false;
-    }
-
-    QByteArray encodedData = data->data(QString::fromUtf8("application/vnd.text.list"));
-    QDataStream stream(&encodedData, QIODevice::ReadOnly);
-    QStringList newItems;
-    QString tagName;
-    stream >> tagName;
-
-    qDebug() << "Dropped" << tagName << "on" << indexToName(parent) << "- now do something ;-)";
+    qDebug() << "Dropped" << data->text() << "on" << indexToName(parent)
+             << "- now do something menaingful ;-)";
 
     return true;
 }

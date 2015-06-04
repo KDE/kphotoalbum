@@ -55,6 +55,9 @@ public:
 
     QString indexToName(const QModelIndex& ) const override;
 
+    Qt::DropActions supportedDropActions() const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+
 private:
     struct Data;
     bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );
@@ -62,6 +65,7 @@ private:
 
 private:
     Data* m_data;
+    bool m_allowDragAndDrop;
 };
 
 }

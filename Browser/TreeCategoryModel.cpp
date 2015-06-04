@@ -20,6 +20,9 @@
 #include <DB/ImageDB.h>
 #include <DB/CategoryItem.h>
 #include "DB/Category.h"
+
+#include <QDebug>
+
 struct Browser::TreeCategoryModel::Data
 {
     Data( const QString& name )
@@ -48,6 +51,14 @@ Browser::TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, 
         Data* data = new Data( DB::ImageDB::NONE() );
         data->parent = m_data;
         m_data->children.prepend( data );
+    }
+
+    m_allowDragAndDrop = true;
+    if (category->name() == QString::fromUtf8("Folder")
+        || category->name() == QString::fromUtf8("Tokens")
+        || category->name() == QString::fromUtf8("Media Type")) {
+
+        m_allowDragAndDrop = false;
     }
 }
 
@@ -136,4 +147,25 @@ QString Browser::TreeCategoryModel::indexToName(const QModelIndex& index ) const
     return data->name;
 
 }
+
+Qt::DropActions Browser::TreeCategoryModel::supportedDropActions() const
+{
+    return Qt::MoveAction;
+}
+
+Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
+
+    if (! m_allowDragAndDrop || indexToName(index) == QString::fromUtf8("**NONE**")) {
+        return defaultFlags;
+    }
+
+    if (index.column() == 0) {
+        return defaultFlags | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+    } else {
+        return defaultFlags | Qt::ItemIsDragEnabled;
+    }
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

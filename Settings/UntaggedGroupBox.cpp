@@ -133,4 +133,20 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
     }
 }
 
+void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)
+{
+    if (categoryName == m_category->itemData(m_category->currentIndex()).value<QString>()) {
+        m_category->setCurrentIndex(0);
+    }
+
+    m_category->removeItem(m_category->findText(DB::Category::localizedCategoryName(categoryName)));
+}
+
+void Settings::UntaggedGroupBox::categoryRenamed(QString oldCategoryName, QString newCategoryName)
+{
+    const int index = m_category->findText(DB::Category::localizedCategoryName(oldCategoryName));
+    m_category->setItemText(index, DB::Category::localizedCategoryName(newCategoryName));
+    m_category->setItemData(index, newCategoryName);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

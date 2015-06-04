@@ -31,6 +31,8 @@ public:
     explicit UntaggedGroupBox( QWidget* parent = 0);
     void loadSettings( Settings::SettingsData* opt );
     void saveSettings( Settings::SettingsData* opt );
+    void categoryDeleted(QString categoryName);
+    void categoryRenamed(QString oldCategoryName, QString newCategoryName);
 
 private slots:
     void populateCategoryComboBox();

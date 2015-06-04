@@ -313,6 +313,8 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     m_categoriesListWidget->blockSignals(false);
 
     emit currentCategoryNameChanged(m_currentCategory->text(), newCategoryName);
+    m_untaggedBox->categoryRenamed(DB::Category::unLocalizedCategoryName(m_currentCategory->text()),
+                                   DB::Category::unLocalizedCategoryName(newCategoryName));
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
 }
@@ -419,6 +421,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
         return;
     }
 
+    m_untaggedBox->categoryDeleted(DB::Category::unLocalizedCategoryName(m_currentCategory->text()));
     m_deletedCategories.append(m_currentCategory);
     m_categoriesListWidget->takeItem(m_categoriesListWidget->row(m_currentCategory));
     m_currentCategory = 0;

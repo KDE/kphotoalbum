@@ -20,6 +20,8 @@
 #define TREECATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
 
+#include "DB/MemberMap.h"
+
 class QMimeData;
 
 namespace DB { class CategoryItem; }
@@ -47,6 +49,8 @@ namespace Browser
  */
 class TreeCategoryModel : public AbstractCategoryModel
 {
+    Q_OBJECT
+
 public:
     TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );
     ~TreeCategoryModel();
@@ -65,6 +69,9 @@ public:
     bool dropMimeData(const QMimeData* data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
+signals:
+    void dataChanged();
+
 private:
     struct Data;
     bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );
@@ -73,6 +80,7 @@ private:
 private:
     Data* m_data;
     bool m_allowDragAndDrop;
+    DB::MemberMap m_memberMap;
 };
 
 }

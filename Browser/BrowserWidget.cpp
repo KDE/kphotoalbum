@@ -39,6 +39,8 @@
 #include <QStackedWidget>
 #include "DB/CategoryCollection.h"
 
+#include "TreeCategoryModel.h"
+
 Browser::BrowserWidget* Browser::BrowserWidget::s_instance = nullptr;
 bool Browser::BrowserWidget::s_isResizing = false;
 
@@ -276,6 +278,10 @@ Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 {
     m_filterProxy->setSourceModel( model );
+
+    if (qobject_cast<TreeCategoryModel*>(model)) {
+        connect(model, SIGNAL(dataChanged()), this, SLOT(reload()));
+    }
 }
 
 void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )

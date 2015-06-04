@@ -23,6 +23,7 @@
 
 #include <QDebug>
 #include <QMimeData>
+#include "MainWindow/DirtyIndicator.h"
 
 struct Browser::TreeCategoryModel::Data
 {
@@ -61,6 +62,8 @@ Browser::TreeCategoryModel::TreeCategoryModel( const DB::CategoryPtr& category, 
 
         m_allowDragAndDrop = false;
     }
+
+    m_memberMap = DB::ImageDB::instance()->memberMap();
 }
 
 int Browser::TreeCategoryModel::rowCount( const QModelIndex& index ) const
@@ -181,15 +184,22 @@ QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList &indexes) 
     return mimeData;
 }
 
-bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data,
-    Qt::DropAction action, int, int, const QModelIndex &parent)
+bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
+                                              int, int, const QModelIndex &parent)
 {
     if (action == Qt::IgnoreAction) {
         return true;
     }
 
-    qDebug() << "Dropped" << data->text() << "on" << indexToName(parent)
-             << "- now do something menaingful ;-)";
+    if (! m_memberMap.groups(m_category->name()).contains(indexToName(parent))) {
+        m_memberMap.addGroup(m_category->name(), indexToName(parent));
+        DB::ImageDB::instance()->memberMap() = m_memberMap;
+    }
+    m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), data->text());
+    DB::ImageDB::instance()->memberMap() = m_memberMap;
+
+    MainWindow::DirtyIndicator::markDirty();
+    emit(dataChanged());
 
     return true;
 }

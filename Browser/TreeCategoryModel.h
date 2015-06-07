@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,13 +18,19 @@
 
 #ifndef TREECATEGORYMODEL_H
 #define TREECATEGORYMODEL_H
-#include "AbstractCategoryModel.h"
 
+// Local includes
+#include "AbstractCategoryModel.h"
 #include "DB/MemberMap.h"
 
+// Qt classes
 class QMimeData;
 
-namespace DB { class CategoryItem; }
+namespace DB {
+
+class CategoryItem;
+
+}
 
 namespace Browser
 {
@@ -47,38 +53,40 @@ namespace Browser
  * this class was constructed, categories was added or removed, and the
  * class was asked information abouts its data.
  */
+
 class TreeCategoryModel : public AbstractCategoryModel
 {
     Q_OBJECT
 
 public:
-    TreeCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );
+    TreeCategoryModel(const DB::CategoryPtr& category, const DB::ImageSearchInfo& info);
     ~TreeCategoryModel();
 
-    int rowCount( const QModelIndex& ) const override;
-    int columnCount( const QModelIndex& ) const override;
-    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const override;
-    QModelIndex parent ( const QModelIndex & index ) const override;
+    int rowCount(const QModelIndex&) const override;
+    int columnCount(const QModelIndex&) const override;
+    QModelIndex index(int row, int column,
+                      const QModelIndex& parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex& index) const override;
 
-    QString indexToName(const QModelIndex& ) const override;
+    QString indexToName(const QModelIndex&) const override;
 
     Qt::DropActions supportedDropActions() const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QStringList mimeTypes() const;
-    QMimeData* mimeData(const QModelIndexList &indexes) const;
+    QMimeData* mimeData(const QModelIndexList& indexes) const;
     bool dropMimeData(const QMimeData* data, Qt::DropAction action,
-                      int row, int column, const QModelIndex &parent);
+                      int row, int column, const QModelIndex& parent);
 
 signals:
     void dataChanged();
 
-private:
+private: // Functions
     struct Data;
-    bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );
-    Data* indexToData( const QModelIndex& index ) const;
+    bool createData(DB::CategoryItem* parentCategoryItem, Data* parent);
+    Data* indexToData(const QModelIndex& index) const;
     QPair<QString, QString> getDroppedTagData(QByteArray& encodedData);
 
-private:
+private: // Variables
     Data* m_data;
     bool m_allowDragAndDrop;
     DB::MemberMap m_memberMap;
@@ -86,6 +94,6 @@ private:
 
 }
 
-#endif /* TREECATEGORYMODEL_H */
+#endif // TREECATEGORYMODEL_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

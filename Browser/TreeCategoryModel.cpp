@@ -224,6 +224,11 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
     QPair<QString, QString> tagData = getDroppedTagData(encodedData);
 
     if (parent.isValid()) {
+        // Check if the tag is dropped onto a copy of itself
+        if (indexToName(parent) == tagData.first) {
+            return true;
+        }
+
         // Add the tag to a group, create it if we don't have it yet
         if (! m_memberMap.groups(m_category->name()).contains(indexToName(parent))) {
             m_memberMap.addGroup(m_category->name(), indexToName(parent));

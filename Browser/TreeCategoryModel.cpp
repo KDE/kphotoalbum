@@ -165,8 +165,10 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex &index) const
         return defaultFlags;
     }
 
-    if (index.column() == 0) {
+    if (indexToData(index)->parent != nullptr) {
         return defaultFlags | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+    } else if (index.column() == -1) {
+        return defaultFlags | Qt::ItemIsDropEnabled;
     } else {
         return defaultFlags | Qt::ItemIsDragEnabled;
     }
@@ -174,30 +176,63 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex &index) const
 
 QStringList Browser::TreeCategoryModel::mimeTypes() const
 {
-    return QStringList() << QString::fromUtf8("text/plain");
+    return QStringList() << QString::fromUtf8("application/vnd.text.list");
 }
 
 QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList &indexes) const
 {
     QMimeData* mimeData = new QMimeData();
-    mimeData->setText(indexToName(indexes[0]));
+    QByteArray encodedData;
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+    stream << indexToName(indexes[0]);
+    if (! indexes[0].parent().isValid()) {
+        stream << QString();
+    } else {
+        stream << indexToName(indexes[0].parent());
+    }
+
+    mimeData->setData(QString::fromUtf8("application/vnd.text.list"), encodedData);
     return mimeData;
 }
 
-bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
+QPair<QString, QString> Browser::TreeCategoryModel::getDroppedTagData(QByteArray& encodedData)
+{
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    QPair<QString, QString> tagData;
+    stream >> tagData.first;
+    stream >> tagData.second;
+    return tagData;
+}
+
+bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAction action,
                                               int, int, const QModelIndex &parent)
 {
     if (action == Qt::IgnoreAction) {
         return true;
     }
 
-    if (! m_memberMap.groups(m_category->name()).contains(indexToName(parent))) {
-        m_memberMap.addGroup(m_category->name(), indexToName(parent));
-        DB::ImageDB::instance()->memberMap() = m_memberMap;
-    }
-    m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), data->text());
-    DB::ImageDB::instance()->memberMap() = m_memberMap;
+    QByteArray encodedData = data->data(QString::fromUtf8("application/vnd.text.list"));
+    QPair<QString, QString> tagData = getDroppedTagData(encodedData);
 
+    if (parent.isValid()) {
+        // Add the tag to a group, create it if we don't have it yet
+
+        if (! m_memberMap.groups(m_category->name()).contains(indexToName(parent))) {
+            m_memberMap.addGroup(m_category->name(), indexToName(parent));
+            DB::ImageDB::instance()->memberMap() = m_memberMap;
+        }
+
+        m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), tagData.first);
+    } else {
+        // Remove the tag from it's group and remove the group if it's empty now
+        m_memberMap.removeMemberFromGroup(m_category->name(), tagData.second, tagData.first);
+        if (m_memberMap.members(m_category->name(), tagData.second, true) == QStringList()) {
+            m_memberMap.deleteGroup(m_category->name(), tagData.second);
+        }
+    }
+
+    DB::ImageDB::instance()->memberMap() = m_memberMap;
     MainWindow::DirtyIndicator::markDirty();
     emit(dataChanged());
 

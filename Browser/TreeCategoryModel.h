@@ -76,6 +76,7 @@ private:
     struct Data;
     bool createData( DB::CategoryItem* parentCategoryItem, Data* parent );
     Data* indexToData( const QModelIndex& index ) const;
+    QPair<QString, QString> getDroppedTagData(QByteArray& encodedData);
 
 private:
     Data* m_data;

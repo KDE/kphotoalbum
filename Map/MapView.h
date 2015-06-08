@@ -111,7 +111,6 @@ public slots:
 private slots:
     void saveSettings();
     void setLastCenter();
-    void deleteSearchRegion();
 
 private: // Variables
     KGeoMap::KGeoMapWidget* m_mapWidget;
@@ -119,7 +118,6 @@ private: // Variables
     MapMarkerModelHelper* m_modelHelper;
     QLabel* m_statusLabel;
     QPushButton* m_setLastCenterButton;
-    QPushButton* m_deleteSearchRegionButton;
     KGeoMap::GeoCoordinates m_lastCenter;
 };
 

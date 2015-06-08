@@ -70,12 +70,6 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, SIGNAL(clicked()), this, SLOT(setLastCenter()));
 
-    m_deleteSearchRegionButton = new QPushButton;
-    m_deleteSearchRegionButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("edit-delete"))));
-    m_deleteSearchRegionButton->setToolTip(i18n("Remove Search Region"));
-    m_mapWidget->addWidgetToControlWidget(m_deleteSearchRegionButton);
-    connect(m_deleteSearchRegionButton, SIGNAL(clicked()), this, SLOT(deleteSearchRegion()));
-
     // We first try set the default backend "marble" or the first one available ...
     const QString defaultBackend = QString::fromUtf8("marble");
     auto backends = m_mapWidget->availableBackends();
@@ -157,7 +151,6 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Loading coordinates from the images ...</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
-        m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();
         m_setLastCenterButton->setEnabled(false);
         break;
@@ -166,7 +159,6 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
         m_mapWidget->setVisibleMouseModes(0);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
-        m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
@@ -184,7 +176,6 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
         m_mapWidget->setVisibleMouseModes(0);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
-        m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
@@ -198,7 +189,6 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan
                                           | KGeoMap::MouseModeRegionSelection);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
-        m_deleteSearchRegionButton->show();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
         break;
@@ -207,7 +197,6 @@ void Map::MapView::displayStatus(MapStatus status)
                                     "coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
-        m_deleteSearchRegionButton->hide();
         m_setLastCenterButton->setEnabled(false);
         break;
     }
@@ -216,11 +205,6 @@ void Map::MapView::displayStatus(MapStatus status)
 void Map::MapView::setLastCenter()
 {
     m_mapWidget->setCenter(m_lastCenter);
-}
-
-void Map::MapView::deleteSearchRegion()
-{
-    m_mapWidget->clearRegionSelection();
 }
 
 KGeoMap::KGeoMapWidget* Map::MapView::mapWidget() const

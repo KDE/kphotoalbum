@@ -161,12 +161,14 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
+        m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(true);
         break;
     case MapStatus::ImageHasNoCoordinates:
         m_statusLabel->setText(i18n("<i>This image does not contain geographic coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
+        m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(false);
         break;
     case MapStatus::SomeImagesHaveNoCoordinates:
@@ -178,11 +180,11 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
+        m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(true);
         break;
     case MapStatus::SearchCoordinates:
-        m_statusLabel->setText(i18n("<i>Search geographic "
-                                    "coordinates.</i>"));
+        m_statusLabel->setText(i18n("<i>Search for geographic coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan
                                             | KGeoMap::MouseModeRegionSelection);
@@ -190,13 +192,14 @@ void Map::MapView::displayStatus(MapStatus status)
                                           | KGeoMap::MouseModeRegionSelection);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_mapWidget->show();
-        m_setLastCenterButton->setEnabled(true);
+        m_setLastCenterButton->hide();
         break;
     case MapStatus::NoImagesHaveNoCoordinates:
         m_statusLabel->setText(i18n("<i>None of the selected images contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
+        m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(false);
         break;
     }

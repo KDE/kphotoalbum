@@ -33,6 +33,7 @@
 
 // Local includes
 #include "MapMarkerModelHelper.h"
+#include "SearchMarkerTiler.h"
 
 Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
 {
@@ -91,7 +92,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
 
     // Add the item model for the coordinates display
     m_modelHelper = new MapMarkerModelHelper();
-    m_itemMarkerTiler = new KGeoMap::ItemMarkerTiler(m_modelHelper, this);
+    m_itemMarkerTiler = new SearchMarkerTiler(m_modelHelper, this);
     m_mapWidget->setGroupedModel(m_itemMarkerTiler);
 }
 

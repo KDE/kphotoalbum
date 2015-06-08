@@ -114,7 +114,6 @@ private: // Variables
 
 private: // Functions
     void resetCategory(QListWidgetItem* item);
-    QString nonLocalizedCategoryName(QString category);
 };
 
 }

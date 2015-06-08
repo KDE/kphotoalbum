@@ -463,7 +463,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
     // Delete items
     for (QList<CategoryItem*>::Iterator it = m_deletedCategories.begin(); it != m_deletedCategories.end(); ++it) {
 #ifdef HAVE_KFACE
-        m_recognizer->deleteCategory(nonLocalizedCategoryName((*it)->text()));
+        m_recognizer->deleteCategory(DB::Category::unLocalizedCategoryName((*it)->text()));
 #endif
         (*it)->removeFromDatabase();
     }
@@ -475,7 +475,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
     for (QList<CategoryItem*>::Iterator it = m_unMarkedAsPositionable.begin();
          it != m_unMarkedAsPositionable.end(); ++it) {
         // For the recognition database, this is the same as if the category had been deleted
-        m_recognizer->deleteCategory(nonLocalizedCategoryName((*it)->text()));
+        m_recognizer->deleteCategory(DB::Category::unLocalizedCategoryName((*it)->text()));
     }
     m_unMarkedAsPositionable = QList<CategoryItem*>();
 #endif
@@ -529,22 +529,9 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
 #ifdef HAVE_KFACE
 void Settings::CategoryPage::renameRecognitionCategory(QString oldName, QString newName)
 {
-    m_recognizer->updateCategoryName(oldName, nonLocalizedCategoryName(newName));
+    m_recognizer->updateCategoryName(oldName, DB::Category::unLocalizedCategoryName(newName));
 }
 #endif
-
-QString Settings::CategoryPage::nonLocalizedCategoryName(QString category)
-{
-    QString nonLocalizedCategoryName = category;
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        if (nonLocalizedCategoryName == (*it)->text()) {
-            nonLocalizedCategoryName = (*it)->name();
-            break;
-        }
-    }
-    return nonLocalizedCategoryName;
-}
 
 void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem*)
 {

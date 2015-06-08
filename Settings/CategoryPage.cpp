@@ -37,6 +37,7 @@
 // Local includes
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
+#include "DB/MemberMap.h"
 #include "UntaggedGroupBox.h"
 #include "SettingsDialog.h"
 #include "CategoryItem.h"
@@ -486,6 +487,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
         item->submit(memberMap);
     }
 
+    DB::ImageDB::instance()->memberMap() = *memberMap;
     m_untaggedBox->saveSettings(opt);
 }
 

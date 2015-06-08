@@ -184,7 +184,7 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex& index) const
 
 QStringList Browser::TreeCategoryModel::mimeTypes() const
 {
-    return QStringList() << QString::fromUtf8("application/vnd.text.list");
+    return QStringList() << QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag");
 }
 
 QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList& indexes) const
@@ -200,7 +200,7 @@ QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList& indexes) 
         stream << indexToName(indexes[0].parent());
     }
 
-    mimeData->setData(QString::fromUtf8("application/vnd.text.list"), encodedData);
+    mimeData->setData(QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag"), encodedData);
     return mimeData;
 }
 
@@ -220,7 +220,7 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
         return true;
     }
 
-    QByteArray encodedData = data->data(QString::fromUtf8("application/vnd.text.list"));
+    QByteArray encodedData = data->data(QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag"));
     QPair<QString, QString> tagData = getDroppedTagData(encodedData);
 
     if (parent.isValid()) {

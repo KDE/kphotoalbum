@@ -107,18 +107,49 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
         children.append( (*itemIt).child() );
     }
 
-    const QString msg =
-        i18np("<p>You have just dragged an item onto another: this will make the dragged item a sub category "
-              "of that onto which it was dropped. Sub categories may be used to denote facts such as 'Las Vegas is in the USA', "
-              "in that example you would drag Las Vegas onto USA. When you have set up sub categories you can, for instance, "
-              "see all images from the USA by simply selecting that item in the Browser.</p>"
-              "<p>Was it really your intention to make \"%2\" a sub category of \"%3\"?</p>",
-              "<p>You have just dragged a number of items onto another: this will make the dragged items sub categories "
-              "of that onto which they were dropped. Sub categories may be used to denote facts such as 'Las Vegas and New York are in the USA' "
-              "in that example you would drag 'Las Vegas' and 'New York' onto USA. When you have set up sub categories you can, for instance, "
-              "see all images from the USA by simply selecting that item in the Browser.</p>"
-              "<p>Was it really your intention to make \"%2\" sub categories of \"%3\"?</p>",
-              children.size(), children.join( QString::fromLatin1( ", " ) ), parent );
+    QString allChildren;
+    if (children.size() == 1) {
+        allChildren = children[0];
+    } else if (children.size() == 2) {
+        allChildren = i18n("\"%1\" and \"%2\"", children[0], children[1]);
+    } else {
+        for (int i = 0; i < children.size() - 1; i++) {
+            if (i == 0) {
+                allChildren += i18n("\"%1\"", children[i]);
+            } else {
+                allChildren += i18n(", \"%1\"", children[i]);
+            }
+        }
+        allChildren += i18n(" and \"%1\"", children[children.size() - 1]);
+    }
+
+    const QString msg = i18np(
+        "<p>"
+        "You have just dragged an item onto another. This will make the target item a tag group "
+        "and define the dragged item as a member of this group."
+        "Tag groups may be used to denote facts such as 'Las Vegas is in the USA'. In that example "
+        "you would drag Las Vegas onto USA."
+        "When you have set up tag groups, you can, for instance, see all images from the USA by "
+        "simply selecting that item in the Browser."
+        "</p>"
+        "<p>"
+        "Was it really your intention to make \"%3\" a tag group and add \"%2\" as a member?"
+        "</p>",
+
+        "<p>"
+        "You have just dragged some items onto one other item. This will make the target item a "
+        "tag group and define the dragged items as members of this group."
+        "Tag groups may be used to denote facts such as 'Las Vegas and New York are in the USA'. "
+        "In that example you would drag Las Vegas and New York onto USA."
+        "When you have set up tag groups, you can, for instance, see all images from the USA by "
+        "simply selecting that item in the Browser."
+        "</p>"
+        "<p>"
+        "Was it really your intention to make \"%3\" a tag group and add %2 as members?"
+        "</p>",
+
+        children.size(), allChildren, parent
+    );
 
     const int answer = KMessageBox::warningContinueCancel( nullptr, msg, i18n("Move Items"), KStandardGuiItem::cont(),
                                                            KStandardGuiItem::cancel(),

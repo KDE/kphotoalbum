@@ -150,14 +150,17 @@ void Map::MapView::setShowThumbnails(bool state)
 
 void Map::MapView::displayStatus(MapStatus status)
 {
-    if (status == MapStatus::Loading) {
+    switch (status)
+    {
+    case MapStatus::Loading:
         m_statusLabel->setText(i18n("<i>Loading coordinates from the images ...</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
         m_deleteSearchRegionButton->hide();
         m_mapWidget->clearRegionSelection();
         m_setLastCenterButton->setEnabled(false);
-    } else if (status == MapStatus::ImageHasCoordinates) {
+        break;
+    case MapStatus::ImageHasCoordinates:
         m_statusLabel->hide();
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
         m_mapWidget->setVisibleMouseModes(0);
@@ -166,12 +169,14 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
-    } else if (status == MapStatus::ImageHasNoCoordinates) {
+        break;
+    case MapStatus::ImageHasNoCoordinates:
         m_statusLabel->setText(i18n("<i>This image does not contain geographic coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
         m_setLastCenterButton->setEnabled(false);
-    } else if (status == MapStatus::SomeImagesHaveNoCoordinates) {
+        break;
+    case MapStatus::SomeImagesHaveNoCoordinates:
         m_statusLabel->setText(i18n("<i>Some of the selected images do not contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
@@ -182,7 +187,8 @@ void Map::MapView::displayStatus(MapStatus status)
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
-    } else if (status == MapStatus::SearchCoordinates) {
+        break;
+    case MapStatus::SearchCoordinates:
         m_statusLabel->setText(i18n("<i>Search geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
@@ -194,13 +200,15 @@ void Map::MapView::displayStatus(MapStatus status)
         m_deleteSearchRegionButton->show();
         m_mapWidget->show();
         m_setLastCenterButton->setEnabled(true);
-    } else if (status == MapStatus::NoImagesHaveNoCoordinates) {
+        break;
+    case MapStatus::NoImagesHaveNoCoordinates:
         m_statusLabel->setText(i18n("<i>None of the selected images contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
         m_deleteSearchRegionButton->hide();
         m_setLastCenterButton->setEnabled(false);
+        break;
     }
 }
 

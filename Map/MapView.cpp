@@ -215,4 +215,10 @@ KGeoMap::KGeoMapWidget* Map::MapView::mapWidget() const
     return m_mapWidget;
 }
 
+bool Map::MapView::regionSelected()
+{
+    KGeoMap::GeoCoordinates::Pair regionSelection = m_mapWidget->getRegionSelection();
+    return regionSelection.first.hasCoordinates() && regionSelection.second.hasCoordinates();
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

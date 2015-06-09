@@ -16,14 +16,18 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "SearchMarkerTiler.h"
-
+// libkgeomap includes
 #include <libkgeomap/modelhelper.h>
 #include <libkgeomap/kgeomap_primitives.h>
+
+// Local includes
+#include "Map/MapView.h"
+#include "SearchMarkerTiler.h"
 
 Map::SearchMarkerTiler::SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent)
     : ItemMarkerTiler(modelHelper,parent)
 {
+    m_mapView = dynamic_cast<MapView*>(parent);
 }
 
 Map::SearchMarkerTiler::~SearchMarkerTiler()
@@ -32,8 +36,11 @@ Map::SearchMarkerTiler::~SearchMarkerTiler()
 
 KGeoMap::KGeoMapGroupState Map::SearchMarkerTiler::getGlobalGroupState()
 {
-    return KGeoMap::ItemMarkerTiler::getGlobalGroupState()
-            |  KGeoMap::KGeoMapRegionSelectedAll;
+    if (m_mapView->regionSelected()) {
+        return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMap::KGeoMapRegionSelectedAll;
+    } else {
+        return KGeoMap::ItemMarkerTiler::getGlobalGroupState();
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -30,6 +30,8 @@ namespace KGeoMap
 namespace Map
 {
 
+class MapView;
+
 /**
  * @brief The SearchMarkerTiler class
  * This behaves exactly like a KGeoMap::ItemMarkerTiler, except
@@ -49,6 +51,9 @@ public:
     * @return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMapRegionSelectedAll.
     */
    virtual KGeoMap::KGeoMapGroupState getGlobalGroupState() override;
+
+private: // Variables
+    MapView* m_mapView;
 };
 
 }

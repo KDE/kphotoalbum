@@ -100,6 +100,7 @@ public:
     void displayStatus(MapStatus status);
 
     KGeoMap::KGeoMapWidget* mapWidget() const;
+    bool regionSelected();
 
 public slots:
     /**

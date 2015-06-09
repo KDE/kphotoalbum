@@ -204,13 +204,13 @@ QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList& indexes) 
     return mimeData;
 }
 
-QPair<QString, QString> Browser::TreeCategoryModel::getDroppedTagData(QByteArray& encodedData)
+Browser::TreeCategoryModel::tagData Browser::TreeCategoryModel::getDroppedTagData(QByteArray& encodedData)
 {
     QDataStream stream(&encodedData, QIODevice::ReadOnly);
-    QPair<QString, QString> tagData;
-    stream >> tagData.first;
-    stream >> tagData.second;
-    return tagData;
+    Browser::TreeCategoryModel::tagData droppedTagData;
+    stream >> droppedTagData.tagName;
+    stream >> droppedTagData.tagGroup;
+    return droppedTagData;
 }
 
 bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAction action,
@@ -221,11 +221,11 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
     }
 
     QByteArray encodedData = data->data(QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag"));
-    QPair<QString, QString> tagData = getDroppedTagData(encodedData);
+    Browser::TreeCategoryModel::tagData droppedTagData = getDroppedTagData(encodedData);
 
     if (parent.isValid()) {
         // Check if the tag is dropped onto a copy of itself
-        if (indexToName(parent) == tagData.first) {
+        if (indexToName(parent) == droppedTagData.tagName) {
             return true;
         }
 
@@ -234,12 +234,12 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
             m_memberMap.addGroup(m_category->name(), indexToName(parent));
             DB::ImageDB::instance()->memberMap() = m_memberMap;
         }
-        m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), tagData.first);
+        m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), droppedTagData.tagName);
     } else {
         // Remove the tag from it's group and remove the group if it's empty now
-        m_memberMap.removeMemberFromGroup(m_category->name(), tagData.second, tagData.first);
-        if (m_memberMap.members(m_category->name(), tagData.second, true) == QStringList()) {
-            m_memberMap.deleteGroup(m_category->name(), tagData.second);
+        m_memberMap.removeMemberFromGroup(m_category->name(), droppedTagData.tagGroup, droppedTagData.tagName);
+        if (m_memberMap.members(m_category->name(), droppedTagData.tagGroup, true) == QStringList()) {
+            m_memberMap.deleteGroup(m_category->name(), droppedTagData.tagGroup);
         }
     }
 

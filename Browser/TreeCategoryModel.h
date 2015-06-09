@@ -77,6 +77,11 @@ public:
     bool dropMimeData(const QMimeData* data, Qt::DropAction action,
                       int row, int column, const QModelIndex& parent);
 
+    struct tagData {
+        QString tagName;
+        QString tagGroup;
+    };
+
 signals:
     void dataChanged();
 
@@ -84,7 +89,7 @@ private: // Functions
     struct Data;
     bool createData(DB::CategoryItem* parentCategoryItem, Data* parent);
     Data* indexToData(const QModelIndex& index) const;
-    QPair<QString, QString> getDroppedTagData(QByteArray& encodedData);
+    TreeCategoryModel::tagData getDroppedTagData(QByteArray& encodedData);
 
 private: // Variables
     Data* m_data;

@@ -192,6 +192,7 @@ void Map::MapView::displayStatus(MapStatus status)
                                           | KGeoMap::MouseModeRegionSelection);
         m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
         m_mapWidget->show();
+        m_mapWidget->setCenter(KGeoMap::GeoCoordinates());
         m_setLastCenterButton->hide();
         break;
     case MapStatus::NoImagesHaveNoCoordinates:

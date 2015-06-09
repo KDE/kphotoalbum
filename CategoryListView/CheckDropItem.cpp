@@ -126,9 +126,9 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
     const QString msg = i18np(
         "<p>"
         "You have just dragged an item onto another. This will make the target item a tag group "
-        "and define the dragged item as a member of this group."
+        "and define the dragged item as a member of this group. "
         "Tag groups may be used to denote facts such as 'Las Vegas is in the USA'. In that example "
-        "you would drag Las Vegas onto USA."
+        "you would drag Las Vegas onto USA. "
         "When you have set up tag groups, you can, for instance, see all images from the USA by "
         "simply selecting that item in the Browser."
         "</p>"
@@ -138,9 +138,9 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
 
         "<p>"
         "You have just dragged some items onto one other item. This will make the target item a "
-        "tag group and define the dragged items as members of this group."
+        "tag group and define the dragged items as members of this group. "
         "Tag groups may be used to denote facts such as 'Las Vegas and New York are in the USA'. "
-        "In that example you would drag Las Vegas and New York onto USA."
+        "In that example you would drag Las Vegas and New York onto USA. "
         "When you have set up tag groups, you can, for instance, see all images from the USA by "
         "simply selecting that item in the Browser."
         "</p>"

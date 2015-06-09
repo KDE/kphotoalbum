@@ -99,7 +99,7 @@ public:
      */
     void displayStatus(MapStatus status);
 
-    KGeoMap::KGeoMapWidget* mapWidget() const;
+    KGeoMap::GeoCoordinates::Pair getRegionSelection() const;
     bool regionSelected() const;
 
 public slots:

@@ -750,7 +750,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         m_oldSearch.setMegaPixel( m_megapixel->value() );
         m_oldSearch.setSearchRAW( m_searchRAW->isChecked() );
 #ifdef HAVE_KGEOMAP
-        const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->mapWidget()->getRegionSelection();
+        const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->getRegionSelection();
         m_oldSearch.setRegionSelection(regionSelection);
 #endif
         return m_oldSearch;

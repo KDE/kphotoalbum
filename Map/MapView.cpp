@@ -210,9 +210,9 @@ void Map::MapView::setLastCenter()
     m_mapWidget->setCenter(m_lastCenter);
 }
 
-KGeoMap::KGeoMapWidget* Map::MapView::mapWidget() const
+KGeoMap::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
 {
-    return m_mapWidget;
+    return m_mapWidget->getRegionSelection();
 }
 
 bool Map::MapView::regionSelected() const

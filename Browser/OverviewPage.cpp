@@ -279,6 +279,8 @@ Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()
         return new ImageViewPage( info, browser()  );
     }
     else {
+        // Note: the same dialog text is used in MainWindow::Window::slotMarkUntagged(),
+        // so if it is changed, be sure to also change it there!
         KMessageBox::information( browser(),
                                   i18n("<p>You have not yet configured which tag to use for indicating untagged images.</p>"
                                        "<p>Please follow these steps to do so:"

@@ -161,6 +161,7 @@ protected slots:
     void usePreviousVideoThumbnail();
     void mergeDuplicates();
     void slotThumbnailSizeChanged();
+    void slotMarkUntagged();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -234,6 +235,7 @@ private:
     KAction* m_recreateThumbnails;
     KAction* m_useNextVideoThumbnail;
     KAction* m_usePreviousVideoThumbnail;
+    KAction* m_markUntagged;
     TokenEditor* m_tokenEditor;
     DateBar::DateBarWidget* m_dateBar;
     QFrame* m_dateBarLine;

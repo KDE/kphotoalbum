@@ -904,6 +904,10 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT(slotStatistics()) );
     a->setText( i18n("Statistics") );
 
+    m_markUntagged = actionCollection()->addAction(QString::fromUtf8("markUntagged"),
+                                                   this, SLOT(slotMarkUntagged()));
+    m_markUntagged->setText(i18n("Mark As Untagged"));
+
 
     // Settings
     KStandardAction::preferences( this, SLOT(slotOptions()), actionCollection() );
@@ -1323,6 +1327,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     m_rotLeft->setEnabled(selectionSize >= 1);
     m_rotRight->setEnabled(selectionSize >= 1);
     m_AutoStackImages->setEnabled(selectionSize > 1);
+    m_markUntagged->setEnabled(selectionSize >= 1);
     m_statusBar->mp_selected->setSelectionCount( selectionSize );
 }
 
@@ -1776,6 +1781,29 @@ void MainWindow::Window::slotStatistics()
 {
     static StatisticsDialog* dialog = new StatisticsDialog(this);
     dialog->show();
+}
+
+void MainWindow::Window::slotMarkUntagged()
+{
+    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+        for (const DB::FileName& newFile : selected()) {
+            newFile.info()->addCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
+                                            Settings::SettingsData::instance()->untaggedTag());
+        }
+
+        DirtyIndicator::markDirty();
+    } else {
+        KMessageBox::information(this,
+            i18n("<p>You have not yet configured which tag to use for indicating untagged images."
+                 "</p>"
+                 "<p>Please follow these steps to do so:"
+                 "<ul><li>In the menu bar choose <b>Settings</b></li>"
+                 "<li>From there choose <b>Configure KPhotoAlbum</b></li>"
+                 "<li>Now choose the <b>Categories</b> icon</li>"
+                 "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
+            i18n("Feature has not been configured")
+        );
+    }
 }
 
 void MainWindow::Window::setupStatusBar()

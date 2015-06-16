@@ -1793,6 +1793,9 @@ void MainWindow::Window::slotMarkUntagged()
 
         DirtyIndicator::markDirty();
     } else {
+        // Note: the same dialog text is used in
+        // Browser::OverviewPage::activateUntaggedImagesAction(),
+        // so if it is changed, be sure to also change it there!
         KMessageBox::information(this,
             i18n("<p>You have not yet configured which tag to use for indicating untagged images."
                  "</p>"

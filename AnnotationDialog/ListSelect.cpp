@@ -675,6 +675,8 @@ void AnnotationDialog::ListSelect::limitToSelection()
 
     m_showSelectedOnly->setChecked( true );
     ListViewCheckedHider dummy( m_treeWidget );
+
+    hideUntaggedImagesTag();
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()

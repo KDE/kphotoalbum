@@ -567,17 +567,10 @@ void AnnotationDialog::ListSelect::hideUntaggedImagesTag()
         return;
     }
 
-    QList<QTreeWidgetItem*> matchingTags = m_treeWidget->findItems(
-        Settings::SettingsData::instance()->untaggedTag(),
-        Qt::MatchExactly | Qt::MatchRecursive, 0
-    );
-
-    // Be sure not to crash here in case the config points to a non-existent tag
-    if (matchingTags.at(0) == nullptr) {
-        return;
+    QTreeWidgetItem* untaggedImagesTag = getUntaggedImagesTag();
+    if (untaggedImagesTag) {
+        untaggedImagesTag->setHidden(true);
     }
-
-    matchingTags.at(0)->setHidden(true);
 }
 
 void AnnotationDialog::ListSelect::slotSortDate()
@@ -686,43 +679,66 @@ void AnnotationDialog::ListSelect::showAllChildren()
     hideUntaggedImagesTag();
 }
 
-void AnnotationDialog::ListSelect::updateSelectionCount()
+QTreeWidgetItem* AnnotationDialog::ListSelect::getUntaggedImagesTag()
 {
-    if ( m_baseTitle.isEmpty()    //-> first time
-            || ! parentWidget()->windowTitle().startsWith( m_baseTitle ) //-> title has changed
-       )
-    {
-        // save the original parentWidget title
-        m_baseTitle = parentWidget()->windowTitle();
-    }
-    switch( m_mode )
-    {
-        case InputMultiImageConfigMode:
-            if ( itemsUnchanged().size() > 0 )
-            { // if min != max
-                // tri-state selection -> show min-max (selected items vs. partially selected items):
-                parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2-%3)" )
-                        .arg( m_baseTitle )
-                        .arg( itemsOn().size() )
-                        .arg( itemsOn().size() + itemsUnchanged().size() ) );
-                break;
-            } // else fall through and only show one number:
-        case InputSingleImageConfigMode:
-            if ( itemsOn().size() > 0 )
-            { // if any tags have been selected
-                // "normal" on/off states -> show selected items
-                parentWidget()->setWindowTitle( QString::fromLatin1( "%1 (%2)" )
-                        .arg( m_baseTitle )
-                        .arg( itemsOn().size() ) );
-                break;
-            } // else fall through and only show category
-        case SearchMode:
-            // no indicator while searching
-            parentWidget()->setWindowTitle( m_baseTitle );
-            break;
+    QList<QTreeWidgetItem*> matchingTags = m_treeWidget->findItems(
+        Settings::SettingsData::instance()->untaggedTag(),
+        Qt::MatchExactly | Qt::MatchRecursive, 0
+    );
+
+    // Be sure not to crash here in case the config points to a non-existent tag
+    if (matchingTags.at(0) == nullptr) {
+        return 0;
+    } else {
+        return matchingTags.at(0);
     }
 }
 
+void AnnotationDialog::ListSelect::updateSelectionCount()
+{
+    if (m_baseTitle.isEmpty() /* --> first time */
+        || ! parentWidget()->windowTitle().startsWith(m_baseTitle) /* --> title has changed */) {
+
+        // save the original parentWidget title
+        m_baseTitle = parentWidget()->windowTitle();
+    }
+
+    int itemsOnCount = itemsOn().size();
+    if (searchForUntaggedImagesTagNeeded()) {
+        QTreeWidgetItem* untaggedImagesTag = getUntaggedImagesTag();
+        if (untaggedImagesTag) {
+            if (untaggedImagesTag->checkState(0)) {
+                itemsOnCount--;
+            }
+        }
+    }
+
+    switch(m_mode) {
+    case InputMultiImageConfigMode:
+        if (itemsUnchanged().size() > 0) {
+            // if min != max
+            // tri-state selection -> show min-max (selected items vs. partially selected items):
+            parentWidget()->setWindowTitle(QString::fromUtf8("%1 (%2-%3)")
+                .arg(m_baseTitle)
+                .arg(itemsOnCount)
+                .arg(itemsOnCount + itemsUnchanged().size()));
+            break;
+        } // else fall through and only show one number:
+    case InputSingleImageConfigMode:
+        if (itemsOnCount > 0) {
+            // if any tags have been selected
+            // "normal" on/off states -> show selected items
+            parentWidget()->setWindowTitle(QString::fromUtf8("%1 (%2)")
+                .arg(m_baseTitle)
+                .arg(itemsOnCount));
+            break;
+        } // else fall through and only show category
+    case SearchMode:
+        // no indicator while searching
+        parentWidget()->setWindowTitle(m_baseTitle);
+        break;
+    }
+}
 
 void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {

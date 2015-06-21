@@ -110,6 +110,7 @@ protected:
 private: // Functions
     bool searchForUntaggedImagesTagNeeded();
     void hideUntaggedImagesTag();
+    QTreeWidgetItem* getUntaggedImagesTag();
 
 private: // Variables
     DB::CategoryPtr m_category;

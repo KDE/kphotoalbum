@@ -161,6 +161,7 @@ public:
     property_ref( untaggedCategory, setUntaggedCategory, QString );
     property_ref( untaggedTag, setUntaggedTag, QString );
     bool hasUntaggedCategoryFeatureConfigured() const;
+    property_copy( untaggedCategoryVisible, setUntaggedCategoryVisible, bool);
 
     //////////////
     //// Exif ////

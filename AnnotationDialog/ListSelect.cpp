@@ -550,7 +550,8 @@ void AnnotationDialog::ListSelect::populate()
 
 bool AnnotationDialog::ListSelect::searchForUntaggedImagesTagNeeded()
 {
-    if (! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (!Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+            || Settings::SettingsData::instance()->untaggedCategoryVisible()) {
         return false;
     }
 

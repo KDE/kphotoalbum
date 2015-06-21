@@ -352,6 +352,7 @@ QString SettingsData::albumCategory() const
 
 property_ref( untaggedCategory, setUntaggedCategory, QString, General, "Events")
 property_ref( untaggedTag,      setUntaggedTag,      QString, General, "untagged")
+property_copy( untaggedCategoryVisible, setUntaggedCategoryVisible, bool, General, false);
 
 //////////////
 //// Exif ////

@@ -343,6 +343,17 @@ QString ThumbnailView::ThumbnailModel::thumbnailText( const QModelIndex& index )
             QString category = *it;
             if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
                 Utilities::StringSet items = fileName.info()->itemsOfCategory( category );
+
+                if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+                    && ! Settings::SettingsData::instance()->untaggedCategoryVisible()) {
+
+                    if (category == Settings::SettingsData::instance()->untaggedCategory()) {
+                        if (items.contains(Settings::SettingsData::instance()->untaggedTag())) {
+                            items.remove(Settings::SettingsData::instance()->untaggedTag());
+                        }
+                    }
+                }
+
                 if (!items.empty()) {
                     QString line;
                     bool first = true;

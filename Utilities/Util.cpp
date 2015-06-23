@@ -134,7 +134,18 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
      for( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         const QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
-            const StringSet items = info->itemsOfCategory( categoryName );
+            StringSet items = info->itemsOfCategory( categoryName );
+
+            if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+                && ! Settings::SettingsData::instance()->untaggedCategoryVisible()) {
+
+                if (categoryName == Settings::SettingsData::instance()->untaggedCategory()) {
+                    if (items.contains(Settings::SettingsData::instance()->untaggedTag())) {
+                        items.remove(Settings::SettingsData::instance()->untaggedTag());
+                    }
+                }
+            }
+
             if (!items.empty()) {
                 QString title = QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
                 QString infoText;

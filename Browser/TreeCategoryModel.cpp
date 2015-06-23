@@ -62,14 +62,6 @@ Browser::TreeCategoryModel::TreeCategoryModel(const DB::CategoryPtr& category,
         m_data->children.prepend(data);
     }
 
-    m_allowDragAndDrop = true;
-    if (m_category->name() == QString::fromUtf8("Folder")
-        || m_category->name() == QString::fromUtf8("Tokens")
-        || m_category->name() == QString::fromUtf8("Media Type")) {
-
-        m_allowDragAndDrop = false;
-    }
-
     m_memberMap = DB::ImageDB::instance()->memberMap();
 }
 
@@ -169,7 +161,7 @@ Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
 
-    if (! m_allowDragAndDrop || indexToName(index) == QString::fromUtf8("**NONE**")) {
+    if ( m_category->isSpecialCategory() || indexToName(index) == QString::fromUtf8("**NONE**")) {
         return defaultFlags;
     }
 

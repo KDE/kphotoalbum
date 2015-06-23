@@ -93,7 +93,6 @@ private: // Functions
 
 private: // Variables
     Data* m_data;
-    bool m_allowDragAndDrop;
     DB::MemberMap m_memberMap;
 };
 

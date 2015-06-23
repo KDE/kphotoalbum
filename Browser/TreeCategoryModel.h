@@ -70,7 +70,7 @@ public:
 
     QString indexToName(const QModelIndex&) const override;
 
-    Qt::DropActions supportedDropActions() const;
+    Qt::DropActions supportedDropActions() const override;
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QStringList mimeTypes() const;
     QMimeData* mimeData(const QModelIndexList& indexes) const;

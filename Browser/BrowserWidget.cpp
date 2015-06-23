@@ -378,6 +378,7 @@ void Browser::BrowserWidget::createWidgets()
     m_treeView->setDragEnabled(true);
     m_treeView->setAcceptDrops(true);
     m_treeView->setDropIndicatorShown(true);
+    m_treeView->setDefaultDropAction( Qt::MoveAction );
 
     QPalette pal = m_treeView->palette();
     pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Background ) );

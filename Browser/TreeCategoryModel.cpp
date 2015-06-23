@@ -154,7 +154,7 @@ QString Browser::TreeCategoryModel::indexToName(const QModelIndex& index) const
 
 Qt::DropActions Browser::TreeCategoryModel::supportedDropActions() const
 {
-    return Qt::MoveAction;
+    return Qt::CopyAction | Qt::MoveAction;
 }
 
 Qt::ItemFlags Browser::TreeCategoryModel::flags(const QModelIndex& index) const
@@ -215,6 +215,15 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
     QByteArray encodedData = data->data(QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag"));
     Browser::TreeCategoryModel::tagData droppedTagData = getDroppedTagData(encodedData);
 
+    // the difference between a CopyAction and a MoveAction is that with the MoveAction,
+    // we have to remove the tag from its current group first
+    if (action == Qt::MoveAction) {
+        // Remove the tag from its group and remove the group if it's empty now
+        m_memberMap.removeMemberFromGroup(m_category->name(), droppedTagData.tagGroup, droppedTagData.tagName);
+        if (m_memberMap.members(m_category->name(), droppedTagData.tagGroup, true) == QStringList()) {
+            m_memberMap.deleteGroup(m_category->name(), droppedTagData.tagGroup);
+        }
+    }
     if (parent.isValid()) {
         // Check if the tag is dropped onto a copy of itself
         if (indexToName(parent) == droppedTagData.tagName) {
@@ -227,12 +236,6 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
             DB::ImageDB::instance()->memberMap() = m_memberMap;
         }
         m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), droppedTagData.tagName);
-    } else {
-        // Remove the tag from it's group and remove the group if it's empty now
-        m_memberMap.removeMemberFromGroup(m_category->name(), droppedTagData.tagGroup, droppedTagData.tagName);
-        if (m_memberMap.members(m_category->name(), droppedTagData.tagGroup, true) == QStringList()) {
-            m_memberMap.deleteGroup(m_category->name(), droppedTagData.tagGroup);
-        }
     }
 
     DB::ImageDB::instance()->memberMap() = m_memberMap;

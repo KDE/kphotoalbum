@@ -73,7 +73,7 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
 {
     // Be sure not to display the "untagged image" tag if configured
     if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
-            && !Settings::SettingsData::instance()->untaggedCategoryVisible() ) {
+            && !Settings::SettingsData::instance()->untaggedImagesTagVisible() ) {
         if (Settings::SettingsData::instance()->untaggedCategory()
             == dynamic_cast<ListSelect*>(item->treeWidget()->parent())->category()) {
             if (item->text(0) == Settings::SettingsData::instance()->untaggedTag()) {

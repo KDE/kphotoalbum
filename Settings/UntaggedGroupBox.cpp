@@ -104,7 +104,7 @@ void Settings::UntaggedGroupBox::loadSettings( Settings::SettingsData* opt )
         m_tag->setCurrentIndex( tagIndex );
     }
 
-    m_showUntaggedImagesTag->setChecked(opt->untaggedCategoryVisible());
+    m_showUntaggedImagesTag->setChecked(opt->untaggedImagesTagVisible());
 }
 
 void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
@@ -135,7 +135,7 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
         opt->setUntaggedTag(QString());
     }
 
-    opt->setUntaggedCategoryVisible(m_showUntaggedImagesTag->isChecked());
+    opt->setUntaggedImagesTagVisible(m_showUntaggedImagesTag->isChecked());
 }
 
 void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)

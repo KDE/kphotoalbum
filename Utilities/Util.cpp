@@ -137,7 +137,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             StringSet items = info->itemsOfCategory( categoryName );
 
             if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
-                && ! Settings::SettingsData::instance()->untaggedCategoryVisible()) {
+                && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                 if (categoryName == Settings::SettingsData::instance()->untaggedCategory()) {
                     if (items.contains(Settings::SettingsData::instance()->untaggedTag())) {

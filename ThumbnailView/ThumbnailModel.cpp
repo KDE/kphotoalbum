@@ -345,7 +345,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText( const QModelIndex& index )
                 Utilities::StringSet items = fileName.info()->itemsOfCategory( category );
 
                 if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
-                    && ! Settings::SettingsData::instance()->untaggedCategoryVisible()) {
+                    && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                     if (category == Settings::SettingsData::instance()->untaggedCategory()) {
                         if (items.contains(Settings::SettingsData::instance()->untaggedTag())) {

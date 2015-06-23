@@ -40,6 +40,7 @@
 #include "MainWindow/DirtyIndicator.h"
 #include "DB/CategoryCollection.h"
 #include "CategoriesGroupsWidget.h"
+#include "Settings/SettingsData.h"
 
 Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
 {
@@ -279,6 +280,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString& name)
     QStringList list = getCategoryObject(name)->items();
     list += m_memberMap.groups(name);
     QStringList alreadyAdded;
+
     for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
         if ((*it).isEmpty()) {
             // This can happen if we add group that currently has no members.
@@ -287,7 +289,20 @@ void Settings::TagGroupsPage::categoryChanged(const QString& name)
 
         if (! alreadyAdded.contains(*it)) {
             alreadyAdded << (*it);
-            QListWidgetItem *newItem = new QListWidgetItem((*it), m_membersListWidget);
+
+            if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+                && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
+
+                if (DB::Category::unLocalizedCategoryName(name)
+                    == Settings::SettingsData::instance()->untaggedCategory()) {
+
+                    if ((*it) == Settings::SettingsData::instance()->untaggedTag()) {
+                        continue;
+                    }
+                }
+            }
+
+            QListWidgetItem* newItem = new QListWidgetItem((*it), m_membersListWidget);
             newItem->setFlags(newItem->flags() | Qt::ItemIsUserCheckable);
             newItem->setCheckState(Qt::Unchecked);
         }

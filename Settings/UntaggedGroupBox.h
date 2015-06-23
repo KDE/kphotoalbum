@@ -19,6 +19,7 @@
 #define UNTAGGEDGROUPBOX_H
 #include <QGroupBox>
 class QComboBox;
+class QCheckBox;
 
 namespace Settings
 {
@@ -41,6 +42,7 @@ private slots:
 private:
     QComboBox* m_category;
     QComboBox* m_tag;
+    QCheckBox* m_showUntaggedImagesTag;
 };
 
 }

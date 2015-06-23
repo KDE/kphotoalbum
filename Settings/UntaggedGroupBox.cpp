@@ -25,14 +25,14 @@
 #include <DB/ImageDB.h>
 #include "DB/CategoryCollection.h"
 #include <QMessageBox>
+#include <QCheckBox>
 
 Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
     : QGroupBox( i18n("Untagged Images"), parent )
 {
     setWhatsThis(i18n("If a tag is selected here, it will be added to new (untagged) images "
                       "automatically, so that they can be easily found. It will be removed as "
-                      "soon as the image is annotated. This tag won't show up in the annotation "
-                      "dialog and can't be used for \"normal\" tagging."));
+                      "soon as the image has been annotated."));
 
     QGridLayout* grid = new QGridLayout(this);
     int row = -1;
@@ -50,6 +50,9 @@ Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
     m_tag = new QComboBox;
     grid->addWidget( m_tag, row, 1 );
     m_tag->setEditable(true);
+
+    m_showUntaggedImagesTag = new QCheckBox(i18n("Show the untagged images tag as a normal tag"));
+    grid->addWidget(m_showUntaggedImagesTag, ++row, 0, 1, 2);
 
     grid->setColumnStretch(1,1);
 }
@@ -101,7 +104,7 @@ void Settings::UntaggedGroupBox::loadSettings( Settings::SettingsData* opt )
         m_tag->setCurrentIndex( tagIndex );
     }
 
-
+    m_showUntaggedImagesTag->setChecked(opt->untaggedCategoryVisible());
 }
 
 void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
@@ -131,6 +134,8 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
         opt->setUntaggedCategory(QString());
         opt->setUntaggedTag(QString());
     }
+
+    opt->setUntaggedCategoryVisible(m_showUntaggedImagesTag->isChecked());
 }
 
 void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)

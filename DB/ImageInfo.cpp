@@ -770,12 +770,12 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
     }
 
     // read field values from database:
-    Exif::Database::instance()->readFields( m_fileName, fields );
+    bool foundIt = Exif::Database::instance()->readFields( m_fileName, fields );
 
     // if the Database query result doesn't contain exif GPS info (-> upgraded exifdb from DBVersion < 2), it is null
     // if the result is int 0, then there's no exif gps information in the image
     // otherwise we can proceed to parse the information
-    if ( fields[EXIF_GPS_VERSIONID]->value().isNull() )
+    if ( foundIt && fields[EXIF_GPS_VERSIONID]->value().isNull() )
     {
         // update exif DB and repeat the search:
         Exif::Database::instance()->remove( fileName() );
@@ -789,7 +789,7 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
 
     // gps info set?
     // don't use the versionid field here, because some cameras use 0 as its value
-    if ( fields[EXIF_GPS_LAT]->value().toInt() != -1.0
+    if ( foundIt && fields[EXIF_GPS_LAT]->value().toInt() != -1.0
          && fields[EXIF_GPS_LON]->value().toInt() != -1.0 )
     {
         // lat/lon/alt reference determines sign of float:

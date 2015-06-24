@@ -55,7 +55,7 @@ public:
     bool isUsable() const;
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
-    void readFields( const DB::FileName& fileName, ElementList &fields) const;
+    bool readFields( const DB::FileName& fileName, ElementList &fields) const;
     DB::FileNameSet filesMatchingQuery( const QString& query ) const;
     CameraList cameras() const;
     void recreate();

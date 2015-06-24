@@ -287,10 +287,11 @@ QString Exif::Database::exifDBFile()
     return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
-void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fields) const
+bool Exif::Database::readFields( const DB::FileName& fileName, ElementList &fields) const
 {
+    bool foundIt = false;
     if ( !isUsable() )
-        return;
+        return foundIt;
 
     QStringList fieldList;
     for( const DatabaseElement *e : fields )
@@ -317,8 +318,18 @@ void Exif::Database::readFields( const DB::FileName& fileName, ElementList &fiel
             {
                 e->setValue( query.value(i++) );
             }
-        }
+            foundIt = true;
+        } else {
+	    // no infos -> write back empty results
+            int i=0;
+	    for( DatabaseElement *e : fields )
+            {
+                e->setValue( QVariant() );
+		i++;
+            }
+	}
     }
+    return foundIt;
 }
 
 DB::FileNameSet Exif::Database::filesMatchingQuery( const QString& queryStr ) const

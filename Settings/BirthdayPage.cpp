@@ -178,6 +178,7 @@ void Settings::BirthdayPage::changeCategory(int index)
     for (const QString& text : items) {
         if (! m_filter->text().isEmpty()
             && text.indexOf(m_filter->text(), 0, Qt::CaseInsensitive) == -1) {
+            m_dataView->setRowCount(m_dataView->rowCount() - 1);
             continue;
         }
 

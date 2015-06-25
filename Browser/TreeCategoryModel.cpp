@@ -185,6 +185,7 @@ QMimeData* Browser::TreeCategoryModel::mimeData(const QModelIndexList& indexes) 
     QByteArray encodedData;
     QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
+    // only use the first index, even if more than one are selected:
     stream << indexToName(indexes[0]);
     if (! indexes[0].parent().isValid()) {
         stream << QString();
@@ -212,6 +213,7 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
         return true;
     }
 
+    const QString thisCategory = indexToName(parent);
     QByteArray encodedData = data->data(QString::fromUtf8("x-kphotoalbum/x-browser-tag-drag"));
     Browser::TreeCategoryModel::tagData droppedTagData = getDroppedTagData(encodedData);
 
@@ -226,16 +228,19 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData* data, Qt::DropAct
     }
     if (parent.isValid()) {
         // Check if the tag is dropped onto a copy of itself
-        if (indexToName(parent) == droppedTagData.tagName) {
+        const DB::CategoryItemPtr categoryInfo = m_category->itemsCategories();
+        if (thisCategory == droppedTagData.tagName
+                || categoryInfo->isDescendentOf(thisCategory, droppedTagData.tagName) )
+        {
             return true;
         }
 
         // Add the tag to a group, create it if we don't have it yet
-        if (! m_memberMap.groups(m_category->name()).contains(indexToName(parent))) {
-            m_memberMap.addGroup(m_category->name(), indexToName(parent));
+        if (! m_memberMap.groups(m_category->name()).contains(thisCategory)) {
+            m_memberMap.addGroup(m_category->name(), thisCategory);
             DB::ImageDB::instance()->memberMap() = m_memberMap;
         }
-        m_memberMap.addMemberToGroup(m_category->name(), indexToName(parent), droppedTagData.tagName);
+        m_memberMap.addMemberToGroup(m_category->name(), thisCategory, droppedTagData.tagName);
     }
 
     DB::ImageDB::instance()->memberMap() = m_memberMap;

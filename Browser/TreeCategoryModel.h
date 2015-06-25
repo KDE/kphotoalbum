@@ -52,6 +52,9 @@ namespace Browser
  * not changing behind the scene, something that might have happened if
  * this class was constructed, categories was added or removed, and the
  * class was asked information abouts its data.
+ *
+ * The drag and drop support is in some ways similar to the CategoryListView classes.
+ * Any bugs there probably apply here as well and vice versa.
  */
 
 class TreeCategoryModel : public AbstractCategoryModel

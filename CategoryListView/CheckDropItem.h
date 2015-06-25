@@ -27,6 +27,11 @@ namespace CategoryListView
 {
 class DragableTreeWidget;
 
+/*
+ * Implementation detail:
+ * The drag and drop support here is partly similar to Browser::TreeCategoryModel.
+ * Any bugs there probably apply here as well and vice versa.
+ */
 class CheckDropItem :public QTreeWidgetItem
 {
 public:

@@ -51,7 +51,7 @@ class Category(object):
         if len(self.items) > 0:
             s += ', ' + repr(self.items)
         if len(self.birthdates) > 0:
-            s += ', ' + repr(self.dates)
+            s += ', ' + repr(self.birthdates)
         s += ')'
         return s
 

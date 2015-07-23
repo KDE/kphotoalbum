@@ -26,8 +26,9 @@
 #include <config-kpa-exiv2.h>
 #include "Utilities/Set.h"
 #include "config-kpa-kgeomap.h"
-#include <libkgeomap/geocoordinates.h>
-
+#ifdef HAVE_KGEOMAP
+#  include <libkgeomap/geocoordinates.h>
+#endif
 namespace DB
 {
 

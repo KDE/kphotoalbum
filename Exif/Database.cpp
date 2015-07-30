@@ -146,7 +146,7 @@ bool Exif::Database::isOpen() const
 
 void Exif::Database::populateDatabase()
 {
-    createMetadataTable();
+    createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
     Database::ElementList elms = elements();
     for( Database::ElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
@@ -165,7 +165,7 @@ void Exif::Database::updateDatabase()
     if (version < 2)
     {
         // on the next update, we can just query the DB Version
-        createMetadataTable();
+        createMetadataTable(SchemaChanged);
     }
     // update schema
     if ( version < DBVersion() )
@@ -181,7 +181,7 @@ void Exif::Database::updateDatabase()
     }
 }
 
-void Exif::Database::createMetadataTable()
+void Exif::Database::createMetadataTable(DBSchemaChangeType change)
 {
     QSqlQuery query(m_db);
     query.prepare( QString::fromLatin1( "create table if not exists settings (keyword TEXT PRIMARY KEY, value TEXT) without rowid") );
@@ -191,6 +191,13 @@ void Exif::Database::createMetadataTable()
     query.prepare( QString::fromLatin1( "insert into settings (keyword, value) values('DBVersion','%1')").arg( Database::DBVersion()));
     if ( !query.exec())
         showError( query );
+
+    if (change == SchemaAndDataChanged)
+    {
+        query.prepare( QString::fromLatin1( "insert into settings (keyword, value) values('GuaranteedDataVersion','%1')").arg( Database::DBVersion()));
+        if ( !query.exec())
+            showError( query );
+    }
 }
 
 bool Exif::Database::add( const DB::FileName& fileName )
@@ -281,6 +288,23 @@ int Exif::Database::DBFileVersion() const
         return 1;
 
     QSqlQuery query( QString::fromLatin1("SELECT value FROM settings WHERE keyword = 'DBVersion'"), m_db );
+    if ( !query.exec() )
+        showError( query );
+
+    if (query.first())
+    {
+        return query.value(0).toInt();
+    }
+    return 0;
+}
+
+int Exif::Database::DBFileVersionGuaranteed() const
+{
+    // previous to KPA 4.6, there was no metadata table:
+    if ( !m_db.tables().contains( QString::fromLatin1("settings")) )
+        return 0;
+
+    QSqlQuery query( QString::fromLatin1("SELECT value FROM settings WHERE keyword = 'GuaranteedDataVersion'"), m_db );
     if ( !query.exec() )
         showError( query );
 

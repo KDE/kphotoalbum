@@ -49,10 +49,19 @@ public:
     static Database* instance();
     static void deleteInstance();
     static bool isAvailable();
-    static int DBVersion();
+    /**
+     * @brief DBVersion is the exif search database schema version currently supported by KPhotoAlbum.
+     * @return the Exif Database version
+     */
+    static constexpr int DBVersion();
 
     bool isOpen() const;
     bool isUsable() const;
+    /**
+     * @brief DBFileVersion is the database schema version used in the exif-info.db file.
+     * @return the database schema version used by the database file, or 0 on error.
+     */
+    int DBFileVersion() const;
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
     bool readFields( const DB::FileName& fileName, ElementList &fields) const;

@@ -39,29 +39,13 @@
 
 using namespace Exif;
 
-static const Database::ElementList GpsElements()
+namespace {
+// schema version; bump it up whenever the database schema changes
+constexpr int DB_VERSION = 2;
+const Database::ElementList elements(int since=0)
 {
     static Database::ElementList elms;
-
-    if ( elms.count() == 0 ) {
-        elms.append( new IntExifElement( "Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSAltitude" ) );
-        elms.append( new IntExifElement( "Exif.GPSInfo.GPSAltitudeRef" ) ); // actually a byte value
-        elms.append( new StringExifElement( "Exif.GPSInfo.GPSMeasureMode" ) );
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSDOP" ) );
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSImgDirection" ) );
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLatitude" ) );
-        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLatitudeRef" ) );
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLongitude" ) );
-        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLongitudeRef" ) );
-        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSTimeStamp" ) );
-    }
-
-    return elms;
-}
-static const Database::ElementList elements()
-{
-    static Database::ElementList elms;
+    static int sinceDBVersion[DB_VERSION]{};
 
     if ( elms.count() == 0 ) {
         elms.append( new RationalExifElement( "Exif.Photo.FocalLength" ) );
@@ -82,10 +66,27 @@ static const Database::ElementList elements()
 
         elms.append( new StringExifElement( "Exif.Image.Make" ) );
         elms.append( new StringExifElement( "Exif.Image.Model" ) );
-        elms.append( GpsElements() );
+        // gps info has been added in database schema version 2:
+        sinceDBVersion[1] = elms.size();
+        elms.append( new IntExifElement( "Exif.GPSInfo.GPSVersionID" ) ); // actually a byte value
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSAltitude" ) );
+        elms.append( new IntExifElement( "Exif.GPSInfo.GPSAltitudeRef" ) ); // actually a byte value
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSMeasureMode" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSDOP" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSImgDirection" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLatitude" ) );
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLatitudeRef" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLongitude" ) );
+        elms.append( new StringExifElement( "Exif.GPSInfo.GPSLongitudeRef" ) );
+        elms.append( new RationalExifElement( "Exif.GPSInfo.GPSTimeStamp" ) );
     }
 
+    // query only for the newly added stuff:
+    if (since > 0)
+        return elms.mid(sinceDBVersion[since]);
+
     return elms;
+}
 }
 
 Exif::Database* Exif::Database::s_instance = nullptr;
@@ -160,15 +161,17 @@ void Exif::Database::populateDatabase()
 
 void Exif::Database::updateDatabase()
 {
-    // previous to KPA 4.6, there was no metadata table:
-    if ( !m_db.tables().contains( QString::fromLatin1("settings")) )
+    const int version = DBFileVersion();
+    if (version < 2)
     {
         // on the next update, we can just query the DB Version
         createMetadataTable();
-
-        // add GPS data
+    }
+    // update schema
+    if ( version < DBVersion() )
+    {
         QSqlQuery query( m_db );
-        for( const DatabaseElement *e : GpsElements())
+        for( const DatabaseElement *e : elements(version))
         {
             query.prepare( QString::fromLatin1( "alter table exif add column %1")
                            .arg( e->createString()) );
@@ -271,10 +274,26 @@ bool Exif::Database::isAvailable()
 #endif
 }
 
-int Exif::Database::DBVersion()
+int Exif::Database::DBFileVersion() const
 {
-    // schema version; bump it up whenever the database schema changes
-    return 2;
+    // previous to KPA 4.6, there was no metadata table:
+    if ( !m_db.tables().contains( QString::fromLatin1("settings")) )
+        return 1;
+
+    QSqlQuery query( QString::fromLatin1("SELECT value FROM settings WHERE keyword = 'DBVersion'"), m_db );
+    if ( !query.exec() )
+        showError( query );
+
+    if (query.first())
+    {
+        return query.value(0).toInt();
+    }
+    return 0;
+}
+
+constexpr int Exif::Database::DBVersion()
+{
+    return DB_VERSION;
 }
 
 bool Exif::Database::isUsable() const

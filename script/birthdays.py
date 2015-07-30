@@ -69,8 +69,6 @@ def main(argv):
 
     for c in db.categories:
         if c.birthdates:
-            for tagid in c.birthdates:
-                print('"'+c.items[tagid] + '";' + str(c.birthdates[tagid]))
             for tagid in c.items:
                 if tagid not in c.birthdates:
                     if output_missing:

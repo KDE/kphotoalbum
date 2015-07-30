@@ -106,6 +106,10 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     page = new KPageWidgetItem( makeCamera(), i18n("Camera") );
     addPage( page );
 
+    // ------------------------------------------------------------ Lens
+    page = new KPageWidgetItem( makeLens(), i18n("Lens") );
+    addPage( page );
+
     // ------------------------------------------------------------ Misc
     QWidget* misc = new QWidget;
     addPage( new KPageWidgetItem( misc, i18n("Miscellaneous") ) );
@@ -326,6 +330,7 @@ QStringList Exif::SearchDialog::availableCameras()
     return (QStringList() << QString::fromLatin1("Camera 1") << QString::fromLatin1("Camera 2"));
 }
 
+
 Exif::SearchInfo Exif::SearchDialog::info()
 {
     Exif::SearchInfo result;
@@ -337,6 +342,7 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Sharpness" ), m_sharpness.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Saturation" ), m_saturation.selected() );
     result.addCamera( m_cameras.selected() );
+    result.addLens( m_lenses.selected() );
     result.addRangeKey( m_iso->range() );
     result.addRangeKey( m_exposureTime->range() );
     result.addRangeKey( m_apertureValue->range() );
@@ -363,7 +369,7 @@ QWidget* Exif::SearchDialog::makeCamera()
     qSort( cameras );
 
     for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.constBegin(); cameraIt != cameras.constEnd(); ++cameraIt ) {
-        QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ) );
+        QCheckBox* cb = new QCheckBox( QString::fromUtf8( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ) );
         layout->addWidget( cb );
         m_cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );
     }
@@ -371,6 +377,44 @@ QWidget* Exif::SearchDialog::makeCamera()
     if ( cameras.isEmpty() ) {
         QLabel* label = new QLabel( i18n("No cameras found in the database") );
         layout->addWidget( label );
+    }
+
+    return view;
+}
+
+QWidget* Exif::SearchDialog::makeLens()
+{
+    QScrollArea* view = new QScrollArea;
+    view->setWidgetResizable(true);
+
+    QWidget* w = new QWidget;
+    view->setWidget( w );
+    QVBoxLayout* layout = new QVBoxLayout( w );
+
+
+    QList< QString > lenses = Exif::Database::instance()->lenses();
+    qSort( lenses );
+
+    if ( lenses.isEmpty() ) {
+        QLabel* label = new QLabel( i18n("No lenses found in the database") );
+        layout->addWidget( label );
+    } else {
+        // add option "None" first
+        lenses.prepend( i18nc("As in No persons, no locations etc.", "None") );
+
+        for( QList< QString >::ConstIterator lensIt = lenses.constBegin(); lensIt != lenses.constEnd(); ++lensIt ) {
+            QCheckBox* cb = new QCheckBox( QString::fromUtf8( "%1" ).arg( (*lensIt).trimmed() ) );
+            layout->addWidget( cb );
+            m_lenses.append( Setting< QString >( cb, *lensIt ) );
+        }
+    }
+
+    if (Exif::Database::instance()->DBFileVersionGuaranteed() < 3)
+    {
+        QLabel* label = new QLabel(
+                    i18n("Not all images in the database have lens information. "
+                         "<note>Recreate the EXIF search database to ensure lens data for all images.</note>") );
+        layout->addWidget(label);
     }
 
     return view;

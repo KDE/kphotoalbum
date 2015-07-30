@@ -41,7 +41,7 @@ using namespace Exif;
 
 namespace {
 // schema version; bump it up whenever the database schema changes
-constexpr int DB_VERSION = 2;
+constexpr int DB_VERSION = 3;
 const Database::ElementList elements(int since=0)
 {
     static Database::ElementList elms;
@@ -79,6 +79,9 @@ const Database::ElementList elements(int since=0)
         elms.append( new RationalExifElement( "Exif.GPSInfo.GPSLongitude" ) );
         elms.append( new StringExifElement( "Exif.GPSInfo.GPSLongitudeRef" ) );
         elms.append( new RationalExifElement( "Exif.GPSInfo.GPSTimeStamp" ) );
+        // lens info has been added in database schema version 3:
+        sinceDBVersion[2] = elms.size();
+        elms.append( new StringExifElement( "Exif.Photo.LensModel" ) );
     }
 
     // query only for the newly added stuff:
@@ -407,14 +410,36 @@ QList< QPair<QString,QString> > Exif::Database::cameras() const
 
     QSqlQuery query( QString::fromLatin1("SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif"), m_db );
     if ( !query.exec() )
+    {
         showError( query );
-
-    else {
+    } else {
         while ( query.next() ) {
             QString make = query.value(0).toString();
             QString model = query.value(1).toString();
             if ( !make.isEmpty() && !model.isEmpty() )
                 result.append( qMakePair( make, model ) );
+        }
+    }
+
+    return result;
+}
+
+QList< QString > Exif::Database::lenses() const
+{
+    QList< QString > result;
+
+    if ( !isUsable() )
+        return result;
+
+    QSqlQuery query( QString::fromLatin1("SELECT DISTINCT Exif_Photo_LensModel FROM exif"), m_db );
+    if ( !query.exec() )
+    {
+        showError( query );
+    } else {
+        while ( query.next() ) {
+            QString lens = query.value(0).toString();
+            if ( !lens.isEmpty() )
+                result.append( lens );
         }
     }
 

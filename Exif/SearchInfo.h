@@ -30,6 +30,8 @@ class SearchInfo  {
 public:
     typedef Database::CameraList CameraList;
     typedef Database::Camera Camera;
+    typedef Database::LensList LensList;
+    typedef Database::Lens Lens;
     typedef QList<int> IntList;
 
     class Range
@@ -45,6 +47,7 @@ public:
     void addSearchKey( const QString& key, const IntList& values );
     void addRangeKey( const Range& range );
     void addCamera( const CameraList& list);
+    void addLens( const LensList& list);
 
     void search() const;
     bool matches( const DB::FileName& fileName ) const;
@@ -54,6 +57,7 @@ protected:
     QStringList buildIntKeyQuery() const;
     QStringList buildRangeQuery() const;
     QString buildCameraSearchQuery() const;
+    QString buildLensSearchQuery() const;
     QString sqlForOneRangeItem( const Range& ) const;
 
 private:
@@ -61,6 +65,7 @@ private:
     IntKeyList m_intKeys;
     QList<Range> m_rangeKeys;
     CameraList m_cameras;
+    LensList m_lenses;
     mutable DB::FileNameSet m_matches;
     mutable bool m_emptyQuery;
 };

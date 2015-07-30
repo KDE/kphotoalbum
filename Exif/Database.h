@@ -45,6 +45,8 @@ public:
     typedef QList<DatabaseElement*> ElementList;
     typedef QPair<QString, QString> Camera;
     typedef QList<Camera> CameraList;
+    typedef QString Lens;
+    typedef QList<Lens> LensList;
 
     static Database* instance();
     static void deleteInstance();
@@ -79,6 +81,7 @@ public:
     bool readFields( const DB::FileName& fileName, ElementList &fields) const;
     DB::FileNameSet filesMatchingQuery( const QString& query ) const;
     CameraList cameras() const;
+    LensList lenses() const;
     void recreate();
 
 protected:

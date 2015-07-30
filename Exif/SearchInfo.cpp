@@ -17,6 +17,8 @@
 */
 
 #include "SearchInfo.h"
+#include <klocale.h>
+
 #include "Exif/Database.h"
 #include <DB/FileName.h>
 
@@ -71,6 +73,9 @@ QString Exif::SearchInfo::buildQuery() const
     QString cameraQuery = buildCameraSearchQuery();
     if ( !cameraQuery.isEmpty() )
         subQueries.append( cameraQuery );
+    QString lensQuery = buildLensSearchQuery();
+    if ( !lensQuery.isEmpty() )
+        subQueries.append( lensQuery );
 
     if ( subQueries.empty() )
         return QString();
@@ -153,15 +158,37 @@ void Exif::SearchInfo::addCamera( const CameraList& list )
     m_cameras = list;
 }
 
+void Exif::SearchInfo::addLens( const LensList& list )
+{
+    m_lenses = list;
+}
+
 QString Exif::SearchInfo::buildCameraSearchQuery() const
 {
     QStringList subResults;
     for( CameraList::ConstIterator cameraIt = m_cameras.begin(); cameraIt != m_cameras.end(); ++cameraIt ) {
-        subResults.append( QString::fromLatin1( "(Exif_Image_Make='%1' and Exif_Image_Model='%2')" )
+        subResults.append( QString::fromUtf8( "(Exif_Image_Make='%1' and Exif_Image_Model='%2')" )
                            .arg( (*cameraIt).first).arg( (*cameraIt).second ) );
     }
     if ( subResults.count() != 0 )
-        return QString::fromLatin1( "(%1)" ).arg( subResults.join( QString::fromLatin1( " or " ) ) );
+        return QString::fromUtf8( "(%1)" ).arg( subResults.join( QString::fromLatin1( " or " ) ) );
+    else
+        return QString();
+}
+
+QString Exif::SearchInfo::buildLensSearchQuery() const
+{
+    QStringList subResults;
+    for( LensList::ConstIterator lensIt = m_lenses.begin(); lensIt != m_lenses.end(); ++lensIt ) {
+        if (*lensIt == i18nc("As in No persons, no locations etc.", "None" ))
+            // compare to null (=entry from old db schema) and empty string (=entry w/o exif lens info)
+            subResults.append( QString::fromUtf8("(nullif(Exif_Photo_LensModel,'') is null)") );
+        else
+            subResults.append( QString::fromUtf8( "(Exif_Photo_LensModel='%1')" )
+                               .arg( *lensIt) );
+    }
+    if ( subResults.count() != 0 )
+        return QString::fromUtf8( "(%1)" ).arg( subResults.join( QString::fromLatin1( " or " ) ) );
     else
         return QString();
 }

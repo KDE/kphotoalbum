@@ -325,12 +325,6 @@ QWidget* Exif::SearchDialog::makeSaturation( QWidget* parent )
     return box;
 }
 
-QStringList Exif::SearchDialog::availableCameras()
-{
-    return (QStringList() << QString::fromLatin1("Camera 1") << QString::fromLatin1("Camera 2"));
-}
-
-
 Exif::SearchInfo Exif::SearchDialog::info()
 {
     Exif::SearchInfo result;

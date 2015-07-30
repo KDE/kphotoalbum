@@ -48,8 +48,6 @@ protected:
     RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGridLayout* layout, int row );
     QWidget* makeCamera();
     QWidget* makeLens();
-    QStringList availableCameras();
-    QStringList availableLenses();
 
 protected slots:
     void fromFocalLengthChanged( int );

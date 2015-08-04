@@ -66,11 +66,12 @@ void Exif::TreeView::reload()
 {
     clear();
     setRootIsDecorated( true );
-    StringSet keys = Exif::Info::instance()->availableKeys();
+    QStringList keys = Exif::Info::instance()->availableKeys().toList();
+    keys.sort();
 
     QMap<QString, QTreeWidgetItem*> tree;
 
-    for( StringSet::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
+    for( QStringList::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
         QTreeWidgetItem* parent = nullptr;
         QString path;

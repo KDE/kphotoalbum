@@ -61,23 +61,24 @@ void Exif::Grid::setupUI( const QString& charset )
     for ( const QString& group : groups ) {
         layout->addWidget(headerLabel(group),row++,0,1,4);
 
-        int col = -1;
         // Items of group
         const QMap<QString,QStringList> items = itemsForGroup( group, map );
         QStringList sorted = items.keys();
         sorted.sort();
+        int elements = sorted.size();
+        int perCol = (elements + 1) / 2;
+        int count = 0;
         for ( const QString& key : sorted ) {
-            const int index = row * 2 + col;
-            const QColor color  = (index % 4 == 0 || index % 4 == 3)? Qt::white : QColor(226, 235, 250);
+            const int subrow = (count % perCol);
+            const QColor color  = (subrow & 1) ? Qt::white : QColor(226, 235, 250);
             QPair<QLabel*, QLabel*> pair = infoLabelPair( exifNameNoGroup( key ), items[key].join( QLatin1String(", ")), color );
 
-            col = (col +1) % 4;
-            if ( col == 0 )
-                ++row;
-            layout->addWidget(pair.first, row, col);
-            layout->addWidget(pair.second,row,++col);
+            int col = (count / perCol) * 2;
+            layout->addWidget(pair.first, row+subrow, col);
+            layout->addWidget(pair.second,row+subrow,col+1);
+            count++;
         }
-        ++row;
+        row += perCol;
     }
 
     setWidget(widget);

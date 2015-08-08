@@ -1136,6 +1136,8 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
                 m_currentInput.left(1) == QString::fromLatin1("\'")) {
                 m_currentInput = m_currentInput.right(m_currentInput.length()-1);
             }
+            if (m_currentInput == QString::fromLatin1(""))
+                return;
             currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ), m_currentInput );
             DB::CategoryPtr category =
                 DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);

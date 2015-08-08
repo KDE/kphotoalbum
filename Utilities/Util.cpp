@@ -85,7 +85,7 @@ static void AddNonEmptyInfo(const QString &label, const QString &info,
  * thumbnail view.
  *
  * As the HTML text is created, the parameter linkMap is filled with
- * information about hyberlinks. The map maps from an index to a pair of
+ * information about hyperlinks. The map maps from an index to a pair of
  * (categoryName, categoryItem). This linkMap is used when the user selects
  * one of the hyberlinks.
  */
@@ -116,6 +116,15 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                 info += i18nc("short for: x megapixels"," (%1MP)"
                     ,QString::number(megapix, 'f', 1));
             }
+            const double aspect = (double) imageSize.width() / (double) imageSize.height();
+            if (aspect > 1)
+                info += i18nc("aspect ratio"," (%1:1)"
+                              ,QLocale::system().toString(aspect, 'f', 2));
+            else if (aspect >= 0.995 && aspect < 1.005)
+                info += i18nc("aspect ratio"," (1:1)");
+            else
+                info += i18nc("aspect ratio"," (1:%1)"
+                              ,QLocale::system().toString(1.0d/aspect, 'f', 2));
             AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
         }
     }

@@ -807,19 +807,18 @@ void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
 
 void Viewer::ViewerWidget::updateInfoBox()
 {
-    if ( currentInfo() || m_currentInput != QString::fromLatin1("") ||
-         (m_currentCategory != QString::fromLatin1("") &&
-          m_currentCategory != QString::fromLatin1("Tokens"))) {
+    if ( currentInfo() || !m_currentInput.isEmpty() ||
+         (!m_currentCategory.isEmpty() && m_currentCategory != QString::fromLatin1("Tokens"))) {
         QMap<int, QPair<QString,QString> > map;
         QString text = Utilities::createInfoText( currentInfo(), &map );
         QString selecttext = QString::fromLatin1("");
-        if (m_currentCategory == QString::fromLatin1("")) {
+        if (m_currentCategory.isEmpty()) {
             selecttext = i18nc("Basically 'enter a category name'","<b>Setting Category: </b>") + m_currentInput;
             if (m_currentInputList.length() > 0) {
                 selecttext += QString::fromLatin1("{") + m_currentInputList +
                     QString::fromLatin1("}");
             }
-        } else if ( ( m_currentInput != QString::fromLatin1("") &&
+        } else if ( ( !m_currentInput.isEmpty() &&
                    m_currentCategory != QString::fromLatin1("Tokens") ) ||
                    m_currentCategory != QString::fromLatin1("Tokens")) {
             selecttext = i18nc("Basically 'enter a tag name'","<b>Assigning: </b>") + m_currentCategory +
@@ -828,11 +827,11 @@ void Viewer::ViewerWidget::updateInfoBox()
                 selecttext += QString::fromLatin1("{") + m_currentInputList +
                     QString::fromLatin1("}");
             }
-        } else if ( m_currentInput != QString::fromLatin1("") &&
+        } else if ( !m_currentInput.isEmpty() &&
                    m_currentCategory == QString::fromLatin1("Tokens") ) {
             m_currentInput = QString::fromLatin1("");
         }
-        if (selecttext != QString::fromLatin1(""))
+        if (!selecttext.isEmpty())
             text = selecttext + QString::fromLatin1("<br />") + text;
         if ( Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && ( m_type != InlineViewer ) ) {
             m_infoBox->setInfo( text, map );
@@ -1129,14 +1128,14 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         return; // we've handled it
     } else if (event->key() == Qt::Key_Comma) {
         // force set the "new" token
-        if (m_currentCategory != QString::fromLatin1("")) {
+        if (!m_currentCategory.isEmpty()) {
             if (m_currentInput.left(1) == QString::fromLatin1("\"") ||
                 // allow a starting ' or " to signal a brand new category
                 // this bypasses the auto-selection of matching characters
                 m_currentInput.left(1) == QString::fromLatin1("\'")) {
                 m_currentInput = m_currentInput.right(m_currentInput.length()-1);
             }
-            if (m_currentInput == QString::fromLatin1(""))
+            if (m_currentInput.isEmpty())
                 return;
             currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ), m_currentInput );
             DB::CategoryPtr category =
@@ -1163,8 +1162,8 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
         // start searching for a new category name
         if (incomingKey == QString::fromLatin1("/")) {
-            if (m_currentInput == QString::fromLatin1("") &&
-                m_currentCategory == QString::fromLatin1("")) {
+            if (m_currentInput.isEmpty() &&
+                m_currentCategory.isEmpty()) {
                 if (m_currentInputMode == InACategory) {
                     m_currentInputMode = AlwaysStartWithCategory;
                 } else {
@@ -1177,7 +1176,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             }
 
         // use an assigned key or map to a given key for future reference
-        } else if (m_currentInput == QString::fromLatin1("") &&
+        } else if (m_currentInput.isEmpty() &&
                    // can map to function keys
                    event->key() >= Qt::Key_F1 &&
                    event->key() <= Qt::Key_F35) {
@@ -1200,7 +1199,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             MainWindow::DirtyIndicator::markDirty();
             // handled it
             return;
-        } else if (m_currentCategory == QString::fromLatin1("")) {
+        } else if (m_currentCategory.isEmpty()) {
             // still searching for a category to lock to
             m_currentInput += incomingKey;
             QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryTexts();

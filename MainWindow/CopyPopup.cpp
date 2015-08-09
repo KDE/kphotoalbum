@@ -23,25 +23,38 @@
 #include <kio/copyjob.h>
 
 MainWindow::CopyPopup::CopyPopup(
-    QWidget *parent,
-    DB::ImageInfoPtr current,
-    DB::FileNameList imageList
-) : QMenu(parent)
+        QWidget *parent,
+        DB::ImageInfoPtr current,
+        DB::FileNameList imageList,
+        CopyType copyType
+        ) : QMenu(parent)
 {
-    setTitle(i18n("Copy image(s) to..."));
     connect(this, SIGNAL(triggered(QAction*)), this, SLOT(slotCopy(QAction*)));
 
     m_list = imageList;
     m_currentInfo = current;
 
     QAction *action;
-    action = addAction(i18n("Copy currently selected image to..."));
-    action->setData(QString::fromLatin1("current"));
+    if (copyType == Copy) {
+        setTitle(i18n("Copy image(s) to..."));
+        action = addAction(i18n("Copy currently selected image to..."));
+        action->setData(QString::fromLatin1("current"));
 
-    action = addAction(i18n("Copy all selected images to..."));
-    action->setData(QString::fromLatin1("all"));
-    if (m_list.size() == 1) {
-        action->setEnabled(false);
+        action = addAction(i18n("Copy all selected images to..."));
+        action->setData(QString::fromLatin1("all"));
+        if (m_list.size() == 1) {
+            action->setEnabled(false);
+        }
+    } else {
+        setTitle(i18n("Link image(s) to..."));
+        action = addAction(i18n("Link currently selected image to..."));
+        action->setData(QString::fromLatin1("linkCurrent"));
+
+        action = addAction(i18n("Link all selected images to..."));
+        action->setData(QString::fromLatin1("linkAll"));
+        if (m_list.size() == 1) {
+            action->setEnabled(false);
+        }
     }
 }
 
@@ -55,7 +68,7 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
 
     KUrl::List src;
 
-    if (mode == QString::fromLatin1("current")) {
+    if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {
         src << KUrl::fromPath(m_currentInfo->fileName().absolute());
     } else {
         QStringList srcList = m_list.toStringList(DB::AbsolutePath);
@@ -68,12 +81,18 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     KFileDialog dialog(KUrl("kfiledialog:///copyTo"), QString() /* empty filter */, this);
     dialog.okButton()->setText(i18nc("@action:button", "Copy"));
 
-    if (mode == QString::fromLatin1("current")) {
-        dialog.setCaption(i18nc("@title:window", "Copy image to..."));
+    if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {
+        if (mode == QString::fromLatin1("current"))
+            dialog.setCaption(i18nc("@title:window", "Copy image to..."));
+        else
+            dialog.setCaption(i18nc("@title:window", "Link image to..."));
         dialog.setSelection(src[0].fileName());
         dialog.setMode(KFile::File | KFile::Directory);
     } else {
-        dialog.setCaption(i18nc("@title:window", "Copy images to..."));
+        if (mode == QString::fromLatin1("all"))
+            dialog.setCaption(i18nc("@title:window", "Copy images to..."));
+        else
+            dialog.setCaption(i18nc("@title:window", "Link images to..."));
         dialog.setMode(KFile::Directory);
     }
 
@@ -81,7 +100,10 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
         return;
     }
 
-    KIO::copy(src, dialog.selectedUrl());
+    if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("all"))
+        KIO::copy(src, dialog.selectedUrl());
+    else
+        KIO::link(src, dialog.selectedUrl());
 }
 
 #include "CopyPopup.moc"

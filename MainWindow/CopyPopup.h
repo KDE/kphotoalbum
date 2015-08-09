@@ -34,10 +34,12 @@ class CopyPopup : public QMenu {
     Q_OBJECT
 
 public:
+    enum CopyType { Copy, Link };
     explicit CopyPopup(
-        QWidget *parent = 0,
-        DB::ImageInfoPtr current = DB::ImageInfoPtr(),
-        DB::FileNameList imageList = DB::FileNameList()
+            QWidget *parent = 0,
+            DB::ImageInfoPtr current = DB::ImageInfoPtr(),
+            DB::FileNameList imageList = DB::FileNameList(),
+            CopyType copyType = Copy
     );
     ~CopyPopup();
 

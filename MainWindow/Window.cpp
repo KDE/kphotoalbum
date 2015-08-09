@@ -1177,15 +1177,23 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
             action->setEnabled( false );
 
         // "Copy image(s) to ..."
-        CopyPopup *copyMenu = new CopyPopup(&menu, info, selected());
+        CopyPopup *copyMenu = new CopyPopup(&menu, info, selected(), CopyPopup::Copy);
         QAction *copyAction = menu.addMenu(copyMenu);
         if (info.isNull() and selected().isEmpty()) {
             copyAction->setEnabled(false);
         }
 
+        // "Link image(s) to ..."
+        CopyPopup *linkMenu = new CopyPopup(&menu, info, selected(), CopyPopup::Link);
+        QAction *linkAction = menu.addMenu(linkMenu);
+        if (info.isNull() and selected().isEmpty()) {
+            linkAction->setEnabled(false);
+        }
+
         menu.exec( QCursor::pos() );
 
         delete externalCommands;
+        delete linkMenu;
         delete copyMenu;
     }
     e->setAccepted(true);

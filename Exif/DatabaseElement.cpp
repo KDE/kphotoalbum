@@ -211,6 +211,7 @@ void Exif::LensExifElement::bindValues(QSqlQuery* query , int& counter)
 void Exif::LensExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const
 {
     QString value;
+    bool canonHack = false;
     for (Exiv2::ExifData::const_iterator it = data.begin(); it != data.end(); ++it)
     {
         const QString datum = QString::fromLatin1(it->key().c_str());
@@ -221,6 +222,7 @@ void Exif::LensExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::E
         if (datum.endsWith(QString::fromLatin1(".LensModel")))
         {
             Debug() << datum << ": " << it->toString().c_str();
+            canonHack = false;
             value = QString::fromUtf8(it->toString().c_str());
             // we can break here since Exif.Photo.LensModel should be bound first
             break;
@@ -233,6 +235,7 @@ void Exif::LensExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::E
         {
             // ExifDatum::print() returns the interpreted value
             Debug() << datum << ": " << it->print(&data).c_str();
+            canonHack = false;
             value = QString::fromUtf8(it->print(&data).c_str());
             continue;
         }
@@ -249,9 +252,23 @@ void Exif::LensExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::E
             // make sure this cannot overwrite LensIDNumber
             if (value.isEmpty())
             {
+                canonHack = (datum == QString::fromLatin1("Exif.CanonCs.LensType"));
                 value = QString::fromUtf8(it->print(&data).c_str());
             }
         }
+    }
+
+    // some canon lenses have a dummy value as LensType:
+    if (canonHack && value == QString::fromLatin1("(65535)"))
+    {
+        value = QString::fromLatin1("Canon generic");
+        const auto datum = data.findKey(Exiv2::ExifKey("Exif.CanonCs.Lens"));
+        if (datum != data.end())
+        {
+            value += QString::fromLatin1(" ");
+            value += QString::fromUtf8(datum->print(&data).c_str());
+        }
+
     }
 
     Debug() << "bind value " << value;

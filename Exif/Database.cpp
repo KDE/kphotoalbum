@@ -81,7 +81,7 @@ const Database::ElementList elements(int since=0)
         elms.append( new RationalExifElement( "Exif.GPSInfo.GPSTimeStamp" ) );
         // lens info has been added in database schema version 3:
         sinceDBVersion[2] = elms.size();
-        elms.append( new StringExifElement( "Exif.Photo.LensModel" ) );
+        elms.append( new LensExifElement(  ) );
     }
 
     // query only for the newly added stuff:

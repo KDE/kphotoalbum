@@ -121,6 +121,26 @@ private:
     const char* m_tag;
 };
 
+/**
+ * @brief The LensExifElement class
+ * This class provides a wrapper around the Exif.Photo.LensModel exif tag.
+ * Besides this tag, there are several other legacy exif tags with similar information.
+ * This class transparently falls back to a legacy tag when the LensModel is not available.
+ */
+class LensExifElement :public DatabaseElement
+{
+public:
+    explicit LensExifElement();
+    virtual QString columnName() const override;
+    QString createString() const override;
+    QString queryString() const override;
+    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
+    virtual void bindValues( QSqlQuery* query, int& counter) override;
+
+private:
+    const char* m_tag;
+};
+
 
 }
 

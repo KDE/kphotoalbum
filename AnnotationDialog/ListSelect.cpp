@@ -705,10 +705,11 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
     }
 
     int itemsOnCount = itemsOn().size();
+    // Don't count the untagged images tag:
     if (searchForUntaggedImagesTagNeeded()) {
         QTreeWidgetItem* untaggedImagesTag = getUntaggedImagesTag();
         if (untaggedImagesTag) {
-            if (untaggedImagesTag->checkState(0)) {
+            if (untaggedImagesTag->checkState(0) != Qt::Unchecked) {
                 itemsOnCount--;
             }
         }

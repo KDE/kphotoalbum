@@ -453,10 +453,18 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
             QString category = (*it)->category();
             QSet<QString> selectedTags = old_info.itemsOfCategory( category );
 
-            for ( const auto tag : selectedTags ) {
-                QRect area = m_editList[m_current].areaForTag(category, tag);
-                if (area.isNull()) {
-                    // no associated area yet
+            // Add the tag to the positionable candiate list, if no area is already associated with it
+            for (const auto tag : selectedTags) {
+                bool alreadyAssociated = false;
+
+                for (ResizableFrame* area : allAreas) {
+                    if (area->tagData().first == category && area->tagData().second == tag) {
+                        alreadyAssociated = true;
+                        break;
+                    }
+                }
+
+                if (! alreadyAssociated) {
                     addTagToCandidateList(category, tag);
                 }
             }

@@ -165,7 +165,7 @@ void Exif::Database::populateDatabase()
 void Exif::Database::updateDatabase()
 {
     const int version = DBFileVersion();
-    if (version < 2)
+    if (version < DBVersion())
     {
         // on the next update, we can just query the DB Version
         createMetadataTable(SchemaChanged);
@@ -191,13 +191,13 @@ void Exif::Database::createMetadataTable(DBSchemaChangeType change)
     if ( !query.exec())
         showError( query );
 
-    query.prepare( QString::fromLatin1( "insert into settings (keyword, value) values('DBVersion','%1')").arg( Database::DBVersion()));
+    query.prepare( QString::fromLatin1( "insert or replace into settings (keyword, value) values('DBVersion','%1')").arg( Database::DBVersion()));
     if ( !query.exec())
         showError( query );
 
     if (change == SchemaAndDataChanged)
     {
-        query.prepare( QString::fromLatin1( "insert into settings (keyword, value) values('GuaranteedDataVersion','%1')").arg( Database::DBVersion()));
+        query.prepare( QString::fromLatin1( "insert or replace into settings (keyword, value) values('GuaranteedDataVersion','%1')").arg( Database::DBVersion()));
         if ( !query.exec())
             showError( query );
     }

@@ -3,9 +3,6 @@
 * Bugfix (#348096): Fix crash when accessing an image via KIPI plugins which has been deleted from
   the disc, but not yet from the collection.
 
-* Bugfix (#348096): Fix crash when accessing an image via KIPI plugins which has been deleted from
-  the disc, but not yet from the collection.
-
 * Bugfix: Don't crash if a category is renamed or deleted which holds the currently selected
   "untagged images" tag.
 

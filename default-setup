@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="4" compressed="1" >
+<KPhotoAlbum version="6" compressed="1" >
  <Categories>
   <Category viewtype="0" viewsize="0" name="Events" show="1" />
   <Category viewtype="0" viewsize="0" name="Places" show="1" />

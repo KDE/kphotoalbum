@@ -192,6 +192,15 @@ mark an area. Open the context menu (right mouse button) on the area to associat
 
 <tip category="KPhotoAlbum">
 <html>
+<p>
+In the annotation dialog, you can hit <shortcut>Ctrl+Space</shortcut> any time to enlarge the current image.
+To go back to the standard view, press <shortcut>Ctrl+Space</shortcut> again.
+</p>
+</html>
+</tip>
+
+<tip category="KPhotoAlbum">
+<html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:kphotoalbum@kdab.com">kphotoalbum@kdab.com</a>.</p>
 </html>

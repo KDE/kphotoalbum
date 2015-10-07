@@ -1379,13 +1379,15 @@ AnnotationDialog::Dialog::~Dialog()
 
 void AnnotationDialog::Dialog::togglePreview()
 {
-    if ( m_stack->currentWidget() == m_fullScreenPreview ) {
-        m_stack->setCurrentWidget( m_dockWindow );
-        m_fullScreenPreview->stopPlayback();
-    }
-    else {
-        m_stack->setCurrentWidget( m_fullScreenPreview );
-        m_fullScreenPreview->load( DB::FileNameList() << m_editList[ m_current].fileName() );
+    if (m_setup == InputSingleImageConfigMode) {
+        if ( m_stack->currentWidget() == m_fullScreenPreview ) {
+            m_stack->setCurrentWidget( m_dockWindow );
+            m_fullScreenPreview->stopPlayback();
+        }
+        else {
+            m_stack->setCurrentWidget( m_fullScreenPreview );
+            m_fullScreenPreview->load( DB::FileNameList() << m_editList[ m_current].fileName() );
+        }
     }
 }
 

@@ -42,7 +42,6 @@ protected:
     void saveImages( QXmlStreamWriter& );
     void saveBlockList( QXmlStreamWriter& );
     void saveMemberGroups( QXmlStreamWriter& );
-    void add21CompatXML( QDomElement& top );
     void save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info );
     void writeCategories( QXmlStreamWriter&, const DB::ImageInfoPtr& info );
     void writeCategoriesCompressed( QXmlStreamWriter&, const DB::ImageInfoPtr& info );

@@ -230,7 +230,7 @@ QString Settings::TagGroupsPage::getCategory(QTreeWidgetItem* currentItem)
         currentItem = currentItem->parent();
     }
 
-    return DB::Category::unLocalizedCategoryName(currentItem->text(0));
+    return currentItem->text(0);
 }
 
 void Settings::TagGroupsPage::showTreeContextMenu(QPoint point)
@@ -293,9 +293,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString& name)
             if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
                 && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
-                if (DB::Category::unLocalizedCategoryName(name)
-                    == Settings::SettingsData::instance()->untaggedCategory()) {
-
+                if (name == Settings::SettingsData::instance()->untaggedCategory()) {
                     if ((*it) == Settings::SettingsData::instance()->untaggedTag()) {
                         continue;
                     }
@@ -343,8 +341,7 @@ void Settings::TagGroupsPage::slotGroupSelected(QTreeWidgetItem* item)
     m_currentGroup = item->text(0);
     selectMembers(m_currentGroup);
     m_tagsInGroupLabel->setText(i18nc("@label","Tags in group \"%1\" of category \"%2\"",
-                                     m_currentGroup,
-                                     DB::Category::localizedCategoryName(m_currentCategory)));
+                                     m_currentGroup, m_currentCategory));
 }
 
 void Settings::TagGroupsPage::slotAddGroup()
@@ -429,7 +426,7 @@ QTreeWidgetItem* Settings::TagGroupsPage::findCategoryItem(QString category)
     QTreeWidgetItem* categoryItem = nullptr;
     for (int i = 0; i < m_categoryTreeWidget->topLevelItemCount(); ++i) {
         categoryItem = m_categoryTreeWidget->topLevelItem(i);
-        if (DB::Category::unLocalizedCategoryName(categoryItem->text(0)) == category) {
+        if (categoryItem->text(0) == category) {
             break;
         }
     }

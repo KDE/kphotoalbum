@@ -244,50 +244,6 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
         return;
     }
 
-    // Let's see if we are about to rename a localized category to it's C locale version
-    if (DB::Category::localizedCategoriesToC().contains(m_currentCategory->text())) {
-        if (newCategoryName == DB::Category::localizedCategoriesToC()[m_currentCategory->text()]) {
-            resetCategory(item);
-            KMessageBox::sorry(this,
-                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
-                                    "<p>\"%2\" is a standard category which comes with a localized "
-                                    "name. The localized name for \"%2\" is \"%1\", so this "
-                                    "category already has this name.</p>",
-                                    m_currentCategory->text(), newCategoryName),
-                               i18n("Invalid category name"));
-            return;
-        }
-    }
-
-    // Check if the entered name has a C locale version
-    if (DB::Category::standardCategories().contains(newCategoryName)) {
-
-        // Let's see if we rename the category to the C locale version of another existing one
-        if (m_categoriesListWidget->findItems(DB::Category::standardCategories()[newCategoryName], Qt::MatchExactly).size() > 0) {
-            resetCategory(item);
-            KMessageBox::sorry(this,
-                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
-                                    "<p>\"%2\" is a standard category which comes with a localized "
-                                    "name. The localized name for \"%2\" is \"%3\" and this "
-                                    "category already exists.</p>",
-                                    m_currentCategory->text(), newCategoryName, DB::Category::standardCategories()[newCategoryName]),
-                               i18n("Invalid category name"));
-            return;
-        }
-
-        if (newCategoryName != DB::Category::standardCategories()[newCategoryName])
-        {
-            // The C locale name can be used, but we set the localized version.
-            KMessageBox::information(this,
-                    i18n("<p>\"%1\" is a standard category which comes with a "
-                        "localized name. The localized name for \"%1\" is \"%2\", "
-                        "this name will be used instead.</p>",
-                        newCategoryName, DB::Category::standardCategories()[newCategoryName]),
-                    i18n("Localized category name entered"));
-            newCategoryName = DB::Category::standardCategories()[newCategoryName];
-        }
-    }
-
     // Let's see if we have any pending name changes that would cause collisions.
     for (int i = 0; i < m_categoriesListWidget->count(); i++) {
         Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
@@ -295,9 +251,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
             continue;
         }
 
-        if (newCategoryName == cat->text()
-            || DB::Category::unLocalizedCategoryName(newCategoryName) == cat->text()) {
-
+        if (newCategoryName == cat->text()) {
             resetCategory(item);
             KMessageBox::sorry(this,
                                i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
@@ -314,8 +268,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     m_categoriesListWidget->blockSignals(false);
 
     emit currentCategoryNameChanged(m_currentCategory->text(), newCategoryName);
-    m_untaggedBox->categoryRenamed(DB::Category::unLocalizedCategoryName(m_currentCategory->text()),
-                                   DB::Category::unLocalizedCategoryName(newCategoryName));
+    m_untaggedBox->categoryRenamed(m_currentCategory->text(), newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
 }
@@ -422,7 +375,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
         return;
     }
 
-    m_untaggedBox->categoryDeleted(DB::Category::unLocalizedCategoryName(m_currentCategory->text()));
+    m_untaggedBox->categoryDeleted(m_currentCategory->text());
     m_deletedCategories.append(m_currentCategory);
     m_categoriesListWidget->takeItem(m_categoriesListWidget->row(m_currentCategory));
     m_currentCategory = 0;
@@ -464,7 +417,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
     // Delete items
     for (QList<CategoryItem*>::Iterator it = m_deletedCategories.begin(); it != m_deletedCategories.end(); ++it) {
 #ifdef HAVE_KFACE
-        m_recognizer->deleteCategory(DB::Category::unLocalizedCategoryName((*it)->text()));
+        m_recognizer->deleteCategory((*it)->text());
 #endif
         (*it)->removeFromDatabase();
     }
@@ -476,7 +429,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
     for (QList<CategoryItem*>::Iterator it = m_unMarkedAsPositionable.begin();
          it != m_unMarkedAsPositionable.end(); ++it) {
         // For the recognition database, this is the same as if the category had been deleted
-        m_recognizer->deleteCategory(DB::Category::unLocalizedCategoryName((*it)->text()));
+        m_recognizer->deleteCategory((*it)->text());
     }
     m_unMarkedAsPositionable = QList<CategoryItem*>();
 #endif
@@ -531,7 +484,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
 #ifdef HAVE_KFACE
 void Settings::CategoryPage::renameRecognitionCategory(QString oldName, QString newName)
 {
-    m_recognizer->updateCategoryName(oldName, DB::Category::unLocalizedCategoryName(newName));
+    m_recognizer->updateCategoryName(oldName, newName);
 }
 #endif
 

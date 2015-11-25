@@ -187,7 +187,7 @@ void Settings::FaceManagementPage::loadDatabase()
         tagList.next();
 
         QTreeWidgetItem* category = new QTreeWidgetItem;
-        category->setText(0, DB::Category::localizedCategoryName(tagList.key()));
+        category->setText(0, tagList.key());
         category->setFlags(Qt::ItemIsEnabled);
 
         for (int i = 0; i < tagList.value().size(); ++i) {

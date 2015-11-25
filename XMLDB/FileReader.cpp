@@ -623,7 +623,7 @@ QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
     } else {
         // Be sure to use the C locale category name for standard categories.
         // Older versions of KPA did store the localized category names.
-        mapped = DB::Category::unLocalizedCategoryName(category);
+        mapped = category;
     }
 
     m_newToOldName[mapped] = category;

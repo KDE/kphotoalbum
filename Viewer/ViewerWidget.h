@@ -245,7 +245,6 @@ private:
     QMap<Qt::Key, QPair<QString,QString> >* m_myInputMacros;
 
     void addTaggedAreas();
-    QMap<QString, QString> m_categoryL10n;
 };
 
 }

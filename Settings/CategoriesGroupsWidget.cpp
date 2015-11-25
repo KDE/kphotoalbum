@@ -64,7 +64,7 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
         event->setDropAction(Qt::IgnoreAction);
     } else if (target->parent() == nullptr) {
         // The target is a category. It has to be the same one as dragged group's category,
-        if (DB::Category::unLocalizedCategoryName(target->text(0)) != m_draggedItemCategory) {
+        if (target->text(0) != m_draggedItemCategory) {
             event->setDropAction(Qt::IgnoreAction);
         } else {
             updateHighlight(target);
@@ -77,7 +77,7 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
         while (parent->parent() != nullptr) {
             parent = parent->parent();
         }
-        if (DB::Category::unLocalizedCategoryName(parent->text(0)) != m_draggedItemCategory) {
+        if (parent->text(0) != m_draggedItemCategory) {
             event->setDropAction(Qt::IgnoreAction);
         } else {
             updateHighlight(target);

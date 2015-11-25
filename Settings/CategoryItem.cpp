@@ -72,7 +72,7 @@ void Settings::CategoryItem::submit(DB::MemberMap* memberMap)
     } else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_categoryOrig);
 
-        if (DB::Category::unLocalizedCategoryName(m_category) != m_categoryOrig) {
+        if (m_category != m_categoryOrig) {
             renameCategory(memberMap);
         }
 
@@ -167,8 +167,6 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
         return;
     }
 
-    QString categoryName = DB::Category::unLocalizedCategoryName(m_category);
-
     QDir dir(QString::fromLatin1("%1/CategoryImages").arg(
             Settings::SettingsData::instance()->imageDirectory()));
 
@@ -179,7 +177,7 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
          fileNameIt != files.end();
          ++fileNameIt) {
 
-        QString newName = categoryName + (*fileNameIt).mid(m_categoryOrig.length());
+        QString newName = m_category + (*fileNameIt).mid(m_categoryOrig.length());
         dir.rename(*fileNameIt, newName);
     }
 
@@ -188,18 +186,18 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
     DB::ImageSearchInfo info = settings->currentLock();
     const bool exclude = settings->lockExcludes();
 
-    info.renameCategory(m_categoryOrig, categoryName);
+    info.renameCategory(m_categoryOrig, m_category);
     settings->setCurrentLock(info, exclude);
 
-    DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, categoryName);
-    memberMap->renameCategory(m_categoryOrig, categoryName);
+    DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, m_category);
+    memberMap->renameCategory(m_categoryOrig, m_category);
 
 #ifdef HAVE_KFACE
     // Also tell the face management page to update the recognition database
     emit newCategoryNameSaved(m_categoryOrig, m_category);
 #endif
 
-    m_categoryOrig = categoryName;
+    m_categoryOrig = m_category;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -124,7 +124,7 @@ void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
                      "<p>Please save now, so that this tag will be stored in the database. "
                      "Otherwise, it will be lost, and you will get an error about this tag being "
                      "not present on the next start.</p>",
-                     untaggedTag, DB::Category::localizedCategoryName(category)));
+                     untaggedTag, category));
         }
 
         opt->setUntaggedCategory(category);
@@ -144,13 +144,13 @@ void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)
         m_category->setCurrentIndex(0);
     }
 
-    m_category->removeItem(m_category->findText(DB::Category::localizedCategoryName(categoryName)));
+    m_category->removeItem(m_category->findText(categoryName));
 }
 
 void Settings::UntaggedGroupBox::categoryRenamed(QString oldCategoryName, QString newCategoryName)
 {
-    const int index = m_category->findText(DB::Category::localizedCategoryName(oldCategoryName));
-    m_category->setItemText(index, DB::Category::localizedCategoryName(newCategoryName));
+    const int index = m_category->findText(oldCategoryName);
+    m_category->setItemText(index, newCategoryName);
     m_category->setItemData(index, newCategoryName);
 }
 

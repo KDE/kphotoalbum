@@ -120,54 +120,6 @@ DB::CategoryItemPtr DB::Category::itemsCategories() const
     return CategoryItemPtr( result );
 }
 
-QMap<QString,QString> DB::Category::standardCategories()
-{
-    static QMap<QString,QString> map;
-    if ( map.isEmpty() ) {
-        map.insert( QString::fromLatin1( "People" ), i18n("People") );
-        map.insert( QString::fromLatin1( "Places" ), i18n("Places") );
-        map.insert( QString::fromLatin1( "Events" ),  i18n("Events") );
-        map.insert( QString::fromLatin1( "Folder" ),  i18n("Folder") );
-        map.insert( QString::fromLatin1( "Tokens" ),  i18n("Tokens") );
-        map.insert( QString::fromLatin1( "Media Type" ),  i18n("Media Type") );
-        // superseded by "Events", but not quite the same concept:
-        map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
-    }
-    return map;
-}
-
-QMap<QString,QString> DB::Category::localizedCategoriesToC()
-{
-    static QMap<QString,QString> localeToC;
-    if (localeToC.isEmpty()) {
-        QMap<QString,QString> cToLocale = standardCategories();
-        QMap<QString, QString>::iterator i;
-        for (i = cToLocale.begin(); i != cToLocale.end(); ++i) {
-            localeToC[i.value()] = i.key();
-        }
-    }
-
-    return localeToC;
-}
-
-QString DB::Category::localizedCategoryName(QString category)
-{
-    if (standardCategories().contains(category)) {
-        return standardCategories()[category];
-    } else {
-        return category;
-    }
-}
-
-QString DB::Category::unLocalizedCategoryName(QString category)
-{
-    if (localizedCategoriesToC().contains(category)) {
-        return localizedCategoriesToC()[category];
-    } else {
-        return category;
-    }
-}
-
 QString DB::Category::defaultIconName() const
 {
     const QString nm = name().toLower();

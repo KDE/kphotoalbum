@@ -130,8 +130,6 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     setFocusPolicy( Qt::StrongFocus );
 
     QTimer::singleShot( 2000, this, SLOT(test()) );
-
-    m_categoryL10n = DB::Category::standardCategories();
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -1446,18 +1444,11 @@ void Viewer::ViewerWidget::addTaggedAreas()
     QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
     QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
     QString category;
-    QString localizedCategory;
     QString tag;
 
     while (areasInCategory.hasNext()) {
         areasInCategory.next();
         category = areasInCategory.key();
-
-        if (m_categoryL10n.contains(category)) {
-            localizedCategory = m_categoryL10n[category];
-        } else {
-            localizedCategory = category;
-        }
 
         QMapIterator<QString, QRect> areaData(areasInCategory.value());
         while (areaData.hasNext()) {
@@ -1466,7 +1457,7 @@ void Viewer::ViewerWidget::addTaggedAreas()
 
             // Add a new frame for the area
             TaggedArea *newArea = new TaggedArea(this);
-            newArea->setTagInfo(category, localizedCategory, tag);
+            newArea->setTagInfo(category, category, tag);
             newArea->setActualGeometry(areaData.value());
             newArea->show();
 

@@ -42,25 +42,6 @@ class Category :public QObject, public KShared
 public:
     enum ViewType { TreeView, ThumbedTreeView, IconView, ThumbedIconView };
 
-    /**
-     * Returns a map of all standard categories and their localized versions
-     */
-    static QMap<QString,QString> standardCategories();
-    /**
-     * Returns a map of all localized standard category names and their C locale version
-     */
-    static QMap<QString,QString> localizedCategoriesToC();
-    /**
-     * Returns the localized name for a category if it's a standard category with a localized name
-     * or the given name if there isn't a localized version
-     */
-    static QString localizedCategoryName(QString category);
-    /**
-     * Returns the C locale name for a category if it's a standard category with a localized name
-     * or the given name if there isn't a C locale version for this category
-     */
-    static QString unLocalizedCategoryName(QString category);
-
     virtual QString name() const = 0;
     virtual void setName( const QString& name ) = 0;
 
@@ -100,7 +81,6 @@ public:
 
 private:
     QString defaultIconName() const;
-
 
 signals:
     void changed();

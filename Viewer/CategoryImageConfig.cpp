@@ -168,9 +168,9 @@ void Viewer::CategoryImageConfig::show()
     int currentIndex = -1;
      for ( QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
-            m_group->addItem( (*categoryIt)->text() );
+            m_group->addItem((*categoryIt)->name());
             m_categoryNames.push_back((*categoryIt)->name());
-            if ( (*categoryIt)->text() == currentCategory )
+            if ((*categoryIt)->name() == currentCategory)
                 currentIndex = index;
             ++index;
         }

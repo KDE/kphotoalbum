@@ -64,8 +64,6 @@ public:
     virtual QString name() const = 0;
     virtual void setName( const QString& name ) = 0;
 
-    virtual QString text() const;
-
     virtual void setPositionable(bool) = 0;
     virtual bool positionable() const = 0;
 

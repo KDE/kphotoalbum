@@ -141,7 +141,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-       m_albumCategory->addItem( (*it)->text() );
+        m_albumCategory->addItem((*it)->name());
     }
 
     m_listenForAndroidDevicesOnStartup = new QCheckBox(i18n("Listen for Android devices on startup"));
@@ -238,7 +238,7 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     if ( !cat )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
 
-    m_albumCategory->setEditText( cat->text() );
+    m_albumCategory->setEditText(cat->name());
 }
 
 void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )

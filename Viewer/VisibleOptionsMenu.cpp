@@ -90,7 +90,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         KToggleAction* taction = actions->add<KToggleAction>( (*it)->name() );
         m_actionList.append( taction );
-        taction->setText( (*it)->text() );
+        taction->setText( (*it)->name() );
         taction->setData( (*it)->name() );
         addAction( taction );
         connect( taction, SIGNAL(toggled(bool)), this, SLOT(toggleShowCategory(bool)) );

@@ -156,7 +156,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             }
 
             if (!items.empty()) {
-                QString title = QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
+                QString title = QString::fromUtf8("<b>%1: </b> ").arg((*categoryIt)->name());
                 QString infoText;
                 bool first = true;
                 for( StringSet::const_iterator it2 = items.constBegin(); it2 != items.constEnd(); ++it2 ) {

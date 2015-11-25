@@ -501,7 +501,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
         if (! (*it)->isSpecialCategory()) {
 #ifdef HAVE_KFACE
             Settings::CategoryItem *item = new CategoryItem((*it)->name(),
-                                                            (*it)->text(),
+                                                            (*it)->name(),
                                                             (*it)->iconName(),
                                                             (*it)->viewType(),
                                                             (*it)->thumbnailSize(),

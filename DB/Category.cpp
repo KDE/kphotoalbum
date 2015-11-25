@@ -46,19 +46,6 @@ QPixmap DB::Category::icon( int size, KIconLoader::States state ) const
     return pixmap;
 }
 
-
-/**
-   If one person from say Denmark sends a database to a person from say germany, then the title of
-   People, Places, and Events will still be translated correct, when this function is used.
-*/
-QString DB::Category::text() const
-{
-    if (standardCategories().contains( name() ) )
-        return standardCategories()[name()];
-    else
-        return name();
-}
-
 QStringList DB::Category::itemsInclCategories() const
 {
     // values including member groups

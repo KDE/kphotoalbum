@@ -143,7 +143,7 @@ void Settings::BirthdayPage::reload()
         if (category->isSpecialCategory()) {
             continue;
         }
-        m_categoryBox->addItem(category->text(), category->name());
+        m_categoryBox->addItem(category->name(), category->name());
         if (category->name() == QString::fromUtf8("People")) {
             defaultIndex = index;
         }

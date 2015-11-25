@@ -146,7 +146,7 @@ void HTMLDialog::createContentPage()
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
-            QCheckBox* cb = new QCheckBox( (*it)->text(), whatToInclude );
+            QCheckBox* cb = new QCheckBox((*it)->name(), whatToInclude);
             lay3->addWidget( cb, row, col%2 );
             m_whatToIncludeMap.insert( (*it)->name(), cb );
             pattern->setPattern((*it)->name());

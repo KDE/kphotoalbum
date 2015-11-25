@@ -174,7 +174,10 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
         // check if a specific (positioned) tag is (still) selected later
         m_listSelectList[(*categoryIt)->name()] = sel;
 
-        QDockWidget* dock = createDock( (*categoryIt)->text(), (*categoryIt)->name(), Qt::BottomDockWidgetArea, sel );
+        QDockWidget* dock = createDock((*categoryIt)->name(),
+                                       (*categoryIt)->name(),
+                                       Qt::BottomDockWidgetArea,
+                                       sel);
         shortCutManager.addDock( dock, sel->lineEdit() );
 
         if ( (*categoryIt)->isSpecialCategory() )

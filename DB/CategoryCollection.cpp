@@ -37,7 +37,7 @@ QString CategoryCollection::nameForText( const QString& text )
 {
      QList<CategoryPtr> list = categories();
      for( QList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( (*it)->text() == text )
+        if ( (*it)->name() == text )
             return (*it)->name();
     }
     // There used to be an assert(false) here, but I hit it after removing first

@@ -134,7 +134,7 @@ QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientatio
         return QVariant();
 
     switch ( section ) {
-    case 0: return m_category->text();
+    case 0: return m_category->name();
     case 1: return i18n("Images");
     case 2: return i18n("Videos");
     }

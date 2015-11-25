@@ -132,7 +132,7 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
         if ( category->name() == QString::fromLatin1("Media Type") || category->name() == QString::fromLatin1("Folder"))
             continue;
-        m_category->addItem( category->text(), category->name() );
+        m_category->addItem(category->name(), category->name());
     }
 
     connect( m_category, SIGNAL(activated(int)), this, SLOT(categoryChanged(int)) );
@@ -204,7 +204,7 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
         }
 
 
-        addRow( category->text(), tags.count()-1, total, imageCount, top );
+        addRow(category->name(), tags.count()-1, total, imageCount, top);
         tagsTotal += tags.count() -1;
         grantTotal += total;
     }

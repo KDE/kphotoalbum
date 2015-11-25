@@ -133,7 +133,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
         // Add the real categories as top-level items
         QTreeWidgetItem* topLevelItem = new QTreeWidgetItem;
-        topLevelItem->setText(0, (*it)->text());
+        topLevelItem->setText(0, (*it)->name());
         topLevelItem->setFlags(topLevelItem->flags() & Qt::ItemIsEnabled);
         QFont font = topLevelItem->font(0);
         font.setWeight(QFont::Bold);

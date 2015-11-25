@@ -39,7 +39,7 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::Fi
             bool categoryMenuEnabled = false;
             const QString categoryName = (*categoryIt)->name();
             QMenu* categoryMenu = new QMenu(this);
-            categoryMenu->setTitle( (*categoryIt)->text() );
+            categoryMenu->setTitle((*categoryIt)->name());
 
             // add category members
             Utilities::StringSet members = m_imageInfo->itemsOfCategory( categoryName );

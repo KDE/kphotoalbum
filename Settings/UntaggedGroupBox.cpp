@@ -63,7 +63,7 @@ void Settings::UntaggedGroupBox::populateCategoryComboBox()
     m_category->addItem( i18n("None Selected") );
     Q_FOREACH( DB::CategoryPtr category, DB::ImageDB::instance()->categoryCollection()->categories() ) {
         if (!category->isSpecialCategory() )
-            m_category->addItem( category->text(), category->name() );
+            m_category->addItem(category->name(), category->name());
     }
 }
 

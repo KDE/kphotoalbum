@@ -119,7 +119,7 @@ QList<DB::CategoryPtr> Browser::OverviewPage::categories() const
 QVariant Browser::OverviewPage::categoryInfo( int row, int role ) const
 {
     if ( role == Qt::DisplayRole )
-        return categories()[row]->text();
+        return categories()[row]->name();
     else if ( role == Qt::DecorationRole )
         return categories()[row]->icon(THUMBNAILSIZE);
 

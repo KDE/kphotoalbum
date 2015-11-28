@@ -114,44 +114,42 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
 {
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-    {
-        ElementWriter dummy(writer, QString::fromLatin1("Categories") );
+    ElementWriter dummy(writer, QString::fromLatin1("Categories") );
 
+    for (QString name : categories) {
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(name);
 
-        Q_FOREACH(const QString &name, categories) {
-            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
-            ElementWriter dummy(writer, QString::fromLatin1("Category") );
-            writer.writeAttribute( QString::fromLatin1("name"),  name );
-            writer.writeAttribute( QString::fromLatin1( "icon" ), category->iconName() );
-            writer.writeAttribute( QString::fromLatin1( "show" ), QString::number(category->doShow()) );
-            writer.writeAttribute( QString::fromLatin1( "viewtype" ), QString::number(category->viewType()));
-            writer.writeAttribute( QString::fromLatin1( "thumbnailsize" ), QString::number(category->thumbnailSize()));
-            writer.writeAttribute( QString::fromLatin1( "positionable" ), QString::number(category->positionable()) );
+        if (! shouldSaveCategory(name)) {
+            continue;
+        }
 
-            if ( shouldSaveCategory( name ) ) {
-                /*
-                FIXME (l3u):
-                Correct me if I'm wrong, but we don't need this, as the tags used as groups are
-                added to the respective category anyway when they're created, so there's no need to
-                re-add them here. Apart from this, adding an empty group (one without members) does
-                add an empty tag ("") doing so.
-                */
-                /*
-                QStringList list =
-                        Utilities::mergeListsUniqly(category->items(),
-                                                    m_db->_members.groups(name));
-                */
+        ElementWriter dummy(writer, QString::fromUtf8("Category"));
+        writer.writeAttribute(QString::fromUtf8("name"),  name);
+        writer.writeAttribute(QString::fromUtf8("icon"), category->iconName());
+        writer.writeAttribute(QString::fromUtf8("show"), QString::number(category->doShow()));
+        writer.writeAttribute(QString::fromUtf8("viewtype"), QString::number(category->viewType()));
+        writer.writeAttribute(QString::fromUtf8("thumbnailsize"), QString::number(category->thumbnailSize()));
+        writer.writeAttribute(QString::fromUtf8("positionable"), QString::number(category->positionable()));
 
-                Q_FOREACH(const QString &tagName, category->items()) {
-                    ElementWriter dummy( writer, QString::fromLatin1("value") );
-                    writer.writeAttribute( QString::fromLatin1("value"), tagName );
-                    writer.writeAttribute( QString::fromLatin1( "id" ),
-                                           QString::number(static_cast<XMLCategory*>( category.data() )->idForName( tagName ) ));
-                    QDate birthDate = category->birthDate(tagName);
-                    if (!birthDate.isNull())
-                        writer.writeAttribute( QString::fromUtf8("birthDate"), birthDate.toString(Qt::ISODate) );
-                }
-            }
+        // FIXME (l3u):
+        // Correct me if I'm wrong, but we don't need this, as the tags used as groups are
+        // added to the respective category anyway when they're created, so there's no need to
+        // re-add them here. Apart from this, adding an empty group (one without members) does
+        // add an empty tag ("") doing so.
+        /*
+        QStringList list =
+                Utilities::mergeListsUniqly(category->items(),
+                                            m_db->_members.groups(name));
+        */
+
+        Q_FOREACH(const QString &tagName, category->items()) {
+            ElementWriter dummy( writer, QString::fromLatin1("value") );
+            writer.writeAttribute( QString::fromLatin1("value"), tagName );
+            writer.writeAttribute( QString::fromLatin1( "id" ),
+                                    QString::number(static_cast<XMLCategory*>( category.data() )->idForName( tagName ) ));
+            QDate birthDate = category->birthDate(tagName);
+            if (!birthDate.isNull())
+                writer.writeAttribute( QString::fromUtf8("birthDate"), birthDate.toString(Qt::ISODate) );
         }
     }
 }

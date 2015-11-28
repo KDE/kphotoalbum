@@ -120,32 +120,32 @@ void XMLDB::FileReader::readTopNodeInConfigDocument( const QString& configFile, 
 
 void XMLDB::FileReader::createSpecialCategories()
 {
-    m_folderCategory = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    m_folderCategory = m_db->m_categoryCollection.categoryForName(i18n("Folder"));
     if( m_folderCategory.isNull() ) {
-        m_folderCategory = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
+        m_folderCategory = new XMLCategory(i18n("Folder"), QString::fromLatin1("folder"),
                                            DB::Category::TreeView, 32, false );
         m_db->m_categoryCollection.addCategory( m_folderCategory );
     }
     m_folderCategory->setSpecialCategory( true );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
-    DB::CategoryPtr tokenCat = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
-    if ( !tokenCat ) {
-        tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("flag-blue"),
-                                    DB::Category::TreeView, 32, true );
-        m_db->m_categoryCollection.addCategory( tokenCat );
+    DB::CategoryPtr tokenCat = m_db->m_categoryCollection.categoryForName(i18n("Tokens"));
+    if (! tokenCat) {
+        tokenCat = new XMLCategory(i18n("Tokens"), QString::fromUtf8("flag-blue"),
+                                   DB::Category::TreeView, 32, true);
+        m_db->m_categoryCollection.addCategory(tokenCat);
     }
-    tokenCat->setSpecialCategory( true );
+    tokenCat->setSpecialCategory(true);
 
     // KPhotoAlbum 2.2 did not write the tokens to the category section, so unless we do this small trick they
     // will not show up when importing.
     for ( char ch = 'A'; ch < 'Z'; ++ch )
         tokenCat->addItem( QString::fromLatin1("%1").arg( QChar::fromLatin1( ch) ) );
 
-    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName( QString::fromLatin1( "Media Type" ) );
+    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName(i18n("Media Type"));
     if ( !mediaCat ) {
-        mediaCat = new XMLCategory( QString::fromLatin1("Media Type"), QString::fromLatin1("video"),
-                                    DB::Category::TreeView, 32, false );
+        mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video"),
+                                   DB::Category::TreeView, 32, false);
         m_db->m_categoryCollection.addCategory( mediaCat );
     }
     mediaCat->addItem( QString::fromLatin1( "Image" ) );

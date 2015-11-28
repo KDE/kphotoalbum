@@ -20,7 +20,6 @@
 #include "DB/MemberMap.h"
 #include "Utilities/List.h"
 #include <kdebug.h>
-#include <KLocale>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable )
     : m_name( name ), m_icon( icon ), m_show( show ), m_type( type ), m_thumbnailSize( thumbnailSize ), m_positionable ( positionable ), m_isSpecial(false), m_shouldSave( true )
@@ -29,12 +28,7 @@ XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewT
 
 QString XMLDB::XMLCategory::name() const
 {
-    if (! isSpecialCategory()) {
-        return m_name;
-    } else {
-        // Return a translated name for special categories like "Folder"
-        return i18n(m_name.toLatin1().data());
-    }
+    return m_name;
 }
 
 void XMLDB::XMLCategory::setName( const QString& name )

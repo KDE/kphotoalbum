@@ -145,7 +145,7 @@ void RemoteInterface::sendCategoryNames(const SearchRequest& search)
                 ? Types::CategoryIconView : Types::CategoryListView;
 
         const QImage icon = category->icon(search.size, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
-        command.categories.append({category->name(), category->name(), icon, enabled, type});
+        command.categories.append({category->name(), icon, enabled, type});
     }
     m_connection->sendCommand(command);
 }

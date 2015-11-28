@@ -84,7 +84,6 @@ public:
 
 struct Category {
     QString name;
-    QString text;
     QImage icon;
     bool enabled;
     CategoryViewType viewType;

@@ -115,14 +115,14 @@ ThumbnailResult::ThumbnailResult(ImageId _imageId, const QString& _label, const 
 
 QDataStream& operator<<(QDataStream& stream, const Category& category)
 {
-    stream << category.name << category.text << category.enabled << (int) category.viewType;
+    stream << category.name << category.enabled << (int) category.viewType;
     fastStreamImage(stream, category.icon, BackgroundType::Transparent);
     return stream;
 }
 
 QDataStream& operator>>(QDataStream& stream, Category& category)
 {
-    stream >> category.name >> category.text >> category.enabled >> (int&) category.viewType;
+    stream >> category.name >> category.enabled >> (int&) category.viewType;
     category.icon.load(stream.device(), "JPEG");
     return stream;
 }

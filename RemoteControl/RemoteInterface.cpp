@@ -29,6 +29,7 @@
 #include <QTcpSocket>
 
 #include <kiconloader.h>
+#include <KLocale>
 
 #include "Browser/FlatCategoryModel.h"
 #include "DB/Category.h"
@@ -133,7 +134,7 @@ void RemoteInterface::sendCategoryNames(const SearchRequest& search)
 
     CategoryListResult command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
-        if (category->name() == QString::fromLatin1("Media Type"))
+        if (category->name() == i18n("Media Type"))
             continue;
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
 

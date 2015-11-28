@@ -195,8 +195,11 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
     int tagsTotal = 0;
     int grantTotal = 0;
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if ( category->name() == QString::fromLatin1("Media Type") || category->name() == QString::fromLatin1("Folder"))
+        if (category->name() == i18n("Media Type")
+            || category->name() == i18n("Folder")) {
+
             continue;
+        }
 
         const QMap<QString,uint> tags = DB::ImageDB::instance()->classify( info, category->name(), DB::anyMediaType );
         int total = 0;

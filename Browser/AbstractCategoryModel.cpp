@@ -53,7 +53,7 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
         return i18nc("Denotes the media type (video,image)","Image");
 
     else {
-        if ( m_category->name() == QString::fromLatin1( "Folder" ) ) {
+        if (m_category->name() == i18n("Folder")) {
             QRegExp rx( QString::fromLatin1( "(.*/)(.*)$") );
             QString value = name;
             value.replace( rx, QString::fromLatin1("\\2") );

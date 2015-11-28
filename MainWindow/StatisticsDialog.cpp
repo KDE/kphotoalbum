@@ -130,8 +130,11 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if ( category->name() == QString::fromLatin1("Media Type") || category->name() == QString::fromLatin1("Folder"))
+        if (category->name() == i18n("Media Type")
+            || category->name() == i18n("Folder")) {
+
             continue;
+        }
         m_category->addItem(category->name(), category->name());
     }
 

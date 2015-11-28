@@ -143,8 +143,8 @@ void Settings::BirthdayPage::reload()
         if (category->isSpecialCategory()) {
             continue;
         }
-        m_categoryBox->addItem(category->name(), category->name());
-        if (category->name() == QString::fromUtf8("People")) {
+        m_categoryBox->addItem(category->name());
+        if (category->name() == i18n("People")) {
             defaultIndex = index;
         }
         ++index;
@@ -168,7 +168,7 @@ void Settings::BirthdayPage::changeCategory(int index)
     m_dataView->setSortingEnabled(false);
     m_dataView->setHorizontalHeaderLabels(QStringList() << i18n("Name") << i18n("Birthday"));
 
-    const QString categoryName = m_categoryBox->itemData(index).value<QString>();
+    const QString categoryName = m_categoryBox->itemText(index);
     const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
     QStringList items = category->items();
 

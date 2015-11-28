@@ -268,12 +268,14 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setShowHistogram( m_showHistogram->isChecked() );
     opt->setShowSplashScreen( m_showSplashScreen->isChecked() );
     opt->setListenForAndroidDevicesOnStartup(m_listenForAndroidDevicesOnStartup->isChecked());
-    QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( m_albumCategory->currentText() );
-    if ( name.isNull() )
-        name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
-    opt->setHistogramSize( QSize( m_barWidth->value(), m_barHeight->value() ) );
 
-    opt->setAlbumCategory( name );
+    QString name = m_albumCategory->currentText();
+    if (name.isNull()) {
+        name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
+    }
+    opt->setAlbumCategory(name);
+
+    opt->setHistogramSize(QSize(m_barWidth->value(), m_barHeight->value()));
 }
 
 void Settings::GeneralPage::setUseRawThumbnailSize( const QSize& size  )

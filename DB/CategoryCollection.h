@@ -44,8 +44,6 @@ public:
     virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
                               int thumbnailSize, bool show, bool positionable=false ) = 0;
 
-    QString nameForText( const QString& text );
-
 signals:
     void categoryCollectionChanged();
     void itemRenamed( DB::Category* category, const QString& oldName, const QString& newName );

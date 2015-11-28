@@ -1135,7 +1135,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             }
             if (m_currentInput.isEmpty())
                 return;
-            currentInfo()->addCategoryInfo( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ), m_currentInput );
+            currentInfo()->addCategoryInfo(m_currentCategory, m_currentInput);
             DB::CategoryPtr category =
                 DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
             category->addItem(m_currentInput);
@@ -1210,8 +1210,8 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         } else {
             m_currentInput += incomingKey;
 
-            DB::CategoryPtr category =
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( DB::ImageDB::instance()->categoryCollection()->nameForText( m_currentCategory ) );
+            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()
+                                                              ->categoryForName(m_currentCategory);
             QStringList items = category->items();
             if (find_tag_in_list(items, namefound) == 1) {
                 // yay, we have exactly one!

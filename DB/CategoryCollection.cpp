@@ -30,20 +30,5 @@ void CategoryCollection::itemRemoved( const QString& item )
     emit itemRemoved( static_cast<Category*>( const_cast<QObject*>( sender() ) ), item );
 }
 
-/**
-   See Category::text() for description why I might want to do this conversion.
-*/
-QString CategoryCollection::nameForText( const QString& text )
-{
-     QList<CategoryPtr> list = categories();
-     for( QList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( (*it)->name() == text )
-            return (*it)->name();
-    }
-    // There used to be an assert(false) here, but I hit it after removing first
-    // category in the settings from a localised to the "international" name.
-    return text;
-}
-
 #include "CategoryCollection.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

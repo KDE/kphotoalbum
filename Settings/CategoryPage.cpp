@@ -38,6 +38,7 @@
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
+#include "MainWindow/DirtyIndicator.h"
 #include "UntaggedGroupBox.h"
 #include "SettingsDialog.h"
 #include "CategoryItem.h"
@@ -346,8 +347,7 @@ void Settings::CategoryPage::newCategory()
     }
 
     m_categoriesListWidget->blockSignals(true);
-    m_currentCategory = new Settings::CategoryItem(QString(),
-                                                   checkedCategory,
+    m_currentCategory = new Settings::CategoryItem(checkedCategory,
                                                    QString(),
                                                    DB::Category::TreeView,
                                                    64,
@@ -364,6 +364,8 @@ void Settings::CategoryPage::newCategory()
     m_currentCategory->setSelected(true);
     editCategory(m_currentCategory);
     m_categoriesListWidget->editItem(m_currentCategory);
+
+    MainWindow::DirtyIndicator::markDirty();
 }
 
 void Settings::CategoryPage::deleteCurrentCategory()
@@ -454,7 +456,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
         if (! (*it)->isSpecialCategory()) {
 #ifdef HAVE_KFACE
             Settings::CategoryItem *item = new CategoryItem((*it)->name(),
-                                                            (*it)->name(),
                                                             (*it)->iconName(),
                                                             (*it)->viewType(),
                                                             (*it)->thumbnailSize(),
@@ -466,7 +467,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
             }
 #else
             new CategoryItem((*it)->name(),
-                             (*it)->text(),
                              (*it)->iconName(),
                              (*it)->viewType(),
                              (*it)->thumbnailSize(),

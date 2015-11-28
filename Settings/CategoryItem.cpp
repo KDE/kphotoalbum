@@ -33,18 +33,16 @@
 #include "MainWindow/Window.h"
 
 Settings::CategoryItem::CategoryItem(const QString &category,
-                                     const QString &text,
                                      const QString &icon,
                                      DB::Category::ViewType type,
                                      int thumbnailSize,
                                      QListWidget *parent,
-                                     bool positionable) : QListWidgetItem(text, parent),
+                                     bool positionable) : QListWidgetItem(category, parent),
     m_categoryOrig(category),
     m_iconOrig(icon),
     m_positionable(positionable),
     m_positionableOrig(positionable),
     m_category(category),
-    m_text(text),
     m_icon(icon),
     m_type(type),
     m_typeOrig(type),
@@ -106,11 +104,6 @@ void Settings::CategoryItem::removeFromDatabase()
         // The database knows about the item.
         DB::ImageDB::instance()->categoryCollection()->removeCategory(m_categoryOrig);
     }
-}
-
-QString Settings::CategoryItem::text() const
-{
-    return m_text;
 }
 
 bool Settings::CategoryItem::positionable() const

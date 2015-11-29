@@ -84,7 +84,7 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,QString> > *macroStore )
-    :QStackedWidget( nullptr ), m_current(0), m_popup(nullptr), m_showingFullScreen( false ), m_forward( true ), m_isRunningSlideShow( false ), m_videoPlayerStoppedManually(false), m_type(type), m_currentCategory(QString::fromLatin1("Tokens")), m_inputMacros(macroStore),  m_myInputMacros(nullptr)
+    :QStackedWidget( nullptr ), m_current(0), m_popup(nullptr), m_showingFullScreen( false ), m_forward( true ), m_isRunningSlideShow( false ), m_videoPlayerStoppedManually(false), m_type(type), m_currentCategory(Settings::SettingsData::instance()->tokensCategory()), m_inputMacros(macroStore),  m_myInputMacros(nullptr)
 {
     if ( type == ViewerWindow ) {
         setWindowFlags( Qt::Window );
@@ -806,7 +806,7 @@ void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
 void Viewer::ViewerWidget::updateInfoBox()
 {
     if ( currentInfo() || !m_currentInput.isEmpty() ||
-         (!m_currentCategory.isEmpty() && m_currentCategory != QString::fromLatin1("Tokens"))) {
+         (!m_currentCategory.isEmpty() && m_currentCategory != Settings::SettingsData::instance()->tokensCategory())) {
         QMap<int, QPair<QString,QString> > map;
         QString text = Utilities::createInfoText( currentInfo(), &map );
         QString selecttext = QString::fromLatin1("");
@@ -817,8 +817,7 @@ void Viewer::ViewerWidget::updateInfoBox()
                     QString::fromLatin1("}");
             }
         } else if ( ( !m_currentInput.isEmpty() &&
-                   m_currentCategory != QString::fromLatin1("Tokens") ) ||
-                   m_currentCategory != QString::fromLatin1("Tokens")) {
+                   m_currentCategory != Settings::SettingsData::instance()->tokensCategory())) {
             selecttext = i18nc("Basically 'enter a tag name'","<b>Assigning: </b>") + m_currentCategory +
                 QString::fromLatin1("/")  + m_currentInput;
             if (m_currentInputList.length() > 0) {
@@ -826,7 +825,7 @@ void Viewer::ViewerWidget::updateInfoBox()
                     QString::fromLatin1("}");
             }
         } else if ( !m_currentInput.isEmpty() &&
-                   m_currentCategory == QString::fromLatin1("Tokens") ) {
+                   m_currentCategory == Settings::SettingsData::instance()->tokensCategory()) {
             m_currentInput = QString::fromLatin1("");
         }
         if (!selecttext.isEmpty())

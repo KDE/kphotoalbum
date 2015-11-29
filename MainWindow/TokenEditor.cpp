@@ -29,6 +29,7 @@
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
 #include "DB/ImageSearchInfo.h"
+#include "Settings/SettingsData.h"
 
 using namespace MainWindow;
 
@@ -105,7 +106,7 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     QMap<QString,uint> map =
-        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::anyMediaType );
+        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), Settings::SettingsData::instance()->tokensCategory(), DB::anyMediaType );
     for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.value() > 0 )
             res.append( it.key() );
@@ -118,7 +119,7 @@ void TokenEditor::accept()
      for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
+            DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->tokensCategory())->removeItem( txt );
         }
     }
     KDialog::accept();

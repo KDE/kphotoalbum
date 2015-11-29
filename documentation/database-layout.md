@@ -221,6 +221,17 @@ Same structure as version 5.
    superseded by storing GPS data in the EXIF database.
 
 
+### Version 7 ###
+
+Same structure as version 7.
+
+#### Differences to version 6 ####
+The concept of translatable "standard" categories led to a lot of problems when users started KPA
+with different locales. Some of them simply can't be solved, so we decided to remove translatable
+category names. Now, each category is stored with it's literal name. The version bump is only needed
+to know if a warning about this change should be displayed or not.
+
+
 ### Attribute values explained ###
 
 

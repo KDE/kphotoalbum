@@ -225,7 +225,8 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                  "and save your database."
                  "</p>"
                  "<p>"
-                 "<b>Sorry for the inconsistency!</b>"
+                 "<b>Sorry for the inconsistency!</b> This warning will not be displayed anymore"
+                 "when you have saved your database for the first time."
                  "</p>"),
             i18n("Changed standard category names")
         );
@@ -413,6 +414,13 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
             QTextStream stream( &file );
             stream.setCodec( QTextCodec::codecForName("UTF-8") );
             QString str = stream.readAll();
+
+            // Replace the default setup's category and tag names with localized ones
+            str = str.replace(QString::fromUtf8("People"), i18n("People"));
+            str = str.replace(QString::fromUtf8("Places"), i18n("Places"));
+            str = str.replace(QString::fromUtf8("Events"), i18n("Events"));
+            str = str.replace(QString::fromUtf8("untagged"), i18n("untagged"));
+
             str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );

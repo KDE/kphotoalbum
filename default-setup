@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="6" compressed="1" >
- <Categories>
-  <Category viewtype="0" viewsize="0" name="Events" show="1">
-   <value value="untagged" id="1" />
-  </Category>
-  <Category viewtype="0" viewsize="0" name="Places" show="1" />
-  <Category viewtype="0" viewsize="0" name="People" show="1" positionable="1" />
- </Categories>
- <images/>
+<KPhotoAlbum version="7" compressed="1">
+    <Categories>
+        <Category name="People" icon="system-users" show="1" viewtype="0" positionable="1"/>
+        <Category name="Places" icon="applications-internet" show="1" viewtype="0"/>
+        <Category name="Events" icon="favorites" show="1" viewtype="0">
+            <value value="untagged" id="1"/>
+        </Category>
+    </Categories>
+    <images/>
 </KPhotoAlbum>

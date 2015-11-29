@@ -36,7 +36,7 @@ class FileReader
 {
 
 public:
-    FileReader( Database* db ) : m_db( db ), m_nextStackId(1), m_newToOldName() {}
+    FileReader( Database* db ) : m_db( db ), m_nextStackId(1) {}
     void read( const QString& configFile );
     static QString unescape( const QString& );
     DB::StackID nextStackId() const { return m_nextStackId; };
@@ -56,13 +56,6 @@ protected:
     void checkIfImagesAreSorted();
     void checkIfAllImagesHasSizeAttributes();
 
-    /**
-     * Returns the category name, but converts outdated standard category names.
-     * Standard categories stored with their localized name (a flaw of older KPA versions)
-     * are corrected as well.
-     */
-    QString sanitizedCategoryName( const QString& category);
-
     // The parent widget information dialogs are displayed in.
     QWidget *messageParent();
 
@@ -71,8 +64,6 @@ private:
     int m_fileVersion;
     DB::StackID m_nextStackId;
 
-    // internal mapping created by sanitizedCategoryName:
-    QMap<QString,QString> m_newToOldName;
     // During profilation I found that it was rather expensive to look this up over and over again (once for each image)
     DB::CategoryPtr m_folderCategory;
 };

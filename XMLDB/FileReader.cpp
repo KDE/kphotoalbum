@@ -174,7 +174,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
         reader->complainStartElementExpected(categoriesString);
 
     while ( reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        const QString categoryName = sanitizedCategoryName(unescape( reader->attribute(nameString) ));
+        const QString categoryName = unescape(reader->attribute(nameString));
         if ( !categoryName.isNull() )  {
             // Read Category info
             QString icon = reader->attribute(iconString);
@@ -208,143 +208,28 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
 
     createSpecialCategories();
 
-    if (m_newToOldName.count() == 0) {
-        // Normally, we end here. The rest only happens once, when the transition from dbv5 to
-        // dbv6 is performed.
-        return;
-    }
-
-    Settings::SettingsData* settings = Settings::SettingsData::instance();
-
-    // Just in case the collection is not writable. Although I don't think this actually happens
-    // "in the wild" ;-)
-    QFileInfo imageDirectoryInfo(settings->imageDirectory());
-    if (! imageDirectoryInfo.isWritable()) {
+    if (m_fileVersion < 7) {
         KMessageBox::sorry(
             messageParent(),
-            i18n("<p>This version of KPhotoAlbum would normally fix some issues with category "
-                 "names. Some changes inside the database (<kbd>index.xml</kbd> file) and the "
-                 "configuration are necessary to do this. Additionally, some (internal) files "
-                 "inside your collection directory have to be moved.</p>"
-                 "<p>You don't have write access to your collection (<kbd>%1</kbd>), so this "
-                 "update can't be done now. Please check your permissions and re-run "
-                 "KPhotoAlbum.</p>"
-                 "<p><b>Probably, some features may be missing or broken until the update can be "
-                 "done!</b></p>",
-                 settings->imageDirectory())
+            i18n("<p>"
+                 "<b>This version of KPhotoAlbum drops the translated \"standard\" categories.</b>"
+                 "</p>"
+                 "<p>"
+                 "Storing some category names in English but displaying them in the current locale "
+                 "led to a lot of problems, so we decided to stop doing so. From now on, all "
+                 "categories are stored with their displayed names."
+                 "</p>"
+                 "<p>"
+                 "This may mean that – if you use a locale other than English – some of your "
+                 "category names now are English. If so, you have to rename them (once) per hand "
+                 "and save your database."
+                 "</p>"
+                 "<p>"
+                 "<b>Sorry for the inconsistency!</b>"
+                 "</p>"),
+            i18n("Changed standard category names")
         );
-        MainWindow::Window::theMainWindow()->v6UpdateSkipped();
-        return;
     }
-
-    // Create a backup of the original index.xml, the CategoryImages directory, and the original
-    // settings.
-
-    // Find a save directory name for our backup
-    QString backupDir = settings->imageDirectory() + QString::fromUtf8("v6updateBackup");
-    if (QDir(backupDir).exists()) {
-        QString newBackupDir = backupDir + QString::fromUtf8(".");
-        int backupDirAppendix = 0;
-        while (QDir(backupDir + QString::number(backupDirAppendix)).exists()) {
-            backupDirAppendix++;
-        }
-        backupDir = backupDir + QString::fromUtf8(".") + QString::number(backupDirAppendix);
-    }
-
-    QDir().mkdir(backupDir);
-
-    // Create a backup of index.xml
-    QFile::copy(settings->imageDirectory() + QString::fromUtf8("index.xml"),
-                backupDir + QString::fromUtf8("/index.xml"));
-
-    // Create a backup of kphotoalbumrc
-    QFile::copy(KStandardDirs::locateLocal("config", KGlobal::config()->name()),
-                backupDir + QString::fromUtf8("/") + KGlobal::config()->name());
-
-    // Create a backup of CategoryImages
-    QDir().mkdir(backupDir + QString::fromUtf8("/CategoryImages"));
-    QString categoryImagesPath = settings->imageDirectory() + QString::fromUtf8("/CategoryImages");
-    QString categoryImagesBackupPath = backupDir + QString::fromUtf8("/CategoryImages/");
-    QDir categoryImagesDirectory(categoryImagesPath);
-    QStringList files = categoryImagesDirectory.entryList(QDir::Files | QDir::NoDotAndDotDot);
-    for (QString fileName : files) {
-        QFile::copy(categoryImagesPath + QString::fromUtf8("/") + fileName,
-                    categoryImagesBackupPath + fileName);
-    }
-
-    // Here we have a backup of everything we will change.
-
-    // Update the CategoryImages directory
-    QMapIterator<QString, QString> oldToNew(m_newToOldName);
-    while (oldToNew.hasNext()) {
-        oldToNew.next();
-        const QString& oldName = oldToNew.key();
-        const QString& newName = oldToNew.value();
-
-        if (oldName == newName) {
-            continue;
-        }
-
-        // Rename CategoryImages
-        QStringList matchingFiles = categoryImagesDirectory.entryList(QStringList()
-                                    << QString::fromUtf8("%1*").arg(newName));
-        for (const QString& oldFileName : matchingFiles) {
-            categoryImagesDirectory.rename(oldFileName,
-                                           oldName + oldFileName.mid(newName.length()));
-        }
-    }
-
-    // Update category names for the Categories config
-
-    KConfigGroup generalConfig = KGlobal::config()->group( QString::fromLatin1("General") );
-
-    // Categories.untaggedCategory
-    const QString untaggedCategory = QString::fromUtf8("untaggedCategory");
-    QString untaggedCategoryValue = generalConfig.readEntry<QString>(untaggedCategory, QString());
-    if (! untaggedCategoryValue.isEmpty()) {
-        generalConfig.writeEntry<QString>(untaggedCategory,
-                                          sanitizedCategoryName(untaggedCategoryValue));
-    }
-
-    // Categories.albumCategory
-    const QString albumCategory = QString::fromUtf8("albumCategory");
-    QString albumCategoryValue = generalConfig.readEntry<QString>(albumCategory, QString());
-    if (! albumCategoryValue.isEmpty()) {
-        generalConfig.writeEntry<QString>(albumCategory,
-                                          sanitizedCategoryName(albumCategoryValue));
-    }
-
-    // Update category names for privacy-lock settings
-    KConfigGroup privacyConfig = KGlobal::config()->group(settings->groupForDatabase("Privacy Settings"));
-    QStringList oldCategories = privacyConfig.readEntry<QStringList>(QString::fromUtf8("categories"),
-                                                                     QStringList());
-    QStringList categories;
-    for (QString& category : oldCategories) {
-        QString oldName = category;
-        category = sanitizedCategoryName(oldName);
-        categories << category;
-        QString lockEntry = privacyConfig.readEntry<QString>(oldName, QString());
-        if (! lockEntry.isEmpty()) {
-            privacyConfig.writeEntry<QString>(category, lockEntry);
-            privacyConfig.deleteEntry(oldName);
-        }
-    }
-    privacyConfig.writeEntry<QStringList>(QString::fromUtf8("categories"), categories);
-
-    // We're done with the update, so save the database to make it permanent
-    MainWindow::Window::theMainWindow()->v6UpdateDone();
-
-    KMessageBox::information(
-        messageParent(),
-        i18n("<p>This version of KPhotoAlbum fixes some issues with category names. This is a "
-             "database internal update which won't affect the displayed category names or any tag "
-             "data. Anyway, some files (category and tag thumbnails) have been moved and the "
-             "configuration file and the database (<kbd>index.xml</kbd>) has been fixed. If you "
-             "want to know what exactly happened, read \"Differences to version 5\" in "
-             "<kbd>documentation/database-layout.md</kbd>.</p>"
-             "<p>A backup of all (probably) changed files has been created in <kbd>%1</kbd>.</p>",
-             backupDir)
-    );
 }
 
 void XMLDB::FileReader::loadImages( ReaderPtr reader )
@@ -403,7 +288,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
     if ( info.isStartToken && info.tokenName == memberGroupsString) {
         reader->readNextStartOrStopElement(memberGroupsString);
         while(reader->readNextStartOrStopElement(memberString).isStartToken) {
-            QString category = sanitizedCategoryName(reader->attribute(categoryString));
+            QString category = reader->attribute(categoryString);
 
             QString group = reader->attribute(groupNameString);
             if ( reader->hasAttribute(memberString) ) {
@@ -500,7 +385,7 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
 DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPtr reader )
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, reader, m_db, &m_newToOldName );
+    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo(fileName, reader, m_db);
     m_nextStackId = qMax( m_nextStackId, info->stackId() + 1 );
     info->createFolderCategoryItem( m_folderCategory, m_db->m_members );
     return info;
@@ -601,33 +486,6 @@ QString XMLDB::FileReader::unescape( const QString& str )
 
     cache.insert(str,tmp);
     return tmp;
-}
-
-QString XMLDB::FileReader::sanitizedCategoryName(const QString& category)
-{
-    // this fix only applies to older databases (<= version 5);
-    // newer databases allow these categories, but without the "special meaning":
-    if (m_fileVersion > 5) {
-        return category;
-    }
-
-    QString mapped;
-    // Silently correct some changes/bugs regarding category names
-    // for a list of currently used category names, cf. DB::Category::standardCategories()
-    if (category == QString::fromUtf8("Persons")) {
-        // "Persons" is now "People"
-        mapped = QString::fromUtf8("People");
-    } else if (category == QString::fromUtf8("Locations")) {
-        // "Locations" is now "Places"
-        mapped = QString::fromUtf8("Places");
-    } else {
-        // Be sure to use the C locale category name for standard categories.
-        // Older versions of KPA did store the localized category names.
-        mapped = category;
-    }
-
-    m_newToOldName[mapped] = category;
-    return mapped;
 }
 
 // TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.

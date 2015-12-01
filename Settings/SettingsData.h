@@ -162,6 +162,7 @@ public:
     property_ref( untaggedTag, setUntaggedTag, QString );
     bool hasUntaggedCategoryFeatureConfigured() const;
     property_copy( untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool);
+    property_ref(tokensCategory, setTokensCategory, QString);
 
     //////////////
     //// Exif ////

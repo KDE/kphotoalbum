@@ -103,18 +103,18 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr tokenCat;
 
     if (m_fileVersion >= 7) {
-        tokenCat = m_db->m_categoryCollection.categoryForName(m_db->m_settings[QString::fromUtf8("tokensCategory")]);
+        tokenCat = m_db->m_categoryCollection.categoryForName(Settings::SettingsData::instance()->tokensCategory());
     } else {
         // Before version 7, the "Tokens" category name wasn't stored to the settings. So ...
         // look for a literal "Tokens" category ...
         tokenCat = m_db->m_categoryCollection.categoryForName(QString::fromUtf8("Tokens"));
         if (tokenCat) {
-            m_db->m_settings[QString::fromUtf8("tokensCategory")] = QString::fromUtf8("Tokens");
+            Settings::SettingsData::instance()->setTokensCategory(QString::fromUtf8("Tokens"));
         } else {
             // ... and a translated "Tokens" category if we don't have the literal one.
             tokenCat = m_db->m_categoryCollection.categoryForName(i18n("Tokens"));
             if (tokenCat) {
-                m_db->m_settings[QString::fromUtf8("tokensCategory")] = i18n("Tokens");
+                Settings::SettingsData::instance()->setTokensCategory(i18n("Tokens"));
             }
         }
     }
@@ -126,7 +126,7 @@ void XMLDB::FileReader::createSpecialCategories()
         m_db->m_categoryCollection.addCategory(tokenCat);
 
         // Save it's translated name to the settings
-        m_db->m_settings[QString::fromUtf8("tokensCategory")] = i18n("Tokens");
+        Settings::SettingsData::instance()->setTokensCategory(i18n("Tokens"));
     }
 
     tokenCat->setSpecialCategory(true);

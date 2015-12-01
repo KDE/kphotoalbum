@@ -82,6 +82,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         saveImages( writer );
         saveBlockList( writer );
         saveMemberGroups( writer );
+        saveSettings(writer);
     }
     writer.writeEndDocument();
 
@@ -240,6 +241,30 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                 }
             }
         }
+    }
+}
+
+void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
+{
+    static QString settingsString = QString::fromUtf8("settings");
+    static QString settingString = QString::fromUtf8("setting");
+    static QString keyString = QString::fromUtf8("key");
+    static QString valueString = QString::fromUtf8("value");
+
+    ElementWriter dummy(writer, settingsString);
+
+    QMap<QString, QString> settings;
+    // For testing
+    settings.insert(QString::fromUtf8("tokensCategory"), QString::fromUtf8("Tokens"));
+    settings.insert(QString::fromUtf8("untaggedCategory"), QString::fromUtf8("Events"));
+    settings.insert(QString::fromUtf8("untaggedTag"), QString::fromUtf8("untagged"));
+
+    QMapIterator<QString, QString> settingsIterator(settings);
+    while (settingsIterator.hasNext()) {
+        ElementWriter dummy(writer, settingString);
+        settingsIterator.next();
+        writer.writeAttribute(keyString, settingsIterator.key());
+        writer.writeAttribute(valueString, settingsIterator.value());
     }
 }
 

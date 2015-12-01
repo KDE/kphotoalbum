@@ -46,6 +46,7 @@ protected:
     void writeCategories( QXmlStreamWriter&, const DB::ImageInfoPtr& info );
     void writeCategoriesCompressed( QXmlStreamWriter&, const DB::ImageInfoPtr& info );
     bool shouldSaveCategory( const QString& categoryName ) const;
+    void saveSettings(QXmlStreamWriter&);
 
 private:
     // The parent widget information dialogs are displayed in.

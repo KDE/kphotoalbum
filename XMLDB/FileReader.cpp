@@ -72,11 +72,13 @@ void XMLDB::FileReader::read( const QString& configFile )
     setUseCompressedFileFormat( reader->attribute(compressedString).toInt() );
 
     m_db->m_members.setLoading( true );
-    loadCategories( reader );
 
+    loadCategories( reader );
     loadImages( reader );
     loadBlockList( reader );
     loadMemberGroups( reader );
+    loadSettings(reader);
+
     m_db->m_members.setLoading( false );
 
     checkIfImagesAreSorted();
@@ -315,6 +317,29 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                 }
             }
 
+            reader->readEndElement();
+        }
+    }
+}
+
+void XMLDB::FileReader::loadSettings(ReaderPtr reader)
+{
+    static QString settingsString = QString::fromUtf8("settings");
+    static QString settingString = QString::fromUtf8("setting");
+    static QString keyString = QString::fromUtf8("key");
+    static QString valueString = QString::fromUtf8("value");
+
+    ElementInfo info = reader->peekNext();
+    if (info.isStartToken && info.tokenName == settingsString) {
+        reader->readNextStartOrStopElement(settingString);
+        while(reader->readNextStartOrStopElement(settingString).isStartToken) {
+            if (reader->hasAttribute(keyString) && reader->hasAttribute(valueString)) {
+                m_db->m_settings.insert(unescape(reader->attribute(keyString)),
+                                        unescape(reader->attribute(valueString)));
+            } else {
+                qWarning() << "File corruption in index.xml. Setting either lacking a key or a "
+                           << "value attribute. Ignoring this entry.";
+            }
             reader->readEndElement();
         }
     }

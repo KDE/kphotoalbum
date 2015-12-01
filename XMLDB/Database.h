@@ -77,10 +77,6 @@ namespace XMLDB {
         void copyData( const DB::FileName& from, const DB::FileName& to) override;
 
         static int fileVersion();
-
-        QString getSetting(QString key) const;
-        void setSetting(QString key, QString value);
-
     protected:
         DB::FileNameList searchPrivate(
             const DB::ImageSearchInfo&,

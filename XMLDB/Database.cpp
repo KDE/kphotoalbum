@@ -710,18 +710,4 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
     }
 }
 
-QString XMLDB::Database::getSetting(QString key) const
-{
-    if (m_settings.contains(key)) {
-        return m_settings[key];
-    } else {
-        return QString();
-    }
-}
-
-void XMLDB::Database::setSetting(QString key, QString value)
-{
-    m_settings[key] = value;
-}
-
 // vi:expandtab:tabstop=4 shiftwidth=4:

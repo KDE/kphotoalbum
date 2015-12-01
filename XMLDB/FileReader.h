@@ -42,8 +42,6 @@ public:
     DB::StackID nextStackId() const { return m_nextStackId; };
 
 protected:
-    void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-                                      QDomElement* blockList, QDomElement* memberGroups );
     void loadCategories( ReaderPtr reader );
     void loadImages( ReaderPtr reader );
     void loadBlockList( ReaderPtr reader );

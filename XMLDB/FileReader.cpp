@@ -83,41 +83,6 @@ void XMLDB::FileReader::read( const QString& configFile )
     checkIfAllImagesHasSizeAttributes();
 }
 
-
-void XMLDB::FileReader::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-                                                     QDomElement* blockList, QDomElement* memberGroups )
-{
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString tag = elm.tagName().toLower();
-            if ( tag == QString::fromLatin1( "config" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1( "categories" ) || tag == QString::fromLatin1( "options" ) ) {
-                // options is for KimDaBa 2.1 compatibility
-                *options = elm;
-            }
-            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1("images") )
-                *images = elm;
-            else if ( tag == QString::fromLatin1( "blocklist" ) )
-                *blockList = elm;
-            else if ( tag == QString::fromLatin1( "member-groups" ) )
-                *memberGroups = elm;
-            else {
-                KMessageBox::error( messageParent(),
-                                    i18n("Error in file %1: unexpected element: '%2'", configFile , tag ) );
-            }
-        }
-    }
-
-    if ( options->isNull() )
-        KMessageBox::sorry( messageParent(), i18n("Unable to find 'Options' tag in configuration file %1.", configFile ) );
-    if ( images->isNull() )
-        KMessageBox::sorry( messageParent(), i18n("Unable to find 'Images' tag in configuration file %1.", configFile ) );
-}
-
 void XMLDB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category

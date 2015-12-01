@@ -52,7 +52,7 @@ protected:
     void createSpecialCategories();
 
     void checkIfImagesAreSorted();
-    void checkIfAllImagesHasSizeAttributes();
+    void checkIfAllImagesHaveSizeAttributes();
 
     // The parent widget information dialogs are displayed in.
     QWidget *messageParent();

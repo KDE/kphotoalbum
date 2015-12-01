@@ -80,7 +80,7 @@ void XMLDB::FileReader::read( const QString& configFile )
     m_db->m_members.setLoading( false );
 
     checkIfImagesAreSorted();
-    checkIfAllImagesHasSizeAttributes();
+    checkIfAllImagesHaveSizeAttributes();
 }
 
 void XMLDB::FileReader::createSpecialCategories()
@@ -359,7 +359,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
 }
 
-void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
+void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
 {
     QTime time;
     time.start();

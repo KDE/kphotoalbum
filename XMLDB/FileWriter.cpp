@@ -253,13 +253,7 @@ void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
 
     ElementWriter dummy(writer, settingsString);
 
-    QMap<QString, QString> settings;
-    // For testing
-    settings.insert(QString::fromUtf8("tokensCategory"), QString::fromUtf8("Tokens"));
-    settings.insert(QString::fromUtf8("untaggedCategory"), QString::fromUtf8("Events"));
-    settings.insert(QString::fromUtf8("untaggedTag"), QString::fromUtf8("untagged"));
-
-    QMapIterator<QString, QString> settingsIterator(settings);
+    QMapIterator<QString, QString> settingsIterator(m_db->m_settings);
     while (settingsIterator.hasNext()) {
         ElementWriter dummy(writer, settingString);
         settingsIterator.next();

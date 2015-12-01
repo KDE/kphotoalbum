@@ -52,6 +52,7 @@ protected:
     ReaderPtr readConfigFile( const QString& configFile );
 
     void createSpecialCategories();
+    void createTokensCategory();
 
     void checkIfImagesAreSorted();
     void checkIfAllImagesHaveSizeAttributes();

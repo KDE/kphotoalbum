@@ -79,6 +79,8 @@ void XMLDB::FileReader::read( const QString& configFile )
     loadMemberGroups( reader );
     loadSettings(reader);
 
+    createTokensCategory();
+
     m_db->m_members.setLoading( false );
 
     checkIfImagesAreSorted();
@@ -98,6 +100,22 @@ void XMLDB::FileReader::createSpecialCategories()
     m_folderCategory->setSpecialCategory( true );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
+    // Setup the "Media Type" category
+
+    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName(i18n("Media Type"));
+    if ( !mediaCat ) {
+        mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video"),
+                                   DB::Category::TreeView, 32, false);
+        m_db->m_categoryCollection.addCategory( mediaCat );
+    }
+    mediaCat->addItem( QString::fromLatin1( "Image" ) );
+    mediaCat->addItem( QString::fromLatin1( "Video" ) );
+    mediaCat->setSpecialCategory( true );
+    dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
+}
+
+void XMLDB::FileReader::createTokensCategory()
+{
     // Setup the "Tokens" category
 
     DB::CategoryPtr tokenCat;
@@ -136,19 +154,6 @@ void XMLDB::FileReader::createSpecialCategories()
     for (char ch = 'A'; ch < 'Z'; ++ch) {
         tokenCat->addItem(QString::fromUtf8("%1").arg(QChar::fromLatin1(ch)));
     }
-
-    // Setup the "Media Type" category
-
-    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName(i18n("Media Type"));
-    if ( !mediaCat ) {
-        mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video"),
-                                   DB::Category::TreeView, 32, false);
-        m_db->m_categoryCollection.addCategory( mediaCat );
-    }
-    mediaCat->addItem( QString::fromLatin1( "Image" ) );
-    mediaCat->addItem( QString::fromLatin1( "Video" ) );
-    mediaCat->setSpecialCategory( true );
-    dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }
 
 void XMLDB::FileReader::loadCategories( ReaderPtr reader )

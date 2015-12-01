@@ -263,8 +263,8 @@ void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
     while (settingsIterator.hasNext()) {
         ElementWriter dummy(writer, settingString);
         settingsIterator.next();
-        writer.writeAttribute(keyString, settingsIterator.key());
-        writer.writeAttribute(valueString, settingsIterator.value());
+        writer.writeAttribute(keyString, escape(settingsIterator.key()));
+        writer.writeAttribute(valueString, escape(settingsIterator.value()));
     }
 }
 

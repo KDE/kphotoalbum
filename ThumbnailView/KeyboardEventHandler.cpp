@@ -43,19 +43,19 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         Q_FOREACH( const DB::FileName& fileName, selection ) {
             DB::ImageInfoPtr info = fileName.info();
             if ( ! hadHit ) {
-                mustRemoveToken = info->hasCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                mustRemoveToken = info->hasCategoryInfo(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")), token );
                 hadHit = true;
             }
 
             if ( mustRemoveToken )
-                info->removeCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                info->removeCategoryInfo(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")), token );
             else
-                info->addCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                info->addCategoryInfo(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")), token );
 
             model()->updateCell(fileName);
         }
 
-        DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->tokensCategory())->addItem( token );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")))->addItem( token );
         MainWindow::DirtyIndicator::markDirty();
         return true;
     }

@@ -140,7 +140,7 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
     }
 
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    info->addCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), s_tokenForShortVideos);
+    info->addCategoryInfo(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")), s_tokenForShortVideos);
     MainWindow::DirtyIndicator::markDirty();
 }
 

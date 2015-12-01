@@ -106,7 +106,7 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     QMap<QString,uint> map =
-        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), Settings::SettingsData::instance()->tokensCategory(), DB::anyMediaType );
+        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")), DB::anyMediaType );
     for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.value() > 0 )
             res.append( it.key() );
@@ -119,7 +119,7 @@ void TokenEditor::accept()
      for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->tokensCategory())->removeItem( txt );
+            DB::ImageDB::instance()->categoryCollection()->categoryForName(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")))->removeItem( txt );
         }
     }
     KDialog::accept();

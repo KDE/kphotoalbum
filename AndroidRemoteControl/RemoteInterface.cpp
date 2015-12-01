@@ -235,7 +235,7 @@ QString RemoteInterface::networkAddress() const
 
 QStringList RemoteInterface::tokens() const
 {
-    return ImageDetails::instance().itemsOfCategory(Settings::SettingsData::instance()->tokensCategory());
+    return ImageDetails::instance().itemsOfCategory(DB::ImageDB::instance()->getSetting(QString::fromUtf8("tokensCategory")));
 }
 
 void RemoteInterface::requestInitialData()

@@ -77,7 +77,7 @@ void XMLDB::FileReader::read( const QString& configFile )
     loadImages( reader );
     loadBlockList( reader );
     loadMemberGroups( reader );
-    loadSettings(reader);
+    //loadSettings(reader);
 
     m_db->m_members.setLoading( false );
 
@@ -324,6 +324,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
     }
 }
 
+/*
 void XMLDB::FileReader::loadSettings(ReaderPtr reader)
 {
     static QString settingsString = QString::fromUtf8("settings");
@@ -346,6 +347,7 @@ void XMLDB::FileReader::loadSettings(ReaderPtr reader)
         }
     }
 }
+*/
 
 void XMLDB::FileReader::checkIfImagesAreSorted()
 {

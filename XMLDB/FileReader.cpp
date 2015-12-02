@@ -179,7 +179,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             bool show = (bool) reader->attribute( showString, QString::fromLatin1( "1" ) ).toInt();
             bool positionable = (bool) reader->attribute( positionableString, QString::fromLatin1( "0" ) ).toInt();
             bool tokensCat = reader->attribute(idString) == tokensString;
-            qDebug() << categoryName << " " << tokensCat << ": " << reader->attribute(idString);
+            //qDebug() << categoryName << " " << tokensCat << ": " << reader->attribute(idString);
 
             DB::CategoryPtr cat = m_db->m_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );

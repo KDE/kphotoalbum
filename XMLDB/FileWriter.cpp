@@ -82,7 +82,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         saveImages( writer );
         saveBlockList( writer );
         saveMemberGroups( writer );
-        saveSettings(writer);
+        //saveSettings(writer);
     }
     writer.writeEndDocument();
 
@@ -248,6 +248,9 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
     }
 }
 
+/*
+Perhaps, we may need this later ;-)
+
 void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
 {
     static QString settingsString = QString::fromUtf8("settings");
@@ -271,6 +274,7 @@ void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
         writer.writeAttribute(valueString, escape(settingsIterator.value()));
     }
 }
+*/
 
 void XMLDB::FileWriter::save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info )
 {

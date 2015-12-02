@@ -105,8 +105,9 @@ void TokenEditor::selectNone()
 QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
+    DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
     QMap<QString,uint> map =
-        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), Settings::SettingsData::instance()->tokensCategory(), DB::anyMediaType );
+        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), tokensCategory->name(), DB::anyMediaType );
     for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.value() > 0 )
             res.append( it.key() );
@@ -116,10 +117,11 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::accept()
 {
+    DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
      for( QList<QCheckBox*>::Iterator it = m_checkBoxes.begin(); it != m_checkBoxes.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->tokensCategory())->removeItem( txt );
+            tokensCategory->removeItem( txt );
         }
     }
     KDialog::accept();

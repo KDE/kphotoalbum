@@ -27,6 +27,7 @@
 #include <KMessageBox>
 #include <MainWindow/Window.h>
 #include <DB/ImageDB.h>
+#include <DB/CategoryCollection.h>
 #include "MainWindow/TokenEditor.h"
 #include "Utilities/Set.h"
 #include "MainWindow/DirtyIndicator.h"
@@ -140,7 +141,8 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
     }
 
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-    info->addCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), s_tokenForShortVideos);
+    DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
+    info->addCategoryInfo(tokensCategory->name(), s_tokenForShortVideos);
     MainWindow::DirtyIndicator::markDirty();
 }
 

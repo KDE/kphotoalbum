@@ -40,22 +40,23 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         bool hadHit          = false;
 
         const DB::FileNameList selection = widget()->selection(NoExpandCollapsedStacks);
+        DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
         Q_FOREACH( const DB::FileName& fileName, selection ) {
             DB::ImageInfoPtr info = fileName.info();
             if ( ! hadHit ) {
-                mustRemoveToken = info->hasCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                mustRemoveToken = info->hasCategoryInfo(tokensCategory->name(), token );
                 hadHit = true;
             }
 
             if ( mustRemoveToken )
-                info->removeCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                info->removeCategoryInfo(tokensCategory->name(), token );
             else
-                info->addCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), token );
+                info->addCategoryInfo(tokensCategory->name(), token );
 
             model()->updateCell(fileName);
         }
 
-        DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->tokensCategory())->addItem( token );
+        tokensCategory->addItem(token);
         MainWindow::DirtyIndicator::markDirty();
         return true;
     }

@@ -47,7 +47,8 @@ namespace XMLDB {
         virtual void setDoShow( bool b );
         virtual bool doShow() const;
 
-        virtual void setSpecialCategory( bool b );
+        virtual void setType( DB::Category::CategoryType t );
+        virtual CategoryType type() const;
         virtual bool isSpecialCategory() const;
 
         virtual void addOrReorderItems( const QStringList& items );
@@ -74,7 +75,7 @@ namespace XMLDB {
         int m_thumbnailSize;
         bool m_positionable;
 
-        bool m_isSpecial;
+        CategoryType m_categoryType;
         QStringList m_items;
         QMap<QString,int> m_idMap;
         QMap<int,QString> m_nameMap;

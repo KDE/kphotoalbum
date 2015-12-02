@@ -41,6 +41,7 @@ class Category :public QObject, public KShared
 
 public:
     enum ViewType { TreeView, ThumbedTreeView, IconView, ThumbedIconView };
+    enum CategoryType { PlainCategory, FolderCategory, MediaTypeCategory, TokensCategory };
 
     virtual QString name() const = 0;
     virtual void setName( const QString& name ) = 0;
@@ -61,7 +62,8 @@ public:
     virtual void setDoShow( bool b ) = 0;
     virtual bool doShow() const = 0;
 
-    virtual void setSpecialCategory( bool b ) = 0;
+    virtual void setType( CategoryType t) = 0;
+    virtual CategoryType type() const = 0;
     virtual bool isSpecialCategory() const = 0;
 
     virtual void addOrReorderItems( const QStringList& items ) = 0;

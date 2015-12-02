@@ -117,6 +117,7 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     ElementWriter dummy(writer, QString::fromLatin1("Categories") );
 
+    DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial( DB::Category::TokensCategory );
     for (QString name : categories) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(name);
 
@@ -131,6 +132,9 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
         writer.writeAttribute(QString::fromUtf8("viewtype"), QString::number(category->viewType()));
         writer.writeAttribute(QString::fromUtf8("thumbnailsize"), QString::number(category->thumbnailSize()));
         writer.writeAttribute(QString::fromUtf8("positionable"), QString::number(category->positionable()));
+        if (category == tokensCategory) {
+            writer.writeAttribute(QString::fromUtf8("id"),QString::fromUtf8("tokens"));
+        }
 
         // FIXME (l3u):
         // Correct me if I'm wrong, but we don't need this, as the tags used as groups are

@@ -95,7 +95,7 @@ void XMLDB::FileReader::createSpecialCategories()
                                            DB::Category::TreeView, 32, false );
         m_db->m_categoryCollection.addCategory( m_folderCategory );
     }
-    m_folderCategory->setSpecialCategory( true );
+    m_folderCategory->setType( DB::Category::FolderCategory );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
     // Setup the "Tokens" category
@@ -103,19 +103,20 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr tokenCat;
 
     if (m_fileVersion >= 7) {
-        tokenCat = m_db->m_categoryCollection.categoryForName(Settings::SettingsData::instance()->tokensCategory());
+        tokenCat = m_db->m_categoryCollection.categoryForSpecial( DB::Category::TokensCategory );
     } else {
         // Before version 7, the "Tokens" category name wasn't stored to the settings. So ...
         // look for a literal "Tokens" category ...
         tokenCat = m_db->m_categoryCollection.categoryForName(QString::fromUtf8("Tokens"));
-        if (tokenCat) {
-            Settings::SettingsData::instance()->setTokensCategory(QString::fromUtf8("Tokens"));
-        } else {
+        if (!tokenCat) {
             // ... and a translated "Tokens" category if we don't have the literal one.
             tokenCat = m_db->m_categoryCollection.categoryForName(i18n("Tokens"));
-            if (tokenCat) {
-                Settings::SettingsData::instance()->setTokensCategory(i18n("Tokens"));
-            }
+        }
+        if (tokenCat) {
+            // in this case we need to give the tokens category its special meaning:
+            m_db->m_categoryCollection.removeCategory(tokenCat->name());
+            tokenCat->setType(DB::Category::TokensCategory);
+            m_db->m_categoryCollection.addCategory(tokenCat);
         }
     }
 
@@ -123,13 +124,9 @@ void XMLDB::FileReader::createSpecialCategories()
         // Create a new "Tokens" category
         tokenCat = new XMLCategory(i18n("Tokens"), QString::fromUtf8("flag-blue"),
                                    DB::Category::TreeView, 32, true);
+        tokenCat->setType(DB::Category::TokensCategory);
         m_db->m_categoryCollection.addCategory(tokenCat);
-
-        // Save it's translated name to the settings
-        Settings::SettingsData::instance()->setTokensCategory(i18n("Tokens"));
     }
-
-    tokenCat->setSpecialCategory(true);
 
     // KPhotoAlbum 2.2 did not write the tokens to the category section,
     // so unless we do this small trick they will not show up when importing.
@@ -147,7 +144,7 @@ void XMLDB::FileReader::createSpecialCategories()
     }
     mediaCat->addItem( QString::fromLatin1( "Image" ) );
     mediaCat->addItem( QString::fromLatin1( "Video" ) );
-    mediaCat->setSpecialCategory( true );
+    mediaCat->setType( DB::Category::MediaTypeCategory );
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }
 
@@ -159,6 +156,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString showString = QString::fromUtf8("show");
     static QString thumbnailSizeString = QString::fromUtf8("thumbnailsize");
     static QString positionableString = QString::fromUtf8("positionable");
+    static QString tokensString = QString::fromUtf8("tokens");
     static QString valueString = QString::fromUtf8("value");
     static QString idString = QString::fromUtf8("id");
     static QString birthDateString = QString::fromUtf8("birthDate");
@@ -180,10 +178,14 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             int thumbnailSize = reader->attribute( thumbnailSizeString, QString::fromLatin1( "32" ) ).toInt();
             bool show = (bool) reader->attribute( showString, QString::fromLatin1( "1" ) ).toInt();
             bool positionable = (bool) reader->attribute( positionableString, QString::fromLatin1( "0" ) ).toInt();
+            bool tokensCat = reader->attribute(idString) == tokensString;
+            qDebug() << categoryName << " " << tokensCat << ": " << reader->attribute(idString);
 
             DB::CategoryPtr cat = m_db->m_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );
             cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show, positionable );
+            if (tokensCat)
+                cat->setType(DB::Category::TokensCategory);
             m_db->m_categoryCollection.addCategory( cat );
 
             // Read values

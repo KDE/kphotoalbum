@@ -266,9 +266,10 @@ void RemoteInterface::setToken(const ToggleTokenRequest& command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
     if (command.state == ToggleTokenRequest::On)
-        info->addCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), command.token);
+        info->addCategoryInfo(tokensCategory->name(), command.token);
     else
-        info->removeCategoryInfo(Settings::SettingsData::instance()->tokensCategory(), command.token);
+        info->removeCategoryInfo(tokensCategory->name(), command.token);
     MainWindow::DirtyIndicator::markDirty();
 }

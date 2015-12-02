@@ -22,7 +22,7 @@
 #include <kdebug.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable )
-    : m_name( name ), m_icon( icon ), m_show( show ), m_type( type ), m_thumbnailSize( thumbnailSize ), m_positionable ( positionable ), m_isSpecial(false), m_shouldSave( true )
+    : m_name( name ), m_icon( icon ), m_show( show ), m_type( type ), m_thumbnailSize( thumbnailSize ), m_positionable ( positionable ), m_categoryType(DB::Category::PlainCategory), m_shouldSave( true )
 {
 }
 
@@ -83,14 +83,19 @@ bool XMLDB::XMLCategory::doShow() const
     return m_show;
 }
 
-void XMLDB::XMLCategory::setSpecialCategory( bool b )
+void XMLDB::XMLCategory::setType(DB::Category::CategoryType t)
 {
-    m_isSpecial = b;
+    m_categoryType = t;
+}
+
+DB::Category::CategoryType XMLDB::XMLCategory::type() const
+{
+    return m_categoryType;
 }
 
 bool XMLDB::XMLCategory::isSpecialCategory() const
 {
-    return m_isSpecial;
+    return m_categoryType != DB::Category::PlainCategory;
 }
 
 void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )

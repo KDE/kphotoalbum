@@ -43,6 +43,7 @@ public:
     virtual QList<CategoryPtr> categories() const = 0;
     virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
                               int thumbnailSize, bool show, bool positionable=false ) = 0;
+    virtual CategoryPtr categoryForSpecial( const Category::CategoryType type) const = 0;
 
 signals:
     void categoryCollectionChanged();

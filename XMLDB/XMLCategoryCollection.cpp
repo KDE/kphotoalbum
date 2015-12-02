@@ -33,6 +33,10 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& na
 void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
 {
     m_categories.append( category );
+    if (category->isSpecialCategory())
+    {
+        m_specialCategories[category->type()] = category;
+    }
     connect( category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()) );
     connect( category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)) );
     connect( category.data(), SIGNAL(itemRenamed(QString,QString)), this, SLOT(itemRenamed(QString,QString)) );
@@ -86,6 +90,11 @@ void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QStri
                                                 DB::Category::ViewType type, int thumbnailSize, bool show, bool positionable )
 {
     addCategory( DB::CategoryPtr( new XMLCategory( text, icon, type, thumbnailSize, show, positionable ) ) );
+}
+
+DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Category::CategoryType type) const
+{
+    return m_specialCategories[type];
 }
 
 void XMLDB::XMLCategoryCollection::initIdMap()

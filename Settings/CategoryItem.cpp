@@ -193,4 +193,9 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
     m_categoryOrig = m_category;
 }
 
+QString Settings::CategoryItem::originalName() const
+{
+    return m_categoryOrig;
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -60,6 +60,7 @@ public:
     void setViewType(DB::Category::ViewType type);
     QString icon() const;
     void setIcon(const QString& icon);
+    QString originalName() const;
 
 #ifdef HAVE_KFACE
 signals:

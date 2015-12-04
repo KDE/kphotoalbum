@@ -188,7 +188,7 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
     m_currentCategory = item;
     m_categoryLabel->setText(QString::fromUtf8("%1 <b>%2</b>").arg(i18n("Settings for category")).arg(m_currentCategory->text()));
 
-    if (m_currentCategory->text() != m_categoryNameBeforeEdit) {
+    if (m_currentCategory->originalName() != m_categoryNameBeforeEdit) {
         m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>").arg(m_categoryNameBeforeEdit));
         m_renameLabel->show();
     } else {
@@ -200,7 +200,21 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
     m_icon->setIcon(item->icon());
     m_thumbnailSizeInCategory->setValue(item->thumbnailSize());
     m_preferredView->setCurrentIndex(static_cast<int>(item->viewType()));
+
     enableDisable(true);
+
+    if (item->originalName()
+        == DB::ImageDB::instance()->categoryCollection()
+                                  ->categoryForSpecial(DB::Category::TokensCategory)->name()) {
+
+        m_delItem->setEnabled(false);
+        m_positionableLabel->setEnabled(false);
+        m_positionable->setEnabled(false);
+        m_thumbnailSizeInCategoryLabel->setEnabled(false);
+        m_thumbnailSizeInCategory->setEnabled(false);
+        m_preferredViewLabel->setEnabled(false);
+        m_preferredView->setEnabled(false);
+    }
 }
 
 void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
@@ -453,7 +467,8 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        if (! (*it)->isSpecialCategory()) {
+        if ((*it)->type() == DB::Category::PlainCategory
+            || (*it)->type() == DB::Category::TokensCategory) {
 #ifdef HAVE_KFACE
             Settings::CategoryItem *item = new CategoryItem((*it)->name(),
                                                             (*it)->iconName(),

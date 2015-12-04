@@ -186,11 +186,12 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
 
     Settings::CategoryItem* item = static_cast<Settings::CategoryItem*>(i);
     m_currentCategory = item;
-    m_categoryLabel->setText(QString::fromUtf8("%1 <b>%2</b>").arg(i18n("Settings for category")).arg(m_currentCategory->text()));
+    m_categoryLabel->setText(QString::fromUtf8("%1 <b>%2</b>")
+                                 .arg(i18n("Settings for category"), item->originalName()));
 
     if (m_currentCategory->originalName() != m_categoryNameBeforeEdit) {
-        m_renameLabel->setText(i18n("<i>Pending change: rename from \"%1\" to \"%2\"</i>")
-            .arg(item->originalName(), m_categoryNameBeforeEdit));
+        m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>")
+            .arg(m_categoryNameBeforeEdit));
         m_renameLabel->show();
     } else {
         m_renameLabel->clear();
@@ -258,6 +259,25 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
                                 m_currentCategory->text(), newCategoryName),
                            i18n("Invalid category name"));
         return;
+    }
+
+    // Let's see if we have any pending name changes that would cause collisions.
+    for (int i = 0; i < m_categoriesListWidget->count(); i++) {
+       Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
+        if (cat == m_currentCategory) {
+            continue;
+        }
+
+        if (newCategoryName == cat->originalName()) {
+            resetCategory(item);
+            KMessageBox::sorry(this,
+                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
+                                    "<p>There's a pending rename action on the category \"%2\". "
+                                    "Please save this change first.</p>",
+                                    m_currentCategory->text(), newCategoryName),
+                               i18n("Unsaved pending renaming action"));
+            return;
+        }
     }
 
     m_categoriesListWidget->blockSignals(true);

@@ -122,6 +122,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
             m_birthdayPage, SLOT(pageChange(KPageWidgetItem*)));
     connect(this, SIGNAL(cancelClicked()), m_birthdayPage, SLOT(discardChanges()));
+    connect(this, SIGNAL(cancelClicked()), m_categoryPage, SLOT(resetCategoryLabel()));
 
     connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
     connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );

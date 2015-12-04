@@ -72,6 +72,9 @@ public:
 signals:
     void currentCategoryNameChanged(const QString& oldName, const QString& newName);
 
+protected slots:
+    void resetCategoryLabel();
+
 private slots:
     void editCategory(QListWidgetItem*);
     void positionableChanged(bool);

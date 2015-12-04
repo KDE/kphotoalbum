@@ -172,7 +172,7 @@ void Settings::CategoryPage::resetInterface()
 {
     enableDisable(false);
     m_categoriesListWidget->setItemSelected(m_categoriesListWidget->currentItem(), false);
-    m_categoryLabel->setText(i18n("<i>Choose a category to edit it</i>"));
+    resetCategoryLabel();
     m_renameLabel->hide();
 }
 
@@ -189,7 +189,8 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
     m_categoryLabel->setText(QString::fromUtf8("%1 <b>%2</b>").arg(i18n("Settings for category")).arg(m_currentCategory->text()));
 
     if (m_currentCategory->originalName() != m_categoryNameBeforeEdit) {
-        m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>").arg(m_categoryNameBeforeEdit));
+        m_renameLabel->setText(i18n("<i>Pending change: rename from \"%1\" to \"%2\"</i>")
+            .arg(item->originalName(), m_categoryNameBeforeEdit));
         m_renameLabel->show();
     } else {
         m_renameLabel->clear();
@@ -233,10 +234,10 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     }
 
     // We don't want to have special category names.
-    if (newCategoryName == QString::fromUtf8("Folder") || newCategoryName == i18n("Folder")
-        || newCategoryName == QString::fromUtf8("Tokens") || newCategoryName == i18n("Tokens")
-        || newCategoryName == QString::fromUtf8("Media Type") || newCategoryName == i18n("Media Type")
-        || newCategoryName == QString::fromUtf8("Keywords") || newCategoryName == i18n("Keywords")) {
+    if (newCategoryName == QString::fromUtf8("Folder")
+        || newCategoryName == i18n("Folder")
+        || newCategoryName == QString::fromUtf8("Media Type")
+        || newCategoryName == i18n("Media Type")) {
 
         resetCategory(item);
         KMessageBox::sorry(this,
@@ -257,25 +258,6 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
                                 m_currentCategory->text(), newCategoryName),
                            i18n("Invalid category name"));
         return;
-    }
-
-    // Let's see if we have any pending name changes that would cause collisions.
-    for (int i = 0; i < m_categoriesListWidget->count(); i++) {
-        Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
-        if (cat == m_currentCategory) {
-            continue;
-        }
-
-        if (newCategoryName == cat->text()) {
-            resetCategory(item);
-            KMessageBox::sorry(this,
-                               i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
-                                    "<p>There's a pending rename action on the category \"%2\". "
-                                    "Please save this change first.</p>",
-                                    m_currentCategory->text(), newCategoryName),
-                               i18n("Unsaved pending renaming action"));
-            return;
-        }
     }
 
     m_categoriesListWidget->blockSignals(true);
@@ -399,7 +381,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
     m_icon->setIcon(QIcon());
     m_thumbnailSizeInCategory->setValue(64);
     enableDisable(false);
-    m_categoryLabel->setText(i18n("<i>choose a category to edit it</i>"));
+    resetCategoryLabel();
 }
 
 void Settings::CategoryPage::renameCurrentCategory()
@@ -513,6 +495,11 @@ void Settings::CategoryPage::listWidgetEditEnd(QWidget*, QAbstractItemDelegate::
 {
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = false;
+}
+
+void Settings::CategoryPage::resetCategoryLabel()
+{
+    m_categoryLabel->setText(i18n("<i>choose a category to edit it</i>"));
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

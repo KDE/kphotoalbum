@@ -208,24 +208,17 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     createSpecialCategories();
 
     if (m_fileVersion < 7) {
-        KMessageBox::sorry(
+        KMessageBox::information(
             messageParent(),
-            i18n("<p>"
-                 "<b>This version of KPhotoAlbum drops the translated \"standard\" categories.</b>"
-                 "</p>"
-                 "<p>"
-                 "Storing some category names in English but displaying them in the current locale "
-                 "led to a lot of problems, so we decided to stop doing so. From now on, all "
-                 "categories are stored with their displayed names."
-                 "</p>"
+            i18n("<p><b>"
+                 "This version of KPhotoAlbum does not translate \"standard\" categories any more."
+                 "</b></p>"
                  "<p>"
                  "This may mean that – if you use a locale other than English – some of your "
-                 "category names now are English. If so, you have to rename them (once) per hand "
-                 "and save your database."
-                 "</p>"
+                 "categories are now displayed in English. "
                  "<p>"
-                 "<b>Sorry for the inconsistency!</b> This warning will not be displayed anymore"
-                 "when you have saved your database for the first time."
+                 "</p>"
+                 "You can manually rename your categories any time and then save your database."
                  "</p>"),
             i18n("Changed standard category names")
         );

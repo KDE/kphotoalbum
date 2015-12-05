@@ -230,7 +230,7 @@ KPhotoAlbum
 +-Categories
 | +-Category
 |   (name, icon, show, viewtype, thumbnailsize)
-|   (id) [optional]
+|   (meta) [optional]
 |   +-value
 |     (value, id)
 |     (birthDate) [optional]
@@ -258,7 +258,7 @@ KPhotoAlbum
 +-Categories
 | +-Category
 |   (name, icon, show, viewtype, thumbnailsize)
-|   (id) [optional]
+|   (meta) [optional]
 |   +-value
 |     (value, id)
 |     (birthDate) [optional]
@@ -282,7 +282,7 @@ KPhotoAlbum
 The concept of translatable "standard" categories led to a lot of problems when users started KPA
 with different locales. Some of them simply can't be solved, so we decided to remove translatable
 category names. Now, each category is stored with it's literal name.
-Added an additional optional "id" attribute to the Category-tag, so that the "Tokens" category (a
+Added an additional optional "meta" attribute to the Category-tag, so that the "Tokens" category (a
 "special" category like "Folder", but stored in the database and thus causing the same translation
 problems like the old "standard" categories) can be marked as such and does not need to have a fixed
 name anymore.
@@ -308,6 +308,8 @@ name anymore.
        + ```viewtype```
          Appearance of list views in the browser.
          ```TreeView=0, ThumbedTreeView=1, IconView=2, ThumbedIconView=3```
+       + ```meta```
+         Meta information holds unique id for special categories (so that they can be tracked when they are renamed for localization).
        + value
           * ```id```
             Numerical tag id, unique within each Category.

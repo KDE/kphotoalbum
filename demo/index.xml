@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="6" compressed="0">
+<KPhotoAlbum version="7" compressed="0">
     <Categories>
         <Category name="Keywords" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="scanned in" id="1"/>
@@ -30,7 +30,7 @@
             <value value="Blackie" id="7"/>
             <value value="Spiff" id="8"/>
         </Category>
-        <Category name="Tokens" icon="preferences-other" show="1" viewtype="0" thumbnailsize="32" positionable="0">
+        <Category name="Tokens" icon="preferences-other" show="1" viewtype="0" thumbnailsize="32" positionable="0" meta="tokens">
             <value value="Y" id="1"/>
             <value value="X" id="2"/>
             <value value="W" id="3"/>

@@ -156,6 +156,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     static QString showString = QString::fromUtf8("show");
     static QString thumbnailSizeString = QString::fromUtf8("thumbnailsize");
     static QString positionableString = QString::fromUtf8("positionable");
+    static QString metaString = QString::fromUtf8("meta");
     static QString tokensString = QString::fromUtf8("tokens");
     static QString valueString = QString::fromUtf8("value");
     static QString idString = QString::fromUtf8("id");
@@ -178,8 +179,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             int thumbnailSize = reader->attribute( thumbnailSizeString, QString::fromLatin1( "32" ) ).toInt();
             bool show = (bool) reader->attribute( showString, QString::fromLatin1( "1" ) ).toInt();
             bool positionable = (bool) reader->attribute( positionableString, QString::fromLatin1( "0" ) ).toInt();
-            bool tokensCat = reader->attribute(idString) == tokensString;
-            //qDebug() << categoryName << " " << tokensCat << ": " << reader->attribute(idString);
+            bool tokensCat = reader->attribute(metaString) == tokensString;
 
             DB::CategoryPtr cat = m_db->m_categoryCollection.categoryForName( categoryName );
             Q_ASSERT ( !cat );

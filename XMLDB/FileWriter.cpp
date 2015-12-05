@@ -133,7 +133,7 @@ void XMLDB::FileWriter::saveCategories( QXmlStreamWriter& writer )
         writer.writeAttribute(QString::fromUtf8("thumbnailsize"), QString::number(category->thumbnailSize()));
         writer.writeAttribute(QString::fromUtf8("positionable"), QString::number(category->positionable()));
         if (category == tokensCategory) {
-            writer.writeAttribute(QString::fromUtf8("id"),QString::fromUtf8("tokens"));
+            writer.writeAttribute(QString::fromUtf8("meta"),QString::fromUtf8("tokens"));
         }
 
         // FIXME (l3u):

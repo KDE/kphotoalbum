@@ -103,7 +103,7 @@ namespace XMLDB {
 
         QString m_fileName;
         DB::ImageInfoList m_images;
-        DB::FileNameList m_blockList;
+        QSet<DB::FileName> m_blockList;
         DB::ImageInfoList m_missingTimes;
         XMLCategoryCollection m_categoryCollection;
         DB::MemberMap m_members;

@@ -385,7 +385,7 @@ void XMLDB::FileReader::loadBlockList( ReaderPtr reader )
         while (reader->readNextStartOrStopElement(blockString).isStartToken) {
             QString fileName = reader->attribute(fileString);
             if ( !fileName.isEmpty() )
-                m_db->m_blockList << DB::FileName::fromRelativePath(fileName);
+                m_db->m_blockList.insert(DB::FileName::fromRelativePath(fileName));
             reader->readEndElement();
         }
     }

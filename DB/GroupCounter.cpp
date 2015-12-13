@@ -58,14 +58,15 @@ GroupCounter::GroupCounter( const QString& category )
     m_groupCount.reserve( 2729 /* A large prime */ );
 
     // Populate the m_memberToGroup map
-    for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin();
-         groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt ) {
-
+    for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin()
+         ; groupToMemberIt != groupToMemberMap.end()
+         ; ++groupToMemberIt )
+    {
         StringSet members = groupToMemberIt.value();
         QString group = groupToMemberIt.key();
 
-        for( StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
-            m_memberToGroup[*memberIt].append( group );
+        Q_FOREACH( const auto &member, members ) {
+            m_memberToGroup[member].append( group );
         }
         m_groupCount.insert( group, 0 );
     }

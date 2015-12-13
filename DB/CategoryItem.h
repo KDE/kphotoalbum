@@ -33,8 +33,8 @@ public:
     bool isDescendentOf( const QString& child, const QString& parent ) const;
 
 protected:
-    void print( int offset );
-    bool hasChild( const QString& child );
+    void print( int offset ) const;
+    bool hasChild( const QString& child ) const;
 
 public:
     QString mp_name;

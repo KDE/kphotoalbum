@@ -160,8 +160,8 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     QString txt = info->description();
     if ( !m_description.isEmpty() ) {
         QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
-        for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            ok = ok && ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
+        Q_FOREACH( const QString &word, list ) {
+            ok = ok && ( txt.indexOf( word, 0, Qt::CaseInsensitive ) != -1 );
         }
     }
 
@@ -360,17 +360,16 @@ void ImageSearchInfo::compile() const
         QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
         DB::ContainerCategoryMatcher* orMatcher = new DB::OrCategoryMatcher;
 
-        for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
+        Q_FOREACH( QString orPart, orParts ) {
             // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
-            QStringList andParts = (*itOr).split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
+            QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
 
             DB::ContainerCategoryMatcher* andMatcher;
             bool exactMatch=false;
             bool negate = false;
             andMatcher = new DB::AndCategoryMatcher;
 
-            for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
-                QString str = *itAnd;
+            Q_FOREACH( QString str, andParts ) {
                 static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
                 if ( regexp.exactMatch( str ) )
                 { // str is preceded with NOT
@@ -499,8 +498,8 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched( const QString &group )
     }
 
     QStringList list = str.split(QString::fromLatin1( "&" ), QString::SkipEmptyParts);
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        QString nm = (*it).trimmed();
+    Q_FOREACH( QString part, list ) {
+        QString nm = part.trimmed();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )
             result.insert(nm);
     }

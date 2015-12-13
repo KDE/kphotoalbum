@@ -134,7 +134,10 @@ void MemberMap::calculate() const
         QMap<QString, StringSet> groupMap = categoryIt.value();
 
         // Run through each of the groups for the given categories
-        for( QMap<QString,StringSet>::Iterator groupIt= groupMap.begin(); groupIt != groupMap.end(); ++groupIt ) {
+        for( QMap<QString,StringSet>::const_iterator groupIt= groupMap.constBegin()
+             ; groupIt != groupMap.constEnd()
+             ; ++groupIt )
+        {
             QString group = groupIt.key();
             if ( m_closureMembers[category].find( group ) == m_closureMembers[category].end() ) {
                 (void) calculateClosure( m_closureMembers[category], category, group );
@@ -156,8 +159,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
     QMap<QString, StringSet>& groupMap = m_members[category];
     groupMap.insert(newName,m_members[category][oldName] );
     groupMap.remove( oldName );
-    for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
-        StringSet& set = it.value();
+    Q_FOREACH( StringSet set, groupMap ) {
         if ( set.contains( oldName ) ) {
             set.remove( oldName );
             set.insert( newName );
@@ -176,8 +178,7 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
     if ( !m_loading )
         emit dirty();
     QMap<QString, StringSet>& groupMap = m_members[category->name()];
-    for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
-        StringSet& items = it.value();
+    Q_FOREACH( StringSet items, groupMap ) {
         items.remove( name );
     }
     m_members[category->name()].remove(name);
@@ -192,8 +193,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
     if ( !m_loading )
         emit dirty();
     QMap<QString, StringSet>& groupMap = m_members[category->name()];
-    for( QMap<QString,StringSet>::Iterator it= groupMap.begin(); it != groupMap.end(); ++it ) {
-        StringSet& items = it.value();
+    Q_FOREACH( StringSet items, groupMap ) {
         if (items.contains( oldName ) ) {
             items.remove( oldName );
             items.insert( newName );

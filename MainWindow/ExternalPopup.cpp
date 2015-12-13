@@ -100,9 +100,10 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     {
     return;  //user clicked the title entry. (i.e: "All Selected Items")
     } else if ( action->data() == 1 ) {
-        for( DB::FileNameList::Iterator it = m_list.begin(); it != m_list.end(); ++it ) {
-            if ( m_appToMimeTypeMap[name].contains( mimeType(*it) ) )
-                lst.append( KUrl((*it).absolute()) );
+        Q_FOREACH(const DB::FileName &file, m_list )
+        {
+            if ( m_appToMimeTypeMap[name].contains( mimeType(file) ) )
+                lst.append( KUrl(file.absolute()) );
         }
     } else if (action->data() == 2) {
         QString origFile = m_currentInfo->fileName().absolute();
@@ -171,12 +172,12 @@ Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const DB::FileNameLis
 {
     StringSet res;
     StringSet extensions;
-    for( DB::FileNameList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
-       const DB::FileName baseFileName = *fileIt;
+    Q_FOREACH(const DB::FileName &file, files ) {
+       const DB::FileName baseFileName = file;
        const int extStart = baseFileName.relative().lastIndexOf(QChar::fromLatin1('.'));
        const QString ext = baseFileName.relative().mid(extStart);
        if (! extensions.contains(ext)) {
-           res.insert( mimeType( *fileIt ) );
+           res.insert( mimeType( file ) );
            extensions.insert( ext );
        }
     }
@@ -187,11 +188,11 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList
 {
     StringSet types = mimeTypes( files );
     OfferType res;
-    for ( StringSet::const_iterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
-        KService::List offers = KMimeTypeTrader::self()->query( *mimeTypeIt, QLatin1String( "Application" ));
-        for(KService::List::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
-            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->icon() ) );
-            m_appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
+    Q_FOREACH(const QString &type, types) {
+        KService::List offers = KMimeTypeTrader::self()->query( type, QLatin1String( "Application" ));
+        Q_FOREACH( const KService::Ptr offer, offers ) {
+            res.insert( qMakePair( offer->name(), offer->icon() ) );
+            m_appToMimeTypeMap[offer->name()].insert( type );
         }
     }
     return res;

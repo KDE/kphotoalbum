@@ -256,12 +256,12 @@ void ImportDialog::createCategoryPages()
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
         QStringList categoriesForImage = info->availableCategories();
-        for( QStringList::Iterator categoryIt = categoriesForImage.begin(); categoryIt != categoriesForImage.end(); ++categoryIt ) {
-            if ( !categories.contains( *categoryIt ) &&
-                 (*categoryIt) != QString::fromLatin1( "Folder" ) &&
-                 (*categoryIt) != QString::fromLatin1( "Tokens" ) &&
-                 (*categoryIt) != QString::fromLatin1( "Media Type" ))
-                categories.append( *categoryIt );
+        Q_FOREACH( const QString &category, categoriesForImage ) {
+            if ( !categories.contains( category ) &&
+                 category != QString::fromLatin1( "Folder" ) &&
+                 category != QString::fromLatin1( "Tokens" ) &&
+                 category != QString::fromLatin1( "Media Type" ))
+                categories.append( category );
         }
     }
 
@@ -318,11 +318,7 @@ void ImportDialog::next()
         removePage(m_dummy);
 
         ImportMatcher* matcher = nullptr;
-        for( QList<CategoryMatch*>::Iterator it = m_categoryMatcher->m_matchers.begin();
-             it != m_categoryMatcher->m_matchers.end();
-             ++it )
-        {
-            CategoryMatch* match = *it;
+        Q_FOREACH( const CategoryMatch *match, m_categoryMatcher->m_matchers ) {
             if ( match->m_checkbox->isChecked() ) {
                 matcher = createCategoryPage( match->m_combobox->currentText(), match->m_text );
                 m_matchers.append( matcher );
@@ -346,8 +342,8 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage( bool on )
 {
-    for( QList<ImageRow*>::Iterator it = m_imagesSelect.begin(); it != m_imagesSelect.end(); ++it ) {
-        (*it)->m_checkbox->setChecked( on );
+    Q_FOREACH( ImageRow* row, m_imagesSelect ) {
+        row->m_checkbox->setChecked( on );
     }
 }
 

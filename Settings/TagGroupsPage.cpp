@@ -126,14 +126,14 @@ void Settings::TagGroupsPage::updateCategoryTree()
     // Create a tree view of all groups and their sub-groups
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for(QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        if ((*it)->isSpecialCategory()) {
+    Q_FOREACH(const DB::CategoryPtr category, categories ) {
+        if (category->isSpecialCategory()) {
             continue;
         }
 
         // Add the real categories as top-level items
         QTreeWidgetItem* topLevelItem = new QTreeWidgetItem;
-        topLevelItem->setText(0, (*it)->name());
+        topLevelItem->setText(0, category->name());
         topLevelItem->setFlags(topLevelItem->flags() & Qt::ItemIsEnabled);
         QFont font = topLevelItem->font(0);
         font.setWeight(QFont::Bold);
@@ -142,14 +142,14 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
         // Build a map with all members for each group
         QMap<QString, QStringList> membersForGroup;
-        QStringList allGroups = m_memberMap.groups((*it)->name());
+        QStringList allGroups = m_memberMap.groups(category->name());
         foreach (const QString &group, allGroups) {
             // FIXME: Why does the member map return an empty category?!
             if (group.isEmpty()) {
                 continue;
             }
 
-            QStringList allMembers = m_memberMap.members((*it)->name(), group, false);
+            QStringList allMembers = m_memberMap.members(category->name(), group, false);
             foreach (const QString &member, allMembers) {
                 membersForGroup[group] << member;
             }
@@ -281,26 +281,26 @@ void Settings::TagGroupsPage::categoryChanged(const QString& name)
     list += m_memberMap.groups(name);
     QStringList alreadyAdded;
 
-    for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-        if ((*it).isEmpty()) {
+    Q_FOREACH( const QString &member, list ) {
+        if (member.isEmpty()) {
             // This can happen if we add group that currently has no members.
             continue;
         }
 
-        if (! alreadyAdded.contains(*it)) {
-            alreadyAdded << (*it);
+        if (! alreadyAdded.contains(member)) {
+            alreadyAdded << member;
 
             if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
                 && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                 if (name == Settings::SettingsData::instance()->untaggedCategory()) {
-                    if ((*it) == Settings::SettingsData::instance()->untaggedTag()) {
+                    if (member == Settings::SettingsData::instance()->untaggedTag()) {
                         continue;
                     }
                 }
             }
 
-            QListWidgetItem* newItem = new QListWidgetItem((*it), m_membersListWidget);
+            QListWidgetItem* newItem = new QListWidgetItem(member, m_membersListWidget);
             newItem->setFlags(newItem->flags() | Qt::ItemIsUserCheckable);
             newItem->setCheckState(Qt::Unchecked);
         }

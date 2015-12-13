@@ -34,20 +34,19 @@ void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::Fi
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for ( QList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        if ( !(*categoryIt)->isSpecialCategory() ) {
+    Q_FOREACH( const DB::CategoryPtr category, categories ) {
+        if ( !category->isSpecialCategory() ) {
             bool categoryMenuEnabled = false;
-            const QString categoryName = (*categoryIt)->name();
+            const QString categoryName = category->name();
             QMenu* categoryMenu = new QMenu(this);
-            categoryMenu->setTitle((*categoryIt)->name());
+            categoryMenu->setTitle( category->name() );
 
             // add category members
             Utilities::StringSet members = m_imageInfo->itemsOfCategory( categoryName );
-            for ( Utilities::StringSet::const_iterator memberIt = members.begin();
-                    memberIt != members.end(); ++memberIt ) {
-                QAction* action = categoryMenu->addAction( *memberIt );
+            Q_FOREACH( const QString &member, members ) {
+                QAction* action = categoryMenu->addAction( member );
                 action->setObjectName( categoryName );
-                action->setData( *memberIt );
+                action->setData( member );
                 categoryMenuEnabled = true;
             }
 

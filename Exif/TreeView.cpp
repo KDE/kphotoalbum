@@ -75,17 +75,17 @@ void Exif::TreeView::reload()
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
         QTreeWidgetItem* parent = nullptr;
         QString path;
-        for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
+        Q_FOREACH( const QString &subKey, subKeys ) {
             if ( !path.isEmpty() )
                 path += QString::fromLatin1( "." );
-            path +=  *subKeyIt;
+            path += subKey;
             if ( tree.contains( path ) )
                 parent = tree[path];
             else {
                 if ( parent == nullptr )
-                    parent = new QTreeWidgetItem( this, QStringList(*subKeyIt) );
+                    parent = new QTreeWidgetItem( this, QStringList(subKey) );
                 else
-                    parent = new QTreeWidgetItem( parent, QStringList(*subKeyIt) );
+                    parent = new QTreeWidgetItem( parent, QStringList(subKey) );
                 parent->setText( 1, path ); // This is simply to make the implementation of selected easier.
                 parent->setFlags( Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
                 parent->setCheckState(0,Qt::Unchecked);

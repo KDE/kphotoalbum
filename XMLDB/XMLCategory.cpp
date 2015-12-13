@@ -142,14 +142,14 @@ void XMLDB::XMLCategory::initIdMap()
 {
     int i = 0;
     m_idMap.clear();
-    for( QStringList::Iterator it = m_items.begin(); it != m_items.end(); ++it ) {
-        m_idMap.insert( *it, ++i );
+    Q_FOREACH( const QString &tag, m_items ) {
+        m_idMap.insert( tag, ++i );
     }
 
     QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
-    for( QStringList::ConstIterator groupIt = groups.constBegin(); groupIt != groups.constEnd(); ++groupIt ) {
-        if ( !m_idMap.contains( *groupIt ) )
-            m_idMap.insert( *groupIt, ++i );
+    Q_FOREACH( const QString &group, groups ) {
+        if ( !m_idMap.contains( group ) )
+            m_idMap.insert( group, ++i );
     }
 }
 

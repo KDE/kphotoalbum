@@ -151,9 +151,8 @@ void Exif::Database::populateDatabase()
 {
     createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
-    Database::ElementList elms = elements();
-    for( Database::ElementList::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
-        attributes.append( (*tagIt)->createString() );
+    Q_FOREACH( DatabaseElement *element, elements() ) {
+        attributes.append( element->createString() );
     }
 
     QSqlQuery query( QString::fromLatin1( "create table if not exists exif (filename string PRIMARY KEY, %1 )")

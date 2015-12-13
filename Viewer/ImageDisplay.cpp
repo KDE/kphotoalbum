@@ -164,8 +164,8 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 
     // Find the index of the current image
     m_curIndex = 0;
-    for( DB::FileNameList::Iterator it = m_imageList.begin(); it != m_imageList.end(); ++it ) {
-        if ( *it == info->fileName() )
+    Q_FOREACH( const DB::FileName &filename, m_imageList) {
+        if ( filename == info->fileName() )
             break;
         ++m_curIndex;
     }
@@ -628,8 +628,8 @@ void Viewer::ImageDisplay::updatePreload()
 int Viewer::ImageDisplay::indexOf( const DB::FileName& fileName )
 {
     int i = 0;
-    for( DB::FileNameList::ConstIterator it = m_imageList.constBegin(); it != m_imageList.constEnd(); ++it ) {
-        if ( *it == fileName )
+    Q_FOREACH( const DB::FileName &name, m_imageList ) {
+        if ( name == fileName )
             break;
         ++i;
     }

@@ -140,8 +140,8 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay->addWidget( m_albumCategory, row, 1 );
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        m_albumCategory->addItem((*it)->name());
+    Q_FOREACH( const DB::CategoryPtr category, categories ) {
+       m_albumCategory->addItem( category->name() );
     }
 
     m_listenForAndroidDevicesOnStartup = new QCheckBox(i18n("Listen for Android devices on startup"));

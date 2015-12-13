@@ -1264,11 +1264,10 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 #ifdef HASKIPI
     loadPlugins();
-    KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
-    for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it)->plugin();
+    Q_FOREACH( const KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList() ) {
+        KIPI::Plugin* plugin = pluginInfo->plugin();
         if ( plugin )
-            dialog->addCollection( plugin->actionCollection(), (*it)->comment() );
+            dialog->addCollection( plugin->actionCollection(), pluginInfo->comment() );
     }
 #endif
 
@@ -1507,30 +1506,30 @@ void MainWindow::Window::plug()
     QList<QAction*> batchActions;
 
     KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
-    for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it)->plugin();
-        if ( !plugin || !(*it)->shouldLoad() )
+    Q_FOREACH( const KIPI::PluginLoader::Info *pluginInfo, list ) {
+        KIPI::Plugin* plugin = pluginInfo->plugin();
+        if ( !plugin || !pluginInfo->shouldLoad() )
             continue;
 
         plugin->setup( this );
 
         QList<KAction*> actions = plugin->actions();
-        for( QList<KAction*>::Iterator it = actions.begin(); it != actions.end(); ++it ) {
-            KIPI::Category category = plugin->category( *it );
+        Q_FOREACH( KAction *action, actions ) {
+            KIPI::Category category = plugin->category( action );
             if (  category == KIPI::ImagesPlugin ||  category == KIPI::CollectionsPlugin )
-                imageActions.append( *it );
+                imageActions.append( action );
 
             else if ( category == KIPI::ImportPlugin )
-                importActions.append( *it );
+                importActions.append( action );
 
             else if ( category == KIPI::ExportPlugin )
-                exportActions.append( *it );
+                exportActions.append( action );
 
             else if ( category == KIPI::ToolsPlugin )
-                toolsActions.append( *it );
+                toolsActions.append( action );
 
             else if ( category == KIPI::BatchPlugin )
-                batchActions.append( *it );
+                batchActions.append( action );
 
             else {
                 kDebug() << "Unknown category\n";

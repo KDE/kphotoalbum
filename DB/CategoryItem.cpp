@@ -34,13 +34,13 @@ DB::CategoryItem* DB::CategoryItem::clone() const
     return result;
 }
 
-void DB::CategoryItem::print( int offset )
+void DB::CategoryItem::print( int offset ) const
 {
     QString spaces;
     spaces.fill( QChar::fromLatin1(' '), offset );
     qDebug( "%s%s", qPrintable(spaces), qPrintable(mp_name) );
-     for( QList< CategoryItem* >::Iterator it = mp_subcategories.begin(); it != mp_subcategories.end(); ++it ) {
-        (*it)->print( offset + 2 );
+    Q_FOREACH( const CategoryItem *subcategory, mp_subcategories ) {
+        subcategory->print( offset + 2 );
     }
 }
 
@@ -59,13 +59,13 @@ bool DB::CategoryItem::isDescendentOf( const QString& child, const QString& pare
     return false;
 }
 
-bool DB::CategoryItem::hasChild( const QString& child )
+bool DB::CategoryItem::hasChild( const QString& child ) const
 {
     if ( mp_name == child )
         return true;
 
-     for( QList< CategoryItem* >::Iterator it = mp_subcategories.begin(); it != mp_subcategories.end(); ++it ) {
-        if ( (*it)->hasChild( child ) )
+    Q_FOREACH( const CategoryItem *subcategory, mp_subcategories ) {
+        if ( subcategory->hasChild( child ) )
             return true;
     }
     return false;

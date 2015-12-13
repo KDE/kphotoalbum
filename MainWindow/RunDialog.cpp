@@ -80,9 +80,9 @@ void MainWindow::RunDialog::slotMarkGo( )
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for( DB::FileNameList::Iterator it = m_fileList.begin(); it != m_fileList.end(); ++it ) {
+        Q_FOREACH( const DB::FileName &filename, m_fileList ) {
             cmdOnce = cmdString;
-            cmdOnce.replace(replaceeach, (*it).absolute());
+            cmdOnce.replace(replaceeach, filename.absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());
         }
     } else {

@@ -63,7 +63,7 @@ QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
 
 void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
 {
-    for( QList<DB::CategoryPtr>::Iterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
             m_categories.erase(it);
             emit categoryCollectionChanged();
@@ -99,8 +99,9 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Categ
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    for( QList<DB::CategoryPtr>::Iterator it = m_categories.begin(); it != m_categories.end(); ++it )
-        static_cast<XMLCategory*>((*it).data())->initIdMap();
+    Q_FOREACH( DB::CategoryPtr categoryPtr, m_categories ) {
+        static_cast<XMLCategory*>(categoryPtr.data())->initIdMap();
+    }
 }
 
 #include "XMLCategoryCollection.moc"

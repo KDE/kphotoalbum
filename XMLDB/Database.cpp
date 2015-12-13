@@ -371,7 +371,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
     // iterate over all images (expensive!!) TODO: improve?
     for( DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); /**/ ) {
         const DB::FileName imagefile = (*it)->fileName();
-        DB::FileNameList::ConstIterator si = selection.begin();
+        DB::FileNameList::const_iterator si = selection.begin();
         // for each image, iterate over selection, break on match
         for ( /**/; si != selection.end(); ++si ) {
             const DB::FileName file = *si;
@@ -440,13 +440,12 @@ bool XMLDB::Database::stack(const DB::FileNameList& items)
         return false; // images already in different stacks -> can't stack
 
     DB::StackID stackId = ( stacks.size() == 1 ) ? *(stacks.begin() ) : m_nextStackId++;
-    for ( QList<DB::ImageInfoPtr>::iterator it = images.begin();
-          it != images.end();
-          ++it, ++stackOrder ) {
-        (*it)->setStackOrder( stackOrder );
-        (*it)->setStackId( stackId );
-        m_stackMap[stackId].append((*it)->fileName());
+    Q_FOREACH( DB::ImageInfoPtr info, images ) {
+        info->setStackOrder( stackOrder );
+        info->setStackId( stackId );
+        m_stackMap[stackId].append(info->fileName());
         ++changed;
+        ++stackOrder;
     }
 
     if ( changed )
@@ -689,9 +688,8 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
     if ( db == nullptr )
         return;
 
-    QList<DB::CategoryPtr> categoryList = db->m_categoryCollection.categories();
-    for( QList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
-        QString categoryName = (*categoryIt)->name();
+    Q_FOREACH( const DB::CategoryPtr categoryPtr, db->m_categoryCollection.categories() ) {
+        QString categoryName = categoryPtr->name();
         QString oldCategoryName;
         if ( newToOldCategory )
         {
@@ -703,9 +701,9 @@ void XMLDB::Database::possibleLoadCompressedCategories( ReaderPtr reader, DB::Im
         QString str = reader->attribute( FileWriter::escape( oldCategoryName ) );
         if ( !str.isEmpty() ) {
             QStringList list = str.split(QString::fromLatin1( "," ), QString::SkipEmptyParts );
-            for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
-                int id = (*listIt).toInt();
-                QString name = static_cast<XMLCategory*>((*categoryIt).data())->nameForId(id);
+            Q_FOREACH( const QString &tagString, list ) {
+                int id = tagString.toInt();
+                QString name = static_cast<const XMLCategory*>(categoryPtr.data())->nameForId(id);
                 info->addCategoryInfo( categoryName, name );
             }
         }

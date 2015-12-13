@@ -188,7 +188,7 @@ Utilities::StringSet ImportExport::MD5CheckPage::mapCategoriesToDB( const Catego
 QMap<QString, ImportExport::ImportSettings::ImportAction> ImportExport::MD5CheckPage::settings()
 {
     QMap<QString, ImportSettings::ImportAction> res;
-    for( QMap<QString,QButtonGroup*>::Iterator it = m_groups.begin(); it != m_groups.end(); ++it ) {
+    for( QMap<QString,QButtonGroup*>::iterator it = m_groups.begin(); it != m_groups.end(); ++it ) {
         res.insert( it.key(), static_cast<ImportSettings::ImportAction>(it.value()->checkedId()) );
     }
     return res;

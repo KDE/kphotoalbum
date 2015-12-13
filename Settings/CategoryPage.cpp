@@ -488,21 +488,20 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
 #endif
 
     // Delete items
-    for (QList<CategoryItem*>::Iterator it = m_deletedCategories.begin(); it != m_deletedCategories.end(); ++it) {
+    Q_FOREACH( CategoryItem *item, m_deletedCategories ) {
 #ifdef HAVE_KFACE
-        m_recognizer->deleteCategory((*it)->text());
+        m_recognizer->deleteCategory(item->text());
 #endif
-        (*it)->removeFromDatabase();
+        item->removeFromDatabase();
     }
 
 #ifdef HAVE_KFACE
     m_deletedCategories = QList<CategoryItem*>();
 
     // Categories un-marked as positionable
-    for (QList<CategoryItem*>::Iterator it = m_unMarkedAsPositionable.begin();
-         it != m_unMarkedAsPositionable.end(); ++it) {
+    Q_FOREACH( const CategoryItem *item, m_unMarkedAsPositionable ) {
         // For the recognition database, this is the same as if the category had been deleted
-        m_recognizer->deleteCategory((*it)->text());
+        m_recognizer->deleteCategory(item->text());
     }
     m_unMarkedAsPositionable = QList<CategoryItem*>();
 #endif
@@ -530,27 +529,20 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
     m_categoriesListWidget->clear();
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        if ((*it)->type() == DB::Category::PlainCategory
-            || (*it)->type() == DB::Category::TokensCategory) {
-#ifdef HAVE_KFACE
-            Settings::CategoryItem *item = new CategoryItem((*it)->name(),
-                                                            (*it)->iconName(),
-                                                            (*it)->viewType(),
-                                                            (*it)->thumbnailSize(),
+    Q_FOREACH( const DB::CategoryPtr category, categories ) {
+        if (category->type() == DB::Category::PlainCategory
+            || category->type() == DB::Category::TokensCategory) {
+            Settings::CategoryItem *item = new CategoryItem(category->name(),
+                                                            category->iconName(),
+                                                            category->viewType(),
+                                                            category->thumbnailSize(),
                                                             m_categoriesListWidget,
-                                                            (*it)->positionable());
-            if ((*it)->positionable()) {
+                                                            category->positionable());
+#ifdef HAVE_KFACE
+            if (category->positionable()) {
                 connect(item, SIGNAL(newCategoryNameSaved(QString,QString)),
                         this, SLOT(renameRecognitionCategory(QString,QString)));
             }
-#else
-            new CategoryItem((*it)->name(),
-                             (*it)->iconName(),
-                             (*it)->viewType(),
-                             (*it)->thumbnailSize(),
-                             m_categoriesListWidget,
-                             (*it)->positionable());
 #endif
         }
     }

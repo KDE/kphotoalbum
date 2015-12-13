@@ -99,16 +99,15 @@ void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement ro
 
     bool anyAtAll = false;
     QStringList grps = info->availableCategories();
-    for( QStringList::Iterator categoryIt = grps.begin(); categoryIt != grps.end(); ++categoryIt ) {
+    Q_FOREACH(const QString &name, grps ) {
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        QString name = *categoryIt;
         opt.setAttribute( QString::fromLatin1("name"),  name );
 
-        StringSet items = info->itemsOfCategory(*categoryIt);
+        StringSet items = info->itemsOfCategory(name);
         bool any = false;
-        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        Q_FOREACH( const QString &item, items ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), *itemIt );
+            val.setAttribute( QString::fromLatin1("value"), item );
             opt.appendChild( val );
             any = true;
             anyAtAll = true;

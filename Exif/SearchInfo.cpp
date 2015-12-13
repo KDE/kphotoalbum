@@ -43,10 +43,10 @@ QStringList Exif::SearchInfo::buildIntKeyQuery() const
     for( IntKeyList::ConstIterator intIt = m_intKeys.begin(); intIt != m_intKeys.end(); ++intIt ) {
         QStringList orArgs;
         QString key = (*intIt).first;
-        IntList values =(*intIt).second;
+        IntList values = (*intIt).second;
 
-        for( IntList::Iterator argIt = values.begin(); argIt != values.end(); ++argIt ) {
-            orArgs << QString::fromLatin1( "(%1 == %2)" ).arg( key ).arg( *argIt );
+        Q_FOREACH( int value, values ) {
+            orArgs << QString::fromLatin1( "(%1 == %2)" ).arg( key ).arg( value );
         }
         if ( orArgs.count() != 0 )
             andArgs << QString::fromLatin1( "(%1)").arg( orArgs.join( QString::fromLatin1( " or " ) ) );

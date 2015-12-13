@@ -290,7 +290,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
             }
             else {
                 QStringList members = reader->attribute(membersString).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
-                for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                Q_FOREACH( const QString &memberItem, members ) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( category );
                     if (catPtr.isNull())
                     { // category was not declared in "Categories"
@@ -299,7 +299,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                         m_db->m_categoryCollection.addCategory( catPtr );
                     }
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
-                    QString member = cat->nameForId( (*membersIt).toInt() );
+                    QString member = cat->nameForId( memberItem.toInt() );
                     if (member.isNull())
                         continue;
                     m_db->m_members.addMemberToGroup( category, group, member );

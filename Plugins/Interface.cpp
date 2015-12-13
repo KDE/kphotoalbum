@@ -67,7 +67,7 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 
     QMap<QString,uint> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
 
-    for( QMap<QString,uint>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    for( QMap<QString,uint>::iterator it = categories.begin(); it != categories.end(); ++it ) {
         CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
         result.append( KIPI::ImageCollection( col ) );
     }

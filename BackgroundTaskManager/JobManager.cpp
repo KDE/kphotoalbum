@@ -51,7 +51,7 @@ int BackgroundTaskManager::JobManager::maxJobCount() const
     // We will at least have one active background task at the time, as some of them
     // currently aren't that much for background stuff. The key example of this is generating video thumbnails.
     const int max = qMin( 3, QThread::idealThreadCount() );
-    int count = qMax(1,max - ImageManager::AsyncLoader::instance()->activeCount());
+    int count = qMax( 1, max - ImageManager::AsyncLoader::instance()->activeCount() - 1 );
     return count;
 }
 

@@ -122,7 +122,9 @@ void XMLDB::Database::renameCategory( const QString& oldName, const QString newN
 
 void XMLDB::Database::addToBlockList(const DB::FileNameList& list)
 {
-    m_blockList.append(list);
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        m_blockList.insert(fileName);
+    }
     deleteList( list );
 }
 

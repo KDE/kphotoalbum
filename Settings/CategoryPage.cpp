@@ -58,6 +58,8 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     connect(m_categoriesListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(editCategory(QListWidgetItem*)));
+    connect(m_categoriesListWidget, SIGNAL(itemSelectionChanged()),
+            this, SLOT(editSelectedCategory()));
     connect(m_categoriesListWidget, SIGNAL(itemChanged(QListWidgetItem*)),
             this, SLOT(categoryNameChanged(QListWidgetItem*)));
 
@@ -174,6 +176,10 @@ void Settings::CategoryPage::resetInterface()
     m_categoriesListWidget->setItemSelected(m_categoriesListWidget->currentItem(), false);
     resetCategoryLabel();
     m_renameLabel->hide();
+}
+
+void Settings::CategoryPage::editSelectedCategory() {
+    editCategory(m_categoriesListWidget->currentItem());
 }
 
 void Settings::CategoryPage::editCategory(QListWidgetItem* i)

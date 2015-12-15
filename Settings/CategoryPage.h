@@ -76,6 +76,7 @@ protected slots:
     void resetCategoryLabel();
 
 private slots:
+    void editSelectedCategory();
     void editCategory(QListWidgetItem*);
     void positionableChanged(bool);
     void iconChanged(const QString& icon);

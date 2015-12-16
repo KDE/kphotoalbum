@@ -21,6 +21,8 @@
 
 // Qt includes
 #include <QWidget>
+#include <QMap>
+#include <QDate>
 
 // Qt classes
 class QLineEdit;

@@ -291,7 +291,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     m_categoriesListWidget->blockSignals(false);
 
     emit currentCategoryNameChanged(m_currentCategory->originalName(), newCategoryName);
-    m_untaggedBox->categoryRenamed(m_currentCategory->originalName(), newCategoryName);
+    m_untaggedBox->categoryRenamed(m_categoryNameBeforeEdit, newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
 }

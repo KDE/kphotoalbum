@@ -674,7 +674,7 @@ void Settings::TagGroupsPage::loadSettings()
     updateCategoryTree();
 }
 
-void Settings::TagGroupsPage::categoryRenamed(const QString&, const QString&)
+void Settings::TagGroupsPage::categoryRenamed()
 {
     m_categoryTreeWidget->setEnabled(false);
     m_membersListWidget->setEnabled(false);

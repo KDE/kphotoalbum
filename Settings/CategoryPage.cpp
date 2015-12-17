@@ -290,7 +290,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     item->setText(newCategoryName);
     m_categoriesListWidget->blockSignals(false);
 
-    emit currentCategoryNameChanged(m_currentCategory->originalName(), newCategoryName);
+    emit currentCategoryNameChanged();
     m_untaggedBox->categoryRenamed(m_categoryNameBeforeEdit, newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
@@ -374,7 +374,7 @@ void Settings::CategoryPage::newCategory()
                                                    DB::Category::TreeView,
                                                    64,
                                                    m_categoriesListWidget);
-    emit currentCategoryNameChanged(QString(), checkedCategory);
+    emit currentCategoryNameChanged();
     m_currentCategory->setLabel(checkedCategory);
     m_categoriesListWidget->blockSignals(false);
 

@@ -60,7 +60,7 @@ public:
     void processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem);
 
 public slots:
-    void categoryRenamed(const QString& oldName, const QString& newName);
+    void categoryRenamed();
     void slotPageChange();
     void discardChanges();
 

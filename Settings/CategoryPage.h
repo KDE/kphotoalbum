@@ -70,7 +70,7 @@ public:
     void resetInterface();
 
 signals:
-    void currentCategoryNameChanged(const QString& oldName, const QString& newName);
+    void currentCategoryNameChanged();
 
 protected slots:
     void resetCategoryLabel();

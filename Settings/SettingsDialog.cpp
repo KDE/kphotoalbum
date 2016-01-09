@@ -156,6 +156,7 @@ void Settings::SettingsDialog::show()
     m_categoryPage->enableDisable( false );
 
     m_birthdayPage->reload();
+    m_categoryPage->resetCategoryNamesChanged();
 
     KDialog::show();
 }

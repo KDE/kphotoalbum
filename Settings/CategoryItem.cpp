@@ -148,18 +148,6 @@ void Settings::CategoryItem::setViewType(DB::Category::ViewType type)
 
 void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
 {
-    if (KMessageBox::warningContinueCancel(
-        ::MainWindow::Window::theMainWindow(),
-        i18n("<p>Due to a shortcoming in KPhotoAlbum, you need to save your database after "
-             "renaming categories; otherwise all the filenames of the category thumbnails will be "
-             "wrong, and thus lost.</p>"
-             "<p>So either press Cancel now (and it will not be renamed), or press Continue, and "
-             "as your next step save the database.</p>")
-        ) == KMessageBox::Cancel) {
-
-        return;
-    }
-
     QDir dir(QString::fromLatin1("%1/CategoryImages").arg(
             Settings::SettingsData::instance()->imageDirectory()));
 

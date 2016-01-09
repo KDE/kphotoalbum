@@ -175,7 +175,6 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     connect(m_saveDbNowButton, SIGNAL(clicked()), this, SLOT(saveDbNow()));
     dbNotSavedLayout->addWidget(m_saveDbNowButton);
 
-
     resetInterface();
 
     // Untagged images
@@ -186,6 +185,8 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = false;
+
+    m_categoryNamesChanged = false;
 }
 
 void Settings::CategoryPage::resetInterface()
@@ -312,6 +313,8 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     m_untaggedBox->categoryRenamed(m_categoryNameBeforeEdit, newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
+
+    m_categoryNamesChanged = true;
 }
 
 void Settings::CategoryPage::resetCategory(QListWidgetItem* item)
@@ -448,6 +451,8 @@ void Settings::CategoryPage::enableDisable(bool b)
     m_preferredViewLabel->setEnabled(b);
     m_preferredView->setEnabled(b);
 
+    m_categoriesListWidget->blockSignals(true);
+
     if (MainWindow::Window::theMainWindow()->dbIsDirty()) {
         m_dbNotSavedLabel->show();
         m_saveDbNowButton->show();
@@ -455,14 +460,20 @@ void Settings::CategoryPage::enableDisable(bool b)
 
         for (int i = 0; i < m_categoriesListWidget->count(); i++) {
             QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
-            // Why does this crash?!
-            //currentItem->setFlags(currentItem->flags());
+            currentItem->setFlags(currentItem->flags() & ~Qt::ItemIsEditable);
         }
     } else {
         m_dbNotSavedLabel->hide();
         m_saveDbNowButton->hide();
         m_renameItem->setEnabled(b);
+
+        for (int i = 0; i < m_categoriesListWidget->count(); i++) {
+            QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
+            currentItem->setFlags(currentItem->flags() | Qt::ItemIsEditable);
+        }
     }
+
+    m_categoriesListWidget->blockSignals(false);
 }
 
 void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap)
@@ -499,6 +510,13 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
 
     DB::ImageDB::instance()->memberMap() = *memberMap;
     m_untaggedBox->saveSettings(opt);
+
+    if (m_categoryNamesChanged) {
+        // Probably, one or more category names have been edited. Save the database so that
+        // all thumbnails are referenced with the correct name.
+        MainWindow::Window::theMainWindow()->slotSave();
+        m_categoryNamesChanged = false;
+    }
 }
 
 void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
@@ -566,6 +584,11 @@ void Settings::CategoryPage::saveDbNow()
     MainWindow::Window::theMainWindow()->slotSave();
     resetInterface();
     enableDisable(false);
+}
+
+void Settings::CategoryPage::resetCategoryNamesChanged()
+{
+    m_categoryNamesChanged = false;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

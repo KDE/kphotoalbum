@@ -68,6 +68,7 @@ public:
     void saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap);
     void loadSettings(Settings::SettingsData* opt);
     void resetInterface();
+    void resetCategoryNamesChanged();
 
 signals:
     void currentCategoryNameChanged();
@@ -121,10 +122,13 @@ private: // Variables
 
 private: // Functions
     void resetCategory(QListWidgetItem* item);
+
+private: // Variables
+    bool m_categoryNamesChanged;
 };
 
 }
 
-#endif /* CATEGORYPAGE_H */
+#endif // CATEGORYPAGE_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

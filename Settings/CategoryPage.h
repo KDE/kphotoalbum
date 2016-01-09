@@ -91,6 +91,7 @@ private slots:
 #ifdef HAVE_KFACE
     void renameRecognitionCategory(QString oldName, QString newName);
 #endif
+    void saveDbNow();
 
 private: // Variables
     QListWidget* m_categoriesListWidget;
@@ -115,6 +116,8 @@ private: // Variables
     FaceManagement::Recognizer* m_recognizer;
     QList<CategoryItem*> m_unMarkedAsPositionable;
 #endif
+    QLabel* m_dbNotSavedLabel;
+    QPushButton* m_saveDbNowButton;
 
 private: // Functions
     void resetCategory(QListWidgetItem* item);

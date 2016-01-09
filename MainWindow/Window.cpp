@@ -1923,5 +1923,10 @@ void MainWindow::Window::slotImageRotated(const DB::FileName& fileName)
     ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
 }
 
+bool MainWindow::Window::dbIsDirty() const
+{
+    return m_statusBar->mp_dirtyIndicator->isSaveDirty();
+}
+
 #include "Window.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -38,6 +38,7 @@
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
+#include "MainWindow/Window.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "UntaggedGroupBox.h"
 #include "SettingsDialog.h"
@@ -46,6 +47,9 @@
 Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
+
+    // The category settings
+
     QHBoxLayout* categoryLayout = new QHBoxLayout;
     mainLayout->addLayout(categoryLayout);
 
@@ -157,6 +161,20 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     connect(m_preferredView, SIGNAL(activated(int)), this, SLOT(preferredViewChanged(int)));
 
     rightSideLayout->addStretch();
+
+    // Info about the database not being saved
+
+    QHBoxLayout* dbNotSavedLayout = new QHBoxLayout;
+    mainLayout->addLayout(dbNotSavedLayout);
+
+    m_dbNotSavedLabel = new QLabel(i18n("The database has unsaved changes. As long as those are "
+                                        "not saved, the names of categories can't be changed."));
+    dbNotSavedLayout->addWidget(m_dbNotSavedLabel);
+
+    m_saveDbNowButton = new QPushButton(i18n("Save the DB now"));
+    connect(m_saveDbNowButton, SIGNAL(clicked()), this, SLOT(saveDbNow()));
+    dbNotSavedLayout->addWidget(m_saveDbNowButton);
+
 
     resetInterface();
 
@@ -421,7 +439,6 @@ void Settings::CategoryPage::renameCurrentCategory()
 void Settings::CategoryPage::enableDisable(bool b)
 {
     m_delItem->setEnabled(b);
-    m_renameItem->setEnabled(b);
     m_positionableLabel->setEnabled(b);
     m_positionable->setEnabled(b);
     m_icon->setEnabled(b);
@@ -430,6 +447,22 @@ void Settings::CategoryPage::enableDisable(bool b)
     m_thumbnailSizeInCategory->setEnabled(b);
     m_preferredViewLabel->setEnabled(b);
     m_preferredView->setEnabled(b);
+
+    if (MainWindow::Window::theMainWindow()->dbIsDirty()) {
+        m_dbNotSavedLabel->show();
+        m_saveDbNowButton->show();
+        m_renameItem->setEnabled(false);
+
+        for (int i = 0; i < m_categoriesListWidget->count(); i++) {
+            QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
+            // Why does this crash?!
+            //currentItem->setFlags(currentItem->flags());
+        }
+    } else {
+        m_dbNotSavedLabel->hide();
+        m_saveDbNowButton->hide();
+        m_renameItem->setEnabled(b);
+    }
 }
 
 void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap)
@@ -526,6 +559,13 @@ void Settings::CategoryPage::listWidgetEditEnd(QWidget*, QAbstractItemDelegate::
 void Settings::CategoryPage::resetCategoryLabel()
 {
     m_categoryLabel->setText(i18n("<i>choose a category to edit it</i>"));
+}
+
+void Settings::CategoryPage::saveDbNow()
+{
+    MainWindow::Window::theMainWindow()->slotSave();
+    resetInterface();
+    enableDisable(false);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

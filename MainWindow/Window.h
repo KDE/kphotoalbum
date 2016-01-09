@@ -75,12 +75,14 @@ public:
     QString currentBrowseCategory() const;
     void setStackHead( const DB::FileName& image );
     void setHistogramVisibilty( bool visible ) const;
+    bool dbIsDirty() const;
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void slotImageRotated(const DB::FileName& fileName);
+    void slotSave();
 
 protected slots:
     void showThumbNails();
@@ -91,7 +93,6 @@ protected slots:
     void slotCreateImageStack();
     void slotUnStackImages();
     void slotSetStackHead();
-    void slotSave();
     void slotCopySelectedURLs();
     void slotPasteInformation();
     void slotDeleteSelected();

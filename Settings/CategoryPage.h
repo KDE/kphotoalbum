@@ -38,6 +38,7 @@ class QComboBox;
 class QSpinBox;
 class QCheckBox;
 class QPushButton;
+class QGroupBox;
 
 // KDE classes
 class KIconButton;
@@ -94,6 +95,9 @@ private slots:
 #endif
     void saveDbNow();
 
+private: // Functions
+    void resetCategory(QListWidgetItem* item);
+
 private: // Variables
     QListWidget* m_categoriesListWidget;
     QLabel* m_categoryLabel;
@@ -119,11 +123,6 @@ private: // Variables
 #endif
     QLabel* m_dbNotSavedLabel;
     QPushButton* m_saveDbNowButton;
-
-private: // Functions
-    void resetCategory(QListWidgetItem* item);
-
-private: // Variables
     bool m_categoryNamesChanged;
 };
 

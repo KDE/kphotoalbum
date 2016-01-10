@@ -27,6 +27,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QDebug>
+#include <QGroupBox>
 
 // KDE includes
 #include <KMessageBox>
@@ -50,8 +51,10 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     // The category settings
 
-    QHBoxLayout* categoryLayout = new QHBoxLayout;
-    mainLayout->addLayout(categoryLayout);
+    QGroupBox* categoryGroupBox = new QGroupBox;
+    mainLayout->addWidget(categoryGroupBox);
+    categoryGroupBox->setTitle(i18n("Category Settings"));
+    QHBoxLayout* categoryLayout = new QHBoxLayout(categoryGroupBox);
 
     // Category list
 

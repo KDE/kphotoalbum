@@ -170,8 +170,10 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     QHBoxLayout* dbNotSavedLayout = new QHBoxLayout;
     mainLayout->addLayout(dbNotSavedLayout);
 
-    m_dbNotSavedLabel = new QLabel(i18n("The database has unsaved changes. As long as those are "
-                                        "not saved, the names of categories can't be changed."));
+    m_dbNotSavedLabel = new QLabel( i18n("<font color='red'>"
+                                         "The database has unsaved changes. As long as those are "
+                                         "not saved, the names of categories can't be changed."
+                                         "</font>"));
     dbNotSavedLayout->addWidget(m_dbNotSavedLabel);
 
     m_saveDbNowButton = new QPushButton(i18n("Save the DB now"));

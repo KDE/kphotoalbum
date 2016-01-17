@@ -1,4 +1,18 @@
-* Bugfix: Various fixes of compilation failures on different distributions/gcc versions.
+* Bugfix: Various fixes of compilation failures on different distributions/gcc versions, as well as
+  various fixes of crashes caused by regressions.
+
+* Enhancement/UI: The category settings dialog doesn't tell the user anymore that he must save the
+  database now after renaming categories. Instead, the saving is done automatically now, and
+  category name changes can only be done on a "clean" (saved) database, so that no unwanted changes
+  will be auto-saved.
+
+* Enhancement: Better performance for single- and dual-core processors when creating thumbnails.
+
+* Enhancement: Various enhancements for tne RAW support.
+
+* Change: The "standard categories" are not translated anymore, due to a lot of problems with this
+  approach. Each category's name is now stored as-is in the database. The "Tokens" category's name
+  and icon can also be changed now.
 
 * Bugfix (#348096): Fix crash when accessing an image via KIPI plugins which has been deleted from
   the disc, but not yet from the collection.

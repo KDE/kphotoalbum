@@ -97,7 +97,7 @@ KPhotoAlbum
 | (version=4,compressed=1)
 |
 +-Categories
-| +-Category (name,icon,show,viewtype,thumbnailsize)
+| +-Category (name,icon,show,viewtype,thumbnailsize,positionable)
 |   +-value (value, id)
 |
 +-images
@@ -121,7 +121,7 @@ KPhotoAlbum
 | (version=4,compressed=0)
 |
 +-Categories
-| +-Category (name,icon,show,viewtype,thumbnailsize)
+| +-Category (name,icon,show,viewtype,thumbnailsize,positionable)
 |   +-value (value, id)
 |
 +-images
@@ -154,7 +154,7 @@ KPhotoAlbum
 | (version=5,compressed=1)
 |
 +-Categories
-| +-Category (name,icon,show,viewtype,thumbnailsize)
+| +-Category (name,icon,show,viewtype,thumbnailsize,positionable)
 |   +-value
 |     (value, id)
 |     (birthDate) [optional]
@@ -180,7 +180,7 @@ KPhotoAlbum
 | (version=5,compressed=0)
 |
 +-Categories
-| +-Category (name,icon,show,viewtype,thumbnailsize)
+| +-Category (name,icon,show,viewtype,thumbnailsize,positionable)
 |   +-value
 |     (value, id)
 |     (birthDate) [optional]
@@ -229,7 +229,7 @@ KPhotoAlbum
 |
 +-Categories
 | +-Category
-|   (name, icon, show, viewtype, thumbnailsize)
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
 |   (meta) [optional]
 |   +-value
 |     (value, id)
@@ -257,7 +257,7 @@ KPhotoAlbum
 |
 +-Categories
 | +-Category
-|   (name, icon, show, viewtype, thumbnailsize)
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
 |   (meta) [optional]
 |   +-value
 |     (value, id)
@@ -308,8 +308,10 @@ name anymore.
        + ```viewtype```
          Appearance of list views in the browser.
          ```TreeView=0, ThumbedTreeView=1, IconView=2, ThumbedIconView=3```
+       + ```positionable```
+         ```0|1``` - indicates whether this category can contain areas (positionned tags) or not.
        + ```meta```
-         Meta information holds unique id for special categories (so that they can be tracked when they are renamed for localization).
+         Meta information that holds an unique id for special categories (so that they can be tracked when they are renamed for localization).
        + value
           * ```id```
             Numerical tag id, unique within each Category.

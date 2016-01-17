@@ -1533,7 +1533,7 @@ void MainWindow::Window::plug()
                 batchActions.append( *it );
 
             else {
-                kDebug() << "Unknow category\n";
+                kDebug() << "Unknown category\n";
             }
         }
         KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("Shortcuts") );

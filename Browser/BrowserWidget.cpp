@@ -60,6 +60,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     m_filterProxy->setFilterKeyColumn(0);
     m_filterProxy->setFilterCaseSensitivity( Qt::CaseInsensitive );
     m_filterProxy->setSortRole( ValueRole );
+    m_filterProxy->setSortCaseSensitivity( Qt::CaseInsensitive );
 
     addAction( new OverviewPage( Breadcrumb::home(), DB::ImageSearchInfo(), this ) );
     QTimer::singleShot( 0, this, SLOT(emitSignals()) );

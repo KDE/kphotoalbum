@@ -51,13 +51,19 @@ public:
      * @param the index of the parameter (will be auto-incremented).
      * @param data
      */
-    virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const = 0;
+    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const;
+    /**
+     * @brief exifAsValue interprets the ExifData value and creates a QVariant suitable for QSqlQuery::bindValue.
+     * @param data
+     * @return The converted value, or an empty QVariant if the necessary data is not available.
+     */
+    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const = 0;
     /**
      * @brief bindValues bind a QSql::Out value to the query.
      *
      * @param query the query that the value is bound to.
      */
-    virtual void bindValues( QSqlQuery* query, int& counter) = 0;
+    void bindValues( QSqlQuery* query, int& counter);
     /**
      * @brief value the bound value of the query bound with bindValues(QSqlQuery*)
      * @return The bound value, or an empty QVariant if no bindValues was never called.
@@ -77,8 +83,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
-    virtual void bindValues( QSqlQuery* query, int& counter) override;
+    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -91,8 +96,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
-    virtual void bindValues( QSqlQuery* query, int& counter) override;
+    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -114,8 +118,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
-    virtual void bindValues( QSqlQuery* query, int& counter) override;
+    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -134,8 +137,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const override;
-    virtual void bindValues( QSqlQuery* query, int& counter) override;
+    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;

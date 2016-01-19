@@ -122,7 +122,9 @@ QDataStream& operator<<(QDataStream& stream, const Category& category)
 
 QDataStream& operator>>(QDataStream& stream, Category& category)
 {
-    stream >> category.name >> category.enabled >> (int&) category.viewType;
+    int tmp;
+    stream >> category.name >> category.enabled >> tmp;
+    category.viewType = static_cast<RemoteControl::CategoryViewType>(tmp);
     category.icon.load(stream.device(), "JPEG");
     return stream;
 }

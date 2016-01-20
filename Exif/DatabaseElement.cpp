@@ -34,27 +34,12 @@ static QString replaceDotWithUnderscore( const char* cstr )
 }
 
 Exif::DatabaseElement::DatabaseElement()
-    : m_value()
 {
 }
 
 void Exif::DatabaseElement::bindValues(QSqlQuery *query, int &counter, Exiv2::ExifData &data) const
 {
     query->bindValue( counter++, this->exifAsValue(data));
-}
-
-void Exif::DatabaseElement::bindValues(QSqlQuery *query, int &counter)
-{
-    query->bindValue( counter++, 0, QSql::Out );
-}
-
-QVariant Exif::DatabaseElement::value() const
-{
-    return m_value;
-}
-void Exif::DatabaseElement::setValue( QVariant val )
-{
-    m_value = val;
 }
 
 Exif::StringExifElement::StringExifElement( const char* tag )

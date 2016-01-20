@@ -58,22 +58,8 @@ public:
      * @return The converted value, or an empty QVariant if the necessary data is not available.
      */
     virtual QVariant exifAsValue( Exiv2::ExifData& data ) const = 0;
-    /**
-     * @brief bindValues bind a QSql::Out value to the query.
-     *
-     * @param query the query that the value is bound to.
-     */
-    void bindValues( QSqlQuery* query, int& counter);
-    /**
-     * @brief value the bound value of the query bound with bindValues(QSqlQuery*)
-     * @return The bound value, or an empty QVariant if no bindValues was never called.
-     */
-    QVariant value() const;
-    void setValue( QVariant val );
 protected:
     DatabaseElement();
-private:
-    QVariant m_value;
 };
 
 class StringExifElement :public DatabaseElement

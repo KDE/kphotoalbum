@@ -250,7 +250,7 @@ void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data 
     int i = 1;
     for( const DatabaseElement *e : elms )
     {
-        e->bindValues( &query, i, data );
+        query.bindValue( i++, e->valueFromExif(data));
     }
 
     if ( !query.exec() )

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DatabaseElement.h"
-#include <qsqlquery.h>
 #include <exiv2/exif.hpp>
 #include <QVariant>
 #include <QDebug>
@@ -35,11 +34,6 @@ static QString replaceDotWithUnderscore( const char* cstr )
 
 Exif::DatabaseElement::DatabaseElement()
 {
-}
-
-void Exif::DatabaseElement::bindValues(QSqlQuery *query, int &counter, Exiv2::ExifData &data) const
-{
-    query->bindValue( counter++, this->exifAsValue(data));
 }
 
 Exif::StringExifElement::StringExifElement( const char* tag )
@@ -64,7 +58,7 @@ QString Exif::StringExifElement::queryString() const
 }
 
 
-QVariant Exif::StringExifElement::exifAsValue(Exiv2::ExifData &data) const
+QVariant Exif::StringExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
     return QVariant{ QLatin1String(data[m_tag].toString().c_str() ) };
 }
@@ -92,7 +86,7 @@ QString Exif::IntExifElement::queryString() const
 }
 
 
-QVariant Exif::IntExifElement::exifAsValue(Exiv2::ExifData &data) const
+QVariant Exif::IntExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
     if (data[m_tag].count() > 0)
         return QVariant{ (int) data[m_tag].toLong() };
@@ -122,7 +116,7 @@ QString Exif::RationalExifElement::queryString() const
 }
 
 
-QVariant Exif::RationalExifElement::exifAsValue(Exiv2::ExifData &data) const
+QVariant Exif::RationalExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
     double value;
     Exiv2::Exifdatum &tagDatum = data[m_tag];
@@ -183,7 +177,7 @@ QString Exif::LensExifElement::queryString() const
 }
 
 
-QVariant Exif::LensExifElement::exifAsValue(Exiv2::ExifData &data) const
+QVariant Exif::LensExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
     QString value;
     bool canonHack = false;

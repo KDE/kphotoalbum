@@ -24,7 +24,6 @@ namespace Exiv2
 {
     class ExifData;
 }
-class QSqlQuery;
 
 namespace Exif {
 
@@ -46,18 +45,11 @@ public:
      */
     virtual QString queryString() const = 0;
     /**
-     * @brief bindValues bind the ExifData value to the query.
-     * @param query the query that the value is bound to.
-     * @param the index of the parameter (will be auto-incremented).
-     * @param data
-     */
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data ) const;
-    /**
      * @brief exifAsValue interprets the ExifData value and creates a QVariant suitable for QSqlQuery::bindValue.
      * @param data
      * @return The converted value, or an empty QVariant if the necessary data is not available.
      */
-    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const = 0;
+    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const = 0;
 protected:
     DatabaseElement();
 };
@@ -69,7 +61,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
+    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -82,7 +74,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
+    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -104,7 +96,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
+    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -123,7 +115,7 @@ public:
     virtual QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant exifAsValue( Exiv2::ExifData& data ) const override;
+    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;

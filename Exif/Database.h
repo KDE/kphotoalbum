@@ -76,6 +76,12 @@ public:
      * @return 0 <= DBFileVersionGuaranteed() <= DBFileVersion()
      */
     int DBFileVersionGuaranteed() const;
+    /**
+     * @brief add a file and its exif data to the database.
+     * If the file already exists in the database, the new data replaces the existing data.
+     * @param fileName the file
+     * @return
+     */
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
     DB::FileNameSet filesMatchingQuery( const QString& query ) const;

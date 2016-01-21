@@ -246,7 +246,7 @@ bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
         {
             formalList.append( e->queryString() );
         }
-        _queryString = QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
+        _queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
     }
 
     QSqlQuery query( _queryString, m_db );

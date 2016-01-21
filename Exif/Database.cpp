@@ -235,20 +235,25 @@ void Exif::Database::remove( const DB::FileName& fileName )
 
 void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data )
 {
+    static QString _queryString;
     if ( !isUsable() )
         return;
 
-    QStringList formalList;
-    Database::ElementList elms = elements();
-    for( const DatabaseElement *e : elms )
+    if (_queryString.isEmpty())
     {
-        formalList.append( e->queryString() );
+        QStringList formalList;
+        Database::ElementList elms = elements();
+        for( const DatabaseElement *e : elms )
+        {
+            formalList.append( e->queryString() );
+        }
+        _queryString = QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
     }
 
-    QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), m_db );
+    QSqlQuery query( _queryString, m_db );
     query.bindValue(  0, filename.absolute() );
     int i = 1;
-    for( const DatabaseElement *e : elms )
+    for( const DatabaseElement *e : elements() )
     {
         query.bindValue( i++, e->valueFromExif(data));
     }

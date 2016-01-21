@@ -91,7 +91,7 @@ protected:
     void updateDatabase();
     void createMetadataTable(DBSchemaChangeType change);
     static QString connectionName();
-    void insert( const DB::FileName& filename, Exiv2::ExifData );
+    bool insert( const DB::FileName& filename, Exiv2::ExifData );
 
 private:
     bool m_isOpen;

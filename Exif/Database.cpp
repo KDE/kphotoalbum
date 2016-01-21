@@ -212,8 +212,7 @@ bool Exif::Database::add( const DB::FileName& fileName )
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
-        insert( fileName, exifData );
-        return true;
+        return insert( fileName, exifData );
     }
     catch (...)
     {
@@ -233,11 +232,11 @@ void Exif::Database::remove( const DB::FileName& fileName )
         showError( query );
 }
 
-void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data )
+bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
 {
     static QString _queryString;
     if ( !isUsable() )
-        return;
+        return false;
 
     if (_queryString.isEmpty())
     {
@@ -259,7 +258,12 @@ void Exif::Database::insert( const DB::FileName& filename, Exiv2::ExifData data 
     }
 
     if ( !query.exec() )
+    {
         showError( query );
+        return false;
+    } else {
+        return true;
+    }
 
 }
 

@@ -444,12 +444,11 @@ void Exif::Database::recreate()
     // using a transaction here removes a *huge* overhead on the insert statements
     m_db.transaction();
     int i = 0;
-    bool success = true;
     for (const DB::FileName& fileName : allImages) {
         const DB::ImageInfoPtr info = fileName.info();
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {
-            success &= add(fileName);
+            add(fileName);
         }
         if ( i % 10 )
             qApp->processEvents();

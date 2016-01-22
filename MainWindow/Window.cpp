@@ -130,8 +130,8 @@ MainWindow::Window* MainWindow::Window::s_instance = nullptr;
 
 MainWindow::Window::Window( QWidget* parent )
     :KXmlGuiWindow( parent ),
-    m_annotationDialog(nullptr),
-     m_deleteDialog( nullptr ), m_htmlDialog(nullptr), m_tokenEditor( nullptr )
+      m_annotationDialog(nullptr),
+      m_deleteDialog( nullptr ), m_htmlDialog(nullptr), m_tokenEditor( nullptr )
 {
     checkIfMplayerIsInstalled();
 
@@ -306,7 +306,7 @@ bool MainWindow::Window::slotExit()
         }
     }
 
- doQuit:
+doQuit:
     qApp->quit();
     return true;
 }
@@ -333,14 +333,14 @@ void MainWindow::Window::slotCreateImageStack()
     bool ok = DB::ImageDB::instance()->stack( list );
     if ( !ok ) {
         if ( KMessageBox::questionYesNo( this,
-                    i18n("Some of the selected images already belong to a stack. "
-                        "Do you want to remove them from their stacks and create a "
-                        "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
+                                         i18n("Some of the selected images already belong to a stack. "
+                                              "Do you want to remove them from their stacks and create a "
+                                              "completely new one?"), i18n("Stacking Error")) == KMessageBox::Yes ) {
             DB::ImageDB::instance()->unstack(list);
             if ( ! DB::ImageDB::instance()->stack(list)) {
                 KMessageBox::sorry( this,
-                        i18n("Unknown error, stack creation failed."),
-                        i18n("Stacking Error"));
+                                    i18n("Unknown error, stack creation failed."),
+                                    i18n("Stacking Error"));
                 return;
             }
         } else {
@@ -512,7 +512,7 @@ void MainWindow::Window::slotPasteInformation()
 
     const QString urlHead = QLatin1String("file://");
     if (string.startsWith(urlHead)) {
-      string = string.right(string.size()-urlHead.size());
+        string = string.right(string.size()-urlHead.size());
     }
 
     const DB::FileName fileName = DB::FileName::fromAbsolutePath(string);
@@ -543,7 +543,7 @@ void MainWindow::Window::slotReReadExifInfo()
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
     if ( dialog->exec( files ) == QDialog::Accepted )
-            DirtyIndicator::markDirty();
+        DirtyIndicator::markDirty();
 #endif
 }
 
@@ -655,7 +655,7 @@ void MainWindow::Window::slotSortAllByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn(DB::ImageDB::instance()->images());
     if ( m_thumbnailView->gui() == m_stack->currentWidget() )
-	showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
+        showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext()));
     DirtyIndicator::markDirty();
 }
 
@@ -690,7 +690,7 @@ void MainWindow::Window::slotLimitToSelected()
 
 void MainWindow::Window::setupMenuBar()
 {
-// File menu
+    // File menu
     KStandardAction::save( this, SLOT(slotSave()), actionCollection() );
     KStandardAction::quit( this, SLOT(slotExit()), actionCollection() );
     m_generateHtml = actionCollection()->addAction( QString::fromLatin1("exportHTML") );
@@ -1029,7 +1029,7 @@ void MainWindow::Window::runDemo()
 
 bool MainWindow::Window::load()
 {
-// Let first try to find a config file.
+    // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile;
 
@@ -1083,7 +1083,7 @@ bool MainWindow::Window::load()
         fi.setFile( QString::fromLatin1( "%1/index.xml" ).arg( fi.dir().absolutePath() ) );
         if ( !fi.exists() ) {
             int answer = KMessageBox::questionYesNo(this,i18n("<p>Given index file does not exist, do you want to create following?"
-            "<br />%1/index.xml</p>", fi.absolutePath() ) );
+                                                              "<br />%1/index.xml</p>", fi.absolutePath() ) );
             if (answer != KMessageBox::Yes)
                 return false;
         }
@@ -1094,7 +1094,7 @@ bool MainWindow::Window::load()
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
          && ! (Settings::SettingsData::instance()->untaggedCategory().isEmpty()
-             && Settings::SettingsData::instance()->untaggedTag().isEmpty() )
+               && Settings::SettingsData::instance()->untaggedTag().isEmpty() )
          && ! Utilities::runningDemo() )
     {
         KMessageBox::error( this, i18n(
@@ -1404,7 +1404,7 @@ void MainWindow::Window::slotConfigureToolbars()
 {
     QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
     connect(dlg, SIGNAL(newToolbarConfig()),
-                  SLOT(slotNewToolbarConfig()));
+            SLOT(slotNewToolbarConfig()));
     dlg->exec();
     delete dlg;
 }
@@ -1465,7 +1465,7 @@ void MainWindow::Window::loadPlugins()
 
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" )
-        << QString::fromLatin1( "HelloWorld" );
+            << QString::fromLatin1( "HelloWorld" );
 
 #if KIPI_VERSION >= 0x020000
     m_pluginLoader = new KIPI::PluginLoader();
@@ -1624,7 +1624,7 @@ void MainWindow::Window::slotRemoveTokens()
 void MainWindow::Window::slotShowListOfFiles()
 {
     QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here.") )
-                       .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
+            .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;
 
@@ -1676,7 +1676,7 @@ void MainWindow::Window::slotJumpToContext()
     const DB::FileName fileName =m_thumbnailView->currentItem();
     if ( !fileName.isNull() ) {
         m_browser->addImageView(fileName);
-   }
+    }
 }
 
 void MainWindow::Window::setDateRange( const DB::ImageDate& range )
@@ -1737,7 +1737,7 @@ void MainWindow::Window::slotBuildThumbnailsIfWanted()
 {
     ImageManager::ThumbnailCache::instance()->flush();
     if ( ! Settings::SettingsData::instance()->incrementalThumbnails())
-         ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartDelayed );
+        ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartDelayed );
 }
 
 void MainWindow::Window::slotOrderIncr()
@@ -1775,15 +1775,15 @@ void MainWindow::Window::slotMarkUntagged()
         // Browser::OverviewPage::activateUntaggedImagesAction(),
         // so if it is changed, be sure to also change it there!
         KMessageBox::information(this,
-            i18n("<p>You have not yet configured which tag to use for indicating untagged images."
-                 "</p>"
-                 "<p>Please follow these steps to do so:"
-                 "<ul><li>In the menu bar choose <b>Settings</b></li>"
-                 "<li>From there choose <b>Configure KPhotoAlbum</b></li>"
-                 "<li>Now choose the <b>Categories</b> icon</li>"
-                 "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
-            i18n("Feature has not been configured")
-        );
+                                 i18n("<p>You have not yet configured which tag to use for indicating untagged images."
+                                      "</p>"
+                                      "<p>Please follow these steps to do so:"
+                                      "<ul><li>In the menu bar choose <b>Settings</b></li>"
+                                      "<li>From there choose <b>Configure KPhotoAlbum</b></li>"
+                                      "<li>Now choose the <b>Categories</b> icon</li>"
+                                      "<li>Now configure section <b>Untagged Images</b></li></ul></p>"),
+                                 i18n("Feature has not been configured")
+                                 );
     }
 }
 
@@ -1820,8 +1820,8 @@ void MainWindow::Window::mergeDuplicates()
 void MainWindow::Window::slotThumbnailSizeChanged()
 {
     QString thumbnailSizeMsg = i18nc( "@info:status",
-				      //xgettext:no-c-format
-				      "Thumbnail width: %1px (storage size: %2px)");
+                                      //xgettext:no-c-format
+                                      "Thumbnail width: %1px (storage size: %2px)");
     m_statusBar->showMessage( thumbnailSizeMsg.arg( Settings::SettingsData::instance()->actualThumbnailSize())
                               .arg(Settings::SettingsData::instance()->thumbnailSize()), 4000);
 }
@@ -1844,15 +1844,15 @@ void MainWindow::Window::executeStartupActions()
 {
     new ImageManager::ThumbnailBuilder( m_statusBar, this );
     if ( ! Settings::SettingsData::instance()->incrementalThumbnails())
-         ImageManager::ThumbnailBuilder::instance()->buildMissing();
+        ImageManager::ThumbnailBuilder::instance()->buildMissing();
     connect( Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(slotBuildThumbnailsIfWanted()) );
 
     if ( ! FeatureDialog::mplayerBinary().isNull() ) {
         BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::SearchForVideosWithoutLengthInfo );
+                    new BackgroundJobs::SearchForVideosWithoutLengthInfo );
 
         BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
+                    new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
     }
 }
 
@@ -1860,19 +1860,19 @@ void MainWindow::Window::checkIfMplayerIsInstalled()
 {
     if ( FeatureDialog::mplayerBinary().isNull() ) {
         KMessageBox::information( this,
-                i18n("<p>Unable to find MPlayer on the system.</p>"
-                     "<p>Without MPlayer, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
-                     "Please install the MPlayer2 package</p>"),
-                i18n("Video thumbnails are not available"), QString::fromLatin1("mplayerNotInstalled"));
+                                  i18n("<p>Unable to find MPlayer on the system.</p>"
+                                       "<p>Without MPlayer, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
+                                       "Please install the MPlayer2 package</p>"),
+                                  i18n("Video thumbnails are not available"), QString::fromLatin1("mplayerNotInstalled"));
     } else {
         KMessageBox::enableMessage( QString::fromLatin1("mplayerNotInstalled") );
 
         if ( !FeatureDialog::isMplayer2() ) {
             KMessageBox::information( this,
-                    i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
-                        "MPlayer2 is on most systems a separate package, please install that if at all possible, "
-                        "as that version has much better support for extracting thumbnails from videos.</p>"),
-                    i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
+                                      i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
+                                           "MPlayer2 is on most systems a separate package, please install that if at all possible, "
+                                           "as that version has much better support for extracting thumbnails from videos.</p>"),
+                                      i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
         } else
             KMessageBox::enableMessage( QString::fromLatin1("mplayerVersionTooOld") );
     }

@@ -160,6 +160,8 @@ void NewImageFinder::loadExtraFiles()
             m_pendingLoad.clear();
             return;
         }
+        // (*it).first: DB::FileName
+        // (*it).second: DB::MediaType
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
         if ( info ) {
             markUnTagged(info);

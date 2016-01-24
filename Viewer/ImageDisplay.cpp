@@ -567,7 +567,9 @@ void Viewer::ImageDisplay::setImageList( const DB::FileNameList& list )
 
 void Viewer::ImageDisplay::updatePreload()
 {
-    const int cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
+    // cacheSize: number of images at current window dimensions (at 4 byte per pixel)
+    const int cacheSize = (int)
+            ((long long) ( Settings::SettingsData::instance()->viewerCacheSize() * 1024LL * 1024LL ) / (width()*height()*4));
     bool cacheFull = (m_cache.count() > cacheSize);
 
     int incr = ( m_forward ? 1 : -1 );

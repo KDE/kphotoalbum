@@ -300,8 +300,8 @@ void SettingsData::setActualThumbnailSize( int value )
 //// Viewer ////
 ////////////////
 
-property_ref ( viewerSize               , setViewerSize               , QSize           , Viewer, QSize(800,600) )
-property_ref ( slideShowSize            , setSlideShowSize            , QSize           , Viewer, QSize(800,600) )
+property_ref ( viewerSize               , setViewerSize               , QSize           , Viewer, QSize(1024,768) )
+property_ref ( slideShowSize            , setSlideShowSize            , QSize           , Viewer, QSize(1024,768) )
 property_copy( launchViewerFullScreen   , setLaunchViewerFullScreen   , bool            , Viewer, false          )
 property_copy( launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool            , Viewer, false          )
 property_copy( showInfoBox              , setShowInfoBox              , bool            , Viewer, true           )
@@ -314,7 +314,7 @@ property_copy( showTime                 , setShowTime                 , bool    
 property_copy( showFilename             , setShowFilename             , bool            , Viewer, false          )
 property_copy( showEXIF                 , setShowEXIF                 , bool            , Viewer, true           )
 property_copy( slideShowInterval        , setSlideShowInterval        , int             , Viewer, 5              )
-property_copy( viewerCacheSize          , setViewerCacheSize          , int             , Viewer, 120            )
+property_copy( viewerCacheSize          , setViewerCacheSize          , int             , Viewer, 195            )
 property_copy( infoBoxWidth             , setInfoBoxWidth             , int             , Viewer, 400            )
 property_copy( infoBoxHeight            , setInfoBoxHeight            , int             , Viewer, 300            )
 property_enum( infoBoxPosition          , setInfoBoxPosition          , Position        , Viewer, Bottom         )

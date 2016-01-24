@@ -52,7 +52,7 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
     glay->addWidget( label, 1, 0 );
 
     m_cacheSize = new QSpinBox;
-    m_cacheSize->setRange( 0, 4096 );
+    m_cacheSize->setRange( 0, 16384 );
     m_cacheSize->setSingleStep( 10 );
     m_cacheSize->setSuffix( i18n(" Mbytes") );
     glay->addWidget( m_cacheSize, 1, 1 );

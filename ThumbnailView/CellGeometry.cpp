@@ -16,6 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CellGeometry.h"
+
+#include <KLocale>
+
 #include "ThumbnailWidget.h"
 #include "ThumbnailModel.h"
 #include "Settings/SettingsData.h"
@@ -71,7 +74,7 @@ static int noOfCategoriesForImage(const DB::FileName& image )
     QStringList grps = image.info()->availableCategories();
     for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
         QString category = *it;
-        if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
+        if ( category != i18n( "Folder" ) && category != i18n( "Media Type" ) ) {
             StringSet items = image.info()->itemsOfCategory( category );
             if (!items.empty()) {
                 catsInText++;

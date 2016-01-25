@@ -265,9 +265,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     }
 
     // We don't want to have special category names.
-    if (newCategoryName == QString::fromUtf8("Folder")
-        || newCategoryName == i18n("Folder")
-        || newCategoryName == QString::fromUtf8("Media Type")
+    if (newCategoryName == i18n("Folder")
         || newCategoryName == i18n("Media Type")) {
 
         resetCategory(item);

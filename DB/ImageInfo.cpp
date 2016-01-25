@@ -169,7 +169,7 @@ void ImageInfo::setFileName( const DB::FileName& fileName )
 
     m_imageOnDisk = Unchecked;
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
-        categoryForName(QString::fromLatin1("Folder"));
+        categoryForSpecial(DB::Category::FolderCategory);
     if (folderCategory) {
         DB::MemberMap& map = DB::ImageDB::instance()->memberMap();
         createFolderCategoryItem( folderCategory, map );

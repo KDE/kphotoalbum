@@ -47,13 +47,9 @@ QString Browser::AbstractCategoryModel::text( const QString& name ) const
         else
             return i18nc("As in no other persons, or no other locations. ", "No other" );
     }
-    else if ( name == QString::fromLatin1( "Video" ) )
-        return i18nc("Denotes the media type (video,image)","Video");
-    else if ( name == QString::fromLatin1( "Image" ) )
-        return i18nc("Denotes the media type (video,image)","Image");
 
     else {
-        if (m_category->name() == i18n("Folder")) {
+        if (m_category->type() == DB::Category::FolderCategory) {
             QRegExp rx( QString::fromLatin1( "(.*/)(.*)$") );
             QString value = name;
             value.replace( rx, QString::fromLatin1("\\2") );

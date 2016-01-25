@@ -258,9 +258,9 @@ void ImportDialog::createCategoryPages()
         QStringList categoriesForImage = info->availableCategories();
         Q_FOREACH( const QString &category, categoriesForImage ) {
             if ( !categories.contains( category ) &&
-                 category != QString::fromLatin1( "Folder" ) &&
-                 category != QString::fromLatin1( "Tokens" ) &&
-                 category != QString::fromLatin1( "Media Type" ))
+                 category != i18n( "Folder" ) &&
+                 category != i18n( "Tokens" ) &&
+                 category != i18n( "Media Type" ))
                 categories.append( category );
         }
     }

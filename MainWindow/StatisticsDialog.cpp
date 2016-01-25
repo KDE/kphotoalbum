@@ -130,9 +130,9 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if (category->name() == i18n("Media Type")
-            || category->name() == i18n("Folder")) {
-
+        if (category->type() == DB::Category::MediaTypeCategory
+                || category->type() == DB::Category::FolderCategory)
+        {
             continue;
         }
         m_category->addItem(category->name(), category->name());
@@ -195,9 +195,9 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
     int tagsTotal = 0;
     int grantTotal = 0;
     Q_FOREACH( const DB::CategoryPtr& category, categories ) {
-        if (category->name() == i18n("Media Type")
-            || category->name() == i18n("Folder")) {
-
+        if (category->type() == DB::Category::MediaTypeCategory
+                || category->type() == DB::Category::FolderCategory)
+        {
             continue;
         }
 

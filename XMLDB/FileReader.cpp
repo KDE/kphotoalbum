@@ -142,8 +142,8 @@ void XMLDB::FileReader::createSpecialCategories()
                                    DB::Category::TreeView, 32, false);
         m_db->m_categoryCollection.addCategory( mediaCat );
     }
-    mediaCat->addItem( QString::fromLatin1( "Image" ) );
-    mediaCat->addItem( QString::fromLatin1( "Video" ) );
+    mediaCat->addItem( i18n( "Image" ) );
+    mediaCat->addItem( i18n( "Video" ) );
     mediaCat->setType( DB::Category::MediaTypeCategory );
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }

@@ -219,8 +219,8 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
         DB::ImageInfoPtr info = *imageIt;
-        info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
-                               info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
+        info->addCategoryInfo( i18n( "Media Type" ),
+                               info->mediaType() == DB::Image ? i18n( "Image" ) : i18n( "Video" ) );
     }
 
     emit totalChanged( m_images.count() );
@@ -566,9 +566,9 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     static QString _options_ = QString::fromUtf8("options");
     static QString _0_ = QString::fromUtf8("0");
     static QString _minus1_ = QString::fromUtf8("-1");
-    static QString _MediaType_ = QString::fromUtf8("Media Type");
-    static QString _Image_ = QString::fromUtf8("Image");
-    static QString _Video_ = QString::fromUtf8("Video");
+    static QString _MediaType_ = i18n("Media Type");
+    static QString _Image_ = i18n("Image");
+    static QString _Video_ = i18n("Video");
 
     QString label = reader->attribute(_label_);
     QString description;

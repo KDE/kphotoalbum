@@ -134,7 +134,7 @@ void RemoteInterface::sendCategoryNames(const SearchRequest& search)
 
     CategoryListResult command;
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
-        if (category->name() == i18n("Media Type"))
+        if (category->type() == DB::Category::MediaTypeCategory)
             continue;
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
 

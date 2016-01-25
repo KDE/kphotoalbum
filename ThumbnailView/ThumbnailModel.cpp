@@ -29,6 +29,7 @@
 #include "SelectionMaintainer.h"
 #include <DB/FileName.h>
 #include <KIcon>
+#include <KLocale>
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
@@ -345,7 +346,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText( const QModelIndex& index )
         QStringList grps = fileName.info()->availableCategories();
         for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
             QString category = *it;
-            if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
+            if ( category != i18n( "Folder" ) && category != i18n( "Media Type" ) ) {
                 Utilities::StringSet items = fileName.info()->itemsOfCategory( category );
 
                 if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()

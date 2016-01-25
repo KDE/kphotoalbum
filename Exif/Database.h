@@ -84,6 +84,7 @@ public:
      */
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
+    bool readFields( const DB::FileName& fileName, ElementList &fields) const;
     DB::FileNameSet filesMatchingQuery( const QString& query ) const;
     CameraList cameras() const;
     LensList lenses() const;

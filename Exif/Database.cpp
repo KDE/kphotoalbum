@@ -341,6 +341,51 @@ QString Exif::Database::exifDBFile()
     return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
+bool Exif::Database::readFields( const DB::FileName& fileName, ElementList &fields) const
+{
+    bool foundIt = false;
+    if ( !isUsable() )
+        return foundIt;
+
+    QStringList fieldList;
+    for( const DatabaseElement *e : fields )
+    {
+        fieldList.append( e->columnName() );
+    }
+
+    QSqlQuery query( m_db );
+    // the query returns a single value, so we don't need the overhead for random access:
+    query.setForwardOnly( true );
+
+    query.prepare( QString::fromLatin1( "select %1 from exif where filename=?")
+                   .arg( fieldList.join( QString::fromLatin1(", "))) );
+    query.bindValue( 0, fileName.absolute() );
+
+    if ( !query.exec() ) {
+        showError( query );
+    } else {
+        if ( query.next() )
+        {
+            // file in exif db -> write back results
+            int i=0;
+            for( DatabaseElement *e : fields )
+            {
+                e->setValue( query.value(i++) );
+            }
+            foundIt = true;
+        } else {
+	    // no infos -> write back empty results
+            int i=0;
+	    for( DatabaseElement *e : fields )
+            {
+                e->setValue( QVariant() );
+		i++;
+            }
+	}
+    }
+    return foundIt;
+}
+
 DB::FileNameSet Exif::Database::filesMatchingQuery( const QString& queryStr ) const
 {
     if ( !isUsable() )

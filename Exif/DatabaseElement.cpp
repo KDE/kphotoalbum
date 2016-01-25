@@ -33,7 +33,17 @@ static QString replaceDotWithUnderscore( const char* cstr )
 }
 
 Exif::DatabaseElement::DatabaseElement()
+    : m_value()
 {
+}
+
+QVariant Exif::DatabaseElement::value() const
+{
+    return m_value;
+}
+void Exif::DatabaseElement::setValue( QVariant val )
+{
+    m_value = val;
 }
 
 Exif::StringExifElement::StringExifElement( const char* tag )

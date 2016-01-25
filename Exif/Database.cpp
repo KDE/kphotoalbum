@@ -343,10 +343,10 @@ QString Exif::Database::exifDBFile()
 
 bool Exif::Database::readFields( const DB::FileName& fileName, ElementList &fields) const
 {
-    bool foundIt = false;
     if ( !isUsable() )
-        return foundIt;
+        return false;
 
+    bool foundIt = false;
     QStringList fieldList;
     for( const DatabaseElement *e : fields )
     {
@@ -363,25 +363,16 @@ bool Exif::Database::readFields( const DB::FileName& fileName, ElementList &fiel
 
     if ( !query.exec() ) {
         showError( query );
-    } else {
-        if ( query.next() )
+    }
+    if ( query.next() )
+    {
+        // file in exif db -> write back results
+        int i=0;
+        for( DatabaseElement *e : fields )
         {
-            // file in exif db -> write back results
-            int i=0;
-            for( DatabaseElement *e : fields )
-            {
-                e->setValue( query.value(i++) );
-            }
-            foundIt = true;
-        } else {
-	    // no infos -> write back empty results
-            int i=0;
-	    for( DatabaseElement *e : fields )
-            {
-                e->setValue( QVariant() );
-		i++;
-            }
-	}
+            e->setValue( query.value(i++) );
+        }
+        foundIt = true;
     }
     return foundIt;
 }

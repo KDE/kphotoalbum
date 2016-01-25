@@ -51,8 +51,9 @@ public:
      */
     virtual QVariant valueFromExif( Exiv2::ExifData& data ) const = 0;
     /**
-     * @brief value the bound value of the query bound with bindValues(QSqlQuery*)
-     * @return The bound value, or an empty QVariant if no bindValues was never called.
+     * @brief value
+     * @see Database::readFields
+     * @return The bound value, or an empty QVariant if setValue was never called.
      */
     QVariant value() const;
     void setValue( QVariant val );

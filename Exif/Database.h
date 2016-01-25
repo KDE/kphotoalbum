@@ -84,6 +84,13 @@ public:
      */
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
+    /**
+     * @brief readFields searches the exif database for a given file and fills the element list with values.
+     * If the query fails or has no result, the ElementList is not changed.
+     * @param fileName
+     * @param fields a list of the DatabaseElements that you want to read.
+     * @return true, if the fileName is found in the database, false otherwise.
+     */
     bool readFields( const DB::FileName& fileName, ElementList &fields) const;
     DB::FileNameSet filesMatchingQuery( const QString& query ) const;
     CameraList cameras() const;

@@ -88,16 +88,14 @@ void XMLDB::FileReader::read( const QString& configFile )
 void XMLDB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
-
-    m_folderCategory = m_db->m_categoryCollection.categoryForName(i18n("Folder"));
-    if( m_folderCategory.isNull() ) {
-        m_folderCategory = new XMLCategory(i18n("Folder"), QString::fromLatin1("folder"),
-                                           DB::Category::TreeView, 32, false );
-        m_db->m_categoryCollection.addCategory( m_folderCategory );
-    }
+    // The folder category is not stored in the index.xml file
+    m_folderCategory = new XMLCategory(i18n("Folder"), QString::fromLatin1("folder"),
+                                                DB::Category::TreeView, 32, false );
     m_folderCategory->setType( DB::Category::FolderCategory );
+    m_db->m_categoryCollection.addCategory( m_folderCategory );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
+    qDebug() << "Folder category:"<<m_db->m_categoryCollection.categoryForSpecial(DB::Category::FolderCategory);
     // Setup the "Tokens" category
 
     DB::CategoryPtr tokenCat;
@@ -135,17 +133,15 @@ void XMLDB::FileReader::createSpecialCategories()
     }
 
     // Setup the "Media Type" category
-
-    DB::CategoryPtr mediaCat = m_db->m_categoryCollection.categoryForName(i18n("Media Type"));
-    if ( !mediaCat ) {
-        mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video"),
-                                   DB::Category::TreeView, 32, false);
-        m_db->m_categoryCollection.addCategory( mediaCat );
-    }
+    // the media type is not stored in the media category
+    DB::CategoryPtr mediaCat;
+    mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video-x-generic"),
+                               DB::Category::TreeView, 32, false);
     mediaCat->addItem( i18n( "Image" ) );
     mediaCat->addItem( i18n( "Video" ) );
     mediaCat->setType( DB::Category::MediaTypeCategory );
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
+    m_db->m_categoryCollection.addCategory( mediaCat );
 }
 
 void XMLDB::FileReader::loadCategories( ReaderPtr reader )

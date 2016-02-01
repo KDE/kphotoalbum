@@ -439,6 +439,8 @@ void Settings::CategoryPage::deleteCurrentCategory()
     m_thumbnailSizeInCategory->setValue(64);
     enableDisable(false);
     resetCategoryLabel();
+
+    editCategory(m_categoriesListWidget->currentItem());
 }
 
 void Settings::CategoryPage::renameCurrentCategory()

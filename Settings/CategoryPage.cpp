@@ -83,9 +83,9 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     QHBoxLayout* newDeleteRenameLayout = new QHBoxLayout;
     categorySideLayout->addLayout(newDeleteRenameLayout);
 
-    QPushButton* newCategoryButton = new QPushButton(i18n("New"));
-    connect(newCategoryButton, SIGNAL(clicked()), this, SLOT(newCategory()));
-    newDeleteRenameLayout->addWidget(newCategoryButton);
+    m_newCategoryButton = new QPushButton(i18n("New"));
+    connect(m_newCategoryButton, SIGNAL(clicked()), this, SLOT(newCategory()));
+    newDeleteRenameLayout->addWidget(m_newCategoryButton);
 
     m_delItem = new QPushButton(i18n("Delete"));
     connect(m_delItem, SIGNAL(clicked()), this, SLOT(deleteCurrentCategory()));
@@ -172,11 +172,14 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     m_dbNotSavedLabel = new QLabel( i18n("<font color='red'>"
                                          "The database has unsaved changes. As long as those are "
-                                         "not saved, the names of categories can't be changed."
+                                         "not saved, the names of categories can't be changed and "
+                                         "new ones can't be added."
                                          "</font>"));
+    m_dbNotSavedLabel->setWordWrap(true);
     dbNotSavedLayout->addWidget(m_dbNotSavedLabel);
 
     m_saveDbNowButton = new QPushButton(i18n("Save the DB now"));
+    m_saveDbNowButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
     connect(m_saveDbNowButton, SIGNAL(clicked()), this, SLOT(saveDbNow()));
     dbNotSavedLayout->addWidget(m_saveDbNowButton);
 
@@ -467,6 +470,7 @@ void Settings::CategoryPage::enableDisable(bool b)
         m_dbNotSavedLabel->show();
         m_saveDbNowButton->show();
         m_renameItem->setEnabled(false);
+        m_newCategoryButton->setEnabled(false);
 
         for (int i = 0; i < m_categoriesListWidget->count(); i++) {
             QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
@@ -476,6 +480,7 @@ void Settings::CategoryPage::enableDisable(bool b)
         m_dbNotSavedLabel->hide();
         m_saveDbNowButton->hide();
         m_renameItem->setEnabled(b);
+        m_newCategoryButton->setEnabled(true);
 
         for (int i = 0; i < m_categoriesListWidget->count(); i++) {
             QListWidgetItem* currentItem = m_categoriesListWidget->item(i);

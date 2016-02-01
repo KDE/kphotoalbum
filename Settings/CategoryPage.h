@@ -124,6 +124,7 @@ private: // Variables
     QLabel* m_dbNotSavedLabel;
     QPushButton* m_saveDbNowButton;
     bool m_categoryNamesChanged;
+    QPushButton* m_newCategoryButton;
 };
 
 }

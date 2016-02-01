@@ -95,7 +95,6 @@ void XMLDB::FileReader::createSpecialCategories()
     m_db->m_categoryCollection.addCategory( m_folderCategory );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
-    qDebug() << "Folder category:"<<m_db->m_categoryCollection.categoryForSpecial(DB::Category::FolderCategory);
     // Setup the "Tokens" category
 
     DB::CategoryPtr tokenCat;

@@ -61,6 +61,7 @@ public:
     QString icon() const;
     void setIcon(const QString& icon);
     QString originalName() const;
+    void markAsNewCategory();
 
 #ifdef HAVE_KFACE
 signals:

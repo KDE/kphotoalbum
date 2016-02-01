@@ -186,4 +186,9 @@ QString Settings::CategoryItem::originalName() const
     return m_categoryOrig;
 }
 
+void Settings::CategoryItem::markAsNewCategory()
+{
+    m_categoryOrig = QString();
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

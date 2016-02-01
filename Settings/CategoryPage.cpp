@@ -404,6 +404,7 @@ void Settings::CategoryPage::newCategory()
                                                    DB::Category::TreeView,
                                                    64,
                                                    m_categoriesListWidget);
+    m_currentCategory->markAsNewCategory();
     emit currentCategoryNameChanged();
     m_currentCategory->setLabel(checkedCategory);
     m_categoriesListWidget->blockSignals(false);
@@ -417,7 +418,7 @@ void Settings::CategoryPage::newCategory()
     editCategory(m_currentCategory);
     m_categoriesListWidget->editItem(m_currentCategory);
 
-    MainWindow::DirtyIndicator::markDirty();
+    //MainWindow::DirtyIndicator::markDirty();
 }
 
 void Settings::CategoryPage::deleteCurrentCategory()

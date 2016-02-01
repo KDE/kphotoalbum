@@ -407,6 +407,7 @@ void Settings::CategoryPage::newCategory()
     m_currentCategory->markAsNewCategory();
     emit currentCategoryNameChanged();
     m_currentCategory->setLabel(checkedCategory);
+    m_currentCategory->setSelected(true);
     m_categoriesListWidget->blockSignals(false);
 
     m_positionable->setChecked(false);
@@ -414,7 +415,6 @@ void Settings::CategoryPage::newCategory()
     m_thumbnailSizeInCategory->setValue(64);
     enableDisable(true);
 
-    m_currentCategory->setSelected(true);
     editCategory(m_currentCategory);
     m_categoriesListWidget->editItem(m_currentCategory);
 

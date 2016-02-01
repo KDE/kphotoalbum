@@ -265,8 +265,14 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     }
 
     // We don't want to have special category names.
+    // We do have to search both for the localized version and the C locale version, because a user
+    // could start KPA e. g. with a German locale and create a "Folder" category (which would not
+    // be catched by i18n("Folder")), and then start KPA with the C locale, which would produce a
+    // doubled "Folder" category.
     if (newCategoryName == i18n("Folder")
-        || newCategoryName == i18n("Media Type")) {
+        || newCategoryName == QString::fromUtf8("Folder")
+        || newCategoryName == i18n("Media Type")
+        || newCategoryName == QString::fromUtf8("Media Type")) {
 
         resetCategory(item);
         KMessageBox::sorry(this,

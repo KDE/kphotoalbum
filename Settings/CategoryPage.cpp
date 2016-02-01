@@ -417,8 +417,6 @@ void Settings::CategoryPage::newCategory()
 
     editCategory(m_currentCategory);
     m_categoriesListWidget->editItem(m_currentCategory);
-
-    //MainWindow::DirtyIndicator::markDirty();
 }
 
 void Settings::CategoryPage::deleteCurrentCategory()

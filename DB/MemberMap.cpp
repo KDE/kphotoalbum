@@ -276,6 +276,8 @@ void MemberMap::addGroup( const QString& category, const QString& group )
     if ( ! m_members[category].contains( group ) ) {
         m_members[category].insert( group, StringSet() );
     }
+    if ( !m_loading )
+        emit dirty();
 }
 
 void MemberMap::renameCategory( const QString& oldName, const QString& newName )
@@ -286,6 +288,8 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
     m_members.remove(oldName);
     m_closureMembers[newName] = m_closureMembers[oldName];
     m_closureMembers.remove(oldName);
+    if ( !m_loading )
+        emit dirty();
 }
 
 QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) const

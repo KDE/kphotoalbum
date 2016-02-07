@@ -58,6 +58,8 @@ XMLDB::Database::Database( const QString& configFile ):
              &m_members, SLOT(deleteItem(DB::Category*,QString)) );
     connect( categoryCollection(), SIGNAL(itemRenamed(DB::Category*,QString,QString)),
              &m_members, SLOT(renameItem(DB::Category*,QString,QString)) );
+    connect( categoryCollection(), SIGNAL(categoryRemoved(QString)),
+             &m_members, SLOT(deleteCategory(QString)));
 }
 
 uint XMLDB::Database::totalCount() const

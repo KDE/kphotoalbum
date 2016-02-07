@@ -69,6 +69,7 @@ protected:
     QStringList calculateClosure( QMap<QString,StringSet>& resultSoFar, const QString& category, const QString& group ) const;
 
 public slots:
+    virtual void deleteCategory( const QString& category );
     virtual void deleteItem( DB::Category* category, const QString& name);
     virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
     void setLoading( bool b );

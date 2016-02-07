@@ -100,6 +100,10 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
             SIGNAL(itemRenamed(DB::Category*,QString,QString)),
             &m_memberMap, SLOT(renameItem(DB::Category*,QString,QString)));
 
+    connect(DB::ImageDB::instance()->categoryCollection(),
+            SIGNAL(categoryRemoved(QString)),
+            &m_memberMap, SLOT(deleteCategory(QString)));
+
     m_dataChanged = false;
 }
 

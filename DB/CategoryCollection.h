@@ -47,6 +47,7 @@ public:
 
 signals:
     void categoryCollectionChanged();
+    void categoryRemoved( const QString& categoryName );
     void itemRenamed( DB::Category* category, const QString& oldName, const QString& newName );
     void itemRemoved( DB::Category* category, const QString& name );
 

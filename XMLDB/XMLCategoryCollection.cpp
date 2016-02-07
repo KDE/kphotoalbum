@@ -66,6 +66,7 @@ void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
     for( QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
             m_categories.erase(it);
+            emit categoryRemoved(name);
             emit categoryCollectionChanged();
             return;
         }

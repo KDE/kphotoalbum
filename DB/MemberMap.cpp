@@ -292,6 +292,14 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
         emit dirty();
 }
 
+void MemberMap::deleteCategory(const QString &category)
+{
+    m_members.remove(category);
+    m_closureMembers.remove(category);
+    if ( !m_loading )
+        emit dirty();
+}
+
 QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) const
 {
     QMap<QString,StringSet> res;

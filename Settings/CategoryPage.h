@@ -72,7 +72,7 @@ public:
     void resetCategoryNamesChanged();
 
 signals:
-    void currentCategoryNameChanged();
+    void categoryChangesPending();
 
 protected slots:
     void resetCategoryLabel();

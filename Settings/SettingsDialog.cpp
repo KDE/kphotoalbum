@@ -111,8 +111,8 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
     setCaption( i18n( "Settings" ) );
 
-    connect(m_categoryPage, SIGNAL(currentCategoryNameChanged()),
-            m_tagGroupsPage, SLOT(categoryRenamed()));
+    connect(m_categoryPage, SIGNAL(categoryChangesPending()),
+            m_tagGroupsPage, SLOT(categoryChangesPending()));
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
             m_tagGroupsPage, SLOT(slotPageChange()));
 #ifdef HAVE_KFACE

@@ -321,7 +321,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     item->setText(newCategoryName);
     m_categoriesListWidget->blockSignals(false);
 
-    emit currentCategoryNameChanged();
+    emit categoryChangesPending();
     m_untaggedBox->categoryRenamed(m_categoryNameBeforeEdit, newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
@@ -408,7 +408,7 @@ void Settings::CategoryPage::newCategory()
                                                    64,
                                                    m_categoriesListWidget);
     m_currentCategory->markAsNewCategory();
-    emit currentCategoryNameChanged();
+    emit categoryChangesPending();
     m_currentCategory->setLabel(checkedCategory);
     m_currentCategory->setSelected(true);
     m_categoriesListWidget->blockSignals(false);
@@ -442,6 +442,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
     resetCategoryLabel();
 
     editCategory(m_categoriesListWidget->currentItem());
+    emit categoryChangesPending();
 }
 
 void Settings::CategoryPage::renameCurrentCategory()

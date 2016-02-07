@@ -52,7 +52,7 @@ void Export::imageExport(const DB::FileNameList& list)
         maxSize = config.mp_maxSize->value();
 
     // Ask for zip file name
-    QString zipFile = KFileDialog::getSaveFileName( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
+    QString zipFile = KFileDialog::getSaveFileName( KUrl(), QString::fromLatin1( "*.kim|" ) + i18nc(".kim files","KPhotoAlbum Export Files" ) );
     if ( zipFile.isNull() )
         return;
 

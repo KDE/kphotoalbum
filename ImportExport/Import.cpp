@@ -31,7 +31,7 @@ using namespace ImportExport;
 
 void Import::imageImport()
 {
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
+    KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|" ) + i18nc(".kim files","KPhotoAlbum Export Files" ) );
     if ( url.isEmpty() )
         return;
 

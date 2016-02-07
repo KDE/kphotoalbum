@@ -419,7 +419,7 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
     if ( cache.contains(categoryName))
         return cache[categoryName];
 
-    // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
+    // A few bugs has shown up, where an invalid category name has crashed KPA. It therefore checks for such invalid names here.
     if ( !m_db->m_categoryCollection.categoryForName( categoryName ) ) {
         qWarning("Invalid category name: %s", qPrintable(categoryName));
         cache.insert(categoryName,false);

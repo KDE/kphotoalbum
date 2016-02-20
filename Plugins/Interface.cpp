@@ -100,11 +100,17 @@ int Plugins::Interface::features() const
 
 QAbstractItemModel * Plugins::Interface::getTagTree() const
 {
-    // this seems only really be used by the geolocation plugin:
     DB::ImageSearchInfo matchAll;
-    return new Browser::TreeCategoryModel( DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromUtf8( "Places" ) )
-                                           , matchAll
-                                           );
+    DB::CategoryPtr rootCategory;
+
+    // since this is currently used by the geolocation plugin only, try the (localized) "Places" category first:
+    rootCategory = DB::ImageDB::instance()->categoryCollection()->categoryForName( i18n( "Places" ));
+
+    // ... if that's not available, return a category that exists:
+    if ( rootCategory.isNull() )
+        rootCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial( DB::Category::TokensCategory );
+
+    return new Browser::TreeCategoryModel( rootCategory , matchAll );
 }
 
 QVariant Plugins::Interface::hostSetting( const QString& settingName )

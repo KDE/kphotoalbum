@@ -57,10 +57,15 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 {
     static DB::FileName lastFileNameUnderCursor;
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
+    Q_ASSERT( !fileName.isNull());
+
     if ( fileName != lastFileNameUnderCursor ) {
-        emit fileIdUnderCursorChanged(fileName);
-        model()->updateCell(lastFileNameUnderCursor);
-        model()->updateCell(fileName);
+        if ( !lastFileNameUnderCursor.isNull() )
+        {
+            emit fileIdUnderCursorChanged(fileName);
+            model()->updateCell(lastFileNameUnderCursor);
+            model()->updateCell(fileName);
+        }
         lastFileNameUnderCursor = fileName;
     }
 }

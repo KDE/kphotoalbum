@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.1.0)
 project(kphotoalbum)
 
 if(POLICY CMP0017)
@@ -9,17 +9,27 @@ endif()
 # provide drop-down menu for build-type in cmake-gui:
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
 
-SET(CMAKE_MODULE_PATH
-    ${CMAKE_MODULE_PATH}
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
-)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 # in case we are installing to a non-standard path, expect that other libs are installed there as well:
 LIST(INSERT CMAKE_PREFIX_PATH 0 "${CMAKE_INSTALL_PREFIX}")
 LIST(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_INSTALL_PREFIX}/share/apps/cmake/modules")
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
+find_package(ECM REQUIRED NO_MODULE)
+list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
+
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+include(FeatureSummary)
+
+find_package(Qt5 REQUIRED COMPONENTS Sql Widgets)
+# 2016-02-21 TODO ZaJ: libphonon5qt5-dev is currently dysfunctional in Debian/sid -> ignore for now
+#find_package(Phonon4Qt5 REQUIRED)
+find_package(KF5 REQUIRED COMPONENTS I18n KIO)
+
+# enable exceptions:
+kde_enable_exceptions()
 
 # This seems to be needed for KPA to compile with KDE 4.0.0
 set(INSTALL_TARGETS_DEFAULT_ARGS
@@ -30,9 +40,6 @@ set(INSTALL_TARGETS_DEFAULT_ARGS
 )
 
 ADD_DEFINITIONS(
-    ${QT_DEFINITIONS}
-    ${KDE4_DEFINITIONS}
-    ${KDE4_ENABLE_EXCEPTIONS}
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
     #-DDEBUG_JOBMANAGER
@@ -44,43 +51,38 @@ SET(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}"
 )
 
-INCLUDE_DIRECTORIES(
-    ${KDE4_INCLUDES}
-    ${QT_INCLUDES}
-)
-
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
     INCLUDE_DIRECTORIES(${JPEG_INCLUDE_DIR})
 endif (JPEG_FOUND)
 
-macro_optional_find_package(Kipi)
-macro_bool_to_01(KIPI_FOUND HASKIPI)
+find_package(Kipi)
+set(HASKIPI ${KIPI_FOUND})
 if(KIPI_FOUND)
     ADD_DEFINITIONS(${KIPI_DEFINITIONS})
     INCLUDE_DIRECTORIES(BEFORE ${KIPI_INCLUDE_DIR})
 endif(KIPI_FOUND)
 
-macro_optional_find_package(Kdcraw)
-macro_bool_to_01(KDCRAW_FOUND HAVE_KDCRAW)
+find_package(Kdcraw)
+set(HAVE_KDCRAW ${KDCRAW_FOUND} )
 if(KDCRAW_FOUND)
     ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
     INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
 endif(KDCRAW_FOUND)
 
-macro_optional_find_package(Exiv2)
-macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
+find_package(Exiv2)
+set(HAVE_EXIV2 ${EXIV2_FOUND})
 
-macro_optional_find_package(Marble)
-macro_bool_to_01(MARBLE_FOUND HAVE_MARBLE)
+find_package(Marble)
+set(HAVE_MARBLE ${MARBLE_FOUND})
 if(MARBLE_FOUND)
     INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
 endif(MARBLE_FOUND)
 
 # Kface 3.5.0 ships with a usable kface-config.cmake
 # and face detection/recognition support in KPA depends on KFace >= 3.5.0, anyway.
-macro_optional_find_package(Kface 3.5.0 QUIET CONFIG)
-macro_bool_to_01(Kface_FOUND HAVE_KFACE)
+find_package(Kface 3.5.0 QUIET CONFIG)
+set(HAVE_KFACE ${Kface_FOUND})
 if(Kface_FOUND)
     message(STATUS "Found KFace version ${Kface_VERSION} (optional)")
     message(STATUS "  Face detection and recognition features will be built.")
@@ -91,11 +93,11 @@ else()
 endif(Kface_FOUND)
 
 if(EXIV2_FOUND)
-    macro_optional_find_package(KGeoMap QUIET)
+    find_package(KGeoMap QUIET)
 else()
 	message(STATUS "Not searching KGeoMap because of missing dependency Exiv2...")
 endif()
-macro_bool_to_01(KGEOMAP_FOUND HAVE_KGEOMAP)
+set(HAVE_KGEOMAP ${KGEOMAP_FOUND})
 if(KGEOMAP_FOUND)
     message(STATUS "Found KGeoMap ${KGEOMAP_VERSION} (optional)")
     message(STATUS "  Geographic map features will be built.")
@@ -363,7 +365,7 @@ set(libBackgroundTaskManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/PriorityQueue.cpp
 )
 
-kde4_add_ui_files(libBackgroundTaskManager_SRCS
+qt5_wrap_ui(libBackgroundTaskManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobViewer.ui
 )
 
@@ -413,13 +415,13 @@ add_subdirectory(script)
 add_subdirectory(doc)
 
 set(EXIV2_SRCS)
-if(EXIV2_FOUND AND QT_QTSQL_FOUND)
+if(EXIV2_FOUND AND Qt5Sql_FOUND)
     set(EXIV2_SRCS
         #${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
         ${libexif_SRCS}
     )
-endif(EXIV2_FOUND AND QT_QTSQL_FOUND)
+endif()
 
 ########### next target ###############
 
@@ -448,15 +450,17 @@ set(kphotoalbum_SRCS
     ${libMap_SRCS}
 )
 
-kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
+add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-kde4_add_library(Utilities STATIC ${libUtilities_SRCS})
+add_library(Utilities STATIC ${libUtilities_SRCS})
 
 # Internal components
 target_link_libraries(kphotoalbum Utilities)
 
 # External components
-target_link_libraries(kphotoalbum ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} ${KDE4_TARGET_PREFIX}kmediaplayer ${KDE4_PHONON_LIBS})
+target_link_libraries(kphotoalbum KF5::KIO ${JPEG_LIBRARY})
+# 2016-02-21 TODO ZaJ: see above why this is disabled:
+#target_link_libraries(photoalbum PhononQt5)
 
 if(KIPI_FOUND)
     target_link_libraries(kphotoalbum ${KIPI_LIBRARIES})
@@ -466,9 +470,9 @@ if(KDCRAW_FOUND)
     target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
 endif(KDCRAW_FOUND)
 
-if(EXIV2_FOUND AND QT_QTSQL_FOUND)
-    target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} ${QT_QTSQL_LIBRARY})
-endif(EXIV2_FOUND AND QT_QTSQL_FOUND)
+if(EXIV2_FOUND AND Qt5Sql_FOUND)
+	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} Qt5::Sql)
+endif()
 
 if(MARBLE_FOUND)
     target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES})
@@ -497,3 +501,5 @@ configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-ki
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kface.h)
 configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

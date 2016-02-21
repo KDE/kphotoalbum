@@ -57,6 +57,11 @@ if(JPEG_FOUND)
 endif (JPEG_FOUND)
 
 find_package(Kipi)
+set_package_properties(Kipi
+	PROPERTIES
+	TYPE RECOMMENDED
+	PURPOSE "Enables integration of KDE image plugin interface (shared functionality between KPhotoAlbum and other apps like gwenview or digikam)"
+	)
 set(HASKIPI ${KIPI_FOUND})
 if(KIPI_FOUND)
     ADD_DEFINITIONS(${KIPI_DEFINITIONS})
@@ -64,6 +69,11 @@ if(KIPI_FOUND)
 endif(KIPI_FOUND)
 
 find_package(Kdcraw)
+set_package_properties(Kdcraw
+	PROPERTIES
+	TYPE OPTIONAL
+	PURPOSE "Enables RAW image support"
+	)
 set(HAVE_KDCRAW ${KDCRAW_FOUND} )
 if(KDCRAW_FOUND)
     ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
@@ -71,40 +81,37 @@ if(KDCRAW_FOUND)
 endif(KDCRAW_FOUND)
 
 find_package(Exiv2)
+set_package_properties(Exiv2
+	PROPERTIES
+	TYPE RECOMMENDED
+	PURPOSE "Enables image metadata (exiv) support (strongly advised!)"
+	)
 set(HAVE_EXIV2 ${EXIV2_FOUND})
 
-find_package(Marble)
-set(HAVE_MARBLE ${MARBLE_FOUND})
-if(MARBLE_FOUND)
-    INCLUDE_DIRECTORIES(${MARBLE_INCLUDE_DIR})
-endif(MARBLE_FOUND)
-
-# Kface 3.5.0 ships with a usable kface-config.cmake
-# and face detection/recognition support in KPA depends on KFace >= 3.5.0, anyway.
-find_package(Kface 3.5.0 QUIET CONFIG)
+find_package(Kface 5.0.0 CONFIG)
+set_package_properties(Kface
+	PROPERTIES
+	TYPE OPTIONAL
+	PURPOSE "Enables support for face detection and recognition."
+	)
 set(HAVE_KFACE ${Kface_FOUND})
 if(Kface_FOUND)
-    message(STATUS "Found KFace version ${Kface_VERSION} (optional)")
-    message(STATUS "  Face detection and recognition features will be built.")
     INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
-else()
-    message(STATUS "Did not find KFace >= 3.5.0 (optional)")
-    message(STATUS "  Face detection and recognition features won't be built.")
 endif(Kface_FOUND)
 
 if(EXIV2_FOUND)
-    find_package(KGeoMap QUIET)
+    find_package(KGeoMap)
+	 set_package_properties(KGeoMap
+		 PROPERTIES
+		 TYPE OPTIONAL
+		 PURPOSE "Enables support for geographic map location using embedded GPS information."
+		 )
 else()
 	message(STATUS "Not searching KGeoMap because of missing dependency Exiv2...")
 endif()
 set(HAVE_KGEOMAP ${KGEOMAP_FOUND})
 if(KGEOMAP_FOUND)
-    message(STATUS "Found KGeoMap ${KGEOMAP_VERSION} (optional)")
-    message(STATUS "  Geographic map features will be built.")
     INCLUDE_DIRECTORIES(${KGEOMAP_INCLUDE_DIR})
-else()
-    message(STATUS "Did not find KGeoMap (optional)")
-    message(STATUS "  Geographic map features won't be built.")
 endif(KGEOMAP_FOUND)
 
 add_custom_target(
@@ -458,7 +465,7 @@ add_library(Utilities STATIC ${libUtilities_SRCS})
 target_link_libraries(kphotoalbum Utilities)
 
 # External components
-target_link_libraries(kphotoalbum KF5::KIO ${JPEG_LIBRARY})
+target_link_libraries(kphotoalbum KF5::KIOCore ${JPEG_LIBRARY})
 # 2016-02-21 TODO ZaJ: see above why this is disabled:
 #target_link_libraries(photoalbum PhononQt5)
 
@@ -473,10 +480,6 @@ endif(KDCRAW_FOUND)
 if(EXIV2_FOUND AND Qt5Sql_FOUND)
 	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} Qt5::Sql)
 endif()
-
-if(MARBLE_FOUND)
-    target_link_libraries(kphotoalbum ${MARBLE_LIBRARIES})
-endif(MARBLE_FOUND)
 
 if(Kface_FOUND)
 	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
@@ -498,7 +501,6 @@ install(FILES kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${DA
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
-configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kface.h)
 configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)
 

@@ -1,19 +1,14 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(kphotoalbum)
 
-if(POLICY CMP0017)
-    # Prefer files from the CMake module directory when including from there:
-    CMAKE_POLICY(SET CMP0017 NEW)
+if(POLICY CMP0063)
+    CMAKE_POLICY(SET CMP0063 NEW)
 endif()
 
 # provide drop-down menu for build-type in cmake-gui:
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
-
-# in case we are installing to a non-standard path, expect that other libs are installed there as well:
-LIST(INSERT CMAKE_PREFIX_PATH 0 "${CMAKE_INSTALL_PREFIX}")
-LIST(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_INSTALL_PREFIX}/share/apps/cmake/modules")
 
 find_package(ECM REQUIRED NO_MODULE)
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
@@ -56,63 +51,49 @@ if(JPEG_FOUND)
     INCLUDE_DIRECTORIES(${JPEG_INCLUDE_DIR})
 endif (JPEG_FOUND)
 
-find_package(Kipi)
-set_package_properties(Kipi
+find_package(KF5Kipi)
+set_package_properties(KF5Kipi
 	PROPERTIES
 	TYPE RECOMMENDED
 	PURPOSE "Enables integration of KDE image plugin interface (shared functionality between KPhotoAlbum and other apps like gwenview or digikam)"
 	)
-set(HASKIPI ${KIPI_FOUND})
-if(KIPI_FOUND)
-    ADD_DEFINITIONS(${KIPI_DEFINITIONS})
-    INCLUDE_DIRECTORIES(BEFORE ${KIPI_INCLUDE_DIR})
-endif(KIPI_FOUND)
+set(HASKIPI ${KF5Kipi_FOUND})
 
-find_package(Kdcraw)
-set_package_properties(Kdcraw
+find_package(KF5KDcraw)
+set_package_properties(KF5KDcraw
 	PROPERTIES
 	TYPE OPTIONAL
 	PURPOSE "Enables RAW image support"
 	)
-set(HAVE_KDCRAW ${KDCRAW_FOUND} )
-if(KDCRAW_FOUND)
-    ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
-    INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
-endif(KDCRAW_FOUND)
+set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
 
-find_package(Exiv2)
-set_package_properties(Exiv2
+find_package(KF5KExiv2)
+set_package_properties(KF5KExiv2
 	PROPERTIES
 	TYPE RECOMMENDED
 	PURPOSE "Enables image metadata (exiv) support (strongly advised!)"
 	)
-set(HAVE_EXIV2 ${EXIV2_FOUND})
+set(HAVE_EXIV2 ${KF5KExiv2_FOUND})
 
-find_package(Kface 5.0.0 CONFIG)
-set_package_properties(Kface
+find_package(KF5KFace 5.0.0 CONFIG)
+set_package_properties(KF5KFace
 	PROPERTIES
 	TYPE OPTIONAL
 	PURPOSE "Enables support for face detection and recognition."
 	)
-set(HAVE_KFACE ${Kface_FOUND})
-if(Kface_FOUND)
-    INCLUDE_DIRECTORIES(${Kface_INCLUDE_DIR})
-endif(Kface_FOUND)
+set(HAVE_KFACE ${KF5KFace_FOUND})
 
-if(EXIV2_FOUND)
-    find_package(KGeoMap)
-	 set_package_properties(KGeoMap
+if(KF5KExiv2_FOUND)
+	find_package(KF5KGeoMap)
+	set_package_properties(KF5KGeoMap
 		 PROPERTIES
 		 TYPE OPTIONAL
 		 PURPOSE "Enables support for geographic map location using embedded GPS information."
 		 )
 else()
-	message(STATUS "Not searching KGeoMap because of missing dependency Exiv2...")
+	message(STATUS "Not searching KF5KGeoMap because of missing dependency KF5KExiv2...")
 endif()
-set(HAVE_KGEOMAP ${KGEOMAP_FOUND})
-if(KGEOMAP_FOUND)
-    INCLUDE_DIRECTORIES(${KGEOMAP_INCLUDE_DIR})
-endif(KGEOMAP_FOUND)
+set(HAVE_KGEOMAP ${KF5KGEOMAP_FOUND})
 
 add_custom_target(
     UpdateVersion ALL
@@ -180,7 +161,7 @@ set(libThumbnailView_SRCS
 )
 
 set(libPlugins_SRCS)
-if(KIPI_FOUND)
+if(KF5Kipi_FOUND)
     set(libPlugins_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp
@@ -191,7 +172,7 @@ if(KIPI_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadImageCollection.cpp
     )
-endif(KIPI_FOUND)
+endif(KF5Kipi_FOUND)
 
 set(libViewer_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewerWidget.cpp
@@ -396,23 +377,23 @@ set(libRemoteControl_SRCS
 )
 
 set(libFaceManagement_SRCS)
-if(Kface_FOUND)
+if(KF5KFace_FOUND)
     set(libFaceManagement_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ProposedFaceDialog.cpp
     )
-endif(Kface_FOUND)
+endif(KF5KFace_FOUND)
 
 set(libMap_SRCS)
-if(KGEOMAP_FOUND)
+if(KF5KGEOMAP_FOUND)
     set(libMap_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/SearchMarkerTiler.cpp
     )
-endif(KGEOMAP_FOUND)
+endif(KF5KGEOMAP_FOUND)
 
 add_subdirectory(images)
 add_subdirectory(icons)
@@ -422,8 +403,8 @@ add_subdirectory(script)
 add_subdirectory(doc)
 
 set(EXIV2_SRCS)
-if(EXIV2_FOUND AND Qt5Sql_FOUND)
-    set(EXIV2_SRCS
+if(KF5KExiv2_FOUND AND Qt5Sql_FOUND)
+	set(EXIV2_SRCS
         #${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
         ${libexif_SRCS}
@@ -448,7 +429,7 @@ set(kphotoalbum_SRCS
     ${libDB_SRCS}
     ${libImportExport_SRCS}
     ${libAnnotationDialog_SRCS}
-    ${EXIV2_SRCS}
+	 ${EXIV2_SRCS}
     ${libBrowser_SRCS}
     ${libBackgroundTaskManager_SRCS}
     ${libBackgroundJobs_SRCS}
@@ -469,24 +450,24 @@ target_link_libraries(kphotoalbum KF5::KIOCore ${JPEG_LIBRARY})
 # 2016-02-21 TODO ZaJ: see above why this is disabled:
 #target_link_libraries(photoalbum PhononQt5)
 
-if(KIPI_FOUND)
-    target_link_libraries(kphotoalbum ${KIPI_LIBRARIES})
-endif(KIPI_FOUND)
+if(KF5Kipi_FOUND)
+	target_link_libraries(kphotoalbum KF5::Kipi)
+endif(KF5Kipi_FOUND)
 
-if(KDCRAW_FOUND)
-    target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
-endif(KDCRAW_FOUND)
+if(KF5KDcraw_FOUND)
+	target_link_libraries(kphotoalbum KF5::KDcraw)
+endif(KF5KDcraw_FOUND)
 
-if(EXIV2_FOUND AND Qt5Sql_FOUND)
-	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} Qt5::Sql)
+if(KF5KExiv2_FOUND AND Qt5Sql_FOUND)
+	target_link_libraries(kphotoalbum KF5::KExiv2 Qt5::Sql)
 endif()
 
-if(Kface_FOUND)
-	target_link_libraries(kphotoalbum ${KFACE_LIBRARIES} )
-endif(Kface_FOUND)
+if(KF5KFace_FOUND)
+	target_link_libraries(kphotoalbum KF5::KFace )
+endif(KF5KFace_FOUND)
 
-if(KGEOMAP_FOUND)
-    target_link_libraries(kphotoalbum ${KGEOMAP_LIBRARIES} )
+if(KF5KGEOMAP_FOUND)
+	target_link_libraries(kphotoalbum KF5::KGeoMap )
 endif()
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})

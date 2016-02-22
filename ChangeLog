@@ -1,3 +1,20 @@
+====================== KPhotoalbum 4.7.1 released  (22.02.2016) ======================
+
+* Bugfix: Fix broken category settings dialog (categories can be added, renamed etc. again, was a
+ regression of the category l10n removal).
+.
+* Bugfix: Fix i18n problems with special categories.
+
+* Bugfix (#358971): Make import/export file filter translatable.
+
+* Bugfix: Fix overflow in viever cache size computation (Thanks to Robert Krawitz for pointing this
+  out!).
+
+* Bugfix: Fix crash on i386 due to an uninitialized static variable (Thanks to Matthias Heukäufer
+  for reporting the bug!).
+
+* Enhancement: Various improvements on the EXIF DB.
+
 ====================== KPhotoalbum 4.7 released  (19.01.2016) ======================
 
 * Bugfix: Various fixes of compilation failures on different distributions/gcc versions, as well as

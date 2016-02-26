@@ -1,8 +1,8 @@
 ====================== KPhotoalbum 4.7.1 released  (22.02.2016) ======================
 
 * Bugfix: Fix broken category settings dialog (categories can be added, renamed etc. again, was a
- regression of the category l10n removal).
-.
+  regression of the category l10n removal).
+
 * Bugfix: Fix i18n problems with special categories.
 
 * Bugfix (#358971): Make import/export file filter translatable.

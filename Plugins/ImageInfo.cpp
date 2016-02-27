@@ -372,12 +372,7 @@ void Plugins::ImageInfo::delAttributes( const QStringList& attrs)
     }
 }
 
-#if KIPI_VERSION >= 0x010200
-#define KIPI_IMAGEINFO_CONST_MODIFIER const
-#else
-#define KIPI_IMAGEINFO_CONST_MODIFIER
-#endif
-void Plugins::ImageInfo::cloneData( ImageInfoShared* KIPI_IMAGEINFO_CONST_MODIFIER other )
+void Plugins::ImageInfo::cloneData( ImageInfoShared* const other )
 {
     ImageInfoShared::cloneData( other );
     if ( m_info ) {
@@ -386,102 +381,6 @@ void Plugins::ImageInfo::cloneData( ImageInfoShared* KIPI_IMAGEINFO_CONST_MODIFI
         MainWindow::DirtyIndicator::markDirty();
     }
 }
-#undef KIPI_IMAGEINFO_CONST_MODIFIER
-
-
-#if KIPI_VERSION < 0x010500
-#if KIPI_VERSION >= 0x010300
-#define KIPI_IMAGEINFO_FILINAMEFUN_GETTER_NAME name
-#define KIPI_IMAGEINFO_FILINAMEFUN_SETTER_NAME setName
-#else
-#define KIPI_IMAGEINFO_FILINAMEFUN_GETTER_NAME title
-#define KIPI_IMAGEINFO_FILINAMEFUN_SETTER_NAME setTitle
-#endif
-QString Plugins::ImageInfo::KIPI_IMAGEINFO_FILINAMEFUN_GETTER_NAME()
-{
-    if ( m_info )
-        return m_info->label();
-    else
-        return QString();
-}
-
-void Plugins::ImageInfo::KIPI_IMAGEINFO_FILINAMEFUN_SETTER_NAME( const QString& name )
-{
-    if ( m_info ) {
-        m_info->setLabel( name );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-}
-#undef KIPI_IMAGEINFO_FILINAMEFUN_GETTER_NAME
-#undef KIPI_IMAGEINFO_FILINAMEFUN_SETTER_NAME
-
-QString Plugins::ImageInfo::description()
-{
-    if ( m_info )
-        return m_info->description();
-    else
-        return QString();
-}
-
-void Plugins::ImageInfo::setDescription( const QString& description )
-{
-    if ( m_info ) {
-        m_info->setDescription( description );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-}
-
-int Plugins::ImageInfo::angle()
-{
-    if ( m_info )
-        return m_info->angle();
-    else
-        return 0;
-}
-
-void Plugins::ImageInfo::setAngle( int angle )
-{
-    if ( m_info ) {
-        m_info->setAngle( angle );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-}
-
-QDateTime Plugins::ImageInfo::time( KIPI::TimeSpec what )
-{
-    if ( m_info ) {
-        if ( what == KIPI::FromInfo ) {
-            return m_info->date().start() ;
-        }
-        else
-            return m_info->date().end();
-    }
-    else
-        return KIPI::ImageInfoShared::time( what );
-}
-
-bool Plugins::ImageInfo::isTimeExact()
-{
-    if ( !m_info )
-        return true;
-    return m_info->date().hasValidTime();
-}
-
-void Plugins::ImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
-{
-    if ( !m_info )
-        return;
-    if ( spec == KIPI::FromInfo ) {
-        m_info->setDate( DB::ImageDate( time, time ) );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-    else {
-        DB::ImageDate date = m_info->date();
-        m_info->setDate( DB::ImageDate( date.start(), time ) );
-        MainWindow::DirtyIndicator::markDirty();
-    }
-}
-#endif // KIPI_VERSION < 0x010500
 
 bool Plugins::ImageInfo::isPositionAttribute(const QString &key)
 {

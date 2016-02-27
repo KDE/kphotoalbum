@@ -38,38 +38,13 @@ class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
 public:
     ImageInfo( KIPI::Interface* interface, const KUrl& url );
 
-#if KIPI_VERSION < 0x010500
-    // kipi 1.5.0 uses attributes()/addAttributes() instead of these:
-#if KIPI_VERSION >= 0x010300
-    QString   name();
-    void      setName( const QString& );
-#else
-    // "title" means filename
-    QString title();
-    void setTitle( const QString& );
-#endif
-
-    QString description();
-    void setDescription( const QString& );
-
-    int angle();
-    void setAngle( int );
-
-    QDateTime time( KIPI::TimeSpec what );
-    void setTime( const QDateTime& time, KIPI::TimeSpec spec );
-    bool isTimeExact();
-#endif // KIPI_VERSION < 0x010500
 
     QMap<QString,QVariant> attributes();
     void clearAttributes();
     void addAttributes( const QMap<QString,QVariant>& );
     void delAttributes( const QStringList& );
 
-#if KIPI_VERSION >= 0x010200
     void cloneData( ImageInfoShared* const other);
-#else
-    void cloneData( ImageInfoShared* other);
-#endif // KIPI_VERSION >= 0x010200
 
 
 private:

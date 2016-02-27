@@ -1467,14 +1467,10 @@ void MainWindow::Window::loadPlugins()
     ignores << QString::fromLatin1( "CommentsEditor" )
             << QString::fromLatin1( "HelloWorld" );
 
-#if KIPI_VERSION >= 0x020000
     m_pluginLoader = new KIPI::PluginLoader();
     m_pluginLoader->setIgnoredPluginsList( ignores );
     m_pluginLoader->setInterface( m_pluginInterface );
     m_pluginLoader->init();
-#else
-    m_pluginLoader = new KIPI::PluginLoader( ignores, m_pluginInterface );
-#endif
     connect( m_pluginLoader, SIGNAL(replug()), this, SLOT(plug()) );
     m_pluginLoader->loadPlugins();
 

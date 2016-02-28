@@ -18,8 +18,8 @@
 
 #ifndef DATEVIEWHANDLER_H
 #define DATEVIEWHANDLER_H
-#include <qdatetime.h>
-#include <qstring.h>
+#include <QDateTime>
+#include <QString>
 
 namespace DateBar
 {

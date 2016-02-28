@@ -17,9 +17,12 @@
 */
 
 #include "ViewHandler.h"
+
 #include <math.h>
-#include <klocale.h>
-#include <kglobal.h>
+
+#include <QLocale>
+
+#include <KLocalizedString>
 
 using namespace DateBar;
 
@@ -184,7 +187,7 @@ QString MonthViewHandler::text( int unit )
         printedLast = true;
     QString str;
     if ( !printedLast )
-        str=KGlobal::locale()->formatDate( date(unit).date(), KLocale::ShortDate );
+        str = QLocale().toString( date(unit).date(), QLocale::ShortFormat );
     printedLast = !printedLast;
     lastunit = unit;
     return str;
@@ -215,7 +218,7 @@ bool WeekViewHandler::isMajorUnit( int unit )
 
 QString WeekViewHandler::text( int unit )
 {
-    return KGlobal::locale()->formatDate(date(unit).date(), KLocale::ShortDate );
+    return QLocale().toString( date(unit).date(), QLocale::ShortFormat );
 }
 
 QDateTime WeekViewHandler::date(int unit, QDateTime reference )
@@ -256,7 +259,7 @@ bool DayViewHandler::isMidUnit( int unit )
 QString DayViewHandler::text( int unit )
 {
     if (  date(unit).time().hour() == 0 )
-        return KGlobal::locale()->formatDate(date(unit).date(), KLocale::ShortDate);
+        return QLocale().toString( date(unit).date(), QLocale::ShortFormat );
     else
         return date(unit).toString( QString::fromLatin1( "h:00" ) );
 }

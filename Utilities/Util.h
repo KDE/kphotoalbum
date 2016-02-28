@@ -18,7 +18,6 @@
 
 #ifndef UTIL_H
 #define UTIL_H
-#include <qdom.h>
 #include <qmap.h>
 #include <qset.h>
 #include <qstring.h>

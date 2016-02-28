@@ -16,62 +16,75 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifdef KDAB_TEMPORARILY_REMOVED
-#include "Threading/Test.h"
-#endif //KDAB_TEMPORARILY_REMOVED
+#include <QApplication>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
+#include <QDebug>
+#include <QLocale>
 #include <QTemporaryFile>
-#include "Settings/SettingsData.h"
-#include "MainWindow/Window.h"
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <kaboutdata.h>
-#include <kimageio.h>
-#include "MainWindow/SplashScreen.h"
-#include <klocale.h>
-#include <kdebug.h>
-#include "RemoteControl/RemoteInterface.h"
 
+#include <KAboutData>
+#include <KLocalizedString>
+
+#include "MainWindow/SplashScreen.h"
+#include "MainWindow/Window.h"
+#include "RemoteControl/RemoteInterface.h"
+#include "Settings/SettingsData.h"
 #include "version.h"
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), KPA_VERSION,
-                          ki18n("KDE Photo Album"), KAboutData::License_GPL,
-                          KLocalizedString(), KLocalizedString(), "http://www.kphotoalbum.org");
-    aboutData.addAuthor( ki18n("Jesper K. Pedersen"), ki18n("Development"), "blackie@kde.org" );
-    aboutData.addAuthor( ki18n("Hassan Ibraheem"),ki18n("Development"), "hasan.ibraheem@gmail.com");
-    aboutData.addAuthor( ki18n("Miika Turkia"),ki18n("Development"), "miika.turkia@gmail.com");
-    aboutData.addAuthor( ki18n("Tuomas Suutari"), ki18n("SQL backend and numerous features"), "thsuut@utu.fi" );
-    aboutData.addAuthor( ki18n("Jan Kundr&aacute;t"), ki18n("Development"), "jkt@gentoo.org");
-    aboutData.addAuthor( ki18n("Henner Zeller"),ki18n("Development"), "h.zeller@acm.org");
-    aboutData.addAuthor( ki18n("Andreas Neustifter"),ki18n("Development"), "andreas.neustifter@gmail.com");
-    aboutData.addAuthor( ki18n("Johannes Zarl-Zierl"),ki18n("Development"), "johannes@zarl-zierl.at");
-    aboutData.addAuthor( ki18n("Tobias Leupold"),ki18n("Development"), "tobias.leupold@web.de");
+    KLocalizedString::setApplicationDomain("kphotoalbum");
+    QApplication app(argc, argv);
+
+    KAboutData aboutData(
+            QStringLiteral("kphotoalbum"), //component name
+            i18n("KPhotoAlbum"), // display name
+            QStringLiteral(KPA_VERSION),
+            i18n("KDE Photo Album"), // short description
+            KAboutLicense::GPL,
+            QString(),  // copyright statement
+            QString(),  // other text
+            QStringLiteral("http://www.kphotoalbum.org") // homepage
+            );
+    aboutData.setOrganizationDomain("kde.org");
+    aboutData.addAuthor( i18n("Jesper K. Pedersen"), i18n("Development"), QStringLiteral("blackie@kde.org") );
+    aboutData.addAuthor( i18n("Hassan Ibraheem"),i18n("Development"), QStringLiteral("hasan.ibraheem@gmail.com"));
+    aboutData.addAuthor( i18n("Miika Turkia"),i18n("Development"), QStringLiteral("miika.turkia@gmail.com"));
+    aboutData.addAuthor( i18n("Tuomas Suutari"), i18n("SQL backend and numerous features"), QStringLiteral("thsuut@utu.fi") );
+    aboutData.addAuthor( i18n("Jan Kundr&aacute;t"), i18n("Development"), QStringLiteral("jkt@gentoo.org"));
+    aboutData.addAuthor( i18n("Henner Zeller"),i18n("Development"), QStringLiteral("h.zeller@acm.org"));
+    aboutData.addAuthor( i18n("Andreas Neustifter"),i18n("Development"), QStringLiteral("andreas.neustifter@gmail.com"));
+    aboutData.addAuthor( i18n("Johannes Zarl-Zierl"),i18n("Development"), QStringLiteral("johannes@zarl-zierl.at"));
+    aboutData.addAuthor( i18n("Tobias Leupold"),i18n("Development"), QStringLiteral("tobias.leupold@web.de"));
 
 
-    aboutData.addCredit( ki18n("Will Stephenson"), ki18n("Developing an Icon for KPhotoAlbum"), "will@stevello.free-online.co.uk" );
-    aboutData.addCredit( ki18n("Teemu Rytilahti"),
-                         ki18n("Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
-                         "(.) Theme support for HTML generation"), "teemu.rytilahti@kde-fi.org" );
-    aboutData.addCredit( ki18n("Reimar Imhof"), ki18n("Patch to sort items in option listboxes"), "Reimar.Imhof@netCologne.de" );
-    aboutData.addCredit( ki18n("Thomas Schwarzgruber"), ki18n("Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images"), "possebaer@gmx.at" );
-    aboutData.addCredit( ki18n("Marcel Wiesweg"), ki18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), "marcel.wiesweg@gmx.de" );
-    aboutData.addCredit( ki18n("Marco Caldarelli"), ki18n("Patch for making it possible to reread EXIF info using a nice dialog."), "caldarel@yahoo.it" );
-    aboutData.addCredit( ki18n("Jean-Michel FAYARD"), ki18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), "jmfayard@gmail.com" );
-    aboutData.addCredit( ki18n("Robert L Krawitz"), ki18n("Numerous patches plus profiling KPhotoAlbum again and again."), "rlk@alum.mit.edu" );
-    aboutData.addCredit( ki18n("Christoph Moseler"), ki18n("Numerous patches for lots of bugs plus patches for a few new features"), "forums@moseler.net" );
-    aboutData.addCredit( ki18n("Clytie Siddall"), ki18n("Tremendous help with the English text in the application."), "clytie@riverland.net.au" );
-    aboutData.addCredit( ki18n("Wes Hardaker"),ki18n("Some very useful features to improve workflow"), "kpa@capturedonearth.com");
+    aboutData.addCredit( i18n("Will Stephenson"), i18n("Developing an Icon for KPhotoAlbum"), QStringLiteral("will@stevello.free-online.co.uk") );
+    aboutData.addCredit( i18n("Teemu Rytilahti"),
+                         i18n("Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+                         "(.) Theme support for HTML generation"), QStringLiteral("teemu.rytilahti@kde-fi.org") );
+    aboutData.addCredit( i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de") );
+    aboutData.addCredit( i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images"), QStringLiteral("possebaer@gmx.at") );
+    aboutData.addCredit( i18n("Marcel Wiesweg"), i18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), QStringLiteral("marcel.wiesweg@gmx.de") );
+    aboutData.addCredit( i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread EXIF info using a nice dialog."), QStringLiteral("caldarel@yahoo.it") );
+    aboutData.addCredit( i18n("Jean-Michel FAYARD"), i18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com") );
+    aboutData.addCredit( i18n("Robert L Krawitz"), i18n("Numerous patches plus profiling KPhotoAlbum again and again."), QStringLiteral("rlk@alum.mit.edu") );
+    aboutData.addCredit( i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net") );
+    aboutData.addCredit( i18n("Clytie Siddall"), i18n("Tremendous help with the English text in the application."), QStringLiteral("clytie@riverland.net.au") );
+    aboutData.addCredit( i18n("Wes Hardaker"),i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
 
-    KCmdLineArgs::init( argc, argv, &aboutData );
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    aboutData.setupCommandLine(&parser);
 
-    KCmdLineOptions options;
-    options.add("c ", ki18n("Config file"));
-    options.add("demo", ki18n( "Starts KPhotoAlbum with a prebuilt set of demo images" ));
-    options.add("import ", ki18n( "Import file" ));
-    options.add("nolisten-network", ki18n( "Don't start listening for android devices on startup." ));
-    KCmdLineArgs::addCmdLineOptions( options );
+    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("c "), i18n("Config file")));
+    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images" )));
+    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("import "), i18n( "Import file" )));
+    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("nolisten-network"), i18n( "Don't start listening for android devices on startup." )));
 
-    KApplication app;
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
     new MainWindow::SplashScreen();
 

@@ -697,7 +697,7 @@ void MainWindow::Window::setupMenuBar()
     m_generateHtml->setText( i18n("Generate HTML...") );
     connect( m_generateHtml, SIGNAL(triggered()), this, SLOT(slotExportToHTML()) );
 
-    KAction* a = actionCollection()->addAction( QString::fromLatin1("import"), this, SLOT(slotImport()) );
+    QAction* a = actionCollection()->addAction( QString::fromLatin1("import"), this, SLOT(slotImport()) );
     a->setText( i18n( "Import...") );
 
     a = actionCollection()->addAction( QString::fromLatin1("export"), this, SLOT(slotExport()) );
@@ -855,10 +855,10 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("rescan"), DB::ImageDB::instance(), SLOT(slotRescan()) );
     a->setText( i18n("Rescan for Images and Videos") );
 
-    KAction* recreateExif = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT(slotRecreateExifDB()) );
+    QAction* recreateExif = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT(slotRecreateExifDB()) );
     recreateExif->setText( i18n("Recreate Exif Search Database") );
 
-    KAction* rereadExif = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT(slotReReadExifInfo()) );
+    QAction* rereadExif = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT(slotReReadExifInfo()) );
     rereadExif->setText( i18n("Read EXIF Info From Files...") );
 #ifndef HAVE_EXIV2
     recreateExif->setText( i18n("Recreate Exif Search Database (need to compile KPhotoAlbum with Exif support)") );
@@ -1509,8 +1509,8 @@ void MainWindow::Window::plug()
 
         plugin->setup( this );
 
-        QList<KAction*> actions = plugin->actions();
-        Q_FOREACH( KAction *action, actions ) {
+        QList<QAction*> actions = plugin->actions();
+        Q_FOREACH( QAction *action, actions ) {
             KIPI::Category category = plugin->category( action );
             if (  category == KIPI::ImagesPlugin ||  category == KIPI::CollectionsPlugin )
                 imageActions.append( action );

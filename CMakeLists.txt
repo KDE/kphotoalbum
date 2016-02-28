@@ -18,10 +18,10 @@ include(KDECompilerSettings)
 include(KDECMakeSettings)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED COMPONENTS Sql Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 # 2016-02-21 TODO ZaJ: libphonon5qt5-dev is currently dysfunctional in Debian/sid -> ignore for now
 #find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS I18n KIO)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO WidgetsAddons)
 
 # enable exceptions:
 kde_enable_exceptions()
@@ -37,6 +37,8 @@ set(INSTALL_TARGETS_DEFAULT_ARGS
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_NO_CAST_FROM_BYTEARRAY
     #-DDEBUG_JOBMANAGER
     )
 
@@ -436,17 +438,15 @@ set(kphotoalbum_SRCS
     ${libRemoteControl_SRCS}
     ${libFaceManagement_SRCS}
     ${libMap_SRCS}
+    ${libUtilities_SRCS}
     )
 
 add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-add_library(Utilities STATIC ${libUtilities_SRCS})
-
-# Internal components
-target_link_libraries(kphotoalbum Utilities)
-
 # External components
-target_link_libraries(kphotoalbum KF5::KIOCore ${JPEG_LIBRARY})
+target_link_libraries(kphotoalbum ${JPEG_LIBRARY})
+target_link_libraries(kphotoalbum Qt5::Network)
+target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::WidgetsAddons KF5::I18n)
 # 2016-02-21 TODO ZaJ: see above why this is disabled:
 #target_link_libraries(photoalbum PhononQt5)
 
@@ -458,7 +458,7 @@ if(KF5KDcraw_FOUND)
     target_link_libraries(kphotoalbum KF5::KDcraw)
 endif()
 
-if(KF5KExiv2_FOUND AND Qt5Sql_FOUND)
+if(KF5KExiv2_FOUND)
     target_link_libraries(kphotoalbum KF5::KExiv2 Qt5::Sql)
 endif()
 

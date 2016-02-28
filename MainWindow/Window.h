@@ -32,7 +32,7 @@ class KActionMenu;
 #include <QCloseEvent>
 #include <QResizeEvent>
 #include <QLabel>
-#include <KAction>
+#include <QAction>
 #include "DB/ImageInfoList.h"
 #include <kmainwindow.h>
 #include "Settings/SettingsData.h"
@@ -196,45 +196,45 @@ private:
     QTimer* m_autoSaveTimer;
     Browser::BrowserWidget* m_browser;
     DeleteDialog* m_deleteDialog;
-    KAction* m_lock;
-    KAction* m_unlock;
-    KAction* m_setDefaultPos;
-    KAction* m_setDefaultNeg;
-    KAction* m_jumpToContext;
+    QAction* m_lock;
+    QAction* m_unlock;
+    QAction* m_setDefaultPos;
+    QAction* m_setDefaultNeg;
+    QAction* m_jumpToContext;
     HTMLGenerator::HTMLDialog* m_htmlDialog;
-    KAction* m_configOneAtATime;
-    KAction* m_configAllSimultaniously;
-    KAction* m_createImageStack;
-    KAction* m_unStackImages;
-    KAction* m_setStackHead;
-    KAction* m_view;
-    KAction* m_rotLeft;
-    KAction* m_rotRight;
-    KAction* m_sortByDateAndTime;
-    KAction* m_sortAllByDateAndTime;
-    KAction* m_AutoStackImages;
-    KAction* m_viewInNewWindow;
+    QAction* m_configOneAtATime;
+    QAction* m_configAllSimultaniously;
+    QAction* m_createImageStack;
+    QAction* m_unStackImages;
+    QAction* m_setStackHead;
+    QAction* m_view;
+    QAction* m_rotLeft;
+    QAction* m_rotRight;
+    QAction* m_sortByDateAndTime;
+    QAction* m_sortAllByDateAndTime;
+    QAction* m_AutoStackImages;
+    QAction* m_viewInNewWindow;
     KActionMenu* m_viewMenu;
     KToggleAction* m_smallListView;
     KToggleAction* m_largeListView;
     KToggleAction* m_largeIconView;
-    KAction* m_generateHtml;
-    KAction* m_copy;
-    KAction* m_paste;
-    KAction* m_deleteSelected;
-    KAction* m_limitToMarked;
-    KAction* m_selectAll;
-    KAction* m_runSlideShow;
-    KAction* m_runRandomSlideShow;
+    QAction* m_generateHtml;
+    QAction* m_copy;
+    QAction* m_paste;
+    QAction* m_deleteSelected;
+    QAction* m_limitToMarked;
+    QAction* m_selectAll;
+    QAction* m_runSlideShow;
+    QAction* m_runRandomSlideShow;
     Plugins::Interface* m_pluginInterface;
-    KAction* m_showExifDialog;
+    QAction* m_showExifDialog;
 #ifdef HASKIPI
     KIPI::PluginLoader* m_pluginLoader;
 #endif
-    KAction* m_recreateThumbnails;
-    KAction* m_useNextVideoThumbnail;
-    KAction* m_usePreviousVideoThumbnail;
-    KAction* m_markUntagged;
+    QAction* m_recreateThumbnails;
+    QAction* m_useNextVideoThumbnail;
+    QAction* m_usePreviousVideoThumbnail;
+    QAction* m_markUntagged;
     TokenEditor* m_tokenEditor;
     DateBar::DateBarWidget* m_dateBar;
     QFrame* m_dateBarLine;

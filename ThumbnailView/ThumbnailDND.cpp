@@ -125,8 +125,10 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
     model()->setLeftDropItem( DB::FileName() );
     model()->setRightDropItem( DB::FileName() );
 
-    model()->updateCell(left);
-    model()->updateCell(right);
+    if (!left.isNull())
+        model()->updateCell(left);
+    if (!right.isNull())
+        model()->updateCell(right);
 }
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )

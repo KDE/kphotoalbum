@@ -57,7 +57,6 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 {
     static DB::FileName lastFileNameUnderCursor;
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
-    Q_ASSERT( !fileName.isNull());
 
     if ( fileName != lastFileNameUnderCursor ) {
         if ( !lastFileNameUnderCursor.isNull() )

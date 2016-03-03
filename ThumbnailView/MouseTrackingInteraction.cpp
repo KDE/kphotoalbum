@@ -59,7 +59,7 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
 
     if ( fileName != lastFileNameUnderCursor ) {
-        if ( !lastFileNameUnderCursor.isNull() )
+        if ( !fileName.isNull() && !lastFileNameUnderCursor.isNull() )
         {
             emit fileIdUnderCursorChanged(fileName);
             model()->updateCell(lastFileNameUnderCursor);

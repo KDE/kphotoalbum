@@ -237,16 +237,16 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
     if (m_fileVersion < 7) {
         KMessageBox::information(
             messageParent(),
-            i18n("<p><b>"
-                 "This version of KPhotoAlbum does not translate \"standard\" categories any more."
-                 "</b></p>"
-                 "<p>"
-                 "This may mean that – if you use a locale other than English – some of your "
-                 "categories are now displayed in English. "
-                 "<p>"
-                 "</p>"
-                 "You can manually rename your categories any time and then save your database."
-                 "</p>"),
+            i18nc("Leave \"Folder\" and \"Media Type\" untranslated below, those will show up with "
+                  "these exact names. Thanks :-)",
+                  "<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
+                  "any more.</b></p>"
+                  "<p>This may mean that – if you use a locale other than English – some of your "
+                  "categories are now displayed in English.</p>"
+                  "<p>You can manually rename your categories any time and then save your database."
+                  "</p>"
+                  "<p>In some cases, you may get two additional empty categories, \"Folder\" and "
+                  "\"Media Type\". You can delete those.</p>"),
             i18n("Changed standard category names")
         );
     }

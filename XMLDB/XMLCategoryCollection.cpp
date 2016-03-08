@@ -71,7 +71,7 @@ void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
             return;
         }
     }
-    Q_ASSERT( false );
+    Q_ASSERT_X( false, "removeCategory", "trying to remove non-existing category" );
 }
 
 void XMLDB::XMLCategoryCollection::rename( const QString& oldName, const QString& newName )

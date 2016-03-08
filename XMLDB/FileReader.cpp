@@ -177,11 +177,29 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             bool tokensCat = reader->attribute(metaString) == tokensString;
 
             DB::CategoryPtr cat = m_db->m_categoryCollection.categoryForName( categoryName );
-            Q_ASSERT ( !cat );
-            cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show, positionable );
-            if (tokensCat)
-                cat->setType(DB::Category::TokensCategory);
-            m_db->m_categoryCollection.addCategory( cat );
+            bool repairMode = false;
+            if (cat)
+            {
+                int choice = KMessageBox::warningContinueCancel(
+                            messageParent(),
+                            i18n( "<p>Line %1, column %2: duplicate category '%3'</p>"
+                                  "<p>Choose continue to ignore the duplicate category and try an automatic repair, "
+                                  "or choose cancel to quit.</p>",
+                                  reader->lineNumber(),
+                                  reader->columnNumber(),
+                                  categoryName
+                                  ),
+                            i18n("Error in database file"));
+                if ( choice == KMessageBox::Continue )
+                    repairMode = true;
+                else
+                    exit(-1);
+            } else {
+                cat = new XMLCategory( categoryName, icon, type, thumbnailSize, show, positionable );
+                if (tokensCat)
+                    cat->setType(DB::Category::TokensCategory);
+                m_db->m_categoryCollection.addCategory( cat );
+            }
 
             // Read values
             QStringList items;
@@ -195,6 +213,14 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                     cat->setBirthDate(value,QDate::fromString(reader->attribute(birthDateString), Qt::ISODate));
                 items.append( value );
                 reader->readEndElement();
+            }
+            if ( repairMode )
+            {
+                // merge with duplicate category
+                qDebug() << "Repairing category " << categoryName << ": merging items "
+                         << cat->items() << " with " << items;
+                items.append(cat->items());
+                items.removeDuplicates();
             }
             cat->setItems( items );
         }

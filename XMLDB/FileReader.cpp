@@ -127,7 +127,7 @@ void XMLDB::FileReader::createSpecialCategories()
 
     // KPhotoAlbum 2.2 did not write the tokens to the category section,
     // so unless we do this small trick they will not show up when importing.
-    for (char ch = 'A'; ch < 'Z'; ++ch) {
+    for (char ch = 'A'; ch <= 'Z'; ++ch) {
         tokenCat->addItem(QString::fromUtf8("%1").arg(QChar::fromLatin1(ch)));
     }
 

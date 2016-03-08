@@ -88,10 +88,13 @@ void XMLDB::FileReader::read( const QString& configFile )
 void XMLDB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
-    // The folder category is not stored in the index.xml file
     m_folderCategory = new XMLCategory(i18n("Folder"), QString::fromLatin1("folder"),
                                                 DB::Category::TreeView, 32, false );
     m_folderCategory->setType( DB::Category::FolderCategory );
+    // The folder category is not stored in the index.xml file,
+    // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
+    if ( !m_db->m_categoryCollection.categoryForName(m_folderCategory->name()).isNull() )
+        m_db->m_categoryCollection.removeCategory(m_folderCategory->name());
     m_db->m_categoryCollection.addCategory( m_folderCategory );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
 
@@ -132,7 +135,6 @@ void XMLDB::FileReader::createSpecialCategories()
     }
 
     // Setup the "Media Type" category
-    // the media type is not stored in the media category
     DB::CategoryPtr mediaCat;
     mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video-x-generic"),
                                DB::Category::TreeView, 32, false);
@@ -140,6 +142,10 @@ void XMLDB::FileReader::createSpecialCategories()
     mediaCat->addItem( i18n( "Video" ) );
     mediaCat->setType( DB::Category::MediaTypeCategory );
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
+    // The media type is not stored in the media category,
+    // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
+    if ( !m_db->m_categoryCollection.categoryForName(mediaCat->name()).isNull() )
+        m_db->m_categoryCollection.removeCategory( mediaCat->name() );
     m_db->m_categoryCollection.addCategory( mediaCat );
 }
 

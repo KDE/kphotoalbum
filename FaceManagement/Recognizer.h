@@ -27,7 +27,7 @@
 #include <QSqlDatabase>
 
 // libkface includes
-#include <libkface/recognitiondatabase.h>
+#include <KFace/RecognitionDatabase>
 
 namespace KFaceIface
 {

@@ -19,6 +19,8 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 
+#include "config-kpa-kface.h"
+
 // Qt includes
 #include <QLabel>
 #include <QWidget>
@@ -26,9 +28,8 @@
 
 // Local includes
 #include "SettingsData.h"
-#include "config-kpa-kface.h"
 #ifdef HAVE_KFACE
-#include "FaceManagement/Recognizer.h"
+#include <FaceManagement/Recognizer.h>
 #endif
 
 // Qt classes

@@ -21,7 +21,6 @@
 
 // Qt includes
 #include <QTreeWidget>
-#include <QMimeData>
 
 namespace Settings
 {

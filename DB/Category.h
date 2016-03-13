@@ -18,12 +18,12 @@
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
-#include <QMap>
-#include <qstring.h>
-#include <qobject.h>
-#include <ksharedptr.h>
-#include "kiconloader.h"
 #include <QDate>
+#include <QExplicitlySharedDataPointer>
+#include <QObject>
+#include <QString>
+
+#include <KIconLoader>
 
 class QImage;
 class QPixmap;
@@ -35,7 +35,7 @@ class CategoryItem;
 /**
    This class stores information about categories (People/Places/Events)
 */
-class Category :public QObject, public KShared
+class Category :public QObject, public QSharedData
 {
     Q_OBJECT
 
@@ -73,7 +73,7 @@ public:
     virtual void addItem( const QString& item ) = 0;
     virtual QStringList items() const = 0;
     virtual QStringList itemsInclCategories() const;
-    KSharedPtr<CategoryItem> itemsCategories() const;
+    QExplicitlySharedDataPointer<CategoryItem> itemsCategories() const;
 
     QPixmap categoryImage( const QString& category, QString, int width, int height ) const;
     void setCategoryImage( const QString& category, QString, const QImage& image );

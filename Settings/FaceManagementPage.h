@@ -23,7 +23,7 @@
 #include <QWidget>
 
 // Local includes
-#include "FaceManagement/Recognizer.h"
+#include <FaceManagement/Recognizer.h>
 
 // Qt classes
 class QPushButton;

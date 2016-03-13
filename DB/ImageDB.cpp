@@ -19,10 +19,8 @@
 #include "XMLDB/Database.h"
 #include <klocale.h>
 #include <qfileinfo.h>
-#include <QList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include <QProgressBar>
 #include <qapplication.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>

@@ -17,12 +17,11 @@
 */
 
 // Qt includes
-#include <QDebug>
 #include <QSqlQuery>
 
 // Local includes
 #include "Recognizer.h"
-#include "Settings/SettingsData.h"
+#include <Settings/SettingsData.h>
 
 using namespace KFaceIface;
 

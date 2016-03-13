@@ -22,8 +22,6 @@
 #include <klocale.h>
 #include <QSpinBox>
 #include <QCheckBox>
-#include <QHBoxLayout>
-#include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
 #include <QVBoxLayout>
@@ -64,10 +62,10 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     row++;
     m_useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
     lay->addWidget( m_useEXIFComments, row, 0, 1, 4 );
-    connect( m_useEXIFComments, SIGNAL(stateChanged(int)), this, SLOT(useEXIFCommentsChanged(int)) );
+    connect(m_useEXIFComments, &QCheckBox::stateChanged, this, &GeneralPage::useEXIFCommentsChanged);
 
     m_stripEXIFComments = new QCheckBox(i18n("Strip out camera generated default descriptions"), box);
-    connect( m_stripEXIFComments, SIGNAL(stateChanged(int)), this, SLOT(stripEXIFCommentsChanged(int)) );
+    connect(m_stripEXIFComments, &QCheckBox::stateChanged, this, &GeneralPage::stripEXIFCommentsChanged);
     lay->addWidget(m_stripEXIFComments, row, 1, 1, 4);
 
     row++;
@@ -105,7 +103,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
 
     m_showHistogram = new QCheckBox( i18n("Show histogram:"), box);
     lay->addWidget( m_showHistogram, row, 0 );
-    connect( m_showHistogram, SIGNAL(stateChanged(int)), this, SLOT(showHistogramChanged(int)) );
+    connect(m_showHistogram, &QCheckBox::stateChanged, this, &GeneralPage::showHistogramChanged);
 
     row++;
     label = new QLabel( i18n("Size of histogram columns in date bar:"), box );

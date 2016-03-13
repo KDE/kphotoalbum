@@ -18,12 +18,10 @@
 #include "DatabaseBackendPage.h"
 #include <klocale.h>
 #include "SettingsData.h"
-#include <QSpacerItem>
 #include <QHBoxLayout>
 #include <QSpinBox>
 #include <QLabel>
 #include <QCheckBox>
-#include <QRadioButton>
 #include <QVBoxLayout>
 #include "MainWindow/DirtyIndicator.h"
 
@@ -35,7 +33,7 @@ Settings::DatabaseBackendPage::DatabaseBackendPage( QWidget* parent )
     // Compressed index.xml
     m_compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), this );
     topLayout->addWidget(m_compressedIndexXML);
-    connect( m_compressedIndexXML, SIGNAL(clicked(bool)), this, SLOT (markDirty()) );
+    connect(m_compressedIndexXML, &QCheckBox::clicked, this, &DatabaseBackendPage::markDirty);
 
     m_compressBackup = new QCheckBox( i18n( "Compress backup file" ), this );
     topLayout->addWidget(m_compressBackup);

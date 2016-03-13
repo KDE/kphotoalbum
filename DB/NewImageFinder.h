@@ -18,7 +18,6 @@
 
 #ifndef NEWIMAGEFINDER_H
 #define NEWIMAGEFINDER_H
-#include <QSet>
 #include "ImageInfo.h"
 #include "ImageInfoPtr.h"
 

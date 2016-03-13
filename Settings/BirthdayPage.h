@@ -20,9 +20,9 @@
 #define BIRTHDAYPAGE_H
 
 // Qt includes
-#include <QWidget>
-#include <QMap>
 #include <QDate>
+#include <QMap>
+#include <QWidget>
 
 // Qt classes
 class QLineEdit;
@@ -36,7 +36,6 @@ class QLabel;
 
 // KDE classes
 class KPageWidgetItem;
-class KLocale;
 
 namespace Settings
 {
@@ -75,7 +74,6 @@ private: // Variables
     QFont m_font;
     QFont m_boldFont;
     QLineEdit* m_dateInput;
-    KLocale* m_locale;
     QCalendarWidget* m_calendar;
     QPushButton* m_unsetButton;
     QString m_noDateString;

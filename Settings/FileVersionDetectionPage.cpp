@@ -18,13 +18,10 @@
 #include "FileVersionDetectionPage.h"
 #include "SettingsData.h"
 #include <klocale.h>
-#include <KComboBox>
-#include <QSpinBox>
 #include <QLabel>
-#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QCheckBox>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <QGroupBox>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
@@ -56,7 +53,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
         QLabel* excludeDirectoriesLabel = new QLabel( i18n("Directories to exclude from new file search:" ), generalBox );
         layout->addWidget(excludeDirectoriesLabel);
 
-        m_excludeDirectories = new KLineEdit( generalBox );
+        m_excludeDirectories = new QLineEdit( generalBox );
         layout->addWidget(m_excludeDirectories);
         excludeDirectoriesLabel->setBuddy( m_excludeDirectories );
 
@@ -101,13 +98,13 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
         QLabel* modifiedFileComponentLabel = new QLabel( i18n("File versions search regexp:" ), modifiedBox );
         layout->addWidget(modifiedFileComponentLabel);
 
-        m_modifiedFileComponent = new KLineEdit(modifiedBox);
+        m_modifiedFileComponent = new QLineEdit(modifiedBox);
         layout->addWidget(m_modifiedFileComponent);
 
         QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
         layout->addWidget(originalFileComponentLabel);
 
-        m_originalFileComponent = new KLineEdit(modifiedBox);
+        m_originalFileComponent = new QLineEdit(modifiedBox);
         layout->addWidget(m_originalFileComponent);
 
         m_moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
@@ -158,13 +155,13 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
         QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
         layout->addWidget(copyFileComponentLabel);
 
-        m_copyFileComponent = new KLineEdit(copyBox);
+        m_copyFileComponent = new QLineEdit(copyBox);
         layout->addWidget(m_copyFileComponent);
 
         QLabel* copyFileReplacementComponentLabel = new QLabel( i18n("Copy file replacement text:" ), copyBox );
         layout->addWidget(copyFileReplacementComponentLabel);
 
-        m_copyFileReplacementComponent = new KLineEdit(copyBox);
+        m_copyFileReplacementComponent = new QLineEdit(copyBox);
         layout->addWidget(m_copyFileReplacementComponent);
 
         txt = i18n("<p>KPhotoAlbum can make a copy of an image before opening it with an external application. This configuration defines how the new file is named.</p>"

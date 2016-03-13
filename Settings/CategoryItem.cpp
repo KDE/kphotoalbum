@@ -20,11 +20,8 @@
 
 // Qt includes
 #include <QDir>
-#include <QDebug>
 
 // KDE includes
-#include <KLocale>
-#include <KMessageBox>
 
 // Local includes
 #include "DB/CategoryCollection.h"

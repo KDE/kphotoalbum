@@ -16,10 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 #include "XMLCategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "XMLCategory.h"
+
 #include <QList>
-#include <kdebug.h>
+
+#include <DB/ImageDB.h>
+#include "XMLCategory.h"
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {

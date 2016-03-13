@@ -19,10 +19,12 @@
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
 
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageInfoList.h"
-#include "DB/MediaCount.h"
+#include <QObject>
+
 #include <DB/FileNameList.h>
+#include <DB/ImageInfoList.h>
+#include <DB/ImageInfoPtr.h>
+#include <DB/MediaCount.h>
 
 class QProgressBar;
 
@@ -98,7 +100,7 @@ public: // Methods that must be overridden
     virtual void sortAndMergeBackIn(const DB::FileNameList& list) = 0;
 
     virtual CategoryCollection* categoryCollection() = 0;
-    virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
+    virtual QExplicitlySharedDataPointer<ImageDateCollection> rangeCollection() = 0;
 
     /**
      * Reorder the items in the database by placing all the items given in

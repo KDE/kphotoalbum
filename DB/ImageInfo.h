@@ -63,7 +63,7 @@ enum MediaType { Image = 0x01, Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
 
-class ImageInfo :public KShared {
+class ImageInfo :public QSharedData {
 
 public:
     ImageInfo();

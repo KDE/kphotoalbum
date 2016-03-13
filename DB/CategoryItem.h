@@ -18,13 +18,13 @@
 #ifndef DB_CATEGORYITEMS_H
 #define DB_CATEGORYITEMS_H
 
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 #include <qstring.h>
 #include <QList>
 
 namespace DB
 {
-class CategoryItem :public KShared
+class CategoryItem :public QSharedData
 {
 public:
     explicit CategoryItem( const QString& name, bool isTop = false ) : mp_name( name ), mp_isTop( isTop ) {}
@@ -42,7 +42,7 @@ public:
     bool mp_isTop;
 };
 
-typedef KSharedPtr<CategoryItem> CategoryItemPtr;
+typedef QExplicitlySharedDataPointer<CategoryItem> CategoryItemPtr;
 }
 
 

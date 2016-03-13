@@ -20,7 +20,7 @@
 #define IMAGEDATECOLLECTION_H
 #include "DB/ImageDate.h"
 #include <qmap.h>
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 namespace DB
 {
 
@@ -38,7 +38,7 @@ public:
 };
 
 
-class ImageDateCollection :public KShared
+class ImageDateCollection :public QSharedData
 {
 public:
     virtual ~ImageDateCollection() {}

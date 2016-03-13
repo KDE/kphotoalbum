@@ -33,6 +33,7 @@
 #include <kapplication.h>
 #include <config-kpa-exiv2.h>
 #include <kconfiggroup.h>
+#include <KSharedConfig>
 #include "ImageManager/RawImageDecoder.h"
 using namespace DB;
 
@@ -288,7 +289,7 @@ void ImageSearchInfo::debug()
 // PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
-    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings"));
+    KConfigGroup config = KSharedConfig::openConfig()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings"));
     config.writeEntry( QString::fromLatin1("label"), m_label );
     config.writeEntry( QString::fromLatin1("description"), m_description );
     config.writeEntry( QString::fromLatin1("categories"), m_categoryMatchText.keys() );
@@ -300,7 +301,7 @@ void ImageSearchInfo::saveLock() const
 
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings" ));
+    KConfigGroup config = KSharedConfig::openConfig()->group( Settings::SettingsData::instance()->groupForDatabase( "Privacy Settings" ));
     ImageSearchInfo info;
     info.m_label = config.readEntry( "label" );
     info.m_description = config.readEntry( "description" );

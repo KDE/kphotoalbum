@@ -63,7 +63,7 @@ namespace XMLDB {
         DB::MD5Map* md5Map() override;
         void sortAndMergeBackIn(const DB::FileNameList& idList) override;
         DB::CategoryCollection* categoryCollection() override;
-        KSharedPtr<DB::ImageDateCollection> rangeCollection() override;
+        QExplicitlySharedDataPointer<DB::ImageDateCollection> rangeCollection() override;
         void reorder(
             const DB::FileName& item,
             const DB::FileNameList& cutList,

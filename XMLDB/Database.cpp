@@ -28,7 +28,7 @@
 #include "DB/CategoryCollection.h"
 #include "Database.moc"
 #include "XMLCategory.h"
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
@@ -36,7 +36,6 @@
 #   include "Exif/Database.h"
 #endif
 #include <DB/FileName.h>
-#include <QDebug>
 
 using Utilities::StringSet;
 
@@ -344,9 +343,9 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
     return &m_categoryCollection;
 }
 
-KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
+QExplicitlySharedDataPointer<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
-    return KSharedPtr<DB::ImageDateCollection>(
+    return QExplicitlySharedDataPointer<DB::ImageDateCollection>(
                 new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false)));
 }
 

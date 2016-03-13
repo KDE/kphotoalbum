@@ -20,9 +20,11 @@
 #define MYIMAGECOLLECTION_H
 
 #include <config-kpa-kipi.h>
-#include <libkipi/imagecollectionshared.h>
-#include "DB/ImageInfoList.h"
+
+#include <KIPI/ImageCollectionShared>
 #include <kdemacros.h>
+
+#include <DB/ImageInfoList.h>
 
 namespace Plugins
 {
@@ -33,17 +35,19 @@ public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };
 
     explicit ImageCollection( Type tp );
-    virtual QString name();
-    virtual QString comment();
-    virtual KUrl::List images();
-    virtual KUrl path();
-    virtual KUrl uploadPath();
-    virtual KUrl uploadRoot();
+    virtual QString name() override;
+    virtual QString comment() override;
+    virtual QList<QUrl> images() override;
+    virtual QUrl url() override;
+    virtual QUrl uploadUrl() override;
+    virtual QUrl uploadRootUrl() override;
+    // FIXME: new methods have been added in KF5 KIPI...
+#warning KIPI support has not yet been fixed for KF5
 
 protected:
-    KUrl::List imageListToUrlList( const DB::ImageInfoList& list );
-    KUrl::List stringListToUrlList( const QStringList& list );
-    KUrl commonRoot();
+    QList<QUrl> imageListToUrlList( const DB::ImageInfoList& list );
+    QList<QUrl> stringListToUrlList( const QStringList& list );
+    QUrl commonRoot();
 
 private:
     Type m_type;

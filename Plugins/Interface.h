@@ -20,14 +20,16 @@
 #define KPHOTOALBUM_PLUGININTERFACE_H
 
 #include <config-kpa-kipi.h>
-#include <libkipi/interface.h>
+
 #include <QList>
 #include <QVariant>
-#include <libkipi/imagecollection.h>
-#include <libkipi/imageinfo.h>
-#include <libkipi/imagecollectionselector.h>
-#include <kurl.h>
+#include <QUrl>
+
 #include <kdemacros.h>
+#include <KIPI/ImageCollection>
+#include <KIPI/ImageCollectionSelector>
+#include <KIPI/ImageInfo>
+#include <KIPI/Interface>
 
 class QPixmap;
 class KFileItem;
@@ -44,22 +46,25 @@ class KDE_EXPORT Interface :public KIPI::Interface
     Q_OBJECT
 
 public:
-    explicit Interface( QObject *parent, const char *name=nullptr);
+    explicit Interface( QObject *parent, QString name=QString());
+
     virtual KIPI::ImageCollection currentAlbum() override;
     virtual KIPI::ImageCollection currentSelection() override;
     virtual QList<KIPI::ImageCollection> allAlbums() override;
-    virtual KIPI::ImageInfo info( const KUrl& ) override;
-    virtual bool addImage( const KUrl&, QString& errmsg ) override;
-    virtual void delImage( const KUrl& ) override;
-    virtual void refreshImages( const KUrl::List& urls ) override;
+    virtual KIPI::ImageInfo info( const QUrl& ) override;
+    virtual bool addImage( const QUrl&, QString& errmsg ) override;
+    virtual void delImage( const QUrl& ) override;
+    virtual void refreshImages( const QList<QUrl>& urls ) override;
     virtual int features() const override;
     virtual QAbstractItemModel * getTagTree() const override;
     virtual QVariant hostSetting( const QString& settingName ) override;
     virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
     virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
 
-    virtual void thumbnail(const KUrl &url, int size) override;
-    virtual void thumbnails(const KUrl::List &list, int size) override;
+    virtual void thumbnail(const QUrl &url, int size) override;
+    virtual void thumbnails(const QList<QUrl> &list, int size) override;
+    // FIXME: new methods have been added in KF5 KIPI...
+#warning KIPI support has not yet been fixed for KF5
 
 public slots:
     void slotSelectionChanged( bool );
@@ -70,7 +75,7 @@ private slots:
     void failedKDEPreview(const KFileItem& item);
 
 signals:
-    void imagesChanged( const KUrl::List& );
+    void imagesChanged( const QList<QUrl>& );
 };
 
 }

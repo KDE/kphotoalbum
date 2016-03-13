@@ -26,9 +26,9 @@ UploadImageCollection::UploadImageCollection(const QString& path)
 {
 }
 
-KUrl::List UploadImageCollection::images()
+QList<QUrl> UploadImageCollection::images()
 {
-    return KUrl::List();
+    return QList<QUrl>();
 }
 
 QString UploadImageCollection::name()
@@ -36,9 +36,9 @@ QString UploadImageCollection::name()
     return QString();
 }
 
-KUrl UploadImageCollection::uploadPath()
+QUrl UploadImageCollection::uploadUrl()
 {
-    return KUrl::fromLocalFile(m_path);
+    return QUrl::fromLocalFile(m_path);
 }
 
 } // namespace Plugins

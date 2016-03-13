@@ -43,7 +43,9 @@ class KDE_EXPORT ImageCollectionSelector :public KIPI::ImageCollectionSelector
 {
 public:
     ImageCollectionSelector(QWidget *parent, Interface *interface);
-    virtual QList<KIPI::ImageCollection> selectedImageCollections() const;
+    virtual QList<KIPI::ImageCollection> selectedImageCollections() const override;
+    // FIXME: new methods have been added in KF5 KIPI...
+#warning KIPI support has not yet been fixed for KF5
 
 protected:
     // just fake a selectionChanged event when first shown to make export plugin happy:

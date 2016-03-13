@@ -20,8 +20,9 @@
 #ifndef PLUGINS_UPLOADWIDGET_H
 #define PLUGINS_UPLOADWIDGET_H
 
-#include <libkipi/imagecollection.h>
-#include <libkipi/uploadwidget.h>
+#include <KIPI/ImageCollection>
+#include <KIPI/UploadWidget>
+
 class QFileSystemModel;
 class QModelIndex;
 
@@ -33,7 +34,7 @@ class UploadWidget : public KIPI::UploadWidget
 
 public:
     explicit UploadWidget(QWidget* parent);
-    KIPI::ImageCollection selectedImageCollection() const;
+    KIPI::ImageCollection selectedImageCollection() const override;
 
 private slots:
     void newIndexSelected(const QModelIndex& index);

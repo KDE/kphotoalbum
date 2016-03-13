@@ -16,15 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "KeyboardEventHandler.h"
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <Settings/SettingsData.h>
+
 #include "CellGeometry.h"
 #include "enums.h"
-#include "DB/CategoryCollection.h"
-#include "ThumbnailWidget.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "DB/ImageDB.h"
 #include "ThumbnailModel.h"
+#include "ThumbnailWidget.h"
 #include "VideoThumbnailCycler.h"
-#include "Settings/SettingsData.h"
 
 ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )

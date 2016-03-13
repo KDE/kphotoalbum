@@ -81,8 +81,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &m_mouseTrackingHandler, SIGNAL(fileIdUnderCursorChanged(DB::FileName)), this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
-    connect( m_keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
+    connect(&m_mouseTrackingHandler, &MouseTrackingInteraction::fileIdUnderCursorChanged, this, &ThumbnailWidget::fileIdUnderCursorChanged);
+    connect(m_keyboardHandler, &KeyboardEventHandler::showSelection, this, &ThumbnailWidget::showSelection);
 
     updatePalette();
     setItemDelegate( new Delegate(factory, this) );
@@ -362,7 +362,7 @@ void ThumbnailView::ThumbnailWidget::setupDateChangeTimer()
 {
     m_dateChangedTimer = new QTimer(this);
     m_dateChangedTimer->setSingleShot(true);
-    connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT(emitDateChange()) );
+    connect(m_dateChangedTimer, &QTimer::timeout, this, &ThumbnailWidget::emitDateChange);
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )

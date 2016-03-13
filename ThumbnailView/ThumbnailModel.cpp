@@ -16,28 +16,30 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailModel.h"
-#include <QDebug>
-#include "CellGeometry.h"
-#include <QPainter>
-#include "ThumbnailRequest.h"
-#include "DB/ImageDB.h"
-#include "ThumbnailWidget.h"
-#include "ImageManager/AsyncLoader.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/Util.h"
-#include "ImageManager/ThumbnailCache.h"
-#include "SelectionMaintainer.h"
+
+#include <QIcon>
+
+#include <KLocalizedString>
+
 #include <DB/FileName.h>
-#include <KIcon>
-#include <KLocale>
+#include <DB/ImageDB.h>
+#include <ImageManager/AsyncLoader.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/Util.h>
+
+#include "CellGeometry.h"
+#include "ThumbnailRequest.h"
+#include "ThumbnailWidget.h"
+#include "SelectionMaintainer.h"
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory ),
       m_sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
-    m_ImagePlaceholder = KIcon( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
-    m_VideoPlaceholder = KIcon( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
 }
 
 static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
@@ -61,7 +63,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     StackMap stackContents;
     Q_FOREACH(const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
-        if ( !imageInfo.isNull() && imageInfo->isStacked() ) {
+        if ( imageInfo && imageInfo->isStacked() ) {
             DB::StackID stackid = imageInfo->stackId();
             stackContents[stackid].append(fileName);
         }
@@ -83,7 +85,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     QSet<DB::StackID> alreadyShownStacks;
     Q_FOREACH( const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
-        if ( !imageInfo.isNull() && imageInfo->isStacked()) {
+        if ( imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
                 continue;
@@ -287,7 +289,7 @@ QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex& index, int role 
 void ThumbnailView::ThumbnailModel::requestThumbnail( const DB::FileName& fileName, const ImageManager::Priority priority )
 {
     DB::ImageInfoPtr imageInfo = fileName.info();
-    if ( imageInfo.isNull() )
+    if ( !imageInfo )
         return;
     // request the thumbnail in the size that is set in the settings, not in the current grid size:
     const QSize cellSize = cellGeometryInfo()->baseIconSize();
@@ -310,7 +312,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest* req
     DB::ImageInfoPtr imageInfo = fileName.info();
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.
-    if ( fullSize.isValid() && !imageInfo.isNull() ) {
+    if ( fullSize.isValid() && imageInfo ) {
         imageInfo->setSize( fullSize );
     }
 
@@ -443,8 +445,8 @@ void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
     m_lastVisibleRow = qMin(m_firstVisibleRow + columns*(rows+1), rowCount(QModelIndex()));
 
     // the cellGeometry has changed -> update placeholders
-    m_ImagePlaceholder = KIcon( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
-    m_VideoPlaceholder = KIcon( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

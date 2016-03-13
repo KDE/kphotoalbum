@@ -20,7 +20,6 @@
 #include <QRect>
 #include <QSize>
 #include "ThumbnailComponent.h"
-#include <QMap>
 
 class QPixmap;
 class QRect;

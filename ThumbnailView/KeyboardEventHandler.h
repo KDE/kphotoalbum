@@ -17,8 +17,12 @@
 */
 #ifndef KEYBOARDEVENTHANDLER_H
 #define KEYBOARDEVENTHANDLER_H
+
+#include <QObject>
+
 #include "ThumbnailComponent.h"
 #include "enums.h"
+
 class QKeyEvent;
 class ThumbnailFactory;
 

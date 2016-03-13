@@ -16,12 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailDND.h"
-#include "ThumbnailModel.h"
+
+#include <QMimeData>
 #include <QTimer>
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageDB.h"
+
 #include <KMessageBox>
-#include <klocale.h>
+#include <KLocalizedString>
+
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
+#include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
 ThumbnailView::ThumbnailDND::ThumbnailDND( ThumbnailFactory* factory )
@@ -31,7 +35,7 @@ ThumbnailView::ThumbnailDND::ThumbnailDND( ThumbnailFactory* factory )
 
 void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
 {
-    if ( event->provides( "text/uri-list" ) && widget()->m_selectionInteraction.isDragging() )
+    if ( event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging() )
         event->accept();
     else {
         event->ignore();
@@ -133,7 +137,7 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
 
 void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )
 {
-    if ( event->provides( "text/uri-list" ) && widget()->m_selectionInteraction.isDragging() )
+    if ( event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging() )
         event->accept();
     else
         event->ignore();

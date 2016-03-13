@@ -19,7 +19,6 @@
 #include "ThumbnailToolTip.h"
 
 #include <QDesktopWidget>
-#include <QTemporaryFile>
 #include <QApplication>
 #include <QCursor>
 

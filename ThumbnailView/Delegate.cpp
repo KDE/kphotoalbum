@@ -17,8 +17,6 @@
 */
 #include "Delegate.h"
 #include "Utilities/Set.h"
-#include <QTime>
-#include <QDebug>
 #include "Utilities/Util.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"

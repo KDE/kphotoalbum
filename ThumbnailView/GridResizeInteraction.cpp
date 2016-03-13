@@ -24,10 +24,8 @@
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
 #include <KSharedConfig>
-#include <KGlobal>
 #include "MainWindow/Window.h"
 #include <klocale.h>
-#include <KMessageBox>
 #include "ImageManager/enums.h"
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )
@@ -82,7 +80,7 @@ bool ThumbnailView::GridResizeInteraction::isResizingGrid()
 
 void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
 {
-    KGlobal::config()->sync();
+    KSharedConfig::openConfig()->sync();
     model()->reset();
     cellGeometryInfo()->flushCache();
     model()->updateVisibleRowInfo();

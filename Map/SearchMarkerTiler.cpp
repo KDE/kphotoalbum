@@ -15,14 +15,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "SearchMarkerTiler.h"
 
 // libkgeomap includes
-#include <libkgeomap/modelhelper.h>
-#include <libkgeomap/kgeomap_primitives.h>
 
 // Local includes
-#include "Map/MapView.h"
-#include "SearchMarkerTiler.h"
+#include <Map/MapView.h>
 
 Map::SearchMarkerTiler::SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent)
     : ItemMarkerTiler(modelHelper,parent)

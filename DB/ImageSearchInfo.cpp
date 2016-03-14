@@ -16,25 +16,29 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa-exiv2.h>
 #include "ImageSearchInfo.h"
-#include "ValueCategoryMatcher.h"
+
+#include <QDebug>
+#include <QRegExp>
+
+#include <KApplication>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
+
+#include <ImageManager/RawImageDecoder.h>
+#include <Settings/SettingsData.h>
+
+#include "AndCategoryMatcher.h"
+#include "CategoryMatcher.h"
+#include "ContainerCategoryMatcher.h"
 #include "ExactCategoryMatcher.h"
+#include "ImageDB.h"
 #include "NegationCategoryMatcher.h"
 #include "NoTagCategoryMatcher.h"
-#include "AndCategoryMatcher.h"
-#include "ContainerCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
-#include <qregexp.h>
-#include "Settings/SettingsData.h"
-#include <klocale.h>
-#include <kdebug.h>
-#include "CategoryMatcher.h"
-#include "ImageDB.h"
-#include <kapplication.h>
-#include <config-kpa-exiv2.h>
-#include <kconfiggroup.h>
-#include <KSharedConfig>
-#include "ImageManager/RawImageDecoder.h"
+#include "ValueCategoryMatcher.h"
 using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,

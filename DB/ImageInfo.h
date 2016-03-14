@@ -33,7 +33,7 @@
 
 #include "config-kpa-kgeomap.h"
 #ifdef HAVE_KGEOMAP
-#include <libkgeomap/geocoordinates.h>
+#include <KGeoMap/GeoCoordinates>
 #endif
 
 namespace Plugins

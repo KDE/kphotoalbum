@@ -20,7 +20,6 @@
 #define SEARCHMARKERTILER_H
 
 // Libkgeomap includes
-#include <libkgeomap/itemmarkertiler.h>
 
 namespace KGeoMap
 {

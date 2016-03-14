@@ -19,16 +19,15 @@
 #include "MapView.h"
 
 // Qt includes
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QPixmap>
-#include <QProgressBar>
 #include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 // KDE includes
-#include <KLocale>
-#include <KIconLoader>
 #include <KConfigGroup>
+#include <KIconLoader>
+#include <KLocale>
 #include <KMessageBox>
 
 // Local includes
@@ -50,7 +49,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
-    m_mapWidget = new KGeoMap::KGeoMapWidget(this);
+    m_mapWidget = new KGeoMap::MapWidget(this);
     layout->addWidget(m_mapWidget);
 
     QWidget* controlWidget = m_mapWidget->getControlWidget();

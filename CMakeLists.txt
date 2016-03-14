@@ -21,7 +21,7 @@ include(FeatureSummary)
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 # 2016-02-21 TODO ZaJ: libphonon5qt5-dev is currently dysfunctional in Debian/sid -> ignore for now
 #find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO WidgetsAddons Config IconThemes KDELibs4Support Archive)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO WidgetsAddons Config IconThemes KDELibs4Support Archive WidgetsAddons)
 
 # enable exceptions:
 kde_enable_exceptions()
@@ -95,7 +95,7 @@ if(KF5KExiv2_FOUND)
 else()
     message(STATUS "Not searching KF5KGeoMap because of missing dependency KF5KExiv2...")
 endif()
-set(HAVE_KGEOMAP ${KF5KGEOMAP_FOUND})
+set(HAVE_KGEOMAP ${KF5KGeoMap_FOUND})
 
 add_custom_target(
     UpdateVersion ALL
@@ -389,7 +389,7 @@ if(KF5KFace_FOUND)
 endif()
 
 set(libMap_SRCS)
-if(KF5KGEOMAP_FOUND)
+if(KF5KGeoMap_FOUND)
     set(libMap_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
@@ -446,7 +446,7 @@ add_executable(kphotoalbum ${kphotoalbum_SRCS})
 # External components
 target_link_libraries(kphotoalbum ${JPEG_LIBRARY})
 target_link_libraries(kphotoalbum Qt5::Network)
-target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::WidgetsAddons KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::IconThemes KF5::Archive)
+target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::WidgetsAddons KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::IconThemes KF5::Archive KF5::WidgetsAddons)
 # for now:
 target_link_libraries(kphotoalbum KF5::KDELibs4Support)
 # 2016-02-21 TODO ZaJ: see above why this is disabled:
@@ -468,7 +468,7 @@ if(KF5KFace_FOUND)
     target_link_libraries(kphotoalbum KF5::KFace )
 endif()
 
-if(KF5KGEOMAP_FOUND)
+if(KF5KGeoMap_FOUND)
     target_link_libraries(kphotoalbum KF5::KGeoMap )
 endif()
 

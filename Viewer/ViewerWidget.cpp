@@ -19,50 +19,44 @@
 #include "ViewerWidget.h"
 #include <config-kpa-exiv2.h>
 
-#include <qapplication.h>
+#include <QAction>
+#include <QApplication>
 #include <QContextMenuEvent>
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDesktopWidget>
-#include <qeventloop.h>
-#include <qfileinfo.h>
+#include <QEventLoop>
+#include <QFileDialog>
+#include <QFileInfo>
 #include <qglobal.h>
 #include <QKeyEvent>
 #include <QList>
+#include <QPushButton>
 #include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimeLine>
 #include <QTimer>
-#include <QVBoxLayout>
 #include <QWheelEvent>
 
 #include <KActionCollection>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kdeversion.h>
 #include <KFileDialog>
-#include <kiconloader.h>
-#include <kio/copyjob.h>
-#include <klocale.h>
-#include <KMessageBox>
-#include <KProcess>
-#include <KPushButton>
-#include <KStandardAction>
-#include <KStandardDirs>
-#include <kwindowsystem.h>
+#include <KIconLoader>
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KWindowSystem>
 
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
 #ifdef HAVE_EXIV2
-#  include "Exif/InfoDialog.h"
+#  include <Exif/InfoDialog.h>
 #endif
-#include "ImageManager/ThumbnailCache.h"
-#include "MainWindow/CategoryImagePopup.h"
-#include "MainWindow/DeleteDialog.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "MainWindow/ExternalPopup.h"
-#include "MainWindow/Window.h"
-#include "Utilities/Util.h"
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/CategoryImagePopup.h>
+#include <MainWindow/DeleteDialog.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/ExternalPopup.h>
+#include <MainWindow/Window.h>
+#include <Utilities/Util.h>
 
 #include "CategoryImageConfig.h"
 #include "ImageDisplay.h"
@@ -112,10 +106,10 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
 
     createVideoViewer();
 
-    connect( m_imageDisplay, SIGNAL(possibleChange()), this, SLOT(updateCategoryConfig()) );
-    connect( m_imageDisplay, SIGNAL(imageReady()), this, SLOT(updateInfoBox()) );
-    connect( m_imageDisplay, SIGNAL(setCaptionInfo(QString)), this, SLOT(setCaptionWithDetail(QString)) );
-    connect( m_imageDisplay, SIGNAL(viewGeometryChanged(QSize,QRect,double)), this, SLOT(remapAreas(QSize,QRect,double)) );
+    connect(m_imageDisplay, &ImageDisplay::possibleChange, this, &ViewerWidget::updateCategoryConfig);
+    connect(m_imageDisplay, &ImageDisplay::imageReady, this, &ViewerWidget::updateInfoBox);
+    connect(m_imageDisplay, &ImageDisplay::setCaptionInfo, this, &ViewerWidget::setCaptionWithDetail);
+    connect(m_imageDisplay, &ImageDisplay::viewGeometryChanged, this, &ViewerWidget::remapAreas);
 
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
@@ -127,7 +121,7 @@ Viewer::ViewerWidget::ViewerWidget( UsageType type, QMap<Qt::Key, QPair<QString,
     m_slideShowTimer = new QTimer( this );
     m_slideShowTimer->setSingleShot( true );
     m_slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
-    connect( m_slideShowTimer, SIGNAL(timeout()), this, SLOT(slotSlideShowNextFromTimer()) );
+    connect(m_slideShowTimer, &QTimer::timeout, this, &ViewerWidget::slotSlideShowNextFromTimer);
     m_speedDisplay = new SpeedDisplay( this );
     m_speedDisplay->hide();
 
@@ -152,7 +146,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     createCategoryImageMenu();
     createFilterMenu();
 
-    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()) );
+    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()) );
     action->setText( i18nc("@action:inmenu","Annotate...") );
     action->setShortcut( Qt::CTRL+Qt::Key_1 );
     m_popup->addAction( action );
@@ -191,7 +185,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 void Viewer::ViewerWidget::createShowContextMenu()
 {
     VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, m_actions );
-    connect( menu, SIGNAL(visibleOptionsChanged()), this, SLOT(updateInfoBox()) );
+    connect(menu, &VisibleOptionsMenu::visibleOptionsChanged, this, &ViewerWidget::updateInfoBox);
     m_popup->addMenu( menu );
 }
 
@@ -202,7 +196,7 @@ void Viewer::ViewerWidget::createWallPaperMenu()
     m_wallpaperMenu = new QMenu( m_popup );
     m_wallpaperMenu->setTitle( i18nc("@title:inmenu","Set as Wallpaper") );
 
-    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
+    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
     action->setText( i18nc("@action:inmenu","Centered") );
     m_wallpaperMenu->addAction(action);
 
@@ -263,7 +257,7 @@ void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
     m_externalPopup = new MainWindow::ExternalPopup( m_popup );
     m_popup->addMenu( m_externalPopup );
-    connect( m_externalPopup, SIGNAL(aboutToShow()), this, SLOT(populateExternalPopup()) );
+    connect(m_externalPopup, &MainWindow::ExternalPopup::aboutToShow, this, &ViewerWidget::populateExternalPopup);
 }
 
 void Viewer::ViewerWidget::createRotateMenu()
@@ -271,7 +265,7 @@ void Viewer::ViewerWidget::createRotateMenu()
     m_rotateMenu = new QMenu( m_popup );
     m_rotateMenu->setTitle( i18nc("@title:inmenu","Rotate") );
 
-    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()) );
+    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()) );
     action->setText( i18nc("@action:inmenu","Rotate clockwise") );
     action->setShortcut( Qt::Key_9 );
     m_rotateMenu->addAction( action );
@@ -295,7 +289,7 @@ void Viewer::ViewerWidget::createSkipMenu()
     QMenu *popup = new QMenu( m_popup );
     popup->setTitle( i18nc("@title:inmenu As in 'skip 2 images'","Skip") );
 
-    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT(showFirst()) );
+    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-home"), this, SLOT(showFirst()) );
     action->setText( i18nc("@action:inmenu Go to first image","First") );
     action->setShortcut( Qt::Key_Home );
     popup->addAction( action );
@@ -311,8 +305,9 @@ void Viewer::ViewerWidget::createSkipMenu()
     action->setText( i18nc("@action:inmenu","Show Next") );
     action->setShortcut( Qt::Key_PageDown );
     // bah, they don't use references
-    KShortcut viewerNextShortcut = action->shortcut();
-    viewerNextShortcut.setAlternate( Qt::Key_Space );
+    QKeySequence viewerNextShortcut = action->shortcut();
+    // FIXME KF5-port: QKeySequence does not allow an alternate key binding:
+//    viewerNextShortcut.setAlternate( Qt::Key_Space );
     action->setShortcut( viewerNextShortcut );
     popup->addAction( action );
     m_forwardActions.append(action);
@@ -338,8 +333,9 @@ void Viewer::ViewerWidget::createSkipMenu()
     action = m_actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
     action->setText( i18nc("@action:inmenu","Show Previous") );
     action->setShortcut( Qt::Key_PageUp );
-    KShortcut viewerPrevShortcut = action->shortcut();
-    viewerPrevShortcut.setAlternate(Qt::Key_Backspace);
+    QKeySequence viewerPrevShortcut = action->shortcut();
+    // FIXME KF5-port: QKeySequence does not allow an alternate key binding:
+//    viewerPrevShortcut.setAlternate(Qt::Key_Backspace);
     action->setShortcut(viewerPrevShortcut);
     popup->addAction( action );
     m_backwardActions.append(action);
@@ -381,7 +377,7 @@ void Viewer::ViewerWidget::createZoomMenu()
     popup->setTitle( i18nc("@action:inmenu","Zoom") );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = m_actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()) );
+    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()) );
     action->setText( i18nc("@action:inmenu","Zoom In") );
     action->setShortcut( Qt::Key_Plus );
     popup->addAction( action );
@@ -492,9 +488,9 @@ void Viewer::ViewerWidget::load()
     setCaptionWithDetail( QString() );
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for( QList<KAction*>::const_iterator it = m_forwardActions.constBegin(); it != m_forwardActions.constEnd(); ++it )
+    for( QList<QAction *>::const_iterator it = m_forwardActions.constBegin(); it != m_forwardActions.constEnd(); ++it )
         (*it)->setEnabled( m_current +1 < (int) m_list.count() );
-    for( QList<KAction*>::const_iterator it = m_backwardActions.constBegin(); it != m_backwardActions.constEnd(); ++it )
+    for( QList<QAction *>::const_iterator it = m_backwardActions.constBegin(); it != m_backwardActions.constEnd(); ++it )
         (*it)->setEnabled( m_current > 0 );
 
     m_setStackHead->setEnabled( currentInfo()->isStacked() );
@@ -1329,7 +1325,7 @@ void Viewer::ViewerWidget::createVideoMenu()
             menu->addAction(sep);
         }
 
-        KAction* seek = m_actions->addAction( QString::fromLatin1(info.name), m_videoDisplay, SLOT(seek()));
+        QAction * seek = m_actions->addAction( QString::fromLatin1(info.name), m_videoDisplay, SLOT(seek()));
         seek->setText(info.title);
         seek->setData(info.value);
         seek->setShortcut( info.key );
@@ -1359,7 +1355,7 @@ void Viewer::ViewerWidget::createVideoMenu()
     m_popup->addAction(m_makeThumbnailImage);
     m_videoActions.append(m_makeThumbnailImage);
 
-    KAction* restart = m_actions->addAction( QString::fromLatin1("viewer-video-restart"), m_videoDisplay, SLOT(restart()) );
+    QAction * restart = m_actions->addAction( QString::fromLatin1("viewer-video-restart"), m_videoDisplay, SLOT(restart()) );
     restart->setText( i18nc("@action:inmenu Restart video playback.","Restart") );
     m_popup->addAction( restart );
     m_videoActions.append( restart );
@@ -1369,7 +1365,7 @@ void Viewer::ViewerWidget::createCategoryImageMenu()
 {
     m_categoryImagePopup = new MainWindow::CategoryImagePopup( m_popup );
     m_popup->addMenu( m_categoryImagePopup );
-    connect( m_categoryImagePopup, SIGNAL(aboutToShow()), this, SLOT(populateCategoryImagePopup()) );
+    connect(m_categoryImagePopup, &MainWindow::CategoryImagePopup::aboutToShow, this, &ViewerWidget::populateCategoryImagePopup);
 }
 
 void Viewer::ViewerWidget::createFilterMenu()
@@ -1411,7 +1407,7 @@ void Viewer::ViewerWidget::test()
     QTimeLine* timeline = new QTimeLine;
     timeline->setStartFrame( _infoBox->y() );
     timeline->setEndFrame( height() );
-    connect( timeline, SIGNAL(frameChanged(int)), this, SLOT(moveInfoBox(int)) );
+    connect(timeline, &QTimeLine::frameChanged, this, &ViewerWidget::moveInfoBox);
     timeline->start();
 #endif // TESTING
 }
@@ -1425,7 +1421,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 {
     m_videoDisplay = new VideoDisplay( this );
     addWidget( m_videoDisplay );
-    connect( m_videoDisplay, SIGNAL(stopped()), this, SLOT(videoStopped()) );
+    connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);
 }
 
 void Viewer::ViewerWidget::stopPlayback()
@@ -1465,8 +1461,8 @@ void Viewer::ViewerWidget::addTaggedAreas()
             newArea->setActualGeometry(areaData.value());
             newArea->show();
 
-            connect( m_infoBox, SIGNAL(tagHovered(QPair<QString, QString>)), newArea, SLOT(checkShowArea(QPair<QString, QString>)) );
-            connect( m_infoBox, SIGNAL(noTagHovered()), newArea, SLOT(resetViewStyle()) );
+            connect(m_infoBox, &InfoBox::tagHovered, newArea, &TaggedArea::checkShowArea);
+            connect(m_infoBox, &InfoBox::noTagHovered, newArea, &TaggedArea::resetViewStyle);
         }
     }
 
@@ -1518,7 +1514,7 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
     int innerOffsetLeft = -zoomWindow.left() * scaleWidth;
     int innerOffsetTop = -zoomWindow.top() * scaleHeight;
 
-    foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
+    Q_FOREACH(TaggedArea *area, findChildren<TaggedArea *>()) {
         QRect actualGeometry = area->actualGeometry();
         QRect screenGeometry;
 
@@ -1535,20 +1531,19 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
 
 void Viewer::ViewerWidget::copyTo()
 {
-    KUrl src = KUrl::fromPath(currentInfo()->fileName().absolute());
+    QUrl src = QUrl::fromLocalFile(currentInfo()->fileName().absolute());
 
-    // "kfiledialog:///copyTo" -> use last directory that was used in this dialog
-    KFileDialog dialog( KUrl("kfiledialog:///copyTo"), QString() /* empty filter */, this );
-    dialog.setCaption( i18nc("@title:window", "Copy image to...") );
-    dialog.okButton()->setText( i18nc("@action:button", "Copy") );
-    dialog.setSelection(src.fileName());
-    dialog.setMode(KFile::File | KFile::Directory);
+    QFileDialog dialog( this );
+    dialog.setWindowTitle( i18nc("@title:window", "Copy image to...") );
+    dialog.selectFile(src.fileName());
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setLabelText(QFileDialog::Accept, i18nc("@action:button", "Copy"));
 
     if (! dialog.exec()) {
         return;
     }
 
-    KIO::copy(src, dialog.selectedUrl());
+    KIO::copy(src, dialog.selectedUrls().first());
 }
 
 #include "ViewerWidget.moc"

@@ -18,7 +18,6 @@
 
 #ifndef SPEEDDISPLAY_H
 #define SPEEDDISPLAY_H
-#include <qdialog.h>
 #include <QLabel>
 class QTimeLine;
 class QTimer;

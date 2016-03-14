@@ -20,33 +20,28 @@
 
 // Qt includes
 #include <QApplication>
-#include <QToolButton>
-#include <QCursor>
-#include <QMouseEvent>
-#include <QDesktopWidget>
 #include <QBitmap>
 #include <QDebug>
-#include <QScrollBar>
+#include <QDesktopWidget>
 #include <qglobal.h>
+#include <QMouseEvent>
+#include <QScrollBar>
+#include <QToolButton>
 
 // KDE includes
 #include <KActionCollection>
-#include <KGlobal>
-#include <KIconLoader>
-#include <KDebug>
+#include <KLocalizedString>
+#include <KRatingWidget>
 
 // Local includes
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "MainWindow/Window.h"
-#include "VisibleOptionsMenu.h"
-
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <MainWindow/Window.h>
 #ifdef HAVE_KGEOMAP
-#include <QDialog>
-#include <QVBoxLayout>
-#include "Map/MapView.h"
+#include <Map/MapView.h>
 #endif
+#include "VisibleOptionsMenu.h"
 
 using namespace Settings;
 
@@ -71,23 +66,21 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer)
     setPalette(p);
 
     m_jumpToContext = new QToolButton(this);
-    m_jumpToContext->setIcon(KIcon(QString::fromUtf8("kphotoalbum")));
+    m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
     m_jumpToContext->setFixedSize(16, 16);
-    connect(m_jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()));
+    connect(m_jumpToContext, &QToolButton::clicked, this, &InfoBox::jumpToContext);
     connect(this, SIGNAL(highlighted(QString)), SLOT(linkHovered(QString)));
-    m_jumpToContext->setCursor(Qt::ArrowCursor);
 
 #ifdef HAVE_KGEOMAP
     m_showOnMap = new QToolButton(this);
-    m_showOnMap->setIcon(KIcon(QString::fromUtf8("edit-web-search")));
+    m_showOnMap->setIcon(QIcon::fromTheme(QString::fromUtf8("edit-web-search")));
     m_showOnMap->setFixedSize(16, 16);
     m_showOnMap->setCursor(Qt::ArrowCursor);
     m_showOnMap->setToolTip(i18n("Show the geographic position of this image on a map"));
-    connect(m_showOnMap, SIGNAL(clicked()), this, SLOT(launchMapView()));
+    connect(m_showOnMap, &QToolButton::clicked, this, &InfoBox::launchMapView);
     m_showOnMap->hide();
 
-    connect(m_viewer, SIGNAL(soughtTo(DB::FileName)),
-            this, SLOT(updateMapForCurrentImage(DB::FileName)));
+    connect(m_viewer, &ViewerWidget::soughtTo, this, &InfoBox::updateMapForCurrentImage);
 #endif
 
     KRatingWidget* rating = new KRatingWidget( nullptr );
@@ -315,7 +308,7 @@ void Viewer::InfoBox::contextMenuEvent(QContextMenuEvent* event)
 {
     if (! m_menu) {
         m_menu = new VisibleOptionsMenu(m_viewer, new KActionCollection((QObject*) nullptr));
-        connect(m_menu, SIGNAL(visibleOptionsChanged()), m_viewer, SLOT(updateInfoBox()));
+        connect(m_menu, &VisibleOptionsMenu::visibleOptionsChanged, m_viewer, &ViewerWidget::updateInfoBox);
     }
     m_menu->exec(event->globalPos());
 }

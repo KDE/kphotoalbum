@@ -19,11 +19,7 @@
 #include "VideoDisplay.h"
 #include <phonon/videowidget.h>
 #include <phonon/audiooutput.h>
-#include <KActionCollection>
 #include <qglobal.h>
-#include <KServiceTypeTrader>
-#include <QHBoxLayout>
-#include <KMimeType>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
 #include <kdebug.h>
@@ -38,8 +34,7 @@
 #include <kxmlguiclient.h>
 #include <kxmlguibuilder.h>
 #include <kxmlguifactory.h>
-#include <kmenu.h>
-#include <kaction.h>
+#include <QAction>
 #include <ktoolinvocation.h>
 #include <phonon/seekslider.h>
 #include <phonon/mediaobject.h>
@@ -76,9 +71,8 @@ void Viewer::VideoDisplay::setup()
     m_videoWidget->show();
 
 
-    connect( m_mediaObject, SIGNAL(finished()), this, SIGNAL(stopped()) );
-    connect( m_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
-             this, SLOT(phononStateChanged(Phonon::State,Phonon::State)) );
+    connect(m_mediaObject, &Phonon::MediaObject::finished, this, &VideoDisplay::stopped);
+    connect(m_mediaObject, &Phonon::MediaObject::stateChanged, this, &VideoDisplay::phononStateChanged);
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
@@ -87,7 +81,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         setup();
 
     m_info = info;
-    m_mediaObject->setCurrentSource( KUrl::fromLocalFile( info->fileName().absolute() ) );
+    m_mediaObject->setCurrentSource( QUrl::fromLocalFile( info->fileName().absolute() ) );
     m_mediaObject->play();
 
     return true;

@@ -19,7 +19,6 @@
 #define VISIBLEOPTIONSMENU_H
 
 #include <QList>
-#include <QMap>
 #include <QMenu>
 class KToggleAction;
 class KActionCollection;

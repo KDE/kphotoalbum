@@ -17,7 +17,6 @@
 */
 #include "TaggedArea.h"
 #include <klocale.h>
-#include <QApplication>
 
 Viewer::TaggedArea::TaggedArea(QWidget *parent) : QFrame(parent)
 {

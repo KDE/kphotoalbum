@@ -20,7 +20,6 @@
 #define VIEWER_VIDEODISPLAY_H
 
 #include "AbstractDisplay.h"
-#include <kparts/componentfactory.h>
 #include <QResizeEvent>
 #include <phonon/mediaobject.h>
 namespace Phonon {

@@ -25,7 +25,6 @@
 #include <QPaintEvent>
 #include "ImageManager/ImageClientInterface.h"
 #include <qimage.h>
-#include <QVector>
 #include "DB/ImageInfoPtr.h"
 #include "AbstractDisplay.h"
 #include "Settings/SettingsData.h"

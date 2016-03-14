@@ -17,12 +17,13 @@
 */
 
 #include "SpeedDisplay.h"
-#include <QTimeLine>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qtimer.h>
 
-#include <klocale.h>
+#include <QLabel>
+#include <QLayout>
+#include <QTimeLine>
+#include <QTimer>
+
+#include <KLocalizedString>
 
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
     :QLabel( parent )
@@ -34,7 +35,7 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
 
     m_timer = new QTimer( this );
     m_timer->setSingleShot(true);
-    connect( m_timer, SIGNAL(timeout()), m_timeLine, SLOT(start()) );
+    connect(m_timer, &QTimer::timeout, m_timeLine, &QTimeLine::start);
 
     setAutoFillBackground(true);
 }

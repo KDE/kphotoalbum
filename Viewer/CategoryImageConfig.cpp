@@ -17,20 +17,25 @@
 */
 
 #include "CategoryImageConfig.h"
-#include <qlabel.h>
-#include <qlayout.h>
-#include <QPixmap>
+
+#include <QDialogButtonBox>
 #include <QGridLayout>
-#include <QVBoxLayout>
+#include <QLabel>
+#include <QLayout>
 #include <QList>
-#include <klocale.h>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 #include <KComboBox>
-#include "Settings/SettingsData.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include "Utilities/Util.h"
+#include <KLocalizedString>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/MemberMap.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/Util.h>
 
 using Utilities::StringSet;
 
@@ -40,11 +45,19 @@ Viewer::CategoryImageConfig::CategoryImageConfig()
     : m_image( QImage() )
 {
     setWindowTitle( i18nc("@title:window","Configure Category Image") );
-    setButtons( User1 | Close );
-    setButtonText( User1, i18nc("@action:button As in 'Set the category image'","Set") );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *user1Button = new QPushButton;
+    user1Button->setText(i18nc("@action:button As in 'Set the category image'", "Set"));
+    buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
+    connect(user1Button, &QPushButton::clicked, this, &CategoryImageConfig::slotSet);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &CategoryImageConfig::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &CategoryImageConfig::reject);
 
     QWidget* top = new QWidget;
-    setMainWidget( top );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
     QGridLayout* lay2 = new QGridLayout;
@@ -55,14 +68,14 @@ Viewer::CategoryImageConfig::CategoryImageConfig()
     lay2->addWidget( label, 0, 0 );
     m_group = new KComboBox( top );
     lay2->addWidget( m_group, 0, 1 );
-    connect( m_group, SIGNAL(activated(int)), this, SLOT(groupChanged()) );
+    connect(m_group, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &CategoryImageConfig::groupChanged);
 
     // Member
     label = new QLabel( i18nc("@label:listbox As in 'select a tag'", "Tag:" ), top );
     lay2->addWidget( label, 1, 0 );
     m_member = new KComboBox( top );
     lay2->addWidget( m_member, 1, 1 );
-    connect( m_member, SIGNAL(activated(int)), this, SLOT(memberChanged()) );
+    connect(m_member, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &CategoryImageConfig::memberChanged);
 
     // Current Value
     QGridLayout* lay3 = new QGridLayout;
@@ -82,7 +95,9 @@ Viewer::CategoryImageConfig::CategoryImageConfig()
     m_imageLabel->setFixedSize( 128, 128 );
     lay3->addWidget( m_imageLabel, 1, 1 );
 
-    connect( this, SIGNAL(user1Clicked()), this, SLOT(slotSet()) );
+    mainLayout->addWidget(top);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 }
 
 void Viewer::CategoryImageConfig::groupChanged()
@@ -181,7 +196,7 @@ void Viewer::CategoryImageConfig::show()
     groupChanged();
 
 
-    KDialog::show();
+    QDialog::show();
 }
 
 #include "CategoryImageConfig.moc"

@@ -21,10 +21,7 @@
 #include <KActionCollection>
 #include <klocale.h>
 #include <QCheckBox>
-#include <QVBoxLayout>
-#include <QWidgetAction>
 #include <QList>
-#include <QPalette>
 #include "DB/Category.h"
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
@@ -34,56 +31,56 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
 {
     setTearOffEnabled(true);
     setTitle( i18n("Show") );
-    connect( this, SIGNAL(aboutToShow()), this, SLOT(updateState()) );
+    connect(this, &VisibleOptionsMenu::aboutToShow, this, &VisibleOptionsMenu::updateState);
 
     m_showInfoBox = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-infobox") );
     m_showInfoBox->setText( i18n("Show Info Box") );
     m_showInfoBox->setShortcut( Qt::CTRL+Qt::Key_I );
     m_showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
-    connect( m_showInfoBox, SIGNAL(toggled(bool)), this, SLOT(toggleShowInfoBox(bool)) );
+    connect(m_showInfoBox, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowInfoBox);
     addAction( m_showInfoBox );
 
     m_showLabel = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-label") );
     m_showLabel->setText( i18n("Show Label") );
     m_showLabel->setShortcut( 0 );
-    connect( m_showLabel, SIGNAL(toggled(bool)), this, SLOT(toggleShowLabel(bool)) );
+    connect(m_showLabel, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowLabel);
     addAction( m_showLabel );
 
     m_showDescription = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-description") );
     m_showDescription->setText( i18n("Show Description") );
     m_showDescription->setShortcut( 0 );
-    connect( m_showDescription, SIGNAL(toggled(bool)), this, SLOT(toggleShowDescription(bool)) );
+    connect(m_showDescription, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowDescription);
     addAction( m_showDescription );
 
     m_showDate = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-date") );
     m_showDate->setText( i18n("Show Date") );
-    connect( m_showDate, SIGNAL(toggled(bool)), this, SLOT(toggleShowDate(bool)) );
+    connect(m_showDate, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowDate);
     addAction( m_showDate );
 
     m_showTime = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-time") );
     m_showTime->setText( i18n("Show Time") );
-    connect( m_showTime, SIGNAL(toggled(bool)), this, SLOT(toggleShowTime(bool)) );
+    connect(m_showTime, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowTime);
     addAction( m_showTime );
     m_showTime->setVisible( m_showDate->isChecked() );
 
     m_showFileName = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-filename") );
     m_showFileName->setText( i18n("Show Filename") );
-    connect( m_showFileName, SIGNAL(toggled(bool)), this, SLOT(toggleShowFilename(bool)) );
+    connect(m_showFileName, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowFilename);
     addAction( m_showFileName );
 
     m_showExif = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-exif") );
     m_showExif->setText( i18n("Show EXIF") );
-    connect( m_showExif, SIGNAL(toggled(bool)), this, SLOT(toggleShowEXIF(bool)) );
+    connect(m_showExif, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowEXIF);
     addAction( m_showExif );
 
     m_showImageSize = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-imagesize") );
     m_showImageSize->setText( i18n("Show Image Size") );
-    connect( m_showImageSize, SIGNAL(toggled(bool)), this, SLOT(toggleShowImageSize(bool)) );
+    connect(m_showImageSize, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowImageSize);
     addAction( m_showImageSize );
 
     m_showRating = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-rating") );
     m_showRating->setText( i18n("Show Rating") );
-    connect( m_showRating, SIGNAL(toggled(bool)), this, SLOT(toggleShowRating(bool)) );
+    connect(m_showRating, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowRating);
     addAction( m_showRating );
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -93,7 +90,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
         taction->setText( (*it)->name() );
         taction->setData( (*it)->name() );
         addAction( taction );
-        connect( taction, SIGNAL(toggled(bool)), this, SLOT(toggleShowCategory(bool)) );
+        connect(taction, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowCategory);
     }
 }
 

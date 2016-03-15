@@ -18,16 +18,17 @@
 #ifndef HTMLGENERATOR_GENERATOR_H
 #define HTMLGENERATOR_GENERATOR_H
 
-#include <DB/CategoryPtr.h>
-#include <qstring.h>
-#include <ImageManager/ImageClientInterface.h>
-#include <KProgressDialog>
-#include "Utilities/UniqFilenameMapper.h"
-#include "Setup.h"
 #include <QEventLoop>
-#include <KTempDir>
-#include "Utilities/Set.h"
 #include <QPointer>
+#include <QProgressDialog>
+#include <QString>
+#include <QTemporaryDir>
+
+#include <DB/CategoryPtr.h>
+#include <ImageManager/ImageClientInterface.h>
+#include <Utilities/Set.h>
+#include <Utilities/UniqFilenameMapper.h>
+#include "Setup.h"
 
 namespace DB { class Id; }
 
@@ -35,7 +36,7 @@ namespace HTMLGenerator
 {
 using Utilities::StringSet;
 
-class Generator :public KProgressDialog, private ImageManager::ImageClientInterface
+class Generator :public QProgressDialog, private ImageManager::ImageClientInterface
 {
     Q_OBJECT
 
@@ -77,7 +78,7 @@ private:
     Setup m_setup;
     int m_waitCounter;
     int m_total;
-    KTempDir m_tempDir;
+    QTemporaryDir m_tempDir;
     Utilities::UniqFilenameMapper m_filenameMapper;
     QSet< QPair<DB::FileName,int> > m_generatedFiles;
     DB::FileNameSet m_copiedVideos;

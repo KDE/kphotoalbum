@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Setup.h"
+
 #include <QList>
 
 HTMLGenerator::Setup::Setup()

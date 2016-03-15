@@ -18,15 +18,18 @@
 
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
-#include <KPageDialog>
+
 #include <KComboBox>
-class QLabel;
-class QComboBox;
-class QTextEdit;
-class KLineEdit;
-class QSpinBox;
+#include <KPageDialog>
+
+#include <DB/FileNameList.h>
+
 class QCheckBox;
-#include "DB/FileNameList.h"
+class QComboBox;
+class QLabel;
+class QLineEdit;
+class QSpinBox;
+class QTextEdit;
 
 namespace HTMLGenerator
 {
@@ -58,12 +61,12 @@ protected:
     void createDestinationPage();
 
 private:
-    KLineEdit* m_title;
-    KLineEdit* m_baseDir;
-    KLineEdit* m_baseURL;
-    KLineEdit* m_destURL;
-    KLineEdit* m_outputDir;
-    KLineEdit* m_copyright;
+    QLineEdit* m_title;
+    QLineEdit* m_baseDir;
+    QLineEdit* m_baseURL;
+    QLineEdit* m_destURL;
+    QLineEdit* m_outputDir;
+    QLineEdit* m_copyright;
     QCheckBox* m_date;
     QSpinBox* m_thumbSize;
     QTextEdit* m_description;

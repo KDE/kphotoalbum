@@ -16,24 +16,28 @@
    Boston, MA 02110-1301, USA.
 */
 #include "StatusBar.h"
+
 #include <QApplication>
-#include <QToolButton>
-#include <QTimer>
+#include <QHBoxLayout>
+#include <QIcon>
+#include <QLabel>
 #include <QProgressBar>
 #include <QSlider>
-#include "DB/ImageDB.h"
-#include "ImageCounter.h"
-#include "Settings/SettingsData.h"
-#include <QLabel>
-#include "DirtyIndicator.h"
-#include <QHBoxLayout>
+#include <QTimer>
+#include <QToolButton>
 #include <QVBoxLayout>
-#include <kiconloader.h>
-#include <QIcon>
-#include "BackgroundTaskManager/StatusIndicator.h"
-#include "RemoteControl/ConnectionIndicator.h"
-#include "ThumbnailView/ThumbnailFacade.h"
-#include <KLocale>
+
+#include <KIconLoader>
+#include <KLocalizedString>
+
+#include <BackgroundTaskManager/StatusIndicator.h>
+#include <DB/ImageDB.h>
+#include <RemoteControl/ConnectionIndicator.h>
+#include <Settings/SettingsData.h>
+#include <ThumbnailView/ThumbnailFacade.h>
+
+#include "DirtyIndicator.h"
+#include "ImageCounter.h"
 
 MainWindow::StatusBar::StatusBar()
     : KStatusBar()
@@ -124,8 +128,10 @@ void MainWindow::StatusBar::setupGUI()
     m_thumbnailsBigger->hide();
 
     connect(m_thumbnailSizeSlider, &QSlider::valueChanged, this, &StatusBar::checkSliderValue);
-    connect(m_thumbnailsSmaller, &QToolButton::clicked, m_thumbnailSizeSlider, &QSlider::decreaseThumbnailSize);
-    connect(m_thumbnailsBigger, &QToolButton::clicked, m_thumbnailSizeSlider, &QSlider::increaseThumbnailSize);
+    connect(m_thumbnailsSmaller, SIGNAL(clicked()),
+            m_thumbnailSizeSlider, SLOT(decreaseThumbnailSize()));
+    connect(m_thumbnailsBigger, SIGNAL(clicked()),
+            m_thumbnailSizeSlider, SLOT(increaseThumbnailSize()));
 }
 
 void MainWindow::StatusBar::setLocked( bool locked )

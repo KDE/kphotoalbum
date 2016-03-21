@@ -16,9 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QSplashScreen>
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
+#include <QSplashScreen>
 
 namespace MainWindow
 {

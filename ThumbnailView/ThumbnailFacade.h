@@ -20,7 +20,8 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 #include <DB/FileNameList.h>
-#include <QSlider>
+
+class QSlider;
 
 namespace ThumbnailView
 {

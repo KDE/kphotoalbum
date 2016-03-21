@@ -77,8 +77,8 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
         }
     }
 
-    // "kfiledialog:///copyTo" -> use last directory that was used in this dialog
-    KFileDialog dialog(QUrl("kfiledialog:///copyTo"), QString() /* empty filter */, this);
+    Q_ASSERT( src.size()>0 );
+    KFileDialog dialog(src.at(0), QString() /* empty filter */, this);
     dialog.okButton()->setText(i18nc("@action:button", "Copy"));
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {

@@ -17,25 +17,29 @@
 */
 
 #include "ExternalPopup.h"
-#include "DB/ImageInfo.h"
-#include <ktrader.h>
-#include <qstringlist.h>
-#include <qlabel.h>
-#include <QPixmap>
+
+#include <QDebug>
 #include <QFile>
-#include <kservice.h>
-#include <QUrl>
-#include <krun.h>
-#include <kshell.h>
-#include <klocale.h>
-#include <kfileitem.h>
-#include <kdebug.h>
-#include <KMimeTypeTrader>
 #include <QIcon>
-#include "Window.h"
-#include "RunDialog.h"
-#include <DB/FileNameList.h>
+#include <QLabel>
 #include <QMimeDatabase>
+#include <QPixmap>
+#include <QStringList>
+#include <QUrl>
+
+#include <KFileItem>
+#include <KLocalizedString>
+#include <KMimeTypeTrader>
+#include <KRun>
+#include <KService>
+#include <KShell>
+
+#include <DB/FileNameList.h>
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+
+#include "RunDialog.h"
+#include "Window.h"
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {
@@ -119,10 +123,10 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         if (origRegexpString.length() > 0) {
             newFile.replace(origRegexp, copyFileReplacement);
             QFile::copy(origFile, newFile);
-            lst.append( newFile );
+            lst.append( QUrl::fromLocalFile(newFile) );
         } else {
             qWarning("No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
-            lst.append( origFile );
+            lst.append( QUrl::fromLocalFile(origFile) );
         }
 
     } else {
@@ -165,6 +169,7 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
 
 QString MainWindow::ExternalPopup::mimeType( const DB::FileName& file )
 {
+    QMimeDatabase db;
     return db.mimeTypeForFile(file.absolute(), QMimeDatabase::MatchExtension).name();
 }
 

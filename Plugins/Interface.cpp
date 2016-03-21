@@ -240,17 +240,17 @@ void Plugins::Interface::thumbnails(const QList<QUrl> &list, int size)
         thumbnail( url, size );
 }
 
-FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &url) const
+KIPI::FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &url) const
 {
     return nullptr;
 }
 
-RawProcessor *Plugins::Interface::createRawProcessor() const
+KIPI::RawProcessor *Plugins::Interface::createRawProcessor() const
 {
     return nullptr;
 }
 
-MetadataProcessor *Plugins::Interface::createMetadataProcessor() const
+KIPI::MetadataProcessor *Plugins::Interface::createMetadataProcessor() const
 {
    return nullptr;
 }

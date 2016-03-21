@@ -80,7 +80,7 @@ MainWindow::CategoryImagePopup::CategoryImagePopup( QWidget* parent )
     :QMenu( parent )
 {
     setTitle( i18n("Make Category Image") );
-    connect( this, SIGNAL(triggered(QAction*)), this, SLOT(slotExecuteService(QAction*)) );
+    connect(this, &CategoryImagePopup::triggered, this, &CategoryImagePopup::slotExecuteService);
 }
 
 #include "CategoryImagePopup.moc"

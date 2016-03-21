@@ -24,18 +24,18 @@
 #include <QPixmap>
 #include <QFile>
 #include <kservice.h>
-#include <kurl.h>
+#include <QUrl>
 #include <krun.h>
 #include <kshell.h>
 #include <klocale.h>
 #include <kfileitem.h>
-#include <kdialog.h>
 #include <kdebug.h>
 #include <KMimeTypeTrader>
-#include <KIcon>
+#include <QIcon>
 #include "Window.h"
 #include "RunDialog.h"
 #include <DB/FileNameList.h>
+#include <QMimeDatabase>
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {
@@ -66,7 +66,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::Fi
         for ( OfferType::const_iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
             action = submenu->addAction( (*offerIt).first );
             action->setObjectName( (*offerIt).first ); // Notice this is needed to find the application later!
-            action->setIcon( KIcon((*offerIt).second) );
+            action->setIcon( QIcon::fromTheme((*offerIt).second) );
             action->setData( which );
             action->setEnabled( enabled );
         }
@@ -74,7 +74,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::Fi
         // A personal command
         action = submenu->addAction( i18n("Open With...") );
         action->setObjectName( i18n("Open With...") ); // Notice this is needed to find the application later!
-        // XXX: action->setIcon( KIcon((*offerIt).second) );
+        // XXX: action->setIcon( QIcon::fromTheme((*offerIt).second) );
         action->setData( which );
         action->setEnabled( enabled );
 
@@ -82,7 +82,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::Fi
         // XXX: see kdialog.h for simple usage
         action = submenu->addAction( i18n("Your Command Line") );
         action->setObjectName( i18n("Your Command Line") ); // Notice this is needed to find the application later!
-        // XXX: action->setIcon( KIcon((*offerIt).second) );
+        // XXX: action->setIcon( QIcon::fromTheme((*offerIt).second) );
         action->setData( which );
         action->setEnabled( enabled );
     }
@@ -94,7 +94,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
     const StringSet apps =m_appToMimeTypeMap[name];
 
     // get the list of arguments
-    KUrl::List lst;
+    QList<QUrl> lst;
 
     if ( action->data() == -1 )
     {
@@ -103,7 +103,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         Q_FOREACH(const DB::FileName &file, m_list )
         {
             if ( m_appToMimeTypeMap[name].contains( mimeType(file) ) )
-                lst.append( KUrl(file.absolute()) );
+                lst.append( QUrl(file.absolute()) );
         }
     } else if (action->data() == 2) {
         QString origFile = m_currentInfo->fileName().absolute();
@@ -126,7 +126,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
         }
 
     } else {
-        lst.append( KUrl(m_currentInfo->fileName().absolute()));
+        lst.append( QUrl(m_currentInfo->fileName().absolute()));
     }
 
 
@@ -160,12 +160,12 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
     :QMenu( parent )
 {
     setTitle( i18n("Invoke External Program") );
-    connect( this, SIGNAL(triggered(QAction*)), this, SLOT(slotExecuteService(QAction*)) );
+    connect(this, &ExternalPopup::triggered, this, &ExternalPopup::slotExecuteService);
 }
 
 QString MainWindow::ExternalPopup::mimeType( const DB::FileName& file )
 {
-    return KMimeType::findByPath(file.absolute(), 0, true)->name();
+    return db.mimeTypeForFile(file.absolute(), QMimeDatabase::MatchExtension).name();
 }
 
 Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const DB::FileNameList& files )

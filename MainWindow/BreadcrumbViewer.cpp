@@ -31,7 +31,7 @@ void MainWindow::BreadcrumbViewer::linkClicked( const QString& link )
 
 MainWindow::BreadcrumbViewer::BreadcrumbViewer()
 {
-    connect( this, SIGNAL(linkActivated(QString)), this, SLOT(linkClicked(QString)) );
+    connect(this, &BreadcrumbViewer::linkActivated, this, &BreadcrumbViewer::linkClicked);
 }
 
 /**

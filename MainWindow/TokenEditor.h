@@ -18,14 +18,14 @@
 #ifndef TOKENEDITOR_H
 #define TOKENEDITOR_H
 
-#include <KDialog>
+#include <QDialog>
 #include <QList>
 class QCheckBox;
 
 namespace MainWindow
 {
 
-class TokenEditor :public KDialog {
+class TokenEditor :public QDialog {
     Q_OBJECT
 
 public:

@@ -17,34 +17,53 @@
 */
 
 #include "AutoStackImages.h"
-#include <qlayout.h>
-#include <qcheckbox.h>
-#include <qradiobutton.h>
-#include <klocale.h>
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageDate.h"
-#include "DB/FileInfo.h"
-#include "MainWindow/Window.h"
-#include <qapplication.h>
-#include <qeventloop.h>
-#include "Utilities/ShowBusyCursor.h"
-#include "Utilities/Util.h"
+
+#include <QApplication>
+#include <QCheckBox>
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <QEventLoop>
 #include <QGroupBox>
-#include <QTextEdit>
-#include <KProgressDialog>
-#include <kdebug.h>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
+
+#include <KLocalizedString>
+
+#include <DB/FileInfo.h>
+#include <DB/ImageDate.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/MD5Map.h>
+#include <MainWindow/Window.h>
+#include <Utilities/ShowBusyCursor.h>
+#include <Utilities/Util.h>
 
 using namespace MainWindow;
 
 AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list )
-    :KDialog( parent ), m_list( list )
+    :QDialog( parent ), m_list( list )
 {
     setWindowTitle( i18n("Automatically Stack Images" ) );
-    setButtons( Cancel | Ok );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &AutoStackImages::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &AutoStackImages::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QWidget* containerMd5 = new QWidget( this );
@@ -251,7 +270,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
         // Skipping images that do not have exact time stamp
         if ( info->date().start() != info->date().end() )
             continue;
-        if ( !prev.isNull() && ( prev->date().start().secsTo( info->date().start() ) < m_continuousThreshold->value() ) ) {
+        if ( prev && ( prev->date().start().secsTo( info->date().start() ) < m_continuousThreshold->value() ) ) {
             DB::FileNameList stack;
 
             if ( !DB::ImageDB::instance()->getStackFor( prev->fileName() ).isEmpty() ) {
@@ -296,7 +315,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown )
 
 void AutoStackImages::accept()
 {
-    KDialog::accept();
+    QDialog::accept();
     Utilities::ShowBusyCursor dummy;
     DB::FileNameList toBeShown;
 

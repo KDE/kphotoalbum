@@ -18,48 +18,53 @@
 
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
-class BreadcrumbViewer;
-class KToggleAction;
+#include <config-kpa-kipi.h>
+
+#include <QList>
+#include <QPointer>
+#include <QUrl>
+
+#include <KXmlGuiWindow>
+
+#include <DB/Category.h>
+#include <DB/FileNameList.h>
+#include <DB/ImageSearchInfo.h>
+#include <ThumbnailView/enums.h>
+
+class QAction;
+class QCloseEvent;
+class QContextMenuEvent;
+class QFrame;
+class QLabel;
+class QMoveEvent;
+class QResizeEvent;
 class QStackedWidget;
 class QTimer;
-class KTipDialog;
-class QLabel;
+
 class KActionMenu;
+class KTipDialog;
+class KToggleAction;
 
-#include <Browser/BreadcrumbList.h>
-#include <QContextMenuEvent>
-#include <QMoveEvent>
-#include <QCloseEvent>
-#include <QResizeEvent>
-#include <QLabel>
-#include <QAction>
-#include "DB/ImageInfoList.h"
-#include <kmainwindow.h>
-#include "Settings/SettingsData.h"
-#include <kurl.h>
-#include <kxmlguiwindow.h>
-#include <QPointer>
-#include <config-kpa-kipi.h>
 #ifdef HASKIPI
-#  include <libkipi/version.h>
-#  include <libkipi/pluginloader.h>
+namespace KIPI { class PluginLoader; }
 #endif
-#include "DB/FileNameList.h"
-#include "ThumbnailView/enums.h"
 
-namespace Plugins { class Interface; }
-namespace ThumbnailView { class ThumbnailFacade; }
-namespace Browser{ class BrowserWidget; }
 namespace AnnotationDialog { class Dialog; }
-namespace Settings { class SettingsDialog; }
+namespace Browser{ class BrowserWidget; class BreadcrumbList; }
 namespace DateBar { class DateBarWidget; }
+namespace DB { class ImageInfoList; }
 namespace HTMLGenerator { class HTMLDialog; }
+namespace Plugins { class Interface; }
+namespace Settings { class SettingsDialog; }
+namespace ThumbnailView { class ThumbnailFacade; }
+
+class BreadcrumbViewer;
 
 namespace MainWindow
 {
 class DeleteDialog;
-class TokenEditor;
 class StatusBar;
+class TokenEditor;
 
 class Window :public KXmlGuiWindow
 {
@@ -130,7 +135,7 @@ protected slots:
     void slotExport();
     void delayedInit();
     void slotReenableMessages();
-    void slotImagesChanged( const KUrl::List& );
+    void slotImagesChanged( const QList<QUrl>& );
     void slotSelectionChanged(int count);
     void plug();
     void slotRemoveTokens();

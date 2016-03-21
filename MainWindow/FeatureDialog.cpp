@@ -15,32 +15,33 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "FeatureDialog.h"
-#include <QDebug>
 #include <config-kpa-kipi.h>
 #include <config-kpa-exiv2.h>
 #include <config-kpa-kface.h>
 #include <config-kpa-kgeomap.h>
-#include <klocale.h>
-#include <qlayout.h>
+#include "FeatureDialog.h"
+
+#include <QLayout>
 #include <QList>
-#include <kapplication.h>
-#include "Exif/Database.h"
-#include <kparts/componentfactory.h>
-#include <ktoolinvocation.h>
-#include <phonon/backendcapabilities.h>
-#include <KStandardDirs>
 #include <QProcess>
+#include <QStandardPaths>
+#include <QTextBrowser>
+
+#include <KLocalizedString>
+#include <phonon/backendcapabilities.h>
+
+#include "Exif/Database.h"
 
 using namespace MainWindow;
 
 FeatureDialog::FeatureDialog( QWidget* parent )
-    :KDialog( parent )
+    :QDialog( parent )
 {
-    setWindowTitle( makeStandardCaption( i18n("Feature Status"), this ) );
+    setWindowTitle( i18n("KPhotoAlbum Feature Status") );
 
     HelpBrowser* edit = new HelpBrowser( this );
-    setMainWidget( edit );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( edit );
+// Add mainLayout->addWidget(edit); if necessary
 
     QString text = i18n("<h1>Overview</h1>"
                         "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
@@ -129,14 +130,14 @@ HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
 
 void HelpBrowser::setSource( const QUrl& url )
 {
-    const QString name = url.toString();
-
-    if ( name.startsWith( QString::fromLatin1( "#" ) ) ) {
+    if ( url.hasFragment() )
+    {
         // Must be QTextBrowser rather than KTextBrowser, as KTextBrowser opens the URL in an external browser, rather than jumping to the target.
-        QTextBrowser::setSource( name ); //krazy:exclude=qclasses
+        QTextBrowser::setSource( url ); //krazy:exclude=qclasses
+    } else {
+        // FIXME: KF5-port
+        //KToolInvocation::invokeBrowser( url );
     }
-    else
-        KToolInvocation::invokeBrowser( name );
 }
 
 bool MainWindow::FeatureDialog::hasKIPISupport()
@@ -186,12 +187,12 @@ bool MainWindow::FeatureDialog::hasGeoMapSupport()
 
 QString FeatureDialog::mplayerBinary()
 {
-    const QString mplayer2 = KStandardDirs::findExe(QString::fromLatin1("mplayer2"));
+    QString mplayer = QStandardPaths::locate( QStandardPaths::RuntimeLocation, QString::fromLatin1("mplayer2"));
 
-    if ( !mplayer2.isNull() )
-        return mplayer2;
-    else
-        return KStandardDirs::findExe(QString::fromLatin1("mplayer"));
+    if ( mplayer.isNull() )
+        mplayer = QStandardPaths::locate( QStandardPaths::RuntimeLocation, QString::fromLatin1("mplayer"));
+
+    return mplayer;
 }
 
 bool FeatureDialog::isMplayer2()

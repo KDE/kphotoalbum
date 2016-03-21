@@ -237,7 +237,22 @@ void Plugins::Interface::thumbnail(const QUrl &url, int size)
 void Plugins::Interface::thumbnails(const QList<QUrl> &list, int size)
 {
     for (const QUrl url : list)
-       thumbnail( url, size );
+        thumbnail( url, size );
+}
+
+FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &url) const
+{
+    return nullptr;
+}
+
+RawProcessor *Plugins::Interface::createRawProcessor() const
+{
+    return nullptr;
+}
+
+MetadataProcessor *Plugins::Interface::createMetadataProcessor() const
+{
+   return nullptr;
 }
 
 void Plugins::Interface::gotKDEPreview(const KFileItem& item, const QPixmap& pix)

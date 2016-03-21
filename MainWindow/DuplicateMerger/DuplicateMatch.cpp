@@ -19,7 +19,6 @@
 
 #include "DuplicateMatch.h"
 #include <QVBoxLayout>
-#include <QGroupBox>
 #include <QLabel>
 #include <QImage>
 #include <KLocale>

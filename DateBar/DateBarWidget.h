@@ -18,11 +18,12 @@
 
 #ifndef DATEBAR_H
 #define DATEBAR_H
+#include <QDateTime>
+#include <QExplicitlySharedDataPointer>
+#include <QPixmap>
 #include <QWidget>
-#include <qpixmap.h>
-#include <qdatetime.h>
-#include "DateBar/ViewHandler.h"
-#include <ksharedptr.h>
+
+#include <DateBar/ViewHandler.h>
 
 class QMenu;
 class QKeyEvent;
@@ -52,9 +53,10 @@ public:
     bool includeFuzzyCounts() const;
 
 public slots:
+    void clearSelection();
     void setViewType( ViewType tp );
     void setDate( const QDateTime& date );
-    void setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& );
+    void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> & );
     void scrollLeft();
     void scrollRight();
     void scroll( int units );
@@ -116,15 +118,12 @@ protected:
     void emitDateSelected();
     void emitRangeSelection( const DB::ImageDate& );
 
-protected slots:
-    void clearSelection();
-
 private:
     void setViewHandlerForType( ViewType tp );
     QPixmap m_buffer;
     friend class DateBarTip;
 
-    KSharedPtr<DB::ImageDateCollection> m_dates;
+    QExplicitlySharedDataPointer<DB::ImageDateCollection> m_dates;
     DecadeViewHandler m_decadeViewHandler;
     YearViewHandler m_yearViewHandler;
     MonthViewHandler m_monthViewHandler;

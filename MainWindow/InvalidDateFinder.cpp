@@ -30,19 +30,34 @@
 #include "Utilities/ShowBusyCursor.h"
 #include <QGroupBox>
 #include <KTextEdit>
-#include <KProgressDialog>
+#include <QProgressDialog>
 #include <kdebug.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 using namespace MainWindow;
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent )
-    :KDialog( parent )
+    :QDialog( parent )
 {
     setWindowTitle( i18n("Search for Images and Videos with Missing Dates" ) );
-    setButtons( Cancel | Ok );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &InvalidDateFinder::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &InvalidDateFinder::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QGroupBox* grp = new QGroupBox( i18n("Which Images and Videos to Display") );
@@ -61,16 +76,26 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent )
 
 void InvalidDateFinder::accept()
 {
-    KDialog::accept();
+    QDialog::accept();
     Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
-    KDialog* info = new KDialog;
+    QDialog* info = new QDialog;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    info->setLayout(mainLayout);
     info->setWindowTitle( i18n("Image Info" ) );
-    info->setButtons( Ok );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    info->connect(buttonBox, &QDialogButtonBox::accepted, this, &InvalidDateFinder::accept);
+    info->connect(buttonBox, &QDialogButtonBox::rejected, this, &InvalidDateFinder::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
-    info->setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     info->setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
     KTextEdit* edit = new KTextEdit( top );
@@ -80,16 +105,16 @@ void InvalidDateFinder::accept()
     // Now search for the images.
     const DB::FileNameList list = DB::ImageDB::instance()->images();
     DB::FileNameList toBeShown;
-    KProgressDialog dialog( nullptr, i18n("Reading file properties"),
-                            i18n("Reading File Properties") );
-    dialog.progressBar()->setMaximum(list.size());
-    dialog.progressBar()->setValue(0);
+    QProgressDialog dialog( nullptr);
+    dialog.setWindowTitle(i18n("Reading file properties"));
+    dialog.setMaximum(list.size());
+    dialog.setValue(0);
     int progress = 0;
 
     Q_FOREACH(const DB::FileName& fileName, list) {
-        dialog.progressBar()->setValue( ++progress );
+        dialog.setValue( ++progress );
         qApp->processEvents( QEventLoop::AllEvents );
-        if ( dialog.wasCancelled() )
+        if ( dialog.wasCanceled() )
             break;
         if ( fileName.info()->isNull() )
             continue;

@@ -17,9 +17,8 @@
 */
 
 #include "SplashScreen.h"
-#include <KComponentData>
 #include "Utilities/Util.h"
-#include <kstandarddirs.h>
+
 #include <kglobal.h>
 #include <kaboutdata.h>
 #include <qpainter.h>

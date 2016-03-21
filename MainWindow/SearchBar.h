@@ -19,7 +19,7 @@
 #define SEARCHBAR_H
 #include <ktoolbar.h>
 #include <QEvent>
-class KLineEdit;
+class QLineEdit;
 class KMainWindow;
 
 namespace MainWindow
@@ -44,7 +44,7 @@ signals:
     void keyPressed( QKeyEvent* );
 
 private:
-    KLineEdit* m_edit;
+    QLineEdit* m_edit;
 };
 
 }

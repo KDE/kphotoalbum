@@ -18,7 +18,6 @@
 */
 
 #include "MergeToolTip.h"
-#include "QRect"
 
 namespace MainWindow {
 

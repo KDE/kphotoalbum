@@ -16,11 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "StatisticsDialog.h"
-#include <QDebug>
 #include <KComboBox>
 #include <QGroupBox>
 #include <QLabel>
-#include <QFormLayout>
 #include <QHeaderView>
 #include "DB/ImageDB.h"
 #include <klocale.h>
@@ -34,11 +32,13 @@
 using namespace MainWindow;
 
 StatisticsDialog::StatisticsDialog( QWidget* parent )
-    : KDialog( parent )
+    : QDialog( parent )
 {
     QWidget* top = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout( top );
-    setMainWidget(top);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(top);
 
     QString txt = i18n("<h1>Description</h1>"
                        "<table>"
@@ -71,7 +71,7 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
 void StatisticsDialog::show()
 {
     populate();
-    KDialog::show();
+    QDialog::show();
 }
 
 QSize MainWindow::StatisticsDialog::sizeHint() const
@@ -138,8 +138,8 @@ QGroupBox* MainWindow::StatisticsDialog::createAnnotatedGroupBox()
         m_category->addItem(category->name(), category->name());
     }
 
-    connect( m_category, SIGNAL(activated(int)), this, SLOT(categoryChanged(int)) );
-    connect( m_tag, SIGNAL(activated(int)), this, SLOT(populate()) );
+    connect(m_category, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &StatisticsDialog::categoryChanged);
+    connect(m_tag, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &StatisticsDialog::populate);
     m_tagLabel->setEnabled(false);
     m_tag->setEnabled(false);
 

@@ -18,7 +18,7 @@
 #ifndef STATISTICSDIALOG_H
 #define STATISTICSDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 class QGridLayout;
 class QLabel;
 class QGroupBox;
@@ -29,7 +29,7 @@ class QTreeWidget;
 namespace DB { class ImageSearchInfo; }
 namespace MainWindow {
 
-class StatisticsDialog :public KDialog
+class StatisticsDialog :public QDialog
 {
     Q_OBJECT
 

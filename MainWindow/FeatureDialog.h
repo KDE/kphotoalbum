@@ -17,13 +17,15 @@
 */
 #ifndef FEATUREDIALOG_H
 #define FEATUREDIALOG_H
+
+#include <QDialog>
+
 #include <KTextBrowser>
-#include <kdialog.h>
 
 namespace MainWindow
 {
 
-class FeatureDialog : public KDialog {
+class FeatureDialog : public QDialog {
     Q_OBJECT
 
 public:

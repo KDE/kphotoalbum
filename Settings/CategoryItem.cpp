@@ -24,11 +24,12 @@
 // KDE includes
 
 // Local includes
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include "MainWindow/Window.h"
-#include "MainWindow/DirtyIndicator.h"
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 Settings::CategoryItem::CategoryItem(const QString &category,
                                      const QString &icon,

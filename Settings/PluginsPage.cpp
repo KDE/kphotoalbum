@@ -30,6 +30,7 @@
 #endif
 
 #include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 Settings::PluginsPage::PluginsPage( QWidget* parent )
     : QWidget(parent)

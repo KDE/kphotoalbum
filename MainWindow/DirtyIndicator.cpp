@@ -19,7 +19,6 @@
 #include <kiconloader.h>
 #include <QPixmap>
 #include <QLabel>
-#include <QDebug>
 
 static MainWindow::DirtyIndicator* _instance = nullptr;
 bool MainWindow::DirtyIndicator::s_autoSaveDirty = false;

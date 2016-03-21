@@ -17,18 +17,21 @@
 */
 #include "FileWriter.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <qfile.h>
-
-#include "Database.h"
-#include "MainWindow/Window.h"
-#include "NumberedBackup.h"
-#include "Utilities/List.h"
-#include "XMLCategory.h"
+#include <QFile>
 #include <QXmlStreamWriter>
-#include "ElementWriter.h"
+
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/List.h>
+
 #include "CompressFileInfo.h"
+#include "Database.h"
+#include "ElementWriter.h"
+#include "NumberedBackup.h"
+#include "XMLCategory.h"
 
 //
 //

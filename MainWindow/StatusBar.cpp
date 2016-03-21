@@ -26,10 +26,10 @@
 #include "Settings/SettingsData.h"
 #include <QLabel>
 #include "DirtyIndicator.h"
-#include <KHBox>
-#include <KVBox>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <kiconloader.h>
-#include <KIcon>
+#include <QIcon>
 #include "BackgroundTaskManager/StatusIndicator.h"
 #include "RemoteControl/ConnectionIndicator.h"
 #include "ThumbnailView/ThumbnailFacade.h"
@@ -46,21 +46,27 @@ MainWindow::StatusBar::StatusBar()
     setupGUI();
     m_pendingShowTimer = new QTimer(this);
     m_pendingShowTimer->setSingleShot( true );
-    connect( m_pendingShowTimer, SIGNAL(timeout()), this, SLOT(showStatusBar()) );
+    connect(m_pendingShowTimer, &QTimer::timeout, this, &StatusBar::showStatusBar);
 }
 
 void MainWindow::StatusBar::setupGUI()
 {
     setContentsMargins(7,2,7,2);
 
-    KHBox* indicators = new KHBox( this );
-    indicators->setSpacing(10);
+    QWidget* indicators = new QWidget( this );
+    QHBoxLayout *indicatorsHBoxLayout = new QHBoxLayout(indicators);
+    indicatorsHBoxLayout->setMargin(0);
+    indicatorsHBoxLayout->setSpacing(10);
     mp_dirtyIndicator = new DirtyIndicator( indicators );
+    indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);
     connect( DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()) );
 
     new RemoteControl::ConnectionIndicator(indicators);
 
-    KVBox* statusIndicatorBox = new KVBox(indicators);
+    QWidget* statusIndicatorBox = new QWidget(indicators);
+    QVBoxLayout *statusIndicatorBoxVBoxLayout = new QVBoxLayout(statusIndicatorBox);
+    statusIndicatorBoxVBoxLayout->setMargin(0);
+    indicatorsHBoxLayout->addWidget(statusIndicatorBox);
     new BackgroundTaskManager::StatusIndicator(statusIndicatorBox);
     statusIndicatorBox->setContentsMargins(0,7,0,0);
 
@@ -69,13 +75,14 @@ void MainWindow::StatusBar::setupGUI()
     addPermanentWidget( m_progressBar, 0 );
 
     m_cancel = new QToolButton( this );
-    m_cancel->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
+    m_cancel->setIcon( QIcon::fromTheme( QString::fromLatin1( "dialog-close" ) ) );
     m_cancel->setShortcut( Qt::Key_Escape );
     addPermanentWidget( m_cancel, 0 );
-    connect( m_cancel, SIGNAL(clicked()), this, SIGNAL(cancelRequest()) );
-    connect( m_cancel, SIGNAL(clicked()), this, SLOT(hideStatusBar()) );
+    connect(m_cancel, &QToolButton::clicked, this, &StatusBar::cancelRequest);
+    connect(m_cancel, &QToolButton::clicked, this, &StatusBar::hideStatusBar);
 
     m_lockedIndicator = new QLabel( indicators );
+    indicatorsHBoxLayout->addWidget(m_lockedIndicator);
 
     addPermanentWidget( indicators, 0 );
 
@@ -103,24 +110,22 @@ void MainWindow::StatusBar::setupGUI()
     m_thumbnailSizeSlider->hide();
 
     m_thumbnailsSmaller = new QToolButton;
-    m_thumbnailsSmaller->setIcon(KIcon(QString::fromUtf8("zoom-out")));
+    m_thumbnailsSmaller->setIcon(QIcon::fromTheme(QString::fromUtf8("zoom-out")));
     m_thumbnailsSmaller->setToolTip(i18n("Decrease thumbnail storage size"));
     addPermanentWidget(m_thumbnailsSmaller, 0);
     m_thumbnailsSmaller->setEnabled(false);
     m_thumbnailsSmaller->hide();
 
     m_thumbnailsBigger = new QToolButton;
-    m_thumbnailsBigger->setIcon(KIcon(QString::fromUtf8("zoom-in")));
+    m_thumbnailsBigger->setIcon(QIcon::fromTheme(QString::fromUtf8("zoom-in")));
     m_thumbnailsBigger->setToolTip(i18n("Increase thumbnail storage size"));
     addPermanentWidget(m_thumbnailsBigger, 0);
     m_thumbnailsBigger->setEnabled(false);
     m_thumbnailsBigger->hide();
 
-    connect(m_thumbnailSizeSlider, SIGNAL(valueChanged(int)), this, SLOT(checkSliderValue(int)));
-    connect(m_thumbnailsSmaller, SIGNAL(clicked()),
-            m_thumbnailSizeSlider, SLOT(decreaseThumbnailSize()));
-    connect(m_thumbnailsBigger, SIGNAL(clicked()),
-            m_thumbnailSizeSlider, SLOT(increaseThumbnailSize()));
+    connect(m_thumbnailSizeSlider, &QSlider::valueChanged, this, &StatusBar::checkSliderValue);
+    connect(m_thumbnailsSmaller, &QToolButton::clicked, m_thumbnailSizeSlider, &QSlider::decreaseThumbnailSize);
+    connect(m_thumbnailsBigger, &QToolButton::clicked, m_thumbnailSizeSlider, &QSlider::increaseThumbnailSize);
 }
 
 void MainWindow::StatusBar::setLocked( bool locked )

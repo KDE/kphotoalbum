@@ -48,6 +48,11 @@ class KDE_EXPORT Interface :public KIPI::Interface
 public:
     explicit Interface( QObject *parent, QString name=QString());
 
+    // FIXME: implement this stuff:
+    virtual FileReadWriteLock* createReadWriteLock(const QUrl& url) const override;
+    virtual RawProcessor* createRawProcessor() const override;
+    virtual MetadataProcessor* createMetadataProcessor() const override;
+
     virtual KIPI::ImageCollection currentAlbum() override;
     virtual KIPI::ImageCollection currentSelection() override;
     virtual QList<KIPI::ImageCollection> allAlbums() override;

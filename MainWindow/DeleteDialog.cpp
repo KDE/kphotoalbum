@@ -23,21 +23,34 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
 #include "Utilities/DeleteFiles.h"
 
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent )
-    : KDialog(parent)
+    : QDialog(parent)
     , m_list()
 {
     setWindowTitle( i18n("Removing items") );
-    setButtons( Cancel|User1 );
-    setButtonText( User1,i18n("OK") );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *user1Button = new QPushButton;
+    buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &DeleteDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &DeleteDialog::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
+    user1Button->setText(i18n("OK" ));
 
     QWidget* top = new QWidget;
     QVBoxLayout* lay1 = new QVBoxLayout( top );
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
 
 
     m_label = new QLabel;
@@ -52,7 +65,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     m_deleteFromDb = new QRadioButton;
     lay1->addWidget( m_deleteFromDb );
 
-     connect( this, SIGNAL(user1Clicked()), this, SLOT(deleteImages()) );
+     connect(user1Button, &QPushButton::clicked, this, &DeleteDialog::deleteImages);
 }
 
 int DeleteDialog::exec(const DB::FileNameList& list)
@@ -87,7 +100,7 @@ int DeleteDialog::exec(const DB::FileNameList& list)
     m_deleteFile->setEnabled( someFileExists );
     m_deleteFromDb->setChecked( !someFileExists );
 
-    return KDialog::exec();
+    return QDialog::exec();
 }
 
 void DeleteDialog::deleteImages()

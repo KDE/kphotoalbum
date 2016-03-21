@@ -20,14 +20,14 @@
 #ifndef RUNDIALOG_H
 #define RUNDIALOG_H
 
-#include <KDialog>
-#include <KLineEdit>
+#include <QDialog>
+#include <QLineEdit>
 #include <DB/FileNameList.h>
 
 namespace MainWindow
 {
 
-class RunDialog :public KDialog {
+class RunDialog :public QDialog {
     Q_OBJECT
 
       public:
@@ -40,7 +40,7 @@ class RunDialog :public KDialog {
 
       private:
         bool* m_ok;
-        KLineEdit* m_cmd;
+        QLineEdit* m_cmd;
         DB::FileNameList m_fileList;
 };
 }

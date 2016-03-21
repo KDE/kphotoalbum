@@ -17,7 +17,6 @@
 */
 
 #include "WelcomeDialog.h"
-#include <QDebug>
 #include "FeatureDialog.h"
 #include <qlabel.h>
 #include <QHBoxLayout>
@@ -26,14 +25,19 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <kfiledialog.h>
-#include <kstandarddirs.h>
+
 #include "Utilities/Util.h"
-#include <klineedit.h>
+#include <QLineEdit>
 #include <kmessagebox.h>
 #include "kshell.h"
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QFileDialog>
+#include <KSharedConfig>
 
 using namespace MainWindow;
 
@@ -77,9 +81,9 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
     QPushButton* checkFeatures = new QPushButton( i18n("Check My Feature Set") );
     lay3->addWidget( checkFeatures );
 
-    connect( loadDemo, SIGNAL(clicked()), this, SLOT(slotLoadDemo()) );
-    connect( createSetup, SIGNAL(clicked()), this, SLOT(createSetup()) );
-    connect( checkFeatures, SIGNAL(clicked()), this, SLOT(checkFeatures()) );
+    connect(loadDemo, &QPushButton::clicked, this, &WelcomeDialog::slotLoadDemo);
+    connect(createSetup, &QPushButton::clicked, this, &WelcomeDialog::createSetup);
+    connect(checkFeatures, &QPushButton::clicked, this, &WelcomeDialog::checkFeatures);
 }
 
 
@@ -102,13 +106,25 @@ QString WelcomeDialog::configFileName() const
     return m_configFile;
 }
 
-FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
+FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
 {
-    setButtons( Cancel | Ok );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &FileDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &FileDialog::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
     QVBoxLayout* lay1 = new QVBoxLayout( top );
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
 
     QLabel* label = new QLabel( i18n("<h1>KPhotoAlbum database creation</h1>"
                                      "<p>You need to show where the photos and videos are for KPhotoAlbum to "
@@ -128,19 +144,19 @@ FileDialog::FileDialog( QWidget* parent ) :KDialog( parent )
     label = new QLabel( i18n("Image/Video root directory: "), top );
     lay2->addWidget( label );
 
-    m_lineEdit = new KLineEdit( top );
+    m_lineEdit = new QLineEdit( top );
     m_lineEdit->setText( KGlobalSettings::picturesPath() );
     lay2->addWidget( m_lineEdit );
 
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
     button->setMaximumWidth( 30 );
     lay2->addWidget( button );
-    connect( button, SIGNAL(clicked()), this, SLOT(slotBrowseForDirecory()) );
+    connect(button, &QPushButton::clicked, this, &FileDialog::slotBrowseForDirecory);
 }
 
 void FileDialog::slotBrowseForDirecory()
 {
-    QString dir = KFileDialog::getExistingDirectory( m_lineEdit->text(), this );
+    QString dir = QFileDialog::getExistingDirectory(this , QString(), m_lineEdit->text());
     if ( ! dir.isNull() )
         m_lineEdit->setText( dir );
 }
@@ -173,7 +189,7 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    KConfigGroup group = KGlobal::config()->group(QString());
+    KConfigGroup group = KSharedConfig::openConfig()->group(QString());
     group.writeEntry( QString::fromLatin1("configfile"), file );
     group.sync();
 

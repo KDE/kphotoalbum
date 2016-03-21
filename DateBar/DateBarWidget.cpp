@@ -138,7 +138,7 @@ void DateBar::DateBarWidget::redraw()
     p.setBrush( palette().brush( QPalette::Background ) );
     p.drawRect( rect() );
 
-    if (m_dates.isNull() )
+    if (!m_dates )
         return;
 
     // Draw the area with histograms
@@ -253,10 +253,10 @@ void DateBar::DateBarWidget::setDate( const QDateTime& date )
     redraw();
 }
 
-void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
+void DateBar::DateBarWidget::setImageDateCollection( const QExplicitlySharedDataPointer<DB::ImageDateCollection>& dates )
 {
     m_dates = dates;
-    if ( m_doAutomaticRangeAdjustment && ! m_dates.isNull() && ! m_dates->lowerLimit().isNull())
+    if ( m_doAutomaticRangeAdjustment && m_dates && ! m_dates->lowerLimit().isNull())
     {
         QDateTime start = m_dates->lowerLimit();
         QDateTime end = m_dates->upperLimit();

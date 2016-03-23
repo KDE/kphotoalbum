@@ -17,10 +17,15 @@
 */
 #ifndef XMLHANDLER_H
 #define XMLHANDLER_H
-#include <qstring.h>
-#include "Export.h"
-#include "DB/ImageInfoPtr.h"
-#include <qdom.h>
+
+#include <QDomElement>
+#include <QDomDocument>
+#include <QString>
+
+#include <DB/FileNameList.h>
+#include <DB/ImageInfoPtr.h>
+
+#include "Export.h" // ImageFileLocation
 
 namespace Utilities { class UniqFilenameMapper; }
 namespace DB { class IdList; }

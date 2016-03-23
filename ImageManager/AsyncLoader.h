@@ -18,13 +18,15 @@
 
 #ifndef IMAGEMANAGER_ASYNCLOADER_H
 #define IMAGEMANAGER_ASYNCLOADER_H
-#include <qwaitcondition.h>
-#include <QList>
-#include <qevent.h>
-#include <qmutex.h>
-#include <qimage.h>
-#include "RequestQueue.h"
+
+#include <QImage>
+#include <QMutex>
+#include <QWaitCondition>
+
 #include "enums.h"
+#include "RequestQueue.h"
+
+class QEvent;
 
 namespace ImageManager
 {

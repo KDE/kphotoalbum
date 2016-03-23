@@ -38,7 +38,6 @@ extern "C" {
 }
 
 #include <kcodecs.h>
-#include <kurl.h>
 #include <qmatrix.h>
 #include "ImageEvent.h"
 

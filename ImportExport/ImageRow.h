@@ -40,7 +40,7 @@ public:
     ImportDialog* m_import;
     KimFileReader* m_kimFileReader;
 
-protected slots:
+public slots:
     void showImage();
 };
 

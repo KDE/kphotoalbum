@@ -286,7 +286,7 @@ QString ImageSearchInfo::toString() const
 void ImageSearchInfo::debug()
 {
     for( QMap<QString,QString>::Iterator it= m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
-        kDebug() << it.key() << ", " << it.value();
+        qDebug() << it.key() << ", " << it.value();
     }
 }
 

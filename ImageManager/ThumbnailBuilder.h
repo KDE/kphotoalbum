@@ -19,8 +19,6 @@
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
 
-#include <QList>
-#include <QProgressDialog>
 #include <QImage>
 #include "ImageManager/ImageClientInterface.h"
 #include "DB/ImageInfoPtr.h"

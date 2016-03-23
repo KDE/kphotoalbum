@@ -54,22 +54,22 @@ bool ImportExport::ImportSettings::externalSource() const
     return m_externalSource;
 }
 
-void ImportExport::ImportSettings::setKimFile( const KUrl& kimFile )
+void ImportExport::ImportSettings::setKimFile( const QUrl &kimFile )
 {
     m_kimFile = kimFile;
 }
 
-KUrl ImportExport::ImportSettings::kimFile() const
+QUrl ImportExport::ImportSettings::kimFile() const
 {
     return m_kimFile;
 }
 
-void ImportExport::ImportSettings::setBaseURL( const KUrl& url )
+void ImportExport::ImportSettings::setBaseURL( const QUrl &url )
 {
     m_baseURL = url;
 }
 
-KUrl ImportExport::ImportSettings::baseURL() const
+QUrl ImportExport::ImportSettings::baseURL() const
 {
     return m_baseURL;
 }

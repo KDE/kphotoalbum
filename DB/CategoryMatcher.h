@@ -18,8 +18,11 @@
 
 #ifndef CATEGORYMATCHER_H
 #define CATEGORYMATCHER_H
-#include "DB/ImageInfoPtr.h"
-#include "Utilities/Set.h"
+
+#include <QMap>
+
+#include <DB/ImageInfoPtr.h>
+#include <Utilities/Set.h>
 
 namespace DB
 {

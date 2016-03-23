@@ -16,22 +16,32 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Import.h"
+
+#include <QFileDialog>
+#include <QTemporaryFile>
+
+#include <KFileDialog>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <MainWindow/Window.h>
+
 #include "ImportHandler.h"
-#include <klocale.h>
 #include "KimFileReader.h"
-#include <kmessagebox.h>
-#include <KTemporaryFile>
-#include <kfiledialog.h>
 #include "ImportDialog.h"
-#include <kio/jobuidelegate.h>
-#include "MainWindow/Window.h"
-#include <kio/job.h>
 
 using namespace ImportExport;
 
 void Import::imageImport()
 {
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|" ) + i18nc(".kim files","KPhotoAlbum Export Files" ) );
+    QUrl url = QFileDialog::getOpenFileUrl(
+                nullptr, /*parent*/
+                i18n("KPhotoAlbum Export Files" ), /*caption*/
+                QUrl(), /* directory */
+                QString::fromLatin1( "*.kim|" ) + i18n(".kim files") /*filter*/
+                );
     if ( url.isEmpty() )
         return;
 
@@ -39,7 +49,7 @@ void Import::imageImport()
     // This instance will delete itself when done.
 }
 
-void Import::imageImport( const KUrl& url )
+void Import::imageImport( const QUrl &url )
 {
     Import* import = new Import;
     import->m_kimFileUrl = url;
@@ -55,18 +65,18 @@ ImportExport::Import::Import()
 {
 }
 
-void ImportExport::Import::downloadUrl( const KUrl& url )
+void ImportExport::Import::downloadUrl( const QUrl &url )
 {
-    m_tmp = new KTemporaryFile;
-    m_tmp->setSuffix(QString::fromLatin1(".kim"));
+    m_tmp = new QTemporaryFile;
+    m_tmp->setFileTemplate(QString::fromLatin1("XXXXXX.kim"));
     if ( !m_tmp->open() ) {
         KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Unable to create temporary file") );
         delete this;
         return;
     }
     KIO::TransferJob* job = KIO::get( url );
-    connect( job, SIGNAL(result(KJob*)), this, SLOT(downloadKimJobCompleted(KJob*)) );
-    connect( job, SIGNAL(data(KIO::Job*,QByteArray)), this, SLOT(data(KIO::Job*,QByteArray)) );
+    connect(job, &KIO::TransferJob::result, this, &Import::downloadKimJobCompleted);
+    connect(job, &KIO::TransferJob::data, this, &Import::data);
 }
 
 void ImportExport::Import::downloadKimJobCompleted( KJob* job )

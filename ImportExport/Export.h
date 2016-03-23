@@ -19,18 +19,20 @@
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
 
-#include "ImageManager/ImageClientInterface.h"
-#include <KDialog>
-#include "Utilities/UniqFilenameMapper.h"
+#include <QDialog>
 #include <QEventLoop>
 #include <QPointer>
-#include <DB/FileNameList.h>
+
+#include <ImageManager/ImageClientInterface.h>
+#include <Utilities/UniqFilenameMapper.h>
 
 class QRadioButton;
 class QSpinBox;
 class QCheckBox;
 class KZip;
 class QProgressDialog;
+
+namespace DB { class FileNameList; }
 
 namespace ImportExport
 {
@@ -74,7 +76,7 @@ private:
     const QPointer <QEventLoop> m_eventLoop;
 };
 
-class ExportConfig :public KDialog {
+class ExportConfig :public QDialog {
     Q_OBJECT
 
 public:

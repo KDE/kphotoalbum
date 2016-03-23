@@ -19,11 +19,13 @@
 #ifndef IMPORTEXPORT_IMPORT_H
 #define IMPORTEXPORT_IMPORT_H
 
-#include <kurl.h>
+#include <QObject>
+#include <QUrl>
+
+class QTemporaryFile;
+
 class KJob;
 namespace KIO {class Job; }
-
-class KTemporaryFile;
 
 namespace ImportExport
 {
@@ -34,7 +36,7 @@ class Import :public QObject
 
 public:
     static void imageImport();
-    static void imageImport( const KUrl& url );
+    static void imageImport( const QUrl &url );
 
 private slots:
     void downloadKimJobCompleted( KJob* );
@@ -43,13 +45,13 @@ private slots:
 
 private:
     void exec(const QString& fileName );
-    void downloadUrl( const KUrl& url );
+    void downloadUrl( const QUrl &url );
 
 private:
     Import();
     ~Import();
-    KTemporaryFile* m_tmp;
-    KUrl m_kimFileUrl;
+    QTemporaryFile* m_tmp;
+    QUrl m_kimFileUrl;
 };
 
 }

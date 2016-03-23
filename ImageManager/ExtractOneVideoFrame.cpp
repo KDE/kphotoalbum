@@ -18,19 +18,22 @@
 */
 
 #include "ExtractOneVideoFrame.h"
-#include <Utilities/Process.h>
-#include <MainWindow/FeatureDialog.h>
-#include <QDir>
+
 #include <cstdlib>
-#include <QMetaObject>
-#include <KLocale>
+
+#include <QDir>
+
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <MainWindow/Window.h>
-#include <DB/ImageDB.h>
+
 #include <DB/CategoryCollection.h>
-#include "MainWindow/TokenEditor.h"
-#include "Utilities/Set.h"
-#include "MainWindow/DirtyIndicator.h"
+#include <DB/ImageDB.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/FeatureDialog.h>
+#include <MainWindow/TokenEditor.h>
+#include <MainWindow/Window.h>
+#include <Utilities/Process.h>
+#include <Utilities/Set.h>
 
 namespace ImageManager {
 QString ExtractOneVideoFrame::s_tokenForShortVideos;

@@ -19,7 +19,6 @@
 #define RAWIMAGEDECODER_H
 
 #include "ImageDecoder.h"
-#include <QSet>
 #include <QStringList>
 #include <DB/FileName.h>
 

@@ -86,11 +86,37 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
     {
         case AnnotationDialog::MatchFromBeginning:
             return item->text(0).toLower().startsWith( m_text.toLower() );
-        case AnnotationDialog::MatchFromWordStart:
-            {
-                QStringList words = item->text(0).toLower().split( QRegExp(QString::fromLatin1("\\W+") ), QString::SkipEmptyParts);
-                return any_of(words,  [this] (const QString& word) { return word.startsWith( m_text.toLower()); } );
+        case AnnotationDialog::MatchFromWordStart: {
+            QStringList itemWords = item->text(0).toLower().split(QRegExp(QString::fromUtf8("\\W+")),
+                                                                          QString::SkipEmptyParts);
+            QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
+                                                                    QString::SkipEmptyParts);
+
+            int matchesFound = 0;
+            int matchesNeeded = searchWords.size();
+
+            for (int i = 0; i < itemWords.size(); i++) {
+                bool foundMatch = false;
+                for (int j = 0; j < searchWords.size(); j++) {
+                    if (itemWords.at(i).startsWith(searchWords.at(j))) {
+                        searchWords.removeAt(j);
+                        foundMatch = true;
+                        j = matchesNeeded;
+                    }
+                }
+                if (foundMatch) {
+                    foundMatch = false;
+                    matchesFound++;
+
+                    if (matchesFound == matchesNeeded) {
+                        return true;
+                    }
+                }
             }
+
+            return false;
+
+        }
         case AnnotationDialog::MatchAnywhere:
             return item->text(0).toLower().contains( m_text.toLower() );
     }

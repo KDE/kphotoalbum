@@ -24,7 +24,6 @@
 
 // Local includes
 #include "ListViewItemHider.h"
-#include "Utilities/AlgorithmHelper.h"
 #include "ListSelect.h"
 
 using namespace Utilities;

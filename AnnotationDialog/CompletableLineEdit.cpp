@@ -195,21 +195,37 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
 
 void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
 {
-    int itemStart = text().lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
-    QString input = text().mid( itemStart );
+    QTreeWidgetItem* item {nullptr};
 
-    QList<QTreeWidgetItem*> items = m_listView->findItems( input, Qt::MatchContains, 0 );
-    if ( items.isEmpty() )
+    // the current item is usually the selected one...
+    QList<QTreeWidgetItem*> selectedItems = m_listView->selectedItems();
+    if (!selectedItems.isEmpty())
+        item = selectedItems.at(0);
+
+    // ...except when the selected one is filtered out:
+    if (!item || item->isHidden())
+    {
+        // in that case, we select the first item in the viewport
+        item = m_listView->itemAt(0,0);
+    }
+    if (!item)
         return;
-    QTreeWidgetItem* item = items.at(0);
+    QTreeWidgetItem *baseItem = item;
 
     if ( next )
         item = m_listView->itemBelow(item);
     else
         item = m_listView->itemAbove(item);
 
-    if ( item )
-        selectItemAndUpdateLineEdit( item, itemStart, text().left( selectionStart() ) );
+    // select current item if there is no next/prev item:
+    if (!item) {
+        item = baseItem;
+    }
+
+    // extract last component of line edit
+    int itemStart = text().lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
+    QString input = text().mid( itemStart );
+    selectItemAndUpdateLineEdit( item, itemStart, text().left( selectionStart() ) );
 }
 
 void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit(QTreeWidgetItem* item,

@@ -91,30 +91,24 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
             QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
                                                                     QString::SkipEmptyParts);
 
-            int matchesFound = 0;
-            int matchesNeeded = searchWords.size();
-
-            for (int i = 0; i < itemWords.size(); i++) {
-                bool foundMatch = false;
-                for (int j = 0; j < searchWords.size(); j++) {
-                    if (itemWords.at(i).startsWith(searchWords.at(j))) {
-                        searchWords.removeAt(j);
-                        foundMatch = true;
-                        j = matchesNeeded;
+            // all search words ...
+            Q_FOREACH( const auto searchWord, searchWords )
+            {
+                bool found = false;
+                // ... must match at least one word of the item
+                Q_FOREACH( const auto itemWord, itemWords )
+                {
+                    if (itemWord.startsWith(searchWord))
+                    {
+                        found = true;
+                        break;
                     }
                 }
-                if (foundMatch) {
-                    foundMatch = false;
-                    matchesFound++;
-
-                    if (matchesFound == matchesNeeded) {
-                        return true;
-                    }
+                if (!found) {
+                    return false;
                 }
             }
-
-            return false;
-
+            return true;
         }
         case AnnotationDialog::MatchAnywhere:
             return item->text(0).toLower().contains( m_text.toLower() );

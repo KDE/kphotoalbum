@@ -20,7 +20,7 @@
 #include <algorithm>
 #include <tuple>
 #include <QStackedWidget>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KComboBox>
 #include <QList>
@@ -1212,7 +1212,7 @@ void AnnotationDialog::Dialog::setupActions()
 {
     m_actions = new KActionCollection( this );
 
-    KAction* action = nullptr;
+    QAction * action = nullptr;
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()) );
     action->setText( i18n("Sort Alphabetically (Tree)") );
     action->setShortcut(Qt::CTRL+Qt::Key_F4);

@@ -18,11 +18,14 @@
 
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
+
 #include <KDialog>
+
 #include <DB/FileNameList.h>
-class QListWidget;
-class QLabel;
+
 class QCheckBox;
+class QLabel;
+class QListWidget;
 
 namespace Exif
 {

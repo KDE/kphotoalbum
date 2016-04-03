@@ -16,17 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Exif/ReReadDialog.h"
-#include <QListWidget>
+#include "ReReadDialog.h"
+
+#include <QCheckBox>
 #include <QGroupBox>
-#include <klocale.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
+#include <QLabel>
+#include <QListWidget>
 #include <QVBoxLayout>
-#include <kmessagebox.h>
-#include "DB/ImageDB.h"
-#include "Exif/Database.h"
-#include "Settings/SettingsData.h"
+
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
+
+#include <DB/ImageDB.h>
+#include <Exif/Database.h>
+#include <Settings/SettingsData.h>
 
 
 Exif::ReReadDialog::ReReadDialog( QWidget* parent )
@@ -98,7 +103,7 @@ void Exif::ReReadDialog::readInfo()
     opt->setUpdateOrientation( m_orientation->isChecked() );
     opt->setUpdateDescription( m_description->isChecked() );
 
-    KGlobal::config()->sync();
+    KSharedConfig::openConfig()->sync();
 
     DB::ExifMode mode = DB::EXIFMODE_FORCE;
 

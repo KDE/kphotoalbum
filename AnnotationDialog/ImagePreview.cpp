@@ -18,17 +18,20 @@
 
 #include "ImagePreview.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
 #include <math.h>
+
 #include <QDebug>
 #include <QImageReader>
 #include <QRubberBand>
+#include <QMouseEvent>
 
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "ImageManager/AsyncLoader.h"
-#include "Utilities/Util.h"
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <ImageManager/AsyncLoader.h>
+#include <Utilities/Util.h>
 
 #include "ResizableFrame.h"
 

@@ -16,9 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ShortCutManager.h"
-#include "ListSelect.h"
-#include <QShortcut>
+
 #include <QDockWidget>
+#include <QShortcut>
+
+#include "ListSelect.h"
 
 /**
  * Register the dock widget for getting a shortcut. its buddy will get the

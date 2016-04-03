@@ -20,8 +20,8 @@
 #define DETECTOR_H
 
 // Qt includes
-#include <QObject>
 #include <QList>
+#include <QObject>
 #include <QRect>
 #include <QVariant>
 

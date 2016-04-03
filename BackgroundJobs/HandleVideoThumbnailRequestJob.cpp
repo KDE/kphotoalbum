@@ -18,19 +18,23 @@
 */
 
 #include "HandleVideoThumbnailRequestJob.h"
-#include <ImageManager/ImageRequest.h>
-#include <ImageManager/ExtractOneVideoFrame.h>
-#include <MainWindow/FeatureDialog.h>
-#include <QImage>
+
+#include <QCryptographicHash>
 #include <QDir>
-#include <Settings/SettingsData.h>
-#include <ImageManager/ThumbnailCache.h>
-#include <ImageManager/ImageClientInterface.h>
-#include <KLocale>
-#include <kcodecs.h>
-#include <Utilities/Util.h>
-#include <ThumbnailView/CellGeometry.h>
+#include <QImage>
+
+#include <KCodecs>
 #include <KIcon>
+#include <KLocalizedString>
+
+#include <ImageManager/ExtractOneVideoFrame.h>
+#include <ImageManager/ImageClientInterface.h>
+#include <ImageManager/ImageRequest.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/FeatureDialog.h>
+#include <Settings/SettingsData.h>
+#include <ThumbnailView/CellGeometry.h>
+#include <Utilities/Util.h>
 
 namespace BackgroundJobs {
 
@@ -74,8 +78,9 @@ void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName& file
 
 DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &fileName)
 {
-    KMD5 md5(fileName.absolute().toUtf8());
-    return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.hexDigest())));
+    QCryptographicHash md5(QCryptographicHash::Md5);
+    md5.addData(fileName.absolute().toUtf8());
+    return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.result().toHex())));
 }
 
 DB::FileName HandleVideoThumbnailRequestJob::frameName(const DB::FileName &videoName, int frameNumber)

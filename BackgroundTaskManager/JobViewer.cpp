@@ -18,6 +18,9 @@
 */
 
 #include "JobViewer.h"
+
+#include <KLocalizedString>
+
 #include "ui_JobViewer.h"
 #include "JobModel.h"
 #include "JobManager.h"

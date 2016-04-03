@@ -30,6 +30,9 @@
 #include <KLocale>
 #include <KMessageBox>
 
+// Libkgeomap includes
+#include <KGeoMap/MapWidget>
+
 // Local includes
 #include "MapMarkerModelHelper.h"
 #include "SearchMarkerTiler.h"
@@ -80,7 +83,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     }
 
     // ... then we try to set the (probably) saved settings
-    KConfigGroup configGroup = KGlobal::config()->group(QString::fromUtf8("MapView"));
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group( QString::fromUtf8("MapView") );
     m_mapWidget->readSettingsFromGroup(&configGroup);
 
     // Add the item model for the coordinates display
@@ -130,7 +133,7 @@ void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 
 void Map::MapView::saveSettings()
 {
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup configGroup = config->group(QString::fromUtf8("MapView"));
     m_mapWidget->saveSettingsToGroup(&configGroup);
     config->sync();

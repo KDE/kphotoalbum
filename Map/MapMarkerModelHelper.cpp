@@ -19,10 +19,10 @@
 #include "MapMarkerModelHelper.h"
 
 // Qt includes
-#include <QStandardItemModel>
-#include <QStandardItem>
-#include <QItemSelectionModel>
 #include <QDebug>
+#include <QItemSelectionModel>
+#include <QStandardItem>
+#include <QStandardItemModel>
 
 // Local includes
 #include <ImageManager/ThumbnailCache.h>
@@ -118,7 +118,7 @@ bool Map::MapMarkerModelHelper::itemIcon(const QModelIndex& index,
                                          QPoint* const offset,
                                          QSize* const,
                                          QPixmap* const pixmap,
-                                         KUrl* const) const
+                                         QUrl* const) const
 {
     if (! index.data(FileNameRole).canConvert<DB::FileName>()) {
         return false;

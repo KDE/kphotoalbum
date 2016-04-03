@@ -20,11 +20,11 @@
 #define MAPMARKERMODELHELPER_H
 
 // libkgeomap includes
-#include <libkgeomap/modelhelper.h>
+#include <KGeoMap/ModelHelper>
 
 // Local includes
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
 
 // Qt classes
 class QAbstractItemModel;
@@ -36,7 +36,7 @@ class QSize;
 class QStandardItemModel;
 
 // Kde classes
-class KUrl;
+class QUrl;
 
 namespace KGeoMap
 {
@@ -78,7 +78,7 @@ public:
                   QPoint* const offset,
                   QSize* const size,
                   QPixmap* const pixmap,
-                  KUrl* const url) const override;
+                  QUrl* const url) const override;
 
 private: // Variables
     QStandardItemModel* m_itemModel;

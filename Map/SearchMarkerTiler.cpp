@@ -32,10 +32,10 @@ Map::SearchMarkerTiler::~SearchMarkerTiler()
 {
 }
 
-KGeoMap::KGeoMapGroupState Map::SearchMarkerTiler::getGlobalGroupState()
+KGeoMap::GroupState Map::SearchMarkerTiler::getGlobalGroupState()
 {
     if (m_mapView->regionSelected()) {
-        return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMap::KGeoMapRegionSelectedAll;
+        return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMap::RegionSelectedAll;
     } else {
         return KGeoMap::ItemMarkerTiler::getGlobalGroupState();
     }

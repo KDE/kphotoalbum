@@ -16,3 +16,13 @@ There are still build errors, which need to be resolved before it is ready for a
     Announcement on mailing list, no release tarball
  6. Release 5.0-rc
  7. Release 5.0
+
+
+# Porting notes
+
+If you work on this port, you might find the following tools useful:
+
+ * https://community.kde.org/Frameworks/Porting_Notes
+ * KDE Dev scripts:
+   git co git://anongit.kde.org/kde-dev-scripts
+   see kde-dev-scripts/kf5 for porting scripts

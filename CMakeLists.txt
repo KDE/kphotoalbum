@@ -488,5 +488,9 @@ configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-k
 configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+message( "***********************************************************************")
+message( "*** This is an experimental branch of KPhotoAlbum!                    *")
+message( "*** Take a look at the file README.experimental for details.          *")
+message( "***********************************************************************")
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

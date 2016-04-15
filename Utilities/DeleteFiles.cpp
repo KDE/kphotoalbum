@@ -28,6 +28,7 @@
 #include "kio/copyjob.h"
 #include "DB/ImageDB.h"
 #include "MainWindow/DirtyIndicator.h"
+#include <KUrl>
 
 namespace Utilities {
 

@@ -26,6 +26,7 @@
 #include <QRadioButton>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QVariant>
 
 #include <KLocalizedString>
 

@@ -22,6 +22,8 @@
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
+#include <KUrl>
+#include <KMD5>
 
 #include <QtCore/QVector>
 #include <QList>
@@ -436,7 +438,7 @@ bool Utilities::copy( const QString& from, const QString& to )
 
 bool Utilities::makeHardLink( const QString& from, const QString& to )
 {
-    if (link(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
+    if (link(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;
     else
         return true;
@@ -444,7 +446,7 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
 
 bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
 {
-    if (symlink(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
+    if (symlink(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;
     else
         return true;
@@ -512,7 +514,7 @@ namespace Utilities
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()), "rb");
+    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
     if(!inputFile)
         return false;
     bool ok = loadJPEG( img, inputFile, fullSize, dim );
@@ -664,7 +666,7 @@ void Utilities::deleteDemo()
     QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ) );
     KUrl url;
     url.setPath( dir );
-    (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
+    (void) KIO::NetAccess::del( url, MainWindow::Window::theMainWindow() );
 }
 
 QString Utilities::stripImageDirectory( const QString& fileName )

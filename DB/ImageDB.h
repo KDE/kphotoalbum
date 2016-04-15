@@ -25,6 +25,7 @@
 #include <DB/ImageInfoList.h>
 #include <DB/ImageInfoPtr.h>
 #include <DB/MediaCount.h>
+#include <DB/ImageDateCollection.h>
 
 class QProgressBar;
 
@@ -35,7 +36,6 @@ class CategoryCollection;
 class Category;
 class MD5Map;
 class MemberMap;
-class ImageDateCollection;
 class ImageSearchInfo;
 class FileName;
 

@@ -27,8 +27,10 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
+#ifdef HAVE_EXIV2
 #include <Exif/DatabaseElement.h>
 #include <Exif/Database.h>
+#endif
 #include <Settings/SettingsData.h>
 #include <Utilities/Set.h>
 #include <Utilities/Util.h>

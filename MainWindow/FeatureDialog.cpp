@@ -30,7 +30,9 @@
 #include <KLocalizedString>
 #include <phonon/backendcapabilities.h>
 
+#ifdef HAVE_EXIV2
 #include "Exif/Database.h"
+#endif
 
 using namespace MainWindow;
 

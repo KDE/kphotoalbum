@@ -26,7 +26,9 @@
 
 #include <DB/ImageDate.h>
 #include <DB/ImageInfoPtr.h>
+#ifdef HAVE_EXIV2
 #include <Exif/SearchInfo.h>
+#endif
 #ifdef HAVE_KGEOMAP
 #include <KGeoMap/GeoCoordinates>
 #endif

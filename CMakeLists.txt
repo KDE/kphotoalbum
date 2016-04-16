@@ -19,8 +19,7 @@ include(KDECMakeSettings)
 include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
-# 2016-02-21 TODO ZaJ: libphonon5qt5-dev is currently dysfunctional in Debian/sid -> ignore for now
-#find_package(Phonon4Qt5 REQUIRED)
+find_package(Phonon4Qt5 REQUIRED)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO WidgetsAddons Config IconThemes KDELibs4Support Archive Parts)
 
 # enable exceptions:
@@ -449,10 +448,9 @@ add_executable(kphotoalbum ${kphotoalbum_SRCS})
 target_link_libraries(kphotoalbum ${JPEG_LIBRARY})
 target_link_libraries(kphotoalbum Qt5::Network)
 target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::WidgetsAddons KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::IconThemes KF5::Archive KF5::Parts)
+target_link_libraries(kphotoalbum Phonon::phonon4qt5)
 # for now:
 target_link_libraries(kphotoalbum KF5::KDELibs4Support)
-# 2016-02-21 TODO ZaJ: see above why this is disabled:
-#target_link_libraries(photoalbum PhononQt5)
 
 if(KF5Kipi_FOUND)
     target_link_libraries(kphotoalbum KF5::Kipi)

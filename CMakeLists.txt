@@ -70,6 +70,8 @@ set_package_properties(KF5KDcraw
 set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
 
 find_package(KF5KExiv2)
+# FIXME: most of KPhotoAlbum uses plain libexiv:
+find_package(Exiv2)
 set_package_properties(KF5KExiv2
     PROPERTIES
     TYPE RECOMMENDED
@@ -461,7 +463,7 @@ if(KF5KDcraw_FOUND)
 endif()
 
 if(KF5KExiv2_FOUND)
-    target_link_libraries(kphotoalbum KF5::KExiv2 Qt5::Sql)
+    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARIES} Qt5::Sql)
 endif()
 
 if(KF5KFace_FOUND)

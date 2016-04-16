@@ -20,7 +20,7 @@ include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO WidgetsAddons Config IconThemes KDELibs4Support Archive Parts)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO DocTools WidgetsAddons Config IconThemes KDELibs4Support Archive Parts)
 
 # enable exceptions:
 kde_enable_exceptions()

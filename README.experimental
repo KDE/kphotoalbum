@@ -4,7 +4,11 @@ KPhotoAlbum KDE Frameworks 5 port
 Status: non-funcional
 
 The port to KF5 is still incomplete.
-There are still build errors, which need to be resolved before it is ready for alpha-testing.
+
+# Release-critical problems
+
+Feel free to add problems as you encounter them:
+ * Migration of KDE4 config to new locations
 
 # Milestones:
 

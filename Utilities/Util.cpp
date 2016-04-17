@@ -34,6 +34,7 @@ extern "C" {
 #endif
 
 #include <QApplication>
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QImageReader>
@@ -391,7 +392,10 @@ QString Utilities::setupDemo()
     // index.xml
     QString str = readFile(locateDataFile(QString::fromLatin1("demo/index.xml")));
     if ( str.isNull() )
+    {
+        qDebug() << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
         exit(-1);
+    }
 
     str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
@@ -462,9 +466,7 @@ bool Utilities::canReadImage( const DB::FileName& fileName )
 
 QString Utilities::locateDataFile(const QString& fileName)
 {
-    return
-        KStandardDirs::
-        locate("data", QString::fromLatin1("kphotoalbum/") + fileName);
+    return QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("kphotoalbum/") + fileName);
 }
 
 QString Utilities::readFile( const QString& fileName )

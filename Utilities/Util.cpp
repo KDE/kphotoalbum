@@ -469,7 +469,7 @@ QString Utilities::locateDataFile(const QString& fileName)
 QString Utilities::readFile( const QString& fileName )
 {
     if ( fileName.isEmpty() ) {
-        KMessageBox::error( nullptr, i18n("<p>Unable to find file %1</p>", fileName ) );
+        KMessageBox::error( nullptr, i18n("<p>No file name given!</p>") );
         return QString();
     }
 

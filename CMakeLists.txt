@@ -241,6 +241,7 @@ set(libMainWindow_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/CopyPopup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Options.cpp
     )
 
 set(libImageManager_SRCS

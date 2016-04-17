@@ -26,10 +26,11 @@
 #include <KAboutData>
 #include <KLocalizedString>
 
-#include "MainWindow/SplashScreen.h"
-#include "MainWindow/Window.h"
-#include "RemoteControl/RemoteInterface.h"
-#include "Settings/SettingsData.h"
+#include <MainWindow/Options.h>
+#include <MainWindow/SplashScreen.h>
+#include <MainWindow/Window.h>
+#include <RemoteControl/RemoteInterface.h>
+#include <Settings/SettingsData.h>
 #include "version.h"
 
 int main( int argc, char** argv ) {
@@ -72,19 +73,14 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( i18n("Clytie Siddall"), i18n("Tremendous help with the English text in the application."), QStringLiteral("clytie@riverland.net.au") );
     aboutData.addCredit( i18n("Wes Hardaker"),i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
 
-    QCommandLineParser parser;
+    // initialize the commandline parser
+    QCommandLineParser *parser = MainWindow::Options::the()->parser();
+
     KAboutData::setApplicationData(aboutData);
-    parser.addVersionOption();
-    parser.addHelpOption();
-    aboutData.setupCommandLine(&parser);
+    aboutData.setupCommandLine(parser);
 
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("c "), i18n("Config file")));
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images" )));
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("import "), i18n( "Import file" )));
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("nolisten-network"), i18n( "Don't start listening for android devices on startup." )));
-
-    parser.process(app);
-    aboutData.processCommandLine(&parser);
+    parser->process(app);
+    aboutData.processCommandLine(parser);
 
     new MainWindow::SplashScreen();
 

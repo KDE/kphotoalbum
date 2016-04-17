@@ -28,6 +28,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QCloseEvent>
+#include <QCommandLineParser>
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QDebug>
@@ -45,7 +46,6 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KCmdLineArgs>
 #include <KEditToolBar>
 #include <kglobal.h>
 #include <KIconLoader>
@@ -112,6 +112,7 @@
 #include "FeatureDialog.h"
 #include "ImageCounter.h"
 #include "InvalidDateFinder.h"
+#include "Options.h"
 #include "SearchBar.h"
 #include "SplashScreen.h"
 #include "StatisticsDialog.h"
@@ -241,15 +242,14 @@ void MainWindow::Window::delayedInit()
     splash->done();
     show();
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    if ( args->isSet( "import" ) ) {
+    QUrl importUrl = Options::the()->importFile();
+    if ( importUrl.isValid() )
+    {
         // I need to do this in delayed init to get the import window on top of the normal window
-        ImportExport::Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import").toLocal8Bit() ) );
-    }
-    else {
+        ImportExport::Import::imageImport( importUrl );
+    } else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
         KTipDialog::showTip( this );
-
     }
 
 #ifdef HAVE_EXIV2
@@ -259,7 +259,7 @@ void MainWindow::Window::delayedInit()
     }
 #endif
 
-    if ( args->isSet( "listen-network" ) &&  Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+    if ( Options::the()->parser()->isSet( QLatin1String("listen-network") ) &&  Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
 
     announceAndroidVersion();
@@ -268,7 +268,7 @@ void MainWindow::Window::delayedInit()
 
 bool MainWindow::Window::slotExit()
 {
-    if ( Utilities::runningDemo() ) {
+    if ( Options::the()->demoMode() ) {
         QString txt = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
@@ -1025,14 +1025,16 @@ void MainWindow::Window::runDemo()
 bool MainWindow::Window::load()
 {
     // Let first try to find a config file.
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile;
 
-    if ( args->isSet( "c" ) ) {
-        configFile = args->getOption( "c" );
+    if ( Options::the()->parser()->isSet( QLatin1String("c") ) )
+    {
+        configFile = Options::the()->parser()->value( QLatin1String("c") );
     }
-    else if ( args->isSet( "demo" ) )
+    else if ( Options::the()->demoMode() )
+    {
         configFile = Utilities::setupDemo();
+    }
     else {
         bool showWelcome = false;
         KConfigGroup config = KSharedConfig::openConfig()->group(QString());
@@ -1065,7 +1067,7 @@ bool MainWindow::Window::load()
     }
 
     // Doing some validation on user provided index file
-    if ( args->isSet( "c" ) ) {
+    if ( Options::the()->dbFile().isValid() ) {
         QFileInfo fi( configFile );
 
         if ( !fi.dir().exists() ) {
@@ -1090,7 +1092,7 @@ bool MainWindow::Window::load()
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
          && ! (Settings::SettingsData::instance()->untaggedCategory().isEmpty()
                && Settings::SettingsData::instance()->untaggedTag().isEmpty() )
-         && ! Utilities::runningDemo() )
+         && ! Options::the()->demoMode() )
     {
         KMessageBox::error( this, i18n(
                                 "<p>You have configured a tag for untagged images, but either the tag itself "

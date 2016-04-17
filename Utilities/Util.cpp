@@ -33,6 +33,7 @@ extern "C" {
 #include <X11/X.h>
 #endif
 
+#include <QApplication>
 #include <QDir>
 #include <QFileInfo>
 #include <QImageReader>
@@ -651,12 +652,6 @@ QString Utilities::relativeFolderName( const QString& fileName)
         return QString();
     else
         return fileName.left( index );
-}
-
-bool Utilities::runningDemo()
-{
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    return args->isSet( "demo" );
 }
 
 void Utilities::deleteDemo()

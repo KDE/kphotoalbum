@@ -30,8 +30,8 @@ public:
     QCommandLineParser parser;
 
     QCommandLineOption configFile {QLatin1String("c "), i18n("Config file")};
-    QCommandLineOption demoOption {QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images" )};
-    QCommandLineOption importFile {QLatin1String("import "), i18n( "Import file" )};
+    QCommandLineOption demoOption {QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images." )};
+    QCommandLineOption importFile {QLatin1String("import "), i18n( "Import file." )};
     QCommandLineOption noListenNetworkOption { QLatin1String("nolisten-network"),
                 i18n( "Don't start listening for android devices on startup." )};
 };

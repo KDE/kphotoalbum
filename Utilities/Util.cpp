@@ -16,56 +16,54 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa-exiv2.h>
 #include "Util.h"
-#include "Settings/SettingsData.h"
-#include "DB/ImageInfo.h"
-#include "ImageManager/ImageDecoder.h"
-#include <klocale.h>
-#include <qfileinfo.h>
-#include <KUrl>
-#include <KMD5>
-
-#include <QtCore/QVector>
-#include <QList>
-#include <kmessagebox.h>
-#include <kapplication.h>
-#include <qdir.h>
-#include <kstandarddirs.h>
-#include <qregexp.h>
-#include <kimageio.h>
-#include <kcmdlineargs.h>
-#include <kio/netaccess.h>
-#include "MainWindow/Window.h"
-#include "ImageManager/RawImageDecoder.h"
-
-#ifdef Q_WS_X11
-#include "X11/X.h"
-#endif
-
-#include <QTextCodec>
-#include "Utilities/JpeglibWithFix.h"
 
 extern "C" {
 #include <limits.h>
+#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/stat.h>
-#include <setjmp.h>
 #include <sys/types.h>
+#include <unistd.h>
 }
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
 
-#include <config-kpa-exiv2.h>
-#ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
+#ifdef Q_WS_X11
+#include <X11/X.h>
 #endif
 
-#include <kdebug.h>
-#include <KMimeType>
+#include <QDir>
+#include <QFileInfo>
 #include <QImageReader>
-#include <kcodecs.h>
+#include <QList>
+#include <QRegExp>
+#include <QTextCodec>
+#include <QVector>
+
+#include <KCodecs>
+#include <KImageIO>
+#include <KLocalizedString>
+#include <KMD5>
+#include <KMessageBox>
+#include <KMimeType>
+#include <KStandardDirs>
+#include <KUrl>
+
+#include <KIO/NetAccess>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#ifdef HAVE_EXIV2
+#  include <Exif/Info.h>
+#endif
+#include <ImageManager/ImageDecoder.h>
+#include <ImageManager/RawImageDecoder.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+
+#include "JpeglibWithFix.h"
 
 /**
  * Add a line label + info text to the result text if info is not empty.

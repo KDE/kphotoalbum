@@ -32,8 +32,6 @@ public:
     QCommandLineOption configFile {QLatin1String("c "), i18n("Config file")};
     QCommandLineOption demoOption {QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images." )};
     QCommandLineOption importFile {QLatin1String("import "), i18n( "Import file." )};
-    QCommandLineOption noListenNetworkOption { QLatin1String("nolisten-network"),
-                i18n( "Don't start listening for android devices on startup." )};
 };
 }
 
@@ -73,7 +71,7 @@ MainWindow::Options::Options()
 {
     d->parser.addVersionOption();
     d->parser.addHelpOption();
-    d->parser.addOptions({ d->configFile, d->demoOption, d->importFile, d->noListenNetworkOption});
+    d->parser.addOptions({ d->configFile, d->demoOption, d->importFile });
 }
 
 

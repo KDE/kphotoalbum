@@ -28,7 +28,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QCloseEvent>
-#include <QCommandLineParser>
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QDebug>
@@ -259,7 +258,7 @@ void MainWindow::Window::delayedInit()
     }
 #endif
 
-    if ( Options::the()->parser()->isSet( QLatin1String("listen-network") ) &&  Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+    if ( Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
 
     announceAndroidVersion();
@@ -1027,9 +1026,10 @@ bool MainWindow::Window::load()
     // Let first try to find a config file.
     QString configFile;
 
-    if ( Options::the()->parser()->isSet( QLatin1String("c") ) )
+    QUrl dbFileUrl = Options::the()->dbFile();
+    if ( !dbFileUrl.isEmpty() && dbFileUrl.isLocalFile() )
     {
-        configFile = Options::the()->parser()->value( QLatin1String("c") );
+        configFile = dbFileUrl.toLocalFile();
     }
     else if ( Options::the()->demoMode() )
     {

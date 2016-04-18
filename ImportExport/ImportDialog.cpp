@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -28,11 +28,11 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QDir>
 
 #include <KFileDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kstandarddirs.h>
 #include <KHelpClient>
 
 #include <DB/ImageInfo.h>
@@ -306,7 +306,7 @@ void ImportDialog::next()
         if ( !QFileInfo( dir ).exists() ) {
             int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exist. Should it be created?", dir ) );
             if ( answer == KMessageBox::Yes ) {
-                bool ok = KStandardDirs::makeDir( dir );
+                bool ok = QDir().mkpath(dir);
                 if ( !ok ) {
                     KMessageBox::error( this, i18n("Error creating directory %1", dir ) );
                     return;

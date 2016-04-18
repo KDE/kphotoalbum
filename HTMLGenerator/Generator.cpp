@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -28,6 +28,7 @@
 #include <QDebug>
 #include <QDomDocument>
 #include <QMimeDatabase>
+#include <QStandardPaths>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -35,7 +36,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KRun>
-#include <kstandarddirs.h>
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -58,9 +58,9 @@ HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     setLabelText( i18n("Generating images for HTML page ") );
     m_setup = setup;
     m_eventLoop = new QEventLoop;
-    m_avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
     if ( m_avconv.isNull() )
-        m_avconv = KStandardDirs::findExe( QString::fromLatin1( "ffmpeg" ) );
+        m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg"));
 }
 
 HTMLGenerator::Generator::~Generator()

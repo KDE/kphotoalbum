@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public
@@ -31,6 +31,7 @@
 #include <QStandardPaths>
 #include <QStringMatcher>
 #include <QVBoxLayout>
+#include <QStandardPaths>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -39,7 +40,6 @@
 #include <KIO/NetAccess>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kstandarddirs.h>
 #include <KTextEdit>
 
 #include <DB/CategoryCollection.h>
@@ -124,12 +124,12 @@ void HTMLDialog::createContentPage()
     m_html5Video->setChecked( Settings::SettingsData::instance()->HTML5Video() );
     lay1->addWidget( m_html5Video );
 
-    QString avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
-    const QString ffmpeg2theora = KStandardDirs::findExe(QString::fromLatin1("ffmpeg2theora"));
+    QString avconv = QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
+    const QString ffmpeg2theora = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg2theora"));
 
-    KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
     if ( avconv.isNull() )
-        avconv = KStandardDirs::findExe( QString::fromLatin1( "ffmpeg" ) );
+        avconv = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg"));
 
     QString txt = i18n( "<p>This selection will generate video files suitable for displaying on web. "
                         "avconv and ffmpeg2theora are required for video file generation.</p>" );

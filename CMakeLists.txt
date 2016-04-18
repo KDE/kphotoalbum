@@ -477,7 +477,7 @@ install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 
-install(PROGRAMS kphotoalbum.desktop kphotoalbum-import.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES kphotoalbumrc DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES tips DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum)
 install(FILES kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum)

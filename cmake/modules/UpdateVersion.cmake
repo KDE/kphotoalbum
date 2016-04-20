@@ -21,11 +21,11 @@ if ( EXISTS "${BASE_DIR}/.git" )
 
 	message ( STATUS "Updating version information to ${KPA_VERSION}..." )
 	# write version info to a temporary file
-	configure_file ( "${BASE_DIR}/version.h.in" "${BASE_DIR}/version.h~" )
+	configure_file ( "${BASE_DIR}/version.h.in" "${CMAKE_CURRENT_BINARY_DIR}/version.h~" )
 	# update info iff changed
-	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${BASE_DIR}/version.h~" "${BASE_DIR}/version.h" )
+	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_CURRENT_BINARY_DIR}/version.h~" "${BASE_DIR}/version.h" )
 	# make sure info doesn't get stale
-	file ( REMOVE "${BASE_DIR}/version.h~" )
+	file ( REMOVE "${CMAKE_CURRENT_BINARY_DIR}/version.h~" )
 else()
 	# -> tarball
 	if ( NOT EXISTS "${BASE_DIR}/version.h" )

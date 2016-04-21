@@ -338,6 +338,11 @@ do_backup()
 
 do_restore()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	echo "Restoring essential files..."
 	for f in "$BACKUP_LOCATION/$BACKUP_ID"/*.tgz
 	do
@@ -370,6 +375,11 @@ show_info()
 
 do_list()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	local LATEST=`resolve_link "$BACKUP_LOCATION/latest"`
 	LATEST=`basename "$LATEST"`
 	local action=show_info
@@ -392,6 +402,11 @@ do_list()
 
 do_info()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	local LATEST=`resolve_link "$BACKUP_LOCATION/$BACKUP_ID"`
 	echo "$BACKUP_LOCATION:"
 	show_info "$LATEST"
@@ -399,6 +414,11 @@ do_info()
 
 do_purge()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	cd "$BACKUP_LOCATION"
 	# list newest entries first, skip KEEP_NUM directories:
 	for d in `ls -t1`

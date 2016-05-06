@@ -1037,9 +1037,9 @@ bool MainWindow::Window::load()
     }
     else {
         bool showWelcome = false;
-        KConfigGroup config = KSharedConfig::openConfig()->group(QString());
-        if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
-            configFile = config.readEntry<QString>( QString::fromLatin1("configfile"), QString() );
+        KConfigGroup config = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
+        if ( config.hasKey( QString::fromLatin1("imageDBFile") ) ) {
+            configFile = config.readEntry<QString>( QString::fromLatin1("imageDBFile"), QString() );
             if ( !QFileInfo( configFile ).exists() )
                 showWelcome = true;
         }
@@ -1058,7 +1058,7 @@ bool MainWindow::Window::load()
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
     // To avoid a race conditions where both the image loader thread creates an instance of
-    // Options, and where the main thread crates an instance, we better get it created now.
+    // Settings, and where the main thread crates an instance, we better get it created now.
     Settings::SettingsData::setup( QFileInfo( configFile ).absolutePath() );
 
     if ( Settings::SettingsData::instance()->showSplashScreen() ) {

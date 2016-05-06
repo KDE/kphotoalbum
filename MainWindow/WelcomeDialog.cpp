@@ -189,8 +189,8 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    KConfigGroup group = KSharedConfig::openConfig()->group(QString());
-    group.writeEntry( QString::fromLatin1("configfile"), file );
+    KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
+    group.writeEntry( QString::fromLatin1("imageDBFile"), file );
     group.sync();
 
 

@@ -24,6 +24,7 @@
 #include <QTemporaryFile>
 
 #include <KAboutData>
+#include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
 
 #include <MainWindow/Options.h>
@@ -33,9 +34,18 @@
 #include <Settings/SettingsData.h>
 #include "version.h"
 
+void migrateKDE4Config()
+{
+    Kdelibs4ConfigMigrator migrator(QStringLiteral("kphotoalbum")); // the same name defined in the aboutData
+    migrator.setConfigFiles(QStringList() << QStringLiteral("kphotoalbumrc"));
+    migrator.setUiFiles(QStringList() << QStringLiteral("kphotoalbumui.rc"));
+    migrator.migrate();
+}
+
 int main( int argc, char** argv ) {
     KLocalizedString::setApplicationDomain("kphotoalbum");
     QApplication app(argc, argv);
+    migrateKDE4Config();
 
     KAboutData aboutData(
             QStringLiteral("kphotoalbum"), //component name

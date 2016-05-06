@@ -1,0 +1,5 @@
+Version=5
+Id=kphotoalbum-5.0.0
+File=kphotoalbumrc
+Group=<default>,General
+Key=configfile,imageDBFile

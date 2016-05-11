@@ -6,7 +6,7 @@ install(
     mainpage.html
     navigation.js
     style.css
-    DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum/themes/dark
+    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/dark
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

@@ -22,9 +22,9 @@
 #include "Settings/SettingsData.h"
 #include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
-#  include <libkdcraw/kdcraw.h>
-#  include <libkdcraw/rawfiles.h>
-#  include <libkdcraw/version.h>
+#  include <KDCRAW/KDcraw>
+#  include <KDCRAW/RawFiles>
+#  include <libkdcraw_version.h>
 #endif
 #include <kdebug.h>
 #include <DB/FileName.h>

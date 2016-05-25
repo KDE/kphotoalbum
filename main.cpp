@@ -24,8 +24,10 @@
 #include <QTemporaryFile>
 
 #include <KAboutData>
+#include <KConfigGroup>
 #include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <MainWindow/Options.h>
 #include <MainWindow/SplashScreen.h>
@@ -39,7 +41,20 @@ void migrateKDE4Config()
     Kdelibs4ConfigMigrator migrator(QStringLiteral("kphotoalbum")); // the same name defined in the aboutData
     migrator.setConfigFiles(QStringList() << QStringLiteral("kphotoalbumrc"));
     migrator.setUiFiles(QStringList() << QStringLiteral("kphotoalbumui.rc"));
-    migrator.migrate();
+    if (migrator.migrate())
+    {
+        KConfigGroup unnamedConfig = KSharedConfig::openConfig()->group(QString());
+        if ( unnamedConfig.hasKey( QString::fromLatin1("configfile") ) )
+        {
+            // rename config file entry on update
+            KConfigGroup generalConfig = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
+            generalConfig.writeEntry( QString::fromLatin1("imageDBFile"),
+                                      unnamedConfig.readEntry( QString::fromLatin1("configfile")));
+            unnamedConfig.deleteEntry( QString::fromLatin1("configfile") );
+            qWarning() << "Renamed config entry configfile to General.imageDBFile.";
+        }
+
+    }
 }
 
 int main( int argc, char** argv ) {

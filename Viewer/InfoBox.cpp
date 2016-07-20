@@ -34,6 +34,7 @@
 #include <KGlobal>
 #include <KIconLoader>
 #include <KDebug>
+#include <KLocale>
 
 // Local includes
 #include "Browser/BrowserWidget.h"

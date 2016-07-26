@@ -32,27 +32,22 @@
 #include <kdialog.h>
 #include "config-kpa-kgeomap.h"
 
-class QStackedWidget;
-class KActionCollection;
-class QMoveEvent;
-class QResizeEvent;
-class QCloseEvent;
-class KComboBox;
-class KTextEdit;
 class DockWidget;
-class QDockWidget;
-class QTimeEdit;
-class QMainWindow;
-class QSplitter;
-class KPushButton;
+class KActionCollection;
+class KComboBox;
 class KLineEdit;
-class KPushButton;
-class QProgressBar;
 class KRatingWidget;
-
-#ifdef HAVE_KGEOMAP
+class KTextEdit;
+class QCloseEvent;
+class QDockWidget;
+class QMainWindow;
+class QMoveEvent;
+class QProgressBar;
 class QPushButton;
-#endif
+class QResizeEvent;
+class QSplitter;
+class QStackedWidget;
+class QTimeEdit;
 
 namespace Viewer
 {
@@ -174,10 +169,10 @@ private:
     KLineEdit* m_imageFilePattern;
 
     ImagePreviewWidget* m_preview;
-    KPushButton* m_revertBut;
-    KPushButton* m_clearBut;
-    KPushButton* m_okBut;
-    KPushButton* m_continueLaterBut;
+    QPushButton* m_revertBut;
+    QPushButton* m_clearBut;
+    QPushButton* m_okBut;
+    QPushButton* m_continueLaterBut;
     KTextEdit* m_description;
     QTimeEdit* m_time;
     QLabel* m_timeLabel;

@@ -284,8 +284,8 @@ do_backup()
 		echo "RC-file ($KPARC) not readable!" >&2
 		exit 1
 	fi
-	# KPA gets the image directory from the configfile entry
-	INDEXFILE=`get_config_value configfile`
+	# KPA gets the image directory from the imageDBFile entry
+	INDEXFILE=`get_config_value imageDBFile`
 	if [ -z "$INDEXFILE" ]
 	then
 		echo "The RC-file ($KPARC) does not define an entry for index.xml!" >&2

@@ -405,7 +405,7 @@ void Browser::BrowserWidget::createWidgets()
     m_curView = nullptr;
 }
 
-bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
+bool Browser::BrowserWidget::eventFilter( QObject* /* obj */, QEvent* event)
 {
     if (event->type() == QEvent::MouseButtonPress ||
              event->type() == QEvent::MouseMove ||

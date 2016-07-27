@@ -42,6 +42,8 @@ class HTMLDialog :public KPageDialog {
 
 public:
     explicit HTMLDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using KPageDialog::exec;
     int exec(const DB::FileNameList& list);
 
 protected slots:

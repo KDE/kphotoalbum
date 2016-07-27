@@ -36,6 +36,8 @@ class DeleteDialog :public QDialog {
 
 public:
     explicit DeleteDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using QDialog::exec;
     int exec(const DB::FileNameList& list);
 
 protected slots:

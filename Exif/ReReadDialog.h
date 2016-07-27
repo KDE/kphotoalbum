@@ -35,6 +35,8 @@ class ReReadDialog :public KDialog {
 
 public:
     explicit ReReadDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using KDialog::exec;
     int exec( const DB::FileNameList& );
 
 protected slots:

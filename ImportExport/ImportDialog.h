@@ -49,6 +49,8 @@ class ImportDialog :public KAssistantDialog {
 
 public:
     explicit ImportDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using KAssistantDialog::exec;
     bool exec( KimFileReader* kimFileReader, const QUrl &kimFilePath );
     ImportSettings settings();
 

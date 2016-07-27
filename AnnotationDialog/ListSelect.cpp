@@ -435,7 +435,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                                                 QLineEdit::Normal,
                                                 item->text(0), &ok );
 
-        if ( ok && newStr != item->text(0) ) {
+        if ( ok && !newStr.isEmpty() && newStr != item->text(0) ) {
             int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br/>"
                                                               "Doing so will rename \"%3\" "
                                                               "on any image containing it.</p>"

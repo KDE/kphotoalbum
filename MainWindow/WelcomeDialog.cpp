@@ -23,7 +23,6 @@
 #include <KApplication>
 #include <KConfigGroup>
 #include <KFileDialog>
-#include <kglobal.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>

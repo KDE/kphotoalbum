@@ -37,6 +37,7 @@
 #include <QLayout>
 #include <QMenu>
 #include <QMessageBox>
+#include <QMimeData>
 #include <QMoveEvent>
 #include <QObject>
 #include <QResizeEvent>
@@ -47,7 +48,6 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KEditToolBar>
-#include <kglobal.h>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>

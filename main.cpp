@@ -26,6 +26,7 @@
 #include <KAboutData>
 #include <KConfigGroup>
 #include <Kdelibs4ConfigMigrator>
+#include <KLocale>
 #include <KLocalizedString>
 #include <KSharedConfig>
 
@@ -61,6 +62,9 @@ int main( int argc, char** argv ) {
     KLocalizedString::setApplicationDomain("kphotoalbum");
     QApplication app(argc, argv);
     migrateKDE4Config();
+
+    // trigger KLocale initialization:
+    (void) KLocale::global;
 
     KAboutData aboutData(
             QStringLiteral("kphotoalbum"), //component name

@@ -27,17 +27,20 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QScopedPointer>
 #include <QSpinBox>
 #include <QStandardPaths>
 #include <QStringMatcher>
 #include <QVBoxLayout>
-#include <QStandardPaths>
 
 #include <KConfig>
 #include <KConfigGroup>
 #include <KFileDialog>
 #include <KFileItem>
-#include <KIO/NetAccess>
+#include <KIO/DeleteJob>
+#include <KIO/StatJob>
+#include <KJob>
+#include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KTextEdit>
@@ -407,16 +410,18 @@ bool HTMLDialog::checkVars()
     }
 
     // ensure base dir exists
-    KIO::UDSEntry result;
-    bool ok = KIO::NetAccess::stat( QUrl(baseDir), result, this );
-    if ( !ok ) {
+    QScopedPointer<KIO::StatJob> statJob( KIO::stat( QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, 1 /*only basic info*/));
+    KJobWidgets::setWindow( statJob.data(), MainWindow::Window::theMainWindow() );
+    if (!statJob->exec())
+    {
         KMessageBox::error( this, i18n("<p>Error while reading information about %1. "
-                                       "This is most likely because the directory does not exist.</p>",
-                                       baseDir ) );
+                                       "This is most likely because the directory does not exist.</p>"
+                                       "<p>The error message was: %2</p>",
+                                       baseDir, statJob->errorString() ) );
         return false;
     }
 
-    KFileItem fileInfo( result, QUrl(baseDir) );
+    KFileItem fileInfo( statJob->statResult(), QUrl::fromUserInput(baseDir) );
     if ( !fileInfo.isDir() ) {
         KMessageBox::error( this, i18n("<p>%1 does not exist, is not a directory or "
                                        "cannot be written to.</p>", baseDir ) );
@@ -425,8 +430,10 @@ bool HTMLDialog::checkVars()
 
 
     // test if destination directory exists.
-    bool exists = KIO::NetAccess::exists( QUrl(outputDir), KIO::NetAccess::DestinationSide, MainWindow::Window::theMainWindow() );
-    if ( exists ) {
+    QScopedPointer<KIO::StatJob> existsJob( KIO::stat( QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, 0 /*only minimal info*/ ));
+    KJobWidgets::setWindow( existsJob.data(), MainWindow::Window::theMainWindow() );
+    if ( existsJob->exec() )
+    {
         int answer = KMessageBox::warningYesNo( this,
                                                 i18n("<p>Output directory %1 already exists. "
                                                      "Usually, this means you should specify a new directory.</p>"
@@ -434,7 +441,9 @@ bool HTMLDialog::checkVars()
                                                 i18n("Directory Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {
-            KIO::NetAccess::del( QUrl(outputDir), MainWindow::Window::theMainWindow() );
+            QScopedPointer<KJob> delJob (KIO::del(QUrl::fromUserInput(outputDir)));
+            KJobWidgets::setWindow( delJob.data(), MainWindow::Window::theMainWindow() );
+            delJob->exec();
         }
         else
             return false;

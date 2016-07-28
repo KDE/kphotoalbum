@@ -44,17 +44,17 @@ extern "C" {
 #include <QRegExp>
 #include <QStandardPaths>
 #include <QTextCodec>
+#include <QUrl>
 #include <QVector>
 
 #include <KCodecs>
-#include <KImageIO>
+#include <KJob>
+#include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMD5>
 #include <KMessageBox>
 
-#include <KUrl>
-
-#include <KIO/NetAccess>
+#include <KIO/DeleteJob>
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -673,9 +673,10 @@ QString Utilities::relativeFolderName( const QString& fileName)
 void Utilities::deleteDemo()
 {
     QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ) );
-    KUrl url;
-    url.setPath( dir );
-    (void) KIO::NetAccess::del( url, MainWindow::Window::theMainWindow() );
+    QUrl demoUrl = QUrl::fromLocalFile( dir );
+    KJob *delDemoJob = KIO::del( demoUrl );
+    KJobWidgets::setWindow( delDemoJob, MainWindow::Window::theMainWindow());
+    delDemoJob->exec();
 }
 
 QString Utilities::stripImageDirectory( const QString& fileName )

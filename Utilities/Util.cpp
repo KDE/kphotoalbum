@@ -39,6 +39,8 @@ extern "C" {
 #include <QFileInfo>
 #include <QImageReader>
 #include <QList>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QRegExp>
 #include <QStandardPaths>
 #include <QTextCodec>
@@ -49,7 +51,6 @@ extern "C" {
 #include <KLocalizedString>
 #include <KMD5>
 #include <KMessageBox>
-#include <KMimeType>
 
 #include <KUrl>
 
@@ -468,9 +469,12 @@ bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
 bool Utilities::canReadImage( const DB::FileName& fileName )
 {
     bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
-    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName.absolute(), 0, fastMode )->name() ).isEmpty() ||
-        ImageManager::ImageDecoder::mightDecode( fileName );
-    // KMimeType::findByPath() never returns null pointer
+    QMimeDatabase::MatchMode mode = fastMode ? QMimeDatabase::MatchExtension : QMimeDatabase::MatchDefault;
+    QMimeDatabase db;
+    QMimeType mimeType = db.mimeTypeForFile( fileName.absolute(), mode );
+
+    return QImageReader::supportedMimeTypes().contains( mimeType.name().toUtf8() )
+            || ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
 

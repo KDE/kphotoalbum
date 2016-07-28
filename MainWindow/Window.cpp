@@ -33,6 +33,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFrame>
+#include <QInputDialog>
 #include <QLayout>
 #include <QMenu>
 #include <QMessageBox>
@@ -48,7 +49,6 @@
 #include <KEditToolBar>
 #include <kglobal.h>
 #include <KIconLoader>
-#include <KInputDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPasswordDialog>
@@ -1612,7 +1612,10 @@ void MainWindow::Window::slotRemoveTokens()
 
 void MainWindow::Window::slotShowListOfFiles()
 {
-    QStringList list = KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here.") )
+    QStringList list = QInputDialog::getMultiLineText( this,
+                                                       i18n("Open List of Files"),
+                                                       i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here.")
+                                                       )
             .split( QChar::fromLatin1('\n'), QString::SkipEmptyParts );
     if ( list.isEmpty() )
         return;

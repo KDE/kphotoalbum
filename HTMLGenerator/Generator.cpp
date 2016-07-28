@@ -580,7 +580,6 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
             // TODO: shouldn't we use avconv library directly instead of KRun
             // TODO: should check that the avconv (ffmpeg takes the same parameters on older systems) and ffmpeg2theora exist
             // TODO: Figure out avconv parameters to get rid of ffmpeg2theora
-//    QString avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
             KRun::runCommand(QString::fromLatin1("%1 -y -i %2  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %3 %4")
                 .arg( m_avconv )
                 .arg( fileName.absolute() ).arg( QString::fromLatin1( "320x240" ) )

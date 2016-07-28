@@ -40,6 +40,7 @@ extern "C" {
 #include <QImageReader>
 #include <QList>
 #include <QRegExp>
+#include <QStandardPaths>
 #include <QTextCodec>
 #include <QVector>
 
@@ -49,7 +50,7 @@ extern "C" {
 #include <KMD5>
 #include <KMessageBox>
 #include <KMimeType>
-#include <KStandardDirs>
+
 #include <KUrl>
 
 #include <KIO/NetAccess>
@@ -413,8 +414,14 @@ QString Utilities::setupDemo()
     }
 
     // Images
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) ), dir );
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.avi" ) ), dir );
+    copyList( QStandardPaths::locateAll(
+                  QStandardPaths::GenericDataLocation,
+                  QString::fromLatin1("kphotoalbum/demo/*.jpg")),
+              dir );
+    copyList( QStandardPaths::locateAll(
+                  QStandardPaths::GenericDataLocation,
+                  QString::fromLatin1("kphotoalbum/demo/*.avi")),
+              dir );
 
     // CategoryImages
     dir = dir + QString::fromLatin1("/CategoryImages");
@@ -427,7 +434,10 @@ QString Utilities::setupDemo()
         }
     }
 
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg" ) ), dir );
+    copyList( QStandardPaths::locateAll(
+                  QStandardPaths::GenericDataLocation,
+                  QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg")),
+              dir );
 
     return configFile;
 }

@@ -18,26 +18,27 @@
 
 #include "WelcomeDialog.h"
 #include "FeatureDialog.h"
-#include <qlabel.h>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <klocale.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <kfiledialog.h>
+#include <Utilities/Util.h>
 
-#include "Utilities/Util.h"
-#include <QLineEdit>
-#include <kmessagebox.h>
-#include "kshell.h"
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kglobalsettings.h>
+#include <KApplication>
 #include <KConfigGroup>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QFileDialog>
+#include <KFileDialog>
+#include <kglobal.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <KSharedConfig>
+#include <KShell>
+
+#include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QPushButton>
+#include <QStandardPaths>
+#include <QVBoxLayout>
 
 using namespace MainWindow;
 
@@ -145,7 +146,7 @@ FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
     lay2->addWidget( label );
 
     m_lineEdit = new QLineEdit( top );
-    m_lineEdit->setText( KGlobalSettings::picturesPath() );
+    m_lineEdit->setText( QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) );
     lay2->addWidget( m_lineEdit );
 
     QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );

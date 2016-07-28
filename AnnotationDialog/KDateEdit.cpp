@@ -33,21 +33,21 @@
 
 #include "KDateEdit.h"
 
-#include <qevent.h>
-#include <qlineedit.h>
-#include <qapplication.h>
-#include <QMouseEvent>
-#include <QKeyEvent>
-
-#include <kdatepicker.h>
-#include <kglobalsettings.h>
+#include <KCalendarSystem>
+#include <KDatePicker>
 #include <kglobal.h>
-#include <klocale.h>
-#include <kcalendarsystem.h>
-#include <kdebug.h>
+#include <KLocalizedString>
+
+#include <QApplication>
+#include <QDebug>
+#include <QDesktopWidget>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QLineEdit>
+#include <QMouseEvent>
+#include <QVBoxLayout>
 
 #include "KDateEdit.moc"
-#include <QVBoxLayout>
 
 AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     : KComboBox( parent ),
@@ -171,13 +171,16 @@ void AnnotationDialog::KDateEdit::showPopup()
     if (mReadOnly)
         return;
 
-    QRect desk = KGlobalSettings::desktopGeometry(this);
+    QRect desk = QApplication::desktop()->availableGeometry(this);
 
+    // ensure that the popup is fully visible even when the KDateEdit is off-screen
     QPoint popupPoint = mapToGlobal( QPoint( 0,0 ) );
-    if ( popupPoint.x() < desk.left() ) popupPoint.setX( desk.x() );
-
+    if ( popupPoint.x() < desk.left() ) {
+        popupPoint.setX( desk.x() );
+    } else if ( popupPoint.x() + width() > desk.right()) {
+        popupPoint.setX( desk.right() - width());
+    }
     int dateFrameHeight = mDateFrame->sizeHint().height();
-
     if ( popupPoint.y() + height() + dateFrameHeight > desk.bottom() ) {
         popupPoint.setY( popupPoint.y() - dateFrameHeight );
     } else {

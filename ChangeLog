@@ -1,3 +1,20 @@
+====================== KPhotoalbum 4.7.2 released  (29.07.2016) ======================
+
+* Bugfix: Fix building without KIPI.
+
+* Bugfix: Annotation dialog: Fix up/down key if there's a single match for an entered string.
+
+* Enhancement: Tag names are now matched word by word against all parts of the search string (using
+  the Search dialog).
+
+* Bugfix: Prevent duplication of special categories when updating to dbv7.
+
+* Bugfix: Don't exclude "Z" when filling the "Tokens" category for the first time.
+
+* Bugfix: Overall fixes of assertions.
+
+* Change: Dropped compatibility with libkipi < 2.0.
+
 ====================== KPhotoalbum 4.7.1 released  (22.02.2016) ======================
 
 * Bugfix: Fix broken category settings dialog (categories can be added, renamed etc. again, was a

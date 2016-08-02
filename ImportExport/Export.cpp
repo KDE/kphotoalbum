@@ -18,8 +18,6 @@
 
 #include "Export.h"
 
-#include <time.h>
-
 #include <QApplication>
 #include <QBuffer>
 #include <QCheckBox>
@@ -256,9 +254,7 @@ Export::Export(
         // Create the index.xml file
         m_progressDialog->setLabelText(i18n("Creating index file"));
         QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, m_location, &m_filenameMapper );
-        time_t t;
-        time(&t);
-        m_zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
+        m_zip->writeFile( QString::fromLatin1( "index.xml" ), indexml.data() );
 
        m_steps++;
        m_progressDialog->setValue( m_steps );
@@ -353,7 +349,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
     image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1().constData() );
 
     if ( m_location == Inline || !m_copyingFiles )
-        m_zip->writeFile( zipFileName, QString(), QString(), data.constData(), data.size() );
+        m_zip->writeFile( zipFileName, data.constData() );
     else {
         QString file = m_destdir + QString::fromLatin1( "/" ) + m_filenameMapper.uniqNameFor(fileName);
         QFile out( file );

@@ -32,7 +32,6 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <ImageManager/RawImageDecoder.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/Window.h>
 #include <Plugins/CategoryImageCollection.h>
@@ -119,51 +118,6 @@ QAbstractItemModel * Plugins::Interface::getTagTree() const
     return new Browser::TreeCategoryModel( rootCategory , matchAll );
 }
 
-QVariant Plugins::Interface::hostSetting( const QString& settingName )
-{
-    if (settingName == QString::fromUtf8("WriteMetadataUpdateFiletimeStamp"))
-        return false;
-    if (settingName == QString::fromUtf8("WriteMetadataToRAW"))
-        return false;
-
-    if (settingName == QString::fromUtf8("UseXMPSidecar4Reading"))
-        return false;
-    if (settingName == QString::fromUtf8("MetadataWritingMode"))
-        return 0; /* WRITETOIMAGEONLY */
-
-    bool fileExt = settingName == QString::fromUtf8("FileExtensions");
-    bool imageExt = fileExt || settingName == QString::fromUtf8("ImagesExtensions");
-    bool rawExt   = fileExt || settingName == QString::fromUtf8("RawExtensions");
-    bool videoExt = fileExt || settingName == QString::fromUtf8("VideoExtensions");
-    if ( imageExt || rawExt || videoExt )
-    {
-        QStringList fileTypes;
-        if ( imageExt )
-        {
-            // Return a list of images file extensions supported by KDE.
-            // This works as long as Settings::SettingsData::instance()->ignoreFileExtension() is not true
-            Q_FOREACH( const auto &imageFormat, QImageReader::supportedImageFormats())
-            {
-                fileTypes += QString::fromUtf8( imageFormat );
-            }
-        }
-
-        if ( rawExt )
-            fileTypes += ImageManager::RAWImageDecoder::rawExtensions();
-
-        if ( videoExt )
-            fileTypes += Utilities::supportedVideoExtensions().toList();
-
-        QString fileFilter = fileTypes.join(QString::fromUtf8(" "));
-        return QString( fileFilter.toLower() + QString::fromUtf8(" ") + fileFilter.toUpper() );
-    }
-
-    if ( settingName == QString::fromUtf8("AudioExtensions") )
-        return QString();
-
-    return QVariant();
-}
-
 bool Plugins::Interface::addImage( const QUrl &url, QString& errmsg )
 {
     const QString dir = url.path();
@@ -241,11 +195,6 @@ void Plugins::Interface::thumbnails(const QList<QUrl> &list, int size)
 }
 
 KIPI::FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &url) const
-{
-    return nullptr;
-}
-
-KIPI::RawProcessor *Plugins::Interface::createRawProcessor() const
 {
     return nullptr;
 }

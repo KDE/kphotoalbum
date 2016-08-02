@@ -50,7 +50,6 @@ public:
 
     // FIXME: implement this stuff:
     virtual KIPI::FileReadWriteLock* createReadWriteLock(const QUrl& url) const override;
-    virtual KIPI::RawProcessor* createRawProcessor() const override;
     virtual KIPI::MetadataProcessor* createMetadataProcessor() const override;
 
     virtual KIPI::ImageCollection currentAlbum() override;
@@ -62,7 +61,6 @@ public:
     virtual void refreshImages( const QList<QUrl>& urls ) override;
     virtual int features() const override;
     virtual QAbstractItemModel * getTagTree() const override;
-    virtual QVariant hostSetting( const QString& settingName ) override;
     virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
     virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
 

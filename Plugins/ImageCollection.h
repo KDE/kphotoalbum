@@ -35,14 +35,17 @@ public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };
 
     explicit ImageCollection( Type tp );
+
     virtual QString name() override;
-    virtual QString comment() override;
     virtual QList<QUrl> images() override;
+
+    // FIXME: url() should not called unless isDirectory() is true
+    //        therefore, we should also to implement isDirectory
     virtual QUrl url() override;
     virtual QUrl uploadUrl() override;
     virtual QUrl uploadRootUrl() override;
-    // FIXME: new methods have been added in KF5 KIPI...
-#warning KIPI support has not yet been fixed for KF5
+    virtual QString uploadRootName() override;
+    // isDirectory
 
 protected:
     QList<QUrl> imageListToUrlList( const DB::ImageInfoList& list );

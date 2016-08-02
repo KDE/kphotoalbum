@@ -18,6 +18,9 @@
 */
 
 #include "UploadImageCollection.h"
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
 
 namespace Plugins {
 
@@ -39,6 +42,17 @@ QString UploadImageCollection::name()
 QUrl UploadImageCollection::uploadUrl()
 {
     return QUrl::fromLocalFile(m_path);
+}
+
+QUrl UploadImageCollection::uploadRootUrl()
+{
+    QUrl url = QUrl::fromLocalFile(Settings::SettingsData::instance()->imageDirectory() );
+    return url;
+}
+
+QString UploadImageCollection::uploadRootName()
+{
+    return i18nc("'Name' of the image directory", "Image/Video root directory");
 }
 
 } // namespace Plugins

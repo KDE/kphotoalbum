@@ -30,6 +30,7 @@ class KDE_EXPORT CategoryImageCollection :public Plugins::ImageCollection {
 
 public:
     CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category, const QString& value );
+
     virtual QString name() override;
     virtual QList<QUrl> images() override;
 

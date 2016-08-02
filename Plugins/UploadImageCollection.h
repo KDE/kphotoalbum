@@ -28,11 +28,13 @@ class UploadImageCollection : public KIPI::ImageCollectionShared
 {
 public:
     explicit UploadImageCollection(const QString& path);
+
     QList<QUrl> images() override;
     QString name() override;
+
     QUrl uploadUrl() override;
-    // FIXME: new methods have been added in KF5 KIPI...
-#warning KIPI support has not yet been fixed for KF5
+    virtual QUrl uploadRootUrl() override;
+    virtual QString uploadRootName() override;
 
 private:
     QString m_path;

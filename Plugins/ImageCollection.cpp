@@ -61,11 +61,6 @@ QString Plugins::ImageCollection::name()
     return res;
 }
 
-QString Plugins::ImageCollection::comment()
-{
-    return QString();
-}
-
 QList<QUrl> Plugins::ImageCollection::images()
 {
     switch ( m_type ) {
@@ -147,9 +142,13 @@ QUrl Plugins::ImageCollection::uploadUrl()
 
 QUrl Plugins::ImageCollection::uploadRootUrl()
 {
-    QUrl url;
-    url.setPath( Settings::SettingsData::instance()->imageDirectory() );
+    QUrl url = QUrl::fromLocalFile(Settings::SettingsData::instance()->imageDirectory() );
     return url;
+}
+
+QString Plugins::ImageCollection::uploadRootName()
+{
+    return i18nc("'Name' of the image directory", "Image/Video root directory");
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

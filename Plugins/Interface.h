@@ -48,26 +48,29 @@ class KDE_EXPORT Interface :public KIPI::Interface
 public:
     explicit Interface( QObject *parent, QString name=QString());
 
-    // FIXME: implement this stuff:
-    virtual KIPI::FileReadWriteLock* createReadWriteLock(const QUrl& url) const override;
-    virtual KIPI::MetadataProcessor* createMetadataProcessor() const override;
-
     virtual KIPI::ImageCollection currentAlbum() override;
     virtual KIPI::ImageCollection currentSelection() override;
     virtual QList<KIPI::ImageCollection> allAlbums() override;
+
     virtual KIPI::ImageInfo info( const QUrl& ) override;
     virtual bool addImage( const QUrl&, QString& errmsg ) override;
     virtual void delImage( const QUrl& ) override;
     virtual void refreshImages( const QList<QUrl>& urls ) override;
-    virtual int features() const override;
-    virtual QAbstractItemModel * getTagTree() const override;
-    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
-    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
 
     virtual void thumbnail(const QUrl &url, int size) override;
     virtual void thumbnails(const QList<QUrl> &list, int size) override;
-    // FIXME: new methods have been added in KF5 KIPI...
-#warning KIPI support has not yet been fixed for KF5
+
+    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
+    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
+    virtual QAbstractItemModel * getTagTree() const override;
+
+    // these two methods are only here because of a libkipi api error
+    // either remove them when they are no longer pure virtual in KIPI::Interface,
+    // or implement them and update features() accordingly:
+    virtual KIPI::FileReadWriteLock* createReadWriteLock(const QUrl&) const override;
+    virtual KIPI::MetadataProcessor* createMetadataProcessor() const override;
+
+    virtual int features() const override;
 
 public slots:
     void slotSelectionChanged( bool );

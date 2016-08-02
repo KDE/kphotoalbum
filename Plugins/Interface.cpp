@@ -99,8 +99,8 @@ int Plugins::Interface::features() const
         KIPI::HostAcceptNewImages |
         KIPI::ImagesHasTitlesWritable |
         KIPI::HostSupportsTags |
-        KIPI::HostSupportsThumbnails |
-        KIPI::HostSupportsRating;
+        KIPI::HostSupportsRating |
+        KIPI::HostSupportsThumbnails;
 }
 
 QAbstractItemModel * Plugins::Interface::getTagTree() const
@@ -194,7 +194,7 @@ void Plugins::Interface::thumbnails(const QList<QUrl> &list, int size)
         thumbnail( url, size );
 }
 
-KIPI::FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &url) const
+KIPI::FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &) const
 {
     return nullptr;
 }

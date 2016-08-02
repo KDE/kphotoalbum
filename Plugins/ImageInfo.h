@@ -39,9 +39,6 @@ class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
 public:
     ImageInfo( KIPI::Interface* interface, const QUrl &url );
 
-    // FIXME: new methods have been added in KF5 KIPI...
-#warning KIPI support has not yet been fixed for KF5
-
     QMap<QString,QVariant> attributes() override;
     void clearAttributes() override;
     void addAttributes( const QMap<QString,QVariant>& ) override;

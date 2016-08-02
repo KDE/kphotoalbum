@@ -17,10 +17,12 @@
 */
 
 #include "CopyPopup.h"
-#include <klocale.h>
-#include <KFileDialog>
+
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+
+#include <QFileDialog>
 #include <QPushButton>
-#include <kio/copyjob.h>
 
 MainWindow::CopyPopup::CopyPopup(
         QWidget *parent,
@@ -78,22 +80,24 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     }
 
     Q_ASSERT( src.size()>0 );
-    KFileDialog dialog(src.at(0), QString() /* empty filter */, this);
-    dialog.okButton()->setText(i18nc("@action:button", "Copy"));
+    QFileDialog dialog(this);
+    dialog.setDirectoryUrl( src.at(0));
+    dialog.setLabelText( QFileDialog::Accept, i18nc("@action:button", "Copy"));
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {
         if (mode == QString::fromLatin1("current"))
             dialog.setWindowTitle(i18nc("@title:window", "Copy image to..."));
         else
             dialog.setWindowTitle(i18nc("@title:window", "Link image to..."));
-        dialog.setSelection(src[0].fileName());
-        dialog.setMode(KFile::File | KFile::Directory);
+        dialog.selectUrl(src[0]);
+        dialog.setFileMode( QFileDialog::ExistingFile );
     } else {
         if (mode == QString::fromLatin1("all"))
             dialog.setWindowTitle(i18nc("@title:window", "Copy images to..."));
         else
             dialog.setWindowTitle(i18nc("@title:window", "Link images to..."));
-        dialog.setMode(KFile::Directory);
+        dialog.setFileMode( QFileDialog::ExistingFile );
+        dialog.setOption( QFileDialog::ShowDirsOnly, true);
     }
 
     if (! dialog.exec()) {
@@ -101,9 +105,9 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     }
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("all"))
-        KIO::copy(src, dialog.selectedUrl());
+        KIO::copy(src, dialog.selectedUrls().at(0));
     else
-        KIO::link(src, dialog.selectedUrl());
+        KIO::link(src, dialog.selectedUrls().at(0));
 }
 
 #include "CopyPopup.moc"

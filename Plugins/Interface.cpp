@@ -22,6 +22,7 @@
 #include <QImageReader>
 #include <QList>
 
+#include <KFileItem>
 #include <KImageIO>
 #include <KIO/PreviewJob>
 #include <KIPI/ImageCollection>
@@ -177,7 +178,8 @@ void Plugins::Interface::thumbnail(const QUrl &url, int size)
         emit gotThumbnail( url, thumb);
     } else {
         // for bigger thumbnails, fall back to previewJob:
-        KFileItem f = KFileItem(KFileItem::Unknown, KFileItem::Unknown, url, true);
+        KFileItem f { url };
+        f.setDelayedMimeTypes( true );
         KFileItemList fl;
         fl.append(f);
         KIO::PreviewJob *job = KIO::filePreview( fl, QSize(size,size));

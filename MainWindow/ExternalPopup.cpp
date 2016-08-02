@@ -157,7 +157,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
                                                             QString::fromLatin1("Name == '%1'").arg(name));
     Q_ASSERT( offers.count() >= 1 );
     KService::Ptr ptr = offers.first();
-    KRun::run(*ptr, lst, MainWindow::Window::theMainWindow() );
+    KRun::runService(*ptr, lst, MainWindow::Window::theMainWindow() );
 }
 
 MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )

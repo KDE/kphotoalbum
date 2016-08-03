@@ -37,6 +37,7 @@ extern "C" {
 #include <QCryptographicHash>
 #include <QDebug>
 #include <QDir>
+#include <QDirIterator>
 #include <QFileInfo>
 #include <QImageReader>
 #include <QList>
@@ -381,12 +382,12 @@ void Utilities::copyList( const QStringList& from, const QString& directoryTo )
 
 QString Utilities::setupDemo()
 {
-    QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ));
-    QFileInfo fi(dir);
+    QString demoDir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ));
+    QFileInfo fi(demoDir);
     if ( ! fi.exists() ) {
-        bool ok = QDir().mkdir( dir );
+        bool ok = QDir().mkdir( demoDir );
         if ( !ok ) {
-            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
+            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", demoDir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
@@ -399,7 +400,7 @@ QString Utilities::setupDemo()
         exit(-1);
     }
 
-    QString configFile = dir + QString::fromLatin1( "/index.xml" );
+    QString configFile = demoDir + QString::fromLatin1( "/index.xml" );
     if ( ! QFileInfo( configFile ).exists() ) {
         QFile out( configFile );
         if ( !out.open( QIODevice::WriteOnly ) ) {
@@ -411,30 +412,45 @@ QString Utilities::setupDemo()
     }
 
     // Images
-    copyList( QStandardPaths::locateAll(
-                  QStandardPaths::GenericDataLocation,
-                  QString::fromLatin1("kphotoalbum/demo/*.jpg")),
-              dir );
-    copyList( QStandardPaths::locateAll(
-                  QStandardPaths::GenericDataLocation,
-                  QString::fromLatin1("kphotoalbum/demo/*.avi")),
-              dir );
+    const QStringList kpaDemoDirs = QStandardPaths::locateAll(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLatin1("kphotoalbum/demo"),
+                QStandardPaths::LocateDirectory);
+    QStringList images;
+    Q_FOREACH(const QString &dir, kpaDemoDirs)
+    {
+        QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg") << QStringLiteral("*.avi"));
+        while (it.hasNext()) {
+            images.append(it.next());
+        }
+    }
+
+    copyList( images, demoDir );
 
     // CategoryImages
-    dir = dir + QString::fromLatin1("/CategoryImages");
-    fi = QFileInfo(dir);
+    QString catDir = demoDir + QString::fromLatin1("/CategoryImages");
+    fi = QFileInfo(catDir);
     if ( ! fi.exists() ) {
-        bool ok = QDir().mkdir( dir  );
+        bool ok = QDir().mkdir( catDir  );
         if ( !ok ) {
-            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
+            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", catDir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
 
-    copyList( QStandardPaths::locateAll(
-                  QStandardPaths::GenericDataLocation,
-                  QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg")),
-              dir );
+    const QStringList kpaDemoCatDirs = QStandardPaths::locateAll(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLatin1("kphotoalbum/demo/CategoryImages"),
+                QStandardPaths::LocateDirectory);
+    QStringList catImages;
+    Q_FOREACH(const QString &dir, kpaDemoCatDirs)
+    {
+        QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg"));
+        while (it.hasNext()) {
+            catImages.append(it.next());
+        }
+    }
+    copyList( catImages, catDir );
 
     return configFile;
 }

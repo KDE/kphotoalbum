@@ -34,6 +34,7 @@ extern "C" {
 #endif
 
 #include <QApplication>
+#include <QCryptographicHash>
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
@@ -51,7 +52,6 @@ extern "C" {
 #include <KJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
-#include <KMD5>
 #include <KMessageBox>
 
 #include <KIO/DeleteJob>
@@ -782,14 +782,19 @@ QString Utilities::cStringWithEncoding( const char *c_str, const QString& charse
 
 DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
 {
+    DB::MD5 checksum;
     QFile file( fileName.absolute() );
-    if ( !file.open( QIODevice::ReadOnly ) )
-        return DB::MD5();
-
-    KMD5 md5calculator( 0 /* char* */);
-    md5calculator.reset();
-    md5calculator.update( file );
-    return DB::MD5(QString::fromLatin1(md5calculator.hexDigest()));
+    if ( file.open( QIODevice::ReadOnly ) )
+    {
+        QCryptographicHash md5calculator(QCryptographicHash::Md5);
+        if ( md5calculator.addData( &file ) )
+        {
+            checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
+        } else {
+            qWarning() << "Could not compute MD5 sum for file " << fileName.relative();
+        }
+    }
+    return checksum;
 }
 
 QColor Utilities::contrastColor( const QColor& col )

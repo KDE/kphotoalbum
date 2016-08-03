@@ -393,23 +393,14 @@ QString Utilities::setupDemo()
     }
 
     // index.xml
-    QString str = readFile(locateDataFile(QString::fromLatin1("demo/index.xml")));
-    if ( str.isNull() )
+    QString demoDB = locateDataFile(QString::fromLatin1("demo/index.xml"));
+    if ( demoDB.isEmpty() )
     {
         qDebug() << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
         exit(-1);
     }
-
     QString configFile = demoDir + QString::fromLatin1( "/index.xml" );
-    if ( ! QFileInfo( configFile ).exists() ) {
-        QFile out( configFile );
-        if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( nullptr, i18n("Unable to open '%1' for writing.", configFile ), i18n("Error Running Demo") );
-            exit(-1);
-        }
-        QTextStream( &out ) << str;
-        out.close();
-    }
+    copy(demoDB, configFile);
 
     // Images
     const QStringList kpaDemoDirs = QStandardPaths::locateAll(
@@ -424,7 +415,6 @@ QString Utilities::setupDemo()
             images.append(it.next());
         }
     }
-
     copyList( images, demoDir );
 
     // CategoryImages

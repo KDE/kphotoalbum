@@ -399,10 +399,6 @@ QString Utilities::setupDemo()
         exit(-1);
     }
 
-    str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
-    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
-    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-
     QString configFile = dir + QString::fromLatin1( "/index.xml" );
     if ( ! QFileInfo( configFile ).exists() ) {
         QFile out( configFile );

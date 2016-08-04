@@ -31,7 +31,7 @@
 
 // KDE includes
 #include <KLocalizedString>
-#include <KPageWidgetItem>
+#include <KPageWidgetModel>
 
 // Local includes
 #include "BirthdayPage.h"

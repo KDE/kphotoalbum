@@ -39,11 +39,9 @@
 #include <QWheelEvent>
 
 #include <KActionCollection>
-#include <KFileDialog>
 #include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KLocalizedString>
-#include <KWindowSystem>
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>

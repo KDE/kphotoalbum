@@ -20,9 +20,7 @@
 #include "FeatureDialog.h"
 #include <Utilities/Util.h>
 
-#include <KApplication>
 #include <KConfigGroup>
-#include <KFileDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>

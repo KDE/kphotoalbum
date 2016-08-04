@@ -29,7 +29,6 @@
 #include <MainWindow/FeatureDialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 #include <ktoolbar.h>
 #include <kxmlguiclient.h>
 #include <kxmlguibuilder.h>

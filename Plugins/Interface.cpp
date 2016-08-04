@@ -23,7 +23,6 @@
 #include <QList>
 
 #include <KFileItem>
-#include <KImageIO>
 #include <KIO/PreviewJob>
 #include <KIPI/ImageCollection>
 #include <KLocalizedString>

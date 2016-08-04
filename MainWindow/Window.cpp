@@ -1813,9 +1813,11 @@ void MainWindow::Window::slotThumbnailSizeChanged()
 {
     QString thumbnailSizeMsg = i18nc( "@info:status",
                                       //xgettext:no-c-format
-                                      "Thumbnail width: %1px (storage size: %2px)");
-    m_statusBar->showMessage( thumbnailSizeMsg.arg( Settings::SettingsData::instance()->actualThumbnailSize())
-                              .arg(Settings::SettingsData::instance()->thumbnailSize()), 4000);
+                                      "Thumbnail width: %1px (storage size: %2px)",
+                                      Settings::SettingsData::instance()->actualThumbnailSize(),
+                                      Settings::SettingsData::instance()->thumbnailSize()
+                                      );
+    m_statusBar->showMessage( thumbnailSizeMsg, 4000);
 }
 
 void MainWindow::Window::createSarchBar()

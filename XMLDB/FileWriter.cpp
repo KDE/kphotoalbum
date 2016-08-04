@@ -63,7 +63,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();
-    QFile out(fileName + QString::fromAscii(".tmp"));
+    QFile out(fileName + QString::fromLatin1(".tmp"));
     if ( !out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         KMessageBox::sorry( messageParent(),
                             i18n("<p>Could not save the image database to XML.</p>"
@@ -454,7 +454,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 );
             QString after;
-            after.sprintf( "_.%0X", rx.cap( 1 ).data()->toAscii());
+            after.sprintf( "_.%0X", rx.cap( 1 ).data()->toLatin1());
             tmp.replace( pos, before.length(), after);
             pos += after.length();
         }

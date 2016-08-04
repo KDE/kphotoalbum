@@ -539,11 +539,11 @@ QString HTMLGenerator::Generator::nameImage( const DB::FileName& fileName, int s
     QString name = m_filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) ) {
-        if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
-                name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
+        if ( name.endsWith( QString::fromLatin1(".jpg"), Qt::CaseSensitive ) ||
+                name.endsWith( QString::fromLatin1(".jpeg"), Qt::CaseSensitive ) )
             return name;
         else
-            return base + QString::fromAscii(".jpg");
+            return base + QString::fromLatin1(".jpg");
     } else if ( size == maxImageSize() && Utilities::isVideo( fileName ) ) {
         return name;
     } else

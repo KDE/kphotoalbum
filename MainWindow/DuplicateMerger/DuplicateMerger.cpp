@@ -26,7 +26,7 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include "DuplicateMatch.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include <QLabel>
 #include "Utilities/ShowBusyCursor.h"
 #include "MergeToolTip.h"

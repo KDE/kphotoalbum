@@ -20,7 +20,7 @@
 #include "RemoteInterface.h"
 #include <Settings/SettingsData.h>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QHostAddress>

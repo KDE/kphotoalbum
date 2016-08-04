@@ -33,12 +33,11 @@
 
 #include "KDateEdit.h"
 
-#include <KCalendarSystem>
 #include <KDatePicker>
-#include <KLocale>
 #include <KLocalizedString>
 
 #include <QApplication>
+#include <QDate>
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QEvent>
@@ -92,7 +91,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     QString dayName;
     for (int i = 1; i <= 7; ++i)
     {
-        dayName = KLocale::global()->calendar()->weekDayName(i).toLower();
+        dayName = QDate::longDayName(i).toLower();
         mKeywordMap[dayName] = i + 100;
     }
     lineEdit()->installEventFilter(this);   // handle keyword entry

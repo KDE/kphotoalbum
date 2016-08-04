@@ -17,7 +17,7 @@
 */
 
 #include "ThumbnailBuilder.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/StatusBar.h"
 #include "ThumbnailView/CellGeometry.h"

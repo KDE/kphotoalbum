@@ -29,7 +29,7 @@
 #include <QPainter>
 
 // KDE includes
-#include <KLocale>
+#include <KLocalizedString>
 #include <KIconLoader>
 
 

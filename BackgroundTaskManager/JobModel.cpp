@@ -20,7 +20,7 @@
 #include "JobModel.h"
 #include "JobManager.h"
 #include "JobInfo.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include "CompletedJobInfo.h"
 #include <QPixmap>
 #include <QPainter>

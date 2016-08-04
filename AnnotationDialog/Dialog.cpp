@@ -42,7 +42,7 @@
 #include <KComboBox>
 #include <KGuiItem>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KRatingWidget>
 #include <KTextEdit>

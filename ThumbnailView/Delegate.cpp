@@ -23,7 +23,7 @@
 #include "CellGeometry.h"
 #include <QPainter>
 #include "ThumbnailModel.h"
-#include <KLocale>
+#include <KLocalizedString>
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory , QObject *parent)
     :QStyledItemDelegate(parent), ThumbnailComponent( factory )
 {

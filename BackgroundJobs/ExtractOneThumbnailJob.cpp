@@ -18,7 +18,7 @@
 */
 
 #include "ExtractOneThumbnailJob.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <QImage>

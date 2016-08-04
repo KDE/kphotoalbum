@@ -27,8 +27,9 @@
 // KDE includes
 #include <KConfigGroup>
 #include <KIconLoader>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 
 // Libkgeomap includes
 #include <KGeoMap/MapWidget>

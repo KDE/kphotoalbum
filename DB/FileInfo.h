@@ -44,9 +44,10 @@ protected:
 #ifdef HAVE_EXIV2
     void parseEXIV2( const DB::FileName& fileName );
     QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
+#else
+    void parseKFileMetaInfo( const DB::FileName& fileName );
 #endif
 
-    void parseKFileMetaInfo( const DB::FileName& fileName );
     int orientationToAngle( int orientation );
 
 private:

@@ -115,8 +115,9 @@ void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
     m_resizing = false;
     Debug() << "Leaving grid resizing mode";
 
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->flushCache();
+    model()->endResetModel();
     model()->updateVisibleRowInfo();
     emit isResizing( false );
 }
@@ -127,8 +128,9 @@ void ThumbnailView::GridResizeSlider::setCellSize(int size)
     Settings::SettingsData::instance()->setActualThumbnailSize( size );
     blockSignals(false);
 
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->calculateCellSize();
+    model()->endResetModel();
 }
 
 void ThumbnailView::GridResizeSlider::setMaximum(int size)
@@ -185,8 +187,9 @@ void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDiffer
 
     Settings::SettingsData::instance()->setThumbnailSize(newWidth);
     Settings::SettingsData::instance()->setActualThumbnailSize(newWidth);
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->flushCache();
+    model()->endResetModel();
     model()->updateVisibleRowInfo();
 }
 

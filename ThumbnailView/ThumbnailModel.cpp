@@ -48,6 +48,7 @@ static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
 {
+    beginResetModel();
     ImageManager::AsyncLoader::instance()->stop( model(), ImageManager::StopOnlyNonPriorityLoads );
 
     // Note, this can be simplified, if we make the database backend already
@@ -113,7 +114,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
 
     emit collapseAllStacksEnabled( m_expandedStacks.size() > 0);
     emit expandAllStacksEnabled( m_allStacks.size() != model()->m_expandedStacks.size() );
-    reset();
+    endResetModel();
 }
 
 void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName& fileName)
@@ -121,12 +122,13 @@ void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName& fil
     DB::ImageInfoPtr imageInfo = fileName.info();
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
+        model()->beginResetModel();
         if (m_expandedStacks.contains(stackid))
             m_expandedStacks.remove(stackid);
         else
             m_expandedStacks.insert(stackid);
         updateDisplayModel();
-        model()->reset();
+        model()->endResetModel();
     }
 }
 
@@ -317,11 +319,6 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest* req
     }
 
     emit dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
-}
-
-void ThumbnailView::ThumbnailModel::reset()
-{
-    QAbstractItemModel::reset();
 }
 
 QString ThumbnailView::ThumbnailModel::thumbnailText( const QModelIndex& index ) const

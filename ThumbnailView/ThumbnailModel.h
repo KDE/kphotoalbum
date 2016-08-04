@@ -40,9 +40,10 @@ public:
     explicit ThumbnailModel( ThumbnailFactory* factory );
 
     // -------------------------------------------------- QAbstractListModel
+    using QAbstractListModel::beginResetModel;
+    using QAbstractListModel::endResetModel;
     int rowCount(const QModelIndex&) const override;
     QVariant data(const QModelIndex&, int) const override;
-    void reset();
     QString thumbnailText( const QModelIndex& index ) const;
     void updateCell( int row );
     void updateCell( const QModelIndex& index );

@@ -66,9 +66,10 @@ void ThumbnailView::GridResizeInteraction::setCellSize(int size)
     if ( qAbs( size - baseSize ) < 10 )
         size = baseSize;
 
+    model()->beginResetModel();
     Settings::SettingsData::instance()->setActualThumbnailSize( size );
-    model()->reset();
     cellGeometryInfo()->calculateCellSize();
+    model()->endResetModel();
 }
 
 
@@ -81,8 +82,9 @@ bool ThumbnailView::GridResizeInteraction::isResizingGrid()
 void ThumbnailView::GridResizeInteraction::leaveGridResizingMode()
 {
     KSharedConfig::openConfig()->sync();
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->flushCache();
+    model()->endResetModel();
     model()->updateVisibleRowInfo();
     widget()->setCurrentIndex( model()->index( m_currentRow, 0 ) );
 }

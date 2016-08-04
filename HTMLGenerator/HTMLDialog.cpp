@@ -21,6 +21,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialogButtonBox>
+#include <QFileDialog>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -35,7 +36,6 @@
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <KFileDialog>
 #include <KFileItem>
 #include <KIO/DeleteJob>
 #include <KIO/StatJob>
@@ -379,7 +379,9 @@ void HTMLDialog::slotOk()
 
 void HTMLDialog::selectDir()
 {
-    QUrl dir = KFileDialog::getExistingDirectoryUrl( QUrl::fromUserInput(m_baseDir->text()), this );
+    QUrl dir = QFileDialog::getExistingDirectoryUrl( this,
+                                                     i18n("Select base directory..."),
+                                                     QUrl::fromUserInput(m_baseDir->text()) );
     if ( !dir.url().isNull() )
         m_baseDir->setText( dir.url() );
 }

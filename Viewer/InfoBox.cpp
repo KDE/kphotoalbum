@@ -23,7 +23,6 @@
 #include <QBitmap>
 #include <QDebug>
 #include <QDesktopWidget>
-#include <qglobal.h>
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QToolButton>
@@ -45,7 +44,7 @@
 
 using namespace Settings;
 
-Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer)
+Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : QTextBrowser(viewer)
     ,m_viewer(viewer)
     ,m_hoveringOverLink(false)
     ,m_infoBoxResizer(this)
@@ -107,7 +106,7 @@ QVariant Viewer::InfoBox::loadResource(int type, const QUrl& name)
         short int rating = name.host().toShort();
         return m_ratingPixmap[rating];
     }
-    return KTextBrowser::loadResource(type, name);
+    return QTextBrowser::loadResource(type, name);
 }
 
 void Viewer::InfoBox::setSource(const QUrl& source)
@@ -160,7 +159,7 @@ void Viewer::InfoBox::mousePressEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton) {
         possiblyStartResize(event->pos());
     }
-    KTextBrowser::mousePressEvent(event);
+    QTextBrowser::mousePressEvent(event);
 }
 
 void Viewer::InfoBox::mouseReleaseEvent(QMouseEvent* event)
@@ -171,7 +170,7 @@ void Viewer::InfoBox::mouseReleaseEvent(QMouseEvent* event)
     }
 
     m_infoBoxResizer.deactivate();
-    KTextBrowser::mouseReleaseEvent(event);
+    QTextBrowser::mouseReleaseEvent(event);
 }
 
 void Viewer::InfoBox::mouseMoveEvent(QMouseEvent* event)
@@ -182,10 +181,10 @@ void Viewer::InfoBox::mouseMoveEvent(QMouseEvent* event)
         } else {
             m_viewer->infoBoxMove();
         }
-        // Do not tell KTextBrowser about the mouse movement, as this will just start a selection.
+        // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     } else {
         updateCursor(event->pos());
-        KTextBrowser::mouseMoveEvent(event);
+        QTextBrowser::mouseMoveEvent(event);
     }
 }
 

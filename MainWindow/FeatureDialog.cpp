@@ -125,21 +125,14 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
-    :KTextBrowser( parent )
+    :QTextBrowser( parent )
 {
     setObjectName(QString::fromLatin1(name));
 }
 
 void HelpBrowser::setSource( const QUrl& url )
 {
-    if ( url.hasFragment() )
-    {
-        // Must be QTextBrowser rather than KTextBrowser, as KTextBrowser opens the URL in an external browser, rather than jumping to the target.
-        QTextBrowser::setSource( url ); //krazy:exclude=qclasses
-    } else {
-        // FIXME: KF5-port
-        //KToolInvocation::invokeBrowser( url );
-    }
+    QTextBrowser::setSource( url );
 }
 
 bool MainWindow::FeatureDialog::hasKIPISupport()

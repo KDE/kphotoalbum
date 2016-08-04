@@ -26,7 +26,7 @@
 #include <QPointer>
 
 // KDE includes
-#include <KTextBrowser>
+#include <QTextBrowser>
 
 // Local includes
 #include <Settings/SettingsData.h>
@@ -51,7 +51,7 @@ namespace Viewer
 // Local classes
 class VisibleOptionsMenu;
 
-class InfoBox : public KTextBrowser {
+class InfoBox : public QTextBrowser {
     Q_OBJECT
 
 public:

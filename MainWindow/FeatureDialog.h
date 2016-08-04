@@ -20,7 +20,7 @@
 
 #include <QDialog>
 
-#include <KTextBrowser>
+#include <QTextBrowser>
 
 namespace MainWindow
 {
@@ -44,7 +44,7 @@ protected:
     static bool hasGeoMapSupport();
 };
 
-class HelpBrowser :public KTextBrowser
+class HelpBrowser :public QTextBrowser
 {
 public:
     explicit HelpBrowser( QWidget* parent, const char* name = nullptr );

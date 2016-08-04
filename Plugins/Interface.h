@@ -67,6 +67,7 @@ public:
     // these two methods are only here because of a libkipi api error
     // either remove them when they are no longer pure virtual in KIPI::Interface,
     // or implement them and update features() accordingly:
+    // FIXME: this can be safely removed if/when libkipi 5.1.0 is no longer supported
     virtual KIPI::FileReadWriteLock* createReadWriteLock(const QUrl&) const override;
     virtual KIPI::MetadataProcessor* createMetadataProcessor() const override;
 

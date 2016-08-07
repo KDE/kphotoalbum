@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright 2012 Miika Turkia <miika.turkia@gmail.com>
+# Copyright 2012-2016 Miika Turkia <miika.turkia@gmail.com>
 #
 # Try to locate RAW files to open them in external editor from
 # GUI application like KPhotoAlbum
@@ -18,7 +18,16 @@ my @rawExt = (
 my @raw_converters = ( "/usr/bin/AfterShot2X64", "/usr/bin/AfterShot2",
 	"/usr/bin/AfterShotPro", "/usr/bin/bibble5",
 	"/usr/bin/ufraw", "/usr/bin/rt", "/usr/bin/darktable" );
+my @ASP_work = ( "/usr/bin/AfterShot3X64" );
 my $extApp = "";
+my $workApp = "";
+
+foreach my $app (@ASP_work) {
+	if ( -e $app ) {
+		$workApp = $app;
+		last;
+	}
+}
 
 foreach my $app (@raw_converters) {
 	if ( -e $app ) {
@@ -30,7 +39,7 @@ foreach my $app (@raw_converters) {
 # If you want to use specific converter, just assign it below
 #$extApp = "/usr/bin/ufraw";
 
-if ($extApp =~ m/^$/) {
+if ($extApp =~ m/^$/ && $workApp =~ m/^$/) {
 	my $errMsg = "Could not find RAW developer. If you have one, " .
 		"script open-raw.pl must be updated.";
 	exec("notify-send \"$errMsg\"");
@@ -84,4 +93,20 @@ foreach my $argnum (0..$#ARGV) {
 }
 
 my @uniqParams = uniq(@params);
+
+if ($workApp =~ m/^.+$/) {
+	my $workFile = "/tmp/kpa-asp-" . $$ . "_" . int(rand(100000)) . ".work";
+
+	srand;
+	open WORK, ">", $workFile;
+
+	foreach my $file (@uniqParams) {
+		print WORK $file . "\n";
+	}
+
+	close WORK;
+	exec "$workApp $workFile";
+	exit;
+}
+
 exec "$extApp @uniqParams";

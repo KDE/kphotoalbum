@@ -72,7 +72,7 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : QTextBrowser(viewer)
 
 #ifdef HAVE_KGEOMAP
     m_showOnMap = new QToolButton(this);
-    m_showOnMap->setIcon(QIcon::fromTheme(QString::fromUtf8("edit-web-search")));
+    m_showOnMap->setIcon(QIcon::fromTheme(QString::fromUtf8("atmosphere")));
     m_showOnMap->setFixedSize(16, 16);
     m_showOnMap->setCursor(Qt::ArrowCursor);
     m_showOnMap->setToolTip(i18n("Show the geographic position of this image on a map"));

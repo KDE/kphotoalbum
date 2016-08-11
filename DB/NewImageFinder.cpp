@@ -107,13 +107,14 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 
     bool skipSymlinks = Settings::SettingsData::instance()->skipSymlinks();
 
-    for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it ) {
+    for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it )
+    {
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
-    if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-                excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
-                dec._skipThisFile(loadedFiles, file) ||
-                (*it) == QString::fromLatin1("CategoryImages") )
-        continue;
+        if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
+             excluded.contains( (*it) ) || loadedFiles.contains( file ) ||
+             dec._skipThisFile(loadedFiles, file) ||
+             (*it) == QString::fromLatin1("CategoryImages") )
+            continue;
 
         QFileInfo fi( file.absolute() );
 

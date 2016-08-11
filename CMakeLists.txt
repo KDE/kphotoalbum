@@ -52,7 +52,7 @@ if(JPEG_FOUND)
     include_directories(${JPEG_INCLUDE_DIR})
 endif()
 
-find_package(KF5Kipi)
+find_package(KF5Kipi 5.1.0)
 set_package_properties(KF5Kipi
     PROPERTIES
     TYPE RECOMMENDED

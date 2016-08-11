@@ -21,8 +21,10 @@
 #define IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
 
 #include <QObject>
-#include <DB/FileName.h>
 #include <QProcess>
+
+#include <DB/FileName.h>
+
 class QImage;
 
 namespace Utilities { class Process; }

@@ -17,18 +17,21 @@
 */
 #include "FileWriter.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <qfile.h>
-
-#include "Database.h"
-#include "MainWindow/Window.h"
-#include "NumberedBackup.h"
-#include "Utilities/List.h"
-#include "XMLCategory.h"
+#include <QFile>
 #include <QXmlStreamWriter>
-#include "ElementWriter.h"
+
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/List.h>
+
 #include "CompressFileInfo.h"
+#include "Database.h"
+#include "ElementWriter.h"
+#include "NumberedBackup.h"
+#include "XMLCategory.h"
 
 //
 //
@@ -60,7 +63,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();
-    QFile out(fileName + QString::fromAscii(".tmp"));
+    QFile out(fileName + QString::fromLatin1(".tmp"));
     if ( !out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         KMessageBox::sorry( messageParent(),
                             i18n("<p>Could not save the image database to XML.</p>"
@@ -451,7 +454,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
         while ( ( pos = rx.indexIn( tmp, pos ) ) != -1 ) {
             QString before = rx.cap( 1 );
             QString after;
-            after.sprintf( "_.%0X", rx.cap( 1 ).data()->toAscii());
+            after.sprintf( "_.%0X", rx.cap( 1 ).data()->toLatin1());
             tmp.replace( pos, before.length(), after);
             pos += after.length();
         }

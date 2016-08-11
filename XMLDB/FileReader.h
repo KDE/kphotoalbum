@@ -22,7 +22,6 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 #include <QSharedPointer>
-#include <QMap>
 #include "XmlReader.h"
 
 

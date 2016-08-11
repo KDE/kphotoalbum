@@ -22,43 +22,37 @@
 #include <stdlib.h>
 
 #include <QApplication>
-#include <QDesktopWidget>
-#include <QDir>
 #include <QPixmapCache>
 #include <QStringList>
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kglobal.h>
-#include <kiconloader.h>
-#include <klocale.h>
-#include <kmessagebox.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
 
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "DB/MemberMap.h"
-#include "Utilities/Util.h"
 
 #define STR(x) QString::fromLatin1(x)
 
-#define value( GROUP, OPTION, DEFAULT )                            \
-    KGlobal::config()->group( GROUP ).readEntry( OPTION, DEFAULT ) \
+#define value( GROUP, OPTION, DEFAULT )                                      \
+    KSharedConfig::openConfig()->group( GROUP ).readEntry( OPTION, DEFAULT ) \
 
-#define setValue( GROUP, OPTION, VALUE )                    \
-{                                                           \
-    KConfigGroup group = KGlobal::config()->group( GROUP ); \
-    group.writeEntry( OPTION, VALUE );                      \
-    group.sync();                                           \
+#define setValue( GROUP, OPTION, VALUE )                              \
+{                                                                     \
+    KConfigGroup group = KSharedConfig::openConfig()->group( GROUP ); \
+    group.writeEntry( OPTION, VALUE );                                \
+    group.sync();                                                     \
 }
 
 #define getValueFunc_( TYPE,FUNC,  GROUP,OPTION,DEFAULT ) \
     TYPE SettingsData::FUNC() const                       \
-    { return (TYPE) value( GROUP, OPTION, DEFAULT ); }    \
+    { return (TYPE) value( GROUP, OPTION, DEFAULT ); }
 
 #define setValueFunc_( FUNC,TYPE,  GROUP,OPTION,VALUE ) \
     void SettingsData::FUNC( const TYPE v )             \
-    { setValue( GROUP, OPTION, VALUE ); }               \
+    { setValue( GROUP, OPTION, VALUE ); }
 
 #define getValueFunc( TYPE,FUNC,  GROUP,DEFAULT ) getValueFunc_( TYPE,FUNC,  #GROUP,#FUNC,DEFAULT )
 #define setValueFunc( FUNC,TYPE,  GROUP,OPTION  ) setValueFunc_( FUNC,TYPE,  #GROUP,#OPTION,v       )
@@ -67,7 +61,7 @@
 #define property_( GET_TYPE,GET_FUNC,GET_VALUE,  SET_FUNC,SET_TYPE,SET_VALUE,  GROUP,OPTION,GET_DEFAULT_1,GET_DEFAULT_2,GET_DEFAULT_2_TYPE ) \
     GET_TYPE SettingsData::GET_FUNC() const                                              \
     {                                                                                    \
-        KConfigGroup g = KGlobal::config()->group(GROUP);                                \
+        KConfigGroup g = KSharedConfig::openConfig()->group(GROUP);                      \
                                                                                          \
         if ( !g.hasKey(OPTION) )                                                         \
             return GET_DEFAULT_1;                                                        \
@@ -75,7 +69,7 @@
         GET_DEFAULT_2_TYPE v = g.readEntry( OPTION, (GET_DEFAULT_2_TYPE)GET_DEFAULT_2 ); \
         return (GET_TYPE) GET_VALUE;                                                     \
     }                                                                                    \
-    setValueFunc_( SET_FUNC,SET_TYPE, GROUP,OPTION,SET_VALUE )                           \
+    setValueFunc_( SET_FUNC,SET_TYPE, GROUP,OPTION,SET_VALUE )
 
 #define property( GET_TYPE,GET_FUNC,  SET_FUNC,SET_TYPE,SET_VALUE,  GROUP,OPTION,GET_DEFAULT ) \
     getValueFunc_( GET_TYPE,GET_FUNC, GROUP,OPTION,GET_DEFAULT)                                \

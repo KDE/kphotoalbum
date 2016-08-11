@@ -16,19 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionInteraction.h"
-#include "ThumbnailModel.h"
-#include "ThumbnailFactory.h"
-#include "CellGeometry.h"
 
-#include <qtimer.h>
+#include <QApplication>
+#include <QDrag>
+#include <QMimeData>
 #include <QMouseEvent>
-#include <qcursor.h>
-#include <qapplication.h>
-#include <kurl.h>
 
-#include "MainWindow/Window.h"
-#include "ThumbnailWidget.h"
+#include <QUrl>
+
 #include <DB/FileNameList.h>
+#include <MainWindow/Window.h>
+
+#include "CellGeometry.h"
+#include "ThumbnailFactory.h"
+#include "ThumbnailModel.h"
+#include "ThumbnailWidget.h"
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory ), m_dragInProgress( false )
@@ -59,13 +61,13 @@ bool ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 void ThumbnailView::SelectionInteraction::startDrag()
 {
     m_dragInProgress = true;
-    KUrl::List urls;
+    QList<QUrl> urls;
     Q_FOREACH(const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
-        urls.append( fileName.absolute() );
+        urls.append( QUrl::fromLocalFile(fileName.absolute()) );
     }
     QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
     QMimeData* data = new QMimeData;
-    urls.populateMimeData(data);
+    data->setUrls(urls);
     drag->setMimeData( data );
 
     drag->exec(Qt::ActionMask);

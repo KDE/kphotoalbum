@@ -16,8 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "XMLHandler.h"
-#include <qdom.h>
-#include "Utilities/Util.h"
+
+#include <DB/FileName.h>
+#include <Utilities/Util.h>
 
 using Utilities::StringSet;
 

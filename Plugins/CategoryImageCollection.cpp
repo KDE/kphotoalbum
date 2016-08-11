@@ -34,7 +34,7 @@ QString Plugins::CategoryImageCollection::name()
         return m_value;
 }
 
-KUrl::List Plugins::CategoryImageCollection::images()
+QList<QUrl> Plugins::CategoryImageCollection::images()
 {
     DB::ImageSearchInfo context( m_context );
     context.addAnd( m_category, m_value );

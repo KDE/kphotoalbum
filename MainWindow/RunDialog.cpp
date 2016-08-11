@@ -17,7 +17,7 @@
 */
 
 #include "RunDialog.h"
-#include <KDialog>
+#include <QDialog>
 #include <QWidget>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -27,11 +27,13 @@
 #include <kshell.h>
 
 MainWindow::RunDialog::RunDialog( QWidget* parent )
-    : KDialog( parent )
+    : QDialog( parent )
 {
     QWidget* top = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout( top );
-    setMainWidget(top);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(top);
 
     // xgettext: no-c-format
     QString txt = i18n("<p>Enter your command to run below:</p>"
@@ -39,7 +41,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     QLabel* label = new QLabel(txt);
     layout->addWidget(label);
 
-    m_cmd = new KLineEdit();
+    m_cmd = new QLineEdit();
     layout->addWidget(m_cmd);
     m_cmd->setMinimumWidth(400);
     // xgettext: no-c-format
@@ -54,7 +56,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     m_cmd->setWhatsThis(txt);
     label->setWhatsThis(txt);
 
-    connect( this, SIGNAL(okClicked()), this, SLOT(slotMarkGo()) );
+    connect(this,&QDialog::accepted, this, &RunDialog::slotMarkGo);
 }
 
 void MainWindow::RunDialog::setImageList( const DB::FileNameList& fileList )
@@ -93,7 +95,7 @@ void MainWindow::RunDialog::slotMarkGo( )
 
 void MainWindow::RunDialog::show()
 {
-    KDialog::show();
+    QDialog::show();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

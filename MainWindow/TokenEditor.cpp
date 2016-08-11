@@ -20,11 +20,12 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QList>
 #include <klocale.h>
-#include <kpushbutton.h>
+#include <QPushButton>
 #include <qcheckbox.h>
 #include <qlabel.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
@@ -34,14 +35,26 @@
 using namespace MainWindow;
 
 TokenEditor::TokenEditor( QWidget* parent )
-    :KDialog( parent )
+    :QDialog( parent )
 {
     setWindowTitle( i18n( "Remove Tokens" ) );
-    setButtons( Cancel | Ok );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &TokenEditor::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &TokenEditor::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
     QVBoxLayout* vlay = new QVBoxLayout( top );
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
 
     QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:") );
     vlay->addWidget( label );
@@ -61,13 +74,13 @@ TokenEditor::TokenEditor( QWidget* parent )
     vlay->addLayout( hlay );
 
     hlay->addStretch( 1 );
-    KPushButton* selectAll = new KPushButton( i18n("Select All") );
-    KPushButton* selectNone = new KPushButton( i18n("Select None") );
+    QPushButton* selectAll = new QPushButton( i18n("Select All") );
+    QPushButton* selectNone = new QPushButton( i18n("Select None") );
     hlay->addWidget( selectAll );
     hlay->addWidget( selectNone );
 
-    connect( selectAll, SIGNAL(clicked()), this, SLOT(selectAll()) );
-    connect( selectNone, SIGNAL(clicked()), this, SLOT(selectNone()) );
+    connect(selectAll, &QPushButton::clicked, this, &TokenEditor::selectAll);
+    connect(selectNone, &QPushButton::clicked, this, &TokenEditor::selectNone);
 }
 
 void TokenEditor::show()
@@ -79,7 +92,7 @@ void TokenEditor::show()
         QString txt = box->text().remove( QString::fromLatin1("&") );
         box->setEnabled( tokens.contains( txt ) );
     }
-    KDialog::show();
+    QDialog::show();
 }
 
 void TokenEditor::selectAll()
@@ -124,7 +137,7 @@ void TokenEditor::accept()
             tokensCategory->removeItem( txt );
         }
     }
-    KDialog::accept();
+    QDialog::accept();
 }
 
 #include "TokenEditor.moc"

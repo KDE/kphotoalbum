@@ -17,7 +17,6 @@
 */
 #ifndef THUMBNAILVIEW_ENUMS_H
 #define THUMBNAILVIEW_ENUMS_H
-#include <QSet>
 
 namespace ThumbnailView
 {

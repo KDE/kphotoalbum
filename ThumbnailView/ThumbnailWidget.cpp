@@ -81,8 +81,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-    connect( &m_mouseTrackingHandler, SIGNAL(fileIdUnderCursorChanged(DB::FileName)), this, SIGNAL(fileIdUnderCursorChanged(DB::FileName)) );
-    connect( m_keyboardHandler, SIGNAL(showSelection()), this, SIGNAL(showSelection()) );
+    connect(&m_mouseTrackingHandler, &MouseTrackingInteraction::fileIdUnderCursorChanged, this, &ThumbnailWidget::fileIdUnderCursorChanged);
+    connect(m_keyboardHandler, &KeyboardEventHandler::showSelection, this, &ThumbnailWidget::showSelection);
 
     updatePalette();
     setItemDelegate( new Delegate(factory, this) );
@@ -204,11 +204,12 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 
         m_wheelResizing = true;
 
+        model()->beginResetModel();
         const int delta = -event->delta() / 20;
         static int _minimum_ = Settings::SettingsData::instance()->minimumThumbnailSize();
         Settings::SettingsData::instance()->setActualThumbnailSize( qMax( _minimum_, Settings::SettingsData::instance()->actualThumbnailSize() + delta ) );
         cellGeometryInfo()->calculateCellSize();
-        model()->reset();
+        model()->endResetModel();
     }
     else
     {
@@ -265,12 +266,10 @@ void ThumbnailView::ThumbnailWidget::setExternallyResizing( bool state )
 void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method )
 {
     SelectionMaintainer maintainer( this, model());
+    ThumbnailComponent::model()->beginResetModel();
     cellGeometryInfo()->flushCache();
     updatePalette();
-
-    // const DB::IdList selectedItems = selection( NoExpandCollapsedStacks );
-    // PENDING(blackie) the selection wasn't used
-    ThumbnailComponent::model()->reset();
+    ThumbnailComponent::model()->endResetModel();
 
     if ( method == ClearSelection )
         maintainer.disable();
@@ -362,7 +361,7 @@ void ThumbnailView::ThumbnailWidget::setupDateChangeTimer()
 {
     m_dateChangedTimer = new QTimer(this);
     m_dateChangedTimer->setSingleShot(true);
-    connect( m_dateChangedTimer, SIGNAL(timeout()), this, SLOT(emitDateChange()) );
+    connect(m_dateChangedTimer, &QTimer::timeout, this, &ThumbnailWidget::emitDateChange);
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* event )

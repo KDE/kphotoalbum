@@ -17,23 +17,23 @@
 */
 
 // Qt includes
-#include <QScrollBar>
-#include <QTimer>
 #include <QDebug>
+#include <QTimer>
 
 // KDE includes
-#include <KSharedConfig>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KLocale>
+#include <KSharedConfig>
 
 // Local includes
-#include "MainWindow/Window.h"
-#include "Settings/SettingsData.h"
-#include "GridResizeSlider.h"
+#include <ImageManager/ThumbnailBuilder.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+
 #include "CellGeometry.h"
+#include "GridResizeSlider.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
-#include "ImageManager/ThumbnailBuilder.h"
 
 #ifdef DEBUG_ResizeSlider
 #define Debug qDebug
@@ -55,13 +55,13 @@ ThumbnailView::GridResizeSlider::GridResizeSlider( ThumbnailFactory* factory )
     m_timer->setSingleShot(true);
 
     // we have no definitive leave event when using the mousewheel -> use a timeout
-    connect( m_timer, SIGNAL(timeout()), this, SLOT(leaveGridResizingMode()) );
+    connect(m_timer, &QTimer::timeout, this, &GridResizeSlider::leaveGridResizingMode);
 
     connect( settings, SIGNAL(actualThumbnailSizeChanged(int)), this , SLOT(setValue(int)) );
-    connect( settings, SIGNAL(thumbnailSizeChanged(int)), this, SLOT(setMaximum(int)) );
+    connect(settings, &Settings::SettingsData::thumbnailSizeChanged, this, &GridResizeSlider::setMaximum);
 
-    connect( this, SIGNAL(sliderPressed()), this, SLOT(enterGridResizingMode()) );
-    connect( this, SIGNAL(valueChanged(int)), this, SLOT(setCellSize(int)) );
+    connect(this, &GridResizeSlider::sliderPressed, this, &GridResizeSlider::enterGridResizingMode);
+    connect(this, &GridResizeSlider::valueChanged, this, &GridResizeSlider::setCellSize);
 
     // disable drawing of thumbnails while resizing:
     connect( this, SIGNAL(isResizing(bool)), widget(), SLOT(setExternallyResizing(bool)) );
@@ -115,8 +115,9 @@ void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
     m_resizing = false;
     Debug() << "Leaving grid resizing mode";
 
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->flushCache();
+    model()->endResetModel();
     model()->updateVisibleRowInfo();
     emit isResizing( false );
 }
@@ -127,8 +128,9 @@ void ThumbnailView::GridResizeSlider::setCellSize(int size)
     Settings::SettingsData::instance()->setActualThumbnailSize( size );
     blockSignals(false);
 
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->calculateCellSize();
+    model()->endResetModel();
 }
 
 void ThumbnailView::GridResizeSlider::setMaximum(int size)
@@ -160,7 +162,7 @@ void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDiffer
         );
 
         if (code == KMessageBox::Yes) {
-            KGlobal::config()->sync();
+            KSharedConfig::openConfig()->sync();
         } else {
             return;
         }
@@ -185,8 +187,9 @@ void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDiffer
 
     Settings::SettingsData::instance()->setThumbnailSize(newWidth);
     Settings::SettingsData::instance()->setActualThumbnailSize(newWidth);
-    model()->reset();
+    model()->beginResetModel();
     cellGeometryInfo()->flushCache();
+    model()->endResetModel();
     model()->updateVisibleRowInfo();
 }
 

@@ -23,7 +23,7 @@
 #include "JobManager.h"
 #include "JobViewer.h"
 #include <QToolTip>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QHelpEvent>
 
 namespace BackgroundTaskManager {

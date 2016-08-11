@@ -16,33 +16,37 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ListSelect.h"
 #include "config-kpa-kface.h"
-#include <qlayout.h>
-#include <QLabel>
-#include <QMenu>
-#include <QList>
-#include <QMouseEvent>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kinputdialog.h>
-#include "DB/ImageDB.h"
-#include <kio/copyjob.h>
-#include <qtoolbutton.h>
-#include <QButtonGroup>
-#include "DB/MemberMap.h"
-#include <Utilities/Set.h>
+#include "ListSelect.h"
+
 #include "CompletableLineEdit.h"
-#include "DB/CategoryItem.h"
+#include "Dialog.h"
 #include "ListViewItemHider.h"
 #include "ShowSelectionOnlyManager.h"
-#include "CategoryListView/DragableTreeWidget.h"
-#include "CategoryListView/CheckDropItem.h"
-#include <qradiobutton.h>
-#include <QWidgetAction>
-#include <QHeaderView>
-#include "Dialog.h"
+
+#include <CategoryListView/CheckDropItem.h>
+#include <CategoryListView/DragableTreeWidget.h>
+#include <DB/CategoryItem.h>
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#include <Utilities/Set.h>
+
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <QButtonGroup>
 #include <QDebug>
+#include <QHeaderView>
+#include <QInputDialog>
+#include <QLabel>
+#include <QLayout>
+#include <QList>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QRadioButton>
+#include <QToolButton>
+#include <QWidgetAction>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
@@ -426,10 +430,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     }
     else if ( which == renameAction ) {
         bool ok;
-        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Enter new name:"),
-                                                item->text(0), &ok, this );
+        QString newStr = QInputDialog::getText( this,
+                                                i18n("Rename Item"), i18n("Enter new name:"),
+                                                QLineEdit::Normal,
+                                                item->text(0), &ok );
 
-        if ( ok && newStr != item->text(0) ) {
+        if ( ok && !newStr.isEmpty() && newStr != item->text(0) ) {
             int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br/>"
                                                               "Doing so will rename \"%3\" "
                                                               "on any image containing it.</p>"
@@ -446,7 +452,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 // rename the category image too
                 QString oldFile = m_category->fileForCategoryImage( category(), oldStr );
                 QString newFile = m_category->fileForCategoryImage( category(), newStr );
-                KIO::move( KUrl(oldFile), KUrl(newFile) );
+                KIO::move( QUrl(oldFile), QUrl(newFile) );
 
                 if (m_positionable) {
 #ifdef HAVE_KFACE
@@ -470,7 +476,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaFlat );
     }
     else if ( which == newCategoryAction ) {
-        QString superCategory = KInputDialog::getText(
+        QString superCategory = QInputDialog::getText( this,
             i18n("New tag group"),
             i18n("Name for the new tag group the tag will be added to:")
         );
@@ -482,7 +488,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         rePopulate();
     }
     else if ( which == newSubcategoryAction ) {
-        QString subCategory = KInputDialog::getText(
+        QString subCategory = QInputDialog::getText( this,
             i18n("Add a tag"),
             i18n("Name for the tag to be added to this tag group:")
         );

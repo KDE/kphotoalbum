@@ -20,7 +20,6 @@
 
 // Qt includes
 #include <QDropEvent>
-#include <QDebug>
 
 // Local includes
 #include "DB/Category.h"

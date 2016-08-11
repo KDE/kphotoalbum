@@ -17,7 +17,6 @@
 */
 #include "UntaggedGroupBox.h"
 #include "SettingsData.h"
-#include <QDebug>
 #include <klocale.h>
 #include <QComboBox>
 #include <QLabel>
@@ -42,7 +41,7 @@ Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
 
     m_category = new QComboBox;
     grid->addWidget( m_category, row, 1 );
-    connect( m_category, SIGNAL(currentIndexChanged(int)), this, SLOT(populateTagsCombo()) );
+    connect(m_category, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &UntaggedGroupBox::populateTagsCombo);
 
     label = new QLabel( i18n("Tag:") );
     grid->addWidget( label, ++row, 0 );

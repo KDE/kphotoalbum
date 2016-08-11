@@ -16,54 +16,59 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa-exiv2.h>
 #include "Util.h"
-#include "Settings/SettingsData.h"
-#include "DB/ImageInfo.h"
-#include "ImageManager/ImageDecoder.h"
-#include <klocale.h>
-#include <qfileinfo.h>
-
-#include <QtCore/QVector>
-#include <QList>
-#include <kmessagebox.h>
-#include <kapplication.h>
-#include <qdir.h>
-#include <kstandarddirs.h>
-#include <qregexp.h>
-#include <kimageio.h>
-#include <kcmdlineargs.h>
-#include <kio/netaccess.h>
-#include "MainWindow/Window.h"
-#include "ImageManager/RawImageDecoder.h"
-
-#ifdef Q_WS_X11
-#include "X11/X.h"
-#endif
-
-#include <QTextCodec>
-#include "Utilities/JpeglibWithFix.h"
 
 extern "C" {
 #include <limits.h>
+#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/stat.h>
-#include <setjmp.h>
 #include <sys/types.h>
+#include <unistd.h>
 }
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
 
-#include <config-kpa-exiv2.h>
-#ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
+#ifdef Q_WS_X11
+#include <X11/X.h>
 #endif
 
-#include <kdebug.h>
-#include <KMimeType>
+#include <QApplication>
+#include <QCryptographicHash>
+#include <QDebug>
+#include <QDir>
+#include <QDirIterator>
+#include <QFileInfo>
 #include <QImageReader>
-#include <kcodecs.h>
+#include <QList>
+#include <QMimeDatabase>
+#include <QMimeType>
+#include <QRegExp>
+#include <QStandardPaths>
+#include <QTextCodec>
+#include <QUrl>
+#include <QVector>
+
+#include <KCodecs>
+#include <KJob>
+#include <KJobWidgets>
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <KIO/DeleteJob>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#ifdef HAVE_EXIV2
+#  include <Exif/Info.h>
+#endif
+#include <ImageManager/ImageDecoder.h>
+#include <ImageManager/RawImageDecoder.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+
+#include "JpeglibWithFix.h"
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -377,52 +382,65 @@ void Utilities::copyList( const QStringList& from, const QString& directoryTo )
 
 QString Utilities::setupDemo()
 {
-    QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ));
-    QFileInfo fi(dir);
+    QString demoDir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ));
+    QFileInfo fi(demoDir);
     if ( ! fi.exists() ) {
-        bool ok = QDir().mkdir( dir );
+        bool ok = QDir().mkdir( demoDir );
         if ( !ok ) {
-            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
+            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", demoDir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
 
     // index.xml
-    QString str = readFile(locateDataFile(QString::fromLatin1("demo/index.xml")));
-    if ( str.isNull() )
+    QString demoDB = locateDataFile(QString::fromLatin1("demo/index.xml"));
+    if ( demoDB.isEmpty() )
+    {
+        qDebug() << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
         exit(-1);
-
-    str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
-    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
-    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-
-    QString configFile = dir + QString::fromLatin1( "/index.xml" );
-    if ( ! QFileInfo( configFile ).exists() ) {
-        QFile out( configFile );
-        if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( nullptr, i18n("Unable to open '%1' for writing.", configFile ), i18n("Error Running Demo") );
-            exit(-1);
-        }
-        QTextStream( &out ) << str;
-        out.close();
     }
+    QString configFile = demoDir + QString::fromLatin1( "/index.xml" );
+    copy(demoDB, configFile);
 
     // Images
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) ), dir );
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.avi" ) ), dir );
+    const QStringList kpaDemoDirs = QStandardPaths::locateAll(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLatin1("kphotoalbum/demo"),
+                QStandardPaths::LocateDirectory);
+    QStringList images;
+    Q_FOREACH(const QString &dir, kpaDemoDirs)
+    {
+        QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg") << QStringLiteral("*.avi"));
+        while (it.hasNext()) {
+            images.append(it.next());
+        }
+    }
+    copyList( images, demoDir );
 
     // CategoryImages
-    dir = dir + QString::fromLatin1("/CategoryImages");
-    fi = QFileInfo(dir);
+    QString catDir = demoDir + QString::fromLatin1("/CategoryImages");
+    fi = QFileInfo(catDir);
     if ( ! fi.exists() ) {
-        bool ok = QDir().mkdir( dir  );
+        bool ok = QDir().mkdir( catDir  );
         if ( !ok ) {
-            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
+            KMessageBox::error( nullptr, i18n("Unable to create directory '%1' needed for demo.", catDir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
 
-    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg" ) ), dir );
+    const QStringList kpaDemoCatDirs = QStandardPaths::locateAll(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLatin1("kphotoalbum/demo/CategoryImages"),
+                QStandardPaths::LocateDirectory);
+    QStringList catImages;
+    Q_FOREACH(const QString &dir, kpaDemoCatDirs)
+    {
+        QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg"));
+        while (it.hasNext()) {
+            catImages.append(it.next());
+        }
+    }
+    copyList( catImages, catDir );
 
     return configFile;
 }
@@ -436,7 +454,7 @@ bool Utilities::copy( const QString& from, const QString& to )
 
 bool Utilities::makeHardLink( const QString& from, const QString& to )
 {
-    if (link(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
+    if (link(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;
     else
         return true;
@@ -444,7 +462,7 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
 
 bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
 {
-    if (symlink(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
+    if (symlink(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;
     else
         return true;
@@ -453,17 +471,18 @@ bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
 bool Utilities::canReadImage( const DB::FileName& fileName )
 {
     bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
-    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName.absolute(), 0, fastMode )->name() ).isEmpty() ||
-        ImageManager::ImageDecoder::mightDecode( fileName );
-    // KMimeType::findByPath() never returns null pointer
+    QMimeDatabase::MatchMode mode = fastMode ? QMimeDatabase::MatchExtension : QMimeDatabase::MatchDefault;
+    QMimeDatabase db;
+    QMimeType mimeType = db.mimeTypeForFile( fileName.absolute(), mode );
+
+    return QImageReader::supportedMimeTypes().contains( mimeType.name().toUtf8() )
+            || ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
 
 QString Utilities::locateDataFile(const QString& fileName)
 {
-    return
-        KStandardDirs::
-        locate("data", QString::fromLatin1("kphotoalbum/") + fileName);
+    return QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("kphotoalbum/") + fileName);
 }
 
 QString Utilities::readFile( const QString& fileName )
@@ -512,7 +531,7 @@ namespace Utilities
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()), "rb");
+    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
     if(!inputFile)
         return false;
     bool ok = loadJPEG( img, inputFile, fullSize, dim );
@@ -653,18 +672,13 @@ QString Utilities::relativeFolderName( const QString& fileName)
         return fileName.left( index );
 }
 
-bool Utilities::runningDemo()
-{
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    return args->isSet( "demo" );
-}
-
 void Utilities::deleteDemo()
 {
     QString dir = QString::fromLatin1( "%1/kphotoalbum-demo-%2" ).arg(QDir::tempPath()).arg(QString::fromLocal8Bit( qgetenv( "LOGNAME" ) ) );
-    KUrl url;
-    url.setPath( dir );
-    (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
+    QUrl demoUrl = QUrl::fromLocalFile( dir );
+    KJob *delDemoJob = KIO::del( demoUrl );
+    KJobWidgets::setWindow( delDemoJob, MainWindow::Window::theMainWindow());
+    delDemoJob->exec();
 }
 
 QString Utilities::stripImageDirectory( const QString& fileName )
@@ -770,14 +784,19 @@ QString Utilities::cStringWithEncoding( const char *c_str, const QString& charse
 
 DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
 {
+    DB::MD5 checksum;
     QFile file( fileName.absolute() );
-    if ( !file.open( QIODevice::ReadOnly ) )
-        return DB::MD5();
-
-    KMD5 md5calculator( 0 /* char* */);
-    md5calculator.reset();
-    md5calculator.update( file );
-    return DB::MD5(QString::fromLatin1(md5calculator.hexDigest()));
+    if ( file.open( QIODevice::ReadOnly ) )
+    {
+        QCryptographicHash md5calculator(QCryptographicHash::Md5);
+        if ( md5calculator.addData( &file ) )
+        {
+            checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
+        } else {
+            qWarning() << "Could not compute MD5 sum for file " << fileName.relative();
+        }
+    }
+    return checksum;
 }
 
 QColor Utilities::contrastColor( const QColor& col )

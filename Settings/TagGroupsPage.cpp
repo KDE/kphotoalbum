@@ -21,7 +21,6 @@
 // Qt includes
 #include <QListWidget>
 #include <QLabel>
-#include <QDebug>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QHeaderView>
@@ -29,12 +28,12 @@
 #include <QAction>
 #include <QMenu>
 #include <QGridLayout>
+#include <QLocale>
+#include <QInputDialog>
 
 // KDE includes
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KInputDialog>
-#include <KLocale>
-#include <KStringListValidator>
 
 // Local includes
 #include "MainWindow/DirtyIndicator.h"
@@ -52,10 +51,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_categoryTreeWidget->header()->hide();
     m_categoryTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     layout->addWidget(m_categoryTreeWidget, 1, 0);
-    connect(m_categoryTreeWidget, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(showTreeContextMenu(QPoint)));
-    connect(m_categoryTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(slotGroupSelected(QTreeWidgetItem*)));
+    connect(m_categoryTreeWidget, &CategoriesGroupsWidget::customContextMenuRequested, this, &TagGroupsPage::showTreeContextMenu);
+    connect(m_categoryTreeWidget, &CategoriesGroupsWidget::itemActivated, this, &TagGroupsPage::slotGroupSelected);
 
     // The member list
     m_selectGroupToAddTags = i18nc("@label/rich","<emphasis>Select a group on the left side to add tags to it</emphasis>");
@@ -65,10 +62,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_membersListWidget->setEnabled(false);
     m_membersListWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     layout->addWidget(m_membersListWidget, 1, 1);
-    connect(m_membersListWidget, SIGNAL(itemChanged(QListWidgetItem*)),
-            this, SLOT(checkItemSelection(QListWidgetItem*)));
-    connect(m_membersListWidget, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(showMembersContextMenu(QPoint)));
+    connect(m_membersListWidget, &QListWidget::itemChanged, this, &TagGroupsPage::checkItemSelection);
+    connect(m_membersListWidget, &QListWidget::customContextMenuRequested, this, &TagGroupsPage::showMembersContextMenu);
 
     // The "pending rename actions" label
     m_pendingChangesLabel = new QLabel(i18nc("@label/rich","<emphasis>There are pending changes on the categories page.<nl> "
@@ -76,32 +71,29 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_pendingChangesLabel->hide();
     layout->addWidget(m_pendingChangesLabel, 2, 0, 1, 2);
 
-    connect( parent, SIGNAL(cancelClicked()), this, SLOT(discardChanges()));
+    connect( parent, SIGNAL(clicked()), this, SLOT(discardChanges()));
 
     // Context menu actions
     m_newGroupAction = new QAction(i18nc("@action:inmenu","Add group ..."), this);
-    connect(m_newGroupAction, SIGNAL(triggered()), this, SLOT(slotAddGroup()));
+    connect(m_newGroupAction, &QAction::triggered, this, &TagGroupsPage::slotAddGroup);
     m_renameAction = new QAction(this);
-    connect(m_renameAction, SIGNAL(triggered()), this, SLOT(slotRenameGroup()));
+    connect(m_renameAction, &QAction::triggered, this, &TagGroupsPage::slotRenameGroup);
     m_deleteAction = new QAction(this);
-    connect(m_deleteAction, SIGNAL(triggered()), this, SLOT(slotDeleteGroup()));
+    connect(m_deleteAction, &QAction::triggered, this, &TagGroupsPage::slotDeleteGroup);
     m_deleteMemberAction = new QAction(this);
-    connect(m_deleteMemberAction, SIGNAL(triggered()), this, SLOT(slotDeleteMember()));
+    connect(m_deleteMemberAction, &QAction::triggered, this, &TagGroupsPage::slotDeleteMember);
     m_renameMemberAction = new QAction(this);
-    connect(m_renameMemberAction, SIGNAL(triggered()), this, SLOT(slotRenameMember()));
+    connect(m_renameMemberAction, &QAction::triggered, this, &TagGroupsPage::slotRenameMember);
 
     m_memberMap = DB::ImageDB::instance()->memberMap();
 
-    connect(DB::ImageDB::instance()->categoryCollection(),
-            SIGNAL(itemRemoved(DB::Category*,QString)),
+    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRemoved(DB::Category*,QString)),
             &m_memberMap, SLOT(deleteItem(DB::Category*,QString)));
 
-    connect(DB::ImageDB::instance()->categoryCollection(),
-            SIGNAL(itemRenamed(DB::Category*,QString,QString)),
+    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRenamed(DB::Category*,QString,QString)),
             &m_memberMap, SLOT(renameItem(DB::Category*,QString,QString)));
 
-    connect(DB::ImageDB::instance()->categoryCollection(),
-            SIGNAL(categoryRemoved(QString)),
+    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryRemoved(QString)),
             &m_memberMap, SLOT(deleteCategory(QString)));
 
     m_dataChanged = false;
@@ -360,18 +352,29 @@ void Settings::TagGroupsPage::slotAddGroup()
         }
     }
 
-    // reject existing group names:
-    KStringListValidator validator(groups);
-    QString newSubCategory = KInputDialog::getText(i18nc("@title:window","New Group"),
+    //// reject existing group names:
+    //KStringListValidator validator(groups);
+    //QString newSubCategory = KInputDialog::getText(i18nc("@title:window","New Group"),
+    //                                               i18nc("@label:textbox","Group name:"),
+    //                                               QString() /*value*/,
+    //                                               &ok,
+    //                                               this /*parent*/,
+    //                                               &validator,
+    //                                               QString() /*mask*/,
+    //                                               QString() /*WhatsThis*/,
+    //                                               tags /*completion*/
+    //                                               );
+    // FIXME: KF5-port: QInputDialog does not accept a validator,
+    // and KInputDialog was removed in KF5. -> Reimplement input validation using other stuff
+    QString newSubCategory = QInputDialog::getText(this,
+                                                   i18nc("@title:window","New Group"),
                                                    i18nc("@label:textbox","Group name:"),
-                                                   QString() /*value*/,
-                                                   &ok,
-                                                   this /*parent*/,
-                                                   &validator,
-                                                   QString() /*mask*/,
-                                                   QString() /*WhatsThis*/,
-                                                   tags /*completion*/
+                                                   QLineEdit::Normal,
+                                                   QString(),
+                                                   &ok
                                                    );
+    if (groups.contains(newSubCategory))
+        return; // only a workaround until GUI-support for validation is restored
     if (! ok) {
         return;
     }
@@ -458,17 +461,29 @@ void Settings::TagGroupsPage::slotRenameGroup()
     }
 
     // reject existing group names:
-    KStringListValidator validator(groups);
-    QString newSubCategoryName = KInputDialog::getText(i18nc("@title:window","Rename Group"),
-            i18nc("@label:textbox","New group name:"),
-            m_currentSubCategory,
-            &ok,
-            this /*parent*/,
-            &validator,
-            QString() /*mask*/,
-            QString() /*WhatsThis*/,
-            tags /*completion*/
-            );
+//    KStringListValidator validator(groups);
+//    QString newSubCategoryName = KInputDialog::getText(i18nc("@title:window","Rename Group"),
+//            i18nc("@label:textbox","New group name:"),
+//            m_currentSubCategory,
+//            &ok,
+//            this /*parent*/,
+//            &validator,
+//            QString() /*mask*/,
+//            QString() /*WhatsThis*/,
+//            tags /*completion*/
+//            );
+    // FIXME: KF5-port: QInputDialog does not accept a validator,
+    // and KInputDialog was removed in KF5. -> Reimplement input validation using other stuff
+    QString newSubCategoryName = QInputDialog::getText(this,
+                                                   i18nc("@title:window","Rename Group"),
+                                                   i18nc("@label:textbox","New group name:"),
+                                                   QLineEdit::Normal,
+                                                   m_currentCategory,
+                                                   &ok
+                                                   );
+    // workaround until validation with GUI support is reimplemented:
+    if (groups.contains(newSubCategoryName))
+        return;
 
     if (! ok || m_currentSubCategory == newSubCategoryName) {
         return;
@@ -740,8 +755,10 @@ void Settings::TagGroupsPage::showMembersContextMenu(QPoint point)
 void Settings::TagGroupsPage::slotRenameMember()
 {
     bool ok;
-    QString newTagName = KInputDialog::getText(i18nc("@title:window","New Tag Name"),
+    QString newTagName = QInputDialog::getText(this,
+                                               i18nc("@title:window","New Tag Name"),
                                                i18nc("@label:textbox","Tag name:"),
+                                               QLineEdit::Normal,
                                                m_membersListWidget->currentItem()->text(),
                                                &ok);
     if (! ok || newTagName == m_membersListWidget->currentItem()->text()) {

@@ -16,22 +16,25 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageInfo.h"
-#include <qfileinfo.h>
-#include "Settings/SettingsData.h"
-#include "Utilities/Util.h"
-#include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
-#include "FileInfo.h"
-#include <qstringlist.h>
-#include "DB/MemberMap.h"
 #include <config-kpa-exiv2.h>
-#include "Exif/Database.h"
-#include "Exif/DatabaseElement.h"
-#include <kdebug.h>
-#include <Utilities/Set.h>
-#include <QFile>
+#include "ImageInfo.h"
+
 #include <QDebug>
+#include <QFile>
+#include <QFileInfo>
+#include <QStringList>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#ifdef HAVE_EXIV2
+#include <Exif/DatabaseElement.h>
+#include <Exif/Database.h>
+#endif
+#include <Settings/SettingsData.h>
+#include <Utilities/Set.h>
+#include <Utilities/Util.h>
+#include "FileInfo.h"
 
 using namespace DB;
 

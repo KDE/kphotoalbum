@@ -17,19 +17,20 @@
 */
 
 #include "SplashScreen.h"
-#include <KComponentData>
-#include "Utilities/Util.h"
-#include <kstandarddirs.h>
-#include <kglobal.h>
-#include <kaboutdata.h>
-#include <qpainter.h>
-#include <qregexp.h>
-#include <kdebug.h>
+
+#include <QDebug>
+#include <QPainter>
+#include <QRegExp>
+
+#include <KAboutData>
+#include <KLocalizedString>
+
+#include <Utilities/Util.h>
 
 MainWindow::SplashScreen* MainWindow::SplashScreen::s_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
-    :KSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
+    :QSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
 {
     s_instance = this;
 }
@@ -62,7 +63,7 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
 
     // Version String
     QString txt;
-    QString version = KGlobal::mainComponent().aboutData()->version();
+    QString version = KAboutData::applicationData().version();
     txt = i18n( "%1" , version );
     painter->drawText( r, Qt::AlignRight | Qt::AlignTop, txt );
 

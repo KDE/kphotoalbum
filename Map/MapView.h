@@ -23,17 +23,20 @@
 #include <QWidget>
 
 // Libkgeomap includes
-#include <libkgeomap/kgeomap_widget.h>
-#include <libkgeomap/geocoordinates.h>
-#include <libkgeomap/itemmarkertiler.h>
+#include <KGeoMap/GeoCoordinates>
 
 // Local includes
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
 
 // Qt classes
 class QLabel;
 class QPushButton;
+
+namespace KGeoMap {
+class MapWidget;
+class ItemMarkerTiler;
+}
 
 namespace Map
 {
@@ -114,7 +117,7 @@ private slots:
     void setLastCenter();
 
 private: // Variables
-    KGeoMap::KGeoMapWidget* m_mapWidget;
+    KGeoMap::MapWidget* m_mapWidget;
     KGeoMap::ItemMarkerTiler* m_itemMarkerTiler;
     MapMarkerModelHelper* m_modelHelper;
     QLabel* m_statusLabel;

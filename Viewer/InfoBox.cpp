@@ -20,38 +20,31 @@
 
 // Qt includes
 #include <QApplication>
-#include <QToolButton>
-#include <QCursor>
-#include <QMouseEvent>
-#include <QDesktopWidget>
 #include <QBitmap>
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QMouseEvent>
 #include <QScrollBar>
-#include <qglobal.h>
+#include <QToolButton>
 
 // KDE includes
 #include <KActionCollection>
-#include <KGlobal>
-#include <KIconLoader>
-#include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KRatingWidget>
 
 // Local includes
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "MainWindow/Window.h"
-#include "VisibleOptionsMenu.h"
-
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <MainWindow/Window.h>
 #ifdef HAVE_KGEOMAP
-#include <QDialog>
-#include <QVBoxLayout>
-#include "Map/MapView.h"
+#include <Map/MapView.h>
 #endif
+#include "VisibleOptionsMenu.h"
 
 using namespace Settings;
 
-Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer)
+Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : QTextBrowser(viewer)
     ,m_viewer(viewer)
     ,m_hoveringOverLink(false)
     ,m_infoBoxResizer(this)
@@ -72,23 +65,21 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : KTextBrowser(viewer)
     setPalette(p);
 
     m_jumpToContext = new QToolButton(this);
-    m_jumpToContext->setIcon(KIcon(QString::fromUtf8("kphotoalbum")));
+    m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
     m_jumpToContext->setFixedSize(16, 16);
-    connect(m_jumpToContext, SIGNAL(clicked()), this, SLOT(jumpToContext()));
+    connect(m_jumpToContext, &QToolButton::clicked, this, &InfoBox::jumpToContext);
     connect(this, SIGNAL(highlighted(QString)), SLOT(linkHovered(QString)));
-    m_jumpToContext->setCursor(Qt::ArrowCursor);
 
 #ifdef HAVE_KGEOMAP
     m_showOnMap = new QToolButton(this);
-    m_showOnMap->setIcon(KIcon(QString::fromUtf8("edit-web-search")));
+    m_showOnMap->setIcon(QIcon::fromTheme(QString::fromUtf8("edit-web-search")));
     m_showOnMap->setFixedSize(16, 16);
     m_showOnMap->setCursor(Qt::ArrowCursor);
     m_showOnMap->setToolTip(i18n("Show the geographic position of this image on a map"));
-    connect(m_showOnMap, SIGNAL(clicked()), this, SLOT(launchMapView()));
+    connect(m_showOnMap, &QToolButton::clicked, this, &InfoBox::launchMapView);
     m_showOnMap->hide();
 
-    connect(m_viewer, SIGNAL(soughtTo(DB::FileName)),
-            this, SLOT(updateMapForCurrentImage(DB::FileName)));
+    connect(m_viewer, &ViewerWidget::soughtTo, this, &InfoBox::updateMapForCurrentImage);
 #endif
 
     KRatingWidget* rating = new KRatingWidget( nullptr );
@@ -115,7 +106,7 @@ QVariant Viewer::InfoBox::loadResource(int type, const QUrl& name)
         short int rating = name.host().toShort();
         return m_ratingPixmap[rating];
     }
-    return KTextBrowser::loadResource(type, name);
+    return QTextBrowser::loadResource(type, name);
 }
 
 void Viewer::InfoBox::setSource(const QUrl& source)
@@ -168,7 +159,7 @@ void Viewer::InfoBox::mousePressEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton) {
         possiblyStartResize(event->pos());
     }
-    KTextBrowser::mousePressEvent(event);
+    QTextBrowser::mousePressEvent(event);
 }
 
 void Viewer::InfoBox::mouseReleaseEvent(QMouseEvent* event)
@@ -179,7 +170,7 @@ void Viewer::InfoBox::mouseReleaseEvent(QMouseEvent* event)
     }
 
     m_infoBoxResizer.deactivate();
-    KTextBrowser::mouseReleaseEvent(event);
+    QTextBrowser::mouseReleaseEvent(event);
 }
 
 void Viewer::InfoBox::mouseMoveEvent(QMouseEvent* event)
@@ -190,10 +181,10 @@ void Viewer::InfoBox::mouseMoveEvent(QMouseEvent* event)
         } else {
             m_viewer->infoBoxMove();
         }
-        // Do not tell KTextBrowser about the mouse movement, as this will just start a selection.
+        // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     } else {
         updateCursor(event->pos());
-        KTextBrowser::mouseMoveEvent(event);
+        QTextBrowser::mouseMoveEvent(event);
     }
 }
 
@@ -316,7 +307,7 @@ void Viewer::InfoBox::contextMenuEvent(QContextMenuEvent* event)
 {
     if (! m_menu) {
         m_menu = new VisibleOptionsMenu(m_viewer, new KActionCollection((QObject*) nullptr));
-        connect(m_menu, SIGNAL(visibleOptionsChanged()), m_viewer, SLOT(updateInfoBox()));
+        connect(m_menu, &VisibleOptionsMenu::visibleOptionsChanged, m_viewer, &ViewerWidget::updateInfoBox);
     }
     m_menu->exec(event->globalPos());
 }

@@ -289,7 +289,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
     if ( m_curView ) {
         m_curView->setModel(0);
-        disconnect( m_curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+        disconnect( m_curView, SIGNAL(activated(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
     }
 
     if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
@@ -313,7 +313,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     // Hook up the new view
     m_curView->setModel( m_filterProxy );
-    connect( m_curView, SIGNAL(clicked(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+    connect( m_curView, SIGNAL(activated(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
 
 
     m_stack->setCurrentWidget( m_curView );
@@ -405,17 +405,9 @@ void Browser::BrowserWidget::createWidgets()
     m_curView = nullptr;
 }
 
-bool Browser::BrowserWidget::eventFilter( QObject* obj, QEvent* event)
+bool Browser::BrowserWidget::eventFilter( QObject* /* obj */, QEvent* event)
 {
-    if ( event->type() == QEvent::KeyPress ) {
-        QKeyEvent* ke = static_cast<QKeyEvent*>( event );
-        if ( ke->key() == Qt::Key_Return ) {
-            if ( m_curView == obj )
-                itemClicked( m_curView->currentIndex() );
-        }
-    }
-
-    else if (event->type() == QEvent::MouseButtonPress ||
+    if (event->type() == QEvent::MouseButtonPress ||
              event->type() == QEvent::MouseMove ||
              event->type() == QEvent::MouseButtonRelease ) {
         QMouseEvent* me = static_cast<QMouseEvent*>( event );

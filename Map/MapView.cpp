@@ -19,17 +19,20 @@
 #include "MapView.h"
 
 // Qt includes
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QPixmap>
-#include <QProgressBar>
 #include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 // KDE includes
-#include <KLocale>
-#include <KIconLoader>
 #include <KConfigGroup>
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
+
+// Libkgeomap includes
+#include <KGeoMap/MapWidget>
 
 // Local includes
 #include "MapMarkerModelHelper.h"
@@ -50,7 +53,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
-    m_mapWidget = new KGeoMap::KGeoMapWidget(this);
+    m_mapWidget = new KGeoMap::MapWidget(this);
     layout->addWidget(m_mapWidget);
 
     QWidget* controlWidget = m_mapWidget->getControlWidget();
@@ -81,7 +84,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     }
 
     // ... then we try to set the (probably) saved settings
-    KConfigGroup configGroup = KGlobal::config()->group(QString::fromUtf8("MapView"));
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group( QString::fromUtf8("MapView") );
     m_mapWidget->readSettingsFromGroup(&configGroup);
 
     // Add the item model for the coordinates display
@@ -131,7 +134,7 @@ void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 
 void Map::MapView::saveSettings()
 {
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup configGroup = config->group(QString::fromUtf8("MapView"));
     m_mapWidget->saveSettingsToGroup(&configGroup);
     config->sync();

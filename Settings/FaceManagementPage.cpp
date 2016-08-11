@@ -26,10 +26,9 @@
 #include <QTreeWidget>
 #include <QAbstractItemView>
 #include <QPushButton>
-#include <QDebug>
 
 // KDE includes
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KPageWidgetItem>
 
@@ -121,18 +120,18 @@ Settings::FaceManagementPage::FaceManagementPage(QWidget* parent) : QWidget(pare
     databaseEntriesPolicy.setVerticalPolicy(QSizePolicy::Expanding);
     m_databaseEntries->setSizePolicy(databaseEntriesPolicy);
 
-    connect(m_databaseEntries, SIGNAL(itemSelectionChanged()), this, SLOT(checkSelection()));
+    connect(m_databaseEntries, &QTreeWidget::itemSelectionChanged, this, &FaceManagementPage::checkSelection);
 
     // The "Delete selected" button
     m_deleteSelectedButton = new QPushButton(i18n("Delete selected"));
     m_deleteSelectedButton->setEnabled(false);
     recognitionLayout->addWidget(m_deleteSelectedButton, 1, 1);
-    connect(m_deleteSelectedButton, SIGNAL(clicked()), this, SLOT(slotDeleteSelected()));
+    connect(m_deleteSelectedButton, &QPushButton::clicked, this, &FaceManagementPage::slotDeleteSelected);
 
     // The "Erase database" button
     QPushButton* eraseButton = new QPushButton(i18n("Erase database"));
     recognitionLayout->addWidget(eraseButton, 2, 1);
-    connect(eraseButton, SIGNAL(clicked()), this, SLOT(slotEraseDatabase()));
+    connect(eraseButton, &QPushButton::clicked, this, &FaceManagementPage::slotEraseDatabase);
 
     QLabel* cautionLabel = new QLabel(i18n(
         "<b>Caution:</b> Changes to category names or category deletions are not "

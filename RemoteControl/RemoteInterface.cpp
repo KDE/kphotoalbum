@@ -29,7 +29,7 @@
 #include <QTcpSocket>
 
 #include <kiconloader.h>
-#include <KLocale>
+#include <KLocalizedString>
 
 #include "Browser/FlatCategoryModel.h"
 #include "DB/Category.h"

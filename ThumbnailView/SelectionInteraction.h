@@ -18,11 +18,13 @@
 #ifndef SELECTIONINTERACTION_H
 #define SELECTIONINTERACTION_H
 
-#include "ThumbnailComponent.h"
+#include <QObject>
+
+#include <DB/FileName.h>
+
 #include "enums.h"
 #include "MouseInteraction.h"
-#include <qobject.h>
-#include <DB/FileName.h>
+#include "ThumbnailComponent.h"
 
 class QMouseEvent;
 namespace ThumbnailView

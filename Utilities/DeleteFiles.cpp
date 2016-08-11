@@ -18,16 +18,21 @@
 */
 
 #include "DeleteFiles.h"
-#include "MainWindow/Window.h"
-#include <KJob>
-#include <KLocale>
-#include <KMessageBox>
+
 #include "ShowBusyCursor.h"
-#include "ImageManager/ThumbnailCache.h"
-#include <kio/deletejob.h>
-#include "kio/copyjob.h"
-#include "DB/ImageDB.h"
-#include "MainWindow/DirtyIndicator.h"
+
+#include <DB/ImageDB.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/Window.h>
+
+#include <KIO/CopyJob>
+#include <KIO/DeleteJob>
+#include <KJob>
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <QUrl>
 
 namespace Utilities {
 
@@ -50,40 +55,38 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
 {
     Utilities::ShowBusyCursor dummy;
 
-    DB::FileNameList listToDelete;
-    KUrl::List listKUrlToDelete;
-    KUrl KUrlToDelete;
+    DB::FileNameList filenamesToRemove;
+    QList<QUrl> filesToDelete;
 
     Q_FOREACH(const DB::FileName &fileName, files) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( method == DeleteFromDisk || method == MoveToTrash ){
-                KUrlToDelete.setPath(fileName.absolute());
-                listKUrlToDelete.append(KUrlToDelete);
-                listToDelete.append(fileName);
+                filesToDelete.append( QUrl::fromLocalFile( fileName.absolute()) );
+                filenamesToRemove.append(fileName);
             } else {
-                listToDelete.append(fileName);
+                filenamesToRemove.append(fileName);
             }
         }
         else
-            listToDelete.append(fileName);
+            filenamesToRemove.append(fileName);
     }
 
     if ( method == DeleteFromDisk || method == MoveToTrash ) {
         KJob* job;
         if ( method == MoveToTrash )
-            job = KIO::trash( listKUrlToDelete );
+            job = KIO::trash( filesToDelete );
         else
-            job = KIO::del( listKUrlToDelete );
+            job = KIO::del( filesToDelete );
         connect( job, SIGNAL(result(KJob*)), this, SLOT(slotKIOJobCompleted(KJob*)) );
     }
 
-    if(!listToDelete.isEmpty()) {
+    if(!filenamesToRemove.isEmpty()) {
         if ( method == MoveToTrash || method == DeleteFromDisk )
-            DB::ImageDB::instance()->deleteList( listToDelete );
+            DB::ImageDB::instance()->deleteList( filenamesToRemove );
         else
-            DB::ImageDB::instance()->addToBlockList( listToDelete );
+            DB::ImageDB::instance()->addToBlockList( filenamesToRemove );
         MainWindow::DirtyIndicator::markDirty();
         return true;
     }

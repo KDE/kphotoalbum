@@ -16,66 +16,66 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config-kpa-kface.h"
 #include "Dialog.h"
-#include <algorithm>
-#include <tuple>
-#include <QStackedWidget>
-#include <KAction>
-#include <KActionCollection>
-#include <KComboBox>
-#include <QList>
-#include <QCloseEvent>
-#include <QDir>
-#include <QDockWidget>
-#include <QHBoxLayout>
-#include <QMainWindow>
-#include <QTimeEdit>
-#include <QVBoxLayout>
-#include <QSpinBox>
-#include <kacceleratormanager.h>
-#include <kguiitem.h>
-#include <klineedit.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kpushbutton.h>
-#include <ktextedit.h>
-#include <QMenu>
-#include <qapplication.h>
-#include <qcursor.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qlabel.h>
-#include <qpoint.h>
 
-#include <kratingwidget.h>
-
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
+#include "DescriptionEdit.h"
+#include "enums.h"
 #include "ImagePreviewWidget.h"
 #include "KDateEdit.h"
 #include "ListSelect.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "Settings/SettingsData.h"
+#include "ResizableFrame.h"
 #include "ShortCutManager.h"
 #include "ShowSelectionOnlyManager.h"
-#include "Utilities/ShowBusyCursor.h"
-#include "Utilities/Util.h"
-#include "Viewer/ViewerWidget.h"
-#include "enums.h"
-#include "ResizableFrame.h"
 
-#include "DescriptionEdit.h"
-#include "config-kpa-kface.h"
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/ShowBusyCursor.h>
+#include <Utilities/Util.h>
+#include <Viewer/ViewerWidget.h>
 
-#ifdef HAVE_KGEOMAP
-#include "Map/MapView.h"
-#include <QProgressBar>
+#include <KAcceleratorManager>
+#include <KActionCollection>
+#include <KComboBox>
+#include <KGuiItem>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KRatingWidget>
+#include <KTextEdit>
+
+#include <QAction>
+#include <QApplication>
+#include <QCloseEvent>
+#include <QCursor>
+#include <QDebug>
+#include <QDir>
+#include <QDockWidget>
+#include <QFile>
+#include <QFileInfo>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QList>
+#include <QMainWindow>
+#include <QMenu>
+#include <QPoint>
 #include <QPushButton>
+#include <QSpinBox>
+#include <QStackedWidget>
+#include <QTimeEdit>
+#include <QVBoxLayout>
+#ifdef HAVE_KGEOMAP
+#include <Map/MapView.h>
+#include <QProgressBar>
 #include <QTimer>
 #endif
 
-#include <QDebug>
+#include <algorithm>
+#include <tuple>
+
 
 using Utilities::StringSet;
 
@@ -204,29 +204,32 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     QHBoxLayout* lay1 = new QHBoxLayout;
     layout->addLayout( lay1 );
 
-    m_revertBut = new KPushButton( i18n("Revert This Item") );
+    m_revertBut = new QPushButton( i18n("Revert This Item") );
     KAcceleratorManager::setNoAccel(m_revertBut);
     lay1->addWidget( m_revertBut );
 
-    m_clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
-                                             ? QString::fromLatin1("clear_left")
-                                             : QString::fromLatin1("locationbar_erase")) );
+    m_clearBut = new QPushButton();
+    KGuiItem::assign(m_clearBut,
+                     KGuiItem( i18n("Clear Form"),QApplication::isRightToLeft()
+                               ? QString::fromLatin1("clear_left")
+                               : QString::fromLatin1("locationbar_erase")) ) ;
     KAcceleratorManager::setNoAccel(m_clearBut);
     lay1->addWidget( m_clearBut );
 
-    KPushButton* optionsBut = new KPushButton( i18n("Options..." ) );
+    QPushButton* optionsBut = new QPushButton( i18n("Options..." ) );
     KAcceleratorManager::setNoAccel(optionsBut);
     lay1->addWidget( optionsBut );
 
     lay1->addStretch(1);
 
-    m_okBut = new KPushButton( i18n("&Done") );
+    m_okBut = new QPushButton( i18n("&Done") );
     lay1->addWidget( m_okBut );
 
-    m_continueLaterBut = new KPushButton( i18n("Continue &Later") );
+    m_continueLaterBut = new QPushButton( i18n("Continue &Later") );
     lay1->addWidget( m_continueLaterBut );
 
-    KPushButton* cancelBut = new KPushButton( KStandardGuiItem::cancel() );
+    QPushButton* cancelBut = new QPushButton();
+    KGuiItem::assign( cancelBut, KStandardGuiItem::cancel() );
     lay1->addWidget( cancelBut );
 
     // It is unfortunately not possible to ask KAcceleratorManager not to setup the OK and cancel keys.
@@ -779,7 +782,7 @@ void AnnotationDialog::Dialog::setup()
     }
 
     if ( m_setup == SearchMode )  {
-        m_okBut->setGuiItem( KGuiItem(i18nc("@action:button","&Search"), QString::fromLatin1("find")) );
+        KGuiItem::assign(m_okBut, KGuiItem(i18nc("@action:button","&Search"), QString::fromLatin1("find")) );
         m_continueLaterBut->hide();
         m_revertBut->hide();
         m_clearBut->show();
@@ -1212,7 +1215,7 @@ void AnnotationDialog::Dialog::setupActions()
 {
     m_actions = new KActionCollection( this );
 
-    KAction* action = nullptr;
+    QAction * action = nullptr;
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()) );
     action->setText( i18n("Sort Alphabetically (Tree)") );
     action->setShortcut(Qt::CTRL+Qt::Key_F4);

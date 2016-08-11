@@ -16,14 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <ksplashscreen.h>
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
+#include <QSplashScreen>
 
 namespace MainWindow
 {
 
-class SplashScreen :public KSplashScreen {
+class SplashScreen :public QSplashScreen {
     Q_OBJECT
 
 public:

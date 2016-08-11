@@ -18,7 +18,6 @@
 */
 
 #include "VideoThumbnailCycler.h"
-#include <QDebug>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
 #include <Utilities/Util.h>
@@ -33,8 +32,8 @@ ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model,
     QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)
 {
     m_timer = new QTimer(this);
-    connect( m_timer, SIGNAL(timeout()), m_thumbnails, SLOT(requestNext()));
-    connect(m_thumbnails, SIGNAL(frameLoaded(QImage)), this, SLOT(gotFrame(QImage)));
+    connect(m_timer, &QTimer::timeout, m_thumbnails, &ImageManager::VideoThumbnails::requestNext);
+    connect(m_thumbnails, &ImageManager::VideoThumbnails::frameLoaded, this, &VideoThumbnailCycler::gotFrame);
     Q_ASSERT(!s_instance);
     s_instance = this;
 }

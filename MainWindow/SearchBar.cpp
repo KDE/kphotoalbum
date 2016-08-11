@@ -16,13 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SearchBar.h"
-#include <klineedit.h>
+#include <QLineEdit>
 #include <kmainwindow.h>
 #include <qlabel.h>
 #include <QKeyEvent>
 #include <QEvent>
 #include <klocale.h>
-#include <kaction.h>
 #include <qapplication.h>
 #include <kactioncollection.h>
 
@@ -32,13 +31,13 @@ MainWindow::SearchBar::SearchBar( KMainWindow* parent )
     QLabel* label = new QLabel( i18nc("@label:textbox label on the search bar","Search:") + QString::fromLatin1(" ") );
     addWidget( label );
 
-    m_edit = new KLineEdit( this );
-    m_edit->setClearButtonShown(true);
+    m_edit = new QLineEdit( this );
+    m_edit->setClearButtonEnabled(true);
     label->setBuddy( m_edit );
 
     addWidget( m_edit );
-    connect( m_edit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)) );
-    connect( m_edit, SIGNAL(returnPressed()), this, SIGNAL(returnPressed()) );
+    connect(m_edit, &QLineEdit::textChanged, this, &SearchBar::textChanged);
+    connect(m_edit, &QLineEdit::returnPressed, this, &SearchBar::returnPressed);
 
     m_edit->installEventFilter( this );
 }

@@ -22,8 +22,9 @@
 #include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
-#endif
+#else
 #include <kfilemetainfo.h>
+#endif
 
 using namespace DB;
 
@@ -114,8 +115,7 @@ QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 
     return QDateTime();
 }
-#endif
-
+#else
 void DB::FileInfo::parseKFileMetaInfo( const DB::FileName& fileName )
 {
     KFileMetaInfo metainfo( fileName.absolute() );
@@ -144,6 +144,7 @@ void DB::FileInfo::parseKFileMetaInfo( const DB::FileName& fileName )
     if ( metainfo.keys().contains( QString::fromLatin1( "Comment" ) ) )
         m_description = metainfo.item( QString::fromLatin1( "Comment" ) ).value().toString();
 }
+#endif
 
 int DB::FileInfo::orientationToAngle( int orientation )
 {

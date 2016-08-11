@@ -21,7 +21,9 @@
 #include <Utilities/ShowBusyCursor.h>
 #include "enums.h"
 #include <KMessageBox>
+#ifdef HAVE_EXIV2
 #include <Exif/SearchDialog.h>
+#endif
 #include "ImageViewPage.h"
 #include "CategoryPage.h"
 #include "BrowserWidget.h"

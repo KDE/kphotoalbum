@@ -17,27 +17,34 @@
 */
 
 #include "Export.h"
-#include <kfiledialog.h>
-#include <kzip.h>
-#include <qfileinfo.h>
-#include "Utilities/Util.h"
-#include <QProgressDialog>
-#include <klocale.h>
-#include <time.h>
-#include "ImageManager/AsyncLoader.h"
-#include "DB/ImageInfo.h"
-#include <qapplication.h>
-#include <kmessagebox.h>
-#include <qlayout.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
 
-#include <qradiobutton.h>
-#include <qbuffer.h>
-#include "XMLHandler.h"
-#include <QVBoxLayout>
+#include <QApplication>
+#include <QBuffer>
+#include <QCheckBox>
+#include <QFileInfo>
 #include <QGroupBox>
+#include <QLayout>
+#include <QProgressDialog>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
+
+#include <KFileDialog>
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KZip>
+
 #include <DB/FileNameList.h>
+#include <DB/ImageInfo.h>
+#include <ImageManager/AsyncLoader.h>
+#include <Utilities/Util.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QFileDialog>
+
+#include "XMLHandler.h"
 
 using namespace ImportExport;
 
@@ -52,7 +59,12 @@ void Export::imageExport(const DB::FileNameList& list)
         maxSize = config.mp_maxSize->value();
 
     // Ask for zip file name
-    QString zipFile = KFileDialog::getSaveFileName( KUrl(), QString::fromLatin1( "*.kim|" ) + i18nc(".kim files","KPhotoAlbum Export Files" ) );
+    QString zipFile = QFileDialog::getSaveFileName(
+                nullptr, /* parent */
+                i18n("Save an export file"), /* caption */
+                QString(), /* directory */
+                QString::fromLatin1( "*.kim|" ) + i18n(".kim files") /* filter */
+                );
     if ( zipFile.isNull() )
         return;
 
@@ -69,9 +81,21 @@ void Export::imageExport(const DB::FileNameList& list)
 ExportConfig::ExportConfig()
 {
     setWindowTitle( i18n("Export Configuration / Copy Images") );
-    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &ExportConfig::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &ExportConfig::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
     QWidget* top = new QWidget;
-    setMainWidget( top );
+//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
+// Add mainLayout->addWidget(top); if necessary
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
@@ -115,7 +139,7 @@ ExportConfig::ExportConfig()
     hlay->addWidget( mp_maxSize );
     mp_maxSize->setValue( 800 );
 
-    connect( mp_enforeMaxSize, SIGNAL(toggled(bool)), mp_maxSize, SLOT(setEnabled(bool)) );
+    connect(mp_enforeMaxSize, &QCheckBox::toggled, mp_maxSize, &QSpinBox::setEnabled);
     mp_maxSize->setEnabled( false );
 
     QString txt = i18n( "<p>If your images are stored in a non-compressed file format then you may check this; "
@@ -154,7 +178,7 @@ ExportConfig::ExportConfig()
     m_link->setWhatsThis( txt );
     m_symlink->setWhatsThis( txt );
     m_auto->setWhatsThis( txt );
-    setHelp( QString::fromLatin1( "chp-exportDialog" ) );
+    KHelpClient::invokeHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const
@@ -230,9 +254,7 @@ Export::Export(
         // Create the index.xml file
         m_progressDialog->setLabelText(i18n("Creating index file"));
         QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, m_location, &m_filenameMapper );
-        time_t t;
-        time(&t);
-        m_zip->writeFile( QString::fromLatin1( "index.xml" ), QString(), QString(), indexml.data(), indexml.size()-1 );
+        m_zip->writeFile( QString::fromLatin1( "index.xml" ), indexml.data() );
 
        m_steps++;
        m_progressDialog->setValue( m_steps );
@@ -324,10 +346,10 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
     QByteArray data;
     QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
-    image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1() );
+    image.save( &buffer,  QFileInfo(zipFileName).suffix().toLower().toLatin1().constData() );
 
     if ( m_location == Inline || !m_copyingFiles )
-        m_zip->writeFile( zipFileName, QString(), QString(), data, data.size() );
+        m_zip->writeFile( zipFileName, data.constData() );
     else {
         QString file = m_destdir + QString::fromLatin1( "/" ) + m_filenameMapper.uniqNameFor(fileName);
         QFile out( file );
@@ -335,7 +357,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
             KMessageBox::error( nullptr, i18n("Error writing file %1", file ) );
             *m_ok = false;
         }
-        out.write( data, data.size() );
+        out.write( data.constData(), data.size() );
         out.close();
     }
 

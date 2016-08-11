@@ -17,7 +17,7 @@
 */
 #include "CellGeometry.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 #include "ThumbnailWidget.h"
 #include "ThumbnailModel.h"

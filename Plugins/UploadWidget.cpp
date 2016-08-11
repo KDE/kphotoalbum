@@ -18,13 +18,14 @@
 */
 
 #include "UploadWidget.h"
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QTimer>
-#include "ImageCollection.h"
+
 #include <QFileSystemModel>
-#include <Settings/SettingsData.h>
+#include <QHBoxLayout>
 #include <QTreeView>
+
+#include <Settings/SettingsData.h>
+
+#include "ImageCollection.h"
 #include "UploadImageCollection.h"
 
 namespace Plugins {
@@ -42,7 +43,7 @@ UploadWidget::UploadWidget( QWidget* parent )
     m_path = Settings::SettingsData::instance()->imageDirectory();
     const QModelIndex index = m_model->setRootPath( m_path );
     listView->setRootIndex(index);
-    connect(listView,SIGNAL(activated(QModelIndex)), this, SLOT(newIndexSelected(QModelIndex)));
+    connect(listView, &QTreeView::activated, this, &UploadWidget::newIndexSelected);
 }
 
 KIPI::ImageCollection UploadWidget::selectedImageCollection() const

@@ -19,18 +19,18 @@
 #ifndef SETTINGS_SETTINGSDATA_H
 #define SETTINGS_SETTINGSDATA_H
 
-#include <QPixmap>
-#include "DB/ImageSearchInfo.h"
-#include "DB/Category.h"
 #include <config-kpa-exiv2.h>
-#include <AnnotationDialog/enums.h>
 #include <config-kpa-kface.h>
 
-#ifdef HAVE_EXIV2
-#   include "Exif/Info.h"
-#endif
 
-#include "Utilities/Set.h"
+#include <AnnotationDialog/enums.h>
+#include <DB/Category.h>
+#include <DB/ImageSearchInfo.h>
+#ifdef HAVE_EXIV2
+#   include <Exif/Info.h>
+#endif
+#include <Utilities/Set.h>
+
 #define property( GET_TYPE,GET_FUNC, SET_FUNC,SET_TYPE ) \
     GET_TYPE GET_FUNC() const;                           \
     void SET_FUNC( const SET_TYPE )

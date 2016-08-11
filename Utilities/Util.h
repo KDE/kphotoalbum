@@ -18,7 +18,6 @@
 
 #ifndef UTIL_H
 #define UTIL_H
-#include <qdom.h>
 #include <qmap.h>
 #include <qset.h>
 #include <qstring.h>
@@ -44,7 +43,6 @@ bool copy( const QString& from, const QString& to );
 void copyList( const QStringList& from, const QString& directoryTo );
 bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );
-bool runningDemo();
 void deleteDemo();
 QString setupDemo();
 bool canReadImage( const DB::FileName& fileName );

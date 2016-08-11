@@ -22,10 +22,10 @@
 #include <QList>
 #include "DB/ImageInfo.h"
 #include "ImagePreview.h"
-#include <KPushButton>
 #include "config-kpa-kface.h"
 
 class QCheckBox;
+class QPushButton;
 
 namespace AnnotationDialog
 {
@@ -74,14 +74,14 @@ private:
      */
     void updateTexts();
     ImagePreview* m_preview;
-    KPushButton* m_prevBut;
-    KPushButton* m_nextBut;
-    KPushButton* m_rotateLeft;
-    KPushButton* m_rotateRight;
-    KPushButton* m_delBut;
-    KPushButton* m_copyPreviousBut;
-    KPushButton *m_facedetectBut;
-    KPushButton *m_toggleAreasBut;
+    QPushButton* m_prevBut;
+    QPushButton* m_nextBut;
+    QPushButton* m_rotateLeft;
+    QPushButton* m_rotateRight;
+    QPushButton* m_delBut;
+    QPushButton* m_copyPreviousBut;
+    QPushButton *m_facedetectBut;
+    QPushButton *m_toggleAreasBut;
     QList<DB::ImageInfo>* m_imageList;
     int m_current;
     bool m_singleEdit;

@@ -36,14 +36,15 @@ ImageRow::ImageRow( DB::ImageInfoPtr info, ImportDialog* import, KimFileReader* 
 void ImageRow::showImage()
 {
     if ( m_import->m_externalSource ) {
-        KUrl src1 = m_import->m_kimFile;
-        KUrl src2 = m_import->m_baseUrl + QString::fromLatin1( "/" );
+        QUrl src1 = m_import->m_kimFile;
+        QUrl src2 = m_import->m_baseUrl;
         for ( int i = 0; i < 2; ++i ) {
             // First try next to the .kim file, then the external URL
-            KUrl src = src1;
+            QUrl src = src1;
             if ( i == 1 )
                 src = src2;
-            src.setFileName( m_info->fileName().relative() );
+            src = src.adjusted(QUrl::RemoveFilename);
+            src.setPath(src.path() +  m_info->fileName().relative() );
             QString tmpFile;
 
             if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {

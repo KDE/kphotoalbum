@@ -20,16 +20,21 @@
 #ifndef PLUGINS_UPLOADIMAGECOLLECTION_H
 #define PLUGINS_UPLOADIMAGECOLLECTION_H
 
-#include <libkipi/imagecollectionshared.h>
+#include <KIPI/ImageCollectionShared>
+
 namespace Plugins {
 
 class UploadImageCollection : public KIPI::ImageCollectionShared
 {
 public:
     explicit UploadImageCollection(const QString& path);
-    KUrl::List images() override;
+
+    QList<QUrl> images() override;
     QString name() override;
-    KUrl uploadPath() override;
+
+    QUrl uploadUrl() override;
+    virtual QUrl uploadRootUrl() override;
+    virtual QString uploadRootName() override;
 
 private:
     QString m_path;

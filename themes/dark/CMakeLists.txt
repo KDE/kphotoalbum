@@ -1,1 +1,12 @@
-install( FILES download.png  imagepage.html  kphotoalbum.theme  mainpage.html  navigation.js  style.css  DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum/themes/dark )
+install(
+    FILES
+    download.png
+    imagepage.html
+    kphotoalbum.theme
+    mainpage.html
+    navigation.js
+    style.css
+    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/dark
+    )
+
+# vi:expandtab:tabstop=4 shiftwidth=4:

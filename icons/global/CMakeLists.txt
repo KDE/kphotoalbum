@@ -1,1 +1,15 @@
-kde4_install_icons(${ICON_INSTALL_DIR})
+ecm_install_icons(
+	ICONS
+	16-actions-open-raw.png
+	22-actions-open-raw.png
+	48-actions-open-raw.png
+	64-actions-open-raw.png
+	16-apps-kphotoalbum.png
+	22-apps-kphotoalbum.png
+	32-apps-kphotoalbum.png
+	48-apps-kphotoalbum.png
+	64-apps-kphotoalbum.png
+	128-apps-kphotoalbum.png
+	DESTINATION
+	${KDE_INSTALL_ICONDIR}
+	)

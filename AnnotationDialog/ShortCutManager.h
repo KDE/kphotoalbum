@@ -24,6 +24,7 @@
 
 class QDockWidget;
 class QLabel;
+class QWidget;
 
 namespace AnnotationDialog {
 

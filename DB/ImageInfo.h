@@ -33,7 +33,7 @@
 
 #include "config-kpa-kgeomap.h"
 #ifdef HAVE_KGEOMAP
-#include <libkgeomap/geocoordinates.h>
+#include <KGeoMap/GeoCoordinates>
 #endif
 
 namespace Plugins
@@ -63,7 +63,7 @@ enum MediaType { Image = 0x01, Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
 
-class ImageInfo :public KShared {
+class ImageInfo :public QSharedData {
 
 public:
     ImageInfo();

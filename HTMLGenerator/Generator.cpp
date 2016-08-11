@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,46 +15,52 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include <config-kpa-exiv2.h>
 #include "Generator.h"
-#include <klocale.h>
+
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include <QFile>
 #include <QApplication>
 #include <QList>
-#include "ImageManager/AsyncLoader.h"
-#include <KFileDialog>
-#include <KRun>
-#include <KMessageBox>
-#include "Utilities/Util.h"
-#include <KDebug>
 #include <QDir>
-#include "ImportExport/Export.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include <config-kpa-exiv2.h>
+#include <QDebug>
+#include <QDomDocument>
+#include <QMimeDatabase>
+#include <QStandardPaths>
+
+#include <KConfig>
+#include <KConfigGroup>
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KRun>
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
 #ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
+#  include <Exif/Info.h>
 #endif
+#include <ImageManager/AsyncLoader.h>
+#include <ImportExport/Export.h>
+#include <Utilities/Util.h>
+
 #include "ImageSizeCheckBox.h"
 #include "Setup.h"
 #include "MainWindow/Window.h"
-#include <KIO/CopyJob>
-#include <kstandarddirs.h>
 
-#include <krun.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
-    : KProgressDialog( parent ), m_hasEnteredLoop( false )
+    : QProgressDialog( parent ), m_hasEnteredLoop( false )
 {
     setLabelText( i18n("Generating images for HTML page ") );
     m_setup = setup;
     m_eventLoop = new QEventLoop;
-    m_avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
+    m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
     if ( m_avconv.isNull() )
-        m_avconv = KStandardDirs::findExe( QString::fromLatin1( "ffmpeg" ) );
+        m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg"));
 }
 
 HTMLGenerator::Generator::~Generator()
@@ -79,9 +85,9 @@ void HTMLGenerator::Generator::generate()
 
     // prepare the progress dialog
     m_total = m_waitCounter = calculateSteps();
-    progressBar()->setMaximum( m_total );
-    progressBar()->setValue( 0 );
-    connect( this, SIGNAL(cancelClicked()), this, SLOT(slotCancelGenerate()) );
+    setMaximum( m_total );
+    setValue( 0 );
+    connect(this, &QProgressDialog::canceled, this, &Generator::slotCancelGenerate);
 
     m_filenameMapper.reset();
 
@@ -110,13 +116,13 @@ void HTMLGenerator::Generator::generate()
 
     // Now generate the thumbnail images
     for (const DB::FileName& fileName : m_setup.imageList()) {
-        if ( wasCancelled() )
+        if ( wasCanceled() )
             return;
 
         createImage(fileName, m_setup.thumbSize());
     }
 
-    if ( wasCancelled() )
+    if ( wasCanceled() )
         return;
 
     if ( m_waitCounter > 0 ) {
@@ -124,7 +130,7 @@ void HTMLGenerator::Generator::generate()
         m_eventLoop->exec();
     }
 
-    if ( wasCancelled() )
+    if ( wasCanceled() )
         return;
 
     bool ok = linkIndexFile();
@@ -137,14 +143,14 @@ void HTMLGenerator::Generator::generate()
     QDir dir( themeDir );
     QStringList files = dir.entryList( QDir::Files );
     if( files.count() < 1 )
-        kDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir );
+        qWarning() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir );
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         if( *it == QString::fromLatin1("kphotoalbum.theme") ||
             *it == QString::fromLatin1("mainpage.html") ||
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
-        QString to = m_tempDir.name() + QString::fromLatin1("/") + *it;
+        QString to = m_tempDir.path() + QString::fromLatin1("/") + *it;
         ok = Utilities::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2", from , to ) );
@@ -155,8 +161,8 @@ void HTMLGenerator::Generator::generate()
 
     // Copy files over to destination.
     QString outputDir = m_setup.baseDir() + QString::fromLatin1( "/" ) + m_setup.outputDir();
-    KIO::CopyJob* job = KIO::move( KUrl( m_tempDir.name() ), KUrl(outputDir) );
-    connect( job, SIGNAL(result(KJob*)), this, SLOT(showBrowser()) );
+    KIO::CopyJob* job = KIO::move( QUrl::fromLocalFile( m_tempDir.path() ), QUrl::fromUserInput(outputDir) );
+    connect(job, &KIO::CopyJob::result, this, &Generator::showBrowser);
 
     m_eventLoop->exec();
     return;
@@ -224,7 +230,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     QDomElement row;
     for (const DB::FileName& fileName : m_setup.imageList()) {
         const DB::ImageInfoPtr info = fileName.info();
-        if ( wasCancelled() )
+        if ( wasCanceled() )
             return false;
 
         if ( count % cols == 0 ) {
@@ -244,29 +250,49 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
             last = namePage( width, height, fileName);
 
         if (!Utilities::isVideo(fileName))
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"%4\", \"" ).arg( nameImage( fileName, width ) ).arg( nameImage( fileName, m_setup.thumbSize() )
-                        ).arg( nameImage( fileName, maxImageSize() ) ).arg( KMimeType::findByUrl( nameImage(
-                                    fileName, maxImageSize() ) )->name() );
-        else {
-            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\"" ).arg( nameImage( fileName, m_setup.thumbSize() ) ).arg( nameImage( fileName, m_setup.thumbSize() ) ).arg( nameImage( fileName, maxImageSize() ) );
+        {
+            QMimeDatabase db;
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\", \"%4\", \"" )
+                    .arg( nameImage( fileName, width ) )
+                    .arg( nameImage( fileName, m_setup.thumbSize()) )
+                    .arg( nameImage( fileName, maxImageSize()) )
+                    .arg( db.mimeTypeForFile( nameImage( fileName, maxImageSize() ) ).name() );
+        } else {
+            QMimeDatabase db;
+            images += QString::fromLatin1( "gallery.push([\"%1\", \"%2\", \"%3\"" )
+                    .arg( nameImage( fileName, m_setup.thumbSize() ) )
+                    .arg( nameImage( fileName, m_setup.thumbSize() ) )
+                    .arg( nameImage( fileName, maxImageSize() ) );
             if ( m_setup.html5VideoGenerate() )
-                images += QString::fromLatin1( ", \"%1\", \"" ).arg( QString::fromLatin1( "video/ogg" ) );
-            else
-                images += QString::fromLatin1( ", \"%1\", \"" ).arg( KMimeType::findByPath( fileName.relative(), 0, true)->name() );
+            {
+                images += QString::fromLatin1( ", \"%1\", \"" )
+                        .arg( QString::fromLatin1( "video/ogg" ) );
+            } else {
+                images += QString::fromLatin1( ", \"%1\", \"" )
+                        .arg( db.mimeTypeForFile( fileName.relative(), QMimeDatabase::MatchExtension).name() );
+            }
             enableVideo = 1;
         }
 
         // -------------------------------------------------- Description
         if ( !info->description().isEmpty() && m_setup.includeCategory( QString::fromLatin1( "**DESCRIPTION**" )) )
-            images += QString::fromLatin1( "%1\", \"" ).arg( info->description().replace( QString::fromLatin1( "\n$" ), QString::fromLatin1( "" ) ).replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( " " ) ).replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) ) );
-        else
+        {
+            images += QString::fromLatin1( "%1\", \"" )
+                    .arg( info->description()
+                          .replace( QString::fromLatin1( "\n$" ), QString::fromLatin1( "" ) )
+                          .replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( " " ) )
+                          .replace( QString::fromLatin1( "\"" ), QString::fromLatin1 ( "\\\"" ) ) );
+        } else {
             images += QString::fromLatin1( "\", \"" );
+        }
         QString description = populateDescription(DB::ImageDB::instance()->categoryCollection()->categories(), info);
 
         if ( !description.isEmpty() )
+        {
             description = QString::fromLatin1 ( "<ul>%1</ul>" ).arg ( description );
-        else
+        } else {
             description = QString::fromLatin1 ( "" );
+        }
 
         description.replace( QString::fromLatin1( "\n$" ), QString::fromLatin1 ( "" ) );
         description.replace( QString::fromLatin1( "\n" ), QString::fromLatin1 ( " " ) );
@@ -336,11 +362,11 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
-    if ( wasCancelled() )
+    if ( wasCanceled() )
         return false;
 
     // -------------------------------------------------- write to file
-    QString fileName = m_tempDir.name() + QString::fromLatin1("/index-%1.html" )
+    QString fileName = m_tempDir.path() + QString::fromLatin1("/index-%1.html" )
                        .arg(ImageSizeCheckBox::text(width,height,true));
     bool ok = writeToFile( fileName, content );
 
@@ -493,7 +519,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
-    QString fileName = m_tempDir.name() + namePage( width, height, currentFile );
+    QString fileName = m_tempDir.path() + namePage( width, height, currentFile );
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -513,11 +539,11 @@ QString HTMLGenerator::Generator::nameImage( const DB::FileName& fileName, int s
     QString name = m_filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) ) {
-        if ( name.endsWith( QString::fromAscii(".jpg"), Qt::CaseSensitive ) ||
-                name.endsWith( QString::fromAscii(".jpeg"), Qt::CaseSensitive ) )
+        if ( name.endsWith( QString::fromLatin1(".jpg"), Qt::CaseSensitive ) ||
+                name.endsWith( QString::fromLatin1(".jpeg"), Qt::CaseSensitive ) )
             return name;
         else
-            return base + QString::fromAscii(".jpg");
+            return base + QString::fromLatin1(".jpg");
     } else if ( size == maxImageSize() && Utilities::isVideo( fileName ) ) {
         return name;
     } else
@@ -544,17 +570,16 @@ QString HTMLGenerator::Generator::createImage( const DB::FileName& fileName, int
 
 QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
 {
-    progressBar()->setValue( m_total - m_waitCounter );
+    setValue( m_total - m_waitCounter );
     qApp->processEvents();
 
     QString baseName = nameImage( fileName, maxImageSize() );
-    QString destName = m_tempDir.name() + QString::fromLatin1("/") + baseName;
+    QString destName = m_tempDir.path() + QString::fromLatin1("/") + baseName;
     if ( !m_copiedVideos.contains( fileName )) {
         if ( m_setup.html5VideoGenerate() ) {
             // TODO: shouldn't we use avconv library directly instead of KRun
             // TODO: should check that the avconv (ffmpeg takes the same parameters on older systems) and ffmpeg2theora exist
             // TODO: Figure out avconv parameters to get rid of ffmpeg2theora
-//    QString avconv = KStandardDirs::findExe( QString::fromLatin1( "avconv" ) );
             KRun::runCommand(QString::fromLatin1("%1 -y -i %2  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %3 %4")
                 .arg( m_avconv )
                 .arg( fileName.absolute() ).arg( QString::fromLatin1( "320x240" ) )
@@ -575,7 +600,7 @@ QString HTMLGenerator::Generator::kimFileName( bool relative )
     if ( relative )
         return QString::fromLatin1( "%2.kim" ).arg( m_setup.outputDir() );
     else
-        return QString::fromLatin1( "%1/%2.kim" ).arg( m_tempDir.name() ).arg( m_setup.outputDir() );
+        return QString::fromLatin1( "%1/%2.kim" ).arg( m_tempDir.path() ).arg( m_setup.outputDir() );
 }
 
 bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QString& str )
@@ -612,7 +637,7 @@ bool HTMLGenerator::Generator::linkIndexFile()
     ImageSizeCheckBox* resolution = m_setup.activeResolutions()[0];
     QString fromFile = QString::fromLatin1("index-%1.html" )
                        .arg(resolution->text(true));
-    QString destFile = m_tempDir.name() + QString::fromLatin1("/index.html");
+    QString destFile = m_tempDir.path() + QString::fromLatin1("/index.html");
     bool ok = Utilities::copy( QFileInfo(destFile).path() + fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
@@ -637,12 +662,12 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request,
     const QSize imgSize = request->size();
     const bool loadedOK = request->loadedOK();
 
-    progressBar()->setValue( m_total - m_waitCounter );
+    setValue( m_total - m_waitCounter );
 
     m_waitCounter--;
 
     int size = imgSize.width();
-    QString file = m_tempDir.name() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
+    QString file = m_tempDir.path() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
     bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {
@@ -716,7 +741,7 @@ void HTMLGenerator::Generator::showBrowser()
         ImportExport::Export::showUsageDialog();
 
     if ( ! m_setup.baseURL().isEmpty() )
-        new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( m_setup.baseURL() ).arg( m_setup.outputDir()) ),
+        new KRun( QUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( m_setup.baseURL() ).arg( m_setup.outputDir()) ),
                        MainWindow::Window::theMainWindow());
 
     m_eventLoop->exit();

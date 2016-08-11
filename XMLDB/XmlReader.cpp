@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "XmlReader.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 namespace XMLDB {

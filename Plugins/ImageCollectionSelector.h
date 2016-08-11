@@ -43,7 +43,7 @@ class KDE_EXPORT ImageCollectionSelector :public KIPI::ImageCollectionSelector
 {
 public:
     ImageCollectionSelector(QWidget *parent, Interface *interface);
-    virtual QList<KIPI::ImageCollection> selectedImageCollections() const;
+    virtual QList<KIPI::ImageCollection> selectedImageCollections() const override;
 
 protected:
     // just fake a selectionChanged event when first shown to make export plugin happy:

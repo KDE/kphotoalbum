@@ -17,13 +17,15 @@
 */
 #ifndef FEATUREDIALOG_H
 #define FEATUREDIALOG_H
-#include <KTextBrowser>
-#include <kdialog.h>
+
+#include <QDialog>
+
+#include <QTextBrowser>
 
 namespace MainWindow
 {
 
-class FeatureDialog : public KDialog {
+class FeatureDialog : public QDialog {
     Q_OBJECT
 
 public:
@@ -42,7 +44,7 @@ protected:
     static bool hasGeoMapSupport();
 };
 
-class HelpBrowser :public KTextBrowser
+class HelpBrowser :public QTextBrowser
 {
 public:
     explicit HelpBrowser( QWidget* parent, const char* name = nullptr );

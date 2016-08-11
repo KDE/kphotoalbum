@@ -18,17 +18,21 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include "DB/ImageDate.h"
-#include <qmap.h>
-#include <QList>
-#include "DB/ImageInfoPtr.h"
-#include "Exif/SearchInfo.h"
 #include <config-kpa-exiv2.h>
-#include "Utilities/Set.h"
-#include "config-kpa-kgeomap.h"
-#ifdef HAVE_KGEOMAP
-#  include <libkgeomap/geocoordinates.h>
+#include <config-kpa-kgeomap.h>
+
+#include <QMap>
+#include <QList>
+
+#include <DB/ImageDate.h>
+#include <DB/ImageInfoPtr.h>
+#ifdef HAVE_EXIV2
+#include <Exif/SearchInfo.h>
 #endif
+#ifdef HAVE_KGEOMAP
+#include <KGeoMap/GeoCoordinates>
+#endif
+#include <Utilities/Set.h>
 namespace DB
 {
 

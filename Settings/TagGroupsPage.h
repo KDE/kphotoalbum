@@ -23,8 +23,8 @@
 #include <QWidget>
 
 // Local includes
-#include "DB/MemberMap.h"
-#include "DB/ImageDB.h"
+#include <DB/MemberMap.h>
+#include <DB/ImageDB.h>
 
 // Qt classes
 class QListWidget;

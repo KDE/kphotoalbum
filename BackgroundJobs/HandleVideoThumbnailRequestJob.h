@@ -20,8 +20,9 @@
 #ifndef BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
 #define BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
 
-#include <BackgroundTaskManager/JobInterface.h>
 #include <QImage>
+
+#include <BackgroundTaskManager/JobInterface.h>
 
 namespace ImageManager { class ImageRequest; }
 namespace DB { class FileName; }

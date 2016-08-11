@@ -18,10 +18,11 @@
 #ifndef HTMLGENERATOR_SETUP_H
 #define HTMLGENERATOR_SETUP_H
 
-#include <qstring.h>
-#include <qmap.h>
 #include <QList>
-#include "DB/FileNameList.h"
+#include <QMap>
+#include <QString>
+
+#include <DB/FileNameList.h>
 
 namespace HTMLGenerator
 {

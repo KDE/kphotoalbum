@@ -19,13 +19,15 @@
 #ifndef IMPORT_H
 #define IMPORT_H
 
-#include "ImportSettings.h"
-#include <kurl.h>
-#include <KAssistantDialog>
-#include "ImportMatcher.h"
+#include <QUrl>
 
-class KTemporaryFile;
-class KLineEdit;
+#include <KAssistantDialog>
+
+#include "ImportMatcher.h"
+#include "ImportSettings.h"
+
+class QTemporaryFile;
+class QLineEdit;
 
 namespace DB
 {
@@ -47,7 +49,9 @@ class ImportDialog :public KAssistantDialog {
 
 public:
     explicit ImportDialog( QWidget* parent );
-    bool exec( KimFileReader* kimFileReader, const KUrl& kimFilePath );
+    // prevent hiding of base class method:
+    using KAssistantDialog::exec;
+    bool exec( KimFileReader* kimFileReader, const QUrl &kimFilePath );
     ImportSettings settings();
 
 protected:
@@ -77,18 +81,18 @@ signals:
 
 private:
     DB::ImageInfoList m_images;
-    KLineEdit* m_destinationEdit;
+    QLineEdit* m_destinationEdit;
     KPageWidgetItem* m_destinationPage;
     KPageWidgetItem* m_categoryMatcherPage;
     KPageWidgetItem* m_dummy;
     ImportMatcher* m_categoryMatcher;
     ImportMatchers m_matchers;
     QList< ImageRow* > m_imagesSelect;
-    KTemporaryFile* m_tmp;
+    QTemporaryFile* m_tmp;
     bool m_externalSource;
-    KUrl m_kimFile;
+    QUrl m_kimFile;
     bool m_hasFilled;
-    QString m_baseUrl;
+    QUrl m_baseUrl;
     KimFileReader* m_kimFileReader;
     MD5CheckPage* m_md5CheckPage;
 };

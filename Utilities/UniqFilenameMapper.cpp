@@ -47,7 +47,7 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
     const QString extension = QFileInfo(filename.absolute()).completeSuffix();
     QString base = QFileInfo(filename.absolute()).baseName();
     if (!m_targetDirectory.isNull()) {
-        base = QString::fromAscii("%1/%2")
+        base = QString::fromUtf8("%1/%2")
             .arg(m_targetDirectory).arg(base);
     }
 
@@ -55,8 +55,8 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
     int i = 0;
     do {
         uniqFile = (i == 0)
-            ? QString::fromAscii("%1.%2").arg(base).arg(extension)
-            : QString::fromAscii("%1-%2.%3").arg(base).arg(i).arg(extension);
+            ? QString::fromUtf8("%1.%2").arg(base).arg(extension)
+            : QString::fromUtf8("%1-%2.%3").arg(base).arg(i).arg(extension);
         ++i;
     }
     while (fileClashes(uniqFile));

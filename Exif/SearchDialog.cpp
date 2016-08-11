@@ -27,6 +27,9 @@
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <QScrollArea>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 using namespace Exif;
 
@@ -34,7 +37,18 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     : KPageDialog( parent )
 {
     setWindowTitle( i18n("EXIF Search") );
-    setButtons( Cancel | Ok | Help );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
     setFaceType( Tabbed );
 
     QWidget* settings = new QWidget;

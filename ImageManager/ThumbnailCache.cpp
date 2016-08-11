@@ -80,7 +80,7 @@ ImageManager::ThumbnailCache::ThumbnailCache()
 
     load();
     m_timer = new QTimer;
-    connect( m_timer, SIGNAL(timeout()), this, SLOT(save()));
+    connect(m_timer, &QTimer::timeout, this, &ThumbnailCache::save);
 }
 
 ImageManager::ThumbnailCache::~ThumbnailCache()

@@ -20,6 +20,7 @@
 
 #include "DB/CategoryCollection.h"
 #include <QList>
+#include <QMap>
 
 namespace XMLDB {
 

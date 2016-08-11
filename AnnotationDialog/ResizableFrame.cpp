@@ -31,7 +31,7 @@
 #include <QTimer>
 
 // KDE includes
-#include <KLocale>
+#include <KLocalizedString>
 
 // Local includes
 #include "ImagePreview.h"

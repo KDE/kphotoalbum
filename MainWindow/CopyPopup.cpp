@@ -17,10 +17,12 @@
 */
 
 #include "CopyPopup.h"
-#include <klocale.h>
-#include <KFileDialog>
-#include <KPushButton>
-#include <kio/copyjob.h>
+
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+
+#include <QFileDialog>
+#include <QPushButton>
 
 MainWindow::CopyPopup::CopyPopup(
         QWidget *parent,
@@ -29,7 +31,7 @@ MainWindow::CopyPopup::CopyPopup(
         CopyType copyType
         ) : QMenu(parent)
 {
-    connect(this, SIGNAL(triggered(QAction*)), this, SLOT(slotCopy(QAction*)));
+    connect(this, &CopyPopup::triggered, this, &CopyPopup::slotCopy);
 
     m_list = imageList;
     m_currentInfo = current;
@@ -66,34 +68,36 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
 {
     QString mode = action->data().toString();
 
-    KUrl::List src;
+    QList<QUrl> src;
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {
-        src << KUrl::fromPath(m_currentInfo->fileName().absolute());
+        src << QUrl::fromLocalFile(m_currentInfo->fileName().absolute());
     } else {
         QStringList srcList = m_list.toStringList(DB::AbsolutePath);
         for (int i = 0; i < srcList.size(); ++i) {
-            src << KUrl::fromPath(srcList.at(i));
+            src << QUrl::fromLocalFile(srcList.at(i));
         }
     }
 
-    // "kfiledialog:///copyTo" -> use last directory that was used in this dialog
-    KFileDialog dialog(KUrl("kfiledialog:///copyTo"), QString() /* empty filter */, this);
-    dialog.okButton()->setText(i18nc("@action:button", "Copy"));
+    Q_ASSERT( src.size()>0 );
+    QFileDialog dialog(this);
+    dialog.setDirectoryUrl( src.at(0));
+    dialog.setLabelText( QFileDialog::Accept, i18nc("@action:button", "Copy"));
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("linkCurrent")) {
         if (mode == QString::fromLatin1("current"))
-            dialog.setCaption(i18nc("@title:window", "Copy image to..."));
+            dialog.setWindowTitle(i18nc("@title:window", "Copy image to..."));
         else
-            dialog.setCaption(i18nc("@title:window", "Link image to..."));
-        dialog.setSelection(src[0].fileName());
-        dialog.setMode(KFile::File | KFile::Directory);
+            dialog.setWindowTitle(i18nc("@title:window", "Link image to..."));
+        dialog.selectUrl(src[0]);
+        dialog.setFileMode( QFileDialog::ExistingFile );
     } else {
         if (mode == QString::fromLatin1("all"))
-            dialog.setCaption(i18nc("@title:window", "Copy images to..."));
+            dialog.setWindowTitle(i18nc("@title:window", "Copy images to..."));
         else
-            dialog.setCaption(i18nc("@title:window", "Link images to..."));
-        dialog.setMode(KFile::Directory);
+            dialog.setWindowTitle(i18nc("@title:window", "Link images to..."));
+        dialog.setFileMode( QFileDialog::ExistingFile );
+        dialog.setOption( QFileDialog::ShowDirsOnly, true);
     }
 
     if (! dialog.exec()) {
@@ -101,9 +105,9 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     }
 
     if (mode == QString::fromLatin1("current") || mode == QString::fromLatin1("all"))
-        KIO::copy(src, dialog.selectedUrl());
+        KIO::copy(src, dialog.selectedUrls().at(0));
     else
-        KIO::link(src, dialog.selectedUrl());
+        KIO::link(src, dialog.selectedUrls().at(0));
 }
 
 #include "CopyPopup.moc"

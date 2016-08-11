@@ -20,7 +20,8 @@
 #ifndef BACKGROUNDTASKS_JOBVIEWER_H
 #define BACKGROUNDTASKS_JOBVIEWER_H
 
-#include <kdialog.h>
+#include <KDialog>
+
 namespace Ui { class JobViewer; }
 
 namespace BackgroundTaskManager {

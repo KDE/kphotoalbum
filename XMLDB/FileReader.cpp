@@ -18,31 +18,26 @@
 
 // Qt includes
 #include <QDebug>
-#include <QDir>
+#include <QFile>
+#include <QHash>
+#include <QLocale>
+#include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
-#include <QMap>
-#include <QHash>
-#include <QXmlStreamReader>
-#include <QFile>
-#include <QRegExp>
 
 // KDE includes
-#include <KConfigGroup>
-#include <KCmdLineArgs>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KStandardDirs>
 
 // Local includes
-#include "DB/MD5Map.h"
-#include "Utilities/Util.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "MainWindow/Window.h"
-#include "Database.h"
-#include "XMLCategory.h"
+#include <DB/MD5Map.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/Window.h>
+#include <Utilities/Util.h>
 #include "CompressFileInfo.h"
+#include "Database.h"
 #include "FileReader.h"
+#include "XMLCategory.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -93,7 +88,7 @@ void XMLDB::FileReader::createSpecialCategories()
     m_folderCategory->setType( DB::Category::FolderCategory );
     // The folder category is not stored in the index.xml file,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
-    if ( !m_db->m_categoryCollection.categoryForName(m_folderCategory->name()).isNull() )
+    if ( m_db->m_categoryCollection.categoryForName(m_folderCategory->name()) )
         m_db->m_categoryCollection.removeCategory(m_folderCategory->name());
     m_db->m_categoryCollection.addCategory( m_folderCategory );
     dynamic_cast<XMLCategory*>( m_folderCategory.data() )->setShouldSave( false );
@@ -144,7 +139,7 @@ void XMLDB::FileReader::createSpecialCategories()
     dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
     // The media type is not stored in the media category,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
-    if ( !m_db->m_categoryCollection.categoryForName(mediaCat->name()).isNull() )
+    if ( m_db->m_categoryCollection.categoryForName(mediaCat->name()) )
         m_db->m_categoryCollection.removeCategory( mediaCat->name() );
     m_db->m_categoryCollection.addCategory( mediaCat );
 }
@@ -319,7 +314,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                 QStringList members = reader->attribute(membersString).split( QString::fromLatin1( "," ), QString::SkipEmptyParts );
                 Q_FOREACH( const QString &memberItem, members ) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( category );
-                    if (catPtr.isNull())
+                    if (!catPtr)
                     { // category was not declared in "Categories"
                         qWarning() << "File corruption in index.xml. Inserting missing category: " << category;
                         catPtr = new XMLCategory(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);

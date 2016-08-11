@@ -18,20 +18,25 @@
 */
 
 #include "DuplicateMatch.h"
-#include <QVBoxLayout>
-#include <QGroupBox>
-#include <QLabel>
-#include <QImage>
-#include <KLocale>
-#include <QRadioButton>
-#include "ImageManager/AsyncLoader.h"
+
 #include <QCheckBox>
-#include "DB/ImageDB.h"
-#include "Utilities/DeleteFiles.h"
+#include <QEvent>
+#include <QImage>
+#include <QLabel>
+#include <QRadioButton>
 #include <QToolButton>
-#include "MergeToolTip.h"
-#include <DB/ImageInfoPtr.h>
+#include <QVBoxLayout>
+#include <QVariant>
+
+#include <KLocalizedString>
+
+#include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <ImageManager/AsyncLoader.h>
+#include <Utilities/DeleteFiles.h>
+
+#include "MergeToolTip.h"
 
 namespace MainWindow {
 

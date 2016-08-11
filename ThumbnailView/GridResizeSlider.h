@@ -17,10 +17,10 @@
 */
 #ifndef GRIDRESIZESLIDER_H
 #define GRIDRESIZESLIDER_H
-#include "ThumbnailComponent.h"
-#include <QSlider>
-#include <QPersistentModelIndex>
 
+#include <QSlider>
+
+#include "ThumbnailComponent.h"
 class QTimer;
 
 namespace ThumbnailView

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,33 +17,36 @@
 */
 
 #include "ImportDialog.h"
-#include "MD5CheckPage.h"
-#include "KimFileReader.h"
-#include "ImageRow.h"
-#include <kfiledialog.h>
-#include <qlabel.h>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QPixmap>
-#include <klocale.h>
-#include <qpushbutton.h>
-#include <qdom.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include "Settings/SettingsData.h"
-#include "ImportMatcher.h"
-#include <qcheckbox.h>
-#include <kstandarddirs.h>
-#include <ktoolinvocation.h>
-#include "DB/ImageInfo.h"
-#include "XMLDB/Database.h"
+
+#include <QCheckBox>
 #include <QComboBox>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPixmap>
+#include <QPushButton>
 #include <QScrollArea>
+#include <QDir>
+
+#include <KFileDialog>
+#include <KLocalizedString>
 #include <KMessageBox>
+#include <KHelpClient>
+
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+#include <XMLDB/Database.h>
+
+#include "ImageRow.h"
+#include "ImportMatcher.h"
+#include "KimFileReader.h"
+#include "MD5CheckPage.h"
 
 using Utilities::StringSet;
 
-class KPushButton;
+class QPushButton;
 using namespace ImportExport;
 
 
@@ -52,7 +55,7 @@ ImportDialog::ImportDialog( QWidget* parent )
 {
 }
 
-bool ImportDialog::exec( KimFileReader* kimFileReader, const KUrl& kimFileURL )
+bool ImportDialog::exec( KimFileReader* kimFileReader, const QUrl &kimFileURL )
 {
     m_kimFileReader = kimFileReader;
 
@@ -91,7 +94,7 @@ bool ImportDialog::readFile(const QByteArray& data)
     m_externalSource = ( source == QString::fromLatin1( "external" ) );
 
     // Read base url
-    m_baseUrl = reader->attribute( QString::fromLatin1( "baseurl" ) );
+    m_baseUrl = QUrl::fromUserInput( reader->attribute( QString::fromLatin1( "baseurl" ) ));
 
     while ( reader->readNextStartOrStopElement(QString::fromUtf8("image")).isStartToken) {
         const DB::FileName fileName = DB::FileName::fromRelativePath(reader->attribute(QString::fromUtf8( "file" )));
@@ -110,8 +113,9 @@ void ImportDialog::setupPages()
     createImagesPage();
     createDestination();
     createCategoryPages();
-    connect( this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(updateNextButtonState()) );
-    connect( this, SIGNAL(helpClicked()), this, SLOT(slotHelp()) );
+    connect(this, &ImportDialog::currentPageChanged, this, &ImportDialog::updateNextButtonState);
+    // FIXME KF5-port KPageDialog::helpClicked no longer exists
+    //connect(this, &ImportDialog::helpClicked, this, &ImportDialog::slotHelp);
 }
 
 void ImportDialog::createIntroduction()
@@ -156,8 +160,8 @@ void ImportDialog::createImagesPage()
     QPushButton* selectNone = new QPushButton( i18n("Deselect All"), container );
     lay2->addWidget( selectNone );
     lay2->addStretch( 1 );
-    connect( selectAll, SIGNAL(clicked()), this, SLOT(slotSelectAll()) );
-    connect( selectNone, SIGNAL(clicked()), this, SLOT(slotSelectNone()) );
+    connect(selectAll, &QPushButton::clicked, this, &ImportDialog::slotSelectAll);
+    connect(selectNone, &QPushButton::clicked, this, &ImportDialog::slotSelectNone);
 
     QGridLayout* lay3 = new QGridLayout;
     lay1->addLayout( lay3 );
@@ -176,7 +180,7 @@ void ImportDialog::createImagesPage()
             but->setIcon( pixmap );
             but->setIconSize( pixmap.size() );
             lay3->addWidget( but, row, 1 );
-            connect( but, SIGNAL(clicked()), ir, SLOT(showImage()) );
+            connect(but, &QPushButton::clicked, ir, &ImageRow::showImage);
         }
         else {
             QLabel* label = new QLabel( info->label() );
@@ -203,23 +207,23 @@ void ImportDialog::createDestination()
     QLabel* label = new QLabel( i18n( "Destination of images: " ), top );
     lay->addWidget( label );
 
-    m_destinationEdit = new KLineEdit( top );
+    m_destinationEdit = new QLineEdit( top );
     lay->addWidget( m_destinationEdit, 1 );
 
-    KPushButton* but = new KPushButton( QString::fromLatin1("..." ), top );
+    QPushButton* but = new QPushButton( QString::fromLatin1("..." ), top );
     but->setFixedWidth( 30 );
     lay->addWidget( but );
 
 
     m_destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
-    connect( but, SIGNAL(clicked()), this, SLOT(slotEditDestination()) );
-    connect( m_destinationEdit, SIGNAL(textChanged(QString)), this, SLOT(updateNextButtonState()) );
+    connect(but, &QPushButton::clicked, this, &ImportDialog::slotEditDestination);
+    connect(m_destinationEdit, &QLineEdit::textChanged, this, &ImportDialog::updateNextButtonState);
     m_destinationPage = addPage( top, i18n("Destination of Images" ) );
 }
 
 void  ImportDialog::slotEditDestination()
 {
-    QString file = KFileDialog::getExistingDirectory( m_destinationEdit->text(), this );
+    QString file = QFileDialog::getExistingDirectory(this , QString(), m_destinationEdit->text());
     if ( !file.isNull() ) {
         if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) ) {
             KMessageBox::error( this, i18n("The directory must be a subdirectory of %1", Settings::SettingsData::instance()->imageDirectory() ) );
@@ -302,7 +306,7 @@ void ImportDialog::next()
         if ( !QFileInfo( dir ).exists() ) {
             int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exist. Should it be created?", dir ) );
             if ( answer == KMessageBox::Yes ) {
-                bool ok = KStandardDirs::makeDir( dir );
+                bool ok = QDir().mkpath(dir);
                 if ( !ok ) {
                     KMessageBox::error( this, i18n("Error creating directory %1", dir ) );
                     return;
@@ -359,7 +363,7 @@ DB::ImageInfoList ImportDialog::selectedImages() const
 
 void ImportDialog::slotHelp()
 {
-    KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
+    KHelpClient::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
 ImportSettings ImportExport::ImportDialog::settings()

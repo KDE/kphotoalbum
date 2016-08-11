@@ -19,19 +19,18 @@
 #ifndef AUTOSTACKIMAGES_H
 #define AUTOSTACKIMAGES_H
 
-#include <KDialog>
-#include "DB/FileNameList.h"
-#include "DB/MD5Map.h"
-#include <qspinbox.h>
-#include <qtextedit.h>
-#include <qradiobutton.h>
+#include <QDialog>
 
 class QCheckBox;
+class QSpinBox;
+class QRadioButton;
+
+namespace DB { class FileNameList; }
 
 namespace MainWindow
 {
 
-class AutoStackImages :public KDialog {
+class AutoStackImages :public QDialog {
     Q_OBJECT
 
 public:

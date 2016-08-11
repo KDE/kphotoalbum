@@ -17,15 +17,13 @@
 */
 #include "Delegate.h"
 #include "Utilities/Set.h"
-#include <QTime>
-#include <QDebug>
 #include "Utilities/Util.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"
 #include "CellGeometry.h"
 #include <QPainter>
 #include "ThumbnailModel.h"
-#include <KLocale>
+#include <KLocalizedString>
 ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory , QObject *parent)
     :QStyledItemDelegate(parent), ThumbnailComponent( factory )
 {

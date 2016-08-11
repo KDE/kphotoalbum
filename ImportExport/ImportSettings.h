@@ -18,7 +18,7 @@
 #ifndef IMPORTSETTINGS_H
 #define IMPORTSETTINGS_H
 
-#include <kurl.h>
+#include <QUrl>
 #include "DB/ImageInfoList.h"
 namespace ImportExport
 {
@@ -60,11 +60,11 @@ public:
     void setExternalSource( bool b );
     bool externalSource() const;
 
-    void setKimFile( const KUrl& kimFile );
-    KUrl kimFile() const;
+    void setKimFile( const QUrl &kimFile );
+    QUrl kimFile() const;
 
-    void setBaseURL( const KUrl& url );
-    KUrl baseURL() const;
+    void setBaseURL( const QUrl &url );
+    QUrl baseURL() const;
 
     void setImportActions( const QMap<QString, ImportAction>& actions );
     ImportAction importAction( const QString& item );
@@ -76,8 +76,8 @@ private:
     DB::ImageInfoList m_selectedImages;
     QString m_destination;
     bool m_externalSource;
-    KUrl m_kimFile;
-    KUrl m_baseURL;
+    QUrl m_kimFile;
+    QUrl m_baseURL;
     QMap<QString, ImportAction> m_actions;
     QList<CategoryMatchSetting> m_categoryMatchSettings;
 };

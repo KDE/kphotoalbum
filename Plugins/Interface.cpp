@@ -17,28 +17,33 @@
 */
 
 #include "Interface.h"
+
+#include <QByteArray>
+#include <QImageReader>
 #include <QList>
-#include <klocale.h>
-#include <kimageio.h>
+
+#include <KFileItem>
 #include <KIO/PreviewJob>
-#include <libkipi/imagecollection.h>
-#include "Browser/BrowserWidget.h"
-#include "Browser/TreeCategoryModel.h"
-#include "ImageManager/RawImageDecoder.h"
-#include "ImageManager/ThumbnailCache.h"
-#include "MainWindow/Window.h"
-#include "Plugins/CategoryImageCollection.h"
-#include "Plugins/ImageCollection.h"
-#include "Plugins/ImageCollectionSelector.h"
-#include "Plugins/ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "DB/CategoryCollection.h"
-#include "UploadWidget.h"
+#include <KIPI/ImageCollection>
+#include <KLocalizedString>
+
+#include <Browser/BrowserWidget.h>
+#include <Browser/TreeCategoryModel.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/Window.h>
+#include <Plugins/CategoryImageCollection.h>
+#include <Plugins/ImageCollection.h>
+#include <Plugins/ImageCollectionSelector.h>
+#include <Plugins/ImageInfo.h>
 #include "Utilities/Util.h"
+
+#include "UploadWidget.h"
 namespace KIPI { class UploadWidget; }
 
-Plugins::Interface::Interface( QObject *parent, const char *name )
+Plugins::Interface::Interface(QObject *parent, QString name )
     :KIPI::Interface( parent, name )
 {
     connect( Browser::BrowserWidget::instance(), SIGNAL(pathChanged(Browser::BreadcrumbList)), this, SLOT(pathChanged(Browser::BreadcrumbList)) );
@@ -75,12 +80,12 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     return result;
 }
 
-KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
+KIPI::ImageInfo Plugins::Interface::info( const QUrl &url )
 {
     return KIPI::ImageInfo(new Plugins::ImageInfo(this, url));
 }
 
-void Plugins::Interface::refreshImages( const KUrl::List& urls )
+void Plugins::Interface::refreshImages( const QList<QUrl>& urls )
 {
     emit imagesChanged( urls );
 }
@@ -94,8 +99,8 @@ int Plugins::Interface::features() const
         KIPI::HostAcceptNewImages |
         KIPI::ImagesHasTitlesWritable |
         KIPI::HostSupportsTags |
-        KIPI::HostSupportsThumbnails |
-        KIPI::HostSupportsRating;
+        KIPI::HostSupportsRating |
+        KIPI::HostSupportsThumbnails;
 }
 
 QAbstractItemModel * Plugins::Interface::getTagTree() const
@@ -107,53 +112,13 @@ QAbstractItemModel * Plugins::Interface::getTagTree() const
     rootCategory = DB::ImageDB::instance()->categoryCollection()->categoryForName( i18n( "Places" ));
 
     // ... if that's not available, return a category that exists:
-    if ( rootCategory.isNull() )
+    if ( !rootCategory )
         rootCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial( DB::Category::TokensCategory );
 
     return new Browser::TreeCategoryModel( rootCategory , matchAll );
 }
 
-QVariant Plugins::Interface::hostSetting( const QString& settingName )
-{
-    if (settingName == QString::fromUtf8("WriteMetadataUpdateFiletimeStamp"))
-        return false;
-    if (settingName == QString::fromUtf8("WriteMetadataToRAW"))
-        return false;
-
-    if (settingName == QString::fromUtf8("UseXMPSidecar4Reading"))
-        return false;
-    if (settingName == QString::fromUtf8("MetadataWritingMode"))
-        return 0; /* WRITETOIMAGEONLY */
-
-    bool fileExt = settingName == QString::fromUtf8("FileExtensions");
-    bool imageExt = fileExt || settingName == QString::fromUtf8("ImagesExtensions");
-    bool rawExt   = fileExt || settingName == QString::fromUtf8("RawExtensions");
-    bool videoExt = fileExt || settingName == QString::fromUtf8("VideoExtensions");
-    if ( imageExt || rawExt || videoExt )
-    {
-        QStringList fileTypes;
-        if ( imageExt )
-            // Return a list of images file extensions supported by KDE.
-            // This works as long as Settings::SettingsData::instance()->ignoreFileExtension() is not true
-            fileTypes += KImageIO::mimeTypes( KImageIO::Reading );
-
-        if ( rawExt )
-            fileTypes += ImageManager::RAWImageDecoder::rawExtensions();
-
-        if ( videoExt )
-            fileTypes += Utilities::supportedVideoExtensions().toList();
-
-        QString fileFilter = fileTypes.join(QString::fromUtf8(" "));
-        return QString( fileFilter.toLower() + QString::fromUtf8(" ") + fileFilter.toUpper() );
-    }
-
-    if ( settingName == QString::fromUtf8("AudioExtensions") )
-        return QString();
-
-    return QVariant();
-}
-
-bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
+bool Plugins::Interface::addImage( const QUrl &url, QString& errmsg )
 {
     const QString dir = url.path();
     const QString root = Settings::SettingsData::instance()->imageDirectory();
@@ -170,7 +135,7 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
     return true;
 }
 
-void Plugins::Interface::delImage( const KUrl& url )
+void Plugins::Interface::delImage( const QUrl &url )
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(url.path()));
     if ( info )
@@ -201,7 +166,7 @@ KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget* parent)
     return new Plugins::UploadWidget(parent);
 }
 
-void Plugins::Interface::thumbnail(const KUrl &url, int size)
+void Plugins::Interface::thumbnail(const QUrl &url, int size)
 {
     DB::FileName file = DB::FileName::fromAbsolutePath( url.path() );
     if (size <= Settings::SettingsData::instance()->thumbnailSize()
@@ -212,23 +177,32 @@ void Plugins::Interface::thumbnail(const KUrl &url, int size)
         emit gotThumbnail( url, thumb);
     } else {
         // for bigger thumbnails, fall back to previewJob:
-        KFileItem f = KFileItem(KFileItem::Unknown, KFileItem::Unknown, url, true);
+        KFileItem f { url };
+        f.setDelayedMimeTypes( true );
         KFileItemList fl;
         fl.append(f);
         KIO::PreviewJob *job = KIO::filePreview( fl, QSize(size,size));
 
-        connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)),
-                this, SLOT(gotKDEPreview(KFileItem,QPixmap)));
+        connect(job, &KIO::PreviewJob::gotPreview, this, &Interface::gotKDEPreview);
 
-        connect(job, SIGNAL(failed(KFileItem)),
-                this, SLOT(failedKDEPreview(KFileItem)));
+        connect(job, &KIO::PreviewJob::failed, this, &Interface::failedKDEPreview);
     }
 }
 
-void Plugins::Interface::thumbnails(const KUrl::List &list, int size)
+void Plugins::Interface::thumbnails(const QList<QUrl> &list, int size)
 {
-    for (const KUrl url : list)
-       thumbnail( url, size );
+    for (const QUrl url : list)
+        thumbnail( url, size );
+}
+
+KIPI::FileReadWriteLock *Plugins::Interface::createReadWriteLock(const QUrl &) const
+{
+    return nullptr;
+}
+
+KIPI::MetadataProcessor *Plugins::Interface::createMetadataProcessor() const
+{
+   return nullptr;
 }
 
 void Plugins::Interface::gotKDEPreview(const KFileItem& item, const QPixmap& pix)

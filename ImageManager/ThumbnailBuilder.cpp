@@ -17,7 +17,7 @@
 */
 
 #include "ThumbnailBuilder.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include "ImageManager/ThumbnailCache.h"
 #include "MainWindow/StatusBar.h"
 #include "ThumbnailView/CellGeometry.h"
@@ -32,12 +32,12 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nul
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
     :QObject( parent ), m_statusBar( statusBar ),  m_isBuilding( false )
 {
-    connect( m_statusBar, SIGNAL(cancelRequest()), this, SLOT(cancelRequests()));
+    connect(m_statusBar, &MainWindow::StatusBar::cancelRequest, this, &ThumbnailBuilder::cancelRequests);
     s_instance =  this;
 
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
-    connect( m_startBuildTimer, SIGNAL(timeout()), this, SLOT(doThumbnailBuild()));
+    connect(m_startBuildTimer, &QTimer::timeout, this, &ThumbnailBuilder::doThumbnailBuild);
 }
 
 void ImageManager::ThumbnailBuilder::cancelRequests()

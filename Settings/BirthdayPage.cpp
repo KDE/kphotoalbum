@@ -17,22 +17,21 @@
 */
 
 // Qt includes
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QVBoxLayout>
+#include <QCalendarWidget>
 #include <QComboBox>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QLabel>
 #include <QLineEdit>
+#include <QLocale>
+#include <QPushButton>
 #include <QShortcut>
 #include <QTableWidget>
-#include <QPushButton>
-#include <QHeaderView>
-#include <QDebug>
-#include <QFont>
-#include <QCalendarWidget>
+#include <QVBoxLayout>
 
 // KDE includes
-#include <KPageWidgetItem>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KPageWidgetModel>
 
 // Local includes
 #include "BirthdayPage.h"
@@ -60,12 +59,12 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 
     m_categoryBox = new QComboBox;
     itemsHeaderLayout->addWidget(m_categoryBox);
-    connect(m_categoryBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeCategory(int)));
+    connect(m_categoryBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BirthdayPage::changeCategory);
 
     m_filter = new QLineEdit;
     m_filter->setPlaceholderText(i18n("Filter (Alt+f)"));
     itemsHeaderLayout->addWidget(m_filter);
-    connect(m_filter, SIGNAL(textChanged(QString)), this, SLOT(resetCategory()));
+    connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
     new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
 
     m_dataView = new QTableWidget;
@@ -73,7 +72,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     m_dataView->verticalHeader()->hide();
     m_dataView->setShowGrid(false);
     itemsLayout->addWidget(m_dataView);
-    connect(m_dataView, SIGNAL(cellActivated(int,int)), this, SLOT(editDate(int,int)));
+    connect(m_dataView, &QTableWidget::cellActivated, this, &BirthdayPage::editDate);
 
     QVBoxLayout* calendarLayout = new QVBoxLayout;
     dataLayout->addLayout(calendarLayout);
@@ -85,26 +84,16 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 
     m_dateInput = new QLineEdit;
     calendarLayout->addWidget(m_dateInput);
-    connect(m_dateInput, SIGNAL(textEdited(QString)), this, SLOT(parseDate(QString)));
-    connect(m_dateInput, SIGNAL(editingFinished()), this, SLOT(checkDate()));
+    connect(m_dateInput, &QLineEdit::textEdited, this, &BirthdayPage::parseDate);
+    connect(m_dateInput, &QLineEdit::editingFinished, this, &BirthdayPage::checkDate);
 
-    m_locale = KGlobal::locale();
     m_calendar = new QCalendarWidget;
-    switch (m_locale->weekStartDay()) {
-    case 1: m_calendar->setFirstDayOfWeek(Qt::Monday); break;
-    case 2: m_calendar->setFirstDayOfWeek(Qt::Tuesday); break;
-    case 3: m_calendar->setFirstDayOfWeek(Qt::Wednesday); break;
-    case 4: m_calendar->setFirstDayOfWeek(Qt::Thursday); break;
-    case 5: m_calendar->setFirstDayOfWeek(Qt::Friday); break;
-    case 6: m_calendar->setFirstDayOfWeek(Qt::Saturday); break;
-    case 7: m_calendar->setFirstDayOfWeek(Qt::Sunday); break;
-    }
     calendarLayout->addWidget(m_calendar);
-    connect(m_calendar, SIGNAL(clicked(QDate)), this, SLOT(setDate(QDate)));
+    connect(m_calendar, &QCalendarWidget::clicked, this, &BirthdayPage::setDate);
 
     m_unsetButton = new QPushButton(i18n("Remove birthday"));
     calendarLayout->addWidget(m_unsetButton);
-    connect(m_unsetButton, SIGNAL(clicked()), this, SLOT(removeDate()));
+    connect(m_unsetButton, &QPushButton::clicked, this, &BirthdayPage::removeDate);
 
     calendarLayout->addStretch();
 
@@ -216,7 +205,7 @@ QString Settings::BirthdayPage::textForDate(const QDate& date) const
     if (date.isNull()) {
         return m_noDateString;
     } else {
-        return KGlobal::locale()->formatDate(date, KLocale::ShortDate);
+        return QLocale().toString(date,QLocale::ShortFormat);
     }
 }
 
@@ -251,8 +240,9 @@ void Settings::BirthdayPage::editDate(int row, int)
 
 void Settings::BirthdayPage::parseDate(QString date)
 {
-    QDate parsedDate = m_locale->readDate(date);
-    if (parsedDate != QDate()) {
+    QDate parsedDate = QLocale().toDate(date);
+    if (parsedDate.isValid())
+    {
         m_calendar->setSelectedDate(parsedDate);
         m_dateInput->setStyleSheet(QString());
     } else {
@@ -262,8 +252,9 @@ void Settings::BirthdayPage::parseDate(QString date)
 
 void Settings::BirthdayPage::checkDate()
 {
-    QDate parsedDate = m_locale->readDate(m_dateInput->text());
-    if (parsedDate != QDate()) {
+    QDate parsedDate = QLocale().toDate(m_dateInput->text());
+    if (parsedDate.isValid())
+    {
         setDate(parsedDate);
     }
 }

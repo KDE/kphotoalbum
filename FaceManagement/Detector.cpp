@@ -19,10 +19,10 @@
 #include "Detector.h"
 
 // libkface includes
-#include <libkface/facedetector.h>
+#include <KFace/FaceDetector>
 
 // Local includes
-#include "Settings/SettingsData.h"
+#include <Settings/SettingsData.h>
 
 using namespace KFaceIface;
 

@@ -18,11 +18,14 @@
 
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
+
 #include <KDialog>
+
 #include <DB/FileNameList.h>
-class QListWidget;
-class QLabel;
+
 class QCheckBox;
+class QLabel;
+class QListWidget;
 
 namespace Exif
 {
@@ -32,6 +35,8 @@ class ReReadDialog :public KDialog {
 
 public:
     explicit ReReadDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using KDialog::exec;
     int exec( const DB::FileNameList& );
 
 protected slots:

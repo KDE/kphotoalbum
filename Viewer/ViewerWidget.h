@@ -18,36 +18,37 @@
 
 #ifndef VIEWER_H
 #define VIEWER_H
-
-#include <QStackedWidget>
-#include <qimage.h>
-#include <QPixmap>
-#include <QMap>
-#include "DB/ImageInfoPtr.h"
 #include <config-kpa-exiv2.h>
-#include <QPointer>
-#include <DB/FileNameList.h>
 
-class QKeyEvent;
-class QResizeEvent;
-class QWheelEvent;
-class QContextMenuEvent;
-class QStackedWidget;
+#include <QImage>
+#include <QMap>
+#include <QPixmap>
+#include <QPointer>
+#include <QStackedWidget>
+
+#include <DB/FileNameList.h>
+#include <DB/ImageInfoPtr.h>
+
 class KActionCollection;
+class QAction;
+class QContextMenuEvent;
+class QKeyEvent;
 class QMenu;
-class KAction;
+class QResizeEvent;
+class QStackedWidget;
+class QWheelEvent;
 
 namespace DB { class ImageInfo; class Id; }
 namespace MainWindow { class ExternalPopup; class CategoryImagePopup; }
 namespace Exif { class InfoDialog; }
 namespace Viewer
 {
-class VideoDisplay;
-class ImageDisplay;
-class TextDisplay;
 class AbstractDisplay;
-class SpeedDisplay;
+class ImageDisplay;
 class InfoBox;
+class SpeedDisplay;
+class TextDisplay;
+class VideoDisplay;
 class VideoShooter;
 
 class ViewerWidget :public QStackedWidget
@@ -171,19 +172,19 @@ private:
     static ViewerWidget* s_latest;
     friend class VideoShooter;
 
-    QList<KAction*> m_forwardActions;
-    QList<KAction*> m_backwardActions;
+    QList<QAction *> m_forwardActions;
+    QList<QAction *> m_backwardActions;
 
-    KAction* m_startStopSlideShow;
-    KAction* m_slideShowRunFaster;
-    KAction* m_slideShowRunSlower;
-    KAction* m_setStackHead;
-    KAction* m_filterNone;
-    KAction* m_filterSelected;
-    KAction* m_filterBW;
-    KAction* m_filterContrastStretch;
-    KAction* m_filterHistogramEqualization;
-    KAction* m_filterMono;
+    QAction * m_startStopSlideShow;
+    QAction * m_slideShowRunFaster;
+    QAction * m_slideShowRunSlower;
+    QAction * m_setStackHead;
+    QAction * m_filterNone;
+    QAction * m_filterSelected;
+    QAction * m_filterBW;
+    QAction * m_filterContrastStretch;
+    QAction * m_filterHistogramEqualization;
+    QAction * m_filterMono;
 
     AbstractDisplay* m_display;
     ImageDisplay* m_imageDisplay;
@@ -205,13 +206,13 @@ private:
     int m_height;
     QPixmap m_pixmap;
 
-    KAction* m_delete;
+    QAction * m_delete;
 #ifdef HAVE_EXIV2
-    KAction* m_showExifViewer;
+    QAction * m_showExifViewer;
     QPointer<Exif::InfoDialog> m_exifViewer;
 #endif
 
-    KAction* m_copyTo;
+    QAction * m_copyTo;
 
     InfoBox* m_infoBox;
     QImage m_currentImage;
@@ -226,9 +227,9 @@ private:
     bool m_isRunningSlideShow;
 
     QList<QAction*> m_videoActions;
-    KAction* m_stop;
-    KAction* m_playPause;
-    KAction* m_makeThumbnailImage;
+    QAction * m_stop;
+    QAction * m_playPause;
+    QAction * m_makeThumbnailImage;
     bool m_videoPlayerStoppedManually;
     UsageType m_type;
 

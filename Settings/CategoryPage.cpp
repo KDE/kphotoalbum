@@ -19,21 +19,21 @@
 #include "CategoryPage.h"
 
 // Qt includes
-#include <QSpinBox>
-#include <QLabel>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QCheckBox>
-#include <QPushButton>
-#include <QDebug>
+#include <QComboBox>
+#include <QGridLayout>
 #include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLocale>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 // KDE includes
+#include <KIconButton>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KComboBox>
-#include <KLocale>
-#include <KIconDialog>
 
 // Local includes
 #include "DB/ImageDB.h"
@@ -63,16 +63,12 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     m_categoriesListWidget = new QListWidget;
 
-    connect(m_categoriesListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(editCategory(QListWidgetItem*)));
-    connect(m_categoriesListWidget, SIGNAL(itemSelectionChanged()),
-            this, SLOT(editSelectedCategory()));
-    connect(m_categoriesListWidget, SIGNAL(itemChanged(QListWidgetItem*)),
-            this, SLOT(categoryNameChanged(QListWidgetItem*)));
+    connect(m_categoriesListWidget, &QListWidget::itemClicked, this, &CategoryPage::editCategory);
+    connect(m_categoriesListWidget, &QListWidget::itemSelectionChanged, this, &CategoryPage::editSelectedCategory);
+    connect(m_categoriesListWidget, &QListWidget::itemChanged, this, &CategoryPage::categoryNameChanged);
 
     // This is needed to fix some odd behavior if the "New" button is double clicked
-    connect(m_categoriesListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
-            this, SLOT(categoryDoubleClicked(QListWidgetItem*)));
+    connect(m_categoriesListWidget, &QListWidget::itemDoubleClicked, this, &CategoryPage::categoryDoubleClicked);
     connect(m_categoriesListWidget->itemDelegate(), SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),
             this, SLOT(listWidgetEditEnd(QWidget*,QAbstractItemDelegate::EndEditHint)));
 
@@ -84,15 +80,15 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     categorySideLayout->addLayout(newDeleteRenameLayout);
 
     m_newCategoryButton = new QPushButton(i18n("New"));
-    connect(m_newCategoryButton, SIGNAL(clicked()), this, SLOT(newCategory()));
+    connect(m_newCategoryButton, &QPushButton::clicked, this, &CategoryPage::newCategory);
     newDeleteRenameLayout->addWidget(m_newCategoryButton);
 
     m_delItem = new QPushButton(i18n("Delete"));
-    connect(m_delItem, SIGNAL(clicked()), this, SLOT(deleteCurrentCategory()));
+    connect(m_delItem, &QPushButton::clicked, this, &CategoryPage::deleteCurrentCategory);
     newDeleteRenameLayout->addWidget(m_delItem);
 
     m_renameItem = new QPushButton(i18n("Rename"));
-    connect(m_renameItem, SIGNAL(clicked()), this, SLOT(renameCurrentCategory()));
+    connect(m_renameItem, &QPushButton::clicked, this, &CategoryPage::renameCurrentCategory);
     newDeleteRenameLayout->addWidget(m_renameItem);
 
     // Category settings
@@ -109,7 +105,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     m_renameLabel = new QLabel;
     m_renameLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     rightSideLayout->addWidget(m_renameLabel);
-    connect( parent, SIGNAL(cancelClicked()), m_renameLabel, SLOT(clear()));
+    connect( parent, SIGNAL(clicked()), m_renameLabel, SLOT(clear()));
 
     // Some space looks better here :-)
     QLabel* spacer = new QLabel;
@@ -127,7 +123,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     settingsLayout->addWidget(m_positionableLabel, row, 0);
     m_positionable = new QCheckBox(i18n("Tags in this category can be associated with an area of the image"));
     settingsLayout->addWidget(m_positionable, row, 1);
-    connect(m_positionable, SIGNAL(clicked(bool)), this, SLOT(positionableChanged(bool)));
+    connect(m_positionable, &QCheckBox::clicked, this, &CategoryPage::positionableChanged);
     row++;
 
     // Icon
@@ -137,7 +133,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     settingsLayout->addWidget(m_icon, row, 1);
     m_icon->setIconSize(32);
     m_icon->setIcon(QString::fromUtf8("personsIcon"));
-    connect(m_icon, SIGNAL(iconChanged(QString)), this, SLOT(iconChanged(QString)));
+    connect(m_icon, &KIconButton::iconChanged, this, &CategoryPage::iconChanged);
     row++;
 
     // Thumbnail size
@@ -147,21 +143,20 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     m_thumbnailSizeInCategory->setRange(32, 512);
     m_thumbnailSizeInCategory->setSingleStep(32);
     settingsLayout->addWidget(m_thumbnailSizeInCategory, row, 1);
-    connect(m_thumbnailSizeInCategory, SIGNAL(valueChanged(int)),
-            this, SLOT(thumbnailSizeChanged(int)));
+    connect(m_thumbnailSizeInCategory, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &CategoryPage::thumbnailSizeChanged);
     row++;
 
     // Preferred View
     m_preferredViewLabel = new QLabel(i18n("Preferred view:"));
     settingsLayout->addWidget(m_preferredViewLabel, row, 0);
-    m_preferredView = new KComboBox;
+    m_preferredView = new QComboBox;
     settingsLayout->addWidget(m_preferredView, row, 1);
     m_preferredView->addItems(QStringList()
                               << i18n("List View")
                               << i18n("List View with Custom Thumbnails")
                               << i18n("Icon View")
                               << i18n("Icon View with Custom Thumbnails"));
-    connect(m_preferredView, SIGNAL(activated(int)), this, SLOT(preferredViewChanged(int)));
+    connect(m_preferredView, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &CategoryPage::preferredViewChanged);
 
     rightSideLayout->addStretch();
 
@@ -180,7 +175,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     m_saveDbNowButton = new QPushButton(i18n("Save the DB now"));
     m_saveDbNowButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
-    connect(m_saveDbNowButton, SIGNAL(clicked()), this, SLOT(saveDbNow()));
+    connect(m_saveDbNowButton, &QPushButton::clicked, this, &CategoryPage::saveDbNow);
     dbNotSavedLayout->addWidget(m_saveDbNowButton);
 
     resetInterface();
@@ -551,8 +546,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
                                                             category->positionable());
 #ifdef HAVE_KFACE
             if (category->positionable()) {
-                connect(item, SIGNAL(newCategoryNameSaved(QString,QString)),
-                        this, SLOT(renameRecognitionCategory(QString,QString)));
+                connect(item, &Settings::CategoryItem::newCategoryNameSaved, this, &CategoryPage::renameRecognitionCategory);
             }
 #endif
         }

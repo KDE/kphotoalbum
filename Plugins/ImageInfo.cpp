@@ -17,16 +17,18 @@
 */
 
 #include "ImageInfo.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "DB/Category.h"
-#include "DB/CategoryPtr.h"
-#include "DB/MemberMap.h"
-#include "MainWindow/DirtyIndicator.h"
-#include <QList>
-#include "DB/CategoryCollection.h"
-#include <QFileInfo>
+
 #include <QDebug>
+#include <QFileInfo>
+#include <QList>
+
+#include <DB/CategoryCollection.h>
+#include <DB/Category.h>
+#include <DB/CategoryPtr.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/MemberMap.h>
+#include <MainWindow/DirtyIndicator.h>
 
 #ifdef DEBUG_KIPI
 #define Debug qDebug
@@ -85,7 +87,7 @@ static int kexivOrientation2deg( int orient)
     }
 }
 
-Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
+Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const QUrl &url )
     : KIPI::ImageInfoShared( interface, url )
 {
     m_info = DB::ImageDB::instance()->info( DB::FileName::fromAbsolutePath(_url.path()));
@@ -259,7 +261,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                 // first component is the category,
                 const QString categoryName = tagpath.takeFirst();
                 DB::CategoryPtr cat = categories->categoryForName( categoryName );
-                if ( ! cat.isNull() )
+                if ( cat )
                 {
                     QString previousTag;
                     // last component is the tag:

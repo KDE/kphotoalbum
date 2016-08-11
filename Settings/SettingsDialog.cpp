@@ -16,31 +16,31 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config-kpa-kipi.h"
+#include "config-kpa-kface.h"
 #include "SettingsDialog.h"
+
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+#include <KLocalizedString>
+#include <KSharedConfig>
+
+#include "BirthdayPage.h"
+#include "CategoryPage.h"
 #include "DatabaseBackendPage.h"
 #include "ExifPage.h"
-#include "PluginsPage.h"
-#include "ViewerPage.h"
-#include "FileVersionDetectionPage.h"
-#include "ThumbnailsPage.h"
-#include "GeneralPage.h"
-#include "TagGroupsPage.h"
-#include "CategoryPage.h"
-#include "SettingsDialog.moc"
-#include <QDebug>
-
-#include <klocale.h>
-#include <kglobal.h>
-#include "Utilities/ShowBusyCursor.h"
-
-#include "config-kpa-kipi.h"
-
-#include "config-kpa-kface.h"
 #ifdef HAVE_KFACE
 #include "FaceManagementPage.h"
 #endif
-
-#include "BirthdayPage.h"
+#include "FileVersionDetectionPage.h"
+#include "GeneralPage.h"
+#include "PluginsPage.h"
+#include "TagGroupsPage.h"
+#include "ThumbnailsPage.h"
+#include "ViewerPage.h"
+#include <Utilities/ShowBusyCursor.h>
 
 struct Data
 {
@@ -102,30 +102,38 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     while ( data[i].widget != 0 ) {
         KPageWidgetItem* page = new KPageWidgetItem( data[i].widget, data[i].title );
         page->setHeader( data[i].title );
-        page->setIcon( KIcon( QString::fromLatin1( data[i].icon ) ) );
+        page->setIcon( QIcon::fromTheme( QString::fromLatin1( data[i].icon ) ) );
         addPage( page );
         ++i;
     }
 
 
-    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
-    setCaption( i18n( "Settings" ) );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Apply);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &SettingsDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &SettingsDialog::reject);
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    mainLayout->addWidget(buttonBox);
+    setWindowTitle( i18n( "Settings" ) );
 
-    connect(m_categoryPage, SIGNAL(categoryChangesPending()),
-            m_tagGroupsPage, SLOT(categoryChangesPending()));
-    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            m_tagGroupsPage, SLOT(slotPageChange()));
+    connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending, m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
+    connect(this, &SettingsDialog::currentPageChanged, m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
 #ifdef HAVE_KFACE
-    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            m_faceManagementPage, SLOT(slotPageChange(KPageWidgetItem*)));
+    connect(this, &SettingsDialog::currentPageChanged, m_faceManagementPage, &Settings::FaceManagementPage::slotPageChange);
 #endif
-    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            m_birthdayPage, SLOT(pageChange(KPageWidgetItem*)));
-    connect(this, SIGNAL(cancelClicked()), m_birthdayPage, SLOT(discardChanges()));
+    connect(this, &SettingsDialog::currentPageChanged, m_birthdayPage, &Settings::BirthdayPage::pageChange);
+    connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, m_birthdayPage, &Settings::BirthdayPage::discardChanges);
+    // slot is protected -> use old style connect:
     connect(this, SIGNAL(cancelClicked()), m_categoryPage, SLOT(resetCategoryLabel()));
 
-    connect( this, SIGNAL(applyClicked()), this, SLOT(slotMyOK()) );
-    connect( this, SIGNAL(okClicked()), this, SLOT(slotMyOK()) );
+    connect(buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::slotMyOK);
+    connect(okButton, &QPushButton::clicked, this, &SettingsDialog::slotMyOK);
 }
 
 void Settings::SettingsDialog::show()
@@ -158,10 +166,10 @@ void Settings::SettingsDialog::show()
     m_birthdayPage->reload();
     m_categoryPage->resetCategoryNamesChanged();
 
-    KDialog::show();
+    QDialog::show();
 }
 
-// KDialog has a slotOK which we do not want to override.
+// QDialog has a slotOK which we do not want to override.
 void Settings::SettingsDialog::slotMyOK()
 {
     Utilities::ShowBusyCursor dummy;
@@ -194,7 +202,7 @@ void Settings::SettingsDialog::slotMyOK()
     m_databaseBackendPage->saveSettings(opt);
 
     emit changed();
-    KGlobal::config()->sync();
+    KSharedConfig::openConfig()->sync();
 }
 
 void Settings::SettingsDialog::showBackendPage()
@@ -207,4 +215,5 @@ void Settings::SettingsDialog::keyPressEvent(QKeyEvent*)
     // This prevents the dialog to be closed if the ENTER key is pressed anywhere
 }
 
+#include "SettingsDialog.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,10 +19,11 @@
 #ifndef CATEGORYIMAGECONFIG_H
 #define CATEGORYIMAGECONFIG_H
 
-#include <kdialog.h>
-#include <qimage.h>
+#include <QDialog>
+#include <QImage>
 #include <QLabel>
-#include "DB/ImageInfoPtr.h"
+
+#include <DB/ImageInfoPtr.h>
 
 class QComboBox;
 class QLabel;
@@ -34,7 +35,7 @@ namespace DB
 
 namespace Viewer
 {
-class CategoryImageConfig :public KDialog {
+class CategoryImageConfig :public QDialog {
     Q_OBJECT
 
 public:

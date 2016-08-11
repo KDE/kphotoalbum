@@ -22,7 +22,6 @@
 #include <QCheckBox>
 #include <KComboBox>
 #include <QSpinBox>
-#include <QDoubleSpinBox>
 #include <QLabel>
 #include <QGridLayout>
 

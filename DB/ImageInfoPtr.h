@@ -17,12 +17,12 @@
 */
 #ifndef IMAGEINFOPTR_H
 #define IMAGEINFOPTR_H
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 
 namespace DB
 {
     class ImageInfo;
-    typedef KSharedPtr<ImageInfo> ImageInfoPtr;
+    typedef QExplicitlySharedDataPointer<ImageInfo> ImageInfoPtr;
 }
 
 #endif /* IMAGEINFOPTR_H */

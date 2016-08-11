@@ -15,17 +15,22 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include <config-kpa-kipi.h>
 #include "PluginsPage.h"
+
 #include <QCheckBox>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <MainWindow/Window.h>
-#include <config-kpa-kipi.h>
+
+#include <KLocalizedString>
+
 #ifdef HASKIPI
-#  include <libkipi/version.h>
-#  include <libkipi/configwidget.h>
-#  include <libkipi/pluginloader.h>
+#  include <KIPI/ConfigWidget>
+#  include <KIPI/PluginLoader>
 #endif
+
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 Settings::PluginsPage::PluginsPage( QWidget* parent )
     : QWidget(parent)

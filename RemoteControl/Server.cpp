@@ -22,7 +22,7 @@
 #include <QTcpSocket>
 #include <QMessageBox>
 #include "RemoteCommand.h"
-#include <KLocale>
+#include <KLocalizedString>
 
 using namespace RemoteControl;
 

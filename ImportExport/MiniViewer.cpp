@@ -67,7 +67,7 @@ MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
     vlay->addLayout(hlay);
     hlay->addStretch(1);
     QPushButton* but = new QPushButton( i18n("Close"), this );
-    connect( but, SIGNAL(clicked()), this, SLOT(slotClose()) );
+    connect(but, &QPushButton::clicked, this, &MiniViewer::slotClose);
     hlay->addWidget( but );
 }
 

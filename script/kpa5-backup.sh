@@ -1,9 +1,37 @@
 #!/bin/bash
-# Author: Johannes Zarl <isilmendil@gmx.at>
-KDE_LOCALPREFIX="${KDE_LOCALPREFIX:-`kde4-config --localprefix`}"
+# Copyright 2012-2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+QTPATHS=qtpaths
+if ! $QTPATHS --types >/dev/null
+then
+	echo "QStandardPaths command line client ($QTPATHS) not usable!" >&2
+	exit 1
+fi
+
 # default locations:
-KPARC="${KPARC:-$KDE_LOCALPREFIX/share/config/kphotoalbumrc}"
-KPAUIRC="${KPAUIRC:-$KDE_LOCALPREFIX/share/apps/kphotoalbum/kphotoalbumui.rc}"
+KPARC=`$QTPATHS --locate-file ConfigLocation kphotoalbumrc`
+KPAUIRC=`$QTPATHS --locate-file GenericDataLocation kphotoalbum/kphotoalbumui.rc`
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=
@@ -238,7 +266,7 @@ untar_if_changed()
 		then
 			echo "  changed: $dstfile"
 		else
-			tar -Pwxvz -f "$tarfile" 
+			tar -Pwxvz -f "$tarfile"
 		fi
 	fi
 }
@@ -256,8 +284,8 @@ do_backup()
 		echo "RC-file ($KPARC) not readable!" >&2
 		exit 1
 	fi
-	# KPA gets the image directory from the configfile entry
-	INDEXFILE=`get_config_value configfile`
+	# KPA gets the image directory from the imageDBFile entry
+	INDEXFILE=`get_config_value imageDBFile`
 	if [ -z "$INDEXFILE" ]
 	then
 		echo "The RC-file ($KPARC) does not define an entry for index.xml!" >&2
@@ -310,6 +338,11 @@ do_backup()
 
 do_restore()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	echo "Restoring essential files..."
 	for f in "$BACKUP_LOCATION/$BACKUP_ID"/*.tgz
 	do
@@ -342,6 +375,11 @@ show_info()
 
 do_list()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	local LATEST=`resolve_link "$BACKUP_LOCATION/latest"`
 	LATEST=`basename "$LATEST"`
 	local action=show_info
@@ -364,6 +402,11 @@ do_list()
 
 do_info()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	local LATEST=`resolve_link "$BACKUP_LOCATION/$BACKUP_ID"`
 	echo "$BACKUP_LOCATION:"
 	show_info "$LATEST"
@@ -371,6 +414,11 @@ do_info()
 
 do_purge()
 {
+	if [ ! -d "$BACKUP_LOCATION" ]
+	then
+		echo "Backup location ($BACKUP_LOCATION) is not a directory!" >&2
+		exit 1
+	fi
 	cd "$BACKUP_LOCATION"
 	# list newest entries first, skip KEEP_NUM directories:
 	for d in `ls -t1`
@@ -407,7 +455,7 @@ while true ; do
 	case "$1" in
 		-h|--help) print_help ; exit ;;
 		-b|--backup) ACTION=do_backup ; shift ;;
-		-r|--restore) ACTION=do_restore ; shift ;; 
+		-r|--restore) ACTION=do_restore ; shift ;;
 		-l|--list) ACTION=do_list ; shift ;;
 		-i|--info) ACTION=do_info ; shift ;;
 		-p|--purge) ACTION=do_purge ; shift ;;

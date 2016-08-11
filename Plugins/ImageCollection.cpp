@@ -17,12 +17,16 @@
 */
 
 #include "ImageCollection.h"
-#include "MainWindow/Window.h"
-#include "DB/ImageDB.h"
-#include "Settings/SettingsData.h"
-#include <qfileinfo.h>
-#include "DB/ImageInfoList.h"
-#include "DB/ImageInfo.h"
+
+#include <QFileInfo>
+
+#include <KLocalizedString>
+
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoList.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 Plugins::ImageCollection::ImageCollection( Type tp )
     : m_type( tp )
@@ -51,18 +55,13 @@ QString Plugins::ImageCollection::name()
         break;
     }
     if (res.isEmpty()) {
-        // at least html export plugin needs a none-empty name:
+        // at least html export plugin needs a non-empty name:
         res = i18nc("The 'name' of an unnamed image collection.","None");
     }
     return res;
 }
 
-QString Plugins::ImageCollection::comment()
-{
-    return QString();
-}
-
-KUrl::List Plugins::ImageCollection::images()
+QList<QUrl> Plugins::ImageCollection::images()
 {
     switch ( m_type ) {
     case CurrentAlbum:
@@ -73,48 +72,48 @@ KUrl::List Plugins::ImageCollection::images()
 
     case SubClass:
         qFatal( "The subclass should implement images()" );
-        return KUrl::List();
+        return QList<QUrl>();
     }
-    return KUrl::List();
+    return QList<QUrl>();
 }
 
-KUrl::List Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList& imageList )
+QList<QUrl> Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList& imageList )
 {
-    KUrl::List urlList;
+    QList<QUrl> urlList;
     for( DB::ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
-        KUrl url;
+        QUrl url;
         url.setPath( (*it)->fileName().absolute() );
         urlList.append( url );
     }
     return urlList;
 }
 
-KUrl::List Plugins::ImageCollection::stringListToUrlList( const QStringList& list )
+QList<QUrl> Plugins::ImageCollection::stringListToUrlList( const QStringList& list )
 {
-    KUrl::List urlList;
+    QList<QUrl> urlList;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        KUrl url;
+        QUrl url;
         url.setPath( *it );
         urlList.append( url );
     }
     return urlList;
 }
 
-KUrl Plugins::ImageCollection::path()
+QUrl Plugins::ImageCollection::url()
 {
     return commonRoot();
 }
 
-KUrl Plugins::ImageCollection::commonRoot()
+QUrl Plugins::ImageCollection::commonRoot()
 {
     QString imgRoot = Settings::SettingsData::instance()->imageDirectory();
-    const KUrl::List imgs = images();
+    const QList<QUrl> imgs = images();
     if ( imgs.count() == 0 )
-        return imgRoot;
+        return QUrl::fromLocalFile(imgRoot);
 
     QStringList res = QFileInfo( imgs[0].path() ).absolutePath().split( QLatin1String( "/" ) );
 
-    for( KUrl::List::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
+    for( QList<QUrl>::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
         QStringList newRes;
 
         QStringList path = QFileInfo( (*it).path() ).absolutePath().split( QLatin1String( "/" ) );
@@ -133,21 +132,23 @@ KUrl Plugins::ImageCollection::commonRoot()
         result = imgRoot;
     }
 
-    KUrl url;
-    url.setPath( result );
-    return url;
+    return QUrl::fromLocalFile( result );
 }
 
-KUrl Plugins::ImageCollection::uploadPath()
+QUrl Plugins::ImageCollection::uploadUrl()
 {
     return commonRoot();
 }
 
-KUrl Plugins::ImageCollection::uploadRoot()
+QUrl Plugins::ImageCollection::uploadRootUrl()
 {
-    KUrl url;
-    url.setPath( Settings::SettingsData::instance()->imageDirectory() );
+    QUrl url = QUrl::fromLocalFile(Settings::SettingsData::instance()->imageDirectory() );
     return url;
+}
+
+QString Plugins::ImageCollection::uploadRootName()
+{
+    return i18nc("'Name' of the image directory", "Image/Video root directory");
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

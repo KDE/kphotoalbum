@@ -20,7 +20,8 @@
 #define SEARCHMARKERTILER_H
 
 // Libkgeomap includes
-#include <libkgeomap/itemmarkertiler.h>
+#include <KGeoMap/ItemMarkerTiler>
+#include <KGeoMap/GroupState>
 
 namespace KGeoMap
 {
@@ -50,7 +51,7 @@ public:
     * @brief getGlobalGroupState
     * @return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMapRegionSelectedAll.
     */
-   virtual KGeoMap::KGeoMapGroupState getGlobalGroupState() override;
+   virtual KGeoMap::GroupState getGlobalGroupState() override;
 
 private: // Variables
     MapView* m_mapView;

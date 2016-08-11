@@ -17,19 +17,24 @@
 */
 
 #include "DateBarWidget.h"
-#include <DB/ImageDateCollection.h>
-#include <QMenu>
-#include <qdatetime.h>
-#include <qpainter.h>
-#include <qfontmetrics.h>
-#include <QContextMenuEvent>
-#include <qtoolbutton.h>
-#include <qaction.h>
+
 #include <math.h>
-#include <klocale.h>
-#include "Settings/SettingsData.h"
-#include <KIcon>
+
+#include <QAction>
+#include <QContextMenuEvent>
+#include <QDateTime>
+#include <QFontMetrics>
+#include <QIcon>
+#include <QLocale>
+#include <QMenu>
+#include <QPainter>
+#include <QToolButton>
+
+#include <KLocalizedString>
+
+#include <DB/ImageDateCollection.h>
 #include "MouseHandler.h"
+#include "Settings/SettingsData.h"
 
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;
@@ -65,17 +70,17 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     connect( m_leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()) );
 
     m_zoomIn = new QToolButton( this );
-    m_zoomIn->setIcon( KIcon( QString::fromLatin1( "zoom-in" ) ) );
+    m_zoomIn->setIcon( QIcon::fromTheme( QStringLiteral( "zoom-in" ) ) );
     connect( m_zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()) );
     connect( this, SIGNAL(canZoomIn(bool)), m_zoomIn, SLOT(setEnabled(bool)) );
 
     m_zoomOut = new QToolButton( this );
-    m_zoomOut->setIcon(  KIcon( QString::fromLatin1( "zoom-out" ) ) );
+    m_zoomOut->setIcon(  QIcon::fromTheme( QStringLiteral( "zoom-out" ) ) );
     connect( m_zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()) );
     connect( this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)) );
 
     m_cancelSelection = new QToolButton( this );
-    m_cancelSelection->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
+    m_cancelSelection->setIcon( QIcon( QStringLiteral( "dialog-close" ) ) );
     connect( m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
     m_cancelSelection->setEnabled( false );
     m_cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
@@ -133,7 +138,7 @@ void DateBar::DateBarWidget::redraw()
     p.setBrush( palette().brush( QPalette::Background ) );
     p.drawRect( rect() );
 
-    if (m_dates.isNull() )
+    if (!m_dates )
         return;
 
     // Draw the area with histograms
@@ -248,10 +253,10 @@ void DateBar::DateBarWidget::setDate( const QDateTime& date )
     redraw();
 }
 
-void DateBar::DateBarWidget::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
+void DateBar::DateBarWidget::setImageDateCollection( const QExplicitlySharedDataPointer<DB::ImageDateCollection>& dates )
 {
     m_dates = dates;
-    if ( m_doAutomaticRangeAdjustment && ! m_dates.isNull() && ! m_dates->lowerLimit().isNull())
+    if ( m_doAutomaticRangeAdjustment && m_dates && ! m_dates->lowerLimit().isNull())
     {
         QDateTime start = m_dates->lowerLimit();
         QDateTime end = m_dates->upperLimit();

@@ -17,12 +17,12 @@
 */
 #ifndef CATEGORYPTR_H
 #define CATEGORYPTR_H
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 
 namespace DB
 {
     class Category;
-    typedef KSharedPtr<Category> CategoryPtr;
+    typedef QExplicitlySharedDataPointer<Category> CategoryPtr;
 }
 
 #endif /* CATEGORYPTR_H */

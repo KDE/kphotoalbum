@@ -16,16 +16,20 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImagePreviewWidget.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "MainWindow/DeleteDialog.h"
+
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <klocale.h>
 #include <QWidget>
 #include <QDebug>
 #include <QApplication>
 #include <QCheckBox>
+#include <QPushButton>
+
+#include <KLocalizedString>
+
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <MainWindow/DeleteDialog.h>
 
 using namespace AnnotationDialog;
 
@@ -43,51 +47,51 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     controlLayout->addLayout(controlButtonsLayout);
     controlButtonsLayout->addStretch(1);
 
-    m_prevBut = new KPushButton( this );
-    m_prevBut->setIcon( KIcon( QString::fromLatin1( "arrow-left" ) ) );
+    m_prevBut = new QPushButton( this );
+    m_prevBut->setIcon( QIcon::fromTheme( QString::fromLatin1( "arrow-left" ) ) );
     m_prevBut->setFixedWidth( 40 );
     controlButtonsLayout->addWidget( m_prevBut );
     m_prevBut->setToolTip( i18n("Annotate previous image") );
 
-    m_nextBut = new KPushButton( this );
-    m_nextBut->setIcon( KIcon( QString::fromLatin1( "arrow-right" ) ) );
+    m_nextBut = new QPushButton( this );
+    m_nextBut->setIcon( QIcon::fromTheme( QString::fromLatin1( "arrow-right" ) ) );
     m_nextBut->setFixedWidth( 40 );
     controlButtonsLayout->addWidget( m_nextBut );
     m_nextBut->setToolTip( i18n("Annotate next image") );
 
     controlButtonsLayout->addStretch(1);
 
-    m_rotateLeft = new KPushButton( this );
+    m_rotateLeft = new QPushButton( this );
     controlButtonsLayout->addWidget( m_rotateLeft );
-    m_rotateLeft->setIcon( KIcon( QString::fromLatin1( "object-rotate-left" ) ) );
+    m_rotateLeft->setIcon( QIcon::fromTheme( QString::fromLatin1( "object-rotate-left" ) ) );
     m_rotateLeft->setFixedWidth( 40 );
     m_rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
 
-    m_rotateRight = new KPushButton( this );
+    m_rotateRight = new QPushButton( this );
     controlButtonsLayout->addWidget( m_rotateRight );
-    m_rotateRight->setIcon( KIcon( QString::fromLatin1( "object-rotate-right" ) ) );
+    m_rotateRight->setIcon( QIcon::fromTheme( QString::fromLatin1( "object-rotate-right" ) ) );
     m_rotateRight->setFixedWidth( 40 );
     m_rotateRight->setToolTip( i18n("Rotate clockwise") );
 
-    m_copyPreviousBut = new KPushButton( this );
+    m_copyPreviousBut = new QPushButton( this );
     controlButtonsLayout->addWidget( m_copyPreviousBut );
-    m_copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "go-bottom" ) ) );
+    m_copyPreviousBut->setIcon( QIcon::fromTheme( QString::fromLatin1( "go-bottom" ) ) );
     m_copyPreviousBut->setFixedWidth( 40 );
     m_copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
     m_copyPreviousBut->setWhatsThis( i18nc( "@info:whatsthis", "<para>Set the same tags on this image than on the previous one. The image date, label, rating, and description are left unchanged.</para>" ));
 
-    m_toggleAreasBut = new KPushButton(this);
+    m_toggleAreasBut = new QPushButton(this);
     controlButtonsLayout->addWidget(m_toggleAreasBut);
-    m_toggleAreasBut->setIcon(KIcon(QString::fromLatin1("document-preview")));
+    m_toggleAreasBut->setIcon(QIcon::fromTheme(QString::fromLatin1("document-preview")));
     m_toggleAreasBut->setFixedWidth(40);
     m_toggleAreasBut->setCheckable(true);
     m_toggleAreasBut->setChecked(true);
     // tooltip text is set in updateTexts()
 
 #ifdef HAVE_KFACE
-    m_facedetectBut = new KPushButton(this);
+    m_facedetectBut = new QPushButton(this);
     controlButtonsLayout->addWidget(m_facedetectBut);
-    m_facedetectBut->setIcon(KIcon(QString::fromLatin1("edit-find-user")));
+    m_facedetectBut->setIcon(QIcon::fromTheme(QString::fromLatin1("edit-find-user")));
     m_facedetectBut->setFixedWidth(40);
     m_facedetectBut->setCheckable(true);
     m_facedetectBut->setChecked(false);
@@ -95,8 +99,8 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
 #endif
 
     controlButtonsLayout->addStretch(1);
-    m_delBut = new KPushButton( this );
-    m_delBut->setIcon( KIcon( QString::fromLatin1( "edit-delete" ) ) );
+    m_delBut = new QPushButton( this );
+    m_delBut->setIcon( QIcon::fromTheme( QString::fromLatin1( "edit-delete" ) ) );
     controlButtonsLayout->addWidget( m_delBut );
     m_delBut->setToolTip( i18n("Delete image") );
     m_delBut->setAutoDefault( false );

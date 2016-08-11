@@ -19,19 +19,19 @@
 #ifndef INFOBOX_H
 #define INFOBOX_H
 
+#include "config-kpa-kgeomap.h"
+
 // Qt includes
 #include <QMouseEvent>
 #include <QPointer>
 
 // KDE includes
-#include <KTextBrowser>
-#include <KRatingWidget>
+#include <QTextBrowser>
 
 // Local includes
-#include "Settings/SettingsData.h"
+#include <Settings/SettingsData.h>
 #include "InfoBoxResizer.h"
 #include "ViewerWidget.h"
-#include "config-kpa-kgeomap.h"
 
 // Qt classes
 class QMenu;
@@ -51,7 +51,7 @@ namespace Viewer
 // Local classes
 class VisibleOptionsMenu;
 
-class InfoBox : public KTextBrowser {
+class InfoBox : public QTextBrowser {
     Q_OBJECT
 
 public:

@@ -18,7 +18,7 @@
 
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
-#include <KDialog>
+#include <QDialog>
 #include <QLabel>
 #include <kjob.h>
 #include <qradiobutton.h>
@@ -31,11 +31,13 @@ namespace KIO {class Job; }
 namespace MainWindow
 {
 
-class DeleteDialog :public KDialog {
+class DeleteDialog :public QDialog {
     Q_OBJECT
 
 public:
     explicit DeleteDialog( QWidget* parent );
+    // prevent hiding of base class method:
+    using QDialog::exec;
     int exec(const DB::FileNameList& list);
 
 protected slots:

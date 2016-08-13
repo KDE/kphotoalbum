@@ -139,8 +139,8 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
                                       "For your convenience, the token '%1' "
                                       "has been set on those videos.\n\n"
                                       "(You might need to wait till the video extraction led in your status bar has stopped blinking, "
-                                      "to see all affected videos.)")
-                                 .arg(s_tokenForShortVideos));
+                                      "to see all affected videos.)",
+                                      s_tokenForShortVideos));
     }
 
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);

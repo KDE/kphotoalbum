@@ -214,12 +214,10 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
 
     Settings::CategoryItem* item = static_cast<Settings::CategoryItem*>(i);
     m_currentCategory = item;
-    m_categoryLabel->setText(QString::fromUtf8("%1 <b>%2</b>")
-                                 .arg(i18n("Settings for category"), item->originalName()));
+    m_categoryLabel->setText(i18n("Settings for category <b>%1</b>", item->originalName()));
 
     if (m_currentCategory->originalName() != m_categoryNameBeforeEdit) {
-        m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>")
-            .arg(m_categoryNameBeforeEdit));
+        m_renameLabel->setText(i18n("<i>Pending change: rename to \"%1\"</i>", m_categoryNameBeforeEdit));
         m_renameLabel->show();
     } else {
         m_renameLabel->clear();

@@ -329,7 +329,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     if ( item )
         title = item->text(0);
 
-    QLabel* label = new QLabel( QString::fromLatin1("<b>%1</b>").arg(title), menu );
+    QLabel* label = new QLabel( i18n("<b>%1</b>",title), menu );
     label->setAlignment( Qt::AlignCenter );
     QWidgetAction* action = new QWidgetAction(menu);
     action->setDefaultWidget( label );
@@ -726,19 +726,23 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
         if (itemsUnchanged().size() > 0) {
             // if min != max
             // tri-state selection -> show min-max (selected items vs. partially selected items):
-            parentWidget()->setWindowTitle(QString::fromUtf8("%1 (%2-%3)")
-                .arg(m_baseTitle)
-                .arg(itemsOnCount)
-                .arg(itemsOnCount + itemsUnchanged().size()));
+            parentWidget()->setWindowTitle(i18nc(
+                                               "Category name, then min-max of selected tags across several images. E.g. 'People (1-2)'",
+                                               "%1 (%2-%3)",
+                                               m_baseTitle,
+                                               itemsOnCount,
+                                               itemsOnCount + itemsUnchanged().size() )
+                                           );
             break;
         } // else fall through and only show one number:
     case InputSingleImageConfigMode:
         if (itemsOnCount > 0) {
             // if any tags have been selected
             // "normal" on/off states -> show selected items
-            parentWidget()->setWindowTitle(QString::fromUtf8("%1 (%2)")
-                .arg(m_baseTitle)
-                .arg(itemsOnCount));
+            parentWidget()->setWindowTitle(
+                        i18nc("Category name, then number of selected tags. E.g. 'People (1)'",
+                              "%1 (%2)",
+                              m_baseTitle, itemsOnCount));
             break;
         } // else fall through and only show category
     case SearchMode:

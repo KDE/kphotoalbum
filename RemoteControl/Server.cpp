@@ -80,8 +80,9 @@ void Server::readIncommingUDP()
         QMessageBox::critical(0, i18n("Invalid Version"),
                               i18n("Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
                                    "Desktop protocol version: %1\n"
-                                   "Remote Control protocol version: %2")
-                              .arg(RemoteControl::VERSION).arg(list[1]));
+                                   "Remote Control protocol version: %2",
+											  RemoteControl::VERSION,
+											  list[1]));
         stopListening();
         return;
     }

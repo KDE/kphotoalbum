@@ -55,7 +55,8 @@ AnnotationDialog::ProposedFaceDialog::ProposedFaceDialog(QWidget* parent) : QDia
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(acceptTag()));
     layout->addWidget(acceptButton);
 
-    QLabel* isThisLabel = new QLabel(i18n("Is this %1 (%2)?",
+    QLabel* isThisLabel = new QLabel(i18nc("Identifying a person; e.g. 'Is this <Person A> (<Category People>)'",
+                                           "Is this %1 (%2)?",
                                           m_area->proposedTagData().second,
                                           m_area->proposedTagData().first));
     layout->addWidget(isThisLabel);

@@ -301,12 +301,7 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction( QString::fromLatin1("viewer-next"), this, SLOT(showNext()) );
     action->setText( i18nc("@action:inmenu","Show Next") );
-    action->setShortcut( Qt::Key_PageDown );
-    // bah, they don't use references
-    QKeySequence viewerNextShortcut = action->shortcut();
-    // FIXME KF5-port: QKeySequence does not allow an alternate key binding:
-//    viewerNextShortcut.setAlternate( Qt::Key_Space );
-    action->setShortcut( viewerNextShortcut );
+    action->setShortcuts(QList<QKeySequence>() << Qt::Key_PageDown << Qt::Key_Space);
     popup->addAction( action );
     m_forwardActions.append(action);
 
@@ -330,11 +325,7 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction( QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()) );
     action->setText( i18nc("@action:inmenu","Show Previous") );
-    action->setShortcut( Qt::Key_PageUp );
-    QKeySequence viewerPrevShortcut = action->shortcut();
-    // FIXME KF5-port: QKeySequence does not allow an alternate key binding:
-//    viewerPrevShortcut.setAlternate(Qt::Key_Backspace);
-    action->setShortcut(viewerPrevShortcut);
+    action->setShortcuts(QList<QKeySequence>() << Qt::Key_PageUp << Qt::Key_Backspace);
     popup->addAction( action );
     m_backwardActions.append(action);
 

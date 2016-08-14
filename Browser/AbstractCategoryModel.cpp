@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
-#include <KIcon>
+#include <QIcon>
 #include "enums.h"
 
 Browser::AbstractCategoryModel::AbstractCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )
@@ -70,9 +70,9 @@ QPixmap Browser::AbstractCategoryModel::icon( const QString& name ) const
     }
 
     if ( m_category->viewType() == DB::Category::TreeView || m_category->viewType() == DB::Category::IconView ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( m_category->name(), name ) )
-            return KIcon( QString::fromLatin1( "folder-image" ) ).pixmap(22);
-        else {
+        if (DB::ImageDB::instance()->memberMap().isGroup(m_category->name(), name)) {
+            return QIcon::fromTheme(QString::fromUtf8("folder-image")).pixmap(22);
+        } else {
             return m_category->icon();
         }
     }

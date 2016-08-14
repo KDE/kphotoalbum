@@ -75,6 +75,8 @@
 
 #include <algorithm>
 #include <tuple>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
 
 
 using Utilities::StringSet;
@@ -85,7 +87,7 @@ using Utilities::StringSet;
  */
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
-    : KDialog( parent )
+    : QDialog( parent )
     , m_ratingChanged( false )
     , m_conflictText( i18n("(You have differing descriptions on individual images, setting text here will override them all)" ) )
 {
@@ -93,8 +95,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     ShortCutManager shortCutManager;
 
     // The widget stack
-    m_stack = new QStackedWidget( mainWidget() );
-    QVBoxLayout* layout = new QVBoxLayout( mainWidget() );
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout* layout = new QVBoxLayout(mainWidget);
+    setLayout(layout);
+    layout->addWidget(mainWidget);
+    m_stack = new QStackedWidget(mainWidget);
     layout->addWidget( m_stack );
 
     // The Viewer
@@ -200,7 +205,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     // -------------------------------------------------- The buttons.
     // don't use default buttons (Ok, Cancel):
-    setButtons( None );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::NoButton);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     QHBoxLayout* lay1 = new QHBoxLayout;
     layout->addLayout( lay1 );
 
@@ -270,6 +277,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     setupActions();
     shortCutManager.setupShortCuts();
+
+    // WARNING layout->addWidget(buttonBox) must be last item in layout
+    layout->addWidget(buttonBox);
 }
 
 QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const QString& name,
@@ -914,7 +924,7 @@ int AnnotationDialog::Dialog::exec()
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
 
-    const int ret = KDialog::exec();
+    const int ret = QDialog::exec();
     hideTornOfWindows();
     return ret;
 }

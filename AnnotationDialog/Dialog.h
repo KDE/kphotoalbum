@@ -29,7 +29,7 @@
 #include "enums.h"
 #include "ImagePreviewWidget.h"
 #include <QCheckBox>
-#include <kdialog.h>
+#include <QDialog>
 #include "config-kpa-kgeomap.h"
 
 class DockWidget;
@@ -71,7 +71,7 @@ class KDateEdit;
 class ShortCutManager;
 class ResizableFrame;
 
-class Dialog :public KDialog {
+class Dialog :public QDialog {
     Q_OBJECT
 public:
     explicit Dialog( QWidget* parent );

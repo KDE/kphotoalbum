@@ -133,7 +133,7 @@ QVariant Browser::OverviewPage::exivInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Exif Info");
     else if ( role == Qt::DecorationRole ) {
-        return KIcon( QString::fromLatin1( "text-plain" ) ).pixmap(THUMBNAILSIZE);
+        return KIcon(QString::fromLatin1("document-properties")).pixmap(THUMBNAILSIZE);
     }
 
     return QVariant();
@@ -153,7 +153,7 @@ QVariant Browser::OverviewPage::untaggedImagesInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Untagged Images");
     else if ( role == Qt::DecorationRole )
-        return KIcon( QString::fromLatin1( "button_ok" ) ).pixmap(THUMBNAILSIZE);
+        return KIcon(QString::fromUtf8("archive-insert")).pixmap(THUMBNAILSIZE);
     return QVariant();
 
 }
@@ -163,7 +163,7 @@ QVariant Browser::OverviewPage::imageInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Show Thumbnails");
     else if ( role == Qt::DecorationRole )
-        return KIcon( QString::fromLatin1( "kphotoalbum" ) ).pixmap(THUMBNAILSIZE);
+        return KIcon(QString::fromUtf8("view-preview")).pixmap(THUMBNAILSIZE);
     return QVariant();
 }
 

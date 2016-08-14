@@ -117,7 +117,7 @@ void XMLDB::FileReader::createSpecialCategories()
 
     if (! tokenCat) {
         // Create a new "Tokens" category
-        tokenCat = new XMLCategory(i18n("Tokens"), QString::fromUtf8("flag-blue"),
+        tokenCat = new XMLCategory(i18n("Tokens"), QString::fromUtf8("tag"),
                                    DB::Category::TreeView, 32, true);
         tokenCat->setType(DB::Category::TokensCategory);
         m_db->m_categoryCollection.addCategory(tokenCat);
@@ -131,7 +131,7 @@ void XMLDB::FileReader::createSpecialCategories()
 
     // Setup the "Media Type" category
     DB::CategoryPtr mediaCat;
-    mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("video-x-generic"),
+    mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("view-categories"),
                                DB::Category::TreeView, 32, false);
     mediaCat->addItem( i18n( "Image" ) );
     mediaCat->addItem( i18n( "Video" ) );

@@ -39,7 +39,8 @@ class ImagePreview :public QLabel, public ImageManager::ImageClientInterface {
     Q_OBJECT
 public:
     explicit ImagePreview( QWidget* parent );
-    virtual QSize sizeHint() const;
+    virtual int heightForWidth( int width ) const override;
+    virtual QSize sizeHint() const override;
     void rotate(int angle);
     void setImage( const DB::ImageInfo& info );
     void setImage( const QString& fileName );

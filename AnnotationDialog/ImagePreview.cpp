@@ -42,6 +42,8 @@ ImagePreview::ImagePreview( QWidget* parent )
 {
     setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
+    // "the widget can make use of extra space, so it should get as much space as possible"
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 }
 
 void ImagePreview::resizeEvent( QResizeEvent* )
@@ -51,9 +53,23 @@ void ImagePreview::resizeEvent( QResizeEvent* )
     reload();
 }
 
+int ImagePreview::heightForWidth(int width) const
+{
+    int height = this->height();
+    if (pixmap())
+    {
+        int pxHeight = pixmap()->height();
+        int pxWidth = pixmap()->width();
+        height = ((qreal)pxHeight*width) / pxWidth;
+        //height = qMax(height, minimumHeight());
+    }
+    return height;
+}
+
 QSize ImagePreview::sizeHint() const
 {
-    return QSize( 128,128 );
+    QSize hint { width(), heightForWidth(width()) };
+    return hint;
 }
 
 void ImagePreview::rotate(int angle)
@@ -97,20 +113,20 @@ void ImagePreview::reload()
 {
     if ( !m_info.isNull() ) {
         if (m_preloader.has(m_info.fileName(), m_info.angle()))
+        {
             setCurrentImage(m_preloader.getImage());
-        else if (m_lastImage.has(m_info.fileName(), m_info.angle()))
+        } else if (m_lastImage.has(m_info.fileName(), m_info.angle())) {
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
-        else {
+        } else {
             setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), QSize( width(), height() ), m_info.angle(), this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), size(), m_info.angle(), this );
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );
         }
-    }
-    else {
+    } else {
         QImage img( m_fileName );
         img = rotateAndScale( img, width(), height(), m_angle );
         setPixmap( QPixmap::fromImage(img) );
@@ -446,6 +462,7 @@ void ImagePreview::setAreaCreationEnabled(bool state)
     m_areaCreationEnabled = state;
 }
 
+// Currently only called when face detection/recognition is used
 void ImagePreview::fetchFullSizeImage()
 {
     if (m_fullSizeImage.isNull()) {

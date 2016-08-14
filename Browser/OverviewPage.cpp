@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,7 +30,7 @@
 #include <MainWindow/Window.h>
 #include <klocale.h>
 #include <DB/ImageDB.h>
-#include <kicon.h>
+#include <QIcon>
 #include <config-kpa-exiv2.h>
 #include "DB/CategoryCollection.h"
 
@@ -133,7 +133,7 @@ QVariant Browser::OverviewPage::exivInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Exif Info");
     else if ( role == Qt::DecorationRole ) {
-        return KIcon(QString::fromLatin1("document-properties")).pixmap(THUMBNAILSIZE);
+        return QIcon::fromTheme(QString::fromLatin1("document-properties")).pixmap(THUMBNAILSIZE);
     }
 
     return QVariant();
@@ -144,7 +144,7 @@ QVariant Browser::OverviewPage::searchInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18nc("@action Search button in the browser view.","Search");
     else if ( role == Qt::DecorationRole )
-        return KIcon( QString::fromLatin1( "system-search" ) ).pixmap(THUMBNAILSIZE);
+        return QIcon::fromTheme( QString::fromLatin1( "system-search" ) ).pixmap(THUMBNAILSIZE);
     return QVariant();
 }
 
@@ -153,7 +153,7 @@ QVariant Browser::OverviewPage::untaggedImagesInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Untagged Images");
     else if ( role == Qt::DecorationRole )
-        return KIcon(QString::fromUtf8("archive-insert")).pixmap(THUMBNAILSIZE);
+        return QIcon::fromTheme(QString::fromUtf8("archive-insert")).pixmap(THUMBNAILSIZE);
     return QVariant();
 
 }
@@ -163,7 +163,7 @@ QVariant Browser::OverviewPage::imageInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Show Thumbnails");
     else if ( role == Qt::DecorationRole )
-        return KIcon(QString::fromUtf8("view-preview")).pixmap(THUMBNAILSIZE);
+        return QIcon::fromTheme(QString::fromUtf8("view-preview")).pixmap(THUMBNAILSIZE);
     return QVariant();
 }
 

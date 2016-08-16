@@ -77,23 +77,23 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
 
     Data data[] = {
-        { i18n("General"), "kphotoalbum", m_generalPage },
+        { i18n("General"), "configure-shortcuts", m_generalPage },
         { i18n("File Searching & Versions"), "system-search", m_fileVersionDetectionPage },
-        { i18n("Thumbnail View" ), "view-list-icons", m_thumbnailsPage },
-        { i18n("Categories"), "user-identity", m_categoryPage },
-        { i18n("Birthdays"), "office-calendar", m_birthdayPage },
-        { i18n("Tag Groups" ), "edit-copy", m_tagGroupsPage },
+        { i18n("Thumbnail View" ), "view-preview", m_thumbnailsPage },
+        { i18n("Categories"), "edit-group", m_categoryPage },
+        { i18n("Birthdays"), "view-calendar-birthday", m_birthdayPage },
+        { i18n("Tag Groups" ), "view-group", m_tagGroupsPage },
         { i18n("Viewer" ), "document-preview", m_viewerPage },
 #ifdef HASKIPI
-        { i18n("Plugins" ), "preferences-plugin", m_pluginsPage },
+        { i18n("Plugins" ), "plugins", m_pluginsPage },
 #endif
 
 #ifdef HAVE_EXIV2
         { i18n("EXIF/IPTC Information" ), "document-properties", m_exifPage },
 #endif
-        { i18n("Database backend"), "system-file-manager", m_databaseBackendPage },
+        { i18n("Database backend"), "document-save", m_databaseBackendPage },
 #ifdef HAVE_KFACE
-        { i18n("Face management" ), "edit-find-user", m_faceManagementPage },
+        { i18n("Face management" ), "edit-image-face-detect", m_faceManagementPage },
 #endif
         { QString(), "", 0 }
     };

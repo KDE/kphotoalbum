@@ -167,8 +167,8 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     m_dbNotSavedLabel = new QLabel( i18n("<font color='red'>"
                                          "The database has unsaved changes. As long as those are "
-                                         "not saved, the names of categories can't be changed and "
-                                         "new ones can't be added."
+                                         "not saved,<br/>the names of categories can't be changed "
+                                         "and new ones can't be added."
                                          "</font>"));
     m_dbNotSavedLabel->setWordWrap(true);
     dbNotSavedLayout->addWidget(m_dbNotSavedLabel);

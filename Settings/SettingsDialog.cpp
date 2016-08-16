@@ -107,33 +107,29 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         ++i;
     }
 
+    setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply);
+    connect(this, &QDialog::accepted,
+            this, &SettingsDialog::slotMyOK);
+    connect(button(QDialogButtonBox::Apply), &QPushButton::clicked,
+            this, &SettingsDialog::slotMyOK);
+    connect(this, &QDialog::rejected, m_birthdayPage, &Settings::BirthdayPage::discardChanges);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Apply);
-    QWidget *mainWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &SettingsDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &SettingsDialog::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
     setWindowTitle( i18n( "Settings" ) );
 
-    connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending, m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
-    connect(this, &SettingsDialog::currentPageChanged, m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
+    connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending,
+            m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
+    connect(this, &SettingsDialog::currentPageChanged,
+            m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
 #ifdef HAVE_KFACE
-    connect(this, &SettingsDialog::currentPageChanged, m_faceManagementPage, &Settings::FaceManagementPage::slotPageChange);
+    connect(this, &SettingsDialog::currentPageChanged,
+            m_faceManagementPage, &Settings::FaceManagementPage::slotPageChange);
 #endif
-    connect(this, &SettingsDialog::currentPageChanged, m_birthdayPage, &Settings::BirthdayPage::pageChange);
-    connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, m_birthdayPage, &Settings::BirthdayPage::discardChanges);
-    // slot is protected -> use old style connect:
-    connect(this, SIGNAL(cancelClicked()), m_categoryPage, SLOT(resetCategoryLabel()));
+    connect(this, &SettingsDialog::currentPageChanged,
+            m_birthdayPage, &Settings::BirthdayPage::pageChange);
 
-    connect(buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::slotMyOK);
-    connect(okButton, &QPushButton::clicked, this, &SettingsDialog::slotMyOK);
+    // slot is protected -> use old style connect:
+    connect(this, SIGNAL(cancelClicked()),
+            m_categoryPage, SLOT(resetCategoryLabel()));
 }
 
 void Settings::SettingsDialog::show()

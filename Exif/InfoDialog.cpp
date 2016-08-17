@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,20 +15,23 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "Exif/InfoDialog.h"
+
 #include <QComboBox>
-#include <KLocalizedString>
-#include "Exif/Info.h"
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qlineedit.h>
+#include <QLayout>
+#include <QLabel>
+#include <QLineEdit>
 #include <QTextCodec>
+#include <QDialogButtonBox>
+
+#include <KLocalizedString>
+
+#include "DB/ImageDB.h"
+#include "Exif/InfoDialog.h"
+#include "Exif/Info.h"
 #include "ImageManager/AsyncLoader.h"
 #include "ImageManager/ImageRequest.h"
-#include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
 #include "Grid.h"
-#include <QDialogButtonBox>
 
 using Utilities::StringSet;
 

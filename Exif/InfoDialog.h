@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,22 +15,31 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
+
 #include <QDialog>
-#include "Utilities/Set.h"
+
+#include "DB/FileName.h"
 #include "ImageManager/ImageClientInterface.h"
-#include <DB/FileName.h>
+#include "Utilities/Set.h"
+
 class QComboBox;
 class QLineEdit;
 class QLabel;
 class QKeyEvent;
 class QResizeEvent;
 
-namespace DB { class Id; }
+namespace DB {
+
+class Id;
+
+}
 
 namespace Exif
 {
+
 class Grid;
 
 class InfoDialog : public QDialog, public ImageManager::ImageClientInterface {
@@ -52,6 +61,7 @@ private:
     QComboBox* m_iptcCharset;
     Grid* m_grid;
     QLabel* m_fileNameLabel;
+
 };
 
 }

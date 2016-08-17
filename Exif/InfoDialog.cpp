@@ -16,9 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Exif/InfoDialog.h"
-#include <KComboBox>
-#include <klineedit.h>
-#include <klocale.h>
+#include <QComboBox>
+#include <KLocalizedString>
 #include "Exif/Info.h"
 #include <qlayout.h>
 #include <qlabel.h>
@@ -29,19 +28,22 @@
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
 #include "Grid.h"
+#include <QDialogButtonBox>
 
 using Utilities::StringSet;
 
-Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
-    :KDialog( parent )
+Exif::InfoDialog::InfoDialog(const DB::FileName& fileName, QWidget* parent) : QDialog(parent)
 {
     setWindowTitle( i18n("EXIF Information") );
-    setButtons( Close );
-    setAttribute( Qt::WA_DeleteOnClose );
 
-    QWidget* top = new QWidget;
-    setMainWidget( top );
+    setAttribute(Qt::WA_DeleteOnClose);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    QWidget* top = new QWidget(this);
     QVBoxLayout* vlay = new QVBoxLayout( top );
+    setLayout(vlay);
+    vlay->addWidget(top);
 
     // -------------------------------------------------- File name and pixmap
     QHBoxLayout* hlay = new QHBoxLayout;
@@ -67,12 +69,12 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
 
     QLabel* searchLabel = new QLabel( i18n( "EXIF Label Search: "), top );
     hlay->addWidget( searchLabel );
-    m_searchBox = new KLineEdit( top );
+    m_searchBox = new QLineEdit( top );
     hlay->addWidget( m_searchBox );
     hlay->addStretch( 1 );
 
     QLabel* iptcLabel = new QLabel( i18n("IPTC character set:"), top );
-    m_iptcCharset = new KComboBox( top );
+    m_iptcCharset = new QComboBox( top );
     QStringList charsets;
     QList<QByteArray> charsetsBA = QTextCodec::availableCodecs();
     for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it )
@@ -85,6 +87,8 @@ Exif::InfoDialog::InfoDialog( const DB::FileName& fileName, QWidget* parent )
     connect( m_searchBox, SIGNAL(textChanged(QString)), m_grid, SLOT(updateSearchString(QString)) );
     connect( m_iptcCharset, SIGNAL(activated(QString)), m_grid, SLOT(setupUI(QString)) );
     setImage(fileName);
+
+    vlay->addWidget(buttonBox);
 }
 
 QSize Exif::InfoDialog::sizeHint() const

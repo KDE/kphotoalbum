@@ -17,12 +17,12 @@
 */
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
-#include <KDialog>
+#include <QDialog>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClientInterface.h"
 #include <DB/FileName.h>
-class KComboBox;
-class KLineEdit;
+class QComboBox;
+class QLineEdit;
 class QLabel;
 class QKeyEvent;
 class QResizeEvent;
@@ -33,7 +33,7 @@ namespace Exif
 {
 class Grid;
 
-class InfoDialog : public KDialog, public ImageManager::ImageClientInterface {
+class InfoDialog : public QDialog, public ImageManager::ImageClientInterface {
     Q_OBJECT
 
 public:
@@ -47,9 +47,9 @@ public:
     void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
 
 private:
-    KLineEdit* m_searchBox;
+    QLineEdit* m_searchBox;
     QLabel* m_pix;
-    KComboBox* m_iptcCharset;
+    QComboBox* m_iptcCharset;
     Grid* m_grid;
     QLabel* m_fileNameLabel;
 };

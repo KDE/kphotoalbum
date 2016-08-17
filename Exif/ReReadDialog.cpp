@@ -23,6 +23,7 @@
 #include <QLabel>
 #include <QListWidget>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -34,15 +35,14 @@
 #include <Settings/SettingsData.h>
 
 
-Exif::ReReadDialog::ReReadDialog( QWidget* parent )
-    :KDialog( parent )
+Exif::ReReadDialog::ReReadDialog(QWidget* parent) : QDialog(parent)
 {
     setWindowTitle( i18n("Read EXIF info from files") );
 
     QWidget* top = new QWidget;
-    setMainWidget( top );
-
     QVBoxLayout* lay1 = new QVBoxLayout( top );
+    setLayout(lay1);
+    lay1->addWidget(top);
 
     m_exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( m_exifDB );
@@ -70,9 +70,14 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     m_fileList->setSelectionMode( QAbstractItemView::NoSelection );
     boxLayout->addWidget( m_fileList );
 
-    connect( this, SIGNAL(okClicked()), this, SLOT(readInfo()) );
+
     connect( m_date, SIGNAL(toggled(bool)), m_force_date, SLOT(setEnabled(bool)) );
     connect( m_date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)) );
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &ReReadDialog::readInfo);
+    lay1->addWidget(buttonBox);
 }
 
 int Exif::ReReadDialog::exec( const DB::FileNameList& list )
@@ -90,7 +95,7 @@ int Exif::ReReadDialog::exec( const DB::FileNameList& list )
     m_fileList->clear();
     m_fileList->addItems( list.toStringList(DB::RelativeToImageRoot) );
 
-    return KDialog::exec();
+    return QDialog::exec();
 }
 
 void Exif::ReReadDialog::readInfo()

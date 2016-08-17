@@ -481,6 +481,7 @@ install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop 
 install(FILES kphotoalbumrc DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES tips DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
 install(FILES kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
+install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
 configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)

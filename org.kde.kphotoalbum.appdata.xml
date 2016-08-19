@@ -1,25 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
- <id>org.kde.kphotoalbum.desktop</id>
- <metadata_license>CC0-1.0</metadata_license>
- <project_license>GPL-2.0</project_license>
-
- <name>KPhotoAlbum </name>
- <summary>KDE image management software</summary>
- <description>
-  <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
- </description>
-
- <screenshots>
-  <screenshot type="default"><image width="853" height="659">https://www.kphotoalbum.org/kphotoalbum_big.jpg</image></screenshot>
- </screenshots>
-
- <url type="homepage">http://kphotoalbum.org</url>
- <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kphotoalbum</url>
- <update_contact>kphotoalbum@mail.kdab.com</update_contact>
-
- <project_group>KDE</project_group>
- <provides>
-  <binary>kphotoalbum</binary>
- </provides>
+  <id>org.kde.kphotoalbum.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <name>KPhotoAlbum </name>
+  <name xml:lang="ca">KPhotoAlbum</name>
+  <name xml:lang="nl">KPhotoAlbum</name>
+  <name xml:lang="pt">KPhotoAlbum</name>
+  <name xml:lang="sv">Kfotoalbum</name>
+  <name xml:lang="uk">KPhotoAlbum</name>
+  <name xml:lang="x-test">xxKPhotoAlbumxx</name>
+  <summary>KDE image management software</summary>
+  <summary xml:lang="ca">Programari per a gestionar les imatges al KDE</summary>
+  <summary xml:lang="nl">Software voor beheer van afbeeldingen</summary>
+  <summary xml:lang="pt">Aplicação de gestão de imagens do KDE</summary>
+  <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
+  <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
+  <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
+  <description>
+    <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
+    <p xml:lang="ca">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
+    <p xml:lang="nl">KPhotoAlbum is een toepassing voor aanbrengen van tags en beheer van een fotoverzameling en deze doorzoekbaar maken.</p>
+    <p xml:lang="pt">O KPhotoAlbum é uma aplicação para marcar e gerir uma colecção de fotografias, tornando-a fácil de pesquisar.</p>
+    <p xml:lang="sv">Kfotoalbum är ett program för att etikettera och hantera en fotosamling och göra den sökbar.</p>
+    <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
+    <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image width="853" height="659">https://www.kphotoalbum.org/kphotoalbum_big.jpg</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">http://kphotoalbum.org</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kphotoalbum</url>
+  <update_contact>kphotoalbum@mail.kdab.com</update_contact>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kphotoalbum</binary>
+  </provides>
 </component>

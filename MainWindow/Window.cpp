@@ -59,6 +59,7 @@
 #include <KStandardAction>
 #include <ktip.h>
 #include <KToggleAction>
+#include <KConfigGroup>
 
 #ifdef HASKIPI
 #  include <KIPI/PluginLoader>

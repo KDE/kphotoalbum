@@ -19,30 +19,43 @@
 
 #include "JobViewer.h"
 
+#include <QLayout>
+#include <QTreeView>
+#include <QDialogButtonBox>
+#include <QPushButton>
+
 #include <KLocalizedString>
 
-#include "ui_JobViewer.h"
 #include "JobModel.h"
 #include "JobManager.h"
 
 namespace BackgroundTaskManager {
 
-JobViewer::JobViewer(QWidget *parent) :
-    KDialog(parent), ui( new Ui::JobViewer ), m_model( nullptr )
+JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model( nullptr )
 {
-    // disable default buttons (Ok, Cancel):
-    setButtons( None );
-    ui->setupUi( mainWidget() );
     setWindowTitle(i18n("Background Job Viewer"));
-    connect( ui->pause, SIGNAL(clicked()), this, SLOT(togglePause()));
-    connect( ui->pushButton, SIGNAL(clicked()), this, SLOT(accept()));
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+
+    m_treeView = new QTreeView;
+    mainLayout->addWidget(m_treeView);
+
+    QDialogButtonBox* buttonBox = new QDialogButtonBox;
+    m_pauseButton = buttonBox->addButton(i18n("Pause"), QDialogButtonBox::YesRole);
+    buttonBox->addButton(QDialogButtonBox::Close);
+
+    connect(m_pauseButton, SIGNAL(clicked()), this, SLOT(togglePause()));
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::accept);
+
+    mainLayout->addWidget(buttonBox);
 }
 
 void JobViewer::setVisible(bool b)
 {
     if (b) {
         m_model = new JobModel(this);
-        ui->view->setModel(m_model);
+        m_treeView->setModel(m_model);
         updatePauseButton();
     }
     else {
@@ -50,12 +63,11 @@ void JobViewer::setVisible(bool b)
         m_model = nullptr;
     }
 
-
-    ui->view->setColumnWidth(0, 50);
-    ui->view->setColumnWidth(1, 300);
-    ui->view->setColumnWidth(2, 300);
-    ui->view->setColumnWidth(3, 50);
-    KDialog::setVisible(b);
+    m_treeView->setColumnWidth(0, 50);
+    m_treeView->setColumnWidth(1, 300);
+    m_treeView->setColumnWidth(2, 300);
+    m_treeView->setColumnWidth(3, 50);
+    QDialog::setVisible(b);
 }
 
 void JobViewer::togglePause()
@@ -66,7 +78,7 @@ void JobViewer::togglePause()
 
 void JobViewer::updatePauseButton()
 {
-    ui->pause->setText(JobManager::instance()->isPaused() ? i18n("Continue") : i18n("Pause"));
+    m_pauseButton->setText(JobManager::instance()->isPaused() ? i18n("Continue") : i18n("Pause"));
 }
 
 } // namespace BackgroundTaskManager

@@ -20,16 +20,19 @@
 #ifndef BACKGROUNDTASKS_JOBVIEWER_H
 #define BACKGROUNDTASKS_JOBVIEWER_H
 
-#include <KDialog>
+#include <QDialog>
 
-namespace Ui { class JobViewer; }
+class QTreeView;
+class QPushButton;
 
 namespace BackgroundTaskManager {
+
 class JobModel;
 
-class JobViewer : public KDialog
+class JobViewer : public QDialog
 {
     Q_OBJECT
+
 public:
     explicit JobViewer(QWidget *parent = nullptr);
     void setVisible(bool) override;
@@ -39,9 +42,9 @@ private slots:
 
 private:
     void updatePauseButton();
-
-    Ui::JobViewer* ui;
     JobModel* m_model;
+    QTreeView* m_treeView;
+    QPushButton* m_pauseButton;
 };
 
 } // namespace BackgroundTaskManager

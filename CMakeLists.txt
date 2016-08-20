@@ -357,10 +357,6 @@ set(libBackgroundTaskManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/PriorityQueue.cpp
     )
 
-qt5_wrap_ui(libBackgroundTaskManager_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobViewer.ui
-    )
-
 set(libBackgroundJobs_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoLengthJob.cpp

@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -22,8 +22,9 @@
 
 #include <QWidget>
 #include <QDialog>
-#include "DB/MD5.h"
 #include <QMap>
+
+#include <DB/MD5.h>
 #include <DB/FileNameList.h>
 
 class QVBoxLayout;
@@ -51,7 +52,7 @@ private slots:
 
 private:
     void findDuplicates();
-    void addRow(const DB::MD5& );
+    void addRow(const DB::MD5&);
     void selectAll(bool b);
     void tellThatNoDuplicatesWereFound();
 
@@ -70,7 +71,8 @@ private:
     QPushButton* m_cancelButton;
 };
 
-
 } // namespace MainWindow
+
 #endif // MAINWINDOW_DUPLICATEMERGER_H
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -17,24 +17,26 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QScrollArea>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QRadioButton>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QDebug>
+
+#include <KLocalizedString>
+
 #include "DuplicateMerger.h"
+#include "DuplicateMatch.h"
+#include "MergeToolTip.h"
+#include "Utilities/ShowBusyCursor.h"
+#include "Utilities/DeleteFiles.h"
 #include "DB/ImageDB.h"
 #include "DB/FileName.h"
 #include "DB/FileNameList.h"
 #include "DB/ImageInfo.h"
 #include "DB/MD5.h"
-#include <QScrollArea>
-#include <QVBoxLayout>
-#include "DuplicateMatch.h"
-#include <KLocalizedString>
-#include <QLabel>
-#include "Utilities/ShowBusyCursor.h"
-#include "MergeToolTip.h"
-#include <QRadioButton>
-#include "Utilities/DeleteFiles.h"
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QDebug>
 
 namespace MainWindow {
 
@@ -114,13 +116,17 @@ void DuplicateMerger::selectNone()
 void DuplicateMerger::go()
 {
     Utilities::DeleteMethod method = Utilities::BlockFromDatabase;
-    if (m_trash->isChecked())
+
+    if (m_trash->isChecked()) {
         method = Utilities::MoveToTrash;
-    else if (m_deleteFromDisk->isChecked())
+    } else if (m_deleteFromDisk->isChecked()) {
         method = Utilities::DeleteFromDisk;
+    }
+
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
         selector->execute(method);
     }
+
     accept();
 }
 
@@ -128,19 +134,21 @@ void DuplicateMerger::updateSelectionCount()
 {
     int total = 0;
     int selected = 0;
+
     Q_FOREACH( DuplicateMatch* selector, m_selectors) {
         ++total;
         if (selector->selected())
             ++selected;
     }
-    m_selectionCount->setText(i18n("%1 of %2 selected", selected, total));
 
+    m_selectionCount->setText(i18n("%1 of %2 selected", selected, total));
     m_okButton->setEnabled(selected > 0);
 }
 
 void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
+
     Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images() ) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
@@ -148,15 +156,19 @@ void DuplicateMerger::findDuplicates()
     }
 
     bool anyFound = false;
-    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin(); it != m_matches.constEnd(); ++it) {
-        if ( it.value().count() > 1 ) {
+    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin();
+         it != m_matches.constEnd(); ++it)
+    {
+        if (it.value().count() > 1) {
             addRow(it.key());
             anyFound = true;
         }
     }
 
-    if ( !anyFound )
+    if (! anyFound) {
         tellThatNoDuplicatesWereFound();
+    }
+
     updateSelectionCount();
 }
 
@@ -191,4 +203,5 @@ void DuplicateMerger::tellThatNoDuplicatesWereFound()
 } // namespace MainWindow
 
 #include "DuplicateMerger.moc"
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -17,8 +17,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "JobViewer.h"
-
 #include <QLayout>
 #include <QTreeView>
 #include <QDialogButtonBox>
@@ -26,12 +24,11 @@
 
 #include <KLocalizedString>
 
+#include "JobViewer.h"
 #include "JobModel.h"
 #include "JobManager.h"
 
-namespace BackgroundTaskManager {
-
-JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model( nullptr )
+BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model(nullptr)
 {
     setWindowTitle(i18n("Background Job Viewer"));
 
@@ -51,14 +48,13 @@ JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model( nullptr )
     mainLayout->addWidget(buttonBox);
 }
 
-void JobViewer::setVisible(bool b)
+void BackgroundTaskManager::JobViewer::setVisible(bool b)
 {
     if (b) {
         m_model = new JobModel(this);
         m_treeView->setModel(m_model);
         updatePauseButton();
-    }
-    else {
+    } else {
         delete m_model;
         m_model = nullptr;
     }
@@ -70,16 +66,15 @@ void JobViewer::setVisible(bool b)
     QDialog::setVisible(b);
 }
 
-void JobViewer::togglePause()
+void BackgroundTaskManager::JobViewer::togglePause()
 {
     JobManager::instance()->togglePaused();
     updatePauseButton();
 }
 
-void JobViewer::updatePauseButton()
+void BackgroundTaskManager::JobViewer::updatePauseButton()
 {
     m_pauseButton->setText(JobManager::instance()->isPaused() ? i18n("Continue") : i18n("Pause"));
 }
 
-} // namespace BackgroundTaskManager
 // vi:expandtab:tabstop=4 shiftwidth=4:

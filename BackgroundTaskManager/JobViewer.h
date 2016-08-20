@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2016 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -50,4 +50,5 @@ private:
 } // namespace BackgroundTaskManager
 
 #endif // BACKGROUNDTASKS_JOBVIEWER_H
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

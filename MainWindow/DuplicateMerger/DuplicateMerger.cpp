@@ -135,6 +135,7 @@ void DuplicateMerger::updateSelectionCount()
     }
     m_selectionCount->setText(i18n("%1 of %2 selected", selected, total));
 
+    m_okButton->setEnabled(selected > 0);
 }
 
 void DuplicateMerger::findDuplicates()
@@ -184,7 +185,7 @@ void DuplicateMerger::tellThatNoDuplicatesWereFound()
 
     m_selectAllButton->setEnabled(false);
     m_selectNoneButton->setEnabled(false);
-    m_cancelButton->setEnabled(false);
+    m_okButton->setEnabled(false);
 }
 
 } // namespace MainWindow

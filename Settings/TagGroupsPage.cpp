@@ -55,7 +55,7 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     connect(m_categoryTreeWidget, &CategoriesGroupsWidget::itemActivated, this, &TagGroupsPage::slotGroupSelected);
 
     // The member list
-    m_selectGroupToAddTags = i18nc("@label/rich","<emphasis>Select a group on the left side to add tags to it</emphasis>");
+    m_selectGroupToAddTags = i18nc("@label/rich","<strong>Select a group on the left side to add tags to it</strong>");
     m_tagsInGroupLabel = new QLabel(m_selectGroupToAddTags);
     layout->addWidget(m_tagsInGroupLabel, 0, 1);
     m_membersListWidget = new QListWidget;
@@ -66,8 +66,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     connect(m_membersListWidget, &QListWidget::customContextMenuRequested, this, &TagGroupsPage::showMembersContextMenu);
 
     // The "pending rename actions" label
-    m_pendingChangesLabel = new QLabel(i18nc("@label/rich","<emphasis>There are pending changes on the categories page.<nl> "
-                "Please save the changes before working on tag groups.</emphasis>"));
+    m_pendingChangesLabel = new QLabel(i18nc("@label/rich","<strong>There are pending changes on the categories page.<nl> "
+                "Please save the changes before working on tag groups.</strong>"));
     m_pendingChangesLabel->hide();
     layout->addWidget(m_pendingChangesLabel, 2, 0, 1, 2);
 

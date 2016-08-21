@@ -29,8 +29,8 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <QDir>
+#include <QFileDialog>
 
-#include <KFileDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KHelpClient>

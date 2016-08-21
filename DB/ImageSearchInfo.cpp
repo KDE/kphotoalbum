@@ -21,8 +21,8 @@
 
 #include <QDebug>
 #include <QRegExp>
+#include <QApplication>
 
-#include <KApplication>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>

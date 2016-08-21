@@ -21,7 +21,6 @@
 #include <Utilities/Process.h>
 #include <QDir>
 #include <MainWindow/FeatureDialog.h>
-#include <KDebug>
 #include <QDebug>
 
 #define STR(x) QString::fromUtf8(x)
@@ -71,7 +70,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
     list = list.filter(STR("ID_LENGTH="));
     if ( list.count() == 0 ) {
-        kWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
+        qWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
                    << "Output was:\n"
                    << m_process->stdout();
         emit unableToDetermineLength();
@@ -82,7 +81,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
     bool ok = regexp.exactMatch(match);
     if ( !ok ) {
-        kWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
+        qWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }
@@ -91,13 +90,13 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
     const double length = cap.toDouble(&ok);
     if ( !ok ) {
-        kWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName.absolute());
+        qWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }
 
     if ( length == 0 ) {
-        kWarning() << "video length returned was 0 for file " << m_fileName.absolute();
+        qWarning() << "video length returned was 0 for file " << m_fileName.absolute();
         emit unableToDetermineLength();
         return;
     }

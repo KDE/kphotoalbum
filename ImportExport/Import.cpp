@@ -19,8 +19,8 @@
 
 #include <QFileDialog>
 #include <QTemporaryFile>
+#include <QFileDialog>
 
-#include <KFileDialog>
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
 #include <KLocalizedString>

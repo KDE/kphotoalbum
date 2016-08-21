@@ -1826,7 +1826,7 @@ void MainWindow::Window::createSarchBar()
     // Set up the search tool bar
     SearchBar* bar = new SearchBar( this );
     bar->setLineEditEnabled(false);
-    bar->setObjectName( QString::fromAscii("searchBar" ) );
+    bar->setObjectName(QString::fromUtf8("searchBar"));
 
     connect(bar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
     connect(bar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);

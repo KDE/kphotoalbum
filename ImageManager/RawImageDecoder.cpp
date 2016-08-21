@@ -102,10 +102,10 @@ void RAWImageDecoder::_initializeExtensionLists( QStringList& rawExtensions, QSt
     static bool extensionListsInitialized = false;
     if ( ! extensionListsInitialized ) {
 #ifdef HAVE_KDCRAW
-        _rawExtensions = QString::fromAscii( raw_file_extentions ).split( QChar::fromLatin1(' '), QString::SkipEmptyParts );
+        _rawExtensions = QString::fromLatin1( raw_file_extentions ).split( QChar::fromLatin1(' '), QString::SkipEmptyParts );
 #endif /* HAVE_KDCRAW */
         for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
-            (*it).remove( QString::fromAscii("*.") );
+            (*it).remove(QString::fromUtf8("*."));
 
         _standardExtensions << QString::fromLatin1("jpg")
                             << QString::fromLatin1("JPG")

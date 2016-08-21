@@ -28,8 +28,8 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+#include <QFileDialog>
 
-#include <KFileDialog>
 #include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>

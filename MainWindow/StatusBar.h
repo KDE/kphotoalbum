@@ -18,7 +18,7 @@
 #ifndef STATUSBAR_H
 #define STATUSBAR_H
 #include "BreadcrumbViewer.h"
-#include <KStatusBar>
+#include <QStatusBar>
 class QToolButton;
 class QTimer;
 class QProgressBar;
@@ -29,7 +29,7 @@ namespace MainWindow {
 class ImageCounter;
 class DirtyIndicator;
 
-class StatusBar :public KStatusBar
+class StatusBar : public QStatusBar
 {
     Q_OBJECT
 public:

@@ -20,8 +20,8 @@
 #include <QApplication>
 #include <QFile>
 #include <QProgressDialog>
-#include <klocale.h>
-#include <kio/netaccess.h>
+#include <KLocalizedString>
+#include <KIO/StatJob>
 #include <kio/jobuidelegate.h>
 #include <kmessagebox.h>
 #include <QProgressDialog>
@@ -128,7 +128,9 @@ void ImportExport::ImportHandler::copyNextFromExternal()
 
         src = src.adjusted(QUrl::RemoveFilename);
         src.setPath(src.path() +  fileName.relative() );
-        if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
+        std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existance */ ) };
+        if ( statJob->exec() )
+        {
             QUrl dest;
             dest.setPath( m_fileMapper->uniqNameFor(fileName) );
             m_job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );

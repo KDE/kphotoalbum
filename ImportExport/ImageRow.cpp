@@ -21,8 +21,12 @@
 #include <QCheckBox>
 #include "MiniViewer.h"
 #include <QImage>
-#include <kio/netaccess.h>
+#include <KIO/StoredTransferJob>
+#include <KJobWidgets>
+#include <KJobUiDelegate>
 #include "MainWindow/Window.h"
+
+#include <memory>
 
 using namespace ImportExport;
 
@@ -47,11 +51,19 @@ void ImageRow::showImage()
             src.setPath(src.path() +  m_info->fileName().relative() );
             QString tmpFile;
 
-            if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
-                QImage img( tmpFile );
-                MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
-                KIO::NetAccess::removeTempFile( tmpFile );
-                break;
+            std::unique_ptr<KIO::StoredTransferJob> downloadJob { KIO::storedGet(src) };
+            KJobWidgets::setWindow(downloadJob.get(), MainWindow::Window::theMainWindow());
+
+            if( downloadJob->exec() )
+            {
+                QImage img;
+                if (img.loadFromData(downloadJob->data()) )
+                {
+                    MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
+                    break;
+                } else {
+                    qWarning() << "Could not load image data for" << src.toDisplayString();
+                }
             }
         }
     }

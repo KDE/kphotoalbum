@@ -83,7 +83,7 @@ Exif::InfoDialog::InfoDialog(const DB::FileName& fileName, QWidget* parent) : QD
     for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it )
         charsets << QLatin1String(*it);
     m_iptcCharset->insertItems( 0, charsets );
-    m_iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( Settings::SettingsData::instance()->iptcCharset().toAscii() ) ) );
+    m_iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( Settings::SettingsData::instance()->iptcCharset().toLatin1() ) ) );
     hlay->addWidget( iptcLabel );
     hlay->addWidget( m_iptcCharset );
 

@@ -30,7 +30,7 @@
 // KDE includes
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KPageWidgetItem>
+#include <KPageWidget>
 
 // Local includes
 #include "SettingsData.h"

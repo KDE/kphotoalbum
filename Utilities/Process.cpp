@@ -25,8 +25,9 @@
 #undef stderr
 #endif
 
+#include <QTextStream>
+
 #include "Process.h"
-#include <KDebug>
 
 /**
   \class Utilities::Process

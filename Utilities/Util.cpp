@@ -201,7 +201,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
 
         for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
-            if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
+            if ( exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
                 for ( QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt ) {
                     QString exifName = exifIt.key().split( QChar::fromLatin1('.') ).last();
                     AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(exifName),
@@ -588,7 +588,7 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
             cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8);
         if (img->isNull())
             return false;
-        img->setNumColors(256);
+        img->setColorCount(256);
         for (int i=0; i<256; i++)
             img->setColor(i, qRgb(i,i,i));
         break;
@@ -698,9 +698,9 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
 {
     if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
         return fileName;
-    else if ( fileName.startsWith( QString::fromAscii("file://") ) )
+    else if ( fileName.startsWith( QString::fromLatin1("file://") ) )
         return imageFileNameToAbsolute( fileName.mid( 7 ) ); // 7 == length("file://")
-    else if ( fileName.startsWith( QString::fromAscii("/") ) )
+    else if ( fileName.startsWith( QString::fromLatin1("/") ) )
         return QString(); // Not within our image root
     else
         return absoluteImageFileName( fileName );
@@ -776,7 +776,7 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRati
 
 QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )
 {
-    QTextCodec* codec = QTextCodec::codecForName( charset.toAscii() );
+    QTextCodec* codec = QTextCodec::codecForName( charset.toLatin1() );
     if (!codec)
         codec = QTextCodec::codecForLocale();
     return codec->toUnicode( c_str );

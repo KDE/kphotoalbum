@@ -73,6 +73,6 @@ void Settings::ExifPage::loadSettings( Settings::SettingsData* opt )
     m_exifForDialog->reload();
     m_exifForViewer->setSelectedExif( Settings::SettingsData::instance()->exifForViewer() );
     m_exifForDialog->setSelectedExif( Settings::SettingsData::instance()->exifForDialog() );
-    m_iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toAscii() ) ) );
+    m_iptcCharset->setCurrentIndex( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toLatin1() ) ) );
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

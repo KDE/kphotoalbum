@@ -72,7 +72,7 @@ void Server::readIncommingUDP()
     QHostAddress address;
     qint64 len = m_socket->readDatagram(data,1000, &address);
     QString string = QString::fromUtf8(data).left(len);
-    QStringList list = string.split(QChar::fromAscii(' '));
+    QStringList list = string.split(QChar::fromLatin1(' '));
     if (list[0] != QString::fromUtf8("KPhotoAlbum")) {
         return;
     }

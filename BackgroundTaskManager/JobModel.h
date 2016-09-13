@@ -45,8 +45,15 @@ private slots:
     void jobEnded( JobInterface* job);
     void jobStarted( JobInterface* job);
 
+    /**
+     * @brief heartbeat
+     * Makes the running jobs blink.
+     */
+    void heartbeat();
+
 private:
     enum Column { IDCol = 0, TitleCol = 1, DetailsCol = 2, ElapsedCol = 3 };
+    bool blinkStateOn;
 
     JobInfo* info(int row) const;
     QPixmap statusImage( JobInfo::State state ) const;

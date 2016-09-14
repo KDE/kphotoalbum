@@ -184,6 +184,12 @@ void MainWindow::StatusBar::hideThumbnailSlider()
     m_thumbnailsSmaller->hide();
 }
 
+void MainWindow::StatusBar::enterEvent(QEvent *)
+{
+    // make sure that breadcrumbs are not obscured by messages
+    clearMessage();
+}
+
 void MainWindow::StatusBar::hideStatusBar()
 {
     setProgressBarVisible( false );

@@ -50,6 +50,9 @@ public:
 signals:
     void cancelRequest();
 
+protected:
+    void enterEvent(QEvent *event) override;
+
 private slots:
     void hideStatusBar();
     void showStatusBar();

@@ -64,7 +64,8 @@ void MainWindow::StatusBar::setupGUI()
     indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);
     connect( DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()) );
 
-    new RemoteControl::ConnectionIndicator(indicators);
+    auto *remoteIndicator = new RemoteControl::ConnectionIndicator(indicators);
+    indicatorsHBoxLayout->addWidget( remoteIndicator );
 
     auto *jobIndicator = new BackgroundTaskManager::StatusIndicator( indicators );
     indicatorsHBoxLayout->addWidget( jobIndicator );

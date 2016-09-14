@@ -182,10 +182,10 @@ bool MainWindow::FeatureDialog::hasGeoMapSupport()
 
 QString FeatureDialog::mplayerBinary()
 {
-    QString mplayer = QStandardPaths::locate( QStandardPaths::RuntimeLocation, QString::fromLatin1("mplayer2"));
+    QString mplayer = QStandardPaths::findExecutable( QString::fromLatin1("mplayer2"));
 
     if ( mplayer.isNull() )
-        mplayer = QStandardPaths::locate( QStandardPaths::RuntimeLocation, QString::fromLatin1("mplayer"));
+        mplayer = QStandardPaths::findExecutable( QString::fromLatin1("mplayer"));
 
     return mplayer;
 }

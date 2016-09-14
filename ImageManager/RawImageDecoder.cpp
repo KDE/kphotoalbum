@@ -17,6 +17,7 @@
 */
 #include "RawImageDecoder.h"
 
+#include <QDebug>
 #include <qfile.h>
 #include <qimage.h>
 #include "Settings/SettingsData.h"
@@ -26,7 +27,6 @@
 #  include <KDCRAW/RawFiles>
 #  include <libkdcraw_version.h>
 #endif
-#include <kdebug.h>
 #include <DB/FileName.h>
 
 namespace ImageManager
@@ -60,7 +60,7 @@ bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize
         KDcrawIface::RawDecodingSettings rawDecodingSettings;
 
         if ( rawDecodingSettings.sixteenBitsImage ) {
-            kDebug() << "16 bits per color channel is not supported yet";
+            qDebug() << "16 bits per color channel is not supported yet";
             return false;
         } else {
             QByteArray imageData; /* 3 bytes for each pixel,  */

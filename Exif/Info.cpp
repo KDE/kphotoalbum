@@ -23,8 +23,8 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include <qfileinfo.h>
+#include <QDebug>
 #include <QFile>
-#include <kdebug.h>
 #include "Utilities/Util.h"
 
 using namespace Exif;
@@ -171,7 +171,7 @@ StringSet Info::standardKeys()
             if ( fields.size () >= 11 ) {
                 res.insert( fields[8] );
             } else {
-                kDebug() << "Unparsable output from exiv2 library: " << *it;
+                qDebug() << "Unparsable output from exiv2 library: " << *it;
                 continue;
             }
         }

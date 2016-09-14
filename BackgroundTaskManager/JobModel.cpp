@@ -105,7 +105,14 @@ QVariant JobModel::headerData(int section, Qt::Orientation orientation, int role
 
 void JobModel::reset()
 {
-    QAbstractTableModel::reset();
+    // FIXME: this is just a stand-in replacement for a call to the deprecated
+    //        QAbstractTableModel::reset();
+    // fix this by replacing the calls to reset() using:
+    //  beginInsertRows()
+    //  beginRemoveRows()
+    //  beginMoveRows()
+    beginResetModel();
+    endResetModel();
 }
 
 void JobModel::jobEnded(JobInterface *job)

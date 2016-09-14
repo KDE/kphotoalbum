@@ -20,7 +20,7 @@ include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO DocTools WidgetsAddons Config IconThemes KDELibs4Support Archive Parts JobWidgets)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO DocTools WidgetsAddons Config IconThemes Archive Parts JobWidgets)
 
 # enable exceptions:
 kde_enable_exceptions()
@@ -446,8 +446,6 @@ target_link_libraries(kphotoalbum ${JPEG_LIBRARY})
 target_link_libraries(kphotoalbum Qt5::Network)
 target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::IconThemes KF5::Archive KF5::Parts KF5::JobWidgets KF5::WidgetsAddons)
 target_link_libraries(kphotoalbum Phonon::phonon4qt5)
-# for now:
-target_link_libraries(kphotoalbum KF5::KDELibs4Support)
 
 if(KF5Kipi_FOUND)
     target_link_libraries(kphotoalbum KF5::Kipi)
@@ -458,7 +456,7 @@ if(KF5KDcraw_FOUND)
 endif()
 
 if(KF5KExiv2_FOUND)
-    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARIES} Qt5::Sql)
+    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARY} Qt5::Sql)
 endif()
 
 if(KF5KFace_FOUND)

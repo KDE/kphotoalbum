@@ -66,12 +66,8 @@ void MainWindow::StatusBar::setupGUI()
 
     new RemoteControl::ConnectionIndicator(indicators);
 
-    QWidget* statusIndicatorBox = new QWidget(indicators);
-    QVBoxLayout *statusIndicatorBoxVBoxLayout = new QVBoxLayout(statusIndicatorBox);
-    statusIndicatorBoxVBoxLayout->setMargin(0);
-    indicatorsHBoxLayout->addWidget(statusIndicatorBox);
-    new BackgroundTaskManager::StatusIndicator(statusIndicatorBox);
-    statusIndicatorBox->setContentsMargins(0,7,0,0);
+    auto *jobIndicator = new BackgroundTaskManager::StatusIndicator( indicators );
+    indicatorsHBoxLayout->addWidget( jobIndicator );
 
     m_progressBar = new QProgressBar( this );
     m_progressBar->setMinimumWidth( 400 );

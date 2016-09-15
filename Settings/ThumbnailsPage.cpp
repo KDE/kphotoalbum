@@ -18,7 +18,7 @@
 #include "ThumbnailsPage.h"
 #include <KColorButton>
 #include "SettingsData.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QCheckBox>
 #include <KComboBox>
 #include <QSpinBox>

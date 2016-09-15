@@ -23,7 +23,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include "ImportSettings.h"
-#include <klocale.h>
+#include <KLocalizedString>
 using namespace ImportExport;
 
 ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,

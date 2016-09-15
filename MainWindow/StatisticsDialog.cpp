@@ -21,7 +21,7 @@
 #include <QLabel>
 #include <QHeaderView>
 #include "DB/ImageDB.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include "DB/Category.h"

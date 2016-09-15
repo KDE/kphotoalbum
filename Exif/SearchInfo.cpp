@@ -17,7 +17,7 @@
 */
 
 #include "SearchInfo.h"
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "Exif/Database.h"
 #include <DB/FileName.h>

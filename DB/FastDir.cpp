@@ -1,5 +1,7 @@
 #include "FastDir.h"
-#include <kde_file.h>
+
+#include <QFile>
+
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdio.h>
@@ -29,7 +31,8 @@ QStringList DB::FastDir::entryList() const
     } *u = new union dirent_buf;
     while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
 #else
-    while ( (file = KDE_readdir(dir)) )
+    // FIXME: use 64bit versions of readdir and dirent?
+    while ( (file = readdir(dir)) )
 #endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
         answer.append(QFile::decodeName(file->d_name));
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)

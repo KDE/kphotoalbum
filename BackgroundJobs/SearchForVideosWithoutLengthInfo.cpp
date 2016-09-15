@@ -21,7 +21,7 @@
 #include <DB/ImageInfo.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include "ReadVideoLengthJob.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <BackgroundTaskManager/JobInfo.h>
 
 /**

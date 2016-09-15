@@ -21,7 +21,7 @@
 #include <qlabel.h>
 #include <QKeyEvent>
 #include <QEvent>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qapplication.h>
 #include <kactioncollection.h>
 

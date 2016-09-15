@@ -27,7 +27,7 @@
 #include "ThumbnailWidget.moc"
 #include <math.h>
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qcursor.h>
 #include <qfontmetrics.h>
 #include <qpainter.h>

@@ -19,7 +19,7 @@
 #include "Settings/SettingsData.h"
 #include <kzip.h>
 #include <kmessagebox.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qregexp.h>
 #include <qdir.h>
 #include "Utilities/Util.h"

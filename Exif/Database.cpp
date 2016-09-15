@@ -25,7 +25,7 @@
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <kmessagebox.h>
 
 #include <QApplication>

@@ -19,7 +19,7 @@
 #include <DB/ImageDB.h>
 #include <DB/Category.h>
 #include <KComboBox>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QLabel>

@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 #include <QButtonGroup>
 #include <QRadioButton>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QLabel>
 #include "DB/ImageDB.h"
 #include "DB/MD5Map.h"

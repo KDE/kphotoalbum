@@ -17,7 +17,7 @@
 */
 
 #include "ImageCounter.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QLabel>
 
 MainWindow::ImageCounter::ImageCounter( QWidget* parent )

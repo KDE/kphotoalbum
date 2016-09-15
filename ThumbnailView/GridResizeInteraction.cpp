@@ -25,7 +25,7 @@
 #include "Settings/SettingsData.h"
 #include <KSharedConfig>
 #include "MainWindow/Window.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include "ImageManager/enums.h"
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailFactory* factory )
     : ThumbnailComponent( factory )

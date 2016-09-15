@@ -22,7 +22,6 @@
 #include <config-kpa-kipi.h>
 
 #include <KIPI/ImageInfoShared>
-#include <kdemacros.h>
 
 #include <DB/ImageInfoPtr.h>
 
@@ -34,7 +33,7 @@ namespace DB
 namespace Plugins
 {
 
-class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
+class ImageInfo :public KIPI::ImageInfoShared
 {
 public:
     ImageInfo( KIPI::Interface* interface, const QUrl &url );

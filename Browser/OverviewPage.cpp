@@ -28,7 +28,7 @@
 #include "CategoryPage.h"
 #include "BrowserWidget.h"
 #include <MainWindow/Window.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <DB/ImageDB.h>
 #include <QIcon>
 #include <config-kpa-exiv2.h>

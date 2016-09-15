@@ -17,7 +17,7 @@
 */
 
 #include "FlatCategoryModel.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <DB/ImageDB.h>
 
 Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info )

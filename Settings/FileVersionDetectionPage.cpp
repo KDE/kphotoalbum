@@ -17,7 +17,7 @@
 */
 #include "FileVersionDetectionPage.h"
 #include "SettingsData.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QCheckBox>

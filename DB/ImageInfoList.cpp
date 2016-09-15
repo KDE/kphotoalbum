@@ -21,7 +21,7 @@
 #include <qdatetime.h>
 #include "ImageInfo.h"
 #include <kmessagebox.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QDebug>
 #include <DB/FileNameList.h>
 using namespace DB;

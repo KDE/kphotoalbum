@@ -17,7 +17,7 @@
 */
 #include "ImageDB.h"
 #include "XMLDB/Database.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"

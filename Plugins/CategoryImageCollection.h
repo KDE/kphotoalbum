@@ -22,11 +22,10 @@
 #include <config-kpa-kipi.h>
 #include "Plugins/ImageCollection.h"
 #include "DB/ImageSearchInfo.h"
-#include <kdemacros.h>
 namespace Plugins
 {
 
-class KDE_EXPORT CategoryImageCollection :public Plugins::ImageCollection {
+class CategoryImageCollection :public Plugins::ImageCollection {
 
 public:
     CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category, const QString& value );

@@ -17,7 +17,7 @@
 */
 #include "KimFileReader.h"
 #include <QFileInfo>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <kmessagebox.h>
 #include <kzip.h>
 #include "Utilities/Util.h"

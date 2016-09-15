@@ -20,7 +20,7 @@
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qspinbox.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qlabel.h>
 
 Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent )

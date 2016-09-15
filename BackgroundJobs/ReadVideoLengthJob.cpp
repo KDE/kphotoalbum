@@ -20,7 +20,7 @@
 #include "ImageManager/VideoLengthExtractor.h"
 #include <DB/ImageDB.h>
 #include <MainWindow/DirtyIndicator.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <BackgroundTaskManager/JobInfo.h>
 
 BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName,BackgroundTaskManager::Priority priority)

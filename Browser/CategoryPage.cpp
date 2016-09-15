@@ -19,7 +19,7 @@
 #include "CategoryPage.h"
 #include "TreeCategoryModel.h"
 #include "FlatCategoryModel.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include "OverviewPage.h"
 #include "BrowserWidget.h"
 #include "enums.h"

@@ -22,14 +22,13 @@
 #include <config-kpa-kipi.h>
 
 #include <KIPI/ImageCollectionShared>
-#include <kdemacros.h>
 
 #include <DB/ImageInfoList.h>
 
 namespace Plugins
 {
 
-class KDE_EXPORT ImageCollection :public KIPI::ImageCollectionShared
+class ImageCollection :public KIPI::ImageCollectionShared
 {
 public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };

@@ -24,7 +24,7 @@
 #include <qfileinfo.h>
 #include <QStringList>
 #include <QProgressDialog>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>

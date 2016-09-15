@@ -19,7 +19,7 @@
 #include "AbstractCategoryModel.h"
 #include "BrowserWidget.h"
 #include <QApplication>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
 #include <QIcon>

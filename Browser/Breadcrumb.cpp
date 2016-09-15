@@ -17,7 +17,7 @@
 */
 
 #include "Breadcrumb.h"
-#include <klocale.h>
+#include <KLocalizedString>
 
 int Browser::Breadcrumb::s_count = 0;
 

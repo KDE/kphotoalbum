@@ -17,7 +17,7 @@
 */
 
 #include "CategoryImagePopup.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <Utilities/Set.h>
 #include <qstringlist.h>
 #include "Window.h"

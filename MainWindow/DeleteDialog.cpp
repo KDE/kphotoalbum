@@ -19,7 +19,7 @@
 #include "DeleteDialog.h"
 
 #include <QVBoxLayout>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlayout.h>

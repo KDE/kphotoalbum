@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SearchDialog.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qlayout.h>
 #include <QGroupBox>
 #include <qcheckbox.h>

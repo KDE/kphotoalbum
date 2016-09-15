@@ -19,7 +19,6 @@
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include "Utilities/List.h"
-#include <kdebug.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable )
     : m_name( name ), m_icon( icon ), m_show( show ), m_type( type ), m_thumbnailSize( thumbnailSize ), m_positionable ( positionable ), m_categoryType(DB::Category::PlainCategory), m_shouldSave( true )

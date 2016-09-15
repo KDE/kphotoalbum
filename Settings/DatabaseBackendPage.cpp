@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DatabaseBackendPage.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include "SettingsData.h"
 #include <QHBoxLayout>
 #include <QSpinBox>

@@ -30,7 +30,7 @@
 #include "OverviewPage.h"
 #include "enums.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include "Settings/SettingsData.h"
 #include <qtimer.h>
 #include <QHBoxLayout>

@@ -18,7 +18,7 @@
 #include "ExifPage.h"
 #include "SettingsData.h"
 #include <QTextCodec>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KComboBox>
 #include <QLabel>
 #include <QHBoxLayout>

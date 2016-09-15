@@ -17,7 +17,7 @@
 */
 #include "UntaggedGroupBox.h"
 #include "SettingsData.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QComboBox>
 #include <QLabel>
 #include <QGridLayout>

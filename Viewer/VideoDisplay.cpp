@@ -22,12 +22,11 @@
 #include <qglobal.h>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
-#include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
 #include <QResizeEvent>
 #include <MainWindow/FeatureDialog.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
 #include <kxmlguiclient.h>

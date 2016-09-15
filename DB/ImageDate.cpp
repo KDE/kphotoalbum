@@ -17,7 +17,7 @@
 */
 
 #include "ImageDate.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qregexp.h>
 
 using namespace DB;

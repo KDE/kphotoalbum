@@ -22,7 +22,7 @@
 #include <QResizeEvent>
 #include <QMouseEvent>
 #include <KMessageBox>
-#include <klocale.h>
+#include <KLocalizedString>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
 #include "ImageManager/AsyncLoader.h"

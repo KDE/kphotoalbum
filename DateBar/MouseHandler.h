@@ -19,7 +19,6 @@
 #define DATEBARMOUSEHANDLER_H
 #include <QObject>
 #include <qdatetime.h>
-#include <kdemacros.h>
 #include "DB/ImageDate.h"
 
 namespace DB { class ImageDate; }
@@ -28,7 +27,7 @@ class QTimer;
 namespace DateBar {
 class DateBarWidget;
 
-    class KDE_EXPORT MouseHandler : public QObject
+    class MouseHandler : public QObject
     {
         Q_OBJECT
     public:
@@ -51,7 +50,7 @@ class DateBarWidget;
 
 
 
-    class KDE_EXPORT FocusItemDragHandler : public MouseHandler
+    class FocusItemDragHandler : public MouseHandler
     {
     public:
         explicit FocusItemDragHandler( DateBarWidget* dateBar );
@@ -61,7 +60,7 @@ class DateBarWidget;
 
 
 
-    class KDE_EXPORT BarDragHandler : public MouseHandler
+    class BarDragHandler : public MouseHandler
     {
     public:
         explicit BarDragHandler( DateBarWidget* );
@@ -73,7 +72,7 @@ class DateBarWidget;
 
 
 
-    class KDE_EXPORT SelectionHandler : public MouseHandler
+    class SelectionHandler : public MouseHandler
     {
     public:
         explicit SelectionHandler( DateBarWidget* );

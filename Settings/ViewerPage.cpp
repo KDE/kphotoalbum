@@ -17,7 +17,7 @@
 */
 #include "ViewerPage.h"
 #include "SettingsData.h"
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KComboBox>
 #include <QSpinBox>
 #include <QLabel>

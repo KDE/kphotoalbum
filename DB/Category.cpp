@@ -22,7 +22,7 @@
 #include <Settings/SettingsData.h>
 #include <QPixmapCache>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include "CategoryItem.h"

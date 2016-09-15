@@ -22,7 +22,7 @@
 #include <DB/ImageInfo.h>
 #include <QFile>
 #include <BackgroundTaskManager/JobManager.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <BackgroundTaskManager/JobInfo.h>
 #include "ExtractOneThumbnailJob.h"
 #include "ReadVideoLengthJob.h"

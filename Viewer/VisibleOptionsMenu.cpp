@@ -19,7 +19,7 @@
 #include "Settings/SettingsData.h"
 #include <KToggleAction>
 #include <KActionCollection>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QCheckBox>
 #include <QList>
 #include "DB/Category.h"

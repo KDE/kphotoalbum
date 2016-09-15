@@ -19,7 +19,7 @@
 #include "Database.h"
 #include "Settings/SettingsData.h"
 #include <kmessagebox.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
 #include "Browser/BrowserWidget.h"

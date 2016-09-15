@@ -25,7 +25,6 @@
 #include <QVariant>
 #include <QUrl>
 
-#include <kdemacros.h>
 #include <KIPI/ImageCollection>
 #include <KIPI/ImageCollectionSelector>
 #include <KIPI/ImageInfo>
@@ -41,7 +40,7 @@ class BreadcrumbList;
 namespace Plugins
 {
 
-class KDE_EXPORT Interface :public KIPI::Interface
+class Interface :public KIPI::Interface
 {
     Q_OBJECT
 

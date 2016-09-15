@@ -18,7 +18,7 @@
 
 #include "MiniViewer.h"
 #include <qpushbutton.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qimage.h>

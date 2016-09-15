@@ -22,7 +22,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <MainWindow/Window.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <krun.h>
 #include <kshell.h>
 

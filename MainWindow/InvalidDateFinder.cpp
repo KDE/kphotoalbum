@@ -19,7 +19,7 @@
 #include "InvalidDateFinder.h"
 #include <qlayout.h>
 #include <qradiobutton.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
@@ -31,7 +31,6 @@
 #include <QGroupBox>
 #include <KTextEdit>
 #include <QProgressDialog>
-#include <kdebug.h>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

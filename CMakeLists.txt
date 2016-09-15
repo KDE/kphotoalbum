@@ -456,7 +456,7 @@ if(KF5KDcraw_FOUND)
 endif()
 
 if(KF5KExiv2_FOUND)
-    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARY} Qt5::Sql)
+    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARIES} Qt5::Sql)
 endif()
 
 if(KF5KFace_FOUND)

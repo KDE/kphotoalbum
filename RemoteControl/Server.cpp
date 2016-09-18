@@ -36,11 +36,11 @@ bool Server::isConnected() const
     return m_isConnected;
 }
 
-void Server::listen()
+void Server::listen(QHostAddress address)
 {
     if (!m_socket) {
         m_socket = new QUdpSocket(this);
-        bool ok = m_socket->bind(UDPPORT);
+        bool ok = m_socket->bind(address, UDPPORT);
         if (!ok) {
             QMessageBox::critical(0, i18n("Unable to bind to socket"),
                                   i18n("Unable to listen for remote Android connections. "

@@ -20,6 +20,7 @@
 #define OPTIONS_H
 
 #include <QScopedPointer>
+#include <QHostAddress>
 #include <QUrl>
 class QCommandLineParser;
 
@@ -52,6 +53,12 @@ public:
      * @return the QUrl of the import file, or an empty QUrl, if no import file is set.
      */
     QUrl importFile() const;
+    /**
+     * @brief listen
+     * Access the address that was givent to the commandline "--listen" argument.
+     * @return a null address if listening is disabled, otherwise an address to bind to.
+     */
+    QHostAddress listen() const;
 private:
     class OptionsPrivate;
     Options();

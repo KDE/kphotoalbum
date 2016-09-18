@@ -30,9 +30,30 @@ class Options::OptionsPrivate {
 public:
     QCommandLineParser parser;
 
-    QCommandLineOption configFile {QLatin1String("c "), i18n("Config file")};
+    // legacy option: "-c <imageDirectory"
+    QCommandLineOption configFile { QLatin1String("c") };
+    QCommandLineOption dbFile {
+        QLatin1String("db"),
+                i18n("Use <databaseFile> instead of the default."),
+                i18n("databaseFile")
+    };
     QCommandLineOption demoOption {QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images." )};
-    QCommandLineOption importFile {QLatin1String("import "), i18n( "Import file." )};
+    QCommandLineOption importFile {
+        QLatin1String("import"),
+                i18n( "Import file." ),
+                i18n("file.kim")
+    };
+    // QCommandLineParser doesn't support optional values.
+    // therefore, we need two separate options:
+    QCommandLineOption listen {
+        QLatin1String("listen"),
+                i18n("Listen for network connections.")
+    };
+    QCommandLineOption listenAddress {
+        QLatin1String("listen-address"),
+                i18n("Listen for network connections on address <interface_address>."),
+                i18n("interface_address")
+    };
 };
 }
 
@@ -50,9 +71,16 @@ QCommandLineParser *MainWindow::Options::parser() const
 
 QUrl MainWindow::Options::dbFile() const
 {
-    if (d->parser.isSet( d->configFile))
-        return QUrl::fromLocalFile( d->parser.value( d->configFile ));
-    return QUrl();
+    QUrl db;
+    if (d->parser.isSet( d->dbFile))
+    {
+        db = QUrl::fromLocalFile(d->parser.value( d->dbFile));
+    } else if (d->parser.isSet( d->configFile))
+    {
+        // support for legacy option
+        db = QUrl::fromLocalFile( d->parser.value( d->configFile ));
+    }
+    return db;
 }
 
 bool MainWindow::Options::demoMode() const
@@ -67,12 +95,40 @@ QUrl MainWindow::Options::importFile() const
     return QUrl();
 }
 
+QHostAddress MainWindow::Options::listen() const
+{
+    QHostAddress address;
+    QString value = d->parser.value( d->listenAddress);
+    if ( d->parser.isSet(d->listen) || !value.isEmpty())
+    {
+        if (value.isEmpty())
+            address = QHostAddress::Any;
+        else
+            address = QHostAddress(value);
+    }
+    if (address.isMulticast() || address == QHostAddress::Broadcast)
+    {
+        qWarning() << "Won't bind to address"<<address;
+        address = QHostAddress::Null;
+    }
+    return address;
+}
+
 MainWindow::Options::Options()
     : d(new OptionsPrivate)
 {
     d->parser.addVersionOption();
     d->parser.addHelpOption();
-    d->parser.addOptions({ d->configFile, d->demoOption, d->importFile });
+    d->configFile.setHidden(true);
+    d->parser.addOptions(
+                QList<QCommandLineOption>()
+                << d->configFile
+                << d->dbFile
+                << d->demoOption
+                << d->importFile
+                << d->listen
+                << d->listenAddress
+                );
 }
 
 

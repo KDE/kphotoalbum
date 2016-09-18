@@ -39,7 +39,7 @@ public:
     static RemoteInterface& instance();
     void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image);
     bool requestStillNeeded(const DB::FileName& fileName);
-    void listen();
+    void listen(QHostAddress address=QHostAddress::Any);
     void stopListening();
     void connectTo(const QHostAddress& address);
 

@@ -259,7 +259,9 @@ void MainWindow::Window::delayedInit()
     }
 #endif
 
-    if ( Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
+    if (!Options::the()->listen().isNull())
+        RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
+    else if ( Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
 
     announceAndroidVersion();

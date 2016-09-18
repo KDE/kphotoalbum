@@ -18,6 +18,7 @@
 
 #include "ConnectionIndicator.h"
 #include "RemoteInterface.h"
+#include <MainWindow/Options.h>
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
@@ -55,7 +56,11 @@ ConnectionIndicator::ConnectionIndicator(QWidget* parent) :
 void ConnectionIndicator::mouseReleaseEvent(QMouseEvent*)
 {
     if (m_state == Off) {
-        RemoteInterface::instance().listen();
+        QHostAddress bindTo = MainWindow::Options::the()->listen();
+        if (bindTo.isNull())
+            bindTo = QHostAddress::Any;
+        RemoteInterface::instance().listen(bindTo);
+
         wait();
     }
     else {

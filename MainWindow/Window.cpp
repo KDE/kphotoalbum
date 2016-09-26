@@ -130,8 +130,6 @@ MainWindow::Window::Window( QWidget* parent )
       m_annotationDialog(nullptr),
       m_deleteDialog( nullptr ), m_htmlDialog(nullptr), m_tokenEditor( nullptr )
 {
-    checkIfMplayerIsInstalled();
-
     SplashScreen::instance()->message( i18n("Loading Database") );
     s_instance = this;
 
@@ -210,6 +208,8 @@ MainWindow::Window::Window( QWidget* parent )
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
+
+    checkIfMplayerIsInstalled();
 
     executeStartupActions();
 }
@@ -1855,6 +1855,9 @@ void MainWindow::Window::executeStartupActions()
 
 void MainWindow::Window::checkIfMplayerIsInstalled()
 {
+    if (Options::the()->demoMode())
+        return;
+
     if ( FeatureDialog::mplayerBinary().isNull() ) {
         KMessageBox::information( this,
                                   i18n("<p>Unable to find MPlayer on the system.</p>"

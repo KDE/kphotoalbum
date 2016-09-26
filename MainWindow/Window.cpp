@@ -1020,7 +1020,7 @@ void MainWindow::Window::showTipOfDay()
 void MainWindow::Window::runDemo()
 {
     KProcess* process = new KProcess;
-    *process << QLatin1String("kphotoalbum") << QLatin1String("-demo");
+    *process << QLatin1String("kphotoalbum") << QLatin1String("--demo");
     process->startDetached();
 }
 

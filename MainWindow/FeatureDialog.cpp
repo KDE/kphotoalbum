@@ -26,6 +26,7 @@
 #include <QProcess>
 #include <QStandardPaths>
 #include <QTextBrowser>
+#include <QVBoxLayout>
 
 #include <KLocalizedString>
 #include <phonon/backendcapabilities.h>
@@ -41,9 +42,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 {
     setWindowTitle( i18n("KPhotoAlbum Feature Status") );
 
-    HelpBrowser* edit = new HelpBrowser( this );
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( edit );
-// Add mainLayout->addWidget(edit); if necessary
+    QTextBrowser* browser = new QTextBrowser( this );
 
     QString text = i18n("<h1>Overview</h1>"
                         "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
@@ -119,20 +118,16 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                  "improvements over the MPlayer package. MPlayer (in contrast to MPlayer2) often has problems extracting the length "
                  "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.</p>");
 
-    edit->setText( text );
+    browser->setText( text );
 
-    resize( 800, 600 );
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(browser);
+    this->setLayout(layout);
 }
 
-HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
-    :QTextBrowser( parent )
+QSize FeatureDialog::sizeHint() const
 {
-    setObjectName(QString::fromLatin1(name));
-}
-
-void HelpBrowser::setSource( const QUrl& url )
-{
-    QTextBrowser::setSource( url );
+    return QSize(800,600);
 }
 
 bool MainWindow::FeatureDialog::hasKIPISupport()

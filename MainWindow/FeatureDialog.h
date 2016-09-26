@@ -30,6 +30,9 @@ class FeatureDialog : public QDialog {
 
 public:
     explicit FeatureDialog( QWidget* parent );
+
+    QSize sizeHint() const override;
+
     static bool hasAllFeaturesAvailable();
     static QString featureString();
     static QStringList supportedVideoMimeTypes();
@@ -44,12 +47,6 @@ protected:
     static bool hasGeoMapSupport();
 };
 
-class HelpBrowser :public QTextBrowser
-{
-public:
-    explicit HelpBrowser( QWidget* parent, const char* name = nullptr );
-    virtual void setSource( const QUrl& name );
-};
 
 }
 

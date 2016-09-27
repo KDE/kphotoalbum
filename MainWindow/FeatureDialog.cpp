@@ -115,7 +115,7 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                  "<p>KPhotoAlbum can use <tt>ffmpeg</tt> or <tt>MPlayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
                  "videos in the thumbnail viewer.</p>"
                  "<p>In the past, MPlayer (in contrast to MPlayer2) often had problems extracting the length "
-                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails."
+                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails. "
                  "For that reason, you should prefer ffmpeg or MPlayer2 over MPlayer, if possible.</p>"
                  );
 

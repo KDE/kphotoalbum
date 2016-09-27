@@ -80,7 +80,7 @@ bool NewImageFinder::findImages()
     }
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
-    if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {
+    if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
         BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob );
     }
@@ -172,7 +172,7 @@ void NewImageFinder::loadExtraFiles()
     DB::ImageDB::instance()->addImages( newImages );
 
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
-    if ( ! MainWindow::FeatureDialog::mplayerBinary().isNull() ) {
+    if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
         Q_FOREACH( const ImageInfoPtr& info, newImages ) {
             if ( info->isVideo() )
                 BackgroundTaskManager::JobManager::instance()->addJob(

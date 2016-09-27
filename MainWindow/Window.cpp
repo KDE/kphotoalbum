@@ -1844,7 +1844,7 @@ void MainWindow::Window::executeStartupActions()
         ImageManager::ThumbnailBuilder::instance()->buildMissing();
     connect( Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(slotBuildThumbnailsIfWanted()) );
 
-    if ( ! FeatureDialog::mplayerBinary().isNull() ) {
+    if ( ! FeatureDialog::hasVideoThumbnailer() ) {
         BackgroundTaskManager::JobManager::instance()->addJob(
                     new BackgroundJobs::SearchForVideosWithoutLengthInfo );
 
@@ -1858,16 +1858,16 @@ void MainWindow::Window::checkIfMplayerIsInstalled()
     if (Options::the()->demoMode())
         return;
 
-    if ( FeatureDialog::mplayerBinary().isNull() ) {
+    if ( !FeatureDialog::hasVideoThumbnailer() ) {
         KMessageBox::information( this,
-                                  i18n("<p>Unable to find MPlayer on the system.</p>"
-                                       "<p>Without MPlayer, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
-                                       "Please install the MPlayer2 package</p>"),
+                                  i18n("<p>Unable to find ffmpeg or MPlayer on the system.</p>"
+                                       "<p>Without either of these, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
+                                       "Please install the ffmpeg or MPlayer package</p>"),
                                   i18n("Video thumbnails are not available"), QString::fromLatin1("mplayerNotInstalled"));
     } else {
         KMessageBox::enableMessage( QString::fromLatin1("mplayerNotInstalled") );
 
-        if ( !FeatureDialog::isMplayer2() ) {
+        if ( FeatureDialog::ffmpegBinary().isEmpty() && !FeatureDialog::isMplayer2() ) {
             KMessageBox::information( this,
                                       i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
                                            "MPlayer2 is on most systems a separate package, please install that if at all possible, "

@@ -46,7 +46,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
         m_process = nullptr;
     }
 
-    if (MainWindow::FeatureDialog::mplayerBinary().isEmpty()) {
+    if (!MainWindow::FeatureDialog::hasVideoThumbnailer()) {
         emit unableToDetermineLength();
         return;
     }
@@ -55,11 +55,23 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
     m_process->setWorkingDirectory(QDir::tempPath());
     connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
 
-    QStringList arguments;
-    arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null")
-              << STR("-vo") << STR("null") << STR("-ao") << STR("null") <<  fileName.absolute();
+    if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
+    {
+        QStringList arguments;
+        arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null")
+                  << STR("-vo") << STR("null") << STR("-ao") << STR("null") <<  fileName.absolute();
 
-    m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
+        m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
+    } else {
+        QStringList arguments;
+        arguments << STR("-v") << STR("error") << STR("-select_streams") << STR("v:0")
+                  << STR("-show_entries") << STR("stream=duration")
+                  << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
+                  <<  fileName.absolute();
+
+        //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
+    }
 }
 
 void ImageManager::VideoLengthExtractor::processEnded()
@@ -67,30 +79,45 @@ void ImageManager::VideoLengthExtractor::processEnded()
     if ( !m_process->stderr().isEmpty() )
         Debug() << m_process->stderr();
 
-    QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
-    list = list.filter(STR("ID_LENGTH="));
-    if ( list.count() == 0 ) {
-        qWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
-                   << "Output was:\n"
-                   << m_process->stdout();
-        emit unableToDetermineLength();
-        return;
+    QString lenStr;
+    if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
+    {
+        QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
+        list = list.filter(STR("ID_LENGTH="));
+        if ( list.count() == 0 ) {
+            qWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
+                       << "Output was:\n"
+                       << m_process->stdout();
+            emit unableToDetermineLength();
+            return;
+        }
+
+        const QString match = list[0];
+        const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
+        if (!regexp.exactMatch(match))
+        {
+            qWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
+            emit unableToDetermineLength();
+            return;
+        }
+
+        lenStr = regexp.cap(1);
+    } else {
+        QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
+        if ( list.count() != 2 ) {
+            qWarning() << "Unable to parse video length from ffprobe output!"
+                       << "Output was:\n"
+                       << m_process->stdout();
+            emit unableToDetermineLength();
+            return;
+        }
+        lenStr = list[0].trimmed();
     }
 
-    const QString match = list[0];
-    const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
-    bool ok = regexp.exactMatch(match);
+    bool ok = false;
+    const double length = lenStr.toDouble(&ok);
     if ( !ok ) {
-        qWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
-        emit unableToDetermineLength();
-        return;
-    }
-
-    const QString cap = regexp.cap(1);
-
-    const double length = cap.toDouble(&ok);
-    if ( !ok ) {
-        qWarning() << STR("Unable to convert string \"%1\"to integer (for file %2)").arg(cap).arg(m_fileName.absolute());
+        qWarning() << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }

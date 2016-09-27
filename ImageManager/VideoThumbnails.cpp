@@ -39,7 +39,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
         return;
 
     // no video thumbnails without mplayer:
-    if (MainWindow::FeatureDialog::mplayerBinary().isEmpty())
+    if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
         return;
 
     cancelPreviousJobs();

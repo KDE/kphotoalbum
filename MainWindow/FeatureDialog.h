@@ -38,6 +38,18 @@ public:
     static QStringList supportedVideoMimeTypes();
     static QString mplayerBinary();
     static bool isMplayer2();
+    static QString ffmpegBinary();
+    static QString ffprobeBinary();
+    /**
+     * @brief hasVideoThumbnailer
+     * @return true, if a program capable of creating video thumbnails is found, false otherwise
+     */
+    static bool hasVideoThumbnailer();
+    /**
+     * @brief hasVideoProber
+     * @return  true, if a program capable of extracting video metadata is found, false otherwise
+     */
+    static bool hasVideoProber();
 
 protected:
     static bool hasKIPISupport();

@@ -77,19 +77,18 @@ bool ImageManager::AsyncLoader::load( ImageRequest* request )
         return false;
 
     if ( Utilities::isVideo( request->fileSystemFileName() ) ) {
-        if ( MainWindow::FeatureDialog::mplayerBinary().isNull() )
+        if (!loadVideo( request ));
             return false;
-        loadVideo( request );
     } else {
         loadImage( request );
     }
     return true;
 }
 
-void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
+bool ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
-    if ( MainWindow::FeatureDialog::mplayerBinary().isNull() )
-        return;
+    if ( ! MainWindow::FeatureDialog::hasVideoThumbnailer() )
+        return false;
 
     BackgroundTaskManager::Priority priority =
             (request->priority() > ThumbnailInvisible)
@@ -98,6 +97,7 @@ void ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 
     BackgroundTaskManager::JobManager::instance()->addJob(
                 new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));
+    return true;
 }
 
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )

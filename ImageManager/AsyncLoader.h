@@ -52,7 +52,7 @@ public:
 
 protected:
     virtual void customEvent( QEvent* ev );
-    void loadVideo( ImageRequest* );
+    bool loadVideo( ImageRequest* );
     void loadImage( ImageRequest* );
 
 private:

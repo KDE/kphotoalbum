@@ -112,11 +112,18 @@ FeatureDialog::FeatureDialog( QWidget* parent )
         text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</li></ul></p>", mimeTypes.join(QString::fromLatin1( "</li><li>" ) ) );
 
     text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
-                 "<p>KPhotoAlbum uses <tt>MPlayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
+                 "<p>KPhotoAlbum can use <tt>ffmpeg</tt> or <tt>MPlayer</tt> to extract thumbnails from videos. These thumbnails are used to preview "
                  "videos in the thumbnail viewer.</p>"
-                 "<p>If at all possible you should install the <b>MPlayer2</b> package rather than the <b>MPlayer</b> package, as it has important "
-                 "improvements over the MPlayer package. MPlayer (in contrast to MPlayer2) often has problems extracting the length "
-                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails.</p>");
+                 "<p>In the past, MPlayer (in contrast to MPlayer2) often had problems extracting the length "
+                 "of videos and also often fails to extract the thumbnails used for cycling video thumbnails."
+                 "For that reason, you should prefer ffmpeg or MPlayer2 over MPlayer, if possible.</p>"
+                 );
+
+    text += i18n("<h1><a name=\"videoInfo\">Video metadata support</a></h1>"
+                 "<p>KPhotoAlbum can use <tt>ffprobe</tt> or <tt>MPlayer</tt> to extract length information from videos."
+                 "</p>"
+                 "<p>Correct length information is also necessary for correct rendering of video thumbnails.</p>"
+                 );
 
     browser->setText( text );
 
@@ -194,10 +201,32 @@ bool FeatureDialog::isMplayer2()
     return output.contains(QString::fromLatin1("MPlayer2"));
 }
 
+QString FeatureDialog::ffmpegBinary()
+{
+    QString ffmpeg = QStandardPaths::findExecutable( QString::fromLatin1("ffmpeg"));
+    return ffmpeg;
+}
+
+QString FeatureDialog::ffprobeBinary()
+{
+    QString ffprobe = QStandardPaths::findExecutable( QString::fromLatin1("ffprobe"));
+    return ffprobe;
+}
+
+bool FeatureDialog::hasVideoThumbnailer()
+{
+    return ! ( ffmpegBinary().isEmpty() && mplayerBinary().isEmpty());
+}
+
+bool FeatureDialog::hasVideoProber()
+{
+    return ! ( ffprobeBinary().isEmpty() && mplayerBinary().isEmpty());
+}
+
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasEXIV2Support() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && !mplayerBinary().isNull() && isMplayer2();
+    return hasKIPISupport() && hasEXIV2Support() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
 }
 
 struct Data
@@ -222,6 +251,7 @@ QString MainWindow::FeatureDialog::featureString()
 
     QString result = QString::fromLatin1("<p><table>");
     const QString red = QString::fromLatin1("<font color=\"red\">%1</font>");
+    const QString yellow = QString::fromLatin1("<font color=\"yellow\">%1</font>");
     const QString yes = i18nc("Feature available","Yes");
     const QString no =  red.arg( i18nc("Feature not available","No") );
     const QString formatString = QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" );
@@ -230,8 +260,11 @@ QString MainWindow::FeatureDialog::featureString()
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }
 
-     QString thumbnailSupport = mplayerBinary().isNull() ? no : ( isMplayer2() ? yes : red.arg(i18n("Only with MPlayer1")));
+     QString thumbnailSupport = hasVideoThumbnailer() ? ( !ffmpegBinary().isEmpty() || isMplayer2() ? yes : yellow.arg(i18n("Only with MPlayer1"))) : no ;
     result += formatString.arg(QString::fromLatin1("#videoPreview")).arg(i18n("Video thumbnail support")).arg(thumbnailSupport);
+
+     QString videoinfoSupport = hasVideoProber() ? yes : no;
+    result += formatString.arg(QString::fromLatin1("#videoInfo")).arg(i18n("Video metadata support")).arg(videoinfoSupport);
     result += QString::fromLatin1( "</table></p>" );
 
     return result;

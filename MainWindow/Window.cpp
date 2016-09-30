@@ -662,7 +662,11 @@ QString MainWindow::Window::welcome()
 {
     QString configFileName;
     QPointer<MainWindow::WelcomeDialog> dialog = new WelcomeDialog( this );
-    dialog->exec();
+    // exit if the user dismissed the welcome dialog
+    if (!dialog->exec())
+    {
+        qApp->quit();
+    }
     configFileName = dialog->configFileName();
     delete dialog;
     return configFileName;

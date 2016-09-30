@@ -18,6 +18,7 @@
 
 #include "WelcomeDialog.h"
 #include "FeatureDialog.h"
+#include "Window.h"
 #include <Utilities/Util.h>
 
 #include <KConfigGroup>
@@ -87,8 +88,10 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
 
 void WelcomeDialog::slotLoadDemo()
 {
-    m_configFile = Utilities::setupDemo();
-    accept();
+    // rerun KPA with "--demo"
+    MainWindow::Window::theMainWindow()->runDemo();
+    // cancel the dialog (and exit this instance of KPA)
+    reject();
 }
 
 void WelcomeDialog::createSetup()

@@ -86,6 +86,7 @@ public slots:
     void showThumbNails(const DB::FileNameList& items);
     void loadPlugins();
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
+    void runDemo();
     void slotImageRotated(const DB::FileName& fileName);
     void slotSave();
 
@@ -114,7 +115,6 @@ protected slots:
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
-    void runDemo();
     void lockToDefaultScope();
     void setDefaultScopePositive();
     void setDefaultScopeNegative();

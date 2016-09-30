@@ -77,7 +77,7 @@ bool ImageManager::AsyncLoader::load( ImageRequest* request )
         return false;
 
     if ( Utilities::isVideo( request->fileSystemFileName() ) ) {
-        if (!loadVideo( request ));
+        if (!loadVideo( request ))
             return false;
     } else {
         loadImage( request );

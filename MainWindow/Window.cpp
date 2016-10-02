@@ -135,7 +135,7 @@ MainWindow::Window::Window( QWidget* parent )
 
     bool gotConfigFile = load();
     if ( !gotConfigFile )
-        exit(0);
+        throw 0;
     SplashScreen::instance()->message( i18n("Loading Main Window") );
 
     QWidget* top = new QWidget( this );

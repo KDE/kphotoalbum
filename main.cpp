@@ -109,26 +109,25 @@ int main( int argc, char** argv ) {
 
     new MainWindow::SplashScreen();
 
-    // FIXME: There is no point in using try here, because exceptions
-    // and Qt event loop don't mix. Rather exceptions should be
-    // caught earlier and not passed through Qt code.
+    MainWindow::Window *view = nullptr;
     try {
-        MainWindow::Window* view = new MainWindow::Window( 0 );
-
-        // qApp->setMainWidget( view );
-        view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
-
-        (void) RemoteControl::RemoteInterface::instance();
-
-        int code = app.exec();
-        // I've heard multiple people complain about a crash in this line.
-        // unfortunately valgrind doesn't tell me why that should be, and I haven't seen it myself.
-        // Anyway, the line is really only needed when searching for memory leaks.
-        // delete view;
-        return code;
+        view = new MainWindow::Window( 0 );
     }
-    catch (...) {
-        qFatal("Unknown exception caught");
+    catch (int retVal) {
+        // MainWindow ctor throws if no config is loaded
+        return retVal;
     }
+
+    // qApp->setMainWidget( view );
+    view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
+
+    (void) RemoteControl::RemoteInterface::instance();
+
+    int code = app.exec();
+    // I've heard multiple people complain about a crash in this line.
+    // unfortunately valgrind doesn't tell me why that should be, and I haven't seen it myself.
+    // Anyway, the line is really only needed when searching for memory leaks.
+    // delete view;
+    return code;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

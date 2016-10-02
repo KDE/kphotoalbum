@@ -109,23 +109,7 @@ QString WelcomeDialog::configFileName() const
 
 FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
 {
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    QWidget *mainWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &FileDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &FileDialog::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
-
-    QWidget* top = new QWidget;
-    QVBoxLayout* lay1 = new QVBoxLayout( top );
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
+    QVBoxLayout *mainLayout = new QVBoxLayout (this);
 
     QLabel* label = new QLabel( i18n("<h1>KPhotoAlbum database creation</h1>"
                                      "<p>You need to show where the photos and videos are for KPhotoAlbum to "
@@ -136,23 +120,33 @@ FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
                                      "simply point KPhotoAlbum to the directory where you already have all your "
                                      "images.</p>"
                                      "<p>If you have an existing KPhotoAlbum database and root directory somewhere, "
-                                     "point KPhotoAlbum to that directory to start using it again.</p>" ), top );
+                                     "point KPhotoAlbum to that directory to start using it again.</p>" ), this );
     label->setWordWrap( true );
-    lay1->addWidget( label );
+    mainLayout->addWidget( label );
 
     QHBoxLayout* lay2 = new QHBoxLayout;
-    lay1->addLayout( lay2 );
-    label = new QLabel( i18n("Image/Video root directory: "), top );
+    label = new QLabel( i18n("Image/Video root directory: "), this );
     lay2->addWidget( label );
 
-    m_lineEdit = new QLineEdit( top );
+    m_lineEdit = new QLineEdit( this );
     m_lineEdit->setText( QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) );
     lay2->addWidget( m_lineEdit );
 
-    QPushButton* button = new QPushButton( QString::fromLatin1("..."), top );
+    QPushButton* button = new QPushButton( QString::fromLatin1("..."), this );
     button->setMaximumWidth( 30 );
     lay2->addWidget( button );
     connect(button, &QPushButton::clicked, this, &FileDialog::slotBrowseForDirecory);
+
+    mainLayout->addLayout( lay2 );
+
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &FileDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &FileDialog::reject);
+    mainLayout->addWidget(buttonBox);
 }
 
 void FileDialog::slotBrowseForDirecory()

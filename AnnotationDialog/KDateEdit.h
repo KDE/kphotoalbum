@@ -136,17 +136,17 @@ private:
     /** Maps the text that the user can enter to the offset in days from
      * today. For example, the text 'tomorrow' is mapped to +1.
      */
-    QMap<QString, int> mKeywordMap;
-    bool mTextChanged;
-    bool mHandleInvalid;
+    QMap<QString, int> m_KeywordMap;
+    bool m_TextChanged;
+    bool m_HandleInvalid;
 
-    KDatePicker *mDatePicker;
-    QFrame *mDateFrame;
-    QDate  defaultValue;
-    QDate  value;
-    bool   mReadOnly;
-    bool   mDiscardNextMousePress;
-    bool   mIsStartEdit;
+    KDatePicker *m_DatePicker;
+    QFrame *m_DateFrame;
+    QDate  m_defaultValue;
+    QDate  m_value;
+    bool   m_ReadOnly;
+    bool   m_DiscardNextMousePress;
+    bool   m_IsStartEdit;
 };
 
 }

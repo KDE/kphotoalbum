@@ -50,54 +50,54 @@
 
 AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     : KComboBox( parent ),
-      defaultValue( QDate::currentDate() ),
-      mReadOnly(false),
-      mDiscardNextMousePress(false),
-      mIsStartEdit( isStartEdit )
+      m_defaultValue( QDate::currentDate() ),
+      m_ReadOnly(false),
+      m_DiscardNextMousePress(false),
+      m_IsStartEdit( isStartEdit )
 {
     setEditable(true);
     setMaxCount(1);       // need at least one entry for popup to work
-    value = defaultValue;
+    m_value = m_defaultValue;
     QString today = QDate::currentDate().toString( QString::fromLatin1("dd. MMM yyyy") );
     addItem(QString::fromLatin1( "" ) );
     setCurrentIndex(0);
     setItemText( 0, QString::fromLatin1( "" ));
     setMinimumSize(sizeHint());
 
-    mDateFrame = new QFrame;
-    mDateFrame->setWindowFlags(Qt::Popup);
-    QVBoxLayout* layout = new QVBoxLayout(mDateFrame);
-    mDateFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    mDateFrame->setLineWidth(3);
-    mDateFrame->hide();
-    mDateFrame->installEventFilter(this);
+    m_DateFrame = new QFrame;
+    m_DateFrame->setWindowFlags(Qt::Popup);
+    QVBoxLayout* layout = new QVBoxLayout(m_DateFrame);
+    m_DateFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    m_DateFrame->setLineWidth(3);
+    m_DateFrame->hide();
+    m_DateFrame->installEventFilter(this);
 
-    mDatePicker = new KDatePicker(value, mDateFrame);
-    layout->addWidget(mDatePicker);
+    m_DatePicker = new KDatePicker(m_value, m_DateFrame);
+    layout->addWidget(m_DatePicker);
 
     connect(lineEdit(),SIGNAL(editingFinished()),SLOT(lineEnterPressed()));
     connect(this,SIGNAL(textChanged(QString)),
             SLOT(slotTextChanged(QString)));
 
-    connect(mDatePicker,SIGNAL(dateEntered(QDate)),SLOT(dateEntered(QDate)));
-    connect(mDatePicker,SIGNAL(dateSelected(QDate)),SLOT(dateSelected(QDate)));
+    connect(m_DatePicker,SIGNAL(dateEntered(QDate)),SLOT(dateEntered(QDate)));
+    connect(m_DatePicker,SIGNAL(dateSelected(QDate)),SLOT(dateSelected(QDate)));
 
     // Create the keyword list. This will be used to match against when the user
     // enters information.
-    mKeywordMap[i18n("tomorrow")] = 1;
-    mKeywordMap[i18n("today")] = 0;
-    mKeywordMap[i18n("yesterday")] = -1;
+    m_KeywordMap[i18n("tomorrow")] = 1;
+    m_KeywordMap[i18n("today")] = 0;
+    m_KeywordMap[i18n("yesterday")] = -1;
 
     QString dayName;
     for (int i = 1; i <= 7; ++i)
     {
         dayName = QDate::longDayName(i).toLower();
-        mKeywordMap[dayName] = i + 100;
+        m_KeywordMap[dayName] = i + 100;
     }
     lineEdit()->installEventFilter(this);   // handle keyword entry
 
-    mTextChanged = false;
-    mHandleInvalid = false;
+    m_TextChanged = false;
+    m_HandleInvalid = false;
 }
 
 AnnotationDialog::KDateEdit::~KDateEdit()
@@ -110,7 +110,7 @@ void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
     if(newDate.isValid())
         dateString = DB::ImageDate( newDate ).toString( false );
 
-    mTextChanged = false;
+    m_TextChanged = false;
 
     // We do not want to generate a signal here, since we explicitly setting
     // the date
@@ -119,28 +119,28 @@ void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
     setItemText(0, dateString);
     blockSignals(b);
 
-    value = newDate;
+    m_value = newDate;
 }
 
 void AnnotationDialog::KDateEdit::setHandleInvalid(bool handleInvalid)
 {
-    mHandleInvalid = handleInvalid;
+    m_HandleInvalid = handleInvalid;
 }
 
 bool AnnotationDialog::KDateEdit::handlesInvalid() const
 {
-    return mHandleInvalid;
+    return m_HandleInvalid;
 }
 
 void AnnotationDialog::KDateEdit::setReadOnly(bool readOnly)
 {
-    mReadOnly = readOnly;
+    m_ReadOnly = readOnly;
     lineEdit()->setReadOnly(readOnly);
 }
 
 bool AnnotationDialog::KDateEdit::isReadOnly() const
 {
-    return mReadOnly;
+    return m_ReadOnly;
 }
 
 bool AnnotationDialog::KDateEdit::validate( const QDate & )
@@ -157,17 +157,17 @@ QDate AnnotationDialog::KDateEdit::date() const
 
 QDate AnnotationDialog::KDateEdit::defaultDate() const
 {
-    return defaultValue;
+    return m_defaultValue;
 }
 
 void AnnotationDialog::KDateEdit::setDefaultDate(const QDate& date)
 {
-    defaultValue = date;
+    m_defaultValue = date;
 }
 
 void AnnotationDialog::KDateEdit::showPopup()
 {
-    if (mReadOnly)
+    if (m_ReadOnly)
         return;
 
     QRect desk = QApplication::desktop()->availableGeometry(this);
@@ -179,39 +179,39 @@ void AnnotationDialog::KDateEdit::showPopup()
     } else if ( popupPoint.x() + width() > desk.right()) {
         popupPoint.setX( desk.right() - width());
     }
-    int dateFrameHeight = mDateFrame->sizeHint().height();
+    int dateFrameHeight = m_DateFrame->sizeHint().height();
     if ( popupPoint.y() + height() + dateFrameHeight > desk.bottom() ) {
         popupPoint.setY( popupPoint.y() - dateFrameHeight );
     } else {
         popupPoint.setY( popupPoint.y() + height() );
     }
 
-    mDateFrame->move( popupPoint );
+    m_DateFrame->move( popupPoint );
 
     QDate date;
     readDate(date, 0);
     if (date.isValid()) {
-        mDatePicker->setDate( date );
+        m_DatePicker->setDate( date );
     } else {
-        mDatePicker->setDate( defaultValue );
+        m_DatePicker->setDate( m_defaultValue );
     }
 
-    mDateFrame->show();
+    m_DateFrame->show();
 }
 
 void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)
 {
-    if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
+    if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
         emit dateChanged( DB::ImageDate( QDateTime(newDate), QDateTime(newDate) ) );
-        mDateFrame->hide();
+        m_DateFrame->hide();
     }
 }
 
 void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
 {
-    if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
+    if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
         emit dateChanged( DB::ImageDate( QDateTime(newDate), QDateTime(newDate) ) );
@@ -220,12 +220,12 @@ void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
 
 void AnnotationDialog::KDateEdit::lineEnterPressed()
 {
-    if ( !mTextChanged )
+    if ( !m_TextChanged )
         return;
 
     QDate date;
     QDate end;
-    if (readDate(date, &end) && (mHandleInvalid || date.isValid()) && validate(date))
+    if (readDate(date, &end) && (m_HandleInvalid || date.isValid()) && validate(date))
     {
         // Update the edit. This is needed if the user has entered a
         // word rather than the actual date.
@@ -235,7 +235,7 @@ void AnnotationDialog::KDateEdit::lineEnterPressed()
     }
     else {
         // Invalid or unacceptable date - revert to previous value
-        setDate(value);
+        setDate(m_value);
         emit invalidDateEntered();
     }
 }
@@ -258,10 +258,10 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     if (text.isEmpty()) {
         result = QDate();
     }
-    else if (mKeywordMap.contains(text.toLower()))
+    else if (m_KeywordMap.contains(text.toLower()))
     {
         QDate today = QDate::currentDate();
-        int i = mKeywordMap[text.toLower()];
+        int i = m_KeywordMap[text.toLower()];
         if (i >= 100)
         {
             /* A day name has been entered. Convert to offset from today.
@@ -283,7 +283,7 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     }
     else
     {
-        result = DB::ImageDate::parseDate( text, mIsStartEdit );
+        result = DB::ImageDate::parseDate( text, m_IsStartEdit );
         if ( end )
             *end = DB::ImageDate::parseDate( text, false );
         return result.isValid();
@@ -301,7 +301,7 @@ void AnnotationDialog::KDateEdit::keyPressEvent( QKeyEvent *event )
     else if ( event->key() == Qt::Key_Down )
         step = -1;
  
-    setDate( value.addDays(step) );
+    setDate( m_value.addDays(step) );
     KComboBox::keyPressEvent( event );
 }
 
@@ -319,7 +319,7 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
             int step = 0;
             step = we->delta() > 0 ? 1 : -1;
             if (we->orientation() == Qt::Vertical) {
-                setDate( value.addDays(step) );
+                setDate( m_value.addDays(step) );
             }
         }
     }
@@ -329,12 +329,12 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
         case QEvent::MouseButtonDblClick:
         case QEvent::MouseButtonPress: {
             QMouseEvent *me = (QMouseEvent*)e;
-            if (!mDateFrame->rect().contains(me->pos())) {
-                QPoint globalPos = mDateFrame->mapToGlobal(me->pos());
+            if (!m_DateFrame->rect().contains(me->pos())) {
+                QPoint globalPos = m_DateFrame->mapToGlobal(me->pos());
                 if (QApplication::widgetAt(globalPos) == this) {
                     // The date picker is being closed by a click on the
                     // KDateEdit widget. Avoid popping it up again immediately.
-                    mDiscardNextMousePress = true;
+                    m_DiscardNextMousePress = true;
                 }
             }
             break;
@@ -349,8 +349,8 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
 
 void AnnotationDialog::KDateEdit::mousePressEvent(QMouseEvent *e)
 {
-    if (e->button() == Qt::LeftButton  &&  mDiscardNextMousePress) {
-        mDiscardNextMousePress = false;
+    if (e->button() == Qt::LeftButton  &&  m_DiscardNextMousePress) {
+        m_DiscardNextMousePress = false;
         return;
     }
     KComboBox::mousePressEvent(e);
@@ -358,6 +358,6 @@ void AnnotationDialog::KDateEdit::mousePressEvent(QMouseEvent *e)
 
 void AnnotationDialog::KDateEdit::slotTextChanged(const QString &)
 {
-    mTextChanged = true;
+    m_TextChanged = true;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

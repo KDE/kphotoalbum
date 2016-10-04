@@ -33,7 +33,7 @@
 #ifndef ANNOTATIONDIALOG_DATEEDIT_H
 #define ANNOTATIONDIALOG_DATEEDIT_H
 
-#include <KComboBox>
+#include <QComboBox>
 #include <qmap.h>
 #include <QEvent>
 #include <QMouseEvent>
@@ -45,7 +45,7 @@ class KDatePicker;
 namespace AnnotationDialog
 {
 
-class DateEdit : public KComboBox
+class DateEdit : public QComboBox
 {
     Q_OBJECT
 public:

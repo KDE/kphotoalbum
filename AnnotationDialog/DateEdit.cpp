@@ -49,7 +49,7 @@
 #include "DateEdit.moc"
 
 AnnotationDialog::DateEdit::DateEdit( bool isStartEdit, QWidget *parent )
-    : KComboBox( parent ),
+    : QComboBox( parent ),
       m_defaultValue( QDate::currentDate() ),
       m_ReadOnly(false),
       m_DiscardNextMousePress(false),
@@ -302,7 +302,7 @@ void AnnotationDialog::DateEdit::keyPressEvent( QKeyEvent *event )
         step = -1;
 
     setDate( m_value.addDays(step) );
-    KComboBox::keyPressEvent( event );
+    QComboBox::keyPressEvent( event );
 }
 
 /* Checks for a focus out event. The display of the date is updated
@@ -353,7 +353,7 @@ void AnnotationDialog::DateEdit::mousePressEvent(QMouseEvent *e)
         m_DiscardNextMousePress = false;
         return;
     }
-    KComboBox::mousePressEvent(e);
+    QComboBox::mousePressEvent(e);
 }
 
 void AnnotationDialog::DateEdit::slotTextChanged(const QString &)

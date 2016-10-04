@@ -61,23 +61,22 @@ HTMLDialog::HTMLDialog( QWidget* parent )
    , m_list()
 {
     setWindowTitle( i18n("HTML Export") );
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help);
     QWidget *mainWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &HTMLDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &HTMLDialog::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
-    okButton->setEnabled( false );
+    this->layout()->addWidget(mainWidget);
+
     createContentPage();
     createLayoutPage();
     createDestinationPage();
+
+    QDialogButtonBox *buttonBox = this->buttonBox();
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &HTMLDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &HTMLDialog::reject);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    okButton->setEnabled( m_themes.size()>0 );
     connect(okButton, &QPushButton::clicked, this, &HTMLDialog::slotOk);
+    this->layout()->addWidget(buttonBox);
 }
 
 void HTMLDialog::createContentPage()
@@ -352,7 +351,7 @@ void HTMLDialog::slotOk()
         return;
 
     if( activeResolutions().count() < 1 ) {
-        KMessageBox::error( nullptr, i18n( "You must select at least one resolution." ) );
+        KMessageBox::sorry( nullptr, i18n( "You must select at least one resolution." ) );
         return;
     }
 
@@ -497,14 +496,21 @@ QString HTMLDialog::includeSelections() const
 
 void HTMLDialog::populateThemesCombo()
 {
-    QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QString::fromLocal8Bit("kphotoalbum/themes/") );
+    QStringList dirs = QStandardPaths::locateAll(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLocal8Bit("kphotoalbum/themes/"),
+                QStandardPaths::LocateDirectory
+                );
     int i = 0;
     int theme = 0;
     int defaultthemes = 0;
+    //qDebug() << "Theme directories:"<<dirs;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
+        //qDebug() << "Searching themes in:"<<dir;
         QStringList themes = dir.entryList( QDir::Dirs | QDir::Readable );
         for(QStringList::Iterator it = themes.begin(); it != themes.end(); ++it) {
+            //qDebug() << " *" << *it;
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 
@@ -517,8 +523,6 @@ void HTMLDialog::populateThemesCombo()
             QString themeDescription = config.readEntry( "Description" );
             m_themeDescriptions << themeDescription; // save description to display later
 
-            // FIXME: KF5-port enableButtonOk is part of the now deprecated KDialog - do we really need this line?
-            //enableButtonOk( true );
             //m_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
             m_themeBox->insertItem( i, i18n( "%1",themeName) );
             m_themes.insert( i, themePath );
@@ -556,6 +560,11 @@ void HTMLDialog::displayThemeDescription(int themenr)
 
 int HTMLDialog::exec(const DB::FileNameList& list)
 {
+    if (list.empty())
+    {
+        qWarning() << "HTMLDialog called without images for export";
+        return false;
+    }
     m_list = list;
     return QDialog::exec();
 }

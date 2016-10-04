@@ -67,7 +67,7 @@ namespace Map
 namespace AnnotationDialog
 {
 class ImagePreview;
-class KDateEdit;
+class DateEdit;
 class ShortCutManager;
 class ResizableFrame;
 
@@ -162,8 +162,8 @@ private:
     // Widgets
     QMainWindow* m_dockWindow;
     KLineEdit* m_imageLabel;
-    KDateEdit* m_startDate;
-    KDateEdit* m_endDate;
+    DateEdit* m_startDate;
+    DateEdit* m_endDate;
     QLabel* m_endDateLabel;
     QLabel* m_imageFilePatternLabel;
     KLineEdit* m_imageFilePattern;

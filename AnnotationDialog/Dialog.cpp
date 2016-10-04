@@ -22,7 +22,7 @@
 #include "DescriptionEdit.h"
 #include "enums.h"
 #include "ImagePreviewWidget.h"
-#include "KDateEdit.h"
+#include "DateEdit.h"
 #include "ListSelect.h"
 #include "ResizableFrame.h"
 #include "ShortCutManager.h"
@@ -321,7 +321,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     label = new QLabel( i18n("Date: ") );
     lay4->addWidget( label );
 
-    m_startDate = new ::AnnotationDialog::KDateEdit( true );
+    m_startDate = new ::AnnotationDialog::DateEdit( true );
     lay4->addWidget( m_startDate, 1 );
     connect( m_startDate, SIGNAL(dateChanged(DB::ImageDate)), this, SLOT(slotStartDateChanged(DB::ImageDate)) );
     shortCutManager.addLabel(label );
@@ -330,7 +330,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     m_endDateLabel = new QLabel( QString::fromLatin1( "-" ) );
     lay4->addWidget( m_endDateLabel );
 
-    m_endDate = new ::AnnotationDialog::KDateEdit( false );
+    m_endDate = new ::AnnotationDialog::DateEdit( false );
     lay4->addWidget( m_endDate, 1 );
 
     // Time

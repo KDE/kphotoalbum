@@ -31,7 +31,7 @@
  * @author Jesper Pedersen <blackie@kde.org>
  */
 
-#include "KDateEdit.h"
+#include "DateEdit.h"
 
 #include <KDatePicker>
 #include <KLocalizedString>
@@ -46,9 +46,9 @@
 #include <QMouseEvent>
 #include <QVBoxLayout>
 
-#include "KDateEdit.moc"
+#include "DateEdit.moc"
 
-AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
+AnnotationDialog::DateEdit::DateEdit( bool isStartEdit, QWidget *parent )
     : KComboBox( parent ),
       m_defaultValue( QDate::currentDate() ),
       m_ReadOnly(false),
@@ -100,11 +100,11 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
     m_HandleInvalid = false;
 }
 
-AnnotationDialog::KDateEdit::~KDateEdit()
+AnnotationDialog::DateEdit::~DateEdit()
 {
 }
 
-void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
+void AnnotationDialog::DateEdit::setDate(const QDate& newDate)
 {
     QString dateString = QString::fromLatin1("");
     if(newDate.isValid())
@@ -122,57 +122,57 @@ void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
     m_value = newDate;
 }
 
-void AnnotationDialog::KDateEdit::setHandleInvalid(bool handleInvalid)
+void AnnotationDialog::DateEdit::setHandleInvalid(bool handleInvalid)
 {
     m_HandleInvalid = handleInvalid;
 }
 
-bool AnnotationDialog::KDateEdit::handlesInvalid() const
+bool AnnotationDialog::DateEdit::handlesInvalid() const
 {
     return m_HandleInvalid;
 }
 
-void AnnotationDialog::KDateEdit::setReadOnly(bool readOnly)
+void AnnotationDialog::DateEdit::setReadOnly(bool readOnly)
 {
     m_ReadOnly = readOnly;
     lineEdit()->setReadOnly(readOnly);
 }
 
-bool AnnotationDialog::KDateEdit::isReadOnly() const
+bool AnnotationDialog::DateEdit::isReadOnly() const
 {
     return m_ReadOnly;
 }
 
-bool AnnotationDialog::KDateEdit::validate( const QDate & )
+bool AnnotationDialog::DateEdit::validate( const QDate & )
 {
     return true;
 }
 
-QDate AnnotationDialog::KDateEdit::date() const
+QDate AnnotationDialog::DateEdit::date() const
 {
     QDate dt;
     readDate(dt, 0);
     return dt;
 }
 
-QDate AnnotationDialog::KDateEdit::defaultDate() const
+QDate AnnotationDialog::DateEdit::defaultDate() const
 {
     return m_defaultValue;
 }
 
-void AnnotationDialog::KDateEdit::setDefaultDate(const QDate& date)
+void AnnotationDialog::DateEdit::setDefaultDate(const QDate& date)
 {
     m_defaultValue = date;
 }
 
-void AnnotationDialog::KDateEdit::showPopup()
+void AnnotationDialog::DateEdit::showPopup()
 {
     if (m_ReadOnly)
         return;
 
     QRect desk = QApplication::desktop()->availableGeometry(this);
 
-    // ensure that the popup is fully visible even when the KDateEdit is off-screen
+    // ensure that the popup is fully visible even when the DateEdit is off-screen
     QPoint popupPoint = mapToGlobal( QPoint( 0,0 ) );
     if ( popupPoint.x() < desk.left() ) {
         popupPoint.setX( desk.x() );
@@ -199,7 +199,7 @@ void AnnotationDialog::KDateEdit::showPopup()
     m_DateFrame->show();
 }
 
-void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)
+void AnnotationDialog::DateEdit::dateSelected(QDate newDate)
 {
     if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
@@ -209,7 +209,7 @@ void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)
     }
 }
 
-void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
+void AnnotationDialog::DateEdit::dateEntered(QDate newDate)
 {
     if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
@@ -218,7 +218,7 @@ void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
     }
 }
 
-void AnnotationDialog::KDateEdit::lineEnterPressed()
+void AnnotationDialog::DateEdit::lineEnterPressed()
 {
     if ( !m_TextChanged )
         return;
@@ -240,7 +240,7 @@ void AnnotationDialog::KDateEdit::lineEnterPressed()
     }
 }
 
-bool AnnotationDialog::KDateEdit::inputIsValid() const
+bool AnnotationDialog::DateEdit::inputIsValid() const
 {
     QDate date;
     return readDate(date, 0) && date.isValid();
@@ -251,7 +251,7 @@ bool AnnotationDialog::KDateEdit::inputIsValid() const
  * text will be interpreted as a date.
  * Returns true if the date text is blank or valid, false otherwise.
  */
-bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
+bool AnnotationDialog::DateEdit::readDate(QDate& result, QDate* end) const
 {
     QString text = currentText();
 
@@ -292,15 +292,15 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     return true;
 }
 
-void AnnotationDialog::KDateEdit::keyPressEvent( QKeyEvent *event )
+void AnnotationDialog::DateEdit::keyPressEvent( QKeyEvent *event )
 {
     int step = 0;
- 
+
     if ( event->key() == Qt::Key_Up )
         step = 1;
     else if ( event->key() == Qt::Key_Down )
         step = -1;
- 
+
     setDate( m_value.addDays(step) );
     KComboBox::keyPressEvent( event );
 }
@@ -308,7 +308,7 @@ void AnnotationDialog::KDateEdit::keyPressEvent( QKeyEvent *event )
 /* Checks for a focus out event. The display of the date is updated
  * to display the proper date when the focus leaves.
  */
-bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
+bool AnnotationDialog::DateEdit::eventFilter(QObject *obj, QEvent *e)
 {
     if (obj == lineEdit()) {
         if (e->type() == QEvent::Wheel) {
@@ -333,7 +333,7 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
                 QPoint globalPos = m_DateFrame->mapToGlobal(me->pos());
                 if (QApplication::widgetAt(globalPos) == this) {
                     // The date picker is being closed by a click on the
-                    // KDateEdit widget. Avoid popping it up again immediately.
+                    // DateEdit widget. Avoid popping it up again immediately.
                     m_DiscardNextMousePress = true;
                 }
             }
@@ -347,7 +347,7 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
     return false;
 }
 
-void AnnotationDialog::KDateEdit::mousePressEvent(QMouseEvent *e)
+void AnnotationDialog::DateEdit::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton  &&  m_DiscardNextMousePress) {
         m_DiscardNextMousePress = false;
@@ -356,7 +356,7 @@ void AnnotationDialog::KDateEdit::mousePressEvent(QMouseEvent *e)
     KComboBox::mousePressEvent(e);
 }
 
-void AnnotationDialog::KDateEdit::slotTextChanged(const QString &)
+void AnnotationDialog::DateEdit::slotTextChanged(const QString &)
 {
     m_TextChanged = true;
 }

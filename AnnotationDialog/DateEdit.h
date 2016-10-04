@@ -30,8 +30,8 @@
  * @author David Jarvie <software@astrojar.org.uk>
  * @author Jesper Pedersen <blackie@kde.org>
  */
-#ifndef ANNOTATIONDIALOG_KDATEEDIT_H
-#define ANNOTATIONDIALOG_KDATEEDIT_H
+#ifndef ANNOTATIONDIALOG_DATEEDIT_H
+#define ANNOTATIONDIALOG_DATEEDIT_H
 
 #include <KComboBox>
 #include <qmap.h>
@@ -45,12 +45,12 @@ class KDatePicker;
 namespace AnnotationDialog
 {
 
-class KDateEdit : public KComboBox
+class DateEdit : public KComboBox
 {
     Q_OBJECT
 public:
-    explicit KDateEdit( bool isStartEdit, QWidget *parent=nullptr );
-    virtual ~KDateEdit();
+    explicit DateEdit( bool isStartEdit, QWidget *parent=nullptr );
+    virtual ~DateEdit();
 
     /** @return True if the date in the text edit is valid,
      * false otherwise. This will not modify the display of the date,

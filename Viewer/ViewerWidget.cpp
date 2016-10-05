@@ -1522,8 +1522,8 @@ void Viewer::ViewerWidget::copyTo()
 {
     QUrl src = QUrl::fromLocalFile(currentInfo()->fileName().absolute());
     if (m_lastCopyToTarget.isNull()) {
-        // unfortunately, there is no function for this in QUrl or QDir:
-        m_lastCopyToTarget = src.path().left(src.path().lastIndexOf(QDir::separator()));
+        // get directory of src file
+        m_lastCopyToTarget = QFileInfo(src.path()).path();
     }
 
     QFileDialog dialog( this );

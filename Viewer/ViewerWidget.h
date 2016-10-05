@@ -246,6 +246,8 @@ private:
     QMap<Qt::Key, QPair<QString,QString> >* m_myInputMacros;
 
     void addTaggedAreas();
+
+    QString m_lastCopyToTarget;
 };
 
 }

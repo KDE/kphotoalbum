@@ -1521,13 +1521,15 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
 void Viewer::ViewerWidget::copyTo()
 {
     QUrl src = QUrl::fromLocalFile(currentInfo()->fileName().absolute());
-    // unfortunately, there is no function for this in QUrl or QDir:
-    QString srcDir = src.path().left(src.path().lastIndexOf(QDir::separator()));
+    if (m_lastCopyToTarget.isNull()) {
+        // unfortunately, there is no function for this in QUrl or QDir:
+        m_lastCopyToTarget = src.path().left(src.path().lastIndexOf(QDir::separator()));
+    }
 
     QFileDialog dialog( this );
     dialog.setWindowTitle( i18nc("@title:window", "Copy image to...") );
     // use directory of src as start-location:
-    dialog.setDirectory(srcDir);
+    dialog.setDirectory(m_lastCopyToTarget);
     dialog.selectFile(src.fileName());
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setLabelText(QFileDialog::Accept, i18nc("@action:button", "Copy"));
@@ -1535,6 +1537,7 @@ void Viewer::ViewerWidget::copyTo()
     if (dialog.exec()) {
         QUrl dst = dialog.selectedUrls().first();
         KIO::copy(src, dst);
+        m_lastCopyToTarget = dst.path().left(dst.path().lastIndexOf(QDir::separator()));
     }
 }
 

@@ -123,11 +123,12 @@ void HTMLDialog::createContentPage()
     m_generateKimFile->setChecked( Settings::SettingsData::instance()->HTMLKimFile() );
     lay1->addWidget( m_generateKimFile );
 
-    m_inlineMovies = new QCheckBox( i18n( "Inline Movies in pages" ), contentPage );
+    m_inlineMovies = new QCheckBox( i18nc("Inline as a verb, i.e. 'please show movies right on the page, not as links'",
+                                          "Inline Movies in pages" ), contentPage );
     m_inlineMovies->setChecked( Settings::SettingsData::instance()->HTMLInlineMovies() );
     lay1->addWidget( m_inlineMovies );
 
-    m_html5Video = new QCheckBox( i18n( "Use HTML5 video tag" ), contentPage );
+    m_html5Video = new QCheckBox( i18nc("Tag as in HTML-tag, not as in image tag", "Use HTML5 video tag" ), contentPage );
     m_html5Video->setChecked( Settings::SettingsData::instance()->HTML5Video() );
     lay1->addWidget( m_html5Video );
 

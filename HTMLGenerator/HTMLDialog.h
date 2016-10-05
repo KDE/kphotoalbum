@@ -50,6 +50,8 @@ protected slots:
     void slotOk();
     void selectDir();
     void displayThemeDescription(int);
+    void slotUpdateOutputLabel();
+    void slotSuggestOutputDir();
 
 protected:
     bool checkVars();
@@ -68,6 +70,8 @@ private:
     QLineEdit* m_baseURL;
     QLineEdit* m_destURL;
     QLineEdit* m_outputDir;
+    QLabel *m_outputLabel;
+    QCheckBox *m_openInBrowser;
     QLineEdit* m_copyright;
     QCheckBox* m_date;
     QSpinBox* m_thumbSize;

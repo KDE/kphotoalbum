@@ -72,6 +72,10 @@ HTMLDialog::HTMLDialog( QWidget* parent )
     createContentPage();
     createLayoutPage();
     createDestinationPage();
+    // destUrl is only relevant for .kim file creation:
+    connect(m_generateKimFile,&QCheckBox::toggled,m_destURL,&QLineEdit::setEnabled);
+    // automatically fill in output directory:
+    connect(m_title,&QLineEdit::editingFinished,this,&HTMLDialog::slotSuggestOutputDir);
 
     QDialogButtonBox *buttonBox = this->buttonBox();
     connect(buttonBox, &QDialogButtonBox::accepted, this, &HTMLDialog::accept);
@@ -188,7 +192,7 @@ void HTMLDialog::createLayoutPage()
     QWidget* layoutPage = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( layoutPage, i18n("Layout" ) );
     page->setHeader( i18n("Layout" ) );
-    page->setIcon( QIcon::fromTheme( QString::fromLatin1( "matrix" )) );
+    page->setIcon( QIcon::fromTheme( QString::fromLatin1( "configure" )) );
     addPage(page);
 
     QVBoxLayout* lay1 = new QVBoxLayout( layoutPage );
@@ -303,13 +307,13 @@ void HTMLDialog::createDestinationPage()
     QVBoxLayout* lay1 = new QVBoxLayout( destinationPage );
     QGridLayout* lay2 = new QGridLayout;
     lay1->addLayout( lay2 );
+    int row = -1;
 
     // Base Directory
     QLabel* label = new QLabel( i18n("Base directory:"), destinationPage );
-    lay2->addWidget( label, 0, 0 );
-
+    lay2->addWidget( label, ++row, 0 );
     QHBoxLayout* lay3 = new QHBoxLayout;
-    lay2->addLayout( lay3, 0, 1 );
+    lay2->addLayout( lay3, row, 1 );
 
     m_baseDir = new QLineEdit( destinationPage );
     lay3->addWidget( m_baseDir );
@@ -322,32 +326,45 @@ void HTMLDialog::createDestinationPage()
     connect(but, &QPushButton::clicked, this, &HTMLDialog::selectDir);
     m_baseDir->setText( Settings::SettingsData::instance()->HTMLBaseDir() );
 
-    // Base URL
-    label = new QLabel( i18n("Base URL:"), destinationPage );
-    lay2->addWidget( label, 1, 0 );
-
-    m_baseURL = new QLineEdit( destinationPage );
-    m_baseURL->setText( Settings::SettingsData::instance()->HTMLBaseURL() );
-    lay2->addWidget( m_baseURL, 1, 1 );
-    label->setBuddy( m_baseURL );
-
-    // Destination URL
-    label = new QLabel( i18n("URL for final destination:" ), destinationPage );
-    lay2->addWidget( label, 2, 0 );
-    m_destURL = new QLineEdit( destinationPage );
-    m_destURL->setText( Settings::SettingsData::instance()->HTMLDestURL() );
-    lay2->addWidget( m_destURL, 2, 1 );
-    label->setBuddy( m_destURL );
-
     // Output Directory
-    label = new QLabel( i18n("Output directory:"), destinationPage );
-    lay2->addWidget( label, 3, 0 );
+    label = new QLabel( i18n("Gallery directory:"), destinationPage );
+    lay2->addWidget( label, ++row, 0 );
     m_outputDir = new QLineEdit( destinationPage );
-    lay2->addWidget( m_outputDir, 3, 1 );
+    lay2->addWidget( m_outputDir, row, 1 );
     label->setBuddy( m_outputDir );
 
-    label = new QLabel( i18n("<b>Hint: Press the help button for descriptions of the fields</b>"), destinationPage );
-    lay1->addWidget( label );
+    // fully "Assembled" output Directory
+    label = new QLabel( i18n("Output directory:"), destinationPage );
+    lay2->addWidget( label, ++row, 0 );
+    m_outputLabel = new QLabel( destinationPage );
+    lay2->addWidget( m_outputLabel, row, 1 );
+    label->setBuddy( m_outputLabel );
+    connect(m_baseDir, &QLineEdit::textChanged, this, &HTMLDialog::slotUpdateOutputLabel);
+    connect(m_outputDir, &QLineEdit::textChanged, this, &HTMLDialog::slotUpdateOutputLabel);
+    // initial text
+    slotUpdateOutputLabel();
+
+    // Destination URL
+    label = new QLabel( i18n("URL for final destination of .kim file:" ), destinationPage );
+    label->setToolTip( i18n(
+                           "<p>If you move the gallery to a remote location, set this to the destination URL.</p>"
+                           "<p>This only affects the generated <filename>.kim</filename> file.</p>"
+                           )
+                       );
+    lay2->addWidget( label, ++row, 0 );
+    m_destURL = new QLineEdit( destinationPage );
+    m_destURL->setText( Settings::SettingsData::instance()->HTMLDestURL() );
+    lay2->addWidget( m_destURL, row, 1 );
+    label->setBuddy( m_destURL );
+
+    // Base URL
+    label = new QLabel( i18n("Open gallery in browser:"), destinationPage );
+    lay2->addWidget( label, ++row, 0 );
+    m_openInBrowser = new QCheckBox(destinationPage);
+    m_openInBrowser->setChecked(true);
+    lay2->addWidget( m_openInBrowser, row, 1);
+    label->setBuddy( m_openInBrowser );
+
     lay1->addStretch( 1 );
 }
 
@@ -364,7 +381,6 @@ void HTMLDialog::slotOk()
     accept();
 
     Settings::SettingsData::instance()->setHTMLBaseDir( m_baseDir->text() );
-    Settings::SettingsData::instance()->setHTMLBaseURL( m_baseURL->text() );
     Settings::SettingsData::instance()->setHTMLDestURL( m_destURL->text() );
     Settings::SettingsData::instance()->setHTMLCopyright( m_copyright->text() );
     Settings::SettingsData::instance()->setHTMLDate( m_date->isChecked() );
@@ -384,11 +400,11 @@ void HTMLDialog::slotOk()
 
 void HTMLDialog::selectDir()
 {
-    QUrl dir = QFileDialog::getExistingDirectoryUrl( this,
+    QString dir = QFileDialog::getExistingDirectory( this,
                                                      i18n("Select base directory..."),
-                                                     QUrl::fromUserInput(m_baseDir->text()) );
-    if ( !dir.url().isNull() )
-        m_baseDir->setText( dir.url() );
+                                                     m_baseDir->text() );
+    if ( !dir.isEmpty() )
+        m_baseDir->setText( dir );
 }
 
 bool HTMLDialog::checkVars()
@@ -564,6 +580,35 @@ void HTMLDialog::displayThemeDescription(int themenr)
     // however, storing author and descriptions separately might be cleaner.
 }
 
+void HTMLDialog::slotUpdateOutputLabel()
+{
+    QString outputDir = QDir(m_baseDir->text()).filePath(m_outputDir->text());
+    // feedback on validity:
+    if (outputDir == m_baseDir->text())
+    {
+        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : darkred; }"));
+        outputDir.append(i18n("<p>Gallery directory cannot be empty.</p>"));
+    } else if ( QDir(outputDir).exists())
+    {
+        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : darkorange; }"));
+        outputDir.append(i18n("<p>The output directory already exists.</p>"));
+    } else
+    {
+        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : black; }"));
+    }
+    m_outputLabel->setText( outputDir );
+
+}
+
+void HTMLDialog::slotSuggestOutputDir()
+{
+    if (m_outputDir->text().isEmpty())
+    {
+        // the title is often an adequate directory name:
+        m_outputDir->setText( m_title->text() );
+    }
+}
+
 int HTMLDialog::exec(const DB::FileNameList& list)
 {
     if (list.empty())
@@ -582,7 +627,10 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     Setup setup;
     setup.setTitle( m_title->text() );
     setup.setBaseDir( m_baseDir->text() );
-    setup.setBaseURL( m_baseURL->text() );
+    if (m_openInBrowser->isEnabled())
+    {
+        setup.setBaseURL( m_baseDir->text() );
+    }
     setup.setDestURL( m_destURL->text() );
     setup.setOutputDir( m_outputDir->text() );
     setup.setThumbSize( m_thumbSize->value() );

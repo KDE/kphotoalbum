@@ -78,18 +78,16 @@ HTMLGenerator::Generator::~Generator()
 }
 void HTMLGenerator::Generator::generate()
 {
-    Debug() << "Generating gallery" << m_setup.title() << "containing" << m_setup.imageList().size() << "entries in" << m_setup.destURL();
+    Debug() << "Generating gallery" << m_setup.title() << "containing" << m_setup.imageList().size() << "entries in" << m_setup.baseDir();
     // Generate .kim file
     if ( m_setup.generateKimFile() ) {
         Debug() << "Generating .kim file...";
         bool ok;
         QString destURL = m_setup.destURL();
-        if ( destURL.isEmpty() )
-            destURL = m_setup.baseURL();
 
         ImportExport::Export exp( m_setup.imageList(), kimFileName( false ),
                                   false, -1, ImportExport::ManualCopy,
-                                  destURL + QString::fromLatin1("/") + m_setup.outputDir(), true, &ok);
+                                  destURL + QDir::separator() + m_setup.outputDir(), true, &ok);
         if ( !ok )
         {
             Debug() << ".kim file failed!";
@@ -658,8 +656,9 @@ bool HTMLGenerator::Generator::linkIndexFile()
     ImageSizeCheckBox* resolution = m_setup.activeResolutions()[0];
     QString fromFile = QString::fromLatin1("index-%1.html" )
                        .arg(resolution->text(true));
+    fromFile = m_tempDir.filePath(fromFile);
     QString destFile = m_tempDir.filePath( QString::fromLatin1("index.html") );
-    bool ok = Utilities::copy( QFileInfo(destFile).path() +QDir::separator() + fromFile, destFile );
+    bool ok = Utilities::copy( fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
                             , fromFile , destFile ) );
@@ -762,7 +761,7 @@ void HTMLGenerator::Generator::showBrowser()
         ImportExport::Export::showUsageDialog();
 
     if ( ! m_setup.baseURL().isEmpty() )
-        new KRun( QUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( m_setup.baseURL() ).arg( m_setup.outputDir()) ),
+        new KRun( QUrl::fromUserInput(QString::fromLatin1( "%1/%2/index.html" ).arg( m_setup.baseURL() ).arg( m_setup.outputDir()) ),
                        MainWindow::Window::theMainWindow());
 
     m_eventLoop->exit();

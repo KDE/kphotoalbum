@@ -55,6 +55,11 @@
 
 using namespace HTMLGenerator;
 
+#ifdef DEBUG_HTMLGENERATOR
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
+#endif
 
 HTMLDialog::HTMLDialog( QWidget* parent )
    : KPageDialog(parent)
@@ -504,13 +509,13 @@ void HTMLDialog::populateThemesCombo()
     int i = 0;
     int theme = 0;
     int defaultthemes = 0;
-    //qDebug() << "Theme directories:"<<dirs;
+    Debug() << "Theme directories:"<<dirs;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
-        //qDebug() << "Searching themes in:"<<dir;
+        Debug() << "Searching themes in:"<<dir;
         QStringList themes = dir.entryList( QDir::Dirs | QDir::Readable );
         for(QStringList::Iterator it = themes.begin(); it != themes.end(); ++it) {
-            //qDebug() << " *" << *it;
+            Debug() << " *" << *it;
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 

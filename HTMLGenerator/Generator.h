@@ -78,7 +78,8 @@ private:
     Setup m_setup;
     int m_waitCounter;
     int m_total;
-    QTemporaryDir m_tempDir;
+    QTemporaryDir m_tempDirHandle;
+    QDir m_tempDir;
     Utilities::UniqFilenameMapper m_filenameMapper;
     QSet< QPair<DB::FileName,int> > m_generatedFiles;
     DB::FileNameSet m_copiedVideos;

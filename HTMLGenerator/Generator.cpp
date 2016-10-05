@@ -51,9 +51,17 @@
 #include "Setup.h"
 #include "MainWindow/Window.h"
 
+#ifdef DEBUG_HTMLGENERATOR
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
+#endif
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
-    : QProgressDialog( parent ), m_hasEnteredLoop( false )
+    : QProgressDialog( parent )
+    , m_tempDirHandle()
+    , m_tempDir(m_tempDirHandle.path())
+    , m_hasEnteredLoop( false )
 {
     setLabelText( i18n("Generating images for HTML page ") );
     m_setup = setup;
@@ -61,6 +69,7 @@ HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
     if ( m_avconv.isNull() )
         m_avconv = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg"));
+    m_tempDirHandle.setAutoRemove(true);
 }
 
 HTMLGenerator::Generator::~Generator()
@@ -69,8 +78,10 @@ HTMLGenerator::Generator::~Generator()
 }
 void HTMLGenerator::Generator::generate()
 {
+    Debug() << "Generating gallery" << m_setup.title() << "containing" << m_setup.imageList().size() << "entries in" << m_setup.destURL();
     // Generate .kim file
     if ( m_setup.generateKimFile() ) {
+        Debug() << "Generating .kim file...";
         bool ok;
         QString destURL = m_setup.destURL();
         if ( destURL.isEmpty() )
@@ -80,7 +91,10 @@ void HTMLGenerator::Generator::generate()
                                   false, -1, ImportExport::ManualCopy,
                                   destURL + QString::fromLatin1("/") + m_setup.outputDir(), true, &ok);
         if ( !ok )
+        {
+            Debug() << ".kim file failed!";
             return;
+        }
     }
 
     // prepare the progress dialog
@@ -91,10 +105,11 @@ void HTMLGenerator::Generator::generate()
 
     m_filenameMapper.reset();
 
-    // Itertate over each of the image sizes needed.
-     for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = m_setup.activeResolutions().begin();
-         sizeIt != m_setup.activeResolutions().end(); ++sizeIt ) {
-
+    Debug() << "Generating content pages...";
+    // Iterate over each of the image sizes needed.
+    for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = m_setup.activeResolutions().begin();
+         sizeIt != m_setup.activeResolutions().end(); ++sizeIt )
+    {
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
@@ -115,6 +130,7 @@ void HTMLGenerator::Generator::generate()
     }
 
     // Now generate the thumbnail images
+    Debug() << "Generating thumbnail images...";
     for (const DB::FileName& fileName : m_setup.imageList()) {
         if ( wasCanceled() )
             return;
@@ -133,10 +149,12 @@ void HTMLGenerator::Generator::generate()
     if ( wasCanceled() )
         return;
 
+    Debug() << "Linking image file...";
     bool ok = linkIndexFile();
     if ( !ok )
         return;
 
+    Debug() << "Copying theme files...";
     // Copy over the mainpage.css, imagepage.css
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
@@ -150,7 +168,7 @@ void HTMLGenerator::Generator::generate()
             *it == QString::fromLatin1("mainpage.html") ||
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
-        QString to = m_tempDir.path() + QString::fromLatin1("/") + *it;
+        QString to = m_tempDir.filePath(*it);
         ok = Utilities::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2", from , to ) );
@@ -161,6 +179,7 @@ void HTMLGenerator::Generator::generate()
 
     // Copy files over to destination.
     QString outputDir = m_setup.baseDir() + QString::fromLatin1( "/" ) + m_setup.outputDir();
+    Debug() << "Copying files from" << m_tempDir.path() << "to final location"<< outputDir<<"...";
     KIO::CopyJob* job = KIO::move( QUrl::fromLocalFile( m_tempDir.path() ), QUrl::fromUserInput(outputDir) );
     connect(job, &KIO::CopyJob::result, this, &Generator::showBrowser);
 
@@ -366,8 +385,10 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         return false;
 
     // -------------------------------------------------- write to file
-    QString fileName = m_tempDir.path() + QString::fromLatin1("/index-%1.html" )
-                       .arg(ImageSizeCheckBox::text(width,height,true));
+    QString fileName = m_tempDir.filePath(
+                QString::fromLatin1("index-%1.html" )
+                       .arg(ImageSizeCheckBox::text(width,height,true))
+                );
     bool ok = writeToFile( fileName, content );
 
     if ( !ok )
@@ -519,7 +540,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
-    QString fileName = m_tempDir.path() + namePage( width, height, currentFile );
+    QString fileName = m_tempDir.filePath(namePage( width, height, currentFile ));
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -574,7 +595,7 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
     qApp->processEvents();
 
     QString baseName = nameImage( fileName, maxImageSize() );
-    QString destName = m_tempDir.path() + QString::fromLatin1("/") + baseName;
+    QString destName = m_tempDir.filePath(baseName);
     if ( !m_copiedVideos.contains( fileName )) {
         if ( m_setup.html5VideoGenerate() ) {
             // TODO: shouldn't we use avconv library directly instead of KRun
@@ -600,7 +621,7 @@ QString HTMLGenerator::Generator::kimFileName( bool relative )
     if ( relative )
         return QString::fromLatin1( "%2.kim" ).arg( m_setup.outputDir() );
     else
-        return QString::fromLatin1( "%1/%2.kim" ).arg( m_tempDir.path() ).arg( m_setup.outputDir() );
+        return m_tempDir.filePath( QString::fromLatin1("%2.kim").arg( m_setup.outputDir()));
 }
 
 bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QString& str )
@@ -637,8 +658,8 @@ bool HTMLGenerator::Generator::linkIndexFile()
     ImageSizeCheckBox* resolution = m_setup.activeResolutions()[0];
     QString fromFile = QString::fromLatin1("index-%1.html" )
                        .arg(resolution->text(true));
-    QString destFile = m_tempDir.path() + QString::fromLatin1("/index.html");
-    bool ok = Utilities::copy( QFileInfo(destFile).path() + fromFile, destFile );
+    QString destFile = m_tempDir.filePath( QString::fromLatin1("index.html") );
+    bool ok = Utilities::copy( QFileInfo(destFile).path() +QDir::separator() + fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
                             , fromFile , destFile ) );
@@ -667,7 +688,7 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request,
     m_waitCounter--;
 
     int size = imgSize.width();
-    QString file = m_tempDir.path() + QString::fromLatin1( "/" ) + nameImage( fileName, size );
+    QString file = m_tempDir.filePath( nameImage( fileName, size ) );
 
     bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {

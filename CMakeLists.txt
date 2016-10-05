@@ -203,6 +203,7 @@ set(libHTMLGenerator_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/HTMLDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Generator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/ImageSizeCheckBox.h
     )
 
 set(libUtilities_SRCS

@@ -94,6 +94,9 @@ private:
     QRadioButton* m_link;
     QRadioButton* m_symlink;
     QRadioButton* m_auto;
+
+private slots:
+    void showHelp();
 };
 
 }

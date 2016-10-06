@@ -129,7 +129,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                 info += i18nc("aspect ratio"," (1:1)");
             else
                 info += i18nc("aspect ratio"," (1:%1)"
-                              ,QLocale::system().toString(1.0d/aspect, 'f', 2));
+                              ,QLocale::system().toString(1.0/aspect, 'f', 2));
             AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
         }
     }

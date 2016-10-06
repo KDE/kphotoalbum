@@ -34,8 +34,10 @@
 #include "SelectionMaintainer.h"
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
-    : ThumbnailComponent( factory ),
-      m_sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+    : ThumbnailComponent( factory )
+    , m_sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+    , m_firstVisibleRow(-1)
+    , m_lastVisibleRow(-1)
 {
     connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );

@@ -114,8 +114,8 @@ void ImportDialog::setupPages()
     createDestination();
     createCategoryPages();
     connect(this, &ImportDialog::currentPageChanged, this, &ImportDialog::updateNextButtonState);
-    // FIXME KF5-port KPageDialog::helpClicked no longer exists
-    //connect(this, &ImportDialog::helpClicked, this, &ImportDialog::slotHelp);
+    QPushButton *helpButton = buttonBox()->button(QDialogButtonBox::Help);
+    connect(helpButton, &QPushButton::clicked, this, &ImportDialog::slotHelp);
 }
 
 void ImportDialog::createIntroduction()
@@ -363,7 +363,7 @@ DB::ImageInfoList ImportDialog::selectedImages() const
 
 void ImportDialog::slotHelp()
 {
-    KHelpClient::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
+    KHelpClient::invokeHelp( QString::fromLatin1( "chp-importExport" ) );
 }
 
 ImportSettings ImportExport::ImportDialog::settings()

@@ -86,16 +86,9 @@ ExportConfig::ExportConfig()
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &ExportConfig::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &ExportConfig::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
+
     QWidget* top = new QWidget;
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
+    mainLayout->addWidget(top);
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
@@ -178,7 +171,16 @@ ExportConfig::ExportConfig()
     m_link->setWhatsThis( txt );
     m_symlink->setWhatsThis( txt );
     m_auto->setWhatsThis( txt );
-    KHelpClient::invokeHelp( QString::fromLatin1( "chp-exportDialog" ) );
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &ExportConfig::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &ExportConfig::reject);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *helpButton = buttonBox->button(QDialogButtonBox::Help);
+    connect(helpButton,&QPushButton::clicked, this,&ExportConfig::showHelp);
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const
@@ -193,6 +195,11 @@ ImageFileLocation ExportConfig::imageFileLocation() const
         return Symlink;
     else
         return AutoCopy;
+}
+
+void ExportConfig::showHelp()
+{
+    KHelpClient::invokeHelp( QString::fromLatin1( "chp-importExport" ) );
 }
 
 Export::~Export()

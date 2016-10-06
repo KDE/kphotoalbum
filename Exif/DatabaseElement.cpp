@@ -132,35 +132,36 @@ QVariant Exif::RationalExifElement::valueFromExif(Exiv2::ExifData &data) const
     Exiv2::Exifdatum &tagDatum = data[m_tag];
     switch ( tagDatum.count() )
     {
-    case 0: // empty
-        value = -1.0;
-    case 1: // "normal" rational
-        value = 1.0 * tagDatum.toRational().first / tagDatum.toRational().second;
-        break;
-    case 3: // GPS lat/lon data:
-    {
-        value = 0.0;
-        double divisor = 1.0;
-        // hour / minute / second:
-        for (int i=0 ; i < 4 ; i++ )
+        case 0: // empty
+            value = -1.0;
+            break;
+        case 1: // "normal" rational
+            value = 1.0 * tagDatum.toRational().first / tagDatum.toRational().second;
+            break;
+        case 3: // GPS lat/lon data:
         {
-            double nom = tagDatum.toRational(i).first;
-            double denom = tagDatum.toRational(i).second;
-            if ( denom == 0 )
-                value += 0;
-            else
-                value += (nom / denom)/ divisor;
-            divisor *= 60.0;
+            value = 0.0;
+            double divisor = 1.0;
+            // hour / minute / second:
+            for (int i=0 ; i < 4 ; i++ )
+            {
+                double nom = tagDatum.toRational(i).first;
+                double denom = tagDatum.toRational(i).second;
+                if ( denom == 0 )
+                    value += 0;
+                else
+                    value += (nom / denom)/ divisor;
+                divisor *= 60.0;
+            }
         }
-    }
-        break;
-    default:
-        // FIXME: there are at least the following other rational types:
-        // whitepoints -> 2 components
-        // YCbCrCoefficients -> 3 components (Coefficients for transformation from RGB to YCbCr image data. )
-        // chromaticities -> 6 components
-        qWarning() << "Exif rational data with " << tagDatum.count() << " components is not handled, yet!";
-        return QVariant{};
+            break;
+        default:
+            // FIXME: there are at least the following other rational types:
+            // whitepoints -> 2 components
+            // YCbCrCoefficients -> 3 components (Coefficients for transformation from RGB to YCbCr image data. )
+            // chromaticities -> 6 components
+            qWarning() << "Exif rational data with " << tagDatum.count() << " components is not handled, yet!";
+            return QVariant{};
     }
     return QVariant{value};
 }

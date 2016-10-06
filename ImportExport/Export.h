@@ -61,6 +61,7 @@ protected:
     void copyImages(const DB::FileNameList& list);
 
 private:
+    bool m_internalOk; // used in case m_ok is null
     bool* m_ok;
     int m_filesRemaining;
     int m_steps;

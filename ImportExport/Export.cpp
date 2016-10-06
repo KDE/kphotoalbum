@@ -217,11 +217,14 @@ Export::Export(
     const QString& baseUrl,
     bool doGenerateThumbnails,
     bool *ok)
-    : m_ok( ok )
+    : m_internalOk(true)
+    , m_ok( ok )
     , m_maxSize( maxSize )
     , m_location( location )
     , m_eventLoop( new QEventLoop )
 {
+    if (ok == nullptr)
+        ok = &m_internalOk;
     *ok = true;
     m_destdir = QFileInfo( zipFile ).path();
     m_zip = new KZip( zipFile );
@@ -253,12 +256,12 @@ Export::Export(
         copyImages( list );
     }
 
-    if ( m_ok && doGenerateThumbnails ) {
+    if ( *m_ok && doGenerateThumbnails ) {
         m_copyingFiles = false;
         generateThumbnails( list );
     }
 
-    if ( m_ok ) {
+    if ( *m_ok ) {
         // Create the index.xml file
         m_progressDialog->setLabelText(i18n("Creating index file"));
         QByteArray indexml = XMLHandler().createIndexXML( list, baseUrl, m_location, &m_filenameMapper );
@@ -371,7 +374,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
 
     qApp->processEvents( QEventLoop::AllEvents );
 
-    bool canceled = (!m_ok ||  m_progressDialog->wasCanceled());
+    bool canceled = (!*m_ok ||  m_progressDialog->wasCanceled());
 
     if ( canceled ) {
         *m_ok = false;

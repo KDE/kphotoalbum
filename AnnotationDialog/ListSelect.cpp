@@ -401,12 +401,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
     QAction* which = menu->exec( m_treeWidget->mapToGlobal(pos));
     if ( which == nullptr )
         return;
-
     else if ( which == deleteAction ) {
+        Q_ASSERT( item );
         int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br/>"
                                                                   "Deleting the item will remove any information "
                                                                   "about it from any image containing the item.</p>"
-                                                       ,item->text(0)),
+                                                       ,title),
                                                        i18n("Really Delete %1?",item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
@@ -429,6 +429,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         }
     }
     else if ( which == renameAction ) {
+        Q_ASSERT( item );
         bool ok;
         QString newStr = QInputDialog::getText( this,
                                                 i18n("Rename Item"), i18n("Enter new name:"),
@@ -476,6 +477,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         Settings::SettingsData::instance()->setViewSortType( Settings::SortAlphaFlat );
     }
     else if ( which == newCategoryAction ) {
+        Q_ASSERT( item );
         QString superCategory = QInputDialog::getText( this,
             i18n("New tag group"),
             i18n("Name for the new tag group the tag will be added to:")
@@ -488,6 +490,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
         rePopulate();
     }
     else if ( which == newSubcategoryAction ) {
+        Q_ASSERT( item );
         QString subCategory = QInputDialog::getText( this,
             i18n("Add a tag"),
             i18n("Name for the tag to be added to this tag group:")
@@ -507,10 +510,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
             checkItem( subCategory, true );
     }
     else if ( which == takeAction ) {
+        Q_ASSERT( item );
         memberMap.removeMemberFromGroup( m_category->name(), parent->text(0), item->text(0) );
         rePopulate();
     }
     else {
+        Q_ASSERT( item );
         QString checkedItem = which->data().value<QString>();
         if ( which->isChecked() ) // choosing the item doesn't check it, so this is the value before.
             memberMap.addMemberToGroup( m_category->name(), checkedItem, item->text(0) );

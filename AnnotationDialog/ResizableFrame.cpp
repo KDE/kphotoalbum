@@ -202,7 +202,6 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent* event)
             y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - event->y());
 
             if (y >= geometry().y() + geometry().height()) {
-                h = 0;
                 y = m_dragStartGeometry.top() + m_dragStartGeometry.height();
                 moveAction ^= SCALE_BOTTOM | SCALE_TOP;
             }
@@ -245,7 +244,6 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent* event)
             x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - event->x());
 
             if (x >= geometry().left() + geometry().width()) {
-                w = 0;
                 x = m_dragStartGeometry.left() + m_dragStartGeometry.width();
                 moveAction ^= SCALE_RIGHT | SCALE_LEFT;
             }

@@ -719,7 +719,7 @@ void MainWindow::Window::setupMenuBar()
     actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Home);
     connect(a, &QAction::triggered, m_dateBar, &DateBar::DateBarWidget::clearSelection);
 
-    a = KStandardAction::redisplay( m_browser, SLOT(go()), actionCollection() );
+    KStandardAction::redisplay( m_browser, SLOT(go()), actionCollection() );
 
     // The Edit menu
     m_copy = KStandardAction::copy( this, SLOT(slotCopySelectedURLs()), actionCollection() );

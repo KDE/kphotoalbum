@@ -28,7 +28,7 @@
 
 ThumbnailView::ThumbnailFacade* ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()
-    :m_cellGeometry( new CellGeometry(this) ),
+    :m_cellGeometry( nullptr ),
      m_model( nullptr ),m_widget( nullptr ), m_toolTip( nullptr )
 {
     // To avoid one of the components references one of the other before it has been initialized, we first construct them all with null.

@@ -79,7 +79,7 @@ ImageManager::ThumbnailCache::ThumbnailCache()
         QDir().mkpath(dir);
 
     load();
-    m_timer = new QTimer;
+    m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this, &ThumbnailCache::save);
 }
 

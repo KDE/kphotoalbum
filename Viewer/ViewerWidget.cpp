@@ -1536,7 +1536,8 @@ void Viewer::ViewerWidget::copyTo()
 
     if (dialog.exec()) {
         QUrl dst = dialog.selectedUrls().first();
-        KIO::copy(src, dst);
+        KIO::CopyJob *job = KIO::copy(src, dst);
+        connect(job, &KIO::CopyJob::finished, job, &QObject::deleteLater);
         // get directory of dst file
         m_lastCopyToTarget = QFileInfo(dst.path()).path();
     }

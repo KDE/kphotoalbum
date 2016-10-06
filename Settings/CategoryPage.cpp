@@ -105,7 +105,8 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     m_renameLabel = new QLabel;
     m_renameLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     rightSideLayout->addWidget(m_renameLabel);
-    connect( parent, SIGNAL(clicked()), m_renameLabel, SLOT(clear()));
+    QDialog *parentDialog = qobject_cast<QDialog*>(parent);
+    connect( parentDialog, &QDialog::rejected, m_renameLabel, &QLabel::clear);
 
     // Some space looks better here :-)
     QLabel* spacer = new QLabel;

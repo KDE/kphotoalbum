@@ -128,7 +128,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
             m_birthdayPage, &Settings::BirthdayPage::pageChange);
 
     // slot is protected -> use old style connect:
-    connect(this, SIGNAL(cancelClicked()),
+    connect(this, SIGNAL(rejected()),
             m_categoryPage, SLOT(resetCategoryLabel()));
 }
 

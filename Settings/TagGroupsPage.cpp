@@ -71,7 +71,8 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_pendingChangesLabel->hide();
     layout->addWidget(m_pendingChangesLabel, 2, 0, 1, 2);
 
-    connect( parent, SIGNAL(clicked()), this, SLOT(discardChanges()));
+    QDialog *parentDialog = qobject_cast<QDialog*>(parent);
+    connect( parentDialog, &QDialog::rejected, this, &TagGroupsPage::discardChanges);
 
     // Context menu actions
     m_newGroupAction = new QAction(i18nc("@action:inmenu","Add group ..."), this);

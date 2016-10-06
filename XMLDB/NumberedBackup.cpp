@@ -77,7 +77,7 @@ QStringList XMLDB::NumberedBackup::backupFiles() const
 
 int XMLDB::NumberedBackup::idForFile( const QString& fileName, bool& OK ) const
 {
-    static QRegExp reg( QString::fromLatin1( "index\\.xml~([0-9]+)~(.zip)?" ) );
+    QRegExp reg( QString::fromLatin1( "index\\.xml~([0-9]+)~(.zip)?" ) );
     if ( reg.exactMatch( fileName ) ) {
         OK = true;
         return reg.cap(1).toInt();

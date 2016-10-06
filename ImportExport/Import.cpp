@@ -40,7 +40,8 @@ void Import::imageImport()
                 nullptr, /*parent*/
                 i18n("KPhotoAlbum Export Files" ), /*caption*/
                 QUrl(), /* directory */
-                QString::fromLatin1( "*.kim|" ) + i18n(".kim files") /*filter*/
+                i18n("KPhotoAlbum import files") +
+                QString::fromLatin1( "(*.kim)" ) /*filter*/
                 );
     if ( url.isEmpty() )
         return;

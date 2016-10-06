@@ -63,7 +63,8 @@ void Export::imageExport(const DB::FileNameList& list)
                 nullptr, /* parent */
                 i18n("Save an export file"), /* caption */
                 QString(), /* directory */
-                QString::fromLatin1( "*.kim|" ) + i18n(".kim files") /* filter */
+                i18n("KPhotoAlbum import files") +
+                QString::fromLatin1( "(*.kim)" ) /*filter*/
                 );
     if ( zipFile.isNull() )
         return;

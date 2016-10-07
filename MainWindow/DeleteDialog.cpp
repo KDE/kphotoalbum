@@ -34,23 +34,12 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     , m_list()
 {
     setWindowTitle( i18n("Removing items") );
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel);
-    QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *user1Button = new QPushButton;
-    buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &DeleteDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &DeleteDialog::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
-    user1Button->setText(i18n("OK" ));
 
     QWidget* top = new QWidget;
     QVBoxLayout* lay1 = new QVBoxLayout( top );
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
+    mainLayout->addWidget(top);
 
 
     m_label = new QLabel;
@@ -65,7 +54,10 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     m_deleteFromDb = new QRadioButton;
     lay1->addWidget( m_deleteFromDb );
 
-     connect(user1Button, &QPushButton::clicked, this, &DeleteDialog::deleteImages);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &DeleteDialog::deleteImages);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &DeleteDialog::reject);
+    mainLayout->addWidget(buttonBox);
 }
 
 int DeleteDialog::exec(const DB::FileNameList& list)

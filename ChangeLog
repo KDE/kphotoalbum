@@ -1,3 +1,27 @@
+====================== KPhotoalbum 5.0-beta2 released  (08.10.2016) ======================
+
+* "beta2"?: Yes, beta2. We actually did a "beta1" release, but it contained some bugs/regressions
+   that broke the whole thing, so we decided to not really relese it. But the tag is there ... ;-)
+
+* Overall changes (there were lots and lots of them):
+
+  Ported KPA to Qt 5 and KF5, including updating all depreceated code. We also do not depend on the
+  KDE4LibsSupport compatibility class.
+
+  Cleaned up includes and stray references, dropped some legacy compatibility code.
+
+  Updated the (many/most of the) icons to get a uniform "KF5 look".
+
+  Revised commandline options.
+
+  Use ffmpeg/ffprobe for video if available.
+
+  Usability improvements for HTML export.
+
+  We now ship AppData.
+
+  Fixed some leaks detected by Valgrind and warnings by the clang static analyzer.
+
 ====================== KPhotoalbum 4.7.2 released  (29.07.2016) ======================
 
 * Bugfix: Fix building without KIPI.

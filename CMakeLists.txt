@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(kphotoalbum)
+project(kphotoalbum VERSION 5.0)
 
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)
@@ -100,7 +100,9 @@ set(HAVE_KGEOMAP ${KF5KGeoMap_FOUND})
 
 add_custom_target(
     UpdateVersion ALL
-    COMMAND ${CMAKE_COMMAND} -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
+    COMMAND ${CMAKE_COMMAND}
+    -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -DPROJECT_NAME=KPA -DPROJECT_VERSION="${PROJECT_VERSION}"
+    -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
     COMMENT "Updating version header."
     )
 

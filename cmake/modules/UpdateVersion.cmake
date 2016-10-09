@@ -1,25 +1,44 @@
-# Copyright 2012 Johannes Zarl <isilmendil@gmx.net>
+# Copyright 2012-2016 Johannes Zarl-Zierl <isilmendil@gmx.net>
 #
 # This software is distributed WITHOUT ANY WARRANTY; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# This file is under the public domain and can be reused without restrictions.
+# Redistribution and use is allowed according to the terms of the BSD 3-clause license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+
 
 if ( NOT DEFINED BASE_DIR )
 	message ( FATAL_ERROR "UpdateVersion.cmake: BASE_DIR not set. Please supply base working directory!" )
 endif()
 
-# git or tarball?
+# Step 1: query git if available:
 if ( EXISTS "${BASE_DIR}/.git" )
-	# -> git:
 	include ( "${CMAKE_CURRENT_LIST_DIR}/GitDescription.cmake" )
+	git_get_description ( GIT_VERSION GIT_ARGS --dirty )
 
-	git_get_description ( KPA_VERSION GIT_ARGS --dirty )
-	if ( NOT KPA_VERSION )
-		set ( KPA_VERSION "unknown" )
+	# if both are set, check if project version and git version match
+	if ( GIT_VERSION AND PROJECT_VERSION )
+		string( FIND "${GIT_VERSION}" "${PROJECT_VERSION}" _position )
+
+		# allow for position 0 or 1 (e.g. "5.0" in "v5.0")
+		if ( ( _position LESS 0 ) OR ( _position GREATER 1 ) )
+			message( AUTHOR_WARNING "Output of 'git describe' does not match PROJECT_VERSION! (${GIT_VERSION} vs ${PROJECT_VERSION})" )
+		endif()
+		unset(_position)
 	endif()
 
-	message ( STATUS "Updating version information to ${KPA_VERSION}..." )
+	# git overrides project version
+	if ( GIT_VERSION )
+		set ( PROJECT_VERSION "${GIT_VERSION}" )
+	endif()
+endif()
+
+# Step 2: configure version.h
+if ( PROJECT_VERSION )
+	# make sure we have the right variable set:
+	set ( "${PROJECT_NAME}_VERSION" "${PROJECT_VERSION}" )
+
+	message ( STATUS "Setting version information to ${PROJECT_VERSION}..." )
 	# write version info to a temporary file
 	configure_file ( "${BASE_DIR}/version.h.in" "${CMAKE_CURRENT_BINARY_DIR}/version.h~" )
 	# update info iff changed
@@ -27,7 +46,7 @@ if ( EXISTS "${BASE_DIR}/.git" )
 	# make sure info doesn't get stale
 	file ( REMOVE "${CMAKE_CURRENT_BINARY_DIR}/version.h~" )
 else()
-	# -> tarball
+	# if we got no version, but we have a version.h, don't complain:
 	if ( NOT EXISTS "${BASE_DIR}/version.h" )
 		message ( SEND_ERROR "The generated file 'version.h' does not exist!" )
 		message ( AUTHOR_WARNING "When creating a release tarball, please make sure to run cmake -P ${CMAKE_CURRENT_LIST_FILE}" )

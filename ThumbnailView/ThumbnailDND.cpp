@@ -42,9 +42,14 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         return;
     }
 
-    const DB::FileName fileName = widget()->mediaIdUnderCursor();
-
     removeDropIndications();
+
+    const DB::FileName fileName = widget()->mediaIdUnderCursor();
+    if (fileName.isNull())
+    {
+        // cursor not in drop zone (e.g. empty space right/below of the thumbnails)
+        return;
+    }
 
     const QRect rect = widget()->visualRect( widget()->indexUnderCursor() );
 
@@ -81,9 +86,16 @@ void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
     removeDropIndications();
 }
 
-void ThumbnailView::ThumbnailDND::contentsDropEvent( QDropEvent* )
+void ThumbnailView::ThumbnailDND::contentsDropEvent(QDropEvent *event)
 {
-    QTimer::singleShot( 0, this, SLOT(realDropEvent()) );
+    if (model()->leftDropItem().isNull() && model()->rightDropItem().isNull())
+    {
+        // drop outside drop zone
+        removeDropIndications();
+        event->ignore();
+    } else {
+        QTimer::singleShot( 0, this, SLOT(realDropEvent()) );
+    }
 }
 
 /**

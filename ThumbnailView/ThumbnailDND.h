@@ -38,7 +38,7 @@ public:
     explicit ThumbnailDND( ThumbnailFactory* factory );
     void contentsDragMoveEvent( QDragMoveEvent* event );
     void contentsDragLeaveEvent( QDragLeaveEvent* );
-    void contentsDropEvent( QDropEvent* );
+    void contentsDropEvent( QDropEvent *event );
     void contentsDragEnterEvent( QDragEnterEvent * event );
 
 private slots:

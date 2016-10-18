@@ -1,3 +1,9 @@
+====================== KPhotoalbum 5.0.1 released  (18.10.2016) ======================
+
+* Version confusion: Well, it's _still the first_ beta release, and hopefully, we will make it this
+  time. KDE's releaseme tool for KF5 does not support our automatic version generation anymore, so
+  we had to adjust our sources. Sorry for the tagh spam ;-)
+
 ====================== KPhotoalbum 5.0-beta2 released  (08.10.2016) ======================
 
 * "beta2"?: Yes, beta2. We actually did a "beta1" release, but it contained some bugs/regressions

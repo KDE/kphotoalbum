@@ -34,7 +34,7 @@ class CategoryModel : public QAbstractListModel
     Q_PROPERTY(bool hasData READ hasData NOTIFY hasDataChanged)
 
 public:
-    enum { NameRole, TextRole, IconRole, EnabledRole, TypeRole };
+    enum { NameRole, IconRole, EnabledRole, TypeRole };
     explicit CategoryModel(QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;

@@ -17,22 +17,25 @@
 */
 
 #include "RemoteInterface.h"
-#include "Client.h"
-#include "RemoteCommand.h"
-#include "ImageStore.h"
 
-#include <QTcpSocket>
+#include "Action.h"
+#include "Client.h"
+#include "ImageDetails.h"
+#include "ImageStore.h"
+#include "RemoteCommand.h"
+#include "ScreenInfo.h"
+#include "Settings.h"
+
+#include <QBuffer>
+#include <QCoreApplication>
+#include <QDataStream>
+#include <QHostInfo>
 #include <qimage.h>
 #include <QLabel>
-#include <QBuffer>
-#include <QDataStream>
-#include <ScreenInfo.h>
-#include "Action.h"
-#include <QCoreApplication>
-#include <QHostInfo>
-#include <memory>
-#include "ImageDetails.h"
 #include <QNetworkInterface>
+#include <QTcpSocket>
+
+#include <memory>
 
 using namespace RemoteControl;
 
@@ -235,7 +238,8 @@ QString RemoteInterface::networkAddress() const
 
 QStringList RemoteInterface::tokens() const
 {
-    return ImageDetails::instance().itemsOfCategory(Settings::SettingsData::instance()->tokensCategory());
+    // FIXME: in KPA the tokens category is now retreived using categoryForSpecial
+    return ImageDetails::instance().itemsOfCategory(QStringLiteral("Tokens"));
 }
 
 void RemoteInterface::requestInitialData()

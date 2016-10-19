@@ -68,7 +68,7 @@ PinchArea {
                 model: _remoteInterface.categories
                 delegate: Icon {
                     enabled: model.enabled
-                    text: model.text
+                    text: model.name
                     icon: model.icon
                     width: _screenInfo.overviewIconSize
                     iconScale: root.iconScale

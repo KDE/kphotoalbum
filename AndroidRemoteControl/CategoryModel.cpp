@@ -36,8 +36,6 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
     const Category& item = m_categories[index.row()];
     if (role == NameRole)
         return item.name;
-    else if (role == TextRole)
-        return item.text;
     else if (role == IconRole)
         return item.icon;
     else if (role == EnabledRole)
@@ -49,7 +47,7 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
 
 RoleMap RemoteControl::CategoryModel::roleNames() const
 {
-    return { {NameRole, "name"}, {TextRole, "text"}, {IconRole, "icon"}, {EnabledRole, "enabled"}, {TypeRole, "type"} };
+    return { {NameRole, "name"}, {IconRole, "icon"}, {EnabledRole, "enabled"}, {TypeRole, "type"} };
 }
 
 void CategoryModel::setCategories(const QList<Category>& categories)

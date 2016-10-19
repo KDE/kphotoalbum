@@ -68,6 +68,8 @@ Item {
                         color: "white"
                         linkColor: "white"
                         onLinkActivated: { hide(); _remoteInterface.activateSearch(link) }
+                        wrapMode: Text.Wrap
+                        width: column.width
                     }
                 }
                 Text {

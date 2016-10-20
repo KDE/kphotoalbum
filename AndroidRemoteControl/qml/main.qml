@@ -24,12 +24,12 @@ Rectangle {
 
     OverviewPage {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == Enums.OverviewPage
+        visible: _remoteInterface.currentPage === Enums.OverviewPage
     }
 
     ThumbnailsPage {
         name: "categoryPage"
-        visible: _remoteInterface.currentPage == Enums.CategoryItemsPage
+        visible: _remoteInterface.currentPage === Enums.CategoryItemsPage
         anchors.fill: parent
         model: visible ? _remoteInterface.categoryItems : undefined
         type: Enums.CategoryItems
@@ -38,7 +38,7 @@ Rectangle {
     }
 
     CategoryListView {
-        visible: _remoteInterface.currentPage == Enums.CategoryListPage
+        visible: _remoteInterface.currentPage === Enums.CategoryListPage
         anchors.fill: parent
         model: visible ? _remoteInterface.listCategoryValues : undefined
         onClicked: _remoteInterface.selectCategoryValue(label)
@@ -46,7 +46,7 @@ Rectangle {
 
     ThumbnailsPage {
         name: "thumbnailsPage"
-        visible: _remoteInterface.currentPage == Enums.ThumbnailsPage
+        visible: _remoteInterface.currentPage === Enums.ThumbnailsPage
         anchors.fill: parent
         model: _remoteInterface.thumbnailModel
         type: Enums.Thumbnails
@@ -56,13 +56,13 @@ Rectangle {
 
     ThumbnailsPage {
         id: discoveryPage
-        visible: _remoteInterface.currentPage == Enums.DiscoverPage
+        visible: _remoteInterface.currentPage === Enums.DiscoverPage
         anchors.fill: parent
         model: _remoteInterface.discoveryModel
         type: Enums.Thumbnails
         showLabels: false
         onClicked: {
-            if (imageId == -1000 /* DISCOVERYID*/)
+            if (imageId === -1000 /* DISCOVERYID*/)
                 model.resetImages()
             else
                 _remoteInterface.showImage(imageId)
@@ -78,11 +78,11 @@ Rectangle {
 
     ImageViewer {
         anchors.fill: parent
-        visible: _remoteInterface.currentPage == Enums.ImageViewerPage
+        visible: _remoteInterface.currentPage === Enums.ImageViewerPage
     }
 
     Text {
-        visible: _remoteInterface.currentPage == Enums.UnconnectedPage
+        visible: _remoteInterface.currentPage === Enums.UnconnectedPage
         width: parent.width*6/7
         wrapMode: Text.WordWrap
         color: _settings.textColor
@@ -119,13 +119,13 @@ Rectangle {
 
     focus: true
     Keys.onReleased: {
-        if ( event.key == Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
+        if ( event.key === Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
-        if (event.key == Qt.Key_Back || event.key == Qt.Key_Left) {
+        if (event.key === Qt.Key_Back || event.key === Qt.Key_Left) {
             _remoteInterface.goBack()
             event.accepted = true
         }
-        if (event.key == Qt.Key_Right)
+        if (event.key === Qt.Key_Right)
             _remoteInterface.goForward()
     }
 }

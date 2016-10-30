@@ -20,7 +20,7 @@ include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n KIO DocTools WidgetsAddons Config IconThemes Archive Parts JobWidgets)
+find_package(KF5 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets WidgetsAddons)
 
 # enable exceptions:
 kde_enable_exceptions()
@@ -445,10 +445,23 @@ set(kphotoalbum_SRCS
 add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 # External components
-target_link_libraries(kphotoalbum ${JPEG_LIBRARY})
-target_link_libraries(kphotoalbum Qt5::Network)
-target_link_libraries(kphotoalbum KF5::KIOCore KF5::CoreAddons KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::IconThemes KF5::Archive KF5::Parts KF5::JobWidgets KF5::WidgetsAddons)
-target_link_libraries(kphotoalbum Phonon::phonon4qt5)
+target_link_libraries(kphotoalbum
+    ${JPEG_LIBRARY}
+    KF5::Archive
+    KF5::Completion
+    KF5::ConfigCore
+    KF5::ConfigGui
+    KF5::CoreAddons
+    KF5::I18n
+    KF5::IconThemes
+    KF5::JobWidgets
+    KF5::KIOCore
+    KF5::KIOWidgets
+    KF5::TextWidgets
+    KF5::WidgetsAddons
+    Phonon::phonon4qt5
+    Qt5::Network
+    )
 
 if(KF5Kipi_FOUND)
     target_link_libraries(kphotoalbum KF5::Kipi)

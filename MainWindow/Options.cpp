@@ -30,8 +30,12 @@ class Options::OptionsPrivate {
 public:
     QCommandLineParser parser;
 
-    // legacy option: "-c <imageDirectory"
-    QCommandLineOption configFile { QLatin1String("c") };
+    // legacy option: "-c <imageDirectory>"
+    QCommandLineOption configFile {
+        QLatin1String("c"),
+                i18n("Use <databaseFile> instead of the default. Deprecated - use '--db <databaseFile>' instead."),
+                i18n("databaseFile")
+    };
     QCommandLineOption dbFile {
         QLatin1String("db"),
                 i18n("Use <databaseFile> instead of the default."),
@@ -106,7 +110,13 @@ QHostAddress MainWindow::Options::listen() const
         else
             address = QHostAddress(value);
     }
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     if (address.isMulticast() || address == QHostAddress::Broadcast)
+#else
+    // OpenSuse leap 42.1 still ships with Qt 5.5
+    // TODO: remove this once we don't care about Qt 5.5 anymore...
+    if (address == QHostAddress::Broadcast)
+#endif
     {
         qWarning() << "Won't bind to address"<<address;
         address = QHostAddress::Null;
@@ -119,7 +129,11 @@ MainWindow::Options::Options()
 {
     d->parser.addVersionOption();
     d->parser.addHelpOption();
+    // OpenSuse leap 42.1 still ships with Qt 5.5
+    // TODO: remove this version check once we don't care about Qt 5.5 anymore...
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     d->configFile.setHidden(true);
+#endif
     d->parser.addOptions(
                 QList<QCommandLineOption>()
                 << d->configFile

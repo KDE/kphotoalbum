@@ -38,7 +38,6 @@ add_definitions(
     -DQT_NO_CAST_TO_ASCII
     -DQT_NO_URL_CAST_FROM_STRING
     -DQT_NO_CAST_FROM_BYTEARRAY
-    #-DDEBUG_JOBMANAGER
     )
 
 include(CheckCXX11Features)
@@ -484,6 +483,26 @@ if(KF5KGeoMap_FOUND)
 endif()
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+########### Debug support ###############
+
+foreach(part in
+        AnnotationDialog
+        EXIF
+        HTMLGENERATOR
+        JOBMANAGER
+        KIM_IMPORT
+        KIPI
+        MAP
+        ResizeSlider
+        )
+    set(_opt "DEBUG_${part}")
+    option(${_opt} "Enable debug output for ${part}" OFF)
+    if (${_opt})
+        message(STATUS "Enabling debug output for ${part}")
+        add_definitions(-D${_opt})
+    endif()
+endforeach()
 
 ########### install files ###############
 

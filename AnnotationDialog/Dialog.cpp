@@ -78,6 +78,11 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 
+#ifdef DEBUG_AnnotationDialog
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
+#endif
 
 using Utilities::StringSet;
 
@@ -961,7 +966,10 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
 {
     for( QDockWidget* dock : m_dockWidgets ) {
         if ( dock->isFloating() )
+        {
+            Debug() << "Hiding dock: " << dock->objectName();
             dock->hide();
+        }
     }
 }
 
@@ -969,7 +977,10 @@ void AnnotationDialog::Dialog::showTornOfWindows()
 {
     for (QDockWidget* dock: m_dockWidgets ) {
         if ( dock->isFloating() )
+        {
+            Debug() << "Showing dock: " << dock->objectName();
             dock->show();
+        }
     }
 }
 

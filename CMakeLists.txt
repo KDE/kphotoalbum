@@ -18,10 +18,6 @@ include(KDECompilerSettings)
 include(KDECMakeSettings)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
-find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets WidgetsAddons)
-
 # enable exceptions:
 kde_enable_exceptions()
 
@@ -45,6 +41,37 @@ include(CheckCXX11Features)
 set(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}"
     )
+
+########## general options ##############
+
+option(ENABLE_PLAYGROUND "Enable features that are not quite polished enough for general consumption" OFF)
+add_feature_info(ENABLE_PLAYGROUND "${ENABLE_PLAYGROUND}" "Enable features that are not quite polished enough for general consumption")
+
+########### Debug options ###############
+
+foreach(part in
+        AnnotationDialog
+        EXIF
+        HTMLGENERATOR
+        JOBMANAGER
+        KIM_IMPORT
+        KIPI
+        MAP
+        ResizeSlider
+        )
+    set(_opt "DEBUG_${part}")
+    option(${_opt} "Enable debug output for ${part}" OFF)
+    if (${_opt})
+        message(STATUS "Enabling debug output for ${part}")
+        add_definitions(-D${_opt})
+    endif()
+endforeach()
+
+########### dependencies  ###############
+
+find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
+find_package(Phonon4Qt5 REQUIRED)
+find_package(KF5 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets WidgetsAddons)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
@@ -77,13 +104,15 @@ set_package_properties(KF5KExiv2
     )
 set(HAVE_EXIV2 ${KF5KExiv2_FOUND})
 
-find_package(KF5KFace 5.0.0 CONFIG)
-set_package_properties(KF5KFace
-    PROPERTIES
-    TYPE OPTIONAL
-    PURPOSE "Enables support for face detection and recognition."
-    )
-set(HAVE_KFACE ${KF5KFace_FOUND})
+if(ENABLE_PLAYGROUND)
+    find_package(KF5KFace 5.0.0 CONFIG)
+    set_package_properties(KF5KFace
+        PROPERTIES
+        TYPE OPTIONAL
+        PURPOSE "Enables support for face detection and recognition."
+        )
+    set(HAVE_KFACE ${KF5KFace_FOUND})
+endif()
 
 if(KF5KExiv2_FOUND)
     find_package(KF5KGeoMap)
@@ -483,26 +512,6 @@ if(KF5KGeoMap_FOUND)
 endif()
 
 install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-########### Debug support ###############
-
-foreach(part in
-        AnnotationDialog
-        EXIF
-        HTMLGENERATOR
-        JOBMANAGER
-        KIM_IMPORT
-        KIPI
-        MAP
-        ResizeSlider
-        )
-    set(_opt "DEBUG_${part}")
-    option(${_opt} "Enable debug output for ${part}" OFF)
-    if (${_opt})
-        message(STATUS "Enabling debug output for ${part}")
-        add_definitions(-D${_opt})
-    endif()
-endforeach()
 
 ########### install files ###############
 

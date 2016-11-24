@@ -543,6 +543,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
                                                             category->thumbnailSize(),
                                                             m_categoriesListWidget,
                                                             category->positionable());
+            Q_UNUSED(item);
 #ifdef HAVE_KFACE
             if (category->positionable()) {
                 connect(item, &Settings::CategoryItem::newCategoryNameSaved, this, &CategoryPage::renameRecognitionCategory);

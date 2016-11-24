@@ -35,6 +35,12 @@
 
 #include "ResizableFrame.h"
 
+#ifdef DEBUG_AnnotationDialog
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
+#endif
+
 using namespace AnnotationDialog;
 
 ImagePreview::ImagePreview( QWidget* parent )
@@ -46,29 +52,44 @@ ImagePreview::ImagePreview( QWidget* parent )
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 }
 
-void ImagePreview::resizeEvent( QResizeEvent* )
+void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
-    m_preloader.cancelPreload();
-    m_lastImage.reset();
-    reload();
+    Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
+    // only reload if size difference is significant:
+    QSize diff = ev->size() - ev->oldSize();
+    if (abs(diff.width()) > 2 || abs(diff.height()) > 2)
+    {
+        m_preloader.cancelPreload();
+        m_lastImage.reset();
+        reload();
+    }
 }
 
 int ImagePreview::heightForWidth(int width) const
 {
-    int height = this->height();
-    if (pixmap())
+    float aspectRatio = 1.0;
+    if (pixmap() && ! pixmap()->isNull())
     {
-        int pxHeight = pixmap()->height();
-        int pxWidth = pixmap()->width();
-        height = ((qreal)pxHeight*width) / pxWidth;
-        //height = qMax(height, minimumHeight());
+        // normally, we want the aspect ratio defined by the preview image...
+        aspectRatio = pixmap()->height() / pixmap()->width();
+    } else if (this->width() > 0) {
+        // ...if that's not available, the current aspect ratio should
+        // be a good starting point
+        aspectRatio = this->height() / this->width();
     }
+
+    int height = width * aspectRatio;
+    height = qMax(height, minimumHeight());
     return height;
 }
 
 QSize ImagePreview::sizeHint() const
 {
-    QSize hint { width(), heightForWidth(width()) };
+    // sizeHint should not depend on the current size
+    // to minimize bad effects, truncate last bits of width before using it:
+    int w = (width() >> 4) << 4 ;
+    QSize hint { w, heightForWidth(w) };
+    Debug() << "Preview size hint is" << hint;
     return hint;
 }
 
@@ -272,7 +293,7 @@ void ImagePreview::PreviewLoader::cancelPreload()
     ImageManager::AsyncLoader::instance()->stop(this);
 }
 
-QImage AnnotationDialog::ImagePreview::rotateAndScale(QImage img, int width, int height, int angle) const
+QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle) const
 {
     if ( angle != 0 )  {
         QMatrix matrix;

@@ -36,11 +36,9 @@ add_definitions(
     -DQT_NO_CAST_FROM_BYTEARRAY
     )
 
-include(CheckCXX11Features)
 
-set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}"
-    )
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_REQUIRED TRUE)
 
 ########## general options ##############
 

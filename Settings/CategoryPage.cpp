@@ -122,7 +122,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     // Positionable
     m_positionableLabel = new QLabel(i18n("Positionable tags:"));
     settingsLayout->addWidget(m_positionableLabel, row, 0);
-    m_positionable = new QCheckBox(i18n("Tags in this category can be associated with an area of the image"));
+    m_positionable = new QCheckBox(i18n("Tags in this category can be associated with areas within images"));
     settingsLayout->addWidget(m_positionable, row, 1);
     connect(m_positionable, &QCheckBox::clicked, this, &CategoryPage::positionableChanged);
     row++;

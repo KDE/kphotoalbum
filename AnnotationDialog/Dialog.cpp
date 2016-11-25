@@ -547,6 +547,8 @@ void AnnotationDialog::Dialog::load()
     // or un-marked as positionable in the meantime, so ...
     QMap<QString, bool> categoryIsPositionable;
 
+    QList<QString> positionableCategories;
+
     Q_FOREACH( ListSelect *ls, m_optionList ) {
         ls->setSelection( info.itemsOfCategory( ls->category() ) );
         ls->rePopulate();
@@ -562,6 +564,10 @@ void AnnotationDialog::Dialog::load()
 
         // ... create a list of all categories and their positionability ...
         categoryIsPositionable[ls->category()] = ls->positionable();
+
+        if (ls->positionable()) {
+            positionableCategories << ls->category();
+        }
     }
 
     // Create all tagged areas
@@ -603,6 +609,8 @@ void AnnotationDialog::Dialog::load()
         updateMapForCurrentImage();
 #endif
     }
+
+    m_preview->updatePositionableCategories(positionableCategories);
 }
 
 void AnnotationDialog::Dialog::writeToInfo()

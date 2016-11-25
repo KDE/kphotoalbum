@@ -24,6 +24,7 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QPushButton>
+#include <QComboBox>
 
 #include <KLocalizedString>
 
@@ -123,8 +124,33 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     controlLayout->addWidget(m_autoTrainDatabase, 0, Qt::AlignCenter);
 #endif
 
+    QHBoxLayout* defaultAreaCategoryLayout = new QHBoxLayout;
+    controlLayout->addLayout(defaultAreaCategoryLayout);
+    m_defaultAreaCategoryLabel = new QLabel(i18n("Category for new areas:"));
+    m_defaultAreaCategoryLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    defaultAreaCategoryLayout->addWidget(m_defaultAreaCategoryLabel);
+    m_defaultAreaCategory = new QComboBox(this);
+    defaultAreaCategoryLayout->addWidget(m_defaultAreaCategory);
+
     m_current = -1;
     updateTexts();
+}
+
+void ImagePreviewWidget::updatePositionableCategories(QList<QString>& positionableCategories)
+{
+    if (positionableCategories.isEmpty() || positionableCategories.size() == 1) {
+        m_defaultAreaCategoryLabel->hide();
+        m_defaultAreaCategory->hide();
+    } else {
+        m_defaultAreaCategoryLabel->show();
+        m_defaultAreaCategory->show();
+    }
+
+    m_defaultAreaCategory->clear();
+
+    for (const QString& categoryName : positionableCategories) {
+        m_defaultAreaCategory->addItem(categoryName);
+    }
 }
 
 #ifdef HAVE_KFACE

@@ -18,14 +18,19 @@
 
 #ifndef IMAGEPREVIEWWIDGET_H
 #define IMAGEPREVIEWWIDGET_H
+
+// Qt includes
 #include <QWidget>
 #include <QList>
+
+// Local includes
 #include "DB/ImageInfo.h"
 #include "ImagePreview.h"
 #include "config-kpa-kface.h"
 
 class QCheckBox;
 class QPushButton;
+class QComboBox;
 
 namespace AnnotationDialog
 {
@@ -50,6 +55,7 @@ public:
     bool automatedTraining();
 #endif
     void setSearchMode(bool state);
+    void updatePositionableCategories(QList<QString>& positionableCategories);
 
 public slots:
     void slotNext();
@@ -88,6 +94,8 @@ private:
 #ifdef HAVE_KFACE
     QCheckBox *m_autoTrainDatabase;
 #endif
+    QLabel* m_defaultAreaCategoryLabel;
+    QComboBox* m_defaultAreaCategory;
     QWidget* m_controlWidget;
 };
 

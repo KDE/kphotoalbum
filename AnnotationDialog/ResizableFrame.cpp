@@ -38,6 +38,7 @@
 #ifdef HAVE_KFACE
 #  include "ProposedFaceDialog.h"
 #endif
+#include "ImagePreviewWidget.h"
 
 static const int SCALE_TOP    = 0b00000001;
 static const int SCALE_BOTTOM = 0b00000010;
@@ -61,10 +62,9 @@ static const QString STYLE_ASSOCIATED = QString::fromUtf8(
 AnnotationDialog::ResizableFrame::ResizableFrame(QWidget* parent) : QFrame(parent)
 {
     m_preview = dynamic_cast<ImagePreview*>(parent);
-
-#ifdef HAVE_KFACE
     m_previewWidget = dynamic_cast<ImagePreviewWidget *>(m_preview->parentWidget());
 
+#ifdef HAVE_KFACE
     // The area has not been changed yet
     m_changed = false;
     // The area has not be used to train the recognition database yet
@@ -539,16 +539,20 @@ void AnnotationDialog::ResizableFrame::remove()
 
 void AnnotationDialog::ResizableFrame::checkShowContextMenu()
 {
-    // Don't show the context menu when we don't have a last selected positionable tag
-    if (m_dialog->lastSelectedPositionableTag().first.isEmpty()) {
-        return;
-    }
+    if (! m_dialog->lastSelectedPositionableTag().first.isEmpty()) {
+        // We have a last selected positionable tag that is
+        // probably the one to be associated with this area
 
-    // Show the context menu at the lower right corner of the newly created area
-    QContextMenuEvent* event = new QContextMenuEvent(
-        QContextMenuEvent::Mouse, QPoint(0, 0), QCursor::pos(), Qt::NoModifier
-    );
-    QApplication::postEvent(this, event);
+        // Show the context menu at the lower right corner of the newly created area
+        QContextMenuEvent* event = new QContextMenuEvent(
+            QContextMenuEvent::Mouse, QPoint(0, 0), QCursor::pos(), Qt::NoModifier
+        );
+        QApplication::postEvent(this, event);
+    } else {
+        qDebug() << "I want to show a dialog for the category"
+                 << m_previewWidget->defaultPositionableCategory()
+                 << "now";
+    }
 }
 
 void AnnotationDialog::ResizableFrame::setDialog(Dialog* dialog)

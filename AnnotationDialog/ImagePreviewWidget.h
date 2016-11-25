@@ -56,6 +56,7 @@ public:
 #endif
     void setSearchMode(bool state);
     void updatePositionableCategories(QList<QString>& positionableCategories);
+    QString defaultPositionableCategory() const;
 
 public slots:
     void slotNext();

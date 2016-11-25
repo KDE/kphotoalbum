@@ -153,6 +153,11 @@ void ImagePreviewWidget::updatePositionableCategories(QList<QString>& positionab
     }
 }
 
+QString ImagePreviewWidget::defaultPositionableCategory() const
+{
+    return m_defaultAreaCategory->currentText();
+}
+
 #ifdef HAVE_KFACE
 bool ImagePreviewWidget::automatedTraining()
 {

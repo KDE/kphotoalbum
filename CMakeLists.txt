@@ -69,7 +69,7 @@ endforeach()
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)
 find_package(Phonon4Qt5 REQUIRED)
-find_package(KF5 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets WidgetsAddons)
+find_package(KF5 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
@@ -484,6 +484,7 @@ target_link_libraries(kphotoalbum
     KF5::KIOCore
     KF5::KIOWidgets
     KF5::TextWidgets
+    KF5::XmlGui
     KF5::WidgetsAddons
     Phonon::phonon4qt5
     Qt5::Network

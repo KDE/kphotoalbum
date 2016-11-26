@@ -41,6 +41,8 @@
 #include "Utilities/UniqFilenameMapper.h"
 #include "kio/job.h"
 
+#include <memory>
+
 #ifdef DEBUG_KIM_IMPORT
 # define Debug qDebug
 #else

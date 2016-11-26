@@ -17,13 +17,13 @@
 */
 
 #include "MiniViewer.h"
-#include <qpushbutton.h>
 #include <KLocalizedString>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qimage.h>
 #include "DB/ImageInfo.h"
 #include <qmatrix.h>
+#include <QDialogButtonBox>
 
 using namespace ImportExport;
 
@@ -63,12 +63,9 @@ MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
     QVBoxLayout* vlay = new QVBoxLayout( this );
     m_pixmap = new QLabel( this );
     vlay->addWidget( m_pixmap );
-    QHBoxLayout* hlay = new QHBoxLayout;
-    vlay->addLayout(hlay);
-    hlay->addStretch(1);
-    QPushButton* but = new QPushButton( i18n("Close"), this );
-    connect(but, &QPushButton::clicked, this, &MiniViewer::slotClose);
-    hlay->addWidget( but );
+    QDialogButtonBox* box = new QDialogButtonBox( QDialogButtonBox::Close, this );
+    connect(box, &QDialogButtonBox::rejected, this, &MiniViewer::slotClose);
+    vlay->addWidget( box );
 }
 
 #include "MiniViewer.moc"

@@ -22,7 +22,6 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPainter>
-#include <QKeyEvent>
 
 // Local includes
 #include "AreaTagSelectDialog.h"
@@ -33,7 +32,7 @@
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
                                                            CompletableLineEdit* categoryLineEdit,
                                                            QPixmap& areaImage)
-    : QDialog(), m_categoryLineEdit(categoryLineEdit)
+    : QDialog()
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -54,17 +53,6 @@ void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)
     backgroundColor.setAlpha(160);
     QPainter painter(this);
     painter.fillRect(rect(), backgroundColor);
-}
-
-void AnnotationDialog::AreaTagSelectDialog::reject()
-{
-    // Clear the CompletableLineEdit.
-    // Simply doing setText(QString()) does only clear the input, but not update the TreeWidget
-    QKeyEvent* backspace = new QKeyEvent(QEvent::KeyPress, Qt::Key_Backspace, Qt::NoModifier);
-    while (m_categoryLineEdit->text() != QString()) {
-        m_categoryLineEdit->keyPressEvent(backspace);
-    }
-    QDialog::reject();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

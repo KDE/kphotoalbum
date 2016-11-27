@@ -42,10 +42,6 @@ public:
 
 protected:
     void paintEvent(QPaintEvent*);
-    virtual void reject();
-
-private: //Variables
-    CompletableLineEdit* m_categoryLineEdit;
 };
 
 }

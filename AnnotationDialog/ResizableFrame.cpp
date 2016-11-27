@@ -567,9 +567,9 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
             areaImage
         );
 
-        // TODO: move it to the right position ;-)
-        selectTag->move(QCursor::pos() - QPoint(width(), height()));
         selectTag->show();
+        int borderWidth = (selectTag->height() - height()) / 2;
+        selectTag->move(QCursor::pos() - QPoint(width() + borderWidth - 1, height() + borderWidth - 1));
     }
 }
 

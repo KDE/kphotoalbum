@@ -29,6 +29,7 @@
 #include <QList>
 #include <QDebug>
 #include <QTimer>
+#include <QDockWidget>
 
 // KDE includes
 #include <KLocalizedString>
@@ -39,6 +40,8 @@
 #  include "ProposedFaceDialog.h"
 #endif
 #include "ImagePreviewWidget.h"
+#include "CompletableLineEdit.h"
+#include "AreaTagSelectDialog.h"
 
 static const int SCALE_TOP    = 0b00000001;
 static const int SCALE_BOTTOM = 0b00000010;
@@ -549,9 +552,16 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         );
         QApplication::postEvent(this, event);
     } else {
-        qDebug() << "I want to show a dialog for the category"
-                 << m_previewWidget->defaultPositionableCategory()
-                 << "now";
+        // Display a dialog where a tag can be selected directly
+        QImage& previewImage = m_preview->currentImage();
+        QPixmap areaImage = QPixmap::fromImage(previewImage.copy(geometry()));
+        AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
+            m_dialog->findChild<CompletableLineEdit*>(m_previewWidget->defaultPositionableCategory()),
+            areaImage
+        );
+        // TODO: move it to the right position ;-)
+        selectTag->move(QCursor::pos() - QPoint(width(), height()));
+        selectTag->show();
     }
 }
 

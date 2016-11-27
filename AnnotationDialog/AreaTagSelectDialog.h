@@ -36,12 +36,6 @@ class AreaTagSelectDialog : public QDialog
 
 public:
     explicit AreaTagSelectDialog(CompletableLineEdit* categoryLineEdit, QPixmap& areaImage);
-
-private slots:
-    void tagSelectKeyPressed(QKeyEvent* event);
-
-private: // Variables
-    CompletableLineEdit* m_categoryLineEdit;
 };
 
 }

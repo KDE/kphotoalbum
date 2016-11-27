@@ -23,15 +23,22 @@
 
 // Local includes
 #include "AreaTagSelectLineEdit.h"
+#include "CompletableLineEdit.h"
 
-AnnotationDialog::AreaTagSelectLineEdit::AreaTagSelectLineEdit() : QLineEdit()
+AnnotationDialog::AreaTagSelectLineEdit::AreaTagSelectLineEdit(CompletableLineEdit* categoryLineEdit)
+    : QLineEdit(), m_categoryLineEdit(categoryLineEdit)
 {
 }
 
 void AnnotationDialog::AreaTagSelectLineEdit::keyPressEvent(QKeyEvent *event)
 {
-    emit keyPressed(event);
-    QLineEdit::keyPressEvent(event);
+    m_categoryLineEdit->keyPressEvent(event);
+    setText(m_categoryLineEdit->text());
+
+    if (m_categoryLineEdit->hasSelectedText()) {
+        setSelection(m_categoryLineEdit->selectionStart(),
+                     m_categoryLineEdit->selectedText().length());
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

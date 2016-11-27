@@ -34,9 +34,9 @@ public:
     explicit CompletableLineEdit( ListSelect* parent );
     void setListView( QTreeWidget* );
     void setMode( UsageMode mode );
+    virtual void keyPressEvent( QKeyEvent* ev );
 
 protected:
-    virtual void keyPressEvent( QKeyEvent* ev );
     QTreeWidgetItem* findItemInListView( const QString& startWith );
     bool isSpecialKey( QKeyEvent* );
     void handleSpecialKeysInSearch( QKeyEvent* );

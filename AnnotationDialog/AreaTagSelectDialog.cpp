@@ -32,7 +32,7 @@
 
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(CompletableLineEdit* categoryLineEdit,
                                                            QPixmap& areaImage)
-    : QDialog(), m_categoryLineEdit(categoryLineEdit)
+    : QDialog()
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setModal(true);
@@ -42,14 +42,8 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(CompletableLineEdit* 
     areaImageLabel->setPixmap(areaImage);
     mainLayout->addWidget(areaImageLabel);
 
-    AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit();
+    AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit(categoryLineEdit);
     mainLayout->addWidget(tagSelect);
-    connect(tagSelect, SIGNAL(keyPressed(QKeyEvent*)), this, SLOT(tagSelectKeyPressed(QKeyEvent*)));
-}
-
-void AnnotationDialog::AreaTagSelectDialog::tagSelectKeyPressed(QKeyEvent* event)
-{
-    qDebug() << "I'd like to send my keypresses" << event << "to" << m_categoryLineEdit << "now.";
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

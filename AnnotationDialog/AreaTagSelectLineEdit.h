@@ -26,18 +26,20 @@ class QKeyEvent;
 
 namespace AnnotationDialog {
 
+class CompletableLineEdit;
+
 class AreaTagSelectLineEdit : public QLineEdit
 {
     Q_OBJECT
 
 public:
-    explicit AreaTagSelectLineEdit();
+    explicit AreaTagSelectLineEdit(CompletableLineEdit* categoryLineEdit);
 
-signals:
-    void keyPressed(QKeyEvent* event);
-
-private:
+private: // Functions
     void keyPressEvent(QKeyEvent* event);
+
+private: // Variables
+    CompletableLineEdit* m_categoryLineEdit;
 };
 
 }

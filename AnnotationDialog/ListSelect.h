@@ -74,6 +74,7 @@ public:
 
 public slots:
     void slotReturn();
+    void slotExternalReturn(const QString& text);
     void slotSortDate();
     void slotSortAlphaTree();
     void slotSortAlphaFlat();

@@ -178,6 +178,12 @@ void AnnotationDialog::ListSelect::slotReturn()
     updateSelectionCount();
 }
 
+void ListSelect::slotExternalReturn(const QString &text)
+{
+    m_lineEdit->setText(text);
+    slotReturn();
+}
+
 QString AnnotationDialog::ListSelect::category() const
 {
     return m_category->name();
@@ -847,7 +853,7 @@ void ListSelect::connectLineEdit(CompletableLineEdit *le)
 {
     le->setObjectName( m_category->name() );
     le->setListView( m_treeWidget );
-    connect( le, SIGNAL(returnPressed(QString)),  this,  SLOT(slotReturn()) );
+    connect( le, &KLineEdit::returnPressed, this, &ListSelect::slotExternalReturn );
 }
 
 void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)

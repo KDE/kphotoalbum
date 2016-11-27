@@ -59,7 +59,11 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
 
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 {
-    m_area->setTagData(m_category, tag);
+    QString enteredText = tag.trimmed();
+    if (!enteredText.isEmpty())
+    {
+        m_area->setTagData(m_category, enteredText);
+    }
     this->accept();
 }
 

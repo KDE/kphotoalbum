@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QDockWidget>
+#include <QScreen>
 
 // KDE includes
 #include <KLocalizedString>
@@ -553,13 +554,19 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         QApplication::postEvent(this, event);
     } else {
         // Display a dialog where a tag can be selected directly
-        QImage& previewImage = m_preview->currentImage();
-        QPixmap areaImage = QPixmap::fromImage(previewImage.copy(geometry()));
+
+        // Make a screenshot of the area to be tagged
+        QScreen* screen = QGuiApplication::primaryScreen();
+        QPoint position = mapToGlobal(QPoint(0 ,0));
+        QPixmap areaImage = screen->grabWindow(0, position.x() + 1, position.y() + 1, width() - 2, height() - 2);
+
+        // Display the tag selection dialog
         AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
             this,
             m_dialog->findChild<CompletableLineEdit*>(m_previewWidget->defaultPositionableCategory()),
             areaImage
         );
+
         // TODO: move it to the right position ;-)
         selectTag->move(QCursor::pos() - QPoint(width(), height()));
         selectTag->show();

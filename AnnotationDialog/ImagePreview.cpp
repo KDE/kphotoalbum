@@ -52,11 +52,6 @@ ImagePreview::ImagePreview( QWidget* parent )
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 }
 
-QImage& ImagePreview::currentImage()
-{
-    return m_currentImage.getImage();
-}
-
 void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
     Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();

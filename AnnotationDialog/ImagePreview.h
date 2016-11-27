@@ -56,7 +56,6 @@ public:
     void trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData);
     void recognizeArea(ResizableFrame *area);
 #endif
-    QImage& currentImage();
 
 public slots:
     void setAreaCreationEnabled(bool state);

@@ -29,13 +29,16 @@ class QKeyEvent;
 namespace AnnotationDialog {
 
 class CompletableLineEdit;
+class ResizableFrame;
 
 class AreaTagSelectDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AreaTagSelectDialog(CompletableLineEdit* categoryLineEdit, QPixmap& areaImage);
+    explicit AreaTagSelectDialog(ResizableFrame* area,
+                                 CompletableLineEdit* categoryLineEdit,
+                                 QPixmap& areaImage);
 };
 
 }

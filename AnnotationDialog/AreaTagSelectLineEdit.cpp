@@ -20,24 +20,39 @@
 // Qt includes
 #include <QKeyEvent>
 #include <QDebug>
+#include <QDialog>
 
 // Local includes
 #include "AreaTagSelectLineEdit.h"
 #include "CompletableLineEdit.h"
+#include "ResizableFrame.h"
 
-AnnotationDialog::AreaTagSelectLineEdit::AreaTagSelectLineEdit(CompletableLineEdit* categoryLineEdit)
-    : QLineEdit(), m_categoryLineEdit(categoryLineEdit)
+AnnotationDialog::AreaTagSelectLineEdit::AreaTagSelectLineEdit(ResizableFrame* area,
+                                                               CompletableLineEdit* categoryLineEdit)
+: QLineEdit(), m_categoryLineEdit(categoryLineEdit), m_area(area)
 {
 }
 
 void AnnotationDialog::AreaTagSelectLineEdit::keyPressEvent(QKeyEvent *event)
 {
+    QString enteredTag;
+    if (event->key() == Qt::Key_Return) {
+        enteredTag = text();
+    }
+
     m_categoryLineEdit->keyPressEvent(event);
     setText(m_categoryLineEdit->text());
+    setCursorPosition(m_categoryLineEdit->cursorPosition());
 
     if (m_categoryLineEdit->hasSelectedText()) {
         setSelection(m_categoryLineEdit->selectionStart(),
                      m_categoryLineEdit->selectedText().length());
+    }
+
+    if (! enteredTag.isEmpty()) {
+        dynamic_cast<QDialog*>(parent())->accept();
+        m_area->setTagData(m_categoryLineEdit->objectName(), enteredTag);
+
     }
 }
 

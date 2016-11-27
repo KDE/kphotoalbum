@@ -27,19 +27,22 @@ class QKeyEvent;
 namespace AnnotationDialog {
 
 class CompletableLineEdit;
+class ResizableFrame;
 
 class AreaTagSelectLineEdit : public QLineEdit
 {
     Q_OBJECT
 
 public:
-    explicit AreaTagSelectLineEdit(CompletableLineEdit* categoryLineEdit);
+    explicit AreaTagSelectLineEdit(ResizableFrame* area,
+                                   CompletableLineEdit* categoryLineEdit);
 
 private: // Functions
     void keyPressEvent(QKeyEvent* event);
 
 private: // Variables
     CompletableLineEdit* m_categoryLineEdit;
+    ResizableFrame* m_area;
 };
 
 }

@@ -556,6 +556,7 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         QImage& previewImage = m_preview->currentImage();
         QPixmap areaImage = QPixmap::fromImage(previewImage.copy(geometry()));
         AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
+            this,
             m_dialog->findChild<CompletableLineEdit*>(m_previewWidget->defaultPositionableCategory()),
             areaImage
         );

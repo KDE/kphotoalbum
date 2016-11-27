@@ -1485,11 +1485,9 @@ void AnnotationDialog::Dialog::removeTagFromCandidateList(QString category, QStr
     }
 
     // Remove the tag from the candidate list
-    m_positionableTagCandidates.removeAt(
-        m_positionableTagCandidates.indexOf(
-            QPair<QString, QString>(category, tag)
-        )
-    );
+    m_positionableTagCandidates.removeAll(QPair<QString, QString>(category, tag));
+    // When a positionable tag is entered via the AreaTagSelectDialog, it's added to this
+    // list twice, so we use removeAll here to be sure to also wipe duplicate entries.
 }
 
 QPair<QString, QString> AnnotationDialog::Dialog::lastSelectedPositionableTag() const

@@ -29,8 +29,10 @@
 #include "AreaTagSelectDialog.h"
 #include "CompletableLineEdit.h"
 #include "AreaTagSelectLineEdit.h"
+#include "ResizableFrame.h"
 
-AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(CompletableLineEdit* categoryLineEdit,
+AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
+                                                           CompletableLineEdit* categoryLineEdit,
                                                            QPixmap& areaImage)
     : QDialog()
 {
@@ -42,7 +44,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(CompletableLineEdit* 
     areaImageLabel->setPixmap(areaImage);
     mainLayout->addWidget(areaImageLabel);
 
-    AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit(categoryLineEdit);
+    AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit(area, categoryLineEdit);
     mainLayout->addWidget(tagSelect);
 }
 

@@ -22,6 +22,7 @@
 
 // Qt includes
 #include <QDialog>
+#include <QString>
 
 // Qt classes
 class QKeyEvent;
@@ -30,18 +31,29 @@ namespace AnnotationDialog {
 
 class CompletableLineEdit;
 class ResizableFrame;
+class ListSelect;
 
+/**
+ * @brief The AreaTagSelectDialog is the dialog that pops up when
+ * a new area is drawn on the ImagePreview.
+ */
 class AreaTagSelectDialog : public QDialog
 {
     Q_OBJECT
 
 public:
     explicit AreaTagSelectDialog(ResizableFrame* area,
-                                 CompletableLineEdit* categoryLineEdit,
+                                 ListSelect* ls,
                                  QPixmap& areaImage);
 
 protected:
     void paintEvent(QPaintEvent*);
+
+private slots:
+    void slotSetTag(const QString& tag);
+private:
+    const QString m_category;
+    ResizableFrame *m_area;
 };
 
 }

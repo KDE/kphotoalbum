@@ -70,6 +70,8 @@ public:
     bool positionable() const;
     bool tagIsChecked(QString tag) const;
 
+    void connectLineEdit(CompletableLineEdit *le);
+
 public slots:
     void slotReturn();
     void slotSortDate();

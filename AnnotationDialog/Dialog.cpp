@@ -1565,6 +1565,11 @@ void AnnotationDialog::Dialog::areaChanged()
     m_areasChanged = true;
 }
 
+AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(const QString &category)
+{
+    return m_listSelectList.value(category,nullptr);
+}
+
 #ifdef HAVE_KGEOMAP
 void AnnotationDialog::Dialog::updateMapForCurrentImage()
 {

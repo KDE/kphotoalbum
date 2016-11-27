@@ -17,22 +17,29 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Qt includes
-#include <QDebug>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QPainter>
-
 // Local includes
 #include "AreaTagSelectDialog.h"
+
 #include "CompletableLineEdit.h"
-#include "AreaTagSelectLineEdit.h"
+#include "ListSelect.h"
 #include "ResizableFrame.h"
 
-AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
-                                                           CompletableLineEdit* categoryLineEdit,
-                                                           QPixmap& areaImage)
-    : QDialog()
+
+// Qt includes
+#include <QApplication>
+#include <QApplication>
+#include <QDebug>
+#include <QHBoxLayout>
+#include <QKeyEvent>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPainter>
+
+AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area, ListSelect *ls, QPixmap &areaImage)
+    :QDialog()
+    , m_category(ls->category())
+    , m_area(area)
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -43,8 +50,17 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
     areaImageLabel->setPixmap(areaImage);
     mainLayout->addWidget(areaImageLabel);
 
-    AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit(area, categoryLineEdit);
+    CompletableLineEdit* tagSelect = new CompletableLineEdit(ls, this);
+    ls->connectLineEdit(tagSelect);
+    connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     mainLayout->addWidget(tagSelect);
+
+}
+
+void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
+{
+    m_area->setTagData(m_category, tag);
+    this->accept();
 }
 
 void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)

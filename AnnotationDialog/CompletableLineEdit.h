@@ -27,11 +27,17 @@ class QTreeWidgetItem;
 namespace AnnotationDialog
 {
 class ListSelect;
+class ResizableFrame;
 
 class CompletableLineEdit :public KLineEdit {
 
 public:
+    /**
+     * @brief This is just a convenience constructor for the common use-case when the lineEdit is inside a ListSelect.
+     * @param parent
+     */
     explicit CompletableLineEdit( ListSelect* parent );
+    explicit CompletableLineEdit( ListSelect* ls, QWidget *parent );
     void setListView( QTreeWidget* );
     void setMode( UsageMode mode );
     virtual void keyPressEvent( QKeyEvent* ev );

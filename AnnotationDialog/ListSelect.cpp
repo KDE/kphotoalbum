@@ -59,7 +59,6 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     m_lineEdit = new CompletableLineEdit( this );
     m_lineEdit->setProperty( "FocusCandidate", true );
     m_lineEdit->setProperty( "WantsFocus", true );
-    m_lineEdit->setObjectName( category->name() );
     layout->addWidget( m_lineEdit );
 
     // PENDING(blackie) rename instance variable to something better than _listView
@@ -126,9 +125,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addWidget( m_dateSort );
     lay2->addWidget( m_showSelectedOnly );
 
-    m_lineEdit->setListView( m_treeWidget );
-
-    connect( m_lineEdit, SIGNAL(returnPressed(QString)),  this,  SLOT(slotReturn()) );
+    connectLineEdit(m_lineEdit);
 
     populate();
 
@@ -839,6 +836,18 @@ bool AnnotationDialog::ListSelect::tagIsChecked(QString tag) const
     }
 
     return (bool) matchingTags.first()->checkState(0);
+}
+
+/**
+ * @brief ListSelect::connectLineEdit associates a CompletableLineEdit with this ListSelect
+ * This method also allows to connect an external CompletableLineEdit to work with this ListSelect.
+ * @param le
+ */
+void ListSelect::connectLineEdit(CompletableLineEdit *le)
+{
+    le->setObjectName( m_category->name() );
+    le->setListView( m_treeWidget );
+    connect( le, SIGNAL(returnPressed(QString)),  this,  SLOT(slotReturn()) );
 }
 
 void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)

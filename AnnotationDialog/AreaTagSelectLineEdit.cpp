@@ -52,7 +52,6 @@ void AnnotationDialog::AreaTagSelectLineEdit::keyPressEvent(QKeyEvent *event)
     if (! enteredTag.isEmpty()) {
         dynamic_cast<QDialog*>(parent())->accept();
         m_area->setTagData(m_categoryLineEdit->objectName(), enteredTag);
-
     }
 }
 

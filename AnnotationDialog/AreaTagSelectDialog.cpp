@@ -21,9 +21,7 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QLineEdit>
-#include <QKeyEvent>
-#include <QApplication>
+#include <QPainter>
 
 // Local includes
 #include "AreaTagSelectDialog.h"
@@ -37,6 +35,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
     : QDialog()
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
+    setAttribute(Qt::WA_TranslucentBackground);
     setModal(true);
 
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
@@ -46,6 +45,14 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(ResizableFrame* area,
 
     AreaTagSelectLineEdit* tagSelect = new AreaTagSelectLineEdit(area, categoryLineEdit);
     mainLayout->addWidget(tagSelect);
+}
+
+void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)
+{
+    QColor backgroundColor = Qt::white;
+    backgroundColor.setAlpha(160);
+    QPainter painter(this);
+    painter.fillRect(rect(), backgroundColor);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

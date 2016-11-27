@@ -39,6 +39,9 @@ public:
     explicit AreaTagSelectDialog(ResizableFrame* area,
                                  CompletableLineEdit* categoryLineEdit,
                                  QPixmap& areaImage);
+
+protected:
+    void paintEvent(QPaintEvent*);
 };
 
 }

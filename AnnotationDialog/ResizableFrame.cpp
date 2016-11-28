@@ -565,6 +565,7 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         selectTag->show();
         int borderWidth = (selectTag->height() - height()) / 2;
         selectTag->move(mapToGlobal(QPoint(0, 0)) - QPoint(borderWidth, borderWidth));
+        connect(selectTag, &QDialog::finished, selectTag, &QObject::deleteLater);
     }
 }
 

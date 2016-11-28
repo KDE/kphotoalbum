@@ -46,7 +46,7 @@ class AreaTagSelectDialog : public QDialog
 public:
     explicit AreaTagSelectDialog(ResizableFrame* area,
                                  ListSelect* ls,
-                                 QPixmap& areaImage,
+                                 QPixmap areaImage,
                                  Dialog *dialog);
 
 protected:

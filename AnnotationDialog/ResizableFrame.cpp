@@ -554,24 +554,17 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         QApplication::postEvent(this, event);
     } else {
         // Display a dialog where a tag can be selected directly
-
-        // Make a screenshot of the area to be tagged
-        QScreen* screen = QGuiApplication::primaryScreen();
-        QPoint position = mapToGlobal(QPoint(0, 0));
-        QPixmap areaImage = screen->grabWindow(0, position.x() + 1, position.y() + 1, width() - 2, height() - 2);
-
-        // Display the tag selection dialog
         QString category = m_previewWidget->defaultPositionableCategory();
         AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
                     this,
                     m_dialog->listSelectForCategory(category),
-                    areaImage,
+                    m_preview->grabAreaImage(geometry()),
                     m_dialog
                     );
 
         selectTag->show();
         int borderWidth = (selectTag->height() - height()) / 2;
-        selectTag->move(position - QPoint(borderWidth, borderWidth));
+        selectTag->move(mapToGlobal(QPoint(0, 0)) - QPoint(borderWidth, borderWidth));
     }
 }
 

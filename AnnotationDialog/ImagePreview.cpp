@@ -367,6 +367,14 @@ void ImagePreview::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
+QPixmap ImagePreview::grabAreaImage(QRect area)
+{
+    return QPixmap::fromImage(m_currentImage.getImage().copy(area.left() - m_minX,
+                                                             area.top() - m_minY,
+                                                             area.width(),
+                                                             area.height()));
+}
+
 QRect ImagePreview::areaPreviewToActual(QRect area) const
 {
     return QRect(QPoint(int(double(area.left() - m_minX) * m_scaleWidth),

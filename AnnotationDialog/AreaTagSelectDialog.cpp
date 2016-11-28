@@ -40,7 +40,10 @@
 #include <QPainter>
 #include <QSet>
 
-AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area, ListSelect *ls, QPixmap &areaImage, Dialog *dialog)
+AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area,
+                                                           ListSelect *ls,
+                                                           QPixmap areaImage,
+                                                           Dialog *dialog)
     :QDialog(area)
     , m_area(area)
     , m_dialog(dialog)

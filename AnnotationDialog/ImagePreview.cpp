@@ -44,7 +44,10 @@
 using namespace AnnotationDialog;
 
 ImagePreview::ImagePreview( QWidget* parent )
-    : QLabel( parent ), m_selectionRect(0), m_areaCreationEnabled( false )
+    : QLabel( parent )
+    , m_selectionRect(0)
+    , m_aspectRatio(1)
+    , m_areaCreationEnabled( false )
 {
     setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
@@ -67,28 +70,13 @@ void ImagePreview::resizeEvent( QResizeEvent* ev )
 
 int ImagePreview::heightForWidth(int width) const
 {
-    float aspectRatio = 1.0;
-    if (pixmap() && ! pixmap()->isNull())
-    {
-        // normally, we want the aspect ratio defined by the preview image...
-        aspectRatio = pixmap()->height() / pixmap()->width();
-    } else if (this->width() > 0) {
-        // ...if that's not available, the current aspect ratio should
-        // be a good starting point
-        aspectRatio = this->height() / this->width();
-    }
-
-    int height = width * aspectRatio;
-    height = qMax(height, minimumHeight());
+    int height = width * m_aspectRatio;
     return height;
 }
 
 QSize ImagePreview::sizeHint() const
 {
-    // sizeHint should not depend on the current size
-    // to minimize bad effects, truncate last bits of width before using it:
-    int w = (width() >> 4) << 4 ;
-    QSize hint { w, heightForWidth(w) };
+    QSize hint = m_info.size();
     Debug() << "Preview size hint is" << hint;
     return hint;
 }
@@ -132,6 +120,7 @@ void ImagePreview::setImage( const QString& fileName )
 
 void ImagePreview::reload()
 {
+    m_aspectRatio = 1;
     if ( !m_info.isNull() ) {
         if (m_preloader.has(m_info.fileName(), m_info.angle()))
         {
@@ -165,6 +154,7 @@ QSize ImagePreview::getActualImageSize()
     if (! m_info.size().isValid()) {
         // We have to fetch the size from the image
         m_info.setSize(QImageReader(m_info.fileName().absolute()).size());
+        m_aspectRatio = m_info.size().height() / m_info.size().width();
     }
     return m_info.size();
 }

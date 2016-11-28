@@ -126,6 +126,8 @@ private:
     QRubberBand *m_selectionRect;
     double m_scaleWidth;
     double m_scaleHeight;
+    double m_aspectRatio;
+
     void createNewArea(QRect geometry, QRect actualGeometry);
     QRect rotateArea(QRect originalAreaGeometry, int angle);
     bool m_areaCreationEnabled;

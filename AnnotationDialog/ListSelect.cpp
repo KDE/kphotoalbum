@@ -163,7 +163,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         m_category->addItem(enteredText);
         rePopulate();
 
-        QList<QTreeWidgetItem*> items = m_treeWidget->findItems(enteredText, Qt::MatchExactly, 0);
+        QList<QTreeWidgetItem*> items = m_treeWidget->findItems(enteredText, Qt::MatchExactly|Qt::MatchRecursive, 0);
         if (! items.isEmpty()) {
             items.at(0)->setCheckState(0, Qt::Checked);
             if (m_positionable) {

@@ -21,9 +21,12 @@
 #include "AreaTagSelectDialog.h"
 
 #include "CompletableLineEdit.h"
+#include "Dialog.h"
 #include "ListSelect.h"
 #include "ResizableFrame.h"
 
+// KDE includes
+#include <KLocalizedString>
 
 // Qt includes
 #include <QApplication>
@@ -35,11 +38,14 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPainter>
+#include <QSet>
 
-AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area, ListSelect *ls, QPixmap &areaImage)
-    :QDialog()
-    , m_category(ls->category())
+AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area, ListSelect *ls, QPixmap &areaImage, Dialog *dialog)
+    :QDialog(area)
     , m_area(area)
+    , m_dialog(dialog)
+    , m_usedTags(dialog->positionableTags(ls->category()))
+    , m_category(ls->category())
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -50,21 +56,42 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     areaImageLabel->setPixmap(areaImage);
     mainLayout->addWidget(areaImageLabel);
 
+    QVBoxLayout *vLayout = new QVBoxLayout;
+    mainLayout->addLayout(vLayout);
+
     CompletableLineEdit* tagSelect = new CompletableLineEdit(ls, this);
     ls->connectLineEdit(tagSelect);
-    connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
-    mainLayout->addWidget(tagSelect);
+    vLayout->addWidget(tagSelect);
 
+    m_messageLabel = new QLabel();
+    vLayout->addWidget(m_messageLabel);
+
+    connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
+    connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
 }
 
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 {
     QString enteredText = tag.trimmed();
-    if (!enteredText.isEmpty())
+    if (m_dialog->positionableTagValid(m_category, enteredText))
     {
         m_area->setTagData(m_category, enteredText);
+        this->accept();
     }
-    this->accept();
+}
+
+void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
+{
+    QString enteredText = tag.trimmed();
+
+    if(m_usedTags.contains(enteredText))
+    {
+        m_messageLabel->setText(
+                    i18n("Tag already used for another area")
+                    );
+    } else {
+        m_messageLabel->clear();
+    }
 }
 
 void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)

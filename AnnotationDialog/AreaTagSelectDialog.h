@@ -22,16 +22,18 @@
 
 // Qt includes
 #include <QDialog>
+#include <QSet>
 #include <QString>
 
 // Qt classes
 class QKeyEvent;
+class QLabel;
 
 namespace AnnotationDialog {
 
-class CompletableLineEdit;
-class ResizableFrame;
+class Dialog;
 class ListSelect;
+class ResizableFrame;
 
 /**
  * @brief The AreaTagSelectDialog is the dialog that pops up when
@@ -44,16 +46,21 @@ class AreaTagSelectDialog : public QDialog
 public:
     explicit AreaTagSelectDialog(ResizableFrame* area,
                                  ListSelect* ls,
-                                 QPixmap& areaImage);
+                                 QPixmap& areaImage,
+                                 Dialog *dialog);
 
 protected:
     void paintEvent(QPaintEvent*);
 
 private slots:
     void slotSetTag(const QString& tag);
+    void slotValidateTag(const QString &tag);
 private:
-    const QString m_category;
     ResizableFrame *m_area;
+    Dialog *m_dialog;
+    QLabel *m_messageLabel;
+    const QSet<QString> m_usedTags;
+    const QString m_category;
 };
 
 }

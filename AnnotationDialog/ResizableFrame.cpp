@@ -563,10 +563,11 @@ void AnnotationDialog::ResizableFrame::checkShowContextMenu()
         // Display the tag selection dialog
         QString category = m_previewWidget->defaultPositionableCategory();
         AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
-            this,
-            m_dialog->listSelectForCategory(category),
-            areaImage
-        );
+                    this,
+                    m_dialog->listSelectForCategory(category),
+                    areaImage,
+                    m_dialog
+                    );
 
         selectTag->show();
         int borderWidth = (selectTag->height() - height()) / 2;

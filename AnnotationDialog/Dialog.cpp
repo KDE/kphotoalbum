@@ -1565,6 +1565,44 @@ void AnnotationDialog::Dialog::areaChanged()
     m_areasChanged = true;
 }
 
+/**
+ * @brief positionableTagValid checks whether a given tag can still be associated to an area.
+ * This checks for empty and duplicate tags.
+ * @return
+ */
+bool AnnotationDialog::Dialog::positionableTagValid(const QString &category, const QString &tag) const
+{
+    if (category.isEmpty() || tag.isEmpty())
+        return false;
+
+    // does any area already have that tag?
+    foreach (const ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>())
+    {
+        const auto tagData = area->tagData();
+        if (tagData.first == category && tagData.second == tag)
+            return false;
+    }
+
+    return true;
+}
+
+/**
+ * @brief Generates a set of positionable tags currently used on the image
+ * @param category
+ * @return
+ */
+QSet<QString> AnnotationDialog::Dialog::positionableTags(const QString &category) const
+{
+    QSet<QString> tags;
+    foreach (const ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>())
+    {
+        const auto tagData = area->tagData();
+        if (tagData.first == category)
+            tags += tagData.second;
+    }
+    return tags;
+}
+
 AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(const QString &category)
 {
     return m_listSelectList.value(category,nullptr);

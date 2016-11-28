@@ -85,6 +85,8 @@ public:
     void removeTagFromCandidateList(QString category, QString tag);
     void checkProposedTagData(QPair<QString, QString> tagData, ResizableFrame *areaToExclude) const;
     void areaChanged();
+    bool positionableTagValid(const QString &category, const QString &tag) const;
+    QSet<QString> positionableTags(const QString &category) const;
     ListSelect* listSelectForCategory( const QString &category);
 
 protected slots:

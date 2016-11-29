@@ -136,9 +136,9 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     updateTexts();
 }
 
-void ImagePreviewWidget::updatePositionableCategories(QList<QString>& positionableCategories)
+void ImagePreviewWidget::updatePositionableCategories(QList<QString> positionableCategories)
 {
-    if (positionableCategories.isEmpty() || positionableCategories.size() == 1) {
+    if (positionableCategories.size() <= 1) {
         m_defaultAreaCategoryLabel->hide();
         m_defaultAreaCategory->hide();
     } else {

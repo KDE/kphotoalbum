@@ -691,10 +691,13 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
 
-    if ( oneAtATime )
+    if (oneAtATime) {
         m_setup = InputSingleImageConfigMode;
-    else
+    } else {
         m_setup = InputMultiImageConfigMode;
+        // Hide the default positionable category selector
+        m_preview->updatePositionableCategories();
+    }
 
 #ifdef HAVE_KGEOMAP
     m_mapIsPopulated = false;

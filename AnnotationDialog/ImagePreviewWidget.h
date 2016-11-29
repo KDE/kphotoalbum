@@ -55,7 +55,7 @@ public:
     bool automatedTraining();
 #endif
     void setSearchMode(bool state);
-    void updatePositionableCategories(QList<QString>& positionableCategories);
+    void updatePositionableCategories(QList<QString> positionableCategories = QList<QString>());
     QString defaultPositionableCategory() const;
 
 public slots:

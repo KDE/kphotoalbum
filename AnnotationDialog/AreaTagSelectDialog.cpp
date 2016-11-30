@@ -29,16 +29,11 @@
 #include <KLocalizedString>
 
 // Qt includes
-#include <QApplication>
-#include <QApplication>
 #include <QDebug>
-#include <QHBoxLayout>
-#include <QKeyEvent>
-#include <QKeyEvent>
+#include <QGridLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPainter>
-#include <QSet>
 
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area,
                                                            ListSelect *ls,
@@ -54,20 +49,21 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     setAttribute(Qt::WA_TranslucentBackground);
     setModal(true);
 
-    QHBoxLayout* mainLayout = new QHBoxLayout(this);
-    QLabel* areaImageLabel = new QLabel();
-    areaImageLabel->setPixmap(areaImage);
-    mainLayout->addWidget(areaImageLabel);
+    QGridLayout *mainLayout = new QGridLayout(this);
 
-    QVBoxLayout *vLayout = new QVBoxLayout;
-    mainLayout->addLayout(vLayout);
+    m_areaImageLabel = new QLabel();
+    m_areaImageLabel->setAlignment(Qt::AlignTop);
+    m_areaImageLabel->setPixmap(areaImage);
+    mainLayout->addWidget(m_areaImageLabel, 0, 0);
 
     CompletableLineEdit* tagSelect = new CompletableLineEdit(ls, this);
     ls->connectLineEdit(tagSelect);
-    vLayout->addWidget(tagSelect);
+    tagSelect->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(tagSelect, 0, 1);
 
     m_messageLabel = new QLabel();
-    vLayout->addWidget(m_messageLabel);
+    mainLayout->addWidget(m_messageLabel, 1, 1);
+    m_messageLabel->hide();
 
     connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
@@ -85,13 +81,9 @@ void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 
 void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
 {
-    QString enteredText = tag.trimmed();
-
-    if(m_usedTags.contains(enteredText))
-    {
-        m_messageLabel->setText(
-                    i18n("Tag already used for another area")
-                    );
+    if(m_usedTags.contains(tag.trimmed())) {
+        m_messageLabel->show();
+        m_messageLabel->setText(i18n("Tag is already used for another area"));
     } else {
         m_messageLabel->clear();
     }
@@ -103,6 +95,13 @@ void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)
     backgroundColor.setAlpha(160);
     QPainter painter(this);
     painter.fillRect(rect(), backgroundColor);
+}
+
+void AnnotationDialog::AreaTagSelectDialog::moveToArea(QPoint areaTopLeft)
+{
+    m_originalWidth = width();
+    m_originalHeight = height();
+    move(areaTopLeft - (m_areaImageLabel->mapToGlobal(QPoint(0, 0)) - mapToGlobal(QPoint(0, 0))));
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

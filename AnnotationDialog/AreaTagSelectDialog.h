@@ -48,6 +48,7 @@ public:
                                  ListSelect* ls,
                                  QPixmap areaImage,
                                  Dialog *dialog);
+    void moveToArea(QPoint areaTopLeft);
 
 protected:
     void paintEvent(QPaintEvent*);
@@ -55,12 +56,16 @@ protected:
 private slots:
     void slotSetTag(const QString& tag);
     void slotValidateTag(const QString &tag);
+
 private:
+    QLabel *m_areaImageLabel;
     ResizableFrame *m_area;
     Dialog *m_dialog;
     QLabel *m_messageLabel;
     const QSet<QString> m_usedTags;
     const QString m_category;
+    int m_originalWidth;
+    int m_originalHeight;
 };
 
 }

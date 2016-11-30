@@ -45,7 +45,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     , m_usedTags(dialog->positionableTags(ls->category()))
     , m_category(ls->category())
 {
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
+    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setModal(true);
 

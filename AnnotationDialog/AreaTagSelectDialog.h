@@ -26,8 +26,8 @@
 #include <QString>
 
 // Qt classes
-class QKeyEvent;
 class QLabel;
+class QPaintEvent;
 
 namespace AnnotationDialog {
 
@@ -51,7 +51,7 @@ public:
     void moveToArea(QPoint areaTopLeft);
 
 protected:
-    void paintEvent(QPaintEvent*);
+    void paintEvent(QPaintEvent*) override;
 
 private slots:
     void slotSetTag(const QString& tag);

@@ -73,6 +73,12 @@ public:
 public slots:
     void acceptTag();
 #endif
+    /**
+     * @brief Add the context menu actions to a QMenu.
+     * @sa AreaTagSelectDialog
+     * @param w
+     */
+    void addTagActions(QMenu *menu);
 
 protected:
     void mousePressEvent(QMouseEvent* event);

@@ -33,6 +33,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMenu>
 #include <QPainter>
 
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area,
@@ -54,7 +55,8 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     m_areaImageLabel = new QLabel();
     m_areaImageLabel->setAlignment(Qt::AlignTop);
     m_areaImageLabel->setPixmap(areaImage);
-    mainLayout->addWidget(m_areaImageLabel, 0, 0);
+    // span 2 rows:
+    mainLayout->addWidget(m_areaImageLabel, 0, 0, 2, 1);
 
     CompletableLineEdit* tagSelect = new CompletableLineEdit(ls, this);
     ls->connectLineEdit(tagSelect);
@@ -64,6 +66,11 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     m_messageLabel = new QLabel();
     mainLayout->addWidget(m_messageLabel, 1, 1);
     m_messageLabel->hide();
+
+    QMenu *tagMenu = new QMenu();
+    m_area->addTagActions(tagMenu);
+    mainLayout->addWidget(tagMenu, 2, 0, 1, 2);
+    connect(tagMenu, &QMenu::triggered, this, &QMenu::close);
 
     connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);

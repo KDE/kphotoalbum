@@ -499,8 +499,8 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
 
 void AnnotationDialog::ResizableFrame::removeTag()
 {
-    // Add the tag to the positionable candidate list again
-    m_dialog->addTagToCandidateList(m_tagData.first, m_tagData.second);
+    // Deselect the tag
+    m_dialog->listSelectForCategory(m_tagData.first)->deselectTag(m_tagData.second);
     // Delete the tag data from this area
     removeTagData();
 }
@@ -532,8 +532,8 @@ void AnnotationDialog::ResizableFrame::removeTagData()
 void AnnotationDialog::ResizableFrame::remove()
 {
     if (! m_tagData.first.isEmpty()) {
-        // Re-add the associated tag to the candidate list
-        removeTag();
+        // Deselect the tag
+        m_dialog->listSelectForCategory(m_tagData.first)->deselectTag(m_tagData.second);
     }
 
     // Delete the area

@@ -880,5 +880,11 @@ void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString
     matchingTags.first()->setCheckState(0, Qt::Checked);
 }
 
+void AnnotationDialog::ListSelect::deselectTag(QString tag)
+{
+    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly | Qt::MatchRecursive, 0);
+    matchingTags.first()->setCheckState(0, Qt::Unchecked);
+}
+
 #include "ListSelect.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

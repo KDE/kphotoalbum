@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2016 Tobias Leupold <tobias.leupold@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,41 +18,49 @@
 
 #ifndef COPYPOPUP_H
 #define COPYPOPUP_H
-#include <QMenu>
-#include "DB/ImageInfo.h"
-#include "DB/FileNameList.h"
 
-namespace DB
-{
-    class ImageInfo;
-}
+// Qt includes
+#include <QMenu>
+#include <QList>
+#include <QUrl>
 
 namespace MainWindow
 {
 
-class CopyPopup : public QMenu {
+class CopyPopup : public QMenu
+{
     Q_OBJECT
 
 public:
-    enum CopyType { Copy, Link };
-    explicit CopyPopup(
-            QWidget *parent = 0,
-            DB::ImageInfoPtr current = DB::ImageInfoPtr(),
-            DB::FileNameList imageList = DB::FileNameList(),
-            CopyType copyType = Copy
-    );
-    ~CopyPopup();
+    enum CopyType {
+        Copy,
+        Link
+    };
+
+    enum CopyAction {
+        CopyCurrent,
+        CopyAll,
+        LinkCurrent,
+        LinkAll
+    };
+
+    explicit CopyPopup(QWidget *parent,
+                       QUrl &selectedFile,
+                       QList<QUrl> &allSelectedFiles,
+                       QString &lastTarget,
+                       CopyType copyType);
 
 private slots:
     void slotCopy(QAction *action);
 
 private:
-    DB::FileNameList m_list;
-    DB::ImageInfoPtr m_currentInfo;
+    QUrl &m_selectedFile;
+    QList<QUrl> &m_allSelectedFiles;
+    QString &m_lastTarget;
 };
 
 }
 
-#endif /* COPYPOPUP_H */
+#endif // COPYPOPUP_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

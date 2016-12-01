@@ -1151,15 +1151,21 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         if (!info && selected().isEmpty())
             action->setEnabled( false );
 
+        QUrl selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
+        QList<QUrl> allSelectedFiles;
+        for (const QString &selectedFile : selected().toStringList(DB::AbsolutePath)) {
+            allSelectedFiles << QUrl::fromLocalFile(selectedFile);
+        }
+
         // "Copy image(s) to ..."
-        CopyPopup copyMenu (&menu, info, selected(), CopyPopup::Copy);
+        CopyPopup copyMenu (&menu, selectedFile, allSelectedFiles, m_lastTarget, CopyPopup::Copy);
         QAction *copyAction = menu.addMenu(&copyMenu);
         if (!info && selected().isEmpty()) {
             copyAction->setEnabled(false);
         }
 
         // "Link image(s) to ..."
-        CopyPopup linkMenu (&menu, info, selected(), CopyPopup::Link);
+        CopyPopup linkMenu (&menu, selectedFile, allSelectedFiles, m_lastTarget, CopyPopup::Link);
         QAction *linkAction = menu.addMenu(&linkMenu);
         if (!info && selected().isEmpty()) {
             linkAction->setEnabled(false);

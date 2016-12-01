@@ -246,6 +246,7 @@ private:
     bool m_hasLoadedPlugins;
     QMap<Qt::Key, QPair<QString,QString> > m_viewerInputMacros;
     MainWindow::StatusBar* m_statusBar;
+    QString m_lastTarget;
 };
 
 }

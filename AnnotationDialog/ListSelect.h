@@ -70,8 +70,13 @@ public:
     bool positionable() const;
     bool tagIsChecked(QString tag) const;
 
+    void connectLineEdit(CompletableLineEdit *le);
+
+    void deselectTag(QString tag);
+
 public slots:
     void slotReturn();
+    void slotExternalReturn(const QString& text);
     void slotSortDate();
     void slotSortAlphaTree();
     void slotSortAlphaFlat();

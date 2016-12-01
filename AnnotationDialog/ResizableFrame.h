@@ -73,6 +73,12 @@ public:
 public slots:
     void acceptTag();
 #endif
+    /**
+     * @brief Add the context menu actions to a QMenu.
+     * @sa AreaTagSelectDialog
+     * @param w
+     */
+    void addTagActions(QMenu *menu);
 
 protected:
     void mousePressEvent(QMouseEvent* event);
@@ -114,10 +120,10 @@ private: // Variables
     QPair<QString, QString> m_tagData;
     QPair<QString, QString> m_proposedTagData;
     ImagePreview* m_preview;
+    ImagePreviewWidget* m_previewWidget;
 #ifdef HAVE_KFACE
     QAction* m_updateRecognitionDatabaseAct;
     QAction* m_recognizeAct;
-    ImagePreviewWidget* m_previewWidget;
     bool m_changed;
     bool m_trained;
     bool m_detectedFace;

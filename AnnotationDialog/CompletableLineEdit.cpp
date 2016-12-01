@@ -17,6 +17,7 @@
 */
 #include "CompletableLineEdit.h"
 #include "ListSelect.h"
+#include "ResizableFrame.h"
 #include <QRegExp>
 #include <QKeyEvent>
 #include <QTreeWidgetItemIterator>
@@ -24,9 +25,15 @@
 #include <QDebug>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
-    :KLineEdit( parent )
+    : KLineEdit( parent )
+    , m_listSelect( parent )
 {
-    m_listSelect = parent;
+}
+
+AnnotationDialog::CompletableLineEdit::CompletableLineEdit(AnnotationDialog::ListSelect *ls, QWidget *parent)
+    : KLineEdit( parent )
+    , m_listSelect( ls )
+{
 }
 
 void AnnotationDialog::CompletableLineEdit::setListView( QTreeWidget* listView )

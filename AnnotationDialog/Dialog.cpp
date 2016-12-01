@@ -463,7 +463,6 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     m_positionableTagCandidates.clear();
     m_lastSelectedPositionableTag.first = QString();
     m_lastSelectedPositionableTag.second = QString();
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
 
     Q_FOREACH( ListSelect *ls, m_optionList ) {
         ls->setSelection( old_info.itemsOfCategory( ls->category() ) );
@@ -473,25 +472,19 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
         if ( ls->positionable() ) {
             QString category = ls->category();
             QSet<QString> selectedTags = old_info.itemsOfCategory( category );
+            QSet<QString> positionedTagSet = positionedTags( category );
 
             // Add the tag to the positionable candiate list, if no area is already associated with it
-            for (const auto tag : selectedTags) {
-                bool alreadyAssociated = false;
-
-                for (ResizableFrame* area : allAreas) {
-                    if (area->tagData().first == category && area->tagData().second == tag) {
-                        alreadyAssociated = true;
-                        break;
-                    }
-                }
-
-                if (! alreadyAssociated) {
+            Q_FOREACH(const auto &tag, selectedTags)
+            {
+                if (!positionedTagSet.contains(tag))
+                {
                     addTagToCandidateList(category, tag);
                 }
             }
 
             // Check all areas for a linked tag in this category that is probably not selected anymore
-            for(ResizableFrame *area : allAreas) {
+            for(ResizableFrame *area : areas()) {
                 QPair<QString, QString> tagData = area->tagData();
 
                 if (tagData.first == category) {
@@ -547,6 +540,8 @@ void AnnotationDialog::Dialog::load()
     // or un-marked as positionable in the meantime, so ...
     QMap<QString, bool> categoryIsPositionable;
 
+    QList<QString> positionableCategories;
+
     Q_FOREACH( ListSelect *ls, m_optionList ) {
         ls->setSelection( info.itemsOfCategory( ls->category() ) );
         ls->rePopulate();
@@ -562,6 +557,10 @@ void AnnotationDialog::Dialog::load()
 
         // ... create a list of all categories and their positionability ...
         categoryIsPositionable[ls->category()] = ls->positionable();
+
+        if (ls->positionable()) {
+            positionableCategories << ls->category();
+        }
     }
 
     // Create all tagged areas
@@ -603,6 +602,8 @@ void AnnotationDialog::Dialog::load()
         updateMapForCurrentImage();
 #endif
     }
+
+    m_preview->updatePositionableCategories(positionableCategories);
 }
 
 void AnnotationDialog::Dialog::writeToInfo()
@@ -635,7 +636,8 @@ void AnnotationDialog::Dialog::writeToInfo()
     QMap<QString, QMap<QString, QRect>> taggedAreas;
     QPair<QString, QString> tagData;
 
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         tagData = area->tagData();
 
         if ( !tagData.first.isEmpty() ) {
@@ -673,6 +675,11 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     m_ratingSearchLabel->setVisible( show );
 }
 
+QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() const
+{
+    return m_preview->preview()->findChildren<ResizableFrame *>();
+}
+
 
 int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
@@ -683,10 +690,13 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
             ->addItem(Settings::SettingsData::instance()->untaggedTag() );
     }
 
-    if ( oneAtATime )
+    if (oneAtATime) {
         m_setup = InputSingleImageConfigMode;
-    else
+    } else {
         m_setup = InputMultiImageConfigMode;
+        // Hide the default positionable category selector
+        m_preview->updatePositionableCategories();
+    }
 
 #ifdef HAVE_KGEOMAP
     m_mapIsPopulated = false;
@@ -1422,7 +1432,8 @@ void AnnotationDialog::Dialog::togglePreview()
 void AnnotationDialog::Dialog::tidyAreas()
 {
     // Remove all areas marked on the preview image
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         area->deleteLater();
     }
 }
@@ -1451,8 +1462,7 @@ void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QStri
     if (m_setup == InputSingleImageConfigMode) {
         QPair<QString, QString> deselectedTag = QPair<QString, QString>(category, tag);
 
-        QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-        foreach (ResizableFrame *area, allAreas) {
+        foreach (ResizableFrame *area, areas()) {
             if (area->tagData() == deselectedTag) {
                 area->removeTagData();
                 m_areasChanged = true;
@@ -1477,11 +1487,9 @@ void AnnotationDialog::Dialog::removeTagFromCandidateList(QString category, QStr
     }
 
     // Remove the tag from the candidate list
-    m_positionableTagCandidates.removeAt(
-        m_positionableTagCandidates.indexOf(
-            QPair<QString, QString>(category, tag)
-        )
-    );
+    m_positionableTagCandidates.removeAll(QPair<QString, QString>(category, tag));
+    // When a positionable tag is entered via the AreaTagSelectDialog, it's added to this
+    // list twice, so we use removeAll here to be sure to also wipe duplicate entries.
 }
 
 QPair<QString, QString> AnnotationDialog::Dialog::lastSelectedPositionableTag() const
@@ -1496,8 +1504,7 @@ QList<QPair<QString, QString>> AnnotationDialog::Dialog::positionableTagCandidat
 
 void AnnotationDialog::Dialog::slotShowAreas(bool showAreas)
 {
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-    foreach (ResizableFrame *area, allAreas) {
+    foreach (ResizableFrame *area, areas()) {
         area->setVisible(showAreas);
     }
 }
@@ -1518,8 +1525,7 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
     }
 
     // Check if an area on the current image contains the changed or proposed tag
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-    foreach (ResizableFrame *area, allAreas) {
+    foreach (ResizableFrame *area, areas()) {
 #ifdef HAVE_KFACE
         if (area->proposedTagData() == oldTagData) {
             area->setProposedTagData(QPair<QString, QString>(category, newTag));
@@ -1545,7 +1551,8 @@ void AnnotationDialog::Dialog::checkProposedTagData(
     QPair<QString, QString> tagData,
     ResizableFrame *areaToExclude) const
 {
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         if (area != areaToExclude
             and area->proposedTagData() == tagData
             and area->tagData().first.isEmpty()) {
@@ -1557,6 +1564,49 @@ void AnnotationDialog::Dialog::checkProposedTagData(
 void AnnotationDialog::Dialog::areaChanged()
 {
     m_areasChanged = true;
+}
+
+/**
+ * @brief positionableTagValid checks whether a given tag can still be associated to an area.
+ * This checks for empty and duplicate tags.
+ * @return
+ */
+bool AnnotationDialog::Dialog::positionableTagAvailable(const QString &category, const QString &tag) const
+{
+    if (category.isEmpty() || tag.isEmpty())
+        return false;
+
+    // does any area already have that tag?
+    foreach (const ResizableFrame *area, areas())
+    {
+        const auto tagData = area->tagData();
+        if (tagData.first == category && tagData.second == tag)
+            return false;
+    }
+
+    return true;
+}
+
+/**
+ * @brief Generates a set of positionable tags currently used on the image
+ * @param category
+ * @return
+ */
+QSet<QString> AnnotationDialog::Dialog::positionedTags(const QString &category) const
+{
+    QSet<QString> tags;
+    foreach (const ResizableFrame *area, areas())
+    {
+        const auto tagData = area->tagData();
+        if (tagData.first == category)
+            tags += tagData.second;
+    }
+    return tags;
+}
+
+AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(const QString &category)
+{
+    return m_listSelectList.value(category,nullptr);
 }
 
 #ifdef HAVE_KGEOMAP

@@ -59,7 +59,6 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     m_lineEdit = new CompletableLineEdit( this );
     m_lineEdit->setProperty( "FocusCandidate", true );
     m_lineEdit->setProperty( "WantsFocus", true );
-    m_lineEdit->setObjectName( category->name() );
     layout->addWidget( m_lineEdit );
 
     // PENDING(blackie) rename instance variable to something better than _listView
@@ -126,9 +125,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addWidget( m_dateSort );
     lay2->addWidget( m_showSelectedOnly );
 
-    m_lineEdit->setListView( m_treeWidget );
-
-    connect( m_lineEdit, SIGNAL(returnPressed(QString)),  this,  SLOT(slotReturn()) );
+    connectLineEdit(m_lineEdit);
 
     populate();
 
@@ -166,7 +163,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         m_category->addItem(enteredText);
         rePopulate();
 
-        QList<QTreeWidgetItem*> items = m_treeWidget->findItems(enteredText, Qt::MatchExactly, 0);
+        QList<QTreeWidgetItem*> items = m_treeWidget->findItems(enteredText, Qt::MatchExactly|Qt::MatchRecursive, 0);
         if (! items.isEmpty()) {
             items.at(0)->setCheckState(0, Qt::Checked);
             if (m_positionable) {
@@ -179,6 +176,12 @@ void AnnotationDialog::ListSelect::slotReturn()
         m_lineEdit->clear();
     }
     updateSelectionCount();
+}
+
+void ListSelect::slotExternalReturn(const QString &text)
+{
+    m_lineEdit->setText(text);
+    slotReturn();
 }
 
 QString AnnotationDialog::ListSelect::category() const
@@ -841,6 +844,18 @@ bool AnnotationDialog::ListSelect::tagIsChecked(QString tag) const
     return (bool) matchingTags.first()->checkState(0);
 }
 
+/**
+ * @brief ListSelect::connectLineEdit associates a CompletableLineEdit with this ListSelect
+ * This method also allows to connect an external CompletableLineEdit to work with this ListSelect.
+ * @param le
+ */
+void ListSelect::connectLineEdit(CompletableLineEdit *le)
+{
+    le->setObjectName( m_category->name() );
+    le->setListView( m_treeWidget );
+    connect( le, &KLineEdit::returnPressed, this, &ListSelect::slotExternalReturn );
+}
+
 void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)
 {
     if (category != m_lineEdit->objectName()) {
@@ -863,6 +878,12 @@ void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString
     }
 
     matchingTags.first()->setCheckState(0, Qt::Checked);
+}
+
+void AnnotationDialog::ListSelect::deselectTag(QString tag)
+{
+    QList<QTreeWidgetItem *> matchingTags = m_treeWidget->findItems(tag, Qt::MatchExactly | Qt::MatchRecursive, 0);
+    matchingTags.first()->setCheckState(0, Qt::Unchecked);
 }
 
 #include "ListSelect.moc"

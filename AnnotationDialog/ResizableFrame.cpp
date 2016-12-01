@@ -23,13 +23,14 @@
 #include "ResizableFrame.h"
 
 // Qt includes
-#include <QMouseEvent>
-#include <QMenu>
 #include <QApplication>
-#include <QList>
 #include <QDebug>
-#include <QTimer>
 #include <QDockWidget>
+#include <QList>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QScopedPointer>
+#include <QTimer>
 
 // KDE includes
 #include <KLocalizedString>
@@ -329,15 +330,17 @@ void AnnotationDialog::ResizableFrame::mouseReleaseEvent(QMouseEvent* event)
 
 void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent* event)
 {
-    // Create the context menu
-    QMenu* menu = new QMenu(this);
-    addTagActions(menu);
+    // Display a dialog where a tag can be selected directly
+    QString category = m_previewWidget->defaultPositionableCategory();
+    QScopedPointer<AreaTagSelectDialog> tagMenu ( new AreaTagSelectDialog(
+                this,
+                m_dialog->listSelectForCategory(category),
+                m_preview->grabAreaImage(geometry()),
+                m_dialog
+                ));
 
-    // Show the menu
-    menu->exec(event->globalPos());
-
-    // Clean up the menu
-    delete menu;
+    tagMenu->moveToArea(event->globalPos());
+    tagMenu->exec();
 }
 
 QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
@@ -464,29 +467,18 @@ void AnnotationDialog::ResizableFrame::remove()
 
 void AnnotationDialog::ResizableFrame::checkShowContextMenu()
 {
-    if (! m_dialog->lastSelectedPositionableTag().first.isEmpty()) {
-        // We have a last selected positionable tag that is
-        // probably the one to be associated with this area
+    // Display a dialog where a tag can be selected directly
+    QString category = m_previewWidget->defaultPositionableCategory();
+    AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
+                this,
+                m_dialog->listSelectForCategory(category),
+                m_preview->grabAreaImage(geometry()),
+                m_dialog
+                );
 
-        // Show the context menu at the lower right corner of the newly created area
-        QContextMenuEvent* event = new QContextMenuEvent(
-            QContextMenuEvent::Mouse, QPoint(0, 0), QCursor::pos(), Qt::NoModifier
-        );
-        QApplication::postEvent(this, event);
-    } else {
-        // Display a dialog where a tag can be selected directly
-        QString category = m_previewWidget->defaultPositionableCategory();
-        AreaTagSelectDialog* selectTag = new AreaTagSelectDialog(
-                    this,
-                    m_dialog->listSelectForCategory(category),
-                    m_preview->grabAreaImage(geometry()),
-                    m_dialog
-                    );
-
-        selectTag->show();
-        connect(selectTag, &QDialog::finished, selectTag, &QObject::deleteLater);
-        selectTag->moveToArea(mapToGlobal(QPoint(0, 0)));
-    }
+    selectTag->show();
+    connect(selectTag, &QDialog::finished, selectTag, &QObject::deleteLater);
+    selectTag->moveToArea(mapToGlobal(QPoint(0, 0)));
 }
 
 void AnnotationDialog::ResizableFrame::setDialog(Dialog* dialog)

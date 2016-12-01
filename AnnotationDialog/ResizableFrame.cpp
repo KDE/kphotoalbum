@@ -578,7 +578,9 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
         }
     }
 
-    menu->addSeparator();
+    QAction * sep = menu->addSeparator();
+    // clicking the separator should not dismiss the menu:
+    sep->setEnabled(false);
 
 #ifdef HAVE_KFACE
     if (m_tagData.first.isEmpty() &&  m_proposedTagData.first.isEmpty()) {

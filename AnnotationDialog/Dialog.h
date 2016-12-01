@@ -85,8 +85,8 @@ public:
     void removeTagFromCandidateList(QString category, QString tag);
     void checkProposedTagData(QPair<QString, QString> tagData, ResizableFrame *areaToExclude) const;
     void areaChanged();
-    bool positionableTagValid(const QString &category, const QString &tag) const;
-    QSet<QString> positionableTags(const QString &category) const;
+    bool positionableTagAvailable(const QString &category, const QString &tag) const;
+    QSet<QString> positionedTags(const QString &category) const;
     ListSelect* listSelectForCategory( const QString &category);
 
 protected slots:
@@ -149,6 +149,10 @@ protected:
     std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
     void saveAndClose();
     void ShowHideSearch( bool show );
+    /**
+     * @return A list of all ResizableFrame objects on the current image
+     */
+    QList<ResizableFrame*> areas() const;
 
 private:
     QStackedWidget* m_stack;

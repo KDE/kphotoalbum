@@ -43,7 +43,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     :QDialog(area)
     , m_area(area)
     , m_dialog(dialog)
-    , m_usedTags(dialog->positionableTags(ls->category()))
+    , m_usedTags(dialog->positionedTags(ls->category()))
     , m_category(ls->category())
 {
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
@@ -79,7 +79,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 {
     QString enteredText = tag.trimmed();
-    if (m_dialog->positionableTagValid(m_category, enteredText))
+    if (m_dialog->positionableTagAvailable(m_category, enteredText))
     {
         m_area->setTagData(m_category, enteredText);
         this->accept();

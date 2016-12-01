@@ -463,7 +463,6 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     m_positionableTagCandidates.clear();
     m_lastSelectedPositionableTag.first = QString();
     m_lastSelectedPositionableTag.second = QString();
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
 
     Q_FOREACH( ListSelect *ls, m_optionList ) {
         ls->setSelection( old_info.itemsOfCategory( ls->category() ) );
@@ -473,25 +472,19 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
         if ( ls->positionable() ) {
             QString category = ls->category();
             QSet<QString> selectedTags = old_info.itemsOfCategory( category );
+            QSet<QString> positionedTagSet = positionedTags( category );
 
             // Add the tag to the positionable candiate list, if no area is already associated with it
-            for (const auto tag : selectedTags) {
-                bool alreadyAssociated = false;
-
-                for (ResizableFrame* area : allAreas) {
-                    if (area->tagData().first == category && area->tagData().second == tag) {
-                        alreadyAssociated = true;
-                        break;
-                    }
-                }
-
-                if (! alreadyAssociated) {
+            Q_FOREACH(const auto &tag, selectedTags)
+            {
+                if (!positionedTagSet.contains(tag))
+                {
                     addTagToCandidateList(category, tag);
                 }
             }
 
             // Check all areas for a linked tag in this category that is probably not selected anymore
-            for(ResizableFrame *area : allAreas) {
+            for(ResizableFrame *area : areas()) {
                 QPair<QString, QString> tagData = area->tagData();
 
                 if (tagData.first == category) {
@@ -643,7 +636,8 @@ void AnnotationDialog::Dialog::writeToInfo()
     QMap<QString, QMap<QString, QRect>> taggedAreas;
     QPair<QString, QString> tagData;
 
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         tagData = area->tagData();
 
         if ( !tagData.first.isEmpty() ) {
@@ -679,6 +673,11 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
     slotSetFuzzyDate();
     m_ratingSearchMode->setVisible( show );
     m_ratingSearchLabel->setVisible( show );
+}
+
+QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() const
+{
+    return m_preview->preview()->findChildren<ResizableFrame *>();
 }
 
 
@@ -1433,7 +1432,8 @@ void AnnotationDialog::Dialog::togglePreview()
 void AnnotationDialog::Dialog::tidyAreas()
 {
     // Remove all areas marked on the preview image
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         area->deleteLater();
     }
 }
@@ -1462,8 +1462,7 @@ void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QStri
     if (m_setup == InputSingleImageConfigMode) {
         QPair<QString, QString> deselectedTag = QPair<QString, QString>(category, tag);
 
-        QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-        foreach (ResizableFrame *area, allAreas) {
+        foreach (ResizableFrame *area, areas()) {
             if (area->tagData() == deselectedTag) {
                 area->removeTagData();
                 m_areasChanged = true;
@@ -1505,8 +1504,7 @@ QList<QPair<QString, QString>> AnnotationDialog::Dialog::positionableTagCandidat
 
 void AnnotationDialog::Dialog::slotShowAreas(bool showAreas)
 {
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-    foreach (ResizableFrame *area, allAreas) {
+    foreach (ResizableFrame *area, areas()) {
         area->setVisible(showAreas);
     }
 }
@@ -1527,8 +1525,7 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
     }
 
     // Check if an area on the current image contains the changed or proposed tag
-    QList<ResizableFrame *> allAreas = m_preview->preview()->findChildren<ResizableFrame *>();
-    foreach (ResizableFrame *area, allAreas) {
+    foreach (ResizableFrame *area, areas()) {
 #ifdef HAVE_KFACE
         if (area->proposedTagData() == oldTagData) {
             area->setProposedTagData(QPair<QString, QString>(category, newTag));
@@ -1554,7 +1551,8 @@ void AnnotationDialog::Dialog::checkProposedTagData(
     QPair<QString, QString> tagData,
     ResizableFrame *areaToExclude) const
 {
-    foreach (ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>()) {
+    foreach (ResizableFrame *area, areas())
+    {
         if (area != areaToExclude
             and area->proposedTagData() == tagData
             and area->tagData().first.isEmpty()) {
@@ -1573,13 +1571,13 @@ void AnnotationDialog::Dialog::areaChanged()
  * This checks for empty and duplicate tags.
  * @return
  */
-bool AnnotationDialog::Dialog::positionableTagValid(const QString &category, const QString &tag) const
+bool AnnotationDialog::Dialog::positionableTagAvailable(const QString &category, const QString &tag) const
 {
     if (category.isEmpty() || tag.isEmpty())
         return false;
 
     // does any area already have that tag?
-    foreach (const ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>())
+    foreach (const ResizableFrame *area, areas())
     {
         const auto tagData = area->tagData();
         if (tagData.first == category && tagData.second == tag)
@@ -1594,10 +1592,10 @@ bool AnnotationDialog::Dialog::positionableTagValid(const QString &category, con
  * @param category
  * @return
  */
-QSet<QString> AnnotationDialog::Dialog::positionableTags(const QString &category) const
+QSet<QString> AnnotationDialog::Dialog::positionedTags(const QString &category) const
 {
     QSet<QString> tags;
-    foreach (const ResizableFrame *area, m_preview->preview()->findChildren<ResizableFrame *>())
+    foreach (const ResizableFrame *area, areas())
     {
         const auto tagData = area->tagData();
         if (tagData.first == category)

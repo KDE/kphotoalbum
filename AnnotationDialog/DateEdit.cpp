@@ -75,12 +75,11 @@ AnnotationDialog::DateEdit::DateEdit( bool isStartEdit, QWidget *parent )
     m_DatePicker = new KDatePicker(m_value, m_DateFrame);
     layout->addWidget(m_DatePicker);
 
-    connect(lineEdit(),SIGNAL(editingFinished()),SLOT(lineEnterPressed()));
-    connect(this,SIGNAL(textChanged(QString)),
-            SLOT(slotTextChanged(QString)));
+    connect(lineEdit(),&QLineEdit::editingFinished,this,&DateEdit::lineEnterPressed);
+    connect(this,&QComboBox::currentTextChanged,this,&DateEdit::slotTextChanged);
 
-    connect(m_DatePicker,SIGNAL(dateEntered(QDate)),SLOT(dateEntered(QDate)));
-    connect(m_DatePicker,SIGNAL(dateSelected(QDate)),SLOT(dateSelected(QDate)));
+    connect(m_DatePicker, &KDatePicker::dateEntered, this, &DateEdit::dateEntered);
+    connect(m_DatePicker, &KDatePicker::dateSelected, this, &DateEdit::dateSelected);
 
     // Create the keyword list. This will be used to match against when the user
     // enters information.

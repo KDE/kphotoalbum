@@ -18,22 +18,23 @@
 
 #include "ImagePreview.h"
 
-#include <math.h>
-
-#include <QDebug>
-#include <QImageReader>
-#include <QRubberBand>
-#include <QMouseEvent>
-
-#include <KLocalizedString>
-#include <KMessageBox>
-
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
 #include <Utilities/Util.h>
 
 #include "ResizableFrame.h"
+
+#include <QDebug>
+#include <QImageReader>
+#include <QMouseEvent>
+#include <QRubberBand>
+#include <QTimer>
+
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <math.h>
 
 #ifdef DEBUG_AnnotationDialog
 #define Debug qDebug
@@ -47,28 +48,29 @@ ImagePreview::ImagePreview( QWidget* parent )
     : QLabel( parent )
     , m_selectionRect(0)
     , m_aspectRatio(1)
+    , m_reloadTimer( new QTimer(this) )
     , m_areaCreationEnabled( false )
 {
     setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
     // "the widget can make use of extra space, so it should get as much space as possible"
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    m_reloadTimer->setSingleShot(true);
+    connect(m_reloadTimer, &QTimer::timeout, this, &ImagePreview::resizeFinished);
 }
 
 void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
     Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
-    if (width() > ev->oldSize().width() || height() > ev->oldSize().height())
-    {
-        m_preloader.cancelPreload();
-        m_lastImage.reset();
-        reload();
-    } else {
-        // we don't need a reload when downscaling
-        QImage scaledImage = m_currentImage.getImage().scaled(size(),Qt::KeepAspectRatio);
-        setPixmap(QPixmap::fromImage(scaledImage));
-        updateScaleFactors();
-    }
+    // during resizing, a scaled image will do
+    QImage scaledImage = m_currentImage.getImage().scaled(size(),Qt::KeepAspectRatio);
+    setPixmap(QPixmap::fromImage(scaledImage));
+    updateScaleFactors();
+
+    // (re)start the timer to do a full reload
+    m_reloadTimer->start(200);
+
     QLabel::resizeEvent(ev);
 }
 
@@ -469,6 +471,14 @@ void ImagePreview::rotateAreas(int angle)
     foreach (ResizableFrame *area, allAreas) {
         area->setActualCoordinates(rotateArea(area->actualCoordinates(), angle));
     }
+}
+
+void ImagePreview::resizeFinished()
+{
+    Debug() << "Reloading image after resize";
+    m_preloader.cancelPreload();
+    m_lastImage.reset();
+    reload();
 }
 
 QRect ImagePreview::minMaxAreaPreview() const

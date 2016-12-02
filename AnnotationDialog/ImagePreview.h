@@ -18,7 +18,6 @@
 
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
-#include <QLabel>
 #include "config-kpa-kface.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClientInterface.h"
@@ -27,6 +26,9 @@
 #include "FaceManagement/Detector.h"
 #include "FaceManagement/Recognizer.h"
 #endif
+
+#include <QLabel>
+#include <QTimer>
 
 class QResizeEvent;
 class QRubberBand;
@@ -112,6 +114,8 @@ protected:
     };
     PreviewLoader m_preloader;
 
+protected slots:
+    void resizeFinished();
 private:
     DB::ImageInfo m_info;
     QString m_fileName;
@@ -129,6 +133,7 @@ private:
     double m_scaleWidth;
     double m_scaleHeight;
     double m_aspectRatio;
+    QTimer *m_reloadTimer;
 
     void createNewArea(QRect geometry, QRect actualGeometry);
     QRect rotateArea(QRect originalAreaGeometry, int angle);

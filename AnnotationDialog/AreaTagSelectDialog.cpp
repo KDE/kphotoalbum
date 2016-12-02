@@ -42,9 +42,9 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
                                                            Dialog *dialog)
     :QDialog(area)
     , m_area(area)
+    , m_listSelect(ls)
     , m_dialog(dialog)
     , m_usedTags(dialog->positionedTags(ls->category()))
-    , m_category(ls->category())
 {
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -79,9 +79,16 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 {
     QString enteredText = tag.trimmed();
-    if (m_dialog->positionableTagAvailable(m_category, enteredText))
+    if (m_dialog->positionableTagAvailable(m_listSelect->category(), enteredText))
     {
-        m_area->setTagData(m_category, enteredText);
+        const auto currentTagData = m_area->tagData();
+        if( !currentTagData.first.isEmpty())
+        {
+            // Deselect the tag
+            m_dialog->listSelectForCategory(currentTagData.first)->deselectTag(currentTagData.second);
+            m_area->removeTagData();
+        }
+        m_area->setTagData(m_listSelect->category(), enteredText);
         this->accept();
     }
 }

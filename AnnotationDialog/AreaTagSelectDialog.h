@@ -60,10 +60,10 @@ private slots:
 private:
     QLabel *m_areaImageLabel;
     ResizableFrame *m_area;
+    ListSelect *m_listSelect;
     Dialog *m_dialog;
     QLabel *m_messageLabel;
     const QSet<QString> m_usedTags;
-    const QString m_category;
     int m_originalWidth;
     int m_originalHeight;
 };

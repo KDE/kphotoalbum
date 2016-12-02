@@ -166,7 +166,7 @@ QPixmap JobModel::statusImage(JobInfo::State state) const
     pal.setColor(QPalette::Window, Qt::white);
     led.setPalette(pal);
 
-    return QPixmap::grabWidget(&led);
+    return led.grab();
 }
 
 } // namespace BackgroundTaskManager

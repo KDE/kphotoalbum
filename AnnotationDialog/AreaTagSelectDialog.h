@@ -56,6 +56,7 @@ protected:
 private slots:
     void slotSetTag(const QString& tag);
     void slotValidateTag(const QString &tag);
+    void slotFinished();
 
 private:
     QLabel *m_areaImageLabel;

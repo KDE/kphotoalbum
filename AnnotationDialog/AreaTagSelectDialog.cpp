@@ -36,6 +36,12 @@
 #include <QMenu>
 #include <QPainter>
 
+#ifdef DEBUG_AnnotationDialog
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
+#endif
+
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area,
                                                            ListSelect *ls,
                                                            QPixmap areaImage,
@@ -70,10 +76,11 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     QMenu *tagMenu = new QMenu();
     m_area->addTagActions(tagMenu);
     mainLayout->addWidget(tagMenu, 2, 0, 1, 2);
-    connect(tagMenu, &QMenu::triggered, this, &QMenu::close);
+    connect(tagMenu, &QMenu::triggered, this, &QDialog::accept);
 
     connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
+    connect(this, &QDialog::finished,  this, &AreaTagSelectDialog::slotFinished);
 }
 
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
@@ -82,6 +89,7 @@ void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
     if (m_dialog->positionableTagAvailable(m_listSelect->category(), enteredText))
     {
         const auto currentTagData = m_area->tagData();
+        // was there already a tag associated?
         if( !currentTagData.first.isEmpty())
         {
             // Deselect the tag
@@ -103,6 +111,12 @@ void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
         m_messageLabel->clear();
         adjustSize();
     }
+}
+
+void AnnotationDialog::AreaTagSelectDialog::slotFinished()
+{
+    // remove filter from listSelect
+    m_listSelect->showOnlyItemsMatching( QString() );
 }
 
 void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)

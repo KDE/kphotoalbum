@@ -396,7 +396,7 @@ void ImagePreview::createNewArea(QRect geometry, QRect actualGeometry)
     emit areaCreated(newArea);
 
     newArea->show();
-    newArea->checkShowContextMenu();
+    newArea->showContextMenu();
 }
 
 void ImagePreview::processNewArea()

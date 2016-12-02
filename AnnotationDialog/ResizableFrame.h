@@ -48,10 +48,14 @@ class ResizableFrame : public QFrame
 public:
     explicit ResizableFrame(QWidget* parent = 0);
     ~ResizableFrame();
+
     void setActualCoordinates(QRect actualCoordinates);
     QRect actualCoordinates() const;
+
     void checkGeometry();
-    void checkShowContextMenu();
+    void showContextMenu();
+    void showContextMenu(const QPoint &pos);
+
     void setDialog(Dialog* dialog);
     QPair<QString, QString> tagData() const;
     void removeTagData();
@@ -59,6 +63,13 @@ public:
     void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
+
+    /**
+     * @brief Add the context menu actions to a QMenu.
+     * @sa AreaTagSelectDialog
+     * @param w
+     */
+    void addTagActions(QMenu *menu);
 #ifdef HAVE_KFACE
     /**
      * If the face has been detected by the face detector, this method is called.
@@ -73,12 +84,6 @@ public:
 public slots:
     void acceptTag();
 #endif
-    /**
-     * @brief Add the context menu actions to a QMenu.
-     * @sa AreaTagSelectDialog
-     * @param w
-     */
-    void addTagActions(QMenu *menu);
 
 protected:
     void mousePressEvent(QMouseEvent* event);

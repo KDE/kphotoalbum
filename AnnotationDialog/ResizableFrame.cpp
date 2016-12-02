@@ -22,6 +22,15 @@
 
 #include "ResizableFrame.h"
 
+// Local includes
+#ifdef HAVE_KFACE
+#  include "ProposedFaceDialog.h"
+#endif
+#include "AreaTagSelectDialog.h"
+#include "CompletableLineEdit.h"
+#include "ImagePreview.h"
+#include "ImagePreviewWidget.h"
+
 // Qt includes
 #include <QApplication>
 #include <QDebug>
@@ -35,14 +44,11 @@
 // KDE includes
 #include <KLocalizedString>
 
-// Local includes
-#include "ImagePreview.h"
-#ifdef HAVE_KFACE
-#  include "ProposedFaceDialog.h"
+#ifdef DEBUG_AnnotationDialog
+#define Debug qDebug
+#else
+#define Debug if(0) qDebug
 #endif
-#include "ImagePreviewWidget.h"
-#include "CompletableLineEdit.h"
-#include "AreaTagSelectDialog.h"
 
 static const int SCALE_TOP    = 0b00000001;
 static const int SCALE_BOTTOM = 0b00000010;
@@ -361,7 +367,8 @@ QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
 void AnnotationDialog::ResizableFrame::associateTag()
 {
     QAction* action = dynamic_cast<QAction*>(sender());
-    setTagData(action->data().toStringList()[0], action->data().toStringList()[1]);
+    Q_ASSERT(action!=nullptr);
+    associateTag(action);
 }
 
 void AnnotationDialog::ResizableFrame::associateTag(QAction* action)

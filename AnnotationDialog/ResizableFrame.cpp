@@ -334,9 +334,9 @@ void AnnotationDialog::ResizableFrame::mouseReleaseEvent(QMouseEvent* event)
     }
 }
 
-void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent* event)
+void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *)
 {
-    showContextMenu(event->globalPos());
+    showContextMenu();
 }
 
 QAction* AnnotationDialog::ResizableFrame::createAssociateTagAction(
@@ -464,11 +464,6 @@ void AnnotationDialog::ResizableFrame::remove()
 
 void AnnotationDialog::ResizableFrame::showContextMenu()
 {
-    showContextMenu(mapToGlobal(QPoint(0, 0)));
-}
-
-void AnnotationDialog::ResizableFrame::showContextMenu(const QPoint &pos)
-{
     // Display a dialog where a tag can be selected directly
     QString category = m_previewWidget->defaultPositionableCategory();
     QScopedPointer<AreaTagSelectDialog> tagMenu ( new AreaTagSelectDialog(
@@ -479,7 +474,7 @@ void AnnotationDialog::ResizableFrame::showContextMenu(const QPoint &pos)
                 ));
 
     tagMenu->show();
-    tagMenu->moveToArea(pos);
+    tagMenu->moveToArea(mapToGlobal(QPoint(0, 0)));
     tagMenu->exec();
 }
 

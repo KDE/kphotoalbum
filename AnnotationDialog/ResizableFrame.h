@@ -54,7 +54,6 @@ public:
 
     void checkGeometry();
     void showContextMenu();
-    void showContextMenu(const QPoint &pos);
 
     void setDialog(Dialog* dialog);
     QPair<QString, QString> tagData() const;
@@ -89,7 +88,7 @@ protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
-    void contextMenuEvent(QContextMenuEvent* event);
+    void contextMenuEvent(QContextMenuEvent *);
 #ifdef HAVE_KFACE
     void enterEvent(QEvent*);
     void leaveEvent(QEvent*);

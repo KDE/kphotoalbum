@@ -113,8 +113,6 @@ void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)
 
 void AnnotationDialog::AreaTagSelectDialog::moveToArea(QPoint areaTopLeft)
 {
-    m_originalWidth = width();
-    m_originalHeight = height();
     move(areaTopLeft - (m_areaImageLabel->mapToGlobal(QPoint(0, 0)) - mapToGlobal(QPoint(0, 0))));
 }
 

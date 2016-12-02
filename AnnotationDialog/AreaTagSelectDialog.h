@@ -64,8 +64,6 @@ private:
     Dialog *m_dialog;
     QLabel *m_messageLabel;
     const QSet<QString> m_usedTags;
-    int m_originalWidth;
-    int m_originalHeight;
 };
 
 }

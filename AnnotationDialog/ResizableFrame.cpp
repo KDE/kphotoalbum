@@ -471,6 +471,7 @@ void AnnotationDialog::ResizableFrame::showContextMenu(const QPoint &pos)
                 m_dialog
                 ));
 
+    tagMenu->show();
     tagMenu->moveToArea(pos);
     tagMenu->exec();
 }

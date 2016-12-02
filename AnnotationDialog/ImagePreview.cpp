@@ -138,8 +138,14 @@ void ImagePreview::reload()
             //see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
         } else {
+            if (!m_currentImage.has(m_info.fileName(), m_info.angle()))
+            {
+                // erase old image to prevent a laggy feel,
+                // but only erase old image if it is a different image
+                // (otherwise we get flicker when resizing)
+                setPixmap(QPixmap());
+            }
             Debug() << "reload(): set another image";
-            setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), size(), m_info.angle(), this );
             request->setPriority( ImageManager::Viewer );

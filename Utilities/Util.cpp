@@ -138,8 +138,12 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         if ( info->rating() != -1 ) {
             if ( ! result.isEmpty() )
                 result += QString::fromLatin1("<br/>");
-            result += QString::fromLatin1("<img src=\"KRatingWidget://%1\"/>"
-                    ).arg( qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10) ) );
+            QUrl rating;
+            rating.setScheme(QString::fromLatin1("kratingwidget"));
+            // we don't use the host part, but if we don't set it, we can't use port:
+            rating.setHost(QString::fromLatin1("int"));
+            rating.setPort(qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10)));
+            result += QString::fromLatin1("<img src=\"%1\"/>").arg( rating.toString(QUrl::None) );
         }
     }
 

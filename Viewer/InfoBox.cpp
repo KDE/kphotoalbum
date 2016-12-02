@@ -86,13 +86,13 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : QTextBrowser(viewer)
 
     // Unfortunately, the KRatingWidget now thinks that it has some absurdly big
     // dimensions. This call will persuade it to stay reasonably small.
-    QPixmap::grabWidget(rating);
+    rating->adjustSize();
 
     for (int i = 0; i <= 10; ++i) {
         rating->setRating( i );
-        // Workaround for http://trolltech.no/developer/task-tracker/index_html?method=entry&id=142869
-        // There's no real transparency in grabWidget() :(
-        QPixmap pixmap = QPixmap::grabWidget(rating);
+        // QWidget::grab() does not create an alpha channel
+        // Therefore, we need to create a mask using heuristics (yes, this is slow, but we only do it once)
+        QPixmap pixmap = rating->grab();
         pixmap.setMask(pixmap.createHeuristicMask());
         m_ratingPixmap.append(pixmap);
     }
@@ -102,8 +102,9 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget* viewer) : QTextBrowser(viewer)
 
 QVariant Viewer::InfoBox::loadResource(int type, const QUrl& name)
 {
-    if (name.scheme() == QString::fromUtf8("KRatingWidget")) {
-        short int rating = name.host().toShort();
+    if (name.scheme() == QString::fromUtf8("kratingwidget")) {
+        int rating = name.port();
+        Q_ASSERT(0 <= rating && rating <= 10);
         return m_ratingPixmap[rating];
     }
     return QTextBrowser::loadResource(type, name);

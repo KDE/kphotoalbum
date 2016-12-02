@@ -276,7 +276,7 @@ void Settings::BirthdayPage::checkDate()
 
 void Settings::BirthdayPage::setDate(const QDate& date)
 {
-    const QString currentCategory = m_categoryBox->itemData(m_categoryBox->currentIndex()).value<QString>();
+    const QString currentCategory = m_categoryBox->currentText();
     if (! m_changedData.contains(currentCategory)) {
         m_changedData[currentCategory] = QMap<QString, QDate>();
     }

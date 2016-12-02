@@ -57,11 +57,19 @@ ImagePreview::ImagePreview( QWidget* parent )
 
 void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
-    ev->accept();
     Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
-    m_preloader.cancelPreload();
-    m_lastImage.reset();
-    reload();
+    if (width() > ev->oldSize().width() || height() > ev->oldSize().height())
+    {
+        m_preloader.cancelPreload();
+        m_lastImage.reset();
+        reload();
+    } else {
+        // we don't need a reload when downscaling
+        QImage scaledImage = m_currentImage.getImage().scaled(size(),Qt::KeepAspectRatio);
+        setPixmap(QPixmap::fromImage(scaledImage));
+        updateScaleFactors();
+    }
+    QLabel::resizeEvent(ev);
 }
 
 int ImagePreview::heightForWidth(int width) const
@@ -120,12 +128,15 @@ void ImagePreview::reload()
     if ( !m_info.isNull() ) {
         if (m_preloader.has(m_info.fileName(), m_info.angle()))
         {
+            Debug() << "reload(): set preloader image";
             setCurrentImage(m_preloader.getImage());
         } else if (m_lastImage.has(m_info.fileName(), m_info.angle())) {
+            Debug() << "reload(): set last image";
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
         } else {
+            Debug() << "reload(): set another image";
             setPixmap(QPixmap()); //erase old image
             ImageManager::AsyncLoader::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), size(), m_info.angle(), this );
@@ -133,6 +144,7 @@ void ImagePreview::reload()
             ImageManager::AsyncLoader::instance()->load( request );
         }
     } else {
+        Debug() << "reload(): set image from file";
         QImage img( m_fileName );
         img = rotateAndScale( img, width(), height(), m_angle );
         setPixmap( QPixmap::fromImage(img) );
@@ -163,27 +175,10 @@ void ImagePreview::setCurrentImage(const QImage &image)
     m_currentImage.set(m_info.fileName(), image, m_info.angle());
     setPixmap(QPixmap::fromImage(image));
 
-     if (!m_anticipated.m_fileName.isNull())
-         m_preloader.preloadImage(m_anticipated.m_fileName, width(), height(), m_anticipated.m_angle);
+    if (!m_anticipated.m_fileName.isNull())
+        m_preloader.preloadImage(m_anticipated.m_fileName, width(), height(), m_anticipated.m_angle);
 
-    // Calculate a scale factor from the original image's size and it's current preview
-    QSize actualSize = getActualImageSize();
-    QSize previewSize = m_currentImage.getImage().size();
-    m_scaleWidth = double(actualSize.width()) / double(previewSize.width());
-    m_scaleHeight = double(actualSize.height()) / double(previewSize.height());
-
-    // Calculate the min and max coordinates inside the preview widget
-    int previewWidth = m_currentImage.getImage().size().width();
-    int previewHeight = m_currentImage.getImage().size().height();
-    int widgetWidth = this->frameGeometry().width();
-    int widgetHeight = this->frameGeometry().height();
-    m_minX = (widgetWidth - previewWidth) / 2;
-    m_maxX = m_minX + previewWidth - 1;
-    m_minY = (widgetHeight - previewHeight) / 2;
-    m_maxY = m_minY + previewHeight - 1;
-
-    // Put all areas to their respective position on the preview
-    remapAreas();
+    updateScaleFactors();
 
     // Clear the full size image (if we have loaded one)
     m_fullSizeImage = QImage();
@@ -288,6 +283,28 @@ QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle
     }
     img = Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio );
     return img;
+}
+
+void ImagePreview::updateScaleFactors()
+{
+    // Calculate a scale factor from the original image's size and it's current preview
+    QSize actualSize = getActualImageSize();
+    QSize previewSize = pixmap()->size();
+    m_scaleWidth = double(actualSize.width()) / double(previewSize.width());
+    m_scaleHeight = double(actualSize.height()) / double(previewSize.height());
+
+    // Calculate the min and max coordinates inside the preview widget
+    int previewWidth = previewSize.width();
+    int previewHeight = previewSize.height();
+    int widgetWidth = this->frameGeometry().width();
+    int widgetHeight = this->frameGeometry().height();
+    m_minX = (widgetWidth - previewWidth) / 2;
+    m_maxX = m_minX + previewWidth - 1;
+    m_minY = (widgetHeight - previewHeight) / 2;
+    m_maxY = m_minY + previewHeight - 1;
+
+    // Put all areas to their respective position on the preview
+    remapAreas();
 }
 
 void ImagePreview::mousePressEvent(QMouseEvent *event)

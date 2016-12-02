@@ -76,6 +76,7 @@ protected:
     void reload();
     void setCurrentImage(const QImage &image);
     QImage rotateAndScale( QImage, int width, int height, int angle ) const;
+    void updateScaleFactors();
 
     QRect areaActualToPreview(QRect area) const;
     void processNewArea();

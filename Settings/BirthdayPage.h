@@ -53,7 +53,8 @@ private slots:
     void changeCategory(int index);
     void resetCategory();
     void editDate(int row, int);
-    void parseDate(QString date);
+    QDate parseDate(QString date);
+    void checkDateInput(QString date);
     void checkDate();
     void setDate(const QDate& date);
     void removeDate();

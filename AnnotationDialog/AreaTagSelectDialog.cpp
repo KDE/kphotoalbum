@@ -98,8 +98,10 @@ void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
     if(m_usedTags.contains(tag.trimmed())) {
         m_messageLabel->show();
         m_messageLabel->setText(i18n("Tag is already used for another area"));
+        adjustSize();
     } else {
         m_messageLabel->clear();
+        adjustSize();
     }
 }
 

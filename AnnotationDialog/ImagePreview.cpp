@@ -57,15 +57,11 @@ ImagePreview::ImagePreview( QWidget* parent )
 
 void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
+    ev->accept();
     Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
-    // only reload if size difference is significant:
-    QSize diff = ev->size() - ev->oldSize();
-    if (abs(diff.width()) > 2 || abs(diff.height()) > 2)
-    {
-        m_preloader.cancelPreload();
-        m_lastImage.reset();
-        reload();
-    }
+    m_preloader.cancelPreload();
+    m_lastImage.reset();
+    reload();
 }
 
 int ImagePreview::heightForWidth(int width) const

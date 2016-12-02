@@ -67,6 +67,11 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
     new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
 
+    m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat)
+                  << QLocale().dateFormat(QLocale::ShortFormat).replace(QString::fromUtf8("yy"),
+                                                                        QString::fromUtf8("yyyy"))
+                  << QLocale().dateFormat(QLocale::LongFormat);
+
     m_dataView = new QTableWidget;
     m_dataView->setColumnCount(2);
     m_dataView->verticalHeader()->hide();
@@ -240,9 +245,18 @@ void Settings::BirthdayPage::editDate(int row, int)
 
 void Settings::BirthdayPage::parseDate(QString date)
 {
-    QDate parsedDate = QLocale().toDate(date);
-    if (parsedDate.isValid())
-    {
+    QDate parsedDate = QDate();
+    bool dateIsValid = false;
+
+    for (const QString &format : m_dateFormats) {
+        parsedDate = QDate::fromString(date, format);
+        if (parsedDate.isValid()) {
+            dateIsValid = true;
+            break;
+        }
+    }
+
+    if (dateIsValid) {
         m_calendar->setSelectedDate(parsedDate);
         m_dateInput->setStyleSheet(QString());
     } else {

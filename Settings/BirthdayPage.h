@@ -79,6 +79,7 @@ private: // Variables
     QString m_noDateString;
     QMap<QString, QMap<QString, QDate>> m_changedData;
     QLabel* m_birthdayOfLabel;
+    QStringList m_dateFormats;
 };
 
 }

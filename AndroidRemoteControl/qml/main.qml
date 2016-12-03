@@ -45,6 +45,7 @@ Rectangle {
     }
 
     ThumbnailsPage {
+        id: thumbnailsPage
         name: "thumbnailsPage"
         visible: _remoteInterface.currentPage === Enums.ThumbnailsPage
         anchors.fill: parent
@@ -77,6 +78,7 @@ Rectangle {
      }
 
     ImageViewer {
+        id: imageViewer
         anchors.fill: parent
         visible: _remoteInterface.currentPage === Enums.ImageViewerPage
     }
@@ -118,14 +120,18 @@ Rectangle {
 
 
     focus: true
-    Keys.onReleased: {
+    // allow subpages to have Keyboard handlers:
+    Keys.forwardTo: [ thumbnailsPage, discoveryPage, imageViewer ]
+    Keys.onPressed: {
         if ( event.key === Qt.Key_Q && (event.modifiers & Qt.ControlModifier ) )
             Qt.quit()
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Left) {
             _remoteInterface.goBack()
             event.accepted = true
         }
-        if (event.key === Qt.Key_Right)
+        if (event.key === Qt.Key_Right) {
             _remoteInterface.goForward()
+            event.accepted = true
+        }
     }
 }

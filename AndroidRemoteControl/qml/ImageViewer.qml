@@ -16,8 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-import QtQuick 2.0
 import KPhotoAlbum 1.0
+import QtQuick 2.0
+import QtQuick.Controls 1.1
 
 ListView {
     id: root
@@ -28,6 +29,14 @@ ListView {
     highlightMoveDuration: 200
     highlightRangeMode: ListView.StrictlyEnforceRange
     interactive: currentItem && currentItem.isZoomedOut
+
+    Keys.onMenuPressed: menu.popup()
+    Keys.onTabPressed: menu.popup() /* on desktop */
+    Keys.onEscapePressed: {
+        menu.visible = false
+        keyboard.visible = false
+        details.hide()
+    }
 
     delegate: Zoomable {
         id: zoomable
@@ -119,6 +128,27 @@ ListView {
         id: details
         anchors.centerIn: parent
         imageId: currentItem ? currentItem.imageId : -1
+    }
+
+    Menu {
+        id: menu
+        title: "Context Menu"
+        MenuItem {
+            text: "Image details"
+            onTriggered: details.show()
+        }
+        MenuItem {
+            text: "Add/Remove tokens..."
+            onTriggered: keyboard.visible = true
+        }
+        MenuItem {
+            text: "Refine search"
+            onTriggered: _remoteInterface.showOverviewPage()
+        }
+        MenuItem {
+            text: "Go Home"
+            onTriggered: _remoteInterface.goHome()
+        }
     }
 
     onCurrentIndexChanged: {

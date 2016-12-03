@@ -40,6 +40,10 @@ PinchArea {
         grid.scale = 1
     }
 
+    Keys.onMenuPressed: menu.popup()
+    Keys.onTabPressed: menu.popup() /* on desktop */
+    Keys.onEscapePressed: menu.visible = false
+
     GridView {
         id: grid
         anchors.fill: parent
@@ -85,7 +89,7 @@ PinchArea {
         id: menu
         title: "Context Menu"
         MenuItem {
-            text: "Narrow"
+            text: "Refine search"
             onTriggered: _remoteInterface.showOverviewPage()
         }
         MenuItem {

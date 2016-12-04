@@ -111,6 +111,7 @@ void Browser::BrowserWidget::addImageView( const DB::FileName& context )
 
 void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
 {
+    // remove actions which would go forward in the breadcrumbs
     while ( (int) m_list.count() > m_current+1 ) {
         BrowserPage* m = m_list.back();
         m_list.pop_back();
@@ -280,6 +281,8 @@ Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
 {
     m_filterProxy->setSourceModel( model );
+    // make sure the view knows about the source model change:
+    m_curView->setModel( m_filterProxy );
 
     if (qobject_cast<TreeCategoryModel*>(model)) {
         connect(model, &QAbstractItemModel::dataChanged, this, &BrowserWidget::reload);

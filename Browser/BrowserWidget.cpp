@@ -53,8 +53,9 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
     createWidgets();
 
-    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryCollectionChanged()), this, SLOT(reload()) );
-    connect( this, SIGNAL(viewChanged()), this, SLOT(resetIconViewSearch()) );
+    connect( DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
+             this, &BrowserWidget::reload);
+    connect( this, &BrowserWidget::viewChanged, this, &BrowserWidget::resetIconViewSearch);
 
     m_filterProxy = new TreeFilter(this);
     m_filterProxy->setFilterKeyColumn(0);
@@ -281,7 +282,7 @@ void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
     m_filterProxy->setSourceModel( model );
 
     if (qobject_cast<TreeCategoryModel*>(model)) {
-        connect(model, SIGNAL(dataChanged()), this, SLOT(reload()));
+        connect(model, &QAbstractItemModel::dataChanged, this, &BrowserWidget::reload);
     }
 }
 
@@ -289,7 +290,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
     if ( m_curView ) {
         m_curView->setModel(0);
-        disconnect( m_curView, SIGNAL(activated(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+        disconnect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
     }
 
     if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
@@ -313,7 +314,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     // Hook up the new view
     m_curView->setModel( m_filterProxy );
-    connect( m_curView, SIGNAL(activated(QModelIndex)), this, SLOT(itemClicked(QModelIndex)) );
+    connect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
 
 
     m_stack->setCurrentWidget( m_curView );
@@ -400,7 +401,7 @@ void Browser::BrowserWidget::createWidgets()
     m_listView->installEventFilter( this );
     m_listView->viewport()->installEventFilter( this );
 
-    connect( m_treeView, SIGNAL(expanded(QModelIndex)), SLOT(adjustTreeViewColumnSize()) );
+    connect( m_treeView, &QTreeView::expanded, this, &BrowserWidget::adjustTreeViewColumnSize);
 
     m_curView = nullptr;
 }

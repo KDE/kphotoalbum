@@ -104,7 +104,10 @@ void ImageManager::VideoLengthExtractor::processEnded()
         lenStr = regexp.cap(1);
     } else {
         QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
-        if ( list.count() != 2 ) {
+        // one line-break -> 2 parts
+        // some videos with subtitles or other additional streams might have more than one line
+        // in these cases, we just take the first one as both lengths should be the same anyways
+        if ( list.count() < 2 ) {
             qWarning() << "Unable to parse video length from ffprobe output!"
                        << "Output was:\n"
                        << m_process->stdout();

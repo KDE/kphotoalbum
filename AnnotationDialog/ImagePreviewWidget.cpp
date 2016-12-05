@@ -317,8 +317,12 @@ bool ImagePreviewWidget::showAreas() const
 
 void ImagePreviewWidget::canCreateAreas(bool state)
 {
-    m_toggleAreasBut->setChecked(state);
-    m_toggleAreasBut->setEnabled(state);
+    if (m_toggleAreasBut->isEnabled() != state)
+    {
+        m_toggleAreasBut->setChecked(state);
+        m_toggleAreasBut->setEnabled(state);
+        emit areaVisibilityChanged(state);
+    }
 #ifdef HAVE_KFACE
     m_facedetectBut->setEnabled(state);
     m_autoTrainDatabase->setEnabled(state);

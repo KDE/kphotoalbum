@@ -124,7 +124,7 @@ void XMLDB::XMLCategory::addItem( const QString& item )
 {
     if (m_items.contains( item ) )
         m_items.removeAll( item );
-    m_items.prepend( item );
+    m_items.append( item );
 }
 
 QStringList XMLDB::XMLCategory::items() const
@@ -145,7 +145,7 @@ void XMLDB::XMLCategory::initIdMap()
         m_idMap.insert( tag, ++i );
     }
 
-    QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
+    const QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
     Q_FOREACH( const QString &group, groups ) {
         if ( !m_idMap.contains( group ) )
             m_idMap.insert( group, ++i );

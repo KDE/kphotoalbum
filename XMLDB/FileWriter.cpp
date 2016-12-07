@@ -183,7 +183,10 @@ void XMLDB::FileWriter::saveImages( QXmlStreamWriter& writer )
 void XMLDB::FileWriter::saveBlockList( QXmlStreamWriter& writer )
 {
     ElementWriter dummy( writer, QString::fromLatin1( "blocklist" ) );
-    Q_FOREACH(const DB::FileName &block, m_db->m_blockList) {
+    QList<DB::FileName> blockList = m_db->m_blockList.toList();
+    // sort blocklist to get diffable files
+    qSort(blockList);
+    Q_FOREACH(const DB::FileName &block, blockList) {
         ElementWriter dummy( writer,  QString::fromLatin1( "block" ) );
         writer.writeAttribute( QString::fromLatin1( "file" ), block.relative() );
     }

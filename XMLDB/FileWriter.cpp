@@ -221,8 +221,8 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                 continue;
             }
 
-            StringSet members = groupMapIt.value();
             if ( useCompressedFileFormat() ) {
+                StringSet members = groupMapIt.value();
                 ElementWriter dummy( writer, QString::fromLatin1( "member" ) );
                 writer.writeAttribute( QString::fromLatin1( "category" ), categoryName );
                 writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
@@ -232,9 +232,12 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
+                qSort(idList);
                 writer.writeAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
             }
             else {
+                QStringList members = groupMapIt.value().toList();
+                qSort(members);
                 Q_FOREACH(const QString& member, members) {
                     ElementWriter dummy( writer,  QString::fromLatin1( "member" ) );
                     writer.writeAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
@@ -341,7 +344,8 @@ void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::Ima
 
         ElementWriter categoryElm(writer, QString::fromLatin1("option"), false );
 
-        StringSet items = info->itemsOfCategory(name);
+        QStringList items = info->itemsOfCategory(name).toList();
+        qSort(items);
         if ( !items.isEmpty() ) {
             topElm.writeStartElement();
             categoryElm.writeStartElement();
@@ -391,7 +395,10 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
             // Possibly all ids of a category have area information, so only
             // write the category attribute if there are actually ids to write
             if ( !idList.isEmpty() )
+            {
+                qSort(idList);
                 writer.writeAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
+            }
         }
     }
 

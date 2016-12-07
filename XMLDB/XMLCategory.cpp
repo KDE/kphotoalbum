@@ -122,9 +122,8 @@ void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& new
 
 void XMLDB::XMLCategory::addItem( const QString& item )
 {
-    if (m_items.contains( item ) )
-        m_items.removeAll( item );
-    m_items.append( item );
+    if (!m_items.contains( item ) )
+        m_items.append( item );
 }
 
 QStringList XMLDB::XMLCategory::items() const

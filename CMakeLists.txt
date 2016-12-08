@@ -92,15 +92,13 @@ set_package_properties(KF5KDcraw
     )
 set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
 
-find_package(KF5KExiv2)
-# FIXME: most of KPhotoAlbum uses plain libexiv:
 find_package(Exiv2)
-set_package_properties(KF5KExiv2
+set_package_properties(Exiv2
     PROPERTIES
     TYPE RECOMMENDED
     PURPOSE "Enables image metadata (exiv) support (strongly advised!)"
     )
-set(HAVE_EXIV2 ${KF5KExiv2_FOUND})
+set(HAVE_EXIV2 ${Exiv2_FOUND})
 
 if(ENABLE_PLAYGROUND)
     find_package(KF5KFace 5.0.0 CONFIG)
@@ -112,16 +110,12 @@ if(ENABLE_PLAYGROUND)
     set(HAVE_KFACE ${KF5KFace_FOUND})
 endif()
 
-if(KF5KExiv2_FOUND)
-    find_package(KF5KGeoMap)
-    set_package_properties(KF5KGeoMap
-        PROPERTIES
-        TYPE OPTIONAL
-        PURPOSE "Enables support for geographic map location using embedded GPS information."
-        )
-else()
-    message(STATUS "Not searching KF5KGeoMap because of missing dependency KF5KExiv2...")
-endif()
+find_package(KF5KGeoMap)
+set_package_properties(KF5KGeoMap
+    PROPERTIES
+    TYPE OPTIONAL
+    PURPOSE "Enables support for geographic map location using embedded GPS information."
+    )
 set(HAVE_KGEOMAP ${KF5KGeoMap_FOUND})
 
 add_custom_target(
@@ -433,7 +427,7 @@ add_subdirectory(script)
 add_subdirectory(doc)
 
 set(EXIV2_SRCS)
-if(KF5KExiv2_FOUND AND Qt5Sql_FOUND)
+if(Exiv2_FOUND AND Qt5Sql_FOUND)
     set(EXIV2_SRCS
         #${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
@@ -499,8 +493,8 @@ if(KF5KDcraw_FOUND)
     target_link_libraries(kphotoalbum KF5::KDcraw)
 endif()
 
-if(KF5KExiv2_FOUND)
-    target_link_libraries(kphotoalbum KF5::KExiv2 ${EXIV2_LIBRARIES} Qt5::Sql)
+if(Exiv2_FOUND)
+    target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} Qt5::Sql)
 endif()
 
 if(KF5KFace_FOUND)

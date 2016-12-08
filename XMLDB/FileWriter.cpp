@@ -416,7 +416,12 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
             categoryElm.writeStartElement();
             writer.writeAttribute( QString::fromLatin1("name"), categoryWithAreas.key() );
 
-            for ( const auto& positionedTag : categoryWithAreas.value() ) {
+            QList<QPair<QString, QRect>> areas = categoryWithAreas.value();
+            std::sort(areas.begin(),areas.end(),
+                      [](QPair<QString, QRect> a, QPair<QString, QRect> b) { return a.first < b.first; }
+            );
+            Q_FOREACH( const auto &positionedTag, areas)
+            {
                 ElementWriter dummy( writer, QString::fromLatin1("value") );
                 writer.writeAttribute( QString::fromLatin1("value"), positionedTag.first );
                 writer.writeAttribute( QString::fromLatin1("area"), areaToString(positionedTag.second) );

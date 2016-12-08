@@ -28,10 +28,6 @@ extern "C" {
 #include <unistd.h>
 }
 
-#ifdef Q_WS_X11
-#include <X11/X.h>
-#endif
-
 #include <QApplication>
 #include <QCryptographicHash>
 #include <QDebug>

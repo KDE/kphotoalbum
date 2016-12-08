@@ -32,9 +32,7 @@
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
-#ifdef HAVE_EXIV2
-#   include "Exif/Database.h"
-#endif
+#include "Exif/Database.h"
 #include <DB/FileName.h>
 
 using Utilities::StringSet;
@@ -153,9 +151,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
                 m_stackMap.insert(inf->stackId(), newCache);
             }
         }
-#ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( inf->fileName() );
-#endif
         m_images.remove( inf );
     }
     emit totalChanged( m_images.count() );

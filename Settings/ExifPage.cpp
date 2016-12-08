@@ -24,11 +24,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-#include "config-kpa-exiv2.h"
-#ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
-#  include "Exif/TreeView.h"
-#endif
+#include "Exif/Info.h"
+#include "Exif/TreeView.h"
 
 Settings::ExifPage::ExifPage( QWidget* parent )
     : QWidget( parent )

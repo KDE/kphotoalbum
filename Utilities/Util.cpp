@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa-exiv2.h>
 #include "Util.h"
 
 extern "C" {
@@ -60,9 +59,7 @@ extern "C" {
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#ifdef HAVE_EXIV2
-#  include <Exif/Info.h>
-#endif
+#include <Exif/Info.h>
 #include <ImageManager/ImageDecoder.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <MainWindow/Window.h>
@@ -197,7 +194,6 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                         &result);
     }
 
-#ifdef HAVE_EXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         typedef QMap<QString,QStringList> ExifMap;
@@ -234,7 +230,6 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     if ( !result.isEmpty() && !exifText.isEmpty() )
         result += QString::fromLatin1( "<hr>" );
     result += exifText;
-#endif
 
     return result;
 }

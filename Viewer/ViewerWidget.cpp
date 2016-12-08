@@ -17,7 +17,6 @@
 */
 
 #include "ViewerWidget.h"
-#include <config-kpa-exiv2.h>
 
 #include <QAction>
 #include <QApplication>
@@ -45,9 +44,7 @@
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#ifdef HAVE_EXIV2
-#  include <Exif/InfoDialog.h>
-#endif
+#include <Exif/InfoDialog.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/CategoryImagePopup.h>
 #include <MainWindow/DeleteDialog.h>
@@ -154,11 +151,9 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_setStackHead->setShortcut( Qt::CTRL+Qt::Key_4 );
     m_popup->addAction( m_setStackHead );
 
-#ifdef HAVE_EXIV2
     m_showExifViewer = m_actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()) );
     m_showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
     m_popup->addAction( m_showExifViewer );
-#endif
 
     m_copyTo = m_actions->addAction( QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()) );
     m_copyTo->setText( i18nc("@action:inmenu","Copy image to...") );
@@ -456,11 +451,9 @@ void Viewer::ViewerWidget::load()
     m_wallpaperMenu->setEnabled( !isVideo );
     m_categoryImagePopup->setEnabled( !isVideo );
     m_filterMenu->setEnabled( !isVideo );
-#ifdef HAVE_EXIV2
     m_showExifViewer->setEnabled( !isVideo );
     if ( m_exifViewer )
         m_exifViewer->setImage( currentInfo()->fileName() );
-#endif
 
     Q_FOREACH( QAction* videoAction, m_videoActions ) {
         videoAction->setVisible( isVideo );
@@ -1244,11 +1237,8 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 
 void Viewer::ViewerWidget::showExifViewer()
 {
-#ifdef HAVE_EXIV2
     m_exifViewer = new Exif::InfoDialog( currentInfo()->fileName(), this );
     m_exifViewer->show();
-#endif
-
 }
 
 void Viewer::ViewerWidget::zoomIn()

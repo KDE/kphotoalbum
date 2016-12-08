@@ -163,7 +163,7 @@ property_copy( backupCount           , setBackupCount           , int           
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
 property_copy( excludeDirectories    , setExcludeDirectories    , QString       , General, QString::fromLatin1("xml,ThumbNails,.thumbs") )
 property_copy( recentAndroidAddress  , setRecentAndroidAddress  , QString       , General, QString()                  )
-property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false);
+property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
 
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )
@@ -346,27 +346,25 @@ QString SettingsData::albumCategory() const
 
 property_ref( untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
 property_ref( untaggedTag,      setUntaggedTag,      QString, General, i18n("untagged"))
-property_copy( untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, General, false);
+property_copy( untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, General, false)
 
 //////////////
 //// Exif ////
 //////////////
 
-#ifdef HAVE_EXIV2
-    property_sset( exifForViewer, setExifForViewer,          Exif, StringSet()                            )
-    property_sset( exifForDialog, setExifForDialog,          Exif, Exif::Info::instance()->standardKeys() )
-    property_ref ( iptcCharset  , setIptcCharset  , QString, Exif, QString()                 )
-#endif
+property_sset( exifForViewer, setExifForViewer,          Exif, StringSet()                            )
+property_sset( exifForDialog, setExifForDialog,          Exif, Exif::Info::instance()->standardKeys() )
+property_ref ( iptcCharset  , setIptcCharset  , QString, Exif, QString()                 )
 
 /////////////////////
 //// Exif Import ////
 /////////////////////
 
-property_copy( updateExifData           , setUpdateExifData           , bool , ExifImport, true );
-property_copy( updateImageDate          , setUpdateImageDate          , bool , ExifImport, false );
-property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool , ExifImport, true );
-property_copy( updateOrientation        , setUpdateOrientation        , bool , ExifImport, false );
-property_copy( updateDescription        , setUpdateDescription        , bool , ExifImport, false );
+property_copy( updateExifData           , setUpdateExifData           , bool , ExifImport, true )
+property_copy( updateImageDate          , setUpdateImageDate          , bool , ExifImport, false )
+property_copy( useModDateIfNoExif       , setUseModDateIfNoExif       , bool , ExifImport, true )
+property_copy( updateOrientation        , setUpdateOrientation        , bool , ExifImport, false )
+property_copy( updateDescription        , setUpdateDescription        , bool , ExifImport, false )
 
 /////////////////////////
 //// Face Management ////

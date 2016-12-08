@@ -21,9 +21,7 @@
 #include <Utilities/ShowBusyCursor.h>
 #include "enums.h"
 #include <KMessageBox>
-#ifdef HAVE_EXIV2
 #include <Exif/SearchDialog.h>
-#endif
 #include "ImageViewPage.h"
 #include "CategoryPage.h"
 #include "BrowserWidget.h"
@@ -31,7 +29,6 @@
 #include <KLocalizedString>
 #include <DB/ImageDB.h>
 #include <QIcon>
-#include <config-kpa-exiv2.h>
 #include "DB/CategoryCollection.h"
 
 const int THUMBNAILSIZE = 70;
@@ -56,10 +53,7 @@ int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
         return 0;
 
     return categories().count() +
-#ifdef HAVE_EXIV2
-        1 +
-#endif
-        3; // Search info + Untagged Images + Show Image
+        4; // Exiv search + Search info + Untagged Images + Show Image
 }
 
 QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
@@ -88,12 +82,7 @@ bool Browser::OverviewPage::isCategoryIndex( int row ) const
 
 bool Browser::OverviewPage::isExivIndex( int row ) const
 {
-#ifdef HAVE_EXIV2
     return row == categories().count();
-#else
-    Q_UNUSED(row);
-    return false;
-#endif
 }
 
 bool Browser::OverviewPage::isSearchIndex( int row ) const
@@ -206,7 +195,6 @@ bool Browser::OverviewPage::isSearchable() const
 
 Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
 {
-#ifdef HAVE_EXIV2
     QPointer<Exif::SearchDialog> dialog = new Exif::SearchDialog( browser() );
 
     {
@@ -236,9 +224,6 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
     }
 
     return new OverviewPage( Breadcrumb( i18n("EXIF Search")), info, browser() );
-#else
-    return nullptr;
-#endif // HAVE_EXIV2
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()

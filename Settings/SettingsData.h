@@ -19,16 +19,13 @@
 #ifndef SETTINGS_SETTINGSDATA_H
 #define SETTINGS_SETTINGSDATA_H
 
-#include <config-kpa-exiv2.h>
 #include <config-kpa-kface.h>
 
 
 #include <AnnotationDialog/enums.h>
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
-#ifdef HAVE_EXIV2
-#   include <Exif/Info.h>
-#endif
+#include <Exif/Info.h>
 #include <Utilities/Set.h>
 
 #define property( GET_TYPE,GET_FUNC, SET_FUNC,SET_TYPE ) \
@@ -167,11 +164,9 @@ public:
     //// Exif ////
     //////////////
 
-#ifdef HAVE_EXIV2
     property_ref( exifForViewer, setExifForViewer, StringSet );
     property_ref( exifForDialog, setExifForDialog, StringSet );
     property_ref( iptcCharset  , setIptcCharset  , QString   );
-#endif
 
     /////////////////////////
     //// Face Management ////

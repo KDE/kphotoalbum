@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa-exiv2.h>
 #include "ImageSearchInfo.h"
 
 #include <QDebug>
@@ -88,9 +87,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
         compile();
 
     bool ok = true;
-#ifdef HAVE_EXIV2
     ok = m_exifSearchInfo.matches( info->fileName() );
-#endif
 
     QDateTime actualStart = info->date().start();
     QDateTime actualEnd = info->date().end();
@@ -329,9 +326,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     m_ratingSearchMode = other.m_ratingSearchMode;
     m_megapixel = other.m_megapixel;
     m_searchRAW = other.m_searchRAW;
-#ifdef HAVE_EXIV2
     m_exifSearchInfo = other.m_exifSearchInfo;
-#endif
 #ifdef HAVE_KGEOMAP
     m_regionSelection = other.m_regionSelection;
 #endif
@@ -340,9 +335,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
 
 void ImageSearchInfo::compile() const
 {
-#ifdef HAVE_EXIV2
     m_exifSearchInfo.search();
-#endif
 #ifdef HAVE_KGEOMAP
     // Prepare Search for GPS Position
     m_usingRegionSelection = m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates();
@@ -563,13 +556,11 @@ ImageDate ImageSearchInfo::date() const
     return m_date;
 }
 
-#ifdef HAVE_EXIV2
 void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
 {
     m_exifSearchInfo = info;
     m_isNull = false;
 }
-#endif
 
 void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString& newName )
 {

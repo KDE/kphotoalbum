@@ -63,9 +63,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     m_pluginsPage = new Settings::PluginsPage(this);
 #endif
 
-#ifdef HAVE_EXIV2
     m_exifPage = new Settings::ExifPage(this);
-#endif
 
 #ifdef HAVE_KFACE
     m_faceManagementPage = new Settings::FaceManagementPage(this);
@@ -88,9 +86,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         { i18n("Plugins" ), "plugins", m_pluginsPage },
 #endif
 
-#ifdef HAVE_EXIV2
         { i18n("EXIF/IPTC Information" ), "document-properties", m_exifPage },
-#endif
         { i18n("Database backend"), "document-save", m_databaseBackendPage },
 #ifdef HAVE_KFACE
         { i18n("Face management" ), "edit-image-face-detect", m_faceManagementPage },
@@ -149,9 +145,7 @@ void Settings::SettingsDialog::show()
 
     m_categoryPage->loadSettings(opt);
 
-#ifdef HAVE_EXIV2
     m_exifPage->loadSettings( opt );
-#endif
 
 #ifdef HAVE_KFACE
     m_faceManagementPage->loadSettings(opt);
@@ -186,9 +180,7 @@ void Settings::SettingsDialog::slotMyOK()
     m_pluginsPage->saveSettings( opt );
 #endif
 
-#ifdef HAVE_EXIV2
     m_exifPage->saveSettings(opt);
-#endif
 
 #ifdef HAVE_KFACE
     m_faceManagementPage->saveSettings(opt);

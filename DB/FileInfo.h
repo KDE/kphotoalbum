@@ -21,10 +21,7 @@
 
 #include <qstring.h>
 #include <qdatetime.h>
-#include <config-kpa-exiv2.h>
-#ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
-#endif
+#include "Exif/Info.h"
 
 #include "ExifMode.h"
 
@@ -41,12 +38,8 @@ public:
     QString description() {return m_description; }
 
 protected:
-#ifdef HAVE_EXIV2
     void parseEXIV2( const DB::FileName& fileName );
     QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
-#else
-    void parseKFileMetaInfo( const DB::FileName& fileName );
-#endif
 
     int orientationToAngle( int orientation );
 

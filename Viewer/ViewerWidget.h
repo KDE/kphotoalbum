@@ -18,7 +18,6 @@
 
 #ifndef VIEWER_H
 #define VIEWER_H
-#include <config-kpa-exiv2.h>
 
 #include <QImage>
 #include <QMap>
@@ -207,10 +206,8 @@ private:
     QPixmap m_pixmap;
 
     QAction * m_delete;
-#ifdef HAVE_EXIV2
     QAction * m_showExifViewer;
     QPointer<Exif::InfoDialog> m_exifViewer;
-#endif
 
     QAction * m_copyTo;
 

@@ -30,10 +30,7 @@
 #include <kmessagebox.h>
 #include "DB/MD5Map.h"
 
-#include "config-kpa-exiv2.h"
-#ifdef HAVE_EXIV2
-#  include "Exif/Database.h"
-#endif
+#include "Exif/Database.h"
 
 #include "ImageManager/RawImageDecoder.h"
 #include "Settings/SettingsData.h"
@@ -313,10 +310,8 @@ bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, cons
 
                 DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
 
-#ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( matchedFileName );
                 Exif::Database::instance()->add( newFileName);
-#endif
                 return true;
             }
         }

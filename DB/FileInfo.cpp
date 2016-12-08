@@ -19,12 +19,7 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
-#include <config-kpa-exiv2.h>
-#ifdef HAVE_EXIV2
-#  include "Exif/Info.h"
-#else
-#include <kfilemetainfo.h>
-#endif
+#include "Exif/Info.h"
 
 using namespace DB;
 
@@ -36,11 +31,7 @@ FileInfo FileInfo::read( const DB::FileName& fileName, DB::ExifMode mode )
 DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
     : m_angle(0)
 {
-#ifdef HAVE_EXIV2
     parseEXIV2( fileName );
-#else
-    parseKFileMetaInfo( fileName );
-#endif
 
 
     if ( updateDataFromFileTimeStamp(fileName,mode))
@@ -70,7 +61,6 @@ bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB:
 
 }
 
-#ifdef HAVE_EXIV2
 void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
 {
     Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
@@ -115,36 +105,6 @@ QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 
     return QDateTime();
 }
-#else
-void DB::FileInfo::parseKFileMetaInfo( const DB::FileName& fileName )
-{
-    KFileMetaInfo metainfo( fileName.absolute() );
-    if ( !metainfo.isValid() )
-        return;
-
-    // Date.
-    if ( metainfo.keys().contains( QString::fromLatin1( "CreationDate" ) ) ) {
-        QDate date = metainfo.item( QString::fromLatin1( "CreationDate" )).value().toDate();
-        if ( date.isValid() ) {
-            m_date.setDate( date );
-
-            if ( metainfo.keys().contains( QString::fromLatin1( "CreationTime" ) ) ) {
-                QTime time = metainfo.item(QString::fromLatin1( "CreationTime" )).value().toTime();
-                if ( time.isValid() )
-                    m_date.setTime( time );
-            }
-        }
-    }
-
-    // Angle
-    if ( metainfo.keys().contains( QString::fromLatin1( "Orientation" ) ) )
-        m_angle = orientationToAngle( metainfo.item( QString::fromLatin1( "Orientation" ) ).value().toInt() );
-
-    // Description
-    if ( metainfo.keys().contains( QString::fromLatin1( "Comment" ) ) )
-        m_description = metainfo.item( QString::fromLatin1( "Comment" ) ).value().toString();
-}
-#endif
 
 int DB::FileInfo::orientationToAngle( int orientation )
 {

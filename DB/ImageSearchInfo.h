@@ -18,7 +18,6 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include <config-kpa-exiv2.h>
 #include <config-kpa-kgeomap.h>
 
 #include <QMap>
@@ -26,9 +25,7 @@
 
 #include <DB/ImageDate.h>
 #include <DB/ImageInfoPtr.h>
-#ifdef HAVE_EXIV2
 #include <Exif/SearchInfo.h>
-#endif
 #ifdef HAVE_KGEOMAP
 #include <KGeoMap/GeoCoordinates>
 #endif
@@ -82,9 +79,7 @@ public:
     void debugMatcher() const;
     Utilities::StringSet findAlreadyMatched( const QString &group ) const;
 
-#ifdef HAVE_EXIV2
     void addExifSearchInfo( const Exif::SearchInfo info );
-#endif
 
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates::Pair regionSelection() const;
@@ -112,9 +107,7 @@ private:
     mutable bool m_compiled;
     mutable QList<CategoryMatcher*> m_categoryMatchers;
 
-#ifdef HAVE_EXIV2
     Exif::SearchInfo m_exifSearchInfo;
-#endif
 
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates::Pair m_regionSelection;

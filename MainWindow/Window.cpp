@@ -17,7 +17,6 @@
 */
 
 #include <config-kpa-kipi.h>
-#include <config-kpa-exiv2.h>
 #include "Window.h"
 
 #include <stdexcept>
@@ -78,12 +77,10 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
-#ifdef HAVE_EXIV2
-#  include <Exif/Database.h>
-#  include <Exif/InfoDialog.h>
-#  include <Exif/Info.h>
-#  include <Exif/ReReadDialog.h>
-#endif
+#include <Exif/Database.h>
+#include <Exif/InfoDialog.h>
+#include <Exif/Info.h>
+#include <Exif/ReReadDialog.h>
 #include <HTMLGenerator/HTMLDialog.h>
 #include <ImageManager/ThumbnailBuilder.h>
 #include <ImageManager/ThumbnailCache.h>
@@ -218,9 +215,7 @@ MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
     ImageManager::ThumbnailCache::deleteInstance();
-#ifdef HAVE_EXIV2
     Exif::Database::deleteInstance();
-#endif
 }
 
 void MainWindow::Window::delayedInit()
@@ -252,12 +247,10 @@ void MainWindow::Window::delayedInit()
         KTipDialog::showTip( this );
     }
 
-#ifdef HAVE_EXIV2
     Exif::Database* exifDB = Exif::Database::instance(); // Load the database
     if ( exifDB->isAvailable() && !exifDB->isOpen() ) {
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
-#endif
 
     if (!Options::the()->listen().isNull())
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
@@ -535,14 +528,12 @@ void MainWindow::Window::slotPasteInformation()
 
 void MainWindow::Window::slotReReadExifInfo()
 {
-#ifdef HAVE_EXIV2
     DB::FileNameList files = selectedOnDisk();
     static Exif::ReReadDialog* dialog = nullptr;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
     if ( dialog->exec( files ) == QDialog::Accepted )
         DirtyIndicator::markDirty();
-#endif
 }
 
 void MainWindow::Window::slotAutoStackImages()
@@ -862,12 +853,6 @@ void MainWindow::Window::setupMenuBar()
 
     QAction* rereadExif = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT(slotReReadExifInfo()) );
     rereadExif->setText( i18n("Read EXIF Info From Files...") );
-#ifndef HAVE_EXIV2
-    recreateExif->setText( i18n("Recreate Exif Search Database (need to compile KPhotoAlbum with Exif support)") );
-    rereadExif->setText( i18n("Read EXIF Info From Files... (need to compile KPhotoAlbum with Exif support)"));
-    recreateExif->setEnabled(false);
-    rereadExif->setEnabled(false);
-#endif
 
     m_sortAllByDateAndTime = actionCollection()->addAction( QString::fromLatin1("sortAllImages"), this, SLOT(slotSortAllByDateAndTime()) );
     m_sortAllByDateAndTime->setText( i18n("Sort All by Date && Time") );
@@ -941,10 +926,9 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n( "Show Demo Videos") );
 
     // Context menu actions
-#ifdef HAVE_EXIV2
     m_showExifDialog = actionCollection()->addAction( QString::fromLatin1("showExifInfo"), this, SLOT(slotShowExifInfo()) );
     m_showExifDialog->setText( i18n("Show Exif Info") );
-#endif
+
     m_recreateThumbnails = actionCollection()->addAction( QString::fromLatin1("recreateThumbnails"), m_thumbnailView, SLOT(slotRecreateThumbnail()) );
     m_recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
@@ -1124,9 +1108,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addSeparator();
         menu.addAction( m_runSlideShow );
         menu.addAction(m_runRandomSlideShow );
-#ifdef HAVE_EXIV2
         menu.addAction( m_showExifDialog);
-#endif
 
         menu.addSeparator();
         menu.addAction(m_rotLeft);
@@ -1713,13 +1695,11 @@ void MainWindow::Window::slotRecalcCheckSums()
 
 void MainWindow::Window::slotShowExifInfo()
 {
-#ifdef HAVE_EXIV2
     DB::FileNameList items = selectedOnDisk();
     if (!items.isEmpty()) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog(items.at(0), this);
         exifDialog->show();
     }
-#endif
 }
 
 void MainWindow::Window::showFeatures()
@@ -1801,9 +1781,7 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
-#ifdef HAVE_EXIV2
     Exif::Database::instance()->recreate();
-#endif
 }
 
 void MainWindow::Window::useNextVideoThumbnail()

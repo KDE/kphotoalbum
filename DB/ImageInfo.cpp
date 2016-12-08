@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa-exiv2.h>
 #include "ImageInfo.h"
 
 #include <QDebug>
@@ -27,10 +26,8 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
-#ifdef HAVE_EXIV2
 #include <Exif/DatabaseElement.h>
 #include <Exif/Database.h>
-#endif
 #include <Settings/SettingsData.h>
 #include <Utilities/Set.h>
 #include <Utilities/Util.h>
@@ -463,10 +460,8 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
-#ifdef HAVE_EXIV2
         Exif::Database::instance()->remove( fullPath );
         Exif::Database::instance()->add( fullPath );
-#endif
 #ifdef HAVE_KGEOMAP
         // GPS coords might have changed...
         m_coordsIsSet = false;
@@ -723,11 +718,7 @@ bool DB::ImageInfo::updateDateInformation( int mode ) const
     if ( (mode & EXIFMODE_FORCE) != 0 )
         return true;
 
-#ifdef HAVE_EXIV2
     return true;
-#endif
-
-    return Settings::SettingsData::instance()->trustTimeStamps();
 }
 
 QMap<QString, QMap<QString, QRect>> DB::ImageInfo::taggedAreas() const

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include <config-kpa-kipi.h>
-#include <config-kpa-exiv2.h>
 #include <config-kpa-kface.h>
 #include <config-kpa-kgeomap.h>
 #include "FeatureDialog.h"
@@ -31,9 +30,7 @@
 #include <KLocalizedString>
 #include <phonon/backendcapabilities.h>
 
-#ifdef HAVE_EXIV2
 #include "Exif/Database.h"
-#endif
 
 using namespace MainWindow;
 
@@ -75,14 +72,6 @@ FeatureDialog::FeatureDialog( QWidget* parent )
 
                   "<p>The plug-in library is called KIPI, and may be downloaded from the "
                   "<a href=\"http://userbase.kde.org/KIPI\">KDE Userbase Wiki</a></p>" );
-
-    text += i18n( "<h1><a name=\"exiv2\">EXIF support</a></h1>"
-                  "<p>Images store information like the date the image was shot, the shooting angle, focal length, and shutter-speed "
-                  "in what is known as EXIF information.</p>"
-
-                  "<p>KPhotoAlbum uses the <a href=\"http://www.exiv2.org/\">EXIV2 library</a> "
-                  "to read EXIF information from images</p>" );
-
 
     text += i18n( "<h1><a name=\"database\">SQLite database support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
@@ -146,22 +135,9 @@ bool MainWindow::FeatureDialog::hasKIPISupport()
 #endif
 }
 
-bool MainWindow::FeatureDialog::hasEXIV2Support()
-{
-#ifdef HAVE_EXIV2
-    return true;
-#else
-    return false;
-#endif
-}
-
 bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 {
-#ifdef HAVE_EXIV2
     return Exif::Database::isAvailable();
-#else
-    return false;
-#endif
 }
 
 bool MainWindow::FeatureDialog::hasKfaceSupport()
@@ -226,7 +202,7 @@ bool FeatureDialog::hasVideoProber()
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasEXIV2Support() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
+    return hasKIPISupport() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
 }
 
 struct Data
@@ -243,7 +219,6 @@ QString MainWindow::FeatureDialog::featureString()
 {
     QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
-    features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"), hasEXIV2DBSupport() );
     features << Data( i18n( "Face detection and recognition support" ), QString::fromLatin1("#kface"),  hasKfaceSupport() );
     features << Data( i18n( "Map view for geotagged images." ), QString::fromLatin1("#geomap"),  hasGeoMapSupport() );

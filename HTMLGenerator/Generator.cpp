@@ -15,7 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <config-kpa-exiv2.h>
 #include "Generator.h"
 
 #include <sys/types.h>
@@ -40,9 +39,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#ifdef HAVE_EXIV2
-#  include <Exif/Info.h>
-#endif
+#include <Exif/Info.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
 #include <Utilities/Util.h>
@@ -698,7 +695,6 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request,
         KMessageBox::error( this, i18n("Unable to write image '%1'.",file) );
     }
 
-#ifdef HAVE_EXIV2
     if ( !Utilities::isVideo( fileName ) ) {
         try {
             Exif::Info::instance()->writeInfoToFile( fileName, file );
@@ -707,7 +703,6 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest* request,
         {
         }
     }
-#endif
 
     if ( m_waitCounter == 0 && m_hasEnteredLoop) {
         m_eventLoop->exit();

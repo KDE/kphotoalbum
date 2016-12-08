@@ -37,7 +37,7 @@ class FileInfo
 public:
     static FileInfo read( const DB::FileName& fileName, DB::ExifMode mode );
     QDateTime dateTime() { return m_date; }
-    int angle() { return m_angle; };
+    int angle() { return m_angle; }
     QString description() {return m_description; }
 
 protected:

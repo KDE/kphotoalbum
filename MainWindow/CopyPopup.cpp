@@ -41,28 +41,27 @@ MainWindow::CopyPopup::CopyPopup(QWidget *parent,
     connect(this, &CopyPopup::triggered, this, &CopyPopup::slotCopy);
     QAction *action;
 
+    bool haveSeveralFiles = m_allSelectedFiles.size() > 1;
     switch (copyType) {
+        case Copy:
+            setTitle(i18n("Copy image(s) to..."));
+            action = addAction(i18n("Copy currently selected image to..."));
+            action->setData(CopyAction::CopyCurrent);
+            action = addAction(i18n("Copy all selected images to..."));
+            action->setData(CopyAction::CopyAll);
+            action->setEnabled(haveSeveralFiles);
+            break;
 
-    case Copy:
-        setTitle(i18n("Copy image(s) to..."));
-        action = addAction(i18n("Copy currently selected image to..."));
-        action->setData(CopyAction::CopyCurrent);
-        action = addAction(i18n("Copy all selected images to..."));
-        action->setData(CopyAction::CopyAll);
-        break;
-
-    case Link:
-        action = addAction(i18n("Link currently selected image to..."));
-        setTitle(i18n("Link image(s) to..."));
-        action->setData(CopyAction::LinkCurrent);
-        action = addAction(i18n("Link all selected images to..."));
-        action->setData(CopyAction::LinkAll);
-        break;
+        case Link:
+            action = addAction(i18n("Link currently selected image to..."));
+            setTitle(i18n("Link image(s) to..."));
+            action->setData(CopyAction::LinkCurrent);
+            action = addAction(i18n("Link all selected images to..."));
+            action->setData(CopyAction::LinkAll);
+            action->setEnabled(haveSeveralFiles);
+            break;
     }
 
-    if (m_allSelectedFiles.size() == 1) {
-        action->setEnabled(false);
-    }
 }
 
 void MainWindow::CopyPopup::slotCopy(QAction *action)

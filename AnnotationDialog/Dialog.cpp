@@ -1445,9 +1445,16 @@ void AnnotationDialog::Dialog::slotNewArea(ResizableFrame *area)
 
 void AnnotationDialog::Dialog::positionableTagSelected(QString category, QString tag)
 {
+    // Be sure not to propose an already-associated tag
+    QPair<QString, QString> tagData = qMakePair(category, tag);
+    foreach (ResizableFrame *area, areas()) {
+        if (area->tagData() == tagData) {
+            return;
+        }
+    }
+
     // Set the selected tag as the last selected positionable tag
-    m_lastSelectedPositionableTag.first = category;
-    m_lastSelectedPositionableTag.second = tag;
+    m_lastSelectedPositionableTag = tagData;
 
     // Add the tag to the positionable tag candidate list
     addTagToCandidateList(category, tag);

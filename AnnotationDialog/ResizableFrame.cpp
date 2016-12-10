@@ -43,6 +43,7 @@
 
 // KDE includes
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #ifdef DEBUG_AnnotationDialog
 #define Debug qDebug
@@ -378,8 +379,28 @@ void AnnotationDialog::ResizableFrame::associateTag(QAction* action)
 
 void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag, ChangeOrigin changeOrigin)
 {
-    // Add the data to this area
     QPair<QString, QString> selectedData = QPair<QString, QString>(category, tag);
+
+    // check existing areas for consistency
+    Q_FOREACH(ResizableFrame *area, m_dialog->areas())
+    {
+        if (area->tagData() == selectedData)
+        {
+            if (KMessageBox::Cancel == KMessageBox::warningContinueCancel(
+                        m_preview,
+                        i18n("<p>%1 has already been tagged in another area on this image.</p>"
+                             "<p>If you continue, the previous tag will be removed...</p>",
+                             tag),
+                        i18n("Replace existing area?")))
+            {
+                // don't execute setTagData
+                return;
+            }
+            // replace existing tag
+            area->removeTagData();
+        }
+    }
+    // Add the data to this area
     m_tagData = selectedData;
 
     // Update the tool tip

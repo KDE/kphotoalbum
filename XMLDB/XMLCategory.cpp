@@ -122,8 +122,10 @@ void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& new
 
 void XMLDB::XMLCategory::addItem( const QString& item )
 {
-    if (!m_items.contains( item ) )
-        m_items.append( item );
+    // for the "SortLastUsed" functionality in ListSelect we remove the item and insert it again:
+    if (m_items.contains( item ))
+        m_items.removeAll(item);
+    m_items.append( item );
 }
 
 QStringList XMLDB::XMLCategory::items() const

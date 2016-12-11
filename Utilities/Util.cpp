@@ -399,8 +399,8 @@ QString Utilities::setupDemo()
 
     // Images
     const QStringList kpaDemoDirs = QStandardPaths::locateAll(
-                QStandardPaths::GenericDataLocation,
-                QString::fromLatin1("kphotoalbum/demo"),
+                QStandardPaths::DataLocation,
+                QString::fromLatin1("demo"),
                 QStandardPaths::LocateDirectory);
     QStringList images;
     Q_FOREACH(const QString &dir, kpaDemoDirs)
@@ -424,8 +424,8 @@ QString Utilities::setupDemo()
     }
 
     const QStringList kpaDemoCatDirs = QStandardPaths::locateAll(
-                QStandardPaths::GenericDataLocation,
-                QString::fromLatin1("kphotoalbum/demo/CategoryImages"),
+                QStandardPaths::DataLocation,
+                QString::fromLatin1("demo/CategoryImages"),
                 QStandardPaths::LocateDirectory);
     QStringList catImages;
     Q_FOREACH(const QString &dir, kpaDemoCatDirs)
@@ -477,7 +477,7 @@ bool Utilities::canReadImage( const DB::FileName& fileName )
 
 QString Utilities::locateDataFile(const QString& fileName)
 {
-    return QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("kphotoalbum/") + fileName);
+    return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
 }
 
 QString Utilities::readFile( const QString& fileName )

@@ -520,8 +520,8 @@ QString HTMLDialog::includeSelections() const
 void HTMLDialog::populateThemesCombo()
 {
     QStringList dirs = QStandardPaths::locateAll(
-                QStandardPaths::GenericDataLocation,
-                QString::fromLocal8Bit("kphotoalbum/themes/"),
+                QStandardPaths::DataLocation,
+                QString::fromLocal8Bit("themes/"),
                 QStandardPaths::LocateDirectory
                 );
     int i = 0;

@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0</project_license>
   <name>KPhotoAlbum </name>
+  <name xml:lang="ast">KPhotoAlbum</name>
   <name xml:lang="ca">KPhotoAlbum</name>
   <name xml:lang="ca-valencia">KPhotoAlbum</name>
   <name xml:lang="cs">KPhotoAlbum</name>
@@ -21,6 +22,7 @@
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
   <summary>KDE image management software</summary>
+  <summary xml:lang="ast">Software KDE de xestión d'imáxenes</summary>
   <summary xml:lang="ca">Programari per a gestionar les imatges al KDE</summary>
   <summary xml:lang="ca-valencia">Programari per a gestionar les imatges al KDE</summary>
   <summary xml:lang="de">KDE-Bildverwaltungssoftware</summary>
@@ -37,6 +39,7 @@
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
   <description>
     <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
+    <p xml:lang="ast">KPhotoAlbum ye una aplicación pa etiquetar y xestionar una coleición de semeyes y facela guetable.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
     <p xml:lang="ca-valencia">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
     <p xml:lang="de">KPhotoalbum ist eine Anwendung zum verschlagworten, verwalten und durchsuchen Ihrer Fotosammlung.</p>

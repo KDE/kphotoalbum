@@ -110,13 +110,20 @@ void XMLDB::XMLCategory::setItems( const QStringList& items )
 void XMLDB::XMLCategory::removeItem( const QString& item )
 {
     m_items.removeAll( item );
+    m_nameMap.remove(idForName(item));
+    m_idMap.remove(item);
     emit itemRemoved( item );
 }
 
 void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& newValue )
 {
+    int id = idForName(oldValue);
     m_items.removeAll( oldValue );
+    m_nameMap.remove(id);
+    m_idMap.remove(oldValue);
+
     addItem( newValue );
+    setIdMapping(newValue,id);
     emit itemRenamed( oldValue, newValue );
 }
 
@@ -125,7 +132,7 @@ void XMLDB::XMLCategory::addItem( const QString& item )
     // for the "SortLastUsed" functionality in ListSelect we remove the item and insert it again:
     if (m_items.contains( item ))
         m_items.removeAll(item);
-    m_items.append( item );
+    m_items.prepend(item);
 }
 
 QStringList XMLDB::XMLCategory::items() const
@@ -138,24 +145,32 @@ int XMLDB::XMLCategory::idForName( const QString& name ) const
     return m_idMap[name];
 }
 
+/**
+ * @brief Make sure that the id/name mapping is a full mapping.
+ */
 void XMLDB::XMLCategory::initIdMap()
 {
-    int i = 0;
-    m_idMap.clear();
+    // find maximum id
+    // obviously, this will leave gaps in numbering when tags are deleted
+    // assuming that tags are seldomly removed this should not be a problem
+    int i = *std::max_element(m_nameMap.keyBegin(),m_nameMap.keyEnd());
+
     Q_FOREACH( const QString &tag, m_items ) {
-        m_idMap.insert( tag, ++i );
+        if (!m_idMap.contains(tag))
+            setIdMapping(tag, ++i);
     }
 
     const QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
     Q_FOREACH( const QString &group, groups ) {
         if ( !m_idMap.contains( group ) )
-            m_idMap.insert( group, ++i );
+            setIdMapping(group, ++i);
     }
 }
 
 void XMLDB::XMLCategory::setIdMapping( const QString& name, int id )
 {
     m_nameMap.insert( id, name );
+    m_idMap.insert( name, id);
 }
 
 QString XMLDB::XMLCategory::nameForId( int id ) const

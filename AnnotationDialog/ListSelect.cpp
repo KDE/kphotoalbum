@@ -650,7 +650,7 @@ void AnnotationDialog::ListSelect::populateMRU()
 
     m_treeWidget->setRootIsDecorated( false );
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
-    for( QStringList::const_reverse_iterator itemIt = items.crbegin(); itemIt != items.crend(); ++itemIt ) {
+    for( QStringList::ConstIterator itemIt = items.constBegin(); itemIt != items.constEnd(); ++itemIt ) {
         ++index;
         CheckDropItem* item = new CheckDropItem( m_treeWidget, *itemIt, QString::number( index ) );
         configureItem( item );

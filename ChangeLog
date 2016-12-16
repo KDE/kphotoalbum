@@ -1,3 +1,28 @@
+====================== KPhotoalbum 5.1 released  (16.12.2016) ======================
+
+* Enhancement (Bug# 370373): Made writing index.xml deterministic, so that diffing it produces
+  minimal changes.
+
+* Bugfix: Fixed areas not drawn when a photo was viewed after a video in the Annotation Dialog.
+
+* Bugfix (#373263): KPA crashed when editing a birth date. Also restored the functionality if the
+  whole birth date dialog, which was broken due to the KF5/Qt5 port.
+
+* Bugfix (#373128): Fixed the "Copy image(s) to..."  and "Link image(s) to..." menu.
+
+* Bugfix: Prevent duplicate positionable tags. All except one are lost when saving. Apparently,
+  nobody noticed this flaw since the introduction of positionable tags ;-)
+
+* Enhancement: Improved the workflow with tagged areas by adding a new dialog where a just-drawn
+  area can be tagged at once, without having to move the mouse around and multiple clicks.
+
+* Change: Disable face recognition and detection by default. libkface is simply not good enough for
+  general public consumption. The code can still be enabled via the ENABLE_PLAYGROUND cmake flag.
+
+* Bugfix: Prevent the image preview from flickering in the Annotation Dialog.
+
+* Bugfix: Fixed various issues with the Android Remote Control.
+
 ====================== KPhotoalbum 5.0.1 released  (18.10.2016) ======================
 
 * Version confusion: Well, it's _still the first_ beta release, and hopefully, we will make it this

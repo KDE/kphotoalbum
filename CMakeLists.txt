@@ -118,6 +118,7 @@ add_custom_target(
     -DBASE_DIR="${CMAKE_CURRENT_SOURCE_DIR}" -DPROJECT_NAME=KPA -DPROJECT_VERSION="${PROJECT_VERSION}"
     -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
     COMMENT "Updating version header."
+    BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/version.h"
     )
 
 # For config-kpa-*.h

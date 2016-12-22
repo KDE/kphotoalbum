@@ -295,6 +295,9 @@ QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle
 
 void ImagePreview::updateScaleFactors()
 {
+    if (m_info.isNull())
+        return; // search mode
+
     // Calculate a scale factor from the original image's size and it's current preview
     QSize actualSize = getActualImageSize();
     QSize previewSize = pixmap()->size();

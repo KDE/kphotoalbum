@@ -726,7 +726,7 @@ void MainWindow::Window::setupMenuBar()
     connect(m_deleteSelected, &QAction::triggered, this, &Window::slotDeleteSelected);
 
     a = actionCollection()->addAction(QString::fromLatin1("removeTokens"), this, SLOT(slotRemoveTokens()));
-    a->setText( i18n("Remove Tokens") );
+    a->setText( i18n("Remove Tokens...") );
 
     a = actionCollection()->addAction(QString::fromLatin1("showListOfFiles"), this, SLOT(slotShowListOfFiles()));
     a->setText( i18n("Open List of Files...")) ;

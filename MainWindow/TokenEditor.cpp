@@ -38,23 +38,10 @@ TokenEditor::TokenEditor( QWidget* parent )
     :QDialog( parent )
 {
     setWindowTitle( i18n( "Remove Tokens" ) );
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    QWidget *mainWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &TokenEditor::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &TokenEditor::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
+    QVBoxLayout *dialogLayout = new QVBoxLayout(this);
 
-    QWidget* top = new QWidget;
-    QVBoxLayout* vlay = new QVBoxLayout( top );
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
+    QWidget* mainContents = new QWidget;
+    QVBoxLayout* vlay = new QVBoxLayout( mainContents );
 
     QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:") );
     vlay->addWidget( label );
@@ -81,6 +68,13 @@ TokenEditor::TokenEditor( QWidget* parent )
 
     connect(selectAll, &QPushButton::clicked, this, &TokenEditor::selectAll);
     connect(selectNone, &QPushButton::clicked, this, &TokenEditor::selectNone);
+
+    dialogLayout->addWidget(mainContents);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &TokenEditor::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &TokenEditor::reject);
+    dialogLayout->addWidget(buttonBox);
 }
 
 void TokenEditor::show()

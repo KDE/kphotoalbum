@@ -185,7 +185,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         AddNonEmptyInfo(i18n("<b>Label: </b> "), info->label(), &result);
     }
 
-    if ( Settings::SettingsData::instance()->showDescription())  {
+    if ( Settings::SettingsData::instance()->showDescription() && !info->description().trimmed().isEmpty() )  {
         AddNonEmptyInfo(i18n("<b>Description: </b> "), info->description(),
                         &result);
     }

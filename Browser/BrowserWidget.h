@@ -90,6 +90,7 @@ signals:
 
 protected:
     bool eventFilter( QObject*, QEvent* ) override;
+    void activatePage(int pageIndex);
 
 private slots:
     void resetIconViewSearch();

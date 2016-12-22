@@ -91,6 +91,8 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_modelHelper = new MapMarkerModelHelper();
     m_itemMarkerTiler = new SearchMarkerTiler(m_modelHelper, this);
     m_mapWidget->setGroupedModel(m_itemMarkerTiler);
+
+    connect(m_mapWidget, SIGNAL(signalRegionSelectionChanged()), this, SIGNAL(signalRegionSelectionChanged()));
 }
 
 Map::MapView::~MapView()

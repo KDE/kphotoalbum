@@ -127,6 +127,10 @@ MainWindow::Window::Window( QWidget* parent )
       m_annotationDialog(nullptr),
       m_deleteDialog( nullptr ), m_htmlDialog(nullptr), m_tokenEditor( nullptr )
 {
+#ifdef HAVE_KGEOMAP
+    m_positionBrowser = 0;
+#endif
+
     SplashScreen::instance()->message( i18n("Loading Database") );
     s_instance = this;
 
@@ -1915,6 +1919,31 @@ bool MainWindow::Window::dbIsDirty() const
 {
     return m_statusBar->mp_dirtyIndicator->isSaveDirty();
 }
+
+#ifdef HAVE_KGEOMAP
+void MainWindow::Window::showPositionBrowser()
+{
+    Browser::PositionBrowserWidget *positionBrowser = positionBrowserWidget();
+    m_stack->setCurrentWidget(positionBrowser);
+    updateStates( false );
+}
+
+Browser::PositionBrowserWidget* MainWindow::Window::positionBrowserWidget()
+{
+    if (m_positionBrowser == 0) {
+        m_positionBrowser = createPositionBrowser();
+    }
+    return m_positionBrowser;
+}
+
+Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
+{
+    Browser::PositionBrowserWidget* widget = new Browser::PositionBrowserWidget(m_stack);
+    m_stack->addWidget(widget);
+    return widget;
+}
+#endif
+
 
 #include "Window.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

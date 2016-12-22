@@ -69,25 +69,36 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
 
 void Browser::BrowserWidget::forward()
 {
-    int cur = m_current;
-    while ( cur < m_list.count()-1 ) {
-        cur++;
-        if ( m_list[cur]->showDuringMovement() ) {
-            m_current = cur;
+    int targetIndex = m_current;
+    while ( targetIndex < m_list.count()-1 ) {
+        targetIndex++;
+        if ( m_list[targetIndex]->showDuringMovement() ) {
             break;
         }
     }
-    go();
+    activatePage(targetIndex);
 }
 
 void Browser::BrowserWidget::back()
 {
-    while ( m_current > 0 ) {
-        m_current--;
-        if ( currentAction()->showDuringMovement() )
+    int targetIndex = m_current;
+    while ( targetIndex > 0 ) {
+        targetIndex--;
+        if ( m_list[targetIndex]->showDuringMovement() )
             break;
     }
-    go();
+    activatePage(targetIndex);
+}
+
+void Browser::BrowserWidget::activatePage(int pageIndex)
+{
+    if (pageIndex != m_current) {
+        if (currentAction() != 0) {
+            currentAction()->deactivate();
+        }
+        m_current = pageIndex;
+        go();
+    }
 }
 
 void Browser::BrowserWidget::go()
@@ -119,8 +130,7 @@ void Browser::BrowserWidget::addAction( Browser::BrowserPage* action )
     }
 
     m_list.append(action);
-    m_current++;
-    go();
+    activatePage(m_list.count() - 1);
 }
 
 void Browser::BrowserWidget::emitSignals()
@@ -275,7 +285,7 @@ void Browser::BrowserWidget::itemClicked( const QModelIndex& index )
 
 Browser::BrowserPage* Browser::BrowserWidget::currentAction() const
 {
-    return m_list[m_current];
+    return m_current >= 0? m_list[m_current] : 0;
 }
 
 void Browser::BrowserWidget::setModel( QAbstractItemModel* model)

@@ -31,6 +31,10 @@
 #include <QIcon>
 #include "DB/CategoryCollection.h"
 
+#ifdef HAVE_KGEOMAP
+#include "Browser/GeoPositionPage.h"
+#endif
+
 const int THUMBNAILSIZE = 70;
 
 AnnotationDialog::Dialog* Browser::OverviewPage::s_config = nullptr;
@@ -46,6 +50,9 @@ int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
         return 0;
 
     return categories().count() +
+#ifdef HAVE_KGEOMAP
+        1 +
+#endif
         4; // Exiv search + Search info + Untagged Images + Show Image
 }
 
@@ -57,6 +64,10 @@ QVariant Browser::OverviewPage::data( const QModelIndex& index, int role) const
     const int row = index.row();
     if ( isCategoryIndex(row) )
         return categoryInfo( row, role );
+#ifdef HAVE_KGEOMAP
+    else if ( isGeoPositionIndex( row ) )
+        return geoPositionInfo( role );
+#endif
     else if ( isExivIndex( row ) )
         return exivInfo( role );
     else if ( isSearchIndex( row ) )
@@ -73,9 +84,23 @@ bool Browser::OverviewPage::isCategoryIndex( int row ) const
     return row < categories().count() && row >= 0;
 }
 
+bool Browser::OverviewPage::isGeoPositionIndex( int row ) const
+{
+#ifdef HAVE_KGEOMAP
+    return row == categories().count();
+#else
+    Q_UNUSED(row);
+    return false;
+#endif
+}
+
 bool Browser::OverviewPage::isExivIndex( int row ) const
 {
-    return row == categories().count();
+    int exivRow = categories().count();
+    #ifdef HAVE_KGEOMAP
+        exivRow++;
+    #endif
+    return row == exivRow;
 }
 
 bool Browser::OverviewPage::isSearchIndex( int row ) const
@@ -106,6 +131,17 @@ QVariant Browser::OverviewPage::categoryInfo( int row, int role ) const
         return categories()[row]->name();
     else if ( role == Qt::DecorationRole )
         return categories()[row]->icon(THUMBNAILSIZE);
+
+    return QVariant();
+}
+
+QVariant Browser::OverviewPage::geoPositionInfo( int role ) const
+{
+    if ( role == Qt::DisplayRole )
+        return i18n("Geo Position");
+    else if ( role == Qt::DecorationRole ) {
+        return QIcon::fromTheme(QString::fromLatin1("globe")).pixmap(THUMBNAILSIZE);
+    }
 
     return QVariant();
 }
@@ -155,6 +191,10 @@ Browser::BrowserPage* Browser::OverviewPage::activateChild( const QModelIndex& i
 
     if ( isCategoryIndex(row) )
         return new Browser::CategoryPage( categories()[row], BrowserPage::searchInfo(), browser() );
+#ifdef HAVE_KGEOMAP
+    else if ( isGeoPositionIndex( row ) )
+        return new Browser::GeoPositionPage( BrowserPage::searchInfo(), browser() );
+#endif
     else if ( isExivIndex( row ) )
         return activateExivAction();
     else if ( isSearchIndex( row ) )

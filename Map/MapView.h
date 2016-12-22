@@ -105,6 +105,9 @@ public:
     KGeoMap::GeoCoordinates::Pair getRegionSelection() const;
     bool regionSelected() const;
 
+Q_SIGNALS:
+    void signalRegionSelectionChanged();
+
 public slots:
     /**
      * Centers the map on the coordinates of the given image.

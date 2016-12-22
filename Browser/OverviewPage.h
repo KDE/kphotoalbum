@@ -63,12 +63,14 @@ private:
     QList<DB::CategoryPtr> categories() const;
 
     bool isCategoryIndex( int row ) const;
+    bool isGeoPositionIndex( int row ) const;
     bool isExivIndex( int row ) const;
     bool isSearchIndex( int row ) const;
     bool isUntaggedImagesIndex( int row ) const;
     bool isImageIndex( int row ) const;
 
     QVariant categoryInfo( int row, int role ) const;
+    QVariant geoPositionInfo( int role ) const;
     QVariant exivInfo( int role ) const;
     QVariant searchInfo( int role ) const;
     QVariant untaggedImagesInfo( int rolw ) const;

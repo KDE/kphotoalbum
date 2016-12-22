@@ -30,6 +30,9 @@
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
 #include <ThumbnailView/enums.h>
+#ifdef HAVE_KGEOMAP
+#include <Browser/PositionBrowserWidget.h>
+#endif
 
 class QAction;
 class QCloseEvent;
@@ -81,6 +84,10 @@ public:
     void setStackHead( const DB::FileName& image );
     void setHistogramVisibilty( bool visible ) const;
     bool dbIsDirty() const;
+#ifdef HAVE_KGEOMAP
+    void showPositionBrowser();
+    Browser::PositionBrowserWidget* positionBrowserWidget();
+#endif
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);
@@ -190,6 +197,9 @@ protected:
     void checkIfMplayerIsInstalled();
     bool anyVideosSelected() const;
     void announceAndroidVersion();
+#ifdef HAVE_KGEOMAP
+    Browser::PositionBrowserWidget* createPositionBrowser();
+#endif
 
 private:
     static Window* s_instance;
@@ -247,6 +257,9 @@ private:
     QMap<Qt::Key, QPair<QString,QString> > m_viewerInputMacros;
     MainWindow::StatusBar* m_statusBar;
     QString m_lastTarget;
+#ifdef HAVE_KGEOMAP
+    Browser::PositionBrowserWidget* m_positionBrowser;
+#endif
 };
 
 }

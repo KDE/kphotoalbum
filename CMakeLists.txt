@@ -401,6 +401,8 @@ endif()
 set(libMap_SRCS)
 if(KF5KGeoMap_FOUND)
     set(libMap_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/Browser/GeoPositionPage.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Browser/PositionBrowserWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/SearchMarkerTiler.cpp

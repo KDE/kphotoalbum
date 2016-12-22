@@ -27,7 +27,7 @@ namespace Browser
 {
 class BrowserWidget;
 
-enum Viewer { ShowBrowser, ShowImageViewer };
+enum Viewer { ShowBrowser, ShowImageViewer, ShowGeoPositionViewer };
 
 /**
  * \brief Information about a single page in the browser
@@ -37,8 +37,9 @@ enum Viewer { ShowBrowser, ShowImageViewer };
  * This interface represent a single page in the browser (one that you can go
  * back/forward to using the back/forward buttons in the toolbar).
  */
-class BrowserPage
+class BrowserPage: public QObject
 {
+    Q_OBJECT
 public:
      BrowserPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
      virtual ~BrowserPage() {}
@@ -47,6 +48,7 @@ public:
      * Construct the page. Result of activation may be to call \ref BrowserWidget::addAction.
      */
     virtual void activate() = 0;
+    virtual void deactivate();
     virtual BrowserPage* activateChild( const QModelIndex &);
     virtual Viewer viewer();
     virtual DB::Category::ViewType viewType() const;

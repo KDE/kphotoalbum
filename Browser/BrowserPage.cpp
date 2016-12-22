@@ -23,6 +23,13 @@ Browser::BrowserPage::BrowserPage( const DB::ImageSearchInfo& info, BrowserWidge
 {
 }
 
+/** Called when this page was active and now a different page becomes active. Makes it possible to free resources etc.
+ * By default, does nothing.
+ */
+void Browser::BrowserPage::deactivate()
+{
+}
+
 /**
  * \return the associated \ref BrowserWidget. This instance is needed when
  * the action is creating new actions for a child aciton.

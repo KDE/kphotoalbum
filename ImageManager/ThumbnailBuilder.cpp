@@ -100,10 +100,15 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_isBuilding = true;
     int numberOfThumbnailsToBuild = 0;
 
+    m_count = 0;
+    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
     for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
         DB::ImageInfoPtr info = fileName.info();
         if ( info->isNull())
+        {
+            m_count++;
             continue;
+        }
 
         ImageManager::ImageRequest* request
             = new ImageManager::PreloadRequest( fileName,
@@ -116,9 +121,6 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     }
     if (numberOfThumbnailsToBuild == 0)
         m_statusBar->setProgressBarVisible(false);
-    else
-        m_statusBar->startProgress( i18n("Building thumbnails"), qMax( numberOfThumbnailsToBuild - 1, 1 ) );
-    m_count = 0;
 }
 
 void ImageManager::ThumbnailBuilder::requestCanceled()

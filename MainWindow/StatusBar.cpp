@@ -147,7 +147,7 @@ void MainWindow::StatusBar::startProgress( const QString& text, int total )
     m_progressBar->setFormat( text + QString::fromLatin1( ": %p%" ) );
     m_progressBar->setMaximum( total );
     m_progressBar->setValue(0);
-    m_pendingShowTimer->start( 2000 ); // To avoid flicker we will only show the statusbar after 2 seconds.
+    m_pendingShowTimer->start( 1000 ); // To avoid flicker we will only show the statusbar after 1 second.
 }
 
 void MainWindow::StatusBar::setProgress( int progress )
@@ -157,7 +157,7 @@ void MainWindow::StatusBar::setProgress( int progress )
 
     // If progress comes in to fast, then the UI will freeze from all time spent on updating the progressbar.
     static QTime time;
-    if ( time.elapsed() > 200 ) {
+    if ( time.isNull() || time.elapsed() > 200 ) {
         m_progressBar->setValue( progress );
         time.restart();
     }

@@ -67,9 +67,14 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
     new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
 
-    m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat).replace(QString::fromUtf8("yy"),
-                                                                        QString::fromUtf8("yyyy"))
-                  << QLocale().dateFormat(QLocale::ShortFormat)
+    if (QLocale().dateFormat(QLocale::ShortFormat).contains(QString::fromUtf8("yyyy"))) {
+        m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat);
+    } else {
+        m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat).replace(
+            QString::fromUtf8("yy"),
+            QString::fromUtf8("yyyy"));
+    }
+    m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat)
                   << QLocale().dateFormat(QLocale::LongFormat);
 
     m_dataView = new QTableWidget;

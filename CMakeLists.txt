@@ -21,14 +21,6 @@ include(FeatureSummary)
 # enable exceptions:
 kde_enable_exceptions()
 
-# This seems to be needed for KPA to compile with KDE 4.0.0
-set(INSTALL_TARGETS_DEFAULT_ARGS
-    RUNTIME DESTINATION "${BIN_INSTALL_DIR}"
-    LIBRARY DESTINATION "${LIB_INSTALL_DIR}"
-    ARCHIVE DESTINATION "${LIB_INSTALL_DIR}"
-    COMPONENT Devel
-    )
-
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
@@ -492,14 +484,14 @@ if(KF5KGeoMap_FOUND)
     target_link_libraries(kphotoalbum KF5::KGeoMap )
 endif()
 
-install(TARGETS kphotoalbum ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 
-install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES kphotoalbumrc DESTINATION ${CONFIG_INSTALL_DIR})
-install(FILES tips DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
-install(FILES kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
+install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES kphotoalbumrc DESTINATION ${KDE_INSTALL_CONFDIR})
+install(FILES tips default-setup default-layout.xml DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
+install(FILES kphotoalbumui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kphotoalbum)
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)

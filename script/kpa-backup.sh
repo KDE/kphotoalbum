@@ -31,7 +31,12 @@ fi
 
 # default locations:
 KPARC=`$QTPATHS --locate-file ConfigLocation kphotoalbumrc`
-KPAUIRC=`$QTPATHS --locate-file GenericDataLocation kphotoalbum/kphotoalbumui.rc`
+KPAUIRC=`$QTPATHS --locate-file GenericDataLocation kxmlgui5/kphotoalbum/kphotoalbumui.rc`
+if [ -z "$KPAUIRC" ]
+then
+	echo "Info: using old location for ui.rc files..." >&2
+	KPAUIRC=`$QTPATHS --locate-file GenericDataLocation kphotoalbum/kphotoalbumui.rc`
+fi
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=

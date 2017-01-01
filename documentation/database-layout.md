@@ -147,6 +147,7 @@ KPhotoAlbum
 
 
 ### Version 5 ###
+Not used in an official release.
 
 
 ```
@@ -205,6 +206,7 @@ KPhotoAlbum
 
 
 ### Version 6 ###
+Used in KPA v4.6.
 
 Same structure as version 5.
 
@@ -222,6 +224,7 @@ Same structure as version 5.
 
 
 ### Version 7 ###
+Used in KPA v4.7
 
 ```
 KPhotoAlbum
@@ -297,81 +300,81 @@ name anymore.
          Relative filename to ignore.
  * Categories
     - Category
-       + ```icon```
+       + ```icon```<br/>
          XDG desktop icon name
-       + ```name```
+       + ```name```<br/>
          Category name
-       + ```show```
+       + ```show```<br/>
          ```0|1``` - hide or show category in the viewer.
-       + ```thumbnailsize```
+       + ```thumbnailsize```<br/>
          Category-thumbnail size in pixel.
-       + ```viewtype```
+       + ```viewtype```<br/>
          Appearance of list views in the browser.
          ```TreeView=0, ThumbedTreeView=1, IconView=2, ThumbedIconView=3```
-       + ```positionable```
-         ```0|1``` - indicates whether this category can contain areas (positionned tags) or not.
-       + ```meta```
+       + ```positionable``` (since version=4 / KPA v4.5)<br/>
+         ```0|1``` - indicates whether this category can contain areas (positioned tags) or not.
+       + ```meta``` (since version=7 / KPA v5.7)<br/>
          Meta information that holds an unique id for special categories (so that they can be tracked when they are renamed for localization).
        + value
-          * ```id```
+          * ```id```<br/>
             Numerical tag id, unique within each Category.
-          * ```value```
+          * ```value```<br/>
             Tag name.
-          * ```birthDate```
+          * ```birthDate``` (since version=5 / KPA v4.6)<br/>
             Birthdate (```yyyy-mm-dd```) of a person (but allowed on all categories).
             Is used to display the age of a person on an image.
  * images
     - image
-      + ```angle```
+      + ```angle```<br/>
         Image rotation in degrees; between 0 and 359.
-      + ```description```
+      + ```description```<br/>
         Description field; Text.
-      + ```endDate```
+      + ```endDate```<br/>
         End date of the image (see fuzzy dates) (```yyyy-mm-dd[Thh:mm:ss]```, second optional part starts with uppercase 'T')
-      + ```file```
+      + ```file```<br/>
         Relative path to the image file.
-      + ```gpsAlt``` (since KPA 3.1)
+      + ```gpsAlt``` (since KPA 3.1, deprecated in version=6 / KPA v4.6)<br/>
         GPS altitude data, double.
-      + ```gpsLat``` (since KPA 3.1)
+      + ```gpsLat``` (since KPA 3.1, deprecated in version=6 / KPA v4.6)<br/>
         GPS latitude data, double.
-      + ```gpsLon``` (since KPA 3.1)
+      + ```gpsLon``` (since KPA 3.1, deprecated in version=6 / KPA v4.6)<br/>
         GPS longitude data, double.
-      + ```gpsPrec``` (since KPA 3.1)
+      + ```gpsPrec``` (since KPA 3.1, deprecated in version=6 / KPA v4.6)<br/>
         GPS precision data, integer (-1 for "no precision data").
-      + ```heigth```
+      + ```heigth```<br/>
         Image height in pixel.
-      + ```label```
+      + ```label```<br/>
         Textual label assigned to the image
-      + ```md5sum```
+      + ```md5sum```<br/>
         MD5 sum of the image file.
       + options
         * option
-          - ```name```
+          - ```name```<br/>
             Category name; matches one of ```Categories.Category.name```
           - value
-            + ```value```
+            + ```value```<br/>
               Tag name; matches one of ```Categories.Category.value.value```
-            + ```area``` (since version=4 / KPA 4.5)
+            + ```area``` (since version=4 / KPA 4.5)<br/>
               Positional information for the tag.
               X,Y (upper left corner), width, height; all values in pixel.
-      + ```rating``` (since KPA 3.1)
+      + ```rating``` (since KPA 3.1)<br/>
         Integer rating ("stars"), between 0 and 10.
-      + ```stackId``` (since KPA 3.1)
+      + ```stackId``` (since KPA 3.1)<br/>
         Numerical stack ID; images with the same stackId are displayed as an image stack.
-      + ```stackOrder``` (since KPA 3.1)
-        Image position within a stack; only valid when stackId is set.
+      + ```stackOrder``` (since KPA 3.1)<br/>
+        Image position within a stack; only valid when stackId is set.<br/>
         Unique within the same stack.
-      + ```startDate```
+      + ```startDate```<br/>
         Start date of the image (see fuzzy dates) (```yyyy-mm-dd[Thh:mm:ss]```, second optional part starts with uppercase 'T')
-      + ```width```
+      + ```width```<br/>
         Image width in pixel.
  * member-groups
     - member
-      + ```category```
+      + ```category```<br/>
         Category name; matches one of ```Categories.Category.name```
-      + ```group-name```
+      + ```group-name```<br/>
         Name of the group, may equal a Tag name and is usually displayed like a Tag name.
-      + ```member``` (uncompressed format)
+      + ```member``` (uncompressed format)<br/>
         A single tag name.
-      + ```members``` (compressed format)
+      + ```members``` (compressed format)<br/>
         Numerical tag ids, separated by comma.

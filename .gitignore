@@ -1,4 +1,3 @@
-.svn
 cmake_install.cmake
 CTestTestfile.cmake
 cmake_uninstall.cmake
@@ -23,3 +22,4 @@ CMakeLists.txt.user
 AndroidRemoteControl/AndroidRemoteControl.pro.user
 build-*
 version.h
+*.pyc

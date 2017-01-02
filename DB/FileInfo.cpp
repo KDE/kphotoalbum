@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileInfo.h"
+#include <QRegularExpression>
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
@@ -86,7 +87,9 @@ void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
     // Description
     if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
         const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
-        m_description = QString::fromLocal8Bit( datum.toString().c_str() );
+        m_description = QString::fromLocal8Bit( datum.toString().c_str() ).trimmed();
+        // some cameras seem to add control characters. Remove them:
+        m_description.remove(QRegularExpression(QString::fromLatin1("\\p{Cc}")));
     }
 }
 

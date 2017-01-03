@@ -490,7 +490,7 @@ install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES kphotoalbumrc DESTINATION ${KDE_INSTALL_CONFDIR})
-install(FILES tips default-setup default-layout.xml DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
+install(FILES tips default-setup DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum)
 install(FILES kphotoalbumui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kphotoalbum)
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 

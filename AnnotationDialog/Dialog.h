@@ -165,6 +165,10 @@ private:
     DB::ImageSearchInfo m_oldSearch;
     int m_accept;
     QList<QDockWidget*> m_dockWidgets;
+    // "special" named dockWidgets (used to set default layout):
+    QDockWidget *m_generalDock;
+    QDockWidget *m_previewDock;
+    QDockWidget *m_descriptionDock;
 
     // Widgets
     QMainWindow* m_dockWindow;
@@ -210,6 +214,7 @@ private:
     bool m_areasChanged;
 
 #ifdef HAVE_KGEOMAP
+    QDockWidget *m_mapDock;
     QWidget *m_annotationMapContainer;
     Map::MapView *m_annotationMap;
     void updateMapForCurrentImage();

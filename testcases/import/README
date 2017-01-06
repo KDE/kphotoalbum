@@ -1,13 +1,17 @@
 Run all these tests against the demo database.
 
 new_image.kim
-a new image that isn't in the Database
+A new image that isn't in the Database.
+
+new_image_besides.kim
+A new image that isn't in the Database.
+The image file is besides the .kim file, not integrated within the .kim file.
 
 description_changed.kim
-an image from the database, where the descriptionhave changed.
+An image from the database, where the descriptionhave changed.
 
 title_changed.kim
-an image from the database, where the title has changed
+An image from the database, where the title has changed.
 
 people_changed.kim
 An image from the database where the person category item has changed from
@@ -15,7 +19,7 @@ Jesper to "the guy with the hair"
 
 category_names_different_than_in_DB.kim
 A test case where the categories are different than in the DB
-(persons->people location->places)
+(persons->people location->places).
 
 nothing_changed.kim
 In this test case there is one image that is exactly the same as in the DB,
@@ -24,4 +28,4 @@ the MD5 selector page should not show.
 match_with_different_name_for_person_and_location.kim
 The phone in this test case has Jesper tagged as "KPA developer", and the
 city Esbjerg tagged as "The city of Esbjerg". Esbjerg should be preselected
-in the matcher
+in the matcher.

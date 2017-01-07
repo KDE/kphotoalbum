@@ -7,8 +7,12 @@ new_image_besides.kim
 A new image that isn't in the Database.
 The image file is besides the .kim file, not integrated within the .kim file.
 
+new_image_http.kim
+A new image that isn't in the Database.
+The image file is loaded from https://www.kphotoalbum.org/gettinginvolved/activedevelopers/
+
 description_changed.kim
-An image from the database, where the descriptionhave changed.
+An image from the database, where the description has changed.
 
 title_changed.kim
 An image from the database, where the title has changed.

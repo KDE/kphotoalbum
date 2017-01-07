@@ -58,7 +58,15 @@ bool ImportDialog::exec( KimFileReader* kimFileReader, const QUrl &kimFileURL )
 {
     m_kimFileReader = kimFileReader;
 
-    m_kimFile = kimFileURL;
+    if (kimFileURL.isLocalFile())
+    {
+        QDir cwd;
+        // convert relative local path to absolute
+        m_kimFile = QUrl::fromLocalFile(cwd.absoluteFilePath( kimFileURL.toLocalFile() ) )
+                .adjusted(QUrl::NormalizePathSegments);
+    } else {
+        m_kimFile = kimFileURL;
+    }
 
     QByteArray indexXML = m_kimFileReader->indexXML();
     if ( indexXML.isNull() )

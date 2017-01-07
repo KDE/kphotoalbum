@@ -76,6 +76,7 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
         copyFromExternal();
 
         // If none of the images were to be copied, then we flushed the loop before we got started, in that case, don't start the loop.
+        Debug() << "Copying" << m_pendingCopies.count() << "files from external source...";
         if ( m_pendingCopies.count() > 0 )
             ok = m_eventLoop->exec();
         else
@@ -109,37 +110,38 @@ void ImportExport::ImportHandler::copyFromExternal()
 void ImportExport::ImportHandler::copyNextFromExternal()
 {
     DB::ImageInfoPtr info = m_pendingCopies[0];
-    m_pendingCopies.pop_front();
 
     if ( isImageAlreadyInDB( info ) ) {
+        Debug() << info->fileName().relative() << "is already in database.";
         aCopyJobCompleted(0);
         return;
     }
 
     const DB::FileName fileName = info->fileName();
-    QUrl src1 = m_settings.kimFile();
-    QUrl src2 = m_settings.baseURL();
+
     bool succeeded = false;
     QStringList tried;
 
     // First search for images next to the .kim file
     // Second search for images base on the image root as specified in the .kim file
-    for ( int i = 0; i < 2; ++i ) {
-        QUrl src = src1;
-        if ( i == 1 )
-            src = src2;
+    QList<QUrl> searchUrls {
+        m_settings.kimFile().adjusted(QUrl::RemoveFilename)
+        , m_settings.baseURL().adjusted(QUrl::RemoveFilename)
+    };
+    Q_FOREACH(const QUrl& url, searchUrls)
+    {
+        QUrl src (url);
+        src.setPath(src.path() + fileName.relative() );
 
-        src = src.adjusted(QUrl::RemoveFilename);
-        src.setPath(src.path() +  fileName.relative() );
         std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existance */ ) };
         KJobWidgets::setWindow(statJob.get(), MainWindow::Window::theMainWindow());
         if ( statJob->exec() )
         {
-            QUrl dest;
-            dest.setPath( m_fileMapper->uniqNameFor(fileName) );
+            QUrl dest = QUrl::fromLocalFile( m_fileMapper->uniqNameFor(fileName) );
             m_job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
             connect(m_job, &KIO::FileCopyJob::result, this, &ImportHandler::aCopyJobCompleted);
             succeeded = true;
+            Debug() << "Copying" << src << "to" << dest;
             break;
         } else
             tried << src.toDisplayString();
@@ -257,6 +259,8 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
 
 void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
 {
+    Debug() << "CopyJob" << job << "completed.";
+    m_pendingCopies.pop_front();
     if ( job && job->error() ) {
         job->uiDelegate()->showErrorMessage();
         m_eventLoop->exit(false);

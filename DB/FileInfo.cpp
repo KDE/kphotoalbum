@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileInfo.h"
-#include <QRegularExpression>
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
@@ -98,7 +97,14 @@ void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
         const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
         m_description = QString::fromLocal8Bit( datum.toString().c_str() ).trimmed();
         // some cameras seem to add control characters. Remove them:
-        m_description.remove(QRegularExpression(QString::fromLatin1("\\p{Cc}")));
+        // m_description.remove(QRegularExpression(QString::fromLatin1("\\p{Cc}")));
+        // quick&dirty backport from KPA 5.x (QRegularExpression is not in Qt4,
+        // QRegExp doesn't have support for all character classes)
+        Q_FOREACH(const QChar c, m_description)
+        {
+            if (c.category() == QChar::Other_Control)
+                m_description.remove(c);
+        }
     }
 }
 

@@ -1504,7 +1504,7 @@ void AnnotationDialog::Dialog::addTagToCandidateList(QString category, QString t
 void AnnotationDialog::Dialog::removeTagFromCandidateList(QString category, QString tag)
 {
     // Is the deselected tag the last selected positionable tag?
-    if (m_lastSelectedPositionableTag.first == category and m_lastSelectedPositionableTag.second == tag) {
+    if (m_lastSelectedPositionableTag.first == category && m_lastSelectedPositionableTag.second == tag) {
         m_lastSelectedPositionableTag = QPair<QString, QString>();
     }
 
@@ -1534,7 +1534,7 @@ void AnnotationDialog::Dialog::slotShowAreas(bool showAreas)
 void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString oldTag, QString newTag)
 {
     // Is the renamed tag the last selected positionable tag?
-    if (m_lastSelectedPositionableTag.first == category and m_lastSelectedPositionableTag.second == oldTag) {
+    if (m_lastSelectedPositionableTag.first == category && m_lastSelectedPositionableTag.second == oldTag) {
         m_lastSelectedPositionableTag.second = newTag;
     }
 
@@ -1576,8 +1576,8 @@ void AnnotationDialog::Dialog::checkProposedTagData(
     foreach (ResizableFrame *area, areas())
     {
         if (area != areaToExclude
-            and area->proposedTagData() == tagData
-            and area->tagData().first.isEmpty()) {
+            && area->proposedTagData() == tagData
+            && area->tagData().first.isEmpty()) {
             area->removeProposedTagData();
         }
     }

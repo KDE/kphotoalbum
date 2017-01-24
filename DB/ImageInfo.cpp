@@ -190,7 +190,7 @@ void ImageInfo::rotate( int degrees, RotationMode mode )
     m_dirty = true;
     m_angle = ( m_angle + degrees ) % 360;
 
-    if (degrees == 90 or degrees == 270) {
+    if (degrees == 90 || degrees == 270) {
         m_size.transpose();
     }
 

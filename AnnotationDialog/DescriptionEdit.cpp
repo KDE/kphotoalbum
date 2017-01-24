@@ -28,7 +28,7 @@ AnnotationDialog::DescriptionEdit::~DescriptionEdit()
 
 void AnnotationDialog::DescriptionEdit::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_PageUp or event->key() == Qt::Key_PageDown) {
+    if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown) {
         emit pageUpDownPressed(event);
     } else {
         QTextEdit::keyPressEvent(event);

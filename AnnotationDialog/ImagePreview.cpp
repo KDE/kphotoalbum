@@ -330,8 +330,8 @@ void ImagePreview::mousePressEvent(QMouseEvent *event)
         }
 
         m_areaStart = event->pos();
-        if (m_areaStart.x() < m_minX or m_areaStart.x() > m_maxX or
-            m_areaStart.y() < m_minY or m_areaStart.y() > m_maxY) {
+        if (m_areaStart.x() < m_minX || m_areaStart.x() > m_maxX ||
+            m_areaStart.y() < m_minY || m_areaStart.y() > m_maxY) {
             // Dragging started outside of the preview image
             return;
         }
@@ -374,7 +374,7 @@ void ImagePreview::mouseReleaseEvent(QMouseEvent *event)
         return;
     }
 
-    if (event->button() & Qt::LeftButton and m_selectionRect->isVisible()) {
+    if (event->button() & Qt::LeftButton && m_selectionRect->isVisible()) {
         m_areaEnd = event->pos();
         processNewArea();
         m_selectionRect->hide();
@@ -583,9 +583,9 @@ bool ImagePreview::fuzzyAreaExists(QList<QRect> &existingAreas, QRect area)
         // maximumDeviation is 15% of the mean value of the width and height of each area
         maximumDeviation = float(existingAreas.at(i).width() + existingAreas.at(i).height()) * 0.075;
         if (
-            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation and
-            distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation and
-            distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation and
+            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation &&
+            distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation &&
+            distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation &&
             distance(existingAreas.at(i).bottomRight(), area.bottomRight()) < maximumDeviation
         ) {
             return true;

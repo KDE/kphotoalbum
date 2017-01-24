@@ -413,7 +413,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                                                        i18n("Really Delete %1?",item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            if (item->checkState(0) == Qt::Checked and m_positionable) {
+            if (item->checkState(0) == Qt::Checked && m_positionable) {
                 // An area could be linked against this. We can use positionableTagDeselected
                 // here, as the procedure is the same as if the tag had been deselected.
                 emit positionableTagDeselected(m_category->name(), item->text(0));

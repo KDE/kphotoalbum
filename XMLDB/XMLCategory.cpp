@@ -153,7 +153,7 @@ void XMLDB::XMLCategory::initIdMap()
     // find maximum id
     // obviously, this will leave gaps in numbering when tags are deleted
     // assuming that tags are seldomly removed this should not be a problem
-    int i = *std::max_element(m_nameMap.keyBegin(),m_nameMap.keyEnd());
+    int i = m_nameMap.lastKey();
 
     Q_FOREACH( const QString &tag, m_items ) {
         if (!m_idMap.contains(tag))

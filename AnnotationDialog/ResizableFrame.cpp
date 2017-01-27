@@ -427,7 +427,7 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     if (changeOrigin == ManualChange) {
         m_changed = true;
 
-        if (m_detectedFace and ! m_trained and m_previewWidget->automatedTraining()) {
+        if (m_detectedFace && ! m_trained && m_previewWidget->automatedTraining()) {
             m_preview->trainRecognitionDatabase(m_actualCoordinates, m_tagData);
             m_trained = true;
         }

@@ -153,7 +153,11 @@ void XMLDB::XMLCategory::initIdMap()
     // find maximum id
     // obviously, this will leave gaps in numbering when tags are deleted
     // assuming that tags are seldomly removed this should not be a problem
-    int i = m_nameMap.lastKey();
+    int i = 0;
+    if (!m_nameMap.empty())
+    {
+        i = m_nameMap.lastKey();
+    }
 
     Q_FOREACH( const QString &tag, m_items ) {
         if (!m_idMap.contains(tag))

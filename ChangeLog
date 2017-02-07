@@ -1,3 +1,11 @@
+====================== KPhotoalbum 4.7.3 released  (07.02.2017) ======================
+
+* Bug (#374431): Prevent invalid characters in image description.
+
+* Bugfix: Remove stray marble references.
+
+* Enhancement: Add AfterShot2X64 to open-raw.pl.
+
 ====================== KPhotoalbum 4.7.2 released  (29.07.2016) ======================
 
 * Bugfix: Fix building without KIPI.

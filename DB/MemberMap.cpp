@@ -18,6 +18,7 @@
 
 #include "MemberMap.h"
 #include "DB/Category.h"
+#include <QDebug>
 
 using namespace DB;
 
@@ -159,7 +160,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
     QMap<QString, StringSet>& groupMap = m_members[category];
     groupMap.insert(newName,m_members[category][oldName] );
     groupMap.remove( oldName );
-    Q_FOREACH( StringSet set, groupMap ) {
+    for( StringSet &set: groupMap ) {
         if ( set.contains( oldName ) ) {
             set.remove( oldName );
             set.insert( newName );
@@ -174,14 +175,14 @@ MemberMap::MemberMap( const MemberMap& other )
 
 void MemberMap::deleteItem( DB::Category* category, const QString& name)
 {
-    m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
     QMap<QString, StringSet>& groupMap = m_members[category->name()];
-    Q_FOREACH( StringSet items, groupMap ) {
+    for( StringSet &items: groupMap ) {
         items.remove( name );
     }
     m_members[category->name()].remove(name);
+    m_dirty = true;
+    if ( !m_loading )
+        emit dirty();
 }
 
 void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
@@ -189,11 +190,8 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
     if (oldName == newName)
         return;
 
-    m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
     QMap<QString, StringSet>& groupMap = m_members[category->name()];
-    Q_FOREACH( StringSet items, groupMap ) {
+    for( StringSet &items: groupMap ) {
         if (items.contains( oldName ) ) {
             items.remove( oldName );
             items.insert( newName );
@@ -203,6 +201,9 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
         groupMap[newName] = groupMap[oldName];
         groupMap.remove(oldName);
     }
+    m_dirty = true;
+    if ( !m_loading )
+        emit dirty();
 }
 
 

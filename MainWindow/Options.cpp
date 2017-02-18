@@ -58,6 +58,7 @@ public:
                 i18n("Listen for network connections on address <interface_address>."),
                 i18n("interface_address")
     };
+    QCommandLineOption searchOnStartup {QLatin1String("search"), i18n( "Search for new images on startup" )};
 };
 }
 
@@ -124,6 +125,11 @@ QHostAddress MainWindow::Options::listen() const
     return address;
 }
 
+bool MainWindow::Options::searchForImagesOnStart() const
+{
+    return d->parser.isSet( d->searchOnStartup );
+}
+
 MainWindow::Options::Options()
     : d(new OptionsPrivate)
 {
@@ -142,6 +148,7 @@ MainWindow::Options::Options()
                 << d->importFile
                 << d->listen
                 << d->listenAddress
+                << d->searchOnStartup
                 );
 }
 

@@ -223,7 +223,8 @@ void MainWindow::Window::delayedInit()
     SplashScreen* splash = SplashScreen::instance();
     setupPluginMenu();
 
-    if ( Settings::SettingsData::instance()->searchForImagesOnStart() ) {
+    if ( Settings::SettingsData::instance()->searchForImagesOnStart() ||
+	 Options::the()->searchForImagesOnStart() ) {
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();

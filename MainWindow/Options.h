@@ -59,6 +59,11 @@ public:
      * @return a null address if listening is disabled, otherwise an address to bind to.
      */
     QHostAddress listen() const;
+    /**
+     * @brief searchOnStartup
+     * @return true, if we want to search for images on startup
+     */
+    bool searchForImagesOnStart() const;
 private:
     class OptionsPrivate;
     Options();

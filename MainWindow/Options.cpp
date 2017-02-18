@@ -58,7 +58,7 @@ public:
                 i18n("Listen for network connections on address <interface_address>."),
                 i18n("interface_address")
     };
-    QCommandLineOption searchOnStartup {QLatin1String("search"), i18n( "Search for new images on startup" )};
+    QCommandLineOption searchOnStartup {QLatin1String("search"), i18n( "Search for new images on startup." )};
 };
 }
 

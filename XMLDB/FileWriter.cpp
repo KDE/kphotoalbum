@@ -250,8 +250,10 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                 writer.writeAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
                 Q_FOREACH(const QString& member, members) {
-                    DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( memberMapIt.key() );
+                    DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( categoryName );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
+                    if (category->idForName(member)==0)
+                        qWarning() << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
 #ifdef DETERMINISTIC_DBSAVE

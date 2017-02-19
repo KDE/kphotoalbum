@@ -88,6 +88,7 @@ public:
 
     /**
      * Sets the map's zoom so that all images on the map are visible.
+     * If no images have been added, the zoom is not altered.
      */
     void zoomToMarkers();
 
@@ -107,6 +108,7 @@ public:
 
 Q_SIGNALS:
     void signalRegionSelectionChanged();
+    void displayStatusChanged(MapStatus);
 
 public slots:
     /**

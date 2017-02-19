@@ -118,7 +118,10 @@ void Map::MapView::addImage(const DB::ImageInfoPtr image)
 
 void Map::MapView::zoomToMarkers()
 {
-    m_mapWidget->adjustBoundariesToGroupedMarkers();
+    if (m_modelHelper->model()->rowCount()>0)
+    {
+        m_mapWidget->adjustBoundariesToGroupedMarkers();
+    }
     m_lastCenter = m_mapWidget->getCenter();
 }
 
@@ -209,6 +212,7 @@ void Map::MapView::displayStatus(MapStatus status)
         m_setLastCenterButton->setEnabled(false);
         break;
     }
+    emit displayStatusChanged(status);
 }
 
 void Map::MapView::setLastCenter()

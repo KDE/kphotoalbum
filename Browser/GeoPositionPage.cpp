@@ -39,7 +39,8 @@ void Browser::GeoPositionPage::activate()
         Browser::PositionBrowserWidget* positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->showImages(searchInfo());
 
-        connect(positionBrowserWidget, SIGNAL(signalNewRegionSelected(KGeoMap::GeoCoordinates::Pair)), this, SLOT(slotNewRegionSelected(KGeoMap::GeoCoordinates::Pair)));
+        connect(positionBrowserWidget, &Browser::PositionBrowserWidget::signalNewRegionSelected,
+                this, &GeoPositionPage::slotNewRegionSelected);
         active = true;
     }
 }

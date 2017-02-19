@@ -45,7 +45,8 @@ PositionBrowserWidget::PositionBrowserWidget( QWidget* parent )
     m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_mapView);
-    connect(m_mapView, SIGNAL(signalRegionSelectionChanged()), this, SLOT(slotRegionSelectionChanged()));
+    connect(m_mapView, &Map::MapView::signalRegionSelectionChanged,
+            this, &PositionBrowserWidget::slotRegionSelectionChanged);
 }
 
 PositionBrowserWidget::~PositionBrowserWidget()

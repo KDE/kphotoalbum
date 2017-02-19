@@ -65,13 +65,13 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
     m_mapWidget->addWidgetToControlWidget(saveButton);
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveSettings()));
+    connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
     m_setLastCenterButton = new QPushButton;
     m_setLastCenterButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("go-first"))));
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
     m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
-    connect(m_setLastCenterButton, SIGNAL(clicked()), this, SLOT(setLastCenter()));
+    connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
     // We first try set the default backend "marble" or the first one available ...
     const QString defaultBackend = QString::fromUtf8("marble");
@@ -92,7 +92,8 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     m_itemMarkerTiler = new SearchMarkerTiler(m_modelHelper, this);
     m_mapWidget->setGroupedModel(m_itemMarkerTiler);
 
-    connect(m_mapWidget, SIGNAL(signalRegionSelectionChanged()), this, SIGNAL(signalRegionSelectionChanged()));
+    connect(m_mapWidget, &KGeoMap::MapWidget::signalRegionSelectionChanged,
+            this, &MapView::signalRegionSelectionChanged);
 }
 
 Map::MapView::~MapView()

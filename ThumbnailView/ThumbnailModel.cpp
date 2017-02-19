@@ -77,7 +77,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      * the images actually came in the order necessary.
      */
     for (StackMap::iterator it = stackContents.begin(); it != stackContents.end(); ++it) {
-        qStableSort(it->begin(), it->end(), stackOrderComparator);
+        std::stable_sort(it->begin(), it->end(), stackOrderComparator);
     }
 
     /* Build the final list to be displayed. That is basically the sequence

@@ -352,7 +352,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
     // -------------------------------------------------- Resolutions
     QString resolutions;
     QList<ImageSizeCheckBox*> actRes = m_setup.activeResolutions();
-    qSort(actRes);
+    std::sort(actRes.begin(),actRes.end());
 
     if ( actRes.count() > 1 ) {
         resolutions += QString::fromLatin1( "Resolutions: " );

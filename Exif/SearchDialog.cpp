@@ -374,7 +374,7 @@ QWidget* Exif::SearchDialog::makeCamera()
 
 
     QList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
-    qSort( cameras );
+    std::sort(cameras.begin(),cameras.end());
 
     for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.constBegin(); cameraIt != cameras.constEnd(); ++cameraIt ) {
         QCheckBox* cb = new QCheckBox( QString::fromUtf8( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ) );
@@ -401,7 +401,7 @@ QWidget* Exif::SearchDialog::makeLens()
 
 
     QList< QString > lenses = Exif::Database::instance()->lenses();
-    qSort( lenses );
+    std::sort(lenses.begin(),lenses.end());
 
     if ( lenses.isEmpty() ) {
         QLabel* label = new QLabel( i18n("No lenses found in the database") );

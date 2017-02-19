@@ -204,7 +204,7 @@ void XMLDB::FileWriter::saveBlockList( QXmlStreamWriter& writer )
 #ifdef DETERMINISTIC_DBSAVE
     QList<DB::FileName> blockList = m_db->m_blockList.toList();
     // sort blocklist to get diffable files
-    qSort(blockList);
+    std::sort(blockList.begin(), blockList.end());
 #else
     QSet<DB::FileName> blockList = m_db->m_blockList;
 #endif
@@ -257,14 +257,14 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
 #ifdef DETERMINISTIC_DBSAVE
-                qSort(idList);
+                std::sort(idList.begin(), idList.end());
 #endif
                 writer.writeAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
             }
             else {
 #ifdef DETERMINISTIC_DBSAVE
                 QStringList members = groupMapIt.value().toList();
-                qSort(members);
+                std::sort(members.begin(), members.end());
 #else
                 QSet<QString> members = groupMapIt.value();
 #endif
@@ -376,7 +376,7 @@ void XMLDB::FileWriter::writeCategories( QXmlStreamWriter& writer, const DB::Ima
 
 #ifdef DETERMINISTIC_DBSAVE
         QStringList items = info->itemsOfCategory(name).toList();
-        qSort(items);
+        std::sort(items.begin(), items.end());
 #else
         QSet<QString> items = info->itemsOfCategory(name);
 #endif
@@ -431,7 +431,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QXmlStreamWriter& writer, con
             if ( !idList.isEmpty() )
             {
 #ifdef DETERMINISTIC_DBSAVE
-                qSort(idList);
+                std::sort(idList.begin(), idList.end());
 #endif
                 writer.writeAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
             }

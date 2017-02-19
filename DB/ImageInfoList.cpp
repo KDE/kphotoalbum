@@ -58,7 +58,7 @@ ImageInfoList ImageInfoList::sort() const
         vec.append(SortableImageInfo((*it)->date().start(),(*it)->fileName().absolute(), *it));
     }
 
-    qSort(vec);
+    std::sort(vec.begin(),vec.end());
     
     ImageInfoList res;
     for( QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt ) {

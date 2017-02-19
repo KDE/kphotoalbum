@@ -28,17 +28,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 
-namespace Browser {
-
-//ImageSelector::ImageSelector()
-//{
-//}
-//
-//ImageSelector::~ImageSelector()
-//{
-//}
-
-PositionBrowserWidget::PositionBrowserWidget( QWidget* parent )
+Browser::PositionBrowserWidget::PositionBrowserWidget( QWidget* parent )
     :QWidget(parent)
 {
     m_mapView = new Map::MapView(this);
@@ -46,14 +36,14 @@ PositionBrowserWidget::PositionBrowserWidget( QWidget* parent )
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_mapView);
     connect(m_mapView, &Map::MapView::signalRegionSelectionChanged,
-            this, &PositionBrowserWidget::slotRegionSelectionChanged);
+            this, &Browser::PositionBrowserWidget::slotRegionSelectionChanged);
 }
 
-PositionBrowserWidget::~PositionBrowserWidget()
+Browser::PositionBrowserWidget::~PositionBrowserWidget()
 {
 }
 
-void PositionBrowserWidget::showImages( const DB::ImageSearchInfo& searchInfo )
+void Browser::PositionBrowserWidget::showImages( const DB::ImageSearchInfo& searchInfo )
 {
     m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
     m_mapView->clear();
@@ -68,17 +58,14 @@ void PositionBrowserWidget::showImages( const DB::ImageSearchInfo& searchInfo )
     m_mapView->zoomToMarkers();
 }
 
-void PositionBrowserWidget::clearImages()
+void Browser::PositionBrowserWidget::clearImages()
 {
     m_mapView->clear();
 }
 
-void PositionBrowserWidget::slotRegionSelectionChanged()
+void Browser::PositionBrowserWidget::slotRegionSelectionChanged()
 {
     if (m_mapView->regionSelected()) {
         emit signalNewRegionSelected(m_mapView->getRegionSelection());
     }
-}
-
-
 }

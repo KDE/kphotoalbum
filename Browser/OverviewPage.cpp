@@ -37,14 +37,7 @@ AnnotationDialog::Dialog* Browser::OverviewPage::s_config = nullptr;
 Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser), m_breadcrumb( breadcrumb )
 {
-    int row = 0;
-    for (const DB::CategoryPtr& category : categories() ) {
-        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
-        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
-        DB::MediaCount count( images.count(), videos.count() );
-        m_count[row] = count;
-        ++row;
-    }
+    updateImageCount();
 }
 
 int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
@@ -177,6 +170,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateChild( const QModelIndex& i
 
 void Browser::OverviewPage::activate()
 {
+    updateImageCount();
     browser()->setModel( this );
 }
 
@@ -255,6 +249,18 @@ Browser::Breadcrumb Browser::OverviewPage::breadcrumb() const
 bool Browser::OverviewPage::showDuringMovement() const
 {
     return true;
+}
+
+void Browser::OverviewPage::updateImageCount()
+{
+    int row = 0;
+    for (const DB::CategoryPtr& category : categories() ) {
+        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
+        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
+        DB::MediaCount count( images.count(), videos.count() );
+        m_count[row] = count;
+        ++row;
+    }
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()

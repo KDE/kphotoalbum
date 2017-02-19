@@ -56,6 +56,10 @@ public:
 
 
 private:
+    /**
+     * @brief Count images/videos in each category.
+     */
+    void updateImageCount();
     QList<DB::CategoryPtr> categories() const;
 
     bool isCategoryIndex( int row ) const;

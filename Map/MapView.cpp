@@ -196,10 +196,12 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Search for geographic coordinates.</i>"));
         m_statusLabel->show();
         m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan
+                                            | KGeoMap::MouseModeRegionSelectionFromIcon
                                             | KGeoMap::MouseModeRegionSelection);
         m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan
+                                          | KGeoMap::MouseModeRegionSelectionFromIcon
                                           | KGeoMap::MouseModeRegionSelection);
-        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_mapWidget->setMouseMode(KGeoMap::MouseModeRegionSelectionFromIcon);
         m_mapWidget->show();
         m_mapWidget->setCenter(KGeoMap::GeoCoordinates());
         m_setLastCenterButton->hide();

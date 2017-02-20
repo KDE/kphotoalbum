@@ -17,6 +17,7 @@
 */
 #include "FileWriter.h"
 
+#include <QDebug>
 #include <QFile>
 #include <QXmlStreamWriter>
 

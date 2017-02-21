@@ -47,6 +47,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KEditToolBar>
+#include <kio_version.h> // for #if KIO_VERSION...
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -1742,7 +1743,20 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::showVideos()
 {
-    KRun::runUrl(QUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos")), QString::fromLatin1( "text/html" ), this );
+#if (KIO_VERSION >= ((5<<16)|(31<<8)|(0)))
+    KRun::runUrl(QUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos"))
+                 , QString::fromLatin1( "text/html" )
+                 , this
+                 , KRun::RunFlags()
+                 );
+#else
+    // this signature is deprecated in newer kio versions
+    // TODO: remove this when we don't support Ubuntu 16.04 LTS anymore
+    KRun::runUrl(QUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos"))
+                 , QString::fromLatin1( "text/html" )
+                 , this
+                 );
+#endif
 }
 
 void MainWindow::Window::slotStatistics()

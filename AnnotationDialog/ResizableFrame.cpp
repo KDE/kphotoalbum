@@ -38,7 +38,6 @@
 #include <QList>
 #include <QMenu>
 #include <QMouseEvent>
-#include <QScopedPointer>
 #include <QTimer>
 
 // KDE includes
@@ -487,12 +486,13 @@ void AnnotationDialog::ResizableFrame::showContextMenu()
 {
     // Display a dialog where a tag can be selected directly
     QString category = m_previewWidget->defaultPositionableCategory();
-    QScopedPointer<AreaTagSelectDialog> tagMenu ( new AreaTagSelectDialog(
+    // this is not a memory leak: AreaTagSelectDialog is a regular parented dialog
+    AreaTagSelectDialog* tagMenu = new AreaTagSelectDialog(
                 this,
                 m_dialog->listSelectForCategory(category),
                 m_preview->grabAreaImage(geometry()),
                 m_dialog
-                ));
+                );
 
     tagMenu->show();
     tagMenu->moveToArea(mapToGlobal(QPoint(0, 0)));

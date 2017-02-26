@@ -1453,9 +1453,8 @@ void AnnotationDialog::Dialog::togglePreview()
 void AnnotationDialog::Dialog::tidyAreas()
 {
     // Remove all areas marked on the preview image
-    foreach (ResizableFrame *area, areas())
-    {
-        area->deleteLater();
+    foreach (ResizableFrame *area, areas()) {
+        delete area;
     }
 }
 

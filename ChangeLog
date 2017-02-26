@@ -1,3 +1,36 @@
+====================== KPhotoalbum 5.2 released  (26.02.2017) ======================
+
+* Enhancement: Add the "Geo Position" selection page to the  browser (Thanks to Matthias Füssel for
+  the original patch!)
+
+* Bugfix: Fixed disabled items in browser overview page.
+
+* Bugfix (#376635): Fix renaming and deletion of memberMap members.
+
+* Change: Maintained compatiblity with Qt < 5.6 (for now).
+
+* Bugfix: Fixed compilation with -fno-operator-names.
+
+* Bugfix: Added .kim import test case and fixed the import when using external images.
+
+* Enhancement: Improved the default layout for annotation dialog.
+
+* Bugfix (#374431): Prevent invalid characters in image description.
+
+* Bugfix: Fixed the path of kphotoalbumui.rc in kpa-backup.sh
+
+* Bugfix: Reviewed and fixed the install directories.
+
+* Bugfix: Fixed the date view on the birthdays page.
+
+* Bugfix: Fixed some issues in the thumbnail build progress counter.
+
+* Bugfix: Don't show empty descriptions in the InfoBox.
+
+* Bugfix: Fixed the search dialog.
+
+* Bugfix: Fixed the "remove tokens" dialog.
+
 ====================== KPhotoalbum 5.1 released  (16.12.2016) ======================
 
 * Enhancement (Bug# 370373): Made writing index.xml deterministic, so that diffing it produces

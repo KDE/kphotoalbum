@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(kphotoalbum VERSION 5.1)
+project(kphotoalbum VERSION 5.2)
 
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)

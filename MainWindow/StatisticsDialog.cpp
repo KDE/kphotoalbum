@@ -16,29 +16,31 @@
    Boston, MA 02110-1301, USA.
 */
 #include "StatisticsDialog.h"
-#include <KComboBox>
-#include <QGroupBox>
-#include <QLabel>
-#include <QHeaderView>
+
+#include "DB/CategoryCollection.h"
+#include "DB/Category.h"
 #include "DB/ImageDB.h"
+#include "DB/ImageSearchInfo.h"
+#include "Utilities/ShowBusyCursor.h"
+
+#include <KComboBox>
 #include <KLocalizedString>
+
+#include <QDialogButtonBox>
+#include <QGroupBox>
+#include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
 #include <QTreeWidget>
 #include <QVBoxLayout>
-#include "DB/Category.h"
-#include "Utilities/ShowBusyCursor.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageSearchInfo.h"
 
 using namespace MainWindow;
 
 StatisticsDialog::StatisticsDialog( QWidget* parent )
     : QDialog( parent )
 {
-    QWidget* top = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout( top );
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(top);
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
 
     QString txt = i18n("<h1>Description</h1>"
                        "<table>"
@@ -66,6 +68,12 @@ StatisticsDialog::StatisticsDialog( QWidget* parent )
     QStringList labels;
     labels << i18n("Category") << i18n("# of Items") << i18n("Tags Totals") << i18n("Tags Per Picture") << QString();
     m_treeWidget->setHeaderLabels( labels );
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
+    layout->addWidget(buttonBox);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 }
 
 void StatisticsDialog::show()

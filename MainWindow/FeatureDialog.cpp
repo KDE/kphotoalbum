@@ -20,9 +20,11 @@
 #include <config-kpa-kgeomap.h>
 #include "FeatureDialog.h"
 
+#include <QDialogButtonBox>
 #include <QLayout>
 #include <QList>
 #include <QProcess>
+#include <QPushButton>
 #include <QStandardPaths>
 #include <QTextBrowser>
 #include <QVBoxLayout>
@@ -119,6 +121,12 @@ FeatureDialog::FeatureDialog( QWidget* parent )
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(browser);
     this->setLayout(layout);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
+    layout->addWidget(buttonBox);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 }
 
 QSize FeatureDialog::sizeHint() const

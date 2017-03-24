@@ -17,32 +17,33 @@
 */
 
 #include "RunDialog.h"
-#include <QDialog>
-#include <QWidget>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <MainWindow/Window.h>
+
 #include <KLocalizedString>
 #include <krun.h>
 #include <kshell.h>
 
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QWidget>
+
 MainWindow::RunDialog::RunDialog( QWidget* parent )
     : QDialog( parent )
 {
-    QWidget* top = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout( top );
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
-    mainLayout->addWidget(top);
 
     // xgettext: no-c-format
     QString txt = i18n("<p>Enter your command to run below:</p>"
                        "<p><i>%all will be replaced with a file list</i></p>");
     QLabel* label = new QLabel(txt);
-    layout->addWidget(label);
+    mainLayout->addWidget(label);
 
     m_cmd = new QLineEdit();
-    layout->addWidget(m_cmd);
+    mainLayout->addWidget(m_cmd);
     m_cmd->setMinimumWidth(400);
     // xgettext: no-c-format
     txt = i18n("<p>Enter the command you want to run on your image file(s). "
@@ -56,6 +57,12 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     m_cmd->setWhatsThis(txt);
     label->setWhatsThis(txt);
 
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
+    mainLayout->addWidget(buttonBox);
+
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(this,&QDialog::accepted, this, &RunDialog::slotMarkGo);
 }
 

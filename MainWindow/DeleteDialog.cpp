@@ -55,6 +55,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     lay1->addWidget( m_deleteFromDb );
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &DeleteDialog::deleteImages);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &DeleteDialog::reject);
     mainLayout->addWidget(buttonBox);

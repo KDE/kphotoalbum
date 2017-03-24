@@ -871,7 +871,7 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Build Thumbnails") );
 
     a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT(slotStatistics()) );
-    a->setText( i18n("Statistics") );
+    a->setText( i18n("Statistics...") );
 
     m_markUntagged = actionCollection()->addAction(QString::fromUtf8("markUntagged"),
                                                    this, SLOT(slotMarkUntagged()));

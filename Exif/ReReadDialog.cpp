@@ -24,6 +24,7 @@
 #include <QListWidget>
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
+#include <QPushButton>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -75,6 +76,7 @@ Exif::ReReadDialog::ReReadDialog(QWidget* parent) : QDialog(parent)
     connect( m_date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)) );
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &ReReadDialog::readInfo);
     lay1->addWidget(buttonBox);

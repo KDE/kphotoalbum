@@ -22,6 +22,7 @@
 #include <QLineEdit>
 #include <QTextCodec>
 #include <QDialogButtonBox>
+#include <QPushButton>
 
 #include <KLocalizedString>
 
@@ -41,6 +42,7 @@ Exif::InfoDialog::InfoDialog(const DB::FileName& fileName, QWidget* parent) : QD
 
     setAttribute(Qt::WA_DeleteOnClose);
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+    buttonBox->button(QDialogButtonBox::Close)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     QWidget* top = new QWidget(this);

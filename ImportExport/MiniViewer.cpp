@@ -24,6 +24,7 @@
 #include "DB/ImageInfo.h"
 #include <qmatrix.h>
 #include <QDialogButtonBox>
+#include <QPushButton>
 
 using namespace ImportExport;
 
@@ -64,6 +65,7 @@ MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
     m_pixmap = new QLabel( this );
     vlay->addWidget( m_pixmap );
     QDialogButtonBox* box = new QDialogButtonBox( QDialogButtonBox::Close, this );
+    box->button(QDialogButtonBox::Close)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(box, &QDialogButtonBox::rejected, this, &MiniViewer::slotClose);
     vlay->addWidget( box );
 }

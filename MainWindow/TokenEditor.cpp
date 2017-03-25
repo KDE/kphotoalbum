@@ -72,6 +72,7 @@ TokenEditor::TokenEditor( QWidget* parent )
     dialogLayout->addWidget(mainContents);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &TokenEditor::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &TokenEditor::reject);
     dialogLayout->addWidget(buttonBox);

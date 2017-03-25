@@ -104,6 +104,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     }
 
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply);
+    button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(this, &QDialog::accepted,
             this, &SettingsDialog::slotMyOK);
     connect(button(QDialogButtonBox::Apply), &QPushButton::clicked,

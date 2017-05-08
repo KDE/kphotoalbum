@@ -295,7 +295,10 @@ void Browser::BrowserWidget::setModel( QAbstractItemModel* model)
     m_curView->setModel( m_filterProxy );
 
     if (qobject_cast<TreeCategoryModel*>(model)) {
-        connect(model, &QAbstractItemModel::dataChanged, this, &BrowserWidget::reload);
+        // FIXME: The new-style connect here does not work, reload() is not triggered
+        //connect(model, &QAbstractItemModel::dataChanged, this, &BrowserWidget::reload);
+        // The old-style one triggers reload() correctly
+        connect(model, SIGNAL(dataChanged()), this, SLOT(reload()));
     }
 }
 

@@ -222,6 +222,30 @@ bool Exif::Database::add( const DB::FileName& fileName )
     }
 }
 
+bool Exif::Database::add( const DB::FileNameList& list )
+{
+    if ( !isUsable() )
+        return false;
+
+    QList<DBExifInfo> map;
+
+    Q_FOREACH(const DB::FileName& fileName, list) {
+	try {
+	    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+	    Q_ASSERT(image.get() != nullptr);
+	    image->readMetadata();
+	    Exiv2::ExifData &exifData = image->exifData();
+	    map << DBExifInfo(fileName, exifData);
+	}
+	catch (...)
+	{
+	    qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()) );
+	}
+    }
+    insert(map);
+    return true;
+}
+
 void Exif::Database::remove( const DB::FileName& fileName )
 {
     if ( !isUsable() )
@@ -287,6 +311,42 @@ bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
         return true;
     }
 
+}
+
+bool Exif::Database::insert(QList<DBExifInfo> map )
+{
+    static QString _queryString;
+    if ( !isUsable() )
+        return false;
+
+    if (_queryString.isEmpty())
+    {
+	QStringList formalList;
+	Database::ElementList elms = elements();
+	for( const DatabaseElement *e : elms )
+	{
+	    formalList.append( e->queryString() );
+	}
+	_queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
+    }
+
+    m_db.transaction();
+    QSqlQuery query( _queryString, m_db );
+    Q_FOREACH ( DBExifInfo elt, map ) {
+        query.bindValue(  0, elt.first.absolute() );
+	int i = 1;
+	for( const DatabaseElement *e : elements() )
+	{
+	  query.bindValue( i++, e->valueFromExif(elt.second));
+	}
+
+	if ( !query.exec() )
+	{
+	    showError( query );
+	}
+    }
+    m_db.commit();
+    return true;
 }
 
 Exif::Database* Exif::Database::instance()

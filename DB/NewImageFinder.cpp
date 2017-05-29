@@ -60,7 +60,8 @@ bool NewImageFinder::findImages()
 
     m_pendingLoad.clear();
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
-    loadExtraFiles();
+    // We'll batch up the EXIF at the end.
+    loadExtraFiles(false);
 
     // Only build thumbnails for the newly found images
     if (! m_pendingLoad.isEmpty()) {
@@ -134,7 +135,7 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
     }
 }
 
-void NewImageFinder::loadExtraFiles()
+void NewImageFinder::loadExtraFiles(bool storeExif)
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
@@ -164,7 +165,7 @@ void NewImageFinder::loadExtraFiles()
         }
         // (*it).first: DB::FileName
         // (*it).second: DB::MediaType
-        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
+        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second, storeExif );
         if ( info ) {
             markUnTagged(info);
             newImages.append(info);
@@ -192,14 +193,14 @@ void NewImageFinder::setupFileVersionDetection() {
     m_originalFileComponents = m_originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
+ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type, bool storeExif )
 {
     MD5 sum = Utilities::MD5Sum( newFileName );
     if ( handleIfImageHasBeenMoved(newFileName, sum) )
         return DB::ImageInfoPtr();
 
     // check to see if this is a new version of a previous image
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type ));
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type, true, storeExif ));
     ImageInfoPtr originalInfo;
     DB::FileName originalFileName;
 
@@ -250,7 +251,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
     }
 
     // also inserts image into exif db if present:
-    info->setMD5Sum(sum);
+    info->setMD5Sum(sum, false);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
 
     if (originalInfo &&

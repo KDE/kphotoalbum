@@ -29,6 +29,7 @@ namespace Exiv2 { class ExifData; }
 
 typedef QPair<int,int> Rational;
 typedef QList<Rational> RationalList;
+typedef QPair<const DB::FileName&, Exiv2::ExifData> DBExifInfo;
 
 namespace Exif
 {
@@ -84,6 +85,7 @@ public:
      * @return
      */
     bool add( const DB::FileName& fileName );
+    bool add( const DB::FileNameList& list );
     void remove( const DB::FileName& fileName );
     void remove( const DB::FileNameList& list );
     /**
@@ -108,6 +110,7 @@ protected:
     void createMetadataTable(DBSchemaChangeType change);
     static QString connectionName();
     bool insert( const DB::FileName& filename, Exiv2::ExifData );
+    bool insert( QList<DBExifInfo> );
 
 private:
     bool m_isOpen;

@@ -42,7 +42,8 @@ ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder
 {
 }
 
-ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo )
+ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo,
+		      bool storeExifInfo)
     :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type )
       , m_rating(-1), m_stackId(0), m_stackOrder(0)
       , m_videoLength(-1)
@@ -55,8 +56,12 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     setFileName(fileName);
 
     // Read EXIF information
-    if ( readExifInfo )
-        readExif(fileName, EXIFMODE_INIT);
+    if ( !readExifInfo ) {
+        ExifMode mode = EXIFMODE_INIT;
+        if ( ! storeExifInfo)
+            mode &= ~EXIFMODE_DATABASE_UPDATE;
+	readExif(fileName, mode);
+    }
 
     m_dirty = false;
     m_delaySaving = false;
@@ -383,7 +388,7 @@ void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
     saveChangesIfNotDelayed();
 }
 
-void ImageInfo::setMD5Sum( const MD5& sum )
+void ImageInfo::setMD5Sum( const MD5& sum, bool storeEXIF )
 {
     if (sum != m_md5sum)
     {
@@ -400,6 +405,8 @@ void ImageInfo::setMD5Sum( const MD5& sum )
         if (m_description.isEmpty())
             mode |= EXIFMODE_DESCRIPTION;
 
+        if (!storeEXIF)
+            mode &= ~EXIFMODE_DATABASE_UPDATE;
         readExif( fileName(), mode);
 
         // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want

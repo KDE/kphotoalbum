@@ -213,11 +213,15 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
         m_images.appendList( newImages );
     }
 
+    DB::FileNameList list;
+
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
         DB::ImageInfoPtr info = *imageIt;
         info->addCategoryInfo( i18n( "Media Type" ),
                                info->mediaType() == DB::Image ? i18n( "Image" ) : i18n( "Video" ) );
+	list << ((*imageIt)->fileName());
     }
+    Exif::Database::instance()->add( list );
 
     emit totalChanged( m_images.count() );
     emit dirty();

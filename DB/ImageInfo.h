@@ -67,7 +67,7 @@ class ImageInfo :public QSharedData {
 
 public:
     ImageInfo();
-    explicit ImageInfo( const DB::FileName& fileName, MediaType type = Image, bool readExifInfo = true );
+    explicit ImageInfo( const DB::FileName& fileName, MediaType type = Image, bool readExifInfo = true, bool storeExifInfo = true);
     ImageInfo( const DB::FileName& fileName,
                const QString& label,
                const QString& description,
@@ -149,7 +149,7 @@ public:
     static bool imageOnDisk( const DB::FileName& fileName );
 
     const MD5& MD5Sum() const { return m_md5sum; }
-    void setMD5Sum( const MD5& sum );
+    void setMD5Sum( const MD5& sum, bool storeEXIF=true );
 
     void setLocked( bool );
     bool isLocked() const;

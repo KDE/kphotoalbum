@@ -373,6 +373,16 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay8->addWidget( m_megapixel );
     lay8->addStretch( 1 );
 
+    m_max_megapixelLabel = new QLabel( i18n("Maximum megapixels:") );
+    lay8->addWidget( m_max_megapixelLabel );
+
+    m_max_megapixel = new QSpinBox;
+    m_max_megapixel->setRange( 0, 99 );
+    m_max_megapixel->setSingleStep( 1 );
+    m_max_megapixelLabel->setBuddy( m_max_megapixel );
+    lay8->addWidget( m_max_megapixel );
+    lay8->addStretch( 1 );
+
     QHBoxLayout* lay9 = new QHBoxLayout;
     lay2->addLayout( lay9 );
 
@@ -666,6 +676,8 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
 {
     m_megapixel->setVisible( show );
     m_megapixelLabel->setVisible( show );
+    m_max_megapixel->setVisible( show );
+    m_max_megapixelLabel->setVisible( show );
     m_searchRAW->setVisible( show );
     m_imageFilePatternLabel->setVisible( show );
     m_imageFilePattern->setVisible( show );
@@ -788,6 +800,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         m_ratingChanged = false;
         m_oldSearch.setSearchMode( m_ratingSearchMode->currentIndex() );
         m_oldSearch.setMegaPixel( m_megapixel->value() );
+        m_oldSearch.setMaxMegaPixel( m_max_megapixel->value() );
         m_oldSearch.setSearchRAW( m_searchRAW->isChecked() );
 #ifdef HAVE_KGEOMAP
         const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->getRegionSelection();

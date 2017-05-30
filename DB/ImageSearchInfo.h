@@ -69,6 +69,7 @@ public:
     QString toString() const;
 
     void setMegaPixel( short megapixel );
+    void setMaxMegaPixel( short maxmegapixel );
     void setSearchRAW( bool m_searchRAW );
     void setSearchMode( int index );
 
@@ -101,6 +102,7 @@ private:
     QRegExp m_fnPattern;
     short m_rating;
     short m_megapixel;
+    short m_max_megapixel;
     int m_ratingSearchMode;
     bool m_searchRAW;
     bool m_isNull;

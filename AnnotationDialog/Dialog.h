@@ -194,6 +194,8 @@ private:
     bool m_ratingChanged;
     QSpinBox* m_megapixel;
     QLabel* m_megapixelLabel;
+    QSpinBox* m_max_megapixel;
+    QLabel* m_max_megapixelLabel;
     QCheckBox* m_searchRAW;
     QString m_conflictText;
     QString m_firstDescription;

@@ -232,6 +232,25 @@ void Exif::Database::remove( const DB::FileName& fileName )
         showError( query );
 }
 
+void Exif::Database::remove( const DB::FileNameList& list )
+{
+    if ( !isUsable() )
+        return;
+
+    m_db.transaction();
+    QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), m_db );
+    Q_FOREACH(const DB::FileName& fileName, list) {
+        query.bindValue( 0, fileName.absolute() );
+        if ( !query.exec() )
+        {
+            m_db.rollback();
+            showError( query );
+            return;
+        }
+    }
+    m_db.commit();
+}
+
 bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
 {
     static QString _queryString;

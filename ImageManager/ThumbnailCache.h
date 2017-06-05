@@ -20,7 +20,7 @@
 #include "CacheFileInfo.h"
 #include <QMap>
 #include <QImage>
-#include <DB/FileName.h>
+#include <DB/FileNameList.h>
 
 template <class Key, class T>
 class QCache;
@@ -42,6 +42,7 @@ public:
     bool contains( const DB::FileName& name ) const;
     void load();
     void removeThumbnail( const DB::FileName& );
+    void removeThumbnails( const DB::FileNameList& );
 
 public slots:
     void save() const;

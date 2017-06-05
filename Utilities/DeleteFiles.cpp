@@ -59,7 +59,6 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
     QList<QUrl> filesToDelete;
 
     Q_FOREACH(const DB::FileName &fileName, files) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
 
         if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
             if ( method == DeleteFromDisk || method == MoveToTrash ){
@@ -72,6 +71,8 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
         else
             filenamesToRemove.append(fileName);
     }
+
+    ImageManager::ThumbnailCache::instance()->removeThumbnails( files );
 
     if ( method == DeleteFromDisk || method == MoveToTrash ) {
         KJob* job;

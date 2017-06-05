@@ -22,7 +22,7 @@
 #include <qstring.h>
 #include <QList>
 #include <qpair.h>
-#include <DB/FileName.h>
+#include <DB/FileNameList.h>
 
 namespace Exiv2 { class ExifData; }
 
@@ -84,6 +84,7 @@ public:
      */
     bool add( const DB::FileName& fileName );
     void remove( const DB::FileName& fileName );
+    void remove( const DB::FileNameList& list );
     /**
      * @brief readFields searches the exif database for a given file and fills the element list with values.
      * If the query fails or has no result, the ElementList is not changed.

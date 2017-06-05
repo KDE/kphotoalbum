@@ -275,4 +275,11 @@ void ImageManager::ThumbnailCache::removeThumbnail( const DB::FileName& fileName
     m_map.remove( fileName );
     save();
 }
+void ImageManager::ThumbnailCache::removeThumbnails( const DB::FileNameList& files )
+{
+    Q_FOREACH(const DB::FileName &fileName, files) {
+        m_map.remove( fileName );
+    }
+    save();
+}
 // vi:expandtab:tabstop=4 shiftwidth=4:

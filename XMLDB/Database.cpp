@@ -151,9 +151,9 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
                 m_stackMap.insert(inf->stackId(), newCache);
             }
         }
-        Exif::Database::instance()->remove( inf->fileName() );
         m_images.remove( inf );
     }
+    Exif::Database::instance()->remove( list );
     emit totalChanged( m_images.count() );
     emit imagesDeleted(list);
     emit dirty();

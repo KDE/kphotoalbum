@@ -69,6 +69,9 @@ public:
      * @param w
      */
     void addTagActions(QMenu *menu);
+    void markTidied();
+    bool isTidied() const;
+
 #ifdef HAVE_KFACE
     /**
      * If the face has been detected by the face detector, this method is called.
@@ -133,6 +136,7 @@ private: // Variables
     bool m_detectedFace;
     ProposedFaceDialog* m_proposedFaceDialog;
 #endif
+    bool m_tidied = false;
 };
 
 }

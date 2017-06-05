@@ -383,6 +383,10 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     // check existing areas for consistency
     Q_FOREACH(ResizableFrame *area, m_dialog->areas())
     {
+        if (area->isTidied()) {
+            continue;
+        }
+
         if (area->tagData() == selectedData)
         {
             if (KMessageBox::Cancel == KMessageBox::warningContinueCancel(
@@ -665,5 +669,15 @@ void AnnotationDialog::ResizableFrame::proposedFaceDialogRemoved()
     m_proposedFaceDialog = 0;
 }
 #endif
+
+void AnnotationDialog::ResizableFrame::markTidied()
+{
+    m_tidied = true;
+}
+
+bool AnnotationDialog::ResizableFrame::isTidied() const
+{
+    return m_tidied;
+}
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

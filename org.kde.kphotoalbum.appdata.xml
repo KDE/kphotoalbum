@@ -18,6 +18,7 @@
   <name xml:lang="pt-BR">KPhotoAlbum</name>
   <name xml:lang="sk">KPhotoAlbum</name>
   <name xml:lang="sv">Kfotoalbum</name>
+  <name xml:lang="tr">KPhotoAlbum</name>
   <name xml:lang="uk">KPhotoAlbum</name>
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
@@ -34,6 +35,7 @@
   <summary xml:lang="pt-BR">Software de gerenciamento de imagens do KDE</summary>
   <summary xml:lang="sk">KDE softvér na manipuláciu s obrázkami</summary>
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
+  <summary xml:lang="tr">KDE resim yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
   <description>
@@ -50,6 +52,7 @@
     <p xml:lang="pt-BR">KPhotoAlbum é um aplicativo para etiquetar e gerenciar uma coleção de fotos e torná-la pesquisável.</p>
     <p xml:lang="sk">KPhotoAlbum je aplikácia na označovanie a správu kolekcie fotografií a jej prehľadávanie.</p>
     <p xml:lang="sv">Kfotoalbum är ett program för att etikettera och hantera en fotosamling och göra den sökbar.</p>
+    <p xml:lang="tr">KPhotoAlbum resim koleksiyonunu etiketlemek ve yöneten ve onu aranabilir yapan için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
     <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
   </description>

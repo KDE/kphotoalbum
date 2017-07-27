@@ -414,7 +414,7 @@ add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
 add_subdirectory(themes)
-add_subdirectory(script)
+add_subdirectory(scripts)
 add_subdirectory(doc)
 
 

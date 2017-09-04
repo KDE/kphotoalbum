@@ -66,8 +66,8 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
         m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
     } else {
         QStringList arguments;
-        arguments << STR("-i") << fileName.absolute()
-                  << STR("-sn") << STR("-an") << STR("-ss") << QString::number(offset,'f',4)
+        arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-i") << fileName.absolute()
+                  << STR("-sn") << STR("-an")
                   << STR("-vframes") << STR("20")
                   << m_workingDirectory + STR("/000000%02d.png");
         //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));

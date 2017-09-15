@@ -25,7 +25,7 @@
 
 #define STR(x) QString::fromUtf8(x)
 
-#if 0
+#ifdef DEBUG_IMAGEMANAGER
 #  define Debug qDebug
 #else
 #  define Debug if(0) qDebug
@@ -69,7 +69,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
                   << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
                   <<  fileName.absolute();
 
-        //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
         m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
     }
 }

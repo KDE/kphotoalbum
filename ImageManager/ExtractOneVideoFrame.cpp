@@ -35,6 +35,13 @@
 #include <Utilities/Process.h>
 #include <Utilities/Set.h>
 
+#ifdef DEBUG_IMAGEMANAGER
+#  define Debug qDebug
+#else
+#  define Debug if(0) qDebug
+#endif
+
+
 namespace ImageManager {
 QString ExtractOneVideoFrame::s_tokenForShortVideos;
 
@@ -61,7 +68,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
         QStringList arguments;
         arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'f',4) << STR("-vf")
                   << STR("screenshot") << STR("-frames") << STR("20") << STR("-vo") << STR("png:z=9") << fileName.absolute();
-        //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
         m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
     } else {
@@ -70,7 +77,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
                   << STR("-sn") << STR("-an")
                   << STR("-vframes") << STR("20")
                   << m_workingDirectory + STR("/000000%02d.png");
-        //qDebug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
         m_process->start(MainWindow::FeatureDialog::ffmpegBinary(), arguments);
     }
@@ -86,7 +93,7 @@ void ExtractOneVideoFrame::frameFetched()
         name = m_workingDirectory +STR("/000000%1.png").arg(i,2, 10, QChar::fromLatin1('0'));
         if (QFile::exists(name))
         {
-            //qDebug() << "Using video frame " << i;
+            Debug() << "Using video frame " << i;
             break;
         }
     }

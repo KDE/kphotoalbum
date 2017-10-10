@@ -59,15 +59,10 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
         widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
-        if ( fileName.isNull() ) {
-            // We're dragging behind the last item
-            model()->setRightDropItem(model()->imageAt( model()->imageCount() - 1));
-        } else {
-            model()->setLeftDropItem(fileName);
-            const int index = model()->indexOf(fileName) - 1;
-            if ( index != -1 )
-                model()->setRightDropItem(model()->imageAt(index));
-        }
+        model()->setLeftDropItem(fileName);
+        const int index = model()->indexOf(fileName) - 1;
+        if ( index != -1 )
+            model()->setRightDropItem(model()->imageAt(index));
     }
 
     else {

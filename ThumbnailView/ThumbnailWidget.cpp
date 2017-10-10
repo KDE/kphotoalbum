@@ -380,7 +380,7 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
         {
             case IncludeAllStacks:
                 includeAllStacks = true;
-                // no break!
+                /* FALLTHROUGH */
             case ExpandCollapsedStacks:
                 {
                     // if the selected image belongs to a collapsed thread,

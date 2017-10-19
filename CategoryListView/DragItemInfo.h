@@ -19,7 +19,8 @@
 #define CATEGORYLISTVIEW_DRAGITEMINFO_H
 
 #include <qstring.h>
-#include "Utilities/Set.h"
+#include <qpair.h>
+#include <qhash.h>
 
 namespace CategoryListView
 {

@@ -19,7 +19,7 @@
 #include "GroupCounter.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 using namespace DB;
 
 

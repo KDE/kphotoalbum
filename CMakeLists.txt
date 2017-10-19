@@ -223,7 +223,6 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/UniqFilenameMapper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Set.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp

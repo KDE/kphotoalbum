@@ -33,7 +33,7 @@
 #include <MainWindow/TokenEditor.h>
 #include <MainWindow/Window.h>
 #include <Utilities/Process.h>
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 
 #ifdef DEBUG_IMAGEMANAGER
 #  define Debug qDebug

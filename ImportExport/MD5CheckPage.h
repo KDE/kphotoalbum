@@ -21,7 +21,7 @@
 #include <QGridLayout>
 #include "ImportSettings.h"
 #include <QWidget>
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 class QButtonGroup;
 
 namespace ImportExport

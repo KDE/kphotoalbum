@@ -18,7 +18,7 @@
 
 #include "CategoryImagePopup.h"
 #include <KLocalizedString>
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 #include <qstringlist.h>
 #include "Window.h"
 #include "DB/CategoryCollection.h"

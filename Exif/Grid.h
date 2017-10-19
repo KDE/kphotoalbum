@@ -20,7 +20,7 @@
 
 #include <QScrollArea>
 #include <DB/FileName.h>
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 #include <QMap>
 
 class QLabel;

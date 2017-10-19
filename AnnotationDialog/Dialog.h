@@ -19,7 +19,7 @@
 #ifndef ANNOTATIONDIALOG_DIALOG_H
 #define ANNOTATIONDIALOG_DIALOG_H
 
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
 #include <QList>

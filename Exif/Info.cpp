@@ -18,7 +18,7 @@
 #include "Info.h"
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Delegate.h"
-#include "Utilities/Set.h"
 #include "Utilities/Util.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"

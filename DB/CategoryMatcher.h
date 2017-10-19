@@ -22,7 +22,7 @@
 #include <QMap>
 
 #include <DB/ImageInfoPtr.h>
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 
 namespace DB
 {

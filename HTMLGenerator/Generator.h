@@ -26,7 +26,6 @@
 
 #include <DB/CategoryPtr.h>
 #include <ImageManager/ImageClientInterface.h>
-#include <Utilities/Set.h>
 #include <Utilities/UniqFilenameMapper.h>
 #include "Setup.h"
 
@@ -34,7 +33,6 @@ namespace DB { class Id; }
 
 namespace HTMLGenerator
 {
-using Utilities::StringSet;
 
 class Generator :public QProgressDialog, private ImageManager::ImageClientInterface
 {

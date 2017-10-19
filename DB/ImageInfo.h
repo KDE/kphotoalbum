@@ -23,7 +23,7 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include "ImageDate.h"
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 #include "MD5.h"
 #include "ExifMode.h"
 #include "DB/CategoryPtr.h"

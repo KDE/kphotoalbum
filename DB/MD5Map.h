@@ -20,14 +20,11 @@
 #define MD5MAP_H
 #include <qstring.h>
 #include <qmap.h>
-#include "Utilities/Set.h"
 #include "MD5.h"
 #include <DB/FileName.h>
 
 namespace DB
 {
-using Utilities::StringSet;
-
 /**
    This class may be overridden by a which wants to store md5 information
    directly in a database, rather than in a map in memory.

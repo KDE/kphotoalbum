@@ -29,7 +29,7 @@
 #ifdef HAVE_KGEOMAP
 #include <KGeoMap/GeoCoordinates>
 #endif
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 namespace DB
 {
 

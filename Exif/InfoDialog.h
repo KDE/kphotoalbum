@@ -23,7 +23,6 @@
 
 #include "DB/FileName.h"
 #include "ImageManager/ImageClientInterface.h"
-#include "Utilities/Set.h"
 
 class QComboBox;
 class QLineEdit;

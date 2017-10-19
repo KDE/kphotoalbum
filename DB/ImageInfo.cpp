@@ -29,7 +29,7 @@
 #include <Exif/DatabaseElement.h>
 #include <Exif/Database.h>
 #include <Settings/SettingsData.h>
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 #include <Utilities/Util.h>
 #include "FileInfo.h"
 
@@ -127,7 +127,7 @@ bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) cons
 
 bool DB::ImageInfo::hasCategoryInfo( const QString& key, const StringSet& values ) const
 {
-    return Utilities::overlap( m_categoryInfomation[key], values );
+    return values.intersects( m_categoryInfomation[key] );
 }
 
 

@@ -36,7 +36,6 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
 #include "Settings/SettingsData.h"
-#include "Utilities/Set.h"
 #include "Utilities/Util.h"
 #include "SelectionMaintainer.h"
 
@@ -48,7 +47,6 @@
  * simply was too many problems, so after years of tears and pains I
  * rewrote it.
  */
-using Utilities::StringSet;
 
 ThumbnailView::ThumbnailWidget::ThumbnailWidget( ThumbnailFactory* factory)
     :QListView(),

@@ -21,7 +21,7 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qobject.h>
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 
 namespace DB
 {

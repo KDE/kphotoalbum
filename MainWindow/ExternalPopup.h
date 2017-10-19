@@ -21,7 +21,7 @@
 #include <QMenu>
 #include <QPixmap>
 #include "DB/ImageInfoList.h"
-#include <Utilities/Set.h>
+#include <Utilities/StringSet.h>
 #include <qpair.h>
 #include <DB/FileNameList.h>
 

@@ -19,7 +19,7 @@
 #define EXIF_INFO_H
 #include <qmap.h>
 #include <qstringlist.h>
-#include "Utilities/Set.h"
+#include "Utilities/StringSet.h"
 #include <exiv2/exif.hpp>
 #include <exiv2/iptc.hpp>
 

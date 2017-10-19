@@ -19,7 +19,6 @@
 #include "Settings/SettingsData.h"
 #include <QApplication>
 #include <Utilities/BooleanGuard.h>
-#include "Utilities/Set.h"
 #include "Utilities/Util.h"
 #include <cmath>
 

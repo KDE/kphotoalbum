@@ -18,9 +18,10 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef UTILITIES_SET_H
-#define UTILITIES_SET_H
+#ifndef UTILITIES_STRINGSET_H
+#define UTILITIES_STRINGSET_H
 
+#include <QString>
 #include <QSet>
 
 namespace Utilities
@@ -29,10 +30,8 @@ namespace Utilities
      * For backwards compatibility we still use a useful typedef, the StringSet
      */
     typedef QSet<QString> StringSet;
-
-    bool overlap( const StringSet& set1, const StringSet& set2 );
 }
 
 
-#endif /* UTILITIES_SET_H */
+#endif /* UTILITIES_STRINGSET_H */
 // vi:expandtab:tabstop=4 shiftwidth=4:

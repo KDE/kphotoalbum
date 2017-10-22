@@ -22,6 +22,7 @@
 #include <cstdlib>
 
 #include <QDir>
+#include <QDebug>
 
 #include <KLocalizedString>
 #include <KMessageBox>

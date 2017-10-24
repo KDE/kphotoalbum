@@ -41,6 +41,7 @@
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <QDebug>
+#include <QProgressBar>
 
 using namespace DB;
 
@@ -140,6 +141,9 @@ void NewImageFinder::loadExtraFiles()
     dialog.setLabelText( i18n("<p><b>Loading information from new files</b></p>"
                               "<p>Depending on the number of images, this may take some time.<br/>"
                               "However, there is only a delay when new images are found.</p>") );
+    QProgressBar *progressBar = new QProgressBar;
+    progressBar->setFormat( QLatin1String("%v/%m") );
+    dialog.setBar(progressBar);
     dialog.setMaximum( m_pendingLoad.count() );
     dialog.setMinimumDuration( 1000 );
 

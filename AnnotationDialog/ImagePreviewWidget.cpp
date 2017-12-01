@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2017 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -61,6 +61,14 @@ ImagePreviewWidget::ImagePreviewWidget() : QWidget()
     m_nextBut->setToolTip( i18n("Annotate next image") );
 
     controlButtonsLayout->addStretch(1);
+
+    m_toggleFullscreenPreview = new QPushButton;
+    m_toggleFullscreenPreview->setIcon(QIcon::fromTheme(QString::fromUtf8("file-zoom-in")));
+    m_toggleFullscreenPreview->setFixedWidth(40);
+    m_toggleFullscreenPreview->setToolTip(i18n("Toggle full-screen preview (CTRL+Space)"));
+    controlButtonsLayout->addWidget(m_toggleFullscreenPreview);
+    connect(m_toggleFullscreenPreview, &QPushButton::clicked,
+            this, &ImagePreviewWidget::toggleFullscreenPreview);
 
     m_rotateLeft = new QPushButton( this );
     controlButtonsLayout->addWidget( m_rotateLeft );
@@ -395,6 +403,11 @@ void ImagePreviewWidget::setFacedetectButEnabled(bool state)
 void ImagePreviewWidget::setSearchMode(bool state)
 {
     m_controlWidget->setVisible(! state);
+}
+
+void ImagePreviewWidget::toggleFullscreenPreview()
+{
+    emit togglePreview();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

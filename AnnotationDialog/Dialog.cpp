@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2017 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -425,6 +425,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
 QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 {
     m_preview = new ImagePreviewWidget();
+    connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
     return m_preview;
 }
 

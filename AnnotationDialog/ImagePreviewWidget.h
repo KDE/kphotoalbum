@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2017 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -74,15 +74,20 @@ signals:
     void indexChanged( int newIndex );
     void copyPrevClicked();
     void areaVisibilityChanged(bool visible);
+    void togglePreview();
 
-private:
+private: // Functions
     /**
      * Update labels and tooltip texts when canCreateAreas() changes.
      */
     void updateTexts();
+    void toggleFullscreenPreview();
+
+private: // Variables
     ImagePreview* m_preview;
     QPushButton* m_prevBut;
     QPushButton* m_nextBut;
+    QPushButton *m_toggleFullscreenPreview;
     QPushButton* m_rotateLeft;
     QPushButton* m_rotateRight;
     QPushButton* m_delBut;

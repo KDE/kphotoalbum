@@ -77,12 +77,15 @@ AnnotationDialog::ProposedFaceDialog::~ProposedFaceDialog()
 {
 }
 
-void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent*)
+void AnnotationDialog::ProposedFaceDialog::paintEvent(QPaintEvent *event)
 {
+    /*
     QColor backgroundColor = Qt::white;
     backgroundColor.setAlpha(160);
     QPainter painter(this);
     painter.fillRect(rect(), backgroundColor);
+    */
+    QDialog::paintEvent(event);
 }
 
 void AnnotationDialog::ProposedFaceDialog::leaveEvent(QEvent*)

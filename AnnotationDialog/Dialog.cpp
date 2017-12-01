@@ -1038,6 +1038,11 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 
 void AnnotationDialog::Dialog::reject()
 {
+    if (m_stack->currentWidget() == m_fullScreenPreview) {
+        togglePreview();
+        return;
+    }
+
     m_fullScreenPreview->stopPlayback();
     if (hasChanges()) {
         int code =  KMessageBox::questionYesNo( this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>") );

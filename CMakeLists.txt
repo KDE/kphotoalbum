@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.2.0)
 project(kphotoalbum VERSION 5.2)
 
 if(POLICY CMP0063)

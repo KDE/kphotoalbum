@@ -26,7 +26,6 @@
 // Local includes
 #include "DB/ImageInfo.h"
 #include "ImagePreview.h"
-#include "config-kpa-kface.h"
 
 class QCheckBox;
 class QPushButton;
@@ -51,9 +50,6 @@ public:
     bool showAreas() const;
     void canCreateAreas(bool state);
     void setFacedetectButEnabled(bool state);
-#ifdef HAVE_KFACE
-    bool automatedTraining();
-#endif
     void setSearchMode(bool state);
     void updatePositionableCategories(QList<QString> positionableCategories = QList<QString>());
     QString defaultPositionableCategory() const;
@@ -97,9 +93,6 @@ private: // Variables
     QList<DB::ImageInfo>* m_imageList;
     int m_current;
     bool m_singleEdit;
-#ifdef HAVE_KFACE
-    QCheckBox *m_autoTrainDatabase;
-#endif
     QLabel* m_defaultAreaCategoryLabel;
     QComboBox* m_defaultAreaCategory;
     QWidget* m_controlWidget;

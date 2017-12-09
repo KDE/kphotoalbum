@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include <config-kpa-kipi.h>
-#include <config-kpa-kface.h>
 #include <config-kpa-kgeomap.h>
 #include "FeatureDialog.h"
 
@@ -79,11 +78,6 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs an Sqlite database. "
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
-
-    text += i18n("<h1><a name=\"kface\">Face detection and recognition support</a></h1>"
-                 "<p>If KPhotoAlbum has been built with support for libkface, "
-                 "face detection and recognition features are enabled in the annotation dialog."
-                 "</p>");
 
     text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
                  "<p>If KPhotoAlbum has been built with support for libkgeomap, "
@@ -148,15 +142,6 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
     return Exif::Database::isAvailable();
 }
 
-bool MainWindow::FeatureDialog::hasKfaceSupport()
-{
-#ifdef HAVE_KFACE
-    return true;
-#else
-    return false;
-#endif
-}
-
 bool MainWindow::FeatureDialog::hasGeoMapSupport()
 {
 #ifdef HAVE_KGEOMAP
@@ -210,7 +195,7 @@ bool FeatureDialog::hasVideoProber()
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasEXIV2DBSupport() && hasKfaceSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
+    return hasKIPISupport() && hasEXIV2DBSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
 }
 
 struct Data
@@ -228,7 +213,6 @@ QString MainWindow::FeatureDialog::featureString()
     QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"), hasEXIV2DBSupport() );
-    features << Data( i18n( "Face detection and recognition support" ), QString::fromLatin1("#kface"),  hasKfaceSupport() );
     features << Data( i18n( "Map view for geotagged images." ), QString::fromLatin1("#geomap"),  hasGeoMapSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 

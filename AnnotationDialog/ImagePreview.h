@@ -18,14 +18,8 @@
 
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
-#include "config-kpa-kface.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClientInterface.h"
-
-#ifdef HAVE_KFACE
-#include "FaceManagement/Detector.h"
-#include "FaceManagement/Recognizer.h"
-#endif
 
 #include <QLabel>
 #include <QTimer>
@@ -54,17 +48,10 @@ public:
     void createTaggedArea(QString category, QString tag, QRect geometry, bool showArea);
     QSize getActualImageSize();
     void acceptProposedTag(QPair<QString, QString> tagData, ResizableFrame *area);
-#ifdef HAVE_KFACE
-    void trainRecognitionDatabase(QRect geometry, QPair<QString, QString> tagData);
-    void recognizeArea(ResizableFrame *area);
-#endif
     QPixmap grabAreaImage(QRect area);
 
 public slots:
     void setAreaCreationEnabled(bool state);
-#ifdef HAVE_KFACE
-    void detectFaces();
-#endif
 
 signals:
     void areaCreated(ResizableFrame *area);
@@ -139,10 +126,6 @@ private:
     QRect rotateArea(QRect originalAreaGeometry, int angle);
     bool m_areaCreationEnabled;
     QMap<QString, QPair<int, QSize>> m_imageSizes;
-#ifdef HAVE_KFACE
-    FaceManagement::Recognizer *m_recognizer;
-    FaceManagement::Detector *m_detector;
-#endif
     QImage m_fullSizeImage;
     void fetchFullSizeImage();
     bool fuzzyAreaExists(QList<QRect> &existingAreas, QRect area);

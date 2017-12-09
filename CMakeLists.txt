@@ -33,11 +33,6 @@ add_definitions(
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_REQUIRED TRUE)
 
-########## general options ##############
-
-option(ENABLE_PLAYGROUND "Enable features that are not quite polished enough for general consumption" OFF)
-add_feature_info(ENABLE_PLAYGROUND "${ENABLE_PLAYGROUND}" "Enable features that are not quite polished enough for general consumption")
-
 ########### Debug options ###############
 
 foreach(part in
@@ -86,16 +81,6 @@ set_package_properties(KF5KDcraw
     PURPOSE "Enables RAW image support"
     )
 set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
-
-if(ENABLE_PLAYGROUND)
-    find_package(KF5KFace 5.0.0 CONFIG)
-    set_package_properties(KF5KFace
-        PROPERTIES
-        TYPE OPTIONAL
-        PURPOSE "Enables support for face detection and recognition."
-        )
-    set(HAVE_KFACE ${KF5KFace_FOUND})
-endif()
 
 find_package(KF5KGeoMap)
 set_package_properties(KF5KGeoMap
@@ -388,16 +373,6 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
     )
 
-set(libFaceManagement_SRCS)
-if(KF5KFace_FOUND)
-    set(libFaceManagement_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Detector.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FaceManagement/Recognizer.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Settings/FaceManagementPage.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ProposedFaceDialog.cpp
-        )
-endif()
-
 set(libMap_SRCS)
 if(KF5KGeoMap_FOUND)
     set(libMap_SRCS
@@ -440,7 +415,6 @@ set(kphotoalbum_SRCS
     ${libBackgroundTaskManager_SRCS}
     ${libBackgroundJobs_SRCS}
     ${libRemoteControl_SRCS}
-    ${libFaceManagement_SRCS}
     ${libMap_SRCS}
     ${libUtilities_SRCS}
     )
@@ -477,11 +451,6 @@ if(KF5KDcraw_FOUND)
     target_link_libraries(kphotoalbum KF5::KDcraw)
 endif()
 
-
-if(KF5KFace_FOUND)
-    target_link_libraries(kphotoalbum KF5::KFace )
-endif()
-
 if(KF5KGeoMap_FOUND)
     target_link_libraries(kphotoalbum KF5::KGeoMap )
 endif()
@@ -498,7 +467,6 @@ install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFO
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
-configure_file(config-kpa-kface.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kface.h)
 configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

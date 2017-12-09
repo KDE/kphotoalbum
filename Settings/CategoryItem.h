@@ -24,7 +24,6 @@
 
 // Local includes
 #include "DB/Category.h"
-#include "config-kpa-kface.h"
 
 namespace DB {
 
@@ -62,11 +61,6 @@ public:
     void setIcon(const QString& icon);
     QString originalName() const;
     void markAsNewCategory();
-
-#ifdef HAVE_KFACE
-signals:
-    void newCategoryNameSaved(QString oldName, QString newName);
-#endif
 
 protected:
     void renameCategory(DB::MemberMap* memberMap);

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config-kpa-kface.h"
 #include "ListSelect.h"
 
 #include "CompletableLineEdit.h"
@@ -419,14 +418,6 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 emit positionableTagDeselected(m_category->name(), item->text(0));
             }
 
-#ifdef HAVE_KFACE
-            // Also delete this tag from the recognition database (if it's there)
-            if (m_positionable) {
-                m_recognizer = FaceManagement::Recognizer::instance();
-                m_recognizer->deleteTag(m_category->name(), item->text(0));
-            }
-#endif
-
             m_category->removeItem( item->text(0) );
             rePopulate();
         }
@@ -459,11 +450,6 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 KIO::move( QUrl(oldFile), QUrl(newFile) );
 
                 if (m_positionable) {
-#ifdef HAVE_KFACE
-                    // Handle the identity name that we probably have in the recognition database
-                    m_recognizer = FaceManagement::Recognizer::instance();
-                    m_recognizer->changeIdentityName(m_category->name(), oldStr, newStr);
-#endif
                     // Also take care of areas that could be linked against this
                     emit positionableTagRenamed(m_category->name(), oldStr, newStr);
                 }

@@ -19,8 +19,6 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 
-#include "config-kpa-kface.h"
-
 // Qt includes
 #include <QLabel>
 #include <QWidget>
@@ -28,9 +26,6 @@
 
 // Local includes
 #include "SettingsData.h"
-#ifdef HAVE_KFACE
-#include <FaceManagement/Recognizer.h>
-#endif
 
 // Qt classes
 class QListWidget;
@@ -91,9 +86,6 @@ private slots:
     void categoryNameChanged(QListWidgetItem* item);
     void categoryDoubleClicked(QListWidgetItem*);
     void listWidgetEditEnd(QWidget*, QAbstractItemDelegate::EndEditHint);
-#ifdef HAVE_KFACE
-    void renameRecognitionCategory(QString oldName, QString newName);
-#endif
     void saveDbNow();
 
 private: // Functions
@@ -118,10 +110,6 @@ private: // Variables
     UntaggedGroupBox* m_untaggedBox;
     QString m_categoryNameBeforeEdit;
     bool m_editorOpen;
-#ifdef HAVE_KFACE
-    FaceManagement::Recognizer* m_recognizer;
-    QList<CategoryItem*> m_unMarkedAsPositionable;
-#endif
     QLabel* m_dbNotSavedLabel;
     QPushButton* m_saveDbNowButton;
     bool m_categoryNamesChanged;

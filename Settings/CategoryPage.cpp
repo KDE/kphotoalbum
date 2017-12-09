@@ -350,9 +350,6 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
     }
 
     m_currentCategory->setPositionable(positionable);
-#ifdef HAVE_KFACE
-    m_unMarkedAsPositionable.append(m_currentCategory);
-#endif
 }
 
 void Settings::CategoryPage::iconChanged(const QString& icon)
@@ -488,28 +485,10 @@ void Settings::CategoryPage::enableDisable(bool b)
 
 void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap)
 {
-#ifdef HAVE_KFACE
-    m_recognizer = FaceManagement::Recognizer::instance();
-#endif
-
     // Delete items
     Q_FOREACH( CategoryItem *item, m_deletedCategories ) {
-#ifdef HAVE_KFACE
-        m_recognizer->deleteCategory(item->text());
-#endif
         item->removeFromDatabase();
     }
-
-#ifdef HAVE_KFACE
-    m_deletedCategories = QList<CategoryItem*>();
-
-    // Categories un-marked as positionable
-    Q_FOREACH( const CategoryItem *item, m_unMarkedAsPositionable ) {
-        // For the recognition database, this is the same as if the category had been deleted
-        m_recognizer->deleteCategory(item->text());
-    }
-    m_unMarkedAsPositionable = QList<CategoryItem*>();
-#endif
 
     // Created or Modified items
     for (int i = 0; i < m_categoriesListWidget->count(); ++i) {
@@ -544,11 +523,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
                                                             m_categoriesListWidget,
                                                             category->positionable());
             Q_UNUSED(item);
-#ifdef HAVE_KFACE
-            if (category->positionable()) {
-                connect(item, &Settings::CategoryItem::newCategoryNameSaved, this, &CategoryPage::renameRecognitionCategory);
-            }
-#endif
         }
     }
 
@@ -556,13 +530,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
 
     m_untaggedBox->loadSettings(opt);
 }
-
-#ifdef HAVE_KFACE
-void Settings::CategoryPage::renameRecognitionCategory(QString oldName, QString newName)
-{
-    m_recognizer->updateCategoryName(oldName, newName);
-}
-#endif
 
 void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem*)
 {

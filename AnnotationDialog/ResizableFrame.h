@@ -31,15 +31,10 @@
 #include "enums.h"
 #include "Dialog.h"
 #include "ListSelect.h"
-#include "config-kpa-kface.h"
 
 class QMouseEvent;
 
 namespace AnnotationDialog {
-
-#ifdef HAVE_KFACE
-class ProposedFaceDialog;
-#endif
 
 class ResizableFrame : public QFrame
 {
@@ -72,43 +67,17 @@ public:
     void markTidied();
     bool isTidied() const;
 
-#ifdef HAVE_KFACE
-    /**
-     * If the face has been detected by the face detector, this method is called.
-     * In this case, the marking is considered "good enough" for the recognition
-     * database to be trained on this face.
-     *
-     * When a user manually marks a person, this should not be called.
-     */
-    void markAsFace();
-    void proposedFaceDialogRemoved();
-
-public slots:
-    void acceptTag();
-#endif
-
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void contextMenuEvent(QContextMenuEvent *);
-#ifdef HAVE_KFACE
-    void enterEvent(QEvent*);
-    void leaveEvent(QEvent*);
-
-protected slots:
-    void checkUnderMouse();
-#endif
 
 private slots:
     void associateTag();
     void associateTag(QAction* action);
     void remove();
     void removeTag();
-#ifdef HAVE_KFACE
-    void updateRecognitionDatabase();
-    void recognize();
-#endif
 
 private: // Functions
     void getMinMaxCoordinates();
@@ -128,14 +97,6 @@ private: // Variables
     QPair<QString, QString> m_proposedTagData;
     ImagePreview* m_preview;
     ImagePreviewWidget* m_previewWidget;
-#ifdef HAVE_KFACE
-    QAction* m_updateRecognitionDatabaseAct;
-    QAction* m_recognizeAct;
-    bool m_changed;
-    bool m_trained;
-    bool m_detectedFace;
-    ProposedFaceDialog* m_proposedFaceDialog;
-#endif
     bool m_tidied = false;
 };
 

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config-kpa-kface.h"
 #include "Dialog.h"
 
 #include "DescriptionEdit.h"
@@ -1573,11 +1572,6 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
 
     // Check if an area on the current image contains the changed or proposed tag
     foreach (ResizableFrame *area, areas()) {
-#ifdef HAVE_KFACE
-        if (area->proposedTagData() == oldTagData) {
-            area->setProposedTagData(QPair<QString, QString>(category, newTag));
-        }
-#endif
         if (area->tagData() == oldTagData) {
             area->setTagData(category, newTag);
         }

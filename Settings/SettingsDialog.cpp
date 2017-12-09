@@ -17,7 +17,6 @@
 */
 
 #include "config-kpa-kipi.h"
-#include "config-kpa-kface.h"
 #include "SettingsDialog.h"
 
 #include <QDialogButtonBox>
@@ -31,9 +30,6 @@
 #include "CategoryPage.h"
 #include "DatabaseBackendPage.h"
 #include "ExifPage.h"
-#ifdef HAVE_KFACE
-#include "FaceManagementPage.h"
-#endif
 #include "FileVersionDetectionPage.h"
 #include "GeneralPage.h"
 #include "PluginsPage.h"
@@ -65,10 +61,6 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
     m_exifPage = new Settings::ExifPage(this);
 
-#ifdef HAVE_KFACE
-    m_faceManagementPage = new Settings::FaceManagementPage(this);
-#endif
-
     m_birthdayPage = new Settings::BirthdayPage(this);
 
     m_databaseBackendPage = new Settings::DatabaseBackendPage(this);
@@ -88,9 +80,6 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
         { i18n("EXIF/IPTC Information" ), "document-properties", m_exifPage },
         { i18n("Database backend"), "document-save", m_databaseBackendPage },
-#ifdef HAVE_KFACE
-        { i18n("Face management" ), "edit-image-face-detect", m_faceManagementPage },
-#endif
         { QString(), "", 0 }
     };
 
@@ -117,10 +106,6 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
             m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
     connect(this, &SettingsDialog::currentPageChanged,
             m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
-#ifdef HAVE_KFACE
-    connect(this, &SettingsDialog::currentPageChanged,
-            m_faceManagementPage, &Settings::FaceManagementPage::slotPageChange);
-#endif
     connect(this, &SettingsDialog::currentPageChanged,
             m_birthdayPage, &Settings::BirthdayPage::pageChange);
 
@@ -147,10 +132,6 @@ void Settings::SettingsDialog::show()
     m_categoryPage->loadSettings(opt);
 
     m_exifPage->loadSettings( opt );
-
-#ifdef HAVE_KFACE
-    m_faceManagementPage->loadSettings(opt);
-#endif
 
     m_categoryPage->enableDisable( false );
 
@@ -182,11 +163,6 @@ void Settings::SettingsDialog::slotMyOK()
 #endif
 
     m_exifPage->saveSettings(opt);
-
-#ifdef HAVE_KFACE
-    m_faceManagementPage->saveSettings(opt);
-    m_faceManagementPage->clearDatabaseEntries();
-#endif
 
     m_databaseBackendPage->saveSettings(opt);
 

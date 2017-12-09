@@ -22,9 +22,6 @@
 // KDE includes
 #include <KPageDialog>
 
-// Local includes
-#include "config-kpa-kface.h"
-
 namespace KIPI { class ConfigWidget; }
 namespace Exif { class TreeView; }
 
@@ -41,9 +38,6 @@ class FileVersionDetectionPage;
 class PluginsPage;
 class ExifPage;
 class DatabaseBackendPage;
-#ifdef HAVE_KFACE
-class FaceManagementPage;
-#endif
 class BirthdayPage;
 
 class SettingsDialog :public KPageDialog {
@@ -73,9 +67,6 @@ private:
     Settings::PluginsPage* m_pluginsPage;
     Settings::ExifPage* m_exifPage;
     Settings::DatabaseBackendPage* m_databaseBackendPage;
-#ifdef HAVE_KFACE
-    Settings::FaceManagementPage *m_faceManagementPage;
-#endif
     Settings::BirthdayPage* m_birthdayPage;
     KPageWidgetItem* m_backendPage;
 

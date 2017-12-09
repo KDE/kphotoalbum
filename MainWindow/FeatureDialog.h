@@ -55,7 +55,6 @@ protected:
     static bool hasKIPISupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
-    static bool hasKfaceSupport();
     static bool hasGeoMapSupport();
 };
 

@@ -10,12 +10,12 @@
 namespace Utilities {
 
 template <class Container, class UnaryPredicate>
-bool any_of( const Container& container, UnaryPredicate p) {
+static bool any_of( const Container& container, UnaryPredicate p) {
     return std::any_of( container.begin(), container.end(), p);
 }
 
 template <class Container, class UnaryPredicate>
-bool all_of( const Container& container, UnaryPredicate p) {
+static bool all_of( const Container& container, UnaryPredicate p) {
     return std::all_of( container.begin(), container.end(), p);
 }
 

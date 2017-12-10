@@ -202,6 +202,7 @@ set(libHTMLGenerator_SRCS
     )
 
 set(libUtilities_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/AlgorithmHelper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Graph.cpp

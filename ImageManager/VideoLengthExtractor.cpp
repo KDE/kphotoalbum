@@ -64,8 +64,8 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
         m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
     } else {
         QStringList arguments;
-        arguments << STR("-v") << STR("error") << STR("-select_streams") << STR("v:0")
-                  << STR("-show_entries") << STR("stream=duration")
+        // Just look at the length of the container. Some videos have streams without duration entry
+        arguments << STR("-v") << STR("0") << STR("-show_entries") << STR("format=duration")
                   << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
                   <<  fileName.absolute();
 
@@ -104,10 +104,8 @@ void ImageManager::VideoLengthExtractor::processEnded()
         lenStr = regexp.cap(1);
     } else {
         QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
-        // one line-break -> 2 parts
-        // some videos with subtitles or other additional streams might have more than one line
-        // in these cases, we just take the first one as both lengths should be the same anyways
-        if ( list.count() < 2 ) {
+        // ffprobe -v 0 just prints one line, except if panicking
+        if ( list.count() < 1 ) {
             qWarning() << "Unable to parse video length from ffprobe output!"
                        << "Output was:\n"
                        << m_process->stdout();

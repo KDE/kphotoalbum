@@ -74,10 +74,11 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
         m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
     } else {
         QStringList arguments;
-        arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-i") << fileName.absolute()
-                  << STR("-sn") << STR("-an")
-                  << STR("-vframes") << STR("20")
-                  << m_workingDirectory + STR("/000000%02d.png");
+        // analyzeduration is for videos where the videostream starts later than the sound
+        arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-analyzeduration")
+                  << STR("200M") << STR("-i") << fileName.absolute() << STR("-vf") << STR("thumbnail")
+                  << STR("-vframes") << STR("20") << m_workingDirectory + STR("/000000%02d.png");
+
         Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
         m_process->start(MainWindow::FeatureDialog::ffmpegBinary(), arguments);

@@ -48,23 +48,10 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     :QDialog( parent ), m_list( list )
 {
     setWindowTitle( i18n("Automatically Stack Images" ) );
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    QWidget *mainWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &AutoStackImages::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &AutoStackImages::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
 
     QWidget* top = new QWidget;
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
     QVBoxLayout* lay1 = new QVBoxLayout( top );
+    setLayout(lay1);
 
     QWidget* containerMd5 = new QWidget( this );
     lay1->addWidget( containerMd5 );
@@ -122,6 +109,14 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     m_autostackSkip = new QRadioButton( i18n( "Skip images that are already in a stack") );
     m_autostackSkip->setChecked( false );
     grpLayOptions->addWidget( m_autostackSkip );
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &AutoStackImages::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &AutoStackImages::reject);
+    lay1->addWidget(buttonBox);
 }
 
 /*

@@ -46,22 +46,10 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent )
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
-    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setDefault(true);
-    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &InvalidDateFinder::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &InvalidDateFinder::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-    mainLayout->addWidget(buttonBox);
-
-    QWidget* top = new QWidget;
-//PORTING: Verify that widget was added to mainLayout:     setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
-    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QGroupBox* grp = new QGroupBox( i18n("Which Images and Videos to Display") );
     QVBoxLayout* grpLay = new QVBoxLayout( grp );
-    lay1->addWidget( grp );
+    mainLayout->addWidget( grp );
 
     m_dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp") );
     m_missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ) );
@@ -71,6 +59,13 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent )
     grpLay->addWidget( m_dateNotTime );
     grpLay->addWidget( m_missingDate );
     grpLay->addWidget( m_partialDate );
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &InvalidDateFinder::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &InvalidDateFinder::reject);
+    mainLayout->addWidget(buttonBox);
 }
 
 void InvalidDateFinder::accept()
@@ -83,23 +78,18 @@ void InvalidDateFinder::accept()
     QVBoxLayout *mainLayout = new QVBoxLayout;
     info->setLayout(mainLayout);
     info->setWindowTitle( i18n("Image Info" ) );
+
+    KTextEdit* edit = new KTextEdit( info );
+    mainLayout->addWidget( edit );
+    edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
+
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    info->connect(buttonBox, &QDialogButtonBox::accepted, this, &InvalidDateFinder::accept);
-    info->connect(buttonBox, &QDialogButtonBox::rejected, this, &InvalidDateFinder::reject);
-    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+    info->connect(buttonBox, &QDialogButtonBox::accepted, info, &QDialog::accept);
+    info->connect(buttonBox, &QDialogButtonBox::rejected, info, &QDialog::reject);
     mainLayout->addWidget(buttonBox);
-
-    QWidget* top = new QWidget;
-//PORTING: Verify that widget was added to mainLayout:     info->setMainWidget( top );
-// Add mainLayout->addWidget(top); if necessary
-
-    QVBoxLayout* lay1 = new QVBoxLayout( top );
-    KTextEdit* edit = new KTextEdit( top );
-    lay1->addWidget( edit );
-    edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
     const DB::FileNameList list = DB::ImageDB::instance()->images();

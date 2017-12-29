@@ -184,7 +184,7 @@ protected:
     void createAnnotationDialog();
     bool load();
     virtual void contextMenuEvent( QContextMenuEvent* e );
-    void setLocked( bool b, bool force );
+    void setLocked( bool b, bool force, bool recount=true );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     DB::FileNameList selectedOnDisk();

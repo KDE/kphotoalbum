@@ -1231,7 +1231,7 @@ void MainWindow::Window::unlockFromDefaultScope()
     delete dialog;
 }
 
-void MainWindow::Window::setLocked( bool locked, bool force )
+void MainWindow::Window::setLocked( bool locked, bool force, bool recount )
 {
     m_statusBar->setLocked( locked );
     Settings::SettingsData::instance()->setLocked( locked, force );
@@ -1240,7 +1240,8 @@ void MainWindow::Window::setLocked( bool locked, bool force )
     m_unlock->setEnabled( locked );
     m_setDefaultPos->setEnabled( !locked );
     m_setDefaultNeg->setEnabled( !locked );
-    m_browser->reload();
+    if (recount)
+        m_browser->reload();
 }
 
 void MainWindow::Window::changePassword()
@@ -1815,7 +1816,7 @@ void MainWindow::Window::setupStatusBar()
 {
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar( m_statusBar );
-    setLocked( Settings::SettingsData::instance()->locked(), true );
+    setLocked( Settings::SettingsData::instance()->locked(), true, false );
 }
 
 void MainWindow::Window::slotRecreateExifDB()

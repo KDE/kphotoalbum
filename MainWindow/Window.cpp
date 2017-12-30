@@ -30,10 +30,12 @@
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QDebug>
+#include <QElapsedTimer>
 #include <QDir>
 #include <QFrame>
 #include <QInputDialog>
 #include <QLayout>
+#include <QLoggingCategory>
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeData>
@@ -110,6 +112,7 @@
 #include "FeatureDialog.h"
 #include "ImageCounter.h"
 #include "InvalidDateFinder.h"
+#include "Logging.h"
 #include "Options.h"
 #include "SearchBar.h"
 #include "SplashScreen.h"
@@ -131,11 +134,16 @@ MainWindow::Window::Window( QWidget* parent )
 #ifdef HAVE_KGEOMAP
     m_positionBrowser = 0;
 #endif
+    if (Options::the()->benchmark())
+        QLoggingCategory::setFilterRules(QStringLiteral("benchmark.startup = true"));
 
     SplashScreen::instance()->message( i18n("Loading Database") );
     s_instance = this;
 
+    QElapsedTimer timer;
+    timer.start();
     bool gotConfigFile = load();
+    qCInfo(startupTime) << "Loading Database: " << timer.elapsed() << "ms.";
     if ( !gotConfigFile )
         throw 0;
     SplashScreen::instance()->message( i18n("Loading Main Window") );
@@ -172,10 +180,16 @@ MainWindow::Window::Window( QWidget* parent )
     m_stack->setCurrentWidget( m_browser );
 
     m_settingsDialog = nullptr;
+    timer.restart();
     setupMenuBar();
+    qCInfo(startupTime) << "setupMenuBar: " << timer.elapsed() << "ms.";
 
+    timer.restart();
     createSarchBar();
+    qCInfo(startupTime) << "createSearchBar: " << timer.elapsed() << "ms.";
+    timer.restart();
     setupStatusBar();
+    qCInfo(startupTime) << "setupStatusBar: " << timer.elapsed() << "ms.";
 
     // Misc
     m_autoSaveTimer = new QTimer( this );
@@ -225,19 +239,27 @@ MainWindow::Window::~Window()
 
 void MainWindow::Window::delayedInit()
 {
+    QElapsedTimer timer;
     SplashScreen* splash = SplashScreen::instance();
+    timer.start();
     setupPluginMenu();
+    qCInfo(startupTime) << "setupPluginMenu: " << timer.elapsed() << "ms.";
+
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStart() ||
 	 Options::the()->searchForImagesOnStart() ) {
+        timer.restart();
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
+        qCInfo(startupTime) << "search for new images: " << timer.elapsed() << "ms.";
     }
 
     if ( !Settings::SettingsData::instance()->delayLoadingPlugins() ) {
+        timer.restart();
         splash->message( i18n( "Loading Plug-ins" ) );
         loadPlugins();
+        qCInfo(startupTime) << "loading plug-ins: " << timer.elapsed() << "ms.";
     }
 
     splash->done();

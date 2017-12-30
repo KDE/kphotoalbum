@@ -42,6 +42,11 @@ public:
      */
     QCommandLineParser* parser() const;
 
+    /**
+     * @brief benchmark
+     * @return \c true, if timing information should be printed
+     */
+    bool benchmark() const;
     QUrl dbFile() const;
     /**
      * @brief demoMode

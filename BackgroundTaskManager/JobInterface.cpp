@@ -18,13 +18,7 @@
 
 #include "JobInterface.h"
 #include "JobManager.h"
-#include <QDebug>
-
-#ifdef DEBUG_JOBMANAGER
-#define Debug qDebug
-#else
-#define Debug if (0) qDebug
-#endif
+#include "Logging.h"
 
 /**
   \class BackgroundTaskManager::JobInterface
@@ -37,7 +31,7 @@
 BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priority priority)
     : JobInfo(priority), m_dependencies(0)
 {
-    Debug() << "Created Job #" << jobIndex();
+    qCDebug(BackgroundTaskManagerLog) << "Created Job #" << jobIndex();
     connect( this, SIGNAL(completed()), this, SLOT(stop()));
 }
 
@@ -47,7 +41,7 @@ BackgroundTaskManager::JobInterface::~JobInterface()
 
 void BackgroundTaskManager::JobInterface::start()
 {
-    Debug("Starting Job (#%d): %s %s", jobIndex(), qPrintable(title()), qPrintable(details()));
+    qCDebug(BackgroundTaskManagerLog, "Starting Job (#%d): %s %s", jobIndex(), qPrintable(title()), qPrintable(details()));
     JobInfo::start();
     execute();
 }

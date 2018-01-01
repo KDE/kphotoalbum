@@ -18,11 +18,12 @@
 #ifndef EXIFDATABASE_H
 #define EXIFDATABASE_H
 
-#include <QSqlDatabase>
-#include <qstring.h>
-#include <QList>
-#include <qpair.h>
 #include <DB/FileNameList.h>
+
+#include <QList>
+#include <QPair>
+#include <QSqlDatabase>
+#include <QString>
 
 namespace Exiv2 { class ExifData; }
 

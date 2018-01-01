@@ -21,7 +21,7 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
+Q_DECLARE_LOGGING_CATEGORY(HTMLGeneratorLog)
 
 #endif /* LOGGING_H */
 

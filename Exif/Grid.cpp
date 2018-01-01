@@ -23,7 +23,6 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <Settings/SettingsData.h>
-#include <QDebug>
 #include <QColor>
 #include <QScrollBar>
 

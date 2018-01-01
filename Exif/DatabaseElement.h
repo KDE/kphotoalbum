@@ -18,8 +18,9 @@
 #ifndef DATABASEELEMENT_H
 #define DATABASEELEMENT_H
 
-#include <qstring.h>
-#include <qvariant.h>
+#include <QString>
+#include <QVariant>
+
 namespace Exiv2
 {
     class ExifData;

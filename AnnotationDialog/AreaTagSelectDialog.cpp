@@ -36,12 +36,6 @@
 #include <QMenu>
 #include <QPainter>
 
-#ifdef DEBUG_AnnotationDialog
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
-
 AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::ResizableFrame *area,
                                                            ListSelect *ls,
                                                            QPixmap areaImage,

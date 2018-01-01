@@ -19,18 +19,22 @@
 #ifndef ANNOTATIONDIALOG_DIALOG_H
 #define ANNOTATIONDIALOG_DIALOG_H
 
-#include "Utilities/StringSet.h"
-#include "ListSelect.h"
-#include "DB/ImageSearchInfo.h"
-#include <QList>
-#include <QSpinBox>
-#include "DB/ImageInfoList.h"
-#include "DB/Category.h"
+#include "config-kpa-kgeomap.h"
+
 #include "enums.h"
 #include "ImagePreviewWidget.h"
+#include "ListSelect.h"
+
+#include "DB/Category.h"
+#include "DB/ImageInfoList.h"
+#include "DB/ImageSearchInfo.h"
+#include "Utilities/StringSet.h"
+
 #include <QCheckBox>
 #include <QDialog>
-#include "config-kpa-kgeomap.h"
+#include <QList>
+#include <QSpinBox>
+
 
 class DockWidget;
 class KActionCollection;

@@ -17,6 +17,7 @@
 */
 #include "ExactCategoryMatcher.h"
 #include "ImageInfo.h"
+#include "Logging.h"
 
 DB::ExactCategoryMatcher::ExactCategoryMatcher( const QString category)
     : m_category(category), m_matcher(nullptr)
@@ -63,7 +64,7 @@ bool DB::ExactCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
 
 void DB::ExactCategoryMatcher::debug( int level ) const
 {
-    qDebug("%sEXACT:", qPrintable(spaces(level)) );
+    qCDebug(DBCategoryMatcherLog, "%sEXACT:", qPrintable(spaces(level)) );
     m_matcher->debug( level + 1 );
 }
 

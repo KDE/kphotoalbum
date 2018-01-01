@@ -21,7 +21,6 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Exif/Info.h"
-#include <QDebug>
 
 using Utilities::StringSet;
 

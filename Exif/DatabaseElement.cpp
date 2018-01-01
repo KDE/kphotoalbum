@@ -16,15 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DatabaseElement.h"
-#include <exiv2/exif.hpp>
-#include <QVariant>
-#include <QDebug>
+#include "Logging.h"
 
-#ifdef DEBUG_EXIF
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
+#include <QVariant>
+#include <exiv2/exif.hpp>
 
 static QString replaceDotWithUnderscore( const char* cstr )
 {
@@ -160,7 +155,7 @@ QVariant Exif::RationalExifElement::valueFromExif(Exiv2::ExifData &data) const
             // whitepoints -> 2 components
             // YCbCrCoefficients -> 3 components (Coefficients for transformation from RGB to YCbCr image data. )
             // chromaticities -> 6 components
-            qWarning() << "Exif rational data with " << tagDatum.count() << " components is not handled, yet!";
+            qCWarning(ExifLog) << "Exif rational data with " << tagDatum.count() << " components is not handled, yet!";
             return QVariant{};
     }
     return QVariant{value};
@@ -201,7 +196,7 @@ QVariant Exif::LensExifElement::valueFromExif(Exiv2::ExifData &data) const
         // Exif.OlympusEq.LensModel [Ascii]
         if (datum.endsWith(QString::fromLatin1(".LensModel")))
         {
-            Debug() << datum << ": " << it->toString().c_str();
+            qCDebug(ExifLog) << datum << ": " << it->toString().c_str();
             canonHack = false;
             value = QString::fromUtf8(it->toString().c_str());
             // we can break here since Exif.Photo.LensModel should be bound first
@@ -214,7 +209,7 @@ QVariant Exif::LensExifElement::valueFromExif(Exiv2::ExifData &data) const
         if (datum.endsWith(QString::fromLatin1(".LensIDNumber")))
         {
             // ExifDatum::print() returns the interpreted value
-            Debug() << datum << ": " << it->print(&data).c_str();
+            qCDebug(ExifLog) << datum << ": " << it->print(&data).c_str();
             canonHack = false;
             value = QString::fromUtf8(it->print(&data).c_str());
             continue;
@@ -228,7 +223,7 @@ QVariant Exif::LensExifElement::valueFromExif(Exiv2::ExifData &data) const
         if (datum.endsWith(QString::fromLatin1(".LensType")))
         {
             // ExifDatum::print() returns the interpreted value
-            Debug() << datum << ": " << it->print(&data).c_str();
+            qCDebug(ExifLog) << datum << ": " << it->print(&data).c_str();
             // make sure this cannot overwrite LensIDNumber
             if (value.isEmpty())
             {
@@ -250,7 +245,7 @@ QVariant Exif::LensExifElement::valueFromExif(Exiv2::ExifData &data) const
         }
 
     }
-    Debug() << "final lens value " << value;
+    qCDebug(ExifLog) << "final lens value " << value;
     return QVariant{ value };
 }
 

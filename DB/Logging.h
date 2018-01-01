@@ -21,7 +21,8 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
+Q_DECLARE_LOGGING_CATEGORY(DBLog)
+Q_DECLARE_LOGGING_CATEGORY(DBCategoryMatcherLog)
 
 #endif /* LOGGING_H */
 

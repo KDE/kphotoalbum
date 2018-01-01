@@ -17,6 +17,7 @@
 */
 
 #include "ImagePreview.h"
+#include "Logging.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -35,12 +36,6 @@
 #include <KMessageBox>
 
 #include <math.h>
-
-#ifdef DEBUG_AnnotationDialog
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
 
 using namespace AnnotationDialog;
 
@@ -62,7 +57,7 @@ ImagePreview::ImagePreview( QWidget* parent )
 
 void ImagePreview::resizeEvent( QResizeEvent* ev )
 {
-    Debug() << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
+    qCDebug(AnnotationDialogLog) << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
     // during resizing, a scaled image will do
     QImage scaledImage = m_currentImage.getImage().scaled(size(),Qt::KeepAspectRatio);
     setPixmap(QPixmap::fromImage(scaledImage));
@@ -83,7 +78,7 @@ int ImagePreview::heightForWidth(int width) const
 QSize ImagePreview::sizeHint() const
 {
     QSize hint = m_info.size();
-    Debug() << "Preview size hint is" << hint;
+    qCDebug(AnnotationDialogLog) << "Preview size hint is" << hint;
     return hint;
 }
 
@@ -130,10 +125,10 @@ void ImagePreview::reload()
     if ( !m_info.isNull() ) {
         if (m_preloader.has(m_info.fileName(), m_info.angle()))
         {
-            Debug() << "reload(): set preloader image";
+            qCDebug(AnnotationDialogLog) << "reload(): set preloader image";
             setCurrentImage(m_preloader.getImage());
         } else if (m_lastImage.has(m_info.fileName(), m_info.angle())) {
-            Debug() << "reload(): set last image";
+            qCDebug(AnnotationDialogLog) << "reload(): set last image";
             //don't pass by reference, the additional constructor is needed here
             //see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
@@ -145,14 +140,14 @@ void ImagePreview::reload()
                 // (otherwise we get flicker when resizing)
                 setPixmap(QPixmap());
             }
-            Debug() << "reload(): set another image";
+            qCDebug(AnnotationDialogLog) << "reload(): set another image";
             ImageManager::AsyncLoader::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), size(), m_info.angle(), this );
             request->setPriority( ImageManager::Viewer );
             ImageManager::AsyncLoader::instance()->load( request );
         }
     } else {
-        Debug() << "reload(): set image from file";
+        qCDebug(AnnotationDialogLog) << "reload(): set image from file";
         QImage img( m_fileName );
         img = rotateAndScale( img, width(), height(), m_angle );
         setPixmap( QPixmap::fromImage(img) );
@@ -484,7 +479,7 @@ void ImagePreview::rotateAreas(int angle)
 
 void ImagePreview::resizeFinished()
 {
-    Debug() << "Reloading image after resize";
+    qCDebug(AnnotationDialogLog) << "Reloading image after resize";
     m_preloader.cancelPreload();
     m_lastImage.reset();
     reload();

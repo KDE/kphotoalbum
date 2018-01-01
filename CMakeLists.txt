@@ -136,6 +136,7 @@ set(libThumbnailView_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Delegate.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionMaintainer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/VideoThumbnailCycler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Logging.cpp
     )
 
 set(libPlugins_SRCS)
@@ -149,6 +150,7 @@ if(KF5Kipi_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadImageCollection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.cpp
         )
 endif()
 
@@ -179,6 +181,7 @@ set(libHTMLGenerator_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Generator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/ImageSizeCheckBox.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Logging.cpp
     )
 
 set(libUtilities_SRCS
@@ -265,6 +268,7 @@ set(libDB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileNameList.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/Logging.cpp
     )
 
 set(libImportExport_SRCS
@@ -294,6 +298,7 @@ set(libAnnotationDialog_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ResizableFrame.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/AreaTagSelectDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Logging.cpp
     )
 
 set(libBrowser_SRCS
@@ -322,6 +327,7 @@ set(libExif_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Logging.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
     )
 
@@ -334,6 +340,7 @@ set(libBackgroundTaskManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInfo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/CompletedJobInfo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/PriorityQueue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/Logging.cpp
     )
 
 set(libBackgroundJobs_SRCS
@@ -363,6 +370,7 @@ if(KF5KGeoMap_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/SearchMarkerTiler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp
         )
 endif()
 

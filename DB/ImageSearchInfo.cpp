@@ -17,27 +17,27 @@
 */
 
 #include "ImageSearchInfo.h"
-
-#include <QDebug>
-#include <QRegExp>
-#include <QApplication>
-
-#include <KConfigGroup>
-#include <KLocalizedString>
-#include <KSharedConfig>
-
-#include <ImageManager/RawImageDecoder.h>
-#include <Settings/SettingsData.h>
-
 #include "AndCategoryMatcher.h"
 #include "CategoryMatcher.h"
 #include "ContainerCategoryMatcher.h"
 #include "ExactCategoryMatcher.h"
 #include "ImageDB.h"
+#include "Logging.h"
 #include "NegationCategoryMatcher.h"
 #include "NoTagCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
 #include "ValueCategoryMatcher.h"
+
+#include <ImageManager/RawImageDecoder.h>
+#include <Settings/SettingsData.h>
+
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
+
+#include <QRegExp>
+#include <QApplication>
+
 using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
@@ -291,7 +291,7 @@ QString ImageSearchInfo::toString() const
 void ImageSearchInfo::debug()
 {
     for( QMap<QString,QString>::Iterator it= m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it ) {
-        qDebug() << it.key() << ", " << it.value();
+        qCDebug(DBCategoryMatcherLog) << it.key() << ", " << it.value();
     }
 }
 
@@ -434,15 +434,15 @@ void ImageSearchInfo::compile() const
 
 
         if ( matcher )
-            m_categoryMatchers.append( matcher );
-#ifdef DEBUG_CATEGORYMATCHERS
-        if ( matcher )
         {
-            qDebug() << "Matching text '" << matchText << "' in category "<< category <<":";
-            matcher->debug(0);
-            qDebug() << ".";
+            m_categoryMatchers.append( matcher );
+            if ( DBCategoryMatcherLog().isDebugEnabled() )
+            {
+                qCDebug(DBCategoryMatcherLog) << "Matching text '" << matchText << "' in category "<< category <<":";
+                matcher->debug(0);
+                qCDebug(DBCategoryMatcherLog) << ".";
+            }
         }
-#endif
     }
     m_compiled = true;
 }
@@ -457,7 +457,7 @@ void ImageSearchInfo::debugMatcher() const
     if ( !m_compiled )
         compile();
 
-    qDebug("And:");
+    qCDebug(DBCategoryMatcherLog, "And:");
     for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
         optionMatcher->debug(1);
     }

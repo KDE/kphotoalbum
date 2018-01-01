@@ -23,6 +23,7 @@
 #include "ImagePreviewWidget.h"
 #include "DateEdit.h"
 #include "ListSelect.h"
+#include "Logging.h"
 #include "ResizableFrame.h"
 #include "ShortCutManager.h"
 #include "ShowSelectionOnlyManager.h"
@@ -50,7 +51,6 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCursor>
-#include <QDebug>
 #include <QDir>
 #include <QDockWidget>
 #include <QFile>
@@ -77,12 +77,6 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QtGlobal>
-
-#ifdef DEBUG_AnnotationDialog
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
 
 using Utilities::StringSet;
 
@@ -991,7 +985,7 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
     for( QDockWidget* dock : m_dockWidgets ) {
         if ( dock->isFloating() )
         {
-            Debug() << "Hiding dock: " << dock->objectName();
+            qCDebug(AnnotationDialogLog) << "Hiding dock: " << dock->objectName();
             dock->hide();
         }
     }
@@ -1002,7 +996,7 @@ void AnnotationDialog::Dialog::showTornOfWindows()
     for (QDockWidget* dock: m_dockWidgets ) {
         if ( dock->isFloating() )
         {
-            Debug() << "Showing dock: " << dock->objectName();
+            qCDebug(AnnotationDialogLog) << "Showing dock: " << dock->objectName();
             dock->show();
         }
     }

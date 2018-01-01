@@ -17,12 +17,12 @@
 */
 #include "ValueCategoryMatcher.h"
 #include "ImageDB.h"
+#include "Logging.h"
 #include "MemberMap.h"
-#include <QDebug>
 
 void DB::ValueCategoryMatcher::debug(int level) const
 {
-    qDebug("%s%s: %s", qPrintable(spaces(level)), qPrintable(m_category), qPrintable(m_option));
+    qCDebug(DBCategoryMatcherLog, "%s%s: %s", qPrintable(spaces(level)), qPrintable(m_category), qPrintable(m_option));
 }
 
 DB::ValueCategoryMatcher::ValueCategoryMatcher( const QString& category, const QString& value )

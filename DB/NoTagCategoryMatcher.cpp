@@ -17,7 +17,7 @@
 */
 #include "NoTagCategoryMatcher.h"
 #include "ImageInfo.h"
-#include "qdebug.h"
+#include "Logging.h"
 
 DB::NoTagCategoryMatcher::NoTagCategoryMatcher( const QString& category)
     : m_category(category)
@@ -36,7 +36,7 @@ bool DB::NoTagCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>&
 
 void DB::NoTagCategoryMatcher::debug( int level ) const
 {
-    qDebug() << qPrintable(spaces(level)) << "No Tags for category " << m_category ;
+    qCDebug(DBCategoryMatcherLog) << qPrintable(spaces(level)) << "No Tags for category " << m_category ;
 }
 
 

@@ -21,7 +21,7 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
+Q_DECLARE_LOGGING_CATEGORY(AnnotationDialogLog)
 
 #endif /* LOGGING_H */
 

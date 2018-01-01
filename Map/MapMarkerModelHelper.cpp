@@ -17,21 +17,15 @@
    */
 
 #include "MapMarkerModelHelper.h"
+#include "Logging.h"
 
 // Qt includes
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QStandardItem>
 #include <QStandardItemModel>
 
 // Local includes
 #include <ImageManager/ThumbnailCache.h>
-
-#ifdef DEBUG_MAP
-#  define Debug qDebug
-#else
-#  define Debug if (false) qDebug
-#endif
 
 const int FileNameRole = Qt::UserRole + 1;
 
@@ -56,7 +50,7 @@ void Map::MapMarkerModelHelper::clearItems()
 
 void Map::MapMarkerModelHelper::addImage(const DB::ImageInfo& image)
 {
-    Debug() << "Adding marker for image " << image.label();
+    qCDebug(MapLog) << "Adding marker for image " << image.label();
     QStandardItem* const newItem = new QStandardItem(image.label());
 
     newItem->setToolTip(image.label());
@@ -127,7 +121,7 @@ bool Map::MapMarkerModelHelper::itemIcon(const QModelIndex& index,
     const DB::FileName filename = index.data(FileNameRole).value<DB::FileName>();
     *pixmap = ImageManager::ThumbnailCache::instance()->lookup( filename );
     *offset = QPoint(pixmap->width()/2, pixmap->height()/2);
-    Debug() << "Map icon for " << filename.relative() << (pixmap->isNull() ? " missing." : " found.");
+    qCDebug(MapLog) << "Map icon for " << filename.relative() << (pixmap->isNull() ? " missing." : " found.");
     return !pixmap->isNull();
 }
 

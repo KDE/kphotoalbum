@@ -17,8 +17,8 @@
 */
 
 #include "ImageInfo.h"
+#include "Logging.h"
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QList>
 
@@ -29,12 +29,6 @@
 #include <DB/ImageInfo.h>
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
-
-#ifdef DEBUG_KIPI
-#define Debug qDebug
-#else
-#define Debug if (0) qDebug
-#endif
 
 #define KEXIV_ORIENTATION_UNSPECIFIED   0
 #define KEXIV_ORIENTATION_NORMAL        1
@@ -248,7 +242,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
             DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
             Q_FOREACH( const QString &path, tagspaths )
             {
-                Debug() << "Adding tags: " << path;
+                qCDebug(PluginsLog) << "Adding tags: " << path;
                 QStringList tagpath = path.split( QLatin1String("/"), QString::SkipEmptyParts );
                 // Note: maybe tagspaths with only one component or with unknown first component
                 //  should be added to the "keywords"/"Events" category?
@@ -270,7 +264,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                     {
                         if ( ! cat->items().contains( currentTag ) )
                         {
-                            Debug() << "Adding tag " << currentTag << " to category " << categoryName;
+                            qCDebug(PluginsLog) << "Adding tag " << currentTag << " to category " << categoryName;
                             // before we can use a tag, we have to add it
                             cat->addItem( currentTag );
                         }
@@ -292,7 +286,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& amap )
                         }
                         previousTag = currentTag;
                     }
-                    Debug() << "Adding tag " << previousTag << " in category " << categoryName
+                    qCDebug(PluginsLog) << "Adding tag " << previousTag << " in category " << categoryName
                         << " to image " << m_info->label();
                     // previousTag must be a valid category (see addItem() above...)
                     m_info->addCategoryInfo( categoryName, previousTag );

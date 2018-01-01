@@ -19,4 +19,4 @@
 #include "Logging.h"
 
 // only enable warning messages by default
-Q_LOGGING_CATEGORY(timingInformation, "kphotoalbum.timingInformation", QtWarningMsg)
+Q_LOGGING_CATEGORY(TimingLog, "kphotoalbum.timingInformation", QtWarningMsg)

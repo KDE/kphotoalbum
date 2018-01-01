@@ -16,16 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Info.h"
-#include "exiv2/image.hpp"
-#include "exiv2/exif.hpp"
-#include "Utilities/StringSet.h"
-#include "Settings/SettingsData.h"
-#include "DB/ImageInfo.h"
+#include "Logging.h"
+
 #include "DB/ImageDB.h"
-#include <qfileinfo.h>
-#include <QDebug>
-#include <QFile>
+#include "DB/ImageInfo.h"
+#include "Settings/SettingsData.h"
+#include "Utilities/StringSet.h"
 #include "Utilities/Util.h"
+
+#include <QFileInfo>
+#include <QFile>
+
+#include <exiv2/image.hpp>
+#include <exiv2/exif.hpp>
 
 using namespace Exif;
 
@@ -171,7 +174,7 @@ StringSet Info::standardKeys()
             if ( fields.size () >= 11 ) {
                 res.insert( fields[8] );
             } else {
-                qDebug() << "Unparsable output from exiv2 library: " << *it;
+                qCWarning(ExifLog) << "Unparsable output from exiv2 library: " << *it;
                 continue;
             }
         }

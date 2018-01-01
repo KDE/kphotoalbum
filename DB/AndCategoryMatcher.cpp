@@ -17,6 +17,7 @@
 */
 #include "AndCategoryMatcher.h"
 #include "ImageInfo.h"
+#include "Logging.h"
 
 bool DB::AndCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
 {
@@ -29,7 +30,7 @@ bool DB::AndCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& a
 
 void DB::AndCategoryMatcher::debug( int level ) const
 {
-    qDebug("%sAND:", qPrintable(spaces(level)) );
+    qCDebug(DBCategoryMatcherLog, "%sAND:", qPrintable(spaces(level)) );
     ContainerCategoryMatcher::debug( level + 1 );
 }
 

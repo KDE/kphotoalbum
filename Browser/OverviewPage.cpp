@@ -306,7 +306,7 @@ void Browser::OverviewPage::updateImageCount()
         m_count[row] = items.count();
         ++row;
     }
-    qCDebug(timingInformation) << "Browser::Overview::updateImageCount(): " << timer.elapsed() << "ms.";
+    qCDebug(TimingLog) << "Browser::Overview::updateImageCount(): " << timer.elapsed() << "ms.";
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()

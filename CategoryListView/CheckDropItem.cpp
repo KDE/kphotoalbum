@@ -25,7 +25,6 @@
 #include <QDropEvent>
 #include "DB/CategoryItem.h"
 #include "DB/Category.h"
-#include <QDebug>
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, const QString& column1,
                                                 const QString& column2 )

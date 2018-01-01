@@ -19,9 +19,10 @@
 #ifndef JOBMANAGER_H
 #define JOBMANAGER_H
 
-#include <QObject>
 #include "JobInterface.h"
 #include "PriorityQueue.h"
+
+#include <QObject>
 
 namespace BackgroundTaskManager
 {

@@ -17,6 +17,7 @@
 */
 #include "NegationCategoryMatcher.h"
 #include "ImageInfo.h"
+#include "Logging.h"
 
     DB::NegationCategoryMatcher::NegationCategoryMatcher(CategoryMatcher* child)
 : m_child(child)
@@ -40,7 +41,7 @@ bool DB::NegationCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSe
 
 void DB::NegationCategoryMatcher::debug( int level ) const
 {
-    qDebug("%sNOT:", qPrintable(spaces(level)) );
+    qCDebug(DBCategoryMatcherLog, "%sNOT:", qPrintable(spaces(level)) );
     m_child->debug( level + 1 );
 }
 

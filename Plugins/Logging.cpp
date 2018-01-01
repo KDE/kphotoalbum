@@ -16,13 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef LOGGING_H
-#define LOGGING_H
+#include "Logging.h"
 
-#include <QLoggingCategory>
-
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
-
-#endif /* LOGGING_H */
-
-// vi:expandtab:tabstop=4 shiftwidth=4:
+// only enable warning messages by default
+Q_LOGGING_CATEGORY(PluginsLog, "kphotoalbum.Plugins", QtWarningMsg)

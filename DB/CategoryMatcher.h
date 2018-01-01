@@ -19,10 +19,10 @@
 #ifndef CATEGORYMATCHER_H
 #define CATEGORYMATCHER_H
 
-#include <QMap>
-
 #include <DB/ImageInfoPtr.h>
 #include <Utilities/StringSet.h>
+
+#include <QMap>
 
 namespace DB
 {

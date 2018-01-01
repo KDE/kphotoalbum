@@ -44,12 +44,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#ifdef DEBUG_AnnotationDialog
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
-
 static const int SCALE_TOP    = 0b00000001;
 static const int SCALE_BOTTOM = 0b00000010;
 static const int SCALE_RIGHT  = 0b00000100;

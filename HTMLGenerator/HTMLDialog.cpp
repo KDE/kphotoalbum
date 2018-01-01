@@ -17,10 +17,10 @@
 */
 
 #include "HTMLDialog.h"
+#include "Logging.h"
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -55,12 +55,6 @@
 #include "ImageSizeCheckBox.h"
 
 using namespace HTMLGenerator;
-
-#ifdef DEBUG_HTMLGENERATOR
-#define Debug qDebug
-#else
-#define Debug if(0) qDebug
-#endif
 
 HTMLDialog::HTMLDialog( QWidget* parent )
    : KPageDialog(parent)
@@ -527,13 +521,13 @@ void HTMLDialog::populateThemesCombo()
     int i = 0;
     int theme = 0;
     int defaultthemes = 0;
-    Debug() << "Theme directories:"<<dirs;
+    qCDebug(HTMLGeneratorLog) << "Theme directories:"<<dirs;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
-        Debug() << "Searching themes in:"<<dir;
+        qCDebug(HTMLGeneratorLog) << "Searching themes in:"<<dir;
         QStringList themes = dir.entryList( QDir::Dirs | QDir::Readable );
         for(QStringList::Iterator it = themes.begin(); it != themes.end(); ++it) {
-            Debug() << " *" << *it;
+            qCDebug(HTMLGeneratorLog) << " *" << *it;
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 

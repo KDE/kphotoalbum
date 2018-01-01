@@ -16,22 +16,9 @@ code is easier to get into for new people, and easier to maintain for everyone.
     `override` keyword.
 \li KPhotoAlbum is warning free zone. Please keep it that way. No warnings during compilations are
     accepted.
-\li Keep debugging messages out of production code. If you really have to push debug statements to
-    git master, add the commit id to the respective bit report so it can be reverted once the bug
-    is resolved. If there is no fitting bug report (e. g. for new code), disable the debug
-    statements by default.<br/>
-    You can use this recipe for adding debug statements to your code:<br>
-    \code
-    #ifdef DEBUG_FOO
-    #   define Debug qDebug
-    #else
-    #   define Debug if (0) qDebug
-    #endif
-    ...
-    Debug() << "This will only be printed out if DEBUG_FOO is defined.";
-    \endcode
-    You can then enable the code by adding `DEBUG_FOO` to the `CMAKE_CXX_FLAGS` variable in your
-    cmake cache.
+\li Don't enable debugging statements in production code.
+    Use categorized logging (QLoggingCategory) with the prefix "kphotoalbum.DIRECTORY" and possibly subcomponents.
+    You can then enable the code by setting the environment variable QT_LOGGING_RULES="kphotoalbum.*=true".
 
 <h2>Include files and forward declarations</h2>
 

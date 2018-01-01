@@ -16,14 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageInfoList.h"
-#include <qvector.h>
-#include <qalgorithms.h>
-#include <qdatetime.h>
 #include "ImageInfo.h"
-#include <kmessagebox.h>
-#include <KLocalizedString>
-#include <QDebug>
+#include "Logging.h"
+
 #include <DB/FileNameList.h>
+
+#include <QVector>
+#include <QtAlgorithms>
+#include <QDateTime>
+
+#include <KMessageBox>
+#include <KLocalizedString>
 using namespace DB;
 
 class SortableImageInfo
@@ -101,7 +104,7 @@ void ImageInfoList::appendList( ImageInfoList& list )
 void ImageInfoList::printItems()
 {
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        qDebug() << (*it)->fileName().absolute();
+        qCDebug(DBLog) << (*it)->fileName().absolute();
     }
 }
 

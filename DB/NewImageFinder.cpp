@@ -16,32 +16,32 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
-#include "ImageManager/ThumbnailBuilder.h"
 #include "FastDir.h"
-#include "ImageManager/ThumbnailCache.h"
+#include "Logging.h"
 
-#include "DB/ImageDB.h"
-#include <qfileinfo.h>
-#include <QStringList>
-#include <QProgressDialog>
-#include <KLocalizedString>
-#include <qapplication.h>
-#include <qeventloop.h>
-#include <kmessagebox.h>
-#include "DB/MD5Map.h"
-
-#include "Exif/Database.h"
-
-#include "ImageManager/RawImageDecoder.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/Util.h"
-#include <MainWindow/Window.h>
-#include <MainWindow/FeatureDialog.h>
-#include <BackgroundTaskManager/JobManager.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
-#include <QDebug>
+#include <BackgroundTaskManager/JobManager.h>
+#include <DB/ImageDB.h>
+#include <DB/MD5Map.h>
+#include <Exif/Database.h>
+#include <ImageManager/RawImageDecoder.h>
+#include <ImageManager/ThumbnailBuilder.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/FeatureDialog.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/Util.h>
+
+#include <QApplication>
+#include <QEventLoop>
+#include <QFileInfo>
 #include <QProgressBar>
+#include <QProgressDialog>
+#include <QStringList>
+
+#include <KLocalizedString>
+#include <KMessageBox>
 
 using namespace DB;
 
@@ -220,18 +220,18 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
                     // from the original.
                     originalInfo = DB::ImageDB::instance()->info( originalFileName );
                     if ( !originalInfo ) {
-                        qDebug() << "Original info not found by name for " << originalFileName.absolute() << ", trying by MD5 sum.";
+                        qCDebug(DBLog) << "Original info not found by name for " << originalFileName.absolute() << ", trying by MD5 sum.";
                         originalFileName = DB::ImageDB::instance()->md5Map()->lookup( originalSum );
 
                         if (!originalFileName.isNull())
                         {
-                            qDebug() << "Substitute image " << originalFileName.absolute() << " found.";
+                            qCDebug(DBLog) << "Substitute image " << originalFileName.absolute() << " found.";
                             originalInfo = DB::ImageDB::instance()->info( originalFileName );
                         }
 
                         if ( !originalInfo )
                         {
-                            qWarning("How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s",
+                            qCWarning(DBLog,"How did that happen? We couldn't find info for the original image %s; can't copy the original data to %s",
                                      qPrintable(originalFileName.absolute()), qPrintable(newFileName.absolute()));
                             continue;
                         }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2015 Johannes Zarl <johannes@zarl.at>
+/* Copyright (C) 2015-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -192,7 +192,5 @@ void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDiffer
     model()->endResetModel();
     model()->updateVisibleRowInfo();
 }
-
-#include "GridResizeSlider.moc"
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

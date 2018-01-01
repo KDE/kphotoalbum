@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
   
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -160,5 +160,4 @@ bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)
 
 } // namespace MainWindow
 
-#include "DuplicateMatch.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

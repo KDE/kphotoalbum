@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #include "DragableTreeWidget.h"
 #include "DB/Category.h"
 #include "CheckDropItem.h"
@@ -89,6 +90,4 @@ void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)
         event->ignore();
 }
 
-
-#include "DragableTreeWidget.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

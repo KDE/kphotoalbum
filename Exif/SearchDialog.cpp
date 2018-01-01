@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #include "SearchDialog.h"
 #include <KLocalizedString>
 #include <qlayout.h>
@@ -428,6 +429,4 @@ void Exif::SearchDialog::toFocalLengthChanged( int val )
         m_fromFocalLength->setValue( val );
 }
 
-
-#include "SearchDialog.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

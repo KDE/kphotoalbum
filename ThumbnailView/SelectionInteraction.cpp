@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #include "SelectionInteraction.h"
 
 #include <QApplication>
@@ -81,5 +82,4 @@ bool ThumbnailView::SelectionInteraction::isDragging() const
     return m_dragInProgress;
 }
 
-#include "SelectionInteraction.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

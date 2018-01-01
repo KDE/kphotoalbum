@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -208,6 +208,4 @@ bool operator<( const QPair<QString,QPixmap>& a, const QPair<QString,QPixmap>& b
     return a.first < b.first;
 }
 
-
-#include "ExternalPopup.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

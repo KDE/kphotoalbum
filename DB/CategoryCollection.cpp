@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,5 +29,4 @@ void CategoryCollection::itemRemoved( const QString& item )
     emit itemRemoved( static_cast<Category*>( const_cast<QObject*>( sender() ) ), item );
 }
 
-#include "CategoryCollection.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,4 +1,4 @@
-/* Copyright (C) 2010 Miika Turkia <miika.turkia@gmail.com>
+/* Copyright (C) 2010-2018 Miika Turkia <miika.turkia@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -324,5 +324,4 @@ void AutoStackImages::accept()
     MainWindow::Window::theMainWindow()->showThumbNails(toBeShown);
 }
 
-#include "AutoStackImages.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

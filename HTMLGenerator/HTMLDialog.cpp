@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public
@@ -654,5 +654,4 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     return setup;
 }
 
-#include "HTMLDialog.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

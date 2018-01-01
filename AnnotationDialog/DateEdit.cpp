@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 /**
  * A date editing widget that consists of an editable combo box.
  * The combo box contains the date in text form, and clicking the combo
@@ -45,8 +46,6 @@
 #include <QLineEdit>
 #include <QMouseEvent>
 #include <QVBoxLayout>
-
-#include "DateEdit.moc"
 
 AnnotationDialog::DateEdit::DateEdit( bool isStartEdit, QWidget *parent )
     : QComboBox( parent ),

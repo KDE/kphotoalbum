@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2018 Tobias Leupold <tobias.leupold@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #include "DescriptionEdit.h"
 #include <QKeyEvent>
 
@@ -35,5 +36,4 @@ void AnnotationDialog::DescriptionEdit::keyPressEvent(QKeyEvent *event)
     }
 }
 
-#include "DescriptionEdit.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

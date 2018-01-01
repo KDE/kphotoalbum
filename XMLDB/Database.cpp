@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -26,7 +26,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/CategoryCollection.h"
-#include "Database.moc"
 #include "XMLCategory.h"
 #include <QExplicitlySharedDataPointer>
 #include "XMLImageDateCollection.h"

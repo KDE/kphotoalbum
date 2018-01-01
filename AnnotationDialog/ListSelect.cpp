@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -874,5 +874,4 @@ void AnnotationDialog::ListSelect::deselectTag(QString tag)
     matchingTags.first()->setCheckState(0, Qt::Unchecked);
 }
 
-#include "ListSelect.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

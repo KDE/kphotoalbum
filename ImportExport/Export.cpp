@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -407,8 +407,4 @@ void Export::showUsageDialog()
     KMessageBox::information( nullptr, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );
 }
 
-
-
-
-#include "Export.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -23,7 +23,6 @@
 #include "Window.h"
 #include "DB/CategoryCollection.h"
 #include "Viewer/CategoryImageConfig.h"
-
 
 void MainWindow::CategoryImagePopup::populate( const QImage& image, const DB::FileName& imageName )
 {
@@ -83,5 +82,4 @@ MainWindow::CategoryImagePopup::CategoryImagePopup( QWidget* parent )
     connect(this, &CategoryImagePopup::triggered, this, &CategoryImagePopup::slotExecuteService);
 }
 
-#include "CategoryImagePopup.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

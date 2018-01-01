@@ -1,4 +1,4 @@
-/* Copyright (C) 2007-2010 Jan Kundrat <jkt@gentoo.org>
+/* Copyright (C) 2007-2018 Jan Kundrat <jkt@gentoo.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -53,5 +53,4 @@ void Viewer::TextDisplay::setText( const QString text )
     m_text->setText( text );
 }
 
-#include "TextDisplay.moc"
 // vi:expandtab:tabstop=4 shiftwidth=4:

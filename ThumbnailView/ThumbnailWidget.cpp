@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2011 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #include "ThumbnailWidget.h"
 #include <QScrollBar>
 #include <QTimer>
@@ -24,7 +25,6 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailModel.h"
 #include "CellGeometry.h"
-#include "ThumbnailWidget.moc"
 #include <math.h>
 
 #include <KLocalizedString>

@@ -143,7 +143,7 @@ MainWindow::Window::Window( QWidget* parent )
     bool gotConfigFile = load();
     if ( !gotConfigFile )
         throw 0;
-    qCInfo(timingInformation) << "Loading Database: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
     SplashScreen::instance()->message( i18n("Loading Main Window") );
 
     QWidget* top = new QWidget( this );
@@ -178,13 +178,13 @@ MainWindow::Window::Window( QWidget* parent )
     m_stack->setCurrentWidget( m_browser );
 
     m_settingsDialog = nullptr;
-    qCInfo(timingInformation) << "Loading MainWindow: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
-    qCInfo(timingInformation) << "setupMenuBar: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
     createSarchBar();
-    qCInfo(timingInformation) << "createSearchBar: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
     setupStatusBar();
-    qCInfo(timingInformation) << "setupStatusBar: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: setupStatusBar: " << timer.restart() << "ms.";
 
     // Misc
     m_autoSaveTimer = new QTimer( this );
@@ -222,9 +222,9 @@ MainWindow::Window::Window( QWidget* parent )
 
     checkIfMplayerIsInstalled();
 
-    qCInfo(timingInformation) << "MainWindow misc setup time: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: misc setup time: " << timer.restart() << "ms.";
     executeStartupActions();
-    qCInfo(timingInformation) << "executeStartupActions " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: executeStartupActions " << timer.restart() << "ms.";
 }
 
 MainWindow::Window::~Window()
@@ -240,7 +240,7 @@ void MainWindow::Window::delayedInit()
     timer.start();
     SplashScreen* splash = SplashScreen::instance();
     setupPluginMenu();
-    qCInfo(timingInformation) << "setupPluginMenu: " << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: setupPluginMenu: " << timer.restart() << "ms.";
 
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStart() ||
@@ -248,25 +248,25 @@ void MainWindow::Window::delayedInit()
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
-        qCInfo(timingInformation) << "Search for New Files: " << timer.restart() << "ms.";
+        qCInfo(timingInformation) << "MainWindow: Search for New Files: " << timer.restart() << "ms.";
     }
 
     if ( !Settings::SettingsData::instance()->delayLoadingPlugins() ) {
         splash->message( i18n( "Loading Plug-ins" ) );
         loadPlugins();
-        qCInfo(timingInformation) << "Loading Plug-ins: " << timer.restart() << "ms.";
+        qCInfo(timingInformation) << "MainWindow: Loading Plug-ins: " << timer.restart() << "ms.";
     }
 
     splash->done();
     show();
-    qCInfo(timingInformation) << "MainWindow.show():" << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: MainWindow.show():" << timer.restart() << "ms.";
 
     QUrl importUrl = Options::the()->importFile();
     if ( importUrl.isValid() )
     {
         // I need to do this in delayed init to get the import window on top of the normal window
         ImportExport::Import::imageImport( importUrl );
-        qCInfo(timingInformation) << "imageImport:" << timer.restart() << "ms.";
+        qCInfo(timingInformation) << "MainWindow: imageImport:" << timer.restart() << "ms.";
     } else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
         KTipDialog::showTip( this );
@@ -276,7 +276,7 @@ void MainWindow::Window::delayedInit()
     if ( exifDB->isAvailable() && !exifDB->isOpen() ) {
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
-    qCInfo(timingInformation) << "Loading EXIF DB:" << timer.restart() << "ms.";
+    qCInfo(timingInformation) << "MainWindow: Loading EXIF DB:" << timer.restart() << "ms.";
 
     if (!Options::the()->listen().isNull())
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());

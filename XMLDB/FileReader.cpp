@@ -16,28 +16,29 @@
    Boston, MA 02110-1301, USA.
 */
 
+// Local includes
+#include "CompressFileInfo.h"
+#include "Database.h"
+#include "FileReader.h"
+#include "Logging.h"
+#include "XMLCategory.h"
+
+#include <DB/MD5Map.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/Window.h>
+#include <Utilities/Util.h>
+
+// KDE includes
+#include <KLocalizedString>
+#include <KMessageBox>
+
 // Qt includes
-#include <QDebug>
 #include <QFile>
 #include <QHash>
 #include <QLocale>
 #include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
-
-// KDE includes
-#include <KLocalizedString>
-#include <KMessageBox>
-
-// Local includes
-#include <DB/MD5Map.h>
-#include <MainWindow/DirtyIndicator.h>
-#include <MainWindow/Window.h>
-#include <Utilities/Util.h>
-#include "CompressFileInfo.h"
-#include "Database.h"
-#include "FileReader.h"
-#include "XMLCategory.h"
 
 void XMLDB::FileReader::read( const QString& configFile )
 {
@@ -218,7 +219,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             if ( repairMode )
             {
                 // merge with duplicate category
-                qDebug() << "Repairing category " << categoryName << ": merging items "
+                qCInfo(XMLDBLog) << "Repairing category " << categoryName << ": merging items "
                          << cat->items() << " with " << items;
                 items.append(cat->items());
                 items.removeDuplicates();

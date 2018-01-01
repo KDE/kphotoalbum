@@ -18,14 +18,7 @@
 */
 
 #include "ExtractOneVideoFrame.h"
-
-#include <cstdlib>
-
-#include <QDir>
-#include <QDebug>
-
-#include <KLocalizedString>
-#include <KMessageBox>
+#include "Logging.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -36,11 +29,12 @@
 #include <Utilities/Process.h>
 #include <Utilities/StringSet.h>
 
-#ifdef DEBUG_IMAGEMANAGER
-#  define Debug qDebug
-#else
-#  define Debug if(0) qDebug
-#endif
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <QDir>
+
+#include <cstdlib>
 
 
 namespace ImageManager {
@@ -69,7 +63,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
         QStringList arguments;
         arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'f',4) << STR("-vf")
                   << STR("screenshot") << STR("-frames") << STR("20") << STR("-vo") << STR("png:z=9") << fileName.absolute();
-        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
         m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
     } else {
@@ -79,7 +73,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
                   << STR("200M") << STR("-i") << fileName.absolute() << STR("-vf") << STR("thumbnail")
                   << STR("-vframes") << STR("20") << m_workingDirectory + STR("/000000%02d.png");
 
-        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
         m_process->start(MainWindow::FeatureDialog::ffmpegBinary(), arguments);
     }
@@ -95,7 +89,7 @@ void ExtractOneVideoFrame::frameFetched()
         name = m_workingDirectory +STR("/000000%1.png").arg(i,2, 10, QChar::fromLatin1('0'));
         if (QFile::exists(name))
         {
-            Debug() << "Using video frame " << i;
+            qCDebug(ImageManagerLog) << "Using video frame " << i;
             break;
         }
     }

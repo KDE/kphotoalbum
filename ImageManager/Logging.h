@@ -16,14 +16,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef DB_LOGGING_H
-#define DB_LOGGING_H
+#ifndef IMAGEMANAGER_LOGGING_H
+#define IMAGEMANAGER_LOGGING_H
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(DBLog)
-Q_DECLARE_LOGGING_CATEGORY(DBCategoryMatcherLog)
+Q_DECLARE_LOGGING_CATEGORY(ImageManagerLog)
 
-#endif /* DB_LOGGING_H */
+#endif /* IMAGEMANAGER_LOGGING_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

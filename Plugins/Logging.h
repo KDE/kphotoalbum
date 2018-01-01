@@ -16,13 +16,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef LOGGING_H
-#define LOGGING_H
+#ifndef PLUGINS_LOGGING_H
+#define PLUGINS_LOGGING_H
 
 #include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(PluginsLog)
 
-#endif /* LOGGING_H */
+#endif /* PLUGINS_LOGGING_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

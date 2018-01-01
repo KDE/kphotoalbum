@@ -17,22 +17,23 @@
 */
 #include "FileWriter.h"
 
-#include <QDebug>
-#include <QFile>
-#include <QXmlStreamWriter>
+#include "CompressFileInfo.h"
+#include "Database.h"
+#include "ElementWriter.h"
+#include "Logging.h"
+#include "NumberedBackup.h"
+#include "XMLCategory.h"
 
-#include <KLocalizedString>
-#include <KMessageBox>
-
+#include <MainWindow/Logging.h>
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/List.h>
 
-#include "CompressFileInfo.h"
-#include "Database.h"
-#include "ElementWriter.h"
-#include "NumberedBackup.h"
-#include "XMLCategory.h"
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <QFile>
+#include <QXmlStreamWriter>
 
 // I've added this to provide anyone interested
 // with a quick and easy means to benchmark performance differences
@@ -84,10 +85,9 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
                             );
         return;
     }
-#ifdef BENCHMARK_FILEWRITER
     QTime t;
-    t.start();
-#endif
+    if (TimingLog().isDebugEnabled())
+        t.start();
     QXmlStreamWriter writer(&out);
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
@@ -104,9 +104,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         //saveSettings(writer);
     }
     writer.writeEndDocument();
-#ifdef BENCHMARK_FILEWRITER
-    qDebug() << "Saving took" << t.elapsed() <<"ms";
-#endif
+    qCDebug(TimingLog) << "Saving took" << t.elapsed() <<"ms";
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 

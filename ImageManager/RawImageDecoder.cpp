@@ -16,18 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "RawImageDecoder.h"
-
-#include <QDebug>
-#include <qfile.h>
-#include <qimage.h>
-#include "Settings/SettingsData.h"
 #include <config-kpa-kdcraw.h>
+#include "Logging.h"
+
+#include <DB/FileName.h>
+#include "Settings/SettingsData.h"
+
+#include <QFile>
+#include <QImage>
 #ifdef HAVE_KDCRAW
 #  include <KDCRAW/KDcraw>
 #  include <KDCRAW/RawFiles>
 #  include <libkdcraw_version.h>
 #endif
-#include <DB/FileName.h>
 
 namespace ImageManager
 {
@@ -60,7 +61,7 @@ bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize
         KDcrawIface::RawDecodingSettings rawDecodingSettings;
 
         if ( rawDecodingSettings.sixteenBitsImage ) {
-            qDebug() << "16 bits per color channel is not supported yet";
+            qCWarning(ImageManagerLog) << "16 bits per color channel is not supported yet";
             return false;
         } else {
             QByteArray imageData; /* 3 bytes for each pixel,  */

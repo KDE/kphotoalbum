@@ -16,13 +16,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef LOGGING_H
-#define LOGGING_H
+#ifndef EXIF_LOGGING_H
+#define EXIF_LOGGING_H
 
 #include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(ExifLog)
 
-#endif /* LOGGING_H */
+#endif /* EXIF_LOGGING_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

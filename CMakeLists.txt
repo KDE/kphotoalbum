@@ -117,6 +117,7 @@ set(libxmldb_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/ElementWriter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XmlReader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/CompressFileInfo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Logging.cpp
     )
 
 set(libThumbnailView_SRCS
@@ -195,6 +196,7 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Logging.cpp
     )
 
 set(libMainWindow_SRCS
@@ -241,6 +243,7 @@ set(libImageManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/Logging.cpp
     )
 
 set(libDB_SRCS
@@ -283,6 +286,7 @@ set(libImportExport_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportSettings.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/KimFileReader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/MD5CheckPage.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/Logging.cpp
     )
 
 set(libAnnotationDialog_SRCS

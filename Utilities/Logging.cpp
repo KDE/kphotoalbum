@@ -16,14 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef DB_LOGGING_H
-#define DB_LOGGING_H
+#include "Logging.h"
 
-#include <QLoggingCategory>
-
-Q_DECLARE_LOGGING_CATEGORY(DBLog)
-Q_DECLARE_LOGGING_CATEGORY(DBCategoryMatcherLog)
-
-#endif /* DB_LOGGING_H */
-
-// vi:expandtab:tabstop=4 shiftwidth=4:
+// only enable warning messages by default
+Q_LOGGING_CATEGORY(UtilitiesLog, "kphotoalbum.Utilities", QtWarningMsg)

@@ -17,20 +17,29 @@
 */
 
 #include "Util.h"
+#include "Logging.h"
 
-extern "C" {
-#include <limits.h>
-#include <setjmp.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-}
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <Exif/Info.h>
+#include <ImageManager/ImageDecoder.h>
+#include <ImageManager/RawImageDecoder.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+
+#include "JpeglibWithFix.h"
+
+#include <KCodecs>
+#include <KJob>
+#include <KJobWidgets>
+#include <KLocalizedString>
+#include <KMessageBox>
+
+#include <KIO/DeleteJob>
 
 #include <QApplication>
 #include <QCryptographicHash>
-#include <QDebug>
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
@@ -44,24 +53,15 @@ extern "C" {
 #include <QUrl>
 #include <QVector>
 
-#include <KCodecs>
-#include <KJob>
-#include <KJobWidgets>
-#include <KLocalizedString>
-#include <KMessageBox>
-
-#include <KIO/DeleteJob>
-
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
-#include <Exif/Info.h>
-#include <ImageManager/ImageDecoder.h>
-#include <ImageManager/RawImageDecoder.h>
-#include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-
-#include "JpeglibWithFix.h"
+extern "C" {
+#include <limits.h>
+#include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+}
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -391,7 +391,7 @@ QString Utilities::setupDemo()
     QString demoDB = locateDataFile(QString::fromLatin1("demo/index.xml"));
     if ( demoDB.isEmpty() )
     {
-        qDebug() << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+        qCDebug(UtilitiesLog) << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
         exit(-1);
     }
     QString configFile = demoDir + QString::fromLatin1( "/index.xml" );

@@ -18,18 +18,14 @@
 */
 
 #include "VideoLengthExtractor.h"
-#include <Utilities/Process.h>
-#include <QDir>
+#include "Logging.h"
+
 #include <MainWindow/FeatureDialog.h>
-#include <QDebug>
+#include <Utilities/Process.h>
+
+#include <QDir>
 
 #define STR(x) QString::fromUtf8(x)
-
-#ifdef DEBUG_IMAGEMANAGER
-#  define Debug qDebug
-#else
-#  define Debug if(0) qDebug
-#endif
 
 ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent) :
     QObject(parent), m_process(nullptr)
@@ -69,7 +65,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
                   << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
                   <<  fileName.absolute();
 
-        Debug( "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
         m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
     }
 }
@@ -77,7 +73,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
 void ImageManager::VideoLengthExtractor::processEnded()
 {
     if ( !m_process->stderr().isEmpty() )
-        Debug() << m_process->stderr();
+        qCDebug(ImageManagerLog) << m_process->stderr();
 
     QString lenStr;
     if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())

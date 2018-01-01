@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImportHandler.h"
+#include "Logging.h"
 
 #include <QApplication>
 #include <QFile>
@@ -26,7 +27,6 @@
 #include <KJobUiDelegate>
 #include <kmessagebox.h>
 #include <QProgressDialog>
-#include <QDebug>
 #include <KConfigGroup>
 
 #include "Utilities/Util.h"
@@ -42,12 +42,6 @@
 #include "kio/job.h"
 
 #include <memory>
-
-#ifdef DEBUG_KIM_IMPORT
-# define Debug qDebug
-#else
-# define Debug if (0) qDebug
-#endif
 
 using namespace ImportExport;
 
@@ -76,7 +70,7 @@ bool ImportExport::ImportHandler::exec( const ImportSettings& settings, KimFileR
         copyFromExternal();
 
         // If none of the images were to be copied, then we flushed the loop before we got started, in that case, don't start the loop.
-        Debug() << "Copying" << m_pendingCopies.count() << "files from external source...";
+        qCDebug(ImportExportLog) << "Copying" << m_pendingCopies.count() << "files from external source...";
         if ( m_pendingCopies.count() > 0 )
             ok = m_eventLoop->exec();
         else
@@ -112,7 +106,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     DB::ImageInfoPtr info = m_pendingCopies[0];
 
     if ( isImageAlreadyInDB( info ) ) {
-        Debug() << info->fileName().relative() << "is already in database.";
+        qCDebug(ImportExportLog) << info->fileName().relative() << "is already in database.";
         aCopyJobCompleted(0);
         return;
     }
@@ -141,7 +135,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
             m_job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
             connect(m_job, &KIO::FileCopyJob::result, this, &ImportHandler::aCopyJobCompleted);
             succeeded = true;
-            Debug() << "Copying" << src << "to" << dest;
+            qCDebug(ImportExportLog) << "Copying" << src << "to" << dest;
             break;
         } else
             tried << src.toDisplayString();
@@ -197,7 +191,7 @@ void ImportExport::ImportHandler::updateDB()
     if ( len == m_settings.destination().length() )
         len = 0;
     else
-        Debug()
+        qCDebug(ImportExportLog)
             << "Re-rooting of ImageInfos from " << Settings::SettingsData::instance()->imageDirectory()
             << " to " << m_settings.destination();
 
@@ -208,15 +202,15 @@ void ImportExport::ImportHandler::updateDB()
         if ( len != 0) {
             // exchange prefix:
             QString name = m_settings.destination() + info->fileName().absolute().mid(len);
-            Debug() << info->fileName().absolute() << " -> " << name;
+            qCDebug(ImportExportLog) << info->fileName().absolute() << " -> " << name;
             info->setFileName( DB::FileName::fromAbsolutePath(name) );
         }
 
         if ( isImageAlreadyInDB( info ) ) {
-            Debug() << "Updating ImageInfo for " << info->fileName().absolute();
+            qCDebug(ImportExportLog) << "Updating ImageInfo for " << info->fileName().absolute();
             updateInfo( matchingInfoFromDB( info ), info );
         } else {
-            Debug() << "Adding ImageInfo for " << info->fileName().absolute();
+            qCDebug(ImportExportLog) << "Adding ImageInfo for " << info->fileName().absolute();
             addNewRecord( info );
         }
 
@@ -259,7 +253,7 @@ void ImportExport::ImportHandler::aCopyFailed( QStringList files )
 
 void ImportExport::ImportHandler::aCopyJobCompleted( KJob* job )
 {
-    Debug() << "CopyJob" << job << "completed.";
+    qCDebug(ImportExportLog) << "CopyJob" << job << "completed.";
     m_pendingCopies.pop_front();
     if ( job && job->error() ) {
         job->uiDelegate()->showErrorMessage();

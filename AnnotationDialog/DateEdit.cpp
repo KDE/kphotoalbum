@@ -39,7 +39,6 @@
 
 #include <QApplication>
 #include <QDate>
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QEvent>
 #include <QKeyEvent>

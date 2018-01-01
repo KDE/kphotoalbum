@@ -20,7 +20,6 @@
 
 #include <QApplication>
 #include <QCheckBox>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QEventLoop>
 #include <QGroupBox>

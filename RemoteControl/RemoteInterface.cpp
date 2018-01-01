@@ -23,7 +23,6 @@
 
 #include <QBuffer>
 #include <QDataStream>
-#include <QDebug>
 #include <QImage>
 #include <QPainter>
 #include <QTcpSocket>

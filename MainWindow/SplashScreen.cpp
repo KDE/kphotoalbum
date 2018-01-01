@@ -18,7 +18,6 @@
 
 #include "SplashScreen.h"
 
-#include <QDebug>
 #include <QPainter>
 #include <QRegExp>
 

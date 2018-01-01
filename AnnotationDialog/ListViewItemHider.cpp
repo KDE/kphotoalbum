@@ -20,7 +20,6 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
-#include <QDebug>
 
 // Local includes
 #include "ListViewItemHider.h"

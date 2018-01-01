@@ -18,7 +18,6 @@
 
 #include "ExternalPopup.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QIcon>
 #include <QLabel>

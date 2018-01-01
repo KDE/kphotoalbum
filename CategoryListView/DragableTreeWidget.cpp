@@ -20,7 +20,6 @@
 #include "DB/Category.h"
 #include "CheckDropItem.h"
 #include <QDragMoveEvent>
-#include <QDebug>
 
 CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent )
     :QTreeWidget( parent ), m_category( category )

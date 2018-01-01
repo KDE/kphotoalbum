@@ -29,7 +29,6 @@
 #include <KLocalizedString>
 
 // Qt includes
-#include <QDebug>
 #include <QGridLayout>
 #include <QLabel>
 #include <QLineEdit>

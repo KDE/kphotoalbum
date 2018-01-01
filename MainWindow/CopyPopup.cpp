@@ -19,7 +19,6 @@
 // Qt includes
 #include <QFileDialog>
 #include <QPushButton>
-#include <QDebug>
 
 // KDE includes
 #include <KIO/CopyJob>

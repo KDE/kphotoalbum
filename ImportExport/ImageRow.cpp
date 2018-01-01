@@ -25,7 +25,6 @@
 #include <KJobWidgets>
 #include <KJobUiDelegate>
 #include "MainWindow/Window.h"
-#include <QDebug>
 
 #include <memory>
 

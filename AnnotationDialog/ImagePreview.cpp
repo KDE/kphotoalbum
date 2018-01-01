@@ -26,7 +26,6 @@
 
 #include "ResizableFrame.h"
 
-#include <QDebug>
 #include <QImageReader>
 #include <QMouseEvent>
 #include <QRubberBand>

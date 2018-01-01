@@ -35,7 +35,6 @@
 #include <KMessageBox>
 
 #include <QButtonGroup>
-#include <QDebug>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QLabel>

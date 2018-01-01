@@ -18,7 +18,6 @@
 
 #include "ImageInfo.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QStringList>

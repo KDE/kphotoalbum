@@ -17,7 +17,6 @@
 */
 
 // Qt includes
-#include <QDebug>
 #include <QTimer>
 
 // KDE includes

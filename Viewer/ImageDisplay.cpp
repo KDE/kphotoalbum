@@ -31,7 +31,6 @@
 #include <math.h>
 #include "DB/ImageDB.h"
 #include <qtimer.h>
-#include <QDebug>
 
 /**
    Area displaying the actual image in the viewer.

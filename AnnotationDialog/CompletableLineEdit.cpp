@@ -22,7 +22,6 @@
 #include <QKeyEvent>
 #include <QTreeWidgetItemIterator>
 #include <QTreeWidgetItem>
-#include <QDebug>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
     : KLineEdit( parent )

@@ -33,7 +33,6 @@
 
 // Qt includes
 #include <QApplication>
-#include <QDebug>
 #include <QDockWidget>
 #include <QList>
 #include <QMenu>

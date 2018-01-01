@@ -226,7 +226,8 @@ void Exif::Database::remove( const DB::FileName& fileName )
     if ( !isUsable() )
         return;
 
-    QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), m_db );
+    QSqlQuery query( m_db);
+    query.prepare( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ));
     query.bindValue( 0, fileName.absolute() );
     if ( !query.exec() )
         showError( query );
@@ -238,7 +239,8 @@ void Exif::Database::remove( const DB::FileNameList& list )
         return;
 
     m_db.transaction();
-    QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), m_db );
+    QSqlQuery query( m_db);
+    query.prepare( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ));
     Q_FOREACH(const DB::FileName& fileName, list) {
         query.bindValue( 0, fileName.absolute() );
         if ( !query.exec() )
@@ -267,8 +269,8 @@ bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
         }
         _queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
     }
-
-    QSqlQuery query( _queryString, m_db );
+    QSqlQuery query(m_db);
+    query.prepare( _queryString );
     query.bindValue(  0, filename.absolute() );
     int i = 1;
     for( const DatabaseElement *e : elements() )

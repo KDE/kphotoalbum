@@ -422,6 +422,7 @@ set(kphotoalbum_SRCS
     )
 
 add_executable(kphotoalbum ${kphotoalbum_SRCS})
+add_dependencies(kphotoalbum UpdateVersion)
 
 # External components
 target_link_libraries(kphotoalbum

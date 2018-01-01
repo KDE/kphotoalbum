@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2012-2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# Copyright 2012-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -40,7 +40,7 @@ fi
 BACKUP_LOCATION=~/kpa-backup
 BACKUP_ID=latest
 ACTION=
-ADD_FILES_RELATIVE="exif-info.db layout.dat recognition.db"
+ADD_FILES_RELATIVE="exif-info.db layout.dat"
 KEEP_NUM=5
 TERSE=
 NO_ACT=
@@ -167,12 +167,6 @@ exif_diff()
 	sqlite_diff "$1" "$2" "select * from exif"
 }
 
-kface_diff()
-# kface_diff SRC DST
-{
-	sqlite_diff "$1" "$2" 'select * from IdentityAttributes'
-}
-
 visual_diff()
 # visual_diff [-q] SRC DST
 # Do a diff of two files (or STDIN and a file).
@@ -227,9 +221,6 @@ visual_diff()
 				;;
 			kphotoalbumrc)
 				diff -u -F '^\[.*\]' "$src" "$dst"
-				;;
-			recognition.db)
-				kface_diff "$src" "$dst"
 				;;
 			*)
 				# data; nothing to see:

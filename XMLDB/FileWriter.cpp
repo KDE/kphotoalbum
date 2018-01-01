@@ -104,7 +104,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         //saveSettings(writer);
     }
     writer.writeEndDocument();
-    qCDebug(TimingLog) << "Saving took" << t.elapsed() <<"ms";
+    qCDebug(TimingLog) << "XMLDB::FileWriter::save(): Saving took" << t.elapsed() <<"ms";
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 

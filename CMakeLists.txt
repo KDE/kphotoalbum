@@ -33,26 +33,6 @@ add_definitions(
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_REQUIRED TRUE)
 
-########### Debug options ###############
-
-foreach(part in
-        AnnotationDialog
-        EXIF
-        HTMLGENERATOR
-        JOBMANAGER
-        KIM_IMPORT
-        KIPI
-        MAP
-        ResizeSlider
-        )
-    set(_opt "DEBUG_${part}")
-    option(${_opt} "Enable debug output for ${part}" OFF)
-    if (${_opt})
-        message(STATUS "Enabling debug output for ${part}")
-        add_definitions(-D${_opt})
-    endif()
-endforeach()
-
 ########### dependencies  ###############
 
 find_package(Qt5 REQUIRED COMPONENTS Sql Xml Widgets Network)

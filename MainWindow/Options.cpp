@@ -30,10 +30,6 @@ class Options::OptionsPrivate {
 public:
     QCommandLineParser parser;
 
-    QCommandLineOption benchmark {
-        QLatin1String("benchmark"),
-                i18n("Print timing information.")
-    };
     // legacy option: "-c <imageDirectory>"
     QCommandLineOption configFile {
         QLatin1String("c"),
@@ -76,11 +72,6 @@ MainWindow::Options *MainWindow::Options::the()
 QCommandLineParser *MainWindow::Options::parser() const
 {
     return &(d->parser);
-}
-
-bool MainWindow::Options::benchmark() const
-{
-    return d->parser.isSet( d->benchmark );
 }
 
 QUrl MainWindow::Options::dbFile() const
@@ -151,7 +142,6 @@ MainWindow::Options::Options()
 #endif
     d->parser.addOptions(
                 QList<QCommandLineOption>()
-                << d->benchmark
                 << d->configFile
                 << d->dbFile
                 << d->demoOption

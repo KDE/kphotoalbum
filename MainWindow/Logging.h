@@ -1,4 +1,4 @@
-/* Copyright (C) 2017 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* Copyright (C) 2017-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -21,7 +21,7 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(startupTime)
+Q_DECLARE_LOGGING_CATEGORY(timingInformation)
 
 #endif /* LOGGING_H */
 

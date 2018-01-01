@@ -36,12 +36,12 @@ ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* fac
 
 bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
+    if ( ( event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier )  && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
         QString token = event->text().toUpper().left(1);
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        const DB::FileNameList selection = widget()->selection(NoExpandCollapsedStacks);
+        const DB::FileNameList selection = widget()->selection( event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks );
         DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
         Q_FOREACH( const DB::FileName& fileName, selection ) {
             DB::ImageInfoPtr info = fileName.info();
@@ -63,11 +63,11 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         return true;
     }
 
-    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) ) {
+    if ( ( event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier ) && ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 ) ) {
         bool ok;
         short rating = event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            const DB::FileNameList selection = widget()->selection( NoExpandCollapsedStacks );
+            const DB::FileNameList selection = widget()->selection( event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks );
             Q_FOREACH( const DB::FileName& fileName, selection ) {
                 DB::ImageInfoPtr info = fileName.info();
                 info->setRating(rating * 2);

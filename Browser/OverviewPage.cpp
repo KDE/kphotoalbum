@@ -221,7 +221,7 @@ void Browser::OverviewPage::activate()
 
 Qt::ItemFlags Browser::OverviewPage::flags( const QModelIndex & index ) const
 {
-    if ( isCategoryIndex(index.row() ) && m_count[index.row()].total() <= 1 )
+    if ( isCategoryIndex(index.row() ) && m_count[index.row()] <= 1 )
         return QAbstractListModel::flags(index) & ~Qt::ItemIsEnabled;
     else
         return QAbstractListModel::flags(index);
@@ -302,10 +302,8 @@ void Browser::OverviewPage::updateImageCount()
     timer.start();
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
-        QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
-        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Video );
-        DB::MediaCount count( images.count(), videos.count() );
-        m_count[row] = count;
+        QMap<QString, uint> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
+        m_count[row] = items.count();
         ++row;
     }
     qCDebug(timingInformation) << "Browser::Overview::updateImageCount(): " << timer.elapsed() << "ms.";

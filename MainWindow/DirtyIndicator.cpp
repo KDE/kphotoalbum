@@ -21,7 +21,7 @@
 #include <QPixmap>
 #include <QLabel>
 
-static MainWindow::DirtyIndicator* _instance = nullptr;
+static MainWindow::DirtyIndicator* s_instance = nullptr;
 bool MainWindow::DirtyIndicator::s_autoSaveDirty = false;
 bool MainWindow::DirtyIndicator::s_saveDirty = false;
 bool MainWindow::DirtyIndicator::s_suppressMarkDirty = false;
@@ -31,7 +31,7 @@ MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
 {
     m_dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
     setFixedWidth( m_dirtyPix.width() + 10);
-    _instance = this;
+    s_instance = this;
 
     // Might have been marked dirty even before the indicator had been created, by the database searching during loading.
     if ( s_saveDirty )
@@ -49,8 +49,8 @@ void MainWindow::DirtyIndicator::markDirty()
         return;
     }
 
-    if ( _instance ) {
-        _instance->markDirtySlot();
+    if ( s_instance ) {
+        s_instance->markDirtySlot();
     } else {
         s_saveDirty = true;
         s_autoSaveDirty = true;

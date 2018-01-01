@@ -17,23 +17,28 @@
 */
 
 #include "OverviewPage.h"
-#include <AnnotationDialog/Dialog.h>
-#include <Utilities/ShowBusyCursor.h>
-#include "enums.h"
-#include <KMessageBox>
-#include <Exif/SearchDialog.h>
-#include "ImageViewPage.h"
-#include "CategoryPage.h"
-#include "BrowserWidget.h"
-#include <MainWindow/Window.h>
-#include <KLocalizedString>
-#include <DB/ImageDB.h>
-#include <QIcon>
-#include "DB/CategoryCollection.h"
 
+#include "BrowserWidget.h"
+#include "CategoryPage.h"
+#include "enums.h"
+#include "ImageViewPage.h"
+
+#include <AnnotationDialog/Dialog.h>
 #ifdef HAVE_KGEOMAP
-#include "Browser/GeoPositionPage.h"
+#include <Browser/GeoPositionPage.h>
 #endif
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <Exif/SearchDialog.h>
+#include <MainWindow/Logging.h>
+#include <Utilities/ShowBusyCursor.h>
+
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <MainWindow/Window.h>
+
+#include <QElapsedTimer>
+#include <QIcon>
 
 const int THUMBNAILSIZE = 70;
 
@@ -41,7 +46,7 @@ AnnotationDialog::Dialog* Browser::OverviewPage::s_config = nullptr;
 Browser::OverviewPage::OverviewPage( const Breadcrumb& breadcrumb, const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : BrowserPage( info, browser), m_breadcrumb( breadcrumb )
 {
-  //    updateImageCount();
+    //updateImageCount();
 }
 
 int Browser::OverviewPage::rowCount( const QModelIndex& parent ) const
@@ -293,6 +298,8 @@ bool Browser::OverviewPage::showDuringMovement() const
 
 void Browser::OverviewPage::updateImageCount()
 {
+    QElapsedTimer timer;
+    timer.start();
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
         QMap<QString, uint> images = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::Image );
@@ -301,6 +308,7 @@ void Browser::OverviewPage::updateImageCount()
         m_count[row] = count;
         ++row;
     }
+    qCDebug(timingInformation) << "Browser::Overview::updateImageCount(): " << timer.elapsed() << "ms.";
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateUntaggedImagesAction()

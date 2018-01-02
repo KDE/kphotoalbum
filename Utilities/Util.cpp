@@ -676,14 +676,6 @@ void Utilities::deleteDemo()
     delDemoJob->exec();
 }
 
-QString Utilities::stripImageDirectory( const QString& fileName )
-{
-    if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
-        return fileName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
-    else
-        return fileName;
-}
-
 QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
     return stripEndingForwardSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;

@@ -36,15 +36,6 @@ QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
     return r;
 }
 
-template <class T>
-QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
-{
-    QList<T> r = l1;
-    Q_FOREACH(const T& x, l2)
-        r.removeAll(x);
-    return r;
-}
-
 namespace
 {
     template <class T>
@@ -95,38 +86,15 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
     return result;
 }
 
-template <class T>
-QList<QVariant> Utilities::toVariantList(const T& l)
-{
-    QList<QVariant> r;
-    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
-        r << *i;
-    return r;
-}
-
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
 template \
 QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
-
-#define INSTANTIATE_LISTSUBTRACT(T) \
-template \
-QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
 
 #define INSTANTIATE_SHUFFLELIST(T) \
 template \
 QList<T> Utilities::shuffleList(const QList<T>& list)
 
-#define INSTANTIATE_TOVARIANTLIST(T) \
-template \
-QList<QVariant> Utilities::toVariantList(const T& l)
-
 INSTANTIATE_MERGELISTSUNIQLY(DB::RawId);
 INSTANTIATE_MERGELISTSUNIQLY(QString);
-INSTANTIATE_LISTSUBTRACT(DB::RawId);
 INSTANTIATE_SHUFFLELIST(DB::FileName);
-INSTANTIATE_TOVARIANTLIST(QList<int>);
-#ifndef DB_RAWID_IS_PLAIN_INTEGER
-INSTANTIATE_TOVARIANTLIST(QList<DB::RawId>);
-#endif
-INSTANTIATE_TOVARIANTLIST(QStringList);
 // vi:expandtab:tabstop=4 shiftwidth=4:

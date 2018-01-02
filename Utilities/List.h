@@ -33,14 +33,6 @@ namespace Utilities
     template <class T>
     QList<T> mergeListsUniqly(const QList<T>& l1, const QList<T>& l2);
 
-    /** Subtract a list from another list.
-     *
-     * Returned list will have those items of l1 that are not in l2,
-     * in the original order of l1.
-     */
-    template <class T>
-    QList<T> listSubtract(const QList<T>& l1, const QList<T>& l2);
-
     /** Shuffle a list.
      *
      * Returned list will have same items as the given list, but in
@@ -48,18 +40,6 @@ namespace Utilities
      */
     template <class T>
     QList<T> shuffleList(const QList<T>& list);
-
-
-    /** Copy some list to QValueList of QVariants.
-     *
-     * Class T should support iterating interface (e.g. const_iterator,
-     * begin(), end()) and should be convertable to QVariant.
-     *
-     * @param l the list to copy from
-     * @return list which contains elements of l in same order, but as QVariants
-     */
-    template <class T>
-    QList<QVariant> toVariantList(const T& l);
 }
 
 #endif /* UTILITIES_LIST_H */

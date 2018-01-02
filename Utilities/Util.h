@@ -30,7 +30,7 @@
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace Utilities
@@ -60,8 +60,6 @@ QString absoluteImageFileName( const QString& relativeName );
 QString imageFileNameToAbsolute( const QString& fileName );
 
 QString relativeFolderName( const QString& fileName);
-
-QString stripImageDirectory( const QString& fileName );
 
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );

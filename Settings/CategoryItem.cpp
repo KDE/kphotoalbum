@@ -173,11 +173,6 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap* memberMap)
     DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, m_category);
     memberMap->renameCategory(m_categoryOrig, m_category);
 
-#ifdef HAVE_KFACE
-    // Also tell the face management page to update the recognition database
-    emit newCategoryNameSaved(m_categoryOrig, m_category);
-#endif
-
     m_categoryOrig = m_category;
 }
 

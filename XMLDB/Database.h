@@ -92,7 +92,7 @@ namespace XMLDB {
     protected slots:
         void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
         void deleteItem( DB::Category* category, const QString& option );
-        void lockDB( bool lock, bool exclude );
+        void lockDB( bool lock, bool exclude ) override;
 
     private:
         friend class DB::ImageDB;

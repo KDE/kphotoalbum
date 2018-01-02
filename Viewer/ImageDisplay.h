@@ -55,7 +55,7 @@ class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageCl
 Q_OBJECT
 public:
     explicit ImageDisplay( QWidget* parent );
-    bool setImage( DB::ImageInfoPtr info, bool forward );
+    bool setImage( DB::ImageInfoPtr info, bool forward ) override;
     QImage currentViewAsThumbnail() const;
     void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     void setImageList( const DB::FileNameList& list );
@@ -68,10 +68,10 @@ public:
     bool filterHistogramEqualization();
 
 public slots:
-    void zoomIn();
-    void zoomOut();
-    void zoomFull();
-    void zoomPixelForPixel();
+    void zoomIn() override;
+    void zoomOut() override;
+    void zoomFull() override;
+    void zoomPixelForPixel() override;
 
 protected slots:
     void hideCursor();
@@ -86,11 +86,11 @@ signals:
     void viewGeometryChanged(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 protected:
-    virtual void mousePressEvent( QMouseEvent* event );
-    virtual void mouseMoveEvent( QMouseEvent* event );
-    virtual void mouseReleaseEvent( QMouseEvent* event );
-    virtual void resizeEvent( QResizeEvent* event );
-    virtual void paintEvent( QPaintEvent* event );
+    virtual void mousePressEvent( QMouseEvent* event ) override;
+    virtual void mouseMoveEvent( QMouseEvent* event ) override;
+    virtual void mouseReleaseEvent( QMouseEvent* event ) override;
+    virtual void resizeEvent( QResizeEvent* event ) override;
+    virtual void paintEvent( QPaintEvent* event ) override;
     void hideEvent(QHideEvent* ) override;
     QPoint mapPos( QPoint );
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );

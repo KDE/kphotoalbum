@@ -37,7 +37,7 @@ class VideoDisplay :public Viewer::AbstractDisplay
 public:
     explicit VideoDisplay( QWidget* parent );
     ~VideoDisplay();
-    virtual bool setImage( DB::ImageInfoPtr info, bool forward );
+    virtual bool setImage( DB::ImageInfoPtr info, bool forward ) override;
     bool isPaused() const;
     bool isPlaying() const;
     QImage screenShoot();
@@ -46,10 +46,10 @@ signals:
     void stopped();
 
 public slots:
-    void zoomIn();
-    void zoomOut();
-    void zoomFull();
-    void zoomPixelForPixel();
+    void zoomIn() override;
+    void zoomOut() override;
+    void zoomFull() override;
+    void zoomPixelForPixel() override;
     void stop();
     void playPause();
     void restart();

@@ -18,6 +18,14 @@
 
 #include "ExternalPopup.h"
 
+#include "Logging.h"
+#include "RunDialog.h"
+#include "Window.h"
+
+#include <DB/FileNameList.h>
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+
 #include <QFile>
 #include <QIcon>
 #include <QLabel>
@@ -32,13 +40,6 @@
 #include <KRun>
 #include <KService>
 #include <KShell>
-
-#include <DB/FileNameList.h>
-#include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
-
-#include "RunDialog.h"
-#include "Window.h"
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const DB::FileNameList& imageList )
 {
@@ -124,7 +125,7 @@ void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
             QFile::copy(origFile, newFile);
             lst.append( QUrl::fromLocalFile(newFile) );
         } else {
-            qWarning("No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
+            qCWarning(MainWindowLog, "No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
             lst.append( QUrl::fromLocalFile(origFile) );
         }
 

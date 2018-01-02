@@ -252,7 +252,7 @@ void XMLDB::FileWriter::saveMemberGroups( QXmlStreamWriter& writer )
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( categoryName );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     if (category->idForName(member)==0)
-                        qWarning() << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
+                        qCWarning(XMLDBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
                     idList.append( QString::number( category->idForName( member ) ) );
                 }
 #ifdef DETERMINISTIC_DBSAVE
@@ -474,7 +474,7 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 
     // A few bugs has shown up, where an invalid category name has crashed KPA. It therefore checks for such invalid names here.
     if ( !m_db->m_categoryCollection.categoryForName( categoryName ) ) {
-        qWarning("Invalid category name: %s", qPrintable(categoryName));
+        qCWarning(XMLDBLog,"Invalid category name: %s", qPrintable(categoryName));
         cache.insert(categoryName,false);
         return false;
     }

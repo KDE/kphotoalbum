@@ -16,14 +16,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef MAINWINDOW_LOGGING_H
-#define MAINWINDOW_LOGGING_H
+#ifndef CATEGORYLISTVIEW_LOGGING_H
+#define CATEGORYLISTVIEW_LOGGING_H
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
-Q_DECLARE_LOGGING_CATEGORY(MainWindowLog)
+Q_DECLARE_LOGGING_CATEGORY(CategoryListViewLog)
 
-#endif /* MAINWINDOW_LOGGING_H */
+#endif /* CATEGORYLISTVIEW_LOGGING_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

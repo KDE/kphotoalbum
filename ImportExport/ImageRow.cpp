@@ -16,15 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageRow.h"
-#include "KimFileReader.h"
+
 #include "ImportDialog.h"
-#include <QCheckBox>
+#include "KimFileReader.h"
+#include "Logging.h"
 #include "MiniViewer.h"
-#include <QImage>
-#include <KIO/StoredTransferJob>
+#include "MainWindow/Window.h"
+
 #include <KJobWidgets>
 #include <KJobUiDelegate>
-#include "MainWindow/Window.h"
+#include <KIO/StoredTransferJob>
+
+#include <QCheckBox>
+#include <QImage>
 
 #include <memory>
 
@@ -62,7 +66,7 @@ void ImageRow::showImage()
                     MiniViewer::show( img, m_info, static_cast<QWidget*>( parent() ) );
                     break;
                 } else {
-                    qWarning() << "Could not load image data for" << src.toDisplayString();
+                    qCWarning(ImportExportLog) << "Could not load image data for" << src.toDisplayString();
                 }
             }
         }

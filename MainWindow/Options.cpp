@@ -17,6 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Options.h"
+#include "Logging.h"
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -119,7 +120,7 @@ QHostAddress MainWindow::Options::listen() const
     if (address == QHostAddress::Broadcast)
 #endif
     {
-        qWarning() << "Won't bind to address"<<address;
+        qCWarning(MainWindowLog) << "Won't bind to address"<<address;
         address = QHostAddress::Null;
     }
     return address;

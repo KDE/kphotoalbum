@@ -20,3 +20,4 @@
 
 // only enable warning messages by default
 Q_LOGGING_CATEGORY(TimingLog, "kphotoalbum.timingInformation", QtWarningMsg)
+Q_LOGGING_CATEGORY(MainWindowLog, "kphotoalbum.MainWindow", QtWarningMsg)

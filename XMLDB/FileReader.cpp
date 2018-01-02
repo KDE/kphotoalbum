@@ -261,7 +261,7 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
     while (reader->readNextStartOrStopElement(imageString).isStartToken) {
         const QString fileNameStr = reader->attribute(fileString);
         if ( fileNameStr.isNull() ) {
-            qWarning( "Element did not contain a file attribute" );
+            qCWarning(XMLDBLog, "Element did not contain a file attribute" );
             return;
         }
 
@@ -317,7 +317,7 @@ void XMLDB::FileReader::loadMemberGroups( ReaderPtr reader )
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName( category );
                     if (!catPtr)
                     { // category was not declared in "Categories"
-                        qWarning() << "File corruption in index.xml. Inserting missing category: " << category;
+                        qCWarning(XMLDBLog) << "File corruption in index.xml. Inserting missing category: " << category;
                         catPtr = new XMLCategory(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory( catPtr );
                     }

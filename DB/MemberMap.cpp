@@ -17,6 +17,7 @@
 */
 
 #include "MemberMap.h"
+#include "Logging.h"
 #include "DB/Category.h"
 
 using namespace DB;
@@ -224,7 +225,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
         return;
 
     if ( item.isEmpty() ) {
-        qWarning( "Null item tried inserted into group %s", qPrintable(group));
+        qCWarning(DBLog, "Null item tried inserted into group %s", qPrintable(group));
         return;
     }
 

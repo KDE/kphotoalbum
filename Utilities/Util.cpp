@@ -788,7 +788,7 @@ DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
         {
             checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
         } else {
-            qWarning() << "Could not compute MD5 sum for file " << fileName.relative();
+            qCWarning(UtilitiesLog) << "Could not compute MD5 sum for file " << fileName.relative();
         }
     }
     return checksum;

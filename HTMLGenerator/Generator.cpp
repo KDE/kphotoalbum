@@ -151,7 +151,7 @@ void HTMLGenerator::Generator::generate()
     QDir dir( themeDir );
     QStringList files = dir.entryList( QDir::Files );
     if( files.count() < 1 )
-        qWarning() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir );
+        qCWarning(HTMLGeneratorLog) << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir );
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         if( *it == QString::fromLatin1("kphotoalbum.theme") ||

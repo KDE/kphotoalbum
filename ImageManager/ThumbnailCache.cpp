@@ -16,11 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailCache.h"
+#include "Logging.h"
+
+#include <Settings/SettingsData.h>
+
 #include <QBuffer>
 #include <QCache>
 #include <QTemporaryFile>
 #include <QDir>
-#include <Settings/SettingsData.h>
 #include <QTimer>
 #include <QPixmap>
 #include <QFile>
@@ -46,12 +49,12 @@ public:
         : file(filename),map(nullptr)
     {
         if ( !file.open( QIODevice::ReadOnly ) )
-            qWarning("Failed to open thumbnail file");
+            qCWarning(ImageManagerLog, "Failed to open thumbnail file");
 
         uchar * data = file.map( 0, file.size() );
         if ( !data || QFile::NoError != file.error() )
         {
-            qWarning("Failed to map thumbnail file");
+            qCWarning(ImageManagerLog, "Failed to map thumbnail file");
         }
         else
         {
@@ -93,12 +96,12 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     QFile file( fileNameForIndex(m_currentFile) );
     if ( ! file.open(QIODevice::ReadWrite ) )
     {
-        qWarning("Failed to open thumbnail file for inserting");
+        qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
         return;
     }
     if ( ! file.seek( m_currentOffset ) )
     {
-        qWarning("Failed to seek in thumbnail file");
+        qCWarning(ImageManagerLog, "Failed to seek in thumbnail file");
         return;
     }
 
@@ -115,7 +118,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     const int size = data.size();
     if ( ! ( file.write( data.data(), size ) == size && file.flush() ) )
     {
-        qWarning("Failed to write image data to thumbnail file");
+        qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }
     file.close();
@@ -150,7 +153,7 @@ QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
         t = new ThumbnailMapping( fileNameForIndex( info.fileIndex ) );
         if (!t->isValid())
         {
-            qWarning("Failed to map thumbnail file");
+            qCWarning(ImageManagerLog, "Failed to map thumbnail file");
             return QPixmap();
         }
         m_memcache->insert(info.fileIndex,t);
@@ -173,7 +176,7 @@ void ImageManager::ThumbnailCache::save() const
 
     QTemporaryFile file;
     if ( !file.open() ) {
-        qWarning("Failed to create temporary file");
+        qCWarning(ImageManagerLog, "Failed to create temporary file");
         return;
     }
 
@@ -195,7 +198,7 @@ void ImageManager::ThumbnailCache::save() const
     const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
     QFile::remove( realFileName );
     if ( !file.copy( realFileName ) )
-        qWarning("Failed to copy the temporary file %s to %s", qPrintable( file.fileName() ), qPrintable( realFileName ) );
+        qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable( file.fileName() ), qPrintable( realFileName ) );
 
     QFile realFile( realFileName );
     realFile.open( QIODevice::ReadOnly );

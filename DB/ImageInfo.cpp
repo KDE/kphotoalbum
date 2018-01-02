@@ -18,9 +18,8 @@
 
 #include "ImageInfo.h"
 
-#include <QFile>
-#include <QFileInfo>
-#include <QStringList>
+#include "FileInfo.h"
+#include "Logging.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -30,7 +29,10 @@
 #include <Settings/SettingsData.h>
 #include <Utilities/StringSet.h>
 #include <Utilities/Util.h>
-#include "FileInfo.h"
+
+#include <QFile>
+#include <QFileInfo>
+#include <QStringList>
 
 using namespace DB;
 
@@ -653,7 +655,7 @@ void ImageInfo::merge(const ImageInfo &other)
 
         DB::ImageDB::instance()->unstack(stackImages);
         if (!DB::ImageDB::instance()->stack(stackImages))
-            qWarning("Could not merge stacks!");
+            qCWarning(DBLog, "Could not merge stacks!");
     }
 }
 

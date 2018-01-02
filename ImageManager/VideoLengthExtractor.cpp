@@ -81,7 +81,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
         QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
         list = list.filter(STR("ID_LENGTH="));
         if ( list.count() == 0 ) {
-            qWarning() << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
+            qCWarning(ImageManagerLog) << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
                        << "Output was:\n"
                        << m_process->stdout();
             emit unableToDetermineLength();
@@ -92,7 +92,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
         const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
         if (!regexp.exactMatch(match))
         {
-            qWarning() << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
+            qCWarning(ImageManagerLog) << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
             emit unableToDetermineLength();
             return;
         }
@@ -102,7 +102,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
         QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
         // ffprobe -v 0 just prints one line, except if panicking
         if ( list.count() < 1 ) {
-            qWarning() << "Unable to parse video length from ffprobe output!"
+            qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
                        << "Output was:\n"
                        << m_process->stdout();
             emit unableToDetermineLength();
@@ -114,13 +114,13 @@ void ImageManager::VideoLengthExtractor::processEnded()
     bool ok = false;
     const double length = lenStr.toDouble(&ok);
     if ( !ok ) {
-        qWarning() << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr).arg(m_fileName.absolute());
+        qCWarning(ImageManagerLog) << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr).arg(m_fileName.absolute());
         emit unableToDetermineLength();
         return;
     }
 
     if ( length == 0 ) {
-        qWarning() << "video length returned was 0 for file " << m_fileName.absolute();
+        qCWarning(ImageManagerLog) << "video length returned was 0 for file " << m_fileName.absolute();
         emit unableToDetermineLength();
         return;
     }

@@ -608,7 +608,7 @@ int HTMLDialog::exec(const DB::FileNameList& list)
 {
     if (list.empty())
     {
-        qWarning() << "HTMLDialog called without images for export";
+        qCWarning(HTMLGeneratorLog) << "HTMLDialog called without images for export";
         return false;
     }
     m_list = list;

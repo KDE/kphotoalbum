@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Database.h"
+#include "Logging.h"
 
 #include "DB/ImageDB.h"
 #include "Exif/DatabaseElement.h"
@@ -108,7 +109,7 @@ static void showError( QSqlQuery& query )
     KMessageBox::information( MainWindow::Window::theMainWindow(), txt, i18n("Error Executing Exif Command"), QString::fromLatin1( "sql_error_in_exif_DB" )
         );
 
-    qWarning( "Error running query: %s\nError was: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+    qCWarning(ExifLog, "Error running query: %s\nError was: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 }
 
 Exif::Database::Database()
@@ -123,7 +124,7 @@ void Exif::Database::openDatabase()
     m_db.setDatabaseName( exifDBFile() );
 
     if ( !m_db.open() )
-        qWarning("Couldn't open db %s", qPrintable(m_db.lastError().text()) );
+        qCWarning(ExifLog,"Couldn't open db %s", qPrintable(m_db.lastError().text()) );
     else
         m_isOpen = true;
 
@@ -216,7 +217,7 @@ bool Exif::Database::add( const DB::FileName& fileName )
     }
     catch (...)
     {
-        qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()) );
+        qCWarning(ExifLog, "Error while reading exif information from %s", qPrintable(fileName.absolute()) );
         return false;
     }
 }

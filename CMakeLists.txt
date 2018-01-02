@@ -86,6 +86,7 @@ set(libdatebar_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/ViewHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp
     )
 
 set(libSettings_SRCS
@@ -104,6 +105,7 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoriesGroupsWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/BirthdayPage.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/DateTableWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings/Logging.cpp
     )
 
 set(libxmldb_SRCS
@@ -169,12 +171,14 @@ set(libViewer_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VisibleOptionsMenu.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoShooter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TaggedArea.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Logging.cpp
     )
 
 set(libCategoryListView_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableTreeWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/CheckDropItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragItemInfo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/Logging.cpp
     )
 
 set(libHTMLGenerator_SRCS
@@ -318,6 +322,7 @@ set(libBrowser_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/FlatCategoryModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/TreeCategoryModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/CenteringIconView.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Browser/Logging.cpp
     )
 
 set(libExif_SRCS
@@ -364,6 +369,7 @@ set(libRemoteControl_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp
     )
 
 set(libMap_SRCS)

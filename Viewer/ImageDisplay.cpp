@@ -17,20 +17,25 @@
 */
 
 #include "ImageDisplay.h"
-#include <qpainter.h>
+#include "Logging.h"
+
+#include <QApplication>
+#include <QCursor>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QPaintEvent>
 #include <QResizeEvent>
-#include <QMouseEvent>
-#include <KMessageBox>
+#include <QTimer>
+
 #include <KLocalizedString>
+#include <KMessageBox>
+
+#include "DB/ImageDB.h"
+#include "ImageManager/AsyncLoader.h"
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
-#include "ImageManager/AsyncLoader.h"
-#include <qcursor.h>
-#include <qapplication.h>
-#include <math.h>
-#include "DB/ImageDB.h"
-#include <qtimer.h>
+
+#include <cmath>
 
 /**
    Area displaying the actual image in the viewer.
@@ -580,7 +585,7 @@ void Viewer::ImageDisplay::updatePreload()
 
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_imageList[i]);
         if ( !info ) {
-            qWarning("Info was null for index %d!", i);
+            qCWarning(ViewerLog, "Info was null for index %d!", i);
             return;
         }
 

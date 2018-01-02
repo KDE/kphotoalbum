@@ -17,16 +17,18 @@
 */
 
 #include "ImageCollection.h"
-
-#include <QFileInfo>
-
-#include <KLocalizedString>
+#include "Logging.h"
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoList.h>
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
+
+#include <QFileInfo>
+
+#include <KLocalizedString>
+
 
 Plugins::ImageCollection::ImageCollection( Type tp )
     : m_type( tp )
@@ -50,7 +52,7 @@ QString Plugins::ImageCollection::name()
         }
         break;
     case SubClass:
-        qWarning("Subclass of ImageCollection should overwrite ImageCollection::name()");
+        qCWarning(PluginsLog, "Subclass of ImageCollection should overwrite ImageCollection::name()");
         res = i18nc("A set of images with no description.","Unknown");
         break;
     }

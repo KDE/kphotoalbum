@@ -16,14 +16,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef MAINWINDOW_LOGGING_H
-#define MAINWINDOW_LOGGING_H
+#ifndef DATEBAR_LOGGING_H
+#define DATEBAR_LOGGING_H
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(TimingLog)
-Q_DECLARE_LOGGING_CATEGORY(MainWindowLog)
+Q_DECLARE_LOGGING_CATEGORY(DateBarLog)
 
-#endif /* MAINWINDOW_LOGGING_H */
+#endif /* DATEBAR_LOGGING_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

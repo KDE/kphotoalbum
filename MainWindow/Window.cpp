@@ -135,6 +135,8 @@ MainWindow::Window::Window( QWidget* parent )
     m_positionBrowser = 0;
 #endif
 
+    qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
+    qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
     QElapsedTimer timer;
     timer.start();
     SplashScreen::instance()->message( i18n("Loading Database") );

@@ -39,6 +39,7 @@
 
 #include <QElapsedTimer>
 #include <QIcon>
+#include <QPixmap>
 
 const int THUMBNAILSIZE = 70;
 
@@ -186,7 +187,18 @@ QVariant Browser::OverviewPage::imageInfo( int role ) const
     if ( role == Qt::DisplayRole )
         return i18n("Show Thumbnails");
     else if ( role == Qt::DecorationRole )
-        return QIcon::fromTheme(QString::fromUtf8("view-preview")).pixmap(THUMBNAILSIZE);
+    {
+        QIcon icon = QIcon::fromTheme(QString::fromUtf8("view-preview"));
+        QPixmap pixmap = icon.pixmap(THUMBNAILSIZE);
+        // workaround for QListView in Qt 5.5:
+        // On Qt5.5 if the last item in the list view has no DecorationRole, then
+        // the whole list view "collapses" to the size of text-only items,
+        // cutting off the existing thumbnails.
+        // This can be triggered by an incomplete icon theme.
+        if (pixmap.isNull())
+            pixmap = QPixmap(THUMBNAILSIZE,THUMBNAILSIZE);
+        return pixmap;
+    }
     return QVariant();
 }
 

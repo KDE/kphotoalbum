@@ -196,7 +196,10 @@ QVariant Browser::OverviewPage::imageInfo( int role ) const
         // cutting off the existing thumbnails.
         // This can be triggered by an incomplete icon theme.
         if (pixmap.isNull())
+        {
             pixmap = QPixmap(THUMBNAILSIZE,THUMBNAILSIZE);
+            pixmap.fill(Qt::transparent);
+        }
         return pixmap;
     }
     return QVariant();

@@ -446,7 +446,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint& pos)
                 // rename the category image too
                 QString oldFile = m_category->fileForCategoryImage( category(), oldStr );
                 QString newFile = m_category->fileForCategoryImage( category(), newStr );
-                KIO::move( QUrl(oldFile), QUrl(newFile) );
+                KIO::move( QUrl::fromLocalFile(oldFile), QUrl::fromLocalFile(newFile) );
 
                 if (m_positionable) {
                     // Also take care of areas that could be linked against this

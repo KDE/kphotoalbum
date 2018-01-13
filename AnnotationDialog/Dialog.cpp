@@ -830,6 +830,7 @@ void AnnotationDialog::Dialog::setup()
         m_clearBut->hide();
         m_revertBut->show();
         m_preview->setSearchMode(false);
+        m_preview->setToggleFullscreenPreviewEnabled(m_setup == InputSingleImageConfigMode);
         setWindowTitle( i18n("Annotations") );
     }
 

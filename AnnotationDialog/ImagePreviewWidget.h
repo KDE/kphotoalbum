@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2017 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -53,6 +53,7 @@ public:
     void setSearchMode(bool state);
     void updatePositionableCategories(QList<QString> positionableCategories = QList<QString>());
     QString defaultPositionableCategory() const;
+    void setToggleFullscreenPreviewEnabled(bool state);
 
 public slots:
     void slotNext();

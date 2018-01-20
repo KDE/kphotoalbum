@@ -1,3 +1,36 @@
+====================== KPhotoalbum 5.3 released (20.01.2018) ======================
+
+* Bugfix: Fix crash with prepared SQL queries on Qt 5.10.
+
+* Enhancement: Speed up startup by not counting images several times.
+
+* Enhancement: Improve robustness of video length detection and thumbnail extraction.
+
+* Change: Purged libkface from KPhotoAlbum. It's sadly not maintained anymore, so we are forced to
+  finally remove the code.
+
+* Enhancement: Made the full screen image preview in the annotation dialog reachable by a button.
+
+* Change: Display absolute numbers instead of percentage when loading new images.
+
+* Bugfix (#385551): Remove dead/unreachable code.
+
+* Enhancement: Speed up video thumbnail creation.
+
+* New: Added the "kpa-merge" script (by Robert Krawitz), which can merge two (version 7) databases
+  and also remove unused labels.
+
+* Enhancement: Speed up removal of images from database.
+
+* Enhancement: Add a "Maximum megapixels" option to the search dialog.
+
+* Enhancement: Don't re-compute an MD5 sum we already have when adding new images.
+
+* Bugfix: Overall KF5 port regression fixes (missing buttons etc.).
+
+* Bugfix: Sometimes, areas weren't updated correctly when annotating images and changing between
+  them.
+
 ====================== KPhotoalbum 5.2 released  (26.02.2017) ======================
 
 * Enhancement: Add the "Geo Position" selection page to the  browser (Thanks to Matthias Füssel for

@@ -5,13 +5,20 @@
 
   <h2>The GUI part</h2>
   The class \ref SettingsDialog is the topmost class for the GUI
-  components. Each page in there are represented by the classes \ref
-  GeneralPage, \ref ThumbnailsPage, \ref ViewerPage, \ref CategoryPage, \ref SubCategoriesPage, \ref PluginsPage,
-  \ref ExifPage, and \ref DatabaseBackendPage.
+  components. Each page in there are represented by the classes
+  \ref BirthdayPage,
+  \ref CategoryPage,
+  \ref DatabaseBackendPage,
+  \ref ExifPage,
+  \ref FileVersionDetectionPage,
+  \ref GeneralPage,
+  \ref PluginsPage,
+  \ref TagGroupsPage,
+  \ref ThumbnailsPage, and
+  \ref ViewerPage
 
   The class \ref ViewerSizeConfig is a minor utility class used on the \ref
   ViewerPage.
-
 
   \ref CategoryItem represent the items on the \ref CategoryPage, plus some
   of the methods for adding and removing categories.

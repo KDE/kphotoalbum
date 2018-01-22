@@ -36,9 +36,9 @@
 
   <h2>Other Component of the dialog</h2>
   The image preview is an instance of the class \ref ImagePreview, and the date
-  editor is an instance of the class \ref KDateEdit. The later is copied
+  editor is an instance of the class \ref DateEdit. The later is copied
   from KDE and (IIRC) adapted to handle KPhotoAlbum's fuzzy dates (this
-  image is from 2000). Actually I thing this is handled differently in
+  image is from 2000). Actually I think this is handled differently in
   KPhotoAlbum now, so that copy could likely go away.
 
   <h2>Shortcuts</h2>

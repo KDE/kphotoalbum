@@ -22,7 +22,7 @@
 
   <h2>Searching/Browsing</h2>
   When the user searches or browses, a \ref ImageSearchInfo instance is
-  build with information about the current search. This class contains
+  built with information about the current search. This class contains
   information about all the parts of the search, like date range, category
   items to match etc.
 
@@ -34,17 +34,16 @@
   The structure consist of these classes:
   \li \ref CategoryMatcher - This is the base class for the hierachy of
   items.
-  \li  \ref SimpleCategoryMatcher - Base class for \ref
-  ValueCategoryMatcher.
-  \li \ref ValueCategoryMatcher - this represent an item from the search
+  \li  \ref SimpleCategoryMatcher - Base class for \ref ValueCategoryMatcher.
+  \li \ref ValueCategoryMatcher - represents an item from the search
   ("Joe" or "friend" in the above example)
-  \li \ref NoTagCategoryMatcher - This represent a "No other" item in
-  the search
+  \li \ref NoTagCategoryMatcher - represents a "No other" item with no other tags (i.e. "None")
+  \li \ref ExactCategoryMatcher - represents a "No other" item on top of other tags
   \li \ref ContainerCategoryMatcher - Base class for \ref
-  AndCategoryMatcher and \ref OrCategoryMatcher
-  \li \ref AndCategoryMatcher - represent the components of an "and" expression (Jesper &
-  Jan & No Other)
-  \li \ref OrCategoryMatcher - represent the components of an "or" expression.
+  AndCategoryMatcher, \ref NegationCategoryMatcher and \ref OrCategoryMatcher
+  \li \ref AndCategoryMatcher - represents the components of an "and" expression ("Jesper & Jan & No Other")
+  \li \ref NegationCategoryMatcher - represents the "!" in "! Joe"
+  \li \ref OrCategoryMatcher - represents the components of an "or" expression.
 
 
   <h2>Image Dates</h2>
@@ -52,8 +51,10 @@
   this might be the case for a images taken with a non-digital
   camera. Therefore all dates in KPhotoAlbum are represented using the
   class \ref ImageDate, which has a lower and an upper date for the range.
+  In KPhotoAlbum lingo, such an inexact date is called a fuzzy date.
 
-  The two classes \ref ImageDateCollection and \ref ImageCount work together to support the date bar in its counting of images. See \ref XMLImageDateCollection::count for a detailed description of this.
+  The two classes \ref ImageDateCollection and \ref ImageCount work together to support the date bar in its counting of images.
+  See \ref XMLImageDateCollection::count for a detailed description of this.
 
   <h2>Undocumented classes</h2>
 
@@ -61,7 +62,6 @@
   \li Category
   \li CategoryItem
   \li FileInfo
-  \li GpsCoordinates
   \li GroupCounter
   \li ImageInfoList
   \li MD5

@@ -61,7 +61,7 @@ public:
     /**
      * @brief Add the context menu actions to a QMenu.
      * @sa AreaTagSelectDialog
-     * @param w
+     * @param menu
      */
     void addTagActions(QMenu *menu);
     void markTidied();

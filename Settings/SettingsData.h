@@ -107,7 +107,7 @@ public:
 
     property_copy( displayLabels           , setDisplayLabels          , bool );
     property_copy( displayCategories       , setDisplayCategories      , bool );
-    property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , unsigned int );
+    property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , int );
     property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool );
     property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool );
     property_copy( previewSize             , setPreviewSize            , int );

@@ -1,4 +1,5 @@
 /*
+  Copyright (C) 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
   Copyright (C) 2007-2010 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
@@ -21,94 +22,31 @@
 #define DB_MD5_H
 
 #include <qglobal.h>
+#include <QString>
 
 namespace DB
 {
     class MD5
     {
     public:
-        MD5():
-            m_isNull(true),
-            m_v0(0),
-            m_v1(0),
-            m_v2(0),
-            m_v3(0)
-        {
-        }
+        MD5();
 
-        explicit MD5(const QString& md5str):
-            m_isNull(md5str.isEmpty()),
-            m_v0(md5str.mid(0, 8).toULong(0, 16)),
-            m_v1(md5str.mid(8, 8).toULong(0, 16)),
-            m_v2(md5str.mid(16, 8).toULong(0, 16)),
-            m_v3(md5str.mid(24, 8).toULong(0, 16))
-        {
-        }
+        explicit MD5(const QString& md5str);
 
-        bool isNull() const
-        {
-            return m_isNull;
-        }
+        bool isNull() const;
 
-        MD5& operator=(const QString& md5str)
-        {
-            if (md5str.isEmpty()) {
-                m_isNull = true;
-            }
-            else {
-                m_isNull = false;
-                m_v0 = md5str.mid(0, 8).toULong(0, 16);
-                m_v1 = md5str.mid(8, 8).toULong(0, 16);
-                m_v2 = md5str.mid(16, 8).toULong(0, 16);
-                m_v3 = md5str.mid(24, 8).toULong(0, 16);
-            }
-            return *this;
-        }
+        MD5& operator=(const QString& md5str);
 
         /** Get hex string representation of this.
          * If this->isNull(), returns null string.
          */
-        QString toHexString() const
-        {
-            QString res;
-            if (!isNull()) {
-                res += QString::number(m_v0, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(m_v1, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(m_v2, 16).rightJustified(8, QChar::fromLatin1('0'));
-                res += QString::number(m_v3, 16).rightJustified(8, QChar::fromLatin1('0'));
-            }
-            return res;
-        }
+        QString toHexString() const;
 
-        bool operator==(const MD5& other) const
-        {
-            if (isNull() || other.isNull())
-                return isNull() == other.isNull();
+        bool operator==(const MD5 &other) const;
 
-            return (m_v0 == other.m_v0 &&
-                    m_v1 == other.m_v1 &&
-                    m_v2 == other.m_v2 &&
-                    m_v3 == other.m_v3);
-        }
+        bool operator!=(const MD5& other) const;
 
-        bool operator!=(const MD5& other) const
-        {
-            return !(*this == other);
-        }
-
-        bool operator<(const MD5& other) const
-        {
-            if (isNull() || other.isNull())
-                return isNull() && !other.isNull();
-
-            return (m_v0 < other.m_v0 ||
-                    (m_v0 == other.m_v0 &&
-                     (m_v1 < other.m_v1 ||
-                      (m_v1 == other.m_v1 &&
-                       (m_v2 < other.m_v2 ||
-                        (m_v2 == other.m_v2 &&
-                         m_v3 < other.m_v3))))));
-        }
+        bool operator<(const MD5& other) const;
 
     private:
         bool m_isNull;

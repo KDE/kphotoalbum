@@ -144,6 +144,9 @@ set(libThumbnailView_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionMaintainer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/VideoThumbnailCycler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/MouseInteraction.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/enums.cpp
     )
 
 set(libPlugins_SRCS)
@@ -195,6 +198,7 @@ set(libHTMLGenerator_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/ImageSizeCheckBox.h
     ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/ImageSizeCheckBox.cpp
     )
 
 set(libUtilities_SRCS
@@ -209,6 +213,9 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/JpeglibWithFix.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/QStr.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/StringSet.cpp
     )
 
 set(libMainWindow_SRCS
@@ -258,6 +265,8 @@ set(libImageManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CacheFileInfo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/enums.cpp
     )
 
 set(libDB_SRCS
@@ -287,6 +296,14 @@ set(libDB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileNameList.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryPtr.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDateCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfoPtr.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/MD5.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/MediaCount.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/RawId.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/SimpleCategoryMatcher.cpp
     )
 
 set(libImportExport_SRCS
@@ -320,6 +337,7 @@ set(libAnnotationDialog_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/AreaTagSelectDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/enums.cpp
     )
 
 set(libBrowser_SRCS
@@ -337,6 +355,7 @@ set(libBrowser_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/TreeCategoryModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/CenteringIconView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Browser/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Browser/enums.cpp
     )
 
 set(libExif_SRCS
@@ -352,6 +371,7 @@ set(libExif_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Exif/Logging.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialogSettings.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp
     )
 
@@ -363,6 +383,7 @@ set(libBackgroundTaskManager_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/JobInfo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/CompletedJobInfo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/Priority.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/PriorityQueue.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundTaskManager/Logging.cpp
     )

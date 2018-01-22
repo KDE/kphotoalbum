@@ -18,6 +18,8 @@
 #ifndef EXIFMODE_H
 #define EXIFMODE_H
 
+#include <QFlags>
+
 namespace DB {
 
 enum EXIFMODE_FLAG {
@@ -31,10 +33,9 @@ enum EXIFMODE_FLAG {
 };
 
 Q_DECLARE_FLAGS(ExifMode, EXIFMODE_FLAG)
-Q_DECLARE_OPERATORS_FOR_FLAGS(DB::ExifMode)
-
 }
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(DB::ExifMode)
 #endif /* EXIFMODE_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

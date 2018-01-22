@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,19 +16,4 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef BROWSER_ENUMS_H
-#define BROWSER_ENUMS_H
-
-#include <Qt>
-
-namespace Browser
-{
-
-const int ItemNameRole = Qt::UserRole + 1;
-const int ValueRole = Qt::UserRole + 2;
-
-}
-
-#endif /* BROWSER_ENUMS_H */
-
-// vi:expandtab:tabstop=4 shiftwidth=4:
+#include "RawId.h"

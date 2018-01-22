@@ -64,7 +64,7 @@ void Browser::GeoPositionPage::slotNewRegionSelected(KGeoMap::GeoCoordinates::Pa
     info.setRegionSelection(coordinates);
 
     browser()->addAction( new Browser::OverviewPage( Breadcrumb(name), info, browser() ) );
-    if (static_cast<uint>(DB::ImageDB::instance()->search(info).size()) <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+    if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
         browser()->addAction( new ImageViewPage( info, browser() ) );
     }
 }

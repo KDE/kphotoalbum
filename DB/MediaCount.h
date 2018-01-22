@@ -1,4 +1,6 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/*
+   Copyright (C) 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+   Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -24,16 +26,16 @@ class MediaCount
 {
 public:
     MediaCount() : m_null(true), m_images(0), m_videos(0)  {}
-    MediaCount( uint images, uint videos ) : m_null(false), m_images( images ), m_videos( videos ) {}
+    MediaCount( int images, int videos ) : m_null(false), m_images( images ), m_videos( videos ) {}
     bool isNull() const { return m_null; }
-    uint images() const { return m_images; }
-    uint videos() const { return m_videos; }
-    uint total() const { return m_images + m_videos; }
+    int images() const { return m_images; }
+    int videos() const { return m_videos; }
+    int total() const { return m_images + m_videos; }
 
 private:
     bool m_null;
-    uint m_images;
-    uint m_videos;
+    int m_images;
+    int m_videos;
 };
 
 }

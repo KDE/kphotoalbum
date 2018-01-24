@@ -70,6 +70,7 @@
 #include <Map/MapView.h>
 #include <QProgressBar>
 #include <QTimer>
+#include "Map/GeoCoordinates.h"
 #endif
 
 #include <KConfigGroup>
@@ -787,7 +788,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
         m_oldSearch.setMaxMegaPixel(m_max_megapixel->value());
         m_oldSearch.setSearchRAW(m_searchRAW->isChecked());
 #ifdef HAVE_KGEOMAP
-        const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->getRegionSelection();
+        const Map::GeoCoordinates::Pair regionSelection = m_annotationMap->getRegionSelection();
         m_oldSearch.setRegionSelection(regionSelection);
 #endif
         return m_oldSearch;
@@ -1633,8 +1634,8 @@ void AnnotationDialog::Dialog::updateMapForCurrentImage()
         return;
     }
 
-    if (m_editList[m_current].coordinates().hasCoordinates()) {
-        m_annotationMap->setCenter(m_editList[m_current]);
+    if ( m_editList[m_current].coordinates().hasCoordinates() ) {
+        m_annotationMap->setCenter( m_editList[m_current] );
         m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
     } else {
         m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
@@ -1662,20 +1663,20 @@ void AnnotationDialog::Dialog::populateMap()
     }
     m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
     m_cancelMapLoading = false;
-    m_mapLoadingProgress->setMaximum(m_editList.count());
+    m_mapLoadingProgress->setMaximum( m_editList.count() );
     m_mapLoadingProgress->show();
     m_cancelMapLoadingButton->show();
 
     int processedImages = 0;
     int imagesWithCoordinates = 0;
 
-    foreach (DB::ImageInfo info, m_editList) {
+    foreach ( DB::ImageInfo info, m_editList ) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:
         QApplication::processEvents();
 
-        if (info.coordinates().hasCoordinates()) {
+        if ( info.coordinates().hasCoordinates() ) {
             m_annotationMap->addImage(info);
             imagesWithCoordinates++;
         }

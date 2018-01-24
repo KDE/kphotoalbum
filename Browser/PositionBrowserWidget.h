@@ -1,4 +1,4 @@
-/* Copyright (C) 2016-2017 Matthias Füssel <matthias.fuessel@gmx.net>
+/* Copyright (C) 2016-2018 Matthias Füssel <matthias.fuessel@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -40,7 +40,7 @@ public:
     virtual void clearImages();
 
 Q_SIGNALS:
-    void signalNewRegionSelected(KGeoMap::GeoCoordinates::Pair coordinates);
+    void signalNewRegionSelected(Map::GeoCoordinates::Pair coordinates);
 
 public slots:
     void slotRegionSelectionChanged();

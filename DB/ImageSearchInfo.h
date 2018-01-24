@@ -18,18 +18,18 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
+#include <config-kpa-kgeomap.h>
 #include "ImageDate.h"
 #include "ImageInfoPtr.h"
 
 #include <Exif/SearchInfo.h>
+#ifdef HAVE_KGEOMAP
+#include <Map/GeoCoordinates.h>
+#endif
+#include <Utilities/StringSet.h>
 
 #include <QList>
 #include <QMap>
-#include <config-kpa-kgeomap.h>
-#ifdef HAVE_KGEOMAP
-#include <KGeoMap/GeoCoordinates>
-#endif
-#include <Utilities/StringSet.h>
 namespace DB
 {
 
@@ -97,8 +97,8 @@ public:
     bool isCacheable() const;
 
 #ifdef HAVE_KGEOMAP
-    KGeoMap::GeoCoordinates::Pair regionSelection() const;
-    void setRegionSelection(const KGeoMap::GeoCoordinates::Pair &actRegionSelection);
+    Map::GeoCoordinates::Pair regionSelection() const;
+    void setRegionSelection(const Map::GeoCoordinates::Pair &actRegionSelection);
 #endif
 
 protected:
@@ -130,7 +130,7 @@ private:
     bool doMatch(ImageInfoPtr) const;
 
 #ifdef HAVE_KGEOMAP
-    KGeoMap::GeoCoordinates::Pair m_regionSelection;
+    Map::GeoCoordinates::Pair m_regionSelection;
     mutable bool m_usingRegionSelection = false;
     mutable float m_regionSelectionMinLat;
     mutable float m_regionSelectionMaxLat;

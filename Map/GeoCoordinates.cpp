@@ -19,27 +19,27 @@
 
 #include "GeoCoordinates.h"
 
-bool Map::GeoCoordinates::hasCoordinates()
+bool Map::GeoCoordinates::hasCoordinates() const
 {
     return m_kgeomapCoordinates.hasCoordinates();
 }
 
-double Map::GeoCoordinates::lon()
+double Map::GeoCoordinates::lon() const
 {
     return m_kgeomapCoordinates.lon();
 }
 
-double Map::GeoCoordinates::lat()
+double Map::GeoCoordinates::lat() const
 {
     return m_kgeomapCoordinates.lat();
 }
 
-double Map::GeoCoordinates::alt()
+double Map::GeoCoordinates::alt() const
 {
     return m_kgeomapCoordinates.alt();
 }
 
-bool Map::GeoCoordinates::hasAltitude()
+bool Map::GeoCoordinates::hasAltitude() const
 {
     return m_kgeomapCoordinates.hasAltitude();
 }
@@ -49,17 +49,17 @@ KGeoMap::GeoCoordinates Map::GeoCoordinates::kgeomapCoordinates() const
     return m_kgeomapCoordinates;
 }
 
-void Map::GeoCoordinates::setLatLon(double lat, double lon)
+void Map::GeoCoordinates::setLatLon(const double lat, const double lon)
 {
-    m_kgeomapCoordinates.setLatLon(lat, lon);
+    m_kgeomapCoordinates.setLatLon( lat, lon );
 }
 
-void Map::GeoCoordinates::setAlt(double alt)
+void Map::GeoCoordinates::setAlt(const double alt)
 {
-    m_kgeomapCoordinates.setAlt(alt);
+    m_kgeomapCoordinates.setAlt( alt );
 }
 
-Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair(const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2)
+Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair( const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2 )
 {
     Map::GeoCoordinates coordinates1;
     coordinates1.setLatLon(lat1, lon1);

@@ -53,11 +53,11 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     m_statusLabel = new QLabel;
     m_statusLabel->setAlignment(Qt::AlignCenter);
-    m_statusLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    m_statusLabel->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
-    m_mapWidget = new KGeoMap::MapWidget(this);
+    m_mapWidget = new KGeoMap::MapWidget( this );
     layout->addWidget(m_mapWidget);
 
     QWidget *controlWidget = m_mapWidget->getControlWidget();
@@ -68,23 +68,23 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     QPushButton *saveButton = new QPushButton;
     saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
-    m_mapWidget->addWidgetToControlWidget(saveButton);
+    m_mapWidget->addWidgetToControlWidget( saveButton );
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
     m_setLastCenterButton = new QPushButton;
-    m_setLastCenterButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("go-first"))));
+    m_setLastCenterButton->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "go-first" ) ) ) );
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
-    m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
+    m_mapWidget->addWidgetToControlWidget( m_setLastCenterButton );
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
     // We first try set the default backend "marble" or the first one available ...
-    const QString defaultBackend = QString::fromUtf8("marble");
+    const QString defaultBackend = QString::fromUtf8( "marble" );
     auto backends = m_mapWidget->availableBackends();
-    if (backends.contains(defaultBackend)) {
-        m_mapWidget->setBackend(defaultBackend);
+    if ( backends.contains( defaultBackend ) ) {
+        m_mapWidget->setBackend( defaultBackend );
     } else {
-        qCDebug(MapLog) << "AnnotationMap: using backend " << backends[0];
-        m_mapWidget->setBackend(backends[0]);
+        qCDebug( MapLog ) << "AnnotationMap: using backend " << backends[0];
+        m_mapWidget->setBackend( backends[0] );
     }
 
     // ... then we try to set the (probably) saved settings
@@ -93,11 +93,11 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     // Add the item model for the coordinates display
     m_modelHelper = new MapMarkerModelHelper();
-    m_itemMarkerTiler = new SearchMarkerTiler(m_modelHelper, this);
-    m_mapWidget->setGroupedModel(m_itemMarkerTiler);
+    m_itemMarkerTiler = new SearchMarkerTiler( m_modelHelper, this );
+    m_mapWidget->setGroupedModel( m_itemMarkerTiler );
 
-    connect(m_mapWidget, &KGeoMap::MapWidget::signalRegionSelectionChanged,
-            this, &MapView::signalRegionSelectionChanged);
+    connect( m_mapWidget, &KGeoMap::MapWidget::signalRegionSelectionChanged,
+             this, &MapView::signalRegionSelectionChanged );
 }
 
 Map::MapView::~MapView()
@@ -113,12 +113,12 @@ void Map::MapView::clear()
 
 void Map::MapView::addImage(const DB::ImageInfo &image)
 {
-    m_modelHelper->addImage(image);
+    m_modelHelper->addImage( image );
 }
 
-void Map::MapView::addImage(const DB::ImageInfoPtr image)
+void Map::MapView::addImage( const DB::ImageInfoPtr image )
 {
-    m_modelHelper->addImage(image);
+    m_modelHelper->addImage( image );
 }
 
 void Map::MapView::zoomToMarkers()
@@ -128,34 +128,34 @@ void Map::MapView::zoomToMarkers()
     }
     KGeoMap::GeoCoordinates kgeomapCenter = m_mapWidget->getCenter();
     Map::GeoCoordinates center;
-    center.setLatLon(kgeomapCenter.lat(), kgeomapCenter.lon());
+    center.setLatLon( kgeomapCenter.lat(), kgeomapCenter.lon() );
     m_lastCenter = center;
 }
 
 void Map::MapView::setCenter(const DB::ImageInfo &image)
 {
     m_lastCenter = image.coordinates();
-    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
+    m_mapWidget->setCenter( m_lastCenter.kgeomapCoordinates() );
 }
 
 void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 {
     m_lastCenter = image->coordinates();
-    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
+    m_mapWidget->setCenter( m_lastCenter.kgeomapCoordinates() );
 }
 
 void Map::MapView::saveSettings()
 {
     KSharedConfigPtr config = KSharedConfig::openConfig();
-    KConfigGroup configGroup = config->group(QString::fromUtf8("MapView"));
-    m_mapWidget->saveSettingsToGroup(&configGroup);
+    KConfigGroup configGroup = config->group( QString::fromUtf8( "MapView" ) );
+    m_mapWidget->saveSettingsToGroup( &configGroup );
     config->sync();
-    KMessageBox::information(this, i18n("Settings saved"), i18n("Map view"));
+    KMessageBox::information( this, i18n( "Settings saved" ), i18n( "Map view" ) );
 }
 
 void Map::MapView::setShowThumbnails(bool state)
 {
-    m_mapWidget->setShowThumbnails(state);
+    m_mapWidget->setShowThumbnails( state );
 }
 
 void Map::MapView::displayStatus(MapStatus status)
@@ -170,9 +170,9 @@ void Map::MapView::displayStatus(MapStatus status)
         break;
     case MapStatus::ImageHasCoordinates:
         m_statusLabel->hide();
-        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        m_mapWidget->setVisibleMouseModes(0);
-        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_mapWidget->setAvailableMouseModes( KGeoMap::MouseModePan );
+        m_mapWidget->setVisibleMouseModes( 0 );
+        m_mapWidget->setMouseMode( KGeoMap::MouseModePan );
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->show();
@@ -189,9 +189,9 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Some of the selected images do not contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
-        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        m_mapWidget->setVisibleMouseModes(0);
-        m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
+        m_mapWidget->setAvailableMouseModes( KGeoMap::MouseModePan );
+        m_mapWidget->setVisibleMouseModes( 0 );
+        m_mapWidget->setMouseMode( KGeoMap::MouseModePan );
         m_mapWidget->clearRegionSelection();
         m_mapWidget->show();
         m_setLastCenterButton->show();
@@ -200,15 +200,15 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::SearchCoordinates:
         m_statusLabel->setText(i18n("<i>Search for geographic coordinates.</i>"));
         m_statusLabel->show();
-        m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan
-                                            | KGeoMap::MouseModeRegionSelectionFromIcon
-                                            | KGeoMap::MouseModeRegionSelection);
-        m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan
-                                          | KGeoMap::MouseModeRegionSelectionFromIcon
-                                          | KGeoMap::MouseModeRegionSelection);
-        m_mapWidget->setMouseMode(KGeoMap::MouseModeRegionSelectionFromIcon);
+        m_mapWidget->setAvailableMouseModes( KGeoMap::MouseModePan
+                                             | KGeoMap::MouseModeRegionSelectionFromIcon
+                                             | KGeoMap::MouseModeRegionSelection );
+        m_mapWidget->setVisibleMouseModes( KGeoMap::MouseModePan
+                                           | KGeoMap::MouseModeRegionSelectionFromIcon
+                                           | KGeoMap::MouseModeRegionSelection );
+        m_mapWidget->setMouseMode( KGeoMap::MouseModeRegionSelectionFromIcon );
         m_mapWidget->show();
-        m_mapWidget->setCenter(KGeoMap::GeoCoordinates());
+        m_mapWidget->setCenter( KGeoMap::GeoCoordinates() );
         m_setLastCenterButton->hide();
         break;
     case MapStatus::NoImagesHaveNoCoordinates:
@@ -225,12 +225,14 @@ void Map::MapView::displayStatus(MapStatus status)
 
 void Map::MapView::setLastCenter()
 {
-    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
+    m_mapWidget->setCenter( m_lastCenter.kgeomapCoordinates() );
 }
 
-KGeoMap::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
+Map::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
 {
-    return m_mapWidget->getRegionSelection();
+    KGeoMap::GeoCoordinates::Pair kgeomapCoordinates = m_mapWidget->getRegionSelection();
+    return GeoCoordinates::makePair( kgeomapCoordinates.first.lon(), kgeomapCoordinates.first.lat(),
+                                     kgeomapCoordinates.second.lon(), kgeomapCoordinates.second.lat() );
 }
 
 bool Map::MapView::regionSelected() const

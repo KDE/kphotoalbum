@@ -646,12 +646,12 @@ void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &
 }
 
 #ifdef HAVE_KGEOMAP
-KGeoMap::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
+Map::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
 {
     return m_regionSelection;
 }
 
-void ImageSearchInfo::setRegionSelection(const KGeoMap::GeoCoordinates::Pair &actRegionSelection)
+void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::Pair& actRegionSelection)
 {
     m_regionSelection = actRegionSelection;
     m_compiled = false;

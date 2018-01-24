@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,6 +25,7 @@
 
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
+#include <Map/GeoCoordinates.h>
 
 #include <KLocalizedString>
 
@@ -58,7 +59,7 @@ void Browser::GeoPositionPage::deactivate()
     }
 }
 
-void Browser::GeoPositionPage::slotNewRegionSelected(KGeoMap::GeoCoordinates::Pair coordinates)
+void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates)
 {
     const QString name = i18n("Geo position");
     DB::ImageSearchInfo info = searchInfo();

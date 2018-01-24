@@ -27,6 +27,9 @@
 #include "ImageDate.h"
 #include "MD5.h"
 
+#ifdef HAVE_KGEOMAP
+#include <Map/GeoCoordinates.h>
+#endif
 #include <Utilities/StringSet.h>
 
 #include <QRect>
@@ -34,9 +37,6 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#ifdef HAVE_KGEOMAP
-#include "Map/GeoCoordinates.h"
-#endif
 
 namespace Plugins
 {

@@ -78,10 +78,10 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "needs an SQLite database. "
                  "In addition the Qt package for SQLite (e.g. qt-sql-sqlite) must be installed.</p>");
 
-    text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
-                 "<p>If KPhotoAlbum has been built with support for libkgeomap, "
-                 "KPhotoAlbum can show images with GPS information on a map."
-                 "</p>");
+    text += i18n( "<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
+                  "<p>If KPhotoAlbum has been built with support for libkgeomap, "
+                  "KPhotoAlbum can show images with GPS information on a map."
+                  "</p>" );
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "

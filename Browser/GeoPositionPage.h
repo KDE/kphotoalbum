@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -49,7 +49,7 @@ public:
     bool showDuringMovement() const override;
 
 public slots:
-    void slotNewRegionSelected(KGeoMap::GeoCoordinates::Pair coordinates);
+    void slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates);
 
 private:
     bool active;

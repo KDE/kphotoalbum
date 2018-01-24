@@ -56,19 +56,20 @@ void Map::MapMarkerModelHelper::addImage(const DB::ImageInfo &image)
     qCDebug(MapLog) << "Adding marker for image " << image.label();
     QStandardItem *const newItem = new QStandardItem(image.label());
 
-    newItem->setToolTip(image.label());
-    newItem->setData(QVariant::fromValue(image.fileName()), FileNameRole);
-    m_itemModel->appendRow(newItem);
+
+    newItem->setToolTip( image.label() );
+    newItem->setData( QVariant::fromValue( image.fileName() ), FileNameRole );
+    m_itemModel->appendRow( newItem );
 }
 
-void Map::MapMarkerModelHelper::addImage(const DB::ImageInfoPtr image)
+void Map::MapMarkerModelHelper::addImage( const DB::ImageInfoPtr image )
 {
-    addImage(*image);
+    addImage( *image );
 }
 
 void Map::MapMarkerModelHelper::slotDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    emit(signalModelChangedDrastically());
+    emit( signalModelChangedDrastically() );
 }
 
 bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex &index,
@@ -78,8 +79,8 @@ bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex &index,
         return false;
     }
 
-    if (coordinates) {
-        const DB::FileName filename = index.data(FileNameRole).value<DB::FileName>();
+    if ( coordinates ) {
+        const DB::FileName filename = index.data( FileNameRole ).value<DB::FileName>();
         *coordinates = filename.info()->coordinates().kgeomapCoordinates();
     }
 
@@ -101,7 +102,7 @@ KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::modelFlags() const
     return FlagVisible;
 }
 
-KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::itemFlags(const QModelIndex &index) const
+KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::itemFlags( const QModelIndex& index ) const
 {
     if (!index.data(FileNameRole).canConvert<DB::FileName>()) {
         return FlagNull;

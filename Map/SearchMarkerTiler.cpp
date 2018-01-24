@@ -34,7 +34,7 @@ Map::SearchMarkerTiler::~SearchMarkerTiler()
 
 KGeoMap::GroupState Map::SearchMarkerTiler::getGlobalGroupState()
 {
-    if (m_mapView->regionSelected()) {
+    if ( m_mapView->regionSelected() ) {
         return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMap::RegionSelectedAll;
     } else {
         return KGeoMap::ItemMarkerTiler::getGlobalGroupState();

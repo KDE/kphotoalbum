@@ -30,20 +30,19 @@ class GeoCoordinates
 {
 
 public:
-    bool hasCoordinates();
-    qreal lon();
-    qreal lat();
-    qreal alt();
-    bool hasAltitude();
+    bool hasCoordinates() const;
+    double lon() const;
+    double lat() const;
+    double alt() const;
+    bool hasAltitude() const;
     KGeoMap::GeoCoordinates kgeomapCoordinates() const;
-    void setLatLon(qreal lat, qreal lon);
-    void setAlt(qreal alt);
+    void setLatLon(const double lat, const double lon);
+    void setAlt(const double alt);
     typedef QPair<GeoCoordinates, GeoCoordinates> Pair;
-    static Pair makePair(const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2);
+    static Pair makePair( const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2 );
 
 private: // Variables
     KGeoMap::GeoCoordinates m_kgeomapCoordinates;
-
 };
 
 }

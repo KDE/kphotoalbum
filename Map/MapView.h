@@ -34,6 +34,10 @@ namespace Marble
 {
 class MarbleWidget;
 }
+// Local includes
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include "GeoCoordinates.h"
 
 // Qt classes
 class QLabel;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2018 Tobias Leupold <tobias.leupold@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,12 +22,10 @@
 // Qt includes
 #include <QWidget>
 
-// Libkgeomap includes
-#include <KGeoMap/GeoCoordinates>
-
 // Local includes
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
+#include "GeoCoordinates.h"
 
 // Qt classes
 class QLabel;
@@ -128,7 +126,7 @@ private: // Variables
     MapMarkerModelHelper *m_modelHelper;
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
-    KGeoMap::GeoCoordinates m_lastCenter;
+    GeoCoordinates m_lastCenter;
 };
 
 }

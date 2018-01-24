@@ -723,7 +723,7 @@ QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
 }
 
 #ifdef HAVE_KGEOMAP
-KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
+Map::GeoCoordinates DB::ImageInfo::coordinates() const
 {
     if (m_coordsIsSet) {
         return m_coordinates;
@@ -767,7 +767,7 @@ KGeoMap::GeoCoordinates DB::ImageInfo::coordinates() const
         Q_ASSERT(!fields[EXIF_GPS_VERSIONID]->value().isNull());
     }
 
-    KGeoMap::GeoCoordinates coords;
+    Map::GeoCoordinates coords;
 
     // gps info set?
     // don't use the versionid field here, because some cameras use 0 as its value

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -27,6 +27,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
+#include <Map/GeoCoordinates.h>
 
 #include <QFileInfo>
 #include <QList>
@@ -40,6 +41,7 @@
 #define KEXIV_ORIENTATION_ROT_90 6
 #define KEXIV_ORIENTATION_ROT_90_VFLIP 7
 #define KEXIV_ORIENTATION_ROT_270 8
+
 /**
  * Convert a rotation in degrees to a KExiv2::ImageOrientation value.
  */
@@ -117,7 +119,7 @@ QMap<QString, QVariant> Plugins::ImageInfo::attributes()
     //res.insert(QString::fromLatin1("picklabel"), xxx );
 
 #ifdef HAVE_KGEOMAP
-    KGeoMap::GeoCoordinates position = m_info->coordinates();
+    Map::GeoCoordinates position = m_info->coordinates();
     if (position.hasCoordinates()) {
         res.insert(QString::fromLatin1("longitude"), QVariant(position.lon()));
         res.insert(QString::fromLatin1("latitude"), QVariant(position.lat()));

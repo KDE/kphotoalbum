@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2018 Tobias Leupold <tobias.leupold@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -126,19 +126,22 @@ void Map::MapView::zoomToMarkers()
     if (m_modelHelper->model()->rowCount() > 0) {
         m_mapWidget->adjustBoundariesToGroupedMarkers();
     }
-    m_lastCenter = m_mapWidget->getCenter();
+    KGeoMap::GeoCoordinates kgeomapCenter = m_mapWidget->getCenter();
+    Map::GeoCoordinates center;
+    center.setLatLon(kgeomapCenter.lat(), kgeomapCenter.lon());
+    m_lastCenter = center;
 }
 
 void Map::MapView::setCenter(const DB::ImageInfo &image)
 {
     m_lastCenter = image.coordinates();
-    m_mapWidget->setCenter(m_lastCenter);
+    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
 }
 
 void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 {
     m_lastCenter = image->coordinates();
-    m_mapWidget->setCenter(m_lastCenter);
+    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
 }
 
 void Map::MapView::saveSettings()
@@ -222,7 +225,7 @@ void Map::MapView::displayStatus(MapStatus status)
 
 void Map::MapView::setLastCenter()
 {
-    m_mapWidget->setCenter(m_lastCenter);
+    m_mapWidget->setCenter(m_lastCenter.kgeomapCoordinates());
 }
 
 KGeoMap::GeoCoordinates::Pair Map::MapView::getRegionSelection() const

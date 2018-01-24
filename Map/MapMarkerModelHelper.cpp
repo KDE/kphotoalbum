@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Johannes Zarl <johannes@zarl.at>
+/* Copyright (C) 2014-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -80,7 +80,7 @@ bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex &index,
 
     if (coordinates) {
         const DB::FileName filename = index.data(FileNameRole).value<DB::FileName>();
-        *coordinates = filename.info()->coordinates();
+        *coordinates = filename.info()->coordinates().kgeomapCoordinates();
     }
 
     return true;

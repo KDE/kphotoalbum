@@ -35,7 +35,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #ifdef HAVE_KGEOMAP
-#include <KGeoMap/GeoCoordinates>
+#include "Map/GeoCoordinates.h"
 #endif
 
 namespace Plugins
@@ -195,7 +195,7 @@ public:
     void setMatchGeneration(int matchGeneration);
     int matchGeneration() const;
 #ifdef HAVE_KGEOMAP
-    KGeoMap::GeoCoordinates coordinates() const;
+    Map::GeoCoordinates coordinates() const;
 #endif
 
 protected:
@@ -230,7 +230,7 @@ private:
     bool m_isMatched;
     int m_matchGeneration;
 #ifdef HAVE_KGEOMAP
-    mutable KGeoMap::GeoCoordinates m_coordinates;
+    mutable Map::GeoCoordinates m_coordinates;
     mutable bool m_coordsIsSet = false;
 #endif
 

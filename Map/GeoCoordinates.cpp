@@ -21,45 +21,44 @@
 
 bool Map::GeoCoordinates::hasCoordinates() const
 {
-    return m_kgeomapCoordinates.hasCoordinates();
+    return m_hasCoordinates;
 }
 
 double Map::GeoCoordinates::lon() const
 {
-    return m_kgeomapCoordinates.lon();
+    return m_lon;
 }
 
 double Map::GeoCoordinates::lat() const
 {
-    return m_kgeomapCoordinates.lat();
+    return m_lat;
 }
 
 double Map::GeoCoordinates::alt() const
 {
-    return m_kgeomapCoordinates.alt();
+    return m_alt;
 }
 
 bool Map::GeoCoordinates::hasAltitude() const
 {
-    return m_kgeomapCoordinates.hasAltitude();
-}
-
-KGeoMap::GeoCoordinates Map::GeoCoordinates::kgeomapCoordinates() const
-{
-    return m_kgeomapCoordinates;
+    return m_hasAlt;
 }
 
 void Map::GeoCoordinates::setLatLon(const double lat, const double lon)
 {
-    m_kgeomapCoordinates.setLatLon( lat, lon );
+    m_lat = lat;
+    m_lon = lon;
+    m_hasCoordinates = true;
 }
 
 void Map::GeoCoordinates::setAlt(const double alt)
 {
-    m_kgeomapCoordinates.setAlt( alt );
+    m_alt = alt;
+    m_hasAlt = true;
 }
 
-Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair( const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2 )
+Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair(const double lat1, const double lon1,
+                                                        const double lat2, const double lon2)
 {
     Map::GeoCoordinates coordinates1;
     coordinates1.setLatLon(lat1, lon1);

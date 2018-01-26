@@ -20,7 +20,6 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
-// Libkgeomap includes
 #include <KGeoMap/GeoCoordinates>
 
 namespace Map
@@ -35,14 +34,19 @@ public:
     double lat() const;
     double alt() const;
     bool hasAltitude() const;
-    KGeoMap::GeoCoordinates kgeomapCoordinates() const;
     void setLatLon(const double lat, const double lon);
     void setAlt(const double alt);
+
     typedef QPair<GeoCoordinates, GeoCoordinates> Pair;
-    static Pair makePair( const qreal lat1, const qreal lon1, const qreal lat2, const qreal lon2 );
+    static Pair makePair(const double lat1, const double lon1,
+                         const double lat2, const double lon2);
 
 private: // Variables
-    KGeoMap::GeoCoordinates m_kgeomapCoordinates;
+    double m_lat;
+    double m_lon;
+    double m_alt;
+    bool m_hasCoordinates;
+    bool m_hasAlt;
 };
 
 }

@@ -24,8 +24,6 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 
-// Marble includes
-
 // Qt includes
 #include <QWidget>
 

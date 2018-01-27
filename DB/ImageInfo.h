@@ -19,15 +19,16 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-#include "config-kpa-kgeomap.h"
+#include "config-kpa-marble.h"
 
 #include "CategoryPtr.h"
 #include "ExifMode.h"
 #include "FileName.h"
 #include "ImageDate.h"
+#include "Utilities/StringSet.h"
 #include "MD5.h"
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
 #include <Utilities/StringSet.h>
@@ -194,7 +195,7 @@ public:
     bool isMatched() const;
     void setMatchGeneration(int matchGeneration);
     int matchGeneration() const;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     Map::GeoCoordinates coordinates() const;
 #endif
 
@@ -229,7 +230,7 @@ private:
     int m_videoLength;
     bool m_isMatched;
     int m_matchGeneration;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     mutable Map::GeoCoordinates m_coordinates;
     mutable bool m_coordsIsSet = false;
 #endif

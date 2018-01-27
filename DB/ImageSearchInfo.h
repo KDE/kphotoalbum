@@ -18,12 +18,12 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include <config-kpa-kgeomap.h>
+#include <config-kpa-marble.h>
 #include "ImageDate.h"
 #include "ImageInfoPtr.h"
 
 #include <Exif/SearchInfo.h>
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
 #include <Utilities/StringSet.h>
@@ -96,7 +96,7 @@ public:
     void setCacheable(bool cacheable);
     bool isCacheable() const;
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     Map::GeoCoordinates::Pair regionSelection() const;
     void setRegionSelection(const Map::GeoCoordinates::Pair &actRegionSelection);
 #endif
@@ -129,7 +129,7 @@ private:
     int m_matchGeneration;
     bool doMatch(ImageInfoPtr) const;
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     Map::GeoCoordinates::Pair m_regionSelection;
     mutable bool m_usingRegionSelection = false;
     mutable float m_regionSelectionMinLat;

@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa-kipi.h>
+#include <config-kpa-marble.h>
 #include "FeatureDialog.h"
 
 #include <Exif/Database.h>
@@ -29,8 +31,6 @@
 #include <QStandardPaths>
 #include <QTextBrowser>
 #include <QVBoxLayout>
-#include <config-kpa-kgeomap.h>
-#include <config-kpa-kipi.h>
 #include <phonon/backendcapabilities.h>
 
 using namespace MainWindow;
@@ -78,10 +78,10 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "needs an SQLite database. "
                  "In addition the Qt package for SQLite (e.g. qt-sql-sqlite) must be installed.</p>");
 
-    text += i18n( "<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
-                  "<p>If KPhotoAlbum has been built with support for libkgeomap, "
-                  "KPhotoAlbum can show images with GPS information on a map."
-                  "</p>" );
+    text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
+                 "<p>If KPhotoAlbum has been built with support for Marble, "
+                 "KPhotoAlbum can show images with GPS information on a map."
+                 "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
@@ -138,7 +138,7 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 
 bool MainWindow::FeatureDialog::hasGeoMapSupport()
 {
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     return true;
 #else
     return false;

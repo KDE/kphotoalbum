@@ -215,7 +215,8 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (m_searchRAW && !ImageManager::RAWImageDecoder::isRAW(info->fileName()))
         return false;
 
-#ifdef HAVE_KGEOMAP
+
+#ifdef HAVE_MARBLE
     // Search for GPS Position
     if (m_usingRegionSelection) {
         if (!info->coordinates().hasCoordinates())
@@ -414,7 +415,7 @@ ImageSearchInfo::ImageSearchInfo(const ImageSearchInfo &other)
     m_exifSearchInfo = other.m_exifSearchInfo;
     m_matchGeneration = other.m_matchGeneration;
     m_isCacheable = other.m_isCacheable;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     m_regionSelection = other.m_regionSelection;
 #endif
 }
@@ -422,7 +423,7 @@ ImageSearchInfo::ImageSearchInfo(const ImageSearchInfo &other)
 void ImageSearchInfo::compile() const
 {
     m_exifSearchInfo.search();
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     // Prepare Search for GPS Position
     m_usingRegionSelection = m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates();
     if (m_usingRegionSelection) {
@@ -645,7 +646,7 @@ void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &
     m_compiled = false;
 }
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 Map::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
 {
     return m_regionSelection;

@@ -18,6 +18,10 @@
 
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
+#include <config-kpa-marble.h>
+#ifdef HAVE_MARBLE
+#include <Browser/PositionBrowserWidget.h>
+#endif
 #include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
@@ -29,9 +33,6 @@
 #include <QPointer>
 #include <QUrl>
 #include <config-kpa-kipi.h>
-#ifdef HAVE_KGEOMAP
-#include <Browser/PositionBrowserWidget.h>
-#endif
 
 class QAction;
 class QCloseEvent;
@@ -111,7 +112,7 @@ public:
     void setStackHead(const DB::FileName &image);
     void setHistogramVisibilty(bool visible) const;
     bool dbIsDirty() const;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     void showPositionBrowser();
     Browser::PositionBrowserWidget *positionBrowserWidget();
 #endif
@@ -235,7 +236,7 @@ protected:
     void executeStartupActions();
     void checkIfVideoThumbnailerIsInstalled();
     bool anyVideosSelected() const;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     Browser::PositionBrowserWidget *createPositionBrowser();
 #endif
 
@@ -296,7 +297,7 @@ private:
     QMap<Qt::Key, QPair<QString, QString>> m_viewerInputMacros;
     MainWindow::StatusBar *m_statusBar;
     QString m_lastTarget;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     Browser::PositionBrowserWidget *m_positionBrowser;
 #endif
 };

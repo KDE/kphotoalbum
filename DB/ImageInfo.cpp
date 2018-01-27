@@ -438,7 +438,7 @@ void ImageInfo::readExif(const DB::FileName &fullPath, DB::ExifMode mode)
     // Database update
     if (mode & EXIFMODE_DATABASE_UPDATE) {
         Exif::Database::instance()->add(exifInfo);
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
         // GPS coords might have changed...
         m_coordsIsSet = false;
 #endif
@@ -722,7 +722,7 @@ QRect DB::ImageInfo::areaForTag(QString category, QString tag) const
     return m_taggedAreas.value(category).value(tag);
 }
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 Map::GeoCoordinates DB::ImageInfo::coordinates() const
 {
     if (m_coordsIsSet) {

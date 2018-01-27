@@ -34,14 +34,10 @@ class QPushButton;
 namespace KGeoMap
 {
 class MapWidget;
-class ItemMarkerTiler;
 }
 
 namespace Map
 {
-
-// Local classes
-class MapMarkerModelHelper;
 
 class MapView : public QWidget
 {
@@ -122,11 +118,10 @@ private slots:
 
 private: // Variables
     KGeoMap::MapWidget *m_mapWidget;
-    KGeoMap::ItemMarkerTiler *m_itemMarkerTiler;
-    MapMarkerModelHelper *m_modelHelper;
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;
+
 };
 
 }

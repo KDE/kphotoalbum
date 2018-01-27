@@ -447,8 +447,6 @@ if(KF5KGeoMap_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Browser/GeoPositionPage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Browser/PositionBrowserWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Map/SearchMarkerTiler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCoordinates.cpp
         )

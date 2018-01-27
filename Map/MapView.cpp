@@ -38,10 +38,6 @@
 #include <KGeoMap/GeoCoordinates>
 #include <KGeoMap/MapWidget>
 
-// Local includes
-#include "MapMarkerModelHelper.h"
-#include "SearchMarkerTiler.h"
-
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
 {
@@ -92,45 +88,32 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     KConfigGroup configGroup = KSharedConfig::openConfig()->group(QString::fromUtf8("MapView"));
     m_mapWidget->readSettingsFromGroup(&configGroup);
 
-    // Add the item model for the coordinates display
-    m_modelHelper = new MapMarkerModelHelper();
-    m_itemMarkerTiler = new SearchMarkerTiler( m_modelHelper, this );
-    m_mapWidget->setGroupedModel( m_itemMarkerTiler );
-
     connect( m_mapWidget, &KGeoMap::MapWidget::signalRegionSelectionChanged,
              this, &MapView::signalRegionSelectionChanged );
 }
 
 Map::MapView::~MapView()
 {
-    delete m_modelHelper;
-    delete m_itemMarkerTiler;
 }
 
 void Map::MapView::clear()
 {
-    m_modelHelper->clearItems();
+    qDebug() << ">>> Map::MapView::clear()";
 }
 
 void Map::MapView::addImage(const DB::ImageInfo &image)
 {
-    m_modelHelper->addImage( image );
+    qDebug() << "Map::MapView::addImage(const DB::ImageInfo& image)";
 }
 
 void Map::MapView::addImage( const DB::ImageInfoPtr image )
 {
-    m_modelHelper->addImage( image );
+    qDebug() << "Map::MapView::addImage(const DB::ImageInfoPtr image)";
 }
 
 void Map::MapView::zoomToMarkers()
 {
-    if (m_modelHelper->model()->rowCount() > 0) {
-        m_mapWidget->adjustBoundariesToGroupedMarkers();
-    }
-    KGeoMap::GeoCoordinates kgeomapCenter = m_mapWidget->getCenter();
-    Map::GeoCoordinates center;
-    center.setLatLon( kgeomapCenter.lat(), kgeomapCenter.lon() );
-    m_lastCenter = center;
+    qDebug() << "Map::MapView::zoomToMarkers()";
 }
 
 void Map::MapView::setCenter(const DB::ImageInfo &image)

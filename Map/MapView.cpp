@@ -21,6 +21,9 @@
 
 #include "Logging.h"
 
+// Marble includes
+#include <marble/MarbleWidget.h>
+
 // Qt includes
 #include <QLabel>
 #include <QLoggingCategory>
@@ -52,13 +55,16 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
-    m_mapWidget = new QWidget;
+    m_mapWidget = new Marble::MarbleWidget;
+    m_mapWidget->setProjection(Marble::Mercator);
+    m_mapWidget->setMapThemeId( QString::fromUtf8( "earth/openstreetmap/openstreetmap.dgml" ) );
     layout->addWidget(m_mapWidget);
 
     QWidget *controlWidget = new QWidget( this );
     controlWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     layout->addWidget(controlWidget);
-    //m_mapWidget->setActive(true);
+
+    m_mapWidget->show();
 
     QPushButton *saveButton = new QPushButton;
     saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));

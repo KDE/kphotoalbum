@@ -24,8 +24,16 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 
+// Marble includes
+
 // Qt includes
 #include <QWidget>
+
+// Marble classes
+namespace Marble
+{
+class MarbleWidget;
+}
 
 // Qt classes
 class QLabel;
@@ -112,7 +120,7 @@ private slots:
     void setLastCenter();
 
 private: // Variables
-    QWidget *m_mapWidget;
+    Marble::MarbleWidget *m_mapWidget;
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;

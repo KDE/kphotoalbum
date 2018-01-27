@@ -20,7 +20,8 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
-#include <KGeoMap/GeoCoordinates>
+#include <QPair>
+#include <QMetaType>
 
 namespace Map
 {

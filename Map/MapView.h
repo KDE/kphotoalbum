@@ -19,22 +19,17 @@
 #ifndef MAPVIEW_H
 #define MAPVIEW_H
 
+// Local includes
+#include "GeoCoordinates.h"
+#include "DB/ImageInfo.h"
+#include "DB/ImageInfoPtr.h"
+
 // Qt includes
 #include <QWidget>
-
-// Local includes
-#include <DB/ImageInfo.h>
-#include <DB/ImageInfoPtr.h>
-#include "GeoCoordinates.h"
 
 // Qt classes
 class QLabel;
 class QPushButton;
-
-namespace KGeoMap
-{
-class MapWidget;
-}
 
 namespace Map
 {
@@ -117,7 +112,7 @@ private slots:
     void setLastCenter();
 
 private: // Variables
-    KGeoMap::MapWidget *m_mapWidget;
+    QWidget *m_mapWidget;
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;

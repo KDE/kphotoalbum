@@ -25,7 +25,7 @@ void History::push(std::unique_ptr<Action> action)
     if (m_current)
         m_current->save();
     m_backward.push(std::move(m_current));
-    m_forward = {};
+    m_forward = std::stack<std::unique_ptr<Action>>();
     m_current = std::move(action);
     m_current->run();
 }

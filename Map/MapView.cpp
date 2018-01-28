@@ -59,27 +59,50 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId( QString::fromUtf8( "earth/openstreetmap/openstreetmap.dgml" ) );
     layout->addWidget(m_mapWidget);
-
-    QWidget *controlWidget = new QWidget( this );
-    controlWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    layout->addWidget(controlWidget);
-
     m_mapWidget->show();
+
+    QHBoxLayout *controlLayout = new QHBoxLayout;
+    layout->addLayout(controlLayout);
 
     QPushButton *saveButton = new QPushButton;
     saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
-    //m_mapWidget->addWidgetToControlWidget(saveButton);
+    controlLayout->addWidget( saveButton );
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
+
+    QPushButton* showOverviewMap = new QPushButton;
+    showOverviewMap->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "view-preview" ) ) ) );
+    showOverviewMap->setToolTip( i18n( "Show the overview map" ) );
+    showOverviewMap->setCheckable( true );
+    showOverviewMap->setChecked( true );
+    controlLayout->addWidget( showOverviewMap );
+    connect( showOverviewMap, &QPushButton::clicked,
+             m_mapWidget, &Marble::MarbleWidget::setShowOverviewMap );
+
+    QPushButton* showCompass = new QPushButton;
+    showCompass->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "compass" ) ) ) );
+    showCompass->setToolTip( i18n( "Show the compass" ) );
+    showCompass->setCheckable( true );
+    showCompass->setChecked( true );
+    controlLayout->addWidget( showCompass );
+    connect( showCompass, &QPushButton::clicked, m_mapWidget, &Marble::MarbleWidget::setShowCompass );
+
+    QPushButton* showScaleBar = new QPushButton;
+    showScaleBar->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "insert-horizontal-rule" ) ) ) );
+    showScaleBar->setToolTip( i18n( "Show the scale bar" ) );
+    showScaleBar->setCheckable( true );
+    showScaleBar->setChecked( true );
+    controlLayout->addWidget( showScaleBar );
+    connect( showScaleBar, &QPushButton::clicked,
+             m_mapWidget, &Marble::MarbleWidget::setShowScaleBar );
 
     m_setLastCenterButton = new QPushButton;
     m_setLastCenterButton->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "go-first" ) ) ) );
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
-    //m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
+    controlLayout->addWidget( m_setLastCenterButton );
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
-    //connect(m_mapWidget, &KGeoMap::MapWidget::signalRegionSelectionChanged,
-    //        this, &MapView::signalRegionSelectionChanged);
+    controlLayout->addStretch();
 }
 
 Map::MapView::~MapView()

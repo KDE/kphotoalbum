@@ -1284,7 +1284,8 @@ void MainWindow::Window::slotConfigureKeyBindings()
     Q_FOREACH( const KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList() ) {
         KIPI::Plugin* plugin = pluginInfo->plugin();
         if ( plugin )
-            dialog->addCollection( plugin->actionCollection(), pluginInfo->comment() );
+            dialog->addCollection( plugin->actionCollection(),
+                                   i18nc("Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…","Plugin: %1", pluginInfo->name()) );
     }
 #endif
 

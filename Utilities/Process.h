@@ -1,4 +1,4 @@
-/* Copyright 2012  Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -30,9 +30,9 @@ class Process : public QProcess
     Q_OBJECT
 public:
     explicit Process(QObject *parent = nullptr);
-    QString stdout() const;
-    QString stderr() const;
-    
+    QString stdOut() const;
+    QString stdErr() const;
+
 private slots:
     void readStandardError();
     void readStandardOutput();

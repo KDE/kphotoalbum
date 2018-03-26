@@ -1,4 +1,4 @@
-/* Copyright 2012  Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -72,18 +72,18 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
 
 void ImageManager::VideoLengthExtractor::processEnded()
 {
-    if ( !m_process->stderr().isEmpty() )
-        qCDebug(ImageManagerLog) << m_process->stderr();
+    if ( !m_process->stdErr().isEmpty() )
+        qCDebug(ImageManagerLog) << m_process->stdErr();
 
     QString lenStr;
     if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
     {
-        QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
+        QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'));
         list = list.filter(STR("ID_LENGTH="));
         if ( list.count() == 0 ) {
             qCWarning(ImageManagerLog) << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
                        << "Output was:\n"
-                       << m_process->stdout();
+                       << m_process->stdOut();
             emit unableToDetermineLength();
             return;
         }
@@ -99,12 +99,12 @@ void ImageManager::VideoLengthExtractor::processEnded()
 
         lenStr = regexp.cap(1);
     } else {
-        QStringList list = m_process->stdout().split(QChar::fromLatin1('\n'));
+        QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'));
         // ffprobe -v 0 just prints one line, except if panicking
         if ( list.count() < 1 ) {
             qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
                        << "Output was:\n"
-                       << m_process->stdout();
+                       << m_process->stdOut();
             emit unableToDetermineLength();
             return;
         }

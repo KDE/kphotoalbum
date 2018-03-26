@@ -1,4 +1,4 @@
-/* Copyright 2012  Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -17,14 +17,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// OS/X defines stdout and stderr as macros, which interfere with our code here:
-#if defined(stdout)
-#undef stdout
-#endif
-#if defined(stderr)
-#undef stderr
-#endif
-
 #include <QTextStream>
 
 #include "Process.h"
@@ -41,12 +33,12 @@ Utilities::Process::Process(QObject *parent) :
     connect( this, SIGNAL(readyReadStandardOutput()), this, SLOT(readStandardOutput()));
 }
 
-QString Utilities::Process::stdout() const
+QString Utilities::Process::stdOut() const
 {
     return m_stdout;
 }
 
-QString Utilities::Process::stderr() const
+QString Utilities::Process::stdErr() const
 {
     return m_stderr;
 }

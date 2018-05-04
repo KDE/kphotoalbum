@@ -132,7 +132,13 @@ void RAWImageDecoder::_initializeExtensionLists( QStringList& rawExtensions, QSt
                            << QString::fromLatin1("html")
                            << QString::fromLatin1("HTML")
                            << QString::fromLatin1("htm")
-                           << QString::fromLatin1("HTM");
+                           << QString::fromLatin1("HTM")
+                           << QString::fromLatin1("pp3") // RawTherapee Sidecar files
+                           << QString::fromLatin1("PP3")
+                           << QString::fromLatin1("xmp") // Other sidecars
+                           << QString::fromLatin1("XMP")
+                           << QString::fromLatin1("pto") // Hugin sidecars
+                           << QString::fromLatin1("PTO");
 
         QChar dot( QChar::fromLatin1('.') );
         for ( QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it )

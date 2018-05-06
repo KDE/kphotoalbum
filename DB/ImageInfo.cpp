@@ -43,7 +43,7 @@ ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder
 }
 
 ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExifInfo,
-		      bool storeExifInfo)
+                      bool storeExifInfo)
     :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type )
       , m_rating(-1), m_stackId(0), m_stackOrder(0)
       , m_videoLength(-1)
@@ -56,11 +56,11 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     setFileName(fileName);
 
     // Read EXIF information
-    if ( !readExifInfo ) {
+    if ( readExifInfo ) {
         ExifMode mode = EXIFMODE_INIT;
         if ( ! storeExifInfo)
             mode &= ~EXIFMODE_DATABASE_UPDATE;
-	readExif(fileName, mode);
+        readExif(fileName, mode);
     }
 
     m_dirty = false;

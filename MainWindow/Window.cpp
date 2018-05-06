@@ -261,6 +261,7 @@ void MainWindow::Window::delayedInit()
 
     splash->done();
     show();
+    updateDateBar();
     qCInfo(TimingLog) << "MainWindow: MainWindow.show():" << timer.restart() << "ms.";
 
     QUrl importUrl = Options::the()->importFile();

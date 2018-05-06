@@ -332,6 +332,7 @@ bool Exif::Database::insert(QList<DBExifInfo> map )
 
     m_db.transaction();
     QSqlQuery query( _queryString, m_db );
+    // not a const reference because DatabaseElement::valueFromExif uses operator[] on the exif datum
     Q_FOREACH ( DBExifInfo elt, map )
     {
         query.bindValue(  0, elt.first.absolute() );

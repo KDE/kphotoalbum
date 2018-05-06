@@ -230,17 +230,17 @@ bool Exif::Database::add( const DB::FileNameList& list )
     QList<DBExifInfo> map;
 
     Q_FOREACH(const DB::FileName& fileName, list) {
-	try {
-	    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
-	    Q_ASSERT(image.get() != nullptr);
-	    image->readMetadata();
-	    Exiv2::ExifData &exifData = image->exifData();
-	    map << DBExifInfo(fileName, exifData);
-	}
-	catch (...)
-	{
-	    qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()) );
-	}
+        try {
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+            Q_ASSERT(image.get() != nullptr);
+            image->readMetadata();
+            Exiv2::ExifData &exifData = image->exifData();
+            map << DBExifInfo(fileName, exifData);
+        }
+        catch (...)
+        {
+            qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()) );
+        }
     }
     insert(map);
     return true;
@@ -321,29 +321,30 @@ bool Exif::Database::insert(QList<DBExifInfo> map )
 
     if (_queryString.isEmpty())
     {
-	QStringList formalList;
-	Database::ElementList elms = elements();
-	for( const DatabaseElement *e : elms )
-	{
-	    formalList.append( e->queryString() );
-	}
-	_queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
+        QStringList formalList;
+        Database::ElementList elms = elements();
+        for( const DatabaseElement *e : elms )
+        {
+            formalList.append( e->queryString() );
+        }
+        _queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
     }
 
     m_db.transaction();
     QSqlQuery query( _queryString, m_db );
-    Q_FOREACH ( DBExifInfo elt, map ) {
+    Q_FOREACH ( DBExifInfo elt, map )
+    {
         query.bindValue(  0, elt.first.absolute() );
-	int i = 1;
-	for( const DatabaseElement *e : elements() )
-	{
-	  query.bindValue( i++, e->valueFromExif(elt.second));
-	}
+        int i = 1;
+        for( const DatabaseElement *e : elements() )
+        {
+            query.bindValue( i++, e->valueFromExif(elt.second));
+        }
 
-	if ( !query.exec() )
-	{
-	    showError( query );
-	}
+        if ( !query.exec() )
+        {
+            showError( query );
+        }
     }
     m_db.commit();
     return true;

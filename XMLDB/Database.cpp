@@ -219,7 +219,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
         DB::ImageInfoPtr info = *imageIt;
         info->addCategoryInfo( i18n( "Media Type" ),
                                info->mediaType() == DB::Image ? i18n( "Image" ) : i18n( "Video" ) );
-	list << ((*imageIt)->fileName());
+        list << ((*imageIt)->fileName());
     }
     Exif::Database::instance()->add( list );
 

@@ -18,6 +18,7 @@
 
 #include "ImageDate.h"
 #include <KLocalizedString>
+#include <QLocale>
 #include <qregexp.h>
 
 using namespace DB;
@@ -103,12 +104,14 @@ QString ImageDate::toString( bool withTime ) const
             // a whole month, but not a whole year.
             if ( m_start.date().year() == m_end.date().year() &&m_start.date().month() == m_end.date().month() ) {
                 // jan 2005
-                return QString::fromLatin1( "%1 %2" ).arg( QDate::shortMonthName(m_start.date().month()) ).arg(m_start.date().year() );
+                return QString::fromLatin1( "%1 %2" )
+                        .arg( QLocale().monthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() );
             }
             else {
                 // jan 2005 - feb 2006
-                return QString::fromLatin1( "%1 %2 - %3 %4" ).arg( QDate::shortMonthName(m_start.date().month()) ).arg(m_start.date().year() )
-                    .arg( QDate::shortMonthName( m_end.date().month() ) ).arg( m_end.date().year() );
+                return QString::fromLatin1( "%1 %2 - %3 %4" )
+                        .arg( QLocale().monthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() )
+                        .arg( QLocale().monthName(m_end.date().month(), QLocale::ShortFormat) ).arg( m_end.date().year() );
             }
         }
     }
@@ -339,10 +342,10 @@ QStringList DB::ImageDate::monthNames()
     static QStringList res;
     if ( res.isEmpty() ) {
         for ( int i = 1; i <= 12; ++i ) {
-            res << QDate::shortMonthName( i );
+            res << QLocale().monthName(i, QLocale::ShortFormat);
         }
         for ( int i = 1; i <= 12; ++i ) {
-            res << QDate::longMonthName( i );
+            res << QLocale().monthName(i, QLocale::LongFormat);
         }
 
         res << i18nc("Abbreviated month name","jan") << i18nc("Abbreviated month name","feb")

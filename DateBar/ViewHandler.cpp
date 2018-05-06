@@ -312,4 +312,41 @@ QString HourViewHandler::unitText() const
 }
 
 
+
+
+void MinuteViewHandler::init( const QDateTime& startDate)
+{
+    ViewHandler::init( QDateTime( startDate.date(),
+				  QTime( startDate.time().hour(),
+					 startDate.time().minute(), 0 ) ) );
+}
+
+bool MinuteViewHandler::isMajorUnit( int unit )
+{
+    return date(unit).time().second() == 0;
+}
+
+bool MinuteViewHandler::isMidUnit( int unit )
+{
+    int sec = date(unit).time().second();
+    return sec == 30;
+}
+
+QString MinuteViewHandler::text( int unit )
+{
+    return date(unit).toString( QString::fromLatin1( "h:mm" ) );
+}
+
+QDateTime MinuteViewHandler::date(int unit, QDateTime reference )
+{
+    if ( reference.isNull() ) reference = m_startDate;
+    return reference.addSecs( 10 * unit );
+}
+
+QString MinuteViewHandler::unitText() const
+{
+    return i18n("10 Seconds");
+}
+
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

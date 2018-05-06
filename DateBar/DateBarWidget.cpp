@@ -235,6 +235,7 @@ void DateBar::DateBarWidget::setViewHandlerForType( ViewType tp )
     case WeekView: m_currentHandler = &m_weekViewHandler; break;
     case DayView: m_currentHandler = &m_dayViewHandler; break;
     case HourView: m_currentHandler = &m_hourViewHandler; break;
+    case MinuteView: m_currentHandler = &m_minuteViewHandler; break;
     }
 }
 
@@ -267,7 +268,7 @@ void DateBar::DateBarWidget::setImageDateCollection( const QExplicitlySharedData
         m_currentDate =  start;
         m_currentUnit = 0;
         // select suitable timeframe:
-        setViewType( HourView, false );
+        setViewType( MinuteView, false );
         m_currentHandler->init(start);
         while ( m_tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
         {
@@ -425,7 +426,7 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
 
 void DateBar::DateBarWidget::zoomIn()
 {
-    if ( m_tp == HourView )
+    if ( m_tp == MinuteView )
         return;
     zoom(+1);
 }
@@ -441,7 +442,7 @@ void DateBar::DateBarWidget::zoom( int factor )
 {
     ViewType tp = (ViewType) (m_tp+factor);
     setViewType( tp );
-    emit canZoomIn( tp != HourView );
+    emit canZoomIn( tp != MinuteView );
     emit canZoomOut( tp != DecadeView );
 }
 
@@ -726,7 +727,7 @@ void DateBar::DateBarWidget::keyPressEvent( QKeyEvent* event )
 {
     int offset = 0;
     if ( event->key() == Qt::Key_Plus ) {
-        if ( m_tp != HourView )
+        if ( m_tp != MinuteView )
             zoom(1);
         return;
     }

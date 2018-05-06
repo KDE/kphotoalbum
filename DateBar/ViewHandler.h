@@ -104,6 +104,17 @@ public:
     virtual QString unitText() const;
 };
 
+class MinuteViewHandler :public ViewHandler
+{
+public:
+    virtual void init( const QDateTime& startDate );
+    virtual bool isMajorUnit( int unit );
+    virtual bool isMidUnit( int unit );
+    virtual QString text( int unit );
+    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
+    virtual QString unitText() const;
+};
+
 }
 
 

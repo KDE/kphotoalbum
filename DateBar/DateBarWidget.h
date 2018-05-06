@@ -49,7 +49,7 @@ class DateBarWidget :public QWidget {
 
 public:
     explicit DateBarWidget( QWidget* parent );
-    enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView };
+    enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView, MinuteView };
     bool includeFuzzyCounts() const;
 
 public slots:
@@ -130,6 +130,7 @@ private:
     WeekViewHandler m_weekViewHandler;
     DayViewHandler m_dayViewHandler;
     HourViewHandler m_hourViewHandler;
+    MinuteViewHandler m_minuteViewHandler;
     ViewHandler* m_currentHandler;
     ViewType m_tp;
 

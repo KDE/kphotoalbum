@@ -212,7 +212,7 @@ bool Exif::Database::add( const DB::FileName& fileName )
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
-        Exiv2::ExifData &exifData = image->exifData();
+        const Exiv2::ExifData &exifData = image->exifData();
         return insert( fileName, exifData );
     }
     catch (...)
@@ -234,7 +234,7 @@ bool Exif::Database::add( const DB::FileNameList& list )
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
             Q_ASSERT(image.get() != nullptr);
             image->readMetadata();
-            Exiv2::ExifData &exifData = image->exifData();
+            const Exiv2::ExifData &exifData = image->exifData();
             map << DBExifInfo(fileName, exifData);
         }
         catch (...)

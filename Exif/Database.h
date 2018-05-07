@@ -29,7 +29,7 @@ namespace Exiv2 { class ExifData; }
 
 typedef QPair<int,int> Rational;
 typedef QList<Rational> RationalList;
-typedef QPair<const DB::FileName&, Exiv2::ExifData> DBExifInfo;
+typedef QPair<DB::FileName, Exiv2::ExifData> DBExifInfo;
 
 namespace Exif
 {

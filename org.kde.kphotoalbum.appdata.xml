@@ -67,6 +67,7 @@
   <screenshots>
     <screenshot type="default">
       <image width="853" height="659">https://www.kphotoalbum.org/kphotoalbum_big.jpg</image>
+      <caption>The main screen screen in KPhotoAlbum</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">http://kphotoalbum.org</url>

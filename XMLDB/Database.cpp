@@ -188,7 +188,26 @@ void XMLDB::Database::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::Database::addImages( const DB::ImageInfoList& images )
+void XMLDB::Database::forceUpdate( const DB::ImageInfoList& images )
+{
+    DB::FileNameList list;
+    if ( images.count() > 0 )
+        for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt )
+            list << ((*imageIt)->fileName());
+
+    if ( m_delayedUpdate.count() > 0 )
+        for( DB::ImageInfoListConstIterator imageIt = m_delayedUpdate.constBegin(); imageIt != m_delayedUpdate.constEnd(); ++imageIt )
+            list << ((*imageIt)->fileName());
+    if ( list.count() > 0 ) {
+        Exif::Database::instance()->add( list );
+        emit totalChanged( m_images.count() );
+        emit dirty();
+    }
+    m_delayedUpdate.clear();
+}
+
+void XMLDB::Database::addImages( const DB::ImageInfoList& images,
+                                 bool doUpdate )
 {
     // FIXME: merge stack information
     DB::ImageInfoList newImages = images.sort();
@@ -198,6 +217,9 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
     else if ( newImages.count() == 0 ) {
         // case 2: No images to merge in - that's easy ;-)
+        // Update any pending images
+        if (doUpdate)
+            forceUpdate( images );
         return;
     }
     else if ( newImages.first()->date().start() > m_images.last()->date().start() ) {
@@ -213,18 +235,15 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
         m_images.appendList( newImages );
     }
 
-    DB::FileNameList list;
-
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
         DB::ImageInfoPtr info = *imageIt;
         info->addCategoryInfo( i18n( "Media Type" ),
                                info->mediaType() == DB::Image ? i18n( "Image" ) : i18n( "Video" ) );
-        list << ((*imageIt)->fileName());
+        if ( !doUpdate )
+            m_delayedUpdate << info ;
     }
-    Exif::Database::instance()->add( list );
-
-    emit totalChanged( m_images.count() );
-    emit dirty();
+    if ( doUpdate )
+        forceUpdate( images );
 }
 
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
@@ -248,7 +267,6 @@ DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
     if ( lookup != fileMap.end() )
         return *lookup;
     else {
-        fileMap.clear();
         for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
             fileMap.insert( (*it)->fileName().absolute(), *it );
         }

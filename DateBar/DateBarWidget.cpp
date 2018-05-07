@@ -218,10 +218,11 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
     p.restore();
 }
 
-void DateBar::DateBarWidget::setViewType( ViewType tp )
+void DateBar::DateBarWidget::setViewType( ViewType tp, bool redrawNow )
 {
     setViewHandlerForType(tp);
-    redraw();
+    if ( redrawNow )
+        redraw();
     m_tp = tp;
 }
 
@@ -266,7 +267,7 @@ void DateBar::DateBarWidget::setImageDateCollection( const QExplicitlySharedData
         m_currentDate =  start;
         m_currentUnit = 0;
         // select suitable timeframe:
-        setViewType( HourView );
+        setViewType( HourView, false );
         m_currentHandler->init(start);
         while ( m_tp != DecadeView && end > dateForUnit( numberOfUnits() ) )
         {

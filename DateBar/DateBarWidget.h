@@ -54,7 +54,7 @@ public:
 
 public slots:
     void clearSelection();
-    void setViewType( ViewType tp );
+    void setViewType( ViewType tp, bool redrawNow=true );
     void setDate( const QDateTime& date );
     void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> & );
     void scrollLeft();

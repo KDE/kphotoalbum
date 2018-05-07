@@ -135,7 +135,7 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
     }
 }
 
-void NewImageFinder::loadExtraFiles(bool storeExif)
+void NewImageFinder::loadExtraFiles( bool storeExif )
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
@@ -171,6 +171,10 @@ void NewImageFinder::loadExtraFiles(bool storeExif)
             newImages.append(info);
         }
     }
+    // loadExtraFile() has already called addImages() on any images
+    // that it stacked, but without updating the EXIF database or
+    // the UI.  Even if there are no images left at this point,
+    // we need to call addImages() to pick up any delayed ones.
     DB::ImageDB::instance()->addImages( newImages );
 
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
@@ -256,10 +260,13 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
     if (originalInfo &&
         Settings::SettingsData::instance()->autoStackNewFiles() ) {
-        // we have to do this immediately to get the ids
+        // we have to do this immediately to get the ids, but we don't
+        // want to take the hit of updating the EXIF database and the
+        // UI at this point.  We call addImages() later in loadExtraFiles()
+        // which will pick these up.
         ImageInfoList newImages;
         newImages.append(info);
-        DB::ImageDB::instance()->addImages( newImages );
+        DB::ImageDB::instance()->addImages( newImages, false );
 
         // stack the files together
         DB::FileName olderfile = originalFileName;

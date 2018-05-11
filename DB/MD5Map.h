@@ -35,12 +35,15 @@ public:
     virtual ~MD5Map() {}
     virtual void insert( const MD5& md5sum, const DB::FileName& fileName );
     virtual DB::FileName lookup( const MD5& md5sum ) const;
+    virtual MD5 lookupFile( const DB::FileName& fileName ) const;
     virtual bool contains( const MD5& md5sum ) const;
+    virtual bool containsFile( const DB::FileName& fileName ) const;
     virtual void clear();
     virtual DB::FileNameSet diff( const MD5Map& other ) const;
 
 private:
     QMap<MD5, DB::FileName> m_map;
+    QMap<DB::FileName, MD5> m_i_map;
 };
 
 }

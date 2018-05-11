@@ -150,6 +150,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList& list)
                 m_stackMap.insert(inf->stackId(), newCache);
             }
         }
+        m_imageCache.remove( inf->fileName().absolute() );
         m_images.remove( inf );
     }
     Exif::Database::instance()->remove( list );
@@ -188,62 +189,69 @@ void XMLDB::Database::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::Database::forceUpdate( const DB::ImageInfoList& images )
+void XMLDB::Database::clearDelayedImages()
 {
-    DB::FileNameList list;
-    if ( images.count() > 0 )
-        for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt )
-            list << ((*imageIt)->fileName());
-
-    if ( m_delayedUpdate.count() > 0 )
-        for( DB::ImageInfoListConstIterator imageIt = m_delayedUpdate.constBegin(); imageIt != m_delayedUpdate.constEnd(); ++imageIt )
-            list << ((*imageIt)->fileName());
-    if ( list.count() > 0 ) {
-        Exif::Database::instance()->add( list );
-        emit totalChanged( m_images.count() );
-        emit dirty();
-    }
+    m_delayedCache.clear();
     m_delayedUpdate.clear();
 }
 
-void XMLDB::Database::addImages( const DB::ImageInfoList& images,
-                                 bool doUpdate )
+void XMLDB::Database::forceUpdate( const DB::ImageInfoList& images )
 {
     // FIXME: merge stack information
     DB::ImageInfoList newImages = images.sort();
     if ( m_images.count() == 0 ) {
         // case 1: The existing imagelist is empty.
+        Q_FOREACH( const DB::ImageInfoPtr& imageInfo, newImages )
+            m_imageCache.insert( imageInfo->fileName().absolute(), imageInfo );
         m_images = newImages;
     }
     else if ( newImages.count() == 0 ) {
         // case 2: No images to merge in - that's easy ;-)
-        // Update any pending images
-        if (doUpdate)
-            forceUpdate( images );
         return;
     }
     else if ( newImages.first()->date().start() > m_images.last()->date().start() ) {
         // case 2: The new list is later than the existsing
+        Q_FOREACH( const DB::ImageInfoPtr& imageInfo, newImages )
+            m_imageCache.insert( imageInfo->fileName().absolute(), imageInfo );
         m_images.appendList(newImages);
     }
     else if ( m_images.isSorted() ) {
         // case 3: The lists overlaps, and the existsing list is sorted
+        Q_FOREACH( const DB::ImageInfoPtr& imageInfo, newImages )
+            m_imageCache.insert( imageInfo->fileName().absolute(), imageInfo );
         m_images.mergeIn( newImages );
     }
     else{
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
+        Q_FOREACH( const DB::ImageInfoPtr& imageInfo, newImages )
+            m_imageCache.insert( imageInfo->fileName().absolute(), imageInfo );
         m_images.appendList( newImages );
     }
+}
 
-    for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
-        DB::ImageInfoPtr info = *imageIt;
+void XMLDB::Database::addImages( const DB::ImageInfoList& images,
+                                 bool doUpdate )
+{
+    Q_FOREACH( const DB::ImageInfoPtr& info, images ) {
         info->addCategoryInfo( i18n( "Media Type" ),
                                info->mediaType() == DB::Image ? i18n( "Image" ) : i18n( "Video" ) );
-        if ( !doUpdate )
-            m_delayedUpdate << info ;
+        m_delayedCache.insert( info->fileName().absolute(), info );
+        m_delayedUpdate << info;
     }
-    if ( doUpdate )
-        forceUpdate( images );
+    if ( doUpdate ) {
+        uint imagesAdded = m_delayedUpdate.count();
+        if ( imagesAdded > 0 ) {
+            forceUpdate(m_delayedUpdate);
+            m_delayedCache.clear();
+            m_delayedUpdate.clear();
+            // It's the responsility of the caller to add the EXIF information.
+            // It's more efficient from an I/O perspective to minimize the number
+            // of passes over the images, and with the ability to add the EXIF
+            // data in a transaction, there's no longer any need to read it here.
+            emit totalChanged( m_images.count() );
+            emit dirty();
+        }
+    }
 }
 
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
@@ -254,30 +262,25 @@ void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& ne
 
 DB::ImageInfoPtr XMLDB::Database::info( const DB::FileName& fileName ) const
 {
-    typedef QHash<QString, DB::ImageInfoPtr > Cache;
-    static Cache fileMap;
-
     if ( fileName.isNull() )
         return DB::ImageInfoPtr();
 
     const QString name = fileName.absolute();
 
-    Cache::iterator lookup = fileMap.find(name);
+    if (m_imageCache.contains( name ))
+        return m_imageCache[name];
 
-    if ( lookup != fileMap.end() )
-        return *lookup;
-    else {
-        for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
-            fileMap.insert( (*it)->fileName().absolute(), *it );
-        }
-        if ( fileMap.contains( name ) )
-            return fileMap[ name ];
+    if (m_delayedCache.contains( name ))
+        return m_delayedCache[name];
+
+    Q_FOREACH( const DB::ImageInfoPtr& imageInfo, m_images )
+        m_imageCache.insert( imageInfo->fileName().absolute(), imageInfo );
+
+    if ( m_imageCache.contains( name ) ) {
+        return m_imageCache[ name ];
     }
 
-    if (fileMap.contains( name ))
-        return DB::ImageInfoPtr(new DB::ImageInfo);
-    else
-        return DB::ImageInfoPtr();
+    return DB::ImageInfoPtr();
 }
 
 bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
@@ -402,6 +405,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
             ++it;
         } else {
             result << *it;
+            m_imageCache.remove( (*it)->fileName().absolute() );
             it = m_images.erase(it);
         }
         // if all images from selection are in result (size of lists is equal) break.
@@ -429,6 +433,7 @@ void XMLDB::Database::insertList(
     for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
         // the call to insert() destroys the given iterator so use the new one after the call
         imageIt = m_images.insert( imageIt, *it );
+        m_imageCache.insert( (*it)->fileName().absolute(), *it );
         // increment always to retain order of selected images
         imageIt++;
     }

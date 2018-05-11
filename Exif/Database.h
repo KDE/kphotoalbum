@@ -100,6 +100,9 @@ public:
     CameraList cameras() const;
     LensList lenses() const;
     void recreate();
+    bool startInsertTransaction();
+    bool commitInsertTransaction();
+    bool abortInsertTransaction();
 
 protected:
     enum DBSchemaChangeType { SchemaChanged, SchemaAndDataChanged };
@@ -118,8 +121,13 @@ private:
     Database();
     ~Database();
     void init();
+    QSqlQuery *getInsertQuery();
+    QSqlQuery *openInsertQuery();
+    void concludeInsertQuery(QSqlQuery *);
     static Database* s_instance;
+    QString m_queryString;
     QSqlDatabase m_db;
+    QSqlQuery *m_insertTransaction;
 };
 
 }

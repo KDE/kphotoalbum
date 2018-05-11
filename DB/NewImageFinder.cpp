@@ -18,6 +18,7 @@
 #include "NewImageFinder.h"
 #include "FastDir.h"
 #include "Logging.h"
+#include "ImageScout.h"
 
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
@@ -42,6 +43,8 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <QDataStream>
+#include <QFile>
 
 using namespace DB;
 
@@ -152,8 +155,22 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
 
     int count = 0;
     ImageInfoList newImages;
+
+    ImageScoutList asyncPreloadList;
+    for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it ) {
+        asyncPreloadList.append((*it).first);
+    }
+
+    ImageScoutThread *scoutThread = new ImageScoutThread(asyncPreloadList);
+    scoutThread->start();
+
+    Exif::Database::instance()->startInsertTransaction();
+    dialog.setValue( count ); // ensure to call setProgress(0)
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count ) {
-        dialog.setValue( count ); // ensure to call setProgress(0)
+        if (scoutThread && scoutThread->isFinished()) {
+            delete scoutThread;
+            scoutThread = NULL;
+        }
         qApp->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
@@ -162,20 +179,39 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
             // try to build thumbnails for images w/o DB entry:
             m_pendingLoad.clear();
             return;
+            // Ask the scout to interrupt first, then do our cleanup, then wait for
+            // the scout thread to finish.  One more line of code, but lets us
+            // overlap the operations.
+            if (scoutThread)
+                scoutThread->requestInterruption();
+            m_pendingLoad.clear();
+            Exif::Database::instance()->abortInsertTransaction();
+
+            if (scoutThread) {
+                while (! scoutThread->isFinished())
+                    QThread::msleep(10);
+                delete scoutThread;
+            }
+            return;
         }
         // (*it).first: DB::FileName
         // (*it).second: DB::MediaType
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second, storeExif );
+        if (scoutThread)
+            scoutThread->incrementLoadedCount();
         if ( info ) {
             markUnTagged(info);
             newImages.append(info);
         }
+        dialog.setValue( count );
     }
+    dialog.setValue( count );
     // loadExtraFile() has already called addImages() on any images
     // that it stacked, but without updating the EXIF database or
     // the UI.  Even if there are no images left at this point,
     // we need to call addImages() to pick up any delayed ones.
     DB::ImageDB::instance()->addImages( newImages );
+    Exif::Database::instance()->commitInsertTransaction();
 
     // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
     if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
@@ -184,6 +220,11 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
                 BackgroundTaskManager::JobManager::instance()->addJob(
                         new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
         }
+    }
+    if (scoutThread) {
+        scoutThread->requestInterruption();
+        while (! scoutThread->isFinished())
+            QThread::msleep(10);
     }
 
 }
@@ -219,7 +260,13 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
                 tmp.replace(m_modifiedFileComponent, (*it));
                 originalFileName = DB::FileName::fromRelativePath(tmp);
 
-                MD5 originalSum = (newFileName == originalFileName ? sum : Utilities::MD5Sum( originalFileName ));
+                MD5 originalSum;
+                if (newFileName == originalFileName)
+                  originalSum = sum;
+                else if (DB::ImageDB::instance()->md5Map()->containsFile( originalFileName ) )
+                  originalSum = DB::ImageDB::instance()->md5Map()->lookupFile( originalFileName );
+                else
+                  originalSum = Utilities::MD5Sum( originalFileName );
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
                     // from the original.
@@ -253,20 +300,16 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
             }
         }
     }
+    ImageInfoList newImages;
+    newImages.append( info );
+    DB::ImageDB::instance()->addImages( newImages, false );
 
     // also inserts image into exif db if present:
-    info->setMD5Sum(sum, false);
+    info->setMD5Sum( sum );
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName());
 
     if (originalInfo &&
         Settings::SettingsData::instance()->autoStackNewFiles() ) {
-        // we have to do this immediately to get the ids, but we don't
-        // want to take the hit of updating the EXIF database and the
-        // UI at this point.  We call addImages() later in loadExtraFiles()
-        // which will pick these up.
-        ImageInfoList newImages;
-        newImages.append(info);
-        DB::ImageDB::instance()->addImages( newImages, false );
 
         // stack the files together
         DB::FileName olderfile = originalFileName;
@@ -289,10 +332,9 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
-
-        info = nullptr;  // we already added it, so don't process again
     }
 
+    info = nullptr;  // we already added it, so don't process again
     return info;
 }
 

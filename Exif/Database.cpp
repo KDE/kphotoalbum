@@ -277,13 +277,13 @@ void Exif::Database::remove( const DB::FileNameList& list )
     m_db.commit();
 }
 
-bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
+QSqlQuery *Exif::Database::getInsertQuery()
 {
-    static QString _queryString;
     if ( !isUsable() )
-        return false;
-
-    if (_queryString.isEmpty())
+        return NULL;
+    if ( m_insertTransaction )
+        return m_insertTransaction;
+    if (m_queryString.isEmpty())
     {
         QStringList formalList;
         Database::ElementList elms = elements();
@@ -291,62 +291,101 @@ bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
         {
             formalList.append( e->queryString() );
         }
-        _queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
+        m_queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
     }
-    QSqlQuery query(m_db);
-    query.prepare( _queryString );
-    query.bindValue(  0, filename.absolute() );
+    QSqlQuery *query = new QSqlQuery(m_db);
+    if (query)
+        query->prepare( m_queryString );
+    return query;
+}
+
+QSqlQuery *Exif::Database::openInsertQuery()
+{
+    if ( m_insertTransaction )
+        return m_insertTransaction;
+    m_db.transaction();
+    QSqlQuery *query = getInsertQuery();
+    m_db.transaction();
+    return query;
+}
+
+void Exif::Database::concludeInsertQuery( QSqlQuery *query )
+{
+    if ( m_insertTransaction )
+        return;
+    m_db.commit();
+    delete query;
+}
+
+bool Exif::Database::startInsertTransaction()
+{
+    m_insertTransaction = getInsertQuery();
+    m_db.transaction();
+    return ( m_insertTransaction != NULL );
+}
+
+bool Exif::Database::commitInsertTransaction()
+{
+    if (m_insertTransaction) {
+        m_db.commit();
+        delete m_insertTransaction;
+        m_insertTransaction = NULL;
+    }
+    return true;
+}
+
+bool Exif::Database::abortInsertTransaction()
+{
+    if (m_insertTransaction) {
+        m_db.rollback();
+        delete m_insertTransaction;
+        m_insertTransaction = NULL;
+    }
+    return true;
+}
+
+bool Exif::Database::insert(const DB::FileName& filename, Exiv2::ExifData data )
+{
+    if ( !isUsable() )
+        return false;
+
+    QSqlQuery *query = getInsertQuery();
+    query->bindValue(  0, filename.absolute() );
     int i = 1;
     for( const DatabaseElement *e : elements() )
     {
-        query.bindValue( i++, e->valueFromExif(data));
+        query->bindValue( i++, e->valueFromExif(data));
     }
 
-    if ( !query.exec() )
-    {
-        showError( query );
-        return false;
-    } else {
-        return true;
-    }
-
+    bool status = query->exec();
+    if ( !status )
+        showError( *query );
+    concludeInsertQuery( query );
+    return status;
 }
 
 bool Exif::Database::insert(QList<DBExifInfo> map )
 {
-    static QString _queryString;
     if ( !isUsable() )
         return false;
 
-    if (_queryString.isEmpty())
-    {
-        QStringList formalList;
-        Database::ElementList elms = elements();
-        for( const DatabaseElement *e : elms )
-        {
-            formalList.append( e->queryString() );
-        }
-        _queryString = QString::fromLatin1( "INSERT OR REPLACE into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) );
-    }
-
-    m_db.transaction();
-    QSqlQuery query( _queryString, m_db );
+    QSqlQuery *query = getInsertQuery();
     // not a const reference because DatabaseElement::valueFromExif uses operator[] on the exif datum
     Q_FOREACH ( DBExifInfo elt, map )
     {
-        query.bindValue(  0, elt.first.absolute() );
+        query->bindValue(  0, elt.first.absolute() );
         int i = 1;
         for( const DatabaseElement *e : elements() )
         {
-            query.bindValue( i++, e->valueFromExif(elt.second));
+            query->bindValue( i++, e->valueFromExif(elt.second));
         }
 
-        if ( !query.exec() )
+        if ( !query->exec() )
         {
-            showError( query );
+            showError( *query );
         }
     }
-    m_db.commit();
+    concludeInsertQuery( query );
     return true;
 }
 
@@ -533,6 +572,7 @@ void Exif::Database::init()
     if ( !isAvailable() )
         return;
 
+    m_insertTransaction = NULL;
     bool dbExists = QFile::exists( exifDBFile() );
 
     openDatabase();

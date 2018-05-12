@@ -114,11 +114,15 @@ bool ImageInfoList::isSorted()
         return true;
 
     QDateTime prev = first()->date().start();
+    QString prevFile = first()->fileName().absolute();
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         QDateTime cur = (*it)->date().start();
-        if ( prev > cur )
+        QString curFile = (*it)->fileName().absolute();
+        if ( prev > cur ||
+             ( prev == cur && prevFile > curFile ) )
             return false;
         prev = cur;
+        prevFile = curFile;
     }
     return true;
 }
@@ -129,9 +133,12 @@ void ImageInfoList::mergeIn( ImageInfoList other)
 
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         QDateTime thisDate = (*it)->date().start();
+        QString thisFileName = (*it)->fileName().absolute();
         while ( other.count() != 0 ) {
             QDateTime otherDate = other.first()->date().start();
-            if ( otherDate < thisDate ) {
+            QString otherFileName = other.first()->fileName().absolute();
+            if ( otherDate < thisDate ||
+                 ( otherDate == thisDate && otherFileName < thisFileName ) ) {
                 tmp.append( other[0] );
                 other.pop_front();
             }

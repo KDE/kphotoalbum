@@ -29,6 +29,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QToolButton>
+#include <QGuiApplication>
 
 #include <KLocalizedString>
 
@@ -359,11 +360,17 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
 
 void DateBar::DateBarWidget::scrollLeft()
 {
-    scroll( -1 );
+    int scrollAmount = -1;
+    if ( QGuiApplication::keyboardModifiers().testFlag( Qt::ShiftModifier ) )
+        scrollAmount *= 10;
+    scroll( scrollAmount );
 }
 
 void DateBar::DateBarWidget::scrollRight()
 {
+    int scrollAmount = 1;
+    if ( QGuiApplication::keyboardModifiers().testFlag( Qt::ShiftModifier ) )
+        scrollAmount *= 10;
     scroll( 1 );
 }
 
@@ -842,10 +849,10 @@ void DateBar::DateBarWidget::wheelEvent( QWheelEvent * e )
             zoomOut();
         return;
     }
-    if ( e->delta() > 0 )
-        scroll(1);
-    else
-        scroll(-1);
+    int scrollAmount = e->delta() > 0 ? 1 : -1;
+    if ( e->modifiers() & Qt::ShiftModifier )
+        scrollAmount *= 10;
+    scroll( scrollAmount );
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

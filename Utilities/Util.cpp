@@ -776,12 +776,12 @@ DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
     if ( file.open( QIODevice::ReadOnly ) )
     {
         QCryptographicHash md5calculator(QCryptographicHash::Md5);
-        if ( md5calculator.addData( &file ) )
-        {
-            checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
-        } else {
-            qCWarning(UtilitiesLog) << "Could not compute MD5 sum for file " << fileName.relative();
-        }
+	while ( !file.atEnd() ) {
+	    QByteArray md5Buffer( file.read( 1048576 ) );
+	    md5calculator.addData( md5Buffer );
+	}
+	file.close();
+	checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
     }
     return checksum;
 }

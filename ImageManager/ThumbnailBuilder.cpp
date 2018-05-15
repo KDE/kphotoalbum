@@ -104,6 +104,10 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
     for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
         DB::ImageInfoPtr info = fileName.info();
+        if ( ImageManager::AsyncLoader::instance()->isExiting() ) {
+            cancelRequests();
+            break;
+        }
         if ( info->isNull())
         {
             m_count++;

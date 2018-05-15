@@ -61,7 +61,10 @@ extern "C" {
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <fcntl.h>
 }
+
+static const int maxJPEGMemorySize = (20 * 1024 * 1024);
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -521,20 +524,52 @@ extern "C"
 
 namespace Utilities
 {
-    bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim );
+    bool loadJPEG(QImage *img, FILE* inputFile, char *membuf, size_t membuf_size, QSize* fullSize, int dim );
 }
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
-    if(!inputFile)
+    bool ok;
+    struct stat statbuf;
+    if ( stat( QFile::encodeName(imageFile.absolute()).constData(), &statbuf ) == -1 )
         return false;
-    bool ok = loadJPEG( img, inputFile, fullSize, dim );
-    fclose(inputFile);
+    if ( statbuf.st_size > maxJPEGMemorySize ) {
+        FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
+        if(!inputFile)
+            return false;
+        ok = loadJPEG( img, inputFile, NULL, 0, fullSize, dim );
+        fclose(inputFile);
+    } else {
+        // May be more than is needed, but less likely to fragment memory this
+        // way.
+        char *buf = (char *) malloc( maxJPEGMemorySize );
+        if (!buf)
+            return false;
+        int inputFD = open( QFile::encodeName(imageFile.absolute()).constData(), O_RDONLY );
+        if ( inputFD == -1 ) {
+            free(buf);
+            return false;
+        }
+        unsigned bytesLeft = statbuf.st_size;
+        unsigned offset = 0;
+        while ( bytesLeft > 0 ) {
+            int bytes = read(inputFD, buf + offset, bytesLeft);
+            if (bytes <= 0) {
+                (void) close(inputFD);
+                free(buf);
+                return false;
+            }
+            offset += bytes;
+            bytesLeft -= bytes;
+        }
+        ok = loadJPEG( img, NULL, buf, statbuf.st_size, fullSize, dim);
+        (void) close(inputFD);
+        free(buf);
+    }
     return ok;
 }
 
-bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
+bool Utilities::loadJPEG(QImage *img, FILE* inputFile, char *membuf, size_t membuf_size, QSize* fullSize, int dim )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;
@@ -549,7 +584,10 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     }
 
     jpeg_create_decompress(&cinfo);
-    jpeg_stdio_src(&cinfo, inputFile);
+    if (inputFile)
+        jpeg_stdio_src(&cinfo, inputFile);
+    else
+        jpeg_mem_src(&cinfo, (unsigned char *) membuf, membuf_size);
     jpeg_read_header(&cinfo, TRUE);
     *fullSize = QSize( cinfo.image_width, cinfo.image_height );
 
@@ -776,12 +814,12 @@ DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
     if ( file.open( QIODevice::ReadOnly ) )
     {
         QCryptographicHash md5calculator(QCryptographicHash::Md5);
-	while ( !file.atEnd() ) {
-	    QByteArray md5Buffer( file.read( 1048576 ) );
-	    md5calculator.addData( md5Buffer );
-	}
-	file.close();
-	checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
+        while ( !file.atEnd() ) {
+            QByteArray md5Buffer( file.read( 1048576 ) );
+            md5calculator.addData( md5Buffer );
+        }
+        file.close();
+        checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
     }
     return checksum;
 }

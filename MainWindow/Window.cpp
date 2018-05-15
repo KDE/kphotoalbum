@@ -85,6 +85,7 @@
 #include <Exif/Info.h>
 #include <Exif/ReReadDialog.h>
 #include <HTMLGenerator/HTMLDialog.h>
+#include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailBuilder.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <ImportExport/Export.h>
@@ -327,6 +328,7 @@ bool MainWindow::Window::slotExit()
     }
 
 doQuit:
+    ImageManager::AsyncLoader::instance()->requestExit();
     qApp->quit();
     return true;
 }

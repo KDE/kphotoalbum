@@ -54,6 +54,9 @@ void ImageManager::ImageLoaderThread::run()
     while ( true ) {
         ImageRequest* request = AsyncLoader::instance()->next();
         Q_ASSERT( request );
+        if ( request->isExitRequest() ) {
+            return;
+        }
         bool ok;
 
         QImage img = loadImage( request, ok );

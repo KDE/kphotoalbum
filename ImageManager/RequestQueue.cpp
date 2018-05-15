@@ -59,6 +59,8 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
                 return request;
             }
         }
+        if ( AsyncLoader::instance()->isExiting() )
+            return new ImageRequest(true);
     } while ( it != m_queues.begin() );
 
     return nullptr;

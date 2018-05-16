@@ -95,6 +95,17 @@ void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const DB::FileNameL
     m_thumbnailsToBuild = list;
 }
 
+void ImageManager::ThumbnailBuilder::buildOneThumbnail( const DB::ImageInfoPtr& info )
+{
+    ImageManager::ImageRequest* request
+        = new ImageManager::PreloadRequest( info->fileName(),
+					  ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+					  this );
+    request->setIsThumbnailRequest(true);
+    request->setPriority( ImageManager::BuildThumbnails );
+    ImageManager::AsyncLoader::instance()->load( request );
+}
+
 void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 {
     m_isBuilding = true;
@@ -125,6 +136,11 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     }
     if (numberOfThumbnailsToBuild == 0)
         m_statusBar->setProgressBarVisible(false);
+}
+
+void ImageManager::ThumbnailBuilder::save()
+{
+    ImageManager::ThumbnailCache::instance()->save();
 }
 
 void ImageManager::ThumbnailBuilder::requestCanceled()

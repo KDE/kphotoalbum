@@ -28,13 +28,21 @@ class AsyncLoader;
 class ImageRequest;
 class ThumbnailStorage;
 
+static const int maxJPEGMemorySize = (20 * 1024 * 1024);
+
 class ImageLoaderThread :public QThread {
+public:
+    ImageLoaderThread( size_t bufsize = maxJPEGMemorySize );
+    ~ImageLoaderThread();
 protected:
     virtual void run();
     QImage loadImage( ImageRequest* request, bool& ok );
     static int calcLoadSize( ImageRequest* request );
     QImage scaleAndRotate( ImageRequest* request, QImage img );
     bool shouldImageBeScale( const QImage& img, ImageRequest* request );
+private:
+    char *m_imageLoadBuffer;
+    size_t m_bufSize;
 };
 
 }

@@ -47,7 +47,9 @@ public slots:
     void buildMissing();
     void cancelRequests( );
     void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );
+    void buildOneThumbnail( const DB::ImageInfoPtr& fileName );
     void doThumbnailBuild();
+    void save();
 
 private:
     friend class MainWindow::Window;

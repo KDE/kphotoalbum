@@ -67,6 +67,7 @@ bool NewImageFinder::findImages()
     loadExtraFiles(false);
 
     // Only build thumbnails for the newly found images
+#if 0
     if (! m_pendingLoad.isEmpty()) {
         DB::FileNameList thumbnailsToBuild;
 
@@ -80,6 +81,7 @@ bool NewImageFinder::findImages()
                 thumbnailsToBuild, ImageManager::ThumbnailBuildStart::StartNow
                 );
     }
+#endif
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
     if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
@@ -221,6 +223,7 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
                         new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
         }
     }
+    ImageManager::ThumbnailBuilder::instance()->save();
     if (scoutThread) {
         scoutThread->requestInterruption();
         while (! scoutThread->isFinished())
@@ -333,6 +336,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
     }
+    ImageManager::ThumbnailBuilder::instance()->buildOneThumbnail( info );
 
     info = nullptr;  // we already added it, so don't process again
     return info;

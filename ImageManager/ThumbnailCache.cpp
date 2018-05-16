@@ -132,9 +132,15 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         m_currentOffset = 0;
     }
 
-    if ( ++m_unsaved > 100 )
+    // Thumbnail building is a lot faster now.  Even on an HDD this corresponds to less
+    // than 1 minute of work.
+    if ( ++m_unsaved >= 400 ) {
         save();
-    m_timer->start(1000);
+        m_timer->stop();
+    } else {
+        m_timer->stop();
+        m_timer->start(1000);
+    }
 }
 
 QString ImageManager::ThumbnailCache::fileNameForIndex( int index ) const
@@ -171,7 +177,8 @@ QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
 
 void ImageManager::ThumbnailCache::save() const
 {
-    m_timer->stop();
+    if (m_unsaved == 0)
+        return;
     m_unsaved = 0;
 
     QTemporaryFile file;

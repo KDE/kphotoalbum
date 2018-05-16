@@ -64,8 +64,6 @@ extern "C" {
 #include <fcntl.h>
 }
 
-static const int maxJPEGMemorySize = (20 * 1024 * 1024);
-
 /**
  * Add a line label + info text to the result text if info is not empty.
  * If the result already contains something, a HTML newline is added first.
@@ -524,52 +522,51 @@ extern "C"
 
 namespace Utilities
 {
-    bool loadJPEG(QImage *img, FILE* inputFile, char *membuf, size_t membuf_size, QSize* fullSize, int dim );
+    static bool loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, char *membuf, size_t membuf_size );
 }
 
-bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
+bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim, char *membuf, size_t membufSize)
 {
     bool ok;
     struct stat statbuf;
     if ( stat( QFile::encodeName(imageFile.absolute()).constData(), &statbuf ) == -1 )
         return false;
-    if ( statbuf.st_size > maxJPEGMemorySize ) {
+    if ( ! membuf || statbuf.st_size > (int) membufSize ) {
         FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
         if(!inputFile)
             return false;
-        ok = loadJPEG( img, inputFile, NULL, 0, fullSize, dim );
+        ok = loadJPEGInternal( img, inputFile, fullSize, dim, NULL, 0 );
         fclose(inputFile);
     } else {
         // May be more than is needed, but less likely to fragment memory this
         // way.
-        char *buf = (char *) malloc( maxJPEGMemorySize );
-        if (!buf)
-            return false;
         int inputFD = open( QFile::encodeName(imageFile.absolute()).constData(), O_RDONLY );
         if ( inputFD == -1 ) {
-            free(buf);
             return false;
         }
         unsigned bytesLeft = statbuf.st_size;
         unsigned offset = 0;
         while ( bytesLeft > 0 ) {
-            int bytes = read(inputFD, buf + offset, bytesLeft);
+            int bytes = read(inputFD, membuf + offset, bytesLeft);
             if (bytes <= 0) {
                 (void) close(inputFD);
-                free(buf);
                 return false;
             }
             offset += bytes;
             bytesLeft -= bytes;
         }
-        ok = loadJPEG( img, NULL, buf, statbuf.st_size, fullSize, dim);
+        ok = loadJPEGInternal( img, NULL, fullSize, dim, membuf, statbuf.st_size );
         (void) close(inputFD);
-        free(buf);
     }
     return ok;
 }
 
-bool Utilities::loadJPEG(QImage *img, FILE* inputFile, char *membuf, size_t membuf_size, QSize* fullSize, int dim )
+bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
+{
+    return loadJPEG( img, imageFile, fullSize, dim, NULL, 0 );
+}
+
+static bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, char *membuf, size_t membuf_size )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;

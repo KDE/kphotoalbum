@@ -42,15 +42,15 @@ void ImageScoutThread::run()
     int count = 0;
     for ( ImageScoutList::ConstIterator it = m_list.begin(); it != m_list.end(); ++it, ++count ) {
       // If we're behind the reader, move along
-      if (m_loadedCount.load() >= count) {
-          continue;
-      // Don't get too far ahead of the loader, or we just waste memory
-      } else {
-          while (count >= m_loadedCount.load() + 20) {
-              QThread::msleep(10);
-          }
-      }
-        QFile file(( *it ).absolute());
+	if (m_loadedCount.load() >= count) {
+	    continue;
+	// Don't get too far ahead of the loader, or we just waste memory
+	} else {
+	    while (count >= m_loadedCount.load() + 20) {
+		QThread::msleep(10);
+	    }
+	}
+	QFile file(( *it ).absolute());
         //      qDebug() << "Scout " << count << " " << ( *it ).absolute();
         if ( file.open(QIODevice::ReadOnly) ) {
             char tmp_buf[SCOUTBUFSIZE];

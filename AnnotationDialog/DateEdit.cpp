@@ -88,7 +88,7 @@ AnnotationDialog::DateEdit::DateEdit( bool isStartEdit, QWidget *parent )
     QString dayName;
     for (int i = 1; i <= 7; ++i)
     {
-        dayName = QDate::longDayName(i).toLower();
+        dayName = QLocale().dayName(i,QLocale::LongFormat).toLower();
         m_KeywordMap[dayName] = i + 100;
     }
     lineEdit()->installEventFilter(this);   // handle keyword entry

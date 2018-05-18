@@ -19,52 +19,73 @@
 #include "ImageScout.h"
 #include <QFile>
 #include <QDataStream>
+#include <QDebug>
+
+extern "C" {
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+}
 
 using namespace DB;
 
-// 1048576 yields about 20% better performance than 65536 w/
-// 3000 1M images on a Seagate Barracuda 2.5" 2TB disk, 5400 RPM
-#define SCOUTBUFSIZE (1048576)
+#define M_LOCK(l) do { if ( l ) (l)->lock(); } while (0)
+#define M_UNLOCK(l) do { if ( l ) (l)->unlock(); } while (0)
 
-ImageScoutThread::ImageScoutThread( const ImageScoutList &list )
-  : m_list(list),
-    m_loadedCount(0)
+// 1048576 with a single scout thread empirically yields best performance
+// on a Seagate 2TB 2.5" disk, sustaining throughput in the range of
+// 95-100 MB/sec with 100-110 IO/sec on large files.  This is close to what
+// would be expected.  A SATA SSD (Crucial MX300) is much less sensitive to
+// I/O size and scout thread, achieving about 340 MB/sec with high CPU
+// utilization.
+const int scoutBufSize = 1048576;
+
+ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
+                                    QAtomicInt &count,
+                                    QAtomicInt &preloadedCount, int index)
+  : m_queue(queue),
+    m_mutex(mutex),
+    m_loadedCount(count),
+    m_preloadedCount(preloadedCount),
+    m_tmpBuf( new char[scoutBufSize] ),
+    m_index(index)
 {
 }
 
-void ImageScoutThread::incrementLoadedCount()
+ImageScoutThread::~ImageScoutThread()
 {
-  m_loadedCount++;
+    delete[] m_tmpBuf;
 }
 
 void ImageScoutThread::run()
 {
-    int count = 0;
-    for ( ImageScoutList::ConstIterator it = m_list.begin(); it != m_list.end(); ++it, ++count ) {
-      // If we're behind the reader, move along
-	if (m_loadedCount.load() >= count) {
-	    continue;
-	// Don't get too far ahead of the loader, or we just waste memory
-	} else {
-	    while (count >= m_loadedCount.load() + 20) {
-		QThread::msleep(10);
-	    }
-	}
-	QFile file(( *it ).absolute());
-        //      qDebug() << "Scout " << count << " " << ( *it ).absolute();
-        if ( file.open(QIODevice::ReadOnly) ) {
-            char tmp_buf[SCOUTBUFSIZE];
-            QDataStream str( &file );
-            while (! file.atEnd()) {
-                if ( str.readRawData( tmp_buf, SCOUTBUFSIZE ) <= 0 || 
-                     isInterruptionRequested() ||
-                     m_loadedCount.load() >=count )
-                    break;
-            }
-            file.close();
+    while ( !isInterruptionRequested() ) {
+        M_LOCK(m_mutex);
+        if ( m_queue.isEmpty() ) {
+	    M_UNLOCK(m_mutex);
+	    return;
         }
-        if ( isInterruptionRequested() ) {
-          return;
+        DB::FileName fileName = m_queue.dequeue();
+	M_UNLOCK(m_mutex);
+        // If we're behind the reader, move along
+        m_preloadedCount++;
+        if ( m_loadedCount.load() >= m_preloadedCount.load() ) {
+            continue;
+        } else {
+            // Don't get too far ahead of the loader, or we just waste memory
+            while (m_preloadedCount.load() >= m_loadedCount.load() + 10 &&
+                   ! isInterruptionRequested()) {
+                QThread::msleep(10);
+            }
+        }
+        int inputFD = open( QFile::encodeName( fileName.absolute()).constData(), O_RDONLY );
+        if ( inputFD >= 0 ) {
+            while ( read( inputFD, m_tmpBuf, scoutBufSize ) &&
+                    ! isInterruptionRequested() ) {
+            }
+            (void) close( inputFD );
         }
     }
 }

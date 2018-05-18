@@ -64,6 +64,13 @@ extern "C" {
 #include <fcntl.h>
 }
 
+// Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
+// 5400 RPM).  Performance is very similar at 524288.  Above that, performance
+// was significantly worse.  Below that, performance also deteriorated.
+// This assumes use of one image scout thread (see DB/ImageScout.cpp).  Without
+// a scout thread, performance was about 10-15% worse.
+const int md5BufSize = 262144;
+
 /**
  * Add a line label + info text to the result text if info is not empty.
  * If the result already contains something, a HTML newline is added first.
@@ -812,7 +819,7 @@ DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
     {
         QCryptographicHash md5calculator(QCryptographicHash::Md5);
         while ( !file.atEnd() ) {
-            QByteArray md5Buffer( file.read( 1048576 ) );
+            QByteArray md5Buffer( file.read( md5BufSize ) );
             md5calculator.addData( md5Buffer );
         }
         file.close();

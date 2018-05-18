@@ -19,23 +19,34 @@
 #ifndef IMAGESCOUT_H
 #define IMAGESCOUT_H
 #include "DB/FileName.h"
-#include <QList>
+#include <QQueue>
 #include <QThread>
-#include <QAtomicInteger>
+#include <QAtomicInt>
+#include <QMutex>
 
-typedef QList<DB::FileName> ImageScoutList;
+/**
+ * Scout thread for image loading: preload images from disk to have them in
+ * RAM to mask I/O latency.
+ */
+
+typedef QQueue<DB::FileName> ImageScoutQueue;
 namespace DB
 {
 
 class ImageScoutThread :public QThread {
 public:
-    ImageScoutThread( const ImageScoutList & );
-    void incrementLoadedCount();
+    ImageScoutThread( ImageScoutQueue &, QMutex *, QAtomicInt &count,
+                      QAtomicInt &preloadCount, int index);
+    ~ImageScoutThread();
 protected:
     virtual void run();
 private:
-    const ImageScoutList m_list;
-    QAtomicInteger<int> m_loadedCount;
+    ImageScoutQueue& m_queue;
+    QMutex *m_mutex;
+    QAtomicInt& m_loadedCount;
+    QAtomicInt& m_preloadedCount;
+    char *m_tmpBuf;
+    int m_index;
 };
 }
 

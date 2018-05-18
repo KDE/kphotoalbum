@@ -48,6 +48,11 @@
 
 using namespace DB;
 
+// Number of scout threads for preloading images.  More than one scout thread
+// yields about 10% less performance with higher IO/sec but lower I/O throughput,
+// most probably due to thrashing.
+static const int imageScoutCount = 1;
+
 bool NewImageFinder::findImages()
 {
     // Load the information from the XML file.
@@ -152,55 +157,65 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
     dialog.setBar(progressBar);
     dialog.setMaximum( m_pendingLoad.count() );
     dialog.setMinimumDuration( 1000 );
+    QMutex scoutMutex;
+    QAtomicInt loadedCount = 0;
+    QAtomicInt preloadedCount = 0;
 
     setupFileVersionDetection();
 
     int count = 0;
     ImageInfoList newImages;
 
-    ImageScoutList asyncPreloadList;
+    ImageScoutQueue asyncPreloadQueue;
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it ) {
-        asyncPreloadList.append((*it).first);
+        asyncPreloadQueue.enqueue((*it).first);
     }
 
-    ImageScoutThread *scoutThread = new ImageScoutThread(asyncPreloadList);
-    scoutThread->start();
+    ImageScoutThread *scouts[imageScoutCount];
+    for (int i = 0; i < imageScoutCount; i++) {
+        scouts[i] = new ImageScoutThread( asyncPreloadQueue, 
+					  imageScoutCount > 1 ? &scoutMutex : nullptr,
+					  loadedCount, preloadedCount, i );
+        scouts[i]->start();
+    }
 
     Exif::Database::instance()->startInsertTransaction();
     dialog.setValue( count ); // ensure to call setProgress(0)
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count ) {
-        if (scoutThread && scoutThread->isFinished()) {
-            delete scoutThread;
-            scoutThread = NULL;
+        for (int i = 0; i < imageScoutCount; i++) {
+            if ( scouts[i] && scouts[i]->isFinished() ) {
+                delete scouts[i];
+                scouts[i] = NULL;
+            }
         }
         qApp->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
         {
-            // clear the list of pending images, so that findImages() doesn't
-            // try to build thumbnails for images w/o DB entry:
-            m_pendingLoad.clear();
-            return;
             // Ask the scout to interrupt first, then do our cleanup, then wait for
             // the scout thread to finish.  One more line of code, but lets us
             // overlap the operations.
-            if (scoutThread)
-                scoutThread->requestInterruption();
+            for (int i = 0; i < imageScoutCount; i++) {
+                if (scouts[i])
+                    scouts[i]->requestInterruption();
+            }
             m_pendingLoad.clear();
             Exif::Database::instance()->abortInsertTransaction();
 
-            if (scoutThread) {
-                while (! scoutThread->isFinished())
-                    QThread::msleep(10);
-                delete scoutThread;
+            for (int i = 0; i < imageScoutCount; i++) {
+                if (scouts[i]) {
+                    while (! scouts[i]->isFinished())
+                        QThread::msleep(10);
+                    delete scouts[i];
+                    scouts[i] = NULL;
+                }
             }
             return;
         }
         // (*it).first: DB::FileName
         // (*it).second: DB::MediaType
         ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second, storeExif );
-        if (scoutThread)
-            scoutThread->incrementLoadedCount();
+        loadedCount++;          // Atomic
         if ( info ) {
             markUnTagged(info);
             newImages.append(info);
@@ -224,12 +239,14 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
         }
     }
     ImageManager::ThumbnailBuilder::instance()->save();
-    if (scoutThread) {
-        scoutThread->requestInterruption();
-        while (! scoutThread->isFinished())
-            QThread::msleep(10);
+    for (int i = 0; i < imageScoutCount; i++) {
+        if (scouts[i]) {
+            scouts[i]->requestInterruption();
+            while (! scouts[i]->isFinished())
+                QThread::msleep(10);
+            delete scouts[i];
+        }
     }
-
 }
 
 void NewImageFinder::setupFileVersionDetection() {
@@ -265,11 +282,16 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
                 MD5 originalSum;
                 if (newFileName == originalFileName)
-                  originalSum = sum;
+                    originalSum = sum;
                 else if (DB::ImageDB::instance()->md5Map()->containsFile( originalFileName ) )
-                  originalSum = DB::ImageDB::instance()->md5Map()->lookupFile( originalFileName );
+                    originalSum = DB::ImageDB::instance()->md5Map()->lookupFile( originalFileName );
                 else
-                  originalSum = Utilities::MD5Sum( originalFileName );
+		    // Do *not* attempt to compute the checksum here.  It forces a filesystem
+		    // lookup on a file that may not exist and substantially degrades
+		    // performance by about 25% on an SSD and about 30% on a spinning disk.
+		    // If one of these other files exist, it will be found later in
+		    // the image search at which point we'll detect the modified file.
+                    continue;
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
                     // from the original.

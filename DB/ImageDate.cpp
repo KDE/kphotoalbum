@@ -105,13 +105,13 @@ QString ImageDate::toString( bool withTime ) const
             if ( m_start.date().year() == m_end.date().year() &&m_start.date().month() == m_end.date().month() ) {
                 // jan 2005
                 return QString::fromLatin1( "%1 %2" )
-                        .arg( QLocale().monthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() );
+                        .arg( QLocale().standaloneMonthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() );
             }
             else {
                 // jan 2005 - feb 2006
                 return QString::fromLatin1( "%1 %2 - %3 %4" )
-                        .arg( QLocale().monthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() )
-                        .arg( QLocale().monthName(m_end.date().month(), QLocale::ShortFormat) ).arg( m_end.date().year() );
+                        .arg( QLocale().standaloneMonthName(m_start.date().month(), QLocale::ShortFormat) ).arg(m_start.date().year() )
+                        .arg( QLocale().standaloneMonthName(m_end.date().month(), QLocale::ShortFormat) ).arg( m_end.date().year() );
             }
         }
     }
@@ -342,10 +342,10 @@ QStringList DB::ImageDate::monthNames()
     static QStringList res;
     if ( res.isEmpty() ) {
         for ( int i = 1; i <= 12; ++i ) {
-            res << QLocale().monthName(i, QLocale::ShortFormat);
+            res << QLocale().standaloneMonthName(i, QLocale::ShortFormat);
         }
         for ( int i = 1; i <= 12; ++i ) {
-            res << QLocale().monthName(i, QLocale::LongFormat);
+            res << QLocale().standaloneMonthName(i, QLocale::LongFormat);
         }
 
         res << i18nc("Abbreviated month name","jan") << i18nc("Abbreviated month name","feb")
@@ -357,6 +357,13 @@ QStringList DB::ImageDate::monthNames()
         res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
             << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
             << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec");
+
+        for ( int i = 1; i <= 12; ++i ) {
+            res << QLocale().monthName(i, QLocale::ShortFormat);
+        }
+        for ( int i = 1; i <= 12; ++i ) {
+            res << QLocale().monthName(i, QLocale::LongFormat);
+        }
 
         for ( QStringList::iterator it = res.begin(); it != res.end(); ++it )
             *it = it->toLower();

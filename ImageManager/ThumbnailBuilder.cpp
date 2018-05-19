@@ -35,6 +35,9 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusB
     connect(m_statusBar, &MainWindow::StatusBar::cancelRequest, this, &ThumbnailBuilder::cancelRequests);
     s_instance =  this;
 
+    // Make sure that this is created early, in the main thread, so it
+    // can receive signals.
+    ThumbnailCache::instance()->load();
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
     connect(m_startBuildTimer, &QTimer::timeout, this, &ThumbnailBuilder::doThumbnailBuild);
@@ -99,8 +102,8 @@ void ImageManager::ThumbnailBuilder::buildOneThumbnail( const DB::ImageInfoPtr& 
 {
     ImageManager::ImageRequest* request
         = new ImageManager::PreloadRequest( info->fileName(),
-					  ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-					  this );
+                                          ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+                                          this );
     request->setIsThumbnailRequest(true);
     request->setPriority( ImageManager::BuildThumbnails );
     ImageManager::AsyncLoader::instance()->load( request );

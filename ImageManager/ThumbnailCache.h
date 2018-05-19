@@ -18,9 +18,10 @@
 #ifndef THUMBNAILCACHE_H
 #define THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
-#include <QMap>
+#include <QHash>
 #include <QImage>
 #include <DB/FileNameList.h>
+#include <QMutex>
 
 template <class Key, class T>
 class QCache;
@@ -48,17 +49,31 @@ public slots:
     void save() const;
     void flush();
 
+signals:
+    void doSave() const;
+
 private:
     ~ThumbnailCache();
     QString fileNameForIndex( int index ) const;
     QString thumbnailPath( const QString& fileName ) const;
 
     static ThumbnailCache* s_instance;
-    QMap<DB::FileName, CacheFileInfo> m_map;
+    QHash<DB::FileName, CacheFileInfo> m_hash;
+    mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
+    /* Protects accesses to the data (hash and unsaved hash) */
+    mutable QMutex m_dataLock;
+    /* Prevents multiple saves from happening simultaneously */
+    mutable QMutex m_saveLock;
     int m_currentFile;
     int m_currentOffset;
-    QTimer* m_timer;
-    mutable int m_unsaved;
+    mutable QTimer* m_timer;
+    mutable bool m_needsFullSave;
+    mutable bool m_isDirty;
+    void saveFull() const;
+    void saveIncremental() const;
+    void saveInternal() const;
+    void saveImpl() const;
+
     /**
      * Holds an in-memory cache of thumbnail files.
      */

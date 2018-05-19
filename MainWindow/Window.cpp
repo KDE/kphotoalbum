@@ -247,7 +247,7 @@ void MainWindow::Window::delayedInit()
 
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStart() ||
-	 Options::the()->searchForImagesOnStart() ) {
+         Options::the()->searchForImagesOnStart() ) {
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
@@ -326,6 +326,8 @@ bool MainWindow::Window::slotExit()
             QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         }
     }
+    // Flush any remaining thumbnails
+    ImageManager::ThumbnailCache::instance()->save();
 
 doQuit:
     ImageManager::AsyncLoader::instance()->requestExit();
@@ -489,6 +491,7 @@ void MainWindow::Window::slotSave()
     Utilities::ShowBusyCursor dummy;
     m_statusBar->showMessage(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
+    ImageManager::ThumbnailCache::instance()->save();
     m_statusBar->mp_dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     m_statusBar->showMessage(i18n("Saving... Done"), 5000 );
@@ -996,6 +999,7 @@ void MainWindow::Window::slotAutoSave()
         Utilities::ShowBusyCursor dummy;
         m_statusBar->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
+        ImageManager::ThumbnailCache::instance()->save();
         m_statusBar->showMessage(i18n("Auto saving.... Done"), 5000);
         m_statusBar->mp_dirtyIndicator->autoSaved();
     }

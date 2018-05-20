@@ -1,30 +1,120 @@
+/* Copyright (C) 2010-2018 Jesper Pedersen <blackie@blackie.dk> and
+   Robert Krawitz <rlk@alum.mit.edu>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
+*/
+
 #include "FastDir.h"
 
 #include <QFile>
 
+extern "C" {
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdio.h>
+}
+
+/*
+ * Ideally the order of entries returned by readdir() should be close
+ * to optimal; intuitively, it should reflect the order in which inodes
+ * are returned from getdents() or equivalent, which should be the order
+ * in which they're stored on the disk.  Experimentally, that isn't always
+ * true.  One test, involving 10839 files totaling 90 GB resulted in
+ * readdir() returning files in random order, where "find" returned them
+ * sorted (and the same version of find does *not* in general return files
+ * in alphabetical order).
+ *
+ * By repeated measurement, loading the files in the order returned by
+ * readdir took about 16:30, where loading them in alphanumeric sorted order
+ * took about 15:00.  Running a similar test outside of kpa (using the order
+ * returned by readdir() vs. sorted to cat the files through dd and measuring
+ * the time) yielded if anything an even greater discrepancy (17:35 vs. 14:10).
+ *
+ * This issue is filesystem dependent, but is known to affect the extN
+ * filesystems commonly used on Linux that use a hashed tree structure to
+ * store directories.  See e. g.
+ * http://home.ifi.uio.no/paalh/publications/files/ipccc09.pdf and its
+ * accompanying presentation
+ * http://www.linux-kongress.org/2009/slides/linux_disk_io_performance_havard_espeland.pdf
+ *
+ * We could do even better by sorting by block position, but that would
+ * greatly increase complexity.
+ */
+#ifdef __linux__
+#include <sys/vfs.h>
+#include <linux/magic.h>
+#endif	// __linux__
+
+#include <QMap>
+#include <QDebug>
+
+typedef QMap<ino_t, QString> DirMap;
 
 DB::FastDir::FastDir(const QString &path)
   : m_path(path)
 {
 }
 
+// No currently known filesystems where sort by name is optimal
+bool DB::FastDir::sortByName(const QByteArray &)
+{
+    return false;
+}
+
+bool DB::FastDir::sortByInode(const QByteArray &path)
+{
+#ifdef __linux__
+    struct statfs buf;
+    if ( statfs( path.constData(), &buf ) == -1 )
+        return -1;
+    // Add other filesystems as appropriate
+    switch ( buf.f_type ) {
+	case EXT2_SUPER_MAGIC:	// Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+	    return true;
+        default:
+	    return false;
+    }
+#else   // __linux__
+    return false;
+#endif	// __linux__
+}
 
 QStringList DB::FastDir::entryList() const
 {
     QStringList answer;
+    DirMap tmpAnswer;
     DIR *dir;
     dirent *file;
     QByteArray path = QFile::encodeName(m_path);
     dir = opendir( path.constData() );
     if ( !dir )
         return answer; // cannot read the directory
+    bool doSortByInode = sortByInode(path);
+    bool doSortByName = sortByName(path);
+    qDebug() << "Sort by inode " << doSortByInode;
 
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     // ZaJ (2016-03-23): while porting to Qt5/KF5, this code-path is disabled on my system
     //     I don't want to touch this right now since I can't verify correctness in any way.
+    // rlk 2018-05-20: readdir_r is deprecated as of glibc 2.24; see
+    //     http://man7.org/linux/man-pages/man3/readdir_r.3.html.
+    //     There are problems with MAXNAMLEN/NAME_MAX and friends, that
+    //     can differ from filesystem to filesystem.  It's also expected
+    //     that POSIX will (if it hasn't already) deprecate readdir_r
+    //     and require readdir to be thread safe.
     union dirent_buf {
         struct KDE_struct_dirent mt_file;
         char b[sizeof(struct dirent) + MAXNAMLEN + 1];
@@ -34,11 +124,24 @@ QStringList DB::FastDir::entryList() const
     // FIXME: use 64bit versions of readdir and dirent?
     while ( (file = readdir(dir)) )
 #endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
-        answer.append(QFile::decodeName(file->d_name));
+    {
+        if ( doSortByInode )
+	    tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
+	else
+	    answer.append(QFile::decodeName(file->d_name));
+    }
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     delete u;
 #endif
     (void) closedir(dir);
+    
+    if ( doSortByInode ) {
+	for ( DirMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
+	    answer << it.value();
+	}
+    } else if ( doSortByName ) {
+        answer.sort();
+    }
     return answer;
 }
 

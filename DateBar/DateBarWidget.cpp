@@ -371,7 +371,7 @@ void DateBar::DateBarWidget::scrollRight()
     int scrollAmount = 1;
     if ( QGuiApplication::keyboardModifiers().testFlag( Qt::ShiftModifier ) )
         scrollAmount *= 10;
-    scroll( 1 );
+    scroll( scrollAmount );
 }
 
 void DateBar::DateBarWidget::scroll( int units )

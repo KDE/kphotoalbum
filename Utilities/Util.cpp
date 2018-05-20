@@ -668,7 +668,7 @@ static bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* ful
 
 bool Utilities::isJPEG( const DB::FileName& fileName )
 {
-    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName.relative() ) );
+    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName.absolute() ) );
     return format == QString::fromLocal8Bit( "jpeg" );
 }
 

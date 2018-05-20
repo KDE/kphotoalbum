@@ -54,8 +54,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |
 +-blocklist
@@ -75,8 +75,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#)
@@ -102,8 +102,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -126,8 +126,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -162,8 +162,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -188,8 +188,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -240,8 +240,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -268,8 +268,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -308,9 +308,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, description, startDate, md5sum, width, height)
-|   (angle, endDate, label) [optional]
-|   (stackId, stackOrder, rating) [optional]
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -337,9 +336,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, description, startDate, md5sum, width, height)
-|   (angle, endDate, label) [optional]
-|   (stackId, stackOrder, rating) [optional]
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -433,6 +431,9 @@ KPhotoAlbum
         Unique within the same stack.
       + ```startDate```<br/>
         Start date of the image (see fuzzy dates) (```yyyy-mm-dd[Thh:mm:ss]```, second optional part starts with uppercase 'T')
+      + ```videoLength```<br/>
+        Length of the video in seconds; -1 if length is not known.
+        Only applicable to video files.
       + ```width```<br/>
         Image width in pixel.
  * member-groups

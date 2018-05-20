@@ -291,6 +291,73 @@ problems like the old "standard" categories) can be marked as such and does not 
 name anymore.
 
 
+### Version 8 ###
+Used in KPA v5.4
+
+```
+KPhotoAlbum
+| (version=8, compressed=1)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, description, startDate, md5sum, width, height)
+|   (angle, endDate, label) [optional]
+|   (stackId, stackOrder, rating) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
+```
+
+```
+KPhotoAlbum
+| (version=8, compressed=0)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, description, startDate, md5sum, width, height)
+|   (angle, endDate, label) [optional]
+|   (stackId, stackOrder, rating) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
+```
+
+#### Differences to version 7 ####
+
+ * ```images.image.angle``` is only saved when it differs from the default angle (0)
+ * ```images.image.endDate``` is only saved when it differs from the start date
+ * ```images.image.label``` is only saved when it differs from the default label
+
+
 ### Attribute values explained ###
 
 

@@ -538,7 +538,7 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 int XMLDB::Database::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 7;
+    return 8;
 }
 
 

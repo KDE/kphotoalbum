@@ -37,10 +37,15 @@
 #include "MouseHandler.h"
 #include "Settings/SettingsData.h"
 
-const int borderAboveHistogram = 4;
-const int borderArroundWidget = 0;
-const int buttonWidth = 22;
-const int arrowLength = 20;
+namespace {
+constexpr int BORDER_ABOVE_HISTOGRAM = 4;
+constexpr int BORDER_AROUND_WIDGET = 0;
+constexpr int BUTTON_WIDTH = 22;
+constexpr int ARROW_LENGTH = 20;
+
+constexpr int SCROLL_AMOUNT = 1;
+constexpr int SCROLL_ACCELERATION = 10;
+}
 
 /**
  * \class DateBar::DateBarWidget
@@ -106,15 +111,15 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
 
 QSize DateBar::DateBarWidget::sizeHint() const
 {
-    int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
-                       m_barHeight+ buttonWidth + 2* borderArroundWidget + 7 );
+    int height = qMax( dateAreaGeometry().bottom() + BORDER_AROUND_WIDGET,
+                       m_barHeight+ BUTTON_WIDTH + 2* BORDER_AROUND_WIDGET + 7 );
     return QSize( 800, height );
 }
 
 QSize DateBar::DateBarWidget::minimumSizeHint() const
 {
-     int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
-                        m_barHeight + buttonWidth + 2* borderArroundWidget + 7 );
+     int height = qMax( dateAreaGeometry().bottom() + BORDER_AROUND_WIDGET,
+                        m_barHeight + BUTTON_WIDTH + 2* BORDER_AROUND_WIDGET + 7 );
      return QSize( 200, height );
 }
 
@@ -156,7 +161,7 @@ void DateBar::DateBarWidget::redraw()
     drawResolutionIndicator( p, &right );
     QRect rect = dateAreaGeometry();
     rect.setRight( right );
-    rect.setLeft( rect.left() + buttonWidth + 2 );
+    rect.setLeft( rect.left() + BUTTON_WIDTH + 2 );
 
     drawTickMarks( p, rect );
     drawHistograms( p );
@@ -360,17 +365,17 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
 
 void DateBar::DateBarWidget::scrollLeft()
 {
-    int scrollAmount = -1;
+    int scrollAmount = -SCROLL_AMOUNT;
     if ( QGuiApplication::keyboardModifiers().testFlag( Qt::ShiftModifier ) )
-        scrollAmount *= 10;
+        scrollAmount *= SCROLL_ACCELERATION;
     scroll( scrollAmount );
 }
 
 void DateBar::DateBarWidget::scrollRight()
 {
-    int scrollAmount = 1;
+    int scrollAmount = SCROLL_AMOUNT;
     if ( QGuiApplication::keyboardModifiers().testFlag( Qt::ShiftModifier ) )
-        scrollAmount *= 10;
+        scrollAmount *= SCROLL_ACCELERATION;
     scroll( scrollAmount );
 }
 
@@ -386,8 +391,8 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
     QRect rect = barAreaGeometry();
     p.save();
     int x = rect.left() + m_currentUnit*m_barWidth;
-    QRect inner( QPoint(x-1, borderAboveHistogram),
-                 QPoint( x + m_barWidth, borderAboveHistogram + m_barHeight - 1 ) );
+    QRect inner( QPoint(x-1, BORDER_ABOVE_HISTOGRAM),
+                 QPoint( x + m_barWidth, BORDER_ABOVE_HISTOGRAM + m_barHeight - 1 ) );
 
     p.setPen( QPen( palette().color( QPalette::Dark ), 1 ) );
 
@@ -504,8 +509,8 @@ void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 QRect DateBar::DateBarWidget::barAreaGeometry() const
 {
     QRect barArea;
-    barArea.setTopLeft( QPoint( borderArroundWidget, borderAboveHistogram ) );
-    barArea.setRight( width() - borderArroundWidget - 2 * buttonWidth - 2*3 ); // 2 pixels between button and bar + 1 pixel as the pen is one pixel
+    barArea.setTopLeft( QPoint( BORDER_AROUND_WIDGET, BORDER_ABOVE_HISTOGRAM ) );
+    barArea.setRight( width() - BORDER_AROUND_WIDGET - 2 * BUTTON_WIDTH - 2*3 ); // 2 pixels between button and bar + 1 pixel as the pen is one pixel
     barArea.setHeight( m_barHeight );
     return barArea;
 }
@@ -603,7 +608,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator( QPainter& p, int* leftEdge
     int textWidth = QFontMetrics( font() ).width( text );
     int height = QFontMetrics( font() ).height();
 
-    int endUnitPos = rect.right() - textWidth - arrowLength - 3;
+    int endUnitPos = rect.right() - textWidth - ARROW_LENGTH - 3;
     // Round to nearest unit mark
     endUnitPos = ( (endUnitPos-rect.left()) / m_barWidth) * m_barWidth + rect.left();
     int startUnitPos = endUnitPos - m_barWidth;
@@ -613,17 +618,17 @@ void DateBar::DateBarWidget::drawResolutionIndicator( QPainter& p, int* leftEdge
     p.setPen( Qt::red );
 
     // draw arrows
-    drawArrow( p, QPoint( startUnitPos - arrowLength, midLine ), QPoint( startUnitPos, midLine ) );
-    drawArrow( p, QPoint( endUnitPos + arrowLength, midLine ), QPoint( endUnitPos, midLine ) );
+    drawArrow( p, QPoint( startUnitPos - ARROW_LENGTH, midLine ), QPoint( startUnitPos, midLine ) );
+    drawArrow( p, QPoint( endUnitPos + ARROW_LENGTH, midLine ), QPoint( endUnitPos, midLine ) );
     p.drawLine( startUnitPos, rect.top(), startUnitPos, rect.top()+height );
     p.drawLine( endUnitPos, rect.top(), endUnitPos, rect.top()+height );
 
     // draw text
     QFontMetrics fm( font() );
-    p.drawText( endUnitPos + arrowLength + 3, rect.top(), fm.width(text), fm.height(), Qt::TextSingleLine, text );
+    p.drawText( endUnitPos + ARROW_LENGTH + 3, rect.top(), fm.width(text), fm.height(), Qt::TextSingleLine, text );
     p.restore();
 
-    *leftEdge = startUnitPos - arrowLength - 3;
+    *leftEdge = startUnitPos - ARROW_LENGTH - 3;
 }
 
 QRect DateBar::DateBarWidget::dateAreaGeometry() const
@@ -710,23 +715,23 @@ void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 
 void DateBar::DateBarWidget::placeAndSizeButtons()
 {
-    m_zoomIn->setFixedSize( buttonWidth, buttonWidth );
-    m_zoomOut->setFixedSize( buttonWidth, buttonWidth );
-    m_rightArrow->setFixedSize( QSize( buttonWidth, m_barHeight ) );
-    m_leftArrow->setFixedSize( QSize( buttonWidth, m_barHeight ) );
+    m_zoomIn->setFixedSize( BUTTON_WIDTH, BUTTON_WIDTH );
+    m_zoomOut->setFixedSize( BUTTON_WIDTH, BUTTON_WIDTH );
+    m_rightArrow->setFixedSize( QSize( BUTTON_WIDTH, m_barHeight ) );
+    m_leftArrow->setFixedSize( QSize( BUTTON_WIDTH, m_barHeight ) );
 
-    m_rightArrow->move( size().width() - m_rightArrow->width() - borderArroundWidget, borderAboveHistogram );
-    m_leftArrow->move( m_rightArrow->pos().x() - m_leftArrow->width() -2 , borderAboveHistogram );
+    m_rightArrow->move( size().width() - m_rightArrow->width() - BORDER_AROUND_WIDGET, BORDER_ABOVE_HISTOGRAM );
+    m_leftArrow->move( m_rightArrow->pos().x() - m_leftArrow->width() -2 , BORDER_ABOVE_HISTOGRAM );
 
     int x = m_leftArrow->pos().x();
-    int y = height() - buttonWidth;
+    int y = height() - BUTTON_WIDTH;
     m_zoomOut->move( x, y );
 
     x = m_rightArrow->pos().x();
     m_zoomIn->move(x, y );
 
 
-    m_cancelSelection->setFixedSize( buttonWidth, buttonWidth );
+    m_cancelSelection->setFixedSize( BUTTON_WIDTH, BUTTON_WIDTH );
     m_cancelSelection->move( 0, y );
 }
 
@@ -849,9 +854,9 @@ void DateBar::DateBarWidget::wheelEvent( QWheelEvent * e )
             zoomOut();
         return;
     }
-    int scrollAmount = e->delta() > 0 ? 1 : -1;
+    int scrollAmount = e->delta() > 0 ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
     if ( e->modifiers() & Qt::ShiftModifier )
-        scrollAmount *= 10;
+        scrollAmount *= SCROLL_ACCELERATION;
     scroll( scrollAmount );
 }
 

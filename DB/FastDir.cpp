@@ -59,7 +59,6 @@ extern "C" {
 #endif	// __linux__
 
 #include <QMap>
-#include <QDebug>
 
 typedef QMap<ino_t, QString> DirMap;
 
@@ -104,7 +103,6 @@ QStringList DB::FastDir::entryList() const
         return answer; // cannot read the directory
     bool doSortByInode = sortByInode(path);
     bool doSortByName = sortByName(path);
-    qDebug() << "Sort by inode " << doSortByInode;
 
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     // ZaJ (2016-03-23): while porting to Qt5/KF5, this code-path is disabled on my system

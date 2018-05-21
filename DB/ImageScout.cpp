@@ -64,11 +64,11 @@ void ImageScoutThread::run()
     while ( !isInterruptionRequested() ) {
         M_LOCK(m_mutex);
         if ( m_queue.isEmpty() ) {
-	    M_UNLOCK(m_mutex);
-	    return;
+            M_UNLOCK(m_mutex);
+            return;
         }
         DB::FileName fileName = m_queue.dequeue();
-	M_UNLOCK(m_mutex);
+        M_UNLOCK(m_mutex);
         // If we're behind the reader, move along
         m_preloadedCount++;
         if ( m_loadedCount.load() >= m_preloadedCount.load() ) {

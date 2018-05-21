@@ -56,7 +56,7 @@ extern "C" {
 #ifdef __linux__
 #include <sys/vfs.h>
 #include <linux/magic.h>
-#endif	// __linux__
+#endif  // __linux__
 
 #include <QMap>
 
@@ -81,14 +81,14 @@ bool DB::FastDir::sortByInode(const QByteArray &path)
         return -1;
     // Add other filesystems as appropriate
     switch ( buf.f_type ) {
-	case EXT2_SUPER_MAGIC:	// Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
-	    return true;
+        case EXT2_SUPER_MAGIC:  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+            return true;
         default:
-	    return false;
+            return false;
     }
 #else   // __linux__
     return false;
-#endif	// __linux__
+#endif  // __linux__
 }
 
 QStringList DB::FastDir::entryList() const
@@ -124,9 +124,9 @@ QStringList DB::FastDir::entryList() const
 #endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
     {
         if ( doSortByInode )
-	    tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
-	else
-	    answer.append(QFile::decodeName(file->d_name));
+            tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
+        else
+            answer.append(QFile::decodeName(file->d_name));
     }
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     delete u;
@@ -134,9 +134,9 @@ QStringList DB::FastDir::entryList() const
     (void) closedir(dir);
     
     if ( doSortByInode ) {
-	for ( DirMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
-	    answer << it.value();
-	}
+        for ( DirMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
+            answer << it.value();
+        }
     } else if ( doSortByName ) {
         answer.sort();
     }

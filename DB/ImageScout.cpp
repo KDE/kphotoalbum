@@ -20,13 +20,13 @@
 #include <QFile>
 #include <QDataStream>
 #include <QDebug>
+#include <QThread>
 
 extern "C" {
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/mman.h>
 }
 
 using namespace DB;
@@ -41,6 +41,22 @@ using namespace DB;
 // I/O size and scout thread, achieving about 340 MB/sec with high CPU
 // utilization.
 const int scoutBufSize = 1048576;
+
+class DB::ImageScoutThread :public QThread {
+public:
+    ImageScoutThread( ImageScoutQueue &, QMutex *, QAtomicInt &count,
+                      QAtomicInt &preloadCount, int index);
+    ~ImageScoutThread();
+protected:
+    virtual void run();
+private:
+    ImageScoutQueue& m_queue;
+    QMutex *m_mutex;
+    QAtomicInt& m_loadedCount;
+    QAtomicInt& m_preloadedCount;
+    char *m_tmpBuf;
+    int  m_index;
+};
 
 ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
                                     QAtomicInt &count,
@@ -89,4 +105,38 @@ void ImageScoutThread::run()
         }
     }
 }
+
+ImageScout::ImageScout(ImageScoutQueue &images,
+                             QAtomicInt &count,
+                             int threads)
+{
+    if (threads > 0) {
+        for (int i = 0; i < threads; i++) {
+            ImageScoutThread *t =  
+                new ImageScoutThread( images,
+                                      threads > 1 ? &m_mutex : nullptr,
+                                      count,
+                                      m_preloadedCount,
+                                      i );
+            t->start();
+            m_scoutList.append( t );
+        }
+    }
+}
+
+ImageScout::~ImageScout()
+{
+    if ( m_scoutList.count() > 0 ) {
+        for ( int i = 0; i < m_scoutList.count(); i++ ) {
+            ImageScoutThread *t = m_scoutList[i];
+            if ( ! t->isFinished() ) {
+                t->requestInterruption();
+                while ( ! t->isFinished() )
+                    QThread::msleep(10);
+            }
+            delete t;
+        }
+    }
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

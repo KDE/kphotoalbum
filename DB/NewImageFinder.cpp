@@ -153,9 +153,7 @@ void NewImageFinder::loadExtraFiles()
     dialog.setBar(progressBar);
     dialog.setMaximum( m_pendingLoad.count() );
     dialog.setMinimumDuration( 1000 );
-    QMutex scoutMutex;
     QAtomicInt loadedCount = 0;
-    QAtomicInt preloadedCount = 0;
 
     setupFileVersionDetection();
 
@@ -167,23 +165,11 @@ void NewImageFinder::loadExtraFiles()
         asyncPreloadQueue.enqueue((*it).first);
     }
 
-    ImageScoutThread *scouts[imageScoutCount];
-    for (int i = 0; i < imageScoutCount; i++) {
-        scouts[i] = new ImageScoutThread( asyncPreloadQueue, 
-                                          imageScoutCount > 1 ? &scoutMutex : nullptr,
-                                          loadedCount, preloadedCount, i );
-        scouts[i]->start();
-    }
+    ImageScout scout(asyncPreloadQueue, loadedCount, imageScoutCount);
 
     Exif::Database::instance()->startInsertTransaction();
     dialog.setValue( count ); // ensure to call setProgress(0)
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count ) {
-        for (int i = 0; i < imageScoutCount; i++) {
-            if ( scouts[i] && scouts[i]->isFinished() ) {
-                delete scouts[i];
-                scouts[i] = NULL;
-            }
-        }
         qApp->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
@@ -191,21 +177,8 @@ void NewImageFinder::loadExtraFiles()
             // Ask the scout to interrupt first, then do our cleanup, then wait for
             // the scout thread to finish.  One more line of code, but lets us
             // overlap the operations.
-            for (int i = 0; i < imageScoutCount; i++) {
-                if (scouts[i])
-                    scouts[i]->requestInterruption();
-            }
             m_pendingLoad.clear();
             Exif::Database::instance()->abortInsertTransaction();
-
-            for (int i = 0; i < imageScoutCount; i++) {
-                if (scouts[i]) {
-                    while (! scouts[i]->isFinished())
-                        QThread::msleep(10);
-                    delete scouts[i];
-                    scouts[i] = NULL;
-                }
-            }
             return;
         }
         // (*it).first: DB::FileName
@@ -237,14 +210,6 @@ void NewImageFinder::loadExtraFiles()
         }
     }
     ImageManager::ThumbnailBuilder::instance()->save();
-    for (int i = 0; i < imageScoutCount; i++) {
-        if (scouts[i]) {
-            scouts[i]->requestInterruption();
-            while (! scouts[i]->isFinished())
-                QThread::msleep(10);
-            delete scouts[i];
-        }
-    }
 }
 
 void NewImageFinder::setupFileVersionDetection() {

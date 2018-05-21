@@ -45,6 +45,7 @@
 #include <KMessageBox>
 #include <QDataStream>
 #include <QFile>
+#include <QElapsedTimer>
 
 using namespace DB;
 
@@ -58,6 +59,9 @@ bool NewImageFinder::findImages()
     // Load the information from the XML file.
     DB::FileNameSet loadedFiles;
 
+    QElapsedTimer timer;
+
+    timer.start();
     // TODO: maybe the databas interface should allow to query if it
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
@@ -68,25 +72,10 @@ bool NewImageFinder::findImages()
 
     m_pendingLoad.clear();
     searchForNewFiles( loadedFiles, Settings::SettingsData::instance()->imageDirectory() );
-    // We'll batch up the EXIF at the end.
-    loadExtraFiles(false);
+    int filesToLoad = m_pendingLoad.count();
+    loadExtraFiles();
 
-    // Only build thumbnails for the newly found images
-#if 0
-    if (! m_pendingLoad.isEmpty()) {
-        DB::FileNameList thumbnailsToBuild;
-
-        QListIterator<QPair<DB::FileName, DB::MediaType>> newFiles(m_pendingLoad);
-        while (newFiles.hasNext()) {
-            QPair<DB::FileName, DB::MediaType> newFile = newFiles.next();
-            thumbnailsToBuild << newFile.first;
-        }
-
-        ImageManager::ThumbnailBuilder::instance()->scheduleThumbnailBuild(
-                thumbnailsToBuild, ImageManager::ThumbnailBuildStart::StartNow
-                );
-    }
-#endif
+    qDebug() << "Loaded " << filesToLoad << " images in " << timer.elapsed() / 1000.0 << " seconds";
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
     if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
@@ -116,6 +105,10 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 
     bool skipSymlinks = Settings::SettingsData::instance()->skipSymlinks();
 
+    // Keep files within a directory more local by processing all files within the
+    // directory, and then all subdirectories.
+    QStringList subdirList;
+
     for( QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it )
     {
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
@@ -140,12 +133,15 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
                     m_pendingLoad.append( qMakePair( file, DB::Video ) );
             }
         } else if ( fi.isDir() )  {
-            searchForNewFiles( loadedFiles, file.absolute() );
+	    subdirList.append( file.absolute() );
         }
     }
+    for( QStringList::const_iterator it = subdirList.constBegin(); it != subdirList.constEnd(); ++it )
+        searchForNewFiles( loadedFiles, *it );
+
 }
 
-void NewImageFinder::loadExtraFiles( bool storeExif )
+void NewImageFinder::loadExtraFiles()
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
@@ -214,7 +210,7 @@ void NewImageFinder::loadExtraFiles( bool storeExif )
         }
         // (*it).first: DB::FileName
         // (*it).second: DB::MediaType
-        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second, storeExif );
+        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
         loadedCount++;          // Atomic
         if ( info ) {
             markUnTagged(info);
@@ -258,14 +254,15 @@ void NewImageFinder::setupFileVersionDetection() {
     m_originalFileComponents = m_originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type, bool storeExif )
+ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
 {
     MD5 sum = Utilities::MD5Sum( newFileName );
     if ( handleIfImageHasBeenMoved(newFileName, sum) )
         return DB::ImageInfoPtr();
 
     // check to see if this is a new version of a previous image
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type, true, storeExif ));
+    // We'll get the EXIF data later, when we get the MD5 checksum.
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type, true, false ));
     ImageInfoPtr originalInfo;
     DB::FileName originalFileName;
 

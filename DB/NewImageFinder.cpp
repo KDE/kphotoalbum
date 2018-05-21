@@ -133,7 +133,7 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
                     m_pendingLoad.append( qMakePair( file, DB::Video ) );
             }
         } else if ( fi.isDir() )  {
-	    subdirList.append( file.absolute() );
+            subdirList.append( file.absolute() );
         }
     }
     for( QStringList::const_iterator it = subdirList.constBegin(); it != subdirList.constEnd(); ++it )
@@ -170,8 +170,8 @@ void NewImageFinder::loadExtraFiles()
     ImageScoutThread *scouts[imageScoutCount];
     for (int i = 0; i < imageScoutCount; i++) {
         scouts[i] = new ImageScoutThread( asyncPreloadQueue, 
-					  imageScoutCount > 1 ? &scoutMutex : nullptr,
-					  loadedCount, preloadedCount, i );
+                                          imageScoutCount > 1 ? &scoutMutex : nullptr,
+                                          loadedCount, preloadedCount, i );
         scouts[i]->start();
     }
 
@@ -219,10 +219,12 @@ void NewImageFinder::loadExtraFiles()
         dialog.setValue( count );
     }
     dialog.setValue( count );
-    // loadExtraFile() has already called addImages() on any images
-    // that it stacked, but without updating the EXIF database or
-    // the UI.  Even if there are no images left at this point,
-    // we need to call addImages() to pick up any delayed ones.
+    // loadExtraFile() should have inserted all images into the
+    // database on the fly, but we need to tell the database to
+    // commit the changes.
+    if ( newImages.count() > 0 ) {
+        qDebug() << "ERROR! " << newImages.count() << " images were left to insert after load";
+    }
     DB::ImageDB::instance()->addImages( newImages );
     Exif::Database::instance()->commitInsertTransaction();
 
@@ -283,11 +285,11 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
                 else if (DB::ImageDB::instance()->md5Map()->containsFile( originalFileName ) )
                     originalSum = DB::ImageDB::instance()->md5Map()->lookupFile( originalFileName );
                 else
-		    // Do *not* attempt to compute the checksum here.  It forces a filesystem
-		    // lookup on a file that may not exist and substantially degrades
-		    // performance by about 25% on an SSD and about 30% on a spinning disk.
-		    // If one of these other files exist, it will be found later in
-		    // the image search at which point we'll detect the modified file.
+                    // Do *not* attempt to compute the checksum here.  It forces a filesystem
+                    // lookup on a file that may not exist and substantially degrades
+                    // performance by about 25% on an SSD and about 30% on a spinning disk.
+                    // If one of these other files exist, it will be found later in
+                    // the image search at which point we'll detect the modified file.
                     continue;
                 if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
                     // we have a previous copy of this file; copy it's data
@@ -389,6 +391,7 @@ bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, cons
 
                 Exif::Database::instance()->remove( matchedFileName );
                 Exif::Database::instance()->add( newFileName);
+                ImageManager::ThumbnailBuilder::instance()->buildOneThumbnail( info );
                 return true;
             }
         }

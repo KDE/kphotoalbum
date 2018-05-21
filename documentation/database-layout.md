@@ -54,8 +54,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |
 +-blocklist
@@ -75,8 +75,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#)
@@ -102,8 +102,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -126,8 +126,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -162,8 +162,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -188,8 +188,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -240,8 +240,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
@@ -268,8 +268,8 @@ KPhotoAlbum
 |
 +-images
 | +-image
-|   (file, label, description, startDate, endDate, angle, md5sum, width, height)
-|   (stackId, stackOrder, rating) [optional]
+|   (file, label, startDate, endDate, angle, md5sum, width, height)
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#, area="x y w h")
@@ -289,6 +289,71 @@ Added an additional optional "meta" attribute to the Category-tag, so that the "
 "special" category like "Folder", but stored in the database and thus causing the same translation
 problems like the old "standard" categories) can be marked as such and does not need to have a fixed
 name anymore.
+
+
+### Version 8 ###
+Used in KPA v5.4
+
+```
+KPhotoAlbum
+| (version=8, compressed=1)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
+```
+
+```
+KPhotoAlbum
+| (version=8, compressed=0)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
+```
+
+#### Differences to version 7 ####
+
+ * ```images.image.angle``` is only saved when it differs from the default angle (0)
+ * ```images.image.endDate``` is only saved when it differs from the start date
+ * ```images.image.label``` is only saved when it differs from the default label
 
 
 ### Attribute values explained ###
@@ -366,6 +431,9 @@ name anymore.
         Unique within the same stack.
       + ```startDate```<br/>
         Start date of the image (see fuzzy dates) (```yyyy-mm-dd[Thh:mm:ss]```, second optional part starts with uppercase 'T')
+      + ```videoLength```<br/>
+        Length of the video in seconds; -1 if length is not known.
+        Only applicable to video files.
       + ```width```<br/>
         Image width in pixel.
  * member-groups

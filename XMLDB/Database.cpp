@@ -28,6 +28,7 @@
 #include "DB/CategoryCollection.h"
 #include "XMLCategory.h"
 #include <QExplicitlySharedDataPointer>
+#include <QFileInfo>
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
@@ -537,7 +538,7 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 int XMLDB::Database::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 7;
+    return 8;
 }
 
 
@@ -588,7 +589,11 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     static QString _Image_ = i18n("Image");
     static QString _Video_ = i18n("Video");
 
-    QString label = reader->attribute(_label_);
+    QString label;
+    if (reader->hasAttribute(_label_))
+        label = reader->attribute(_label_);
+    else
+        label = QFileInfo(fileName.relative()).completeBaseName();
     QString description;
     if ( reader->hasAttribute(_description_) )
         description = reader->attribute(_description_);
@@ -605,6 +610,8 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
         str = reader->attribute(  _endDate_  );
         if ( !str.isEmpty() )
             end = dateTimeFromString(str);
+        else
+            end = start;
         date = DB::ImageDate( start, end );
     }
     else {

@@ -166,6 +166,7 @@ void NewImageFinder::loadExtraFiles()
     }
 
     ImageScout scout(asyncPreloadQueue, loadedCount, imageScoutCount);
+    scout.start();
 
     Exif::Database::instance()->startInsertTransaction();
     dialog.setValue( count ); // ensure to call setProgress(0)

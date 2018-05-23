@@ -222,6 +222,14 @@ bool Exif::Database::add( const DB::FileName& fileName )
     }
 }
 
+bool Exif::Database::add( DB::FileInfo& fileInfo )
+{
+    if ( !isUsable() )
+        return false;
+
+    return insert( fileInfo.getFileName(), fileInfo.getExifData() );
+}
+
 bool Exif::Database::add( const DB::FileNameList& list )
 {
     if ( !isUsable() )

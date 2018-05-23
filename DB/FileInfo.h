@@ -36,6 +36,8 @@ public:
     QDateTime dateTime() { return m_date; }
     int angle() { return m_angle; }
     QString description() {return m_description; }
+    Exiv2::ExifData& getExifData();
+    const DB::FileName& getFileName() const;
 
 protected:
     void parseEXIV2( const DB::FileName& fileName );
@@ -49,6 +51,8 @@ private:
     QDateTime m_date;
     int m_angle;
     QString m_description;
+    Exiv2::ExifData m_exifMap;
+    const DB::FileName& m_fileName;
 };
 
 }

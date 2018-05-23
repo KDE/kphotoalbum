@@ -19,6 +19,7 @@
 #define EXIFDATABASE_H
 
 #include <DB/FileNameList.h>
+#include <DB/FileInfo.h>
 
 #include <QList>
 #include <QPair>
@@ -84,6 +85,7 @@ public:
      * @param fileName the file
      * @return
      */
+    bool add( DB::FileInfo& fileInfo );
     bool add( const DB::FileName& fileName );
     bool add( const DB::FileNameList& list );
     void remove( const DB::FileName& fileName );

@@ -145,6 +145,7 @@ void NewImageFinder::loadExtraFiles()
 {
     // FIXME: should be converted to a threadpool for SMP stuff and whatnot :]
     QProgressDialog dialog;
+    QElapsedTimer timeSinceProgressUpdate;
     dialog.setLabelText( i18n("<p><b>Loading information from new files</b></p>"
                               "<p>Depending on the number of images, this may take some time.<br/>"
                               "However, there is only a delay when new images are found.</p>") );
@@ -170,6 +171,7 @@ void NewImageFinder::loadExtraFiles()
 
     Exif::Database::instance()->startInsertTransaction();
     dialog.setValue( count ); // ensure to call setProgress(0)
+    timeSinceProgressUpdate.start();
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count ) {
         qApp->processEvents( QEventLoop::AllEvents );
 
@@ -190,7 +192,10 @@ void NewImageFinder::loadExtraFiles()
             markUnTagged(info);
             newImages.append(info);
         }
-        dialog.setValue( count );
+        if ( timeSinceProgressUpdate.elapsed() >= 1000 ) {
+            dialog.setValue( count );
+            timeSinceProgressUpdate.restart();
+        }
     }
     dialog.setValue( count );
     // loadExtraFile() should have inserted all images into the
